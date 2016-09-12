@@ -234,29 +234,29 @@ describe('The atlas-layer-selection component', function () {
                 {id: 'overlay_2_c', isVisible: true}
             ];
 
-            expectedZoomIndicatorText = '(deze kaartlaag is niet zichtbaar op dit zoomniveau)';
+            expectedZoomIndicatorText = 'Zichtbaar bij verder zoomen';
 
             for (zoom = 8; zoom <= 10; zoom++) {
                 component = getComponent('base_layer_a', allOverlays, zoom);
                 contentDiv = component.find('.c-layer-selection__content');
 
                 //overlay_1_a
-                expect(contentDiv.find('div').eq(1).find('li').eq(0).find('span').length).toBe(0);
+                expect(contentDiv.find('div').eq(1).find('li').eq(0).find('.qa-show-invisble-by-zoom').length).toBe(0);
 
                 //overlay_1_b
-                expect(contentDiv.find('div').eq(1).find('li').eq(1).find('span').length).toBe(0);
+                expect(contentDiv.find('div').eq(1).find('li').eq(1).find('.qa-show-invisble-by-zoom').length).toBe(0);
 
                 //overlay_2_a
-                expect(contentDiv.find('div').eq(2).find('li').eq(0).find('span').length).toBe(0);
+                expect(contentDiv.find('div').eq(2).find('li').eq(0).find('.qa-show-invisble-by-zoom').length).toBe(0);
 
                 //overlay_2_b
-                expect(contentDiv.find('div').eq(2).find('li').eq(1).find('span').length).toBe(1);
-                expect(contentDiv.find('div').eq(2).find('li').eq(1).find('span').text())
+                expect(contentDiv.find('div').eq(2).find('li').eq(1).find('.qa-show-invisble-by-zoom').length).toBe(1);
+                expect(contentDiv.find('div').eq(2).find('li').eq(1).find('.qa-show-invisble-by-zoom').text())
                     .toContain(expectedZoomIndicatorText);
 
                 //overlay_2_c
-                expect(contentDiv.find('div').eq(2).find('li').eq(2).find('span').length).toBe(1);
-                expect(contentDiv.find('div').eq(2).find('li').eq(2).find('span').text())
+                expect(contentDiv.find('div').eq(2).find('li').eq(2).find('.qa-show-invisble-by-zoom').length).toBe(1);
+                expect(contentDiv.find('div').eq(2).find('li').eq(2).find('.qa-show-invisble-by-zoom').text())
                     .toContain(expectedZoomIndicatorText);
             }
 
@@ -265,22 +265,22 @@ describe('The atlas-layer-selection component', function () {
                 contentDiv = component.find('.c-layer-selection__content');
 
                 //overlay_1_a
-                expect(contentDiv.find('div').eq(1).find('li').eq(0).find('span').length);
+                expect(contentDiv.find('div').eq(1).find('li').eq(0).find('.qa-show-invisble-by-zoom').length);
 
                 //overlay_1_b
-                expect(contentDiv.find('div').eq(1).find('li').eq(1).find('span').length).toBe(0);
+                expect(contentDiv.find('div').eq(1).find('li').eq(1).find('.qa-show-invisble-by-zoom').length).toBe(0);
 
                 //overlay_2_a
-                expect(contentDiv.find('div').eq(2).find('li').eq(0).find('span').length).toBe(1);
-                expect(contentDiv.find('div').eq(2).find('li').eq(0).find('span').text())
+                expect(contentDiv.find('div').eq(2).find('li').eq(0).find('.qa-show-invisble-by-zoom').length).toBe(1);
+                expect(contentDiv.find('div').eq(2).find('li').eq(0).find('.qa-show-invisble-by-zoom').text())
                     .toContain(expectedZoomIndicatorText);
 
                 //overlay_2_b
-                expect(contentDiv.find('div').eq(2).find('li').eq(1).find('span').length).toBe(0);
+                expect(contentDiv.find('div').eq(2).find('li').eq(1).find('.qa-show-invisble-by-zoom').length).toBe(0);
 
                 //overlay_2_c
-                expect(contentDiv.find('div').eq(2).find('li').eq(2).find('span').length).toBe(1);
-                expect(contentDiv.find('div').eq(2).find('li').eq(2).find('span').text())
+                expect(contentDiv.find('div').eq(2).find('li').eq(2).find('.qa-show-invisble-by-zoom').length).toBe(1);
+                expect(contentDiv.find('div').eq(2).find('li').eq(2).find('.qa-show-invisble-by-zoom').text())
                     .toContain(expectedZoomIndicatorText);
             }
 
@@ -289,23 +289,23 @@ describe('The atlas-layer-selection component', function () {
                 contentDiv = component.find('.c-layer-selection__content');
 
                 //overlay_1_a
-                expect(contentDiv.find('div').eq(1).find('li').eq(0).find('span').length).toBe(0);
+                expect(contentDiv.find('div').eq(1).find('li').eq(0).find('.qa-show-invisble-by-zoom').length).toBe(0);
 
                 //overlay_1_b
-                expect(contentDiv.find('div').eq(1).find('li').eq(1).find('span').length).toBe(0);
+                expect(contentDiv.find('div').eq(1).find('li').eq(1).find('.qa-show-invisble-by-zoom').length).toBe(0);
 
                 //overlay_2_a
-                expect(contentDiv.find('div').eq(2).find('li').eq(0).find('span').length).toBe(1);
-                expect(contentDiv.find('div').eq(2).find('li').eq(0).find('span').text())
+                expect(contentDiv.find('div').eq(2).find('li').eq(0).find('.qa-show-invisble-by-zoom').length).toBe(1);
+                expect(contentDiv.find('div').eq(2).find('li').eq(0).find('.qa-show-invisble-by-zoom').text())
                     .toContain(expectedZoomIndicatorText);
 
                 //overlay_2_b
-                expect(contentDiv.find('div').eq(2).find('li').eq(1).find('span').length).toBe(1);
-                expect(contentDiv.find('div').eq(2).find('li').eq(1).find('span').text())
+                expect(contentDiv.find('div').eq(2).find('li').eq(1).find('.qa-show-invisble-by-zoom').length).toBe(1);
+                expect(contentDiv.find('div').eq(2).find('li').eq(1).find('.qa-show-invisble-by-zoom').text())
                     .toContain(expectedZoomIndicatorText);
 
                 //overlay_2_c
-                expect(contentDiv.find('div').eq(2).find('li').eq(2).find('span').length).toBe(0);
+                expect(contentDiv.find('div').eq(2).find('li').eq(2).find('.qa-show-invisble-by-zoom').length).toBe(0);
             }
         });
 

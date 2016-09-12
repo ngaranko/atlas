@@ -45,9 +45,10 @@
                             {{overlay.label}}
                         </span>
 
-                        <span ng-if="vm.isOverlayActive(overlay.slug) && !vm.isOverlayVisible(overlay.slug)" class="qa-show-invisble-by-zoom">
-                            (deze kaartlaag is niet zichtbaar op dit zoomniveau)
-                        </span>
+                        <p ng-if="vm.isOverlayActive(overlay.slug) && !vm.isOverlayVisible(overlay.slug)"
+                            class="u-color__secondary--gray60 qa-show-invisble-by-zoom">
+                            Zichtbaar bij verder zoomen
+                        </p>
                     </label>
                 </li>
             </ul>
