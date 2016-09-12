@@ -1,5 +1,22 @@
 .c-active-overlays__item {
-  &:not(:last-child) {
-    margin-bottom: $base-whitespace;
-  }
+  margin-bottom: $base-whitespace * 2;
+}
+
+.c-active-overlays__item__header {
+  @include font-size($s-header-font);
+}
+
+.c-active-overlays__item__legend {
+  display: block;
+  max-width: 100%;
+  margin-top: $base-whitespace / 2;
+}
+
+.c-active-overlays__item__link {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.c-active-overlays__item__message {
+  color: $secondary-gray60;
 }

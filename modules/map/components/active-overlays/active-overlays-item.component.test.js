@@ -134,12 +134,12 @@ describe('The dp-active-overlays-item component', function () {
         //With a supported zoom level
         component = getComponent('overlay_without_legend', true, 10);
         expect(component.find('dp-link').length).toBe(1);
-        expect(component.find('dp-link').text()).toContain('Kaartlaag onzichtbaar maken');
+        expect(component.find('dp-link').text()).toContain('Verbergen');
 
         //With an unsupported zoom level
         component = getComponent('overlay_without_legend', true, 9);
         expect(component.find('dp-link').length).toBe(1);
-        expect(component.find('dp-link').text()).toContain('Kaartlaag onzichtbaar maken');
+        expect(component.find('dp-link').text()).toContain('Verbergen');
     });
 
     it('has a button to show the overlay, even if it can\'t be shown on the current zoom level', function () {
@@ -148,11 +148,11 @@ describe('The dp-active-overlays-item component', function () {
         //With a supported zoom level
         component = getComponent('overlay_without_legend', true, 10);
         expect(component.find('dp-link').length).toBe(1);
-        expect(component.find('dp-link').text()).toContain('Kaartlaag onzichtbaar maken');
+        expect(component.find('dp-link').text()).toContain('Verbergen');
 
         //With an unsupported zoom level
         component = getComponent('overlay_without_legend', true, 9);
         expect(component.find('dp-link').length).toBe(1);
-        expect(component.find('dp-link').text()).toContain('Kaartlaag onzichtbaar maken');
+        expect(component.find('dp-link').text()).toContain('Verbergen');
     });
 });
