@@ -9,6 +9,10 @@
                 label: 'Topografie',
                 urlTemplate: 'https://{s}.datapunt.amsterdam.nl/topo_RD/{z}/{x}/{y}.png'
             }, {
+                slug: 'luchtfoto_2016',
+                label: 'Luchtfoto 2016',
+                urlTemplate: 'https://{s}.datapunt.amsterdam.nl/lufo2016_RD/{z}/{x}/{y}.jpeg'
+            }, {
                 slug: 'luchtfoto_2015',
                 label: 'Luchtfoto 2015',
                 urlTemplate: 'https://{s}.datapunt.amsterdam.nl/lufo2015_RD/{z}/{x}/{y}.jpeg'
