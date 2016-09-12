@@ -50,12 +50,15 @@ describe('The dp-map directive', function () {
                 $provide.factory('dpLinkDirective', function () {
                     return {};
                 });
-                $provide.factory('dpMapStatusbarDirective', function () {
+
+                $provide.factory('dpToggleLayerSelectionDirective', function () {
                     return {};
                 });
-                $provide.factory('dpOverlayLegendDirective', function() {
+
+                $provide.factory('dpActiveOverlaysDirective', function () {
                     return {};
                 });
+
                 $provide.factory('dpToggleFullscreenDirective', function () {
                     return {};
                 });
