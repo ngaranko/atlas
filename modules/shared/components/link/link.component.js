@@ -10,6 +10,7 @@
             controllerAs: 'vm',
             bindings: {
                 className: '@',
+                hoverText: '@',
                 type: '@',
                 payload: '='
             }

@@ -7,14 +7,29 @@
     </h2>
 
     <div class="o-header__buttongroup">
-        <button ng-click="vm.toggle('help')" class="o-header__button">
-            <span ng-if="!vm.isVisible('help')" class="o-header__button--image c-stelselpedia__button" title="Toon uitleg"><span class="u-sr-only">Toon uitleg</span></span>
-            <span ng-if="vm.isVisible('help')" class="o-header__button--image is-stelselpedia--active" title="Verberg uitleg"><span class="u-sr-only">Verberg uitleg</span></span>
+        <button ng-click="vm.toggle('help')" 
+            class="o-header__button c-stelselpedia__button" 
+            ng-class="{
+                'is-stelselpedia--active' : vm.isVisible('help'),
+                'c-stelselpedia__button': !vm.isVisible('help')
+            }"
+            title="{{ vm.stelselpediaTitle }}">
+            <span class="o-header__button--image ">
+                <span class="u-sr-only">{{ vm.stelselpediaTitle  }}</span>
+            </span>
         </button>
 
-        <button ng-if="vm.hasMetaData" ng-click="vm.toggle('meta')" class="o-header__button">
-            <span ng-if="!vm.isVisible('meta')" class="o-header__button--image c-metadata__button" title="Toon metadata"><span class="u-sr-only">Toon metadata</span></span>
-            <span ng-if="vm.isVisible('meta')" class="o-header__button--image is-metadata--active" title="Verberg metadata"><span class="u-sr-only">Verberg metadata</span></span>
+        <button ng-if="vm.hasMetaData"
+            ng-click="vm.toggle('meta')"
+            class="o-header__button"
+            ng-class="{
+                'is-metadata--active' : vm.isVisible('meta'),
+                'c-metadata__button': !vm.isVisible('meta')
+            }"
+            title="{{ vm.metaDataTitle  }}">
+            <span class="o-header__button--image ">
+                <span class="u-sr-only">{{ vm.metaDataTitle  }}</span>
+            </span>
         </button>
 
         <atlas-wkpb-link ng-if="vm.brk" brk-id="{{vm.brk.id}}"></atlas-wkpb-link>

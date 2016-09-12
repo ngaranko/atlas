@@ -13,7 +13,7 @@
             ng-keydown="navigateSuggestions($event)"
             ng-blur="removeSuggestions($event)">
 
-        <button class="c-search-form__submit" type="submit">
+        <button class="c-search-form__submit" type="submit" title="Zoeken">
             <span class="u-sr-only">Zoek</span>
         </button>
 
@@ -29,7 +29,7 @@
                             }"
                             ng-click="goToDetail(suggestion.uri); setFocus()"
                             ng-bind-html="suggestion._display | longNameShortener | suggestionHighlight : (originalQuery || query)"
-                            alt="zoeken" title="zoeken">
+                            ">
 
                         </button>
                     </li>
