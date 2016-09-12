@@ -1,12 +1,10 @@
 <div ng-if="!vm.hideEverything">
     <button class="c-toggle-active-overlays" ng-click="vm.toggle()">
+        {{vm.buttonText}}
+
         <img class="c-toggle-active-overlays__icon"
              ng-class="{'c-toggle-active-overlays__icon--mirrored': vm.showActiveOverlays}"
              src="assets/icons/link-hover.svg" alt="">
-
-        <div class="c-toggle-active-overlays__text">
-            {{vm.buttonText}}
-        </div>
     </button>
 
     <div ng-if="vm.showActiveOverlays" class="c-active-overlays">

@@ -4,29 +4,6 @@
   position: absolute;
   bottom: 0;
   left: 100px;
-  height: $button-size;
-  text-align: left;
-  cursor: pointer;
-  z-index: 3;
-}
-
-.c-toggle-active-overlays__icon {
-  display: block;
-  position: absolute;
-  top: 0;
-  right: -$button-size;
-  width: $button-size;
-  height: $button-size;
-  transform: rotate(270deg);
-}
-
-.c-toggle-active-overlays__icon--mirrored {
-  transform: rotate(90deg);
-}
-
-.c-toggle-active-overlays__text {
-  position: relative;
-  left: 0;
   min-width: 98px;
   height: $button-size;
   padding-right: 10px;
@@ -35,8 +12,23 @@
   border-style: solid;
   border-color: $secondary-gray40;
   background-color: $primary-light;
-  line-height: $button-size - 2;
-  white-space: nowrap;
+  text-align: left;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.c-toggle-active-overlays__icon {
+  display: block;
+  position: absolute;
+  top: -1px;
+  right: -$button-size;
+  width: $button-size;
+  height: $button-size;
+  transform: rotate(270deg);
+}
+
+.c-toggle-active-overlays__icon--mirrored {
+  transform: rotate(90deg);
 }
 
 .c-active-overlays {
