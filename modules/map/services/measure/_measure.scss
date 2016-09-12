@@ -1,24 +1,5 @@
-/*
-This CSS is used to overrule the third party CSS of leaflet-measure. We don't own the HTML code, we just add a class to
-the parent div of leaflet-measure.
-*/
-
-.s-leaflet-measure {
+.leaflet-control-measure {
   @include font-size($body-font);
-  position: absolute;
-  right: $base-whitespace;
-  bottom: $base-whitespace;
-  background-color: transparent;
-  color: $primary-dark;
-  z-index: 5;
-
-  .leaflet-control-measure-toggle {
-    width: 26px;
-    height: 26px;
-    border-radius: 0;
-    background-image: url("assets/icons/icon-measure.png");
-    color: $primary-contrast;
-  }
 }
 
 .leaflet-control-measure-interaction {

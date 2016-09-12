@@ -1,71 +1,68 @@
 describe('The measure factory', function () {
-    var L,
+    var $rootScope,
+        L,
         measure,
         MEASURE_CONFIG,
-        mockedMeasureControl,
-        leafletControlContainer,
-        statusBarContainer;
+        store,
+        ACTIONS,
+        mockedLeafletMap,
+        mockedMeasureControl;
 
     beforeEach(function () {
         angular.mock.module(
-            'dpMap'
+            'dpMap',
+            {
+                store: {
+                    dispatch: function () {}
+                }
+            }
         );
 
-        angular.mock.inject(function (_L_, _measure_, _MEASURE_CONFIG_) {
+        angular.mock.inject(function (_$rootScope_, _L_, _measure_, _MEASURE_CONFIG_, _store_, _ACTIONS_) {
+            $rootScope = _$rootScope_;
             L = _L_;
             measure = _measure_;
             MEASURE_CONFIG = _MEASURE_CONFIG_;
+            store = _store_;
+            ACTIONS = _ACTIONS_;
         });
 
         L.Control.Measure = function () {};
 
-        leafletControlContainer = document.createElement('div');
-
-        mockedMeasureControl = {
-            addTo: function () {},
-            getContainer: function () {
-                return leafletControlContainer;
-            }
+        mockedLeafletMap = {
+            on: function () {}
         };
-
-        //This factory assumes that an HTML element with class .js-leaflet-measure is present somewhere on the page
-        statusBarContainer = document.createElement('div');
-        statusBarContainer.className = 'js-leaflet-measure';
-
-        document.body.appendChild(statusBarContainer);
+        
+        mockedMeasureControl = {
+            addTo: function () {}
+        };
 
         spyOn(L.Control, 'Measure').and.returnValue(mockedMeasureControl);
         spyOn(mockedMeasureControl, 'addTo');
-    });
-
-    afterEach(function () {
-        document.body.removeChild(statusBarContainer);
+        spyOn(store, 'dispatch');
     });
 
     it('adds a the measure control to the map', function () {
-        measure.initialize('FAKE_LEAFLET_MAP');
+        measure.initialize(mockedLeafletMap);
 
         expect(L.Control.Measure).toHaveBeenCalledWith(MEASURE_CONFIG);
-        expect(mockedMeasureControl.addTo).toHaveBeenCalledWith('FAKE_LEAFLET_MAP');
+        expect(mockedMeasureControl.addTo).toHaveBeenCalledWith(mockedLeafletMap);
     });
 
-    it('adds an extra CSS class to the Leaflet control of leaflet-measure', function () {
-        expect(leafletControlContainer.className).not.toContain(' s-leaflet-measure');
+    it('dispatches HIDE_ACTIVE_OVERLAYS when starting to measure', function () {
+        var domElement,
+            mockedLeafletMap;
 
-        measure.initialize('FAKE_LEAFLET_MAP');
-        expect(leafletControlContainer.className).toContain(' s-leaflet-measure');
-    });
+        domElement = document.createElement('div');
+        mockedLeafletMap = L.map(domElement);
 
-    it('moves the leaflet control to the status bar', function () {
-        expect(document.querySelector('.s-leaflet-measure')).toBeNull();
+        measure.initialize(mockedLeafletMap);
 
-        measure.initialize('FAKE_LEAFLET_MAP');
+        mockedLeafletMap.fireEvent('measurestart');
+        $rootScope.$apply();
 
-        //Making sure it's moved and not copied
-        expect(document.querySelectorAll('.s-leaflet-measure').length).toBe(1);
-        expect(document.querySelector('.s-leaflet-measure')).toBe(leafletControlContainer);
-
-        //Check that it is indeed put in the status bar
-        expect(document.querySelector('.js-leaflet-measure .s-leaflet-measure')).toBeDefined();
+        expect(store.dispatch).toHaveBeenCalledWith({
+            type: ACTIONS.HIDE_ACTIVE_OVERLAYS
+        });
     });
 });
