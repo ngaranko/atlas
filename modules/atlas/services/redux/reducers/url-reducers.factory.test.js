@@ -150,15 +150,31 @@ describe('The urlReducers factory', function () {
 
                 //With layer selection
                 mockedState.map.showLayerSelection = false;
-                mockedSearchParams.kaartlagen = 'aan';
+                mockedSearchParams['kaartlagen-selectie'] = 'aan';
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
                 expect(output.map.showLayerSelection).toBe(true);
 
                 //Without layer selection
                 mockedState.map.showLayerSelection = true;
-                delete mockedSearchParams.kaartlagen;
+                delete mockedSearchParams['kaartlagen-selectie'];
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
                 expect(output.map.showLayerSelection).toBe(false);
+            });
+
+            it('sets the showActiveOverlays status', function () {
+                var output;
+
+                //With active overlays
+                mockedState.map.showActiveOverlays = false;
+                mockedSearchParams['actieve-kaartlagen'] = 'aan';
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+                expect(output.map.showActiveOverlays).toBe(true);
+
+                //Without active overlays
+                mockedState.map.showActiveOverlays = true;
+                delete mockedSearchParams['actieve-kaartlagen'];
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+                expect(output.map.showActiveOverlays).toBe(false);
             });
 
             it('sets the isFullscreen status', function () {

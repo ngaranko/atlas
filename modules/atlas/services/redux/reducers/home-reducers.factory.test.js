@@ -68,20 +68,6 @@ describe('The homeReducers factory', function () {
             });
         });
 
-        it('but it keeps the active baseLayer and overlays', function () {
-            var expectedState = angular.copy(DEFAULT_STATE);
-
-            expectedState.map.baseLayer = 'luchtfoto_1945';
-            expectedState.map.overlays = ['riolen', 'putdeksels'];
-
-            mockedStates.forEach(function (inputState) {
-                inputState.map.baseLayer = 'luchtfoto_1945';
-                inputState.map.overlays = ['riolen', 'putdeksels'];
-
-                expect(homeReducers.SHOW_HOME(inputState)).toEqual(expectedState);
-            });
-        });
-
         it('keeps the isPrintMode setting', function () {
             mockedStates.forEach(function (inputState) {
                 inputState.isPrintMode = false;

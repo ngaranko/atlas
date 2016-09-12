@@ -1,0 +1,49 @@
+@import "active-overlays-item";
+
+.c-toggle-active-overlays {
+  position: absolute;
+  bottom: 0;
+  left: 100px;
+  min-width: 98px;
+  height: $button-size;
+  padding-right: 10px;
+  padding-left: 10px;
+  border-width: 1px 0 1px 1px;
+  border-style: solid;
+  border-color: $secondary-gray40;
+  background-color: $primary-light;
+  text-align: left;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.c-toggle-active-overlays__icon {
+  display: block;
+  position: absolute;
+  top: -1px;
+  right: -$button-size;
+  width: $button-size;
+  height: $button-size;
+  transform: rotate(270deg);
+}
+
+.c-toggle-active-overlays__icon--mirrored {
+  transform: rotate(90deg);
+}
+
+.c-active-overlays {
+  position: absolute;
+  bottom: 1px;
+  left: 1px;
+  width: 320px;
+  max-height: 80%;
+  padding: $base-whitespace;
+  border-width: 1px 1px $button-size 0;
+  border-style: solid;
+  border-top-color: $secondary-gray40;
+  border-right-color: $secondary-gray40;
+  border-bottom-color: $primary-light;
+  background-color: $primary-light;
+  z-index: 2;
+  overflow-y: auto;
+}

@@ -285,9 +285,9 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.dataSelection).toBe(false);
             });
 
-            it('left column: 2/3, middle column: 1/3, right column 0/3', function () {
-                expect(columnSizes.left).toBe(8);
-                expect(columnSizes.middle).toBe(4);
+            it('left column: 1/3, middle column: 2/3, right column 0/3', function () {
+                expect(columnSizes.left).toBe(4);
+                expect(columnSizes.middle).toBe(8);
                 expect(columnSizes.right).toBe(0);
             });
         });
