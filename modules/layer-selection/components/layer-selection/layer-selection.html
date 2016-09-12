@@ -29,7 +29,7 @@
         <div class="u-margin__bottom--1" ng-repeat="category in vm.allOverlays">
             <h2 class="u-font--base u-color__primary--contrast">{{category.heading}}</h2>
             <ul>
-                <li ng-repeat="overlay in category.overlays">
+                <li ng-repeat="overlay in category.overlays" class="c-layer-selection__item">
                     <label>
                         <input
                             type="checkbox"
@@ -44,12 +44,12 @@
                         <span ng-if="!vm.isOverlayActive(overlay.slug)">
                             {{overlay.label}}
                         </span>
-
-                        <p ng-if="vm.isOverlayActive(overlay.slug) && !vm.isOverlayVisible(overlay.slug)"
-                            class="u-color__secondary--gray60 qa-show-invisble-by-zoom">
-                            Zichtbaar bij verder zoomen
-                        </p>
                     </label>
+
+                    <p ng-if="vm.isOverlayActive(overlay.slug) && !vm.isOverlayVisible(overlay.slug)"
+                        class="c-layer-selection__item__message qa-show-invisble-by-zoom">
+                        Zichtbaar bij verder zoomen
+                    </p>
                 </li>
             </ul>
         </div>

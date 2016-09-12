@@ -28,3 +28,23 @@
   background-color: $primary-light;
   overflow-y: auto;
 }
+
+.c-layer-selection__item {
+  position: relative;
+
+  label {
+    display: inline-block;
+    padding-left: $base-whitespace * 1.75;
+  }
+
+  input {
+    position: absolute;
+    top: 4px;
+    left: 0;
+  }
+}
+
+.c-layer-selection__item__message {
+  padding-left: $base-whitespace * 1.75;
+  color: $secondary-gray60;
+}
