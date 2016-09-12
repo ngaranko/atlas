@@ -95,13 +95,13 @@ describe('The dp-active-overlays-item component', function () {
         //When visible
         for (i = 8; i <= 10; i++) {
             component = getComponent('overlay_without_legend', true, i);
-            expect(component.text()).not.toContain('Niet zichtbaar op dit zoomniveau.');
+            expect(component.text()).not.toContain('Zichtbaar bij verder zoomen');
         }
 
         //When invisible
         for (i = 11; i <= 16; i++) {
             component = getComponent('overlay_without_legend', true, i);
-            expect(component.text()).toContain('Niet zichtbaar op dit zoomniveau.');
+            expect(component.text()).toContain('Zichtbaar bij verder zoomen');
         }
     });
 
@@ -112,7 +112,7 @@ describe('The dp-active-overlays-item component', function () {
         //When invisible
         for (i = 11; i <= 16; i++) {
             component = getComponent('overlay_without_legend', false, i);
-            expect(component.text()).not.toContain('Niet zichtbaar op dit zoomniveau.');
+            expect(component.text()).not.toContain('Zichtbaar bij verder zoomen');
         }
     });
 
