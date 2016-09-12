@@ -66,6 +66,8 @@
                 });
 
                 scope.$watch('mapState.overlays', function (newOverlays, oldOverlays) {
+                    scope.hasActiveOverlays = scope.mapState.overlays.length > 0;
+
                     getRemovedOverlays(newOverlays, oldOverlays).forEach(function (overlay) {
                         layers.removeOverlay(leafletMap, overlay);
                     });

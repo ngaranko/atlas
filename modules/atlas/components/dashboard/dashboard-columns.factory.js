@@ -69,8 +69,8 @@
                     columnSizes.left = 0;
                     columnSizes.middle = 12;
                 } else if (visibility.layerSelection) {
-                    columnSizes.left = 8;
-                    columnSizes.middle = 4;
+                    columnSizes.left = 4;
+                    columnSizes.middle = 8;
                 } else if (visibility.dataSelection) {
                     columnSizes.left = 0;
                     columnSizes.middle = 0;

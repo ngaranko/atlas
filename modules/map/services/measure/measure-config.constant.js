@@ -4,7 +4,7 @@
     angular
         .module('dpMap')
         .constant('MEASURE_CONFIG', {
-            position: 'bottomright',
+            position: 'topleft',
             primaryLengthUnit: 'atlasMeters',
             secondaryLengthUnit: null,
             primaryAreaUnit: 'atlasVierkanteMeters',

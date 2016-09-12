@@ -57,12 +57,13 @@
                 category: null
             };
 
-            if (oldState.map.isFullscreen) {
+            if (oldState.map.showLayerSelection || oldState.map.isFullscreen) {
                 newState.map.viewCenter = payload;
             }
 
             newState.map.highlight = null;
             newState.map.showLayerSelection = false;
+            newState.map.showActiveOverlays = false;
             newState.map.isFullscreen = false;
             newState.page = null;
             newState.detail = null;
