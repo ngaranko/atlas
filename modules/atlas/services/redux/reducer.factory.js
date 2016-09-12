@@ -21,7 +21,7 @@
     function reducerFactory (urlReducers,
         detailReducers,
         homeReducers,
-                             layerReducers,
+        layerReducers,
         mapReducers,
         pageReducers,
         searchReducers,
