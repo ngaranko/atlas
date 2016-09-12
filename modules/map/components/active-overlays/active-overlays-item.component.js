@@ -33,6 +33,8 @@
 
             if (vm.isVisible && !isVisibleAtCurrentZoom(vm.overlay, vm.zoom)) {
                 vm.overlayMessage = 'Zichtbaar bij verder zoomen';
+            } else {
+                vm.overlayMessage = null;
             }
 
             vm.isOverlayVisible = vm.isVisible && isVisibleAtCurrentZoom(vm.overlay, vm.zoom);

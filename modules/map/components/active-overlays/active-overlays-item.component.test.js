@@ -110,8 +110,8 @@ describe('The dp-active-overlays-item component', function () {
             i;
 
         //When invisible
-        for (i = 11; i <= 16; i++) {
-            component = getComponent('overlay_without_legend', false, i);
+        for (i = 8; i <= 16; i++) {
+            component = getComponent('overlay_with_internal_legend', false, i);
             expect(component.text()).not.toContain('Zichtbaar bij verder zoomen');
         }
     });
