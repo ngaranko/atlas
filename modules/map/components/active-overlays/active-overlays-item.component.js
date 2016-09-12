@@ -31,15 +31,11 @@
                 vm.legendImageSrc = getLegendImageSrc(vm.overlay);
             }
 
-            vm.isOverlayVisible = vm.isVisible && isVisibleAtCurrentZoom(vm.overlay, vm.zoom);
-
-            if (!vm.isOverlayVisible) {
-                if (!vm.isVisible) {
-                    vm.invisibleMessage = 'Handmatig onzichtbaar gemaakt.';
-                } else {
-                    vm.invisibleMessage = 'Niet zichtbaar op dit zoomniveau.';
-                }
+            if (vm.isVisible && !isVisibleAtCurrentZoom(vm.overlay, vm.zoom)) {
+                vm.overlayMessage = 'Niet zichtbaar op dit zoomniveau.';
             }
+
+            vm.isOverlayVisible = vm.isVisible && isVisibleAtCurrentZoom(vm.overlay, vm.zoom);
         }
 
         function getLegendImageSrc (overlay) {

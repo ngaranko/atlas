@@ -13,7 +13,7 @@
         ng-src="{{vm.legendImageSrc}}"
         alt="Legenda voor {{vm.overlayLabel}}">
 
-    <p ng-if="!vm.isOverlayVisible" class="c-active-overlays__item__message">{{vm.invisibleMessage}}</p>
+    <p ng-if="vm.overlayMessage" class="c-active-overlays__item__message">{{vm.overlayMessage}}</p>
 
     <dp-link ng-if="!vm.isVisible"
         class-name="c-active-overlays__item__link"

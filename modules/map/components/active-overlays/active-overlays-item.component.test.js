@@ -88,18 +88,6 @@ describe('The dp-active-overlays-item component', function () {
         expect(component.find('img').length).toBe(1);
     });
 
-    it('shows a message for manually hidden overlays', function () {
-        var component;
-
-        //When visible
-        component = getComponent('overlay_without_legend', true, 10);
-        expect(component.text()).not.toContain('Handmatig onzichtbaar gemaakt.');
-
-        //When invisible
-        component = getComponent('overlay_without_legend', false, 10);
-        expect(component.text()).toContain('Handmatig onzichtbaar gemaakt.');
-    });
-
     it('shows a message for hidden overlays caused by the zoom level', function () {
         var component,
             i;
