@@ -1,4 +1,4 @@
-.o-panel__heading {
+.c-layer-selection__heading {
   @include font-size($m-header-font);
   position: relative;
   height: auto;
@@ -9,11 +9,11 @@
   color: inherit;
 }
 
-.o-panel__heading__icon {
+.c-layer-selection__heading__icon {
   display: none;
 }
 
-.o-panel__content {
+.c-layer-selection__content {
   padding-right: 0;
   //A padding-left of zero partially hides the radio buttons on a Mac.
   padding-left: 1px;

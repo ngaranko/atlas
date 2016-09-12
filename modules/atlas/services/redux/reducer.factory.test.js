@@ -3,7 +3,7 @@ describe('The reducer factory', function () {
         urlReducers,
         homeReducers,
         detailReducers,
-        layerSelectionReducers,
+        layerReducers,
         mapReducers,
         pageReducers,
         searchReducers,
@@ -25,7 +25,7 @@ describe('The reducer factory', function () {
                 homeReducers: {
                     ACTION_C: function () {}
                 },
-                layerSelectionReducers: {
+                layerReducers: {
                     ACTION_D: function () {}
                 },
                 mapReducers: {
@@ -53,7 +53,7 @@ describe('The reducer factory', function () {
             _urlReducers_,
             _detailReducers_,
             _homeReducers_,
-            _layerSelectionReducers_,
+            _layerReducers_,
             _mapReducers_,
             _pageReducers_,
             _searchReducers_,
@@ -64,7 +64,7 @@ describe('The reducer factory', function () {
             urlReducers = _urlReducers_;
             detailReducers = _detailReducers_;
             homeReducers = _homeReducers_;
-            layerSelectionReducers = _layerSelectionReducers_;
+            layerReducers = _layerReducers_;
             mapReducers = _mapReducers_;
             pageReducers = _pageReducers_;
             searchReducers = _searchReducers_;
@@ -83,7 +83,7 @@ describe('The reducer factory', function () {
         spyOn(urlReducers, 'ACTION_A').and.callThrough();
         spyOn(detailReducers, 'ACTION_B').and.callThrough();
         spyOn(homeReducers, 'ACTION_C').and.callThrough();
-        spyOn(layerSelectionReducers, 'ACTION_D').and.callThrough();
+        spyOn(layerReducers, 'ACTION_D').and.callThrough();
         spyOn(mapReducers, 'ACTION_E').and.callThrough();
         spyOn(pageReducers, 'ACTION_F').and.callThrough();
         spyOn(searchReducers, 'ACTION_G').and.callThrough();
@@ -105,7 +105,7 @@ describe('The reducer factory', function () {
         expect(urlReducers.ACTION_A).toHaveBeenCalled();
         expect(detailReducers.ACTION_B).toHaveBeenCalled();
         expect(homeReducers.ACTION_C).toHaveBeenCalled();
-        expect(layerSelectionReducers.ACTION_D).toHaveBeenCalled();
+        expect(layerReducers.ACTION_D).toHaveBeenCalled();
         expect(mapReducers.ACTION_E).toHaveBeenCalled();
         expect(pageReducers.ACTION_F).toHaveBeenCalled();
         expect(searchReducers.ACTION_G).toHaveBeenCalled();

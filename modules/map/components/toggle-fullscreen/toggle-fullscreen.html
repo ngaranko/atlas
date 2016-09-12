@@ -1,6 +1,5 @@
-<button ng-if="!vm.isFullscreen" class="toggle-fullscreen" ng-click="vm.toggle()" title="Kaart vergroten">
-    <img class="toggle-fullscreen__icon" src="assets/icons/fullscreen.svg" alt="Kaart vergroten">
-</button>
-<button ng-if="vm.isFullscreen" class="toggle-fullscreen" ng-click="vm.toggle()" title="Kaart verkleinen">
-    <img class="toggle-fullscreen__icon" src="assets/icons/minimize.svg" alt="Kaart verkleinen">
+<button class="c-toggle-fullscreen" ng-click="vm.toggle()">
+    <img ng-if="!vm.isFullscreen" class="c-toggle-fullscreen__icon" src="assets/icons/fullscreen.svg" alt="Kaart vergroten" title="Kaart vergroten">
+
+    <img ng-if="vm.isFullscreen" class="c-toggle-fullscreen__icon" src="assets/icons/minimize.svg" alt="Kaart verkleinen" title="Kaart verkleinen">
 </button>
