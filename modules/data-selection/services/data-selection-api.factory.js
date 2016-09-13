@@ -57,21 +57,19 @@
                 return field.label;
             });
 
-            rawData.forEach(function (rawDataRow) {
-                var link,
-                    data;
+            tableBody = rawData.map(function (rawDataRow) {
+                var detailEndpoint;
 
-                // Generating a link
-                link = dpDataSelectionConfig[dataset].ENDPOINT_API + 
-                                    rawDataRow[dpDataSelectionConfig[dataset].ITEM_ID];
-                // Saving the fields
-                data = dpDataSelectionConfig[dataset].FIELDS.map(function (field) {
-                //formattedRow = DATA_SELECTION_CONFIG[dataset].FIELDS.map(function (field) {
-                    return rawDataRow[field.slug];
-                });
+                detailEndpoint = dpDataSelectionConfig[dataset].ENDPOINT_DETAIL;
+                detailEndpoint += rawDataRow[dpDataSelectionConfig[dataset].PRIMARY_KEY];
+                detailEndpoint += '/';
 
-                tableBody.push({link: link, data: data});
-                //tableBody.push(formattedRow);
+                return {
+                    detailEndpoint: detailEndpoint,
+                    fields: dpDataSelectionConfig[dataset].FIELDS.map(function (field) {
+                        return rawDataRow[field.slug];
+                    })
+                };
             });
 
             return {

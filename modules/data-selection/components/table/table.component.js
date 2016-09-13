@@ -13,13 +13,14 @@
         });
 
     DpDataSelectionTableController.$inject = ['store', 'ACTIONS'];
-    function DpDataSelectionTableController(store, ACTIONS) {
+
+    function DpDataSelectionTableController (store, ACTIONS) {
         var vm = this;
 
-        vm.dpGotoItem = function(link) {
+        vm.followLink = function (endpoint) {
             store.dispatch({
                 type: ACTIONS.FETCH_DETAIL,
-                payload: link
+                payload: endpoint
             });
         };
     }
