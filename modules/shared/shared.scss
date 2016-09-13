@@ -29,11 +29,8 @@
 @import "styles/utilities/width";
 
 @import "components/loading-indicator/loading-indicator";
-@import "components/panel/panel";
-@import "components/status-bar/status-bar";
 
 .is-print-mode {
   @import "styles/base/reset-print";
   @import "components/loading-indicator/loading-indicator-print";
-  @import "components/panel/panel-print";
 }

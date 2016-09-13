@@ -25,13 +25,13 @@
 .c-login-form__button {
   float: right;
   font-weight: 700;
-  line-height: 26px;
+  line-height: $button-size;
   text-transform: lowercase;
 
   &::after {
     display: inline-block;
-    width: 26px;
-    height: 26px;
+    width: $button-size;
+    height: $button-size;
     margin-left: $base-whitespace / 2;
     background-image: url("assets/icons/link-active.svg");
     content: "";

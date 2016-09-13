@@ -9,6 +9,7 @@
                 zoom: 9,
                 highlight: null,
                 showLayerSelection: false,
+                showActiveOverlays: false,
                 isFullscreen: false,
                 isLoading: false
             },

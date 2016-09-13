@@ -150,7 +150,7 @@ describe('The stateToUrl factory', function () {
             stateToUrl.update(mockedState, false);
 
             expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
-                kaartlagen: jasmine.anything()
+                'kaartlagen-selectie': jasmine.anything()
             }));
 
             //Opened
@@ -158,7 +158,25 @@ describe('The stateToUrl factory', function () {
             stateToUrl.update(mockedState, false);
 
             expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
-                kaartlagen: 'aan'
+                'kaartlagen-selectie': 'aan'
+            }));
+        });
+
+        it('keeps track of the active overlays (opened or closed', function () {
+            //Closed
+            mockedState.map.showActiveOverlays = false;
+            stateToUrl.update(mockedState, false);
+
+            expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
+                'actieve-kaartlagen': jasmine.anything()
+            }));
+
+            //Opened
+            mockedState.map.showActiveOverlays = true;
+            stateToUrl.update(mockedState, false);
+
+            expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
+                'actieve-kaartlagen': 'aan'
             }));
         });
 

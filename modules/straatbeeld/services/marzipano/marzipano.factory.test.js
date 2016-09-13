@@ -125,9 +125,12 @@ describe('The marzipanoService factory', function () {
         fakeDomElement = document.createElement('div');
         marzipanoService.initialize(fakeDomElement);
 
-        //Use webgl as the context for the HTML canvas
+        /*
+        Make sure stageType is null (autodetect). Which will result in webgl when it's supported with a fallback to 2d
+        for ADW.
+        */
         expect(Marzipano.Viewer).toHaveBeenCalledWith(jasmine.anything(), jasmine.objectContaining({
-            stageType: 'webgl'
+            stageType: null
         }));
 
         //Don't clear the webgl buffer. Firefox and Safari clear this buffer by default when opening the print dialog
