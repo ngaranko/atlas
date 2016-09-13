@@ -3,9 +3,9 @@
         .module('dpDataSelection')
         .factory('dataSelectionApi', dataSelectionApiFactory);
 
-    dataSelectionApiFactory.$inject = ['dpDataSelectionConfig', 'api'];
+    dataSelectionApiFactory.$inject = ['dataSelectionConfig', 'api'];
 
-    function dataSelectionApiFactory (dpDataSelectionConfig, api) {
+    function dataSelectionApiFactory (dataSelectionConfig, api) {
         return {
             query: query
         };
@@ -18,7 +18,7 @@
                 activeFilters
             );
 
-            return api.getByUrl(dpDataSelectionConfig[dataset].ENDPOINT_PREVIEW, searchParams).then(function (data) {
+            return api.getByUrl(dataSelectionConfig[dataset].ENDPOINT_PREVIEW, searchParams).then(function (data) {
                 return {
                     number_of_pages: data.page_count,
                     filters: formatFilters(dataset, data.aggs_list),
@@ -28,7 +28,7 @@
         }
 
         function formatFilters (dataset, rawData) {
-            var formattedFilters = angular.copy(dpDataSelectionConfig[dataset].FILTERS);
+            var formattedFilters = angular.copy(dataSelectionConfig[dataset].FILTERS);
 
             return formattedFilters.filter(function (filter) {
                 //Only show the filters that are returned by the API
@@ -53,20 +53,20 @@
             var tableHead,
                 tableBody;
 
-            tableHead = dpDataSelectionConfig[dataset].FIELDS.map(function (field) {
+            tableHead = dataSelectionConfig[dataset].FIELDS.map(function (field) {
                 return field.label;
             });
 
             tableBody = rawData.map(function (rawDataRow) {
                 var detailEndpoint;
 
-                detailEndpoint = dpDataSelectionConfig[dataset].ENDPOINT_DETAIL;
-                detailEndpoint += rawDataRow[dpDataSelectionConfig[dataset].PRIMARY_KEY];
+                detailEndpoint = dataSelectionConfig[dataset].ENDPOINT_DETAIL;
+                detailEndpoint += rawDataRow[dataSelectionConfig[dataset].PRIMARY_KEY];
                 detailEndpoint += '/';
 
                 return {
                     detailEndpoint: detailEndpoint,
-                    fields: dpDataSelectionConfig[dataset].FIELDS.map(function (field) {
+                    fields: dataSelectionConfig[dataset].FIELDS.map(function (field) {
                         return rawDataRow[field.slug];
                     })
                 };

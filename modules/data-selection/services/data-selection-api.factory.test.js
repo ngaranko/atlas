@@ -20,7 +20,7 @@ describe('The dataSelectionApi factory', function () {
                 }
             },
             function ($provide) {
-                $provide.constant('dpDataSelectionConfig', {
+                $provide.constant('dataSelectionConfig', {
                     zwembaden: {
                         ENDPOINT_PREVIEW: 'https://api.amsterdam.nl/zwembaden/',
                         ENDPOINT_DETAIL: 'https://amsterdam.nl/api_endpoint/zwembaden/',

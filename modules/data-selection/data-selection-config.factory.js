@@ -3,11 +3,11 @@
 
     angular
         .module('dpDataSelection')
-        .factory('dpDataSelectionConfig', dpDataSelectionConfigFactory);
+        .factory('dataSelectionConfig', dataSelectionConfigFactory);
 
-    dpDataSelectionConfigFactory.$inject = ['environment'];
+    dataSelectionConfigFactory.$inject = ['environment'];
 
-    function dpDataSelectionConfigFactory(environment) {
+    function dataSelectionConfigFactory (environment) {
         var globalConfig,
             envConfig;
 
