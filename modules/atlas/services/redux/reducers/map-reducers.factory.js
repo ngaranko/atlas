@@ -126,6 +126,10 @@
         function mapFullscreenReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
+            if (payload) {
+                newState.map.showLayerSelection = false;
+            }
+
             newState.map.isFullscreen = payload;
 
             return newState;
