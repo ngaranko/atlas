@@ -51,7 +51,7 @@
 
         function formatTableData (dataset, rawData) {
             var tableHead,
-                tableBody = [];
+                tableBody;
 
             tableHead = dpDataSelectionConfig[dataset].FIELDS.map(function (field) {
                 return field.label;
