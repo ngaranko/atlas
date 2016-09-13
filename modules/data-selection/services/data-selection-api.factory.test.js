@@ -22,8 +22,9 @@ describe('The dataSelectionApi factory', function () {
             function ($provide) {
                 $provide.constant('dpDataSelectionConfig', {
                     zwembaden: {
-                        ENDPOINT: 'https://api.amsterdam.nl/zwembaden/',
-                        ENDPOINT_API: 'https://amsterdam.nl/api_endpoint/zwembaden/',
+                        ENDPOINT_PREVIEW: 'https://api.amsterdam.nl/zwembaden/',
+                        ENDPOINT_DETAIL: 'https://amsterdam.nl/api_endpoint/zwembaden/',
+                        PRIMARY_KEY: 'id',
                         FILTERS: [
                             {
                                 slug: 'type',
@@ -41,8 +42,7 @@ describe('The dataSelectionApi factory', function () {
                                 slug: 'openingstijden',
                                 label: 'Openingstijden'
                             }
-                        ],
-                        ITEM_ID: 'id'
+                        ]
                     }
                 });
             }
@@ -231,12 +231,12 @@ describe('The dataSelectionApi factory', function () {
 
             expect(output.tableData.body.length).toBe(2);
             expect(output.tableData.body[0]).toEqual({
-                link: 'https://amsterdam.nl/api_endpoint/zwembaden/1',
-                data: [ 'Sneeuwbalweg 24', 'Alleen op dinsdag' ]
+                detailEndpoint: 'https://amsterdam.nl/api_endpoint/zwembaden/1/',
+                fields: [ 'Sneeuwbalweg 24', 'Alleen op dinsdag' ]
             });
             expect(output.tableData.body[1]).toEqual({
-                link: 'https://amsterdam.nl/api_endpoint/zwembaden/2',
-                data: [ 'Marnixstraat 1', 'Ligt er een beetje aan' ]
+                detailEndpoint: 'https://amsterdam.nl/api_endpoint/zwembaden/2/',
+                fields: [ 'Marnixstraat 1', 'Ligt er een beetje aan' ]
             });
         });
 
@@ -251,8 +251,8 @@ describe('The dataSelectionApi factory', function () {
             });
             $rootScope.$apply();
             expect(output.tableData.body.length).toBe(2);
-            expect(output.tableData.body[0].data.length).toBe(2);
-            expect(output.tableData.body[1].data.length).toBe(2);
+            expect(output.tableData.body[0].fields.length).toBe(2);
+            expect(output.tableData.body[1].fields.length).toBe(2);
 
             expect(JSON.stringify(output.tableData.body)).not.toContain('whatever');
             expect(JSON.stringify(output.tableData.body)).not.toContain('sure');

@@ -18,7 +18,7 @@
                 activeFilters
             );
 
-            return api.getByUrl(dpDataSelectionConfig[dataset].ENDPOINT, searchParams).then(function (data) {
+            return api.getByUrl(dpDataSelectionConfig[dataset].ENDPOINT_PREVIEW, searchParams).then(function (data) {
                 return {
                     number_of_pages: data.page_count,
                     filters: formatFilters(dataset, data.aggs_list),
