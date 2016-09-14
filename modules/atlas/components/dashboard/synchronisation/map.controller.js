@@ -35,17 +35,18 @@
                 });
             }
 
-            if (state.straatbeeld && state.straatbeeld.car && state.straatbeeld.car.location) {
+            
+            if (state.straatbeeld && state.straatbeeld.geometry) {
                 vm.markers.push({
                     id: 'straatbeeld_orientation',
-                    geometry: convertLocationToGeoJSON(state.straatbeeld.car.location),
-                    orientation: state.straatbeeld.camera.heading,
+                    geometry: convertLocationToGeoJSON(state.straatbeeld.geometry),
+                    orientation: state.straatbeeld.heading,
                     useAutoFocus: false
                 });
-
+                console.log(state.straatbeeld.geometry);
                 vm.markers.push({
                     id: 'straatbeeld_person',
-                    geometry: convertLocationToGeoJSON(state.straatbeeld.car.location),
+                    geometry: convertLocationToGeoJSON(state.straatbeeld.geometry),
                     useAutoFocus: false
                 });
             }

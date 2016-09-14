@@ -27,23 +27,18 @@
          * @returns {Object} newState
          */
         function fetchStraatbeeldReducer (oldState, payload) {
+            console.log(payload);
             var newState = angular.copy(oldState);
 
-            if (newState.straatbeeld === null) {
-                newState.straatbeeld = {};
-            }
 
-            if (angular.isNumber(payload)) {
-                newState.straatbeeld.id = payload;
-                newState.straatbeeld.searchLocation = null;
-            } else {
-                newState.straatbeeld.id = null;
-                newState.straatbeeld.searchLocation = payload;
-            }
+            newState.straatbeeld = newState.straatbeeld || {};
+            newState.straatbeeld.id = payload.id;
+            newState.straatbeeld.heading = payload.heading;
+            newState.straatbeeld.isInitial = payload.isInitial;
+
 
             newState.straatbeeld.date = null;
-            newState.straatbeeld.car = null;
-            newState.straatbeeld.camera = oldState.straatbeeld && oldState.straatbeeld.camera || null;
+ 
             newState.straatbeeld.hotspots = [];
             newState.straatbeeld.isLoading = true;
 
@@ -53,7 +48,7 @@
             newState.page = null;
             newState.detail = null;
             newState.dataSelection = null;
-
+            console.log('newState in fetch', newState);
             return newState;
         }
 
@@ -64,26 +59,23 @@
          * @returns {Object} newState
          */
         function showStraatbeeldReducer (oldState, payload) {
+            
             var newState = angular.copy(oldState);
-
+            
             //Straatbeeld can be null if another action gets triggered between FETCH_STRAATBEELD and SHOW_STRAATBEELD
             if (angular.isObject(newState.straatbeeld)) {
-                newState.straatbeeld.id = payload.id;
+                newState.straatbeeld.id = payload['pano_id'];
+               
                 newState.straatbeeld.searchLocation = null;
                 newState.straatbeeld.date = payload.date;
-                newState.straatbeeld.car = payload.car;
+
                 newState.straatbeeld.hotspots = payload.hotspots;
                 newState.straatbeeld.isLoading = false;
-
-                if (oldState.straatbeeld.camera === null) {
-                    newState.straatbeeld.camera = {
-                        heading: newState.straatbeeld.car.heading,
-                        pitch: newState.straatbeeld.car.pitch
-                    };
-                }
+                newState.straatbeeld.geometry = [ payload.geometrie.coordinates[1], payload.geometrie.coordinates[0] ];
 
                 newState.map.isLoading = false;
             }
+            
 
             return newState;
         }

@@ -24,51 +24,43 @@
 
             container = element[0].querySelector('.js-marzipano-viewer');
             viewer = marzipanoService.initialize(container);
-
+            console.log('scope in dir', scope);
+            
             scope.updateOrientation = function () {
                 if (!scope.state.isLoading) {
-                    orientation.update(viewer, scope.state.car);
+                    orientation.update(viewer, scope.state.heading);
                 }
             };
 
-            //Fetch the first scene (always based on location)
-            scope.$watchCollection('state.searchLocation', function (location) {
-                if (angular.isArray(location)) {
-                    earthmine.getImageDataByCoordinates(
-                        location[0],
-                        location[1]
-                    ).then(function (earthmineData) {
-                        store.dispatch({
-                            type: ACTIONS.SHOW_STRAATBEELD_INITIAL,
-                            payload: earthmineData
-                        });
-                    });
-                }
-            });
-
-            //Fetch scene #2-n
-            scope.$watchCollection('state.id', function (id) {
-                if (angular.isNumber(id)) {
+            //Fetch scene
+            scope.$watch('state.id', function (id) {
+                if (angular.isString(id)) {
                     earthmine.getImageDataById(id).then(function (earthmineData) {
-                        store.dispatch({
-                            type: ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT,
-                            payload: earthmineData
-                        });
+                         console.log('earthmindData in directive', earthmineData);
+                         marzipanoService.loadScene(
+                             earthmineData['pano_id'],
+                             earthmineData.images.equirectangular,
+                             earthmineData.heading,
+                             []
+                           
+                        );
+                        if (scope.state.isInitial) {
+                            store.dispatch({
+                                type: ACTIONS.SHOW_STRAATBEELD_INITIAL,
+                                payload: earthmineData
+                            });
+                        } else {
+                            store.dispatch({
+                                type: ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT,
+                                payload: earthmineData
+                            });
+                        }
+                       
                     });
                 }
             });
 
-            //Show new scene
-            scope.$watchCollection('state.car.location', function (location) {
-                if (angular.isArray(location)) {
-                    marzipanoService.loadScene(
-                        scope.state.id,
-                        scope.state.car,
-                        scope.state.camera,
-                        scope.state.hotspots
-                    );
-                }
-            });
+           
 
             //Re-render the Marzipano viewer if the size changes (through an added parent CSS class)
             scope.$watch('isPrintMode', function () {

@@ -80,6 +80,7 @@
                 scope.$watch('markers', function (newCollection, oldCollection) {
                     if (angular.equals(newCollection, oldCollection)) {
                         //Initialisation
+                        debugger;
                         newCollection.forEach(function (item) {
                             highlight.add(leafletMap, item);
                         });

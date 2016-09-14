@@ -117,39 +117,29 @@
             }
 
             function getStraatbeeldState (oldState, payload) {
+                 
                 if (hasStraatbeeld(payload)) {
                     var date,
-                        car,
-                        camera,
                         hotspots;
 
-                    if (oldState.straatbeeld && oldState.straatbeeld.id === Number(payload.id)) {
+                    if (oldState.straatbeeld && oldState.straatbeeld.id === payload.id) {
                         //Stuff that isn't in the URL but implicitly linked through the ID
                         date = oldState.straatbeeld.date;
-                        car = oldState.straatbeeld.car || null;
                         hotspots = oldState.straatbeeld.hotspots;
                     } else {
                         date = null;
-                        car = null;
                         hotspots = [];
                     }
-
-                    camera = {
-                        heading: Number(payload.heading),
-                        pitch: Number(payload.pitch)
-                    };
 
                     if (payload.fov) {
                         camera.fov = Number(payload.fov);
                     }
 
                     return {
-                        id: Number(payload.id) || null,
+                        id: payload.id || null,
                         searchLocation:
                             hasSearchLocation(payload) ? [Number(payload.plat), Number(payload.plon)] : null,
                         date: date,
-                        car: car,
-                        camera: camera,
                         hotspots: hotspots,
                         isLoading: false
                     };

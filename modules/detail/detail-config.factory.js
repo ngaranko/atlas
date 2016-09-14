@@ -15,7 +15,7 @@
 
         environmentConfig = {
             DEVELOPMENT: {
-                STRAATBEELD_THUMB_URL: 'https://map-acc.datapunt.amsterdam.nl/earthmine/get_views.php'
+                STRAATBEELD_THUMB_URL: 'https://api-acc.datapunt.amsterdam.nl/panorama/thumbnail/'
             },
             PRODUCTION: {
                 STRAATBEELD_THUMB_URL: 'https://map.datapunt.amsterdam.nl/earthmine/get_views.php'

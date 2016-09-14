@@ -12,22 +12,17 @@
             update: update
         };
 
-        function update (viewer, car) {
-            var cameraHeading,
-                cameraYaw,
-                cameraPitch,
+        function update (viewer, heading) {
+            var cameraPitch,
                 cameraFov;
 
-            cameraYaw = viewer.view().yaw();
             cameraPitch = viewer.view().pitch();
             cameraFov = viewer.view().fov();
-
-            cameraHeading = car.heading + cameraYaw;
 
             store.dispatch({
                 type: ACTIONS.STRAATBEELD_SET_ORIENTATION,
                 payload: {
-                    heading: cameraHeading,
+                    heading: heading,
                     pitch: cameraPitch,
                     fov: cameraFov
                 }
