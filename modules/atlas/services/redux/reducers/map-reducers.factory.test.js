@@ -189,5 +189,16 @@ describe('The map reducers', function () {
             output = mapReducers.MAP_FULLSCREEN(inputState, false);
             expect(output.map.isFullscreen).toBe(false);
         });
+
+        it('when enabling fullscreen, the layer selection will be disabled', function () {
+            var inputState = angular.copy(defaultState),
+                output;
+
+            inputState.map.showLayerSelection = true;
+
+            //Enable fullscreen
+            output = mapReducers.MAP_FULLSCREEN(inputState, true);
+            expect(output.map.showLayerSelection).toBe(false);
+        });
     });
 });
