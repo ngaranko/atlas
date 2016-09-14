@@ -8,7 +8,8 @@
         layersFactory.$inject = ['L', 'mapConfig', 'BASE_LAYERS', 'OVERLAYS'];
 
     function layersFactory (L, mapConfig, BASE_LAYERS, OVERLAYS) {
-        var baseLayer;
+        var baseLayer,
+            wmsLayers = {};
 
         return {
             setBaseLayer: setBaseLayer,
@@ -48,35 +49,40 @@
         }
 
         function addOverlay (leafletMap, layerName) {
-            getSubLayers(layerName).forEach(function (layer) {
+            getSubLayers(leafletMap, layerName).forEach(function (layer) {
                 leafletMap.addLayer(layer);
             });
         }
 
         function removeOverlay (leafletMap, layerName) {
-            getSubLayers(layerName).forEach(function (layer) {
+            getSubLayers(leafletMap, layerName).forEach(function (layer) {
                 leafletMap.removeLayer(layer);
             });
         }
 
-        function getSubLayers (overlayName) {
-            var wmsLayers = [],
+        function getSubLayers (leafletMap, overlayName) {
+            var wmsLayerId,
                 wmsUrl,
                 wmsSource;
 
-            wmsUrl = OVERLAYS.SOURCES[overlayName].url;
+            wmsLayerId = leafletMap._leaflet_id + '_' + overlayName;
 
-            if (!OVERLAYS.SOURCES[overlayName].external) {
-                wmsUrl = mapConfig.OVERLAY_ROOT + wmsUrl;
+            if (angular.isUndefined(wmsLayers[wmsLayerId])) {
+                wmsLayers[wmsLayerId] = [];
+                wmsUrl = OVERLAYS.SOURCES[overlayName].url;
+
+                if (!OVERLAYS.SOURCES[overlayName].external) {
+                    wmsUrl = mapConfig.OVERLAY_ROOT + wmsUrl;
+                }
+
+                wmsSource = L.WMS.source(wmsUrl, mapConfig.OVERLAY_OPTIONS);
+
+                OVERLAYS.SOURCES[overlayName].layers.forEach(function (layerName) {
+                    wmsLayers[wmsLayerId].push(wmsSource.getLayer(layerName));
+                });
             }
 
-            wmsSource = L.WMS.source(wmsUrl, mapConfig.OVERLAY_OPTIONS);
-
-            OVERLAYS.SOURCES[overlayName].layers.forEach(function (layerName) {
-                wmsLayers.push(wmsSource.getLayer(layerName));
-            });
-
-            return wmsLayers;
+            return wmsLayers[wmsLayerId];
         }
     }
 })();
