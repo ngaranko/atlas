@@ -5,22 +5,23 @@
         .module('dpStraatbeeld')
         .factory('orientation', orientationFactory);
 
-    orientationFactory.$inject = ['store', 'ACTIONS'];
+    orientationFactory.$inject = ['store', 'ACTIONS', 'angleConversion'];
 
-    function orientationFactory (store, ACTIONS) {
+    function orientationFactory (store, ACTIONS, angleConversion) {
         return {
             update: update
         };
 
-        function update (viewer, heading) {
+        function update (viewer) {
             var cameraPitch,
-                cameraFov;
+                cameraFov,
+                heading;
 
             cameraPitch = viewer.view().pitch();
             cameraFov = viewer.view().fov();
             console.log('yaw', viewer.view().yaw());
+            heading = angleConversion.radiansToDegrees(viewer.view().yaw()); 
             console.log('heading', heading);
-
             store.dispatch({
                 type: ACTIONS.STRAATBEELD_SET_ORIENTATION,
                 payload: {

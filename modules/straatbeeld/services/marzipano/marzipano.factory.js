@@ -64,7 +64,8 @@
 
             //Set orientation
 
-            
+            console.log('head', heading);
+            console.log('heading ', heading * Math.PI/180);
             view.setYaw(heading * Math.PI/180);
     
             scene.switchTo();

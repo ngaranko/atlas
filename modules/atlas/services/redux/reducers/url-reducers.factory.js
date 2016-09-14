@@ -134,13 +134,15 @@
                     if (payload.fov) {
                         camera.fov = Number(payload.fov);
                     }
-
+                    
                     return {
                         id: payload.id || null,
                         searchLocation:
                             hasSearchLocation(payload) ? [Number(payload.plat), Number(payload.plon)] : null,
                         date: date,
                         hotspots: hotspots,
+                        heading: oldState.straatbeeld.heading,
+                        geometry: oldState.straatbeeld.geometry,
                         isLoading: false
                     };
                 } else {

@@ -28,13 +28,13 @@
             
             scope.updateOrientation = function () {
                 if (!scope.state.isLoading) {
-                    orientation.update(viewer, scope.state.heading);
+                    orientation.update(viewer);
                 }
             };
 
             //Fetch scene
             scope.$watch('state.id', function (id) {
-                 
+                 console.log('scope.state.heading', scope.state.heading);
                 if (angular.isString(id)) {
                     earthmine.getImageDataById(id).then(function (earthmineData) {
                         
