@@ -27,13 +27,14 @@
          * @returns {Object} newState
          */
         function fetchStraatbeeldReducer (oldState, payload) {
-            console.log(payload);
+             
             var newState = angular.copy(oldState);
 
 
             newState.straatbeeld = newState.straatbeeld || {};
             newState.straatbeeld.id = payload.id;
             newState.straatbeeld.heading = payload.heading;
+
             newState.straatbeeld.isInitial = payload.isInitial;
 
 
@@ -48,7 +49,7 @@
             newState.page = null;
             newState.detail = null;
             newState.dataSelection = null;
-            console.log('newState in fetch', newState);
+             
             return newState;
         }
 
@@ -59,7 +60,7 @@
          * @returns {Object} newState
          */
         function showStraatbeeldReducer (oldState, payload) {
-            
+         
             var newState = angular.copy(oldState);
             
             //Straatbeeld can be null if another action gets triggered between FETCH_STRAATBEELD and SHOW_STRAATBEELD
@@ -82,8 +83,8 @@
 
         function setOrientationReducer (oldState, payload) {
             var newState = angular.copy(oldState);
-
-            newState.straatbeeld.camera = payload;
+             
+            newState.straatbeeld.heading = payload.heading;
 
             return newState;
         }

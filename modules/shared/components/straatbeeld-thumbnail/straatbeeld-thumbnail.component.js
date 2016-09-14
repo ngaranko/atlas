@@ -26,11 +26,11 @@
             '&width=240' +
             '&radius=100';
 
-            console.log('imgurl', imageUrl);
+           
         api.getByUrl(imageUrl).then(function (thumbnailData) {
             heading = thumbnailData.heading;
             panoId = thumbnailData['pano_id'];
-            console.log('tum', thumbnailData);
+            
             if (angular.isObject(thumbnailData)) {
                 vm.imageUrl = thumbnailData.url;
 

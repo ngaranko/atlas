@@ -82,12 +82,13 @@
         }
 
         function getStraatbeeldParams(state) {
+            
             var params = {};
             if (state.straatbeeld) {
                 params.id = state.straatbeeld.id;
                 params.heading = String(state.straatbeeld.heading);
             }
-
+            
             return params;
         }
 

@@ -18,6 +18,8 @@
 
             cameraPitch = viewer.view().pitch();
             cameraFov = viewer.view().fov();
+            console.log('yaw', viewer.view().yaw());
+            console.log('heading', heading);
 
             store.dispatch({
                 type: ACTIONS.STRAATBEELD_SET_ORIENTATION,

@@ -63,7 +63,9 @@
             // });
 
             //Set orientation
-            view.setYaw(heading);
+
+            
+            view.setYaw(heading * Math.PI/180);
     
             scene.switchTo();
         }

@@ -117,7 +117,7 @@
             }
 
             function getStraatbeeldState (oldState, payload) {
-                 
+               
                 if (hasStraatbeeld(payload)) {
                     var date,
                         hotspots;

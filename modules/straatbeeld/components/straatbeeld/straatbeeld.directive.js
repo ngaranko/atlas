@@ -24,7 +24,7 @@
 
             container = element[0].querySelector('.js-marzipano-viewer');
             viewer = marzipanoService.initialize(container);
-            console.log('scope in dir', scope);
+           
             
             scope.updateOrientation = function () {
                 if (!scope.state.isLoading) {
@@ -34,13 +34,14 @@
 
             //Fetch scene
             scope.$watch('state.id', function (id) {
+                 
                 if (angular.isString(id)) {
                     earthmine.getImageDataById(id).then(function (earthmineData) {
-                         console.log('earthmindData in directive', earthmineData);
+                        
                          marzipanoService.loadScene(
                              earthmineData['pano_id'],
                              earthmineData.images.equirectangular,
-                             earthmineData.heading,
+                             scope.state.heading,
                              []
                            
                         );
