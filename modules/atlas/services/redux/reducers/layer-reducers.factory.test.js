@@ -52,16 +52,6 @@ describe('The layerReducers factory', function () {
             output = layerReducers[ACTIONS.SHOW_ACTIVE_OVERLAYS](DEFAULT_STATE);
             expect(output.map.showActiveOverlays).toBe(true);
         });
-
-        it('disables fullscreen mode', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
-                output;
-
-            inputState.map.isFullscreen = true;
-            output = layerReducers[ACTIONS.SHOW_ACTIVE_OVERLAYS](inputState);
-
-            expect(output.map.isFullscreen).toBe(false);
-        });
     });
 
     describe('HIDE_ACTIVE_OVERLAYS', function () {
