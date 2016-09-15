@@ -2,6 +2,7 @@
   position: absolute;
   bottom: 0;
   left: 0;
+  width: 162px;
   height: $button-size;
   cursor: pointer;
   z-index: 3;
@@ -24,26 +25,11 @@
   position: absolute;
   top: 0;
   left: $button-size;
+  width: 162px - $button-size;
   height: $button-size;
   border-width: 1px 1px 1px 0;
   border-style: solid;
   border-color: $secondary-gray40;
   background-color: $primary-light;
   line-height: 24px;
-}
-
-.c-toggle-layer-selection--small {
-  width: 90px;
-
-  .c-toggle-layer-selection__text {
-    width: 90px - $button-size;
-  }
-}
-
-.c-toggle-layer-selection--large {
-  width: 170px;
-
-  .c-toggle-layer-selection__text {
-    width: 170px - $button-size;
-  }
 }

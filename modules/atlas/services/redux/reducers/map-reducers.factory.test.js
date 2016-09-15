@@ -40,6 +40,22 @@ describe('The map reducers', function () {
 
             expect(output.map.overlays.length).toBe(2);
         });
+
+        it('opens the active overlays panel if there were no active overlays before', function () {
+            var inputState = angular.copy(defaultState),
+                output;
+
+            //When there were no active overlays; open the active overlays panel
+            inputState.map.showActiveOverlays = false;
+            output = mapReducers.MAP_ADD_OVERLAY(inputState, 'meetbouten');
+            expect(output.map.showActiveOverlays).toBe(true);
+
+            //When there already were active overlays; do nothing
+            inputState.map.showActiveOverlays = false;
+            inputState.map.overlays = [{id: 'nap', isVisible: true}];
+            output = mapReducers.MAP_ADD_OVERLAY(inputState, 'meetbouten');
+            expect(output.map.showActiveOverlays).toBe(false);
+        });
     });
 
     describe('MAP_REMOVE_OVERLAY', function () {

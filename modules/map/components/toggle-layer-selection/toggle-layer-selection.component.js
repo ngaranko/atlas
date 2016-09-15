@@ -13,21 +13,10 @@
             controllerAs: 'vm'
         });
 
-    DpToggleLayerSelectionController.$inject = ['$scope', 'store', 'ACTIONS'];
+    DpToggleLayerSelectionController.$inject = ['store', 'ACTIONS'];
 
-    function DpToggleLayerSelectionController ($scope, store, ACTIONS) {
+    function DpToggleLayerSelectionController (store, ACTIONS) {
         var vm = this;
-
-        $scope.$watchCollection('vm.overlays', function () {
-            vm.buttonText = 'Wijzig';
-
-            if (vm.overlays.length === 0) {
-                vm.buttonText += ' kaartlagen';
-                vm.buttonSize = 'large';
-            } else {
-                vm.buttonSize = 'small';
-            }
-        });
 
         vm.toggle = function () {
             store.dispatch({
