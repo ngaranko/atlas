@@ -38,8 +38,26 @@
 
         vm.hasMetaData = angular.isDefined(vm.metaData);
 
+        vm.stelselpediaTitle = 'Toon uitleg';
+        vm.metaDataTitle = 'Toon metadata';
+
         vm.toggle = function (item) {
             isVisible[item] = !isVisible[item];
+
+            if(item === 'help'){
+                if(isVisible[item]) {
+                    vm.stelselpediaTitle = 'Verberg uitleg';
+                } else {
+                    vm.stelselpediaTitle = 'Toon uitleg';
+                }
+            }
+            if(item === 'meta'){
+                if(isVisible[item]) {
+                    vm.metaDataTitle = 'Verberg metadata';
+                } else {
+                    vm.metaDataTitle = 'Toon metadata';
+                }
+            }
         };
 
         vm.isVisible = function (item) {

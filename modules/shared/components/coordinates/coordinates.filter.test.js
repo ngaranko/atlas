@@ -19,10 +19,10 @@ describe('The coordinates filter', function () {
     });
 
     it('returns a string with the RD and latitude/longitude coordinates', function () {
-        expect(coordinates([52.123456, 4.456789])).toBe('123456, 654123 (52.123456, 4.456789)');
+        expect(coordinates([52.123456, 4.456789])).toBe('123456.00, 654123.00 (52.1234560, 4.4567890)');
     });
 
-    it('rounds latitude and longitude down to 6 decimals', function () {
-        expect(coordinates([52.1234565, 4.4567894])).toBe('123456, 654123 (52.123457, 4.456789)');
+    it('rounds latitude and longitude down to 7 decimals', function () {
+        expect(coordinates([52.1234565246, 4.4567894123])).toBe('123456.00, 654123.00 (52.1234565, 4.4567894)');
     });
 });

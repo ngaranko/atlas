@@ -5,9 +5,9 @@
         .module('atlas')
         .factory('urlReducers', urlReducersFactory);
 
-    urlReducersFactory.$inject = ['ACTIONS', 'DEFAULT_STATE'];
+    urlReducersFactory.$inject = ['$window', 'ACTIONS', 'DEFAULT_STATE'];
 
-    function urlReducersFactory (ACTIONS, DEFAULT_STATE) {
+    function urlReducersFactory ($window, ACTIONS, DEFAULT_STATE) {
         var reducers = {};
 
         reducers[ACTIONS.URL_CHANGE] = urlChangeReducer;
@@ -25,6 +25,7 @@
                 newState.page = payload.pagina || null;
                 newState.detail = getDetailState(oldState, payload);
                 newState.straatbeeld = getStraatbeeldState(oldState, payload);
+                newState.dataSelection = getDataSelectionState(payload);
                 newState.isPrintMode = getPrintState(payload);
 
                 return newState;
@@ -66,16 +67,33 @@
             }
 
             function getMapState (payload) {
+                var overlays = [],
+                    layers,
+                    id,
+                    isVisible;
+
+                if (payload && payload.lagen) {
+                    layers = payload.lagen.split(',');
+                    for (var i = 0; i < layers.length; i++) {
+                        // [id, isVisible] = layers[i].split(':');  This is ES6
+                        id = layers[i].split(':');
+                        // checking isVisible
+                        isVisible = id[1] === 'zichtbaar';
+                        id = id[0];
+                        overlays.push({id: id, isVisible: isVisible});
+                    }
+                }
                 return {
                     baseLayer: payload.basiskaart,
-                    overlays: payload.lagen ? payload.lagen.split(',') : [],
+                    overlays: overlays,
                     viewCenter: [
                         Number(payload.lat),
                         Number(payload.lon)
                     ],
                     zoom: Number(payload.zoom),
                     highlight: payload.selectie || null,
-                    showLayerSelection: angular.isString(payload.kaartlagen),
+                    showLayerSelection: angular.isString(payload['kaartlagen-selectie']),
+                    showActiveOverlays: angular.isString(payload['actieve-kaartlagen']),
                     isFullscreen: angular.isString(payload['volledig-scherm']),
                     isLoading: false
                 };
@@ -150,6 +168,28 @@
                  */
                 function hasSearchLocation (payload) {
                     return payload.plat && payload.plon;
+                }
+            }
+
+            function getDataSelectionState (payload) {
+                var filters = {};
+
+                if (angular.isString(payload.dataset)) {
+                    if (angular.isString(payload['dataset-filters'])) {
+                        payload['dataset-filters'].split(',').forEach(function (filterFromUrl) {
+                            var keyValueArray = filterFromUrl.split(':');
+
+                            filters[keyValueArray[0]] = $window.decodeURIComponent(keyValueArray[1]);
+                        });
+                    }
+
+                    return {
+                        dataset: payload.dataset,
+                        filters: filters,
+                        page: Number(payload['dataset-pagina'])
+                    };
+                } else {
+                    return null;
                 }
             }
 

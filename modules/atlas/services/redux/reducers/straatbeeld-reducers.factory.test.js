@@ -106,19 +106,21 @@ describe('The straatbeeldReducers factory', function () {
             expect(output.map.highlight).toBeNull();
         });
 
-        it('resets search, detail and page', function () {
+        it('resets search, detail, page and dataSelection', function () {
             var inputState = angular.copy(defaultState),
                 output;
 
             inputState.search = {some: 'object'};
             inputState.detail = {some: 'object'};
             inputState.page = 'somePage';
+            inputState.dataSelection = {some: 'object'};
 
             output = straatbeeldReducers.FETCH_STRAATBEELD(inputState, 123);
 
             expect(output.search).toBeNull();
             expect(output.detail).toBeNull();
             expect(output.page).toBeNull();
+            expect(output.dataSelection).toBeNull();
         });
     });
 
@@ -198,6 +200,18 @@ describe('The straatbeeldReducers factory', function () {
 
             expect(output.map.isLoading).toBe(false);
             expect(output.straatbeeld.isLoading).toBe(false);
+        });
+
+        it('does nothing when straatbeeld is null', function () {
+            /**
+             * This can happen when a user triggers another action after FETCH_STRAATBEELD and before
+             * SHOW_STRAATBEELD_INITIAL OR SHOW_STRAATBEELD_SUBSEQUENT
+             */
+            var output;
+
+            expect(defaultState.straatbeeld).toBeNull();
+            output = straatbeeldReducers.SHOW_STRAATBEELD_INITIAL(defaultState, showStraatbeeldPayload);
+            expect(output.straatbeeld).toBeNull();
         });
     });
 

@@ -52,6 +52,7 @@
             newState.search = null;
             newState.page = null;
             newState.detail = null;
+            newState.dataSelection = null;
 
             return newState;
         }
@@ -65,21 +66,24 @@
         function showStraatbeeldReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
-            newState.straatbeeld.id = payload.id;
-            newState.straatbeeld.searchLocation = null;
-            newState.straatbeeld.date = payload.date;
-            newState.straatbeeld.car = payload.car;
-            newState.straatbeeld.hotspots = payload.hotspots;
-            newState.straatbeeld.isLoading = false;
+            //Straatbeeld can be null if another action gets triggered between FETCH_STRAATBEELD and SHOW_STRAATBEELD
+            if (angular.isObject(newState.straatbeeld)) {
+                newState.straatbeeld.id = payload.id;
+                newState.straatbeeld.searchLocation = null;
+                newState.straatbeeld.date = payload.date;
+                newState.straatbeeld.car = payload.car;
+                newState.straatbeeld.hotspots = payload.hotspots;
+                newState.straatbeeld.isLoading = false;
 
-            if (oldState.straatbeeld.camera === null) {
-                newState.straatbeeld.camera = {
-                    heading: newState.straatbeeld.car.heading,
-                    pitch: newState.straatbeeld.car.pitch
-                };
+                if (oldState.straatbeeld.camera === null) {
+                    newState.straatbeeld.camera = {
+                        heading: newState.straatbeeld.car.heading,
+                        pitch: newState.straatbeeld.car.pitch
+                    };
+                }
+
+                newState.map.isLoading = false;
             }
-
-            newState.map.isLoading = false;
 
             return newState;
         }

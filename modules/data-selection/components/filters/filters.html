@@ -1,0 +1,48 @@
+<div ng-if="vm.formattedActiveFilters.length" class="qa-active-filters">
+    <h2>Actieve filters</h2>
+    <ul>
+        <li ng-repeat="filter in vm.formattedActiveFilters">
+            {{filter.categoryLabel}}: {{filter.option}}
+
+            <button class="o-btn o-btn--link" ng-click="vm.removeFilter(filter.categorySlug)">
+                Verwijderen
+            </button>
+        </li>
+    </ul>
+</div>
+
+<div class="qa-available-filters">
+    <h2>Beschikbare filters</h2>
+
+    <dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>
+
+    <div ng-if="!vm.isLoading" ng-repeat="category in vm.availableFilters">
+        <h3>{{category.label}}</h3>
+        <ul>
+            <li ng-repeat="option in category.options | limitTo : vm.isExpandedCategory(category.slug) ? undefined : vm.showMoreThreshold">
+                <button
+                    class="o-btn o-btn--link"
+                    ng-class="{
+                        'u-color__primary--dark': vm.isFilterActive(category.slug, option.label)
+                    }"
+                    ng-click="vm.addFilter(category.slug, option.label)">
+
+                    {{option.label}}
+                </button>
+
+                ({{option.count | number}})
+            </li>
+        </ul>
+
+        <button ng-if="vm.showExpandButton(category.slug)"
+            class="qa-show-more-button"
+            ng-click="vm.expandCategory(category.slug)">
+
+            <strong>Toon meer</strong>
+        </button>
+
+        <p ng-if="vm.showHiddenOptionsMessage(category)" class="qa-hidden-options">
+            Er zijn nog meer opties, maar we tonen ze niet.
+        </p>
+    </div>
+</div>

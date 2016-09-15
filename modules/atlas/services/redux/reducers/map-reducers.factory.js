@@ -13,6 +13,7 @@
         reducers[ACTIONS.MAP_SET_BASELAYER] = mapSetBaselayerReducer;
         reducers[ACTIONS.MAP_ADD_OVERLAY] = mapAddOverlayReducer;
         reducers[ACTIONS.MAP_REMOVE_OVERLAY] = mapRemoveOverlayReducer;
+        reducers[ACTIONS.MAP_TOGGLE_VISIBILITY_OVERLAY] = mapToggleVisibilityOverlay;
         reducers[ACTIONS.MAP_PAN] = mapPanReducer;
         reducers[ACTIONS.MAP_ZOOM] = mapZoomReducer;
         reducers[ACTIONS.MAP_FULLSCREEN] = mapFullscreenReducer;
@@ -42,7 +43,7 @@
         function mapAddOverlayReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
-            newState.map.overlays.push(payload);
+            newState.map.overlays.push({id: payload, isVisible: true});
 
             return newState;
         }
@@ -55,14 +56,35 @@
          */
         function mapRemoveOverlayReducer (oldState, payload) {
             var newState = angular.copy(oldState),
-                index;
-
-            index = newState.map.overlays.indexOf(payload);
-            newState.map.overlays.splice(index, 1);
+                i;
+            // finding the id of the payload
+            for (i = 0;i < newState.map.overlays.length; i++) {
+                if (newState.map.overlays[i].id === payload) {
+                    break;
+                }
+            }
+            newState.map.overlays.splice(i, 1);
 
             return newState;
         }
 
+        /**
+         * @param {Object} oldState
+         * @param {String} payload - The name of the overlay, it should match a key from overlays.constant.js
+         *
+         * @returns {Object} newState
+         */
+        function mapToggleVisibilityOverlay (oldState, payload) {
+            var newState = angular.copy(oldState);
+            // Looking for the overlay to switch its isVisible
+            for(var i = 0;i< newState.map.overlays.length;i++) {
+                if (newState.map.overlays[i].id === payload) {
+                    newState.map.overlays[i].isVisible = !newState.map.overlays[i].isVisible;
+                    break;
+                }
+            }
+            return newState;
+        }
         /**
          * @param {Object} oldState
          * @param {Array} payload - The new position in Array format, e.g. [52.123, 4.789]
@@ -103,6 +125,10 @@
          */
         function mapFullscreenReducer (oldState, payload) {
             var newState = angular.copy(oldState);
+
+            if (payload) {
+                newState.map.showLayerSelection = false;
+            }
 
             newState.map.isFullscreen = payload;
 

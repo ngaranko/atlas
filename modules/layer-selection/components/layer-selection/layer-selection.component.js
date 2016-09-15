@@ -34,10 +34,9 @@
             formattedOverlays.overlays = formattedOverlays.overlays.map(function (overlaySlug) {
                 return {
                     slug: overlaySlug,
-                    label: OVERLAYS.SOURCES[overlaySlug].label_long
+                    label: OVERLAYS.SOURCES[overlaySlug].label_short
                 };
             });
-
             return formattedOverlays;
         });
 
@@ -57,7 +56,12 @@
         };
 
         vm.isOverlayActive = function (overlay) {
-            return vm.activeOverlays.indexOf(overlay) !== -1;
+            for(var i = 0;i < vm.activeOverlays.length;i++) {
+                if (vm.activeOverlays[i].id === overlay) {
+                    return true;
+                }
+            }
+            return false;
         };
 
         vm.isOverlayVisible = function (overlay) {

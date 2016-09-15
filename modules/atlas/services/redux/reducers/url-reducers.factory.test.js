@@ -91,14 +91,17 @@ describe('The urlReducers factory', function () {
                 expect(output.map.overlays).toEqual([]);
 
                 //One overlay
-                mockedSearchParams.lagen = 'munitie_opslag';
+                mockedSearchParams.lagen = 'munitie_opslag:zichtbaar';
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
-                expect(output.map.overlays).toEqual(['munitie_opslag']);
+                expect(output.map.overlays).toEqual([{id: 'munitie_opslag', isVisible: true}]);
 
                 //Two overlays
-                mockedSearchParams.lagen = 'munitie_opslag,geldkluizen';
+                mockedSearchParams.lagen = 'munitie_opslag:zichtbaar,geldkluizen:onzichtbaar';
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
-                expect(output.map.overlays).toEqual(['munitie_opslag', 'geldkluizen']);
+                expect(output.map.overlays).toEqual([
+                    {id: 'munitie_opslag', isVisible: true},
+                    {id: 'geldkluizen', isVisible: false}
+                ]);
             });
 
             it('sets the center', function () {
@@ -147,15 +150,31 @@ describe('The urlReducers factory', function () {
 
                 //With layer selection
                 mockedState.map.showLayerSelection = false;
-                mockedSearchParams.kaartlagen = 'aan';
+                mockedSearchParams['kaartlagen-selectie'] = 'aan';
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
                 expect(output.map.showLayerSelection).toBe(true);
 
                 //Without layer selection
                 mockedState.map.showLayerSelection = true;
-                delete mockedSearchParams.kaartlagen;
+                delete mockedSearchParams['kaartlagen-selectie'];
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
                 expect(output.map.showLayerSelection).toBe(false);
+            });
+
+            it('sets the showActiveOverlays status', function () {
+                var output;
+
+                //With active overlays
+                mockedState.map.showActiveOverlays = false;
+                mockedSearchParams['actieve-kaartlagen'] = 'aan';
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+                expect(output.map.showActiveOverlays).toBe(true);
+
+                //Without active overlays
+                mockedState.map.showActiveOverlays = true;
+                delete mockedSearchParams['actieve-kaartlagen'];
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+                expect(output.map.showActiveOverlays).toBe(false);
             });
 
             it('sets the isFullscreen status', function () {
@@ -316,6 +335,71 @@ describe('The urlReducers factory', function () {
                 expect(output.straatbeeld.camera.heading).toBe(7);
                 expect(output.straatbeeld.camera.pitch).toBe(8);
                 expect(output.straatbeeld.camera.fov).toBe(9);
+            });
+        });
+
+        describe('dataSelection', function () {
+            var mockedSearchParamsWithDataSelection,
+                output;
+
+            beforeEach(function () {
+                mockedSearchParamsWithDataSelection = angular.copy(mockedSearchParams);
+
+                mockedSearchParamsWithDataSelection.dataset = 'bag';
+                mockedSearchParamsWithDataSelection['dataset-filters'] = 'buurtcombinatie:Geuzenbuurt,buurt:Trompbuurt';
+                mockedSearchParamsWithDataSelection['dataset-pagina'] = '4';
+            });
+
+            it('optionally has a dataset with filters and page numbers', function () {
+                //Without an active dataSelection
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+                expect(output.dataSelection).toBeNull();
+
+                //With an active dataSelection
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParamsWithDataSelection);
+                expect(output.dataSelection).toEqual({
+                    dataset: 'bag',
+                    filters: jasmine.any(Object),
+                    page: jasmine.anything()
+                });
+            });
+
+            it('maps the filters to an object', function () {
+                //With two filters
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParamsWithDataSelection);
+                expect(output.dataSelection.filters).toEqual({
+                    buurtcombinatie: 'Geuzenbuurt',
+                    buurt: 'Trompbuurt'
+                });
+
+                //With one filter
+                mockedSearchParamsWithDataSelection['dataset-filters'] = 'buurtcombinatie:Geuzenbuurt';
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParamsWithDataSelection);
+                expect(output.dataSelection.filters).toEqual({
+                    buurtcombinatie: 'Geuzenbuurt'
+                });
+
+                //Without filters return an emtpy object
+                mockedSearchParamsWithDataSelection['dataset-filters'] = null;
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParamsWithDataSelection);
+                expect(output.dataSelection.filters).toEqual({});
+            });
+
+            it('converts the page to a Number', function () {
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParamsWithDataSelection);
+                expect(output.dataSelection.page).not.toBe('4');
+                expect(output.dataSelection.page).toBe(4);
+            });
+
+            it('decodes the names of active filters', function () {
+                mockedSearchParamsWithDataSelection['dataset-filters'] =
+                    'buurtcombinatie:Bijlmeer%20Oost%20(D%2CF%2CH),buurt:Belgi%C3%ABplein%20e.o.';
+
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParamsWithDataSelection);
+                expect(output.dataSelection.filters).toEqual({
+                    buurtcombinatie: 'Bijlmeer Oost (D,F,H)',
+                    buurt: 'Belgiëplein e.o.'
+                });
             });
         });
 

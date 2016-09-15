@@ -9,22 +9,24 @@
         'urlReducers',
         'detailReducers',
         'homeReducers',
-        'layerSelectionReducers',
+        'layerReducers',
         'mapReducers',
         'pageReducers',
         'searchReducers',
         'straatbeeldReducers',
+        'dataSelectionReducers',
         'printReducers'
     ];
 
     function reducerFactory (urlReducers,
         detailReducers,
         homeReducers,
-        layerSelectionReducers,
+        layerReducers,
         mapReducers,
         pageReducers,
         searchReducers,
         straatbeeldReducers,
+        dataSelectionReducers,
         printReducers) {
 
         return function (oldState, action) {
@@ -32,11 +34,12 @@
                 urlReducers,
                 detailReducers,
                 homeReducers,
-                layerSelectionReducers,
+                layerReducers,
                 mapReducers,
                 pageReducers,
                 searchReducers,
                 straatbeeldReducers,
+                dataSelectionReducers,
                 printReducers
             );
 

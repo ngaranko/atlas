@@ -1,0 +1,17 @@
+<div ng-if="!vm.hideEverything">
+    <button class="c-toggle-active-overlays" ng-click="vm.toggle()">
+        {{vm.buttonText}}
+
+        <img class="c-toggle-active-overlays__icon"
+             ng-class="{'c-toggle-active-overlays__icon--mirrored': vm.showActiveOverlays}"
+             src="assets/icons/link-hover.svg" alt="">
+    </button>
+
+    <div ng-if="vm.showActiveOverlays" class="c-active-overlays">
+        <dp-active-overlays-item ng-repeat="overlay in vm.overlays | orderBy: '-' track by overlay.id"
+            overlay="{{overlay.id}}"
+            is-visible="overlay.isVisible"
+            zoom="vm.zoom">
+        </dp-active-overlays-item>
+    </div>
+</div>

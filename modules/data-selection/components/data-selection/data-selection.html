@@ -1,0 +1,33 @@
+<div class="u-grid">
+    <div class="u-row">
+        <div class="u-col-sm--2">
+            <dp-data-selection-filters
+                dataset="{{vm.state.dataset}}"
+                available-filters="vm.availableFilters"
+                active-filters="vm.state.filters"
+                is-loading="vm.isLoading">
+
+            </dp-data-selection-filters>
+        </div>
+        <div class="u-col-sm--10">
+            <dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>
+
+            <div ng-if="!vm.isLoading">
+                <dp-data-selection-download-button
+                    dataset="{{vm.state.dataset}}"
+                    active-filters="vm.state.filters">
+
+                </dp-data-selection-download-button>
+
+                <dp-data-selection-table
+                    content="vm.tableData">
+
+                </dp-data-selection-table>
+
+                <dp-data-selection-pagination current-page="vm.currentPage" number-of-pages="vm.numberOfPages">
+
+                </dp-data-selection-pagination>
+            </div>
+        </div>
+    </div>
+</div>

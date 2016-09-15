@@ -9,6 +9,7 @@
                 zoom: 9,
                 highlight: null,
                 showLayerSelection: false,
+                showActiveOverlays: false,
                 isFullscreen: false,
                 isLoading: false
             },
@@ -46,7 +47,18 @@
                 },
                 hotspots: [],
                 isLoading: false
-            }
+            },
+            */
+            dataSelection: null,
+            /*
+            dataSelection: {
+                dataset: 'bag',
+                filters: {
+                    buurtcombinatie: 'Geuzenbuurt',
+                    buurt: 'Trompbuurt'
+                },
+                page: 1
+            },
             */
             isPrintMode: false
         });

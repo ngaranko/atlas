@@ -37,6 +37,7 @@
             newState.search = null;
             newState.page = null;
             newState.straatbeeld = null;
+            newState.dataSelection = null;
 
             return newState;
         }
@@ -50,10 +51,13 @@
         function showDetailReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
-            newState.detail.geometry = payload;
+            //Detail can be null if another action gets triggered between FETCH_DETAIL and SHOW_DETAIL
+            if (angular.isObject(newState.detail)) {
+                newState.detail.geometry = payload;
 
-            newState.map.isLoading = false;
-            newState.detail.isLoading = false;
+                newState.map.isLoading = false;
+                newState.detail.isLoading = false;
+            }
 
             return newState;
         }

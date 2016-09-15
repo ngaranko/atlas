@@ -22,8 +22,6 @@
         function showHomeReducer (oldState) {
             var newState = angular.copy(DEFAULT_STATE);
 
-            newState.map.baseLayer = angular.copy(oldState.map.baseLayer);
-            newState.map.overlays = angular.copy(oldState.map.overlays);
             newState.isPrintMode = oldState.isPrintMode;
 
             return newState;

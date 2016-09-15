@@ -1,28 +1,17 @@
-/*
-This CSS is used to overrule the third party CSS of leaflet-measure. We don't own the HTML code, we just add a class to
-the parent div of leaflet-measure.
-*/
-.s-leaflet-measure {
+.leaflet-control-measure {
   @include font-size($body-font);
-  position: absolute;
-  bottom: 7px;
-  color: $primary-dark;
+}
 
-  .leaflet-control-measure-toggle {
-    width: 26px;
-    height: 26px;
-    border-radius: 0;
-    background-image: url("assets/icons/icon-measure.png");
-    color: $primary-contrast;
-  }
+.leaflet-control-measure-interaction {
+  float: right;
+  background-color: $primary-light;
 
-  .leaflet-control-measure-interaction {
-    h3 {
-      //Overruling _typography.scss
-      padding-top: 0;
-    }
+  h3 {
+    //Overruling _typography.scss
+    padding-top: 0;
   }
 }
+
 
 //This is the popup that opens when finishing a measurement
 .leaflet-measure-resultpopup {

@@ -81,7 +81,7 @@ describe('The atlas-stelselpedia-header directive', function () {
         var directive = getDirective(null, 'BOUWBLOK', false, null, null);
 
         expect(directive.find('.o-header__subtitle').text().trim()).toBe('Bouwblok');
-        expect(directive.find('.o-header__button:nth-of-type(1)').text().trim()).toBe('toon uitleg');
+        expect(directive.find('.o-header__button:nth-of-type(1)').text().trim()).toBe('Toon uitleg');
     });
 
     it('has support for plurals in the Stelselpedia label', function () {
@@ -144,7 +144,7 @@ describe('The atlas-stelselpedia-header directive', function () {
             //BOUWBLOK has metadata
             directive = getDirective(null, 'BOUWBLOK', false, metaData, null);
             expect(directive.find('.o-header__button:nth-of-type(2)').length).toBe(1);
-            expect(directive.find('.o-header__button:nth-of-type(2)').text().trim()).toBe('toon metadata');
+            expect(directive.find('.o-header__button:nth-of-type(2)').text().trim()).toBe('Toon metadata');
         });
 
         it('can open a panel that loads the atlas-stelselpedia-meta directive', function () {

@@ -15,6 +15,9 @@ describe('The dp-map directive', function () {
         angular.mock.module(
             'dpMap',
             {
+                store: {
+                    dispatch: function () {}
+                },
                 mapConfig: {
                     MAP_OPTIONS: {
                         doThisThing: false,
@@ -42,8 +45,17 @@ describe('The dp-map directive', function () {
                     initialize: function () {}
                 }
             },
+
             function ($provide) {
                 $provide.factory('dpLinkDirective', function () {
+                    return {};
+                });
+
+                $provide.factory('dpToggleLayerSelectionDirective', function () {
+                    return {};
+                });
+
+                $provide.factory('dpActiveOverlaysDirective', function () {
                     return {};
                 });
 
@@ -82,7 +94,6 @@ describe('The dp-map directive', function () {
         spyOn(layers, 'setBaseLayer');
         spyOn(layers, 'addOverlay');
         spyOn(layers, 'removeOverlay');
-
         spyOn(highlight, 'initialize');
         spyOn(highlight, 'add');
         spyOn(highlight, 'remove');
@@ -119,8 +130,9 @@ describe('The dp-map directive', function () {
         scope.markers = markers;
 
         directive = $compile(element)(scope);
-        scope.$apply();
 
+        scope.$apply();    
+        
         if (angular.isUndefined(useRootScopeApply) || useRootScopeApply) {
             $rootScope.$apply();
         }
@@ -176,8 +188,9 @@ describe('The dp-map directive', function () {
 
     describe('has overlays which', function () {
         it('can be added on initialization', function () {
-            mockedMapState.overlays = ['some_overlay'];
+            mockedMapState.overlays = [{id: 'some_overlay', isVisible: true}];
             getDirective(mockedMapState, []);
+            
             expect(layers.addOverlay).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', 'some_overlay');
         });
 
@@ -185,7 +198,8 @@ describe('The dp-map directive', function () {
             getDirective(mockedMapState, []);
             expect(layers.addOverlay).not.toHaveBeenCalled();
 
-            mockedMapState.overlays = ['some_overlay', 'some_other_overlay'];
+            mockedMapState.overlays = [{id:'some_overlay', isVisible: true},
+                                        {id: 'some_other_overlay', isVisible: true}];
             $rootScope.$apply();
 
             expect(layers.addOverlay).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', 'some_overlay');
@@ -193,7 +207,8 @@ describe('The dp-map directive', function () {
         });
 
         it('can be removed when the mapState changes', function () {
-            mockedMapState.overlays = ['some_overlay', 'some_other_overlay'];
+            mockedMapState.overlays = [{id:'some_overlay', isVisible: true},
+                                        {id: 'some_other_overlay', isVisible: true}];
             getDirective(mockedMapState, []);
 
             expect(layers.removeOverlay).not.toHaveBeenCalled();
@@ -203,6 +218,18 @@ describe('The dp-map directive', function () {
 
             expect(layers.removeOverlay).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', 'some_overlay');
             expect(layers.removeOverlay).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', 'some_other_overlay');
+        });
+        it('can be removed when isVisible changes', function () {
+            mockedMapState.overlays = [{id:'some_overlay', isVisible: true},
+                                        {id: 'some_other_overlay', isVisible: true}];
+            getDirective(mockedMapState, []);
+
+            mockedMapState.overlays = [{id:'some_overlay', isVisible: false},
+                                        {id: 'some_other_overlay', isVisible: true}];
+            $rootScope.$apply();
+
+            expect(layers.removeOverlay).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', 'some_overlay');
+            expect(layers.removeOverlay).not.toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', 'some_other_overlay');
         });
     });
 

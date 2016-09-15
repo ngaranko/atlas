@@ -29,15 +29,16 @@ describe('The map reducers', function () {
             var inputState = angular.copy(defaultState),
                 output;
 
-            expect(inputState.map.overlays.length).toBe(0);
-
             output = mapReducers.MAP_ADD_OVERLAY(inputState, 'meetbouten');
             expect(output.map.overlays.length).toBe(1);
-            expect(output.map.overlays[0]).toBe('meetbouten');
+            expect(output.map.overlays[0].isVisible).toBe(true);
+            expect(output.map.overlays[0].id).toBe('meetbouten');
 
             output = mapReducers.MAP_ADD_OVERLAY(output, 'parkeren');
+            expect(output.map.overlays[1].isVisible).toBe(true);
+            expect(output.map.overlays[1].id).toBe('parkeren');
+
             expect(output.map.overlays.length).toBe(2);
-            expect(output.map.overlays[1]).toBe('parkeren');
         });
     });
 
@@ -46,23 +47,83 @@ describe('The map reducers', function () {
             var inputState = angular.copy(defaultState),
                 output;
 
-            inputState.map.overlays = ['overlay_1', 'overlay_2', 'overlay_3'];
+            inputState.map.overlays = [
+                {
+                    id: 'overlay_1',
+                    isVisible: true
+                }, {
+                    id: 'overlay_2',
+                    isVisible: true
+                }, {
+                    id: 'overlay_3',
+                    isVisible: true
+                }];
 
             output = mapReducers.MAP_REMOVE_OVERLAY(inputState, 'overlay_2');
-            expect(output.map.overlays).toEqual(['overlay_1', 'overlay_3']);
+            expect(output.map.overlays).toEqual([
+                {id: 'overlay_1', isVisible: true},
+                {id: 'overlay_3', isVisible: true}
+            ]);
         });
 
         it('will always keep the overlays state property an array (instead of null)', function () {
             var inputState = angular.copy(defaultState),
                 output;
 
-            inputState.map.overlays = ['parkeren'];
+            inputState.map.overlays = [{id: 'parkeren', isVisible: true}];
 
             output = mapReducers.MAP_REMOVE_OVERLAY(inputState, 'parkeren');
             expect(output.map.overlays).toEqual([]);
         });
     });
+    describe('MAP_TOGGILE_VISIBILITY', function() {
+        it('hides an overlay', function() {
+            var inputState = angular.copy(defaultState),
+                output;
 
+            inputState.map.overlays = [
+                {
+                    id: 'overlay_1',
+                    isVisible: true
+                }, {
+                    id: 'overlay_2',
+                    isVisible: true
+                }, {
+                    id: 'overlay_3',
+                    isVisible: true
+                }];
+
+            output = mapReducers.MAP_TOGGLE_VISIBILITY_OVERLAY(inputState, 'overlay_2');
+            expect(output.map.overlays).toEqual([
+                {id: 'overlay_1', isVisible: true},
+                {id: 'overlay_2', isVisible: false},
+                {id: 'overlay_3', isVisible: true}
+            ]);
+        });
+        it('hides an overlay', function() {
+            var inputState = angular.copy(defaultState),
+                output;
+
+            inputState.map.overlays = [
+                {
+                    id: 'overlay_1',
+                    isVisible: false
+                }, {
+                    id: 'overlay_2',
+                    isVisible: true
+                }, {
+                    id: 'overlay_3',
+                    isVisible: true
+                }];
+
+            output = mapReducers.MAP_TOGGLE_VISIBILITY_OVERLAY(inputState, 'overlay_1');
+            expect(output.map.overlays).toEqual([
+                {id: 'overlay_1', isVisible: true},
+                {id: 'overlay_2', isVisible: true},
+                {id: 'overlay_3', isVisible: true}
+            ]);
+        });
+    });
     describe('MAP_PAN', function () {
         it('updates the viewCenter', function () {
             var inputState = angular.copy(defaultState),
@@ -127,6 +188,17 @@ describe('The map reducers', function () {
             //Disable fullscreen
             output = mapReducers.MAP_FULLSCREEN(inputState, false);
             expect(output.map.isFullscreen).toBe(false);
+        });
+
+        it('when enabling fullscreen, the layer selection will be disabled', function () {
+            var inputState = angular.copy(defaultState),
+                output;
+
+            inputState.map.showLayerSelection = true;
+
+            //Enable fullscreen
+            output = mapReducers.MAP_FULLSCREEN(inputState, true);
+            expect(output.map.showLayerSelection).toBe(false);
         });
     });
 });
