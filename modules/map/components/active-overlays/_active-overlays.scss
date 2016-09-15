@@ -36,8 +36,7 @@
   bottom: 1px;
   left: 1px;
   width: 320px;
-  max-height: 80%;
-  padding: $base-whitespace;
+  height: 80%;
   border-width: 1px 1px $button-size 0;
   border-style: solid;
   border-top-color: $secondary-gray40;
@@ -45,5 +44,30 @@
   border-bottom-color: $primary-light;
   background-color: $primary-light;
   z-index: 2;
+}
+
+.c-active-overlays__close {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: $button-size;
+  height: $button-size;
+}
+
+.c-active-overlays__close__icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: $button-size;
+  height: $button-size;
+}
+
+.c-active-overlays__scrollable {
+  position: absolute;
+  top: $button-size;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 0 $base-whitespace $base-whitespace;
   overflow-y: auto;
 }
