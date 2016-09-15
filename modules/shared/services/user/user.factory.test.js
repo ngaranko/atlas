@@ -2,21 +2,28 @@ describe('The user factory', function () {
     var $http,
         $httpBackend,
         $httpParamSerializer,
+        $intervalSpy,
         user,
         httpPostHeaders,
         httpPostLoginData,
-        httpPostLogoutData;
+        httpPostRefreshData,
+        dummyPromise;
 
     beforeEach(function () {
+        dummyPromise = 'dummyPromise';
+        $intervalSpy = jasmine.createSpy('$interval', {cancel:function(){}}).and.returnValue(dummyPromise);
+
         angular.mock.module(
             'dpShared',
             {
                 environment: {
-                    OAUTH_ROOT: 'http://atlas.amsterdam.nl/auth/'
+                    AUTH_ROOT: 'http://atlas.amsterdam.nl/authenticatie/'
                 }
             },
             function ($provide) {
-                $provide.constant('CLIENT_ID', 'I_AM_THE_CLIENT_ID');
+                $provide.factory('$interval', function () {
+                    return $intervalSpy;
+                });
             }
         );
 
@@ -38,18 +45,17 @@ describe('The user factory', function () {
         httpPostLoginData = $httpParamSerializer(
             {
                 username: 'Erik',
-                password: 'mysecretpwd',
-                client_id: 'I_AM_THE_CLIENT_ID',
-                grant_type: 'password'
+                password: 'mysecretpwd'
             }
         );
 
-        httpPostLogoutData = $httpParamSerializer(
+        httpPostRefreshData = $httpParamSerializer(
             {
-                token: 'ERIKS_ACCESS_TOKEN',
-                client_id: 'I_AM_THE_CLIENT_ID'
+                token: 'ERIKS_ACCESS_TOKEN'
             }
         );
+
+        spyOn($intervalSpy, 'cancel');
     });
 
     afterEach(function () {
@@ -61,16 +67,17 @@ describe('The user factory', function () {
         expect(user.getStatus()).toEqual({
             username: null,
             accessToken: null,
-            isLoggedIn: false
+            isLoggedIn: false,
+            keepLoggedIn: false
         });
     });
 
     describe('can attempt to login', function () {
         it('successfully', function () {
             $httpBackend
-                .expectPOST('http://atlas.amsterdam.nl/auth/token/', httpPostLoginData, httpPostHeaders)
+                .expectPOST('http://atlas.amsterdam.nl/authenticatie/token/', httpPostLoginData, httpPostHeaders)
                 .respond({
-                    access_token: 'ERIKS_ACCESS_TOKEN'
+                    token: 'ERIKS_ACCESS_TOKEN'
                 });
 
             user.login('Erik', 'mysecretpwd');
@@ -79,17 +86,82 @@ describe('The user factory', function () {
             expect(user.getStatus()).toEqual({
                 username: 'Erik',
                 accessToken: 'ERIKS_ACCESS_TOKEN',
-                isLoggedIn: true
+                isLoggedIn: true,
+                keepLoggedIn: true
+            });
+
+            //  expect interval to be set.
+            expect($intervalSpy).toHaveBeenCalledWith(user.refreshToken, 270000);
+        });
+
+        describe('and then the token to be refreshed', function () {
+            it('with success', function () {
+                $httpBackend
+                    .expectPOST('http://atlas.amsterdam.nl/authenticatie/token/', httpPostLoginData, httpPostHeaders)
+                    .respond({
+                        token: 'ERIKS_ACCESS_TOKEN'
+                    });
+
+                user.login('Erik', 'mysecretpwd');
+                $httpBackend.flush();
+
+                $httpBackend
+                    .expectPOST('http://atlas.amsterdam.nl/authenticatie/refresh/',
+                        httpPostRefreshData,
+                        httpPostHeaders)
+                    .respond({
+                        token: 'ERIKS_BRAND_NEW_TOKEN'
+                    });
+
+                user.refreshToken();
+                $httpBackend.flush();
+
+                expect(user.getStatus()).toEqual({
+                    username: 'Erik',
+                    accessToken: 'ERIKS_BRAND_NEW_TOKEN',
+                    isLoggedIn: true,
+                    keepLoggedIn: true
+                });
+            });
+
+            it('and gracefull failover', function () {
+                $httpBackend
+                    .expectPOST('http://atlas.amsterdam.nl/authenticatie/token/', httpPostLoginData, httpPostHeaders)
+                    .respond({
+                        token: 'ERIKS_ACCESS_TOKEN'
+                    });
+
+                user.login('Erik', 'mysecretpwd');
+                $httpBackend.flush();
+
+                $httpBackend
+                    .expectPOST('http://atlas.amsterdam.nl/authenticatie/refresh/',
+                        httpPostRefreshData,
+                        httpPostHeaders)
+                    .respond(400);
+
+                user.refreshToken();
+                $httpBackend.flush();
+
+                expect(user.getStatus()).toEqual({
+                    username: null,
+                    accessToken: null,
+                    isLoggedIn: false,
+                    keepLoggedIn: false
+                });
+
+                //  expect interval to be cancelled
+                expect($intervalSpy.cancel).toHaveBeenCalledWith(dummyPromise);
             });
         });
 
         describe('and fail by throwing an error with an error message', function () {
-            it('401 - Unauthorized', function () {
+            it('400 - Bad request', function () {
                 var errorMessage;
 
                 $httpBackend
-                    .expectPOST('http://atlas.amsterdam.nl/auth/token/', httpPostLoginData, httpPostHeaders)
-                    .respond(401);
+                    .expectPOST('http://atlas.amsterdam.nl/authenticatie/token/', httpPostLoginData, httpPostHeaders)
+                    .respond(400);
 
                 user
                     .login('Erik', 'mysecretpwd')
@@ -105,7 +177,7 @@ describe('The user factory', function () {
                 var errorMessage;
 
                 $httpBackend
-                    .expectPOST('http://atlas.amsterdam.nl/auth/token/', httpPostLoginData, httpPostHeaders)
+                    .expectPOST('http://atlas.amsterdam.nl/authenticatie/token/', httpPostLoginData, httpPostHeaders)
                     .respond(404);
 
                 user
@@ -122,7 +194,7 @@ describe('The user factory', function () {
                 var errorMessage;
 
                 $httpBackend
-                    .expectPOST('http://atlas.amsterdam.nl/auth/token/', httpPostLoginData, httpPostHeaders)
+                    .expectPOST('http://atlas.amsterdam.nl/authenticatie/token/', httpPostLoginData, httpPostHeaders)
                     .respond(408, null, null, 'Duurt te lang, ga ik niet op wachten');
 
                 user
@@ -141,9 +213,8 @@ describe('The user factory', function () {
 
     it('can logout', function () {
         //Login first
-        $httpBackend.expectPOST('http://atlas.amsterdam.nl/auth/token/', httpPostLoginData, httpPostHeaders).respond({
-            access_token: 'ERIKS_ACCESS_TOKEN'
-        });
+        $httpBackend.expectPOST('http://atlas.amsterdam.nl/authenticatie/token/', httpPostLoginData, httpPostHeaders)
+            .respond({token: 'ERIKS_ACCESS_TOKEN'});
 
         user.login('Erik', 'mysecretpwd');
         $httpBackend.flush();
@@ -151,21 +222,21 @@ describe('The user factory', function () {
         expect(user.getStatus()).toEqual({
             username: 'Erik',
             accessToken: 'ERIKS_ACCESS_TOKEN',
-            isLoggedIn: true
+            isLoggedIn: true,
+            keepLoggedIn: true
         });
 
         //Now logout
-        $httpBackend
-            .expectPOST('http://atlas.amsterdam.nl/auth/revoke_token/', httpPostLogoutData, httpPostHeaders)
-            .respond(200);
-
         user.logout();
-        $httpBackend.flush();
 
         expect(user.getStatus()).toEqual({
             username: null,
             accessToken: null,
-            isLoggedIn: false
+            isLoggedIn: false,
+            keepLoggedIn: false
         });
+
+        //  expect interval to be cancelled
+        expect($intervalSpy.cancel).toHaveBeenCalledWith(dummyPromise);
     });
 });
