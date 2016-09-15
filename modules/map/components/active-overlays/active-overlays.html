@@ -1,15 +1,15 @@
 <div ng-if="!vm.hideEverything">
-    <button class="c-toggle-active-overlays" ng-click="vm.toggle()">
+    <button class="c-toggle-active-overlays" ng-click="vm.toggle()" title="{{vm.buttonTitle}}">
         Legenda
 
         <img class="c-toggle-active-overlays__icon"
              ng-class="{'c-toggle-active-overlays__icon--mirrored': vm.showActiveOverlays}"
-             src="assets/icons/link-hover.svg" alt="">
+             src="assets/icons/link-hover.svg" alt="{{vm.buttonTitle}}">
     </button>
 
     <div ng-if="vm.showActiveOverlays" class="c-active-overlays">
-        <dp-link type="HIDE_ACTIVE_OVERLAYS" class-name="c-active-overlays__close">
-            <img class="c-active-overlays__close__icon" src="assets/icons/close-hover.svg" alt="Sluiten">
+        <dp-link type="HIDE_ACTIVE_OVERLAYS" class-name="c-active-overlays__close" hover-text="{{vm.buttonTitle}}">
+            <img class="c-active-overlays__close__icon" src="assets/icons/close-hover.svg" alt="{{vm.buttonTitle}}">
         </dp-link>
 
         <div class="c-active-overlays__scrollable">

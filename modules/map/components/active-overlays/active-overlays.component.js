@@ -14,9 +14,9 @@
             controllerAs: 'vm'
         });
 
-    DpActiveOverlaysController.$inject = ['$scope', 'OVERLAYS', 'store', 'ACTIONS'];
+    DpActiveOverlaysController.$inject = ['$scope', 'store', 'ACTIONS'];
 
-    function DpActiveOverlaysController ($scope, OVERLAYS, store, ACTIONS) {
+    function DpActiveOverlaysController ($scope, store, ACTIONS) {
         var vm = this;
 
         vm.toggle = function () {
@@ -27,6 +27,10 @@
 
         $scope.$watchCollection('vm.overlays', function () {
             vm.hideEverything = vm.overlays.length === 0;
+        });
+
+        $scope.$watch('vm.showActiveOverlays', function () {
+            vm.buttonTitle = vm.showActiveOverlays ? 'Legenda sluiten' : 'Legenda openen';
         });
     }
 })();
