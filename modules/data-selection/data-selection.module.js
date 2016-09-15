@@ -3,6 +3,7 @@
 
     angular
         .module('dpDataSelection', [
+            'ngAria',
             'dpShared'
         ]);
 })();
