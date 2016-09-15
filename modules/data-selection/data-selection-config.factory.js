@@ -3,10 +3,33 @@
 
     angular
         .module('dpDataSelection')
-        .constant('DATA_SELECTION_CONFIG', {
+        .factory('dataSelectionConfig', dataSelectionConfigFactory);
+
+    dataSelectionConfigFactory.$inject = ['environment'];
+
+    function dataSelectionConfigFactory (environment) {
+        var globalConfig,
+            envConfig;
+
+        envConfig = {
+            DEVELOPMENT: {
+                bag: {
+                    ENDPOINT_PREVIEW: 'https://api-acc.datapunt.amsterdam.nl/zelfbediening/bag/',
+                    ENDPOINT_EXPORT: 'https://api-acc.datapunt.amsterdam.nl/zelfbediening/bag/export/',
+                    ENDPOINT_DETAIL: 'https://api-acc.datapunt.amsterdam.nl/bag/nummeraanduiding/'
+                }
+            },
+            PRODUCTION: {
+                bag: {
+                    ENDPOINT_PREVIEW: 'https://api.datapunt.amsterdam.nl/zelfbediening/bag/',
+                    ENDPOINT_EXPORT: 'https://api.datapunt.amsterdam.nl/zelfbediening/bag/export/',
+                    ENDPOINT_DETAIL: 'https://api.datapunt.amsterdam.nl/bag/nummeraanduiding/'
+                }
+            }
+        };
+        globalConfig = {
             bag: {
-                ENDPOINT: 'https://api-acc.datapunt.amsterdam.nl/zelfbediening/bag/',
-                ENDPOINT_EXPORT: 'https://api-acc.datapunt.amsterdam.nl/zelfbediening/bag/export/',
+                PRIMARY_KEY: 'id',
                 FILTERS: [
                     {
                         slug: 'stadsdeel_naam',
@@ -83,5 +106,7 @@
                     }
                 ]
             }
-        });
+        };
+        return angular.merge(globalConfig, envConfig[environment.NAME]);
+    }
 })();
