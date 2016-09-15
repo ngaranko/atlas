@@ -22,7 +22,7 @@
             userState = user.getStatus();
 
             if (userState.isLoggedIn) {
-                headers.Authorization = 'Bearer ' + userState.accessToken;
+                headers.Authorization = 'JWT ' + userState.accessToken;
             }
 
             return $http({
