@@ -88,6 +88,23 @@ describe('The dp-active-overlays-item component', function () {
         expect(component.find('img').length).toBe(1);
     });
 
+    it('shows a message for visibile layers that have no legend', function () {
+        var component,
+            expectedMessage = '(geen legenda)';
+
+        //Invisible manually: don't show the message
+        component = getComponent('overlay_without_legend', false, 8);
+        expect(component.text()).not.toContain(expectedMessage);
+
+        //Invisible through zoom: don't show the message
+        component = getComponent('overlay_without_legend', true, 11);
+        expect(component.text()).not.toContain(expectedMessage);
+
+        //Visible overlay; show the message
+        component = getComponent('overlay_without_legend', true, 8);
+        expect(component.text()).toContain(expectedMessage);
+    });
+
     it('shows a message for hidden overlays caused by the zoom level', function () {
         var component,
             i;
