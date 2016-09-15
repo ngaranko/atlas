@@ -15,6 +15,14 @@
   line-height: $button-size;
 }
 
+.c-layer-selection__heading__close {
+  position: absolute;
+  top: 0;
+  right: -1px;
+  width: $button-size;
+  height: $button-size;
+}
+
 .c-layer-selection__heading__icon {
   position: absolute;
   top: 0;
