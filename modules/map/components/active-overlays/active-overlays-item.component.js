@@ -27,17 +27,19 @@
         }, updateVisibility);
 
         function updateVisibility () {
+            vm.isOverlayVisible = vm.isVisible && isVisibleAtCurrentZoom(vm.overlay, vm.zoom);
+
             if (vm.hasLegend) {
                 vm.legendImageSrc = getLegendImageSrc(vm.overlay);
             }
 
             if (vm.isVisible && !isVisibleAtCurrentZoom(vm.overlay, vm.zoom)) {
                 vm.overlayMessage = 'Zichtbaar bij verder zoomen';
+            } else if (vm.isOverlayVisible && !vm.hasLegend) {
+                vm.overlayMessage = '(geen legenda)';
             } else {
                 vm.overlayMessage = null;
             }
-
-            vm.isOverlayVisible = vm.isVisible && isVisibleAtCurrentZoom(vm.overlay, vm.zoom);
         }
 
         function getLegendImageSrc (overlay) {
