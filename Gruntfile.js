@@ -8,7 +8,6 @@ module.exports = function (grunt) {
     grunt.config.set('uniqueIdJs', shortid.generate());
     grunt.config.set('uniqueIdCss', shortid.generate());
 
-
     grunt.initConfig({
         bower_concat: require('./grunt/bower-concat'),
         clean: require('./grunt/clean'),
