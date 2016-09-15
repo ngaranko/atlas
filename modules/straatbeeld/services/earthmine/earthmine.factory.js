@@ -5,9 +5,9 @@
         .module('dpStraatbeeld')
         .factory('earthmine', earthmine);
 
-    earthmine.$inject = ['$http', 'straatbeeldConfig', 'earthmineDataFormatter'];
+    earthmine.$inject = ['$http', 'straatbeeldConfig'];
 
-    function earthmine ($http, straatbeeldConfig, earthmineDataFormatter) {
+    function earthmine ($http, straatbeeldConfig) {
         return {
             getImageDataById: getImageDataById,
             getImageDataByCoordinates: getImageDataByCoordinates,

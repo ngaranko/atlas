@@ -24,8 +24,7 @@
 
             container = element[0].querySelector('.js-marzipano-viewer');
             viewer = marzipanoService.initialize(container);
-           
-            
+
             scope.updateOrientation = function () {
                 if (!scope.state.isLoading) {
                     orientation.update(viewer);
@@ -34,16 +33,15 @@
 
             //Fetch scene
             scope.$watch('state.id', function (id) {
-                 console.log('scope.state.heading', scope.state.heading);
+
                 if (angular.isString(id)) {
                     earthmine.getImageDataById(id).then(function (earthmineData) {
-                        
+                         // TODO. Hotspots is nog steeds leeg hier, en in de Marzipano service uitgecomment.
                          marzipanoService.loadScene(
                              earthmineData['pano_id'],
                              earthmineData.images.equirectangular,
                              scope.state.heading,
-                             []
-                           
+                             [] 
                         );
                         if (scope.state.isInitial) {
                             store.dispatch({
@@ -60,8 +58,6 @@
                     });
                 }
             });
-
-           
 
             //Re-render the Marzipano viewer if the size changes (through an added parent CSS class)
             scope.$watch('isPrintMode', function () {

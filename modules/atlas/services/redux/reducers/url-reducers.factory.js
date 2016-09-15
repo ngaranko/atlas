@@ -130,10 +130,6 @@
                         date = null;
                         hotspots = [];
                     }
-
-                    if (payload.fov) {
-                        camera.fov = Number(payload.fov);
-                    }
                     
                     return {
                         id: payload.id || null,
