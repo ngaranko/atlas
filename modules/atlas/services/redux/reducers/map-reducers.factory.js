@@ -43,6 +43,10 @@
         function mapAddOverlayReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
+            if (newState.map.overlays.length === 0) {
+                newState.map.showActiveOverlays = true;
+            }
+
             newState.map.overlays.push({id: payload, isVisible: true});
 
             return newState;

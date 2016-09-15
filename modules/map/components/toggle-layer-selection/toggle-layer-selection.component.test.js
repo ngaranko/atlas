@@ -43,20 +43,6 @@ describe('The dp-toggle-layer-selection component', function () {
         return component;
     }
 
-    it('has a different styling and text depending on the number of active overlays', function () {
-        var component;
-
-        //When there are 0 active overlays
-        component = getComponent([], false);
-        expect(component.find('.c-toggle-layer-selection').attr('class')).toContain('c-toggle-layer-selection--large');
-        expect(component.find('.c-toggle-layer-selection__text').text().trim()).toBe('Wijzig kaartlagen');
-
-        //When there are 1 or more active overlays
-        component = getComponent([{id: 'my_overlay', isVisible: true}], false);
-        expect(component.find('.c-toggle-layer-selection').attr('class')).toContain('c-toggle-layer-selection--small');
-        expect(component.find('.c-toggle-layer-selection__text').text().trim()).toBe('Wijzig');
-    });
-
     it('has a toggle that can trigger both SHOW_LAYER_SELECTION and HIDE_LAYER_SELECTION', function () {
         var component;
 
