@@ -97,35 +97,6 @@ describe('The dp-active-overlays component', function () {
         });
     });
 
-    it('has meta information in the button text', function () {
-        var component,
-            scope;
-
-        component = getComponent([], 10, false);
-        scope = component.isolateScope();
-
-        //All visibile overlays
-        scope.vm.overlays = [{id: 'overlay_a', isVisible: true}];
-        scope.$apply();
-        expect(component.find('.c-toggle-active-overlays').text().trim()).toBe('Kaartlagen (1)');
-
-        //A combination of visible and invisible overlays - manually disabled
-        scope.vm.overlays = [{id: 'overlay_a', isVisible: true}, {id: 'overlay_b', isVisible: false}];
-        scope.$apply();
-        expect(component.find('.c-toggle-active-overlays').text().trim()).toBe('Kaartlagen (1/2)');
-
-        //A combination of visible and invisible overlays - caused by the zoom level
-        scope.vm.overlays = [{id: 'overlay_a', isVisible: true}, {id: 'overlay_b', isVisible: true}];
-        scope.vm.zoom = 8;
-        scope.$apply();
-        expect(component.find('.c-toggle-active-overlays').text().trim()).toBe('Kaartlagen (1/2)');
-
-        //A combination of visible and invisible overlays - some manually disabled, some caused by the zoom level
-        scope.vm.overlays = [{id: 'overlay_a', isVisible: false}, {id: 'overlay_b', isVisible: true}];
-        scope.$apply();
-        expect(component.find('.c-toggle-active-overlays').text().trim()).toBe('Kaartlagen (0/2)');
-    });
-
     it('loads the dp-active-overlays-item components in reversed order', function () {
         var component;
 
