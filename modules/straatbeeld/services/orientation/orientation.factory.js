@@ -20,6 +20,7 @@
             cameraPitch = viewer.view().pitch();
             cameraFov = viewer.view().fov();
             heading = angleConversion.radiansToDegrees(viewer.view().yaw()); 
+            
             store.dispatch({
                 type: ACTIONS.STRAATBEELD_SET_ORIENTATION,
                 payload: {

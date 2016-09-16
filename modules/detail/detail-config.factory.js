@@ -11,7 +11,10 @@
         var globalConfig,
             environmentConfig;
 
-        globalConfig = {};
+        globalConfig = {
+            RADIUS: 100
+        };
+
 
         environmentConfig = {
             DEVELOPMENT: {

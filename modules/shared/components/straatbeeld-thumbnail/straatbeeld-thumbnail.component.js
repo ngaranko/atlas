@@ -24,7 +24,7 @@
             '?lat=' + vm.location[0] +
             '&lon=' + vm.location[1] +
             '&width=240' +
-            '&radius=100';
+            '&radius=' + detailConfig.RADIUS;
 
            
         api.getByUrl(imageUrl).then(function (thumbnailData) {

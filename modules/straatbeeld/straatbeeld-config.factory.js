@@ -37,13 +37,10 @@
 
         environmentConfig = {
             DEVELOPMENT: {
-                DATA_ENDPOINT: 'https://map-acc.datapunt.amsterdam.nl/earthmine/get_panos.php',
-                TILE_ENDPOINT: 'https://map-acc.datapunt.amsterdam.nl/earthmine/tile_proxy.php',
                 PANORAMA_ENDPOINT: 'https://api-acc.datapunt.amsterdam.nl/panorama/opnamelocatie/'
         },
             PRODUCTION: {
-                DATA_ENDPOINT: 'https://map.datapunt.amsterdam.nl/earthmine/get_panos.php',
-                TILE_ENDPOINT: 'https://map.datapunt.amsterdam.nl/earthmine/tile_proxy.php'
+                PANORAMA_ENDPOINT: 'https://api-acc.datapunt.amsterdam.nl/panorama/opnamelocatie/'
             }
         };
 

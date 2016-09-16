@@ -34,7 +34,6 @@
             /*
             straatbeeld: {
                 id: 1,
-                searchLocation: null,
                 date: null,
                 car: {
                     location: [52.789, 4.123],
