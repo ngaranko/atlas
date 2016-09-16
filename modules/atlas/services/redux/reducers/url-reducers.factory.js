@@ -70,6 +70,8 @@
                 var overlays = [],
                     layers,
                     id,
+                    pitch,
+                    fov,
                     isVisible;
 
                 if (payload && payload.lagen) {
@@ -120,7 +122,7 @@
                
                 if (hasStraatbeeld(payload)) {
                     var date,
-                        hotspots;
+                        hotspots, pitch, fov;
 
                     if (oldState.straatbeeld && oldState.straatbeeld.id === payload.id) {
                         //Stuff that isn't in the URL but implicitly linked through the ID
@@ -130,14 +132,20 @@
                         date = null;
                         hotspots = [];
                     }
+
+                    pitch =  payload.pitch;
+                   
+                    if (payload.fov) {
+                        fov = payload.fov;
+                    }
                     
                     return {
                         id: payload.id || null,
-                        searchLocation:
-                            hasSearchLocation(payload) ? [Number(payload.plat), Number(payload.plon)] : null,
                         date: date,
                         hotspots: hotspots,
                         heading: oldState.straatbeeld.heading,
+                        pitch: pitch,
+                        fov: fov,
                         geometry: oldState.straatbeeld.geometry,
                         isLoading: false
                     };
@@ -146,16 +154,7 @@
                 }
 
                 function hasStraatbeeld (payload) {
-                    return payload.id || hasSearchLocation(payload);
-                }
-
-                /**
-                 * @description This is a 'search nearest straatbeeld' location, not the location of the camera of a
-                 * found panorama scene. The actual location is not stored in the URL, this is implicitly accessible
-                 * through the ID.
-                 */
-                function hasSearchLocation (payload) {
-                    return payload.plat && payload.plon;
+                    return payload.id;
                 }
             }
 

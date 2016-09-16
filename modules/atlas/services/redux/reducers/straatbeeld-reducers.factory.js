@@ -34,7 +34,7 @@
             newState.straatbeeld = newState.straatbeeld || {};
             newState.straatbeeld.id = payload.id;
             newState.straatbeeld.heading = payload.heading;
-
+           
             newState.straatbeeld.isInitial = payload.isInitial;
 
 
@@ -60,7 +60,7 @@
          * @returns {Object} newState
          */
         function showStraatbeeldReducer (oldState, payload) {
-         
+            
             var newState = angular.copy(oldState);
             
             //Straatbeeld can be null if another action gets triggered between FETCH_STRAATBEELD and SHOW_STRAATBEELD
@@ -69,13 +69,16 @@
                
                 newState.straatbeeld.searchLocation = null;
                 newState.straatbeeld.date = payload.date;
-
+                newState.pitch = payload.pitch;
+                
                 newState.straatbeeld.hotspots = payload.hotspots;
                 newState.straatbeeld.isLoading = false;
                 newState.straatbeeld.geometry = [ payload.geometrie.coordinates[1], payload.geometrie.coordinates[0] ];
 
                 newState.map.isLoading = false;
             }
+
+            newState.straatbeeld.heading = oldState.straatbeeld.heading;
             
 
             return newState;
