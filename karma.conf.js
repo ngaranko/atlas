@@ -41,6 +41,10 @@ module.exports = function (config) {
             'modules/**/!(*.test).js': ['coverage']
         },
 
+        mochaReporter: {
+            output: 'minimal'
+        },
+
         // optionally, configure the reporter
         // type can also be 'cobertura' which should be understand by Jenkins
         coverageReporter: {
