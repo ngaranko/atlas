@@ -20,14 +20,13 @@
 
         function linkFunction (scope, element) {
             var rightColumnContent = null;
-
             scope.$watch('visibility', function (visibility) {
                 if (rightColumnContent !== checkRightColumnContent(visibility)) {
                     element[0].scrollTop = 0;
 
                     rightColumnContent = checkRightColumnContent(visibility);
                 }
-            });
+            }, true);
 
             function checkRightColumnContent (visibility) {
                 var components = ['page', 'detail', 'searchResults', 'dataSelection'],
