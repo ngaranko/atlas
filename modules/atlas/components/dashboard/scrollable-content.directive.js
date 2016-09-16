@@ -23,7 +23,7 @@
 
             scope.$watch('visibility', function (visibility) {
                 if (rightColumnContent !== checkRightColumnContent(visibility)) {
-                    element.scrollTop = 0;
+                    element[0].scrollTop = 0;
 
                     rightColumnContent = checkRightColumnContent(visibility);
                 }
