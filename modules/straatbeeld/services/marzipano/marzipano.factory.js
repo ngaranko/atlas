@@ -50,44 +50,26 @@
                 pinFirstLevel: true
             });
 
-            // OUD
-            //
-            // hotspots.forEach(function (hotspot) {
-            //     hotspotService.createHotspotTemplate(hotspot.id, hotspot.distance).then(function (template) {
-            //         var position = hotspotService.calculateHotspotPosition(car, hotspot);
-
-            //         scene.hotspotContainer().createHotspot(
-            //             template,
-            //             position,
-            //             straatbeeldConfig.HOTSPOT_PERSPECTIVE
-            //         );
-            //     });
-            // });
-
+           
             
 
-
-            // VAN ERIK
-            // hotspots.sort(function (hotspotA, hotspotB) {
-            //     return hotspotB.distance - hotspotA.distance;
-            // }).forEach(function (hotspot) {
-            //     console.log(hotspot.distance);
-            //     hotspotService.createHotspotTemplate(hotspot.pano_id, hotspot.distance, hotspot.heading, hotspot.pitch).then(function (template) {
-            //         console.log(angleConversion.degreesToRadians(hotspot.pitch), angleConversion.degreesToRadians(hotspot.pitch) - Math.atan(1 / hotspot.distance));
-            //         var position = {
-            //             yaw: angleConversion.degreesToRadians(hotspot.heading),
-            //             //losse functie corrected pithc gront level ipv cametra hoogte + inverten
-            //             pitch: Math.atan(1 / hotspot.distance) - angleConversion.degreesToRadians(hotspot.pitch)
-            //         };
-
-
-            //         scene.hotspotContainer().createHotspot(
-            //             template,
-            //             position
-            //         );
-            //     });
-            // });
-
+ 
+            hotspots.sort(function (hotspotA, hotspotB) {
+                return hotspotB.distance - hotspotA.distance;
+            }).forEach(function (hotspot) {
+                hotspotService.createHotspotTemplate(hotspot.pano_id, hotspot.distance, hotspot.heading, hotspot.pitch).then(function (template) {
+                    console.log(angleConversion.degreesToRadians(hotspot.pitch), angleConversion.degreesToRadians(hotspot.pitch) - Math.atan(1 / hotspot.distance));
+                    var position = {
+                        yaw: angleConversion.degreesToRadians(hotspot.heading),
+                        //losse functie corrected pithc gront level ipv cametra hoogte + inverten
+                        pitch: Math.atan(1 / hotspot.distance) - angleConversion.degreesToRadians(hotspot.pitch)
+                    };
+                    scene.hotspotContainer().createHotspot(
+                        template,
+                         position
+                     );
+                 });
+            });
 
             view.setYaw(heading * Math.PI/180);
             scene.switchTo();

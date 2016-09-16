@@ -41,7 +41,7 @@
                              earthmineData['pano_id'],
                              earthmineData.images.equirectangular,
                              scope.state.heading,
-                             [] 
+                             earthmineData.adjacent 
                         );
                         if (scope.state.isInitial) {
                             store.dispatch({
