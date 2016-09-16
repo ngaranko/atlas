@@ -7,7 +7,9 @@ module.exports = function (config) {
     config.set({
         frameworks: ['jasmine-jquery', 'jasmine'],
         files: jsFiles,
-
+        exclude : [
+            'modules/**/piwik/piwik.run.js'
+        ],
         plugins: [
             'karma-jasmine-jquery',
             'karma-jasmine',
@@ -16,11 +18,8 @@ module.exports = function (config) {
             'karma-phantomjs-launcher'
         ],
         // possible values: OFF, ERROR, WARN, INFO, DEBUG
-        logLevel: 'DEBUG',
+        logLevel: 'ERROR',
         preprocessors: {
-            // source files, that you wanna generate coverage for
-            // do not include tests or libraries
-            // (these files will be instrumented by Istanbul)
             'modules/**/!(*.test).js': ['coverage']
         },
         mochaReporter: {
@@ -38,6 +37,7 @@ module.exports = function (config) {
                 }
             }
         },
-        browsers: ['PhantomJS']
+        browsers: ['PhantomJS'],
+        singleRun: true
     });
 };
