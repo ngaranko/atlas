@@ -55,7 +55,6 @@
                 return hotspotB.distance - hotspotA.distance;
             }).forEach(function (hotspot) {
                 hotspotService.createHotspotTemplate(hotspot.pano_id, hotspot.distance, hotspot.heading, hotspot.pitch).then(function (template) {
-                    console.log(angleConversion.degreesToRadians(hotspot.pitch), angleConversion.degreesToRadians(hotspot.pitch) - Math.atan(1 / hotspot.distance));
                     var position = {
                         yaw: angleConversion.degreesToRadians(hotspot.heading),
                         //losse functie corrected pithc gront level ipv cametra hoogte + inverten

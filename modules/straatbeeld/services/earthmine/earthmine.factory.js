@@ -5,20 +5,19 @@
         .module('dpStraatbeeld')
         .factory('earthmine', earthmine);
 
-    earthmine.$inject = ['$http', 'straatbeeldConfig'];
+    earthmine.$inject = ['$http', 'straatbeeldConfig', 'detailConfig'];
 
-    function earthmine ($http, straatbeeldConfig) {
+    function earthmine ($http, straatbeeldConfig, detailConfig) {
         return {
             getImageDataById: getImageDataById,
-            getImageDataByCoordinates: getImageDataByCoordinates,
-            getImageSourceUrl: getImageSourceUrl
+            getImageDataByCoordinates: getImageDataByCoordinates
         };
 
         function getImageDataById (id) {
            return getImageData(
                 straatbeeldConfig.PANORAMA_ENDPOINT + id + '/',
                 {
-                    radius: 100
+                    radius: detailConfig.RADIUS
                 }
             );
         }
@@ -29,7 +28,7 @@
                 {
                     lat: latitude,
                     lon: longitude,
-                    radius: 100
+                    radius: detailConfig.RADIUS
                 }
             );
         }
@@ -42,10 +41,6 @@
             }).then(function (response) {
                 return response.data; 
             });
-        }
-
-        function getImageSourceUrl (sceneId) {
-            return straatbeeldConfig.TILE_ENDPOINT + '?id=' + sceneId + '&f={f}&z={z}&x={x}&y={y}';
         }
     }
 })();

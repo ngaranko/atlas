@@ -55,7 +55,7 @@
 
         /**
          * @param {Object} oldState
-         * @param {Array} payload - formatted data from Earthmine
+         * @param {Array} payload - formatted data from mapApi
          *
          * @returns {Object} newState
          */
