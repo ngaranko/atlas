@@ -43,7 +43,8 @@
             Lees verder op stelselpedia
         </a>
 
-        <button class="o-btn--close" ng-click="vm.toggle('help')" title="Verberg uitleg"><span class="u-sr-only">Verberg uitleg</span>
+        <button class="o-btn--close" ng-click="vm.toggle('help')" title="{{vm.stelselpediaTitle}}">
+            <span class="u-sr-only">{{vm.stelselpediaTitle}}</span>
         </button>
     </div>
 
@@ -52,7 +53,8 @@
 
         <atlas-stelselpedia-meta definition="{{vm.definition}}" api-data="vm.metaData"></atlas-stelselpedia-meta>
 
-        <button class="o-btn--close" ng-click="vm.toggle('meta')" title="Verberg metadata"><span class="u-sr-only">Verberg metadata</span>
+        <button class="o-btn--close" ng-click="vm.toggle('meta')" title="{{vm.metaDataTitle}}">
+            <span class="u-sr-only">{{vm.metaDataTitle}}</span>
         </button>
     </div>
 </div>
