@@ -9,22 +9,11 @@
 
             <div ng-if="vm.numberOfResults">
                 <div ng-if="!vm.category">
-                    <div class="o-header">
-                        <h1 class="o-header__title">
-                            {{vm.numberOfResults | number}}
-                            {{vm.numberOfResults === 1 ? 'resultaat' : 'resultaten'}}
-                        </h1>
-                    </div>
-                    <h3 class="o-header__subtitle">
-                        met
-                        <span ng-if="vm.query">"<strong>{{vm.query}}</strong>"</span>
-                        <span ng-if="vm.location">locatie <strong>{{vm.location | coordinates}}</strong></span>
-                    </h3>
-                    <p>
-                        met
-                        <span ng-if="vm.query">"<strong>{{vm.query}}</strong>"</span>
-                        <span ng-if="vm.location">locatie <strong>{{vm.location | coordinates}}</strong></span>
-                    </p>
+                    <atlas-search-results-header
+                        number-of-results="vm.numberOfResults"
+                        query="{{vm.query}}"
+                        location="vm.location">
+                    </atlas-search-results-header>
 
                     <div ng-repeat="category in vm.searchResults"
                          ng-class="{
@@ -59,17 +48,16 @@
                     </div>
                 </div>
                 <div ng-if="vm.category">
-                    <div class="o-header">
-                        <h1 class="o-header__title">
-                            {{vm.numberOfResults | number}}
-                            {{vm.categoryName | lowercase}}
-                        </h1>
-                    </div>
-                    <p>
-                        met <span ng-if="vm.query">"<strong>{{vm.query}}</strong>"</span>
-                    </p>
+                    <atlas-search-results-header
+                        number-of-results="vm.numberOfResults"
+                        category="{{vm.categoryName}}"
+                        query="{{vm.query}}"
+                        location="vm.location">
+                    </atlas-search-results-header>
 
-                    <atlas-search-results-list category="vm.searchResults[0]"></atlas-search-results-list>
+                    <div class="u-margin__top--3">
+                        <atlas-search-results-list category="vm.searchResults[0]"></atlas-search-results-list>
+                    </div>
 
                     <button
                         ng-if="vm.hasLoadMore()"
@@ -85,8 +73,13 @@
             </div>
 
             <div ng-if="!vm.numberOfResults">
-                <h1 class="o-header__title u-margin__bottom--1">Geen resultaten gevonden</h1>
-                <p>Tip: maak de criteria minder specifiek (bijv. een straat i.p.v. specifiek adres)</p>
+                <atlas-search-results-header
+                    number-of-results="vm.numberOfResults"
+                    query="{{vm.query}}"
+                    location="vm.location">
+                </atlas-search-results-header>
+
+                <p class="u-margin__top--3">Tip: maak de criteria minder specifiek (bijv. een straat i.p.v. specifiek adres)</p>
             </div>
 
         </div>
