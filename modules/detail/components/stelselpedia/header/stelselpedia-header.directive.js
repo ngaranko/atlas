@@ -38,24 +38,24 @@
 
         vm.hasMetaData = angular.isDefined(vm.metaData);
 
-        vm.stelselpediaTitle = 'Toon uitleg';
-        vm.metaDataTitle = 'Toon metadata';
+        vm.stelselpediaTitle = 'Uitleg tonen';
+        vm.metaDataTitle = 'Informatie (metadata) tonen';
 
         vm.toggle = function (item) {
             isVisible[item] = !isVisible[item];
 
             if(item === 'help'){
                 if(isVisible[item]) {
-                    vm.stelselpediaTitle = 'Verberg uitleg';
+                    vm.stelselpediaTitle = 'Uitleg verbergen';
                 } else {
-                    vm.stelselpediaTitle = 'Toon uitleg';
+                    vm.stelselpediaTitle = 'Uitleg tonen';
                 }
             }
             if(item === 'meta'){
                 if(isVisible[item]) {
-                    vm.metaDataTitle = 'Verberg metadata';
+                    vm.metaDataTitle = 'Informatie (metadata) verbergen';
                 } else {
-                    vm.metaDataTitle = 'Toon metadata';
+                    vm.metaDataTitle = 'Informatie (metadata) tonen';
                 }
             }
         };
