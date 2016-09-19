@@ -34,3 +34,8 @@
     background-image: url("assets/icons/close-hover.svg");
   }
 }
+
+.s-btn--nested {
+  margin-top: $base-whitespace !important;
+  margin-bottom: $base-whitespace !important;
+}

@@ -4,25 +4,24 @@
 
 .o-header__title {
   @include font-size($l-header-font);
-  padding-top: 0 !important;
 }
 
 .o-header__subtitle {
   @include font-size($m-header-font);
 
   display: block;
-  padding-top: $base-whitespace * 2 !important;
   color: $primary-contrast;
 
   .s-indented-list & {
     @include font-size($s-header-font);
+    margin-bottom: $base-whitespace / 2 !important;
     color: $primary-dark;
   }
 }
 
 .o-header__buttongroup {
   position: absolute;
-  top: $base-whitespace * 2;
+  top: 0;
   right: 0;
 }
 
