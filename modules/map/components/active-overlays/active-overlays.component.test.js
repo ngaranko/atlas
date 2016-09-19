@@ -109,4 +109,30 @@ describe('The dp-active-overlays component', function () {
         expect(component.find('dp-active-overlays-item').eq(0).attr('overlay')).toBe('overlay_b');
         expect(component.find('dp-active-overlays-item').eq(1).attr('overlay')).toBe('overlay_a');
     });
+
+    it('the toggle button has a variable alt and title attribute value depending on the state', function () {
+        var component;
+
+        //When closed
+        component = getComponent(
+            [{id: 'overlay_a', isVisible: true}, {id: 'overlay_b', isVisible: true}],
+            10,
+            false
+        );
+        expect(component.find('.c-toggle-active-overlays').attr('title')).toBe('Legenda openen');
+        expect(component.find('.c-toggle-active-overlays img').attr('alt')).toBe('Legenda openen');
+
+        //When opened
+        component = getComponent(
+            [{id: 'overlay_a', isVisible: true}, {id: 'overlay_b', isVisible: true}],
+            10,
+            true
+        );
+        expect(component.find('.c-toggle-active-overlays').attr('title')).toBe('Legenda sluiten');
+        expect(component.find('.c-toggle-active-overlays img').attr('alt')).toBe('Legenda sluiten');
+
+        //When opened; a close icon (dp-link) is shown as well
+        expect(component.find('.c-active-overlays button').attr('title')).toBe('Legenda sluiten');
+        expect(component.find('.c-toggle-active-overlays__icon').attr('alt')).toBe('Legenda sluiten');
+    });
 });
