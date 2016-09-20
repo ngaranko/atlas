@@ -70,8 +70,6 @@
                 var overlays = [],
                     layers,
                     id,
-                    pitch,
-                    fov,
                     isVisible;
 
                 if (payload && payload.lagen) {

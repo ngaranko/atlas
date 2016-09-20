@@ -1,4 +1,4 @@
-describe('The geojson factory', function () {
+fdescribe('The geojson factory', function () {
     var geojson,
         mockedPoint,
         mockedPolygon,
@@ -13,7 +13,7 @@ describe('The geojson factory', function () {
         });
 
         mockedPoint = {
-            type: 'Points',
+            type: 'Point',
             coordinates: [100.0, 0.0]
         };
 
