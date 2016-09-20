@@ -18,7 +18,7 @@
     function DpToggleLayerSelectionController ($scope, store, ACTIONS) {
         var vm = this;
 
-        $scope.$watch('showLayerSelection', function () {
+        $scope.$watch('vm.showLayerSelection', function () {
             if (!vm.showLayerSelection) {
                 vm.buttonTitle = 'Kaartlagen selecteren';
             } else {
