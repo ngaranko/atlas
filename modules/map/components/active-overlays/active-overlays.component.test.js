@@ -132,7 +132,7 @@ describe('The dp-active-overlays component', function () {
         expect(component.find('.c-toggle-active-overlays img').attr('alt')).toBe('Legenda sluiten');
 
         //When opened; a close icon (dp-link) is shown as well
-        expect(component.find('.c-active-overlays button').attr('title')).toBe('Legenda sluiten');
-        expect(component.find('.c-toggle-active-overlays__icon').attr('alt')).toBe('Legenda sluiten');
+        expect(component.find('.c-active-overlays button').eq(0).attr('title')).toBe('Sluiten');
+        expect(component.find('.c-active-overlays__close__icon').attr('alt')).toBe('Sluiten');
     });
 });
