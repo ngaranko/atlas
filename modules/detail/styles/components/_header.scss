@@ -12,7 +12,8 @@
   display: block;
   color: $primary-contrast;
 
-  .s-indented-list & {
+  .s-indented-list &,
+  .s-indented-result & {
     @include font-size($s-header-font);
     margin-bottom: $base-whitespace / 2 !important;
     color: $primary-dark;
