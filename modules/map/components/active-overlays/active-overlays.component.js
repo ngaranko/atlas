@@ -30,7 +30,9 @@
         });
 
         $scope.$watch('vm.showActiveOverlays', function () {
-            vm.buttonTitle = vm.showActiveOverlays ? 'Legenda sluiten' : 'Legenda openen';
+            vm.buttonTitle = vm.showActiveOverlays ? 'Sluit' : 'Toon';
+
+            vm.buttonTitle += ' legenda van geselecteerde kaartlagen';
         });
     }
 })();
