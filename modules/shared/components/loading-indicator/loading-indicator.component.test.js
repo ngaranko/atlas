@@ -44,6 +44,7 @@ describe('The dp-loading-indicator', function () {
 
         expect(component.find('.c-loading-indicator').length).toBe(1);
         expect(component.find('.c-loading-indicator img').attr('src')).toBe('assets/icons/icon-spinner.gif');
+        //It's empty by design! The relevant text is shown right after the icon. Don't repeat the same text.
         expect(component.find('.c-loading-indicator img').attr('alt')).toBe('');
         expect(component.find('.c-loading-indicator').text()).toContain('Bezig met laden');
     });
