@@ -1,4 +1,4 @@
-fdescribe('Straatbeeld API Factory', function () {
+describe('Straatbeeld API Factory', function () {
 
     var straatbeeldApi,
         $http,
@@ -114,8 +114,5 @@ fdescribe('Straatbeeld API Factory', function () {
         it('fetches equirectangular image', function () {
             expect(response.image).toBe('http://example.com/example/plaatje.png');
         });
-
     });
-
-
 });

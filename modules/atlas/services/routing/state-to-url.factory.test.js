@@ -1,4 +1,4 @@
-describe('The stateToUrl factory', function () {
+fdescribe('The stateToUrl factory', function () {
     var $location,
         stateToUrl,
         mockedState;
@@ -23,7 +23,7 @@ describe('The stateToUrl factory', function () {
                 location: null,
                 category: null
             };
-
+ 
             stateToUrl.update(mockedState, false);
 
             expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
@@ -257,6 +257,7 @@ describe('The stateToUrl factory', function () {
             }));
         });
 
+
         it('can set the straatbeeld id if it\'s known', function () {
             mockedState.straatbeeld = {
                 id: 67890,
@@ -268,6 +269,8 @@ describe('The stateToUrl factory', function () {
 
             stateToUrl.update(mockedState, false);
 
+            
+            
             expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
                 id: '67890'
             }));

@@ -5,9 +5,9 @@
         .module('atlas')
         .factory('straatbeeldReducers', straatbeeldReducersFactory);
 
-    straatbeeldReducersFactory.$inject = ['ACTIONS'];
+    straatbeeldReducersFactory.$inject = ['ACTIONS', 'straatbeeldConfig'];
 
-    function straatbeeldReducersFactory (ACTIONS) {
+    function straatbeeldReducersFactory (ACTIONS, straatbeeldConfig) {
         var reducers = {};
 
         reducers[ACTIONS.FETCH_STRAATBEELD] = fetchStraatbeeldReducer;
@@ -36,19 +36,16 @@
             newState.straatbeeld.heading = payload.heading;
            
             newState.straatbeeld.isInitial = payload.isInitial;
-
-
             newState.straatbeeld.date = null;
- 
             newState.straatbeeld.hotspots = [];
             newState.straatbeeld.isLoading = true;
-
             newState.map.highlight = null;
-            newState.map.isLoading = true;
             newState.search = null;
             newState.page = null;
             newState.detail = null;
             newState.dataSelection = null;
+
+            newState.map.isLoading = true;
              
             return newState;
         }
@@ -66,17 +63,15 @@
             //Straatbeeld can be null if another action gets triggered between FETCH_STRAATBEELD and SHOW_STRAATBEELD
             if (angular.isObject(newState.straatbeeld)) {
                 newState.straatbeeld.date = payload.date;
-                newState.pitch = 0; //payload.pitch;
-                
+                newState.straatbeeld.pitch = 0;
+                newState.straatbeeld.fov =  straatbeeldConfig.DEFAULT_FOV;
                 newState.straatbeeld.hotspots = payload.hotspots;
                 newState.straatbeeld.isLoading = false;
-                newState.straatbeeld.location = [ payload.geometrie.coordinates[1], payload.geometrie.coordinates[0] ];
-
+                newState.straatbeeld.location = payload.location;
+                newState.straatbeeld.image = payload.image;
                 newState.map.isLoading = false;
             }
 
-            newState.straatbeeld.heading = oldState.straatbeeld.heading;
-            
             return newState;
         }
 

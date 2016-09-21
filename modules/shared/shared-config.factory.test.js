@@ -1,4 +1,4 @@
-fdescribe('The sharedConfig factory', function () {
+describe('The sharedConfig factory', function () {
     function prepareMocks (environmentName) {
         var sharedConfig;
 

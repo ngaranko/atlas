@@ -5,7 +5,12 @@ describe('Straatbeeld reducers factory', function () {
         ACTIONS;
 
     beforeEach(function () {
-        angular.mock.module('atlas');
+        angular.mock.module('atlas', {
+             straatbeeldConfig: {
+                DEFAULT_FOV: 80
+            }
+        });
+
         angular.mock.inject(function (_straatbeeldReducers_, _DEFAULT_STATE_, _ACTIONS_) {
             straatbeeldReducers = _straatbeeldReducers_;
             inputState = angular.copy(_DEFAULT_STATE_);
@@ -15,21 +20,25 @@ describe('Straatbeeld reducers factory', function () {
     });
 
 
-    fdescribe('FETCH_STRAATBEELD', function () {
+    describe('FETCH_STRAATBEELD', function () {
         var payload = {
             'panoId': 'ABC',
             'heading': 123,
             'isInitial': true
         };
+
         it('Set INITIAL panoId, heading, isInitial', function () {
             inputState.straatbeeld = null;
             var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD](inputState, payload);
             expect(newState.straatbeeld).toEqual(jasmine.objectContaining(payload));
         });
-        it('Sets loading indication', function () {
+
+        it('Sets loading indication for map and straatbeeld', function () {
             var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD](inputState, payload);
             expect(newState.straatbeeld.isLoading).toBe(true);
+            expect(newState.map.isLoading).toBe(true);
         });
+
         it('resets detail information', function () {
             inputState.detail = {
                 endpoint: 'bag/verblijfsobject/123/',
@@ -40,6 +49,7 @@ describe('Straatbeeld reducers factory', function () {
             var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD](inputState, payload);
             expect(newState.detail).toBeNull();
         });
+
         it('resets search results', function () {
             inputState.search = {
                 query: 'linnaeus',
@@ -47,17 +57,80 @@ describe('Straatbeeld reducers factory', function () {
 
             var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD](inputState, payload);
             expect(newState.search).toBeNull();
-
         });
+              
     });
 
-    describe('SHOW_STRAATBEELD', function() {
-        it('Sets loading to false', function() {
+    describe('SHOW_STRAATBEELD', function () {
+        var payload = {
+            date: new Date('2016-05-19T13:04:15.341110Z'),
+            hotspots: [{
+                panoId: 'ABC',
+                heading: 179,
+                distance: 3
+            }],
+            location: [52, 4],
+            image: 'http://example.com/example/bla.png'
+        };
 
+        beforeEach(function() {
+            inputState.straatbeeld = {
+                isLoading: true, 
+                panoId: 'ABC',
+                heading: 123,
+                isInitial: true
+            };
+            
+            inputState.detail = null;
         });
         
+
+        it('Adds the payload to the state',function() {
+            var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
+            
+            expect(newState.straatbeeld).toEqual(jasmine.objectContaining({
+                date: new Date('2016-05-19T13:04:15.341110Z'),
+                hotspots: [{
+                    panoId: 'ABC',
+                    heading: 179,
+                    distance: 3
+                }],
+                location: [52, 4],
+                image: 'http://example.com/example/bla.png'
+            }));
+        });
+
+        it('set Pitch to 0', function() {
+            var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
+            expect(newState.straatbeeld.pitch).toBe(0);
+        });
+
+        it('do not overwrite isLoading, panoId, heading, isInitial', function(){
+            var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
+            expect(newState.straatbeeld).toEqual(jasmine.objectContaining({
+                isLoading: false, 
+                panoId: 'ABC',
+                heading: 123,
+                isInitial: true
+            }));
+        });
+
+        it('Sets loading to false', function () {
+             var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
+             expect(newState.straatbeeld.isLoading).toBe(false);
+             expect(newState.map.isLoading).toBe(false);
+        });
+
+        it('sets FOV to DEFAULT_FOV', function() {
+            var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
+            expect(newState.straatbeeld.fov).toBe(80);
+        });
+
+           it('does nothing when straatbeeld is null', function() {
+            inputState.straatbeeld = null;
+            var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
+            
+            expect(newState.straatbeeld).toBeNull();
+        });
     });
-
-     
-
 });

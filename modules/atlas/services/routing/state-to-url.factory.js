@@ -82,18 +82,20 @@
         }
 
         function getStraatbeeldParams(state) {
+            
+
 
             var params = {};
+            
             if (state.straatbeeld) {
                 params.id = state.straatbeeld.id;
                 params.heading = String(state.straatbeeld.heading);
-            }
-            params.pitch = String(state.straatbeeld.pitch);
-
-            if (state.straatbeeld.fov) {
+                params.pitch = String(state.straatbeeld.pitch);
                 params.fov = String(state.straatbeeld.fov);
+                
             }
-            
+
+                    
             return params;
         }
 

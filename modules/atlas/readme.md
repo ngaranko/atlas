@@ -14,11 +14,13 @@
 | pagina              | page                            | yes, see DEFAULT_STATE |
 | detail              | detail.uri                      | no, detail is null     |
 |                     | detail.isLoading                | no, detail is null     |
-| id                  | straatbeeld.id                  | no                     |
+| id                  | straatbeeld.panoId              | no                     |
 |                     | straatbeeld.date                | no                     |
-|                     | straatbeeld.camera.location     | no                     |
-| heading             | straatbeeld.heading      | no                     |
-| pitch               | straatbeeld.pitch        | no                     |
-| fov                 | straatbeeld.fov          | no                     |
+|                     | straatbeeld.location            | no                     |
+| heading             | straatbeeld.heading             | no                     |
+| pitch               | straatbeeld.pitch               | no                     |
+| fov                 | straatbeeld.fov                 | no                     |
 |                     | straatbeeld.hotspots            | no, []                 |
 |                     | straatbeeld.isLoading           | no                     |
+|                     | straatbeeld.image               | no                     |
+|                     | straatbeeld.isInitial           | no                     |
