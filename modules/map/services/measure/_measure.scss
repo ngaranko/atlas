@@ -5,20 +5,10 @@
 .leaflet-control-measure-interaction {
   float: right;
   background-color: $primary-light;
-
-  h3 {
-    //Overruling _typography.scss
-    padding-top: 0;
-  }
 }
 
 
 //This is the popup that opens when finishing a measurement
 .leaflet-measure-resultpopup {
   @include font-size($body-font);
-
-  h3 {
-    //Overruling _typography.scss
-    padding-top: 0;
-  }
 }
