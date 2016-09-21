@@ -614,24 +614,12 @@ describe('The atlas-search-results component', function () {
             //Without indenting
             [0, 2, 3, 4].forEach(function (categoryIndex) {
                 expect(component.find('[ng-repeat="category in vm.searchResults"]').eq(categoryIndex).attr('class'))
-                    .toContain('u-margin__top--2');
-
-                expect(component.find('[ng-repeat="category in vm.searchResults"]').eq(categoryIndex).attr('class'))
-                    .not.toContain('u-margin__top--1');
-
-                expect(component.find('[ng-repeat="category in vm.searchResults"]').eq(categoryIndex).attr('class'))
-                    .not.toContain('u-margin__left--3');
+                    .not.toContain('s-indented-result');
             });
 
             //With indenting
             expect(component.find('[ng-repeat="category in vm.searchResults"]').eq(1).attr('class'))
-                .toContain('u-margin__left--3');
-
-            expect(component.find('[ng-repeat="category in vm.searchResults"]').eq(1).attr('class'))
-                .toContain('u-margin__top--1');
-
-            expect(component.find('[ng-repeat="category in vm.searchResults"]').eq(1).attr('class'))
-                .not.toContain('u-margin__top--2');
+                .toContain('s-indented-result');
         });
 
         it('has more link support', function () {

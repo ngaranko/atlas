@@ -25,9 +25,6 @@
       font-size: nth($fs-font-size, 2);
       @if (length($fs-font-size) > 2) {
         line-height: nth($fs-font-size, 3);
-        @if (length($fs-font-size) > 3) {
-          padding-top: nth($fs-font-size, 4);
-        }
       }
     }
   } @else {
