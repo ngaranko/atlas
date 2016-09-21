@@ -52,14 +52,14 @@ describe('The atlas-search-results-header component', function () {
         var component = getComponent(45, 'westerpark', null, null);
 
         expect(component.find('h1').text()).toContain('45 resultaten');
-        expect(component.find('h2').text()).toContain('"westerpark"');
+        expect(component.find('p').text()).toContain('"westerpark"');
     });
 
     it('can show the number of search results when searching by location', function () {
         var component = getComponent(46, null, [52.123, 4.789], null);
 
         expect(component.find('h1').text()).toContain('46 resultaten');
-        expect(component.find('h2').text()).toContain('X, Y (52.123, 4.789)');
+        expect(component.find('p').text()).toContain('X, Y (52.123, 4.789)');
     });
 
     it('can show the number of search results for a specific category (query search only)', function () {
@@ -67,7 +67,7 @@ describe('The atlas-search-results-header component', function () {
 
         //The category name will be converted to lowercase
         expect(component.find('h1').text()).toContain('47 adressen');
-        expect(component.find('h2').text()).toContain('"westerpark"');
+        expect(component.find('p').text()).toContain('"westerpark"');
     });
 
     it('shows a message when no results have been found', function () {
@@ -76,12 +76,12 @@ describe('The atlas-search-results-header component', function () {
         //When searching by query
         component = getComponent(0, 'westerpark', null, null);
         expect(component.find('h1').text()).toContain('Geen resultaten gevonden');
-        expect(component.find('h2').text()).toContain('"westerpark"');
+        expect(component.find('p').text()).toContain('"westerpark"');
 
         //When searching by location
         component = getComponent(0, null, [52.123, 4.789], null);
         expect(component.find('h1').text()).toContain('Geen resultaten gevonden');
-        expect(component.find('h2').text()).toContain('X, Y (52.123, 4.789)');
+        expect(component.find('p').text()).toContain('X, Y (52.123, 4.789)');
     });
 
     it('differentiates between one or more search results (resultaat vs. resultaten)', function () {

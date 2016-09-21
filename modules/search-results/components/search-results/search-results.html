@@ -9,7 +9,12 @@
 
             <div ng-if="vm.numberOfResults">
                 <div ng-if="!vm.category">
-                    <div class="o-header">
+                    <atlas-search-results-header
+                        number-of-results="vm.numberOfResults"
+                        query="{{vm.query}}"
+                        location="vm.location">
+                    </atlas-search-results-header>
+                    <!--div class="o-header">
                         <h1 class="o-header__title u-margin__bottom--3">
                             Zoekresultaten
                         </h1>
@@ -20,7 +25,7 @@
                         met
                         <span ng-if="vm.query">"<strong>{{vm.query}}</strong>"</span>
                         <span ng-if="vm.location">locatie <strong>{{vm.location | coordinates}}</strong></span>
-                    </p>
+                    </p-->
 
                     <div ng-repeat="category in vm.searchResults"
                          class="u-margin__bottom--4"
@@ -37,17 +42,17 @@
 
                         <div ng-if="category.count > 10">
                             <dp-link ng-if="category.more"
-                                     class-name="o-btn o-btn--link u-color__primary--contrast u-margin__top-05"
-                                     type="FETCH_DETAIL"
-                                     payload="category.more.endpoint">
+                                class-name="o-btn o-btn--link u-color__primary--contrast u-margin__top-05"
+                                type="FETCH_DETAIL"
+                                payload="category.more.endpoint">
 
                                 {{category.more.label}}
                             </dp-link>
 
                             <dp-link ng-if="!category.more"
-                                     class-name="o-btn o-btn--link u-color__primary--contrast u-margin__top-05"
-                                     type="SHOW_SEARCH_RESULTS_CATEGORY"
-                                     payload="category.slug">
+                                class-name="o-btn o-btn--link u-color__primary--contrast u-margin__top-05"
+                                type="SHOW_SEARCH_RESULTS_CATEGORY"
+                                payload="category.slug">
 
                                 Toon alle {{category.count | number}}
                             </dp-link>
@@ -55,7 +60,13 @@
                     </div>
                 </div>
                 <div ng-if="vm.category">
-                    <div class="o-header">
+                    <atlas-search-results-header
+                        number-of-results="vm.numberOfResults"
+                        query="{{vm.query}}"
+                        category="{{vm.categoryName}}">
+                    </atlas-search-results-header>
+
+                    <!--div class="o-header">
                         <h1 class="o-header__title">
                             Zoekresultaten: {{vm.categoryName}}
                         </h1>
@@ -65,7 +76,7 @@
                         <strong>{{vm.categoryName | lowercase}}</strong>
                         met
                         <span ng-if="vm.query">"<strong>{{vm.query}}</strong>"</span>
-                    </p>
+                    </p-->
 
                     <atlas-search-results-list category="vm.searchResults[0]"></atlas-search-results-list>
 
@@ -83,7 +94,11 @@
             </div>
 
             <div ng-if="!vm.numberOfResults">
-                <h2 class="u-color__primary--contrast u-font--m">Geen resultaten gevonden</h2>
+                <atlas-search-results-header
+                    number-of-results="vm.numberOfResults"
+                    query="{{vm.query}}"
+                    location="vm.location">
+                </atlas-search-results-header>
                 <p>Tip: maak de criteria minder specifiek (bijv. een straat i.p.v. specifiek adres)</p>
             </div>
 
