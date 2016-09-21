@@ -10,11 +10,11 @@
             <div ng-if="vm.numberOfResults">
                 <div ng-if="!vm.category">
                     <div class="o-header">
-                        <h1 class="o-header__title">
+                        <h1 class="o-header__title u-margin__bottom--3">
                             Zoekresultaten
                         </h1>
                     </div>
-                    <p>
+                    <p class="u-margin__bottom--4">
                         {{vm.numberOfResults | number}}
                         {{vm.numberOfResults === 1 ? 'resultaat' : 'resultaten'}}
                         met
@@ -23,12 +23,12 @@
                     </p>
 
                     <div ng-repeat="category in vm.searchResults"
+                         class="u-margin__bottom--4"
                          ng-class="{
-                            'u-margin__top--1 u-margin__left--3': category.useIndenting,
-                            'u-margin__top--2': !category.useIndenting
+                            's-indented-result': category.useIndenting,
                         }">
 
-                        <h2 class="o-header__subtitle qa-search-header">
+                        <h2 class="o-header__subtitle u-margin__bottom--2-5 qa-search-header">
                             <span ng-if="category.count > 1">{{category.label_plural}} ({{category.count | number}})</span>
                             <span ng-if="category.count === 1">{{category.label_singular}}</span>
                         </h2>
