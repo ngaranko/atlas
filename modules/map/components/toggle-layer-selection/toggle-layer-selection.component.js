@@ -13,10 +13,18 @@
             controllerAs: 'vm'
         });
 
-    DpToggleLayerSelectionController.$inject = ['store', 'ACTIONS'];
+    DpToggleLayerSelectionController.$inject = ['$scope', 'store', 'ACTIONS'];
 
-    function DpToggleLayerSelectionController (store, ACTIONS) {
+    function DpToggleLayerSelectionController ($scope, store, ACTIONS) {
         var vm = this;
+
+        $scope.$watch('vm.showLayerSelection', function () {
+            if (!vm.showLayerSelection) {
+                vm.buttonTitle = 'Kaartlagen selecteren';
+            } else {
+                vm.buttonTitle = 'Sluit paneel voor selecteren kaartlagen';
+            }
+        });
 
         vm.toggle = function () {
             store.dispatch({
