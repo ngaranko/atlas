@@ -14,18 +14,6 @@
                         query="{{vm.query}}"
                         location="vm.location">
                     </atlas-search-results-header>
-                    <!--div class="o-header">
-                        <h1 class="o-header__title u-margin__bottom--3">
-                            Zoekresultaten
-                        </h1>
-                    </div>
-                    <p class="u-margin__bottom--4">
-                        {{vm.numberOfResults | number}}
-                        {{vm.numberOfResults === 1 ? 'resultaat' : 'resultaten'}}
-                        met
-                        <span ng-if="vm.query">"<strong>{{vm.query}}</strong>"</span>
-                        <span ng-if="vm.location">locatie <strong>{{vm.location | coordinates}}</strong></span>
-                    </p-->
 
                     <div ng-repeat="category in vm.searchResults"
                          class="u-margin__bottom--4"
@@ -65,18 +53,6 @@
                         query="{{vm.query}}"
                         category="{{vm.categoryName}}">
                     </atlas-search-results-header>
-
-                    <!--div class="o-header">
-                        <h1 class="o-header__title">
-                            Zoekresultaten: {{vm.categoryName}}
-                        </h1>
-                    </div>
-                    <p>
-                        {{vm.numberOfResults | number}}
-                        <strong>{{vm.categoryName | lowercase}}</strong>
-                        met
-                        <span ng-if="vm.query">"<strong>{{vm.query}}</strong>"</span>
-                    </p-->
 
                     <atlas-search-results-list category="vm.searchResults[0]"></atlas-search-results-list>
 
