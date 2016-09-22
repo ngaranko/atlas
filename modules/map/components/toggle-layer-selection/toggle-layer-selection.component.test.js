@@ -78,4 +78,27 @@ describe('The dp-toggle-layer-selection component', function () {
         expect(component.find('.c-toggle-layer-selection__icon').attr('class'))
             .toContain('c-toggle-layer-selection__icon--mirrored');
     });
+
+    it('has a different title and alt attribute depending on showLayerSelection', function () {
+        var component;
+
+        //When showActiveOverlays is false
+        component = getComponent([], false);
+
+        expect(component.find('button').attr('title'))
+            .not.toContain('Meer kaartlagen');
+
+        expect(component.find('img').attr('alt'))
+            .not.toContain('Meer kaartlagen');
+
+
+        //When showActiveOverlays is true
+        component = getComponent([], true);
+
+        expect(component.find('button').attr('title'))
+            .toContain('Sluit paneel voor selecteren kaartlagen');
+
+        expect(component.find('img').attr('alt'))
+            .toContain('Sluit paneel voor selecteren kaartlagen');
+    });
 });
