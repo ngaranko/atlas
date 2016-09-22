@@ -1,4 +1,4 @@
-describe('The urlReducers factory', function () {
+fdescribe('The urlReducers factory', function () {
     var urlReducers,
         mockedState,
         mockedSearchParams;
@@ -23,7 +23,7 @@ describe('The urlReducers factory', function () {
 
     describe('URL_CHANGE', function () {
         it('returns the default state when the payload is empty', function () {
-            var output = urlReducers.URL_CHANGE({some:'object'}, {});
+            var output = urlReducers.URL_CHANGE({ some: 'object' }, {});
 
             expect(output).toEqual(mockedState);
         });
@@ -93,14 +93,14 @@ describe('The urlReducers factory', function () {
                 //One overlay
                 mockedSearchParams.lagen = 'munitie_opslag:zichtbaar';
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
-                expect(output.map.overlays).toEqual([{id: 'munitie_opslag', isVisible: true}]);
+                expect(output.map.overlays).toEqual([{ id: 'munitie_opslag', isVisible: true }]);
 
                 //Two overlays
                 mockedSearchParams.lagen = 'munitie_opslag:zichtbaar,geldkluizen:onzichtbaar';
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
                 expect(output.map.overlays).toEqual([
-                    {id: 'munitie_opslag', isVisible: true},
-                    {id: 'geldkluizen', isVisible: false}
+                    { id: 'munitie_opslag', isVisible: true },
+                    { id: 'geldkluizen', isVisible: false }
                 ]);
             });
 
@@ -250,92 +250,56 @@ describe('The urlReducers factory', function () {
         });
 
         describe('straatbeeld', function () {
-            it('can set a straatbeeld by ID', function () {
+
+            it('can be unknown', function () {
                 var output;
 
-                //Without straatbeeld
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
                 expect(output.straatbeeld).toBeNull();
-
-
-                //With straatbeeld
-                mockedSearchParams.id = '12345';
-
-                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
-                expect(output.straatbeeld.id).toBe(12345);
-                expect(output.straatbeeld.searchLocation).toBeNull();
             });
-
-            it('can set a straatbeeld by searchLocation', function () {
+            it('can be initialized', function () {
                 var output;
 
-                //Without straatbeeld
-                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
-                expect(output.straatbeeld).toBeNull();
-
-                //With straatbeeld
-                mockedSearchParams.plat = '52.963';
-                mockedSearchParams.plon = '4.741';
+                mockedSearchParams.id = 'ABC';
+                mockedSearchParams.heading = '179';
+                mockedSearchParams.pitch = '1';
+                mockedSearchParams.fov = '2';
 
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
-
-                expect(output.straatbeeld.id).toBeNull();
-                expect(output.straatbeeld.searchLocation).toEqual([52.963, 4.741]);
+                expect(output.straatbeeld.id).toBe('ABC');
+                expect(output.straatbeeld.heading).toBe(179);
+                expect(output.straatbeeld.pitch).toBe(1);
+                expect(output.straatbeeld.fov).toBe(2);
             });
 
-            it('will remember the date, car and hotspots if the ID stays the same', function () {
-                //Note: these two variables are not part of the URL
+            it('resets date and hotspots', function() {
                 var output;
+                
+                mockedState.date = new Date('Thu Sep 22 2016 12:10:37 GMT+0200 (CEST)');
+                mockedState.hotspots = [{
+                    a: 'a',
+                    b: 'b'
+                }];
 
-                mockedState.straatbeeld = {
-                    id: 67890,
-                    searchLocation: null,
-                    date: new Date(1982, 8, 7),
-                    car: {
-                        location: [52.987, 4.321]
-                    },
-                    hotspots: ['FAKE_HOTSPOT_A', 'FAKE_HOTSPOT_Z']
-                };
+                mockedSearchParams.id = 'ABC';
+                mockedSearchParams.heading = '179';
+                mockedSearchParams.pitch = '1';
+                mockedSearchParams.fov = '2';
 
-                mockedSearchParams.id = 67890;
-                mockedSearchParams.pagina = null;
-
-                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
-
-                expect(output.straatbeeld.date).toEqual(new Date(1982, 8, 7));
-                expect(output.straatbeeld.car.location).toEqual([52.987, 4.321]);
-                expect(output.straatbeeld.hotspots).toEqual(['FAKE_HOTSPOT_A', 'FAKE_HOTSPOT_Z']);
-            });
-
-            it('can read the heading, pitch and fov from the URL', function () {
-                var output;
-
-                mockedState.straatbeeld = {
-                    id: 67890,
-                    searchLocation: null,
-                    date: new Date(1982, 8, 7),
-                    car: {
-                        location: [52.987, 4.321]
-                    },
-                    camera: {
-                        heading: 1,
-                        pitch: 2,
-                        fov: 3
-                    },
-                    hotspots: ['FAKE_HOTSPOT_A', 'FAKE_HOTSPOT_Z']
-                };
-
-                mockedSearchParams.id = '67890';
-                mockedSearchParams.heading = '7';
-                mockedSearchParams.pitch = '8';
-                mockedSearchParams.fov = '9';
 
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
 
-                expect(output.straatbeeld.camera.heading).toBe(7);
-                expect(output.straatbeeld.camera.pitch).toBe(8);
-                expect(output.straatbeeld.camera.fov).toBe(9);
+                expect(output.date).toBe('Thu Sep 22 2016 12:10:37 GMT+0200 (CEST)');
+                expect(output.hotspots).toEqual([{
+                    a: 'a',
+                    b: 'b'
+                }]);
+
+
             });
+
+
+
         });
 
         describe('dataSelection', function () {

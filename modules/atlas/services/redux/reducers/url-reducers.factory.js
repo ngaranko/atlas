@@ -121,15 +121,10 @@
                 if (hasStraatbeeld(payload)) {
                     var date,
                         hotspots, pitch, fov;
-
-                    if (oldState.straatbeeld && oldState.straatbeeld.id === payload.id) {
-                        //Stuff that isn't in the URL but implicitly linked through the ID
-                        date = oldState.straatbeeld.date;
-                        hotspots = oldState.straatbeeld.hotspots;
-                    } else {
+                        
                         date = null;
                         hotspots = [];
-                    }
+                
 
                     pitch =  payload.pitch;
                    

@@ -12,19 +12,19 @@
             controllerAs: 'vm'
         });
 
-    AtlasStraatbeeldThumbnailController.$inject = ['detailConfig', 'api', 'store', 'ACTIONS' ];
+    AtlasStraatbeeldThumbnailController.$inject = ['sharedConfig', 'api', 'store', 'ACTIONS' ];
 
-    function AtlasStraatbeeldThumbnailController(detailConfig, api, store, ACTIONS) {
+    function AtlasStraatbeeldThumbnailController(sharedConfig, api, store, ACTIONS) {
         var vm = this,
             imageUrl,
             heading,
             panoId;
 
-        imageUrl = detailConfig.STRAATBEELD_THUMB_URL +
+        imageUrl = sharedConfig.STRAATBEELD_THUMB_URL +
             '?lat=' + vm.location[0] +
             '&lon=' + vm.location[1] +
             '&width=240' +
-            '&radius=' + detailConfig.RADIUS;
+            '&radius=' + sharedConfig.RADIUS;
 
            
         api.getByUrl(imageUrl).then(function (thumbnailData) {

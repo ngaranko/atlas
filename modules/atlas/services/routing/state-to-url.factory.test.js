@@ -1,4 +1,4 @@
-fdescribe('The stateToUrl factory', function () {
+describe('The stateToUrl factory', function () {
     var $location,
         stateToUrl,
         mockedState;
