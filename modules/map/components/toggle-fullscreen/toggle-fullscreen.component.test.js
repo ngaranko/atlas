@@ -52,6 +52,7 @@ describe('The dp-toggle-fullscreen component', function () {
 
             expect(component.find('button').attr('class')).toContain('c-toggle-fullscreen__icon--fullscreen');
             expect(component.find('button').attr('title')).toBe('Kaart vergroten');
+            expect(component.find('button span').text()).toBe('Kaart vergroten');
         });
 
         it('triggers the MAP_FULLSCREEN action w/ payload=true when clicking the button', function () {
@@ -74,6 +75,7 @@ describe('The dp-toggle-fullscreen component', function () {
 
             expect(component.find('button').attr('class')).toContain('c-toggle-fullscreen__icon--minimize');
             expect(component.find('button').attr('title')).toBe('Kaart verkleinen');
+            expect(component.find('button span').text()).toBe('Kaart verkleinen');
         });
 
         it('triggers the MAP_FULLSCREEN action w/ payload=false when clicking the button', function () {
