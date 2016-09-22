@@ -32,6 +32,7 @@ node {
     }
 }
 
+if ("${env.BRANCH}" == "master") {
 node {
     stage("Deploy to ACC") {
         tryStep "deployment", {
@@ -76,4 +77,5 @@ node {
                     ]
         }
     }
+}
 }
