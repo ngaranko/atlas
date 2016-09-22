@@ -1,8 +1,12 @@
 <div class="o-header">
-    <h3 class="o-header__subtitle">
+    <h3 class="o-header__subtitle" 
+        ng-class="{
+            'u-margin__bottom--2-5': !vm.heading,
+            'u-margin__bottom--1': vm-heading
+        }">
         {{vm.stelselpedia.label}}
     </h3>
-    <h2 ng-if="vm.heading" class="o-header__title">
+    <h2 ng-if="vm.heading" class="o-header__title u-margin__bottom--3">
         <span ng-bind-html="vm.htmlHeading"></span>
     </h2>
 
