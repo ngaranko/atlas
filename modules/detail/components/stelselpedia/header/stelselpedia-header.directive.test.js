@@ -80,8 +80,15 @@ describe('The atlas-stelselpedia-header directive', function () {
     it('always shows the Stelselpedia label w/ an button to toggle more information', function () {
         var directive = getDirective(null, 'BOUWBLOK', false, null, null);
 
+        //When it's closed
         expect(directive.find('.o-header__subtitle').text().trim()).toBe('Bouwblok');
-        expect(directive.find('.o-header__button:nth-of-type(1)').text().trim()).toBe('Uitleg tonen');
+        expect(directive.find('.o-header__button:nth-of-type(1)').attr('title').trim()).toBe('Uitleg tonen');
+        expect(directive.find('.o-header__button:nth-of-type(1) .u-sr-only').text().trim()).toBe('Uitleg tonen');
+
+        //When it's opened
+        directive.find('.o-header__button:nth-of-type(1)').click();
+        expect(directive.find('.o-header__button:nth-of-type(1)').attr('title').trim()).toBe('Uitleg verbergen');
+        expect(directive.find('.o-header__button:nth-of-type(1) .u-sr-only').text().trim()).toBe('Uitleg verbergen');
     });
 
     it('has support for plurals in the Stelselpedia label', function () {
@@ -143,9 +150,20 @@ describe('The atlas-stelselpedia-header directive', function () {
 
             //BOUWBLOK has metadata
             directive = getDirective(null, 'BOUWBLOK', false, metaData, null);
+
+            //When it's closed
             expect(directive.find('.o-header__button:nth-of-type(2)').length).toBe(1);
-            expect(directive.find('.o-header__button:nth-of-type(2)').text().trim())
+            expect(directive.find('.o-header__button:nth-of-type(2)').attr('title').trim())
                 .toBe('Informatie (metadata) tonen');
+            expect(directive.find('.o-header__button:nth-of-type(2) .u-sr-only').text().trim())
+                .toBe('Informatie (metadata) tonen');
+
+            //When it's opened
+            directive.find('.o-header__button:nth-of-type(2)').click();
+            expect(directive.find('.o-header__button:nth-of-type(2)').attr('title').trim())
+                .toBe('Informatie (metadata) verbergen');
+            expect(directive.find('.o-header__button:nth-of-type(2) .u-sr-only').text().trim())
+                .toBe('Informatie (metadata) verbergen');
         });
 
         it('can open a panel that loads the atlas-stelselpedia-meta directive', function () {

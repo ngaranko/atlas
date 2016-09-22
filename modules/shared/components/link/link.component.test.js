@@ -20,7 +20,10 @@ describe('The dp-link component', function () {
 
         element = document.createElement('dp-link');
         element.setAttribute('type', type);
-        element.setAttribute('payload', 'payload');
+
+        if (angular.isDefined(payload)) {
+            element.setAttribute('payload', 'payload');
+        }
 
         if (angular.isString(className)) {
             element.setAttribute('class-name', className);
@@ -58,6 +61,23 @@ describe('The dp-link component', function () {
             type: 'MAP_PAN',
             payload: [101, 102]
         });
+    });
+
+    it('has an optional payload', function () {
+        var component;
+
+        spyOn(store, 'dispatch');
+
+        component = getComponent('SHOW_LAYER_SELECTION');
+        component.find('button')[0].click();
+
+        expect(store.dispatch).toHaveBeenCalledWith({
+            type: 'SHOW_LAYER_SELECTION'
+        });
+
+        expect(store.dispatch).not.toHaveBeenCalledWith(jasmine.objectContaining({
+            payload: undefined
+        }));
     });
 
     describe('styling', function () {
