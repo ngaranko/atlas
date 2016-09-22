@@ -52,6 +52,11 @@
   right: -1px;
   width: $button-size;
   height: $button-size;
+  background-image: url("assets/icons/close-hover.svg");
+
+  &:hover {
+    background-image: url("assets/icons/close-active.svg");
+  }
 }
 
 .c-active-overlays__close__icon {
