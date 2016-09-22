@@ -24,10 +24,15 @@
         vm.className = vm.className || 'o-btn o-btn--link';
 
         vm.followLink = function () {
-            store.dispatch({
-                type: ACTIONS[vm.type],
-                payload: vm.payload
-            });
+            var action = {
+                type: ACTIONS[vm.type]
+            };
+
+            if (angular.isDefined(vm.payload)) {
+                action.payload = vm.payload;
+            }
+
+            store.dispatch(action);
         };
     }
 })();
