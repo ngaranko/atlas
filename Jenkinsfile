@@ -32,11 +32,11 @@ node {
     }
 }
 
-node {
 String BRANCH = "${env.BRANCH_NAME}"
 
-    if (BRANCH == "master") {
+if (BRANCH == "master") {
 
+node {
     stage("Deploy to ACC") {
         tryStep "deployment", {
             build job: 'Subtask_Openstack_Playbook',
