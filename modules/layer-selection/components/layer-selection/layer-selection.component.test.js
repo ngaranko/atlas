@@ -106,6 +106,27 @@ describe('The atlas-layer-selection component', function () {
         return component;
     }
 
+    describe('there is a close icon', function () {
+        var component;
+
+        beforeEach(function () {
+            component = getComponent('base_layer_a', [], 8);
+        });
+
+        it('that triggers HIDE_LAYER_SELECTION', function () {
+            component.find('.c-layer-selection__heading button').click();
+
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.HIDE_LAYER_SELECTION
+            });
+        });
+
+        it('with a title attribute and screen reader fallback', function () {
+            expect(component.find('.c-layer-selection__heading button').attr('title')).toBe('Sluiten');
+            expect(component.find('.c-layer-selection__heading button .u-sr-only').text()).toContain('Sluiten');
+        });
+    });
+
     describe('base layer', function () {
         it('lists all base layers as radio buttons w/ labels', function () {
             var component = getComponent('base_layer_a', [], 8);
