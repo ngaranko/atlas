@@ -1,9 +1,13 @@
-<button class="c-toggle-layer-selection" ng-click="vm.toggle()" title="Meer kaartlagen">
-    <img class="c-toggle-layer-selection__icon"
-        ng-class="{'c-toggle-layer-selection__icon--mirrored': vm.showLayerSelection}"
-        src="assets/icons/link-hover.svg" alt="Sluiten">
+<button class="c-toggle-layer-selection"
+        ng-click="vm.toggle()"
+        title="{{vm.buttonTitle}}">
 
     <div class="c-toggle-layer-selection__text">
         Meer kaartlagen
     </div>
+    <span class="c-toggle-layer-selection__icon"
+        ng-class="{
+            'c-toggle-layer-selection__icon--mirrored': vm.showLayerSelection
+        }">
+    </span>
 </button>

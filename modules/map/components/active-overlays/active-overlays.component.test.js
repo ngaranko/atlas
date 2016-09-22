@@ -110,7 +110,7 @@ describe('The dp-active-overlays component', function () {
         expect(component.find('dp-active-overlays-item').eq(1).attr('overlay')).toBe('overlay_a');
     });
 
-    it('the toggle button has a variable alt and title attribute value depending on the state', function () {
+    it('the toggle button has a variable title attribute value depending on the state', function () {
         var component;
 
         //When closed
@@ -119,8 +119,8 @@ describe('The dp-active-overlays component', function () {
             10,
             false
         );
-        expect(component.find('.c-toggle-active-overlays').attr('title')).toBe('Legenda openen');
-        expect(component.find('.c-toggle-active-overlays img').attr('alt')).toBe('Legenda openen');
+        expect(component.find('.c-toggle-active-overlays').attr('title'))
+            .toBe('Toon legenda van geselecteerde kaartlagen');
 
         //When opened
         component = getComponent(
@@ -128,11 +128,10 @@ describe('The dp-active-overlays component', function () {
             10,
             true
         );
-        expect(component.find('.c-toggle-active-overlays').attr('title')).toBe('Legenda sluiten');
-        expect(component.find('.c-toggle-active-overlays img').attr('alt')).toBe('Legenda sluiten');
+        expect(component.find('.c-toggle-active-overlays').attr('title'))
+            .toBe('Sluit legenda van geselecteerde kaartlagen');
 
         //When opened; a close icon (dp-link) is shown as well
-        expect(component.find('.c-active-overlays button').attr('title')).toBe('Legenda sluiten');
-        expect(component.find('.c-toggle-active-overlays__icon').attr('alt')).toBe('Legenda sluiten');
+        expect(component.find('.c-active-overlays button').eq(0).attr('title')).toBe('Sluiten');
     });
 });
