@@ -14,7 +14,7 @@ $breakpoints: (
   xl: 1680px
 );
 
-// per breakpoint (font-family, font-size, line-height, padding-top)
+// per breakpoint (font-family, font-size, line-height)
 // te gebruiken met de font-size mixin
 // p {
 //  @include font-size($body-font);
@@ -29,29 +29,29 @@ $body-font: (
 );
 
 $xl-header-font: (
-  null: ($header-font-family, $base-font-size * 2, 1.25, $base-font-size * 2 / 2),
-  m: ($header-font-family, $base-font-size * 2.5, 1.125, $base-font-size * 2.5 / 2),
-  l: ($header-font-family, $base-font-size * 3, 1.05, $base-font-size * 3 / 2),
-  xl: ($header-font-family, $base-font-size * 3, 1.05, $base-font-size * 3 / 2)
+  null: ($header-font-family, $base-font-size * 2, 1.25),
+  m: ($header-font-family, $base-font-size * 2.5, 1.125),
+  l: ($header-font-family, $base-font-size * 3, 1.05),
+  xl: ($header-font-family, $base-font-size * 3, 1.05)
 );
 
 $l-header-font: (
-  null: ($header-font-family, $base-font-size * 1.625, 1.15384615, $base-font-size * 1.625 / 2),
-  m: ($header-font-family, $base-font-size * 2, 1.25, $base-font-size * 2 / 2),
-  l: ($header-font-family, $base-font-size * 2.25, 1.25, $base-font-size * 2.25 / 2),
-  xl: ($header-font-family, $base-font-size * 2.25, 1.25, $base-font-size * 2.25 / 2)
+  null: ($header-font-family, $base-font-size * 1.625, 1.25),
+  m: ($header-font-family, $base-font-size * 2, 1.25),
+  l: ($header-font-family, $base-font-size * 2.25, 1.25),
+  xl: ($header-font-family, $base-font-size * 2.25, 1.25)
 );
 
 $m-header-font: (
-  null: ($header-font-family, $base-font-size * 1.375, 1.13636364, $base-font-size * 1.375 / 2),
-  m: ($header-font-family, $base-font-size * 1.5, 1.25, $base-font-size * 1.5 / 2),
-  l: ($header-font-family, $base-font-size * 1.75, 1.25, $base-font-size * 1.75 / 2),
-  xl: ($header-font-family, $base-font-size * 1.75, 1.25, $base-font-size * 1.75 / 2)
+  null: ($header-font-family, $base-font-size * 1.375, 1.25),
+  m: ($header-font-family, $base-font-size * 1.5, 1.25),
+  l: ($header-font-family, $base-font-size * 1.75, 1.25),
+  xl: ($header-font-family, $base-font-size * 1.75, 1.25)
 );
 
 $s-header-font: (
-  null: ($header-font-family, $base-font-size * 1.25, 1.11111111, $base-font-size * 1.25 / 2),
-  m: ($header-font-family, $base-font-size * 1.25, 1.22222222, $base-font-size * 1.25 / 2),
-  l: ($header-font-family, $base-font-size * 1.25, 1.22222222, $base-font-size * 1.25 / 2),
-  xl: ($header-font-family, $base-font-size * 1.25, 1.22222222, $base-font-size * 1.25 / 2)
+  null: ($header-font-family, $base-font-size * 1.25, 1.11111111),
+  m: ($header-font-family, $base-font-size * 1.25, 1.22222222),
+  l: ($header-font-family, $base-font-size * 1.25, 1.22222222),
+  xl: ($header-font-family, $base-font-size * 1.25, 1.22222222)
 );

@@ -74,6 +74,10 @@ describe('The atlas-search-results component', function () {
                     return {};
                 });
 
+                $provide.factory('atlasSearchResultsHeaderDirective', function () {
+                    return {};
+                });
+
                 $provide.value('coordinatesFilter', function (input) {
                     return input.join(', ') + ' (X, Y)';
                 });
@@ -381,25 +385,6 @@ describe('The atlas-search-results component', function () {
             });
         });
 
-        it('shows meta information above the search results', function () {
-            var component;
-
-            //When there are multiple search results it uses the plural form: resultaten
-            component = getComponent('Weesperstraat');
-            //The query is between quotes
-            expect(removeWhitespace(component.find('p').text())).toBe('12 resultaten met "Weesperstraat"');
-
-            //When there are over 1000 search results it uses a thousands separator
-            mockedSearchResults[0].count = 1000;
-            component = getComponent('Weesperstraat');
-            expect(removeWhitespace(component.find('p').text())).toBe('1.001 resultaten met "Weesperstraat"');
-
-            //When there is just 1 search result it uses the singular form: resultaat
-            mockedSearchResults[0].count = 0;
-            component = getComponent('Weesperstraat');
-            expect(removeWhitespace(component.find('p').text())).toBe('1 resultaat met "Weesperstraat"');
-        });
-
         it('doesn\'t show the dp-straatbeeld-thumbnail component', function () {
             var component = getComponent('Weesperstraat');
 
@@ -466,16 +451,6 @@ describe('The atlas-search-results component', function () {
                         type: ACTIONS.FETCH_DETAIL,
                         payload: 'https://some-domain/bag/verblijfsobject/03630000864316/'
                     });
-                });
-
-                it('shows the active category as part of the metadata above the category', function () {
-                    //The category name is shown in lowercase
-                    expect(removeWhitespace(component.find('p').text())).toBe('11 adressen met "Weesperstraat"');
-
-                    //The number of results have a thousand separator
-                    mockedSearchResults[0].count = 1000;
-                    component = getComponent('Weesperstraat', null, 'adres');
-                    expect(removeWhitespace(component.find('p').text())).toBe('1.000 adressen met "Weesperstraat"');
                 });
 
                 it('can have a show more link inside the category', function () {
@@ -598,40 +573,16 @@ describe('The atlas-search-results component', function () {
             });
         });
 
-        it('shows meta information above the search results', function () {
-            //The coordinates are not between quotes
-            expect(removeWhitespace(component.find('p').text()))
-                .toBe('22 resultaten met locatie 51.123, 4.789 (X, Y)');
-
-            //Check the thousands separator
-            mockedGeosearchResults[1].count = 1012;
-            component = getComponent(null, [51.123, 4.789]);
-            expect(removeWhitespace(component.find('p').text()))
-                .toBe('1.022 resultaten met locatie 51.123, 4.789 (X, Y)');
-        });
-
         it('has indenting for certain \'related\' categories', function () {
             //Without indenting
             [0, 2, 3, 4].forEach(function (categoryIndex) {
                 expect(component.find('[ng-repeat="category in vm.searchResults"]').eq(categoryIndex).attr('class'))
-                    .toContain('u-margin__top--2');
-
-                expect(component.find('[ng-repeat="category in vm.searchResults"]').eq(categoryIndex).attr('class'))
-                    .not.toContain('u-margin__top--1');
-
-                expect(component.find('[ng-repeat="category in vm.searchResults"]').eq(categoryIndex).attr('class'))
-                    .not.toContain('u-margin__left--3');
+                    .not.toContain('s-indented-result');
             });
 
             //With indenting
             expect(component.find('[ng-repeat="category in vm.searchResults"]').eq(1).attr('class'))
-                .toContain('u-margin__left--3');
-
-            expect(component.find('[ng-repeat="category in vm.searchResults"]').eq(1).attr('class'))
-                .toContain('u-margin__top--1');
-
-            expect(component.find('[ng-repeat="category in vm.searchResults"]').eq(1).attr('class'))
-                .not.toContain('u-margin__top--2');
+                .toContain('s-indented-result');
         });
 
         it('has more link support', function () {
@@ -662,20 +613,6 @@ describe('The atlas-search-results component', function () {
         it('shows the dp-straatbeeld-thumbnail component', function () {
             expect(component.find('dp-straatbeeld-thumbnail').length).toBe(1);
         });
-    });
-
-    it('shows a message when there are no search results', function () {
-        var component;
-
-        //Search
-        component = getComponent('QUERY_WITHOUT_RESULTS');
-        expect(component.find('h2').text().trim()).toBe('Geen resultaten gevonden');
-        expect(component.find('dp-link').length).toBe(0);
-
-        //Geosearch
-        component = getComponent(null, [52.999, 4.999]);
-        expect(component.find('h2').text().trim()).toBe('Geen resultaten gevonden');
-        expect(component.find('dp-link').length).toBe(0);
     });
 
     function removeWhitespace (input) {
