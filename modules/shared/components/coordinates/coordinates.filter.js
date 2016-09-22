@@ -15,13 +15,18 @@
          */
         return function (wgs84Location) {
             var rdLocation = crsConverter.wgs84ToRd(wgs84Location),
+                formattedRdLocation,
                 formattedWgs84Location;
 
             formattedWgs84Location = wgs84Location.map(function (coordinate) {
-                return coordinate.toFixed('6');
+                return coordinate.toFixed(7);
             }).join(', ');
 
-            return rdLocation.join(', ') + ' (' + formattedWgs84Location + ')';
+            formattedRdLocation = rdLocation.map(function (coordinate) {
+                return coordinate.toFixed(2);
+            }).join(', ');
+
+            return formattedRdLocation + ' (' + formattedWgs84Location + ')';
         };
     }
 })();

@@ -1,0 +1,25 @@
+.c-active-overlays__item {
+  margin-bottom: $base-whitespace * 2;
+}
+
+.c-active-overlays__item__header {
+  @include font-size($s-header-font);
+}
+
+.c-active-overlays__item__legend {
+  display: block;
+  max-width: 100%;
+  margin-top: $base-whitespace / 2;
+  margin-left: $base-whitespace / 2;
+}
+
+.c-active-overlays__item__link {
+  margin-left: $base-whitespace;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.c-active-overlays__item__message {
+  margin-left: $base-whitespace;
+  color: $secondary-gray60;
+}

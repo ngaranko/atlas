@@ -1,5 +1,9 @@
-<button class="toggle-fullscreen" ng-click="vm.toggle()">
-    <img ng-if="!vm.isFullscreen" class="toggle-fullscreen__icon" src="assets/icons/fullscreen.svg" alt="Kaart vergroten" title="Kaart vergroten">
-
-    <img ng-if="vm.isFullscreen" class="toggle-fullscreen__icon" src="assets/icons/minimize.svg" alt="Kaart verkleinen" title="Kaart verkleinen">
+<button class="c-toggle-fullscreen"
+        ng-class="{
+            'c-toggle-fullscreen__icon--fullscreen': !vm.isFullscreen,
+            'c-toggle-fullscreen__icon--minimize': vm.isFullscreen
+        }"
+        ng-click="vm.toggle()"
+        title="{{vm.buttonText}}">
+    <span class="u-sr-only">{{vm.buttonText}}</span>
 </button>

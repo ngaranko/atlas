@@ -150,7 +150,7 @@ describe('The stateToUrl factory', function () {
             stateToUrl.update(mockedState, false);
 
             expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
-                kaartlagen: jasmine.anything()
+                'kaartlagen-selectie': jasmine.anything()
             }));
 
             //Opened
@@ -158,7 +158,25 @@ describe('The stateToUrl factory', function () {
             stateToUrl.update(mockedState, false);
 
             expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
-                kaartlagen: 'aan'
+                'kaartlagen-selectie': 'aan'
+            }));
+        });
+
+        it('keeps track of the active overlays (opened or closed', function () {
+            //Closed
+            mockedState.map.showActiveOverlays = false;
+            stateToUrl.update(mockedState, false);
+
+            expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
+                'actieve-kaartlagen': jasmine.anything()
+            }));
+
+            //Opened
+            mockedState.map.showActiveOverlays = true;
+            stateToUrl.update(mockedState, false);
+
+            expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
+                'actieve-kaartlagen': 'aan'
             }));
         });
 
@@ -348,6 +366,67 @@ describe('The stateToUrl factory', function () {
                     fov: '3'
                 }));
             });
+        });
+    });
+
+    describe('Data selection', function () {
+        it('does nothing if there is no active dataset', function () {
+            stateToUrl.update(mockedState, false);
+
+            expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
+                dataset: jasmine.Any(String)
+            }));
+
+            expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
+                'dataset-filters': jasmine.Any(String)
+            }));
+
+            expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
+                'dataset-pagina': jasmine.Any(String)
+            }));
+        });
+
+        it('can set a dataset with (URL encoded) filters and a page number', function () {
+            mockedState.dataSelection = {
+                dataset: 'bag',
+                filters: {},
+                page: 5
+            };
+
+            //Without any filters
+            stateToUrl.update(mockedState, false);
+            expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
+                dataset: 'bag'
+            }));
+
+            expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
+                'dataset-filters': jasmine.any(String)
+            }));
+
+            expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
+                'dataset-pagina': '5' //The page is converted to a string
+            }));
+
+
+            //With one filter
+            mockedState.dataSelection.filters = {
+                buurt: 'Mijn buurt'
+            };
+
+            stateToUrl.update(mockedState, false);
+
+            expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
+                'dataset-filters': 'buurt:Mijn%20buurt'
+            }));
+
+            //With two filters
+            mockedState.dataSelection.filters.buurtcombinatie = 'Mijn buurtcombinatie';
+
+            stateToUrl.update(mockedState, false);
+
+            expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
+                'dataset-filters': 'buurt:Mijn%20buurt,buurtcombinatie:Mijn%20buurtcombinatie'
+            }));
         });
     });
 

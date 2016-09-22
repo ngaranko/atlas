@@ -1,14 +1,18 @@
-<dp-panel heading="Kaartlagen">
-    <dp-panel-icon>
-        <dp-link type="HIDE_LAYER_SELECTION" class-name="">
-            <img width="26" height="26" src="assets/icons/minimize.svg" alt="Minimaliseren" title="Minimaliseren">
+<div class="c-layer-selection">
+    <div class="c-layer-selection__heading">
+        Selecteer kaartlagen
+
+        <dp-link type="HIDE_LAYER_SELECTION" 
+                class-name="c-layer-selection__close" 
+                hover-text="Sluiten">
+            <span class="u-sr-only">sluiten</span>
         </dp-link>
-    </dp-panel-icon>
-    <dp-panel-body>
+    </div>
+    <div class="c-layer-selection__content">
         <div class="u-margin__bottom--1">
-            <h2 class="u-font--base u-color__primary--contrast">Ondergrond</h2>
-            <ul>
-                <li ng-repeat="baseLayer in vm.allBaseLayers">
+            <h2 class="o-header__subtitle u-margin__bottom--1 u-margin__top--2-5">Ondergrond</h2>
+            <ul class="u-margin__bottom--4">
+                <li ng-repeat="baseLayer in vm.allBaseLayers" class="c-layer-selection__item">
                     <label>
                         <input
                             ng-model="vm.activeBaseLayer"
@@ -23,9 +27,9 @@
         </div>
 
         <div class="u-margin__bottom--1" ng-repeat="category in vm.allOverlays">
-            <h2 class="u-font--base u-color__primary--contrast">{{category.heading}}</h2>
-            <ul>
-                <li ng-repeat="overlay in category.overlays">
+            <h2 class="o-header__subtitle u-margin__bottom--1">{{category.heading}}</h2>
+            <ul class="u-margin__bottom--4">
+                <li ng-repeat="overlay in category.overlays" class="c-layer-selection__item">
                     <label>
                         <input
                             type="checkbox"
@@ -40,13 +44,14 @@
                         <span ng-if="!vm.isOverlayActive(overlay.slug)">
                             {{overlay.label}}
                         </span>
-
-                        <span ng-if="vm.isOverlayActive(overlay.slug) && !vm.isOverlayVisible(overlay.slug)" class="qa-show-invisble-by-zoom">
-                            (deze kaartlaag is niet zichtbaar op dit zoomniveau)
-                        </span>
                     </label>
+
+                    <p ng-if="vm.isOverlayActive(overlay.slug) && !vm.isOverlayVisible(overlay.slug)"
+                        class="c-layer-selection__item__message qa-show-invisble-by-zoom">
+                        Zichtbaar bij verder zoomen
+                    </p>
                 </li>
             </ul>
         </div>
-    </dp-panel-body>
-</dp-panel>
+    </div>
+</div>

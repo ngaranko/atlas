@@ -13,7 +13,7 @@ describe('The dp-link component', function () {
         });
     });
 
-    function getComponent (type, payload, className) {
+    function getComponent (type, payload, className, hoverText) {
         var component,
             element,
             scope;
@@ -24,6 +24,7 @@ describe('The dp-link component', function () {
 
         if (angular.isString(className)) {
             element.setAttribute('class-name', className);
+            element.setAttribute('hover-text', hoverText);
         }
 
         scope = $rootScope.$new();
@@ -78,6 +79,24 @@ describe('The dp-link component', function () {
             expect(component.find('button').length).toBe(1);
             expect(component.find('button').attr('class')).toContain('btn');
             expect(component.find('button').attr('class')).toContain('btn--link');
+        });
+    });
+
+    describe('title attribute', function () {
+        it('has a title attribute on its button element', function () {
+            var component = getComponent('SHOW_PAGE', 'welkom');
+
+            expect(component.find('button').length).toBe(1);
+            expect(component.find('button').attr('title')).toBeDefined();
+            expect(component.find('button').attr('title')).toBe('');
+        });
+
+        it('can set a title attribute on its button element', function () {
+            var component = getComponent('SHOW_PAGE', 'welkom', 'some-class', 'hoverText');
+
+            expect(component.find('button').length).toBe(1);
+            expect(component.find('button').attr('title')).toBeDefined();
+            expect(component.find('button').attr('title')).toBe('hoverText');
         });
     });
 });

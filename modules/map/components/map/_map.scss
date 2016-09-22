@@ -11,11 +11,12 @@
   position: absolute;
   top: 0;
   right: 0;
-  bottom: $statusbar-height;
+  bottom: 0;
   left: 0;
-  border-width: 1px 1px 0;
-  border-style: solid;
-  border-color: $secondary-gray40;
+
+  //translateZ(0) is needed to fix a Firefox bug, see tg-1306 (black screen when scrolling)
+  transform: translateZ(0);
+  border: 1px solid $secondary-gray40;
   cursor: default;
   z-index: 1;
 }

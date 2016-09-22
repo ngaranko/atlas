@@ -1,16 +1,32 @@
-.toggle-fullscreen {
+.c-toggle-fullscreen {
   position: absolute;
-  top: $base-whitespace * 2;
-  right: $base-whitespace;
-  width: 26px;
-  height: 26px;
+  top: 0;
+  right: 0;
+  width: $button-size;
+  height: $button-size;
   cursor: pointer;
   z-index: 2;
 }
 
-.toggle-fullscreen__icon {
+.c-toggle-fullscreen__icon {
   display: block;
   position: absolute;
   top: 0;
   right: 0;
+}
+
+.c-toggle-fullscreen__icon--fullscreen {
+  background-image: url("assets/icons/fullscreen.svg");
+
+  &:hover {
+    background-image: url("assets/icons/fullscreen-active.svg");
+  }
+}
+
+.c-toggle-fullscreen__icon--minimize {
+  background-image: url("assets/icons/minimize.svg");
+
+  &:hover {
+    background-image: url("assets/icons/minimize-active.svg");
+  }
 }

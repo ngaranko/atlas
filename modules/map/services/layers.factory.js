@@ -49,23 +49,26 @@
         }
 
         function addOverlay (leafletMap, layerName) {
-            getSubLayers(layerName).forEach(function (layer) {
+            getSubLayers(leafletMap, layerName).forEach(function (layer) {
                 leafletMap.addLayer(layer);
             });
         }
 
         function removeOverlay (leafletMap, layerName) {
-            getSubLayers(layerName).forEach(function (layer) {
+            getSubLayers(leafletMap, layerName).forEach(function (layer) {
                 leafletMap.removeLayer(layer);
             });
         }
 
-        function getSubLayers (overlayName) {
-            var wmsUrl,
+        function getSubLayers (leafletMap, overlayName) {
+            var wmsLayerId,
+                wmsUrl,
                 wmsSource;
 
-            if (angular.isUndefined(wmsLayers[overlayName])) {
-                wmsLayers[overlayName] = [];
+            wmsLayerId = leafletMap._leaflet_id + '_' + overlayName;
+
+            if (angular.isUndefined(wmsLayers[wmsLayerId])) {
+                wmsLayers[wmsLayerId] = [];
                 wmsUrl = OVERLAYS.SOURCES[overlayName].url;
 
                 if (!OVERLAYS.SOURCES[overlayName].external) {
@@ -75,11 +78,11 @@
                 wmsSource = L.WMS.source(wmsUrl, mapConfig.OVERLAY_OPTIONS);
 
                 OVERLAYS.SOURCES[overlayName].layers.forEach(function (layerName) {
-                    wmsLayers[overlayName].push(wmsSource.getLayer(layerName));
+                    wmsLayers[wmsLayerId].push(wmsSource.getLayer(layerName));
                 });
             }
 
-            return wmsLayers[overlayName];
+            return wmsLayers[wmsLayerId];
         }
     }
 })();

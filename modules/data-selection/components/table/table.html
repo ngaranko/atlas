@@ -1,0 +1,14 @@
+<table class="o-table">
+    <thead>
+        <tr>
+            <th ng-repeat="field in vm.content.head track by $index">{{field}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="row in vm.content.body track by $index" ng-click="vm.followLink(row.detailEndpoint)">
+            <td ng-repeat="field in row.fields track by $index">
+                {{field}}
+            </td>
+        </tr>
+    </tbody>
+</table>

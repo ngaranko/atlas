@@ -79,7 +79,7 @@
                     minZoom: 9,
                     maxZoom: 16,
                     legend: '/maps/gebieden?version=1.3.0&service=WMS&request=GetLe' +
-                        'ge=ndGraphic&sld_version=1.1.0&layer=unesco&format=image/png&STYLE=default'
+                        'gendGraphic&sld_version=1.1.0&layer=unesco&format=image/png&STYLE=default'
                 },
                 dsm: {
                     label_short: 'Terreinmodel (DSM AHN)',

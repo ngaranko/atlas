@@ -6,11 +6,11 @@
         .constant('ENVIRONMENT_CONFIG', {
             DEVELOPMENT: {
                 API_ROOT: 'https://api-acc.datapunt.amsterdam.nl/',
-                OAUTH_ROOT: 'https://api-acc.datapunt.amsterdam.nl/oauth/'
+                AUTH_ROOT: 'https://api-acc.datapunt.amsterdam.nl/authenticatie/'
             },
             PRODUCTION: {
                 API_ROOT: 'https://api.datapunt.amsterdam.nl/',
-                OAUTH_ROOT: 'https://api.datapunt.amsterdam.nl/oauth/'
+                AUTH_ROOT: 'https://api.datapunt.amsterdam.nl/authenticatie/'
             }
         });
 })();

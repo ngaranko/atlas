@@ -1,0 +1,82 @@
+@import "active-overlays-item";
+
+.c-toggle-active-overlays {
+  position: absolute;
+  bottom: 0;
+  left: 172px;
+  min-width: $button-size + 81px;
+  height: $button-size;
+  padding-right: $button-size + 10px;
+  padding-left: 10px;
+  border-width: 1px 0 1px 1px;
+  border-style: solid;
+  border-color: $secondary-gray40;
+  background-color: $primary-light;
+  text-align: left;
+  cursor: pointer;
+  z-index: 3;
+
+  &:hover ,
+  &:active {
+    color: inherit;
+
+    .c-toggle-active-overlays__icon {
+      background-image: url("assets/icons/link-active.svg");
+    }
+  }
+}
+
+.c-toggle-active-overlays__icon {
+  display: block;
+  position: absolute;
+  top: -1px;
+  right: 0;
+  width: $button-size;
+  height: $button-size;
+  transform: rotate(270deg);
+  background-image: url("assets/icons/link-hover.svg");
+
+
+}
+
+.c-toggle-active-overlays__icon--mirrored {
+  transform: rotate(90deg);
+}
+
+.c-active-overlays {
+  position: absolute;
+  bottom: 1px;
+  left: 1px;
+  width: 305px;
+  height: 80%;
+  border-width: 1px 1px $button-size 0;
+  border-style: solid;
+  border-top-color: $secondary-gray40;
+  border-right-color: $secondary-gray40;
+  border-bottom-color: $primary-light;
+  background-color: $primary-light;
+  z-index: 2;
+}
+
+.c-active-overlays__close {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: $button-size;
+  height: $button-size;
+  background-image: url("assets/icons/close-hover.svg");
+
+  &:hover {
+    background-image: url("assets/icons/close-active.svg");
+  }
+}
+
+.c-active-overlays__scrollable {
+  position: absolute;
+  top: $button-size;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 0 $base-whitespace $base-whitespace;
+  overflow-y: auto;
+}

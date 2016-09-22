@@ -1,0 +1,40 @@
+.o-header {
+  position: relative;
+}
+
+.o-header__title {
+  @include font-size($l-header-font);
+}
+
+.o-header__subtitle {
+  @include font-size($m-header-font);
+
+  display: block;
+  color: $primary-contrast;
+
+  .s-indented-list &,
+  .s-indented-result & {
+    @include font-size($s-header-font);
+    margin-bottom: $base-whitespace / 2 !important;
+    color: $primary-dark;
+  }
+}
+
+.o-header__buttongroup {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.o-header__button {
+  width: $button-size;
+  height: $button-size;
+  margin-left: $base-whitespace;
+  float: right;
+}
+
+.o-header__button--image {
+  display: block;
+  width: $button-size;
+  height: $button-size;
+}

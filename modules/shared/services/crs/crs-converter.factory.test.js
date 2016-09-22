@@ -18,8 +18,8 @@ describe('The crsConverter factory', function () {
         expect(output.length).toBe(2);
         expect(angular.isNumber(output[0])).toBe(true);
         expect(angular.isNumber(output[1])).toBe(true);
-        expect(output[0]).toBe(121356);
-        expect(output[1]).toBe(487342);
+        expect(output[0].toFixed(2)).toBe('121356.30');
+        expect(output[1].toFixed(2)).toBe('487342.36');
 
         //Weesperstraat 113
         output = crsConverter.wgs84ToRd([52.362922, 4.907101]);
@@ -27,8 +27,8 @@ describe('The crsConverter factory', function () {
         expect(output.length).toBe(2);
         expect(angular.isNumber(output[0])).toBe(true);
         expect(angular.isNumber(output[1])).toBe(true);
-        expect(output[0]).toBe(122298);
-        expect(output[1]).toBe(486223);
+        expect(output[0].toFixed(2)).toBe('122297.75');
+        expect(output[1].toFixed(2)).toBe('486223.01');
     });
 
     it('coverts an rd array to an array with wgs84 coordinates', function () {
@@ -40,8 +40,8 @@ describe('The crsConverter factory', function () {
         expect(output.length).toBe(2);
         expect(angular.isNumber(output[0])).toBe(true);
         expect(angular.isNumber(output[1])).toBe(true);
-        expect(output[0].toFixed(4)).toBe('52.3729');
-        expect(output[1].toFixed(4)).toBe('4.8936');
+        expect(output[0].toFixed(7)).toBe('52.3728607');
+        expect(output[1].toFixed(7)).toBe('4.8936049');
 
         //Weesperstraat 113
         output = crsConverter.rdToWgs84([122295, 486219]);
@@ -49,7 +49,7 @@ describe('The crsConverter factory', function () {
         expect(output.length).toBe(2);
         expect(angular.isNumber(output[0])).toBe(true);
         expect(angular.isNumber(output[1])).toBe(true);
-        expect(output[0].toFixed(4)).toBe('52.3629');
-        expect(output[1].toFixed(4)).toBe('4.9071');
+        expect(output[0].toFixed(7)).toBe('52.3628858');
+        expect(output[1].toFixed(7)).toBe('4.9070611');
     });
 });
