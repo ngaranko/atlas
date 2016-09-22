@@ -4,12 +4,15 @@
   li {
     position: relative;
     margin-left: $base-font-size;
+    padding-left: 2px;
 
     &::before {
       display: inline-block;
       position: absolute;
       left: -$base-font-size;
       content: "▪";
+      font-size: 30px;
+      top: -2px;
     }
   }
 }
