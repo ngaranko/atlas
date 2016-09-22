@@ -25,11 +25,9 @@ node {
 
     stage("Build develop image") {
         tryStep "build", {
-            def image = docker.build("admin.datapunt.amsterdam.nl:5000/atlas/demo1:${env.BUILD_NUMBER}")
+            def image = docker.build("admin.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}")
             image.push()
-            image.push("develop")
             image.push("acceptance")
-            image.push("production")
         }
     }
 }
@@ -40,7 +38,8 @@ node {
             build job: 'Subtask_Openstack_Playbook',
                     parameters: [
                             [$class: 'StringParameterValue', name: 'INVENTORY', value: 'acceptance'],
-                            [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-demo1.yml'],
+                            [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-client.yml'],
+                            [$class: 'StringParameterValue', name: 'BRANCH', value: 'master'],
                     ]
         }
     }
@@ -57,7 +56,7 @@ stage('Waiting for approval') {
 node {
     stage('Push production image') {
         tryStep "image tagging", {
-            def image = docker.image("admin.datapunt.amsterdam.nl:5000/atlas/demo1:${env.BUILD_NUMBER}")
+            def image = docker.image("admin.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}")
             image.pull()
 
             image.push("production")
@@ -72,7 +71,8 @@ node {
             build job: 'Subtask_Openstack_Playbook',
                     parameters: [
                             [$class: 'StringParameterValue', name: 'INVENTORY', value: 'production'],
-                            [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-demo1.yml'],
+                            [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-client.yml'],
+                            [$class: 'StringParameterValue', name: 'BRANCH', value: 'master'],
                     ]
         }
     }
