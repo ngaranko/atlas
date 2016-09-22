@@ -27,9 +27,7 @@ node {
         tryStep "build", {
             def image = docker.build("admin.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}")
             image.push()
-            image.push("develop")
             image.push("acceptance")
-            image.push("production")
         }
     }
 }
@@ -41,6 +39,7 @@ node {
                     parameters: [
                             [$class: 'StringParameterValue', name: 'INVENTORY', value: 'acceptance'],
                             [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-client.yml'],
+                            [$class: 'StringParameterValue', name: 'BRANCH', value: 'master'],
                     ]
         }
     }
@@ -73,6 +72,7 @@ node {
                     parameters: [
                             [$class: 'StringParameterValue', name: 'INVENTORY', value: 'production'],
                             [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-client.yml'],
+                            [$class: 'StringParameterValue', name: 'BRANCH', value: 'master'],
                     ]
         }
     }
