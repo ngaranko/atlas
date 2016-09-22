@@ -134,4 +134,29 @@ describe('The dp-active-overlays component', function () {
         //When opened; a close icon (dp-link) is shown as well
         expect(component.find('.c-active-overlays button').eq(0).attr('title')).toBe('Sluiten');
     });
+
+    describe('there is a close icon in the active overlays panel', function () {
+        var component;
+
+        beforeEach(function () {
+            component = getComponent(
+                [{id: 'overlay_a', isVisible: true}, {id: 'overlay_b', isVisible: true}],
+                10,
+                true
+            );
+        });
+
+        it('triggers HIDE_ACTIVE_OVERLAYS when clicked', function () {
+            component.find('.c-active-overlays__close').click();
+
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.HIDE_ACTIVE_OVERLAYS
+            });
+        });
+
+        it('has a title attribute and screen reader text fallback', function () {
+            expect(component.find('.c-active-overlays__close').attr('title')).toBe('Sluiten');
+            expect(component.find('.c-active-overlays__close .u-sr-only').text()).toContain('Sluiten');
+        });
+    });
 });
