@@ -69,4 +69,11 @@ describe('The dp-hotspot directive', function () {
             payload: 12589
         });
     });
+
+    it('has a screen reader fallback text', function () {
+        var directive;
+
+        directive = getComponent(1, 5);
+        expect(directive.find('button .u-sr-only').text()).toContain('Navigeer naar deze locatie');
+    });
 });
