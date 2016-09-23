@@ -32,7 +32,10 @@ node {
     }
 }
 
-if ("${env.BRANCH}" == "master") {
+String BRANCH = "${env.BRANCH_NAME}"
+
+if (BRANCH == "master") {
+
 node {
     stage("Deploy to ACC") {
         tryStep "deployment", {
