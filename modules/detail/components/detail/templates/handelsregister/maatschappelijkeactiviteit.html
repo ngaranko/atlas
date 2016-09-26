@@ -6,45 +6,23 @@
         </atlas-stelselpedia-header>
 
         <dl class="c-key-value-list">
-            <dt>Handerlsnaam</dt>
+            <dt>Handelsnaam</dt>
             <dd> {{ vm.apiData.results.naam }} </dd>
             <dt>KvK-nummer</dt>
             <dd> {{ vm.apiData.results.kvk_nummer }} </dd>
-            <dt>Bezoekadres hoofdvestiging</dt>
+            <dt>Bezoekadres</dt>
             <dd> {{ vm.apiData.results.bezoekadres.volledig_adres }} </dd>
-            <dt>Type vestiging</dt>
-            <dd> {{  }} </dd>
             <dt>Datum aanvang</dt>
             <dd> {{ vm.apiData.results.datum_aanvang }} </dd>
-            <dt>Datum einde</dt>
-            <dd> {{ vm.apiData.results.datum_einde }} </dd>
-            <dt>Vestigingsnummer</dt>
-            <dd> {{  }} </dd>
-            <dt>SBI-code</dt>
-            <dd> {{  }} </dd>
-            <dt>Volledige naam</dt>
-            <dd> {{  }} </dd>
-            <dt>Rol</dt>
-            <dd> {{  }} </dd>
-            <dt>Functietitel</dt>
-            <dd> {{  }} </dd>
-            <dt>Soort bevoegdheid</dt>
-            <dd> {{  }} </dd>
-            <dt>Functie</dt>
-            <dd> {{  }} </dd>
-            <dt>Locatie op de kaart </dt>
-            <dd>
-                {{ vm.apiData.results.bezoekadres.geometry.coordinates[0] }}, {{ vm.apiData.results.bezoekadres.geometry.coordinates[1] }} 
-            </dd>
-            <dt>AdreseerbaarObjectID</dt>
-            <dd> {{  }} </dd>
             <dt>Soort bijzondere rechtstoestand</dt>
             <dd> {{  }} </dd>
-            <dt>Aanvangsdatum bijzondere rechtstoestand</dt>
-            <dd> {{  }} </dd>
-            <dt>Datum einde bijzondere rechtstoestand</dt>
-            <dd> {{  }} </dd>
         </dl>
+    </div>
+
+    <div>
+        <atlas-stelselpedia-header definition="EIGENAAR" use-plural="true"></atlas-stelselpedia-header>
+
+        <atlas-api-call endpoint="{{vm.apiData.results.eigenaar}}" partial="handelsregister/eigenaren"></atlas-api-call>
     </div>
 
     <div ng-if="vm.apiData.results.vestigingen.count">
