@@ -141,6 +141,13 @@ describe('The atlas-search directive', function () {
         });
     });
 
+    it('has a title attribute and text fallback for the search icon (submit button)', function () {
+        var directive = getDirective('');
+
+        expect(directive.find('.c-search-form__submit').attr('title')).toBe('Zoeken');
+        expect(directive.find('.c-search-form__submit .u-sr-only').text()).toBe('Zoeken');
+    });
+
     describe('has autocomplete suggestions', function () {
         it('which are loaded when typing', function () {
             var directive = getDirective('');
