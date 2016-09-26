@@ -23,6 +23,18 @@ node {
         checkout scm
     }
 
+    stage ("Test") {
+    tryStep "Test",  {
+            sh "docker-compose build"
+            sh "docker-compose up -d"
+            sh "docker-compose run -u root client npm test"
+    }, {
+            step([$class: "JUnitResultArchiver", testResults: "reports/**/test-results.xml"])
+
+            sh "docker-compose down"
+        }
+    }
+
     stage("Build develop image") {
         tryStep "build", {
             def image = docker.build("admin.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}")
