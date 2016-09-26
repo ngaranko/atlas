@@ -23,6 +23,7 @@ $submit-button-width: 30px;
   &::placeholder {
     color: $primary-light;
   }
+
   &:focus {
     & + .c-search-form__submit {
       background-color: $primary-contrast;
