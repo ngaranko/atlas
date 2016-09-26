@@ -1,4 +1,4 @@
-fdescribe('The geojson factory', function () {
+describe('The geojson factory', function () {
     var geojson,
         mockedPoint,
         mockedPolygon,

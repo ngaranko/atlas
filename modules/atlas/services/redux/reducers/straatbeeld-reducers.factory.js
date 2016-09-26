@@ -46,7 +46,7 @@
             newState.dataSelection = null;
 
             newState.map.isLoading = true;
-             
+            
             return newState;
         }
 

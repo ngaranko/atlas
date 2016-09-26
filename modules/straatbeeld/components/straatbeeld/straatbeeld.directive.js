@@ -5,9 +5,16 @@
         .module('dpStraatbeeld')
         .directive('dpStraatbeeld', dpStraatbeeldDirective);
 
-    dpStraatbeeldDirective.$inject = ['$rootScope', 'store', 'ACTIONS', 'marzipanoService', 'earthmine', 'orientation'];
+    dpStraatbeeldDirective.$inject = [
+        '$rootScope', 
+        'store', 
+        'ACTIONS', 
+        'marzipanoService', 
+        'straatbeeldApi', 
+        'orientation'
+    ];
 
-    function dpStraatbeeldDirective ($rootScope, store, ACTIONS, marzipanoService, earthmine, orientation) {
+    function dpStraatbeeldDirective ($rootScope, store, ACTIONS, marzipanoService, straatbeeldApi, orientation) {
         return {
             restrict: 'E',
             scope: {
@@ -35,29 +42,16 @@
             scope.$watch('state.id', function (id) {
 
                 if (angular.isString(id)) {
-                    earthmine.getImageDataById(id).then(function (earthmineData) {
-                         // TODO. Hotspots is nog steeds leeg hier, en in de Marzipano service uitgecomment.
-                         marzipanoService.loadScene(
-                             earthmineData['pano_id'],
-                             earthmineData.images.equirectangular,
-                             scope.state.heading,
-                             earthmineData.pitch,
-                             earthmineData.adjacent 
-                        );
-                        if (scope.state.isInitial) {
-                            store.dispatch({
-                                type: ACTIONS.SHOW_STRAATBEELD_INITIAL,
-                                payload: earthmineData
-                            });
-                        } else {
-                            store.dispatch({
-                                type: ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT,
-                                payload: earthmineData
-                            });
-                        }
-                       
+                    straatbeeldApi.getImageDataById(id).then(function (straatbeeldData) {
+                         var type = scope.state.isInitial   ? ACTIONS.SHOW_STRAATBEELD_INITIAL 
+                                                            : ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT;
+                        
+                         store.dispatch({
+                                type: type,
+                                payload: straatbeeldData
+                         });
                     });
-                }
+                } 
             });
 
             //Re-render the Marzipano viewer if the size changes (through an added parent CSS class)

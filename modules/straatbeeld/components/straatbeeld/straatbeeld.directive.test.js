@@ -1,276 +1,99 @@
-describe('The dp-straatbeeld directive', function () {
+fdescribe('The dp-straatbeeld directive', function () {
     var $compile,
         $rootScope,
-        $q,
-        store,
+        $store,
         ACTIONS,
-        marzipanoService,
-        earthmine,
-        orientation,
-        mockedMarzipanoViewer = {
-            updateSize: function () {}
-        },
-        mockedEarthmineData = {
-            id: 123,
-            date: new Date(2016, 6, 8),
-            car: {
-                location: [52.129, 4.79],
-                heading: 270,
-                pitch: 0.75
-            },
-            hotspots: ['FAKE_HOTSPOT_1', 'FAKE_HOTSPOT_2']
-        };
+        $q;
 
     beforeEach(function () {
-        angular.mock.module(
-            'dpStraatbeeld',
-            {
-                store: {
-                    dispatch: function () {}
-                },
-                earthmine: {
-                    getImageDataById: function () {
-                        var q = $q.defer();
 
-                        q.resolve(mockedEarthmineData);
-
-                        return q.promise;
-                    },
-                    getImageDataByCoordinates: function () {
-                        var q = $q.defer();
-
-                        q.resolve(mockedEarthmineData);
-
-                        return q.promise;
-                    }
+        angular.mock.module('dpStraatbeeld', {
+            store: {
+                dispatch: function () { }
+            },
+            marzipanoService: {
+                initialize: function () { }
+            },
+            orientation: {
+                update: function () { }
+            },
+            straatbeeldApi: {
+                getImageDataById: function () {
+                    var q = $q.defer();
+                    q.resolve({ foo: 'bar' });
+                    return q.promise;
                 }
             }
-        );
 
-        angular.mock.inject(
-            function (_$compile_, _$rootScope_, _$q_, _store_, _ACTIONS_, _marzipanoService_, _earthmine_,
-                _orientation_) {
+        });
 
-                $compile = _$compile_;
-                $rootScope = _$rootScope_;
-                $q = _$q_;
-                store = _store_;
-                ACTIONS = _ACTIONS_;
-                marzipanoService = _marzipanoService_;
-                earthmine = _earthmine_;
-                orientation = _orientation_;
-            }
-        );
+        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _ACTIONS_, _$q_) {
+            $compile = _$compile_;
+            $rootScope = _$rootScope_;
+            $store = _store_;
+            ACTIONS = _ACTIONS_;
+            $q = _$q_;
 
-        spyOn(marzipanoService, 'initialize').and.returnValue(mockedMarzipanoViewer);
-        spyOn(marzipanoService, 'loadScene');
+        });
 
-        spyOn(mockedMarzipanoViewer, 'updateSize');
+        spyOn($store, 'dispatch');
 
-        spyOn(earthmine, 'getImageDataById').and.callThrough();
-        spyOn(earthmine, 'getImageDataByCoordinates').and.callThrough();
-
-        spyOn(orientation, 'update');
-
-        spyOn(store, 'dispatch');
     });
 
-    function getDirective (state, isPrintMode) {
-        var directive,
-            element,
-            scope;
+    function getDirective(state, isPrintMode) {
+        var el = document.createElement('dp-straatbeeld');
+        el.setAttribute('state', 'state');
+        el.setAttribute('is-print-mode', 'isPrintMode');
 
-        element = document.createElement('dp-straatbeeld');
-        element.setAttribute('state', 'state');
-        element.setAttribute('is-print-mode', 'isPrintMode');
+        var scope = $rootScope.$new();
 
-        scope = $rootScope.$new();
         scope.state = state;
         scope.isPrintMode = isPrintMode;
 
-        directive = $compile(element)(scope);
+        var directive = $compile(el)(scope);
         scope.$apply();
 
         return directive;
+
     }
 
-    function triggerMousemove (element) {
-        var event;
+    it('Does not call SHOW_STRAATBEELD_INITIAL Or SUBSEQUENT IF State.id is unknown', function () {
+        var state = {};
 
-        event = angular.element.Event('mousemove');
+        getDirective(state, false);
 
-        element.trigger(event);
-    }
+        expect($store.dispatch).not.toHaveBeenCalled();
 
-    it('initializes the marzipanoService with the panoramaState', function () {
-        var directive,
-            container;
-
-        directive = getDirective({id: 123}, false);
-        container = directive.find('.js-marzipano-viewer')[0];
-
-        expect(marzipanoService.initialize).toHaveBeenCalledWith(container);
     });
+    it('Does call SHOW_STRAATBEELD_INITIAL', function () {
+        var state = {
+            id: 'ABC',
+            isInitial: true
+        };
+        
+        getDirective(state, false);
 
-    describe('it loads data from earthmine', function () {
-        describe('the initial panorama scene', function () {
-            it('loads the data based on coordinates', function () {
-                getDirective({id: null, searchLocation: [52.123, 4.789]}, false);
-
-                expect(earthmine.getImageDataById).not.toHaveBeenCalled();
-                expect(earthmine.getImageDataByCoordinates).toHaveBeenCalledWith(52.123, 4.789);
-            });
-
-            it('triggers SHOW_STRAATBEELD_INITIAL when the earthmineData is resvoled', function () {
-                getDirective({id: null, searchLocation: [52.123, 4.789]}, false);
-
-                expect(store.dispatch).toHaveBeenCalledWith({
-                    type: ACTIONS.SHOW_STRAATBEELD_INITIAL,
-                    payload: {
-                        id: 123,
-                        date: new Date(2016, 6, 8),
-                        car: {
-                            location: [52.129, 4.79],
-                            heading: 270,
-                            pitch: 0.75
-                        },
-                        hotspots: ['FAKE_HOTSPOT_1', 'FAKE_HOTSPOT_2']
-                    }
-                });
-            });
-        });
-
-        describe('subsequent panorama scenes', function () {
-            it('loads the data based on ID', function () {
-                getDirective({id: 123}, false);
-
-                expect(earthmine.getImageDataById).toHaveBeenCalledWith(123);
-                expect(earthmine.getImageDataByCoordinates).not.toHaveBeenCalled();
-            });
-
-            it('triggers SHOW_STRAATBEELD_SUBSEQUENT when the earthmineData is resvoled', function () {
-                getDirective({id: 123}, false);
-
-                expect(store.dispatch).toHaveBeenCalledWith({
-                    type: ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT,
-                    payload: {
-                        id: 123,
-                        date: new Date(2016, 6, 8),
-                        car: {
-                            location: [52.129, 4.79],
-                            heading: 270,
-                            pitch: 0.75
-                        },
-                        hotspots: ['FAKE_HOTSPOT_1', 'FAKE_HOTSPOT_2']
-                    }
-                });
-            });
-        });
-
-        it('doesn\'t directly load a scene when earthmineData is resolved', function () {
-            //Loading the scene should only be triggered by a Redux state change, not some internal API call
-            getDirective({id: 123}, false);
-            expect(marzipanoService.loadScene).not.toHaveBeenCalled();
-
-            getDirective({id: null, searchLocation: [52.123, 4.789]}, false);
-            expect(marzipanoService.loadScene).not.toHaveBeenCalled();
-        });
-    });
-
-    it('calls the orientation factory on mousemove to keep the state in sync', function () {
-        var directive;
-
-        directive = getDirective(
-            {
-                id: 123,
-                car: {
-                    location: [52, 4],
-                    heading: 275,
-                    pitch: 0.8
-                },
-                isLoading: false
-            }, false
-        );
-        expect(orientation.update).not.toHaveBeenCalled();
-
-        triggerMousemove(directive.find('.js-marzipano-viewer'));
-        expect(orientation.update).toHaveBeenCalledWith(
-            mockedMarzipanoViewer,
-            {
-                location: [52, 4],
-                heading: 275,
-                pitch: 0.8
+        expect($store.dispatch).toHaveBeenCalledWith({
+            type: ACTIONS.SHOW_STRAATBEELD_INITIAL,
+            payload: {
+                foo: 'bar'
             }
-        );
+        });
     });
 
-    it('doesn\'t call the orientation factory before the scene is done loading', function () {
-        var directive,
-            mockedState;
-
-        mockedState = {
-            id: 123,
-            isLoading: true
+     it('Does call SHOW_STRAATBEELD_SUBSEQUENT', function () {
+        var state = {
+            id: 'ABC',
+            isInitial: false
         };
 
-        //When it is still loading
-        directive = getDirective(mockedState, false);
-        expect(orientation.update).not.toHaveBeenCalled();
+        getDirective(state, false);
 
-        triggerMousemove(directive.find('.js-marzipano-viewer'));
-        expect(orientation.update).not.toHaveBeenCalled();
-
-        //When it is done loading
-        mockedState.isLoading = false;
-        triggerMousemove(directive.find('.js-marzipano-viewer'));
-        expect(orientation.update).toHaveBeenCalled();
-    });
-
-    it('loads a scene when there is a known car location', function () {
-        getDirective({
-            id: 123,
-            car: {
-                location: [52.123, 4.789],
-                heading: 90,
-                pitch: 0.01
-            },
-            camera: {
-                heading: 90,
-                pitch: 0.01
-            },
-            hotspots: ['FAKE_HOTSPOT_X', 'FAKE_HOTSPOT_Y']
-        }, false);
-
-        expect(marzipanoService.loadScene).toHaveBeenCalledWith(
-            123,
-            {
-                location: [52.123, 4.789],
-                heading: 90,
-                pitch: 0.01
-            },
-            {
-                heading: 90,
-                pitch: 0.01
-            },
-            ['FAKE_HOTSPOT_X', 'FAKE_HOTSPOT_Y']
-        );
-    });
-
-    it('re-renders the viewer when isPrintMode changes (and thus the size of the viewer changes)', function () {
-        var directive,
-            scope;
-
-        directive = getDirective({id: 123}, false);
-        scope = directive.isolateScope();
-
-        expect(mockedMarzipanoViewer.updateSize).not.toHaveBeenCalled();
-
-        scope.isPrintMode = true;
-        scope.$apply();
-        expect(mockedMarzipanoViewer.updateSize).toHaveBeenCalledTimes(1);
-
-        scope.isPrintMode = false;
-        scope.$apply();
-        expect(mockedMarzipanoViewer.updateSize).toHaveBeenCalledTimes(2);
+        expect($store.dispatch).toHaveBeenCalledWith({
+            type: ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT,
+            payload: {
+                foo: 'bar'
+            }
+        });
     });
 });

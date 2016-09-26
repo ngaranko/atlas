@@ -1,4 +1,4 @@
-fdescribe('The urlReducers factory', function () {
+describe('The urlReducers factory', function () {
     var urlReducers,
         mockedState,
         mockedSearchParams;
@@ -266,7 +266,8 @@ fdescribe('The urlReducers factory', function () {
                 mockedSearchParams.fov = '2';
 
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
-                expect(output.straatbeeld.id).toBe('ABC');
+                
+                expect(output.straatbeeld.panoId).toBe('ABC');
                 expect(output.straatbeeld.heading).toBe(179);
                 expect(output.straatbeeld.pitch).toBe(1);
                 expect(output.straatbeeld.fov).toBe(2);
@@ -289,13 +290,10 @@ fdescribe('The urlReducers factory', function () {
 
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
 
-                expect(output.date).toBe('Thu Sep 22 2016 12:10:37 GMT+0200 (CEST)');
-                expect(output.hotspots).toEqual([{
-                    a: 'a',
-                    b: 'b'
-                }]);
-
-
+                expect(output.straatbeeld.date).toBeNull();
+                expect(output.straatbeeld.hotspots).toEqual([]);
+                expect(output.straatbeeld.isLoading).toBe(false);
+                expect(output.straatbeeld.isInitial).toBe(true);
             });
 
 

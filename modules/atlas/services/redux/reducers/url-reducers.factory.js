@@ -7,14 +7,14 @@
 
     urlReducersFactory.$inject = ['$window', 'ACTIONS', 'DEFAULT_STATE'];
 
-    function urlReducersFactory ($window, ACTIONS, DEFAULT_STATE) {
+    function urlReducersFactory($window, ACTIONS, DEFAULT_STATE) {
         var reducers = {};
 
         reducers[ACTIONS.URL_CHANGE] = urlChangeReducer;
 
         return reducers;
 
-        function urlChangeReducer (oldState, payload) {
+        function urlChangeReducer(oldState, payload) {
             if (angular.equals(payload, {})) {
                 return DEFAULT_STATE;
             } else {
@@ -31,7 +31,7 @@
                 return newState;
             }
 
-            function getSearchState (payload) {
+            function getSearchState(payload) {
                 if (angular.isString(payload.zoek)) {
                     var searchState = {};
 
@@ -59,14 +59,14 @@
                  *
                  * @returns {Boolean}
                  */
-                function isLocation (location) {
+                function isLocation(location) {
                     return angular.isArray(
                         location.match(/^\d+\.\d+,\d+\.\d+$/)
                     );
                 }
             }
 
-            function getMapState (payload) {
+            function getMapState(payload) {
                 var overlays = [],
                     layers,
                     id,
@@ -80,7 +80,7 @@
                         // checking isVisible
                         isVisible = id[1] === 'zichtbaar';
                         id = id[0];
-                        overlays.push({id: id, isVisible: isVisible});
+                        overlays.push({ id: id, isVisible: isVisible });
                     }
                 }
                 return {
@@ -99,12 +99,12 @@
                 };
             }
 
-            function getDetailState (oldState, payload) {
+            function getDetailState(oldState, payload) {
                 if (angular.isString(payload.detail)) {
                     var newDetailState = {
-                            endpoint: payload.detail,
-                            isLoading: false
-                        };
+                        endpoint: payload.detail,
+                        isLoading: false
+                    };
 
                     if (angular.isObject(oldState.detail) && oldState.detail.endpoint === payload.detail) {
                         newDetailState.geometry = oldState.detail.geometry;
@@ -116,42 +116,30 @@
                 }
             }
 
-            function getStraatbeeldState (oldState, payload) {
-               
-                if (hasStraatbeeld(payload)) {
-                    var date,
-                        hotspots, pitch, fov;
-                        
-                        date = null;
-                        hotspots = [];
-                
+            function getStraatbeeldState(oldState, payload) {
 
-                    pitch =  payload.pitch;
-                   
-                    if (payload.fov) {
-                        fov = payload.fov;
-                    }
-                    
-                    return {
-                        id: payload.id || null,
-                        date: date,
-                        hotspots: hotspots,
-                        heading: oldState.straatbeeld.heading,
-                        pitch: pitch,
-                        fov: fov,
-                        geometry: oldState.straatbeeld.geometry,
+                if (payload.id) {
+
+                    var straatbeeld = {
+                        pitch: Number(payload.pitch),
+                        fov: Number(payload.fov),
+                        panoId: payload.id,
+                        heading: Number(payload.heading),
+                        isInitial: true,
+                        date: null,
+                        hotspots: [],
                         isLoading: false
                     };
+
+                    return straatbeeld;
                 } else {
                     return null;
                 }
 
-                function hasStraatbeeld (payload) {
-                    return payload.id;
-                }
+
             }
 
-            function getDataSelectionState (payload) {
+            function getDataSelectionState(payload) {
                 var filters = {};
 
                 if (angular.isString(payload.dataset)) {
@@ -173,7 +161,7 @@
                 }
             }
 
-            function getPrintState (payload) {
+            function getPrintState(payload) {
                 return angular.isString(payload['print-versie']);
             }
         }
