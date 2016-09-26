@@ -32,8 +32,14 @@
                 PRIMARY_KEY: 'id',
                 FILTERS: [
                     {
+                        slug: 'woonplaats',
+                        label: 'Woonplaats'
+                    }, {
                         slug: 'stadsdeel_naam',
                         label: 'Stadsdelen'
+                    }, {
+                        slug: 'ggw_naam',
+                        label: 'Gebieden'
                     }, {
                         slug: 'buurtcombinatie_naam',
                         label: 'Buurtcombinaties'
@@ -46,63 +52,51 @@
                     }, {
                         slug: 'postcode',
                         label: 'Postcode'
-                    }, {
-                        slug: 'ggw_naam',
-                        label: 'Gebiedsgerichtwerken gebieden'
                     }
                 ],
                 FIELDS: [
                     {
-                        slug: 'stadsdeel_naam',
-                        label: 'Stadsdeel naam'
-                    },
-                    {
-                        slug: 'stadsdeel_code',
-                        label: 'Stadsdeel code'
-                    },
-                    {
-                        slug: 'ggw_naam',
-                        label: 'Gebiedsnaam (gebiedsgerichtwerken)'
-                    },
-                    {
-                        slug: 'ggw_code',
-                        label: 'Gebiedsnaam code'
-                    },
-                    {
-                        slug: 'buurtcombinatie_naam',
-                        label: 'Wijknaam (buurtcombinatie)'
-                    },
-                    {
-                        slug: 'buurtcombinatie_code',
-                        label: 'Wijk volledige code'
-                    },
-                    {
-                        slug: 'buurt_naam',
-                        label: 'Buurtnaam'
-                    },
-                    {
-                        slug: 'buurt_code',
-                        label: 'Buurt volledige code'
-                    },
-                    {
                         slug: '_openbare_ruimte_naam',
-                        label: 'Straatnaam (openbare ruimte naam)'
-                    },
-                    {
+                        label: 'Openbare ruimte'
+                    }, {
                         slug: 'huisnummer',
-                        label: 'Huisnummer'
-                    },
-                    {
-                        slug: 'huisnummer_toevoeging',
-                        label: 'Huisnummer Toevoeging'
-                    },
-                    {
+                        label: 'Num.'
+                    }, {
                         slug: 'huisletter',
-                        label: 'Huisnummer letter'
-                    },
-                    {
+                        label: 'Let.'
+                    }, {
+                        slug: 'huisnummer_toevoeging',
+                        label: 'Toev.'
+                    }, {
                         slug: 'postcode',
                         label: 'Postcode'
+                    }, {
+                        slug: 'woonplaats',
+                        label: 'Woonplaats'
+                    }, {
+                        slug: 'stadsdeel_naam',
+                        label: 'Stadsdeel'
+                    }, {
+                        slug: 'stadsdeel_code',
+                        label: '-code'
+                    }, {
+                        slug: 'ggw_naam',
+                        label: 'G.G.W. gebied'
+                    }, {
+                        slug: 'ggw_code',
+                        label: '-code'
+                    }, {
+                        slug: 'buurtcombinatie_naam',
+                        label: 'Buurtcombintaie'
+                    }, {
+                        slug: 'buurtcombinatie_code',
+                        label: '-code'
+                    }, {
+                        slug: 'buurt_naam',
+                        label: 'Buurt'
+                    }, {
+                        slug: 'buurt_code',
+                        label: '-code'
                     }
                 ]
             }
