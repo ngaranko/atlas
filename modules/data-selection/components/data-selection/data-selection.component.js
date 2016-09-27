@@ -28,7 +28,7 @@
 
                 vm.availableFilters = data.filters;
                 vm.tableData = data.tableData;
-                vm.numberOfRecords = 10000; // ToDo: this data is not available in the current API
+                vm.numberOfRecords = "10.000"; // ToDo: this data is not available in the current API
                 vm.numberOfPages = data.number_of_pages;
 
                 vm.isLoading = false;

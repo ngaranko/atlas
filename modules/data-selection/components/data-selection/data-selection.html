@@ -1,5 +1,5 @@
 <div class="u-grid">
-    <div class="u-row">
+    <div class="u-row data-selection__grid">
         <div class="u-col-sm--2">
             <dp-data-selection-filters
                 dataset="{{vm.state.dataset}}"
@@ -13,18 +13,21 @@
             <dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>
 
             <div ng-if="!vm.isLoading">
-                Adressen ({{vm.numberOfRecords}})
 
-                <span class="u-pull--right">
-                    <dp-data-selection-download-button
-                        dataset="{{vm.state.dataset}}"
-                        active-filters="vm.state.filters">
+                <div class="data-selection__header">
+                    <h2>Adressen ({{vm.numberOfRecords}})</h2>
 
-                    </dp-data-selection-download-button>
+                    <div class="data-selection__buttongroup u-pull--right">
+                        <dp-data-selection-download-button
+                            dataset="{{vm.state.dataset}}"
+                            active-filters="vm.state.filters">
+                        </dp-data-selection-download-button>
 
-                    <dp-data-selection-kaartweergave-button>
-                    </dp-data-selection-kaartweergave-button>
-                </span>
+                        <dp-data-selection-kaartweergave-button>
+                        </dp-data-selection-kaartweergave-button>
+                    </div>
+
+                </div>
 
                 <dp-data-selection-table
                     content="vm.tableData">

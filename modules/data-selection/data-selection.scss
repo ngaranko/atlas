@@ -1,0 +1,79 @@
+//Shared variables & mixins
+@import "../shared/styles/config";
+
+.data-selection__header {
+  padding-bottom: $base-whitespace;
+}
+
+.data-selection__grid {
+  margin-top: $base-whitespace;
+}
+
+.data-selection__table__header {
+  background-color: $secondary-gray40;
+  color: $primary-light;
+}
+
+.data-selection__buttongroup {
+  position: absolute;
+  top: $base-whitespace;
+  right: 0;
+}
+
+.data-selection__button {
+  width: $button-size;
+  height: $button-size;
+  margin-left: $base-whitespace;
+  margin-right: $base-whitespace;
+}
+
+.data-selection__filter__button {
+  margin-right: $base-whitespace;
+  color: $primary-light;
+  font-weight: bolder;
+}
+
+.data-selection__toon__meer {
+  margin-top: $base-whitespace;
+  margin-bottom:$base-whitespace;
+}
+
+.data-selection__horizontal__line {
+  width:100%;
+  height:1px;
+  margin-top: $base-whitespace / 2 ;
+  margin-bottom:$base-whitespace / 2;
+  background: $secondary-gray40;
+}
+
+.data-selection__table__cell {
+  padding-left:$base-whitespace;
+}
+
+.data-selection__filters {
+  margin-right: $base-whitespace * 2;
+}
+
+.data-selection__active__filters {
+  margin-left: $base-whitespace;
+}
+
+.data-selection__active__filter {
+  padding-left:$base-whitespace;
+  padding-top:$base-whitespace / 2;
+  padding-bottom:$base-whitespace / 2;
+  margin-bottom: $base-whitespace;
+  background-color: $secondary-gray60;
+  color: $primary-light;
+}
+
+.data-selection__available__filter__label {
+  margin-top: $base-whitespace;
+  color: $primary-contrast;
+}
+
+.data-selection__available__filters {
+  padding-right: $base-whitespace;
+  padding-left:$base-whitespace;
+  background-color: $secondary-gray4;
+}

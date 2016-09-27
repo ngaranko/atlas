@@ -1,49 +1,55 @@
-<div ng-if="vm.formattedActiveFilters.length" class="qa-active-filters">
-    <!--No heading-->
-    <ul>
-        <li ng-repeat="filter in vm.formattedActiveFilters">
-            {{filter.categoryLabel}}: {{filter.option}}
+<div class="data-selection__filters">
 
-            <button class="o-btn o-btn--link" ng-click="vm.removeFilter(filter.categorySlug)">
-                button x
-            </button>
-        </li>
-    </ul>
-</div>
-
-<div class="qa-available-filters">
-    <!--No heading-->
-
-    <dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>
-
-    <div ng-if="!vm.isLoading" ng-repeat="category in vm.availableFilters">
-        <h3>{{category.label}}</h3>
+    <div ng-if="vm.formattedActiveFilters.length" class="qa-active-filters">
+        <!--No heading-->
         <ul>
-            <li ng-repeat="option in category.options | limitTo : vm.isExpandedCategory(category.slug) ? undefined : vm.showMoreThreshold">
-                <button
-                    class="o-btn o-btn--link"
-                    ng-class="{
-                        'u-color__primary--dark': vm.isFilterActive(category.slug, option.label)
-                    }"
-                    ng-click="vm.addFilter(category.slug, option.label)">
+            <li class="data-selection__active__filter" ng-repeat="filter in vm.formattedActiveFilters">
+                <span class="u-pull--right">
+                    <button ng-click="vm.removeFilter(filter.categorySlug)"
+                            class="data-selection__filter__button"
+                            title="Verwijder filter">X</button>
 
-                    {{option.label}}
-                </button>
-
+                </span>
+                {{filter.categoryLabel}}: {{filter.option}}
             </li>
         </ul>
+    </div>
 
-        <hr>
-        <button ng-if="vm.showExpandButton(category.slug)"
-            class="qa-show-more-button"
-            ng-click="vm.expandCategory(category.slug)">
+    <div class="qa-available-filters data-selection__available__filters">
+        <!--No heading-->
 
-            <strong>Toon meer</strong>
-        </button>
-        <hr>
+        <dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>
 
-        <p ng-if="vm.showHiddenOptionsMessage(category)" class="qa-hidden-options">
-            Er zijn nog meer opties, maar we tonen ze niet.
-        </p>
+        <div ng-if="!vm.isLoading" ng-repeat="category in vm.availableFilters">
+            <h4 class="data-selection__available__filter__label">{{category.label}}</h4>
+            <ul>
+                <li ng-repeat="option in category.options | limitTo : vm.isExpandedCategory(category.slug) ? undefined : vm.showMoreThreshold">
+                    <button
+                        class="o-btn o-btn--link"
+                        ng-class="{
+                            'u-color__primary--dark': vm.isFilterActive(category.slug, option.label)
+                        }"
+                        ng-click="vm.addFilter(category.slug, option.label)">
+
+                        {{option.label}}
+                    </button>
+
+                </li>
+            </ul>
+
+            <div class="data-selection__toon__meer" ng-if="vm.showExpandButton(category.slug)">
+                <div class="data-selection__horizontal__line"></div>
+                <button class="o-btn o-btn--link"
+                        ng-click="vm.expandCategory(category.slug)">
+
+                    <strong>Toon meer</strong>
+                </button>
+                <div class="data-selection__horizontal__line"></div>
+            </div>
+
+            <p ng-if="vm.showHiddenOptionsMessage(category)" class="qa-hidden-options">
+                Er zijn nog meer opties, maar we tonen ze niet.
+            </p>
+        </div>
     </div>
 </div>
