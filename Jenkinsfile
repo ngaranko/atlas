@@ -25,9 +25,8 @@ node {
 
     stage ("Test") {
     tryStep "Test",  {
-            sh "docker-compose build"
-            sh "docker-compose up -d"
-            sh "docker-compose run -u root client npm test"
+            sh "docker-compose -p atlas -f .jenkins/docker-compose.yml build"
+            sh "docker-compose -p atlas -f .jenkins/docker-compose.yml run -u root client npm test"
     }, {
             step([$class: "JUnitResultArchiver", testResults: "reports/**/test-results.xml"])
 
