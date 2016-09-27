@@ -54,6 +54,13 @@
     <atlas-api-call endpoint="{{apiData.results.panden.href}}" partial="lijst"></atlas-api-call>
   </div>
 
+  <!-- Vestiging -->
+  <div>
+    <atlas-stelselpedia-header definition="VESTIGING" use-plural="true"></atlas-stelselpedia-header>
+
+    <atlas-api-call endpoint="handelsregister/vestiging/?nummeraanduiding={{ apiData.results.hoofdadres.landelijk_id }}" add-api-root="true" partial="lijst"></atlas-api-call>
+  </div>
+
   <!-- Kadastraal apiData -->
   <div ng-if="apiData.results.kadastrale_objecten.count">
     <atlas-stelselpedia-header definition="KADASTRAAL_OBJECT" use-plural="true"></atlas-stelselpedia-header>
