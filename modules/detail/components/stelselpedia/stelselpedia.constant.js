@@ -71,15 +71,12 @@
                         'buurtcombinatie_identificatie'
                     ]
                 },
-                EIGENAAR: {
-                    label_singular: 'Eigenaar',
-                    label_plural: 'Eigenaren',
-                    description: 'Een Persoon is een ieder die rechten en plichten kan hebben. Persoon ' +
-                        'wordt gebruikt als overkoepelend begrip (een verzamelnaam voor NatuurlijkPersoon, ' +
-                        'NietNatuurlijkPersoon en NaamPersoon) om er over te kunnen communiceren. Iedere in het ' +
-                        'handelsregister voorkomende Persoon heeft ofwel een Eigenaarschap en/ of minstens één ' +
-                        'Functievervulling waarmee de rol van de Persoon is vastgelegd.',
-                    url: 'https://www.amsterdam.nl/stelselpedia/hr-index/catalogus/persoon/',
+                FUNCTIEVERVULLING: {
+                    label_singular: 'Functievervulling',
+                    label_plural: 'Functievervullingen',
+                    description: 'Een FunctieVervulling geeft de relatie weer van de Persoon als functionaris ' +
+                        'en de Persoon als eigenaar van de Onderneming of MaatschappelijkeActiviteit.',
+                    url: 'https://www.amsterdam.nl/stelselpedia/hr-index/catalogus/functie-vervulling/',
                     meta: []
                 },
                 G_PERCEEL: {

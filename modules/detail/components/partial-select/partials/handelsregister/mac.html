@@ -1,0 +1,32 @@
+<div>
+    <div class="u-row">
+        <atlas-stelselpedia-header
+            definition="MAC">
+        </atlas-stelselpedia-header>
+
+        <dl class="c-key-value-list">
+            <dt>Handelsnaam</dt>
+            <dd> {{ apiData.results.naam }} </dd>
+            <dt>KvK-nummer</dt>
+            <dd> {{ apiData.results.kvk_nummer }} </dd>
+            <dt>Bezoekadres</dt>
+            <dd> {{ apiData.results.bezoekadres.volledig_adres }} </dd>
+            <dt>Datum aanvang</dt>
+            <dd> {{ apiData.results.datum_aanvang }} </dd>
+            <dt>Soort bijzondere rechtstoestand</dt>
+            <dd> {{  }} </dd>
+        </dl>
+    </div>
+
+    <div>
+        <atlas-stelselpedia-header definition="FUNCTIEVERVULLING" use-plural="true"></atlas-stelselpedia-header>
+
+        <atlas-api-call endpoint="{{apiData.results.eigenaar}}" partial="handelsregister/eigenaren"></atlas-api-call>
+    </div>
+
+    <div ng-if="apiData.results.vestigingen.count">
+        <atlas-stelselpedia-header definition="VESTIGING" use-plural="true"></atlas-stelselpedia-header>
+
+        <atlas-api-call endpoint="{{apiData.results.vestigingen.href}}" partial="lijst"></atlas-api-call>
+    </div>
+</div>

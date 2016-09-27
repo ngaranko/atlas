@@ -24,6 +24,10 @@
         <dt>Vestigingsnummer</dt>
         <dd> {{  vm.apiData.results.vestigingsnummer }} </dd>
         <dt>Datum aanvang</dt>
-        <dd> {{ vm.apiData.results.datum_aanvang }} </dd>
+        <dd> {{ vm.apiData.results.datum_aanvang | date:'dd-MM-yyyy' }} </dd>
+        <dt>Coördinaten</dt>
+        <dd>{{ apiData.results.geometrie.coordinates[0] }}, {{ apiData.results.geometrie.coordinates[1] }}</dd>
     </dl>
+
+    <atlas-api-call endpoint="{{vm.apiData.results.maatschappelijke_activiteit}}" partial="handelsregister/mac"></atlas-api-call>
 </div>
