@@ -24,11 +24,9 @@ node {
     }
 
     stage ("Test") {
-    tryStep "Test",  {
-            sh "docker-compose -p atlas -f .jenkins/docker-compose.yml build"
-            sh "docker-compose -p atlas -f .jenkins/docker-compose.yml run -u root atlas npm test"
-    }, {
-            sh "docker-compose down"
+        tryStep "Test",  {
+                sh "docker-compose -p atlas -f .jenkins/docker-compose.yml build"
+                sh "docker-compose -p atlas -f .jenkins/docker-compose.yml run -u root atlas npm test"
         }
     }
 
