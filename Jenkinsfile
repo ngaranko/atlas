@@ -28,8 +28,6 @@ node {
             sh "docker-compose -p atlas -f .jenkins/docker-compose.yml build"
             sh "docker-compose -p atlas -f .jenkins/docker-compose.yml run -u root atlas npm test"
     }, {
-            step([$class: "JUnitResultArchiver", testResults: "reports/**/test-results.xml"])
-
             sh "docker-compose down"
         }
     }
