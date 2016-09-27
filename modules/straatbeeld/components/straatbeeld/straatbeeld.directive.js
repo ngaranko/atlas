@@ -40,7 +40,7 @@
 
             //Fetch scene
             scope.$watch('state.id', function (id) {
-
+                
                 if (angular.isString(id)) {
                     straatbeeldApi.getImageDataById(id).then(function (straatbeeldData) {
                          var type = scope.state.isInitial   ? ACTIONS.SHOW_STRAATBEELD_INITIAL 
@@ -51,7 +51,19 @@
                                 payload: straatbeeldData
                          });
                     });
-                } 
+                }
+                 
+            });
+
+            scope.$watch('state.image', function(img) {
+                if (angular.isString(img)) {
+                    //loadScene (image, heading, pitch, fov, hotspots) 
+                    marzipanoService.loadScene( scope.state.image, 
+                                                scope.state.heading, 
+                                                scope.state.pitch, 
+                                                scope.state.fov, 
+                                                scope.state.hotspots);
+                    }
             });
 
             //Re-render the Marzipano viewer if the size changes (through an added parent CSS class)

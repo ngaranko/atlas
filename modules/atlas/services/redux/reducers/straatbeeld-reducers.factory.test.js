@@ -6,7 +6,7 @@ describe('Straatbeeld reducers factory', function () {
 
     beforeEach(function () {
         angular.mock.module('atlas', {
-             straatbeeldConfig: {
+            straatbeeldConfig: {
                 DEFAULT_FOV: 80
             }
         });
@@ -27,6 +27,7 @@ describe('Straatbeeld reducers factory', function () {
             'isInitial': true
         };
 
+
         it('Set INITIAL panoId, heading, isInitial', function () {
             inputState.straatbeeld = null;
             var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD](inputState, payload);
@@ -37,6 +38,27 @@ describe('Straatbeeld reducers factory', function () {
             var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD](inputState, payload);
             expect(newState.straatbeeld.isLoading).toBe(true);
             expect(newState.map.isLoading).toBe(true);
+        });
+
+        fit('resets previous straatbeeld variables', function () {
+
+            inputState.straatbeeld = {
+                'fov': 1,
+                'pitch': 2,
+                'date': 'today',
+                'hotspots': ['a', 'b'],
+                'location': ['lat', 'lon'],
+                'image': 'http://example.com/example.png'
+            };
+
+            var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD](inputState, payload);
+ 
+            expect(newState.straatbeeld.fov).toBeNull();
+            expect(newState.straatbeeld.pitch).toBeNull();
+            expect(newState.straatbeeld.date).toBeNull();
+            expect(newState.straatbeeld.hotspots).toEqual([]);
+            expect(newState.straatbeeld.location).toBeNull();
+            expect(newState.straatbeeld.image).toBeNull();
         });
 
         it('resets detail information', function () {
@@ -58,7 +80,7 @@ describe('Straatbeeld reducers factory', function () {
             var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD](inputState, payload);
             expect(newState.search).toBeNull();
         });
-              
+
     });
 
     describe('SHOW_STRAATBEELD', function () {
@@ -73,21 +95,21 @@ describe('Straatbeeld reducers factory', function () {
             image: 'http://example.com/example/bla.png'
         };
 
-        beforeEach(function() {
+        beforeEach(function () {
             inputState.straatbeeld = {
-                isLoading: true, 
+                isLoading: true,
                 panoId: 'ABC',
                 heading: 123,
                 isInitial: true
             };
-            
+
             inputState.detail = null;
         });
-        
 
-        it('Adds the payload to the state',function() {
+
+        it('Adds the payload to the state', function () {
             var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
-            
+
             expect(newState.straatbeeld).toEqual(jasmine.objectContaining({
                 date: new Date('2016-05-19T13:04:15.341110Z'),
                 hotspots: [{
@@ -100,15 +122,15 @@ describe('Straatbeeld reducers factory', function () {
             }));
         });
 
-        it('set Pitch to 0', function() {
+        it('set Pitch to 0', function () {
             var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
             expect(newState.straatbeeld.pitch).toBe(0);
         });
 
-        it('do not overwrite isLoading, panoId, heading, isInitial', function(){
+        it('do not overwrite isLoading, panoId, heading, isInitial', function () {
             var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
             expect(newState.straatbeeld).toEqual(jasmine.objectContaining({
-                isLoading: false, 
+                isLoading: false,
                 panoId: 'ABC',
                 heading: 123,
                 isInitial: true
@@ -116,20 +138,22 @@ describe('Straatbeeld reducers factory', function () {
         });
 
         it('Sets loading to false', function () {
-             var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
-             expect(newState.straatbeeld.isLoading).toBe(false);
-             expect(newState.map.isLoading).toBe(false);
+            var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
+            expect(newState.straatbeeld.isLoading).toBe(false);
+            expect(newState.map.isLoading).toBe(false);
         });
 
-        it('sets FOV to DEFAULT_FOV', function() {
+        it('sets FOV to DEFAULT_FOV', function () {
             var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
             expect(newState.straatbeeld.fov).toBe(80);
         });
 
-           it('does nothing when straatbeeld is null', function() {
+
+
+        it('does nothing when straatbeeld is null', function () {
             inputState.straatbeeld = null;
             var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
-            
+
             expect(newState.straatbeeld).toBeNull();
         });
     });

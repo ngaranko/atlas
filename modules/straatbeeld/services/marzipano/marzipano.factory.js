@@ -31,7 +31,7 @@
             return viewer;
         }
 
-        function loadScene (sceneId, image, heading, pitch, hotspots) {
+        function loadScene (image, heading, pitch, fov, hotspots) {
             var view,
                 viewLimiter,
                 scene;
@@ -50,7 +50,6 @@
                 pinFirstLevel: true
             });
 
- 
             hotspots.sort(function (hotspotA, hotspotB) {
                 return hotspotB.distance - hotspotA.distance;
             }).forEach(function (hotspot) {
@@ -72,7 +71,7 @@
 
             view.setYaw(angleConversion.degreesToRadians(heading));
             view.setPitch(angleConversion.degreesToRadians(pitch));
-            view.setFov(straatbeeldConfig.DEFAULT_FOV);
+            //view.setFov(straatbeeldConfig.DEFAULT_FOV);
             scene.switchTo();
         }
     }

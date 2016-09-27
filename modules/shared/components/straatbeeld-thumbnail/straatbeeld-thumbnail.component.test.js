@@ -39,13 +39,16 @@ describe('The dp-straatbeeld-thumbnail component', function () {
         scope.location = location;
 
         component = $compile(element)(scope);
+
         scope.$apply();
 
         return component;
     }
 
     it('loads a thumbnail based on a location', function () {
+       
         var component = getComponent([52.369, 4.963]);
+        
 
         expect(component.find('img').attr('src'))
             .toBe('http://fake.straatbeeld.url/path/?lat=52.369&lon=4.963&width=240&height=135');

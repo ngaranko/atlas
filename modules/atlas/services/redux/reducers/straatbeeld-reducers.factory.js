@@ -34,15 +34,22 @@
             newState.straatbeeld = newState.straatbeeld || {};
             newState.straatbeeld.panoId = payload.panoId;
             newState.straatbeeld.heading = payload.heading;
-           
             newState.straatbeeld.isInitial = payload.isInitial;
             newState.straatbeeld.date = null;
             newState.straatbeeld.hotspots = [];
             newState.straatbeeld.isLoading = true;
+            newState.straatbeeld.location = null;
+            newState.straatbeeld.pitch = null;
+            newState.straatbeeld.fov = null;
+            newState.straatbeeld.image = null;
+            
             newState.map.highlight = null;
+        
             newState.search = null;
             newState.page = null;
             newState.detail = null;
+            
+
             newState.dataSelection = null;
 
             newState.map.isLoading = true;
