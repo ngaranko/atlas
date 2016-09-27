@@ -30,16 +30,17 @@
                     {{option.label}}
                 </button>
 
-                ({{option.count | number}})
             </li>
         </ul>
 
+        <hr>
         <button ng-if="vm.showExpandButton(category.slug)"
             class="qa-show-more-button"
             ng-click="vm.expandCategory(category.slug)">
 
             <strong>Toon meer</strong>
         </button>
+        <hr>
 
         <p ng-if="vm.showHiddenOptionsMessage(category)" class="qa-hidden-options">
             Er zijn nog meer opties, maar we tonen ze niet.

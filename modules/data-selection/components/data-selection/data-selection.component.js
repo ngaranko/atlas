@@ -25,7 +25,6 @@
             vm.currentPage = vm.state.page;
 
             dataSelectionApi.query(vm.state.dataset, vm.state.filters, vm.currentPage).then(function (data) {
-                console.log(data);
 
                 vm.availableFilters = data.filters;
                 vm.tableData = data.tableData;

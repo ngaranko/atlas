@@ -13,9 +13,9 @@
 
     DpDataSelectionKaartweergaveButtonController.$inject = ['$scope', '$window', 'dataSelectionConfig'];
 
-    function DpDataSelectionKaartweergaveButtonController ($scope, $window, dataSelectionConfig) {
+    function DpDataSelectionKaartweergaveButtonController () {
         var vm = this;
 
-        vm.kaartweergaveUrl = "www.nu.nl";
+        vm.kaartweergaveUrl = 'www.nu.nl';
     }
 })();
