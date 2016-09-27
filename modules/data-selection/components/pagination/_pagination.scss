@@ -1,3 +1,13 @@
+.c-data-selection-pagination__form {
+  display: inline-block;
+}
+
+.c-data-selection-pagination__input {
+	width: 4rem;
+	border: 1px solid black;
+	text-align: center;
+}
+
 .c-data-selection-page__button {
   width: $button-size;
   height: $button-size;
