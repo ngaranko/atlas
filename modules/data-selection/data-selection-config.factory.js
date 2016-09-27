@@ -32,9 +32,6 @@
                 PRIMARY_KEY: 'id',
                 FILTERS: [
                     {
-                        slug: 'woonplaats',
-                        label: 'Woonplaats'
-                    }, {
                         slug: 'stadsdeel_naam',
                         label: 'Stadsdelen'
                     }, {
@@ -70,9 +67,6 @@
                     }, {
                         slug: 'postcode',
                         label: 'Postcode'
-                    }, {
-                        slug: 'woonplaats',
-                        label: 'Woonplaats'
                     }, {
                         slug: 'stadsdeel_naam',
                         label: 'Stadsdeel'

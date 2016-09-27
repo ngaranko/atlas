@@ -24,7 +24,7 @@
         isLastPage = vm.currentPage === vm.numberOfPages;
 
         vm.showPagination = vm.numberOfPages > 1;
-
+        //vm.currentPage = vm.currentPage;
         if (vm.showPagination) {
             vm.firstPage = {
                 label: 'Eerste',
@@ -54,10 +54,10 @@
         vm.goToPage = function (event) {
             event.preventDefault();
 
-            if (angular.isNumber(vm.targetPage) && vm.targetPage >= 1 && vm.targetPage <= vm.numberOfPages) {
+            if (angular.isNumber(vm.currentPage) && vm.currentPage >= 1 && vm.currentPage <= vm.numberOfPages) {
                 store.dispatch({
                     type: ACTIONS.NAVIGATE_DATA_SELECTION,
-                    payload: vm.targetPage
+                    payload: vm.currentPage
                 });
             }
         };
