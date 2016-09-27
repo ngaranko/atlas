@@ -13,11 +13,16 @@
             <dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>
 
             <div ng-if="!vm.isLoading">
+                Adresses {{vm.numberOfRecords}}
+
                 <dp-data-selection-download-button
                     dataset="{{vm.state.dataset}}"
                     active-filters="vm.state.filters">
 
                 </dp-data-selection-download-button>
+
+                <dp-data-selection-kaartweergave-button>
+                </dp-data-selection-kaartweergave-button>
 
                 <dp-data-selection-table
                     content="vm.tableData">

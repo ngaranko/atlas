@@ -123,7 +123,7 @@ describe('The dp-data-selection-filters component', function () {
         var component = getComponent({}, false);
 
         expect(component.find('.qa-available-filters').length).toBe(1);
-        expect(component.find('.qa-available-filters h2').text()).toBe('Beschikbare filters');
+        expect(component.find('.qa-available-filters h2').text()).toBe('');
 
         //The first filter
         expect(component.find('.qa-available-filters h3').eq(0).text()).toBe('Filter A');
