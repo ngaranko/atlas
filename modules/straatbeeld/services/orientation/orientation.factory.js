@@ -13,20 +13,20 @@
         };
 
         function update (viewer) {
-            var cameraPitch,
-                cameraFov,
+            var pitch,
+                fov,
                 heading;
-
-            cameraPitch = viewer.view().pitch();
-            cameraFov = viewer.view().fov();
+          
+            pitch = angleConversion.radiansToDegrees(viewer.view().pitch());
+            fov = angleConversion.radiansToDegrees(viewer.view().fov());
             heading = angleConversion.radiansToDegrees(viewer.view().yaw()); 
             
             store.dispatch({
                 type: ACTIONS.STRAATBEELD_SET_ORIENTATION,
                 payload: {
                     heading: heading,
-                    pitch: cameraPitch,
-                    fov: cameraFov
+                    pitch: pitch,
+                    fov: fov
                 }
             });
         }

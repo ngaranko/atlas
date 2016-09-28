@@ -86,7 +86,8 @@
             var newState = angular.copy(oldState);
              
             newState.straatbeeld.heading = payload.heading;
-
+            newState.straatbeeld.pitch = payload.pitch;
+            newState.straatbeeld.fov = payload.fov;
             return newState;
         }
     }

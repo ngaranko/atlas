@@ -10,10 +10,11 @@
         'store', 
         'ACTIONS', 
         'marzipanoService', 
-        'straatbeeldApi'
+        'straatbeeldApi',
+        'orientation'
     ];
 
-    function dpStraatbeeldDirective ($rootScope, store, ACTIONS, marzipanoService, straatbeeldApi) {
+    function dpStraatbeeldDirective ($rootScope, store, ACTIONS, marzipanoService, straatbeeldApi, orientation) {
         return {
             restrict: 'E',
             scope: {
@@ -30,6 +31,13 @@
 
             container = element[0].querySelector('.js-marzipano-viewer');
             viewer = marzipanoService.initialize(container);
+
+
+            scope.updateOrientation = function () {
+                if (!scope.state.isLoading) {
+                    orientation.update(viewer);
+                }
+            };
 
             //Fetch scene
             scope.$watch('state.id', function (id) {

@@ -4,20 +4,20 @@ describe('The dp-straatbeeld directive', function () {
         $store,
         ACTIONS,
         $q,
-        marzipanoService;
+        marzipanoService,
+        orientation,
+        mockedMarzipanoViewer;
 
+    
     beforeEach(function () {
 
         angular.mock.module('dpStraatbeeld', {
             store: {
                 dispatch: function () { }
             },
-
             marzipanoService: {
                 initialize: function () {
-                    return {
-                        updateSize: function () { }
-                    };
+                    return mockedMarzipanoViewer;
                 },
                 loadScene: function () { }
             },
@@ -33,19 +33,42 @@ describe('The dp-straatbeeld directive', function () {
             }
         });
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _ACTIONS_, _$q_, _marzipanoService_) {
+        angular.mock.inject(function (
+                _$compile_, 
+                _$rootScope_, 
+                _store_, 
+                _ACTIONS_, 
+                _$q_, 
+                _marzipanoService_,
+                _orientation_
+            ) 
+        {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             $store = _store_;
             ACTIONS = _ACTIONS_;
             $q = _$q_;
             marzipanoService = _marzipanoService_;
+            orientation = _orientation_;
         });
 
         spyOn($store, 'dispatch');
         spyOn(marzipanoService, 'loadScene');
+        spyOn(marzipanoService, 'initialize').and.callThrough();
+        spyOn(orientation, 'update');
 
+        mockedMarzipanoViewer = {
+            updateSize: function () {}
+        };
     });
+
+    function triggerMousemove (element) {
+            var event;
+
+            event = angular.element.Event('mousemove');
+
+            element.trigger(event);
+    }
 
     function getDirective(state, isPrintMode) {
         var el = document.createElement('dp-straatbeeld');
@@ -172,6 +195,52 @@ describe('The dp-straatbeeld directive', function () {
                 1,
                 2,
                 ['a', 'b']);
+        });
+    });
+
+
+    describe('set orientation on mouse move', function(){
+        it('calls the orientation factory on mousemove to keep the state in sync', function () {
+            var directive;
+
+            directive = getDirective({
+                    id: 123,
+                    location: [52, 4],
+                    heading: 275,
+                    pitch: 1,
+                    isLoading: false
+                }, false
+            );
+
+            expect(orientation.update).not.toHaveBeenCalled();
+
+            triggerMousemove(directive.find('.js-marzipano-viewer'));
+            
+            expect(orientation.update).toHaveBeenCalledWith(
+                mockedMarzipanoViewer 
+            );
+        });
+ 
+        it('doesn\'t call the orientation factory before the scene is done loading', function () {
+            var directive,
+                mockedState;
+
+            mockedState = {
+                id: 'ABC',
+                isLoading: true
+            };
+
+            //When it is still loading
+            directive = getDirective(mockedState, false);
+            expect(orientation.update).not.toHaveBeenCalled();
+
+            triggerMousemove(directive.find('.js-marzipano-viewer'));
+            expect(orientation.update).not.toHaveBeenCalled();
+
+            //When it is done loading
+            mockedState.isLoading = false;
+            triggerMousemove(directive.find('.js-marzipano-viewer'));
+            expect(orientation.update).toHaveBeenCalled();
         });
     });
 });
