@@ -23,6 +23,13 @@ node {
         checkout scm
     }
 
+    stage ("Test") {
+        tryStep "Test",  {
+                sh "docker-compose -p atlas -f .jenkins/docker-compose.yml build"
+                sh "docker-compose -p atlas -f .jenkins/docker-compose.yml run -u root atlas npm test"
+        }
+    }
+
     stage("Build develop image") {
         tryStep "build", {
             def image = docker.build("admin.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}")
