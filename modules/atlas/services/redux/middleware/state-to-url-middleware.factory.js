@@ -30,7 +30,7 @@
             return function (next) {
                 return function (action) {
                     var returnValue;
-                    
+                    console.log(action);
                     //Update the state first
                     returnValue = next(action);
                     //Then update the URL

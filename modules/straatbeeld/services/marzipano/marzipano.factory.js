@@ -74,7 +74,7 @@
 
             view.setYaw(angleConversion.degreesToRadians(heading));
             view.setPitch(angleConversion.degreesToRadians(pitch));
-            //view.setFov(straatbeeldConfig.DEFAULT_FOV);
+            view.setFov(angleConversion.degreesToRadians(fov));
             scene.switchTo();
         }
     }

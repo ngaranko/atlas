@@ -1,4 +1,4 @@
-fdescribe('The map controller', function () {
+describe('The map controller', function () {
     var $controller,
         $rootScope,
         store,

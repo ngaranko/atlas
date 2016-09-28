@@ -1,4 +1,4 @@
-fdescribe('The orientation factory', function () {
+describe('The orientation factory', function () {
     var orientation,
         store,
         ACTIONS,

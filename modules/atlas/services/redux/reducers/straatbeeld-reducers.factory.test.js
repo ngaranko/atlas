@@ -1,4 +1,4 @@
-describe('Straatbeeld reducers factory', function () {
+fdescribe('Straatbeeld reducers factory', function () {
 
     var straatbeeldReducers,
         inputState,
@@ -52,7 +52,7 @@ describe('Straatbeeld reducers factory', function () {
             };
 
             var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD](inputState, payload);
- 
+
             expect(newState.straatbeeld.fov).toBeNull();
             expect(newState.straatbeeld.pitch).toBeNull();
             expect(newState.straatbeeld.date).toBeNull();
@@ -122,10 +122,21 @@ describe('Straatbeeld reducers factory', function () {
             }));
         });
 
-        it('set Pitch to 0', function () {
+        it('set defaults for pitch, fov when oldstate is unknown', function () {
             var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
             expect(newState.straatbeeld.pitch).toBe(0);
+            expect(newState.straatbeeld.fov).toBe(80);
         });
+
+        it('set Pitch and fov to newState when oldstate is known', function () {
+            inputState.straatbeeld.pitch = 1;
+            inputState.straatbeeld.fov = 2;
+
+            var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
+            expect(newState.straatbeeld.pitch).toBe(1);
+            expect(newState.straatbeeld.fov).toBe(2);
+        });
+
 
         it('do not overwrite isLoading, id, heading, isInitial', function () {
             var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
@@ -149,7 +160,6 @@ describe('Straatbeeld reducers factory', function () {
         });
 
 
-
         it('does nothing when straatbeeld is null', function () {
             inputState.straatbeeld = null;
             var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
@@ -157,4 +167,26 @@ describe('Straatbeeld reducers factory', function () {
             expect(newState.straatbeeld).toBeNull();
         });
     });
+
+    describe('setOrientationReducer',function() {
+       it('updates the orientation with pitch and fov', function () {
+           inputState.straatbeeld = {};
+
+            inputState.straatbeeld.pitch = 1;
+            inputState.straatbeeld.fov = 2;
+            
+            var payload = {
+                    heading: 91,
+                    pitch: 1,
+                    fov: 2
+                },
+                output;
+
+            output = straatbeeldReducers.STRAATBEELD_SET_ORIENTATION(inputState, payload);
+            
+            expect(output.straatbeeld.pitch).toEqual(payload.pitch);
+            expect(output.straatbeeld.fov).toEqual(payload.fov);
+        });
+    });
+
 });

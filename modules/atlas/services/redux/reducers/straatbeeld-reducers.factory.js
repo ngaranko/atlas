@@ -39,8 +39,11 @@
             newState.straatbeeld.hotspots = [];
             newState.straatbeeld.isLoading = true;
             newState.straatbeeld.location = null;
+
             newState.straatbeeld.pitch = null;
             newState.straatbeeld.fov = null;
+            
+            
             newState.straatbeeld.image = null;
 
             newState.map.highlight = null;
@@ -70,8 +73,13 @@
             //Straatbeeld can be null if another action gets triggered between FETCH_STRAATBEELD and SHOW_STRAATBEELD
             if (angular.isObject(newState.straatbeeld)) {
                 newState.straatbeeld.date = payload.date;
-                newState.straatbeeld.pitch = 0;
-                newState.straatbeeld.fov =  straatbeeldConfig.DEFAULT_FOV;
+
+
+                newState.straatbeeld.heading = oldState.straatbeeld.heading;
+                
+                newState.straatbeeld.pitch = oldState.straatbeeld.pitch || 0;
+                newState.straatbeeld.fov =  oldState.straatbeeld.fov || straatbeeldConfig.DEFAULT_FOV;
+
                 newState.straatbeeld.hotspots = payload.hotspots;
                 newState.straatbeeld.isLoading = false;
                 newState.straatbeeld.location = payload.location;
