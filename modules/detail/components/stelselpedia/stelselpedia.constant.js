@@ -115,8 +115,8 @@
                 KADASTRAAL_SUBJECT: {
                     label_singular: 'Kadastraal subject',
                     label_plural: 'Kadastrale subjecten',
-                    description: 'Een Kadastraal Subject is een persoon die in de kadastrale registratie ' +
-                        'voorkomt. Het betreft hier zowel natuurlijk- als niet natuurlijk personen.',
+                    description: 'Een Kadastraal subject is een persoon die in de kadastrale registratie voorkomt. ' +
+                        'Het kan hier gaan om een natuurlijk of een niet-natuurlijk persoon.',
                     url: 'https://www.amsterdam.nl/stelselpedia/brk-index/catalog-brk-levering/kadastraal-subject/',
                     meta: ['id']
                 },
