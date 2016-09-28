@@ -23,7 +23,7 @@
                     date: new Date(response.data.timestamp),
                     hotspots: response.data.adjacent.map(function(item){
                         return {
-                            panoId: item.pano_id,
+                            id: item.pano_id,
                             heading: item.heading,
                             distance: item.distance
                         };

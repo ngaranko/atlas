@@ -89,7 +89,7 @@ describe('The dp-straatbeeld directive', function () {
             });
         });
 
-        fit('Does call SHOW_STRAATBEELD_SUBSEQUENT', function () {
+        it('Does call SHOW_STRAATBEELD_SUBSEQUENT', function () {
             var state = {
                 id: 'ABC',
                 isInitial: false
@@ -105,7 +105,7 @@ describe('The dp-straatbeeld directive', function () {
             });
         });
 
-        fit('Listens to changes on scope for id', function () {
+        it('Listens to changes on scope for id', function () {
             var directive = getDirective({}, false);
             expect($store.dispatch).not.toHaveBeenCalled();
 

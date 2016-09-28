@@ -18,7 +18,7 @@
         var vm = this,
             imageUrl,
             heading,
-            panoId;
+            id;
 
         imageUrl = sharedConfig.STRAATBEELD_THUMB_URL +
             '?lat=' + vm.location[0] +
@@ -29,7 +29,7 @@
            
         api.getByUrl(imageUrl).then(function (thumbnailData) {
             heading = thumbnailData.heading;
-            panoId = thumbnailData['pano_id'];
+            id = thumbnailData['pano_id'];
             
             if (angular.isObject(thumbnailData)) {
                 vm.imageUrl = thumbnailData.url;
@@ -40,7 +40,7 @@
         vm.openStraatbeeld = function () {
             store.dispatch({
                 type: ACTIONS.FETCH_STRAATBEELD,
-                payload: { id: panoId, heading: heading, isInitial: true } 
+                payload: { id: id, heading: heading, isInitial: true } 
             });
         };
     }

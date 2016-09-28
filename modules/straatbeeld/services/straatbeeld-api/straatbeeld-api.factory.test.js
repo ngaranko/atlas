@@ -87,11 +87,11 @@ describe('Straatbeeld API Factory', function () {
         });
         it('maps hotspot data to proper subset', function () {
             expect(response.hotspots).toEqual([{
-                panoId: 'TMX7315120208-000054_pano_0002_000177',
+                id: 'TMX7315120208-000054_pano_0002_000177',
                 heading: 116.48,
                 distance: 10.14
             }, {
-                panoId: 'TMX7315120208-000054_pano_0002_000178',
+                id: 'TMX7315120208-000054_pano_0002_000178',
                 heading: 127.37,
                 distance: 5.25
             }]);

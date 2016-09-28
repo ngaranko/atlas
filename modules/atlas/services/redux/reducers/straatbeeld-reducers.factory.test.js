@@ -22,13 +22,13 @@ describe('Straatbeeld reducers factory', function () {
 
     describe('FETCH_STRAATBEELD', function () {
         var payload = {
-            'panoId': 'ABC',
+            'id': 'ABC',
             'heading': 123,
             'isInitial': true
         };
 
 
-        it('Set INITIAL panoId, heading, isInitial', function () {
+        it('Set INITIAL id, heading, isInitial', function () {
             inputState.straatbeeld = null;
             var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD](inputState, payload);
             expect(newState.straatbeeld).toEqual(jasmine.objectContaining(payload));
@@ -40,7 +40,7 @@ describe('Straatbeeld reducers factory', function () {
             expect(newState.map.isLoading).toBe(true);
         });
 
-        fit('resets previous straatbeeld variables', function () {
+        it('resets previous straatbeeld variables', function () {
 
             inputState.straatbeeld = {
                 'fov': 1,
@@ -87,7 +87,7 @@ describe('Straatbeeld reducers factory', function () {
         var payload = {
             date: new Date('2016-05-19T13:04:15.341110Z'),
             hotspots: [{
-                panoId: 'ABC',
+                id: 'ABC',
                 heading: 179,
                 distance: 3
             }],
@@ -98,7 +98,7 @@ describe('Straatbeeld reducers factory', function () {
         beforeEach(function () {
             inputState.straatbeeld = {
                 isLoading: true,
-                panoId: 'ABC',
+                id: 'ABC',
                 heading: 123,
                 isInitial: true
             };
@@ -113,7 +113,7 @@ describe('Straatbeeld reducers factory', function () {
             expect(newState.straatbeeld).toEqual(jasmine.objectContaining({
                 date: new Date('2016-05-19T13:04:15.341110Z'),
                 hotspots: [{
-                    panoId: 'ABC',
+                    id: 'ABC',
                     heading: 179,
                     distance: 3
                 }],
@@ -127,11 +127,11 @@ describe('Straatbeeld reducers factory', function () {
             expect(newState.straatbeeld.pitch).toBe(0);
         });
 
-        it('do not overwrite isLoading, panoId, heading, isInitial', function () {
+        it('do not overwrite isLoading, id, heading, isInitial', function () {
             var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
             expect(newState.straatbeeld).toEqual(jasmine.objectContaining({
                 isLoading: false,
-                panoId: 'ABC',
+                id: 'ABC',
                 heading: 123,
                 isInitial: true
             }));

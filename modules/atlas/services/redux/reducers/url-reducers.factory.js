@@ -119,19 +119,31 @@
             function getStraatbeeldState(oldState, payload) {
 
                 if (payload.id) {
-
-                    var straatbeeld = {
+                    var newStraatbeeld = {
                         pitch: Number(payload.pitch),
                         fov: Number(payload.fov),
-                        panoId: payload.id,
+                        id: payload.id,
                         heading: Number(payload.heading),
-                        isInitial: true,
-                        date: null,
-                        hotspots: [],
-                        isLoading: false
                     };
 
-                    return straatbeeld;
+                    
+                    if (oldState.straatbeeld && oldState.straatbeeld.id === payload.id) {
+                        newStraatbeeld.image = oldState.straatbeeld.image;
+                        newStraatbeeld.hotspots = oldState.straatbeeld.hotspots;
+                        newStraatbeeld.date = oldState.straatbeeld.date;
+                        newStraatbeeld.location = oldState.straatbeeld.location;
+                        newStraatbeeld.isInitial = false;
+                        newStraatbeeld.isLoading = oldState.straatbeeld.isLoading;
+                    } else {
+                        newStraatbeeld.image = null;
+                        newStraatbeeld.hotspots = [];
+                        newStraatbeeld.date = null;
+                        newStraatbeeld.location = null;
+                        newStraatbeeld.isInitial = true;
+                        newStraatbeeld.isLoading = false;
+                    }
+
+                    return newStraatbeeld;
                 } else {
                     return null;
                 }

@@ -33,7 +33,6 @@
                     
                     //Update the state first
                     returnValue = next(action);
-
                     //Then update the URL
                     if (ignoreActions.indexOf(action.type) === -1) {
                         stateToUrl.update(

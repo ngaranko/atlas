@@ -32,7 +32,7 @@
 
 
             newState.straatbeeld = newState.straatbeeld || {};
-            newState.straatbeeld.panoId = payload.panoId;
+            newState.straatbeeld.id = payload.id;
             newState.straatbeeld.heading = payload.heading;
             newState.straatbeeld.isInitial = payload.isInitial;
             newState.straatbeeld.date = null;
@@ -42,7 +42,7 @@
             newState.straatbeeld.pitch = null;
             newState.straatbeeld.fov = null;
             newState.straatbeeld.image = null;
-            
+
             newState.map.highlight = null;
         
             newState.search = null;

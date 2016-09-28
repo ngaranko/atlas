@@ -5,9 +5,9 @@
         .module('dpStraatbeeld')
         .factory('marzipanoService', marzipanoService);
 
-    marzipanoService.$inject = ['Marzipano', 'straatbeeldConfig', 'earthmine', 'angleConversion', 'hotspotService'];
+    marzipanoService.$inject = ['Marzipano', 'straatbeeldConfig', 'angleConversion', 'hotspotService'];
 
-    function marzipanoService (Marzipano, straatbeeldConfig, earthmine, angleConversion, hotspotService) {
+    function marzipanoService (Marzipano, straatbeeldConfig, angleConversion, hotspotService) {
         var viewer;
 
         return {
@@ -36,15 +36,18 @@
                 viewLimiter,
                 scene;
 
+             
             viewLimiter = Marzipano.RectilinearView.limit.traditional(
                 straatbeeldConfig.MAX_RESOLUTION,
                 angleConversion.degreesToRadians(straatbeeldConfig.MAX_FOV)
             );
+            var source = Marzipano.ImageUrlSource.fromString(image);
 
+           
             view = new Marzipano.RectilinearView({}, viewLimiter);
 
             scene = viewer.createScene({
-                source: Marzipano.ImageUrlSource.fromString(image),
+                source: source,
                 geometry: new Marzipano.EquirectGeometry([{ width: 8000 }]),
                 view: view,
                 pinFirstLevel: true

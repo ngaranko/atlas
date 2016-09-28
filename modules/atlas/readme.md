@@ -14,7 +14,7 @@
 | pagina              | page                            | yes, see DEFAULT_STATE |
 | detail              | detail.uri                      | no, detail is null     |
 |                     | detail.isLoading                | no, detail is null     |
-| id                  | straatbeeld.panoId              | no                     |
+| id                  | straatbeeld.id                  | no                     |
 |                     | straatbeeld.date                | no                     |
 |                     | straatbeeld.location            | no                     |
 | heading             | straatbeeld.heading             | no                     |
