@@ -126,7 +126,7 @@ describe('The dp-data-selection-filters component', function () {
         expect(component.find('.qa-available-filters h2').text()).toBe('');
 
         //The first filter
-        expect(component.find('.qa-available-filters h3').eq(0).text()).toBe('Filter A');
+        expect(component.find('.qa-available-filters h4').eq(0).text()).toBe('Filter A');
         expect(component.find('.qa-available-filters ul').eq(0).find('li').length).toBe(10);
 
         expect(component.find('.qa-available-filters ul').eq(0).find('li button').eq(0).text()).toContain('Optie A-1');
@@ -136,7 +136,7 @@ describe('The dp-data-selection-filters component', function () {
         expect(component.find('.qa-available-filters ul').eq(0).find('li').eq(9).text()).not.toContain('(20)');
 
         //The second filter
-        expect(component.find('.qa-available-filters h3').eq(1).text()).toBe('Filter B');
+        expect(component.find('.qa-available-filters h4').eq(1).text()).toBe('Filter B');
         expect(component.find('.qa-available-filters ul').eq(1).find('li').length).toBe(3);
 
         expect(component.find('.qa-available-filters ul').eq(1).find('li button').eq(0).text()).toContain('Optie B-1');

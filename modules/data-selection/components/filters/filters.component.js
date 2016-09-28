@@ -25,6 +25,14 @@
 
         vm.showMoreThreshold = 10;
 
+        vm.hasSelectableValues = function (category) {
+            var nValues = 0;
+            angular.forEach(category.options, function (option) {
+                nValues += vm.isFilterActive(category.slug, option.label) ? 0: 1;
+            });
+            return nValues > 0;
+        };
+
         vm.isFilterActive = function (categorySlug, filterLabel) {
             return vm.activeFilters[categorySlug] === filterLabel;
         };

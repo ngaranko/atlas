@@ -45,10 +45,13 @@
                         label: 'Straatnaam'
                     }, {
                         slug: 'postcode',
-                        label: 'Postcode'
+                        label: 'Postcode',
+                        format: {
+                            filters: ['postcode', 'isempty']
+                        }
                     }, {
                         slug: 'ggw_naam',
-                        label: 'Gebiedsgerichtwerken gebied'
+                        label: 'GGW-gebied'
                     }
                 ],
                 FIELDS: [
@@ -58,19 +61,31 @@
                     },
                     {
                         slug: 'huisnummer',
-                        label: 'Nr.'
+                        label: 'Nr.',
+                        format: {
+                            align: 'right'
+                        }
                     },
                     {
                         slug: 'huisnummer_toevoeging',
-                        label: 'Toev.'
+                        label: 'Toev.',
+                        format: {
+                            align: 'right'
+                        }
                     },
                     {
                         slug: 'huisletter',
-                        label: 'Ltr.'
+                        label: 'Ltr.',
+                        format: {
+                            align: 'right'
+                        }
                     },
                     {
                         slug: 'postcode',
-                        label: 'Postcode'
+                        label: 'Postcode',
+                        format: {
+                            filters: ['postcode', 'isempty']
+                        }
                     },
                     {
                         slug: 'stadsdeel_naam',
@@ -78,32 +93,32 @@
                     },
                     {
                         slug: 'stadsdeel_code',
-                        label: 'Code'
+                        label: '-code'
                     },
                     {
                         slug: 'ggw_naam',
                         label: 'Gebied'
-                    }//,
-                    // {
-                    //     slug: 'ggw_code',
-                    //     label: 'Gebiedsnaam code'
-                    // },
-                    // {
-                    //     slug: 'buurtcombinatie_naam',
-                    //     label: 'Wijknaam (buurtcombinatie)'
-                    // },
-                    // {
-                    //     slug: 'buurtcombinatie_code',
-                    //     label: 'Wijk volledige code'
-                    // },
-                    // {
-                    //     slug: 'buurt_naam',
-                    //     label: 'Buurtnaam'
-                    // },
-                    // {
-                    //     slug: 'buurt_code',
-                    //     label: 'Buurt volledige code'
-                    // },
+                    },
+                    {
+                        slug: 'ggw_code',
+                        label: '-code'
+                    },
+                    {
+                        slug: 'buurtcombinatie_naam',
+                        label: 'Buurtcombinatie'
+                    },
+                    {
+                        slug: 'buurtcombinatie_code',
+                        label: '-code'
+                    },
+                    {
+                        slug: 'buurt_naam',
+                        label: 'Buurt'
+                    },
+                    {
+                        slug: 'buurt_code',
+                        label: '-code'
+                    },
                 ]
             }
         };
