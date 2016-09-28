@@ -36,17 +36,18 @@
             }
 
             
-            if (state.straatbeeld && state.straatbeeld.geometry) {
+            if (state.straatbeeld && angular.isArray(state.straatbeeld.location)) {
                 vm.markers.push({
                     id: 'straatbeeld_orientation',
-                    geometry: convertLocationToGeoJSON(state.straatbeeld.geometry),
+                    geometry: convertLocationToGeoJSON(state.straatbeeld.location),
                     orientation: state.straatbeeld.heading,
                     useAutoFocus: false
                 });
-            
+                
+                
                 vm.markers.push({
                     id: 'straatbeeld_person',
-                    geometry: convertLocationToGeoJSON(state.straatbeeld.geometry),
+                    geometry: convertLocationToGeoJSON(state.straatbeeld.location),
                     useAutoFocus: false
                 });
             }

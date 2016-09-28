@@ -18,7 +18,7 @@
                     radius: sharedConfig.RADIUS
                 }
             }).then(function (response) {
-
+                
                 return {
                     date: new Date(response.data.timestamp),
                     hotspots: response.data.adjacent.map(function(item){
