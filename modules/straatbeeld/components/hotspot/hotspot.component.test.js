@@ -44,12 +44,27 @@ describe('The dp-hotspot directive', function () {
     it('creates a button with dimensions based on the distance', function () {
         var directive;
 
-        directive = getComponent(1, 5);
+        directive = getComponent(1, 0);
+        expect(directive.find('button').attr('style')).toContain('width: 80px; height: 80px;');
+
+        directive = getComponent(1, 11);
+        expect(directive.find('button').attr('style')).toContain('width: 30px; height: 30px;');
+
+        directive = getComponent(1, 5.5);
         expect(directive.find('button').attr('style')).toContain('width: 55px; height: 55px;');
 
-        directive = getComponent(1, 10);
-        expect(directive.find('button').attr('style')).toContain('width: 50px; height: 50px;');
+       
+       
+        
     });
+    it('Hotspot distance higher than maxdistance should be minSize', function() {
+        var directive;
+
+        directive = getComponent(1, 12);
+        expect(directive.find('button').attr('style')).toContain('width: 30px; height: 30px;');
+    });
+
+
 
     it('buttons have a minimum size regardless of the distance', function () {
         var directive = getComponent(1, 1000);
@@ -61,12 +76,12 @@ describe('The dp-hotspot directive', function () {
 
         spyOn(store, 'dispatch');
 
-        directive = getComponent(12589, 20);
+        directive = getComponent('ABC', 20);
         directive.find('button').click();
 
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.FETCH_STRAATBEELD,
-            payload: 12589
+            payload: { id: 'ABC', isInitial: false }
         });
     });
 

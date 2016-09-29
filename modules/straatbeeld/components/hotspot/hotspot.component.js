@@ -15,17 +15,23 @@
 
     DpHotspotController.$inject = ['store', 'ACTIONS'];
 
+    
     function DpHotspotController (store, ACTIONS) {
         var vm = this,
             minimumSize = 30,
-            maximumSize = 60;
+            maximumSize = 80,
+            maxdistance = 11;
 
-        vm.size = Math.max(Math.round(maximumSize - vm.distance), minimumSize);
+        var stepSize = (maximumSize - minimumSize) / maxdistance;
+        var hotspotSize = Math.round(maximumSize - stepSize * vm.distance);
 
+        vm.size = Math.max(hotspotSize, minimumSize);
+        
         vm.loadScene = function () {
+ 
             store.dispatch({
                 type: ACTIONS.FETCH_STRAATBEELD,
-                payload: vm.sceneId
+                payload: { id: vm.sceneId, isInitial: false }
             });
         };
     }

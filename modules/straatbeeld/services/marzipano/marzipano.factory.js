@@ -36,14 +36,19 @@
                 viewLimiter,
                 scene;
 
-             
+            
+            function calculateHotspotPitch(height, distance) {
+                return Math.atan(height/distance);
+            }
+
+
             viewLimiter = Marzipano.RectilinearView.limit.traditional(
                 straatbeeldConfig.MAX_RESOLUTION,
                 angleConversion.degreesToRadians(straatbeeldConfig.MAX_FOV)
             );
             var source = Marzipano.ImageUrlSource.fromString(image);
 
-           
+            
             view = new Marzipano.RectilinearView({}, viewLimiter);
 
             scene = viewer.createScene({
@@ -53,24 +58,25 @@
                 pinFirstLevel: true
             });
 
+             
             hotspots.sort(function (hotspotA, hotspotB) {
                 return hotspotB.distance - hotspotA.distance;
             }).forEach(function (hotspot) {
-                hotspotService.createHotspotTemplate(hotspot.pano_id, 
-                hotspot.distance, 
-                hotspot.heading, 
-                hotspot.pitch).then(function (template) {
+                 
+                hotspotService.createHotspotTemplate(hotspot.id, hotspot.distance).then(function (template) {
+                    console.log(hotspot.distance);
                     var position = {
                         yaw: angleConversion.degreesToRadians(hotspot.heading),
-                        //losse functie corrected pithc gront level ipv cametra hoogte + inverten
-                        pitch: Math.atan(1 / hotspot.distance) - angleConversion.degreesToRadians(hotspot.pitch)
+                        pitch: calculateHotspotPitch(straatbeeldConfig.CAMERA_HEIGHT, hotspot.distance)
                     };
                     scene.hotspotContainer().createHotspot(
                         template,
-                         position
+                        position
                      );
                  });
             });
+
+ 
 
             view.setYaw(angleConversion.degreesToRadians(heading));
             view.setPitch(angleConversion.degreesToRadians(pitch));

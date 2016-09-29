@@ -27,13 +27,12 @@
          * @returns {Object} newState
          */
         function fetchStraatbeeldReducer (oldState, payload) {
-             
+            
             var newState = angular.copy(oldState);
-
 
             newState.straatbeeld = newState.straatbeeld || {};
             newState.straatbeeld.id = payload.id;
-            newState.straatbeeld.heading = payload.heading;
+            newState.straatbeeld.heading = payload.heading || oldState.straatbeeld.heading;
             newState.straatbeeld.isInitial = payload.isInitial;
             newState.straatbeeld.date = null;
             newState.straatbeeld.hotspots = [];

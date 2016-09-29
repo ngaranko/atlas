@@ -9,8 +9,7 @@
 
     function hotspotService ($q, $document, $compile, $rootScope) {
         return {
-            createHotspotTemplate: createHotspotTemplate,
-            calculateHotspotPosition: calculateHotspotPosition
+            createHotspotTemplate: createHotspotTemplate
         };
 
         function createHotspotTemplate (sceneId, distance) {
@@ -36,14 +35,6 @@
             });
 
             return q.promise;
-        }
-
-        //HELP: ik snap dit niet!
-        function calculateHotspotPosition (camera, hotspot) {
-            return {
-                yaw: hotspot.relativeLocation.yaw - camera.heading,
-                pitch: hotspot.relativeLocation.pitch + camera.pitch
-            };
         }
     }
 })();

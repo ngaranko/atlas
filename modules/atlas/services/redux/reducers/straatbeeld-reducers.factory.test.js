@@ -1,4 +1,4 @@
-fdescribe('Straatbeeld reducers factory', function () {
+describe('Straatbeeld reducers factory', function () {
 
     var straatbeeldReducers,
         inputState,

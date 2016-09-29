@@ -32,7 +32,7 @@
             container = element[0].querySelector('.js-marzipano-viewer');
             viewer = marzipanoService.initialize(container);
 
-
+           
             scope.updateOrientation = function () {
                 if (!scope.state.isLoading) {
                     orientation.update(viewer);
@@ -41,7 +41,7 @@
 
             //Fetch scene
             scope.$watch('state.id', function (id) {
-                 
+ 
                 if (angular.isString(id)) {
                     straatbeeldApi.getImageDataById(id).then(function (straatbeeldData) {
                          var type = scope.state.isInitial   ? ACTIONS.SHOW_STRAATBEELD_INITIAL 
@@ -57,9 +57,8 @@
             });
 
             scope.$watch('state.image', function(img) {
+ 
                 if (angular.isString(img)) {
-                    
-                    //loadScene (image, heading, pitch, fov, hotspots) 
                     marzipanoService.loadScene( scope.state.image, 
                                                 scope.state.heading, 
                                                 scope.state.pitch, 

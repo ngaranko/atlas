@@ -18,12 +18,11 @@ describe('The marzipanoService factory', function () {
                 straatbeeldConfig: {
                     MAX_RESOLUTION: 1000,
                     MAX_FOV: 100,
-                    RESOLUTION_LEVELS: 'FAKE_RESOLUTION_LEVELS',
-                    HOTSPOT_PERSPECTIVE: 'FAKE_HOTSPOT_PERSPECTIVE'
+                    CAMERA_HEIGHT: 1
                 },
                 angleConversion: {
                     degreesToRadians: function (input) {
-                        return input;
+                        return input /2;
                     }
                 },
                 straatbeeldApi: {
@@ -38,9 +37,6 @@ describe('The marzipanoService factory', function () {
                         q.resolve('FAKE_HOTSPOT_TEMPLATE');
 
                         return q.promise;
-                    },
-                    calculateHotspotPosition: function () {
-                        return 'FAKE_HOTSPOT_POSITION';
                     }
                 }
             }
@@ -95,7 +91,6 @@ describe('The marzipanoService factory', function () {
         spyOn(fakeView, 'setFov');
         spyOn(fakeScene, 'switchTo');
         spyOn(hotspotService, 'createHotspotTemplate').and.callThrough();
-        spyOn(hotspotService, 'calculateHotspotPosition').and.callThrough();
         spyOn(fakeHotspotContainer, 'createHotspot');
     });
 
@@ -138,11 +133,11 @@ describe('The marzipanoService factory', function () {
             marzipanoService.initialize(domElement);
         });
 
-        fit('that, ehm, loads a scene', function () {
+        it('that, ehm, loads a scene', function () {
 
             marzipanoService.loadScene('example.png',179,1,2, []);
 
-            expect(Marzipano.RectilinearView.limit.traditional).toHaveBeenCalledWith(1000, 100);
+            expect(Marzipano.RectilinearView.limit.traditional).toHaveBeenCalledWith(1000, 50);
             expect(Marzipano.RectilinearView).toHaveBeenCalledWith({}, 'FAKE_VIEW_LIMITER');
             expect(Marzipano.EquirectGeometry).toHaveBeenCalledWith([{ width: 8000 }]);
 
@@ -154,26 +149,24 @@ describe('The marzipanoService factory', function () {
             });
 
  
-            expect(fakeView.setYaw).toHaveBeenCalledWith(179);
-            expect(fakeView.setPitch).toHaveBeenCalledWith(1);
-            expect(fakeView.setFov).toHaveBeenCalledWith(2);
+            expect(fakeView.setYaw).toHaveBeenCalledWith(89.5);
+            expect(fakeView.setPitch).toHaveBeenCalledWith(0.5);
+            expect(fakeView.setFov).toHaveBeenCalledWith(1);
             expect(fakeScene.switchTo).toHaveBeenCalled();
 
 
         });
 
-        fit('which adds hotspots to the scene', function () {
+        it('which adds hotspots to the scene', function () {
             var mockedHotspots = [
                 {
-                    id: 1,
-                    distance: 100,
-                    heading: 270,
-                    pitch: 0.2
+                    id: 'ABC',
+                    distance: 5,
+                    heading: 270
                 }, {
-                    id: 2,
-                    distance: 80,
-                    heading:79,
-                    pitch: 0.15
+                    id: 'XYZ',
+                    distance: 11,
+                    heading:80
                 }
             ];
 
@@ -181,21 +174,18 @@ describe('The marzipanoService factory', function () {
 
             expect(hotspotService.createHotspotTemplate).toHaveBeenCalledTimes(2);
 
-            expect(hotspotService.createHotspotTemplate).toHaveBeenCalledWith(1, 100);
-            // expect(hotspotService.createHotspotTemplate).toHaveBeenCalledWith(2, 80);
+            expect(hotspotService.createHotspotTemplate).toHaveBeenCalledWith( 'XYZ', 11);
+            
+            expect(hotspotService.createHotspotTemplate).toHaveBeenCalledWith('ABC', 5);
 
-            // $rootScope.$apply();
+            $rootScope.$apply();
+           
+            expect(fakeHotspotContainer.createHotspot).toHaveBeenCalledTimes(2);
+            expect(fakeHotspotContainer.createHotspot).toHaveBeenCalledWith(
+                    'FAKE_HOTSPOT_TEMPLATE', { yaw: 135, pitch: 0.19739555984988078 } );
 
-            // expect(hotspotService.calculateHotspotPosition).toHaveBeenCalledTimes(2);
-            // expect(hotspotService.calculateHotspotPosition).toHaveBeenCalledWith(mockedCar, mockedHotspots[0]);
-            // expect(hotspotService.calculateHotspotPosition).toHaveBeenCalledWith(mockedCar, mockedHotspots[1]);
-
-            // expect(fakeHotspotContainer.createHotspot).toHaveBeenCalledTimes(2);
-            // expect(fakeHotspotContainer.createHotspot).toHaveBeenCalledWith(
-            //     'FAKE_HOTSPOT_TEMPLATE',
-            //     'FAKE_HOTSPOT_POSITION',
-            //     'FAKE_HOTSPOT_PERSPECTIVE'
-            // );
+            expect(fakeHotspotContainer.createHotspot).toHaveBeenCalledWith(
+                    'FAKE_HOTSPOT_TEMPLATE', { yaw: 40, pitch: 0.09065988720074511 } );
         });
     });
 });
