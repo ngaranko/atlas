@@ -13,6 +13,11 @@ describe('The postcode filter', function() {
         expect(postcode('1234AB')).toBe('1234 AB');
     });
 
+    it('does not format non valid dutch postcodes', function() {
+        expect(postcode('0234AB')).toBe('0234AB');
+        expect(postcode('1234$$')).toBe('1234$$');
+    });
+
     it('does not format a non-1234AB formatted postcode', function() {
         expect(postcode('X')).toBe('X');
         expect(postcode('1234 AB')).toBe('1234 AB');

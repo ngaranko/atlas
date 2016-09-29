@@ -16,6 +16,6 @@
     function DpDataSelectionKaartweergaveButtonController () {
         var vm = this;
 
-        vm.kaartweergaveUrl = 'www.nu.nl';
+        vm.kaartweergaveUrl = 'fillInTheUrl...';
     }
 })();

@@ -1,5 +1,4 @@
 describe('The dp-data-selection-download-button component', function () {
-/*
     var $compile,
         $rootScope;
 
@@ -29,65 +28,63 @@ describe('The dp-data-selection-download-button component', function () {
         });
     });
 
-    function getComponent (dataset, activeFilters) {
+    function getComponent (value, format) {
         var component,
             element,
             scope;
 
-        element = document.createElement('dp-data-selection-download-button');
-        element.setAttribute('dataset', dataset);
-        element.setAttribute('active-filters', 'activeFilters');
+        element = document.createElement('dp-data-selection-formatted-value');
+        element.setAttribute('value', 'value');
+        element.setAttribute('format', 'format');
 
         scope = $rootScope.$new();
-        scope.activeFilters = activeFilters;
+        scope.value = value;
+        scope.format = format;
 
         component = $compile(element)(scope);
+
         scope.$apply();
 
         return component;
     }
 
-    it('will generate a download link for the current dataset', function () {
-        var component = getComponent('dataset_a', {});
+    it('will default copy the given value', function () {
+        var component = getComponent('value');
 
-        expect(component.find('a').attr('href')).toBe('http://www.example.com/datasets/a/download/');
+        expect(component.find('span').text()).toContain('value');
     });
 
-    it('will filters as parameters to the download link', function () {
-        var component;
+    it('will format a value when a format is supplied', function () {
+        var format = {
+            align: 'right'
+        };
 
-        //With one active filter
-        component = getComponent('dataset_a', {
-            filter_b: 'eenofanderewaarde'
-        });
+        var component = getComponent('value', format);
 
-        expect(component.find('a').attr('href'))
-            .toBe('http://www.example.com/datasets/a/download/?filter_b=eenofanderewaarde');
-
-        //With two active filters
-        component = getComponent('dataset_a', {
-            filter_a: 'ingeschakeld',
-            filter_b: 'eenofanderewaarde'
-        });
-
-        expect(component.find('a').attr('href'))
-            .toBe('http://www.example.com/datasets/a/download/?filter_a=ingeschakeld&filter_b=eenofanderewaarde');
+        expect(component.find('span').text()).toContain('value');
+        expect(component.find('span').attr('class')).toContain('data-selection__align__right');
     });
 
-    it('uses URL encoding for the values of the active filters', function () {
-        var component;
+    it('will filter a value when any filters are supplied', function () {
+        var format = {
+            filters: ['postcode']
+        };
 
-        //With one active filter
-        component = getComponent('dataset_a', {
-            filter_a: 'äéë',
-            filter_b: 'Waarde met spaties'
-        });
+        var component = getComponent('1234AB', format);
 
-        expect(component.find('a').attr('href'))
-            .toBe('http://www.example.com/datasets/a/download/?filter_a=%C3%A4%C3%A9%C3%AB&' +
-                'filter_b=Waarde%20met%20spaties');
-        expect(component.find('a').attr('href')).toContain('filter_a=%C3%A4%C3%A9%C3%AB');
-        expect(component.find('a').attr('href')).toContain('filter_b=Waarde%20met%20spaties');
+        expect(component.find('span').text()).toContain('1234 AB');
+        expect(component.find('span').attr('class')).not.toContain('data-selection__align__right');
     });
-*/
+
+    it('will filter and format a value when both a format and any filters are supplied', function () {
+        var format = {
+            align: 'right',
+            filters: ['postcode']
+        };
+
+        var component = getComponent('1234AB', format);
+
+        expect(component.find('span').text()).toContain('1234 AB');
+        expect(component.find('span').attr('class')).toContain('data-selection__align__right');
+    });
 });

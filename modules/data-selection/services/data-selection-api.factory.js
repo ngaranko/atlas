@@ -39,7 +39,7 @@
                 filter.options = rawData[filter.slug].buckets.map(function (option) {
                     return {
                         label: option.key,
-                        format: filter.format,
+                        format: option.format,
                         count: option.doc_count
                     };
                 });

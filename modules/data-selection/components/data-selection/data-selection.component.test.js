@@ -60,6 +60,7 @@ describe('The dp-data-selection component', function () {
 
         mockedApiData = {
             number_of_pages: 7,
+            number_of_records: 77,
             filters: 'MOCKED_FILTER_DATA',
             tableData: 'MOCKED_TABLE_DATA'
         };
@@ -107,6 +108,7 @@ describe('The dp-data-selection component', function () {
         expect(component.find('dp-data-selection-pagination').attr('number-of-pages')).toBe('vm.numberOfPages');
         expect(scope.vm.currentPage).toBe(2);
         expect(scope.vm.numberOfPages).toBe(7);
+        expect(scope.vm.numberOfRecords).toBe(77);
     });
 
     it('retrieves new data when the state changes', function () {

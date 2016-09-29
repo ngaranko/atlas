@@ -84,7 +84,7 @@
                         slug: 'postcode',
                         label: 'Postcode',
                         format: {
-                            filters: ['postcode', 'isempty']
+                            filters: ['postcode']
                         }
                     },
                     {

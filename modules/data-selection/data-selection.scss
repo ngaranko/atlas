@@ -19,6 +19,9 @@
     background-color: $secondary-gray40;
     color: $primary-light;
   }
+  td:hover {
+    cursor: pointer
+  }
   td, th {
     padding: {
       top: $base-whitespace;

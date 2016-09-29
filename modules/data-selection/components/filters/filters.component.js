@@ -76,12 +76,10 @@
         };
 
         vm.implodeCategory = function (categorySlug) {
-            console.log('implodeCategory begin', expandedCategories);
             var index = expandedCategories.indexOf(categorySlug);
             if (index >= 0) {
                 expandedCategories.splice(index, 1);
             }
-            console.log('implodeCategory end', expandedCategories);
         };
 
         vm.isExpandedCategory = function (categorySlug) {
@@ -95,6 +93,7 @@
                 return {
                     categorySlug: filter.slug,
                     categoryLabel: filter.label,
+                    format: filter.format,
                     option: vm.activeFilters[filter.slug]
                 };
             });

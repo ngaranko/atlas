@@ -287,7 +287,7 @@ describe('The dp-data-selection-filters component', function () {
         });
     });
 
-    it('shows a maximum of 10 options per category, it can expand when it has more than 10 results', function () {
+    it('shows maximum of 10 options per category, it can expand/implode when it has more than 10 results', function () {
         var component;
 
         //When there are 10 or less available options
@@ -326,6 +326,17 @@ describe('The dp-data-selection-filters component', function () {
 
         //Make sure the show more button is gone now
         expect(component.find('.qa-available-filters > div').eq(0).text()).not.toContain('Toon meer');
+        //Make sure the show less button is shown
+        expect(component.find('.qa-available-filters > div').eq(0).text()).toContain('Toon minder');
+
+        //Click the show less button
+        component.find('.qa-available-filters > div').eq(0).find('button').click();
+        $rootScope.$apply();
+
+        //Make sure the show less button is gone now
+        expect(component.find('.qa-available-filters > div').eq(0).text()).not.toContain('Toon minder');
+        //Make sure the show more button is shown
+        expect(component.find('.qa-available-filters > div').eq(0).text()).toContain('Toon meer');
     });
 
     it('expanded categories have a message when there are more options that 100', function () {
