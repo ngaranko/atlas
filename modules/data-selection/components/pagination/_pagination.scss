@@ -1,15 +1,62 @@
 .c-data-selection-pagination__form {
   display: inline-block;
+  margin-left: 5rem;
+  margin-right: 5rem;
 }
 
 .c-data-selection-pagination__input {
-	width: 4rem;
-	border: 1px solid black;
-	text-align: center;
+  width: 4rem;
+  border: 1px solid #000;
+  text-align: center;
 }
 
 .c-data-selection-page__button {
+  position: relative;
+  top: .5rem;
   width: $button-size;
   height: $button-size;
   background-image: url("assets/icons/link-active.svg");
+}
+
+.c-data-selection-pagination-link-placeholder {
+  visibility: hidden;
+}
+
+.c-data-selection-pagination-link {
+  &::before {
+    display: inline-block;
+    position: relative;
+    top: .5rem;
+    width: $button-size;
+    height: $button-size;
+    
+  }
+}
+
+.c-data-selection-pagination-link--first {
+  &::before {
+    transform: scaleX(-1);
+    content: url("assets/icons/icon-last.svg");
+    filter: FlipH;
+  }
+}
+
+.c-data-selection-pagination-link--last {
+  &::before {
+    content: url("assets/icons/icon-last.svg");
+  }
+}
+
+.c-data-selection-pagination-link--previous {
+  &::before {
+    transform: scaleX(-1);
+    filter: FlipH;
+    content: url("assets/icons/icon-next.svg");
+  }
+}
+
+.c-data-selection-pagination-link--next {
+  &::before {
+    content: url("assets/icons/icon-next.svg");
+  }
 }
