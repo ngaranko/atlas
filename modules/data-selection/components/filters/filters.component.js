@@ -63,12 +63,25 @@
             return !vm.isExpandedCategory(categorySlug) && numberOfOptions > vm.showMoreThreshold;
         };
 
+        vm.nrHiddenOptions = function (category) {
+            return category.numberOfOptions - category.options.length;
+        };
+
         vm.showHiddenOptionsMessage = function (category) {
             return vm.isExpandedCategory(category.slug) && category.numberOfOptions > category.options.length;
         };
 
         vm.expandCategory = function (categorySlug) {
             expandedCategories.push(categorySlug);
+        };
+
+        vm.implodeCategory = function (categorySlug) {
+            console.log('implodeCategory begin', expandedCategories);
+            var index = expandedCategories.indexOf(categorySlug);
+            if (index >= 0) {
+                expandedCategories.splice(index, 1);
+            }
+            console.log('implodeCategory end', expandedCategories);
         };
 
         vm.isExpandedCategory = function (categorySlug) {

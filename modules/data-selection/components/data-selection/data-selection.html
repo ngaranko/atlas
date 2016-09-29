@@ -12,7 +12,12 @@
         <div class="u-col-sm--9 u-col-md--10">
             <dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>
 
-            <div ng-if="!vm.isLoading">
+            <div ng-if="!vm.isLoading && vm.numberOfRecords <= 0">
+                <h2>Geen resultaten gevonden</h2>
+                <p>Tip: verwijder één of meer filtercriteria</p>
+            </div>
+
+            <div ng-if="!vm.isLoading && vm.numberOfRecords > 0">
 
                 <div class="u-row data-selection__header">
                     <div class="data-selection__buttongroup u-pull--right">

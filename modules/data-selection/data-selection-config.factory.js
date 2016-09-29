@@ -33,7 +33,10 @@
                 FILTERS: [
                     {
                         slug: 'stadsdeel_naam',
-                        label: 'Gebied'
+                        label: 'Stadsdeel'
+                    }, {
+                        slug: 'ggw_naam',
+                        label: 'GGW-gebied'
                     }, {
                         slug: 'buurtcombinatie_naam',
                         label: 'Buurtcombinatie'
@@ -42,26 +45,30 @@
                         label: 'Buurt'
                     }, {
                         slug: 'naam',
-                        label: 'Straatnaam'
+                        label: 'Openbare ruimte'
                     }, {
                         slug: 'postcode',
                         label: 'Postcode',
                         format: {
-                            filters: ['postcode', 'isempty']
+                            filters: ['postcode']
                         }
-                    }, {
-                        slug: 'ggw_naam',
-                        label: 'GGW-gebied'
                     }
                 ],
                 FIELDS: [
                     {
                         slug: '_openbare_ruimte_naam',
-                        label: 'Straatnaam'
+                        label: 'Naam openbare ruimte'
                     },
                     {
                         slug: 'huisnummer',
-                        label: 'Nr.',
+                        label: 'Num.',
+                        format: {
+                            align: 'right'
+                        }
+                    },
+                    {
+                        slug: 'huisletter',
+                        label: 'Let.',
                         format: {
                             align: 'right'
                         }
@@ -69,13 +76,6 @@
                     {
                         slug: 'huisnummer_toevoeging',
                         label: 'Toev.',
-                        format: {
-                            align: 'right'
-                        }
-                    },
-                    {
-                        slug: 'huisletter',
-                        label: 'Ltr.',
                         format: {
                             align: 'right'
                         }
@@ -89,7 +89,7 @@
                     },
                     {
                         slug: 'stadsdeel_naam',
-                        label: 'Stadsdl.'
+                        label: 'Stadsdeel'
                     },
                     {
                         slug: 'stadsdeel_code',
@@ -97,7 +97,7 @@
                     },
                     {
                         slug: 'ggw_naam',
-                        label: 'Gebied'
+                        label: 'GGW-gebied'
                     },
                     {
                         slug: 'ggw_code',

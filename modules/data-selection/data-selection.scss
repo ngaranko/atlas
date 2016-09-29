@@ -6,7 +6,10 @@
 }
 
 .data-selection__grid {
-  margin-top: $base-whitespace;
+  margin-top: $base-whitespace * 2;
+  p {
+    margin-top: $base-whitespace;
+  }
 }
 
 .data-selection__table {
@@ -16,13 +19,17 @@
     background-color: $secondary-gray40;
     color: $primary-light;
   }
-  th {
-  }
   td, th {
-    padding-left: $base-whitespace;
+    padding: {
+      top: $base-whitespace;
+      bottom: $base-whitespace;
+      left: $base-whitespace;
+    }
     white-space: nowrap;
+    &:last-child {
+      padding-right: $base-whitespace;
+    }
   }
-
 }
 
 .data-selection__buttongroup {
@@ -52,6 +59,14 @@
     &::after {
       background-image: url($urlHover);
     }
+  }
+}
+
+.data-selection__empty__value {
+  font-style: italic;
+  &::before {
+    display: inline-block;
+    content: "(geen)";
   }
 }
 
@@ -106,10 +121,18 @@
     margin-bottom:$base-whitespace / 2;
     background: $secondary-gray40;
   }
+  h4, ul li {
+    margin-bottom: $base-whitespace;
+  }
 }
 
-.data-selection__toon__meer {
+.data-selection__toon__meer__minder {
   margin-top: $base-whitespace;
   margin-bottom:$base-whitespace;
+}
+
+.data-selection__hidden__options {
+  color: $secondary-gray40;
+  margin-bottom: $base-whitespace / 2;
 }
 
