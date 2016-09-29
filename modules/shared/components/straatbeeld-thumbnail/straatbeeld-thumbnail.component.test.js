@@ -1,4 +1,4 @@
-describe('The dp-straatbeeld-thumbnail component', function () {
+fdescribe('The dp-straatbeeld-thumbnail component', function () {
     var $compile,
         $rootScope,
         store,
@@ -79,6 +79,8 @@ describe('The dp-straatbeeld-thumbnail component', function () {
         hasMockedThumbnail = false;
         var component = getComponent([52,4]);
         finishApiCall();
+        // expect does not show the thumbnail
+        // no loading indicator
         expect( component.find('.qa-found-no-panorama').text() )
                           .toContain('Er is geen panorama gevonden voor deze locatie');
         
@@ -88,6 +90,8 @@ describe('The dp-straatbeeld-thumbnail component', function () {
         hasMockedThumbnail = true;
         var component = getComponent([52,4]);
         finishApiCall();
+        // expect do not show message
+        // no loading indicator
         expect( component.find('img').attr('ng-src') ).not.toBe('');
                            
     });
@@ -98,9 +102,11 @@ describe('The dp-straatbeeld-thumbnail component', function () {
 
       expect(component.find('dp-loading-indicator').length).toBe(1);
       expect(component.find('dp-loading-indicator').attr('is-loading')).toBe('vm.isLoading');
-      
+      // expect no image no text
       expect(scope.vm.isLoading).toBe(true);
 
     });
+
+     // click on thumbnail
     
 });
