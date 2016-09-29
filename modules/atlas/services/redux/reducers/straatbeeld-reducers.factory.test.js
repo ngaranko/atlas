@@ -21,12 +21,37 @@ describe('Straatbeeld reducers factory', function () {
 
 
     describe('FETCH_STRAATBEELD', function () {
-        var payload = {
-            'id': 'ABC',
-            'heading': 123,
-            'isInitial': true
-        };
+        var payload;
+        beforeEach(function() {
+            payload = {
+                'id': 'ABC',
+                'heading': 123,
+                'isInitial': true
+            };
+        });
+       
 
+        it('when heading is not in payload, use oldstate heading', function() {
+            delete payload.heading;
+
+             inputState.straatbeeld = {
+                'fov': 1,
+                'pitch': 2,
+                'date': 'today',
+                'heading': 179,
+                'hotspots': ['a', 'b'],
+                'location': ['lat', 'lon'],
+                'image': 'http://example.com/example.png'
+            };
+
+            var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD](inputState, payload);
+            expect(newState.straatbeeld.heading).toBe(179);
+        });
+        
+        it('when heading is in payload, use the payload heading', function() {
+            var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD](inputState, payload);
+            expect(newState.straatbeeld.heading).toBe(123);
+        });
 
         it('Set INITIAL id, heading, isInitial', function () {
             inputState.straatbeeld = null;
@@ -121,6 +146,7 @@ describe('Straatbeeld reducers factory', function () {
                 image: 'http://example.com/example/bla.png'
             }));
         });
+
 
         it('set defaults for pitch, fov when oldstate is unknown', function () {
             var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);

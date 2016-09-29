@@ -2,7 +2,11 @@ describe('The dp-straatbeeld-thumbnail component', function () {
     var $compile,
         $rootScope,
         store,
-        ACTIONS;
+        ACTIONS,
+        $q,
+        api,
+        hasMockedThumbnail,
+        finishApiCall;
 
     beforeEach(function () {
         angular.mock.module(
@@ -13,18 +17,42 @@ describe('The dp-straatbeeld-thumbnail component', function () {
                 },
                 store: {
                     dispatch: function () {}
+                },
+                api: {
+                    getByUrl: function() {
+                        var q = $q.defer();
+                         
+                        finishApiCall = function () {
+                            q.resolve( hasMockedThumbnail ? { url:'http://example.com/example.png' } : [] );
+                            $rootScope.$apply();
+                        };
+                        return q.promise;
+                    }
                 }
-            }
+
+            }, function ($provide) {
+                    $provide.factory('dpLoadingIndicatorDirective', function () {
+                        return {};
+                    });
+                }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _ACTIONS_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _ACTIONS_, _$q_, _api_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
             ACTIONS = _ACTIONS_;
+            $q = _$q_;
+            api = _api_;
+
         });
 
+       
+ 
+
+        hasMockedThumbnail = true;
         spyOn(store, 'dispatch');
+        spyOn(api, 'getByUrl').and.callThrough();
     });
 
     function getComponent (location) {
@@ -44,28 +72,35 @@ describe('The dp-straatbeeld-thumbnail component', function () {
 
         return component;
     }
+    
+  
 
-    it('loads a thumbnail based on a location', function () {
-       
-        var component = getComponent([52.369, 4.963]);
+    it('when it cannot find a thumbnail it shows a message', function () {
+        hasMockedThumbnail = false;
+        var component = getComponent([52,4]);
+        finishApiCall();
+        expect( component.find('.qa-found-no-panorama').text() )
+                          .toContain('Er is geen panorama gevonden voor deze locatie');
         
-
-        expect(component.find('img').attr('src'))
-            .toBe('http://fake.straatbeeld.url/path/?lat=52.369&lon=4.963&width=240&height=135');
     });
 
-    it('wraps the thumbnail inside a button that triggers FETCH_STRAATBEELD', function () {
-        var component = getComponent([52.369, 4.963]);
-
-        expect(component.find('button img')).toBeDefined();
-        expect(component.find('button').length).toBe(1);
-        expect(component.find('img').length).toBe(1);
-
-        expect(component.find('button').click());
-
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.FETCH_STRAATBEELD,
-            payload: [52.369, 4.963]
-        });
+    it('shows a thumbnail when thumbnail is found', function () {
+        hasMockedThumbnail = true;
+        var component = getComponent([52,4]);
+        finishApiCall();
+        expect( component.find('img').attr('ng-src') ).not.toBe('');
+                           
     });
+    
+    it('shows a loading indicator when loading', function () {
+      var component = getComponent([52,4]);
+      var scope = component.isolateScope();
+
+      expect(component.find('dp-loading-indicator').length).toBe(1);
+      expect(component.find('dp-loading-indicator').attr('is-loading')).toBe('vm.isLoading');
+      
+      expect(scope.vm.isLoading).toBe(true);
+
+    });
+    
 });

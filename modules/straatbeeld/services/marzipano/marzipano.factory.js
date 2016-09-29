@@ -64,7 +64,6 @@
             }).forEach(function (hotspot) {
                  
                 hotspotService.createHotspotTemplate(hotspot.id, hotspot.distance).then(function (template) {
-                    console.log(hotspot.distance);
                     var position = {
                         yaw: angleConversion.degreesToRadians(hotspot.heading),
                         pitch: calculateHotspotPitch(straatbeeldConfig.CAMERA_HEIGHT, hotspot.distance)

@@ -12,7 +12,7 @@
             environmentConfig;
 
         globalConfig = {
-            RADIUS: 100
+            RADIUS: 50
         };
 
 

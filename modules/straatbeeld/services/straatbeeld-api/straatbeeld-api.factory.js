@@ -5,31 +5,28 @@
         .module('dpStraatbeeld')
         .factory('straatbeeldApi', straatbeeldApiFactory);
 
-    straatbeeldApiFactory.$inject = ['$http', 'straatbeeldConfig', 'sharedConfig', 'geojson'];
+    straatbeeldApiFactory.$inject = ['straatbeeldConfig', 'sharedConfig', 'geojson', 'api'];
 
-    function straatbeeldApiFactory ($http, straatbeeldConfig, sharedConfig, geojson) {
+    function straatbeeldApiFactory (straatbeeldConfig, sharedConfig, geojson, api) {
         return {
             getImageDataById: getImageDataById
         };
 
         function getImageDataById (id) {
-            return $http.get(straatbeeldConfig.PANORAMA_ENDPOINT + id + '/', {
-                params:  {
-                    radius: sharedConfig.RADIUS
-                }
-            }).then(function (response) {
-                console.log('tick');
+            return api.getByUrl(straatbeeldConfig.PANORAMA_ENDPOINT + id + '/', 
+                { radius: sharedConfig.RADIUS }
+            ).then(function (response) {
                 return {
-                    date: new Date(response.data.timestamp),
-                    hotspots: response.data.adjacent.map(function(item){
+                    date: new Date(response.timestamp),
+                    hotspots: response.adjacent.map(function(item){
                         return {
                             id: item.pano_id,
                             heading: item.heading,
                             distance: item.distance
                         };
                     }),
-                    location: geojson.getCenter(response.data.geometrie),
-                    image: response.data.images.equirectangular
+                    location: geojson.getCenter(response.geometrie),
+                    image: response.images.equirectangular
                 };
             });
         }

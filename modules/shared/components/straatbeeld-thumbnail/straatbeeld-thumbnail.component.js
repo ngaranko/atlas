@@ -26,17 +26,21 @@
             '&width=240' +
             '&radius=' + sharedConfig.RADIUS;
 
-           
+        vm.isLoading = true;
         api.getByUrl(imageUrl).then(function (thumbnailData) {
             heading = thumbnailData.heading;
             id = thumbnailData['pano_id'];
             
-            if (angular.isObject(thumbnailData)) {
+            if (!angular.isArray(thumbnailData)) {
                 vm.imageUrl = thumbnailData.url;
-
+                vm.hasThumbnail = true;
+            } else {
+                vm.hasThumbnail = false;
             }
-        });
 
+            vm.isLoading = false;
+        });
+ 
         vm.openStraatbeeld = function () {
             store.dispatch({
                 type: ACTIONS.FETCH_STRAATBEELD,
