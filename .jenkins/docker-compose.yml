@@ -1,0 +1,4 @@
+atlas:
+  build: ..
+  ports:
+    - "80"
