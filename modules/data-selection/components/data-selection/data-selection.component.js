@@ -12,9 +12,9 @@
             controllerAs: 'vm'
         });
 
-    DpDataSelectionController.$inject = ['$scope', 'dataSelectionApi'];
+    DpDataSelectionController.$inject = ['$scope', 'dataSelectionApi', 'dataSelectionConfig'];
 
-    function DpDataSelectionController ($scope, dataSelectionApi) {
+    function DpDataSelectionController ($scope, dataSelectionApi, dataSelectionConfig) {
         var vm = this;
 
         $scope.$watch('vm.state', fetchData, true);
@@ -30,7 +30,7 @@
                 vm.tableData = data.tableData;
                 vm.numberOfRecords = data.number_of_records;
                 vm.numberOfPages = data.number_of_pages;
-
+                vm.noDataToDisplay = vm.currentPage > dataSelectionConfig.MAX_AVAILABLE_PAGES;
                 vm.isLoading = false;
             });
         }
