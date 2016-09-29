@@ -369,4 +369,30 @@ describe('The dp-map directive', function () {
 
         expect(searchByClick.initialize).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP');
     });
+
+    describe('fullscreen state', function() {
+        it('is true when fullscreen is set and layers is not', function() {
+            mockedMapState.isFullscreen = true;
+            mockedMapState.showLayerSelection = false;
+            getDirective(mockedMapState, []);
+            expect(mockedMapState.isFullscreenState).toEqual(true);
+        });
+        it('is false when fullscreen is set and layers is too', function() {
+            mockedMapState.isFullscreen = true;
+            mockedMapState.showLayerSelection = true;
+            getDirective(mockedMapState, []);
+            expect(mockedMapState.isFullscreenState).toEqual(false);
+        });
+        it('is false when fullscreen is not set', function() {
+            mockedMapState.isFullscreen = false;
+            mockedMapState.showLayerSelection = false;
+            getDirective(mockedMapState, []);
+            expect(mockedMapState.isFullscreenState).toEqual(false);
+
+            mockedMapState.isFullscreen = false;
+            mockedMapState.showLayerSelection = true;
+            $rootScope.$apply();
+            expect(mockedMapState.isFullscreenState).toEqual(false);
+        });
+    });
 });
