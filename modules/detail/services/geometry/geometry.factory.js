@@ -5,9 +5,9 @@
         .module('atlasDetail')
         .factory('geometry', geometryFactory);
 
-        geometryFactory.$inject = ['api'];
+        geometryFactory.$inject = ['api', 'crsConverter', 'BOUNDING_BOX'];
 
-        function geometryFactory (api) {
+        function geometryFactory (api, crsConverter, BOUNDING_BOX) {
             return {
                 getGeoJSON: getGeoJSON
             };
@@ -23,10 +23,34 @@
                 function getGeometry (data) {
                     if (angular.isObject(data.geometrie)) {
                         return data.geometrie;
+                    } else if (isVestiging(data)) {
+                        return isVesigingInAmsterdam(data);
                     } else if (isAPerceel(url, data)) {
                         return getGPerceel(data).then(getGeometry);
                     } else if (isNummeraanduiding(url)) {
                         return getAdresseerbaarObject(data).then(getGeometry);
+                    } else {
+                        return null;
+                    }
+                }
+
+                function isVestiging (data) {
+                    var isVestiging = false;
+                    if (angular.isObject(data.bezoekadres) && angular.isObject(data.bezoekadres.geometrie)) {
+                        isVestiging = true;
+                    }
+                    return isVestiging;
+                }
+
+                function isVesigingInAmsterdam(data) {
+                    var southWest = crsConverter.wgs84ToRd(BOUNDING_BOX.COORDINATES.southWest);
+                    var northEast = crsConverter.wgs84ToRd(BOUNDING_BOX.COORDINATES.northEast);
+
+                    if (data.bezoekadres.geometrie.coordinates[0] > southWest[0] &&
+                        data.bezoekadres.geometrie.coordinates[0] < northEast[0] &&
+                        data.bezoekadres.geometrie.coordinates[1] > southWest[1] &&
+                        data.bezoekadres.geometrie.coordinates[1] < northEast[1]) {
+                        return data.bezoekadres.geometrie;
                     } else {
                         return null;
                     }

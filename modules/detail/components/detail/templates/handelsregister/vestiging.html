@@ -5,7 +5,8 @@
     </atlas-stelselpedia-header>
 
     <dl class="c-key-value-list">
-        <atlas-api-call endpoint="{{vm.apiData.results.maatschappelijke_activiteit}}" partial="handelsregister/handelsnaam-kvknummer"></atlas-api-call>
+        <dt>Eerste handelsnaam</dt>
+        <dd> {{ vm.apiData.results.naam }} </dd>
         <dt>Postadres</dt>
         <dd> {{ vm.apiData.results.postadres.volledig_adres }} </dd>
         <dt>Bezoekadres</dt>
@@ -15,18 +16,22 @@
         <dd ng-if="!vm.apiData.results.hoofdvestiging">
             {{ vm.apiData.results.hoofdvestiging === false ? "Nevenvestiging" : "" }}
         </dd>
-        <dt>SBI-activiteiten</dt>
-        <dd>
-            <p ng-repeat="object in vm.apiData.results.activiteiten">
+        <dt class="s-border__top">SBI-activiteiten</dt>
+        <dd ng-if="!vm.apiData.results.activiteiten[0]"></dd>
+        <dd ng-if="vm.apiData.results.activiteiten[0]" class="s-multiple-values" ng-repeat="object in vm.apiData.results.activiteiten" ng-class="{'s-border__top': $first}">
+            <span class="u-base-line-height u-margin--0">
                 {{ object.sbi_code }}: {{ object.sbi_omschrijving }}
-            </p>
+            </span>
         </dd>
         <dt>Vestigingsnummer</dt>
         <dd> {{  vm.apiData.results.vestigingsnummer }} </dd>
         <dt>Datum aanvang</dt>
         <dd> {{ vm.apiData.results.datum_aanvang | date:'dd-MM-yyyy' }} </dd>
         <dt>Coördinaten</dt>
-        <dd>{{ apiData.results.geometrie.coordinates[0] }}, {{ apiData.results.geometrie.coordinates[1] }}</dd>
+        <dd ng-if="apiData.results.bezoekadres.geometrie.coordinates[0]">
+            {{ apiData.results.bezoekadres.geometrie.coordinates[0] }}, {{ apiData.results.bezoekadres.geometrie.coordinates[1] }}
+        </dd>
+        <dd ng-if="!apiData.results.bezoekadres.geometrie.coordinates[0]"></dd>
     </dl>
 
     <atlas-api-call endpoint="{{vm.apiData.results.maatschappelijke_activiteit}}" partial="handelsregister/mac"></atlas-api-call>

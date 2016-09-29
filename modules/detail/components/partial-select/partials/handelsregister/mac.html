@@ -5,14 +5,17 @@
         </atlas-stelselpedia-header>
 
         <dl class="c-key-value-list">
-            <dt>Handelsnaam</dt>
-            <dd> {{ apiData.results.naam }} </dd>
+            <dt class="s-border__top">Handelsnamen</dt>
+            <dd ng-if="!apiData.results.onderneming.handelsnamen[0]"></dd>
+            <dd class="s-multiple-values" ng-repeat="object in apiData.results.onderneming.handelsnamen" ng-class="{'s-border__top': $first}">
+                    {{ object.handelsnaam }}
+            </dd>
             <dt>KvK-nummer</dt>
             <dd> {{ apiData.results.kvk_nummer }} </dd>
             <dt>Bezoekadres</dt>
             <dd> {{ apiData.results.bezoekadres.volledig_adres }} </dd>
             <dt>Datum aanvang</dt>
-            <dd> {{ apiData.results.datum_aanvang }} </dd>
+            <dd> {{ apiData.results.datum_aanvang | date:'dd-MM-yyyy' }} </dd>
             <dt>Soort bijzondere rechtstoestand</dt>
             <dd> {{  }} </dd>
         </dl>
@@ -21,7 +24,7 @@
     <div>
         <atlas-stelselpedia-header definition="FUNCTIEVERVULLING" use-plural="true"></atlas-stelselpedia-header>
 
-        <atlas-api-call endpoint="{{apiData.results.eigenaar}}" partial="handelsregister/eigenaren"></atlas-api-call>
+        <atlas-api-call endpoint="{{apiData.results.eigenaar}}" partial="handelsregister/functievervullingen"></atlas-api-call>
     </div>
 
     <div ng-if="apiData.results.vestigingen.count">
