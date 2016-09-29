@@ -5,6 +5,139 @@
         .module('dpShared')
         .constant('OVERLAYS', {
             SOURCES: {
+                //overige niet gebruikt op dit moment
+                bestemmingsplannen: {
+                    label_short: 'Bestemmingsplannen',
+                    label_long: 'Bestemmingsplannen',
+                    url: 'http://afnemers.ruimtelijkeplannen.nl/afnemers/services',
+                    layers: ['BP:HuidigeBestemming'],
+                    minZoom: 8,
+                    maxZoom: 16,
+                    legend: 'http://www.ruimtelijkeplannen.nl/web-theme2.0/images/mapviewer/legend.png',
+                    external: true
+                },
+                panorama_rijlijnen_2012: {
+                    url: 'maps/panorama',
+                    label_short: 'Straatbeeld rijlijnen 2012',
+                    label_long: 'Straatbeeld rijlijnen 2012',
+                    layers: ['panorama'],
+                    minZoom: 11,
+                    maxZoom: 16,
+                    legend: '/maps/panorama?version=1.3.0&service=WMS&request=GetLe' +
+                        'gendGraphic&sld_version=1.1.0&layer=panorama_punt&format=image/png&STYLE=default'
+                },
+
+                // economie
+                Handel_vervoer_opslag: {
+                    url: '',
+                    label_short: '',
+                    label_long: '',
+                    layers: [],
+                    minZoom: 9,
+                    maxZoom: 16,
+                    legend: ''
+                },
+                Productie_installatie_reparatie: {
+                    url: '',
+                    label_short: '',
+                    label_long: '',
+                    layers: [],
+                    minZoom: 9,
+                    maxZoom: 16,
+                    legend: ''
+                },
+                Bouw: {
+                    url: '',
+                    label_short: '',
+                    label_long: '',
+                    layers: [],
+                    minZoom: 9,
+                    maxZoom: 16,
+                    legend: ''
+                },
+                landbouw: {
+                    url: '',
+                    label_short: '',
+                    label_long: '',
+                    layers: [],
+                    minZoom: 9,
+                    maxZoom: 16,
+                    legend: ''
+                },
+                Horeca: {
+                    url: '',
+                    label_short: '',
+                    label_long: '',
+                    layers: [],
+                    minZoom: 9,
+                    maxZoom: 16,
+                    legend: ''
+                },
+                Informatie_telecommunicatie: {
+                    url: '',
+                    label_short: '',
+                    label_long: '',
+                    layers: [],
+                    minZoom: 9,
+                    maxZoom: 16,
+                    legend: ''
+                },
+                Financiële_dienstverlening_verhuur_van_roerend_en_onroerend_goed: {
+                    url: '',
+                    label_short: '',
+                    label_long: '',
+                    layers: [],
+                    minZoom: 9,
+                    maxZoom: 16,
+                    legend: ''
+                },
+                Zakelijke_dienstverlening: {
+                    url: '',
+                    label_short: '',
+                    label_long: '',
+                    layers: [],
+                    minZoom: 9,
+                    maxZoom: 16,
+                    legend: ''
+                },
+                Overheid_onderwijs_zorg: {
+                    url: '',
+                    label_short: '',
+                    label_long: '',
+                    layers: [],
+                    minZoom: 9,
+                    maxZoom: 16,
+                    legend: ''
+                },
+                Cultuur_sport_recreatie: {
+                    url: '',
+                    label_short: '',
+                    label_long: '',
+                    layers: [],
+                    minZoom: 9,
+                    maxZoom: 16,
+                    legend: ''
+                },
+                Persoonlijke_dienstverlening: {
+                    url: '',
+                    label_short: '',
+                    label_long: '',
+                    layers: [],
+                    minZoom: 9,
+                    maxZoom: 16,
+                    legend: ''
+                },
+                Overige_niet_hierboven_genoemd:  {
+                    url: '',
+                    label_short: '',
+                    label_long: '',
+                    layers: [],
+                    minZoom: 9,
+                    maxZoom: 16,
+                    legend: ''
+                },
+
+                // onroerende zaken
                 kadaster: {
                     url: 'maps/lki?service=wms',
                     label_short: 'Kadastrale perceelgrenzen',
@@ -23,11 +156,39 @@
                     legend: '/maps/wkpb?version=1.3.0&service=WMS&request=GetLegend' +
                         'Graphic&sld_version=1.1.0&layer=wkpb&format=image/png&STYLE=default'
                 },
+
+                // geografie: gebieden
+                grootstedelijkgebied: {
+                    url: 'maps/gebieden?service=wms',
+                    label_short: 'Grootstedelijke gebieden',
+                    label_long: 'Grootstedelijke gebieden',
+                    layers: ['grootstedelijkgebied', 'grootstedelijkgebied_label'],
+                    minZoom: 8,
+                    maxZoom: 16
+                },
+                unesco: {
+                    url: 'maps/gebieden?service=wms',
+                    label_short: 'Unesco werelderfgoed',
+                    label_long: 'Unesco werelderfgoed',
+                    layers: ['unesco', 'unesco_label'],
+                    minZoom: 9,
+                    maxZoom: 16,
+                    legend: '/maps/gebieden?version=1.3.0&service=WMS&request=GetLe' +
+                        'gendGraphic&sld_version=1.1.0&layer=unesco&format=image/png&STYLE=default'
+                },
                 stadsdeel: {
                     url: 'maps/gebieden?service=wms',
                     label_short: 'Stadsdelen',
                     label_long: 'Stadsdelen',
                     layers: ['stadsdeel', 'stadsdeel_label'],
+                    minZoom: 8,
+                    maxZoom: 16
+                },
+                gebiedsgericht_werken: {
+                    url: 'maps/gebieden?service=wms',
+                    label_short: 'Gebiedsgerichtwerken gebieden',
+                    label_long: 'Gebiedsgerichtwerken gebieden',
+                    layers: ['gebiedsgerichtwerken', 'gebiedsgerichtwerken_label'],
                     minZoom: 8,
                     maxZoom: 16
                 },
@@ -47,22 +208,6 @@
                     minZoom: 10,
                     maxZoom: 16
                 },
-                gebiedsgericht_werken: {
-                    url: 'maps/gebieden?service=wms',
-                    label_short: 'Gebiedsgerichtwerken gebieden',
-                    label_long: 'Gebiedsgerichtwerken gebieden',
-                    layers: ['gebiedsgerichtwerken', 'gebiedsgerichtwerken_label'],
-                    minZoom: 8,
-                    maxZoom: 16
-                },
-                grootstedelijkgebied: {
-                    url: 'maps/gebieden?service=wms',
-                    label_short: 'Grootstedelijke gebieden',
-                    label_long: 'Grootstedelijke gebieden',
-                    layers: ['grootstedelijkgebied', 'grootstedelijkgebied_label'],
-                    minZoom: 8,
-                    maxZoom: 16
-                },
                 bouwblokken: {
                     url: 'maps/gebieden?service=wms',
                     label_short: 'Bouwblokken',
@@ -71,16 +216,8 @@
                     minZoom: 11,
                     maxZoom: 16
                 },
-                unesco: {
-                    url: 'maps/gebieden?service=wms',
-                    label_short: 'Unesco werelderfgoed',
-                    label_long: 'Unesco werelderfgoed',
-                    layers: ['unesco', 'unesco_label'],
-                    minZoom: 9,
-                    maxZoom: 16,
-                    legend: '/maps/gebieden?version=1.3.0&service=WMS&request=GetLe' +
-                        'gendGraphic&sld_version=1.1.0&layer=unesco&format=image/png&STYLE=default'
-                },
+
+                // geografie: hoogte
                 dsm: {
                     label_short: 'Terreinmodel (DSM AHN)',
                     label_long: 'Terreinmodel (DSM AHN)',
@@ -101,16 +238,6 @@
                     maxZoom: 16,
                     legend: 'https://geodata.nationaalgeoregister.nl/ahn3/ows?service=WMS&request=GetLegendGraphic&fo' +
                         'rmat=image%2Fpng&width=20&height=20&layer=ahn3_05m_dtm&style=ahn3_05m',
-                    external: true
-                },
-                bestemmingsplannen: {
-                    label_short: 'Bestemmingsplannen',
-                    label_long: 'Bestemmingsplannen',
-                    url: 'http://afnemers.ruimtelijkeplannen.nl/afnemers/services',
-                    layers: ['BP:HuidigeBestemming'],
-                    minZoom: 8,
-                    maxZoom: 16,
-                    legend: 'http://www.ruimtelijkeplannen.nl/web-theme2.0/images/mapviewer/legend.png',
                     external: true
                 },
                 nap: {
@@ -153,16 +280,8 @@
                     legend: '/maps/meetbouten?version=1.3.0&service=WMS&request=Get' +
                         'LegendGraphic&sld_version=1.1.0&layer=referentiepunten&format=image/png&STYLE=default'
                 },
-                panorama_rijlijnen_2012: {
-                    url: 'maps/panorama',
-                    label_short: 'Straatbeeld rijlijnen 2012',
-                    label_long: 'Straatbeeld rijlijnen 2012',
-                    layers: ['panorama'],
-                    minZoom: 11,
-                    maxZoom: 16,
-                    legend: '/maps/panorama?version=1.3.0&service=WMS&request=GetLe' +
-                        'gendGraphic&sld_version=1.1.0&layer=panorama_punt&format=image/png&STYLE=default'
-                },
+
+                // milieu bodem
                 milieu_bodem_grondmonsters: {
                     url: 'maps/bodem',
                     label_short: 'Grondmonster',
@@ -193,6 +312,8 @@
                     legend: '/maps/bodem?version=1.3.0&service=WMS&request=GetLegen' +
                         'dGraphic&sld_version=1.1.0&layer=asbest&format=image/png&STYLE=default'
                 },
+
+                // milieu: veiligheid
                 milieu_veiligheid_lpg_vulpunt: {
                     url: 'maps/externeveiligheid',
                     label_short: 'LPG-vulpunt - Risicozones',
@@ -372,16 +493,42 @@
                         'est=GetLegendGraphic&sld_version=1.1.0&layer=milieu_veiligheid_bunkerschepen&format=image/pn' +
                         'g&STYLE=default'
                 },
-                milieu_veiligheid_vogelvrijwaringsgebied_schiphol: {
-                    url: 'maps/planologischezonesschiphol',
-                    label_short: 'Schiphol - Vogelvrijwaring',
-                    label_long: 'Schiphol - Vogelvrijwaring',
-                    layers: ['vogelvrijwaringsgebiedschiphol'],
+
+                // milieu zones
+                milieu_geluid_planologisch_industrie: {
+                    url: 'maps/planologischegeluidszones',
+                    label_short: 'Industrie - Geluidszones',
+                    label_long: 'Industrie - Geluidszones',
+                    layers: [
+                        'gezoneerdindustrieterrein',
+                        'geluidzoneindustrieterrein',
+                        'indicatievecontour55dbindustrieterrein'
+                    ],
                     minZoom: 8,
                     maxZoom: 16,
-                    legend: '/maps/planologischezonesschiphol?version=1.3.0&service' +
-                        '=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=vogelvrijwaringsgebiedschiphol&format=' +
-                        'image/png&STYLE=default'
+                    legend: '/maps/planologischegeluidszones?version=1.3.0&service=' +
+                        'WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=milieu_geluid_planologisch_industrie&fo' +
+                        'rmat=image/png&STYLE=default'
+                },
+                milieu_geluid_planologisch_spoorwegen: {
+                    url: 'maps/planologischegeluidszones',
+                    label_short: 'Spoorwegen - Geluidszones',
+                    label_long: 'Spoorwegen - Geluidszones',
+                    layers: ['spoorwegen'],
+                    minZoom: 8,
+                    maxZoom: 16,
+                    legend: '/maps/planologischegeluidszones?version=1.3.0&service=' +
+                        'WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=spoorwegen&format=image/png&STYLE=default'
+                },
+                milieu_geluid_planologisch_metro: {
+                    url: 'maps/planologischegeluidszones',
+                    label_short: 'Metro - Geluidszones',
+                    label_long: 'Metro - Geluidszones',
+                    layers: ['metro'],
+                    minZoom: 8,
+                    maxZoom: 16,
+                    legend: '/maps/planologischegeluidszones?version=1.3.0&service=' +
+                        'WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=metro&format=image/png&STYLE=default'
                 },
                 milieu_geluid_planologisch_schiphol: {
                     url: 'maps/planologischezonesschiphol',
@@ -405,41 +552,19 @@
                         '=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=hoogtebeperkingschiphol&format=image/p' +
                         'ng&STYLE=default'
                 },
-                milieu_geluid_planologisch_spoorwegen: {
-                    url: 'maps/planologischegeluidszones',
-                    label_short: 'Spoorwegen - Geluidszones',
-                    label_long: 'Spoorwegen - Geluidszones',
-                    layers: ['spoorwegen'],
+                milieu_veiligheid_vogelvrijwaringsgebied_schiphol: {
+                    url: 'maps/planologischezonesschiphol',
+                    label_short: 'Schiphol - Vogelvrijwaring',
+                    label_long: 'Schiphol - Vogelvrijwaring',
+                    layers: ['vogelvrijwaringsgebiedschiphol'],
                     minZoom: 8,
                     maxZoom: 16,
-                    legend: '/maps/planologischegeluidszones?version=1.3.0&service=' +
-                        'WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=spoorwegen&format=image/png&STYLE=default'
+                    legend: '/maps/planologischezonesschiphol?version=1.3.0&service' +
+                        '=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=vogelvrijwaringsgebiedschiphol&format=' +
+                        'image/png&STYLE=default'
                 },
-                milieu_geluid_planologisch_metro: {
-                    url: 'maps/planologischegeluidszones',
-                    label_short: 'Metro - Geluidszones',
-                    label_long: 'Metro - Geluidszones',
-                    layers: ['metro'],
-                    minZoom: 8,
-                    maxZoom: 16,
-                    legend: '/maps/planologischegeluidszones?version=1.3.0&service=' +
-                        'WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=metro&format=image/png&STYLE=default'
-                },
-                milieu_geluid_planologisch_industrie: {
-                    url: 'maps/planologischegeluidszones',
-                    label_short: 'Industrie - Geluidszones',
-                    label_long: 'Industrie - Geluidszones',
-                    layers: [
-                        'gezoneerdindustrieterrein',
-                        'geluidzoneindustrieterrein',
-                        'indicatievecontour55dbindustrieterrein'
-                    ],
-                    minZoom: 8,
-                    maxZoom: 16,
-                    legend: '/maps/planologischegeluidszones?version=1.3.0&service=' +
-                        'WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=milieu_geluid_planologisch_industrie&fo' +
-                        'rmat=image/png&STYLE=default'
-                },
+
+                // Verkeer
                 parkeervakken: {
                     url: 'maps/parkeervakken',
                     label_short: 'Parkeervakken',
@@ -470,7 +595,29 @@
             },
             HIERARCHY: [
                 {
-                    heading: 'Geografie: gebieden',
+                    heading: 'Economie',
+                    overlays: [
+                        'Handel_vervoer_opslag',
+                        'Productie_installatie_reparatie',
+                        'Bouw',
+                        'landbouw',
+                        'Horeca',
+                        'Informatie_telecommunicatie',
+                        'Financiële_dienstverlening_verhuur_van_roerend_en_onroerend_goed',
+                        'Zakelijke_dienstverlening',
+                        'Overheid_onderwijs_zorg',
+                        'Cultuur_sport_recreatie',
+                        'Persoonlijke_dienstverlening',
+                        'Overige_niet_hierboven_genoemd'
+                    ]
+                }, {
+                    heading: 'Onroerende zaken',
+                    overlays: [
+                        'kadaster',
+                        'gemeentelijke_beperkingen'
+                    ]
+                }, {
+                   heading: 'Geografie: gebieden',
                     overlays: [
                         'grootstedelijkgebied',
                         'unesco',
@@ -489,12 +636,6 @@
                         'meetbouten_status',
                         'meetbouten_zaksnelheid',
                         'meetbouten_referentiepunten'
-                    ]
-                }, {
-                    heading: 'Onroerende zaken',
-                    overlays: [
-                        'kadaster',
-                        'gemeentelijke_beperkingen'
                     ]
                 }, {
                     heading: 'Milieu: bodem',
