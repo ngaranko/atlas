@@ -33,65 +33,95 @@
                 FILTERS: [
                     {
                         slug: 'stadsdeel_naam',
-                        label: 'Stadsdelen'
+                        label: 'Stadsdeel'
+                    }, {
+                        slug: 'ggw_naam',
+                        label: 'GGW-gebied'
                     }, {
                         slug: 'ggw_naam',
                         label: 'Gebieden'
                     }, {
                         slug: 'buurtcombinatie_naam',
-                        label: 'Buurtcombinaties'
+                        label: 'Buurtcombinatie'
                     }, {
                         slug: 'buurt_naam',
-                        label: 'Buurten'
+                        label: 'Buurt'
                     }, {
                         slug: 'naam',
-                        label: 'Straatnamen'
+                        label: 'Openbare ruimte'
                     }, {
                         slug: 'postcode',
-                        label: 'Postcode'
+                        label: 'Postcode',
+                        format: {
+                            filters: ['postcode']
+                        }
                     }
                 ],
                 FIELDS: [
                     {
                         slug: '_openbare_ruimte_naam',
-                        label: 'Openbare ruimte'
-                    }, {
+                        label: 'Naam openbare ruimte'
+                    },
+                    {
                         slug: 'huisnummer',
-                        label: 'Num.'
-                    }, {
+                        label: 'Num.',
+                        format: {
+                            align: 'right'
+                        }
+                    },
+                    {
                         slug: 'huisletter',
-                        label: 'Let.'
-                    }, {
+                        label: 'Let.',
+                        format: {
+                            align: 'right'
+                        }
+                    },
+                    {
                         slug: 'huisnummer_toevoeging',
-                        label: 'Toev.'
-                    }, {
+                        label: 'Toev.',
+                        format: {
+                            align: 'right'
+                        }
+                    },
+                    {
                         slug: 'postcode',
-                        label: 'Postcode'
-                    }, {
+                        label: 'Postcode',
+                        format: {
+                            filters: ['postcode', 'isempty']
+                        }
+                    },
+                    {
                         slug: 'stadsdeel_naam',
                         label: 'Stadsdeel'
-                    }, {
+                    },
+                    {
                         slug: 'stadsdeel_code',
                         label: '-code'
-                    }, {
+                    },
+                    {
                         slug: 'ggw_naam',
-                        label: 'G.G.W. gebied'
-                    }, {
+                        label: 'GGW-gebied'
+                    },
+                    {
                         slug: 'ggw_code',
                         label: '-code'
-                    }, {
+                    },
+                    {
                         slug: 'buurtcombinatie_naam',
-                        label: 'Buurtcombintaie'
-                    }, {
+                        label: 'Buurtcombinatie'
+                    },
+                    {
                         slug: 'buurtcombinatie_code',
                         label: '-code'
-                    }, {
+                    },
+                    {
                         slug: 'buurt_naam',
                         label: 'Buurt'
-                    }, {
+                    },
+                    {
                         slug: 'buurt_code',
                         label: '-code'
-                    }
+                    },
                 ]
             }
         };

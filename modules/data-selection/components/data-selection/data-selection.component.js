@@ -25,8 +25,10 @@
             vm.currentPage = vm.state.page;
 
             dataSelectionApi.query(vm.state.dataset, vm.state.filters, vm.currentPage).then(function (data) {
+
                 vm.availableFilters = data.filters;
                 vm.tableData = data.tableData;
+                vm.numberOfRecords = data.number_of_records;
                 vm.numberOfPages = data.number_of_pages;
 
                 vm.isLoading = false;
