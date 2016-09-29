@@ -27,7 +27,7 @@
         <atlas-api-call endpoint="{{apiData.results.eigenaar}}" partial="handelsregister/functievervullingen"></atlas-api-call>
     </div>
 
-    <div ng-if="apiData.results.vestigingen.count">
+    <div ng-if="apiData.results.vestigingen.count > 1">
         <atlas-stelselpedia-header definition="VESTIGING" use-plural="true"></atlas-stelselpedia-header>
 
         <atlas-api-call endpoint="{{apiData.results.vestigingen.href}}" partial="lijst"></atlas-api-call>
