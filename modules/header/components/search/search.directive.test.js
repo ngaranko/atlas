@@ -62,7 +62,8 @@ describe('The atlas-search directive', function () {
         fakeAutocompleteData = {
             'query without suggestions': {
                 count: 0,
-                data: []
+                data: [],
+                query: 'query without suggestions'
             },
             'query with suggestions': {
                 count: 3,
@@ -90,7 +91,8 @@ describe('The atlas-search directive', function () {
                             }
                         ]
                     }
-                ]
+                ],
+                query: 'query with suggestions'
             }
         };
     });
