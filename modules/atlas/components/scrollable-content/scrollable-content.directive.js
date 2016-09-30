@@ -22,17 +22,16 @@
         function linkFunction (scope, element) {
             var rightColumnContent = null;
 
-            scope.$watchCollection(function () {
-                return [scope.visibility, scope.pageName];
-            }, function () {
+            scope.$watchGroup(['visibility', 'pageName'], function () {
+                console.log('watch triggered');
                 var newRightColumnContent = checkRightColumnContent(scope.visibility, scope.pageName);
-
+                console.log(newRightColumnContent);
                 if (rightColumnContent !== newRightColumnContent) {
                     element[0].scrollTop = 0;
 
                     rightColumnContent = newRightColumnContent;
                 }
-            }, true);
+            });
 
             function checkRightColumnContent (visibility, pageName) {
                 var components = ['page', 'detail', 'searchResults', 'dataSelection'],

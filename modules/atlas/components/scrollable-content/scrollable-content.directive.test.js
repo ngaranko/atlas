@@ -1,4 +1,4 @@
-describe('The atlas-scrollable-content directive', function () {
+fdescribe('The atlas-scrollable-content directive', function () {
     var $compile,
         $rootScope;
 
@@ -11,7 +11,7 @@ describe('The atlas-scrollable-content directive', function () {
         });
     });
 
-    function getDirective (visibility) {
+    function getDirective (visibility, pageName) {
         var directive,
             element,
             scope,
@@ -21,6 +21,7 @@ describe('The atlas-scrollable-content directive', function () {
         element = document.createElement('div');
         element.setAttribute('atlas-scrollable-content', '');
         element.setAttribute('visibility', 'visibility');
+        element.setAttribute('page-name', pageName || '');
         element.setAttribute('style', 'height: 100px; overflow-y: scroll;');
 
         //Insert a lot of dummy content to enable scrolling
@@ -44,31 +45,27 @@ describe('The atlas-scrollable-content directive', function () {
 
     it('resets the scrollTop property whenever the active component changes', function () {
         var directive,
-            scope,
-            visibility;
+            visibility,
+            pageName;
 
         visibility = {
             page: false,
-            detail: false,
+            detail: true,
             searchResults: false,
             dataSelection: false
         };
 
-        directive = getDirective(visibility);
-        scope = directive.isolateScope();
-
-        //Shown an initial component
-        scope.visibility.detail = true;
-        scope.$apply();
+        directive = getDirective(visibility, pageName);
         expect(directive[0].scrollTop).toBe(0);
 
         //Now scroll down
         directive[0].scrollTop = 100;
 
         //Show another component
-        scope.visibility.detail = false;
-        scope.visibility.page = true;
-        scope.$apply();
+        visibility.detail = false;
+        visibility.page = true;
+        pageName = 'home';
+        $rootScope.$apply();
 
         //Make sure the scrollTop has been reset
         expect(directive[0].scrollTop).toBe(0);
