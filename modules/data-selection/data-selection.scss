@@ -90,9 +90,10 @@
   }
 }
 
-.data-selection__align__right {
+.o-table .data-selection__align__right {
   //!important to overide default o-table th
-  text-align: right !important;
+  // Is de twee classen noemen niet genoeg?
+  text-align: right;
 }
 
 .data-selection__active__filters {
