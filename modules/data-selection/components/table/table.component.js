@@ -20,18 +20,10 @@
         vm.classForField = function (format) {
             switch(format && format.align) {
                 case 'right':
-                    return 'data-selection__align__right';
+                    return 'u-align--right';
                 default:
                     return '';
             }
-        };
-
-        vm.fieldDisplayValue = function(rawValue, format) {
-            var displayValue = rawValue;
-            angular.forEach(format && format.filters, function (filter) {
-                displayValue = $filter(filter)(displayValue);
-            });
-            return displayValue;
         };
 
         vm.followLink = function (endpoint) {

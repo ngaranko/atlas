@@ -62,7 +62,7 @@ describe('The dp-data-selection-download-button component', function () {
         var component = getComponent('value', format);
 
         expect(component.find('span').text()).toContain('value');
-        expect(component.find('span').attr('class')).toContain('data-selection__align__right');
+        expect(component.find('span').attr('class')).toContain('u-align--right');
     });
 
     it('will filter a value when any filters are supplied', function () {
@@ -73,7 +73,7 @@ describe('The dp-data-selection-download-button component', function () {
         var component = getComponent('1234AB', format);
 
         expect(component.find('span').text()).toContain('1234 AB');
-        expect(component.find('span').attr('class')).not.toContain('data-selection__align__right');
+        expect(component.find('span').attr('class')).not.toContain('u-align--right');
     });
 
     it('will filter and format a value when both a format and any filters are supplied', function () {
@@ -85,6 +85,6 @@ describe('The dp-data-selection-download-button component', function () {
         var component = getComponent('1234AB', format);
 
         expect(component.find('span').text()).toContain('1234 AB');
-        expect(component.find('span').attr('class')).toContain('data-selection__align__right');
+        expect(component.find('span').attr('class')).toContain('u-align--right');
     });
 });

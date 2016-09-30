@@ -1,10 +1,13 @@
-<table class="o-table data-selection__table">
+<table class="o-table c-data-selection-table__table">
     <thead>
         <tr>
             <th ng-class="vm.classForField(vm.content.format[$index])"
                 ng-repeat="field in vm.content.head track by $index">
-                {{ field }}
+                <dp-data-selection-formatted-value
+                    value="field"
+                    format="vm.content.format[$index]">
 
+                </dp-data-selection-formatted-value>
             </th>
         </tr>
     </thead>

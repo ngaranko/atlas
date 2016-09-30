@@ -98,7 +98,7 @@ describe('The dp-data-selection-table component', function () {
         expect(component.find('tbody tr:nth-child(1) td').length).toBe(2);
         expect(component.find('tbody tr:nth-child(1) td:nth-child(1)').text()).toContain('Cell A1');
         expect(component.find('tbody tr:nth-child(1) td:nth-child(1)').attr('class'))
-            .toContain('data-selection__align__right');
+            .toContain('u-align--right');
         expect(component.find('tbody tr:nth-child(1) td:nth-child(2)').text()).toContain('1234 AB');
         expect(component.find('tbody tr:nth-child(1) td:nth-child(2)').attr('class'))
             .not.toContain('data-selection__align__right');

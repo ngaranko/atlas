@@ -26,7 +26,7 @@
         vm.class = '';
         switch(vm.format && vm.format.align) {
             case 'right':
-                vm.class = 'data-selection__align__right';
+                vm.class = 'u-align--right';
                 break;
             default:
                 break;
