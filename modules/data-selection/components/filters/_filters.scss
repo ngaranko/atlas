@@ -58,7 +58,10 @@
     background: $secondary-gray40;
   }
 
-  h4,
+  h4 {
+    margin-bottom: $base-whitespace;
+  }
+
   ul {
 
     li {

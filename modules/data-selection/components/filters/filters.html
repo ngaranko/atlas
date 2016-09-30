@@ -10,7 +10,7 @@
 
                 </span>
                 {{filter.categoryLabel}}:
-                <span ng-class="{'data-selection__empty__value': !filter.option}">
+                <span ng-class="{'c-data-selection-filters__empty__value ': !filter.option}">
                     <dp-data-selection-formatted-value
                         value="filter.option"
                         format="filter.format">
@@ -37,10 +37,10 @@
                         }"
                         ng-click="vm.addFilter(category.slug, option.label)">
 
-                        <span ng-class="{'data-selection__empty__value': !option.label}">
+                        <span ng-class="{'c-data-selection-filters__empty__value ': !option.label}">
                             <dp-data-selection-formatted-value
                                 value="option.label"
-                                format="option.format">
+                                format="category.format">
 
                             </dp-data-selection-formatted-value>
 

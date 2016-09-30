@@ -1,3 +1,11 @@
+.c-data-selection-header {
+  padding-bottom: $base-whitespace;
+
+  p {
+    margin-top: $base-whitespace;
+  }
+}
+
 @mixin data-selection-header-button($url, $urlhover: $url) {
   margin-right: $base-whitespace;
   margin-left: $base-whitespace;
@@ -23,10 +31,6 @@
       background-image: url($urlhover);
     }
   }
-}
-
-.c-data-selection-header {
-  padding-bottom: $base-whitespace;
 }
 
 .c-data-selection-header__kaartweergave__button {
