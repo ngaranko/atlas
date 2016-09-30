@@ -1,6 +1,7 @@
 .c-data-selection-pagination {
   text-align: center;
 }
+
 .c-data-selection-pagination__form {
   display: inline-block;
   font-weight: bold;
@@ -12,8 +13,8 @@
 
 .c-data-selection-pagination__input {
   width: 3rem;
-  border: 1px solid $secondary-gray20;
   height: $button-size;
+  border: 1px solid $secondary-gray20;
   text-align: center;
 }
 
@@ -54,10 +55,11 @@
 
 .c-data-selection-pagination-link--previous {
   margin-left: $base-whitespace;
+
   &::before {
     transform: scaleX(-1);
-    filter: FlipH;
     content: url("assets/icons/icon-next.svg");
+    filter: FlipH;
   }
 }
 
