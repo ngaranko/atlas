@@ -45,6 +45,7 @@ fdescribe('The atlas-scrollable-content directive', function () {
 
     it('resets the scrollTop property whenever the active component changes', function () {
         var directive,
+            scope,
             visibility,
             pageName;
 
@@ -62,10 +63,11 @@ fdescribe('The atlas-scrollable-content directive', function () {
         directive[0].scrollTop = 100;
 
         //Show another component
-        visibility.detail = false;
-        visibility.page = true;
-        pageName = 'home';
-        $rootScope.$apply();
+        scope = directive.isolateScope();
+        scope.visibility.detail = false;
+        scope.visibility.page = true;
+        scope.pageName = 'home';
+        scope.$apply();
 
         //Make sure the scrollTop has been reset
         expect(directive[0].scrollTop).toBe(0);
