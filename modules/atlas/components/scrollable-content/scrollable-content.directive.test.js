@@ -1,4 +1,4 @@
-fdescribe('The atlas-scrollable-content directive', function () {
+describe('The atlas-scrollable-content directive', function () {
     var $compile,
         $rootScope;
 
@@ -46,8 +46,7 @@ fdescribe('The atlas-scrollable-content directive', function () {
     it('resets the scrollTop property whenever the active component changes', function () {
         var directive,
             scope,
-            visibility,
-            pageName;
+            visibility;
 
         visibility = {
             page: false,
@@ -56,7 +55,7 @@ fdescribe('The atlas-scrollable-content directive', function () {
             dataSelection: false
         };
 
-        directive = getDirective(visibility, pageName);
+        directive = getDirective(visibility);
         expect(directive[0].scrollTop).toBe(0);
 
         //Now scroll down
@@ -67,6 +66,34 @@ fdescribe('The atlas-scrollable-content directive', function () {
         scope.visibility.detail = false;
         scope.visibility.page = true;
         scope.pageName = 'home';
+        scope.$apply();
+
+        //Make sure the scrollTop has been reset
+        expect(directive[0].scrollTop).toBe(0);
+    });
+
+    it('resets the scrollTop property when navigating between pages', function () {
+        var directive,
+            scope,
+            visibility;
+
+        visibility = {
+            page: true,
+            detail: false,
+            searchResults: false,
+            dataSelection: false
+        };
+
+        //Open the 'home' page
+        directive = getDirective(visibility, 'home');
+        expect(directive[0].scrollTop).toBe(0);
+
+        //Now scroll down
+        directive[0].scrollTop = 100;
+
+        //Open the 'about-us' page
+        scope = directive.isolateScope();
+        scope.pageName = 'about-is';
         scope.$apply();
 
         //Make sure the scrollTop has been reset

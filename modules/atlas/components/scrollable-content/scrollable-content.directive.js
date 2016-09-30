@@ -23,9 +23,8 @@
             var rightColumnContent = null;
 
             scope.$watchGroup(['visibility', 'pageName'], function () {
-                console.log('watch triggered');
                 var newRightColumnContent = checkRightColumnContent(scope.visibility, scope.pageName);
-                console.log(newRightColumnContent);
+
                 if (rightColumnContent !== newRightColumnContent) {
                     element[0].scrollTop = 0;
 
