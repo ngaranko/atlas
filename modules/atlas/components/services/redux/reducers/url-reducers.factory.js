@@ -149,8 +149,6 @@
                 } else {
                     return null;
                 }
-
-
             }
 
             function getDataSelectionState(payload) {
