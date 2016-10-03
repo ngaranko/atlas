@@ -27,14 +27,10 @@
                 if (!state.isPrintMode) {
                     visibility.map = true;
                 } else {
-                    visibility.map =
-                        (
-                            state.map.isFullscreen &&
-                            !state.map.showLayerSelection
-                        ) || (
-                            !state.map.showLayerSelection &&
-                            (angular.isObject(state.detail) || angular.isObject(state.straatbeeld))
-                        );
+                    visibility.map = !state.map.showLayerSelection && (
+                        state.map.isFullscreen ||
+                        angular.isObject(state.detail) ||
+                        angular.isObject(state.straatbeeld));
                 }
 
                 visibility.layerSelection = state.map.showLayerSelection;
