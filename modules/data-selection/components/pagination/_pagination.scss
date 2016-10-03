@@ -65,6 +65,7 @@
 
 .c-data-selection-pagination-link--next {
   margin-right: $base-whitespace;
+
   &::before {
     content: url("assets/icons/icon-next.svg");
   }
