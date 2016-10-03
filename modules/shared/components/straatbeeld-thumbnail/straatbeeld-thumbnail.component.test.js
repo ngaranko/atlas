@@ -1,4 +1,4 @@
-fdescribe('The dp-straatbeeld-thumbnail component', function () {
+describe('The dp-straatbeeld-thumbnail component', function () {
     var $compile,
         $rootScope,
         store,
@@ -13,7 +13,8 @@ fdescribe('The dp-straatbeeld-thumbnail component', function () {
             'dpShared',
             {
                 detailConfig: {
-                    STRAATBEELD_THUMB_URL: 'http://fake.straatbeeld.url/path/'
+                    STRAATBEELD_THUMB_URL: 'http://fake.straatbeeld.url/path/',
+                    RADIUS: 50
                 },
                 store: {
                     dispatch: function () {}
@@ -23,7 +24,8 @@ fdescribe('The dp-straatbeeld-thumbnail component', function () {
                         var q = $q.defer();
                          
                         finishApiCall = function () {
-                            q.resolve( hasMockedThumbnail ? { url:'http://example.com/example.png' } : [] );
+                            q.resolve( hasMockedThumbnail ? { 
+                                url:'http://example.com/example.png' , pano_id: 'ABC', heading: 179 } : [] );
                             $rootScope.$apply();
                         };
                         return q.promise;
@@ -46,9 +48,6 @@ fdescribe('The dp-straatbeeld-thumbnail component', function () {
             api = _api_;
 
         });
-
-       
- 
 
         hasMockedThumbnail = true;
         spyOn(store, 'dispatch');
@@ -78,22 +77,29 @@ fdescribe('The dp-straatbeeld-thumbnail component', function () {
     it('when it cannot find a thumbnail it shows a message', function () {
         hasMockedThumbnail = false;
         var component = getComponent([52,4]);
+        var scope = component.isolateScope();
+
         finishApiCall();
-        // expect does not show the thumbnail
-        // no loading indicator
-        expect( component.find('.qa-found-no-panorama').text() )
-                          .toContain('Er is geen panorama gevonden voor deze locatie');
         
+        expect( component.find('img').length).toBe(0);
+
+        expect(scope.vm.isLoading).toBe(false);  
+ 
+        expect( component.find('.qa-found-no-panorama').text() )
+                          .toContain('Op deze locatie is binnen 50 meter geen panorama gevonden.');
+ 
     });
 
     it('shows a thumbnail when thumbnail is found', function () {
         hasMockedThumbnail = true;
-        var component = getComponent([52,4]);
+        var component = getComponent([52,4]);      
+        var scope = component.isolateScope();
+        
         finishApiCall();
-        // expect do not show message
-        // no loading indicator
-        expect( component.find('img').attr('ng-src') ).not.toBe('');
-                           
+        
+        expect( component.find('.qa-found-no-panorama').length).toBe(0);
+        expect( component.find('img').attr('src') ).toBe('http://example.com/example.png');
+        expect(scope.vm.isLoading).toBe(false);                
     });
     
     it('shows a loading indicator when loading', function () {
@@ -102,11 +108,22 @@ fdescribe('The dp-straatbeeld-thumbnail component', function () {
 
       expect(component.find('dp-loading-indicator').length).toBe(1);
       expect(component.find('dp-loading-indicator').attr('is-loading')).toBe('vm.isLoading');
-      // expect no image no text
+      
+      expect( component.find('img').length).toBe(0);
+      expect( component.find('.qa-found-no-panorama').length).toBe(0);
       expect(scope.vm.isLoading).toBe(true);
 
     });
 
-     // click on thumbnail
-    
+     it('responds to click on thumbnail', function() {
+         var component = getComponent([52,4]);
+         
+         finishApiCall();
+         
+         component.find('button').trigger('click');
+
+         expect(store.dispatch).toHaveBeenCalledWith({
+             type: ACTIONS.FETCH_STRAATBEELD, payload: { id: 'ABC', heading: 179, isInitial: true  }  });
+
+     });    
 });

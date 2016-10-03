@@ -5,5 +5,5 @@
         <img ng-src="{{vm.imageUrl}}" alt="Straatbeeld preview">
     </div>
 </button>
-<div class="qa-found-no-panorama" ng-if="!vm.isLoading && !vm.hasThumbnail">Er is geen panorama gevonden voor deze locatie</div>
+<div class="qa-found-no-panorama" ng-if="!vm.isLoading && !vm.hasThumbnail">Op deze locatie is binnen {{ vm.radius }} meter geen panorama gevonden.</div>
 <dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>

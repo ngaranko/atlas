@@ -27,6 +27,8 @@
             '&radius=' + sharedConfig.RADIUS;
 
         vm.isLoading = true;
+        vm.radius = sharedConfig.RADIUS; 
+
         api.getByUrl(imageUrl).then(function (thumbnailData) {
             heading = thumbnailData.heading;
             id = thumbnailData['pano_id'];
