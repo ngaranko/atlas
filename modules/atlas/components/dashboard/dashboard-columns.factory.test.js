@@ -402,7 +402,7 @@ describe('The dashboardColumns factory', function () {
 
                 expect(visibility.detail).toBe(false);
                 expect(visibility.page).toBe(false);
-                expect(visibility.straatbeeld).toBe(false);
+                expect(visibility.panorama).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
             });
@@ -428,7 +428,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.detail).toBe(false);
                 expect(visibility.map).toBe(false);
                 expect(visibility.page).toBe(false);
-                expect(visibility.straatbeeld).toBe(false);
+                expect(visibility.panorama).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
             });
