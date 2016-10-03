@@ -119,7 +119,9 @@
             function getPanoramaState(oldState, payload) {
 
                 if (payload.id) {
+               
                     var newPanorama = {
+                        
                         pitch: Number(payload.pitch),
                         fov: Number(payload.fov),
                         id: payload.id,
@@ -140,7 +142,7 @@
                         newPanorama.date = null;
                         newPanorama.location = null;
                         newPanorama.isInitial = true;
-                        newPanorama.isLoading = false;
+                        newPanorama.isLoading = (payload.pitch) ? true : false;
                     }
 
                     return newPanorama;

@@ -57,7 +57,7 @@
             });
 
             scope.$watch('state.image', function(img) {
- 
+                
                 if (angular.isString(img)) {
                     marzipanoService.loadScene( scope.state.image, 
                                                 scope.state.heading, 

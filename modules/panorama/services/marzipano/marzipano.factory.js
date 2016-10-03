@@ -41,7 +41,6 @@
                 return Math.atan(height/distance);
             }
 
-
             viewLimiter = Marzipano.RectilinearView.limit.traditional(
                 panoramaConfig.MAX_RESOLUTION,
                 angleConversion.degreesToRadians(panoramaConfig.MAX_FOV)
