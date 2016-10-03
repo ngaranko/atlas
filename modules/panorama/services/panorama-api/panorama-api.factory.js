@@ -13,9 +13,7 @@
         };
 
         function getImageDataById (id) {
-            return api.getByUrl(panoramaConfig.PANORAMA_ENDPOINT + id + '/', 
-                { radius: sharedConfig.RADIUS }
-            ).then(function (response) {
+            return api.getByUrl(panoramaConfig.PANORAMA_ENDPOINT + id + '/').then(function (response) {
                 return {
                     date: new Date(response.timestamp),
                     hotspots: response.adjacent.map(function(item){

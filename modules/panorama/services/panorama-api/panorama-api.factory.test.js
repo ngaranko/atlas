@@ -42,11 +42,11 @@ describe('Panorama API Factory', function () {
                             heading: 116.48,
                             distance: 10.14
                         },
-                            {
-                                pano_id: 'TMX7315120208-000054_pano_0002_000178',
-                                heading: 127.37,
-                                distance: 5.25
-                            }],
+                        {
+                            pano_id: 'TMX7315120208-000054_pano_0002_000178',
+                            heading: 127.37,
+                            distance: 5.25
+                        }],
                         timestamp: '2016-05-19T13:04:15.341110Z'
                     });
 
@@ -65,14 +65,12 @@ describe('Panorama API Factory', function () {
 
     });
 
-    it('Calls HTTP get with custom URL and parameters', function () {
+    it('calls the API factory with the correct endpoint', function () {
         spyOn(api, 'getByUrl').and.callThrough();
 
         panoramaApi.getImageDataById('ABC');
 
-        expect(api.getByUrl).toHaveBeenCalledWith('http://example.com/example/ABC/', {
-            radius: 100
-        });
+        expect(api.getByUrl).toHaveBeenCalledWith('http://example.com/example/ABC/');
     });
 
     describe('restructures API response', function () {
