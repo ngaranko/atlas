@@ -13,25 +13,39 @@
             controllerAs: 'vm'
         });
 
-    DpHotspotController.$inject = ['store', 'ACTIONS'];
+    DpHotspotController.$inject = ['store', 'ACTIONS', 'panoramaConfig', 'angleConversion'];
 
     
-    function DpHotspotController (store, ACTIONS) {
+    function DpHotspotController (store, ACTIONS, panoramaConfig, angleConversion) {
         var vm = this,
-            minimumSize = 30,
-            maximumSize = 80,
-            maxdistance = 11;
+            realLifeHotspotSize = 0.3,
+            minDistance = 4,
+            maxDistance = 21,
+            correctedDistance,
+            viewAngle,
+            viewport;
 
-        var stepSize = (maximumSize - minimumSize) / maxdistance;
-        var hotspotSize = Math.round(maximumSize - stepSize * vm.distance);
+        /*
+        All hotspots are shown, the min- and maxDistance variables are only used to determine the minimum and maximum
+        hotspot size.
+        */
+        correctedDistance = Math.min(maxDistance, Math.max(minDistance, vm.distance));
+        viewAngle = Math.atan(realLifeHotspotSize / correctedDistance);
 
-        vm.size = Math.max(hotspotSize, minimumSize);
-        
+        /*
+        The actual hotspot size is dependent on the width of the panorama and the FOV. For this first version we're
+        making assumptions about the viewport and FOV.
+        */
+        viewport = 960;
+        vm.size = Math.round(angleConversion.radiansToDegrees(viewAngle) * viewport / panoramaConfig.DEFAULT_FOV);
+
         vm.loadScene = function () {
- 
             store.dispatch({
                 type: ACTIONS.FETCH_PANORAMA,
-                payload: { id: vm.sceneId, isInitial: false }
+                payload: {
+                    id: vm.sceneId,
+                    isInitial: false
+                }
             });
         };
     }
