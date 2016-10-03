@@ -24,7 +24,7 @@
         isLastPage = vm.currentPage === vm.numberOfPages;
 
         vm.showPagination = vm.numberOfPages > 1;
-        //vm.currentPage = vm.currentPage;
+
         if (vm.showPagination) {
             vm.firstPage = {
                 label: 'Eerste',
