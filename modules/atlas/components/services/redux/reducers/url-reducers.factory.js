@@ -117,15 +117,12 @@
             }
 
             function getPanoramaState(oldState, payload) {
-
                 if (payload.id) {
-               
                     var newPanorama = {
-                        
                         pitch: Number(payload.pitch),
                         fov: Number(payload.fov),
                         id: payload.id,
-                        heading: Number(payload.heading),
+                        heading: Number(payload.heading)
                     };
 
                     
@@ -142,7 +139,7 @@
                         newPanorama.date = null;
                         newPanorama.location = null;
                         newPanorama.isInitial = true;
-                        newPanorama.isLoading = (payload.pitch) ? true : false;
+                        newPanorama.isLoading = angular.isString(payload.id);
                     }
 
                     return newPanorama;

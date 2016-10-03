@@ -15,7 +15,7 @@
             DEFAULT_FOV: 80,
             MAX_FOV: 100,
             MAX_RESOLUTION: 2000,
-            CAMERA_HEIGHT: 2.04
+            CAMERA_HEIGHT: 1.7
         };
 
         environmentConfig = {
