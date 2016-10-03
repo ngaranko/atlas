@@ -57,7 +57,7 @@ describe('The map controller', function () {
         });
     });
 
-    describe('optionally adds marker data for search by location, detail and straatbeeld', function () {
+    describe('optionally adds marker data for search by location, detail and panorama', function () {
         var mockedState,
             controller;
 
@@ -100,9 +100,9 @@ describe('The map controller', function () {
             }));
         });
 
-        it('supports a straatbeeld marker', function () {
+        it('supports a panorama marker', function () {
             mockedState = {
-                straatbeeld: {
+                panorama: {
                     location: [52.2, 4.2],
                     heading: 179
                 }
@@ -111,13 +111,13 @@ describe('The map controller', function () {
             spyOn(store, 'getState').and.returnValue(mockedState);
             controller = getController();
 
-            //Straatbeeld is secretly made using two icons
+            //Panorama is secretly made using two icons
             expect(controller.markers).toContain(jasmine.objectContaining({
-                id: 'straatbeeld_orientation'
+                id: 'panorama_orientation'
             }));
 
             expect(controller.markers).toContain(jasmine.objectContaining({
-                id: 'straatbeeld_person'
+                id: 'panorama_person'
             }));
         });
 
@@ -129,7 +129,7 @@ describe('The map controller', function () {
                 detail: {
                     geometry: 'FAKE_RD_GEOMETRY'
                 },
-                straatbeeld: {
+                panorama: {
                     location: [52.2, 4.2],
                     heading: 179
                 }
@@ -138,9 +138,9 @@ describe('The map controller', function () {
             spyOn(store, 'getState').and.returnValue(mockedState);
             controller = getController();
 
-            //Straatbeeld is secretly made using two icons
+            //Panorama is secretly made using two icons
 
-            //Search and straatbeeld are in WGS84 and will be converted to RD
+            //Search and panorama are in WGS84 and will be converted to RD
             expect(controller.markers).toContain(jasmine.objectContaining({
                 id: 'search',
                 geometry: {
@@ -150,7 +150,7 @@ describe('The map controller', function () {
             }));
 
             expect(controller.markers).toContain(jasmine.objectContaining({
-                id: 'straatbeeld_orientation',
+                id: 'panorama_orientation',
                 geometry: {
                     type: 'Point',
                     coordinates: 'FAKE_RD_COORDINATES'
@@ -158,7 +158,7 @@ describe('The map controller', function () {
             }));
 
             expect(controller.markers).toContain(jasmine.objectContaining({
-                id: 'straatbeeld_person',
+                id: 'panorama_person',
                 geometry: {
                     type: 'Point',
                     coordinates: 'FAKE_RD_COORDINATES'
@@ -172,16 +172,16 @@ describe('The map controller', function () {
             }));
         });
 
-        it('The straatbeeld_orientation icon will have a extra variable for leaflet-rotatedmarker', function () {
+        it('The panorama_orientation icon will have a extra variable for leaflet-rotatedmarker', function () {
             mockedState = {
-                straatbeeld: {
+                panorama: {
                     location: [52.2, 4.2],
                     heading: 179
                 }
             };
 
             expect(controller.markers).toContain(jasmine.objectContaining({
-                id: 'straatbeeld_orientation',
+                id: 'panorama_orientation',
                 orientation: 179
             }));
         });
@@ -194,7 +194,7 @@ describe('The map controller', function () {
                 detail: {
                     geometry: 'FAKE_RD_GEOMETRY'
                 },
-                straatbeeld: {
+                panorama: {
                     location: [52.2, 4.2],
                     heading: 179
                 }
@@ -214,12 +214,12 @@ describe('The map controller', function () {
             }));
 
             expect(controller.markers).toContain(jasmine.objectContaining({
-                id: 'straatbeeld_orientation',
+                id: 'panorama_orientation',
                 useAutoFocus: false
             }));
 
             expect(controller.markers).toContain(jasmine.objectContaining({
-                id: 'straatbeeld_person',
+                id: 'panorama_person',
                 useAutoFocus: false
             }));
         });
