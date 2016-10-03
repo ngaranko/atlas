@@ -12,14 +12,13 @@
         <dt>Bezoekadres</dt>
         <dd> {{ vm.apiData.results.bezoekadres.volledig_adres }} </dd>
         <dt>Type vestiging</dt>
-        <dd ng-if="vm.apiData.results.hoofdvestiging">Hoofdvestiging</dd>
-        <dd ng-if="!vm.apiData.results.hoofdvestiging">
-            {{ vm.apiData.results.hoofdvestiging === false ? "Nevenvestiging" : "" }}
+        <dd>
+            {{ vm.apiData.results.hoofdvestiging ? Hoofdvestiging : vm.apiData.results.hoofdvestiging === false ? "Nevenvestiging" : "" }}
         </dd>
-        <dt class="s-border__top">SBI-activiteiten</dt>
+        <dt>SBI-activiteiten</dt>
         <dd ng-if="!vm.apiData.results.activiteiten[0]"></dd>
         <dd ng-if="vm.apiData.results.activiteiten[0]" class="s-multiple-values" ng-repeat="object in vm.apiData.results.activiteiten" ng-class="{'s-border__top': $first}">
-            <span class="u-base-line-height u-margin--0">
+            <span class="u-line-height-base u-margin--0">
                 {{ object.sbi_code }}: {{ object.sbi_omschrijving }}
             </span>
         </dd>
