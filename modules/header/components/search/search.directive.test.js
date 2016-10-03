@@ -7,7 +7,8 @@ describe('The atlas-search directive', function () {
         ACTIONS,
         autocompleteData,
         fakeAutocompleteData,
-        finishApiCall;
+        finishApiCall,
+        promises = [];
 
     beforeEach(function () {
         angular.mock.module(
@@ -19,9 +20,13 @@ describe('The atlas-search directive', function () {
                 autocompleteData: {
                     search: function (query) {
                         var q = $q.defer();
+                        promises.push(q);
                         finishApiCall = function() {
-                            q.resolve(fakeAutocompleteData[query]);
-                            $rootScope.$apply();
+                            var q = promises.shift();
+                            if (q) {
+                                q.resolve(fakeAutocompleteData[query]);
+                                $rootScope.$apply();
+                            }
                         };
 
                         return q.promise;
@@ -98,6 +103,8 @@ describe('The atlas-search directive', function () {
                 query: 'query with suggestions'
             }
         };
+
+        promises = [];
     });
 
     function getDirective (query) {
@@ -203,11 +210,13 @@ describe('The atlas-search directive', function () {
 
         it('Only show relevat autocomplete suggestions', function() {
             var directive = getDirective('');
-            var scope = directive.isolateScope();
 
             directive.find('.js-search-input')[0].value = 'query with suggestions';
             directive.find('.js-search-input').trigger('change');
-            scope.query = 'query without suggestions';
+
+            directive.find('.js-search-input')[0].value = 'query without suggestions';
+            directive.find('.js-search-input').trigger('change');
+
             finishApiCall();
             expect(directive.find('.c-autocomplete').length).toBe(0);
         });
@@ -264,7 +273,6 @@ describe('The atlas-search directive', function () {
                 //Click a suggestion
                 directive.find('.c-autocomplete button').eq(0).click();
                 directive.find('.js-search-input').trigger('blur');
-                finishApiCall();
                 $timeout.flush();
 
                 expect(directive.find('.c-autocomplete').length).toBe(0);
