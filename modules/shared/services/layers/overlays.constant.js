@@ -28,113 +28,129 @@
                 },
 
                 // economie
-                Handel_vervoer_opslag: {
-                    url: '',
-                    label_short: '',
-                    label_long: '',
-                    layers: [],
-                    minZoom: 9,
+                handel_vervoer_opslag: {
+                    url: 'maps/handelsregister',
+                    label_short: 'Handel, vervoer, opslag',
+                    label_long: 'Handel, vervoer, opslag',
+                    layers: ['handel_vervoer_opslag'],
+                    minZoom: 10,
                     maxZoom: 16,
-                    legend: ''
+                    legend: '/maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
+                        'gendGraphic&sld_version=1.1.0&layer=handel_vervoer_opslag&format=image/png&STYLE=default'
                 },
-                Productie_installatie_reparatie: {
-                    url: '',
-                    label_short: '',
-                    label_long: '',
-                    layers: [],
-                    minZoom: 9,
+                productie_installatie_reparatie: {
+                    url: 'maps/handelsregister',
+                    label_short: 'Productie, install., repar.',
+                    label_long: 'Productie installatie reparatie',
+                    layers: ['productie_installatie_reparatie'],
+                    minZoom: 10,
                     maxZoom: 16,
-                    legend: ''
+                    legend: '/maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
+                        'gendGraphic&sld_version=1.1.0&' +
+                        'layer=productie_installatie_reparatie&format=image/png&STYLE=default'
                 },
-                Bouw: {
-                    url: '',
-                    label_short: '',
-                    label_long: '',
-                    layers: [],
-                    minZoom: 9,
+                bouw: {
+                    url: 'maps/handelsregister',
+                    label_short: 'Bouw',
+                    label_long: 'Bouw',
+                    layers: ['bouw'],
+                    minZoom: 10,
                     maxZoom: 16,
-                    legend: ''
+                    legend: '/maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
+                        'gendGraphic&sld_version=1.1.0&layer=bouw&format=image/png&STYLE=default'
                 },
                 landbouw: {
-                    url: '',
-                    label_short: '',
-                    label_long: '',
-                    layers: [],
-                    minZoom: 9,
+                    url: 'maps/handelsregister',
+                    label_short: 'Landbouw',
+                    label_long: 'Landbouw',
+                    layers: ['landbouw'],
+                    minZoom: 10,
                     maxZoom: 16,
-                    legend: ''
+                    legend: '/maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
+                        'gendGraphic&sld_version=1.1.0&layer=landbouw&format=image/png&STYLE=default'
                 },
-                Horeca: {
-                    url: '',
-                    label_short: '',
-                    label_long: '',
-                    layers: [],
-                    minZoom: 9,
+                horeca: {
+                    url: 'maps/handelsregister',
+                    label_short: 'Horeca',
+                    label_long: 'Horeca',
+                    layers: ['horeca'],
+                    minZoom: 10,
                     maxZoom: 16,
-                    legend: ''
+                    legend: '/maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
+                        'gendGraphic&sld_version=1.1.0&layer=horeca&format=image/png&STYLE=default'
                 },
-                Informatie_telecommunicatie: {
-                    url: '',
-                    label_short: '',
-                    label_long: '',
-                    layers: [],
-                    minZoom: 9,
+                informatie_telecommunicatie: {
+                    url: 'maps/handelsregister',
+                    label_short: 'Inform., telecom.',
+                    label_long: 'Informatie telecommunicatie',
+                    layers: ['telecommunicatie'],
+                    minZoom: 10,
                     maxZoom: 16,
-                    legend: ''
+                    legend: '/maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
+                        'gendGraphic&sld_version=1.1.0&layer=telecommunicatie&format=image/png&STYLE=default'
                 },
-                Financiële_dienstverlening_verhuur_van_roerend_en_onroerend_goed: {
-                    url: '',
-                    label_short: '',
-                    label_long: '',
-                    layers: [],
-                    minZoom: 9,
+                financiële_dienstverlening_verhuur_van_roerend_en_onroerend_goed: {
+                    url: 'maps/handelsregister',
+                    label_short: 'Financ. dienstverl., verhuur',
+                    label_long: 'financiële_dienstverlening_verhuur_van_roerend_en_onroerend_goed',
+                    layers: ['financiele_dienstverlening_verhuur'],
+                    minZoom: 10,
                     maxZoom: 16,
-                    legend: ''
+                    legend: '/maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
+                        'gendGraphic&sld_version=1.1.0&' +
+                        'layer=financiele_dienstverlening_verhuur' +
+                        '&format=image/png&STYLE=default'
                 },
-                Zakelijke_dienstverlening: {
-                    url: '',
-                    label_short: '',
-                    label_long: '',
-                    layers: [],
-                    minZoom: 9,
+                zakelijke_dienstverlening: {
+                    url: 'maps/handelsregister',
+                    label_short: 'Zakelijke dienstverl.',
+                    label_long: 'Zakelijke dienstverlening',
+                    layers: ['zakelijke_dienstverlening'],
+                    minZoom: 10,
                     maxZoom: 16,
-                    legend: ''
+                    legend: '/maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
+                        'gendGraphic&sld_version=1.1.0&layer=zakelijke_dienstverlening&format=image/png&STYLE=default'
                 },
-                Overheid_onderwijs_zorg: {
-                    url: '',
-                    label_short: '',
-                    label_long: '',
-                    layers: [],
-                    minZoom: 9,
+                overheid_onderwijs_zorg: {
+                    url: 'maps/handelsregister',
+                    label_short: 'Overheid, onderwijs, zorg',
+                    label_long: 'Overheid, onderwijs, zorg',
+                    layers: ['overheid_onderwijs_zorg'],
+                    minZoom: 10,
                     maxZoom: 16,
-                    legend: ''
+                    legend: '/maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
+                        'gendGraphic&sld_version=1.1.0&layer=overheid_onderwijs_zorg&format=image/png&STYLE=default'
                 },
-                Cultuur_sport_recreatie: {
-                    url: '',
-                    label_short: '',
-                    label_long: '',
-                    layers: [],
-                    minZoom: 9,
+                cultuur_sport_recreatie: {
+                    url: 'maps/handelsregister',
+                    label_short: 'Cultuur, sport, recreatie',
+                    label_long: 'Cultuur, sport, recreatie',
+                    layers: ['cultuur_sport_recreatie'],
+                    minZoom: 10,
                     maxZoom: 16,
-                    legend: ''
+                    legend: '/maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
+                        'gendGraphic&sld_version=1.1.0&layer=cultuur_sport_recreatie&format=image/png&STYLE=default'
                 },
-                Persoonlijke_dienstverlening: {
-                    url: '',
-                    label_short: '',
-                    label_long: '',
-                    layers: [],
-                    minZoom: 9,
+                persoonlijke_dienstverlening: {
+                    url: 'maps/handelsregister',
+                    label_short: 'Persoonl. dienstverl.',
+                    label_long: 'Persoonlijke dienstverlening',
+                    layers: ['persoonlijke_dienstverlening'],
+                    minZoom: 10,
                     maxZoom: 16,
-                    legend: ''
+                    legend: '/maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
+                        'gendGraphic&sld_version=1.1.0&' +
+                        'layer=persoonlijke_dienstverlening&format=image/png&STYLE=default'
                 },
-                Overige_niet_hierboven_genoemd:  {
-                    url: '',
-                    label_short: '',
-                    label_long: '',
-                    layers: [],
-                    minZoom: 9,
+                overige_niet_hierboven_genoemd:  {
+                    url: 'maps/handelsregister',
+                    label_short: 'Overige',
+                    label_long: 'Overige niet hierboven genoemd',
+                    layers: ['overige'],
+                    minZoom: 10,
                     maxZoom: 16,
-                    legend: ''
+                    legend: '/maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
+                        'gendGraphic&sld_version=1.1.0&layer=overige&format=image/png&STYLE=default'
                 },
 
                 // onroerende zaken
@@ -597,18 +613,18 @@
                 {
                     heading: 'Economie',
                     overlays: [
-                        'Handel_vervoer_opslag',
-                        'Productie_installatie_reparatie',
-                        'Bouw',
+                        'handel_vervoer_opslag',
+                        'productie_installatie_reparatie',
+                        'bouw',
                         'landbouw',
-                        'Horeca',
-                        'Informatie_telecommunicatie',
-                        'Financiële_dienstverlening_verhuur_van_roerend_en_onroerend_goed',
-                        'Zakelijke_dienstverlening',
-                        'Overheid_onderwijs_zorg',
-                        'Cultuur_sport_recreatie',
-                        'Persoonlijke_dienstverlening',
-                        'Overige_niet_hierboven_genoemd'
+                        'horeca',
+                        'informatie_telecommunicatie',
+                        'financiële_dienstverlening_verhuur_van_roerend_en_onroerend_goed',
+                        'zakelijke_dienstverlening',
+                        'overheid_onderwijs_zorg',
+                        'cultuur_sport_recreatie',
+                        'persoonlijke_dienstverlening',
+                        'overige_niet_hierboven_genoemd'
                     ]
                 }, {
                     heading: 'Onroerende zaken',
@@ -617,7 +633,7 @@
                         'gemeentelijke_beperkingen'
                     ]
                 }, {
-                   heading: 'Geografie: gebieden',
+                    heading: 'Geografie: gebieden',
                     overlays: [
                         'grootstedelijkgebied',
                         'unesco',
