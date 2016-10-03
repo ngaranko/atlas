@@ -312,7 +312,10 @@ describe('The urlReducers factory', function () {
                 mockedState.date = new Date('Thu Sep 22 2016 12:10:37 GMT+0200 (CEST)');
                 mockedState.hotspots = [{
                     a: 'a',
-                    b: 'b'
+                    b: 'b',
+                    c: 'c',
+                    d: 'd'
+
                 }];
 
                 mockedSearchParams.id = 'ABC';
@@ -324,7 +327,7 @@ describe('The urlReducers factory', function () {
 
                 expect(output.panorama.date).toBeNull();
                 expect(output.panorama.hotspots).toEqual([]);
-                expect(output.panorama.isLoading).toBe(false);
+                expect(output.panorama.isLoading).toBe(true);
                 expect(output.panorama.isInitial).toBe(true);
 
             });
@@ -457,7 +460,7 @@ describe('The urlReducers factory', function () {
             it('sets panorama.isLoading to false if there is a panorama active', function () {
                 var output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
 
-                expect(output.panorama.isLoading).toBe(false);
+                expect(output.panorama.isLoading).toBe(true);
             });
         });
     });
