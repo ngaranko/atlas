@@ -1,0 +1,34 @@
+.c-data-selection-table__table {
+  display: block;
+  overflow-x: auto;
+
+  thead {
+
+    tr {
+      background-color: $secondary-gray40;
+      color: $primary-light;
+    }
+  }
+
+  td {
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  td,
+  th {
+    padding: {
+      top: $base-whitespace;
+      bottom: $base-whitespace;
+      left: $base-whitespace;
+    }
+    white-space: nowrap;
+
+    &:last-child {
+      padding-right: $base-whitespace;
+    }
+  }
+}
+
