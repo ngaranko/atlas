@@ -90,10 +90,10 @@ describe('The dp-data-selection-header component', function () {
     it('shows a message with nr records and download button when records are present', function () {
         var component = getComponent(mockedState, 10);
 
-        expect(component.find('.qa-data-selection-header__no__records').length).toBe(0);
+        expect(component.find('.qa-data-selection-header__no-records').length).toBe(0);
 
-        expect(component.find('.qa-data-selection-header__with__records').length).toBe(1);
-        expect(component.find('.qa-data-selection-header__with__records').text()).toContain('10');
+        expect(component.find('.qa-data-selection-header__with-records').length).toBe(1);
+        expect(component.find('.qa-data-selection-header__with-records').text()).toContain('10');
         expect(component.find('dp-data-selection-download-button').length).toBe(1);
 
     });
@@ -101,9 +101,9 @@ describe('The dp-data-selection-header component', function () {
     it('shows an error message when no records are present', function () {
         var component = getComponent(mockedState, 0);
 
-        expect(component.find('.qa-data-selection-header__no__records').length).toBe(1);
+        expect(component.find('.qa-data-selection-header__no-records').length).toBe(1);
 
-        expect(component.find('.qa-data-selection-header__with__records').length).toBe(0);
+        expect(component.find('.qa-data-selection-header__with-records').length).toBe(0);
     });
 
 });
