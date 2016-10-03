@@ -122,7 +122,7 @@
                     {
                         slug: 'buurt_code',
                         label: '-code'
-                    },
+                    }
                 ]
             }
         };

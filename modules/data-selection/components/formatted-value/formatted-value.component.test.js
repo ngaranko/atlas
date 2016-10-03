@@ -3,9 +3,15 @@ describe('The dp-data-selection-download-button component', function () {
         $rootScope;
 
     beforeEach(function () {
+
+        function postcodeFilter () {
+            return 'filteredValue';
+        }
+
         angular.mock.module(
             'dpDataSelection',
             function ($provide) {
+                $provide.value('postcodeFilter', postcodeFilter);
                 $provide.constant('dataSelectionConfig', {
                     dataset_a: {
                         ENDPOINT: 'http://www.example.com/datasets/a/',
@@ -72,7 +78,7 @@ describe('The dp-data-selection-download-button component', function () {
 
         var component = getComponent('1234AB', format);
 
-        expect(component.find('span').text()).toContain('1234 AB');
+        expect(component.find('span').text()).toContain('filteredValue');
         expect(component.find('span').attr('class')).not.toContain('u-align--right');
     });
 
@@ -84,7 +90,7 @@ describe('The dp-data-selection-download-button component', function () {
 
         var component = getComponent('1234AB', format);
 
-        expect(component.find('span').text()).toContain('1234 AB');
+        expect(component.find('span').text()).toContain('filteredValue');
         expect(component.find('span').attr('class')).toContain('u-align--right');
     });
 });
