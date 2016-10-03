@@ -20,11 +20,11 @@ describe('The atlas-search directive', function () {
                 autocompleteData: {
                     search: function (query) {
                         var q = $q.defer();
-                        promises.push(q);
+                        promises.push({query: query, q: q});
                         finishApiCall = function() {
-                            var q = promises.shift();
-                            if (q) {
-                                q.resolve(fakeAutocompleteData[query]);
+                            var prom = promises.shift();
+                            if (prom) {
+                                prom.q.resolve(fakeAutocompleteData[prom.query]);
                                 $rootScope.$apply();
                             }
                         };
