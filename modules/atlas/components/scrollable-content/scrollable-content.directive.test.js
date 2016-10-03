@@ -93,7 +93,7 @@ describe('The atlas-scrollable-content directive', function () {
 
         //Open the 'about-us' page
         scope = directive.isolateScope();
-        scope.pageName = 'about-is';
+        scope.pageName = 'about-us';
         scope.$apply();
 
         //Make sure the scrollTop has been reset
