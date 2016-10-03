@@ -38,5 +38,5 @@
 }
 
 .c-data-selection-header__download__button {
-  @include data-selection-header-button("assets/icons/link-active.svg", "assets/icons/link-hover.svg")
+  @include data-selection-header-button("assets/icons/download-active.svg", "assets/icons/download-hover.svg")
 }
