@@ -12,7 +12,8 @@
             environmentConfig;
 
         globalConfig = {
-            RADIUS: 50
+            RADIUS: 50,
+            THUMBNAIL_WIDTH: 240
         };
 
 

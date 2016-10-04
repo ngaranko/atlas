@@ -14,10 +14,11 @@ describe('The dp-panorama-thumbnail component', function () {
             {
                 detailConfig: {
                     PANORAMA_THUMB_URL: 'http://fake.panorama.url/path/',
-                    RADIUS: 50
+                    RADIUS: 50,
+                    THUMBNAIL_WIDTH: 240
                 },
                 store: {
-                    dispatch: function () {}
+                    dispatch: angular.noop
                 },
                 api: {
                     getByUrl: function() {

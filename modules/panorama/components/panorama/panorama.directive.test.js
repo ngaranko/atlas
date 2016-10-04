@@ -87,7 +87,7 @@ describe('The dp-panorama directive', function () {
 
     }
 
-    describe('Calls to SHOWPANORAMA_INITIAL and SUBSEQUENT', function () {
+    describe('Calls to SHOW_PANORAMA_INITIAL and SUBSEQUENT', function () {
         it('Does not call SHOW_PANORAMA_INITIAL Or SUBSEQUENT IF State.id is unknown', function () {
             var state = {};
 

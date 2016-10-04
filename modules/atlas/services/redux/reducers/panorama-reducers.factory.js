@@ -13,16 +13,15 @@
         reducers[ACTIONS.FETCH_PANORAMA] = fetchPanoramaReducer;
         reducers[ACTIONS.SHOW_PANORAMA_INITIAL] = showPanoramaReducer;
         reducers[ACTIONS.SHOW_PANORAMA_SUBSEQUENT] = showPanoramaReducer;
-        reducers[ACTIONS.PANORAMA_SET_ORIENTATION] = setOrientationReducer;
+        reducers[ACTIONS.SET_PANORAMA_ORIENTATION] = setOrientationReducer;
 
         return reducers;
 
         /**
-         * @description If the oldState had an active panorama it will remember the heading, pitch and fov. Otherwise
-         * it'll use the car's orientation for the heading and pitch and a default FOV.
+         * @description If the oldState had an active panorama it will remember the heading.
          *
          * @param {Object} oldState
-         * @param {Number|Array} payload - A panorama ID (Number) or a location (Array)
+         * @param {Object} payload - A panorama ID (String)
          *
          * @returns {Object} newState
          */
@@ -41,16 +40,12 @@
 
             newState.panorama.pitch = null;
             newState.panorama.fov = null;
-            
-            
             newState.panorama.image = null;
-
             newState.map.highlight = null;
         
             newState.search = null;
             newState.page = null;
             newState.detail = null;
-            
 
             newState.dataSelection = null;
 
@@ -61,7 +56,7 @@
 
         /**
          * @param {Object} oldState
-         * @param {Array} payload - formatted data from mapApi
+         * @param {Object} payload -  data from panorama-api
          *
          * @returns {Object} newState
          */
@@ -72,9 +67,6 @@
             //Panorama can be null if another action gets triggered between FETCH_PANORAMA and SHOW_PANORAMA
             if (angular.isObject(newState.panorama)) {
                 newState.panorama.date = payload.date;
-
-
-                newState.panorama.heading = oldState.panorama.heading;
                 
                 newState.panorama.pitch = oldState.panorama.pitch || 0;
                 newState.panorama.fov =  oldState.panorama.fov || panoramaConfig.DEFAULT_FOV;

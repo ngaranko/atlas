@@ -27,7 +27,6 @@
                     preserveDrawingBuffer: true
                 }
             });
-
             return viewer;
         }
 
@@ -36,18 +35,12 @@
                 viewLimiter,
                 scene;
 
-            
-            function calculateHotspotPitch(height, distance) {
-                return Math.atan(height/distance);
-            }
-
             viewLimiter = Marzipano.RectilinearView.limit.traditional(
                 panoramaConfig.MAX_RESOLUTION,
                 angleConversion.degreesToRadians(panoramaConfig.MAX_FOV)
             );
             var source = Marzipano.ImageUrlSource.fromString(image);
 
-            
             view = new Marzipano.RectilinearView({}, viewLimiter);
 
             scene = viewer.createScene({
@@ -57,11 +50,13 @@
                 pinFirstLevel: true
             });
 
-             
+            function calculateHotspotPitch(height, distance) {
+                return Math.atan(height/distance);
+            }
+
             hotspots.sort(function (hotspotA, hotspotB) {
                 return hotspotB.distance - hotspotA.distance;
             }).forEach(function (hotspot) {
-                 
                 hotspotService.createHotspotTemplate(hotspot.id, hotspot.distance).then(function (template) {
                     var position = {
                         yaw: angleConversion.degreesToRadians(hotspot.heading),
@@ -74,11 +69,10 @@
                  });
             });
 
- 
-
             view.setYaw(angleConversion.degreesToRadians(heading));
             view.setPitch(angleConversion.degreesToRadians(pitch));
             view.setFov(angleConversion.degreesToRadians(fov));
+
             scene.switchTo();
         }
     }

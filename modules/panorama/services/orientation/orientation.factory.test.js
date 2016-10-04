@@ -48,7 +48,7 @@ describe('The orientation factory', function () {
         orientation.update(mockedViewer);
 
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.PANORAMA_SET_ORIENTATION,
+            type: ACTIONS.SET_PANORAMA_ORIENTATION,
             payload: {
                 heading: 0.2,
                 pitch: 0.4,

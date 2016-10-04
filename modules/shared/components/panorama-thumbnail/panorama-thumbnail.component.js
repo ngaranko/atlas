@@ -23,11 +23,12 @@
         imageUrl = sharedConfig.PANORAMA_THUMB_URL +
             '?lat=' + vm.location[0] +
             '&lon=' + vm.location[1] +
-            '&width=240' +
+            '&width=' + sharedConfig.THUMBNAIL_WIDTH +
             '&radius=' + sharedConfig.RADIUS;
 
         vm.isLoading = true;
         vm.radius = sharedConfig.RADIUS; 
+
 
         api.getByUrl(imageUrl).then(function (thumbnailData) {
             heading = thumbnailData.heading;

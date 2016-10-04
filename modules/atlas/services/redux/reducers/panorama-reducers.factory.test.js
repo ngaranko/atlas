@@ -2,20 +2,22 @@ describe('Panorama reducers factory', function () {
 
     var panoramaReducers,
         inputState,
-        ACTIONS;
+        ACTIONS, 
+        panoramaConfig;
 
     beforeEach(function () {
-        angular.mock.module('atlas', {
-            panoramaConfig: {
-                DEFAULT_FOV: 80
-            }
-        });
+      
+        angular.mock.module('atlas', { });
 
         angular.mock.inject(function (_panoramaReducers_, _DEFAULT_STATE_, _ACTIONS_) {
             panoramaReducers = _panoramaReducers_;
             inputState = angular.copy(_DEFAULT_STATE_);
             ACTIONS = _ACTIONS_;
         });
+
+        panoramaConfig = {
+            DEFAULT_FOV: 80
+        };
 
     });
 
@@ -151,7 +153,7 @@ describe('Panorama reducers factory', function () {
         it('set defaults for pitch, fov when oldstate is unknown', function () {
             var newState = panoramaReducers[ACTIONS.SHOW_PANORAMA_INITIAL](inputState, payload);
             expect(newState.panorama.pitch).toBe(0);
-            expect(newState.panorama.fov).toBe(80);
+            expect(newState.panorama.fov).toBe(panoramaConfig.DEFAULT_FOV);
         });
 
         it('set Pitch and fov to newState when oldstate is known', function () {
@@ -180,11 +182,6 @@ describe('Panorama reducers factory', function () {
             expect(newState.map.isLoading).toBe(false);
         });
 
-        it('sets FOV to DEFAULT_FOV', function () {
-            var newState = panoramaReducers[ACTIONS.SHOW_PANORAMA_INITIAL](inputState, payload);
-            expect(newState.panorama.fov).toBe(80);
-        });
-
 
         it('does nothing when panorama is null', function () {
             inputState.panorama = null;
@@ -208,7 +205,7 @@ describe('Panorama reducers factory', function () {
                 },
                 output;
 
-            output = panoramaReducers.PANORAMA_SET_ORIENTATION(inputState, payload);
+            output = panoramaReducers.SET_PANORAMA_ORIENTATION(inputState, payload);
             
             expect(output.panorama.pitch).toEqual(payload.pitch);
             expect(output.panorama.fov).toEqual(payload.fov);

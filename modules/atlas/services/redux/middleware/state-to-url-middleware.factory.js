@@ -21,7 +21,7 @@
                 ACTIONS.MAP_PAN,
                 ACTIONS.MAP_ZOOM,
                 ACTIONS.SHOW_PANORAMA_SUBSEQUENT,
-                ACTIONS.PANORAMA_SET_ORIENTATION,
+                ACTIONS.SET_PANORAMA_ORIENTATION,
                 ACTIONS.SHOW_ACTIVE_OVERLAYS,
                 ACTIONS.HIDE_ACTIVE_OVERLAYS
             ];

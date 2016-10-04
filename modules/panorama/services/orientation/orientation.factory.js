@@ -22,7 +22,7 @@
             heading = angleConversion.radiansToDegrees(viewer.view().yaw()); 
             
             store.dispatch({
-                type: ACTIONS.PANORAMA_SET_ORIENTATION,
+                type: ACTIONS.SET_PANORAMA_ORIENTATION,
                 payload: {
                     heading: heading,
                     pitch: pitch,
