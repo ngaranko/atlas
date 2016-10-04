@@ -44,7 +44,6 @@
                 visibility = dashboardColumns.determineVisibility(state);
 
                 //Op basis van visibilility de goede dependency aanroepen en dat stoppen in $document.title
-                //console.log(visibility);
             }
         }
     }

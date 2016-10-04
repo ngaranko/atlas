@@ -1,9 +1,10 @@
-xdescribe('The dashboard component', function () {
+describe('The dashboard component', function () {
     var $compile,
         $rootScope,
         store,
         dashboardColumns,
-        defaultState;
+        defaultState,
+        mockedState;
 
     beforeEach(function () {
         angular.mock.module(
@@ -11,7 +12,9 @@ xdescribe('The dashboard component', function () {
             {
                 store: {
                     subscribe: angular.noop,
-                    getState: angular.noop
+                    getState: function () {
+                        return mockedState;
+                    }
                 }
             },
             function ($provide) {
@@ -56,6 +59,10 @@ xdescribe('The dashboard component', function () {
             dashboardColumns = _dashboardColumns_;
             defaultState = angular.copy(_DEFAULT_STATE_);
         });
+
+        mockedState = angular.copy(defaultState);
+
+        spyOn(store, 'getState').and.callThrough();
     });
 
     function getComponent () {
@@ -81,16 +88,10 @@ xdescribe('The dashboard component', function () {
     });
 
     describe('the print mode has variable height', function () {
-        var component,
-            mockedState;
-
-        beforeEach(function () {
-            mockedState = angular.copy(defaultState);
-        });
+        var component;
 
         it('uses a maximum height in non-print mode', function () {
             mockedState.isPrintMode = false;
-            spyOn(store, 'getState').and.returnValue(mockedState);
 
             //Default 'screen' mode
             component = getComponent();
@@ -122,7 +123,6 @@ xdescribe('The dashboard component', function () {
             mockedState.detail = {};
             mockedState.page = null;
             mockedState.isPrintMode = true;
-            spyOn(store, 'getState').and.returnValue(mockedState);
 
             //Default 'screen' mode
             component = getComponent();
@@ -204,13 +204,10 @@ xdescribe('The dashboard component', function () {
     ['page', 'detail', 'searchResults'].forEach(function (panel) {
         describe('don\'t add scrolling when viewing the fullscreen map (on top of ' + panel + ')', function () {
             var component,
-                mockedState,
                 mockedVisibility = {};
 
             beforeEach(function () {
-                mockedState = angular.copy(defaultState);
                 mockedState.map.isFullscreen = true;
-                spyOn(store, 'getState').and.returnValue(mockedState);
 
                 mockedVisibility[panel] = true;
                 spyOn(dashboardColumns, 'determineVisibility').and.returnValue(mockedVisibility);
@@ -227,13 +224,10 @@ xdescribe('The dashboard component', function () {
     ['page', 'detail', 'searchResults', 'dataSelection'].forEach(function (panel) {
         describe('when printing ' + panel, function () {
             var component,
-                mockedState,
                 mockedVisibility = {};
 
             beforeEach(function () {
-                mockedState = angular.copy(defaultState);
                 mockedState.isPrintMode = true;
-                spyOn(store, 'getState').and.returnValue(mockedState);
 
                 mockedVisibility[panel] = true;
                 spyOn(dashboardColumns, 'determineVisibility').and.returnValue(mockedVisibility);
