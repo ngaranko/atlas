@@ -4,7 +4,14 @@ describe('The dp-link component', function () {
         store;
 
     beforeEach(function () {
-        angular.mock.module('atlas');
+        angular.mock.module(
+            'atlas',
+            {
+                store: {
+                    dispatch: angular.noop
+                }
+            }
+        );
 
         angular.mock.inject(function (_$compile_, _$rootScope_, _store_) {
             $compile = _$compile_;

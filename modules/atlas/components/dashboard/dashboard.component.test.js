@@ -6,32 +6,48 @@ describe('The dashboard component', function () {
         defaultState;
 
     beforeEach(function () {
-        angular.mock.module('atlas', function($provide){
-            $provide.factory('dpHeaderDirective', function(){
-                return {};
-            });
-            $provide.factory('dpPageDirective', function(){
-                return {};
-            });
-            $provide.factory('dpDetailDirective', function(){
-                return {};
-            });
-            $provide.factory('dpSearchResultsDirective', function(){
-                return {};
-            });
-            $provide.factory('dpLayerSelectionDirective', function(){
-                return {};
-            });
-            $provide.factory('dpMapDirective', function(){
-                return {};
-            });
-            $provide.factory('dpStraatbeeldDirective', function(){
-                return {};
-            });
-            $provide.factory('dpDataSelectionDirective', function(){
-                return {};
-            });
-        });
+        angular.mock.module(
+            'atlas',
+            {
+                store: {
+                    subscribe: angular.noop,
+                    getState: angular.noop
+                }
+            },
+            function ($provide) {
+                $provide.factory('dpHeaderDirective', function(){
+                    return {};
+                });
+
+                $provide.factory('dpPageDirective', function(){
+                    return {};
+                });
+
+                $provide.factory('dpDetailDirective', function(){
+                    return {};
+                });
+
+                $provide.factory('dpSearchResultsDirective', function(){
+                    return {};
+                });
+
+                $provide.factory('dpLayerSelectionDirective', function(){
+                    return {};
+                });
+
+                $provide.factory('dpMapDirective', function(){
+                    return {};
+                });
+
+                $provide.factory('dpStraatbeeldDirective', function(){
+                    return {};
+                });
+
+                $provide.factory('dpDataSelectionDirective', function(){
+                    return {};
+                });
+            }
+        );
 
         angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _dashboardColumns_, _DEFAULT_STATE_) {
             $compile = _$compile_;
