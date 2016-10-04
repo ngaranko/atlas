@@ -13,7 +13,7 @@
         'mapReducers',
         'pageReducers',
         'searchReducers',
-        'straatbeeldReducers',
+        'panoramaReducers',
         'dataSelectionReducers',
         'printReducers'
     ];
@@ -25,7 +25,7 @@
         mapReducers,
         pageReducers,
         searchReducers,
-        straatbeeldReducers,
+        panoramaReducers,
         dataSelectionReducers,
         printReducers) {
 
@@ -38,7 +38,7 @@
                 mapReducers,
                 pageReducers,
                 searchReducers,
-                straatbeeldReducers,
+                panoramaReducers,
                 dataSelectionReducers,
                 printReducers
             );
