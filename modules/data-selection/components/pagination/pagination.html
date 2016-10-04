@@ -6,8 +6,8 @@
     </div>
     <form class="u-inline-block" ng-submit="vm.goToPage($event)">
         <strong>Ga naar pagina</strong>
-        <input ng-model="vm.currentPage" type="number" pattern="\d*" size="4">
-        <button type="submit"></button>
+        <input ng-model="vm.currentPage" type="number" class="c-data-selection-pagination__input" pattern="\d*" size="4">
+        <button type="submit" class="c-data-selection-pagination__button" ></button>
         <strong class="u-margin__left--1">van {{ vm.numberOfPages }}</strong>
     </form>
     <div class="u-pull--right c-data-selection-page__form__links">
