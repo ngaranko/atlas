@@ -3,7 +3,7 @@
         .module('atlas')
         .run(runBlock);
 
-    runBlock.$inject = ['documentTitle']
+    runBlock.$inject = ['documentTitle'];
 
     function runBlock (documentTitle) {
         documentTitle.initialize();
