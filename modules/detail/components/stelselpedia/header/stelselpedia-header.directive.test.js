@@ -121,7 +121,7 @@ describe('The atlas-stelselpedia-header directive', function () {
         expect(directive.find('.qa-stelselpedia').length).toBe(1);
 
         //Inside the content of the panel
-        expect(directive.find('.qa-stelselpedia h4').text()).toBe('Uitleg over bouwblok');
+        expect(directive.find('.qa-stelselpedia h3').text()).toBe('Uitleg over bouwblok');
         expect(directive.find('.qa-stelselpedia p:nth-of-type(1)')
             .text()).toBe('Verhaaltje over bouwblokken');
         expect(directive.find('.qa-stelselpedia a').attr('href'))
@@ -176,7 +176,7 @@ describe('The atlas-stelselpedia-header directive', function () {
             directive.find('.o-header__button:nth-of-type(2)').click();
 
             expect(directive.find('.qa-metadata').length).toBe(1);
-            expect(directive.find('.qa-metadata h4').text().trim()).toBe('Metadata van bouwblok');
+            expect(directive.find('.qa-metadata h3').text().trim()).toBe('Metadata van bouwblok');
             expect(directive.find('.qa-metadata atlas-stelselpedia-meta').length).toBe(1);
         });
     });
