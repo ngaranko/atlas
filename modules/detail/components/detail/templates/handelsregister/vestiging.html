@@ -14,6 +14,7 @@
         <dt>Type vestiging</dt>
         <dd>
             {{ vm.apiData.results.hoofdvestiging ? "Hoofdvestiging" : vm.apiData.results.hoofdvestiging === false ? "Nevenvestiging" : "" }}
+        </dd>
         <dt>SBI-activiteiten</dt>
         <dd ng-if="!vm.apiData.results.activiteiten[0]"></dd>
         <dd ng-if="vm.apiData.results.activiteiten[0]" class="c-key-value-list--multiple-values" ng-repeat="object in vm.apiData.results.activiteiten" ng-class="{'c-key-value-list--border-top': $first}">
