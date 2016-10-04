@@ -7,7 +7,7 @@
             'dpPage',
             'dpDetail',
             'atlasSearchResults',
-            'atlasLayerSelection',
+            'dpLayerSelection',
             'dpMap',
             'dpStraatbeeld',
             'dpDataSelection',

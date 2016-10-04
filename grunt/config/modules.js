@@ -14,7 +14,7 @@ module.exports = [
         slug: 'header'
     },
     {
-        name: 'atlasLayerSelection',
+        name: 'dpLayerSelection',
         slug: 'layer-selection'
     },
     {

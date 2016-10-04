@@ -2,8 +2,8 @@
     'use strict';
 
     angular
-        .module('atlasLayerSelection')
-        .component('atlasLayerSelection', {
+        .module('dpLayerSelection')
+        .component('dpLayerSelection', {
             bindings: {
                 activeBaseLayer: '@baseLayer',
                 activeOverlays: '=overlays',

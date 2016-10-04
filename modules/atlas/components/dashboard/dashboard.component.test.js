@@ -19,7 +19,7 @@ describe('The dashboard component', function () {
             $provide.factory('atlasSearchResultsDirective', function(){
                 return {};
             });
-            $provide.factory('atlasLayerSelectionDirective', function(){
+            $provide.factory('dpLayerSelectionDirective', function(){
                 return {};
             });
             $provide.factory('dpMapDirective', function(){
