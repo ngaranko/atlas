@@ -5,9 +5,9 @@
         </atlas-stelselpedia-header>
 
         <dl class="c-key-value-list">
-            <dt class="s-border__top">Handelsnamen</dt>
+            <dt class="c-key-value-list--border-top">Handelsnamen</dt>
             <dd ng-if="!apiData.results.onderneming.handelsnamen[0]"></dd>
-            <dd class="s-multiple-values" ng-repeat="object in apiData.results.onderneming.handelsnamen" ng-class="{'s-border__top': $first}">
+            <dd class="c-key-value-list--multiple-values" ng-repeat="object in apiData.results.onderneming.handelsnamen" ng-class="{'c-key-value-list--border-top': $first}">
                     {{ object.handelsnaam }}
             </dd>
             <dt>KvK-nummer</dt>
