@@ -20,7 +20,7 @@ describe('The atlas-stelselpedia-header directive', function () {
                         url: 'http://www.example.com/brondocument/',
                         meta: []
                     },
-                    GEMEENTELIJKE_BEPERKING: {
+                    BEPERKING: {
                         label_singular: 'Gemeentelijke beperking',
                         label_plural: 'Gemeentelijke beperkingen',
                         description: 'Lijst van beperkingen op een gebruiksrecht.',
@@ -188,7 +188,7 @@ describe('The atlas-stelselpedia-header directive', function () {
             brk = {};
         });
 
-        it('optionally show a button with \'WKPB-uittreksel\' in the header als GEMEENTELIJKE_BEPERKING', function () {
+        it('optionally show a button with \'WKPB-uittreksel\' in the header als BEPERKING', function () {
             var directive;
 
             //BRONDOCUMENT has no wkpb-uittreksel
@@ -197,8 +197,8 @@ describe('The atlas-stelselpedia-header directive', function () {
 
             expect(directive.find('atlas-wkpb-link').length).toBe(0);
 
-            //GEMEENTELIJKE_BEPERKING enige met wkpb uittreksel
-            directive = getDirective(null, 'GEMEENTELIJKE_BEPERKING', false, null, brk);
+            //BEPERKING enige met wkpb uittreksel
+            directive = getDirective(null, 'BEPERKING', false, null, brk);
 
             expect(directive.find('atlas-wkpb-link').length).toBe(1);
         });

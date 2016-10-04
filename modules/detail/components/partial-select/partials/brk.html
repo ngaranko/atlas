@@ -6,7 +6,7 @@
     </div>
 
     <div ng-if="apiData.results.beperkingen[0]">
-      <atlas-stelselpedia-header definition="GEMEENTELIJKE_BEPERKING" use-plural="true" brk="apiData.results"></atlas-stelselpedia-header>
+      <atlas-stelselpedia-header definition="BEPERKING" use-plural="true" brk="apiData.results"></atlas-stelselpedia-header>
 
       <atlas-partial-select partial="beperking" api-data="{results:apiData.results.beperkingen}"></atlas-partial-select>
     </div>

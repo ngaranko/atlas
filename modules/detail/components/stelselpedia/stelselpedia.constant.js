@@ -27,6 +27,13 @@
                     url: 'https://www.amsterdam.nl/stelselpedia/brk-index/catalog-brk-levering/objectklasse-aant/',
                     meta: []
                 },
+                BEPERKING: {
+                    label_singular: 'Gemeentelijke beperking',
+                    label_plural: 'Gemeentelijke beperkingen',
+                    description: 'Lijst van beperkingen op een gebruiksrecht.',
+                    url: 'https://www.amsterdam.nl/stelselpedia/wkpb-index/catalogus/beperking/#objectkenmerken',
+                    meta: ['datum_in_werking', 'datum_einde']
+                },
                 BETROKKEN_BIJ: {
                     label_singular: 'Betrokken bij',
                     label_plural: 'Betrokken bij',
@@ -95,13 +102,6 @@
                     'maatschappelijke organisaties.',
                     url: 'https://www.amsterdam.nl/stelselpedia/gebieden-index/catalogus/gebiedsgericht/',
                     meta: []
-                },
-                GEMEENTELIJKE_BEPERKING: {
-                    label_singular: 'Gemeentelijke beperking',
-                    label_plural: 'Gemeentelijke beperkingen',
-                    description: 'Lijst van beperkingen op een gebruiksrecht.',
-                    url: 'https://www.amsterdam.nl/stelselpedia/wkpb-index/catalogus/beperking/#objectkenmerken',
-                    meta: ['datum_in_werking', 'datum_einde']
                 },
                 GROOTSTEDELIJKGEBIED: {
                     label_singular: 'Grootstedelijk gebied',
