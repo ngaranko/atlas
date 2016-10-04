@@ -30,11 +30,10 @@
                 isLoading: false
             }
             */
-            straatbeeld: null,
+            panorama: null,
             /*
-            straatbeeld: {
+            panorama: {
                 id: 1,
-                searchLocation: null,
                 date: null,
                 car: {
                     location: [52.789, 4.123],

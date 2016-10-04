@@ -7,14 +7,14 @@
 
     urlReducersFactory.$inject = ['$window', 'ACTIONS', 'DEFAULT_STATE'];
 
-    function urlReducersFactory ($window, ACTIONS, DEFAULT_STATE) {
+    function urlReducersFactory($window, ACTIONS, DEFAULT_STATE) {
         var reducers = {};
 
         reducers[ACTIONS.URL_CHANGE] = urlChangeReducer;
 
         return reducers;
 
-        function urlChangeReducer (oldState, payload) {
+        function urlChangeReducer(oldState, payload) {
             if (angular.equals(payload, {})) {
                 return DEFAULT_STATE;
             } else {
@@ -24,14 +24,14 @@
                 newState.map = getMapState(payload);
                 newState.page = payload.pagina || null;
                 newState.detail = getDetailState(oldState, payload);
-                newState.straatbeeld = getStraatbeeldState(oldState, payload);
+                newState.panorama = getPanoramaState(oldState, payload);
                 newState.dataSelection = getDataSelectionState(payload);
                 newState.isPrintMode = getPrintState(payload);
 
                 return newState;
             }
 
-            function getSearchState (payload) {
+            function getSearchState(payload) {
                 if (angular.isString(payload.zoek)) {
                     var searchState = {};
 
@@ -59,14 +59,14 @@
                  *
                  * @returns {Boolean}
                  */
-                function isLocation (location) {
+                function isLocation(location) {
                     return angular.isArray(
                         location.match(/^\d+\.\d+,\d+\.\d+$/)
                     );
                 }
             }
 
-            function getMapState (payload) {
+            function getMapState(payload) {
                 var overlays = [],
                     layers,
                     id,
@@ -80,7 +80,7 @@
                         // checking isVisible
                         isVisible = id[1] === 'zichtbaar';
                         id = id[0];
-                        overlays.push({id: id, isVisible: isVisible});
+                        overlays.push({ id: id, isVisible: isVisible });
                     }
                 }
                 return {
@@ -99,12 +99,12 @@
                 };
             }
 
-            function getDetailState (oldState, payload) {
+            function getDetailState(oldState, payload) {
                 if (angular.isString(payload.detail)) {
                     var newDetailState = {
-                            endpoint: payload.detail,
-                            isLoading: false
-                        };
+                        endpoint: payload.detail,
+                        isLoading: false
+                    };
 
                     if (angular.isObject(oldState.detail) && oldState.detail.endpoint === payload.detail) {
                         newDetailState.geometry = oldState.detail.geometry;
@@ -116,62 +116,39 @@
                 }
             }
 
-            function getStraatbeeldState (oldState, payload) {
-                if (hasStraatbeeld(payload)) {
-                    var date,
-                        car,
-                        camera,
-                        hotspots;
+            function getPanoramaState(oldState, payload) {
+                if (payload.id) {
+                    var newPanorama = {
+                        pitch: Number(payload.pitch),
+                        fov: Number(payload.fov),
+                        id: payload.id,
+                        heading: Number(payload.heading)
+                    };
 
-                    if (oldState.straatbeeld && oldState.straatbeeld.id === Number(payload.id)) {
-                        //Stuff that isn't in the URL but implicitly linked through the ID
-                        date = oldState.straatbeeld.date;
-                        car = oldState.straatbeeld.car || null;
-                        hotspots = oldState.straatbeeld.hotspots;
+                    
+                    if (oldState.panorama && oldState.panorama.id === payload.id) {
+                        newPanorama.image = oldState.panorama.image;
+                        newPanorama.hotspots = oldState.panorama.hotspots;
+                        newPanorama.date = oldState.panorama.date;
+                        newPanorama.location = oldState.panorama.location;
+                        newPanorama.isInitial = false;
+                        newPanorama.isLoading = oldState.panorama.isLoading;
                     } else {
-                        date = null;
-                        car = null;
-                        hotspots = [];
+                        newPanorama.image = null;
+                        newPanorama.hotspots = [];
+                        newPanorama.date = null;
+                        newPanorama.location = null;
+                        newPanorama.isInitial = true;
+                        newPanorama.isLoading = angular.isString(payload.id);
                     }
 
-                    camera = {
-                        heading: Number(payload.heading),
-                        pitch: Number(payload.pitch)
-                    };
-
-                    if (payload.fov) {
-                        camera.fov = Number(payload.fov);
-                    }
-
-                    return {
-                        id: Number(payload.id) || null,
-                        searchLocation:
-                            hasSearchLocation(payload) ? [Number(payload.plat), Number(payload.plon)] : null,
-                        date: date,
-                        car: car,
-                        camera: camera,
-                        hotspots: hotspots,
-                        isLoading: false
-                    };
+                    return newPanorama;
                 } else {
                     return null;
                 }
-
-                function hasStraatbeeld (payload) {
-                    return payload.id || hasSearchLocation(payload);
-                }
-
-                /**
-                 * @description This is a 'search nearest straatbeeld' location, not the location of the camera of a
-                 * found panorama scene. The actual location is not stored in the URL, this is implicitly accessible
-                 * through the ID.
-                 */
-                function hasSearchLocation (payload) {
-                    return payload.plat && payload.plon;
-                }
             }
 
-            function getDataSelectionState (payload) {
+            function getDataSelectionState(payload) {
                 var filters = {};
 
                 if (angular.isString(payload.dataset)) {
@@ -193,7 +170,7 @@
                 }
             }
 
-            function getPrintState (payload) {
+            function getPrintState(payload) {
                 return angular.isString(payload['print-versie']);
             }
         }

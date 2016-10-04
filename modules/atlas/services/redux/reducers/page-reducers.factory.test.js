@@ -29,7 +29,7 @@ describe('The pageReducers factory', function () {
             expect(output.map.highlight).toBeNull();
         });
 
-        it('disables the layer selection, search, detail, straatbeeld and dataSelection', function () {
+        it('disables the layer selection, search, detail, panorama and dataSelection', function () {
             mockedState.search = {
                 query: 'SOME_QUERY',
                 location: null
@@ -42,7 +42,7 @@ describe('The pageReducers factory', function () {
                 isLoading: false
             };
 
-            mockedState.straatbeeld = {
+            mockedState.panorama = {
                 id: 123,
                 camera: 'WHATEVER',
                 isLoading: false
@@ -57,7 +57,7 @@ describe('The pageReducers factory', function () {
             expect(output.search).toBeNull();
             expect(output.map.showLayerSelection).toBe(false);
             expect(output.detail).toBeNull();
-            expect(output.straatbeeld).toBeNull();
+            expect(output.panorama).toBeNull();
             expect(output.dataSelection).toBeNull();
         });
 
