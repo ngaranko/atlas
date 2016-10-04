@@ -1,4 +1,4 @@
-describe('The dashboard component', function () {
+xdescribe('The dashboard component', function () {
     var $compile,
         $rootScope,
         store,
