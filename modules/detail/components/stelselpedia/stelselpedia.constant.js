@@ -103,7 +103,7 @@
                     url: 'https://www.amsterdam.nl/stelselpedia/wkpb-index/catalogus/beperking/#objectkenmerken',
                     meta: ['datum_in_werking', 'datum_einde']
                 },
-                GROOTSTEDELIJK: {
+                GROOTSTEDELIJKGEBIED: {
                     label_singular: 'Grootstedelijk gebied',
                     label_plural: 'Grootstedelijke gebieden',
                     description: 'Grootstedelijke gebieden zijn gebieden binnen de gemeente Amsterdam, waar de ' +
