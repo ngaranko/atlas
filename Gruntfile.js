@@ -5,10 +5,15 @@ module.exports = function (grunt) {
      * An ID that is unique for each build to prevent browser caching. This needs to be set before the other
      * configuration which relies on this ID.
      */
-    grunt.config.set('uniqueIdJs', shortid.generate());
-    grunt.config.set('uniqueIdCss', shortid.generate());
+        // ToDo: why are these id's not equal?
+    var uniqueIdJs = shortid.generate();
+    var uniqueIdCss = shortid.generate();
+
+    grunt.config.set('uniqueIdJs', uniqueIdJs);
+    grunt.config.set('uniqueIdCss', uniqueIdCss);
 
     grunt.initConfig({
+        babel: require('./grunt/babel')(grunt),
         bower_concat: require('./grunt/bower-concat'),
         clean: require('./grunt/clean'),
         concat: require('./grunt/concat')(grunt),
@@ -53,13 +58,22 @@ module.exports = function (grunt) {
         'sasslint'
     ]);
 
+    grunt.registerTask('babel-configure', 'Configure babel options', function() {
+        // Inject the source maps from the concat operation in the new babel sourcemap
+        grunt.config.set('babel.options.inputSourceMap',
+            grunt.file.readJSON('build/temp/babel/atlas.' + uniqueIdJs + '.js.map'));
+    });
+
     /**
      * The output of build-js are two files 'build/atlas.js' and a source map.
      */
     grunt.registerTask('build-js', [
         'bower_concat:js',
+        'concat:bower',
         'ngtemplates',
-        'concat:js',
+        'concat:babel',
+        'babel-configure',
+        'babel:es6',
         'tags:js'
     ]);
 
@@ -92,6 +106,8 @@ module.exports = function (grunt) {
     ]);
 
     grunt.loadNpmTasks('grunt-angular-templates');
+    grunt.loadNpmTasks('grunt-babel');
+    // grunt.loadNpmTasks('karma-babel-preprocessor');
     grunt.loadNpmTasks('grunt-bower-concat');
     grunt.loadNpmTasks('grunt-console-log-test');
     grunt.loadNpmTasks('grunt-contrib-clean');

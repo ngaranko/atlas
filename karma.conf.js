@@ -1,4 +1,5 @@
-var jsFiles = require('./grunt/config/js-files');
+var jsFiles = ['build/temp/bower_components.js'];
+jsFiles = jsFiles.concat(require('./grunt/config/js-files'));
 
 jsFiles.push('bower_components/angular-mocks/angular-mocks.js');
 jsFiles.push('modules/**/*.test.js');
@@ -15,12 +16,18 @@ module.exports = function (config) {
             'karma-jasmine',
             'karma-mocha-reporter',
             'karma-coverage',
-            'karma-phantomjs-launcher'
+            'karma-phantomjs-launcher',
+            'karma-babel-preprocessor'
         ],
         // possible values: OFF, ERROR, WARN, INFO, DEBUG
         logLevel: 'ERROR',
         preprocessors: {
-            'modules/**/!(*.test).js': ['coverage']
+            'modules/**/!(*.test).js': ['babel', 'coverage']
+        },
+        babelPreprocessor: {
+            options: {
+                presets: ['es2015']
+            }
         },
         mochaReporter: {
             output: 'minimal'

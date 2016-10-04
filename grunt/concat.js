@@ -11,6 +11,14 @@ module.exports = function (grunt) {
         options: {
             sourceMap: true
         },
+        bower: {
+            src: ['build/temp/bower_components.js'],
+            dest: 'build/atlas.libs.' + uniqueIdJs + '.js'
+        },
+        babel: {
+            src: jsFiles,
+            dest: 'build/temp/babel/atlas.' + uniqueIdJs + '.js'
+        },
         js: {
             src: jsFiles,
             dest: 'build/atlas.' + uniqueIdJs + '.js'

@@ -1,5 +1,5 @@
 var modules = require('./modules'),
-    jsFiles = ['build/temp/bower_components.js'];
+    jsFiles = [];
 
 modules.forEach(function (module) {
     //Add the main .module.js file first
