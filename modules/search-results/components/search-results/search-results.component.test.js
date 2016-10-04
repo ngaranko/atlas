@@ -1,4 +1,4 @@
-describe('The atlas-search-results component', function () {
+describe('The dp-search-results component', function () {
     var $compile,
         $rootScope,
         $q,
@@ -12,7 +12,7 @@ describe('The atlas-search-results component', function () {
 
     beforeEach(function () {
         angular.mock.module(
-            'atlasSearchResults',
+            'dpSearchResults',
             {
                 search: {
                     search: function (query) {
@@ -74,7 +74,7 @@ describe('The atlas-search-results component', function () {
                     return {};
                 });
 
-                $provide.factory('atlasSearchResultsHeaderDirective', function () {
+                $provide.factory('dpSearchResultsHeaderDirective', function () {
                     return {};
                 });
 
@@ -331,7 +331,7 @@ describe('The atlas-search-results component', function () {
             element,
             scope;
 
-        element = document.createElement('atlas-search-results');
+        element = document.createElement('dp-search-results');
         scope = $rootScope.$new();
 
         if (angular.isString(query)) {

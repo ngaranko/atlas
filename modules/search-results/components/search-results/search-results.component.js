@@ -2,8 +2,8 @@
     'use strict';
 
     angular
-        .module('atlasSearchResults')
-        .component('atlasSearchResults', {
+        .module('dpSearchResults')
+        .component('dpSearchResults', {
             bindings: {
                 query: '@',
                 location: '=',

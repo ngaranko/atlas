@@ -2,8 +2,8 @@
     'use strict';
 
     angular
-        .module('atlasSearchResults')
-        .component('atlasSearchResultsList', {
+        .module('dpSearchResults')
+        .component('dpSearchResultsList', {
             bindings: {
                 category: '=',
                 limitResults: '='

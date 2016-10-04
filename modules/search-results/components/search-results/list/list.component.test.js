@@ -1,4 +1,4 @@
-describe('The atlas-search-results-list component', function () {
+describe('The dp-search-results-list component', function () {
     var $compile,
         $rootScope,
         store,
@@ -7,7 +7,7 @@ describe('The atlas-search-results-list component', function () {
 
     beforeEach(function () {
         angular.mock.module(
-            'atlasSearchResults',
+            'dpSearchResults',
             {
                 store: {
                     dispatch: function () {}
@@ -87,7 +87,7 @@ describe('The atlas-search-results-list component', function () {
             element,
             scope;
 
-        element = document.createElement('atlas-search-results-list');
+        element = document.createElement('dp-search-results-list');
         element.setAttribute('category', 'category');
         element.setAttribute('limit-results', 'limitResults');
 

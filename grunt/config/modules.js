@@ -26,7 +26,7 @@ module.exports = [
         slug: 'page'
     },
     {
-        name: 'atlasSearchResults',
+        name: 'dpSearchResults',
         slug: 'search-results'
     },
     {

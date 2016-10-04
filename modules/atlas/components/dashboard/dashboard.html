@@ -72,12 +72,12 @@
                     </div>
 
                     <div ng-if="vm.visibility.searchResults" ng-controller="SearchResultsController as vm">
-                        <atlas-search-results
+                        <dp-search-results
                             query="{{vm.query}}"
                             location="vm.location"
                             category="{{vm.category}}">
 
-                        </atlas-search-results>
+                        </dp-search-results>
                     </div>
 
                     <div ng-if="vm.visibility.straatbeeld" ng-controller="StraatbeeldController as straatbeeld">

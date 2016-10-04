@@ -16,7 +16,7 @@ describe('The dashboard component', function () {
             $provide.factory('dpDetailDirective', function(){
                 return {};
             });
-            $provide.factory('atlasSearchResultsDirective', function(){
+            $provide.factory('dpSearchResultsDirective', function(){
                 return {};
             });
             $provide.factory('dpLayerSelectionDirective', function(){

@@ -107,7 +107,7 @@ describe('The searchFormatter factory', function () {
 
     beforeEach(function () {
         angular.mock.module(
-            'atlasSearchResults',
+            'dpSearchResults',
             function ($provide) {
                 $provide.constant('SEARCH_CONFIG', {
                     QUERY_ENDPOINTS: [

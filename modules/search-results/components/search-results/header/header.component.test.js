@@ -1,10 +1,10 @@
-describe('The atlas-search-results-header component', function () {
+describe('The dp-search-results-header component', function () {
     var $compile,
         $rootScope;
 
     beforeEach(function () {
         angular.mock.module(
-            'atlasSearchResults',
+            'dpSearchResults',
             function ($provide) {
                 $provide.value('coordinatesFilter', function (input) {
                     return 'X, Y (' + input.join(', ') + ')';
@@ -23,7 +23,7 @@ describe('The atlas-search-results-header component', function () {
             element,
             scope;
 
-        element = document.createElement('atlas-search-results-header');
+        element = document.createElement('dp-search-results-header');
         element.setAttribute('number-of-results', 'numberOfResults');
 
         if (angular.isString(query)) {

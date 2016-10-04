@@ -3,8 +3,8 @@
 
     //This factory name is namespaced because other modules will get a similar service with the same name
     angular
-        .module('atlasSearchResults')
-        .factory('atlasSearchResults.documentTitle', documentTitleFactory);
+        .module('dpSearchResults')
+        .factory('dpSearchResults.documentTitle', documentTitleFactory);
 
     function documentTitleFactory () {
         return {
@@ -12,7 +12,7 @@
         };
 
         function getTitle (/*query, location, category*/) {
-            return 'Een tekst met dezelfde logica van samenstellen als atlas-search-results-header';
+            return 'Een tekst met dezelfde logica van samenstellen als dp-search-results-header';
         }
     }
 })();

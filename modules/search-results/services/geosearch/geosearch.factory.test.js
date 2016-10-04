@@ -17,7 +17,7 @@ describe('The geosearch factory', function () {
 
     beforeEach(function () {
         angular.mock.module(
-            'atlasSearchResults',
+            'dpSearchResults',
             {
                 api: {
                     getByUri: function (endpoint) {

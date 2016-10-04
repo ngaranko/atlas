@@ -6,7 +6,7 @@
             'dpHeader',
             'dpPage',
             'dpDetail',
-            'atlasSearchResults',
+            'dpSearchResults',
             'dpLayerSelection',
             'dpMap',
             'dpStraatbeeld',
