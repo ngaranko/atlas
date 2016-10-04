@@ -22,7 +22,7 @@ module.exports = [
         slug: 'map'
     },
     {
-        name: 'atlasPage',
+        name: 'dpPage',
         slug: 'page'
     },
     {

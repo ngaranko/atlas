@@ -8,7 +8,7 @@ describe('The atlas-login-form component', function () {
 
     beforeEach(function () {
         angular.mock.module(
-            'atlasPage',
+            'dpPage',
             {
                 user: {
                     login: function (username, password) {

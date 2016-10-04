@@ -7,7 +7,7 @@ describe('The atlas-metadata component', function () {
 
     beforeEach(function () {
         angular.mock.module(
-            'atlasPage',
+            'dpPage',
             {
                 api: {
                     getByUri: function () {

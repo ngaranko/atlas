@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('atlasPage')
+        .module('dpPage')
         .component('atlasLoginForm', {
             templateUrl: 'modules/page/components/login-form/login-form.html',
             controller: AtlasLoginFormController,

@@ -4,7 +4,7 @@
     angular
         .module('atlas', [
             'atlasHeader',
-            'atlasPage',
+            'dpPage',
             'dpDetail',
             'atlasSearchResults',
             'atlasLayerSelection',

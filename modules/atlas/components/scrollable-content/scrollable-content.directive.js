@@ -6,7 +6,7 @@
         .directive('atlasScrollableContent', atlasScrollableContentDirective);
 
     /**
-     * @description This will reset the scroll position whenever the active component (e.g. dp-detail, atlas-page,
+     * @description This will reset the scroll position whenever the active component (e.g. dp-detail, dp-page,
      * atlas-search-results) changes.
      */
     function atlasScrollableContentDirective () {

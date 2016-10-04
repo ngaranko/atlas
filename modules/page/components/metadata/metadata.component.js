@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('atlasPage')
+        .module('dpPage')
         .component('atlasMetadata', {
             templateUrl: 'modules/page/components/metadata/metadata.html',
             controller: AtlasMetadataController,
