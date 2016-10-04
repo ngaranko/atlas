@@ -39,7 +39,7 @@
         <atlas-wkpb-link ng-if="vm.brk" brk-id="{{vm.brk.id}}"></atlas-wkpb-link>
     </div>
 
-    <div ng-if="vm.isVisible('help')" class="c-stelselpedia">
+    <div ng-if="vm.isVisible('help')" class="c-panel qa-stelselpedia">
         <h4>Uitleg over {{vm.stelselpediaLabel | lowercase}}</h4>
         <p>{{vm.stelselpediaDescription}}</p>
 
@@ -52,7 +52,7 @@
         </button>
     </div>
 
-    <div ng-if="vm.hasMetaData && vm.isVisible('meta')" class="c-metadata">
+    <div ng-if="vm.hasMetaData && vm.isVisible('meta')" class="c-panel qa-metadata">
         <h4>Metadata van {{vm.stelselpediaLabel | lowercase}}</h4>
 
         <atlas-stelselpedia-meta definition="{{vm.definition}}" api-data="vm.metaData"></atlas-stelselpedia-meta>
