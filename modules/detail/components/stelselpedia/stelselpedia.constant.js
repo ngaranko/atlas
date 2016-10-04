@@ -111,15 +111,6 @@
                     url: 'https://www.amsterdam.nl/stelselpedia/gebieden-index/catalogus/grootstedelijk/',
                     meta: []
                 },
-                KADASTRAAL_OBJECT: {
-                    label_singular: 'Kadastraal object',
-                    label_plural: 'Kadastrale objecten',
-                    description: 'Een Kadastraal Object is een Onroerende zaak of een Teboekgestelde ' +
-                    'zaak waarvoor bij overdracht of vestiging van rechten inschrijving in de openbare registers van ' +
-                    'het Kadaster is vereist.',
-                    url: 'https://www.amsterdam.nl/stelselpedia/brk-index/catalog-brk-levering/objectklasse-objec/',
-                    meta: ['id']
-                },
                 KADASTRAAL_SUBJECT: {
                     label_singular: 'Kadastraal subject',
                     label_plural: 'Kadastrale subjecten',
@@ -202,6 +193,15 @@
                         'nummeraanduidingidentificatie',
                         'sleutelverzendend'
                     ]
+                },
+                OBJECT: {
+                    label_singular: 'Kadastraal object',
+                    label_plural: 'Kadastrale objecten',
+                    description: 'Een Kadastraal Object is een Onroerende zaak of een Teboekgestelde ' +
+                    'zaak waarvoor bij overdracht of vestiging van rechten inschrijving in de openbare registers van ' +
+                    'het Kadaster is vereist.',
+                    url: 'https://www.amsterdam.nl/stelselpedia/brk-index/catalog-brk-levering/objectklasse-objec/',
+                    meta: ['id']
                 },
                 ONTSTAAN_UIT: {
                     label_singular: 'Ontstaan uit',

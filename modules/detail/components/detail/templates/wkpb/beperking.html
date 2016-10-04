@@ -28,7 +28,7 @@
 </div>
 
 <div class="u-row" ng-if=" vm.apiData.results.kadastrale_objecten.count">
-  <atlas-stelselpedia-header definition="KADASTRAAL_OBJECT" use-plural="true"></atlas-stelselpedia-header>
+  <atlas-stelselpedia-header definition="OBJECT" use-plural="true"></atlas-stelselpedia-header>
 
   <atlas-api-call endpoint="{{vm.apiData.results.kadastrale_objecten.href}}" partial="lijst"></atlas-api-call>
 </div>
