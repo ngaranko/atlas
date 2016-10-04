@@ -20,7 +20,7 @@
     function documentTitleFactory (
         $document,
         store,
-        dashboardColumns,
+        dashboardColumns/*,
 
         dpDataSelectionDocumentTitle,
         dpDetailDocumentTitle,
@@ -28,7 +28,7 @@
         dpMapDocumentTitle,
         dpPageDocumentTitle,
         dpSearchResultsDocumentTitle,
-        dpStraatbeeldDocumentTitle) {
+        dpStraatbeeldDocumentTitle*/) {
 
         return {
             initialize: initialize
