@@ -3,6 +3,24 @@ $pagination-line-color: #e4e4e4;
 .c-data-selection-pagination {
   text-align: center;
 
+  form {
+    input {
+      width: 3rem;
+      height: $button-size;
+      border: 1px solid $secondary-gray20;
+      font-weight: bold;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    button {
+      width: $button-size;
+      height: $button-size;
+      background-image: url("assets/icons/link-active.svg");
+      vertical-align: middle;
+    }
+  }
+
   hr {
     width: auto;
     height: 5px;
@@ -17,29 +35,8 @@ $pagination-line-color: #e4e4e4;
   }
 }
 
-.c-data-selection-pagination__form {
-  display: inline-block;
-  font-weight: bold;
-}
-
-.c-data-selection-pagination__form__input {
-  width: 3rem;
-  height: $button-size;
-  border: 1px solid $secondary-gray20;
-  font-weight: bold;
-  text-align: center;
-  vertical-align: middle;
-}
-
 .c-data-selection-page__form__links {
   margin-top: -.55rem;
-}
-
-.c-data-selection-page__form__button {
-  width: $button-size;
-  height: $button-size;
-  background-image: url("assets/icons/link-active.svg");
-  vertical-align: middle;
 }
 
 .c-data-selection-pagination-link {
