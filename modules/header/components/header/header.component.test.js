@@ -1,11 +1,11 @@
-describe('The atlas-header component', function () {
+describe('The dp-header component', function () {
     var $compile,
         $rootScope,
         user;
 
     beforeEach(function () {
         angular.mock.module(
-            'atlasHeader',
+            'dpHeader',
             {
                 store: {
                     dispatch: function () {}
@@ -36,7 +36,7 @@ describe('The atlas-header component', function () {
             element,
             scope;
 
-        element = document.createElement('atlas-header');
+        element = document.createElement('dp-header');
         element.setAttribute('query', query);
         element.setAttribute('is-print-mode', isPrintMode);
 

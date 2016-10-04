@@ -6,7 +6,7 @@ describe('The atlas-terugmelden-button component', function () {
         currentUrl = 'http://www.example.com/path/filename.html?foo=bar#baz';
 
     beforeEach(function () {
-        angular.mock.module('atlasHeader');
+        angular.mock.module('dpHeader');
 
         angular.mock.inject(function (_$compile_, _$rootScope_, _$location_, _$window_) {
             $compile = _$compile_;

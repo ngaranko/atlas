@@ -3,7 +3,7 @@
 
     angular
         .module('atlas', [
-            'atlasHeader',
+            'dpHeader',
             'dpPage',
             'dpDetail',
             'atlasSearchResults',

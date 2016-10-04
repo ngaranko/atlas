@@ -12,7 +12,7 @@ describe('The atlas-search directive', function () {
 
     beforeEach(function () {
         angular.mock.module(
-            'atlasHeader',
+            'dpHeader',
             {
                 store: {
                     dispatch: function () {}

@@ -4,7 +4,7 @@ describe('The atlas-menu-dropdown directive', function () {
 
     beforeEach(function(){
         angular.mock.module(
-            'atlasHeader',
+            'dpHeader',
             function ($provide) {
                 $provide.factory('AtlasPrintButtonDirective', function () {
                     return {};

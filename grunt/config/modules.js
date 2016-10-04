@@ -10,7 +10,7 @@ module.exports = [
         slug: 'detail'
     },
     {
-        name: 'atlasHeader',
+        name: 'dpHeader',
         slug: 'header'
     },
     {

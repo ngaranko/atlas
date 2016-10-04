@@ -2,8 +2,8 @@
     'use strict';
 
     angular
-        .module('atlasHeader')
-        .component('atlasHeader', {
+        .module('dpHeader')
+        .component('dpHeader', {
             bindings: {
                 query: '@',
                 isPrintMode: '='

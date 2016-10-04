@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('atlasHeader')
+        .module('dpHeader')
         .component('atlasPrintButton', {
             transclude: true,
             templateUrl: 'modules/header/components/print-button/print-button.html',

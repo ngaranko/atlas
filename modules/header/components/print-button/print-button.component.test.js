@@ -4,7 +4,7 @@ describe('The atlas-print-button component', function () {
         $window;
 
     beforeEach(function () {
-        angular.mock.module('atlasHeader');
+        angular.mock.module('dpHeader');
 
         angular.mock.inject(function (_$compile_, _$rootScope_, _$window_) {
             $compile = _$compile_;

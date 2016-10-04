@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('atlasHeader')
+        .module('dpHeader')
         .component('atlasTerugmeldenButton', {
             transclude: true,
             templateUrl: 'modules/header/components/terugmelden-button/terugmelden-button.html',

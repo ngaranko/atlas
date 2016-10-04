@@ -7,7 +7,7 @@ describe('The dashboard component', function () {
 
     beforeEach(function () {
         angular.mock.module('atlas', function($provide){
-            $provide.factory('atlasHeaderDirective', function(){
+            $provide.factory('dpHeaderDirective', function(){
                 return {};
             });
             $provide.factory('dpPageDirective', function(){

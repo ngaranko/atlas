@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('atlasHeader')
+        .module('dpHeader')
         .directive('atlasSearch', atlasSearchDirective);
 
         atlasSearchDirective.$inject = ['$timeout', 'autocompleteData', 'environment', 'store', 'ACTIONS'];
