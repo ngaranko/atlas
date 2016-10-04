@@ -11,19 +11,27 @@
   }
 
   td {
+    padding: {
+      top: $base-whitespace;
+      bottom: $base-whitespace;
+    }
 
     &:hover {
       cursor: pointer;
     }
   }
 
+  th {
+    height: $button-size;
+    padding: {
+      top: 0;
+      bottom: 0;
+    }
+  }
+
   td,
   th {
-    padding: {
-      top: $base-whitespace;
-      bottom: $base-whitespace;
-      left: $base-whitespace;
-    }
+    padding-left: $base-whitespace;
     white-space: nowrap;
 
     &:last-child {

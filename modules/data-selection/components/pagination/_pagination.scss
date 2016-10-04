@@ -13,14 +13,18 @@
   border: 1px solid $secondary-gray20;
   font-weight: bold;
   text-align: center;
+  vertical-align: middle;
+}
+
+.c-data-selection-page__form__links {
+  margin-top: -.55rem;
 }
 
 .c-data-selection-page__form__button {
-  position: relative;
-  top: .55rem;
   width: $button-size;
   height: $button-size;
   background-image: url("assets/icons/link-active.svg");
+  vertical-align: middle;
 }
 
 .c-data-selection-pagination-link {
