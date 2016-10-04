@@ -9,7 +9,7 @@ describe('The atlas-bbga-graphs directive', function () {
 
     beforeEach(function () {
         angular.mock.module(
-            'atlasDetail',
+            'dpDetail',
             function ($provide) {
                 $provide.factory('atlasBbgaTevredenheidDirective', function () {
                     return {};

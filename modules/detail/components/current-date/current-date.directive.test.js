@@ -3,7 +3,7 @@ describe('The atlas-current-date directive', function () {
         $rootScope;
 
     beforeEach(function () {
-        angular.mock.module('atlasDetail');
+        angular.mock.module('dpDetail');
 
         angular.mock.inject(function (_$compile_, _$rootScope_) {
             $compile = _$compile_;

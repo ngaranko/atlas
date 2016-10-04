@@ -1,7 +1,7 @@
 (function() {
     'use strict';
     angular
-        .module('atlasDetail')
+        .module('dpDetail')
         .service('dateConverter', dateConverterService);
 
     dateConverterService.$inject = ['d3'];

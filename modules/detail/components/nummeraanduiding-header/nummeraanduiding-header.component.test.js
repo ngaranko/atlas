@@ -19,7 +19,7 @@ describe('The atlas-nummeraanduiding-header directive', function () {
 
     beforeEach(function () {
         angular.mock.module(
-            'atlasDetail',
+            'dpDetail',
             'ngSanitize',
             {
                 api: {

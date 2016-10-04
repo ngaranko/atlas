@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('atlasDetail')
+        .module('dpDetail')
         .directive('atlasMeetboutGraph', atlasMeetboutGraphDirective);
 
     atlasMeetboutGraphDirective.$inject = ['api', 'd3', 'dateConverter'];

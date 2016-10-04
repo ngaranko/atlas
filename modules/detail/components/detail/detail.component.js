@@ -1,7 +1,7 @@
 (function () {
     angular
-        .module('atlasDetail')
-        .component('atlasDetail', {
+        .module('dpDetail')
+        .component('dpDetail', {
             bindings: {
                 endpoint: '@',
                 isLoading: '='

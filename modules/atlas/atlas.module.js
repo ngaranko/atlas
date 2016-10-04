@@ -5,7 +5,7 @@
         .module('atlas', [
             'atlasHeader',
             'atlasPage',
-            'atlasDetail',
+            'dpDetail',
             'atlasSearchResults',
             'atlasLayerSelection',
             'dpMap',

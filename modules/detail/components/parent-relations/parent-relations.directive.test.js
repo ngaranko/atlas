@@ -5,7 +5,7 @@ describe('The dp-parent-relations directive', function () {
 
     beforeEach(function () {
         angular.mock.module(
-            'atlasDetail',
+            'dpDetail',
             function ($provide) {
                 $provide.constant('PARENT_RELATIONS_CONFIG', [
                     'universe',

@@ -2,7 +2,7 @@ describe('The yesNo filter', function() {
     var yesNo;
 
     beforeEach(function () {
-        angular.mock.module('atlasDetail');
+        angular.mock.module('dpDetail');
 
         angular.mock.inject(function ($filter) {
             yesNo = $filter('yesNo');

@@ -1,4 +1,4 @@
-describe('the atlas-detail component', function() {
+describe('the dp-detail component', function() {
     var $compile,
         $rootScope,
         $q,
@@ -12,7 +12,7 @@ describe('the atlas-detail component', function() {
 
     beforeEach(function() {
         angular.mock.module(
-            'atlasDetail',
+            'dpDetail',
             {
                 store: {
                     dispatch: function () {}
@@ -122,7 +122,7 @@ describe('the atlas-detail component', function() {
             element,
             scope;
 
-        element = document.createElement('atlas-detail');
+        element = document.createElement('dp-detail');
         element.setAttribute('endpoint', '{{endpoint}}');
         element.setAttribute('is-loading', 'isLoading');
 

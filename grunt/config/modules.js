@@ -6,7 +6,7 @@ module.exports = [
         slug: 'shared'
     },
     {
-        name: 'atlasDetail',
+        name: 'dpDetail',
         slug: 'detail'
     },
     {

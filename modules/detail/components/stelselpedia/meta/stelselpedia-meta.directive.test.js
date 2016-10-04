@@ -4,7 +4,7 @@ describe('The atlas-stelselpedia-meta directive', function () {
 
     beforeEach(function () {
         angular.mock.module(
-            'atlasDetail',
+            'dpDetail',
             function ($provide) {
                 $provide.constant('STELSELPEDIA', {
                     DEFINITIONS: {

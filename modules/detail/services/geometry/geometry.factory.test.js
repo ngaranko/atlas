@@ -121,7 +121,7 @@ describe('The geometry factory', function () {
 
     beforeEach(function () {
         angular.mock.module(
-            'atlasDetail',
+            'dpDetail',
             {
                 api: {
                     getByUrl: function (url) {

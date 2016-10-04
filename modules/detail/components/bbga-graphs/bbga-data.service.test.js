@@ -6,7 +6,7 @@ describe('The bbgaDataService', function () {
 
     beforeEach(function () {
         angular.mock.module(
-            'atlasDetail',
+            'dpDetail',
             function ($provide) {
                 $provide.constant('environment', {
                     ENVIRONMENT: 'development',

@@ -7,7 +7,7 @@ describe('The atlas-api-call component', function () {
 
     beforeEach(function () {
         angular.mock.module(
-            'atlasDetail',
+            'dpDetail',
             {
                 api: {
                     getByUrl: function(endpoint) {

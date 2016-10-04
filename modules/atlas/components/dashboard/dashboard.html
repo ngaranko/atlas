@@ -61,10 +61,10 @@
                     }">
 
                     <div ng-if="vm.visibility.detail" ng-controller="DetailController as vm">
-                        <atlas-detail
+                        <dp-detail
                             endpoint="{{vm.endpoint}}"
                             is-loading="vm.isLoading">
-                        </atlas-detail>
+                        </dp-detail>
                     </div>
 
                     <div ng-if="vm.visibility.page" ng-controller="PageController as vm">

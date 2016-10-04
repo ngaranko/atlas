@@ -13,7 +13,7 @@ describe('The dashboard component', function () {
             $provide.factory('atlasPageDirective', function(){
                 return {};
             });
-            $provide.factory('atlasDetailDirective', function(){
+            $provide.factory('dpDetailDirective', function(){
                 return {};
             });
             $provide.factory('atlasSearchResultsDirective', function(){

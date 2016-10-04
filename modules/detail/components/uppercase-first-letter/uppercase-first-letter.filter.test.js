@@ -2,7 +2,7 @@ describe('The dpUppercaseFirstLetter filter', function () {
   var atlasUppercaseFirstLetter;
 
   beforeEach(function () {
-    angular.mock.module('atlasDetail');
+    angular.mock.module('dpDetail');
 
     angular.mock.inject(function (_atlasUppercaseFirstLetterFilter_) {
       atlasUppercaseFirstLetter = _atlasUppercaseFirstLetterFilter_;

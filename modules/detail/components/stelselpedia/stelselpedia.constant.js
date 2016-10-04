@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('atlasDetail')
+        .module('dpDetail')
         .constant('STELSELPEDIA', {
             DEFINITIONS: {
                 A_PERCEEL: {

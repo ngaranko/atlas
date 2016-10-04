@@ -26,7 +26,7 @@ describe('The atlas-meetbout-graph directive', function () {
 
     beforeEach(function () {
         angular.mock.module(
-            'atlasDetail',
+            'dpDetail',
             {
                 api: {
                     getByUrl: function () {

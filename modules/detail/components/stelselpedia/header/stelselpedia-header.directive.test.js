@@ -3,7 +3,7 @@ describe('The atlas-stelselpedia-header directive', function () {
         $rootScope;
 
     beforeEach(function () {
-        angular.mock.module('atlasDetail', function ($provide) {
+        angular.mock.module('dpDetail', function ($provide) {
             $provide.constant('STELSELPEDIA', {
                 DEFINITIONS: {
                     BOUWBLOK: {

@@ -56,7 +56,7 @@ describe('The atlas-bbga-tevredenheid component', function () {
         mockedBbgaMissingData.VAR_B.data[0].waarde = null;
 
         angular.mock.module(
-            'atlasDetail',
+            'dpDetail',
             {
                 bbgaDataService: {
                     getGraphData: function () {

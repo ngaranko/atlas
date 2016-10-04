@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('atlasDetail')
+        .module('dpDetail')
         .component('atlasBbgaTevredenheid', {
             templateUrl: 'modules/detail/components/bbga-graphs/tevredenheid/bbga-tevredenheid.html',
             bindings: {
