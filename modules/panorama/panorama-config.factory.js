@@ -14,7 +14,7 @@
         globalConfig = {
             DEFAULT_FOV: 80,
             MAX_FOV: 100,
-            MAX_RESOLUTION: 2000,
+            MAX_RESOLUTION: 2000 * 2,
             CAMERA_HEIGHT: 1.8
         };
 

@@ -50,10 +50,6 @@
                 pinFirstLevel: true
             });
 
-            function calculateHotspotPitch(height, distance) {
-                return Math.atan(height/distance);
-            }
-
             hotspots.sort(function (hotspotA, hotspotB) {
                 return hotspotB.distance - hotspotA.distance;
             }).forEach(function (hotspot) {
@@ -74,6 +70,11 @@
             view.setFov(angleConversion.degreesToRadians(fov));
 
             scene.switchTo();
+
+            function calculateHotspotPitch(height, distance) {
+                return Math.atan(height/distance);
+            }
+            
         }
     }
 })();
