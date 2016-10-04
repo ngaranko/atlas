@@ -1,8 +1,11 @@
+$hover-table-color: #eee;
+
 .c-data-selection-table__table {
   display: block;
-  overflow-x: auto;
 
   thead {
+    font-family: $header-font-family;
+    font-size: $base-font-size * 1.2;
 
     tr {
       background-color: $secondary-gray40;
@@ -18,6 +21,16 @@
 
     &:hover {
       cursor: pointer;
+    }
+  }
+
+  tbody {
+    tr {
+
+      &:hover {
+        background-color: $hover-table-color;
+      }
+
     }
   }
 
