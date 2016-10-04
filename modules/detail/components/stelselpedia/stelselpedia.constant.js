@@ -195,6 +195,13 @@
                     url: 'https://www.amsterdam.nl/stelselpedia/brk-index/catalog-brk-levering/objectklasse-objec/',
                     meta: ['id']
                 },
+                OBJECT_WKPB: {
+                    label_singular: 'WKPB-uittreksel',
+                    label_plural: null,
+                    description: null,
+                    url: null,
+                    meta: []
+                },
                 ONTSTAAN_UIT: {
                     label_singular: 'Ontstaan uit',
                     label_plural: 'Ontstaan uit',

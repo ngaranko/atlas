@@ -188,18 +188,15 @@ describe('The atlas-stelselpedia-header directive', function () {
             brk = {};
         });
 
-        it('optionally show a button with \'WKPB-uittreksel\' in the header als BEPERKING', function () {
+        it('optionally includes the atlas-wkpb-link in the header when it\'s a BEPERKING', function () {
             var directive;
 
             //BRONDOCUMENT has no wkpb-uittreksel
             directive = getDirective(null, 'BRONDOCUMENT', false, null, null);
-
-
             expect(directive.find('atlas-wkpb-link').length).toBe(0);
 
             //BEPERKING enige met wkpb uittreksel
             directive = getDirective(null, 'BEPERKING', false, null, brk);
-
             expect(directive.find('atlas-wkpb-link').length).toBe(1);
         });
 

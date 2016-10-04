@@ -47,4 +47,11 @@ describe('The dp-wkpb-link directive', function () {
         expect(component.find('dp-link').attr('payload')).toBe('vm.wkpbEndpoint');
         expect(scope.vm.wkpbEndpoint).toBe('http://www.api-root.com/brk/object-wkpb/abc789/');
     });
+
+    it('is spelled WKPB-uittreksel', function () {
+        var component = getComponent('abc789');
+
+        expect(component.text()).toContain('WKPB-uittreksel');
+        expect(component.text()).not.toContain('WKPB uittreksel');
+    });
 });
