@@ -137,16 +137,7 @@ describe('Panorama reducers factory', function () {
         it('Adds the payload to the state', function () {
             var newState = panoramaReducers[ACTIONS.SHOW_PANORAMA_INITIAL](inputState, payload);
 
-            expect(newState.panorama).toEqual(jasmine.objectContaining({
-                date: new Date('2016-05-19T13:04:15.341110Z'),
-                hotspots: [{
-                    id: 'ABC',
-                    heading: 179,
-                    distance: 3
-                }],
-                location: [52, 4],
-                image: 'http://example.com/example/bla.png'
-            }));
+            expect(newState.panorama).toEqual(jasmine.objectContaining(payload));
         });
 
 
