@@ -155,7 +155,7 @@
                     url: 'https://www.amsterdam.nl/stelselpedia/meetbouten-index/catalogus-amsterdams/meting/',
                     meta: []
                 },
-                NAP_PEILMERK: {
+                PEILMERK: {
                     label_singular: 'NAP peilmerk',
                     label_plural: 'NAP peilmerken',
                     description: 'Het Normaal Amsterdams Peil (afgekort tot NAP) is de referentiehoogte ' +
