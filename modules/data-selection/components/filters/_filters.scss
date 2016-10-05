@@ -1,7 +1,7 @@
 .c-data-selection-filters__filters {
   margin-right: $base-whitespace * 2;
 
-  h4 {
+  h3 {
     margin-top: $base-whitespace;
     color: $primary-contrast;
   }
@@ -12,6 +12,11 @@
       overflow: hidden;
     }
   }
+}
+
+.c-data-selection-header__close-filter__button {
+  @include data-selection-button("assets/icons/close-active.svg", "assets/icons/close-hover.svg")
+  margin-top: - $base-whitespace;
 }
 
 .c-data-selection-filters__empty__value {
@@ -28,7 +33,7 @@
   ul {
 
     li {
-      margin-bottom: $base-whitespace;
+      margin-bottom: $base-whitespace / 2;
       padding-top: $base-whitespace / 2;
       padding-bottom: $base-whitespace / 2;
       padding-left: $base-whitespace;
@@ -46,19 +51,28 @@
 }
 
 .c-data-selection-filters__available__filters {
+  margin-top: 2 * $base-whitespace;
   padding-right: $base-whitespace;
   padding-left: $base-whitespace;
   background-color: $secondary-gray4;
 
+  .c-data-selection-filters__available__filter {
+    padding-bottom: 1.5 * $base-whitespace;
+  }
+
   hr {
-    width: 100%;
+    width: auto;
     height: 1px;
-    margin-top: $base-whitespace / 2 ;
-    margin-bottom: $base-whitespace / 2;
+    margin: {
+      top: $base-whitespace / 2 ;
+      right: - $base-whitespace;
+      bottom: $base-whitespace / 2;
+      left: - $base-whitespace;
+    }
     background: $secondary-gray40;
   }
 
-  h4 {
+  h3 {
     margin-bottom: $base-whitespace;
   }
 

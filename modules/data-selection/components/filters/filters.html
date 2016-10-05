@@ -6,7 +6,8 @@
             <li ng-repeat="filter in vm.formattedActiveFilters">
                 <span class="u-pull--right">
                     <button ng-click="vm.removeFilter(filter.categorySlug)"
-                            title="Filter verwijderen">X</button>
+                       class="c-data-selection-header__close-filter__button o-btn"
+                       title="Filter verwijderen"></button>
 
                 </span>
                 {{filter.categoryLabel}}:
@@ -27,54 +28,56 @@
         <dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>
 
         <div ng-if="!vm.isLoading" ng-show="vm.hasSelectableValues(category)" ng-repeat="category in vm.availableFilters">
-            <h4>{{category.label}}</h4>
-            <ul>
-                <li ng-repeat="option in category.options | limitTo : vm.isExpandedCategory(category.slug) ? undefined : vm.showMoreThreshold">
-                    <button
-                        class="o-btn o-btn--link"
-                        ng-class="{
-                            'u-color__primary--dark': vm.isFilterActive(category.slug, option.label)
-                        }"
-                        ng-click="vm.addFilter(category.slug, option.label)">
+            <div class="c-data-selection-filters__available__filter">
+                <h3>{{category.label}}</h3>
+                <ul>
+                    <li ng-repeat="option in category.options | limitTo : vm.isExpandedCategory(category.slug) ? undefined : vm.showMoreThreshold">
+                        <button
+                            class="o-btn o-btn--link"
+                            ng-class="{
+                                'u-color__primary--dark': vm.isFilterActive(category.slug, option.label)
+                            }"
+                            ng-click="vm.addFilter(category.slug, option.label)">
 
-                        <span ng-class="{'c-data-selection-filters__empty__value ': !option.label}">
-                            <dp-data-selection-formatted-value
-                                value="option.label"
-                                format="category.format">
+                            <span ng-class="{'c-data-selection-filters__empty__value ': !option.label}">
+                                <dp-data-selection-formatted-value
+                                    value="option.label"
+                                    format="category.format">
 
-                            </dp-data-selection-formatted-value>
+                                </dp-data-selection-formatted-value>
 
-                        </span>
+                            </span>
 
+                        </button>
+
+                    </li>
+                </ul>
+
+                <div class="c-data-selection-filters__toon__meerminder" ng-if="vm.showExpandButton(category.slug)">
+                    <hr>
+                    <button class="o-btn o-btn--link qa-show-more-button"
+                            ng-click="vm.expandCategory(category.slug)">
+
+                        <strong>Toon meer</strong>
                     </button>
-
-                </li>
-            </ul>
-
-            <div class="c-data-selection-filters__toon__meerminder" ng-if="vm.showExpandButton(category.slug)">
-                <hr>
-                <button class="o-btn o-btn--link qa-show-more-button"
-                        ng-click="vm.expandCategory(category.slug)">
-
-                    <strong>Toon meer</strong>
-                </button>
-                <hr>
-            </div>
-
-            <div class="c-data-selection-filters__toon__meerminder" ng-if="vm.isExpandedCategory(category.slug)">
-                <hr>
-
-                <div ng-if="vm.nrHiddenOptions(category) > 0" class="qa-hidden-options c-data-selection-filters__hidden__options">
-                    ...nog {{vm.nrHiddenOptions(category) | number}} waarden
+                    <hr>
                 </div>
 
-                <button class="o-btn o-btn--link qa-show-more-button"
-                        ng-click="vm.implodeCategory(category.slug)">
+                <div class="c-data-selection-filters__toon__meerminder" ng-if="vm.isExpandedCategory(category.slug)">
+                    <hr>
 
-                    <strong>Toon minder</strong>
-                </button>
+                    <div ng-if="vm.nrHiddenOptions(category) > 0" class="qa-hidden-options c-data-selection-filters__hidden__options">
+                        ...nog {{vm.nrHiddenOptions(category) | number}} waarden
+                    </div>
 
-                <hr>
+                    <button class="o-btn o-btn--link qa-show-more-button"
+                            ng-click="vm.implodeCategory(category.slug)">
+
+                        <strong>Toon minder</strong>
+                    </button>
+
+                    <hr>
+                </div>
             </div>
 
         </div>

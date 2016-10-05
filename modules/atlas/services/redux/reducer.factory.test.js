@@ -7,7 +7,7 @@ describe('The reducer factory', function () {
         mapReducers,
         pageReducers,
         searchReducers,
-        straatbeeldReducers,
+        panoramaReducers,
         dataSelectionReducers,
         printReducers,
         inputState;
@@ -37,7 +37,7 @@ describe('The reducer factory', function () {
                 searchReducers: {
                     ACTION_G: function () {}
                 },
-                straatbeeldReducers: {
+                panoramaReducers: {
                     ACTION_H: function () {}
                 },
                 dataSelectionReducers: {
@@ -57,7 +57,7 @@ describe('The reducer factory', function () {
             _mapReducers_,
             _pageReducers_,
             _searchReducers_,
-            _straatbeeldReducers_,
+            _panoramaReducers_,
             _dataSelectionReducers_,
             _printReducers_) {
 
@@ -68,7 +68,7 @@ describe('The reducer factory', function () {
             mapReducers = _mapReducers_;
             pageReducers = _pageReducers_;
             searchReducers = _searchReducers_;
-            straatbeeldReducers = _straatbeeldReducers_;
+            panoramaReducers = _panoramaReducers_;
             dataSelectionReducers = _dataSelectionReducers_;
             printReducers = _printReducers_;
         });
@@ -87,7 +87,7 @@ describe('The reducer factory', function () {
         spyOn(mapReducers, 'ACTION_E').and.callThrough();
         spyOn(pageReducers, 'ACTION_F').and.callThrough();
         spyOn(searchReducers, 'ACTION_G').and.callThrough();
-        spyOn(straatbeeldReducers, 'ACTION_H').and.callThrough();
+        spyOn(panoramaReducers, 'ACTION_H').and.callThrough();
         spyOn(dataSelectionReducers, 'ACTION_I').and.callThrough();
         spyOn(printReducers, 'ACTION_J').and.callThrough();
 
@@ -109,7 +109,7 @@ describe('The reducer factory', function () {
         expect(mapReducers.ACTION_E).toHaveBeenCalled();
         expect(pageReducers.ACTION_F).toHaveBeenCalled();
         expect(searchReducers.ACTION_G).toHaveBeenCalled();
-        expect(straatbeeldReducers.ACTION_H).toHaveBeenCalled();
+        expect(panoramaReducers.ACTION_H).toHaveBeenCalled();
         expect(dataSelectionReducers.ACTION_I).toHaveBeenCalled();
         expect(printReducers.ACTION_J).toHaveBeenCalled();
     });
