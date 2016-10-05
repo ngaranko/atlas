@@ -7,15 +7,19 @@
                 <span class="u-pull--right">
                     <button ng-click="vm.removeFilter(filter.categorySlug)"
                        class="c-data-selection-header__close-filter__button o-btn"
-                       title="Filter verwijderen"></button>
+                       title="Filter verwijderen">
+                        <span class="u-sr-only">Filter verwijderen</span>
+                    </button>
 
                 </span>
-                {{filter.categoryLabel}}:
-                <span ng-class="{'c-data-selection-filters__empty__value ': !filter.option}">
-                    <dp-data-selection-formatted-value
-                        value="filter.option"
-                        format="filter.format">
-                    </dp-data-selection-formatted-value>
+                <span class="c-data-selection-filters__active__filter">
+                    {{filter.categoryLabel}}:
+                    <span ng-class="{'c-data-selection-filters__empty__value ': !filter.option}">
+                        <dp-data-selection-formatted-value
+                            value="filter.option"
+                            format="filter.format">
+                        </dp-data-selection-formatted-value>
+                    </span>
                 </span>
 
             </li>
@@ -29,7 +33,7 @@
 
         <div ng-if="!vm.isLoading" ng-show="vm.hasSelectableValues(category)" ng-repeat="category in vm.availableFilters">
             <div class="c-data-selection-filters__available__filter">
-                <h3>{{category.label}}</h3>
+                <h3 class="c-data-selection-filters__available-filter-label">{{category.label}}</h3>
                 <ul>
                     <li ng-repeat="option in category.options | limitTo : vm.isExpandedCategory(category.slug) ? undefined : vm.showMoreThreshold">
                         <button

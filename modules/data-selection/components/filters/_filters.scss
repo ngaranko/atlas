@@ -1,11 +1,6 @@
 .c-data-selection-filters__filters {
   margin-right: $base-whitespace * 2;
 
-  h3 {
-    margin-top: $base-whitespace;
-    color: $primary-contrast;
-  }
-
   ul {
 
     li {
@@ -15,8 +10,9 @@
 }
 
 .c-data-selection-header__close-filter__button {
-  @include data-selection-button("assets/icons/close-active.svg", "assets/icons/close-hover.svg")
+  @include data-selection-button("assets/icons/close-active.svg", "assets/icons/close-hover.svg");
   margin-top: - $base-whitespace;
+  margin-right: 0;
 }
 
 .c-data-selection-filters__empty__value {
@@ -30,28 +26,32 @@
 
 .c-data-selection-filters__active__filters {
 
+  .c-data-selection-filters__active__filter {
+    vertical-align: middle;
+  }
+
   ul {
 
     li {
       margin-bottom: $base-whitespace / 2;
-      padding-top: $base-whitespace / 2;
-      padding-bottom: $base-whitespace / 2;
       padding-left: $base-whitespace;
       background-color: $secondary-gray60;
       color: $primary-light;
 
+      &:last-child {
+        margin-bottom: $base-whitespace * 2.5;
+      }
     }
+
   }
 
   button {
-    margin-right: $base-whitespace;
     color: $primary-light;
     font-weight: bolder;
   }
 }
 
 .c-data-selection-filters__available__filters {
-  margin-top: 2 * $base-whitespace;
   padding-right: $base-whitespace;
   padding-left: $base-whitespace;
   background-color: $secondary-gray4;
@@ -72,8 +72,10 @@
     background: $secondary-gray40;
   }
 
-  h3 {
+  .c-data-selection-filters__available-filter-label {
     margin-bottom: $base-whitespace;
+    padding-top: $base-whitespace;
+    color: $primary-contrast;
   }
 
   ul {

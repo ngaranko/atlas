@@ -4,8 +4,6 @@ $hover-table-color: #eee;
   display: block;
 
   thead {
-    font-family: $header-font-family;
-    font-size: $base-font-size * 1.2;
 
     tr {
       background-color: $secondary-gray40;
@@ -40,6 +38,9 @@ $hover-table-color: #eee;
       top: 0;
       bottom: 0;
     }
+    font-family: $header-font-family;
+    font-size: $base-font-size * 1.2;
+    font-weight: lighter;
   }
 
   td,
