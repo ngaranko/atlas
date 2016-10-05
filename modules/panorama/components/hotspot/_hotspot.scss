@@ -1,0 +1,20 @@
+.hotspot {
+  width: 60px;
+  height: 60px;
+  transform: scale(1);
+  border: none;
+  border-radius: 60px;
+  outline: none;
+  background-color: $primary-contrast;
+  background-image: url("/assets/icons/hotspot.svg");
+  background-size: cover;
+  cursor: pointer;
+
+  &:hover {
+    animation-play-state: running;
+  }
+
+  &:focus {
+    border: 1px solid $primary-contrast;
+  }
+}

@@ -79,7 +79,7 @@ describe('The dataSelectionReducers factory', function () {
             });
         });
 
-        it('disables search, page, detail and straatbeeld', function () {
+        it('disables search, page, detail and panorama', function () {
             var mockedState,
                 output;
 
@@ -87,14 +87,14 @@ describe('The dataSelectionReducers factory', function () {
             mockedState.search = {some: 'object'};
             mockedState.page = 'somePage';
             mockedState.detail = {some: 'object'};
-            mockedState.straatbeeld = {some: 'object'};
+            mockedState.panorama = {some: 'object'};
 
             output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION](mockedState, payload);
 
             expect(output.search).toBeNull();
             expect(output.page).toBeNull();
             expect(output.detail).toBeNull();
-            expect(output.straatbeeld).toBeNull();
+            expect(output.panorama).toBeNull();
         });
 
         it('preserves the isPrintMode variable', function () {

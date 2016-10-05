@@ -1,15 +1,16 @@
-<div class="c-data-selection-pagination"   ng-if="vm.showPagination">
-    <div class="u-pull--left">
+<div class="c-data-selection-pagination" ng-if="vm.showPagination">
+    <hr>
+    <div class="u-pull--left c-data-selection-page__form__links">
         <dp-data-selection-pagination-link link="vm.firstPage"></dp-data-selection-pagination-link>
         <dp-data-selection-pagination-link link="vm.previousPage"></dp-data-selection-pagination-link>
     </div>
     <form class="u-inline-block" ng-submit="vm.goToPage($event)">
         <strong>Ga naar pagina</strong>
-        <input ng-model="vm.currentPage" type="number" pattern="\d*" class="c-data-selection-pagination__form__input" size="4">
-        <button class="c-data-selection-page__form__button" type="submit"></button>
+        <input ng-model="vm.currentPage" type="number" class="c-data-selection-pagination__input" pattern="\d*" size="4">
+        <button type="submit" class="c-data-selection-pagination__button" ></button>
         <strong class="u-margin__left--1">van {{ vm.numberOfPages }}</strong>
     </form>
-    <div class="u-pull--right">
+    <div class="u-pull--right c-data-selection-page__form__links">
         <dp-data-selection-pagination-link link="vm.nextPage"></dp-data-selection-pagination-link>
         <dp-data-selection-pagination-link link="vm.lastPage"></dp-data-selection-pagination-link>
     </div>

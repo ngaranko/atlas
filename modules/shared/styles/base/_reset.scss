@@ -20,6 +20,8 @@ button {
 }
 
 input {
+  -moz-appearance: textfield;
+
   &[type="number"] {
     &::-webkit-inner-spin-button,
     &::-webkit-outer-spin-button {
