@@ -22,7 +22,7 @@
                 visibility.detail = false;
                 visibility.page = false;
                 visibility.searchResults = false;
-                visibility.panorama = false;
+                visibility.straatbeeld = false;
             } else {
                 if (!state.isPrintMode) {
                     visibility.map = true;
@@ -30,7 +30,7 @@
                     visibility.map = !state.map.showLayerSelection && (
                         state.map.isFullscreen ||
                         angular.isObject(state.detail) ||
-                        angular.isObject(state.panorama));
+                        angular.isObject(state.straatbeeld));
                 }
 
                 visibility.layerSelection = state.map.showLayerSelection;
@@ -39,13 +39,13 @@
                     visibility.detail = false;
                     visibility.page = false;
                     visibility.searchResults = false;
-                    visibility.panorama = false;
+                    visibility.straatbeeld = false;
                 } else {
                     visibility.detail = angular.isObject(state.detail);
                     visibility.page = angular.isString(state.page);
                     visibility.searchResults = angular.isObject(state.search) &&
                         (angular.isString(state.search.query) || angular.isArray(state.search.location));
-                    visibility.panorama = angular.isObject(state.panorama);
+                    visibility.straatbeeld = angular.isObject(state.straatbeeld);
                 }
 
                 visibility.dataSelection = false;

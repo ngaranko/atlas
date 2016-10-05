@@ -40,7 +40,7 @@ describe('The search-reducers factory', function () {
             expect(output.map.highlight).toBeNull();
         });
 
-        it('hides the layer selection, page, detail, panorama and dataSelection', function () {
+        it('hides the layer selection, page, detail, straatbeeld and dataSelection', function () {
             var inputState = angular.copy(defaultState),
                 output;
 
@@ -55,7 +55,7 @@ describe('The search-reducers factory', function () {
             expect(output.map.showLayerSelection).toBe(false);
             expect(output.page).toBeNull();
             expect(output.detail).toBeNull();
-            expect(output.panorama).toBeNull();
+            expect(output.straatbeeld).toBeNull();
             expect(output.dataSelection).toBeNull();
         });
 
@@ -100,7 +100,7 @@ describe('The search-reducers factory', function () {
             expect(output.map.highlight).toBeNull();
         });
 
-        it('hides the layer selection, active overlays, page, detail, panorama and dataSelection', function () {
+        it('hides the layer selection, active overlays, page, detail, straatbeeld and dataSelection', function () {
             var inputState = angular.copy(defaultState),
                 output;
 
@@ -117,7 +117,7 @@ describe('The search-reducers factory', function () {
             expect(output.map.showActiveOverlays).toBe(false);
             expect(output.page).toBeNull();
             expect(output.detail).toBeNull();
-            expect(output.panorama).toBeNull();
+            expect(output.straatbeeld).toBeNull();
             expect(output.dataSelection).toBeNull();
         });
 
