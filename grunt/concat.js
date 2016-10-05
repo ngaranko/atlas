@@ -15,7 +15,11 @@ module.exports = function (grunt) {
             src: ['build/temp/bower_components.js'],
             dest: 'build/atlas.libs.' + uniqueIdJs + '.js'
         },
-        babel: {
+        tests: {
+            src: ['modules/**/*.test.js'],
+            dest: 'build/temp/babel/atlas.tests.es6.js'
+        },
+        modules: {
             src: jsFiles,
             dest: 'build/temp/babel/atlas.' + uniqueIdJs + '.js'
         },

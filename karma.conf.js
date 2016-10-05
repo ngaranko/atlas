@@ -1,8 +1,7 @@
 var jsFiles = ['build/temp/bower_components.js'];
 jsFiles = jsFiles.concat(require('./grunt/config/js-files'));
-
 jsFiles.push('bower_components/angular-mocks/angular-mocks.js');
-jsFiles.push('modules/**/*.test.js');
+jsFiles.push('build/temp/babel/atlas.tests.es5.js');
 
 module.exports = function (config) {
     config.set({
@@ -17,12 +16,14 @@ module.exports = function (config) {
             'karma-mocha-reporter',
             'karma-coverage',
             'karma-phantomjs-launcher',
-            'karma-babel-preprocessor'
+            'karma-babel-preprocessor',
+            'karma-sourcemap-loader'
         ],
         // possible values: OFF, ERROR, WARN, INFO, DEBUG
         logLevel: 'ERROR',
         preprocessors: {
-            'modules/**/!(*.test).js': ['babel', 'coverage']
+            'modules/**/!(*.test).js': ['babel', 'coverage'],
+            'build/temp/babel/atlas.tests.es5.js': ['sourcemap']
         },
         babelPreprocessor: {
             options: {

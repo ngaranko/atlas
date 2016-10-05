@@ -48,9 +48,20 @@ module.exports = function (grunt) {
         'clean:temp'
     ]);
 
+    grunt.registerTask('build-bower', [
+        'bower_concat:js',
+        'concat:bower',
+    ]);
+
+    grunt.registerTask('build-babel', [
+        'concat:modules',
+        'babel-modules-configure',
+        'babel:modules'
+    ]);
+
     grunt.registerTask('test-js', [
         'jshint',
-        'karma:coverage',
+        'test-babel',
         'console-log-test'
     ]);
 
@@ -58,7 +69,20 @@ module.exports = function (grunt) {
         'sasslint'
     ]);
 
-    grunt.registerTask('babel-configure', 'Configure babel options', function() {
+    grunt.registerTask('test-babel', [
+        'concat:tests',
+        'babel-tests-configure',
+        'babel:tests',
+        'karma:coverage'
+    ]);
+
+    grunt.registerTask('babel-tests-configure', 'Configure babel tests options', function() {
+        // Inject the source maps from the concat operation in the new babel sourcemap
+        grunt.config.set('babel.tests.options.inputSourceMap',
+            grunt.file.readJSON('build/temp/babel/atlas.tests.es6.js.map'));
+    });
+
+    grunt.registerTask('babel-modules-configure', 'Configure babel options', function() {
         // Inject the source maps from the concat operation in the new babel sourcemap
         grunt.config.set('babel.options.inputSourceMap',
             grunt.file.readJSON('build/temp/babel/atlas.' + uniqueIdJs + '.js.map'));
@@ -68,12 +92,9 @@ module.exports = function (grunt) {
      * The output of build-js are two files 'build/atlas.js' and a source map.
      */
     grunt.registerTask('build-js', [
-        'bower_concat:js',
-        'concat:bower',
+        'build-bower',
         'ngtemplates',
-        'concat:babel',
-        'babel-configure',
-        'babel:es6',
+        'build-babel',
         'tags:js'
     ]);
 
