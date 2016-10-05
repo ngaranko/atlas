@@ -31,7 +31,7 @@
             newState.map.isFullscreen = false;
             newState.search = null;
             newState.detail = null;
-            newState.straatbeeld = null;
+            newState.panorama = null;
             newState.dataSelection = null;
 
             return newState;

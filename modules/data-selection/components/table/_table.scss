@@ -1,8 +1,11 @@
+$hover-table-color: #eee;
+
 .c-data-selection-table__table {
   display: block;
-  overflow-x: auto;
 
   thead {
+    font-family: $header-font-family;
+    font-size: $base-font-size * 1.2;
 
     tr {
       background-color: $secondary-gray40;
@@ -11,19 +14,37 @@
   }
 
   td {
+    padding: {
+      top: $base-whitespace;
+      bottom: $base-whitespace;
+    }
 
     &:hover {
       cursor: pointer;
     }
   }
 
+  tbody {
+    tr {
+
+      &:hover {
+        background-color: $hover-table-color;
+      }
+
+    }
+  }
+
+  th {
+    height: $button-size;
+    padding: {
+      top: 0;
+      bottom: 0;
+    }
+  }
+
   td,
   th {
-    padding: {
-      top: $base-whitespace;
-      bottom: $base-whitespace;
-      left: $base-whitespace;
-    }
+    padding-left: $base-whitespace;
     white-space: nowrap;
 
     &:last-child {
