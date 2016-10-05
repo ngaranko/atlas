@@ -34,8 +34,8 @@ module.exports = [
         slug: 'data-selection'
     },
     {
-        name: 'dpPanorama',
-        slug: 'panorama'
+        name: 'dpStraatbeeld',
+        slug: 'straatbeeld'
     },
     {
         name: 'atlas',

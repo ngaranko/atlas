@@ -24,13 +24,8 @@
                 yMin,
                 xMax,
                 yMax;
-            
-            if (geoJSON.type === 'Point') {
-                xValues.push(geoJSON.coordinates[1]);
-                yValues.push(geoJSON.coordinates[0]);
-            } else {
-                getCoordinates(geoJSON.coordinates);
-            }
+
+            getCoordinates(geoJSON.coordinates);
 
             xValues.sort();
             yValues.sort();
@@ -46,13 +41,12 @@
                 yMin + (yMax - yMin) / 2
             ];
 
-
             function getCoordinates (coordinates) {
-                var isCoordinate = coordinates.length === 2 &&
+                var isPoint = coordinates.length === 2 &&
                     angular.isNumber(coordinates[0]) &&
                     angular.isNumber(coordinates[1]);
 
-                if (isCoordinate) {
+                if (isPoint) {
                     xValues.push(coordinates[0]);
                     yValues.push(coordinates[1]);
                 } else {

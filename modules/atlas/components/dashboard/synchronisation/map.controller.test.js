@@ -57,7 +57,7 @@ describe('The map controller', function () {
         });
     });
 
-    describe('optionally adds marker data for search by location, detail and panorama', function () {
+    describe('optionally adds marker data for search by location, detail and straatbeeld', function () {
         var mockedState,
             controller;
 
@@ -100,24 +100,28 @@ describe('The map controller', function () {
             }));
         });
 
-        it('supports a panorama marker', function () {
+        it('supports a straatbeeld marker', function () {
             mockedState = {
-                panorama: {
-                    location: [52.2, 4.2],
-                    heading: 179
+                straatbeeld: {
+                    car: {
+                        location: [52.2, 4.2]
+                    },
+                    camera: {
+                        heading: Math.PI
+                    }
                 }
             };
 
             spyOn(store, 'getState').and.returnValue(mockedState);
             controller = getController();
 
-            //Panorama is secretly made using two icons
+            //Straatbeeld is secretly made using two icons
             expect(controller.markers).toContain(jasmine.objectContaining({
-                id: 'panorama_orientation'
+                id: 'straatbeeld_orientation'
             }));
 
             expect(controller.markers).toContain(jasmine.objectContaining({
-                id: 'panorama_person'
+                id: 'straatbeeld_person'
             }));
         });
 
@@ -129,18 +133,22 @@ describe('The map controller', function () {
                 detail: {
                     geometry: 'FAKE_RD_GEOMETRY'
                 },
-                panorama: {
-                    location: [52.2, 4.2],
-                    heading: 179
+                straatbeeld: {
+                    car: {
+                        location: [52.2, 4.2]
+                    },
+                    camera: {
+                        heading: Math.PI
+                    }
                 }
             };
 
             spyOn(store, 'getState').and.returnValue(mockedState);
             controller = getController();
 
-            //Panorama is secretly made using two icons
+            //Straatbeeld is secretly made using two icons
 
-            //Search and panorama are in WGS84 and will be converted to RD
+            //Search and straatbeeld are in WGS84 and will be converted to RD
             expect(controller.markers).toContain(jasmine.objectContaining({
                 id: 'search',
                 geometry: {
@@ -150,7 +158,7 @@ describe('The map controller', function () {
             }));
 
             expect(controller.markers).toContain(jasmine.objectContaining({
-                id: 'panorama_orientation',
+                id: 'straatbeeld_orientation',
                 geometry: {
                     type: 'Point',
                     coordinates: 'FAKE_RD_COORDINATES'
@@ -158,7 +166,7 @@ describe('The map controller', function () {
             }));
 
             expect(controller.markers).toContain(jasmine.objectContaining({
-                id: 'panorama_person',
+                id: 'straatbeeld_person',
                 geometry: {
                     type: 'Point',
                     coordinates: 'FAKE_RD_COORDINATES'
@@ -172,17 +180,21 @@ describe('The map controller', function () {
             }));
         });
 
-        it('The panorama_orientation icon will have a extra variable for leaflet-rotatedmarker', function () {
+        it('The straatbeeld_orientation icon will have a extra variable for leaflet-rotatedmarker', function () {
             mockedState = {
-                panorama: {
-                    location: [52.2, 4.2],
-                    heading: 179
+                straatbeeld: {
+                    car: {
+                        location: [52.2, 4.2]
+                    },
+                    camera: {
+                        heading: Math.PI
+                    }
                 }
             };
 
             expect(controller.markers).toContain(jasmine.objectContaining({
-                id: 'panorama_orientation',
-                orientation: 179
+                id: 'straatbeeld_orientation',
+                orientation: Math.PI
             }));
         });
 
@@ -194,9 +206,13 @@ describe('The map controller', function () {
                 detail: {
                     geometry: 'FAKE_RD_GEOMETRY'
                 },
-                panorama: {
-                    location: [52.2, 4.2],
-                    heading: 179
+                straatbeeld: {
+                    car: {
+                        location: [52.2, 4.2]
+                    },
+                    camera: {
+                        heading: Math.PI
+                    }
                 }
             };
 
@@ -214,12 +230,12 @@ describe('The map controller', function () {
             }));
 
             expect(controller.markers).toContain(jasmine.objectContaining({
-                id: 'panorama_orientation',
+                id: 'straatbeeld_orientation',
                 useAutoFocus: false
             }));
 
             expect(controller.markers).toContain(jasmine.objectContaining({
-                id: 'panorama_person',
+                id: 'straatbeeld_person',
                 useAutoFocus: false
             }));
         });
