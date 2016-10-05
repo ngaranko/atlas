@@ -34,7 +34,7 @@
             newState.search = null;
             newState.page = null;
             newState.detail = null;
-            newState.panorama = null;
+            newState.straatbeeld = null;
 
             newState.dataSelection = payload;
 
