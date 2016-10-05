@@ -33,9 +33,7 @@
         <dd ng-if="!apiData.results.bezoekadres.geometrie.coordinates[0]"></dd>
     </dl>
 
-    <div  class="c-panel c-panel--warning">
-
-    <!-- ng-if="vm.isVisible('disclaimer')" -->
+    <dp-panel is-panel-visible="true" type="warning" can-close="true">
         <h3 class="u-margin__bottom--1">Disclaimer</h3>
         <p>
             De gegevens uit het Handelsregister (HR) in Atlas zijn afkomstig van een lokale gemeentelijke kopie van de Kamer van Koophandel (KvK). Basisinformatie vult deze lokale kopie op dit moment voor het eerst.        </p>
@@ -47,13 +45,9 @@
         </p>
 
         <p class="u-margin__bottom--0">
-            Raadpleeg voor de meest actuele gegevens de raadpleegvoorziening van de KvK: <a class="o-link-inline o-link-inline--warning" href="https://www.kvk.nl/zoeken/">https://www.kvk.nl/zoeken/</a>.
+            Raadpleeg voor de meest actuele gegevens de raadpleegvoorziening van de KvK: <a class="o-link-inline o-link-inline--light" href="https://www.kvk.nl/zoeken/">https://www.kvk.nl/zoeken/</a>.
         </p>
-
-        <button class="o-btn--close o-btn--close--warning" ng-click="vm.toggle('disclaimer')" title="Sluiten">
-            <span class="u-sr-only">Sluiten</span>
-        </button>
-    </div>
+    </dp-panel>
 
     <atlas-api-call endpoint="{{vm.apiData.results.maatschappelijke_activiteit}}" partial="handelsregister/mac"></atlas-api-call>
 </div>
