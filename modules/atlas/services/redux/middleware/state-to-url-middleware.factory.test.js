@@ -44,13 +44,13 @@ describe('The stateToUrlMiddleware factory', function () {
         expect(stateToUrl.update).toHaveBeenCalledWith('FAKE_STATE', jasmine.anything());
     });
 
-    it('doesn\'t call stateToUrl.update for URL_CHANGE, FETCH_DETAIL, FETCH_PANORAMA, SHOW_LAYER_SELECTION and ' +
+    it('doesn\'t call stateToUrl.update for URL_CHANGE, FETCH_DETAIL, FETCH_STRAATBEELD, SHOW_LAYER_SELECTION and ' +
         'HIDE_LAYER_SELECTION', function () {
 
         var actionWithoutUrlUpdate = [
             ACTIONS.URL_CHANGE,
             ACTIONS.FETCH_DETAIL,
-            ACTIONS.FETCH_PANORAMA
+            ACTIONS.FETCH_STRAATBEELD
         ];
 
         actionWithoutUrlUpdate.forEach(function (action) {
@@ -76,9 +76,9 @@ describe('The stateToUrlMiddleware factory', function () {
             ACTIONS.MAP_ZOOM,
             ACTIONS.MAP_FULLSCREEN,
             ACTIONS.SHOW_DETAIL,
-            ACTIONS.SHOW_PANORAMA_INITIAL,
-            ACTIONS.SHOW_PANORAMA_SUBSEQUENT,
-            ACTIONS.SET_PANORAMA_ORIENTATION,
+            ACTIONS.SHOW_STRAATBEELD_INITIAL,
+            ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT,
+            ACTIONS.STRAATBEELD_SET_ORIENTATION,
             ACTIONS.SHOW_LAYER_SELECTION,
             ACTIONS.HIDE_LAYER_SELECTION,
             ACTIONS.SHOW_ACTIVE_OVERLAYS,
@@ -107,7 +107,7 @@ describe('The stateToUrlMiddleware factory', function () {
                 ACTIONS.MAP_TOGGLE_VISIBILITY_OVERLAY,
                 ACTIONS.MAP_PAN,
                 ACTIONS.MAP_ZOOM,
-                ACTIONS.SHOW_PANORAMA_SUBSEQUENT,
+                ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT,
                 ACTIONS.SHOW_ACTIVE_OVERLAYS,
                 ACTIONS.HIDE_ACTIVE_OVERLAYS
             ],
@@ -117,8 +117,8 @@ describe('The stateToUrlMiddleware factory', function () {
                 ACTIONS.SHOW_SEARCH_RESULTS_CATEGORY,
                 ACTIONS.MAP_FULLSCREEN,
                 ACTIONS.SHOW_DETAIL,
-                ACTIONS.SHOW_PANORAMA_INITIAL,
-                ACTIONS.SET_PANORAMA_ORIENTATION,
+                ACTIONS.SHOW_STRAATBEELD_INITIAL,
+                ACTIONS.STRAATBEELD_SET_ORIENTATION,
                 ACTIONS.SHOW_LAYER_SELECTION,
                 ACTIONS.HIDE_LAYER_SELECTION,
                 ACTIONS.SHOW_HOME,

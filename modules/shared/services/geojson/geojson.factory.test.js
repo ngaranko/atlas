@@ -13,10 +13,10 @@ describe('The geojson factory', function () {
         });
 
         mockedPoint = {
-            type: 'Point',
-            coordinates: [4, 52]
+            type: 'Points',
+            coordinates: [100.0, 0.0]
         };
- 
+
         mockedPolygon = {
             type: 'Polygon',
             coordinates: [
@@ -55,7 +55,7 @@ describe('The geojson factory', function () {
     });
 
     it('can transform a Point to an Array format', function () {
-        expect(geojson.getCenter(mockedPoint)).toEqual([52, 4]);
+        expect(geojson.getCenter(mockedPoint)).toEqual([100.0, 0.0]);
     });
 
     it('can calculate the center of a Polygon', function () {
