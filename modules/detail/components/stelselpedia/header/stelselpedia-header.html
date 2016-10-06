@@ -47,7 +47,7 @@
         </a>
     </dp-panel>
 
-    <dp-panel ng-if="vm.hasMetaData && vm.isVisible.meta" is-panel-visible="vm.isVisible.meta" can-close="true" class-name="qa-metadata">
+    <dp-panel ng-if="vm.hasMetaData" is-panel-visible="vm.isVisible.meta" can-close="true" class-name="qa-metadata">
         <h3 class="u-margin__bottom--1">Metadata van {{vm.stelselpediaLabel | lowercase}}</h3>
 
         <atlas-stelselpedia-meta definition="{{vm.definition}}" api-data="vm.metaData"></atlas-stelselpedia-meta>

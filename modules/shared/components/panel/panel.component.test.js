@@ -107,6 +107,8 @@ describe('The dp-panel component', function () {
         it('has an option to add additional classes', function () {
             var component = getComponent(true, true, 'warning', 'my-class an-other-class');
 
+            expect(component.find('div').attr('class')).toContain('c-panel');
+            expect(component.find('button').attr('class')).toContain('o-btn--close');
             expect(component.find('div').attr('class')).toContain('my-class an-other-class');
         });
     });
