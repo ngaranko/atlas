@@ -6,12 +6,33 @@
         .module('dpDataSelection')
         .factory('dpDataSelection.documentTitle', documentTitleFactory);
 
-    function documentTitleFactory () {
+    documentTitleFactory.$inject = ['dataSelectionConfig'];
+
+    function documentTitleFactory (dataSelectionConfig) {
         return {
             getTitle: getTitle
         };
 
-        function getTitle (/*activeFilters*/) {
+        function getTitle (dataSelectionState) {
+            var variant,
+                activeFilters;
+
+            variant = dataSelectionConfig[dataSelectionState.dataset].TITLE;
+
+            dataSelectionConfig[dataSelectionState.dataset].FILTERS
+                //Retrieve all the active filters
+                .filter(function (availableFilter) {
+                    return angular.isDefined(dataSelectionState.filters[availableFilter]);
+                })
+                //Show the value of each active filter
+                .map(function () {
+
+                });
+
+            dataSelectionState.
+            //Paginatitel: Tabel <variant> met <criteria> - Atlas
+
+            //Waar <variant> is 'adressen' (BAG) of 'vestigingen' (HR). De <criteria> zijn waarden van gekozen filters (comma seperated).
             return 'Tabel adressen met <criteria>';
         }
     }

@@ -31,6 +31,7 @@
             MAX_AVAILABLE_PAGES: 100,
             bag: {
                 PRIMARY_KEY: 'id',
+                TITLE: 'Adressen',
                 FILTERS: [
                     {
                         slug: 'stadsdeel_naam',
