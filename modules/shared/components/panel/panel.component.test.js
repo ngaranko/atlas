@@ -42,16 +42,16 @@ describe('The dp-panel component', function () {
     }
 
     describe('Visability', function () {
-        it('can be visible initially', function () {
+        it('can be visible', function () {
             var component = getComponent(true);
 
-            expect(component.find('div').length).toBe(1);
+            expect(component.find('div.c-panel').length).toBe(1);
         });
 
-        it('can not be visible initially', function () {
+        it('can not be visible', function () {
             var component = getComponent(false);
 
-            expect(component.find('div').length).toBe(0);
+            expect(component.find('div.c-panel').length).toBe(0);
         });
     });
 
@@ -59,24 +59,24 @@ describe('The dp-panel component', function () {
         it('does not have a close button by default', function () {
             var component = getComponent(true);
 
-            expect(component.find('button').length).toBe(0);
+            expect(component.find('button.o-btn--close').length).toBe(0);
         });
 
         it('has an optional close button', function () {
             var component = getComponent(true, true);
 
-            expect(component.find('button').length).toBe(1);
+            expect(component.find('button.o-btn--close').length).toBe(1);
         });
 
         it('closes the panel on click', function () {
             var component = getComponent(true, true);
 
-            expect(component.find('button').length).toBe(1);
+            expect(component.find('button.o-btn--close').length).toBe(1);
 
             component.find('button').click();
 
-            expect(component.find('div').length).toBe(0);
-            expect(component.find('button').length).toBe(0);
+            expect(component.find('div.c-panel').length).toBe(0);
+            expect(component.find('button.o-btn--close').length).toBe(0);
         });
 
     });
