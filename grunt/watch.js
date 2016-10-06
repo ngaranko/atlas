@@ -1,12 +1,12 @@
 module.exports = {
-    modules: {
+    js_app: {
         files: [
             'modules/**/!(*.test).js',
             'modules/**/*.html'
         ],
         tasks: [
             'clean:js',
-            'build-js',
+            'update-build-js',
             'test-js'
         ]
     },
@@ -16,11 +16,11 @@ module.exports = {
         ],
         tasks: [
             'clean:css',
-            'build-css',
+            'update-build-css',
             'test-css'
         ]
     },
-    tests: {
+    js_tests: {
         files: [
             'modules/**/*.test.js'
         ],

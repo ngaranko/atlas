@@ -19,8 +19,8 @@ module.exports = function (grunt) {
         connect: require('./grunt/connect'),
         'console-log-test': require('./grunt/console-log-test'),
         copy: require('./grunt/copy'),
-        jshint: require('./grunt/jshint'),
         eslint: require('./grunt/eslint'),
+        jshint: require('./grunt/jshint'),
         karma: require('./grunt/karma'),
         ngtemplates: require('./grunt/angular-templates'),
         postcss: require('./grunt/postcss')(grunt),
@@ -48,12 +48,13 @@ module.exports = function (grunt) {
         'clean:temp'
     ]);
 
-    grunt.registerTask('build-bower', [
+    grunt.registerTask('build-js-bower', [
         'bower_concat:js',
         'concat:bower',
     ]);
 
-    grunt.registerTask('build-babel', [
+    grunt.registerTask('build-js-modules', [
+        'ngtemplates',
         'concat:modules',
         'babel-modules-configure',
         'babel:modules'
@@ -62,7 +63,7 @@ module.exports = function (grunt) {
     grunt.registerTask('test-js', [
         'jshint',
         'eslint',
-        'test-babel',
+        'test-js-modules',
         'console-log-test'
     ]);
 
@@ -70,32 +71,24 @@ module.exports = function (grunt) {
         'sasslint'
     ]);
 
-    grunt.registerTask('test-babel', [
+    grunt.registerTask('test-js-modules', [
         'concat:tests',
         'babel-tests-configure',
         'babel:tests',
         'karma:coverage'
     ]);
 
-    grunt.registerTask('babel-tests-configure', 'Configure babel tests options', function() {
-        // Inject the source maps from the teste concat operation in the new babel sourcemap
-        grunt.config.set('babel.tests.options.inputSourceMap',
-            grunt.file.readJSON('build/temp/babel/atlas.tests.es6.js.map'));
-    });
-
-    grunt.registerTask('babel-modules-configure', 'Configure babel options', function() {
-        // Inject the source maps from the modules concat operation in the new babel sourcemap
-        grunt.config.set('babel.options.inputSourceMap',
-            grunt.file.readJSON('build/temp/babel/atlas.' + uniqueIdJs + '.js.map'));
-    });
-
     /**
      * The output of build-js are two files 'build/atlas.js' and a source map.
      */
     grunt.registerTask('build-js', [
-        'build-bower',
-        'ngtemplates',
-        'build-babel',
+        'build-js-bower',
+        'update-build-js'
+    ]);
+
+    grunt.registerTask('update-build-js', [
+        'concat:bower',    // copy bower, do not rebuild bower
+        'build-js-modules',
         'tags:js'
     ]);
 
@@ -104,12 +97,15 @@ module.exports = function (grunt) {
      */
     grunt.registerTask('build-css', [
         'bower_concat:css',
+        'update-build-css'
+    ]);
+
+    grunt.registerTask('update-build-css', [
         'sass',
         'concat:css',
         'postcss',
         'tags:css'
     ]);
-
     /**
      * 'default' formerly known as 'grunt serve'
      */
@@ -135,9 +131,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-eslint');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-postcss');
-    grunt.loadNpmTasks('grunt-eslint');
     grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-sass-lint');
     grunt.loadNpmTasks('grunt-script-link-tags');
