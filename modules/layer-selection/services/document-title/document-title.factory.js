@@ -4,15 +4,15 @@
     //This factory name is namespaced because other modules will get a similar service with the same name
     angular
         .module('dpLayerSelection')
-        .factory('dpLayerSelection.documentTitle', documentTitleFactory);
+        .factory('dpLayerSelectionDocumentTitle', dpLayerSelectionDocumentTitleFactory);
 
-    function documentTitleFactory () {
+    function dpLayerSelectionDocumentTitleFactory () {
         return {
             getTitle: getTitle
         };
 
         function getTitle () {
-            return 'Een harde string';
+            return 'Selecteer kaartlagen';
         }
     }
 })();
