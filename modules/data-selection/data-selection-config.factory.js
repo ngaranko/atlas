@@ -39,9 +39,6 @@
                         slug: 'ggw_naam',
                         label: 'GGW-gebied'
                     }, {
-                        slug: 'ggw_naam',
-                        label: 'Gebieden'
-                    }, {
                         slug: 'buurtcombinatie_naam',
                         label: 'Buurtcombinatie'
                     }, {
