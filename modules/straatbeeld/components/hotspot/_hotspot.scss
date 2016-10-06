@@ -1,0 +1,36 @@
+.hotspot {
+  width: 60px;
+  height: 60px;
+  transform: scale(1);
+  border: none;
+  border-radius: 60px;
+  outline: none;
+  background-color: $primary-contrast;
+  background-image: url("/assets/icons/hotspot.svg");
+  background-size: cover;
+  cursor: pointer;
+
+  animation: hotspot-animation 1s linear infinite;
+  animation-direction: alternate;
+  animation-play-state: paused;
+
+  &:hover {
+    animation-play-state: running;
+  }
+
+  &:focus {
+    border: 1px solid $primary-contrast;
+  }
+}
+
+@keyframes hotspot-animation {
+  0% {
+    transform: scale(1);
+    opacity: .5;
+  }
+
+  100% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}

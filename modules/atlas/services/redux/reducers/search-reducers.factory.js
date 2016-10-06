@@ -36,7 +36,7 @@
             newState.map.isFullscreen = false;
             newState.page = null;
             newState.detail = null;
-            newState.panorama = null;
+            newState.straatbeeld = null;
             newState.dataSelection = null;
 
             return newState;
@@ -67,7 +67,7 @@
             newState.map.isFullscreen = false;
             newState.page = null;
             newState.detail = null;
-            newState.panorama = null;
+            newState.straatbeeld = null;
             newState.dataSelection = null;
 
             return newState;

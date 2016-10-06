@@ -11,7 +11,7 @@
         var ignoreActions = [
                 ACTIONS.URL_CHANGE, //Prevent infinite loops
                 ACTIONS.FETCH_DETAIL, //Don't update the state before asynchronous call are finished
-                ACTIONS.FETCH_PANORAMA,
+                ACTIONS.FETCH_STRAATBEELD,
             ],
             useReplace = [
                 ACTIONS.MAP_SET_BASELAYER, //Replace the URL instead of adding a new entry to the browser history
@@ -20,8 +20,8 @@
                 ACTIONS.MAP_TOGGLE_VISIBILITY_OVERLAY,
                 ACTIONS.MAP_PAN,
                 ACTIONS.MAP_ZOOM,
-                ACTIONS.SHOW_PANORAMA_SUBSEQUENT,
-                ACTIONS.SET_PANORAMA_ORIENTATION,
+                ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT,
+                ACTIONS.STRAATBEELD_SET_ORIENTATION,
                 ACTIONS.SHOW_ACTIVE_OVERLAYS,
                 ACTIONS.HIDE_ACTIVE_OVERLAYS
             ];
@@ -30,8 +30,10 @@
             return function (next) {
                 return function (action) {
                     var returnValue;
+
                     //Update the state first
                     returnValue = next(action);
+
                     //Then update the URL
                     if (ignoreActions.indexOf(action.type) === -1) {
                         stateToUrl.update(

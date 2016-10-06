@@ -23,7 +23,7 @@ describe('The stateToUrl factory', function () {
                 location: null,
                 category: null
             };
- 
+
             stateToUrl.update(mockedState, false);
 
             expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
@@ -243,8 +243,8 @@ describe('The stateToUrl factory', function () {
         });
     });
 
-    describe('Panorama', function () {
-        it('does nothing is there is no active panorama', function () {
+    describe('Straatbeeld', function () {
+        it('does nothing is there is no active straatbeeld', function () {
             stateToUrl.update(mockedState, false);
 
             expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
@@ -257,35 +257,116 @@ describe('The stateToUrl factory', function () {
             }));
         });
 
-
-        it('can set the panorama id if it\'s known', function () {
-            mockedState.panorama = {
-                id: 'ABC',
+        it('can set the straatbeeld id if it\'s known', function () {
+            mockedState.straatbeeld = {
+                id: 67890,
+                searchLocation: null,
+                car: {
+                    location: null
+                }
             };
 
             stateToUrl.update(mockedState, false);
 
             expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
-                id: 'ABC'
+                id: '67890'
+            }));
+
+            expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
+                plat: jasmine.any(String),
+                plon: jasmine.any(String)
             }));
         });
 
-        it('Has orientation with heading, pitch and fov', function () {
-            mockedState.panorama = {
-                id: 'ABC',
-                heading: 2,
-                pitch: 0.123,
-                fov: 1
+        it('can set the straatbeelds searchLocation (plat & plon)', function () {
+            mockedState.straatbeeld = {
+                id: null,
+                searchLocation: [52.852, 4.258],
+                car: {
+                    location: null
+                }
             };
 
             stateToUrl.update(mockedState, false);
 
-            expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
-                heading: '2',
-                pitch: '0.123',
-                fov: '1'
+            expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
+                id: jasmine.any(String)
             }));
-        });        
+
+            expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
+                plat: '52.852',
+                plon: '4.258'
+            }));
+        });
+
+        describe('camera orientation', function () {
+            it('without orientation', function () {
+                //Without a camera orientation
+                mockedState.straatbeeld = {
+                    id: 123,
+                    searchLocation: null,
+                    car: {
+                        location: null
+                    }
+                };
+
+                stateToUrl.update(mockedState, false);
+
+                expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
+                    heading: jasmine.any(String),
+                    pitch: jasmine.any(String),
+                    fov: jasmine.any(String)
+                }));
+            });
+
+            it('with heading and pitch', function () {
+                mockedState.straatbeeld = {
+                    id: 123,
+                    searchLocation: null,
+                    car: {
+                        location: null
+                    },
+                    camera: {
+                        heading: 2,
+                        pitch: 0.123
+                    }
+                };
+
+                stateToUrl.update(mockedState, false);
+
+                expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
+                    heading: '2',
+                    pitch: '0.123'
+                }));
+
+                expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
+                    fov: jasmine.any(String)
+                }));
+            });
+
+            it('with heading, pitch & fov', function () {
+                mockedState.straatbeeld = {
+                    id: 123,
+                    searchLocation: null,
+                    car: {
+                        location: null
+                    },
+                    camera: {
+                        heading: 2,
+                        pitch: 0.123,
+                        fov: 3
+                    }
+                };
+
+                stateToUrl.update(mockedState, false);
+
+                expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
+                    heading: '2',
+                    pitch: '0.123',
+                    fov: '3'
+                }));
+            });
+        });
     });
 
     describe('Data selection', function () {

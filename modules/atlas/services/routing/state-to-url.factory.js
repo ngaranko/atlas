@@ -7,18 +7,18 @@
 
     stateToUrlFactory.$inject = ['$location', '$window'];
 
-    function stateToUrlFactory($location, $window) {
+    function stateToUrlFactory ($location, $window) {
         return {
             update: update
         };
 
-        function update(state, useReplace) {
+        function update (state, useReplace) {
             var searchParams = angular.merge(
                 getSearchParams(state),
                 getMapParams(state),
                 getPageParams(state),
                 getDetailParams(state),
-                getPanoramaParams(state),
+                getStraatbeeldParams(state),
                 getDataSelectionParams(state),
                 getPrintParams(state)
             );
@@ -30,7 +30,7 @@
             $location.search(searchParams);
         }
 
-        function getSearchParams(state) {
+        function getSearchParams (state) {
             var params = {};
 
             if (state.search) {
@@ -46,9 +46,9 @@
             return params;
         }
 
-        function getMapParams(state) {
+        function getMapParams (state) {
             var lagen = [], isVisible;
-            for (var i = 0; i < state.map.overlays.length; i++) {
+            for (var i = 0;i < state.map.overlays.length;i++) {
                 if (state.map.overlays[i].isVisible) {
                     isVisible = 'zichtbaar';
                 } else {
@@ -69,40 +69,50 @@
             };
         }
 
-        function getPageParams(state) {
+        function getPageParams (state) {
             return {
                 pagina: state.page
             };
         }
 
-        function getDetailParams(state) {
+        function getDetailParams (state) {
             return {
                 detail: state.detail && state.detail.endpoint || null
             };
         }
 
-        function getPanoramaParams(state) {
-            
+        function getStraatbeeldParams (state) {
             var params = {};
-            
-            if (state.panorama) {
-                params.id = state.panorama.id;
-                params.heading = String(state.panorama.heading);
-                params.pitch = String(state.panorama.pitch);
-                params.fov = String(state.panorama.fov);
+
+            if (state.straatbeeld) {
+                if (state.straatbeeld.id) {
+                    params.id = String(state.straatbeeld.id);
+
+                    if (state.straatbeeld.camera) {
+                        params.heading = String(state.straatbeeld.camera.heading);
+                        params.pitch = String(state.straatbeeld.camera.pitch);
+
+                        if (state.straatbeeld.camera.fov) {
+                            params.fov = String(state.straatbeeld.camera.fov);
+                        }
+                    }
+                } else {
+                    params.plat = String(state.straatbeeld.searchLocation[0]);
+                    params.plon = String(state.straatbeeld.searchLocation[1]);
+                }
             }
-                    
+
             return params;
         }
 
-        function getDataSelectionParams(state) {
+        function getDataSelectionParams (state) {
             var params = {},
                 datasetFilters = [];
 
             if (angular.isObject(state.dataSelection)) {
                 params.dataset = state.dataSelection.dataset;
 
-                angular.forEach(state.dataSelection.filters, function (value, key) {
+                angular.forEach(state.dataSelection.filters, function(value, key) {
                     datasetFilters.push(key + ':' + $window.encodeURIComponent(value));
                 });
 
@@ -116,7 +126,7 @@
             return params;
         }
 
-        function getPrintParams(state) {
+        function getPrintParams (state) {
             return {
                 'print-versie': state.isPrintMode ? 'aan' : null
             };

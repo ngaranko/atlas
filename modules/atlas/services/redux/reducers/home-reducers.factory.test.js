@@ -5,7 +5,7 @@ describe('The homeReducers factory', function () {
         mockedSearchState,
         mockedPageState,
         mockedDetailState,
-        mockedPanoramaState;
+        mockedStraatbeeldState;
 
     beforeEach(function () {
         angular.mock.module('atlas');
@@ -34,8 +34,8 @@ describe('The homeReducers factory', function () {
         };
         mockedDetailState.page = null;
 
-        mockedPanoramaState = angular.copy(DEFAULT_STATE);
-        mockedPanoramaState.panorama = {
+        mockedStraatbeeldState = angular.copy(DEFAULT_STATE);
+        mockedStraatbeeldState.straatbeeld = {
             id: 123,
             searchLocation: null,
             date: new Date(),
@@ -51,13 +51,13 @@ describe('The homeReducers factory', function () {
             hotspots: [],
             isLoading: false
         };
-        mockedPanoramaState.page = null;
+        mockedStraatbeeldState.page = null;
 
         mockedStates.push(
             mockedSearchState,
             mockedPageState,
             mockedDetailState,
-            mockedPanoramaState
+            mockedStraatbeeldState
         );
     });
 

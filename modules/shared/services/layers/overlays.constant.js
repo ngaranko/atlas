@@ -32,8 +32,8 @@
                     url: 'maps/handelsregister',
                     label_short: 'Handel, vervoer, opslag',
                     label_long: 'Handel, vervoer, opslag',
-                    layers: ['handel_vervoer_opslag'],
-                    minZoom: 10,
+                    layers: ['handel_vervoer_opslag', 'handel_vervoer_opslag_namen'],
+                    minZoom: 11,
                     maxZoom: 16,
                     legend: '/maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
                         'gendGraphic&sld_version=1.1.0&layer=handel_vervoer_opslag&format=image/png&STYLE=default'
@@ -42,8 +42,8 @@
                     url: 'maps/handelsregister',
                     label_short: 'Productie, install., repar.',
                     label_long: 'Productie installatie reparatie',
-                    layers: ['productie_installatie_reparatie'],
-                    minZoom: 10,
+                    layers: ['productie_installatie_reparatie', 'productie_installatie_reparatie_namen'],
+                    minZoom: 11,
                     maxZoom: 16,
                     legend: '/maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
                         'gendGraphic&sld_version=1.1.0&' +
@@ -53,8 +53,8 @@
                     url: 'maps/handelsregister',
                     label_short: 'Bouw',
                     label_long: 'Bouw',
-                    layers: ['bouw'],
-                    minZoom: 10,
+                    layers: ['bouw', 'bouw_namen'],
+                    minZoom: 11,
                     maxZoom: 16,
                     legend: '/maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
                         'gendGraphic&sld_version=1.1.0&layer=bouw&format=image/png&STYLE=default'
@@ -63,8 +63,8 @@
                     url: 'maps/handelsregister',
                     label_short: 'Landbouw',
                     label_long: 'Landbouw',
-                    layers: ['landbouw'],
-                    minZoom: 10,
+                    layers: ['landbouw', 'landbouw_namen'],
+                    minZoom: 11,
                     maxZoom: 16,
                     legend: '/maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
                         'gendGraphic&sld_version=1.1.0&layer=landbouw&format=image/png&STYLE=default'
@@ -73,8 +73,8 @@
                     url: 'maps/handelsregister',
                     label_short: 'Horeca',
                     label_long: 'Horeca',
-                    layers: ['horeca'],
-                    minZoom: 10,
+                    layers: ['horeca', 'horeca_namen'],
+                    minZoom: 11,
                     maxZoom: 16,
                     legend: '/maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
                         'gendGraphic&sld_version=1.1.0&layer=horeca&format=image/png&STYLE=default'
@@ -83,8 +83,8 @@
                     url: 'maps/handelsregister',
                     label_short: 'Inform., telecom.',
                     label_long: 'Informatie telecommunicatie',
-                    layers: ['telecommunicatie'],
-                    minZoom: 10,
+                    layers: ['telecommunicatie', 'telecommunicatie_namen'],
+                    minZoom: 11,
                     maxZoom: 16,
                     legend: '/maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
                         'gendGraphic&sld_version=1.1.0&layer=telecommunicatie&format=image/png&STYLE=default'
@@ -93,8 +93,8 @@
                     url: 'maps/handelsregister',
                     label_short: 'Financ. dienstverl., verhuur',
                     label_long: 'financiële_dienstverlening_verhuur_van_roerend_en_onroerend_goed',
-                    layers: ['financiele_dienstverlening_verhuur'],
-                    minZoom: 10,
+                    layers: ['financiele_dienstverlening_verhuur', 'financiele_dienstverlening_verhuur_namen'],
+                    minZoom: 11,
                     maxZoom: 16,
                     legend: '/maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
                         'gendGraphic&sld_version=1.1.0&' +
@@ -105,8 +105,8 @@
                     url: 'maps/handelsregister',
                     label_short: 'Zakelijke dienstverl.',
                     label_long: 'Zakelijke dienstverlening',
-                    layers: ['zakelijke_dienstverlening'],
-                    minZoom: 10,
+                    layers: ['zakelijke_dienstverlening', 'zakelijke_dienstverlening_namen'],
+                    minZoom: 11,
                     maxZoom: 16,
                     legend: '/maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
                         'gendGraphic&sld_version=1.1.0&layer=zakelijke_dienstverlening&format=image/png&STYLE=default'
@@ -115,8 +115,8 @@
                     url: 'maps/handelsregister',
                     label_short: 'Overheid, onderwijs, zorg',
                     label_long: 'Overheid, onderwijs, zorg',
-                    layers: ['overheid_onderwijs_zorg'],
-                    minZoom: 10,
+                    layers: ['overheid_onderwijs_zorg', 'overheid_onderwijs_zorg_namen'],
+                    minZoom: 11,
                     maxZoom: 16,
                     legend: '/maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
                         'gendGraphic&sld_version=1.1.0&layer=overheid_onderwijs_zorg&format=image/png&STYLE=default'
@@ -125,8 +125,8 @@
                     url: 'maps/handelsregister',
                     label_short: 'Cultuur, sport, recreatie',
                     label_long: 'Cultuur, sport, recreatie',
-                    layers: ['cultuur_sport_recreatie'],
-                    minZoom: 10,
+                    layers: ['cultuur_sport_recreatie', 'cultuur_sport_recreatie_namen'],
+                    minZoom: 11,
                     maxZoom: 16,
                     legend: '/maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
                         'gendGraphic&sld_version=1.1.0&layer=cultuur_sport_recreatie&format=image/png&STYLE=default'
@@ -135,8 +135,8 @@
                     url: 'maps/handelsregister',
                     label_short: 'Persoonl. dienstverl.',
                     label_long: 'Persoonlijke dienstverlening',
-                    layers: ['persoonlijke_dienstverlening'],
-                    minZoom: 10,
+                    layers: ['persoonlijke_dienstverlening', 'persoonlijke_dienstverlening_namen'],
+                    minZoom: 11,
                     maxZoom: 16,
                     legend: '/maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
                         'gendGraphic&sld_version=1.1.0&' +
@@ -146,8 +146,8 @@
                     url: 'maps/handelsregister',
                     label_short: 'Overige',
                     label_long: 'Overige niet hierboven genoemd',
-                    layers: ['overige'],
-                    minZoom: 10,
+                    layers: ['overige', 'overige_namen'],
+                    minZoom: 11,
                     maxZoom: 16,
                     legend: '/maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
                         'gendGraphic&sld_version=1.1.0&layer=overige&format=image/png&STYLE=default'
