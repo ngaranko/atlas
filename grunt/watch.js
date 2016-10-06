@@ -1,5 +1,5 @@
 module.exports = {
-    js: {
+    modules: {
         files: [
             'modules/**/!(*.test).js',
             'modules/**/*.html'

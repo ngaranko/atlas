@@ -5,7 +5,6 @@ module.exports = function (grunt) {
      * An ID that is unique for each build to prevent browser caching. This needs to be set before the other
      * configuration which relies on this ID.
      */
-        // ToDo: why are these id's not equal?
     var uniqueIdJs = shortid.generate();
     var uniqueIdCss = shortid.generate();
 
@@ -79,13 +78,13 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('babel-tests-configure', 'Configure babel tests options', function() {
-        // Inject the source maps from the concat operation in the new babel sourcemap
+        // Inject the source maps from the teste concat operation in the new babel sourcemap
         grunt.config.set('babel.tests.options.inputSourceMap',
             grunt.file.readJSON('build/temp/babel/atlas.tests.es6.js.map'));
     });
 
     grunt.registerTask('babel-modules-configure', 'Configure babel options', function() {
-        // Inject the source maps from the concat operation in the new babel sourcemap
+        // Inject the source maps from the modules concat operation in the new babel sourcemap
         grunt.config.set('babel.options.inputSourceMap',
             grunt.file.readJSON('build/temp/babel/atlas.' + uniqueIdJs + '.js.map'));
     });
@@ -100,7 +99,6 @@ module.exports = function (grunt) {
         'tags:js'
     ]);
 
-
     /**
      * The output of build-css are two files 'build/atlas.css' and a source map.
      */
@@ -111,7 +109,6 @@ module.exports = function (grunt) {
         'postcss',
         'tags:css'
     ]);
-
 
     /**
      * 'default' formerly known as 'grunt serve'
@@ -130,7 +127,6 @@ module.exports = function (grunt) {
 
     grunt.loadNpmTasks('grunt-angular-templates');
     grunt.loadNpmTasks('grunt-babel');
-    // grunt.loadNpmTasks('karma-babel-preprocessor');
     grunt.loadNpmTasks('grunt-bower-concat');
     grunt.loadNpmTasks('grunt-console-log-test');
     grunt.loadNpmTasks('grunt-contrib-clean');

@@ -23,10 +23,6 @@ module.exports = function (grunt) {
             src: jsFiles,
             dest: 'build/temp/babel/atlas.' + uniqueIdJs + '.js'
         },
-        js: {
-            src: jsFiles,
-            dest: 'build/atlas.' + uniqueIdJs + '.js'
-        },
         css: {
             src: cssFiles,
             dest: 'build/atlas.' + uniqueIdCss + '.css'
