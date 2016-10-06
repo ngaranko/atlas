@@ -7,6 +7,7 @@ $base-font-family: Verdana, sans-serif;
 $header-font-family: Montserrat, Arial, Verdana, sans-serif;
 
 $base-font-size: 14px;
+$base-line-height: 1.375;
 
 $breakpoints: (
   m: 1024px,
@@ -22,10 +23,10 @@ $breakpoints: (
 // typografie gebasseerd op http://typecast.com/blog/a-more-modern-scale-for-web-typography
 
 $body-font: (
-  null: ($base-font-family, $base-font-size, 1.375),
-  m: ($base-font-family, $base-font-size, 1.375),
-  l: ($base-font-family, $base-font-size, 1.375),
-  xl: ($base-font-family, $base-font-size, 1.375)
+  null: ($base-font-family, $base-font-size, $base-line-height),
+  m: ($base-font-family, $base-font-size, $base-line-height),
+  l: ($base-font-family, $base-font-size, $base-line-height),
+  xl: ($base-font-family, $base-font-size, $base-line-height)
 );
 
 $xl-header-font: (
