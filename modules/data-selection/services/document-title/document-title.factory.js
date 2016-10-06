@@ -15,25 +15,23 @@
 
         function getTitle (dataSelectionState) {
             var variant,
-                activeFilters;
+                criteria;
 
             variant = dataSelectionConfig[dataSelectionState.dataset].TITLE;
 
-            dataSelectionConfig[dataSelectionState.dataset].FILTERS
+            criteria = dataSelectionConfig[dataSelectionState.dataset].FILTERS
                 //Retrieve all the active filters
                 .filter(function (availableFilter) {
-                    return angular.isDefined(dataSelectionState.filters[availableFilter]);
+                    return angular.isDefined(dataSelectionState.filters[availableFilter.slug]);
                 })
                 //Show the value of each active filter
-                .map(function () {
+                .map(function (activeFilter) {
+                    return dataSelectionState.FILTERS[activeFilter.slug];
+                })
+                .join(', ');
 
-                });
 
-            dataSelectionState.
-            //Paginatitel: Tabel <variant> met <criteria> - Atlas
-
-            //Waar <variant> is 'adressen' (BAG) of 'vestigingen' (HR). De <criteria> zijn waarden van gekozen filters (comma seperated).
-            return 'Tabel adressen met <criteria>';
+            return 'Tabel ' + variant + ' met ' + criteria;
         }
     }
 })();
