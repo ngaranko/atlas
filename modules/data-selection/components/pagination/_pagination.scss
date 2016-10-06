@@ -28,14 +28,14 @@ $pagination-line-color: #e4e4e4;
   filter: FlipH;
 }
 
-@mixin paginationfont {
+@mixin data-selection-pagination-font {
   font-family: $header-font-family;
   font-size: $base-font-size;
   font-weight: lighter;
 }
 
 .c-data-selection-pagination {
-  @include paginationfont;
+  @include data-selection-pagination-font;
   text-align: center;
 
   .c-data-selection-pagination__input {
@@ -57,22 +57,22 @@ $pagination-line-color: #e4e4e4;
       background-image: url("assets/icons/link-hover.svg");
     }
   }
-
-  hr {
-    width: auto;
-    height: 1px;
-    margin: {
-      top: 2 * $base-whitespace;
-      right: - 2 * $base-whitespace;
-      bottom: 2 * $base-whitespace;
-      left: - 2 * $base-whitespace;
-    }
-    border: none;
-    background: $pagination-line-color;
-  }
 }
 
-.c-data-selection-page__form__links {
+.c-data-selection-pagination--separator {
+  width: auto;
+  height: 1px;
+  margin: {
+    top: 2 * $base-whitespace;
+    right: - 2 * $base-whitespace;
+    bottom: 2 * $base-whitespace;
+    left: - 2 * $base-whitespace;
+  }
+  border: none;
+  background: $pagination-line-color;
+}
+
+.c-data-selection-page--form-links {
   margin-top: -.55rem;
 }
 
@@ -89,7 +89,7 @@ $pagination-line-color: #e4e4e4;
 }
 
 .c-data-selection-pagination-link-text {
-  @include paginationfont;
+  @include data-selection-pagination-font;
 
   &:hover {
     color: $primary-contrast;

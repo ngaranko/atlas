@@ -1,6 +1,7 @@
 <div class="c-data-selection-pagination" ng-if="vm.showPagination">
-    <hr>
-    <div class="u-pull--left c-data-selection-page__form__links">
+    <div class="c-data-selection-pagination--separator"></div>
+
+    <div class="u-pull--left c-data-selection-page--form-links">
         <dp-data-selection-pagination-link link="vm.firstPage"></dp-data-selection-pagination-link>
         <dp-data-selection-pagination-link link="vm.previousPage"></dp-data-selection-pagination-link>
     </div>
@@ -12,7 +13,7 @@
         </button>
         <span class="u-margin__left--1">van {{ vm.numberOfPages }}</span>
     </form>
-    <div class="u-pull--right c-data-selection-page__form__links">
+    <div class="u-pull--right c-data-selection-page--form-links">
         <dp-data-selection-pagination-link link="vm.nextPage"></dp-data-selection-pagination-link>
         <dp-data-selection-pagination-link link="vm.lastPage"></dp-data-selection-pagination-link>
     </div>
