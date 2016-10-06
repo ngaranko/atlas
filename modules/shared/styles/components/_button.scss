@@ -33,22 +33,14 @@
   &:hover {
     background-image: url("assets/icons/close-active.svg");
   }
+}
 
-  &.o-btn--close--warning {
-    background-image: url("assets/icons/close-warning.svg");
+.o-btn--close--warning {
+  background-image: url("assets/icons/close-warning.svg");
+}
 
-    &:hover {
-      background-image: url("assets/icons/close-active.svg");
-    }
-  }
-
-  &.o-btn--close--danger {
-    background-image: url("assets/icons/close-hover.svg");
-
-    &:hover {
-      background-image: url("assets/icons/close-active.svg");
-    }
-  }
+.o-btn--close--danger {
+  background-image: url("assets/icons/close-hover.svg");
 }
 
 .s-btn--nested {
