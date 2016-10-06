@@ -6,37 +6,10 @@
   }
 }
 
-@mixin data-selection-header-button($url, $urlhover: $url) {
-  margin-right: $base-whitespace;
-  margin-left: $base-whitespace;
-  color: inherit;
-  font-weight: 700;
-  line-height: $button-size;
-  text-decoration: none;
-
-  &::after {
-    display: inline-block;
-    width: $button-size;
-    height: $button-size;
-    margin-left: $base-whitespace / 2;
-    background-image: url($url);
-    content: "";
-    vertical-align: middle;
-  }
-
-  &:hover {
-    color: $primary-contrast;
-
-    &::after {
-      background-image: url($urlhover);
-    }
-  }
-}
-
 .c-data-selection-header__kaartweergave__button {
-  @include data-selection-header-button("assets/icons/link-active.svg", "assets/icons/link-hover.svg")
+  @include data-selection-button("assets/icons/link-active.svg", "assets/icons/link-hover.svg")
 }
 
 .c-data-selection-header__download__button {
-  @include data-selection-header-button("assets/icons/download-active.svg", "assets/icons/download-hover.svg")
+  @include data-selection-button("assets/icons/download-active.svg", "assets/icons/download-hover.svg")
 }
