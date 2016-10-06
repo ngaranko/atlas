@@ -18,8 +18,8 @@ describe('The dpDetail.documentTitle factory', function () {
             }
         );
 
-        angular.mock.inject(function (dpDetail_documentTitle) {
-            documentTitle = dpDetail_documentTitle;
+        angular.mock.inject(function (dpDetailDocumentTitle) {
+            documentTitle = dpDetailDocumentTitle;
         });
     });
 

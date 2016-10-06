@@ -4,15 +4,17 @@
     //This factory name is namespaced because other modules will get a similar service with the same name
     angular
         .module('dpStraatbeeld')
-        .factory('dpStraatbeeld.documentTitle', documentTitleFactory);
+        .factory('dpStraatbeeldDocumentTitle', dpStraatbeeldDocumentTitle);
 
-    function documentTitleFactory () {
+    dpStraatbeeldDocumentTitle.$inject = ['coordinatesFilter'];
+
+    function dpStraatbeeldDocumentTitle (coordinates) {
         return {
             getTitle: getTitle
         };
 
-        function getTitle (/*location*/) {
-            return 'Een paar woorden met een geformatteerde locatie';
+        function getTitle (location) {
+            return 'Panorama ' + coordinates(location);
         }
     }
 })();

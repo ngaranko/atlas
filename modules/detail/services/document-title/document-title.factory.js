@@ -4,11 +4,11 @@
     //This factory name is namespaced because other modules will get a similar service with the same name
     angular
         .module('dpDetail')
-        .factory('dpDetail_documentTitle', documentTitleFactory);
+        .factory('dpDetailDocumentTitle', dpDetailDocumentTitleFactory);
 
-    documentTitleFactory.$inject = ['STELSELPEDIA'];
+    dpDetailDocumentTitleFactory.$inject = ['STELSELPEDIA'];
 
-    function documentTitleFactory (STELSELPEDIA) {
+    function dpDetailDocumentTitleFactory (STELSELPEDIA) {
         return {
             getTitle: getTitle
         };
