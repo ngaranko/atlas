@@ -4,15 +4,23 @@
     //This factory name is namespaced because other modules will get a similar service with the same name
     angular
         .module('dpPage')
-        .factory('dpPage.documentTitle', documentTitleFactory);
+        .factory('dpPageDocumentTitle', dpPageDocumentTitleFactory);
 
-    function documentTitleFactory () {
+    dpPageDocumentTitleFactory.$inject = ['atlasUppercaseFirstLetterFilter'];
+
+    function dpPageDocumentTitleFactory (atlasUppercaseFirstLetterFilter) {
         return {
             getTitle: getTitle
         };
 
-        function getTitle (/*pageName*/) {
-            return 'Page Name Met Uppercasefirstletter En Spaties In Plaats Van Dashes';
+        function getTitle (pageName) {
+            return pageName
+                //Make the first letter of each word uppercase
+                .split('-').map(function (word) {
+                    return (atlasUppercaseFirstLetterFilter(word));
+                })
+                //Replace dashed (-) with spaces
+                .join(' ');
         }
     }
 })();

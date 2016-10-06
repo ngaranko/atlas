@@ -1,4 +1,4 @@
-describe('The dpDetail.documentTitle factory', function () {
+describe('The dpDetailDocumentTitle factory', function () {
     var documentTitle;
 
     beforeEach(function () {
