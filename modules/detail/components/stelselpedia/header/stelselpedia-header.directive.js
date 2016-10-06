@@ -26,8 +26,12 @@
     AtlasStelselpediaHeaderController.$inject = ['$scope', '$sce', 'STELSELPEDIA'];
 
     function AtlasStelselpediaHeaderController ($scope, $sce, STELSELPEDIA) {
-        var vm = this,
-            isVisible = {};
+        var vm = this;
+
+        vm.isVisible = {
+            help: false,
+            meta: false
+        };
 
         $scope.$watch('vm.heading', function (heading) {
             vm.htmlHeading = $sce.trustAsHtml(heading);
@@ -45,17 +49,17 @@
         vm.metaDataTitle = 'Informatie (metadata) tonen';
 
         vm.toggle = function (item) {
-            isVisible[item] = !isVisible[item];
+            vm.isVisible[item] = !vm.isVisible[item];
 
             if(item === 'help'){
-                if(isVisible[item]) {
+                if(vm.isVisible[item]) {
                     vm.stelselpediaTitle = 'Uitleg verbergen';
                 } else {
                     vm.stelselpediaTitle = 'Uitleg tonen';
                 }
             }
             if(item === 'meta'){
-                if(isVisible[item]) {
+                if(vm.isVisible[item]) {
                     vm.metaDataTitle = 'Informatie (metadata) verbergen';
                 } else {
                     vm.metaDataTitle = 'Informatie (metadata) tonen';
@@ -63,8 +67,6 @@
             }
         };
 
-        vm.isVisible = function (item) {
-            return isVisible[item];
-        };
+
     }
 })();
