@@ -17,8 +17,14 @@ describe('The dpStraatbeeldDocumentTitle factory', function () {
     });
 
     it('returns the text \'Panorama\' and the coordinates in both WGS84 and RD', function () {
-        expect(documentTitle.getTitle([52.123, 4.789])).toBe('Panorama 52.123, 4.789 (X, Y)');
+        var mockedStraatbeeldState;
 
-        expect(documentTitle.getTitle([52.987, 4.321])).toBe('Panorama 52.987, 4.321 (X, Y)');
+        mockedStraatbeeldState = {
+            location: [52.123, 4.789]
+        };
+        expect(documentTitle.getTitle(mockedStraatbeeldState)).toBe('Panorama 52.123, 4.789 (X, Y)');
+
+        mockedStraatbeeldState.location = [52.987, 4.321];
+        expect(documentTitle.getTitle(mockedStraatbeeldState)).toBe('Panorama 52.987, 4.321 (X, Y)');
     });
 });

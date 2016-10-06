@@ -13,16 +13,16 @@
             getTitle: getTitle
         };
 
-        function getTitle (endpoint, display) {
+        function getTitle (detailState) {
             var anchor,
                 stelselpediaDefinition;
 
             anchor = document.createElement('a');
-            anchor.href = endpoint;
+            anchor.href = detailState.endpoint;
 
             stelselpediaDefinition = anchor.pathname.split('/')[2].toUpperCase();
 
-            return STELSELPEDIA.DEFINITIONS[stelselpediaDefinition].label_singular + ': ' + display;
+            return STELSELPEDIA.DEFINITIONS[stelselpediaDefinition].label_singular + ': ' + detailState.display;
         }
     }
 })();

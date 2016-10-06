@@ -24,13 +24,20 @@ describe('The dpDetail.documentTitle factory', function () {
     });
 
     it('combines a stelselpedia label with a specific display variable', function () {
-        expect(documentTitle.getTitle('http://api.example.com/wkpb/beperking/123/', 'Een beperking'))
-            .toBe('Gemeentelijke beperking: Een beperking');
+        var mockedDetailState;
 
-        expect(documentTitle.getTitle('http://api.example.com/wkpb/beperking/456/', 'Een andere beperking'))
-            .toBe('Gemeentelijke beperking: Een andere beperking');
+        mockedDetailState = {
+            endpoint: 'http://api.example.com/wkpb/beperking/123/',
+            display: 'Een beperking'
+        };
+        expect(documentTitle.getTitle(mockedDetailState)).toBe('Gemeentelijke beperking: Een beperking');
 
-        expect(documentTitle.getTitle('http://api.example.com/handelsregister/vestiging/789/', 'Vestigingsnaam'))
-            .toBe('Vestiging: Vestigingsnaam');
+        mockedDetailState.endpoint = 'http://api.example.com/wkpb/beperking/456/';
+        mockedDetailState.display = 'Een andere beperking';
+        expect(documentTitle.getTitle(mockedDetailState)).toBe('Gemeentelijke beperking: Een andere beperking');
+
+        mockedDetailState.endpoint = 'http://api.example.com/handelsregister/vestiging/789/';
+        mockedDetailState.display = 'Vestigingsnaam';
+        expect(documentTitle.getTitle(mockedDetailState)).toBe('Vestiging: Vestigingsnaam');
     });
 });

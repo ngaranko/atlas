@@ -8,13 +8,13 @@
 
     dpStraatbeeldDocumentTitle.$inject = ['coordinatesFilter'];
 
-    function dpStraatbeeldDocumentTitle (coordinates) {
+    function dpStraatbeeldDocumentTitle (coordinatesFilter) {
         return {
             getTitle: getTitle
         };
 
-        function getTitle (location) {
-            return 'Panorama ' + coordinates(location);
+        function getTitle (straatbeeldState) {
+            return 'Panorama ' + coordinatesFilter(straatbeeldState.location);
         }
     }
 })();
