@@ -25,7 +25,7 @@
             detail: null,
             /*
             detail: {
-                endpoint: 'bag/verblijfsobject/123/',
+                endpoint: 'http://api.example.com/bag/verblijfsobject/123/',
                 display: 'This is the _display variable as available in each endpoint',
                 geometry: null,
                 isLoading: false
