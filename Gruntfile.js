@@ -21,6 +21,7 @@ module.exports = function (grunt) {
         'console-log-test': require('./grunt/console-log-test'),
         copy: require('./grunt/copy'),
         jshint: require('./grunt/jshint'),
+        eslint: require('./grunt/eslint'),
         karma: require('./grunt/karma'),
         ngtemplates: require('./grunt/angular-templates'),
         postcss: require('./grunt/postcss')(grunt),
@@ -139,6 +140,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-postcss');
+    grunt.loadNpmTasks("grunt-eslint");
     grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-sass-lint');
     grunt.loadNpmTasks('grunt-script-link-tags');
