@@ -11,7 +11,7 @@
             getTitle: getTitle
         };
 
-        function getTitle (/*endpoint, apiData*/) {
+        function getTitle (/*endpoint, display*/) {
             return 'STELSELPEDIA[iets].label_singular: apiData._display';
         }
     }

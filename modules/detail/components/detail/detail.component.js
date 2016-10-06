@@ -51,7 +51,10 @@
 
                     store.dispatch({
                         type: ACTIONS.SHOW_DETAIL,
-                        payload: geometry
+                        payload: {
+                            display: data._display,
+                            geometry: geometry
+                        }
                     });
                 });
             });

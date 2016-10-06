@@ -88,17 +88,22 @@ describe('The detailReducers factory', function () {
                 search: null,
                 page: null,
                 detail: {
-                    uri: 'bag/thing/123/',
-                    geometry: null,
+                    endpoint: 'bag/thing/123/',
                     isLoading: true
                 },
                 straatbeeld: null
             },
-            payload = {some: 'object'};
+            payload = {
+                display: 'My detail page',
+                geometry: {
+                    some: 'object'
+                }
+            };
 
-        it('stores the geometry in the detail state', function () {
+        it('stores the display and geometry in the detail state', function () {
             var output = detailReducers.SHOW_DETAIL(stateAfterFetchDetail, payload);
 
+            expect(output.detail.display).toBe('My detail page');
             expect(output.detail.geometry).toEqual({some: 'object'});
         });
 

@@ -23,16 +23,19 @@ describe('the dp-detail component', function() {
 
                         if (endpoint === 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/') {
                             q.resolve({
+                                _display: 'Adresstraat 1A',
                                 dummy: 'A',
                                 something: 3
                             });
                         } else if (endpoint === 'http://www.fake-endpoint.com/brk/object/789/') {
                             q.resolve({
+                                _display: 'Een of ander kadastraal object',
                                 dummy: 'B',
                                 something: -90
                             });
                         } else if (endpoint === 'http://www.fake-endpoint.com/brk/subject/123/') {
                             q.resolve({
+                                _display: 'Ferdinand de Vries',
                                 dummy: 'C',
                                 something: 4
                             });
@@ -145,18 +148,22 @@ describe('the dp-detail component', function() {
 
         expect(scope.vm.apiData).toEqual({
             results: {
+                _display: 'Adresstraat 1A',
                 dummy: 'A',
                 something: 3
             }
         });
     });
 
-    it('triggers the SHOW_DETAIL action with the geometry as it\'s payload', function () {
+    it('triggers the SHOW_DETAIL action with the display and geometry as it\'s payload', function () {
         getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false);
 
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.SHOW_DETAIL,
-            payload: mockedGeometryPoint
+            payload: {
+                display: 'Adresstraat 1A',
+                geometry: mockedGeometryPoint
+            }
         });
     });
 
@@ -174,6 +181,7 @@ describe('the dp-detail component', function() {
 
         expect(scope.vm.apiData).toEqual({
             results: {
+                _display: 'Adresstraat 1A',
                 dummy: 'A',
                 something: 3
             }
@@ -181,7 +189,10 @@ describe('the dp-detail component', function() {
         expect(store.dispatch).toHaveBeenCalledTimes(1);
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.SHOW_DETAIL,
-            payload: mockedGeometryPoint
+            payload: {
+                display: 'Adresstraat 1A',
+                geometry: mockedGeometryPoint
+            }
         });
 
         //Change the endpoint
@@ -190,6 +201,7 @@ describe('the dp-detail component', function() {
 
         expect(scope.vm.apiData).toEqual({
             results: {
+                _display: 'Een of ander kadastraal object',
                 dummy: 'B',
                 something: -90
             }
@@ -197,18 +209,23 @@ describe('the dp-detail component', function() {
         expect(store.dispatch).toHaveBeenCalledTimes(2);
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.SHOW_DETAIL,
-            payload: mockedGeometryMultiPolygon
+            payload: {
+                display: 'Een of ander kadastraal object',
+                geometry: mockedGeometryMultiPolygon
+            }
         });
     });
 
-    it('sets the SHOW_DETAIL payload to null if there is no geometry', function () {
+    it('sets the SHOW_DETAIL geometry payload to null if there is no geometry', function () {
         var component;
 
         component = getComponent('http://www.fake-endpoint.com/brk/subject/123/');
 
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.SHOW_DETAIL,
-            payload: null
+            payload: jasmine.objectContaining({
+                geometry: null
+            })
         });
     });
 
