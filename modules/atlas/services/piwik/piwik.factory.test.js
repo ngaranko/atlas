@@ -48,7 +48,7 @@ describe('The piwik service', function () {
         // Checking script
         expect(getScripts().length).toBe(numberOfScripts + 1);
         expect(piwikScript.getAttribute('type')).toBe('text/javascript');
-        expect(piwikScript.getAttribute('src')).toBe('//atlas.amsterdam.nl/piwik/piwik.js');
+        expect(piwikScript.getAttribute('src')).toBe('https://atlas.amsterdam.nl/piwik/piwik.js');
 
     });
 

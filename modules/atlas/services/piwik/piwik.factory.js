@@ -13,7 +13,7 @@
         };
 
         function initialize () {
-            var url_base = '//atlas.amsterdam.nl/piwik/',
+            var url_base = 'https://atlas.amsterdam.nl/piwik/',
                 doc,
                 piwik,
                 scripts;
