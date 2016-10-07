@@ -1,4 +1,7 @@
 module.exports = function (grunt) {
+
+    require('time-grunt')(grunt);
+
     var shortid = require('shortid');
 
     /**
@@ -130,22 +133,26 @@ module.exports = function (grunt) {
         'test-css'
     ]);
 
-    grunt.loadNpmTasks('grunt-angular-templates');
-    grunt.loadNpmTasks('grunt-babel');
-    grunt.loadNpmTasks('grunt-bower-concat');
-    grunt.loadNpmTasks('grunt-console-log-test');
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-connect');
-    grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-eslint');
-    grunt.loadNpmTasks('grunt-karma');
-    grunt.loadNpmTasks('grunt-newer');
-    grunt.loadNpmTasks('grunt-npmcopy');
-    grunt.loadNpmTasks('grunt-postcss');
-    grunt.loadNpmTasks('grunt-sass');
-    grunt.loadNpmTasks('grunt-sass-lint');
-    grunt.loadNpmTasks('grunt-script-link-tags');
+    function loadNpmTasks (grunt) {
+        grunt.loadNpmTasks('grunt-angular-templates');
+        grunt.loadNpmTasks('grunt-babel');
+        grunt.loadNpmTasks('grunt-bower-concat');
+        grunt.loadNpmTasks('grunt-console-log-test');
+        grunt.loadNpmTasks('grunt-contrib-clean');
+        grunt.loadNpmTasks('grunt-contrib-concat');
+        grunt.loadNpmTasks('grunt-contrib-connect');
+        grunt.loadNpmTasks('grunt-contrib-copy');
+        grunt.loadNpmTasks('grunt-contrib-jshint');
+        grunt.loadNpmTasks('grunt-contrib-watch');
+        grunt.loadNpmTasks('grunt-eslint');
+        grunt.loadNpmTasks('grunt-karma');
+        grunt.loadNpmTasks('grunt-newer');
+        grunt.loadNpmTasks('grunt-npmcopy');
+        grunt.loadNpmTasks('grunt-postcss');
+        grunt.loadNpmTasks('grunt-sass');
+        grunt.loadNpmTasks('grunt-sass-lint');
+        grunt.loadNpmTasks('grunt-script-link-tags');
+    }
+    loadNpmTasks(grunt);
+
 };

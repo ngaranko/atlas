@@ -12,6 +12,9 @@ module.exports = function (grunt) {
             sourceMap: true
         },
         npm_bower: {
+            options: {
+                sourceMap: false    // Generating source maps is an expensive operation...
+            },
             // Treat npm "bower" components as regular bower components...
             src: ['build/temp/npm_components/**/*.js', 'build/temp/bower_components/bower_components.js'],
             dest: 'build/temp/bower_components.js'
