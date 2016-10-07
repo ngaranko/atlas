@@ -18,11 +18,12 @@ module.exports = function (grunt) {
         concat: require('./grunt/concat')(grunt),
         connect: require('./grunt/connect'),
         'console-log-test': require('./grunt/console-log-test'),
-        copy: require('./grunt/copy'),
+        copy: require('./grunt/copy')(grunt),
         eslint: require('./grunt/eslint'),
         jshint: require('./grunt/jshint'),
         karma: require('./grunt/karma'),
         ngtemplates: require('./grunt/angular-templates'),
+        npmcopy: require('./grunt/npmcopy'),
         postcss: require('./grunt/postcss')(grunt),
         sass: require('./grunt/sass'),
         sasslint: require('./grunt/sasslint'),
@@ -49,8 +50,9 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('build-js-bower', [
-        'bower_concat:js',
-        'concat:bower',
+        'npmcopy',          // build temp/npm_components
+        'bower_concat:js',  // build temp/bower_components
+        'concat:npm_bower'  // combine npm and bower components into one js file
     ]);
 
     grunt.registerTask('build-js-modules', [
@@ -87,7 +89,7 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('update-build-js', [
-        'concat:bower',    // copy bower, do not rebuild bower
+        'copy:bower',    // copy bower, do not rebuild bower
         'build-js-modules',
         'tags:js'
     ]);
@@ -133,6 +135,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-eslint');
     grunt.loadNpmTasks('grunt-karma');
+    grunt.loadNpmTasks('grunt-npmcopy');
     grunt.loadNpmTasks('grunt-postcss');
     grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-sass-lint');

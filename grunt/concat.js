@@ -11,9 +11,10 @@ module.exports = function (grunt) {
         options: {
             sourceMap: true
         },
-        bower: {
-            src: ['build/temp/bower_components.js'],
-            dest: 'build/atlas.libs.' + uniqueIdJs + '.js'
+        npm_bower: {
+            // Treat npm "bower" components as regular bower components...
+            src: ['build/temp/npm_components/**/*.js', 'build/temp/bower_components/bower_components.js'],
+            dest: 'build/temp/bower_components.js'
         },
         tests: {
             src: ['modules/**/*.test.js'],
