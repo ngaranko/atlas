@@ -56,17 +56,24 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('build-js-modules', [
-        'ngtemplates',
+        'newer:ngtemplates',
         'concat:modules',
         'babel-modules-configure',
         'babel:modules'
     ]);
 
+    // Configure lint tasks
+    var linttasks = [];
+    ['jshint', 'eslint', 'console-log-test'].forEach(function(linter) {
+        ['grunt', 'tests', 'modules'].forEach(function(part) {
+            linttasks.push('newer:' + linter + ':' + part);
+        });
+    });
+    grunt.registerTask('lint', linttasks);
+
     grunt.registerTask('test-js', [
-        'jshint',
-        'eslint',
-        'test-js-modules',
-        'console-log-test'
+        'lint',
+        'test-js-modules'
     ]);
 
     grunt.registerTask('test-css', [
@@ -74,9 +81,9 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('test-js-modules', [
-        'concat:tests',
+        'newer:concat:tests',
         'babel-tests-configure',
-        'babel:tests',
+        'newer:babel:tests',
         'karma:coverage'
     ]);
 
@@ -135,6 +142,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-eslint');
     grunt.loadNpmTasks('grunt-karma');
+    grunt.loadNpmTasks('grunt-newer');
     grunt.loadNpmTasks('grunt-npmcopy');
     grunt.loadNpmTasks('grunt-postcss');
     grunt.loadNpmTasks('grunt-sass');

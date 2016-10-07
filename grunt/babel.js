@@ -10,7 +10,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('babel-modules-configure', 'Configure babel options', function() {
         // Inject the source maps from the modules concat operation in the new babel sourcemap
-        grunt.config.set('babel.options.inputSourceMap',
+        grunt.config.set('babel.modules.options.inputSourceMap',
             grunt.file.readJSON('build/temp/babel/atlas.' + uniqueIdJs + '.js.map'));
     });
 
