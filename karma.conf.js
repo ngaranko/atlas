@@ -1,9 +1,10 @@
-var jsFiles = ['build/temp/bower_components.js'];
-jsFiles = jsFiles.concat(require('./grunt/config/js-files'));
-jsFiles.push('bower_components/angular-mocks/angular-mocks.js');
-jsFiles.push('build/temp/babel/atlas.tests.es5.js');
-
 module.exports = function (config) {
+
+    var jsFiles = ['build/temp/bower_components.js'];
+    jsFiles = jsFiles.concat(require('./grunt/config/js-files'));
+    jsFiles.push('bower_components/angular-mocks/angular-mocks.js');
+    jsFiles.push('build/temp/babel/atlas.tests.es5.js');
+
     config.set({
         frameworks: ['jasmine-jquery', 'jasmine'],
         files: jsFiles,

@@ -111,7 +111,7 @@ describe('The atlas application is an es6 application and', function () {
     });
 
     it('supports symbols', function () {
-        // This requires the inclusion of polyfills!
+        // This requires the inclusion of polyfills
         expect(Symbol('foo') === Symbol('foo')).toBe(false);
     });
 
