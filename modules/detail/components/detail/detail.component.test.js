@@ -4,9 +4,6 @@ describe('the atlas-detail component', function() {
         $q,
         store,
         ACTIONS,
-        api,
-        endpointParser,
-        geometry,
         mockedGeometryPoint = {type: 'Point', coordinates: 'FAKE_NUMMERAANDUIDING_POINT'},
         mockedGeometryMultiPolygon = {type: 'MultiPolygon', coordinates: 'FAKE_KADASTRAAL_OBJECT_MULTIPOLYGON'};
 
@@ -99,18 +96,12 @@ describe('the atlas-detail component', function() {
             _$rootScope_,
             _$q_,
             _store_,
-            _ACTIONS_,
-            _api_,
-            _endpointParser_,
-            _geometry_) {
+            _ACTIONS_) {
                 $compile = _$compile_;
                 $rootScope = _$rootScope_;
                 $q = _$q_;
                 store = _store_;
                 ACTIONS = _ACTIONS_;
-                api = _api_;
-                endpointParser = _endpointParser_;
-                geometry = _geometry_;
             }
         );
 
@@ -202,9 +193,7 @@ describe('the atlas-detail component', function() {
     });
 
     it('sets the SHOW_DETAIL payload to null if there is no geometry', function () {
-        var component;
-
-        component = getComponent('http://www.fake-endpoint.com/brk/subject/123/');
+        getComponent('http://www.fake-endpoint.com/brk/subject/123/');
 
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.SHOW_DETAIL,

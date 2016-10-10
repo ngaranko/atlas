@@ -303,12 +303,11 @@ describe('The dp-map directive', function () {
     });
 
     describe('panning factory', function () {
-        var directive,
-            container;
+        var directive
 
         beforeEach(function () {
             directive = getDirective(mockedMapState, []);
-            container = directive[0].querySelector('.js-leaflet-map');
+            directive[0].querySelector('.js-leaflet-map');
         });
 
         it('is initialized', function () {

@@ -12,7 +12,7 @@ module.exports = {
     "rules": {
         // The disabled tests are sorted roughly in order of priority to turn them on
         // The --fix option on the command line can automatically fixes some problems
-        "no-unused-vars": "off",    // disallow unused variables
+        "no-unused-vars": "error",    // disallow unused variables
         "semi": "off",  // require or disallow semicolons instead of ASI
         "comma-dangle": "off",  // require or disallow trailing commas
         "angular/document-service": "off",  // prefer the AngularJS wrapper service $document over document object

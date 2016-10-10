@@ -2,7 +2,6 @@ describe('The atlas-meetbout-graph directive', function () {
     'use strict';
 
     var api,
-        d3,
         $rootScope,
         $compile,
         $q,
@@ -40,9 +39,8 @@ describe('The atlas-meetbout-graph directive', function () {
             }
         );
 
-        angular.mock.inject(function (_api_, _d3_, _$rootScope_, _$compile_, _$q_) {
+        angular.mock.inject(function (_api_, _$rootScope_, _$compile_, _$q_) {
             api = _api_;
-            d3 = _d3_;
             $rootScope = _$rootScope_;
             $compile = _$compile_;
             $q = _$q_;

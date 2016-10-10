@@ -1,16 +1,14 @@
 describe('The partialCompiler factory', function () {
     var $rootScope,
         $templateCache,
-        $httpBackend,
         partialCompiler;
 
     beforeEach(function () {
         angular.mock.module('atlasDetail');
 
-        angular.mock.inject(function (_$rootScope_, _$templateCache_, _$httpBackend_, _partialCompiler_) {
+        angular.mock.inject(function (_$rootScope_, _$templateCache_, _partialCompiler_) {
             $rootScope = _$rootScope_;
             $templateCache = _$templateCache_;
-            $httpBackend = _$httpBackend_;
             partialCompiler = _partialCompiler_;
         });
 
