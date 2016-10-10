@@ -7,34 +7,57 @@
         '$document',
         'store',
         'dashboardColumns',
-        'dpSearchResults.documentTitle'/*,
+        'dpDataSelectionDocumentTitle',
+        'dpDetailDocumentTitle',
+        'dpLayerSelectionDocumentTitle',
+        'dpMapDocumentTitle',
+        'dpPageDocumentTitle',
+        'dpSearchResults.documentTitle',
+        'dpStraatbeeldDocumentTitle'
 
-        'dpDataSelection.documentTitle',
-        'dpDetail.documentTitle',
-        'dpLayerSelection.documentTitle',
-        'dpMap.documentTitle',
-        'dpPage.documentTitle',
-        'dpStraatbeeld.documentTitle'*/
     ];
 
     function documentTitleFactory (
             $document,
             store,
             dashboardColumns,
-            dpSearchResultsDocumentTitle/*,
-
             dpDataSelectionDocumentTitle,
             dpDetailDocumentTitle,
             dpLayerSelectionDocumentTitle,
             dpMapDocumentTitle,
             dpPageDocumentTitle,
-            dpStraatbeeldDocumentTitle*/) {
+            dpSearchResultsDocumentTitle,
+            dpStraatbeeldDocumentTitle) {
 
         var mapping = [
             {
+                visibility: 'dataSelection',
+                documentTitle: dpDataSelectionDocumentTitle,
+                state: 'dataSelection'
+            }, {
+                visibility: 'detail',
+                documentTitle: dpDetailDocumentTitle,
+                state: 'detail'
+            }, {
+                visibility: 'layerSelection',
+                documentTitle: dpLayerSelectionDocumentTitle,
+                state: 'layerSelection'
+            }, {
+                visibility: 'page',
+                documentTitle: dpPageDocumentTitle,
+                state: 'page'
+            }, {
                 visibility: 'searchResults',
                 documentTitle: dpSearchResultsDocumentTitle,
                 state: 'search'
+            }, {
+                visibility: 'straatbeeld',
+                documentTitle: dpStraatbeeldDocumentTitle,
+                state: 'straatbeeld'
+            }, {
+                visibility: 'map',
+                documentTitle: dpMapDocumentTitle,
+                state: 'map'
             }];
 
         return {
@@ -52,7 +75,7 @@
                     }),
                     current = filtered ? filtered[0] : null,
                     stateData = current ? state[current.state] : null,
-                    displayNewTitle = current && !stateData.isLoading,
+                    displayNewTitle = current && stateData && !stateData.isLoading,
                     getTitle = displayNewTitle ? current.documentTitle.getTitle : null,
                     titleData = getTitle ? getTitle(stateData) : null,
                     title = (titleData ? titleData + ' – ' : '') + 'Atlas';
