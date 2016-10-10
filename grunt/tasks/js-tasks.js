@@ -4,7 +4,7 @@ module.exports = function (grunt) {
      * The output of build-js are two files 'build/atlas.js' and a source map.
      */
     grunt.registerTask('build-js', [
-        'build-js-bower',
+        'build-js-lib',
         'update-build-js'
     ]);
 
@@ -14,7 +14,7 @@ module.exports = function (grunt) {
         'tags:js'
     ]);
 
-    grunt.registerTask('build-js-bower', [
+    grunt.registerTask('build-js-lib', [
         'npmcopy',          // build temp/npm_components
         'bower_concat:js',  // build temp/bower_components
         'concat:npm_bower'  // combine npm and bower components into one js file
