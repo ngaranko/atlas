@@ -78,7 +78,7 @@
             };
 
             store.dispatch({
-                type: 'SHOW_NUMBER_OF_SEARCH_RESULTS',
+                type: 'SHOW_SEARCH_RESULTS',
                 payload: vm.numberOfResults
             });
         }

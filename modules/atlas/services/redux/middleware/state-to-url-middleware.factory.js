@@ -12,7 +12,9 @@
                 ACTIONS.URL_CHANGE, //Prevent infinite loops
                 ACTIONS.FETCH_DETAIL, //Don't update the state before asynchronous call are finished
                 ACTIONS.FETCH_STRAATBEELD,
-                ACTIONS.SHOW_NUMBER_OF_SEARCH_RESULTS
+                ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY,
+                ACTIONS.FETCH_SEARCH_RESULTS_BY_CLICK,
+                ACTIONS.FETCH_SEARCH_RESULTS_CATEGORY
             ],
             useReplace = [
                 ACTIONS.MAP_SET_BASELAYER, //Replace the URL instead of adding a new entry to the browser history

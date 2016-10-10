@@ -31,7 +31,7 @@
                 if (scope.activeSuggestionIndex === -1) {
                     //Load the search results
                     store.dispatch({
-                        type: ACTIONS.SHOW_SEARCH_RESULTS_BY_QUERY,
+                        type: ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY,
                         payload: scope.query
                     });
                 } else {

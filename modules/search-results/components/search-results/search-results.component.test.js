@@ -414,7 +414,7 @@ describe('The dp-search-results component', function () {
                 expect(removeWhitespace(component.find('dp-link').eq(10).text())).toBe('Toon alle 11');
                 component.find('dp-link button').click();
                 expect(store.dispatch).toHaveBeenCalledWith({
-                    type: ACTIONS.SHOW_SEARCH_RESULTS_CATEGORY,
+                    type: ACTIONS.FETCH_SEARCH_RESULTS_CATEGORY,
                     payload: 'adres'
                 });
 

@@ -148,7 +148,7 @@ describe('The atlas-search directive', function () {
         directive.find('.c-search-form').trigger('submit');
 
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.SHOW_SEARCH_RESULTS_BY_QUERY,
+            type: ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY,
             payload: 'query without suggestions'
         });
     });

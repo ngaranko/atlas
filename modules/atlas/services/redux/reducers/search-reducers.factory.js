@@ -10,10 +10,10 @@
     function searchReducersFactory (ACTIONS) {
         var reducers = {};
 
-        reducers[ACTIONS.SHOW_SEARCH_RESULTS_BY_QUERY] = showSearchResultsByQueryReducer;
-        reducers[ACTIONS.SHOW_SEARCH_RESULTS_BY_CLICK] = showSearchResultsByClickReducer;
-        reducers[ACTIONS.SHOW_SEARCH_RESULTS_CATEGORY] = showSearchResultsCategoryReducer;
-        reducers[ACTIONS.SHOW_NUMBER_OF_SEARCH_RESULTS] = showNumberOfSearchResultsReducer;
+        reducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY] = fetchSearchResultsByQueryReducer;
+        reducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_CLICK] = fetchSearchResultsByClickReducer;
+        reducers[ACTIONS.FETCH_SEARCH_RESULTS_CATEGORY] = fetchSearchResultsCategoryReducer;
+        reducers[ACTIONS.SHOW_SEARCH_RESULTS] = showSearchResultsReducer;
 
         return reducers;
 
@@ -23,7 +23,7 @@
          *
          * @returns {Object} newState
          */
-        function showSearchResultsByQueryReducer (oldState, payload) {
+        function fetchSearchResultsByQueryReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
             newState.search = {
@@ -50,7 +50,7 @@
          *
          * @returns {Object} newState
          */
-        function showSearchResultsByClickReducer (oldState, payload) {
+        function fetchSearchResultsByClickReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
             newState.search = {
@@ -82,7 +82,7 @@
          *
          * @returns {Object} newState
          */
-        function showSearchResultsCategoryReducer (oldState, payload) {
+        function fetchSearchResultsCategoryReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
             newState.search.category = payload;
@@ -97,7 +97,7 @@
          *
          * @returns {Object} newState
          */
-        function showNumberOfSearchResultsReducer(oldState, payload) {
+        function showSearchResultsReducer(oldState, payload) {
             var newState = angular.copy(oldState);
 
             newState.search.numberOfResults = payload;
