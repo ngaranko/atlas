@@ -9,12 +9,13 @@
             controllerAs: 'vm'
         });
 
-    AtlasDashboardController.$inject = ['store', 'dashboardColumns'];
+    AtlasDashboardController.$inject = ['store', 'dashboardColumns', 'documentTitle'];
 
-    function AtlasDashboardController (store, dashboardColumns) {
+    function AtlasDashboardController (store, dashboardColumns, documentTitle) {
         var vm = this;
 
         vm.store = store;
+        documentTitle.initialize();
 
         store.subscribe(setLayout);
         setLayout();

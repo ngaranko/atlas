@@ -7,43 +7,55 @@
         '$document',
         'store',
         'dashboardColumns',
+        'dpSearchResults.documentTitle'/*,
 
         'dpDataSelection.documentTitle',
         'dpDetail.documentTitle',
         'dpLayerSelection.documentTitle',
         'dpMap.documentTitle',
         'dpPage.documentTitle',
-        'dpSearchResults.documentTitle',
-        'dpStraatbeeld.documentTitle'
+        'dpStraatbeeld.documentTitle'*/
     ];
 
     function documentTitleFactory (
-        $document,
-        store,
-        dashboardColumns/*,
+            $document,
+            store,
+            dashboardColumns,
+            dpSearchResultsDocumentTitle/*,
 
-        dpDataSelectionDocumentTitle,
-        dpDetailDocumentTitle,
-        dpLayerSelectionDocumentTitle,
-        dpMapDocumentTitle,
-        dpPageDocumentTitle,
-        dpSearchResultsDocumentTitle,
-        dpStraatbeeldDocumentTitle*/) {
+            dpDataSelectionDocumentTitle,
+            dpDetailDocumentTitle,
+            dpLayerSelectionDocumentTitle,
+            dpMapDocumentTitle,
+            dpPageDocumentTitle,
+            dpStraatbeeldDocumentTitle*/) {
+
+        var mapping = [
+            {
+                visibility: 'searchResults',
+                documentTitle: dpSearchResultsDocumentTitle,
+                state: 'search'
+            }];
 
         return {
             initialize: initialize
         };
 
-        function initialize () {
+        function initialize() {
             store.subscribe(setTitle);
 
-            function setTitle () {
-                var visibility,
-                    state = store.getState();
+            function setTitle() {
+                var state = store.getState(),
+                    visibility = dashboardColumns.determineVisibility(state),
+                    filtered = mapping.filter(function(item) {
+                        return visibility[item.visibility];
+                    }),
+                    current = filtered ? filtered[0] : null,
+                    getTitle = current ? current.documentTitle.getTitle : null,
+                    titleData = getTitle ? getTitle(state[current.state]) : null,
+                    title = (titleData ? titleData + ' – ' : '') + 'Atlas';
 
-                visibility = dashboardColumns.determineVisibility(state);
-
-                //Op basis van visibilility de goede dependency aanroepen en dat stoppen in $document.title
+                $document[0].title = title;
             }
         }
     }
