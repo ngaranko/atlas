@@ -14,7 +14,7 @@ module.exports = {
         // The --fix option on the command line can automatically fixes some problems
         "no-unused-vars": "error",    // disallow unused variables
         "semi": ["error", "always"],  // require or disallow semicolons instead of ASI
-        "comma-dangle": "off",  // require or disallow trailing commas
+        "comma-dangle": ["error", "never"],  // require or disallow trailing commas
         "angular/document-service": "off",  // prefer the AngularJS wrapper service $document over document object
         "angular/on-watch": "off",  // assign Watch/On methods on the scope to a variable, for a $destroy event handler
         "no-tabs": "off",   // disallow tabs in file

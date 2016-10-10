@@ -40,12 +40,12 @@ describe('The atlas-metadata component', function () {
                 group: '',
                 title: 'FAKE_TITLE_1',
                 update_frequency: 'FAKE_UPDATE_FREQUENCY_1',
-                data_modified_date: 'FAKE_MODIFIED_DATE_1',
+                data_modified_date: 'FAKE_MODIFIED_DATE_1'
             }, {
                 group: '',
                 title: 'FAKE_TITLE_2',
                 update_frequency: 'FAKE_UPDATE_FREQUENCY_2',
-                data_modified_date: 'FAKE_MODIFIED_DATE_2',
+                data_modified_date: 'FAKE_MODIFIED_DATE_2'
             }
         ];
     });
