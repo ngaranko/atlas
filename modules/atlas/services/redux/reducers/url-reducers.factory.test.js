@@ -229,7 +229,7 @@ describe('The urlReducers factory', function () {
                 expect(output.detail.endpoint).toBe('https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/123/');
             });
 
-            it('remembers the geomtery of the previous state if the endpoint stays the same', function () {
+            it('remembers the display and geometry of the previous state if the endpoint stays the same', function () {
                 var output;
 
                 //With a previous state without an endpoint
@@ -240,11 +240,13 @@ describe('The urlReducers factory', function () {
 
                 //With a previous geometry in the state
                 mockedState.detail = {
+                    display: 'Mijn lievelings detailpagina',
                     endpoint: 'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/123/',
                     geometry: 'FAKE_GEOMETRY'
                 };
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
 
+                expect(output.detail.display).toBe('Mijn lievelings detailpagina');
                 expect(output.detail.geometry).toBe('FAKE_GEOMETRY');
             });
         });

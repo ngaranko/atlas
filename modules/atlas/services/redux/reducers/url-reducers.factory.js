@@ -107,6 +107,7 @@
                         };
 
                     if (angular.isObject(oldState.detail) && oldState.detail.endpoint === payload.detail) {
+                        newDetailState.display = oldState.detail.display;
                         newDetailState.geometry = oldState.detail.geometry;
                     }
 
