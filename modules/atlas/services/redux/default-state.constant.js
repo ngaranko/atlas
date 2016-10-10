@@ -16,9 +16,11 @@
             search: null,
             /*
             search: {
+                isLoading: false,
                 query: 'linnaeus',
                 location: [52.123, 4.789],
-                category: null
+                category: null,
+                numberOfResults: null
             }
             */
             page: 'home',

@@ -73,9 +73,11 @@
 
                     <div ng-if="vm.visibility.searchResults" ng-controller="SearchResultsController as vm">
                         <dp-search-results
+                            is-loading="vm.isLoading"
                             query="{{vm.query}}"
                             location="vm.location"
-                            category="{{vm.category}}">
+                            category="{{vm.category}}"
+                            number-of-results="vm.numberOfResults">
 
                         </dp-search-results>
                     </div>

@@ -27,6 +27,7 @@
             var newState = angular.copy(oldState);
 
             newState.search = {
+                isLoading: true,
                 query: payload,
                 location: null,
                 category: null,
@@ -54,6 +55,7 @@
             var newState = angular.copy(oldState);
 
             newState.search = {
+                isLoading: true,
                 query: null,
                 location: payload,
                 category: null,
@@ -85,6 +87,7 @@
         function fetchSearchResultsCategoryReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
+            newState.search.isLoading = true;
             newState.search.category = payload;
             newState.search.numberOfResults = null;
 
@@ -100,6 +103,7 @@
         function showSearchResultsReducer(oldState, payload) {
             var newState = angular.copy(oldState);
 
+            newState.search.isLoading = false;
             newState.search.numberOfResults = payload;
 
             return newState;
