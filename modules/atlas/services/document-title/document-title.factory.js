@@ -51,11 +51,15 @@
                         return visibility[item.visibility];
                     }),
                     current = filtered ? filtered[0] : null,
-                    getTitle = current ? current.documentTitle.getTitle : null,
-                    titleData = getTitle ? getTitle(state[current.state]) : null,
+                    stateData = current ? state[current.state] : null,
+                    displayNewTitle = current && !stateData.isLoading,
+                    getTitle = displayNewTitle ? current.documentTitle.getTitle : null,
+                    titleData = getTitle ? getTitle(stateData) : null,
                     title = (titleData ? titleData + ' – ' : '') + 'Atlas';
 
-                $document[0].title = title;
+                if (displayNewTitle) {
+                    $document[0].title = title;
+                }
             }
         }
     }
