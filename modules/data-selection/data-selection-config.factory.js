@@ -30,7 +30,6 @@
         globalConfig = {
             MAX_AVAILABLE_PAGES: 100,
             bag: {
-                TITLE: 'Adressen',
                 PRIMARY_KEY: 'id',
                 TITLE: 'Adressen',
                 FILTERS: [

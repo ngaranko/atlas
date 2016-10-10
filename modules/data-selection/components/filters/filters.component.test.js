@@ -11,11 +11,8 @@ describe('The dp-data-selection-filters component', function () {
             {
                 store: {
                     dispatch: function () {}
-                }
-            },
-            function ($provide) {
-                //This configuration is only used here for mapping labels to the activeFilters
-                $provide.constant('dataSelectionConfig', {
+                },
+                dataSelectionConfig: {
                     my_special_dataset: {
                         FILTERS: [
                             {
@@ -25,7 +22,7 @@ describe('The dp-data-selection-filters component', function () {
                             }
                         ]
                     }
-                });
+                }
             }
         );
 

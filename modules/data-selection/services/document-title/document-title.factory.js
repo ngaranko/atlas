@@ -4,17 +4,18 @@
     //This factory name is namespaced because other modules will get a similar service with the same name
     angular
         .module('dpDataSelection')
-        .factory('dpDataSelection.documentTitle', documentTitleFactory);
+        .factory('dpDataSelectionDocumentTitle', dpDataSelectionDocumentTitleFactory);
 
-    documentTitleFactory.$inject = ['dataSelectionConfig'];
+    dpDataSelectionDocumentTitleFactory.$inject = ['dataSelectionConfig'];
 
-    function documentTitleFactory (dataSelectionConfig) {
+    function dpDataSelectionDocumentTitleFactory (dataSelectionConfig) {
         return {
             getTitle: getTitle
         };
 
         function getTitle (dataSelectionState) {
-            var variant,
+            var output,
+                variant,
                 criteria;
 
             variant = dataSelectionConfig[dataSelectionState.dataset].TITLE;
@@ -26,12 +27,17 @@
                 })
                 //Show the value of each active filter
                 .map(function (activeFilter) {
-                    return dataSelectionState.FILTERS[activeFilter.slug];
+                    return dataSelectionState.filters[activeFilter.slug];
                 })
                 .join(', ');
 
+            output = 'Tabel ' + variant;
 
-            return 'Tabel ' + variant + ' met ' + criteria;
+            if (criteria.length) {
+                output += ' met ' + criteria;
+            }
+
+            return output;
         }
     }
 })();
