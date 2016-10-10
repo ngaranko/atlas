@@ -1,22 +1,22 @@
 describe('The dpUppercaseFirstLetter filter', function () {
-    var atlasUppercaseFirstLetter;
+    var dpUppercaseFirstLetter;
 
     beforeEach(function () {
         angular.mock.module('dpDetail');
 
-        angular.mock.inject(function (_atlasUppercaseFirstLetterFilter_) {
-            atlasUppercaseFirstLetter = _atlasUppercaseFirstLetterFilter_;
+        angular.mock.inject(function (_dpUppercaseFirstLetterFilter_) {
+            dpUppercaseFirstLetter = _dpUppercaseFirstLetterFilter_;
         });
     });
 
     it('makes the first character uppercase', function () {
-        expect(atlasUppercaseFirstLetter('atlas')).toBe('Atlas');
-        expect(atlasUppercaseFirstLetter('Atlas')).toBe('Atlas');
+        expect(dpUppercaseFirstLetter('atlas')).toBe('Atlas');
+        expect(dpUppercaseFirstLetter('Atlas')).toBe('Atlas');
     });
 
     it('doesn\'t change the rest of the string', function () {
-        expect(atlasUppercaseFirstLetter('aTLAS')).toBe('ATLAS');
-        expect(atlasUppercaseFirstLetter('ATLAS')).toBe('ATLAS');
-        expect(atlasUppercaseFirstLetter('atlas Atlas')).toBe('Atlas Atlas');
+        expect(dpUppercaseFirstLetter('aTLAS')).toBe('ATLAS');
+        expect(dpUppercaseFirstLetter('ATLAS')).toBe('ATLAS');
+        expect(dpUppercaseFirstLetter('atlas Atlas')).toBe('Atlas Atlas');
     });
 });

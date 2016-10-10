@@ -3,21 +3,21 @@
 
     angular
         .module('dpDetail')
-        .component('atlasApiCall', {
+        .component('dpApiCall', {
             bindings: {
                 endpoint: '@',
                 partial: '@',
                 addApiRoot: '=',
                 useBrkObjectExpanded: '='
             },
-            templateUrl: 'modules/detail/components/api-call/atlas-api-call.html',
-            controller: AtlasApiCallController,
+            templateUrl: 'modules/detail/components/api-call/api-call.html',
+            controller: DpApiCallController,
             controllerAs: 'vm'
         });
 
-    AtlasApiCallController.$inject = ['$scope', 'api'];
+    DpApiCallController.$inject = ['$scope', 'api'];
 
-    function AtlasApiCallController ($scope, api) {
+    function DpApiCallController ($scope, api) {
         var vm = this;
 
         vm.isLoading = true;

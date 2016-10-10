@@ -70,7 +70,7 @@ describe('The dashboard component', function () {
             element,
             scope;
 
-        element = document.createElement('atlas-dashboard');
+        element = document.createElement('dp-dashboard');
         scope = $rootScope.$new();
 
         component = $compile(element)(scope);

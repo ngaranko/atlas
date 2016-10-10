@@ -3,9 +3,9 @@
 
     angular
         .module('dpShared')
-        .filter('atlasUppercaseFirstLetter', atlasUppercaseFirstLetterFilter);
+        .filter('dpUppercaseFirstLetter', dpUppercaseFirstLetterFilter);
 
-    function atlasUppercaseFirstLetterFilter () {
+    function dpUppercaseFirstLetterFilter () {
         return function (input) {
             return input.substring(0, 1).toUpperCase() + input.substring(1);
         };

@@ -10,13 +10,13 @@
                 zoom: '='
             },
             templateUrl: 'modules/layer-selection/components/layer-selection/layer-selection.html',
-            controller: AtlasLayerSelectionController,
+            controller: DpLayerSelectionController,
             controllerAs: 'vm'
         });
 
-    AtlasLayerSelectionController.$inject = ['BASE_LAYERS', 'OVERLAYS', 'store', 'ACTIONS'];
+    DpLayerSelectionController.$inject = ['BASE_LAYERS', 'OVERLAYS', 'store', 'ACTIONS'];
 
-    function AtlasLayerSelectionController (BASE_LAYERS, OVERLAYS, store, ACTIONS) {
+    function DpLayerSelectionController (BASE_LAYERS, OVERLAYS, store, ACTIONS) {
         var vm = this;
 
         vm.allBaseLayers = BASE_LAYERS;

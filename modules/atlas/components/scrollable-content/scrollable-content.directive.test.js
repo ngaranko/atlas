@@ -1,4 +1,4 @@
-describe('The atlas-scrollable-content directive', function () {
+describe('The dp-scrollable-content directive', function () {
     var $compile,
         $rootScope;
 
@@ -19,7 +19,7 @@ describe('The atlas-scrollable-content directive', function () {
             paragraph;
 
         element = document.createElement('div');
-        element.setAttribute('atlas-scrollable-content', '');
+        element.setAttribute('dp-scrollable-content', '');
         element.setAttribute('visibility', 'visibility');
         element.setAttribute('page-name', pageName || '');
         element.setAttribute('style', 'height: 100px; overflow-y: scroll;');

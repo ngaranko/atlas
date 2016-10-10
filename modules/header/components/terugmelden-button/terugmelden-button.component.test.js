@@ -1,4 +1,4 @@
-describe('The atlas-terugmelden-button component', function () {
+describe('The dp-terugmelden-button component', function () {
     var $compile,
         $rootScope,
         $window,
@@ -23,7 +23,7 @@ describe('The atlas-terugmelden-button component', function () {
             element,
             scope;
 
-        element = document.createElement('atlas-terugmelden-button');
+        element = document.createElement('dp-terugmelden-button');
 
         if (angular.isString(transcludeStr)) {
             element.innerHTML = transcludeStr;

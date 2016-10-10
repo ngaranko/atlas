@@ -1,4 +1,4 @@
-describe('The atlas-stelselpedia-meta directive', function () {
+describe('The dp-stelselpedia-meta directive', function () {
     var $compile,
         $rootScope;
 
@@ -36,7 +36,7 @@ describe('The atlas-stelselpedia-meta directive', function () {
             element,
             scope;
 
-        element = document.createElement('atlas-stelselpedia-meta');
+        element = document.createElement('dp-stelselpedia-meta');
         element.setAttribute('definition', definition);
         element.setAttribute('api-data', 'apiData');
 

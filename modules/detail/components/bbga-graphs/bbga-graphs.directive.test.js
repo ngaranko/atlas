@@ -1,4 +1,4 @@
-describe('The atlas-bbga-graphs directive', function () {
+describe('The dp-bbga-graphs directive', function () {
     var $compile,
         $rootScope,
         $q,
@@ -11,7 +11,7 @@ describe('The atlas-bbga-graphs directive', function () {
         angular.mock.module(
             'dpDetail',
             function ($provide) {
-                $provide.factory('atlasBbgaTevredenheidDirective', function () {
+                $provide.factory('dpBbgaTevredenheidDirective', function () {
                     return {};
                 });
             }
@@ -57,7 +57,7 @@ describe('The atlas-bbga-graphs directive', function () {
             element,
             scope;
 
-        element = document.createElement('atlas-bbga-graphs');
+        element = document.createElement('dp-bbga-graphs');
         element.setAttribute('gebied-heading', heading);
         element.setAttribute('gebied-code', code);
 

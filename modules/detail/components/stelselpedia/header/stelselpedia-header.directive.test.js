@@ -1,4 +1,4 @@
-describe('The atlas-stelselpedia-header directive', function () {
+describe('The dp-stelselpedia-header directive', function () {
     var $compile,
         $rootScope;
 
@@ -30,10 +30,10 @@ describe('The atlas-stelselpedia-header directive', function () {
                 }
             });
 
-            $provide.factory('atlasStelselpediaMetaDirective', function () {
+            $provide.factory('dpStelselpediaMetaDirective', function () {
                 return {};
             });
-            $provide.factory('atlasWkpbLinkDirective', function () {
+            $provide.factory('dpWkpbLinkDirective', function () {
                 return {};
             });
         });
@@ -49,7 +49,7 @@ describe('The atlas-stelselpedia-header directive', function () {
             element,
             scope;
 
-        element = document.createElement('atlas-stelselpedia-header');
+        element = document.createElement('dp-stelselpedia-header');
         scope = $rootScope.$new();
 
         if (heading !== null) {
@@ -130,7 +130,7 @@ describe('The atlas-stelselpedia-header directive', function () {
             .toBe('Lees verder op stelselpedia');
     });
 
-    describe('optionally loads the atlas-stelselpedia-meta directive', function () {
+    describe('optionally loads the dp-stelselpedia-meta directive', function () {
         var metaData;
 
         beforeEach(function () {
@@ -166,7 +166,7 @@ describe('The atlas-stelselpedia-header directive', function () {
                 .toBe('Informatie (metadata) verbergen');
         });
 
-        it('can open a panel that loads the atlas-stelselpedia-meta directive', function () {
+        it('can open a panel that loads the dp-stelselpedia-meta directive', function () {
             var directive = getDirective(null, 'BOUWBLOK', false, metaData, null);
 
             //The panel is hidden by default
@@ -177,27 +177,27 @@ describe('The atlas-stelselpedia-header directive', function () {
 
             expect(directive.find('.qa-metadata').length).toBe(1);
             expect(directive.find('.qa-metadata h3').text().trim()).toBe('Metadata van bouwblok');
-            expect(directive.find('.qa-metadata atlas-stelselpedia-meta').length).toBe(1);
+            expect(directive.find('.qa-metadata dp-stelselpedia-meta').length).toBe(1);
         });
     });
 
-    describe('optionally activates the atlas-wkpb-link directive', function () {
+    describe('optionally activates the dp-wkpb-link directive', function () {
         var brk;
 
         beforeEach(function () {
             brk = {};
         });
 
-        it('optionally includes the atlas-wkpb-link in the header when it\'s a BEPERKING', function () {
+        it('optionally includes the dp-wkpb-link in the header when it\'s a BEPERKING', function () {
             var directive;
 
             //BRONDOCUMENT has no wkpb-uittreksel
             directive = getDirective(null, 'BRONDOCUMENT', false, null, null);
-            expect(directive.find('atlas-wkpb-link').length).toBe(0);
+            expect(directive.find('dp-wkpb-link').length).toBe(0);
 
             //BEPERKING enige met wkpb uittreksel
             directive = getDirective(null, 'BEPERKING', false, null, brk);
-            expect(directive.find('atlas-wkpb-link').length).toBe(1);
+            expect(directive.find('dp-wkpb-link').length).toBe(1);
         });
 
     });

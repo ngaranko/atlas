@@ -1,4 +1,4 @@
-describe('The atlas-print-button component', function () {
+describe('The dp-print-button component', function () {
     var $compile,
         $rootScope,
         $window;
@@ -18,7 +18,7 @@ describe('The atlas-print-button component', function () {
             element,
             scope;
 
-        element = document.createElement('atlas-print-button');
+        element = document.createElement('dp-print-button');
 
         if (angular.isString(html)) {
             element.innerHTML = html;

@@ -1,4 +1,4 @@
-describe('The atlas-login-form component', function () {
+describe('The dp-login-form component', function () {
     var $compile,
         $rootScope,
         $q,
@@ -51,7 +51,7 @@ describe('The atlas-login-form component', function () {
             element,
             scope;
 
-        element = document.createElement('atlas-login-form');
+        element = document.createElement('dp-login-form');
         scope = $rootScope.$new();
 
         component = $compile(element)(scope);

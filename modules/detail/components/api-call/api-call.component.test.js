@@ -1,4 +1,4 @@
-describe('The atlas-api-call component', function () {
+describe('The dp-api-call component', function () {
     var $compile,
         $rootScope,
         $q,
@@ -19,7 +19,7 @@ describe('The atlas-api-call component', function () {
                 }
             },
             function ($provide) {
-                $provide.factory('atlasPartialSelectDirective', function () {
+                $provide.factory('dpPartialSelectDirective', function () {
                     return {};
                 });
 
@@ -102,7 +102,7 @@ describe('The atlas-api-call component', function () {
             element,
             scope;
 
-        element = document.createElement('atlas-api-call');
+        element = document.createElement('dp-api-call');
         element.setAttribute('endpoint', endpoint);
         element.setAttribute('partial', partial);
         element.setAttribute('use-brk-object-expanded', 'useBrkObjectExpanded');
@@ -122,11 +122,11 @@ describe('The atlas-api-call component', function () {
         var component = getComponent('', 'some-partial', false);
 
         expect(api.getByUrl).not.toHaveBeenCalled();
-        expect(component.find('atlas-partial-select').length).toBe(0);
+        expect(component.find('dp-partial-select').length).toBe(0);
     });
 
     describe('content without pagination', function () {
-        it('retrieves data from the api factory and restructures it for atlas-partial-select', function () {
+        it('retrieves data from the api factory and restructures it for dp-partial-select', function () {
             var component,
                 scope;
 
@@ -138,8 +138,8 @@ describe('The atlas-api-call component', function () {
 
             expect(api.getByUrl).toHaveBeenCalledWith('http://www.some-domain.com/without-pagination/123/');
 
-            expect(component.find('atlas-partial-select').length).toBe(1);
-            expect(component.find('atlas-partial-select').attr('api-data')).toBe('vm.apiData');
+            expect(component.find('dp-partial-select').length).toBe(1);
+            expect(component.find('dp-partial-select').attr('api-data')).toBe('vm.apiData');
             expect(scope.vm.apiData).toEqual({
                 results: {
                     var_a: 'foo',
@@ -194,13 +194,13 @@ describe('The atlas-api-call component', function () {
         });
     });
 
-    it('communicates the partial variabe to atlas-partial-select', function () {
+    it('communicates the partial variabe to dp-partial-select', function () {
         var component;
 
         component = getComponent('http://www.some-domain.com/without-pagination/123/', 'some-partial', false);
 
-        expect(component.find('atlas-partial-select').length).toBe(1);
-        expect(component.find('atlas-partial-select').attr('partial')).toBe('some-partial');
+        expect(component.find('dp-partial-select').length).toBe(1);
+        expect(component.find('dp-partial-select').attr('partial')).toBe('some-partial');
     });
 
     it('overrides the brk/object endpoint based on the useBrkObjectExpanded variable', function () {

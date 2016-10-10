@@ -5,7 +5,7 @@ describe('The dp-link component', function () {
 
     beforeEach(function () {
         angular.mock.module(
-            'atlas',
+            'dpShared',
             {
                 store: {
                     dispatch: angular.noop

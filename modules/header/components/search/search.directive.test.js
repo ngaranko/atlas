@@ -1,4 +1,4 @@
-describe('The atlas-search directive', function () {
+describe('The dp-search directive', function () {
     var $compile,
         $rootScope,
         $timeout,
@@ -112,7 +112,7 @@ describe('The atlas-search directive', function () {
             element,
             scope;
 
-        element = document.createElement('atlas-search');
+        element = document.createElement('dp-search');
         element.setAttribute('query', query);
 
         scope = $rootScope.$new();

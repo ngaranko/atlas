@@ -28,7 +28,7 @@ describe('The dp-wkpb-link directive', function () {
             element,
             scope;
 
-        element = document.createElement('atlas-wkpb-link');
+        element = document.createElement('dp-wkpb-link');
         element.setAttribute('brk-id', brkId);
 
         scope = $rootScope.$new();

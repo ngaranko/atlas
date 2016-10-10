@@ -10,13 +10,13 @@
                 category: '@'
             },
             templateUrl: 'modules/search-results/components/search-results/search-results.html',
-            controller: AtlasSearchResultsController,
+            controller: DpSearchResultsController,
             controllerAs: 'vm'
         });
 
-    AtlasSearchResultsController.$inject = ['$scope', 'SEARCH_CONFIG', 'search', 'geosearch', 'store'];
+    DpSearchResultsController.$inject = ['$scope', 'SEARCH_CONFIG', 'search', 'geosearch', 'store'];
 
-    function AtlasSearchResultsController ($scope, SEARCH_CONFIG, search, geosearch, store) {
+    function DpSearchResultsController ($scope, SEARCH_CONFIG, search, geosearch, store) {
         var vm = this;
 
         /**

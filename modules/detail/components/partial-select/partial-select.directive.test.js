@@ -1,4 +1,4 @@
-describe('The atlas-partial-select directive', function () {
+describe('The dp-partial-select directive', function () {
     var $compile,
         $rootScope,
         $q,
@@ -58,7 +58,7 @@ describe('The atlas-partial-select directive', function () {
             element,
             scope;
 
-        element = document.createElement('atlas-partial-select');
+        element = document.createElement('dp-partial-select');
         element.setAttribute('api-data', 'apiData');
         element.setAttribute('partial', partial);
         element.setAttribute('load-more-fn', 'loadMoreFn');

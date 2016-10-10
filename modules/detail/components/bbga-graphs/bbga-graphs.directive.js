@@ -3,11 +3,11 @@
 
     angular
         .module('dpDetail')
-        .directive('atlasBbgaGraphs', atlasBbgaGraphsDirective);
+        .directive('dpBbgaGraphs', dpBbgaGraphsDirective);
 
-    atlasBbgaGraphsDirective.$inject = ['BBGA', 'bbgaDataService'];
+    dpBbgaGraphsDirective.$inject = ['BBGA', 'bbgaDataService'];
 
-    function atlasBbgaGraphsDirective (BBGA, bbgaDataService) {
+    function dpBbgaGraphsDirective (BBGA, bbgaDataService) {
         return {
             restrict: 'E',
             scope: {

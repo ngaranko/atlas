@@ -3,11 +3,11 @@
 
     angular
         .module('dpHeader')
-        .directive('atlasSearch', atlasSearchDirective);
+        .directive('dpSearch', dpSearchDirective);
 
-        atlasSearchDirective.$inject = ['$timeout', 'autocompleteData', 'environment', 'store', 'ACTIONS'];
+        dpSearchDirective.$inject = ['$timeout', 'autocompleteData', 'environment', 'store', 'ACTIONS'];
 
-    function atlasSearchDirective ($timeout, autocompleteData, environment, store, ACTIONS) {
+    function dpSearchDirective ($timeout, autocompleteData, environment, store, ACTIONS) {
         return {
             restrict: 'E',
             scope: {

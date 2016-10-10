@@ -1,4 +1,4 @@
-describe('The atlas-bbga-tevredenheid component', function () {
+describe('The dp-bbga-tevredenheid component', function () {
     var $compile,
         $rootScope,
         $q,
@@ -99,7 +99,7 @@ describe('The atlas-bbga-tevredenheid component', function () {
             element,
             scope;
 
-        element = document.createElement('atlas-bbga-tevredenheid');
+        element = document.createElement('dp-bbga-tevredenheid');
         element.setAttribute('gebied-heading', gebiedHeading);
         element.setAttribute('gebied-code', gebiedCode);
 

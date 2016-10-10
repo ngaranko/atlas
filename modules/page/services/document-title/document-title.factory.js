@@ -6,9 +6,9 @@
         .module('dpPage')
         .factory('dpPageDocumentTitle', dpPageDocumentTitleFactory);
 
-    dpPageDocumentTitleFactory.$inject = ['atlasUppercaseFirstLetterFilter'];
+    dpPageDocumentTitleFactory.$inject = ['dpUppercaseFirstLetterFilter'];
 
-    function dpPageDocumentTitleFactory (atlasUppercaseFirstLetterFilter) {
+    function dpPageDocumentTitleFactory (dpUppercaseFirstLetterFilter) {
         return {
             getTitle: getTitle
         };
@@ -17,7 +17,7 @@
             return pageName
                 //Make the first letter of each word uppercase
                 .split('-').map(function (word) {
-                    return (atlasUppercaseFirstLetterFilter(word));
+                    return (dpUppercaseFirstLetterFilter(word));
                 })
                 //Replace dashed (-) with spaces
                 .join(' ');

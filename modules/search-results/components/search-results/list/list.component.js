@@ -9,11 +9,11 @@
                 limitResults: '='
             },
             templateUrl: 'modules/search-results/components/search-results/list/list.html',
-            controller: AtlasSearchResultsListController,
+            controller: DpSearchResultsListController,
             controllerAs: 'vm'
         });
 
-    function AtlasSearchResultsListController () {
+    function DpSearchResultsListController () {
         var vm = this;
 
         vm.showSubtype = function (categorySlug, link) {

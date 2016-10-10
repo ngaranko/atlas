@@ -7,11 +7,11 @@
                 isLoading: '='
             },
             templateUrl: 'modules/detail/components/detail/detail.html',
-            controller: AtlasDetailController,
+            controller: DpDetailController,
             controllerAs: 'vm'
         });
 
-    AtlasDetailController.$inject = [
+    DpDetailController.$inject = [
         '$scope',
         'store',
         'ACTIONS',
@@ -22,7 +22,7 @@
         'crsConverter'
     ];
 
-    function AtlasDetailController (
+    function DpDetailController (
         $scope,
         store,
         ACTIONS,

@@ -3,9 +3,9 @@
 
     angular
         .module('dpHeader')
-        .directive('atlasMenuDropdown', atlasMenuDropdownDirective);
+        .directive('dpMenuDropdown', dpMenuDropdownDirective);
 
-    function atlasMenuDropdownDirective() {
+    function dpMenuDropdownDirective () {
         return {
             restrict: 'E',
             transclude: true,

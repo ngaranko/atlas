@@ -56,7 +56,7 @@ describe('The dp-parent-relations directive', function () {
             element,
             scope;
 
-        element = document.createElement('atlas-parent-relations');
+        element = document.createElement('dp-parent-relations');
         element.setAttribute('content', 'content');
 
         scope = $rootScope.$new();

@@ -1,4 +1,4 @@
-describe('The atlas-print-state directive', function () {
+describe('The dp-print-state directive', function () {
     var $compile,
         $rootScope,
         store,
@@ -32,7 +32,7 @@ describe('The atlas-print-state directive', function () {
             scope;
 
         element = document.createElement('div');
-        element.setAttribute('atlas-print-state', '');
+        element.setAttribute('dp-print-state', '');
 
         scope = $rootScope.$new();
 
