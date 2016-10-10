@@ -26,6 +26,7 @@
 
             dataSelectionApi.query(vm.state.dataset, vm.state.filters, vm.currentPage).then(function (data) {
 
+                vm.title = dataSelectionConfig.bag.TITLE;
                 vm.availableFilters = data.filters;
                 vm.tableData = data.tableData;
                 vm.numberOfRecords = data.number_of_records;
