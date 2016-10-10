@@ -5,14 +5,23 @@
     angular
         .module('dpSearchResults')
         .factory('dpSearchResults.documentTitle', documentTitleFactory);
+    documentTitleFactory.$inject = ['searchTitle'];
 
-    function documentTitleFactory () {
+    function documentTitleFactory (searchTitle) {
         return {
             getTitle: getTitle
         };
 
-        function getTitle (/*query, location, category*/) {
-            return 'Een tekst met dezelfde logica van samenstellen als dp-search-results-header';
+        function getTitle(searchState) {
+            var titleData = searchState ? searchTitle.getTitleData(
+                        searchState.query,
+                        searchState.location,
+                        searchState.category,
+                        searchState.numberOfResults) : null,
+                baseTitle = (titleData && titleData.title) ? titleData.title : '',
+                title = (baseTitle && titleData.subTitle) ? baseTitle + ' – ' + titleData.subTitle : baseTitle;
+
+            return title;
         }
     }
 })();

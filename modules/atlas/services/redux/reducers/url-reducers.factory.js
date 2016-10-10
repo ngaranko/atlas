@@ -20,7 +20,7 @@
             } else {
                 var newState = {};
 
-                newState.search = getSearchState(payload);
+                newState.search = getSearchState(oldState, payload);
                 newState.map = getMapState(payload);
                 newState.page = payload.pagina || null;
                 newState.detail = getDetailState(oldState, payload);
@@ -31,9 +31,9 @@
                 return newState;
             }
 
-            function getSearchState (payload) {
+            function getSearchState (oldState, payload) {
                 if (angular.isString(payload.zoek)) {
-                    var searchState = {};
+                    var searchState = angular.copy(oldState.search) || {};
 
                     if (isLocation(payload.zoek)) {
                         searchState.query = null;

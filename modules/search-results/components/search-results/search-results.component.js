@@ -14,9 +14,9 @@
             controllerAs: 'vm'
         });
 
-    AtlasSearchResultsController.$inject = ['$scope', 'SEARCH_CONFIG', 'search', 'geosearch'];
+    AtlasSearchResultsController.$inject = ['$scope', 'SEARCH_CONFIG', 'search', 'geosearch', 'store'];
 
-    function AtlasSearchResultsController ($scope, SEARCH_CONFIG, search, geosearch) {
+    function AtlasSearchResultsController ($scope, SEARCH_CONFIG, search, geosearch, store) {
         var vm = this;
 
         /**
@@ -67,11 +67,8 @@
             vm.searchResults = searchResults;
 
             vm.numberOfResults = vm.searchResults
-                .map(function (searchResult) {
-                    return searchResult.count;
-                })
                 .reduce(function (previous, current) {
-                    return previous + current;
+                    return previous + current.count;
                 }, 0);
 
             vm.hasLoadMore = function () {
@@ -79,6 +76,11 @@
                     vm.searchResults[0].count > vm.searchResults[0].results.length &&
                     !vm.isLoadMoreLoading;
             };
+
+            store.dispatch({
+                type: 'SHOW_NUMBER_OF_SEARCH_RESULTS',
+                payload: vm.numberOfResults
+            });
         }
     }
 })();

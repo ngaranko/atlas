@@ -3,14 +3,35 @@
 
     angular
         .module('dpSearchResults')
-        .component('dpSearchResultsHeader', {
-            bindings: {
+        .directive('dpSearchResultsHeader', dpSearchResultsHeaderDirective);
+
+    dpSearchResultsHeaderDirective.$inject = ['store', 'ACTIONS', '$filter', 'searchTitle'];
+
+    function dpSearchResultsHeaderDirective(store, ACTIONS, $filter, searchTitle) {
+        return {
+            scope: {
                 numberOfResults: '=',
                 query: '@',
                 location: '=',
                 category: '@'
             },
             templateUrl: 'modules/search-results/components/search-results/header/header.html',
-            controllerAs: 'vm'
-        });
+            link: linkFn
+        };
+
+        function linkFn(scope) {
+            scope.vm = {};
+
+            scope.$watchGroup(['numberOfResults', 'category', 'query', 'location'], function() {
+                var titleData = searchTitle.getTitleData(
+                        scope.query,
+                        scope.location,
+                        scope.category,
+                        scope.numberOfResults);
+
+                scope.vm.title = titleData.title;
+                scope.vm.subTitle = titleData.subTitle;
+            });
+        }
+    }
 })();

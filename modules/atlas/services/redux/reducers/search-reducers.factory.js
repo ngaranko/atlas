@@ -13,6 +13,7 @@
         reducers[ACTIONS.SHOW_SEARCH_RESULTS_BY_QUERY] = showSearchResultsByQueryReducer;
         reducers[ACTIONS.SHOW_SEARCH_RESULTS_BY_CLICK] = showSearchResultsByClickReducer;
         reducers[ACTIONS.SHOW_SEARCH_RESULTS_CATEGORY] = showSearchResultsCategoryReducer;
+        reducers[ACTIONS.SHOW_NUMBER_OF_SEARCH_RESULTS] = showNumberOfSearchResultsReducer;
 
         return reducers;
 
@@ -28,7 +29,8 @@
             newState.search = {
                 query: payload,
                 location: null,
-                category: null
+                category: null,
+                numberOfResults: null
             };
 
             newState.map.highlight = null;
@@ -54,7 +56,8 @@
             newState.search = {
                 query: null,
                 location: payload,
-                category: null
+                category: null,
+                numberOfResults: null
             };
 
             if (oldState.map.showLayerSelection || oldState.map.isFullscreen) {
@@ -83,6 +86,21 @@
             var newState = angular.copy(oldState);
 
             newState.search.category = payload;
+            newState.search.numberOfResults = null;
+
+            return newState;
+        }
+
+        /**
+         * @param {Object} oldState
+         * @param {String} payload - The number of search results
+         *
+         * @returns {Object} newState
+         */
+        function showNumberOfSearchResultsReducer(oldState, payload) {
+            var newState = angular.copy(oldState);
+
+            newState.search.numberOfResults = payload;
 
             return newState;
         }
