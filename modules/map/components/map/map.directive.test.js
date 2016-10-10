@@ -303,7 +303,7 @@ describe('The dp-map directive', function () {
     });
 
     describe('panning factory', function () {
-        var directive
+        var directive;
 
         beforeEach(function () {
             directive = getDirective(mockedMapState, []);

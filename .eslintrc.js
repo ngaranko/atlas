@@ -13,7 +13,7 @@ module.exports = {
         // The disabled tests are sorted roughly in order of priority to turn them on
         // The --fix option on the command line can automatically fixes some problems
         "no-unused-vars": "error",    // disallow unused variables
-        "semi": "off",  // require or disallow semicolons instead of ASI
+        "semi": ["error", "always"],  // require or disallow semicolons instead of ASI
         "comma-dangle": "off",  // require or disallow trailing commas
         "angular/document-service": "off",  // prefer the AngularJS wrapper service $document over document object
         "angular/on-watch": "off",  // assign Watch/On methods on the scope to a variable, for a $destroy event handler
