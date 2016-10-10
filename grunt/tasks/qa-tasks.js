@@ -6,7 +6,7 @@ module.exports = function (grunt) {
 
     const linttasks = linters
         .map(linter => tasks
-            .map(task => 'newer:' + linter + ':' + task))
+            .map(task => `newer:${linter}:${task}`))
         .reduce((result, lintertasks) => result.concat(lintertasks), []);
 
     grunt.registerTask('lint', linttasks);
