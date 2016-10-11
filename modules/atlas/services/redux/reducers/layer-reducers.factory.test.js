@@ -17,7 +17,7 @@ describe('The layerReducers factory', function () {
         it('sets the variable to true', function () {
             var output = layerReducers[ACTIONS.SHOW_LAYER_SELECTION](DEFAULT_STATE);
 
-            expect(output.map.showLayerSelection).toBe(true);
+            expect(output.showLayerSelection).toBe(true);
         });
 
         it('leaves the fullscreen mode as is', function () {
@@ -41,7 +41,7 @@ describe('The layerReducers factory', function () {
 
             output = layerReducers[ACTIONS.HIDE_LAYER_SELECTION](inputState);
 
-            expect(output.map.showLayerSelection).toBe(false);
+            expect(output.showLayerSelection).toBe(false);
         });
     });
 

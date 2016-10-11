@@ -145,22 +145,6 @@ describe('The urlReducers factory', function () {
                 expect(output.map.highlight).toBe('I_AM_A_FAKE_GEOJSON_OBJECT');
             });
 
-            it('sets the showLayerSelection status', function () {
-                var output;
-
-                //With layer selection
-                mockedState.map.showLayerSelection = false;
-                mockedSearchParams['kaartlagen-selectie'] = 'aan';
-                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
-                expect(output.map.showLayerSelection).toBe(true);
-
-                //Without layer selection
-                mockedState.map.showLayerSelection = true;
-                delete mockedSearchParams['kaartlagen-selectie'];
-                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
-                expect(output.map.showLayerSelection).toBe(false);
-            });
-
             it('sets the showActiveOverlays status', function () {
                 var output;
 
@@ -191,6 +175,24 @@ describe('The urlReducers factory', function () {
                 delete mockedSearchParams['volledig-scherm'];
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
                 expect(output.map.isFullscreen).toBe(false);
+            });
+        });
+
+        describe('layer selection', function () {
+            it('sets the showLayerSelection status', function () {
+                var output;
+
+                //With layer selection
+                mockedState.showLayerSelection = false;
+                mockedSearchParams['kaartlagen-selectie'] = 'aan';
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+                expect(output.showLayerSelection).toBe(true);
+
+                //Without layer selection
+                mockedState.showLayerSelection = true;
+                delete mockedSearchParams['kaartlagen-selectie'];
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+                expect(output.showLayerSelection).toBe(false);
             });
         });
 

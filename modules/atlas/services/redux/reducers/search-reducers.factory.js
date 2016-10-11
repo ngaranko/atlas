@@ -35,8 +35,9 @@
             };
 
             newState.map.highlight = null;
-            newState.map.showLayerSelection = false;
             newState.map.isFullscreen = false;
+
+            newState.showLayerSelection = false;
             newState.page = null;
             newState.detail = null;
             newState.straatbeeld = null;
@@ -62,12 +63,12 @@
                 numberOfResults: null
             };
 
-            if (oldState.map.showLayerSelection || oldState.map.isFullscreen) {
+            if (oldState.showLayerSelection || oldState.map.isFullscreen) {
                 newState.map.viewCenter = payload;
             }
 
             newState.map.highlight = null;
-            newState.map.showLayerSelection = false;
+            newState.showLayerSelection = false;
             newState.map.showActiveOverlays = false;
             newState.map.isFullscreen = false;
             newState.page = null;

@@ -70,6 +70,17 @@ describe('The map controller', function () {
         });
     });
 
+    it('sets the showLayerSelection based on the Redux state', function () {
+        var controller;
+
+        controller = getController();
+        expect(controller.showLayerSelection).not.toEqual(true);
+
+        mockedState.showLayerSelection = true;
+        controller = getController();
+        expect(controller.showLayerSelection).toEqual(true);
+    });
+
     describe('optionally adds marker data for search by location, detail and straatbeeld', function () {
         var controller;
 

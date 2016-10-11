@@ -39,10 +39,10 @@ describe('The dataSelectionReducers factory', function () {
                 viewCenter: [52.52, 4.4],
                 zoom: 16,
                 highlight: {some: 'object'},
-                showLayerSelection: true,
                 isFullscreen: true,
                 isLoading: true
             };
+            mockedState.showLayerSelection = true;
 
             output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION](mockedState, payload);
 
@@ -56,9 +56,9 @@ describe('The dataSelectionReducers factory', function () {
 
             //It disables the rest
             expect(output.map.highlight).toBeNull();
-            expect(output.map.showLayerSelection).toBe(false);
             expect(output.map.isFullscreen).toBe(false);
             expect(output.map.isLoading).toBe(false);
+            expect(output.showLayerSelection).toBe(false);
         });
 
         it('sets the dataSelection state', function () {

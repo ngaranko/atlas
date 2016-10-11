@@ -20,7 +20,7 @@
         function showLayerSelectionReducer (oldState) {
             var newState = angular.copy(oldState);
 
-            newState.map.showLayerSelection = true;
+            newState.showLayerSelection = true;
 
             return newState;
         }
@@ -28,7 +28,7 @@
         function hideLayerSelectionReducer (oldState) {
             var newState = angular.copy(oldState);
 
-            newState.map.showLayerSelection = false;
+            newState.showLayerSelection = false;
 
             return newState;
         }

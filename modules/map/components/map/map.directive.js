@@ -20,7 +20,8 @@
             restrict: 'E',
             scope: {
                 mapState: '=',
-                markers: '='
+                markers: '=',
+                showLayerSelection: '='
             },
             templateUrl: 'modules/map/components/map/map.html',
             link: linkFunction
@@ -31,10 +32,8 @@
                 container,
                 options;
 
-            scope.vm = {};
-
-            scope.$watchGroup(['mapState.isFullscreen', 'mapState.showLayerSelection'], function() {
-                scope.vm.isFullscreen = scope.mapState.isFullscreen && !scope.mapState.showLayerSelection;
+            scope.$watchGroup(['mapState.isFullscreen', 'showLayerSelection'], function() {
+                scope.isFullscreen = scope.mapState.isFullscreen && !scope.showLayerSelection;
             });
 
             container = element[0].querySelector('.js-leaflet-map');

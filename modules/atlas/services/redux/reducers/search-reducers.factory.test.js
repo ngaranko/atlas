@@ -47,7 +47,7 @@ describe('The search-reducers factory', function () {
             var inputState = angular.copy(defaultState),
                 output;
 
-            inputState.map.showLayerSelection = true;
+            inputState.showLayerSelection = true;
             inputState.page = 'somePage';
             inputState.detail = {some: 'object'};
             inputState.staatbeeld = {some: 'object'};
@@ -55,7 +55,7 @@ describe('The search-reducers factory', function () {
 
             output = searchReducers.FETCH_SEARCH_RESULTS_BY_QUERY(inputState, 'linnaeus');
 
-            expect(output.map.showLayerSelection).toBe(false);
+            expect(output.showLayerSelection).toBe(false);
             expect(output.page).toBeNull();
             expect(output.detail).toBeNull();
             expect(output.straatbeeld).toBeNull();
@@ -110,7 +110,7 @@ describe('The search-reducers factory', function () {
             var inputState = angular.copy(defaultState),
                 output;
 
-            inputState.map.showLayerSelection = true;
+            inputState.showLayerSelection = true;
             inputState.map.showActiveOverlays = true;
             inputState.page = 'somePage';
             inputState.detail = {some: 'object'};
@@ -119,7 +119,7 @@ describe('The search-reducers factory', function () {
 
             output = searchReducers.FETCH_SEARCH_RESULTS_BY_CLICK(inputState, [52.001, 4.002]);
 
-            expect(output.map.showLayerSelection).toBe(false);
+            expect(output.showLayerSelection).toBe(false);
             expect(output.map.showActiveOverlays).toBe(false);
             expect(output.page).toBeNull();
             expect(output.detail).toBeNull();
@@ -145,7 +145,7 @@ describe('The search-reducers factory', function () {
             expect(output.map.viewCenter).toEqual([52.001, 4.002]);
 
             //With layer selection enabled
-            inputState.map.showLayerSelection = true;
+            inputState.showLayerSelection = true;
             output = searchReducers.FETCH_SEARCH_RESULTS_BY_CLICK(inputState, [52.001, 4.002]);
             expect(output.map.viewCenter).toEqual([52.001, 4.002]);
         });

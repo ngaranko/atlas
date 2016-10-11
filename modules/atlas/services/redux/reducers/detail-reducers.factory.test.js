@@ -47,7 +47,7 @@ describe('The detailReducers factory', function () {
                 inputState = angular.copy(defaultState),
                 output;
 
-            inputState.map.showLayerSelection = true;
+            inputState.showLayerSelection = true;
             inputState.search = {some: 'object'};
             inputState.page = 'somePage';
             inputState.straatbeeld = {some: 'object'};
@@ -55,7 +55,7 @@ describe('The detailReducers factory', function () {
 
             output = detailReducers.FETCH_DETAIL(inputState, payload);
 
-            expect(output.map.showLayerSelection).toBe(false);
+            expect(output.showLayerSelection).toBe(false);
             expect(output.search).toBeNull();
             expect(output.page).toBeNull();
             expect(output.straatbeeld).toBeNull();
@@ -82,9 +82,9 @@ describe('The detailReducers factory', function () {
                     overlays: [],
                     viewCenter: [52.3719, 4.9012],
                     zoom: 12,
-                    showLayerSelection: false,
                     isLoading: true
                 },
+                showLayerSelection: false,
                 search: null,
                 page: null,
                 detail: {

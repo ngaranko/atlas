@@ -7,10 +7,10 @@
 | lagen               | map.overlays                    | no, []                 |
 | zoom                | map.zoom                        | yes, see DEFAULT_STATE |
 | selectie            | map.highlight                   | no, null               |
-| kaartlagen-selectie | map.showLayerSelection          | false                  |
 | actieve-kaartlagen  | map.showActiveOverlays          | false                  |
 | volledig-scherm     | map.isFullScreen                | false                  |
 |                     | map.isLoading                   | no                     |
+| kaartlagen-selectie | showLayerSelection              | false                  |
 | pagina              | page                            | yes, see DEFAULT_STATE |
 | detail              | detail.uri                      | no, detail is null     |
 |                     | detail.isLoading                | no, detail is null     |

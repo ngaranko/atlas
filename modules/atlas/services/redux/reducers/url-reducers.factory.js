@@ -22,6 +22,7 @@
 
                 newState.search = getSearchState(oldState, payload);
                 newState.map = getMapState(payload);
+                newState.showLayerSelection = getLayerSelectionState(payload);
                 newState.page = payload.pagina || null;
                 newState.detail = getDetailState(oldState, payload);
                 newState.straatbeeld = getStraatbeeldState(oldState, payload);
@@ -92,11 +93,14 @@
                     ],
                     zoom: Number(payload.zoom),
                     highlight: payload.selectie || null,
-                    showLayerSelection: angular.isString(payload['kaartlagen-selectie']),
                     showActiveOverlays: angular.isString(payload['actieve-kaartlagen']),
                     isFullscreen: angular.isString(payload['volledig-scherm']),
                     isLoading: false
                 };
+            }
+
+            function getLayerSelectionState(payload) {
+                return angular.isString(payload['kaartlagen-selectie']);
             }
 
             function getDetailState (oldState, payload) {
