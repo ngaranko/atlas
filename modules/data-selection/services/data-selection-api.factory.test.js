@@ -258,8 +258,8 @@ describe('The dataSelectionApi factory', function () {
             expect(output.tableData.body[0].fields.length).toBe(2);
             expect(output.tableData.body[1].fields.length).toBe(2);
 
-            expect(JSON.stringify(output.tableData.body)).not.toContain('whatever');
-            expect(JSON.stringify(output.tableData.body)).not.toContain('sure');
+            expect(angular.toJson(output.tableData.body)).not.toContain('whatever');
+            expect(angular.toJson(output.tableData.body)).not.toContain('sure');
         });
     });
 });
