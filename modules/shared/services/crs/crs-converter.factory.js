@@ -22,7 +22,7 @@
         function wgs84ToRd (wgs84Coordinates) {
             return proj4(CRS_CONFIG.RD.projection, angular.copy(wgs84Coordinates).reverse());
 
-            //return [Math.round(rd[0]), Math.round(rd[1])];
+            // return [Math.round(rd[0]), Math.round(rd[1])];
         }
 
         /*

@@ -34,7 +34,7 @@ describe('The geosearch factory', function () {
                         return q.promise;
                     },
                     getByUrl: function (endpoint) {
-                        //Used to retrieve the pand data and related verblijfsobjecten
+                        // Used to retrieve the pand data and related verblijfsobjecten
                         var q = $q.defer();
 
                         if (endpoint === 'https://api.datapunt.amsterdam.nl/bag/pand/0456789/') {
@@ -270,7 +270,7 @@ describe('The geosearch factory', function () {
         var searchResults,
             expectedSearchResults;
 
-        //Insert a pand into the mocked result set
+        // Insert a pand into the mocked result set
         mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedPandSearchResult);
         mockedFormattedSearchResults.splice(1, 0, mockedFormattedPandSearchResult);
 
@@ -307,7 +307,7 @@ describe('The geosearch factory', function () {
             results: []
         };
 
-        //Insert a pand into the mocked result set
+        // Insert a pand into the mocked result set
         mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedPandSearchResult);
         mockedFormattedSearchResults.splice(1, 0, mockedFormattedPandSearchResult);
 

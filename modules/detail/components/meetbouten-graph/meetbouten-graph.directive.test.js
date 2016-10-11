@@ -60,7 +60,7 @@ describe('The atlas-meetbout-graph directive', function () {
         directive = $compile(html)(scope);
         scope.$digest();
 
-        //Resolve the promises with $apply()
+        // Resolve the promises with $apply()
         $rootScope.$apply();
 
         return directive;
@@ -151,7 +151,7 @@ describe('The atlas-meetbout-graph directive', function () {
                 var text = directive.find('svg > g > g:nth-of-type(2) > text');
 
                 expect(text).toExist();
-                //transform werkt niet, d3 bakt er uit eigen beweging dingen bij
+                // transform werkt niet, d3 bakt er uit eigen beweging dingen bij
                 expect(text.attr('y')).toBe('6');
                 expect(text.attr('dy')).toBe('.71em');
                 expect(text.attr('style')).toContain('text-anchor: middle;');
@@ -176,7 +176,7 @@ describe('The atlas-meetbout-graph directive', function () {
                 var text = directive.find('svg > g > g:nth-of-type(3) > text');
 
                 expect(text).toExist();
-                //transform werkt niet, d3 bakt er uit eigen beweging dingen bij
+                // transform werkt niet, d3 bakt er uit eigen beweging dingen bij
                 expect(text.attr('y')).toBe('6');
                 expect(text.attr('dy')).toBe('.71em');
                 expect(text.attr('style')).toContain('text-anchor: middle;');

@@ -167,7 +167,7 @@ describe('The dp-straatbeeld directive', function () {
         });
 
         it('doesn\'t directly load a scene when earthmineData is resolved', function () {
-            //Loading the scene should only be triggered by a Redux state change, not some internal API call
+            // Loading the scene should only be triggered by a Redux state change, not some internal API call
             getDirective({id: 123}, false);
             expect(marzipanoService.loadScene).not.toHaveBeenCalled();
 
@@ -212,14 +212,14 @@ describe('The dp-straatbeeld directive', function () {
             isLoading: true
         };
 
-        //When it is still loading
+        // When it is still loading
         directive = getDirective(mockedState, false);
         expect(orientation.update).not.toHaveBeenCalled();
 
         triggerMousemove(directive.find('.js-marzipano-viewer'));
         expect(orientation.update).not.toHaveBeenCalled();
 
-        //When it is done loading
+        // When it is done loading
         mockedState.isLoading = false;
         triggerMousemove(directive.find('.js-marzipano-viewer'));
         expect(orientation.update).toHaveBeenCalled();

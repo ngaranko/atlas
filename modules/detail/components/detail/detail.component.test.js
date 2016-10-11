@@ -158,7 +158,7 @@ describe('the atlas-detail component', function () {
 
         expect(store.dispatch).not.toHaveBeenCalled();
 
-        //Set an initial endpoint
+        // Set an initial endpoint
         endpoint = 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/';
         component = getComponent(endpoint, false);
         scope = component.isolateScope();
@@ -175,7 +175,7 @@ describe('the atlas-detail component', function () {
             payload: mockedGeometryPoint
         });
 
-        //Change the endpoint
+        // Change the endpoint
         scope.vm.endpoint = 'http://www.fake-endpoint.com/brk/object/789/';
         $rootScope.$apply();
 
@@ -205,12 +205,12 @@ describe('the atlas-detail component', function () {
         var component,
             scope;
 
-        //Something with geometry (converted from RD to WGS84)
+        // Something with geometry (converted from RD to WGS84)
         component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/');
         scope = component.isolateScope();
         expect(scope.vm.location).toEqual([51.123, 3.123]);
 
-        //Something without geometry
+        // Something without geometry
         scope.vm.endpoint = 'http://www.fake-endpoint.com/brk/subject/123/';
         scope.$apply();
         expect(scope.vm.location).toBeNull();

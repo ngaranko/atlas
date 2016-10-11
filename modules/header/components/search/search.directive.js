@@ -29,7 +29,7 @@
                 event.preventDefault();
 
                 if (scope.activeSuggestionIndex === -1) {
-                    //Load the search results
+                    // Load the search results
                     store.dispatch({
                         type: ACTIONS.SHOW_SEARCH_RESULTS_BY_QUERY,
                         payload: scope.query
@@ -69,11 +69,11 @@
             };
 
             scope.navigateSuggestions = function (event) {
-                //Cancel outstanding requests, we don't want suggestions to 'refresh' while navigating.
+                // Cancel outstanding requests, we don't want suggestions to 'refresh' while navigating.
                 switch (event.keyCode) {
-                    //Arrow up
+                    // Arrow up
                     case 38:
-                        //By default the up arrow puts the cursor at the beginning of the input, we don't want that!
+                        // By default the up arrow puts the cursor at the beginning of the input, we don't want that!
                         event.preventDefault();
 
                         scope.activeSuggestionIndex = Math.max(scope.activeSuggestionIndex - 1, -1);
@@ -86,7 +86,7 @@
 
                         break;
 
-                    //Arrow down
+                    // Arrow down
                     case 40:
                         scope.activeSuggestionIndex = Math.min(
                             scope.activeSuggestionIndex + 1,
@@ -96,7 +96,7 @@
                         setSuggestedQuery();
                         break;
 
-                    //Escape
+                    // Escape
                     case 27:
                         scope.query = scope.originalQuery;
                         removeSuggestions();

@@ -85,12 +85,12 @@
 
                 scope.$watch('markers', function (newCollection, oldCollection) {
                     if (angular.equals(newCollection, oldCollection)) {
-                        //Initialisation
+                        // Initialisation
                         newCollection.forEach(function (item) {
                             highlight.add(leafletMap, item);
                         });
                     } else {
-                        //Change detected
+                        // Change detected
                         getRemovedGeojson(newCollection, oldCollection).forEach(function (item) {
                             highlight.remove(leafletMap, item);
                         });

@@ -124,7 +124,7 @@
                         hotspots;
 
                     if (oldState.straatbeeld && oldState.straatbeeld.id === Number(payload.id)) {
-                        //Stuff that isn't in the URL but implicitly linked through the ID
+                        // Stuff that isn't in the URL but implicitly linked through the ID
                         date = oldState.straatbeeld.date;
                         car = oldState.straatbeeld.car || null;
                         hotspots = oldState.straatbeeld.hotspots;

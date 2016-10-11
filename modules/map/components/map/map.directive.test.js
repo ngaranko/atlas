@@ -282,7 +282,7 @@ describe('The dp-map directive', function () {
             });
             expect(highlight.remove).not.toHaveBeenCalled();
 
-            //Change the marker
+            // Change the marker
             highlightItems.length = 0;
             highlightItems.push({
                 id: 'FAKE_HIGHLIGHT_ITEM_A',

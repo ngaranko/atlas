@@ -27,7 +27,7 @@ describe('The partialCompiler factory', function () {
             output = _output_;
         });
 
-        //$templateRequest needs an extra digest cycle
+        // $templateRequest needs an extra digest cycle
         $rootScope.$apply();
         $rootScope.$apply();
 
@@ -47,7 +47,7 @@ describe('The partialCompiler factory', function () {
             output = _output_;
         });
 
-        //$templateRequest needs an extra digest cycle
+        // $templateRequest needs an extra digest cycle
         $rootScope.$apply();
         $rootScope.$apply();
 

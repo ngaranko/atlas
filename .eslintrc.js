@@ -14,7 +14,7 @@ module.exports = {
         //"one-var": "off",   // enforce variables to be declared either together or separately in functions
         //"eol-last": "off",  // require or disallow newline at the end of files
         //"angular/json-functions": "error",    // use angular.fromJson/toJson instead of JSON.parse and JSON.stringify
-        "spaced-comment": "off",    // enforce consistent spacing after the // or /* in a comment
+        "spaced-comment": "error",    // enforce consistent spacing after the // or /* in a comment
 
         "no-shadow": "off",
         "strict": "off",

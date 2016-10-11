@@ -104,18 +104,18 @@ describe('The dataSelectionApi factory', function () {
     });
 
     it('calls the api factory with the active filters and page as searchParams', function () {
-        //Without active filters
+        // Without active filters
         dataSelectionApi.query('zwembaden', {}, 1);
         expect(api.getByUrl).toHaveBeenCalledWith('https://api.amsterdam.nl/zwembaden/', {page: 1});
 
-        //With active filters
+        // With active filters
         dataSelectionApi.query('zwembaden', {water: 'Verwarmd'}, 1);
         expect(api.getByUrl).toHaveBeenCalledWith('https://api.amsterdam.nl/zwembaden/', {
             water: 'Verwarmd',
             page: 1
         });
 
-        //With another page
+        // With another page
         dataSelectionApi.query('zwembaden', {water: 'Verwarmd'}, 27);
         expect(api.getByUrl).toHaveBeenCalledWith('https://api.amsterdam.nl/zwembaden/', {
             water: 'Verwarmd',
@@ -186,7 +186,7 @@ describe('The dataSelectionApi factory', function () {
         it('won\'t return filters from the configuration that are not part of the API\'s response', function () {
             var output;
 
-            //With both filters in the response
+            // With both filters in the response
             dataSelectionApi.query('zwembaden', {}, 1).then(function (_output_) {
                 output = _output_;
             });
@@ -196,7 +196,7 @@ describe('The dataSelectionApi factory', function () {
             expect(output.filters[0].slug).toBe('type');
             expect(output.filters[1].slug).toBe('water');
 
-            //With only one filter in the API response
+            // With only one filter in the API response
             delete mockedApiResponse.aggs_list.type;
 
             dataSelectionApi.query('zwembaden', {}, 1).then(function (_output_) {
@@ -209,7 +209,7 @@ describe('The dataSelectionApi factory', function () {
         });
 
         it('returns the number of results per category (e.g. there a 12 buurten)', function () {
-            //Todo: not part of the current API
+            // Todo: not part of the current API
         });
     });
 

@@ -45,12 +45,12 @@ describe('The map reducers', function () {
             var inputState = angular.copy(defaultState),
                 output;
 
-            //When there were no active overlays; open the active overlays panel
+            // When there were no active overlays; open the active overlays panel
             inputState.map.showActiveOverlays = false;
             output = mapReducers.MAP_ADD_OVERLAY(inputState, 'meetbouten');
             expect(output.map.showActiveOverlays).toBe(true);
 
-            //When there already were active overlays; do nothing
+            // When there already were active overlays; do nothing
             inputState.map.showActiveOverlays = false;
             inputState.map.overlays = [{id: 'nap', isVisible: true}];
             output = mapReducers.MAP_ADD_OVERLAY(inputState, 'meetbouten');
@@ -197,11 +197,11 @@ describe('The map reducers', function () {
             var inputState = angular.copy(defaultState),
                 output;
 
-            //Enable fullscreen
+            // Enable fullscreen
             output = mapReducers.MAP_FULLSCREEN(inputState, true);
             expect(output.map.isFullscreen).toBe(true);
 
-            //Disable fullscreen
+            // Disable fullscreen
             output = mapReducers.MAP_FULLSCREEN(inputState, false);
             expect(output.map.isFullscreen).toBe(false);
         });
@@ -212,7 +212,7 @@ describe('The map reducers', function () {
 
             inputState.map.showLayerSelection = true;
 
-            //Enable fullscreen
+            // Enable fullscreen
             output = mapReducers.MAP_FULLSCREEN(inputState, true);
             expect(output.map.showLayerSelection).toBe(false);
         });

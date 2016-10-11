@@ -43,7 +43,7 @@
             .then(loginSuccess, loginError);
 
             function loginSuccess (response) {
-                //This is the username as entered by the user in the login form, the backend doesn't return the username
+                // This is the username as entered by the user in the login form, the backend doesn't return the username
                 userState.username = username;
                 userState.accessToken = response.data.token;
                 userState.isLoggedIn = true;

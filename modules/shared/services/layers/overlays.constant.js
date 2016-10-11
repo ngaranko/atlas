@@ -5,7 +5,7 @@
         .module('dpShared')
         .constant('OVERLAYS', {
             SOURCES: {
-                //overige niet gebruikt op dit moment
+                // overige niet gebruikt op dit moment
                 bestemmingsplannen: {
                     label_short: 'Bestemmingsplannen',
                     label_long: 'Bestemmingsplannen',

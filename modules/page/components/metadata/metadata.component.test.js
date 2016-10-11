@@ -75,12 +75,12 @@ describe('The atlas-metadata component', function () {
         component = getComponent();
         scope = component.isolateScope();
 
-        //It shows a loading indicator on initialization
+        // It shows a loading indicator on initialization
         expect(component.find('dp-loading-indicator').length).toBe(1);
         expect(component.find('dp-loading-indicator').attr('is-loading')).toBe('vm.isLoading');
         expect(scope.vm.isLoading).toBe(true);
 
-        //It hides the loading indicator when the API is done
+        // It hides the loading indicator when the API is done
         finishApiCall(mockedApiData);
 
         expect(scope.vm.isLoading).toBe(false);

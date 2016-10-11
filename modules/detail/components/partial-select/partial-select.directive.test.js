@@ -78,7 +78,7 @@ describe('The atlas-partial-select directive', function () {
 
         expect(partialCompiler.getHtml).toHaveBeenCalledWith(
             'modules/detail/components/partial-select/partials/my-template.html',
-            jasmine.any(Object) //This is a Angular scope
+            jasmine.any(Object) // This is a Angular scope
         );
 
         expect(directive.find('div')[0].outerHTML).toBe('<div>This is a compiled template!</div>');
