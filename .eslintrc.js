@@ -17,7 +17,7 @@ module.exports = {
         "comma-dangle": ["error", "never"],  // require or disallow trailing commas
         "angular/document-service": "off",  // prefer the AngularJS wrapper service $document over document object
         "angular/on-watch": "error",  // assign Watch/On methods on the scope to a variable, for a $destroy event handler
-        "no-tabs": "off",   // disallow tabs in file
+        "no-tabs": "error",   // disallow tabs in file
         "one-var": "off",   // enforce variables to be declared either together or separately in functions
         "eol-last": "off",  // require or disallow newline at the end of files
         "angular/no-service-method": "off", // You should prefer the factory() method instead of service()
