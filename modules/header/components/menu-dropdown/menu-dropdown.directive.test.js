@@ -2,7 +2,7 @@ describe('The atlas-menu-dropdown directive', function () {
     var $compile,
         $rootScope;
 
-    beforeEach(function (){
+    beforeEach(function () {
         angular.mock.module(
             'atlasHeader',
             function ($provide) {

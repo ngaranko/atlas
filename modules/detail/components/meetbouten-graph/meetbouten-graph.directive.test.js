@@ -66,8 +66,8 @@ describe('The atlas-meetbout-graph directive', function () {
         return directive;
     }
 
-    describe('Alleen een grafiek tonen met 2 of meer metingen', function (){
-        it('should not display an svg on the screen when the pageSize is less then 2', function (){
+    describe('Alleen een grafiek tonen met 2 of meer metingen', function () {
+        it('should not display an svg on the screen when the pageSize is less then 2', function () {
             var directive = getGraphDirective(
                 'https://api-acc.datapunt.amsterdam.nl/meetbouten/meting/?meetbout=10581097',
                 1
@@ -77,7 +77,7 @@ describe('The atlas-meetbout-graph directive', function () {
             expect(svgContainer).not.toExist();
         });
 
-        it('should display an svg on the screen when the pageSize is 2 or more ', function (){
+        it('should display an svg on the screen when the pageSize is 2 or more ', function () {
             var directive = getGraphDirective(
                 'https://api-acc.datapunt.amsterdam.nl/meetbouten/meting/?meetbout=10581097',
                 3
@@ -88,8 +88,8 @@ describe('The atlas-meetbout-graph directive', function () {
         });
     });
 
-    describe('Load Data', function (){
-        it('should load data through the api', function (){
+    describe('Load Data', function () {
+        it('should load data through the api', function () {
             spyOn(api, 'getByUrl').and.callThrough();
 
             getGraphDirective('apiHrefA', 2);
@@ -100,9 +100,9 @@ describe('The atlas-meetbout-graph directive', function () {
         });
     });
 
-    describe('Dom manipulation', function (){
+    describe('Dom manipulation', function () {
         describe('append Svg and g element to create the space for the graph', function () {
-            it('should have added a svg to the page', function (){
+            it('should have added a svg to the page', function () {
                 var directive = getGraphDirective('https://api-acc.datapunt.amsterdam.nl' +
                     '/meetbouten/meting/?meetbout=10581097', 3);
                 var svgContainer = directive.find('svg');
@@ -113,7 +113,7 @@ describe('The atlas-meetbout-graph directive', function () {
                 expect(svgContainer.attr('height')).toBe('400');
             });
 
-            it('should have added a g element for whitespace to the svg', function (){
+            it('should have added a g element for whitespace to the svg', function () {
                 var directive = getGraphDirective('https://api-acc.datapunt.amsterdam.nl'+
                     '/meetbouten/meting/?meetbout=10581097', 3);
                 var gContainer = directive.find('svg > g');
@@ -123,8 +123,8 @@ describe('The atlas-meetbout-graph directive', function () {
             });
         });
 
-        describe('x as', function (){
-            it('should have appended a x axis to the svg g:transform element ', function (){
+        describe('x as', function () {
+            it('should have appended a x axis to the svg g:transform element ', function () {
                 var directive = getGraphDirective('https://api-acc.datapunt.amsterdam.nl' +
                     '/meetbouten/meting/?meetbout=10581097', 3);
                 var xAs = directive.find('svg > g > g:nth-of-type(1)');
@@ -135,8 +135,8 @@ describe('The atlas-meetbout-graph directive', function () {
             });
         });
 
-        describe('y as links zakking', function (){
-            it('should have appended a y axis on the left for zakking to the svg g:transform element ', function (){
+        describe('y as links zakking', function () {
+            it('should have appended a y axis on the left for zakking to the svg g:transform element ', function () {
                 var directive = getGraphDirective('https://api-acc.datapunt.amsterdam.nl' +
                     '/meetbouten/meting/?meetbout=10581097', 3);
                 var yZakking = directive.find('svg > g > g:nth-of-type(2)');
@@ -145,7 +145,7 @@ describe('The atlas-meetbout-graph directive', function () {
                 expect(yZakking.attr('class')).toBe('c-meetbout__axis c-meetbout__axis--y-zakking');
             });
 
-            it('should append a text to the yZakking axis', function (){
+            it('should append a text to the yZakking axis', function () {
                 var directive = getGraphDirective('https://api-acc.datapunt.amsterdam.nl' +
                     '/meetbouten/meting/?meetbout=10581097', 3);
                 var text = directive.find('svg > g > g:nth-of-type(2) > text');
@@ -159,8 +159,8 @@ describe('The atlas-meetbout-graph directive', function () {
             });
         });
 
-        describe('y as rechts zakkingssnelheid', function (){
-            it('should have appended a y axis on the right to the svg g:transform element ', function (){
+        describe('y as rechts zakkingssnelheid', function () {
+            it('should have appended a y axis on the right to the svg g:transform element ', function () {
                 var directive = getGraphDirective('https://api-acc.datapunt.amsterdam.nl' +
                     '/meetbouten/meting/?meetbout=10581097', 3);
                 var yZakkingssnelheid = directive.find('svg > g > g:nth-of-type(3)');
@@ -170,7 +170,7 @@ describe('The atlas-meetbout-graph directive', function () {
                 expect(yZakkingssnelheid.attr('transform')).toBe('translate(630,0)');
             });
 
-            it('should append a text to the yZakking axis', function (){
+            it('should append a text to the yZakking axis', function () {
                 var directive = getGraphDirective('https://api-acc.datapunt.amsterdam.nl' +
                     '/meetbouten/meting/?meetbout=10581097', 3);
                 var text = directive.find('svg > g > g:nth-of-type(3) > text');
@@ -184,8 +184,8 @@ describe('The atlas-meetbout-graph directive', function () {
             });
         });
 
-        describe('lijn voor grafiek zakking', function (){
-            it('should plot a line to represent the zakking per meting of the meetbout', function (){
+        describe('lijn voor grafiek zakking', function () {
+            it('should plot a line to represent the zakking per meting of the meetbout', function () {
                 var directive = getGraphDirective('https://api-acc.datapunt.amsterdam.nl' +
                     '/meetbouten/meting/?meetbout=10581097', 3);
                 var line = directive.find('svg > g > path:nth-of-type(1)');
@@ -195,8 +195,8 @@ describe('The atlas-meetbout-graph directive', function () {
             });
         });
 
-        describe('lijn voor grafiek zakkingssnelheid', function (){
-            it('should plot a line to represent the zakkingssnelheid na elke meting of the meetbout', function (){
+        describe('lijn voor grafiek zakkingssnelheid', function () {
+            it('should plot a line to represent the zakkingssnelheid na elke meting of the meetbout', function () {
                 var directive = getGraphDirective('https://api-acc.datapunt.amsterdam.nl' +
                     '/meetbouten/meting/?meetbout=10581097', 3);
                 var line = directive.find('svg > g > path:nth-of-type(2)');

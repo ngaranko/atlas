@@ -223,7 +223,7 @@ describe('The geometry factory', function () {
     });
 
     describe('when searching for the geometry of a nummeraanduiding', function () {
-        describe('returns the GeoJSON of the parent adressseerbaar object', function (){
+        describe('returns the GeoJSON of the parent adressseerbaar object', function () {
             it('should return the verblijfsobject geometry when the type of nummeraanduiding is verblijfsobject',
                 function () {
                     var response;
@@ -254,7 +254,7 @@ describe('The geometry factory', function () {
                 });
             });
 
-            it('should return the standplaats geometry when the type of nummeraanduiding is Standplaats', function (){
+            it('should return the standplaats geometry when the type of nummeraanduiding is Standplaats', function () {
                 var response;
 
                 geometry.getGeoJSON('http://www.api-root.nl/bag/nummeraanduiding/10000003/').then(function (data) {

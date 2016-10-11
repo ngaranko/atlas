@@ -14,6 +14,7 @@ module.exports = {
         "eol-last": "off",  // require or disallow newline at the end of files
         "indent": ["off"],  // enforce consistent indentation
         "angular/json-functions": "off",    // use angular.fromJson/toJson instead of JSON.parse and JSON.stringify
+        "spaced-comment": "off",    // enforce consistent spacing after the // or /* in a comment
         // The disabled tests are sorted roughly in order of priority to turn them on
         // The --fix option on the command line can automatically fixes some problems
         "no-unused-vars": "error",    // disallow unused variables
@@ -31,8 +32,7 @@ module.exports = {
         "space-before-function-paren": "error",   // consistent spacing before function definition opening parenthesis
         "operator-linebreak": "error",    // enforce consistent linebreak style for operators
         "padded-blocks": "error", // require or disallow padding within blocks
-        "spaced-comment": "off",    // enforce consistent spacing after the // or /* in a comment
-        "space-before-blocks": "off",   // enforce consistent spacing before blocks
+        "space-before-blocks": "error",   // enforce consistent spacing before blocks
         "space-infix-ops": "off",   // require spacing around infix operators
         "no-multi-spaces": "off",   // disallow multiple spaces
         "space-in-parens": "off",   // enforce consistent spacing inside parentheses

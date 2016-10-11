@@ -6,29 +6,29 @@ describe('The dashboard component', function () {
         defaultState;
 
     beforeEach(function () {
-        angular.mock.module('atlas', function ($provide){
-            $provide.factory('atlasHeaderDirective', function (){
+        angular.mock.module('atlas', function ($provide) {
+            $provide.factory('atlasHeaderDirective', function () {
                 return {};
             });
-            $provide.factory('atlasPageDirective', function (){
+            $provide.factory('atlasPageDirective', function () {
                 return {};
             });
-            $provide.factory('atlasDetailDirective', function (){
+            $provide.factory('atlasDetailDirective', function () {
                 return {};
             });
-            $provide.factory('atlasSearchResultsDirective', function (){
+            $provide.factory('atlasSearchResultsDirective', function () {
                 return {};
             });
-            $provide.factory('atlasLayerSelectionDirective', function (){
+            $provide.factory('atlasLayerSelectionDirective', function () {
                 return {};
             });
-            $provide.factory('dpMapDirective', function (){
+            $provide.factory('dpMapDirective', function () {
                 return {};
             });
-            $provide.factory('dpStraatbeeldDirective', function (){
+            $provide.factory('dpStraatbeeldDirective', function () {
                 return {};
             });
-            $provide.factory('dpDataSelectionDirective', function (){
+            $provide.factory('dpDataSelectionDirective', function () {
                 return {};
             });
         });

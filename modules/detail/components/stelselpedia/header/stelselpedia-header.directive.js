@@ -51,14 +51,14 @@
         vm.toggle = function (item) {
             vm.isVisible[item] = !vm.isVisible[item];
 
-            if (item === 'help'){
+            if (item === 'help') {
                 if (vm.isVisible[item]) {
                     vm.stelselpediaTitle = 'Uitleg verbergen';
                 } else {
                     vm.stelselpediaTitle = 'Uitleg tonen';
                 }
             }
-            if (item === 'meta'){
+            if (item === 'meta') {
                 if (vm.isVisible[item]) {
                     vm.metaDataTitle = 'Informatie (metadata) verbergen';
                 } else {
