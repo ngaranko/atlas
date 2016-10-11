@@ -114,7 +114,7 @@ describe('The atlas-meetbout-graph directive', function () {
             });
 
             it('should have added a g element for whitespace to the svg', function () {
-                var directive = getGraphDirective('https://api-acc.datapunt.amsterdam.nl'+
+                var directive = getGraphDirective('https://api-acc.datapunt.amsterdam.nl' +
                     '/meetbouten/meting/?meetbout=10581097', 3);
                 var gContainer = directive.find('svg > g');
 

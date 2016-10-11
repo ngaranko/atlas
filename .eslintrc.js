@@ -33,7 +33,7 @@ module.exports = {
         "operator-linebreak": "error",    // enforce consistent linebreak style for operators
         "padded-blocks": "error", // require or disallow padding within blocks
         "space-before-blocks": "error",   // enforce consistent spacing before blocks
-        "space-infix-ops": "off",   // require spacing around infix operators
+        "space-infix-ops": "error",   // require spacing around infix operators
         "no-multi-spaces": "off",   // disallow multiple spaces
         "space-in-parens": "off",   // enforce consistent spacing inside parentheses
         "space-unary-ops": "off",   // enforce consistent spacing before or after unary operators
