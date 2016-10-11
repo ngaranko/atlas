@@ -34,8 +34,8 @@ module.exports = {
         "padded-blocks": "error", // require or disallow padding within blocks
         "space-before-blocks": "error",   // enforce consistent spacing before blocks
         "space-infix-ops": "error",   // require spacing around infix operators
-        "no-multi-spaces": "off",   // disallow multiple spaces
-        "space-in-parens": "off",   // enforce consistent spacing inside parentheses
+        "no-multi-spaces": "error",   // disallow multiple spaces
+        "space-in-parens": "error",   // enforce consistent spacing inside parentheses
         "space-unary-ops": "off",   // enforce consistent spacing before or after unary operators
         "key-spacing": "off",   // enforce consistent spacing between keys and values in object literal properties
         "brace-style": "off",   // enforce consistent brace style for blocks

@@ -253,7 +253,7 @@ describe('The geosearch factory', function () {
 
         expect(api.getByUri).toHaveBeenCalledTimes(3);
 
-        expect(api.getByUri).toHaveBeenCalledWith('endpoint/with-radius/', { lat: 52.789, lon: 4.987, radius: 50 } );
+        expect(api.getByUri).toHaveBeenCalledWith('endpoint/with-radius/', { lat: 52.789, lon: 4.987, radius: 50 });
         expect(api.getByUri).toHaveBeenCalledWith('other/endpoint/', { lat: 52.789, lon: 4.987 });
         expect(api.getByUri).toHaveBeenCalledWith('endpoint-with-no-results/', { lat: 52.789, lon: 4.987 });
 
