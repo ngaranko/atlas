@@ -16,7 +16,7 @@ describe('The straatbeeldReducers factory', function () {
         inputStateWithStraatbeeld.straatbeeld = {
             id: 1,
             location: null,
-            date: new Date(2016, 6 , 12),
+            date: new Date(2016, 6, 12),
             car: {
                 location: [51.0, 4.0],
                 heading: 180,

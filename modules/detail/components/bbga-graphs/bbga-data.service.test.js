@@ -172,7 +172,7 @@ describe('The bbgaDataService', function () {
     });
 
     it('returns null for data that isn\'t available in the BBGA API', function () {
-        bbgaDataService.getGraphData('MY_GRAPH_SETTINGS_WITH_NO_DATA', 'Gebied A','GEBIED_A')
+        bbgaDataService.getGraphData('MY_GRAPH_SETTINGS_WITH_NO_DATA', 'Gebied A', 'GEBIED_A')
             .then(function (bbgaData) {
             expect(bbgaData.VARIABELE_C.meta.jaar).toBeNull();
             expect(bbgaData.VARIABELE_C.data[0].waarde).toBeNull();
