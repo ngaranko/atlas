@@ -48,7 +48,7 @@
 
         function getMapParams (state) {
             var lagen = [], isVisible;
-            for (var i = 0;i < state.map.overlays.length;i++) {
+            for (var i = 0; i < state.map.overlays.length; i++) {
                 if (state.map.overlays[i].isVisible) {
                     isVisible = 'zichtbaar';
                 } else {

@@ -108,9 +108,9 @@
             // are not in over2
             // Or if visibility was changed.
             var keys = [], add;
-            for (var i = 0;i < over1.length;i++) {
+            for (var i = 0; i < over1.length; i++) {
                 add = true;
-                for (var j = 0;j < over2.length;j++) {
+                for (var j = 0; j < over2.length; j++) {
                     if (over2[j].id === over1[i].id) {
                         // Checking visibility change
                         if (over2[j].isVisible !== over1[i].isVisible) {
