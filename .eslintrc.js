@@ -11,16 +11,15 @@ module.exports = {
     "extends": ["standard", "eslint:recommended", "angular"],
     "rules": {
         // The --fix option on the command line can automatically fixes some problems
-        //"one-var": "off",   // enforce variables to be declared either together or separately in functions
-        //"eol-last": "off",  // require or disallow newline at the end of files
-        //"angular/json-functions": "error",    // use angular.fromJson/toJson instead of JSON.parse and JSON.stringify
+
+        // "one-var": "off",   // enforce variables to be declared either together or separately in functions
+        // "eol-last": "off",  // require or disallow newline at the end of files
+        // "no-shadow": "error",
+        // "strict": "off",
+        // "linebreak-style": "off",
+
+        "angular/json-functions": "error",    // use angular.fromJson/toJson instead of JSON.parse and JSON.stringify
         "spaced-comment": "error",    // enforce consistent spacing after the // or /* in a comment
-
-        "no-shadow": "off",
-        "strict": "off",
-        "linebreak-style": "off",
-
-        "indent": ["off"],  // enforce consistent indentation
         "indent": [ // enforce consistent indentation
             "error",
             4,
@@ -109,7 +108,6 @@ module.exports = {
             "single"
         ],
         "no-undef": "error",
-        "no-unused-vars": "error",
         "no-cond-assign": "error",
         "no-debugger": "error",
         "no-eq-null": "error",
