@@ -21,9 +21,7 @@
             } else {
                 output = pageName
                 //Make the first letter of each word uppercase
-                    .split('-').map(function (word) {
-                        return (dpUppercaseFirstLetterFilter(word));
-                    })
+                    .split('-').map(word => dpUppercaseFirstLetterFilter(word))
                     //Replace dashed (-) with spaces
                     .join(' ');
             }
