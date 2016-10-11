@@ -3,7 +3,7 @@
 
     angular
         .module('atlasDetail')
-        .service('bbgaDataService', bbgaDataService);
+        .factory('bbgaDataService', bbgaDataService);
 
     bbgaDataService.$inject = ['$q', '$http', 'BBGA_CONFIG', 'environment'];
 

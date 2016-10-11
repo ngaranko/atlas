@@ -2,8 +2,8 @@
     'use strict';
 
     angular
-    .module('atlasDetail')
-    .filter('atlasUppercaseFirstLetter', atlasUppercaseFirstLetterFilter);
+        .module('atlasDetail')
+        .filter('atlasUppercaseFirstLetter', atlasUppercaseFirstLetterFilter);
 
     function atlasUppercaseFirstLetterFilter () {
         return function (input) {

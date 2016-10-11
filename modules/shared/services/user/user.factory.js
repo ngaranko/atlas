@@ -3,7 +3,7 @@
 
     angular
         .module('dpShared')
-        .service('user', userFactory);
+        .factory('user', userFactory);
 
     userFactory.$inject = ['$http', '$httpParamSerializer', '$q', '$interval', 'environment'];
 
@@ -40,7 +40,7 @@
                     }
                 )
             })
-            .then(loginSuccess, loginError);
+                .then(loginSuccess, loginError);
 
             function loginSuccess (response) {
                 // This is the username as entered by the user in the login form, backend doesn't return the username

@@ -107,7 +107,8 @@
             // Finds all the keys for items in over1 that
             // are not in over2
             // Or if visibility was changed.
-            var keys = [], add;
+            var keys = [],
+                add;
             for (var i = 0; i < over1.length; i++) {
                 add = true;
                 for (var j = 0; j < over2.length; j++) {

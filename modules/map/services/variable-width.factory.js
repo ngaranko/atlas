@@ -13,15 +13,15 @@
         };
 
         function initialize (container, leafletMap) {
-            /* eslint-disable angular/on-watch */
-            $rootScope.$watch(function () {
-                /* eslint-enable angular/on-watch */
+            var unwatch = $rootScope.$watch(function () {
                 return container.clientWidth;
             }, function (newWidth, oldWidth) {
                 if (newWidth !== oldWidth) {
                     leafletMap.invalidateSize();
                 }
             });
+
+            $rootScope.$on('$destroy', unwatch);
         }
     }
 })();

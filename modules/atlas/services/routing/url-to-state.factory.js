@@ -13,9 +13,7 @@
         };
 
         function initialize () {
-            /* eslint-disable angular/on-watch */
-            $rootScope.$watch(function () {
-                /* eslint-enable angular/on-watch */
+            var unwatch = $rootScope.$watch(function () {
                 return $location.search();
             }, function () {
                 store.dispatch({
@@ -23,6 +21,8 @@
                     payload: $location.search()
                 });
             });
+
+            $rootScope.$on('$destroy', unwatch);
         }
     }
 })();

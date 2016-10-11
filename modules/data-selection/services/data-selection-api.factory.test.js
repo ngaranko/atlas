@@ -124,7 +124,7 @@ describe('The dataSelectionApi factory', function () {
     });
 
     it('returns the total number of pages', function () {
-        var output;
+        var output = {};
 
         dataSelectionApi.query('zwembaden', {}, 1).then(function (_output_) {
             output = _output_;
@@ -136,7 +136,7 @@ describe('The dataSelectionApi factory', function () {
 
     describe('it returns all available filters', function () {
         it('orders the filters based on the configuration', function () {
-            var output;
+            var output = {};
 
             dataSelectionApi.query('zwembaden', {}, 1).then(function (_output_) {
                 output = _output_;
@@ -184,7 +184,7 @@ describe('The dataSelectionApi factory', function () {
         });
 
         it('won\'t return filters from the configuration that are not part of the API\'s response', function () {
-            var output;
+            var output = {};
 
             // With both filters in the response
             dataSelectionApi.query('zwembaden', {}, 1).then(function (_output_) {
@@ -215,7 +215,7 @@ describe('The dataSelectionApi factory', function () {
 
     describe('it returns the table content', function () {
         it('has a single row for the head of the table based on the configuration', function () {
-            var output;
+            var output = {};
 
             dataSelectionApi.query('zwembaden', {}, 1).then(function (_output_) {
                 output = _output_;
@@ -226,7 +226,7 @@ describe('The dataSelectionApi factory', function () {
         });
 
         it('reorders the results per row from the API to match the order of the configuration', function () {
-            var output;
+            var output = {};
 
             dataSelectionApi.query('zwembaden', {}, 1).then(function (_output_) {
                 output = _output_;
@@ -236,16 +236,16 @@ describe('The dataSelectionApi factory', function () {
             expect(output.tableData.body.length).toBe(2);
             expect(output.tableData.body[0]).toEqual({
                 detailEndpoint: 'https://amsterdam.nl/api_endpoint/zwembaden/1/',
-                fields: [ 'Sneeuwbalweg 24', 'Alleen op dinsdag' ]
+                fields: ['Sneeuwbalweg 24', 'Alleen op dinsdag']
             });
             expect(output.tableData.body[1]).toEqual({
                 detailEndpoint: 'https://amsterdam.nl/api_endpoint/zwembaden/2/',
-                fields: [ 'Marnixstraat 1', 'Ligt er een beetje aan' ]
+                fields: ['Marnixstraat 1', 'Ligt er een beetje aan']
             });
         });
 
         it('only shows content that is part of the configuration, additional API content will be ignored', function () {
-            var output;
+            var output = {};
 
             mockedApiResponse.object_list[0].some_variable_we_dont_care_about = 'whatever';
             mockedApiResponse.object_list[1].some_variable_we_dont_care_about = 'sure';

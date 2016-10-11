@@ -3,7 +3,7 @@
 
     angular
         .module('atlas')
-        .service('stateToUrl', stateToUrlFactory);
+        .factory('stateToUrl', stateToUrlFactory);
 
     stateToUrlFactory.$inject = ['$location', '$window'];
 
@@ -47,7 +47,8 @@
         }
 
         function getMapParams (state) {
-            var lagen = [], isVisible;
+            var lagen = [],
+                isVisible;
             for (var i = 0; i < state.map.overlays.length; i++) {
                 if (state.map.overlays[i].isVisible) {
                     isVisible = 'zichtbaar';

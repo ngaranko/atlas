@@ -23,6 +23,9 @@ module.exports = {
         // "strict": "off",             // enforce consistent linebreak style
         // "linebreak-style": "off",    // enforce consistent linebreak style
 
+        "one-var-declaration-per-line": [   // require or disallow newlines around variable declarations
+            "error", "always"
+        ],
         "eol-last": "error",            //require or disallow newline at the end of files
         "no-shadow": "error",           // disallow variable declarations shadowing outer scope variables
         "angular/json-functions": "error",    // use angular.fromJson/toJson instead of JSON.parse and JSON.stringify
@@ -31,13 +34,30 @@ module.exports = {
             "error",
             4,
             {
-                "SwitchCase": 1
+                "SwitchCase": 1,
                 // Case statements should be indented:
                 // switch(a){
                 //     case "a":
                 //         break;
                 //     case "b":
                 //         break;
+                // },
+                "MemberExpression": 1,
+                // foo
+                //     .bar
+                //     .baz();
+                "FunctionDeclaration": {
+                    "body": 1,
+                    "parameters": "first"
+                },
+                "FunctionExpression": {
+                    "body": 1,
+                    "parameters": "first"
+                }
+                // var foo = function(bar,
+                //                    baz,
+                //                    qux) {
+                //     qux();
                 // }
             }
         ],
@@ -47,7 +67,7 @@ module.exports = {
         "angular/document-service": "off",  // prefer the AngularJS wrapper service $document over document object
         "angular/on-watch": "error",        // assign Watch/On methods on the scope to a variable, for $destroy handler
         "no-tabs": "error",                 // disallow tabs in file
-        "angular/no-service-method": "off", // You should prefer the factory() method instead of service()
+        "angular/no-service-method": "error",   // You should prefer the factory() method instead of service()
         "no-multiple-empty-lines": "error", // disallow multiple empty lines
         "no-trailing-spaces": "error",      // disallow trailing whitespace at the end of lines
         "semi-spacing": "error",            // enforce consistent spacing before and after semicolons
@@ -65,8 +85,14 @@ module.exports = {
         "brace-style": "error",             // enforce consistent brace style for blocks
         "standard/object-curly-even-spacing": "error",  // enforce consistent spacing inside braces of object literals
         "standard/array-bracket-even-spacing": "error", // enforces consistent spacing inside array brackets
+        "array-bracket-spacing": ["error", "never"],
         "no-bitwise": "error",              // disallow bitwise operators
-        "camelcase": "error",               // enforce camelcase naming convention
+        "camelcase": [                      // enforce camelcase naming convention
+            "error",
+            {
+                "properties": "never"       // Set to "always" to check for properties (440 errors)
+            }
+        ],
         "curly": "error",                   // enforce consistent brace style for all control statements
         "eqeqeq": "error",                  // require the use of === and !==
         "guard-for-in": "error",            // require for-in loops to include an if statement

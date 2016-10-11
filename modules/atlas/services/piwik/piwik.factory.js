@@ -3,7 +3,7 @@
 
     angular
         .module('atlas')
-        .service('piwik', piwikFactory);
+        .factory('piwik', piwikFactory);
 
     piwikFactory.$inject = ['$window', '$document', 'environment', 'PIWIK_CONFIG'];
 

@@ -3,7 +3,7 @@
 
     angular
         .module('dpShared')
-        .service('crsService', crsService);
+        .factory('crsService', crsService);
 
     crsService.$inject = ['L', 'CRS_CONFIG'];
 

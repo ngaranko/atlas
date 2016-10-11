@@ -2,7 +2,7 @@
     'use strict';
     angular
         .module('atlasDetail')
-        .service('dateConverter', dateConverterService);
+        .factory('dateConverter', dateConverterService);
 
     dateConverterService.$inject = ['d3'];
     /* @ngInject */
@@ -13,8 +13,9 @@
         };
 
         /**
-         * @param {string} [input] [datum in formaat yyyy-mm-dd]
-         *@return {[date object]}    [js date object]
+         * 
+         * @param input
+         * @returns {*}
          */
         function ymdToDate (input) {
             var parseDate = d3.time.format('%Y-%m-%d').parse;
