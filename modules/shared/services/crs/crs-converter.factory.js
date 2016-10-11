@@ -8,7 +8,7 @@
     crsConverterFactory.$inject = ['CRS_CONFIG', 'proj4'];
 
     function crsConverterFactory (CRS_CONFIG, proj4) {
-        return{
+        return {
             wgs84ToRd: wgs84ToRd,
             rdToWgs84: rdToWgs84
         };

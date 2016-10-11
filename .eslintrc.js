@@ -25,7 +25,7 @@ module.exports = {
         "no-trailing-spaces": "error",    // disallow trailing whitespace at the end of lines
         "semi-spacing": "error",  // enforce consistent spacing before and after semicolons
         "comma-spacing": "error", // enforce consistent spacing before and after commas
-        "keyword-spacing": "off",   // enforce consistent spacing before and after keywords
+        "keyword-spacing": "error",   // enforce consistent spacing before and after keywords
         "space-before-function-paren": "off",   // consistent spacing before function definition opening parenthesis
         "angular/json-functions": "off",    // use angular.fromJson/toJson instead of JSON.parse and JSON.stringify
         "operator-linebreak": "off",    // enforce consistent linebreak style for operators
