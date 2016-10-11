@@ -10,13 +10,24 @@ module.exports = {
     },
     "extends": ["standard", "eslint:recommended", "angular"],
     "rules": {
+        // The --fix option on the command line can automatically fixes some problems
         "one-var": "off",   // enforce variables to be declared either together or separately in functions
         "eol-last": "off",  // require or disallow newline at the end of files
         "indent": ["off"],  // enforce consistent indentation
         "angular/json-functions": "off",    // use angular.fromJson/toJson instead of JSON.parse and JSON.stringify
         "spaced-comment": "off",    // enforce consistent spacing after the // or /* in a comment
-        // The disabled tests are sorted roughly in order of priority to turn them on
-        // The --fix option on the command line can automatically fixes some problems
+
+        "no-shadow": "off",
+        "strict": "off",
+        "linebreak-style": "off",
+
+        // "indent": [ // enforce consistent indentation
+        //     "error",
+        //     4,
+        //     {
+        //         "SwitchCase": 1
+        //     }
+        // ],
         "no-unused-vars": "error",    // disallow unused variables
         "semi": ["error", "always"],  // require or disallow semicolons instead of ASI
         "comma-dangle": ["error", "never"],  // require or disallow trailing commas
@@ -41,6 +52,74 @@ module.exports = {
         "brace-style": "error",   // enforce consistent brace style for blocks
         "standard/object-curly-even-spacing": "error",    // enforce consistent spacing inside braces of object literals
         "standard/array-bracket-even-spacing": "error",   // enforces consistent spacing inside array brackets
+        // Checks copied from existing jshint
+        "no-bitwise": "error",
+        "camelcase": "error",
+        "curly": "error",
+        "eqeqeq": "error",
+        "guard-for-in": "error",
+        "no-extend-native": "error",
+        "wrap-iife": [
+            "error",
+            "any"
+        ],
+        "max-params": [
+            "error",
+            10
+        ],
+        "max-depth": [
+            "error",
+            5
+        ],
+        "max-statements": [
+            "error",
+            40
+        ],
+        "complexity": [
+            "error",
+            8
+        ],
+        "max-len": [
+            "error",
+            {
+                "code": 120,
+                "ignoreComments": true
+            }
+        ],
+        "no-use-before-define": [
+            "error",
+            {
+                "functions": false
+            }
+        ],
+        "new-cap": "error",
+        "no-caller": "error",
+        "no-empty": "error",
+        "no-irregular-whitespace": "error",
+        "no-new": "error",
+        "quotes": [
+            2,
+            "single"
+        ],
+        "no-undef": "error",
+        "no-unused-vars": "error",
+        "no-cond-assign": "error",
+        "no-debugger": "error",
+        "no-eq-null": "error",
+        "no-eval": "error",
+        "no-unused-expressions": "error",
+        "block-scoped-var": "error",
+        "no-iterator": "error",
+        "no-loop-func": "error",
+        "no-multi-str": "error",
+        "valid-typeof": "error",
+        "no-proto": "error",
+        "no-script-url": "error",
+        "dot-notation": "error",
+        "no-new-func": "error",
+        "no-new-wrappers": "error",
+        "no-invalid-this": "error",
+        "require-yield": "error"
     },
     "plugins": [
         "standard",

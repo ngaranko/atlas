@@ -163,7 +163,7 @@ describe('The dashboard component', function () {
             mockedVisibility = {};
 
         beforeEach(function () {
-            mockedVisibility['straatbeeld'] = true;
+            mockedVisibility.straatbeeld = true;
 
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue(mockedVisibility);
 

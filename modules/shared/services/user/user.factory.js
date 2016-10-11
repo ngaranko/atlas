@@ -9,11 +9,11 @@
 
     function userFactory ($http, $httpParamSerializer, $q, $interval, environment) {
         var userState = {
-                username: null,
-                accessToken: null,
-                isLoggedIn: false,
-                keepLoggedIn: false
-            };
+            username: null,
+            accessToken: null,
+            isLoggedIn: false,
+            keepLoggedIn: false
+        };
 
         //  Refresh the succesfully obtained token every 4 and a half minutes (token expires in 5 minutes)
         var intervalDuration = 270000;
@@ -28,19 +28,19 @@
 
         function login (username, password) {
             return $http({
-                    method: 'POST',
-                    url: environment.AUTH_ROOT + 'token/',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    data: $httpParamSerializer(
-                        {
-                            username: username,
-                            password: password
-                        }
-                    )
-                })
-                .then(loginSuccess, loginError);
+                method: 'POST',
+                url: environment.AUTH_ROOT + 'token/',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: $httpParamSerializer(
+                    {
+                        username: username,
+                        password: password
+                    }
+                )
+            })
+            .then(loginSuccess, loginError);
 
             function loginSuccess (response) {
                 //This is the username as entered by the user in the login form, the backend doesn't return the username
