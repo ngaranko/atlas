@@ -90,7 +90,7 @@ module.exports = {
             "error",
             {
                 "code": 120,
-                "ignoreComments": true
+                "ignoreComments": false
             }
         ],
         "no-use-before-define": [
