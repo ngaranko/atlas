@@ -11,12 +11,12 @@
             getTitleData: getTitleData
         };
 
-        function getTitleData(query, location, category, numberOfResults) {
+        function getTitleData(numberOfResults, query, location, category) {
             var title = '',
                 subTitle = '';
 
             if (category) {
-                title = numberFilter(numberOfResults) + lowercaseFilter(category);
+                title = numberFilter(numberOfResults) + ' ' + lowercaseFilter(category);
             } else if (numberOfResults === 0) {
                 title = 'Geen resultaten gevonden';
             } else if (numberOfResults === 1) {

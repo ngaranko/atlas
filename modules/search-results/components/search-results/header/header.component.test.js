@@ -1,14 +1,21 @@
 describe('The dp-search-results-header component', function () {
     var $compile,
-        $rootScope;
+        $rootScope,
+        searchTitle = {
+            getTitleData: function () {
+                return {
+                    title: 'title',
+                    subTitle: 'subTitle'
+                };
+            }
+        };
 
     beforeEach(function () {
         angular.mock.module(
             'dpSearchResults',
             function ($provide) {
-                $provide.value('coordinatesFilter', function (input) {
-                    return 'X, Y (' + input.join(', ') + ')';
-                });
+                $provide.value('store', angular.noop);
+                $provide.value('searchTitle', searchTitle);
             }
         );
 
@@ -16,6 +23,8 @@ describe('The dp-search-results-header component', function () {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
         });
+
+        spyOn(searchTitle, 'getTitleData').and.callThrough();
     });
 
     function getComponent (numberOfResults, query, location, category) {
@@ -48,78 +57,16 @@ describe('The dp-search-results-header component', function () {
         return component;
     }
 
-    it('can show the number of search results when searching with a query', function () {
-        var component = getComponent(45, 'westerpark', null, null);
+    it('calls the getTitleData function of the searchTitle service with the same parameters', function () {
+        getComponent(45, 'westerpark', [52.123, 4.789], 'Adressen');
 
-        expect(component.find('.o-header__title').text()).toContain('45 resultaten');
-        expect(component.find('.o-header__subtitle').text()).toContain('"westerpark"');
+        expect(searchTitle.getTitleData).toHaveBeenCalledWith(45, 'westerpark', [52.123, 4.789], 'Adressen');
     });
 
-    it('can show the number of search results when searching by location', function () {
-        var component = getComponent(46, null, [52.123, 4.789], null);
+    it('shows the title and sub title', function () {
+        var component = getComponent(45, 'westerpark', [52.123, 4.789], 'Adressen');
 
-        expect(component.find('.o-header__title').text()).toContain('46 resultaten');
-        expect(component.find('.o-header__subtitle').text()).toContain('X, Y (52.123, 4.789)');
-    });
-
-    it('can show the number of search results for a specific category (query search only)', function () {
-        var component = getComponent(47, 'westerpark', null, 'Adressen');
-
-        //The category name will be converted to lowercase
-        expect(component.find('.o-header__title').text()).toContain('47 adressen');
-        expect(component.find('.o-header__subtitle').text()).toContain('"westerpark"');
-    });
-
-    it('shows a message when no results have been found', function () {
-        var component;
-
-        //When searching by query
-        component = getComponent(0, 'westerpark', null, null);
-        expect(component.find('.o-header__title').text()).toContain('Geen resultaten gevonden');
-        expect(component.find('.o-header__subtitle').text()).toContain('"westerpark"');
-
-        //When searching by location
-        component = getComponent(0, null, [52.123, 4.789], null);
-        expect(component.find('.o-header__title').text()).toContain('Geen resultaten gevonden');
-        expect(component.find('.o-header__subtitle').text()).toContain('X, Y (52.123, 4.789)');
-    });
-
-    it('differentiates between one or more search results (resultaat vs. resultaten)', function () {
-        var component;
-
-        //When searching by query (1 result)
-        component = getComponent(1, 'oosterpark', null, null);
-        expect(component.find('.o-header__title').text()).toContain('1 resultaat');
-
-        //When searching by query (> 1 results)
-        component = getComponent(2, 'oosterpark', null, null);
-        expect(component.find('.o-header__title').text()).toContain('2 resultaten');
-
-        //When searching by location (1 result)
-        component = getComponent(1, null, [52.321, 4.987], null);
-        expect(component.find('.o-header__title').text()).toContain('1 resultaat');
-
-        //When searching by location (> 1 results)
-        component = getComponent(2, null, [52.321, 4.987], null);
-        expect(component.find('.o-header__title').text()).toContain('2 resultaten');
-    });
-
-    it('uses a thousands separator for the number of search results', function () {
-        var component;
-
-        //When searching by query
-        component = getComponent(1000, 'zuiderpark', null, null);
-        expect(component.find('.o-header__title').text()).not.toContain('1000');
-        expect(component.find('.o-header__title').text()).toContain('1.000');
-
-        //When searching by location
-        component = getComponent(1000, null, [52.963, 4.741], null);
-        expect(component.find('.o-header__title').text()).not.toContain('1000');
-        expect(component.find('.o-header__title').text()).toContain('1.000');
-
-        //When viewing a category of search results
-        component = getComponent(1000, 'zuiderpark', null, 'Adressen');
-        expect(component.find('.o-header__title').text()).not.toContain('1000');
-        expect(component.find('.o-header__title').text()).toContain('1.000');
+        expect(component.find('h1').text()).toBe('title');
+        expect(component.find('h2').text()).toBe('subTitle');
     });
 });

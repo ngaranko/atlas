@@ -14,10 +14,10 @@
 
         function getTitle(searchState) {
             var titleData = searchState ? searchTitle.getTitleData(
+                        searchState.numberOfResults,
                         searchState.query,
                         searchState.location,
-                        searchState.category,
-                        searchState.numberOfResults) : null,
+                        searchState.category) : null,
                 baseTitle = (titleData && titleData.title) ? titleData.title : '',
                 title = (baseTitle && titleData.subTitle) ? baseTitle + ' – ' + titleData.subTitle : baseTitle;
 

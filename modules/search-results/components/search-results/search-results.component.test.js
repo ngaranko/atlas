@@ -326,7 +326,7 @@ describe('The dp-search-results component', function () {
         spyOn(store, 'dispatch');
     });
 
-    function getComponent (query, location, category) {
+    function getComponent(numberOfResults, query, location, category, isLoading) {
         var component,
             element,
             scope;
@@ -347,6 +347,16 @@ describe('The dp-search-results component', function () {
             element.setAttribute('category', category);
         }
 
+        if (angular.isNumber(numberOfResults)) {
+            element.setAttribute('number-of-results', 'numberOfResults');
+            scope.numberOfResults = numberOfResults;
+        }
+
+        if (angular.isDefined(isLoading)) {
+            element.setAttribute('is-loading', 'isLoading');
+            scope.isLoading = isLoading;
+        }
+
         component = $compile(element)(scope);
         scope.$apply();
 
@@ -355,7 +365,7 @@ describe('The dp-search-results component', function () {
 
     describe('search by query', function () {
         it('shows search results', function () {
-            var component = getComponent('Weesperstraat');
+            var component = getComponent(12, 'Weesperstraat');
 
             //It shows 10 results from the first category and 1 results from the second category
             expect(component.find('ul dp-link').length).toBe(11);
@@ -385,8 +395,17 @@ describe('The dp-search-results component', function () {
             });
         });
 
+        it('calls dispatch with the number of search results', function () {
+            getComponent(12, 'Weesperstraat');
+
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: 'SHOW_SEARCH_RESULTS',
+                payload: 12
+            });
+        });
+
         it('doesn\'t show the dp-straatbeeld-thumbnail component', function () {
-            var component = getComponent('Weesperstraat');
+            var component = getComponent(12, 'Weesperstraat');
 
             expect(component.find('dp-straatbeeld-thumbnail').length).toBe(0);
         });
@@ -396,13 +415,13 @@ describe('The dp-search-results component', function () {
                 var component;
 
                 //A category with 11 search results uses the plural form and it shows the number of results in brackets
-                component = getComponent('Weesperstraat');
+                component = getComponent(12, 'Weesperstraat');
                 expect(component.find('.qa-search-header').eq(0).text().trim()).toBe('Adressen (11)');
 
                 //A category with 1 search result uses the singular form and doesn't show the number or results
                 mockedSearchResults[0].count = 1;
                 mockedSearchResults[0].results.length = 1;
-                component = getComponent('Weesperstraat');
+                component = getComponent(12, 'Weesperstraat');
                 expect(component.find('h2').eq(0).text().trim()).toBe('Adres');
             });
 
@@ -410,7 +429,7 @@ describe('The dp-search-results component', function () {
                 var component;
 
                 //A category with 11 search results uses the plural form and it shows the number of results in brackets
-                component = getComponent('Weesperstraat');
+                component = getComponent(12, 'Weesperstraat');
                 expect(removeWhitespace(component.find('dp-link').eq(10).text())).toBe('Toon alle 11');
                 component.find('dp-link button').click();
                 expect(store.dispatch).toHaveBeenCalledWith({
@@ -420,7 +439,7 @@ describe('The dp-search-results component', function () {
 
                 //This link shows numbers with a thousand separator
                 mockedSearchResults[0].count = 1234;
-                component = getComponent('Weesperstraat');
+                component = getComponent(12, 'Weesperstraat');
                 expect(removeWhitespace(component.find('dp-link').eq(10).text())).toBe('Toon alle 1.234');
             });
 
@@ -430,7 +449,7 @@ describe('The dp-search-results component', function () {
                 beforeEach(function () {
                     mockedSearchResults.length = 1;
 
-                    component = getComponent('Weesperstraat', null, 'adres');
+                    component = getComponent(22, 'Weesperstraat', null, 'adres');
                 });
 
                 it('shows all links from the search API (instead of just the first 10)', function () {
@@ -468,7 +487,7 @@ describe('The dp-search-results component', function () {
                         mockedSearchResultsNextPage.results.push(angular.copy(mockedSearchResults[0].results[0]));
                     }
 
-                    component = getComponent('Weesperstraat', null, 'adres');
+                    component = getComponent(22, 'Weesperstraat', null, 'adres');
 
                     //It only shows the first 25 results
                     expect(component.find('dp-link').length).toBe(25);
@@ -492,7 +511,7 @@ describe('The dp-search-results component', function () {
         var component;
 
         beforeEach(function () {
-            component = getComponent(null, [51.123, 4.789]);
+            component = getComponent(22, null, [51.123, 4.789]);
         });
 
         it('shows search results from the geosearch API on the scope', function () {
@@ -604,10 +623,17 @@ describe('The dp-search-results component', function () {
             mockedGeosearchResults[1].count = 10;
             mockedGeosearchResults[1].results.length = 10;
 
-            component = getComponent(null, [51.123, 4.789]);
+            component = getComponent(22, null, [51.123, 4.789]);
             expect(component.find('dp-link').eq(11).find('button').text().trim())
                 .not.toBe('Bekijk alle 12 adressen binnen dit pand');
             expect(component.find('dp-link').length).toBe(numberOfDpLinks - 1);
+        });
+
+        it('calls dispatch with the number of search results', function () {
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: 'SHOW_SEARCH_RESULTS',
+                payload: 22
+            });
         });
 
         it('shows the dp-straatbeeld-thumbnail component', function () {

@@ -50,7 +50,10 @@ describe('The stateToUrlMiddleware factory', function () {
         var actionWithoutUrlUpdate = [
             ACTIONS.URL_CHANGE,
             ACTIONS.FETCH_DETAIL,
-            ACTIONS.FETCH_STRAATBEELD
+            ACTIONS.FETCH_STRAATBEELD,
+            ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY,
+            ACTIONS.FETCH_SEARCH_RESULTS_BY_CLICK,
+            ACTIONS.FETCH_SEARCH_RESULTS_CATEGORY
         ];
 
         actionWithoutUrlUpdate.forEach(function (action) {
@@ -65,9 +68,6 @@ describe('The stateToUrlMiddleware factory', function () {
 
     it('does call stateToUrl.update for all other actions', function () {
         var actionsWithUrlUpdate = [
-            ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY,
-            ACTIONS.FETCH_SEARCH_RESULTS_BY_CLICK,
-            ACTIONS.FETCH_SEARCH_RESULTS_CATEGORY,
             ACTIONS.SHOW_SEARCH_RESULTS,
             ACTIONS.MAP_SET_BASELAYER,
             ACTIONS.MAP_ADD_OVERLAY,
@@ -113,9 +113,6 @@ describe('The stateToUrlMiddleware factory', function () {
                 ACTIONS.HIDE_ACTIVE_OVERLAYS
             ],
             shouldNotUseReplace = [
-                ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY,
-                ACTIONS.FETCH_SEARCH_RESULTS_BY_CLICK,
-                ACTIONS.FETCH_SEARCH_RESULTS_CATEGORY,
                 ACTIONS.SHOW_SEARCH_RESULTS,
                 ACTIONS.MAP_FULLSCREEN,
                 ACTIONS.SHOW_DETAIL,

@@ -24,10 +24,10 @@
 
             scope.$watchGroup(['numberOfResults', 'category', 'query', 'location'], function() {
                 var titleData = searchTitle.getTitleData(
+                        scope.numberOfResults,
                         scope.query,
                         scope.location,
-                        scope.category,
-                        scope.numberOfResults);
+                        scope.category);
 
                 scope.vm.title = titleData.title;
                 scope.vm.subTitle = titleData.subTitle;

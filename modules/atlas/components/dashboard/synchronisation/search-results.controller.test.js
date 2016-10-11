@@ -97,6 +97,26 @@ describe('The searchResults controller', function () {
         expect(controller.category).toBe('adres');
     });
 
+    it('sets isLoading based on the state', function () {
+        var controller;
+
+        mockedState.search.isLoading = true;
+
+        controller = getController();
+
+        expect(controller.isLoading).toBe(true);
+    });
+
+    it('sets the number of results based on the state', function () {
+        var controller;
+
+        mockedState.search.numberOfResults = 23;
+
+        controller = getController();
+
+        expect(controller.numberOfResults).toBe(23);
+    });
+
     it('doesn\'t break if search is null', function () {
         var controller;
 
@@ -106,7 +126,10 @@ describe('The searchResults controller', function () {
 
         controller = getController();
 
-        expect(controller.query).toBeNull();
-        expect(controller.location).toBeNull();
+        expect(controller.isLoading).toBeUndefined();
+        expect(controller.query).toBeUndefined();
+        expect(controller.location).toBeUndefined();
+        expect(controller.category).toBeUndefined();
+        expect(controller.numberOfResults).toBeUndefined();
     });
 });
