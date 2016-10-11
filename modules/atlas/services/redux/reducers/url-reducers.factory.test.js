@@ -257,7 +257,6 @@ describe('The urlReducers factory', function () {
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
                 expect(output.straatbeeld).toBeNull();
 
-
                 //With straatbeeld
                 mockedSearchParams.id = '12345';
 

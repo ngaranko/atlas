@@ -194,7 +194,6 @@ describe('The atlas-stelselpedia-header directive', function () {
             //BRONDOCUMENT has no wkpb-uittreksel
             directive = getDirective(null, 'BRONDOCUMENT', false, null, null);
 
-
             expect(directive.find('atlas-wkpb-link').length).toBe(0);
 
             //GEMEENTELIJKE_BEPERKING enige met wkpb uittreksel

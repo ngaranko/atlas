@@ -170,14 +170,12 @@ describe('The dp-data-selection-pagination component', function () {
 
         expect(store.dispatch).not.toHaveBeenCalled();
 
-
         //Negative numbers
         component.find('input')[0].value = '-1';
         component.find('input').trigger('change');
         component.find('form').trigger('submit');
 
         expect(store.dispatch).not.toHaveBeenCalled();
-
 
         //Number larger than the total number of pages
         component.find('input')[0].value = '3';

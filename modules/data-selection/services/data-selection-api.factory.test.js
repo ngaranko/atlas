@@ -196,7 +196,6 @@ describe('The dataSelectionApi factory', function () {
             expect(output.filters[0].slug).toBe('type');
             expect(output.filters[1].slug).toBe('water');
 
-
             //With only one filter in the API response
             delete mockedApiResponse.aggs_list.type;
 

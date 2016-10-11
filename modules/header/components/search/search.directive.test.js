@@ -322,7 +322,6 @@ describe('The atlas-search directive', function () {
                     .hasClass('c-autocomplete__category__suggestion--active'))
                     .toBe(false);
 
-
                 /**
                  * Press the DOWN ARROW for the first time
                  */
@@ -343,7 +342,6 @@ describe('The atlas-search directive', function () {
                 //Show the highlighted suggestion in the searchbox
                 expect(directive.find('.js-search-input')[0].value).toBe('Suggestion A1');
 
-
                 /**
                  * Press the DOWN ARROW for the second time
                  */
@@ -362,7 +360,6 @@ describe('The atlas-search directive', function () {
 
                 expect(directive.find('.js-search-input')[0].value).toBe('Suggestion A2');
 
-
                 /**
                  * Press the DOWN ARROW again (making sure the 2nd category of suggestions is working as well)
                  */
@@ -380,7 +377,6 @@ describe('The atlas-search directive', function () {
                     .toBe(true);
 
                 expect(directive.find('.js-search-input')[0].value).toBe('Suggestion B1');
-
 
                 /**
                  * Press the UP arrow

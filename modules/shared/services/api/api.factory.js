@@ -5,7 +5,6 @@
         .module('dpShared')
         .factory('api', apiFactory);
 
-
     apiFactory.$inject = ['$http', 'user', 'environment'];
 
     function apiFactory ($http, user, environment) {

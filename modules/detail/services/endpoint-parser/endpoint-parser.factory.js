@@ -16,8 +16,6 @@
                 uriParts,
                 template;
 
-
-
             //Transform http://www.api-root.com/this/that/123 to ['this', 'that', '123']
             anchor = document.createElement('a');
             anchor.href = endpoint;

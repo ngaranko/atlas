@@ -68,7 +68,6 @@ describe('The atlas-api-call component', function () {
 
                 break;
 
-
             case 'http://www.some-domain.com/with-pagination/456/?page=2':
                 mockedResponse = {
                     count: 5,

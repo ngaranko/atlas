@@ -208,7 +208,6 @@ describe('The stateToUrl factory', function () {
                 pagina: jasmine.Any(String)
             }));
 
-
             //With a page
             mockedState.page = 'welkom';
 
@@ -228,7 +227,6 @@ describe('The stateToUrl factory', function () {
             expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
                 detail: jasmine.Any(String)
             }));
-
 
             //With a detail page
             mockedState.detail = {
@@ -406,7 +404,6 @@ describe('The stateToUrl factory', function () {
             expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
                 'dataset-pagina': '5' //The page is converted to a string
             }));
-
 
             //With one filter
             mockedState.dataSelection.filters = {

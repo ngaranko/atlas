@@ -355,7 +355,6 @@ describe('The dp-data-selection-filters component', function () {
         component.find('.qa-available-filters > div').eq(0).find('.qa-show-more-button').click();
         expect(component.find('.qa-available-filters > div').eq(0).find('.qa-hidden-options').length).toBe(0);
 
-
         //When there are more then 100 available options: show the message after expanding the category
         availableFilters[0].numberOfOptions = 101;
         component = getComponent({}, false);

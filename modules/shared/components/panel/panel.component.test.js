@@ -113,5 +113,4 @@ describe('The dp-panel component', function () {
         });
     });
 
-
 });

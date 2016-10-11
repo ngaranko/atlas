@@ -22,7 +22,6 @@ describe('The atlas-meetbout-graph directive', function () {
             }]
         };
 
-
     beforeEach(function () {
         angular.mock.module(
             'atlasDetail',
@@ -224,7 +223,6 @@ describe('The atlas-meetbout-graph directive', function () {
             });
 
         });
-
 
     });
 

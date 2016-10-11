@@ -340,13 +340,11 @@ describe('The atlas-layer-selection component', function () {
 
             expect(contentDiv.find('div').eq(2).find('li').eq(0).find('strong').text()).toContain('Overlay 2a');
 
-
             //Active and invisible
             component = getComponent('base_layer_a', [{id: 'overlay_2_a', isVisible: true}], 16);
             contentDiv = component.find('.c-layer-selection__content');
 
             expect(contentDiv.find('div').eq(2).find('li').eq(0).find('strong').text()).toContain('Overlay 2a');
-
 
             //Non-active (still using strong)
             component = getComponent('base_layer_a', [], 16);

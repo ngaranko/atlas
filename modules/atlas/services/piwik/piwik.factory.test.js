@@ -30,7 +30,6 @@ describe('The piwik service', function () {
         });
     });
 
-
     it('inserts a script tag into the DOM', function () {
         var numberOfScripts,
             piwikScript;

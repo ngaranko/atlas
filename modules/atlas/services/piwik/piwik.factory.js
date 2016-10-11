@@ -23,8 +23,6 @@
             $window._paq.push(['trackPageView']);
             $window._paq.push(['enableLinkTracking']);
 
-
-
             $window._paq.push(['setTrackerUrl', url_base + 'piwik.php']);
             $window._paq.push(['setSiteId', PIWIK_CONFIG[environment.NAME].SITE_ID]);
 
