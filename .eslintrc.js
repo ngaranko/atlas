@@ -34,10 +34,10 @@ module.exports = {
                 "SwitchCase": 1
                 // Case statements should be indented:
                 // switch(a){
-                // case "a":
-                //     break;
-                // case "b":
-                //     break;
+                //     case "a":
+                //         break;
+                //     case "b":
+                //         break;
                 // }
             }
         ],
