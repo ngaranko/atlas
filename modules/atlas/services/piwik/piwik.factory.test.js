@@ -39,7 +39,7 @@ describe('The piwik service', function () {
         $window._paq = [];
         spyOn($window._paq, 'push');
 
-        piwik.initialize(); 
+        piwik.initialize();
         // Checking values
         expect($window._paq.push).toHaveBeenCalledWith(['setSiteId', 300]);
 

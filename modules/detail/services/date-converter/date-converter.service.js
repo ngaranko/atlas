@@ -14,7 +14,7 @@
 
         /**
          * @param {string} [input] [datum in formaat yyyy-mm-dd]
-         *@return {[date object]}    [js date object] 
+         *@return {[date object]}    [js date object]
          */
         function ymdToDate(input) {
 

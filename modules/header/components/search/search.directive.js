@@ -59,7 +59,7 @@
                         // Only load suggestions if they are still relevant.
                         if (suggestions.query === scope.query) {
                             scope.suggestions = suggestions.data;
-                            scope.numberOfSuggestions = suggestions.count;    
+                            scope.numberOfSuggestions = suggestions.count;
                         }
                     });
                 } else {

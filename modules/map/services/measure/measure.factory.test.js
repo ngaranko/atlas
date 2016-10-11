@@ -32,7 +32,7 @@ describe('The measure factory', function () {
         mockedLeafletMap = {
             on: function () {}
         };
-        
+
         mockedMeasureControl = {
             addTo: function () {}
         };

@@ -22,7 +22,7 @@ module.exports = {
         "eol-last": "off",  // require or disallow newline at the end of files
         "angular/no-service-method": "off", // You should prefer the factory() method instead of service()
         "no-multiple-empty-lines": "error",   // disallow multiple empty lines
-        "no-trailing-spaces": "off",    // disallow trailing whitespace at the end of lines
+        "no-trailing-spaces": "error",    // disallow trailing whitespace at the end of lines
         "semi-spacing": "off",  // enforce consistent spacing before and after semicolons
         "comma-spacing": "off", // enforce consistent spacing before and after commas
         "keyword-spacing": "off",   // enforce consistent spacing before and after keywords

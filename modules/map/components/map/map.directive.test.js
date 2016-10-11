@@ -131,7 +131,7 @@ describe('The dp-map directive', function () {
 
         directive = $compile(element)(scope);
 
-        scope.$apply();    
+        scope.$apply();
 
         if (angular.isUndefined(useRootScopeApply) || useRootScopeApply) {
             $rootScope.$apply();
@@ -190,7 +190,7 @@ describe('The dp-map directive', function () {
         it('can be added on initialization', function () {
             mockedMapState.overlays = [{id: 'some_overlay', isVisible: true}];
             getDirective(mockedMapState, []);
-            
+
             expect(layers.addOverlay).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', 'some_overlay');
         });
 

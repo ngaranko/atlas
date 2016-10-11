@@ -30,13 +30,13 @@ describe('The geosearch factory', function () {
                         } else {
                             q.resolve(mockedEmptySearchResults);
                         }
-                        
+
                         return q.promise;
                     },
                     getByUrl: function (endpoint) {
                         //Used to retrieve the pand data and related verblijfsobjecten
                         var q = $q.defer();
-                        
+
                         if (endpoint === 'https://api.datapunt.amsterdam.nl/bag/pand/0456789/') {
                             q.resolve(mockedPandApiResults);
                         } else if (endpoint === 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/?panden__id=04' +
@@ -44,7 +44,7 @@ describe('The geosearch factory', function () {
 
                             q.resolve(mockedVerblijfsobjectenApiResults);
                         }
-                        
+
                         return q.promise;
                     }
                 }
@@ -75,7 +75,7 @@ describe('The geosearch factory', function () {
             geosearchFormatter = _geosearchFormatter_;
             searchFormatter = _searchFormatter_;
         });
-        
+
         mockedEmptySearchResults = {
             type: 'FeatureCollection',
             features: []
@@ -189,7 +189,7 @@ describe('The geosearch factory', function () {
                 }
             ]
         };
-        
+
         mockedPandApiResults = {
             _links: {
                 self: {
@@ -236,7 +236,7 @@ describe('The geosearch factory', function () {
             useIndenting: false,
             next: null
         };
-        
+
         spyOn(api, 'getByUri').and.callThrough();
         spyOn(api, 'getByUrl').and.callThrough();
         spyOn(geosearchFormatter, 'format').and.returnValue(mockedFormattedSearchResults);

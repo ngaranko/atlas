@@ -120,7 +120,7 @@
                             }
                         } else {
                             // No change was made
-                            add = false; // Exists in both overlays    
+                            add = false; // Exists in both overlays
                         }
                         break;
                     }
@@ -142,7 +142,7 @@
         }
 
         function getRemovedOverlays (newOverlays, oldOverlays) {
-            return getDiffFromOverlays(oldOverlays, newOverlays);   
+            return getDiffFromOverlays(oldOverlays, newOverlays);
         }
 
         function getAddedGeojson (newCollection, oldCollection) {
