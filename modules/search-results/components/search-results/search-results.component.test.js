@@ -463,7 +463,7 @@ describe('The atlas-search-results component', function () {
                     mockedSearchResultsNextPage = angular.copy(mockedSearchResults[0]);
 
                     //Add 5 extra search results
-                    for (i = 0; i < 5; i ++) {
+                    for (i = 0; i < 5; i++) {
                         mockedSearchResultsNextPage.results.push(angular.copy(mockedSearchResults[0].results[0]));
                     }
 

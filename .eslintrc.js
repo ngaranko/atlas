@@ -36,7 +36,7 @@ module.exports = {
         "space-infix-ops": "error",   // require spacing around infix operators
         "no-multi-spaces": "error",   // disallow multiple spaces
         "space-in-parens": "error",   // enforce consistent spacing inside parentheses
-        "space-unary-ops": "off",   // enforce consistent spacing before or after unary operators
+        "space-unary-ops": "error",   // enforce consistent spacing before or after unary operators
         "key-spacing": "off",   // enforce consistent spacing between keys and values in object literal properties
         "brace-style": "off",   // enforce consistent brace style for blocks
         "standard/object-curly-even-spacing": "off",    // enforce consistent spacing inside braces of object literals
