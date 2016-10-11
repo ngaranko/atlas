@@ -28,7 +28,7 @@ module.exports = {
         "keyword-spacing": "error",   // enforce consistent spacing before and after keywords
         "space-before-function-paren": "error",   // consistent spacing before function definition opening parenthesis
         "angular/json-functions": "off",    // use angular.fromJson/toJson instead of JSON.parse and JSON.stringify
-        "operator-linebreak": "off",    // enforce consistent linebreak style for operators
+        "operator-linebreak": "error",    // enforce consistent linebreak style for operators
         "indent": ["off"],  // enforce consistent indentation
         "padded-blocks": "off", // require or disallow padding within blocks
         "spaced-comment": "off",    // enforce consistent spacing after the // or /* in a comment
