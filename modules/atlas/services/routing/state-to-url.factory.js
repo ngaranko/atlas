@@ -112,7 +112,7 @@
             if (angular.isObject(state.dataSelection)) {
                 params.dataset = state.dataSelection.dataset;
 
-                angular.forEach(state.dataSelection.filters, function(value, key) {
+                angular.forEach(state.dataSelection.filters, function (value, key) {
                     datasetFilters.push(key + ':' + $window.encodeURIComponent(value));
                 });
 

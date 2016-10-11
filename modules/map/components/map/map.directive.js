@@ -33,7 +33,7 @@
 
             scope.vm = {};
 
-            scope.$watchGroup(['mapState.isFullscreen', 'mapState.showLayerSelection'], function() {
+            scope.$watchGroup(['mapState.isFullscreen', 'mapState.showLayerSelection'], function () {
                 scope.vm.isFullscreen = scope.mapState.isFullscreen && !scope.mapState.showLayerSelection;
             });
 
@@ -103,7 +103,7 @@
             });
         }
 
-        function getDiffFromOverlays(over1, over2) {
+        function getDiffFromOverlays (over1, over2) {
             // Finds all the keys for items in over1 that
             // are not in over2
             // Or if visibility was changed.

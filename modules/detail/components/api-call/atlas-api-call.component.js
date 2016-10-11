@@ -46,7 +46,7 @@
 
         function loadData (endpoint, addApiRoot) {
             var callEndpointFn = addApiRoot ? api.getByUri : api.getByUrl;
-            callEndpointFn(endpoint).then(function(response) {
+            callEndpointFn(endpoint).then(function (response) {
                 var hasPagination = angular.isArray(response.results);
 
                 if (hasPagination) {

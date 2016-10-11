@@ -92,8 +92,8 @@ describe('The map reducers', function () {
             expect(output.map.overlays).toEqual([]);
         });
     });
-    describe('MAP_TOGGILE_VISIBILITY', function() {
-        it('hides an overlay', function() {
+    describe('MAP_TOGGILE_VISIBILITY', function () {
+        it('hides an overlay', function () {
             var inputState = angular.copy(defaultState),
                 output;
 
@@ -116,7 +116,7 @@ describe('The map reducers', function () {
                 {id: 'overlay_3', isVisible: true}
             ]);
         });
-        it('hides an overlay', function() {
+        it('hides an overlay', function () {
             var inputState = angular.copy(defaultState),
                 output;
 

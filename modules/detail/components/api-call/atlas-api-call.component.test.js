@@ -10,10 +10,10 @@ describe('The atlas-api-call component', function () {
             'atlasDetail',
             {
                 api: {
-                    getByUrl: function(endpoint) {
+                    getByUrl: function (endpoint) {
                         return getByUrlMock(endpoint);
                     },
-                    getByUri: function(endpoint) {
+                    getByUri: function (endpoint) {
                         return getByUrlMock('http://www.some-domain.com/' + endpoint);
                     }
                 }
@@ -42,7 +42,7 @@ describe('The atlas-api-call component', function () {
         spyOn(api, 'getByUri').and.callThrough();
     });
 
-    function getByUrlMock(endpoint) {
+    function getByUrlMock (endpoint) {
         var q = $q.defer(),
         mockedResponse;
 
@@ -217,13 +217,13 @@ describe('The atlas-api-call component', function () {
     });
 
     describe('the add-api-root attribute', function () {
-        it('calls the url method of the api module as usual, when set to false', function() {
+        it('calls the url method of the api module as usual, when set to false', function () {
             getComponent('http://www.some-domain.com/something/123/', 'some-partial', false, false);
             expect(api.getByUrl).toHaveBeenCalledWith('http://www.some-domain.com/something/123/');
             expect(api.getByUri.calls.any()).toEqual(false);
         });
 
-        it('calls the uri method of the api module when set to true', function() {
+        it('calls the uri method of the api module when set to true', function () {
             getComponent('something/123/', 'some-partial', false, true);
             expect(api.getByUrl.calls.any()).toEqual(false);
             expect(api.getByUri).toHaveBeenCalledWith('something/123/');

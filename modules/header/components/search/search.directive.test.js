@@ -21,7 +21,7 @@ describe('The atlas-search directive', function () {
                     search: function (query) {
                         var q = $q.defer();
                         promises.push({query: query, q: q});
-                        finishApiCall = function() {
+                        finishApiCall = function () {
                             var prom = promises.shift();
                             if (prom) {
                                 prom.q.resolve(fakeAutocompleteData[prom.query]);
@@ -208,7 +208,7 @@ describe('The atlas-search directive', function () {
             expect(autocompleteData.search).toHaveBeenCalledTimes(1);
         });
 
-        it('Only show relevat autocomplete suggestions', function() {
+        it('Only show relevat autocomplete suggestions', function () {
             var directive = getDirective('');
 
             directive.find('.js-search-input')[0].value = 'query with suggestions';

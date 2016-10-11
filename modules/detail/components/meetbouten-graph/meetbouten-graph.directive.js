@@ -17,7 +17,7 @@
             link: linkFunction
         };
 
-        function linkFunction(scope, element) {
+        function linkFunction (scope, element) {
             //Alleen een grafiek tonen als we 2 of meer metingen hebben
             if (scope.pageSize <= 1) {
                 return;

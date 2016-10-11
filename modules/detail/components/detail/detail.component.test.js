@@ -1,4 +1,4 @@
-describe('the atlas-detail component', function() {
+describe('the atlas-detail component', function () {
     var $compile,
         $rootScope,
         $q,
@@ -7,7 +7,7 @@ describe('the atlas-detail component', function() {
         mockedGeometryPoint = {type: 'Point', coordinates: 'FAKE_NUMMERAANDUIDING_POINT'},
         mockedGeometryMultiPolygon = {type: 'MultiPolygon', coordinates: 'FAKE_KADASTRAAL_OBJECT_MULTIPOLYGON'};
 
-    beforeEach(function() {
+    beforeEach(function () {
         angular.mock.module(
             'atlasDetail',
             {

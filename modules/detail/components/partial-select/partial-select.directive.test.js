@@ -5,7 +5,7 @@ describe('The atlas-partial-select directive', function () {
         partialCompiler,
         api;
 
-    beforeEach(function() {
+    beforeEach(function () {
         angular.mock.module(
             'atlasDetail',
             {

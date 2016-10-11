@@ -82,7 +82,7 @@ describe('The atlas-search-results-list component', function () {
         spyOn(store, 'dispatch');
     });
 
-    function getComponent(category, limitResults) {
+    function getComponent (category, limitResults) {
         var component,
             element,
             scope;
