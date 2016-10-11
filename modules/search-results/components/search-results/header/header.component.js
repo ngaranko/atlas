@@ -3,35 +3,32 @@
 
     angular
         .module('dpSearchResults')
-        .directive('dpSearchResultsHeader', dpSearchResultsHeaderDirective);
-
-    dpSearchResultsHeaderDirective.$inject = ['store', 'ACTIONS', '$filter', 'searchTitle'];
-
-    function dpSearchResultsHeaderDirective(store, ACTIONS, $filter, searchTitle) {
-        return {
-            scope: {
+        .component('dpSearchResultsHeader', {
+            bindings: {
                 numberOfResults: '=',
                 query: '@',
                 location: '=',
                 category: '@'
             },
             templateUrl: 'modules/search-results/components/search-results/header/header.html',
-            link: linkFn
-        };
+            controllerAs: 'vm',
+            controller: DpSearchResultsHeaderController
+        });
 
-        function linkFn(scope) {
-            scope.vm = {};
+    DpSearchResultsHeaderController.$inject = ['$scope', 'searchTitle'];
 
-            scope.$watchGroup(['numberOfResults', 'category', 'query', 'location'], function() {
-                var titleData = searchTitle.getTitleData(
-                        scope.numberOfResults,
-                        scope.query,
-                        scope.location,
-                        scope.category);
+    function DpSearchResultsHeaderController($scope, searchTitle) {
+        var vm = this;
 
-                scope.vm.title = titleData.title;
-                scope.vm.subTitle = titleData.subTitle;
-            });
-        }
+        $scope.$watchGroup(['vm.numberOfResults', 'vm.category', 'vm.query', 'vm.location'], function() {
+            var titleData = searchTitle.getTitleData(
+                    vm.numberOfResults,
+                    vm.query,
+                    vm.location,
+                    vm.category);
+
+            vm.title = titleData.title;
+            vm.subTitle = titleData.subTitle;
+        });
     }
 })();
