@@ -1,11 +1,11 @@
 module.exports = function (grunt) {
     // Configure lint tasks
-    const linters = ['jshint', 'eslint', 'console-log-test'];
+    const linters = ['eslint', 'console-log-test'];
     const tasks = ['grunt', 'tests', 'modules'];
 
     const linttasks = linters
         .map(linter => tasks
-            .map(task => `${linter}:${task}`))
+            .map(task => `newer:${linter}:${task}`))
         .reduce((result, lintertasks) => result.concat(lintertasks), []);
 
     grunt.registerTask('lint', linttasks);
