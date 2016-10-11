@@ -13,7 +13,6 @@ module.exports = {
         // The --fix option on the command line can automatically fixes some problems
         "one-var": "off",   // enforce variables to be declared either together or separately in functions
         "eol-last": "off",  // require or disallow newline at the end of files
-        "indent": ["off"],  // enforce consistent indentation
         "angular/json-functions": "off",    // use angular.fromJson/toJson instead of JSON.parse and JSON.stringify
         "spaced-comment": "off",    // enforce consistent spacing after the // or /* in a comment
 
@@ -21,13 +20,21 @@ module.exports = {
         "strict": "off",
         "linebreak-style": "off",
 
-        // "indent": [ // enforce consistent indentation
-        //     "error",
-        //     4,
-        //     {
-        //         "SwitchCase": 1
-        //     }
-        // ],
+        "indent": ["off"],  // enforce consistent indentation
+        "indent": [ // enforce consistent indentation
+            "error",
+            4,
+            {
+                "SwitchCase": 1
+                // Case statements should be indented:
+                // switch(a){
+                // case "a":
+                //     break;
+                // case "b":
+                //     break;
+                // }
+            }
+        ],
         "no-unused-vars": "error",    // disallow unused variables
         "semi": ["error", "always"],  // require or disallow semicolons instead of ASI
         "comma-dangle": ["error", "never"],  // require or disallow trailing commas

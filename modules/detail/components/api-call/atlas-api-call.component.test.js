@@ -44,7 +44,7 @@ describe('The atlas-api-call component', function () {
 
     function getByUrlMock (endpoint) {
         var q = $q.defer(),
-        mockedResponse;
+            mockedResponse;
 
         switch (endpoint) {
             case 'http://www.some-domain.com/without-pagination/123/':

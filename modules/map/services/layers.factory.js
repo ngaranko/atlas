@@ -5,7 +5,7 @@
         .module('dpMap')
         .factory('layers', layersFactory);
 
-        layersFactory.$inject = ['L', 'mapConfig', 'BASE_LAYERS', 'OVERLAYS'];
+    layersFactory.$inject = ['L', 'mapConfig', 'BASE_LAYERS', 'OVERLAYS'];
 
     function layersFactory (L, mapConfig, BASE_LAYERS, OVERLAYS) {
         var baseLayer,

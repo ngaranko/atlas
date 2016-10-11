@@ -97,12 +97,12 @@ describe('the atlas-detail component', function () {
             _$q_,
             _store_,
             _ACTIONS_) {
-                $compile = _$compile_;
-                $rootScope = _$rootScope_;
-                $q = _$q_;
-                store = _store_;
-                ACTIONS = _ACTIONS_;
-            }
+            $compile = _$compile_;
+            $rootScope = _$rootScope_;
+            $q = _$q_;
+            store = _store_;
+            ACTIONS = _ACTIONS_;
+        }
         );
 
         spyOn(store, 'dispatch');

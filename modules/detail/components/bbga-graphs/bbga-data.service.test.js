@@ -174,16 +174,16 @@ describe('The bbgaDataService', function () {
     it('returns null for data that isn\'t available in the BBGA API', function () {
         bbgaDataService.getGraphData('MY_GRAPH_SETTINGS_WITH_NO_DATA', 'Gebied A', 'GEBIED_A')
             .then(function (bbgaData) {
-            expect(bbgaData.VARIABELE_C.meta.jaar).toBeNull();
-            expect(bbgaData.VARIABELE_C.data[0].waarde).toBeNull();
+                expect(bbgaData.VARIABELE_C.meta.jaar).toBeNull();
+                expect(bbgaData.VARIABELE_C.data[0].waarde).toBeNull();
 
             //The other variables are set as usual
-            expect(bbgaData.VARIABELE_C.meta.label).toBe('Een derde variabele');
-            expect(bbgaData.VARIABELE_C.meta.peildatum).toBe('1 februari');
+                expect(bbgaData.VARIABELE_C.meta.label).toBe('Een derde variabele');
+                expect(bbgaData.VARIABELE_C.meta.peildatum).toBe('1 februari');
 
-            expect(bbgaData.VARIABELE_C.data[0].label).toBe('Gebied A');
-            expect(bbgaData.VARIABELE_C.data[0].code).toBe('GEBIED_A');
-        });
+                expect(bbgaData.VARIABELE_C.data[0].label).toBe('Gebied A');
+                expect(bbgaData.VARIABELE_C.data[0].code).toBe('GEBIED_A');
+            });
 
         $httpBackend.flush();
     });

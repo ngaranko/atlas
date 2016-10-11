@@ -51,7 +51,7 @@ describe('The atlas-search directive', function () {
                 },
                 environment: {
                     API_ROOT: 'http://api.example.com/'
-                 }
+                }
             }
         );
 

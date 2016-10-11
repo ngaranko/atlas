@@ -76,17 +76,17 @@ describe('The dp-map directive', function () {
             _measure_,
             _variableWidth_,
             _searchByClick_) {
-                $compile = _$compile_;
-                $rootScope = _$rootScope_;
-                L = _L_;
-                layers = _layers_;
-                highlight = _highlight_;
-                panning = _panning_;
-                zoom = _zoom_;
-                measure = _measure_;
-                variableWidth = _variableWidth_;
-                searchByClick = _searchByClick_;
-            }
+            $compile = _$compile_;
+            $rootScope = _$rootScope_;
+            L = _L_;
+            layers = _layers_;
+            highlight = _highlight_;
+            panning = _panning_;
+            zoom = _zoom_;
+            measure = _measure_;
+            variableWidth = _variableWidth_;
+            searchByClick = _searchByClick_;
+        }
         );
 
         spyOn(L, 'map').and.returnValue('I_AM_A_FAKE_LEAFLET_MAP');

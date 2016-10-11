@@ -43,10 +43,10 @@ describe('The dp-data-selection-pagination-link component', function () {
 
     it('shows a button for each enabled link', function () {
         var component = getComponent({
-                label: 'Ik ben een knopske',
-                page: 27,
-                enabled: true
-            });
+            label: 'Ik ben een knopske',
+            page: 27,
+            enabled: true
+        });
 
         expect(component.find('button').length).toBe(1);
         expect(component.find('button').text()).toContain('Ik ben een knopske');

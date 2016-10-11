@@ -5,7 +5,7 @@
         .module('atlasHeader')
         .directive('atlasSearch', atlasSearchDirective);
 
-        atlasSearchDirective.$inject = ['$timeout', 'autocompleteData', 'environment', 'store', 'ACTIONS'];
+    atlasSearchDirective.$inject = ['$timeout', 'autocompleteData', 'environment', 'store', 'ACTIONS'];
 
     function atlasSearchDirective ($timeout, autocompleteData, environment, store, ACTIONS) {
         return {

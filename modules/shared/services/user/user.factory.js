@@ -74,17 +74,17 @@
 
         function refreshToken () {
             return $http({
-                    method: 'POST',
-                    url: environment.AUTH_ROOT + 'refresh/',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    data: $httpParamSerializer(
-                        {
-                            token: userState.accessToken
-                        }
+                method: 'POST',
+                url: environment.AUTH_ROOT + 'refresh/',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: $httpParamSerializer(
+                    {
+                        token: userState.accessToken
+                    }
                     )
-                })
+            })
                 .then(refreshSuccess, logout);
 
             function refreshSuccess (response) {
