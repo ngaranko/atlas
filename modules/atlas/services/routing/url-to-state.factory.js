@@ -13,7 +13,9 @@
         };
 
         function initialize () {
+            /* eslint-disable angular/on-watch */
             $rootScope.$watch(function () {
+                /* eslint-enable angular/on-watch */
                 return $location.search();
             }, function () {
                 store.dispatch({
