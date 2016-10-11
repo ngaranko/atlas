@@ -13,7 +13,6 @@
         };
 
         /**
-         * 
          * @param input
          * @returns {*}
          */
