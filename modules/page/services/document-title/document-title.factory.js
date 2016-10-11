@@ -14,13 +14,21 @@
         };
 
         function getTitle (pageName) {
-            return pageName
+            var output;
+
+            if (pageName === 'home') {
+                output = null;
+            } else {
+                output = pageName
                 //Make the first letter of each word uppercase
-                .split('-').map(function (word) {
-                    return (dpUppercaseFirstLetterFilter(word));
-                })
-                //Replace dashed (-) with spaces
-                .join(' ');
+                    .split('-').map(function (word) {
+                        return (dpUppercaseFirstLetterFilter(word));
+                    })
+                    //Replace dashed (-) with spaces
+                    .join(' ');
+            }
+
+            return output;
         }
     }
 })();
