@@ -497,7 +497,7 @@ describe('The atlas-search-results component', function () {
         it('shows search results from the geosearch API on the scope', function () {
             expect(component.find('h2').length).toBe(5);
 
-            // 21 Links include an additional 'show more' link to the Pand and it includes only 10 adressen instead of 12
+            // 21 Links include an additional 'show more' link to the Pand,  it includes only 10 adressen instead of 12
             expect(component.find('dp-link').length).toBe(21);
 
             // First category

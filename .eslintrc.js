@@ -10,11 +10,12 @@ module.exports = {
     },
     "extends": ["standard", "eslint:recommended", "angular"],
     "rules": {
+        // To run eslint from the command line use .\node_modules\.bin\eslint modules
         // The --fix option on the command line can automatically fixes some problems
 
         // "one-var": "off",   // enforce variables to be declared either together or separately in functions
         // "eol-last": "off",  // require or disallow newline at the end of files
-        // "no-shadow": "error",
+        "no-shadow": "off",
         // "strict": "off",
         // "linebreak-style": "off",
 
