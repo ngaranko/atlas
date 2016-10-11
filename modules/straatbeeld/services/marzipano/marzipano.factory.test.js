@@ -178,7 +178,7 @@ describe('The marzipanoService factory', function () {
                 }, {
                     id: 2,
                     distance: 80,
-                    heading:79,
+                    heading: 79,
                     pitch: 0.15
                 }
             ];

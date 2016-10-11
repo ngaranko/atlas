@@ -142,7 +142,7 @@
                         'gendGraphic&sld_version=1.1.0&' +
                         'layer=persoonlijke_dienstverlening&format=image/png&STYLE=default'
                 },
-                overige_niet_hierboven_genoemd:  {
+                overige_niet_hierboven_genoemd: {
                     url: 'maps/handelsregister',
                     label_short: 'Overige',
                     label_long: 'Overige niet hierboven genoemd',

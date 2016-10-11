@@ -11,7 +11,7 @@ describe('The user factory', function () {
 
     beforeEach(function () {
         dummyPromise = 'dummyPromise';
-        $intervalSpy = jasmine.createSpy('$interval', {cancel:function () {}}).and.returnValue(dummyPromise);
+        $intervalSpy = jasmine.createSpy('$interval', {cancel: function () {}}).and.returnValue(dummyPromise);
 
         angular.mock.module(
             'dpShared',

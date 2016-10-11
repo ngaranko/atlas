@@ -23,7 +23,7 @@ describe('The urlReducers factory', function () {
 
     describe('URL_CHANGE', function () {
         it('returns the default state when the payload is empty', function () {
-            var output = urlReducers.URL_CHANGE({some:'object'}, {});
+            var output = urlReducers.URL_CHANGE({some: 'object'}, {});
 
             expect(output).toEqual(mockedState);
         });
