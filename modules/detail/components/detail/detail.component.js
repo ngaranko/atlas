@@ -43,14 +43,14 @@
 
                 vm.includeSrc = endpointParser.getTemplateUrl(endpoint);
 
-                geometry.getGeoJSON(endpoint).then(function (geometry) {
-                    if (geometry !== null) {
-                        vm.location = crsConverter.rdToWgs84(geojson.getCenter(geometry));
+                geometry.getGeoJSON(endpoint).then(function (aGeometry) {
+                    if (aGeometry !== null) {
+                        vm.location = crsConverter.rdToWgs84(geojson.getCenter(aGeometry));
                     }
 
                     store.dispatch({
                         type: ACTIONS.SHOW_DETAIL,
-                        payload: geometry
+                        payload: aGeometry
                     });
                 });
             });

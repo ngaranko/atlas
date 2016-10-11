@@ -35,7 +35,7 @@
             }
 
             function isVestigingAmsterdam (data) {
-                var isVestigingAmsterdam = false;
+                var isVestiging = false;
                 var southWest = crsConverter.wgs84ToRd(BOUNDING_BOX.COORDINATES.southWest);
                 var northEast = crsConverter.wgs84ToRd(BOUNDING_BOX.COORDINATES.northEast);
 
@@ -45,13 +45,13 @@
                         data.bezoekadres.geometrie.coordinates[0] < northEast[0] &&
                         data.bezoekadres.geometrie.coordinates[1] > southWest[1] &&
                         data.bezoekadres.geometrie.coordinates[1] < northEast[1]) {
-                    isVestigingAmsterdam = true;
+                    isVestiging = true;
                 }
-                return isVestigingAmsterdam;
+                return isVestiging;
             }
 
-            function isAPerceel (url, data) {
-                return url.indexOf('brk/object') !== -1 && data.index_letter === 'A';
+            function isAPerceel (anUrl, data) {
+                return anUrl.indexOf('brk/object') !== -1 && data.index_letter === 'A';
             }
 
             function getGPerceel (aPerceelData) {
@@ -62,8 +62,8 @@
                 });
             }
 
-            function isNummeraanduiding (url) {
-                return url.indexOf('bag/nummeraanduiding') !== -1;
+            function isNummeraanduiding (anUrl) {
+                return anUrl.indexOf('bag/nummeraanduiding') !== -1;
             }
 
             function getAdresseerbaarObject (nummeraanduidingData) {

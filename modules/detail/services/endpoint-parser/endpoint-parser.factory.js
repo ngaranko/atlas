@@ -38,10 +38,10 @@
 
             return 'modules/detail/components/detail/templates/' + template;
 
-            function isZakelijkRecht (uriParts) {
-                return uriParts[0] === 'brk' &&
-                    uriParts[1] === 'zakelijk-recht' &&
-                    uriParts[uriParts.length - 1] === 'subject';
+            function isZakelijkRecht (someUriParts) {
+                return someUriParts[0] === 'brk' &&
+                    someUriParts[1] === 'zakelijk-recht' &&
+                    someUriParts[someUriParts.length - 1] === 'subject';
             }
         }
     }
