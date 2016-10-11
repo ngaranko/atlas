@@ -17,11 +17,9 @@
          *@return {[date object]}    [js date object]
          */
         function ymdToDate (input) {
-
             var parseDate = d3.time.format('%Y-%m-%d').parse;
 
             return parseDate(input);
-
         }
     }
 })();

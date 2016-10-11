@@ -67,7 +67,6 @@ describe('The atlas-meetbout-graph directive', function () {
     }
 
     describe('Alleen een grafiek tonen met 2 of meer metingen', function (){
-
         it('should not display an svg on the screen when the pageSize is less then 2', function (){
             var directive = getGraphDirective(
                 'https://api-acc.datapunt.amsterdam.nl/meetbouten/meting/?meetbout=10581097',
@@ -87,11 +86,9 @@ describe('The atlas-meetbout-graph directive', function () {
 
             expect(svgContainer).toExist();
         });
-
     });
 
     describe('Load Data', function (){
-
         it('should load data through the api', function (){
             spyOn(api, 'getByUrl').and.callThrough();
 
@@ -104,9 +101,7 @@ describe('The atlas-meetbout-graph directive', function () {
     });
 
     describe('Dom manipulation', function (){
-
         describe('append Svg and g element to create the space for the graph', function () {
-
             it('should have added a svg to the page', function (){
                 var directive = getGraphDirective('https://api-acc.datapunt.amsterdam.nl' +
                     '/meetbouten/meting/?meetbout=10581097', 3);
@@ -126,11 +121,9 @@ describe('The atlas-meetbout-graph directive', function () {
                 expect(gContainer).toExist();
                 expect(gContainer.attr('transform')).toBe('translate(60,10)');
             });
-
         });
 
         describe('x as', function (){
-
             it('should have appended a x axis to the svg g:transform element ', function (){
                 var directive = getGraphDirective('https://api-acc.datapunt.amsterdam.nl' +
                     '/meetbouten/meting/?meetbout=10581097', 3);
@@ -140,11 +133,9 @@ describe('The atlas-meetbout-graph directive', function () {
                 expect(xAs.attr('class')).toBe('c-meetbout__axis');
                 expect(xAs.attr('transform')).toBe('translate(0,360)');
             });
-
         });
 
         describe('y as links zakking', function (){
-
             it('should have appended a y axis on the left for zakking to the svg g:transform element ', function (){
                 var directive = getGraphDirective('https://api-acc.datapunt.amsterdam.nl' +
                     '/meetbouten/meting/?meetbout=10581097', 3);
@@ -165,13 +156,10 @@ describe('The atlas-meetbout-graph directive', function () {
                 expect(text.attr('dy')).toBe('.71em');
                 expect(text.attr('style')).toContain('text-anchor: middle;');
                 expect(text.text()).toBe('Zakking (mm)');
-
             });
-
         });
 
         describe('y as rechts zakkingssnelheid', function (){
-
             it('should have appended a y axis on the right to the svg g:transform element ', function (){
                 var directive = getGraphDirective('https://api-acc.datapunt.amsterdam.nl' +
                     '/meetbouten/meting/?meetbout=10581097', 3);
@@ -193,13 +181,10 @@ describe('The atlas-meetbout-graph directive', function () {
                 expect(text.attr('dy')).toBe('.71em');
                 expect(text.attr('style')).toContain('text-anchor: middle;');
                 expect(text.text()).toBe('Zakkingssnelheid (mm/j)');
-
             });
-
         });
 
         describe('lijn voor grafiek zakking', function (){
-
             it('should plot a line to represent the zakking per meting of the meetbout', function (){
                 var directive = getGraphDirective('https://api-acc.datapunt.amsterdam.nl' +
                     '/meetbouten/meting/?meetbout=10581097', 3);
@@ -208,11 +193,9 @@ describe('The atlas-meetbout-graph directive', function () {
                 expect(line).toExist();
                 expect(line.attr('class')).toBe('c-meetbout__line c-meetbout__line--zakking');
             });
-
         });
 
         describe('lijn voor grafiek zakkingssnelheid', function (){
-
             it('should plot a line to represent the zakkingssnelheid na elke meting of the meetbout', function (){
                 var directive = getGraphDirective('https://api-acc.datapunt.amsterdam.nl' +
                     '/meetbouten/meting/?meetbout=10581097', 3);
@@ -221,9 +204,6 @@ describe('The atlas-meetbout-graph directive', function () {
                 expect(line).toExist();
                 expect(line.attr('class')).toBe('c-meetbout__line c-meetbout__line--zakkingssnelheid');
             });
-
         });
-
     });
-
 });

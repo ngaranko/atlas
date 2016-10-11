@@ -201,7 +201,6 @@ describe('The atlas-stelselpedia-header directive', function () {
 
             expect(directive.find('atlas-wkpb-link').length).toBe(1);
         });
-
     });
 
     describe('the show more stuff buttons', function () {

@@ -1,5 +1,4 @@
 module.exports = function (grunt) {
-
     var uniqueIdJs = grunt.config.get('uniqueIdJs');
 
     grunt.registerTask('babel-tests-configure', 'Configure babel tests options', function () {

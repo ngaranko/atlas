@@ -70,7 +70,6 @@ describe('The atlas-menu-dropdown directive', function () {
         expect(directive.find('atlas-print-button').length).toBe(0);
         expect(directive.find('atlas-terugmelden-button').length).toBe(0);
         expect(directive.find('dp-link').length).toBe(0);
-
     });
 
     it('changes the styling of the toggle button depending on the state of the dropdown', function () {
@@ -113,6 +112,5 @@ describe('The atlas-menu-dropdown directive', function () {
         directive2.find('.site-header__menu__item--toggle').eq(0).click();
         expect(directive1.find('.menu-dropdown').length).toBe(0);
         expect(directive2.find('.menu-dropdown').length).toBe(1);
-
     });
 });

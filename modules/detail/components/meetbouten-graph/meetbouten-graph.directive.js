@@ -133,7 +133,6 @@
                 svg.append('path')
                     .attr('class', 'c-meetbout__line c-meetbout__line--zakkingssnelheid')
                     .attr('d', zakkingssnelheidLine(scope.objects));
-
             });
         }
     }

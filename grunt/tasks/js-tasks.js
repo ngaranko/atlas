@@ -1,5 +1,4 @@
 module.exports = function (grunt) {
-
     /**
      * The output of build-js are two files 'build/atlas.js' and a source map.
      */

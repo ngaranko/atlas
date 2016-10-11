@@ -60,7 +60,6 @@ describe('The reducer factory', function () {
             _straatbeeldReducers_,
             _dataSelectionReducers_,
             _printReducers_) {
-
             urlReducers = _urlReducers_;
             detailReducers = _detailReducers_;
             homeReducers = _homeReducers_;

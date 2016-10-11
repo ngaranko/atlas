@@ -29,7 +29,6 @@
         panning,
         store,
         ACTIONS) {
-
         var layers = {};
 
         return {

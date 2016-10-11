@@ -138,5 +138,4 @@ describe('The dp-data-selection component', function () {
         expect(scope.vm.currentPage).toBe(101);
         expect(scope.vm.noDataToDisplay).toBe(true);
     });
-
 });

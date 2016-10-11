@@ -50,7 +50,6 @@ describe('The dp-straatbeeld directive', function () {
         angular.mock.inject(
             function (_$compile_, _$rootScope_, _$q_, _store_, _ACTIONS_, _marzipanoService_, _earthmine_,
                 _orientation_) {
-
                 $compile = _$compile_;
                 $rootScope = _$rootScope_;
                 $q = _$q_;

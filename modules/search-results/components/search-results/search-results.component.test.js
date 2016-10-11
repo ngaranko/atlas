@@ -45,7 +45,6 @@ describe('The atlas-search-results component', function () {
                         }
 
                         return q.promise;
-
                     }
                 },
                 //Store is used in the non-mocked child directive dp-link

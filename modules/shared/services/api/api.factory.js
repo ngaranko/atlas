@@ -8,7 +8,6 @@
     apiFactory.$inject = ['$http', 'user', 'environment'];
 
     function apiFactory ($http, user, environment) {
-
         return {
             getByUrl: getByUrl,
             getByUri: getByUri

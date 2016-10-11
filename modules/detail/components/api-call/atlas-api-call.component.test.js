@@ -146,7 +146,6 @@ describe('The atlas-api-call component', function () {
                 }
             });
         });
-
     });
 
     describe('content with pagination', function () {

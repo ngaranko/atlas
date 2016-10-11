@@ -31,7 +31,6 @@
         geometry,
         geojson,
         crsConverter) {
-
         var vm = this;
 
         $scope.$watch('vm.endpoint', function (endpoint) {

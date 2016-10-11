@@ -28,7 +28,6 @@
         straatbeeldReducers,
         dataSelectionReducers,
         printReducers) {
-
         return function (oldState, action) {
             var actions = angular.merge(
                 urlReducers,

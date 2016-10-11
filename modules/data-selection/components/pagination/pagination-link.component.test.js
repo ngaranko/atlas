@@ -78,6 +78,5 @@ describe('The dp-data-selection-pagination-link component', function () {
         });
 
         expect(component.find('button').length).toBe(0);
-
     });
 });

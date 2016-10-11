@@ -41,7 +41,6 @@ describe('The geosearch factory', function () {
                             q.resolve(mockedPandApiResults);
                         } else if (endpoint === 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/?panden__id=04' +
                             '56789') {
-
                             q.resolve(mockedVerblijfsobjectenApiResults);
                         }
 

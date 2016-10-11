@@ -96,7 +96,6 @@ describe('The highlight factory', function () {
                         } else if (geometry.type === 'MultiPolygon') {
                             return 'FAKE_MULTIPOLYGON_CENTER_RD';
                         }
-
                     }
                 },
                 panning: {

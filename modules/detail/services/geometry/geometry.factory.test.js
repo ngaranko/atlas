@@ -176,7 +176,6 @@ describe('The geometry factory', function () {
             expect(response).toEqual({
                 coordinates: [119695.616, 483365.537]
             });
-
         });
         it('returns the Null if it does not fall within the bounding box of the map', function () {
             var response;
@@ -202,7 +201,6 @@ describe('The geometry factory', function () {
             $rootScope.$apply();
 
             expect(response).toBeNull();
-
         });
     });
 
@@ -269,9 +267,7 @@ describe('The geometry factory', function () {
                     FAKE_GEOJSON: 'STANDPLAATS'
                 });
             });
-
         });
-
     });
 
     it('will return null if there is no geometry available', function () {

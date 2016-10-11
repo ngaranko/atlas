@@ -9,11 +9,9 @@ describe('dateConverter', function () {
         angular.mock.inject(function (_dateConverter_) {
             dateConverter = _dateConverter_;
         });
-
     });
 
     it('should convert a string yyyy-mm-dd to a js date object ', function () {
-
         var result = dateConverter.ymdToDate('2016-03-01');
         expect(result.getFullYear()).toBe(2016);
         expect(result.getMonth()).toBe(2);
