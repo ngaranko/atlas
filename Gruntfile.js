@@ -1,7 +1,5 @@
 module.exports = function (grunt) {
-
     require('./grunt/tasks/config')(grunt);
-
     require('./grunt/tasks/build-tasks')(grunt);
     require('./grunt/tasks/js-tasks')(grunt);
     require('./grunt/tasks/css-tasks')(grunt);
