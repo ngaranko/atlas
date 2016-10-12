@@ -62,6 +62,10 @@
 
                 searchState.category = payload.categorie || null;
 
+                if (!angular.equals(searchState, oldState.search)) {
+                    searchState.isLoading = true;
+                }
+
                 return searchState;
             } else {
                 return null;
@@ -121,12 +125,13 @@
             if (angular.isString(payload.detail)) {
                 var newDetailState = {
                     endpoint: payload.detail,
-                    isLoading: false
+                    isLoading: true
                 };
 
                 if (angular.isObject(oldState.detail) && oldState.detail.endpoint === payload.detail) {
                     newDetailState.display = oldState.detail.display;
                     newDetailState.geometry = oldState.detail.geometry;
+                    newDetailState.isLoading = false;
                 }
 
                 return newDetailState;
@@ -137,20 +142,18 @@
 
         function getStraatbeeldState (oldState, payload) {
             if (hasStraatbeeld(payload)) {
-                var date,
-                    car,
+                var date = null,
+                    car = null,
                     camera,
-                    hotspots;
+                    hotspots = [],
+                    isLoading = true;
 
                 if (oldState.straatbeeld && oldState.straatbeeld.id === Number(payload.id)) {
                     // Stuff that isn't in the URL but implicitly linked through the ID
                     date = oldState.straatbeeld.date;
                     car = oldState.straatbeeld.car || null;
                     hotspots = oldState.straatbeeld.hotspots;
-                } else {
-                    date = null;
-                    car = null;
-                    hotspots = [];
+                    isLoading = false;
                 }
 
                 camera = {
@@ -170,7 +173,7 @@
                     car: car,
                     camera: camera,
                     hotspots: hotspots,
-                    isLoading: false
+                    isLoading: isLoading
                 };
             } else {
                 return null;

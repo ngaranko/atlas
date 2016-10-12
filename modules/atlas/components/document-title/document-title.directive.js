@@ -69,6 +69,7 @@
 
         function linkFn (scope, element, attrs, controller, transcludeFn) {
             var baseTitle = transcludeFn().text();
+            scope.title = baseTitle;
 
             store.subscribe(setTitle);
 
