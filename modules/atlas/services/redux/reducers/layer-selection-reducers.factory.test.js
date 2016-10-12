@@ -1,13 +1,13 @@
-describe('The layerReducers factory', function () {
-    var layerReducers,
+describe('The layerSelectionReducers factory', function () {
+    var layerSelectionReducers,
         DEFAULT_STATE,
         ACTIONS;
 
     beforeEach(function () {
         angular.mock.module('atlas');
 
-        angular.mock.inject(function (_layerReducers_, _DEFAULT_STATE_, _ACTIONS_) {
-            layerReducers = _layerReducers_;
+        angular.mock.inject(function (_layerSelectionReducers_, _DEFAULT_STATE_, _ACTIONS_) {
+            layerSelectionReducers = _layerSelectionReducers_;
             DEFAULT_STATE = _DEFAULT_STATE_;
             ACTIONS = _ACTIONS_;
         });
@@ -15,7 +15,7 @@ describe('The layerReducers factory', function () {
 
     describe('SHOW_LAYER_SELECTION', function () {
         it('sets the variable to true', function () {
-            var output = layerReducers[ACTIONS.SHOW_LAYER_SELECTION](DEFAULT_STATE);
+            var output = layerSelectionReducers[ACTIONS.SHOW_LAYER_SELECTION](DEFAULT_STATE);
 
             expect(output.showLayerSelection).toBe(true);
         });
@@ -25,7 +25,7 @@ describe('The layerReducers factory', function () {
                 inputState = angular.copy(DEFAULT_STATE);
 
             inputState.map.isFullscreen = true;
-            output = layerReducers[ACTIONS.SHOW_LAYER_SELECTION](inputState);
+            output = layerSelectionReducers[ACTIONS.SHOW_LAYER_SELECTION](inputState);
 
             expect(output.map.isFullscreen).toBe(true);
         });
@@ -39,7 +39,7 @@ describe('The layerReducers factory', function () {
             inputState = angular.copy(DEFAULT_STATE);
             inputState.showLayerSelection = true;
 
-            output = layerReducers[ACTIONS.HIDE_LAYER_SELECTION](inputState);
+            output = layerSelectionReducers[ACTIONS.HIDE_LAYER_SELECTION](inputState);
 
             expect(output.showLayerSelection).toBe(false);
         });
@@ -49,7 +49,7 @@ describe('The layerReducers factory', function () {
         it('sets the variable to true', function () {
             var output;
 
-            output = layerReducers[ACTIONS.SHOW_ACTIVE_OVERLAYS](DEFAULT_STATE);
+            output = layerSelectionReducers[ACTIONS.SHOW_ACTIVE_OVERLAYS](DEFAULT_STATE);
             expect(output.map.showActiveOverlays).toBe(true);
         });
     });
@@ -60,7 +60,7 @@ describe('The layerReducers factory', function () {
                 inputState = angular.copy(DEFAULT_STATE);
 
             inputState.map.showActiveOverlays = true;
-            output = layerReducers[ACTIONS.HIDE_ACTIVE_OVERLAYS](DEFAULT_STATE);
+            output = layerSelectionReducers[ACTIONS.HIDE_ACTIVE_OVERLAYS](DEFAULT_STATE);
             expect(output.map.showActiveOverlays).toBe(false);
         });
     });

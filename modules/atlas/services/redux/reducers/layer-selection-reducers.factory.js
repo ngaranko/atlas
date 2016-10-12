@@ -3,11 +3,11 @@
 
     angular
         .module('atlas')
-        .factory('layerReducers', layerReducersFactory);
+        .factory('layerSelectionReducers', layerSelectionReducersFactory);
 
-    layerReducersFactory.$inject = ['ACTIONS'];
+    layerSelectionReducersFactory.$inject = ['ACTIONS'];
 
-    function layerReducersFactory (ACTIONS) {
+    function layerSelectionReducersFactory (ACTIONS) {
         var reducers = {};
 
         reducers[ACTIONS.SHOW_LAYER_SELECTION] = showLayerSelectionReducer;
