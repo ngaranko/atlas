@@ -31,7 +31,8 @@
         }
 
         function loadScene (image, heading, pitch, fov, hotspots) {
-            var view,
+            var source,
+                view,
                 viewLimiter,
                 scene;
 
@@ -39,13 +40,19 @@
                 panoramaConfig.MAX_RESOLUTION,
                 angleConversion.degreesToRadians(panoramaConfig.MAX_FOV)
             );
-            var source = Marzipano.ImageUrlSource.fromString(image);
+
+            source = Marzipano.ImageUrlSource.fromString(image + '{z}/{f}/{y}/{x}.jpg');
 
             view = new Marzipano.RectilinearView({}, viewLimiter);
 
             scene = viewer.createScene({
                 source: source,
-                geometry: new Marzipano.EquirectGeometry([{ width: 8000 }]),
+                geometry: new Marzipano.CubeGeometry([
+                    { tileSize: 256, size: 256, fallbackOnly: true },
+                    { tileSize: 512, size: 512 },
+                    { tileSize: 512, size: 1024 },
+                    { tileSize: 512, size: 2048 }
+                ]),
                 view: view,
                 pinFirstLevel: true
             });

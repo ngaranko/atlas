@@ -24,7 +24,9 @@
                         };
                     }),
                     location: geojson.getCenter(response.geometrie),
-                    image: response.images.equirectangular
+                    // image: response.images.cubic
+                    image: 'https://acc.atlas.amsterdam.nl/panorama/2016/03/21/TMX7315120208-000021/pano_0000_000329_' +
+                        'cubic/'
                 };
             });
         }
