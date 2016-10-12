@@ -47,12 +47,12 @@ describe('The map reducers', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
-            //When there were no active overlays; open the active overlays panel
+            // When there were no active overlays; open the active overlays panel
             inputState.map.showActiveOverlays = false;
             output = mapReducers[ACTIONS.MAP_ADD_OVERLAY](inputState, 'meetbouten');
             expect(output.map.showActiveOverlays).toBe(true);
 
-            //When there already were active overlays; do nothing
+            // When there already were active overlays; do nothing
             inputState.map.showActiveOverlays = false;
             inputState.map.overlays = [{id: 'nap', isVisible: true}];
             output = mapReducers[ACTIONS.MAP_ADD_OVERLAY](inputState, 'meetbouten');
@@ -94,8 +94,9 @@ describe('The map reducers', function () {
             expect(output.map.overlays).toEqual([]);
         });
     });
-    describe('MAP_TOGGILE_VISIBILITY', function() {
-        it('hides an overlay', function() {
+
+    describe('MAP_TOGGILE_VISIBILITY', function () {
+        it('hides an overlay', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
@@ -118,7 +119,8 @@ describe('The map reducers', function () {
                 {id: 'overlay_3', isVisible: true}
             ]);
         });
-        it('hides an overlay', function() {
+
+        it('hides an overlay', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
@@ -142,6 +144,7 @@ describe('The map reducers', function () {
             ]);
         });
     });
+
     describe('MAP_PAN', function () {
         it('updates the viewCenter', function () {
             var inputState = angular.copy(DEFAULT_STATE),
@@ -199,11 +202,11 @@ describe('The map reducers', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
-            //Enable fullscreen
+            // Enable fullscreen
             output = mapReducers[ACTIONS.MAP_FULLSCREEN](inputState, true);
             expect(output.map.isFullscreen).toBe(true);
 
-            //Disable fullscreen
+            // Disable fullscreen
             output = mapReducers[ACTIONS.MAP_FULLSCREEN](inputState, false);
             expect(output.map.isFullscreen).toBe(false);
         });
@@ -214,7 +217,7 @@ describe('The map reducers', function () {
 
             inputState.layerSelection = true;
 
-            //Enable fullscreen
+            // Enable fullscreen
             output = mapReducers[ACTIONS.MAP_FULLSCREEN](inputState, true);
             expect(output.layerSelection).toBe(false);
         });

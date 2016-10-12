@@ -51,11 +51,11 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
     });
 
     it('optionally lists the (selected values of the) active filters', function () {
-        //One active filter
+        // One active filter
         mockedBagState.filters.stadsdeel_naam = 'Oost';
         expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState)).toBe('Tabel Adressen met Oost');
 
-        //Two active filters (comma-separated_
+        // Two active filters (comma-separated_
         mockedBagState.filters.buurt_naam = 'Flevopark';
         expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState)).toBe('Tabel Adressen met Oost, Flevopark');
     });

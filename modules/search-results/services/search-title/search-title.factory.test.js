@@ -33,7 +33,7 @@ describe('The search title factory', function () {
     it('can show the number of search results for a specific category (query search only)', function () {
         var titleData = searchTitle.getTitleData(47, 'westerpark', null, 'Adressen');
 
-        //The category name will be converted to lowercase
+        // The category name will be converted to lowercase
         expect(titleData.title).toContain('47 adressen');
         expect(titleData.subTitle).toContain('"westerpark"');
     });
@@ -41,12 +41,12 @@ describe('The search title factory', function () {
     it('shows a message when no results have been found', function () {
         var titleData;
 
-        //When searching by query
+        // When searching by query
         titleData = searchTitle.getTitleData(0, 'westerpark', null, null);
         expect(titleData.title).toContain('Geen resultaten gevonden');
         expect(titleData.subTitle).toContain('"westerpark"');
 
-        //When searching by location
+        // When searching by location
         titleData = searchTitle.getTitleData(0, null, [52.123, 4.789], null);
         expect(titleData.title).toContain('Geen resultaten gevonden');
         expect(titleData.subTitle).toContain('X, Y (52.123, 4.789)');
@@ -55,19 +55,19 @@ describe('The search title factory', function () {
     it('differentiates between one or more search results (resultaat vs. resultaten)', function () {
         var titleData;
 
-        //When searching by query (1 result)
+        // When searching by query (1 result)
         titleData = searchTitle.getTitleData(1, 'oosterpark', null, null);
         expect(titleData.title).toContain('1 resultaat');
 
-        //When searching by query (> 1 results)
+        // When searching by query (> 1 results)
         titleData = searchTitle.getTitleData(2, 'oosterpark', null, null);
         expect(titleData.title).toContain('2 resultaten');
 
-        //When searching by location (1 result)
+        // When searching by location (1 result)
         titleData = searchTitle.getTitleData(1, null, [52.321, 4.987], null);
         expect(titleData.title).toContain('1 resultaat');
 
-        //When searching by location (> 1 results)
+        // When searching by location (> 1 results)
         titleData = searchTitle.getTitleData(2, null, [52.321, 4.987], null);
         expect(titleData.title).toContain('2 resultaten');
     });
@@ -75,17 +75,17 @@ describe('The search title factory', function () {
     it('uses a thousands separator for the number of search results', function () {
         var titleData;
 
-        //When searching by query
+        // When searching by query
         titleData = searchTitle.getTitleData(1000, 'zuiderpark', null, null);
         expect(titleData.title).not.toContain('1000');
         expect(titleData.title).toContain('1.000');
 
-        //When searching by location
+        // When searching by location
         titleData = searchTitle.getTitleData(1000, null, [52.963, 4.741], null);
         expect(titleData.title).not.toContain('1000');
         expect(titleData.title).toContain('1.000');
 
-        //When viewing a category of search results
+        // When viewing a category of search results
         titleData = searchTitle.getTitleData(1000, 'zuiderpark', null, 'Adressen');
         expect(titleData.title).not.toContain('1000');
         expect(titleData.title).toContain('1.000');

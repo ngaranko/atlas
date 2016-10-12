@@ -18,35 +18,35 @@ describe('The dashboard component', function () {
                 }
             },
             function ($provide) {
-                $provide.factory('dpHeaderDirective', function(){
+                $provide.factory('dpHeaderDirective', function () {
                     return {};
                 });
 
-                $provide.factory('dpPageDirective', function(){
+                $provide.factory('dpPageDirective', function () {
                     return {};
                 });
 
-                $provide.factory('dpDetailDirective', function(){
+                $provide.factory('dpDetailDirective', function () {
                     return {};
                 });
 
-                $provide.factory('dpSearchResultsDirective', function(){
+                $provide.factory('dpSearchResultsDirective', function () {
                     return {};
                 });
 
-                $provide.factory('dpLayerSelectionDirective', function(){
+                $provide.factory('dpLayerSelectionDirective', function () {
                     return {};
                 });
 
-                $provide.factory('dpMapDirective', function(){
+                $provide.factory('dpMapDirective', function () {
                     return {};
                 });
 
-                $provide.factory('dpStraatbeeldDirective', function(){
+                $provide.factory('dpStraatbeeldDirective', function () {
                     return {};
                 });
 
-                $provide.factory('dpDataSelectionDirective', function(){
+                $provide.factory('dpDataSelectionDirective', function () {
                     return {};
                 });
             }
@@ -110,10 +110,8 @@ describe('The dashboard component', function () {
             expect(component.find('.qa-dashboard__content__column--right').hasClass('u-height--100')).toBe(true);
             expect(component.find('.qa-dashboard__content__column--right').hasClass('u-height--auto')).toBe(false);
 
-            //Open the left column
-            mockedState.layerSelection = true;
             // Open the left column
-            mockedState.map.showLayerSelection = true;
+            mockedState.layerSelection = true;
             component = getComponent();
 
             // Check the left column

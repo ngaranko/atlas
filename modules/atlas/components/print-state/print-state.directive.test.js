@@ -1,7 +1,6 @@
 describe('The dp-print-state directive', function () {
     var $compile,
         $rootScope,
-        store,
         mockedState;
 
     beforeEach(function () {
@@ -19,10 +18,9 @@ describe('The dp-print-state directive', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
-            store = _store_;
         });
     });
 

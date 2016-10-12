@@ -1,16 +1,13 @@
-describe('the dp-detail component', function() {
+describe('the dp-detail component', function () {
     var $compile,
         $rootScope,
         $q,
         store,
         ACTIONS,
-        api,
-        endpointParser,
-        geometry,
         mockedGeometryPoint = {type: 'Point', coordinates: 'FAKE_NUMMERAANDUIDING_POINT'},
         mockedGeometryMultiPolygon = {type: 'MultiPolygon', coordinates: 'FAKE_KADASTRAAL_OBJECT_MULTIPOLYGON'};
 
-    beforeEach(function() {
+    beforeEach(function () {
         angular.mock.module(
             'dpDetail',
             {
@@ -106,16 +103,12 @@ describe('the dp-detail component', function() {
             _api_,
             _endpointParser_,
             _geometry_) {
-                $compile = _$compile_;
-                $rootScope = _$rootScope_;
-                $q = _$q_;
-                store = _store_;
-                ACTIONS = _ACTIONS_;
-                api = _api_;
-                endpointParser = _endpointParser_;
-                geometry = _geometry_;
-            }
-        );
+            $compile = _$compile_;
+            $rootScope = _$rootScope_;
+            $q = _$q_;
+            store = _store_;
+            ACTIONS = _ACTIONS_;
+        });
 
         spyOn(store, 'dispatch');
     });
@@ -174,7 +167,7 @@ describe('the dp-detail component', function() {
 
         expect(store.dispatch).not.toHaveBeenCalled();
 
-        //Set an initial endpoint
+        // Set an initial endpoint
         endpoint = 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/';
         component = getComponent(endpoint, false);
         scope = component.isolateScope();
@@ -195,7 +188,7 @@ describe('the dp-detail component', function() {
             }
         });
 
-        //Change the endpoint
+        // Change the endpoint
         scope.vm.endpoint = 'http://www.fake-endpoint.com/brk/object/789/';
         $rootScope.$apply();
 
@@ -217,9 +210,7 @@ describe('the dp-detail component', function() {
     });
 
     it('sets the SHOW_DETAIL geometry payload to null if there is no geometry', function () {
-        var component;
-
-        component = getComponent('http://www.fake-endpoint.com/brk/subject/123/');
+        getComponent('http://www.fake-endpoint.com/brk/subject/123/');
 
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.SHOW_DETAIL,
@@ -233,12 +224,12 @@ describe('the dp-detail component', function() {
         var component,
             scope;
 
-        //Something with geometry (converted from RD to WGS84)
+        // Something with geometry (converted from RD to WGS84)
         component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/');
         scope = component.isolateScope();
         expect(scope.vm.location).toEqual([51.123, 3.123]);
 
-        //Something without geometry
+        // Something without geometry
         scope.vm.endpoint = 'http://www.fake-endpoint.com/brk/subject/123/';
         scope.$apply();
         expect(scope.vm.location).toBeNull();

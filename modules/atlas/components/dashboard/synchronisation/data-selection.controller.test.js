@@ -53,7 +53,7 @@ describe('The DataSelectionController', function () {
     });
 
     it('sets the dataSelection based on the state', function () {
-       var controller;
+        var controller;
 
         controller = getController();
 
