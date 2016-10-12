@@ -131,7 +131,7 @@
                 if (angular.isObject(oldState.detail) && oldState.detail.endpoint === payload.detail) {
                     newDetailState.display = oldState.detail.display;
                     newDetailState.geometry = oldState.detail.geometry;
-                    newDetailState.isLoading = false;
+                    newDetailState.isLoading = oldState.detail.isLoading;
                 }
 
                 return newDetailState;
@@ -153,7 +153,7 @@
                     date = oldState.straatbeeld.date;
                     car = oldState.straatbeeld.car || null;
                     hotspots = oldState.straatbeeld.hotspots;
-                    isLoading = false;
+                    isLoading = oldState.straatbeeld.isLoading;
                 }
 
                 camera = {

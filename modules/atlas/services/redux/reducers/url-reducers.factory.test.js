@@ -292,25 +292,40 @@ describe('The urlReducers factory', function () {
                     mockedState.detail = {
                         display: 'Mijn lievelings detailpagina',
                         endpoint: 'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/456/',
-                        geometry: 'FAKE_GEOMETRY'
+                        geometry: 'FAKE_GEOMETRY',
+                        isLoading: false
                     };
                     output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
 
                     expect(output.detail.isLoading).toBe(true);
                 });
 
-                it('is false when the the endpoint stays the same', () => {
+                it('is unchanged when the the endpoint stays the same', () => {
                     var output;
 
                     mockedSearchParams.detail = 'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/123/';
+
+                    // isLoading is false and should stay false
                     mockedState.detail = {
                         display: 'Mijn lievelings detailpagina',
                         endpoint: 'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/123/',
-                        geometry: 'FAKE_GEOMETRY'
+                        geometry: 'FAKE_GEOMETRY',
+                        isLoading: false
                     };
                     output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
 
                     expect(output.detail.isLoading).not.toBe(true);
+
+                    // isLoading is true and should stay true
+                    mockedState.detail = {
+                        display: 'Mijn lievelings detailpagina',
+                        endpoint: 'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/123/',
+                        geometry: 'FAKE_GEOMETRY',
+                        isLoading: true
+                    };
+                    output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+
+                    expect(output.detail.isLoading).toBe(true);
                 });
             });
         });
@@ -413,7 +428,8 @@ describe('The urlReducers factory', function () {
                         car: {
                             location: [52.987, 4.321]
                         },
-                        hotspots: ['FAKE_HOTSPOT_A', 'FAKE_HOTSPOT_Z']
+                        hotspots: ['FAKE_HOTSPOT_A', 'FAKE_HOTSPOT_Z'],
+                        isLoading: false
                     };
 
                     mockedSearchParams.id = 67891;
@@ -424,9 +440,13 @@ describe('The urlReducers factory', function () {
                     expect(output.straatbeeld.isLoading).toBe(true);
                 });
 
-                it('is false when the the endpoint stays the same', () => {
+                it('is unchanged when the the endpoint stays the same', () => {
                     var output;
 
+                    mockedSearchParams.id = 67890;
+                    mockedSearchParams.pagina = null;
+
+                    // isLoading is false and should stay false
                     mockedState.straatbeeld = {
                         id: 67890,
                         searchLocation: null,
@@ -434,15 +454,29 @@ describe('The urlReducers factory', function () {
                         car: {
                             location: [52.987, 4.321]
                         },
-                        hotspots: ['FAKE_HOTSPOT_A', 'FAKE_HOTSPOT_Z']
+                        hotspots: ['FAKE_HOTSPOT_A', 'FAKE_HOTSPOT_Z'],
+                        isLoading: false
                     };
-
-                    mockedSearchParams.id = 67890;
-                    mockedSearchParams.pagina = null;
 
                     output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
 
                     expect(output.straatbeeld.isLoading).not.toBe(true);
+
+                    // isLoading is true and should stay true
+                    mockedState.straatbeeld = {
+                        id: 67890,
+                        searchLocation: null,
+                        date: new Date(1982, 8, 7),
+                        car: {
+                            location: [52.987, 4.321]
+                        },
+                        hotspots: ['FAKE_HOTSPOT_A', 'FAKE_HOTSPOT_Z'],
+                        isLoading: true
+                    };
+
+                    output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+
+                    expect(output.straatbeeld.isLoading).toBe(true);
                 });
             });
         });
