@@ -76,7 +76,7 @@ describe('The map controller', function () {
         controller = getController();
         expect(controller.showLayerSelection).not.toEqual(true);
 
-        mockedState.showLayerSelection = true;
+        mockedState.layerSelection = true;
         controller = getController();
         expect(controller.showLayerSelection).toEqual(true);
     });

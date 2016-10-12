@@ -10,7 +10,7 @@
 | actieve-kaartlagen  | map.showActiveOverlays          | false                  |
 | volledig-scherm     | map.isFullScreen                | false                  |
 |                     | map.isLoading                   | no                     |
-| kaartlagen-selectie | showLayerSelection              | false                  |
+| kaartlagen-selectie | layerSelection                  | false                  |
 | pagina              | page                            | yes, see DEFAULT_STATE |
 | detail              | detail.uri                      | no, detail is null     |
 |                     | detail.isLoading                | no, detail is null     |

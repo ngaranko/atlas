@@ -30,7 +30,7 @@
             newState.map.isFullscreen = false;
             newState.map.isLoading = false;
 
-            newState.showLayerSelection = false;
+            newState.layerSelection = false;
             newState.search = null;
             newState.page = null;
             newState.detail = null;

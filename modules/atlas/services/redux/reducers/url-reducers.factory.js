@@ -22,7 +22,7 @@
 
                 newState.search = getSearchState(oldState, payload);
                 newState.map = getMapState(payload);
-                newState.showLayerSelection = getLayerSelectionState(payload);
+                newState.layerSelection = getLayerSelectionState(payload);
                 newState.page = payload.pagina || null;
                 newState.detail = getDetailState(oldState, payload);
                 newState.straatbeeld = getStraatbeeldState(oldState, payload);

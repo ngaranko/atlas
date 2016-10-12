@@ -12,7 +12,7 @@
                 isFullscreen: false,
                 isLoading: false
             },
-            showLayerSelection: false,
+            layerSelection: false,
             search: null,
             /*
             search: {

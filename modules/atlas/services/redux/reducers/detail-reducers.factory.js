@@ -33,7 +33,7 @@
             newState.map.highlight = null;
             newState.map.isFullscreen = false;
 
-            newState.showLayerSelection = false;
+            newState.layerSelection = false;
             newState.search = null;
             newState.page = null;
             newState.straatbeeld = null;

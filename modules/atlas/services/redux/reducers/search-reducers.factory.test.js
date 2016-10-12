@@ -47,7 +47,7 @@ describe('The search-reducers factory', function () {
             var inputState = angular.copy(defaultState),
                 output;
 
-            inputState.showLayerSelection = true;
+            inputState.layerSelection = true;
             inputState.page = 'somePage';
             inputState.detail = {some: 'object'};
             inputState.staatbeeld = {some: 'object'};
@@ -55,7 +55,7 @@ describe('The search-reducers factory', function () {
 
             output = searchReducers.FETCH_SEARCH_RESULTS_BY_QUERY(inputState, 'linnaeus');
 
-            expect(output.showLayerSelection).toBe(false);
+            expect(output.layerSelection).toBe(false);
             expect(output.page).toBeNull();
             expect(output.detail).toBeNull();
             expect(output.straatbeeld).toBeNull();
@@ -110,7 +110,7 @@ describe('The search-reducers factory', function () {
             var inputState = angular.copy(defaultState),
                 output;
 
-            inputState.showLayerSelection = true;
+            inputState.layerSelection = true;
             inputState.map.showActiveOverlays = true;
             inputState.page = 'somePage';
             inputState.detail = {some: 'object'};
@@ -119,7 +119,7 @@ describe('The search-reducers factory', function () {
 
             output = searchReducers.FETCH_SEARCH_RESULTS_BY_CLICK(inputState, [52.001, 4.002]);
 
-            expect(output.showLayerSelection).toBe(false);
+            expect(output.layerSelection).toBe(false);
             expect(output.map.showActiveOverlays).toBe(false);
             expect(output.page).toBeNull();
             expect(output.detail).toBeNull();
@@ -127,7 +127,7 @@ describe('The search-reducers factory', function () {
             expect(output.dataSelection).toBeNull();
         });
 
-        it('changes the viewCenter when showLayerSelection or fullscreen mode is enabled', function () {
+        it('changes the viewCenter when layerSelection or fullscreen mode is enabled', function () {
             var inputState = angular.copy(defaultState),
                 output;
 
@@ -145,7 +145,7 @@ describe('The search-reducers factory', function () {
             expect(output.map.viewCenter).toEqual([52.001, 4.002]);
 
             //With layer selection enabled
-            inputState.showLayerSelection = true;
+            inputState.layerSelection = true;
             output = searchReducers.FETCH_SEARCH_RESULTS_BY_CLICK(inputState, [52.001, 4.002]);
             expect(output.map.viewCenter).toEqual([52.001, 4.002]);
         });

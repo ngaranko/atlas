@@ -111,7 +111,7 @@ describe('The dashboard component', function () {
             expect(component.find('.qa-dashboard__content__column--right').hasClass('u-height--auto')).toBe(false);
 
             //Open the left column
-            mockedState.showLayerSelection = true;
+            mockedState.layerSelection = true;
             component = getComponent();
 
             //Check the left column
@@ -137,7 +137,7 @@ describe('The dashboard component', function () {
             expect(component.find('.qa-dashboard__content__column--right').hasClass('u-height--auto')).toBe(true);
 
             //Open the left column
-            mockedState.showLayerSelection = true;
+            mockedState.layerSelection = true;
             component = getComponent();
 
             //Check the left column

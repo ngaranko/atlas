@@ -133,7 +133,7 @@
             var newState = angular.copy(oldState);
 
             if (payload) {
-                newState.showLayerSelection = false;
+                newState.layerSelection = false;
             }
 
             newState.map.isFullscreen = payload;

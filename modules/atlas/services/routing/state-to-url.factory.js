@@ -64,7 +64,6 @@
                 lagen: lagen.join(',') || null,
                 zoom: String(state.map.zoom),
                 selectie: state.map.highlight,
-                'kaartlagen-selectie': state.map.showLayerSelection ? 'aan' : null,
                 'actieve-kaartlagen': state.map.showActiveOverlays ? 'aan' : null,
                 'volledig-scherm': state.map.isFullscreen ? 'aan' : null
             };
@@ -72,7 +71,7 @@
 
         function getLayerSelectionParams (state) {
             return {
-                'kaartlagen-selectie': state.showLayerSelection ? 'aan' : null,
+                'kaartlagen-selectie': state.layerSelection ? 'aan' : null,
             };
         }
 

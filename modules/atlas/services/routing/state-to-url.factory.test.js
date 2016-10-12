@@ -184,7 +184,7 @@ describe('The stateToUrl factory', function () {
     describe('Layer selection', function () {
         it('keeps track of the state of the layer selection (opened or closed)', function () {
             //Closed
-            mockedState.showLayerSelection = false;
+            mockedState.layerSelection = false;
             stateToUrl.update(mockedState, false);
 
             expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
@@ -192,7 +192,7 @@ describe('The stateToUrl factory', function () {
             }));
 
             //Opened
-            mockedState.showLayerSelection = true;
+            mockedState.layerSelection = true;
             stateToUrl.update(mockedState, false);
 
             expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({

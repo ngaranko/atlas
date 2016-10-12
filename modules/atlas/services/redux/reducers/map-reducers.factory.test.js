@@ -212,11 +212,11 @@ describe('The map reducers', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
-            inputState.showLayerSelection = true;
+            inputState.layerSelection = true;
 
             //Enable fullscreen
             output = mapReducers[ACTIONS.MAP_FULLSCREEN](inputState, true);
-            expect(output.showLayerSelection).toBe(false);
+            expect(output.layerSelection).toBe(false);
         });
     });
 

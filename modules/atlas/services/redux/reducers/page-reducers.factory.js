@@ -29,7 +29,7 @@
             newState.map.highlight = null;
             newState.map.isFullscreen = false;
 
-            newState.showLayerSelection = false;
+            newState.layerSelection = false;
             newState.search = null;
             newState.detail = null;
             newState.straatbeeld = null;

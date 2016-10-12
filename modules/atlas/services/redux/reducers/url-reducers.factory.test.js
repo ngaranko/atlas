@@ -179,20 +179,20 @@ describe('The urlReducers factory', function () {
         });
 
         describe('layer selection', function () {
-            it('sets the showLayerSelection status', function () {
+            it('sets the layerSelection status', function () {
                 var output;
 
                 //With layer selection
-                mockedState.showLayerSelection = false;
+                mockedState.layerSelection = false;
                 mockedSearchParams['kaartlagen-selectie'] = 'aan';
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
-                expect(output.showLayerSelection).toBe(true);
+                expect(output.layerSelection).toBe(true);
 
                 //Without layer selection
-                mockedState.showLayerSelection = true;
+                mockedState.layerSelection = true;
                 delete mockedSearchParams['kaartlagen-selectie'];
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
-                expect(output.showLayerSelection).toBe(false);
+                expect(output.layerSelection).toBe(false);
             });
         });
 

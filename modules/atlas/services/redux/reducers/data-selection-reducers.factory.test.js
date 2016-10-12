@@ -42,7 +42,7 @@ describe('The dataSelectionReducers factory', function () {
                 isFullscreen: true,
                 isLoading: true
             };
-            mockedState.showLayerSelection = true;
+            mockedState.layerSelection = true;
 
             output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION](mockedState, payload);
 
@@ -58,7 +58,7 @@ describe('The dataSelectionReducers factory', function () {
             expect(output.map.highlight).toBeNull();
             expect(output.map.isFullscreen).toBe(false);
             expect(output.map.isLoading).toBe(false);
-            expect(output.showLayerSelection).toBe(false);
+            expect(output.layerSelection).toBe(false);
         });
 
         it('sets the dataSelection state', function () {
