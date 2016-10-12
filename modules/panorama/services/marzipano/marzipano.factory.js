@@ -36,7 +36,12 @@
                 viewLimiter,
                 scene;
 
-            source = Marzipano.ImageUrlSource.fromString(image + '{z}/{f}/{y}/{x}.jpg');
+            source = Marzipano.ImageUrlSource.fromString(
+                image + '{z}/{f}/{y}/{x}.jpg',
+                {
+                    cubeMapPreviewUrl: image + 'preview.jpg'
+                }
+            );
 
             viewLimiter = Marzipano.RectilinearView.limit.traditional(
                 panoramaConfig.MAX_RESOLUTION,
@@ -60,10 +65,11 @@
                         yaw: angleConversion.degreesToRadians(hotspot.heading),
                         pitch: calculateHotspotPitch(panoramaConfig.CAMERA_HEIGHT, hotspot.distance)
                     };
+
                     scene.hotspotContainer().createHotspot(
                         template,
                         position
-                     );
+                    );
                  });
             });
 
