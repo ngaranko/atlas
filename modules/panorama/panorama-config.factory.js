@@ -14,8 +14,27 @@
         globalConfig = {
             DEFAULT_FOV: 80,
             MAX_FOV: 100,
-            MAX_RESOLUTION: 2000 * 2,
-            CAMERA_HEIGHT: 1.8
+            MAX_RESOLUTION: 2 * 1024,
+            CAMERA_HEIGHT: 1.8,
+            LEVEL_PROPERTIES_LIST: [
+                {
+                    tileSize: 256,
+                    size: 256,
+                    fallbackOnly: true
+                },
+                {
+                    tileSize: 512,
+                    size: 512
+                },
+                {
+                    tileSize: 512,
+                    size: 1024
+                },
+                {
+                    tileSize: 512,
+                    size: 2048
+                }
+            ]
         };
 
         environmentConfig = {

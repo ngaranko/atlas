@@ -36,23 +36,18 @@
                 viewLimiter,
                 scene;
 
+            source = Marzipano.ImageUrlSource.fromString(image + '{z}/{f}/{y}/{x}.jpg');
+
             viewLimiter = Marzipano.RectilinearView.limit.traditional(
                 panoramaConfig.MAX_RESOLUTION,
                 angleConversion.degreesToRadians(panoramaConfig.MAX_FOV)
             );
 
-            source = Marzipano.ImageUrlSource.fromString(image + '{z}/{f}/{y}/{x}.jpg');
-
             view = new Marzipano.RectilinearView({}, viewLimiter);
 
             scene = viewer.createScene({
                 source: source,
-                geometry: new Marzipano.CubeGeometry([
-                    { tileSize: 256, size: 256, fallbackOnly: true },
-                    { tileSize: 512, size: 512 },
-                    { tileSize: 512, size: 1024 },
-                    { tileSize: 512, size: 2048 }
-                ]),
+                geometry: new Marzipano.CubeGeometry(panoramaConfig.LEVEL_PROPERTIES_LIST),
                 view: view,
                 pinFirstLevel: true
             });
@@ -81,7 +76,6 @@
             function calculateHotspotPitch(height, distance) {
                 return Math.atan(height/distance);
             }
-            
         }
     }
 })();
