@@ -2,8 +2,8 @@
     'use strict';
 
     angular
-        .module('atlasDetail')
-        .factory('dpDataService', bbgaDataService);
+        .module('dpDetail')
+        .factory('bbgaDataService', bbgaDataService);
 
     bbgaDataService.$inject = ['$q', '$http', 'BBGA_CONFIG', 'environment'];
 
