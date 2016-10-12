@@ -1,9 +1,9 @@
 (function () {
     angular
         .module('atlas')
-        .factory('documentTitle', documentTitleFactory);
+        .directive('dpDocumentTitle', DpDocumentTitleDirective);
 
-    documentTitleFactory.$inject = [
+    DpDocumentTitleDirective.$inject = [
         '$document',
         'store',
         'dashboardColumns',
@@ -17,7 +17,7 @@
 
     ];
 
-    function documentTitleFactory (
+    function DpDocumentTitleDirective (
             $document,
             store,
             dashboardColumns,
@@ -60,27 +60,31 @@
             }];
 
         return {
-            initialize: initialize
+            restrict: 'A',
+            transclude: true,
+            scope: true,
+            template: '{{title}}',
+            link: linkFn
         };
 
-        function initialize () {
+        function linkFn (scope, element, attrs, controller, transcludeFn) {
+            var baseTitle = transcludeFn().text();
+
             store.subscribe(setTitle);
 
             function setTitle () {
-                var state = store.getState(),
+                const state = store.getState(),
                     visibility = dashboardColumns.determineVisibility(state),
-                    filtered = mapping.filter(function (item) {
-                        return visibility[item.visibility];
-                    }),
+                    filtered = mapping.filter(item => visibility[item.visibility]),
                     current = filtered ? filtered[0] : null,
                     stateData = current ? state[current.state] : null,
                     displayNewTitle = current && stateData && !stateData.isLoading,
                     getTitle = displayNewTitle ? current.documentTitle.getTitle : null,
                     titleData = getTitle ? getTitle(stateData) : null,
-                    title = (titleData ? titleData + ' – ' : '') + 'Atlas';
+                    title = (titleData ? titleData + ' – ' : '') + baseTitle;
 
                 if (displayNewTitle) {
-                    $document[0].title = title;
+                    scope.title = title;
                 }
             }
         }

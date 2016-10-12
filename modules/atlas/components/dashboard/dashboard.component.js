@@ -9,13 +9,12 @@
             controllerAs: 'vm'
         });
 
-    DpDashboardController.$inject = ['store', 'dashboardColumns', 'documentTitle'];
+    DpDashboardController.$inject = ['store', 'dashboardColumns'];
 
-    function DpDashboardController (store, dashboardColumns, documentTitle) {
+    function DpDashboardController (store, dashboardColumns) {
         var vm = this;
 
         vm.store = store;
-        documentTitle.initialize();
 
         store.subscribe(setLayout);
         setLayout();
