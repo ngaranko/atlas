@@ -10,7 +10,7 @@
                 location: '=',
                 category: '@'
             },
-            templateUrl: 'modules/search-results/components/search-results/header/header.html',
+            templateUrl: 'modules/search-results/components/search-results/header/search-results-header.html',
             controllerAs: 'vm',
             controller: DpSearchResultsHeaderController
         });
