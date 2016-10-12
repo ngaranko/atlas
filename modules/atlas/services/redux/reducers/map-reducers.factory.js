@@ -17,6 +17,8 @@
         reducers[ACTIONS.MAP_PAN] = mapPanReducer;
         reducers[ACTIONS.MAP_ZOOM] = mapZoomReducer;
         reducers[ACTIONS.MAP_FULLSCREEN] = mapFullscreenReducer;
+        reducers[ACTIONS.SHOW_MAP_ACTIVE_OVERLAYS] = showActiveOverlaysReducer;
+        reducers[ACTIONS.HIDE_MAP_ACTIVE_OVERLAYS] = hideActiveOverlaysReducer;
 
         return reducers;
 
@@ -135,6 +137,22 @@
             }
 
             newState.map.isFullscreen = payload;
+
+            return newState;
+        }
+
+        function showActiveOverlaysReducer (oldState) {
+            var newState = angular.copy(oldState);
+
+            newState.map.showActiveOverlays = true;
+
+            return newState;
+        }
+
+        function hideActiveOverlaysReducer (oldState) {
+            var newState = angular.copy(oldState);
+
+            newState.map.showActiveOverlays = false;
 
             return newState;
         }

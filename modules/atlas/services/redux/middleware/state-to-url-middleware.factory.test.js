@@ -82,8 +82,8 @@ describe('The stateToUrlMiddleware factory', function () {
             ACTIONS.STRAATBEELD_SET_ORIENTATION,
             ACTIONS.SHOW_LAYER_SELECTION,
             ACTIONS.HIDE_LAYER_SELECTION,
-            ACTIONS.SHOW_ACTIVE_OVERLAYS,
-            ACTIONS.HIDE_ACTIVE_OVERLAYS,
+            ACTIONS.SHOW_MAP_ACTIVE_OVERLAYS,
+            ACTIONS.HIDE_MAP_ACTIVE_OVERLAYS,
             ACTIONS.SHOW_HOME,
             ACTIONS.SHOW_PAGE,
             ACTIONS.SHOW_PRINT,
@@ -109,8 +109,8 @@ describe('The stateToUrlMiddleware factory', function () {
                 ACTIONS.MAP_PAN,
                 ACTIONS.MAP_ZOOM,
                 ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT,
-                ACTIONS.SHOW_ACTIVE_OVERLAYS,
-                ACTIONS.HIDE_ACTIVE_OVERLAYS
+                ACTIONS.SHOW_MAP_ACTIVE_OVERLAYS,
+                ACTIONS.HIDE_MAP_ACTIVE_OVERLAYS
             ],
             shouldNotUseReplace = [
                 ACTIONS.SHOW_SEARCH_RESULTS,

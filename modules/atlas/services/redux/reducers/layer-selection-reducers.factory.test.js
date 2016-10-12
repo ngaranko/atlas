@@ -44,24 +44,4 @@ describe('The layerSelectionReducers factory', function () {
             expect(output.showLayerSelection).toBe(false);
         });
     });
-
-    describe('SHOW_ACTIVE_OVERLAYS', function () {
-        it('sets the variable to true', function () {
-            var output;
-
-            output = layerSelectionReducers[ACTIONS.SHOW_ACTIVE_OVERLAYS](DEFAULT_STATE);
-            expect(output.map.showActiveOverlays).toBe(true);
-        });
-    });
-
-    describe('HIDE_ACTIVE_OVERLAYS', function () {
-        it('sets the variable to false', function () {
-            var output,
-                inputState = angular.copy(DEFAULT_STATE);
-
-            inputState.map.showActiveOverlays = true;
-            output = layerSelectionReducers[ACTIONS.HIDE_ACTIVE_OVERLAYS](DEFAULT_STATE);
-            expect(output.map.showActiveOverlays).toBe(false);
-        });
-    });
 });
