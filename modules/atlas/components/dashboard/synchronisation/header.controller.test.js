@@ -1,15 +1,17 @@
 describe('The header controller', function () {
     var $controller,
         $rootScope,
-        store;
+        store,
+        DEFAULT_STATE;
 
     beforeEach(function () {
         angular.mock.module('atlas');
 
-        angular.mock.inject(function (_$controller_, _$rootScope_, _store_) {
+        angular.mock.inject(function (_$controller_, _$rootScope_, _store_, _DEFAULT_STATE_) {
             $controller = _$controller_;
             $rootScope = _$rootScope_;
             store = _store_;
+            DEFAULT_STATE = _DEFAULT_STATE_;
         });
     });
 
@@ -60,5 +62,28 @@ describe('The header controller', function () {
         controller = getController();
 
         expect(controller.query).toBeNull();
+    });
+
+    describe('it sets the hasPrintButton variable', function () {
+        it('there is no print button when dataSelection is active', function () {
+            var controller,
+                mockedState = {
+                    dataSelection: null
+                };
+
+            spyOn(store, 'getState').and.returnValue(mockedState);
+            controller = getController();
+
+            expect(controller.hasPrintButton).toBe(false);
+        });
+
+        it('other modules have a printButton', function () {
+            var controller;
+
+            spyOn(store, 'getState').and.returnValue(DEFAULT_STATE);
+            controller = getController();
+
+            expect(controller.hasPrintButton).toBe(true);
+        });
     });
 });
