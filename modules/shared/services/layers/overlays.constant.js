@@ -1,11 +1,11 @@
-(function(){
+(function () {
     'use strict';
 
     angular
         .module('dpShared')
         .constant('OVERLAYS', {
             SOURCES: {
-                //overige niet gebruikt op dit moment
+                // overige niet gebruikt op dit moment
                 bestemmingsplannen: {
                     label_short: 'Bestemmingsplannen',
                     label_long: 'Bestemmingsplannen',
@@ -142,7 +142,7 @@
                         'gendGraphic&sld_version=1.1.0&' +
                         'layer=persoonlijke_dienstverlening&format=image/png&STYLE=default'
                 },
-                overige_niet_hierboven_genoemd:  {
+                overige_niet_hierboven_genoemd: {
                     url: 'maps/handelsregister',
                     label_short: 'Overige',
                     label_long: 'Overige niet hierboven genoemd',

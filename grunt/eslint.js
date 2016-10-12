@@ -1,11 +1,11 @@
 module.exports = {
     grunt: {
-        src: ['Gruntfile.js', 'grunt/**/*.js']
+        src: ['.eslintrs.js', 'Gruntfile.js', 'grunt/**/*.js']
     },
     modules: {
-        src: ['modules/**/!(*.test).js']
+        src: ['.eslintrs.js', 'modules/**/!(*.test).js']
     },
     tests: {
-        src: ['modules/**/*.test.js']
+        src: ['.eslintrs.js', 'modules/**/*.test.js']
     }
 };

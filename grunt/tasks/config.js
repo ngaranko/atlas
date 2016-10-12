@@ -1,5 +1,4 @@
 module.exports = function (grunt) {
-
     const gruntDir = '../';
     const timeGrunt = false;
 
@@ -26,7 +25,6 @@ module.exports = function (grunt) {
         'console-log-test': require(gruntDir + 'console-log-test'),
         copy: require(gruntDir + 'copy')(grunt),
         eslint: require(gruntDir + 'eslint'),
-        jshint: require(gruntDir + 'jshint'),
         karma: require(gruntDir + 'karma'),
         ngtemplates: require(gruntDir + 'angular-templates'),
         npmcopy: require(gruntDir + 'npmcopy'),
@@ -45,7 +43,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-eslint');
     grunt.loadNpmTasks('grunt-karma');
