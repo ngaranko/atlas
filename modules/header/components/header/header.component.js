@@ -6,6 +6,7 @@
         .component('atlasHeader', {
             bindings: {
                 query: '@',
+                hasPrintButton: '=',
                 isPrintMode: '='
             },
             templateUrl: 'modules/header/components/header/header.html',
