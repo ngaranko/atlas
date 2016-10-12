@@ -134,7 +134,7 @@ describe('The map controller', function () {
 
             controller = getController();
 
-            //Straatbeeld is secretly made using two icons
+            // Straatbeeld is secretly made using two icons
             expect(controller.markers).toContain(jasmine.objectContaining({
                 id: 'straatbeeld_orientation'
             }));
@@ -164,9 +164,9 @@ describe('The map controller', function () {
 
             controller = getController();
 
-            //Straatbeeld is secretly made using two icons
+            // Straatbeeld is secretly made using two icons
 
-            //Search and straatbeeld are in WGS84 and will be converted to RD
+            // Search and straatbeeld are in WGS84 and will be converted to RD
             expect(controller.markers).toContain(jasmine.objectContaining({
                 id: 'search',
                 geometry: {
@@ -191,7 +191,7 @@ describe('The map controller', function () {
                 }
             }));
 
-            //Detail already is in RD and won't be converted
+            // Detail already is in RD and won't be converted
             expect(controller.markers).toContain(jasmine.objectContaining({
                 id: 'detail',
                 geometry: 'FAKE_RD_GEOMETRY'

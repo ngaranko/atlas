@@ -41,7 +41,7 @@
                 vm.isPrintMode
             );
 
-            //Needed for the dp-scrollable-content directive
+            // Needed for the dp-scrollable-content directive
             vm.pageName = state.page;
         }
     }

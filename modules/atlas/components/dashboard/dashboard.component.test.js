@@ -93,7 +93,7 @@ describe('The dashboard component', function () {
         it('uses a maximum height in non-print mode', function () {
             mockedState.isPrintMode = false;
 
-            //Default 'screen' mode
+            // Default 'screen' mode
             component = getComponent();
 
             expect(component.find('.u-grid').hasClass('u-height--100')).toBe(true);
@@ -102,19 +102,21 @@ describe('The dashboard component', function () {
             expect(component.find('.u-row').hasClass('u-height--100')).toBe(true);
             expect(component.find('.u-row').hasClass('u-height--false')).toBe(false);
 
-            //Middle column
+            // Middle column
             expect(component.find('.qa-dashboard__content__column--middle').hasClass('u-height--100')).toBe(true);
             expect(component.find('.qa-dashboard__content__column--middle').hasClass('u-height--auto')).toBe(false);
 
-            //Right column
+            // Right column
             expect(component.find('.qa-dashboard__content__column--right').hasClass('u-height--100')).toBe(true);
             expect(component.find('.qa-dashboard__content__column--right').hasClass('u-height--auto')).toBe(false);
 
             //Open the left column
             mockedState.layerSelection = true;
+            // Open the left column
+            mockedState.map.showLayerSelection = true;
             component = getComponent();
 
-            //Check the left column
+            // Check the left column
             expect(component.find('.qa-dashboard__content__column--left').hasClass('u-height--100')).toBe(true);
             expect(component.find('.qa-dashboard__content__column--left').hasClass('u-height--auto')).toBe(false);
         });
@@ -124,23 +126,23 @@ describe('The dashboard component', function () {
             mockedState.page = null;
             mockedState.isPrintMode = true;
 
-            //Default 'screen' mode
+            // Default 'screen' mode
             component = getComponent();
 
             expect(component.find('.u-grid').hasClass('u-height--auto')).toBe(true);
             expect(component.find('.u-row').hasClass('u-height--auto')).toBe(true);
 
-            //Middle column
+            // Middle column
             expect(component.find('.qa-dashboard__content__column--middle').hasClass('u-height--auto')).toBe(true);
 
-            //Right column
+            // Right column
             expect(component.find('.qa-dashboard__content__column--right').hasClass('u-height--auto')).toBe(true);
 
-            //Open the left column
+            // Open the left column
             mockedState.layerSelection = true;
             component = getComponent();
 
-            //Check the left column
+            // Check the left column
             expect(component.find('.qa-dashboard__content__column--left').hasClass('u-height--auto')).toBe(true);
         });
     });
@@ -179,7 +181,7 @@ describe('The dashboard component', function () {
             mockedVisibility = {};
 
         beforeEach(function () {
-            mockedVisibility['straatbeeld'] = true;
+            mockedVisibility.straatbeeld = true;
 
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue(mockedVisibility);
 
@@ -242,17 +244,17 @@ describe('The dashboard component', function () {
             });
 
             it('does not touch the classes on the right panel', function () {
-                //No padding on the right
+                // No padding on the right
                 expect(component.find('.qa-dashboard__content__column--right').attr('class'))
                     .not.toContain('u-padding__right--1');
                 expect(component.find('.qa-dashboard__content__column--right').attr('class'))
                     .not.toContain('u-padding__right--2');
 
-                //No padding on the left
+                // No padding on the left
                 expect(component.find('.qa-dashboard__content__column--right').attr('class'))
                     .not.toContain('u-padding__left--1');
 
-                //Not scrollable
+                // Not scrollable
                 expect(component.find('.qa-dashboard__content__column--right').attr('class'))
                     .not.toContain('c-dashboard__content--scrollable');
             });

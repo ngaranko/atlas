@@ -267,12 +267,12 @@
                     'of recreatieve doeleinden geschikte ruimte.',
                     url: 'https://www.amsterdam.nl/stelselpedia/bag-index/catalogus-bag/objectklasse-4/',
                     meta: [
-                                    'begin_geldigheid',
-                                    'document_mutatie',
-                                    'document_nummer',
-                                    'standplaatsidentificatie',
-                                    'sleutelverzendend'
-                                ]
+                        'begin_geldigheid',
+                        'document_mutatie',
+                        'document_nummer',
+                        'standplaatsidentificatie',
+                        'sleutelverzendend'
+                    ]
                 },
                 SUBJECT: {
                     label_singular: 'Kadastraal subject',
