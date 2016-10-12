@@ -14,7 +14,7 @@
         };
 
         function getTitle (straatbeeldState) {
-            return 'Panorama ' + coordinatesFilter(straatbeeldState.location);
+            return 'Panorama ' + coordinatesFilter(straatbeeldState.car.location);
         }
     }
 })();

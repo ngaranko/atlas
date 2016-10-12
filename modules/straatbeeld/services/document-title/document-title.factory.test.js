@@ -20,11 +20,13 @@ describe('The dpStraatbeeldDocumentTitle factory', function () {
         var mockedStraatbeeldState;
 
         mockedStraatbeeldState = {
-            location: [52.123, 4.789]
+            car: {
+                location: [52.123, 4.789]
+            }
         };
         expect(documentTitle.getTitle(mockedStraatbeeldState)).toBe('Panorama 52.123, 4.789 (X, Y)');
 
-        mockedStraatbeeldState.location = [52.987, 4.321];
+        mockedStraatbeeldState.car.location = [52.987, 4.321];
         expect(documentTitle.getTitle(mockedStraatbeeldState)).toBe('Panorama 52.987, 4.321 (X, Y)');
     });
 });
