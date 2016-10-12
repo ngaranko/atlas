@@ -12,7 +12,7 @@
         'dpLayerSelectionDocumentTitle',
         'dpMapDocumentTitle',
         'dpPageDocumentTitle',
-        'dpSearchResults.documentTitle',
+        'dpSearchResultsDocumentTitle',
         'dpStraatbeeldDocumentTitle'
 
     ];

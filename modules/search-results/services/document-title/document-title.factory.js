@@ -4,7 +4,7 @@
     // This factory name is namespaced because other modules will get a similar service with the same name
     angular
         .module('dpSearchResults')
-        .factory('dpSearchResults.documentTitle', documentTitleFactory);
+        .factory('dpSearchResultsDocumentTitle', documentTitleFactory);
 
     documentTitleFactory.$inject = ['searchTitle'];
 
