@@ -72,7 +72,7 @@
 
         function getLayerSelectionParams (state) {
             return {
-                'kaartlagen-selectie': state.layerSelection ? 'aan' : null,
+                'kaartlagen-selectie': state.layerSelection ? 'aan' : null
             };
         }
 

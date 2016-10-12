@@ -28,7 +28,6 @@
             dpPageDocumentTitle,
             dpSearchResultsDocumentTitle,
             dpStraatbeeldDocumentTitle) {
-
         var mapping = [
             {
                 visibility: 'dataSelection',
@@ -64,13 +63,13 @@
             initialize: initialize
         };
 
-        function initialize() {
+        function initialize () {
             store.subscribe(setTitle);
 
-            function setTitle() {
+            function setTitle () {
                 var state = store.getState(),
                     visibility = dashboardColumns.determineVisibility(state),
-                    filtered = mapping.filter(function(item) {
+                    filtered = mapping.filter(function (item) {
                         return visibility[item.visibility];
                     }),
                     current = filtered ? filtered[0] : null,

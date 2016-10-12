@@ -32,7 +32,7 @@
                 container,
                 options;
 
-            scope.$watchGroup(['mapState.isFullscreen', 'showLayerSelection'], function() {
+            scope.$watchGroup(['mapState.isFullscreen', 'showLayerSelection'], function () {
                 scope.isFullscreen = scope.mapState.isFullscreen && !scope.showLayerSelection;
             });
 
@@ -84,12 +84,12 @@
 
                 scope.$watch('markers', function (newCollection, oldCollection) {
                     if (angular.equals(newCollection, oldCollection)) {
-                        //Initialisation
+                        // Initialisation
                         newCollection.forEach(function (item) {
                             highlight.add(leafletMap, item);
                         });
                     } else {
-                        //Change detected
+                        // Change detected
                         getRemovedGeojson(newCollection, oldCollection).forEach(function (item) {
                             highlight.remove(leafletMap, item);
                         });
@@ -102,14 +102,16 @@
             });
         }
 
-        function getDiffFromOverlays(over1, over2) {
+        function getDiffFromOverlays (over1, over2) {
             // Finds all the keys for items in over1 that
             // are not in over2
             // Or if visibility was changed.
-            var keys = [], add;
-            for (var i = 0;i < over1.length;i++) {
+            var keys = [],
+                add;
+
+            for (var i = 0; i < over1.length; i++) {
                 add = true;
-                for (var j = 0;j < over2.length;j++) {
+                for (var j = 0; j < over2.length; j++) {
                     if (over2[j].id === over1[i].id) {
                         // Checking visibility change
                         if (over2[j].isVisible !== over1[i].isVisible) {
@@ -119,7 +121,7 @@
                             }
                         } else {
                             // No change was made
-                            add = false; // Exists in both overlays    
+                            add = false; // Exists in both overlays
                         }
                         break;
                     }
@@ -141,7 +143,7 @@
         }
 
         function getRemovedOverlays (newOverlays, oldOverlays) {
-            return getDiffFromOverlays(oldOverlays, newOverlays);   
+            return getDiffFromOverlays(oldOverlays, newOverlays);
         }
 
         function getAddedGeojson (newCollection, oldCollection) {

@@ -101,7 +101,7 @@
          *
          * @returns {Object} newState
          */
-        function showSearchResultsReducer(oldState, payload) {
+        function showSearchResultsReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
             newState.search.isLoading = false;

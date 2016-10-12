@@ -1,27 +1,21 @@
-(function() {
+(function () {
     'use strict';
+
     angular
         .module('dpDetail')
-        .service('dateConverter', dateConverterService);
+        .factory('dateConverter', dateConverterFactory);
 
-    dateConverterService.$inject = ['d3'];
-    /* @ngInject */
+    dateConverterFactory.$inject = ['d3'];
 
-    function dateConverterService(d3) {
+    function dateConverterFactory (d3) {
         return {
             ymdToDate: ymdToDate
         };
 
-        /**
-         * @param {string} [input] [datum in formaat yyyy-mm-dd]
-         *@return {[date object]}    [js date object] 
-         */
-        function ymdToDate(input) {
-
+        function ymdToDate (input) {
             var parseDate = d3.time.format('%Y-%m-%d').parse;
 
             return parseDate(input);
-
         }
     }
 })();

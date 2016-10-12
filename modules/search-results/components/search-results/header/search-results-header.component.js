@@ -17,10 +17,10 @@
 
     DpSearchResultsHeaderController.$inject = ['$scope', 'searchTitle'];
 
-    function DpSearchResultsHeaderController($scope, searchTitle) {
+    function DpSearchResultsHeaderController ($scope, searchTitle) {
         var vm = this;
 
-        $scope.$watchGroup(['vm.numberOfResults', 'vm.category', 'vm.query', 'vm.location'], function() {
+        $scope.$watchGroup(['vm.numberOfResults', 'vm.category', 'vm.query', 'vm.location'], function () {
             var titleData = searchTitle.getTitleData(
                     vm.numberOfResults,
                     vm.query,

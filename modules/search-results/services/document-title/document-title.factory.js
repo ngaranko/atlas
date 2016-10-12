@@ -1,10 +1,11 @@
 (function () {
     'use strict';
 
-    //This factory name is namespaced because other modules will get a similar service with the same name
+    // This factory name is namespaced because other modules will get a similar service with the same name
     angular
         .module('dpSearchResults')
         .factory('dpSearchResults.documentTitle', documentTitleFactory);
+
     documentTitleFactory.$inject = ['searchTitle'];
 
     function documentTitleFactory (searchTitle) {
@@ -12,16 +13,15 @@
             getTitle: getTitle
         };
 
-        function getTitle(searchState) {
+        function getTitle (searchState) {
             var titleData = searchState ? searchTitle.getTitleData(
                         searchState.numberOfResults,
                         searchState.query,
                         searchState.location,
                         searchState.category) : null,
-                baseTitle = (titleData && titleData.title) ? titleData.title : '',
-                title = (baseTitle && titleData.subTitle) ? baseTitle + ' – ' + titleData.subTitle : baseTitle;
+                baseTitle = (titleData && titleData.title) ? titleData.title : '';
 
-            return title;
+            return (baseTitle && titleData.subTitle) ? baseTitle + ' – ' + titleData.subTitle : baseTitle;
         }
     }
 })();

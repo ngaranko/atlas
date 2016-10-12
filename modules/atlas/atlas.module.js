@@ -3,7 +3,7 @@
 
     angular
         .module('atlas', [
-            //Main modules
+            // Main modules
             'dpHeader',
             'dpPage',
             'dpDetail',
@@ -13,10 +13,10 @@
             'dpStraatbeeld',
             'dpDataSelection',
 
-            //Shared module
+            // Shared module
             'dpShared',
 
-            //Third party modules
+            // Third party modules
             'angulartics',
             'angulartics.piwik'
         ]);

@@ -31,7 +31,6 @@
         geometry,
         geojson,
         crsConverter) {
-
         var vm = this;
 
         $scope.$watch('vm.endpoint', function (endpoint) {
@@ -44,16 +43,16 @@
 
                 vm.includeSrc = endpointParser.getTemplateUrl(endpoint);
 
-                geometry.getGeoJSON(endpoint).then(function (geometry) {
-                    if (geometry !== null) {
-                        vm.location = crsConverter.rdToWgs84(geojson.getCenter(geometry));
+                geometry.getGeoJSON(endpoint).then(function (geoJSON) {
+                    if (geoJSON !== null) {
+                        vm.location = crsConverter.rdToWgs84(geojson.getCenter(geoJSON));
                     }
 
                     store.dispatch({
                         type: ACTIONS.SHOW_DETAIL,
                         payload: {
                             display: data._display,
-                            geometry: geometry
+                            geometry: geoJSON
                         }
                     });
                 });

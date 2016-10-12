@@ -11,7 +11,7 @@
             getTitleData: getTitleData
         };
 
-        function getTitleData(numberOfResults, query, location, category) {
+        function getTitleData (numberOfResults, query, location, category) {
             var title = '',
                 subTitle = '';
 

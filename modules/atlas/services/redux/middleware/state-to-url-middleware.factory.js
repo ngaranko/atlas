@@ -9,15 +9,15 @@
 
     function stateToUrlMiddlewareFactory (stateToUrl, ACTIONS) {
         var ignoreActions = [
-                ACTIONS.URL_CHANGE, //Prevent infinite loops
-                ACTIONS.FETCH_DETAIL, //Don't update the state before asynchronous call are finished
+                ACTIONS.URL_CHANGE, // Prevent infinite loops
+                ACTIONS.FETCH_DETAIL, // Don't update the state before asynchronous call are finished
                 ACTIONS.FETCH_STRAATBEELD,
                 ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY,
                 ACTIONS.FETCH_SEARCH_RESULTS_BY_CLICK,
                 ACTIONS.FETCH_SEARCH_RESULTS_CATEGORY
             ],
             useReplace = [
-                ACTIONS.MAP_SET_BASELAYER, //Replace the URL instead of adding a new entry to the browser history
+                ACTIONS.MAP_SET_BASELAYER, // Replace the URL instead of adding a new entry to the browser history
                 ACTIONS.MAP_ADD_OVERLAY,
                 ACTIONS.MAP_REMOVE_OVERLAY,
                 ACTIONS.MAP_TOGGLE_VISIBILITY_OVERLAY,
@@ -34,10 +34,10 @@
                 return function (action) {
                     var returnValue;
 
-                    //Update the state first
+                    // Update the state first
                     returnValue = next(action);
 
-                    //Then update the URL
+                    // Then update the URL
                     if (ignoreActions.indexOf(action.type) === -1) {
                         stateToUrl.update(
                             store.getState(),
