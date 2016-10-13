@@ -3,7 +3,6 @@ describe('The marzipanoService factory', function () {
         $q,
         Marzipano,
         marzipanoService,
-        straatbeeldApi,
         hotspotService,
         fakeView,
         fakeCubeGeometery,
@@ -23,7 +22,7 @@ describe('The marzipanoService factory', function () {
                 },
                 angleConversion: {
                     degreesToRadians: function (input) {
-                        return input /2;
+                        return input / 2;
                     }
                 },
                 hotspotService: {
@@ -39,12 +38,11 @@ describe('The marzipanoService factory', function () {
         );
 
         angular.mock.inject(
-            function (_$rootScope_, _$q_, _Marzipano_, _marzipanoService_, _straatbeeldApi_, _hotspotService_) {
+            function (_$rootScope_, _$q_, _Marzipano_, _marzipanoService_, _hotspotService_) {
                 $rootScope = _$rootScope_;
                 $q = _$q_;
                 Marzipano = _Marzipano_;
                 marzipanoService = _marzipanoService_;
-                straatbeeldApi = _straatbeeldApi_;
                 hotspotService = _hotspotService_;
             }
         );
@@ -73,7 +71,6 @@ describe('The marzipanoService factory', function () {
                 return fakeHotspotContainer;
             }
         };
-
 
         spyOn(Marzipano, 'Viewer').and.returnValue(fakeViewer);
         spyOn(Marzipano.RectilinearView.limit, 'traditional').and.returnValue('FAKE_VIEW_LIMITER');
@@ -115,7 +112,7 @@ describe('The marzipanoService factory', function () {
             stageType: null
         }));
 
-        //Don't clear the webgl buffer. Firefox and Safari clear this buffer by default when opening the print dialog
+        // Don't clear the webgl buffer. Firefox and Safari clear this buffer by default when opening the print dialog
         expect(Marzipano.Viewer).toHaveBeenCalledWith(jasmine.anything(), jasmine.objectContaining({
             stage: {
                 preserveDrawingBuffer: true
@@ -164,24 +161,34 @@ describe('The marzipanoService factory', function () {
                 }, {
                     id: 'XYZ',
                     distance: 11,
-                    heading:80
+                    heading: 80
                 }
             ];
 
-            marzipanoService.loadScene('example.png',179,1,2, mockedHotspots);
+            marzipanoService.loadScene('example.png', 179, 1, 2, mockedHotspots);
 
             expect(hotspotService.createHotspotTemplate).toHaveBeenCalledTimes(2);
             expect(hotspotService.createHotspotTemplate).toHaveBeenCalledWith('XYZ', 11);
             expect(hotspotService.createHotspotTemplate).toHaveBeenCalledWith('ABC', 5);
 
             $rootScope.$apply();
-           
+
             expect(fakeHotspotContainer.createHotspot).toHaveBeenCalledTimes(2);
             expect(fakeHotspotContainer.createHotspot).toHaveBeenCalledWith(
-                    'FAKE_HOTSPOT_TEMPLATE', { yaw: 135, pitch: 0.19739555984988078 } );
+                'FAKE_HOTSPOT_TEMPLATE',
+                {
+                    yaw: 135,
+                    pitch: 0.19739555984988078
+                }
+            );
 
             expect(fakeHotspotContainer.createHotspot).toHaveBeenCalledWith(
-                    'FAKE_HOTSPOT_TEMPLATE', { yaw: 40, pitch: 0.09065988720074511 } );
+                'FAKE_HOTSPOT_TEMPLATE',
+                {
+                    yaw: 40,
+                    pitch: 0.09065988720074511
+                }
+            );
         });
     });
 });

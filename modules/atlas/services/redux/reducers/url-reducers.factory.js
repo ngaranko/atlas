@@ -33,19 +33,6 @@
             }
         }
 
-        function hasStraatbeeld (payload) {
-            return payload.id || hasSearchLocation(payload);
-        }
-
-        /**
-         * @description This is a 'search nearest straatbeeld' location, not the location of the camera of a
-         * found panorama scene. The actual location is not stored in the URL, this is implicitly accessible
-         * through the ID.
-         */
-        function hasSearchLocation (payload) {
-            return payload.plat && payload.plon;
-        }
-
         function getSearchState (oldState, payload) {
             if (angular.isString(payload.zoek)) {
                 var searchState = angular.copy(oldState.search) || {};
@@ -139,37 +126,36 @@
             }
         }
 
-            function getStraatbeeldState(oldState, payload) {
-                if (payload.id) {
-                    var newStraatbeeld = {
-                        pitch: Number(payload.pitch),
-                        fov: Number(payload.fov),
-                        id: payload.id,
-                        heading: Number(payload.heading)
-                    };
+        function getStraatbeeldState (oldState, payload) {
+            if (payload.id) {
+                var newStraatbeeld = {
+                    pitch: Number(payload.pitch),
+                    fov: Number(payload.fov),
+                    id: payload.id,
+                    heading: Number(payload.heading)
+                };
 
-                    
-                    if (oldState.straatbeeld && oldState.straatbeeld.id === payload.id) {
-                        newStraatbeeld.image = oldState.straatbeeld.image;
-                        newStraatbeeld.hotspots = oldState.straatbeeld.hotspots;
-                        newStraatbeeld.date = oldState.straatbeeld.date;
-                        newStraatbeeld.location = oldState.straatbeeld.location;
-                        newStraatbeeld.isInitial = false;
-                        newStraatbeeld.isLoading = oldState.straatbeeld.isLoading;
-                    } else {
-                        newStraatbeeld.image = null;
-                        newStraatbeeld.hotspots = [];
-                        newStraatbeeld.date = null;
-                        newStraatbeeld.location = null;
-                        newStraatbeeld.isInitial = true;
-                        newStraatbeeld.isLoading = angular.isString(payload.id);
-                    }
-
-                    return newStraatbeeld;
+                if (oldState.straatbeeld && oldState.straatbeeld.id === payload.id) {
+                    newStraatbeeld.image = oldState.straatbeeld.image;
+                    newStraatbeeld.hotspots = oldState.straatbeeld.hotspots;
+                    newStraatbeeld.date = oldState.straatbeeld.date;
+                    newStraatbeeld.location = oldState.straatbeeld.location;
+                    newStraatbeeld.isInitial = false;
+                    newStraatbeeld.isLoading = oldState.straatbeeld.isLoading;
                 } else {
-                    return null;
+                    newStraatbeeld.image = null;
+                    newStraatbeeld.hotspots = [];
+                    newStraatbeeld.date = null;
+                    newStraatbeeld.location = null;
+                    newStraatbeeld.isInitial = true;
+                    newStraatbeeld.isLoading = angular.isString(payload.id);
                 }
+
+                return newStraatbeeld;
+            } else {
+                return null;
             }
+        }
 
         function getDataSelectionState (payload) {
             var filters = {};

@@ -5,9 +5,9 @@
         .module('dpStraatbeeld')
         .factory('straatbeeldApi', straatbeeldApiFactory);
 
-    straatbeeldApiFactory.$inject = ['straatbeeldConfig', 'sharedConfig', 'geojson', 'api'];
+    straatbeeldApiFactory.$inject = ['straatbeeldConfig', 'geojson', 'api'];
 
-    function straatbeeldApiFactory (straatbeeldConfig, sharedConfig, geojson, api) {
+    function straatbeeldApiFactory (straatbeeldConfig, geojson, api) {
         return {
             getImageDataById: getImageDataById
         };
@@ -16,7 +16,7 @@
             return api.getByUrl(straatbeeldConfig.STRAATBEELD_ENDPOINT + id + '/').then(function (response) {
                 return {
                     date: new Date(response.timestamp),
-                    hotspots: response.adjacent.map(function(item){
+                    hotspots: response.adjacent.map(function (item) {
                         return {
                             id: item.pano_id,
                             heading: item.heading,
@@ -28,7 +28,5 @@
                 };
             });
         }
-    } 
-})(); 
-
-
+    }
+})();

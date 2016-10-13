@@ -247,10 +247,9 @@ describe('The stateToUrl factory', function () {
             }));
         });
 
-
         it('can set the straatbeeld id if it\'s known', function () {
             mockedState.straatbeeld = {
-                id: 'ABC',
+                id: 'ABC'
             };
 
             stateToUrl.update(mockedState, false);
@@ -273,14 +272,13 @@ describe('The stateToUrl factory', function () {
                 fov: 1
             };
 
-                stateToUrl.update(mockedState, false);
+            stateToUrl.update(mockedState, false);
 
-                expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
-                    heading: '2',
-                    pitch: '0.123',
-                    fov: '3'
-                }));
-            });
+            expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
+                heading: '2',
+                pitch: '0.123',
+                fov: '3'
+            }));
         });
     });
 

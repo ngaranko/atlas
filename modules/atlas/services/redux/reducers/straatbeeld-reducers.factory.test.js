@@ -20,11 +20,10 @@ describe('Straatbeeld reducers factory', function () {
         });
     });
 
-
     describe('FETCH_STRAATBEELD', function () {
         var payload;
 
-        beforeEach(function() {
+        beforeEach(function () {
             payload = {
                 'id': 'ABC',
                 'heading': 123,
@@ -32,10 +31,10 @@ describe('Straatbeeld reducers factory', function () {
             };
         });
 
-        it('when heading is not in payload, use oldstate heading', function() {
+        it('when heading is not in payload, use oldstate heading', function () {
             delete payload.heading;
 
-             inputState.straatbeeld = {
+            inputState.straatbeeld = {
                 'fov': 1,
                 'pitch': 2,
                 'date': 'today',
@@ -48,8 +47,8 @@ describe('Straatbeeld reducers factory', function () {
             var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD](inputState, payload);
             expect(newState.straatbeeld.heading).toBe(179);
         });
-        
-        it('when heading is in payload, use the payload heading', function() {
+
+        it('when heading is in payload, use the payload heading', function () {
             var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD](inputState, payload);
             expect(newState.straatbeeld.heading).toBe(123);
         });
@@ -151,7 +150,6 @@ describe('Straatbeeld reducers factory', function () {
             expect(newState.straatbeeld.fov).toBe(2);
         });
 
-
         it('do not overwrite isLoading, id, heading, isInitial', function () {
             var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
 
@@ -177,13 +175,13 @@ describe('Straatbeeld reducers factory', function () {
         });
     });
 
-    describe('setOrientationReducer',function() {
-       it('updates the orientation with pitch and fov', function () {
-           inputState.straatbeeld = {};
+    describe('setOrientationReducer', function () {
+        it('updates the orientation with pitch and fov', function () {
+            inputState.straatbeeld = {};
 
             inputState.straatbeeld.pitch = 1;
             inputState.straatbeeld.fov = 2;
-            
+
             var payload = {
                     heading: 91,
                     pitch: 1,
@@ -192,7 +190,7 @@ describe('Straatbeeld reducers factory', function () {
                 output;
 
             output = straatbeeldReducers.SET_STRAATBEELD_ORIENTATION(inputState, payload);
-            
+
             expect(output.straatbeeld.pitch).toEqual(payload.pitch);
             expect(output.straatbeeld.fov).toEqual(payload.fov);
         });

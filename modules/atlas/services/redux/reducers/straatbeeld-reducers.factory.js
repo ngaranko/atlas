@@ -26,7 +26,6 @@
          * @returns {Object} newState
          */
         function fetchStraatbeeldReducer (oldState, payload) {
-            
             var newState = angular.copy(oldState);
 
             newState.straatbeeld = newState.straatbeeld || {};
@@ -42,7 +41,7 @@
             newState.straatbeeld.fov = null;
             newState.straatbeeld.image = null;
             newState.map.highlight = null;
-        
+
             newState.search = null;
             newState.page = null;
             newState.detail = null;
@@ -50,7 +49,7 @@
             newState.dataSelection = null;
 
             newState.map.isLoading = true;
-            
+
             return newState;
         }
 
@@ -61,15 +60,14 @@
          * @returns {Object} newState
          */
         function showStraatbeeldReducer (oldState, payload) {
-            
             var newState = angular.copy(oldState);
-            
-            //Straatbeeld can be null if another action gets triggered between FETCH_STRAATBEELD and SHOW_STRAATBEELD
+
+            // Straatbeeld can be null if another action gets triggered between FETCH_STRAATBEELD and SHOW_STRAATBEELD
             if (angular.isObject(newState.straatbeeld)) {
                 newState.straatbeeld.date = payload.date;
-                
+
                 newState.straatbeeld.pitch = oldState.straatbeeld.pitch || 0;
-                newState.straatbeeld.fov =  oldState.straatbeeld.fov || straatbeeldConfig.DEFAULT_FOV;
+                newState.straatbeeld.fov = oldState.straatbeeld.fov || straatbeeldConfig.DEFAULT_FOV;
 
                 newState.straatbeeld.hotspots = payload.hotspots;
                 newState.straatbeeld.isLoading = false;
@@ -83,11 +81,11 @@
 
         function setOrientationReducer (oldState, payload) {
             var newState = angular.copy(oldState);
-             
+
             newState.straatbeeld.heading = payload.heading;
             newState.straatbeeld.pitch = payload.pitch;
             newState.straatbeeld.fov = payload.fov;
-            
+
             return newState;
         }
     }

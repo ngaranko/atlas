@@ -6,10 +6,10 @@
         .directive('dpStraatbeeld', dpStraatbeeldDirective);
 
     dpStraatbeeldDirective.$inject = [
-        '$rootScope', 
-        'store', 
-        'ACTIONS', 
-        'marzipanoService', 
+        '$rootScope',
+        'store',
+        'ACTIONS',
+        'marzipanoService',
         'straatbeeldApi',
         'orientation'
     ];
@@ -32,42 +32,40 @@
             container = element[0].querySelector('.js-marzipano-viewer');
             viewer = marzipanoService.initialize(container);
 
-           
             scope.updateOrientation = function () {
                 if (!scope.state.isLoading) {
                     orientation.update(viewer);
                 }
             };
 
-            //Fetch scene
+            // Fetch scene
             scope.$watch('state.id', function (id) {
- 
                 if (angular.isString(id)) {
                     straatbeeldApi.getImageDataById(id).then(function (straatbeeldData) {
-                         var type = scope.state.isInitial   ? ACTIONS.SHOW_STRAATBEELD_INITIAL
-                                                            : ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT;
-                                                            
-                         store.dispatch({
-                                type: type,
-                                payload: straatbeeldData
-                         });
+                        var type = scope.state.isInitial ? ACTIONS.SHOW_STRAATBEELD_INITIAL
+                            : ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT;
+
+                        store.dispatch({
+                            type: type,
+                            payload: straatbeeldData
+                        });
                     });
                 }
-                 
             });
 
-            scope.$watch('state.image', function(img) {
-                
-                if (angular.isString(img)) {
-                    marzipanoService.loadScene( scope.state.image, 
-                                                scope.state.heading, 
-                                                scope.state.pitch, 
-                                                scope.state.fov, 
-                                                scope.state.hotspots);
-                    }
+            scope.$watch('state.image', function () {
+                if (angular.isString(scope.state.image)) {
+                    marzipanoService.loadScene(
+                        scope.state.image,
+                        scope.state.heading,
+                        scope.state.pitch,
+                        scope.state.fov,
+                        scope.state.hotspots
+                    );
+                }
             });
 
-            //Re-render the Marzipano viewer if the size changes (through an added parent CSS class)
+            // Re-render the Marzipano viewer if the size changes (through an added parent CSS class)
             scope.$watch('isPrintMode', function () {
                 $rootScope.$applyAsync(function () {
                     viewer.updateSize();

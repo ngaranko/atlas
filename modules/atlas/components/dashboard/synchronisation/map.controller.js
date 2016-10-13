@@ -35,7 +35,6 @@
                 });
             }
 
-            
             if (state.straatbeeld && angular.isArray(state.straatbeeld.location)) {
                 vm.markers.push({
                     id: 'straatbeeld_orientation',

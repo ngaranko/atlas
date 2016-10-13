@@ -16,11 +16,11 @@
             var pitch,
                 fov,
                 heading;
-          
+
             pitch = angleConversion.radiansToDegrees(viewer.view().pitch());
             fov = angleConversion.radiansToDegrees(viewer.view().fov());
-            heading = angleConversion.radiansToDegrees(viewer.view().yaw()); 
-            
+            heading = angleConversion.radiansToDegrees(viewer.view().yaw());
+
             store.dispatch({
                 type: ACTIONS.SET_STRAATBEELD_ORIENTATION,
                 payload: {

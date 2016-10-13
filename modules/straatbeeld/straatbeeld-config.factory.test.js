@@ -1,5 +1,4 @@
 describe('The straatbeeldConfig factory', function () {
-    
     function prepareMocks (environmentName) {
         var straatbeeldConfig;
 

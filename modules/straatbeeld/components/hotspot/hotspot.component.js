@@ -15,7 +15,6 @@
 
     DpHotspotController.$inject = ['store', 'ACTIONS', 'straatbeeldConfig', 'angleConversion'];
 
-    
     function DpHotspotController (store, ACTIONS, straatbeeldConfig, angleConversion) {
         var vm = this,
             realLifeHotspotSize = 0.3,

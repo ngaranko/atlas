@@ -98,7 +98,6 @@ describe('The straatbeeldApi Factory', function () {
                     distance: 5.25
                 }]
             );
-
         });
 
         it('maps a geoJSON Point to a location in [lat, lng] Array notation', function () {

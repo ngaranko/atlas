@@ -70,7 +70,7 @@
                         template,
                         position
                     );
-                 });
+                });
             });
 
             view.setYaw(angleConversion.degreesToRadians(heading));
@@ -79,8 +79,8 @@
 
             scene.switchTo();
 
-            function calculateHotspotPitch(height, distance) {
-                return Math.atan(height/distance);
+            function calculateHotspotPitch (height, distance) {
+                return Math.atan(height / distance);
             }
         }
     }

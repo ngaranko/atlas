@@ -82,19 +82,14 @@ describe('The straatbeeld controller', function () {
 
         mockedState = {
             straatbeeld: {
-                id: null,
-                searchLocation: [52.456, 4.321],
-                date: new Date(2016, 6, 8),
-                camera: {
-                    location: [52.741, 4.852]
-                },
+                id: 'ABC',
                 isLoading: false
             }
         };
 
         controller = getController();
 
-        expect(controller.straatbeeldState.id).toBeNull();
-        expect(controller.straatbeeldState.searchLocation).toEqual([52.456, 4.321]);
+        expect(controller.straatbeeldState.id).toBe('ABC');
+        expect(controller.straatbeeldState.isLoadign).toBe(false);
     });
 });

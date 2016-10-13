@@ -82,8 +82,7 @@ describe('The map controller', function () {
     });
 
     describe('optionally adds marker data for search by location, detail and straatbeeld', function () {
-        var mockedState,
-            controller;
+        var controller;
 
         it('can work without any markers', function () {
             mockedState = {};

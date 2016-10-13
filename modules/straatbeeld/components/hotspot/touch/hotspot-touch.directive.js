@@ -7,16 +7,16 @@
     function dpHotspotTouchDirective () {
         return {
             restrict: 'A',
-            scope: { 
+            scope: {
                 dpHotspotTouch: '='
             },
-            link: link
+            link: linkFn
         };
     }
-    function link (scope, element) {
+    function linkFn (scope, element) {
         // Add click AND touchsstart events to the element
         element.bind('touchstart click', function () {
-            scope.$apply( scope.dpHotspotTouch() );
+            scope.$apply(scope.dpHotspotTouch());
         });
     }
 })();
