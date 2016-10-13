@@ -64,7 +64,7 @@ describe('The header controller', function () {
         expect(controller.query).toBeNull();
     });
 
-    describe('it sets the hasPrintButton variable', function () {
+    describe('not all states have a print version', function () {
         it('there is no print button when dataSelection is active', function () {
             var controller,
                 mockedState = {
@@ -77,7 +77,7 @@ describe('The header controller', function () {
             expect(controller.hasPrintButton).toBe(false);
         });
 
-        it('other modules have a printButton', function () {
+        it('all non dataSelection modules have a printButton', function () {
             var controller;
 
             spyOn(store, 'getState').and.returnValue(DEFAULT_STATE);
