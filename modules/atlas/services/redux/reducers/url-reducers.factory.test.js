@@ -79,10 +79,13 @@ describe('The urlReducers factory', function () {
                     expect(output.search.isLoading).toBe(true);
                 });
 
-                it('is false when the state has not changed', () => {
+                it('is unchanged when the state has not changed', () => {
                     var output;
 
+                    // Search query
                     mockedSearchParams.zoek = 'I_AM_A_SEARCH_STRING';
+
+                    // isLoading is falsy and remains falsy
                     mockedState.search = {
                         query: 'I_AM_A_SEARCH_STRING',
                         location: null,
@@ -90,6 +93,58 @@ describe('The urlReducers factory', function () {
                     };
                     output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
                     expect(output.search.isLoading).not.toBe(true);
+
+                    // isLoading is false and remains false
+                    mockedState.search = {
+                        query: 'I_AM_A_SEARCH_STRING',
+                        location: null,
+                        category: null,
+                        isLoading: false
+                    };
+                    output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+                    expect(output.search.isLoading).not.toBe(true);
+
+                    // isLoading is true and remains true
+                    mockedState.search = {
+                        query: 'I_AM_A_SEARCH_STRING',
+                        location: null,
+                        category: null,
+                        isLoading: true
+                    };
+                    output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+                    expect(output.search.isLoading).toBe(true);
+
+                    // Search location
+                    mockedSearchParams.zoek = '12.45,56.78';
+
+                    // isLoading is falsy and remains falsy
+                    mockedState.search = {
+                        query: null,
+                        location: [12.45, 56.78],
+                        category: null
+                    };
+                    output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+                    expect(output.search.isLoading).not.toBe(true);
+
+                    // isLoading is false and remains false
+                    mockedState.search = {
+                        query: null,
+                        location: [12.45, 56.78],
+                        category: null,
+                        isLoading: false
+                    };
+                    output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+                    expect(output.search.isLoading).not.toBe(true);
+
+                    // isLoading is true and remains true
+                    mockedState.search = {
+                        query: null,
+                        location: [12.45, 56.78],
+                        category: null,
+                        isLoading: true
+                    };
+                    output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+                    expect(output.search.isLoading).toBe(true);
                 });
             });
 
