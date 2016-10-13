@@ -29,17 +29,6 @@ describe('The search-reducers factory', function () {
             expect(output.search.category).toBeNull();
         });
 
-        it('removes the highlighted object from the map', function () {
-            var inputState = angular.copy(defaultState),
-                output;
-
-            inputState.map.highlight = {some: 'object'};
-
-            output = searchReducers.SHOW_SEARCH_RESULTS_BY_QUERY(inputState, 'linnaeus');
-
-            expect(output.map.highlight).toBeNull();
-        });
-
         it('hides the layer selection, page, detail, straatbeeld and dataSelection', function () {
             var inputState = angular.copy(defaultState),
                 output;
@@ -87,17 +76,6 @@ describe('The search-reducers factory', function () {
             expect(output.search.query).toBeNull();
             expect(output.search.location).toEqual([52.001, 4.002]);
             expect(output.search.category).toBeNull();
-        });
-
-        it('removes the highlighted object from the map', function () {
-            var inputState = angular.copy(defaultState),
-                output;
-
-            inputState.map.highlight = {some: 'object'};
-
-            output = searchReducers.SHOW_SEARCH_RESULTS_BY_CLICK(inputState, [52.001, 4.002]);
-
-            expect(output.map.highlight).toBeNull();
         });
 
         it('hides the layer selection, active overlays, page, detail, straatbeeld and dataSelection', function () {

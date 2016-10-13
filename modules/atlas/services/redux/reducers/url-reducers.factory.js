@@ -92,7 +92,6 @@
                     Number(payload.lon)
                 ],
                 zoom: Number(payload.zoom),
-                highlight: payload.selectie || null,
                 showLayerSelection: angular.isString(payload['kaartlagen-selectie']),
                 showActiveOverlays: angular.isString(payload['actieve-kaartlagen']),
                 isFullscreen: angular.isString(payload['volledig-scherm']),
