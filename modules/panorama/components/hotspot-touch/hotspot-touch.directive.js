@@ -2,13 +2,13 @@
     'use strict';
     angular
         .module('dpPanorama')
-        .directive('dpClick', dpClickDirective);
+        .directive('dpHotspotTouch', dpHotspotTouchDirective);
 
-    function dpClickDirective () {
+    function dpHotspotTouchDirective () {
         return {
             restrict: 'A',
             scope: { 
-                dpClick: '='
+                dpHotspotTouch: '='
             },
             link: link
         };
@@ -16,7 +16,7 @@
     function link (scope, element) {
         // Add click AND touchsstart events to the element
         element.bind('touchstart click', function () {
-            scope.$apply( scope.dpClick() );
+            scope.$apply( scope.dpHotspotTouch() );
         });
-    } 
+    }
 })();

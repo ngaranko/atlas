@@ -1,9 +1,12 @@
-describe('Mobile click directive', function () {
+describe('Mobile touch directive', function () {
     var $compile,
         $rootScope,
-        mockedFunctions;
+        mockedFunctions,
+        scope;
 
     beforeEach(function () {
+        angular.mock.module('dpPanorama');
+
         mockedFunctions = {
             callClick: function () { }
         };
@@ -17,11 +20,10 @@ describe('Mobile click directive', function () {
 
     function getComponent () {
         var component,
-            element,
-            scope;
+            element;
 
         element = document.createElement('button');
-        element.setAttribute('dp-click', 'callClick()');
+        element.setAttribute('dp-hotspot-touch', 'callClick');
 
         scope = $rootScope.$new();
         scope.callClick = mockedFunctions.callClick;
@@ -32,15 +34,17 @@ describe('Mobile click directive', function () {
         return component;
     }
 
-    fit('checks for response on element on click and touch events', function () {
+    it('checks for response on element on click and touch events', function () {
         var directive;
 
         directive = getComponent();
-        console.log('x');
-        directive.find('button').click();
-        expect(mockedFunctions.callClick).toHaveBeenCalled();
-        $rootScope.$apply();
-        // directive.find('button').triggerHandler('touchstart');
-        // expect(mockedFunctions.callClick).toHaveBeenCalledTimes(2);
+
+        directive.click();
+        scope.$apply();
+        expect(scope.callClick).toHaveBeenCalled();
+
+        directive.triggerHandler('touchstart');
+        scope.$apply();
+        expect(scope.callClick).toHaveBeenCalledTimes(2);
     });
 });
