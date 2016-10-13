@@ -18,7 +18,8 @@ describe('The marzipanoService factory', function () {
                 panoramaConfig: {
                     MAX_RESOLUTION: 1000,
                     MAX_FOV: 100,
-                    CAMERA_HEIGHT: 1
+                    CAMERA_HEIGHT: 1,
+                    LEVEL_PROPERTIES_LIST: ['FAKE_LEVEL', 'PROPERTIES_LIST']
                 },
                 angleConversion: {
                     degreesToRadians: function (input) {
@@ -84,7 +85,7 @@ describe('The marzipanoService factory', function () {
         spyOn(Marzipano, 'RectilinearView').and.returnValue(fakeView);
         spyOn(Marzipano.ImageUrlSource, 'fromString').and.returnValue('FAKE_IMAGE_URL_SOURCE');
         spyOn(marzipanoService, 'loadScene').and.callThrough();
-        spyOn(Marzipano, 'EquirectGeometry').and.returnValue(fakeCubeGeometery);
+        spyOn(Marzipano, 'CubeGeometry').and.returnValue(fakeCubeGeometery);
         spyOn(fakeViewer, 'createScene').and.returnValue(fakeScene);
         spyOn(fakeView, 'setYaw');
         spyOn(fakeView, 'setPitch');
@@ -139,7 +140,7 @@ describe('The marzipanoService factory', function () {
 
             expect(Marzipano.RectilinearView.limit.traditional).toHaveBeenCalledWith(1000, 50);
             expect(Marzipano.RectilinearView).toHaveBeenCalledWith({}, 'FAKE_VIEW_LIMITER');
-            expect(Marzipano.EquirectGeometry).toHaveBeenCalledWith([{ width: 8000 }]);
+            expect(Marzipano.CubeGeometry).toHaveBeenCalledWith(['FAKE_LEVEL', 'PROPERTIES_LIST']);
 
             expect(fakeViewer.createScene).toHaveBeenCalledWith({
                 source: 'FAKE_IMAGE_URL_SOURCE',

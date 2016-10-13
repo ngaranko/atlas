@@ -27,7 +27,7 @@ describe('Panorama API Factory', function () {
 
                     q.resolve({
                         images: {
-                            equirectangular: 'http://example.com/example/plaatje.png'
+                            cubic: 'http://example.com/example/cubic/'
                         },
                         geometrie: {
                             type: 'Point',
@@ -120,7 +120,7 @@ describe('Panorama API Factory', function () {
         });
 
         it('fetches equirectangular image', function () {
-            expect(response.image).toBe('http://example.com/example/plaatje.png');
+            expect(response.image).toBe('http://example.com/example/cubic/');
         });
     });
 });
