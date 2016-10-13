@@ -255,29 +255,24 @@ describe('The stateToUrl factory', function () {
             stateToUrl.update(mockedState, false);
 
             expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
-                id: '67890'
-            }));
-
-            expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
-                plat: jasmine.any(String),
-                plon: jasmine.any(String)
+                id: 'ABC'
             }));
         });
 
         it('Has orientation with heading, pitch and fov', function () {
             mockedState.straatbeeld = {
                 id: 'ABC',
-                heading: 2,
-                pitch: 0.123,
-                fov: 1
+                heading: 270,
+                pitch: 10.4,
+                fov: 20
             };
 
             stateToUrl.update(mockedState, false);
 
             expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
-                heading: '2',
-                pitch: '0.123',
-                fov: '3'
+                heading: '270',
+                pitch: '10.4',
+                fov: '20'
             }));
         });
     });
