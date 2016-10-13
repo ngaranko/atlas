@@ -27,7 +27,7 @@ describe('The dataSelectionConfig factory', function () {
 
             // Environment config
             expect(dataSelectionConfig.bag.ENDPOINT_PREVIEW)
-                .toBe('https://api-acc.datapunt.amsterdam.nl/zelfbediening/bag/');
+                .toBe('https://api-acc.datapunt.amsterdam.nl/dataselectie/bag/');
         });
 
         it('production', function () {
@@ -38,7 +38,7 @@ describe('The dataSelectionConfig factory', function () {
 
             // Environment config
             expect(dataSelectionConfig.bag.ENDPOINT_PREVIEW)
-                .toBe('https://api.datapunt.amsterdam.nl/zelfbediening/bag/');
+                .toBe('https://api.datapunt.amsterdam.nl/dataselectie/bag/');
         });
     });
 });
