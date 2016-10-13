@@ -1,4 +1,4 @@
-describe('The atlas-search directive', function () {
+describe('The dp-search directive', function () {
     var $compile,
         $rootScope,
         $timeout,
@@ -12,7 +12,7 @@ describe('The atlas-search directive', function () {
 
     beforeEach(function () {
         angular.mock.module(
-            'atlasHeader',
+            'dpHeader',
             {
                 store: {
                     dispatch: function () {}
@@ -112,7 +112,7 @@ describe('The atlas-search directive', function () {
             element,
             scope;
 
-        element = document.createElement('atlas-search');
+        element = document.createElement('dp-search');
         element.setAttribute('query', query);
 
         scope = $rootScope.$new();
@@ -148,7 +148,7 @@ describe('The atlas-search directive', function () {
         directive.find('.c-search-form').trigger('submit');
 
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.SHOW_SEARCH_RESULTS_BY_QUERY,
+            type: ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY,
             payload: 'query without suggestions'
         });
     });

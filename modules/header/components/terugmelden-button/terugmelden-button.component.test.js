@@ -1,11 +1,11 @@
-describe('The atlas-terugmelden-button component', function () {
+describe('The dp-terugmelden-button component', function () {
     var $compile,
         $rootScope,
         $location,
         currentUrl = 'http://www.example.com/path/filename.html?foo=bar#baz';
 
     beforeEach(function () {
-        angular.mock.module('atlasHeader');
+        angular.mock.module('dpHeader');
 
         angular.mock.inject(function (_$compile_, _$rootScope_, _$location_) {
             $compile = _$compile_;
@@ -21,7 +21,7 @@ describe('The atlas-terugmelden-button component', function () {
             element,
             scope;
 
-        element = document.createElement('atlas-terugmelden-button');
+        element = document.createElement('dp-terugmelden-button');
 
         if (angular.isString(transcludeStr)) {
             element.innerHTML = transcludeStr;

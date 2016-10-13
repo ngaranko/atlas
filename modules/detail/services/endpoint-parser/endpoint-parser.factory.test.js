@@ -3,7 +3,7 @@ describe('The endpointParser factory', function () {
 
     beforeEach(function () {
         angular.mock.module(
-            'atlasDetail',
+            'dpDetail',
             {
                 environment: {
                     API_ROOT: 'http://www.api-root.com/'

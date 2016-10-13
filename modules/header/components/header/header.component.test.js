@@ -1,11 +1,11 @@
-describe('The atlas-header component', function () {
+describe('The dp-header component', function () {
     var $compile,
         $rootScope,
         user;
 
     beforeEach(function () {
         angular.mock.module(
-            'atlasHeader',
+            'dpHeader',
             {
                 store: {
                     dispatch: function () {}
@@ -16,7 +16,7 @@ describe('The atlas-header component', function () {
                     return {};
                 });
 
-                $provide.factory('atlasMenuDropdownDirective', function () {
+                $provide.factory('dpMenuDropdownDirective', function () {
                     return {};
                 });
             }
@@ -36,7 +36,7 @@ describe('The atlas-header component', function () {
             element,
             scope;
 
-        element = document.createElement('atlas-header');
+        element = document.createElement('dp-header');
         element.setAttribute('query', query);
         element.setAttribute('has-print-button', 'hasPrintButton');
         element.setAttribute('is-print-mode', isPrintMode);
@@ -51,16 +51,16 @@ describe('The atlas-header component', function () {
         return component;
     }
 
-    it('inserts the atlas-search component and passes down a query string', function () {
+    it('inserts the dp-search component and passes down a query string', function () {
         var component;
 
         // Without a query
         component = getComponent('', false);
-        expect(component.find('atlas-search')[0].getAttribute('query')).toBe('');
+        expect(component.find('dp-search')[0].getAttribute('query')).toBe('');
 
         // With a query
         component = getComponent('I_AM_A_FAKE_QUERY', false);
-        expect(component.find('atlas-search')[0].getAttribute('query')).toBe('I_AM_A_FAKE_QUERY');
+        expect(component.find('dp-search')[0].getAttribute('query')).toBe('I_AM_A_FAKE_QUERY');
     });
 
     describe('user state', function () {
@@ -107,7 +107,7 @@ describe('The atlas-header component', function () {
         });
 
         it('doesn\'t show the search form', function () {
-            expect(component.find('atlas-search').length).toBe(0);
+            expect(component.find('dp-search').length).toBe(0);
         });
 
         it('doesn\'t show the login state', function () {
@@ -116,7 +116,7 @@ describe('The atlas-header component', function () {
         });
 
         it('doesn\'t show the dropdown menu', function () {
-            expect(component.find('atlas-menu-dropdown').length).toBe(0);
+            expect(component.find('dp-menu-dropdown').length).toBe(0);
         });
 
         it('shows a link to leave the print mode', function () {

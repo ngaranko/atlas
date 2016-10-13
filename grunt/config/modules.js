@@ -6,15 +6,15 @@ module.exports = [
         slug: 'shared'
     },
     {
-        name: 'atlasDetail',
+        name: 'dpDetail',
         slug: 'detail'
     },
     {
-        name: 'atlasHeader',
+        name: 'dpHeader',
         slug: 'header'
     },
     {
-        name: 'atlasLayerSelection',
+        name: 'dpLayerSelection',
         slug: 'layer-selection'
     },
     {
@@ -22,11 +22,11 @@ module.exports = [
         slug: 'map'
     },
     {
-        name: 'atlasPage',
+        name: 'dpPage',
         slug: 'page'
     },
     {
-        name: 'atlasSearchResults',
+        name: 'dpSearchResults',
         slug: 'search-results'
     },
     {

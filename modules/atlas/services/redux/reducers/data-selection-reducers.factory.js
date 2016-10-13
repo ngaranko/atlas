@@ -26,10 +26,10 @@
 
             newState.map.viewCenter = DEFAULT_STATE.map.viewCenter;
             newState.map.zoom = DEFAULT_STATE.map.zoom;
-            newState.map.showLayerSelection = false;
             newState.map.isFullscreen = false;
             newState.map.isLoading = false;
 
+            newState.layerSelection = false;
             newState.search = null;
             newState.page = null;
             newState.detail = null;

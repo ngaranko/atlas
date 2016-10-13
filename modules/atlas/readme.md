@@ -6,10 +6,10 @@
 | basiskaart          | map.baseLayer                   | yes, see DEFAULT_STATE |
 | lagen               | map.overlays                    | no, []                 |
 | zoom                | map.zoom                        | yes, see DEFAULT_STATE |
-| kaartlagen-selectie | map.showLayerSelection          | false                  |
 | actieve-kaartlagen  | map.showActiveOverlays          | false                  |
 | volledig-scherm     | map.isFullScreen                | false                  |
 |                     | map.isLoading                   | no                     |
+| kaartlagen-selectie | layerSelection                  | false                  |
 | pagina              | page                            | yes, see DEFAULT_STATE |
 | detail              | detail.uri                      | no, detail is null     |
 |                     | detail.isLoading                | no, detail is null     |

@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('atlasSearchResults')
+        .module('dpSearchResults')
         .factory('search', searchFactory);
 
     searchFactory.$inject = ['$q', 'SEARCH_CONFIG', 'api', 'searchFormatter'];

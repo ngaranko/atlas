@@ -30,9 +30,9 @@
             };
 
             newState.map.isLoading = true;
-            newState.map.showLayerSelection = false;
             newState.map.isFullscreen = false;
 
+            newState.layerSelection = false;
             newState.search = null;
             newState.page = null;
             newState.straatbeeld = null;
@@ -43,7 +43,7 @@
 
         /**
          * @param {Object} oldState
-         * @param {Object} payload - GeoJSON
+         * @param {Object} payload - An object with two variables; display (String) and geometry (GeoJSON).
          *
          * @returns {Object} newState
          */
@@ -52,7 +52,8 @@
 
             // Detail can be null if another action gets triggered between FETCH_DETAIL and SHOW_DETAIL
             if (angular.isObject(newState.detail)) {
-                newState.detail.geometry = payload;
+                newState.detail.display = payload.display;
+                newState.detail.geometry = payload.geometry;
 
                 newState.map.isLoading = false;
                 newState.detail.isLoading = false;
