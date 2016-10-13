@@ -148,7 +148,7 @@
                     newStraatbeeld.date = null;
                     newStraatbeeld.location = null;
                     newStraatbeeld.isInitial = true;
-                    newStraatbeeld.isLoading = angular.isString(payload.id);
+                    newStraatbeeld.isLoading = true;
                 }
 
                 return newStraatbeeld;
