@@ -38,7 +38,6 @@ describe('The dataSelectionReducers factory', function () {
                 overlays: ['OVERLAY_1', 'OVERLAY_2'],
                 viewCenter: [52.52, 4.4],
                 zoom: 16,
-                highlight: {some: 'object'},
                 showLayerSelection: true,
                 isFullscreen: true,
                 isLoading: true
@@ -55,7 +54,6 @@ describe('The dataSelectionReducers factory', function () {
             expect(output.map.zoom).toBe(DEFAULT_STATE.map.zoom);
 
             // It disables the rest
-            expect(output.map.highlight).toBeNull();
             expect(output.map.showLayerSelection).toBe(false);
             expect(output.map.isFullscreen).toBe(false);
             expect(output.map.isLoading).toBe(false);

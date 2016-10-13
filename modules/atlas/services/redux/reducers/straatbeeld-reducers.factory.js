@@ -47,7 +47,6 @@
             newState.straatbeeld.hotspots = [];
             newState.straatbeeld.isLoading = true;
 
-            newState.map.highlight = null;
             newState.map.isLoading = true;
             newState.search = null;
             newState.page = null;
