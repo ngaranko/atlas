@@ -16,23 +16,26 @@
             }
         });
 
-    DpLinkController.$inject = ['store', 'ACTIONS'];
+    DpLinkController.$inject = ['store', 'ACTIONS', 'reducer', 'stateToUrl'];
 
-    function DpLinkController (store, ACTIONS) {
-        var vm = this;
+    function DpLinkController (store, ACTIONS, reducer, stateToUrl) {
+        const vm = this;
 
         vm.className = vm.className || 'o-btn o-btn--link';
 
-        vm.followLink = function () {
-            var action = {
-                type: ACTIONS[vm.type]
-            };
+        store.subscribe(update);
+        update();
 
-            if (angular.isDefined(vm.payload)) {
-                action.payload = vm.payload;
-            }
+        function update () {
+            const oldState = store.getState(),
+                action = {
+                    type: ACTIONS[vm.type],
+                    payload: vm.payload
+                },
+                newState = reducer(oldState, action),
+                url = stateToUrl.create(newState);
 
-            store.dispatch(action);
-        };
+            vm.url = url;
+        }
     }
 })();
