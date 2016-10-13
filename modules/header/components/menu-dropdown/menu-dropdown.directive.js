@@ -9,7 +9,7 @@
         return {
             restrict: 'E',
             scope: {
-                hasPrintButton: '='
+                hasPrintButton: '<'
             },
             transclude: true,
             templateUrl: 'modules/header/components/menu-dropdown/menu-dropdown.html',
