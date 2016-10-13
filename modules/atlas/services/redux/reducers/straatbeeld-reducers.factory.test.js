@@ -95,17 +95,6 @@ describe('The straatbeeldReducers factory', function () {
             expect(output.map.isLoading).toBe(true);
         });
 
-        it('removes the highlighted object from the map', function () {
-            var inputState = angular.copy(defaultState),
-                output;
-
-            inputState.map.highlight = {some: 'object'};
-
-            output = straatbeeldReducers.FETCH_STRAATBEELD(inputState, 123);
-
-            expect(output.map.highlight).toBeNull();
-        });
-
         it('resets search, detail, page and dataSelection', function () {
             var inputState = angular.copy(defaultState),
                 output;

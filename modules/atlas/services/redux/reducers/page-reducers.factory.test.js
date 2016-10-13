@@ -22,13 +22,6 @@ describe('The pageReducers factory', function () {
             expect(output.page).toBe('goodbye');
         });
 
-        it('removes the highlighted object from the map', function () {
-            mockedState.map.highlight = 'SOME_HIGHLIGHTED_OBJECT';
-            output = pageReducers.SHOW_PAGE(mockedState, 'goodbye');
-
-            expect(output.map.highlight).toBeNull();
-        });
-
         it('disables the layer selection, search, detail, straatbeeld and dataSelection', function () {
             mockedState.search = {
                 query: 'SOME_QUERY',

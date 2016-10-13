@@ -134,16 +134,6 @@ describe('The stateToUrl factory', function () {
             }));
         });
 
-        it('can contain encoded GeoJSON for highlighting objects', function () {
-            mockedState.map.highlight = 'MOCKED_GEOJSON';
-
-            stateToUrl.update(mockedState, false);
-
-            expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
-                selectie: 'MOCKED_GEOJSON'
-            }));
-        });
-
         it('keeps track of the state of the layer selection (opened or closed)', function () {
             // Closed
             mockedState.map.showLayerSelection = false;

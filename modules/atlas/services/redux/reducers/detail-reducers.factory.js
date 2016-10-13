@@ -30,7 +30,6 @@
             };
 
             newState.map.isLoading = true;
-            newState.map.highlight = null;
             newState.map.showLayerSelection = false;
             newState.map.isFullscreen = false;
 
@@ -44,7 +43,7 @@
 
         /**
          * @param {Object} oldState
-         * @param {Object} payload - An object with two variables; location (Array) and highlight (GeoJSON).
+         * @param {Object} payload - GeoJSON
          *
          * @returns {Object} newState
          */
