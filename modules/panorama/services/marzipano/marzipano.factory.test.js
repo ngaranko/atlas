@@ -26,11 +26,6 @@ describe('The marzipanoService factory', function () {
                         return input /2;
                     }
                 },
-                panoramaApi: {
-                    getImageSourceUrl: function (sceneId) {
-                        return 'http://www.image-source-url.com/' + sceneId;
-                    }
-                },
                 hotspotService: {
                     createHotspotTemplate: function () {
                         var q = $q.defer();
@@ -135,9 +130,14 @@ describe('The marzipanoService factory', function () {
         });
 
         it('that, ehm, loads a scene', function () {
+            marzipanoService.loadScene('http://api.example.com/path/to/cubic/', 179, 1, 2, []);
 
-            marzipanoService.loadScene('example.png',179,1,2, []);
-
+            expect(Marzipano.ImageUrlSource.fromString).toHaveBeenCalledWith(
+                'http://api.example.com/path/to/cubic/{z}/{f}/{y}/{x}.jpg',
+                {
+                    cubeMapPreviewUrl: 'http://api.example.com/path/to/cubic/preview.jpg'
+                }
+            );
             expect(Marzipano.RectilinearView.limit.traditional).toHaveBeenCalledWith(1000, 50);
             expect(Marzipano.RectilinearView).toHaveBeenCalledWith({}, 'FAKE_VIEW_LIMITER');
             expect(Marzipano.CubeGeometry).toHaveBeenCalledWith(['FAKE_LEVEL', 'PROPERTIES_LIST']);
@@ -149,13 +149,10 @@ describe('The marzipanoService factory', function () {
                 pinFirstLevel: true
             });
 
- 
             expect(fakeView.setYaw).toHaveBeenCalledWith(89.5);
             expect(fakeView.setPitch).toHaveBeenCalledWith(0.5);
             expect(fakeView.setFov).toHaveBeenCalledWith(1);
             expect(fakeScene.switchTo).toHaveBeenCalled();
-
-
         });
 
         it('which adds hotspots to the scene', function () {
@@ -174,9 +171,7 @@ describe('The marzipanoService factory', function () {
             marzipanoService.loadScene('example.png',179,1,2, mockedHotspots);
 
             expect(hotspotService.createHotspotTemplate).toHaveBeenCalledTimes(2);
-
-            expect(hotspotService.createHotspotTemplate).toHaveBeenCalledWith( 'XYZ', 11);
-            
+            expect(hotspotService.createHotspotTemplate).toHaveBeenCalledWith('XYZ', 11);
             expect(hotspotService.createHotspotTemplate).toHaveBeenCalledWith('ABC', 5);
 
             $rootScope.$apply();
