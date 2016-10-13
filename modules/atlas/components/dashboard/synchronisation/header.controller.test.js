@@ -2,7 +2,8 @@ describe('The header controller', function () {
     var $controller,
         $rootScope,
         store,
-        mockedState;
+        mockedState,
+        DEFAULT_STATE;
 
     beforeEach(function () {
         angular.mock.module(
@@ -19,10 +20,11 @@ describe('The header controller', function () {
             }
         );
 
-        angular.mock.inject(function (_$controller_, _$rootScope_, _store_) {
+        angular.mock.inject(function (_$controller_, _$rootScope_, _store_, _DEFAULT_STATE_) {
             $controller = _$controller_;
             $rootScope = _$rootScope_;
             store = _store_;
+            DEFAULT_STATE = _DEFAULT_STATE_;
         });
 
         mockedState = {
@@ -75,5 +77,27 @@ describe('The header controller', function () {
         controller = getController();
 
         expect(controller.query).toBeNull();
+    });
+
+    describe('not all states have a print version', function () {
+        it('there is no print button when dataSelection is active', function () {
+            var controller;
+
+            mockedState.dataSelection = {};
+
+            spyOn(store, 'getState').and.returnValue(mockedState);
+            controller = getController();
+
+            expect(controller.hasPrintButton).toBe(false);
+        });
+
+        it('all non dataSelection modules have a printButton', function () {
+            var controller;
+
+            spyOn(store, 'getState').and.returnValue(DEFAULT_STATE);
+            controller = getController();
+
+            expect(controller.hasPrintButton).toBe(true);
+        });
     });
 });

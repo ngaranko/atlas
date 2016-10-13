@@ -38,9 +38,11 @@ describe('The dp-header component', function () {
 
         element = document.createElement('dp-header');
         element.setAttribute('query', query);
+        element.setAttribute('has-print-button', 'hasPrintButton');
         element.setAttribute('is-print-mode', isPrintMode);
 
         scope = $rootScope.$new();
+        scope.hasPrintButton = true;
         scope.isPrintMode = isPrintMode;
 
         component = $compile(element)(scope);
