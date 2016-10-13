@@ -34,7 +34,6 @@
                 numberOfResults: null
             };
 
-            newState.map.highlight = null;
             newState.map.isFullscreen = false;
 
             newState.layerSelection = false;
@@ -67,7 +66,6 @@
                 newState.map.viewCenter = payload;
             }
 
-            newState.map.highlight = null;
             newState.layerSelection = false;
             newState.map.showActiveOverlays = false;
             newState.map.isFullscreen = false;

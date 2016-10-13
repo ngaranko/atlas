@@ -30,7 +30,6 @@
             };
 
             newState.map.isLoading = true;
-            newState.map.highlight = null;
             newState.map.isFullscreen = false;
 
             newState.layerSelection = false;

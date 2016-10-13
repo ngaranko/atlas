@@ -36,10 +36,14 @@ describe('The detailReducers factory', function () {
                 inputState = angular.copy(defaultState),
                 output;
 
-            inputState.map.highlight = {some: 'object'};
+            inputState.detail = {
+                geometry: {
+                    some: 'object'
+                }
+            };
 
             output = detailReducers.FETCH_DETAIL(inputState, payload);
-            expect(output.map.highlight).toBeNull();
+            expect(output.detail.geometry).toBeUndefined();
         });
 
         it('disables layer selection, search, page, straatbeeld and dataSelection', function () {

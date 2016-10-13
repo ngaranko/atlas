@@ -26,7 +26,6 @@
 
             newState.page = payload;
 
-            newState.map.highlight = null;
             newState.map.isFullscreen = false;
 
             newState.layerSelection = false;

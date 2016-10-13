@@ -26,7 +26,6 @@
 
             newState.map.viewCenter = DEFAULT_STATE.map.viewCenter;
             newState.map.zoom = DEFAULT_STATE.map.zoom;
-            newState.map.highlight = null;
             newState.map.isFullscreen = false;
             newState.map.isLoading = false;
 

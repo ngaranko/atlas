@@ -219,19 +219,6 @@ describe('The urlReducers factory', function () {
                 expect(output.map.zoom).toBe(16);
             });
 
-            it('can set a highlight', function () {
-                var output;
-
-                // No selectie in the URL
-                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
-                expect(output.map.highlight).toBeNull();
-
-                // With selectie
-                mockedSearchParams.selectie = 'I_AM_A_FAKE_GEOJSON_OBJECT';
-                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
-                expect(output.map.highlight).toBe('I_AM_A_FAKE_GEOJSON_OBJECT');
-            });
-
             it('sets the showActiveOverlays status', function () {
                 var output;
 

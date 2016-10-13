@@ -64,7 +64,6 @@
                 basiskaart: state.map.baseLayer,
                 lagen: lagen.join(',') || null,
                 zoom: String(state.map.zoom),
-                selectie: state.map.highlight,
                 'actieve-kaartlagen': state.map.showActiveOverlays ? 'aan' : null,
                 'volledig-scherm': state.map.isFullscreen ? 'aan' : null
             };

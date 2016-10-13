@@ -6,7 +6,6 @@
 | basiskaart          | map.baseLayer                   | yes, see DEFAULT_STATE |
 | lagen               | map.overlays                    | no, []                 |
 | zoom                | map.zoom                        | yes, see DEFAULT_STATE |
-| selectie            | map.highlight                   | no, null               |
 | actieve-kaartlagen  | map.showActiveOverlays          | false                  |
 | volledig-scherm     | map.isFullScreen                | false                  |
 |                     | map.isLoading                   | no                     |
