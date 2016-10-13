@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('atlasDetail')
+        .module('dpDetail')
         .constant('STELSELPEDIA', {
             DEFINITIONS: {
                 A_PERCEEL: {
@@ -26,6 +26,13 @@
                     'rechten op het object.',
                     url: 'https://www.amsterdam.nl/stelselpedia/brk-index/catalog-brk-levering/objectklasse-aant/',
                     meta: []
+                },
+                BEPERKING: {
+                    label_singular: 'Gemeentelijke beperking',
+                    label_plural: 'Gemeentelijke beperkingen',
+                    description: 'Lijst van beperkingen op een gebruiksrecht.',
+                    url: 'https://www.amsterdam.nl/stelselpedia/wkpb-index/catalogus/beperking/#objectkenmerken',
+                    meta: ['datum_in_werking', 'datum_einde']
                 },
                 BETROKKEN_BIJ: {
                     label_singular: 'Betrokken bij',
@@ -96,37 +103,13 @@
                     url: 'https://www.amsterdam.nl/stelselpedia/gebieden-index/catalogus/gebiedsgericht/',
                     meta: []
                 },
-                GEMEENTELIJKE_BEPERKING: {
-                    label_singular: 'Gemeentelijke beperking',
-                    label_plural: 'Gemeentelijke beperkingen',
-                    description: 'Lijst van beperkingen op een gebruiksrecht.',
-                    url: 'https://www.amsterdam.nl/stelselpedia/wkpb-index/catalogus/beperking/#objectkenmerken',
-                    meta: ['datum_in_werking', 'datum_einde']
-                },
-                GROOTSTEDELIJK: {
+                GROOTSTEDELIJKGEBIED: {
                     label_singular: 'Grootstedelijk gebied',
                     label_plural: 'Grootstedelijke gebieden',
                     description: 'Grootstedelijke gebieden zijn gebieden binnen de gemeente Amsterdam, waar de ' +
                     'gemeenteraad, het college van burgemeester en wethouders of de burgemeester bevoegd is.',
                     url: 'https://www.amsterdam.nl/stelselpedia/gebieden-index/catalogus/grootstedelijk/',
                     meta: []
-                },
-                KADASTRAAL_OBJECT: {
-                    label_singular: 'Kadastraal object',
-                    label_plural: 'Kadastrale objecten',
-                    description: 'Een Kadastraal Object is een Onroerende zaak of een Teboekgestelde ' +
-                    'zaak waarvoor bij overdracht of vestiging van rechten inschrijving in de openbare registers van ' +
-                    'het Kadaster is vereist.',
-                    url: 'https://www.amsterdam.nl/stelselpedia/brk-index/catalog-brk-levering/objectklasse-objec/',
-                    meta: ['id']
-                },
-                KADASTRAAL_SUBJECT: {
-                    label_singular: 'Kadastraal subject',
-                    label_plural: 'Kadastrale subjecten',
-                    description: 'Een Kadastraal subject is een persoon die in de kadastrale registratie voorkomt. ' +
-                        'Het kan hier gaan om een natuurlijk of een niet-natuurlijk persoon.',
-                    url: 'https://www.amsterdam.nl/stelselpedia/brk-index/catalog-brk-levering/kadastraal-subject/',
-                    meta: ['id']
                 },
                 LIGPLAATS: {
                     label_singular: 'Ligplaats',
@@ -172,7 +155,7 @@
                     url: 'https://www.amsterdam.nl/stelselpedia/meetbouten-index/catalogus-amsterdams/meting/',
                     meta: []
                 },
-                NAP_PEILMERK: {
+                PEILMERK: {
                     label_singular: 'NAP peilmerk',
                     label_plural: 'NAP peilmerken',
                     description: 'Het Normaal Amsterdams Peil (afgekort tot NAP) is de referentiehoogte ' +
@@ -203,6 +186,22 @@
                         'sleutelverzendend'
                     ]
                 },
+                OBJECT: {
+                    label_singular: 'Kadastraal object',
+                    label_plural: 'Kadastrale objecten',
+                    description: 'Een Kadastraal Object is een Onroerende zaak of een Teboekgestelde ' +
+                    'zaak waarvoor bij overdracht of vestiging van rechten inschrijving in de openbare registers van ' +
+                    'het Kadaster is vereist.',
+                    url: 'https://www.amsterdam.nl/stelselpedia/brk-index/catalog-brk-levering/objectklasse-objec/',
+                    meta: ['id']
+                },
+                OBJECT_WKPB: {
+                    label_singular: 'WKPB-uittreksel',
+                    label_plural: null,
+                    description: null,
+                    url: null,
+                    meta: []
+                },
                 ONTSTAAN_UIT: {
                     label_singular: 'Ontstaan uit',
                     label_plural: 'Ontstaan uit',
@@ -210,7 +209,7 @@
                     url: 'https://www.amsterdam.nl/stelselpedia/brk-index/catalog-brk-levering/zakelijk-recht/',
                     meta: []
                 },
-                OPENBARE_RUIMTE: {
+                OPENBARERUIMTE: {
                     label_singular: 'Openbare ruimte',
                     label_plural: 'Openbare ruimtes',
                     description: 'Een openbare ruimte is een door het bevoegde gemeentelijke orgaan als ' +
@@ -274,6 +273,14 @@
                         'standplaatsidentificatie',
                         'sleutelverzendend'
                     ]
+                },
+                SUBJECT: {
+                    label_singular: 'Kadastraal subject',
+                    label_plural: 'Kadastrale subjecten',
+                    description: 'Een Kadastraal subject is een persoon die in de kadastrale registratie voorkomt. ' +
+                    'Het kan hier gaan om een natuurlijk of een niet-natuurlijk persoon.',
+                    url: 'https://www.amsterdam.nl/stelselpedia/brk-index/catalog-brk-levering/kadastraal-subject/',
+                    meta: ['id']
                 },
                 UNESCO: {
                     label_singular: 'UNESCO',

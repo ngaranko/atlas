@@ -1,6 +1,6 @@
 (function () {
     angular
-        .module('atlasSearchResults')
+        .module('dpSearchResults')
         .factory('geosearch', geosearchFactory);
 
     geosearchFactory.$inject = ['$q', 'SEARCH_CONFIG', 'api', 'geosearchFormatter', 'searchFormatter'];

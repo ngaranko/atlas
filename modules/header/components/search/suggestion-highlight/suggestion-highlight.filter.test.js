@@ -2,7 +2,7 @@ describe('The dpSuggestionHighlight filter', function () {
     var suggestionHighlight;
 
     beforeEach(function () {
-        angular.mock.module('atlasHeader');
+        angular.mock.module('dpHeader');
 
         angular.mock.inject(function (_suggestionHighlightFilter_) {
             suggestionHighlight = _suggestionHighlightFilter_;

@@ -20,8 +20,9 @@
             } else {
                 var newState = {};
 
-                newState.search = getSearchState(payload);
+                newState.search = getSearchState(oldState, payload);
                 newState.map = getMapState(payload);
+                newState.layerSelection = getLayerSelectionState(payload);
                 newState.page = payload.pagina || null;
                 newState.detail = getDetailState(oldState, payload);
                 newState.straatbeeld = getStraatbeeldState(oldState, payload);
@@ -32,9 +33,22 @@
             }
         }
 
-        function getSearchState (payload) {
+        function hasStraatbeeld (payload) {
+            return payload.id || hasSearchLocation(payload);
+        }
+
+        /**
+         * @description This is a 'search nearest straatbeeld' location, not the location of the camera of a
+         * found panorama scene. The actual location is not stored in the URL, this is implicitly accessible
+         * through the ID.
+         */
+        function hasSearchLocation (payload) {
+            return payload.plat && payload.plon;
+        }
+
+        function getSearchState (oldState, payload) {
             if (angular.isString(payload.zoek)) {
-                var searchState = {};
+                var searchState = angular.copy(oldState.search) || {};
 
                 if (isLocation(payload.zoek)) {
                     searchState.query = null;
@@ -47,6 +61,10 @@
                 }
 
                 searchState.category = payload.categorie || null;
+
+                if (!angular.equals(searchState, oldState.search)) {
+                    searchState.isLoading = true;
+                }
 
                 return searchState;
             } else {
@@ -92,22 +110,27 @@
                     Number(payload.lon)
                 ],
                 zoom: Number(payload.zoom),
-                showLayerSelection: angular.isString(payload['kaartlagen-selectie']),
                 showActiveOverlays: angular.isString(payload['actieve-kaartlagen']),
                 isFullscreen: angular.isString(payload['volledig-scherm']),
                 isLoading: false
             };
         }
 
+        function getLayerSelectionState (payload) {
+            return angular.isString(payload['kaartlagen-selectie']);
+        }
+
         function getDetailState (oldState, payload) {
             if (angular.isString(payload.detail)) {
                 var newDetailState = {
                     endpoint: payload.detail,
-                    isLoading: false
+                    isLoading: true
                 };
 
                 if (angular.isObject(oldState.detail) && oldState.detail.endpoint === payload.detail) {
+                    newDetailState.display = oldState.detail.display;
                     newDetailState.geometry = oldState.detail.geometry;
+                    newDetailState.isLoading = oldState.detail.isLoading;
                 }
 
                 return newDetailState;
@@ -116,35 +139,20 @@
             }
         }
 
-        function hasStraatbeeld (payload) {
-            return payload.id || hasSearchLocation(payload);
-        }
-
-        /**
-         * @description This is a 'search nearest straatbeeld' location, not the location of the camera of a
-         * found panorama scene. The actual location is not stored in the URL, this is implicitly accessible
-         * through the ID.
-         */
-        function hasSearchLocation (payload) {
-            return payload.plat && payload.plon;
-        }
-
         function getStraatbeeldState (oldState, payload) {
             if (hasStraatbeeld(payload)) {
-                var date,
-                    car,
+                var date = null,
+                    car = null,
                     camera,
-                    hotspots;
+                    hotspots = [],
+                    isLoading = true;
 
                 if (oldState.straatbeeld && oldState.straatbeeld.id === Number(payload.id)) {
                     // Stuff that isn't in the URL but implicitly linked through the ID
                     date = oldState.straatbeeld.date;
                     car = oldState.straatbeeld.car || null;
                     hotspots = oldState.straatbeeld.hotspots;
-                } else {
-                    date = null;
-                    car = null;
-                    hotspots = [];
+                    isLoading = oldState.straatbeeld.isLoading;
                 }
 
                 camera = {
@@ -164,7 +172,7 @@
                     car: car,
                     camera: camera,
                     hotspots: hotspots,
-                    isLoading: false
+                    isLoading: isLoading
                 };
             } else {
                 return null;

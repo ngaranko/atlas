@@ -1,17 +1,17 @@
 (function () {
     angular
-        .module('atlasDetail')
-        .component('atlasDetail', {
+        .module('dpDetail')
+        .component('dpDetail', {
             bindings: {
                 endpoint: '@',
                 isLoading: '='
             },
             templateUrl: 'modules/detail/components/detail/detail.html',
-            controller: AtlasDetailController,
+            controller: DpDetailController,
             controllerAs: 'vm'
         });
 
-    AtlasDetailController.$inject = [
+    DpDetailController.$inject = [
         '$scope',
         'store',
         'ACTIONS',
@@ -22,7 +22,7 @@
         'crsConverter'
     ];
 
-    function AtlasDetailController (
+    function DpDetailController (
         $scope,
         store,
         ACTIONS,
@@ -50,7 +50,10 @@
 
                     store.dispatch({
                         type: ACTIONS.SHOW_DETAIL,
-                        payload: geoJSON
+                        payload: {
+                            display: data._display,
+                            geometry: geoJSON
+                        }
                     });
                 });
             });

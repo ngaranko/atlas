@@ -42,6 +42,7 @@
             return angular.merge(
                 getSearchParams(state),
                 getMapParams(state),
+                getLayerSelectionParams(state),
                 getPageParams(state),
                 getDetailParams(state),
                 getStraatbeeldParams(state),
@@ -83,9 +84,14 @@
                 basiskaart: state.map.baseLayer,
                 lagen: lagen.join(',') || null,
                 zoom: String(state.map.zoom),
-                'kaartlagen-selectie': state.map.showLayerSelection ? 'aan' : null,
                 'actieve-kaartlagen': state.map.showActiveOverlays ? 'aan' : null,
                 'volledig-scherm': state.map.isFullscreen ? 'aan' : null
+            };
+        }
+
+        function getLayerSelectionParams (state) {
+            return {
+                'kaartlagen-selectie': state.layerSelection ? 'aan' : null
             };
         }
 

@@ -1,21 +1,17 @@
 (function () {
     'use strict';
+
     angular
-        .module('atlasDetail')
-        .factory('dateConverter', dateConverterService);
+        .module('dpDetail')
+        .factory('dateConverter', dateConverterFactory);
 
-    dateConverterService.$inject = ['d3'];
-    /* @ngInject */
+    dateConverterFactory.$inject = ['d3'];
 
-    function dateConverterService (d3) {
+    function dateConverterFactory (d3) {
         return {
             ymdToDate: ymdToDate
         };
 
-        /**
-         * @param input
-         * @returns {*}
-         */
         function ymdToDate (input) {
             var parseDate = d3.time.format('%Y-%m-%d').parse;
 

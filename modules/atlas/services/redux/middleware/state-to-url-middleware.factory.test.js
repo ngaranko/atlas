@@ -49,7 +49,10 @@ describe('The stateToUrlMiddleware factory', function () {
         var actionWithoutUrlUpdate = [
             ACTIONS.URL_CHANGE,
             ACTIONS.FETCH_DETAIL,
-            ACTIONS.FETCH_STRAATBEELD
+            ACTIONS.FETCH_STRAATBEELD,
+            ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY,
+            ACTIONS.FETCH_SEARCH_RESULTS_BY_CLICK,
+            ACTIONS.FETCH_SEARCH_RESULTS_CATEGORY
         ];
 
         actionWithoutUrlUpdate.forEach(function (action) {
@@ -64,9 +67,7 @@ describe('The stateToUrlMiddleware factory', function () {
 
     it('does call stateToUrl.update for all other actions', function () {
         var actionsWithUrlUpdate = [
-            ACTIONS.SHOW_SEARCH_RESULTS_BY_QUERY,
-            ACTIONS.SHOW_SEARCH_RESULTS_BY_CLICK,
-            ACTIONS.SHOW_SEARCH_RESULTS_CATEGORY,
+            ACTIONS.SHOW_SEARCH_RESULTS,
             ACTIONS.MAP_SET_BASELAYER,
             ACTIONS.MAP_ADD_OVERLAY,
             ACTIONS.MAP_REMOVE_OVERLAY,
@@ -80,8 +81,8 @@ describe('The stateToUrlMiddleware factory', function () {
             ACTIONS.STRAATBEELD_SET_ORIENTATION,
             ACTIONS.SHOW_LAYER_SELECTION,
             ACTIONS.HIDE_LAYER_SELECTION,
-            ACTIONS.SHOW_ACTIVE_OVERLAYS,
-            ACTIONS.HIDE_ACTIVE_OVERLAYS,
+            ACTIONS.SHOW_MAP_ACTIVE_OVERLAYS,
+            ACTIONS.HIDE_MAP_ACTIVE_OVERLAYS,
             ACTIONS.SHOW_HOME,
             ACTIONS.SHOW_PAGE,
             ACTIONS.SHOW_PRINT,
@@ -107,13 +108,11 @@ describe('The stateToUrlMiddleware factory', function () {
                 ACTIONS.MAP_PAN,
                 ACTIONS.MAP_ZOOM,
                 ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT,
-                ACTIONS.SHOW_ACTIVE_OVERLAYS,
-                ACTIONS.HIDE_ACTIVE_OVERLAYS
+                ACTIONS.SHOW_MAP_ACTIVE_OVERLAYS,
+                ACTIONS.HIDE_MAP_ACTIVE_OVERLAYS
             ],
             shouldNotUseReplace = [
-                ACTIONS.SHOW_SEARCH_RESULTS_BY_QUERY,
-                ACTIONS.SHOW_SEARCH_RESULTS_BY_CLICK,
-                ACTIONS.SHOW_SEARCH_RESULTS_CATEGORY,
+                ACTIONS.SHOW_SEARCH_RESULTS,
                 ACTIONS.MAP_FULLSCREEN,
                 ACTIONS.SHOW_DETAIL,
                 ACTIONS.SHOW_STRAATBEELD_INITIAL,

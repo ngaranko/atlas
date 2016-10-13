@@ -4,7 +4,7 @@ describe('dateConverter', function () {
     var dateConverter;
 
     beforeEach(function () {
-        angular.mock.module('atlasDetail');
+        angular.mock.module('dpDetail');
 
         angular.mock.inject(function (_dateConverter_) {
             dateConverter = _dateConverter_;

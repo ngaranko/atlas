@@ -2,12 +2,12 @@
     'use strict';
 
     angular
-        .module('atlasHeader')
-        .directive('atlasSearch', atlasSearchDirective);
+        .module('dpHeader')
+        .directive('dpSearch', dpSearchDirective);
 
-    atlasSearchDirective.$inject = ['$timeout', 'autocompleteData', 'environment', 'store', 'ACTIONS'];
+    dpSearchDirective.$inject = ['$timeout', 'autocompleteData', 'environment', 'store', 'ACTIONS'];
 
-    function atlasSearchDirective ($timeout, autocompleteData, environment, store, ACTIONS) {
+    function dpSearchDirective ($timeout, autocompleteData, environment, store, ACTIONS) {
         return {
             restrict: 'E',
             scope: {
@@ -31,7 +31,7 @@
                 if (scope.activeSuggestionIndex === -1) {
                     // Load the search results
                     store.dispatch({
-                        type: ACTIONS.SHOW_SEARCH_RESULTS_BY_QUERY,
+                        type: ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY,
                         payload: scope.query
                     });
                 } else {

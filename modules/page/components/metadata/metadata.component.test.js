@@ -1,4 +1,4 @@
-describe('The atlas-metadata component', function () {
+describe('The dp-metadata component', function () {
     var $compile,
         $rootScope,
         $q,
@@ -7,7 +7,7 @@ describe('The atlas-metadata component', function () {
 
     beforeEach(function () {
         angular.mock.module(
-            'atlasPage',
+            'dpPage',
             {
                 api: {
                     getByUri: function () {
@@ -59,7 +59,7 @@ describe('The atlas-metadata component', function () {
             element,
             scope;
 
-        element = document.createElement('atlas-metadata');
+        element = document.createElement('dp-metadata');
         scope = $rootScope.$new();
 
         component = $compile(element)(scope);

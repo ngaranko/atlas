@@ -1,4 +1,4 @@
-describe('The atlas-layer-selection component', function () {
+describe('The dp-layer-selection component', function () {
     var $compile,
         $rootScope,
         store,
@@ -6,7 +6,7 @@ describe('The atlas-layer-selection component', function () {
 
     beforeEach(function () {
         angular.mock.module(
-            'atlasLayerSelection',
+            'dpLayerSelection',
             {
                 store: {
                     dispatch: function () {}
@@ -91,7 +91,7 @@ describe('The atlas-layer-selection component', function () {
             element,
             scope;
 
-        element = document.createElement('atlas-layer-selection');
+        element = document.createElement('dp-layer-selection');
         element.setAttribute('base-layer', baseLayer);
         element.setAttribute('overlays', 'overlays');
         element.setAttribute('zoom', 'zoom');
