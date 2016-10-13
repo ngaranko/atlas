@@ -29,7 +29,7 @@
                 } else {
                     visibility.map = !state.layerSelection && (
                         state.map.isFullscreen ||
-                        angular.isObject(state.detail) ||
+                        (angular.isObject(state.detail) && angular.isObject(state.detail.geometry)) ||
                         angular.isObject(state.straatbeeld));
                 }
 
