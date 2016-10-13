@@ -1,7 +1,7 @@
 <div class="c-dashboard">
     <div class="c-dashboard__heading">
         <div ng-controller="HeaderController as header">
-            <dp-header query="{{header.query}}" is-print-mode="vm.isPrintMode"></dp-header>
+            <dp-header query="{{header.query}}" has-print-button="header.hasPrintButton" is-print-mode="vm.isPrintMode"></dp-header>
         </div>
     </div>
     <div class="c-dashboard__content"
