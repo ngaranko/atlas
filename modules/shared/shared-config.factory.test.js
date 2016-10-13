@@ -23,14 +23,14 @@ describe('The sharedConfig factory', function () {
             var sharedConfig = prepareMocks('DEVELOPMENT');
 
             expect(sharedConfig.STRAATBEELD_THUMB_URL)
-                .toBe('https://api-acc.datapunt.amsterdam.nl/straatbeeld/thumbnail/');
+                .toBe('https://api-acc.datapunt.amsterdam.nl/panorama/thumbnail/');
         });
 
         it('production', function () {
             var sharedConfig = prepareMocks('PRODUCTION');
 
             expect(sharedConfig.STRAATBEELD_THUMB_URL)
-                .toBe('https://api.datapunt.amsterdam.nl/straatbeeld/thumbnail/');
+                .toBe('https://api.datapunt.amsterdam.nl/panorama/thumbnail/');
         });
     });
 });

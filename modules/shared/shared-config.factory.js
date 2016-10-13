@@ -16,13 +16,12 @@
             THUMBNAIL_WIDTH: 240
         };
 
-
         environmentConfig = {
             DEVELOPMENT: {
-                STRAATBEELD_THUMB_URL: 'https://api-acc.datapunt.amsterdam.nl/straatbeeld/thumbnail/'
+                STRAATBEELD_THUMB_URL: 'https://api-acc.datapunt.amsterdam.nl/panorama/thumbnail/'
             },
             PRODUCTION: {
-                STRAATBEELD_THUMB_URL: 'https://api.datapunt.amsterdam.nl/straatbeeld/thumbnail/'
+                STRAATBEELD_THUMB_URL: 'https://api.datapunt.amsterdam.nl/panorama/thumbnail/'
             }
         };
 
