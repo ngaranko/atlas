@@ -209,7 +209,7 @@
                     url: 'https://www.amsterdam.nl/stelselpedia/brk-index/catalog-brk-levering/zakelijk-recht/',
                     meta: []
                 },
-                OPENBARE_RUIMTE: {
+                OPENBARERUIMTE: {
                     label_singular: 'Openbare ruimte',
                     label_plural: 'Openbare ruimtes',
                     description: 'Een openbare ruimte is een door het bevoegde gemeentelijke orgaan als ' +
