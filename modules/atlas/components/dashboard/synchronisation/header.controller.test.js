@@ -81,10 +81,9 @@ describe('The header controller', function () {
 
     describe('not all states have a print version', function () {
         it('there is no print button when dataSelection is active', function () {
-            var controller,
-                mockedState = {
-                    dataSelection: {}
-                };
+            var controller;
+
+            mockedState.dataSelection = {};
 
             spyOn(store, 'getState').and.returnValue(mockedState);
             controller = getController();
