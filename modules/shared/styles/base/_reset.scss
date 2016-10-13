@@ -21,10 +21,12 @@ button {
 
 input {
   &[type="number"] {
-    &::-webkit-inner-spin-button,
-    &::-webkit-outer-spin-button {
+    appearance: textfield;
+
+    &::inner-spin-button,
+    &::outer-spin-button {
       margin: 0;
-      -webkit-appearance: none;
+      appearance: none;
     }
   }
 }

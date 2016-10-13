@@ -2,10 +2,10 @@
     'use strict';
 
     angular
-        .module('atlasDetail')
-        .directive('atlasStelselpediaHeader', atlasStelselpediaHeaderDirective);
+        .module('dpDetail')
+        .directive('dpStelselpediaHeader', dpStelselpediaHeaderDirective);
 
-    function atlasStelselpediaHeaderDirective () {
+    function dpStelselpediaHeaderDirective () {
         return {
             restrict: 'E',
             scope: {
@@ -17,25 +17,29 @@
             },
             templateUrl: 'modules/detail/components/stelselpedia/header/stelselpedia-header.html',
             transclude: true,
-            controller: AtlasStelselpediaHeaderController,
+            controller: DpStelselpediaHeaderController,
             controllerAs: 'vm',
             bindToController: true
         };
     }
 
-    AtlasStelselpediaHeaderController.$inject = ['$scope', '$sce', 'STELSELPEDIA'];
+    DpStelselpediaHeaderController.$inject = ['$scope', '$sce', 'STELSELPEDIA'];
 
-    function AtlasStelselpediaHeaderController ($scope, $sce, STELSELPEDIA) {
-        var vm = this,
-            isVisible = {};
+    function DpStelselpediaHeaderController ($scope, $sce, STELSELPEDIA) {
+        var vm = this;
+
+        vm.isVisible = {
+            help: false,
+            meta: false
+        };
 
         $scope.$watch('vm.heading', function (heading) {
             vm.htmlHeading = $sce.trustAsHtml(heading);
         });
 
-        vm.stelselpediaLabel = vm.usePlural ?
-            STELSELPEDIA.DEFINITIONS[vm.definition].label_plural :
-            STELSELPEDIA.DEFINITIONS[vm.definition].label_singular;
+        vm.stelselpediaLabel = vm.usePlural
+            ? STELSELPEDIA.DEFINITIONS[vm.definition].label_plural
+            : STELSELPEDIA.DEFINITIONS[vm.definition].label_singular;
         vm.stelselpediaDescription = STELSELPEDIA.DEFINITIONS[vm.definition].description;
         vm.stelselpediaUrl = STELSELPEDIA.DEFINITIONS[vm.definition].url;
 
@@ -45,26 +49,22 @@
         vm.metaDataTitle = 'Informatie (metadata) tonen';
 
         vm.toggle = function (item) {
-            isVisible[item] = !isVisible[item];
+            vm.isVisible[item] = !vm.isVisible[item];
 
-            if(item === 'help'){
-                if(isVisible[item]) {
+            if (item === 'help') {
+                if (vm.isVisible[item]) {
                     vm.stelselpediaTitle = 'Uitleg verbergen';
                 } else {
                     vm.stelselpediaTitle = 'Uitleg tonen';
                 }
             }
-            if(item === 'meta'){
-                if(isVisible[item]) {
+            if (item === 'meta') {
+                if (vm.isVisible[item]) {
                     vm.metaDataTitle = 'Informatie (metadata) verbergen';
                 } else {
                     vm.metaDataTitle = 'Informatie (metadata) tonen';
                 }
             }
-        };
-
-        vm.isVisible = function (item) {
-            return isVisible[item];
         };
     }
 })();

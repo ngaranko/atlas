@@ -3,19 +3,20 @@
 
     angular
         .module('atlas')
-        .service('stateToUrl', stateToUrlFactory);
+        .factory('stateToUrl', stateToUrlFactory);
 
     stateToUrlFactory.$inject = ['$location', '$window'];
 
-    function stateToUrlFactory($location, $window) {
+    function stateToUrlFactory ($location, $window) {
         return {
             update: update
         };
 
-        function update(state, useReplace) {
+        function update (state, useReplace) {
             var searchParams = angular.merge(
                 getSearchParams(state),
                 getMapParams(state),
+                getLayerSelectionParams(state),
                 getPageParams(state),
                 getDetailParams(state),
                 getStraatbeeldParams(state),
@@ -30,7 +31,7 @@
             $location.search(searchParams);
         }
 
-        function getSearchParams(state) {
+        function getSearchParams (state) {
             var params = {};
 
             if (state.search) {
@@ -46,8 +47,9 @@
             return params;
         }
 
-        function getMapParams(state) {
-            var lagen = [], isVisible;
+        function getMapParams (state) {
+            var lagen = [],
+                isVisible;
             for (var i = 0; i < state.map.overlays.length; i++) {
                 if (state.map.overlays[i].isVisible) {
                     isVisible = 'zichtbaar';
@@ -62,20 +64,24 @@
                 basiskaart: state.map.baseLayer,
                 lagen: lagen.join(',') || null,
                 zoom: String(state.map.zoom),
-                selectie: state.map.highlight,
-                'kaartlagen-selectie': state.map.showLayerSelection ? 'aan' : null,
                 'actieve-kaartlagen': state.map.showActiveOverlays ? 'aan' : null,
                 'volledig-scherm': state.map.isFullscreen ? 'aan' : null
             };
         }
 
-        function getPageParams(state) {
+        function getLayerSelectionParams (state) {
+            return {
+                'kaartlagen-selectie': state.layerSelection ? 'aan' : null
+            };
+        }
+
+        function getPageParams (state) {
             return {
                 pagina: state.page
             };
         }
 
-        function getDetailParams(state) {
+        function getDetailParams (state) {
             return {
                 detail: state.detail && state.detail.endpoint || null
             };
@@ -91,11 +97,11 @@
                 params.pitch = String(state.straatbeeld.pitch);
                 params.fov = String(state.straatbeeld.fov);
             }
-                    
+
             return params;
         }
 
-        function getDataSelectionParams(state) {
+        function getDataSelectionParams (state) {
             var params = {},
                 datasetFilters = [];
 
@@ -116,7 +122,7 @@
             return params;
         }
 
-        function getPrintParams(state) {
+        function getPrintParams (state) {
             return {
                 'print-versie': state.isPrintMode ? 'aan' : null
             };

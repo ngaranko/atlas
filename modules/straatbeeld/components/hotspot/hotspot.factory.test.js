@@ -30,4 +30,27 @@ describe('The hotspotService', function () {
 
         $rootScope.$apply();
     });
+
+    it('calculates the location of the hotspot', function () {
+        var absolutePosition,
+            camera,
+            hotspot;
+
+        camera = {
+            heading: 2,
+            pitch: 0.5
+        };
+
+        hotspot = {
+            relativeLocation: {
+                yaw: 0.5,
+                pitch: 0.1
+            }
+        };
+
+        absolutePosition = hotspotService.calculateHotspotPosition(camera, hotspot);
+
+        expect(absolutePosition.yaw).toBe(-1.5);
+        expect(absolutePosition.pitch).toBe(0.6);
+    });
 });

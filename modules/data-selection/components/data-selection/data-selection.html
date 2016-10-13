@@ -1,6 +1,6 @@
 <div class="u-grid">
     <div class="u-row c-data-selection__grid">
-        <div class="u-col-sm--3 u-col-md--2">
+        <div class="u-col-sm--3">
             <dp-data-selection-filters
                 dataset="{{vm.state.dataset}}"
                 available-filters="vm.availableFilters"
@@ -9,14 +9,14 @@
 
             </dp-data-selection-filters>
         </div>
-        <div class="u-col-sm--9 u-col-md--10">
+        <div class="u-col-sm--9">
             <dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>
 
 
             <div ng-if="!vm.isLoading">
 
                 <dp-data-selection-header
-                    state="vm.state" number-of-records="vm.numberOfRecords">
+                    state="vm.state" number-of-records="vm.numberOfRecords" header-title="vm.title">
 
                 </dp-data-selection-header>
 

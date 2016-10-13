@@ -31,6 +31,7 @@
             MAX_AVAILABLE_PAGES: 100,
             bag: {
                 PRIMARY_KEY: 'id',
+                TITLE: 'Adressen',
                 FILTERS: [
                     {
                         slug: 'stadsdeel_naam',
@@ -38,9 +39,6 @@
                     }, {
                         slug: 'ggw_naam',
                         label: 'GGW-gebied'
-                    }, {
-                        slug: 'ggw_naam',
-                        label: 'Gebieden'
                     }, {
                         slug: 'buurtcombinatie_naam',
                         label: 'Buurtcombinatie'

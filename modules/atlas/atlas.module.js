@@ -3,15 +3,21 @@
 
     angular
         .module('atlas', [
-            'atlasHeader',
-            'atlasPage',
-            'atlasDetail',
-            'atlasSearchResults',
-            'atlasLayerSelection',
+            // Main modules
+            'dpHeader',
+            'dpPage',
+            'dpDetail',
+            'dpSearchResults',
+            'dpLayerSelection',
             'dpMap',
             'dpStraatbeeld',
             'dpDataSelection',
 
-            'dpShared'
+            // Shared module
+            'dpShared',
+
+            // Third party modules
+            'angulartics',
+            'angulartics.piwik'
         ]);
 })();

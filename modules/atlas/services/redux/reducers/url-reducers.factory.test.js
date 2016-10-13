@@ -23,7 +23,7 @@ describe('The urlReducers factory', function () {
 
     describe('URL_CHANGE', function () {
         it('returns the default state when the payload is empty', function () {
-            var output = urlReducers.URL_CHANGE({ some: 'object' }, {});
+            var output = urlReducers.URL_CHANGE({some: 'object'}, {});
 
             expect(output).toEqual(mockedState);
         });
@@ -46,7 +46,7 @@ describe('The urlReducers factory', function () {
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
 
                 expect(output.search.query).toBeNull();
-                //Also checking if the strings are converted to numbers.
+                // Also checking if the strings are converted to numbers.
                 expect(output.search.location).toEqual([52.001, 4.002]);
             });
 
@@ -59,6 +59,93 @@ describe('The urlReducers factory', function () {
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
 
                 expect(output.search.category).toBe('adres');
+            });
+
+            describe('isLoading', () => {
+                it('is true when the state changes', () => {
+                    var output;
+
+                    mockedSearchParams.zoek = 'I_AM_A_SEARCH_STRING';
+                    output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+                    expect(output.search.isLoading).toBe(true);
+
+                    mockedSearchParams.zoek = 'I_AM_A_SEARCH_STRING';
+                    mockedState.search = {
+                        query: 'I_AM_A_DIFFERENT_SEARCH_STRING',
+                        location: null,
+                        category: null
+                    };
+                    output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+                    expect(output.search.isLoading).toBe(true);
+                });
+
+                it('is unchanged when the state has not changed', () => {
+                    var output;
+
+                    // Search query
+                    mockedSearchParams.zoek = 'I_AM_A_SEARCH_STRING';
+
+                    // isLoading is falsy and remains falsy
+                    mockedState.search = {
+                        query: 'I_AM_A_SEARCH_STRING',
+                        location: null,
+                        category: null
+                    };
+                    output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+                    expect(output.search.isLoading).not.toBe(true);
+
+                    // isLoading is false and remains false
+                    mockedState.search = {
+                        query: 'I_AM_A_SEARCH_STRING',
+                        location: null,
+                        category: null,
+                        isLoading: false
+                    };
+                    output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+                    expect(output.search.isLoading).not.toBe(true);
+
+                    // isLoading is true and remains true
+                    mockedState.search = {
+                        query: 'I_AM_A_SEARCH_STRING',
+                        location: null,
+                        category: null,
+                        isLoading: true
+                    };
+                    output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+                    expect(output.search.isLoading).toBe(true);
+
+                    // Search location
+                    mockedSearchParams.zoek = '12.45,56.78';
+
+                    // isLoading is falsy and remains falsy
+                    mockedState.search = {
+                        query: null,
+                        location: [12.45, 56.78],
+                        category: null
+                    };
+                    output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+                    expect(output.search.isLoading).not.toBe(true);
+
+                    // isLoading is false and remains false
+                    mockedState.search = {
+                        query: null,
+                        location: [12.45, 56.78],
+                        category: null,
+                        isLoading: false
+                    };
+                    output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+                    expect(output.search.isLoading).not.toBe(true);
+
+                    // isLoading is true and remains true
+                    mockedState.search = {
+                        query: null,
+                        location: [12.45, 56.78],
+                        category: null,
+                        isLoading: true
+                    };
+                    output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+                    expect(output.search.isLoading).toBe(true);
+                });
             });
 
             it('can be null', function () {
@@ -86,28 +173,28 @@ describe('The urlReducers factory', function () {
             it('can set overlays', function () {
                 var output;
 
-                //No overlay
+                // No overlay
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
                 expect(output.map.overlays).toEqual([]);
 
-                //One overlay
+                // One overlay
                 mockedSearchParams.lagen = 'munitie_opslag:zichtbaar';
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
-                expect(output.map.overlays).toEqual([{ id: 'munitie_opslag', isVisible: true }]);
+                expect(output.map.overlays).toEqual([{id: 'munitie_opslag', isVisible: true}]);
 
-                //Two overlays
+                // Two overlays
                 mockedSearchParams.lagen = 'munitie_opslag:zichtbaar,geldkluizen:onzichtbaar';
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
                 expect(output.map.overlays).toEqual([
-                    { id: 'munitie_opslag', isVisible: true },
-                    { id: 'geldkluizen', isVisible: false }
+                    {id: 'munitie_opslag', isVisible: true},
+                    {id: 'geldkluizen', isVisible: false}
                 ]);
             });
 
             it('sets the center', function () {
                 var output;
 
-                //Also checking if the strings are converted to numbers.
+                // Also checking if the strings are converted to numbers.
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
                 expect(output.map.viewCenter).toEqual([52.123, 4.789]);
 
@@ -123,7 +210,7 @@ describe('The urlReducers factory', function () {
             it('sets a zoom level', function () {
                 var output;
 
-                //Also checking if the strings are converted to numbers.
+                // Also checking if the strings are converted to numbers.
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
                 expect(output.map.zoom).toBe(12);
 
@@ -132,45 +219,16 @@ describe('The urlReducers factory', function () {
                 expect(output.map.zoom).toBe(16);
             });
 
-            it('can set a highlight', function () {
-                var output;
-
-                //No selectie in the URL
-                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
-                expect(output.map.highlight).toBeNull();
-
-                //With selectie
-                mockedSearchParams.selectie = 'I_AM_A_FAKE_GEOJSON_OBJECT';
-                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
-                expect(output.map.highlight).toBe('I_AM_A_FAKE_GEOJSON_OBJECT');
-            });
-
-            it('sets the showLayerSelection status', function () {
-                var output;
-
-                //With layer selection
-                mockedState.map.showLayerSelection = false;
-                mockedSearchParams['kaartlagen-selectie'] = 'aan';
-                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
-                expect(output.map.showLayerSelection).toBe(true);
-
-                //Without layer selection
-                mockedState.map.showLayerSelection = true;
-                delete mockedSearchParams['kaartlagen-selectie'];
-                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
-                expect(output.map.showLayerSelection).toBe(false);
-            });
-
             it('sets the showActiveOverlays status', function () {
                 var output;
 
-                //With active overlays
+                // With active overlays
                 mockedState.map.showActiveOverlays = false;
                 mockedSearchParams['actieve-kaartlagen'] = 'aan';
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
                 expect(output.map.showActiveOverlays).toBe(true);
 
-                //Without active overlays
+                // Without active overlays
                 mockedState.map.showActiveOverlays = true;
                 delete mockedSearchParams['actieve-kaartlagen'];
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
@@ -180,17 +238,35 @@ describe('The urlReducers factory', function () {
             it('sets the isFullscreen status', function () {
                 var output;
 
-                //With full screen enabled
+                // With full screen enabled
                 mockedState.map.isFullscreen = false;
                 mockedSearchParams['volledig-scherm'] = 'aan';
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
                 expect(output.map.isFullscreen).toBe(true);
 
-                //With full screen disabled
+                // With full screen disabled
                 mockedState.map.isFullscreen = true;
                 delete mockedSearchParams['volledig-scherm'];
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
                 expect(output.map.isFullscreen).toBe(false);
+            });
+        });
+
+        describe('layer selection', function () {
+            it('sets the layerSelection status', function () {
+                var output;
+
+                // With layer selection
+                mockedState.layerSelection = false;
+                mockedSearchParams['kaartlagen-selectie'] = 'aan';
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+                expect(output.layerSelection).toBe(true);
+
+                // Without layer selection
+                mockedState.layerSelection = true;
+                delete mockedSearchParams['kaartlagen-selectie'];
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+                expect(output.layerSelection).toBe(false);
             });
         });
 
@@ -219,120 +295,232 @@ describe('The urlReducers factory', function () {
             it('can set a detail api endpoint', function () {
                 var output;
 
-                //Without an active detail page
+                // Without an active detail page
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
                 expect(output.detail).toBeNull();
 
-                //With an active detail page
+                // With an active detail page
                 mockedSearchParams.detail = 'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/123/';
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
                 expect(output.detail.endpoint).toBe('https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/123/');
             });
 
-            it('remembers the geomtery of the previous state if the endpoint stays the same', function () {
+            it('remembers the display and geometry of the previous state if the endpoint stays the same', function () {
                 var output;
 
-                //With a previous state without an endpoint
+                // With a previous state without an endpoint
                 mockedSearchParams.detail = 'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/123/';
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
 
                 expect(output.detail.geometry).toBeUndefined();
 
-                //With a previous geometry in the state
+                // With a previous geometry in the state
                 mockedState.detail = {
+                    display: 'Mijn lievelings detailpagina',
                     endpoint: 'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/123/',
                     geometry: 'FAKE_GEOMETRY'
                 };
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
 
+                expect(output.detail.display).toBe('Mijn lievelings detailpagina');
                 expect(output.detail.geometry).toBe('FAKE_GEOMETRY');
+            });
+
+            describe('isLoading', () => {
+                it('is true when the endpoint changes', () => {
+                    var output;
+
+                    mockedSearchParams.detail = 'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/123/';
+                    mockedState.detail = {
+                        display: 'Mijn lievelings detailpagina',
+                        endpoint: 'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/456/',
+                        geometry: 'FAKE_GEOMETRY',
+                        isLoading: false
+                    };
+                    output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+
+                    expect(output.detail.isLoading).toBe(true);
+                });
+
+                it('is unchanged when the the endpoint stays the same', () => {
+                    var output;
+
+                    mockedSearchParams.detail = 'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/123/';
+
+                    // isLoading is false and should stay false
+                    mockedState.detail = {
+                        display: 'Mijn lievelings detailpagina',
+                        endpoint: 'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/123/',
+                        geometry: 'FAKE_GEOMETRY',
+                        isLoading: false
+                    };
+                    output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+
+                    expect(output.detail.isLoading).not.toBe(true);
+
+                    // isLoading is true and should stay true
+                    mockedState.detail = {
+                        display: 'Mijn lievelings detailpagina',
+                        endpoint: 'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/123/',
+                        geometry: 'FAKE_GEOMETRY',
+                        isLoading: true
+                    };
+                    output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+
+                    expect(output.detail.isLoading).toBe(true);
+                });
             });
         });
 
         describe('straatbeeld', function () {
-
-            it('can be unknown', function () {
+            it('can set a straatbeeld by ID', function () {
                 var output;
 
+                // Without straatbeeld
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
                 expect(output.straatbeeld).toBeNull();
-            });
-            it('can be initialized', function () {
-                var output;
 
-                mockedSearchParams.id = 'ABC';
-                mockedSearchParams.heading = '179';
-                mockedSearchParams.pitch = '1';
-                mockedSearchParams.fov = '2';
+                // With straatbeeld
+                mockedSearchParams.id = '12345';
 
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
-                
-                expect(output.straatbeeld.id).toBe('ABC');
-                expect(output.straatbeeld.heading).toBe(179);
-                expect(output.straatbeeld.pitch).toBe(1);
-                expect(output.straatbeeld.fov).toBe(2);
+                expect(output.straatbeeld.id).toBe(12345);
+                expect(output.straatbeeld.searchLocation).toBeNull();
             });
 
-            it('remember all oldStates when URL changes but straatbeeld remains the same', function() {
+            it('can set a straatbeeld by searchLocation', function () {
                 var output;
-                mockedState.straatbeeld = {};
-                mockedState.straatbeeld.id = 'ABC';
-                mockedState.straatbeeld.date = new Date('Thu Sep 22 2016 12:10:37 GMT+0200 (CEST)');
-                mockedState.straatbeeld.hotspots = [{
-                    a: 'a',
-                    b: 'b'
-                }];
-                mockedState.straatbeeld.image = 'http://example.com/example.png';
-                mockedState.straatbeeld.location = ['lat', 'lon'];
-                mockedState.straatbeeld.isInitial = false;
-                mockedState.straatbeeld.isLoading = true;
 
-                mockedSearchParams.id = 'ABC';
-                mockedSearchParams.heading = '179';
-                mockedSearchParams.pitch = '1';
-                mockedSearchParams.fov = '2';
+                // Without straatbeeld
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+                expect(output.straatbeeld).toBeNull();
+
+                // With straatbeeld
+                mockedSearchParams.plat = '52.963';
+                mockedSearchParams.plon = '4.741';
 
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
 
-                expect(output.straatbeeld.date).toEqual(new Date('Thu Sep 22 2016 12:10:37 GMT+0200 (CEST)'));
-                expect(output.straatbeeld.hotspots).toEqual([{
-                    a: 'a',
-                    b: 'b'
-                }]);
-                expect(output.straatbeeld.isLoading).toBe(true);
-                expect(output.straatbeeld.isInitial).toBe(false);
-                expect(output.straatbeeld.location).toEqual(['lat', 'lon']);
-                expect(output.straatbeeld.image).toEqual('http://example.com/example.png');
-
+                expect(output.straatbeeld.id).toBeNull();
+                expect(output.straatbeeld.searchLocation).toEqual([52.963, 4.741]);
             });
 
-            it('resets all oldStates when URL changes but straatbeeld ID is different than payload', function() {
+            it('will remember the date, car and hotspots if the ID stays the same', function () {
+                // Note: these two variables are not part of the URL
                 var output;
-                
-                mockedState.date = new Date('Thu Sep 22 2016 12:10:37 GMT+0200 (CEST)');
-                mockedState.hotspots = [{
-                    a: 'a',
-                    b: 'b',
-                    c: 'c',
-                    d: 'd'
 
-                }];
+                mockedState.straatbeeld = {
+                    id: 67890,
+                    searchLocation: null,
+                    date: new Date(1982, 8, 7),
+                    car: {
+                        location: [52.987, 4.321]
+                    },
+                    hotspots: ['FAKE_HOTSPOT_A', 'FAKE_HOTSPOT_Z']
+                };
 
-                mockedSearchParams.id = 'ABC';
-                mockedSearchParams.heading = '179';
-                mockedSearchParams.pitch = '1';
-                mockedSearchParams.fov = '2';
+                mockedSearchParams.id = 67890;
+                mockedSearchParams.pagina = null;
 
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
 
-                expect(output.straatbeeld.date).toBeNull();
-                expect(output.straatbeeld.hotspots).toEqual([]);
-                expect(output.straatbeeld.isLoading).toBe(true);
-                expect(output.straatbeeld.isInitial).toBe(true);
-
+                expect(output.straatbeeld.date).toEqual(new Date(1982, 8, 7));
+                expect(output.straatbeeld.car.location).toEqual([52.987, 4.321]);
+                expect(output.straatbeeld.hotspots).toEqual(['FAKE_HOTSPOT_A', 'FAKE_HOTSPOT_Z']);
             });
 
+            it('can read the heading, pitch and fov from the URL', function () {
+                var output;
 
+                mockedState.straatbeeld = {
+                    id: 67890,
+                    searchLocation: null,
+                    date: new Date(1982, 8, 7),
+                    car: {
+                        location: [52.987, 4.321]
+                    },
+                    camera: {
+                        heading: 1,
+                        pitch: 2,
+                        fov: 3
+                    },
+                    hotspots: ['FAKE_HOTSPOT_A', 'FAKE_HOTSPOT_Z']
+                };
+
+                mockedSearchParams.id = '67890';
+                mockedSearchParams.heading = '7';
+                mockedSearchParams.pitch = '8';
+                mockedSearchParams.fov = '9';
+
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+
+                expect(output.straatbeeld.camera.heading).toBe(7);
+                expect(output.straatbeeld.camera.pitch).toBe(8);
+                expect(output.straatbeeld.camera.fov).toBe(9);
+            });
+
+            describe('isLoading', () => {
+                it('is true when the endpoint changes', () => {
+                    var output;
+
+                    mockedState.straatbeeld = {
+                        id: 67890,
+                        searchLocation: null,
+                        date: new Date(1982, 8, 7),
+                        car: {
+                            location: [52.987, 4.321]
+                        },
+                        hotspots: ['FAKE_HOTSPOT_A', 'FAKE_HOTSPOT_Z'],
+                        isLoading: false
+                    };
+
+                    mockedSearchParams.id = 67891;
+                    mockedSearchParams.pagina = null;
+
+                    output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+
+                    expect(output.straatbeeld.isLoading).toBe(true);
+                });
+
+                it('is unchanged when the the endpoint stays the same', () => {
+                    var output;
+
+                    mockedSearchParams.id = 67890;
+                    mockedSearchParams.pagina = null;
+
+                    // isLoading is false and should stay false
+                    mockedState.straatbeeld = {
+                        id: 67890,
+                        searchLocation: null,
+                        date: new Date(1982, 8, 7),
+                        car: {
+                            location: [52.987, 4.321]
+                        },
+                        hotspots: ['FAKE_HOTSPOT_A', 'FAKE_HOTSPOT_Z'],
+                        isLoading: false
+                    };
+
+                    output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+
+                    expect(output.straatbeeld.isLoading).not.toBe(true);
+
+                    // isLoading is true and should stay true
+                    mockedState.straatbeeld = {
+                        id: 67890,
+                        searchLocation: null,
+                        date: new Date(1982, 8, 7),
+                        car: {
+                            location: [52.987, 4.321]
+                        },
+                        hotspots: ['FAKE_HOTSPOT_A', 'FAKE_HOTSPOT_Z'],
+                        isLoading: true
+                    };
+
+                    output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+
+                    expect(output.straatbeeld.isLoading).toBe(true);
+                });
+            });
         });
 
         describe('dataSelection', function () {
@@ -348,11 +536,11 @@ describe('The urlReducers factory', function () {
             });
 
             it('optionally has a dataset with filters and page numbers', function () {
-                //Without an active dataSelection
+                // Without an active dataSelection
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
                 expect(output.dataSelection).toBeNull();
 
-                //With an active dataSelection
+                // With an active dataSelection
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParamsWithDataSelection);
                 expect(output.dataSelection).toEqual({
                     dataset: 'bag',
@@ -362,21 +550,21 @@ describe('The urlReducers factory', function () {
             });
 
             it('maps the filters to an object', function () {
-                //With two filters
+                // With two filters
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParamsWithDataSelection);
                 expect(output.dataSelection.filters).toEqual({
                     buurtcombinatie: 'Geuzenbuurt',
                     buurt: 'Trompbuurt'
                 });
 
-                //With one filter
+                // With one filter
                 mockedSearchParamsWithDataSelection['dataset-filters'] = 'buurtcombinatie:Geuzenbuurt';
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParamsWithDataSelection);
                 expect(output.dataSelection.filters).toEqual({
                     buurtcombinatie: 'Geuzenbuurt'
                 });
 
-                //Without filters return an emtpy object
+                // Without filters return an emtpy object
                 mockedSearchParamsWithDataSelection['dataset-filters'] = null;
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParamsWithDataSelection);
                 expect(output.dataSelection.filters).toEqual({});
@@ -404,63 +592,17 @@ describe('The urlReducers factory', function () {
             it('sets whether or not print mode is enabled', function () {
                 var output;
 
-                //With print mode enabled
+                // With print mode enabled
                 mockedState.isPrintMode = false;
                 mockedSearchParams['print-versie'] = 'aan';
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
                 expect(output.isPrintMode).toBe(true);
 
-                //With print mode disabled
+                // With print mode disabled
                 mockedState.isPrintMode = true;
                 delete mockedSearchParams['print-versie'];
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
                 expect(output.isPrintMode).toBe(false);
-            });
-        });
-
-        describe('has no support for loading indicators', function () {
-            beforeEach(function () {
-                mockedState.map.isLoading = true;
-
-                mockedState.detail = {
-                    uri: 'fake/api/123',
-                    isLoading: true
-                };
-
-                mockedState.straatbeeld = {
-                    id: 12345,
-                    camera: {
-                        location: null,
-                        heading: 11,
-                        pitch: 12,
-                        fov: 13
-                    },
-                    isLoading: true
-                };
-
-                mockedSearchParams.detail = 'fake/api/123';
-                mockedSearchParams.id = '12345';
-                mockedSearchParams.heading = '11';
-                mockedSearchParams.pitch = '12';
-                mockedSearchParams.fov = '13';
-            });
-
-            it('sets map.isLoading to false', function () {
-                var output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
-
-                expect(output.map.isLoading).toBe(false);
-            });
-
-            it('sets detail.isLoading to false if there is a detail page active', function () {
-                var output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
-
-                expect(output.detail.isLoading).toBe(false);
-            });
-
-            it('sets straatbeeld.isLoading to false if there is a straatbeeld active', function () {
-                var output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
-
-                expect(output.straatbeeld.isLoading).toBe(true);
             });
         });
     });

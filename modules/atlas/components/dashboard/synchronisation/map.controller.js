@@ -43,8 +43,7 @@
                     orientation: state.straatbeeld.heading,
                     useAutoFocus: false
                 });
-                
-                
+
                 vm.markers.push({
                     id: 'straatbeeld_person',
                     geometry: convertLocationToGeoJSON(state.straatbeeld.location),
@@ -53,6 +52,7 @@
             }
 
             vm.mapState = state.map;
+            vm.showLayerSelection = state.layerSelection;
         }
 
         function convertLocationToGeoJSON (location) {

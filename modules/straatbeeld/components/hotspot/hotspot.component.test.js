@@ -44,37 +44,16 @@ describe('The dp-hotspot directive', function () {
     it('creates a button with dimensions based on the distance', function () {
         var directive;
 
-        directive = getComponent(1, 4);
-        expect(directive.find('button').attr('style')).toContain('width: 51px; height: 51px;');
+        directive = getComponent(1, 5);
+        expect(directive.find('button').attr('style')).toContain('width: 55px; height: 55px;');
 
         directive = getComponent(1, 10);
-        expect(directive.find('button').attr('style')).toContain('width: 21px; height: 21px;');
-
-        directive = getComponent(1, 15);
-        expect(directive.find('button').attr('style')).toContain('width: 14px; height: 14px;');
-
-        directive = getComponent(1, 21);
-        expect(directive.find('button').attr('style')).toContain('width: 10px; height: 10px;');
+        expect(directive.find('button').attr('style')).toContain('width: 50px; height: 50px;');
     });
 
-    it('hotspots have a minimum and maximum size as if they in the 4-21 meter range', function() {
-        var directive,
-            minimumStyle,
-            maximumStyle;
-
-        //Minimum size
-        directive = getComponent(1, 4);
-        minimumStyle = directive.find('button').attr('style');
-
-        directive = getComponent(1, 3);
-        expect(minimumStyle).toBe(directive.find('button').attr('style'));
-
-        //Maximum size
-        directive = getComponent(1, 21);
-        maximumStyle = directive.find('button').attr('style');
-
-        directive = getComponent(1, 22);
-        expect(maximumStyle).toBe(directive.find('button').attr('style'));
+    it('buttons have a minimum size regardless of the distance', function () {
+        var directive = getComponent(1, 1000);
+        expect(directive.find('button').attr('style')).toContain('width: 30px; height: 30px;');
     });
 
     it('clicking the hotspot will trigger the FETCH_STRAATBEELD action', function () {
@@ -82,7 +61,7 @@ describe('The dp-hotspot directive', function () {
 
         spyOn(store, 'dispatch');
 
-        directive = getComponent('ABC', 20);
+        directive = getComponent(12589, 20);
         directive.find('button').click();
 
         expect(store.dispatch).toHaveBeenCalledWith({
