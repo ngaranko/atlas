@@ -18,7 +18,7 @@
                 getMapParams(state),
                 getPageParams(state),
                 getDetailParams(state),
-                getPanoramaParams(state),
+                getStraatbeeldParams(state),
                 getDataSelectionParams(state),
                 getPrintParams(state)
             );
@@ -81,15 +81,15 @@
             };
         }
 
-        function getPanoramaParams(state) {
+        function getStraatbeeldParams(state) {
             
             var params = {};
             
-            if (state.panorama) {
-                params.id = state.panorama.id;
-                params.heading = String(state.panorama.heading);
-                params.pitch = String(state.panorama.pitch);
-                params.fov = String(state.panorama.fov);
+            if (state.straatbeeld) {
+                params.id = state.straatbeeld.id;
+                params.heading = String(state.straatbeeld.heading);
+                params.pitch = String(state.straatbeeld.pitch);
+                params.fov = String(state.straatbeeld.fov);
             }
                     
             return params;

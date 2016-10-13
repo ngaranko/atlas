@@ -30,9 +30,9 @@
                 isLoading: false
             }
             */
-            panorama: null,
+            straatbeeld: null,
             /*
-            panorama: {
+            straatbeeld: {
                 id: 1,
                 date: null,
                 car: {

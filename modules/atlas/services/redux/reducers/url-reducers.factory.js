@@ -24,7 +24,7 @@
                 newState.map = getMapState(payload);
                 newState.page = payload.pagina || null;
                 newState.detail = getDetailState(oldState, payload);
-                newState.panorama = getPanoramaState(oldState, payload);
+                newState.straatbeeld = getStraatbeeldState(oldState, payload);
                 newState.dataSelection = getDataSelectionState(payload);
                 newState.isPrintMode = getPrintState(payload);
 
@@ -116,9 +116,9 @@
                 }
             }
 
-            function getPanoramaState(oldState, payload) {
+            function getStraatbeeldState(oldState, payload) {
                 if (payload.id) {
-                    var newPanorama = {
+                    var newStraatbeeld = {
                         pitch: Number(payload.pitch),
                         fov: Number(payload.fov),
                         id: payload.id,
@@ -126,23 +126,23 @@
                     };
 
                     
-                    if (oldState.panorama && oldState.panorama.id === payload.id) {
-                        newPanorama.image = oldState.panorama.image;
-                        newPanorama.hotspots = oldState.panorama.hotspots;
-                        newPanorama.date = oldState.panorama.date;
-                        newPanorama.location = oldState.panorama.location;
-                        newPanorama.isInitial = false;
-                        newPanorama.isLoading = oldState.panorama.isLoading;
+                    if (oldState.straatbeeld && oldState.straatbeeld.id === payload.id) {
+                        newStraatbeeld.image = oldState.straatbeeld.image;
+                        newStraatbeeld.hotspots = oldState.straatbeeld.hotspots;
+                        newStraatbeeld.date = oldState.straatbeeld.date;
+                        newStraatbeeld.location = oldState.straatbeeld.location;
+                        newStraatbeeld.isInitial = false;
+                        newStraatbeeld.isLoading = oldState.straatbeeld.isLoading;
                     } else {
-                        newPanorama.image = null;
-                        newPanorama.hotspots = [];
-                        newPanorama.date = null;
-                        newPanorama.location = null;
-                        newPanorama.isInitial = true;
-                        newPanorama.isLoading = angular.isString(payload.id);
+                        newStraatbeeld.image = null;
+                        newStraatbeeld.hotspots = [];
+                        newStraatbeeld.date = null;
+                        newStraatbeeld.location = null;
+                        newStraatbeeld.isInitial = true;
+                        newStraatbeeld.isLoading = angular.isString(payload.id);
                     }
 
-                    return newPanorama;
+                    return newStraatbeeld;
                 } else {
                     return null;
                 }

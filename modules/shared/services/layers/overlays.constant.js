@@ -153,15 +153,15 @@
                     legend: '/maps/meetbouten?version=1.3.0&service=WMS&request=Get' +
                         'LegendGraphic&sld_version=1.1.0&layer=referentiepunten&format=image/png&STYLE=default'
                 },
-                panorama_rijlijnen_2012: {
-                    url: 'maps/panorama',
-                    label_short: 'Panorama rijlijnen 2012',
-                    label_long: 'Panorama rijlijnen 2012',
-                    layers: ['panorama'],
+                straatbeeld_rijlijnen_2012: {
+                    url: 'maps/straatbeeld',
+                    label_short: 'Straatbeeld rijlijnen 2012',
+                    label_long: 'Straatbeeld rijlijnen 2012',
+                    layers: ['straatbeeld'],
                     minZoom: 11,
                     maxZoom: 16,
-                    legend: '/maps/panorama?version=1.3.0&service=WMS&request=GetLe' +
-                        'gendGraphic&sld_version=1.1.0&layer=panorama_punt&format=image/png&STYLE=default'
+                    legend: '/maps/straatbeeld?version=1.3.0&service=WMS&request=GetLe' +
+                        'gendGraphic&sld_version=1.1.0&layer=straatbeeld_punt&format=image/png&STYLE=default'
                 },
                 milieu_bodem_grondmonsters: {
                     url: 'maps/bodem',

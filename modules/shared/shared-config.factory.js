@@ -19,10 +19,10 @@
 
         environmentConfig = {
             DEVELOPMENT: {
-                PANORAMA_THUMB_URL: 'https://api-acc.datapunt.amsterdam.nl/panorama/thumbnail/'
+                STRAATBEELD_THUMB_URL: 'https://api-acc.datapunt.amsterdam.nl/straatbeeld/thumbnail/'
             },
             PRODUCTION: {
-                PANORAMA_THUMB_URL: 'https://api.datapunt.amsterdam.nl/panorama/thumbnail/'
+                STRAATBEELD_THUMB_URL: 'https://api.datapunt.amsterdam.nl/straatbeeld/thumbnail/'
             }
         };
 

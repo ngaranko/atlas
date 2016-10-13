@@ -243,8 +243,8 @@ describe('The stateToUrl factory', function () {
         });
     });
 
-    describe('Panorama', function () {
-        it('does nothing is there is no active panorama', function () {
+    describe('Straatbeeld', function () {
+        it('does nothing is there is no active straatbeeld', function () {
             stateToUrl.update(mockedState, false);
 
             expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
@@ -258,8 +258,8 @@ describe('The stateToUrl factory', function () {
         });
 
 
-        it('can set the panorama id if it\'s known', function () {
-            mockedState.panorama = {
+        it('can set the straatbeeld id if it\'s known', function () {
+            mockedState.straatbeeld = {
                 id: 'ABC',
             };
 
@@ -271,7 +271,7 @@ describe('The stateToUrl factory', function () {
         });
 
         it('Has orientation with heading, pitch and fov', function () {
-            mockedState.panorama = {
+            mockedState.straatbeeld = {
                 id: 'ABC',
                 heading: 2,
                 pitch: 0.123,

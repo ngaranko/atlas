@@ -42,7 +42,7 @@ describe('The detailReducers factory', function () {
             expect(output.map.highlight).toBeNull();
         });
 
-        it('disables layer selection, search, page, panorama and dataSelection', function () {
+        it('disables layer selection, search, page, straatbeeld and dataSelection', function () {
             var payload = 'bag/thing/123/',
                 inputState = angular.copy(defaultState),
                 output;
@@ -50,7 +50,7 @@ describe('The detailReducers factory', function () {
             inputState.map.showLayerSelection = true;
             inputState.search = {some: 'object'};
             inputState.page = 'somePage';
-            inputState.panorama = {some: 'object'};
+            inputState.straatbeeld = {some: 'object'};
             inputState.dataSelection = {some: 'object'};
 
             output = detailReducers.FETCH_DETAIL(inputState, payload);
@@ -58,7 +58,7 @@ describe('The detailReducers factory', function () {
             expect(output.map.showLayerSelection).toBe(false);
             expect(output.search).toBeNull();
             expect(output.page).toBeNull();
-            expect(output.panorama).toBeNull();
+            expect(output.straatbeeld).toBeNull();
             expect(output.dataSelection).toBeNull();
         });
 
@@ -92,7 +92,7 @@ describe('The detailReducers factory', function () {
                     geometry: null,
                     isLoading: true
                 },
-                panorama: null
+                straatbeeld: null
             },
             payload = {some: 'object'};
 

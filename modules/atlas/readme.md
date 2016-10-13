@@ -14,13 +14,13 @@
 | pagina              | page                            | yes, see DEFAULT_STATE |
 | detail              | detail.uri                      | no, detail is null     |
 |                     | detail.isLoading                | no, detail is null     |
-| id                  | panorama.id                  | no                     |
-|                     | panorama.date                | no                     |
-|                     | panorama.location            | no                     |
-| heading             | panorama.heading             | no                     |
-| pitch               | panorama.pitch               | no                     |
-| fov                 | panorama.fov                 | no                     |
-|                     | panorama.hotspots            | no, []                 |
-|                     | panorama.isLoading           | no                     |
-|                     | panorama.image               | no                     |
-|                     | panorama.isInitial           | no                     |
+| id                  | straatbeeld.id                  | no                     |
+|                     | straatbeeld.date                | no                     |
+|                     | straatbeeld.location            | no                     |
+| heading             | straatbeeld.heading             | no                     |
+| pitch               | straatbeeld.pitch               | no                     |
+| fov                 | straatbeeld.fov                 | no                     |
+|                     | straatbeeld.hotspots            | no, []                 |
+|                     | straatbeeld.isLoading           | no                     |
+|                     | straatbeeld.image               | no                     |
+|                     | straatbeeld.isInitial           | no                     |

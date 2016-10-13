@@ -3,11 +3,11 @@
 
     angular
         .module('atlas')
-        .controller('PanoramaController', PanoramaController);
+        .controller('StraatbeeldController', StraatbeeldController);
 
-    PanoramaController.$inject = ['store'];
+    StraatbeeldController.$inject = ['store'];
 
-    function PanoramaController (store) {
+    function StraatbeeldController (store) {
         var vm = this;
 
         store.subscribe(update);
@@ -15,7 +15,7 @@
 
         function update () {
             var state = store.getState();
-            vm.panoramaState = state.panorama;
+            vm.straatbeeldState = state.straatbeeld;
         }
     }
 })();

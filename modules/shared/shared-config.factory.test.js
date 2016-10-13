@@ -22,15 +22,15 @@ describe('The sharedConfig factory', function () {
         it('development', function () {
             var sharedConfig = prepareMocks('DEVELOPMENT');
 
-            expect(sharedConfig.PANORAMA_THUMB_URL)
-                .toBe('https://api-acc.datapunt.amsterdam.nl/panorama/thumbnail/');
+            expect(sharedConfig.STRAATBEELD_THUMB_URL)
+                .toBe('https://api-acc.datapunt.amsterdam.nl/straatbeeld/thumbnail/');
         });
 
         it('production', function () {
             var sharedConfig = prepareMocks('PRODUCTION');
 
-            expect(sharedConfig.PANORAMA_THUMB_URL)
-                .toBe('https://api.datapunt.amsterdam.nl/panorama/thumbnail/');
+            expect(sharedConfig.STRAATBEELD_THUMB_URL)
+                .toBe('https://api.datapunt.amsterdam.nl/straatbeeld/thumbnail/');
         });
     });
 });

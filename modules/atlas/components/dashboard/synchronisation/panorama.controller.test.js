@@ -1,4 +1,4 @@
-describe('The panorama controller', function () {
+describe('The straatbeeld controller', function () {
     var $controller,
         $rootScope,
         store;
@@ -17,7 +17,7 @@ describe('The panorama controller', function () {
         var controller,
             scope = $rootScope.$new();
 
-        controller = $controller('PanoramaController', {
+        controller = $controller('StraatbeeldController', {
             $scope: scope
         });
 
@@ -36,7 +36,7 @@ describe('The panorama controller', function () {
 
     it('sets the id, date, camera, hotspots and isLoading indicator based on the state', function () {
         var mockedState = {
-                panorama: {
+                straatbeeld: {
                     id: 7,
                     searchLocation: null,
                     date: new Date(2016, 6, 8),
@@ -53,19 +53,19 @@ describe('The panorama controller', function () {
 
         controller = getController();
 
-        expect(controller.panoramaState.id).toBe(7);
-        expect(controller.panoramaState.searchLocation).toBeNull();
-        expect(controller.panoramaState.date).toEqual(new Date(2016, 6, 8));
-        expect(controller.panoramaState.camera).toEqual({
+        expect(controller.straatbeeldState.id).toBe(7);
+        expect(controller.straatbeeldState.searchLocation).toBeNull();
+        expect(controller.straatbeeldState.date).toEqual(new Date(2016, 6, 8));
+        expect(controller.straatbeeldState.camera).toEqual({
             location: [52.741, 4.852]
         });
-        expect(controller.panoramaState.hotspots).toEqual(['FAKE_HOTSPOT_X', 'FAKE_HOTSPOT_Y', 'FAKE_HOTSPOT_Z']);
-        expect(controller.panoramaState.isLoading).toBe(false);
+        expect(controller.straatbeeldState.hotspots).toEqual(['FAKE_HOTSPOT_X', 'FAKE_HOTSPOT_Y', 'FAKE_HOTSPOT_Z']);
+        expect(controller.straatbeeldState.isLoading).toBe(false);
     });
 
     it('can have a location instead of an ID', function () {
         var mockedState = {
-                panorama: {
+                straatbeeld: {
                     id: null,
                     searchLocation: [52.456, 4.321],
                     date: new Date(2016, 6, 8),
@@ -81,7 +81,7 @@ describe('The panorama controller', function () {
 
         controller = getController();
 
-        expect(controller.panoramaState.id).toBeNull();
-        expect(controller.panoramaState.searchLocation).toEqual([52.456, 4.321]);
+        expect(controller.straatbeeldState.id).toBeNull();
+        expect(controller.straatbeeldState.searchLocation).toEqual([52.456, 4.321]);
     });
 });

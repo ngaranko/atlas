@@ -249,13 +249,13 @@ describe('The urlReducers factory', function () {
             });
         });
 
-        describe('panorama', function () {
+        describe('straatbeeld', function () {
 
             it('can be unknown', function () {
                 var output;
 
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
-                expect(output.panorama).toBeNull();
+                expect(output.straatbeeld).toBeNull();
             });
             it('can be initialized', function () {
                 var output;
@@ -267,25 +267,25 @@ describe('The urlReducers factory', function () {
 
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
                 
-                expect(output.panorama.id).toBe('ABC');
-                expect(output.panorama.heading).toBe(179);
-                expect(output.panorama.pitch).toBe(1);
-                expect(output.panorama.fov).toBe(2);
+                expect(output.straatbeeld.id).toBe('ABC');
+                expect(output.straatbeeld.heading).toBe(179);
+                expect(output.straatbeeld.pitch).toBe(1);
+                expect(output.straatbeeld.fov).toBe(2);
             });
 
-            it('remember all oldStates when URL changes but panorama remains the same', function() {
+            it('remember all oldStates when URL changes but straatbeeld remains the same', function() {
                 var output;
-                mockedState.panorama = {};
-                mockedState.panorama.id = 'ABC';
-                mockedState.panorama.date = new Date('Thu Sep 22 2016 12:10:37 GMT+0200 (CEST)');
-                mockedState.panorama.hotspots = [{
+                mockedState.straatbeeld = {};
+                mockedState.straatbeeld.id = 'ABC';
+                mockedState.straatbeeld.date = new Date('Thu Sep 22 2016 12:10:37 GMT+0200 (CEST)');
+                mockedState.straatbeeld.hotspots = [{
                     a: 'a',
                     b: 'b'
                 }];
-                mockedState.panorama.image = 'http://example.com/example.png';
-                mockedState.panorama.location = ['lat', 'lon'];
-                mockedState.panorama.isInitial = false;
-                mockedState.panorama.isLoading = true;
+                mockedState.straatbeeld.image = 'http://example.com/example.png';
+                mockedState.straatbeeld.location = ['lat', 'lon'];
+                mockedState.straatbeeld.isInitial = false;
+                mockedState.straatbeeld.isLoading = true;
 
                 mockedSearchParams.id = 'ABC';
                 mockedSearchParams.heading = '179';
@@ -294,19 +294,19 @@ describe('The urlReducers factory', function () {
 
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
 
-                expect(output.panorama.date).toEqual(new Date('Thu Sep 22 2016 12:10:37 GMT+0200 (CEST)'));
-                expect(output.panorama.hotspots).toEqual([{
+                expect(output.straatbeeld.date).toEqual(new Date('Thu Sep 22 2016 12:10:37 GMT+0200 (CEST)'));
+                expect(output.straatbeeld.hotspots).toEqual([{
                     a: 'a',
                     b: 'b'
                 }]);
-                expect(output.panorama.isLoading).toBe(true);
-                expect(output.panorama.isInitial).toBe(false);
-                expect(output.panorama.location).toEqual(['lat', 'lon']);
-                expect(output.panorama.image).toEqual('http://example.com/example.png');
+                expect(output.straatbeeld.isLoading).toBe(true);
+                expect(output.straatbeeld.isInitial).toBe(false);
+                expect(output.straatbeeld.location).toEqual(['lat', 'lon']);
+                expect(output.straatbeeld.image).toEqual('http://example.com/example.png');
 
             });
 
-            it('resets all oldStates when URL changes but panorama ID is different than payload', function() {
+            it('resets all oldStates when URL changes but straatbeeld ID is different than payload', function() {
                 var output;
                 
                 mockedState.date = new Date('Thu Sep 22 2016 12:10:37 GMT+0200 (CEST)');
@@ -325,10 +325,10 @@ describe('The urlReducers factory', function () {
 
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
 
-                expect(output.panorama.date).toBeNull();
-                expect(output.panorama.hotspots).toEqual([]);
-                expect(output.panorama.isLoading).toBe(true);
-                expect(output.panorama.isInitial).toBe(true);
+                expect(output.straatbeeld.date).toBeNull();
+                expect(output.straatbeeld.hotspots).toEqual([]);
+                expect(output.straatbeeld.isLoading).toBe(true);
+                expect(output.straatbeeld.isInitial).toBe(true);
 
             });
 
@@ -427,7 +427,7 @@ describe('The urlReducers factory', function () {
                     isLoading: true
                 };
 
-                mockedState.panorama = {
+                mockedState.straatbeeld = {
                     id: 12345,
                     camera: {
                         location: null,
@@ -457,10 +457,10 @@ describe('The urlReducers factory', function () {
                 expect(output.detail.isLoading).toBe(false);
             });
 
-            it('sets panorama.isLoading to false if there is a panorama active', function () {
+            it('sets straatbeeld.isLoading to false if there is a straatbeeld active', function () {
                 var output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
 
-                expect(output.panorama.isLoading).toBe(true);
+                expect(output.straatbeeld.isLoading).toBe(true);
             });
         });
     });
