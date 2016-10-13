@@ -38,10 +38,10 @@ describe('The dataSelectionReducers factory', function () {
                 overlays: ['OVERLAY_1', 'OVERLAY_2'],
                 viewCenter: [52.52, 4.4],
                 zoom: 16,
-                showLayerSelection: true,
                 isFullscreen: true,
                 isLoading: true
             };
+            mockedState.layerSelection = true;
 
             output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION](mockedState, payload);
 
@@ -54,9 +54,9 @@ describe('The dataSelectionReducers factory', function () {
             expect(output.map.zoom).toBe(DEFAULT_STATE.map.zoom);
 
             // It disables the rest
-            expect(output.map.showLayerSelection).toBe(false);
             expect(output.map.isFullscreen).toBe(false);
             expect(output.map.isLoading).toBe(false);
+            expect(output.layerSelection).toBe(false);
         });
 
         it('sets the dataSelection state', function () {

@@ -1,16 +1,16 @@
-describe('The atlas-menu-dropdown directive', function () {
+describe('The dp-menu-dropdown directive', function () {
     var $compile,
         $rootScope;
 
     beforeEach(function () {
         angular.mock.module(
-            'atlasHeader',
+            'dpHeader',
             function ($provide) {
-                $provide.factory('AtlasPrintButtonDirective', function () {
+                $provide.factory('dpPrintButtonDirective', function () {
                     return {};
                 });
 
-                $provide.factory('AtlasTerugmeldenButtonDirective', function () {
+                $provide.factory('dpTerugmeldenButtonDirective', function () {
                     return {};
                 });
 
@@ -31,7 +31,7 @@ describe('The atlas-menu-dropdown directive', function () {
             element,
             scope;
 
-        element = document.createElement('atlas-menu-dropdown');
+        element = document.createElement('dp-menu-dropdown');
         document.body.appendChild(element);
 
         scope = $rootScope.$new();
@@ -46,8 +46,8 @@ describe('The atlas-menu-dropdown directive', function () {
         var directive = getDirective();
 
         expect(directive.find('.menu-dropdown').length).toBe(0);
-        expect(directive.find('atlas-print-button').length).toBe(0);
-        expect(directive.find('atlas-terugmelden-button').length).toBe(0);
+        expect(directive.find('dp-print-button').length).toBe(0);
+        expect(directive.find('dp-terugmelden-button').length).toBe(0);
         expect(directive.find('dp-link').length).toBe(0);
     });
 
@@ -59,7 +59,7 @@ describe('The atlas-menu-dropdown directive', function () {
 
         // It should be openend
         expect(directive.find('.menu-dropdown').length).toBe(1);
-        expect(directive.find('atlas-terugmelden-button').length).toBe(1);
+        expect(directive.find('dp-terugmelden-button').length).toBe(1);
         expect(directive.find('dp-link').length).toBe(2);
 
         // Click it again
@@ -67,8 +67,8 @@ describe('The atlas-menu-dropdown directive', function () {
 
         // It should be closed again
         expect(directive.find('.menu-dropdown').length).toBe(0);
-        expect(directive.find('atlas-print-button').length).toBe(0);
-        expect(directive.find('atlas-terugmelden-button').length).toBe(0);
+        expect(directive.find('dp-print-button').length).toBe(0);
+        expect(directive.find('dp-terugmelden-button').length).toBe(0);
         expect(directive.find('dp-link').length).toBe(0);
     });
 

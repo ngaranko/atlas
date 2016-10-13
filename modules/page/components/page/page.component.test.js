@@ -4,7 +4,7 @@ describe('The page component', function () {
         $templateCache;
 
     beforeEach(function () {
-        angular.mock.module('atlasPage');
+        angular.mock.module('dpPage');
 
         angular.mock.inject(function (_$compile_, _$rootScope_, _$templateCache_) {
             $compile = _$compile_;
@@ -21,7 +21,7 @@ describe('The page component', function () {
             element,
             scope;
 
-        element = document.createElement('atlas-page');
+        element = document.createElement('dp-page');
         element.setAttribute('name', name);
 
         scope = $rootScope.$new();

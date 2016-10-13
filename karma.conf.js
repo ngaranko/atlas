@@ -9,7 +9,7 @@ module.exports = function (config) {
         frameworks: ['jasmine-jquery', 'jasmine'],
         files: jsFiles,
         exclude : [
-            'modules/**/piwik/piwik.run.js'
+            'modules/**/*.run.js'
         ],
         plugins: [
             'karma-jasmine-jquery',

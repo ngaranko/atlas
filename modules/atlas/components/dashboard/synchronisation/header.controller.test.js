@@ -1,16 +1,35 @@
 describe('The header controller', function () {
     var $controller,
         $rootScope,
-        store;
+        store,
+        mockedState;
 
     beforeEach(function () {
-        angular.mock.module('atlas');
+        angular.mock.module(
+            'atlas',
+            {
+                store: {
+                    subscribe: function (callbackFn) {
+                        callbackFn();
+                    },
+                    getState: function () {
+                        return mockedState;
+                    }
+                }
+            }
+        );
 
         angular.mock.inject(function (_$controller_, _$rootScope_, _store_) {
             $controller = _$controller_;
             $rootScope = _$rootScope_;
             store = _store_;
         });
+
+        mockedState = {
+            search: {
+                query: 'i am a search query'
+            }
+        };
     });
 
     function getController () {
@@ -35,12 +54,7 @@ describe('The header controller', function () {
     });
 
     it('sets the query string based on the state', function () {
-        var mockedState = {
-                search: {
-                    query: 'i am a search query'
-                }
-            },
-            controller;
+        var controller;
 
         spyOn(store, 'getState').and.returnValue(mockedState);
 
@@ -50,10 +64,11 @@ describe('The header controller', function () {
     });
 
     it('doesn\'t break when search is null', function () {
-        var mockedState = {
-                search: null
-            },
-            controller;
+        var controller;
+
+        mockedState = {
+            search: null
+        };
 
         spyOn(store, 'getState').and.returnValue(mockedState);
 

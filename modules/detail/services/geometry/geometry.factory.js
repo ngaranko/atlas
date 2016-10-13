@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('atlasDetail')
+        .module('dpDetail')
         .factory('geometry', geometryFactory);
 
     geometryFactory.$inject = ['api', 'crsConverter', 'BOUNDING_BOX'];

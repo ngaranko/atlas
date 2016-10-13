@@ -1,4 +1,4 @@
-describe('The atlas-meetbout-graph directive', function () {
+describe('The dp-meetbout-graph directive', function () {
     'use strict';
 
     var api,
@@ -24,7 +24,7 @@ describe('The atlas-meetbout-graph directive', function () {
 
     beforeEach(function () {
         angular.mock.module(
-            'atlasDetail',
+            'dpDetail',
             {
                 api: {
                     getByUrl: function () {
@@ -50,7 +50,7 @@ describe('The atlas-meetbout-graph directive', function () {
         var directive,
             scope;
 
-        var html = document.createElement('atlas-meetbout-graph');
+        var html = document.createElement('dp-meetbout-graph');
         html.setAttribute('href', href);
         html.setAttribute('page-size', 'pageSize');
 

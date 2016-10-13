@@ -3,18 +3,20 @@
 
     angular
         .module('atlas', [
-            // Atlas modules
-            'atlasHeader',
-            'atlasPage',
-            'atlasDetail',
-            'atlasSearchResults',
-            'atlasLayerSelection',
+            // Main modules
+            'dpHeader',
+            'dpPage',
+            'dpDetail',
+            'dpSearchResults',
+            'dpLayerSelection',
             'dpMap',
             'dpStraatbeeld',
             'dpDataSelection',
-            // Shared modules
+
+            // Shared module
             'dpShared',
-            // External
+
+            // Third party modules
             'angulartics',
             'angulartics.piwik'
         ]);

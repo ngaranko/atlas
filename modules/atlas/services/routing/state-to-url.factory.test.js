@@ -136,24 +136,6 @@ describe('The stateToUrl factory', function () {
 
         it('keeps track of the state of the layer selection (opened or closed)', function () {
             // Closed
-            mockedState.map.showLayerSelection = false;
-            stateToUrl.update(mockedState, false);
-
-            expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
-                'kaartlagen-selectie': jasmine.anything()
-            }));
-
-            // Opened
-            mockedState.map.showLayerSelection = true;
-            stateToUrl.update(mockedState, false);
-
-            expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
-                'kaartlagen-selectie': 'aan'
-            }));
-        });
-
-        it('keeps track of the active overlays (opened or closed', function () {
-            // Closed
             mockedState.map.showActiveOverlays = false;
             stateToUrl.update(mockedState, false);
 
@@ -185,6 +167,26 @@ describe('The stateToUrl factory', function () {
 
             expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
                 'volledig-scherm': 'aan'
+            }));
+        });
+    });
+
+    describe('Layer selection', function () {
+        it('keeps track of the state of the layer selection (opened or closed)', function () {
+            // Closed
+            mockedState.layerSelection = false;
+            stateToUrl.update(mockedState, false);
+
+            expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
+                'kaartlagen-selectie': jasmine.anything()
+            }));
+
+            // Opened
+            mockedState.layerSelection = true;
+            stateToUrl.update(mockedState, false);
+
+            expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
+                'kaartlagen-selectie': 'aan'
             }));
         });
     });
