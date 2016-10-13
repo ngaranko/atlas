@@ -1,14 +1,11 @@
-describe('Panorama API Factory', function () {
-
+describe('The panoramaApi Factory', function () {
     var panoramaApi,
         geojson,
         $q,
         api,
         $rootScope;
 
-
     beforeEach(function () {
-        
         angular.mock.module('dpPanorama', {
             panoramaConfig: {
                 PANORAMA_ENDPOINT: 'http://example.com/example/'
@@ -62,7 +59,6 @@ describe('Panorama API Factory', function () {
             api = _api_;
             $rootScope = _$rootScope_;
         });
-
     });
 
     it('calls the API factory with the correct endpoint', function () {
@@ -73,8 +69,7 @@ describe('Panorama API Factory', function () {
         expect(api.getByUrl).toHaveBeenCalledWith('http://example.com/example/ABC/');
     });
 
-    describe('restructures API response', function () {
-
+    describe('the API will be mapped to the state structure', function () {
         var response;
 
         beforeEach(function () {
@@ -85,28 +80,28 @@ describe('Panorama API Factory', function () {
             });
 
             $rootScope.$apply();
-         
         });
 
         it('converts date string to Javascript date format', function () {
             expect(response.date).toEqual(new Date('2016-05-19T13:04:15.341110Z'));
-
-
         });
+
         it('maps hotspot data to proper subset', function () {
-            expect(response.hotspots).toEqual([{
-                id: 'TMX7315120208-000054_pano_0002_000177',
-                heading: 116.48,
-                distance: 10.14
-            }, {
+            expect(response.hotspots).toEqual(
+                [{
+                    id: 'TMX7315120208-000054_pano_0002_000177',
+                    heading: 116.48,
+                    distance: 10.14
+                }, {
                     id: 'TMX7315120208-000054_pano_0002_000178',
                     heading: 127.37,
                     distance: 5.25
-                }]);
+                }]
+            );
 
         });
-        it('maps geoJson point to lat/lon notation', function () {
 
+        it('maps a geoJSON Point to a location in [lat, lng] Array notation', function () {
             expect(geojson.getCenter).toHaveBeenCalledWith({
                 type: 'Point',
                 coordinates: [
@@ -119,7 +114,7 @@ describe('Panorama API Factory', function () {
             expect(response.location).toEqual([52.3747994036985, 4.91359770418102]);
         });
 
-        it('fetches equirectangular image', function () {
+        it('fetches the cubic image', function () {
             expect(response.image).toBe('http://example.com/example/cubic/');
         });
     });
