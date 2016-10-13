@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('atlasSearchResults')
+        .module('dpSearchResults')
         .constant('SEARCH_CONFIG', {
             QUERY_ENDPOINTS: [
                 {

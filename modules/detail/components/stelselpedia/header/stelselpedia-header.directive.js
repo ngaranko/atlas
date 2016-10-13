@@ -2,10 +2,10 @@
     'use strict';
 
     angular
-        .module('atlasDetail')
-        .directive('atlasStelselpediaHeader', atlasStelselpediaHeaderDirective);
+        .module('dpDetail')
+        .directive('dpStelselpediaHeader', dpStelselpediaHeaderDirective);
 
-    function atlasStelselpediaHeaderDirective () {
+    function dpStelselpediaHeaderDirective () {
         return {
             restrict: 'E',
             scope: {
@@ -17,15 +17,15 @@
             },
             templateUrl: 'modules/detail/components/stelselpedia/header/stelselpedia-header.html',
             transclude: true,
-            controller: AtlasStelselpediaHeaderController,
+            controller: DpStelselpediaHeaderController,
             controllerAs: 'vm',
             bindToController: true
         };
     }
 
-    AtlasStelselpediaHeaderController.$inject = ['$scope', '$sce', 'STELSELPEDIA'];
+    DpStelselpediaHeaderController.$inject = ['$scope', '$sce', 'STELSELPEDIA'];
 
-    function AtlasStelselpediaHeaderController ($scope, $sce, STELSELPEDIA) {
+    function DpStelselpediaHeaderController ($scope, $sce, STELSELPEDIA) {
         var vm = this;
 
         vm.isVisible = {

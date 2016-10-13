@@ -3,15 +3,15 @@
 
     angular
         .module('atlas')
-        .component('atlasDashboard', {
+        .component('dpDashboard', {
             templateUrl: 'modules/atlas/components/dashboard/dashboard.html',
-            controller: AtlasDashboardController,
+            controller: DpDashboardController,
             controllerAs: 'vm'
         });
 
-    AtlasDashboardController.$inject = ['store', 'dashboardColumns'];
+    DpDashboardController.$inject = ['store', 'dashboardColumns'];
 
-    function AtlasDashboardController (store, dashboardColumns) {
+    function DpDashboardController (store, dashboardColumns) {
         var vm = this;
 
         vm.store = store;
@@ -40,7 +40,7 @@
                 vm.isPrintMode
             );
 
-            // Needed for the atlas-scrollable-content directive
+            // Needed for the dp-scrollable-content directive
             vm.pageName = state.page;
         }
     }

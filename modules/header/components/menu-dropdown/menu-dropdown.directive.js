@@ -2,10 +2,10 @@
     'use strict';
 
     angular
-        .module('atlasHeader')
-        .directive('atlasMenuDropdown', atlasMenuDropdownDirective);
+        .module('dpHeader')
+        .directive('dpMenuDropdown', dpMenuDropdownDirective);
 
-    function atlasMenuDropdownDirective () {
+    function dpMenuDropdownDirective () {
         return {
             restrict: 'E',
             transclude: true,

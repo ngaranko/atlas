@@ -26,8 +26,9 @@
 
             newState.page = payload;
 
-            newState.map.showLayerSelection = false;
             newState.map.isFullscreen = false;
+
+            newState.layerSelection = false;
             newState.search = null;
             newState.detail = null;
             newState.straatbeeld = null;

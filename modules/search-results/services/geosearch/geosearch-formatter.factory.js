@@ -1,6 +1,6 @@
 (function () {
     angular
-        .module('atlasSearchResults')
+        .module('dpSearchResults')
         .factory('geosearchFormatter', geosearchFormatterFactory);
 
     geosearchFormatterFactory.$inject = ['SEARCH_CONFIG'];

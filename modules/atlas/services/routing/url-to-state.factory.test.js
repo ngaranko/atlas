@@ -6,7 +6,14 @@ describe('The urlToState factory', function () {
         mockedSearchParams;
 
     beforeEach(function () {
-        angular.mock.module('atlas');
+        angular.mock.module(
+            'atlas',
+            {
+                store: {
+                    dispatch: function () {}
+                }
+            }
+        );
 
         angular.mock.inject(function (_$location_, _$rootScope_, _urlToState_, _store_) {
             $location = _$location_;

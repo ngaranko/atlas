@@ -275,7 +275,7 @@ describe('The dashboardColumns factory', function () {
                 uri: 'blah/blah/123',
                 isLoading: false
             };
-            mockedState.map.showLayerSelection = true;
+            mockedState.layerSelection = true;
         });
 
         describe('the default non-print version', function () {
@@ -395,7 +395,7 @@ describe('The dashboardColumns factory', function () {
                 uri: 'blah/blah/123',
                 isLoading: false
             };
-            mockedState.map.showLayerSelection = true;
+            mockedState.layerSelection = true;
             mockedState.map.isFullscreen = true;
         });
 
