@@ -180,7 +180,6 @@ describe('The dashboardColumns factory', function () {
 
             it('makes the map and detail page visibile', function () {
                 visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(visibility, false, true);
 
                 expect(visibility.map).toBe(true);
                 expect(visibility.detail).toBe(true);
