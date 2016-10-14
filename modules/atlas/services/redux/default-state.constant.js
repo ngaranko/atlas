@@ -35,20 +35,20 @@
             straatbeeld: null,
             /*
             straatbeeld: {
-                id: 1,
-                searchLocation: null,
-                date: null,
-                car: {
-                    location: [52.789, 4.123],
-                    heading: 20,
-                    pitch: 0.1
-                },
-                camera: {
-                    heading: 180,
-                    pitch: 0.5
-                },
-                hotspots: [],
-                isLoading: false
+                id: 'ABC123',
+                date: new Date()
+                location: [52.8, 4.9],
+                image: 'http://www.example.com/path/to/image.jpg',
+                heading: 270,
+                pitch: -10,
+                fov: 65,
+                hotspots: [{
+                    id: 'ABC124',
+                    heading: 90,
+                    distance: 18
+                }],
+                isLoading: false,
+                isInitial: true
             },
             */
             dataSelection: null,
