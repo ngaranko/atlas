@@ -36,7 +36,7 @@
             /*
             straatbeeld: {
                 id: 'ABC123',
-                date: new Date()
+                date: new Date(),
                 location: [52.8, 4.9],
                 image: 'http://www.example.com/path/to/image.jpg',
                 heading: 270,

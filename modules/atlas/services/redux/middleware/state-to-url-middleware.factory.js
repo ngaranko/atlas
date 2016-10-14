@@ -26,7 +26,7 @@
                 ACTIONS.SHOW_MAP_ACTIVE_OVERLAYS,
                 ACTIONS.HIDE_MAP_ACTIVE_OVERLAYS,
                 ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT,
-                ACTIONS.STRAATBEELD_SET_ORIENTATION
+                ACTIONS.SET_STRAATBEELD_ORIENTATION
             ];
 
         return function (store) {
