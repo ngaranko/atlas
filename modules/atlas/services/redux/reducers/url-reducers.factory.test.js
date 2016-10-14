@@ -396,7 +396,7 @@ describe('The urlReducers factory', function () {
                 expect(output.straatbeeld.fov).toBe(2);
             });
 
-            it('remember all oldStates when URL changes but straatbeeld remains the same', function () {
+            it('remembers parts of the state that aren\'t in the URL when the ID stays the same', function () {
                 var output;
                 mockedState.straatbeeld = {};
                 mockedState.straatbeeld.id = 'ABC';
@@ -428,7 +428,7 @@ describe('The urlReducers factory', function () {
                 expect(output.straatbeeld.image).toEqual('http://example.com/example.png');
             });
 
-            it('resets all oldStates when URL changes but straatbeeld ID is different than payload', function () {
+            it('resets all the date and hotspots when the old straatbeeld ID is different than payload', function () {
                 var output;
 
                 mockedState.date = new Date('Thu Sep 22 2016 12:10:37 GMT+0200 (CEST)');
@@ -437,7 +437,6 @@ describe('The urlReducers factory', function () {
                     b: 'b',
                     c: 'c',
                     d: 'd'
-
                 }];
 
                 mockedSearchParams.id = 'ABC';
