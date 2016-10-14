@@ -127,12 +127,21 @@ describe('The marzipanoService factory', function () {
         });
 
         it('that, ehm, loads a scene', function () {
-            marzipanoService.loadScene('http://api.example.com/path/to/cubic/', 179, 1, 2, []);
+            marzipanoService.loadScene(
+                {
+                    pattern: 'http://api.example.com/path/{x}/{y}/{z}.jpg',
+                    preview: 'http://api.example.com/path/preview.jpg'
+                },
+                179,
+                1,
+                2,
+                []
+            );
 
             expect(Marzipano.ImageUrlSource.fromString).toHaveBeenCalledWith(
-                'http://api.example.com/path/to/cubic/{z}/{f}/{y}/{x}.jpg',
+                'http://api.example.com/path/{x}/{y}/{z}.jpg',
                 {
-                    cubeMapPreviewUrl: 'http://api.example.com/path/to/cubic/preview.jpg'
+                    cubeMapPreviewUrl: 'http://api.example.com/path/preview.jpg'
                 }
             );
             expect(Marzipano.RectilinearView.limit.traditional).toHaveBeenCalledWith(1000, 50);

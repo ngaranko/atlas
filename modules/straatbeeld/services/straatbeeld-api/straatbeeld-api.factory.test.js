@@ -23,8 +23,11 @@ describe('The straatbeeldApi Factory', function () {
                     var q = $q.defer();
 
                     q.resolve({
-                        images: {
-                            cubic: 'http://example.com/example/cubic/'
+                        image_sets: {
+                            cubic: {
+                                pattern: 'http://example.com/example/cubic/abf123/{a}/{b}/{c}.jpg',
+                                preview: 'http://example.com/example/cubic/abf123/preview.jpg'
+                            }
                         },
                         geometrie: {
                             type: 'Point',
@@ -114,7 +117,10 @@ describe('The straatbeeldApi Factory', function () {
         });
 
         it('fetches the cubic image', function () {
-            expect(response.image).toBe('http://example.com/example/cubic/');
+            expect(response.image).toEqual({
+                pattern: 'http://example.com/example/cubic/abf123/{a}/{b}/{c}.jpg',
+                preview: 'http://example.com/example/cubic/abf123/preview.jpg'
+            });
         });
     });
 });

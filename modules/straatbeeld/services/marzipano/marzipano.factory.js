@@ -37,9 +37,9 @@
                 scene;
 
             source = Marzipano.ImageUrlSource.fromString(
-                image + '{z}/{f}/{y}/{x}.jpg',
+                image.pattern,
                 {
-                    cubeMapPreviewUrl: image + 'preview.jpg'
+                    cubeMapPreviewUrl: image.preview
                 }
             );
 

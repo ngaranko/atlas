@@ -146,12 +146,16 @@ describe('The dp-straatbeeld directive', function () {
 
             expect(marzipanoService.loadScene).not.toHaveBeenCalled();
 
-            directive.isolateScope().state.image = 'http://example.com/example.png';
+            directive.isolateScope().state.image = {
+                pattern: 'http://example.com/1/{a}/{b}/{c}.png',
+                preview: 'http://example.com/1/preview.png'
+            };
             directive.isolateScope().$apply();
 
             expect(marzipanoService.loadScene).toHaveBeenCalledTimes(1);
 
-            directive.isolateScope().state.image = 'http://example.com/example2.png';
+            directive.isolateScope().state.image.pattern = 'http://example.com/2/{a}/{b}/{c}.png';
+            directive.isolateScope().state.image.preview = 'http://example.com/2/preview.png';
             directive.isolateScope().$apply();
 
             expect(marzipanoService.loadScene).toHaveBeenCalledTimes(2);
@@ -169,7 +173,10 @@ describe('The dp-straatbeeld directive', function () {
 
         it('Does call Marzipano.loadscene when state.image exists', function () {
             var state = {
-                image: 'http://example.com/example.png',
+                image: {
+                    pattern: 'http://example.com/example/{a}/{b}/{c}.png',
+                    preview: 'http://example.com/example/preview.png'
+                },
                 heading: 179,
                 pitch: 1,
                 fov: 2,
@@ -179,7 +186,10 @@ describe('The dp-straatbeeld directive', function () {
             getDirective(state, false);
 
             expect(marzipanoService.loadScene).toHaveBeenCalledWith(
-                'http://example.com/example.png',
+                {
+                    pattern: 'http://example.com/example/{a}/{b}/{c}.png',
+                    preview: 'http://example.com/example/preview.png'
+                },
                 179,
                 1,
                 2,

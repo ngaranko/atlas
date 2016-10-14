@@ -38,7 +38,10 @@
                 id: 'ABC123',
                 date: new Date(),
                 location: [52.8, 4.9],
-                image: 'http://www.example.com/path/to/image.jpg',
+                image: {
+                    pattern: 'http://www.example.com/path/some-id/{this}/{that}/{thingie}.jpg',
+                    preview: 'http://www.example.com/path/some-id/preview.jpg'
+                },
                 heading: 270,
                 pitch: -10,
                 fov: 65,

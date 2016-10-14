@@ -53,8 +53,8 @@
                 }
             });
 
-            scope.$watch('state.image', function () {
-                if (angular.isString(scope.state.image)) {
+            scope.$watchCollection('state.image', function () {
+                if (angular.isObject(scope.state.image)) {
                     marzipanoService.loadScene(
                         scope.state.image,
                         scope.state.heading,

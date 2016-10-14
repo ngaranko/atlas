@@ -115,7 +115,10 @@ describe('Straatbeeld reducers factory', function () {
                 distance: 3
             }],
             location: [52, 4],
-            image: 'http://example.com/example/bla.png'
+            image: {
+                pattern: 'http://example.com/example/{this}/{that}/{whatever}.png',
+                preview: 'http://example.com/example/preview.png'
+            }
         };
 
         beforeEach(function () {
