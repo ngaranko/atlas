@@ -12,7 +12,7 @@ describe('The dp-straatbeeld-thumbnail component', function () {
         angular.mock.module(
             'dpShared',
             {
-                detailConfig: {
+                sharedConfig: {
                     STRAATBEELD_THUMB_URL: 'http://fake.straatbeeld.url/path/',
                     RADIUS: 50,
                     THUMBNAIL_WIDTH: 240
