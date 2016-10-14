@@ -77,7 +77,7 @@ describe('The dp-hotspot directive', function () {
         expect(maximumStyle).toBe(directive.find('button').attr('style'));
     });
 
-    it('clicking the hotspot will trigger the FETCH_PANORAMA action', function () {
+    it('clicking the hotspot will trigger the FETCH_STRAATBEELD action', function () {
         var directive;
 
         spyOn(store, 'dispatch');
