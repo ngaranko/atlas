@@ -1,4 +1,4 @@
-describe('Mobile touch directive', function () {
+describe('The dp-hotspot-touch directive', function () {
     var $compile,
         $rootScope,
         mockedFunctions,
