@@ -1,7 +1,6 @@
 module.exports = function (grunt) {
     var files = require('./config/js-files'),
         cssFiles = require('./config/css-files'),
-        // uniqueIdJs,
         uniqueIdCss;
 
     uniqueIdCss = grunt.config.get('uniqueIdCss');
