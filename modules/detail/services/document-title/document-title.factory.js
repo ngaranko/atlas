@@ -20,7 +20,7 @@
             anchor = document.createElement('a');
             anchor.href = detailState.endpoint;
 
-            stelselpediaDefinition = anchor.pathname.split('/')[2].toUpperCase();
+            stelselpediaDefinition = anchor.pathname.split('/')[2].toUpperCase().replace(/\-/g, '_');
 
             return STELSELPEDIA.DEFINITIONS[stelselpediaDefinition].label_singular + ': ' + detailState.display;
         }

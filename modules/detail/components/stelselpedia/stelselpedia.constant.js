@@ -195,7 +195,7 @@
                     url: 'https://www.amsterdam.nl/stelselpedia/brk-index/catalog-brk-levering/objectklasse-objec/',
                     meta: ['id']
                 },
-                'OBJECT-WKPB': {
+                OBJECT_WKPB: {
                     label_singular: 'WKPB-uittreksel',
                     label_plural: null,
                     description: null,
