@@ -4,7 +4,6 @@ module.exports = function (grunt) {
         // uniqueIdJs,
         uniqueIdCss;
 
-    // uniqueIdJs = grunt.config.get('uniqueIdJs');
     uniqueIdCss = grunt.config.get('uniqueIdCss');
 
     var targets = {

@@ -5,18 +5,32 @@ module.exports = function (grunt) {
         options: {
             sourceMap: true,
             compact: false,
-            // minified: true, // Makes exceptions unreadable
+            minified: false,
             presets: ['es2015']
         }
         //
         // The code below generates targets as follows
         // `transpile_module_${module.slug}`:_{
-        //     src: `build/temp/babel/es6/atlas.${module.slug}.js`,
-        //     dest: 'build/temp/babel/es5/'
-        // }
+        //     options: {
+        //         inputSourceMap: grunt.file.readJSON(`build/temp/babel/es6/atlas.${module.slug}.js.map`),
+        //     },
+        //     files: [{
+        //         expand: true,
+        //         flatten: true,
+        //         src: `build/temp/babel/es6/atlas.${module.slug}.js`,
+        //         dest: 'build/temp/babel/es5/'
+        //     }]
+        // },
         // `transpile_test_${module.slug}`:_{
-        //     src: `build/temp/babel/es6tests/atlas.${module.slug}.js`,
-        //     dest: 'build/temp/babel/es5tests/'
+        //     options: {
+        //         inputSourceMap: grunt.file.readJSON(`build/temp/babel/es6tests/atlas.${module.slug}.js.map`),
+        //     },
+        //     files: [{
+        //         expand: true,
+        //         flatten: true,
+        //         src: `build/temp/babel/es6tests/atlas.${module.slug}.js`,
+        //         dest: 'build/temp/babel/es5tests/'
+        //     }]
         // }
         //
         // As well as the tasks babel-modules and babel-tests to run the group of targets
@@ -44,7 +58,6 @@ module.exports = function (grunt) {
     var setTarget = target => {
         targets[target.name] = {
             options: {
-                // inputSourceMap: grunt.file.readJSON(mapfile),
             },
             files: [{
                 expand: true,

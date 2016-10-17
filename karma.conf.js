@@ -23,7 +23,6 @@ module.exports = function (config) {
         logLevel: 'ERROR',
         preprocessors: {
             'modules/**/!(*.test).js': ['babel', 'coverage'],
-            'build/temp/babel/atlas.tests.es5.js': ['sourcemap'],
             'build/temp/babel/es5tests/*.js': ['sourcemap']
         },
         babelPreprocessor: {
