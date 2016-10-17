@@ -16,7 +16,7 @@
         function getTitle (detailState) {
             const stelselpediaKey = endpointParser.getStelselpediaKey(detailState.endpoint);
 
-            return STELSELPEDIA.DEFINITIONS[stelselpediaKey].label_singular + ': ' + detailState.display;
+            return `${STELSELPEDIA.DEFINITIONS[stelselpediaKey].label_singular}: ${detailState.display}`;
         }
     }
 })();

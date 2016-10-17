@@ -18,7 +18,7 @@
 
         function getStelselpediaKey (endpoint) {
             const [, subject] = getParts(endpoint);
-            return subject.toUpperCase().replace(/\-/g, '_');
+            return subject.toUpperCase().replace(/-/g, '_');
         }
 
         function getParts (endpoint) {
