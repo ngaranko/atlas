@@ -1,4 +1,5 @@
 // The order of this array is respected when loading the JavaScript files
+// Module dependencies are maintained in js-files
 
 module.exports = [
     {

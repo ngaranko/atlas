@@ -22,6 +22,7 @@ module.exports = function (grunt) {
         'babel-modules'     // transpile each module
     ]);
 
+    // The following tasks are a per-module version of the build-js-modules task
     files.modules.forEach(module => {
         grunt.registerTask(`build-js-module-${module.slug}`, [
             `newer:ngtemplates:${module.name}`,

@@ -30,6 +30,8 @@ module.exports = function (grunt) {
     // Test a single module by concatenate the test files
     // have them transpiled
     // And then run karma
+    // The tasks are a per-module version of the test-js task
+    // A Taiga task has been made to have all modules tested with full coverage
     files.modules.forEach(module => {
         grunt.registerTask(`test-js-module-${module.slug}`,
             linters
