@@ -94,8 +94,7 @@ describe('The dp-straatbeeld-thumbnail component', function () {
 
         expect(component.find('img').length).toBe(0);
         expect(scope.vm.isLoading).toBe(false);
-        expect(component.find('.qa-found-no-straatbeeld').text())
-            .toContain(m);
+        expect(component.find('.qa-found-no-straatbeeld').text()).toContain(m);
     });
 
     it('shows a thumbnail when thumbnail is found', function () {
