@@ -6,10 +6,10 @@
     </div>
 </button>
 
-
-<dp-panel is-panel-visible="true" type="warning">
-   <div class="qa-found-no-straatbeeld" ng-if="!vm.isLoading && !vm.hasThumbnail">
-	Op deze locatie is binnen {{ vm.radius }} meter geen straatbeeld gevonden.</div>
-</dp-panel>
-    
+<div ng-if="!vm.isLoading && !vm.hasThumbnail">
+	<dp-panel is-panel-visible="true" type="warning">
+		<div class="qa-found-no-straatbeeld">
+			Geen panorama beschikbaar (binnen {{ vm.radius }}m van deze locatie). Tip: kies via de kaart een nabije locatie.</div>
+	</dp-panel>
+</div>
 <dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>

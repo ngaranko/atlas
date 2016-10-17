@@ -88,13 +88,14 @@ describe('The dp-straatbeeld-thumbnail component', function () {
         hasMockedThumbnail = false;
         var component = getComponent([52, 4]);
         var scope = component.isolateScope();
+        var m = 'Geen panorama beschikbaar (binnen 50m van deze locatie). Tip: kies via de kaart een nabije locatie.';
 
         finishApiCall();
 
         expect(component.find('img').length).toBe(0);
         expect(scope.vm.isLoading).toBe(false);
         expect(component.find('.qa-found-no-straatbeeld').text())
-            .toContain('Op deze locatie is binnen 50 meter geen straatbeeld gevonden.');
+            .toContain(m);
     });
 
     it('shows a thumbnail when thumbnail is found', function () {
