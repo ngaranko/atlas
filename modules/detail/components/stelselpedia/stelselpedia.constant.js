@@ -155,22 +155,6 @@
                     url: 'https://www.amsterdam.nl/stelselpedia/meetbouten-index/catalogus-amsterdams/meting/',
                     meta: []
                 },
-                PEILMERK: {
-                    label_singular: 'NAP peilmerk',
-                    label_plural: 'NAP peilmerken',
-                    description: 'Het Normaal Amsterdams Peil (afgekort tot NAP) is de referentiehoogte ' +
-                    'waaraan hoogtemetingen in Nederland worden gerelateerd. Het NAP-net bestaat uit ongeveer ' +
-                    '50.000 zichtbare peilmerken en 250 ondergrondse peilmerken in Nederland, waarvan ongeveer ' +
-                    '1000 in Amsterdam.',
-                    url: 'https://www.amsterdam.nl/stelselpedia/geodesie-index/catalogus/',
-                    meta: [
-                        'begin_geldigheid',
-                        'document_mutatie',
-                        'document_nummer',
-                        'landelijk_id',
-                        'sleutelverzendend'
-                    ]
-                },
                 NUMMERAANDUIDING: {
                     label_singular: 'Adres',
                     label_plural: 'Adressen',
@@ -238,6 +222,22 @@
                         'document_mutatie',
                         'document_nummer',
                         'pandidentificatie',
+                        'sleutelverzendend'
+                    ]
+                },
+                PEILMERK: {
+                    label_singular: 'NAP peilmerk',
+                    label_plural: 'NAP peilmerken',
+                    description: 'Het Normaal Amsterdams Peil (afgekort tot NAP) is de referentiehoogte ' +
+                    'waaraan hoogtemetingen in Nederland worden gerelateerd. Het NAP-net bestaat uit ongeveer ' +
+                    '50.000 zichtbare peilmerken en 250 ondergrondse peilmerken in Nederland, waarvan ongeveer ' +
+                    '1000 in Amsterdam.',
+                    url: 'https://www.amsterdam.nl/stelselpedia/geodesie-index/catalogus/',
+                    meta: [
+                        'begin_geldigheid',
+                        'document_mutatie',
+                        'document_nummer',
+                        'landelijk_id',
                         'sleutelverzendend'
                     ]
                 },
