@@ -6,23 +6,17 @@
         .module('dpDetail')
         .factory('dpDetailDocumentTitle', dpDetailDocumentTitleFactory);
 
-    dpDetailDocumentTitleFactory.$inject = ['STELSELPEDIA'];
+    dpDetailDocumentTitleFactory.$inject = ['endpointParser', 'STELSELPEDIA'];
 
-    function dpDetailDocumentTitleFactory (STELSELPEDIA) {
+    function dpDetailDocumentTitleFactory (endpointParser, STELSELPEDIA) {
         return {
             getTitle: getTitle
         };
 
         function getTitle (detailState) {
-            var anchor,
-                stelselpediaDefinition;
+            const stelselpediaKey = endpointParser.getStelselpediaKey(detailState.endpoint);
 
-            anchor = document.createElement('a');
-            anchor.href = detailState.endpoint;
-
-            stelselpediaDefinition = anchor.pathname.split('/')[2].toUpperCase().replace(/\-/g, '_');
-
-            return STELSELPEDIA.DEFINITIONS[stelselpediaDefinition].label_singular + ': ' + detailState.display;
+            return STELSELPEDIA.DEFINITIONS[stelselpediaKey].label_singular + ': ' + detailState.display;
         }
     }
 })();
