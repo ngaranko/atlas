@@ -1,5 +1,5 @@
 module.exports = function (config) {
-    var jsFiles = ['build/temp/bower_components.js'];
+    var jsFiles = ['build/temp/atlas.libs.js'];
     jsFiles = jsFiles.concat(require('./grunt/config/js-files').jsFiles);
     jsFiles.push('bower_components/angular-mocks/angular-mocks.js');
     jsFiles.push('build/temp/babel/es5tests/*.js');
