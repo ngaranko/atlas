@@ -55,7 +55,7 @@ describe('The geojson factory', function () {
     });
 
     it('can transform a Point to an Array format', function () {
-        expect(geojson.getCenter(mockedPoint)).toEqual([52, 4]);
+        expect(geojson.getCenter(mockedPoint)).toEqual([4, 52]);
     });
 
     it('can calculate the center of a Polygon', function () {

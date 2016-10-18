@@ -26,8 +26,8 @@
                 yMax;
 
             if (geoJSON.type === 'Point') {
-                xValues.push(geoJSON.coordinates[1]);
-                yValues.push(geoJSON.coordinates[0]);
+                xValues.push(geoJSON.coordinates[0]);
+                yValues.push(geoJSON.coordinates[1]);
             } else {
                 getCoordinates(geoJSON.coordinates);
             }
