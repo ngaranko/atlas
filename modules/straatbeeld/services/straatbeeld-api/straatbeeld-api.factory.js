@@ -14,6 +14,14 @@
 
         function getImageDataById (id) {
             return api.getByUrl(straatbeeldConfig.STRAATBEELD_ENDPOINT + id + '/').then(function (response) {
+                var formattedGeometrie = {
+                    coordinates: [
+                        response.geometrie.coordinates[1],
+                        response.geometrie.coordinates[0]
+                    ],
+                    type: response.geometrie.type
+                };
+
                 return {
                     date: new Date(response.timestamp),
                     hotspots: response.adjacent.map(function (item) {
@@ -23,7 +31,7 @@
                             distance: item.distance
                         };
                     }),
-                    location: geojson.getCenter(response.geometrie),
+                    location: geojson.getCenter(formattedGeometrie),
                     image: response.image_sets.cubic
                 };
             });
