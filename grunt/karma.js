@@ -67,7 +67,7 @@ module.exports = function (grunt) {
                     {
                         options: {
                             files: [
-                                'build/temp/bower_components.js',
+                                'build/temp/atlas.libs.js',
                                 // Use the ES6 code as source; code coverage runs on the ES6 code
                                 files.moduleDependencies(module)
                                     .map(mod => files.jsModuleFiles(mod))
