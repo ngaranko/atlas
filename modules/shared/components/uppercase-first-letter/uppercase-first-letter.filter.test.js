@@ -2,7 +2,17 @@ describe('The dpUppercaseFirstLetter filter', function () {
     var dpUppercaseFirstLetter;
 
     beforeEach(function () {
-        angular.mock.module('dpDetail');
+        angular.mock.module(
+            'dpShared',
+            {
+                detailConfig: {
+                    STRAATBEELD_THUMB_URL: 'http://fake.straatbeeld.url/path/'
+                },
+                store: {
+                    dispatch: function () {}
+                }
+            }
+        );
 
         angular.mock.inject(function (_dpUppercaseFirstLetterFilter_) {
             dpUppercaseFirstLetter = _dpUppercaseFirstLetterFilter_;
