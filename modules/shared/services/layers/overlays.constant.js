@@ -641,7 +641,10 @@
                     label_long: 'Parkeervakken',
                     layers: ['alle_parkeervakken', 'parkeervakken_label'],
                     minZoom: 10,
-                    maxZoom: 16
+                    maxZoom: 16,
+                    legend: '/maps/parkeervakken?version=1.3.0&service=WMS&request=' +
+                        'GetLegendGraphic&sld_version=1.1.0&layer=alle_parkeervakken&format=image/png&STYLE=de' +
+                        'fault'
                 },
                 parkeervakken_bord: {
                     url: 'maps/parkeervakken',
@@ -649,7 +652,10 @@
                     label_long: 'Parkeervakken - Borden',
                     layers: ['alle_parkeervakken', 'parkeervakken_bord'],
                     minZoom: 10,
-                    maxZoom: 16
+                    maxZoom: 16,
+                    legend: '/maps/parkeervakken?version=1.3.0&service=WMS&request=' +
+                        'GetLegendGraphic&sld_version=1.1.0&layer=parkeervakken_bord&format=image/png&STYLE=de' +
+                        'fault'
                 },
                 parkeervakken_reservering: {
                     url: 'maps/parkeervakken',
