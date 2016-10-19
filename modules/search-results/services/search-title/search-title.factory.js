@@ -4,19 +4,23 @@
     angular
         .module('dpSearchResults')
         .factory('searchTitle', searchTitleFactory);
-    searchTitleFactory.$inject = ['numberFilter', 'lowercaseFilter', 'coordinatesFilter'];
+    searchTitleFactory.$inject = ['SEARCH_CONFIG', 'numberFilter', 'lowercaseFilter', 'coordinatesFilter'];
 
-    function searchTitleFactory (numberFilter, lowercaseFilter, coordinatesFilter) {
+    function searchTitleFactory (SEARCH_CONFIG, numberFilter, lowercaseFilter, coordinatesFilter) {
         return {
             getTitleData: getTitleData
         };
 
         function getTitleData (numberOfResults, query, location, category) {
+            const categoryName = category
+                    ? SEARCH_CONFIG.QUERY_ENDPOINTS.filter(endpoint => endpoint.slug === category)
+                        [0].label_plural : null;
+
             var title = '',
                 subTitle = '';
 
-            if (category) {
-                title = numberFilter(numberOfResults) + ' ' + lowercaseFilter(category);
+            if (categoryName) {
+                title = numberFilter(numberOfResults) + ' ' + lowercaseFilter(categoryName);
             } else if (numberOfResults === 0) {
                 title = 'Geen resultaten gevonden';
             } else if (numberOfResults === 1) {
