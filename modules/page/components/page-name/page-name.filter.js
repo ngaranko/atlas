@@ -8,8 +8,6 @@
     dpPageNameFilter.$inject = ['pageName'];
 
     function dpPageNameFilter (pageName) {
-        return function (input) {
-            return pageName(input);
-        };
+        return input => pageName(input);
     }
 })();

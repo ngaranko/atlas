@@ -10,7 +10,7 @@
 
     function dpPageDocumentTitleFactory (pageName) {
         return {
-            getTitle: (name) => pageName(name)
+            getTitle: name => pageName(name)
         };
     }
 })();

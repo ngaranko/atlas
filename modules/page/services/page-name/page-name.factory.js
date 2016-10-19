@@ -8,8 +8,6 @@
     pageNameFactory.$inject = ['PAGE_NAMES'];
 
     function pageNameFactory (PAGE_NAMES) {
-        return pageName => {
-            return PAGE_NAMES[pageName];
-        };
+        return pageName => PAGE_NAMES[pageName];
     }
 })();
