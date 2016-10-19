@@ -63,10 +63,12 @@
                     label_plural: 'Panden',
                     features: ['bag/pand']
                 }, {
+                    slug: 'plaats',
                     label_singular: 'Standplaats',
                     label_plural: 'Standplaatsen',
                     features: ['bag/standplaats']
                 }, {
+                    slug: 'plaats',
                     label_singular: 'Ligplaats',
                     label_plural: 'Ligplaatsen',
                     features: ['bag/ligplaats']

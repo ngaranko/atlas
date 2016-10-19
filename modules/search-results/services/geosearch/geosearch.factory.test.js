@@ -9,9 +9,12 @@ describe('The geosearch factory', function () {
         mockedSearchResultsWithoutRadius,
         mockedEmptySearchResults,
         mockedPandSearchResult,
+        mockedStandplaatsSearchResult,
         mockedFormattedSearchResults,
         mockedFormattedPandSearchResult,
+        mockedFormattedStandplaatsSearchResult,
         mockedPandApiResults,
+        mockedStandplaatsApiResults,
         mockedVerblijfsobjectenApiResults,
         mockedFormattedVerblijfsobjectenApiResults,
         mockedVestigingenApiResults,
@@ -29,7 +32,8 @@ describe('The geosearch factory', function () {
                             q.resolve(mockedSearchResultsWithRadius);
                         } else if (endpoint === 'other/endpoint/') {
                             q.resolve(mockedSearchResultsWithoutRadius);
-                        } else if (endpoint === 'handelsregister/vestiging/?pand=0456789') {
+                        } else if (endpoint === 'handelsregister/vestiging/?pand=0456789' ||
+                                endpoint === 'handelsregister/vestiging/?nummeraanduiding=0123456789') {
                             q.resolve(mockedVestigingenApiResults);
                         } else {
                             q.resolve(mockedEmptySearchResults);
@@ -43,6 +47,8 @@ describe('The geosearch factory', function () {
 
                         if (endpoint === 'https://api.datapunt.amsterdam.nl/bag/pand/0456789/') {
                             q.resolve(mockedPandApiResults);
+                        } else if (endpoint === 'https://api.datapunt.amsterdam.nl/bag/standplaats/0456789/') {
+                            q.resolve(mockedStandplaatsApiResults);
                         } else if (endpoint === 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/?panden__id=04' +
                             '56789') {
                             q.resolve(mockedVerblijfsobjectenApiResults);
@@ -214,6 +220,37 @@ describe('The geosearch factory', function () {
             }
         };
 
+        mockedStandplaatsSearchResult = {
+            properties: {
+                display: '0456789',
+                type: 'bag/standplaats',
+                uri: 'https://api.datapunt.amsterdam.nl/bag/standplaats/456789/'
+            }
+        };
+
+        mockedFormattedStandplaatsSearchResult = {
+            slug: 'plaats',
+            count: 1,
+            results: [
+                {
+                    endpoint: 'https://api.datapunt.amsterdam.nl/bag/standplaats/0456789/',
+                    label: '0456789'
+                }
+            ]
+        };
+
+        mockedStandplaatsApiResults = {
+            _links: {
+                self: {
+                    href: 'https://api.datapunt.amsterdam.nl/bag/standplaats/0456789/'
+                }
+            },
+            standplaatsidentificatie: '123456',
+            hoofdadres: {
+                landelijk_id: '0123456789'
+            }
+        };
+
         mockedVerblijfsobjectenApiResults = {
             count: 2,
             results: ['FAKE_VBO_RESULT_1', 'FAKE_VBO_RESULT_2']
@@ -316,148 +353,213 @@ describe('The geosearch factory', function () {
         expect(searchResults).toEqual(mockedFormattedSearchResults);
     });
 
-    it('loads related verblijfsobjecten if a pand has been found', function () {
-        var searchResults,
-            expectedSearchResults;
+    describe('when a pand has been found', () => {
+        it('loads related verblijfsobjecten', function () {
+            var searchResults,
+                expectedSearchResults;
 
-        mockedVestigingenApiResults = {
-            count: 0,
-            results: []
-        };
+            mockedVestigingenApiResults = {
+                count: 0,
+                results: []
+            };
 
-        // Insert a pand into the mocked result set
-        mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedPandSearchResult);
-        mockedFormattedSearchResults.splice(1, 0, mockedFormattedPandSearchResult);
+            // Insert a pand into the mocked result set
+            mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedPandSearchResult);
+            mockedFormattedSearchResults.splice(1, 0, mockedFormattedPandSearchResult);
 
-        expectedSearchResults = angular.copy(mockedFormattedSearchResults);
-        expectedSearchResults.splice(2, 0, mockedFormattedVerblijfsobjectenApiResults);
+            expectedSearchResults = angular.copy(mockedFormattedSearchResults);
+            expectedSearchResults.splice(2, 0, mockedFormattedVerblijfsobjectenApiResults);
 
-        geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
-            searchResults = _searchResults_;
+            geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
+                searchResults = _searchResults_;
+            });
+
+            $rootScope.$apply();
+
+            expectedSearchResults[2].useIndenting = true;
+            expectedSearchResults[2].more = {
+                label: 'Bekijk alle 2 adressen binnen dit pand',
+                endpoint: 'https://api.datapunt.amsterdam.nl/bag/pand/0456789/'
+            };
+
+            expect(api.getByUrl).toHaveBeenCalledTimes(2);
+            expect(api.getByUrl)
+                .toHaveBeenCalledWith('https://api.datapunt.amsterdam.nl/bag/pand/0456789/');
+            expect(api.getByUrl)
+                .toHaveBeenCalledWith('https://api.datapunt.amsterdam.nl/bag/verblijfsobject/?panden__id=0456789');
+
+            expect(searchFormatter.formatCategory).toHaveBeenCalledWith('adres', mockedVerblijfsobjectenApiResults);
+            expect(searchResults).toEqual(expectedSearchResults);
         });
 
-        $rootScope.$apply();
+        it('loads related vestigingen', function () {
+            var searchResults,
+                expectedSearchResults;
 
-        expectedSearchResults[2].useIndenting = true;
-        expectedSearchResults[2].more = {
-            label: 'Bekijk alle 2 adressen binnen dit pand',
-            endpoint: 'https://api.datapunt.amsterdam.nl/bag/pand/0456789/'
-        };
+            mockedVerblijfsobjectenApiResults = {
+                count: 0,
+                results: []
+            };
 
-        expect(api.getByUrl).toHaveBeenCalledTimes(2);
-        expect(api.getByUrl)
-            .toHaveBeenCalledWith('https://api.datapunt.amsterdam.nl/bag/pand/0456789/');
-        expect(api.getByUrl)
-            .toHaveBeenCalledWith('https://api.datapunt.amsterdam.nl/bag/verblijfsobject/?panden__id=0456789');
+            // Insert a pand into the mocked result set
+            mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedPandSearchResult);
+            mockedFormattedSearchResults.splice(1, 0, mockedFormattedPandSearchResult);
 
-        expect(searchFormatter.formatCategory).toHaveBeenCalledWith('adres', mockedVerblijfsobjectenApiResults);
-        expect(searchResults).toEqual(expectedSearchResults);
+            expectedSearchResults = angular.copy(mockedFormattedSearchResults);
+            expectedSearchResults.splice(2, 0, mockedFormattedVestigingenApiResults);
+
+            geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
+                searchResults = _searchResults_;
+            });
+
+            $rootScope.$apply();
+
+            expectedSearchResults[2].useIndenting = true;
+            expectedSearchResults[2].more = {
+                label: 'Bekijk alle 2 vestigingen binnen dit pand',
+                endpoint: 'https://api.datapunt.amsterdam.nl/bag/pand/0456789/'
+            };
+
+            expect(api.getByUrl)
+                .toHaveBeenCalledWith('https://api.datapunt.amsterdam.nl/bag/pand/0456789/');
+
+            expect(api.getByUri)
+                .toHaveBeenCalledWith('handelsregister/vestiging/?pand=0456789');
+
+            expect(searchFormatter.formatCategory).toHaveBeenCalledWith('vestiging', mockedVestigingenApiResults);
+            expect(searchResults).toEqual(expectedSearchResults);
+        });
+
+        it('loads both related verblijfsobjecten and vestigingen', function () {
+            var searchResults,
+                expectedSearchResults;
+
+            // Insert a pand into the mocked result set
+            mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedPandSearchResult);
+            mockedFormattedSearchResults.splice(1, 0, mockedFormattedPandSearchResult);
+
+            expectedSearchResults = angular.copy(mockedFormattedSearchResults);
+            expectedSearchResults.splice(2, 0, mockedFormattedVestigingenApiResults);
+            expectedSearchResults.splice(2, 0, mockedFormattedVerblijfsobjectenApiResults);
+
+            geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
+                searchResults = _searchResults_;
+            });
+
+            $rootScope.$apply();
+
+            expectedSearchResults[2].useIndenting = true;
+            expectedSearchResults[2].more = {
+                label: 'Bekijk alle 2 adressen binnen dit pand',
+                endpoint: 'https://api.datapunt.amsterdam.nl/bag/pand/0456789/'
+            };
+
+            expectedSearchResults[3].useIndenting = true;
+            expectedSearchResults[3].more = {
+                label: 'Bekijk alle 2 vestigingen binnen dit pand',
+                endpoint: 'https://api.datapunt.amsterdam.nl/bag/pand/0456789/'
+            };
+
+            expect(api.getByUrl).toHaveBeenCalledTimes(2);
+            expect(api.getByUrl)
+                .toHaveBeenCalledWith('https://api.datapunt.amsterdam.nl/bag/pand/0456789/');
+            expect(api.getByUrl)
+                .toHaveBeenCalledWith('https://api.datapunt.amsterdam.nl/bag/verblijfsobject/?panden__id=0456789');
+
+            expect(api.getByUri)
+                .toHaveBeenCalledWith('handelsregister/vestiging/?pand=0456789');
+
+            expect(searchFormatter.formatCategory).toHaveBeenCalledWith('vestiging', mockedVestigingenApiResults);
+            expect(searchResults).toEqual(expectedSearchResults);
+        });
+
+        it('sometimes has no related verblijfsobjecten nor vestigingen', function () {
+            var searchResults;
+
+            mockedVerblijfsobjectenApiResults = {
+                count: 0,
+                results: []
+            };
+
+            mockedVestigingenApiResults = {
+                count: 0,
+                results: []
+            };
+
+            // Insert a pand into the mocked result set
+            mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedPandSearchResult);
+            mockedFormattedSearchResults.splice(1, 0, mockedFormattedPandSearchResult);
+
+            geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
+                searchResults = _searchResults_;
+            });
+
+            $rootScope.$apply();
+
+            expect(searchResults).toEqual(mockedFormattedSearchResults);
+        });
     });
 
-    it('loads related vestigingen if a pand has been found', function () {
-        var searchResults,
-            expectedSearchResults;
+    describe('when a ligplaats/standplaats has been found', () => {
+        it('loads related vestigingen', function () {
+            var searchResults,
+                expectedSearchResults;
 
-        mockedVerblijfsobjectenApiResults = {
-            count: 0,
-            results: []
-        };
+            // Insert a standplaats into the mocked result set
+            mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedStandplaatsSearchResult);
+            mockedFormattedSearchResults.splice(1, 0, mockedFormattedStandplaatsSearchResult);
 
-        // Insert a pand into the mocked result set
-        mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedPandSearchResult);
-        mockedFormattedSearchResults.splice(1, 0, mockedFormattedPandSearchResult);
+            expectedSearchResults = angular.copy(mockedFormattedSearchResults);
+            expectedSearchResults.splice(2, 0, mockedFormattedVestigingenApiResults);
 
-        expectedSearchResults = angular.copy(mockedFormattedSearchResults);
-        expectedSearchResults.splice(2, 0, mockedFormattedVestigingenApiResults);
+            geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
+                searchResults = _searchResults_;
+            });
 
-        geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
-            searchResults = _searchResults_;
+            $rootScope.$apply();
+
+            expectedSearchResults[2].more = {
+                label: 'Bekijk alle 2 vestigingen binnen deze standplaats',
+                endpoint: 'https://api.datapunt.amsterdam.nl/bag/standplaats/0456789/'
+            };
+
+            expect(api.getByUrl).toHaveBeenCalledTimes(1);
+            expect(api.getByUrl)
+                .toHaveBeenCalledWith('https://api.datapunt.amsterdam.nl/bag/standplaats/0456789/');
+
+            expect(api.getByUri)
+                .toHaveBeenCalledWith('handelsregister/vestiging/?nummeraanduiding=0123456789');
+
+            expect(searchFormatter.formatCategory).toHaveBeenCalledWith('vestiging', mockedVestigingenApiResults);
+            expect(searchResults).toEqual(expectedSearchResults);
         });
 
-        $rootScope.$apply();
+        it('shows a different \'show more\' link based on type (standplaats, ligplaats)', function () {
+            var searchResults,
+                expectedSearchResults;
 
-        expectedSearchResults[2].useIndenting = true;
-        expectedSearchResults[2].more = {
-            label: 'Bekijk alle 2 vestigingen binnen dit pand',
-            endpoint: 'https://api.datapunt.amsterdam.nl/bag/pand/0456789/'
-        };
+            mockedStandplaatsApiResults.ligplaatsidentificatie = mockedStandplaatsApiResults.standplaatsidentificatie;
+            delete mockedStandplaatsApiResults.standplaatsidentificatie;
 
-        expect(api.getByUrl)
-            .toHaveBeenCalledWith('https://api.datapunt.amsterdam.nl/bag/pand/0456789/');
+            // Insert a standplaats into the mocked result set
+            mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedStandplaatsSearchResult);
+            mockedFormattedSearchResults.splice(1, 0, mockedFormattedStandplaatsSearchResult);
 
-        expect(api.getByUri)
-            .toHaveBeenCalledWith('handelsregister/vestiging/?pand=0456789');
+            expectedSearchResults = angular.copy(mockedFormattedSearchResults);
+            expectedSearchResults.splice(2, 0, mockedFormattedVestigingenApiResults);
 
-        expect(searchFormatter.formatCategory).toHaveBeenCalledWith('vestiging', mockedVestigingenApiResults);
-        expect(searchResults).toEqual(expectedSearchResults);
-    });
+            geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
+                searchResults = _searchResults_;
+            });
 
-    it('loads both related verblijfsobjecten and vestigingen if a pand has been found', function () {
-        var searchResults,
-            expectedSearchResults;
+            $rootScope.$apply();
 
-        // Insert a pand into the mocked result set
-        mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedPandSearchResult);
-        mockedFormattedSearchResults.splice(1, 0, mockedFormattedPandSearchResult);
+            expectedSearchResults[2].more = {
+                label: 'Bekijk alle 2 vestigingen binnen deze ligplaats',
+                endpoint: 'https://api.datapunt.amsterdam.nl/bag/standplaats/0456789/'
+            };
 
-        expectedSearchResults = angular.copy(mockedFormattedSearchResults);
-        expectedSearchResults.splice(2, 0, mockedFormattedVestigingenApiResults);
-        expectedSearchResults.splice(2, 0, mockedFormattedVerblijfsobjectenApiResults);
-
-        geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
-            searchResults = _searchResults_;
+            expect(searchResults).toEqual(expectedSearchResults);
         });
-
-        $rootScope.$apply();
-
-        expectedSearchResults[2].useIndenting = true;
-        expectedSearchResults[2].more = {
-            label: 'Bekijk alle 2 adressen binnen dit pand',
-            endpoint: 'https://api.datapunt.amsterdam.nl/bag/pand/0456789/'
-        };
-
-        expectedSearchResults[3].useIndenting = true;
-        expectedSearchResults[3].more = {
-            label: 'Bekijk alle 2 vestigingen binnen dit pand',
-            endpoint: 'https://api.datapunt.amsterdam.nl/bag/pand/0456789/'
-        };
-
-        expect(api.getByUrl).toHaveBeenCalledTimes(2);
-        expect(api.getByUrl)
-            .toHaveBeenCalledWith('https://api.datapunt.amsterdam.nl/bag/pand/0456789/');
-        expect(api.getByUrl)
-            .toHaveBeenCalledWith('https://api.datapunt.amsterdam.nl/bag/verblijfsobject/?panden__id=0456789');
-
-        expect(api.getByUri)
-            .toHaveBeenCalledWith('handelsregister/vestiging/?pand=0456789');
-
-        expect(searchFormatter.formatCategory).toHaveBeenCalledWith('vestiging', mockedVestigingenApiResults);
-        expect(searchResults).toEqual(expectedSearchResults);
-    });
-
-    it('sometimes a pand has no related verblijfsobjecten nor vestigingen', function () {
-        var searchResults;
-
-        mockedVerblijfsobjectenApiResults = {
-            count: 0,
-            results: []
-        };
-
-        mockedVestigingenApiResults = {
-            count: 0,
-            results: []
-        };
-
-        // Insert a pand into the mocked result set
-        mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedPandSearchResult);
-        mockedFormattedSearchResults.splice(1, 0, mockedFormattedPandSearchResult);
-
-        geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
-            searchResults = _searchResults_;
-        });
-
-        $rootScope.$apply();
-
-        expect(searchResults).toEqual(mockedFormattedSearchResults);
     });
 });

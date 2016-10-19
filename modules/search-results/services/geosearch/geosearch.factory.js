@@ -31,17 +31,17 @@
 
             return $q.all(allRequests)
                 .then(geosearchFormatter.format)
-                .then(getVerblijfsobjecten);
+                .then(getRelatedObjects);
         }
 
-        function getVerblijfsobjecten (geosearchResults) {
+        function getRelatedObjects (geosearchResults) {
             const q = $q.defer(),
-                pandCategories = geosearchResults.filter(category => category.slug === 'pand'),
-                pandCategory = pandCategories.length ? pandCategories[0] : null,
-                pandCategoryIndex = pandCategory ? geosearchResults.indexOf(pandCategory) : null,
-                pandEndpoint = pandCategory ? pandCategory.results[0].endpoint : null;
+                [pandCategoryIndex, pandEndpoint] = getPandData(geosearchResults),
+                [plaatsCategoryIndex, plaatsEndpoint] = getPlaatsData(geosearchResults);
 
-            if (pandEndpoint) {
+            if (plaatsEndpoint) {
+                api.getByUrl(plaatsEndpoint).then(processPlaatsData);
+            } else if (pandEndpoint) {
                 api.getByUrl(pandEndpoint).then(processPandData);
             } else {
                 q.resolve(geosearchResults);
@@ -97,6 +97,52 @@
                     q.resolve(geosearchResultsCopy);
                 }
             }
+
+            function processPlaatsData (plaats) {
+                const vestigingenUri = `handelsregister/vestiging/?nummeraanduiding=${plaats.hoofdadres.landelijk_id}`;
+
+                api.getByUri(vestigingenUri).then(formatVestigingen);
+
+                function formatVestigingen (vestigingen) {
+                    const formatted = (vestigingen && vestigingen.count)
+                            ? searchFormatter.formatCategory('vestiging', vestigingen) : null,
+                        labelLigplaats = plaats.ligplaatsidentificatie ? ' binnen deze ligplaats' : null,
+                        labelStandplaats = plaats.standplaatsidentificatie ? ' binnen deze standplaats' : null,
+                        label = labelLigplaats ? labelLigplaats : labelStandplaats ? labelStandplaats : '',
+                        extended = formatted ? angular.extend(formatted, {
+                            more: {
+                                label: `Bekijk alle ${formatted.count} vestigingen` + label,
+                                endpoint: plaats._links.self.href
+                            }
+                        }) : null,
+                        geosearchResultsCopy = angular.copy(geosearchResults);
+
+                    if (extended) {
+                        // Splice modifies the existing Array, we don't want our input to change hence the copy
+                        geosearchResultsCopy.splice(plaatsCategoryIndex + 1, 0, extended);
+                    }
+
+                    q.resolve(geosearchResultsCopy);
+                }
+            }
+        }
+
+        function getPandData (geosearchResults) {
+            const pandCategories = geosearchResults.filter(category => category.slug === 'pand'),
+                pandCategory = pandCategories.length ? pandCategories[0] : null,
+                pandCategoryIndex = pandCategory ? geosearchResults.indexOf(pandCategory) : null,
+                pandEndpoint = pandCategory ? pandCategory.results[0].endpoint : null;
+
+            return [pandCategoryIndex, pandEndpoint];
+        }
+
+        function getPlaatsData (geosearchResults) {
+            const plaatsCategories = geosearchResults.filter(category => category.slug === 'plaats'),
+                plaatsCategory = plaatsCategories.length ? plaatsCategories[0] : null,
+                plaatsCategoryIndex = plaatsCategory ? geosearchResults.indexOf(plaatsCategory) : null,
+                plaatsEndpoint = plaatsCategory ? plaatsCategory.results[0].endpoint : null;
+
+            return [plaatsCategoryIndex, plaatsEndpoint];
         }
     }
 })();
