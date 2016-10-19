@@ -12,12 +12,29 @@
         };
 
         function getTitleData (numberOfResults, query, location, category) {
-            const categoryName = category
-                    ? SEARCH_CONFIG.QUERY_ENDPOINTS.filter(endpoint => endpoint.slug === category)
-                        [0].label_plural : null;
+            const categoryName = getCategoryName(category),
+                title = getTitle(categoryName, numberOfResults),
+                subTitle = getSubTitle(query, location);
 
-            var title = '',
-                subTitle = '';
+            return {
+                title: title,
+                subTitle: subTitle
+            };
+        }
+
+        function getCategoryName (category) {
+            let categoryName = null;
+
+            if (category) {
+                categoryName = SEARCH_CONFIG.QUERY_ENDPOINTS.filter(
+                    endpoint => endpoint.slug === category)[0].label_plural;
+            }
+
+            return categoryName;
+        }
+
+        function getTitle (categoryName, numberOfResults) {
+            let title = '';
 
             if (categoryName) {
                 title = numberFilter(numberOfResults) + ' ' + lowercaseFilter(categoryName);
@@ -29,20 +46,23 @@
                 title = numberFilter(numberOfResults) + ' resultaten';
             }
 
+            return title;
+        }
+
+        function getSubTitle (query, location) {
+            let subTitle = '';
+
             if (query) {
-                subTitle += ' "' + query + '"';
+                subTitle = ' "' + query + '"';
             } else if (location) {
-                subTitle += ' locatie ' + coordinatesFilter(location);
+                subTitle = ' locatie ' + coordinatesFilter(location);
             }
 
             if (subTitle) {
                 subTitle = 'met ' + subTitle;
             }
 
-            return {
-                title: title,
-                subTitle: subTitle
-            };
+            return subTitle;
         }
     }
 })();
