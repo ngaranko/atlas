@@ -13,7 +13,9 @@ module.exports = function (grunt) {
                 sourceMap: false
             },
             // Treat npm "bower" components as regular bower components...
-            src: ['build/temp/npm_components/**/*.js', 'build/temp/bower_components/bower_components.js'],
+            src: ['build/temp/npm_components/polyfill/**/*.js',
+            'build/temp/bower_components/bower_components.js',
+            'build/temp/npm_components/leaflet-draw/leaflet.draw.js'],
             dest: 'build/temp/atlas.libs.js'
         },
         css: {

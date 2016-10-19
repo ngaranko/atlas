@@ -99,6 +99,26 @@
                         });
                     }
                 }, true);
+
+                // Initialise the FeatureGroup to store editable layers
+                var drawnItems = new L.FeatureGroup();
+                leafletMap.addLayer(drawnItems);
+                console.log(drawnItems);
+
+                // Initialise the draw control and pass it the FeatureGroup of editable layers
+                var drawControl = new L.Control.Draw({
+                    edit: {
+                        featureGroup: drawnItems
+                    },
+                    draw: {
+                        polygon: {
+                            allowIntersection: false,
+                            showArea: true
+                        },
+                        marker: false
+                    }
+                });
+                leafletMap.addControl(drawControl);
             });
         }
 

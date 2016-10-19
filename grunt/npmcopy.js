@@ -6,5 +6,10 @@ module.exports = {
         files: {
             'polyfill': ['babel-polyfill/dist/!(*.min).js']
         }
+    },
+    'leaflet-draw': {
+        files: {
+            'leaflet-draw': ['leaflet-draw/dist/**/*']
+        }
     }
 };
