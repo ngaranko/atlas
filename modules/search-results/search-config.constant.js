@@ -16,6 +16,10 @@
                     label_plural: 'Adressen',
                     uri: 'atlas/search/adres/'
                 }, {
+                    slug: 'vestiging',
+                    label_singular: 'Vestiging',
+                    label_plural: 'Vestigingen'
+                }, {
                     slug: 'object',
                     label_singular: 'Kadastraal object',
                     label_plural: 'Kadastrale objecten',

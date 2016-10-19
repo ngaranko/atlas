@@ -13,7 +13,9 @@ describe('The geosearch factory', function () {
         mockedFormattedPandSearchResult,
         mockedPandApiResults,
         mockedVerblijfsobjectenApiResults,
-        mockedFormattedVerblijfsobjectenApiResults;
+        mockedFormattedVerblijfsobjectenApiResults,
+        mockedVestigingenApiResults,
+        mockedFormattedVestigingenApiResults;
 
     beforeEach(function () {
         angular.mock.module(
@@ -27,6 +29,8 @@ describe('The geosearch factory', function () {
                             q.resolve(mockedSearchResultsWithRadius);
                         } else if (endpoint === 'other/endpoint/') {
                             q.resolve(mockedSearchResultsWithoutRadius);
+                        } else if (endpoint === 'handelsregister/vestiging/?pand=0456789') {
+                            q.resolve(mockedVestigingenApiResults);
                         } else {
                             q.resolve(mockedEmptySearchResults);
                         }
@@ -45,6 +49,15 @@ describe('The geosearch factory', function () {
                         }
 
                         return q.promise;
+                    }
+                },
+                searchFormatter: {
+                    formatCategory: category => {
+                        if (category === 'adres') {
+                            return mockedFormattedVerblijfsobjectenApiResults;
+                        } else if (category === 'vestiging') {
+                            return mockedFormattedVestigingenApiResults;
+                        }
                     }
                 }
             },
@@ -195,6 +208,7 @@ describe('The geosearch factory', function () {
                     href: 'https://api.datapunt.amsterdam.nl/bag/pand/0456789/'
                 }
             },
+            pandidentificatie: '0456789',
             verblijfsobjecten: {
                 href: 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/?panden__id=0456789'
             }
@@ -236,10 +250,46 @@ describe('The geosearch factory', function () {
             next: null
         };
 
+        mockedVestigingenApiResults = {
+            count: 2,
+            results: ['FAKE_VESTIGING_RESULT_1', 'FAKE_VESTIGING_RESULT_2']
+        };
+
+        mockedFormattedVestigingenApiResults = {
+            label_singular: 'Vestiging',
+            label_plural: 'Vestigingen',
+            slug: 'vestiging',
+            count: 4,
+            results: [
+                {
+                    label: 'Vestiging 1',
+                    endpoint: 'https://api.datapunt.amsterdam.nl/handelsregister/vestiging/03630000567203/',
+                    subtype: null
+                },
+                {
+                    label: 'Vestiging 2',
+                    endpoint: 'https://api.datapunt.amsterdam.nl/handelsregister/vestiging/03630000567204/',
+                    subtype: null
+                },
+                {
+                    label: 'Vestiging 3',
+                    endpoint: 'https://api.datapunt.amsterdam.nl/handelsregister/vestiging/03630000567205/',
+                    subtype: null
+                },
+                {
+                    label: 'Vestiging 4',
+                    endpoint: 'https://api.datapunt.amsterdam.nl/handelsregister/vestiging/03630000602864/',
+                    subtype: null
+                }
+            ],
+            useIndenting: false,
+            next: null
+        };
+
         spyOn(api, 'getByUri').and.callThrough();
         spyOn(api, 'getByUrl').and.callThrough();
         spyOn(geosearchFormatter, 'format').and.returnValue(mockedFormattedSearchResults);
-        spyOn(searchFormatter, 'formatCategory').and.returnValue(mockedFormattedVerblijfsobjectenApiResults);
+        spyOn(searchFormatter, 'formatCategory').and.callThrough();
     });
 
     it('retrieves formatted data based on a location', function () {
@@ -270,6 +320,11 @@ describe('The geosearch factory', function () {
         var searchResults,
             expectedSearchResults;
 
+        mockedVestigingenApiResults = {
+            count: 0,
+            results: []
+        };
+
         // Insert a pand into the mocked result set
         mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedPandSearchResult);
         mockedFormattedSearchResults.splice(1, 0, mockedFormattedPandSearchResult);
@@ -299,10 +354,96 @@ describe('The geosearch factory', function () {
         expect(searchResults).toEqual(expectedSearchResults);
     });
 
-    it('sometimes a pand has no related verblijfsobjecten', function () {
+    it('loads related vestigingen if a pand has been found', function () {
+        var searchResults,
+            expectedSearchResults;
+
+        mockedVerblijfsobjectenApiResults = {
+            count: 0,
+            results: []
+        };
+
+        // Insert a pand into the mocked result set
+        mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedPandSearchResult);
+        mockedFormattedSearchResults.splice(1, 0, mockedFormattedPandSearchResult);
+
+        expectedSearchResults = angular.copy(mockedFormattedSearchResults);
+        expectedSearchResults.splice(2, 0, mockedFormattedVestigingenApiResults);
+
+        geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
+            searchResults = _searchResults_;
+        });
+
+        $rootScope.$apply();
+
+        expectedSearchResults[2].useIndenting = true;
+        expectedSearchResults[2].more = {
+            label: 'Bekijk alle 2 vestigingen binnen dit pand',
+            endpoint: 'https://api.datapunt.amsterdam.nl/bag/pand/0456789/'
+        };
+
+        expect(api.getByUrl)
+            .toHaveBeenCalledWith('https://api.datapunt.amsterdam.nl/bag/pand/0456789/');
+
+        expect(api.getByUri)
+            .toHaveBeenCalledWith('handelsregister/vestiging/?pand=0456789');
+
+        expect(searchFormatter.formatCategory).toHaveBeenCalledWith('vestiging', mockedVestigingenApiResults);
+        expect(searchResults).toEqual(expectedSearchResults);
+    });
+
+    it('loads both related verblijfsobjecten and vestigingen if a pand has been found', function () {
+        var searchResults,
+            expectedSearchResults;
+
+        // Insert a pand into the mocked result set
+        mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedPandSearchResult);
+        mockedFormattedSearchResults.splice(1, 0, mockedFormattedPandSearchResult);
+
+        expectedSearchResults = angular.copy(mockedFormattedSearchResults);
+        expectedSearchResults.splice(2, 0, mockedFormattedVestigingenApiResults);
+        expectedSearchResults.splice(2, 0, mockedFormattedVerblijfsobjectenApiResults);
+
+        geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
+            searchResults = _searchResults_;
+        });
+
+        $rootScope.$apply();
+
+        expectedSearchResults[2].useIndenting = true;
+        expectedSearchResults[2].more = {
+            label: 'Bekijk alle 2 adressen binnen dit pand',
+            endpoint: 'https://api.datapunt.amsterdam.nl/bag/pand/0456789/'
+        };
+
+        expectedSearchResults[3].useIndenting = true;
+        expectedSearchResults[3].more = {
+            label: 'Bekijk alle 2 vestigingen binnen dit pand',
+            endpoint: 'https://api.datapunt.amsterdam.nl/bag/pand/0456789/'
+        };
+
+        expect(api.getByUrl).toHaveBeenCalledTimes(2);
+        expect(api.getByUrl)
+            .toHaveBeenCalledWith('https://api.datapunt.amsterdam.nl/bag/pand/0456789/');
+        expect(api.getByUrl)
+            .toHaveBeenCalledWith('https://api.datapunt.amsterdam.nl/bag/verblijfsobject/?panden__id=0456789');
+
+        expect(api.getByUri)
+            .toHaveBeenCalledWith('handelsregister/vestiging/?pand=0456789');
+
+        expect(searchFormatter.formatCategory).toHaveBeenCalledWith('vestiging', mockedVestigingenApiResults);
+        expect(searchResults).toEqual(expectedSearchResults);
+    });
+
+    it('sometimes a pand has no related verblijfsobjecten nor vestigingen', function () {
         var searchResults;
 
         mockedVerblijfsobjectenApiResults = {
+            count: 0,
+            results: []
+        };
+
+        mockedVestigingenApiResults = {
             count: 0,
             results: []
         };
