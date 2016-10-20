@@ -196,8 +196,8 @@
                 },
                 kadastraal_object: {
                     url: 'maps/lki?service=wms',
-                    label_short: 'Kadasttrale objecten',
-                    label_long: 'Kadasttrale objecten',
+                    label_short: 'Kadastrale objecten',
+                    label_long: 'Kadastrale objecten',
                     layers: ['kadastraal_object', 'kadastraal_object_label'],
                     minZoom: 12,
                     maxZoom: 16,
