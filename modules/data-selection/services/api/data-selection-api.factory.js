@@ -37,7 +37,8 @@
                     number_of_pages: data.page_count,
                     number_of_records: data.object_count,
                     filters: formatFilters(dataset, data.aggs_list),
-                    tableData: formatTableData(dataset, data.object_list)
+                    tableData: formatTableData(dataset, data.object_list),
+                    listData: formatListData(data.object_list)
                 };
             });
         }
@@ -98,6 +99,16 @@
                 format: tableFormat,
                 body: tableBody
             };
+        }
+
+        function formatListData (rawData) {
+            return rawData.map(row => {
+                const ligplaats = row.ligplaats_id ? ' (ligplaats)' : null,
+                    standplaats = row.standplaats_id ? ' (standplaats)' : null,
+                    plaats = ligplaats || standplaats || '';
+
+                return row._openbare_ruimte_naam + plaats;
+            });
         }
     }
 })();

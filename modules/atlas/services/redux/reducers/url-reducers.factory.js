@@ -192,6 +192,7 @@
                 }
 
                 return {
+                    listView: payload['list-view'],
                     dataset: payload.dataset,
                     filters: filters,
                     page: Number(payload['dataset-pagina'])

@@ -1,0 +1,15 @@
+<div class="u-grid">
+    <div class="u-row c-data-selection__grid">
+        <div class="u-col-sm--9">
+            <dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>
+
+            <div ng-if="!vm.isLoading">
+
+                <ul>
+                    <li ng-repeat="name in vm.data track by $index">{{name}}</li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
