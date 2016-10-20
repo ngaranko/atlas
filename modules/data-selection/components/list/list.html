@@ -5,8 +5,10 @@
 
             <div ng-if="!vm.isLoading">
 
-                <ul>
-                    <li ng-repeat="name in vm.data track by $index">{{name}}</li>
+                <ul class="o-list">
+                    <li ng-repeat="row in vm.data track by $index">
+                        <dp-link type="FETCH_DETAIL" payload="row.detailEndpoint">{{row.label}}</dp-link>
+                    </li>
                 </ul>
 
             </div>

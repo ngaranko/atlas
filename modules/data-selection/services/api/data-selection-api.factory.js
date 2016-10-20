@@ -38,13 +38,13 @@
                     number_of_records: data.object_count,
                     filters: formatFilters(dataset, data.aggs_list),
                     tableData: formatTableData(dataset, data.object_list),
-                    listData: formatListData(data.object_list)
+                    listData: formatListData(dataset, data.object_list)
                 };
             });
         }
 
         function formatFilters (dataset, rawData) {
-            var formattedFilters = angular.copy(dataSelectionConfig[dataset].FILTERS);
+            const formattedFilters = angular.copy(dataSelectionConfig[dataset].FILTERS);
 
             return formattedFilters.filter(function (filter) {
                 // Only show the filters that are returned by the API
@@ -67,48 +67,41 @@
         }
 
         function formatTableData (dataset, rawData) {
-            var tableHead,
-                tableFormat,
-                tableBody;
-
-            tableHead = dataSelectionConfig[dataset].FIELDS.map(function (field) {
-                return field.label;
-            });
-
-            tableFormat = dataSelectionConfig[dataset].FIELDS.map(function (field) {
-                return field.format;
-            });
-
-            tableBody = rawData.map(function (rawDataRow) {
-                var detailEndpoint;
-
-                detailEndpoint = dataSelectionConfig[dataset].ENDPOINT_DETAIL;
-                detailEndpoint += rawDataRow[dataSelectionConfig[dataset].PRIMARY_KEY];
-                detailEndpoint += '/';
-
-                return {
-                    detailEndpoint: detailEndpoint,
-                    fields: dataSelectionConfig[dataset].FIELDS.map(function (field) {
-                        return rawDataRow[field.slug];
-                    })
-                };
-            });
-
             return {
-                head: tableHead,
-                format: tableFormat,
-                body: tableBody
+                head: dataSelectionConfig[dataset].FIELDS
+                    .map(field => field.label),
+
+                format: dataSelectionConfig[dataset].FIELDS
+                    .map(field => field.format),
+
+                body: rawData.map(rawDataRow => {
+                    return {
+                        detailEndpoint: getDetailEndpoint(dataset, rawDataRow),
+                        fields: dataSelectionConfig[dataset].FIELDS
+                            .map(field => rawDataRow[field.slug])
+                    };
+                })
             };
         }
 
-        function formatListData (rawData) {
+        function formatListData (dataset, rawData) {
             return rawData.map(row => {
                 const ligplaats = row.ligplaats_id ? ' (ligplaats)' : null,
                     standplaats = row.standplaats_id ? ' (standplaats)' : null,
-                    plaats = ligplaats || standplaats || '';
+                    plaats = ligplaats || standplaats || '',
+                    nummer = ' ' + row.huisnummer + row.huisletter,
+                    fullNummer = row.huisnummer_toevoeging ? nummer + '-' + row.huisnummer_toevoeging : nummer;
 
-                return row._openbare_ruimte_naam + plaats;
+                return {
+                    label: row._openbare_ruimte_naam + fullNummer + plaats,
+                    detailEndpoint: getDetailEndpoint(dataset, row)
+                };
             });
+        }
+
+        function getDetailEndpoint (dataset, rawDataRow) {
+            return dataSelectionConfig[dataset].ENDPOINT_DETAIL +
+                rawDataRow[dataSelectionConfig[dataset].PRIMARY_KEY] + '/';
         }
     }
 })();
