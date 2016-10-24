@@ -9,7 +9,7 @@
         <div class="u-row">
             <h2>{{vm.numberOfRecords | number}} {{vm.headerTitle | lowercase}}</h2>
 
-            <h3>
+            <h3 ng-if="vm.formattedActiveFilters.length" class="qa-data-selection-list-header__filters">
                 met
                 <span ng-repeat="filter in vm.formattedActiveFilters">
                     {{filter.categoryLabel | lowercase}}:

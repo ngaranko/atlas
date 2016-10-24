@@ -14,9 +14,9 @@
             controllerAs: 'vm'
         });
 
-    DpDataSelectionListHeader.$inject = ['$scope', 'store', 'ACTIONS', 'dataSelectionConfig'];
+    DpDataSelectionListHeader.$inject = ['$scope', 'dataSelectionConfig'];
 
-    function DpDataSelectionListHeader ($scope, store, ACTIONS, dataSelectionConfig) {
+    function DpDataSelectionListHeader ($scope, dataSelectionConfig) {
         var vm = this;
 
         $scope.$watch('vm.state.filters', updateFilters, true);
