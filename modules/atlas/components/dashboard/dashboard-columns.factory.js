@@ -16,7 +16,7 @@
 
             if (angular.isObject(state.dataSelection)) {
                 visibility.dataSelection = true;
-                visibility.dataSelectionList = state.dataSelection.listView || false;
+                visibility.dataSelectionList = state.dataSelection.listView;
 
                 visibility.map = visibility.dataSelectionList;
                 visibility.layerSelection = false;
