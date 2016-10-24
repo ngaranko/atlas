@@ -8,13 +8,6 @@
             bindings: {
                 data: '='
             },
-            controller: DpDataSelectionListController,
             controllerAs: 'vm'
         });
-
-    DpDataSelectionListController.$inject = ['$scope', 'dataSelectionApi', 'dataSelectionConfig'];
-
-    function DpDataSelectionListController ($scope, dataSelectionApi, dataSelectionConfig) {
-        let vm = this;
-    }
 })();
