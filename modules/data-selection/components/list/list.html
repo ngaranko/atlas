@@ -7,7 +7,9 @@
 
                 <ul class="o-list">
                     <li ng-repeat="row in vm.data track by $index">
-                        <dp-link type="FETCH_DETAIL" payload="row.detailEndpoint">{{row.label}}</dp-link>
+                        <dp-link type="FETCH_DETAIL" payload="row.detailEndpoint">{{row.adres}}</dp-link>
+                        <span ng-show="row.standplaats">(standplaats)</span>
+                        <span ng-show="row.ligplaats">(ligplaats)</span>
                     </li>
                 </ul>
 
