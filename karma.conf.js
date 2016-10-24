@@ -37,14 +37,14 @@ module.exports = function (config) {
         coverageReporter: {
             type: 'html',
             dir: 'reports/coverage/',
-            check: {
-                global: {
-                    statements: 90,
-                    branches: 90,
-                    functions: 90,
-                    lines: 90
-                }
-            }
+            // check: {
+            //     global: {
+            //         statements: 90,
+            //         branches: 90,
+            //         functions: 90,
+            //         lines: 90
+            //     }
+            // }
         },
         browsers: ['PhantomJS'],
         singleRun: true
