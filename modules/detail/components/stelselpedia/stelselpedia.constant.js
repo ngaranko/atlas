@@ -145,6 +145,15 @@
                     url: 'https://www.amsterdam.nl/stelselpedia/hr-index/catalogus/maatschappelijke/',
                     meta: []
                 },
+                MAATSCHAPPELIJKEACTIVITEIT: {
+                    label_singular: 'Maatschappelijke activiteit',
+                    label_plural: 'Maatschappelijke activiteiten',
+                    description: 'De Maatschappelijke Activiteit is het totaal van alle activiteiten uitgeoefend ' +
+                        'door een Natuurlijk Persoon of een Niet-natuurlijk Persoon. Een Maatschappelijke Activiteit ' +
+                        'kan ook als Onderneming voorkomen.',
+                    url: 'https://www.amsterdam.nl/stelselpedia/hr-index/catalogus/maatschappelijke/',
+                    meta: []
+                },
                 METING: {
                     label_singular: 'Meting',
                     label_plural: 'Metingen',

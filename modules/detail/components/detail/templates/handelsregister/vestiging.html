@@ -6,7 +6,11 @@
 
     <dl class="c-key-value-list">
         <dt>Eerste handelsnaam</dt>
-        <dd> {{ vm.apiData.results.naam }} </dd>
+        <dd ng-if="vm.apiData.results.maatschappelijke_activiteit">
+            <dp-link type="FETCH_DETAIL" payload="vm.apiData.results.maatschappelijke_activiteit">
+                {{ vm.apiData.results.naam }}
+            </dp-link>
+        </dd>
         <dt>Postadres</dt>
         <dd> {{ vm.apiData.results.postadres.volledig_adres }} </dd>
         <dt>Bezoekadres</dt>
@@ -48,6 +52,4 @@
             Raadpleeg voor de meest actuele gegevens de raadpleegvoorziening van de KvK: <a class="o-link-inline o-link-inline--light" target="_blank" href="https://www.kvk.nl/zoeken/">https://www.kvk.nl/zoeken/</a>.
         </p>
     </dp-panel>
-
-    <dp-api-call endpoint="{{vm.apiData.results.maatschappelijke_activiteit}}" partial="handelsregister/mac"></dp-api-call>
 </div>
