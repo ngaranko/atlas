@@ -11,6 +11,8 @@
                 {{ vm.apiData.results.naam }}
             </dp-link>
         </dd>
+        <dt>KvK-nummer</dt>
+        <dp-api-call endpoint="{{vm.apiData.results.maatschappelijke_activiteit}}" partial="handelsregister/kvk-nummer"></dp-api-call>
         <dt>Postadres</dt>
         <dd> {{ vm.apiData.results.postadres.volledig_adres }} </dd>
         <dt>Bezoekadres</dt>
