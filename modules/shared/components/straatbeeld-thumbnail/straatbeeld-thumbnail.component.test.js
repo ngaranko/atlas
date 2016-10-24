@@ -36,7 +36,6 @@ describe('The dp-straatbeeld-thumbnail component', function () {
                             } else {
                                 response = [];
                             }
-
                             q.resolve(response);
                             $rootScope.$apply();
                         };
@@ -88,7 +87,6 @@ describe('The dp-straatbeeld-thumbnail component', function () {
         hasMockedThumbnail = false;
         var component = getComponent([52, 4]);
         var scope = component.isolateScope();
-        var m = 'Geen panorama beschikbaar (binnen 50m van deze locatie). Tip: kies via de kaart een nabije locatie.';
 
         finishApiCall();
 
@@ -103,7 +101,6 @@ describe('The dp-straatbeeld-thumbnail component', function () {
             .toContain(
                 'Tip: kies via de kaart een nabije locatie.'
             );
-
     });
 
     it('shows a thumbnail when thumbnail is found', function () {
@@ -121,7 +118,6 @@ describe('The dp-straatbeeld-thumbnail component', function () {
     it('shows a loading indicator when loading', function () {
         var component = getComponent([52, 4]);
         var scope = component.isolateScope();
-
         expect(component.find('dp-loading-indicator').length).toBe(1);
         expect(component.find('dp-loading-indicator').attr('is-loading')).toBe('vm.isLoading');
 
