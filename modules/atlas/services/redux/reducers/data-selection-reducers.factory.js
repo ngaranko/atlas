@@ -12,6 +12,7 @@
 
         reducers[ACTIONS.SHOW_DATA_SELECTION] = showDataSelectionReducer;
         reducers[ACTIONS.NAVIGATE_DATA_SELECTION] = navigateDataSelectionReducer;
+        reducers[ACTIONS.TOGGLE_DATA_SELECTION_LIST_VIEW] = toggleDataSelectionListView;
 
         return reducers;
 
@@ -50,6 +51,19 @@
             var newState = angular.copy(oldState);
 
             newState.dataSelection.page = payload;
+
+            return newState;
+        }
+
+        /**
+         * @param {Object} oldState
+         *
+         * @returns {Object} newState
+         */
+        function toggleDataSelectionListView (oldState) {
+            var newState = angular.copy(oldState);
+
+            newState.dataSelection.listView = !newState.dataSelection.listView;
 
             return newState;
         }
