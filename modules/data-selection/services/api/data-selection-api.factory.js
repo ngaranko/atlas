@@ -91,8 +91,8 @@
 
                 return {
                     adres: row._openbare_ruimte_naam + fullNummer,
-                    ligplaats: row.ligplaats_id || false,
-                    standplaats: row.standplaats_id || false,
+                    ligplaats: Boolean(row.ligplaats_id),
+                    standplaats: Boolean(row.standplaats_id),
                     detailEndpoint: getDetailEndpoint(dataset, row)
                 };
             });
