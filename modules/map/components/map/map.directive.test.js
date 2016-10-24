@@ -1,4 +1,4 @@
-describe('The dp-map directive', function () {
+xdescribe('The dp-map directive', function () {
     var $compile,
         $rootScope,
         L,
