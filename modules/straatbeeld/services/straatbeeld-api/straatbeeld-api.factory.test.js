@@ -103,13 +103,12 @@ describe('The straatbeeldApi Factory', function () {
             );
         });
 
-        it('maps a geoJSON Point to a location in [lat, lng] Array notation', function () {
+        it('maps a geoJSON Point to a location in a custom formatted [lat, lng] Array notation', function () {
             expect(geojson.getCenter).toHaveBeenCalledWith({
                 type: 'Point',
                 coordinates: [
-                    4.91359770418102,
                     52.3747994036985,
-                    46.9912552172318
+                    4.91359770418102
                 ]
             });
 
