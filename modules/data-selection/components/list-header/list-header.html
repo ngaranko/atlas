@@ -1,0 +1,30 @@
+<div class="c-data-selection-header">
+    <div ng-if="vm.numberOfRecords <= 0" class="qa-data-selection-header__no-records">
+        <h2>Geen resultaten gevonden</h2>
+        <p>Tip: verwijder één of meer filtercriteria</p>
+
+    </div>
+
+    <div ng-if="vm.numberOfRecords > 0" class="qa-data-selection-header__with-records">
+        <div class="u-row">
+            <h2>{{vm.numberOfRecords | number}} {{vm.headerTitle | lowercase}}</h2>
+
+            <h3>
+                met
+                <span ng-repeat="filter in vm.formattedActiveFilters">
+                    {{filter.categoryLabel | lowercase}}:
+                    <span ng-class="{'c-data-selection-filters--empty-value': !filter.option}">
+                        <dp-data-selection-formatted-value
+                            value="filter.option"
+                            format="filter.format">
+                        </dp-data-selection-formatted-value>
+                    </span>
+                    <span ng-if="!$last">en</span>
+                </span>
+
+            </li>
+
+        </div>
+    </div>
+
+</div>
