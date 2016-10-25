@@ -15,7 +15,6 @@ module.exports = function (grunt) {
     grunt.registerTask('test-js', [
         'lint',
         'test-js-modules'
-        
     ]);
 
     grunt.registerTask('test-css', [

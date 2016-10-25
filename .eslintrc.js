@@ -139,8 +139,8 @@ module.exports = {
         "no-new-func": "error",             // disallow new operators with the Function object
         "no-new-wrappers": "error",         // disallow new operators with the String, Number, and Boolean objects
         "no-invalid-this": "error",         // disallow this keywords outside of classes or class-like objects
-        "require-yield": "error",            // require generator functions to contain yield
-        "no-console": ["error", { allow: ["warn", "log"] }],
+        "require-yield": "error"            // require generator functions to contain yield
+
 
     },
     "plugins": [
