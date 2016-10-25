@@ -17,6 +17,7 @@
         'ACTIONS',
         'api',
         'endpointParser',
+        'user',
         'geometry',
         'geojson',
         'crsConverter'
@@ -28,18 +29,28 @@
         ACTIONS,
         api,
         endpointParser,
+        user,
         geometry,
         geojson,
         crsConverter) {
         var vm = this;
 
-        $scope.$watch('vm.endpoint', function (endpoint) {
+        // the actual user status
+        vm.userStatus = user.getStatus();
+
+        // save the login status of the user on initial loading of the component
+        vm.userIsLoggedIn = vm.userStatus.isLoggedIn;
+
+        const getData = endpoint => {
             vm.location = null;
 
             api.getByUrl(endpoint).then(function (data) {
                 vm.apiData = {
                     results: data
                 };
+
+                // Derive whether more info is available if the user would login
+                vm.isMoreInfoAvailable = vm.apiData.results.is_natuurlijk_persoon && !vm.userIsLoggedIn;
 
                 vm.includeSrc = endpointParser.getTemplateUrl(endpoint);
 
@@ -57,6 +68,17 @@
                     });
                 });
             });
+        };
+
+        $scope.$watch('vm.endpoint', getData);
+
+        $scope.$watch('vm.userStatus.isLoggedIn', () => {
+            // Trigger a reload of the data if the login state of the user at the time of loading the data
+            // is no longer equal to the actual login state of the user
+            if (vm.userIsLoggedIn !== vm.userStatus.isLoggedIn) {
+                vm.userIsLoggedIn = vm.userStatus.isLoggedIn;
+                getData(vm.endpoint);
+            }
         });
     }
 })();
