@@ -9,7 +9,7 @@
 
             </dp-data-selection-filters>
         </div>
-        <div ng-class="{'u-col-sm--9': !vm.state.listView}">
+        <div ng-class="{'u-col-sm--12': vm.state.listView, 'u-col-sm--9': !vm.state.listView}">
             <dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>
 
             <div ng-if="!vm.isLoading">
