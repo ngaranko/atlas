@@ -43,6 +43,10 @@
 
                 vm.includeSrc = endpointParser.getTemplateUrl(endpoint);
 
+                vm.filterSelection = {
+                    [endpointParser.getSubject(endpoint)]: vm.apiData.results.naam
+                };
+
                 geometry.getGeoJSON(endpoint).then(function (geoJSON) {
                     if (geoJSON !== null) {
                         vm.location = crsConverter.rdToWgs84(geojson.getCenter(geoJSON));

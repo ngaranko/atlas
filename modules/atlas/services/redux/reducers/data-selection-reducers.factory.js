@@ -5,14 +5,15 @@
         .module('atlas')
         .factory('dataSelectionReducers', dataSelectionReducersFactory);
 
-    dataSelectionReducersFactory.$inject = ['ACTIONS', 'DEFAULT_STATE'];
+    dataSelectionReducersFactory.$inject = ['ACTIONS', 'DEFAULT_STATE', 'dataSelectionFilterNames'];
 
-    function dataSelectionReducersFactory (ACTIONS, DEFAULT_STATE) {
+    function dataSelectionReducersFactory (ACTIONS, DEFAULT_STATE, filterNames) {
         var reducers = {};
 
         reducers[ACTIONS.SHOW_DATA_SELECTION] = showDataSelectionReducer;
+        reducers[ACTIONS.SHOW_SELECTION_LIST] = showSelectionListReducer;
         reducers[ACTIONS.NAVIGATE_DATA_SELECTION] = navigateDataSelectionReducer;
-        reducers[ACTIONS.TOGGLE_DATA_SELECTION_LIST_VIEW] = toggleDataSelectionListView;
+        reducers[ACTIONS.TOGGLE_DATA_SELECTION_LIST_VIEW] = toggleDataSelectionListViewReducer;
 
         return reducers;
 
@@ -41,6 +42,26 @@
             return newState;
         }
 
+        function showSelectionListReducer (oldState, payload) {
+            const filters = {};
+            let newState;
+
+            for (let key in payload) {
+                if (payload.hasOwnProperty(key)) {
+                    const slug = filterNames.getSlugFor(key);
+                    filters[slug] = payload[key];
+                }
+            }
+
+            newState = showDataSelectionReducer(oldState, {
+                dataset: 'bag',
+                filters: filters,
+                page: 1
+            });
+
+            return toggleDataSelectionListViewReducer(newState);
+        }
+
         /**
          * @param {Object} oldState
          * @param {Number} payload - The destination page
@@ -60,7 +81,7 @@
          *
          * @returns {Object} newState
          */
-        function toggleDataSelectionListView (oldState) {
+        function toggleDataSelectionListViewReducer (oldState) {
             var newState = angular.copy(oldState);
 
             newState.dataSelection.listView = !newState.dataSelection.listView;

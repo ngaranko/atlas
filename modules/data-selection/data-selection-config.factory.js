@@ -34,6 +34,7 @@
                 TITLE: 'Adressen',
                 FILTERS: [
                     {
+                        canonical: 'stadsdeel',
                         slug: 'stadsdeel_naam',
                         label: 'Stadsdeel'
                     }, {

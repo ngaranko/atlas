@@ -4,6 +4,6 @@
 
 <div ng-if="!vm.isLoading && vm.apiData"
     ng-include="vm.includeSrc"
-    onload="apiData = vm.apiData"
+    onload="apiData = vm.apiData; filterSelection = vm.filterSelection"
     class="u-margin__top--2">
 </div>

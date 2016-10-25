@@ -42,6 +42,19 @@ describe('the dp-detail component', function () {
                     }
                 },
                 endpointParser: {
+                    getSubject: function (endpoint) {
+                        let subject = '';
+
+                        if (endpoint === 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/') {
+                            subject = 'nummeraanduiding';
+                        } else if (endpoint === 'http://www.fake-endpoint.com/brk/object/789/') {
+                            subject = 'object';
+                        } else if (endpoint === 'http://www.fake-endpoint.com/brk/subject/123/') {
+                            subject = 'subject';
+                        }
+
+                        return subject;
+                    },
                     getTemplateUrl: function (endpoint) {
                         var templateUrl = 'modules/detail/components/detail/templates/';
 
