@@ -38,6 +38,8 @@
             SHOW_PAGE: 'SHOW_PAGE',
 
             SHOW_PRINT: 'SHOW_PRINT',
-            HIDE_PRINT: 'HIDE_PRINT'
+            HIDE_PRINT: 'HIDE_PRINT',
+
+            LOCATION_CHANGE: 'LOCATION_CHANGE'
         });
 })();
