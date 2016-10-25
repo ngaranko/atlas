@@ -6,8 +6,7 @@ describe('The dp-data-selection-list-header component', function () {
     beforeEach(function () {
         angular.mock.module(
             'dpDataSelection',
-            {},
-            function ($provide) {
+            function ($provide, $compileProvider) {
                 $provide.factory('store', function () {
                     return {};
                 });
@@ -28,23 +27,7 @@ describe('The dp-data-selection-list-header component', function () {
                     };
                 });
 
-                $provide.factory('dpLoadingIdicatorDirective', function () {
-                    return {};
-                });
-
-                $provide.factory('dpDataSelectionFiltersDirective', function () {
-                    return {};
-                });
-
-                $provide.factory('dpDataSelectionDownloadButtonDirective', function () {
-                    return {};
-                });
-
-                $provide.factory('dpDataSelectionTableDirective', function () {
-                    return {};
-                });
-
-                $provide.factory('dpDataSelectionPaginationDirective', function () {
+                $provide.factory('dpDataSelectionFormattedValueDirective', function () {
                     return {};
                 });
             }
@@ -95,7 +78,7 @@ describe('The dp-data-selection-list-header component', function () {
 
         expect(component.find('.qa-data-selection-list-header__filters')
             .text().split(/\s+/).filter(item => item.length))
-            .toEqual(['met', 'type:', 'Buitenbad']);
+            .toEqual(['met', 'type:']);
     });
 
     it('can show more than one filter', function () {
@@ -104,7 +87,7 @@ describe('The dp-data-selection-list-header component', function () {
 
         expect(component.find('.qa-data-selection-list-header__filters')
             .text().split(/\s+/).filter(item => item.length))
-            .toEqual(['met', 'type:', 'Buitenbad', 'en', 'regio:', 'Centrum']);
+            .toEqual(['met', 'type:', 'en', 'regio:']);
     });
 
     it('can have no filters active', function () {
