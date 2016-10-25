@@ -6,11 +6,7 @@
 
     <dl class="c-key-value-list">
         <dt>Eerste handelsnaam</dt>
-        <dd ng-if="vm.apiData.results.maatschappelijke_activiteit">
-            <dp-link type="FETCH_DETAIL" payload="vm.apiData.results.maatschappelijke_activiteit">
-                {{ vm.apiData.results.naam }}
-            </dp-link>
-        </dd>
+        <dd>{{ vm.apiData.results.naam }}</dd>
         <dt>KvK-nummer</dt>
         <dp-api-call endpoint="{{vm.apiData.results.maatschappelijke_activiteit}}" partial="handelsregister/kvk-nummer"></dp-api-call>
         <dt>Postadres</dt>
@@ -38,6 +34,16 @@
         </dd>
         <dd ng-if="!apiData.results.bezoekadres.geometrie.coordinates[0]"></dd>
     </dl>
+
+    <dp-stelselpedia-header
+        definition="MAATSCHAPPELIJKEACTIVITEIT">
+    </dp-stelselpedia-header>
+
+    <div class="u-margin__bottom--4">
+        <dp-link type="FETCH_DETAIL" payload="vm.apiData.results.maatschappelijke_activiteit">
+            {{ vm.apiData.results.naam }}
+        </dp-link>
+    </div>
 
     <dp-panel is-panel-visible="true" type="warning" can-close="true">
         <h3 class="u-margin__bottom--1">Disclaimer</h3>
