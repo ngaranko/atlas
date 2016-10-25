@@ -98,6 +98,31 @@
   background-image: url("assets/icons/close-hover.svg");
 }
 
+.c-print-button {
+  float: right;
+  font-family: $header-font-family;
+  font-weight: 700;
+  line-height: $button-size;
+
+  &::after {
+    display: inline-block;
+    width: $button-size;
+    height: $button-size;
+    margin-left: $base-whitespace / 2;
+    background-image: url("assets/icons/print-icoon.svg");
+    content: "";
+    vertical-align: middle;
+  }
+
+  &:hover {
+    color: $primary-contrast;
+
+    &::after {
+      background-image: url("assets/icons/print-icoon.svg");
+    }
+  }
+}
+
 /* SASSLint enforces merging of selectors */
 .is-print-mode {
   .site-header {
