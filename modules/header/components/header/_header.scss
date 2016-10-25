@@ -88,3 +88,27 @@
     background-color: $secondary-gray40;
   }
 }
+
+.c-print-button {
+  float: right;
+  font-weight: 700;
+  line-height: $button-size;
+
+  &::after {
+    display: inline-block;
+    width: $button-size;
+    height: $button-size;
+    margin-left: $base-whitespace / 2;
+    background-image: url("assets/icons/link-active.svg");
+    content: "";
+    vertical-align: middle;
+  }
+
+  &:hover {
+    color: $primary-contrast;
+
+    &::after {
+      background-image: url("assets/icons/link-hover.svg");
+    }
+  }
+}
