@@ -88,3 +88,28 @@
     background-color: $secondary-gray40;
   }
 }
+
+.c-exit-print-mode {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 26px;
+  height: 26px;
+  background-image: url("assets/icons/close-hover.svg");
+}
+
+/* SASSLint enforces merging of selectors */
+.is-print-mode {
+  .site-header {
+    background-color: transparent;
+  }
+
+  .site-header__menu__item {
+    color: $secondary-gray60;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+
+}
