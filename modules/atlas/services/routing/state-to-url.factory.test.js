@@ -334,6 +334,15 @@ describe('The stateToUrl factory', function () {
             expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
                 'dataset-filters': 'buurt:Mijn%20buurt,buurtcombinatie:Mijn%20buurtcombinatie'
             }));
+
+            // Enable the list view
+            mockedState.dataSelection.listView = true;
+
+            stateToUrl.update(mockedState, false);
+
+            expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
+                'list-view': true
+            }));
         });
     });
 
