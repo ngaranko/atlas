@@ -35,10 +35,17 @@
         crsConverter) {
         var vm = this;
 
-        // the actual user status
-        vm.userStatus = user.getStatus();
+        // (Re)load the data when the endpoint is set or gets changed
+        $scope.$watch('vm.endpoint', getData);
 
-        const getData = endpoint => {
+        // (Re)load the data when the user logs in or out
+        $scope.$watch(() => user.getStatus().isLoggedIn, (newValue, oldValue) => {
+            if (newValue !== oldValue) {
+                getData(vm.endpoint);
+            }
+        });
+
+        function getData (endpoint) {
             vm.location = null;
 
             api.getByUrl(endpoint).then(function (data) {
@@ -47,7 +54,7 @@
                 };
 
                 // Derive whether more info is available if the user would login
-                vm.isMoreInfoAvailable = vm.apiData.results.is_natuurlijk_persoon && !vm.userStatus.isLoggedIn;
+                vm.isMoreInfoAvailable = vm.apiData.results.is_natuurlijk_persoon && !user.getStatus().isLoggedIn;
 
                 vm.includeSrc = endpointParser.getTemplateUrl(endpoint);
 
@@ -65,14 +72,6 @@
                     });
                 });
             });
-        };
-
-        $scope.$watch('vm.endpoint', getData);
-
-        $scope.$watch('vm.userStatus.isLoggedIn', (newValue, oldValue) => {
-            if (newValue !== oldValue) {
-                getData(vm.endpoint);
-            }
-        });
+        }
     }
 })();
