@@ -38,15 +38,19 @@
                         slug: 'stadsdeel_naam',
                         label: 'Stadsdeel'
                     }, {
+                        canonical: 'gebiedsgerichtwerken',
                         slug: 'ggw_naam',
                         label: 'GGW-gebied'
                     }, {
+                        canonical: 'buurtcombinatie',
                         slug: 'buurtcombinatie_naam',
                         label: 'Buurtcombinatie'
                     }, {
+                        canonical: 'buurt',
                         slug: 'buurt_naam',
                         label: 'Buurt'
                     }, {
+                        canonical: 'openbareruimte',
                         slug: 'naam',
                         label: 'Openbare ruimte'
                     }, {
