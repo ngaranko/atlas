@@ -3,6 +3,7 @@ describe('the dp-detail component', function () {
         $rootScope,
         $q,
         store,
+        user,
         ACTIONS,
         mockedGeometryPoint = {type: 'Point', coordinates: 'FAKE_NUMMERAANDUIDING_POINT'},
         mockedGeometryMultiPolygon = {type: 'MultiPolygon', coordinates: 'FAKE_KADASTRAAL_OBJECT_MULTIPOLYGON'};
@@ -34,7 +35,15 @@ describe('the dp-detail component', function () {
                             q.resolve({
                                 _display: 'Ferdinand de Vries',
                                 dummy: 'C',
-                                something: 4
+                                something: 4,
+                                is_natuurlijk_persoon: true
+                            });
+                        } else if (endpoint === 'http://www.fake-endpoint.com/brk/subject/456/') {
+                            q.resolve({
+                                _display: 'Ferdinand de Vries BV',
+                                dummy: 'C',
+                                something: 4,
+                                is_natuurlijk_persoon: false
                             });
                         }
 
@@ -94,12 +103,27 @@ describe('the dp-detail component', function () {
             }
         );
 
+        angular.mock.module(
+            'dpShared',
+            {
+                user: {
+                    isLoggedIn: false,
+                    getStatus: function () {
+                        return {
+                            isLoggedIn: this.isLoggedIn
+                        };
+                    }
+                }
+            }
+        );
+
         angular.mock.inject(function (
             _$compile_,
             _$rootScope_,
             _$q_,
             _store_,
             _ACTIONS_,
+            _user_,
             _api_,
             _endpointParser_,
             _geometry_) {
@@ -108,6 +132,7 @@ describe('the dp-detail component', function () {
             $q = _$q_;
             store = _store_;
             ACTIONS = _ACTIONS_;
+            user = _user_;
         });
 
         spyOn(store, 'dispatch');
@@ -233,5 +258,37 @@ describe('the dp-detail component', function () {
         scope.vm.endpoint = 'http://www.fake-endpoint.com/brk/subject/123/';
         scope.$apply();
         expect(scope.vm.location).toBeNull();
+    });
+
+    it('shows a message that more info is available for natuurlijke personen and anonymous users', function () {
+        var component,
+            scope;
+
+        user.isLoggedIn = false;
+
+        component = getComponent('http://www.fake-endpoint.com/brk/subject/123/');
+        scope = component.isolateScope();
+
+        expect(scope.vm.isMoreInfoAvailable).toBe(true);
+
+        scope.vm.endpoint = 'http://www.fake-endpoint.com/brk/subject/456/';
+        scope.$apply();
+        expect(scope.vm.isMoreInfoAvailable).toBe(false);
+    });
+
+    it('does not show a message that more info is available when a user is logged in', function () {
+        var component,
+            scope;
+
+        user.isLoggedIn = true;
+
+        component = getComponent('http://www.fake-endpoint.com/brk/subject/123/');
+        scope = component.isolateScope();
+
+        expect(scope.vm.isMoreInfoAvailable).toBe(false);
+
+        scope.vm.endpoint = 'http://www.fake-endpoint.com/brk/subject/456/';
+        scope.$apply();
+        expect(scope.vm.isMoreInfoAvailable).toBe(false);
     });
 });
