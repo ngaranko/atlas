@@ -27,7 +27,6 @@
             userState.username = null;
             userState.accessToken = null;
             userState.isLoggedIn = false;
-            localStorage.removeItem('token');
         }
 
         //  Refresh the succesfully obtained token every 4 and a half minutes (token expires in 5 minutes)
