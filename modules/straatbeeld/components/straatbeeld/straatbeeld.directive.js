@@ -45,9 +45,18 @@
                         var type = scope.state.isInitial ? ACTIONS.SHOW_STRAATBEELD_INITIAL
                             : ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT;
 
+                        // Dispatch an action to change the pano
                         store.dispatch({
                             type: type,
                             payload: straatbeeldData
+                        });
+
+                        // Dispatch an action to change the location
+                        // This is a separate action. An open pano should not prevent changing the location
+                        // in any other view (eg map panning should still be possible)
+                        store.dispatch({
+                            type: ACTIONS.LOCATION_CHANGE,
+                            payload: straatbeeldData.location
                         });
                     });
                 }

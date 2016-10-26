@@ -89,8 +89,19 @@
   }
 }
 
+
+.c-exit-print-mode {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 26px;
+  height: 26px;
+  background-image: url("assets/icons/close-hover.svg");
+}
+
 .c-print-button {
   float: right;
+  font-family: $header-font-family;
   font-weight: 700;
   line-height: $button-size;
 
@@ -99,7 +110,7 @@
     width: $button-size;
     height: $button-size;
     margin-left: $base-whitespace / 2;
-    background-image: url("assets/icons/link-active.svg");
+    background-image: url("assets/icons/print-icoon.svg");
     content: "";
     vertical-align: middle;
   }
@@ -108,7 +119,22 @@
     color: $primary-contrast;
 
     &::after {
-      background-image: url("assets/icons/link-hover.svg");
+      background-image: url("assets/icons/print-icoon.svg");
+    }
+  }
+}
+
+/* SASSLint enforces merging of selectors */
+.is-print-mode {
+  .site-header {
+    background-color: transparent;
+  }
+
+  .site-header__menu__item {
+    color: $secondary-gray60;
+
+    &:hover {
+      background-color: transparent;
     }
   }
 }

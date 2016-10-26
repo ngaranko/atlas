@@ -119,7 +119,7 @@ describe('The dp-header component', function () {
             expect(component.find('dp-menu-dropdown').length).toBe(0);
         });
 
-        it('shows a link to leave the print mode', function () {
+        xit('shows a link to leave the print mode', function () {
             expect(component.text().toLowerCase()).toContain('verlaat printversie');
         });
     });
@@ -131,7 +131,7 @@ describe('The dp-header component', function () {
             component = getComponent('', false);
         });
 
-        it('doesn\'t show the link to leave print mode', function () {
+        xit('doesn\'t show the link to leave print mode', function () {
             expect(component.text().toLowerCase()).not.toContain('verlaat print versie');
         });
     });

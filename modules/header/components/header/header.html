@@ -1,11 +1,16 @@
-<header class="site-header">
+<header class="site-header u-hide-on-print">
     <div class="u-grid">
         <div class="u-row">
             <div class="u-col-sm--3">
-                <dp-link type="SHOW_HOME" class-name="site-header__logo" hover-text="Naar Atlas home">
-                    <img class="u-block site-header__logo" src="assets/images/andreas.svg" alt="Logo Gemeente Amsterdam" >
-                    Atlas
-                </dp-link>
+                <div ng-if="!vm.isPrintMode">
+                    <dp-link type="SHOW_HOME" class-name="site-header__logo" hover-text="Naar Atlas home">
+                        <img class="u-block site-header__logo" src="assets/images/andreas.svg" alt="Logo Gemeente Amsterdam" >
+                        Atlas
+                    </dp-link>
+                </div>
+                <div ng-if="vm.isPrintMode" class="u-margin__top--05">
+                    <h2>Printversie</h2>
+                </div>
             </div>
 
             <!-- Default -->
@@ -36,7 +41,7 @@
                         Printen
                     </dp-print-button>
                     <dp-link type="HIDE_PRINT" class-name="site-header__menu__item">
-                        Verlaat printversie
+                        <div class="c-exit-print-mode" title="Sluiten"></div>
                     </dp-link>
                 </nav>
             </div>

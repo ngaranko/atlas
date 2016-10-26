@@ -16,8 +16,9 @@
 
             if (angular.isObject(state.dataSelection)) {
                 visibility.dataSelection = true;
+                visibility.dataSelectionList = state.dataSelection.listView;
 
-                visibility.map = false;
+                visibility.map = visibility.dataSelectionList;
                 visibility.layerSelection = false;
                 visibility.detail = false;
                 visibility.page = false;
@@ -49,6 +50,7 @@
                 }
 
                 visibility.dataSelection = false;
+                visibility.dataSelectionList = false;
             }
 
             return visibility;
@@ -63,7 +65,7 @@
             } else if (hasFullscreenMap) {
                 columnSizes.left = 0;
                 columnSizes.middle = 12;
-            } else if (visibility.dataSelection) {
+            } else if (visibility.dataSelection && !visibility.dataSelectionList) {
                 columnSizes.left = 0;
                 columnSizes.middle = 0;
             } else {
