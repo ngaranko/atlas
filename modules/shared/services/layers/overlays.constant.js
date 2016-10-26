@@ -435,8 +435,8 @@
                 },
                 milieu_veiligheid_bron: {
                     url: 'maps/externeveiligheid',
-                    label_short: 'Bron - Risicozones',
-                    label_long: 'Bron - Risicozones',
+                    label_short: 'Bedrijf - bronnen en risicozones',
+                    label_long: 'Bedrijf - bronnen en risicozones',
                     layers: ['overigerisicobedrijven'],
                     minZoom: 8,
                     maxZoom: 16,
@@ -446,8 +446,8 @@
                 },
                 milieu_veiligheid_bedrijf: {
                     url: 'maps/externeveiligheid',
-                    label_short: 'Bedrijf - Risicozones',
-                    label_long: 'Bedrijf - Risicozones',
+                    label_short: 'Bedrijf - Terreingrens',
+                    label_long: 'Bedrijf - Terreingrens',
                     layers: ['milieu_veiligheid_bedrijf'],
                     minZoom: 8,
                     maxZoom: 16,
@@ -724,7 +724,7 @@
                         'milieu_bodem_asbest_in_grond'
                     ]
                 }, {
-                    heading: 'Milieu: veiligheid',
+                    heading: 'Milieu: externe veiligheid',
                     overlays: [
                         'milieu_veiligheid_lpg_vulpunt',
                         'milieu_veiligheid_lpg_afleverzuil',
