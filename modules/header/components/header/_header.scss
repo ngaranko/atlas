@@ -18,13 +18,13 @@
 }
 
 .site-header__logo {
+  @include font-size($xl-header-font);
   display: block;
   height: $site-header-height;
-  padding-left: 25px;
+  padding-left: $base-whitespace * 2.5;
   background-color: $secondary-gray80;
   color: $primary-light;
   font-family: $header-font-family;
-  font-size: 35px;
   cursor: pointer;
 
   img {
@@ -96,8 +96,8 @@
 }
 
 .c-exit-print-mode__button {
-  width: 26px;
-  height: 26px;
+  width: $button-size;
+  height: $button-size;
   background-image: url("assets/icons/close-hover.svg");
 }
 
