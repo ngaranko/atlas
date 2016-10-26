@@ -22,12 +22,4 @@ describe('The http-status component', function () {
     it('shows nothing when nothing has happened', function () {
         expect(httpStatus.getStatus().hasErrors).toBe(false);
     });
-
-    it('can be reset after any errors', function () {
-        httpStatus.registerError();
-        expect(httpStatus.getStatus().hasErrors).toBe(true);
-
-        httpStatus.getStatus().hasErrors = false;
-        expect(httpStatus.getStatus().hasErrors).toBe(false);
-    });
 });
