@@ -1,3 +1,5 @@
+@import "modules/shared/styles/config";
+
 $dashboard-heading-height: 50px;
 
 .c-dashboard {
@@ -22,3 +24,23 @@ $dashboard-heading-height: 50px;
   overflow-y: auto;
 }
 
+.is-print-mode {
+  .c-dashboard {
+    padding: $base-whitespace * 2;
+    border-right: solid $secondary-gray40 1px;
+    border-left: solid $secondary-gray40 1px;
+  }
+}
+
+@media print {
+  .is-print-mode {
+    .c-dashboard {
+      padding: 0;
+      border: none;
+    }
+
+    .c-dashboard__heading {
+      height: 0;
+    }
+  }
+}
