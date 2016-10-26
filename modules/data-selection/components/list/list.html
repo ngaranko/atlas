@@ -1,0 +1,19 @@
+<div class="u-grid">
+    <div class="u-row c-data-selection__grid">
+        <div class="u-col-sm--9">
+            <dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>
+
+            <div ng-if="!vm.isLoading">
+
+                <ul class="o-list">
+                    <li ng-repeat="row in vm.data track by $index">
+                        <dp-link type="FETCH_DETAIL" payload="row.detailEndpoint">{{row.adres}}</dp-link>
+                        <span ng-show="row.standplaats">(standplaats)</span>
+                        <span ng-show="row.ligplaats">(ligplaats)</span>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>

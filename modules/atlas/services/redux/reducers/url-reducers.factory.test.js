@@ -473,6 +473,7 @@ describe('The urlReducers factory', function () {
                 // With an active dataSelection
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParamsWithDataSelection);
                 expect(output.dataSelection).toEqual({
+                    listView: false,
                     dataset: 'bag',
                     filters: jasmine.any(Object),
                     page: jasmine.anything()
@@ -515,6 +516,12 @@ describe('The urlReducers factory', function () {
                     buurtcombinatie: 'Bijlmeer Oost (D,F,H)',
                     buurt: 'Belgiëplein e.o.'
                 });
+            });
+
+            it('enables list view', function () {
+                mockedSearchParamsWithDataSelection['list-view'] = true;
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParamsWithDataSelection);
+                expect(output.dataSelection.listView).toBe(true);
             });
         });
 
