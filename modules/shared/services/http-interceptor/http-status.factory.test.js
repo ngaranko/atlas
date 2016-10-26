@@ -11,23 +11,23 @@ describe('The http-status component', function () {
 
     it('is able to register any http errors', function () {
         httpStatus.registerError();
-        expect(httpStatus.hasErrors()).toBe(true);
+        expect(httpStatus.getStatus().hasErrors).toBe(true);
     });
 
     it('is able to register multiple http errors', function () {
         [1, 2, 3, 4, 5].forEach(() => httpStatus.registerError());
-        expect(httpStatus.hasErrors()).toBe(true);
+        expect(httpStatus.getStatus().hasErrors).toBe(true);
     });
 
     it('shows nothing when nothing has happened', function () {
-        expect(httpStatus.hasErrors()).toBe(false);
+        expect(httpStatus.getStatus().hasErrors).toBe(false);
     });
 
     it('can be reset after any errors', function () {
         httpStatus.registerError();
-        expect(httpStatus.hasErrors()).toBe(true);
+        expect(httpStatus.getStatus().hasErrors).toBe(true);
 
-        httpStatus.clearErrors();
-        expect(httpStatus.hasErrors()).toBe(false);
+        httpStatus.getStatus().hasErrors = false;
+        expect(httpStatus.getStatus().hasErrors).toBe(false);
     });
 });

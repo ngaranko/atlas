@@ -34,7 +34,7 @@ describe('The api-error component', function () {
     });
 
     it('shows nothing when there are no http errors', function () {
-        httpStatus.clearErrors();
+        httpStatus.getStatus().hasErrors = false;
 
         let component = getComponent();
         expect(component.find('.qa-api-error').length).toBe(0);
