@@ -93,7 +93,10 @@
 .c-exit-print-mode {
   position: absolute;
   top: -20px;
-  right: -20px;
+  right: -21px;
+}
+
+.c-exit-print-mode__button {
   width: 26px;
   height: 26px;
   background-image: url("assets/icons/close-hover.svg");
