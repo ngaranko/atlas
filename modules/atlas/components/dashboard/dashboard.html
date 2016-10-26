@@ -11,6 +11,7 @@
         }">
 
         <div class="u-grid u-height--100" ng-class="{'u-height--auto': vm.isPrintMode}">
+
             <div class="u-row u-height--100" ng-class="{'u-height--auto': vm.isPrintMode}">
                 <div ng-if="vm.columnSizes.left"
                     class="u-col-sm--{{vm.columnSizes.left}} qa-dashboard__content__column--left u-height--100"
@@ -32,6 +33,10 @@
 
                         </dp-layer-selection>
                     </div>
+                </div>
+
+                <div class="u-padding__left--1">
+                    <dp-api-error></dp-api-error>
                 </div>
 
                 <div ng-if="vm.columnSizes.middle"
