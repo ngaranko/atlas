@@ -4,13 +4,7 @@ describe('The api-error component', function () {
         httpStatus;
 
     beforeEach(function () {
-        angular.mock.module('dpShared', {
-            'httpStatus': {
-                status: {
-                    hasErrors: false
-                }
-            }
-        });
+        angular.mock.module('dpShared');
 
         angular.mock.inject(function (_$compile_, _$rootScope_, _httpStatus_) {
             $compile = _$compile_;
@@ -33,14 +27,14 @@ describe('The api-error component', function () {
     }
 
     it('shows an error message when there are any http errors', function () {
-        httpStatus.status.hasErrors = true;
+        httpStatus.registerError();
 
         let component = getComponent();
         expect(component.find('.qa-api-error').length).toBe(1);
     });
 
     it('shows nothing when there are no http errors', function () {
-        httpStatus.status.hasErrors = false;
+        httpStatus.clearErrors();
 
         let component = getComponent();
         expect(component.find('.qa-api-error').length).toBe(0);

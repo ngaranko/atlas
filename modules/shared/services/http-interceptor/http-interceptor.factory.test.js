@@ -32,7 +32,7 @@ describe('The http interceptor', function () {
             .then(data => {
                 expect(data.data).toEqual(mockedData);
                 expect(data.status).toBe(200);
-                expect(httpStatus.status.hasErrors).toBe(false);
+                expect(httpStatus.hasErrors()).toBe(false);
             });
         $httpBackend.flush();
     });
@@ -43,7 +43,7 @@ describe('The http interceptor', function () {
             .then(data => {
                 expect(data.data).toEqual(mockedData);
                 expect(data.status).toBe(404);
-                expect(httpStatus.status.hasErrors).toBe(true);
+                expect(httpStatus.hasErrors()).toBe(true);
             });
         $httpBackend.flush();
     });
