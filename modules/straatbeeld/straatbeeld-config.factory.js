@@ -13,8 +13,8 @@
 
         globalConfig = {
             DEFAULT_FOV: 80,
-            MAX_FOV: 100,
-            MAX_RESOLUTION: 2 * 1024,
+            MAX_FOV: 90,
+            MAX_RESOLUTION: 12 * 1024,
             CAMERA_HEIGHT: 1.8,
             LEVEL_PROPERTIES_LIST: [
                 {
