@@ -8,12 +8,26 @@
     userFactory.$inject = ['$http', '$httpParamSerializer', '$q', '$interval', 'environment'];
 
     function userFactory ($http, $httpParamSerializer, $q, $interval, environment) {
-        var userState = {
-            username: null,
-            accessToken: null,
-            isLoggedIn: false,
-            keepLoggedIn: false
-        };
+        var userState = {};
+
+        try {
+            sessionStorage.setItem('test', 'testvalue');
+            var data = sessionStorage.getItem('test');
+            if (data !== 'testvalue') {
+                throw new Error('getItem does not work');
+            }
+            sessionStorage.removeItem('test');
+
+            var token = sessionStorage.getItem('token');
+
+            if (token) {
+                console.log(token);
+            }
+        } catch (e) {
+            userState.username = null;
+            userState.accessToken = null;
+            userState.isLoggedIn = false;
+        }
 
         //  Refresh the succesfully obtained token every 4 and a half minutes (token expires in 5 minutes)
         var intervalDuration = 270000;
@@ -47,7 +61,8 @@
                 userState.username = username;
                 userState.accessToken = response.data.token;
                 userState.isLoggedIn = true;
-                userState.keepLoggedIn = true;
+
+                sessionStorage.setItem('token', 'userState.accessToken');
 
                 intervalPromise = $interval(refreshToken, intervalDuration);
             }
@@ -89,6 +104,7 @@
 
             function refreshSuccess (response) {
                 userState.accessToken = response.data.token;
+                userState.isLoggedIn = true;
             }
         }
 
@@ -99,7 +115,6 @@
             userState.username = null;
             userState.accessToken = null;
             userState.isLoggedIn = false;
-            userState.keepLoggedIn = false;
         }
 
         function getStatus () {
