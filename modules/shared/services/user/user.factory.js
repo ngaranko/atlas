@@ -11,22 +11,23 @@
         var userState = {};
 
         try {
-            sessionStorage.setItem('test', 'testvalue');
-            var data = sessionStorage.getItem('test');
+            localStorage.setItem('test', 'testvalue');
+            var data = localStorage.getItem('test');
             if (data !== 'testvalue') {
                 throw new Error('getItem does not work');
             }
-            sessionStorage.removeItem('test');
+            localStorage.removeItem('test');
 
-            var token = sessionStorage.getItem('token');
+            var token = localStorage.getItem('token');
 
             if (token) {
-                console.log(token);
+                refreshToken(token);
             }
         } catch (e) {
             userState.username = null;
             userState.accessToken = null;
             userState.isLoggedIn = false;
+            localStorage.removeItem('token');
         }
 
         //  Refresh the succesfully obtained token every 4 and a half minutes (token expires in 5 minutes)
@@ -62,9 +63,9 @@
                 userState.accessToken = response.data.token;
                 userState.isLoggedIn = true;
 
-                sessionStorage.setItem('token', 'userState.accessToken');
+                localStorage.setItem('token', userState.accessToken);
 
-                intervalPromise = $interval(refreshToken, intervalDuration);
+                intervalPromise = $interval(refreshToken(userState.accessToken), intervalDuration);
             }
 
             function loginError (response) {
@@ -87,7 +88,7 @@
             }
         }
 
-        function refreshToken () {
+        function refreshToken (accessToken) {
             return $http({
                 method: 'POST',
                 url: environment.AUTH_ROOT + 'refresh/',
@@ -96,7 +97,7 @@
                 },
                 data: $httpParamSerializer(
                     {
-                        token: userState.accessToken
+                        token: accessToken
                     }
                     )
             })
@@ -115,6 +116,7 @@
             userState.username = null;
             userState.accessToken = null;
             userState.isLoggedIn = false;
+            localStorage.removeItem('token');
         }
 
         function getStatus () {
