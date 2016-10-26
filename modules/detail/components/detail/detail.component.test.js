@@ -294,7 +294,8 @@ describe('the dp-detail component', function () {
             results: {
                 _display: 'Adresstraat 1A',
                 dummy: 'A',
-                something: 3
+                something: 3,
+                naam: 'naam'
             }
         });
         expect(store.dispatch).toHaveBeenCalledTimes(2);
