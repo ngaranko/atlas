@@ -12,14 +12,9 @@
         };
 
         return {
-            clearErrors,
             status,
             registerError
         };
-
-        function clearErrors () {
-            status.hasErrors = false;
-        }
 
         function registerError () {
             status.hasErrors = true;

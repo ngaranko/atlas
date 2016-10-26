@@ -6,18 +6,16 @@
         .factory('httpInterceptor', httpInterceptorFactory)
         .config($httpProvider => $httpProvider.interceptors.push('httpInterceptor'));
 
-    httpInterceptorFactory.inject = ['httpStatus'];
+    httpInterceptorFactory.inject = ['$q', 'httpStatus'];
 
-    function httpInterceptorFactory (httpStatus) {
+    function httpInterceptorFactory ($q, httpStatus) {
         return {
-            response: function (response) {
-                httpStatus.registerError();
-                return response;
-            },
-            responseError: function (response) {
-                httpStatus.registerError();
-                return response;
-            }
+            responseError
         };
+
+        function responseError (response) {
+            httpStatus.registerError();
+            return $q.reject(response);
+        }
     }
 })();
