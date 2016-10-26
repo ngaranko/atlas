@@ -22,7 +22,8 @@ describe('the dp-detail component', function () {
                             q.resolve({
                                 _display: 'Adresstraat 1A',
                                 dummy: 'A',
-                                something: 3
+                                something: 3,
+                                naam: 'naam'
                             });
                         } else if (endpoint === 'http://www.fake-endpoint.com/brk/object/789/') {
                             q.resolve({
@@ -145,7 +146,7 @@ describe('the dp-detail component', function () {
         return component;
     }
 
-    it('puts data and a template URL variable on the scope based on the endpoint', function () {
+    it('puts data on the scope based on the endpoint', function () {
         var component,
             scope;
 
@@ -156,12 +157,35 @@ describe('the dp-detail component', function () {
             results: {
                 _display: 'Adresstraat 1A',
                 dummy: 'A',
-                something: 3
+                something: 3,
+                naam: 'naam'
             }
         });
     });
 
-    it('triggers the SHOW_DETAIL action with the display and geometry as it\'s payload', function () {
+    it('puts a template URL on the scope based on the endpoint', function () {
+        var component,
+            scope;
+
+        component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false);
+        scope = component.isolateScope();
+
+        expect(scope.vm.includeSrc).toBe('modules/detail/components/detail/templates/bag/nummeraanduiding.html');
+    });
+
+    it('puts a filter selection on the scope based on the endpoint', function () {
+        var component,
+            scope;
+
+        component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false);
+        scope = component.isolateScope();
+
+        expect(scope.vm.filterSelection).toEqual({
+            nummeraanduiding: 'naam'
+        });
+    });
+
+    it('triggers the SHOW_DETAIL action with the display and geometry as its payload', function () {
         getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false);
 
         expect(store.dispatch).toHaveBeenCalledWith({
@@ -189,7 +213,8 @@ describe('the dp-detail component', function () {
             results: {
                 _display: 'Adresstraat 1A',
                 dummy: 'A',
-                something: 3
+                something: 3,
+                naam: 'naam'
             }
         });
         expect(store.dispatch).toHaveBeenCalledTimes(1);
