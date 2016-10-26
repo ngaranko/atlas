@@ -43,21 +43,19 @@
         }
 
         function showSelectionListReducer (oldState, payload) {
-            const filters = {};
-            let newState;
+            const filters = Object.keys(payload).reduce(
+                (result, key) => {
+                    return angular.extend(result, {
+                        [filterNames.getSlugFor(key)]: payload[key]
+                    });
+                }, {});
 
-            for (let key in payload) {
-                if (payload.hasOwnProperty(key)) {
-                    const slug = filterNames.getSlugFor(key);
-                    filters[slug] = payload[key];
-                }
-            }
-
-            newState = showDataSelectionReducer(oldState, {
-                dataset: 'bag',
-                filters: filters,
-                page: 1
-            });
+            let newState = showDataSelectionReducer(oldState,
+                {
+                    dataset: 'bag',
+                    filters: filters,
+                    page: 1
+                });
 
             return toggleDataSelectionListViewReducer(newState);
         }
