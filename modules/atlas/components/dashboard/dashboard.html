@@ -35,12 +35,8 @@
                     </div>
                 </div>
 
-                <div class="u-row">
-                    <div class="u-padding__left--1">
-                        <dp-panel is-panel-visible="true" type="danger" can-close="true">
-                        Momenteel wordt niet alle informatie getoond. Aan deze technische storing wordt gewerkt. Probeer het zodadelijk nog eens…
-                        </dp-panel>
-                    </div>
+                <div class="u-padding__left--1">
+                    <dp-api-error></dp-api-error>
                 </div>
 
                 <div ng-if="vm.columnSizes.middle"

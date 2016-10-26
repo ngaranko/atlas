@@ -4,23 +4,20 @@
     angular
         .module('dpShared')
         .factory('httpInterceptor', httpInterceptorFactory)
-        .config(addInterceptor);
+        .config($httpProvider => $httpProvider.interceptors.push('httpInterceptor'));
 
-    function httpInterceptorFactory () {
+    httpInterceptorFactory.inject = ['httpStatus'];
+
+    function httpInterceptorFactory (httpStatus) {
         return {
             response: function (response) {
-                console.log('response');
+                httpStatus.registerError();
                 return response;
             },
             responseError: function (response) {
-                console.log('responseError');
+                httpStatus.registerError();
                 return response;
             }
         };
-    }
-
-    function addInterceptor ($httpProvider) {
-        console.log($httpProvider);
-        $httpProvider.interceptors.push('httpInterceptor');
     }
 })();
