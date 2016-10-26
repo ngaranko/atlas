@@ -44,14 +44,12 @@
 
         function showSelectionListReducer (oldState, payload) {
             const filters = Object.keys(payload).reduce(
-                (result, key) => {
-                    return angular.extend(result, {
-                        [filterNames.getSlugFor(key)]: payload[key]
-                    });
-                }, {});
+                (result, key) => angular.extend(result, {
+                    [filterNames.getSlugFor(key)]: payload[key]
+                }), {});
 
-            let newState = showDataSelectionReducer(oldState,
-                {
+            let newState = showDataSelectionReducer(
+                oldState, {
                     dataset: 'bag',
                     filters: filters,
                     page: 1
