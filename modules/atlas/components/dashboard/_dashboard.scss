@@ -27,8 +27,8 @@ $dashboard-heading-height: 50px;
 .is-print-mode {
   .c-dashboard {
     padding: 20px;
-    border-left: solid $secondary-gray40 1px;
     border-right: solid $secondary-gray40 1px;
+    border-left: solid $secondary-gray40 1px;
   }
 }
 
@@ -37,6 +37,10 @@ $dashboard-heading-height: 50px;
     .c-dashboard {
       padding: 0;
       border: none;
+    }
+
+    .c-dashboard__heading {
+      height: 0;
     }
   }
 }

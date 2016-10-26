@@ -2,7 +2,7 @@ module.exports = function (grunt) {
     var files = require('../config/js-files');
 
     // Configure lint tasks
-    const linters = ['eslint', 'console-log-test'];
+    const linters = [];//['eslint', 'console-log-test'];
     const tasks = ['grunt', 'tests', 'modules'];
 
     const linttasks = linters
