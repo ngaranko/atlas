@@ -17,12 +17,12 @@
 
         function testStorage () {
             try {
-                localStorage.setItem('test', 'testvalue');
-                var data = localStorage.getItem('test');
+                SesionStorage.setItem('test', 'testvalue');
+                var data = SesionStorage.getItem('test');
                 if (data !== 'testvalue') {
                     throw new Error('getItem does not work');
                 }
-                localStorage.removeItem('test');
+                SesionStorage.removeItem('test');
             } catch (e) {
                 return false;
             }

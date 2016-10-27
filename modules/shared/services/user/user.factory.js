@@ -53,7 +53,7 @@
                 userState.accessToken = response.data.token;
                 userState.isLoggedIn = true;
 
-                localStorage.setItem('token', userState.accessToken);
+                sessionStorage.setItem('token', userState.accessToken);
 
                 intervalPromise = $timeout(refreshToken, intervalDuration);
             }
@@ -79,7 +79,7 @@
         }
 
         function refreshToken () {
-            accessToken = localStorage.getItem('token');
+            accessToken = sessionStorage.getItem('token');
 
             if (accessToken) {
                 return $http({
@@ -99,7 +99,7 @@
 
             function refreshSuccess (response) {
                 userState.accessToken = response.data.token;
-                localStorage.setItem('token', userState.accessToken);
+                sessionStorage.setItem('token', userState.accessToken);
                 userState.isLoggedIn = true;
 
                 intervalPromise = $timeout(refreshToken, intervalDuration);
@@ -113,7 +113,7 @@
             userState.username = null;
             userState.accessToken = null;
             userState.isLoggedIn = false;
-            localStorage.removeItem('token');
+            sessionStorage.removeItem('token');
         }
 
         function getStatus () {
