@@ -32,7 +32,8 @@ module.exports = function (grunt) {
         sass: require(gruntDir + 'sass'),
         sasslint: require(gruntDir + 'sasslint'),
         tags: require(gruntDir + 'script-link-tags')(grunt),
-        watch: require(gruntDir + 'watch')
+        watch: require(gruntDir + 'watch'),
+        githooks: require(gruntDir + 'githooks')(grunt)
     });
 
     grunt.loadNpmTasks('grunt-angular-templates');
@@ -52,4 +53,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-sass-lint');
     grunt.loadNpmTasks('grunt-script-link-tags');
+    grunt.loadNpmTasks('grunt-githooks');
 };
