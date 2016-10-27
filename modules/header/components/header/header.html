@@ -8,8 +8,8 @@
                         Atlas
                     </dp-link>
                 </div>
-                <div ng-if="vm.isPrintMode" class="u-margin__top--05">
-                    <h2>Printversie</h2>
+                <div ng-if="vm.isPrintMode">
+                    <h1>Printversie</h1>
                 </div>
             </div>
 
@@ -37,7 +37,7 @@
             <!-- When printing -->
             <div ng-if="vm.isPrintMode" class="u-col-sm--9">
                 <nav class="site-header__menu">
-                    <div class="u-padding--1">
+                    <div class="u-margin__top--05">
                         <dp-print-button>
                             Printen
                         </dp-print-button>
