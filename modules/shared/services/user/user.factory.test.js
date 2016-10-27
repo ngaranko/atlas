@@ -2,7 +2,7 @@ describe('The user factory', function () {
     var $http,
         $httpBackend,
         $httpParamSerializer,
-        $intervalSpy,
+        $timeoutspy,
         user,
         httpPostHeaders,
         httpPostLoginData,
@@ -11,7 +11,7 @@ describe('The user factory', function () {
 
     beforeEach(function () {
         dummyPromise = 'dummyPromise';
-        $intervalSpy = jasmine.createSpy('$interval', {cancel: function () {}}).and.returnValue(dummyPromise);
+        $timeoutspy = jasmine.createSpy('$timeout', {cancel: function () {}}).and.returnValue(dummyPromise);
 
         angular.mock.module(
             'dpShared',
@@ -21,8 +21,8 @@ describe('The user factory', function () {
                 }
             },
             function ($provide) {
-                $provide.factory('$interval', function () {
-                    return $intervalSpy;
+                $provide.factory('$timeout', function () {
+                    return $timeoutspy;
                 });
             }
         );
@@ -55,7 +55,7 @@ describe('The user factory', function () {
             }
         );
 
-        spyOn($intervalSpy, 'cancel');
+        spyOn($timeoutspy, 'cancel');
     });
 
     afterEach(function () {
@@ -67,8 +67,7 @@ describe('The user factory', function () {
         expect(user.getStatus()).toEqual({
             username: null,
             accessToken: null,
-            isLoggedIn: false,
-            keepLoggedIn: false
+            isLoggedIn: false
         });
     });
 
@@ -86,12 +85,11 @@ describe('The user factory', function () {
             expect(user.getStatus()).toEqual({
                 username: 'Erik',
                 accessToken: 'ERIKS_ACCESS_TOKEN',
-                isLoggedIn: true,
-                keepLoggedIn: true
+                isLoggedIn: true
             });
 
-            //  expect interval to be set.
-            expect($intervalSpy).toHaveBeenCalledWith(user.refreshToken, 270000);
+            //  expect timeout to be set.
+            expect($timeoutspy).toHaveBeenCalledWith(user.refreshToken, 270000);
         });
 
         describe('and then the token to be refreshed', function () {
@@ -119,8 +117,7 @@ describe('The user factory', function () {
                 expect(user.getStatus()).toEqual({
                     username: 'Erik',
                     accessToken: 'ERIKS_BRAND_NEW_TOKEN',
-                    isLoggedIn: true,
-                    keepLoggedIn: true
+                    isLoggedIn: true
                 });
             });
 
@@ -146,12 +143,11 @@ describe('The user factory', function () {
                 expect(user.getStatus()).toEqual({
                     username: null,
                     accessToken: null,
-                    isLoggedIn: false,
-                    keepLoggedIn: false
+                    isLoggedIn: false
                 });
 
                 //  expect interval to be cancelled
-                expect($intervalSpy.cancel).toHaveBeenCalledWith(dummyPromise);
+                expect($timeoutspy.cancel).toHaveBeenCalledWith(dummyPromise);
             });
         });
 
@@ -222,8 +218,7 @@ describe('The user factory', function () {
         expect(user.getStatus()).toEqual({
             username: 'Erik',
             accessToken: 'ERIKS_ACCESS_TOKEN',
-            isLoggedIn: true,
-            keepLoggedIn: true
+            isLoggedIn: true
         });
 
         // Now logout
@@ -232,11 +227,10 @@ describe('The user factory', function () {
         expect(user.getStatus()).toEqual({
             username: null,
             accessToken: null,
-            isLoggedIn: false,
-            keepLoggedIn: false
+            isLoggedIn: false
         });
 
         //  expect interval to be cancelled
-        expect($intervalSpy.cancel).toHaveBeenCalledWith(dummyPromise);
+        expect($timeoutspy.cancel).toHaveBeenCalledWith(dummyPromise);
     });
 });

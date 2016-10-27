@@ -5,32 +5,23 @@
         .module('dpShared')
         .factory('user', userFactory);
 
-    userFactory.$inject = ['$http', '$httpParamSerializer', '$q', '$interval', 'environment'];
+    userFactory.$inject = ['$http', '$httpParamSerializer', '$q', '$timeout', 'environment', 'storage'];
 
-    function userFactory ($http, $httpParamSerializer, $q, $interval, environment) {
-        var userState = {};
+    function userFactory ($http, $httpParamSerializer, $q, $timeout, environment, storage) {
+        var userState = {},
+            accessToken,
+            storageAvailable = storage.testStorage();
 
-        try {
-            localStorage.setItem('test', 'testvalue');
-            var data = localStorage.getItem('test');
-            if (data !== 'testvalue') {
-                throw new Error('getItem does not work');
-            }
-            localStorage.removeItem('test');
-
-            var token = localStorage.getItem('token');
-
-            if (token) {
-                refreshToken(token);
-            }
-        } catch (e) {
+        if (storageAvailable) {
+            refreshToken();
+        } else {
             userState.username = null;
             userState.accessToken = null;
             userState.isLoggedIn = false;
         }
 
         //  Refresh the succesfully obtained token every 4 and a half minutes (token expires in 5 minutes)
-        var intervalDuration = 270000;
+        var intervalDuration = 2700;
         var intervalPromise = null;
 
         return {
@@ -64,7 +55,7 @@
 
                 localStorage.setItem('token', userState.accessToken);
 
-                intervalPromise = $interval(refreshToken(userState.accessToken), intervalDuration);
+                intervalPromise = $timeout(refreshToken, intervalDuration);
             }
 
             function loginError (response) {
@@ -87,30 +78,37 @@
             }
         }
 
-        function refreshToken (accessToken) {
-            return $http({
-                method: 'POST',
-                url: environment.AUTH_ROOT + 'refresh/',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                data: $httpParamSerializer(
-                    {
-                        token: accessToken
-                    }
-                    )
-            })
-                .then(refreshSuccess, logout);
+        function refreshToken () {
+            accessToken = localStorage.getItem('token');
+
+            if (accessToken) {
+                return $http({
+                    method: 'POST',
+                    url: environment.AUTH_ROOT + 'refresh/',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    data: $httpParamSerializer(
+                        {
+                            token: accessToken
+                        }
+                        )
+                })
+                    .then(refreshSuccess, logout);
+            }
 
             function refreshSuccess (response) {
                 userState.accessToken = response.data.token;
+                localStorage.setItem('token', userState.accessToken);
                 userState.isLoggedIn = true;
+
+                intervalPromise = $timeout(refreshToken, intervalDuration);
             }
         }
 
         function logout () {
             if (intervalPromise) {
-                $interval.cancel(intervalPromise);
+                $timeout.cancel(intervalPromise);
             }
             userState.username = null;
             userState.accessToken = null;
