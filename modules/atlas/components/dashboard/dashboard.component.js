@@ -33,7 +33,6 @@
                     vm.visibility.searchResults ||
                     vm.visibility.dataSelection
                 );
-
             vm.columnSizes = dashboardColumns.determineColumnSizes(
                 vm.visibility,
                 state.map.isFullscreen,
