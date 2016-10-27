@@ -3,6 +3,5 @@ red='\033[0;31m'
 green='\033[0;32m'
 yellow='\033[0;33m'
 no_color='\033[0m'
-
-echo "\n\n ${green}Everything passed. Commencing commit. Well done! ${no_color}\n"
+echo "\n\n ${green}Everything passed. Commiting now. Well done! ${no_color}\n"
 
