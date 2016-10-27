@@ -43,4 +43,15 @@ module.exports = function (grunt) {
                 ])
         );
     });
+
+    grunt.registerTask('create-hooks', function () {
+        var fs = require('fs');
+        if (!grunt.file.exists('.git/hooks/pre-commit')) {
+            grunt.file.copy('hooks', '.git/hooks');
+            fs.chmodSync('.git/hooks', '755');
+            console.log('Git hooks created in .git/hooks');
+        } else {
+            console.log ('Git hooks already present. Leaving them intact.');
+        }
+    });
 };
