@@ -44,14 +44,20 @@ module.exports = function (grunt) {
         );
     });
 
-    grunt.registerTask('create-hooks', function () {
-        var fs = require('fs');
+    grunt.registerTask('create-hooks', () => {
+        const fs = require('fs');
+
+        // Check if hooks are already preset, if so ignore the copy
         if (!grunt.file.exists('.git/hooks/pre-commit')) {
+            // Copy all hooks from /hooks into .git/hooks
             grunt.file.copy('hooks', '.git/hooks');
-            fs.chmodSync('.git/hooks', '755');
-            console.log('Git hooks created in .git/hooks');
+            // Make hooks executable
+            grunt.file.recurse('.git/hooks', path => {
+                fs.chmodSync(path, '755');
+            });
+            grunt.log.write('Git hooks created in .git/hooks');
         } else {
-            console.log ('Git hooks already present. Leaving them intact.');
+            grunt.log.error ('Git hooks already present. Leaving them intact.');
         }
     });
 };
