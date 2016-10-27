@@ -49,12 +49,15 @@ module.exports = function (grunt) {
 
         // Check if hooks are already preset, if so ignore the copy
         if (!grunt.file.exists('.git/hooks/pre-commit')) {
+            
             // Copy all hooks from /hooks into .git/hooks
             grunt.file.copy('hooks', '.git/hooks');
+            
             // Make hooks executable
             grunt.file.recurse('.git/hooks', path => {
                 fs.chmodSync(path, '755');
             });
+            
             grunt.log.write('Git hooks created in .git/hooks');
         } else {
             grunt.log.error ('Git hooks already present. Leaving them intact.');
