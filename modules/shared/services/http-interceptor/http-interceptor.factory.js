@@ -14,7 +14,12 @@
         };
 
         function responseError (response) {
-            httpStatus.registerError();
+            // register server errors (5xx)
+            let isServerError = 500 <= response.status && response.status <= 599;
+
+            if (isServerError) {
+                httpStatus.registerError();
+            }
             return $q.reject(response);
         }
     }

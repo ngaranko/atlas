@@ -24,6 +24,10 @@ describe('The http interceptor', function () {
         $httpBackend
             .whenGET('http://api-domain.com/pathError')
             .respond(404, mockedData);
+
+        $httpBackend
+            .whenGET('http://api-domain.com/serverError')
+            .respond(500, mockedData);
     });
 
     it('does not handle normal responses and requests', function () {
@@ -37,12 +41,23 @@ describe('The http interceptor', function () {
         $httpBackend.flush();
     });
 
-    it('registers all http error responses, leaves content untouched', function () {
+    it('does not handle client error responses and requests', function () {
         $http
             .get('http://api-domain.com/pathError')
             .then(data => {
                 expect(data.data).toEqual(mockedData);
                 expect(data.status).toBe(404);
+                expect(httpStatus.getStatus().hasErrors).toBe(false);
+            });
+        $httpBackend.flush();
+    });
+
+    it('registers all http server error responses, leaves content untouched', function () {
+        $http
+            .get('http://api-domain.com/serverError')
+            .then(data => {
+                expect(data.data).toEqual(mockedData);
+                expect(data.status).toBe(500);
                 expect(httpStatus.getStatus().hasErrors).toBe(true);
             });
         $httpBackend.flush();
