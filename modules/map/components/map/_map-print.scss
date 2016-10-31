@@ -9,3 +9,9 @@
   margin-top: $base-whitespace * 2.1;
   border-bottom-width: 1px;
 }
+
+@media print {
+  .leaflet-control-zoom {
+    display: none;
+  }
+}
