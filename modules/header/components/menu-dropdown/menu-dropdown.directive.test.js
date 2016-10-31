@@ -130,4 +130,12 @@ describe('The dp-menu-dropdown directive', function () {
         directive.find('.site-header__menu__item--toggle').eq(0).click();
         expect(directive.find('.menu-dropdown').text()).not.toContain('Printversie');
     });
+
+    it('has an option to download adressen', function () {
+        var directive;
+
+        directive = getDirective({hasPrintButton: false});
+        directive.find('.site-header__menu__item--toggle').eq(0).click();
+        expect(directive.find('.menu-dropdown').text()).toContain('Downloaden adressen');
+    });
 });
