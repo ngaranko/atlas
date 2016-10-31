@@ -3,12 +3,14 @@
         <div class="u-col-sm--12 u-col-md--12 u-col-lg--6">
             <p class="u-margin__bottom--4">Dit inlogscherm is bedoeld voor ambtenaren die natuurlijke personen als zoekterm willen gebruiken (om bijvoorbeeld al het eigendom van een persoon te zoeken) voor de uitoefening van een taak. Je kunt een account krijgen voor de toegang tot deze functie door middel van een verklaring van uw leidinggevende. Deze is aan te vragen bij de helpdesk <a class="o-link-inline" href="mailto: atlas.basisinformatie@amsterdam.nl">atlas.basisinformatie@amsterdam.nl</a>.</p>
 
-            <dp-panel is-panel-visible="vm.errorMessage"
-                      type="danger"
-                      can-close="true"
-                      class-name="qa-error-message">
-                {{vm.errorMessage}}
-            </dp-panel>
+            <div class="c-login-form__error-panel">
+                <dp-panel is-panel-visible="vm.errorMessage"
+                          type="danger"
+                          can-close="true"
+                          class-name="qa-error-message">
+                    {{vm.errorMessage}}
+                </dp-panel>
+            </div>
 
             <form class="c-login-form" ng-submit="vm.login($event)">
                 <fieldset>
