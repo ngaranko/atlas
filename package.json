@@ -41,6 +41,7 @@
     "karma-phantomjs-launcher": "^1.0.0",
     "karma-sourcemap-loader": "^0.3.7",
     "phantomjs-prebuilt": "^2.1.7",
+    "rimraf": "^2.5.4",
     "shortid": "^2.2.6",
     "time-grunt": "^1.4.0"
   },
@@ -48,9 +49,9 @@
     "postinstall": "bower install",
     "test": "grunt test",
     "start": "grunt",
-    "cleandirs": "rimraf ./bower_components ./node_modules ./reports ./build",
-    "cleancache": "npm cache clean && bower cache clean",
-    "cleaninstall": "npm run cleancache && npm run cleandirs && npm install"
+    "clean-dirs": "rimraf ./bower_components ./node_modules ./reports ./build",
+    "clean-cache": "npm cache clean && bower cache clean",
+    "clean": "npm run clean-dirs && npm run clean-cache"
   },
   "repository": {
     "type": "git",

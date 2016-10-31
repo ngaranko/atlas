@@ -14,7 +14,7 @@ Installation
 Other useful commands
 - npm test
 - grunt build-release
-- npm run cleaninstall
+- npm run clean
 
 Techniques used
 - AngularJS
