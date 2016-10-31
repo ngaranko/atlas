@@ -46,7 +46,7 @@ module.exports = function (grunt) {
 
     function copyHooks () {
         // Copy all hooks from /hooks into .git/hooks
-        grunt.file.copy('grunt/githooks', '.git/hooks');
+        grunt.task.run('newer:copy:githooks');
 
         // Make hooks executable
         grunt.file.recurse('.git/hooks', path => {
@@ -55,20 +55,6 @@ module.exports = function (grunt) {
     }
 
     grunt.registerTask('create-hooks', () => {
-        // Check if hooks are already preset, if so ignore the copy
-        if (!grunt.file.exists('.git/hooks/pre-commit')) {
-            grunt.log.write('Creating hooks\n');
-            copyHooks();
-            grunt.log.write('Git hooks created in .git/hooks\n');
-        } else {
-            // Just checking pre-commit time stamp for now.
-            const destinationDate = new Date(fs.statSync('.git/hooks/pre-commit').mtime).getTime();
-            const sourceDate = new Date(fs.statSync('grunt/githooks/pre-commit').mtime).getTime();
-
-            if (destinationDate < sourceDate) {
-                copyHooks();
-                grunt.log.write('Updated hooks\n');
-            }
-        }
+        copyHooks();
     });
 };

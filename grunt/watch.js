@@ -23,6 +23,10 @@ var targets = {
         files: 'modules/shared/assets/**/*',
         tasks: ['copy:assets']
     },
+    githooks: {
+        files: 'grunt/githooks/*',
+        tasks: ['copy:githooks']
+    },
     livereload: {
         options: {
             livereload: true
