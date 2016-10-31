@@ -63,7 +63,7 @@ describe('The dp-menu-dropdown directive', function () {
         // It should be openend
         expect(directive.find('.menu-dropdown').length).toBe(1);
         expect(directive.find('dp-terugmelden-button').length).toBe(1);
-        expect(directive.find('dp-link').length).toBe(2);
+        expect(directive.find('dp-link').length).toBe(3);
 
         // Click it again
         directive.find('.site-header__menu__item--toggle').eq(0).click();
@@ -123,7 +123,7 @@ describe('The dp-menu-dropdown directive', function () {
         // With a print button
         directive = getDirective({hasPrintButton: true});
         directive.find('.site-header__menu__item--toggle').eq(0).click();
-        expect(directive.find('.menu-dropdown').text()).toContain('Printversie');
+        expect(directive.find('.menu-dropdown').text()).toContain('Printen');
 
         // Without a print button
         directive = getDirective({hasPrintButton: false});
