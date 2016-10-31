@@ -50,7 +50,7 @@
     "start": "grunt",
     "cleandirs": "rimraf ./bower_components ./node_modules ./reports ./build",
     "cleancache": "npm cache clean && bower cache clean",
-    "cleaninstall": "npm run cleandirs && npm run cleancache && npm install"
+    "cleaninstall": "npm run cleancache && npm run cleandirs && npm install"
   },
   "repository": {
     "type": "git",
