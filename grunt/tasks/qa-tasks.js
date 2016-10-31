@@ -4,7 +4,7 @@ module.exports = function (grunt) {
     // Configure lint tasks
     const linters = ['eslint', 'console-log-test'];
     const tasks = ['grunt', 'tests', 'modules'];
-
+    const fs = require('fs');
     const linttasks = linters
         .map(linter => tasks
             .map(task => `${linter}:${task}`))
@@ -44,22 +44,31 @@ module.exports = function (grunt) {
         );
     });
 
-    grunt.registerTask('create-hooks', () => {
-        const fs = require('fs');
+    function copyHooks () {
+        // Copy all hooks from /hooks into .git/hooks
+        grunt.file.copy('grunt/githooks', '.git/hooks');
 
+        // Make hooks executable
+        grunt.file.recurse('.git/hooks', path => {
+            fs.chmodSync(path, '755');
+        });
+    }
+
+    grunt.registerTask('create-hooks', () => {
         // Check if hooks are already preset, if so ignore the copy
         if (!grunt.file.exists('.git/hooks/pre-commit')) {
-            // Copy all hooks from /hooks into .git/hooks
-            grunt.file.copy('grunt/githooks', '.git/hooks');
-
-            // Make hooks executable
-            grunt.file.recurse('.git/hooks', path => {
-                fs.chmodSync(path, '755');
-            });
-
-            grunt.log.write('Git hooks created in .git/hooks');
+            grunt.log.write('Creating hooks\n');
+            copyHooks();
+            grunt.log.write('Git hooks created in .git/hooks\n');
         } else {
-            grunt.log.error('Git hooks already present. Leaving them intact.');
+            // Just checking pre-commit time stamp for now.
+            const destinationDate = new Date(fs.statSync('.git/hooks/pre-commit').mtime).getTime();
+            const sourceDate = new Date(fs.statSync('grunt/githooks/pre-commit').mtime).getTime();
+
+            if (destinationDate < sourceDate) {
+                copyHooks();
+                grunt.log.write('Updated hooks\n');
+            }
         }
     });
 };
