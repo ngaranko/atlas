@@ -26,12 +26,21 @@ $dashboard-heading-height: 50px;
 
 .is-print-mode {
   .c-dashboard {
-    padding: 20px;
+    padding: 20px 0;
     border-right: solid $secondary-gray40 1px;
     border-left: solid $secondary-gray40 1px;
+    overflow: visible;
+  }
+
+  .c-dashboard__heading {
+    padding: $base-whitespace * 2;
+    position: relative;
+    height: $dashboard-heading-height * 2;
+    z-index: 2;
   }
 
   .c-dashboard__content {
+    padding: $base-whitespace $base-whitespace * 2;
     box-shadow: 0 0 4px $secondary-gray40;
   }
 }
