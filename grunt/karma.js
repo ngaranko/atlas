@@ -77,8 +77,8 @@ module.exports = function (grunt) {
                                 `build/temp/babel/es5tests/atlas.${module.slug}.js`
                             ],
                             preprocessors: {
+                                ['modules/' + module.slug + '/**/!(*.test).js']: ['coverage'],
                                 'modules/**/*.js': ['babel'],
-                                ['modules/' + module.slug + '/**/*.js']: ['coverage'],
                                 'build/temp/babel/es5tests/*.js': ['sourcemap']
                             }
                         }
