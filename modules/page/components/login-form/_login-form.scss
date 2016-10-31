@@ -24,14 +24,12 @@
   box-shadow: inset 0 1px 3px 0 $secondary-gray20;
 }
 
-.c-login-form__error-panel {
-  .c-panel {
-    margin-top: 0;
-    margin-bottom: 2 * $base-whitespace;
-    padding-top: $base-whitespace * .3;
-    padding-bottom: $base-whitespace * .4;
-    padding-left: $base-whitespace;
-  }
+.c-login-form__error-panel.c-panel {
+  margin-top: 0;
+  margin-bottom: 2 * $base-whitespace;
+  padding-top: $base-whitespace * .3;
+  padding-bottom: $base-whitespace * .4;
+  padding-left: $base-whitespace;
 }
 
 .c-login-form__button {
