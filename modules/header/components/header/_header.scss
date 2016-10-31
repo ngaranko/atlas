@@ -91,7 +91,7 @@
 
 .c-exit-print-mode {
   position: absolute;
-  top: -20px;
+  top: -41px;
   right: -21px;
 }
 
@@ -104,7 +104,7 @@
 .c-print-button {
   float: right;
   font-family: $header-font-family;
-  font-weight: 700;
+  font-weight: 500;
   line-height: $button-size;
 
   &::after {
@@ -119,6 +119,7 @@
 
   &:hover {
     color: $primary-contrast;
+    text-decoration: underline;
 
     &::after {
       background-image: url("assets/icons/print-icoon-hover.svg");
