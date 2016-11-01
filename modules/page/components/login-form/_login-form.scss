@@ -22,6 +22,10 @@
   border: 1px solid $secondary-gray40;
   font-size: inherit;
   box-shadow: inset 0 1px 3px 0 $secondary-gray20;
+
+  &:focus {
+    border: solid $primary-dark 1px;
+  }
 }
 
 .c-login-form__error-panel {
@@ -35,7 +39,6 @@
 .c-login-form__button {
   float: right;
   font-family: $header-font-family;
-  font-weight: 700;
   line-height: $button-size;
 
   &::after {
@@ -50,6 +53,7 @@
 
   &:hover {
     color: $primary-contrast;
+    text-decoration: underline;
 
     &::after {
       background-image: url("assets/icons/link-hover.svg");

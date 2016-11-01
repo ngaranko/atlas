@@ -27,15 +27,17 @@
                     header-title="vm.title">
                 </dp-data-selection-list-header>
 
-                <dp-data-selection-table
-                    ng-if="!vm.state.listView"
-                    content="vm.tableData">
-                </dp-data-selection-table>
+                <div ng-if="vm.numberOfRecords > 0">
+                    <dp-data-selection-table
+                        ng-if="!vm.state.listView"
+                        content="vm.tableData">
+                    </dp-data-selection-table>
 
-                <dp-data-selection-list
-                    ng-if="vm.state.listView"
-                    data="vm.listData">
-                </dp-data-selection-list>
+                    <dp-data-selection-list
+                        ng-if="vm.state.listView"
+                        data="vm.listData">
+                    </dp-data-selection-list>
+                </div>
 
                 <dp-panel is-panel-visible="vm.noDataToDisplay"
                           type="warning"
