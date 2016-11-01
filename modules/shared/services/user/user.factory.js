@@ -21,7 +21,7 @@
         }
 
         //  Refresh the succesfully obtained token every 4 and a half minutes (token expires in 5 minutes)
-        var intervalDuration = 2700;
+        var intervalDuration = 270000;
         var intervalPromise = null;
 
         return {
@@ -53,7 +53,7 @@
                 userState.accessToken = response.data.token;
                 userState.isLoggedIn = true;
 
-                sessionStorage.setItem('token', userState.accessToken);
+                storage.setItem('token', userState.accessToken);
 
                 intervalPromise = $timeout(refreshToken, intervalDuration);
             }
@@ -79,7 +79,7 @@
         }
 
         function refreshToken () {
-            accessToken = sessionStorage.getItem('token');
+            accessToken = storage.getItem('token');
 
             if (accessToken) {
                 return $http({
@@ -99,7 +99,7 @@
 
             function refreshSuccess (response) {
                 userState.accessToken = response.data.token;
-                sessionStorage.setItem('token', userState.accessToken);
+                storage.setItem('token', userState.accessToken);
                 userState.isLoggedIn = true;
 
                 intervalPromise = $timeout(refreshToken, intervalDuration);
@@ -113,7 +113,7 @@
             userState.username = null;
             userState.accessToken = null;
             userState.isLoggedIn = false;
-            sessionStorage.removeItem('token');
+            storage.removeItem('token');
         }
 
         function getStatus () {
