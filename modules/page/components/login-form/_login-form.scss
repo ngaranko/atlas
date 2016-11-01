@@ -28,10 +28,12 @@
   }
 }
 
-.c-login-form__error {
-  margin-bottom: 20px;
-  padding: 0 $base-whitespace;
-  line-height: $button-size;
+.c-login-form__error-panel {
+  margin-top: 0;
+  margin-bottom: 2 * $base-whitespace;
+  padding-top: $base-whitespace * .3;
+  padding-bottom: $base-whitespace * .4;
+  padding-left: $base-whitespace;
 }
 
 .c-login-form__button {

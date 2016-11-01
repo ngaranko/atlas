@@ -22,14 +22,8 @@ module.exports = function (config) {
         // possible values: OFF, ERROR, WARN, INFO, DEBUG
         logLevel: 'ERROR',
         preprocessors: {
-            'modules/**/!(*.test).js': ['babel', 'coverage'],
+            'modules/**/!(*.test).js': ['coverage', 'babel'],
             'build/temp/babel/es5tests/*.js': ['sourcemap']
-        },
-        babelPreprocessor: {
-            options: {
-                presets: ['es2015'],
-                compact: false
-            }
         },
         mochaReporter: {
             output: 'minimal'
