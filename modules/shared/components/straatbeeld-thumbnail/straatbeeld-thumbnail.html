@@ -5,6 +5,7 @@
         <img ng-src="{{vm.imageUrl}}" alt="Panoramabeeld preview">
     </div>
 </button>
+
 <div class="qa-found-no-straatbeeld" ng-if="!vm.isLoading && !vm.hasThumbnail">
     <dp-panel is-panel-visible="true" type="warning" can-close="true">
         <p>
@@ -16,3 +17,4 @@
     </dp-panel>
 </div>
 <dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>
+
