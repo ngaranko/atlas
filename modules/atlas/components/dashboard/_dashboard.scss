@@ -33,9 +33,9 @@ $dashboard-heading-height: 50px;
   }
 
   .c-dashboard__heading {
-    padding: $base-whitespace * 2;
     position: relative;
     height: $dashboard-heading-height * 2;
+    padding: $base-whitespace * 2;
     z-index: 2;
   }
 
