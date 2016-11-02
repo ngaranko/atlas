@@ -5,27 +5,25 @@
         .module('dpShared')
         .factory('storage', storageFactory);
 
-    storageFactory.$inject = [];
+    storageFactory.$inject = ['$window'];
 
-    function storageFactory () {
-        let storageAvailable = testStorage();
+    function storageFactory ($window) {
+        let storageAvailable = testStorage(),
+            keys = {};
 
         return {
-            testStorage: testStorage,
-            setItem: setItem,
-            getItem: getItem,
-            removeItem: removeItem
+            setItem,
+            getItem,
+            removeItem
         };
 
         function testStorage () {
             try {
-                sessionStorage.setItem('test', 'testvalue');
-                let data = sessionStorage.getItem('test');
-                if (data !== 'testvalue') {
-                    throw new Error('getItem does not work');
-                }
-                sessionStorage.removeItem('test');
-                return true;
+                $window.sessionStorage.setItem('test', 'testvalue');
+                let data = $window.sessionStorage.getItem('test');
+                $window.sessionStorage.removeItem('test');
+
+                return data === 'testvalue';
             } catch (e) {
                 return false;
             }
@@ -33,25 +31,25 @@
 
         function setItem (key, value) {
             if (storageAvailable) {
-                sessionStorage.setItem(key, value);
+                $window.sessionStorage.setItem(key, value);
             } else {
-                return null;
+                keys[key] = value;
             }
         }
 
         function getItem (key) {
             if (storageAvailable) {
-                return sessionStorage.getItem(key);
+                return $window.sessionStorage.getItem(key);
             } else {
-                return null;
+                return keys[key];
             }
         }
 
         function removeItem (key) {
             if (storageAvailable) {
-                sessionStorage.removeItem(key);
+                $window.sessionStorage.removeItem(key);
             } else {
-                return null;
+                delete keys[key];
             }
         }
     }
