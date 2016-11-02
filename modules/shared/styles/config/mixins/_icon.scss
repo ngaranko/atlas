@@ -4,7 +4,8 @@
   width: $button-size;
   height: $button-size;
 
-  &:hover {
+  &:hover,
+  &:active {
     @extend %#{"dp-" + $icon + "-" + $hover-state + "-icon"};
   }
 }
@@ -43,7 +44,8 @@
     margin-left: $base-whitespace / 2;
   }
 
-  &:hover {
+  &:hover,
+  &:active {
     @extend %icon-button-text-hover;
 
     &::after {
@@ -62,7 +64,8 @@
     margin-right: $base-whitespace / 2;
   }
 
-  &:hover {
+  &:hover,
+  &:active {
     @extend %icon-button-text-hover;
 
     &::before {
@@ -79,10 +82,10 @@
   padding-left: 10px;
   border: 1px solid $secondary-gray40;
   background-color: $primary-light;
-  text-align: left;
-  cursor: pointer;
   line-height: $button-size;
+  text-align: left;
   text-decoration: none;
+  cursor: pointer;
 }
 
 %icon-button-text-box-extra {
@@ -112,7 +115,8 @@
     right: 0;
   }
 
-  &:hover {
+  &:hover,
+  &:active {
     @extend %icon-button-text-box-hover;
 
     &::after {
@@ -134,7 +138,8 @@
     left: 0;
   }
 
-  &:hover {
+  &:hover,
+  &:active {
     @extend %icon-button-text-box-hover;
 
     &::before {
