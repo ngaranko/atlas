@@ -23,16 +23,11 @@
 }
 
 .o-btn--close {
+  @include icon-button("download");
+
   position: absolute;
   top: 0;
   right: 0;
-  width: $button-size;
-  height: $button-size;
-  background-image: url("assets/icons/close-default.svg");
-
-  &:hover {
-    background-image: url("assets/icons/close-active.svg");
-  }
 }
 
 .o-btn--close--warning {

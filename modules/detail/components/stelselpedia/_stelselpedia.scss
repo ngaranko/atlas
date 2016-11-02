@@ -1,31 +1,15 @@
 .c-stelselpedia__button {
-  background-image: url("assets/icons/stelselpedia.svg");
-
-  &:hover {
-    background-image: url("assets/icons/stelselpedia-hover.svg");
-  }
+  @include icon-button("stelselpedia");
 }
 
 .is-stelselpedia--active {
-  background-image: url("assets/icons/stelselpedia-active.svg");
-
-  &:hover {
-    background-image: url("assets/icons/stelselpedia-hover.svg");
-  }
+  @include icon-button("stelselpedia", "active");
 }
 
 .c-metadata__button {
-  background-image: url("assets/icons/metadata.svg");
-
-  &:hover {
-    background-image: url("assets/icons/metadata-hover.svg");
-  }
+  @include icon-button("metadata");
 }
 
 .is-metadata--active {
-  background-image: url("assets/icons/metadata-active.svg");
-
-  &:hover {
-    background-image: url("assets/icons/metadata-hover.svg");
-  }
+  @include icon-button("metadata", "active");
 }

@@ -90,41 +90,17 @@
 }
 
 .c-exit-print-mode {
+  @include icon-button("close", "hover");
+
   position: absolute;
   top: -41px;
   right: -21px;
 }
 
-.c-exit-print-mode__button {
-  width: $button-size;
-  height: $button-size;
-  background-image: url("assets/icons/close-hover.svg");
-}
-
 .c-print-button {
+  @include icon-button-text-left("print");
+
   float: right;
-  font-family: $header-font-family;
-  font-weight: 500;
-  line-height: $button-size;
-
-  &::after {
-    display: inline-block;
-    width: $button-size;
-    height: $button-size;
-    margin-left: $base-whitespace / 2;
-    background-image: url("assets/icons/print-icoon.svg");
-    content: "";
-    vertical-align: middle;
-  }
-
-  &:hover {
-    color: $primary-contrast;
-    text-decoration: underline;
-
-    &::after {
-      background-image: url("assets/icons/print-icoon-hover.svg");
-    }
-  }
 }
 
 /* SASSLint enforces merging of selectors */
