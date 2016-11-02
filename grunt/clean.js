@@ -1,6 +1,9 @@
 module.exports = {
     build: {
-        src: 'build'
+        src: [
+            'build',
+            'modules/shared/styles/config/mixins/_icons.scss'
+        ]
     },
     temp: {
         src: 'build/temp'
@@ -15,7 +18,8 @@ module.exports = {
     css: {
         src: [
             'build/atlas.*.css',
-            'build/atlas.*.css.map'
+            'build/atlas.*.css.map',
+            'modules/shared/styles/config/mixins/_icons.scss'
         ]
     }
 };

@@ -6,15 +6,15 @@ module.exports = {
         options: {
             mode: {
                 css: {
-                    dest: 'modules/shared',
+                    dest: 'build',
                     sprite: 'assets/images/icons.svg',
-                    prefix: 'dp-%s-icon',
                     layout: 'horizontal',
+                    prefix: 'dp-%s-icon',
                     dimensions: false,
                     render: {
                         scss: {
-                            template: 'template.mustache',
-                            dest: 'styles/config/mixins/_icons.scss'
+                            template: 'grunt/svg-sprite-template/icons.mustache',
+                            dest: '../modules/shared/styles/config/mixins/_icons.scss'
                         }
                     }
                 }

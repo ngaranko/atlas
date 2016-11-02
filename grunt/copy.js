@@ -10,7 +10,11 @@ module.exports = function (grunt) {
             files: [
                 {
                     cwd: 'modules/shared/assets/',
-                    src: '**/*',
+                    src: [
+                        '**/*',
+                        '!svg-icons',
+                        '!svg-icons/**/*'
+                    ],
                     dest: 'build/assets/',
                     expand: true,
                     flatten: false
