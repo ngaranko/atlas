@@ -37,6 +37,6 @@
 }
 
 .c-login-form__button {
-  @include icon-button-text-left("link", "active");
+  @include icon-button-text-left("forward");
   float: right;
 }

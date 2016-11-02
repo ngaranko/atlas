@@ -30,7 +30,7 @@ $pagination-line-color: #e4e4e4;
   }
 
   .c-data-selection-pagination__button {
-    @include icon-button("link", "active");
+    @include icon-button("forward");
 
     vertical-align: middle;
   }

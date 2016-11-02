@@ -6,9 +6,9 @@
 }
 
 .c-toggle-fullscreen__icon--fullscreen {
-  @include icon-button("fullscreen", "", "active");
+  @include icon-button("fullscreen", "red", "");
 }
 
 .c-toggle-fullscreen__icon--minimize {
-  @include icon-button("close", "hover", "active");
+  @include icon-button("close", "red", "");
 }

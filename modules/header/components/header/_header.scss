@@ -90,7 +90,7 @@
 }
 
 .c-exit-print-mode {
-  @include icon-button("close", "hover");
+  @include icon-button("close", "red", "");
 
   position: absolute;
   top: -41px;

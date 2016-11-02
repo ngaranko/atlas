@@ -17,7 +17,7 @@
 }
 
 .c-layer-selection__close {
-  @include icon-button("close", "hover", "active");
+  @include icon-button("close", "red", "");
 
   position: absolute;
   top: 0;

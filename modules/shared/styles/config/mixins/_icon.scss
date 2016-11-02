@@ -1,4 +1,4 @@
-@mixin icon-button($icon, $state: "", $hover-state: "hover") {
+@mixin icon-button($icon, $state: "", $hover-state: "red") {
   @extend %#{"dp-" + $icon + if(str-length($state) > 0, "-", "") + $state + "-icon"};
 
   width: $button-size;
@@ -6,7 +6,7 @@
 
   &:hover,
   &:active {
-    @extend %#{"dp-" + $icon + "-" + $hover-state + "-icon"};
+    @extend %#{"dp-" + $icon + if(str-length($hover-state) > 0, "-", "") + $hover-state + "-icon"};
   }
 }
 
@@ -34,7 +34,7 @@
   text-decoration: underline;
 }
 
-@mixin icon-button-text-left($icon, $state: "", $hover-state: "hover") {
+@mixin icon-button-text-left($icon, $state: "", $hover-state: "red") {
   @extend %icon-button-text;
 
   &::after {
@@ -49,12 +49,12 @@
     @extend %icon-button-text-hover;
 
     &::after {
-      @extend %#{"dp-" + $icon + "-" + $hover-state + "-icon"};
+      @extend %#{"dp-" + $icon + if(str-length($hover-state) > 0, "-", "") + $hover-state + "-icon"};
     }
   }
 }
 
-@mixin icon-button-text-right($icon, $state: "", $hover-state: "hover") {
+@mixin icon-button-text-right($icon, $state: "", $hover-state: "red") {
   @extend %icon-button-text;
 
   &::before {
@@ -69,7 +69,7 @@
     @extend %icon-button-text-hover;
 
     &::before {
-      @extend %#{"dp-" + $icon + "-" + $hover-state + "-icon"};
+      @extend %#{"dp-" + $icon + if(str-length($hover-state) > 0, "-", "") + $hover-state + "-icon"};
     }
   }
 }
@@ -102,7 +102,7 @@
   text-decoration: none;
 }
 
-@mixin icon-button-text-box-left($icon, $state: "", $hover-state: "hover") {
+@mixin icon-button-text-box-left($icon, $state: "", $hover-state: "red") {
   @extend %icon-button-text-box;
 
   padding-right: 10px + $button-size;
@@ -120,12 +120,12 @@
     @extend %icon-button-text-box-hover;
 
     &::after {
-      @extend %#{"dp-" + $icon + "-" + $hover-state + "-icon"};
+      @extend %#{"dp-" + $icon + if(str-length($hover-state) > 0, "-", "") + $hover-state + "-icon"};
     }
   }
 }
 
-@mixin icon-button-text-box-right($icon, $state: "", $hover-state: "hover") {
+@mixin icon-button-text-box-right($icon, $state: "", $hover-state: "red") {
   @extend %icon-button-text-box;
 
   padding-left: 10px + $button-size;
@@ -143,7 +143,7 @@
     @extend %icon-button-text-box-hover;
 
     &::before {
-      @extend %#{"dp-" + $icon + "-" + $hover-state + "-icon"};
+      @extend %#{"dp-" + $icon + if(str-length($hover-state) > 0, "-", "") + $hover-state + "-icon"};
     }
   }
 }
