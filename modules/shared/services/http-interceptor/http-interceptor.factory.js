@@ -10,8 +10,25 @@
 
     function httpInterceptorFactory ($q, httpStatus) {
         return {
+            response,
             responseError
         };
+
+        function response (response) {
+            if (angular.isObject(response.data)) {
+
+            }
+
+            if (angular.isObject(response.data) &&
+                (angular.toJson(response.data).includes('gevormd') ||
+                 angular.toJson(response.data).includes('Naamgeving uitgegeven'))) {
+                console.log(response.config.url.replace('https://api-acc.datapunt.amsterdam.nl/', ''),
+                    response.data,
+                    response.data.status);
+            }
+
+            return response;
+        }
 
         function responseError (response) {
             // register server errors (5xx)

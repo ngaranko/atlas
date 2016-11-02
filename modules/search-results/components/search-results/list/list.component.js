@@ -14,6 +14,8 @@
         });
 
     function DpSearchResultsListController () {
+        const STATUS_OBJECT_GEVORMD = 18;
+
         var vm = this;
 
         vm.showSubtype = function (categorySlug, link) {
@@ -21,6 +23,22 @@
                 ((categorySlug === 'openbareruimte' && link.subtype !== 'weg') ||
                 (categorySlug === 'adres' && link.subtype !== 'verblijfsobject') ||
                 categorySlug === 'gebied');
+        };
+
+        vm.getLabel = function (link) {
+            if (angular.isObject(link)) {
+                const label = link.label || '';
+                let extraInfo = '';
+
+                if (link.hoofdadres === false) {
+                    extraInfo = 'nevenadres';
+                } else if (angular.isObject(link.status) &&
+                           Number(link.status.code) === STATUS_OBJECT_GEVORMD) {
+                    extraInfo = link.status.omschrijving;
+                }
+
+                return label + (extraInfo ? ` (${extraInfo})` : '');
+            }
         };
     }
 })();
