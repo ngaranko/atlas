@@ -29,6 +29,7 @@ module.exports = function (grunt) {
         ngtemplates: require(gruntDir + 'angular-templates'),
         npmcopy: require(gruntDir + 'npmcopy'),
         postcss: require(gruntDir + 'postcss')(grunt),
+        svg_sprite: require(gruntDir + 'svg-sprite'),
         sass: require(gruntDir + 'sass'),
         sasslint: require(gruntDir + 'sasslint'),
         tags: require(gruntDir + 'script-link-tags')(grunt),
@@ -49,6 +50,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-newer');
     grunt.loadNpmTasks('grunt-npmcopy');
     grunt.loadNpmTasks('grunt-postcss');
+    grunt.loadNpmTasks('grunt-svg-sprite');
     grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-sass-lint');
     grunt.loadNpmTasks('grunt-script-link-tags');
