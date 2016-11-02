@@ -27,8 +27,8 @@ $dashboard-heading-height: 50px;
 .is-print-mode {
   .c-dashboard {
     padding: $base-whitespace * 2 0;
-    border-right: solid $secondary-gray40 1px;
-    border-left: solid $secondary-gray40 1px;
+    border-right: solid $secondary-gray20 1px;
+    border-left: solid $secondary-gray20 1px;
     overflow: visible;
   }
 
@@ -41,7 +41,7 @@ $dashboard-heading-height: 50px;
 
   .c-dashboard__content {
     padding: $base-whitespace $base-whitespace * 2;
-    box-shadow: 0 0 4px $secondary-gray40;
+    box-shadow: 0 0 5px $secondary-gray40;
   }
 }
 
@@ -51,6 +51,7 @@ $dashboard-heading-height: 50px;
       padding: 0;
       border: none;
       overflow: visible;
+      box-shadow: none;
     }
 
     .c-dashboard__heading {
