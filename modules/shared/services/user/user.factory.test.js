@@ -4,6 +4,7 @@ describe('The user factory', function () {
         $httpParamSerializer,
         $timeoutspy,
         user,
+        storage,
         httpPostHeaders,
         httpPostLoginData,
         httpPostRefreshData,
@@ -18,6 +19,11 @@ describe('The user factory', function () {
             {
                 environment: {
                     AUTH_ROOT: 'http://atlas.amsterdam.nl/authenticatie/'
+                },
+                storage: {
+                    getItem: function () {},
+                    setItem: function () {},
+                    removeItem: function () {}
                 }
             },
             function ($provide) {
@@ -27,11 +33,12 @@ describe('The user factory', function () {
             }
         );
 
-        angular.mock.inject(function (_$http_, _$httpBackend_, _$httpParamSerializer_, _user_) {
+        angular.mock.inject(function (_$http_, _$httpBackend_, _$httpParamSerializer_, _user_, _storage_) {
             $http = _$http_;
             $httpBackend = _$httpBackend_;
             $httpParamSerializer = _$httpParamSerializer_;
             user = _user_;
+            storage = _storage_;
         });
 
         httpPostHeaders = angular.merge(
@@ -56,6 +63,9 @@ describe('The user factory', function () {
         );
 
         spyOn($timeoutspy, 'cancel');
+        spyOn(storage, 'getItem');
+        spyOn(storage, 'setItem');
+        spyOn(storage, 'removeItem');
     });
 
     afterEach(function () {
@@ -82,6 +92,7 @@ describe('The user factory', function () {
             user.login('Erik', 'mysecretpwd');
             $httpBackend.flush();
 
+            expect(storage.setItem).toHaveBeenCalled();
             expect(user.getStatus()).toEqual({
                 username: 'Erik',
                 accessToken: 'ERIKS_ACCESS_TOKEN',
@@ -114,6 +125,7 @@ describe('The user factory', function () {
                 user.refreshToken();
                 $httpBackend.flush();
 
+                expect(storage.setItem).toHaveBeenCalled();
                 expect(user.getStatus()).toEqual({
                     username: 'Erik',
                     accessToken: 'ERIKS_BRAND_NEW_TOKEN',
@@ -140,6 +152,7 @@ describe('The user factory', function () {
                 user.refreshToken();
                 $httpBackend.flush();
 
+                expect(storage.removeItem).toHaveBeenCalled();
                 expect(user.getStatus()).toEqual({
                     username: null,
                     accessToken: null,
@@ -215,6 +228,7 @@ describe('The user factory', function () {
         user.login('Erik', 'mysecretpwd');
         $httpBackend.flush();
 
+        expect(storage.setItem).toHaveBeenCalled();
         expect(user.getStatus()).toEqual({
             username: 'Erik',
             accessToken: 'ERIKS_ACCESS_TOKEN',
@@ -224,6 +238,7 @@ describe('The user factory', function () {
         // Now logout
         user.logout();
 
+        expect(storage.removeItem).toHaveBeenCalled();
         expect(user.getStatus()).toEqual({
             username: null,
             accessToken: null,

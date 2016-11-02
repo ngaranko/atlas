@@ -8,6 +8,8 @@
     storageFactory.$inject = [];
 
     function storageFactory () {
+        let storageAvailable = testStorage();
+
         return {
             testStorage: testStorage,
             setItem: setItem,
@@ -18,26 +20,39 @@
         function testStorage () {
             try {
                 sessionStorage.setItem('test', 'testvalue');
-                var data = sessionStorage.getItem('test');
+                let data = sessionStorage.getItem('test');
                 if (data !== 'testvalue') {
                     throw new Error('getItem does not work');
                 }
                 sessionStorage.removeItem('test');
+                return true;
             } catch (e) {
                 return false;
             }
         }
 
         function setItem (key, value) {
-            sessionStorage.setItem(key, value);
+            if (storageAvailable) {
+                sessionStorage.setItem(key, value);
+            } else {
+                return null;
+            }
         }
 
         function getItem (key) {
-            return sessionStorage.getItem(key);
+            if (storageAvailable) {
+                return sessionStorage.getItem(key);
+            } else {
+                return null;
+            }
         }
 
         function removeItem (key) {
-            sessionStorage.removeItem(key);
+            if (storageAvailable) {
+                sessionStorage.removeItem(key);
+            } else {
+                return null;
+            }
         }
     }
 })();
