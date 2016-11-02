@@ -1,5 +1,5 @@
 #!/bin/sh
 green='\033[0;32m'
 no_color='\033[0m'
-echo "\n ${green}Everything passed. Commiting now. Well done! ${no_color}\n"
+echo "\n${green}Everything passed. Committing now. Well done! ${no_color}\n"
 
