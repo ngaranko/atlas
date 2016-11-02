@@ -44,6 +44,8 @@ module.exports = function (grunt) {
         );
     });
 
+    grunt.registerTask('create-hooks', copyHooks);
+
     function copyHooks () {
         // Copy all hooks from /hooks into .git/hooks
         grunt.task.run('newer:copy:githooks');
@@ -53,8 +55,4 @@ module.exports = function (grunt) {
             fs.chmodSync(path, '755');
         });
     }
-
-    grunt.registerTask('create-hooks', () => {
-        copyHooks();
-    });
 };
