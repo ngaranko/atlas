@@ -63,7 +63,7 @@ describe('The dp-menu-dropdown directive', function () {
         // It should be openend
         expect(directive.find('.menu-dropdown').length).toBe(1);
         expect(directive.find('dp-terugmelden-button').length).toBe(1);
-        expect(directive.find('dp-link').length).toBe(3);
+        expect(directive.find('dp-link').length).toBe(2);
 
         // Click it again
         directive.find('.site-header__menu__item--toggle').eq(0).click();
@@ -123,19 +123,11 @@ describe('The dp-menu-dropdown directive', function () {
         // With a print button
         directive = getDirective({hasPrintButton: true});
         directive.find('.site-header__menu__item--toggle').eq(0).click();
-        expect(directive.find('.menu-dropdown').text()).toContain('Printen');
+        expect(directive.find('.menu-dropdown').text()).toContain('Printversie');
 
         // Without a print button
         directive = getDirective({hasPrintButton: false});
         directive.find('.site-header__menu__item--toggle').eq(0).click();
         expect(directive.find('.menu-dropdown').text()).not.toContain('Printversie');
-    });
-
-    it('has an option to download adressen', function () {
-        var directive;
-
-        directive = getDirective({hasPrintButton: false});
-        directive.find('.site-header__menu__item--toggle').eq(0).click();
-        expect(directive.find('.menu-dropdown').text()).toContain('Downloaden adressen');
     });
 });
