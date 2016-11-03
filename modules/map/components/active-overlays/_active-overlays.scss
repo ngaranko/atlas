@@ -1,7 +1,7 @@
 @import "active-overlays-item";
 
 .c-toggle-active-overlays {
-  @include icon-button-text-box-left("forward", "red", "");
+  @include icon-button-text-box-left("down", "red", "");
   position: absolute;
   bottom: 0;
   left: 172px;
@@ -9,7 +9,7 @@
   z-index: 3;
 
   &.c-toggle-active-overlays--mirrored {
-    @include icon-button-text-box-left("next");
+    @include icon-button-text-box-left("up");
   }
 }
 

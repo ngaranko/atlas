@@ -7,7 +7,7 @@
   z-index: 3;
 
   &.c-toggle-layer-selection--mirrored {
-    @include icon-button-text-box-right("next");
+    @include icon-button-text-box-right("back");
   }
 }
 
