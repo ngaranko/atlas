@@ -4,19 +4,18 @@
             heading="{{vm.apiData.results._display}}"
             definition="MAATSCHAPPELIJKEACTIVITEIT">
         </dp-stelselpedia-header>
-
         <dl class="c-key-value-list">
             <dt class="c-key-value-list--border-top">Handelsnamen</dt>
-            <dd ng-if="!apiData.results.onderneming.handelsnamen[0]"></dd>
-            <dd class="c-key-value-list--multiple-values" ng-repeat="object in apiData.results.onderneming.handelsnamen" ng-class="{'c-key-value-list--border-top': $first}">
+            <dd ng-if="!vm.apiData.results.onderneming.handelsnamen[0]"></dd>
+            <dd class="c-key-value-list--multiple-values" ng-repeat="object in vm.apiData.results.onderneming.handelsnamen" ng-class="{'c-key-value-list--border-top': $first}">
                     {{ object.handelsnaam }}
             </dd>
             <dt>KvK-nummer</dt>
-            <dd> {{ apiData.results.kvk_nummer }} </dd>
+            <dd> {{ vm.apiData.results.kvk_nummer }} </dd>
             <dt>Bezoekadres</dt>
-            <dd> {{ apiData.results.bezoekadres.volledig_adres }} </dd>
+            <dd> {{ vm.apiData.results.bezoekadres.volledig_adres }} </dd>
             <dt>Datum aanvang</dt>
-            <dd> {{ apiData.results.datum_aanvang | date:'dd-MM-yyyy' }} </dd>
+            <dd> {{ vm.apiData.results.datum_aanvang | date:'dd-MM-yyyy' }} </dd>
             <dt>Soort bijzondere rechtstoestand</dt>
             <dd>Op dit moment geen gegevens beschikbaar.</dd>
         </dl>
@@ -25,7 +24,7 @@
     <div>
         <dp-stelselpedia-header definition="FUNCTIEVERVULLING" use-plural="true"></dp-stelselpedia-header>
 
-        <dp-api-call endpoint="{{apiData.results.eigenaar}}" partial="handelsregister/functievervullingen"></dp-api-call>
+        <dp-api-call endpoint="{{vm.apiData.results.eigenaar}}" partial="handelsregister/functievervullingen"></dp-api-call>
     </div>
 
     <dp-panel is-panel-visible="true" type="warning" can-close="true">
@@ -42,9 +41,9 @@
         </p>
     </dp-panel>
 
-    <div ng-if="apiData.results.vestigingen.count >= 1">
+    <div ng-if="vm.apiData.results.vestigingen.count >= 1">
         <dp-stelselpedia-header definition="VESTIGING" use-plural="true"></dp-stelselpedia-header>
 
-        <dp-api-call endpoint="{{apiData.results.vestigingen.href}}" partial="lijst"></dp-api-call>
+        <dp-api-call endpoint="{{vm.apiData.results.vestigingen.href}}" partial="lijst"></dp-api-call>
     </div>
 </div>
