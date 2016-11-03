@@ -34,14 +34,25 @@ describe('The dp-search-results-list component', function () {
                 {
                     label: 'Link #1',
                     endpoint: 'http://www.example.com/bag/or/1/',
+                    hoofdadres: false,
                     subtype: 'weg'
                 }, {
                     label: 'Link #2',
                     endpoint: 'http://www.example.com/bag/or/2/',
+                    hoofdadres: true,
+                    vbo_status: {
+                        code: '18',
+                        omschrijving: 'verblijfsobject gevormd'
+                    },
                     subtype: 'weg'
                 }, {
                     label: 'Link #3',
                     endpoint: 'http://www.example.com/bag/or/3/',
+                    hoofdadres: false,
+                    vbo_status: {
+                        code: '18',
+                        omschrijving: 'verblijfsobject gevormd'
+                    },
                     subtype: 'weg'
                 }, {
                     label: 'Link #4',
@@ -106,12 +117,17 @@ describe('The dp-search-results-list component', function () {
 
         expect(component.find('dp-link').length).toBe(11);
 
-        expect(component.find('dp-link').eq(0).find('button').text().trim()).toBe('Link #1');
+        expect(component.find('dp-link').eq(0).find('button').text().trim()).toBe('Link #1 (nevenadres)');
         component.find('dp-link').eq(0).find('button').click();
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.FETCH_DETAIL,
             payload: 'http://www.example.com/bag/or/1/'
         });
+
+        expect(component.find('dp-link').eq(1).find('button').text().trim())
+            .toBe('Link #2 (verblijfsobject gevormd)');
+        expect(component.find('dp-link').eq(2).find('button').text().trim())
+            .toBe('Link #3 (nevenadres) (verblijfsobject gevormd)');
 
         expect(component.find('dp-link').eq(10).find('button').text().trim()).toBe('Link #11');
         component.find('dp-link').eq(10).find('button').click();
