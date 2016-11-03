@@ -187,12 +187,12 @@ describe('The dashboard component', function () {
         });
 
         it('does not touch padding on the c-dashboard__content container', function () {
-            expect(component.find('.c-dashboard__content').attr('class')).toContain('u-padding__right--1');
+            expect(component.find('.c-dashboard__content').attr('class')).toContain('u-padding__right--2');
         });
 
         it('does not touch the classes on the right panel', function () {
             expect(component.find('.qa-dashboard__content__column--right').attr('class'))
-                .toContain('u-padding__right--1');
+                .toContain('u-padding__left--2');
 
             expect(component.find('.qa-dashboard__content__column--right').attr('class'))
                 .not.toContain('u-padding__right--2');
@@ -216,7 +216,7 @@ describe('The dashboard component', function () {
             });
 
             it('does not remove whitespace from .c-dashboard__content' + panel, function () {
-                expect(component.find('.c-dashboard__content').attr('class')).toContain('u-padding__right--1');
+                expect(component.find('.c-dashboard__content').attr('class')).toContain('u-padding__right--2');
             });
         });
     });
