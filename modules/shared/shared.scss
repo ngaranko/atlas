@@ -33,9 +33,8 @@
 
 @import "components/api-error/api-error";
 @import "components/loading-indicator/loading-indicator";
+@import "components/message/message";
 @import "components/panel/panel";
-
-
 
 .is-print-mode {
   @import "styles/base/reset-print";
