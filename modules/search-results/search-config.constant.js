@@ -16,10 +16,6 @@
                     label_plural: 'Adressen',
                     uri: 'atlas/search/adres/'
                 }, {
-                    slug: 'vestiging',
-                    label_singular: 'Vestiging',
-                    label_plural: 'Vestigingen'
-                }, {
                     slug: 'object',
                     label_singular: 'Kadastraal object',
                     label_plural: 'Kadastrale objecten',
@@ -39,6 +35,10 @@
                     label_singular: 'Meetbout',
                     label_plural: 'Meetbouten',
                     uri: 'meetbouten/search/'
+                }, {
+                    slug: 'vestiging',
+                    label_singular: 'Vestiging',
+                    label_plural: 'Vestigingen'
                 }
             ],
             COORDINATES_ENDPOINTS: [
