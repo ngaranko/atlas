@@ -17,7 +17,8 @@ module.exports = function (grunt) {
         },
         css: {
             options: {
-                openTag: '<!-- STYLESHEETS_START -->', closeTag: '<!-- STYLESHEETS_END -->'
+                openTag: '<!-- STYLESHEETS_START -->',
+                closeTag: '<!-- STYLESHEETS_END -->'
             },
             src: ['build/atlas.' + uniqueIdCss + '.css'],
             dest: 'build/index.html'
