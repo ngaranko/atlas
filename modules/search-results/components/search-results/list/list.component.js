@@ -32,9 +32,9 @@
 
                 if (link.hoofdadres === false) {
                     extraInfo = 'nevenadres';
-                } else if (angular.isObject(link.status) &&
-                           Number(link.status.code) === STATUS_OBJECT_GEVORMD) {
-                    extraInfo = link.status.omschrijving;
+                } else if (angular.isObject(link.vbo_status) &&
+                           Number(link.vbo_status.code) === STATUS_OBJECT_GEVORMD) {
+                    extraInfo = link.vbo_status.omschrijving.toLowerCase();
                 }
 
                 return label + (extraInfo ? ` (${extraInfo})` : '');
