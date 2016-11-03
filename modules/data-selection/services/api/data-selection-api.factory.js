@@ -89,10 +89,14 @@
                 const nummer = ' ' + row.huisnummer + row.huisletter,
                     fullNummer = row.huisnummer_toevoeging ? nummer + '-' + row.huisnummer_toevoeging : nummer;
 
+                const VERBLIJFSOBJECT_GEVORMD = 18;
+
                 return {
                     adres: row._openbare_ruimte_naam + fullNummer,
                     ligplaats: Boolean(row.ligplaats_id),
                     standplaats: Boolean(row.standplaats_id),
+                    nevenadres: String(row.hoofdadres).toLowerCase() === 'false',
+                    gevormd: Number(row.status_id) === VERBLIJFSOBJECT_GEVORMD,
                     detailEndpoint: getDetailEndpoint(dataset, row)
                 };
             });
