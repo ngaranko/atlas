@@ -44,6 +44,12 @@ $dashboard-heading-height-printversion: 42px;
     padding: $base-whitespace $base-whitespace * 2;
     box-shadow: 0 0 5px $secondary-gray40;
   }
+
+  &.is-fullscreen {
+    body {
+      width: 1280px;
+    }
+  }
 }
 
 @media print {

@@ -20,6 +20,12 @@
 
                 if (state.isPrintMode) {
                     element.addClass('is-print-mode');
+
+                    // if (state.map.isFullscreen) {
+                    //     element.addClass('is-fullscreen');
+                    // } else {
+                    //     element.removeClass('is-fullscreen');
+                    // }
                 } else {
                     element.removeClass('is-print-mode');
                 }
