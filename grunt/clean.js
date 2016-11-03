@@ -18,7 +18,12 @@ module.exports = {
     css: {
         src: [
             'build/atlas.*.css',
-            'build/atlas.*.css.map',
+            'build/atlas.*.css.map'
+        ]
+    },
+    icons: {
+        src: [
+            'build/assets/images/icons*.svg',
             'modules/shared/styles/config/mixins/_icons.scss'
         ]
     }

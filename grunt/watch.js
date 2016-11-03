@@ -16,6 +16,7 @@ var targets = {
         files: 'modules/shared/assets/svg-icons/**/*',
         tasks: [
             'clean:css',
+            'clean:icons',
             'svg_sprite',
             'update-build-css'
         ]
