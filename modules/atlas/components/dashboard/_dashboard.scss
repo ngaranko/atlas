@@ -52,11 +52,14 @@ $dashboard-heading-height-printversion: 42px;
       padding: 0;
       border: none;
       overflow: visible;
-      box-shadow: none;
     }
 
     .c-dashboard__heading {
       height: 0;
+    }
+
+    .c-dashboard__content {
+      box-shadow: none;
     }
   }
 }
