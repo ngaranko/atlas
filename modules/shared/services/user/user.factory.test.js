@@ -8,7 +8,8 @@ describe('The user factory', function () {
         httpPostHeaders,
         httpPostLoginData,
         httpPostRefreshData,
-        dummyPromise;
+        dummyPromise,
+        aToken;
 
     beforeEach(function () {
         dummyPromise = 'dummyPromise';
@@ -21,7 +22,7 @@ describe('The user factory', function () {
                     AUTH_ROOT: 'http://atlas.amsterdam.nl/authenticatie/'
                 },
                 storage: {
-                    getItem: function () {},
+                    getItem: function () { return aToken; },
                     setItem: function () {},
                     removeItem: function () {}
                 }
@@ -73,11 +74,41 @@ describe('The user factory', function () {
         $httpBackend.verifyNoOutstandingRequest();
     });
 
+    it('can logout if you are not logged in', function () {
+        user.logout();
+        expect(user.getStatus()).toEqual({
+            username: null,
+            accessToken: null,
+            isLoggedIn: false
+        });
+    });
+
     it('by default you are not logged in', function () {
         expect(user.getStatus()).toEqual({
             username: null,
             accessToken: null,
             isLoggedIn: false
+        });
+        aToken = 'aToken';
+    });
+
+    it('stays logged in on refresh', function () {
+        expect(user.getStatus()).toEqual({});
+        aToken = null;
+
+        $httpBackend
+            .expectPOST('http://atlas.amsterdam.nl/authenticatie/refresh/',
+                $httpParamSerializer({
+                    token: 'aToken'
+                }),
+                httpPostHeaders)
+            .respond({
+                token: 'ERIKS_BRAND_NEW_TOKEN'
+            });
+        $httpBackend.flush();
+        expect(user.getStatus()).toEqual({
+            accessToken: 'ERIKS_BRAND_NEW_TOKEN',
+            isLoggedIn: true
         });
     });
 

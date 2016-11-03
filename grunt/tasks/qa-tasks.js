@@ -34,13 +34,7 @@ module.exports = function (grunt) {
     // A Taiga task has been made to have all modules tested with full coverage
     files.modules.forEach(module => {
         grunt.registerTask(`test-js-module-${module.slug}`,
-            linters
-                .map(linter => `newer:${linter}:module_${module.slug}`)
-                .concat([
-                    `concat:test_${module.slug}`,
-                    `babel-test-${module.slug}`,
-                    `karma:${module.slug}_all`
-                ])
+                [`concat:test_${module.slug}`, `babel-test-${module.slug}`, `karma:${module.slug}_all`]
         );
     });
 

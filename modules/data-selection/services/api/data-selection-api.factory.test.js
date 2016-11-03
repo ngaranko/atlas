@@ -21,6 +21,7 @@ describe('The dataSelectionApi factory', function () {
             },
             function ($provide) {
                 $provide.constant('dataSelectionConfig', {
+                    MAX_AVAILABLE_PAGES: 100,
                     zwembaden: {
                         ENDPOINT_PREVIEW: 'https://api.amsterdam.nl/zwembaden/',
                         ENDPOINT_DETAIL: 'https://amsterdam.nl/api_endpoint/zwembaden/',
@@ -147,6 +148,14 @@ describe('The dataSelectionApi factory', function () {
             water: 'Verwarmd',
             page: 27
         });
+
+        // With yet another page
+        let output;
+        dataSelectionApi.query('zwembaden', {}, 9999).then(function (_output_) {
+            output = _output_;
+        });
+        $rootScope.$apply();
+        expect(output.tableData.body.length).toBe(0);
     });
 
     it('returns the total number of pages', function () {
