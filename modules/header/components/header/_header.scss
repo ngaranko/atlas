@@ -100,6 +100,7 @@
 .c-print-button {
   @include icon-button-text-left("print");
 
+  margin-right: 4px;
   float: right;
 }
 
