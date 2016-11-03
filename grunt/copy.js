@@ -62,6 +62,17 @@ module.exports = function (grunt) {
                     flatten: false
                 }
             ]
+        },
+        githooks: {
+            files: [
+                {
+                    cwd: 'grunt/githooks/',
+                    src: '*',
+                    dest: '.git/hooks',
+                    expand: true,
+                    flatten: true
+                }
+            ]
         }
     };
 };
