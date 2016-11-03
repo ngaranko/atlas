@@ -39,11 +39,14 @@
                     </dp-data-selection-list>
                 </div>
 
-                <div ng-if="vm.noDataToDisplay">
-                    <h3 class="o-header__subtitle">Deze pagina kan niet worden getoond.</h3>
+                <dp-panel is-panel-visible="vm.noDataToDisplay"
+                          type="warning"
+                          can-close="false"
+                          class-name="c-data-selection__no-data-panel">
+                    <h3 class="c-data-selection__no-data-header">Deze pagina kan niet worden getoond.</h3>
                     <p>Alleen de eerste 100 pagina's kunnen worden weergegeven (om technische redenen). Bij downloaden worden wel alle resultaten opgenomen.</p>
-                    <p>Tip: Gebruik de download-knop om alle resultaten te bekijken. Of voeg meer filtercriteria toe voor specifiekere resultaten.</p>
-                </div>
+                    <div>Tip: Gebruik de download-knop om alle resultaten te bekijken. Of voeg meer filtercriteria toe voor specifiekere resultaten.</div>
+                </dp-panel>
 
                 <dp-data-selection-pagination
                     current-page="vm.currentPage"
