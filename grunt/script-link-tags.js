@@ -12,8 +12,7 @@ module.exports = function (grunt) {
                 openTag: '<!-- SCRIPTS_START -->',
                 closeTag: '<!-- SCRIPTS_END -->'
             },
-            src: [`build/atlas.${uniqueIdJs}.libs.js`,
-                  `build/atlas.${uniqueIdJs}.js`],
+            src: [`build/atlas.${uniqueIdJs}.libs.js`, `build/atlas.${uniqueIdJs}.js`],
             dest: 'build/index.html'
         },
         css: {

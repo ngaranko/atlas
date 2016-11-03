@@ -36,7 +36,6 @@ describe('The dp-straatbeeld-thumbnail component', function () {
                             } else {
                                 response = [];
                             }
-
                             q.resolve(response);
                             $rootScope.$apply();
                         };
@@ -93,6 +92,7 @@ describe('The dp-straatbeeld-thumbnail component', function () {
 
         expect(component.find('img').length).toBe(0);
         expect(scope.vm.isLoading).toBe(false);
+
         expect(component.find('.qa-found-no-straatbeeld').text())
             .toContain(
                 'Geen panoramabeeld beschikbaar (binnen 50m van deze locatie).'
@@ -118,7 +118,6 @@ describe('The dp-straatbeeld-thumbnail component', function () {
     it('shows a loading indicator when loading', function () {
         var component = getComponent([52, 4]);
         var scope = component.isolateScope();
-
         expect(component.find('dp-loading-indicator').length).toBe(1);
         expect(component.find('dp-loading-indicator').attr('is-loading')).toBe('vm.isLoading');
 
