@@ -1,12 +1,11 @@
 <div ng-if="!vm.hideEverything">
     <button class="c-toggle-active-overlays"
-        ng-class="{
-            'c-toggle-active-overlays--mirrored': vm.showActiveOverlays
-        }"
-        ng-click="vm.toggle()"
-        title="{{vm.buttonTitle}}">
-        Legenda
-    </button>
+            ng-class="{
+                'c-toggle-active-overlays--mirrored': vm.showActiveOverlays
+            }"
+            ng-click="vm.toggle()"
+            title="{{vm.buttonTitle}}"
+        ><span>Legenda</span></button>
 
     <div ng-if="vm.showActiveOverlays" class="c-active-overlays">
         <dp-link type="HIDE_MAP_ACTIVE_OVERLAYS" class-name="c-active-overlays__close" hover-text="Sluiten">

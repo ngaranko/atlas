@@ -3,7 +3,7 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 162px;
+  min-width: 162px;
   z-index: 3;
 
   &.c-toggle-layer-selection--mirrored {
