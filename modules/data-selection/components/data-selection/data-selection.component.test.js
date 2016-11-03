@@ -29,19 +29,11 @@ describe('The dp-data-selection component', function () {
                     return {};
                 });
 
-                $provide.factory('dpDataSelectionHeaderDirective', function () {
-                    return {};
-                });
-
-                $provide.factory('dpDataSelectionListHeaderDirective', function () {
+                $provide.factory('dpDataSelectionDownloadButtonDirective', function () {
                     return {};
                 });
 
                 $provide.factory('dpDataSelectionTableDirective', function () {
-                    return {};
-                });
-
-                $provide.factory('dpDataSelectionListDirective', function () {
                     return {};
                 });
 
