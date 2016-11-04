@@ -25,7 +25,7 @@ module.exports = function (grunt) {
                             lines: 100
                         }
                     }
-                },
+                }
             }
         }
         //
