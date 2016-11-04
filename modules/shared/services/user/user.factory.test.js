@@ -15,17 +15,19 @@ describe('The user factory', function () {
         dummyPromise = 'dummyPromise';
         $timeoutspy = jasmine.createSpy('$timeout', {cancel: function () {}}).and.returnValue(dummyPromise);
 
+        let mockedStorage = {
+            getItem: function () { return aToken; },
+            setItem: function (k, v) { aToken = v;},
+            removeItem: function () { aToken = null; }
+        };
+
         angular.mock.module(
             'dpShared',
             {
                 environment: {
                     AUTH_ROOT: 'http://atlas.amsterdam.nl/authenticatie/'
                 },
-                storage: {
-                    getItem: function () { return aToken; },
-                    setItem: function () {},
-                    removeItem: function () {}
-                }
+                storage: mockedStorage
             },
             function ($provide) {
                 $provide.factory('$timeout', function () {
@@ -64,9 +66,6 @@ describe('The user factory', function () {
         );
 
         spyOn($timeoutspy, 'cancel');
-        spyOn(storage, 'getItem');
-        spyOn(storage, 'setItem');
-        spyOn(storage, 'removeItem');
     });
 
     afterEach(function () {
@@ -74,46 +73,31 @@ describe('The user factory', function () {
         $httpBackend.verifyNoOutstandingRequest();
     });
 
-    it('can logout if you are not logged in', function () {
-        user.logout();
-        expect(user.getStatus()).toEqual({
-            username: null,
-            accessToken: null,
-            isLoggedIn: false
+    describe('is able to login and to logout', function () {
+        beforeEach(function () {
+            spyOn(storage, 'getItem');
+            spyOn(storage, 'removeItem');
+            spyOn(storage, 'setItem');
         });
-    });
 
-    it('by default you are not logged in', function () {
-        expect(user.getStatus()).toEqual({
-            username: null,
-            accessToken: null,
-            isLoggedIn: false
-        });
-        aToken = 'aToken';
-    });
-
-    it('stays logged in on refresh', function () {
-        expect(user.getStatus()).toEqual({});
-        aToken = null;
-
-        $httpBackend
-            .expectPOST('http://atlas.amsterdam.nl/authenticatie/refresh/',
-                $httpParamSerializer({
-                    token: 'aToken'
-                }),
-                httpPostHeaders)
-            .respond({
-                token: 'ERIKS_BRAND_NEW_TOKEN'
+        it('by default you are not logged in', function () {
+            expect(user.getStatus()).toEqual({
+                username: null,
+                accessToken: null,
+                isLoggedIn: false
             });
-        $httpBackend.flush();
-        expect(user.getStatus()).toEqual({
-            accessToken: 'ERIKS_BRAND_NEW_TOKEN',
-            isLoggedIn: true
         });
-    });
 
-    describe('can attempt to login', function () {
-        it('successfully', function () {
+        it('allows for logout, even if you are not logged in', function () {
+            user.logout();
+            expect(user.getStatus()).toEqual({
+                username: null,
+                accessToken: null,
+                isLoggedIn: false
+            });
+        });
+
+        it('can successfully login', function () {
             $httpBackend
                 .expectPOST('http://atlas.amsterdam.nl/authenticatie/token/', httpPostLoginData, httpPostHeaders)
                 .respond({
@@ -249,34 +233,74 @@ describe('The user factory', function () {
                     'e: 408 status: Duurt te lang, ga ik niet op wachten.');
             });
         });
+
+        it('can logout', function () {
+            // Login first
+            $httpBackend.expectPOST('http://atlas.amsterdam.nl/authenticatie/token/',
+                httpPostLoginData,
+                httpPostHeaders)
+                .respond({token: 'ERIKS_ACCESS_TOKEN'});
+
+            user.login('Erik', 'mysecretpwd');
+            $httpBackend.flush();
+
+            expect(storage.setItem).toHaveBeenCalled();
+            expect(user.getStatus()).toEqual({
+                username: 'Erik',
+                accessToken: 'ERIKS_ACCESS_TOKEN',
+                isLoggedIn: true
+            });
+
+            // Now logout
+            user.logout();
+
+            expect(storage.removeItem).toHaveBeenCalled();
+            expect(user.getStatus()).toEqual({
+                username: null,
+                accessToken: null,
+                isLoggedIn: false
+            });
+
+            //  expect interval to be cancelled
+            expect($timeoutspy.cancel).toHaveBeenCalledWith(dummyPromise);
+        });
     });
 
-    it('can logout', function () {
-        // Login first
-        $httpBackend.expectPOST('http://atlas.amsterdam.nl/authenticatie/token/', httpPostLoginData, httpPostHeaders)
-            .respond({token: 'ERIKS_ACCESS_TOKEN'});
-
-        user.login('Erik', 'mysecretpwd');
-        $httpBackend.flush();
-
-        expect(storage.setItem).toHaveBeenCalled();
-        expect(user.getStatus()).toEqual({
-            username: 'Erik',
-            accessToken: 'ERIKS_ACCESS_TOKEN',
-            isLoggedIn: true
+    describe('is able to survive a browser refresh', function () {
+        it('saves the token in the storage after login', function () {
+            $httpBackend
+                .expectPOST('http://atlas.amsterdam.nl/authenticatie/token/', httpPostLoginData, httpPostHeaders)
+                .respond({
+                    token: 'ERIKS_ACCESS_TOKEN'
+                });
+            user.login('Erik', 'mysecretpwd');
+            $httpBackend.flush();
+            expect(storage.getItem()).toBe('ERIKS_ACCESS_TOKEN');
         });
 
-        // Now logout
-        user.logout();
+        it('uses the token in the storage factory and refreshes it immediately and clears it on logout', function () {
+            $httpBackend
+                .expectPOST('http://atlas.amsterdam.nl/authenticatie/refresh/',
+                    $httpParamSerializer({
+                        token: 'ERIKS_ACCESS_TOKEN'
+                    }),
+                    httpPostHeaders)
+                .respond({
+                    token: 'ERIKS_BRAND_NEW_TOKEN'
+                });
+            $httpBackend.flush();
+            expect(storage.getItem()).toBe('ERIKS_BRAND_NEW_TOKEN');
 
-        expect(storage.removeItem).toHaveBeenCalled();
-        expect(user.getStatus()).toEqual({
-            username: null,
-            accessToken: null,
-            isLoggedIn: false
+            user.logout();
+            expect(storage.getItem()).toBeNull();
         });
 
-        //  expect interval to be cancelled
-        expect($timeoutspy.cancel).toHaveBeenCalledWith(dummyPromise);
+        it('is then no longer logged in', function () {
+            expect(user.getStatus()).toEqual({
+                username: null,
+                accessToken: null,
+                isLoggedIn: false
+            });
+        });
     });
 });

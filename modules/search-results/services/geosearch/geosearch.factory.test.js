@@ -292,11 +292,6 @@ describe('The geosearch factory', function () {
             results: ['FAKE_VESTIGING_RESULT_1', 'FAKE_VESTIGING_RESULT_2']
         };
 
-        mockedVestigingenApiEmptyResults = {
-            count: 0,
-            results: []
-        };
-
         mockedFormattedVestigingenApiResults = {
             label_singular: 'Vestiging',
             label_plural: 'Vestigingen',
@@ -589,7 +584,7 @@ describe('The geosearch factory', function () {
 
             $rootScope.$apply();
 
-            expect(angular.toJson(searchResults)).not.toContain('Vestiging');
+            expect(angular.toJson(searchResults).toLowerCase()).not.toContain('vestiging');
         });
     });
 });
