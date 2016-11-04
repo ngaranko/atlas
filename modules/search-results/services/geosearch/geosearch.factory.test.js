@@ -292,6 +292,11 @@ describe('The geosearch factory', function () {
             results: ['FAKE_VESTIGING_RESULT_1', 'FAKE_VESTIGING_RESULT_2']
         };
 
+        mockedVestigingenApiEmptyResults = {
+            count: 0,
+            results: []
+        };
+
         mockedFormattedVestigingenApiResults = {
             label_singular: 'Vestiging',
             label_plural: 'Vestigingen',
@@ -560,6 +565,31 @@ describe('The geosearch factory', function () {
             };
 
             expect(searchResults).toEqual(expectedSearchResults);
+        });
+
+        it('returns no vestigingen when api returns 0 vestigingen', function () {
+            var searchResults;
+
+            mockedVestigingenApiResults = {
+                count: 0,
+                results: []
+            };
+
+            // clear any lig/standplaats identificatie
+            delete mockedStandplaatsApiResults.ligplaatsidentificatie;
+            delete mockedStandplaatsApiResults.standplaatsidentificatie;
+
+            // Insert a standplaats into the mocked result set
+            mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedStandplaatsSearchResult);
+            mockedFormattedSearchResults.splice(1, 0, mockedFormattedStandplaatsSearchResult);
+
+            geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
+                searchResults = _searchResults_;
+            });
+
+            $rootScope.$apply();
+
+            expect(angular.toJson(searchResults)).not.toContain('Vestiging');
         });
     });
 });
