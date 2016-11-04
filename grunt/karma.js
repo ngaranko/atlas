@@ -10,6 +10,23 @@ module.exports = function (grunt) {
         },
         coverage: {
             reporters: ['mocha', 'coverage']
+        },
+        fullcoverage: {
+            reporters: ['coverage'],
+            options: {
+                coverageReporter: {
+                    type: 'html',
+                    dir: 'reports/coverage/',
+                    check: {
+                        global: {
+                            statements: 100,
+                            branches: 100,
+                            functions: 100,
+                            lines: 100
+                        }
+                    }
+                },
+            }
         }
         //
         // The code below generates targets as follows:
