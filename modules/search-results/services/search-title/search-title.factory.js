@@ -18,7 +18,7 @@
 
             return {
                 title: title,
-                subTitle: subTitle
+                subTitle: title && subTitle
             };
         }
 

@@ -27,7 +27,7 @@ describe('The dpSearchResultsDocumentTitle factory', function () {
         expect(documentTitle.getTitle({})).toBe('');
     });
 
-    it('returns a null title when no searchState is known', () => {
+    it('returns an empty title when no searchState is known', () => {
         expect(documentTitle.getTitle()).toBe('');
     });
 

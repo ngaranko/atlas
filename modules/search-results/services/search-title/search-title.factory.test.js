@@ -39,11 +39,11 @@ describe('The search title factory', function () {
         expect(titleData.subTitle).toContain('"westerpark"');
     });
 
-    it('returns an empty title on a negative search result', function () {
+    it('returns an empty title and empty subtitle on a negative search result', function () {
         var titleData = searchTitle.getTitleData(-1, 'westerpark', null, null);
 
         expect(titleData.title).toBe('');
-        expect(titleData.subTitle).toContain('"westerpark"');
+        expect(titleData.subTitle).toBe('');
     });
 
     it('returns an empty title and subtitle when no query or location is specified', function () {

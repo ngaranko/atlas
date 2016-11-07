@@ -8,65 +8,7 @@ describe('The user factory', function () {
         httpPostHeaders,
         httpPostLoginData,
         httpPostRefreshData,
-        dummyPromise,
-        aToken;
-
-    beforeEach(function () {
-        dummyPromise = 'dummyPromise';
-        $timeoutspy = jasmine.createSpy('$timeout', {cancel: function () {}}).and.returnValue(dummyPromise);
-
-        let mockedStorage = {
-            getItem: function () { return aToken; },
-            setItem: function (k, v) { aToken = v;},
-            removeItem: function () { aToken = null; }
-        };
-
-        angular.mock.module(
-            'dpShared',
-            {
-                environment: {
-                    AUTH_ROOT: 'http://atlas.amsterdam.nl/authenticatie/'
-                },
-                storage: mockedStorage
-            },
-            function ($provide) {
-                $provide.factory('$timeout', function () {
-                    return $timeoutspy;
-                });
-            }
-        );
-
-        angular.mock.inject(function (_$http_, _$httpBackend_, _$httpParamSerializer_, _user_, _storage_) {
-            $http = _$http_;
-            $httpBackend = _$httpBackend_;
-            $httpParamSerializer = _$httpParamSerializer_;
-            user = _user_;
-            storage = _storage_;
-        });
-
-        httpPostHeaders = angular.merge(
-            {},
-            $http.defaults.headers.common,
-            {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        );
-
-        httpPostLoginData = $httpParamSerializer(
-            {
-                username: 'Erik',
-                password: 'mysecretpwd'
-            }
-        );
-
-        httpPostRefreshData = $httpParamSerializer(
-            {
-                token: 'ERIKS_ACCESS_TOKEN'
-            }
-        );
-
-        spyOn($timeoutspy, 'cancel');
-    });
+        dummyPromise;
 
     afterEach(function () {
         $httpBackend.verifyNoOutstandingExpectation();
@@ -75,6 +17,59 @@ describe('The user factory', function () {
 
     describe('is able to login and to logout', function () {
         beforeEach(function () {
+            dummyPromise = 'dummyPromise';
+            $timeoutspy = jasmine.createSpy('$timeout', {cancel: function () {}}).and.returnValue(dummyPromise);
+
+            angular.mock.module(
+                'dpShared',
+                {
+                    environment: {
+                        AUTH_ROOT: 'http://atlas.amsterdam.nl/authenticatie/'
+                    },
+                    storage: {
+                        token: null,
+                        getItem: function () { return this.token; },
+                        setItem: function (k, v) { this.token = v;},
+                        removeItem: function () { this.token = null; }
+                    }
+                },
+                function ($provide) {
+                    $provide.factory('$timeout', function () {
+                        return $timeoutspy;
+                    });
+                }
+            );
+
+            angular.mock.inject(function (_$http_, _$httpBackend_, _$httpParamSerializer_, _user_, _storage_) {
+                $http = _$http_;
+                $httpBackend = _$httpBackend_;
+                $httpParamSerializer = _$httpParamSerializer_;
+                user = _user_;
+                storage = _storage_;
+            });
+
+            httpPostHeaders = angular.merge(
+                {},
+                $http.defaults.headers.common,
+                {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            );
+
+            httpPostLoginData = $httpParamSerializer(
+                {
+                    username: 'Erik',
+                    password: 'mysecretpwd'
+                }
+            );
+
+            httpPostRefreshData = $httpParamSerializer(
+                {
+                    token: 'ERIKS_ACCESS_TOKEN'
+                }
+            );
+
+            spyOn($timeoutspy, 'cancel');
             spyOn(storage, 'getItem');
             spyOn(storage, 'removeItem');
             spyOn(storage, 'setItem');
@@ -267,22 +262,44 @@ describe('The user factory', function () {
     });
 
     describe('is able to survive a browser refresh', function () {
-        it('saves the token in the storage after login', function () {
-            $httpBackend
-                .expectPOST('http://atlas.amsterdam.nl/authenticatie/token/', httpPostLoginData, httpPostHeaders)
-                .respond({
-                    token: 'ERIKS_ACCESS_TOKEN'
-                });
-            user.login('Erik', 'mysecretpwd');
-            $httpBackend.flush();
-            expect(storage.getItem()).toBe('ERIKS_ACCESS_TOKEN');
+        beforeEach(function () {
+            angular.mock.module(
+                'dpShared',
+                {
+                    environment: {
+                        AUTH_ROOT: 'http://atlas.amsterdam.nl/authenticatie/'
+                    },
+                    storage: {
+                        token: 'aToken',
+                        getItem: function () { return this.token; },
+                        setItem: function (k, v) { this.token = v;},
+                        removeItem: function () { this.token = null; }
+                    }
+                }
+            );
+
+            angular.mock.inject(function (_$http_, _$httpBackend_, _$httpParamSerializer_, _user_, _storage_) {
+                $http = _$http_;
+                $httpBackend = _$httpBackend_;
+                $httpParamSerializer = _$httpParamSerializer_;
+                user = _user_;
+                storage = _storage_;
+            });
+
+            httpPostHeaders = angular.merge(
+                {},
+                $http.defaults.headers.common,
+                {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            );
         });
 
-        it('uses the token in the storage factory and refreshes it immediately and clears it on logout', function () {
+        it('uses the token in the storage factory and refreshes it immediately', function () {
             $httpBackend
                 .expectPOST('http://atlas.amsterdam.nl/authenticatie/refresh/',
                     $httpParamSerializer({
-                        token: 'ERIKS_ACCESS_TOKEN'
+                        token: 'aToken'
                     }),
                     httpPostHeaders)
                 .respond({
@@ -290,12 +307,21 @@ describe('The user factory', function () {
                 });
             $httpBackend.flush();
             expect(storage.getItem()).toBe('ERIKS_BRAND_NEW_TOKEN');
-
-            user.logout();
-            expect(storage.getItem()).toBeNull();
         });
 
-        it('is then no longer logged in', function () {
+        it('clears the token in the storage factory on logout', function () {
+            $httpBackend
+                .expectPOST('http://atlas.amsterdam.nl/authenticatie/refresh/',
+                    $httpParamSerializer({
+                        token: 'aToken'
+                    }),
+                    httpPostHeaders)
+                .respond({
+                    token: 'ERIKS_BRAND_NEW_TOKEN'
+                });
+            $httpBackend.flush();
+            user.logout();
+            expect(storage.getItem()).toBeNull();
             expect(user.getStatus()).toEqual({
                 username: null,
                 accessToken: null,

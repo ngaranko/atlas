@@ -584,7 +584,13 @@ describe('The geosearch factory', function () {
 
             $rootScope.$apply();
 
-            expect(angular.toJson(searchResults).toLowerCase()).not.toContain('vestiging');
+            expect(searchResults.length).toBe(3);
+            expect(searchResults[0].slug).toBe(null);
+            expect(searchResults[1].slug).toBe('plaats');
+            expect(searchResults[2].slug).toBe(null);
+            expect(searchResults[0].label_singular).toBe(undefined);
+            expect(searchResults[1].label_singular).toBe(undefined);
+            expect(searchResults[2].label_singular).toBe(undefined);
         });
     });
 });
