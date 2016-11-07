@@ -13,17 +13,21 @@ module.exports = function (grunt) {
     grunt.registerTask('lint', linttasks);
 
     grunt.registerTask('test-js', [
-        'lint',
-        'test-js-modules'
+        'test-js-modules',
+        'lint'
     ]);
 
     grunt.registerTask('test-css', [
         'sasslint'
     ]);
 
-    grunt.registerTask('test-js-modules', [
+    grunt.registerTask('build-test', [
         'concat-tests',
-        'babel-tests',
+        'babel-tests'
+    ]);
+
+    grunt.registerTask('test-js-modules', [
+        'build-test',
         'karma:coverage'
     ]);
 
@@ -43,6 +47,10 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('create-hooks', copyHooks);
+
+    grunt.registerTask('pre-commit', [
+        'test'
+    ]);
 
     function copyHooks () {
         // Copy all hooks from /hooks into .git/hooks

@@ -12,7 +12,7 @@ module.exports = function (grunt) {
             reporters: ['mocha', 'coverage']
         },
         fullcoverage: {
-            reporters: ['coverage'],
+            reporters: ['mocha', 'coverage'],
             options: {
                 coverageReporter: {
                     type: 'html',
