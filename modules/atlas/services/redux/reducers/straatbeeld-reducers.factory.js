@@ -64,15 +64,26 @@
 
             // Straatbeeld can be null if another action gets triggered between FETCH_STRAATBEELD and SHOW_STRAATBEELD
             if (angular.isObject(newState.straatbeeld)) {
+                newState.straatbeeld.id = payload.id;
                 newState.straatbeeld.date = payload.date;
 
                 newState.straatbeeld.pitch = oldState.straatbeeld.pitch || 0;
                 newState.straatbeeld.fov = oldState.straatbeeld.fov || straatbeeldConfig.DEFAULT_FOV;
+                if (angular.isArray(newState.straatbeeld.targetLocation)) {
+                    // Point at the target location
+                    newState.straatbeeld.heading = getHeadingDegrees(
+                        payload.location,
+                        newState.straatbeeld.targetLocation);
+                } else {
+                    // Center the map on the new location
+                    newState.map.viewCenter = payload.location;
+                }
 
                 newState.straatbeeld.hotspots = payload.hotspots;
                 newState.straatbeeld.isLoading = false;
                 newState.straatbeeld.location = payload.location;
                 newState.straatbeeld.image = payload.image;
+
                 newState.map.isLoading = false;
             }
 
@@ -87,6 +98,12 @@
             newState.straatbeeld.fov = payload.fov;
 
             return newState;
+        }
+
+        function getHeadingDegrees (p1, p2) {
+            let [x1, y1] = p1;
+            let [x2, y2] = p2;
+            return Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
         }
     }
 })();

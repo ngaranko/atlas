@@ -38,29 +38,30 @@
                 }
             };
 
-            // Fetch scene
-            scope.$watch('state.id', function (id) {
-                if (angular.isString(id)) {
-                    straatbeeldApi.getImageDataById(id).then(function (straatbeeldData) {
-                        var type = scope.state.isInitial ? ACTIONS.SHOW_STRAATBEELD_INITIAL
-                            : ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT;
-
-                        // Dispatch an action to change the pano
-                        store.dispatch({
-                            type: type,
-                            payload: straatbeeldData
-                        });
-
-                        // Dispatch an action to change the location
-                        // This is a separate action. An open pano should not prevent changing the location
-                        // in any other view (eg map panning should still be possible)
-                        store.dispatch({
-                            type: ACTIONS.LOCATION_CHANGE,
-                            payload: straatbeeldData.location
-                        });
-                    });
+            // Fetch scene by location
+            scope.$watchCollection('state.location', function (location, oldLocation) {
+                if (!scope.state.id && angular.isArray(location)) {
+                    straatbeeldApi.getImageDataByLocation(location).then(showStraatbeeld);
                 }
             });
+
+            // Fetch scene by id
+            scope.$watch('state.id', function (id, oldId) {
+                if (!angular.isArray(scope.state.location) && angular.isString(id)) {
+                    straatbeeldApi.getImageDataById(id).then(showStraatbeeld);
+                }
+            });
+
+            function showStraatbeeld (straatbeeldData) {
+                var type = scope.state.isInitial ? ACTIONS.SHOW_STRAATBEELD_INITIAL
+                    : ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT;
+
+                // Dispatch an action to change the pano
+                store.dispatch({
+                    type: type,
+                    payload: straatbeeldData
+                });
+            }
 
             scope.$watchCollection('state.image', function () {
                 if (angular.isObject(scope.state.image)) {

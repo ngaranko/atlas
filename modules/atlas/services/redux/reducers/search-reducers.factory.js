@@ -54,25 +54,33 @@
         function fetchSearchResultsByClickReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
-            newState.search = {
-                isLoading: true,
-                query: null,
-                location: payload,
-                category: null,
-                numberOfResults: null
-            };
+            if (newState.straatbeeld) {
+                newState.straatbeeld.id = null;
+                newState.straatbeeld.isLoading = true;
+                newState.straatbeeld.location = payload;
+                newState.straatbeeld.targetLocation = payload;
+            } else {
+                // Search at location
+                newState.search = {
+                    isLoading: true,
+                    query: null,
+                    location: payload,
+                    category: null,
+                    numberOfResults: null
+                };
 
-            if (oldState.layerSelection || oldState.map.isFullscreen) {
-                newState.map.viewCenter = payload;
+                if (oldState.layerSelection || oldState.map.isFullscreen) {
+                    newState.map.viewCenter = payload;
+                }
+
+                newState.layerSelection = false;
+                newState.map.showActiveOverlays = false;
+                newState.map.isFullscreen = false;
+                newState.page = null;
+                newState.detail = null;
+                newState.straatbeeld = null;
+                newState.dataSelection = null;
             }
-
-            newState.layerSelection = false;
-            newState.map.showActiveOverlays = false;
-            newState.map.isFullscreen = false;
-            newState.page = null;
-            newState.detail = null;
-            newState.straatbeeld = null;
-            newState.dataSelection = null;
 
             return newState;
         }
