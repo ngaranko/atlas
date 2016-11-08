@@ -11,14 +11,16 @@
 }
 
 %icon-button-text {
+  position: relative;
+  height: $button-size;
   margin-right: $base-whitespace;
   margin-left: $base-whitespace;
   color: inherit;
   font-family: $header-font-family;
   font-size: $base-font-size;
   font-weight: lighter;
-  line-height: $button-size;
   text-decoration: none;
+  cursor: pointer;
 }
 
 %icon-button-text-extra {
@@ -77,6 +79,7 @@
 
 
 %icon-button-text-box {
+  position: relative;
   height: $button-size;
   padding-right: 10px;
   padding-left: 10px;

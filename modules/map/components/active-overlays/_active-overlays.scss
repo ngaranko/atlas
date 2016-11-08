@@ -1,14 +1,19 @@
 @import "active-overlays-item";
 
-.c-toggle-active-overlays {
-  @include icon-button-text-box-left("down", "red", "");
+%toggle-active-overlays {
   position: absolute;
   bottom: 0;
   left: 180px;
   min-width: $button-size + 81px;
   z-index: 3;
+}
+
+.c-toggle-active-overlays {
+  @extend %toggle-active-overlays;
+  @include icon-button-text-box-left("down", "red", "");
 
   &.c-toggle-active-overlays--mirrored {
+    @extend %toggle-active-overlays;
     @include icon-button-text-box-left("up");
   }
 }

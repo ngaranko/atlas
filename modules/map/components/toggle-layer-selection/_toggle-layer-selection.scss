@@ -1,12 +1,17 @@
-.c-toggle-layer-selection {
-  @include icon-button-text-box-right("forward", "red", "");
+%toggle-layer-selection {
   position: absolute;
   bottom: 0;
   left: 0;
   min-width: 162px;
   z-index: 3;
+}
+
+.c-toggle-layer-selection {
+  @extend %toggle-layer-selection;
+  @include icon-button-text-box-right("forward", "red", "");
 
   &.c-toggle-layer-selection--mirrored {
+    @extend %toggle-layer-selection;
     @include icon-button-text-box-right("back");
   }
 }
