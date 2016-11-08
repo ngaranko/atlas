@@ -84,6 +84,11 @@
                         }
                     });
                 });
+            }, function () {
+                store.dispatch({
+                    type: ACTIONS.SHOW_DETAIL,
+                    payload: {}
+                });
             });
         }
     }
