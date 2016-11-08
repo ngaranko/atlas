@@ -15,7 +15,7 @@ describe('The dp-search-results-list component', function () {
             },
             function ($provide) {
                 $provide.value('longNameShortenerFilter', function (input) {
-                    return input.replace('Vereniging van Eigenaren', 'VVE');
+                    return input && input.replace('Vereniging van Eigenaren', 'VVE');
                 });
             }
         );
@@ -55,7 +55,7 @@ describe('The dp-search-results-list component', function () {
                     },
                     subtype: 'weg'
                 }, {
-                    label: 'Link #4',
+                    label: '',
                     endpoint: 'http://www.example.com/bag/or/4/',
                     subtype: 'water'
                 }, {
@@ -86,7 +86,7 @@ describe('The dp-search-results-list component', function () {
                     label: 'Link #11',
                     endpoint: 'http://www.example.com/bag/or/11/',
                     subtype: 'weg'
-                }
+                }, 'not an object link'
             ]
         };
 
@@ -115,7 +115,7 @@ describe('The dp-search-results-list component', function () {
     it('lists search results', function () {
         var component = getComponent(mockedCategory, false);
 
-        expect(component.find('dp-link').length).toBe(11);
+        expect(component.find('dp-link').length).toBe(12);
 
         expect(component.find('dp-link').eq(0).find('button').text().trim()).toBe('Link #1 (nevenadres)');
         component.find('dp-link').eq(0).find('button').click();
@@ -129,6 +129,7 @@ describe('The dp-search-results-list component', function () {
         expect(component.find('dp-link').eq(2).find('button').text().trim())
             .toBe('Link #3 (nevenadres) (verblijfsobject gevormd)');
 
+        expect(component.find('dp-link').eq(3).find('button').text().trim()).toBe('');
         expect(component.find('dp-link').eq(10).find('button').text().trim()).toBe('Link #11');
         component.find('dp-link').eq(10).find('button').click();
         expect(store.dispatch).toHaveBeenCalledWith({
@@ -142,7 +143,7 @@ describe('The dp-search-results-list component', function () {
 
         // Without the limiter
         component = getComponent(mockedCategory, false);
-        expect(component.find('dp-link').length).toBe(11);
+        expect(component.find('dp-link').length).toBe(12);
 
         // With the limiter
         component = getComponent(mockedCategory, true);
