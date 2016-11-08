@@ -128,6 +128,6 @@ describe('The dp-menu-dropdown directive', function () {
         // Without a print button
         directive = getDirective({hasPrintButton: false});
         directive.find('.site-header__menu__item--toggle').eq(0).click();
-        expect(directive.find('.menu-dropdown').text()).not.toContain('Printversie');
+        expect(directive.find('.menu-dropdown').text()).not.toContain('Printen');
     });
 });

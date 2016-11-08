@@ -80,7 +80,7 @@ describe('The dp-nummeraanduiding-header directive', function () {
             // Status 'Verblijfsobject gevormd', show a badge
             directive = getDirective('http://www.example-endpoint.com/18/', true);
             expect(directive.find('.c-panel--danger').length).toBe(1);
-            expect(directive.find('.c-panel--danger').text().trim()).toBe('Verblijfsobject gevormd');
+            expect(directive.find('.c-panel--danger').text().trim()).toBe('Status: Verblijfsobject gevormd');
         });
 
         it('adds a blue badge if it\'s a nevenadres', function () {
