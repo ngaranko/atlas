@@ -20,7 +20,7 @@
 
             if (isServerError) {
                 httpStatus.registerError();
-            } else if (isClientError && response.data.detail === "Not found.") {
+            } else if (isClientError && response && response.data && response.data.detail === 'Not found.') {
                 httpStatus.registerError('NOT_FOUND');
             }
             return $q.reject(response);

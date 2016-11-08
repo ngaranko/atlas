@@ -1,11 +1,11 @@
 <div class="c-api-error__panel">
     <dp-panel is-panel-visible="vm.httpStatus.hasErrors && vm.httpStatus.errorType === 'SERVER'"
-            type="danger" can-close="true" class-name="qa-api-error">
+            type="danger" can-close="true" class-name="qa-api-server-error">
         Momenteel wordt niet alle informatie getoond. Aan deze technische storing wordt gewerkt.
         Probeer het zodadelijk nog eens…
     </dp-panel>
     <dp-panel is-panel-visible="vm.httpStatus.hasErrors && vm.httpStatus.errorType === 'NOT_FOUND'"
-            type="danger" can-close="true" class-name="qa-api-error">
+            type="danger" can-close="true" class-name="qa-api-not-found-error">
         Deze informatie is niet beschikbaar. Dit is reeds teruggemeld.
     </dp-panel>
 </div>
