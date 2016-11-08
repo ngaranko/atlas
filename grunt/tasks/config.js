@@ -29,9 +29,9 @@ module.exports = function (grunt) {
         ngtemplates: require(gruntDir + 'angular-templates'),
         npmcopy: require(gruntDir + 'npmcopy'),
         postcss: require(gruntDir + 'postcss')(grunt),
-        svg_sprite: require(gruntDir + 'svg-sprite'),
         sass: require(gruntDir + 'sass'),
         sasslint: require(gruntDir + 'sasslint'),
+        svg_sprite: require(gruntDir + 'svg-sprite'),
         tags: require(gruntDir + 'script-link-tags')(grunt),
         watch: require(gruntDir + 'watch')
     });
