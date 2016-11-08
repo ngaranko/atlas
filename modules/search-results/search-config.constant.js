@@ -35,6 +35,10 @@
                     label_singular: 'Meetbout',
                     label_plural: 'Meetbouten',
                     uri: 'meetbouten/search/'
+                }, {
+                    slug: 'vestiging',
+                    label_singular: 'Vestiging',
+                    label_plural: 'Vestigingen'
                 }
             ],
             COORDINATES_ENDPOINTS: [
@@ -59,10 +63,12 @@
                     label_plural: 'Panden',
                     features: ['bag/pand']
                 }, {
+                    slug: 'plaats',
                     label_singular: 'Standplaats',
                     label_plural: 'Standplaatsen',
                     features: ['bag/standplaats']
                 }, {
+                    slug: 'plaats',
                     label_singular: 'Ligplaats',
                     label_plural: 'Ligplaatsen',
                     features: ['bag/ligplaats']

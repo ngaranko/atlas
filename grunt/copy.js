@@ -17,14 +17,9 @@ module.exports = function (grunt) {
                 }
             ]
         },
-        bower: {
-            src: ['build/temp/bower_components.*'],
-            dest: 'build/',
-            expand: true,
-            flatten: true,
-            rename: function (dest, src) {
-                return dest + src.replace(/bower_components/g, 'atlas.libs.' + uniqueIdJs);
-            }
+        libs: {
+            src: 'build/temp/atlas.libs.js',
+            dest: `build/atlas.${uniqueIdJs}.libs.js`
         },
         bower_bbga_fonts: {
             files: [
@@ -65,6 +60,17 @@ module.exports = function (grunt) {
                     dest: 'build/',
                     expand: true,
                     flatten: false
+                }
+            ]
+        },
+        githooks: {
+            files: [
+                {
+                    cwd: 'grunt/githooks/',
+                    src: '*',
+                    dest: '.git/hooks',
+                    expand: true,
+                    flatten: true
                 }
             ]
         }
