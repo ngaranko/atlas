@@ -45,9 +45,15 @@ $dashboard-heading-height-printversion: 42px;
     box-shadow: 0 0 5px $secondary-gray40;
   }
 
-  &.is-fullscreen {
+  &.print-landscape {
     body {
       width: 1280px;
+    }
+  }
+
+  .is-print-mode {
+    .c-map {
+      height: 700px;
     }
   }
 }

@@ -20,12 +20,11 @@
 
                 if (state.isPrintMode) {
                     element.addClass('is-print-mode');
-
-                    // if (state.map.isFullscreen) {
-                    //     element.addClass('is-fullscreen');
-                    // } else {
-                    //     element.removeClass('is-fullscreen');
-                    // }
+                    if (state.detail === null && state.page === null && state.search === null) {
+                        element.addClass('print-landscape');
+                    } else {
+                        element.removeClass('print-landscape');
+                    }
                 } else {
                     element.removeClass('is-print-mode');
                 }
