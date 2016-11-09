@@ -43,7 +43,7 @@
 
                     // Check if we are not on a detail page or search result page. Only add the class
                     // when we are on a map+panorama or fullscreen map page.
-                    if (state.detail === null && state.page === null && state.search === null) {
+                    if (state.straatbeeld !== null || state.map.isFullscreen === true) {
                         element.addClass('print-landscape');
                     } else {
                         element.removeClass('print-landscape');
