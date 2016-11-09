@@ -164,6 +164,87 @@ describe('Straatbeeld reducers factory', function () {
             }));
         });
 
+        it('can set the straatbeeld to the new location', function () {
+            var state = { straatbeeld: {} },
+                output;
+
+            let location = [52.001, 4.002];
+            output = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION](state, location);
+
+            expect(output.straatbeeld.id).toBeNull();
+            expect(output.straatbeeld.isLoading).toBe(true);
+            expect(output.straatbeeld.location).toEqual(location);
+            expect(output.straatbeeld.targetLocation).toEqual(location);
+        });
+
+        it('sets the straatbeeld to the new location only if straatbeeld is active', function () {
+            var state = {},
+                output;
+
+            let location = [52.001, 4.002];
+            output = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION](state, location);
+
+            expect(output).toEqual(state);
+        });
+
+        it('heads towards a targetlocation', function () {
+            let newState;
+
+            inputState.straatbeeld.targetLocation = [52, 4];
+            newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
+            expect(newState.straatbeeld).toEqual(jasmine.objectContaining({
+                isLoading: false,
+                id: 'ABC',
+                heading: 0,
+                isInitial: true
+            }));
+
+            inputState.straatbeeld.targetLocation = [52, 5];
+            newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
+            expect(newState.straatbeeld).toEqual(jasmine.objectContaining({
+                isLoading: false,
+                id: 'ABC',
+                heading: 90,
+                isInitial: true
+            }));
+
+            inputState.straatbeeld.targetLocation = [52, 3];
+            newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
+            expect(newState.straatbeeld).toEqual(jasmine.objectContaining({
+                isLoading: false,
+                id: 'ABC',
+                heading: -90,
+                isInitial: true
+            }));
+
+            inputState.straatbeeld.targetLocation = [53, 5];
+            newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
+            expect(newState.straatbeeld).toEqual(jasmine.objectContaining({
+                isLoading: false,
+                id: 'ABC',
+                heading: 45,
+                isInitial: true
+            }));
+
+            inputState.straatbeeld.targetLocation = [51, 3];
+            newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
+            expect(newState.straatbeeld).toEqual(jasmine.objectContaining({
+                isLoading: false,
+                id: 'ABC',
+                heading: -135,
+                isInitial: true
+            }));
+
+            inputState.straatbeeld.targetLocation = [51, 5];
+            newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
+            expect(newState.straatbeeld).toEqual(jasmine.objectContaining({
+                isLoading: false,
+                id: 'ABC',
+                heading: 135,
+                isInitial: true
+            }));
+        });
+
         it('Sets loading to false', function () {
             var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
             expect(newState.straatbeeld.isLoading).toBe(false);

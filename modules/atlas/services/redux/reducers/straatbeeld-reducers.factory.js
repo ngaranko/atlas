@@ -11,6 +11,7 @@
         var reducers = {};
 
         reducers[ACTIONS.FETCH_STRAATBEELD] = fetchStraatbeeldReducer;
+        reducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION] = fetchStraatbeeldByLocationReducer;
         reducers[ACTIONS.SHOW_STRAATBEELD_INITIAL] = showStraatbeeldReducer;
         reducers[ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT] = showStraatbeeldReducer;
         reducers[ACTIONS.SET_STRAATBEELD_ORIENTATION] = setOrientationReducer;
@@ -55,6 +56,26 @@
 
         /**
          * @param {Object} oldState
+         * @param {Array} payload - A location, e.g. [52.123, 4.789]
+         *
+         * @returns {Object} newState
+         */
+        function fetchStraatbeeldByLocationReducer (oldState, payload) {
+            var newState = angular.copy(oldState);
+
+            if (angular.isObject(newState.straatbeeld)) {
+                newState.straatbeeld.isInitial = true;
+                newState.straatbeeld.id = null;
+                newState.straatbeeld.isLoading = true;
+                newState.straatbeeld.location = payload;
+                newState.straatbeeld.targetLocation = payload;
+            }
+
+            return newState;
+        }
+
+        /**
+         * @param {Object} oldState
          * @param {Object} payload -  data from straatbeeld-api
          *
          * @returns {Object} newState
@@ -64,7 +85,7 @@
 
             // Straatbeeld can be null if another action gets triggered between FETCH_STRAATBEELD and SHOW_STRAATBEELD
             if (angular.isObject(newState.straatbeeld)) {
-                newState.straatbeeld.id = payload.id;
+                newState.straatbeeld.id = payload.id || newState.straatbeeld.id;
                 newState.straatbeeld.date = payload.date;
 
                 newState.straatbeeld.pitch = oldState.straatbeeld.pitch || 0;

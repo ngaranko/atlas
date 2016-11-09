@@ -11,7 +11,7 @@
         var reducers = {};
 
         reducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY] = fetchSearchResultsByQueryReducer;
-        reducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_CLICK] = fetchSearchResultsByClickReducer;
+        reducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION] = fetchSearchResultsByLocationReducer;
         reducers[ACTIONS.FETCH_SEARCH_RESULTS_CATEGORY] = fetchSearchResultsCategoryReducer;
         reducers[ACTIONS.SHOW_SEARCH_RESULTS] = showSearchResultsReducer;
 
@@ -51,36 +51,29 @@
          *
          * @returns {Object} newState
          */
-        function fetchSearchResultsByClickReducer (oldState, payload) {
+        function fetchSearchResultsByLocationReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
-            if (newState.straatbeeld) {
-                newState.straatbeeld.id = null;
-                newState.straatbeeld.isLoading = true;
-                newState.straatbeeld.location = payload;
-                newState.straatbeeld.targetLocation = payload;
-            } else {
-                // Search at location
-                newState.search = {
-                    isLoading: true,
-                    query: null,
-                    location: payload,
-                    category: null,
-                    numberOfResults: null
-                };
+            // Search at location
+            newState.search = {
+                isLoading: true,
+                query: null,
+                location: payload,
+                category: null,
+                numberOfResults: null
+            };
 
-                if (oldState.layerSelection || oldState.map.isFullscreen) {
-                    newState.map.viewCenter = payload;
-                }
-
-                newState.layerSelection = false;
-                newState.map.showActiveOverlays = false;
-                newState.map.isFullscreen = false;
-                newState.page = null;
-                newState.detail = null;
-                newState.straatbeeld = null;
-                newState.dataSelection = null;
+            if (oldState.layerSelection || oldState.map.isFullscreen) {
+                newState.map.viewCenter = payload;
             }
+
+            newState.layerSelection = false;
+            newState.map.showActiveOverlays = false;
+            newState.map.isFullscreen = false;
+            newState.page = null;
+            newState.detail = null;
+            newState.straatbeeld = null;
+            newState.dataSelection = null;
 
             return newState;
         }

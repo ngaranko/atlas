@@ -65,7 +65,7 @@ describe('The search-reducers factory', function () {
         });
     });
 
-    describe('FETCH_SEARCH_RESULTS_BY_CLICK', function () {
+    describe('MAP_CLICK', function () {
         it('resets the search query and active category and sets the search location', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
@@ -77,7 +77,7 @@ describe('The search-reducers factory', function () {
                 numberOfResults: 23
             };
 
-            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_CLICK](inputState, [52.001, 4.002]);
+            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION](inputState, [52.001, 4.002]);
 
             expect(output.search.isLoading).toBe(true);
             expect(output.search.query).toBeNull();
@@ -97,7 +97,7 @@ describe('The search-reducers factory', function () {
             inputState.staatbeeld = {some: 'object'};
             inputState.dataSelection = {some: 'object'};
 
-            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_CLICK](inputState, [52.001, 4.002]);
+            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION](inputState, [52.001, 4.002]);
 
             expect(output.layerSelection).toBe(false);
             expect(output.map.showActiveOverlays).toBe(false);
@@ -114,19 +114,19 @@ describe('The search-reducers factory', function () {
             // With fullscreen disabled, it doesn't change the viewCenter
             inputState.map.viewCenter = [52.123, 4.789];
             inputState.map.isFullscreen = false;
-            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_CLICK](inputState, [52.001, 4.002]);
+            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION](inputState, [52.001, 4.002]);
 
             expect(output.map.viewCenter).toEqual([52.123, 4.789]);
 
             // With fullscreen enabled, it changes the viewCenter
             inputState.map.isFullscreen = true;
-            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_CLICK](inputState, [52.001, 4.002]);
+            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION](inputState, [52.001, 4.002]);
 
             expect(output.map.viewCenter).toEqual([52.001, 4.002]);
 
             // With layer selection enabled
             inputState.layerSelection = true;
-            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_CLICK](inputState, [52.001, 4.002]);
+            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION](inputState, [52.001, 4.002]);
             expect(output.map.viewCenter).toEqual([52.001, 4.002]);
         });
 
@@ -136,7 +136,7 @@ describe('The search-reducers factory', function () {
 
             inputState.map.isFullscreen = true;
 
-            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_CLICK](inputState, [52.001, 4.002]);
+            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION](inputState, [52.001, 4.002]);
 
             expect(output.map.isFullscreen).toBe(false);
         });

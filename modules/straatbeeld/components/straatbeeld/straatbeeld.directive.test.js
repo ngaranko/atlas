@@ -27,6 +27,11 @@ describe('The dp-straatbeeld directive', function () {
                     var q = $q.defer();
                     q.resolve({ foo: 'bar' });
                     return q.promise;
+                },
+                getImageDataByLocation: function () {
+                    var q = $q.defer();
+                    q.resolve({ foo: 'bar' });
+                    return q.promise;
                 }
             }
         });
@@ -131,12 +136,27 @@ describe('The dp-straatbeeld directive', function () {
             directive.isolateScope().state.id = 'ABC';
             directive.isolateScope().$apply();
 
-            expect($store.dispatch).toHaveBeenCalledTimes(2);   // show pano and change location
+            expect($store.dispatch).toHaveBeenCalledTimes(1);   // show pano
 
             directive.isolateScope().state.id = 'XYZ';
             directive.isolateScope().$apply();
 
-            expect($store.dispatch).toHaveBeenCalledTimes(4);
+            expect($store.dispatch).toHaveBeenCalledTimes(2);
+        });
+
+        it('Listens to changes on scope for location', function () {
+            var directive = getDirective({}, false);
+            expect($store.dispatch).not.toHaveBeenCalled();
+
+            directive.isolateScope().state.location = [52, 4];
+            directive.isolateScope().$apply();
+
+            expect($store.dispatch).toHaveBeenCalledTimes(1);   // show pano
+
+            directive.isolateScope().state.location = [52, 5];
+            directive.isolateScope().$apply();
+
+            expect($store.dispatch).toHaveBeenCalledTimes(2);
         });
 
         it('triggers both show and location actions', function () {
@@ -146,16 +166,12 @@ describe('The dp-straatbeeld directive', function () {
             directive.isolateScope().state.id = 'ABC';
             directive.isolateScope().$apply();
 
-            expect($store.dispatch).toHaveBeenCalledTimes(2);   // show pano and change location
+            expect($store.dispatch).toHaveBeenCalledTimes(1);   // show pano
             expect($store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT,
                 payload: {
                     foo: 'bar'
                 }
-            });
-            expect($store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.LOCATION_CHANGE,
-                payload: undefined
             });
         });
     });
