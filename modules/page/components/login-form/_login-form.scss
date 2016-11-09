@@ -34,6 +34,7 @@
   padding-top: $base-whitespace * .3;
   padding-bottom: $base-whitespace * .4;
   padding-left: $base-whitespace;
+  line-height: 26 - ($base-whitespace * .3) - ($base-whitespace * .4);
 }
 
 .c-login-form__button {
