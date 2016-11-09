@@ -253,7 +253,7 @@ describe('The geosearch factory', function () {
 
         mockedVerblijfsobjectenApiResults = {
             count: 2,
-            results: ['FAKE_VBO_RESULT_1', 'FAKE_VBO_RESULT_2']
+            results: [{xyz: 'FAKE_VBO_RESULT_1'}, {xyz: 'FAKE_VBO_RESULT_2'}]
         };
 
         mockedFormattedVerblijfsobjectenApiResults = {
