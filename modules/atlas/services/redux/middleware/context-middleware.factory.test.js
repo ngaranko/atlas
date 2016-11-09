@@ -1,5 +1,5 @@
 describe('The contextMiddleware factory', function () {
-    var contextMiddleware,
+    let contextMiddleware,
         mockedStore = {
             getState: function () {
                 return 'FAKE_STATE';
@@ -28,9 +28,7 @@ describe('The contextMiddleware factory', function () {
     });
 
     it('calls the next action', function () {
-        var returnValue;
-
-        returnValue = contextMiddleware(mockedStore)(mockedNext)(mockedAction);
+        let returnValue = contextMiddleware(mockedStore)(mockedNext)(mockedAction);
 
         expect(returnValue).toEqual({
             type: 'FAKE_ACTION',
@@ -38,12 +36,10 @@ describe('The contextMiddleware factory', function () {
         });
     });
 
-    it('translates MAP_CLICK actions, default ot search results', function () {
-        var returnValue;
-
+    it('translates MAP_CLICK actions, default in search results', function () {
         mockedAction.type = ACTIONS.MAP_CLICK;
 
-        returnValue = contextMiddleware(mockedStore)(mockedNext)(mockedAction);
+        let returnValue = contextMiddleware(mockedStore)(mockedNext)(mockedAction);
 
         expect(returnValue).toEqual({
             type: ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION,
@@ -52,8 +48,6 @@ describe('The contextMiddleware factory', function () {
     });
 
     it('translates MAP_CLICK actions to straatbeeld updates when a straatbeeld is active', function () {
-        var returnValue;
-
         mockedAction.type = ACTIONS.MAP_CLICK;
         mockedStore.getState = () => {
             return {
@@ -63,7 +57,7 @@ describe('The contextMiddleware factory', function () {
             };
         };
 
-        returnValue = contextMiddleware(mockedStore)(mockedNext)(mockedAction);
+        let returnValue = contextMiddleware(mockedStore)(mockedNext)(mockedAction);
 
         expect(returnValue).toEqual({
             type: ACTIONS.FETCH_STRAATBEELD_BY_LOCATION,

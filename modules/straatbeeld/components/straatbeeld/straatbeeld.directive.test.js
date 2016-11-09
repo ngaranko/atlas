@@ -159,7 +159,7 @@ describe('The dp-straatbeeld directive', function () {
             expect($store.dispatch).toHaveBeenCalledTimes(2);
         });
 
-        it('triggers both show and location actions', function () {
+        it('triggers show action', function () {
             var directive = getDirective({}, false);
             expect($store.dispatch).not.toHaveBeenCalled();
 

@@ -65,7 +65,7 @@ describe('The search-reducers factory', function () {
         });
     });
 
-    describe('MAP_CLICK', function () {
+    describe('FETCH_SEARCH_RESULTS_BY_LOCATION', function () {
         it('resets the search query and active category and sets the search location', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;

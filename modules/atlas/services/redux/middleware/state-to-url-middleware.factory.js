@@ -15,8 +15,8 @@
                 ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY,
                 ACTIONS.MAP_CLICK,
                 ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION,
-                ACTIONS.FETCH_STRAATBEELD_BY_LOCATION,
-                ACTIONS.FETCH_SEARCH_RESULTS_CATEGORY
+                ACTIONS.FETCH_SEARCH_RESULTS_CATEGORY,
+                ACTIONS.FETCH_STRAATBEELD_BY_LOCATION
             ],
             useReplace = [
                 ACTIONS.MAP_SET_BASELAYER, // Replace the URL instead of adding a new entry to the browser history
