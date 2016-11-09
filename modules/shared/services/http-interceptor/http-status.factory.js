@@ -7,9 +7,11 @@
 
     function httpStatusFactory () {
         // The sole reponsability is to register if there have been any http errors
-        let status = {
-            hasErrors: false
-        };
+        let errorTypes = ['SERVER', 'NOT_FOUND'],
+            status = {
+                hasErrors: false,
+                errorType: errorTypes[0]
+            };
 
         return {
             getStatus,
@@ -20,8 +22,9 @@
             return status;
         }
 
-        function registerError () {
+        function registerError (errorType) {
             status.hasErrors = true;
+            status.errorType = errorTypes.filter(type => type === errorType)[0] || errorTypes[0];
         }
     }
 })();
