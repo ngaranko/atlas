@@ -1,5 +1,14 @@
 <div class="c-api-error__panel">
-    <dp-panel is-panel-visible="vm.httpStatus.hasErrors" type="danger" can-close="true" class-name="qa-api-error">
-        Momenteel wordt niet alle informatie getoond. Aan deze technische storing wordt gewerkt. Probeer het zodadelijk nog eens…
+    <dp-panel is-panel-visible="vm.httpStatus.hasErrors"
+              type="danger" can-close="true" class="qa-api-error">
+        <div ng-switch="vm.httpStatus.errorType">
+            <span ng-switch-when="NOT_FOUND" class="qa-api-not-found-error">
+                Deze informatie is niet beschikbaar. Dit is reeds teruggemeld.
+            </span>
+            <span ng-switch-default class="qa-api-server-error">
+                Momenteel wordt niet alle informatie getoond. Aan deze technische storing wordt gewerkt.
+                Probeer het zodadelijk nog eens…
+            </span>
+        </div>
     </dp-panel>
 </div>
