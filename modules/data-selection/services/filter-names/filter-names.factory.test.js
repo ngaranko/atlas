@@ -25,4 +25,8 @@ describe('The filterName factory', function () {
     it('returns the key name for a filter based on a canonical name', function () {
         expect(filterNames.getSlugFor('stadsdeel')).toBe('stadsdeel_naam');
     });
+
+    it('returns null for a filter based on an unknown canonical name', function () {
+        expect(filterNames.getSlugFor('xyz')).toBeNull();
+    });
 });

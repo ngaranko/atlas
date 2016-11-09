@@ -364,5 +364,9 @@ describe('the dp-detail component', function () {
         scope.vm.endpoint = 'http://www.fake-endpoint.com/brk/subject/456/';
         scope.$apply();
         expect(scope.vm.isMoreInfoAvailable).toBe(false);
+
+        user.isLoggedIn = false;
+        scope.$apply();
+        expect(scope.vm.isMoreInfoAvailable).toBe(false);
     });
 });
