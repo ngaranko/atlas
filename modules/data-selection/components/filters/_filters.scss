@@ -41,21 +41,17 @@
   line-height: $button-size;
   text-decoration: none;
 
-  .c-data-selection-filters__list {
+  .c-data-selection-filters__listitem {
+    position: relative;
+    margin-bottom: $base-whitespace / 2;
+    padding-right: $base-whitespace + $button-size;
+    padding-left: $base-whitespace;
+    background-color: $secondary-gray60;
+    color: $primary-light;
 
-    .c-data-selection-filters__listitem {
-      position: relative;
-      margin-bottom: $base-whitespace / 2;
-      padding-right: $base-whitespace + $button-size;
-      padding-left: $base-whitespace;
-      background-color: $secondary-gray60;
-      color: $primary-light;
-
-      &:last-child {
-        margin-bottom: $base-whitespace * 2.5;
-      }
+    &:last-child {
+      margin-bottom: $base-whitespace * 2.5;
     }
-
   }
 }
 
