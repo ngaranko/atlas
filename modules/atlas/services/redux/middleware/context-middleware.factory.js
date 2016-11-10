@@ -26,8 +26,13 @@
                     }
 
                     if (action.type === ACTIONS.CLOSE_STRAATBEELD) {
-                        action.type = ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION;
-                        action.payload = store.getState().straatbeeld.location;
+                        if (angular.isObject(store.getState().detail)) {
+                            action.type = ACTIONS.FETCH_DETAIL;
+                            action.payload = store.getState().detail.endpoint;
+                        } else {
+                            action.type = ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION;
+                            action.payload = store.getState().straatbeeld.location;
+                        }
                     }
 
                     // Update the state

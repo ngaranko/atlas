@@ -42,7 +42,7 @@
                     visibility.searchResults = false;
                     visibility.straatbeeld = false;
                 } else {
-                    visibility.detail = angular.isObject(state.detail);
+                    visibility.detail = angular.isObject(state.detail) && !(isStraatbeeldVisible(state));
                     visibility.page = angular.isString(state.page);
                     visibility.searchResults = angular.isObject(state.search) &&
                         (angular.isString(state.search.query) || angular.isArray(state.search.location));
