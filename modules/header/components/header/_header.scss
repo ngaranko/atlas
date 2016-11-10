@@ -21,10 +21,11 @@
   @include font-size($xl-header-font);
   display: block;
   height: $site-header-height;
-  padding-left: $base-whitespace * 2.5;
+  padding-left: $base-whitespace * 3;
   background-color: $secondary-gray80;
   color: $primary-light;
   font-family: $header-font-family;
+  text-decoration: none;
   cursor: pointer;
 
   img {
@@ -40,6 +41,7 @@
 
   span {
     background-color: $secondary-gray80;
+    line-height: 50px;
   }
 }
 

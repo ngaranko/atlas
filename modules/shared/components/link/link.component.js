@@ -3,39 +3,54 @@
 
     angular
         .module('dpShared')
-        .component('dpLink', {
+        .directive('dpLink', DpLinkDirective);
+
+    DpLinkDirective.$inject = ['store', 'ACTIONS', 'reducer', 'stateToUrl', 'debounce'];
+
+    function DpLinkDirective (store, ACTIONS, reducer, stateToUrl, debounce) {
+        return {
             templateUrl: 'modules/shared/components/link/link.html',
             transclude: true,
-            controller: DpLinkController,
-            controllerAs: 'vm',
-            bindings: {
+            link: linkFn,
+            scope: {
                 className: '@',
                 hoverText: '@',
                 type: '@',
                 payload: '='
             }
-        });
+        };
 
-    DpLinkController.$inject = ['store', 'ACTIONS', 'reducer', 'stateToUrl'];
+        function linkFn (scope, element) {
+            const unsubscribe = store.subscribe(debounce(300, update));
+            let destroyed = false;
 
-    function DpLinkController (store, ACTIONS, reducer, stateToUrl) {
-        const vm = this;
+            scope.className = scope.className || 'o-btn o-btn--link';
 
-        vm.className = vm.className || 'o-btn o-btn--link';
+            // We don't need to keep updating the url after the element has
+            // been destroyed
+            element.on('$destroy', () => {
+                destroyed = true;
+                unsubscribe();
+                scope.$destroy();
+            });
 
-        store.subscribe(update);
-        update();
+            update();
 
-        function update () {
-            const oldState = store.getState(),
-                action = {
-                    type: ACTIONS[vm.type],
-                    payload: vm.payload
-                },
-                newState = reducer(oldState, action),
-                url = stateToUrl.create(newState);
+            function update () {
+                if (!destroyed) {
+                    const oldState = store.getState(),
+                        action = angular.isDefined(scope.payload) ? {
+                            type: ACTIONS[scope.type],
+                            payload: scope.payload
+                        } : {
+                            type: ACTIONS[scope.type]
+                        },
+                        newState = reducer(oldState, action),
+                        url = stateToUrl.create(newState);
 
-            vm.url = url;
+                    scope.url = url;
+                }
+            }
         }
     }
 })();

@@ -2,20 +2,13 @@
 
 $link-offset: $base-font-size;
 
-%link--arrow {
+%link {
   display: inline-block;
   position: relative;
-  margin-left: $link-offset;
   color: $secondary-gray60;
   font-weight: 700;
   text-decoration: none;
-
-  &::before {
-    display: inline-block;
-    position: absolute;
-    left: -$link-offset;
-    content: "›";
-  }
+  cursor: pointer;
 
   &:hover {
     color: $primary-contrast;
@@ -28,5 +21,18 @@ $link-offset: $base-font-size;
     &:focus {
       outline: none;
     }
+  }
+}
+
+%link--arrow {
+  @extend %link;
+
+  margin-left: $link-offset;
+
+  &::before {
+    display: inline-block;
+    position: absolute;
+    left: -$link-offset;
+    content: "›";
   }
 }

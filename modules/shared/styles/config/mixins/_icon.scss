@@ -11,7 +11,7 @@
 }
 
 %icon-button-text {
-  position: relative;
+  @extend %link;
   height: $button-size;
   margin-right: $base-whitespace;
   margin-left: $base-whitespace;
@@ -19,8 +19,6 @@
   font-family: $header-font-family;
   font-size: $base-font-size;
   font-weight: lighter;
-  text-decoration: none;
-  cursor: pointer;
 }
 
 %icon-button-text-extra {
@@ -29,11 +27,6 @@
   height: $button-size;
   content: "";
   vertical-align: middle;
-}
-
-%icon-button-text-hover {
-  color: $primary-contrast;
-  text-decoration: underline;
 }
 
 @mixin icon-button-text-left($icon, $state: "", $hover-state: "red") {
@@ -48,8 +41,6 @@
 
   &:hover,
   &:active {
-    @extend %icon-button-text-hover;
-
     &::after {
       @extend %#{"dp-" + $icon + if(str-length($hover-state) > 0, "-", "") + $hover-state + "-icon"};
     }
@@ -68,8 +59,6 @@
 
   &:hover,
   &:active {
-    @extend %icon-button-text-hover;
-
     &::before {
       @extend %#{"dp-" + $icon + if(str-length($hover-state) > 0, "-", "") + $hover-state + "-icon"};
     }
@@ -79,6 +68,7 @@
 
 
 %icon-button-text-box {
+  display: block;
   position: relative;
   height: $button-size;
   padding-right: 10px;
