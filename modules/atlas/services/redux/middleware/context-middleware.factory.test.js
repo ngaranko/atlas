@@ -65,8 +65,8 @@ describe('The contextMiddleware factory', function () {
         });
     });
 
-    it('translates CLOSE_STRAATBEELD action in search results', function () {
-        mockedAction.type = ACTIONS.CLOSE_STRAATBEELD;
+    it('translates HIDE_STRAATBEELD action in search results', function () {
+        mockedAction.type = ACTIONS.HIDE_STRAATBEELD;
         mockedStore.getState = () => {
             return {
                 straatbeeld: {
@@ -83,8 +83,8 @@ describe('The contextMiddleware factory', function () {
         });
     });
 
-    it('translates CLOSE_STRAATBEELD action in fetch detail when coming from details', function () {
-        mockedAction.type = ACTIONS.CLOSE_STRAATBEELD;
+    it('translates HIDE_STRAATBEELD action in fetch detail when coming from details', function () {
+        mockedAction.type = ACTIONS.HIDE_STRAATBEELD;
         mockedStore.getState = () => {
             return {
                 detail: {

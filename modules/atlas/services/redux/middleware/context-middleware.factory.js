@@ -25,7 +25,7 @@
                         }
                     }
 
-                    if (action.type === ACTIONS.CLOSE_STRAATBEELD) {
+                    if (action.type === ACTIONS.HIDE_STRAATBEELD) {
                         if (angular.isObject(store.getState().detail)) {
                             action.type = ACTIONS.FETCH_DETAIL;
                             action.payload = store.getState().detail.endpoint;
