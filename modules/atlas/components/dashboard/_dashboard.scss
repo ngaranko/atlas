@@ -27,8 +27,9 @@ $dashboard-heading-height-printversion: 42px;
 
 .is-print-mode {
   .c-dashboard {
-    padding: $base-whitespace * 2 0;
+    padding: $base-whitespace * 2 0 0 0;
     border-right: solid $secondary-gray20 1px;
+    border-bottom: solid $secondary-gray20 1px;
     border-left: solid $secondary-gray20 1px;
     overflow: visible;
   }
