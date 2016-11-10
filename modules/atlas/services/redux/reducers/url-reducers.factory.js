@@ -152,6 +152,10 @@
                 }
 
                 return newStraatbeeld;
+            } else if (payload.heading) {
+                return {
+                    heading: Number(payload.heading)
+                };
             } else {
                 return null;
             }

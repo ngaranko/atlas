@@ -30,17 +30,14 @@
             var newState = angular.copy(oldState);
 
             newState.straatbeeld = newState.straatbeeld || {};
-            newState.straatbeeld.id = payload.id;
-            newState.straatbeeld.heading = payload.heading || oldState.straatbeeld.heading;
-            newState.straatbeeld.isInitial = payload.isInitial;
-            newState.straatbeeld.date = null;
-            newState.straatbeeld.hotspots = [];
-            newState.straatbeeld.isLoading = true;
-            newState.straatbeeld.location = null;
+            initializeStraatbeeld(newState.straatbeeld);
 
-            newState.straatbeeld.pitch = null;
-            newState.straatbeeld.fov = null;
-            newState.straatbeeld.image = null;
+            newState.straatbeeld.id = payload.id;
+            newState.straatbeeld.heading = payload.heading ||
+                (oldState.straatbeeld && oldState.straatbeeld.heading) ||
+                0;
+            newState.straatbeeld.isInitial = payload.isInitial;
+
             newState.map.highlight = null;
 
             newState.search = null;
@@ -63,15 +60,31 @@
         function fetchStraatbeeldByLocationReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
-            if (angular.isObject(newState.straatbeeld)) {
-                newState.straatbeeld.isInitial = true;
-                newState.straatbeeld.id = null;
-                newState.straatbeeld.isLoading = true;
-                newState.straatbeeld.location = payload;
-                newState.straatbeeld.targetLocation = payload;
-            }
+            newState.straatbeeld = newState.straatbeeld || {};
+            initializeStraatbeeld(newState.straatbeeld);
+
+            newState.straatbeeld.location = payload;
+            newState.straatbeeld.targetLocation = payload;
 
             return newState;
+        }
+
+        function initializeStraatbeeld (straatbeeld) {
+            straatbeeld.id = null;
+            straatbeeld.location = null;
+
+            straatbeeld.isInitial = true;
+
+            straatbeeld.date = null;
+            straatbeeld.hotspots = [];
+
+            straatbeeld.heading = null;
+            straatbeeld.pitch = null;
+            straatbeeld.fov = null;
+
+            straatbeeld.image = null;
+
+            straatbeeld.isLoading = true;
         }
 
         /**

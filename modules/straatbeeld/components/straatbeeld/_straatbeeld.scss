@@ -30,3 +30,17 @@
   line-height: $button-size;
   z-index: 2;
 }
+
+.c-straatbeeld__close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: $button-size;
+  height: $button-size;
+  background-image: url("assets/icons/close-hover.svg");
+  z-index: 2;
+
+  &:hover {
+    background-image: url("assets/icons/close-active.svg");
+  }
+}

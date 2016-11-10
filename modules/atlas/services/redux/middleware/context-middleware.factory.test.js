@@ -64,4 +64,22 @@ describe('The contextMiddleware factory', function () {
             payload: {}
         });
     });
+
+    it('translates CLOSE_STRAATBEELD action in search results', function () {
+        mockedAction.type = ACTIONS.CLOSE_STRAATBEELD;
+        mockedStore.getState = () => {
+            return {
+                straatbeeld: {
+                    location: [1, 2]
+                }
+            };
+        };
+
+        let returnValue = contextMiddleware(mockedStore)(mockedNext)(mockedAction);
+
+        expect(returnValue).toEqual({
+            type: ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION,
+            payload: [1, 2]
+        });
+    });
 });

@@ -41,7 +41,7 @@ describe('The search-reducers factory', function () {
             inputState.layerSelection = true;
             inputState.page = 'somePage';
             inputState.detail = {some: 'object'};
-            inputState.staatbeeld = {some: 'object'};
+            inputState.straatbeeld = null;
             inputState.dataSelection = {some: 'object'};
 
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY](inputState, 'linnaeus');
@@ -51,6 +51,28 @@ describe('The search-reducers factory', function () {
             expect(output.detail).toBeNull();
             expect(output.straatbeeld).toBeNull();
             expect(output.dataSelection).toBeNull();
+        });
+
+        it('clears the straatbeeld id when a straatbeeld is active', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.straatbeeld = {id: 'object'};
+
+            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY](inputState, 'linnaeus');
+
+            expect(output.straatbeeld).toEqual({id: null});
+        });
+
+        it('only clears the straatbeeld id when a straatbeeld is active', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.straatbeeld = {id: 'object', location: [1, 2], some: 'abc'};
+
+            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY](inputState, 'linnaeus');
+
+            expect(output.straatbeeld).toEqual({id: null, location: [1, 2], some: 'abc'});
         });
 
         it('disables the fullscreen mode of the map', function () {
@@ -128,6 +150,39 @@ describe('The search-reducers factory', function () {
             inputState.layerSelection = true;
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION](inputState, [52.001, 4.002]);
             expect(output.map.viewCenter).toEqual([52.001, 4.002]);
+        });
+
+        it('clears the straatbeeld id when no straatbeeld exists', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.straatbeeld = null;
+
+            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION](inputState, 'linnaeus');
+
+            expect(output.straatbeeld).toBeNull();
+        });
+
+        it('clears the straatbeeld id when a straatbeeld is active', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.straatbeeld = {id: 'object'};
+
+            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION](inputState, 'linnaeus');
+
+            expect(output.straatbeeld).toEqual({id: null});
+        });
+
+        it('only clears the straatbeeld id when a straatbeeld is active', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.straatbeeld = {id: 'object', location: [1, 2], some: 'abc'};
+
+            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION](inputState, 'linnaeus');
+
+            expect(output.straatbeeld).toEqual({id: null, location: [1, 2], some: 'abc'});
         });
 
         it('disables the fullscreen mode of the map', function () {

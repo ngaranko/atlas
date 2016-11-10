@@ -104,6 +104,17 @@ describe('Straatbeeld reducers factory', function () {
             var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD](inputState, payload);
             expect(newState.search).toBeNull();
         });
+
+        it('has a default heading of 0', function () {
+            inputState.search = {
+                query: 'linnaeus'
+            };
+            inputState.straatbeeld = null;
+            payload.heading = null;
+
+            var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD](inputState, payload);
+            expect(newState.straatbeeld.heading).toBe(0);
+        });
     });
 
     describe('SHOW_STRAATBEELD', function () {
@@ -177,14 +188,17 @@ describe('Straatbeeld reducers factory', function () {
             expect(output.straatbeeld.targetLocation).toEqual(location);
         });
 
-        it('sets the straatbeeld to the new location only if straatbeeld is active', function () {
+        it('can set the straatbeeld to the new location from scratch', function () {
             var state = {},
                 output;
 
             let location = [52.001, 4.002];
             output = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION](state, location);
 
-            expect(output).toEqual(state);
+            expect(output.straatbeeld.id).toBeNull();
+            expect(output.straatbeeld.isLoading).toBe(true);
+            expect(output.straatbeeld.location).toEqual(location);
+            expect(output.straatbeeld.targetLocation).toEqual(location);
         });
 
         it('heads towards a targetlocation', function () {
