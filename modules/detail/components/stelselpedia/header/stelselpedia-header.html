@@ -12,10 +12,6 @@
     <div class="o-header__buttongroup">
         <button ng-click="vm.toggle('help')"
             class="o-header__button c-stelselpedia__button"
-            ng-class="{
-                'is-stelselpedia--active' : vm.isVisible.help,
-                'c-stelselpedia__button': !vm.isVisible.help
-            }"
             title="{{ vm.stelselpediaTitle }}">
             <span class="o-header__button--image ">
                 <span class="u-sr-only">{{ vm.stelselpediaTitle  }}</span>
@@ -24,11 +20,7 @@
 
         <button ng-if="vm.hasMetaData"
             ng-click="vm.toggle('meta')"
-            class="o-header__button"
-            ng-class="{
-                'is-metadata--active' : vm.isVisible.meta,
-                'c-metadata__button': !vm.isVisible.meta
-            }"
+            class="o-header__button c-metadata__button"
             title="{{ vm.metaDataTitle  }}">
             <span class="o-header__button--image ">
                 <span class="u-sr-only">{{ vm.metaDataTitle  }}</span>
