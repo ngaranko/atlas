@@ -4,7 +4,7 @@
             type="FETCH_DETAIL"
             payload="link.endpoint">
 
-            {{link.label | longNameShortener}}
+            {{vm.getLabel(link) | longNameShortener}}
         </dp-link>
 
         <span ng-if="vm.showSubtype(vm.category.slug, link)">

@@ -58,6 +58,9 @@
                 ]).then(combineResults);
 
                 function formatVerblijfsobjecten (objecten) {
+                    // In verblijfsobjecten the status field is really a vbo_status field
+                    // Rename this field to allow for tranparant processing of the search results
+                    objecten.results.forEach(result => result.vbo_status = result.vbo_status || result.status);
                     const formatted = (objecten && objecten.count)
                             ? searchFormatter.formatCategory('adres', objecten) : null,
                         extended = formatted ? angular.extend(formatted, {

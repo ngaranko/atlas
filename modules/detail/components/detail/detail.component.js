@@ -83,7 +83,14 @@
                             geometry: geoJSON
                         }
                     });
-                });
+                }, errorHandler);
+            }, errorHandler);
+        }
+
+        function errorHandler () {
+            store.dispatch({
+                type: ACTIONS.SHOW_DETAIL,
+                payload: {}
             });
         }
     }
