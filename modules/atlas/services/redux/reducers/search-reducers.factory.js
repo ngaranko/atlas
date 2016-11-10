@@ -56,7 +56,6 @@
         function fetchSearchResultsByLocationReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
-            // Search at location
             newState.search = {
                 isLoading: true,
                 query: null,

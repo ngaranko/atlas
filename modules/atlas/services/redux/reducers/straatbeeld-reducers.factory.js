@@ -42,6 +42,7 @@
 
             newState.search = null;
             newState.page = null;
+            // leave detail unchanged, straatbeeld can be 'on top' of detail page
 
             newState.dataSelection = null;
 
@@ -116,7 +117,6 @@
                 newState.straatbeeld.isLoading = false;
                 newState.straatbeeld.location = payload.location;
                 newState.straatbeeld.image = payload.image;
-
                 newState.map.isLoading = false;
             }
 

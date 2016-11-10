@@ -253,6 +253,12 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.straatbeeld).toBe(true);
             });
 
+            it('does not show any straatbeeld when no id or location is available', function () {
+                mockedState.straatbeeld = {some: 'what'};
+                visibility = dashboardColumns.determineVisibility(mockedState);
+                expect(visibility.straatbeeld).toBe(false);
+            });
+
             it('left column: 0/3, middle column: 1/3, right column 2/3', function () {
                 expect(columnSizes.left).toBe(0);
                 expect(columnSizes.middle).toBe(4);

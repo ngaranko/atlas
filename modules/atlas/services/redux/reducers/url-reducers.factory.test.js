@@ -453,7 +453,7 @@ describe('The urlReducers factory', function () {
             });
 
             it('can save its heading', function () {
-                var output;
+                let output;
 
                 mockedSearchParams.heading = '179';
                 mockedSearchParams.pitch = '1';

@@ -88,7 +88,7 @@ describe('Straatbeeld reducers factory', function () {
         it('keeps detail information', function () {
             inputState.detail = {
                 endpoint: 'bag/verblijfsobject/123/',
-                geometry: null,
+                geometry: 'aap',
                 isLoading: false
             };
 

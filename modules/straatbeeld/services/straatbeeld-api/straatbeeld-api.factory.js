@@ -26,7 +26,7 @@
         }
 
         function imageData (response) {
-            var formattedGeometrie = {
+            let formattedGeometrie = {
                 coordinates: [
                     response.geometrie.coordinates[1],
                     response.geometrie.coordinates[0]

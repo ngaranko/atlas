@@ -64,7 +64,7 @@ describe('The search-reducers factory', function () {
             expect(output.straatbeeld).toEqual({id: null});
         });
 
-        it('only clears the straatbeeld id when a straatbeeld is active', function () {
+        it('only clears straatbeeld id when a straatbeeld is active', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
@@ -174,7 +174,7 @@ describe('The search-reducers factory', function () {
             expect(output.straatbeeld).toEqual({id: null});
         });
 
-        it('only clears the straatbeeld id when a straatbeeld is active', function () {
+        it('only clears straatbeeld id when a straatbeeld is active', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
