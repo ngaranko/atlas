@@ -171,6 +171,15 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.dataSelectionList).toBe(false);
             });
 
+            it('hides the detail page when a straatbeeld is visible', function () {
+                mockedState.straatbeeld = {
+                    id: 'aap'
+                };
+                visibility = dashboardColumns.determineVisibility(mockedState);
+                expect(visibility.straatbeeld).toBe(true);
+                expect(visibility.detail).toBe(false);
+            });
+
             it('left column: 0/3, middle column: 1/3, right column 2/3', function () {
                 expect(columnSizes.left).toBe(0);
                 expect(columnSizes.middle).toBe(4);

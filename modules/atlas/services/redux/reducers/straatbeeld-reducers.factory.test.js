@@ -85,7 +85,7 @@ describe('Straatbeeld reducers factory', function () {
             expect(newState.straatbeeld.image).toBeNull();
         });
 
-        it('keeps detail information', function () {
+        it('keeps detail information when starting straatbeeld', function () {
             inputState.detail = {
                 endpoint: 'bag/verblijfsobject/123/',
                 geometry: 'aap',
