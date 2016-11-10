@@ -85,7 +85,7 @@ describe('Straatbeeld reducers factory', function () {
             expect(newState.straatbeeld.image).toBeNull();
         });
 
-        it('resets detail information', function () {
+        it('keeps detail information', function () {
             inputState.detail = {
                 endpoint: 'bag/verblijfsobject/123/',
                 geometry: null,
@@ -93,7 +93,7 @@ describe('Straatbeeld reducers factory', function () {
             };
 
             var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD](inputState, payload);
-            expect(newState.detail).toBeNull();
+            expect(newState.detail).toEqual(inputState.detail);
         });
 
         it('resets search results', function () {

@@ -82,4 +82,22 @@ describe('The contextMiddleware factory', function () {
             payload: [1, 2]
         });
     });
+
+    it('translates CLOSE_STRAATBEELD action in fetch detail when coming from details', function () {
+        mockedAction.type = ACTIONS.CLOSE_STRAATBEELD;
+        mockedStore.getState = () => {
+            return {
+                detail: {
+                    endpoint: 'aap'
+                }
+            };
+        };
+
+        let returnValue = contextMiddleware(mockedStore)(mockedNext)(mockedAction);
+
+        expect(returnValue).toEqual({
+            type: ACTIONS.FETCH_DETAIL,
+            payload: 'aap'
+        });
+    });
 });
