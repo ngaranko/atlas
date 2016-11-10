@@ -19,7 +19,8 @@ describe('the dp-detail component', function () {
                     getByUrl: function (endpoint) {
                         var q = $q.defer();
 
-                        if (endpoint === 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/') {
+                        if (endpoint === 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/' ||
+                                endpoint === 'http://www.fake-endpoint.amsterdam.nl/brk/geo/404/') {
                             q.resolve({
                                 _display: 'Adresstraat 1A',
                                 dummy: 'A',
@@ -46,6 +47,8 @@ describe('the dp-detail component', function () {
                                 something: 4,
                                 is_natuurlijk_persoon: false
                             });
+                        } else if (endpoint === 'http://www.fake-endpoint.amsterdam.nl/brk/subject/404/') {
+                            q.reject();
                         }
 
                         return q.promise;
@@ -91,6 +94,8 @@ describe('the dp-detail component', function () {
                             q.resolve(mockedGeometryMultiPolygon);
                         } else if (endpoint === 'http://www.fake-endpoint.com/brk/subject/123/') {
                             q.resolve(null);
+                        } else if (endpoint === 'http://www.fake-endpoint.amsterdam.nl/brk/geo/404/') {
+                            q.reject();
                         }
 
                         return q.promise;
@@ -368,5 +373,23 @@ describe('the dp-detail component', function () {
         user.isLoggedIn = false;
         scope.$apply();
         expect(scope.vm.isMoreInfoAvailable).toBe(false);
+    });
+
+    it('gracefully handles a 404 with no data', function () {
+        getComponent('http://www.fake-endpoint.amsterdam.nl/brk/subject/404/');
+
+        expect(store.dispatch).toHaveBeenCalledWith({
+            type: ACTIONS.SHOW_DETAIL,
+            payload: {}
+        });
+    });
+
+    it('gracefully handles a 404 from geo json', function () {
+        getComponent('http://www.fake-endpoint.amsterdam.nl/brk/geo/404/');
+
+        expect(store.dispatch).toHaveBeenCalledWith({
+            type: ACTIONS.SHOW_DETAIL,
+            payload: {}
+        });
     });
 });
