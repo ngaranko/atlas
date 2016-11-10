@@ -5,5 +5,6 @@
     padding-top: $base-whitespace * .3;
     padding-bottom: $base-whitespace * .4;
     padding-left: $base-whitespace;
+    line-height: $button-size - ($base-whitespace * .3) - ($base-whitespace * .4);
   }
 }
