@@ -30,4 +30,9 @@ describe('The applicationState factory', function () {
         applicationState.initialize(fakeReducer, fakeDefaultState, fakeMiddleware);
         expect(applicationState.getStore()).toBe('THIS_IS_THE_FAKE_STORE');
     });
+
+    it('can return the reducer', function () {
+        applicationState.initialize(fakeReducer, fakeDefaultState, fakeMiddleware);
+        expect(applicationState.getReducer()).toBe('I_AM_THE_REDUCER');
+    });
 });

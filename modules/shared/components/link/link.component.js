@@ -5,9 +5,11 @@
         .module('dpShared')
         .directive('dpLink', DpLinkDirective);
 
-    DpLinkDirective.$inject = ['store', 'ACTIONS', 'reducer', 'stateToUrl', 'debounce'];
+    DpLinkDirective.$inject = ['store', 'ACTIONS', 'applicationState', 'stateToUrl', 'debounce'];
 
-    function DpLinkDirective (store, ACTIONS, reducer, stateToUrl, debounce) {
+    function DpLinkDirective (store, ACTIONS, applicationState, stateToUrl, debounce) {
+        const reducer = applicationState.getReducer();
+
         return {
             templateUrl: 'modules/shared/components/link/link.html',
             transclude: true,

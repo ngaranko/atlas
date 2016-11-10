@@ -6,6 +6,9 @@ describe('The dp-link component', function () {
         reducer = {
             fn: angular.noop
         },
+        applicationState = {
+            getReducer: () => reducer.fn
+        },
         stateToUrl = {
             create: angular.noop
         },
@@ -31,10 +34,9 @@ describe('The dp-link component', function () {
                     subscribe: fn => updateFn = fn,
                     getState: angular.noop
                 },
-                reducer: reducer.fn,
+                applicationState,
                 stateToUrl,
-                debounce: debounce.fn,
-                document: { body }
+                debounce: debounce.fn
             }, $provide => {
                 $provide.constant('ACTIONS', {
                     SHOW_PAGE: 'show-page',
@@ -148,7 +150,7 @@ describe('The dp-link component', function () {
             expect(component.find('a').attr('href')).toBe(url);
         });
 
-        it('sets updates the href attribute on the link when the state changes', () => {
+        it('updates the href attribute on the link when the state changes', () => {
             const oldUrl = 'http://reduced-state.amsterdam.nl';
             const newUrl = 'http://new-reduced-state.amsterdam.nl';
             let component;
@@ -162,6 +164,28 @@ describe('The dp-link component', function () {
             updateFn();
             $rootScope.$apply();
             expect(component.find('a').attr('href')).toBe(newUrl);
+        });
+
+        it('does not update after the element has been destroyed', () => {
+            const oldUrl = 'http://reduced-state.amsterdam.nl';
+            const newUrl = 'http://new-reduced-state.amsterdam.nl';
+            let component;
+
+            stateToUrl.create.and.returnValue(oldUrl);
+
+            component = getComponent('SHOW_PAGE', 'welkom');
+
+            stateToUrl.create.and.returnValue(newUrl);
+
+            component.triggerHandler({type: '$destroy'});
+
+            updateFn();
+            $rootScope.$apply();
+
+            expect(store.getState.calls.count()).toBe(1);
+            expect(reducer.fn.calls.count()).toBe(1);
+            expect(stateToUrl.create.calls.count()).toBe(1);
+            expect(component.find('a').attr('href')).toBe(oldUrl);
         });
     });
 
