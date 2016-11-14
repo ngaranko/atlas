@@ -35,8 +35,9 @@ $dashboard-error-height: $button-size + 2 * $base-whitespace;
 
 .is-print-mode {
   .c-dashboard {
-    padding: $base-whitespace * 2 0;
+    padding: $base-whitespace * 2 0 0 0;
     border-right: solid $secondary-gray20 1px;
+    border-bottom: solid $secondary-gray20 1px;
     border-left: solid $secondary-gray20 1px;
     overflow: visible;
   }
@@ -51,6 +52,16 @@ $dashboard-error-height: $button-size + 2 * $base-whitespace;
   .c-dashboard__content {
     padding: $base-whitespace $base-whitespace * 2;
     box-shadow: 0 0 5px $secondary-gray40;
+  }
+
+  &.print-landscape {
+    body {
+      width: 1280px;
+    }
+  }
+
+  .c-map {
+    height: 700px;
   }
 }
 
