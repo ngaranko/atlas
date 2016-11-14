@@ -253,7 +253,7 @@ describe('The geosearch factory', function () {
 
         mockedVerblijfsobjectenApiResults = {
             count: 2,
-            results: ['FAKE_VBO_RESULT_1', 'FAKE_VBO_RESULT_2']
+            results: [{xyz: 'FAKE_VBO_RESULT_1'}, {xyz: 'FAKE_VBO_RESULT_2'}]
         };
 
         mockedFormattedVerblijfsobjectenApiResults = {
@@ -560,6 +560,37 @@ describe('The geosearch factory', function () {
             };
 
             expect(searchResults).toEqual(expectedSearchResults);
+        });
+
+        it('returns no vestigingen when api returns 0 vestigingen', function () {
+            var searchResults;
+
+            mockedVestigingenApiResults = {
+                count: 0,
+                results: []
+            };
+
+            // clear any lig/standplaats identificatie
+            delete mockedStandplaatsApiResults.ligplaatsidentificatie;
+            delete mockedStandplaatsApiResults.standplaatsidentificatie;
+
+            // Insert a standplaats into the mocked result set
+            mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedStandplaatsSearchResult);
+            mockedFormattedSearchResults.splice(1, 0, mockedFormattedStandplaatsSearchResult);
+
+            geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
+                searchResults = _searchResults_;
+            });
+
+            $rootScope.$apply();
+
+            expect(searchResults.length).toBe(3);
+            expect(searchResults[0].slug).toBe(null);
+            expect(searchResults[1].slug).toBe('plaats');
+            expect(searchResults[2].slug).toBe(null);
+            expect(searchResults[0].label_singular).toBe(undefined);
+            expect(searchResults[1].label_singular).toBe(undefined);
+            expect(searchResults[2].label_singular).toBe(undefined);
         });
     });
 });

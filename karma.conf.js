@@ -22,14 +22,8 @@ module.exports = function (config) {
         // possible values: OFF, ERROR, WARN, INFO, DEBUG
         logLevel: 'ERROR',
         preprocessors: {
-            'modules/**/!(*.test).js': ['babel', 'coverage'],
+            'modules/**/!(*.test).js': ['coverage', 'babel'],
             'build/temp/babel/es5tests/*.js': ['sourcemap']
-        },
-        babelPreprocessor: {
-            options: {
-                presets: ['es2015'],
-                compact: false
-            }
         },
         mochaReporter: {
             output: 'minimal'
@@ -37,14 +31,14 @@ module.exports = function (config) {
         coverageReporter: {
             type: 'html',
             dir: 'reports/coverage/',
-            // check: {
-            //     global: {
-            //         statements: 90,
-            //         branches: 90,
-            //         functions: 90,
-            //         lines: 90
-            //     }
-            // }
+            check: {
+                global: {
+                    statements: 95,
+                    branches: 95,
+                    functions: 95,
+                    lines: 95
+                }
+            }
         },
         browsers: ['PhantomJS'],
         singleRun: true

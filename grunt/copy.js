@@ -10,7 +10,11 @@ module.exports = function (grunt) {
             files: [
                 {
                     cwd: 'modules/shared/assets/',
-                    src: '**/*',
+                    src: [
+                        '**/*',
+                        '!svg-icons',
+                        '!svg-icons/**/*'
+                    ],
                     dest: 'build/assets/',
                     expand: true,
                     flatten: false
@@ -60,6 +64,17 @@ module.exports = function (grunt) {
                     dest: 'build/',
                     expand: true,
                     flatten: false
+                }
+            ]
+        },
+        githooks: {
+            files: [
+                {
+                    cwd: 'grunt/githooks/',
+                    src: '*',
+                    dest: '.git/hooks',
+                    expand: true,
+                    flatten: true
                 }
             ]
         },

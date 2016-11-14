@@ -10,6 +10,23 @@ module.exports = function (grunt) {
         },
         coverage: {
             reporters: ['mocha', 'coverage']
+        },
+        fullcoverage: {
+            reporters: ['mocha', 'coverage'],
+            options: {
+                coverageReporter: {
+                    type: 'html',
+                    dir: 'reports/coverage/',
+                    check: {
+                        global: {
+                            statements: 100,
+                            branches: 100,
+                            functions: 100,
+                            lines: 100
+                        }
+                    }
+                }
+            }
         }
         //
         // The code below generates targets as follows:
@@ -77,8 +94,8 @@ module.exports = function (grunt) {
                                 `build/temp/babel/es5tests/atlas.${module.slug}.js`
                             ],
                             preprocessors: {
+                                ['modules/' + module.slug + '/**/!(*.test).js']: ['coverage'],
                                 'modules/**/*.js': ['babel'],
-                                ['modules/' + module.slug + '/**/*.js']: ['coverage'],
                                 'build/temp/babel/es5tests/*.js': ['sourcemap']
                             }
                         }
