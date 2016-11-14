@@ -17,6 +17,7 @@
     "grunt-angular-templates": "^1.0.4",
     "grunt-babel": "^6.0.0",
     "grunt-bower-concat": "^1.0.0",
+    "grunt-check-dependencies": "^1.0.0",
     "grunt-console-log-test": "^1.0.2",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-concat": "^1.0.1",

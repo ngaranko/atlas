@@ -19,6 +19,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
         babel: require(gruntDir + 'babel')(grunt),
         bower_concat: require(gruntDir + 'bower-concat'),
+        checkDependencies: {this: {}},
         clean: require(gruntDir + 'clean'),
         concat: require(gruntDir + 'concat')(grunt),
         connect: require(gruntDir + 'connect'),
@@ -39,6 +40,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-angular-templates');
     grunt.loadNpmTasks('grunt-babel');
     grunt.loadNpmTasks('grunt-bower-concat');
+    grunt.loadNpmTasks('grunt-check-dependencies');
     grunt.loadNpmTasks('grunt-console-log-test');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-concat');
