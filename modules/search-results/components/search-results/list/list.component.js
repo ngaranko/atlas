@@ -25,9 +25,8 @@
                 categorySlug === 'gebied');
         };
 
-        vm.getLabel = function (link) {
+        vm.getExtraInfo = function (link) {
             if (angular.isObject(link)) {
-                const label = link.label || '';
                 let extraInfo = '';
 
                 if (link.hoofdadres === false) {
@@ -38,7 +37,7 @@
                     extraInfo += ` (${link.vbo_status.omschrijving.toLowerCase()})`;
                 }
 
-                return `${label}${extraInfo}`;
+                return extraInfo;
             }
         };
     }

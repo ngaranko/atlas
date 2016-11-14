@@ -117,7 +117,8 @@ describe('The dp-search-results-list component', function () {
 
         expect(component.find('dp-link').length).toBe(12);
 
-        expect(component.find('dp-link').eq(0).find('button').text().trim()).toBe('Link #1 (nevenadres)');
+        expect(component.find('dp-link').eq(0).find('button').text().trim()).toBe('Link #1');
+        expect(component.find('.qa-search-results__link-extra-info').eq(0).text().trim()).toBe('(nevenadres)');
         component.find('dp-link').eq(0).find('button').click();
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.FETCH_DETAIL,
@@ -125,9 +126,14 @@ describe('The dp-search-results-list component', function () {
         });
 
         expect(component.find('dp-link').eq(1).find('button').text().trim())
-            .toBe('Link #2 (verblijfsobject gevormd)');
+            .toBe('Link #2');
+        expect(component.find('.qa-search-results__link-extra-info').eq(1).text().trim())
+            .toBe('(verblijfsobject gevormd)');
+
         expect(component.find('dp-link').eq(2).find('button').text().trim())
-            .toBe('Link #3 (nevenadres) (verblijfsobject gevormd)');
+            .toBe('Link #3');
+        expect(component.find('.qa-search-results__link-extra-info').eq(2).text().trim())
+            .toBe('(nevenadres) (verblijfsobject gevormd)');
 
         expect(component.find('dp-link').eq(3).find('button').text().trim()).toBe('');
         expect(component.find('dp-link').eq(10).find('button').text().trim()).toBe('Link #11');
