@@ -6,11 +6,12 @@ describe('The dp-link component', function () {
         reducer = {
             fn: angular.noop
         },
-        applicationState = {
-            getReducer: () => reducer.fn
-        },
         stateToUrl = {
             create: angular.noop
+        },
+        applicationState = {
+            getReducer: () => reducer.fn,
+            getStateToUrl: () => stateToUrl
         },
         debounce = {
             fn: (time, fn) => {

@@ -5,10 +5,11 @@
         .module('dpShared')
         .directive('dpLink', DpLinkDirective);
 
-    DpLinkDirective.$inject = ['store', 'ACTIONS', 'applicationState', 'stateToUrl', 'debounce'];
+    DpLinkDirective.$inject = ['store', 'ACTIONS', 'applicationState', 'debounce'];
 
-    function DpLinkDirective (store, ACTIONS, applicationState, stateToUrl, debounce) {
-        const reducer = applicationState.getReducer();
+    function DpLinkDirective (store, ACTIONS, applicationState, debounce) {
+        const reducer = applicationState.getReducer(),
+            stateToUrl = applicationState.getStateToUrl();
 
         return {
             templateUrl: 'modules/shared/components/link/link.html',
@@ -23,8 +24,12 @@
         };
 
         function linkFn (scope, element) {
-            const unsubscribe = store.subscribe(debounce(300, update));
+            let unsubscribe = angular.noop;
             let destroyed = false;
+
+            if (store && store.subscribe && debounce) {
+                unsubscribe = store.subscribe(debounce(300, update));
+            }
 
             scope.className = scope.className || 'o-btn o-btn--link';
 
