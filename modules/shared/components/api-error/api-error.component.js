@@ -12,7 +12,10 @@
     function DpApiErrorController (httpStatus) {
         let vm = this;
 
-        // Simply expose the http status
+        // We need the error type keys on the httpStatus object
+        vm.errorKeys = httpStatus;
+
+        // Simply expose the http status as well
         vm.httpStatus = httpStatus.getStatus();
     }
 })();

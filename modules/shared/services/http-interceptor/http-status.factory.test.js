@@ -16,17 +16,20 @@ describe('The http-status component', function () {
 
     it('defaults to error type SERVER when no error type is given', function () {
         httpStatus.registerError();
-        expect(httpStatus.getStatus().errorType).toBe('SERVER');
+        expect(httpStatus.getStatus()[httpStatus.SERVER_ERROR]).toBe(true);
+        expect(httpStatus.getStatus()[httpStatus.NOT_FOUND_ERROR]).toBe(false);
     });
 
     it('sets the error type given', function () {
-        httpStatus.registerError('NOT_FOUND');
-        expect(httpStatus.getStatus().errorType).toBe('NOT_FOUND');
+        httpStatus.registerError(httpStatus.NOT_FOUND_ERROR);
+        expect(httpStatus.getStatus()[httpStatus.SERVER_ERROR]).toBe(false);
+        expect(httpStatus.getStatus()[httpStatus.NOT_FOUND_ERROR]).toBe(true);
     });
 
     it('silently defaults to error type SERVER when an erroneous error type is given', function () {
         httpStatus.registerError('FAULTY_ERROR_TYPE');
-        expect(httpStatus.getStatus().errorType).toBe('SERVER');
+        expect(httpStatus.getStatus()[httpStatus.SERVER_ERROR]).toBe(true);
+        expect(httpStatus.getStatus()[httpStatus.NOT_FOUND_ERROR]).toBe(false);
     });
 
     it('is able to register multiple http errors', function () {
@@ -34,10 +37,17 @@ describe('The http-status component', function () {
         expect(httpStatus.getStatus().hasErrors).toBe(true);
     });
 
-    it('uses the last provided error type', function () {
-        ['SERVER', 'SERVER', 'SERVER', 'SERVER', 'NOT_FOUND'].forEach(
+    it('uses the last provided error type with highest priority', function () {
+        [
+            httpStatus.SERVER_ERROR,
+            httpStatus.SERVER_ERROR,
+            httpStatus.NOT_FOUND_ERROR,
+            httpStatus.SERVER_ERROR
+        ].forEach(
             type => httpStatus.registerError(type));
-        expect(httpStatus.getStatus().errorType).toBe('NOT_FOUND');
+
+        expect(httpStatus.getStatus()[httpStatus.SERVER_ERROR]).toBe(false);
+        expect(httpStatus.getStatus()[httpStatus.NOT_FOUND_ERROR]).toBe(true);
     });
 
     it('shows nothing when nothing has happened', function () {

@@ -3,6 +3,8 @@ describe('The api-error component', function () {
         $rootScope,
         currentStatus,
         httpStatus = {
+            SERVER_ERROR: 'SERVER_ERROR',
+            NOT_FOUND_ERROR: 'NOT_FOUND_ERROR',
             getStatus: () => currentStatus
         };
 
@@ -39,7 +41,8 @@ describe('The api-error component', function () {
     it('shows a server error message when the error type is set to SERVER', function () {
         currentStatus = {
             hasErrors: true,
-            errorType: 'SERVER'
+            SERVER_ERROR: true,
+            NOT_FOUND_ERROR: false
         };
 
         let component = getComponent();
@@ -50,32 +53,11 @@ describe('The api-error component', function () {
     it('shows a not-found error message when the error type is set to NOT_FOUND', function () {
         currentStatus = {
             hasErrors: true,
-            errorType: 'NOT_FOUND'
+            NOT_FOUND_ERROR: true
         };
 
         let component = getComponent();
         expect(component.find('.qa-api-server-error').length).toBe(0);
         expect(component.find('.qa-api-not-found-error').length).toBe(1);
-    });
-
-    it('defaults to a server error message without an error type', function () {
-        currentStatus = {
-            hasErrors: true
-        };
-
-        let component = getComponent();
-        expect(component.find('.qa-api-server-error').length).toBe(1);
-        expect(component.find('.qa-api-not-found-error').length).toBe(0);
-    });
-
-    it('defaults to a server error message with an erroneous error type', function () {
-        currentStatus = {
-            hasErrors: true,
-            errorType: 'FAULTY_ERROR_TYPE'
-        };
-
-        let component = getComponent();
-        expect(component.find('.qa-api-server-error').length).toBe(1);
-        expect(component.find('.qa-api-not-found-error').length).toBe(0);
     });
 });
