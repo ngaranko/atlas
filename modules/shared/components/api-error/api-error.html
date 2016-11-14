@@ -1,7 +1,7 @@
 <div class="c-api-error__panel">
     <dp-panel is-panel-visible="vm.httpStatus.hasErrors"
               type="danger" can-close="true" class="qa-api-error">
-        <div ng-switch="vm.httpStatus.errorType">
+        <div ng-switch="vm.httpStatus.errorType" class="c-api-error__panel__text">
             <span ng-switch-when="NOT_FOUND" class="qa-api-not-found-error">
                 Deze informatie is niet beschikbaar. Dit is reeds teruggemeld.
             </span>

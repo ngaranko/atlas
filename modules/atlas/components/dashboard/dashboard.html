@@ -4,8 +4,19 @@
             <dp-header query="{{header.query}}" has-print-button="header.hasPrintButton" is-print-mode="vm.isPrintMode"></dp-header>
         </div>
     </div>
-    <div class="c-dashboard__content"
+
+    <div ng-if="vm.visibility.httpStatus.hasErrors"
         ng-class="{
+            'u-padding__right--2': !vm.isPrintMode,
+            'u-padding__left--2': !vm.isPrintMode
+        }">
+
+        <dp-api-error></dp-api-error>
+    </div>
+
+    <div ng-class="{
+            'c-dashboard__content': !vm.visibility.httpStatus.hasErrors,
+            'c-dashboard__content--error': vm.visibility.httpStatus.hasErrors,
             'u-padding__right--2': !vm.isPrintMode && !vm.isRightColumnScrollable,
             'u-padding__left--2': !vm.isPrintMode
         }">
@@ -33,10 +44,6 @@
 
                         </dp-layer-selection>
                     </div>
-                </div>
-
-                <div ng-class="{'u-padding__right--2': !vm.isPrintMode}">
-                    <dp-api-error></dp-api-error>
                 </div>
 
                 <div ng-if="vm.columnSizes.middle"
