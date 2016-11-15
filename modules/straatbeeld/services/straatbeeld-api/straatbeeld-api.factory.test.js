@@ -64,12 +64,20 @@ describe('The straatbeeldApi Factory', function () {
         });
     });
 
-    it('calls the API factory with the correct endpoint', function () {
+    it('calls the API factory with the correct endpoint for id', function () {
         spyOn(api, 'getByUrl').and.callThrough();
 
         straatbeeldApi.getImageDataById('ABC');
 
         expect(api.getByUrl).toHaveBeenCalledWith('http://example.com/example/ABC/');
+    });
+
+    it('calls the API factory with the correct endpoint for location', function () {
+        spyOn(api, 'getByUrl').and.callThrough();
+
+        straatbeeldApi.getImageDataByLocation([52, 4]);
+
+        expect(api.getByUrl).toHaveBeenCalledWith('http://example.com/example/?lat=52&lon=4&radius=10000');
     });
 
     describe('the API will be mapped to the state structure', function () {

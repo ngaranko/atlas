@@ -13,8 +13,8 @@
             getStore: getStore
         };
 
-        function initialize (reducer, defaultState, middleware) {
-            var enhancer = Redux.applyMiddleware(middleware);
+        function initialize (reducer, defaultState, ...middleware) {
+            var enhancer = Redux.applyMiddleware(...middleware);
 
             store = Redux.createStore(reducer, defaultState, enhancer);
         }
