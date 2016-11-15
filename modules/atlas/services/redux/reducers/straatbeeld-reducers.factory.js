@@ -11,6 +11,7 @@
         var reducers = {};
 
         reducers[ACTIONS.FETCH_STRAATBEELD] = fetchStraatbeeldReducer;
+        reducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION] = fetchStraatbeeldByLocationReducer;
         reducers[ACTIONS.SHOW_STRAATBEELD_INITIAL] = showStraatbeeldReducer;
         reducers[ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT] = showStraatbeeldReducer;
         reducers[ACTIONS.SET_STRAATBEELD_ORIENTATION] = setOrientationReducer;
@@ -29,28 +30,61 @@
             var newState = angular.copy(oldState);
 
             newState.straatbeeld = newState.straatbeeld || {};
-            newState.straatbeeld.id = payload.id;
-            newState.straatbeeld.heading = payload.heading || oldState.straatbeeld.heading;
-            newState.straatbeeld.isInitial = payload.isInitial;
-            newState.straatbeeld.date = null;
-            newState.straatbeeld.hotspots = [];
-            newState.straatbeeld.isLoading = true;
-            newState.straatbeeld.location = null;
+            initializeStraatbeeld(newState.straatbeeld);
 
-            newState.straatbeeld.pitch = null;
-            newState.straatbeeld.fov = null;
-            newState.straatbeeld.image = null;
+            newState.straatbeeld.id = payload.id;
+            newState.straatbeeld.heading = payload.heading ||
+                (oldState.straatbeeld && oldState.straatbeeld.heading) ||
+                0;
+            newState.straatbeeld.isInitial = payload.isInitial;
+
             newState.map.highlight = null;
 
             newState.search = null;
             newState.page = null;
-            newState.detail = null;
+            // leave detail unchanged, straatbeeld can be 'on top' of detail page
 
             newState.dataSelection = null;
 
             newState.map.isLoading = true;
 
             return newState;
+        }
+
+        /**
+         * @param {Object} oldState
+         * @param {Array} payload - A location, e.g. [52.123, 4.789]
+         *
+         * @returns {Object} newState
+         */
+        function fetchStraatbeeldByLocationReducer (oldState, payload) {
+            var newState = angular.copy(oldState);
+
+            newState.straatbeeld = newState.straatbeeld || {};
+            initializeStraatbeeld(newState.straatbeeld);
+
+            newState.straatbeeld.location = payload;
+            newState.straatbeeld.targetLocation = payload;
+
+            return newState;
+        }
+
+        function initializeStraatbeeld (straatbeeld) {
+            straatbeeld.id = null;
+            straatbeeld.location = null;
+
+            straatbeeld.isInitial = true;
+
+            straatbeeld.date = null;
+            straatbeeld.hotspots = [];
+
+            straatbeeld.heading = null;
+            straatbeeld.pitch = null;
+            straatbeeld.fov = null;
+
+            straatbeeld.image = null;
+
+            straatbeeld.isLoading = true;
         }
 
         /**
@@ -64,10 +98,20 @@
 
             // Straatbeeld can be null if another action gets triggered between FETCH_STRAATBEELD and SHOW_STRAATBEELD
             if (angular.isObject(newState.straatbeeld)) {
+                newState.straatbeeld.id = payload.id || newState.straatbeeld.id;
                 newState.straatbeeld.date = payload.date;
 
                 newState.straatbeeld.pitch = oldState.straatbeeld.pitch || 0;
                 newState.straatbeeld.fov = oldState.straatbeeld.fov || straatbeeldConfig.DEFAULT_FOV;
+                if (angular.isArray(newState.straatbeeld.targetLocation)) {
+                    // Point at the target location
+                    newState.straatbeeld.heading = getHeadingDegrees(
+                        payload.location,
+                        newState.straatbeeld.targetLocation);
+                } else {
+                    // Center the map on the new location
+                    newState.map.viewCenter = payload.location;
+                }
 
                 newState.straatbeeld.hotspots = payload.hotspots;
                 newState.straatbeeld.isLoading = false;
@@ -87,6 +131,10 @@
             newState.straatbeeld.fov = payload.fov;
 
             return newState;
+        }
+
+        function getHeadingDegrees ([x1, y1], [x2, y2]) {
+            return Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
         }
     }
 })();
