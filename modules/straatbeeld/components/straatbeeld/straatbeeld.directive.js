@@ -39,14 +39,14 @@
             };
 
             // Fetch scene by location
-            scope.$watchCollection('state.location', function (location, oldLocation) {
+            scope.$watchCollection('state.location', function (location) {
                 if (!scope.state.id && angular.isArray(location)) {
                     straatbeeldApi.getImageDataByLocation(location).then(showStraatbeeld);
                 }
             });
 
             // Fetch scene by id
-            scope.$watch('state.id', function (id, oldId) {
+            scope.$watch('state.id', function (id) {
                 if (!angular.isArray(scope.state.location) && angular.isString(id)) {
                     straatbeeldApi.getImageDataById(id).then(showStraatbeeld);
                 }

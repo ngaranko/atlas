@@ -133,9 +133,7 @@
             return newState;
         }
 
-        function getHeadingDegrees (p1, p2) {
-            let [x1, y1] = p1;
-            let [x2, y2] = p2;
+        function getHeadingDegrees ([x1, y1], [x2, y2]) {
             return Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
         }
     }

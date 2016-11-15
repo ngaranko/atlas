@@ -12,11 +12,7 @@ describe('The contextMiddleware factory', function () {
             type: 'FAKE_ACTION',
             payload: {}
         },
-        ACTIONS = {
-            MAP_CLICK: 'MAP_CLICK',
-            FETCH_STRAATBEELD_BY_LOCATION: 'FETCH_STRAATBEELD_BY_LOCATION',
-            FETCH_SEARCH_RESULTS_BY_LOCATION: 'FETCH_SEARCH_RESULTS_BY_LOCATION'
-        };
+        ACTIONS;
 
     beforeEach(function () {
         angular.mock.module('atlas');

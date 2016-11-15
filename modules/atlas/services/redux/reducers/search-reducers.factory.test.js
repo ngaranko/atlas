@@ -53,6 +53,17 @@ describe('The search-reducers factory', function () {
             expect(output.dataSelection).toBeNull();
         });
 
+        it('clears the straatbeeld id when no straatbeeld id exists', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.straatbeeld = {some: 'text'};
+
+            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY](inputState, 'linnaeus');
+
+            expect(output.straatbeeld).toEqual({ some: 'text', id: null });
+        });
+
         it('clears the straatbeeld id when a straatbeeld is active', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
@@ -152,15 +163,15 @@ describe('The search-reducers factory', function () {
             expect(output.map.viewCenter).toEqual([52.001, 4.002]);
         });
 
-        it('clears the straatbeeld id when no straatbeeld exists', function () {
+        it('clears the straatbeeld id when no straatbeeld id exists', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
-            inputState.straatbeeld = null;
+            inputState.straatbeeld = {some: 'text'};
 
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION](inputState, 'linnaeus');
 
-            expect(output.straatbeeld).toBeNull();
+            expect(output.straatbeeld).toEqual({ some: 'text', id: null });
         });
 
         it('clears the straatbeeld id when a straatbeeld is active', function () {
