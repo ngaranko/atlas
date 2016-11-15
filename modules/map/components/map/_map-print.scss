@@ -8,7 +8,7 @@
   height: 900px;
   margin-top: $base-whitespace * 2.1;
   border-bottom-width: 1px;
-  page-break-after: always;
+  page-break-after: auto;
 }
 
 @media print {

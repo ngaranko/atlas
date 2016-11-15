@@ -7,24 +7,48 @@
 
     function httpStatusFactory () {
         // The sole reponsability is to register if there have been any http errors
-        let errorTypes = ['SERVER', 'NOT_FOUND'],
-            status = {
-                hasErrors: false,
-                errorType: errorTypes[0]
-            };
+        const errorTypes = ['SERVER_ERROR', 'NOT_FOUND_ERROR'],
+            exportObject = exportErrorTypes({
+                getStatus,
+                registerError
+            });
 
-        return {
-            getStatus,
-            registerError
+        let currentStatus = {
+            hasErrors: false
         };
 
+        resetTypeFlags();
+
+        return exportObject;
+
         function getStatus () {
-            return status;
+            return currentStatus;
         }
 
         function registerError (errorType) {
-            status.hasErrors = true;
-            status.errorType = errorTypes.filter(type => type === errorType)[0] || errorTypes[0];
+            // Make sure the key is valid. Default to SERVER_ERROR
+            const key = errorTypes.filter(type => type === errorType)[0] || errorTypes[0];
+
+            if (!currentStatus.hasErrors) {
+                resetTypeFlags();
+            }
+
+            currentStatus[key] = true;
+            currentStatus.hasErrors = true;
+        }
+
+        function resetTypeFlags () {
+            errorTypes.forEach(key => {
+                currentStatus[key] = false;
+            });
+        }
+
+        function exportErrorTypes (object) {
+            errorTypes.forEach(key => {
+                object[key] = key;
+            });
+
+            return object;
         }
     }
 })();

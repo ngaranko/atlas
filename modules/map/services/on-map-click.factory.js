@@ -3,23 +3,23 @@
 
     angular
         .module('dpMap')
-        .factory('searchByClick', searchByClickFactory);
+        .factory('onMapClick', onMapClickFactory);
 
-    searchByClickFactory.$inject = ['$rootScope', 'store', 'ACTIONS'];
+    onMapClickFactory.$inject = ['$rootScope', 'store', 'ACTIONS'];
 
-    function searchByClickFactory ($rootScope, store, ACTIONS) {
+    function onMapClickFactory ($rootScope, store, ACTIONS) {
         return {
             initialize: initialize
         };
 
         function initialize (leafletMap) {
-            leafletMap.on('click', searchByClick);
+            leafletMap.on('click', onMapClick);
         }
 
-        function searchByClick (event) {
+        function onMapClick (event) {
             $rootScope.$applyAsync(function () {
                 store.dispatch({
-                    type: ACTIONS.FETCH_SEARCH_RESULTS_BY_CLICK,
+                    type: ACTIONS.MAP_CLICK,
                     payload: [
                         event.latlng.lat,
                         event.latlng.lng

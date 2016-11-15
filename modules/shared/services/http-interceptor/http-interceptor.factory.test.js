@@ -2,6 +2,8 @@ describe('The http interceptor', function () {
     let $httpBackend,
         $http,
         httpStatus = {
+            SERVER_ERROR: 'SERVER_ERROR',
+            NOT_FOUND_ERROR: 'NOT_FOUND_ERROR',
             registerError: angular.noop
         },
         mockedData,
@@ -95,7 +97,7 @@ describe('The http interceptor', function () {
             .catch(data => {
                 expect(data.data).toEqual(mockedData);
                 expect(data.status).toBe(404);
-                expect(httpStatus.registerError).toHaveBeenCalledWith('NOT_FOUND');
+                expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.NOT_FOUND_ERROR);
                 callbackCalled = true;
             });
 
@@ -129,7 +131,7 @@ describe('The http interceptor', function () {
             .catch(data => {
                 expect(data.data).toEqual(mockedData);
                 expect(data.status).toBe(500);
-                expect(httpStatus.registerError).toHaveBeenCalledWith();
+                expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
                 callbackCalled = true;
             });
 
