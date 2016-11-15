@@ -591,10 +591,10 @@ describe('The dp-search-results component', function () {
             var numberOfDpLinks;
 
             // When there are more than 10 adressen
-            expect(component.find('dp-link').eq(11).find('a').text().trim())
+            expect(component.find('dp-link').eq(11).find('button').text().trim())
                 .toBe('Bekijk alle 12 adressen binnen dit pand');
 
-            component.find('dp-link').eq(11).find('a').click();
+            component.find('dp-link').eq(11).find('button').click();
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.FETCH_DETAIL,
                 payload: 'https://api.datapunt.amsterdam.nl/bag/pand/03630013054429/'

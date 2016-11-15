@@ -105,7 +105,9 @@ module.exports = function (grunt) {
 
                 if (module.slug === 'shared') {
                     const index = targets[name].options.files.indexOf('mocks.js');
-                    targets[name].options.files.splice(index, 1);
+                    if (index > -1) {
+                        targets[name].options.files.splice(index, 1);
+                    }
                 }
 
                 return `karma:${name}`;
