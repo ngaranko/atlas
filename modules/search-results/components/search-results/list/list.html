@@ -4,8 +4,12 @@
             type="FETCH_DETAIL"
             payload="link.endpoint">
 
-            {{vm.getLabel(link) | longNameShortener}}
+            {{link.label | longNameShortener}}
         </dp-link>
+
+        <span class="qa-search-results__link-extra-info">
+            {{vm.getExtraInfo(link)}}
+        </span>
 
         <span ng-if="vm.showSubtype(vm.category.slug, link)">
             ({{link.subtype}})

@@ -51,8 +51,11 @@ describe('The stateToUrlMiddleware factory', function () {
             ACTIONS.FETCH_DETAIL,
             ACTIONS.FETCH_STRAATBEELD,
             ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY,
-            ACTIONS.FETCH_SEARCH_RESULTS_BY_CLICK,
-            ACTIONS.FETCH_SEARCH_RESULTS_CATEGORY
+            ACTIONS.MAP_CLICK,
+            ACTIONS.HIDE_STRAATBEELD,
+            ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION,
+            ACTIONS.FETCH_SEARCH_RESULTS_CATEGORY,
+            ACTIONS.FETCH_STRAATBEELD_BY_LOCATION
         ];
 
         actionWithoutUrlUpdate.forEach(function (action) {

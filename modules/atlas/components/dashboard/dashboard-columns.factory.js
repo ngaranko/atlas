@@ -46,11 +46,11 @@
                     visibility.searchResults = false;
                     visibility.straatbeeld = false;
                 } else {
-                    visibility.detail = angular.isObject(state.detail);
+                    visibility.detail = angular.isObject(state.detail) && !isStraatbeeldVisible(state);
                     visibility.page = angular.isString(state.page);
                     visibility.searchResults = angular.isObject(state.search) &&
                         (angular.isString(state.search.query) || angular.isArray(state.search.location));
-                    visibility.straatbeeld = angular.isObject(state.straatbeeld);
+                    visibility.straatbeeld = isStraatbeeldVisible(state);
                 }
 
                 visibility.dataSelection = false;
@@ -58,6 +58,11 @@
             }
 
             return visibility;
+        }
+
+        function isStraatbeeldVisible (state) {
+            return angular.isObject(state.straatbeeld) &&
+                (angular.isString(state.straatbeeld.id) || angular.isArray(state.straatbeeld.location));
         }
 
         function determineColumnSizesDefault (visibility, hasFullscreenMap) {
