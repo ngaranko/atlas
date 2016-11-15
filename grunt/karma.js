@@ -90,6 +90,7 @@ module.exports = function (grunt) {
                                     .map(mod => files.jsModuleFiles(mod))
                                     .reduce((result, deps) => result.concat(deps), []),
                                 'bower_components/angular-mocks/angular-mocks.js',
+                                'mocks.js',
                                 // Use the ES5 tests and route the tests through sourcemap
                                 `build/temp/babel/es5tests/atlas.${module.slug}.js`
                             ],
@@ -101,6 +102,12 @@ module.exports = function (grunt) {
                         }
                     }
                 );
+
+                if (module.slug === 'shared') {
+                    const index = targets[name].options.files.indexOf('mocks.js');
+                    targets[name].options.files.splice(index, 1);
+                }
+
                 return `karma:${name}`;
             })
     ));
