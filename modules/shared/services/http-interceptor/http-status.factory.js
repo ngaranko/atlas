@@ -13,7 +13,7 @@
                 registerError
             });
 
-        let status = {
+        let currentStatus = {
             hasErrors: false
         };
 
@@ -22,28 +22,24 @@
         return exportObject;
 
         function getStatus () {
-            return status;
+            return currentStatus;
         }
 
         function registerError (errorType) {
             // Make sure the key is valid. Default to SERVER_ERROR
-            const key = errorTypes.filter(type => type === errorType)[0] || errorTypes[0],
-                severity = errorTypes.indexOf(key),
-                isMoreImportant = severity > status.severity;
+            const key = errorTypes.filter(type => type === errorType)[0] || errorTypes[0];
 
-            // If an error already exists: only update if the new one is more
-            // important
-            if (!status.hasErrors || isMoreImportant) {
+            if (!currentStatus.hasErrors) {
                 resetTypeFlags();
-                status.severity = severity;
-                status[key] = true;
-                status.hasErrors = true;
             }
+
+            currentStatus[key] = true;
+            currentStatus.hasErrors = true;
         }
 
         function resetTypeFlags () {
             errorTypes.forEach(key => {
-                status[key] = false;
+                currentStatus[key] = false;
             });
         }
 
