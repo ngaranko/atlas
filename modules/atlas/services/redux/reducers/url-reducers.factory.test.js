@@ -451,6 +451,18 @@ describe('The urlReducers factory', function () {
                 expect(output.straatbeeld.isLoading).toBe(true);
                 expect(output.straatbeeld.isInitial).toBe(true);
             });
+
+            it('can save its heading', function () {
+                let output;
+
+                mockedSearchParams.heading = '179';
+                mockedSearchParams.pitch = '1';
+                mockedSearchParams.fov = '2';
+
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+
+                expect(output.straatbeeld).toEqual({heading: 179});
+            });
         });
 
         describe('dataSelection', function () {
