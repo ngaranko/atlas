@@ -77,18 +77,6 @@ module.exports = function (grunt) {
                     flatten: true
                 }
             ]
-        },
-        npm_assets: {
-            files: [
-                {
-                    src: [
-                        'build/temp/npm_components/leaflet-draw/images/**/*'
-                    ],
-                    dest: 'build/images/',
-                    expand: true,
-                    flatten: true
-                }
-            ]
         }
     };
 };

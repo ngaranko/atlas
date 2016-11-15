@@ -9,8 +9,7 @@ module.exports = function (grunt) {
         'copy:bower_leaflet_measure_images',
 
         'build-js',
-        'build-css',
-        'copy:npm_assets'
+        'build-css'
     ]);
 
     grunt.registerTask('build-release', [
