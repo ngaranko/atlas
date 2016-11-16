@@ -106,15 +106,18 @@ module.exports = function (grunt) {
                     {},
                     targets[task.mainTarget],
                     {
-                        options: {
-                            files: allFiles,
-                            exclude: allExclude,
-                            preprocessors: {
-                                ['modules/' + module.slug + '/**/!(*.test).js']: ['coverage'],
-                                'modules/**/*.js': ['babel'],
-                                'build/temp/babel/es5tests/*.js': ['sourcemap']
-                            }
-                        }
+                        options: Object.assign(
+                            {},
+                            targets[task.mainTarget].options,
+                            {
+                                files: allFiles,
+                                exclude: allExclude,
+                                preprocessors: {
+                                    ['modules/' + module.slug + '/**/!(*.test).js']: ['coverage'],
+                                    'modules/**/*.js': ['babel'],
+                                    'build/temp/babel/es5tests/*.js': ['sourcemap']
+                                }
+                            })
                     }
                 );
 

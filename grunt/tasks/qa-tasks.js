@@ -17,6 +17,11 @@ module.exports = function (grunt) {
         'lint'
     ]);
 
+    grunt.registerTask('test-js-full', [
+        'test-js-modules-full',
+        'lint'
+    ]);
+
     grunt.registerTask('test-css', [
         'sasslint'
     ]);
@@ -29,6 +34,11 @@ module.exports = function (grunt) {
     grunt.registerTask('test-js-modules', [
         'build-test',
         'karma-modules-coverage'
+    ]);
+
+    grunt.registerTask('test-js-modules-full', [
+        'build-test',
+        'karma-modules-fullcoverage'
     ]);
 
     // Test a single module by concatenate the test files
