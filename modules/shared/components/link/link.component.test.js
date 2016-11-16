@@ -149,7 +149,6 @@ describe('The dp-link component', function () {
 
             component = getComponent('SHOW_PAGE', 'welkom');
             expect(component.find('a').attr('href')).toBe(url);
-            expect(component.find('a')).toBe(true);
         });
 
         it('updates the href attribute on the link when the state changes', () => {

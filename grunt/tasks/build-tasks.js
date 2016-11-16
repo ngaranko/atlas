@@ -15,7 +15,7 @@ module.exports = function (grunt) {
     grunt.registerTask('build-release', [
         'build-develop',
         'build-test',
-        'karma:fullcoverage',
+        'karma-modules-fullcoverage',
         'clean:temp'
     ]);
 };
