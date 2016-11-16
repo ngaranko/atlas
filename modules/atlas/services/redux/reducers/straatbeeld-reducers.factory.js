@@ -66,6 +66,17 @@
             newState.straatbeeld.location = payload;
             newState.straatbeeld.targetLocation = payload;
 
+            if (oldState.layerSelection || oldState.map.isFullscreen) {
+                newState.map.viewCenter = payload;
+            }
+
+            newState.layerSelection = false;
+            newState.map.showActiveOverlays = false;
+            newState.map.isFullscreen = false;
+            newState.page = null;
+            newState.detail = null;
+            newState.dataSelection = null;
+
             return newState;
         }
 

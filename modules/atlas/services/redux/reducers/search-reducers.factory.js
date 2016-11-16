@@ -41,6 +41,7 @@
             newState.detail = null;
             if (angular.isObject(newState.straatbeeld)) {
                 newState.straatbeeld.id = null;
+                newState.straatbeeld.location = null;
             }
             newState.dataSelection = null;
 
@@ -75,6 +76,7 @@
             newState.detail = null;
             if (angular.isObject(newState.straatbeeld)) {
                 newState.straatbeeld.id = null;
+                newState.straatbeeld.location = null;
             }
             newState.dataSelection = null;
 
