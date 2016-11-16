@@ -11,7 +11,7 @@
         var reducers = {};
 
         reducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY] = fetchSearchResultsByQueryReducer;
-        reducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_CLICK] = fetchSearchResultsByClickReducer;
+        reducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION] = fetchSearchResultsByLocationReducer;
         reducers[ACTIONS.FETCH_SEARCH_RESULTS_CATEGORY] = fetchSearchResultsCategoryReducer;
         reducers[ACTIONS.SHOW_SEARCH_RESULTS] = showSearchResultsReducer;
 
@@ -39,7 +39,9 @@
             newState.layerSelection = false;
             newState.page = null;
             newState.detail = null;
-            newState.straatbeeld = null;
+            if (angular.isObject(newState.straatbeeld)) {
+                newState.straatbeeld.id = null;
+            }
             newState.dataSelection = null;
 
             return newState;
@@ -51,7 +53,7 @@
          *
          * @returns {Object} newState
          */
-        function fetchSearchResultsByClickReducer (oldState, payload) {
+        function fetchSearchResultsByLocationReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
             newState.search = {
@@ -71,7 +73,9 @@
             newState.map.isFullscreen = false;
             newState.page = null;
             newState.detail = null;
-            newState.straatbeeld = null;
+            if (angular.isObject(newState.straatbeeld)) {
+                newState.straatbeeld.id = null;
+            }
             newState.dataSelection = null;
 
             return newState;

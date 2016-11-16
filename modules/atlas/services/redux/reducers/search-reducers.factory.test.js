@@ -41,7 +41,7 @@ describe('The search-reducers factory', function () {
             inputState.layerSelection = true;
             inputState.page = 'somePage';
             inputState.detail = {some: 'object'};
-            inputState.staatbeeld = {some: 'object'};
+            inputState.straatbeeld = null;
             inputState.dataSelection = {some: 'object'};
 
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY](inputState, 'linnaeus');
@@ -51,6 +51,39 @@ describe('The search-reducers factory', function () {
             expect(output.detail).toBeNull();
             expect(output.straatbeeld).toBeNull();
             expect(output.dataSelection).toBeNull();
+        });
+
+        it('clears the straatbeeld id when no straatbeeld id exists', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.straatbeeld = {some: 'text'};
+
+            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY](inputState, 'linnaeus');
+
+            expect(output.straatbeeld).toEqual({ some: 'text', id: null });
+        });
+
+        it('clears the straatbeeld id when a straatbeeld is active', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.straatbeeld = {id: 'object'};
+
+            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY](inputState, 'linnaeus');
+
+            expect(output.straatbeeld).toEqual({id: null});
+        });
+
+        it('only clears straatbeeld id when a straatbeeld is active', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.straatbeeld = {id: 'object', location: [1, 2], some: 'abc'};
+
+            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY](inputState, 'linnaeus');
+
+            expect(output.straatbeeld).toEqual({id: null, location: [1, 2], some: 'abc'});
         });
 
         it('disables the fullscreen mode of the map', function () {
@@ -65,7 +98,7 @@ describe('The search-reducers factory', function () {
         });
     });
 
-    describe('FETCH_SEARCH_RESULTS_BY_CLICK', function () {
+    describe('FETCH_SEARCH_RESULTS_BY_LOCATION', function () {
         it('resets the search query and active category and sets the search location', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
@@ -77,7 +110,7 @@ describe('The search-reducers factory', function () {
                 numberOfResults: 23
             };
 
-            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_CLICK](inputState, [52.001, 4.002]);
+            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION](inputState, [52.001, 4.002]);
 
             expect(output.search.isLoading).toBe(true);
             expect(output.search.query).toBeNull();
@@ -97,7 +130,7 @@ describe('The search-reducers factory', function () {
             inputState.staatbeeld = {some: 'object'};
             inputState.dataSelection = {some: 'object'};
 
-            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_CLICK](inputState, [52.001, 4.002]);
+            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION](inputState, [52.001, 4.002]);
 
             expect(output.layerSelection).toBe(false);
             expect(output.map.showActiveOverlays).toBe(false);
@@ -114,20 +147,53 @@ describe('The search-reducers factory', function () {
             // With fullscreen disabled, it doesn't change the viewCenter
             inputState.map.viewCenter = [52.123, 4.789];
             inputState.map.isFullscreen = false;
-            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_CLICK](inputState, [52.001, 4.002]);
+            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION](inputState, [52.001, 4.002]);
 
             expect(output.map.viewCenter).toEqual([52.123, 4.789]);
 
             // With fullscreen enabled, it changes the viewCenter
             inputState.map.isFullscreen = true;
-            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_CLICK](inputState, [52.001, 4.002]);
+            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION](inputState, [52.001, 4.002]);
 
             expect(output.map.viewCenter).toEqual([52.001, 4.002]);
 
             // With layer selection enabled
             inputState.layerSelection = true;
-            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_CLICK](inputState, [52.001, 4.002]);
+            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION](inputState, [52.001, 4.002]);
             expect(output.map.viewCenter).toEqual([52.001, 4.002]);
+        });
+
+        it('clears the straatbeeld id when no straatbeeld id exists', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.straatbeeld = {some: 'text'};
+
+            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION](inputState, 'linnaeus');
+
+            expect(output.straatbeeld).toEqual({ some: 'text', id: null });
+        });
+
+        it('clears the straatbeeld id when a straatbeeld is active', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.straatbeeld = {id: 'object'};
+
+            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION](inputState, 'linnaeus');
+
+            expect(output.straatbeeld).toEqual({id: null});
+        });
+
+        it('only clears straatbeeld id when a straatbeeld is active', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.straatbeeld = {id: 'object', location: [1, 2], some: 'abc'};
+
+            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION](inputState, 'linnaeus');
+
+            expect(output.straatbeeld).toEqual({id: null, location: [1, 2], some: 'abc'});
         });
 
         it('disables the fullscreen mode of the map', function () {
@@ -136,7 +202,7 @@ describe('The search-reducers factory', function () {
 
             inputState.map.isFullscreen = true;
 
-            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_CLICK](inputState, [52.001, 4.002]);
+            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION](inputState, [52.001, 4.002]);
 
             expect(output.map.isFullscreen).toBe(false);
         });

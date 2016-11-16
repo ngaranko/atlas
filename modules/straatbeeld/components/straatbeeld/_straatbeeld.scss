@@ -30,3 +30,11 @@
   line-height: $button-size;
   z-index: 2;
 }
+
+.c-straatbeeld__close {
+  @include icon-button("close", "red", "");
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+}

@@ -1,7 +1,7 @@
-describe('The searchByClick factory', function () {
+describe('The onMapClick factory', function () {
     var $rootScope,
         L,
-        searchByClick,
+        onMapClick,
         store,
         ACTIONS,
         mockedLeafletMap;
@@ -16,10 +16,10 @@ describe('The searchByClick factory', function () {
             }
         );
 
-        angular.mock.inject(function (_$rootScope_, _L_, _searchByClick_, _store_, _ACTIONS_) {
+        angular.mock.inject(function (_$rootScope_, _L_, _onMapClick_, _store_, _ACTIONS_) {
             $rootScope = _$rootScope_;
             L = _L_;
-            searchByClick = _searchByClick_;
+            onMapClick = _onMapClick_;
             store = _store_;
             ACTIONS = _ACTIONS_;
         });
@@ -28,7 +28,7 @@ describe('The searchByClick factory', function () {
     });
 
     it('dispatches an action when the map is clicked', function () {
-        searchByClick.initialize(mockedLeafletMap);
+        onMapClick.initialize(mockedLeafletMap);
 
         spyOn(store, 'dispatch');
 
@@ -43,7 +43,7 @@ describe('The searchByClick factory', function () {
         $rootScope.$apply();
 
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.FETCH_SEARCH_RESULTS_BY_CLICK,
+            type: ACTIONS.MAP_CLICK,
             payload: [52.124, 4.788]
         });
     });
