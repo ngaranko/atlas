@@ -39,10 +39,9 @@ describe('The piwik service', function () {
         piwik.initialize();
 
         // Checking values
-        expect($window._paq.length).toBe(4);
+        expect($window._paq.length).toBe(3);
         expect($window._paq).toEqual(
-            [['trackPageView'],
-             ['enableLinkTracking'],
+            [['enableLinkTracking'],
              ['setTrackerUrl', 'https://atlas.amsterdam.nl/piwik/piwik.php'],
              ['setSiteId', 300]]);
 
