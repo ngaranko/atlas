@@ -2,6 +2,7 @@
 
 $dashboard-heading-height: 50px;
 $dashboard-heading-height-printversion: 42px;
+$dashboard-error-height: $button-size + 2 * $base-whitespace;
 
 .c-dashboard {
   height: 100%;
@@ -21,14 +22,22 @@ $dashboard-heading-height-printversion: 42px;
   overflow-y: hidden;
 }
 
+.c-dashboard__content--error {
+  position: relative;
+  height: calc(100% - #{$dashboard-heading-height} - #{$dashboard-error-height});
+  z-index: 1;
+  overflow-y: hidden;
+}
+
 .c-dashboard__content--scrollable {
   overflow-y: auto;
 }
 
 .is-print-mode {
   .c-dashboard {
-    padding: $base-whitespace * 2 0;
+    padding: $base-whitespace * 2 0 0 0;
     border-right: solid $secondary-gray20 1px;
+    border-bottom: solid $secondary-gray20 1px;
     border-left: solid $secondary-gray20 1px;
     overflow: visible;
   }
@@ -43,6 +52,16 @@ $dashboard-heading-height-printversion: 42px;
   .c-dashboard__content {
     padding: $base-whitespace $base-whitespace * 2;
     box-shadow: 0 0 5px $secondary-gray40;
+  }
+
+  &.print-landscape {
+    body {
+      width: 1280px;
+    }
+  }
+
+  .c-map {
+    height: 700px;
   }
 }
 

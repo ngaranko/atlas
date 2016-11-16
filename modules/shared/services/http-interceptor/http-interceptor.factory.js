@@ -19,9 +19,9 @@
                 isClientError = 400 <= response.status && response.status <= 499;
 
             if (isServerError) {
-                httpStatus.registerError();
+                httpStatus.registerError(httpStatus.SERVER_ERROR);
             } else if (isClientError && response && response.data && response.data.detail === 'Not found.') {
-                httpStatus.registerError('NOT_FOUND');
+                httpStatus.registerError(httpStatus.NOT_FOUND_ERROR);
             }
             return $q.reject(response);
         }
