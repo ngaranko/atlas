@@ -26,6 +26,9 @@ module.exports = function (grunt) {
         'babel-tests'
     ]);
 
+    grunt.registerTask('test-js-per-module',
+        files.modules.map(module => `test-js-module-${module.slug}`));
+
     grunt.registerTask('test-js-modules', [
         'build-test',
         'karma:coverage'

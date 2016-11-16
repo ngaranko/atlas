@@ -88,12 +88,11 @@ module.exports = function (grunt) {
                                 // Use the ES6 code as source; code coverage runs on the ES6 code
                                 files.moduleDependencies(module)
                                     .map(mod => files.jsModuleFiles(mod))
-                                    .reduce((result, deps) => result.concat(deps), []),
-                                'bower_components/angular-mocks/angular-mocks.js',
-                                'mocks.js',
-                                // Use the ES5 tests and route the tests through sourcemap
-                                `build/temp/babel/es5tests/atlas.${module.slug}.js`
+                                    .reduce((result, deps) => result.concat(deps), [])
+                                // Continues below; shared mocks will be
+                                // inserted for modules other than shared
                             ],
+                            exclude: [],
                             preprocessors: {
                                 ['modules/' + module.slug + '/**/!(*.test).js']: ['coverage'],
                                 'modules/**/*.js': ['babel'],
@@ -103,12 +102,26 @@ module.exports = function (grunt) {
                     }
                 );
 
-                if (module.slug === 'shared') {
-                    const index = targets[name].options.files.indexOf('mocks.js');
-                    if (index > -1) {
-                        targets[name].options.files.splice(index, 1);
-                    }
+                // Insert shared mocks for all modules, except the shared
+                // module itself
+                if (module.slug !== 'shared') {
+                    targets[name].options.files = targets[name].options.files.concat([
+                        'modules/shared-mocks/shared-mocks.module.js'
+                    ]);
+
+                    // Exclude the shared components that have been mocked
+                    targets[name].options.exclude = targets[name].options.exclude.concat([
+                        'modules/shared/components/link/*.js'
+                    ]);
                 }
+
+                // Continue with adding remaining files
+                targets[name].options.files = targets[name].options.files.concat([
+                    'bower_components/angular-mocks/angular-mocks.js',
+                    // 'modules/shared-mocks/mocks.js',
+                    // Use the ES5 tests and route the tests through sourcemap
+                    `build/temp/babel/es5tests/atlas.${module.slug}.js`
+                ]);
 
                 return `karma:${name}`;
             })
