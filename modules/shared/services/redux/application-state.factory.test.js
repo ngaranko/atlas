@@ -36,12 +36,17 @@ describe('The applicationState factory', function () {
     });
 
     it('can return the store', function () {
-        applicationState.initialize(fakeReducer, fakeDefaultState, fakeMiddleware);
+        applicationState.initialize(fakeReducer, fakeStateToUrl, fakeDefaultState, fakeMiddleware);
         expect(applicationState.getStore()).toBe('THIS_IS_THE_FAKE_STORE');
     });
 
     it('can return the reducer', function () {
-        applicationState.initialize(fakeReducer, fakeDefaultState, fakeMiddleware);
+        applicationState.initialize(fakeReducer, fakeStateToUrl, fakeDefaultState, fakeMiddleware);
         expect(applicationState.getReducer()).toBe('I_AM_THE_REDUCER');
+    });
+
+    it('can return the stateToUrl', function () {
+        applicationState.initialize(fakeReducer, fakeStateToUrl, fakeDefaultState, fakeMiddleware);
+        expect(applicationState.getStateToUrl()).toBe('I_AM_THE_STATE_TO_URL');
     });
 });

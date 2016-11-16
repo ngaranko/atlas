@@ -27,9 +27,7 @@
             let unsubscribe = angular.noop;
             let destroyed = false;
 
-            if (store && store.subscribe && debounce) {
-                unsubscribe = store.subscribe(debounce(300, update));
-            }
+            unsubscribe = store.subscribe(debounce(300, update));
 
             scope.className = scope.className || 'o-btn o-btn--link';
 

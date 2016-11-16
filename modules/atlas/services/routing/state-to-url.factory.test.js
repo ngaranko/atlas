@@ -16,6 +16,18 @@ describe('The stateToUrl factory', function () {
         spyOn($location, 'search');
     });
 
+    describe('create', function () {
+        it('creates a query string', function () {
+            expect(stateToUrl.create(mockedState)).toBe([
+                '#?lat=', mockedState.map.viewCenter[0],
+                '&lon=', mockedState.map.viewCenter[1],
+                '&basiskaart=', mockedState.map.baseLayer,
+                '&zoom=', mockedState.map.zoom,
+                '&pagina=', mockedState.page
+            ].join(''));
+        });
+    });
+
     describe('Search', function () {
         it('can contain a query', function () {
             mockedState.search = {
