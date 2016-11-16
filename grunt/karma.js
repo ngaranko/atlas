@@ -73,7 +73,7 @@ module.exports = function (grunt) {
                     'build/temp/atlas.libs.js',
                     // Use the ES6 code as source; code coverage runs on the ES6 code
                     files.moduleDependencies(module)
-                        .map(mod => files.jsModuleFiles(mod))
+                        .map(mod => files.jsTestModuleFiles(mod))
                         .reduce((result, deps) => result.concat(deps), [])
                 ];
                 var lastFiles = [

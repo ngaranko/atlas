@@ -2,6 +2,12 @@ var modules = require('./modules');
 
 var jsModuleFiles = module => [
     `modules/${module.slug}/${module.slug}.module.js`,
+    `modules/${module.slug}/**/!(*.test).js`,
+    `build/temp/${module.slug}.ngtemplates.js`
+];
+
+var jsTestModuleFiles = module => [
+    `modules/${module.slug}/${module.slug}.module.js`,
     `modules/${module.slug}/**/!(*.test|*.run).js`,
     `build/temp/${module.slug}.ngtemplates.js`
 ];
@@ -35,6 +41,7 @@ var moduleDependencies = (module) => {
 module.exports = {
     modules,
     jsModuleFiles,
+    jsTestModuleFiles,
     moduleDependencies,
     jsFiles,
     cssModuleFiles,
