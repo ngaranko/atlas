@@ -61,7 +61,7 @@ describe('The search-reducers factory', function () {
 
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY](inputState, 'linnaeus');
 
-            expect(output.straatbeeld).toEqual({ some: 'text', id: null });
+            expect(output.straatbeeld).toEqual({ some: 'text', id: null, location: null });
         });
 
         it('clears the straatbeeld id when a straatbeeld is active', function () {
@@ -72,10 +72,10 @@ describe('The search-reducers factory', function () {
 
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY](inputState, 'linnaeus');
 
-            expect(output.straatbeeld).toEqual({id: null});
+            expect(output.straatbeeld).toEqual({id: null, location: null});
         });
 
-        it('only clears straatbeeld id when a straatbeeld is active', function () {
+        it('only clears straatbeeld id and removes location when a straatbeeld is active', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
@@ -83,7 +83,7 @@ describe('The search-reducers factory', function () {
 
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY](inputState, 'linnaeus');
 
-            expect(output.straatbeeld).toEqual({id: null, location: [1, 2], some: 'abc'});
+            expect(output.straatbeeld).toEqual({id: null, location: null, some: 'abc'});
         });
 
         it('disables the fullscreen mode of the map', function () {
@@ -163,7 +163,7 @@ describe('The search-reducers factory', function () {
             expect(output.map.viewCenter).toEqual([52.001, 4.002]);
         });
 
-        it('clears the straatbeeld id when no straatbeeld id exists', function () {
+        it('clears the straatbeeld', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
@@ -171,10 +171,10 @@ describe('The search-reducers factory', function () {
 
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION](inputState, 'linnaeus');
 
-            expect(output.straatbeeld).toEqual({ some: 'text', id: null });
+            expect(output.straatbeeld).toEqual({ some: 'text', id: null, location: null });
         });
 
-        it('clears the straatbeeld id when a straatbeeld is active', function () {
+        it('clears the straatbeeld when a straatbeeld is active', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
@@ -182,10 +182,10 @@ describe('The search-reducers factory', function () {
 
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION](inputState, 'linnaeus');
 
-            expect(output.straatbeeld).toEqual({id: null});
+            expect(output.straatbeeld).toEqual({ id: null, location: null });
         });
 
-        it('only clears straatbeeld id when a straatbeeld is active', function () {
+        it('clears the straatbeeld when a straatbeeld is active', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
@@ -193,7 +193,7 @@ describe('The search-reducers factory', function () {
 
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION](inputState, 'linnaeus');
 
-            expect(output.straatbeeld).toEqual({id: null, location: [1, 2], some: 'abc'});
+            expect(output.straatbeeld).toEqual({ id: null, location: null, some: 'abc' });
         });
 
         it('disables the fullscreen mode of the map', function () {
@@ -205,6 +205,17 @@ describe('The search-reducers factory', function () {
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION](inputState, [52.001, 4.002]);
 
             expect(output.map.isFullscreen).toBe(false);
+        });
+
+        it('does not depend on a map being present', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.map = null;
+
+            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION](inputState, [52.001, 4.002]);
+
+            expect(output.map).toBeNull();
         });
     });
 

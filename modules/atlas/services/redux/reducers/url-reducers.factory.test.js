@@ -463,6 +463,17 @@ describe('The urlReducers factory', function () {
 
                 expect(output.straatbeeld).toEqual({heading: 179});
             });
+
+            it('can restore its location', function () {
+                let output;
+
+                mockedSearchParams.id = 'ABC';
+                mockedSearchParams.straatbeeld = '1,2';
+
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+
+                expect(output.straatbeeld.location).toEqual([1, 2]);
+            });
         });
 
         describe('dataSelection', function () {

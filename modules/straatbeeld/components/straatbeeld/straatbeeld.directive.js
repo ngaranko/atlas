@@ -47,7 +47,8 @@
 
             // Fetch scene by id
             scope.$watch('state.id', function (id) {
-                if (!angular.isArray(scope.state.location) && angular.isString(id)) {
+                // Load straatbeeld on id when no location is set or no image is yet loaded
+                if (!(angular.isArray(scope.state.location) && scope.state.image) && angular.isString(id)) {
                     straatbeeldApi.getImageDataById(id).then(showStraatbeeld);
                 }
             });

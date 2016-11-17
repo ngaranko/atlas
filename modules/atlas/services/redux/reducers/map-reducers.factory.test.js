@@ -221,6 +221,16 @@ describe('The map reducers', function () {
             output = mapReducers[ACTIONS.MAP_FULLSCREEN](inputState, true);
             expect(output.layerSelection).toBe(false);
         });
+
+        it('when straatbeeld active, clears its location on minimize', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.straatbeeld = {};
+
+            output = mapReducers[ACTIONS.MAP_FULLSCREEN](inputState, false);
+            expect(output.straatbeeld.location).toBeNull();
+        });
     });
 
     describe('SHOW_MAP_ACTIVE_OVERLAYS', function () {

@@ -83,8 +83,8 @@ describe('The contextMiddleware factory', function () {
         mockedAction.type = ACTIONS.HIDE_STRAATBEELD;
         mockedStore.getState = () => {
             return {
-                detail: {
-                    endpoint: 'aap'
+                straatbeeld: {
+                    detail: 'aap'
                 }
             };
         };
