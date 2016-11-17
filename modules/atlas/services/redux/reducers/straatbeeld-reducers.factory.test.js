@@ -164,6 +164,14 @@ describe('Straatbeeld reducers factory', function () {
             expect(newState.straatbeeld.fov).toBe(2);
         });
 
+        it('sets viewcenter when no heading is known', function () {
+            inputState.straatbeeld.heading = null;
+            inputState.map = {};
+
+            var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
+            expect(newState.map.viewCenter).toEqual(payload.location);
+        });
+
         it('do not overwrite isLoading, id, heading, isInitial', function () {
             var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
 
@@ -186,6 +194,18 @@ describe('Straatbeeld reducers factory', function () {
             expect(output.straatbeeld.isLoading).toBe(true);
             expect(output.straatbeeld.location).toEqual(location);
             expect(output.straatbeeld.targetLocation).toEqual(location);
+        });
+
+        it('centers the map when layerselection or fullscreen map is active', function () {
+            let state = {
+                'map': {
+                    isFullscreen: true
+                }
+            };
+            let location = [52.001, 4.002];
+
+            var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION](state, location);
+            expect(newState.map.viewCenter).toEqual(location);
         });
 
         it('can set the straatbeeld to the new location from scratch', function () {

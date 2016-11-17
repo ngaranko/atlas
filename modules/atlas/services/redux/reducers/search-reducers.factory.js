@@ -65,13 +65,15 @@
                 numberOfResults: null
             };
 
-            if (oldState.layerSelection || oldState.map.isFullscreen) {
+            if (oldState.layerSelection || (oldState.map && oldState.map.isFullscreen)) {
                 newState.map.viewCenter = payload;
             }
 
             newState.layerSelection = false;
-            newState.map.showActiveOverlays = false;
-            newState.map.isFullscreen = false;
+            if (newState.map) {
+                newState.map.showActiveOverlays = false;
+                newState.map.isFullscreen = false;
+            }
             newState.page = null;
             newState.detail = null;
             if (angular.isObject(newState.straatbeeld)) {

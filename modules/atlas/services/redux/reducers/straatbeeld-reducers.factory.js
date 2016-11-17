@@ -71,14 +71,16 @@
             newState.straatbeeld.location = payload;
             newState.straatbeeld.targetLocation = payload;
 
-            if (oldState.layerSelection || oldState.map.isFullscreen) {
+            if (oldState.layerSelection || (oldState.map && oldState.map.isFullscreen)) {
                 newState.map.viewCenter = payload;
             }
             newState.straatbeeld.detail = null;
 
             newState.layerSelection = false;
-            newState.map.showActiveOverlays = false;
-            newState.map.isFullscreen = false;
+            if (newState.map) {
+                newState.map.showActiveOverlays = false;
+                newState.map.isFullscreen = false;
+            }
             newState.page = null;
             newState.detail = null;
             newState.dataSelection = null;
@@ -125,7 +127,7 @@
                     newState.straatbeeld.heading = getHeadingDegrees(
                         payload.location,
                         newState.straatbeeld.targetLocation);
-                } else if (! angular.isNumber(oldState.straatbeeld.heading)) {
+                } else if (!angular.isNumber(oldState.straatbeeld.heading)) {
                     // No heading is known, center map on new viewCenter
                     newState.map.viewCenter = payload.location;
                 }

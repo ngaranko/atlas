@@ -275,6 +275,34 @@ describe('The stateToUrl factory', function () {
                 fov: '20'
             }));
         });
+
+        it('can set the straatbeeld location if it\'s known', function () {
+            mockedState.straatbeeld = {
+                id: 'ABC',
+                detail: 'aap'
+            };
+
+            stateToUrl.update(mockedState, false);
+
+            expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
+                id: 'ABC',
+                detail: 'aap'
+            }));
+        });
+
+        it('can set the straatbeeld location if it\'s known', function () {
+            mockedState.straatbeeld = {
+                id: 'ABC',
+                location: [1, 2]
+            };
+
+            stateToUrl.update(mockedState, false);
+
+            expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
+                id: 'ABC',
+                straatbeeld: '1,2'
+            }));
+        });
     });
 
     describe('Data selection', function () {
