@@ -92,6 +92,12 @@
 
             if (state.straatbeeld) {
                 params.id = state.straatbeeld.id;
+                if (angular.isArray(state.straatbeeld.location)) {
+                    params.straatbeeld = state.straatbeeld.location.join(',');
+                }
+                if (state.straatbeeld.detail) {
+                    params.detail = state.straatbeeld.detail;
+                }
                 params.heading = String(state.straatbeeld.heading);
                 params.pitch = String(state.straatbeeld.pitch);
                 params.fov = String(state.straatbeeld.fov);
