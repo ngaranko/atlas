@@ -42,7 +42,6 @@
             // and detail is active
             // then inactivate detail
             if (angular.isObject(newState.detail)) {
-                // newState.straatbeeld.detail = newState.detail.endpoint;
                 newState.detail.isInvisible = true;
             }
 
