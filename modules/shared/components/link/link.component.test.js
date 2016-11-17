@@ -13,12 +13,19 @@ describe('The dp-link component', function () {
             getReducer: () => reducer.fn,
             getStateToUrl: () => stateToUrl
         },
+        unsubscribe = {
+            unsubscribe: angular.noop
+        },
         debounce = {
-            fn: (time, fn) => {
-                return () => {
+            debounce: (time, fn) => {
+                let debounced = () => {
                     fn();
                 };
-            }
+
+                debounced.cancel = debounce.cancel;
+                return debounced;
+            },
+            cancel: angular.noop
         },
         body = {
             contains: angular.noop
@@ -26,18 +33,23 @@ describe('The dp-link component', function () {
 
     beforeEach(function () {
         spyOn(reducer, 'fn');
-        spyOn(debounce, 'fn').and.callThrough();
+        spyOn(debounce, 'debounce').and.callThrough();
+        spyOn(debounce, 'cancel');
+        spyOn(unsubscribe, 'unsubscribe');
 
         angular.mock.module(
             'dpShared',
             {
                 store: {
-                    subscribe: fn => updateFn = fn,
+                    subscribe: fn => {
+                        updateFn = fn;
+                        return unsubscribe.unsubscribe;
+                    },
                     getState: angular.noop
                 },
                 applicationState,
                 stateToUrl,
-                debounce: debounce.fn
+                debounce: debounce.debounce
             }, $provide => {
                 $provide.constant('ACTIONS', {
                     SHOW_PAGE: 'show-page',
@@ -180,12 +192,10 @@ describe('The dp-link component', function () {
 
             component.triggerHandler({type: '$destroy'});
 
-            updateFn();
             $rootScope.$apply();
 
-            expect(store.getState.calls.count()).toBe(1);
-            expect(reducer.fn.calls.count()).toBe(1);
-            expect(stateToUrl.create.calls.count()).toBe(1);
+            expect(debounce.cancel).toHaveBeenCalled();
+            expect(unsubscribe.unsubscribe).toHaveBeenCalled();
             expect(component.find('a').attr('href')).toBe(oldUrl);
         });
     });
