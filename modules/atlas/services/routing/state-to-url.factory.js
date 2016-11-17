@@ -9,11 +9,37 @@
 
     function stateToUrlFactory ($location, $window) {
         return {
-            update: update
+            create,
+            update
         };
 
+        function create (state) {
+            const params = getParams(state);
+            let key,
+                queryString = '';
+
+            for (key in params) {
+                if (params.hasOwnProperty(key) && params[key] !== null) {
+                    queryString += queryString ? '&' : '?';
+                    queryString += `${key}=${params[key]}`;
+                }
+            }
+
+            return '#' + queryString;
+        }
+
         function update (state, useReplace) {
-            var searchParams = angular.merge(
+            const params = getParams(state);
+
+            if (useReplace) {
+                $location.replace();
+            }
+
+            $location.search(params);
+        }
+
+        function getParams (state) {
+            return angular.merge(
                 getSearchParams(state),
                 getMapParams(state),
                 getLayerSelectionParams(state),
@@ -23,12 +49,6 @@
                 getDataSelectionParams(state),
                 getPrintParams(state)
             );
-
-            if (useReplace) {
-                $location.replace();
-            }
-
-            $location.search(searchParams);
         }
 
         function getSearchParams (state) {
