@@ -49,7 +49,6 @@
 
             newState.search = null;
             newState.page = null;
-            // newState.detail = null;
 
             newState.dataSelection = null;
 

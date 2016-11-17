@@ -145,7 +145,6 @@
                     // If the map is minimized when a straatbeeld is inactive
                     // then reactivate straatbeeld
                     delete newState.straatbeeld.isInvisible;
-                    // newState.straatbeeld.location = null;
                 }
             }
 
