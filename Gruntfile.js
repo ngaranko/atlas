@@ -20,4 +20,10 @@ module.exports = function (grunt) {
         'test-js',
         'test-css'
     ]);
+
+    grunt.registerTask('fulltest', [
+        'build-develop',
+        'test-js-full',
+        'test-css'
+    ]);
 };
