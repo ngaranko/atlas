@@ -135,6 +135,9 @@
 
             if (payload) {
                 newState.layerSelection = false;
+            } else if (newState.straatbeeld) {
+                // Clear location on close of full screen to allow reload of straatbeeld
+                newState.straatbeeld.location = null;
             }
 
             newState.map.isFullscreen = payload;

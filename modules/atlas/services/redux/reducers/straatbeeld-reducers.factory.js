@@ -38,11 +38,16 @@
                 0;
             newState.straatbeeld.isInitial = payload.isInitial;
 
+            // save detail, straatbeeld can be 'on top' of detail page
+            if (newState.detail) {
+                newState.straatbeeld.detail = newState.detail.endpoint;
+            }
+
             newState.map.highlight = null;
 
             newState.search = null;
             newState.page = null;
-            // leave detail unchanged, straatbeeld can be 'on top' of detail page
+            newState.detail = null;
 
             newState.dataSelection = null;
 
@@ -69,6 +74,7 @@
             if (oldState.layerSelection || oldState.map.isFullscreen) {
                 newState.map.viewCenter = payload;
             }
+            newState.straatbeeld.detail = null;
 
             newState.layerSelection = false;
             newState.map.showActiveOverlays = false;
@@ -119,8 +125,8 @@
                     newState.straatbeeld.heading = getHeadingDegrees(
                         payload.location,
                         newState.straatbeeld.targetLocation);
-                } else {
-                    // Center the map on the new location
+                } else if (! angular.isNumber(oldState.straatbeeld.heading)) {
+                    // No heading is known, center map on new viewCenter
                     newState.map.viewCenter = payload.location;
                 }
 

@@ -93,7 +93,7 @@ describe('Straatbeeld reducers factory', function () {
             };
 
             var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD](inputState, payload);
-            expect(newState.detail).toEqual(inputState.detail);
+            expect(newState.straatbeeld.detail).toEqual(inputState.detail.endpoint);
         });
 
         it('resets search results', function () {

@@ -108,7 +108,7 @@
         }
 
         function getDetailState (oldState, payload) {
-            if (angular.isString(payload.detail)) {
+            if (angular.isString(payload.detail) && !payload.id) {
                 var newDetailState = {
                     endpoint: payload.detail,
                     isLoading: true
@@ -132,8 +132,11 @@
                     pitch: Number(payload.pitch),
                     fov: Number(payload.fov),
                     id: payload.id,
+                    location: payload.straatbeeld ? payload.straatbeeld.split(',').map(c => Number(c)) : null,
                     heading: Number(payload.heading)
                 };
+
+                newStraatbeeld.detail = payload.detail;
 
                 if (oldState.straatbeeld && oldState.straatbeeld.id === payload.id) {
                     newStraatbeeld.image = oldState.straatbeeld.image;
@@ -146,7 +149,6 @@
                     newStraatbeeld.image = null;
                     newStraatbeeld.hotspots = [];
                     newStraatbeeld.date = null;
-                    newStraatbeeld.location = null;
                     newStraatbeeld.isInitial = true;
                     newStraatbeeld.isLoading = true;
                 }

@@ -26,9 +26,9 @@
                     }
 
                     if (action.type === ACTIONS.HIDE_STRAATBEELD) {
-                        if (angular.isObject(store.getState().detail)) {
+                        if (store.getState().straatbeeld.detail) {
                             action.type = ACTIONS.FETCH_DETAIL;
-                            action.payload = store.getState().detail.endpoint;
+                            action.payload = store.getState().straatbeeld.detail;
                         } else {
                             action.type = ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION;
                             action.payload = store.getState().straatbeeld.location;
