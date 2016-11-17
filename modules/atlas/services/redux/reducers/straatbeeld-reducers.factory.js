@@ -43,7 +43,7 @@
             // then inactivate detail
             if (angular.isObject(newState.detail)) {
                 // newState.straatbeeld.detail = newState.detail.endpoint;
-                newState.detail.isVisible = false;
+                newState.detail.isInvisible = true;
             }
 
             newState.map.highlight = null;
@@ -77,7 +77,6 @@
             if (oldState.layerSelection || (oldState.map && oldState.map.isFullscreen)) {
                 newState.map.viewCenter = payload;
             }
-            newState.straatbeeld.detail = null;
 
             newState.layerSelection = false;
             if (newState.map) {
@@ -95,6 +94,8 @@
         }
 
         function initializeStraatbeeld (straatbeeld) {
+            delete straatbeeld.isInvisible;
+
             straatbeeld.id = null;
             straatbeeld.location = null;
 
@@ -123,6 +124,8 @@
 
             // Straatbeeld can be null if another action gets triggered between FETCH_STRAATBEELD and SHOW_STRAATBEELD
             if (angular.isObject(newState.straatbeeld)) {
+                delete newState.straatbeeld.isInvisible;
+
                 newState.straatbeeld.id = payload.id || newState.straatbeeld.id;
                 newState.straatbeeld.date = payload.date;
 

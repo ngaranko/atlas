@@ -138,13 +138,13 @@
                 // If the map is maximized when a straatbeeld is active
                 // then inactivate straatbeeld
                 if (angular.isObject(newState.straatbeeld)) {
-                    newState.straatbeeld.isVisible = false;
+                    newState.straatbeeld.isInvisible = true;
                 }
             } else {
                 if (angular.isObject(newState.straatbeeld)) {
                     // If the map is minimized when a straatbeeld is inactive
-                    // then activate straatbeeld
-                    newState.straatbeeld.isVisible = true;
+                    // then reactivate straatbeeld
+                    delete newState.straatbeeld.isInvisible;
                     // newState.straatbeeld.location = null;
                 }
             }

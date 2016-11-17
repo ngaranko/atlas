@@ -93,7 +93,19 @@ describe('Straatbeeld reducers factory', function () {
             };
 
             var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD](inputState, payload);
-            expect(newState.straatbeeld.detail).toEqual(inputState.detail.endpoint);
+            expect(newState.detail.isInvisible).toBe(true);
+        });
+
+        it('resets its invisibility when starting straatbeeld', function () {
+            inputState.detail = {
+                endpoint: 'bag/verblijfsobject/123/',
+                geometry: 'aap',
+                isLoading: false,
+                isInvisible: true
+            };
+
+            var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD](inputState, payload);
+            expect(newState.straatbeeld.isInvisible).toBeUndefined();
         });
 
         it('resets search results', function () {
@@ -196,6 +208,18 @@ describe('Straatbeeld reducers factory', function () {
             expect(output.straatbeeld.targetLocation).toEqual(location);
         });
 
+        it('resets its invibility when fetching straatbeeld', function () {
+            inputState.detail = {
+                endpoint: 'bag/verblijfsobject/123/',
+                geometry: 'aap',
+                isLoading: false,
+                isInvisible: true
+            };
+
+            var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION](inputState, payload);
+            expect(newState.straatbeeld.isInvisible).toBeUndefined();
+        });
+
         it('centers the map when layerselection or fullscreen map is active', function () {
             let state = {
                 'map': {
@@ -283,6 +307,12 @@ describe('Straatbeeld reducers factory', function () {
             var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
             expect(newState.straatbeeld.isLoading).toBe(false);
             expect(newState.map.isLoading).toBe(false);
+        });
+
+        it('resets its invibility when showing straatbeeld', function () {
+            inputState.straatbeeld.isInvisible = true;
+            var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
+            expect(newState.straatbeeld.isInvisible).toBeUndefined();
         });
 
         it('does nothing when straatbeeld is null', function () {

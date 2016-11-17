@@ -222,14 +222,29 @@ describe('The map reducers', function () {
             expect(output.layerSelection).toBe(false);
         });
 
-        it('when straatbeeld active, clears its location on minimize', function () {
+        it('when straatbeeld exists, reactivates it on minimize', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
-            inputState.straatbeeld = {};
+            inputState.straatbeeld = {
+                id: 'abc',
+                isInvisible: true
+            };
 
             output = mapReducers[ACTIONS.MAP_FULLSCREEN](inputState, false);
-            expect(output.straatbeeld.location).toBeNull();
+            expect(output.straatbeeld.isInvisible).toBeUndefined();
+        });
+
+        it('when straatbeeld exists, hide it on maximize', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.straatbeeld = {
+                id: 'abc'
+            };
+
+            output = mapReducers[ACTIONS.MAP_FULLSCREEN](inputState, true);
+            expect(output.straatbeeld.isInvisible).toBe(true);
         });
     });
 

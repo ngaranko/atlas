@@ -34,8 +34,8 @@
                 } else {
                     visibility.map = !state.layerSelection && (
                         state.map.isFullscreen ||
-                        (angular.isObject(state.detail) && state.detail.isVisible && angular.isObject(state.detail.geometry)) ||
-                        angular.isObject(state.straatbeeld));
+                        (isDetailVisible(state) && angular.isObject(state.detail.geometry)) ||
+                        isStraatbeeldVisible(state));
                 }
 
                 visibility.layerSelection = state.layerSelection;
@@ -46,7 +46,7 @@
                     visibility.searchResults = false;
                     visibility.straatbeeld = false;
                 } else {
-                    visibility.detail = angular.isObject(state.detail) && state.detail.isVisible;
+                    visibility.detail = isDetailVisible(state);
                     visibility.page = angular.isString(state.page);
                     visibility.searchResults = angular.isObject(state.search) &&
                         (angular.isString(state.search.query) || angular.isArray(state.search.location));
@@ -61,8 +61,11 @@
         }
 
         function isStraatbeeldVisible (state) {
-            return angular.isObject(state.straatbeeld) &&
-                (angular.isString(state.straatbeeld.id) || angular.isArray(state.straatbeeld.location));
+            return angular.isObject(state.straatbeeld) && !state.straatbeeld.isInvisible;
+        }
+
+        function isDetailVisible (state) {
+            return angular.isObject(state.detail) && !state.detail.isInvisible;
         }
 
         function determineColumnSizesDefault (visibility, hasFullscreenMap) {

@@ -120,7 +120,7 @@
                     newDetailState.isLoading = oldState.detail.isLoading;
                 }
 
-                newDetailState.isVisible = payload.detailVisible;
+                newDetailState.isInvisible = payload.detailInvisible || undefined;
 
                 return newDetailState;
             } else {
@@ -138,8 +138,7 @@
                     heading: Number(payload.heading)
                 };
 
-                // newStraatbeeld.detail = payload.detail;
-                newStraatbeeld.isVisible = payload.straatbeeldVisible;
+                newStraatbeeld.isInvisible = payload.straatbeeldInvisible || undefined;
 
                 if (oldState.straatbeeld && oldState.straatbeeld.id === payload.id) {
                     newStraatbeeld.image = oldState.straatbeeld.image;
@@ -157,10 +156,6 @@
                 }
 
                 return newStraatbeeld;
-            } else if (payload.heading) {
-                return {
-                    heading: Number(payload.heading)
-                };
             } else {
                 return null;
             }
