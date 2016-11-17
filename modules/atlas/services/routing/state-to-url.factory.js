@@ -83,7 +83,8 @@
 
         function getDetailParams (state) {
             return {
-                detail: state.detail && state.detail.endpoint || null
+                detail: state.detail && state.detail.endpoint || null,
+                detailVisible: state.detail && state.detail.isVisible
             };
         }
 
@@ -95,9 +96,10 @@
                 if (angular.isArray(state.straatbeeld.location)) {
                     params.straatbeeld = state.straatbeeld.location.join(',');
                 }
-                if (state.straatbeeld.detail) {
-                    params.detail = state.straatbeeld.detail;
-                }
+                params.straatbeeldVisible = state.straatbeeld.isVisible;
+                // if (state.straatbeeld.detail) {
+                //     params.detail = state.straatbeeld.detail;
+                // }
                 params.heading = String(state.straatbeeld.heading);
                 params.pitch = String(state.straatbeeld.pitch);
                 params.fov = String(state.straatbeeld.fov);

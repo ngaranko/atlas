@@ -108,7 +108,7 @@
         }
 
         function getDetailState (oldState, payload) {
-            if (angular.isString(payload.detail) && !payload.id) {
+            if (angular.isString(payload.detail)) {
                 var newDetailState = {
                     endpoint: payload.detail,
                     isLoading: true
@@ -119,6 +119,8 @@
                     newDetailState.geometry = oldState.detail.geometry;
                     newDetailState.isLoading = oldState.detail.isLoading;
                 }
+
+                newDetailState.isVisible = payload.detailVisible;
 
                 return newDetailState;
             } else {
@@ -136,7 +138,8 @@
                     heading: Number(payload.heading)
                 };
 
-                newStraatbeeld.detail = payload.detail;
+                // newStraatbeeld.detail = payload.detail;
+                newStraatbeeld.isVisible = payload.straatbeeldVisible;
 
                 if (oldState.straatbeeld && oldState.straatbeeld.id === payload.id) {
                     newStraatbeeld.image = oldState.straatbeeld.image;

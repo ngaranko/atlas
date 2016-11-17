@@ -26,9 +26,10 @@
                     }
 
                     if (action.type === ACTIONS.HIDE_STRAATBEELD) {
-                        if (store.getState().straatbeeld.detail) {
+                        let endpoint = store.getState().detail && store.getState().detail.endpoint;
+                        if (endpoint) {
                             action.type = ACTIONS.FETCH_DETAIL;
-                            action.payload = store.getState().straatbeeld.detail;
+                            action.payload = endpoint;
                         } else {
                             action.type = ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION;
                             action.payload = store.getState().straatbeeld.location;

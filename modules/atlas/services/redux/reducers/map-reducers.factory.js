@@ -135,9 +135,18 @@
 
             if (payload) {
                 newState.layerSelection = false;
-            } else if (newState.straatbeeld) {
-                // Clear location on close of full screen to allow reload of straatbeeld
-                newState.straatbeeld.location = null;
+                // If the map is maximized when a straatbeeld is active
+                // then inactivate straatbeeld
+                if (angular.isObject(newState.straatbeeld)) {
+                    newState.straatbeeld.isVisible = false;
+                }
+            } else {
+                if (angular.isObject(newState.straatbeeld)) {
+                    // If the map is minimized when a straatbeeld is inactive
+                    // then activate straatbeeld
+                    newState.straatbeeld.isVisible = true;
+                    // newState.straatbeeld.location = null;
+                }
             }
 
             newState.map.isFullscreen = payload;

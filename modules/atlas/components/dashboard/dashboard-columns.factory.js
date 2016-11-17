@@ -34,7 +34,7 @@
                 } else {
                     visibility.map = !state.layerSelection && (
                         state.map.isFullscreen ||
-                        (angular.isObject(state.detail) && angular.isObject(state.detail.geometry)) ||
+                        (angular.isObject(state.detail) && state.detail.isVisible && angular.isObject(state.detail.geometry)) ||
                         angular.isObject(state.straatbeeld));
                 }
 
@@ -46,7 +46,7 @@
                     visibility.searchResults = false;
                     visibility.straatbeeld = false;
                 } else {
-                    visibility.detail = angular.isObject(state.detail) && !isStraatbeeldVisible(state);
+                    visibility.detail = angular.isObject(state.detail) && state.detail.isVisible;
                     visibility.page = angular.isString(state.page);
                     visibility.searchResults = angular.isObject(state.search) &&
                         (angular.isString(state.search.query) || angular.isArray(state.search.location));

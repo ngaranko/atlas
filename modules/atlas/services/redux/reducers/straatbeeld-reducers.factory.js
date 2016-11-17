@@ -38,16 +38,19 @@
                 0;
             newState.straatbeeld.isInitial = payload.isInitial;
 
-            // save detail, straatbeeld can be 'on top' of detail page
-            if (newState.detail) {
-                newState.straatbeeld.detail = newState.detail.endpoint;
+            // If a straatbeeld is loaded by it's id
+            // and detail is active
+            // then inactivate detail
+            if (angular.isObject(newState.detail)) {
+                // newState.straatbeeld.detail = newState.detail.endpoint;
+                newState.detail.isVisible = false;
             }
 
             newState.map.highlight = null;
 
             newState.search = null;
             newState.page = null;
-            newState.detail = null;
+            // newState.detail = null;
 
             newState.dataSelection = null;
 
@@ -82,6 +85,9 @@
                 newState.map.isFullscreen = false;
             }
             newState.page = null;
+
+            // If a straatbeeld is loaded by it's location
+            // then clear any active detail
             newState.detail = null;
             newState.dataSelection = null;
 
