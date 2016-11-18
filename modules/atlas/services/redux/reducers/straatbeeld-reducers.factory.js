@@ -81,6 +81,7 @@
                 newState.map.showActiveOverlays = false;
                 newState.map.isFullscreen = false;
             }
+            newState.search = null;
             newState.page = null;
 
             // If a straatbeeld is loaded by it's location

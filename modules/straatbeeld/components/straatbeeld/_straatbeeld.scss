@@ -33,6 +33,7 @@
 
 .c-straatbeeld__close {
   @include icon-button("close", "red", "");
+
   position: absolute;
   top: 0;
   right: 0;
