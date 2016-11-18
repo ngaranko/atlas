@@ -321,6 +321,29 @@ describe('Straatbeeld reducers factory', function () {
 
             expect(newState.straatbeeld).toBeNull();
         });
+
+        it('sets the map viewcenter only on a subsequent straatbeeld', function () {
+            inputState.map.viewCenter = null;
+            payload.location = [1, 2];
+            var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT](inputState, payload);
+            expect(newState.map.viewCenter).toEqual([1, 2]);
+            payload.location = [3, 4];
+            newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT](inputState, payload);
+            expect(newState.map.viewCenter).toEqual([3, 4]);
+            payload.location = [5, 6];
+            newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
+            expect(newState.map.viewCenter).toBeNull();
+            newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT](inputState, payload);
+            expect(newState.map.viewCenter).toEqual([5, 6]);
+        });
+
+        it('only sets the map viewcenter on a subsequent straatbeeld when straatbeeld active', function () {
+            inputState.straatbeeld = null;
+            var location = inputState.map.viewCenter;
+            payload.location = [location[0] + 1, location[1] + 1];
+            var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT](inputState, payload);
+            expect(newState.map.viewCenter).toEqual(location);
+        });
     });
 
     describe('setOrientationReducer', function () {
