@@ -1,9 +1,9 @@
 .c-straatbeeld {
   position: absolute;
   top: $base-whitespace * 2;
-  right: $base-whitespace;
+  right: 0;
   bottom: $base-whitespace * 2;
-  left: $base-whitespace;
+  left: $base-whitespace * 2;
   z-index: 1;
 }
 

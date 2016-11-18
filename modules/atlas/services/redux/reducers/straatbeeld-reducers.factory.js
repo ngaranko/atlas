@@ -135,7 +135,7 @@
                     newState.straatbeeld.heading = getHeadingDegrees(
                         payload.location,
                         newState.straatbeeld.targetLocation);
-                } else if (!angular.isNumber(oldState.straatbeeld.heading)) {
+                } else {
                     // No heading is known, center map on new viewCenter
                     newState.map.viewCenter = payload.location;
                 }
