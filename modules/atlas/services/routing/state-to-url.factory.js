@@ -106,7 +106,9 @@
 
             if (state.detail) {
                 params.detail = state.detail.endpoint || null;
-                params.detailInvisible = state.detail.isInvisible || undefined;
+                if (state.detail.isInvisible) {
+                    params.detailInvisible = state.detail.isInvisible;
+                }
             }
 
             return params;
@@ -120,7 +122,9 @@
                 if (angular.isArray(state.straatbeeld.location)) {
                     params.straatbeeld = state.straatbeeld.location.join(',');
                 }
-                params.straatbeeldInvisible = state.straatbeeld.isInvisible || undefined;
+                if (state.straatbeeld.isInvisible) {
+                    params.straatbeeldInvisible = state.straatbeeld.isInvisible;
+                }
                 params.heading = String(state.straatbeeld.heading);
                 params.pitch = String(state.straatbeeld.pitch);
                 params.fov = String(state.straatbeeld.fov);
