@@ -61,11 +61,11 @@
         }
 
         function isStraatbeeldVisible (state) {
-            return angular.isObject(state.straatbeeld) && !state.straatbeeld.isInvisible;
+            return angular.isObject(state.straatbeeld) && !(state.straatbeeld.isInvisible === true);
         }
 
         function isDetailVisible (state) {
-            return angular.isObject(state.detail) && !state.detail.isInvisible;
+            return angular.isObject(state.detail) && !(state.detail.isInvisible === true);
         }
 
         function determineColumnSizesDefault (visibility, hasFullscreenMap) {
