@@ -34,8 +34,7 @@
 
             scope.close = function () {
                 store.dispatch({
-                    type: ACTIONS.HIDE_STRAATBEELD,
-                    payload: {}
+                    type: ACTIONS.HIDE_STRAATBEELD
                 });
             };
 

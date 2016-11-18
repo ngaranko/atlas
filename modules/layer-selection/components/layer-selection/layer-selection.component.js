@@ -23,8 +23,7 @@
 
         vm.close = function () {
             store.dispatch({
-                type: ACTIONS.HIDE_LAYER_SELECTION,
-                payload: {}
+                type: ACTIONS.HIDE_LAYER_SELECTION
             });
         };
 
