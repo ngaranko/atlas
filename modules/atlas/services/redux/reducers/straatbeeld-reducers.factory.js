@@ -13,7 +13,7 @@
         reducers[ACTIONS.FETCH_STRAATBEELD] = fetchStraatbeeldReducer;
         reducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION] = fetchStraatbeeldByLocationReducer;
         reducers[ACTIONS.SHOW_STRAATBEELD_INITIAL] = showStraatbeeldReducer;
-        reducers[ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT] = showStraatbeeldReducer;
+        reducers[ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT] = showStraatbeeldSubsequentReducer;
         reducers[ACTIONS.SET_STRAATBEELD_ORIENTATION] = setOrientationReducer;
 
         return reducers;
@@ -135,7 +135,7 @@
                     newState.straatbeeld.heading = getHeadingDegrees(
                         payload.location,
                         newState.straatbeeld.targetLocation);
-                } else {
+                } else if (!angular.isNumber(oldState.straatbeeld.heading)) {
                     // No heading is known, center map on new viewCenter
                     newState.map.viewCenter = payload.location;
                 }
@@ -145,6 +145,23 @@
                 newState.straatbeeld.location = payload.location;
                 newState.straatbeeld.image = payload.image;
                 newState.map.isLoading = false;
+            }
+
+            return newState;
+        }
+
+        /**
+         * @param {Object} oldState
+         * @param {Object} payload -  data from straatbeeld-api
+         *
+         * @returns {Object} newState
+         */
+        function showStraatbeeldSubsequentReducer (oldState, payload) {
+            var newState = showStraatbeeldReducer(oldState, payload);
+
+            if (angular.isObject(newState.straatbeeld)) {
+                // Keep map centered on last selected hotspot
+                newState.map.viewCenter = payload.location;
             }
 
             return newState;
