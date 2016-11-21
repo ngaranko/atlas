@@ -10,8 +10,8 @@
     function detailReducersFactory (ACTIONS) {
         var reducers = {};
 
-        reducers[ACTIONS.FETCH_DETAIL] = fetchDetailReducer;
-        reducers[ACTIONS.SHOW_DETAIL] = showDetailReducer;
+        reducers[ACTIONS.FETCH_DETAIL.id] = fetchDetailReducer;
+        reducers[ACTIONS.SHOW_DETAIL.id] = showDetailReducer;
 
         return reducers;
 

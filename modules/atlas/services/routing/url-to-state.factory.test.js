@@ -37,7 +37,9 @@ describe('The urlToState factory', function () {
         $rootScope.$apply();
 
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: 'URL_CHANGE',
+            type: {
+                id: 'URL_CHANGE'
+            },
             payload: mockedSearchParams
         });
     });
@@ -58,13 +60,17 @@ describe('The urlToState factory', function () {
 
         // Initial parameters
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: 'URL_CHANGE',
+            type: {
+                id: 'URL_CHANGE'
+            },
             payload: changedSearchParams
         });
 
         // Changes parameters
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: 'URL_CHANGE',
+            type: {
+                id: 'URL_CHANGE'
+            },
             payload: changedSearchParams
         });
     });

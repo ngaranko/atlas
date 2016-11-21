@@ -10,10 +10,10 @@
     function searchReducersFactory (ACTIONS) {
         var reducers = {};
 
-        reducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY] = fetchSearchResultsByQueryReducer;
-        reducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION] = fetchSearchResultsByLocationReducer;
-        reducers[ACTIONS.FETCH_SEARCH_RESULTS_CATEGORY] = fetchSearchResultsCategoryReducer;
-        reducers[ACTIONS.SHOW_SEARCH_RESULTS] = showSearchResultsReducer;
+        reducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY.id] = fetchSearchResultsByQueryReducer;
+        reducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id] = fetchSearchResultsByLocationReducer;
+        reducers[ACTIONS.FETCH_SEARCH_RESULTS_CATEGORY.id] = fetchSearchResultsCategoryReducer;
+        reducers[ACTIONS.SHOW_SEARCH_RESULTS.id] = showSearchResultsReducer;
 
         return reducers;
 

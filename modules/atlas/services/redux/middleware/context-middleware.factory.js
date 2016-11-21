@@ -14,7 +14,7 @@
                     // Transform generic actions like MAP_CLICK into a real action
                     // This transformation is context sensitive
 
-                    if (action.type === ACTIONS.MAP_CLICK) {
+                    if (action.type.id === ACTIONS.MAP_CLICK.id) {
                         let straatbeeld = store.getState().straatbeeld;
                         if (angular.isObject(straatbeeld) && straatbeeld.id) {
                             // a MAP CLICK when straatbeeld is active fetches the most nearby straatbeeld
@@ -25,7 +25,7 @@
                         }
                     }
 
-                    if (action.type === ACTIONS.HIDE_STRAATBEELD) {
+                    if (action.type.id === ACTIONS.HIDE_STRAATBEELD.id) {
                         if (store.getState().straatbeeld.detail) {
                             action.type = ACTIONS.FETCH_DETAIL;
                             action.payload = store.getState().straatbeeld.detail;
