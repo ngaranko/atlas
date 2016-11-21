@@ -3,6 +3,7 @@ describe('The urlToState factory', function () {
         $rootScope,
         urlToState,
         store,
+        ACTIONS,
         mockedSearchParams;
 
     beforeEach(function () {
@@ -15,11 +16,12 @@ describe('The urlToState factory', function () {
             }
         );
 
-        angular.mock.inject(function (_$location_, _$rootScope_, _urlToState_, _store_) {
+        angular.mock.inject(function (_$location_, _$rootScope_, _urlToState_, _store_, _ACTIONS_) {
             $location = _$location_;
             $rootScope = _$rootScope_;
             urlToState = _urlToState_;
             store = _store_;
+            ACTIONS = _ACTIONS_;
         });
 
         mockedSearchParams = {
@@ -37,9 +39,7 @@ describe('The urlToState factory', function () {
         $rootScope.$apply();
 
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: {
-                id: 'URL_CHANGE'
-            },
+            type: ACTIONS.URL_CHANGE,
             payload: mockedSearchParams
         });
     });
@@ -60,17 +60,13 @@ describe('The urlToState factory', function () {
 
         // Initial parameters
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: {
-                id: 'URL_CHANGE'
-            },
+            type: ACTIONS.URL_CHANGE,
             payload: changedSearchParams
         });
 
         // Changes parameters
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: {
-                id: 'URL_CHANGE'
-            },
+            type: ACTIONS.URL_CHANGE,
             payload: changedSearchParams
         });
     });

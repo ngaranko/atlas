@@ -1,57 +1,79 @@
 (function () {
+    //
+    // ACTIONS are identified by their id
+    // Optionally an action can specify:
+    // - ignore: true
+    //   The action will not change the url
+    // - replace: true
+    //   The action will replace the url (not adding a new entry in the browser history)
+    //
     angular
         .module('dpShared')
         .constant('ACTIONS', {
             URL_CHANGE: {
-                id: 'URL_CHANGE'
+                id: 'URL_CHANGE',
+                ignore: true
             },
 
             FETCH_SEARCH_RESULTS_BY_QUERY: {
-                id: 'FETCH_SEARCH_RESULTS_BY_QUERY'
+                id: 'FETCH_SEARCH_RESULTS_BY_QUERY',
+                ignore: true
             },
             FETCH_SEARCH_RESULTS_BY_LOCATION: {
-                id: 'FETCH_SEARCH_RESULTS_BY_LOCATION'
+                id: 'FETCH_SEARCH_RESULTS_BY_LOCATION',
+                ignore: true
             },
             FETCH_SEARCH_RESULTS_CATEGORY: {
-                id: 'FETCH_SEARCH_RESULTS_CATEGORY'
+                id: 'FETCH_SEARCH_RESULTS_CATEGORY',
+                ignore: true
             },
             SHOW_SEARCH_RESULTS: {
                 id: 'SHOW_SEARCH_RESULTS'
             },
 
             MAP_SET_BASELAYER: {
-                id: 'MAP_SET_BASELAYER'
+                id: 'MAP_SET_BASELAYER',
+                replace: true
             },
             MAP_ADD_OVERLAY: {
-                id: 'MAP_ADD_OVERLAY'
+                id: 'MAP_ADD_OVERLAY',
+                replace: true
             },
             MAP_REMOVE_OVERLAY: {
-                id: 'MAP_REMOVE_OVERLAY'
+                id: 'MAP_REMOVE_OVERLAY',
+                replace: true
             },
             MAP_TOGGLE_VISIBILITY_OVERLAY: {
-                id: 'MAP_TOGGLE_VISIBILITY_OVERLAY'
+                id: 'MAP_TOGGLE_VISIBILITY_OVERLAY',
+                replace: true
             },
             MAP_CLICK: {
-                id: 'MAP_CLICK'
+                id: 'MAP_CLICK',
+                ignore: true
             },
             MAP_PAN: {
-                id: 'MAP_PAN'
+                id: 'MAP_PAN',
+                replace: true
             },
             MAP_ZOOM: {
-                id: 'MAP_ZOOM'
+                id: 'MAP_ZOOM',
+                replace: true
             },
             MAP_FULLSCREEN: {
                 id: 'MAP_FULLSCREEN'
             },
             SHOW_MAP_ACTIVE_OVERLAYS: {
-                id: 'SHOW_MAP_ACTIVE_OVERLAYS'
+                id: 'SHOW_MAP_ACTIVE_OVERLAYS',
+                replace: true
             },
             HIDE_MAP_ACTIVE_OVERLAYS: {
-                id: 'HIDE_MAP_ACTIVE_OVERLAYS'
+                id: 'HIDE_MAP_ACTIVE_OVERLAYS',
+                replace: true
             },
 
             FETCH_DETAIL: {
-                id: 'FETCH_DETAIL'
+                id: 'FETCH_DETAIL',
+                ignore: true
             },
             SHOW_DETAIL: {
                 id: 'SHOW_DETAIL'
@@ -59,21 +81,26 @@
 
             FETCH_STRAATBEELD: {
                 id: 'FETCH_STRAATBEELD',
+                ignore: true
             },
             FETCH_STRAATBEELD_BY_LOCATION: {
-                id: 'FETCH_STRAATBEELD_BY_LOCATION'
+                id: 'FETCH_STRAATBEELD_BY_LOCATION',
+                ignore: true
             },
             SHOW_STRAATBEELD_INITIAL: {
                 id: 'SHOW_STRAATBEELD_INITIAL'
             },
             SHOW_STRAATBEELD_SUBSEQUENT: {
-                id: 'SHOW_STRAATBEELD_SUBSEQUENT'
+                id: 'SHOW_STRAATBEELD_SUBSEQUENT',
+                replace: true
             },
             HIDE_STRAATBEELD: {
-                id: 'HIDE_STRAATBEELD'
+                id: 'HIDE_STRAATBEELD',
+                ignore: true
             },
             SET_STRAATBEELD_ORIENTATION: {
-                id: 'SET_STRAATBEELD_ORIENTATION'
+                id: 'SET_STRAATBEELD_ORIENTATION',
+                replace: true
             },
 
             SHOW_DATA_SELECTION: {
