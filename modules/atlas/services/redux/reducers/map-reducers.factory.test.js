@@ -232,7 +232,7 @@ describe('The map reducers', function () {
             };
 
             output = mapReducers[ACTIONS.MAP_FULLSCREEN](inputState, false);
-            expect(output.straatbeeld.isInvisible).toBeUndefined();
+            expect(output.straatbeeld.isInvisible).toBe(false);
         });
 
         it('when straatbeeld exists, hide it on maximize', function () {

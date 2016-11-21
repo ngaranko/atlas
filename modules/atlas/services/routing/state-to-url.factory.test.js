@@ -258,6 +258,22 @@ describe('The stateToUrl factory', function () {
             }));
         });
 
+        it('can unset the invisibility of the detail', function () {
+            mockedState.detail = {
+                endpoint: 'ABC',
+                isInvisible: false
+            };
+
+            stateToUrl.update(mockedState, false);
+
+            expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
+                detailInvisible: true
+            }));
+            expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
+                detailInvisible: false
+            }));
+        });
+
         it('can set the invisibility of the detail, even without endpoint', function () {
             mockedState.detail = {
                 isInvisible: true
@@ -324,6 +340,22 @@ describe('The stateToUrl factory', function () {
 
             expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
                 id: 'ABC',
+                straatbeeldInvisible: true
+            }));
+        });
+
+        it('can unset the straatbeeld invisibility', function () {
+            mockedState.straatbeeld = {
+                id: 'ABC',
+                isInvisible: false
+            };
+
+            stateToUrl.update(mockedState, false);
+
+            expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
+                straatbeeldInvisible: false
+            }));
+            expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
                 straatbeeldInvisible: true
             }));
         });
