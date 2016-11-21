@@ -121,7 +121,7 @@
                 }
 
                 // restore invisibility from url payload
-                newDetailState.isInvisible = payload.detailInvisible ? true : false;
+                newDetailState.isInvisible = Boolean(payload.detailInvisible);
 
                 return newDetailState;
             } else {
@@ -140,7 +140,7 @@
                 };
 
                 // restore invisibility from url payload
-                newStraatbeeld.isInvisible = payload.straatbeeldInvisible ? true : false;
+                newStraatbeeld.isInvisible = Boolean(payload.straatbeeldInvisible);
 
                 if (oldState.straatbeeld && oldState.straatbeeld.id === payload.id) {
                     newStraatbeeld.image = oldState.straatbeeld.image;
