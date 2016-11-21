@@ -21,9 +21,9 @@
             id;
 
         $scope.$watchCollection('vm.location', loc => {
-           if (angular.isArray(loc)) {
-               loadThumbnail();
-           }
+            if (angular.isArray(loc)) {
+                loadThumbnail();
+            }
         });
 
         function loadThumbnail () {
