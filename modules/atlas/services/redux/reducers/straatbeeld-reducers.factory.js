@@ -93,6 +93,8 @@
         }
 
         function initializeStraatbeeld (straatbeeld) {
+            // Resets all straatbeeld properties
+            // Leave any other properties of straatbeeld untouched
             delete straatbeeld.isInvisible;
 
             straatbeeld.id = null;
