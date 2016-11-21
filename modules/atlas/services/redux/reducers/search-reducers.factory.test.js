@@ -53,7 +53,7 @@ describe('The search-reducers factory', function () {
             expect(output.dataSelection).toBeNull();
         });
 
-        it('clears the straatbeeld id when no straatbeeld id exists', function () {
+        it('clears the straatbeeld when no straatbeeld id exists', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
@@ -61,10 +61,10 @@ describe('The search-reducers factory', function () {
 
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY.id](inputState, 'linnaeus');
 
-            expect(output.straatbeeld).toEqual({ some: 'text', id: null, location: null });
+            expect(output.straatbeeld).toBeNull();
         });
 
-        it('clears the straatbeeld id when a straatbeeld is active', function () {
+        it('clears the straatbeeld when a straatbeeld is active', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
@@ -72,10 +72,10 @@ describe('The search-reducers factory', function () {
 
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY.id](inputState, 'linnaeus');
 
-            expect(output.straatbeeld).toEqual({id: null, location: null});
+            expect(output.straatbeeld).toBeNull();
         });
 
-        it('only clears straatbeeld id and removes location when a straatbeeld is active', function () {
+        it('clears straatbeeld when a straatbeeld is active with a location', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
@@ -83,7 +83,7 @@ describe('The search-reducers factory', function () {
 
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY.id](inputState, 'linnaeus');
 
-            expect(output.straatbeeld).toEqual({id: null, location: null, some: 'abc'});
+            expect(output.straatbeeld).toBeNull();
         });
 
         it('disables the fullscreen mode of the map', function () {
@@ -171,7 +171,7 @@ describe('The search-reducers factory', function () {
 
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, 'linnaeus');
 
-            expect(output.straatbeeld).toEqual({ some: 'text', id: null, location: null });
+            expect(output.straatbeeld).toBeNull();
         });
 
         it('clears the straatbeeld when a straatbeeld is active', function () {
@@ -182,10 +182,10 @@ describe('The search-reducers factory', function () {
 
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, 'linnaeus');
 
-            expect(output.straatbeeld).toEqual({ id: null, location: null });
+            expect(output.straatbeeld).toBeNull();
         });
 
-        it('clears the straatbeeld when a straatbeeld is active', function () {
+        it('clears the straatbeeld when a straatbeeld is active with a location', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
@@ -193,7 +193,7 @@ describe('The search-reducers factory', function () {
 
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, 'linnaeus');
 
-            expect(output.straatbeeld).toEqual({ id: null, location: null, some: 'abc' });
+            expect(output.straatbeeld).toBeNull();
         });
 
         it('disables the fullscreen mode of the map', function () {

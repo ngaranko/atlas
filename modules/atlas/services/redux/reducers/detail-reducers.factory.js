@@ -53,6 +53,8 @@
 
             // Detail can be null if another action gets triggered between FETCH_DETAIL and SHOW_DETAIL
             if (angular.isObject(newState.detail)) {
+                newState.detail.isInvisible = false;
+
                 newState.detail.display = payload.display;
                 newState.detail.geometry = payload.geometry;
 
