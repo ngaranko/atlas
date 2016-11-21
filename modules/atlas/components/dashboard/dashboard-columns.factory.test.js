@@ -171,12 +171,21 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.dataSelectionList).toBe(false);
             });
 
-            it('hides the detail page when a straatbeeld is visible', function () {
+            it('hides the straatbeeld page when the straatbeeld is set invisible', function () {
                 mockedState.straatbeeld = {
-                    id: 'aap'
+                    id: 'aap',
+                    isInvisible: true
                 };
                 visibility = dashboardColumns.determineVisibility(mockedState);
-                expect(visibility.straatbeeld).toBe(true);
+                expect(visibility.straatbeeld).toBe(false);
+            });
+
+            it('hides the detail page when the detail is set invisible', function () {
+                mockedState.detail = {
+                    endpoint: [1, 2],
+                    isInvisible: true
+                };
+                visibility = dashboardColumns.determineVisibility(mockedState);
                 expect(visibility.detail).toBe(false);
             });
 
@@ -250,22 +259,16 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.dataSelectionList).toBe(false);
             });
 
-            it('makes the straatbeeld visibile when it has an id', function () {
+            it('has the straatbeeld visibile when it has an id', function () {
                 mockedState.straatbeeld = {id: '123'};
                 visibility = dashboardColumns.determineVisibility(mockedState);
                 expect(visibility.straatbeeld).toBe(true);
             });
 
-            it('makes the straatbeeld visibile when it has a location', function () {
-                mockedState.straatbeeld = {location: [1, 2]};
+            it('has the straatbeeld visibile when it has a location', function () {
+                mockedState.straatbeeld = {location: [1, 5]};
                 visibility = dashboardColumns.determineVisibility(mockedState);
                 expect(visibility.straatbeeld).toBe(true);
-            });
-
-            it('does not show any straatbeeld when no id or location is available', function () {
-                mockedState.straatbeeld = {some: 'what'};
-                visibility = dashboardColumns.determineVisibility(mockedState);
-                expect(visibility.straatbeeld).toBe(false);
             });
 
             it('left column: 0/3, middle column: 1/3, right column 2/3', function () {

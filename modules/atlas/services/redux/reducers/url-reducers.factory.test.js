@@ -305,6 +305,27 @@ describe('The urlReducers factory', function () {
                 expect(output.detail.endpoint).toBe('https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/123/');
             });
 
+            it('can restore its invisibility', function () {
+                let output;
+
+                mockedSearchParams.detail = 'ABC';
+                mockedSearchParams.detailInvisible = true;
+
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+
+                expect(output.detail.isInvisible).toBe(true);
+            });
+
+            it('can restore its invisibility status when not invisible', function () {
+                let output;
+
+                mockedSearchParams.detail = 'ABC';
+
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+
+                expect(output.detail.isInvisible).toBe(false);
+            });
+
             it('remembers the display and geometry of the previous state if the endpoint stays the same', function () {
                 var output;
 
@@ -452,16 +473,25 @@ describe('The urlReducers factory', function () {
                 expect(output.straatbeeld.isInitial).toBe(true);
             });
 
-            it('can save its heading', function () {
+            it('can restore its invisibility', function () {
                 let output;
 
-                mockedSearchParams.heading = '179';
-                mockedSearchParams.pitch = '1';
-                mockedSearchParams.fov = '2';
+                mockedSearchParams.id = 'ABC';
+                mockedSearchParams.straatbeeldInvisible = true;
 
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
 
-                expect(output.straatbeeld).toEqual({heading: 179});
+                expect(output.straatbeeld.isInvisible).toBe(true);
+            });
+
+            it('can restore its invisibility status when not invisible', function () {
+                let output;
+
+                mockedSearchParams.id = 'ABC';
+
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+
+                expect(output.straatbeeld.isInvisible).toBe(false);
             });
 
             it('can restore its location', function () {

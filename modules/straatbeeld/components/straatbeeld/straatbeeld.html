@@ -1,7 +1,9 @@
 <div class="c-straatbeeld">
-    <dp-link type="HIDE_STRAATBEELD" class-name="c-straatbeeld__close" hover-text="Sluiten">
+    <button class="c-straatbeeld__close"
+            ng-click="close()"
+            title="Sluiten">
         <span class="u-sr-only">Sluiten</span>
-    </dp-link>
+    </button>
 
     <div class="c-straatbeeld__marzipano js-marzipano-viewer" ng-mousemove="updateOrientation()"></div>
 

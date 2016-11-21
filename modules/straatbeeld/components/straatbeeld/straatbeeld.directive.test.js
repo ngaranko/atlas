@@ -88,6 +88,20 @@ describe('The dp-straatbeeld directive', function () {
         return directive;
     }
 
+    describe('there is a close icon', function () {
+        it('that triggers HIDE_STRAATBEELD', function () {
+            var directive = getDirective({}, false);
+
+            directive.find('.c-straatbeeld__close').click();
+
+            $rootScope.$apply();
+
+            expect($store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.HIDE_STRAATBEELD
+            });
+        });
+    });
+
     describe('Calls to SHOW_STRAATBEELD_INITIAL and SUBSEQUENT', function () {
         it('Does not call SHOW_STRAATBEELD_INITIAL Or SUBSEQUENT IF State.id is unknown', function () {
             var state = {};
