@@ -146,7 +146,7 @@
                 if (angular.isObject(newState.straatbeeld)) {
                     // If the map is minimized when a straatbeeld is inactive
                     // then reactivate straatbeeld
-                    delete newState.straatbeeld.isInvisible;
+                    newState.straatbeeld.isInvisible = false;
                 }
             }
 

@@ -93,9 +93,9 @@
         }
 
         function initializeStraatbeeld (straatbeeld) {
-            // Resets all straatbeeld properties
+            // Resets straatbeeld properties
             // Leave any other properties of straatbeeld untouched
-            delete straatbeeld.isInvisible;
+            straatbeeld.isInvisible = false;
 
             straatbeeld.id = null;
             straatbeeld.location = null;
@@ -125,7 +125,7 @@
 
             // Straatbeeld can be null if another action gets triggered between FETCH_STRAATBEELD and SHOW_STRAATBEELD
             if (angular.isObject(newState.straatbeeld)) {
-                delete newState.straatbeeld.isInvisible;
+                newState.straatbeeld.isInvisible = false;
 
                 newState.straatbeeld.id = payload.id || newState.straatbeeld.id;
                 newState.straatbeeld.date = payload.date;

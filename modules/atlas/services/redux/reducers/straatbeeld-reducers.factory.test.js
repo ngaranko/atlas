@@ -105,7 +105,7 @@ describe('Straatbeeld reducers factory', function () {
             };
 
             var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD](inputState, payload);
-            expect(newState.straatbeeld.isInvisible).toBeUndefined();
+            expect(newState.straatbeeld.isInvisible).toBe(false);
         });
 
         it('resets search results', function () {
@@ -217,7 +217,7 @@ describe('Straatbeeld reducers factory', function () {
             };
 
             var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION](inputState, payload);
-            expect(newState.straatbeeld.isInvisible).toBeUndefined();
+            expect(newState.straatbeeld.isInvisible).toBe(false);
         });
 
         it('centers the map when layerselection or fullscreen map is active', function () {
@@ -312,7 +312,7 @@ describe('Straatbeeld reducers factory', function () {
         it('resets its invibility when showing straatbeeld', function () {
             inputState.straatbeeld.isInvisible = true;
             var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
-            expect(newState.straatbeeld.isInvisible).toBeUndefined();
+            expect(newState.straatbeeld.isInvisible).toBe(false);
         });
 
         it('does nothing when straatbeeld is null', function () {
@@ -338,11 +338,11 @@ describe('Straatbeeld reducers factory', function () {
         });
 
         it('only sets the map viewcenter on a subsequent straatbeeld when straatbeeld active', function () {
-            inputState.straatbeeld = null;
-            var location = inputState.map.viewCenter;
-            payload.location = [location[0] + 1, location[1] + 1];
+            inputState.straatbeeld = null;  // no straatbeeld is active
+            var location = inputState.map.viewCenter;   // save location
+            payload.location = [location[0] + 1, location[1] + 1];  // try to set to other location
             var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT](inputState, payload);
-            expect(newState.map.viewCenter).toEqual(location);
+            expect(newState.map.viewCenter).toEqual(location);  // location is not changed; equal to old location
         });
     });
 

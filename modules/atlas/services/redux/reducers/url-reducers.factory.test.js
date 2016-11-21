@@ -316,14 +316,14 @@ describe('The urlReducers factory', function () {
                 expect(output.detail.isInvisible).toBe(true);
             });
 
-            it('only sets its invisibility when true', function () {
+            it('can restore its invisibility status when not invisible', function () {
                 let output;
 
                 mockedSearchParams.detail = 'ABC';
 
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
 
-                expect(output.detail.isInvisible).toBeUndefined();
+                expect(output.detail.isInvisible).toBe(false);
             });
 
             it('remembers the display and geometry of the previous state if the endpoint stays the same', function () {
@@ -484,14 +484,14 @@ describe('The urlReducers factory', function () {
                 expect(output.straatbeeld.isInvisible).toBe(true);
             });
 
-            it('only sets its invisibility when true', function () {
+            it('can restore its invisibility status when not invisible', function () {
                 let output;
 
                 mockedSearchParams.id = 'ABC';
 
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
 
-                expect(output.straatbeeld.isInvisible).toBeUndefined();
+                expect(output.straatbeeld.isInvisible).toBe(false);
             });
 
             it('can restore its location', function () {

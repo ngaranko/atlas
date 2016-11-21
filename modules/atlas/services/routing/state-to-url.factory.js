@@ -107,7 +107,7 @@
             if (state.detail) {
                 params.detail = state.detail.endpoint || null;
                 if (state.detail.isInvisible) {
-                    params.detailInvisible = state.detail.isInvisible;
+                    params.detailInvisible = true;  // Only store in url on truthy value
                 }
             }
 
@@ -123,7 +123,7 @@
                     params.straatbeeld = state.straatbeeld.location.join(',');
                 }
                 if (state.straatbeeld.isInvisible) {
-                    params.straatbeeldInvisible = state.straatbeeld.isInvisible;
+                    params.straatbeeldInvisible = true;  // Only store in url on truthy value
                 }
                 params.heading = String(state.straatbeeld.heading);
                 params.pitch = String(state.straatbeeld.pitch);
