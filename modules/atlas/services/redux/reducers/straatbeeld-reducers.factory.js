@@ -10,11 +10,11 @@
     function straatbeeldReducersFactory (ACTIONS, straatbeeldConfig) {
         var reducers = {};
 
-        reducers[ACTIONS.FETCH_STRAATBEELD] = fetchStraatbeeldReducer;
-        reducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION] = fetchStraatbeeldByLocationReducer;
-        reducers[ACTIONS.SHOW_STRAATBEELD_INITIAL] = showStraatbeeldReducer;
-        reducers[ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT] = showStraatbeeldSubsequentReducer;
-        reducers[ACTIONS.SET_STRAATBEELD_ORIENTATION] = setOrientationReducer;
+        reducers[ACTIONS.FETCH_STRAATBEELD.id] = fetchStraatbeeldReducer;
+        reducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION.id] = fetchStraatbeeldByLocationReducer;
+        reducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id] = showStraatbeeldReducer;
+        reducers[ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT.id] = showStraatbeeldSubsequentReducer;
+        reducers[ACTIONS.SET_STRAATBEELD_ORIENTATION.id] = setOrientationReducer;
 
         return reducers;
 
