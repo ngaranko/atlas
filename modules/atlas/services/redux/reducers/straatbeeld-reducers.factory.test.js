@@ -93,7 +93,19 @@ describe('Straatbeeld reducers factory', function () {
             };
 
             var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD](inputState, payload);
-            expect(newState.straatbeeld.detail).toEqual(inputState.detail.endpoint);
+            expect(newState.detail.isInvisible).toBe(true);
+        });
+
+        it('resets its invisibility when starting straatbeeld', function () {
+            inputState.detail = {
+                endpoint: 'bag/verblijfsobject/123/',
+                geometry: 'aap',
+                isLoading: false,
+                isInvisible: true
+            };
+
+            var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD](inputState, payload);
+            expect(newState.straatbeeld.isInvisible).toBe(false);
         });
 
         it('resets search results', function () {
@@ -196,6 +208,18 @@ describe('Straatbeeld reducers factory', function () {
             expect(output.straatbeeld.targetLocation).toEqual(location);
         });
 
+        it('resets its invibility when fetching straatbeeld', function () {
+            inputState.detail = {
+                endpoint: 'bag/verblijfsobject/123/',
+                geometry: 'aap',
+                isLoading: false,
+                isInvisible: true
+            };
+
+            var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION](inputState, payload);
+            expect(newState.straatbeeld.isInvisible).toBe(false);
+        });
+
         it('centers the map when layerselection or fullscreen map is active', function () {
             let state = {
                 'map': {
@@ -285,11 +309,40 @@ describe('Straatbeeld reducers factory', function () {
             expect(newState.map.isLoading).toBe(false);
         });
 
+        it('resets its invibility when showing straatbeeld', function () {
+            inputState.straatbeeld.isInvisible = true;
+            var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
+            expect(newState.straatbeeld.isInvisible).toBe(false);
+        });
+
         it('does nothing when straatbeeld is null', function () {
             inputState.straatbeeld = null;
             var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
 
             expect(newState.straatbeeld).toBeNull();
+        });
+
+        it('sets the map viewcenter only on a subsequent straatbeeld', function () {
+            inputState.map.viewCenter = null;
+            payload.location = [1, 2];
+            var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT](inputState, payload);
+            expect(newState.map.viewCenter).toEqual([1, 2]);
+            payload.location = [3, 4];
+            newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT](inputState, payload);
+            expect(newState.map.viewCenter).toEqual([3, 4]);
+            payload.location = [5, 6];
+            newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL](inputState, payload);
+            expect(newState.map.viewCenter).toBeNull();
+            newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT](inputState, payload);
+            expect(newState.map.viewCenter).toEqual([5, 6]);
+        });
+
+        it('only sets the map viewcenter on a subsequent straatbeeld when straatbeeld active', function () {
+            inputState.straatbeeld = null;  // no straatbeeld is active
+            var location = inputState.map.viewCenter;   // save location
+            payload.location = [location[0] + 1, location[1] + 1];  // try to set to other location
+            var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT](inputState, payload);
+            expect(newState.map.viewCenter).toEqual(location);  // location is not changed; equal to old location
         });
     });
 
