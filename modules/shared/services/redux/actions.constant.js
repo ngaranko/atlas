@@ -6,6 +6,8 @@
     //   The action will not change the url
     // - replace: true
     //   The action will replace the url (not adding a new entry in the browser history)
+    // - isButton: true
+    //   The action will be triggered by a button instead of a link
     //
     angular
         .module('dpShared')
