@@ -243,6 +243,48 @@ describe('The stateToUrl factory', function () {
                 detail: 'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/123/'
             }));
         });
+
+        it('can set the invisibility of the detail', function () {
+            mockedState.detail = {
+                endpoint: 'ABC',
+                isInvisible: true
+            };
+
+            stateToUrl.update(mockedState, false);
+
+            expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
+                detail: 'ABC',
+                detailInvisible: true
+            }));
+        });
+
+        it('can unset the invisibility of the detail', function () {
+            mockedState.detail = {
+                endpoint: 'ABC',
+                isInvisible: false
+            };
+
+            stateToUrl.update(mockedState, false);
+
+            expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
+                detailInvisible: true
+            }));
+            expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
+                detailInvisible: false
+            }));
+        });
+
+        it('can set the invisibility of the detail, even without endpoint', function () {
+            mockedState.detail = {
+                isInvisible: true
+            };
+
+            stateToUrl.update(mockedState, false);
+
+            expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
+                detailInvisible: true
+            }));
+        });
     });
 
     describe('Straatbeeld', function () {
@@ -288,17 +330,33 @@ describe('The stateToUrl factory', function () {
             }));
         });
 
-        it('can set the straatbeeld location if it\'s known', function () {
+        it('can set the straatbeeld invisibility', function () {
             mockedState.straatbeeld = {
                 id: 'ABC',
-                detail: 'aap'
+                isInvisible: true
             };
 
             stateToUrl.update(mockedState, false);
 
             expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
                 id: 'ABC',
-                detail: 'aap'
+                straatbeeldInvisible: true
+            }));
+        });
+
+        it('can unset the straatbeeld invisibility', function () {
+            mockedState.straatbeeld = {
+                id: 'ABC',
+                isInvisible: false
+            };
+
+            stateToUrl.update(mockedState, false);
+
+            expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
+                straatbeeldInvisible: false
+            }));
+            expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
+                straatbeeldInvisible: true
             }));
         });
 
