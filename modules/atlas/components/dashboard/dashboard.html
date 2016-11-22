@@ -1,38 +1,50 @@
 <div class="c-dashboard">
-    <div class="c-dashboard__heading">
-        <div ng-controller="HeaderController as header">
-            <dp-header query="{{header.query}}" has-print-button="header.hasPrintButton" is-print-mode="vm.isPrintMode"></dp-header>
-        </div>
+
+    <!-- Header -->
+    <div class="c-dashboard__heading"
+        ng-controller="HeaderController as header">
+
+        <dp-header
+            query="{{header.query}}"
+            has-print-button="header.hasPrintButton"
+            is-print-mode="vm.isPrintMode"></dp-header>
     </div>
 
+    <!-- Error message -->
     <div ng-if="vm.visibility.httpStatus.hasErrors"
         ng-class="{
             'u-padding__right--2': !vm.isPrintMode,
             'u-padding__left--2': !vm.isPrintMode
         }">
-
+        
         <dp-api-error></dp-api-error>
     </div>
 
+    <!-- Content -->
     <div ng-class="{
             'c-dashboard__content': !vm.visibility.httpStatus.hasErrors,
             'c-dashboard__content--error': vm.visibility.httpStatus.hasErrors,
-            'u-padding__right--2': !vm.isPrintMode && !vm.isRightColumnScrollable,
             'u-padding__left--2': !vm.isPrintMode
         }">
 
         <div class="u-grid u-height--100" ng-class="{'u-height--auto': vm.isPrintMode}">
-
             <div class="u-row u-height--100" ng-class="{'u-height--auto': vm.isPrintMode}">
+
+                <!-- Layer selection -->
                 <div ng-if="vm.columnSizes.left"
-                    class="u-col-sm--{{vm.columnSizes.left}} qa-dashboard__content__column--left u-height--100"
+                    class="
+                        u-col-sm--{{vm.columnSizes.left}}
+                        u-padding__top--2 
+                        u-padding__bottom--2 
+                        u-height--100
+                        qa-dashboard__content__column--left"
                     ng-class="{
                         'u-padding__right--2': !vm.isPrintMode,
                         'u-height--auto': vm.isPrintMode
                     }">
 
                     <div ng-controller="LayerSelectionController as vm"
-                        class="u-padding__top--2 u-height--100"
+                        class="u-height--100"
                         ng-class="{
                             'u-height--auto': vm.isPrintMode
                         }">
@@ -40,62 +52,91 @@
                         <dp-layer-selection
                             base-layer="{{vm.baseLayer}}"
                             overlays="vm.overlays"
-                            zoom="vm.zoom">
-
-                        </dp-layer-selection>
+                            zoom="vm.zoom"></dp-layer-selection>
                     </div>
                 </div>
 
+                <!-- Map -->
                 <div ng-if="vm.columnSizes.middle"
-                    class="u-col-sm--{{vm.columnSizes.middle}} qa-dashboard__content__column--middle u-height--100"
-                    ng-class="{'u-height--auto': vm.isPrintMode}">
-
-                    <div ng-if="vm.visibility.map" ng-controller="MapController as vm">
-                        <dp-map
-                            map-state="vm.mapState"
-                            show-layer-selection="vm.showLayerSelection"
-                            markers="vm.markers">
-
-                        </dp-map>
-                    </div>
-                </div>
-
-                <div ng-if="vm.columnSizes.right"
-                    dp-scrollable-content visibility="vm.visibility" page-name="{{vm.pageName}}"
-                    class="u-col-sm--{{vm.columnSizes.right}} qa-dashboard__content__column--right u-height--100 u-height--100 page-break-before"
+                    class="
+                        u-col-sm--{{vm.columnSizes.middle}}
+                        u-padding__top--2 
+                        u-padding__bottom--2 
+                        u-height--100
+                        qa-dashboard__content__column--middle"
                     ng-class="{
-                        'u-padding__left--2': !vm.isPrintMode && (vm.columnSizes.left || vm.columnSizes.middle),
-                        'c-dashboard__content--scrollable u-padding__right--2': !vm.isPrintMode && vm.isRightColumnScrollable,
+                        'u-padding__right--2': !vm.isPrintMode,
                         'u-height--auto': vm.isPrintMode
                     }">
 
+                    <div ng-controller="MapController as vm"
+                        class="
+                            u-position--relative
+                            u-height--100"
+                        ng-class="{
+                            'u-height--auto': vm.isPrintMode
+                        }">
+                        <!-- ng-if="vm.visibility.map" -->
+                        <dp-map
+                            map-state="vm.mapState"
+                            show-layer-selection="vm.showLayerSelection"
+                            markers="vm.markers"></dp-map>
+                    </div>
+                </div>
+
+                <!-- Right column -->
+                <div ng-if="vm.columnSizes.right"
+                    dp-scrollable-content
+                    visibility="vm.visibility"
+                    page-name="{{vm.pageName}}"
+                    class="
+                        u-col-sm--{{vm.columnSizes.right}}
+                        u-padding__top--2 
+                        u-padding__bottom--2 
+                        u-height--100
+                        page-break-before
+                        qa-dashboard__content__column--right"
+                    ng-class="{
+                        'c-dashboard__content--scrollable': !vm.isPrintMode && vm.isRightColumnScrollable,
+                        'u-padding__right--2': !vm.isPrintMode,
+                        'u-height--auto': vm.isPrintMode
+                    }">
+
+                    <!-- Detail -->
                     <div ng-if="vm.visibility.detail" ng-controller="DetailController as vm">
                         <dp-detail
                             endpoint="{{vm.endpoint}}"
                             reload="vm.reload"
-                            is-loading="vm.isLoading">
-                        </dp-detail>
+                            is-loading="vm.isLoading"></dp-detail>
                     </div>
 
+                    <!-- Page -->
                     <div ng-if="vm.visibility.page" ng-controller="PageController as vm">
                         <dp-page name="{{vm.pageName}}"></dp-page>
                     </div>
 
+                    <!-- Search results -->
                     <div ng-if="vm.visibility.searchResults" ng-controller="SearchResultsController as vm">
                         <dp-search-results
                             is-loading="vm.isLoading"
                             query="{{vm.query}}"
                             location="vm.location"
                             category="{{vm.category}}"
-                            number-of-results="vm.numberOfResults">
-
-                        </dp-search-results>
+                            number-of-results="vm.numberOfResults"></dp-search-results>
                     </div>
 
-                    <div ng-if="vm.visibility.straatbeeld" ng-controller="StraatbeeldController as straatbeeld">
+                    <!-- Straatbeeld -->
+                    <div ng-if="vm.visibility.straatbeeld" ng-controller="StraatbeeldController as straatbeeld"
+                        class="
+                            u-position--relative
+                            u-height--100"
+                        ng-class="{
+                            'u-height--auto': vm.isPrintMode
+                        }">
                         <dp-straatbeeld state="straatbeeld.straatbeeldState" is-print-mode="vm.isPrintMode"></dp-straatbeeld>
                     </div>
 
+                    <!-- Data selection -->
                     <div ng-if="vm.visibility.dataSelection" ng-controller="DataSelectionController as vm">
                         <dp-data-selection state="vm.dataSelectionState"></dp-data-selection>
                     </div>
