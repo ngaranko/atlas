@@ -3,7 +3,8 @@ describe('The straatbeeldApi Factory', function () {
         geojson,
         $q,
         api,
-        $rootScope;
+        $rootScope,
+        cancel;
 
     beforeEach(function () {
         angular.mock.module('dpStraatbeeld', {
@@ -19,7 +20,8 @@ describe('The straatbeeldApi Factory', function () {
                 }
             },
             api: {
-                getByUrl: function () {
+                getByUrl: function (url, params, _cancel) {
+                    cancel = _cancel;
                     var q = $q.defer();
 
                     q.resolve({
@@ -69,7 +71,32 @@ describe('The straatbeeldApi Factory', function () {
 
         straatbeeldApi.getImageDataById('ABC');
 
-        expect(api.getByUrl).toHaveBeenCalledWith('http://example.com/example/ABC/');
+        expect(api.getByUrl).toHaveBeenCalledWith('http://example.com/example/ABC/',
+            undefined, jasmine.anything());
+    });
+
+    it('cancels any outstanding call to the API factory when loading a new straatbeeld', function () {
+        spyOn(api, 'getByUrl').and.callThrough();
+        let cancelled = false;
+
+        straatbeeldApi.getImageDataById('ABC');
+        cancel.promise.then(() => {
+            cancelled = true;
+        });
+        $rootScope.$apply();
+        expect(cancelled).toBe(false);
+
+        straatbeeldApi.getImageDataById('ABC');
+        $rootScope.$apply();
+        expect(cancelled).toBe(false);
+
+        straatbeeldApi.getImageDataById('ABC');
+        cancel.promise.then(() => {
+            cancelled = true;
+        });
+        straatbeeldApi.getImageDataById('ABC');
+        $rootScope.$apply();
+        expect(cancelled).toBe(true);
     });
 
     it('calls the API factory with the correct endpoint for location', function () {
@@ -77,7 +104,32 @@ describe('The straatbeeldApi Factory', function () {
 
         straatbeeldApi.getImageDataByLocation([52, 4]);
 
-        expect(api.getByUrl).toHaveBeenCalledWith('http://example.com/example/?lat=52&lon=4&radius=10000');
+        expect(api.getByUrl).toHaveBeenCalledWith('http://example.com/example/?lat=52&lon=4&radius=10000',
+            undefined, jasmine.anything());
+    });
+
+    it('cancels any outstanding call to the API factory when loading a new straatbeeld', function () {
+        spyOn(api, 'getByUrl').and.callThrough();
+        let cancelled = false;
+
+        straatbeeldApi.getImageDataByLocation([52, 4]);
+        cancel.promise.then(() => {
+            cancelled = true;
+        });
+        $rootScope.$apply();
+        expect(cancelled).toBe(false);
+
+        straatbeeldApi.getImageDataByLocation([52, 4]);
+        $rootScope.$apply();
+        expect(cancelled).toBe(false);
+
+        straatbeeldApi.getImageDataByLocation([52, 4]);
+        cancel.promise.then(() => {
+            cancelled = true;
+        });
+        straatbeeldApi.getImageDataByLocation([52, 4]);
+        $rootScope.$apply();
+        expect(cancelled).toBe(true);
     });
 
     describe('the API will be mapped to the state structure', function () {

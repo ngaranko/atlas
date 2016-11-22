@@ -13,7 +13,7 @@
             getByUri: getByUri
         };
 
-        function getByUrl (url, params) {
+        function getByUrl (url, params, cancel) {
             var headers = {},
                 userState;
 
@@ -28,6 +28,7 @@
                 url: url,
                 headers: headers,
                 params: params,
+                timeout: cancel && cancel.promise,
 
                 /*
                 Caching is set to false to enforce distinction between logged in users and guests. The API doesn't
