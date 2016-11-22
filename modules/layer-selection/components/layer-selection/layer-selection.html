@@ -2,11 +2,11 @@
     <div class="c-layer-selection__heading">
         Selecteer kaartlagen
 
-        <dp-link type="HIDE_LAYER_SELECTION" 
-            class-name="c-layer-selection__close"
-            hover-text="Sluiten">
+        <button class="c-layer-selection__close"
+                ng-click="vm.close()"
+                title="Sluiten">
             <span class="u-sr-only">Sluiten</span>
-        </dp-link>
+        </button>
     </div>
     <div class="c-layer-selection__content">
         <div class="u-margin__bottom--1">

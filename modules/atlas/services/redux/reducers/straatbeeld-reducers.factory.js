@@ -13,7 +13,7 @@
         reducers[ACTIONS.FETCH_STRAATBEELD] = fetchStraatbeeldReducer;
         reducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION] = fetchStraatbeeldByLocationReducer;
         reducers[ACTIONS.SHOW_STRAATBEELD_INITIAL] = showStraatbeeldReducer;
-        reducers[ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT] = showStraatbeeldReducer;
+        reducers[ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT] = showStraatbeeldSubsequentReducer;
         reducers[ACTIONS.SET_STRAATBEELD_ORIENTATION] = setOrientationReducer;
 
         return reducers;
@@ -38,16 +38,17 @@
                 0;
             newState.straatbeeld.isInitial = payload.isInitial;
 
-            // save detail, straatbeeld can be 'on top' of detail page
-            if (newState.detail) {
-                newState.straatbeeld.detail = newState.detail.endpoint;
+            // If a straatbeeld is loaded by it's id
+            // and detail is active
+            // then inactivate detail
+            if (angular.isObject(newState.detail)) {
+                newState.detail.isInvisible = true;
             }
 
             newState.map.highlight = null;
 
             newState.search = null;
             newState.page = null;
-            newState.detail = null;
 
             newState.dataSelection = null;
 
@@ -74,14 +75,17 @@
             if (oldState.layerSelection || (oldState.map && oldState.map.isFullscreen)) {
                 newState.map.viewCenter = payload;
             }
-            newState.straatbeeld.detail = null;
 
             newState.layerSelection = false;
             if (newState.map) {
                 newState.map.showActiveOverlays = false;
                 newState.map.isFullscreen = false;
             }
+            newState.search = null;
             newState.page = null;
+
+            // If a straatbeeld is loaded by it's location
+            // then clear any active detail
             newState.detail = null;
             newState.dataSelection = null;
 
@@ -89,6 +93,10 @@
         }
 
         function initializeStraatbeeld (straatbeeld) {
+            // Resets straatbeeld properties
+            // Leave any other properties of straatbeeld untouched
+            straatbeeld.isInvisible = false;
+
             straatbeeld.id = null;
             straatbeeld.location = null;
 
@@ -117,6 +125,8 @@
 
             // Straatbeeld can be null if another action gets triggered between FETCH_STRAATBEELD and SHOW_STRAATBEELD
             if (angular.isObject(newState.straatbeeld)) {
+                newState.straatbeeld.isInvisible = false;
+
                 newState.straatbeeld.id = payload.id || newState.straatbeeld.id;
                 newState.straatbeeld.date = payload.date;
 
@@ -137,6 +147,23 @@
                 newState.straatbeeld.location = payload.location;
                 newState.straatbeeld.image = payload.image;
                 newState.map.isLoading = false;
+            }
+
+            return newState;
+        }
+
+        /**
+         * @param {Object} oldState
+         * @param {Object} payload -  data from straatbeeld-api
+         *
+         * @returns {Object} newState
+         */
+        function showStraatbeeldSubsequentReducer (oldState, payload) {
+            var newState = showStraatbeeldReducer(oldState, payload);
+
+            if (angular.isObject(newState.straatbeeld)) {
+                // Keep map centered on last selected hotspot
+                newState.map.viewCenter = payload.location;
             }
 
             return newState;

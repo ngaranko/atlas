@@ -79,12 +79,12 @@ describe('The contextMiddleware factory', function () {
         });
     });
 
-    it('translates HIDE_STRAATBEELD action in fetch detail when coming from details', function () {
+    it('translates HIDE_STRAATBEELD action in fetch detail when details available', function () {
         mockedAction.type = ACTIONS.HIDE_STRAATBEELD;
         mockedStore.getState = () => {
             return {
-                straatbeeld: {
-                    detail: 'aap'
+                detail: {
+                    endpoint: 'aap'
                 }
             };
         };

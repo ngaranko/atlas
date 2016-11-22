@@ -102,9 +102,16 @@
         }
 
         function getDetailParams (state) {
-            return {
-                detail: state.detail && state.detail.endpoint || null
-            };
+            var params = {};
+
+            if (state.detail) {
+                params.detail = state.detail.endpoint || null;
+                if (state.detail.isInvisible) {
+                    params.detailInvisible = true;  // Only store in url on truthy value
+                }
+            }
+
+            return params;
         }
 
         function getStraatbeeldParams (state) {
@@ -115,8 +122,8 @@
                 if (angular.isArray(state.straatbeeld.location)) {
                     params.straatbeeld = state.straatbeeld.location.join(',');
                 }
-                if (state.straatbeeld.detail) {
-                    params.detail = state.straatbeeld.detail;
+                if (state.straatbeeld.isInvisible) {
+                    params.straatbeeldInvisible = true;  // Only store in url on truthy value
                 }
                 params.heading = String(state.straatbeeld.heading);
                 params.pitch = String(state.straatbeeld.pitch);

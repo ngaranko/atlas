@@ -32,6 +32,12 @@
             container = element[0].querySelector('.js-marzipano-viewer');
             viewer = marzipanoService.initialize(container);
 
+            scope.close = function () {
+                store.dispatch({
+                    type: ACTIONS.HIDE_STRAATBEELD
+                });
+            };
+
             scope.updateOrientation = function () {
                 if (!scope.state.isLoading) {
                     orientation.update(viewer);

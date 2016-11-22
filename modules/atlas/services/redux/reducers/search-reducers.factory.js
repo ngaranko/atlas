@@ -39,10 +39,7 @@
             newState.layerSelection = false;
             newState.page = null;
             newState.detail = null;
-            if (angular.isObject(newState.straatbeeld)) {
-                newState.straatbeeld.id = null;
-                newState.straatbeeld.location = null;
-            }
+            newState.straatbeeld = null;
             newState.dataSelection = null;
 
             return newState;
@@ -76,10 +73,7 @@
             }
             newState.page = null;
             newState.detail = null;
-            if (angular.isObject(newState.straatbeeld)) {
-                newState.straatbeeld.id = null;
-                newState.straatbeeld.location = null;
-            }
+            newState.straatbeeld = null;
             newState.dataSelection = null;
 
             return newState;
