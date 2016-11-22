@@ -4,6 +4,14 @@ $dashboard-heading-height: 50px;
 $dashboard-heading-height-printversion: 42px;
 $dashboard-error-height: $button-size + 2 * $base-whitespace;
 
+%full-height {
+  height: 100%;
+}
+
+.u-dashboard--full-height {
+  @extend %full-height;
+}
+
 .c-dashboard {
   height: 100%;
   overflow: hidden;
@@ -15,25 +23,44 @@ $dashboard-error-height: $button-size + 2 * $base-whitespace;
   z-index: 2;
 }
 
-.c-dashboard__content {
+.c-dashboard__error {
+  padding-right: $base-whitespace * 2;
+  padding-left: $base-whitespace * 2;
+}
+
+.c-dashboard__body {
   position: relative;
   height: calc(100% - #{$dashboard-heading-height});
+  padding-left: $base-whitespace * 2;
   z-index: 1;
   overflow-y: hidden;
+
+  &.c-dashboard__body--error {
+    height: calc(100% - #{$dashboard-heading-height} - #{$dashboard-error-height});
+  }
 }
 
-.c-dashboard__content--error {
-  position: relative;
-  height: calc(100% - #{$dashboard-heading-height} - #{$dashboard-error-height});
-  z-index: 1;
-  overflow-y: hidden;
-}
+.c-dashboard__layer-selection,
+.c-dashboard__map,
+.c-dashboard__content {
+  @extend %full-height;
 
-.c-dashboard__content--scrollable {
+  padding: $base-whitespace * 2;
+  padding-left: 0;
   overflow-y: auto;
+
+  &>div {
+    @extend %full-height;
+
+    position: relative;
+  }
 }
 
 .is-print-mode {
+  %full-height {
+    height: auto;
+  }
+
   .c-dashboard {
     padding: $base-whitespace * 2 0 0 0;
     border-right: solid $secondary-gray20 1px;
@@ -49,9 +76,19 @@ $dashboard-error-height: $button-size + 2 * $base-whitespace;
     z-index: 2;
   }
 
-  .c-dashboard__content {
+  .c-dashboard__error {
+    padding: 0;
+  }
+
+  .c-dashboard__body {
     padding: $base-whitespace $base-whitespace * 2;
     box-shadow: 0 0 5px $secondary-gray40;
+  }
+
+  .c-dashboard__layer-selection,
+  .c-dashboard__map,
+  .c-dashboard__content {
+    padding-right: 0;
   }
 
   &.print-landscape {
@@ -77,7 +114,7 @@ $dashboard-error-height: $button-size + 2 * $base-whitespace;
       height: 0;
     }
 
-    .c-dashboard__content {
+    .c-dashboard__body {
       box-shadow: none;
     }
   }

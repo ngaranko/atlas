@@ -11,43 +11,25 @@
     </div>
 
     <!-- Error message -->
-    <div ng-if="vm.visibility.httpStatus.hasErrors"
-        ng-class="{
-            'u-padding__right--2': !vm.isPrintMode,
-            'u-padding__left--2': !vm.isPrintMode
-        }">
-        
+    <div ng-if="vm.visibility.httpStatus.hasErrors" class="c-dashboard__error">
         <dp-api-error></dp-api-error>
     </div>
 
-    <!-- Content -->
-    <div ng-class="{
-            'c-dashboard__content': !vm.visibility.httpStatus.hasErrors,
-            'c-dashboard__content--error': vm.visibility.httpStatus.hasErrors,
-            'u-padding__left--2': !vm.isPrintMode
-        }">
+    <!-- Body -->
+    <div class="c-dashboard__body"
+        ng-class="{ 'c-dashboard__body--error': vm.visibility.httpStatus.hasErrors }">
 
-        <div class="u-grid u-height--100" ng-class="{'u-height--auto': vm.isPrintMode}">
-            <div class="u-row u-height--100" ng-class="{'u-height--auto': vm.isPrintMode}">
+        <div class="u-grid u-dashboard--full-height">
+            <div class="u-row u-dashboard--full-height">
 
                 <!-- Layer selection -->
                 <div ng-if="vm.columnSizes.left"
                     class="
-                        u-col-sm--{{vm.columnSizes.left}}
-                        u-padding__top--2 
-                        u-padding__bottom--2 
-                        u-height--100
+                        c-dashboard__layer-selection
                         qa-dashboard__content__column--left"
-                    ng-class="{
-                        'u-padding__right--2': !vm.isPrintMode,
-                        'u-height--auto': vm.isPrintMode
-                    }">
+                    ng-class="'u-col-sm--' + vm.columnSizes.left">
 
-                    <div ng-controller="LayerSelectionController as vm"
-                        class="u-height--100"
-                        ng-class="{
-                            'u-height--auto': vm.isPrintMode
-                        }">
+                    <div ng-controller="LayerSelectionController as vm">
 
                         <dp-layer-selection
                             base-layer="{{vm.baseLayer}}"
@@ -58,24 +40,12 @@
 
                 <!-- Map -->
                 <div ng-if="vm.columnSizes.middle"
-                    class="
-                        u-col-sm--{{vm.columnSizes.middle}}
-                        u-padding__top--2 
-                        u-padding__bottom--2 
-                        u-height--100
-                        qa-dashboard__content__column--middle"
-                    ng-class="{
-                        'u-padding__right--2': !vm.isPrintMode,
-                        'u-height--auto': vm.isPrintMode
-                    }">
+                     class="
+                         c-dashboard__map
+                         qa-dashboard__content__column--middle"
+                     ng-class="'u-col-sm--' + vm.columnSizes.middle">
 
-                    <div ng-controller="MapController as vm"
-                        class="
-                            u-position--relative
-                            u-height--100"
-                        ng-class="{
-                            'u-height--auto': vm.isPrintMode
-                        }">
+                    <div ng-controller="MapController as vm">
                         <!-- ng-if="vm.visibility.map" -->
                         <dp-map
                             map-state="vm.mapState"
@@ -84,23 +54,16 @@
                     </div>
                 </div>
 
-                <!-- Right column -->
+                <!-- Content -->
                 <div ng-if="vm.columnSizes.right"
                     dp-scrollable-content
                     visibility="vm.visibility"
                     page-name="{{vm.pageName}}"
                     class="
-                        u-col-sm--{{vm.columnSizes.right}}
-                        u-padding__top--2 
-                        u-padding__bottom--2 
-                        u-height--100
+                        c-dashboard__content
                         page-break-before
                         qa-dashboard__content__column--right"
-                    ng-class="{
-                        'c-dashboard__content--scrollable': !vm.isPrintMode && vm.isRightColumnScrollable,
-                        'u-padding__right--2': !vm.isPrintMode,
-                        'u-height--auto': vm.isPrintMode
-                    }">
+                    ng-class="'u-col-sm--' + vm.columnSizes.right">
 
                     <!-- Detail -->
                     <div ng-if="vm.visibility.detail" ng-controller="DetailController as vm">
@@ -127,12 +90,8 @@
 
                     <!-- Straatbeeld -->
                     <div ng-if="vm.visibility.straatbeeld" ng-controller="StraatbeeldController as straatbeeld"
-                        class="
-                            u-position--relative
-                            u-height--100"
-                        ng-class="{
-                            'u-height--auto': vm.isPrintMode
-                        }">
+                       class="u-dashboard--full-height">
+
                         <dp-straatbeeld state="straatbeeld.straatbeeldState" is-print-mode="vm.isPrintMode"></dp-straatbeeld>
                     </div>
 
