@@ -45,6 +45,7 @@ describe('The dp-link component', function () {
                         updateFn = fn;
                         return unsubscribe.unsubscribe;
                     },
+                    dispatch: angular.noop,
                     getState: angular.noop
                 },
                 applicationState,
@@ -54,7 +55,10 @@ describe('The dp-link component', function () {
                 $provide.constant('ACTIONS', {
                     SHOW_PAGE: 'show-page',
                     MAP_PAN: 'map-pan',
-                    SHOW_LAYER_SELECTION: 'show-layer-selection'
+                    SHOW_LAYER_SELECTION: 'show-layer-selection',
+                    ISBUTTON: {
+                        isButton: true
+                    }
                 });
             }
         );
@@ -67,6 +71,7 @@ describe('The dp-link component', function () {
 
         spyOn(store, 'subscribe').and.callThrough();
         spyOn(store, 'getState');
+        spyOn(store, 'dispatch');
         spyOn(stateToUrl, 'create');
         spyOn(body, 'contains').and.returnValue(true);
     });
@@ -101,6 +106,26 @@ describe('The dp-link component', function () {
         getComponent('SHOW_PAGE', 'welkom');
         expect(store.subscribe).toHaveBeenCalled();
         expect(angular.isFunction(updateFn)).toBe(true);
+    });
+
+    it('can be a button', function () {
+        let component = getComponent('ISBUTTON', 'payload', 'className', 'hoverText');
+
+        expect(store.subscribe).not.toHaveBeenCalled();
+        expect(component.find('a').length).toBe(0);
+
+        let button = component.find('button');
+        expect(button.length).toBe(1);
+        expect(button.attr('title')).toBe('hoverText');
+        expect(button.attr('class')).toBe('className');
+
+        button.click();
+        expect(store.dispatch).toHaveBeenCalledWith({
+            type: {
+                isButton: true
+            },
+            payload: 'payload'
+        });
     });
 
     describe('update', () => {
@@ -222,7 +247,7 @@ describe('The dp-link component', function () {
         });
     });
 
-    xdescribe('title attribute', function () {
+    describe('title attribute', function () {
         it('has a title attribute on its button element', function () {
             var component = getComponent('SHOW_PAGE', 'welkom');
 

@@ -2,7 +2,6 @@ describe('The dp-straatbeeld-thumbnail component', function () {
     var $compile,
         $rootScope,
         store,
-        ACTIONS,
         $q,
         api,
         hasMockedThumbnail,
@@ -18,7 +17,23 @@ describe('The dp-straatbeeld-thumbnail component', function () {
                     THUMBNAIL_WIDTH: 240
                 },
                 store: {
-                    dispatch: angular.noop
+                    dispatch: angular.noop,
+                    subscribe: angular.noop,
+                    getState: angular.noop
+                },
+                applicationState: {
+                    getReducer: function () {
+                        return function (state, action) {
+                            return action;
+                        };
+                    },
+                    getStateToUrl: function () {
+                        return {
+                            create: function (state) {
+                                return state;
+                            }
+                        };
+                    }
                 },
                 api: {
                     getByUrl: function () {
@@ -50,11 +65,10 @@ describe('The dp-straatbeeld-thumbnail component', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _ACTIONS_, _$q_, _api_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _$q_, _api_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
-            ACTIONS = _ACTIONS_;
             $q = _$q_;
             api = _api_;
         });
@@ -126,20 +140,12 @@ describe('The dp-straatbeeld-thumbnail component', function () {
         expect(scope.vm.isLoading).toBe(true);
     });
 
-    it('responds to click on thumbnail', function () {
+    it('sets the hyperlink url on basis of the state and payload', function () {
         var component = getComponent([52, 4]);
 
         finishApiCall();
 
-        component.find('button').trigger('click');
-
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.FETCH_STRAATBEELD,
-            payload: {
-                id: 'ABC',
-                heading: 179,
-                isInitial: true
-            }
-        });
+        expect(component.find('a').attr('ng-href')).toEqual(
+            '{"type":{"id":"FETCH_STRAATBEELD","ignore":true},"payload":{"id":"ABC","heading":179,"isInitial":true}}');
     });
 });

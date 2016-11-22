@@ -60,7 +60,8 @@
                 replace: true
             },
             MAP_FULLSCREEN: {
-                id: 'MAP_FULLSCREEN'
+                id: 'MAP_FULLSCREEN',
+                isButton: true
             },
             SHOW_MAP_ACTIVE_OVERLAYS: {
                 id: 'SHOW_MAP_ACTIVE_OVERLAYS',
@@ -96,7 +97,8 @@
             },
             HIDE_STRAATBEELD: {
                 id: 'HIDE_STRAATBEELD',
-                ignore: true
+                ignore: true,
+                isButton: true
             },
             SET_STRAATBEELD_ORIENTATION: {
                 id: 'SET_STRAATBEELD_ORIENTATION',
@@ -117,10 +119,12 @@
             },
 
             SHOW_LAYER_SELECTION: {
-                id: 'SHOW_LAYER_SELECTION'
+                id: 'SHOW_LAYER_SELECTION',
+                isButton: true
             },
             HIDE_LAYER_SELECTION: {
-                id: 'HIDE_LAYER_SELECTION'
+                id: 'HIDE_LAYER_SELECTION',
+                isButton: true
             },
 
             SHOW_HOME: {
@@ -134,7 +138,8 @@
                 id: 'SHOW_PRINT'
             },
             HIDE_PRINT: {
-                id: 'HIDE_PRINT'
+                id: 'HIDE_PRINT',
+                isButton: true
             }
         });
 })();

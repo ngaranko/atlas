@@ -10,7 +10,7 @@
     function dpLinkDirective (store, ACTIONS) {
         return {
             template: '<button ng-click="click()" class="{{className}}" title="{{hoverText}}">' +
-                '<ng-transclude></ng-transclude></button>',
+                '<ng-transclude></ng-transclude><span class="u-sr-only">{{hoverText}}</span></button>',
             transclude: true,
             link: linkFn,
             scope: {
