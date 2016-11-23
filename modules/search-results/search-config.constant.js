@@ -16,6 +16,16 @@
                     label_plural: 'Adressen',
                     uri: 'atlas/search/adres/'
                 }, {
+                    slug: 'vestiging',
+                    label_singular: 'Vestiging',
+                    label_plural: 'Vestigingen',
+                    uri: 'handelsregister/search/vestiging/'
+                }, {
+                    slug: 'mac',
+                    label_singular: 'Maatschappelijke activiteit',
+                    label_plural: 'Maatschappelijke activiteiten',
+                    uri: 'handelsregister/search/maatschappelijkeactiviteit/'
+                }, {
                     slug: 'object',
                     label_singular: 'Kadastraal object',
                     label_plural: 'Kadastrale objecten',
@@ -35,10 +45,6 @@
                     label_singular: 'Meetbout',
                     label_plural: 'Meetbouten',
                     uri: 'meetbouten/search/'
-                }, {
-                    slug: 'vestiging',
-                    label_singular: 'Vestiging',
-                    label_plural: 'Vestigingen'
                 }
             ],
             COORDINATES_ENDPOINTS: [
