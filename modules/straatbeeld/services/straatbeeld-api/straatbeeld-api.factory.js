@@ -5,9 +5,11 @@
         .module('dpStraatbeeld')
         .factory('straatbeeldApi', straatbeeldApiFactory);
 
-    straatbeeldApiFactory.$inject = ['straatbeeldConfig', 'geojson', 'api'];
+    straatbeeldApiFactory.$inject = ['$q', 'straatbeeldConfig', 'geojson', 'api'];
 
-    function straatbeeldApiFactory (straatbeeldConfig, geojson, api) {
+    function straatbeeldApiFactory ($q, straatbeeldConfig, geojson, api) {
+        let cancel; // Promise to cancel any outstanding http requests
+
         return {
             getImageDataByLocation,
             getImageDataById
@@ -15,14 +17,23 @@
 
         function getImageDataByLocation (location) {
             const MAX_RADIUS = 10000;
-            return api.getByUrl(straatbeeldConfig.STRAATBEELD_ENDPOINT +
-                `?lat=${location[0]}&lon=${location[1]}&radius=${MAX_RADIUS}`)
-                .then(imageData);
+            return getStraatbeeld(straatbeeldConfig.STRAATBEELD_ENDPOINT +
+                `?lat=${location[0]}&lon=${location[1]}&radius=${MAX_RADIUS}`);
         }
 
         function getImageDataById (id) {
-            return api.getByUrl(straatbeeldConfig.STRAATBEELD_ENDPOINT + id + '/')
-                .then(imageData);
+            return getStraatbeeld(straatbeeldConfig.STRAATBEELD_ENDPOINT + id + '/');
+        }
+
+        function getStraatbeeld (url) {
+            if (cancel) {
+                // Cancel any outstanding requests
+                cancel.resolve();
+            }
+            cancel = $q.defer();
+            return api.getByUrl(url, undefined, cancel)
+                .then(imageData)
+                .finally(() => cancel = null);
         }
 
         function imageData (response) {
