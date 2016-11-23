@@ -56,7 +56,7 @@ describe('The dp-link component', function () {
                     SHOW_PAGE: 'show-page',
                     MAP_PAN: 'map-pan',
                     SHOW_LAYER_SELECTION: 'show-layer-selection',
-                    ISBUTTON: {
+                    IS_BUTTON: {
                         isButton: true
                     }
                 });
@@ -109,7 +109,7 @@ describe('The dp-link component', function () {
     });
 
     it('can be a button', function () {
-        let component = getComponent('ISBUTTON', 'payload', 'className', 'hoverText');
+        let component = getComponent('IS_BUTTON', 'payload', 'className', 'hoverText');
 
         expect(store.subscribe).not.toHaveBeenCalled();
         expect(component.find('a').length).toBe(0);
@@ -118,6 +118,9 @@ describe('The dp-link component', function () {
         expect(button.length).toBe(1);
         expect(button.attr('title')).toBe('hoverText');
         expect(button.attr('class')).toBe('className');
+
+        let srOnly = component.find('button .u-sr-only');
+        expect(srOnly.text()).toBe('hoverText');
 
         button.click();
         expect(store.dispatch).toHaveBeenCalledWith({
