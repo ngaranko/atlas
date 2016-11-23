@@ -43,6 +43,11 @@
                 if (!angular.isArray(thumbnailData)) {
                     vm.imageUrl = thumbnailData.url;
                     vm.hasThumbnail = true;
+                    vm.payload = {
+                        id: id,
+                        heading: heading,
+                        isInitial: true
+                    };
                 } else {
                     vm.hasThumbnail = false;
                 }
@@ -50,16 +55,5 @@
                 vm.isLoading = false;
             });
         }
-
-        vm.openStraatbeeld = function () {
-            store.dispatch({
-                type: ACTIONS.FETCH_STRAATBEELD,
-                payload: {
-                    id: id,
-                    heading: heading,
-                    isInitial: true
-                }
-            });
-        };
     }
 })();

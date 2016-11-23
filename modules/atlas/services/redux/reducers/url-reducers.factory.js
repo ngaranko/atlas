@@ -10,7 +10,7 @@
     function urlReducersFactory ($window, ACTIONS, DEFAULT_STATE) {
         var reducers = {};
 
-        reducers[ACTIONS.URL_CHANGE] = urlChangeReducer;
+        reducers[ACTIONS.URL_CHANGE.id] = urlChangeReducer;
 
         return reducers;
 

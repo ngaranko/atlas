@@ -10,10 +10,10 @@
     function dataSelectionReducersFactory (ACTIONS, DEFAULT_STATE, filterNames) {
         var reducers = {};
 
-        reducers[ACTIONS.SHOW_DATA_SELECTION] = showDataSelectionReducer;
-        reducers[ACTIONS.SHOW_SELECTION_LIST] = showSelectionListReducer;
-        reducers[ACTIONS.NAVIGATE_DATA_SELECTION] = navigateDataSelectionReducer;
-        reducers[ACTIONS.TOGGLE_DATA_SELECTION_LIST_VIEW] = toggleDataSelectionListViewReducer;
+        reducers[ACTIONS.SHOW_DATA_SELECTION.id] = showDataSelectionReducer;
+        reducers[ACTIONS.SHOW_SELECTION_LIST.id] = showSelectionListReducer;
+        reducers[ACTIONS.NAVIGATE_DATA_SELECTION.id] = navigateDataSelectionReducer;
+        reducers[ACTIONS.TOGGLE_DATA_SELECTION_LIST_VIEW.id] = toggleDataSelectionListViewReducer;
 
         return reducers;
 
