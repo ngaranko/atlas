@@ -49,7 +49,7 @@ describe('The dataSelectionReducers factory', function () {
             };
             mockedState.layerSelection = true;
 
-            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION](mockedState, payload);
+            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
 
             // It keeps the active layers
             expect(output.map.baseLayer).toBe('luchtfoto_1914');
@@ -71,7 +71,7 @@ describe('The dataSelectionReducers factory', function () {
 
             mockedState = angular.copy(DEFAULT_STATE);
 
-            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION](mockedState, payload);
+            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
 
             expect(output.dataSelection).toEqual({
                 dataset: 'bag',
@@ -91,7 +91,7 @@ describe('The dataSelectionReducers factory', function () {
             mockedState = angular.copy(DEFAULT_STATE);
             payload.view = constants.VIEW_LIST;
 
-            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION](mockedState, payload);
+            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
 
             expect(output.dataSelection).toEqual({
                 dataset: 'bag',
@@ -110,7 +110,7 @@ describe('The dataSelectionReducers factory', function () {
 
             mockedState = angular.copy(DEFAULT_STATE);
 
-            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION](mockedState, payload);
+            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
 
             expect(output.dataSelection).toEqual({
                 dataset: 'bag',
@@ -133,7 +133,7 @@ describe('The dataSelectionReducers factory', function () {
             mockedState.detail = {some: 'object'};
             mockedState.straatbeeld = {some: 'object'};
 
-            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION](mockedState, payload);
+            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
 
             expect(output.search).toBeNull();
             expect(output.page).toBeNull();
@@ -149,19 +149,19 @@ describe('The dataSelectionReducers factory', function () {
 
             // With print mode enabled
             mockedState.isPrintMode = true;
-            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION](mockedState, payload);
+            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
             expect(output.isPrintMode).toBe(true);
 
             // With print mode disabled
             mockedState.isPrintMode = false;
-            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION](mockedState, payload);
+            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
             expect(output.isPrintMode).toBe(false);
         });
     });
 
     describe('SET_DATA_SELECTION_VIEW', function () {
         it('can set the view to list view', function () {
-            let output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW](
+            let output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW.id](
                 {dataSelection: {}},
                 constants.VIEW_LIST
             );
@@ -170,7 +170,7 @@ describe('The dataSelectionReducers factory', function () {
         });
 
         it('can set the view to table view', function () {
-            let output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW](
+            let output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW.id](
                 {dataSelection: {}},
                 constants.VIEW_TABLE
             );
@@ -179,7 +179,7 @@ describe('The dataSelectionReducers factory', function () {
         });
 
         it('refuses to set the view to an unknown view', function () {
-            let output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW](
+            let output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW.id](
                 {dataSelection: {}},
                 'aap'
             );
@@ -202,7 +202,7 @@ describe('The dataSelectionReducers factory', function () {
                 page: 1
             };
 
-            output = dataSelectionReducers[ACTIONS.NAVIGATE_DATA_SELECTION](mockedState, 4);
+            output = dataSelectionReducers[ACTIONS.NAVIGATE_DATA_SELECTION.id](mockedState, 4);
 
             expect(output.dataSelection).toEqual({
                 dataset: 'bag',
