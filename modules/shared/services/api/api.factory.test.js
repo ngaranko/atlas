@@ -66,13 +66,11 @@ describe('The api factory', function () {
     });
 
     it('getByUrl optionally accepts a promise to allow for cancelling the request', function () {
-        let returnValue;
         let cancel = $q.defer();
 
         api.getByUrl('http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/', undefined, cancel)
             .then(function (data) {
-                returnValue = data;
-                expect(returnValue).not.toBe(data);   // Should never be resolved
+                fail();   // Should never be resolved
             });
 
         cancel.resolve();

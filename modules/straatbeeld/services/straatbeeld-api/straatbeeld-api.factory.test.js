@@ -22,7 +22,8 @@ describe('The straatbeeldApi Factory', function () {
             api: {
                 getByUrl: function (url, params, _cancel) {
                     cancel = _cancel;
-                    var q = $q.defer();
+
+                    let q = $q.defer();
 
                     q.resolve({
                         image_sets: {
@@ -72,29 +73,26 @@ describe('The straatbeeldApi Factory', function () {
         straatbeeldApi.getImageDataById('ABC');
 
         expect(api.getByUrl).toHaveBeenCalledWith('http://example.com/example/ABC/',
-            undefined, jasmine.anything());
+            undefined, jasmine.anything()); // Test the last argument for being a promise lateron
     });
 
-    it('cancels any outstanding call to the API factory when loading a new straatbeeld', function () {
+    it('cancels any outstanding call to the API factory when loading a new straatbeeld by id', function () {
         spyOn(api, 'getByUrl').and.callThrough();
         let cancelled = false;
 
         straatbeeldApi.getImageDataById('ABC');
         cancel.promise.then(() => {
             cancelled = true;
+            fail(); // 1 outstanding request should not be cancelled
         });
         $rootScope.$apply();
         expect(cancelled).toBe(false);
 
-        straatbeeldApi.getImageDataById('ABC');
-        $rootScope.$apply();
-        expect(cancelled).toBe(false);
-
-        straatbeeldApi.getImageDataById('ABC');
+        straatbeeldApi.getImageDataById('ABC'); // first request
         cancel.promise.then(() => {
             cancelled = true;
         });
-        straatbeeldApi.getImageDataById('ABC');
+        straatbeeldApi.getImageDataById('ABC'); // second request, first not yet completed
         $rootScope.$apply();
         expect(cancelled).toBe(true);
     });
@@ -108,26 +106,23 @@ describe('The straatbeeldApi Factory', function () {
             undefined, jasmine.anything());
     });
 
-    it('cancels any outstanding call to the API factory when loading a new straatbeeld', function () {
+    it('cancels any outstanding call to the API factory when loading a new straatbeeld by loc', function () {
         spyOn(api, 'getByUrl').and.callThrough();
         let cancelled = false;
 
         straatbeeldApi.getImageDataByLocation([52, 4]);
         cancel.promise.then(() => {
             cancelled = true;
+            fail(); // 1 outstanding request should not be cancelled
         });
         $rootScope.$apply();
         expect(cancelled).toBe(false);
 
-        straatbeeldApi.getImageDataByLocation([52, 4]);
-        $rootScope.$apply();
-        expect(cancelled).toBe(false);
-
-        straatbeeldApi.getImageDataByLocation([52, 4]);
+        straatbeeldApi.getImageDataByLocation([52, 4]); // first request
         cancel.promise.then(() => {
             cancelled = true;
         });
-        straatbeeldApi.getImageDataByLocation([52, 4]);
+        straatbeeldApi.getImageDataByLocation([52, 4]); // second request, first not yet completed
         $rootScope.$apply();
         expect(cancelled).toBe(true);
     });
