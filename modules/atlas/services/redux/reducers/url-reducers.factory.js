@@ -130,7 +130,8 @@
         }
 
         function getStraatbeeldState (oldState, payload) {
-            if (payload.id) {
+            if (payload.id || payload.straatbeeld) {
+                // A straatbeeld is identified by it's id or it's location
                 var newStraatbeeld = {
                     pitch: Number(payload.pitch),
                     fov: Number(payload.fov),
