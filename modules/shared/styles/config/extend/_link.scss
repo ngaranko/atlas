@@ -36,3 +36,12 @@ $link-offset: $base-font-size;
     content: "›";
   }
 }
+
+%link--inline {
+  @extend %link;
+
+  display: inline;
+  color: $primary-dark;
+  font-weight: normal;
+  text-decoration: underline;
+}
