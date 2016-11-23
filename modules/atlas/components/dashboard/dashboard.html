@@ -10,17 +10,19 @@
             is-print-mode="vm.isPrintMode"></dp-header>
     </div>
 
-    <!-- Error message -->
-    <div ng-if="vm.visibility.httpStatus.hasErrors" class="c-dashboard__error">
-        <dp-api-error></dp-api-error>
-    </div>
-
     <!-- Body -->
     <div class="c-dashboard__body"
         ng-class="{ 'c-dashboard__body--error': vm.visibility.httpStatus.hasErrors }">
 
-        <div class="u-grid u-dashboard--full-height">
-            <div class="u-row u-dashboard--full-height">
+        <div class="u-grid">
+
+            <!-- Error message -->
+            <div ng-if="vm.visibility.httpStatus.hasErrors" class="c-dashboard__error">
+                <dp-api-error></dp-api-error>
+            </div>
+
+            <!-- Columns -->
+            <div class="u-row">
 
                 <!-- Layer selection -->
                 <div ng-if="vm.columnSizes.left"

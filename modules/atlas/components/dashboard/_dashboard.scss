@@ -23,11 +23,6 @@ $dashboard-error-height: $button-size + 2 * $base-whitespace;
   z-index: 2;
 }
 
-.c-dashboard__error {
-  padding-right: $base-whitespace * 2;
-  padding-left: $base-whitespace * 2;
-}
-
 .c-dashboard__body {
   position: relative;
   height: calc(100% - #{$dashboard-heading-height});
@@ -35,9 +30,21 @@ $dashboard-error-height: $button-size + 2 * $base-whitespace;
   z-index: 1;
   overflow-y: hidden;
 
-  &.c-dashboard__body--error {
-    height: calc(100% - #{$dashboard-heading-height} - #{$dashboard-error-height});
+  & .u-grid,
+  & .u-row {
+    @extend %full-height;
   }
+}
+
+.c-dashboard__body--error {
+  .u-row {
+    height: calc(100% - #{$dashboard-error-height});
+  }
+}
+
+.c-dashboard__error {
+  margin-top: $base-whitespace * 2;
+  margin-right: $base-whitespace * 2;
 }
 
 .c-dashboard__layer-selection,
@@ -62,33 +69,32 @@ $dashboard-error-height: $button-size + 2 * $base-whitespace;
   }
 
   .c-dashboard {
-    padding: $base-whitespace * 2 0 0 0;
-    border-right: solid $secondary-gray20 1px;
-    border-bottom: solid $secondary-gray20 1px;
-    border-left: solid $secondary-gray20 1px;
+    padding: 0;
+    padding-top: $base-whitespace * 2;
+    border: solid $secondary-gray20 1px;
+    border-top: none;
     overflow: visible;
   }
 
   .c-dashboard__heading {
-    position: relative;
     height: $dashboard-heading-height-printversion * 2;
     padding: $base-whitespace * 1.5 $base-whitespace * 2;
-    z-index: 2;
-  }
-
-  .c-dashboard__error {
-    padding: 0;
   }
 
   .c-dashboard__body {
-    padding: $base-whitespace $base-whitespace * 2;
+    padding: $base-whitespace * 2;
     box-shadow: 0 0 5px $secondary-gray40;
+  }
+
+  .c-dashboard__error {
+    margin: 0;
+    margin-bottom: $base-whitespace * 2;
   }
 
   .c-dashboard__layer-selection,
   .c-dashboard__map,
   .c-dashboard__content {
-    padding-right: 0;
+    padding: 0;
   }
 
   &.print-landscape {
@@ -105,13 +111,12 @@ $dashboard-error-height: $button-size + 2 * $base-whitespace;
 @media print {
   .is-print-mode {
     .c-dashboard {
-      padding: 0;
       border: none;
-      overflow: visible;
     }
 
-    .c-dashboard__heading {
-      height: 0;
+    .c-dashboard__heading,
+    .c-dashboard__error {
+      display: none;
     }
 
     .c-dashboard__body {
