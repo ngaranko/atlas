@@ -26,9 +26,7 @@
 
                 <!-- Layer selection -->
                 <div ng-if="vm.columnSizes.left"
-                    class="
-                        c-dashboard__layer-selection
-                        qa-dashboard__content__column--left"
+                    class="c-dashboard__layer-selection"
                     ng-class="'u-col-sm--' + vm.columnSizes.left">
 
                     <div ng-controller="LayerSelectionController as vm">
@@ -42,9 +40,7 @@
 
                 <!-- Map -->
                 <div ng-if="vm.columnSizes.middle"
-                     class="
-                         c-dashboard__map
-                         qa-dashboard__content__column--middle"
+                     class="c-dashboard__map"
                      ng-class="'u-col-sm--' + vm.columnSizes.middle">
 
                     <div ng-controller="MapController as vm">
@@ -61,10 +57,7 @@
                     dp-scrollable-content
                     visibility="vm.visibility"
                     page-name="{{vm.pageName}}"
-                    class="
-                        c-dashboard__content
-                        page-break-before
-                        qa-dashboard__content__column--right"
+                    class="c-dashboard__content page-break-before"
                     ng-class="'u-col-sm--' + vm.columnSizes.right">
 
                     <!-- Detail -->
