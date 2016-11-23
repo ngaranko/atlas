@@ -8,30 +8,6 @@
     stateToUrlMiddlewareFactory.$inject = ['stateToUrl', 'ACTIONS'];
 
     function stateToUrlMiddlewareFactory (stateToUrl, ACTIONS) {
-        var ignoreActions = [
-                ACTIONS.URL_CHANGE, // Prevent infinite loops
-                ACTIONS.FETCH_DETAIL, // Don't update the state before asynchronous call are finished
-                ACTIONS.FETCH_STRAATBEELD,
-                ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY,
-                ACTIONS.MAP_CLICK,
-                ACTIONS.HIDE_STRAATBEELD,
-                ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION,
-                ACTIONS.FETCH_SEARCH_RESULTS_CATEGORY,
-                ACTIONS.FETCH_STRAATBEELD_BY_LOCATION
-            ],
-            useReplace = [
-                ACTIONS.MAP_SET_BASELAYER, // Replace the URL instead of adding a new entry to the browser history
-                ACTIONS.MAP_ADD_OVERLAY,
-                ACTIONS.MAP_REMOVE_OVERLAY,
-                ACTIONS.MAP_TOGGLE_VISIBILITY_OVERLAY,
-                ACTIONS.MAP_PAN,
-                ACTIONS.MAP_ZOOM,
-                ACTIONS.SHOW_MAP_ACTIVE_OVERLAYS,
-                ACTIONS.HIDE_MAP_ACTIVE_OVERLAYS,
-                ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT,
-                ACTIONS.SET_STRAATBEELD_ORIENTATION
-            ];
-
         return function (store) {
             return function (next) {
                 return function (action) {
@@ -41,10 +17,10 @@
                     returnValue = next(action);
 
                     // Then update the URL
-                    if (ignoreActions.indexOf(action.type) === -1) {
+                    if (!action.type.ignore) {
                         stateToUrl.update(
                             store.getState(),
-                            useReplace.indexOf(action.type) !== -1
+                            Boolean(action.type.replace)
                         );
                     }
                     return returnValue;

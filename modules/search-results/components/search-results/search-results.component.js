@@ -16,9 +16,9 @@
             controllerAs: 'vm'
         });
 
-    DpSearchResultsController.$inject = ['$scope', 'search', 'geosearch', 'store'];
+    DpSearchResultsController.$inject = ['$scope', 'search', 'geosearch', 'store', 'ACTIONS'];
 
-    function DpSearchResultsController ($scope, search, geosearch, store) {
+    function DpSearchResultsController ($scope, search, geosearch, store, ACTIONS) {
         var vm = this;
 
         /**
@@ -62,7 +62,7 @@
             }, 0);
 
             store.dispatch({
-                type: 'SHOW_SEARCH_RESULTS',
+                type: ACTIONS.SHOW_SEARCH_RESULTS,
                 payload: numberOfResults
             });
 
