@@ -11,11 +11,11 @@ describe('The dataSelectionReducers factory', function () {
             }
         });
 
-        angular.mock.inject(function (_dataSelectionReducers_, _DEFAULT_STATE_, _ACTIONS_, _dataSelectionConstants_) {
+        angular.mock.inject(function (_dataSelectionReducers_, _DEFAULT_STATE_, _ACTIONS_, _DATA_SELECTION_) {
             dataSelectionReducers = _dataSelectionReducers_;
             DEFAULT_STATE = _DEFAULT_STATE_;
             ACTIONS = _ACTIONS_;
-            constants = _dataSelectionConstants_;
+            constants = _DATA_SELECTION_;
         });
     });
 

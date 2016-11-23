@@ -1,7 +1,7 @@
 (function () {
     angular
         .module('dpDataSelection')
-        .constant('dataSelectionConstants', {
+        .constant('DATA_SELECTION', {
             VIEW_LIST: 'LIST',
             VIEW_TABLE: 'TABLE'
         });
