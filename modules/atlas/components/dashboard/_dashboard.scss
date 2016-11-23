@@ -83,6 +83,7 @@ $dashboard-error-height: $button-size + 2 * $base-whitespace;
 
   .c-dashboard__body {
     padding: $base-whitespace * 2;
+    padding-bottom: 0;
     box-shadow: 0 0 5px $secondary-gray40;
   }
 
@@ -94,7 +95,13 @@ $dashboard-error-height: $button-size + 2 * $base-whitespace;
   .c-dashboard__layer-selection,
   .c-dashboard__map,
   .c-dashboard__content {
+    margin: 0;
+    margin-bottom: $base-whitespace * 2;
     padding: 0;
+  }
+
+  .c-dashboard__content {
+    page-break-before: always;
   }
 
   &.print-landscape {
