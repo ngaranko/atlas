@@ -1,6 +1,7 @@
 <div ng-if="vm.showMetaInfo()">
-    <div class="u-pull--left u-margin__left--1">Opnamedatum: {{vm.date | date : 'dd-MM-yyyy'}}</div>
-    <div class="u-pull--right">Opnamelocatie: {{vm.location | coordinates}}</div>
-
+    <div class="c-straatbeeld__streetview-history">
+      <div ng-click="vm.openUrl()" target="_blank" class="c-straatbeeld__streetview-history-icon u-pull--left u-margin__left--1">{{vm.date | date : 'dd-MM-yyyy'}}</div> 
+    </div>
+    <div class="u-pull--right">{{vm.location | coordinates}}</div>
     <div class="u-clearfix"></div>
 </div>

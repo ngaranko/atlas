@@ -1,6 +1,8 @@
 describe('The dp-straatbeeld-metadata component', function () {
     var $compile,
-        $rootScope;
+        $rootScope,
+        $window,
+        streetview = { openUrl: angular.noop };
 
     beforeEach(function () {
         angular.mock.module(
@@ -12,10 +14,14 @@ describe('The dp-straatbeeld-metadata component', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _$window_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
+            $window = _$window_;
         });
+
+        spyOn(streetview, 'openUrl');
+        spyOn($window, 'open');
     });
 
     function getComponent (date, location) {
@@ -60,5 +66,16 @@ describe('The dp-straatbeeld-metadata component', function () {
 
         component = getComponent(new Date(), [52.123, 4.789]);
         expect(component.text()).toContain('MOCKED_RD_COORDINATES (52.123, 4.789)');
+    });
+
+    it('It has a google streetview button', function () {
+        var component;
+
+        component = getComponent(new Date(), [52.123, 4.789]);
+        component.find('.c-straatbeeld__streetview-history-icon').click();
+
+        $rootScope.$apply();
+
+        expect($window.open).toHaveBeenCalled();
     });
 });
