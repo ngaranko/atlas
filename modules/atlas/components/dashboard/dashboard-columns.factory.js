@@ -5,9 +5,9 @@
         .module('atlas')
         .factory('dashboardColumns', dashboardColumnsFactory);
 
-    dashboardColumnsFactory.$inject = ['httpStatus'];
+    dashboardColumnsFactory.$inject = ['httpStatus', 'dataSelectionConstants'];
 
-    function dashboardColumnsFactory (httpStatus) {
+    function dashboardColumnsFactory (httpStatus, dataSelectionConstants) {
         return {
             determineVisibility: determineVisibility,
             determineColumnSizes: determineColumnSizes
@@ -20,7 +20,7 @@
 
             if (angular.isObject(state.dataSelection)) {
                 visibility.dataSelection = true;
-                visibility.dataSelectionList = state.dataSelection.listView;
+                visibility.dataSelectionList = state.dataSelection.view === dataSelectionConstants.VIEW_LIST;
 
                 visibility.map = visibility.dataSelectionList;
                 visibility.layerSelection = false;

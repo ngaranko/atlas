@@ -14,10 +14,12 @@
             controllerAs: 'vm'
         });
 
-    DpDataSelectionListHeader.$inject = ['$scope', 'dataSelectionConfig'];
+    DpDataSelectionListHeader.$inject = ['$scope', 'dataSelectionConfig', 'dataSelectionConstants'];
 
-    function DpDataSelectionListHeader ($scope, dataSelectionConfig) {
+    function DpDataSelectionListHeader ($scope, dataSelectionConfig, dataSelectionConstants) {
         var vm = this;
+
+        vm.tableView = dataSelectionConstants.VIEW_TABLE;
 
         $scope.$watch('vm.state.filters', updateFilters, true);
 

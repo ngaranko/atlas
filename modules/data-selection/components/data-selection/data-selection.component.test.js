@@ -4,7 +4,8 @@ describe('The dp-data-selection component', function () {
         $q,
         dataSelectionApi,
         mockedState,
-        mockedApiData;
+        mockedApiData,
+        dataSelectionConstants;
 
     beforeEach(function () {
         angular.mock.module(
@@ -43,14 +44,16 @@ describe('The dp-data-selection component', function () {
             }
         );
 
-        angular.mock.inject(function (_$rootScope_, _$compile_, _$q_, _dataSelectionApi_) {
+        angular.mock.inject(function (_$rootScope_, _$compile_, _$q_, _dataSelectionApi_, _dataSelectionConstants_) {
             $rootScope = _$rootScope_;
             $compile = _$compile_;
             $q = _$q_;
             dataSelectionApi = _dataSelectionApi_;
+            dataSelectionConstants = _dataSelectionConstants_;
         });
 
         mockedState = {
+            view: dataSelectionConstants.VIEW_TABLE,
             dataset: 'zwembaden',
             filters: {
                 type: 'Buitenbad'

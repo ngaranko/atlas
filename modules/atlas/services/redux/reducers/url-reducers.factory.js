@@ -176,7 +176,7 @@
                 }
 
                 return {
-                    listView: Boolean(payload['list-view']),
+                    view: payload.view && String(payload.view),
                     dataset: payload.dataset,
                     filters: filters,
                     page: Number(payload['dataset-pagina'])
