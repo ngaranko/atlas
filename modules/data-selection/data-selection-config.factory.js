@@ -57,7 +57,7 @@
                         slug: 'postcode',
                         label: 'Postcode',
                         format: {
-                            filters: ['postcode']
+                            filters: ['zipCode']
                         }
                     }
                 ],
@@ -91,7 +91,7 @@
                         slug: 'postcode',
                         label: 'Postcode',
                         format: {
-                            filters: ['postcode']
+                            filters: ['zipCode']
                         }
                     },
                     {

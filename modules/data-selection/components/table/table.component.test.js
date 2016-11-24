@@ -32,7 +32,7 @@ describe('The dp-data-selection-table component', function () {
                     align: 'right'
                 },
                 {
-                    filters: ['postcode']
+                    filters: ['zipCode']
                 }
             ],
             body: [

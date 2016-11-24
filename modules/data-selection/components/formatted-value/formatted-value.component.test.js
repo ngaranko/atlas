@@ -3,14 +3,14 @@ describe('The dp-data-selection-download-button component', function () {
         $rootScope;
 
     beforeEach(function () {
-        function postcodeFilter () {
+        function zipCodeFilter () {
             return 'filteredValue';
         }
 
         angular.mock.module(
             'dpDataSelection',
             function ($provide) {
-                $provide.value('postcodeFilter', postcodeFilter);
+                $provide.value('zipCodeFilter', zipCodeFilter);
                 $provide.constant('dataSelectionConfig', {
                     dataset_a: {
                         ENDPOINT: 'http://www.example.com/datasets/a/',
@@ -72,7 +72,7 @@ describe('The dp-data-selection-download-button component', function () {
 
     it('will filter a value when any filters are supplied', function () {
         var format = {
-            filters: ['postcode']
+            filters: ['zipCode']
         };
 
         var component = getComponent('1234AB', format);
@@ -84,7 +84,7 @@ describe('The dp-data-selection-download-button component', function () {
     it('will filter and format a value when both a format and any filters are supplied', function () {
         var format = {
             align: 'right',
-            filters: ['postcode']
+            filters: ['zipCode']
         };
 
         var component = getComponent('1234AB', format);
