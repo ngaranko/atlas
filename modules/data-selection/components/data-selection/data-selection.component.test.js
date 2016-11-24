@@ -100,6 +100,7 @@ describe('The dp-data-selection component', function () {
         expect(scope.vm.state.filters).toEqual({
             type: 'Buitenbad'
         });
+        expect(scope.vm.isTableView()).toBe(true);
 
         expect(component.find('dp-data-selection-table').length).toBe(1);
         expect(component.find('dp-data-selection-table').attr('content')).toBe('vm.tableData');
