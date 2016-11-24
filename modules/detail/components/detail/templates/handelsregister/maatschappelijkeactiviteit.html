@@ -15,7 +15,9 @@
             <dt>Bezoekadres</dt>
             <dd>
                 {{ vm.apiData.results.bezoekadres.volledig_adres }}
-                <dp-message ng-if="vm.apiData.results.bezoekadres.correctie">Adres&nbsp;bij&nbsp;benadering</dp-message>
+                <dp-message ng-if="vm.apiData.results.bezoekadres.correctie">
+                    <span class="u-nowrap">Adres bij benadering</span>
+                </dp-message>
             </dd>
             <dt>Datum aanvang</dt>
             <dd> {{ vm.apiData.results.datum_aanvang | date:'dd-MM-yyyy' }} </dd>
