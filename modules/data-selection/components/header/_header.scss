@@ -7,9 +7,9 @@
 }
 
 .c-data-selection-header__kaartweergave__button {
-  @include data-selection-button("forward")
+  @include icon-button-text-left("forward")
 }
 
 .c-data-selection-header__download__button {
-  @include data-selection-button("download")
+  @include icon-button-text-left("download")
 }
