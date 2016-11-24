@@ -10,15 +10,15 @@
     function mapReducersFactory (ACTIONS) {
         var reducers = {};
 
-        reducers[ACTIONS.MAP_SET_BASELAYER] = mapSetBaselayerReducer;
-        reducers[ACTIONS.MAP_ADD_OVERLAY] = mapAddOverlayReducer;
-        reducers[ACTIONS.MAP_REMOVE_OVERLAY] = mapRemoveOverlayReducer;
-        reducers[ACTIONS.MAP_TOGGLE_VISIBILITY_OVERLAY] = mapToggleVisibilityOverlay;
-        reducers[ACTIONS.MAP_PAN] = mapPanReducer;
-        reducers[ACTIONS.MAP_ZOOM] = mapZoomReducer;
-        reducers[ACTIONS.MAP_FULLSCREEN] = mapFullscreenReducer;
-        reducers[ACTIONS.SHOW_MAP_ACTIVE_OVERLAYS] = showActiveOverlaysReducer;
-        reducers[ACTIONS.HIDE_MAP_ACTIVE_OVERLAYS] = hideActiveOverlaysReducer;
+        reducers[ACTIONS.MAP_SET_BASELAYER.id] = mapSetBaselayerReducer;
+        reducers[ACTIONS.MAP_ADD_OVERLAY.id] = mapAddOverlayReducer;
+        reducers[ACTIONS.MAP_REMOVE_OVERLAY.id] = mapRemoveOverlayReducer;
+        reducers[ACTIONS.MAP_TOGGLE_VISIBILITY_OVERLAY.id] = mapToggleVisibilityOverlay;
+        reducers[ACTIONS.MAP_PAN.id] = mapPanReducer;
+        reducers[ACTIONS.MAP_ZOOM.id] = mapZoomReducer;
+        reducers[ACTIONS.MAP_FULLSCREEN.id] = mapFullscreenReducer;
+        reducers[ACTIONS.SHOW_MAP_ACTIVE_OVERLAYS.id] = showActiveOverlaysReducer;
+        reducers[ACTIONS.HIDE_MAP_ACTIVE_OVERLAYS.id] = hideActiveOverlaysReducer;
 
         return reducers;
 

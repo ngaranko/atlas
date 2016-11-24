@@ -21,12 +21,6 @@
 
         vm.allBaseLayers = BASE_LAYERS;
 
-        vm.close = function () {
-            store.dispatch({
-                type: ACTIONS.HIDE_LAYER_SELECTION
-            });
-        };
-
         vm.setBaseLayer = function (baseLayer) {
             store.dispatch({
                 type: ACTIONS.MAP_SET_BASELAYER,
