@@ -103,6 +103,31 @@ describe('The dp-straatbeeld-thumbnail component', function () {
             );
     });
 
+    it('waits for a valid location to be present', function () {
+        hasMockedThumbnail = true;
+        var component = getComponent();
+        var scope = component.isolateScope();
+
+        finishApiCall();
+
+        expect(component.find('.qa-found-no-straatbeeld').length).toBe(1);
+        expect(component.find('img').attr('src')).toBeUndefined();
+        expect(scope.vm.isLoading).toBeUndefined();
+
+        scope.vm.location = [1, 2];
+        $rootScope.$apply();
+
+        expect(component.find('.qa-found-no-straatbeeld').length).toBe(0);
+        expect(component.find('img').attr('src')).toBeUndefined();
+        expect(scope.vm.isLoading).toBe(true);
+
+        finishApiCall();
+
+        expect(component.find('.qa-found-no-straatbeeld').length).toBe(0);
+        expect(component.find('img').attr('src')).toBe('http://example.com/example.png');
+        expect(scope.vm.isLoading).toBe(false);
+    });
+
     it('shows a thumbnail when thumbnail is found', function () {
         hasMockedThumbnail = true;
         var component = getComponent([52, 4]);
