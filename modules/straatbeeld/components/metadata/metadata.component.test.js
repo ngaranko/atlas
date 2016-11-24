@@ -1,8 +1,7 @@
 describe('The dp-straatbeeld-metadata component', function () {
     var $compile,
         $rootScope,
-        $window,
-        streetview = { openUrl: angular.noop };
+        $window;
 
     beforeEach(function () {
         angular.mock.module(
@@ -20,7 +19,6 @@ describe('The dp-straatbeeld-metadata component', function () {
             $window = _$window_;
         });
 
-        spyOn(streetview, 'openUrl');
         spyOn($window, 'open');
     });
 
