@@ -114,7 +114,7 @@
                 id: 'NAVIGATE_DATA_SELECTION'
             },
             SET_DATA_SELECTION_VIEW: {
-                id: 'TOGGLE_DATA_SELECTION_LIST_VIEW'
+                id: 'SET_DATA_SELECTION_VIEW'
             },
 
             SHOW_LAYER_SELECTION: {
