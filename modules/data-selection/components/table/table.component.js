@@ -17,14 +17,6 @@
     function DpDataSelectionTableController (store, ACTIONS) {
         let vm = this;
         console.log(vm.content);
-        vm.classForField = function (format) {
-            switch (format && format.align) {
-                case 'right':
-                    return 'u-align--right';
-                default:
-                    return '';
-            }
-        };
 
         vm.followLink = function (endpoint) {
             store.dispatch({

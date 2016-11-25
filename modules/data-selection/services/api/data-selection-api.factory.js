@@ -33,6 +33,9 @@
                     // and saving only the filters
                     data.object_list = [];
                 }
+
+                console.log(formatData(dataset, view, data.object_list));
+
                 return {
                     number_of_pages: data.page_count,
                     number_of_records: data.object_count,
@@ -67,18 +70,25 @@
 
         function formatData (dataset, view, rawData) {
             return {
-                head: dataSelectionConfig[dataset].FIELDS[view]
-                    .map(field => field.label),
-                /*
-                format: dataSelectionConfig[dataset].FIELDS[view]
-                    .map(field => field.format),
-                */
+                head: dataSelectionConfig[dataset].CONTENT[view]
+                    .map(item => item.label),
+
                 body: rawData.map(rawDataRow => {
                     return {
                         detailEndpoint: getDetailEndpoint(dataset, rawDataRow),
-                        fields: dataSelectionConfig[dataset].FIELDS[view]
-                            .map(field => rawDataRow[field.variables])
+                        content: dataSelectionConfig[dataset].CONTENT[view].map((item) => {
+                            return item.variables.map((variable) => {
+                                return {
+                                    key: variable,
+                                    value: rawDataRow[variable]
+                                };
+                            });
+                        })
                     };
+                }),
+
+                formatters: dataSelectionConfig[dataset].CONTENT[view].map((item) => {
+                    return item.formatter;
                 })
             };
         }

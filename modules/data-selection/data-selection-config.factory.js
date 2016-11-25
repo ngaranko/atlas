@@ -56,39 +56,31 @@
                         }
                     }
                 ],
-                FIELDS: {
+                CONTENT: {
                     TABLE: [
                         {
                             label: 'Naam openbare ruimte',
-                            variables: ['_openbare_ruimte_naam']
+                            variables: ['_openbare_ruimte_naam', 'postcode']
                         },
                         {
                             label: 'Num.',
                             variables: ['huisnummer'],
-                            format: {
-                                align: 'right'
-                            }
+                            formatter: 'alignRight'
                         },
                         {
                             label: 'Let.',
                             variables: ['huisletter'],
-                            format: {
-                                align: 'right'
-                            }
+                            formatter: 'alignRight'
                         },
                         {
                             label: 'Toev.',
                             variables: ['huisnummer_toevoeging'],
-                            format: {
-                                align: 'right'
-                            }
+                            formatter: 'alignRight'
                         },
                         {
                             label: 'Postcode',
                             variables: ['postcode'],
-                            format: {
-                                filters: ['zipCode']
-                            }
+                            formatter: 'zipCode'
                         },
                         {
                             label: 'Stadsdeel',
@@ -135,26 +127,20 @@
                                 'hoofdadres',
                                 'status_id'
                             ],
-                            format: {
-                                filters: ['bagAddress']
-                            }
+                            formatter: 'bagAddress'
                         },
                         {
                             variables: [
                                 'ligplaats_id',
                                 'standplaats_id'
                             ],
-                            format: {
-                                filters: ['nummeraanduidingType']
-                            }
+                            formatter: 'nummeraanduidingType'
                         },
                         {
                             variables: [
                                 'status_id'
                             ],
-                            format: [
-                                'verblijfsobjectGevormd'
-                            ]
+                            formatter: 'verblijfsobjectGevormd'
                         }
                     ]
                 }
