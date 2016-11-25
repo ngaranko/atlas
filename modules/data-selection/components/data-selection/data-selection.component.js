@@ -25,6 +25,7 @@
             vm.isLoading = true;
 
             vm.currentPage = vm.state.page;
+            vm.isPageAvailable = vm.currentPage <= dataSelectionConfig.MAX_AVAILABLE_PAGES;
 
             dataSelectionApi.query(vm.state.dataset, vm.state.filters, vm.currentPage).then((data) => {
                 vm.title = dataSelectionConfig[vm.state.dataset].TITLE;
@@ -33,8 +34,7 @@
 
                 vm.numberOfRecords = data.number_of_records;
                 vm.numberOfPages = data.number_of_pages;
-                console.log(vm.currentPage, dataSelectionConfig.MAX_AVAILABLE_PAGES);
-                vm.isPageAvailable = vm.currentPage <= dataSelectionConfig.MAX_AVAILABLE_PAGES;
+
                 vm.isLoading = false;
             });
         }

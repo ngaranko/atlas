@@ -126,6 +126,40 @@
                         slug: 'buurt_code',
                         label: '-code'
                     }
+                ],
+                LIST_VALUES: [
+                    {
+                        variables: [
+                            '_openbare_ruimte_naam',
+                            'huisnummer',
+                            'huisletter',
+                            'huisnummer_toevoeging',
+                            'ligplaats_id',
+                            'standplaats_id',
+                            'hoofdadres',
+                            'status_id'
+                        ],
+                        format: {
+                            filters: ['bag-address']
+                        }
+                    },
+                    {
+                        variables: [
+                            'ligplaats_id',
+                            'standplaats_id'
+                        ],
+                        format: {
+                            filters: ['nummeraanduiding-type']
+                        }
+                    },
+                    {
+                        variables: {
+                            'status_id'
+                        },
+                        format: [
+                            'verblijfsobject-gevormd'
+                        ]
+                    }
                 ]
             }
         };
