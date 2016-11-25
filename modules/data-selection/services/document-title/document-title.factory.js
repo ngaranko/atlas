@@ -14,12 +14,11 @@
         };
 
         function getTitle (dataSelectionState) {
-            var output,
+            let output,
                 variant,
                 criteria;
 
             variant = dataSelectionConfig[dataSelectionState.dataset].TITLE;
-
             criteria = dataSelectionConfig[dataSelectionState.dataset].FILTERS
                 // Retrieve all the active filters
                 .filter(function (availableFilter) {

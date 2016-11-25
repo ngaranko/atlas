@@ -2,13 +2,9 @@
     <thead class="c-data-selection-table__header">
         <tr class="c-data-selection-table__header-row">
             <th class="c-data-selection-table__field c-data-selection-table__header-field"
-                ng-class="vm.classForField(vm.content.format[$index])"
                 ng-repeat="field in vm.content.head track by $index">
-                <dp-data-selection-formatted-value
-                    value="field"
-                    format="vm.content.format[$index]">
 
-                </dp-data-selection-formatted-value>
+                {{field}}
             </th>
         </tr>
     </thead>
@@ -23,17 +19,6 @@
                     formatter="{{vm.content.formatters[$index]}}">
 
                 </dp-data-selection-formatter>
-
-                <!--dp-data-selection-formatted-value
-                    value="field"
-                    format="vm.content.format[$index]">
-
-                </dp-data-selection-formatted-value-->
-                <!--span ng-repeat="variable in cell">
-                    {{variable}}
-                </span-->
-
-
             </td>
         </tr>
     </tbody>

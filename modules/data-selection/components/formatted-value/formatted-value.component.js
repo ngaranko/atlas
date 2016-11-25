@@ -17,6 +17,7 @@
 
     function DpDataSelectionFormattedValueController ($filter) {
         var vm = this;
+        console.log(vm.value, vm.format);
 
         vm.formattedValue = vm.value;
         angular.forEach(vm.format && vm.format.filters, function (filter) {
