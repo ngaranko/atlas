@@ -8,7 +8,7 @@
                 dataset: '@',
                 activeFilters: '='
             },
-            templateUrl: 'modules/data-selection/components/download-button/download-button.html',
+            templateUrl: 'modules/data-selection/components/header/download-button/download-button.html',
             controller: DpDataSelectionDownloadButtonController,
             controllerAs: 'vm'
         });
