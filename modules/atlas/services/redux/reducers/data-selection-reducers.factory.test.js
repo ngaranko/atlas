@@ -5,11 +5,7 @@ describe('The dataSelectionReducers factory', function () {
         constants;
 
     beforeEach(function () {
-        angular.mock.module('atlas', {
-            dataSelectionFilterNames: {
-                getSlugFor: angular.identity
-            }
-        });
+        angular.mock.module('atlas');
 
         angular.mock.inject(function (_dataSelectionReducers_, _DEFAULT_STATE_, _ACTIONS_, _DATA_SELECTION_) {
             dataSelectionReducers = _dataSelectionReducers_;
