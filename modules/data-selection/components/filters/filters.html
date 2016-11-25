@@ -16,10 +16,7 @@
                 <span class="c-data-selection-filters__active-filter">
                     {{filter.categoryLabel}}:
                     <span ng-class="{'c-data-selection-filters--empty-value': !filter.option}">
-                        <dp-data-selection-formatted-value
-                            value="filter.option"
-                            format="filter.format">
-                        </dp-data-selection-formatted-value>
+                        {{filter.option}}
                     </span>
                 </span>
 
@@ -46,16 +43,9 @@
                             ng-click="vm.addFilter(category.slug, option.label)">
 
                             <span ng-class="{'c-data-selection-filters--empty-value': !option.label}">
-                                <dp-data-selection-formatted-value
-                                    value="option.label"
-                                    format="category.format">
-
-                                </dp-data-selection-formatted-value>
-
+                                {{option.label}}
                             </span>
-
                         </button>
-
                     </li>
                 </ul>
 

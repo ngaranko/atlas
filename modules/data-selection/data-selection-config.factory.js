@@ -50,10 +50,7 @@
                         label: 'Openbare ruimte'
                     }, {
                         slug: 'postcode',
-                        label: 'Postcode',
-                        format: {
-                            filters: ['zipCode']
-                        }
+                        label: 'Postcode'
                     }
                 ],
                 CONTENT: {
@@ -79,8 +76,7 @@
                         },
                         {
                             label: 'Postcode',
-                            variables: ['postcode'],
-                            formatter: 'zipCode'
+                            variables: ['postcode']
                         },
                         {
                             label: 'Stadsdeel',
@@ -146,6 +142,7 @@
                 }
             }
         };
+
         return angular.merge(globalConfig, envConfig[environment.NAME]);
     }
 })();
