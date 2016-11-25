@@ -24,13 +24,13 @@
         function fetchData () {
             vm.isLoading = true;
 
+            vm.title = dataSelectionConfig[vm.state.dataset].TITLE;
             vm.currentPage = vm.state.page;
             vm.isPageAvailable = vm.currentPage <= dataSelectionConfig.MAX_AVAILABLE_PAGES;
 
-            dataSelectionApi.query(vm.state.dataset, vm.state.filters, vm.currentPage).then((data) => {
-                vm.title = dataSelectionConfig[vm.state.dataset].TITLE;
+            dataSelectionApi.query(vm.state.dataset, vm.state.view, vm.state.filters, vm.currentPage).then((data) => {
                 vm.availableFilters = data.filters;
-                vm.tableData = data.tableData;
+                vm.data = data.data;
 
                 vm.numberOfRecords = data.number_of_records;
                 vm.numberOfPages = data.number_of_pages;

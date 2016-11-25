@@ -16,7 +16,7 @@
 
     function DpDataSelectionTableController (store, ACTIONS) {
         let vm = this;
-
+        console.log(vm.content);
         vm.classForField = function (format) {
             switch (format && format.align) {
                 case 'right':

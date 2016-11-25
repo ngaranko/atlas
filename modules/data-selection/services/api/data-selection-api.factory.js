@@ -10,8 +10,8 @@
             query: query
         };
 
-        function query (dataset, activeFilters, page) {
-            var searchParams,
+        function query (dataset, view, activeFilters, page) {
+            let searchParams,
                 searchPage = page;
 
             // Making sure to not request pages higher then max allowed.
@@ -37,8 +37,7 @@
                     number_of_pages: data.page_count,
                     number_of_records: data.object_count,
                     filters: formatFilters(dataset, data.aggs_list),
-                    tableData: formatTableData(dataset, data.object_list),
-                    listData: formatListData(dataset, data.object_list)
+                    data: formatData(dataset, view, data.object_list)
                 };
             });
         }
@@ -66,40 +65,22 @@
             });
         }
 
-        function formatTableData (dataset, rawData) {
+        function formatData (dataset, view, rawData) {
             return {
-                head: dataSelectionConfig[dataset].FIELDS
+                head: dataSelectionConfig[dataset].FIELDS[view]
                     .map(field => field.label),
-
-                format: dataSelectionConfig[dataset].FIELDS
+                /*
+                format: dataSelectionConfig[dataset].FIELDS[view]
                     .map(field => field.format),
-
+                */
                 body: rawData.map(rawDataRow => {
                     return {
                         detailEndpoint: getDetailEndpoint(dataset, rawDataRow),
-                        fields: dataSelectionConfig[dataset].FIELDS
-                            .map(field => rawDataRow[field.slug])
+                        fields: dataSelectionConfig[dataset].FIELDS[view]
+                            .map(field => rawDataRow[field.variables])
                     };
                 })
             };
-        }
-
-        function formatListData (dataset, rawData) {
-            return rawData.map(row => {
-                const nummer = ' ' + row.huisnummer + row.huisletter,
-                    fullNummer = row.huisnummer_toevoeging ? nummer + '-' + row.huisnummer_toevoeging : nummer;
-
-                const VERBLIJFSOBJECT_GEVORMD = 18;
-
-                return {
-                    adres: row._openbare_ruimte_naam + fullNummer,
-                    ligplaats: Boolean(row.ligplaats_id),
-                    standplaats: Boolean(row.standplaats_id),
-                    nevenadres: String(row.hoofdadres).toLowerCase() === 'false',
-                    gevormd: Number(row.status_id) === VERBLIJFSOBJECT_GEVORMD,
-                    detailEndpoint: getDetailEndpoint(dataset, row)
-                };
-            });
         }
 
         function getDetailEndpoint (dataset, rawDataRow) {
