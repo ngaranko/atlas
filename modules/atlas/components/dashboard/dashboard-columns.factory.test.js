@@ -540,7 +540,7 @@ describe('The dashboardColumns factory', function () {
 
         describe('the list view version', function () {
             beforeEach(function () {
-                mockedState.dataSelection.view = DATA_SELECTION.VIEW_LIST;
+                mockedState.dataSelection.view = 'LIST';
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
 
