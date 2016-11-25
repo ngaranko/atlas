@@ -12,19 +12,13 @@
             controllerAs: 'vm'
         });
 
-    DpDataSelectionController.$inject = ['$scope', 'dataSelectionApi', 'dataSelectionConfig', 'DATA_SELECTION'];
+    DpDataSelectionController.$inject = ['$scope', 'dataSelectionApi', 'dataSelectionConfig'];
 
-    function DpDataSelectionController ($scope, dataSelectionApi, dataSelectionConfig, DATA_SELECTION) {
+    function DpDataSelectionController ($scope, dataSelectionApi, dataSelectionConfig) {
         // Test for ES6
         let vm = this;
 
-        vm.isTableView = function () {
-            return vm.state.view === DATA_SELECTION.VIEW_TABLE;
-        };
-
-        vm.isListView = function () {
-            return vm.state.view === DATA_SELECTION.VIEW_LIST;
-        };
+        vm.view = vm.state.view;
 
         $scope.$watch('vm.state', fetchData, true);
 
@@ -34,10 +28,10 @@
             vm.currentPage = vm.state.page;
 
             dataSelectionApi.query(vm.state.dataset, vm.state.filters, vm.currentPage).then((data) => {
-                vm.title = dataSelectionConfig.bag.TITLE;
+                vm.title = dataSelectionConfig[vm.state.dataset]TITLE;
                 vm.availableFilters = data.filters;
                 vm.tableData = data.tableData;
-                vm.listData = data.listData;
+
                 vm.numberOfRecords = data.number_of_records;
                 vm.numberOfPages = data.number_of_pages;
                 vm.noDataToDisplay = vm.currentPage > dataSelectionConfig.MAX_AVAILABLE_PAGES;
