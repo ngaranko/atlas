@@ -8,11 +8,10 @@
     dataSelectionReducersFactory.$inject = [
         'ACTIONS',
         'DEFAULT_STATE',
-        'dataSelectionFilterNames',
         'DATA_SELECTION'
     ];
 
-    function dataSelectionReducersFactory (ACTIONS, DEFAULT_STATE, filterNames, DATA_SELECTION) {
+    function dataSelectionReducersFactory (ACTIONS, DEFAULT_STATE, DATA_SELECTION) {
         var reducers = {};
 
         reducers[ACTIONS.SHOW_DATA_SELECTION.id] = showDataSelectionReducer;
