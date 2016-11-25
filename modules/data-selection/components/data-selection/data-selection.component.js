@@ -33,7 +33,8 @@
 
                 vm.numberOfRecords = data.number_of_records;
                 vm.numberOfPages = data.number_of_pages;
-                vm.isAvailablePage = vm.currentPage <= dataSelectionConfig.MAX_AVAILABLE_PAGES;
+                console.log(vm.currentPage, dataSelectionConfig.MAX_AVAILABLE_PAGES);
+                vm.isPageAvailable = vm.currentPage <= dataSelectionConfig.MAX_AVAILABLE_PAGES;
                 vm.isLoading = false;
             });
         }

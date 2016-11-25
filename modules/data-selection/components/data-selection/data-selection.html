@@ -25,7 +25,7 @@
                 <dp-data-selection-table ng-if="vm.numberOfRecords" content="vm.tableData"></dp-data-selection-table>
 
                 <dp-panel
-                    is-panel-visible="vm.isAvailablePage"
+                    is-panel-visible="!vm.isPageAvailable"
                     type="warning"
                     can-close="false"
                     class-name="c-data-selection__no-data-panel">
@@ -35,7 +35,7 @@
                         Alleen de eerste 100 pagina's kunnen worden weergegeven (om technische redenen). Bij downloaden
                         worden wel alle resultaten opgenomen.
                     </p>
-                    <p>
+                    <p class="u-margin__bottom--0">
                         Tip: Gebruik de download-knop om alle resultaten te bekijken. Of voeg meer filtercriteria toe
                         voor specifiekere resultaten.
                     </p>

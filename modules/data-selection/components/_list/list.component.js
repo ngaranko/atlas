@@ -1,3 +1,4 @@
+/*
 (function () {
     'use strict';
 
@@ -11,3 +12,4 @@
             controllerAs: 'vm'
         });
 })();
+*/
