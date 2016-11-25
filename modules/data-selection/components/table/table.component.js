@@ -12,10 +12,10 @@
             controllerAs: 'vm'
         });
 
-    DpDataSelectionTableController.$inject = ['store', '$filter', 'ACTIONS'];
+    DpDataSelectionTableController.$inject = ['store', 'ACTIONS'];
 
-    function DpDataSelectionTableController (store, $filter, ACTIONS) {
-        var vm = this;
+    function DpDataSelectionTableController (store, ACTIONS) {
+        let vm = this;
 
         vm.classForField = function (format) {
             switch (format && format.align) {
