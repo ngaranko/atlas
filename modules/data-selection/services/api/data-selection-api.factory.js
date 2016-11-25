@@ -34,8 +34,6 @@
                     data.object_list = [];
                 }
 
-                console.log(formatData(dataset, view, data.object_list));
-
                 return {
                     number_of_pages: data.page_count,
                     number_of_records: data.object_count,

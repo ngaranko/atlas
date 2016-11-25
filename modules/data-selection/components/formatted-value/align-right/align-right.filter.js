@@ -5,9 +5,16 @@
         .module('dpDataSelection')
         .filter('alignRight', alignRightFilter);
 
-    function alignRightFilter () {
+    alignRightFilter.$inject = ['$document'];
+
+    function alignRightFilter ($document) {
         return function (input) {
-            return input;
+            let div = $document[0].createElement('div');
+
+            div.setAttribute('class', 'u-align--right');
+            div.innerText = input;
+
+            return div.outerHTML;
         };
     }
 })();

@@ -60,7 +60,7 @@
                     TABLE: [
                         {
                             label: 'Naam openbare ruimte',
-                            variables: ['_openbare_ruimte_naam', 'postcode']
+                            variables: ['_openbare_ruimte_naam']
                         },
                         {
                             label: 'Num.',

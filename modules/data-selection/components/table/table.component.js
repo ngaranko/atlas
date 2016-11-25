@@ -16,7 +16,6 @@
 
     function DpDataSelectionTableController (store, ACTIONS) {
         let vm = this;
-        console.log(vm.content);
 
         vm.followLink = function (endpoint) {
             store.dispatch({
