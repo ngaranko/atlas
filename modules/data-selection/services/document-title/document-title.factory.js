@@ -15,9 +15,11 @@
 
         function getTitle (dataSelectionState) {
             let output,
+                view,
                 variant,
                 criteria;
 
+            view = dataSelectionState.view === 'TABLE' ? 'Tabel' : 'Lijst';
             variant = dataSelectionConfig[dataSelectionState.dataset].TITLE;
             criteria = dataSelectionConfig[dataSelectionState.dataset].FILTERS
                 // Retrieve all the active filters
@@ -30,7 +32,7 @@
                 })
                 .join(', ');
 
-            output = 'Tabel ' + variant;
+            output = view + ' ' + variant;
 
             if (criteria.length) {
                 output += ' met ' + criteria;
