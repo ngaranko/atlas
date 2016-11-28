@@ -43,7 +43,16 @@ describe('The dataSelectionApi factory', function () {
                                 },
                                 {
                                     label: 'Openingstijden',
-                                    variables: ['openingstijden']
+                                    variables: ['openingstijden'],
+                                    formatter: 'openingstijdenFormatter'
+                                }
+                            ],
+                            LIST: [
+                                {
+                                    variables: ['openbare_ruimte', 'huisnummer'],
+                                    formatter: 'adres'
+                                }, {
+                                    variables: ['buurtnaam']
                                 }
                             ]
                         }
@@ -162,7 +171,7 @@ describe('The dataSelectionApi factory', function () {
     });
 
     it('returns the total number of pages', function () {
-        let output = {};
+        let output;
 
         dataSelectionApi.query('zwembaden', 'TABLE', {}, 1).then(function (_output_) {
             output = _output_;
@@ -189,12 +198,10 @@ describe('The dataSelectionApi factory', function () {
                     options: [
                         {
                             label: 'Buitenbad',
-                            format: undefined,
                             count: 4
                         },
                         {
                             label: 'Overdekt',
-                            format: undefined,
                             count: 2
                         }
                     ]
@@ -205,15 +212,12 @@ describe('The dataSelectionApi factory', function () {
                     options: [
                         {
                             label: 'Tropisch',
-                            format: undefined,
                             count: 1
                         }, {
                             label: 'Verwarmd',
-                            format: undefined,
                             count: 4
                         }, {
                             label: 'Koud',
-                            format: undefined,
                             count: 1
                         }
                     ]
@@ -247,13 +251,25 @@ describe('The dataSelectionApi factory', function () {
         });
 
         it('returns the number of results per category (e.g. there a 12 buurten)', function () {
-            // Todo: not part of the current API
+            let output = {};
+
+            // With both filters in the response
+            dataSelectionApi.query('zwembaden', 'TABLE', {}, 1).then(function (_output_) {
+                output = _output_;
+            });
+            $rootScope.$apply();
+
+            expect(output.filters[0].slug).toBe('type');
+            expect(output.filters[0].numberOfOptions).toBe(2);
+
+            expect(output.filters[1].slug).toBe('water');
+            expect(output.filters[1].numberOfOptions).toBe(3);
         });
     });
 
-    describe('it returns the table content', function () {
+    describe('it returns the data', function () {
         it('has a single row for the head of the table based on the configuration', function () {
-            let output = {};
+            let output;
 
             dataSelectionApi.query('zwembaden', 'TABLE', {}, 1).then(function (_output_) {
                 output = _output_;
@@ -296,6 +312,33 @@ describe('The dataSelectionApi factory', function () {
                     }]
                 ]
             });
+        });
+
+        it('returns the formatters for each group of variables', function () {
+            let output;
+
+            dataSelectionApi.query('zwembaden', 'TABLE', {}, 1).then(function (_output_) {
+                output = _output_;
+            });
+            $rootScope.$apply();
+
+            expect(output.data.formatters).toEqual([undefined, 'openingstijdenFormatter']);
+        });
+
+        it('uses different dataset configuration depending on the view', function () {
+            let outputTable,
+                outputList;
+
+            dataSelectionApi.query('zwembaden', 'TABLE', {}, 1).then(function (_output_) {
+                outputTable = _output_;
+            });
+
+            dataSelectionApi.query('zwembaden', 'LIST', {}, 1).then(function (_output_) {
+                outputList = _output_;
+            });
+            $rootScope.$apply();
+
+            expect(outputTable).not.toEqual(outputList);
         });
     });
 });
