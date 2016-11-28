@@ -6,9 +6,8 @@
         .filter('nevenadres', nevenadresFilter);
 
     function nevenadresFilter () {
-        return function (input) {
-            const isNevenadres = String(input.hoofdadres).toLowerCase() === 'false';
-            console.log(input);
+        return function (hoofdadres) {
+            const isNevenadres = String(hoofdadres).toLowerCase() === 'false';
 
             return isNevenadres ? '(nevenadres)' : '';
         };

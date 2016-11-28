@@ -1,10 +1,15 @@
-<ul>
+<ul class="o-list">
     <li ng-repeat="row in vm.content.body">
-        <a ng-href="{{vm.row.detailEndpoint}}">
-            <dp-data-selection-formatter ng-repeat="variables in row.content track by $index"
-                variables="variables"
-                formatter="{{vm.content.formatters[$index]}}">
+        <dp-link type="FETCH_DETAIL" PAYLOAD="row.detailEndpoint">
+            <dp-data-selection-formatter
+                variables="row.content[0]"
+                formatter="{{vm.content.formatters[0]}}">
             </dp-data-selection-formatter>
-        </a>
+        </dp-link>
+
+        <dp-data-selection-formatter ng-if="!$first" ng-repeat="variables in row.content track by $index"
+             variables="variables"
+             formatter="{{vm.content.formatters[$index]}}">
+        </dp-data-selection-formatter>
     </li>
 </ul>

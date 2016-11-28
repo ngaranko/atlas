@@ -6,9 +6,9 @@
         .filter('verblijfsobjectGevormd', verblijfsobjectGevormdFilter);
 
     function verblijfsobjectGevormdFilter () {
-        return function (input) {
+        return function (statusId) {
             const VERBLIJFSOBJECT_GEVORMD = 18;
-            const isVerblijfsobjectGevormd = Number(input.status_id) === VERBLIJFSOBJECT_GEVORMD;
+            const isVerblijfsobjectGevormd = Number(statusId) === VERBLIJFSOBJECT_GEVORMD;
 
             return isVerblijfsobjectGevormd ? '(verblijfsobject gevormd)' : '';
         };
