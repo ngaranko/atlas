@@ -8,13 +8,13 @@
     dataSelectionConfigFactory.$inject = ['environment'];
 
     function dataSelectionConfigFactory (environment) {
-        var globalConfig,
+        let globalConfig,
             envConfig;
 
         envConfig = {
             DEVELOPMENT: {
                 bag: {
-                    ENDPOINT_PREVIEW: 'https://api.datapunt.amsterdam.nl/dataselectie/bag/',
+                    ENDPOINT_PREVIEW: 'https://api-acc.datapunt.amsterdam.nl/dataselectie/bag/',
                     ENDPOINT_EXPORT: 'https://api-acc.datapunt.amsterdam.nl/dataselectie/bag/export/',
                     ENDPOINT_DETAIL: 'https://api-acc.datapunt.amsterdam.nl/bag/nummeraanduiding/'
                 }
