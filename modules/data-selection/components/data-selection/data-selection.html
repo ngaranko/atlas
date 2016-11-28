@@ -22,7 +22,10 @@
                     header-title="vm.title">
                 </dp-data-selection-header>
 
-                <dp-data-selection-table ng-if="vm.numberOfRecords" content="vm.data"></dp-data-selection-table>
+                <div ng-if="vm.numberOfRecords">
+                    <dp-data-selection-table ng-if="vm.view === 'TABLE'" content="vm.data"></dp-data-selection-table>
+                    <dp-data-selection-list ng-if="vm.view === 'LIST'" content="vm.data"></dp-data-selection-list>
+                </div>
 
                 <dp-panel
                     is-panel-visible="!vm.isPageAvailable"

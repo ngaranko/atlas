@@ -25,6 +25,7 @@
             vm.isLoading = true;
 
             vm.title = dataSelectionConfig[vm.state.dataset].TITLE;
+            vm.view = vm.state.view;
             vm.currentPage = vm.state.page;
             vm.isPageAvailable = vm.currentPage <= dataSelectionConfig.MAX_AVAILABLE_PAGES;
 

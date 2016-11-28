@@ -1,0 +1,10 @@
+<ul>
+    <li ng-repeat="row in vm.content.body">
+        <a ng-href="{{vm.row.detailEndpoint}}">
+            <dp-data-selection-formatter ng-repeat="variables in row.content track by $index"
+                variables="variables"
+                formatter="{{vm.content.formatters[$index]}}">
+            </dp-data-selection-formatter>
+        </a>
+    </li>
+</ul>

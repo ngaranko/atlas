@@ -18,7 +18,7 @@
     function DpDataSelectionFormatterController ($filter) {
         let vm = this,
             variablesObj = {};
-
+        console.log(vm.variables, vm.formatter);
         if (vm.formatter) {
             if (vm.variables.length === 1) {
                 // Just pass the value (String) when there is only one variable
