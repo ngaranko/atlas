@@ -7,7 +7,15 @@
 
     function nummeraanduidingTypeFilter () {
         return function (input) {
-            return '';
+            let type;
+
+            if (input.ligplaats_id) {
+                type = 'ligplaats';
+            } else if (input.standplaats_id) {
+                type = 'standplaats';
+            }
+
+            return type ? '(' + type + ')' : '';
         };
     }
 })();

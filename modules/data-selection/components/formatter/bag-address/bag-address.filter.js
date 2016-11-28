@@ -7,9 +7,10 @@
 
     function bagAddressFilter () {
         return function (input) {
-            console.log(input);
+            const nummer = ' ' + input.huisnummer + input.huisletter,
+                fullNummer = input.huisnummer_toevoeging ? nummer + '-' + input.huisnummer_toevoeging : nummer;
 
-            return 'Adres';
+            return input._openbare_ruimte_naam + fullNummer;
         };
     }
 })();

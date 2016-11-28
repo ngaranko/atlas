@@ -14,7 +14,7 @@
         envConfig = {
             DEVELOPMENT: {
                 bag: {
-                    ENDPOINT_PREVIEW: 'https://api-acc.datapunt.amsterdam.nl/dataselectie/bag/',
+                    ENDPOINT_PREVIEW: 'https://api.datapunt.amsterdam.nl/dataselectie/bag/',
                     ENDPOINT_EXPORT: 'https://api-acc.datapunt.amsterdam.nl/dataselectie/bag/export/',
                     ENDPOINT_DETAIL: 'https://api-acc.datapunt.amsterdam.nl/bag/nummeraanduiding/'
                 }
@@ -117,11 +117,7 @@
                                 '_openbare_ruimte_naam',
                                 'huisnummer',
                                 'huisletter',
-                                'huisnummer_toevoeging',
-                                'ligplaats_id',
-                                'standplaats_id',
-                                'hoofdadres',
-                                'status_id'
+                                'huisnummer_toevoeging'
                             ],
                             formatter: 'bagAddress'
                         },
@@ -131,6 +127,12 @@
                                 'standplaats_id'
                             ],
                             formatter: 'nummeraanduidingType'
+                        },
+                        {
+                            variables: [
+                                'hoofdadres'
+                            ],
+                            formatter: 'nevenadres'
                         },
                         {
                             variables: [

@@ -17,8 +17,6 @@
     function DpDataSelectionController ($scope, dataSelectionApi, dataSelectionConfig) {
         let vm = this;
 
-        vm.showFilters = vm.state.view === 'TABLE';
-
         $scope.$watch('vm.state', fetchData, true);
 
         function fetchData () {
@@ -26,6 +24,7 @@
 
             vm.title = dataSelectionConfig[vm.state.dataset].TITLE;
             vm.view = vm.state.view;
+            vm.showFilters = vm.state.view === 'TABLE';
             vm.currentPage = vm.state.page;
             vm.isPageAvailable = vm.currentPage <= dataSelectionConfig.MAX_AVAILABLE_PAGES;
 
