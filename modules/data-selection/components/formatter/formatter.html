@@ -1,1 +1,2 @@
-<span ng-bind-html="vm.formattedValue"></span>
+<div ng-if="!vm.useInline" ng-bind-html="vm.formattedValue"></div>
+<span ng-if="vm.useInline" ng-bind-html="vm.formattedValue"></span>

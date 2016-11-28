@@ -3,13 +3,15 @@
         <dp-link type="FETCH_DETAIL" PAYLOAD="row.detailEndpoint">
             <dp-data-selection-formatter
                 variables="row.content[0]"
-                formatter="{{vm.content.formatters[0]}}">
+                formatter="{{vm.content.formatters[0]}}"
+                use-inline="true">
             </dp-data-selection-formatter>
         </dp-link>
 
         <dp-data-selection-formatter ng-if="!$first" ng-repeat="variables in row.content track by $index"
              variables="variables"
-             formatter="{{vm.content.formatters[$index]}}">
+             formatter="{{vm.content.formatters[$index]}}"
+             use-inline="true">
         </dp-data-selection-formatter>
     </li>
 </ul>

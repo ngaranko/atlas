@@ -6,7 +6,8 @@
         .component('dpDataSelectionFormatter', {
             bindings: {
                 variables: '<',
-                formatter: '@'
+                formatter: '@',
+                useInline: '<'
             },
             templateUrl: 'modules/data-selection/components/formatter/formatter.html',
             controller: DpDataSelectionFormatterController,
