@@ -10,14 +10,13 @@
                 heading: '<'
             },
             templateUrl: 'modules/straatbeeld/components/metadata/metadata.html',
-            controller: dpStraatbeeldMetadataController,
+            controller: DpStraatbeeldMetadataController,
             controllerAs: 'vm'
         });
 
-    dpStraatbeeldMetadataController.$inject = ['$scope', '$window'];
+    DpStraatbeeldMetadataController.$inject = ['$scope', '$window'];
 
-    function dpStraatbeeldMetadataController ($scope, $window) {
-        // Test for ES6
+    function DpStraatbeeldMetadataController ($scope, $window) {
         let vm = this;
 
         vm.showMetaInfo = () => angular.isDate(vm.date) && angular.isArray(vm.location);
