@@ -26,7 +26,7 @@
                 vm.formattedValue = $filter(vm.formatter)(vm.variables[0].value);
             } else {
                 // Pass all variables as an Object if there are more variables
-                vm.variables.forEach(variable => variablesObj[variable.key] = variable.value);
+                vm.variables.forEach(({key, value}) => variablesObj[key] = value);
 
                 vm.formattedValue = $filter(vm.formatter)(variablesObj);
             }
