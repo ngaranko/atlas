@@ -73,8 +73,8 @@
                 body: rawData.map(rawDataRow => {
                     return {
                         detailEndpoint: getDetailEndpoint(dataset, rawDataRow),
-                        content: dataSelectionConfig[dataset].CONTENT[view].map((item) => {
-                            return item.variables.map((variable) => {
+                        content: dataSelectionConfig[dataset].CONTENT[view].map(item => {
+                            return item.variables.map(variable => {
                                 return {
                                     key: variable,
                                     value: rawDataRow[variable]
@@ -84,9 +84,7 @@
                     };
                 }),
 
-                formatters: dataSelectionConfig[dataset].CONTENT[view].map((item) => {
-                    return item.formatter;
-                })
+                formatters: dataSelectionConfig[dataset].CONTENT[view].map(item => item.formatter)
             };
         }
 
