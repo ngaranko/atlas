@@ -5,7 +5,7 @@
         .module('dpDataSelection')
         .component('dpDataSelectionList', {
             bindings: {
-                content: '='
+                content: '<'
             },
             templateUrl: 'modules/data-selection/components/list/list.html',
             controllerAs: 'vm'

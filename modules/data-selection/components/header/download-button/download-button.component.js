@@ -16,7 +16,7 @@
     DpDataSelectionDownloadButtonController.$inject = ['$scope', '$window', 'dataSelectionConfig'];
 
     function DpDataSelectionDownloadButtonController ($scope, $window, dataSelectionConfig) {
-        var vm = this,
+        let vm = this,
             filterParams = [];
 
         vm.downloadUrl = dataSelectionConfig[vm.dataset].ENDPOINT_EXPORT;
