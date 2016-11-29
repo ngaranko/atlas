@@ -63,7 +63,8 @@
                     buurtcombinatie: 'Geuzenbuurt',
                     buurt: 'Trompbuurt'
                 },
-                page: 1
+                page: 1,
+                isLoading: false
             },
             */
             isPrintMode: false

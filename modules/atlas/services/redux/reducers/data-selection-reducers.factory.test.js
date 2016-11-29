@@ -13,7 +13,7 @@ describe('The dataSelectionReducers factory', function () {
         });
     });
 
-    describe('SHOW_DATA_SELECTION', function () {
+    describe('FETCH_DATA_SELECTION', function () {
         var payload;
 
         beforeEach(function () {
@@ -43,7 +43,7 @@ describe('The dataSelectionReducers factory', function () {
             };
             mockedState.layerSelection = true;
 
-            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
+            output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
 
             // It keeps the active layers
             expect(output.map.baseLayer).toBe('luchtfoto_1914');
@@ -65,7 +65,7 @@ describe('The dataSelectionReducers factory', function () {
 
             mockedState = angular.copy(DEFAULT_STATE);
 
-            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
+            output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
 
             expect(output.dataSelection).toEqual({
                 dataset: 'bag',
@@ -85,7 +85,7 @@ describe('The dataSelectionReducers factory', function () {
             mockedState = angular.copy(DEFAULT_STATE);
             payload.view = 'LIST';
 
-            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
+            output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
 
             expect(output.dataSelection).toEqual({
                 dataset: 'bag',
@@ -104,7 +104,7 @@ describe('The dataSelectionReducers factory', function () {
 
             mockedState = angular.copy(DEFAULT_STATE);
 
-            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
+            output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
 
             expect(output.dataSelection).toEqual({
                 dataset: 'bag',
@@ -127,7 +127,7 @@ describe('The dataSelectionReducers factory', function () {
             mockedState.detail = {some: 'object'};
             mockedState.straatbeeld = {some: 'object'};
 
-            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
+            output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
 
             expect(output.search).toBeNull();
             expect(output.page).toBeNull();
@@ -143,12 +143,12 @@ describe('The dataSelectionReducers factory', function () {
 
             // With print mode enabled
             mockedState.isPrintMode = true;
-            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
+            output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
             expect(output.isPrintMode).toBe(true);
 
             // With print mode disabled
             mockedState.isPrintMode = false;
-            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
+            output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
             expect(output.isPrintMode).toBe(false);
         });
     });

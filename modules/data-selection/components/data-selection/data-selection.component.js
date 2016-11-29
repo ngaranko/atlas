@@ -12,15 +12,15 @@
             controllerAs: 'vm'
         });
 
-    DpDataSelectionController.$inject = ['$scope', 'dataSelectionApi', 'dataSelectionConfig'];
+    DpDataSelectionController.$inject = ['$scope', 'dataSelectionApi', 'dataSelectionConfig', 'store', 'ACTIONS'];
 
-    function DpDataSelectionController ($scope, dataSelectionApi, dataSelectionConfig) {
+    function DpDataSelectionController ($scope, dataSelectionApi, dataSelectionConfig, store, ACTIONS) {
         let vm = this;
 
         $scope.$watch('vm.state', fetchData, true);
 
         function fetchData () {
-            vm.isLoading = true;
+            vm.isLoading = vm.state.isLoading;
 
             vm.title = dataSelectionConfig[vm.state.dataset].TITLE;
             vm.view = vm.state.view;
@@ -35,7 +35,10 @@
                 vm.numberOfRecords = data.number_of_records;
                 vm.numberOfPages = data.number_of_pages;
 
-                vm.isLoading = false;
+                store.dispatch({
+                    type: ACTIONS.SHOW_DATA_SELECTION,
+                    payload: data.someArrayWithClusteredMarkers
+                });
             });
         }
     }
