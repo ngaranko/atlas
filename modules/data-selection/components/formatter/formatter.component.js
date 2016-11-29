@@ -32,7 +32,7 @@
             }
         } else {
             // If there is no formatter; concatenate all values
-            vm.formattedValue = vm.variables.map((variable) => {
+            vm.formattedValue = vm.variables.map(variable => {
                 return variable.value;
             }).join(' ');
         }
