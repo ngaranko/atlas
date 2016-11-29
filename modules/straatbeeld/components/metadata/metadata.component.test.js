@@ -22,7 +22,7 @@ describe('The dp-straatbeeld-metadata component', function () {
         spyOn($window, 'open');
     });
 
-    function getComponent (date, location) {
+    function getComponent (date, location, heading) {
         var component,
             element,
             scope;
@@ -30,11 +30,11 @@ describe('The dp-straatbeeld-metadata component', function () {
         element = document.createElement('dp-straatbeeld-metadata');
         element.setAttribute('date', 'date');
         element.setAttribute('location', 'location');
-
+        element.setAttribute('heading', 'heading');
         scope = $rootScope.$new();
         scope.date = date;
         scope.location = location;
-
+        scope.heading = heading;
         component = $compile(element)(scope);
         scope.$apply();
 
@@ -67,10 +67,19 @@ describe('The dp-straatbeeld-metadata component', function () {
         expect(component.text()).toContain('MOCKED_RD_COORDINATES (52.123, 4.789)');
     });
 
-    it('It has a google streetview button', function () {
+    it('It has a google streetview link', function () {
         var component;
 
         component = getComponent(new Date(), [52.123, 4.789]);
         expect(component.find('.c-straatbeeld__streetview-history-icon').length).toBeGreaterThan(0);
+    });
+
+    it('Google streetview link has an ng-href and is filled properly', function () {
+        var component;
+
+        component = getComponent(new Date(), [52.123, 4.789], 12, 12);
+        expect(component.find('.c-straatbeeld__streetview-history-icon')
+            .attr('ng-href'))
+            .toEqual('http://maps.google.com/maps?q=&layer=c&cbll=52.123,4.789&cbp=11,12,0,0,0');
     });
 });
