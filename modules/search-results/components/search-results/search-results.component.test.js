@@ -335,10 +335,8 @@ describe('The dp-search-results component', function () {
             scope.numberOfResults = numberOfResults;
         }
 
-        if (angular.isString(query) || angular.isArray(location)) {
-            element.setAttribute('is-loading', 'isLoading');
-            scope.isLoading = true;
-        }
+        element.setAttribute('is-loading', 'isLoading');
+        scope.isLoading = true;
 
         component = $compile(element)(scope);
         scope.$apply();
@@ -378,6 +376,12 @@ describe('The dp-search-results component', function () {
                 type: ACTIONS.FETCH_DETAIL,
                 payload: 'https://some-domain/bag/openbareruimte/03630000004835/'
             });
+        });
+
+        it('does nothing when no query and no location are specified', function () {
+            let component = getComponent(12);
+
+            expect(component.find('ul dp-link').length).toBe(0);
         });
 
         it('calls dispatch with the number of search results', function () {

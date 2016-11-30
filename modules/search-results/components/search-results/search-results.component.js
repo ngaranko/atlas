@@ -25,12 +25,12 @@
          * watch isLoading and the query and location parameters of the state
          * if isLoading becomes true then find out what has te be loaded and get it
          */
-        $scope.$watchGroup(['vm.isLoading', 'vm.query', 'vm.category', 'vm.location'], ([isLoading]) => {
-            if (isLoading) {
-                if (vm.query) {
+        $scope.$watchGroup(['vm.isLoading', 'vm.query', 'vm.category', 'vm.location'], () => {
+            if (vm.isLoading) {
+                if (angular.isString(vm.query) && vm.query.length) {
                      // SEARCH BY QUERY
                     searchByQuery(vm.query, vm.category);
-                } else {
+                } else if (angular.isArray(vm.location)) {
                      // GEOSEARCH
                     searchByLocation(vm.location);
                 }
@@ -48,19 +48,15 @@
         };
 
         function searchByQuery (query, category) {
-            if (angular.isString(query) && query.length) {
-                if (angular.isString(category) && category.length) {
-                    search.search(query, category).then(setSearchResults);
-                } else {
-                    search.search(query).then(setSearchResults);
-                }
+            if (angular.isString(category) && category.length) {
+                search.search(query, category).then(setSearchResults);
+            } else {
+                search.search(query).then(setSearchResults);
             }
         }
 
         function searchByLocation (location) {
-            if (angular.isArray(location)) {
-                geosearch.search(location).then(setSearchResults);
-            }
+            geosearch.search(location).then(setSearchResults);
         }
 
         /**
