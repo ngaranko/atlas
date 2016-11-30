@@ -215,6 +215,22 @@ describe('The dp-data-selection component', function () {
             });
         });
 
+        it('shows a message in the LIST view when there are too many records', function () {
+            let component;
+
+            mockedApiPreviewData.number_of_records = 10001;
+
+            // The message is not shown in the TABLE view
+            mockedState.view = 'TABLE';
+            component = getComponent(mockedState);
+            expect(component.find('dp-panel').length).toBe(0);
+
+            // The message is shown in the LIST view
+            mockedState.view = 'LIST';
+            component = getComponent(mockedState);
+            expect(component.find('dp-panel').length).toBe(1);
+        });
+
         it('sends an Array with locations if the LIST view is active and there are < 10000 records', function () {
             mockedState.view = 'LIST';
 
