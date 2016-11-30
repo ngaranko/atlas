@@ -47,6 +47,7 @@
                 newState.dataSelection.view = 'TABLE';
             }
 
+            newState.dataSelection.markers = [];
             newState.dataSelection.isLoading = true;
 
             return newState;

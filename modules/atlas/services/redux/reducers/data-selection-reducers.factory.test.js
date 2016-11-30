@@ -1,5 +1,5 @@
-describe('The dataSelectionReducers factory', function () {
-    var dataSelectionReducers,
+fdescribe('The dataSelectionReducers factory', function () {
+    let dataSelectionReducers,
         DEFAULT_STATE,
         ACTIONS;
 
@@ -14,7 +14,7 @@ describe('The dataSelectionReducers factory', function () {
     });
 
     describe('FETCH_DATA_SELECTION', function () {
-        var payload;
+        let payload;
 
         beforeEach(function () {
             payload = {
@@ -28,7 +28,7 @@ describe('The dataSelectionReducers factory', function () {
         });
 
         it('resets the map, but preservers the active baseLayer and overlays', function () {
-            var mockedState,
+            let mockedState,
                 output;
 
             mockedState = angular.copy(DEFAULT_STATE);
@@ -60,26 +60,20 @@ describe('The dataSelectionReducers factory', function () {
         });
 
         it('has a default table view', function () {
-            var mockedState,
+            let mockedState,
                 output;
 
             mockedState = angular.copy(DEFAULT_STATE);
 
             output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
 
-            expect(output.dataSelection).toEqual({
-                dataset: 'bag',
-                filters: {
-                    buurtcombinatie: 'Geuzenbuurt',
-                    buurt: 'Trompbuurt'
-                },
-                page: 1,
+            expect(output.dataSelection).toEqual(jasmine.objectContaining({
                 view: 'TABLE'
-            });
+            }));
         });
 
         it('can display in list view', function () {
-            var mockedState,
+            let mockedState,
                 output;
 
             mockedState = angular.copy(DEFAULT_STATE);
@@ -87,38 +81,55 @@ describe('The dataSelectionReducers factory', function () {
 
             output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
 
-            expect(output.dataSelection).toEqual({
-                dataset: 'bag',
-                filters: {
-                    buurtcombinatie: 'Geuzenbuurt',
-                    buurt: 'Trompbuurt'
-                },
-                page: 1,
+            expect(output.dataSelection).toEqual(jasmine.objectContaining({
                 view: 'LIST'
-            });
+            }));
         });
 
-        it('sets the dataSelection state', function () {
-            var mockedState,
+        it('sets the dataSelection dataset, filters and page', function () {
+            let mockedState,
                 output;
 
             mockedState = angular.copy(DEFAULT_STATE);
 
             output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
 
-            expect(output.dataSelection).toEqual({
+            expect(output.dataSelection).toEqual(jasmine.objectContaining({
                 dataset: 'bag',
                 filters: {
                     buurtcombinatie: 'Geuzenbuurt',
                     buurt: 'Trompbuurt'
                 },
-                page: 1,
-                view: 'TABLE'
-            });
+                page: 1
+            }));
+        });
+
+        it('makes the Array of markers empty', function () {
+            let mockedState,
+                output;
+
+            mockedState = angular.copy(DEFAULT_STATE);
+
+            output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
+
+            expect(output.dataSelection).toEqual(jasmine.objectContaining({
+                markers: []
+            }));
+        });
+
+        it('sets isLoading to true', function () {
+            let mockedState,
+                output;
+
+            mockedState = angular.copy(DEFAULT_STATE);
+
+            output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
+
+            expect(output.dataSelection.isLoading).toBe(true);
         });
 
         it('disables search, page, detail and straatbeeld', function () {
-            var mockedState,
+            let mockedState,
                 output;
 
             mockedState = angular.copy(DEFAULT_STATE);
@@ -136,7 +147,7 @@ describe('The dataSelectionReducers factory', function () {
         });
 
         it('preserves the isPrintMode variable', function () {
-            var mockedState,
+            let mockedState,
                 output;
 
             mockedState = angular.copy(DEFAULT_STATE);
@@ -150,6 +161,38 @@ describe('The dataSelectionReducers factory', function () {
             mockedState.isPrintMode = false;
             output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
             expect(output.isPrintMode).toBe(false);
+        });
+    });
+
+    describe('SHOW_DATA_SELECTION', function () {
+        let mockedState,
+            payload,
+            output;
+
+        beforeEach(function () {
+            mockedState = {
+                dataSelection: {
+                    dataset: 'bag',
+                    filters: {
+                        buurtcombinatie: 'Geuzenbuurt',
+                        buurt: 'Trompbuurt'
+                    },
+                    page: 1,
+                    isLoading: true
+                }
+            };
+
+            payload = ['MOCKED', 'MARKER', 'ARRAY'];
+
+            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
+        });
+
+        it('adds markers to the state', function () {
+            expect(output.dataSelection.markers).toEqual(['MOCKED', 'MARKER', 'ARRAY']);
+        });
+
+        it('sets isLoading to false', function () {
+            expect(output.dataSelection.isLoading).toEqual(false);
         });
     });
 
@@ -184,7 +227,7 @@ describe('The dataSelectionReducers factory', function () {
 
     describe('NAVIGATE_DATA_SELECTION', function () {
         it('updates the page', function () {
-            var mockedState = angular.copy(DEFAULT_STATE),
+            let mockedState = angular.copy(DEFAULT_STATE),
                 output;
 
             mockedState.dataSelection = {
