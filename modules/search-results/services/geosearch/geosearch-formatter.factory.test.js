@@ -21,9 +21,13 @@ describe('The geosearchFormatter factory', function () {
                             label_singular: 'Gebied',
                             label_plural: 'Gebieden',
                             features: [
-                                'gebieden/stadsdeel',
+                                'gebieden/gebiedsgerichtwerken',
                                 'gebieden/bouwblok'
-                            ]
+                            ],
+                            subtypes: {
+                                gebiedsgerichtwerken: 'gebiedsgericht werken',
+                                bouwblok: 'bouwblok'
+                            }
                         }, {
                             label_singular: 'Meetbout',
                             label_plural: 'Meetbouten',
@@ -66,8 +70,8 @@ describe('The geosearchFormatter factory', function () {
                         properties: {
                             display: 'Zuid',
                             id: '03630011872038',
-                            type: 'gebieden/stadsdeel',
-                            uri: 'https://api.datapunt.amsterdam.nl/gebieden/stadsdeel/03630011872038/'
+                            type: 'gebieden/gebiedsgerichtwerken',
+                            uri: 'https://api.datapunt.amsterdam.nl/gebieden/gebiedsgerichtwerken/03630011872038/'
                         }
                     }, {
                         properties: {
@@ -101,6 +105,7 @@ describe('The geosearchFormatter factory', function () {
                     {
                         label: '03630013046846',
                         subtype: null,
+                        subtypeLabel: null,
                         endpoint: 'https://api.datapunt.amsterdam.nl/bag/pand/03630013046846/'
                     }
                 ],
@@ -114,6 +119,7 @@ describe('The geosearchFormatter factory', function () {
                     {
                         label: 'Amstel',
                         subtype: 'water', // Converted to lowercase
+                        subtypeLabel: 'water', // Converted to lowercase
                         endpoint: 'https://api.datapunt.amsterdam.nl/bag/openbareruimte/03630011950509/'
                     }
                 ],
@@ -127,11 +133,13 @@ describe('The geosearchFormatter factory', function () {
                 results: [
                     {
                         label: 'Zuid',
-                        subtype: 'stadsdeel',
-                        endpoint: 'https://api.datapunt.amsterdam.nl/gebieden/stadsdeel/03630011872038/'
+                        subtype: 'gebiedsgerichtwerken',
+                        subtypeLabel: 'gebiedsgericht werken',
+                        endpoint: 'https://api.datapunt.amsterdam.nl/gebieden/gebiedsgerichtwerken/03630011872038/'
                     }, {
                         label: 'AK47',
                         subtype: 'bouwblok',
+                        subtypeLabel: 'bouwblok',
                         endpoint: 'https://api.datapunt.amsterdam.nl/gebieden/bouwblok/03630012096593/'
                     }
                 ],
@@ -145,6 +153,7 @@ describe('The geosearchFormatter factory', function () {
                     {
                         label: '12981535',
                         subtype: null,
+                        subtypeLabel: null,
                         endpoint: 'https://api.datapunt.amsterdam.nl/meetbouten/meetbout/12981535/'
                     }
                 ],
