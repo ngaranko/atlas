@@ -310,7 +310,7 @@ describe('The dp-search-results component', function () {
         spyOn(store, 'dispatch');
     });
 
-    function getComponent (numberOfResults, query, location, category, isLoading) {
+    function getComponent (numberOfResults, query, location, category) {
         let component,
             element;
 
@@ -340,8 +340,6 @@ describe('The dp-search-results component', function () {
 
         component = $compile(element)(scope);
         scope.$apply();
-
-        scope.isLoading = false;
 
         return component;
     }
