@@ -16,7 +16,7 @@
   left: 0;
 
   //translateZ(0) is needed to fix a Firefox bug, see tg-1306 (black screen when scrolling)
-  margin: -2px;
+  margin: -$base-whitespace / 2;
   transform: translateZ(0);
   cursor: default;
   z-index: 1;
