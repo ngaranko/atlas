@@ -6,11 +6,13 @@
         .constant('SEARCH_CONFIG', {
             QUERY_ENDPOINTS: [
                 {
+                    // The slug variable is used to indentify this category in list.component.js
                     slug: 'openbareruimte',
                     label_singular: 'Openbare ruimte',
                     label_plural: 'Openbare ruimtes',
                     uri: 'atlas/search/openbareruimte/'
                 }, {
+                    // The slug variable is used to indentify this category in list.component.js
                     slug: 'adres',
                     label_singular: 'Adres',
                     label_plural: 'Adressen',
@@ -36,12 +38,22 @@
                     label_plural: 'Kadastrale subjecten',
                     uri: 'atlas/search/kadastraalsubject/'
                 }, {
-                    slug: 'gebieden',
+                    // The slug variable is used to indentify this category in list.component.js
+                    slug: 'gebied',
                     label_singular: 'Gebied',
                     label_plural: 'Gebieden',
-                    uri: 'atlas/search/gebied/'
+                    uri: 'atlas/search/gebied/',
+                    subtypes: {
+                        grootstedelijk: 'grootstedelijk gebied',
+                        unesco: 'unesco',
+                        stadsdeel: 'stadsdeel',
+                        gebiedsgerichtwerken: 'gebiedsgericht werken',
+                        buurtcombinatie: 'buurtcombinatie',
+                        buurt: 'buurt',
+                        bouwblok: 'bouwblok'
+                    }
                 }, {
-                    slug: 'meetbouten',
+                    slug: 'meetbout',
                     label_singular: 'Meetbout',
                     label_plural: 'Meetbouten',
                     uri: 'meetbouten/search/'
@@ -58,6 +70,7 @@
             ],
             COORDINATES_HIERARCHY: [
                 {
+                    // The slug variable is used to indentify this category in list.component.js
                     slug: 'openbareruimte',
                     label_singular: 'Openbare ruimte',
                     label_plural: 'Openbare ruimtes',
@@ -69,12 +82,14 @@
                     label_plural: 'Panden',
                     features: ['bag/pand']
                 }, {
-                    slug: 'plaats',
+                    // The slug variable is used to indentify this category in geosearch.factory.js
+                    slug: 'standplaats',
                     label_singular: 'Standplaats',
                     label_plural: 'Standplaatsen',
                     features: ['bag/standplaats']
                 }, {
-                    slug: 'plaats',
+                    // The slug variable is used to indentify this category in geosearch.factory.js
+                    slug: 'ligplaats',
                     label_singular: 'Ligplaats',
                     label_plural: 'Ligplaatsen',
                     features: ['bag/ligplaats']
@@ -87,6 +102,7 @@
                     label_plural: 'Gemeentelijke beperkingen',
                     features: ['wkpb/beperking']
                 }, {
+                    // The slug variable is used to indentify this category in list.component.js
                     slug: 'gebied',
                     label_singular: 'Gebied',
                     label_plural: 'Gebieden',
@@ -98,7 +114,16 @@
                         'gebieden/buurtcombinatie',
                         'gebieden/buurt',
                         'gebieden/bouwblok'
-                    ]
+                    ],
+                    subtypes: {
+                        grootstedelijkgebied: 'grootstedelijk gebied',
+                        unesco: 'unesco',
+                        stadsdeel: 'stadsdeel',
+                        gebiedsgerichtwerken: 'gebiedsgericht werken',
+                        buurtcombinatie: 'buurtcombinatie',
+                        buurt: 'buurt',
+                        bouwblok: 'bouwblok'
+                    }
                 }, {
                     label_singular: 'Meetbout',
                     label_plural: 'Meetbouten',
