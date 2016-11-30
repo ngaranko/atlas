@@ -6,7 +6,8 @@ describe('The dp-data-selection component', function () {
         store,
         ACTIONS,
         mockedState,
-        mockedApiData;
+        mockedApiPreviewData,
+        mockedApiMarkersData;
 
     beforeEach(function () {
         angular.mock.module(
@@ -16,7 +17,14 @@ describe('The dp-data-selection component', function () {
                     query: function () {
                         let q = $q.defer();
 
-                        q.resolve(mockedApiData);
+                        q.resolve(mockedApiPreviewData);
+
+                        return q.promise;
+                    },
+                    getMarkers: function () {
+                        let q = $q.defer();
+
+                        q.resolve(mockedApiMarkersData);
 
                         return q.promise;
                     }
@@ -81,14 +89,22 @@ describe('The dp-data-selection component', function () {
             isLoading: false
         };
 
-        mockedApiData = {
+        mockedApiPreviewData = {
             number_of_pages: 107,
             number_of_records: 77,
             filters: 'MOCKED_FILTER_DATA',
             data: 'MOCKED_PREVIEW_DATA'
         };
 
+        mockedApiMarkersData = [
+            [52.1, 4.1],
+            [52.2, 4.2],
+            [52.3, 4.3]
+        ];
+
         spyOn(dataSelectionApi, 'query').and.callThrough();
+        spyOn(dataSelectionApi, 'getMarkers').and.callThrough();
+        spyOn(store, 'dispatch');
     });
 
     function getComponent (state) {
@@ -135,7 +151,19 @@ describe('The dp-data-selection component', function () {
     });
 
     it('either calls the table or list view', function () {
+        let component;
 
+        mockedState.view = 'TABLE';
+        component = getComponent(mockedState);
+        expect(component.find('dp-data-selection-table').length).toBe(1);
+        expect(component.find('dp-data-selection-table').attr('content')).toBe('vm.data');
+        expect(component.find('dp-data-selection-list').length).toBe(0);
+
+        mockedState.view = 'LIST';
+        component = getComponent(mockedState);
+        expect(component.find('dp-data-selection-list').length).toBe(1);
+        expect(component.find('dp-data-selection-list').attr('content')).toBe('vm.data');
+        expect(component.find('dp-data-selection-table').length).toBe(0);
     });
 
     it('retrieves new data when the state changes', function () {
@@ -166,15 +194,40 @@ describe('The dp-data-selection component', function () {
 
     describe('it triggers SHOW_DATA_SELECTION to communicate the related marker locations', function () {
         it('sends an empty Array if the table view is active', function () {
+            mockedState.view = 'TABLE';
+            getComponent(mockedState);
 
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.SHOW_DATA_SELECTION,
+                payload: []
+            });
         });
 
         it('sends an empty Array if there are too many records (> 10000) to show', function () {
+            mockedState.view = 'LIST';
+            mockedApiPreviewData.number_of_records = 10001;
 
+            getComponent(mockedState);
+
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.SHOW_DATA_SELECTION,
+                payload: []
+            });
         });
 
         it('sends an Array with locations if the LIST view is active and there are < 10000 records', function () {
+            mockedState.view = 'LIST';
 
+            getComponent(mockedState);
+
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.SHOW_DATA_SELECTION,
+                payload: [
+                    [52.1, 4.1],
+                    [52.2, 4.2],
+                    [52.3, 4.3]
+                ]
+            });
         });
     });
 });
