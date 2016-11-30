@@ -56,7 +56,7 @@
 
                                 subtypeLabel = subtype;
                                 if (subtype && rawCategory.subtypes) {
-                                    subtypeLabel = rawCategory.subtypes[subtype];
+                                    subtypeLabel = rawCategory.subtypes[subtype] || subtype;
                                 }
 
                                 return {

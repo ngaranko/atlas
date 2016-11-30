@@ -68,7 +68,8 @@ describe('The searchFormatter factory', function () {
                             self: {
                                 href: 'http://www.example.com/path/to/105'
                             }
-                        }
+                        },
+                        subtype: 'buurt'
                     }
                 ],
                 _links: {
@@ -241,8 +242,8 @@ describe('The searchFormatter factory', function () {
                         hoofdadres: undefined,
                         vbo_status: undefined,
                         endpoint: 'http://www.example.com/path/to/105',
-                        subtype: null,
-                        subtypeLabel: null
+                        subtype: 'buurt',
+                        subtypeLabel: 'buurt'
                     }
                 ],
                 useIndenting: false,

@@ -45,12 +45,7 @@
                     uri: 'atlas/search/gebied/',
                     subtypes: {
                         grootstedelijk: 'grootstedelijk gebied',
-                        unesco: 'unesco',
-                        stadsdeel: 'stadsdeel',
-                        gebiedsgerichtwerken: 'gebiedsgericht werken',
-                        buurtcombinatie: 'buurtcombinatie',
-                        buurt: 'buurt',
-                        bouwblok: 'bouwblok'
+                        gebiedsgerichtwerken: 'gebiedsgericht werken'
                     }
                 }, {
                     slug: 'meetbout',
@@ -117,12 +112,7 @@
                     ],
                     subtypes: {
                         grootstedelijkgebied: 'grootstedelijk gebied',
-                        unesco: 'unesco',
-                        stadsdeel: 'stadsdeel',
-                        gebiedsgerichtwerken: 'gebiedsgericht werken',
-                        buurtcombinatie: 'buurtcombinatie',
-                        buurt: 'buurt',
-                        bouwblok: 'bouwblok'
+                        gebiedsgerichtwerken: 'gebiedsgericht werken'
                     }
                 }, {
                     label_singular: 'Meetbout',

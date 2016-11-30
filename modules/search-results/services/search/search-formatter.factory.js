@@ -46,10 +46,11 @@
             const endpointConfig = SEARCH_CONFIG.QUERY_ENDPOINTS.filter(endpoint => endpoint.slug === slug)[0];
 
             return links.map(function (item) {
-                let subtypeLabel = item.subtype || null;
+                let subtype = item.subtype || null,
+                    subtypeLabel = subtype;
 
                 if (item.subtype && endpointConfig.subtypes) {
-                    subtypeLabel = endpointConfig.subtypes[item.subtype];
+                    subtypeLabel = endpointConfig.subtypes[item.subtype] || item.subtype;
                 }
 
                 return {
@@ -57,8 +58,8 @@
                     hoofdadres: item.hoofdadres,
                     vbo_status: angular.isArray(item.vbo_status) ? item.vbo_status[0] : item.vbo_status,
                     endpoint: item._links.self.href,
-                    subtype: item.subtype || null,
-                    subtypeLabel: subtypeLabel
+                    subtype,
+                    subtypeLabel
                 };
             });
         }

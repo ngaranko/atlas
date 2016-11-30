@@ -25,8 +25,7 @@ describe('The geosearchFormatter factory', function () {
                                 'gebieden/bouwblok'
                             ],
                             subtypes: {
-                                gebiedsgerichtwerken: 'gebiedsgericht werken',
-                                bouwblok: 'bouwblok'
+                                gebiedsgerichtwerken: 'gebiedsgericht werken'
                             }
                         }, {
                             label_singular: 'Meetbout',
