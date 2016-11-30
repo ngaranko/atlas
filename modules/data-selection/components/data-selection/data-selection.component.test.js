@@ -48,6 +48,10 @@ describe('The dp-data-selection component', function () {
                     return {};
                 });
 
+                $provide.factory('dpDataSelectionListDirective', function () {
+                    return {};
+                });
+
                 $provide.factory('dpPanelDirective', function () {
                     return {};
                 });
@@ -81,14 +85,14 @@ describe('The dp-data-selection component', function () {
             number_of_pages: 107,
             number_of_records: 77,
             filters: 'MOCKED_FILTER_DATA',
-            tableData: 'MOCKED_TABLE_DATA'
+            data: 'MOCKED_PREVIEW_DATA'
         };
 
         spyOn(dataSelectionApi, 'query').and.callThrough();
     });
 
     function getComponent (state) {
-        var component,
+        let component,
             element,
             scope;
 
@@ -104,9 +108,39 @@ describe('The dp-data-selection component', function () {
         return component;
     }
 
+    it('retieves the filter and table data and passes it to it\'s child directives', function () {
+        const component = getComponent(mockedState);
+        let scope = component.isolateScope();
+
+        expect(component.find('dp-data-selection-filters').length).toBe(1);
+        expect(component.find('dp-data-selection-filters').attr('dataset')).toBe('zwembaden');
+        expect(component.find('dp-data-selection-filters').attr('available-filters')).toBe('vm.availableFilters');
+        expect(component.find('dp-data-selection-filters').attr('active-filters')).toBe('vm.state.filters');
+        expect(scope.vm.availableFilters).toBe('MOCKED_FILTER_DATA');
+        expect(scope.vm.state.filters).toEqual({
+            type: 'Buitenbad'
+        });
+
+        expect(component.find('dp-data-selection-table').length).toBe(1);
+        expect(component.find('dp-data-selection-table').attr('content')).toBe('vm.data');
+        expect(scope.vm.data).toBe('MOCKED_PREVIEW_DATA');
+        expect(scope.vm.currentPage).toBe(2);
+
+        expect(component.find('dp-data-selection-pagination').length).toBe(1);
+        expect(component.find('dp-data-selection-pagination').attr('current-page')).toBe('vm.currentPage');
+        expect(component.find('dp-data-selection-pagination').attr('number-of-pages')).toBe('vm.numberOfPages');
+        expect(scope.vm.currentPage).toBe(2);
+        expect(scope.vm.numberOfPages).toBe(107);
+        expect(scope.vm.numberOfRecords).toBe(77);
+    });
+
+    it('either calls the table or list view', function () {
+
+    });
+
     it('retrieves new data when the state changes', function () {
-        var component = getComponent(mockedState),
-            scope = component.isolateScope();
+        const component = getComponent(mockedState);
+        let scope = component.isolateScope();
 
         expect(dataSelectionApi.query).toHaveBeenCalledTimes(1);
         expect(scope.vm.currentPage).toBe(2);
@@ -117,5 +151,30 @@ describe('The dp-data-selection component', function () {
 
         expect(dataSelectionApi.query).toHaveBeenCalledTimes(2);
         expect(scope.vm.currentPage).toBe(3);
+    });
+
+    it('cannot show more than 100 pages', function () {
+        const component = getComponent(mockedState);
+        let scope = component.isolateScope();
+
+        // Change the state
+        scope.vm.state.page = 101;
+        $rootScope.$apply();
+
+        expect(scope.vm.currentPage).toBe(101);
+    });
+
+    describe('it triggers SHOW_DATA_SELECTION to communicate the related marker locations', function () {
+        it('sends an empty Array if the table view is active', function () {
+
+        });
+
+        it('sends an empty Array if there are too many records (> 10000) to show', function () {
+
+        });
+
+        it('sends an Array with locations if the LIST view is active and there are < 10000 records', function () {
+
+        });
     });
 });
