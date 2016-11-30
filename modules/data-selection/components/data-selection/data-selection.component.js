@@ -16,6 +16,7 @@
 
     function DpDataSelectionController ($scope, dataSelectionApi, dataSelectionConfig, store, ACTIONS) {
         let vm = this;
+        const MAXIMUM_NUMBER_OF_MARKERS = 10000;
 
         $scope.$watch('vm.state', fetchData, true);
 
@@ -28,17 +29,26 @@
             vm.currentPage = vm.state.page;
             vm.isPageAvailable = vm.currentPage <= dataSelectionConfig.MAX_AVAILABLE_PAGES;
 
-            dataSelectionApi.query(vm.state.dataset, vm.state.view, vm.state.filters, vm.currentPage).then((data) => {
+            dataSelectionApi.query(vm.state.dataset, vm.state.view, vm.state.filters, vm.currentPage).then(data => {
                 vm.availableFilters = data.filters;
                 vm.data = data.data;
 
                 vm.numberOfRecords = data.number_of_records;
                 vm.numberOfPages = data.number_of_pages;
 
-                store.dispatch({
-                    type: ACTIONS.SHOW_DATA_SELECTION,
-                    payload: data.someArrayWithClusteredMarkers
-                });
+                if (vm.view === 'LIST' && vm.numberOfRecords <= MAXIMUM_NUMBER_OF_MARKERS) {
+                    dataSelectionApi.getMarkers(vm.state.dataset, vm.state.filters).then(markerData => {
+                        store.dispatch({
+                            type: ACTIONS.SHOW_DATA_SELECTION,
+                            payload: markerData
+                        });
+                    });
+                } else {
+                    store.dispatch({
+                        type: ACTIONS.SHOW_DATA_SELECTION,
+                        payload: []
+                    });
+                }
             });
         }
     }

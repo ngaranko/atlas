@@ -42,7 +42,7 @@ describe('The dp-data-selection-toggle-view-button component', function () {
     it('when in table view: it shows a link to the list view', function () {
         const component = getComponent('TABLE');
 
-        expect(component.text().trim()).toBe('Lijstweergave');
+        expect(component.text().trim()).toBe('Kaartweergave');
 
         component.find('button').click();
         expect(store.dispatch).toHaveBeenCalledWith({

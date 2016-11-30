@@ -17,7 +17,7 @@
 
         if (vm.view === 'TABLE') {
             vm.targetView = 'LIST';
-            vm.targetLabel = 'Lijstweergave';
+            vm.targetLabel = 'Kaartweergave';
         } else {
             vm.targetView = 'TABLE';
             vm.targetLabel = 'Tabelweergave';

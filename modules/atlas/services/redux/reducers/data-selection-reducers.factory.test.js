@@ -1,4 +1,4 @@
-fdescribe('The dataSelectionReducers factory', function () {
+describe('The dataSelectionReducers factory', function () {
     let dataSelectionReducers,
         DEFAULT_STATE,
         ACTIONS;

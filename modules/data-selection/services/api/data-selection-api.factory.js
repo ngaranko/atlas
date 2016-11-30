@@ -7,7 +7,8 @@
 
     function dataSelectionApiFactory (dataSelectionConfig, api) {
         return {
-            query: query
+            query: query,
+            getMarkers: getMarkers
         };
 
         function query (dataset, view, activeFilters, page) {
@@ -91,6 +92,14 @@
         function getDetailEndpoint (dataset, rawDataRow) {
             return dataSelectionConfig[dataset].ENDPOINT_DETAIL +
                 rawDataRow[dataSelectionConfig[dataset].PRIMARY_KEY] + '/';
+        }
+
+        function getMarkers (dataset, activeFilters) {
+            return api.getByUrl(dataSelectionConfig[dataset].ENDPOINT_MARKERS, activeFilters).then(function (data) {
+                return data.object_list.map(marker => {
+                    return marker._source.centroid.reverse();
+                });
+            });
         }
     }
 })();

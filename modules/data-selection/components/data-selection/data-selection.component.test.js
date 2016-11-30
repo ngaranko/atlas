@@ -1,8 +1,10 @@
 describe('The dp-data-selection component', function () {
-    var $rootScope,
+    let $rootScope,
         $compile,
         $q,
         dataSelectionApi,
+        store,
+        ACTIONS,
         mockedState,
         mockedApiData;
 
@@ -24,6 +26,9 @@ describe('The dp-data-selection component', function () {
                     zwembaden: {
                         TITLE: 'Zwembaden'
                     }
+                },
+                store: {
+                    dispatch: angular.noop
                 }
             },
             function ($provide) {
@@ -53,11 +58,13 @@ describe('The dp-data-selection component', function () {
             }
         );
 
-        angular.mock.inject(function (_$rootScope_, _$compile_, _$q_, _dataSelectionApi_) {
+        angular.mock.inject(function (_$rootScope_, _$compile_, _$q_, _dataSelectionApi_, _store_, _ACTIONS_) {
             $rootScope = _$rootScope_;
             $compile = _$compile_;
             $q = _$q_;
             dataSelectionApi = _dataSelectionApi_;
+            store = _store_;
+            ACTIONS = _ACTIONS_;
         });
 
         mockedState = {
@@ -66,7 +73,8 @@ describe('The dp-data-selection component', function () {
             filters: {
                 type: 'Buitenbad'
             },
-            page: 2
+            page: 2,
+            isLoading: false
         };
 
         mockedApiData = {
