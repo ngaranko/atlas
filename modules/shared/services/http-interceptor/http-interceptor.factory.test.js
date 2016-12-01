@@ -161,8 +161,9 @@ describe('The http interceptor', function () {
         $http({
             method: 'GET',
             url: 'http://api-domain.amsterdam.nl/-1',
-            isCancelled: function () {
-                return true;
+            timeout: {
+                then: function (resolve, reject) {
+                }
             }
         }).catch(data => {
             expect(data.data).toEqual(mockedData);

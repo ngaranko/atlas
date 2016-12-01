@@ -41,14 +41,20 @@
                 cache: false
             };
 
+            let isCancelled = false;
+
             if (angular.isObject(cancel) && cancel.promise) {
-                let isCancelled = false;
                 options.timeout = cancel.promise;
-                options.isCancelled = () => isCancelled;
-                options.timeout.finally(() => isCancelled = true);
+                options.timeout.then(() => isCancelled = true);
             }
 
-            return $http(options).then(response => response.data);
+            return $http(options)
+                .then(response => response.data)
+                .finally(() => {
+                    if (!isCancelled && options.timeout) {
+                        cancel.reject();
+                    }
+                });
         }
 
         function getByUri (uri, params) {

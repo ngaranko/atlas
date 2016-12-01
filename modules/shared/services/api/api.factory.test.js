@@ -77,6 +77,20 @@ describe('The api factory', function () {
         $httpBackend.verifyNoOutstandingRequest();
     });
 
+    it('getByUrl optionally accepts a promise, rejects the promise when the request is not cancelled', function () {
+        var returnValue;
+        let cancel = $q.defer();
+
+        api.getByUrl('http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/', undefined, cancel)
+            .then(function (data) {
+                returnValue = data;
+            });
+
+        $httpBackend.flush();
+
+        expect(returnValue).toEqual(mockedApiData);
+    });
+
     it('getByUri can be used when the environment.API_ROOT is unknown', function () {
         var returnValue;
 

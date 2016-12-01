@@ -20,7 +20,14 @@
 
             if (response.status <= 0) {
                 // Check if the error is due to a cancelled http request
-                isServerError = !(angular.isFunction(response.config.isCancelled) && response.config.isCancelled());
+                if (response.config.timeout && angular.isFunction(response.config.timeout.then)) {
+                    response.config.timeout.then(
+                        angular.noop,   // request has been cancelled by resolving the timeout
+                        () => httpStatus.registerError(httpStatus.SERVER_ERROR) // Abnormal end of request
+                    );
+                } else {
+                    isServerError = true;
+                }
             }
 
             if (isServerError) {
