@@ -16,7 +16,7 @@
         function getTitle (straatbeeldState) {
             let title = 'Panorama';
             if (angular.isArray(straatbeeldState.location)) {
-                title += ` ${coordinatesFilter(straatbeeldState.location)}`;
+                title += ` ${coordinatesFilter(straatbeeldState.location, 'WGS84')}`;
             }
             return title;
         }
