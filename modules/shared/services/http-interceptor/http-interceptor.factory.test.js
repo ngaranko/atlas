@@ -1,14 +1,13 @@
 describe('The http interceptor', function () {
     let $httpBackend,
         $http,
-        cancelled,
         httpStatus = {
             SERVER_ERROR: 'SERVER_ERROR',
             NOT_FOUND_ERROR: 'NOT_FOUND_ERROR',
-            registerError: angular.noop,
-            getStatus: () => { return {cancelled};}
+            registerError: angular.noop
         },
         mockedData,
+        mockedCancelledData,
         callbackCalled;
 
     beforeEach(function () {
@@ -21,6 +20,15 @@ describe('The http interceptor', function () {
 
         mockedData = {
             Key: 'Value'
+        };
+
+        mockedCancelledData = {
+            Key: 'Value',
+            config: {
+                isCancelled: function () {
+                    return true;
+                }
+            }
         };
         callbackCalled = false;
 
@@ -42,7 +50,7 @@ describe('The http interceptor', function () {
 
         $httpBackend
             .whenGET('http://api-domain.amsterdam.nl/-1')
-            .respond(-1, mockedData);
+            .respond(-1, mockedCancelledData);
 
         spyOn(httpStatus, 'registerError');
     });
@@ -146,11 +154,13 @@ describe('The http interceptor', function () {
     });
 
     it('registers http server error -1 responses, leaves content untouched', function () {
+        console.log('test 1');
         $http
             .get('http://api-domain.amsterdam.nl/-1')
             .catch(data => {
-                expect(data.data).toEqual(mockedData);
+                expect(data.data).toEqual(mockedCancelledData);
                 expect(data.status).toBe(-1);
+                expect(data.data.config.isCancelled()).toBe(true);
                 expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
                 callbackCalled = true;
             });
@@ -160,14 +170,13 @@ describe('The http interceptor', function () {
     });
 
     it('skips http error -1 responses when due to cancellation of request', function () {
-        cancelled = {
-            url: 'http://api-domain.amsterdam.nl/-1'
-        };
+        console.log('test 2');
         $http
             .get('http://api-domain.amsterdam.nl/-1')
             .catch(data => {
-                expect(data.data).toEqual(mockedData);
+                expect(data.data).toEqual(mockedCancelledData);
                 expect(data.status).toBe(-1);
+                expect(data.data.config.isCancelled()).toBe(true);
                 expect(httpStatus.registerError).not.toHaveBeenCalled();
                 callbackCalled = true;
             });
