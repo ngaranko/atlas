@@ -15,10 +15,10 @@
 
         /**
          *
-         * @param url
-         * @param params
-         * @param cancel - an optional promise ($q.defer()) to be able to cancel the request
-         * @returns {*|Promise.<TResult>}
+         * @param {string} url
+         * @param {Object} params
+         * @param {Promise} cancel - an optional promise ($q.defer()) to be able to cancel the request
+         * @returns {Promise}
          */
         function getByUrl (url, params, cancel) {
             let headers = {},
@@ -51,7 +51,7 @@
             return $http(options)
                 .then(response => response.data)
                 .finally(() => {
-                    if (!isCancelled && options.timeout) {
+                    if (options.timeout && !isCancelled) {
                         cancel.reject();
                     }
                 });

@@ -143,9 +143,32 @@ describe('The http interceptor', function () {
         expect(callbackCalled).toBe(true);
     });
 
-    it('registers http server error -1 responses, leaves content untouched', function () {
-        $http
-            .get('http://api-domain.amsterdam.nl/-1')
+    it('registers http server error -1 for non-cancellable responses, leaves content untouched', function () {
+        $http({
+            method: 'GET',
+            url: 'http://api-domain.amsterdam.nl/-1'
+        }).catch(data => {
+            expect(data.data).toEqual(mockedData);
+            expect(data.status).toBe(-1);
+            expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
+            callbackCalled = true;
+        });
+
+        $httpBackend.flush();
+        expect(callbackCalled).toBe(true);
+    });
+
+    it('registers http server error -1 for non-cancelled responses, leaves content untouched', function () {
+        $http({
+            method: 'GET',
+            url: 'http://api-domain.amsterdam.nl/-1',
+            timeout: {
+                then: (resolve, reject) => {
+                    if (angular.isFunction(reject)) {
+                        reject();
+                    }
+                }
+            }})
             .catch(data => {
                 expect(data.data).toEqual(mockedData);
                 expect(data.status).toBe(-1);
@@ -157,20 +180,19 @@ describe('The http interceptor', function () {
         expect(callbackCalled).toBe(true);
     });
 
-    it('skips http error -1 responses when due to cancellation of request', function () {
+    it('skips http server error -1 for cancelled responses, leaves content untouched', function () {
         $http({
             method: 'GET',
             url: 'http://api-domain.amsterdam.nl/-1',
             timeout: {
-                then: function (resolve, reject) {
-                }
-            }
-        }).catch(data => {
-            expect(data.data).toEqual(mockedData);
-            expect(data.status).toBe(-1);
-            expect(httpStatus.registerError).not.toHaveBeenCalled();
-            callbackCalled = true;
-        });
+                then: angular.noop
+            }})
+            .catch(data => {
+                expect(data.data).toEqual(mockedData);
+                expect(data.status).toBe(-1);
+                expect(httpStatus.registerError).not.toHaveBeenCalled();
+                callbackCalled = true;
+            });
 
         $httpBackend.flush();
         expect(callbackCalled).toBe(true);

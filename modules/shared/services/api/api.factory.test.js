@@ -69,7 +69,7 @@ describe('The api factory', function () {
         let cancel = $q.defer();
 
         api.getByUrl('http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/', undefined, cancel)
-            .then(function (data) {
+            .then(function () {
                 fail();   // Should never be resolved
             });
 
@@ -86,9 +86,13 @@ describe('The api factory', function () {
                 returnValue = data;
             });
 
+        let isRejected = false;
+        cancel.promise.then(angular.noop, () => isRejected = true);
+
         $httpBackend.flush();
 
         expect(returnValue).toEqual(mockedApiData);
+        expect(isRejected).toBe(true);
     });
 
     it('getByUri can be used when the environment.API_ROOT is unknown', function () {
