@@ -13,10 +13,21 @@
          *
          * @returns {String} - A formatted string with RD and lat/lon coordinates "X, Y (lat, lon)"
          */
-        return function (wgs84Location) {
-            var rdLocation = crsConverter.wgs84ToRd(wgs84Location),
+        return function (location, type) {
+            var wgs84Location,
+                rdLocation,
                 formattedRdLocation,
                 formattedWgs84Location;
+
+            if (type === 'RD') {
+                rdLocation = location;
+                wgs84Location = crsConverter.rdToWgs84(rdLocation);
+            } else if (type === 'WGS84') {
+                wgs84Location = location;
+                rdLocation = crsConverter.wgs84ToRd(wgs84Location);
+            } else {
+                return;
+            }
 
             formattedWgs84Location = wgs84Location.map(function (coordinate) {
                 return coordinate.toFixed(7);

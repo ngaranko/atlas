@@ -34,7 +34,7 @@
             <dt>Status</dt>
             <dd>{{ apiData.results.status.omschrijving }}</dd>
             <dt>Coördinaten</dt>
-            <dd>{{ apiData.results.geometrie.coordinates[0] }}, {{ apiData.results.geometrie.coordinates[1] }}</dd>
+            <dd>{{ apiData.results.geometrie.coordinates | coordinates: 'RD' }}</dd>
             <dt>Status coördinaten</dt>
             <dd>{{ apiData.results.status_coordinaat.omschrijving }}</dd>
         </dl>

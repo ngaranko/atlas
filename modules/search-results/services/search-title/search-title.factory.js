@@ -55,7 +55,7 @@
             if (query) {
                 subTitle = ' "' + query + '"';
             } else if (location) {
-                subTitle = ' locatie ' + coordinatesFilter(location);
+                subTitle = ' locatie ' + coordinatesFilter(location, 'WGS84');
             }
 
             if (subTitle) {

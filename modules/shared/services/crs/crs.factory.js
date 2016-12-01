@@ -27,7 +27,6 @@
              * http://leafletjs.com/reference.html#bounds
              */
             rdSettings.transformation.bounds = L.bounds.apply(null, rdSettings.transformation.bounds);
-
             rd = new L.Proj.CRS(
                 rdSettings.code,
                 rdSettings.projection,
