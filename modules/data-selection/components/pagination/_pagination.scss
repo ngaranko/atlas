@@ -18,6 +18,7 @@ $pagination-line-color: #e4e4e4;
 
 .c-data-selection-pagination {
   @include data-selection-pagination-font;
+  padding-bottom: $base-whitespace;
   text-align: center;
 
   .c-data-selection-pagination__input {
