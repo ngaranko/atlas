@@ -11,9 +11,7 @@
             <dt>Locatie</dt>
             <dd>{{ vm.apiData.results.locatie }}</dd>
             <dt>Coördinaten</dt>
-            <dd>
-                {{ vm.apiData.results.geometrie.coordinates[0] }}, {{ vm.apiData.results.geometrie.coordinates[1] }}
-            </dd>
+            <dd>{{ vm.apiData.results.geometrie.coordinates | coordinates: 'RD' }}</dd>
             <dt>Bouwblok</dt>
             <dd>
                 <dp-link type="FETCH_DETAIL" payload="vm.apiData.results.bouwblok_link">
