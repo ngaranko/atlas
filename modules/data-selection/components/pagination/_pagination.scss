@@ -63,10 +63,13 @@ $pagination-line-color: #e4e4e4;
 }
 
 .c-data-selection-pagination-link-text {
-  @include data-selection-pagination-font;
   display: inline-block;
   height: $base-whitespace * 2;
   vertical-align: middle;
+}
+
+.c-data-selection-pagination-link-label {
+  @include data-selection-pagination-font;
 
   &:hover {
     color: $primary-contrast;
