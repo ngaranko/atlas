@@ -3,6 +3,9 @@ $pagination-line-color: #e4e4e4;
 @mixin data-selection-pagination-button($icon) {
   @include icon-button-text-right($icon);
 }
+@mixin data-selection-pagination-button-left($icon) {
+  @include icon-button-text-left($icon);
+}
 
 @mixin data-selection-pagination-button-flip($icon) {
   transform: scaleX(-1);
@@ -77,12 +80,17 @@ $pagination-line-color: #e4e4e4;
   }
 }
 
+.c-data-selection-pagination-link-label--left {
+  float: left;
+}
+
+
 .c-data-selection-pagination-link--first {
   @include data-selection-pagination-button("first");
 }
 
 .c-data-selection-pagination-link--last {
-  @include data-selection-pagination-button("last");
+  @include data-selection-pagination-button-left("last");
 }
 
 .c-data-selection-pagination-link--previous {
@@ -91,6 +99,6 @@ $pagination-line-color: #e4e4e4;
 }
 
 .c-data-selection-pagination-link--next {
-  @include data-selection-pagination-button("next");
+  @include data-selection-pagination-button-left("next");
   margin-right: $base-whitespace;
 }
