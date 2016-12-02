@@ -102,7 +102,10 @@
 
                 scope.$watch('markers.clustered', function (clusteredMarkers) {
                     highlight.removeCluster(leafletMap);
-                    highlight.addCluster(leafletMap, clusteredMarkers);
+
+                    if (clusteredMarkers.length) {
+                        highlight.addCluster(leafletMap, clusteredMarkers);
+                    }
                 });
             });
         }

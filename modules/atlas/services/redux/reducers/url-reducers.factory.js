@@ -26,7 +26,7 @@
                 newState.page = payload.pagina || null;
                 newState.detail = getDetailState(oldState, payload);
                 newState.straatbeeld = getStraatbeeldState(oldState, payload);
-                newState.dataSelection = getDataSelectionState(payload);
+                newState.dataSelection = getDataSelectionState(oldState, payload);
                 newState.isPrintMode = getPrintState(payload);
 
                 return newState;
@@ -164,7 +164,7 @@
             }
         }
 
-        function getDataSelectionState (payload) {
+        function getDataSelectionState (oldState, payload) {
             var filters = {};
 
             if (angular.isString(payload.dataset)) {
@@ -180,7 +180,8 @@
                     view: payload.view && String(payload.view),
                     dataset: payload.dataset,
                     filters: filters,
-                    page: Number(payload['dataset-pagina'])
+                    page: Number(payload['dataset-pagina']),
+                    markers: oldState.dataSelection && oldState.dataSelection.markers || []
                 };
             } else {
                 return null;

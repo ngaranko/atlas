@@ -114,12 +114,12 @@
             leafletMap.removeLayer(layers[item.id]);
         }
 
-        function addCluster () {
-
+        function addCluster (leafletMap, markers) {
+            console.log('addCluster', markers);
         }
 
-        function removeCluster () {
-
+        function removeCluster (leafletMap) {
+            // console.log('removeCluster', leafletMap);
         }
     }
 })();
