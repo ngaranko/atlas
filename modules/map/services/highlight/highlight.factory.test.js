@@ -194,14 +194,14 @@ describe('The highlight factory', function () {
             }
         };
 
-        highlight.add(mockedLeafletMap, item);
+        highlight.addMarker(mockedLeafletMap, item);
 
         expect(L.Proj.geoJson).toHaveBeenCalledWith(jasmine.objectContaining(item.geometry), jasmine.any(Object));
         expect(mockedLeafletMap.addLayer).toHaveBeenCalledWith(mockedLayer);
     });
 
     it('has custom styling for MultiPolygons', function () {
-        highlight.add(mockedLeafletMap, mockedItems.item_multipolygon);
+        highlight.addMarker(mockedLeafletMap, mockedItems.item_multipolygon);
 
         // In the real world Leaflet calls the style function
         expect(projGeoJsonArguments[1].style()).toEqual({
@@ -222,7 +222,7 @@ describe('The highlight factory', function () {
             }
         };
 
-        highlight.add(mockedLeafletMap, mockedItems.item_marker);
+        highlight.addMarker(mockedLeafletMap, mockedItems.item_marker);
 
         expect(L.Proj.geoJson).toHaveBeenCalledWith(jasmine.objectContaining(item.geometry), jasmine.any(Object));
         projGeoJsonArguments[1].pointToLayer(null, 'FAKE_LATLNG'); // In the real world Leaflet calls this function
@@ -239,7 +239,7 @@ describe('The highlight factory', function () {
     });
 
     it('can add rotated markers to the map', function () {
-        highlight.add(mockedLeafletMap, mockedItems.item_rotated_marker);
+        highlight.addMarker(mockedLeafletMap, mockedItems.item_rotated_marker);
         projGeoJsonArguments[1].pointToLayer(null, 'FAKE_LATLNG'); // In the real world Leaflet calls this function
 
         expect(L.marker).toHaveBeenCalledWith('FAKE_LATLNG', {
@@ -250,7 +250,7 @@ describe('The highlight factory', function () {
 
     it('sets the CRS to RD', function () {
         ['item_multipolygon', 'item_marker', 'item_rotated_marker'].forEach(function (item) {
-            highlight.add(mockedLeafletMap, mockedItems[item]);
+            highlight.addMarker(mockedLeafletMap, mockedItems[item]);
 
             expect(L.Proj.geoJson).toHaveBeenCalledWith(
                 angular.merge(
@@ -266,8 +266,8 @@ describe('The highlight factory', function () {
 
     it('can remove highlighted things from the map', function () {
         ['item_multipolygon', 'item_marker', 'item_rotated_marker'].forEach(function (item) {
-            highlight.add(mockedLeafletMap, mockedItems[item]);
-            highlight.remove(mockedLeafletMap, mockedItems[item]);
+            highlight.addMarker(mockedLeafletMap, mockedItems[item]);
+            highlight.removeMarker(mockedLeafletMap, mockedItems[item]);
 
             expect(mockedLeafletMap.removeLayer).toHaveBeenCalledWith(mockedLayer);
         });
@@ -278,7 +278,7 @@ describe('The highlight factory', function () {
             spyOn(mockedLeafletMap, 'getBoundsZoom').and.returnValue(NaN);
             spyOn(mockedLeafletMap, 'getZoom').and.returnValue(13);
 
-            highlight.add(mockedLeafletMap, mockedItems.item_point);
+            highlight.addMarker(mockedLeafletMap, mockedItems.item_point);
             expect(mockedLeafletMap.fitBounds).not.toHaveBeenCalled();
 
             // 14 is the fallback zoom level defined in mapConfig.DEFAULT_ZOOM_HIGHLIGHT
@@ -295,7 +295,7 @@ describe('The highlight factory', function () {
             spyOn(mockedLeafletMap, 'getBoundsZoom').and.returnValue(NaN);
             spyOn(mockedLeafletMap, 'getZoom').and.returnValue(15);
 
-            highlight.add(mockedLeafletMap, mockedItems.item_point);
+            highlight.addMarker(mockedLeafletMap, mockedItems.item_point);
             expect(mockedLeafletMap.fitBounds).not.toHaveBeenCalled();
 
             // 14 is the fallback zoom level defined in mapConfig.DEFAULT_ZOOM_HIGHLIGHT
@@ -311,7 +311,7 @@ describe('The highlight factory', function () {
         it('Polygons support autozoom and auto center (without animation)', function () {
             spyOn(mockedLeafletMap, 'getBoundsZoom').and.returnValue(10);
 
-            highlight.add(mockedLeafletMap, mockedItems.item_polygon);
+            highlight.addMarker(mockedLeafletMap, mockedItems.item_polygon);
 
             expect(mockedLeafletMap.fitBounds).toHaveBeenCalledWith('FAKE_LAYER_BOUNDS', {animate: false});
             expect(store.dispatch).toHaveBeenCalledWith({
@@ -326,7 +326,7 @@ describe('The highlight factory', function () {
         it('MultiPolygons support autozoom and auto center (without animation)', function () {
             spyOn(mockedLeafletMap, 'getBoundsZoom').and.returnValue(10);
 
-            highlight.add(mockedLeafletMap, mockedItems.item_multipolygon);
+            highlight.addMarker(mockedLeafletMap, mockedItems.item_multipolygon);
 
             expect(mockedLeafletMap.fitBounds).toHaveBeenCalledWith('FAKE_LAYER_BOUNDS', {animate: false});
             expect(store.dispatch).toHaveBeenCalledWith({

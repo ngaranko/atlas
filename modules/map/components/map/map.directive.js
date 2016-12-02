@@ -86,23 +86,23 @@
                     if (angular.equals(newCollection, oldCollection)) {
                         // Initialisation
                         newCollection.forEach(function (item) {
-                            highlight.addRegular(leafletMap, item);
+                            highlight.addMarker(leafletMap, item);
                         });
                     } else {
                         // Change detected
                         getRemovedGeojson(newCollection, oldCollection).forEach(function (item) {
-                            highlight.removeRegular(leafletMap, item);
+                            highlight.removeMarker(leafletMap, item);
                         });
 
                         getAddedGeojson(newCollection, oldCollection).forEach(function (item) {
-                            highlight.addRegular(leafletMap, item);
+                            highlight.addMarker(leafletMap, item);
                         });
                     }
                 }, true);
 
                 scope.$watch('markers.clustered', function (clusteredMarkers) {
-                    highlight.clearClustered(leafletMap);
-                    highlight.addClustered(leafletMap, clusteredMarkers);
+                    highlight.removeCluster(leafletMap);
+                    highlight.addCluster(leafletMap, clusteredMarkers);
                 });
             });
         }
