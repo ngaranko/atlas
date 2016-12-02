@@ -3,12 +3,13 @@ $suggestion-offset: $base-font-size;
 .c-autocomplete {
   position: absolute;
   top: $search-form-height + $base-whitespace;
-  right: -1px;
-  left: -1px;
+  right: 0;
+  left: 0;
   border-width: 0 1px 1px;
   border-style: solid;
-  border-color: $secondary-gray60;
+  border-color: $secondary-gray20;
   background-color: $primary-light;
+  box-shadow: 0 3px 4px 0 $secondary-gray60;
 
   .c-autocomplete__tip {
     @include font-size($body-font);
@@ -23,7 +24,7 @@ $suggestion-offset: $base-font-size;
     &:not(:first-of-type) {
       margin-top: $base-whitespace * .5;
       padding-top: $base-whitespace;
-      border-top: 1px solid $secondary-gray60;
+      border-top: 1px solid $secondary-gray20;
     }
   }
 
@@ -34,7 +35,8 @@ $suggestion-offset: $base-font-size;
       bottom: $base-whitespace * .5;
       left: $base-whitespace;
     };
-    color: $secondary-gray40;
+    color: $secondary-gray60;
+    font-weight: 400;
   }
 
   .c-autocomplete__category__suggestion {
