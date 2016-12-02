@@ -82,23 +82,28 @@
                     });
                 }, true);
 
-                scope.$watch('markers', function (newCollection, oldCollection) {
+                scope.$watch('markers.regular', function (newCollection, oldCollection) {
                     if (angular.equals(newCollection, oldCollection)) {
                         // Initialisation
                         newCollection.forEach(function (item) {
-                            highlight.add(leafletMap, item);
+                            highlight.addRegular(leafletMap, item);
                         });
                     } else {
                         // Change detected
                         getRemovedGeojson(newCollection, oldCollection).forEach(function (item) {
-                            highlight.remove(leafletMap, item);
+                            highlight.removeRegular(leafletMap, item);
                         });
 
                         getAddedGeojson(newCollection, oldCollection).forEach(function (item) {
-                            highlight.add(leafletMap, item);
+                            highlight.addRegular(leafletMap, item);
                         });
                     }
                 }, true);
+
+                scope.$watch('markers.clustered', function (clusteredMarkers) {
+                    highlight.clearClustered(leafletMap);
+                    highlight.addClustered(leafletMap, clusteredMarkers);
+                });
             });
         }
 

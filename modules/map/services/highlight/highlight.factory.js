@@ -31,8 +31,10 @@
 
         return {
             initialize: initialize,
-            add: add,
-            remove: remove
+            addRegular: addRegular,
+            removeRegular: removeRegular,
+            addClustered: addClustered,
+            clearClustered: clearClustered
         };
 
         function initialize () {
@@ -45,7 +47,7 @@
          *  - id: in case of a marker this needs to be a mapping to a key of ICON_CONFIG
          *  - geometry: GeoJSON using RD coordinates
          */
-        function add (leafletMap, item) {
+        function addRegular (leafletMap, item) {
             var layer,
                 bounds,
                 location,
@@ -108,8 +110,16 @@
             leafletMap.addLayer(layer);
         }
 
-        function remove (leafletMap, item) {
+        function removeRegular (leafletMap, item) {
             leafletMap.removeLayer(layers[item.id]);
+        }
+
+        function addClustered () {
+
+        }
+
+        function clearClustered () {
+
         }
     }
 })();
