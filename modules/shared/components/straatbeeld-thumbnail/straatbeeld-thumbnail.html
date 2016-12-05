@@ -6,7 +6,8 @@
          class-name="u-block u-width-100 u-margin__bottom--4"
          hover-text="Panoramabeeld tonen">
     <div class="u-aspect-ratio u-aspect-ratio--16-9">
-        <img ng-if="!vm.isLoading" ng-src="{{vm.imageUrl}}" dp-alt="Panoramabeeld tonen">
+        <img class="c-straatbeeld-thumbnail--img"
+             ng-if="!vm.isLoading" ng-src="{{vm.imageUrl}}" dp-alt="Panoramabeeld tonen">
     </div>
 </dp-link>
 
