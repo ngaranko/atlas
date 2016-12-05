@@ -39,6 +39,7 @@
             newState.straatbeeld.isInitial = payload.isInitial;
             newState.straatbeeld.byId = true;
 
+            newState.straatbeeld.isFullscreen = payload.isFullscreen;
             // If a straatbeeld is loaded by it's id
             // and detail is active
             // then inactivate detail

@@ -22,11 +22,13 @@
         function setLayout () {
             var state = store.getState();
 
+            var isFullscreen = state.map.isFullscreen || (state.straatbeeld && state.straatbeeld.isFullscreen);
+
             vm.visibility = dashboardColumns.determineVisibility(state);
 
             vm.isPrintMode = state.isPrintMode;
 
-            vm.isRightColumnScrollable = !state.map.isFullscreen &&
+            vm.isRightColumnScrollable = !isFullscreen &&
                 (
                     vm.visibility.page ||
                     vm.visibility.detail ||
@@ -36,7 +38,7 @@
 
             vm.columnSizes = dashboardColumns.determineColumnSizes(
                 vm.visibility,
-                state.map.isFullscreen,
+                isFullscreen,
                 vm.isPrintMode
             );
 
