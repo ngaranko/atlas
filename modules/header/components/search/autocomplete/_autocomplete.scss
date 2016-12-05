@@ -13,7 +13,7 @@ $suggestion-offset: $base-font-size;
 
   .c-autocomplete__tip {
     @include font-size($body-font);
-    margin-top: $base-whitespace * .5;
+    margin-top: $base-whitespace / 2;
     color: $secondary-gray40;
     font-style: italic;
     font-weight: 400;
@@ -22,7 +22,7 @@ $suggestion-offset: $base-font-size;
 
   .c-autocomplete__category {
     &:not(:first-of-type) {
-      margin-top: $base-whitespace * .5;
+      margin-top: $base-whitespace / 2;
       padding-top: $base-whitespace;
       border-top: 1px solid $secondary-gray20;
     }
@@ -32,7 +32,7 @@ $suggestion-offset: $base-font-size;
     margin: {
       top: 0;
       right: $base-whitespace;
-      bottom: $base-whitespace * .5;
+      bottom: $base-whitespace / 2 ;
       left: $base-whitespace;
     };
     color: $secondary-gray60;
