@@ -6,9 +6,16 @@
         .factory('httpInterceptor', httpInterceptorFactory)
         .config($httpProvider => $httpProvider.interceptors.push('httpInterceptor'));
 
-    httpInterceptorFactory.inject = ['$q', 'httpStatus'];
+    httpInterceptorFactory.inject = ['$rootScope', '$window', '$q', 'httpStatus'];
 
-    function httpInterceptorFactory ($q, httpStatus) {
+    function httpInterceptorFactory ($rootScope, $window, $q, httpStatus) {
+        $window.addEventListener('error', function (e) {
+            if (e.target && e.target.src) {
+                // URL load error
+                $rootScope.$applyAsync(() => httpStatus.registerError(httpStatus.SERVER_ERROR));
+            }
+        }, true);
+
         return {
             responseError
         };
