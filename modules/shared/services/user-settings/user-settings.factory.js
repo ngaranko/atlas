@@ -14,7 +14,7 @@
         };
 
         return {
-            setItem,
+            setItem,    // test
             getItem,
             removeItem
         };
