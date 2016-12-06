@@ -63,6 +63,12 @@ describe('The highlight factory', function () {
                 return 'FAKE_LAYER_BOUNDS';
             }
         },
+        mockedClusteredLayer = {
+            addLayer: angular.noop,
+            getBounds: function () {
+                return 'FAKE_LAYER_BOUNDS';
+            }
+        },
         projGeoJsonArguments;
 
     beforeEach(function () {
@@ -100,7 +106,7 @@ describe('The highlight factory', function () {
                     }
                 },
                 store: {
-                    dispatch: function () {}
+                    dispatch: angular.noop
                 }
             },
             function ($provide) {
@@ -119,7 +125,15 @@ describe('The highlight factory', function () {
                     },
                     item_rotated_marker: {
                         foo: 'd'
+                    },
+                    detail: {
+                        foo: 'e'
                     }
+                });
+
+                $provide.constant('CLUSTERED_MARKERS_CONFIG', {
+                    looksGoodToMe: true,
+                    optimizationLevel: 999
                 });
             }
         );
@@ -135,17 +149,17 @@ describe('The highlight factory', function () {
         });
 
         mockedLeafletMap = {
-            addLayer: function () {},
-            removeLayer: function () {},
-            fitBounds: function () {},
-            getBoundsZoom: function () {},
+            addLayer: angular.noop,
+            removeLayer: angular.noop,
+            fitBounds: angular.noop,
+            getBoundsZoom: angular.noop,
             getCenter: function () {
                 return {
                     lat: 'FAKE_LATITUDE',
                     lng: 'FAKE_LONGITUDE'
                 };
             },
-            getZoom: function () {}
+            getZoom: angular.noop
         };
 
         spyOn(mockedLeafletMap, 'addLayer');
@@ -160,8 +174,10 @@ describe('The highlight factory', function () {
 
         spyOn(L.Proj, 'geoJson').and.callThrough();
         spyOn(L, 'icon').and.returnValue('FAKE_ICON');
-        spyOn(L, 'marker');
+        spyOn(L, 'marker').and.returnValue('FAKE_MARKER');
 
+        spyOn(L, 'markerClusterGroup').and.returnValue(mockedClusteredLayer);
+        spyOn(mockedClusteredLayer, 'addLayer');
         spyOn(crsService, 'getRdObject').and.returnValue('FAKE_RD_OBJECT');
 
         spyOn(crsConverter, 'rdToWgs84').and.callThrough();
@@ -264,13 +280,90 @@ describe('The highlight factory', function () {
         });
     });
 
-    it('can remove highlighted things from the map', function () {
+    it('can remove highlighted markers from the map', function () {
         ['item_multipolygon', 'item_marker', 'item_rotated_marker'].forEach(function (item) {
             highlight.addMarker(mockedLeafletMap, mockedItems[item]);
             highlight.removeMarker(mockedLeafletMap, mockedItems[item]);
 
             expect(mockedLeafletMap.removeLayer).toHaveBeenCalledWith(mockedLayer);
         });
+    });
+
+    it('can add clustered markers to the map', function () {
+        spyOn(mockedLeafletMap, 'getZoom').and.returnValue(13);
+
+        highlight.addCluster(mockedLeafletMap, [
+            [52.1, 4.0],
+            [52.2, 4.0],
+            [52.3, 4.1]
+        ]);
+
+        // Making sure the configuration is used
+        expect(L.markerClusterGroup).toHaveBeenCalledWith({
+            looksGoodToMe: true,
+            optimizationLevel: 999
+        });
+
+        // Three icons are created (one for each marker) that share the icon config of a 'detail geometry'
+        expect(L.icon).toHaveBeenCalledTimes(3);
+        expect(L.icon).toHaveBeenCalledWith({foo: 'e'});
+
+        // Three markers are created with those icons associated to them
+        expect(L.marker).toHaveBeenCalledTimes(3);
+        expect(L.marker).toHaveBeenCalledWith(
+            [52.1, 4.0],
+            {
+                icon: 'FAKE_ICON'
+            }
+        );
+        expect(L.marker).toHaveBeenCalledWith(
+            [52.2, 4.0],
+            {
+                icon: 'FAKE_ICON'
+            }
+        );
+
+        expect(L.marker).toHaveBeenCalledWith(
+            [52.3, 4.1],
+            {
+                icon: 'FAKE_ICON'
+            }
+        );
+
+        // And those three markers are added to a single layer
+        expect(mockedClusteredLayer.addLayer).toHaveBeenCalledTimes(3);
+        expect(mockedClusteredLayer.addLayer).toHaveBeenCalledWith('FAKE_MARKER');
+
+        // The new clusteredLayer is then added to the map
+        expect(mockedLeafletMap.addLayer).toHaveBeenCalledWith(mockedClusteredLayer);
+    });
+
+    it('pans and zooms to the clustered markers after adding them to the map', function () {
+        spyOn(mockedLeafletMap, 'getZoom').and.returnValue(13);
+
+        highlight.addCluster(mockedLeafletMap, [
+            [52.1, 4.0],
+            [52.2, 4.0],
+            [52.3, 4.1]
+        ]);
+
+        expect(store.dispatch).toHaveBeenCalledWith(jasmine.objectContaining({type: ACTIONS.MAP_ZOOM}));
+    });
+
+    it('can remove clustered markers from the map', function () {
+        spyOn(mockedLeafletMap, 'getZoom').and.returnValue(13);
+
+        // First make sure there is something to delete
+        highlight.addCluster(mockedLeafletMap, [
+            [52.1, 4.0],
+            [52.2, 4.0],
+            [52.3, 4.1]
+        ]);
+        expect(mockedLeafletMap.removeLayer).not.toHaveBeenCalled();
+
+        // Then delete it
+        highlight.removeCluster(mockedLeafletMap);
+        expect(mockedLeafletMap.removeLayer).toHaveBeenCalledWith(mockedClusteredLayer);
     });
 
     describe('triggers MAP_ZOOM when geometry has been found (center and zoom)', function () {
