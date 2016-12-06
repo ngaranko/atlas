@@ -3,22 +3,30 @@
 
     angular
         .module('dpShared')
-        .factory('httpInterceptor', httpInterceptorFactory)
-        .config($httpProvider => $httpProvider.interceptors.push('httpInterceptor'));
+        .factory('httpErrorRegistrar', httpErrorRegistrarFactory)
+        .config($httpProvider => $httpProvider.interceptors.push('httpErrorRegistrar'));
 
-    httpInterceptorFactory.inject = ['$rootScope', '$window', '$q', 'httpStatus'];
+    httpErrorRegistrarFactory.inject = ['$rootScope', '$window', '$q', 'httpStatus'];
 
-    function httpInterceptorFactory ($rootScope, $window, $q, httpStatus) {
+    function httpErrorRegistrarFactory ($rootScope, $window, $q, httpStatus) {
         $window.addEventListener('error', function (e) {
             if (e.target && e.target.src) {
                 // URL load error
-                $rootScope.$applyAsync(() => httpStatus.registerError(httpStatus.SERVER_ERROR));
+                $rootScope.$applyAsync(registerServerError);
             }
         }, true);
 
         return {
             responseError
         };
+
+        function registerServerError () {
+            httpStatus.registerError(httpStatus.SERVER_ERROR);
+        }
+
+        function registerNotFoundError () {
+            httpStatus.registerError(httpStatus.NOT_FOUND_ERROR);
+        }
 
         function responseError (response) {
             // register server errors (5xx) and client errors (4xx)
@@ -30,7 +38,7 @@
                 if (response.config.timeout && angular.isFunction(response.config.timeout.then)) {
                     response.config.timeout.then(
                         angular.noop,   // request has been cancelled by resolving the timeout
-                        () => httpStatus.registerError(httpStatus.SERVER_ERROR) // Abnormal end of request
+                        registerServerError // Abnormal end of request
                     );
                 } else {
                     isServerError = true;
@@ -38,10 +46,11 @@
             }
 
             if (isServerError) {
-                httpStatus.registerError(httpStatus.SERVER_ERROR);
+                registerServerError();
             } else if (isClientError && response && response.data && response.data.detail === 'Not found.') {
-                httpStatus.registerError(httpStatus.NOT_FOUND_ERROR);
+                registerNotFoundError();
             }
+
             return $q.reject(response);
         }
     }

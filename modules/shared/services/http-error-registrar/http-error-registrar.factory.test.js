@@ -1,4 +1,4 @@
-describe('The http interceptor', function () {
+describe('The http error registrar', function () {
     let $httpBackend,
         $http,
         $rootScope,
