@@ -11,10 +11,12 @@
 .c-toggle-active-overlays {
   @extend %toggle-active-overlays;
   @include icon-button-text-box-left("down", "red", "");
+  border-bottom: none;
 
   &.c-toggle-active-overlays--mirrored {
     @extend %toggle-active-overlays;
     @include icon-button-text-box-left("up");
+    border-bottom: none;
   }
 }
 
