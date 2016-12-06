@@ -108,7 +108,9 @@
         }
 
         function removeCluster (leafletMap) {
-            leafletMap.removeLayer(clusteredLayer);
+            if (angular.isDefined(clusteredLayer)) {
+                leafletMap.removeLayer(clusteredLayer);
+            }
         }
 
         function zoomToLayer (leafletMap, layer, geometry) {
