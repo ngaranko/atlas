@@ -353,6 +353,10 @@ describe('The highlight factory', function () {
     it('can remove clustered markers from the map', function () {
         spyOn(mockedLeafletMap, 'getZoom').and.returnValue(13);
 
+        // When there is nothing to delete, nothing happens
+        highlight.removeCluster(mockedLeafletMap);
+        expect(mockedLeafletMap.removeLayer).not.toHaveBeenCalled();
+
         // First make sure there is something to delete
         highlight.addCluster(mockedLeafletMap, [
             [52.1, 4.0],
