@@ -8,49 +8,44 @@
     storageFactory.$inject = ['$window'];
 
     function storageFactory ($window) {
-        let storageAvailable = testStorage(),
-            keys = {};
+        // The storage types that is available to the application are:
+        // - instance (variables are only available to the current application instance, does not survive a refresh
+        // - session (variables are only available to the session, survive a refresh)
+        // - local (variables are shared between browser tabs and windows
+        // - server (variables are shared between all browsers)
+
+        class InstanceStorage {
+            constructor () {
+                this._keys = {};
+            }
+            setItem (key, value) {
+                this._keys[key] = value;
+            }
+            getItem (key) {
+                return this._keys[key];
+            }
+            removeItem (key) {
+                delete this._keys[key];
+            }
+        }
 
         return {
-            setItem,
-            getItem,
-            removeItem
+            instance: new InstanceStorage(),
+            session: getStorage($window.sessionStorage),
+            local: getStorage($window.localStorage)
         };
 
-        function testStorage () {
+        function getStorage (storageProvider) {
+            let isAvailable;
             try {
-                $window.sessionStorage.setItem('test', 'testvalue');
-                let data = $window.sessionStorage.getItem('test');
-                $window.sessionStorage.removeItem('test');
-
-                return data === 'testvalue';
+                storageProvider.setItem('test', 'testvalue');
+                let data = storageProvider.getItem('test');
+                storageProvider.removeItem('test');
+                isAvailable = data === 'testvalue';
             } catch (e) {
-                return false;
+                isAvailable = false;
             }
-        }
-
-        function setItem (key, value) {
-            if (storageAvailable) {
-                $window.sessionStorage.setItem(key, value);
-            } else {
-                keys[key] = value;
-            }
-        }
-
-        function getItem (key) {
-            if (storageAvailable) {
-                return $window.sessionStorage.getItem(key);
-            } else {
-                return keys[key];
-            }
-        }
-
-        function removeItem (key) {
-            if (storageAvailable) {
-                $window.sessionStorage.removeItem(key);
-            } else {
-                delete keys[key];
-            }
+            return isAvailable ? storageProvider : new InstanceStorage();
         }
     }
 })();

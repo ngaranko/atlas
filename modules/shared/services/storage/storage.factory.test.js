@@ -30,18 +30,22 @@ describe('the storage factory', function () {
         });
 
         it('can set and get an item from the storage', function () {
-            storage.setItem('key', 'value');
-            let data = storage.getItem('key');
+            ['instance', 'session', 'local'].forEach(s => {
+                storage[s].setItem('key', 'value');
+                let data = storage[s].getItem('key');
 
-            expect(data).toBe('value');
+                expect(data).toBe('value');
+            });
         });
 
         it('can delete an item from the storage', function () {
-            storage.setItem('key', 'value');
-            storage.removeItem('key');
-            let data = storage.getItem('key');
+            ['instance', 'session', 'local'].forEach(s => {
+                storage[s].setItem('key', 'value');
+                storage[s].removeItem('key');
+                let data = storage[s].getItem('key');
 
-            expect(data).toBe(undefined);
+                expect(data).toBe(undefined);
+            });
         });
     });
 
@@ -59,18 +63,31 @@ describe('the storage factory', function () {
         });
 
         it('can set and get an item from the storage', function () {
-            storage.setItem('key', 'value');
-            let data = storage.getItem('key');
+            ['instance', 'session', 'local'].forEach(s => {
+                storage[s].setItem('key', 'value');
+                let data = storage[s].getItem('key');
 
-            expect(data).toBe('value');
+                expect(data).toBe('value');
+            });
         });
 
         it('can delete an item from the storage', function () {
-            storage.setItem('key', 'value');
-            storage.removeItem('key');
-            let data = storage.getItem('key');
+            ['instance', 'session', 'local'].forEach(s => {
+                storage[s].setItem('key', 'value');
+                storage[s].removeItem('key');
+                let data = storage[s].getItem('key');
 
-            expect(data).toBe(undefined);
+                expect(data).toBe(undefined);
+            });
+        });
+
+        it('can store variable with same names with own values in each store', function () {
+            storage.session.setItem('aap', 'noot');
+            storage.instance.setItem('aap', 'mies');
+            storage.local.setItem('aap', 'teun');
+            expect(storage.session.getItem('aap')).toBe('noot');
+            expect(storage.instance.getItem('aap')).toBe('mies');
+            expect(storage.local.getItem('aap')).toBe('teun');
         });
     });
 });

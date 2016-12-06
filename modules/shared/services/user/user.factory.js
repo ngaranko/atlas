@@ -5,11 +5,11 @@
         .module('dpShared')
         .factory('user', userFactory);
 
-    userFactory.$inject = ['$http', '$httpParamSerializer', '$q', '$timeout', 'environment', 'storage'];
+    userFactory.$inject = ['$http', '$httpParamSerializer', '$q', '$timeout', 'environment', 'userSettings'];
 
-    function userFactory ($http, $httpParamSerializer, $q, $timeout, environment, storage) {
+    function userFactory ($http, $httpParamSerializer, $q, $timeout, environment, userSettings) {
         var userState = {},
-            accessToken = storage.getItem('token');
+            accessToken = userSettings.getItem('token');
 
         // if sessionStorage is available use the refreshToken function to check if a token is available and valid
         if (accessToken) {
@@ -53,7 +53,7 @@
                 userState.accessToken = response.data.token;
                 userState.isLoggedIn = true;
 
-                storage.setItem('token', userState.accessToken);
+                userSettings.setItem('token', userState.accessToken);
                 accessToken = response.data.token;
 
                 intervalPromise = $timeout(refreshToken, intervalDuration);
@@ -96,7 +96,7 @@
 
             function refreshSuccess (response) {
                 userState.accessToken = response.data.token;
-                storage.setItem('token', userState.accessToken);
+                userSettings.setItem('token', userState.accessToken);
                 accessToken = response.data.token;
                 userState.isLoggedIn = true;
 
@@ -108,7 +108,7 @@
             if (intervalPromise) {
                 $timeout.cancel(intervalPromise);
             }
-            storage.removeItem('token');
+            userSettings.removeItem('token');
 
             userState.username = null;
             userState.accessToken = null;
