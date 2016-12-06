@@ -1,37 +1,27 @@
 describe('The dp-data-shared-filters component', function () {
     const config = {
-            FILTERS: [
-                {
-                    slug: 'filter_a_new'
-                }, {
-                    slug: 'filterb'
-                }
-            ]
-        },
-        action = 'UPDATE_ACTION',
-        payload = {
-            key: 'value'
-        };
+        FILTERS: [
+            {
+                slug: 'filter_a_new'
+            }, {
+                slug: 'filterb'
+            }
+        ]
+    };
 
     var $compile,
         $rootScope,
-        store,
-        availableFilters;
+        availableFilters,
+        handlers = {
+            onChange: angular.noop
+        };
 
     beforeEach(function () {
-        angular.mock.module(
-            'dpDataShared',
-            {
-                store: {
-                    dispatch: function () {}
-                }
-            }
-        );
+        angular.mock.module('dpDataShared');
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
-            store = _store_;
         });
 
         availableFilters = [
@@ -91,7 +81,7 @@ describe('The dp-data-shared-filters component', function () {
             }
         ];
 
-        spyOn(store, 'dispatch');
+        spyOn(handlers, 'onChange');
     });
 
     function getComponent (activeFilters, isLoading) {
@@ -102,17 +92,16 @@ describe('The dp-data-shared-filters component', function () {
         element = document.createElement('dp-data-shared-filters');
 
         element.setAttribute('config', 'config');
-        element.setAttribute('update-action', action);
-        element.setAttribute('update-payload', 'updatePayload');
+        element.setAttribute('on-change', 'onChange(filters)');
         element.setAttribute('available-filters', 'availableFilters');
         element.setAttribute('active-filters', 'activeFilters');
         element.setAttribute('is-loading', 'isLoading');
 
         scope = $rootScope.$new();
         scope.config = config;
-        scope.updatePayload = payload;
         scope.availableFilters = availableFilters;
         scope.activeFilters = activeFilters;
+        scope.onChange = handlers.onChange;
         scope.isLoading = isLoading;
 
         component = $compile(element)(scope);
@@ -156,15 +145,8 @@ describe('The dp-data-shared-filters component', function () {
             component = getComponent(activeFilters, false);
             component.find('ul').eq(0).find('li').eq(1).find('button').click();
 
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: action,
-                payload: {
-                    key: 'value',
-                    filters: {
-                        filter_a_new: 'Optie A-2'
-                    },
-                    page: 1
-                }
+            expect(handlers.onChange).toHaveBeenCalledWith({
+                filter_a_new: 'Optie A-2'
             });
         });
 
@@ -177,16 +159,9 @@ describe('The dp-data-shared-filters component', function () {
             component = getComponent(activeFilters, false);
             component.find('.qa-available-filters ul').eq(1).find('li').eq(0).find('button').click();
 
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: action,
-                payload: {
-                    key: 'value',
-                    filters: {
-                        filter_a_new: 'Optie A-2',
-                        filterb: 'Optie B-1'
-                    },
-                    page: 1
-                }
+            expect(handlers.onChange).toHaveBeenCalledWith({
+                filter_a_new: 'Optie A-2',
+                filterb: 'Optie B-1'
             });
         });
 
@@ -200,17 +175,10 @@ describe('The dp-data-shared-filters component', function () {
             component = getComponent(activeFilters, false);
             component.find('.qa-available-filters ul').eq(1).find('li').eq(1).find('button').click();
 
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: action,
-                payload: {
-                    key: 'value',
-                    filters: {
-                        filter_a_new: 'Optie A-2',
-                        // filterb: 'Optie B-1' is no longer active now
-                        filterb: 'Optie B-2'
-                    },
-                    page: 1
-                }
+            expect(handlers.onChange).toHaveBeenCalledWith({
+                filter_a_new: 'Optie A-2',
+                // filterb: 'Optie B-1' is no longer active now
+                filterb: 'Optie B-2'
             });
         });
     });
@@ -277,15 +245,8 @@ describe('The dp-data-shared-filters component', function () {
         // Remove 'Optie B2' (filterb)
         component.find('.qa-active-filters li').eq(1).find('button').click();
 
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: action,
-            payload: {
-                key: 'value',
-                filters: {
-                    filter_a_new: 'Optie A-2'
-                },
-                page: 1
-            }
+        expect(handlers.onChange).toHaveBeenCalledWith({
+            filter_a_new: 'Optie A-2'
         });
     });
 

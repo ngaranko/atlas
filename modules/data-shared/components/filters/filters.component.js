@@ -6,10 +6,9 @@
         .component('dpDataSharedFilters', {
             bindings: {
                 config: '<',
-                updateAction: '@',
-                updatePayload: '<',
                 availableFilters: '=',
                 activeFilters: '=',
+                changeHandler: '&onChange',
                 isLoading: '='
             },
             templateUrl: 'modules/data-shared/components/filters/filters.html',
@@ -17,9 +16,9 @@
             controllerAs: 'vm'
         });
 
-    DpDataSharedFilterController.$inject = ['$scope', 'store'];
+    DpDataSharedFilterController.$inject = ['$scope'];
 
-    function DpDataSharedFilterController ($scope, store) {
+    function DpDataSharedFilterController ($scope) {
         var vm = this,
             expandedCategories = [];
 
@@ -98,13 +97,7 @@
         }
 
         function applyFilters (filters) {
-            store.dispatch({
-                type: vm.updateAction,
-                payload: angular.extend({}, vm.updatePayload, {
-                    filters: filters,
-                    page: 1
-                })
-            });
+            vm.changeHandler({filters});
         }
     }
 })();
