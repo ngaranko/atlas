@@ -50,10 +50,7 @@
          *  - geometry: GeoJSON using RD coordinates
          */
         function addMarker (leafletMap, item) {
-            var layer,
-                bounds,
-                location,
-                zoomLevel;
+            let layer;
 
             item.geometry.crs = crsService.getRdObject();
 
@@ -68,8 +65,9 @@
                     };
                 },
                 pointToLayer: function (feature, latLng) {
-                    var icon,
+                    let icon,
                         rotationAngle;
+
                     icon = L.icon(ICON_CONFIG[item.id]);
                     rotationAngle = item.orientation || 0;
 
@@ -83,29 +81,7 @@
             layers[item.id] = layer;
 
             if (item.useAutoFocus) {
-                bounds = layer.getBounds();
-                zoomLevel = leafletMap.getBoundsZoom(bounds);
-
-                if (!isNaN(zoomLevel)) {
-                    // A valid zoom level has been determined
-                    leafletMap.fitBounds(bounds, {
-                        animate: false
-                    });
-
-                    location = panning.getCurrentLocation(leafletMap);
-                } else {
-                    // Set the location and zoomLevel manually
-                    location = crsConverter.rdToWgs84(geojson.getCenter(item.geometry));
-                    zoomLevel = Math.max(leafletMap.getZoom(), mapConfig.DEFAULT_ZOOM_HIGHLIGHT);
-                }
-
-                store.dispatch({
-                    type: ACTIONS.MAP_ZOOM,
-                    payload: {
-                        viewCenter: location,
-                        zoom: zoomLevel
-                    }
-                });
+                zoomToLayer(leafletMap, layer, item.geometry);
             }
 
             leafletMap.addLayer(layer);
@@ -126,11 +102,42 @@
                 );
             });
 
+            zoomToLayer(leafletMap, clusteredLayer);
             leafletMap.addLayer(clusteredLayer);
         }
 
         function removeCluster (leafletMap) {
             // console.log('removeCluster', leafletMap);
+        }
+
+        function zoomToLayer (leafletMap, layer, geometry) {
+            let bounds,
+                location,
+                zoomLevel;
+
+            bounds = layer.getBounds();
+            zoomLevel = leafletMap.getBoundsZoom(bounds);
+
+            if (!isNaN(zoomLevel)) {
+                // A valid zoom level has been determined
+                leafletMap.fitBounds(bounds, {
+                    animate: false
+                });
+
+                location = panning.getCurrentLocation(leafletMap);
+            } else if (angular.isDefined(geometry)) {
+                // Set the location and zoomLevel manually
+                location = crsConverter.rdToWgs84(geojson.getCenter(geometry));
+                zoomLevel = Math.max(leafletMap.getZoom(), mapConfig.DEFAULT_ZOOM_HIGHLIGHT);
+            }
+
+            store.dispatch({
+                type: ACTIONS.MAP_ZOOM,
+                payload: {
+                    viewCenter: location,
+                    zoom: zoomLevel
+                }
+            });
         }
     }
 })();
