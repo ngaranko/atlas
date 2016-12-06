@@ -2,6 +2,7 @@ describe('The dp-straatbeeld directive', function () {
     var $compile,
         $rootScope,
         $store,
+        scope,
         ACTIONS,
         $q,
         marzipanoService,
@@ -77,7 +78,7 @@ describe('The dp-straatbeeld directive', function () {
         el.setAttribute('state', 'state');
         el.setAttribute('is-print-mode', 'isPrintMode');
 
-        var scope = $rootScope.$new();
+        scope = $rootScope.$new();
 
         scope.state = state;
         scope.isPrintMode = isPrintMode;
@@ -98,6 +99,33 @@ describe('The dp-straatbeeld directive', function () {
 
             expect($store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.HIDE_STRAATBEELD
+            });
+        });
+    });
+
+    describe('there is a kaart icon', function () {
+        it('that triggers STRAATBEELD_FULLSCREEN', function () {
+            var directive = getDirective({}, false);
+
+            directive.find('.qa-straatbeeld-streetview-map-button').click();
+
+            $rootScope.$apply();
+
+            expect($store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.STRAATBEELD_FULLSCREEN,
+                payload: true
+            });
+
+            $store.dispatch.calls.reset();
+
+            scope.state.isFullscreen = true;
+            directive.find('.qa-straatbeeld-streetview-map-button').click();
+
+            $rootScope.$apply();
+
+            expect($store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.STRAATBEELD_FULLSCREEN,
+                payload: false
             });
         });
     });
