@@ -94,6 +94,7 @@
             ['LIST', 'TABLE'].forEach(legalValue => {
                 if (payload === legalValue) {
                     newState.dataSelection.view = payload;
+                    newState.dataSelection.isLoading = true;
                 }
             });
 

@@ -223,6 +223,19 @@ describe('The dataSelectionReducers factory', function () {
 
             expect(output.dataSelection.view).toBeUndefined();
         });
+
+        it('sets isLoading to true', function () {
+            let output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW.id](
+                {
+                    dataSelection: {
+                        isLoading: false
+                    }
+                },
+                'LIST'
+            );
+
+            expect(output.dataSelection.isLoading).toBe(true);
+        });
     });
 
     describe('NAVIGATE_DATA_SELECTION', function () {
