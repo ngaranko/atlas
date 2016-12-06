@@ -5,7 +5,7 @@
         .module('dpDataSelection')
         .component('dpDataSelectionToggleViewButton', {
             bindings: {
-                view: '='
+                view: '<'
             },
             templateUrl: 'modules/data-selection/components/header/toggle-view-button/toggle-view-button.html',
             controller: DpToggleViewButtonController,

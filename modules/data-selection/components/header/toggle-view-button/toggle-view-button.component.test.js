@@ -30,9 +30,11 @@ describe('The dp-data-selection-toggle-view-button component', function () {
             scope;
 
         element = document.createElement('dp-data-selection-toggle-view-button');
-        element.setAttribute('view', view);
+        element.setAttribute('view', 'view');
 
         scope = $rootScope.$new();
+        scope.view = view;
+
         component = $compile(element)(scope);
         scope.$apply();
 
