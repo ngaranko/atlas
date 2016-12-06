@@ -29,7 +29,8 @@
         store,
         ACTIONS,
         CLUSTERED_MARKERS_CONFIG) {
-        var layers = {};
+        let layers = {},
+            clusteredLayer;
 
         return {
             initialize: initialize,
@@ -92,7 +93,7 @@
         }
 
         function addCluster (leafletMap, markers) {
-            let clusteredLayer = L.markerClusterGroup(CLUSTERED_MARKERS_CONFIG);
+            clusteredLayer = L.markerClusterGroup(CLUSTERED_MARKERS_CONFIG);
 
             markers.forEach(function (location) {
                 clusteredLayer.addLayer(
@@ -107,7 +108,7 @@
         }
 
         function removeCluster (leafletMap) {
-            // console.log('removeCluster', leafletMap);
+            leafletMap.removeLayer(clusteredLayer);
         }
 
         function zoomToLayer (leafletMap, layer, geometry) {

@@ -101,21 +101,10 @@
                 }, true);
 
                 scope.$watch('markers.clustered', function (newCollection, oldCollection) {
-                    if (angular.equals(newCollection, oldCollection)) {
-                        // Initialisation
-                        if (newCollection.length) {
-                            console.log('init add');
-                            highlight.addCluster(leafletMap, newCollection);
-                        }
+                    if (newCollection.length) {
+                        highlight.addCluster(leafletMap, newCollection);
                     } else {
-                        // Change detected
-                        if (newCollection.length) {
-                            console.log('change add');
-                            highlight.addCluster(leafletMap, newCollection);
-                        } else {
-                            console.log('change remove');
-                            highlight.removeCluster(leafletMap);
-                        }
+                        highlight.removeCluster(leafletMap);
                     }
                 }, true);
             });
