@@ -39,6 +39,10 @@ module.exports = [
         slug: 'data-shared'
     },
     {
+        name: 'dpCatalogus',
+        slug: 'catalogus'
+    },
+    {
         name: 'dpStraatbeeld',
         slug: 'straatbeeld'
     },
