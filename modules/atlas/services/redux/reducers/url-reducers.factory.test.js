@@ -531,7 +531,8 @@ describe('The urlReducers factory', function () {
                     dataset: 'bag',
                     filters: jasmine.any(Object),
                     page: jasmine.anything(),
-                    markers: []
+                    markers: [],
+                    isLoading: jasmine.any(Boolean)
                 });
             });
 
@@ -602,6 +603,23 @@ describe('The urlReducers factory', function () {
                 // Don't preserve the markers when data selection is no longer active after the URL_CHANGE
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
                 expect(output.dataSelection).toBeNull();
+            });
+
+            it('remembers isLoading from the oldState', function () {
+                mockedState.dataSelection = {
+                    isLoading: false
+                };
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParamsWithDataSelection);
+                expect(output.dataSelection.isLoading).toBe(false);
+
+                mockedState.dataSelection.isLoading = true;
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParamsWithDataSelection);
+                expect(output.dataSelection.isLoading).toBe(true);
+
+                // When the oldState has no dataSelection, isLoading will always be true
+                mockedState.dataSelection = null;
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParamsWithDataSelection);
+                expect(output.dataSelection.isLoading).toBe(true);
             });
         });
 

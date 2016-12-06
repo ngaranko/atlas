@@ -181,7 +181,8 @@
                     dataset: payload.dataset,
                     filters: filters,
                     page: Number(payload['dataset-pagina']),
-                    markers: oldState.dataSelection && oldState.dataSelection.markers || []
+                    markers: oldState.dataSelection && oldState.dataSelection.markers || [],
+                    isLoading: angular.isObject(oldState.dataSelection) ? oldState.dataSelection.isLoading : true
                 };
             } else {
                 return null;

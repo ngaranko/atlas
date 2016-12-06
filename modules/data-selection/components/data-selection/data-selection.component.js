@@ -30,12 +30,6 @@
             vm.isPageAvailable = vm.currentPage <= dataSelectionConfig.MAX_AVAILABLE_PAGES;
             vm.showTooManyMarkersMessage = false;
 
-            // Delete the old data before request new data
-            delete vm.availableFilters;
-            delete vm.data;
-            delete vm.numberOfRecords;
-            delete vm.numberOfPages;
-
             dataSelectionApi.query(vm.state.dataset, vm.state.view, vm.state.filters, vm.currentPage).then(data => {
                 vm.availableFilters = data.filters;
                 vm.data = data.data;
