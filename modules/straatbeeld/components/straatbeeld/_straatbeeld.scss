@@ -35,7 +35,9 @@
 }
 
 .c-straatbeeld__coordinates {
+  padding-left: $base-whitespace;
   line-height: 26px;
+  border-left: solid $primary-light-alpha50 1px;
 }
 
 .c-straatbeeld__close {
@@ -51,12 +53,14 @@
 }
 
 .c-straatbeeld__close-map {
-  @include icon-button-text-right("verder", "", "");
+  @include icon-button-text-right("verder", "", "white");
   @include font-definition;
+  margin-right: 0;
   margin-left: -5px;
   padding-right: 10px;
   padding-left: 5px;
   float: left;
+  border-right: solid $primary-light-alpha50 1px;
   color: $secondary-gray80;
   z-index: 2;
 
@@ -75,9 +79,11 @@
 .c-straatbeeld__streetview-history-icon {
   @include icon-button-text-right("klok", "zwart", "red");
   @include font-definition;
+  margin-left: 0;
+  padding-right: $base-whitespace;
+  padding-left: $base-whitespace / 2;
+  border-right: solid $primary-light-alpha50 1px;
 
-  margin-left: -5px;
-  padding-left: 5px;
   z-index: 2;
 
   &:hover {
@@ -85,10 +91,6 @@
     background-color: $primary-contrast;
     color: $primary-light;
     text-decoration: none;
-  }
-
-  &::before {
-    //margin-top: -1px;
   }
 }
 
