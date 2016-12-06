@@ -42,8 +42,6 @@ describe('The dashboard component', function () {
         });
 
         mockedState = angular.copy(defaultState);
-
-        // spyOn(store, 'getState').and.callThrough();
     });
 
     function getComponent () {
