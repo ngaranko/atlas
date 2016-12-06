@@ -80,11 +80,6 @@ $pagination-line-color: #e4e4e4;
   }
 }
 
-.c-data-selection-pagination-link-label--left {
-  float: left;
-}
-
-
 .c-data-selection-pagination-link--first {
   @include data-selection-pagination-button("first");
 }
