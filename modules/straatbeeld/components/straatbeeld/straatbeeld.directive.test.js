@@ -103,26 +103,33 @@ describe('The dp-straatbeeld directive', function () {
         });
     });
 
-    describe('there is a kaart icon', function () {
-        it('that triggers STRAATBEELD_FULLSCREEN', function () {
-            var directive = getDirective({}, false);
+    describe('The kaart button', function () {
+        let directive,
+            toggle;
 
-            directive.find('.qa-straatbeeld-streetview-map-button').click();
+        beforeEach(function () {
+            directive = getDirective({}, false);
+            toggle = directive.find('.qa-straatbeeld-streetview-map-button');
+        });
 
+        it('can change a window-view straatbeeld to fullscreen', function () {
+            scope.state.isFullscreen = false;
             $rootScope.$apply();
-
+            expect(toggle.attr('class')).toContain('c-straatbeeld__streetview-map-icon--maximize');
+            toggle.click();
+            $rootScope.$apply();
             expect($store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.STRAATBEELD_FULLSCREEN,
                 payload: true
             });
+        });
 
-            $store.dispatch.calls.reset();
-
+        it('can change a fullscreen straatbeeld to window-view', function () {
             scope.state.isFullscreen = true;
-            directive.find('.qa-straatbeeld-streetview-map-button').click();
-
             $rootScope.$apply();
-
+            expect(toggle.attr('class')).toContain('c-straatbeeld__streetview-map-icon--minimize');
+            toggle.click();
+            $rootScope.$apply();
             expect($store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.STRAATBEELD_FULLSCREEN,
                 payload: false
