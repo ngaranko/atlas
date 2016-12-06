@@ -115,7 +115,13 @@
         }
 
         function addCluster (leafletMap, markers) {
-            console.log('addCluster', markers);
+            let clusteredLayer = L.markerClusterGroup();
+
+            markers.forEach(function (location) {
+                clusteredLayer.addLayer(L.marker(location));
+            });
+
+            leafletMap.addLayer(clusteredLayer);
         }
 
         function removeCluster (leafletMap) {
