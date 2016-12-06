@@ -36,8 +36,8 @@
 
 .c-straatbeeld__coordinates {
   padding-left: $base-whitespace;
-  line-height: 26px;
   border-left: solid $primary-light-alpha50 1px;
+  line-height: 26px;
 }
 
 .c-straatbeeld__close {
@@ -53,7 +53,7 @@
 }
 
 .c-straatbeeld__close-map {
-  @include icon-button-text-right("verder", "", "white");
+  @include icon-button-text-right("forward", "", "white");
   @include font-definition;
   margin-right: 0;
   margin-left: -5px;

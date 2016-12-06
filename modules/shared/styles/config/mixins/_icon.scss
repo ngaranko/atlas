@@ -82,6 +82,7 @@
     display: block;
     position: absolute;
     top: 0;
+    left: $button-size;
   }
 }
 
@@ -95,7 +96,9 @@
 }
 
 %icon-button-text-box-hover {
-  color: inherit;
+  background-color: $primary-contrast;
+  color: $primary-light;
+  border: solid $primary-contrast 1px;
   text-decoration: none;
 }
 

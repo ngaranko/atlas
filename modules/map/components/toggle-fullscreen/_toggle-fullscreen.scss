@@ -6,7 +6,7 @@
 }
 
 .c-toggle-fullscreen__icon--fullscreen {
-  @include icon-button("fullscreen", "red", "");
+  @include icon-button("maximize", "", "red");
 }
 
 .c-toggle-fullscreen__icon--minimize {
