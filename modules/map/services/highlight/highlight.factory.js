@@ -68,7 +68,6 @@
                 pointToLayer: function (feature, latLng) {
                     var icon,
                         rotationAngle;
-
                     icon = L.icon(ICON_CONFIG[item.id]);
                     rotationAngle = item.orientation || 0;
 
