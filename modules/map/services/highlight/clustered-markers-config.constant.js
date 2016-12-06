@@ -4,7 +4,9 @@
     angular
         .module('dpMap')
         .constant('CLUSTERED_MARKERS_CONFIG', {
-            showCoverageOnHover: false,
-            disableClusteringAtZoom: 14
+            chunkedLoading: true,
+            disableClusteringAtZoom: 14,
+            maxClusterRadius: 50,
+            showCoverageOnHover: false
         });
 })();

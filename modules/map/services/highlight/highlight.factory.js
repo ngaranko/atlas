@@ -119,7 +119,11 @@
             let clusteredLayer = L.markerClusterGroup(CLUSTERED_MARKERS_CONFIG);
 
             markers.forEach(function (location) {
-                clusteredLayer.addLayer(L.marker(location));
+                clusteredLayer.addLayer(
+                    L.marker(location, {
+                        icon: L.icon(ICON_CONFIG.detail)
+                    })
+                );
             });
 
             leafletMap.addLayer(clusteredLayer);
