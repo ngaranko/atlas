@@ -99,6 +99,8 @@ describe('The dp-map directive', function () {
         spyOn(highlight, 'initialize');
         spyOn(highlight, 'addMarker');
         spyOn(highlight, 'removeMarker');
+        spyOn(highlight, 'addCluster');
+        spyOn(highlight, 'removeCluster');
 
         spyOn(panning, 'initialize');
         spyOn(panning, 'panTo');
@@ -258,88 +260,137 @@ describe('The dp-map directive', function () {
             expect(highlight.initialize).toHaveBeenCalled();
         });
 
-        it('can be added on initialisation', function () {
-            getDirective(mockedMapState, false, {
-                regular: [{id: 'FAKE_HIGHLIGHT_ITEM_A'}, {id: 'FAKE_HIGHLIGHT_ITEM_B'}],
-                clustered: []
+        describe('that manage individual markers', function () {
+            it('can be added on initialisation', function () {
+                getDirective(mockedMapState, false, {
+                    regular: [{id: 'FAKE_HIGHLIGHT_ITEM_A'}, {id: 'FAKE_HIGHLIGHT_ITEM_B'}],
+                    clustered: []
+                });
+
+                expect(highlight.addMarker)
+                    .toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', {id: 'FAKE_HIGHLIGHT_ITEM_A'});
+                expect(highlight.addMarker)
+                    .toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', {id: 'FAKE_HIGHLIGHT_ITEM_B'});
             });
 
-            expect(highlight.addMarker).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', {id: 'FAKE_HIGHLIGHT_ITEM_A'});
-            expect(highlight.addMarker).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', {id: 'FAKE_HIGHLIGHT_ITEM_B'});
+            it('can be added by changing the input', function () {
+                let highlightItems = {
+                    regular: [
+                        {id: 'FAKE_HIGHLIGHT_ITEM_A'},
+                        {id: 'FAKE_HIGHLIGHT_ITEM_B'}
+                    ],
+                    clustered: []
+                };
+
+                getDirective(mockedMapState, false, highlightItems);
+
+                highlightItems.regular.push({id: 'FAKE_HIGHLIGHT_ITEM_C'});
+                $rootScope.$apply();
+
+                expect(highlight.addMarker)
+                    .toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', {id: 'FAKE_HIGHLIGHT_ITEM_C'});
+            });
+
+            it('can be removed from the map', function () {
+                const highlightItems = {
+                    regular: [
+                        {id: 'FAKE_HIGHLIGHT_ITEM_A'},
+                        {id: 'FAKE_HIGHLIGHT_ITEM_B'}
+                    ],
+                    clustered: []
+                };
+
+                getDirective(mockedMapState, false, highlightItems);
+
+                highlightItems.regular.pop();
+                $rootScope.$apply();
+
+                expect(highlight.removeMarker).toHaveBeenCalledWith(
+                    'I_AM_A_FAKE_LEAFLET_MAP',
+                    {
+                        id: 'FAKE_HIGHLIGHT_ITEM_B'
+                    }
+                );
+            });
+
+            it('deletes and re-adds changed icons', function () {
+                const highlightItems = {
+                    regular: [
+                        {id: 'FAKE_HIGHLIGHT_ITEM_A', geometry: 'FAKE_GEOMETRY_A'}
+                    ],
+                    clustered: []
+                };
+
+                getDirective(mockedMapState, false, highlightItems);
+
+                expect(highlight.addMarker).toHaveBeenCalledTimes(1);
+                expect(highlight.addMarker).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', {
+                    id: 'FAKE_HIGHLIGHT_ITEM_A',
+                    geometry: 'FAKE_GEOMETRY_A'
+                });
+                expect(highlight.removeMarker).not.toHaveBeenCalled();
+
+                // Change the marker
+                highlightItems.regular.length = 0;
+                highlightItems.regular.push({
+                    id: 'FAKE_HIGHLIGHT_ITEM_A',
+                    geometry: 'FAKE_GEOMETRY_B'
+                });
+                $rootScope.$apply();
+
+                expect(highlight.removeMarker).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', {
+                    id: 'FAKE_HIGHLIGHT_ITEM_A',
+                    geometry: 'FAKE_GEOMETRY_A'
+                });
+
+                expect(highlight.addMarker).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', {
+                    id: 'FAKE_HIGHLIGHT_ITEM_A',
+                    geometry: 'FAKE_GEOMETRY_B'
+                });
+            });
         });
 
-        it('can be added by changing the input', function () {
-            const highlightItems = {
-                regular: [
-                    {id: 'FAKE_HIGHLIGHT_ITEM_A'},
-                    {id: 'FAKE_HIGHLIGHT_ITEM_B'}
-                ],
-                clustered: []
-            };
+        describe('that manages clustered markers', function () {
+            it('can add a group of clustered markers', function () {
+                // Start without any clustered markers
+                let highlightItems = {
+                    regular: [],
+                    clustered: []
+                };
 
-            getDirective(mockedMapState, false, highlightItems);
+                getDirective(mockedMapState, false, highlightItems);
+                $rootScope.$apply();
+                expect(highlight.addCluster).not.toHaveBeenCalled();
 
-            highlightItems.regular.push({id: 'FAKE_HIGHLIGHT_ITEM_C'});
-            $rootScope.$apply();
-
-            expect(highlight.addMarker).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', {id: 'FAKE_HIGHLIGHT_ITEM_C'});
-        });
-
-        it('can be removed from the map', function () {
-            const highlightItems = {
-                regular: [
-                    {id: 'FAKE_HIGHLIGHT_ITEM_A'},
-                    {id: 'FAKE_HIGHLIGHT_ITEM_B'}
-                ],
-                clustered: []
-            };
-
-            getDirective(mockedMapState, false, highlightItems);
-
-            highlightItems.regular.pop();
-            $rootScope.$apply();
-
-            expect(highlight.removeMarker).toHaveBeenCalledWith(
-                'I_AM_A_FAKE_LEAFLET_MAP',
-                {
-                    id: 'FAKE_HIGHLIGHT_ITEM_B'
-                }
-            );
-        });
-
-        it('deletes and re-adds changed icons', function () {
-            const highlightItems = {
-                regular: [
-                    {id: 'FAKE_HIGHLIGHT_ITEM_A', geometry: 'FAKE_GEOMETRY_A'}
-                ],
-                clustered: []
-            };
-
-            getDirective(mockedMapState, false, highlightItems);
-
-            expect(highlight.addMarker).toHaveBeenCalledTimes(1);
-            expect(highlight.addMarker).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', {
-                id: 'FAKE_HIGHLIGHT_ITEM_A',
-                geometry: 'FAKE_GEOMETRY_A'
-            });
-            expect(highlight.removeMarker).not.toHaveBeenCalled();
-
-            // Change the marker
-            highlightItems.regular.length = 0;
-            highlightItems.regular.push({
-                id: 'FAKE_HIGHLIGHT_ITEM_A',
-                geometry: 'FAKE_GEOMETRY_B'
-            });
-            $rootScope.$apply();
-
-            expect(highlight.removeMarker).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', {
-                id: 'FAKE_HIGHLIGHT_ITEM_A',
-                geometry: 'FAKE_GEOMETRY_A'
+                // Add one marker
+                highlightItems.clustered.push([52.1, 4.1], [52.2, 4.1]);
+                $rootScope.$apply();
+                expect(highlight.addCluster).toHaveBeenCalledWith(
+                    'I_AM_A_FAKE_LEAFLET_MAP',
+                    [
+                        [52.1, 4.1],
+                        [52.2, 4.1]
+                    ]
+                );
             });
 
-            expect(highlight.addMarker).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', {
-                id: 'FAKE_HIGHLIGHT_ITEM_A',
-                geometry: 'FAKE_GEOMETRY_B'
+            it('can remove a group of clustered markers', function () {
+                let highlightItems = {
+                    regular: [],
+                    clustered: [
+                        [52.1, 4.1],
+                        [52.2, 4.1]
+                    ]
+                };
+
+                getDirective(mockedMapState, false, highlightItems);
+                $rootScope.$apply();
+
+                // Now remove the clustered markers
+                highlightItems.clustered.length = 0;
+                $rootScope.$apply();
+
+                expect(highlight.removeCluster).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP');
             });
         });
     });

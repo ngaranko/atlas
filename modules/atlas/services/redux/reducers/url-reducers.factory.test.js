@@ -514,6 +514,7 @@ describe('The urlReducers factory', function () {
                 mockedSearchParamsWithDataSelection = angular.copy(mockedSearchParams);
 
                 mockedSearchParamsWithDataSelection.dataset = 'bag';
+                mockedSearchParamsWithDataSelection.view = 'TABLE';
                 mockedSearchParamsWithDataSelection['dataset-filters'] = 'buurtcombinatie:Geuzenbuurt,buurt:Trompbuurt';
                 mockedSearchParamsWithDataSelection['dataset-pagina'] = '4';
             });
@@ -526,10 +527,11 @@ describe('The urlReducers factory', function () {
                 // With an active dataSelection
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParamsWithDataSelection);
                 expect(output.dataSelection).toEqual({
-                    view: undefined,
+                    view: 'TABLE',
                     dataset: 'bag',
                     filters: jasmine.any(Object),
-                    page: jasmine.anything()
+                    page: jasmine.anything(),
+                    markers: []
                 });
             });
 
