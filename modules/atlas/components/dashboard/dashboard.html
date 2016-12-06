@@ -53,8 +53,8 @@
                 </div>
 
                 <!-- Fullscreen Straatbeeld -->
-                <div ng-if="vm.columnSizes.middle && vm.visibility.straatbeeld"
-                     class="c-dashboard__map"
+                <div ng-if="vm.columnSizes.middle && vm.visibility.straatbeeld && vm.isFullscreen"
+                     class="c-dashboard__straatbeeld"
                      ng-class="'u-col-sm--' + vm.columnSizes.middle">
 
                     <div ng-controller="StraatbeeldController as straatbeeld"
@@ -95,7 +95,8 @@
                     </div>
 
                     <!-- Straatbeeld -->
-                    <div ng-if="vm.visibility.straatbeeld" ng-controller="StraatbeeldController as straatbeeld"
+                    <div ng-if="vm.visibility.straatbeeld && !vm.isFullscreen"
+                         ng-controller="StraatbeeldController as straatbeeld"
                        class="u-dashboard--full-height">
 
                         <dp-straatbeeld state="straatbeeld.straatbeeldState" is-print-mode="vm.isPrintMode"></dp-straatbeeld>
