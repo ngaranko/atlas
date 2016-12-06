@@ -5,22 +5,26 @@
         .module('dpDataSelection')
         .component('dpDataSelectionToggleViewButton', {
             bindings: {
-                view: '@'
+                view: '='
             },
             templateUrl: 'modules/data-selection/components/header/toggle-view-button/toggle-view-button.html',
             controller: DpToggleViewButtonController,
             controllerAs: 'vm'
         });
 
-    function DpToggleViewButtonController () {
+    DpToggleViewButtonController.$inject = ['$scope'];
+
+    function DpToggleViewButtonController ($scope) {
         let vm = this;
 
-        if (vm.view === 'TABLE') {
-            vm.targetView = 'LIST';
-            vm.targetLabel = 'Kaartweergave';
-        } else {
-            vm.targetView = 'TABLE';
-            vm.targetLabel = 'Tabelweergave';
-        }
+        $scope.$watch('vm.view', function () {
+            if (vm.view === 'TABLE') {
+                vm.targetView = 'LIST';
+                vm.targetLabel = 'Kaartweergave';
+            } else {
+                vm.targetView = 'TABLE';
+                vm.targetLabel = 'Tabelweergave';
+            }
+        });
     }
 })();
