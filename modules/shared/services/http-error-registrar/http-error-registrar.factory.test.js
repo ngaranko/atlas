@@ -1,20 +1,36 @@
-describe('The http interceptor', function () {
+describe('The http error registrar', function () {
     let $httpBackend,
         $http,
+        $rootScope,
         httpStatus = {
             SERVER_ERROR: 'SERVER_ERROR',
             NOT_FOUND_ERROR: 'NOT_FOUND_ERROR',
             registerError: angular.noop
         },
         mockedData,
+        onError,
         callbackCalled;
 
     beforeEach(function () {
+        onError = null;
+        let window = {
+            addEventListener: function (type, func) {
+                if (type === 'error') {
+                    onError = func;
+                }
+            }
+        };
+
         angular.mock.module('dpShared', { httpStatus });
 
-        angular.mock.inject(function (_$httpBackend_, _$http_) {
+        angular.mock.module(function ($provide) {
+            $provide.value('$window', window);
+        });
+
+        angular.mock.inject(function (_$httpBackend_, _$http_, _$rootScope_) {
             $httpBackend = _$httpBackend_;
             $http = _$http_;
+            $rootScope = _$rootScope_;
         });
 
         mockedData = {
@@ -37,6 +53,10 @@ describe('The http interceptor', function () {
         $httpBackend
             .whenGET('http://api-domain.amsterdam.nl/500')
             .respond(500, mockedData);
+
+        $httpBackend
+            .whenGET('http://api-domain.amsterdam.nl/-1')
+            .respond(-1, mockedData);
 
         spyOn(httpStatus, 'registerError');
     });
@@ -132,6 +152,77 @@ describe('The http interceptor', function () {
                 expect(data.data).toEqual(mockedData);
                 expect(data.status).toBe(500);
                 expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
+                callbackCalled = true;
+            });
+
+        $httpBackend.flush();
+        expect(callbackCalled).toBe(true);
+    });
+
+    it('registers url load errors by listening to window error events', function () {
+        // onError is the window error event listener (see mock of $window)
+        // If called with an event that contains a target src url it will issue a server error
+
+        onError({});    // without target src url
+        expect(httpStatus.registerError).not.toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
+
+        onError({
+            target: {
+                src: 'aap'
+            }
+        }); // with target src url
+        $rootScope.$digest();
+        expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
+    });
+
+    it('registers http server error -1 for non-cancellable responses, leaves content untouched', function () {
+        $http({
+            method: 'GET',
+            url: 'http://api-domain.amsterdam.nl/-1'
+        }).catch(data => {
+            expect(data.data).toEqual(mockedData);
+            expect(data.status).toBe(-1);
+            expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
+            callbackCalled = true;
+        });
+
+        $httpBackend.flush();
+        expect(callbackCalled).toBe(true);
+    });
+
+    it('registers http server error -1 for non-cancelled responses, leaves content untouched', function () {
+        $http({
+            method: 'GET',
+            url: 'http://api-domain.amsterdam.nl/-1',
+            timeout: {
+                then: (resolve, reject) => {
+                    if (angular.isFunction(reject)) {
+                        reject();
+                    }
+                }
+            }})
+            .catch(data => {
+                expect(data.data).toEqual(mockedData);
+                expect(data.status).toBe(-1);
+                expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
+                callbackCalled = true;
+            });
+
+        $httpBackend.flush();
+        expect(callbackCalled).toBe(true);
+    });
+
+    it('skips http server error -1 for cancelled responses, leaves content untouched', function () {
+        $http({
+            method: 'GET',
+            url: 'http://api-domain.amsterdam.nl/-1',
+            timeout: {
+                then: angular.noop
+            }})
+            .catch(data => {
+                expect(data.data).toEqual(mockedData);
+                expect(data.status).toBe(-1);
+                expect(httpStatus.registerError).not.toHaveBeenCalled();
                 callbackCalled = true;
             });
 
