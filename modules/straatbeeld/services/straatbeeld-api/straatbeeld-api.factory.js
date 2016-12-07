@@ -9,7 +9,7 @@
 
     function straatbeeldApiFactory ($q, straatbeeldConfig, geojson, api) {
         const MAX_RADIUS = 10000;   // The maximum distance from a location to search for a straatbeeld
-        const START_RADIUS = 100;   // The distance to start searching for a straatbeeld
+        const START_RADIUS = 1000;  // The distance to start searching for a straatbeeld
 
         let cancel; // Promise to cancel any outstanding http requests
 
@@ -28,9 +28,9 @@
 
         /**
          * Search for a straatbeeld
-         * @param {number[]} location the center location
-         * @param {number} radius the distance from the location within to search for a straatbeeld
-         * @param {Promise} resultPromise the promise to resolve on found straatbeeld or reject on failure
+         * @param {Number[]} location the center location
+         * @param {Number} radius the distance from the location within to search for a straatbeeld
+         * @param {Promise.imageData} resultPromise the promise to resolve on found straatbeeld or reject on failure
          */
         function searchWithinRadius (location, radius, resultPromise) {
             radius = Math.min(radius, MAX_RADIUS);

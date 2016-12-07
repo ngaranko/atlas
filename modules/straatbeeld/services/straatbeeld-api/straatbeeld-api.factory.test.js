@@ -4,7 +4,10 @@ describe('The straatbeeldApi Factory', function () {
         $q,
         api,
         $rootScope,
-        cancel;
+        cancel,
+        searchSteps;
+
+    searchSteps = [1000, 2000, 4000, 8000, 10000];
 
     beforeEach(function () {
         angular.mock.module('dpStraatbeeld', {
@@ -102,7 +105,7 @@ describe('The straatbeeldApi Factory', function () {
 
         straatbeeldApi.getImageDataByLocation([52, 4]);
 
-        expect(api.getByUrl).toHaveBeenCalledWith('http://example.com/example/?lat=52&lon=4&radius=100',
+        expect(api.getByUrl).toHaveBeenCalledWith('http://example.com/example/?lat=52&lon=4&radius=1000',
             undefined, jasmine.anything());
     });
 
@@ -126,7 +129,7 @@ describe('The straatbeeldApi Factory', function () {
 
         straatbeeldApi.getImageDataByLocation([52, 4]);
 
-        [100, 200, 400, 800, 1600, 3200, 6400, 10000].forEach(n => {
+        searchSteps.forEach(n => {
             $rootScope.$apply();
             expect(api.getByUrl).toHaveBeenCalledWith(
                 `http://example.com/example/?lat=52&lon=4&radius=${n}`,
@@ -149,7 +152,7 @@ describe('The straatbeeldApi Factory', function () {
             () => failed = true
         );
 
-        [100, 200, 400, 800, 1600, 3200, 6400, 10000].forEach(n => {
+        searchSteps.forEach(n => {
             $rootScope.$apply();
             expect(api.getByUrl).toHaveBeenCalledWith(
                 `http://example.com/example/?lat=52&lon=4&radius=${n}`,
