@@ -292,7 +292,7 @@ describe('The highlight factory', function () {
     it('can add clustered markers to the map', function () {
         spyOn(mockedLeafletMap, 'getZoom').and.returnValue(13);
 
-        highlight.addCluster(mockedLeafletMap, [
+        highlight.setCluster(mockedLeafletMap, [
             [52.1, 4.0],
             [52.2, 4.0],
             [52.3, 4.1]
@@ -341,7 +341,7 @@ describe('The highlight factory', function () {
     it('pans and zooms to the clustered markers after adding them to the map', function () {
         spyOn(mockedLeafletMap, 'getZoom').and.returnValue(13);
 
-        highlight.addCluster(mockedLeafletMap, [
+        highlight.setCluster(mockedLeafletMap, [
             [52.1, 4.0],
             [52.2, 4.0],
             [52.3, 4.1]
@@ -354,11 +354,11 @@ describe('The highlight factory', function () {
         spyOn(mockedLeafletMap, 'getZoom').and.returnValue(13);
 
         // When there is nothing to delete, nothing happens
-        highlight.removeCluster(mockedLeafletMap);
+        highlight.clearCluster(mockedLeafletMap);
         expect(mockedLeafletMap.removeLayer).not.toHaveBeenCalled();
 
         // First make sure there is something to delete
-        highlight.addCluster(mockedLeafletMap, [
+        highlight.setCluster(mockedLeafletMap, [
             [52.1, 4.0],
             [52.2, 4.0],
             [52.3, 4.1]
@@ -366,7 +366,7 @@ describe('The highlight factory', function () {
         expect(mockedLeafletMap.removeLayer).not.toHaveBeenCalled();
 
         // Then delete it
-        highlight.removeCluster(mockedLeafletMap);
+        highlight.clearCluster(mockedLeafletMap);
         expect(mockedLeafletMap.removeLayer).toHaveBeenCalledWith(mockedClusteredLayer);
     });
 

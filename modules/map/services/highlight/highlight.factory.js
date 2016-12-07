@@ -36,8 +36,8 @@
             initialize,
             addMarker,
             removeMarker,
-            addCluster,
-            removeCluster
+            setCluster,
+            clearCluster
         };
 
         function initialize () {
@@ -92,7 +92,7 @@
             leafletMap.removeLayer(layers[item.id]);
         }
 
-        function addCluster (leafletMap, markers) {
+        function setCluster (leafletMap, markers) {
             clusteredLayer = L.markerClusterGroup(CLUSTERED_MARKERS_CONFIG);
 
             markers.forEach(marker => {
@@ -107,7 +107,7 @@
             leafletMap.addLayer(clusteredLayer);
         }
 
-        function removeCluster (leafletMap) {
+        function clearCluster (leafletMap) {
             if (angular.isDefined(clusteredLayer)) {
                 leafletMap.removeLayer(clusteredLayer);
             }

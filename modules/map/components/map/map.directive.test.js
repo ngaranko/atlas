@@ -29,8 +29,8 @@ describe('The dp-map directive', function () {
                     initialize: angular.noop,
                     addMarker: angular.noop,
                     removeMarker: angular.noop,
-                    addCluster: angular.noop,
-                    removeCluster: angular.noop
+                    setCluster: angular.noop,
+                    clearCluster: angular.noop
                 },
                 panning: {
                     initialize: function () {},
@@ -99,8 +99,8 @@ describe('The dp-map directive', function () {
         spyOn(highlight, 'initialize');
         spyOn(highlight, 'addMarker');
         spyOn(highlight, 'removeMarker');
-        spyOn(highlight, 'addCluster');
-        spyOn(highlight, 'removeCluster');
+        spyOn(highlight, 'setCluster');
+        spyOn(highlight, 'clearCluster');
 
         spyOn(panning, 'initialize');
         spyOn(panning, 'panTo');
@@ -360,12 +360,12 @@ describe('The dp-map directive', function () {
 
                 getDirective(mockedMapState, false, highlightItems);
                 $rootScope.$apply();
-                expect(highlight.addCluster).not.toHaveBeenCalled();
+                expect(highlight.setCluster).not.toHaveBeenCalled();
 
                 // Add one marker
                 highlightItems.clustered.push([52.1, 4.1], [52.2, 4.1]);
                 $rootScope.$apply();
-                expect(highlight.addCluster).toHaveBeenCalledWith(
+                expect(highlight.setCluster).toHaveBeenCalledWith(
                     'I_AM_A_FAKE_LEAFLET_MAP',
                     [
                         [52.1, 4.1],
@@ -390,7 +390,7 @@ describe('The dp-map directive', function () {
                 highlightItems.clustered.length = 0;
                 $rootScope.$apply();
 
-                expect(highlight.removeCluster).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP');
+                expect(highlight.clearCluster).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP');
             });
         });
     });
