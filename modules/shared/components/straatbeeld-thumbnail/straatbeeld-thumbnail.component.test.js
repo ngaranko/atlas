@@ -2,6 +2,7 @@ describe('The dp-straatbeeld-thumbnail component', function () {
     var $compile,
         $rootScope,
         store,
+        ACTIONS,
         $q,
         api,
         hasMockedThumbnail,
@@ -24,7 +25,7 @@ describe('The dp-straatbeeld-thumbnail component', function () {
                 applicationState: {
                     getReducer: function () {
                         return function (state, action) {
-                            return action;
+                            return angular.toJson(action);
                         };
                     },
                     getStateToUrl: function () {
@@ -65,10 +66,11 @@ describe('The dp-straatbeeld-thumbnail component', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _$q_, _api_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _ACTIONS_, _$q_, _api_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
+            ACTIONS = _ACTIONS_;
             $q = _$q_;
             api = _api_;
         });
@@ -165,13 +167,22 @@ describe('The dp-straatbeeld-thumbnail component', function () {
         expect(scope.vm.isLoading).toBe(true);
     });
 
-    it('sets the hyperlink url on basis of the state and payload', function () {
+    it('sets the hyperlink url on basis of the state and payload to fetch the corresponding straatbeeld', function () {
         var component = getComponent([52, 4]);
 
         finishApiCall();
 
-        expect(component.find('a').attr('ng-href')).toEqual(
-            '{"type":{"id":"FETCH_STRAATBEELD","ignore":true},' +
-            '"payload":{"id":"ABC","heading":179,"isInitial":true,"isFullscreen":true}}');
+        let url = decodeURI(component.find('a').attr('ng-href'));
+        let action = angular.fromJson(url);
+
+        expect(action).toEqual({
+            type: ACTIONS.FETCH_STRAATBEELD,
+            payload: {
+                id: 'ABC',
+                heading: 179,
+                isInitial: true,
+                isFullscreen: true
+            }
+        });
     });
 });

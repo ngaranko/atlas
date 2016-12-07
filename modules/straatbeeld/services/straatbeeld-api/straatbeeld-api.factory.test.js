@@ -4,7 +4,10 @@ describe('The straatbeeldApi Factory', function () {
         $q,
         api,
         $rootScope,
-        cancel;
+        cancel,
+        searchSteps;
+
+    searchSteps = [1000, 2000, 4000, 8000, 10000];
 
     beforeEach(function () {
         angular.mock.module('dpStraatbeeld', {
@@ -102,8 +105,66 @@ describe('The straatbeeldApi Factory', function () {
 
         straatbeeldApi.getImageDataByLocation([52, 4]);
 
-        expect(api.getByUrl).toHaveBeenCalledWith('http://example.com/example/?lat=52&lon=4&radius=10000',
+        expect(api.getByUrl).toHaveBeenCalledWith('http://example.com/example/?lat=52&lon=4&radius=1000',
             undefined, jasmine.anything());
+    });
+
+    it('keeps calling the API factory until a straatbeeld is found', function () {
+        spyOn(api, 'getByUrl').and.callFake(url => {
+            let defer = $q.defer();
+            if (url.includes('radius=10000')) {
+                defer.resolve({
+                    geometrie: {
+                        type: 'aap',
+                        coordinates: [1, 2]
+                    },
+                    adjacent: [],
+                    image_sets: {}
+                });
+            } else {
+                defer.resolve({});
+            }
+            return defer.promise;
+        });
+
+        straatbeeldApi.getImageDataByLocation([52, 4]);
+
+        searchSteps.forEach(n => {
+            $rootScope.$apply();
+            expect(api.getByUrl).toHaveBeenCalledWith(
+                `http://example.com/example/?lat=52&lon=4&radius=${n}`,
+                undefined,
+                jasmine.anything()
+            );
+        });
+    });
+
+    it('stops calling the API factory when no straatbeeld is found within 10km and then returns null', function () {
+        spyOn(api, 'getByUrl').and.callFake(url => {
+            let defer = $q.defer();
+            defer.resolve({});
+            return defer.promise;
+        });
+
+        let result;
+        let failed = false;
+        straatbeeldApi.getImageDataByLocation([52, 4]).then(
+            data => result = data,
+            () => failed = true
+        );
+
+        searchSteps.forEach(n => {
+            $rootScope.$apply();
+            expect(api.getByUrl).toHaveBeenCalledWith(
+                `http://example.com/example/?lat=52&lon=4&radius=${n}`,
+                undefined,
+                jasmine.anything()
+            );
+        });
+
+        $rootScope.$apply();
+        expect(failed).toBe(false); // No rejection
+        expect(result).toBeNull();  // But return null value
     });
 
     it('cancels any outstanding call to the API factory when loading a new straatbeeld by loc', function () {

@@ -97,7 +97,7 @@
 
         function applyFilters (filters) {
             store.dispatch({
-                type: ACTIONS.SHOW_DATA_SELECTION,
+                type: ACTIONS.FETCH_DATA_SELECTION,
                 payload: {
                     dataset: vm.dataset,
                     filters: filters,
