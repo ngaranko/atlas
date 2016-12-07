@@ -30,9 +30,11 @@ describe('The dp-data-selection-toggle-view-button component', function () {
             scope;
 
         element = document.createElement('dp-data-selection-toggle-view-button');
-        element.setAttribute('view', view);
+        element.setAttribute('view', 'view');
 
         scope = $rootScope.$new();
+        scope.view = view;
+
         component = $compile(element)(scope);
         scope.$apply();
 
@@ -41,10 +43,12 @@ describe('The dp-data-selection-toggle-view-button component', function () {
 
     it('when in table view: it shows a link to the list view', function () {
         const component = getComponent('TABLE');
+        $rootScope.$apply();
 
-        expect(component.text().trim()).toBe('Lijstweergave');
+        expect(component.text().trim()).toBe('Kaartweergave');
 
         component.find('button').click();
+
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.SET_DATA_SELECTION_VIEW,
             payload: 'LIST'
@@ -53,6 +57,7 @@ describe('The dp-data-selection-toggle-view-button component', function () {
 
     it('when in list view: it shows a link to the table view', function () {
         const component = getComponent('LIST');
+        $rootScope.$apply();
 
         expect(component.text().trim()).toBe('Tabelweergave');
 
