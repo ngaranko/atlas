@@ -30,8 +30,9 @@
             }
         };
         globalConfig = {
-            MAX_AVAILABLE_PAGES: 100,
             bag: {
+                MAX_AVAILABLE_PAGES: 100,
+                CUSTOM_API: 'dataSelectionApiDataSelection',
                 PRIMARY_KEY: 'id',
                 TITLE: 'Adressen',
                 FILTERS: [
