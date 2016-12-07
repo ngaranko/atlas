@@ -8,6 +8,9 @@
     straatbeeldApiFactory.$inject = ['$q', 'straatbeeldConfig', 'geojson', 'api'];
 
     function straatbeeldApiFactory ($q, straatbeeldConfig, geojson, api) {
+        const MAX_RADIUS = 10000;   // The maximum distance from a location to search for a straatbeeld
+        const START_RADIUS = 1000;  // The distance to start searching for a straatbeeld
+
         let cancel; // Promise to cancel any outstanding http requests
 
         return {
@@ -15,10 +18,35 @@
             getImageDataById
         };
 
+        /**
+         * @param {Number[]} location the center location
+         * @returns {Promise.imageData} a Promise that resolves to the found straatbeeld or null on failure
+         */
         function getImageDataByLocation (location) {
-            const MAX_RADIUS = 10000;
+            return searchWithinRadius(location, START_RADIUS);
+        }
+
+        /**
+         * Search for a straatbeeld
+         * @param {Number[]} location the center location
+         * @param {Number} radius the distance from the location within to search for a straatbeeld
+         * @returns {Promise.imageData} a Promise that resolves to the found straatbeeld or null on failure
+         */
+        function searchWithinRadius (location, radius) {
+            let cappedRadius = Math.min(radius, MAX_RADIUS);
             return getStraatbeeld(straatbeeldConfig.STRAATBEELD_ENDPOINT +
-                `?lat=${location[0]}&lon=${location[1]}&radius=${MAX_RADIUS}`);
+                `?lat=${location[0]}&lon=${location[1]}&radius=${cappedRadius}`)
+                .then(
+                    data => {
+                        if (data) {
+                            return data;
+                        } else if (radius < MAX_RADIUS) {
+                            return searchWithinRadius(location, cappedRadius * 2);
+                        } else {
+                            return null;
+                        }
+                    }
+                );
         }
 
         function getImageDataById (id) {
@@ -37,27 +65,29 @@
         }
 
         function imageData (response) {
-            let formattedGeometrie = {
-                coordinates: [
-                    response.geometrie.coordinates[1],
-                    response.geometrie.coordinates[0]
-                ],
-                type: response.geometrie.type
-            };
+            if (angular.isObject(response.geometrie)) {
+                let formattedGeometrie = {
+                    coordinates: [
+                        response.geometrie.coordinates[1],
+                        response.geometrie.coordinates[0]
+                    ],
+                    type: response.geometrie.type
+                };
 
-            return {
-                date: new Date(response.timestamp),
-                id: response.pano_id,
-                hotspots: response.adjacent.map(function (item) {
-                    return {
-                        id: item.pano_id,
-                        heading: item.heading,
-                        distance: item.distance
-                    };
-                }),
-                location: geojson.getCenter(formattedGeometrie),
-                image: response.image_sets.cubic
-            };
+                return {
+                    date: new Date(response.timestamp),
+                    id: response.pano_id,
+                    hotspots: response.adjacent.map(function (item) {
+                        return {
+                            id: item.pano_id,
+                            heading: item.heading,
+                            distance: item.distance
+                        };
+                    }),
+                    location: geojson.getCenter(formattedGeometrie),
+                    image: response.image_sets.cubic
+                };
+            }
         }
     }
 })();
