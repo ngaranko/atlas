@@ -3,19 +3,19 @@
 %toggle-active-overlays {
   position: absolute;
   bottom: 0;
-  left: 180px;
-  min-width: $button-size + 75px;
+  left: 148px;
+  min-width: 94px;
   z-index: 3;
 }
 
 .c-toggle-active-overlays {
   @extend %toggle-active-overlays;
-  @include icon-button-text-box-left("down", "", "red");
+  @include icon-button-text-box-right("up", "", "red");
   border-bottom: none;
 
   &.c-toggle-active-overlays--mirrored {
     @extend %toggle-active-overlays;
-    @include icon-button-text-box-left("up");
+    @include icon-button-text-box-right("down");
     border-bottom: none;
   }
 }
@@ -28,7 +28,7 @@
 
 .c-active-overlays {
   position: absolute;
-  bottom: 1px;
+  bottom: 0;
   left: 0;
   width: 305px;
   height: 80%;
