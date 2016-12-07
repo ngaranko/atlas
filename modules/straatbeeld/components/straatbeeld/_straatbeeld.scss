@@ -36,8 +36,8 @@
 
 .c-straatbeeld__coordinates {
   padding-left: $base-whitespace;
-  border-left: solid $primary-light-alpha50 1px;
-  line-height: 26px;
+  border-left: solid $secondary-gray20 1px;
+  line-height: 25px;
 }
 
 .c-straatbeeld__close {
@@ -60,7 +60,7 @@
   padding-right: $base-whitespace;
   padding-left: $base-whitespace / 2;
   float: left;
-  border-right: solid $primary-light-alpha50 1px;
+  border-right: solid $secondary-gray20 1px;
   color: $secondary-gray60;
   z-index: 2;
 
@@ -82,7 +82,7 @@
   margin-left: 0;
   padding-right: $base-whitespace;
   padding-left: $base-whitespace / 2;
-  border-right: solid $primary-light-alpha50 1px;
+  border-right: solid $secondary-gray20 1px;
 
   z-index: 2;
 
