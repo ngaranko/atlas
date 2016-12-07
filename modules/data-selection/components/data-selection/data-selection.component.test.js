@@ -251,4 +251,39 @@ describe('The dp-data-selection component', function () {
             });
         });
     });
+
+    describe('it has a technical limit for the MAX_AVAILABLE_PAGES', function () {
+        it('shows the content on pages up to this limit', function () {
+            let component;
+
+            mockedState.page = 5;
+            component = getComponent(mockedState);
+
+            expect(component.find('dp-data-selection-table').length).toBe(1);
+        });
+
+        it('doesn\'t show the content for pages above this limit', function () {
+            let component;
+
+            mockedState.page = 6;
+            component = getComponent(mockedState);
+
+            expect(component.find('dp-data-selection-table').length).toBe(0);
+        });
+
+        it('shows a message when the content isn\'t shown because of this limit', function () {
+            let component;
+
+            // When there is content, don't show the message
+            mockedState.page = 5;
+            component = getComponent(mockedState);
+            expect(component.find('dp-panel').length).toBe(0);
+
+            // Where there is no content, because of the page limit, do show the message
+            mockedState.page = 6;
+            component = getComponent(mockedState);
+            expect(component.find('dp-panel').length).toBe(1);
+            expect(component.find('dp-panel').text()).toContain('Deze pagina kan niet worden getoond');
+        });
+    });
 });
