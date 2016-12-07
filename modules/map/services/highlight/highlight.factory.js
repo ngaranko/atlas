@@ -33,11 +33,11 @@
             clusteredLayer;
 
         return {
-            initialize: initialize,
-            addMarker: addMarker,
-            removeMarker: removeMarker,
-            addCluster: addCluster,
-            removeCluster: removeCluster
+            initialize,
+            addMarker,
+            removeMarker,
+            addCluster,
+            removeCluster
         };
 
         function initialize () {
@@ -95,9 +95,9 @@
         function addCluster (leafletMap, markers) {
             clusteredLayer = L.markerClusterGroup(CLUSTERED_MARKERS_CONFIG);
 
-            markers.forEach(function (location) {
+            markers.forEach(marker => {
                 clusteredLayer.addLayer(
-                    L.marker(location, {
+                    L.marker(marker, {
                         icon: L.icon(ICON_CONFIG.detail)
                     })
                 );
