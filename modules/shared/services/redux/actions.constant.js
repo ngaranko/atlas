@@ -107,6 +107,10 @@
                 replace: true
             },
 
+            FETCH_DATA_SELECTION: {
+                id: 'FETCH_DATA_SELECTION',
+                ignore: true
+            },
             SHOW_DATA_SELECTION: {
                 id: 'SHOW_DATA_SELECTION'
             },
