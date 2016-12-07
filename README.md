@@ -14,6 +14,8 @@ Installation
 Other useful commands
 - npm test
 - grunt build-release
+- grunt test
+- grunt fulltest
 - npm run clean
 
 Techniques used
