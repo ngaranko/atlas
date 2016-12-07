@@ -28,7 +28,7 @@
             vm.showFilters = vm.state.view === 'TABLE';
             vm.currentPage = vm.state.page;
             vm.isPageAvailable = vm.currentPage <= dataSelectionConfig.MAX_AVAILABLE_PAGES;
-            vm.hasTooManyMarkersMessage = false;
+            vm.hasTooManyMarkers = false;
 
             dataSelectionApi.query(vm.state.dataset, vm.state.view, vm.state.filters, vm.currentPage).then(data => {
                 vm.availableFilters = data.filters;
@@ -37,7 +37,7 @@
                 vm.numberOfRecords = data.number_of_records;
                 vm.numberOfPages = data.number_of_pages;
 
-                vm.hasTooManyMarkersMessage = vm.view === 'LIST' && vm.numberOfRecords > MAXIMUM_NUMBER_OF_MARKERS;
+                vm.hasTooManyMarkers = vm.view === 'LIST' && vm.numberOfRecords > MAXIMUM_NUMBER_OF_MARKERS;
 
                 if (vm.view === 'LIST' && vm.numberOfRecords <= MAXIMUM_NUMBER_OF_MARKERS) {
                     dataSelectionApi.getMarkers(vm.state.dataset, vm.state.filters).then(markerData => {
