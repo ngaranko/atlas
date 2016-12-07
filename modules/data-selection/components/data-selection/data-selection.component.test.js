@@ -181,17 +181,6 @@ describe('The dp-data-selection component', function () {
         expect(scope.vm.currentPage).toBe(3);
     });
 
-    it('cannot show more than 100 pages', function () {
-        const component = getComponent(mockedState);
-        let scope = component.isolateScope();
-
-        // Change the state
-        scope.vm.state.page = 101;
-        $rootScope.$apply();
-
-        expect(scope.vm.currentPage).toBe(101);
-    });
-
     describe('it triggers SHOW_DATA_SELECTION to communicate the related marker locations', function () {
         it('sends an empty Array if the table view is active', function () {
             mockedState.view = 'TABLE';

@@ -370,6 +370,39 @@ describe('The highlight factory', function () {
         expect(mockedLeafletMap.removeLayer).toHaveBeenCalledWith(mockedClusteredLayer);
     });
 
+    it('can add a new cluster to the map after clearing the old cluster', function () {
+        spyOn(mockedLeafletMap, 'getZoom').and.returnValue(13);
+
+        expect(mockedLeafletMap.addLayer).not.toHaveBeenCalled();
+        expect(mockedLeafletMap.removeLayer).not.toHaveBeenCalled();
+
+        // Set a cluster
+        highlight.setCluster(mockedLeafletMap, [
+            [52.1, 4.0],
+            [52.2, 4.0],
+            [52.3, 4.1]
+        ]);
+
+        expect(mockedLeafletMap.addLayer).toHaveBeenCalledTimes(1);
+        expect(mockedLeafletMap.removeLayer).not.toHaveBeenCalled();
+        expect(mockedClusteredLayer.addLayer).toHaveBeenCalledTimes(3); // Once for each marker
+
+        // Clear the cluster
+        highlight.clearCluster(mockedLeafletMap);
+
+        expect(mockedLeafletMap.addLayer).toHaveBeenCalledTimes(1);
+        expect(mockedLeafletMap.removeLayer).toHaveBeenCalledTimes(1);
+
+        // Set another cluster
+        highlight.setCluster(mockedLeafletMap, [
+            [52.1, 4.1],
+            [52.2, 4.1]
+        ]);
+        expect(mockedLeafletMap.addLayer).toHaveBeenCalledTimes(2);
+        expect(mockedLeafletMap.removeLayer).toHaveBeenCalledTimes(1);
+        expect(mockedClusteredLayer.addLayer).toHaveBeenCalledTimes(5);
+    });
+
     describe('triggers MAP_ZOOM when geometry has been found (center and zoom)', function () {
         it('Points do center automatically but use a default zoom level', function () {
             spyOn(mockedLeafletMap, 'getBoundsZoom').and.returnValue(NaN);
