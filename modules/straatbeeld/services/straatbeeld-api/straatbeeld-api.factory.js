@@ -18,32 +18,32 @@
             getImageDataById
         };
 
+        /**
+         * @param {Number[]} location the center location
+         * @returns {Promise.imageData} a Promise that resolves to the found straatbeeld or null on failure
+         */
         function getImageDataByLocation (location) {
-            let result = $q.defer();
-
-            searchWithinRadius(location, START_RADIUS, result);
-
-            return result.promise;
+            return searchWithinRadius(location, START_RADIUS);
         }
 
         /**
          * Search for a straatbeeld
          * @param {Number[]} location the center location
          * @param {Number} radius the distance from the location within to search for a straatbeeld
-         * @param {Promise.imageData} resultPromise the promise to resolve on found straatbeeld or reject on failure
+         * @returns {Promise.imageData} a Promise that resolves to the found straatbeeld or null on failure
          */
-        function searchWithinRadius (location, radius, resultPromise) {
-            radius = Math.min(radius, MAX_RADIUS);
-            getStraatbeeld(straatbeeldConfig.STRAATBEELD_ENDPOINT +
-                `?lat=${location[0]}&lon=${location[1]}&radius=${radius}`)
+        function searchWithinRadius (location, radius) {
+            let cappedRadius = Math.min(radius, MAX_RADIUS);
+            return getStraatbeeld(straatbeeldConfig.STRAATBEELD_ENDPOINT +
+                `?lat=${location[0]}&lon=${location[1]}&radius=${cappedRadius}`)
                 .then(
                     data => {
                         if (data) {
-                            resultPromise.resolve(data);
+                            return data;
                         } else if (radius < MAX_RADIUS) {
-                            searchWithinRadius(location, radius * 2, resultPromise);
+                            return searchWithinRadius(location, cappedRadius * 2);
                         } else {
-                            resultPromise.reject();
+                            return null;
                         }
                     }
                 );

@@ -139,16 +139,17 @@ describe('The straatbeeldApi Factory', function () {
         });
     });
 
-    it('stops calling the API factory when no straatbeeld is found within 10km', function () {
+    it('stops calling the API factory when no straatbeeld is found within 10km and then returns null', function () {
         spyOn(api, 'getByUrl').and.callFake(url => {
             let defer = $q.defer();
             defer.resolve({});
             return defer.promise;
         });
 
+        let result;
         let failed = false;
         straatbeeldApi.getImageDataByLocation([52, 4]).then(
-            angular.noop,
+            data => result = data,
             () => failed = true
         );
 
@@ -162,7 +163,8 @@ describe('The straatbeeldApi Factory', function () {
         });
 
         $rootScope.$apply();
-        expect(failed).toBe(true);
+        expect(failed).toBe(false); // No rejection
+        expect(result).toBeNull();  // But return null value
     });
 
     it('cancels any outstanding call to the API factory when loading a new straatbeeld by loc', function () {
