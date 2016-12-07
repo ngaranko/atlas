@@ -14,7 +14,6 @@
         envConfig = {
             DEVELOPMENT: {
                 bag: {
-                    ENDPOINT_PREVIEW: 'https://api-acc.datapunt.amsterdam.nl/dataselectie/bag/',
                     ENDPOINT_MARKERS: 'https://api-acc.datapunt.amsterdam.nl/dataselectie/bag/geolocation/',
                     ENDPOINT_EXPORT: 'https://api-acc.datapunt.amsterdam.nl/dataselectie/bag/export/',
                     ENDPOINT_DETAIL: 'https://api-acc.datapunt.amsterdam.nl/bag/nummeraanduiding/'
@@ -22,7 +21,6 @@
             },
             PRODUCTION: {
                 bag: {
-                    ENDPOINT_PREVIEW: 'https://api.datapunt.amsterdam.nl/dataselectie/bag/',
                     ENDPOINT_MARKERS: 'https://api.datapunt.amsterdam.nl/dataselectie/bag/geolocation/',
                     ENDPOINT_EXPORT: 'https://api.datapunt.amsterdam.nl/dataselectie/bag/export/',
                     ENDPOINT_DETAIL: 'https://api.datapunt.amsterdam.nl/bag/nummeraanduiding/'
@@ -30,9 +28,38 @@
             }
         };
         globalConfig = {
+            catalogus: {
+                MAX_ITEMS_PER_PAGE: 10,
+                CUSTOM_API: 'dataSelectionApiCkan',
+                ENDPOINT_PREVIEW: 'catalogus/api/3/action/package_search',
+                PRIMARY_KEY: 'id',
+                TITLE: 'Catalogus',
+                SHOW_FILTER_OPTION_COUNTS: true,
+                FILTERS: [
+                    {
+                        slug: 'groups',
+                        label: 'Thema\'s'
+                    }, {
+                        slug: 'res_format',
+                        label: 'Formaten'
+                    }, {
+                        slug: 'organization',
+                        label: 'Gepubliceerd door'
+                    }
+                ],
+                CONTENT: {
+                    TABLE: [
+                        {
+                            label: 'Naam',
+                            variables: ['title']
+                        }
+                    ]
+                }
+            },
             bag: {
                 MAX_AVAILABLE_PAGES: 100,
                 CUSTOM_API: 'dataSelectionApiDataSelection',
+                ENDPOINT_PREVIEW: 'dataselectie/bag/',
                 PRIMARY_KEY: 'id',
                 TITLE: 'Adressen',
                 FILTERS: [

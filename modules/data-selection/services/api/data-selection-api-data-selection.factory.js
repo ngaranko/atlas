@@ -27,7 +27,7 @@
                 activeFilters
             );
 
-            return api.getByUrl(config.ENDPOINT_PREVIEW, searchParams)
+            return api.getByUri(config.ENDPOINT_PREVIEW, searchParams)
                 .then(function (data) {
                     if (searchPage !== page) {
                         // Requested page was out of api reach, dumping data
