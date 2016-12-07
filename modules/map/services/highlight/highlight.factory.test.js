@@ -387,20 +387,25 @@ describe('The highlight factory', function () {
         expect(mockedLeafletMap.removeLayer).not.toHaveBeenCalled();
         expect(mockedClusteredLayer.addLayer).toHaveBeenCalledTimes(3); // Once for each marker
 
+        mockedLeafletMap.addLayer.calls.reset();
+        mockedClusteredLayer.addLayer.calls.reset();
+
         // Clear the cluster
         highlight.clearCluster(mockedLeafletMap);
 
-        expect(mockedLeafletMap.addLayer).toHaveBeenCalledTimes(1);
+        expect(mockedLeafletMap.addLayer).not.toHaveBeenCalled();
         expect(mockedLeafletMap.removeLayer).toHaveBeenCalledTimes(1);
+
+        mockedLeafletMap.removeLayer.calls.reset();
 
         // Set another cluster
         highlight.setCluster(mockedLeafletMap, [
             [52.1, 4.1],
             [52.2, 4.1]
         ]);
-        expect(mockedLeafletMap.addLayer).toHaveBeenCalledTimes(2);
-        expect(mockedLeafletMap.removeLayer).toHaveBeenCalledTimes(1);
-        expect(mockedClusteredLayer.addLayer).toHaveBeenCalledTimes(5);
+        expect(mockedLeafletMap.addLayer).toHaveBeenCalledTimes(1);
+        expect(mockedLeafletMap.removeLayer).not.toHaveBeenCalled();
+        expect(mockedClusteredLayer.addLayer).toHaveBeenCalledTimes(2);
     });
 
     describe('triggers MAP_ZOOM when geometry has been found (center and zoom)', function () {
