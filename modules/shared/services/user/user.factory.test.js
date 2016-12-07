@@ -10,6 +10,18 @@ describe('The user factory', function () {
         httpPostRefreshData,
         dummyPromise;
 
+    let mockedUserSettings = {
+        token: {
+            get value () { return mockedUserSettings.getItem(); },
+            set value (value) { mockedUserSettings.setItem ('token', value); },
+            remove () { mockedUserSettings.removeItem(); }
+        },
+        _token: null,
+        getItem: function () { return this._token; },
+        setItem: function (k, v) { this._token = v;},
+        removeItem: function () { this._token = null; }
+    };
+
     afterEach(function () {
         $httpBackend.verifyNoOutstandingExpectation();
         $httpBackend.verifyNoOutstandingRequest();
@@ -26,12 +38,7 @@ describe('The user factory', function () {
                     environment: {
                         AUTH_ROOT: 'http://atlas.amsterdam.nl/authenticatie/'
                     },
-                    userSettings: {
-                        token: null,
-                        getItem: function () { return this.token; },
-                        setItem: function (k, v) { this.token = v;},
-                        removeItem: function () { this.token = null; }
-                    }
+                    userSettings: mockedUserSettings
                 },
                 function ($provide) {
                     $provide.factory('$timeout', function () {
@@ -263,18 +270,15 @@ describe('The user factory', function () {
 
     describe('is able to survive a browser refresh', function () {
         beforeEach(function () {
+            mockedUserSettings._token = 'aToken';
+
             angular.mock.module(
                 'dpShared',
                 {
                     environment: {
                         AUTH_ROOT: 'http://atlas.amsterdam.nl/authenticatie/'
                     },
-                    userSettings: {
-                        token: 'aToken',
-                        getItem: function () { return this.token; },
-                        setItem: function (k, v) { this.token = v;},
-                        removeItem: function () { this.token = null; }
-                    }
+                    userSettings: mockedUserSettings
                 }
             );
 

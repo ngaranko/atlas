@@ -1,27 +1,61 @@
 describe('the storage factory', function () {
     var storage,
         keys = {},
-        $windowWhitoutStorage = {
+        $windowWithoutStorage = {
             sessionStorage: {
                 getItem: function (key) {throw new Error('getItem does not work');},
                 setItem: function (key, value) {keys[key] = 'no session storage';},
-                removeItem: function (key) {delete keys[key];}
+                removeItem: function (key) {keys[key] = null;}
             }
         },
-        $windowWhitStorage = {
+        $windowWithStorage = {
             sessionStorage: {
                 getItem: function (key) {return keys[key];},
                 setItem: function (key, value) {keys[key] = value;},
-                removeItem: function (key) {delete keys[key];}
+                removeItem: function (key) {keys[key] = null;}
             }
         };
+
+    describe('the general behaviour of the storage factory', function () {
+        beforeEach(function () {
+            angular.mock.module(
+                'dpShared',
+                {
+                    $window: $windowWithStorage
+                }
+            );
+            angular.mock.inject(function (_storage_) {
+                storage = _storage_;
+            });
+        });
+
+        it('accepts only string key values', function () {
+            [5, true, {}].forEach(key => {
+                storage.instance.setItem(key, 'value');
+                let data = storage.instance.getItem(key);
+                expect(data).toBeUndefined();
+                storage.instance.removeItem(key);
+                expect(data).toBeUndefined();
+            });
+        });
+
+        it('accepts only string values', function () {
+            [5, true, {}].forEach(value => {
+                storage.instance.setItem('key', value);
+                let data = storage.instance.getItem('key');
+                expect(data).toBeNull();
+                storage.instance.removeItem('key');
+                expect(data).toBeNull();
+            });
+        });
+    });
 
     describe('with access to sessionStorage', function () {
         beforeEach(function () {
             angular.mock.module(
                 'dpShared',
                 {
-                    $window: $windowWhitStorage
+                    $window: $windowWithStorage
                 }
             );
             angular.mock.inject(function (_storage_) {
@@ -44,7 +78,7 @@ describe('the storage factory', function () {
                 storage[s].removeItem('key');
                 let data = storage[s].getItem('key');
 
-                expect(data).toBe(undefined);
+                expect(data).toBeNull();
             });
         });
     });
@@ -53,8 +87,8 @@ describe('the storage factory', function () {
         beforeEach(function () {
             angular.mock.module(
                 'dpShared',
-                function ($provide) {
-                    $provide.value('$window', $windowWhitoutStorage);
+                {
+                    $window: $windowWithoutStorage
                 }
             );
             angular.mock.inject(function (_storage_) {
@@ -77,7 +111,7 @@ describe('the storage factory', function () {
                 storage[s].removeItem('key');
                 let data = storage[s].getItem('key');
 
-                expect(data).toBe(undefined);
+                expect(data).toBeNull();
             });
         });
 

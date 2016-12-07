@@ -9,7 +9,7 @@
 
     function userFactory ($http, $httpParamSerializer, $q, $timeout, environment, userSettings) {
         var userState = {},
-            accessToken = userSettings.getItem('token');
+            accessToken = userSettings.token.value;
 
         // if sessionStorage is available use the refreshToken function to check if a token is available and valid
         if (accessToken) {
@@ -53,7 +53,7 @@
                 userState.accessToken = response.data.token;
                 userState.isLoggedIn = true;
 
-                userSettings.setItem('token', userState.accessToken);
+                userSettings.token.value = userState.accessToken;
                 accessToken = response.data.token;
 
                 intervalPromise = $timeout(refreshToken, intervalDuration);
@@ -96,7 +96,7 @@
 
             function refreshSuccess (response) {
                 userState.accessToken = response.data.token;
-                userSettings.setItem('token', userState.accessToken);
+                userSettings.token.value = userState.accessToken;
                 accessToken = response.data.token;
                 userState.isLoggedIn = true;
 
@@ -108,7 +108,7 @@
             if (intervalPromise) {
                 $timeout.cancel(intervalPromise);
             }
-            userSettings.removeItem('token');
+            userSettings.token.remove();
 
             userState.username = null;
             userState.accessToken = null;

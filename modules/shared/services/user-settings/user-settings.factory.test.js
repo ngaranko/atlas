@@ -1,12 +1,15 @@
 describe('the user settings factory', function () {
+    const GET_ITEM_VALUE = 'value';
+
     let userSettings,
         storage;
 
     beforeEach(function () {
         var storageMethods = {
-            setItem: angular.noop,
-            getItem: angular.noop,
-            removeItem: angular.noop
+            value: null,
+            setItem: () => this.value = GET_ITEM_VALUE,
+            getItem: () => this.value,
+            removeItem: () => this.value = null
         };
 
         angular.mock.module(
@@ -27,36 +30,36 @@ describe('the user settings factory', function () {
 
         [storage.instance, storage.session, storage.local]
             .forEach(s => ['setItem', 'getItem', 'removeItem']
-                .forEach(m => spyOn(s, m)
+                .forEach(m => spyOn(s, m).and.callThrough()
             ));
     });
 
-    it('stores token in the session storage', function () {
-        userSettings.setItem('token', 'aap');
-        expect(storage.session.setItem).toHaveBeenCalledWith('token', 'aap');
-        userSettings.getItem('token');
-        expect(storage.session.getItem).toHaveBeenCalledWith('token');
-        userSettings.removeItem('token');
-        expect(storage.session.removeItem).toHaveBeenCalledWith('token');
-    });
+    // ['Default value', 'Set value', 'Get value', 'Remove value'].forEach(method => {
+    //     it(`Has a ${method} method`, () => {
+    //
+    //     })
+    // });
 
-    it('stores fullscreenStraatbeeld in the local storage', function () {
-        userSettings.setItem('fullscreenStraatbeeld', 'aap');
-        expect(storage.local.setItem).toHaveBeenCalledWith('fullscreenStraatbeeld', 'aap');
-        userSettings.getItem('fullscreenStraatbeeld');
-        expect(storage.local.getItem).toHaveBeenCalledWith('fullscreenStraatbeeld');
-        userSettings.removeItem('fullscreenStraatbeeld');
-        expect(storage.local.removeItem).toHaveBeenCalledWith('fullscreenStraatbeeld');
-    });
-
-    it('does not store unknown settings', function () {
-        [storage.instance, storage.session, storage.local].forEach(s => {
-            userSettings.setItem('xyz', 'aap');
-            expect(s.setItem).not.toHaveBeenCalled();
-            userSettings.getItem('xyz');
-            expect(s.getItem).not.toHaveBeenCalled();
-            userSettings.removeItem('xyz');
-            expect(s.removeItem).not.toHaveBeenCalled();
+    it('stores settings in the corresponding storage', function () {
+        [
+            {key: 'token', type: 'session', whenNoValue: undefined},
+            {key: 'fullscreenStraatbeeld', type: 'local', whenNoValue: true.toString()}
+        ].forEach(({key, type, whenNoValue}) => {
+            let value;
+            // Remove value
+            userSettings[key].remove();
+            expect(storage[type].removeItem).toHaveBeenCalledWith(key);
+            value = userSettings[key].value;
+            // Default value
+            expect(value).toBe(whenNoValue);
+            // Set value
+            value = 'aap';
+            userSettings[key].value = value;
+            expect(storage[type].setItem).toHaveBeenCalledWith(key, value);
+            // Get value
+            value = userSettings[key].value;
+            expect(storage[type].getItem).toHaveBeenCalledWith(key);
+            expect(value).toBe(GET_ITEM_VALUE);
         });
     });
 });

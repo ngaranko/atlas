@@ -2,6 +2,7 @@ describe('The dp-straatbeeld directive', function () {
     var $compile,
         $rootScope,
         $store,
+        userSettings,
         scope,
         ACTIONS,
         $q,
@@ -41,6 +42,7 @@ describe('The dp-straatbeeld directive', function () {
             _$compile_,
             _$rootScope_,
             _store_,
+            _userSettings_,
             _ACTIONS_,
             _$q_,
             _marzipanoService_,
@@ -49,6 +51,7 @@ describe('The dp-straatbeeld directive', function () {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             $store = _store_;
+            userSettings = _userSettings_;
             ACTIONS = _ACTIONS_;
             $q = _$q_;
             marzipanoService = _marzipanoService_;
@@ -133,6 +136,16 @@ describe('The dp-straatbeeld directive', function () {
             expect($store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.STRAATBEELD_FULLSCREEN,
                 payload: false
+            });
+        });
+
+        it('stores the fullsreem state of the straatbeeld in the user settings', function () {
+            [true, false, true].forEach(b => {
+                scope.state.isFullscreen = b;
+                $rootScope.$apply();
+                toggle.click();
+                $rootScope.$apply();
+                expect(userSettings.fullscreenStraatbeeld.value).toBe((!b).toString());
             });
         });
     });

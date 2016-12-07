@@ -8,31 +8,27 @@
     userSettingsFactory.$inject = ['storage'];
 
     function userSettingsFactory (storage) {
-        const settings = {
-            'token': storage.session,
-            'fullscreenStraatbeeld': storage.local
-        };
+        class Setting {
+            constructor (key, storageProvider, defaultValue) {
+                this._key = key;
+                this._storage = storageProvider;
+                this._defaultValue = defaultValue;
+            }
+            set value (value) {
+                this._storage.setItem(this._key, value);
+            }
+            get value () {
+                let keyValue = this._storage.getItem(this._key);
+                return keyValue === null ? this._defaultValue : keyValue;
+            }
+            remove () {
+                this._storage.removeItem(this._key);
+            }
+        }
 
         return {
-            setItem,
-            getItem,
-            removeItem
+            token: new Setting('token', storage.session),
+            fullscreenStraatbeeld: new Setting('fullscreenStraatbeeld', storage.local, true.toString())
         };
-
-        function setItem (key, value) {
-            if (settings[key]) {
-                settings[key].setItem(key, value);
-            }
-        }
-
-        function getItem (key) {
-            return settings[key] && settings[key].getItem(key);
-        }
-
-        function removeItem (key) {
-            if (settings[key]) {
-                return settings[key].removeItem(key);
-            }
-        }
     }
 })();
