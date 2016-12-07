@@ -66,13 +66,17 @@
 }
 
 %icon-button-text-box {
+  font-family: $header-font-family;
+  font-size: $base-font-size;
+  font-weight: lighter;
   display: block;
   position: relative;
   height: $button-size;
   padding-right: 10px;
   padding-left: 10px;
-  border: 1px solid $secondary-gray40;
+  border: 1px solid $secondary-gray20;
   background-color: $primary-light;
+  color: $secondary-gray60;
   line-height: $button-size - 2;
   text-align: left;
   text-decoration: none;
@@ -95,22 +99,22 @@
 }
 
 %icon-button-text-box-hover {
+  border: solid $primary-contrast 1px;
   background-color: $primary-contrast;
   color: $primary-light;
-  border: solid $primary-contrast 1px;
   text-decoration: none;
 }
 
 @mixin icon-button-text-box-left($icon, $state: "", $hover-state: "red") {
   @extend %icon-button-text-box;
-
+  
   padding-right: 10px + $button-size;
-  border-right: none;
 
   &::after {
     @extend %#{"dp-" + $icon + if(str-length($state) > 0, "-", "") + $state + "-icon"};
     @extend %icon-button-text-box-extra;
-
+    
+    top: 0;
     right: 0;
   }
 

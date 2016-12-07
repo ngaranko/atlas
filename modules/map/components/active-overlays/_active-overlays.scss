@@ -4,13 +4,13 @@
   position: absolute;
   bottom: 0;
   left: 180px;
-  min-width: $button-size + 81px;
+  min-width: $button-size + 75px;
   z-index: 3;
 }
 
 .c-toggle-active-overlays {
   @extend %toggle-active-overlays;
-  @include icon-button-text-box-left("down", "red", "");
+  @include icon-button-text-box-left("down", "", "red");
   border-bottom: none;
 
   &.c-toggle-active-overlays--mirrored {

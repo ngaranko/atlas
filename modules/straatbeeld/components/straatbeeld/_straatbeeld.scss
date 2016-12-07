@@ -18,7 +18,7 @@
   right: 0;
   bottom:  $base-whitespace * 2;
   left: 0;
-  border: solid $secondary-gray40 1px;
+  border: solid $secondary-gray20 1px;
 }
 
 .c-straatbeeld__status-bar {
@@ -30,7 +30,7 @@
   height: $button-size;
   padding-right: $base-whitespace / 2;
   background-color: $primary-light-alpha66;
-  color: $secondary-gray80;
+  color: $secondary-gray60;
   z-index: 2;
 }
 
@@ -56,12 +56,12 @@
   @include icon-button-text-right("forward", "", "white");
   @include font-definition;
   margin-right: 0;
-  margin-left: -5px;
-  padding-right: 10px;
-  padding-left: 5px;
+  margin-left: -$base-whitespace / 2;
+  padding-right: $base-whitespace;
+  padding-left: $base-whitespace / 2;
   float: left;
   border-right: solid $primary-light-alpha50 1px;
-  color: $secondary-gray80;
+  color: $secondary-gray60;
   z-index: 2;
 
   &:hover {
@@ -71,7 +71,7 @@
   }
 
   &::before {
-    //margin-top: -1px;
+    margin-top: -1px;
     margin-right: 0;
   }
 }
@@ -87,7 +87,7 @@
   z-index: 2;
 
   &:hover {
-    padding-right: 10px;
+    padding-right: $base-whitespace;
     background-color: $primary-contrast;
     color: $primary-light;
     text-decoration: none;
