@@ -194,6 +194,22 @@ describe('The dp-data-selection component', function () {
 
         it('sends an empty Array if there are too many records (> 10000) to show', function () {
             mockedState.view = 'LIST';
+
+            // It should still send data with 10000 records
+            mockedApiPreviewData.number_of_records = 10000;
+
+            getComponent(mockedState);
+
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.SHOW_DATA_SELECTION,
+                payload: [
+                    [52.1, 4.1],
+                    [52.2, 4.2],
+                    [52.3, 4.3]
+                ]
+            });
+
+            // It should send an empty Array with more than 10000
             mockedApiPreviewData.number_of_records = 10001;
 
             getComponent(mockedState);
