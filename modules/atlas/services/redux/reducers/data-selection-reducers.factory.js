@@ -62,8 +62,10 @@
         function showDataSelectionReducer (oldState, payload) {
             let newState = angular.copy(oldState);
 
-            newState.dataSelection.markers = payload;
-            newState.dataSelection.isLoading = false;
+            if (newState.dataSelection) {
+                newState.dataSelection.markers = payload;
+                newState.dataSelection.isLoading = false;
+            }
 
             return newState;
         }

@@ -183,16 +183,25 @@ describe('The dataSelectionReducers factory', function () {
             };
 
             payload = ['MOCKED', 'MARKER', 'ARRAY'];
-
-            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
         });
 
         it('adds markers to the state', function () {
+            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
+
             expect(output.dataSelection.markers).toEqual(['MOCKED', 'MARKER', 'ARRAY']);
         });
 
         it('sets isLoading to false', function () {
+            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
+
             expect(output.dataSelection.isLoading).toEqual(false);
+        });
+
+        it('does nothing if the user has navigated away from dataSelection before the API is finished', function () {
+            mockedState.dataSelection = null;
+            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
+
+            expect(output.dataSelection).toBeNull();
         });
     });
 
