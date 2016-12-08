@@ -18,6 +18,11 @@
                     ENDPOINT_MARKERS: 'https://api-acc.datapunt.amsterdam.nl/dataselectie/bag/geolocation/',
                     ENDPOINT_EXPORT: 'https://api-acc.datapunt.amsterdam.nl/dataselectie/bag/export/',
                     ENDPOINT_DETAIL: 'https://api-acc.datapunt.amsterdam.nl/bag/nummeraanduiding/'
+                },
+                hr: {
+                    ENDPOINT_PREVIEW: 'https://api-acc.datapunt.amsterdam.nl/dataselectie/hr/',
+                    ENDPOINT_EXPORT: 'https://api-acc.datapunt.amsterdam.nl/dataselectie/hr/export/',
+                    ENDPOINT_DETAIL: 'https://api-acc.datapunt.amsterdam.nl/handelsregister/vestiging/'
                 }
             },
             PRODUCTION: {
@@ -26,6 +31,11 @@
                     ENDPOINT_MARKERS: 'https://api.datapunt.amsterdam.nl/dataselectie/bag/geolocation/',
                     ENDPOINT_EXPORT: 'https://api.datapunt.amsterdam.nl/dataselectie/bag/export/',
                     ENDPOINT_DETAIL: 'https://api.datapunt.amsterdam.nl/bag/nummeraanduiding/'
+                },
+                hr: {
+                    ENDPOINT_PREVIEW: 'https://api.datapunt.amsterdam.nl/dataselectie/hr/',
+                    ENDPOINT_EXPORT: 'https://api.datapunt.amsterdam.nl/dataselectie/hr/export/',
+                    ENDPOINT_DETAIL: 'https://api.datapunt.amsterdam.nl/handelsregister/vestiging/'
                 }
             }
         };
@@ -138,6 +148,89 @@
                                 'status_id'
                             ],
                             formatter: 'verblijfsobjectGevormd'
+                        }
+                    ]
+                }
+            },
+            hr: {
+                PRIMARY_KEY: 'id',
+                TITLE: 'Handelsregister',
+                FILTERS: [
+                    {
+                        slug: 'stadsdeel_naam',
+                        label: 'Stadsdeel'
+                    }, {
+                        slug: 'ggw_naam',
+                        label: 'GGW-gebied'
+                    }, {
+                        slug: 'buurtcombinatie_naam',
+                        label: 'Buurtcombinatie'
+                    }, {
+                        slug: 'buurt_naam',
+                        label: 'Buurt'
+                    }, {
+                        slug: 'naam',
+                        label: 'Openbare ruimte'
+                    }, {
+                        slug: 'postcode',
+                        label: 'Postcode'
+                    }, {
+                        slug: 'hoofdcategorie',
+                        label: 'Hoofdcategorie'
+                    }, {
+                        slug: 'subcategorie',
+                        label: 'Subcategorie'
+                    }
+                ],
+                CONTENT: {
+                    TABLE: [
+                        {
+                            label: 'KvK-num.',
+                            variables: []
+                        },
+                        {
+                            label: 'Handelsnaam',
+                            variables: ['bedrijfsnaam']
+                        },
+                        {
+                            label: 'Bezoekadres',
+                            variables: []
+                        },
+                        {
+                            label: 'Num.',
+                            variables: []
+                        },
+                        {
+                            label: 'Let.',
+                            variables: []
+                        },
+                        {
+                            label: 'Toev.',
+                            variables: []
+                        },
+                        {
+                            label: 'Postcode',
+                            variables: []
+                        },
+                        {
+                            label: 'Woonplaats',
+                            variables: []
+                        },
+                        {
+                            label: 'Hoofdcategorie',
+                            variables: []
+                        },
+                        {
+                            label: 'Subcategorie',
+                            variables: []
+                        },
+                        {
+                            label: 'SBI-omschrijving',
+                            variables: []
+                        },
+                        {
+                            label: 'SBI-code',
+                            variables: []
                         }
                     ]
                 }
