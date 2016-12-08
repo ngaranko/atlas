@@ -134,13 +134,27 @@ describe('The dataSelectionApiCkan factory', function () {
             fq: ''
         });
 
-        // With active filters
+        api.getByUri.calls.reset();
+
+        // With an active filter
         dataSelectionApiCkan.query(config, {water: 'verwarmd'}, 1);
         expect(api.getByUri).toHaveBeenCalledWith('https://api.amsterdam.nl/catalogus/', {
             start: 0,
             'facet.field': '["type","water"]',
             fq: 'water:verwarmd'
         });
+
+        api.getByUri.calls.reset();
+
+        // With active filters
+        dataSelectionApiCkan.query(config, {water: 'verwarmd', type: 'overdekt'}, 1);
+        expect(api.getByUri).toHaveBeenCalledWith('https://api.amsterdam.nl/catalogus/', {
+            start: 0,
+            'facet.field': '["type","water"]',
+            fq: 'water:verwarmd type:overdekt'
+        });
+
+        api.getByUri.calls.reset();
 
         // With another page
         dataSelectionApiCkan.query(config, {water: 'extra-koud'}, 2);
@@ -160,6 +174,23 @@ describe('The dataSelectionApiCkan factory', function () {
         $rootScope.$apply();
 
         expect(output.numberOfPages).toBe(2);
+    });
+
+    it('registers an error with an unsuccessful response', () => {
+        let thenCalled = false,
+            catchCalled = false;
+
+        mockedApiResponse.success = false;
+
+        dataSelectionApiCkan.query(config, {}, 1).then(() => {
+            thenCalled = true;
+        }, () => {
+            catchCalled = true;
+        });
+        $rootScope.$apply();
+
+        expect(thenCalled).toBe(false);
+        expect(catchCalled).toBe(true);
     });
 
     describe('it returns all available filters', function () {

@@ -3,32 +3,35 @@
         .module('dpDataSelection')
         .factory('dataSelectionApiCkan', dataSelectionApiCkanFactory);
 
-    dataSelectionApiCkanFactory.$inject = ['api'];
+    dataSelectionApiCkanFactory.$inject = ['$q', 'api'];
 
-    function dataSelectionApiCkanFactory (api) {
+    function dataSelectionApiCkanFactory ($q, api) {
         return {
             query: query
         };
 
         function query (config, activeFilters, page) {
-            let searchParams;
+            const deferred = $q.defer(),
+                searchParams = {
+                    start: (page - 1) * config.MAX_ITEMS_PER_PAGE,
+                    'facet.field': queryFilters(config.FILTERS),
+                    fq: queryActiveFilters(activeFilters)
+                };
 
-            searchParams = {
-                start: (page - 1) * config.MAX_ITEMS_PER_PAGE,
-                'facet.field': queryFilters(config.FILTERS),
-                fq: queryActiveFilters(activeFilters)
-            };
-
-            return api.getByUri(config.ENDPOINT_PREVIEW, searchParams).then(function (data) {
+            api.getByUri(config.ENDPOINT_PREVIEW, searchParams).then(function (data) {
                 if (data.success) {
-                    return {
+                    deferred.resolve({
                         numberOfPages: Math.ceil(data.result.count / config.MAX_ITEMS_PER_PAGE),
                         numberOfRecords: data.result.count,
                         filters: formatFilters(data.result.search_facets),
                         data: formatData(config, data.result.results)
-                    };
+                    });
+                } else {
+                    deferred.reject();
                 }
             });
+
+            return deferred.promise;
         }
 
         function queryFilters (filters) {
