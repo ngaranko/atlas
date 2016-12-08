@@ -21,7 +21,7 @@
         var vm = this,
             expandedCategories = [];
 
-        $scope.$watch('vm.activeFilters', updateFilters, true);
+        $scope.$watchGroup(['vm.dataset', 'vm.activeFilters'], updateFilters, true);
 
         vm.showMoreThreshold = 10;
 
@@ -85,18 +85,18 @@
         function updateFilters () {
             vm.showOptionCounts = dataSelectionConfig[vm.dataset].SHOW_FILTER_OPTION_COUNTS;
 
-            vm.formattedActiveFilters = dataSelectionConfig[vm.dataset].FILTERS.filter(function (filter) {
-                return angular.isString(vm.activeFilters[filter.slug]);
-            }).map(function (filter) {
+            vm.formattedActiveFilters = dataSelectionConfig[vm.dataset].FILTERS.filter(category => {
+                return angular.isString(vm.activeFilters[category.slug]);
+            }).map(function (category) {
+                const option = vm.availableFilters.filter(availableFilter => {
+                    return availableFilter.slug === category.slug;
+                })[0].options.filter(opt => {
+                    return opt.id === vm.activeFilters[category.slug];
+                })[0];
+
                 return {
-                    categorySlug: filter.slug,
-                    categoryLabel: filter.label,
-                    format: filter.format,
-                    option: vm.availableFilters.filter(availableFilter => {
-                        return availableFilter.slug === filter.slug;
-                    })[0].options.filter(option => {
-                        return option.id === vm.activeFilters[filter.slug];
-                    })[0]
+                    category,
+                    option
                 };
             });
         }

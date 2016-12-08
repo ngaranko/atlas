@@ -5,7 +5,7 @@
             <li class="c-data-selection-filters__listitem"
                 ng-repeat="filter in vm.formattedActiveFilters">
                 <span class="u-pull--right">
-                    <button ng-click="vm.removeFilter(filter.categorySlug)"
+                    <button ng-click="vm.removeFilter(filter.category.slug)"
                        class="c-data-selection-filters--remove-filter o-btn"
                        title="Filter verwijderen">
                         <span class="u-sr-only">Filter verwijderen</span>
@@ -13,7 +13,7 @@
 
                 </span>
                 <span class="c-data-selection-filters__active-filter">
-                    {{filter.categoryLabel}}:
+                    {{filter.category.label}}:
                     <span ng-class="{'c-data-selection-filters--empty-value': !filter.option.label}">
                         {{filter.option.label}}
                     </span>
