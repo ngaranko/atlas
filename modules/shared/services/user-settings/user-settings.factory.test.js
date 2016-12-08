@@ -34,12 +34,6 @@ describe('the user settings factory', function () {
             ));
     });
 
-    // ['Default value', 'Set value', 'Get value', 'Remove value'].forEach(method => {
-    //     it(`Has a ${method} method`, () => {
-    //
-    //     })
-    // });
-
     it('stores settings in the corresponding storage', function () {
         [
             {key: 'token', type: 'session', whenNoValue: undefined},
