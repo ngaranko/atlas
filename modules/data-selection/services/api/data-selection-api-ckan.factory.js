@@ -22,8 +22,8 @@
             return api.getByUri(config.ENDPOINT_PREVIEW, searchParams).then(function (data) {
                 if (data.success) {
                     return {
-                        number_of_pages: Math.ceil(data.result.count / config.MAX_ITEMS_PER_PAGE),
-                        number_of_records: data.result.count,
+                        numberOfPages: Math.ceil(data.result.count / config.MAX_ITEMS_PER_PAGE),
+                        numberOfRecords: data.result.count,
                         filters: formatFilters(data.result.search_facets),
                         data: formatData(config, data.result.results)
                     };
@@ -56,6 +56,7 @@
                     numberOfOptions: rawData[key].items.length,
                     options: rawData[key].items.map(option => {
                         return {
+                            id: option.name,
                             label: option.display_name,
                             count: option.count
                         };

@@ -14,8 +14,8 @@
                 </span>
                 <span class="c-data-selection-filters__active-filter">
                     {{filter.categoryLabel}}:
-                    <span ng-class="{'c-data-selection-filters--empty-value': !filter.option}">
-                        {{filter.option}}
+                    <span ng-class="{'c-data-selection-filters--empty-value': !filter.option.label}">
+                        {{filter.option.label}}
                     </span>
                 </span>
 
@@ -35,12 +35,13 @@
                         <button
                             class="o-btn o-btn--link"
                             ng-class="{
-                                'u-color__primary--dark': vm.isFilterActive(category.slug, option.label)
+                                'u-color__primary--dark': vm.isFilterActive(category.slug, option.id)
                             }"
-                            ng-click="vm.addFilter(category.slug, option.label)">
+                            ng-click="vm.addFilter(category.slug, option.id)">
 
                             <span ng-class="{'c-data-selection-filters--empty-value': !option.label}">
                                 {{option.label}}
+                                <span ng-if="vm.showOptionCounts">({{option.count}})</span>
                             </span>
                         </button>
                     </li>

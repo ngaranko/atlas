@@ -83,6 +83,8 @@
         };
 
         function updateFilters () {
+            vm.showOptionCounts = dataSelectionConfig[vm.dataset].SHOW_FILTER_OPTION_COUNTS;
+
             vm.formattedActiveFilters = dataSelectionConfig[vm.dataset].FILTERS.filter(function (filter) {
                 return angular.isString(vm.activeFilters[filter.slug]);
             }).map(function (filter) {
@@ -90,7 +92,11 @@
                     categorySlug: filter.slug,
                     categoryLabel: filter.label,
                     format: filter.format,
-                    option: vm.activeFilters[filter.slug]
+                    option: vm.availableFilters.filter(availableFilter => {
+                        return availableFilter.slug === filter.slug;
+                    })[0].options.filter(option => {
+                        return option.id === vm.activeFilters[filter.slug];
+                    })[0]
                 };
             });
         }

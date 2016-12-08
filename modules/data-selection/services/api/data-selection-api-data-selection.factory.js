@@ -52,6 +52,7 @@
                     numberOfOptions: rawData[key].doc_count,
                     options: rawData[key].buckets.map(option => {
                         return {
+                            id: option.key,
                             label: option.key,
                             count: option.doc_count
                         };
