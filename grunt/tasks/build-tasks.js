@@ -25,5 +25,5 @@ module.exports = function (grunt) {
         } else {
             grunt.log.error('Usage: grunt set-version-id --versionid=<versionid>');
         }
-    })
+    });
 };

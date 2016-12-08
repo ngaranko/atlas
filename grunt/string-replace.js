@@ -1,5 +1,4 @@
 module.exports = function (grunt) {
-
     var targets = {
         dist: {
             files: [{
@@ -13,8 +12,7 @@ module.exports = function (grunt) {
                 }]
             }
         }
-    }
-
+    };
 
     return targets;
 };
