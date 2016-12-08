@@ -14,10 +14,15 @@
             controllerAs: 'vm'
         });
 
-    DpHeaderController.$inject = ['user'];
+    DpHeaderController.$inject = ['user', 'httpStatus'];
 
-    function DpHeaderController (user) {
+    function DpHeaderController (user, httpStatus) {
         var vm = this;
+
+        vm.registerError = (event) => {
+            httpStatus.registerError(httpStatus.SERVER_ERROR);
+            event.preventDefault();
+        }
 
         vm.isLoggedIn = function () {
             return user.getStatus().isLoggedIn;
