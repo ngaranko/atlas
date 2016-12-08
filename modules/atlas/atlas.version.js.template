@@ -1,0 +1,7 @@
+(function () {
+    'use strict';
+
+    angular
+        .module('atlas')
+        .constant('ATLAS_VERSION', '__VERSIONID__');
+})();

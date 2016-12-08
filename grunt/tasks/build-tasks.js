@@ -18,4 +18,12 @@ module.exports = function (grunt) {
         'karma-modules-fullcoverage',
         'clean:temp'
     ]);
+
+    grunt.registerTask('set-version-id', function () {
+        if (grunt.option('versionid')) {
+            grunt.task.run(['string-replace']);
+        } else {
+            grunt.log.error('Usage: grunt set-version-id --versionid=<versionid>');
+        }
+    })
 };
