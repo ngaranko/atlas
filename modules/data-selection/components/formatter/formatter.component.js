@@ -36,5 +36,7 @@
                 return variable.value;
             }).join(' ');
         }
+
+        console.log(formattedValue);
     }
 })();
