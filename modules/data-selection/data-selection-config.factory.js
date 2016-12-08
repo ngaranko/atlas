@@ -63,15 +63,18 @@
                         },
                         {
                             label: 'Num.',
-                            variables: ['huisnummer']
+                            variables: ['huisnummer'],
+                            formatter: 'alignRight'
                         },
                         {
                             label: 'Let.',
-                            variables: ['huisletter']
+                            variables: ['huisletter'],
+                            formatter: 'alignRight'
                         },
                         {
                             label: 'Toev.',
-                            variables: ['huisnummer_toevoeging']
+                            variables: ['huisnummer_toevoeging'],
+                            formatter: 'alignRight'
                         },
                         {
                             label: 'Postcode',
