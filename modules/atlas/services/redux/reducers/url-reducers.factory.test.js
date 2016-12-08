@@ -514,6 +514,7 @@ describe('The urlReducers factory', function () {
                 mockedSearchParamsWithDataSelection = angular.copy(mockedSearchParams);
 
                 mockedSearchParamsWithDataSelection.dataset = 'bag';
+                mockedSearchParamsWithDataSelection.view = 'TABLE';
                 mockedSearchParamsWithDataSelection['dataset-filters'] = 'buurtcombinatie:Geuzenbuurt,buurt:Trompbuurt';
                 mockedSearchParamsWithDataSelection['dataset-pagina'] = '4';
             });
@@ -526,10 +527,12 @@ describe('The urlReducers factory', function () {
                 // With an active dataSelection
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParamsWithDataSelection);
                 expect(output.dataSelection).toEqual({
-                    view: undefined,
+                    view: 'TABLE',
                     dataset: 'bag',
                     filters: jasmine.any(Object),
-                    page: jasmine.anything()
+                    page: jasmine.anything(),
+                    markers: [],
+                    isLoading: jasmine.any(Boolean)
                 });
             });
 
@@ -587,6 +590,36 @@ describe('The urlReducers factory', function () {
                 delete mockedSearchParamsWithDataSelection.view;
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParamsWithDataSelection);
                 expect(output.dataSelection.view).toBeUndefined();
+            });
+
+            it('preservers markers from the oldState since markers aren\'t part of the URL', function () {
+                mockedState.dataSelection = {
+                    markers: [[52.0, 4.0], [52.8, 4.1]]
+                };
+
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParamsWithDataSelection);
+                expect(output.dataSelection.markers).toEqual([[52.0, 4.0], [52.8, 4.1]]);
+
+                // Don't preserve the markers when data selection is no longer active after the URL_CHANGE
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+                expect(output.dataSelection).toBeNull();
+            });
+
+            it('remembers isLoading from the oldState', function () {
+                mockedState.dataSelection = {
+                    isLoading: false
+                };
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParamsWithDataSelection);
+                expect(output.dataSelection.isLoading).toBe(false);
+
+                mockedState.dataSelection.isLoading = true;
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParamsWithDataSelection);
+                expect(output.dataSelection.isLoading).toBe(true);
+
+                // When the oldState has no dataSelection, isLoading will always be true
+                mockedState.dataSelection = null;
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParamsWithDataSelection);
+                expect(output.dataSelection.isLoading).toBe(true);
             });
         });
 
