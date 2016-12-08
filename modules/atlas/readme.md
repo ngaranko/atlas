@@ -19,6 +19,7 @@
 | heading             | straatbeeld.heading             | no                     |
 | pitch               | straatbeeld.pitch               | no                     |
 | fov                 | straatbeeld.fov                 | no                     |
+| volledig-kaartbeeld | straatbeeld.isFullscreen        | no                     |
 |                     | straatbeeld.hotspots            | no, []                 |
 |                     | straatbeeld.isLoading           | no                     |
 |                     | straatbeeld.image               | no                     |

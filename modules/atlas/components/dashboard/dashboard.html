@@ -26,7 +26,7 @@
 
                 <!-- Layer selection -->
                 <div ng-if="vm.columnSizes.left"
-                    class="c-dashboard__layer-selection"
+                    class="c-dashboard__column"
                     ng-class="'u-col-sm--' + vm.columnSizes.left">
 
                     <div ng-controller="LayerSelectionController as vm">
@@ -40,7 +40,7 @@
 
                 <!-- Map -->
                 <div ng-if="vm.columnSizes.middle && vm.visibility.map"
-                     class="c-dashboard__map"
+                     class="c-dashboard__column"
                      ng-class="'u-col-sm--' + vm.columnSizes.middle">
 
                     <div ng-controller="MapController as vm">
@@ -54,7 +54,7 @@
 
                 <!-- Fullscreen Straatbeeld -->
                 <div ng-if="vm.columnSizes.middle && vm.visibility.straatbeeld && vm.isFullscreen"
-                     class="c-dashboard__straatbeeld"
+                     class="c-dashboard__column"
                      ng-class="'u-col-sm--' + vm.columnSizes.middle">
 
                     <div ng-controller="StraatbeeldController as straatbeeld"
@@ -68,7 +68,7 @@
                     dp-scrollable-content
                     visibility="vm.visibility"
                     page-name="{{vm.pageName}}"
-                    class="c-dashboard__content"
+                    class="c-dashboard__column c-dashboard__content"
                     ng-class="'u-col-sm--' + vm.columnSizes.right">
 
                     <!-- Detail -->
