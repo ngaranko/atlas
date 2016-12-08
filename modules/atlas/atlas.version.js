@@ -2,7 +2,7 @@
     'use strict';
 
     /*
-     * Do not change this module
+     * ATTENTION: Do not change this module, the contents will be overwritten during the build process
      */
 
     angular
