@@ -37,6 +37,6 @@
             }).join(' ');
         }
 
-        console.log(formattedValue);
+        console.log(vm.formattedValue);
     }
 })();
