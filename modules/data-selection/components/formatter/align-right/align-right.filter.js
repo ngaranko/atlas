@@ -14,7 +14,7 @@
             div.setAttribute('class', 'u-align--right');
             div.innerText = input;
 
-            return div.outerHTML;
+            return "<div class='u-align--right'>" + input + "</div>";//div.outerHTML;
         };
     }
 })();
