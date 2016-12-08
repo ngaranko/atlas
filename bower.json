@@ -4,20 +4,21 @@
   "dependencies": {
     "angular": "^1.5.7",
     "angular-aria": "^1.5.7",
+    "angular-debounce": "^1.1.0",
     "angular-i18n": "^1.5.7",
     "angular-sanitize": "^1.5.7",
     "angulartics-piwik": "^1.0.4",
     "bbga_visualisatie_d3": "https://github.com/DatapuntAmsterdam/bbga_visualisatie_d3.git",
     "d3": "^3.5.17",
     "leaflet": "^1.0.0",
+    "leaflet.markercluster": "^1.0.0",
     "leaflet.wms": "~0.1.0",
     "leaflet-measure": "^2.0.5",
     "leaflet-rotatedmarker": "https://unpkg.com/leaflet-rotatedmarker/leaflet.rotatedMarker.js",
     "marzipano": "https://github.com/DatapuntAmsterdam/marzipano.git#master",
     "proj4": "*",
     "proj4leaflet": "https://github.com/DatapuntAmsterdam/proj4leaflet.git#master",
-    "redux": "https://unpkg.com/redux/dist/redux.js",
-    "angular-debounce": "^1.1.0"
+    "redux": "https://unpkg.com/redux/dist/redux.js"
   },
   "devDependencies": {
     "angular-mocks": "^1.5.7"

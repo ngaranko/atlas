@@ -70,7 +70,7 @@
                 if (newUrl === currentUrl) {
                     scope.isButton = true;
                 } else {
-                    scope.url = newUrl;
+                    scope.url = encodeURI(newUrl);
                 }
             }
         }
