@@ -10,19 +10,9 @@
         <dt>KvK-nummer</dt>
         <dp-api-call endpoint="{{vm.apiData.results.maatschappelijke_activiteit}}" partial="handelsregister/kvk-nummer"></dp-api-call>
         <dt>Postadres</dt>
-        <dd>
-            {{ vm.apiData.results.postadres.volledig_adres }}
-            <dp-message ng-if="vm.apiData.results.postadres.correctie">
-                <span class="u-nowrap">Adres bij benadering</span>
-            </dp-message>
-        </dd>
+        <dd> {{ vm.apiData.results.postadres.volledig_adres }} </dd>
         <dt>Bezoekadres</dt>
-        <dd>
-            {{ vm.apiData.results.bezoekadres.volledig_adres }}
-            <dp-message ng-if="vm.apiData.results.bezoekadres.correctie">
-                <span class="u-nowrap">Adres bij benadering</span>
-            </dp-message>
-        </dd>
+        <dd> {{ vm.apiData.results.bezoekadres.volledig_adres }} </dd>
         <dt>Type vestiging</dt>
         <dd>
             {{ vm.apiData.results.hoofdvestiging ? "Hoofdvestiging" : vm.apiData.results.hoofdvestiging === false ? "Nevenvestiging" : "" }}
@@ -39,10 +29,17 @@
         <dt>Datum aanvang</dt>
         <dd> {{ vm.apiData.results.datum_aanvang | date:'dd-MM-yyyy' }} </dd>
         <dt>Coördinaten</dt>
-        <dd ng-if="apiData.results.bezoekadres.geometrie.coordinates[0]">
-            {{ apiData.results.bezoekadres.geometrie.coordinates[0] }}, {{ apiData.results.bezoekadres.geometrie.coordinates[1] }}
+        <dd ng-if="vm.apiData.results.bezoekadres.geometrie.coordinates[0]">
+            {{ vm.apiData.results.bezoekadres.geometrie.coordinates | coordinates: 'RD' }}
         </dd>
-        <dd ng-if="!apiData.results.bezoekadres.geometrie.coordinates[0]"></dd>
+        <dd ng-if="vm.apiData.results.bezoekadres.geometrie.coordinates[0] && vm.apiData.results.bezoekadres.correctie"
+            class="c-key-value-list--multiple-values">
+            <dp-message>
+                <span>Exacte locatie niet bekend</span><span ng-if="vm.apiData.results.bezoekadres.query_string">,
+                    coördinaten gebruikt van {{vm.apiData.results.bezoekadres.query_string}}
+                </span>
+            </dp-message>
+        </dd>
     </dl>
 
     <dp-stelselpedia-header
