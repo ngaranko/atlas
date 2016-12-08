@@ -36,7 +36,5 @@
                 return variable.value;
             }).join(' ');
         }
-
-        console.log(vm.formattedValue);
     }
 })();
