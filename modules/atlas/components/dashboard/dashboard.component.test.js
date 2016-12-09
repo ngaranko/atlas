@@ -117,18 +117,18 @@ describe('The dashboard component', function () {
         it('displays the columns according to the column size', function () {
             component = getComponent();
 
-            expect(component.find('.c-dashboard__layer-selection').length).toBe(1);
-            expect(component.find('.c-dashboard__map').length).toBe(1);
-            expect(component.find('.c-dashboard__content').length).toBe(1);
+            expect(component.find('.qa-dashboard__layer-selection').length).toBe(1);
+            expect(component.find('.qa-dashboard__map').length).toBe(1);
+            expect(component.find('.qa-dashboard__content').length).toBe(1);
         });
 
         it('does not display a column on zero size', function () {
             mockedColumnSizes.left = 0;
             component = getComponent();
 
-            expect(component.find('.c-dashboard__layer-selection').length).toBe(0);
-            expect(component.find('.c-dashboard__map').length).toBe(1);
-            expect(component.find('.c-dashboard__content').length).toBe(1);
+            expect(component.find('.qa-dashboard__layer-selection').length).toBe(0);
+            expect(component.find('.qa-dashboard__map').length).toBe(1);
+            expect(component.find('.qa-dashboard__content').length).toBe(1);
         });
 
         it('does not display a column on missing size', function () {
@@ -137,17 +137,17 @@ describe('The dashboard component', function () {
             delete mockedColumnSizes.right;
             component = getComponent();
 
-            expect(component.find('.c-dashboard__layer-selection').length).toBe(0);
-            expect(component.find('.c-dashboard__map').length).toBe(0);
-            expect(component.find('.c-dashboard__content').length).toBe(0);
+            expect(component.find('.qa-dashboard__layer-selection').length).toBe(0);
+            expect(component.find('.qa-dashboard__map').length).toBe(0);
+            expect(component.find('.qa-dashboard__content').length).toBe(0);
         });
 
         it('adds the correct class according to the column size', function () {
             component = getComponent();
 
-            expect(component.find('.c-dashboard__layer-selection').attr('class')).toContain('u-col-sm--1');
-            expect(component.find('.c-dashboard__map').attr('class')).toContain('u-col-sm--2');
-            expect(component.find('.c-dashboard__content').attr('class')).toContain('u-col-sm--3');
+            expect(component.find('.qa-dashboard__layer-selection').attr('class')).toContain('u-col-sm--1');
+            expect(component.find('.qa-dashboard__map').attr('class')).toContain('u-col-sm--2');
+            expect(component.find('.qa-dashboard__content').attr('class')).toContain('u-col-sm--3');
         });
     });
 
@@ -184,10 +184,10 @@ describe('The dashboard component', function () {
             });
             component = getComponent();
 
-            expect(component.find('.c-dashboard__layer-selection').length).toBe(1);
-            expect(component.find('.c-dashboard__map').length).toBe(0);
-            expect(component.find('.c-dashboard__straatbeeld').length).toBe(1);
-            expect(component.find('.c-dashboard__content').length).toBe(1);
+            expect(component.find('.qa-dashboard__layer-selection').length).toBe(1);
+            expect(component.find('.qa-dashboard__map').length).toBe(0);
+            expect(component.find('.qa-dashboard__straatbeeld').length).toBe(1);
+            expect(component.find('.qa-dashboard__content').length).toBe(1);
         });
 
         it('displays a normal straatbeeld on straatbeeld.isFullscreen = false', function () {
@@ -200,10 +200,10 @@ describe('The dashboard component', function () {
             });
             component = getComponent();
 
-            expect(component.find('.c-dashboard__layer-selection').length).toBe(1);
-            expect(component.find('.c-dashboard__map').length).toBe(0);
-            expect(component.find('.c-dashboard__straatbeeld').length).toBe(0);
-            expect(component.find('.c-dashboard__content').length).toBe(1);
+            expect(component.find('.qa-dashboard__layer-selection').length).toBe(1);
+            expect(component.find('.qa-dashboard__map').length).toBe(0);
+            expect(component.find('.qa-dashboard__straatbeeld').length).toBe(0);
+            expect(component.find('.qa-dashboard__content').length).toBe(1);
         });
     });
 });
