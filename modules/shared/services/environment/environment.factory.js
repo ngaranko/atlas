@@ -16,7 +16,7 @@
                 break;
 
             default:
-                environment = 'DEVELOPMENT';
+                environment = 'PRODUCTION';
         }
 
         ENVIRONMENT_CONFIG[environment].NAME = environment;
