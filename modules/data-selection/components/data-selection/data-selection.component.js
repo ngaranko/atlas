@@ -21,7 +21,7 @@
         $scope.$watch('vm.state', fetchData, true);
 
         function fetchData () {
-            vm.isLoading = vm.state.isLoading;
+            vm.isLoading = true;
 
             vm.title = dataSelectionConfig[vm.state.dataset].TITLE;
             vm.view = vm.state.view;
@@ -38,6 +38,7 @@
                 vm.numberOfPages = data.number_of_pages;
 
                 vm.hasTooManyMarkers = vm.view === 'LIST' && vm.numberOfRecords > MAXIMUM_NUMBER_OF_MARKERS;
+                vm.isLoading = false;
 
                 if (vm.view === 'LIST' && vm.numberOfRecords <= MAXIMUM_NUMBER_OF_MARKERS) {
                     dataSelectionApi.getMarkers(vm.state.dataset, vm.state.filters).then(markerData => {
