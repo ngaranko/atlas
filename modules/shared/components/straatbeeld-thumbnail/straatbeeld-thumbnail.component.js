@@ -12,9 +12,9 @@
             controllerAs: 'vm'
         });
 
-    DpStraatbeeldThumbnailController.$inject = ['$scope', 'sharedConfig', 'api', 'store', 'ACTIONS'];
+    DpStraatbeeldThumbnailController.$inject = ['$scope', 'sharedConfig', 'api', 'store', 'userSettings', 'ACTIONS'];
 
-    function DpStraatbeeldThumbnailController ($scope, sharedConfig, api, store, ACTIONS) {
+    function DpStraatbeeldThumbnailController ($scope, sharedConfig, api, store, userSettings, ACTIONS) {
         var vm = this,
             imageUrl,
             heading,
@@ -46,7 +46,8 @@
                     vm.payload = {
                         id: id,
                         heading: heading,
-                        isInitial: true
+                        isInitial: true,
+                        isFullscreen: userSettings.fullscreenStraatbeeld.value === true.toString()
                     };
                 } else {
                     vm.hasThumbnail = false;
