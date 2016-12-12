@@ -12,6 +12,29 @@
   z-index: 1;
 }
 
+@mixin streetview-map {
+  @include font-definition;
+  margin-right: 0;
+  margin-left: -$base-whitespace / 2;
+  padding-right: $base-whitespace;
+  padding-left: $base-whitespace / 2;
+  float: left;
+  border-right: solid $secondary-gray20 1px;
+  color: $secondary-gray60;
+  z-index: 2;
+
+  &:hover {
+    background-color: $primary-contrast;
+    color: $primary-light;
+    text-decoration: none;
+  }
+
+  &::before {
+    margin-top: -1px;
+    margin-right: -$base-whitespace / 2;
+  }
+}
+
 .c-straatbeeld__marzipano {
   position: absolute;
   top: 0;
@@ -52,28 +75,14 @@
   display: inline;
 }
 
-.c-straatbeeld__close-map {
-  @include icon-button-text-right("forward", "", "white");
-  @include font-definition;
-  margin-right: 0;
-  margin-left: -$base-whitespace / 2;
-  padding-right: $base-whitespace;
-  padding-left: $base-whitespace / 2;
-  float: left;
-  border-right: solid $secondary-gray20 1px;
-  color: $secondary-gray60;
-  z-index: 2;
+.c-straatbeeld__streetview-map-icon--minimize {
+  @include icon-button-text-right("forward", "", "red");
+  @include streetview-map;
+}
 
-  &:hover {
-    background-color: $primary-contrast;
-    color: $primary-light;
-    text-decoration: none;
-  }
-
-  &::before {
-    margin-top: -1px;
-    margin-right: 0;
-  }
+.c-straatbeeld__streetview-map-icon--maximize {
+  @include icon-button-text-right("back", "", "red");
+  @include streetview-map;
 }
 
 .c-straatbeeld__streetview-history-icon {
@@ -94,39 +103,5 @@
     background-color: $primary-contrast;
     color: $primary-light;
     text-decoration: none;
-  }
-}
-
-.c-straatbeeld__streetview-map-icon--minimize {
-  @include icon-button-text-right("forward", "", "red");
-  margin-left: $base-whitespace / 2;
-  font-family: $base-font-family;
-  font-size: $base-font-size - 2;
-  z-index: 2;
-
-  &:hover {
-    color: $primary-light;
-    text-decoration: underline;
-  }
-
-  &::after {
-    position: absolute;
-  }
-}
-
-.c-straatbeeld__streetview-map-icon--maximize {
-  @include icon-button-text-right("back", "", "red");
-  margin-left: $base-whitespace / 2;
-  font-family: $base-font-family;
-  font-size: $base-font-size - 2;
-  z-index: 2;
-
-  &:hover {
-    color: $primary-light;
-    text-decoration: underline;
-  }
-
-  &::after {
-    position: absolute;
   }
 }

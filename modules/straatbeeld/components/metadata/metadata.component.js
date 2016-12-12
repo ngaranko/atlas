@@ -14,9 +14,9 @@
             controllerAs: 'vm'
         });
 
-    DpStraatbeeldMetadataController.$inject = ['$scope'];
+    DpStraatbeeldMetadataController.$inject = ['$scope', 'store'];
 
-    function DpStraatbeeldMetadataController ($scope) {
+    function DpStraatbeeldMetadataController ($scope, store) {
         let vm = this;
 
         $scope.$watch ('vm.location', updateLocation, true);
@@ -34,6 +34,14 @@
             }
         }
 
+           vm.toggleFullscreen = function () {
+                // Dispatch an action to change the pano
+                store.dispatch({
+                    type: ACTIONS.STRAATBEELD_FULLSCREEN,
+                    payload: !scope.state.isFullscreen
+                });
+            };
+        
         vm.showMetaInfo = () => angular.isDate(vm.date) && angular.isArray(vm.location);
     }
 })();
