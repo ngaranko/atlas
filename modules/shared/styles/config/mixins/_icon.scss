@@ -136,7 +136,6 @@
   &::before {
     @extend %#{"dp-" + $icon + if(str-length($state) > 0, "-", "") + $state + "-icon"};
     @extend %icon-button-text-box-extra;
-
     left: 0;
   }
 
