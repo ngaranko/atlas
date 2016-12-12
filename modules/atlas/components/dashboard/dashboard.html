@@ -87,7 +87,9 @@
                     <div ng-if="vm.visibility.straatbeeld" ng-controller="StraatbeeldController as straatbeeld"
                        class="u-dashboard--full-height">
 
-                        <dp-straatbeeld state="straatbeeld.straatbeeldState" is-print-mode="vm.isPrintMode"></dp-straatbeeld>
+                        <!--Resize straatbeeld when any of printMode or errorMode changes-->
+                        <dp-straatbeeld state="straatbeeld.straatbeeldState"
+                                        resize="[vm.isPrintMode, vm.visibility.httpStatus.hasErrors]"></dp-straatbeeld>
                     </div>
 
                     <!-- Data selection -->

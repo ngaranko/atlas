@@ -22,7 +22,7 @@
         vm.registerError = (event) => {
             httpStatus.registerError(httpStatus.SERVER_ERROR);
             event.preventDefault();
-        }
+        };
 
         vm.isLoggedIn = function () {
             return user.getStatus().isLoggedIn;

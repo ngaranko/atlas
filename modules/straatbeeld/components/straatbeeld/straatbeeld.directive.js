@@ -19,7 +19,7 @@
             restrict: 'E',
             scope: {
                 state: '=',
-                isPrintMode: '='
+                resize: '<'
             },
             templateUrl: 'modules/straatbeeld/components/straatbeeld/straatbeeld.html',
             link: linkFunction
@@ -77,7 +77,7 @@
             });
 
             // Re-render the Marzipano viewer if the size changes (through an added parent CSS class)
-            scope.$watch('isPrintMode', function () {
+            scope.$watchCollection('resize', function () {
                 $rootScope.$applyAsync(function () {
                     viewer.updateSize();
                 });

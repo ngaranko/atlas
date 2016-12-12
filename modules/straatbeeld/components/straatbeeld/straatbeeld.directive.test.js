@@ -2,6 +2,7 @@ describe('The dp-straatbeeld directive', function () {
     var $compile,
         $rootScope,
         $store,
+        scope,
         ACTIONS,
         $q,
         marzipanoService,
@@ -72,15 +73,15 @@ describe('The dp-straatbeeld directive', function () {
         element.trigger(event);
     }
 
-    function getDirective (state, isPrintMode) {
+    function getDirective (state, resize) {
         var el = document.createElement('dp-straatbeeld');
         el.setAttribute('state', 'state');
-        el.setAttribute('is-print-mode', 'isPrintMode');
+        el.setAttribute('resize', 'resize');
 
-        var scope = $rootScope.$new();
+        scope = $rootScope.$new();
 
         scope.state = state;
-        scope.isPrintMode = isPrintMode;
+        scope.resize = resize;
 
         var directive = $compile(el)(scope);
         scope.$apply();
@@ -156,6 +157,28 @@ describe('The dp-straatbeeld directive', function () {
             directive.isolateScope().$apply();
 
             expect($store.dispatch).toHaveBeenCalledTimes(2);
+        });
+
+        it('Listens to resize changes', function () {
+            spyOn(mockedMarzipanoViewer, 'updateSize');
+
+            let resize = [true, true];
+
+            getDirective({}, resize);
+            scope.$apply(); // trigger digest to invoke upodateSize
+            expect(mockedMarzipanoViewer.updateSize).toHaveBeenCalled();
+            mockedMarzipanoViewer.updateSize.calls.reset();
+
+            resize[0] = false;
+            scope.$apply(); // trigger digest to invoke $watch
+            scope.$apply(); // trigger digest to invoke upodateSize
+            expect(mockedMarzipanoViewer.updateSize).toHaveBeenCalled();
+            mockedMarzipanoViewer.updateSize.calls.reset();
+
+            resize[1] = false;
+            scope.$apply(); // trigger digest to invoke $watch
+            scope.$apply(); // trigger digest to invoke upodateSize
+            expect(mockedMarzipanoViewer.updateSize).toHaveBeenCalled();
         });
 
         it('Listens to changes on scope for location', function () {
