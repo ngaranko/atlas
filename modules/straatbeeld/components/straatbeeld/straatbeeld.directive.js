@@ -8,13 +8,21 @@
     dpStraatbeeldDirective.$inject = [
         '$rootScope',
         'store',
+        'userSettings',
         'ACTIONS',
         'marzipanoService',
         'straatbeeldApi',
         'orientation'
     ];
 
-    function dpStraatbeeldDirective ($rootScope, store, ACTIONS, marzipanoService, straatbeeldApi, orientation) {
+    function dpStraatbeeldDirective (
+        $rootScope,
+        store,
+        userSettings,
+        ACTIONS,
+        marzipanoService,
+        straatbeeldApi,
+        orientation) {
         return {
             restrict: 'E',
             scope: {
@@ -66,9 +74,12 @@
 
             scope.toggleFullscreen = function () {
                 // Dispatch an action to change the pano
+                let isFullscreen = !scope.state.isFullscreen;
+                // Save the new state of the straatbeeld as a user setting
+                userSettings.fullscreenStraatbeeld.value = isFullscreen.toString();
                 store.dispatch({
                     type: ACTIONS.STRAATBEELD_FULLSCREEN,
-                    payload: !scope.state.isFullscreen
+                    payload: isFullscreen
                 });
             };
 

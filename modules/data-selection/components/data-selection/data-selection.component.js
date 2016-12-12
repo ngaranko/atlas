@@ -6,7 +6,7 @@
         .component('dpDataSelection', {
             templateUrl: 'modules/data-selection/components/data-selection/data-selection.html',
             bindings: {
-                state: '='
+                state: '<'
             },
             controller: DpDataSelectionController,
             controllerAs: 'vm'
@@ -18,7 +18,15 @@
         let vm = this;
         const MAXIMUM_NUMBER_OF_MARKERS = 10000;
 
-        $scope.$watch('vm.state', fetchData, true);
+        $scope.$watch(function () {
+            // Watching all state variables except markers and isLoading
+            return [
+                vm.state.dataset,
+                vm.state.view,
+                vm.state.filters,
+                vm.state.page
+            ];
+        }, fetchData, true);
 
         function fetchData () {
             vm.isLoading = true;
