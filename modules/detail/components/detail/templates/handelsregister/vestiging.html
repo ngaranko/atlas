@@ -29,10 +29,17 @@
         <dt>Datum aanvang</dt>
         <dd> {{ vm.apiData.results.datum_aanvang | date:'dd-MM-yyyy' }} </dd>
         <dt>Coördinaten</dt>
-        <dd ng-if="apiData.results.bezoekadres.geometrie.coordinates[0]">
-            {{ apiData.results.bezoekadres.geometrie.coordinates[0] }}, {{ apiData.results.bezoekadres.geometrie.coordinates[1] }}
+        <dd ng-if="vm.apiData.results.bezoekadres.geometrie.coordinates[0]">
+            {{ vm.apiData.results.bezoekadres.geometrie.coordinates | coordinates: 'RD' }}
         </dd>
-        <dd ng-if="!apiData.results.bezoekadres.geometrie.coordinates[0]"></dd>
+        <dd ng-if="vm.apiData.results.bezoekadres.geometrie.coordinates[0] && vm.apiData.results.bezoekadres.correctie"
+            class="c-key-value-list--multiple-values">
+            <dp-message>
+                <span>Exacte locatie niet bekend</span><span ng-if="vm.apiData.results.bezoekadres.query_string">,
+                    coördinaten gebruikt van {{vm.apiData.results.bezoekadres.query_string}}
+                </span>
+            </dp-message>
+        </dd>
     </dl>
 
     <dp-stelselpedia-header
