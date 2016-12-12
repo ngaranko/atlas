@@ -21,7 +21,7 @@
             for (key in params) {
                 if (params.hasOwnProperty(key) && params[key] !== null) {
                     queryString += queryString ? '&' : '?';
-                    queryString += `${key}=${params[key]}`;
+                    queryString += `${key}=${encodeURI(params[key])}`;
                 }
             }
 

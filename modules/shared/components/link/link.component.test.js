@@ -30,7 +30,7 @@ describe('The dp-link component', function () {
             'dpShared',
             {
                 $location: {
-                    path: function () {
+                    url: function () {
                         return mockedCurrentPath;
                     }
                 },
@@ -77,7 +77,7 @@ describe('The dp-link component', function () {
             }
         };
 
-        mockedCurrentPath = '#this=that';
+        mockedCurrentPath = 'this=that'; // Angular's $location.url() returns everything after the hash
         mockedTargetPath = '#this=something-else';
 
         spyOn(store, 'dispatch');
@@ -142,7 +142,7 @@ describe('The dp-link component', function () {
     it('a button is always used when linking to the current page, regardless of the ACTION configuration', function () {
         let component;
 
-        mockedCurrentPath = '#this=something-else';
+        mockedCurrentPath = 'this=something-else';
         component = getComponent(null, null, 'ACTION_WITH_LINK', mockedPayload);
 
         expect(component.find('button').length).toBe(1);
