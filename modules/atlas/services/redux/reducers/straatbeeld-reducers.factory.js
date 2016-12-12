@@ -37,7 +37,6 @@
                 (oldState.straatbeeld && oldState.straatbeeld.heading) ||
                 0;
             newState.straatbeeld.isInitial = payload.isInitial;
-            newState.straatbeeld.byId = true;
 
             // If a straatbeeld is loaded by it's id
             // and detail is active
@@ -138,8 +137,8 @@
                     newState.straatbeeld.heading = getHeadingDegrees(
                         payload.location,
                         newState.straatbeeld.targetLocation);
-                } else if (oldState.straatbeeld.byId || !angular.isNumber(oldState.straatbeeld.heading)) {
-                    // No heading is known, center map on new viewCenter
+                } else {
+                    // Center map on new viewCenter
                     newState.map.viewCenter = payload.location;
                 }
 

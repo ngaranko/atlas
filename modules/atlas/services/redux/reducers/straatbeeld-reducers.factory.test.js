@@ -322,19 +322,17 @@ describe('Straatbeeld reducers factory', function () {
             expect(newState.straatbeeld).toBeNull();
         });
 
-        it('sets the map viewcenter only on a subsequent straatbeeld', function () {
+        it('sets the map viewcenter on first and every subsequent straatbeeld', function () {
             inputState.map.viewCenter = null;
-            payload.location = [1, 2];
-            var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT.id](inputState, payload);
-            expect(newState.map.viewCenter).toEqual([1, 2]);
+            let newState;
+
+            payload.location = [5, 6];
+            newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id](inputState, payload);
+            expect(newState.map.viewCenter).toEqual([5, 6]);
+
             payload.location = [3, 4];
             newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT.id](inputState, payload);
             expect(newState.map.viewCenter).toEqual([3, 4]);
-            payload.location = [5, 6];
-            newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id](inputState, payload);
-            expect(newState.map.viewCenter).toBeNull();
-            newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT.id](inputState, payload);
-            expect(newState.map.viewCenter).toEqual([5, 6]);
         });
 
         it('only sets the map viewcenter on a subsequent straatbeeld when straatbeeld active', function () {
