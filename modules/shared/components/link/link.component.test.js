@@ -20,6 +20,9 @@ describe('The dp-link component', function () {
             ACTION_WITH_BUTTON: {
                 id: 'ACTION_WITH_BUTTON',
                 isButton: true
+            },
+            ACTION_WITHOUT_BUTTON_CONFIG: {
+                id: 'ACTION_WITHOUT_BUTTON_CONFIG'
             }
         };
 
@@ -125,6 +128,15 @@ describe('The dp-link component', function () {
         component = getComponent(null, null, 'ACTION_WITH_BUTTON', mockedPayload);
         expect(component.find('button').length).toBe(1);
         expect(component.find('a').length).toBe(0);
+    });
+
+    it('shows a button when there is no isButton variabele present for this ACTION', function () {
+        let component;
+
+        // When using ACTION_WITH_LINK
+        component = getComponent(null, null, 'ACTION_WITHOUT_BUTTON_CONFIG', mockedPayload);
+        expect(component.find('a').length).toBe(1);
+        expect(component.find('button').length).toBe(0);
     });
 
     it('a button is always used when linking to the current page, regardless of the ACTION configuration', function () {
