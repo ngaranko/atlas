@@ -53,7 +53,7 @@ describe('The dp-link component', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _$location_, _store_, _ACTIONS_, _applicationState_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _$location_, _store_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
@@ -172,12 +172,21 @@ describe('The dp-link component', function () {
     });
 
     it('clicking the button will trigger a call to store.dispatch', function () {
-        let component = getComponent(null, null, 'ACTION_WITH_BUTTON', mockedPayload);
+        let component;
 
+        // A dispatch with a payload
+        component = getComponent(null, null, 'ACTION_WITH_BUTTON', mockedPayload);
         component.find('button').click();
         expect(store.dispatch).toHaveBeenCalledWith({
             type: mockedActions.ACTION_WITH_BUTTON,
             payload: mockedPayload
+        });
+
+        // A dispatch without a payload
+        component = getComponent(null, null, 'ACTION_WITH_BUTTON');
+        component.find('button').click();
+        expect(store.dispatch).toHaveBeenCalledWith({
+            type: mockedActions.ACTION_WITH_BUTTON
         });
     });
 
