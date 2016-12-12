@@ -1,6 +1,3 @@
-<button ng-if="isButton"
-        ng-click="go()" class="{{className}}" title="{{hoverText}}"><ng-transclude></ng-transclude>
-    <span class="u-sr-only">{{hoverText}}</span>
-</button>
-<a ng-if="!isButton" ng-click="go($event)"
-   ng-href="{{url}}" class="{{className}}" title="{{hoverText}}"><ng-transclude></ng-transclude></a>
+<button ng-if="vm.tagName === 'button'" ng-click="vm.dispatch()" class="{{vm.className}}" title="{{vm.hoverText}}"><ng-transclude></ng-transclude></button>
+
+<a ng-if="vm.tagName === 'a'" ng-href="{{vm.href}}" class="{{vm.className}}" title="{{vm.hoverText}}"><ng-transclude></ng-transclude></a>
