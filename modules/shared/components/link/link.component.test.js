@@ -14,9 +14,11 @@ describe('The dp-link component', function () {
     beforeEach(function () {
         mockedActions = {
             ACTION_WITH_LINK: {
+                id: 'ACTION_WITH_LINK',
                 isButton: false
             },
             ACTION_WITH_BUTTON: {
+                id: 'ACTION_WITH_BUTTON',
                 isButton: true
             }
         };
@@ -207,7 +209,7 @@ describe('The dp-link component', function () {
         expect(mockedReducer).toHaveBeenCalledWith(
             mockedState,
             {
-                type: 'ACTION_WITH_LINK',
+                type: mockedActions.ACTION_WITH_LINK,
                 payload: mockedPayload
             }
         );

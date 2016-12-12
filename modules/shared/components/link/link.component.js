@@ -63,7 +63,7 @@
             oldState = applicationState.getStore().getState();
 
             targetState = reducer(oldState, {
-                type: type,
+                type: ACTIONS[type],
                 payload: payload
             });
 
