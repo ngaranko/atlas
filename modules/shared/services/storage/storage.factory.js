@@ -5,50 +5,14 @@
         .module('dpShared')
         .factory('storage', storageFactory);
 
-    storageFactory.$inject = ['$window'];
+    storageFactory.$inject = ['$window', 'InstanceStorage'];
 
-    function storageFactory ($window) {
+    function storageFactory ($window, InstanceStorage) {
         // The storage types that is available to the application are:
         // - instance (variables are only available to the current application instance, does not survive a refresh
         // - session (variables are only available to the session, survive a refresh)
         // - local (variables are shared between browser tabs and windows
         // - server (variables are shared between all browsers, not (yet) implemented)
-
-        /**
-         * The InstanceStorage stores key value combinations in a private object
-         * The lifetime of the key value combinations is the lifetime of the factory
-         */
-        class InstanceStorage {
-            constructor () {
-                this._keys = {};
-            }
-            /**
-             * When passed a key name and value,
-             * will add that key to the storage, or update that key's value if it already exists.
-             * @param {String} key A string containing the name of the key you want to create/update
-             * @param {String} value The value you want to give the key you are creating/updating
-             */
-            setItem (key, value) {
-                this._keys[key] = value;
-            }
-            /**
-             * When passed a key name, will return that key's value.
-             * The behaviour of sessionStorage and localStorage is mimicked to return null for undefined keys
-             * @param {String} key A string containing the name of the key you want to retrieve the value of.
-             * @returns {String} value
-             */
-            getItem (key) {
-                let value = this._keys[key];
-                return angular.isDefined(value) ? value : null;
-            }
-            /**
-             * When passed a key name, will remove that key from the storage
-             * @param {String} key A string containing the name of the key you want to remove.
-             */
-            removeItem (key) {
-                delete this._keys[key];
-            }
-        }
 
         /**
          * The Storage takes a storageProvider, test if the provider is available, and then uses
