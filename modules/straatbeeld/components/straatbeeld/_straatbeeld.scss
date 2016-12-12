@@ -31,13 +31,13 @@
   padding-right: $base-whitespace / 2;
   background-color: $primary-light-alpha66;
   color: $secondary-gray60;
+  line-height: $button-size - 2;
   z-index: 2;
 }
 
 .c-straatbeeld__coordinates {
   padding-left: $base-whitespace;
   border-left: solid $secondary-gray20 1px;
-  line-height: 25px;
 }
 
 .c-straatbeeld__close {
@@ -77,14 +77,17 @@
 }
 
 .c-straatbeeld__streetview-history-icon {
-  @include icon-button-text-right("klok", "zwart", "red");
+  @include icon-button-text-right("clock", "black", "red");
   @include font-definition;
   margin-left: 0;
   padding-right: $base-whitespace;
   padding-left: $base-whitespace / 2;
   border-right: solid $secondary-gray20 1px;
-
   z-index: 2;
+
+  &::before {
+    margin-top: -1px;
+  }
 
   &:hover {
     padding-right: $base-whitespace;
