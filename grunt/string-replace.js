@@ -7,8 +7,8 @@ module.exports = function (grunt) {
             }],
             options: {
                 replacements: [{
-                    pattern: '__VERSIONID__',
-                    replacement: grunt.option('versionid')
+                    pattern: '__BUILDID__',
+                    replacement: grunt.option('buildid')
                 }]
             }
         }

@@ -7,5 +7,5 @@
 
     angular
         .module('atlas')
-        .constant('ATLAS_VERSION', 'Development');
+        .constant('ATLAS_BUILD', 'Development');
 })();

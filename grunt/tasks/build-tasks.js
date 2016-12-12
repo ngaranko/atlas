@@ -19,11 +19,11 @@ module.exports = function (grunt) {
         'clean:temp'
     ]);
 
-    grunt.registerTask('set-version-id', function () {
-        if (grunt.option('versionid')) {
+    grunt.registerTask('set-build-id', function () {
+        if (grunt.option('buildid')) {
             grunt.task.run(['string-replace']);
         } else {
-            grunt.log.error('Usage: grunt set-version-id --versionid=<versionid>');
+            grunt.log.error('Usage: grunt set-build-id --buildid=<buildid>');
         }
     });
 };
