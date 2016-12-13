@@ -515,7 +515,8 @@ describe('The urlReducers factory', function () {
 
                 mockedSearchParamsWithDataSelection.dataset = 'bag';
                 mockedSearchParamsWithDataSelection.view = 'TABLE';
-                mockedSearchParamsWithDataSelection['dataset-filters'] = 'buurtcombinatie:Geuzenbuurt,buurt:Trompbuurt';
+                mockedSearchParamsWithDataSelection['dataset-filters'] = 'buurtcombinatie:Geuzenbuurt::buurt:Trompbuu' +
+                    'rt';
                 mockedSearchParamsWithDataSelection['dataset-pagina'] = '4';
             });
 
@@ -565,7 +566,7 @@ describe('The urlReducers factory', function () {
 
             it('decodes the names of active filters', function () {
                 mockedSearchParamsWithDataSelection['dataset-filters'] =
-                    'buurtcombinatie:Bijlmeer%20Oost%20(D%2CF%2CH),buurt:Belgi%C3%ABplein%20e.o.';
+                    'buurtcombinatie:Bijlmeer%20Oost%20(D%2CF%2CH)::buurt:Belgi%C3%ABplein%20e.o.';
 
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParamsWithDataSelection);
                 expect(output.dataSelection.filters).toEqual({

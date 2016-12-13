@@ -21,7 +21,7 @@
             for (key in params) {
                 if (params.hasOwnProperty(key) && params[key] !== null) {
                     queryString += queryString ? '&' : '?';
-                    queryString += `${key}=${params[key]}`;
+                    queryString += `${key}=${encodeURI(params[key])}`;
                 }
             }
 
@@ -143,11 +143,11 @@
                 params.dataset = state.dataSelection.dataset;
 
                 angular.forEach(state.dataSelection.filters, function (value, key) {
-                    datasetFilters.push(key + ':' + $window.encodeURIComponent(value));
+                    datasetFilters.push(key + ':' + encodeURIComponent(value));
                 });
 
                 if (datasetFilters.length) {
-                    params['dataset-filters'] = datasetFilters.join(',');
+                    params['dataset-filters'] = datasetFilters.join('::');
                 }
 
                 params['dataset-pagina'] = String(state.dataSelection.page);

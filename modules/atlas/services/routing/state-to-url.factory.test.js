@@ -451,7 +451,7 @@ describe('The stateToUrl factory', function () {
             stateToUrl.update(mockedState, false);
 
             expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
-                'dataset-filters': 'buurt:Mijn%20buurt,buurtcombinatie:Mijn%20buurtcombinatie'
+                'dataset-filters': 'buurt:Mijn%20buurt::buurtcombinatie:Mijn%20buurtcombinatie'
             }));
 
             // Enable the list view

@@ -3,91 +3,72 @@
 
     angular
         .module('dpShared')
-        .directive('dpLink', DpLinkDirective);
-
-    DpLinkDirective.$inject = ['$location', 'store', 'ACTIONS', 'applicationState', 'debounce'];
-
-    function DpLinkDirective ($location, store, ACTIONS, applicationState, debounce) {
-        const reducer = applicationState.getReducer(),
-            stateToUrl = applicationState.getStateToUrl();
-
-        return {
+        .component('dpLink', {
             templateUrl: 'modules/shared/components/link/link.html',
             transclude: true,
-            link: linkFn,
-            scope: {
+            bindings: {
                 className: '@',
                 hoverText: '@',
                 type: '@',
-                payload: '='
-            }
-        };
+                payload: '<'
+            },
+            controller: DpLinkController,
+            controllerAs: 'vm'
+        });
 
-        function linkFn (scope, element) {
-            const DEBOUNCE_WAIT_TIME = 300;     // Wait time in msecs before executing update
+    DpLinkController.$inject = ['$location', 'store', 'ACTIONS', 'applicationState'];
 
-            scope.className = scope.className || 'o-btn o-btn--link';
+    function DpLinkController ($location, store, ACTIONS, applicationState) {
+        let vm = this;
 
-            scope.isButton = Boolean(ACTIONS[scope.type].isButton);
+        vm.className = vm.className || 'o-btn o-btn--link';
+        vm.tagName = getTagName(vm.type, vm.payload);
 
-            /**
-             * Execute the link action, either by dispatching the action or by following the link url
-             * @param event
-             */
-            scope.go = function (event) {
-                if (event) {
-                    // Click on link
-                    if (ACTIONS[scope.type].ignore) {
-                        // The action should be ignored for the browser history, prevent the link being followed
-                        // and execute action as if it was a button
-                        // Righ-click, open in new tab will still work, ctrl-click not
-                        event.preventDefault();
-                    } else {
-                        return;
-                    }
-                }
-                store.dispatch(getAction());
+        if (vm.tagName === 'a') {
+            vm.href = getHref(vm.type, vm.payload);
+        }
+
+        vm.dispatch = function () {
+            let action = {
+                type: ACTIONS[vm.type]
             };
 
-            if (!scope.isButton) {
-                // Update url on change of state
-                let debounced = debounce(DEBOUNCE_WAIT_TIME, update),
-                    unsubscribe = store.subscribe(debounced);
-
-                // We don't need to keep updating the url after the element has
-                // been destroyed
-                element.on('$destroy', () => {
-                    unsubscribe();
-                    debounced.cancel();
-                });
-
-                // Provide for initial url
-                update();
+            if (angular.isDefined(vm.payload)) {
+                action.payload = vm.payload;
             }
 
-            function getAction () {
-                return angular.isDefined(scope.payload) ? {
-                    type: ACTIONS[scope.type],
-                    payload: scope.payload
-                } : {
-                    type: ACTIONS[scope.type]
-                };
+            store.dispatch(action);
+        };
+
+        /**
+         * @returns {String} Either 'button' or 'a'
+         */
+        function getTagName (type, payload) {
+            let currentPath = '#' + decodeURIComponent($location.url());
+            let targetPath = getHref(type, payload);
+
+            if (currentPath === targetPath) {
+                return 'button';
+            } else {
+                return ACTIONS[type].isButton ? 'button' : 'a';
             }
+        }
 
-            function update () {
-                const oldState = store.getState(),
-                    action = getAction(),
-                    newState = reducer(oldState, action);
+        function getHref (type, payload) {
+            const reducer = applicationState.getReducer();
+            const stateToUrl = applicationState.getStateToUrl();
 
-                let currentUrl = '#' + decodeURIComponent($location.absUrl().split('#')[1]);
-                let newUrl = stateToUrl.create(newState);
+            let oldState,
+                targetState;
 
-                if (newUrl === currentUrl) {
-                    scope.isButton = true;
-                } else {
-                    scope.url = encodeURI(newUrl);
-                }
-            }
+            oldState = applicationState.getStore().getState();
+
+            targetState = reducer(oldState, {
+                type: ACTIONS[type],
+                payload: payload
+            });
+
+            return stateToUrl.create(targetState);
         }
     }
 })();
