@@ -29,7 +29,7 @@
                 } else {
                     deferred.reject();
                 }
-            }, () => deferred.reject());
+            }, deferred.reject);
 
             return deferred.promise;
         }
