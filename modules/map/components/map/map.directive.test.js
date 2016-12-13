@@ -101,7 +101,7 @@ describe('The dp-map directive', function () {
         spyOn(highlight, 'initialize');
         spyOn(highlight, 'addMarker');
         spyOn(highlight, 'removeMarker');
-        spyOn(highlight, 'setCluster');
+        spyOn(highlight, 'setCluster').and.callThrough();
         spyOn(highlight, 'clearCluster');
 
         spyOn(panning, 'initialize');
@@ -376,30 +376,31 @@ describe('The dp-map directive', function () {
                 );
             });
 
-            // it('can add a group of clustered markers, accepting an onReady method', function () {
-            //     // Start without any clustered markers
-            //     let highlightItems = {
-            //         regular: [],
-            //         clustered: []
-            //     };
-            //
-            //     getDirective(mockedMapState, false, highlightItems);
-            //     $rootScope.$apply();
-            //     expect(highlight.setCluster).not.toHaveBeenCalled();
-            //
-            //     // Add one marker
-            //     let isReady = false;
-            //     highlightItems.clustered.push([52.1, 4.1], [52.2, 4.1], () => isReady = true);
-            //     $rootScope.$apply();
-            //     expect(highlight.setCluster).toHaveBeenCalledWith(
-            //         'I_AM_A_FAKE_LEAFLET_MAP',
-            //         [
-            //             [52.1, 4.1],
-            //             [52.2, 4.1]
-            //         ], jasmine.any(Function)
-            //     );
-            //     expect(isReady).toBe(true);
-            // });
+            it('can add a group of clustered markers, accepting a method to end the loading indicator', function () {
+                // Start without any clustered markers
+                let highlightItems = {
+                    regular: [],
+                    clustered: []
+                };
+
+                let directive = getDirective(mockedMapState, false, highlightItems);
+                $rootScope.$apply();
+
+                // Add one marker
+                highlightItems.clustered.push([52.1, 4.1], [52.2, 4.1]);
+                // Set loading mode
+                directive.isolateScope().mapState.isLoading = true;
+                $rootScope.$apply();
+                expect(highlight.setCluster).toHaveBeenCalledWith(
+                    'I_AM_A_FAKE_LEAFLET_MAP',
+                    [
+                        [52.1, 4.1],
+                        [52.2, 4.1]
+                    ], jasmine.any(Function)
+                );
+                $rootScope.$apply();
+                expect(directive.isolateScope().mapState.isLoading).toBe(false);
+            });
 
             it('can remove a group of clustered markers', function () {
                 let highlightItems = {
