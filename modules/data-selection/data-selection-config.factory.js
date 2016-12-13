@@ -48,10 +48,25 @@
                     }
                 ],
                 CONTENT: {
-                    TABLE: [
+                    CARDS: [
                         {
                             label: 'Naam',
                             variables: ['title']
+                        }, {
+                            label: 'Datum',
+                            variables: ['metadata_created', 'metadata_modified']
+                        }, {
+                            label: 'Formaten',
+                            variables: ['resources.format'],
+                            formatter: 'aggregate',
+                            template: 'file-types'
+                        }, {
+                            label: 'Labels',
+                            variables: ['tags.display_name'],
+                            formatter: 'tags'
+                        }, {
+                            label: 'Omschrijving',
+                            variables: ['notes']
                         }
                     ]
                 }

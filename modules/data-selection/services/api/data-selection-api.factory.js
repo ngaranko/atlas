@@ -47,17 +47,40 @@
                         detailEndpoint: rawDataRow._links.self.href,
                         content: dataSelectionConfig[dataset].CONTENT[view].map(item => {
                             return item.variables.map(variable => {
+                                const path = variable.split('.');
                                 return {
                                     key: variable,
-                                    value: rawDataRow[variable]
+                                    value: recurGetContent(path, rawDataRow)
                                 };
                             });
                         })
                     };
                 }),
 
-                formatters: dataSelectionConfig[dataset].CONTENT[view].map(item => item.formatter)
+                formatters: dataSelectionConfig[dataset].CONTENT[view].map(item => item.formatter),
+                templates: dataSelectionConfig[dataset].CONTENT[view].map(item => item.template)
             };
+        }
+
+        function recurGetContent (path, rawData) {
+            if (!path.length) {
+                return;
+            } else if (path.length === 1) {
+                const key = path[0],
+                    rawValue = rawData[key];
+
+                return angular.isArray(rawValue)
+                    ? rawValue.map(value => value)
+                    : rawValue;
+            } else {
+                const key = path[0],
+                    rawValue = rawData[key],
+                    remainingPath = path.splice(1);
+
+                return angular.isArray(rawValue)
+                    ? rawValue.map(value => recurGetContent(remainingPath, value))
+                    : recurGetContent(remainingPath, rawValue);
+            }
         }
 
         function getMarkers (dataset, activeFilters) {

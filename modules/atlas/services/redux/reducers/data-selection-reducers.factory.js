@@ -93,7 +93,7 @@
         function setDataSelectionViewReducer (oldState, payload) {
             let newState = angular.copy(oldState);
 
-            ['LIST', 'TABLE'].forEach(legalValue => {
+            ['LIST', 'TABLE', 'CARDS'].forEach(legalValue => {
                 if (payload === legalValue) {
                     newState.dataSelection.view = payload;
                     newState.dataSelection.isLoading = true;

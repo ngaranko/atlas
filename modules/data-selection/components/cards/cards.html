@@ -1,0 +1,38 @@
+<div ng-repeat="row in vm.content.body">
+    <h3>
+        <dp-link type="FETCH_DETAIL" payload="row.detailEndpoint">
+            <dp-data-selection-formatter
+                variables="row.content[0]"
+                formatter="{{vm.content.formatters[0]}}"
+                use-inline="true">
+            </dp-data-selection-formatter>
+        </dp-link>
+    </h3>
+
+    <span class="u-pull-right"><dp-data-selection-formatter
+            variables="row.content[1]"
+            formatter="{{vm.content.formatters[1]}}"
+            use-inline="true"></dp-data-selection-formatter></span>
+
+    <dp-data-selection-formatter
+        variables="row.content[2]"
+        formatter="{{vm.content.formatters[2]}}"
+        template="{{vm.content.templates[2]}}"
+        use-inline="true">
+    </dp-data-selection-formatter>
+
+    <ul>
+        <li ng-repeat="tag in row.content[3]">
+            <dp-data-selection-formatter
+                variables="tag"
+                formatter="{{vm.content.formatters[3]}}"
+                use-inline="true">
+            </dp-data-selection-formatter>
+        </li>
+    </ul>
+
+    <dp-data-selection-formatter
+         variables="row.content[4]"
+         formatter="{{vm.content.formatters[4]}}">
+    </dp-data-selection-formatter>
+</div>
