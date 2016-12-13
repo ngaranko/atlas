@@ -49,7 +49,6 @@
                 vm.isLoading = false;
 
                 if (vm.view === 'LIST' && vm.numberOfRecords <= MAXIMUM_NUMBER_OF_MARKERS) {
-                    // Already show the list but keep the loading indicator active until the markers have been loaded
                     dataSelectionApi.getMarkers(vm.state.dataset, vm.state.filters).then(markerData => {
                         store.dispatch({
                             type: ACTIONS.SHOW_DATA_SELECTION,
