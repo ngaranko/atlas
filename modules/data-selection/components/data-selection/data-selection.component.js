@@ -25,7 +25,7 @@
 
             vm.title = dataSelectionConfig[vm.state.dataset].TITLE;
             vm.view = vm.state.view;
-            vm.showFilters = vm.state.view === 'TABLE';
+            vm.showFilters = vm.state.view !== 'LIST';
             vm.currentPage = vm.state.page;
             vm.isPageAvailable = !dataSelectionConfig.HAS_PAGE_LIMIT ||
                 vm.currentPage <= dataSelectionConfig.MAX_AVAILABLE_PAGES;

@@ -59,7 +59,7 @@
                             label: 'Formaten',
                             variables: ['resources.format'],
                             formatter: 'aggregate',
-                            template: 'file-types'
+                            template: 'file-type'
                         }, {
                             label: 'Labels',
                             variables: ['tags.display_name'],

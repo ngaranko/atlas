@@ -1,0 +1,18 @@
+.c-data-selection-file-type {
+  float: left;
+  color: $secondary-gray40;
+  font-size: $base-font-size * .8;
+}
+
+.c-data-selection-file-type__name {
+  display: inline-block;
+  padding: 0 $base-whitespace * .5;
+  background-color: $thema-7;
+  color: $primary-light;
+  text-transform: lowercase;
+}
+
+.c-data-selection-file-type__count {
+  display: inline-block;
+  padding-right: $base-whitespace * .7;
+}

@@ -1,6 +1,6 @@
-<div ng-repeat="row in vm.content.body">
-    <h3>
-        <dp-link type="FETCH_DETAIL" payload="row.detailEndpoint">
+<div ng-repeat="row in vm.content.body" class="c-data-selection-cards">
+    <h3 class="c-data-selection-cards__header">
+        <dp-link type="FETCH_DETAIL" payload="row.detailEndpoint" class-name="c-data-selection-cards__header-link">
             <dp-data-selection-formatter
                 variables="row.content[0]"
                 formatter="{{vm.content.formatters[0]}}"
@@ -9,30 +9,37 @@
         </dp-link>
     </h3>
 
-    <span class="u-pull-right"><dp-data-selection-formatter
+    <span class="c-data-selection-cards__date">
+        <dp-data-selection-formatter
             variables="row.content[1]"
             formatter="{{vm.content.formatters[1]}}"
-            use-inline="true"></dp-data-selection-formatter></span>
+            use-inline="true">
+        </dp-data-selection-formatter>
+    </span>
 
-    <dp-data-selection-formatter
-        variables="row.content[2]"
-        formatter="{{vm.content.formatters[2]}}"
-        template="{{vm.content.templates[2]}}"
-        use-inline="true">
-    </dp-data-selection-formatter>
+    <span class="c-data-selection-cards__formats">
+        <dp-data-selection-formatter
+            variables="row.content[2]"
+            formatter="{{vm.content.formatters[2]}}"
+            template="{{vm.content.templates[2]}}"
+            use-inline="true">
+        </dp-data-selection-formatter>
+    </span>
 
-    <ul>
-        <li ng-repeat="tag in row.content[3]">
-            <dp-data-selection-formatter
-                variables="tag"
-                formatter="{{vm.content.formatters[3]}}"
-                use-inline="true">
-            </dp-data-selection-formatter>
-        </li>
-    </ul>
+    <span class="c-data-selection-cards__tags">
+        <dp-data-selection-formatter
+            variables="row.content[3]"
+            formatter="{{vm.content.formatters[3]}}"
+            template="{{vm.content.templates[3]}}"
+            use-inline="true">
+        </dp-data-selection-formatter>
+    </span>
 
-    <dp-data-selection-formatter
-         variables="row.content[4]"
-         formatter="{{vm.content.formatters[4]}}">
-    </dp-data-selection-formatter>
+    <div class="c-data-selection-cards__description">
+        <dp-data-selection-formatter
+             variables="row.content[4]"
+             formatter="{{vm.content.formatters[4]}}"
+             use-inline="true">
+        </dp-data-selection-formatter>
+    </div>
 </div>
