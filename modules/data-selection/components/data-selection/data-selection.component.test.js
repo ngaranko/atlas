@@ -29,17 +29,18 @@ describe('The dp-data-selection component', function () {
                         return q.promise;
                     }
                 },
-                dataSelectionConfig: {
-                    MAX_AVAILABLE_PAGES: 5,
-                    zwembaden: {
-                        TITLE: 'Zwembaden'
-                    }
-                },
                 store: {
                     dispatch: angular.noop
                 }
             },
             function ($provide) {
+                $provide.constant('DATA_SELECTION_CONFIG', {
+                    MAX_AVAILABLE_PAGES: 5,
+                    zwembaden: {
+                        TITLE: 'Zwembaden'
+                    }
+                });
+
                 $provide.factory('dpLoadingIndicatorDirective', function () {
                     return {};
                 });
