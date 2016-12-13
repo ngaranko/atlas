@@ -35,7 +35,7 @@
                 PRIMARY_KEY: 'id',
                 TITLE: 'Catalogus',
                 SHOW_FILTER_OPTION_COUNTS: true,
-                FILTER_CATEGORIES: [
+                FILTERS: [
                     {
                         slug: 'groups',
                         label: 'Thema\'s'
@@ -63,7 +63,7 @@
                 ENDPOINT_PREVIEW: 'dataselectie/bag/',
                 PRIMARY_KEY: 'id',
                 TITLE: 'Adressen',
-                FILTER_CATEGORIES: [
+                FILTERS: [
                     {
                         slug: 'stadsdeel_naam',
                         label: 'Stadsdeel'
