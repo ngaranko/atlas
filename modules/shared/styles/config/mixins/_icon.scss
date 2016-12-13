@@ -14,7 +14,7 @@
   @extend %link;
   height: $button-size;
   margin-right: $base-whitespace;
-  margin-left: $base-whitespace;
+  margin-left: 0;
   color: inherit;
   font-family: $header-font-family;
   font-size: $base-font-size;
