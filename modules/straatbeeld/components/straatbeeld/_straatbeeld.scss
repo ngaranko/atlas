@@ -3,17 +3,17 @@
   font-size: $base-font-size - 2;
 }
 
-.c-straatbeeld {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: -$base-whitespace * 2;
-  left: 0;
-  z-index: 1;
+@mixin active-link-light {
+  &:active,
+  &:focus {
+    color: $primary-light !important;
+  }
 }
 
 @mixin streetview-map {
   @include font-definition;
+  @include active-link-light;
+
   margin-right: 0;
   margin-left: 1px;
   padding-right: $base-whitespace;
@@ -33,6 +33,15 @@
     margin-right: -$base-whitespace / 2;
     margin-left: -1px;
   }
+}
+
+.c-straatbeeld {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: -$base-whitespace * 2;
+  left: 0;
+  z-index: 1;
 }
 
 .c-straatbeeld__marzipano {
@@ -89,6 +98,8 @@
 .c-straatbeeld__streetview-history-icon {
   @include icon-button-text-right("clock", "black", "red");
   @include font-definition;
+  @include active-link-light;
+
   margin-left: 0;
   padding-right: $base-whitespace;
   padding-left: $base-whitespace / 2;
