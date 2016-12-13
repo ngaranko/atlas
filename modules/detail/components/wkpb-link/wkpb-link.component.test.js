@@ -5,12 +5,11 @@ describe('The dp-wkpb-link directive', function () {
     beforeEach(function () {
         angular.mock.module(
             'dpDetail',
-            {
-                environment: {
-                    API_ROOT: 'http://www.api-root.com/'
-                }
-            },
             function ($provide) {
+                $provide.constant('API_CONFIG', {
+                    ROOT: 'http://www.api-root.com/'
+                });
+
                 $provide.factory('dpLinkDirective', function () {
                     return {};
                 });

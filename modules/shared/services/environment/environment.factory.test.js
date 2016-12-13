@@ -10,18 +10,6 @@ describe('The environment factory', function () {
                         return mockedHostname;
                     }
                 }
-            },
-            function ($provide) {
-                $provide.constant('ENVIRONMENT_CONFIG', {
-                    PRODUCTION: {
-                        favorite_animal: 'dog',
-                        number_of_hobbies: 3
-                    },
-                    DEVELOPMENT: {
-                        favorite_animal: 'cat',
-                        number_of_hobbies: 1
-                    }
-                });
             }
         );
     });
@@ -32,24 +20,20 @@ describe('The environment factory', function () {
 
             angular.mock.inject(function (environment) {
                 expect(environment).toEqual({
-                    NAME: 'PRODUCTION',
-                    favorite_animal: 'dog',
-                    number_of_hobbies: 3
+                    NAME: 'PRODUCTION'
                 });
             });
         });
 
         it('and a fallback to development for the rest', function () {
-            var hostnames = ['localhost', 'example.com', 'acc.atlas.amsterdam.nl'];
+            const hostnames = ['localhost', 'example.com', 'acc.atlas.amsterdam.nl'];
 
             hostnames.forEach(function (hostname) {
                 mockedHostname = hostname;
 
                 angular.mock.inject(function (environment) {
                     expect(environment).toEqual({
-                        NAME: 'DEVELOPMENT',
-                        favorite_animal: 'cat',
-                        number_of_hobbies: 1
+                        NAME: 'DEVELOPMENT'
                     });
                 });
             });
