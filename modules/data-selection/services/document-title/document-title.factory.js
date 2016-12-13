@@ -21,7 +21,7 @@
 
             view = dataSelectionState.view === 'TABLE' ? 'Tabel' : 'Lijst';
             variant = dataSelectionConfig[dataSelectionState.dataset].TITLE;
-            criteria = dataSelectionConfig[dataSelectionState.dataset].FILTERS
+            criteria = dataSelectionConfig[dataSelectionState.dataset].FILTER_CATEGORIES
                 // Retrieve all the active filters
                 .filter(availableFilter => angular.isDefined(dataSelectionState.filters[availableFilter.slug]))
                 // Show the value of each active filter

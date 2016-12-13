@@ -14,7 +14,7 @@ describe('The dp-data-selection-filters component', function () {
                 },
                 dataSelectionConfig: {
                     my_special_dataset: {
-                        FILTERS: [
+                        FILTER_CATEGORIES: [
                             {
                                 slug: 'filter_a_new'
                             }, {

@@ -45,9 +45,7 @@
         }
 
         function formatFilters (rawData) {
-            const filters = {};
-
-            Object.keys(rawData).forEach(key => {
+            return Object.keys(rawData).reduce((filters, key) => {
                 filters[key] = {
                     numberOfOptions: rawData[key].doc_count,
                     options: rawData[key].buckets.map(option => {
@@ -58,9 +56,8 @@
                         };
                     })
                 };
-            });
-
-            return filters;
+                return filters;
+            }, {});
         }
 
         function formatData (config, rawData) {

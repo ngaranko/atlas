@@ -11,10 +11,14 @@ describe('The dataSelectionApiCkan factory', function () {
             'dpDataSelection',
             {
                 api: {
-                    getByUri: function () {
+                    getByUri: function (url) {
                         let q = $q.defer();
 
-                        q.resolve(mockedApiResponse);
+                        if (url === 'https://api.amsterdam.nl/catalogus/reject') {
+                            q.reject();
+                        } else {
+                            q.resolve(mockedApiResponse);
+                        }
 
                         return q.promise;
                     }
@@ -34,7 +38,7 @@ describe('The dataSelectionApiCkan factory', function () {
             ENDPOINT_PREVIEW: 'https://api.amsterdam.nl/catalogus/',
             ENDPOINT_DETAIL: 'https://amsterdam.nl/api_endpoint/catalogus/',
             PRIMARY_KEY: 'id',
-            FILTERS: [
+            FILTER_CATEGORIES: [
                 {
                     slug: 'type',
                     label: 'Type accomodatie'
@@ -176,6 +180,23 @@ describe('The dataSelectionApiCkan factory', function () {
         expect(output.numberOfPages).toBe(2);
     });
 
+    it('registers an error with an unsuccessful API call', () => {
+        let thenCalled = false,
+            catchCalled = false;
+
+        config.ENDPOINT_PREVIEW += 'reject';
+
+        dataSelectionApiCkan.query(config, {}, 1).then(() => {
+            thenCalled = true;
+        }, () => {
+            catchCalled = true;
+        });
+        $rootScope.$apply();
+
+        expect(thenCalled).toBe(false);
+        expect(catchCalled).toBe(true);
+    });
+
     it('registers an error with an unsuccessful response', () => {
         let thenCalled = false,
             catchCalled = false;
@@ -193,7 +214,7 @@ describe('The dataSelectionApiCkan factory', function () {
         expect(catchCalled).toBe(true);
     });
 
-    describe('it returns all available filters', function () {
+    describe('the formatFilters process', function () {
         it('orders the filters based on the configuration', function () {
             let output = {};
 
@@ -271,22 +292,9 @@ describe('The dataSelectionApiCkan factory', function () {
                 }
             });
         });
-
-        it('returns the number of results per category (e.g. there a 12 buurten)', function () {
-            let output = {};
-
-            // With both filters in the response
-            dataSelectionApiCkan.query(config, {}, 1).then(function (_output_) {
-                output = _output_;
-            });
-            $rootScope.$apply();
-
-            expect(output.filters.type.numberOfOptions).toBe(2);
-            expect(output.filters.water.numberOfOptions).toBe(3);
-        });
     });
 
-    it('returns the data', function () {
+    it('processes the results correctly', function () {
         let output = {};
 
         dataSelectionApiCkan.query(config, {}, 1).then(function (_output_) {

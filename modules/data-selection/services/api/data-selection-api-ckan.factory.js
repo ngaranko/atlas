@@ -14,11 +14,11 @@
             const deferred = $q.defer(),
                 searchParams = {
                     start: (page - 1) * config.MAX_ITEMS_PER_PAGE,
-                    'facet.field': queryFilters(config.FILTERS),
+                    'facet.field': queryFilters(config.FILTER_CATEGORIES),
                     fq: queryActiveFilters(activeFilters)
                 };
 
-            api.getByUri(config.ENDPOINT_PREVIEW, searchParams).then(function (data) {
+            api.getByUri(config.ENDPOINT_PREVIEW, searchParams).then(data => {
                 if (data.success) {
                     deferred.resolve({
                         numberOfPages: Math.ceil(data.result.count / config.MAX_ITEMS_PER_PAGE),
@@ -29,32 +29,25 @@
                 } else {
                     deferred.reject();
                 }
-            });
+            }, () => deferred.reject());
 
             return deferred.promise;
         }
 
         function queryFilters (filters) {
-            const queryString = filters.map(filter => {
+            return '[' + filters.map(filter => {
                 return `"${filter.slug}"`;
-            }).join(',');
-            return `[${queryString}]`;
+            }).join(',') + ']';
         }
 
         function queryActiveFilters (filters) {
-            let queryString = '';
-
-            Object.keys(filters).forEach(key => {
-                queryString += (queryString ? ' ' : '') + `${key}:${filters[key]}`;
-            });
-
-            return queryString;
+            return Object.keys(filters).reduce((queryString, key) => {
+                return queryString + (queryString ? ' ' : '') + `${key}:${filters[key]}`;
+            }, '');
         }
 
         function formatFilters (rawData) {
-            const filters = {};
-
-            Object.keys(rawData).forEach(key => {
+            return Object.keys(rawData).reduce((filters, key) => {
                 filters[key] = {
                     numberOfOptions: rawData[key].items.length,
                     options: rawData[key].items.map(option => {
@@ -65,9 +58,8 @@
                         };
                     })
                 };
-            });
-
-            return filters;
+                return filters;
+            }, {});
         }
 
         function formatData (config, rawData) {

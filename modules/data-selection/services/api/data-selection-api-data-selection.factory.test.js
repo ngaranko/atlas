@@ -34,7 +34,7 @@ describe('The dataSelectionApiDataSelection factory', function () {
             ENDPOINT_PREVIEW: 'https://api.amsterdam.nl/zwembaden/',
             ENDPOINT_DETAIL: 'https://amsterdam.nl/api_endpoint/zwembaden/',
             PRIMARY_KEY: 'id',
-            FILTERS: [
+            FILTER_CATEGORIES: [
                 {
                     slug: 'type',
                     label: 'Type accomodatie'
@@ -158,7 +158,7 @@ describe('The dataSelectionApiDataSelection factory', function () {
         expect(output.numberOfPages).toBe(2);
     });
 
-    describe('it returns all available filters', function () {
+    describe('the formatFilters process', function () {
         it('orders the filters based on the configuration', function () {
             let output = {};
 
@@ -236,22 +236,9 @@ describe('The dataSelectionApiDataSelection factory', function () {
                 }
             });
         });
-
-        it('returns the number of results per category (e.g. there a 12 buurten)', function () {
-            let output = {};
-
-            // With both filters in the response
-            dataSelectionApiDataSelection.query(config, {}, 1).then(function (_output_) {
-                output = _output_;
-            });
-            $rootScope.$apply();
-
-            expect(output.filters.type.numberOfOptions).toBe(2);
-            expect(output.filters.water.numberOfOptions).toBe(3);
-        });
     });
 
-    it('returns the data', function () {
+    it('processes the results correctly', function () {
         let output = {};
 
         dataSelectionApiDataSelection.query(config, {}, 1).then(function (_output_) {

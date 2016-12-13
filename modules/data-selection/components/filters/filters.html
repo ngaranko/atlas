@@ -26,7 +26,7 @@
     <dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>
 
     <div class="qa-available-filters c-data-selection-filters--available-filters">
-        <div ng-if="!vm.isLoading" ng-show="vm.hasSelectableValues(category)" ng-repeat="category in vm.availableFilters">
+        <div ng-if="!vm.isLoading" ng-show="vm.hasInactiveFilterOptions(category)" ng-repeat="category in vm.availableFilters">
             <div class="c-data-selection-filters__available-filter">
                 <h3 class="c-data-selection-filters__available-filter-label">{{category.label}}</h3>
                 <ul class="c-data-selection-filters__list">
@@ -35,7 +35,7 @@
                         <button
                             class="o-btn o-btn--link"
                             ng-class="{
-                                'u-color__primary--dark': vm.isFilterActive(category.slug, option.id)
+                                'u-color__primary--dark': vm.isFilterOptionActive(category.slug, option.id)
                             }"
                             ng-click="vm.addFilter(category.slug, option.id)">
 

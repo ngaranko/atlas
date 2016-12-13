@@ -10,7 +10,7 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
                 dataSelectionConfig: {
                     bag: {
                         TITLE: 'Adressen',
-                        FILTERS: [
+                        FILTER_CATEGORIES: [
                             {
                                 slug: 'stadsdeel_naam',
                                 label: 'Stadsdeel'
@@ -23,7 +23,7 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
                     },
                     hr: {
                         TITLE: 'Handelsregister',
-                        FILTERS: []
+                        FILTER_CATEGORIES: []
                     }
                 }
             }

@@ -10,7 +10,7 @@ describe('The dp-data-selection-download-button component', function () {
                     dataset_a: {
                         ENDPOINT: 'http://www.example.com/datasets/a/',
                         ENDPOINT_EXPORT: 'http://www.example.com/datasets/a/download/',
-                        FILTERS: [
+                        FILTER_CATEGORIES: [
                             {
                                 slug: 'filter_a'
                             }, {

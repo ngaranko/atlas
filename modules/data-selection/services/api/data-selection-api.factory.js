@@ -27,7 +27,7 @@
         }
 
         function formatFilters (dataset, rawData) {
-            const formattedFilters = angular.copy(dataSelectionConfig[dataset].FILTERS);
+            const formattedFilters = angular.copy(dataSelectionConfig[dataset].FILTER_CATEGORIES);
 
             return formattedFilters.filter(function (filter) {
                 // Only show the filters that are returned by the API

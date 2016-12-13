@@ -30,6 +30,7 @@ describe('The dp-data-selection component', function () {
                     }
                 },
                 dataSelectionConfig: {
+                    HAS_PAGE_LIMIT: true,
                     MAX_AVAILABLE_PAGES: 5,
                     zwembaden: {
                         TITLE: 'Zwembaden'

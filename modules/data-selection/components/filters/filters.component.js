@@ -25,20 +25,20 @@
 
         vm.showMoreThreshold = 10;
 
-        vm.hasSelectableValues = function (category) {
+        vm.hasInactiveFilterOptions = function (category) {
             return category.options.reduce((has, option) => {
-                return has || !vm.isFilterActive(category.slug, option.label);
+                return has || !vm.isFilterOptionActive(category.slug, option.label);
             }, false);
         };
 
-        vm.isFilterActive = function (categorySlug, filterLabel) {
-            return vm.activeFilters[categorySlug] === filterLabel;
+        vm.isFilterOptionActive = function (categorySlug, optionId) {
+            return vm.activeFilters[categorySlug] === optionId;
         };
 
-        vm.addFilter = function (categorySlug, filterLabel) {
+        vm.addFilter = function (categorySlug, optionId) {
             var filters = angular.copy(vm.activeFilters);
 
-            filters[categorySlug] = filterLabel;
+            filters[categorySlug] = optionId;
 
             applyFilters(filters);
         };
@@ -83,14 +83,14 @@
         function updateFilters () {
             vm.showOptionCounts = dataSelectionConfig[vm.dataset].SHOW_FILTER_OPTION_COUNTS;
 
-            vm.formattedActiveFilters = dataSelectionConfig[vm.dataset].FILTERS.filter(category => {
+            vm.formattedActiveFilters = dataSelectionConfig[vm.dataset].FILTER_CATEGORIES.filter(category => {
                 return angular.isString(vm.activeFilters[category.slug]);
             }).map(function (category) {
-                const option = vm.availableFilters.filter(availableFilter => {
+                const option = vm.availableFilters.find(availableFilter => {
                     return availableFilter.slug === category.slug;
-                })[0].options.filter(opt => {
+                }).options.find(opt => {
                     return opt.id === vm.activeFilters[category.slug];
-                })[0];
+                });
 
                 return {
                     category,
