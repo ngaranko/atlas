@@ -34,7 +34,7 @@ describe('The dataSelectionApiDataSelection factory', function () {
             ENDPOINT_PREVIEW: 'https://api.amsterdam.nl/zwembaden/',
             ENDPOINT_DETAIL: 'https://amsterdam.nl/api_endpoint/zwembaden/',
             PRIMARY_KEY: 'id',
-            FILTER_CATEGORIES: [
+            FILTERS: [
                 {
                     slug: 'type',
                     label: 'Type accomodatie'

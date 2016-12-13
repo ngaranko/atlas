@@ -21,7 +21,7 @@
 
         vm.downloadUrl = dataSelectionConfig[vm.dataset].ENDPOINT_EXPORT;
 
-        dataSelectionConfig[vm.dataset].FILTER_CATEGORIES.forEach(function (filter) {
+        dataSelectionConfig[vm.dataset].FILTERS.forEach(function (filter) {
             if (angular.isString(vm.activeFilters[filter.slug])) {
                 filterParams.push(filter.slug + '=' + $window.encodeURIComponent(vm.activeFilters[filter.slug]));
             }

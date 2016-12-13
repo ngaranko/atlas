@@ -38,7 +38,7 @@ describe('The dataSelectionApiCkan factory', function () {
             ENDPOINT_PREVIEW: 'https://api.amsterdam.nl/catalogus/',
             ENDPOINT_DETAIL: 'https://amsterdam.nl/api_endpoint/catalogus/',
             PRIMARY_KEY: 'id',
-            FILTER_CATEGORIES: [
+            FILTERS: [
                 {
                     slug: 'type',
                     label: 'Type accomodatie'

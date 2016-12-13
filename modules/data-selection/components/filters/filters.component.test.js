@@ -14,7 +14,7 @@ describe('The dp-data-selection-filters component', function () {
                 },
                 dataSelectionConfig: {
                     my_special_dataset: {
-                        FILTER_CATEGORIES: [
+                        FILTERS: [
                             {
                                 slug: 'filter_a_new'
                             }, {
@@ -198,7 +198,7 @@ describe('The dp-data-selection-filters component', function () {
             });
         });
 
-        it('can only have one option per category', function () {
+        it('can only have one option per filter', function () {
             var component,
                 activeFilters = {
                     filter_a_new: 'optie-a-2',
@@ -297,19 +297,19 @@ describe('The dp-data-selection-filters component', function () {
         });
     });
 
-    it('can implode both known and unknown categories', function () {
+    it('can implode both known and unknown filters', function () {
         var component = getComponent({}, false);
         var scope = component.isolateScope();
 
-        scope.vm.expandCategory('xyz');
-        scope.vm.implodeCategory('xyz');
-        expect(scope.vm.isExpandedCategory('xyz')).toBe(false);
+        scope.vm.expandFilter('xyz');
+        scope.vm.implodeFilter('xyz');
+        expect(scope.vm.isExpandedFilter('xyz')).toBe(false);
 
-        scope.vm.implodeCategory('abc');
-        expect(scope.vm.isExpandedCategory('abc')).toBe(false);
+        scope.vm.implodeFilter('abc');
+        expect(scope.vm.isExpandedFilter('abc')).toBe(false);
     });
 
-    it('shows maximum of 10 options per category, it can expand/implode when it has more than 10 results', function () {
+    it('shows maximum of 10 options per filter, it can expand/implode when it has more than 10 results', function () {
         var component;
 
         // When there are 10 or less available options
@@ -361,11 +361,11 @@ describe('The dp-data-selection-filters component', function () {
         expect(component.find('.qa-available-filters > div').eq(0).text()).toContain('Toon meer');
     });
 
-    it('expanded categories have a message when there are more options that 100', function () {
+    it('expanded filters have a message when there are more options that 100', function () {
         // When there are less than 100 options
         var component;
 
-        // Making sure the mocked category has more than 10 options
+        // Making sure the mocked filter has more than 10 options
         availableFilters[0].options.push({
             count: 4,
             label: 'Optie A-11'
@@ -377,7 +377,7 @@ describe('The dp-data-selection-filters component', function () {
         component.find('.qa-available-filters > div').eq(0).find('.qa-show-more-button').click();
         expect(component.find('.qa-available-filters > div').eq(0).find('.qa-hidden-options').length).toBe(0);
 
-        // When there are more then 100 available options: show the message after expanding the category
+        // When there are more then 100 available options: show the message after expanding the filter
         availableFilters[0].numberOfOptions = 101;
         component = getComponent({}, false);
         expect(component.find('.qa-available-filters > div').eq(0).find('.qa-hidden-options').length).toBe(0);

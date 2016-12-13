@@ -29,7 +29,7 @@ describe('The dataSelectionApi factory', function () {
             zwembaden: {
                 ENDPOINT_MARKERS: 'https://api.amsterdam.nl/zwembaden/markers/',
                 CUSTOM_API: 'mockedApiService',
-                FILTER_CATEGORIES: [
+                FILTERS: [
                     {
                         slug: 'type',
                         label: 'Type accomodatie'
