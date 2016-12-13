@@ -86,12 +86,12 @@
 }
 
 .c-straatbeeld__streetview-map-icon--minimize {
-  @include icon-button-text-right("forward", "", "red");
+  @include icon-button-text-right("forward", "", "white");
   @include streetview-map;
 }
 
 .c-straatbeeld__streetview-map-icon--maximize {
-  @include icon-button-text-right("back", "", "red");
+  @include icon-button-text-right("back", "", "white");
   @include streetview-map;
 }
 
