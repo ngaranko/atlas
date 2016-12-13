@@ -29,7 +29,9 @@ describe('The dp-map directive', function () {
                     initialize: angular.noop,
                     addMarker: angular.noop,
                     removeMarker: angular.noop,
-                    setCluster: angular.noop,
+                    setCluster: function (map, collection, endLoading) {
+                        endLoading();
+                    },
                     clearCluster: angular.noop
                 },
                 panning: {
@@ -370,9 +372,34 @@ describe('The dp-map directive', function () {
                     [
                         [52.1, 4.1],
                         [52.2, 4.1]
-                    ]
+                    ], jasmine.any(Function)
                 );
             });
+
+            // it('can add a group of clustered markers, accepting an onReady method', function () {
+            //     // Start without any clustered markers
+            //     let highlightItems = {
+            //         regular: [],
+            //         clustered: []
+            //     };
+            //
+            //     getDirective(mockedMapState, false, highlightItems);
+            //     $rootScope.$apply();
+            //     expect(highlight.setCluster).not.toHaveBeenCalled();
+            //
+            //     // Add one marker
+            //     let isReady = false;
+            //     highlightItems.clustered.push([52.1, 4.1], [52.2, 4.1], () => isReady = true);
+            //     $rootScope.$apply();
+            //     expect(highlight.setCluster).toHaveBeenCalledWith(
+            //         'I_AM_A_FAKE_LEAFLET_MAP',
+            //         [
+            //             [52.1, 4.1],
+            //             [52.2, 4.1]
+            //         ], jasmine.any(Function)
+            //     );
+            //     expect(isReady).toBe(true);
+            // });
 
             it('can remove a group of clustered markers', function () {
                 let highlightItems = {

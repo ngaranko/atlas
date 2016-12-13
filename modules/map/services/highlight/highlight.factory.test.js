@@ -159,7 +159,9 @@ describe('The highlight factory', function () {
                     lng: 'FAKE_LONGITUDE'
                 };
             },
-            getZoom: angular.noop
+            getZoom: angular.noop,
+            on: angular.noop,
+            off: angular.noop
         };
 
         spyOn(mockedLeafletMap, 'addLayer');
@@ -336,6 +338,40 @@ describe('The highlight factory', function () {
 
         // The new clusteredLayer is then added to the map
         expect(mockedLeafletMap.addLayer).toHaveBeenCalledWith(mockedClusteredLayer);
+    });
+
+    it('can add clustered markers to the map and invokes callback method when the cluster is loaded', function () {
+        let on = (event, onEvent) => {
+            onEvent({
+                layer: mockedClusteredLayer
+            });
+        };
+
+        let isReady = false,
+            onReady = () => isReady = true;
+
+        spyOn(mockedLeafletMap, 'getZoom').and.returnValue(13);
+        spyOn(mockedLeafletMap, 'on').and.returnValue(on);
+        spyOn(mockedLeafletMap, 'off').and.returnValue('off');
+
+        // spyOn(L, 'markerClusterGroup').and.returnValue(1);
+
+        highlight.setCluster(mockedLeafletMap, [
+            [52.1, 4.0],
+            [52.2, 4.0],
+            [52.3, 4.1]
+        ],onReady);
+
+        expect(mockedLeafletMap.on).toHaveBeenCalledWith('layeradd', jasmine.any(Function));
+        expect(isReady).toBe(true);
+
+        // expect(mockedLeafletMap.off).toHaveBeenCalledWith(1);
+
+        // Making sure the configuration is used
+        expect(L.markerClusterGroup).toHaveBeenCalledWith({
+            looksGoodToMe: true,
+            optimizationLevel: 999
+        });
     });
 
     it('pans and zooms to the clustered markers after adding them to the map', function () {
