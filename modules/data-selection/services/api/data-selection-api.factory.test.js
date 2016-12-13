@@ -25,7 +25,7 @@ describe('The dataSelectionApi factory', function () {
                 }
             },
             function ($provide) {
-                $provide.constant('dataSelectionConfig', {
+                $provide.constant('DATA_SELECTION_CONFIG', {
                     MAX_AVAILABLE_PAGES: 100,
                     zwembaden: {
                         ENDPOINT_PREVIEW: 'https://api.amsterdam.nl/zwembaden/',
