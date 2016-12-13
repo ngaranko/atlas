@@ -31,6 +31,7 @@
   &::before {
     margin-top: -1px;
     margin-right: -$base-whitespace / 2;
+    margin-left: -1px;
   }
 }
 
@@ -47,7 +48,7 @@
   @include font-definition;
   position: absolute;
   right: 0;
-  bottom: ($base-whitespace * 2) + 1;
+  bottom: $base-whitespace * 2;
   left: 0;
   height: $button-size;
   padding-right: $base-whitespace / 2;
@@ -92,6 +93,7 @@
   padding-right: $base-whitespace;
   padding-left: $base-whitespace / 2;
   border-right: solid $secondary-gray20 1px;
+  overflow:  hidden;
   z-index: 2;
 
   &::before {
