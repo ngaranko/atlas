@@ -234,13 +234,13 @@ describe('The stateToUrl factory', function () {
 
             // With a detail page
             mockedState.detail = {
-                endpoint: 'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/123/'
+                endpoint: 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/123/'
             };
 
             stateToUrl.update(mockedState, false);
 
             expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
-                detail: 'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/123/'
+                detail: 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/123/'
             }));
         });
 
