@@ -4,27 +4,22 @@
     <title>icoon-cluster</title>
     <desc>Created with Sketch.</desc>
     <defs>
-        <circle id="path-1" cx="16" cy="16" r="16"></circle>
-        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2">
-            <feMorphology radius="3" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
-            <feOffset dx="1" dy="1" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
-            <feMorphology radius="1" operator="erode" in="SourceAlpha" result="shadowInner"></feMorphology>
-            <feOffset dx="1" dy="1" in="shadowInner" result="shadowInner"></feOffset>
-            <feComposite in="shadowOffsetOuter1" in2="shadowInner" operator="out" result="shadowOffsetOuter1"></feComposite>
-            <feColorMatrix values="0 0 0 0 0.4   0 0 0 0 0.4   0 0 0 0 0.4  0 0 0 1 0" type="matrix" in="shadowOffsetOuter1"></feColorMatrix>
-        </filter>
-        <mask id="mask-3" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="-3" y="-3" width="38" height="38">
-            <rect x="-3" y="-3" width="38" height="38" fill="white"></rect>
+        <circle id="path-1" cx="17" cy="17" r="16"></circle>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="-3" y="-3" width="38" height="38">
+            <rect x="-2" y="-2" width="38" height="38" fill="white"></rect>
             <use xlink:href="#path-1" fill="black"></use>
+        </mask>
+        <circle id="path-3" cx="16" cy="16" r="16"></circle>
+        <mask id="mask-4" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="-3" y="-3" width="38" height="38">
+            <rect x="-3" y="-3" width="38" height="38" fill="white"></rect>
+            <use xlink:href="#path-3" fill="black"></use>
         </mask>
     </defs>
     <g id="Styleguide" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="icoon-cluster">
             <g id="cluster-icoon" transform="translate(3.000000, 3.000000)">
-                <g id="Oval">
-                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
-                    <use stroke="#FFFFFF" mask="url(#mask-3)" stroke-width="6" xlink:href="#path-1"></use>
-                </g>
+                <use id="Oval" stroke="#666666" mask="url(#mask-2)" stroke-width="6" xlink:href="#path-1"></use>
+                <use id="Oval" stroke="#FFFFFF" mask="url(#mask-4)" stroke-width="6" xlink:href="#path-3"></use>
                 <circle id="Oval" fill="#FF0000" cx="16" cy="16" r="16"></circle>
             </g>
         </g>
