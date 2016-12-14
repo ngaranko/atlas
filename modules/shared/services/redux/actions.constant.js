@@ -67,11 +67,14 @@
             },
             SHOW_MAP_ACTIVE_OVERLAYS: {
                 id: 'SHOW_MAP_ACTIVE_OVERLAYS',
-                replace: true
+                replace: true,
+                isButton: true
+
             },
             HIDE_MAP_ACTIVE_OVERLAYS: {
                 id: 'HIDE_MAP_ACTIVE_OVERLAYS',
-                replace: true
+                replace: true,
+                isButton: true
             },
 
             FETCH_DETAIL: {
@@ -122,7 +125,8 @@
                 id: 'NAVIGATE_DATA_SELECTION'
             },
             SET_DATA_SELECTION_VIEW: {
-                id: 'SET_DATA_SELECTION_VIEW'
+                id: 'SET_DATA_SELECTION_VIEW',
+                isButton: true
             },
 
             SHOW_LAYER_SELECTION: {
