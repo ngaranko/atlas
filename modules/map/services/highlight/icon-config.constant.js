@@ -13,7 +13,7 @@
             detail: {
                 iconUrl: 'assets/icons/icon-detail.svg',
                 iconSize: [21, 21],
-                iconAnchor: [8, 8]
+                iconAnchor: [10, 10]
             },
             straatbeeld_orientation: {
                 iconUrl: 'assets/icons/icon-straatbeeld-orientation.png',
