@@ -93,7 +93,21 @@
         }
 
         function setCluster (leafletMap, markers, onReady) {
-            clusteredLayer = L.markerClusterGroup(CLUSTERED_MARKERS_CONFIG);
+            clusteredLayer = L.markerClusterGroup(
+                angular.merge(
+                    {},
+                    CLUSTERED_MARKERS_CONFIG,
+                    {
+                        iconCreateFunction: function (cluster) {
+                            return L.divIcon({
+                                html: '<div class="o-highlight-cluster__text">' + cluster.getChildCount() + '</div>',
+                                className: 'o-highlight-cluster',
+                                iconSize: L.point(32, 32)
+                            });
+                        }
+                    }
+                )
+            );
 
             markers.forEach(marker => {
                 clusteredLayer.addLayer(
