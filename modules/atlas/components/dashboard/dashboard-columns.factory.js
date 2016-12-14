@@ -23,7 +23,7 @@
                 visibility.dataSelectionList = state.dataSelection.view === 'LIST';
 
                 visibility.map = visibility.dataSelectionList;
-                visibility.layerSelection = state.layerSelection;
+                visibility.layerSelection = visibility.dataSelectionList && state.layerSelection;
                 visibility.detail = false;
                 visibility.page = false;
                 visibility.searchResults = false;
