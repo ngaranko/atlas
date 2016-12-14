@@ -11,8 +11,7 @@
                 iconAnchor: [15, 51]
             },
             detail: {
-                iconUrl: 'assets/icons/icon-detail.png',
-                iconRetinaUrl: 'assets/icons/icon-detail-retina.png',
+                iconUrl: 'assets/icons/icon-detail.svg',
                 iconSize: [16, 16],
                 iconAnchor: [8, 8]
             },
