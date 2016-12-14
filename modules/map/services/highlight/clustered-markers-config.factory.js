@@ -19,7 +19,7 @@
                     html: '<div class="o-highlight-cluster__text">' + cluster.getChildCount() + '</div>',
                     className: 'o-highlight-cluster',
                     iconSize: L.point(39, 39),
-                    iconAnchor: L.Point(19, 19)
+                    iconAnchor: L.point(19, 19)
                 });
             }
         };
