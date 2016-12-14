@@ -125,7 +125,8 @@
                 id: 'NAVIGATE_DATA_SELECTION'
             },
             SET_DATA_SELECTION_VIEW: {
-                id: 'SET_DATA_SELECTION_VIEW'
+                id: 'SET_DATA_SELECTION_VIEW',
+                isButton: true
             },
 
             SHOW_LAYER_SELECTION: {

@@ -53,7 +53,14 @@
                 });
             }
 
-            vm.markers.clustered = angular.isObject(state.dataSelection) ? state.dataSelection.markers : [];
+            if (angular.isObject(state.dataSelection)) {
+                vm.markers.clustered = state.dataSelection.markers;
+                state.map.isLoading = state.map.isLoading ||
+                    (state.dataSelection.view === 'LIST' && state.dataSelection.isLoading);
+            } else {
+                vm.markers.clustered = [];
+            }
+
             vm.mapState = state.map;
             vm.showLayerSelection = state.layerSelection;
         }
