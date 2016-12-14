@@ -81,21 +81,23 @@
         };
 
         function updateFilters () {
-            vm.showOptionCounts = dataSelectionConfig[vm.dataset].SHOW_FILTER_OPTION_COUNTS;
+            if (angular.isObject(vm.availableFilters)) {
+                vm.showOptionCounts = dataSelectionConfig[vm.dataset].SHOW_FILTER_OPTION_COUNTS;
 
-            vm.formattedActiveFilters = vm.availableFilters.filter(filter => {
-                return angular.isString(vm.activeFilters[filter.slug]);
-            }).map(function (filter) {
-                const option = filter.options.find(opt => {
-                    return opt.id === vm.activeFilters[filter.slug];
+                vm.formattedActiveFilters = vm.availableFilters.filter(filter => {
+                    return angular.isString(vm.activeFilters[filter.slug]);
+                }).map(function (filter) {
+                    const option = filter.options.find(opt => {
+                        return opt.id === vm.activeFilters[filter.slug];
+                    });
+
+                    return {
+                        slug: filter.slug,
+                        label: filter.label,
+                        option
+                    };
                 });
-
-                return {
-                    slug: filter.slug,
-                    label: filter.label,
-                    option
-                };
-            });
+            }
         }
 
         function applyFilters (filters) {
