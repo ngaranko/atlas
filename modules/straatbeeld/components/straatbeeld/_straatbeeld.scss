@@ -19,7 +19,7 @@
   padding-right: $base-whitespace;
   float: left;
   border-right: solid $secondary-gray20 1px;
-  color: $secondary-gray60;
+  color: $primary-dark;
   z-index: 2;
 
   &:hover {
@@ -63,7 +63,7 @@
   padding-right: $base-whitespace / 2;
   padding-left: 0;
   background-color: $primary-light-alpha66;
-  color: $secondary-gray60;
+  color: $primary-dark;
   line-height: $button-size - 2;
   z-index: 2;
 }
@@ -86,12 +86,12 @@
 }
 
 .c-straatbeeld__streetview-map-icon--minimize {
-  @include icon-button-text-right("forward", "", "white");
+  @include icon-button-text-right("forwardb", "", "white");
   @include streetview-map;
 }
 
 .c-straatbeeld__streetview-map-icon--maximize {
-  @include icon-button-text-right("back", "", "white");
+  @include icon-button-text-right("backb", "", "white");
   @include streetview-map;
 }
 
