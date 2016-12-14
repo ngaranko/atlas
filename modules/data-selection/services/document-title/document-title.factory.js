@@ -19,6 +19,11 @@
                 variant,
                 criteria;
 
+            if (dataSelectionState.view === 'CARDS') {
+                console.log('Set title', dataSelectionState);
+                return '<getTitle>';
+            }
+
             view = dataSelectionState.view === 'TABLE' ? 'Tabel' : 'Lijst';
             variant = dataSelectionConfig[dataSelectionState.dataset].TITLE;
             criteria = dataSelectionConfig[dataSelectionState.dataset].FILTERS

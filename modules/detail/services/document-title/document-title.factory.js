@@ -14,6 +14,12 @@
         };
 
         function getTitle (detailState) {
+            console.log('getTitle', detailState);
+            return 'getTitle';
+            if (angular.isObject(detailState.dataset)) {
+                return 'getTitle';
+            }
+
             const stelselpediaKey = endpointParser.getStelselpediaKey(detailState.endpoint);
 
             return `${STELSELPEDIA.DEFINITIONS[stelselpediaKey].label_singular}: ${detailState.display}`;

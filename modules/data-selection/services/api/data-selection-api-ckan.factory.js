@@ -74,8 +74,8 @@
         }
 
         function getDetailEndpoint (config, rawDataRow) {
-            return config.ENDPOINT_DETAIL +
-                rawDataRow[config.PRIMARY_KEY] + '/';
+            return  api.getUrl(config.ENDPOINT_DETAIL) +
+                '?id=' + rawDataRow[config.PRIMARY_KEY];
         }
     }
 })();

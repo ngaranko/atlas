@@ -10,7 +10,8 @@
     function apiFactory ($http, user, environment) {
         return {
             getByUrl,
-            getByUri
+            getByUri,
+            getUrl
         };
 
         /**
@@ -57,8 +58,13 @@
                 });
         }
 
+        function getUrl (uri) {
+            return environment.API_ROOT + uri;
+        }
+
         function getByUri (uri, params) {
-            return getByUrl(environment.API_ROOT + uri, params);
+            let url = getUrl(uri, params);
+            return getByUrl(url, params);
         }
     }
 })();

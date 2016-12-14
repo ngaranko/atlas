@@ -77,7 +77,7 @@
             } else if (hasFullscreenMap) {
                 columnSizes.left = 0;
                 columnSizes.middle = 12;
-            } else if (visibility.dataSelection && !visibility.dataSelectionList) {
+            } else if (visibility.detail || (visibility.dataSelection && !visibility.dataSelectionList)) {
                 columnSizes.left = 0;
                 columnSizes.middle = 0;
             } else {

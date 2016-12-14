@@ -1,0 +1,26 @@
+<h1>Dataset</h1>
+
+<h2>Title: {{vm.apiData.results.title}}</h2>
+<div>Aangemaakt: {{vm.apiData.results.metadata_created}}</div>
+<div>Gewijzigd: {{vm.apiData.results.metadata_modified}}</div>
+<div>Update frequentie: ??</div>
+<div>Gepubliceerd door: {{vm.apiData.results.author}} ({{vm.apiData.results.author_email}})</div>
+<div>Thema: ??</div>
+
+<h2>Notes</h2>
+<div>Notes: {{vm.apiData.results.notes}}</div>
+
+<h2>Data</h2>
+<div ng-repeat="resource in vm.apiData.results.resources">
+    <div>format: {{resource.format}}</div>
+    <div>description: {{resource.description}}</div>
+    <div>url: {{resource.url}}</div>
+</div>
+
+<h2>Tags</h2>
+<div ng-repeat="tag in vm.apiData.results.tags">
+    <div>Name: {{tag.display_name}}</div>
+</div>
+
+<h2>Licentie</h2>
+<div>{{vm.apiData.results.license_id}}</div>

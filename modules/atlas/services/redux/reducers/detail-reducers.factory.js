@@ -22,6 +22,8 @@
          * @returns {Object} newState
          */
         function fetchDetailReducer (oldState, payload) {
+            console.log('fetch detail', payload);
+
             var newState = angular.copy(oldState);
 
             newState.detail = {
@@ -53,10 +55,14 @@
 
             // Detail can be null if another action gets triggered between FETCH_DETAIL and SHOW_DETAIL
             if (angular.isObject(newState.detail)) {
+                console.log('Show detail', payload);
                 newState.detail.isInvisible = false;
 
                 newState.detail.display = payload.display;
                 newState.detail.geometry = payload.geometry;
+                newState.detail.dataset = payload.dataset;
+
+                console.log('dataset set to', newState.detail.dataset);
 
                 newState.map.isLoading = false;
                 newState.detail.isLoading = false;

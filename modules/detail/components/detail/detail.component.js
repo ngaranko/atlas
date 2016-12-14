@@ -58,14 +58,41 @@
             vm.location = null;
 
             api.getByUrl(endpoint).then(function (data) {
+                vm.includeSrc = endpointParser.getTemplateUrl(endpoint);
+
+                if (data.result && data.result.type === 'dataset') {
+                    let results = {};
+                    [
+                        'title',
+                        'author',
+                        'author_email',
+                        'metadata_created',
+                        'metadata_modified',
+                        'notes',
+                        'resources',
+                        'tags',
+                        'license_id'
+                    ].forEach(key => results[key] = data.result[key]);
+                    vm.apiData = {
+                        results
+                    };
+
+                    console.log('getData ', data.result);
+                    store.dispatch({
+                        type: ACTIONS.SHOW_DETAIL,
+                        payload: {
+                            dataset: results
+                        }
+                    });
+                    return;
+                }
+
                 vm.apiData = {
                     results: data
                 };
 
                 // Derive whether more info is available if the user would login
                 vm.isMoreInfoAvailable = vm.apiData.results.is_natuurlijk_persoon && !user.getStatus().isLoggedIn;
-
-                vm.includeSrc = endpointParser.getTemplateUrl(endpoint);
 
                 vm.filterSelection = {
                     [endpointParser.getSubject(endpoint)]: vm.apiData.results.naam
