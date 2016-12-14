@@ -6,7 +6,7 @@ describe('The dp-data-selection-download-button component', function () {
         angular.mock.module(
             'dpDataSelection',
             function ($provide) {
-                $provide.constant('dataSelectionConfig', {
+                $provide.constant('DATA_SELECTION_CONFIG', {
                     dataset_a: {
                         ENDPOINT: 'http://www.example.com/datasets/a/',
                         ENDPOINT_EXPORT: 'http://www.example.com/datasets/a/download/',

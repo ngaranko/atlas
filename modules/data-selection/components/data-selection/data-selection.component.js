@@ -12,9 +12,9 @@
             controllerAs: 'vm'
         });
 
-    DpDataSelectionController.$inject = ['$scope', 'dataSelectionApi', 'dataSelectionConfig', 'store', 'ACTIONS'];
+    DpDataSelectionController.$inject = ['$scope', 'dataSelectionApi', 'DATA_SELECTION_CONFIG', 'store', 'ACTIONS'];
 
-    function DpDataSelectionController ($scope, dataSelectionApi, dataSelectionConfig, store, ACTIONS) {
+    function DpDataSelectionController ($scope, dataSelectionApi, DATA_SELECTION_CONFIG, store, ACTIONS) {
         let vm = this;
         const MAXIMUM_NUMBER_OF_MARKERS = 10000;
 
@@ -31,11 +31,11 @@
         function fetchData () {
             vm.isLoading = true;
 
-            vm.title = dataSelectionConfig[vm.state.dataset].TITLE;
+            vm.title = DATA_SELECTION_CONFIG[vm.state.dataset].TITLE;
             vm.view = vm.state.view;
             vm.showFilters = vm.state.view === 'TABLE';
             vm.currentPage = vm.state.page;
-            vm.isPageAvailable = vm.currentPage <= dataSelectionConfig.MAX_AVAILABLE_PAGES;
+            vm.isPageAvailable = vm.currentPage <= DATA_SELECTION_CONFIG.MAX_AVAILABLE_PAGES;
             vm.hasTooManyMarkers = false;
 
             dataSelectionApi.query(vm.state.dataset, vm.state.view, vm.state.filters, vm.currentPage).then(data => {

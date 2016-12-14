@@ -5,22 +5,20 @@
         .module('dpShared')
         .factory('environment', environmentFactory);
 
-    environmentFactory.$inject = ['$location', 'ENVIRONMENT_CONFIG'];
+    environmentFactory.$inject = ['$location'];
 
-    function environmentFactory ($location, ENVIRONMENT_CONFIG) {
-        var environment;
+    function environmentFactory ($location) {
+        let config = {};
 
         switch ($location.host()) {
             case 'atlas.amsterdam.nl':
-                environment = 'PRODUCTION';
+                config.NAME = 'PRODUCTION';
                 break;
 
             default:
-                environment = 'DEVELOPMENT';
+                config.NAME = 'DEVELOPMENT';
         }
 
-        ENVIRONMENT_CONFIG[environment].NAME = environment;
-
-        return ENVIRONMENT_CONFIG[environment];
+        return config;
     }
 })();

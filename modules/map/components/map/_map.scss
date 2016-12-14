@@ -17,6 +17,7 @@
 
   //translateZ(0) is needed to fix a Firefox bug, see tg-1306 (black screen when scrolling)
   transform: translateZ(0);
+  border: 1px solid $secondary-gray40;
   cursor: default;
   z-index: 1;
 }
