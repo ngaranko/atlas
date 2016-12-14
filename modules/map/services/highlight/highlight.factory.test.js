@@ -159,7 +159,9 @@ describe('The highlight factory', function () {
                     lng: 'FAKE_LONGITUDE'
                 };
             },
-            getZoom: angular.noop
+            getZoom: angular.noop,
+            on: angular.noop,
+            off: angular.noop
         };
 
         spyOn(mockedLeafletMap, 'addLayer');
@@ -336,6 +338,60 @@ describe('The highlight factory', function () {
 
         // The new clusteredLayer is then added to the map
         expect(mockedLeafletMap.addLayer).toHaveBeenCalledWith(mockedClusteredLayer);
+    });
+
+    it('can add clustered markers to the map and invokes callback method when the cluster is loaded', function () {
+        let isLoaded;
+
+        spyOn(mockedLeafletMap, 'off');
+
+        // Simulate that the layer has been succesfully loaded
+        let layerIsLoaded = (event, onEvent) => {
+            onEvent({
+                layer: mockedClusteredLayer
+            });
+        };
+        mockedLeafletMap.on = layerIsLoaded;
+
+        isLoaded = false;
+        highlight.setCluster(mockedLeafletMap, [
+            [52.1, 4.0],
+            [52.2, 4.0],
+            [52.3, 4.1]
+        ], () => isLoaded = true);
+
+        expect(isLoaded).toBe(true);
+        // Check that the event subscription has been cancelled
+        expect(mockedLeafletMap.off).toHaveBeenCalledWith('layeradd', jasmine.any(Function));
+
+        // It should not fail, but only unsubscribe when no function is specified
+        mockedLeafletMap.off.calls.reset();
+        highlight.setCluster(mockedLeafletMap, [
+            [52.1, 4.0],
+            [52.2, 4.0],
+            [52.3, 4.1]
+        ]);
+        expect(mockedLeafletMap.off).toHaveBeenCalledWith('layeradd', jasmine.any(Function));
+
+        mockedLeafletMap.off.calls.reset();
+
+        // Simulate that the layer has not been succesfully loaded
+        let layerIsNotLoaded = (event, onEvent) => {
+            onEvent({
+                layer: 1    // something unequal to the mocked clustered layer
+            });
+        };
+        mockedLeafletMap.on = layerIsNotLoaded;
+
+        isLoaded = false;
+        highlight.setCluster(mockedLeafletMap, [
+            [52.1, 4.0],
+            [52.2, 4.0],
+            [52.3, 4.1]
+        ], () => isLoaded = true);
+
+        expect(isLoaded).toBe(false);
+        expect(mockedLeafletMap.off).not.toHaveBeenCalled();
     });
 
     it('pans and zooms to the clustered markers after adding them to the map', function () {

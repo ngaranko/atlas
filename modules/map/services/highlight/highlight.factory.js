@@ -92,7 +92,7 @@
             leafletMap.removeLayer(layers[item.id]);
         }
 
-        function setCluster (leafletMap, markers) {
+        function setCluster (leafletMap, markers, onReady) {
             clusteredLayer = L.markerClusterGroup(CLUSTERED_MARKERS_CONFIG);
 
             markers.forEach(marker => {
@@ -102,6 +102,16 @@
                     })
                 );
             });
+
+            let onLayerAdd = (event) => {
+                if (event.layer === clusteredLayer) {
+                    leafletMap.off('layeradd', onLayerAdd);
+                    if (angular.isFunction(onReady)) {
+                        onReady();
+                    }
+                }
+            };
+            leafletMap.on('layeradd', onLayerAdd);
 
             zoomToLayer(leafletMap, clusteredLayer);
             leafletMap.addLayer(clusteredLayer);
