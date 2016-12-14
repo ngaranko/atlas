@@ -15,7 +15,7 @@
         'panning',
         'store',
         'ACTIONS',
-        'CLUSTERED_MARKERS_CONFIG'
+        'clusteredMarkersConfig'
     ];
 
     function highlightFactory (
@@ -28,7 +28,7 @@
         panning,
         store,
         ACTIONS,
-        CLUSTERED_MARKERS_CONFIG) {
+        clusteredMarkersConfig) {
         let layers = {},
             clusteredLayer;
 
@@ -93,21 +93,7 @@
         }
 
         function setCluster (leafletMap, markers, onReady) {
-            clusteredLayer = L.markerClusterGroup(
-                angular.merge(
-                    {},
-                    CLUSTERED_MARKERS_CONFIG,
-                    {
-                        iconCreateFunction: function (cluster) {
-                            return L.divIcon({
-                                html: '<div class="o-highlight-cluster__text">' + cluster.getChildCount() + '</div>',
-                                className: 'o-highlight-cluster',
-                                iconSize: L.point(32, 32)
-                            });
-                        }
-                    }
-                )
-            );
+            clusteredLayer = L.markerClusterGroup(clusteredMarkersConfig);
 
             markers.forEach(marker => {
                 clusteredLayer.addLayer(
