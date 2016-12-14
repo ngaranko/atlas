@@ -67,11 +67,14 @@
             },
             SHOW_MAP_ACTIVE_OVERLAYS: {
                 id: 'SHOW_MAP_ACTIVE_OVERLAYS',
-                replace: true
+                replace: true,
+                isButton: true
+
             },
             HIDE_MAP_ACTIVE_OVERLAYS: {
                 id: 'HIDE_MAP_ACTIVE_OVERLAYS',
-                replace: true
+                replace: true,
+                isButton: true
             },
 
             FETCH_DETAIL: {
