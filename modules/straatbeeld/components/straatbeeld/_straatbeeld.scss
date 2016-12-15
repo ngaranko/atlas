@@ -1,3 +1,5 @@
+@import "modules/straatbeeld/components/toggle-fullscreen/toggle-fullscreen";
+
 @mixin font-definition {
   font-family: $header-font-family;
   font-size: $base-font-size - 2;
@@ -7,31 +9,6 @@
   &:active,
   &:focus {
     color: $primary-light !important;
-  }
-}
-
-@mixin streetview-map {
-  @include font-definition;
-  @include active-link-light;
-
-  margin-right: 0;
-  margin-left: 1px;
-  padding-right: $base-whitespace;
-  float: left;
-  border-right: solid $secondary-gray20 1px;
-  color: $primary-dark;
-  z-index: 2;
-
-  &:hover {
-    background-color: $primary-contrast;
-    color: $primary-light;
-    text-decoration: none;
-  }
-
-  &::before {
-    margin-top: -1px;
-    margin-right: -$base-whitespace / 2;
-    margin-left: -1px;
   }
 }
 
@@ -79,20 +56,6 @@
   top: 0;
   right: 0;
   z-index: 2;
-}
-
-.c-straatbeeld__kaart-toggle {
-  display: inline;
-}
-
-.c-straatbeeld__streetview-map-icon--minimize {
-  @include icon-button-text-right("forwardb", "", "white");
-  @include streetview-map;
-}
-
-.c-straatbeeld__streetview-map-icon--maximize {
-  @include icon-button-text-right("backb", "", "white");
-  @include streetview-map;
 }
 
 .c-straatbeeld__streetview-history-icon {
