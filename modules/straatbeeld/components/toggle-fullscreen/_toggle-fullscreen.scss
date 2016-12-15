@@ -1,0 +1,43 @@
+
+@mixin streetview-map {
+  margin-right: 0;
+  margin-left: 1px;
+  padding-right: $base-whitespace;
+  float: left;
+  border-right: solid $secondary-gray20 1px;
+  color: $primary-dark;
+  font-family: $header-font-family;
+  font-size: $base-font-size - 2;
+  z-index: 2;
+
+  &:hover {
+    background-color: $primary-contrast;
+    color: $primary-light;
+    text-decoration: none;
+  }
+
+  &::before {
+    margin-top: -1px;
+    margin-right: -$base-whitespace / 2;
+    margin-left: -1px;
+  }
+
+  &:active,
+  &:focus {
+    color: $primary-light !important;
+  }
+}
+
+.c-straatbeeld__kaart-toggle {
+  display: inline;
+}
+
+.c-straatbeeld__streetview-map-icon--minimize {
+  @include icon-button-text-right("forwardb", "", "white");
+  @include streetview-map;
+}
+
+.c-straatbeeld__streetview-map-icon--maximize {
+  @include icon-button-text-right("backb", "", "white");
+  @include streetview-map;
+}
