@@ -11,8 +11,9 @@
     ];
 
     function dataSelectionReducersFactory (ACTIONS, DEFAULT_STATE) {
-        var reducers = {};
+        let reducers = {};
 
+        reducers[ACTIONS.FETCH_DATA_SELECTION.id] = fetchDataSelectionReducer;
         reducers[ACTIONS.SHOW_DATA_SELECTION.id] = showDataSelectionReducer;
         reducers[ACTIONS.NAVIGATE_DATA_SELECTION.id] = navigateDataSelectionReducer;
         reducers[ACTIONS.SET_DATA_SELECTION_VIEW.id] = setDataSelectionViewReducer;
@@ -25,13 +26,12 @@
          *
          * @returns {Object} newState
          */
-        function showDataSelectionReducer (oldState, payload) {
+        function fetchDataSelectionReducer (oldState, payload) {
             let newState = angular.copy(oldState);
 
             newState.map.viewCenter = DEFAULT_STATE.map.viewCenter;
             newState.map.zoom = DEFAULT_STATE.map.zoom;
             newState.map.isFullscreen = false;
-            newState.map.isLoading = false;
 
             newState.layerSelection = false;
             newState.search = null;
@@ -44,6 +44,30 @@
             if (!newState.dataSelection.view) {
                 // Default view is table view
                 newState.dataSelection.view = 'TABLE';
+            }
+            // LIST loading might include markers => set map loading accordingly
+            newState.map.isLoading = newState.dataSelection.view === 'LIST';
+
+            newState.dataSelection.markers = [];
+            newState.dataSelection.isLoading = true;
+
+            return newState;
+        }
+
+        /**
+         * @param {Object} oldState
+         * @param {Array} payload - Markers for the leaflet.markercluster plugin
+         *
+         * @returns {Object} newState
+         */
+        function showDataSelectionReducer (oldState, payload) {
+            let newState = angular.copy(oldState);
+
+            if (newState.dataSelection) {
+                newState.dataSelection.markers = payload;
+                newState.dataSelection.isLoading = false;
+                // Set map loading if any markers need to be shown
+                newState.map.isLoading = newState.dataSelection.markers.length > 0;
             }
 
             return newState;
@@ -75,6 +99,7 @@
             ['LIST', 'TABLE'].forEach(legalValue => {
                 if (payload === legalValue) {
                     newState.dataSelection.view = payload;
+                    newState.dataSelection.isLoading = true;
                 }
             });
 

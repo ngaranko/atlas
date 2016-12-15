@@ -5,20 +5,20 @@
         .module('dpShared')
         .factory('api', apiFactory);
 
-    apiFactory.$inject = ['$http', 'user', 'environment'];
+    apiFactory.$inject = ['$http', 'user', 'API_CONFIG'];
 
-    function apiFactory ($http, user, environment) {
+    function apiFactory ($http, user, API_CONFIG) {
         return {
-            getByUrl: getByUrl,
-            getByUri: getByUri
+            getByUrl,
+            getByUri
         };
 
         /**
          *
-         * @param url
-         * @param params
-         * @param cancel - an optional promise ($q.defer()) to be able to cancel the request
-         * @returns {*|Promise.<TResult>}
+         * @param {string} url
+         * @param {Object} params
+         * @param {Promise} cancel - an optional promise ($q.defer()) to be able to cancel the request
+         * @returns {Promise}
          */
         function getByUrl (url, params, cancel) {
             let headers = {},
@@ -41,15 +41,24 @@
                 cache: false
             };
 
+            let isCancelled = false;
+
             if (angular.isObject(cancel) && cancel.promise) {
                 options.timeout = cancel.promise;
+                options.timeout.then(() => isCancelled = true);
             }
 
-            return $http(options).then(response => response.data);
+            return $http(options)
+                .then(response => response.data)
+                .finally(() => {
+                    if (options.timeout && !isCancelled) {
+                        cancel.reject();
+                    }
+                });
         }
 
         function getByUri (uri, params) {
-            return getByUrl(environment.API_ROOT + uri, params);
+            return getByUrl(API_CONFIG.ROOT + uri, params);
         }
     }
 })();

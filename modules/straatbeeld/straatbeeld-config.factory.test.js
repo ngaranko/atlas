@@ -23,7 +23,7 @@ describe('The straatbeeldConfig factory', function () {
             var straatbeeldConfig = prepareMocks('DEVELOPMENT');
 
             expect(straatbeeldConfig.STRAATBEELD_ENDPOINT)
-                .toBe('https://api-acc.datapunt.amsterdam.nl/panorama/opnamelocatie/');
+                .toBe('https://api.datapunt.amsterdam.nl/panorama/opnamelocatie/');
         });
 
         it('production', function () {

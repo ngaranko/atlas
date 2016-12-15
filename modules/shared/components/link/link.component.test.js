@@ -1,102 +1,114 @@
 describe('The dp-link component', function () {
     let $compile,
         $rootScope,
-        $location,
         store,
-        updateFn,
-        reducer = {
-            fn: angular.noop
-        },
-        stateToUrl = {
-            create: angular.noop
-        },
-        applicationState = {
-            getReducer: () => reducer.fn,
-            getStateToUrl: () => stateToUrl
-        },
-        unsubscribe = {
-            unsubscribe: angular.noop
-        },
-        debounce = {
-            debounce: (time, fn) => {
-                let debounced = () => {
-                    fn();
-                };
-
-                debounced.cancel = debounce.cancel;
-                return debounced;
-            },
-            cancel: angular.noop
-        },
-        body = {
-            contains: angular.noop
-        };
+        mockedReducer,
+        mockedActions,
+        mockedPayload,
+        mockedState,
+        mockedStateToUrl,
+        mockedTargetState,
+        mockedCurrentPath,
+        mockedTargetPath;
 
     beforeEach(function () {
-        spyOn(reducer, 'fn');
-        spyOn(debounce, 'debounce').and.callThrough();
-        spyOn(debounce, 'cancel');
-        spyOn(unsubscribe, 'unsubscribe');
+        mockedActions = {
+            ACTION_WITH_LINK: {
+                id: 'ACTION_WITH_LINK',
+                isButton: false
+            },
+            ACTION_WITH_BUTTON: {
+                id: 'ACTION_WITH_BUTTON',
+                isButton: true
+            },
+            ACTION_WITHOUT_BUTTON_CONFIG: {
+                id: 'ACTION_WITHOUT_BUTTON_CONFIG'
+            }
+        };
 
         angular.mock.module(
             'dpShared',
             {
-                store: {
-                    subscribe: fn => {
-                        updateFn = fn;
-                        return unsubscribe.unsubscribe;
-                    },
-                    dispatch: angular.noop,
-                    getState: angular.noop
-                },
-                applicationState,
-                stateToUrl,
-                debounce: debounce.debounce
-            }, $provide => {
-                $provide.constant('ACTIONS', {
-                    SHOW_PAGE: 'show-page',
-                    MAP_PAN: 'map-pan',
-                    SHOW_LAYER_SELECTION: 'show-layer-selection',
-                    IS_BUTTON: {
-                        isButton: true
+                $location: {
+                    url: function () {
+                        return mockedCurrentPath;
                     }
-                });
+                },
+                store: {
+                    dispatch: angular.noop
+                },
+                applicationState: {
+                    getReducer: () => {
+                        return mockedReducer;
+                    },
+                    getStateToUrl: () => {
+                        return mockedStateToUrl;
+                    },
+                    getStore: () => {
+                        return {
+                            getState: () => {
+                                return mockedState;
+                            }
+                        };
+                    }
+                }
+            },
+            $provide => {
+                $provide.constant('ACTIONS', mockedActions);
             }
         );
 
-        angular.mock.inject(function (_$location_, _$compile_, _$rootScope_, _store_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _$location_, _store_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
-            $location = _$location_;
             store = _store_;
         });
 
-        spyOn(store, 'subscribe').and.callThrough();
-        spyOn(store, 'getState');
+        mockedPayload = {
+            lalalala: true,
+            numberOfLas: 4
+        };
+
+        mockedReducer = jasmine.createSpy('reducer');
+
+        mockedStateToUrl = {
+            create: () => {
+                return mockedTargetPath;
+            }
+        };
+
+        mockedCurrentPath = 'this=that'; // Angular's $location.url() returns everything after the hash
+        mockedTargetPath = '#this=something-else';
+
         spyOn(store, 'dispatch');
-        spyOn(stateToUrl, 'create');
-        spyOn(body, 'contains').and.returnValue(true);
+
+        spyOn(mockedStateToUrl, 'create').and.returnValue(mockedTargetPath);
     });
 
-    function getComponent (type, payload, className, hoverText) {
-        var component,
+    function getComponent (className, hoverText, type, payload) {
+        let component,
             element,
             scope;
 
         element = document.createElement('dp-link');
         element.setAttribute('type', type);
 
+        scope = $rootScope.$new();
+
         if (angular.isDefined(payload)) {
             element.setAttribute('payload', 'payload');
+            scope.payload = payload;
         }
 
         if (angular.isString(className)) {
             element.setAttribute('class-name', className);
+        }
+
+        if (angular.isString(hoverText)) {
             element.setAttribute('hover-text', hoverText);
         }
 
-        scope = $rootScope.$new();
-        scope.payload = payload;
+        element.innerText = 'Transcluded text';
 
         component = $compile(element)(scope);
         scope.$apply();
@@ -104,181 +116,127 @@ describe('The dp-link component', function () {
         return component;
     }
 
-    it('subscribes to the store', function () {
-        getComponent('SHOW_PAGE', 'welkom');
-        expect(store.subscribe).toHaveBeenCalled();
-        expect(angular.isFunction(updateFn)).toBe(true);
-    });
+    it('depending on the specified type (ACTION) a button or link is shown', function () {
+        let component;
 
-    it('can be a button', function () {
-        let component = getComponent('IS_BUTTON', 'payload', 'className', 'hoverText');
+        // When using ACTION_WITH_LINK
+        component = getComponent(null, null, 'ACTION_WITH_LINK', mockedPayload);
+        expect(component.find('a').length).toBe(1);
+        expect(component.find('button').length).toBe(0);
 
-        expect(store.subscribe).not.toHaveBeenCalled();
-        expect(component.find('a').length).toBe(0);
-
-        let button = component.find('button');
-        expect(button.length).toBe(1);
-        expect(button.attr('title')).toBe('hoverText');
-        expect(button.attr('class')).toBe('className');
-
-        let srOnly = component.find('button .u-sr-only');
-        expect(srOnly.text()).toBe('hoverText');
-
-        button.click();
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: {
-                isButton: true
-            },
-            payload: 'payload'
-        });
-    });
-
-    it('is always a button when the href url is equal to the current url', function () {
-        const url = '#123';
-
-        stateToUrl.create.and.returnValue(url);
-        spyOn($location, 'absUrl').and.returnValue(url);
-
-        let component = getComponent('SHOW_PAGE', 'welkom');
-
-        expect(component.find('a').length).toBe(0);
+        // When using ACTION_WITH_BUTTON
+        component = getComponent(null, null, 'ACTION_WITH_BUTTON', mockedPayload);
         expect(component.find('button').length).toBe(1);
+        expect(component.find('a').length).toBe(0);
     });
 
-    describe('update', () => {
-        it('gets the state from the store', () => {
-            getComponent('SHOW_PAGE', 'welkom');
-            expect(store.getState).toHaveBeenCalled();
+    it('shows a button when there is no isButton variabele present for this ACTION', function () {
+        let component;
+
+        // When using ACTION_WITH_LINK
+        component = getComponent(null, null, 'ACTION_WITHOUT_BUTTON_CONFIG', mockedPayload);
+        expect(component.find('a').length).toBe(1);
+        expect(component.find('button').length).toBe(0);
+    });
+
+    it('a button is always used when linking to the current page, regardless of the ACTION configuration', function () {
+        let component;
+
+        mockedCurrentPath = 'this=something-else';
+        component = getComponent(null, null, 'ACTION_WITH_LINK', mockedPayload);
+
+        expect(component.find('button').length).toBe(1);
+        expect(component.find('a').length).toBe(0);
+    });
+
+    it('can have a custom className', function () {
+        let component;
+
+        // A link with a custom class
+        component = getComponent('my-special-class', null, 'ACTION_WITH_LINK', mockedPayload);
+        expect(component.find('a').attr('class')).toContain('my-special-class');
+
+        // A button with a custom class
+        component = getComponent('my-special-class', null, 'ACTION_WITH_BUTTON', mockedPayload);
+        expect(component.find('button').attr('class')).toContain('my-special-class');
+    });
+
+    it('has a default fallback class if no className is specified', function () {
+        let component;
+
+        // A link with the default class
+        component = getComponent(null, null, 'ACTION_WITH_LINK', mockedPayload);
+        expect(component.find('a').attr('class')).toContain('o-btn o-btn--link');
+
+        // A button with the default class
+        component = getComponent(null, null, 'ACTION_WITH_BUTTON', mockedPayload);
+        expect(component.find('button').attr('class')).toContain('o-btn o-btn--link');
+    });
+
+    it('has an optional hover text (title attribute)', function () {
+        let component;
+
+        // A link with hover text
+        component = getComponent(null, 'Look at me!', 'ACTION_WITH_LINK', mockedPayload);
+        expect(component.find('a').attr('title')).toContain('Look at me!');
+
+        // A button with hover text
+        component = getComponent(null, 'Woohoo!', 'ACTION_WITH_BUTTON', mockedPayload);
+        expect(component.find('button').attr('title')).toContain('Woohoo!');
+    });
+
+    it('clicking the button will trigger a call to store.dispatch', function () {
+        let component;
+
+        // A dispatch with a payload
+        component = getComponent(null, null, 'ACTION_WITH_BUTTON', mockedPayload);
+        component.find('button').click();
+        expect(store.dispatch).toHaveBeenCalledWith({
+            type: mockedActions.ACTION_WITH_BUTTON,
+            payload: mockedPayload
         });
 
-        it('calls the reducer based on type and payload', () => {
-            const state = { key: 'value' };
-
-            store.getState.and.returnValue(state);
-
-            // Scenario A
-            getComponent('SHOW_PAGE', 'welkom');
-            expect(reducer.fn).toHaveBeenCalledWith(state, {
-                type: 'show-page',
-                payload: 'welkom'
-            });
-
-            // Scenario B
-            getComponent('MAP_PAN', [101, 102]);
-            expect(reducer.fn).toHaveBeenCalledWith(state, {
-                type: 'map-pan',
-                payload: [101, 102]
-            });
-        });
-
-        it('allows the payload to be optional', function () {
-            const state = { key: 'value' };
-
-            store.getState.and.returnValue(state);
-
-            getComponent('SHOW_LAYER_SELECTION');
-            expect(reducer.fn).toHaveBeenCalledWith(state, {
-                type: 'show-layer-selection'
-            });
-
-            expect(reducer.fn).not.toHaveBeenCalledWith(state, jasmine.objectContaining({
-                payload: undefined
-            }));
-        });
-
-        it('creates the url based on the new state', () => {
-            const state = { key: 'value' };
-
-            reducer.fn.and.returnValue(state);
-
-            getComponent('SHOW_PAGE', 'welkom');
-            expect(stateToUrl.create).toHaveBeenCalledWith(state);
-        });
-
-        it('sets href attribute on the link to a url based on a reduced state', () => {
-            const url = 'http://reduced-state.amsterdam.nl';
-            let component;
-
-            stateToUrl.create.and.returnValue(url);
-
-            component = getComponent('SHOW_PAGE', 'welkom');
-            expect(component.find('a').attr('href')).toBe(url);
-        });
-
-        it('updates the href attribute on the link when the state changes', () => {
-            const oldUrl = 'http://reduced-state.amsterdam.nl';
-            const newUrl = 'http://new-reduced-state.amsterdam.nl';
-            let component;
-
-            stateToUrl.create.and.returnValue(oldUrl);
-
-            component = getComponent('SHOW_PAGE', 'welkom');
-
-            stateToUrl.create.and.returnValue(newUrl);
-
-            updateFn();
-            $rootScope.$apply();
-            expect(component.find('a').attr('href')).toBe(newUrl);
-        });
-
-        it('does not update after the element has been destroyed', () => {
-            const oldUrl = 'http://reduced-state.amsterdam.nl';
-            const newUrl = 'http://new-reduced-state.amsterdam.nl';
-            let component;
-
-            stateToUrl.create.and.returnValue(oldUrl);
-
-            component = getComponent('SHOW_PAGE', 'welkom');
-
-            stateToUrl.create.and.returnValue(newUrl);
-
-            component.triggerHandler({type: '$destroy'});
-
-            $rootScope.$apply();
-
-            expect(debounce.cancel).toHaveBeenCalled();
-            expect(unsubscribe.unsubscribe).toHaveBeenCalled();
-            expect(component.find('a').attr('href')).toBe(oldUrl);
+        // A dispatch without a payload
+        component = getComponent(null, null, 'ACTION_WITH_BUTTON');
+        component.find('button').click();
+        expect(store.dispatch).toHaveBeenCalledWith({
+            type: mockedActions.ACTION_WITH_BUTTON
         });
     });
 
-    describe('styling', function () {
-        it('can be done with the class-name attribute', function () {
-            var component = getComponent('SHOW_PAGE', 'welkom', 'my-class my-other-class');
+    it('sets the href attribute for actions with a link', function () {
+        let component = getComponent(null, null, 'ACTION_WITH_LINK', mockedPayload);
 
-            expect(component.find('a').length).toBe(1);
-
-            expect(component.find('a').attr('class')).toContain('my-class');
-            expect(component.find('a').attr('class')).toContain('my-other-class');
-
-            expect(component.find('a').attr('class')).not.toContain('btn');
-            expect(component.find('a').attr('class')).not.toContain('btn--link');
-        });
-
-        it('has a default styling of a regular link', function () {
-            var component = getComponent('SHOW_PAGE', 'welkom');
-
-            expect(component.find('a').length).toBe(1);
-            expect(component.find('a').attr('class')).toContain('btn');
-            expect(component.find('a').attr('class')).toContain('btn--link');
-        });
+        expect(component.find('a').attr('href')).toBe(mockedTargetPath);
     });
 
-    describe('title attribute', function () {
-        it('has a title attribute on its button element', function () {
-            var component = getComponent('SHOW_PAGE', 'welkom');
+    it('clicking the link will follow the href, it won\'t trigger a store.dispatch', function () {
+        let component;
 
-            expect(component.find('a').length).toBe(1);
-            expect(component.find('a').attr('title')).toBeDefined();
-            expect(component.find('a').attr('title')).toBe('');
-        });
+        component = getComponent(null, null, 'ACTION_WITH_LINK', mockedPayload);
+        component.find('a').click();
+        expect(store.dispatch).not.toHaveBeenCalled();
 
-        it('can set a title attribute on its button element', function () {
-            var component = getComponent('SHOW_PAGE', 'welkom', 'some-class', 'hoverText');
+        // The value for the href attribute is composed by several injected dependencies, making sure these are used
+        expect(mockedReducer).toHaveBeenCalledWith(
+            mockedState,
+            {
+                type: mockedActions.ACTION_WITH_LINK,
+                payload: mockedPayload
+            }
+        );
+        expect(mockedStateToUrl.create).toHaveBeenCalledWith(mockedTargetState);
+    });
 
-            expect(component.find('a').length).toBe(1);
-            expect(component.find('a').attr('title')).toBeDefined();
-            expect(component.find('a').attr('title')).toBe('hoverText');
-        });
+    it('transcludes content without adding whitespace', function () {
+        let component;
+
+        // A link with transcluded content
+        component = getComponent(null, null, 'ACTION_WITH_LINK', mockedPayload);
+        expect(component.find('a').text()).toBe('Transcluded text');
+
+        // A button with transcluded content
+        component = getComponent(null, null, 'ACTION_WITH_BUTTON', mockedPayload);
+        expect(component.find('button').text()).toBe('Transcluded text');
     });
 });

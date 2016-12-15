@@ -26,7 +26,7 @@
                 newState.page = payload.pagina || null;
                 newState.detail = getDetailState(oldState, payload);
                 newState.straatbeeld = getStraatbeeldState(oldState, payload);
-                newState.dataSelection = getDataSelectionState(payload);
+                newState.dataSelection = getDataSelectionState(oldState, payload);
                 newState.isPrintMode = getPrintState(payload);
 
                 return newState;
@@ -142,6 +142,7 @@
 
                 // restore invisibility from url payload
                 newStraatbeeld.isInvisible = Boolean(payload.straatbeeldInvisible);
+                newStraatbeeld.isFullscreen = angular.isString(payload['volledig-straatbeeld']);
 
                 if (oldState.straatbeeld && oldState.straatbeeld.id === payload.id) {
                     newStraatbeeld.image = oldState.straatbeeld.image;
@@ -164,15 +165,15 @@
             }
         }
 
-        function getDataSelectionState (payload) {
+        function getDataSelectionState (oldState, payload) {
             var filters = {};
 
             if (angular.isString(payload.dataset)) {
                 if (angular.isString(payload['dataset-filters'])) {
-                    payload['dataset-filters'].split(',').forEach(function (filterFromUrl) {
+                    payload['dataset-filters'].split('::').forEach(function (filterFromUrl) {
                         var keyValueArray = filterFromUrl.split(':');
 
-                        filters[keyValueArray[0]] = $window.decodeURIComponent(keyValueArray[1]);
+                        filters[keyValueArray[0]] = decodeURIComponent(keyValueArray[1]);
                     });
                 }
 
@@ -180,7 +181,9 @@
                     view: payload.view && String(payload.view),
                     dataset: payload.dataset,
                     filters: filters,
-                    page: Number(payload['dataset-pagina'])
+                    page: Number(payload['dataset-pagina']),
+                    markers: oldState.dataSelection && oldState.dataSelection.markers || [],
+                    isLoading: angular.isObject(oldState.dataSelection) ? oldState.dataSelection.isLoading : true
                 };
             } else {
                 return null;

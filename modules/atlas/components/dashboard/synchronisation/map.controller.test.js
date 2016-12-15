@@ -1,5 +1,5 @@
 describe('The map controller', function () {
-    var $controller,
+    let $controller,
         $rootScope,
         store,
         crsConverter,
@@ -39,7 +39,7 @@ describe('The map controller', function () {
     });
 
     function getController () {
-        var controller,
+        let controller,
             scope = $rootScope.$new();
 
         controller = $controller('MapController', {
@@ -60,7 +60,7 @@ describe('The map controller', function () {
     });
 
     it('sets the mapState based on the Redux state', function () {
-        var controller;
+        let controller;
 
         controller = getController();
 
@@ -71,7 +71,7 @@ describe('The map controller', function () {
     });
 
     it('sets the showLayerSelection based on the Redux state', function () {
-        var controller;
+        let controller;
 
         controller = getController();
         expect(controller.showLayerSelection).not.toEqual(true);
@@ -82,14 +82,15 @@ describe('The map controller', function () {
     });
 
     describe('optionally adds marker data for search by location, detail and straatbeeld', function () {
-        var controller;
+        let controller;
 
         it('can work without any markers', function () {
             mockedState = {};
 
             controller = getController();
 
-            expect(controller.markers).toEqual([]);
+            expect(controller.markers.regular).toEqual([]);
+            expect(controller.markers.clustered).toEqual([]);
         });
 
         it('supports a search marker', function () {
@@ -101,7 +102,7 @@ describe('The map controller', function () {
 
             controller = getController();
 
-            expect(controller.markers).toContain(jasmine.objectContaining({
+            expect(controller.markers.regular).toContain(jasmine.objectContaining({
                 id: 'search'
             }));
         });
@@ -115,7 +116,7 @@ describe('The map controller', function () {
 
             controller = getController();
 
-            expect(controller.markers).toContain(jasmine.objectContaining({
+            expect(controller.markers.regular).toContain(jasmine.objectContaining({
                 id: 'detail'
             }));
         });
@@ -131,11 +132,11 @@ describe('The map controller', function () {
             controller = getController();
 
             // Straatbeeld is secretly made using two icons
-            expect(controller.markers).toContain(jasmine.objectContaining({
+            expect(controller.markers.regular).toContain(jasmine.objectContaining({
                 id: 'straatbeeld_orientation'
             }));
 
-            expect(controller.markers).toContain(jasmine.objectContaining({
+            expect(controller.markers.regular).toContain(jasmine.objectContaining({
                 id: 'straatbeeld_person'
             }));
         });
@@ -159,7 +160,7 @@ describe('The map controller', function () {
             // Straatbeeld is secretly made using two icons
 
             // Search and straatbeeld are in WGS84 and will be converted to RD
-            expect(controller.markers).toContain(jasmine.objectContaining({
+            expect(controller.markers.regular).toContain(jasmine.objectContaining({
                 id: 'search',
                 geometry: {
                     type: 'Point',
@@ -167,7 +168,7 @@ describe('The map controller', function () {
                 }
             }));
 
-            expect(controller.markers).toContain(jasmine.objectContaining({
+            expect(controller.markers.regular).toContain(jasmine.objectContaining({
                 id: 'straatbeeld_orientation',
                 geometry: {
                     type: 'Point',
@@ -175,7 +176,7 @@ describe('The map controller', function () {
                 }
             }));
 
-            expect(controller.markers).toContain(jasmine.objectContaining({
+            expect(controller.markers.regular).toContain(jasmine.objectContaining({
                 id: 'straatbeeld_person',
                 geometry: {
                     type: 'Point',
@@ -184,7 +185,7 @@ describe('The map controller', function () {
             }));
 
             // Detail already is in RD and won't be converted
-            expect(controller.markers).toContain(jasmine.objectContaining({
+            expect(controller.markers.regular).toContain(jasmine.objectContaining({
                 id: 'detail',
                 geometry: 'FAKE_RD_GEOMETRY'
             }));
@@ -198,7 +199,7 @@ describe('The map controller', function () {
                 }
             };
 
-            expect(controller.markers).toContain(jasmine.objectContaining({
+            expect(controller.markers.regular).toContain(jasmine.objectContaining({
                 id: 'straatbeeld_orientation',
                 orientation: 179
             }));
@@ -220,25 +221,48 @@ describe('The map controller', function () {
 
             controller = getController();
 
-            expect(controller.markers).toContain(jasmine.objectContaining({
+            expect(controller.markers.regular).toContain(jasmine.objectContaining({
                 id: 'search',
                 useAutoFocus: false
             }));
 
-            expect(controller.markers).toContain(jasmine.objectContaining({
+            expect(controller.markers.regular).toContain(jasmine.objectContaining({
                 id: 'detail',
                 useAutoFocus: true
             }));
 
-            expect(controller.markers).toContain(jasmine.objectContaining({
+            expect(controller.markers.regular).toContain(jasmine.objectContaining({
                 id: 'straatbeeld_orientation',
                 useAutoFocus: false
             }));
 
-            expect(controller.markers).toContain(jasmine.objectContaining({
+            expect(controller.markers.regular).toContain(jasmine.objectContaining({
                 id: 'straatbeeld_person',
                 useAutoFocus: false
             }));
         });
+    });
+
+    it('optionally adds clustered markers', function () {
+        let controller;
+
+        // Without clustered markers
+        controller = getController();
+        expect(controller.markers.clustered).toEqual([]);
+
+        // With clustered markers
+        mockedState.dataSelection = {
+            markers: [
+                [51.0, 4.0],
+                [51.1, 4.0],
+                [51.1, 4.2]
+            ]
+        };
+        controller = getController();
+        expect(controller.markers.clustered).toEqual([
+            [51.0, 4.0],
+            [51.1, 4.0],
+            [51.1, 4.2]
+        ]);
     });
 });

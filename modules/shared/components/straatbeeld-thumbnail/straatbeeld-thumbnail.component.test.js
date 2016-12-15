@@ -11,11 +11,6 @@ describe('The dp-straatbeeld-thumbnail component', function () {
         angular.mock.module(
             'dpShared',
             {
-                sharedConfig: {
-                    STRAATBEELD_THUMB_URL: 'http://fake.straatbeeld.url/path/',
-                    RADIUS: 50,
-                    THUMBNAIL_WIDTH: 240
-                },
                 store: {
                     dispatch: angular.noop,
                     subscribe: angular.noop,
@@ -24,7 +19,7 @@ describe('The dp-straatbeeld-thumbnail component', function () {
                 applicationState: {
                     getReducer: function () {
                         return function (state, action) {
-                            return action;
+                            return angular.toJson(action);
                         };
                     },
                     getStateToUrl: function () {
@@ -59,7 +54,17 @@ describe('The dp-straatbeeld-thumbnail component', function () {
                 }
 
             }, function ($provide) {
+                $provide.constant('SHARED_CONFIG', {
+                    STRAATBEELD_THUMB_URL: 'http://fake.straatbeeld.url/path/',
+                    RADIUS: 50,
+                    THUMBNAIL_WIDTH: 240
+                });
+
                 $provide.factory('dpLoadingIndicatorDirective', function () {
+                    return {};
+                });
+
+                $provide.factory('dpLinkDirective', function () {
                     return {};
                 });
             }
@@ -163,14 +168,5 @@ describe('The dp-straatbeeld-thumbnail component', function () {
         expect(component.find('img').length).toBe(0);
         expect(component.find('.qa-found-no-straatbeeld').length).toBe(0);
         expect(scope.vm.isLoading).toBe(true);
-    });
-
-    it('sets the hyperlink url on basis of the state and payload', function () {
-        var component = getComponent([52, 4]);
-
-        finishApiCall();
-
-        expect(component.find('a').attr('ng-href')).toEqual(
-            '{"type":{"id":"FETCH_STRAATBEELD","ignore":true},"payload":{"id":"ABC","heading":179,"isInitial":true}}');
     });
 });

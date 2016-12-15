@@ -127,6 +127,54 @@ describe('Straatbeeld reducers factory', function () {
             var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD.id](inputState, payload);
             expect(newState.straatbeeld.heading).toBe(0);
         });
+
+        it('optionally sets straatbeeld to fullscreen', function () {
+            inputState.detail = {
+                endpoint: 'bag/verblijfsobject/123/',
+                geometry: 'aap',
+                isLoading: false,
+                isInvisible: true
+            };
+
+            let newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD.id](inputState, payload);
+            expect(newState.straatbeeld.isFullscreen).toBeUndefined();
+
+            payload.isFullscreen = true;
+            newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD.id](newState, payload);
+            expect(newState.straatbeeld.isFullscreen).toBe(true);
+
+            delete payload.isFullscreen;
+            newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD.id](newState, payload);
+            expect(newState.straatbeeld.isFullscreen).toBe(true);
+
+            payload.isFullscreen = false;
+            newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD.id](newState, payload);
+            expect(newState.straatbeeld.isFullscreen).toBe(false);
+
+            delete payload.isFullscreen;
+            newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD.id](newState, payload);
+            expect(newState.straatbeeld.isFullscreen).toBe(false);
+        });
+
+        it('can set straatbeeld explicitly to fullscreen', function () {
+            inputState.straatbeeld = {
+            };
+
+            let newState = straatbeeldReducers[ACTIONS.STRAATBEELD_FULLSCREEN.id](inputState);
+            expect(newState.straatbeeld.isFullscreen).toBeUndefined();
+
+            payload = true;
+            newState = straatbeeldReducers[ACTIONS.STRAATBEELD_FULLSCREEN.id](newState, payload);
+            expect(newState.straatbeeld.isFullscreen).toBe(true);
+            newState = straatbeeldReducers[ACTIONS.STRAATBEELD_FULLSCREEN.id](newState);
+            expect(newState.straatbeeld.isFullscreen).toBe(true);
+
+            payload = false;
+            newState = straatbeeldReducers[ACTIONS.STRAATBEELD_FULLSCREEN.id](newState, payload);
+            expect(newState.straatbeeld.isFullscreen).toBe(false);
+            newState = straatbeeldReducers[ACTIONS.STRAATBEELD_FULLSCREEN.id](newState);
+            expect(newState.straatbeeld.isFullscreen).toBe(false);
+        });
     });
 
     describe('SHOW_STRAATBEELD', function () {
@@ -322,19 +370,17 @@ describe('Straatbeeld reducers factory', function () {
             expect(newState.straatbeeld).toBeNull();
         });
 
-        it('sets the map viewcenter only on a subsequent straatbeeld', function () {
+        it('sets the map viewcenter on first and every subsequent straatbeeld', function () {
             inputState.map.viewCenter = null;
-            payload.location = [1, 2];
-            var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT.id](inputState, payload);
-            expect(newState.map.viewCenter).toEqual([1, 2]);
+            let newState;
+
+            payload.location = [5, 6];
+            newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id](inputState, payload);
+            expect(newState.map.viewCenter).toEqual([5, 6]);
+
             payload.location = [3, 4];
             newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT.id](inputState, payload);
             expect(newState.map.viewCenter).toEqual([3, 4]);
-            payload.location = [5, 6];
-            newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id](inputState, payload);
-            expect(newState.map.viewCenter).toBeNull();
-            newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT.id](inputState, payload);
-            expect(newState.map.viewCenter).toEqual([5, 6]);
         });
 
         it('only sets the map viewcenter on a subsequent straatbeeld when straatbeeld active', function () {

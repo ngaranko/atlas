@@ -12,6 +12,7 @@
 
         reducers[ACTIONS.FETCH_STRAATBEELD.id] = fetchStraatbeeldReducer;
         reducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION.id] = fetchStraatbeeldByLocationReducer;
+        reducers[ACTIONS.STRAATBEELD_FULLSCREEN.id] = straatbeeldFullscreenReducer;
         reducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id] = showStraatbeeldReducer;
         reducers[ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT.id] = showStraatbeeldSubsequentReducer;
         reducers[ACTIONS.SET_STRAATBEELD_ORIENTATION.id] = setOrientationReducer;
@@ -37,7 +38,10 @@
                 (oldState.straatbeeld && oldState.straatbeeld.heading) ||
                 0;
             newState.straatbeeld.isInitial = payload.isInitial;
-            newState.straatbeeld.byId = true;
+
+            if (angular.isDefined(payload.isFullscreen)) {
+                newState.straatbeeld.isFullscreen = payload.isFullscreen;
+            }
 
             // If a straatbeeld is loaded by it's id
             // and detail is active
@@ -115,6 +119,16 @@
             straatbeeld.isLoading = true;
         }
 
+        function straatbeeldFullscreenReducer (oldState, payload) {
+            var newState = angular.copy(oldState);
+
+            if (angular.isDefined(payload)) {
+                newState.straatbeeld.isFullscreen = payload;
+            }
+
+            return newState;
+        }
+
         /**
          * @param {Object} oldState
          * @param {Object} payload -  data from straatbeeld-api
@@ -138,8 +152,8 @@
                     newState.straatbeeld.heading = getHeadingDegrees(
                         payload.location,
                         newState.straatbeeld.targetLocation);
-                } else if (oldState.straatbeeld.byId || !angular.isNumber(oldState.straatbeeld.heading)) {
-                    // No heading is known, center map on new viewCenter
+                } else {
+                    // Center map on new viewCenter
                     newState.map.viewCenter = payload.location;
                 }
 

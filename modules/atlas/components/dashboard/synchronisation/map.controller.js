@@ -8,19 +8,22 @@
     MapController.$inject = ['store', 'crsConverter'];
 
     function MapController (store, crsConverter) {
-        var vm = this;
+        let vm = this;
 
         store.subscribe(update);
 
         update();
 
         function update () {
-            var state = store.getState();
+            const state = store.getState();
 
-            vm.markers = [];
+            vm.markers = {
+                regular: [],
+                clustered: []
+            };
 
             if (state.search && state.search.location) {
-                vm.markers.push({
+                vm.markers.regular.push({
                     id: 'search',
                     geometry: convertLocationToGeoJSON(state.search.location),
                     useAutoFocus: false
@@ -28,7 +31,7 @@
             }
 
             if (state.detail && state.detail.geometry) {
-                vm.markers.push({
+                vm.markers.regular.push({
                     id: 'detail',
                     geometry: state.detail.geometry,
                     useAutoFocus: true
@@ -36,18 +39,24 @@
             }
 
             if (state.straatbeeld && angular.isArray(state.straatbeeld.location)) {
-                vm.markers.push({
+                vm.markers.regular.push({
                     id: 'straatbeeld_orientation',
                     geometry: convertLocationToGeoJSON(state.straatbeeld.location),
                     orientation: state.straatbeeld.heading,
                     useAutoFocus: false
                 });
 
-                vm.markers.push({
+                vm.markers.regular.push({
                     id: 'straatbeeld_person',
                     geometry: convertLocationToGeoJSON(state.straatbeeld.location),
                     useAutoFocus: false
                 });
+            }
+
+            if (angular.isObject(state.dataSelection)) {
+                vm.markers.clustered = state.dataSelection.markers;
+            } else {
+                vm.markers.clustered = [];
             }
 
             vm.mapState = state.map;

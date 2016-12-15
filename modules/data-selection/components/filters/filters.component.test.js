@@ -11,8 +11,10 @@ describe('The dp-data-selection-filters component', function () {
             {
                 store: {
                     dispatch: function () {}
-                },
-                dataSelectionConfig: {
+                }
+            },
+            function ($provide) {
+                $provide.constant('DATA_SELECTION_CONFIG', {
                     my_special_dataset: {
                         FILTERS: [
                             {
@@ -22,7 +24,7 @@ describe('The dp-data-selection-filters component', function () {
                             }
                         ]
                     }
-                }
+                });
             }
         );
 
@@ -152,7 +154,7 @@ describe('The dp-data-selection-filters component', function () {
             component.find('ul').eq(0).find('li').eq(1).find('button').click();
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SHOW_DATA_SELECTION,
+                type: ACTIONS.FETCH_DATA_SELECTION,
                 payload: {
                     dataset: 'my_special_dataset',
                     filters: {
@@ -173,7 +175,7 @@ describe('The dp-data-selection-filters component', function () {
             component.find('.qa-available-filters ul').eq(1).find('li').eq(0).find('button').click();
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SHOW_DATA_SELECTION,
+                type: ACTIONS.FETCH_DATA_SELECTION,
                 payload: {
                     dataset: 'my_special_dataset',
                     filters: {
@@ -196,7 +198,7 @@ describe('The dp-data-selection-filters component', function () {
             component.find('.qa-available-filters ul').eq(1).find('li').eq(1).find('button').click();
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SHOW_DATA_SELECTION,
+                type: ACTIONS.FETCH_DATA_SELECTION,
                 payload: {
                     dataset: 'my_special_dataset',
                     filters: {
@@ -273,7 +275,7 @@ describe('The dp-data-selection-filters component', function () {
         component.find('.qa-active-filters li').eq(1).find('button').click();
 
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.SHOW_DATA_SELECTION,
+            type: ACTIONS.FETCH_DATA_SELECTION,
             payload: {
                 dataset: 'my_special_dataset',
                 filters: {

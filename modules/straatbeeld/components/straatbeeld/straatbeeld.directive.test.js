@@ -2,6 +2,8 @@ describe('The dp-straatbeeld directive', function () {
     var $compile,
         $rootScope,
         $store,
+        userSettings,
+        scope,
         ACTIONS,
         $q,
         marzipanoService,
@@ -40,6 +42,7 @@ describe('The dp-straatbeeld directive', function () {
             _$compile_,
             _$rootScope_,
             _store_,
+            _userSettings_,
             _ACTIONS_,
             _$q_,
             _marzipanoService_,
@@ -48,6 +51,7 @@ describe('The dp-straatbeeld directive', function () {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             $store = _store_;
+            userSettings = _userSettings_;
             ACTIONS = _ACTIONS_;
             $q = _$q_;
             marzipanoService = _marzipanoService_;
@@ -72,15 +76,15 @@ describe('The dp-straatbeeld directive', function () {
         element.trigger(event);
     }
 
-    function getDirective (state, isPrintMode) {
+    function getDirective (state, resize) {
         var el = document.createElement('dp-straatbeeld');
         el.setAttribute('state', 'state');
-        el.setAttribute('is-print-mode', 'isPrintMode');
+        el.setAttribute('resize', 'resize');
 
-        var scope = $rootScope.$new();
+        scope = $rootScope.$new();
 
         scope.state = state;
-        scope.isPrintMode = isPrintMode;
+        scope.resize = resize;
 
         var directive = $compile(el)(scope);
         scope.$apply();
@@ -98,6 +102,50 @@ describe('The dp-straatbeeld directive', function () {
 
             expect($store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.HIDE_STRAATBEELD
+            });
+        });
+    });
+
+    describe('The kaart button', function () {
+        let directive,
+            toggle;
+
+        beforeEach(function () {
+            directive = getDirective({}, false);
+            toggle = directive.find('.qa-straatbeeld-streetview-map-button');
+        });
+
+        it('can change a window-view straatbeeld to fullscreen', function () {
+            scope.state.isFullscreen = false;
+            $rootScope.$apply();
+            expect(toggle.attr('class')).toContain('c-straatbeeld__streetview-map-icon--maximize');
+            toggle.click();
+            $rootScope.$apply();
+            expect($store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.STRAATBEELD_FULLSCREEN,
+                payload: true
+            });
+        });
+
+        it('can change a fullscreen straatbeeld to window-view', function () {
+            scope.state.isFullscreen = true;
+            $rootScope.$apply();
+            expect(toggle.attr('class')).toContain('c-straatbeeld__streetview-map-icon--minimize');
+            toggle.click();
+            $rootScope.$apply();
+            expect($store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.STRAATBEELD_FULLSCREEN,
+                payload: false
+            });
+        });
+
+        it('stores the fullsreem state of the straatbeeld in the user settings', function () {
+            [true, false, true].forEach(b => {
+                scope.state.isFullscreen = b;
+                $rootScope.$apply();
+                toggle.click();
+                $rootScope.$apply();
+                expect(userSettings.fullscreenStraatbeeld.value).toBe((!b).toString());
             });
         });
     });
@@ -156,6 +204,28 @@ describe('The dp-straatbeeld directive', function () {
             directive.isolateScope().$apply();
 
             expect($store.dispatch).toHaveBeenCalledTimes(2);
+        });
+
+        it('Listens to resize changes', function () {
+            spyOn(mockedMarzipanoViewer, 'updateSize');
+
+            let resize = [true, true];
+
+            getDirective({}, resize);
+            scope.$apply(); // trigger digest to invoke upodateSize
+            expect(mockedMarzipanoViewer.updateSize).toHaveBeenCalled();
+            mockedMarzipanoViewer.updateSize.calls.reset();
+
+            resize[0] = false;
+            scope.$apply(); // trigger digest to invoke $watch
+            scope.$apply(); // trigger digest to invoke upodateSize
+            expect(mockedMarzipanoViewer.updateSize).toHaveBeenCalled();
+            mockedMarzipanoViewer.updateSize.calls.reset();
+
+            resize[1] = false;
+            scope.$apply(); // trigger digest to invoke $watch
+            scope.$apply(); // trigger digest to invoke upodateSize
+            expect(mockedMarzipanoViewer.updateSize).toHaveBeenCalled();
         });
 
         it('Listens to changes on scope for location', function () {

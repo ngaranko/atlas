@@ -14,7 +14,8 @@
         'mapConfig',
         'panning',
         'store',
-        'ACTIONS'
+        'ACTIONS',
+        'clusteredMarkersConfig'
     ];
 
     function highlightFactory (
@@ -26,13 +27,17 @@
         mapConfig,
         panning,
         store,
-        ACTIONS) {
-        var layers = {};
+        ACTIONS,
+        clusteredMarkersConfig) {
+        let layers = {},
+            clusteredLayer;
 
         return {
-            initialize: initialize,
-            add: add,
-            remove: remove
+            initialize,
+            addMarker,
+            removeMarker,
+            setCluster,
+            clearCluster
         };
 
         function initialize () {
@@ -45,11 +50,8 @@
          *  - id: in case of a marker this needs to be a mapping to a key of ICON_CONFIG
          *  - geometry: GeoJSON using RD coordinates
          */
-        function add (leafletMap, item) {
-            var layer,
-                bounds,
-                location,
-                zoomLevel;
+        function addMarker (leafletMap, item) {
+            let layer;
 
             item.geometry.crs = crsService.getRdObject();
 
@@ -64,8 +66,9 @@
                     };
                 },
                 pointToLayer: function (feature, latLng) {
-                    var icon,
+                    let icon,
                         rotationAngle;
+
                     icon = L.icon(ICON_CONFIG[item.id]);
                     rotationAngle = item.orientation || 0;
 
@@ -79,36 +82,75 @@
             layers[item.id] = layer;
 
             if (item.useAutoFocus) {
-                bounds = layer.getBounds();
-                zoomLevel = leafletMap.getBoundsZoom(bounds);
-
-                if (!isNaN(zoomLevel)) {
-                    // A valid zoom level has been determined
-                    leafletMap.fitBounds(bounds, {
-                        animate: false
-                    });
-
-                    location = panning.getCurrentLocation(leafletMap);
-                } else {
-                    // Set the location and zoomLevel manually
-                    location = crsConverter.rdToWgs84(geojson.getCenter(item.geometry));
-                    zoomLevel = Math.max(leafletMap.getZoom(), mapConfig.DEFAULT_ZOOM_HIGHLIGHT);
-                }
-
-                store.dispatch({
-                    type: ACTIONS.MAP_ZOOM,
-                    payload: {
-                        viewCenter: location,
-                        zoom: zoomLevel
-                    }
-                });
+                zoomToLayer(leafletMap, layer, item.geometry);
             }
 
             leafletMap.addLayer(layer);
         }
 
-        function remove (leafletMap, item) {
+        function removeMarker (leafletMap, item) {
             leafletMap.removeLayer(layers[item.id]);
+        }
+
+        function setCluster (leafletMap, markers, onReady) {
+            clusteredLayer = L.markerClusterGroup(clusteredMarkersConfig);
+
+            markers.forEach(marker => {
+                clusteredLayer.addLayer(
+                    L.marker(marker, {
+                        icon: L.icon(ICON_CONFIG.detail)
+                    })
+                );
+            });
+
+            let onLayerAdd = (event) => {
+                if (event.layer === clusteredLayer) {
+                    leafletMap.off('layeradd', onLayerAdd);
+                    if (angular.isFunction(onReady)) {
+                        onReady();
+                    }
+                }
+            };
+            leafletMap.on('layeradd', onLayerAdd);
+
+            zoomToLayer(leafletMap, clusteredLayer);
+            leafletMap.addLayer(clusteredLayer);
+        }
+
+        function clearCluster (leafletMap) {
+            if (angular.isDefined(clusteredLayer)) {
+                leafletMap.removeLayer(clusteredLayer);
+            }
+        }
+
+        function zoomToLayer (leafletMap, layer, geometry) {
+            let bounds,
+                location,
+                zoomLevel;
+
+            bounds = layer.getBounds();
+            zoomLevel = leafletMap.getBoundsZoom(bounds);
+
+            if (!isNaN(zoomLevel)) {
+                // A valid zoom level has been determined
+                leafletMap.fitBounds(bounds, {
+                    animate: false
+                });
+
+                location = panning.getCurrentLocation(leafletMap);
+            } else if (angular.isDefined(geometry)) {
+                // Set the location and zoomLevel manually
+                location = crsConverter.rdToWgs84(geojson.getCenter(geometry));
+                zoomLevel = Math.max(leafletMap.getZoom(), mapConfig.DEFAULT_ZOOM_HIGHLIGHT);
+            }
+
+            store.dispatch({
+                type: ACTIONS.MAP_ZOOM,
+                payload: {
+                    viewCenter: location,
+                    zoom: zoomLevel
+                }
+            });
         }
     }
 })();

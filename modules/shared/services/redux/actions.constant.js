@@ -67,11 +67,14 @@
             },
             SHOW_MAP_ACTIVE_OVERLAYS: {
                 id: 'SHOW_MAP_ACTIVE_OVERLAYS',
-                replace: true
+                replace: true,
+                isButton: true
+
             },
             HIDE_MAP_ACTIVE_OVERLAYS: {
                 id: 'HIDE_MAP_ACTIVE_OVERLAYS',
-                replace: true
+                replace: true,
+                isButton: true
             },
 
             FETCH_DETAIL: {
@@ -97,6 +100,10 @@
                 id: 'SHOW_STRAATBEELD_SUBSEQUENT',
                 replace: true
             },
+            STRAATBEELD_FULLSCREEN: {
+                id: 'STRAATBEELD_FULLSCREEN',
+                isButton: true
+            },
             HIDE_STRAATBEELD: {
                 id: 'HIDE_STRAATBEELD',
                 ignore: true,
@@ -107,6 +114,10 @@
                 replace: true
             },
 
+            FETCH_DATA_SELECTION: {
+                id: 'FETCH_DATA_SELECTION',
+                ignore: true
+            },
             SHOW_DATA_SELECTION: {
                 id: 'SHOW_DATA_SELECTION'
             },
@@ -114,7 +125,8 @@
                 id: 'NAVIGATE_DATA_SELECTION'
             },
             SET_DATA_SELECTION_VIEW: {
-                id: 'SET_DATA_SELECTION_VIEW'
+                id: 'SET_DATA_SELECTION_VIEW',
+                isButton: true
             },
 
             SHOW_LAYER_SELECTION: {
