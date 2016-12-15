@@ -66,6 +66,7 @@ $suggestion-offset: $base-font-size;
       display: inline-block;
       position: absolute;
       left: $base-whitespace;
+      width: 15px;
       content: "›";
     }
   }
