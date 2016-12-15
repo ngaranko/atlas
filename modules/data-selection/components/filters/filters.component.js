@@ -36,7 +36,6 @@
         };
 
         vm.addFilter = function (filterSlug, optionId) {
-            console.log('remove Filter', filterSlug, optionId);
             var filters = angular.copy(vm.activeFilters);
 
             filters[filterSlug] = optionId;

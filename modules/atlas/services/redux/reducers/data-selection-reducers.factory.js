@@ -43,7 +43,7 @@
             newState.dataSelection = Object.keys(payload).reduce((result, key) => {
                 result[key] = payload[key];
                 return result;
-            }, newState.dataSelection);
+            }, newState.dataSelection || {});
 
             if (!newState.dataSelection.view) {
                 // Default view is table view
