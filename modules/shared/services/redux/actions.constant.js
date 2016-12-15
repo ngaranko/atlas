@@ -47,7 +47,8 @@
             },
             MAP_TOGGLE_VISIBILITY_OVERLAY: {
                 id: 'MAP_TOGGLE_VISIBILITY_OVERLAY',
-                replace: true
+                replace: true,
+                isButton: true
             },
             MAP_CLICK: {
                 id: 'MAP_CLICK',
