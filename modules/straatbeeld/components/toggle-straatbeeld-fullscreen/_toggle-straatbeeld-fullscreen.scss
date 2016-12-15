@@ -1,4 +1,4 @@
-@mixin streetview-map {
+.toggle-straatbeeld-fullscreen {
   margin-right: 0;
   margin-left: 1px;
   padding-right: $base-whitespace;
@@ -19,20 +19,12 @@
   &:focus {
     color: $primary-light !important;
   }
-
-  &::before {
-    margin-top: 0;
-    margin-right: -$base-whitespace / 2;
-    margin-left: 0;
-  }
 }
 
 .toggle-straatbeeld-fullscreen--minimize {
   @include icon-button-text-right("forwardb", "", "white");
-  @include streetview-map;
 }
 
 .toggle-straatbeeld-fullscreen--maximize {
   @include icon-button-text-right("backb", "", "white");
-  @include streetview-map;
 }
