@@ -118,6 +118,7 @@
                     newDetailState.display = oldState.detail.display;
                     newDetailState.geometry = oldState.detail.geometry;
                     newDetailState.isLoading = oldState.detail.isLoading;
+                    newDetailState.isFullscreen = oldState.detail.isFullscreen;
                 }
 
                 // restore invisibility from url payload
@@ -182,7 +183,8 @@
                     filters: filters,
                     page: Number(payload['dataset-pagina']),
                     markers: oldState.dataSelection && oldState.dataSelection.markers || [],
-                    isLoading: angular.isObject(oldState.dataSelection) ? oldState.dataSelection.isLoading : true
+                    isLoading: angular.isObject(oldState.dataSelection) ? oldState.dataSelection.isLoading : true,
+                    isFullscreen: oldState.dataSelection && oldState.dataSelection.isFullscreen
                 };
             } else {
                 return null;

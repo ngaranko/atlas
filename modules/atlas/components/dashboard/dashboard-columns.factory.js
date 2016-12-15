@@ -20,9 +20,8 @@
 
             if (angular.isObject(state.dataSelection)) {
                 visibility.dataSelection = true;
-                visibility.dataSelectionList = state.dataSelection.view === 'LIST';
 
-                visibility.map = visibility.dataSelectionList;
+                visibility.map = !state.dataSelection.isFullscreen;
                 visibility.layerSelection = false;
                 visibility.detail = false;
                 visibility.page = false;
@@ -54,7 +53,6 @@
                 }
 
                 visibility.dataSelection = false;
-                visibility.dataSelectionList = false;
             }
 
             return visibility;
@@ -68,7 +66,7 @@
             return angular.isObject(state.detail) && !(state.detail.isInvisible);
         }
 
-        function determineColumnSizesDefault (visibility, hasFullscreenMap) {
+        function determineColumnSizesDefault (state, visibility, hasFullscreenMap) {
             var columnSizes = {};
 
             if (visibility.layerSelection) {
@@ -77,7 +75,8 @@
             } else if (hasFullscreenMap) {
                 columnSizes.left = 0;
                 columnSizes.middle = 12;
-            } else if (visibility.detail || (visibility.dataSelection && !visibility.dataSelectionList)) {
+            } else if ((visibility.detail && state.detail.isFullscreen) ||
+                (visibility.dataSelection && state.dataSelection.isFullscreen)) {
                 columnSizes.left = 0;
                 columnSizes.middle = 0;
             } else {
@@ -90,7 +89,7 @@
             return columnSizes;
         }
 
-        function determineColumnSizesPrint (visibility, hasFullscreenMap) {
+        function determineColumnSizesPrint (state, visibility, hasFullscreenMap) {
             var columnSizes = {};
 
             if (visibility.layerSelection) {
@@ -101,7 +100,10 @@
                 columnSizes.left = 0;
                 columnSizes.middle = 12;
                 columnSizes.right = 0;
-            } else if (visibility.page || visibility.searchResults || visibility.dataSelection) {
+            } else if ((visibility.detail && state.detail.isFullscreen) ||
+                visibility.page ||
+                visibility.searchResults ||
+                visibility.dataSelection && state.dataSelection.isFullscreen) {
                 columnSizes.left = 0;
                 columnSizes.middle = 0;
                 columnSizes.right = 12;
@@ -114,11 +116,11 @@
             return columnSizes;
         }
 
-        function determineColumnSizes (visibility, hasFullscreenMap, isPrintMode) {
-            if (!isPrintMode) {
-                return determineColumnSizesDefault(visibility, hasFullscreenMap);
+        function determineColumnSizes (state, visibility, hasFullscreenMap, isPrintMode) {
+            if (isPrintMode) {
+                return determineColumnSizesPrint(state, visibility, hasFullscreenMap);
             } else {
-                return determineColumnSizesPrint(visibility, hasFullscreenMap);
+                return determineColumnSizesDefault(state, visibility, hasFullscreenMap);
             }
         }
     }

@@ -35,6 +35,7 @@
                 );
 
             vm.columnSizes = dashboardColumns.determineColumnSizes(
+                state,
                 vm.visibility,
                 state.map.isFullscreen,
                 vm.isPrintMode

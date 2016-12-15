@@ -65,6 +65,7 @@
             if (newState.dataSelection) {
                 newState.dataSelection.markers = payload;
                 newState.dataSelection.isLoading = false;
+                newState.dataSelection.isFullscreen = newState.dataSelection.view !== 'LIST';
             }
 
             return newState;

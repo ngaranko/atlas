@@ -57,6 +57,7 @@
 
                 newState.detail.display = payload.display;
                 newState.detail.geometry = payload.geometry;
+                newState.detail.isFullscreen = payload.isFullscreen;
 
                 newState.map.isLoading = false;
                 newState.detail.isLoading = false;
