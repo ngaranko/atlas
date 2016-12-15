@@ -721,7 +721,11 @@
                     overlays: [
                         'milieu_bodem_grondmonsters',
                         'milieu_bodem_grondwatermonsters',
-                        'milieu_bodem_asbest_in_grond'
+                        'milieu_bodem_asbest_in_grond',
+                        'explosieven_inslagen',
+                        'explosieven_verdachte_gebieden',
+                        'explosieven_oorlogsincidenten',
+                        'explosieven_uitgevoerde_onderzoeken'
                     ]
                 }, {
                     heading: 'Milieu: externe veiligheid',
