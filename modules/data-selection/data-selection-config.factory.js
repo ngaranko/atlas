@@ -55,7 +55,8 @@
                             variables: ['title']
                         }, {
                             label: 'Datum',
-                            variables: ['metadata_created', 'metadata_modified']
+                            variables: ['metadata_created', 'metadata_modified'],
+                            formatter: 'modificationDate'
                         }, {
                             label: 'Formaten',
                             variables: ['resources.format'],
@@ -64,7 +65,7 @@
                         }, {
                             label: 'Labels',
                             variables: ['tags.display_name'],
-                            // formatter: 'tags',
+                            formatter: 'aggregate',
                             template: 'tags'
                         }, {
                             label: 'Omschrijving',

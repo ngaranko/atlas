@@ -33,6 +33,17 @@
   };
 }
 
+.c-data-selection-cards__tags {
+  display: inline-block;
+  position: absolute;
+  margin: {
+    top: $base-whitespace * .5;
+    right: $base-whitespace;
+    bottom: $base-whitespace;
+    left: 0;
+  };
+}
+
 .c-data-selection-cards__description {
   margin-bottom: $base-whitespace;
 
