@@ -64,7 +64,8 @@
                         }, {
                             label: 'Labels',
                             variables: ['tags.display_name'],
-                            formatter: 'tags'
+                            // formatter: 'tags',
+                            template: 'tags'
                         }, {
                             label: 'Omschrijving',
                             variables: ['notes']

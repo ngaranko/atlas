@@ -21,7 +21,8 @@
         'user',
         'geometry',
         'geojson',
-        'crsConverter'
+        'crsConverter',
+        'dataFormatter'
     ];
 
     function DpDetailController (
@@ -33,7 +34,8 @@
             user,
             geometry,
             geojson,
-            crsConverter) {
+            crsConverter,
+            dataFormatter) {
         var vm = this;
 
         // Reload the data when the reload flag has been set (endpoint has not
@@ -60,32 +62,9 @@
             api.getByUrl(endpoint).then(function (data) {
                 vm.includeSrc = endpointParser.getTemplateUrl(endpoint);
 
-                if (data.result && data.result.type === 'dataset') {
-                    let results = {};
-                    [
-                        'title',
-                        'author',
-                        'author_email',
-                        'metadata_created',
-                        'metadata_modified',
-                        'notes',
-                        'resources',
-                        'tags',
-                        'license_id'
-                    ].forEach(key => results[key] = data.result[key]);
-                    vm.apiData = {
-                        results
-                    };
+                let subject = endpointParser.getSubject(endpoint);
 
-                    console.log('getData ', data.result);
-                    store.dispatch({
-                        type: ACTIONS.SHOW_DETAIL,
-                        payload: {
-                            dataset: results
-                        }
-                    });
-                    return;
-                }
+                data = dataFormatter.formatData(data, subject);
 
                 vm.apiData = {
                     results: data
@@ -95,22 +74,22 @@
                 vm.isMoreInfoAvailable = vm.apiData.results.is_natuurlijk_persoon && !user.getStatus().isLoggedIn;
 
                 vm.filterSelection = {
-                    [endpointParser.getSubject(endpoint)]: vm.apiData.results.naam
+                    [subject]: vm.apiData.results.naam
                 };
 
-                geometry.getGeoJSON(endpoint).then(function (geoJSON) {
-                    if (geoJSON !== null) {
-                        vm.location = crsConverter.rdToWgs84(geojson.getCenter(geoJSON));
-                    }
+                let geoJSON = geometry.getGeoJSON(endpoint, data);
 
-                    store.dispatch({
-                        type: ACTIONS.SHOW_DETAIL,
-                        payload: {
-                            display: data._display,
-                            geometry: geoJSON
-                        }
-                    });
-                }, errorHandler);
+                if (geoJSON !== null) {
+                    vm.location = crsConverter.rdToWgs84(geojson.getCenter(geoJSON));
+                }
+
+                store.dispatch({
+                    type: ACTIONS.SHOW_DETAIL,
+                    payload: {
+                        display: data._display,
+                        geometry: geoJSON
+                    }
+                });
             }, errorHandler);
         }
 

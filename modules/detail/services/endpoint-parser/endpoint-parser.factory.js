@@ -14,7 +14,6 @@
 
         function getTemplateUrl (endpoint) {
             const [category, subject] = getParts(endpoint);
-            console.log('getTemplate', category, subject);
             return `modules/detail/components/detail/templates/${category}/${subject}.html`;
         }
 

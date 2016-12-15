@@ -19,12 +19,13 @@
                 variant,
                 criteria;
 
-            if (dataSelectionState.view === 'CARDS') {
-                console.log('Set title', dataSelectionState);
-                return '<getTitle>';
-            }
+            const VIEW_NAMES = {
+                TABLE: 'Tabel',
+                LIST: 'Lijst',
+                CARDS: 'Dataset'
+            };
 
-            view = dataSelectionState.view === 'TABLE' ? 'Tabel' : 'Lijst';
+            view = VIEW_NAMES[dataSelectionState.view];
             variant = dataSelectionConfig[dataSelectionState.dataset].TITLE;
             criteria = dataSelectionConfig[dataSelectionState.dataset].FILTERS
                 // Retrieve all the active filters

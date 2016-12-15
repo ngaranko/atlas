@@ -1,3 +1,8 @@
+<pre>
+    {{vm.content.formatters | json}}
+    {{vm.content.templates | json}}
+</pre>
+
 <div ng-repeat="row in vm.content.body" class="c-data-selection-cards">
     <h3 class="c-data-selection-cards__header">
         <dp-link type="FETCH_DETAIL" payload="row.detailEndpoint" class-name="c-data-selection-cards__header-link">
@@ -26,7 +31,7 @@
         </dp-data-selection-formatter>
     </span>
 
-    <span ng-if="false" class="c-data-selection-cards__tags">
+    <span class="c-data-selection-cards__tags">
         <dp-data-selection-formatter
             variables="row.content[3]"
             formatter="{{vm.content.formatters[3]}}"

@@ -11,7 +11,7 @@
         return {
             getByUrl,
             getByUri,
-            getUrl
+            ROOT: environment.API_ROOT
         };
 
         /**
@@ -58,13 +58,8 @@
                 });
         }
 
-        function getUrl (uri) {
-            return environment.API_ROOT + uri;
-        }
-
         function getByUri (uri, params) {
-            let url = getUrl(uri, params);
-            return getByUrl(url, params);
+            return getByUrl(environment.API_ROOT + uri, params);
         }
     }
 })();
