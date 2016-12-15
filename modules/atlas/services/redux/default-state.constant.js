@@ -51,7 +51,8 @@
                     distance: 18
                 }],
                 isLoading: false,
-                isInitial: true
+                isInitial: true,
+                isFullscreen: true
             },
             */
             dataSelection: null,
@@ -63,7 +64,12 @@
                     buurtcombinatie: 'Geuzenbuurt',
                     buurt: 'Trompbuurt'
                 },
-                page: 1
+                page: 1,
+                markers: [
+                    [52.1, 4.1],
+                    [52.2, 4.0]
+                ],
+                isLoading: false
             },
             */
             isPrintMode: false

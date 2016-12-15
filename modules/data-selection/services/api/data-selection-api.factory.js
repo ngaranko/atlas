@@ -3,11 +3,12 @@
         .module('dpDataSelection')
         .factory('dataSelectionApi', dataSelectionApiFactory);
 
-    dataSelectionApiFactory.$inject = ['dataSelectionConfig', 'api'];
+    dataSelectionApiFactory.$inject = ['DATA_SELECTION_CONFIG', 'api'];
 
-    function dataSelectionApiFactory (dataSelectionConfig, api) {
+    function dataSelectionApiFactory (DATA_SELECTION_CONFIG, api) {
         return {
-            query: query
+            query: query,
+            getMarkers: getMarkers
         };
 
         function query (dataset, view, activeFilters, page) {
@@ -17,7 +18,7 @@
             // Making sure to not request pages higher then max allowed.
             // If that is the case requesting for page 1, to obtain filters.
             // In the response the data will be dumped.
-            if (page > dataSelectionConfig.MAX_AVAILABLE_PAGES) {
+            if (page > DATA_SELECTION_CONFIG.MAX_AVAILABLE_PAGES) {
                 searchPage = 1;
             }
             searchParams = angular.merge(
@@ -27,7 +28,7 @@
                 activeFilters
             );
 
-            return api.getByUrl(dataSelectionConfig[dataset].ENDPOINT_PREVIEW, searchParams).then(function (data) {
+            return api.getByUrl(DATA_SELECTION_CONFIG[dataset].ENDPOINT_PREVIEW, searchParams).then(function (data) {
                 if (searchPage !== page) {
                     // Requested page was out of api reach, dumping data
                     // and saving only the filters
@@ -44,7 +45,7 @@
         }
 
         function formatFilters (dataset, rawData) {
-            const formattedFilters = angular.copy(dataSelectionConfig[dataset].FILTERS);
+            const formattedFilters = angular.copy(DATA_SELECTION_CONFIG[dataset].FILTERS);
 
             return formattedFilters.filter(function (filter) {
                 // Only show the filters that are returned by the API
@@ -67,13 +68,13 @@
 
         function formatData (dataset, view, rawData) {
             return {
-                head: dataSelectionConfig[dataset].CONTENT[view]
+                head: DATA_SELECTION_CONFIG[dataset].CONTENT[view]
                     .map(item => item.label),
 
                 body: rawData.map(rawDataRow => {
                     return {
                         detailEndpoint: getDetailEndpoint(dataset, rawDataRow),
-                        content: dataSelectionConfig[dataset].CONTENT[view].map(item => {
+                        content: DATA_SELECTION_CONFIG[dataset].CONTENT[view].map(item => {
                             return item.variables.map(variable => {
                                 return {
                                     key: variable,
@@ -84,13 +85,20 @@
                     };
                 }),
 
-                formatters: dataSelectionConfig[dataset].CONTENT[view].map(item => item.formatter)
+                formatters: DATA_SELECTION_CONFIG[dataset].CONTENT[view].map(item => item.formatter)
             };
         }
 
         function getDetailEndpoint (dataset, rawDataRow) {
-            return dataSelectionConfig[dataset].ENDPOINT_DETAIL +
-                rawDataRow[dataSelectionConfig[dataset].PRIMARY_KEY] + '/';
+            return DATA_SELECTION_CONFIG[dataset].ENDPOINT_DETAIL +
+                rawDataRow[DATA_SELECTION_CONFIG[dataset].PRIMARY_KEY] + '/';
+        }
+
+        function getMarkers (dataset, activeFilters) {
+            return api.getByUrl(DATA_SELECTION_CONFIG[dataset].ENDPOINT_MARKERS, activeFilters).then(function (data) {
+                // The .reverse() is needed because the backend (Elastic) stores it's locations in [lon, lat] format
+                return data.object_list.map(marker => marker._source.centroid.reverse());
+            });
         }
     }
 })();

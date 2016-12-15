@@ -234,13 +234,13 @@ describe('The stateToUrl factory', function () {
 
             // With a detail page
             mockedState.detail = {
-                endpoint: 'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/123/'
+                endpoint: 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/123/'
             };
 
             stateToUrl.update(mockedState, false);
 
             expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
-                detail: 'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/123/'
+                detail: 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/123/'
             }));
         });
 
@@ -310,6 +310,27 @@ describe('The stateToUrl factory', function () {
 
             expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
                 id: 'ABC'
+            }));
+        });
+
+        it('keeps track of the isFullscreen state', function () {
+            // Closed
+            mockedState.straatbeeld = {
+                id: 'ABC',
+                isFullscreen: false
+            };
+            stateToUrl.update(mockedState, false);
+
+            expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
+                'volledig-straatbeeld': jasmine.anything()
+            }));
+
+            // Opened
+            mockedState.straatbeeld.isFullscreen = true;
+            stateToUrl.update(mockedState, false);
+
+            expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
+                'volledig-straatbeeld': 'aan'
             }));
         });
 
@@ -430,7 +451,7 @@ describe('The stateToUrl factory', function () {
             stateToUrl.update(mockedState, false);
 
             expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
-                'dataset-filters': 'buurt:Mijn%20buurt,buurtcombinatie:Mijn%20buurtcombinatie'
+                'dataset-filters': 'buurt:Mijn%20buurt::buurtcombinatie:Mijn%20buurtcombinatie'
             }));
 
             // Enable the list view

@@ -8,9 +8,8 @@ describe('The bbgaDataService', function () {
         angular.mock.module(
             'dpDetail',
             function ($provide) {
-                $provide.constant('environment', {
-                    ENVIRONMENT: 'development',
-                    API_ROOT: 'http://www.api-root.com/'
+                $provide.constant('API_CONFIG', {
+                    ROOT: 'http://www.api-root.com/'
                 });
 
                 $provide.constant('BBGA_CONFIG', {

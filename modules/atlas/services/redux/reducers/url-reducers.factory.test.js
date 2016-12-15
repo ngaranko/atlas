@@ -300,9 +300,9 @@ describe('The urlReducers factory', function () {
                 expect(output.detail).toBeNull();
 
                 // With an active detail page
-                mockedSearchParams.detail = 'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/123/';
+                mockedSearchParams.detail = 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/123/';
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
-                expect(output.detail.endpoint).toBe('https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/123/');
+                expect(output.detail.endpoint).toBe('https://api.datapunt.amsterdam.nl/bag/verblijfsobject/123/');
             });
 
             it('can restore its invisibility', function () {
@@ -330,7 +330,7 @@ describe('The urlReducers factory', function () {
                 var output;
 
                 // With a previous state without an endpoint
-                mockedSearchParams.detail = 'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/123/';
+                mockedSearchParams.detail = 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/123/';
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
 
                 expect(output.detail.geometry).toBeUndefined();
@@ -338,7 +338,7 @@ describe('The urlReducers factory', function () {
                 // With a previous geometry in the state
                 mockedState.detail = {
                     display: 'Mijn lievelings detailpagina',
-                    endpoint: 'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/123/',
+                    endpoint: 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/123/',
                     geometry: 'FAKE_GEOMETRY'
                 };
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
@@ -351,10 +351,10 @@ describe('The urlReducers factory', function () {
                 it('is true when the endpoint changes', () => {
                     var output;
 
-                    mockedSearchParams.detail = 'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/123/';
+                    mockedSearchParams.detail = 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/123/';
                     mockedState.detail = {
                         display: 'Mijn lievelings detailpagina',
-                        endpoint: 'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/456/',
+                        endpoint: 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/456/',
                         geometry: 'FAKE_GEOMETRY',
                         isLoading: false
                     };
@@ -366,12 +366,12 @@ describe('The urlReducers factory', function () {
                 it('is unchanged when the the endpoint stays the same', () => {
                     var output;
 
-                    mockedSearchParams.detail = 'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/123/';
+                    mockedSearchParams.detail = 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/123/';
 
                     // isLoading is false and should stay false
                     mockedState.detail = {
                         display: 'Mijn lievelings detailpagina',
-                        endpoint: 'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/123/',
+                        endpoint: 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/123/',
                         geometry: 'FAKE_GEOMETRY',
                         isLoading: false
                     };
@@ -382,7 +382,7 @@ describe('The urlReducers factory', function () {
                     // isLoading is true and should stay true
                     mockedState.detail = {
                         display: 'Mijn lievelings detailpagina',
-                        endpoint: 'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/123/',
+                        endpoint: 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/123/',
                         geometry: 'FAKE_GEOMETRY',
                         isLoading: true
                     };
@@ -514,7 +514,9 @@ describe('The urlReducers factory', function () {
                 mockedSearchParamsWithDataSelection = angular.copy(mockedSearchParams);
 
                 mockedSearchParamsWithDataSelection.dataset = 'bag';
-                mockedSearchParamsWithDataSelection['dataset-filters'] = 'buurtcombinatie:Geuzenbuurt,buurt:Trompbuurt';
+                mockedSearchParamsWithDataSelection.view = 'TABLE';
+                mockedSearchParamsWithDataSelection['dataset-filters'] = 'buurtcombinatie:Geuzenbuurt::buurt:Trompbuu' +
+                    'rt';
                 mockedSearchParamsWithDataSelection['dataset-pagina'] = '4';
             });
 
@@ -526,10 +528,12 @@ describe('The urlReducers factory', function () {
                 // With an active dataSelection
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParamsWithDataSelection);
                 expect(output.dataSelection).toEqual({
-                    view: undefined,
+                    view: 'TABLE',
                     dataset: 'bag',
                     filters: jasmine.any(Object),
-                    page: jasmine.anything()
+                    page: jasmine.anything(),
+                    markers: [],
+                    isLoading: jasmine.any(Boolean)
                 });
             });
 
@@ -562,7 +566,7 @@ describe('The urlReducers factory', function () {
 
             it('decodes the names of active filters', function () {
                 mockedSearchParamsWithDataSelection['dataset-filters'] =
-                    'buurtcombinatie:Bijlmeer%20Oost%20(D%2CF%2CH),buurt:Belgi%C3%ABplein%20e.o.';
+                    'buurtcombinatie:Bijlmeer%20Oost%20(D%2CF%2CH)::buurt:Belgi%C3%ABplein%20e.o.';
 
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParamsWithDataSelection);
                 expect(output.dataSelection.filters).toEqual({
@@ -587,6 +591,36 @@ describe('The urlReducers factory', function () {
                 delete mockedSearchParamsWithDataSelection.view;
                 output = urlReducers.URL_CHANGE(mockedState, mockedSearchParamsWithDataSelection);
                 expect(output.dataSelection.view).toBeUndefined();
+            });
+
+            it('preservers markers from the oldState since markers aren\'t part of the URL', function () {
+                mockedState.dataSelection = {
+                    markers: [[52.0, 4.0], [52.8, 4.1]]
+                };
+
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParamsWithDataSelection);
+                expect(output.dataSelection.markers).toEqual([[52.0, 4.0], [52.8, 4.1]]);
+
+                // Don't preserve the markers when data selection is no longer active after the URL_CHANGE
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
+                expect(output.dataSelection).toBeNull();
+            });
+
+            it('remembers isLoading from the oldState', function () {
+                mockedState.dataSelection = {
+                    isLoading: false
+                };
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParamsWithDataSelection);
+                expect(output.dataSelection.isLoading).toBe(false);
+
+                mockedState.dataSelection.isLoading = true;
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParamsWithDataSelection);
+                expect(output.dataSelection.isLoading).toBe(true);
+
+                // When the oldState has no dataSelection, isLoading will always be true
+                mockedState.dataSelection = null;
+                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParamsWithDataSelection);
+                expect(output.dataSelection.isLoading).toBe(true);
             });
         });
 

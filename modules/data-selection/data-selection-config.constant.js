@@ -3,33 +3,13 @@
 
     angular
         .module('dpDataSelection')
-        .factory('dataSelectionConfig', dataSelectionConfigFactory);
-
-    dataSelectionConfigFactory.$inject = ['environment'];
-
-    function dataSelectionConfigFactory (environment) {
-        let globalConfig,
-            envConfig;
-
-        envConfig = {
-            DEVELOPMENT: {
-                bag: {
-                    ENDPOINT_PREVIEW: 'https://api-acc.datapunt.amsterdam.nl/dataselectie/bag/',
-                    ENDPOINT_EXPORT: 'https://api-acc.datapunt.amsterdam.nl/dataselectie/bag/export/',
-                    ENDPOINT_DETAIL: 'https://api-acc.datapunt.amsterdam.nl/bag/nummeraanduiding/'
-                }
-            },
-            PRODUCTION: {
-                bag: {
-                    ENDPOINT_PREVIEW: 'https://api.datapunt.amsterdam.nl/dataselectie/bag/',
-                    ENDPOINT_EXPORT: 'https://api.datapunt.amsterdam.nl/dataselectie/bag/export/',
-                    ENDPOINT_DETAIL: 'https://api.datapunt.amsterdam.nl/bag/nummeraanduiding/'
-                }
-            }
-        };
-        globalConfig = {
+        .constant('DATA_SELECTION_CONFIG', {
             MAX_AVAILABLE_PAGES: 100,
             bag: {
+                ENDPOINT_PREVIEW: 'https://api.datapunt.amsterdam.nl/dataselectie/bag/',
+                ENDPOINT_MARKERS: 'https://api.datapunt.amsterdam.nl/dataselectie/bag/geolocation/',
+                ENDPOINT_EXPORT: 'https://api.datapunt.amsterdam.nl/dataselectie/bag/export/',
+                ENDPOINT_DETAIL: 'https://api.datapunt.amsterdam.nl/bag/nummeraanduiding/',
                 PRIMARY_KEY: 'id',
                 TITLE: 'Adressen',
                 FILTERS: [
@@ -143,8 +123,5 @@
                     ]
                 }
             }
-        };
-
-        return angular.merge(globalConfig, envConfig[environment.NAME]);
-    }
+        });
 })();

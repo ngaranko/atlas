@@ -82,21 +82,32 @@
                     });
                 }, true);
 
-                scope.$watch('markers', function (newCollection, oldCollection) {
+                scope.$watch('markers.regular', function (newCollection, oldCollection) {
                     if (angular.equals(newCollection, oldCollection)) {
                         // Initialisation
                         newCollection.forEach(function (item) {
-                            highlight.add(leafletMap, item);
+                            highlight.addMarker(leafletMap, item);
                         });
                     } else {
                         // Change detected
                         getRemovedGeojson(newCollection, oldCollection).forEach(function (item) {
-                            highlight.remove(leafletMap, item);
+                            highlight.removeMarker(leafletMap, item);
                         });
 
                         getAddedGeojson(newCollection, oldCollection).forEach(function (item) {
-                            highlight.add(leafletMap, item);
+                            highlight.addMarker(leafletMap, item);
                         });
+                    }
+                }, true);
+
+                scope.$watch('markers.clustered', function (newCollection, oldCollection) {
+                    if (newCollection.length) {
+                        // Showing markers can take some time, set loading indicator
+                        scope.mapState.isLoading = true;
+                        let endLoading = () => scope.$applyAsync(() => scope.mapState.isLoading = false);
+                        highlight.setCluster(leafletMap, newCollection, endLoading);
+                    } else {
+                        highlight.clearCluster(leafletMap);
                     }
                 }, true);
             });
