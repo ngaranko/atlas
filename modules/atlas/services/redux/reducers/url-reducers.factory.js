@@ -177,14 +177,16 @@
                     });
                 }
 
+                let view = payload.view && String(payload.view);
+
                 return {
-                    view: payload.view && String(payload.view),
+                    view,
                     dataset: payload.dataset,
                     filters: filters,
                     page: Number(payload['dataset-pagina']),
                     markers: oldState.dataSelection && oldState.dataSelection.markers || [],
                     isLoading: angular.isObject(oldState.dataSelection) ? oldState.dataSelection.isLoading : true,
-                    isFullscreen: oldState.dataSelection && oldState.dataSelection.isFullscreen
+                    isFullscreen: view !== 'LIST'
                 };
             } else {
                 return null;
