@@ -40,7 +40,10 @@
             newState.detail = null;
             newState.straatbeeld = null;
 
-            newState.dataSelection = angular.merge({}, newState.dataSelection, payload);
+            newState.dataSelection = Object.keys(payload).reduce((result, key) => {
+                result[key] = payload[key];
+                return result;
+            }, newState.dataSelection);
 
             if (!newState.dataSelection.view) {
                 // Default view is table view

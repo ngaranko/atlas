@@ -45,7 +45,6 @@
         };
 
         vm.removeFilter = function (filterSlug) {
-            console.log('remove Filter', filterSlug);
             var filters = angular.copy(vm.activeFilters);
 
             delete filters[filterSlug];
