@@ -15,7 +15,8 @@
                 searchParams = {
                     start: (page - 1) * config.MAX_ITEMS_PER_PAGE,
                     'facet.field': queryFilters(config.FILTERS),
-                    fq: queryActiveFilters(activeFilters)
+                    fq: queryActiveFilters(activeFilters),
+                    sort: 'name asc'
                 };
 
             api.getByUri(config.ENDPOINT_PREVIEW, searchParams).then(data => {
@@ -48,9 +49,11 @@
 
         function formatFilters (rawData) {
             return Object.keys(rawData).reduce((filters, key) => {
+                let items = rawData[key].items;
+                items.sort((a, b) => a.name.localeCompare(b.name));
                 filters[key] = {
                     numberOfOptions: rawData[key].items.length,
-                    options: rawData[key].items.map(option => {
+                    options: items.map(option => {
                         return {
                             id: option.name,
                             label: option.display_name,
