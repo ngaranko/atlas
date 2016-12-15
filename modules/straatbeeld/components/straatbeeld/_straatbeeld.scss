@@ -1,4 +1,4 @@
-@import "modules/straatbeeld/components/toggle-fullscreen/toggle-fullscreen";
+@import "modules/straatbeeld/components/toggle-straatbeeld-fullscreen/toggle-straatbeeld-fullscreen";
 
 @mixin font-definition {
   font-family: $header-font-family;
@@ -69,10 +69,6 @@
   border-right: solid $secondary-gray20 1px;
   overflow:  hidden;
   z-index: 2;
-
-  &::before {
-    margin-top: -1px;
-  }
 
   &:hover {
     background-color: $primary-contrast;

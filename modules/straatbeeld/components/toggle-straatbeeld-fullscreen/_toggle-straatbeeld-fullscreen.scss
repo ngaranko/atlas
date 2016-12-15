@@ -1,4 +1,3 @@
-
 @mixin streetview-map {
   margin-right: 0;
   margin-left: 1px;
@@ -16,28 +15,24 @@
     text-decoration: none;
   }
 
+  &:active,
+  &:focus {
+    color: $primary-light !important;
+  }
+
   &::before {
     margin-top: -1px;
     margin-right: -$base-whitespace / 2;
     margin-left: -1px;
   }
-
-  &:active,
-  &:focus {
-    color: $primary-light !important;
-  }
 }
 
-.c-straatbeeld__kaart-toggle {
-  display: inline;
-}
-
-.c-straatbeeld__streetview-map-icon--minimize {
+.toggle-straatbeeld-fullscreen--minimize {
   @include icon-button-text-right("forwardb", "", "white");
   @include streetview-map;
 }
 
-.c-straatbeeld__streetview-map-icon--maximize {
+.toggle-straatbeeld-fullscreen--maximize {
   @include icon-button-text-right("backb", "", "white");
   @include streetview-map;
 }
