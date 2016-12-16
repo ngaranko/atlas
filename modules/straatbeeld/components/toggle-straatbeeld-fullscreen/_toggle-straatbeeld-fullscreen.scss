@@ -1,35 +1,9 @@
-@mixin toggle-straatbeeld-fullscreen {
-  padding-right: $base-whitespace;
-  float: left;
-  border-right: solid $secondary-gray20 1px;
-  font-family: $header-font-family;
-  font-size: $base-font-size - 2;
-  z-index: 2;
-
-  &:hover {
-    background-color: $primary-contrast;
-    color: $primary-light;
-    text-decoration: none;
-  }
-
-  &:active,
-  &:focus {
-    color: $primary-light;
-  }
-
-  &::before {
-    margin-top: -2px;
-    margin-right: -$base-whitespace / 2;
-    margin-left: 0;
-  }
-}
-
 .c-toggle-straatbeeld-fullscreen--minimize {
   @include icon-button-text-right("forwardb", "", "white");
-  @include toggle-straatbeeld-fullscreen;
+  float: left;
 }
 
 .c-toggle-straatbeeld-fullscreen--maximize {
   @include icon-button-text-right("backb", "", "white");
-  @include toggle-straatbeeld-fullscreen;
+  float: left;
 }

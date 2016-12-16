@@ -1,8 +1,9 @@
 @import "modules/straatbeeld/components/toggle-straatbeeld-fullscreen/toggle-straatbeeld-fullscreen";
 
-@mixin font-definition {
+@mixin smaller-font-definition {
   font-family: $header-font-family;
   font-size: $base-font-size - 2;
+  line-height: 24px;
 }
 
 .c-straatbeeld {
@@ -24,7 +25,7 @@
 }
 
 .c-straatbeeld__status-bar {
-  @include font-definition;
+  @include smaller-font-definition;
   position: absolute;
   right: 0;
   bottom: 0;
@@ -51,29 +52,10 @@
 }
 
 .c-straatbeeld__streetview-history-icon {
-  @include icon-button-text-right("clock", "black", "red");
-  @include font-definition;
+  @include icon-button-text-right("clock", "black", "white");
+  @include smaller-font-definition;
 
-  margin-left: 0;
-  padding-right: $base-whitespace;
-  padding-left: $base-whitespace / 2;
-  border-right: solid $secondary-gray20 1px;
-  overflow:  hidden;
-  z-index: 2;
-
-  // For icon vertical outlining purposes
   &::before {
-    margin-top: -2px;
-  }
-
-  &:hover {
-    background-color: $primary-contrast;
-    color: $primary-light;
-    text-decoration: none;
-  }
-
-  &:active,
-  &:focus {
-    color: $primary-light !important;
+    margin-right: $base-whitespace / 2;
   }
 }
