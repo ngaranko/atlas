@@ -9,7 +9,7 @@
   position: absolute;
   top: 0;
   right: 0;
-  bottom: -$base-whitespace * 2;
+  bottom: 0;
   left: 0;
   z-index: 1;
 }
@@ -18,7 +18,7 @@
   position: absolute;
   top: 0;
   right: 0;
-  bottom:  $base-whitespace * 2;
+  bottom:  0;
   left: 0;
   border: solid $secondary-gray20 1px;
 }
@@ -27,13 +27,13 @@
   @include font-definition;
   position: absolute;
   right: 0;
-  bottom: $base-whitespace * 2;
+  bottom: 0;
   left: 0;
   height: $button-size;
   padding-right: $base-whitespace / 2;
   background-color: $primary-light-alpha66;
   color: $primary-dark;
-  line-height: $button-size - 2;
+  line-height: $button-size;
   z-index: 2;
 }
 
@@ -60,6 +60,11 @@
   border-right: solid $secondary-gray20 1px;
   overflow:  hidden;
   z-index: 2;
+
+  // For icon vertical outlining purposes
+  &::before {
+    margin-top: -2px;
+  }
 
   &:hover {
     background-color: $primary-contrast;
