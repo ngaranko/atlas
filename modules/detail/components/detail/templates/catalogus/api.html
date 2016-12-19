@@ -1,4 +1,3 @@
-
 <div class="u-grid">
     <div class="u-row">
         <div class="u-col-md--12">
@@ -8,36 +7,61 @@
             <dl class="c-key-value-list">
                 <dt>Aangemaakt</dt>
                 <dd>{{vm.apiData.results.metadata_created}}</dd>
-            
+
                 <dt>Gewijzigd</dt>
                 <dd>{{vm.apiData.results.metadata_modified}}</dd>
-                <dt>Update frequentie</dt>
-                <dd>?</dd>
                 <dt>Gepubliceerd door</dt>
-                <dd>{{vm.apiData.results.author}} ({{vm.apiData.results.author_email}})</dd>
+                <dd><a href="mailto:{{vm.apiData.results.author_email}}" class="o-btn o-btn--link">{{vm.apiData.results.author}} ({{vm.apiData.results.author_email}})</a>                    </dd>
                 <dt>Thema</dt>
-                <dd>?</dd>
+                <dd>
+                    <ul ng-repeat="group in vm.apiData.results.groups"> 
+                        <li class="o-btn o-btn--link"> {{ group.title }}</li>
+                    </ul>
+                </dd>
             </dl>
+        </div>
+    </div>
+    <div class="u-row u-margin__bottom--2">
+        <div class="u-col-md--12">
+            <p ng-bind-html="vm.apiData.results.notes"></p>
+        </div>
+    </div>
 
-            <h3 class="o-header__subtitle">Notes</h3>
-            <p>{{vm.apiData.results.notes}}</p>
-
+    <div class="u-row u-margin__bottom--2">
+        <div class="u-col-md--12">
             <h3 class="o-header__subtitle">Data</h3>
-            <div ng-repeat="resource in vm.apiData.results.resources">
-                <div>format: {{resource.format}}</div>
-                <div>description: {{resource.description}}</div>
-                <div>url: {{resource.url}}</div>
-            </div>
 
-             <h3 class="o-header__subtitle">Tags</h3>
-             <div ng-repeat="tag in vm.apiData.results.tags">
-                <div>Name: {{tag.display_name}}</div>
-             </div>
+            <table class="o-table">
+                <tbody class="c-data-selection-table__content">
+                    <tr class="c-data-selection-table__content-row" ng-repeat="resource in vm.apiData.results.resources">
+                        <td>
+                            <div class="o-data-selection-file-type o-data-selection-file-type__name o-data-selection-file-type__format-{{resource.format | lowercase }}">{{resource.format}}</div>
+                        </td>
+                        <td>{{resource.name}}</td>
+                        <td class="u-align--right">
+                            <a ng-href="{{resource.url}}" class="c-download-button o-btn" title="Downloaden dataset">{{resource.size / 1024 | number:0}} KB</a>
+                        </td>
+                    </tr>
+                </tbody>
 
-             <h3 class="o-header__subtitle">Licentie</h3>
-             <p>{{vm.apiData.results.license_id}}</p>
+            </table>
+        </div>
+    </div>
 
+    <div class="u-row u-margin__bottom--2">
+        <div class="u-col-md--12">
 
+            <h3 class="o-header__subtitle">Tags</h3>
+            <ul ng-repeat="tag in vm.apiData.results.tags" class="u-inline">
+                <li class="u-inline"><span class="o-tag">{{tag.display_name | dpUppercaseFirstLetter}}</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="u-row u-margin__bottom--2">
+        <div class="u-col-md--12">
+            <h3 class="o-header__subtitle">Licentie</h3>
+            <p><a ng-href="" class="o-btn o-btn--link" title="Downloaden dataset">{{vm.apiData.results.license_id}}</a></p>
         </div>
     </div>
 </div>
