@@ -1,26 +1,43 @@
-<h1>Dataset</h1>
 
-<h2>Title: {{vm.apiData.results.title}}</h2>
-<div>Aangemaakt: {{vm.apiData.results.metadata_created}}</div>
-<div>Gewijzigd: {{vm.apiData.results.metadata_modified}}</div>
-<div>Update frequentie: ??</div>
-<div>Gepubliceerd door: {{vm.apiData.results.author}} ({{vm.apiData.results.author_email}})</div>
-<div>Thema: ??</div>
+<div class="u-grid">
+    <div class="u-row">
+        <div class="u-col-md--12">
+            <h3 class="o-header__subtitle">Dataset</h3>
+            <h2 class="o-header__title u-margin__bottom--3">{{vm.apiData.results.title}}</h2>
 
-<h2>Notes</h2>
-<div>Notes: {{vm.apiData.results.notes}}</div>
+            <dl class="c-key-value-list">
+                <dt>Aangemaakt</dt>
+                <dd>{{vm.apiData.results.metadata_created}}</dd>
+            
+                <dt>Gewijzigd</dt>
+                <dd>{{vm.apiData.results.metadata_modified}}</dd>
+                <dt>Update frequentie</dt>
+                <dd>?</dd>
+                <dt>Gepubliceerd door</dt>
+                <dd>{{vm.apiData.results.author}} ({{vm.apiData.results.author_email}})</dd>
+                <dt>Thema</dt>
+                <dd>?</dd>
+            </dl>
 
-<h2>Data</h2>
-<div ng-repeat="resource in vm.apiData.results.resources">
-    <div>format: {{resource.format}}</div>
-    <div>description: {{resource.description}}</div>
-    <div>url: {{resource.url}}</div>
+            <h3 class="o-header__subtitle">Notes</h3>
+            <p>{{vm.apiData.results.notes}}</p>
+
+            <h3 class="o-header__subtitle">Data</h3>
+            <div ng-repeat="resource in vm.apiData.results.resources">
+                <div>format: {{resource.format}}</div>
+                <div>description: {{resource.description}}</div>
+                <div>url: {{resource.url}}</div>
+            </div>
+
+             <h3 class="o-header__subtitle">Tags</h3>
+             <div ng-repeat="tag in vm.apiData.results.tags">
+                <div>Name: {{tag.display_name}}</div>
+             </div>
+
+             <h3 class="o-header__subtitle">Licentie</h3>
+             <p>{{vm.apiData.results.license_id}}</p>
+
+
+        </div>
+    </div>
 </div>
-
-<h2>Tags</h2>
-<div ng-repeat="tag in vm.apiData.results.tags">
-    <div>Name: {{tag.display_name}}</div>
-</div>
-
-<h2>Licentie</h2>
-<div>{{vm.apiData.results.license_id}}</div>
