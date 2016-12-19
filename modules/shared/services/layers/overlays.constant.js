@@ -602,8 +602,8 @@
                 },
                 milieu_geluid_planologisch_schiphol: {
                     url: 'maps/planologischezonesschiphol',
-                    label_short: 'Schiphol',
-                    label_long: 'Schiphol',
+                    label_short: 'Schiphol - Ruimtelijke beperkingen',
+                    label_long: 'Schiphol - Ruimtelijke beperkingen',
                     layers: ['geluidszoneschiphol'],
                     minZoom: 8,
                     maxZoom: 16,

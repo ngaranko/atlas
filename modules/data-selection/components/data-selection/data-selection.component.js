@@ -6,24 +6,32 @@
         .component('dpDataSelection', {
             templateUrl: 'modules/data-selection/components/data-selection/data-selection.html',
             bindings: {
-                state: '='
+                state: '<'
             },
             controller: DpDataSelectionController,
             controllerAs: 'vm'
         });
 
-    DpDataSelectionController.$inject = ['$scope', 'dataSelectionApi', 'dataSelectionConfig', 'store', 'ACTIONS'];
+    DpDataSelectionController.$inject = ['$scope', 'dataSelectionApi', 'DATA_SELECTION_CONFIG', 'store', 'ACTIONS'];
 
-    function DpDataSelectionController ($scope, dataSelectionApi, dataSelectionConfig, store, ACTIONS) {
+    function DpDataSelectionController ($scope, dataSelectionApi, DATA_SELECTION_CONFIG, store, ACTIONS) {
         let vm = this;
         const MAXIMUM_NUMBER_OF_MARKERS = 10000;
 
-        $scope.$watch('vm.state', fetchData, true);
+        $scope.$watch(function () {
+            // Watching all state variables except markers and isLoading
+            return [
+                vm.state.dataset,
+                vm.state.view,
+                vm.state.filters,
+                vm.state.page
+            ];
+        }, fetchData, true);
 
         function fetchData () {
             vm.isLoading = true;
 
-            vm.title = dataSelectionConfig[vm.state.dataset].TITLE;
+            vm.title = DATA_SELECTION_CONFIG[vm.state.dataset].TITLE;
             vm.view = vm.state.view;
             vm.showFilters = vm.state.view !== 'LIST';
             vm.currentPage = vm.state.page;

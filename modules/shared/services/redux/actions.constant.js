@@ -47,7 +47,8 @@
             },
             MAP_TOGGLE_VISIBILITY_OVERLAY: {
                 id: 'MAP_TOGGLE_VISIBILITY_OVERLAY',
-                replace: true
+                replace: true,
+                isButton: true
             },
             MAP_CLICK: {
                 id: 'MAP_CLICK',
@@ -67,11 +68,14 @@
             },
             SHOW_MAP_ACTIVE_OVERLAYS: {
                 id: 'SHOW_MAP_ACTIVE_OVERLAYS',
-                replace: true
+                replace: true,
+                isButton: true
+
             },
             HIDE_MAP_ACTIVE_OVERLAYS: {
                 id: 'HIDE_MAP_ACTIVE_OVERLAYS',
-                replace: true
+                replace: true,
+                isButton: true
             },
 
             FETCH_DETAIL: {
@@ -98,6 +102,10 @@
                 id: 'SHOW_STRAATBEELD_SUBSEQUENT',
                 replace: true
             },
+            STRAATBEELD_FULLSCREEN: {
+                id: 'STRAATBEELD_FULLSCREEN',
+                isButton: true
+            },
             HIDE_STRAATBEELD: {
                 id: 'HIDE_STRAATBEELD',
                 ignore: true,
@@ -119,7 +127,8 @@
                 id: 'NAVIGATE_DATA_SELECTION'
             },
             SET_DATA_SELECTION_VIEW: {
-                id: 'SET_DATA_SELECTION_VIEW'
+                id: 'SET_DATA_SELECTION_VIEW',
+                isButton: true
             },
 
             SHOW_LAYER_SELECTION: {

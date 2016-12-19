@@ -15,9 +15,9 @@
             controllerAs: 'vm'
         });
 
-    DpDataSelectionFilterController.$inject = ['$scope', 'store', 'ACTIONS', 'dataSelectionConfig'];
+    DpDataSelectionFilterController.$inject = ['$scope', 'store', 'ACTIONS', 'DATA_SELECTION_CONFIG'];
 
-    function DpDataSelectionFilterController ($scope, store, ACTIONS, dataSelectionConfig) {
+    function DpDataSelectionFilterController ($scope, store, ACTIONS, DATA_SELECTION_CONFIG) {
         var vm = this,
             expandedFilters = [];
 
@@ -82,7 +82,7 @@
 
         function updateFilters () {
             if (angular.isObject(vm.availableFilters)) {
-                vm.showOptionCounts = dataSelectionConfig[vm.dataset].SHOW_FILTER_OPTION_COUNTS;
+                vm.showOptionCounts = DATA_SELECTION_CONFIG[vm.dataset].SHOW_FILTER_OPTION_COUNTS;
 
                 vm.formattedActiveFilters = vm.availableFilters.filter(filter => {
                     return angular.isString(vm.activeFilters[filter.slug]);

@@ -143,6 +143,7 @@
 
                 // restore invisibility from url payload
                 newStraatbeeld.isInvisible = Boolean(payload.straatbeeldInvisible);
+                newStraatbeeld.isFullscreen = angular.isString(payload['volledig-straatbeeld']);
 
                 if (oldState.straatbeeld && oldState.straatbeeld.id === payload.id) {
                     newStraatbeeld.image = oldState.straatbeeld.image;
@@ -170,10 +171,10 @@
 
             if (angular.isString(payload.dataset)) {
                 if (angular.isString(payload['dataset-filters'])) {
-                    payload['dataset-filters'].split(',').forEach(function (filterFromUrl) {
+                    payload['dataset-filters'].split('::').forEach(function (filterFromUrl) {
                         var keyValueArray = filterFromUrl.split(':');
 
-                        filters[keyValueArray[0]] = $window.decodeURIComponent(keyValueArray[1]);
+                        filters[keyValueArray[0]] = decodeURIComponent(keyValueArray[1]);
                     });
                 }
 

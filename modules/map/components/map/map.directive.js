@@ -102,7 +102,10 @@
 
                 scope.$watch('markers.clustered', function (newCollection, oldCollection) {
                     if (newCollection.length) {
-                        highlight.setCluster(leafletMap, newCollection);
+                        // Showing markers can take some time, set loading indicator
+                        scope.mapState.isLoading = true;
+                        let endLoading = () => scope.$applyAsync(() => scope.mapState.isLoading = false);
+                        highlight.setCluster(leafletMap, newCollection, endLoading);
                     } else {
                         highlight.clearCluster(leafletMap);
                     }

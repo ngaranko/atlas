@@ -3,31 +3,7 @@
 
     angular
         .module('dpDataSelection')
-        .factory('dataSelectionConfig', dataSelectionConfigFactory);
-
-    dataSelectionConfigFactory.$inject = ['environment'];
-
-    function dataSelectionConfigFactory (environment) {
-        let globalConfig,
-            envConfig;
-
-        envConfig = {
-            DEVELOPMENT: {
-                bag: {
-                    ENDPOINT_MARKERS: 'https://api-acc.datapunt.amsterdam.nl/dataselectie/bag/geolocation/',
-                    ENDPOINT_EXPORT: 'https://api-acc.datapunt.amsterdam.nl/dataselectie/bag/export/',
-                    ENDPOINT_DETAIL: 'https://api-acc.datapunt.amsterdam.nl/bag/nummeraanduiding/'
-                }
-            },
-            PRODUCTION: {
-                bag: {
-                    ENDPOINT_MARKERS: 'https://api.datapunt.amsterdam.nl/dataselectie/bag/geolocation/',
-                    ENDPOINT_EXPORT: 'https://api.datapunt.amsterdam.nl/dataselectie/bag/export/',
-                    ENDPOINT_DETAIL: 'https://api.datapunt.amsterdam.nl/bag/nummeraanduiding/'
-                }
-            }
-        };
-        globalConfig = {
+        .constant('DATA_SELECTION_CONFIG', {
             catalogus: {
                 MAX_ITEMS_PER_PAGE: 10,
                 CUSTOM_API: 'dataSelectionApiCkan',
@@ -75,10 +51,12 @@
                 }
             },
             bag: {
-                HAS_PAGE_LIMIT: true,
+                ENDPOINT_PREVIEW: 'https://api.datapunt.amsterdam.nl/dataselectie/bag/',
+                ENDPOINT_MARKERS: 'https://api.datapunt.amsterdam.nl/dataselectie/bag/geolocation/',
+                ENDPOINT_EXPORT: 'https://api.datapunt.amsterdam.nl/dataselectie/bag/export/',
+                ENDPOINT_DETAIL: 'https://api.datapunt.amsterdam.nl/bag/nummeraanduiding/',
                 MAX_AVAILABLE_PAGES: 100,
-                CUSTOM_API: 'dataSelectionApiDataSelection',
-                ENDPOINT_PREVIEW: 'dataselectie/bag/',
+                HAS_PAGE_LIMIT: true,
                 PRIMARY_KEY: 'id',
                 TITLE: 'Adressen',
                 FILTERS: [
@@ -192,8 +170,5 @@
                     ]
                 }
             }
-        };
-
-        return angular.merge(globalConfig, envConfig[environment.NAME]);
-    }
+        });
 })();

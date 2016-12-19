@@ -6,9 +6,9 @@
         .module('dpDataSelection')
         .factory('dpDataSelectionDocumentTitle', dpDataSelectionDocumentTitleFactory);
 
-    dpDataSelectionDocumentTitleFactory.$inject = ['dataSelectionConfig'];
+    dpDataSelectionDocumentTitleFactory.$inject = ['DATA_SELECTION_CONFIG'];
 
-    function dpDataSelectionDocumentTitleFactory (dataSelectionConfig) {
+    function dpDataSelectionDocumentTitleFactory (DATA_SELECTION_CONFIG) {
         return {
             getTitle: getTitle
         };
