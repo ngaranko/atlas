@@ -62,10 +62,10 @@
             };
         }
 
-        function getDetailEndpoint (dataset, rawDataRow) {
-            return DATA_SELECTION_CONFIG[dataset].ENDPOINT_DETAIL +
-                rawDataRow[DATA_SELECTION_CONFIG[dataset].PRIMARY_KEY] + '/';
-        }
+        // function getDetailEndpoint (dataset, rawDataRow) {
+        //     return DATA_SELECTION_CONFIG[dataset].ENDPOINT_DETAIL +
+        //         rawDataRow[DATA_SELECTION_CONFIG[dataset].PRIMARY_KEY] + '/';
+        // }
 
         function recurGetContent (path, rawData) {
             if (!path.length) {

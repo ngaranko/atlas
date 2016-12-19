@@ -533,7 +533,8 @@ describe('The urlReducers factory', function () {
                     filters: jasmine.any(Object),
                     page: jasmine.anything(),
                     markers: [],
-                    isLoading: jasmine.any(Boolean)
+                    isLoading: jasmine.any(Boolean),
+                    isFullscreen: true
                 });
             });
 

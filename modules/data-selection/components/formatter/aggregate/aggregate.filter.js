@@ -23,19 +23,11 @@
             }, []);
 
             return result.sort((a, b) => {
-                let order = 0;
-
-                if (a.count < b.count) {
-                    order = 1;
-                } else if (a.count > b.count) {
-                    order = -1;
-                } else if (a.name > b.name) {
-                    order = 1;
-                } else if (a.name < b.name) {
-                    order = -1;
+                if (a.count === b.count) {
+                    return a.name.localeCompare(b.name);
+                } else {
+                    return b.count - a.count;
                 }
-
-                return order;
             });
         };
     }

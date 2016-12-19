@@ -11,6 +11,7 @@
                 let {metadata_created, metadata_modified} = input;
                 let last = new Date(metadata_modified || metadata_created),
                     ago = new Date() - last,
+                    agoCount = ago,
                     agoDuration = 'milliseconden';
                 [
                     {duration: 'seconden', length: 1000},
@@ -18,12 +19,15 @@
                     {duration: 'uren', length: 60},
                     {duration: 'dagen', length: 24}
                 ].forEach(({duration, length}) => {
-                    if (ago > 30) {
+                    if (ago >= 2 * length) {
                         ago = Math.ceil(ago / length);
+                        agoCount = ago;
                         agoDuration = duration;
+                    } else {
+                        ago = 0;
                     }
                 });
-                return `${ago} ${agoDuration} geleden ${metadata_modified ? 'gewijzigd' : 'gemaakt'}`;
+                return `${agoCount} ${agoDuration} geleden ${metadata_modified ? 'gewijzigd' : 'gemaakt'}`;
             }
         };
     }

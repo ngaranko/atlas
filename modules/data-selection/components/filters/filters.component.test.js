@@ -299,6 +299,19 @@ describe('The dp-data-selection-filters component', function () {
         });
     });
 
+    it('update its filters when available filters ', function () {
+        var component,
+            activeFilters;
+
+        activeFilters = 'aap';
+        component = getComponent(activeFilters, false);
+        component.scope().activeFilters = 'noot';
+        component.scope().availableFilters = null;
+        component.scope().$apply();
+
+        expect(component.scope().formattedActiveFilters).toBeUndefined();
+    });
+
     it('can implode both known and unknown filters', function () {
         var component = getComponent({}, false);
         var scope = component.isolateScope();

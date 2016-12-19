@@ -17,17 +17,21 @@
              *
              * @returns {Promise} - An object with GeoJSON or null
              */
-        function getGeoJSON (url, data) {
-            if (angular.isObject(data.geometrie)) {
-                return data.geometrie;
-            } else if (isVestigingAmsterdam(data)) {
-                return data.bezoekadres.geometrie;
-            } else if (isAPerceel(url, data)) {
-                return getGPerceel(data).then(getGeometry);
-            } else if (isNummeraanduiding(url)) {
-                return getAdresseerbaarObject(data).then(getGeometry);
-            } else {
-                return null;
+        function getGeoJSON (url) {
+            return api.getByUrl(url).then(getGeometry);
+
+            function getGeometry (data) {
+                if (angular.isObject(data.geometrie)) {
+                    return data.geometrie;
+                } else if (isVestigingAmsterdam(data)) {
+                    return data.bezoekadres.geometrie;
+                } else if (isAPerceel(url, data)) {
+                    return getGPerceel(data).then(getGeometry);
+                } else if (isNummeraanduiding(url)) {
+                    return getAdresseerbaarObject(data).then(getGeometry);
+                } else {
+                    return null;
+                }
             }
 
             function isVestigingAmsterdam (data) {

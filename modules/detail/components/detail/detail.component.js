@@ -77,20 +77,20 @@
                     [subject]: vm.apiData.results.naam
                 };
 
-                let geoJSON = geometry.getGeoJSON(endpoint, data);
-
-                if (geoJSON !== null) {
-                    vm.location = crsConverter.rdToWgs84(geojson.getCenter(geoJSON));
-                }
-
-                store.dispatch({
-                    type: ACTIONS.SHOW_DETAIL,
-                    payload: {
-                        display: data._display,
-                        geometry: geoJSON,
-                        isFullscreen: subject === 'api'
+                geometry.getGeoJSON(endpoint).then(function (geoJSON) {
+                    if (geoJSON !== null) {
+                        vm.location = crsConverter.rdToWgs84(geojson.getCenter(geoJSON));
                     }
-                });
+
+                    store.dispatch({
+                        type: ACTIONS.SHOW_DETAIL,
+                        payload: {
+                            display: data._display,
+                            geometry: geoJSON,
+                            isFullscreen: subject === 'api'
+                        }
+                    });
+                }, errorHandler);
             }, errorHandler);
         }
 

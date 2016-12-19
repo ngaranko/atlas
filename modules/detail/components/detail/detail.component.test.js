@@ -225,7 +225,7 @@ describe('the dp-detail component', function () {
             payload: {
                 display: 'Adresstraat 1A',
                 geometry: mockedGeometryPoint,
-                isFullscreen:false
+                isFullscreen: false
             }
         });
     });
@@ -276,7 +276,8 @@ describe('the dp-detail component', function () {
             type: ACTIONS.SHOW_DETAIL,
             payload: {
                 display: 'Een of ander kadastraal object',
-                geometry: mockedGeometryMultiPolygon
+                geometry: mockedGeometryMultiPolygon,
+                isFullscreen: false
             }
         });
     });
@@ -310,7 +311,8 @@ describe('the dp-detail component', function () {
             type: ACTIONS.SHOW_DETAIL,
             payload: {
                 display: 'Adresstraat 1A',
-                geometry: mockedGeometryPoint
+                geometry: mockedGeometryPoint,
+                isFullscreen: false
             }
         });
     });
