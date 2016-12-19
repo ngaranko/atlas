@@ -12,10 +12,10 @@
         };
 
         function query (dataset, view, activeFilters, page) {
-            const customApi = dataSelectionConfig[dataset].CUSTOM_API,
+            const customApi = DATA_SELECTION_CONFIG[dataset].CUSTOM_API,
                 apiService = $injector.get(customApi);
 
-            return apiService.query(dataSelectionConfig[dataset], activeFilters, page)
+            return apiService.query(DATA_SELECTION_CONFIG[dataset], activeFilters, page)
                 .then(function (data) {
                     return {
                         numberOfPages: data.numberOfPages,

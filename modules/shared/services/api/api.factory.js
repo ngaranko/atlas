@@ -11,7 +11,7 @@
         return {
             getByUrl,
             getByUri,
-            ROOT: environment.API_ROOT
+            ROOT: API_CONFIG.ROOT
         };
 
         /**

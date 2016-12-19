@@ -35,8 +35,8 @@
             vm.view = vm.state.view;
             vm.showFilters = vm.state.view !== 'LIST';
             vm.currentPage = vm.state.page;
-            vm.isPageAvailable = !dataSelectionConfig.HAS_PAGE_LIMIT ||
-                vm.currentPage <= dataSelectionConfig.MAX_AVAILABLE_PAGES;
+            vm.isPageAvailable = !DATA_SELECTION_CONFIG.HAS_PAGE_LIMIT ||
+                vm.currentPage <= DATA_SELECTION_CONFIG.MAX_AVAILABLE_PAGES;
             vm.hasTooManyMarkers = false;
 
             dataSelectionApi.query(vm.state.dataset, vm.state.view, vm.state.filters, vm.currentPage).then(data => {
