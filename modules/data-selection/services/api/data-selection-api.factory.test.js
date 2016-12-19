@@ -213,17 +213,35 @@ describe('The dataSelectionApi factory', function () {
         it('???', function () {
             let output;
 
+            // Object({
+            //     detailEndpoint: 'https://amsterdam.nl/api_endpoint/zwembaden/1/',
+            //     content: [[Object({key: 'adres.openbare_ruimte', value: undefined}), Object({
+            //         key: 'huisnummer',
+            //         value: '1'
+            //     })], [Object({key: 'buurtnaam', value: undefined})]]
+            // }), Object({
+            //     detailEndpoint: 'https://amsterdam.nl/api_endpoint/zwembaden/2/',
+            //     content: [[Object({key: 'adres.openbare_ruimte', value: undefined}), Object({
+            //         key: 'huisnummer',
+            //         value: '1'
+            //     })], [Object({key: 'buurtnaam', value: undefined})]]
+            // }), Object({
+            //     detailEndpoint: 'https://amsterdam.nl/api_endpoint/zwembaden/3/',
+            //     content: [[Object({key: 'adres.openbare_ruimte', value: undefined}), Object({
+            //         key: 'huisnummer',
+            //         value: '1'
+            //     })], [Object({key: 'buurtnaam', value: undefined})]]
+            // })
+
             dataSelectionApi.query('zwembaden', 'CARDS', {}, 1).then(function (_output_) {
                 output = _output_;
             });
             $rootScope.$apply();
-
             expect(output.numberOfPages).toBe(2);
 
             mockedConfig.zwembaden.CONTENT.CARDS = [
                 {
-                    variables: ['huisnummer'],
-                    formatter: 'adres'
+                    variables: ['huisnummer']
                 }
             ];
             mockedApiPreviewResponse.data[0].huisnummer = [1, 2];
@@ -231,13 +249,22 @@ describe('The dataSelectionApi factory', function () {
                 output = _output_;
             });
             $rootScope.$apply();
+            expect(output.data.body[0].content[0][0].value).toEqual([1, 2]);
 
-            expect(output.numberOfPages).toBe(2);
+            // Object({
+            //     detailEndpoint: 'https://amsterdam.nl/api_endpoint/zwembaden/1/',
+            //     content: [[Object({key: 'huisnummer.adres', value: [undefined, undefined]})]]
+            // }), Object({
+            //     detailEndpoint: 'https://amsterdam.nl/api_endpoint/zwembaden/2/',
+            //     content: [[Object({key: 'huisnummer.adres', value: undefined})]]
+            // }), Object({
+            //     detailEndpoint: 'https://amsterdam.nl/api_endpoint/zwembaden/3/',
+            //     content: [[Object({key: 'huisnummer.adres', value: undefined})]]
+            // })
 
             mockedConfig.zwembaden.CONTENT.CARDS = [
                 {
-                    variables: ['huisnummer.adres'],
-                    formatter: 'adres'
+                    variables: ['huisnummer.adres']
                 }
             ];
             mockedApiPreviewResponse.data[0].huisnummer = [1, 2];
@@ -245,7 +272,6 @@ describe('The dataSelectionApi factory', function () {
                 output = _output_;
             });
             $rootScope.$apply();
-
             expect(output.numberOfPages).toBe(2);
         });
 
