@@ -57,6 +57,14 @@ describe('The dataSelectionApi factory', function () {
                         }, {
                             variables: ['buurtnaam']
                         }
+                    ],
+                    CARDS: [
+                        {
+                            variables: ['adres.openbare_ruimte', 'huisnummer'],
+                            formatter: 'adres'
+                        }, {
+                            variables: ['buurtnaam']
+                        }
                     ]
                 }
             }
@@ -195,6 +203,45 @@ describe('The dataSelectionApi factory', function () {
             let output;
 
             dataSelectionApi.query('zwembaden', 'TABLE', {}, 1).then(function (_output_) {
+                output = _output_;
+            });
+            $rootScope.$apply();
+
+            expect(output.numberOfPages).toBe(2);
+        });
+
+        it('???', function () {
+            let output;
+
+            dataSelectionApi.query('zwembaden', 'CARDS', {}, 1).then(function (_output_) {
+                output = _output_;
+            });
+            $rootScope.$apply();
+
+            expect(output.numberOfPages).toBe(2);
+
+            mockedConfig.zwembaden.CONTENT.CARDS = [
+                {
+                    variables: ['huisnummer'],
+                    formatter: 'adres'
+                }
+            ];
+            mockedApiPreviewResponse.data[0].huisnummer = [1, 2];
+            dataSelectionApi.query('zwembaden', 'CARDS', {}, 1).then(function (_output_) {
+                output = _output_;
+            });
+            $rootScope.$apply();
+
+            expect(output.numberOfPages).toBe(2);
+
+            mockedConfig.zwembaden.CONTENT.CARDS = [
+                {
+                    variables: ['huisnummer.adres'],
+                    formatter: 'adres'
+                }
+            ];
+            mockedApiPreviewResponse.data[0].huisnummer = [1, 2];
+            dataSelectionApi.query('zwembaden', 'CARDS', {}, 1).then(function (_output_) {
                 output = _output_;
             });
             $rootScope.$apply();

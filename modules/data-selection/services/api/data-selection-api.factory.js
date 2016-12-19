@@ -62,15 +62,8 @@
             };
         }
 
-        // function getDetailEndpoint (dataset, rawDataRow) {
-        //     return DATA_SELECTION_CONFIG[dataset].ENDPOINT_DETAIL +
-        //         rawDataRow[DATA_SELECTION_CONFIG[dataset].PRIMARY_KEY] + '/';
-        // }
-
         function recurGetContent (path, rawData) {
-            if (!path.length) {
-                return;
-            } else if (path.length === 1) {
+            if (path.length === 1) {
                 const key = path[0],
                     rawValue = rawData[key];
 
