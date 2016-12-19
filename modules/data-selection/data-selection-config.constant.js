@@ -51,12 +51,13 @@
                 }
             },
             bag: {
-                ENDPOINT_PREVIEW: 'https://api.datapunt.amsterdam.nl/dataselectie/bag/',
+                ENDPOINT_PREVIEW: 'dataselectie/bag/',
                 ENDPOINT_MARKERS: 'https://api.datapunt.amsterdam.nl/dataselectie/bag/geolocation/',
                 ENDPOINT_EXPORT: 'https://api.datapunt.amsterdam.nl/dataselectie/bag/export/',
                 ENDPOINT_DETAIL: 'https://api.datapunt.amsterdam.nl/bag/nummeraanduiding/',
                 MAX_AVAILABLE_PAGES: 100,
                 HAS_PAGE_LIMIT: true,
+                CUSTOM_API: 'dataSelectionApiDataSelection',
                 PRIMARY_KEY: 'id',
                 TITLE: 'Adressen',
                 FILTERS: [

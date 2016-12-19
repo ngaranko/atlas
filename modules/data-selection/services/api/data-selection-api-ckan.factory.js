@@ -77,7 +77,7 @@
         }
 
         function getDetailEndpoint (config, rawDataRow) {
-            return  api.ROOT + config.ENDPOINT_DETAIL +
+            return api.ROOT + config.ENDPOINT_DETAIL +
                 '?id=' + rawDataRow[config.PRIMARY_KEY];
         }
     }

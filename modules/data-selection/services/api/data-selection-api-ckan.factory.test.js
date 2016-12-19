@@ -21,7 +21,8 @@ describe('The dataSelectionApiCkan factory', function () {
                         }
 
                         return q.promise;
-                    }
+                    },
+                    ROOT: ''
                 }
             }
         );
@@ -135,7 +136,8 @@ describe('The dataSelectionApiCkan factory', function () {
         expect(api.getByUri).toHaveBeenCalledWith('https://api.amsterdam.nl/catalogus/', {
             start: 0,
             'facet.field': '["type","water"]',
-            fq: ''
+            fq: '',
+            sort: 'name asc'
         });
 
         api.getByUri.calls.reset();
@@ -145,7 +147,8 @@ describe('The dataSelectionApiCkan factory', function () {
         expect(api.getByUri).toHaveBeenCalledWith('https://api.amsterdam.nl/catalogus/', {
             start: 0,
             'facet.field': '["type","water"]',
-            fq: 'water:verwarmd'
+            fq: 'water:verwarmd',
+            sort: 'name asc'
         });
 
         api.getByUri.calls.reset();
@@ -155,7 +158,8 @@ describe('The dataSelectionApiCkan factory', function () {
         expect(api.getByUri).toHaveBeenCalledWith('https://api.amsterdam.nl/catalogus/', {
             start: 0,
             'facet.field': '["type","water"]',
-            fq: 'water:verwarmd type:overdekt'
+            fq: 'water:verwarmd type:overdekt',
+            sort: 'name asc'
         });
 
         api.getByUri.calls.reset();
@@ -165,7 +169,8 @@ describe('The dataSelectionApiCkan factory', function () {
         expect(api.getByUri).toHaveBeenCalledWith('https://api.amsterdam.nl/catalogus/', {
             start: 2,
             'facet.field': '["type","water"]',
-            fq: 'water:extra-koud'
+            fq: 'water:extra-koud',
+            sort: 'name asc'
         });
     });
 
@@ -243,6 +248,11 @@ describe('The dataSelectionApiCkan factory', function () {
                     numberOfOptions: 3,
                     options: [
                         {
+                            id: 'extra-koud',
+                            label: 'Extra koud',
+                            count: 1
+                        },
+                        {
                             id: 'tropisch',
                             label: 'Tropisch',
                             count: 1
@@ -250,10 +260,6 @@ describe('The dataSelectionApiCkan factory', function () {
                             id: 'verwarmd',
                             label: 'Verwarmd',
                             count: 4
-                        }, {
-                            id: 'extra-koud',
-                            label: 'Extra koud',
-                            count: 1
                         }
                     ]
                 }
@@ -276,6 +282,10 @@ describe('The dataSelectionApiCkan factory', function () {
                     numberOfOptions: 3,
                     options: [
                         {
+                            id: 'extra-koud',
+                            label: 'Extra koud',
+                            count: 1
+                        }, {
                             id: 'tropisch',
                             label: 'Tropisch',
                             count: 1
@@ -283,10 +293,6 @@ describe('The dataSelectionApiCkan factory', function () {
                             id: 'verwarmd',
                             label: 'Verwarmd',
                             count: 4
-                        }, {
-                            id: 'extra-koud',
-                            label: 'Extra koud',
-                            count: 1
                         }
                     ]
                 }
@@ -306,7 +312,7 @@ describe('The dataSelectionApiCkan factory', function () {
         expect(output.data[0]).toEqual({
             _links: {
                 self: {
-                    href: 'https://amsterdam.nl/api_endpoint/catalogus/1/'
+                    href: 'https://amsterdam.nl/api_endpoint/catalogus/?id=1'
                 }
             },
             _openbare_ruimte_naam: 'Binnenkant',
@@ -322,7 +328,7 @@ describe('The dataSelectionApiCkan factory', function () {
         expect(output.data[1]).toEqual({
             _links: {
                 self: {
-                    href: 'https://amsterdam.nl/api_endpoint/catalogus/2/'
+                    href: 'https://amsterdam.nl/api_endpoint/catalogus/?id=2'
                 }
             },
             _openbare_ruimte_naam: 'Binnenkant',
@@ -340,7 +346,7 @@ describe('The dataSelectionApiCkan factory', function () {
         expect(output.data[2]).toEqual({
             _links: {
                 self: {
-                    href: 'https://amsterdam.nl/api_endpoint/catalogus/3/'
+                    href: 'https://amsterdam.nl/api_endpoint/catalogus/?id=3'
                 }
             },
             _openbare_ruimte_naam: 'Binnenkant',
