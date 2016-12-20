@@ -119,6 +119,8 @@
                     newDetailState.geometry = oldState.detail.geometry;
                     newDetailState.isLoading = oldState.detail.isLoading;
                     newDetailState.isFullscreen = oldState.detail.isFullscreen;
+                } else {
+                    newDetailState.isFullscreen = angular.isString(payload['volledig-detail']);
                 }
 
                 // restore invisibility from url payload

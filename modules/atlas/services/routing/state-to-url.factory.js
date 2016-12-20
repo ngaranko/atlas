@@ -109,6 +109,8 @@
                 if (state.detail.isInvisible) {
                     params.detailInvisible = true;  // Only store in url on truthy value
                 }
+
+                params['volledig-detail'] = state.detail.isFullscreen ? 'aan' : null;
             }
 
             return params;
