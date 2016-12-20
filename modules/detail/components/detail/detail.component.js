@@ -61,11 +61,11 @@
 
             api.getByUrl(endpoint).then(function (data) {
                 vm.includeSrc = endpointParser.getTemplateUrl(endpoint);
-
+ 
                 let subject = endpointParser.getSubject(endpoint);
 
                 data = dataFormatter.formatData(data, subject);
-
+                
                 vm.apiData = {
                     results: data
                 };

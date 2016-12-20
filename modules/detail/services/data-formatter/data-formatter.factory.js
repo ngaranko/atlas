@@ -32,7 +32,8 @@
                 'notes',
                 'resources',
                 'tags',
-                'license_id'
+                'license_id',
+                'groups'
             ].reduce((result, key) => {
                 result[key] = data.result[key];
                 return result;
