@@ -28,6 +28,8 @@
 
             vm.isPrintMode = state.isPrintMode;
 
+            vm.isCatalogus = state.dataSelection && state.dataSelection.view === 'CARDS';
+
             vm.isRightColumnScrollable = !vm.isFullscreen &&
                 (
                     vm.visibility.page ||
