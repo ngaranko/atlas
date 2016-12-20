@@ -11,7 +11,7 @@ describe('The dataFormatter factory', function () {
         });
     });
 
-    it('formats API data', function () {
+    it('formats API data by selecting only a set of required properties', function () {
         var result = dataFormatter.formatData({
             result: {
                 title: 'myTitle',
