@@ -20,6 +20,7 @@ describe('The dataFormatter factory', function () {
                 metadata_created: 'created',
                 metadata_modified: 'modified',
                 notes: 'myNotes',
+                groups: 'myGroups',
                 resources: 'myResources',
                 tags: 'myTags',
                 license_id: 'license',
@@ -36,6 +37,7 @@ describe('The dataFormatter factory', function () {
                 metadata_created: 'created',
                 metadata_modified: 'modified',
                 notes: 'myNotes',
+                groups: 'myGroups',
                 resources: 'myResources',
                 tags: 'myTags',
                 license_id: 'license'
