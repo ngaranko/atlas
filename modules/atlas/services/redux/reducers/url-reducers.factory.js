@@ -184,6 +184,7 @@
                     view,
                     dataset: payload.dataset,
                     filters: filters,
+                    query: payload['dataset-zoek'],
                     page: Number(payload['dataset-pagina']),
                     markers: oldState.dataSelection && oldState.dataSelection.markers || [],
                     isLoading: angular.isObject(oldState.dataSelection) ? oldState.dataSelection.isLoading : true,

@@ -10,12 +10,13 @@
             query: query
         };
 
-        function query (config, activeFilters, page) {
+        function query (config, activeFilters, page, searchText) {
             const deferred = $q.defer(),
                 searchParams = {
                     start: (page - 1) * config.MAX_ITEMS_PER_PAGE,
                     'facet.field': queryFilters(config.FILTERS),
                     fq: queryActiveFilters(activeFilters),
+                    q: searchText,
                     sort: 'name asc'
                 };
 
