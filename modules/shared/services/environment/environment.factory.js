@@ -16,7 +16,7 @@
                 break;
 
             default:
-                config.NAME = 'DEVELOPMENT';
+                config.NAME = 'PRODUCTION';
         }
 
         return config;
