@@ -8,8 +8,9 @@
     function modificationDateFilter () {
         return function (input) {
             if (angular.isObject(input)) {
-                let {metadata_created, metadata_modified} = input;
-                let last = new Date(metadata_modified || metadata_created),
+                let created = input.metadata_created;
+                let modified = input.metadata_modified;
+                let last = new Date(modified || created),
                     ago = new Date() - last,
                     agoCount = ago,
                     agoDuration = 'milliseconden';
@@ -27,7 +28,7 @@
                         ago = 0;
                     }
                 });
-                return `${agoCount} ${agoDuration} geleden ${metadata_modified ? 'gewijzigd' : 'gemaakt'}`;
+                return `${agoCount} ${agoDuration} geleden ${modified ? 'gewijzigd' : 'gemaakt'}`;
             }
         };
     }

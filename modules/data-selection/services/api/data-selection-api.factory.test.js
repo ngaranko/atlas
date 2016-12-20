@@ -210,28 +210,8 @@ describe('The dataSelectionApi factory', function () {
             expect(output.numberOfPages).toBe(2);
         });
 
-        it('???', function () {
+        it('does something that nobody understands, unless it is provided with some comment', function () {
             let output;
-
-            // Object({
-            //     detailEndpoint: 'https://amsterdam.nl/api_endpoint/zwembaden/1/',
-            //     content: [[Object({key: 'adres.openbare_ruimte', value: undefined}), Object({
-            //         key: 'huisnummer',
-            //         value: '1'
-            //     })], [Object({key: 'buurtnaam', value: undefined})]]
-            // }), Object({
-            //     detailEndpoint: 'https://amsterdam.nl/api_endpoint/zwembaden/2/',
-            //     content: [[Object({key: 'adres.openbare_ruimte', value: undefined}), Object({
-            //         key: 'huisnummer',
-            //         value: '1'
-            //     })], [Object({key: 'buurtnaam', value: undefined})]]
-            // }), Object({
-            //     detailEndpoint: 'https://amsterdam.nl/api_endpoint/zwembaden/3/',
-            //     content: [[Object({key: 'adres.openbare_ruimte', value: undefined}), Object({
-            //         key: 'huisnummer',
-            //         value: '1'
-            //     })], [Object({key: 'buurtnaam', value: undefined})]]
-            // })
 
             dataSelectionApi.query('zwembaden', 'CARDS', {}, 1).then(function (_output_) {
                 output = _output_;
@@ -250,17 +230,6 @@ describe('The dataSelectionApi factory', function () {
             });
             $rootScope.$apply();
             expect(output.data.body[0].content[0][0].value).toEqual([1, 2]);
-
-            // Object({
-            //     detailEndpoint: 'https://amsterdam.nl/api_endpoint/zwembaden/1/',
-            //     content: [[Object({key: 'huisnummer.adres', value: [undefined, undefined]})]]
-            // }), Object({
-            //     detailEndpoint: 'https://amsterdam.nl/api_endpoint/zwembaden/2/',
-            //     content: [[Object({key: 'huisnummer.adres', value: undefined})]]
-            // }), Object({
-            //     detailEndpoint: 'https://amsterdam.nl/api_endpoint/zwembaden/3/',
-            //     content: [[Object({key: 'huisnummer.adres', value: undefined})]]
-            // })
 
             mockedConfig.zwembaden.CONTENT.CARDS = [
                 {
