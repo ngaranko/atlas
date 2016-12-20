@@ -48,7 +48,7 @@
 
         function queryActiveFilters (filters) {
             return Object.keys(filters).reduce((queryString, key) => {
-                return queryString + (queryString ? ' ' : '') + `${key}:${filters[key]}`;
+                return queryString + (queryString ? ' ' : '') + `${key}:"${filters[key]}"`;
             }, '');
         }
 
