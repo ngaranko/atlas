@@ -1,39 +1,36 @@
-
-
-
-
 .o-tag {
-  background: $secondary-gray10 ;
-  border-radius: 3px 0 0 3px;
-  color: $secondary-gray80 ;
   display: inline-block;
-  height: 26px;
-  line-height: 26px;
-  padding: 0 20px 0 23px;
   position: relative;
+  height: 26px;
   margin: 0 10px 10px 0;
+  padding: 0 20px 0 23px;
+  border-radius: 3px 0 0 3px;
+  background: $secondary-gray10;
+  color: $secondary-gray80;
+  line-height: 26px;
   text-decoration: none;
-}
 
-.o-tag::before {
-  background: $primary-light;
-  border-bottom: 13px solid transparent;
-  border-right: 10px solid $secondary-gray10 ;
-  border-top: 13px solid transparent;
-  content: '';
-  position: absolute;
-  left:0;
-  top: 0;
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-top: 13px solid transparent;
+    border-right: 10px solid $secondary-gray10 ;
+    border-bottom: 13px solid transparent;
+    background: $primary-light;
+    content: "";
+  }
 }
 
 .o-tag__small {
-    line-height: 16px;
-    padding: 0 5px 0 13px;
-    height: 16px;
-    font-size: 12px;
-}
-.o-tag__small::before {
-  border-bottom: 8px solid transparent;
-  border-right: 5px solid $secondary-gray10 ;
-  border-top: 8px solid transparent;
+  height: 16px;
+  padding: 0 5px 0 13px;
+  font-size: $base-font-size - 2;
+  line-height: 16px;
+
+  &::before {
+    border-top: 8px solid transparent;
+    border-right: 5px solid $secondary-gray10;
+    border-bottom: 8px solid transparent;
+  }
 }
