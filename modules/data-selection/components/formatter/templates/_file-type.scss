@@ -1,9 +1,9 @@
-
-// this should be an object. I'll keep this here for now.
+// TODO: Remove (c)omponent.
 .c-data-selection-file-type {
+  height: 16px;
   float: left;
   color: $secondary-gray40;
-  font-size: $base-font-size * .8;
+  font-size: $base-font-size - 2;
 }
 
 .c-data-selection-file-type__name {
@@ -14,54 +14,35 @@
   text-transform: lowercase;
 }
 
-.c-data-selection-file-type__count {
-  display: inline-block;
-  padding-right: $base-whitespace * .7;
-}
-
-
-// TODO: Remove (c)omponent.
-.o-data-selection-file-type {
-  height: 16px;
-  float: left;
-  color: $secondary-gray40;
-  font-size: $base-font-size * .8;
-}
-
-.o-data-selection-file-type__name {
-  display: inline-block;
-  padding: 0 $base-whitespace * .5;
-  background-color: $thema-7;
-  color: $primary-light;
-  text-transform: lowercase;
-}
-
-.o-data-selection-file-type__format-xls {
+.c-data-selection-file-type__format-xls {
   background-color: $thema-1;
 }
 
-.o-data-selection-file-type__format-json {
+.c-data-selection-file-type__format-json {
   background-color: $thema-1;
 }
 
-.o-data-selection-file-type__format-xml {
+.c-data-selection-file-type__format-xml {
   background-color: $thema-5;
 }
 
-.o-data-selection-file-type__format-html {
+.c-data-selection-file-type__format-html {
   background-color: $thema-10;
 }
 
-.o-data-selection-file-type__format-csv {
+.c-data-selection-file-type__format-csv {
   background-color: $thema-10;
 }
 
-.o-data-selection-file-type__format-zip {
-  background-color: $thema-10;
+.c-data-selection-file-type__format-zip {
+  background-color: $thema-12;
 }
 
+.c-data-selection-file-type__format-pdf {
+  background-color: $thema-11;
+}
 
-.o-data-selection-file-type__count {
+.c-data-selection-file-type__count {
   display: inline-block;
   padding-right: $base-whitespace * .7;
 }
