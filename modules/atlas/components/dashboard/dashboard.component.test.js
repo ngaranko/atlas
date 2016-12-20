@@ -20,6 +20,7 @@ describe('The dashboard component', function () {
             function ($provide) {
                 [
                     'dpHeaderDirective',
+                    'dpCardsHeaderDirective',
                     'dpPageDirective',
                     'dpDetailDirective',
                     'dpSearchResultsDirective',
@@ -64,6 +65,22 @@ describe('The dashboard component', function () {
         getComponent();
 
         expect(store.subscribe).toHaveBeenCalledWith(jasmine.any(Function));
+    });
+
+    it('shows a special header for a catalogus', function () {
+        mockedState.dataSelection = {
+            view: 'CARDS'
+        };
+        let component = getComponent();
+        expect(component.find('.qa-dashboard__catalogus-header').length).toBe(1);
+        expect(component.find('.qa-dashboard__default-header').length).toBe(0);
+
+        mockedState.dataSelection = {
+            view: 'SOMETHING ELSE'
+        };
+        component = getComponent();
+        expect(component.find('.qa-dashboard__catalogus-header').length).toBe(0);
+        expect(component.find('.qa-dashboard__default-header').length).toBe(1);
     });
 
     describe('error message', function () {

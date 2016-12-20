@@ -1,7 +1,7 @@
 <div class="c-dashboard">
 
     <!-- Header -->
-    <div ng-if="!vm.isCatalogus" class="c-dashboard__heading"
+    <div ng-if="!vm.isCatalogus" class="qa-dashboard__default-header c-dashboard__heading"
         ng-controller="HeaderController as header">
 
         <dp-header
@@ -11,7 +11,7 @@
     </div>
 
     <!-- Header -->
-    <div ng-if="vm.isCatalogus" class="c-dashboard__heading">
+    <div ng-if="vm.isCatalogus" class="qa-dashboard__catalogus-header c-dashboard__heading">
 
         <dp-cards-header
             query="{{header.query}}"
