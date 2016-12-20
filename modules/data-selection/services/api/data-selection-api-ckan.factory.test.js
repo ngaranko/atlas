@@ -147,7 +147,7 @@ describe('The dataSelectionApiCkan factory', function () {
         expect(api.getByUri).toHaveBeenCalledWith('https://api.amsterdam.nl/catalogus/', {
             start: 0,
             'facet.field': '["type","water"]',
-            fq: 'water:verwarmd',
+            fq: 'water:"verwarmd"',
             q: 'searchText',
             sort: 'name asc'
         });
@@ -159,7 +159,7 @@ describe('The dataSelectionApiCkan factory', function () {
         expect(api.getByUri).toHaveBeenCalledWith('https://api.amsterdam.nl/catalogus/', {
             start: 0,
             'facet.field': '["type","water"]',
-            fq: 'water:verwarmd type:overdekt',
+            fq: 'water:"verwarmd" type:"overdekt"',
             sort: 'name asc'
         });
 
@@ -170,7 +170,7 @@ describe('The dataSelectionApiCkan factory', function () {
         expect(api.getByUri).toHaveBeenCalledWith('https://api.amsterdam.nl/catalogus/', {
             start: 2,
             'facet.field': '["type","water"]',
-            fq: 'water:extra-koud',
+            fq: 'water:"extra-koud"',
             sort: 'name asc'
         });
     });
