@@ -9,7 +9,7 @@
                 <dd>{{ { metadata_created: vm.apiData.results.metadata_created, metadata_compact: true } | modificationDate }} ({{vm.apiData.results.metadata_created | date:'dd MMMM yyyy'}})</dd>
 
                 <dt>Gewijzigd</dt>
-                <dd>{{ { metadata_modified: vm.apiData.results.metadata_modified, metadata_compact: true} | modificationDate }} ({{vm.apiData.results.metadata_modified | date:'dd MMMM yyyy'}})</dd>
+                <dd>{{ { metadata_modified: vm.apiData.results.metadata_modified, metadata_compact: true } | modificationDate }} ({{vm.apiData.results.metadata_modified | date:'dd MMMM yyyy'}})</dd>
                 <dt>Gepubliceerd door</dt>
                 <dd><a href="mailto:{{vm.apiData.results.author_email}}" class="o-btn o-btn--link">{{vm.apiData.results.author}} ({{vm.apiData.results.author_email}})</a>                    </dd>
                 <dt>Thema</dt>
@@ -23,7 +23,7 @@
     </div>
     <div class="u-row u-margin__bottom--2">
         <div class="u-col-md--12">
-            <p ng-bind-html="vm.apiData.results.notes"></p>
+           <span ng-bind-html="vm.apiData.results.notes"> </span>
         </div>
     </div>
 
