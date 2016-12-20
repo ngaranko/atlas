@@ -24,7 +24,8 @@
                 vm.state.dataset,
                 vm.state.view,
                 vm.state.filters,
-                vm.state.page
+                vm.state.page,
+                vm.state.query
             ];
         }, fetchData, true);
 
@@ -39,7 +40,11 @@
                 vm.currentPage <= DATA_SELECTION_CONFIG.MAX_AVAILABLE_PAGES;
             vm.hasTooManyMarkers = false;
 
-            dataSelectionApi.query(vm.state.dataset, vm.state.view, vm.state.filters, vm.currentPage).then(data => {
+            dataSelectionApi.query(vm.state.dataset,
+                vm.state.view,
+                vm.state.filters,
+                vm.currentPage,
+                vm.state.query).then(data => {
                 vm.availableFilters = data.filters;
                 vm.data = data.data;
 

@@ -12,11 +12,7 @@
 
     <!-- Header -->
     <div ng-if="vm.isCatalogus" class="qa-dashboard__catalogus-header c-dashboard__heading">
-
-        <dp-cards-header
-            query="{{header.query}}"
-            has-print-button="header.hasPrintButton"
-            is-print-mode="vm.isPrintMode"></dp-cards-header>
+        <dp-cards-header query="{{vm.dataSelectionState.query}}"></dp-cards-header>
     </div>
 
     <!-- Body -->

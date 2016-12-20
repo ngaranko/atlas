@@ -30,6 +30,7 @@
 
             vm.isCatalogus = (state.dataSelection && state.dataSelection.view === 'CARDS') ||
                 (state.detail && state.detail.endpoint.includes('/catalogus/api/'));
+            vm.dataSelectionState = state.dataSelection;
 
             vm.isRightColumnScrollable = !vm.isFullscreen &&
                 (

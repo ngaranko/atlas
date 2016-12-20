@@ -4,6 +4,10 @@
     angular
         .module('dpHeader')
         .component('dpCardsHeader', {
-            templateUrl: 'modules/header/components/header/cards-header.html'
+            bindings: {
+                query: '@',
+            },
+            templateUrl: 'modules/header/components/header/cards-header.html',
+            controllerAs: 'vm'
         });
 })();
