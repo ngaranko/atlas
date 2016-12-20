@@ -6,10 +6,10 @@
 
             <dl class="c-key-value-list">
                 <dt>Aangemaakt</dt>
-                <dd>{{vm.apiData.results.metadata_created | date:'medium'}}</dd>
+                <dd>{{ { metadata_created: vm.apiData.results.metadata_created, metadata_compact: true } | modificationDate }} ({{vm.apiData.results.metadata_created | date:'dd MMMM yyyy'}})</dd>
 
                 <dt>Gewijzigd</dt>
-                <dd>{{vm.apiData.results.metadata_modified | date:'medium'}}</dd>
+                <dd>{{ { metadata_modified: vm.apiData.results.metadata_modified, metadata_compact: true} | modificationDate }} ({{vm.apiData.results.metadata_modified | date:'dd MMMM yyyy'}})</dd>
                 <dt>Gepubliceerd door</dt>
                 <dd><a href="mailto:{{vm.apiData.results.author_email}}" class="o-btn o-btn--link">{{vm.apiData.results.author}} ({{vm.apiData.results.author_email}})</a>                    </dd>
                 <dt>Thema</dt>
@@ -35,7 +35,7 @@
                 <tbody class="c-data-selection-table__content">
                     <tr class="c-data-selection-table__content-row" ng-repeat="resource in vm.apiData.results.resources">
                         <td>
-                            <div class="o-data-selection-file-type o-data-selection-file-type__name o-data-selection-file-type__format-{{resource.format | lowercase }}">{{resource.format}}</div>
+                            <div class="c-data-selection-file-type c-data-selection-file-type__name c-data-selection-file-type__format-{{resource.format | lowercase }}">{{resource.format}}</div>
                         </td>
                         <td>{{resource.name}}</td>
                         <td class="u-align--right">

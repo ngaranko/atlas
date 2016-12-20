@@ -70,4 +70,10 @@ describe('The modification-date filter', function () {
             metadata_modified: '2016-12-13T11:59:59'
         })).toBe('3 dagen geleden gewijzigd');
     });
+
+    it('shows the time difference in a compact fashion', function () {
+        expect(modDateFilter({
+            metadata_modified: '2016-12-13T11:59:59', metadata_compact: true
+        })).toBe('3 dagen geleden');
+    });
 });

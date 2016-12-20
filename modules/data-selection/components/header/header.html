@@ -14,7 +14,8 @@
                 </dp-data-selection-download-button>
             </div>
 
-            <h2>{{vm.headerTitle}} ({{vm.numberOfRecords | number}})</h2>
+            <h2 ng-if="vm.state.view !== 'CARDS'">{{vm.headerTitle}} ({{vm.numberOfRecords | number}})</h2>
+            <h2 ng-if="vm.state.view === 'CARDS'">{{vm.numberOfRecords | number}} datasets</h2>
         </div>
     </div>
 
