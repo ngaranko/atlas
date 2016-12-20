@@ -67,7 +67,7 @@ describe('The dashboard component', function () {
         expect(store.subscribe).toHaveBeenCalledWith(jasmine.any(Function));
     });
 
-    it('shows a special header for a catalogus', function () {
+    it('shows a special header for a catalogus and its detail page', function () {
         mockedState.dataSelection = {
             view: 'CARDS'
         };
@@ -81,6 +81,13 @@ describe('The dashboard component', function () {
         component = getComponent();
         expect(component.find('.qa-dashboard__catalogus-header').length).toBe(0);
         expect(component.find('.qa-dashboard__default-header').length).toBe(1);
+
+        mockedState.detail = {
+            endpoint: 'http://somewhere/catalogus/api/somewhere'
+        };
+        component = getComponent();
+        expect(component.find('.qa-dashboard__catalogus-header').length).toBe(1);
+        expect(component.find('.qa-dashboard__default-header').length).toBe(0);
     });
 
     describe('error message', function () {

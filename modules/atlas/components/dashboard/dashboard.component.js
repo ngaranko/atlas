@@ -28,7 +28,8 @@
 
             vm.isPrintMode = state.isPrintMode;
 
-            vm.isCatalogus = state.dataSelection && state.dataSelection.view === 'CARDS';
+            vm.isCatalogus = (state.dataSelection && state.dataSelection.view === 'CARDS') ||
+                (state.detail && state.detail.endpoint.includes('/catalogus/api/'));
 
             vm.isRightColumnScrollable = !vm.isFullscreen &&
                 (
