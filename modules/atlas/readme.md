@@ -13,6 +13,7 @@
 | pagina               | page                            | yes, see DEFAULT_STATE |
 | detail               | detail.uri                      | no, detail is null     |
 |                      | detail.isLoading                | no, detail is null     |
+| volledig-detail      | detail.isFullscreen             | no                     |
 | id                   | straatbeeld.id                  | no                     |
 |                      | straatbeeld.date                | no                     |
 |                      | straatbeeld.location            | no                     |
