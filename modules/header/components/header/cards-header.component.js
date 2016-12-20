@@ -5,7 +5,7 @@
         .module('dpHeader')
         .component('dpCardsHeader', {
             bindings: {
-                query: '@',
+                query: '@'
             },
             templateUrl: 'modules/header/components/header/cards-header.html',
             controllerAs: 'vm'

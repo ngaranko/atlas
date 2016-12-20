@@ -142,12 +142,13 @@ describe('The dataSelectionApiCkan factory', function () {
 
         api.getByUri.calls.reset();
 
-        // With an active filter
-        dataSelectionApiCkan.query(config, {water: 'verwarmd'}, 1);
+        // With an active filter and search text
+        dataSelectionApiCkan.query(config, {water: 'verwarmd'}, 1, 'searchText');
         expect(api.getByUri).toHaveBeenCalledWith('https://api.amsterdam.nl/catalogus/', {
             start: 0,
             'facet.field': '["type","water"]',
             fq: 'water:verwarmd',
+            q: 'searchText',
             sort: 'name asc'
         });
 

@@ -518,6 +518,7 @@ describe('The urlReducers factory', function () {
                 mockedSearchParamsWithDataSelection['dataset-filters'] = 'buurtcombinatie:Geuzenbuurt::buurt:Trompbuu' +
                     'rt';
                 mockedSearchParamsWithDataSelection['dataset-pagina'] = '4';
+                mockedSearchParamsWithDataSelection['dataset-zoek'] = 'zoek';
             });
 
             it('optionally has a dataset with filters and page numbers', function () {
@@ -531,6 +532,7 @@ describe('The urlReducers factory', function () {
                     view: 'TABLE',
                     dataset: 'bag',
                     filters: jasmine.any(Object),
+                    query: 'zoek',
                     page: jasmine.anything(),
                     markers: [],
                     isLoading: jasmine.any(Boolean),

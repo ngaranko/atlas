@@ -417,6 +417,7 @@ describe('The stateToUrl factory', function () {
             mockedState.dataSelection = {
                 dataset: 'bag',
                 filters: {},
+                query: 'zoek',
                 page: 5
             };
 
@@ -443,6 +444,10 @@ describe('The stateToUrl factory', function () {
 
             expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
                 'dataset-filters': 'buurt:Mijn%20buurt'
+            }));
+
+            expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
+                'dataset-zoek': 'zoek'
             }));
 
             // With two filters
