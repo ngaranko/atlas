@@ -11,7 +11,9 @@
         return {
             restrict: 'E',
             scope: {
-                query: '@'
+                query: '@',
+                placeholder: '@',
+                searchOnly: '<'
             },
             templateUrl: 'modules/header/components/search/search.html',
             link: linkFunction
