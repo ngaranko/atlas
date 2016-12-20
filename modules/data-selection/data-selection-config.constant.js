@@ -11,7 +11,7 @@
                 ENDPOINT_DETAIL: 'catalogus/api/3/action/package_show',
                 PRIMARY_KEY: 'id',
                 TITLE: 'Catalogus',
-                SHOW_FILTER_OPTION_COUNTS: true,
+                SHOW_FILTER_OPTION_COUNTS: false,
                 FILTERS: [
                     {
                         slug: 'groups',
