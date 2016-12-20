@@ -1,4 +1,11 @@
-<div ng-if="vm.view === 'CARDS'">Data op de kaart voor Amsterdamse ambtenaren: naar Atlas (gebruik Firefox)</div>
+<div ng-if="vm.view === 'CARDS'">
+    Data op de kaart voor Amsterdamse ambtenaren:
+    <dp-link type="SHOW_HOME" hover-text="Naar Atlas home">
+        naar Atlas
+    </dp-link>
+    (gebruik Firefox)
+</div>
+
 <div class="u-grid">
     <div class="u-row">
         <div ng-if="vm.showFilters" class="u-col-sm--3">
