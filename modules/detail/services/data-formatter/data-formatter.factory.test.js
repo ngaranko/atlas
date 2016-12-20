@@ -24,6 +24,8 @@ describe('The dataFormatter factory', function () {
                 resources: 'myResources',
                 tags: 'myTags',
                 license_id: 'license',
+                license_title: 'licenseTitle',
+                license_url: 'licenseUrl',
                 somethingElse: 'aap'
 
             }
@@ -40,7 +42,9 @@ describe('The dataFormatter factory', function () {
                 groups: 'myGroups',
                 resources: 'myResources',
                 tags: 'myTags',
-                license_id: 'license'
+                license_id: 'license',
+                license_title: 'licenseTitle',
+                license_url: 'licenseUrl'
             }
         );
     });
