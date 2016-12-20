@@ -8,7 +8,7 @@
     function truncate () {
         return function (input) {
             let html = input.replace(/<[^>]+>/gm, '');
-            return html.substring(0, 250) + '...';
+            return html.length > 250 ? html.substring(0, 250) + '...' : html;
         };
     }
 })();
