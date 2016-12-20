@@ -62,7 +62,7 @@
         <div class="u-col-md--12">
             <h3 class="o-header__subtitle">Licentie</h3>
             <p ng-if="!vm.apiData.results.license_url">{{vm.apiData.results.license_title}}</p>
-            <a ng-if="vm.apiData.results.license_url" class="o-btn o-btn--link" ng-href="vm.apiData.results.license_url" target="_blank">{{vm.apiData.results.license_title}}</a>
+            <a ng-if="vm.apiData.results.license_url" class="o-btn o-btn--link" ng-href="{{ vm.apiData.results.license_url }}" target="_blank">{{vm.apiData.results.license_title}}</a>
         </div>
     </div>
 </div>
