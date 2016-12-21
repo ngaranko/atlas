@@ -30,10 +30,10 @@ $link-offset: $base-font-size;
   margin-left: $link-offset;
 
   &::before {
-    display: inline-block;
-    position: absolute;
-    left: -$link-offset;
-    content: "›";
+    display: inline-block !important;
+    position: absolute !important;
+    left: -$link-offset !important;
+    content: "›" !important;
   }
 }
 
