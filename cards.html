@@ -4,6 +4,10 @@
     <!--<meta http-equiv="refresh" content="0;url=#?view=CARDS&dataset=catalogus&dataset-pagina=1">-->
     <script type="text/javascript">
         console.log('location', window.location);
+        var href = window.location.href;
+        var lastSlash = href.lastIndexOf('/');
+        href = href.substr(0, lastSlash);
+        console.log('new href = ', href);
 //        window.location.href = window.location.origin + '#?view=CARDS&dataset=catalogus&dataset-pagina=1';
     </script>
 </head>
