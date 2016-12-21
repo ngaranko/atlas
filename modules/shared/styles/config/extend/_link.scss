@@ -10,7 +10,7 @@ $link-offset: $base-font-size;
   text-decoration: none;
   cursor: pointer;
   overflow: visible;
-  
+
   &:hover {
     color: $primary-contrast;
     text-decoration: underline;
@@ -31,10 +31,10 @@ $link-offset: $base-font-size;
   margin-left: $link-offset;
 
   &::before {
-    display: inline-block !important;
-    position: absolute !important;
-    left: -$link-offset !important;
-    content: "›" !important;
+    display: inline-block;
+    position: absolute;
+    left: -$link-offset;
+    content: "›";
   }
 }
 

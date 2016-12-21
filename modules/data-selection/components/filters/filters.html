@@ -33,7 +33,7 @@
                     <li class="c-data-selection-filters__listitem"
                         ng-repeat="option in filter.options | limitTo : vm.isExpandedFilter(filter.slug) ? undefined : vm.showMoreThreshold">
                         <button
-                            class="o-btn o-btn--link o-link--arrow"
+                            class="o-btn o-btn--link"
                             ng-class="{
                                 'u-color__primary--dark': vm.isFilterOptionActive(filter.slug, option.id)
                             }"
