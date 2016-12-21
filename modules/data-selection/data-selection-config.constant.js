@@ -45,7 +45,7 @@
                             template: 'tags'
                         }, {
                             label: 'Omschrijving',
-                            formatter: 'truncate',
+                            formatter: 'truncateHtmlAsText',
                             variables: ['notes']
                         }
                     ]
