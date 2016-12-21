@@ -11,10 +11,6 @@ describe('The aggregate filter', function () {
         });
     });
 
-    it('returns an empty array when supplied with an empty array', function () {
-        expect(aggregateFilter([])).toEqual([]);
-    });
-
     it('return an array with for every string in the input array an entry with the name and # occurences', function () {
         expect(aggregateFilter(['aap', 'aap'])).toEqual([
             {
@@ -22,6 +18,10 @@ describe('The aggregate filter', function () {
                 count: 2
             }
         ]);
+    });
+
+    it('returns an empty array when supplied with an empty array', function () {
+        expect(aggregateFilter([])).toEqual([]);
     });
 
     it('returns an array sorted on number of occurences and then on name', function () {

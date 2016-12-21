@@ -258,6 +258,20 @@ describe('The stateToUrl factory', function () {
             }));
         });
 
+        it('can set the fullscreen of detail', function () {
+            mockedState.detail = {
+                endpoint: 'ABC',
+                isFullscreen: true
+            };
+
+            stateToUrl.update(mockedState, false);
+
+            expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
+                detail: 'ABC',
+                'volledig-detail': 'aan'
+            }));
+        });
+
         it('can unset the invisibility of the detail', function () {
             mockedState.detail = {
                 endpoint: 'ABC',
@@ -396,7 +410,7 @@ describe('The stateToUrl factory', function () {
         });
     });
 
-    describe('Data selection', function () {
+    describe('The data selection url conversion', function () {
         it('does nothing if there is no active dataset', function () {
             stateToUrl.update(mockedState, false);
 
@@ -410,6 +424,27 @@ describe('The stateToUrl factory', function () {
 
             expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
                 'dataset-pagina': jasmine.Any(String)
+            }));
+        });
+
+        it('adds the query to the url when set', function () {
+            mockedState.dataSelection = {
+            };
+
+            // With a query
+            mockedState.dataSelection.query = 'aap';
+            stateToUrl.update(mockedState, false);
+            expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
+                'dataset-zoek': 'aap'
+            }));
+
+            // Without any query
+            $location.search.calls.reset();
+            delete mockedState.dataSelection.query;
+            stateToUrl.update(mockedState, false);
+            expect($location.search).toHaveBeenCalled();
+            expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
+                'dataset-zoek': jasmine.any(String)
             }));
         });
 
