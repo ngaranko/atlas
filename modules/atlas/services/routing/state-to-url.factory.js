@@ -152,7 +152,9 @@
                     params['dataset-filters'] = datasetFilters.join('::');
                 }
 
-                params['dataset-zoek'] = state.dataSelection.query;
+                if (state.dataSelection.query) {
+                    params['dataset-zoek'] = state.dataSelection.query;
+                }
 
                 params['dataset-pagina'] = String(state.dataSelection.page);
             }
