@@ -17,10 +17,10 @@
     function DpDataSelectionCardsController (store, ACTIONS) {
         let vm = this;
 
-        vm.fetch_detail = function (currentPage) {
+        vm.fetch_detail = function (endpoint) {
             store.dispatch({
                 type: ACTIONS.FETCH_DETAIL,
-                payload: currentPage
+                payload: endpoint
             });
         };
     }
