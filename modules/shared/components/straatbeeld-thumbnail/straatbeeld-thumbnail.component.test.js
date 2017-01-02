@@ -2,7 +2,6 @@ describe('The dp-straatbeeld-thumbnail component', function () {
     var $compile,
         $rootScope,
         store,
-        ACTIONS,
         $q,
         api,
         hasMockedThumbnail,
@@ -12,11 +11,6 @@ describe('The dp-straatbeeld-thumbnail component', function () {
         angular.mock.module(
             'dpShared',
             {
-                sharedConfig: {
-                    STRAATBEELD_THUMB_URL: 'http://fake.straatbeeld.url/path/',
-                    RADIUS: 50,
-                    THUMBNAIL_WIDTH: 240
-                },
                 store: {
                     dispatch: angular.noop,
                     subscribe: angular.noop,
@@ -60,17 +54,26 @@ describe('The dp-straatbeeld-thumbnail component', function () {
                 }
 
             }, function ($provide) {
+                $provide.constant('SHARED_CONFIG', {
+                    STRAATBEELD_THUMB_URL: 'http://fake.straatbeeld.url/path/',
+                    RADIUS: 50,
+                    THUMBNAIL_WIDTH: 240
+                });
+
                 $provide.factory('dpLoadingIndicatorDirective', function () {
+                    return {};
+                });
+
+                $provide.factory('dpLinkDirective', function () {
                     return {};
                 });
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _ACTIONS_, _$q_, _api_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _$q_, _api_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
-            ACTIONS = _ACTIONS_;
             $q = _$q_;
             api = _api_;
         });
@@ -165,23 +168,5 @@ describe('The dp-straatbeeld-thumbnail component', function () {
         expect(component.find('img').length).toBe(0);
         expect(component.find('.qa-found-no-straatbeeld').length).toBe(0);
         expect(scope.vm.isLoading).toBe(true);
-    });
-
-    it('sets the hyperlink url on basis of the state and payload to fetch the corresponding straatbeeld', function () {
-        var component = getComponent([52, 4]);
-
-        finishApiCall();
-
-        let url = decodeURI(component.find('a').attr('ng-href'));
-        let action = angular.fromJson(url);
-
-        expect(action).toEqual({
-            type: ACTIONS.FETCH_STRAATBEELD,
-            payload: {
-                id: 'ABC',
-                heading: 179,
-                isInitial: true
-            }
-        });
     });
 });

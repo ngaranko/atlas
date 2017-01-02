@@ -22,11 +22,17 @@
         function setLayout () {
             var state = store.getState();
 
+            vm.isFullscreen = state.map.isFullscreen || (state.straatbeeld && state.straatbeeld.isFullscreen);
+
             vm.visibility = dashboardColumns.determineVisibility(state);
 
             vm.isPrintMode = state.isPrintMode;
 
-            vm.isRightColumnScrollable = !state.map.isFullscreen &&
+            vm.isCatalogus = (state.dataSelection && state.dataSelection.view === 'CARDS') ||
+                (state.detail && state.detail.endpoint.includes('/catalogus/api/'));
+            vm.dataSelectionState = state.dataSelection;
+
+            vm.isRightColumnScrollable = !vm.isFullscreen &&
                 (
                     vm.visibility.page ||
                     vm.visibility.detail ||
@@ -35,8 +41,9 @@
                 );
 
             vm.columnSizes = dashboardColumns.determineColumnSizes(
+                state,
                 vm.visibility,
-                state.map.isFullscreen,
+                vm.isFullscreen,
                 vm.isPrintMode
             );
 

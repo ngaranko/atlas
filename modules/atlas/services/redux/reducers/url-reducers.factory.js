@@ -118,6 +118,9 @@
                     newDetailState.display = oldState.detail.display;
                     newDetailState.geometry = oldState.detail.geometry;
                     newDetailState.isLoading = oldState.detail.isLoading;
+                    newDetailState.isFullscreen = oldState.detail.isFullscreen;
+                } else {
+                    newDetailState.isFullscreen = angular.isString(payload['volledig-detail']);
                 }
 
                 // restore invisibility from url payload
@@ -142,6 +145,7 @@
 
                 // restore invisibility from url payload
                 newStraatbeeld.isInvisible = Boolean(payload.straatbeeldInvisible);
+                newStraatbeeld.isFullscreen = angular.isString(payload['volledig-straatbeeld']);
 
                 if (oldState.straatbeeld && oldState.straatbeeld.id === payload.id) {
                     newStraatbeeld.image = oldState.straatbeeld.image;
@@ -169,20 +173,24 @@
 
             if (angular.isString(payload.dataset)) {
                 if (angular.isString(payload['dataset-filters'])) {
-                    payload['dataset-filters'].split(',').forEach(function (filterFromUrl) {
+                    payload['dataset-filters'].split('::').forEach(function (filterFromUrl) {
                         var keyValueArray = filterFromUrl.split(':');
 
-                        filters[keyValueArray[0]] = $window.decodeURIComponent(keyValueArray[1]);
+                        filters[keyValueArray[0]] = decodeURIComponent(keyValueArray[1]);
                     });
                 }
 
+                let view = payload.view && String(payload.view);
+
                 return {
-                    view: payload.view && String(payload.view),
+                    view,
                     dataset: payload.dataset,
                     filters: filters,
+                    query: payload['dataset-zoek'],
                     page: Number(payload['dataset-pagina']),
                     markers: oldState.dataSelection && oldState.dataSelection.markers || [],
-                    isLoading: angular.isObject(oldState.dataSelection) ? oldState.dataSelection.isLoading : true
+                    isLoading: angular.isObject(oldState.dataSelection) ? oldState.dataSelection.isLoading : true,
+                    isFullscreen: view !== 'LIST'
                 };
             } else {
                 return null;

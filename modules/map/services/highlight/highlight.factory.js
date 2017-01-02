@@ -15,7 +15,7 @@
         'panning',
         'store',
         'ACTIONS',
-        'CLUSTERED_MARKERS_CONFIG'
+        'clusteredMarkersConfig'
     ];
 
     function highlightFactory (
@@ -28,7 +28,7 @@
         panning,
         store,
         ACTIONS,
-        CLUSTERED_MARKERS_CONFIG) {
+        clusteredMarkersConfig) {
         let layers = {},
             clusteredLayer;
 
@@ -92,8 +92,8 @@
             leafletMap.removeLayer(layers[item.id]);
         }
 
-        function setCluster (leafletMap, markers) {
-            clusteredLayer = L.markerClusterGroup(CLUSTERED_MARKERS_CONFIG);
+        function setCluster (leafletMap, markers, onReady) {
+            clusteredLayer = L.markerClusterGroup(clusteredMarkersConfig);
 
             markers.forEach(marker => {
                 clusteredLayer.addLayer(
@@ -102,6 +102,16 @@
                     })
                 );
             });
+
+            let onLayerAdd = (event) => {
+                if (event.layer === clusteredLayer) {
+                    leafletMap.off('layeradd', onLayerAdd);
+                    if (angular.isFunction(onReady)) {
+                        onReady();
+                    }
+                }
+            };
+            leafletMap.on('layeradd', onLayerAdd);
 
             zoomToLayer(leafletMap, clusteredLayer);
             leafletMap.addLayer(clusteredLayer);

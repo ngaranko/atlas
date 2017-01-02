@@ -104,6 +104,21 @@ describe('The dataSelectionReducers factory', function () {
             }));
         });
 
+        it('sets the dataSelection query', function () {
+            let mockedState,
+                output;
+
+            mockedState = angular.copy(DEFAULT_STATE);
+
+            payload = 'zoek';
+
+            output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
+
+            expect(output.dataSelection).toEqual(jasmine.objectContaining({
+                query: 'zoek'
+            }));
+        });
+
         it('makes the Array of markers empty', function () {
             let mockedState,
                 output;
@@ -179,7 +194,8 @@ describe('The dataSelectionReducers factory', function () {
                     },
                     page: 1,
                     isLoading: true
-                }
+                },
+                map: {}
             };
 
             payload = ['MOCKED', 'MARKER', 'ARRAY'];
@@ -195,6 +211,14 @@ describe('The dataSelectionReducers factory', function () {
             output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
 
             expect(output.dataSelection.isLoading).toEqual(false);
+        });
+
+        it('sets map.isLoading to true when any markers are added to the state', function () {
+            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
+            expect(output.map.isLoading).toBe(true);
+
+            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, []);
+            expect(output.map.isLoading).toBe(false);
         });
 
         it('does nothing if the user has navigated away from dataSelection before the API is finished', function () {

@@ -12,9 +12,9 @@
             controllerAs: 'vm'
         });
 
-    DpStraatbeeldThumbnailController.$inject = ['$scope', 'sharedConfig', 'api', 'store', 'ACTIONS'];
+    DpStraatbeeldThumbnailController.$inject = ['$scope', 'SHARED_CONFIG', 'api', 'userSettings'];
 
-    function DpStraatbeeldThumbnailController ($scope, sharedConfig, api, store, ACTIONS) {
+    function DpStraatbeeldThumbnailController ($scope, SHARED_CONFIG, api, userSettings) {
         var vm = this,
             imageUrl,
             heading,
@@ -27,14 +27,14 @@
         });
 
         function loadThumbnail () {
-            imageUrl = sharedConfig.STRAATBEELD_THUMB_URL +
+            imageUrl = SHARED_CONFIG.STRAATBEELD_THUMB_URL +
                 '?lat=' + vm.location[0] +
                 '&lon=' + vm.location[1] +
-                '&width=' + sharedConfig.THUMBNAIL_WIDTH +
-                '&radius=' + sharedConfig.RADIUS;
+                '&width=' + SHARED_CONFIG.THUMBNAIL_WIDTH +
+                '&radius=' + SHARED_CONFIG.RADIUS;
 
             vm.isLoading = true;
-            vm.radius = sharedConfig.RADIUS;
+            vm.radius = SHARED_CONFIG.RADIUS;
 
             api.getByUrl(imageUrl).then(function (thumbnailData) {
                 heading = thumbnailData.heading;
@@ -46,7 +46,8 @@
                     vm.payload = {
                         id: id,
                         heading: heading,
-                        isInitial: true
+                        isInitial: true,
+                        isFullscreen: userSettings.fullscreenStraatbeeld.value === true.toString()
                     };
                 } else {
                     vm.hasThumbnail = false;

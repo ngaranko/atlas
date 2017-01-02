@@ -20,27 +20,29 @@
 
             if (angular.isObject(state.dataSelection)) {
                 visibility.dataSelection = true;
-                visibility.dataSelectionList = state.dataSelection.view === 'LIST';
 
-                visibility.map = visibility.dataSelectionList;
-                visibility.layerSelection = false;
+                visibility.map = !state.dataSelection.isFullscreen;
+                visibility.layerSelection = !state.dataSelection.isFullscreen && state.layerSelection;
                 visibility.detail = false;
                 visibility.page = false;
                 visibility.searchResults = false;
                 visibility.straatbeeld = false;
             } else {
-                if (!state.isPrintMode) {
-                    visibility.map = true;
+                if (state.isPrintMode) {
+                    visibility.map = isMapVisible(state);
                 } else {
-                    visibility.map = !state.layerSelection && (
-                        state.map.isFullscreen ||
-                        (isDetailVisible(state) && angular.isObject(state.detail.geometry)) ||
-                        isStraatbeeldVisible(state));
+                    visibility.map = true;
                 }
 
                 visibility.layerSelection = state.layerSelection;
+                visibility.straatbeeld = isStraatbeeldVisible(state);
 
-                if (state.layerSelection || state.map.isFullscreen) {
+                if (visibility.straatbeeld && state.straatbeeld.isFullscreen) {
+                    visibility.detail = false;
+                    visibility.page = false;
+                    visibility.searchResults = false;
+                    visibility.map = false;
+                } else if (state.layerSelection || state.map.isFullscreen) {
                     visibility.detail = false;
                     visibility.page = false;
                     visibility.searchResults = false;
@@ -48,13 +50,10 @@
                 } else {
                     visibility.detail = isDetailVisible(state);
                     visibility.page = angular.isString(state.page);
-                    visibility.searchResults = angular.isObject(state.search) &&
-                        (angular.isString(state.search.query) || angular.isArray(state.search.location));
-                    visibility.straatbeeld = isStraatbeeldVisible(state);
+                    visibility.searchResults = isSearchResultsVisible(state);
                 }
 
                 visibility.dataSelection = false;
-                visibility.dataSelectionList = false;
             }
 
             return visibility;
@@ -64,20 +63,34 @@
             return angular.isObject(state.straatbeeld) && !(state.straatbeeld.isInvisible);
         }
 
+        function isMapVisible (state) {
+            return !state.layerSelection &&
+                (state.map.isFullscreen ||
+                 (isDetailVisible(state) && angular.isObject(state.detail.geometry)) ||
+                 isStraatbeeldVisible(state)
+                );
+        }
+
         function isDetailVisible (state) {
             return angular.isObject(state.detail) && !(state.detail.isInvisible);
         }
 
-        function determineColumnSizesDefault (visibility, hasFullscreenMap) {
+        function isSearchResultsVisible (state) {
+            return angular.isObject(state.search) &&
+                (angular.isString(state.search.query) || angular.isArray(state.search.location));
+        }
+
+        function determineColumnSizesDefault (state, visibility, hasFullscreenElement) {
             var columnSizes = {};
 
             if (visibility.layerSelection) {
                 columnSizes.left = 4;
                 columnSizes.middle = 8;
-            } else if (hasFullscreenMap) {
+            } else if (hasFullscreenElement) {
                 columnSizes.left = 0;
                 columnSizes.middle = 12;
-            } else if (visibility.dataSelection && !visibility.dataSelectionList) {
+            } else if ((visibility.detail && state.detail.isFullscreen) ||
+                (visibility.dataSelection && state.dataSelection.isFullscreen)) {
                 columnSizes.left = 0;
                 columnSizes.middle = 0;
             } else {
@@ -90,18 +103,21 @@
             return columnSizes;
         }
 
-        function determineColumnSizesPrint (visibility, hasFullscreenMap) {
+        function determineColumnSizesPrint (state, visibility, hasFullscreenElement) {
             var columnSizes = {};
 
             if (visibility.layerSelection) {
                 columnSizes.left = 12;
                 columnSizes.middle = 0;
                 columnSizes.right = 0;
-            } else if (hasFullscreenMap) {
+            } else if (hasFullscreenElement) {
                 columnSizes.left = 0;
                 columnSizes.middle = 12;
                 columnSizes.right = 0;
-            } else if (visibility.page || visibility.searchResults || visibility.dataSelection) {
+            } else if ((visibility.detail && state.detail.isFullscreen) ||
+                visibility.page ||
+                visibility.searchResults ||
+                visibility.dataSelection && state.dataSelection.isFullscreen) {
                 columnSizes.left = 0;
                 columnSizes.middle = 0;
                 columnSizes.right = 12;
@@ -114,11 +130,11 @@
             return columnSizes;
         }
 
-        function determineColumnSizes (visibility, hasFullscreenMap, isPrintMode) {
+        function determineColumnSizes (state, visibility, hasFullscreenElement, isPrintMode) {
             if (!isPrintMode) {
-                return determineColumnSizesDefault(visibility, hasFullscreenMap);
+                return determineColumnSizesDefault(state, visibility, hasFullscreenElement);
             } else {
-                return determineColumnSizesPrint(visibility, hasFullscreenMap);
+                return determineColumnSizesPrint(state, visibility, hasFullscreenElement);
             }
         }
     }

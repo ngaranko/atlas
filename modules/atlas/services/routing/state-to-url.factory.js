@@ -3,7 +3,17 @@
 
     angular
         .module('atlas')
-        .factory('stateToUrl', stateToUrlFactory);
+        .factory('stateToUrl', stateToUrlFactory)
+        .config(html5mode);
+
+    html5mode.$inject = ['$locationProvider'];
+
+    function html5mode ($locationProvider) {
+        $locationProvider.html5Mode({
+            enabled: true,
+            requireBase: false
+        });
+    }
 
     stateToUrlFactory.$inject = ['$location', '$window'];
 
@@ -21,11 +31,11 @@
             for (key in params) {
                 if (params.hasOwnProperty(key) && params[key] !== null) {
                     queryString += queryString ? '&' : '?';
-                    queryString += `${key}=${params[key]}`;
+                    queryString += `${key}=${encodeURI(params[key])}`;
                 }
             }
 
-            return '#' + queryString;
+            return queryString;
         }
 
         function update (state, useReplace) {
@@ -109,6 +119,8 @@
                 if (state.detail.isInvisible) {
                     params.detailInvisible = true;  // Only store in url on truthy value
                 }
+
+                params['volledig-detail'] = state.detail.isFullscreen ? 'aan' : null;
             }
 
             return params;
@@ -128,6 +140,7 @@
                 params.heading = String(state.straatbeeld.heading);
                 params.pitch = String(state.straatbeeld.pitch);
                 params.fov = String(state.straatbeeld.fov);
+                params['volledig-straatbeeld'] = state.straatbeeld.isFullscreen ? 'aan' : null;
             }
 
             return params;
@@ -142,11 +155,15 @@
                 params.dataset = state.dataSelection.dataset;
 
                 angular.forEach(state.dataSelection.filters, function (value, key) {
-                    datasetFilters.push(key + ':' + $window.encodeURIComponent(value));
+                    datasetFilters.push(key + ':' + encodeURIComponent(value));
                 });
 
                 if (datasetFilters.length) {
-                    params['dataset-filters'] = datasetFilters.join(',');
+                    params['dataset-filters'] = datasetFilters.join('::');
+                }
+
+                if (state.dataSelection.query) {
+                    params['dataset-zoek'] = state.dataSelection.query;
                 }
 
                 params['dataset-pagina'] = String(state.dataSelection.page);

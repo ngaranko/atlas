@@ -5,11 +5,11 @@
         .module('dpShared')
         .factory('user', userFactory);
 
-    userFactory.$inject = ['$http', '$httpParamSerializer', '$q', '$timeout', 'environment', 'storage'];
+    userFactory.$inject = ['$http', '$httpParamSerializer', '$q', '$timeout', 'API_CONFIG', 'userSettings'];
 
-    function userFactory ($http, $httpParamSerializer, $q, $timeout, environment, storage) {
+    function userFactory ($http, $httpParamSerializer, $q, $timeout, API_CONFIG, userSettings) {
         var userState = {},
-            accessToken = storage.getItem('token');
+            accessToken = userSettings.token.value;
 
         // if sessionStorage is available use the refreshToken function to check if a token is available and valid
         if (accessToken) {
@@ -34,7 +34,7 @@
         function login (username, password) {
             return $http({
                 method: 'POST',
-                url: environment.AUTH_ROOT + 'token/',
+                url: API_CONFIG.AUTH + 'token/',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
@@ -53,7 +53,7 @@
                 userState.accessToken = response.data.token;
                 userState.isLoggedIn = true;
 
-                storage.setItem('token', userState.accessToken);
+                userSettings.token.value = userState.accessToken;
                 accessToken = response.data.token;
 
                 intervalPromise = $timeout(refreshToken, intervalDuration);
@@ -82,7 +82,7 @@
         function refreshToken () {
             return $http({
                 method: 'POST',
-                url: environment.AUTH_ROOT + 'refresh/',
+                url: API_CONFIG.AUTH + 'refresh/',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
@@ -96,7 +96,7 @@
 
             function refreshSuccess (response) {
                 userState.accessToken = response.data.token;
-                storage.setItem('token', userState.accessToken);
+                userSettings.token.value = userState.accessToken;
                 accessToken = response.data.token;
                 userState.isLoggedIn = true;
 
@@ -108,7 +108,7 @@
             if (intervalPromise) {
                 $timeout.cancel(intervalPromise);
             }
-            storage.removeItem('token');
+            userSettings.token.remove();
 
             userState.username = null;
             userState.accessToken = null;

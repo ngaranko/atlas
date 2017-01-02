@@ -19,7 +19,7 @@ describe('The stateToUrl factory', function () {
     describe('create', function () {
         it('creates a query string', function () {
             expect(stateToUrl.create(mockedState)).toBe([
-                '#?lat=', mockedState.map.viewCenter[0],
+                '?lat=', mockedState.map.viewCenter[0],
                 '&lon=', mockedState.map.viewCenter[1],
                 '&basiskaart=', mockedState.map.baseLayer,
                 '&zoom=', mockedState.map.zoom,
@@ -234,13 +234,13 @@ describe('The stateToUrl factory', function () {
 
             // With a detail page
             mockedState.detail = {
-                endpoint: 'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/123/'
+                endpoint: 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/123/'
             };
 
             stateToUrl.update(mockedState, false);
 
             expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
-                detail: 'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/123/'
+                detail: 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/123/'
             }));
         });
 
@@ -255,6 +255,20 @@ describe('The stateToUrl factory', function () {
             expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
                 detail: 'ABC',
                 detailInvisible: true
+            }));
+        });
+
+        it('can set the fullscreen of detail', function () {
+            mockedState.detail = {
+                endpoint: 'ABC',
+                isFullscreen: true
+            };
+
+            stateToUrl.update(mockedState, false);
+
+            expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
+                detail: 'ABC',
+                'volledig-detail': 'aan'
             }));
         });
 
@@ -310,6 +324,27 @@ describe('The stateToUrl factory', function () {
 
             expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
                 id: 'ABC'
+            }));
+        });
+
+        it('keeps track of the isFullscreen state', function () {
+            // Closed
+            mockedState.straatbeeld = {
+                id: 'ABC',
+                isFullscreen: false
+            };
+            stateToUrl.update(mockedState, false);
+
+            expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
+                'volledig-straatbeeld': jasmine.anything()
+            }));
+
+            // Opened
+            mockedState.straatbeeld.isFullscreen = true;
+            stateToUrl.update(mockedState, false);
+
+            expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
+                'volledig-straatbeeld': 'aan'
             }));
         });
 
@@ -375,7 +410,7 @@ describe('The stateToUrl factory', function () {
         });
     });
 
-    describe('Data selection', function () {
+    describe('The data selection url conversion', function () {
         it('does nothing if there is no active dataset', function () {
             stateToUrl.update(mockedState, false);
 
@@ -392,10 +427,32 @@ describe('The stateToUrl factory', function () {
             }));
         });
 
+        it('adds the query to the url when set', function () {
+            mockedState.dataSelection = {
+            };
+
+            // With a query
+            mockedState.dataSelection.query = 'aap';
+            stateToUrl.update(mockedState, false);
+            expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
+                'dataset-zoek': 'aap'
+            }));
+
+            // Without any query
+            $location.search.calls.reset();
+            delete mockedState.dataSelection.query;
+            stateToUrl.update(mockedState, false);
+            expect($location.search).toHaveBeenCalled();
+            expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
+                'dataset-zoek': jasmine.any(String)
+            }));
+        });
+
         it('can set a dataset with (URL encoded) filters and a page number', function () {
             mockedState.dataSelection = {
                 dataset: 'bag',
                 filters: {},
+                query: 'zoek',
                 page: 5
             };
 
@@ -424,13 +481,17 @@ describe('The stateToUrl factory', function () {
                 'dataset-filters': 'buurt:Mijn%20buurt'
             }));
 
+            expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
+                'dataset-zoek': 'zoek'
+            }));
+
             // With two filters
             mockedState.dataSelection.filters.buurtcombinatie = 'Mijn buurtcombinatie';
 
             stateToUrl.update(mockedState, false);
 
             expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
-                'dataset-filters': 'buurt:Mijn%20buurt,buurtcombinatie:Mijn%20buurtcombinatie'
+                'dataset-filters': 'buurt:Mijn%20buurt::buurtcombinatie:Mijn%20buurtcombinatie'
             }));
 
             // Enable the list view

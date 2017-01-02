@@ -1,3 +1,13 @@
+<div ng-if="vm.view === 'CARDS'">
+
+    <dp-panel is-panel-visible="vm.cards2atlasLink" type="warning" can-close="true">
+        Alleen voor medewerkers van de gemeente Amsterdam:
+        <a class="c-data-selection__link" href="https://atlas.amsterdam.nl/" title="Naar Atlas">naar Atlas</a>
+        (gebruik Firefox)
+    </dp-panel>
+
+</div>
+
 <div class="u-grid">
     <div class="u-row">
         <div ng-if="vm.showFilters" class="u-col-sm--3">
@@ -43,6 +53,7 @@
                     <div ng-if="vm.isPageAvailable">
                         <dp-data-selection-table ng-if="vm.view === 'TABLE'" content="vm.data"></dp-data-selection-table>
                         <dp-data-selection-list ng-if="vm.view === 'LIST'" content="vm.data"></dp-data-selection-list>
+                        <dp-data-selection-cards ng-if="vm.view === 'CARDS'" content="vm.data"></dp-data-selection-cards>
                     </div>
                 </div>
 
