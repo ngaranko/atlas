@@ -3,45 +3,14 @@
 
     angular
         .module('dpDataSelection')
-        .factory('dataSelectionConfig', dataSelectionConfigFactory);
-
-    dataSelectionConfigFactory.$inject = ['environment'];
-
-    function dataSelectionConfigFactory (environment) {
-        let globalConfig,
-            envConfig;
-
-        envConfig = {
-            DEVELOPMENT: {
-                bag: {
-                    ENDPOINT_PREVIEW: 'https://api-acc.datapunt.amsterdam.nl/dataselectie/bag/',
-                    ENDPOINT_MARKERS: 'https://api-acc.datapunt.amsterdam.nl/dataselectie/bag/geolocation/',
-                    ENDPOINT_EXPORT: 'https://api-acc.datapunt.amsterdam.nl/dataselectie/bag/export/',
-                    ENDPOINT_DETAIL: 'https://api-acc.datapunt.amsterdam.nl/bag/nummeraanduiding/'
-                },
-                hr: {
-                    ENDPOINT_PREVIEW: 'https://api-acc.datapunt.amsterdam.nl/dataselectie/hr/',
-                    ENDPOINT_EXPORT: 'https://api-acc.datapunt.amsterdam.nl/dataselectie/hr/export/',
-                    ENDPOINT_DETAIL: 'https://api-acc.datapunt.amsterdam.nl/handelsregister/vestiging/'
-                }
-            },
-            PRODUCTION: {
-                bag: {
-                    ENDPOINT_PREVIEW: 'https://api.datapunt.amsterdam.nl/dataselectie/bag/',
-                    ENDPOINT_MARKERS: 'https://api.datapunt.amsterdam.nl/dataselectie/bag/geolocation/',
-                    ENDPOINT_EXPORT: 'https://api.datapunt.amsterdam.nl/dataselectie/bag/export/',
-                    ENDPOINT_DETAIL: 'https://api.datapunt.amsterdam.nl/bag/nummeraanduiding/'
-                },
-                hr: {
-                    ENDPOINT_PREVIEW: 'https://api.datapunt.amsterdam.nl/dataselectie/hr/',
-                    ENDPOINT_EXPORT: 'https://api.datapunt.amsterdam.nl/dataselectie/hr/export/',
-                    ENDPOINT_DETAIL: 'https://api.datapunt.amsterdam.nl/handelsregister/vestiging/'
-                }
-            }
-        };
-        globalConfig = {
+        .constant('DATA_SELECTION_CONFIG', {
             MAX_AVAILABLE_PAGES: 100,
             bag: {
+                CUSTOM_API: 'dataSelectionApiDataSelection',
+                ENDPOINT_PREVIEW: 'dataselectie/bag/',
+                ENDPOINT_MARKERS: 'dataselectie/bag/geolocation/',
+                ENDPOINT_EXPORT: 'https://api.datapunt.amsterdam.nl/dataselectie/bag/export/',
+                ENDPOINT_DETAIL: 'bag/nummeraanduiding/',
                 PRIMARY_KEY: 'id',
                 TITLE: 'Adressen',
                 FILTERS: [
@@ -153,6 +122,10 @@
                 }
             },
             hr: {
+                CUSTOM_API: 'dataSelectionApiDataSelection',
+                ENDPOINT_PREVIEW: 'dataselectie/hr/',
+                ENDPOINT_EXPORT: 'https://api.datapunt.amsterdam.nl/dataselectie/hr/export/',
+                ENDPOINT_DETAIL: 'handelsregister/vestiging/',
                 PRIMARY_KEY: 'id',
                 TITLE: 'Handelsregister',
                 FILTERS: [
@@ -184,17 +157,20 @@
                 ],
                 CONTENT: {
                     TABLE: [
+                        /*
                         {
                             label: 'KvK-num.',
                             variables: []
                         },
+                        */
                         {
                             label: 'Handelsnaam',
                             variables: ['bedrijfsnaam']
                         },
+                        /*
                         {
                             label: 'Bezoekadres',
-                            variables: []
+                            variables: ['bezoekadres_volledig_adres']
                         },
                         {
                             label: 'Num.',
@@ -216,27 +192,27 @@
                             label: 'Woonplaats',
                             variables: []
                         },
+                        */
                         {
                             label: 'Hoofdcategorie',
-                            variables: []
+                            variables: ['hoofdcategorieen']
                         },
                         {
                             label: 'Subcategorie',
-                            variables: []
+                            variables: ['subcategorieen']
                         },
+                        /*
                         {
                             label: 'SBI-omschrijving',
                             variables: []
                         },
                         {
                             label: 'SBI-code',
-                            variables: []
+                            variables: ['sbicodes']
                         }
+                        */
                     ]
                 }
             }
-        };
-
-        return angular.merge(globalConfig, envConfig[environment.NAME]);
-    }
+        });
 })();
