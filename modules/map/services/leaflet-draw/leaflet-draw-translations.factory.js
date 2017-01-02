@@ -5,7 +5,7 @@
         .module('dpMap')
         .factory('leafletDrawTranslations', leafletDrawTranslationsFactory);
 
-    leafletDrawTranslationsFactory.$inject = ['L'];
+    leafletDrawTranslationsFactory.$inject = ['L', 'LEAFLET_DRAW_TRANSLATIONS'];
 
     function leafletDrawTranslationsFactory (L, LEAFLET_DRAW_TRANSLATIONS) {
         return {
