@@ -8,6 +8,11 @@
     dashboardColumnsFactory.$inject = ['httpStatus'];
 
     function dashboardColumnsFactory (httpStatus) {
+        /*
+        - activity means the components is loaded (ng-if)
+        - visibility means the components if shown, inactive components are never shown (ng-show)
+        - columnSizes also determine whether or not something is fullscreen (.u-col-sm--12)
+         */
         return {
             determineActivity,
             determineVisibility,
