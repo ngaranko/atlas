@@ -137,18 +137,18 @@ describe('The dashboard component', function () {
         it('displays the columns according to the column size', function () {
             component = getComponent();
 
-            expect(component.find('.qa-dashboard__layer-selection').hasClass('ng-hide')).toBe(false);
-            expect(component.find('.qa-dashboard__map').hasClass('ng-hide')).toBe(false);
-            expect(component.find('.qa-dashboard__content').hasClass('ng-hide')).toBe(false);
+            expect(component.find('.qa-dashboard__column--left').hasClass('ng-hide')).toBe(false);
+            expect(component.find('.qa-dashboard__column--middle').hasClass('ng-hide')).toBe(false);
+            expect(component.find('.qa-dashboard__column--right').hasClass('ng-hide')).toBe(false);
         });
 
         it('does not display a column on zero size', function () {
             mockedColumnSizes.left = 0;
             component = getComponent();
 
-            expect(component.find('.qa-dashboard__layer-selection').hasClass('ng-hide')).toBe(true);
-            expect(component.find('.qa-dashboard__map').hasClass('ng-hide')).toBe(false);
-            expect(component.find('.qa-dashboard__content').hasClass('ng-hide')).toBe(false);
+            expect(component.find('.qa-dashboard__column--left').hasClass('ng-hide')).toBe(true);
+            expect(component.find('.qa-dashboard__column--middle').hasClass('ng-hide')).toBe(false);
+            expect(component.find('.qa-dashboard__column--right').hasClass('ng-hide')).toBe(false);
         });
 
         it('does not display a column on missing size', function () {
@@ -157,75 +157,17 @@ describe('The dashboard component', function () {
             delete mockedColumnSizes.right;
             component = getComponent();
 
-            expect(component.find('.qa-dashboard__layer-selection').hasClass('ng-hide')).toBe(true);
-            expect(component.find('.qa-dashboard__map').hasClass('ng-hide')).toBe(true);
-            expect(component.find('.qa-dashboard__content').hasClass('ng-hide')).toBe(true);
+            expect(component.find('.qa-dashboard__column--left').hasClass('ng-hide')).toBe(true);
+            expect(component.find('.qa-dashboard__column--middle').hasClass('ng-hide')).toBe(true);
+            expect(component.find('.qa-dashboard__column--right').hasClass('ng-hide')).toBe(true);
         });
 
         it('adds the correct class according to the column size', function () {
             component = getComponent();
 
-            expect(component.find('.qa-dashboard__layer-selection').attr('class')).toContain('u-col-sm--1');
-            expect(component.find('.qa-dashboard__map').attr('class')).toContain('u-col-sm--2');
-            expect(component.find('.qa-dashboard__content').attr('class')).toContain('u-col-sm--3');
-        });
-    });
-
-    describe('straatbeeld', function () {
-        var component,
-            mockedVisibility,
-            mockedColumnSizes;
-
-        beforeEach(function () {
-            mockedVisibility = {
-                httpStatus: false,
-                map: false,
-                straatbeeld: true
-            };
-            mockedColumnSizes = {
-                left: 1,
-                middle: 2,
-                right: 3
-            };
-
-            spyOn(dashboardColumns, 'determineVisibility').and.returnValue(mockedVisibility);
-            spyOn(dashboardColumns, 'determineColumnSizes').and.returnValue(mockedColumnSizes);
-        });
-
-        it('displays a fullscreen straatbeeld on straatbeeld.isFullscreen = true', function () {
-            spyOn(store, 'getState').and.returnValue({
-                straatbeeld: {
-                    isFullscreen: true
-                },
-                map: {
-                }
-            });
-            component = getComponent();
-
-            expect(component.find('.qa-dashboard__layer-selection').hasClass('ng-hide')).toBe(false);
-            expect(component.find('.qa-dashboard__map').length).toBe(0);
-            expect(component.find('.qa-dashboard__straatbeeld').length).toBe(1);
-            expect(component.find('.qa-dashboard__content').hasClass('ng-hide')).toBe(false);
-        });
-
-        it('displays a normal straatbeeld on straatbeeld.isFullscreen = false', function () {
-            mockedVisibility.map = true;
-
-            spyOn(store, 'getState').and.returnValue({
-                straatbeeld: {
-                    isFullscreen: false
-                },
-                map: {
-                }
-            });
-            component = getComponent();
-
-            // This is the middle column which should contain the map and not the straatbeeld
-            expect(component.find('.qa-dashboard__map').length).toBe(1);
-            expect(component.find('.qa-dashboard__straatbeeld').length).toBe(0);
-
-            // The straatbeeld is in the right column (which has the .qa-dashboard__content class)
-            expect(component.find('.qa-dashboard__content').hasClass('ng-hide')).toBe(false);
+            expect(component.find('.qa-dashboard__column--left').attr('class')).toContain('u-col-sm--1');
+            expect(component.find('.qa-dashboard__column--middle').attr('class')).toContain('u-col-sm--2');
+            expect(component.find('.qa-dashboard__column--right').attr('class')).toContain('u-col-sm--3');
         });
     });
 });
