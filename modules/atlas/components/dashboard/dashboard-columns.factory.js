@@ -78,7 +78,11 @@
             return visibility;
         }
 
-        function determineColumnSizes (state, visibility, hasFullscreenElement, isPrintMode) {
+        function determineColumnSizes (state, visibility, isPrintMode) {
+            const hasFullscreenElement = visibility.map && state.map.isFullscreen ||
+                (visibility.straatbeeld && state.straatbeeld.isFullscreen) ||
+                (visibility.detail && state.detail.isFullscreen);
+
             if (!isPrintMode) {
                 return determineColumnSizesDefault (state, visibility, hasFullscreenElement);
             } else {

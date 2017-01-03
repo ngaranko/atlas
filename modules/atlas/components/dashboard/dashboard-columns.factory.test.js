@@ -19,7 +19,7 @@ describe('The dashboardColumns factory', function () {
                 mockedState.isPrintMode = false;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(visibility, false, false);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false);
             });
 
             it('makes the map and page visibile', function () {
@@ -45,7 +45,7 @@ describe('The dashboardColumns factory', function () {
                 mockedState.isPrintMode = true;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false, true);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, true);
             });
 
             it('makes the page visibile', function () {
@@ -90,7 +90,7 @@ describe('The dashboardColumns factory', function () {
                     mockedState.isPrintMode = false;
 
                     visibility = dashboardColumns.determineVisibility(mockedState);
-                    columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false, false);
+                    columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false);
                 });
 
                 it('makes the map and searchResults visibile', function () {
@@ -116,7 +116,7 @@ describe('The dashboardColumns factory', function () {
                     mockedState.isPrintMode = true;
 
                     visibility = dashboardColumns.determineVisibility(mockedState);
-                    columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false, true);
+                    columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, true);
                 });
 
                 it('makes the searchResults visibile', function () {
@@ -152,7 +152,7 @@ describe('The dashboardColumns factory', function () {
                 mockedState.isPrintMode = false;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false, false);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false);
             });
 
             it('makes the map and detail page visibile', function () {
@@ -211,7 +211,7 @@ describe('The dashboardColumns factory', function () {
 
             it('left column: 0/3, middle column: 3/3, right column 3/3', function () {
                 visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false, true);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, true);
 
                 expect(columnSizes.left).toBe(0);
                 expect(columnSizes.middle).toBe(12);
@@ -238,7 +238,7 @@ describe('The dashboardColumns factory', function () {
                 mockedState.isPrintMode = false;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false, false);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false);
             });
 
             it('makes the map and straatbeeld visibile', function () {
@@ -286,7 +286,7 @@ describe('The dashboardColumns factory', function () {
                 mockedState.isPrintMode = true;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false, true);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, true);
             });
 
             it('makes the map and straatbeeld visibile', function () {
@@ -322,7 +322,7 @@ describe('The dashboardColumns factory', function () {
                 mockedState.isPrintMode = false;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false, false);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false);
             });
 
             it('makes the layerSelection and map visibile', function () {
@@ -348,7 +348,7 @@ describe('The dashboardColumns factory', function () {
                 mockedState.isPrintMode = true;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false, true);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, true);
             });
 
             it('makes the layerSelection visibile', function () {
@@ -380,7 +380,7 @@ describe('The dashboardColumns factory', function () {
                 mockedState.isPrintMode = false;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, true, false);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false);
             });
 
             it('makes the map visibile', function () {
@@ -406,7 +406,7 @@ describe('The dashboardColumns factory', function () {
                 mockedState.isPrintMode = true;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, true, true);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, true);
             });
 
             it('makes the map visibile', function () {
@@ -443,7 +443,7 @@ describe('The dashboardColumns factory', function () {
                 mockedState.isPrintMode = false;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false, false);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false);
             });
 
             it('makes the layerSelection and map visibile', function () {
@@ -469,7 +469,7 @@ describe('The dashboardColumns factory', function () {
                 mockedState.isPrintMode = true;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false, true);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, true);
             });
 
             it('makes the layerSelection visibile', function () {
@@ -512,7 +512,7 @@ describe('The dashboardColumns factory', function () {
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
 
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false, false);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false);
             });
 
             it('only shows dataSelection', function () {
@@ -540,7 +540,7 @@ describe('The dashboardColumns factory', function () {
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
 
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false, false);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false);
             });
 
             it('shows dataSelectionList and map', function () {
@@ -567,7 +567,7 @@ describe('The dashboardColumns factory', function () {
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
 
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false, true);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, true);
             });
 
             it('only shows dataSelection', function () {
