@@ -13,6 +13,78 @@ describe('The dashboardColumns factory', function () {
         });
     });
 
+    describe('when determining component activity', function () {
+        it('the map is always active, regardless of input', function () {
+            let activity;
+
+            activity = dashboardColumns.determineActivity(mockedState);
+            expect(activity.map).toBe(true);
+
+            delete mockedState.map;
+            activity = dashboardColumns.determineActivity(mockedState);
+            expect(activity.map).toBe(true);
+        });
+
+        it('checks if map.layerSelection is true in the state', function () {
+            let activity;
+
+            mockedState.layerSelection = true;
+            activity = dashboardColumns.determineActivity(mockedState);
+            expect(activity.layerSelection).toBe(true);
+
+            mockedState.layerSelection = false;
+            activity = dashboardColumns.determineActivity(mockedState);
+            expect(activity.layerSelection).toBe(false);
+        });
+
+        it('checks if page is a string', function () {
+            let activity;
+
+            activity = dashboardColumns.determineActivity(mockedState);
+            expect(activity.page).toBe(true);
+
+            mockedState.page = null;
+            activity = dashboardColumns.determineActivity(mockedState);
+            expect(activity.page).toBe(false);
+        });
+
+        it('checks if search, detail, straatbeeld and dataSelection are objects', function () {
+            let activity;
+
+            // Search
+            activity = dashboardColumns.determineActivity(mockedState);
+            expect(activity.searchResults).toBe(false);
+
+            mockedState.search = {query: 'lekker zoeken'};
+            activity = dashboardColumns.determineActivity(mockedState);
+            expect(activity.searchResults).toBe(true);
+
+            // Detail
+            activity = dashboardColumns.determineActivity(mockedState);
+            expect(activity.detail).toBe(false);
+
+            mockedState.detail = {endpoint: 'https://blah/123'};
+            activity = dashboardColumns.determineActivity(mockedState);
+            expect(activity.detail).toBe(true);
+
+            // Straatbeeld
+            activity = dashboardColumns.determineActivity(mockedState);
+            expect(activity.straatbeeld).toBe(false);
+
+            mockedState.straatbeeld = {id: 'abc123'};
+            activity = dashboardColumns.determineActivity(mockedState);
+            expect(activity.straatbeeld).toBe(true);
+
+            // Data selection
+            activity = dashboardColumns.determineActivity(mockedState);
+            expect(activity.dataSelection).toBe(false);
+
+            mockedState.dataSelection = {dataset: 'bag'};
+            activity = dashboardColumns.determineActivity(mockedState);
+            expect(activity.dataSelection).toBe(true);
+        });
+    });
+
     describe('when visiting a page', function () {
         describe('the default non-print version', function () {
             beforeEach(function () {
