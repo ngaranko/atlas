@@ -79,48 +79,60 @@
         }
 
         function determineColumnSizes (state, visibility, hasFullscreenElement, isPrintMode) {
-            var columnSizes = {};
-
             if (!isPrintMode) {
-                if (visibility.layerSelection) {
-                    columnSizes.left = 4;
-                    columnSizes.middle = 8;
-                } else if (hasFullscreenElement) {
-                    columnSizes.left = 0;
-                    columnSizes.middle = 12;
-                } else if ((visibility.detail && state.detail.isFullscreen) ||
-                    (visibility.dataSelection && state.dataSelection.isFullscreen)) {
-                    columnSizes.left = 0;
-                    columnSizes.middle = 0;
-                } else {
-                    columnSizes.left = 0;
-                    columnSizes.middle = 4;
-                }
-
-                columnSizes.right = 12 - columnSizes.left - columnSizes.middle;
-
-                return columnSizes;
+                return determineColumnSizesDefault (state, visibility, hasFullscreenElement);
             } else {
-                if (visibility.layerSelection) {
-                    columnSizes.left = 12;
-                    columnSizes.middle = 0;
-                    columnSizes.right = 0;
-                } else if (hasFullscreenElement) {
-                    columnSizes.left = 0;
-                    columnSizes.middle = 12;
-                    columnSizes.right = 0;
-                } else if ((visibility.detail && state.detail.isFullscreen) ||
-                    visibility.page ||
-                    visibility.searchResults ||
-                    visibility.dataSelection && state.dataSelection.isFullscreen) {
-                    columnSizes.left = 0;
-                    columnSizes.middle = 0;
-                    columnSizes.right = 12;
-                } else {
-                    columnSizes.left = 0;
-                    columnSizes.middle = 12;
-                    columnSizes.right = 12;
-                }
+                return determineColumnSizesPrint (state, visibility, hasFullscreenElement);
+            }
+        }
+
+        function determineColumnSizesDefault (state, visibility, hasFullscreenElement) {
+            let columnSizes = {};
+
+            if (visibility.layerSelection) {
+                columnSizes.left = 4;
+                columnSizes.middle = 8;
+                columnSizes.right = 0;
+            } else if (hasFullscreenElement) {
+                columnSizes.left = 0;
+                columnSizes.middle = 12;
+                columnSizes.right = 0;
+            } else if ((visibility.detail && state.detail.isFullscreen) ||
+                (visibility.dataSelection && state.dataSelection.isFullscreen)) {
+                columnSizes.left = 0;
+                columnSizes.middle = 0;
+                columnSizes.right = 12;
+            } else {
+                columnSizes.left = 0;
+                columnSizes.middle = 4;
+                columnSizes.right = 8;
+            }
+
+            return columnSizes;
+        }
+
+        function determineColumnSizesPrint (state, visibility, hasFullscreenElement) {
+            let columnSizes = {};
+
+            if (visibility.layerSelection) {
+                columnSizes.left = 12;
+                columnSizes.middle = 0;
+                columnSizes.right = 0;
+            } else if (hasFullscreenElement) {
+                columnSizes.left = 0;
+                columnSizes.middle = 12;
+                columnSizes.right = 0;
+            } else if ((visibility.detail && state.detail.isFullscreen) ||
+                visibility.page ||
+                visibility.searchResults ||
+                visibility.dataSelection && state.dataSelection.isFullscreen) {
+                columnSizes.left = 0;
+                columnSizes.middle = 0;
+                columnSizes.right = 12;
+            } else {
+                columnSizes.left = 0;
+                columnSizes.middle = 12;
+                columnSizes.right = 12;
             }
 
             return columnSizes;
