@@ -22,7 +22,7 @@
         function setLayout () {
             const state = store.getState();
 
-            vm.activity = dashboardColumns.determineVisibility(state);
+            vm.activity = dashboardColumns.determineActivity(state);
             vm.visibility = dashboardColumns.determineVisibility(state);
 
             vm.isPrintMode = state.isPrintMode;
