@@ -100,11 +100,11 @@
                         ng-controller="StraatbeeldController as straatbeeld"
                         class="u-dashboard--full-height">
 
-                        <!--Resize straatbeeld when any of printMode or errorMode changes-->
+                        <!--Resize straatbeeld when any of printMode, errorMode or fullscreen changes-->
                         <dp-straatbeeld
                             ng-show="vm.visibility.straatbeeld"
                             state="straatbeeld.straatbeeldState"
-                            resize="[vm.isPrintMode, vm.visibility.httpStatus]">
+                            resize="[vm.isPrintMode, vm.visibility.httpStatus, straatbeeld.straatbeeldState.isFullscreen]">
                         </dp-straatbeeld>
                     </div>
 
