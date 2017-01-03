@@ -203,12 +203,14 @@ describe('The dashboard component', function () {
             component = getComponent();
 
             expect(component.find('.qa-dashboard__layer-selection').hasClass('ng-hide')).toBe(false);
-            expect(component.find('.qa-dashboard__map').hasClass('ng-hide')).toBe(true);
-            expect(component.find('.qa-dashboard__straatbeeld').hasClass('ng-hide')).toBe(false);
+            expect(component.find('.qa-dashboard__map').length).toBe(0);
+            expect(component.find('.qa-dashboard__straatbeeld').length).toBe(1);
             expect(component.find('.qa-dashboard__content').hasClass('ng-hide')).toBe(false);
         });
 
         it('displays a normal straatbeeld on straatbeeld.isFullscreen = false', function () {
+            mockedVisibility.map = true;
+
             spyOn(store, 'getState').and.returnValue({
                 straatbeeld: {
                     isFullscreen: false
@@ -218,9 +220,11 @@ describe('The dashboard component', function () {
             });
             component = getComponent();
 
-            expect(component.find('.qa-dashboard__layer-selection').hasClass('ng-hide')).toBe(false);
-            expect(component.find('.qa-dashboard__map').hasClass('ng-hide')).toBe(true);
-            expect(component.find('.qa-dashboard__straatbeeld').hasClass('ng-hide')).toBe(true);
+            // This is the middle column which should contain the map and not the straatbeeld
+            expect(component.find('.qa-dashboard__map').length).toBe(1);
+            expect(component.find('.qa-dashboard__straatbeeld').length).toBe(0);
+
+            // The straatbeeld is in the right column (which has the .qa-dashboard__content class)
             expect(component.find('.qa-dashboard__content').hasClass('ng-hide')).toBe(false);
         });
     });

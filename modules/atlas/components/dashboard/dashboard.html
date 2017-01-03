@@ -43,11 +43,16 @@
                     </div>
                 </div>
 
-                <!-- Map -->
-                <div ng-show="vm.columnSizes.middle && vm.visibility.map"
-                     class="qa-dashboard__map c-dashboard__column"
-                     ng-class="'u-col-sm--' + vm.columnSizes.middle">
+                <!-- Middle column -->
+                <div
+                    ng-show="vm.columnSizes.middle && (vm.visibility.map || (vm.visibility.straatbeeld && vm.isFullscreen))"
+                    class="c-dashboard__column u-col-sm--{{vm.columnSizes.middle}}"
+                    ng-class="{
+                        'qa-dashboard__map': vm.visibility.map,
+                        'qa-dashboard__straatbeeld': vm.visibility.straatbeeld && vm.isFullscreen
+                    }">
 
+                    <!-- Map -->
                     <div ng-if="vm.activity.map" ng-controller="MapController as map">
                         <dp-map
                             ng-show="vm.visibility.map"
@@ -56,15 +61,10 @@
                             markers="map.markers">
                         </dp-map>
                     </div>
-                </div>
 
-                <!-- Fullscreen Straatbeeld -->
-                <div ng-show="vm.columnSizes.middle && vm.visibility.straatbeeld && vm.isFullscreen"
-                     class="qa-dashboard__straatbeeld c-dashboard__column"
-                     ng-class="'u-col-sm--' + vm.columnSizes.middle">
-
+                    <!-- Fullscreen straatbeeld -->
                     <div ng-if="vm.activity.straatbeeld" ng-controller="StraatbeeldController as straatbeeld"
-                        class="u-dashboard--full-height">
+                         class="u-dashboard--full-height">
                         <dp-straatbeeld
                             ng-show="vm.visibility.straatbeeld"
                             state="straatbeeld.straatbeeldState"
