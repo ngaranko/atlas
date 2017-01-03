@@ -95,8 +95,8 @@
                 columnSizes.right = 0;
             } else if (hasFullscreenElement) {
                 columnSizes.left = 0;
-                columnSizes.middle = 12;
-                columnSizes.right = 0;
+                columnSizes.middle = state.map.isFullscreen ? 12 : 0;
+                columnSizes.right = !state.map.isFullscreen ? 12 : 0;
             } else if ((visibility.detail && state.detail.isFullscreen) ||
                 (visibility.dataSelection && state.dataSelection.isFullscreen)) {
                 columnSizes.left = 0;

@@ -27,12 +27,12 @@
 
             <!-- Columns -->
             <div class="u-row">
-
-                <!-- Layer selection -->
+                <!-- Left column -->
                 <div ng-show="vm.columnSizes.left"
                     class="qa-dashboard__layer-selection c-dashboard__column"
                     ng-class="'u-col-sm--' + vm.columnSizes.left">
 
+                    <!-- Layer selection -->
                     <div ng-if="vm.activity.layerSelection" ng-controller="LayerSelectionController as layerSelection">
                         <dp-layer-selection
                             ng-show="vm.visibility.layerSelection"
@@ -61,16 +61,6 @@
                             markers="map.markers">
                         </dp-map>
                     </div>
-
-                    <!-- Fullscreen straatbeeld -->
-                    <div ng-if="vm.activity.straatbeeld" ng-controller="StraatbeeldController as straatbeeld"
-                         class="u-dashboard--full-height">
-                        <dp-straatbeeld
-                            ng-show="vm.visibility.straatbeeld"
-                            state="straatbeeld.straatbeeldState"
-                            resize="[vm.isPrintMode, vm.visibility.httpStatus]">
-                        </dp-straatbeeld>
-                    </div>
                 </div>
 
                 <!-- Right column -->
@@ -87,7 +77,8 @@
                             ng-show="vm.visibility.detail"
                             endpoint="{{detail.endpoint}}"
                             reload="detail.reload"
-                            is-loading="detail.isLoading"></dp-detail>
+                            is-loading="detail.isLoading">
+                        </dp-detail>
                     </div>
 
                     <!-- Page -->
@@ -111,7 +102,7 @@
                     </div>
 
                     <!-- Straatbeeld -->
-                    <div ng-if="vm.activity.straatbeeld && !vm.isFullscreen"
+                    <div ng-if="vm.activity.straatbeeld"
                         ng-controller="StraatbeeldController as straatbeeld"
                         class="u-dashboard--full-height">
 
