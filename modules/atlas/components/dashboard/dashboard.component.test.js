@@ -93,9 +93,7 @@ describe('The dashboard component', function () {
     describe('error message', function () {
         var component,
             mockedVisibility = {
-                httpStatus: {
-                    hasErrors: false
-                }
+                httpStatus: false
             };
 
         beforeEach(function () {
@@ -109,7 +107,7 @@ describe('The dashboard component', function () {
         });
 
         it('when shown, flags the dashboard body', function () {
-            mockedVisibility.httpStatus.hasErrors = true;
+            mockedVisibility.httpStatus = true;
             component = getComponent();
 
             expect(component.find('.c-dashboard__body').attr('class')).toContain('c-dashboard__body--error');
@@ -123,9 +121,7 @@ describe('The dashboard component', function () {
 
         beforeEach(function () {
             mockedVisibility = {
-                httpStatus: {
-                    hasErrors: false
-                },
+                httpStatus: false,
                 map: true
             };
             mockedColumnSizes = {
@@ -182,9 +178,7 @@ describe('The dashboard component', function () {
 
         beforeEach(function () {
             mockedVisibility = {
-                httpStatus: {
-                    hasErrors: false
-                },
+                httpStatus: false,
                 map: false,
                 straatbeeld: true
             };

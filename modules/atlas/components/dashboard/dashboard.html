@@ -14,14 +14,14 @@
     <div ng-if="vm.isCatalogus" class="qa-dashboard__catalogus-header c-dashboard__heading">
         <dp-cards-header query="{{vm.dataSelectionState.query}}"></dp-cards-header>
     </div>
-
+{{vm.visibility.httpStatus}}
     <!-- Body -->
     <div class="c-dashboard__body"
-        ng-class="{ 'c-dashboard__body--error': vm.visibility.httpStatus.hasErrors }">
+        ng-class="{ 'c-dashboard__body--error': vm.visibility.httpStatus }">
         <div class="u-grid">
 
             <!-- Error message -->
-            <div ng-if="vm.visibility.httpStatus.hasErrors" class="c-dashboard__error">
+            <div ng-if="vm.visibility.httpStatus" class="c-dashboard__error">
                 <dp-api-error></dp-api-error>
             </div>
 
@@ -68,7 +68,7 @@
                         <dp-straatbeeld
                             ng-show="vm.visibility.straatbeeld"
                             state="straatbeeld.straatbeeldState"
-                            resize="[vm.isPrintMode, vm.visibility.httpStatus.hasErrors]">
+                            resize="[vm.isPrintMode, vm.visibility.httpStatus]">
                         </dp-straatbeeld>
                     </div>
                 </div>
@@ -119,7 +119,7 @@
                         <dp-straatbeeld
                             ng-show="vm.visibility.straatbeeld"
                             state="straatbeeld.straatbeeldState"
-                            resize="[vm.isPrintMode, vm.visibility.httpStatus.hasErrors]">
+                            resize="[vm.isPrintMode, vm.visibility.httpStatus]">
                         </dp-straatbeeld>
                     </div>
 

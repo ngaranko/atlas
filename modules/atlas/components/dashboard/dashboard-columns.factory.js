@@ -30,7 +30,7 @@
             const activity = determineActivity(state);
             let visibility = {};
 
-            visibility.httpStatus = httpStatus.getStatus();
+            visibility.httpStatus = httpStatus.getStatus().hasErrors;
 
             if (angular.isObject(state.dataSelection)) {
                 visibility.dataSelection = true;
