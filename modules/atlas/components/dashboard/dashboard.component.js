@@ -22,8 +22,6 @@
         function setLayout () {
             const state = store.getState();
 
-            vm.isFullscreen = state.map.isFullscreen || (state.straatbeeld && state.straatbeeld.isFullscreen);
-
             vm.activity = dashboardColumns.determineVisibility(state);
             vm.visibility = dashboardColumns.determineVisibility(state);
 
