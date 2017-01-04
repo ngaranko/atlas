@@ -41,15 +41,11 @@
 }
 
 .c-data-selection-cards__formats {
-  display: inline-block;
-  margin: {
-    right: $base-whitespace;
-    left: 0;
-  };
+  float: left;
 }
 
 .c-data-selection-cards__tags {
-  display: inline-block;
+  display: inline;
   position: relative;
   top: -3px; // TODO: fix weird positioning
   margin: {
@@ -64,4 +60,24 @@
   & p {
     margin-bottom: $base-whitespace;
   }
+}
+
+.c-data-selection-table__column--type {
+  width: 45px;
+  padding-top: $base-whitespace / 2;
+}
+
+.c-data-selection-table__column--name {
+  width: 250px;
+}
+
+.c-data-selection-table__column--size {
+  min-width: 110px;
+}
+
+.c-data-selection-table__column--description {
+  max-width: 430px;
+  text-overflow: ellipsis;
+  white-space: inherit;
+  overflow: hidden;
 }

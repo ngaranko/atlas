@@ -36,6 +36,7 @@ $hover-table-color: #eee;
 
       &:hover {
         background-color: $hover-table-color;
+        cursor: pointer;
       }
     }
 
@@ -50,5 +51,9 @@ $hover-table-color: #eee;
       }
     }
   }
+}
+
+.c-data-selection-table--full {
+  display: inline-table;
 }
 
