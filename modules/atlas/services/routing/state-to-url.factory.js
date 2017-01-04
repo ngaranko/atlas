@@ -115,7 +115,7 @@
             var params = {};
 
             if (state.detail) {
-                params.detail = state.detail.endpoint || null;
+                params.detail = state.detail.endpoint;
 
                 params['volledig-detail'] = state.detail.isFullscreen ? 'aan' : null;
             }
