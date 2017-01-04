@@ -1,5 +1,5 @@
 .c-data-selection-active-filters {
-
+  margin-bottom: $base-whitespace * 1.6;
   line-height: $button-size;
   text-decoration: none;
 
@@ -12,10 +12,6 @@
     padding-left: $base-whitespace;
     background-color: $secondary-gray30;
     color: $primary-dark;
-
-    &:last-child {
-      margin-bottom: $base-whitespace * 2.5;
-    }
   }
 }
 
