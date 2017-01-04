@@ -123,9 +123,6 @@
                     newDetailState.isFullscreen = angular.isString(payload['volledig-detail']);
                 }
 
-                // restore invisibility from url payload
-                newDetailState.isInvisible = Boolean(payload.detailInvisible);
-
                 return newDetailState;
             } else {
                 return null;
@@ -143,8 +140,6 @@
                     heading: Number(payload.heading)
                 };
 
-                // restore invisibility from url payload
-                newStraatbeeld.isInvisible = Boolean(payload.straatbeeldInvisible);
                 newStraatbeeld.isFullscreen = angular.isString(payload['volledig-straatbeeld']);
 
                 if (oldState.straatbeeld && oldState.straatbeeld.id === payload.id) {

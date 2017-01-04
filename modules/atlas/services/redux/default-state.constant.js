@@ -30,7 +30,6 @@
                 display: 'This is the _display variable as available in each endpoint',
                 geometry: null,
                 isLoading: false,
-                isInvisible: false,
                 isFullscreen: false
             }
             */
@@ -54,7 +53,6 @@
                 }],
                 isLoading: false,
                 isInitial: true,
-                isInvisible: false,
                 isFullscreen: true
             },
             */

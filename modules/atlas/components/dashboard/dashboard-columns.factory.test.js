@@ -238,24 +238,6 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.dataSelection).toBe(false);
             });
 
-            it('hides the straatbeeld page when the straatbeeld is set invisible', function () {
-                mockedState.straatbeeld = {
-                    id: 'aap',
-                    isInvisible: true
-                };
-                visibility = dashboardColumns.determineVisibility(mockedState);
-                expect(visibility.straatbeeld).toBe(false);
-            });
-
-            it('hides the detail page when the detail is set invisible', function () {
-                mockedState.detail = {
-                    endpoint: [1, 2],
-                    isInvisible: true
-                };
-                visibility = dashboardColumns.determineVisibility(mockedState);
-                expect(visibility.detail).toBe(false);
-            });
-
             it('left column: 0/3, middle column: 1/3, right column 2/3', function () {
                 expect(columnSizes.left).toBe(0);
                 expect(columnSizes.middle).toBe(4);
