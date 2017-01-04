@@ -112,6 +112,26 @@ describe('The dashboard component', function () {
 
             expect(component.find('.c-dashboard__body').attr('class')).toContain('c-dashboard__body--error');
         });
+
+        it('watches for changes to error message and rerenders the dashboard when needed', function () {
+            // Start without the error message
+            component = getComponent();
+            expect(component.find('dp-api-error').length).toBe(0);
+
+            // Set the error message
+            mockedVisibility = {
+                httpStatus: true
+            };
+            $rootScope.$apply();
+            expect(component.find('dp-api-error').length).toBe(1);
+
+            // Remove the message again
+            mockedVisibility = {
+                httpStatus: false
+            };
+            $rootScope.$apply();
+            expect(component.find('dp-api-error').length).toBe(0);
+        });
     });
 
     describe('column sizes', function () {

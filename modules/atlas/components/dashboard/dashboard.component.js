@@ -9,15 +9,17 @@
             controllerAs: 'vm'
         });
 
-    DpDashboardController.$inject = ['store', 'dashboardColumns'];
+    DpDashboardController.$inject = ['$scope', 'store', 'dashboardColumns'];
 
-    function DpDashboardController (store, dashboardColumns) {
+    function DpDashboardController ($scope, store, dashboardColumns) {
         let vm = this;
 
         vm.store = store;
 
         store.subscribe(setLayout);
         setLayout();
+
+        $scope.$watch(() => dashboardColumns.determineVisibility(store.getState()).httpStatus, setLayout);
 
         function setLayout () {
             const state = store.getState();
