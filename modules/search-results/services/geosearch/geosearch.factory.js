@@ -53,7 +53,7 @@
                 const vestigingenUri = `handelsregister/vestiging/?pand=${pand.pandidentificatie}`;
 
                 $q.all([
-                    api.getByUrl(pand.verblijfsobjecten.href).then(formatVerblijfsobjecten),
+                    api.getByUrl(pand._adressen.href).then(formatVerblijfsobjecten),
                     api.getByUri(vestigingenUri).then(formatVestigingen)
                 ]).then(combineResults);
 
