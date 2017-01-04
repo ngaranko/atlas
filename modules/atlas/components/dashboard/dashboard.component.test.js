@@ -97,7 +97,7 @@ describe('The dashboard component', function () {
             };
 
         beforeEach(function () {
-            spyOn(dashboardColumns, 'determineVisibility').and.returnValue(mockedVisibility);
+            spyOn(dashboardColumns, 'determineVisibility').and.callFake(() => mockedVisibility);
         });
 
         it('when not shown, does not flags the dashboard body', function () {
@@ -116,6 +116,10 @@ describe('The dashboard component', function () {
         it('watches for changes to error message and rerenders the dashboard when needed', function () {
             // Start without the error message
             component = getComponent();
+            mockedVisibility = {
+                httpStatus: false
+            };
+            $rootScope.$apply();
             expect(component.find('dp-api-error').length).toBe(0);
 
             // Set the error message
