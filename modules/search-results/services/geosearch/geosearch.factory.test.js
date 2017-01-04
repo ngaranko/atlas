@@ -15,8 +15,8 @@ describe('The geosearch factory', function () {
         mockedFormattedStandplaatsSearchResult,
         mockedPandApiResults,
         mockedStandplaatsApiResults,
-        mockedVerblijfsobjectenApiResults,
-        mockedFormattedVerblijfsobjectenApiResults,
+        mockedNummeraanduidingApiResults,
+        mockedFormattedNummeraanduidingenApiResults,
         mockedVestigingenApiResults,
         mockedFormattedVestigingenApiResults;
 
@@ -49,9 +49,9 @@ describe('The geosearch factory', function () {
                             q.resolve(mockedPandApiResults);
                         } else if (endpoint === 'https://api.datapunt.amsterdam.nl/bag/standplaats/0456789/') {
                             q.resolve(mockedStandplaatsApiResults);
-                        } else if (endpoint === 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/?panden__id=04' +
-                            '56789') {
-                            q.resolve(mockedVerblijfsobjectenApiResults);
+                        } else if (endpoint === 'https://api.datapunt.amsterdam.nl/bag/nummeraanduiding/?pand=0456789'
+                            ) {
+                            q.resolve(mockedNummeraanduidingApiResults);
                         }
 
                         return q.promise;
@@ -60,7 +60,7 @@ describe('The geosearch factory', function () {
                 searchFormatter: {
                     formatCategory: category => {
                         if (category === 'adres') {
-                            return mockedFormattedVerblijfsobjectenApiResults;
+                            return mockedFormattedNummeraanduidingenApiResults;
                         } else if (category === 'vestiging') {
                             return mockedFormattedVestigingenApiResults;
                         }
@@ -215,8 +215,8 @@ describe('The geosearch factory', function () {
                 }
             },
             pandidentificatie: '0456789',
-            verblijfsobjecten: {
-                href: 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/?panden__id=0456789'
+            _adressen: {
+                href: 'https://api.datapunt.amsterdam.nl/bag/nummeraanduiding/?pand=0456789'
             }
         };
 
@@ -251,12 +251,12 @@ describe('The geosearch factory', function () {
             }
         };
 
-        mockedVerblijfsobjectenApiResults = {
+        mockedNummeraanduidingApiResults = {
             count: 2,
             results: [{xyz: 'FAKE_VBO_RESULT_1'}, {xyz: 'FAKE_VBO_RESULT_2'}]
         };
 
-        mockedFormattedVerblijfsobjectenApiResults = {
+        mockedFormattedNummeraanduidingenApiResults = {
             label_singular: 'Adres',
             label_plural: 'Adressen',
             slug: 'adres',
@@ -368,7 +368,7 @@ describe('The geosearch factory', function () {
             mockedFormattedSearchResults.splice(1, 0, mockedFormattedPandSearchResult);
 
             expectedSearchResults = angular.copy(mockedFormattedSearchResults);
-            expectedSearchResults.splice(2, 0, mockedFormattedVerblijfsobjectenApiResults);
+            expectedSearchResults.splice(2, 0, mockedFormattedNummeraanduidingenApiResults);
 
             geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
                 searchResults = _searchResults_;
@@ -386,9 +386,9 @@ describe('The geosearch factory', function () {
             expect(api.getByUrl)
                 .toHaveBeenCalledWith('https://api.datapunt.amsterdam.nl/bag/pand/0456789/');
             expect(api.getByUrl)
-                .toHaveBeenCalledWith('https://api.datapunt.amsterdam.nl/bag/verblijfsobject/?panden__id=0456789');
+                .toHaveBeenCalledWith('https://api.datapunt.amsterdam.nl/bag/nummeraanduiding/?pand=0456789');
 
-            expect(searchFormatter.formatCategory).toHaveBeenCalledWith('adres', mockedVerblijfsobjectenApiResults);
+            expect(searchFormatter.formatCategory).toHaveBeenCalledWith('adres', mockedNummeraanduidingApiResults);
             expect(searchResults).toEqual(expectedSearchResults);
         });
 
@@ -396,7 +396,7 @@ describe('The geosearch factory', function () {
             var searchResults,
                 expectedSearchResults;
 
-            mockedVerblijfsobjectenApiResults = {
+            mockedNummeraanduidingApiResults = {
                 count: 0,
                 results: []
             };
@@ -440,7 +440,7 @@ describe('The geosearch factory', function () {
 
             expectedSearchResults = angular.copy(mockedFormattedSearchResults);
             expectedSearchResults.splice(2, 0, mockedFormattedVestigingenApiResults);
-            expectedSearchResults.splice(2, 0, mockedFormattedVerblijfsobjectenApiResults);
+            expectedSearchResults.splice(2, 0, mockedFormattedNummeraanduidingenApiResults);
 
             geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
                 searchResults = _searchResults_;
@@ -464,7 +464,7 @@ describe('The geosearch factory', function () {
             expect(api.getByUrl)
                 .toHaveBeenCalledWith('https://api.datapunt.amsterdam.nl/bag/pand/0456789/');
             expect(api.getByUrl)
-                .toHaveBeenCalledWith('https://api.datapunt.amsterdam.nl/bag/verblijfsobject/?panden__id=0456789');
+                .toHaveBeenCalledWith('https://api.datapunt.amsterdam.nl/bag/nummeraanduiding/?pand=0456789');
 
             expect(api.getByUri)
                 .toHaveBeenCalledWith('handelsregister/vestiging/?pand=0456789');
@@ -476,7 +476,7 @@ describe('The geosearch factory', function () {
         it('sometimes has no related verblijfsobjecten nor vestigingen', function () {
             var searchResults;
 
-            mockedVerblijfsobjectenApiResults = {
+            mockedNummeraanduidingApiResults = {
                 count: 0,
                 results: []
             };
