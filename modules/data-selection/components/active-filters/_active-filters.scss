@@ -1,0 +1,35 @@
+.c-data-selection-active-filters {
+
+  line-height: $button-size;
+  text-decoration: none;
+
+  .c-data-selection-active-filters__listitem {
+    position: relative;
+    margin-bottom: $base-whitespace / 2;
+    padding-right: $base-whitespace + $button-size;
+    padding-left: $base-whitespace;
+    background-color: $secondary-gray60;
+    color: $primary-light;
+
+    &:last-child {
+      margin-bottom: $base-whitespace * 2.5;
+    }
+  }
+}
+
+.c-data-selection-active-filters--remove-filter {
+  @include icon-button("close");
+
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.c-data-selection-active-filters--empty-value {
+  font-style: italic;
+
+  &::before {
+    display: inline-block;
+    content: "(geen)";
+  }
+}
