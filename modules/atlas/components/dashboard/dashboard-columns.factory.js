@@ -10,7 +10,7 @@
     function dashboardColumnsFactory (httpStatus) {
         /*
         - activity means the component is loaded (ng-if)
-        - visibility means the components is shown, inactive components are never shown (ng-show)
+        - visibility means the component is shown, inactive components are never shown (ng-show)
         - columnSizes also determine whether or not something is fullscreen (.u-col-sm--12)
          */
         return {
@@ -85,7 +85,7 @@
 
         function determineColumnSizes (state) {
             const visibility = determineVisibility(state);
-            const hasFullscreenElement = visibility.map && state.map.isFullscreen ||
+            const hasFullscreenElement = (visibility.map && state.map.isFullscreen) ||
                 (visibility.straatbeeld && state.straatbeeld.isFullscreen) ||
                 (visibility.detail && state.detail.isFullscreen) ||
                 (visibility.dataSelection && state.dataSelection.isFullscreen);
