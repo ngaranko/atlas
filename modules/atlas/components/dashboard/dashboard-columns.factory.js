@@ -72,7 +72,7 @@
                     visibility.searchResults = false;
                     visibility.straatbeeld = false;
                 } else {
-                    visibility.detail = activity.detail;
+                    visibility.detail = activity.detail && !activity.straatbeeld;
                     visibility.page = angular.isString(state.page);
                     visibility.searchResults = activity.searchResults;
                 }

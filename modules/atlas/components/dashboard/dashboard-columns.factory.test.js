@@ -316,6 +316,28 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.dataSelection).toBe(false);
             });
 
+            it('detail and straatbeeld can\'t be visible at the same time', function () {
+                // Only straatbeeld is active
+                visibility = dashboardColumns.determineVisibility(mockedState);
+                expect(visibility.straatbeeld).toBe(true);
+                expect(visibility.detail).toBe(false);
+
+                // Only detail is active
+                mockedState.detail = {
+                    endpoint: 'whatever'
+                };
+                delete mockedState.straatbeeld;
+                visibility = dashboardColumns.determineVisibility(mockedState);
+                expect(visibility.straatbeeld).toBe(false);
+                expect(visibility.detail).toBe(true);
+
+                // Both straatbeeld and detail are active
+                mockedState.straatbeeld = {id: 'xyz'};
+                visibility = dashboardColumns.determineVisibility(mockedState);
+                expect(visibility.straatbeeld).toBe(true);
+                expect(visibility.detail).toBe(false);
+            });
+
             it('has the straatbeeld visibile when it has an id', function () {
                 mockedState.straatbeeld = {id: '123'};
                 visibility = dashboardColumns.determineVisibility(mockedState);
