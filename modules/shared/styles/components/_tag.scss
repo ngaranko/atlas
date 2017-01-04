@@ -2,7 +2,7 @@
   display: inline-block;
   position: relative;
   height: 26px;
-  margin: 0 0 $base-whitespace;
+  margin: $base-whitespace / 2 0 $base-whitespace;
   padding: 0 20px 0 23px;
   border-radius: 3px 0 0 3px;
   background: $secondary-gray30;
