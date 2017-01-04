@@ -9,14 +9,6 @@
   }
 }
 
-.c-data-selection-filters--remove-filter {
-  @include icon-button("close");
-
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
 .c-data-selection-filters--empty-value {
   font-style: italic;
 
@@ -34,25 +26,6 @@
 .c-data-selection-filters--hidden-options {
   margin-bottom: $base-whitespace / 2;
   color: $secondary-gray40;
-}
-
-.c-data-selection-filters--active-filters {
-
-  line-height: $button-size;
-  text-decoration: none;
-
-  .c-data-selection-filters__listitem {
-    position: relative;
-    margin-bottom: $base-whitespace / 2;
-    padding-right: $base-whitespace + $button-size;
-    padding-left: $base-whitespace;
-    background-color: $secondary-gray60;
-    color: $primary-light;
-
-    &:last-child {
-      margin-bottom: $base-whitespace * 2.5;
-    }
-  }
 }
 
 .c-data-selection-filters--available-filters {
