@@ -9,8 +9,8 @@
 
     function dashboardColumnsFactory (httpStatus) {
         /*
-        - activity means the components is loaded (ng-if)
-        - visibility means the components if shown, inactive components are never shown (ng-show)
+        - activity means the component is loaded (ng-if)
+        - visibility means the components is shown, inactive components are never shown (ng-show)
         - columnSizes also determine whether or not something is fullscreen (.u-col-sm--12)
          */
         return {
@@ -86,7 +86,8 @@
         function determineColumnSizes (state, visibility, isPrintMode) {
             const hasFullscreenElement = visibility.map && state.map.isFullscreen ||
                 (visibility.straatbeeld && state.straatbeeld.isFullscreen) ||
-                (visibility.detail && state.detail.isFullscreen);
+                (visibility.detail && state.detail.isFullscreen) ||
+                (visibility.dataSelection && state.dataSelection.isFullscreen);
 
             if (!isPrintMode) {
                 return determineColumnSizesDefault (state, visibility, hasFullscreenElement);
@@ -106,11 +107,6 @@
                 columnSizes.left = 0;
                 columnSizes.middle = state.map.isFullscreen ? 12 : 0;
                 columnSizes.right = !state.map.isFullscreen ? 12 : 0;
-            } else if ((visibility.detail && state.detail.isFullscreen) ||
-                (visibility.dataSelection && state.dataSelection.isFullscreen)) {
-                columnSizes.left = 0;
-                columnSizes.middle = 0;
-                columnSizes.right = 12;
             } else {
                 columnSizes.left = 0;
                 columnSizes.middle = 4;
@@ -129,18 +125,11 @@
                 columnSizes.right = 0;
             } else if (hasFullscreenElement) {
                 columnSizes.left = 0;
-                columnSizes.middle = 12;
-                columnSizes.right = 0;
-            } else if ((visibility.detail && state.detail.isFullscreen) ||
-                visibility.page ||
-                visibility.searchResults ||
-                visibility.dataSelection && state.dataSelection.isFullscreen) {
-                columnSizes.left = 0;
-                columnSizes.middle = 0;
-                columnSizes.right = 12;
+                columnSizes.middle = state.map.isFullscreen ? 12 : 0;
+                columnSizes.right = !state.map.isFullscreen ? 12 : 0;
             } else {
                 columnSizes.left = 0;
-                columnSizes.middle = 12;
+                columnSizes.middle = visibility.page || visibility.searchResults ? 0 : 12;
                 columnSizes.right = 12;
             }
 
