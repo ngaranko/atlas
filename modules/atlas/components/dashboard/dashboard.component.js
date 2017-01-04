@@ -39,11 +39,7 @@
                     vm.visibility.dataSelection
                 );
 
-            vm.columnSizes = dashboardColumns.determineColumnSizes(
-                state,
-                vm.visibility,
-                vm.isPrintMode
-            );
+            vm.columnSizes = dashboardColumns.determineColumnSizes(state);
 
             // Needed for the dp-scrollable-content directive
             vm.pageName = state.page;

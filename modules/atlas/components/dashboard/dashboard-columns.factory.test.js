@@ -91,7 +91,7 @@ describe('The dashboardColumns factory', function () {
                 mockedState.isPrintMode = false;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState);
             });
 
             it('makes the map and page visibile', function () {
@@ -117,7 +117,7 @@ describe('The dashboardColumns factory', function () {
                 mockedState.isPrintMode = true;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, true);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState);
             });
 
             it('makes the page visibile', function () {
@@ -162,7 +162,7 @@ describe('The dashboardColumns factory', function () {
                     mockedState.isPrintMode = false;
 
                     visibility = dashboardColumns.determineVisibility(mockedState);
-                    columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false);
+                    columnSizes = dashboardColumns.determineColumnSizes(mockedState);
                 });
 
                 it('makes the map and searchResults visibile', function () {
@@ -188,7 +188,7 @@ describe('The dashboardColumns factory', function () {
                     mockedState.isPrintMode = true;
 
                     visibility = dashboardColumns.determineVisibility(mockedState);
-                    columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, true);
+                    columnSizes = dashboardColumns.determineColumnSizes(mockedState);
                 });
 
                 it('makes the searchResults visibile', function () {
@@ -224,7 +224,7 @@ describe('The dashboardColumns factory', function () {
                 mockedState.isPrintMode = false;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState);
             });
 
             it('makes the map and detail page visibile', function () {
@@ -266,7 +266,7 @@ describe('The dashboardColumns factory', function () {
                 mockedState.detail.isFullscreen = true;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState);
 
                 expect(columnSizes.left).toBe(0);
                 expect(columnSizes.middle).toBe(0);
@@ -293,8 +293,7 @@ describe('The dashboardColumns factory', function () {
             });
 
             it('left column: 0/3, middle column: 3/3, right column 3/3', function () {
-                visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, true);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState);
 
                 expect(columnSizes.left).toBe(0);
                 expect(columnSizes.middle).toBe(12);
@@ -321,7 +320,7 @@ describe('The dashboardColumns factory', function () {
                 mockedState.isPrintMode = false;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState);
             });
 
             it('makes the map and straatbeeld visibile', function () {
@@ -356,8 +355,7 @@ describe('The dashboardColumns factory', function () {
             it('can be shown fullscreen', function () {
                 mockedState.straatbeeld.isFullscreen = true;
 
-                visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState);
 
                 expect(columnSizes.left).toBe(0);
                 expect(columnSizes.middle).toBe(0);
@@ -370,7 +368,7 @@ describe('The dashboardColumns factory', function () {
                 mockedState.isPrintMode = true;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, true);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState);
             });
 
             it('makes the map and straatbeeld visibile', function () {
@@ -406,7 +404,7 @@ describe('The dashboardColumns factory', function () {
                 mockedState.isPrintMode = false;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState);
             });
 
             it('makes the layerSelection and map visibile', function () {
@@ -432,7 +430,7 @@ describe('The dashboardColumns factory', function () {
                 mockedState.isPrintMode = true;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, true);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState);
             });
 
             it('makes the layerSelection visibile', function () {
@@ -464,7 +462,7 @@ describe('The dashboardColumns factory', function () {
                 mockedState.isPrintMode = false;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState);
             });
 
             it('makes the map visibile', function () {
@@ -490,7 +488,7 @@ describe('The dashboardColumns factory', function () {
                 mockedState.isPrintMode = true;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, true);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState);
             });
 
             it('makes the map visibile', function () {
@@ -527,7 +525,7 @@ describe('The dashboardColumns factory', function () {
                 mockedState.isPrintMode = false;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState);
             });
 
             it('makes the layerSelection and map visibile', function () {
@@ -553,7 +551,7 @@ describe('The dashboardColumns factory', function () {
                 mockedState.isPrintMode = true;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, true);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState);
             });
 
             it('makes the layerSelection visibile', function () {
@@ -595,8 +593,7 @@ describe('The dashboardColumns factory', function () {
                 mockedState.isPrintMode = false;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
-
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState);
             });
 
             it('only shows dataSelection', function () {
@@ -624,7 +621,7 @@ describe('The dashboardColumns factory', function () {
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
 
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, false);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState);
             });
 
             it('shows dataSelectionList and map', function () {
@@ -650,8 +647,7 @@ describe('The dashboardColumns factory', function () {
                 mockedState.isPrintMode = true;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
-
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState, visibility, true);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState);
             });
 
             it('only shows dataSelection', function () {
