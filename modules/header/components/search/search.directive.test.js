@@ -336,7 +336,7 @@ describe('The dp-search directive', function () {
                 directive.find('.js-search-input').trigger('blur');
                 $timeout.flush();
 
-                // expect(directive.find('.c-autocomplete').length).toBe(0);
+                expect(directive.find('.c-autocomplete').length).toBe(0);
             });
 
             it('clears the input when clicking a suggestion', function () {
@@ -556,7 +556,7 @@ describe('The dp-search directive', function () {
             directive.find('.js-search-input').trigger('blur');
             $timeout.flush();
 
-            // expect(directive.find('.c-autocomplete').length).toBe(0);
+            expect(directive.find('.c-autocomplete').length).toBe(0);
         });
     });
 });
