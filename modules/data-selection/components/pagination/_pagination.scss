@@ -25,6 +25,9 @@ $pagination-line-color: #e4e4e4;
 
 .c-data-selection-pagination {
   @include data-selection-pagination-font;
+
+  position: relative;
+  height: $base-whitespace * 4.6;
   padding-bottom: $base-whitespace * 2;
   text-align: center;
 
@@ -63,6 +66,25 @@ $pagination-line-color: #e4e4e4;
   }
   border: none;
   background: $pagination-line-color;
+}
+
+.c-data-selection-pagination__backward {
+  position: absolute;
+  left: 0;
+  z-index: 2;
+}
+
+.c-data-selection-pagination__go {
+  position: absolute;
+  right: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.c-data-selection-pagination__forward {
+  position: absolute;
+  right: 0;
+  z-index: 2;
 }
 
 .c-data-selection-pagination-link {
