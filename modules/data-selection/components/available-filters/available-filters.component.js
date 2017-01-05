@@ -3,21 +3,21 @@
 
     angular
         .module('dpDataSelection')
-        .component('dpDataSelectionFilters', {
+        .component('dpDataSelectionAvailableFilters', {
             bindings: {
                 dataset: '@',
                 availableFilters: '=',
                 activeFilters: '=',
                 isLoading: '='
             },
-            templateUrl: 'modules/data-selection/components/filters/filters.html',
-            controller: DpDataSelectionFilterController,
+            templateUrl: 'modules/data-selection/components/available-filters/available-filters.html',
+            controller: DpDataSelectionAvailableFiltersController,
             controllerAs: 'vm'
         });
 
-    DpDataSelectionFilterController.$inject = ['$scope', 'store', 'ACTIONS', 'DATA_SELECTION_CONFIG'];
+    DpDataSelectionAvailableFiltersController.$inject = ['$scope', 'store', 'ACTIONS', 'DATA_SELECTION_CONFIG'];
 
-    function DpDataSelectionFilterController ($scope, store, ACTIONS, DATA_SELECTION_CONFIG) {
+    function DpDataSelectionAvailableFiltersController ($scope, store, ACTIONS, DATA_SELECTION_CONFIG) {
         var vm = this,
             expandedFilters = [];
 

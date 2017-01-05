@@ -1,15 +1,15 @@
-.c-data-selection-filters {
+.c-data-selection-available-filters {
   margin-right: $base-whitespace * 2;
 
-  .c-data-selection-filters__list {
+  .c-data-selection-available-filters__list {
 
-    .c-data-selection-filters__listitem {
+    .c-data-selection-available-filters__listitem {
       overflow: hidden;
     }
   }
 }
 
-.c-data-selection-filters--empty-value {
+.c-data-selection-available-filters--empty-value {
   font-style: italic;
 
   &::before {
@@ -18,26 +18,26 @@
   }
 }
 
-.c-data-selection-filters--toon-meerminder {
+.c-data-selection-available-filters--toon-meerminder {
   margin-top: $base-whitespace;
   margin-bottom: $base-whitespace;
 }
 
-.c-data-selection-filters--hidden-options {
+.c-data-selection-available-filters--hidden-options {
   margin-bottom: $base-whitespace / 2;
   color: $secondary-gray40;
 }
 
-.c-data-selection-filters--available-filters {
+.c-data-selection-available-filters--available-filters {
   padding-right: $base-whitespace;
   padding-left: $base-whitespace;
   background-color: $secondary-gray4;
 
-  .c-data-selection-filters__available-filter {
+  .c-data-selection-available-filters__available-filter {
     padding-bottom: 1.5 * $base-whitespace;
   }
 
-  .c-data-selection-filters__separator {
+  .c-data-selection-available-filters__separator {
     width: auto;
     height: 1px;
     margin: {
@@ -49,15 +49,15 @@
     background: $secondary-gray40;
   }
 
-  .c-data-selection-filters__available-filter-label {
+  .c-data-selection-available-filters__available-filter-label {
     margin-bottom: $base-whitespace;
     padding-top: $base-whitespace;
     color: $primary-contrast;
   }
 
-  .c-data-selection-filters__list {
+  .c-data-selection-available-filters__list {
 
-    .c-data-selection-filters__listitem {
+    .c-data-selection-available-filters__listitem {
       margin-bottom: $base-whitespace;
     }
   }

@@ -1,4 +1,4 @@
-describe('The dp-data-selection-filters component', function () {
+describe('The dp-data-selection-available-filters component', function () {
     var $compile,
         $rootScope,
         store,
@@ -113,7 +113,7 @@ describe('The dp-data-selection-filters component', function () {
             element,
             scope;
 
-        element = document.createElement('dp-data-selection-filters');
+        element = document.createElement('dp-data-selection-available-filters');
 
         element.setAttribute('dataset', 'my_special_dataset');
         element.setAttribute('available-filters', 'availableFilters');
