@@ -20,7 +20,7 @@
     "redux": "https://unpkg.com/redux/dist/redux.js"
   },
   "devDependencies": {
-    "angular-mocks": "^1.5.7"
+    "angular-mocks": "~1.5.7"
   },
   "resolutions": {
     "leaflet": "^1.0.0",
