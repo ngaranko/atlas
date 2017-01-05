@@ -1,0 +1,19 @@
+.c-toggle-active-overlays {
+  @extend %overlay-button;
+  @include icon-button-text-box-right("up", "", "red");
+
+  &:hover,
+  &:active {
+    @extend %overlay-button;
+  }
+
+  &.c-toggle-active-overlays--mirrored {
+    @extend %overlay-button;
+    @include icon-button-text-box-right("down");
+
+    &:hover,
+    &:active {
+      @extend %overlay-button;
+    }
+  }
+}
