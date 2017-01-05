@@ -65,7 +65,7 @@
                 let subject = endpointParser.getSubject(endpoint);
 
                 data = dataFormatter.formatData(data, subject);
-                console.log(data);
+
                 vm.apiData = {
                     results: data
                 };
