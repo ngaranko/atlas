@@ -93,13 +93,11 @@ describe('The dashboard component', function () {
     describe('error message', function () {
         var component,
             mockedVisibility = {
-                httpStatus: {
-                    hasErrors: false
-                }
+                httpStatus: false
             };
 
         beforeEach(function () {
-            spyOn(dashboardColumns, 'determineVisibility').and.returnValue(mockedVisibility);
+            spyOn(dashboardColumns, 'determineVisibility').and.callFake(() => mockedVisibility);
         });
 
         it('when not shown, does not flags the dashboard body', function () {
@@ -109,10 +107,34 @@ describe('The dashboard component', function () {
         });
 
         it('when shown, flags the dashboard body', function () {
-            mockedVisibility.httpStatus.hasErrors = true;
+            mockedVisibility.httpStatus = true;
             component = getComponent();
 
             expect(component.find('.c-dashboard__body').attr('class')).toContain('c-dashboard__body--error');
+        });
+
+        it('watches for changes to error message and rerenders the dashboard when needed', function () {
+            // Start without the error message
+            component = getComponent();
+            mockedVisibility = {
+                httpStatus: false
+            };
+            $rootScope.$apply();
+            expect(component.find('dp-api-error').length).toBe(0);
+
+            // Set the error message
+            mockedVisibility = {
+                httpStatus: true
+            };
+            $rootScope.$apply();
+            expect(component.find('dp-api-error').length).toBe(1);
+
+            // Remove the message again
+            mockedVisibility = {
+                httpStatus: false
+            };
+            $rootScope.$apply();
+            expect(component.find('dp-api-error').length).toBe(0);
         });
     });
 
@@ -123,9 +145,7 @@ describe('The dashboard component', function () {
 
         beforeEach(function () {
             mockedVisibility = {
-                httpStatus: {
-                    hasErrors: false
-                },
+                httpStatus: false,
                 map: true
             };
             mockedColumnSizes = {
@@ -141,18 +161,18 @@ describe('The dashboard component', function () {
         it('displays the columns according to the column size', function () {
             component = getComponent();
 
-            expect(component.find('.qa-dashboard__layer-selection').length).toBe(1);
-            expect(component.find('.qa-dashboard__map').length).toBe(1);
-            expect(component.find('.qa-dashboard__content').length).toBe(1);
+            expect(component.find('.qa-dashboard__column--left').hasClass('ng-hide')).toBe(false);
+            expect(component.find('.qa-dashboard__column--middle').hasClass('ng-hide')).toBe(false);
+            expect(component.find('.qa-dashboard__column--right').hasClass('ng-hide')).toBe(false);
         });
 
         it('does not display a column on zero size', function () {
             mockedColumnSizes.left = 0;
             component = getComponent();
 
-            expect(component.find('.qa-dashboard__layer-selection').length).toBe(0);
-            expect(component.find('.qa-dashboard__map').length).toBe(1);
-            expect(component.find('.qa-dashboard__content').length).toBe(1);
+            expect(component.find('.qa-dashboard__column--left').hasClass('ng-hide')).toBe(true);
+            expect(component.find('.qa-dashboard__column--middle').hasClass('ng-hide')).toBe(false);
+            expect(component.find('.qa-dashboard__column--right').hasClass('ng-hide')).toBe(false);
         });
 
         it('does not display a column on missing size', function () {
@@ -161,73 +181,17 @@ describe('The dashboard component', function () {
             delete mockedColumnSizes.right;
             component = getComponent();
 
-            expect(component.find('.qa-dashboard__layer-selection').length).toBe(0);
-            expect(component.find('.qa-dashboard__map').length).toBe(0);
-            expect(component.find('.qa-dashboard__content').length).toBe(0);
+            expect(component.find('.qa-dashboard__column--left').hasClass('ng-hide')).toBe(true);
+            expect(component.find('.qa-dashboard__column--middle').hasClass('ng-hide')).toBe(true);
+            expect(component.find('.qa-dashboard__column--right').hasClass('ng-hide')).toBe(true);
         });
 
         it('adds the correct class according to the column size', function () {
             component = getComponent();
 
-            expect(component.find('.qa-dashboard__layer-selection').attr('class')).toContain('u-col-sm--1');
-            expect(component.find('.qa-dashboard__map').attr('class')).toContain('u-col-sm--2');
-            expect(component.find('.qa-dashboard__content').attr('class')).toContain('u-col-sm--3');
-        });
-    });
-
-    describe('straatbeeld', function () {
-        var component,
-            mockedVisibility,
-            mockedColumnSizes;
-
-        beforeEach(function () {
-            mockedVisibility = {
-                httpStatus: {
-                    hasErrors: false
-                },
-                map: false,
-                straatbeeld: true
-            };
-            mockedColumnSizes = {
-                left: 1,
-                middle: 2,
-                right: 3
-            };
-
-            spyOn(dashboardColumns, 'determineVisibility').and.returnValue(mockedVisibility);
-            spyOn(dashboardColumns, 'determineColumnSizes').and.returnValue(mockedColumnSizes);
-        });
-
-        it('displays a fullscreen straatbeeld on straatbeeld.isFullscreen = true', function () {
-            spyOn(store, 'getState').and.returnValue({
-                straatbeeld: {
-                    isFullscreen: true
-                },
-                map: {
-                }
-            });
-            component = getComponent();
-
-            expect(component.find('.qa-dashboard__layer-selection').length).toBe(1);
-            expect(component.find('.qa-dashboard__map').length).toBe(0);
-            expect(component.find('.qa-dashboard__straatbeeld').length).toBe(1);
-            expect(component.find('.qa-dashboard__content').length).toBe(1);
-        });
-
-        it('displays a normal straatbeeld on straatbeeld.isFullscreen = false', function () {
-            spyOn(store, 'getState').and.returnValue({
-                straatbeeld: {
-                    isFullscreen: false
-                },
-                map: {
-                }
-            });
-            component = getComponent();
-
-            expect(component.find('.qa-dashboard__layer-selection').length).toBe(1);
-            expect(component.find('.qa-dashboard__map').length).toBe(0);
-            expect(component.find('.qa-dashboard__straatbeeld').length).toBe(0);
-            expect(component.find('.qa-dashboard__content').length).toBe(1);
+            expect(component.find('.qa-dashboard__column--left').attr('class')).toContain('u-col-sm--1');
+            expect(component.find('.qa-dashboard__column--middle').attr('class')).toContain('u-col-sm--2');
+            expect(component.find('.qa-dashboard__column--right').attr('class')).toContain('u-col-sm--3');
         });
     });
 });
