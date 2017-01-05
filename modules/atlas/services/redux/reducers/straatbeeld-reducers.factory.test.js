@@ -85,29 +85,6 @@ describe('Straatbeeld reducers factory', function () {
             expect(newState.straatbeeld.image).toBeNull();
         });
 
-        it('keeps detail information when starting straatbeeld', function () {
-            inputState.detail = {
-                endpoint: 'bag/verblijfsobject/123/',
-                geometry: 'aap',
-                isLoading: false
-            };
-
-            var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD.id](inputState, payload);
-            expect(newState.detail.isInvisible).toBe(true);
-        });
-
-        it('resets its invisibility when starting straatbeeld', function () {
-            inputState.detail = {
-                endpoint: 'bag/verblijfsobject/123/',
-                geometry: 'aap',
-                isLoading: false,
-                isInvisible: true
-            };
-
-            var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD.id](inputState, payload);
-            expect(newState.straatbeeld.isInvisible).toBe(false);
-        });
-
         it('resets search results', function () {
             inputState.search = {
                 query: 'linnaeus'
@@ -132,8 +109,7 @@ describe('Straatbeeld reducers factory', function () {
             inputState.detail = {
                 endpoint: 'bag/verblijfsobject/123/',
                 geometry: 'aap',
-                isLoading: false,
-                isInvisible: true
+                isLoading: false
             };
 
             let newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD.id](inputState, payload);
@@ -256,18 +232,6 @@ describe('Straatbeeld reducers factory', function () {
             expect(output.straatbeeld.targetLocation).toEqual(location);
         });
 
-        it('resets its invibility when fetching straatbeeld', function () {
-            inputState.detail = {
-                endpoint: 'bag/verblijfsobject/123/',
-                geometry: 'aap',
-                isLoading: false,
-                isInvisible: true
-            };
-
-            var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION.id](inputState, payload);
-            expect(newState.straatbeeld.isInvisible).toBe(false);
-        });
-
         it('centers the map when layerselection or fullscreen map is active', function () {
             let state = {
                 'map': {
@@ -355,12 +319,6 @@ describe('Straatbeeld reducers factory', function () {
             var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id](inputState, payload);
             expect(newState.straatbeeld.isLoading).toBe(false);
             expect(newState.map.isLoading).toBe(false);
-        });
-
-        it('resets its invibility when showing straatbeeld', function () {
-            inputState.straatbeeld.isInvisible = true;
-            var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id](inputState, payload);
-            expect(newState.straatbeeld.isInvisible).toBe(false);
         });
 
         it('does nothing when straatbeeld is null', function () {

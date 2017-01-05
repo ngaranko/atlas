@@ -35,9 +35,19 @@
     </div>
 
     <div ng-if="vm.apiData.results.verblijfsobjecten.count">
+        <!--
+        There is no _adressen.count variable. But this check is still valid, because:
+
+        - A pand has 0-n verblijfsobjecten
+        - A verblijfsobject has 1-n adressen
+        - An adres is always related to a verblijfsobject
+
+        So; there are no adressen if there are no verblijfsobjecten. And if there are any verblijfsobjecten there must
+        be at least one adres for each verblijfsobject as well.
+        -->
         <dp-stelselpedia-header definition="NUMMERAANDUIDING" use-plural="true"></dp-stelselpedia-header>
 
-        <dp-api-call endpoint="{{vm.apiData.results.verblijfsobjecten.href}}" partial="adressen_lijst"></dp-api-call>
+        <dp-api-call endpoint="{{vm.apiData.results._adressen.href}}" partial="adressen_lijst"></dp-api-call>
     </div>
 
     <div>

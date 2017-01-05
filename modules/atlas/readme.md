@@ -13,7 +13,6 @@
 | pagina               | page                            | yes, see DEFAULT_STATE |
 | detail               | detail.uri                      | no, detail is null     |
 |                      | detail.isLoading                | no, detail is null     |
-| detailInvisble       | detail.isInvisible              | false                  |
 | volledig-detail      | detail.isFullscreen             | false                  |
 | view                 | dataSelection.view              |                        |
 | dataset              | dataSelection.dataset           |                        |
@@ -28,7 +27,6 @@
 | pitch                | straatbeeld.pitch               | no                     |
 | fov                  | straatbeeld.fov                 | no                     |
 | volledig-straatbeeld | straatbeeld.isFullscreen        | no                     |
-| straatbeeldInvisible | straatbeeld.isInvisible         | false                  |
 |                      | straatbeeld.hotspots            | no, []                 |
 |                      | straatbeeld.isLoading           | no                     |
 |                      | straatbeeld.image               | no                     |

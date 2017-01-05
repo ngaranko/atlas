@@ -3,17 +3,7 @@
 
     angular
         .module('atlas')
-        .factory('stateToUrl', stateToUrlFactory)
-        .config(html5mode);
-
-    html5mode.$inject = ['$locationProvider'];
-
-    function html5mode ($locationProvider) {
-        $locationProvider.html5Mode({
-            enabled: true,
-            requireBase: false
-        });
-    }
+        .factory('stateToUrl', stateToUrlFactory);
 
     stateToUrlFactory.$inject = ['$location', '$window'];
 
@@ -115,10 +105,7 @@
             var params = {};
 
             if (state.detail) {
-                params.detail = state.detail.endpoint || null;
-                if (state.detail.isInvisible) {
-                    params.detailInvisible = true;  // Only store in url on truthy value
-                }
+                params.detail = state.detail.endpoint;
 
                 params['volledig-detail'] = state.detail.isFullscreen ? 'aan' : null;
             }
@@ -134,9 +121,7 @@
                 if (angular.isArray(state.straatbeeld.location)) {
                     params.straatbeeld = state.straatbeeld.location.join(',');
                 }
-                if (state.straatbeeld.isInvisible) {
-                    params.straatbeeldInvisible = true;  // Only store in url on truthy value
-                }
+
                 params.heading = String(state.straatbeeld.heading);
                 params.pitch = String(state.straatbeeld.pitch);
                 params.fov = String(state.straatbeeld.fov);
