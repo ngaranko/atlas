@@ -25,7 +25,7 @@
                 }
             }
 
-            return queryString;
+            return '#' + queryString;
         }
 
         function update (state, useReplace) {
