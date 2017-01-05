@@ -140,6 +140,27 @@ describe('The dp-data-selection-filters component', function () {
         expect(component.find('.qa-active-filters li').eq(1).text()).toContain('Optie B-3');
     });
 
+    it('shows an empty list with no available filters', function () {
+        var component,
+            activeFilters;
+
+        availableFilters = null;
+
+        // Without any active filters
+        activeFilters = {};
+        component = getComponent(activeFilters);
+        expect(component.find('.qa-active-filters').length).toBe(0);
+
+        // With active filters
+        activeFilters = {
+            filterb: 'optie-b-3',
+            filter_a_new: 'optie-a-7'
+        };
+
+        component = getComponent(activeFilters);
+        expect(component.find('.qa-active-filters').length).toBe(0);
+    });
+
     it('active filters can be removed, dispatching an action', function () {
         var component,
             activeFilters;
