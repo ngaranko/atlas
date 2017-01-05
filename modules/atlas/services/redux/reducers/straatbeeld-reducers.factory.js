@@ -43,13 +43,6 @@
                 newState.straatbeeld.isFullscreen = payload.isFullscreen;
             }
 
-            // If a straatbeeld is loaded by it's id
-            // and detail is active
-            // then inactivate detail
-            if (angular.isObject(newState.detail)) {
-                newState.detail.isInvisible = true;
-            }
-
             newState.map.highlight = null;
 
             newState.search = null;
@@ -100,8 +93,6 @@
         function initializeStraatbeeld (straatbeeld) {
             // Resets straatbeeld properties
             // Leave any other properties of straatbeeld untouched
-            straatbeeld.isInvisible = false;
-
             straatbeeld.id = null;
             straatbeeld.location = null;
 
@@ -140,8 +131,6 @@
 
             // Straatbeeld can be null if another action gets triggered between FETCH_STRAATBEELD and SHOW_STRAATBEELD
             if (angular.isObject(newState.straatbeeld)) {
-                newState.straatbeeld.isInvisible = false;
-
                 newState.straatbeeld.id = payload.id || newState.straatbeeld.id;
                 newState.straatbeeld.date = payload.date;
 
