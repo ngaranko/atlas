@@ -1,4 +1,4 @@
-describe('The dp-active-overlays component', function () {
+describe('The dp-toggle-active-overlays component', function () {
     var $compile,
         $rootScope,
         store,
