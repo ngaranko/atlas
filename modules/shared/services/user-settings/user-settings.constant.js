@@ -11,7 +11,7 @@
                 storage: 'local',
                 default: true.toString()
             },
-            cards2atlasLink: {
+            showCatalogusIntroduction: {
                 storage: 'session',
                 default: true.toString()
             }
