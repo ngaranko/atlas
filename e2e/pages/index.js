@@ -13,7 +13,6 @@ module.exports = function (url) {
     }
 
     function dashboard () {
-        console.log(dashboardPageObjects(element(by.css('dp-dashboard'))));
         return dashboardPageObjects(element(by.css('dp-dashboard')));
     }
 };

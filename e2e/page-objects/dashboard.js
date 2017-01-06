@@ -10,6 +10,13 @@ module.exports = function (dashboardElement) {
 
         return function () {
             return {
+                dataSelection: getComponent(column.element(by.css('dp-data-selection'))),
+                detail: getComponent(column.element(by.css('dp-detail'))),
+                layerSelection: getComponent(column.element(by.css('dp-layer-seleciton'))),
+                map: getComponent(column.element(by.css('dp-map'))),
+                page: getComponent(column.element(by.css('dp-page'))),
+                searchResults: getComponent(column.element(by.css('dp-search-results'))),
+                straatbeeld: getComponent(column.element(by.css('dp-straatbeeld'))),
                 columnSize: function () {
                     return column.getAttribute('class').then(function (className) {
                         if (className.match(/u-col-sm--4/) !== null) {
@@ -24,6 +31,21 @@ module.exports = function (dashboardElement) {
                     });
                 }
             };
+
+            function getComponent (component) {
+                return function () {
+                    return {
+                        isActive: function () {
+                            return component.isPresent()
+                        },
+                        isVisible: function () {
+                            return component.getAttribute('class').then(function (className) {
+                                return className.match(/ng-hide/) === null;
+                            });
+                        }
+                    }
+                }
+            }
         };
     }
 };
