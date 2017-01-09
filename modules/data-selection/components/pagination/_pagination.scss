@@ -113,7 +113,6 @@ $pagination-line-color: #e4e4e4;
 
 .c-data-selection-pagination-link--previous {
   @include data-selection-pagination-button("previous");
-  margin-right: $base-whitespace;
 }
 
 .c-data-selection-pagination-link--next {

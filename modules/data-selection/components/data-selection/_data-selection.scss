@@ -27,7 +27,7 @@
 .c-data-selection-table__column--description {
   max-width: 430px;
   text-overflow: ellipsis;
-  white-space: inherit;
+  white-space: nowrap;
   overflow: hidden;
 }
 

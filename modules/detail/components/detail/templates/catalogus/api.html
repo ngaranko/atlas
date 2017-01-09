@@ -15,7 +15,7 @@
                 <dd><a href="mailto:{{vm.apiData.results.author_email}}" class="o-btn o-btn--link">{{vm.apiData.results.author}} ({{vm.apiData.results.author_email}})</a>                    </dd>
                 <dt>Thema</dt>
                 <dd>
-                    <ul ng-repeat="group in vm.apiData.results.groups"> 
+                    <ul ng-repeat="group in vm.apiData.results.groups">
                         <li> {{ group.title }}</li>
                     </ul>
                 </dd>
@@ -38,12 +38,12 @@
                             <div class="c-data-selection-file-type c-data-selection-file-type__name c-data-selection-file-type__format-{{resource.format | lowercase }}"><span ng-if="resource.format">{{resource.format}}</span>
                             <span ng-if="!resource.format"> ? </span></div>
                         </td>
-                        <td class="c-data-selection-table__column--name"> 
+                        <td class="c-data-selection-table__column--name">
                             <span class="c-data-selection-file__name">{{resource.name}}</span>
                         </td>
                         <td class="c-data-selection-table__column--description">
                             <span ng-if="resource.description">{{resource.description}}</span>
-                            <span ng-if="!resource.description">{{resource.url}}</span> 
+                            <span ng-if="!resource.description">{{resource.url}}</span>
                         </td>
                         <td class="c-data-selection-table__column--size u-align--right">
                             <a ng-href="{{resource.url}}" class="c-download-button o-btn" title="Downloaden dataset">{{resource.size / 1024 | number:0}} KB</a>
