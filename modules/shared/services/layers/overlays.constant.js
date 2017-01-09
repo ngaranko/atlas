@@ -89,7 +89,7 @@
                     legend: '/maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
                         'gendGraphic&sld_version=1.1.0&layer=telecommunicatie&format=image/png&STYLE=default'
                 },
-                financiële_dienstverlening_verhuur_van_roerend_en_onroerend_goed: {
+                financiele_dienstverlening_verhuur_van_roerend_en_onroerend_goed: {
                     url: 'maps/handelsregister',
                     label_short: 'Financ. dienstverl., verhuur',
                     label_long: 'financiële_dienstverlening_verhuur_van_roerend_en_onroerend_goed',
