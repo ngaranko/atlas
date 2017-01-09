@@ -25,9 +25,9 @@
         let vm = this;
         const MAXIMUM_NUMBER_OF_MARKERS = 10000;
 
-        vm.cards2atlasLink = userSettings.cards2atlasLink.value === true.toString();
-        $scope.$watch('vm.cards2atlasLink', function () {
-            userSettings.cards2atlasLink.value = vm.cards2atlasLink.toString();
+        vm.showCatalogusIntroduction = userSettings.showCatalogusIntroduction.value === true.toString();
+        $scope.$watch('vm.showCatalogusIntroduction', function () {
+            userSettings.showCatalogusIntroduction.value = vm.showCatalogusIntroduction.toString();
         });
 
         $scope.$watch(function () {
