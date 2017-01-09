@@ -45,9 +45,7 @@ $suggestion-offset: $base-font-size;
     position: relative;
     width: 100%;
     padding-top: $base-whitespace / 3;
-    padding-right: $base-whitespace;
     padding-bottom: $base-whitespace / 2;
-    padding-left: $base-whitespace + $suggestion-offset;
     background-color: transparent;
     color: $primary-dark;
     text-align: left;
@@ -64,9 +62,10 @@ $suggestion-offset: $base-font-size;
 
     &::before {
       display: inline-block;
-      position: absolute;
+      position: relative;
       left: $base-whitespace;
       width: 15px;
+      padding-right: $base-whitespace;
       content: "›";
     }
   }
