@@ -11,7 +11,7 @@
 
 .c-data-selection-cards {
   position: relative;
-  padding-top: $base-whitespace;
+  padding-top: $base-whitespace * 2;
   border-bottom: 1px solid $secondary-gray20;
 
   &:hover {
