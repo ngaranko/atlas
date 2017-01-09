@@ -1,0 +1,56 @@
+.c-data-selection-file-type {
+  height: 16px;
+  margin-top: $base-whitespace / 5;
+  float: left;
+  color: $secondary-gray40;
+  font-size: $base-font-size - 2;
+}
+
+.c-data-selection-file-type__name {
+  display: inline-block;
+  padding: 0 $base-whitespace * .5;
+  background-color: $secondary-gray40;
+  color: $primary-light;
+  text-transform: lowercase;
+}
+
+.c-data-selection-file__name {
+  color: $secondary-gray60;
+}
+
+.c-data-selection-file-type__format-xls {
+  background-color: $thema-6;
+}
+
+.c-data-selection-file-type__format-json {
+  background-color: $thema-1;
+}
+
+.c-data-selection-file-type__format-xml {
+  background-color: $thema-4;
+}
+
+.c-data-selection-file-type__format-html {
+  background-color: $thema-9;
+}
+
+.c-data-selection-file-type__format-csv {
+  background-color: $thema-2;
+}
+
+.c-data-selection-file-type__format-zip {
+  background-color: $secondary-gray60;
+}
+
+.c-data-selection-file-type__format-pdf {
+  background-color: $primary-contrast;
+}
+
+.c-data-selection-file-type__format-api {
+  background-color: $thema-15;
+}
+
+.c-data-selection-file-type__count {
+  display: inline-block;
+  padding-right: $base-whitespace * .7;
+}

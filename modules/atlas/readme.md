@@ -13,6 +13,13 @@
 | pagina               | page                            | yes, see DEFAULT_STATE |
 | detail               | detail.uri                      | no, detail is null     |
 |                      | detail.isLoading                | no, detail is null     |
+| volledig-detail      | detail.isFullscreen             | false                  |
+| view                 | dataSelection.view              |                        |
+| dataset              | dataSelection.dataset           |                        |
+| view                 | dataSelection.view              |                        |
+| dataset-filters      | dataSelection.filters           |                        |
+| dataset-zoek         | dataSelection.query             |                        |
+| dataset-pagina       | dataSelection.page              |                        |
 | id                   | straatbeeld.id                  | no                     |
 |                      | straatbeeld.date                | no                     |
 |                      | straatbeeld.location            | no                     |
