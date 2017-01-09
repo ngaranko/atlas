@@ -141,8 +141,9 @@
                     newState.straatbeeld.heading = getHeadingDegrees(
                         payload.location,
                         newState.straatbeeld.targetLocation);
-                } else {
-                    // Center map on new viewCenter
+                } else if (!newState.straatbeeld.location && angular.isArray(payload.location)) {
+                    // Center map on new viewCenter when loaded on id
+                    // Do not trigger this code when loaded on location as this influences the browser history
                     newState.map.viewCenter = payload.location;
                 }
 
