@@ -57,7 +57,7 @@ describe('The dp-toggle-active-overlays component', function () {
         return component;
     }
 
-    it('doesn\'t show anything if there are no active overlays', function () {
+    it('watches the number of active overlays, shows nothing when there are none', function () {
         var component;
 
         // Without any overlays
@@ -69,7 +69,7 @@ describe('The dp-toggle-active-overlays component', function () {
         expect(component.find('.c-toggle-active-overlays').length).toBe(1);
     });
 
-    it('toggles between SHOW_MAP_ACTIVE_OVERLAYS and HIDE_MAP_ACTIVE_OVERLAYS', function () {
+    it('dispatches a show or hide action when clicked, based on the visibility', function () {
         var component;
 
         // With showActiveOverlays is false
@@ -89,7 +89,7 @@ describe('The dp-toggle-active-overlays component', function () {
         });
     });
 
-    it('the toggle button has a variable title attribute value depending on the state', function () {
+    it('changes the button title based on the visibility', function () {
         var component;
 
         // When closed
