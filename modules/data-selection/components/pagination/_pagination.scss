@@ -3,6 +3,7 @@ $pagination-line-color: #e4e4e4;
 @mixin data-selection-pagination-button($icon) {
   @include icon-button-text-right($icon);
 }
+
 @mixin data-selection-pagination-button-left($icon) {
   @include icon-button-text-left($icon);
 }
@@ -112,10 +113,8 @@ $pagination-line-color: #e4e4e4;
 
 .c-data-selection-pagination-link--previous {
   @include data-selection-pagination-button("previous");
-  margin-left: $base-whitespace;
 }
 
 .c-data-selection-pagination-link--next {
   @include data-selection-pagination-button-left("next");
-  margin-right: $base-whitespace;
 }
