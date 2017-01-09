@@ -21,11 +21,16 @@ $pagination-line-color: #e4e4e4;
 }
 
 .c-data-selection-pagination {
+  margin-top: $base-whitespace * 2;
+}
+
+.c-data-selection-pagination__controls {
   @include data-selection-pagination-font;
 
   position: relative;
-  height: $base-whitespace * 4.6;
-  padding-bottom: $base-whitespace * 2;
+  height: $button-size;
+  margin-top: $base-whitespace * 2;
+  margin-bottom: $base-whitespace * 2;
   text-align: center;
 
   .c-data-selection-pagination__input {
@@ -52,7 +57,7 @@ $pagination-line-color: #e4e4e4;
   }
 }
 
-.c-data-selection-pagination--separator {
+.c-data-selection-pagination__separator {
   width: auto;
   height: 1px;
   margin: {
