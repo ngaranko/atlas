@@ -1,50 +1,48 @@
 <div class="u-grid">
-    <div class="u-row">
-        <div class="u-col-md--12">
-            <div class="o-header">
-                <h3 class="o-header__subtitle u-margin__bottom--05">Dataset</h3>
-                <h2 class="o-header__title u-margin__bottom--3">{{vm.apiData.results.title}}</h2>
-            </div>
-            <dl class="c-key-value-list">
-                <dt>Aangemaakt</dt>
-                <dd>{{ { metadata_created: vm.apiData.results.metadata_created, metadata_compact: true } | modificationDate }} ({{vm.apiData.results.metadata_created | date:'dd MMMM yyyy'}})</dd>
+    <div class="o-header">
+        <h3 class="o-header__subtitle u-margin__bottom--05">Dataset</h3>
+        <h2 class="o-header__title u-margin__bottom--3">{{vm.apiData.results.title}}</h2>
+    </div>
+    <dl class="c-key-value-list">
+        <dt>Aangemaakt</dt>
+        <dd>{{ { metadata_created: vm.apiData.results.metadata_created, metadata_compact: true } | modificationDate }} ({{vm.apiData.results.metadata_created | date:'dd MMMM yyyy'}})</dd>
 
-                <dt>Gewijzigd</dt>
-                <dd>{{ { metadata_modified: vm.apiData.results.metadata_modified, metadata_compact: true } | modificationDate }} ({{vm.apiData.results.metadata_modified | date:'dd MMMM yyyy'}})</dd>
-                <dt>Gepubliceerd door</dt>
-                <dd><a href="mailto:{{vm.apiData.results.author_email}}" class="o-btn o-btn--link">{{vm.apiData.results.author}} ({{vm.apiData.results.author_email}})</a>                    </dd>
-                <dt>Thema</dt>
-                <dd>
-                    <ul ng-repeat="group in vm.apiData.results.groups"> 
-                        <li> {{ group.title }}</li>
-                    </ul>
-                </dd>
-            </dl>
-        </div>
-    </div>
+        <dt>Gewijzigd</dt>
+        <dd>{{ { metadata_modified: vm.apiData.results.metadata_modified, metadata_compact: true } | modificationDate }} ({{vm.apiData.results.metadata_modified | date:'dd MMMM yyyy'}})</dd>
+        <dt>Gepubliceerd door</dt>
+        <dd><a href="mailto:{{vm.apiData.results.author_email}}" class="o-btn o-btn--link">{{vm.apiData.results.author}} ({{vm.apiData.results.author_email}})</a>                    </dd>
+        <dt>Thema</dt>
+        <dd>
+            <ul ng-repeat="group in vm.apiData.results.groups">
+                <li> {{ group.title }}</li>
+            </ul>
+        </dd>
+    </dl>
+
     <div class="u-row u-margin__bottom--2">
-        <div class="u-col-md--12">
-           <span ng-bind-html="vm.apiData.results.notes"> </span>
-        </div>
+
+      <span class="c-data-selection-notes" ng-bind-html="vm.apiData.results.notes"> </span>
+
     </div>
-    <div class="u-row u-margin__bottom--2">
-        <div class="u-col-md--12">
+    <div class="u-margin__bottom--2">
+        <div>
             <h3 class="o-header__subtitle">Data</h3>
 
-            <table class="o-table">
+            <table class="o-table c-data-selection-table c-data-selection-table--full">
                 <tbody class="c-data-selection-table__content">
-                    <tr class="c-data-selection-table__content-row" ng-repeat="resource in vm.apiData.results.resources">
-                        <td>
+                    <tr dp-follow-link="{{ resource.url }}" class="c-data-selection-table__content-row u-align--top" ng-repeat="resource in vm.apiData.results.resources">
+                        <td class="c-data-selection-table__column--type">
                             <div class="c-data-selection-file-type c-data-selection-file-type__name c-data-selection-file-type__format-{{resource.format | lowercase }}"><span ng-if="resource.format">{{resource.format}}</span>
                             <span ng-if="!resource.format"> ? </span></div>
-                            
                         </td>
-                        <td> <span class="c-data-selection-file__name">{{resource.name}} </span></td>
-                        <td>
-                            <span ng-if="resource.description">{{resource.description}} </span>
-                            <span ng-if="!resource.description">{{resource.url}} </span> 
+                        <td class="c-data-selection-table__column--name">
+                            <span class="c-data-selection-file__name">{{resource.name}}</span>
                         </td>
-                        <td class="u-align--right">
+                        <td class="c-data-selection-table__column--description">
+                            <span ng-if="resource.description">{{resource.description}}</span>
+                            <span ng-if="!resource.description">{{resource.url}}</span>
+                        </td>
+                        <td class="c-data-selection-table__column--size u-align--right">
                             <a ng-href="{{resource.url}}" class="c-download-button o-btn" title="Downloaden dataset">{{resource.size / 1024 | number:0}} KB</a>
                         </td>
                     </tr>
@@ -65,10 +63,10 @@
     </div>
 
     <div class="u-row u-margin__bottom--2">
-        <div class="u-col-md--12">
-            <h3 class="o-header__subtitle">Licentie</h3>
-            <p ng-if="!vm.apiData.results.license_url">{{vm.apiData.results.license_title}}</p>
-            <a ng-if="vm.apiData.results.license_url" class="o-btn o-btn--link" ng-href="{{ vm.apiData.results.license_url }}" target="_blank">{{vm.apiData.results.license_title}}</a>
-        </div>
+
+      <h3 class="o-header__subtitle">Licentie</h3>
+      <p ng-if="!vm.apiData.results.license_url">{{vm.apiData.results.license_title}}</p>
+      <a ng-if="vm.apiData.results.license_url" class="o-btn o-btn--link" ng-href="{{ vm.apiData.results.license_url }}" target="_blank">{{vm.apiData.results.license_title}}</a>
+
     </div>
 </div>
