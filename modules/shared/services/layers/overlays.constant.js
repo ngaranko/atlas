@@ -679,7 +679,7 @@
                         'landbouw',
                         'horeca',
                         'informatie_telecommunicatie',
-                        'financiële_dienstverlening_verhuur_van_roerend_en_onroerend_goed',
+                        'financiele_dienstverlening_verhuur_van_roerend_en_onroerend_goed',
                         'zakelijke_dienstverlening',
                         'overheid_onderwijs_zorg',
                         'cultuur_sport_recreatie',
