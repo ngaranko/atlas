@@ -33,7 +33,7 @@
 
 .c-data-selection-cards__date {
   position: absolute;
-  top: $base-whitespace;
+  top: $base-whitespace * 2;
   right: 0;
   color: $secondary-gray40;
   font-size: $base-font-size * .9;
