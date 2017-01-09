@@ -15,6 +15,7 @@ module.exports = {
             'leaflet.wms': 'leaflet',
             'leaflet-measure': 'leaflet',
             'leaflet-rotatedmarker': 'leaflet',
+            'leaflet.draw': 'leaflet',
             'proj4leaflet': ['leaflet', 'proj4']
         }
     },

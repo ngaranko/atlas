@@ -107,6 +107,42 @@
                         highlight.clearCluster(leafletMap);
                     }
                 }, true);
+
+                // Initialise the FeatureGroup to store editable layers
+                var drawnItems = new L.FeatureGroup();
+                leafletMap.addLayer(drawnItems);
+
+                // Initialise the draw control and pass it the FeatureGroup of editable layers
+                var drawControl = new L.Control.Draw({
+                    edit: {
+                        featureGroup: drawnItems
+                    },
+                    draw: {
+                        polygon: {
+                            allowIntersection: false,
+                            showArea: true,
+                            showLength: true,
+                            metric: ['km', 'm'],
+                            precision: {
+                                m: 1
+                            }
+                        },
+                        marker: false,
+                        circle: false,
+                        rectangle: false,
+                        polyline: false
+                    }
+                });
+                leafletMap.addControl(drawControl);
+
+                leafletMap.on('draw:created', function (e) {
+                    var type = e.layerType,
+                        layer = e.layer;
+
+                    if (type === 'polygon') {
+                        drawnItems.addLayer(layer);
+                    }
+                });
             });
         }
 
