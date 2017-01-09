@@ -81,7 +81,7 @@
             FETCH_DETAIL: {
                 id: 'FETCH_DETAIL',
                 ignore: true,
-                isButton: true
+                isButton: false
             },
             SHOW_DETAIL: {
                 id: 'SHOW_DETAIL'
