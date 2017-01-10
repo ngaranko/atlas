@@ -1,3 +1,5 @@
+const mapPageObject = require('./map');
+
 module.exports = function (dashboardElement) {
     return {
         leftColumn: getColumn('left'),
@@ -12,8 +14,9 @@ module.exports = function (dashboardElement) {
             return {
                 dataSelection: getComponent(column.element(by.css('dp-data-selection'))),
                 detail: getComponent(column.element(by.css('dp-detail'))),
-                layerSelection: getComponent(column.element(by.css('dp-layer-seleciton'))),
-                map: getComponent(column.element(by.css('dp-map'))),
+                layerSelection: getComponent(column.element(by.css('dp-layer-selection'))),
+                map: mapPageObject(column.element(by.css('dp-map'))),
+                //map: getComponent(column.element(by.css('dp-map'))),
                 page: getComponent(column.element(by.css('dp-page'))),
                 searchResults: getComponent(column.element(by.css('dp-search-results'))),
                 straatbeeld: getComponent(column.element(by.css('dp-straatbeeld'))),
@@ -43,8 +46,8 @@ module.exports = function (dashboardElement) {
                                 return className.match(/ng-hide/) === null;
                             });
                         }
-                    }
-                }
+                    };
+                };
             }
         };
     }

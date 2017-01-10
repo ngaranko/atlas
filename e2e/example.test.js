@@ -27,4 +27,27 @@ describe('Even lekker testen', function () {
         expect(homepage.dashboard().rightColumn().searchResults().isActive()).toBe(false);
         expect(homepage.dashboard().rightColumn().straatbeeld().isActive()).toBe(false);
     });
+
+    it('navigate from home to layer selection', function () {
+        homepage.dashboard().middleColumn().map().toggleLayerSelection().click();
+
+        expect(homepage.title()).toBe('Selecteer kaartlagen - Atlas');
+
+        expect(homepage.dashboard().leftColumn().columnSize()).toBe(4);
+        expect(homepage.dashboard().leftColumn().layerSelection().isVisible()).toBe(true);
+
+        expect(homepage.dashboard().middleColumn().columnSize()).toBe(8);
+        expect(homepage.dashboard().middleColumn().map().isVisible()).toBe(true);
+
+        // The underlying page remains active, but is invisible
+        expect(homepage.dashboard().rightColumn().page().isActive()).toBe(true);
+        expect(homepage.dashboard().rightColumn().page().isVisible()).toBe(false);
+
+        // The rest is inactive
+        expect(homepage.dashboard().rightColumn().columnSize()).toBe(0);
+        expect(homepage.dashboard().rightColumn().dataSelection().isActive()).toBe(false);
+        expect(homepage.dashboard().rightColumn().detail().isActive()).toBe(false);
+        expect(homepage.dashboard().rightColumn().searchResults().isActive()).toBe(false);
+        expect(homepage.dashboard().rightColumn().straatbeeld().isActive()).toBe(false);
+    });
 });
