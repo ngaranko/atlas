@@ -154,6 +154,13 @@
                         if (content) {
                             layer.bindPopup(content);
                             layer.openPopup();
+                            angular.element(document.getElementById('dp-map-delete-shape')).on('click', () => {
+                                let deletedLayers = new L.LayerGroup();
+                                drawnItems.removeLayer(currentLayer);
+                                deletedLayers.addLayer(currentLayer);
+                                leafletMap.fire(L.Draw.Event.DELETED, { layers: deletedLayers });
+                                currentLayer = null;
+                            });
                         }
                     }
                 });
@@ -182,9 +189,10 @@
 
             let latlngs = layer._defaultShape ? layer._defaultShape() : layer.getLatLngs(),
                 distance = getDistance(latlngs),
-                area = getArea(latlngs);
+                area = getArea(latlngs),
+                deleteButton = '<br><a id="dp-map-delete-shape">Delete</a>';
 
-            return `${distance}<br>${area}`;
+            return `${distance}<br>${area}<br>${deleteButton}`;
         }
 
         function getArea (latlngs) {
