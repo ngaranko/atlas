@@ -13,7 +13,7 @@
         };
 
         function initialize () {
-            let urlBase = 'https://atlas.amsterdam.nl/piwik/',
+            let urlBase = 'https://datapunt.amsterdam.nl/piwik/',
                 doc,
                 piwik,
                 scripts;
