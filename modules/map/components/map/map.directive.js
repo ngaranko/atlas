@@ -146,10 +146,24 @@
                         layer = e.layer;
 
                     if (type === 'polygon') {
-                        layer.bindPopup(getPopupContent(layer));
                         drawnItems.addLayer(layer);
-                        layer.openPopup();
+
+                        let content = getPopupContent(layer);
+                        if (content) {
+                            layer.bindPopup(content);
+                            layer.openPopup();
+                        }
                     }
+                });
+                leafletMap.on(L.Draw.Event.EDITED, function (e) {
+                    let layers = e.layers,
+                        content = null;
+                    layers.eachLayer(function(layer) {
+                        content = getPopupContent(layer);
+                        if (content !== null) {
+                            layer.setPopupContent(content);
+                        }
+                    });
                 });
             });
         }
@@ -160,6 +174,10 @@
         }
 
         function getPopupContent (layer) {
+            if (!(layer instanceof L.Polyline)) {
+                return null;
+            }
+
             let latlngs = layer._defaultShape ? layer._defaultShape() : layer.getLatLngs(),
                 distance = getDistance(latlngs),
                 area = getArea(latlngs);
