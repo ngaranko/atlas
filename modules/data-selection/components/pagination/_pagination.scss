@@ -111,12 +111,12 @@ $pagination-line-color: #e4e4e4;
 
 .c-data-selection-pagination-link--first {
   @include data-selection-pagination-button("first");
-  margin-right: 20px;
+  margin-right: $base-whitespace * 2;
 }
 
 .c-data-selection-pagination-link--last {
   @include data-selection-pagination-button-left("last");
-  margin-left: 20px;
+  margin-left: $base-whitespace * 2;
 }
 
 .c-data-selection-pagination-link--previous {
