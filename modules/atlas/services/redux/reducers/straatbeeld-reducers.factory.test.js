@@ -260,47 +260,21 @@ describe('Straatbeeld reducers factory', function () {
         it('heads towards a targetlocation when straatbeeld is loaded by location', function () {
             let newState;
 
-            inputState.straatbeeld.targetLocation = [52, 4];
-            inputState.straatbeeld.location = inputState.straatbeeld.targetLocation;
-            newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id](inputState, payload);
-            expect(newState.straatbeeld).toEqual(jasmine.objectContaining({
-                heading: 0
-            }));
-
-            inputState.straatbeeld.targetLocation = [52, 5];
-            inputState.straatbeeld.location = inputState.straatbeeld.targetLocation;
-            newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id](inputState, payload);
-            expect(newState.straatbeeld).toEqual(jasmine.objectContaining({
-                heading: 90
-            }));
-
-            inputState.straatbeeld.targetLocation = [52, 3];
-            inputState.straatbeeld.location = inputState.straatbeeld.targetLocation;
-            newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id](inputState, payload);
-            expect(newState.straatbeeld).toEqual(jasmine.objectContaining({
-                heading: -90
-            }));
-
-            inputState.straatbeeld.targetLocation = [53, 5];
-            inputState.straatbeeld.location = inputState.straatbeeld.targetLocation;
-            newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id](inputState, payload);
-            expect(newState.straatbeeld).toEqual(jasmine.objectContaining({
-                heading: 45
-            }));
-
-            inputState.straatbeeld.targetLocation = [51, 3];
-            inputState.straatbeeld.location = inputState.straatbeeld.targetLocation;
-            newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id](inputState, payload);
-            expect(newState.straatbeeld).toEqual(jasmine.objectContaining({
-                heading: -135
-            }));
-
-            inputState.straatbeeld.targetLocation = [51, 5];
-            inputState.straatbeeld.location = inputState.straatbeeld.targetLocation;
-            newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id](inputState, payload);
-            expect(newState.straatbeeld).toEqual(jasmine.objectContaining({
-                heading: 135
-            }));
+            [
+                {target: [52, 4], heading: 0},
+                {target: [52, 5], heading: 90},
+                {target: [52, 3], heading: -90},
+                {target: [53, 5], heading: 45},
+                {target: [51, 3], heading: -135},
+                {target: [51, 5], heading: 135}
+            ].forEach(({target, heading}) => {
+                inputState.straatbeeld.targetLocation = target;
+                inputState.straatbeeld.location = inputState.straatbeeld.targetLocation;
+                newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id](inputState, payload);
+                expect(newState.straatbeeld).toEqual(jasmine.objectContaining({
+                    heading
+                }));
+            });
         });
 
         it('does not head towards a targetlocation when straatbeeld by location is reloaded', function () {
