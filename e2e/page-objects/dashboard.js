@@ -12,14 +12,13 @@ module.exports = function (dashboardElement) {
 
         return function () {
             return {
-                dataSelection: getComponent(column.element(by.css('dp-data-selection'))),
-                detail: getComponent(column.element(by.css('dp-detail'))),
-                layerSelection: getComponent(column.element(by.css('dp-layer-selection'))),
-                map: mapPageObject(column.element(by.css('dp-map'))),
-                //map: getComponent(column.element(by.css('dp-map'))),
-                page: getComponent(column.element(by.css('dp-page'))),
-                searchResults: getComponent(column.element(by.css('dp-search-results'))),
-                straatbeeld: getComponent(column.element(by.css('dp-straatbeeld'))),
+                dataSelection: getComponent(column.element(by.css('.qa-data-selection'))),
+                detail: getComponent(column.element(by.css('.qa-detail'))),
+                layerSelection: getComponent(column.element(by.css('.qa-layer-selection'))),
+                map: mapPageObject(column.element(by.css('.qa-map'))),
+                page: getComponent(column.element(by.css('.qa-page'))),
+                searchResults: getComponent(column.element(by.css('.qa-search-results'))),
+                straatbeeld: getComponent(column.element(by.css('.qa-straatbeeld'))),
                 columnSize: function () {
                     return column.getAttribute('class').then(function (className) {
                         if (className.match(/u-col-sm--4/) !== null) {
