@@ -1,7 +1,11 @@
 const dashboardPageObjects = require('../page-objects/dashboard.js');
 
-module.exports = function (url) {
-    browser.get(url);
+const URLS = {
+    HOMEPAGE: 'http://localhost:8000/'
+};
+
+module.exports = function (pageName) {
+    browser.get(URLS[pageName]);
 
     return {
         title,
