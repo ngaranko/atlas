@@ -135,6 +135,12 @@
                 });
                 leafletMap.addControl(drawControl);
 
+                leafletMap.on('draw:drawstart', function (e) {
+                    onMapClick.disable();
+                });
+                leafletMap.on('draw:drawstop', function (e) {
+                    onMapClick.enable();
+                });
                 leafletMap.on('draw:created', function (e) {
                     var type = e.layerType,
                         layer = e.layer;
