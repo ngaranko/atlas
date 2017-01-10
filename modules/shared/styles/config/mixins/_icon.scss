@@ -4,8 +4,7 @@
   width: $button-size;
   height: $button-size;
 
-  &:hover,
-  &:active {
+  &:hover {
     @extend %#{"dp-" + $icon + if(str-length($hover-state) > 0, "-", "") + $hover-state + "-icon"};
   }
 }
@@ -38,8 +37,7 @@
     margin-left: $base-whitespace / 2;
   }
 
-  &:hover,
-  &:active {
+  &:hover {
     &::after {
       @extend %#{"dp-" + $icon + if(str-length($hover-state) > 0, "-", "") + $hover-state + "-icon"};
     }
@@ -56,8 +54,7 @@
     margin-right: $base-whitespace / 2;
   }
 
-  &:hover,
-  &:active {
+  &:hover {
     &::before {
       @extend %#{"dp-" + $icon + if(str-length($hover-state) > 0, "-", "") + $hover-state + "-icon"};
     }
@@ -116,8 +113,7 @@
     right: 0;
   }
 
-  &:hover,
-  &:active {
+  &:hover {
     @extend %icon-button-text-box-hover;
 
     &::after {
@@ -137,8 +133,7 @@
     left: 0;
   }
 
-  &:hover,
-  &:active {
+  &:hover {
     @extend %icon-button-text-box-hover;
 
     &::before {
@@ -178,8 +173,7 @@
     right: 0;
   }
 
-  &:hover,
-  &:active {
+  &:hover {
     @extend %icon-button-text-box-flat-hover;
 
     &::after {
@@ -199,8 +193,7 @@
     left: 0;
   }
 
-  &:hover,
-  &:active {
+  &:hover {
     @extend %icon-button-text-box-flat-hover;
 
     &::before {
