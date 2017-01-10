@@ -136,14 +136,18 @@
 
                 newState.straatbeeld.pitch = oldState.straatbeeld.pitch || 0;
                 newState.straatbeeld.fov = oldState.straatbeeld.fov || straatbeeldConfig.DEFAULT_FOV;
-                if (angular.isArray(newState.straatbeeld.targetLocation)) {
-                    // Point at the target location
-                    newState.straatbeeld.heading = getHeadingDegrees(
-                        payload.location,
-                        newState.straatbeeld.targetLocation);
-                } else if (!newState.straatbeeld.location && angular.isArray(payload.location)) {
-                    // Center map on new viewCenter when loaded on id
-                    // Do not trigger this code when loaded on location as this influences the browser history
+
+                if (angular.isArray(newState.straatbeeld.location)) {
+                    // straatbeeld is loaded by location
+                    if (angular.isArray(newState.straatbeeld.targetLocation)) {
+                        // Point at the target location
+                        newState.straatbeeld.heading = getHeadingDegrees(
+                            payload.location,
+                            newState.straatbeeld.targetLocation
+                        );
+                    }
+                } else {
+                    // straatbeeld is loaded by id, center map on location
                     newState.map.viewCenter = payload.location;
                 }
 
