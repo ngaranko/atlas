@@ -1,4 +1,5 @@
 const mapPageObject = require('./map');
+const pagePageObject = require('./page');
 
 module.exports = function (dashboardElement) {
     return {
@@ -16,7 +17,7 @@ module.exports = function (dashboardElement) {
                 detail: getComponent(column.element(by.css('.qa-detail'))),
                 layerSelection: getComponent(column.element(by.css('.qa-layer-selection'))),
                 map: mapPageObject(column.element(by.css('.qa-map'))),
-                page: getComponent(column.element(by.css('.qa-page'))),
+                page: pagePageObject(column.element(by.css('.qa-page'))),
                 searchResults: getComponent(column.element(by.css('.qa-search-results'))),
                 straatbeeld: getComponent(column.element(by.css('.qa-straatbeeld'))),
                 columnSize: function () {

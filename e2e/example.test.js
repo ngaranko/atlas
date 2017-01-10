@@ -1,8 +1,8 @@
 const navigate = require('./helpers/navigate');
 
-const validateHomepage = require('./validators/homepage');
-const validateLayerSelection = require('./validators/layer-selection');
-const validateMapFullscreen = require('./validators/map-fullscreen');
+const validateHomepage = require('./validators/map_page--home');
+const validateLayerSelection = require('./validators/layer-selection_map');
+const validateMapFullscreen = require('./validators/map');
 
 describe('Even lekker testen', function () {
     let page;
