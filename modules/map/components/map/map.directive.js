@@ -28,9 +28,10 @@
         };
 
         function linkFunction (scope, element) {
-            var leafletMap,
+            let leafletMap,
                 container,
-                options;
+                options,
+                currentLayer;
 
             scope.$watchGroup(['mapState.isFullscreen', 'showLayerSelection'], function () {
                 scope.isFullscreen = scope.mapState.isFullscreen && !scope.showLayerSelection;
@@ -146,6 +147,7 @@
                         layer = e.layer;
 
                     if (type === 'polygon') {
+                        currentLayer = layer;
                         drawnItems.addLayer(layer);
 
                         let content = getPopupContent(layer);
@@ -155,16 +157,16 @@
                         }
                     }
                 });
-                leafletMap.on(L.Draw.Event.EDITED, function (e) {
-                    let layers = e.layers,
-                        content = null;
-                    layers.eachLayer(function(layer) {
-                        content = getPopupContent(layer);
+                leafletMap.on(L.Draw.Event.EDITVERTEX, updatePopup);
+                leafletMap.on(L.Draw.Event.EDITSTOP, updatePopup);
+                function updatePopup (e) {
+                    if (currentLayer) {
+                        let content = getPopupContent(currentLayer);
                         if (content !== null) {
-                            layer.setPopupContent(content);
+                            currentLayer.setPopupContent(content);
                         }
-                    });
-                });
+                    }
+                }
             });
         }
 
