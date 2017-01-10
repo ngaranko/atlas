@@ -1,3 +1,4 @@
+const layerSelectionPageObject = require('./layer-selection');
 const mapPageObject = require('./map');
 const pagePageObject = require('./page');
 
@@ -15,7 +16,7 @@ module.exports = function (dashboardElement) {
             return {
                 dataSelection: getComponent(column.element(by.css('.qa-data-selection'))),
                 detail: getComponent(column.element(by.css('.qa-detail'))),
-                layerSelection: getComponent(column.element(by.css('.qa-layer-selection'))),
+                layerSelection: layerSelectionPageObject(column.element(by.css('.qa-layer-selection'))),
                 map: mapPageObject(column.element(by.css('.qa-map'))),
                 page: pagePageObject(column.element(by.css('.qa-page'))),
                 searchResults: getComponent(column.element(by.css('.qa-search-results'))),
@@ -38,9 +39,6 @@ module.exports = function (dashboardElement) {
             function getComponent (component) {
                 return function () {
                     return {
-                        isActive: function () {
-                            return component.isPresent()
-                        },
                         isVisible: function () {
                             return component.getAttribute('class').then(function (className) {
                                 return className.match(/ng-hide/) === null;

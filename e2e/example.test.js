@@ -15,8 +15,16 @@ describe('Even lekker testen', function () {
         page.dashboard().middleColumn().map().toggleLayerSelection().click();
         validateLayerSelection(page);
 
-        // Close layer selection
+        // Close layer selection by clicking the toggle button
         page.dashboard().middleColumn().map().toggleLayerSelection().click();
+        validateHomepage(page);
+
+        // Open it again
+        page.dashboard().middleColumn().map().toggleLayerSelection().click();
+        validateLayerSelection(page);
+
+        // Close it by the cross inside the layer selection module (instead of the toggle button)
+        page.dashboard().leftColumn().layerSelection().close();
         validateHomepage(page);
     });
 
