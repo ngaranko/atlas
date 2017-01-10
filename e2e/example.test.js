@@ -50,4 +50,27 @@ describe('Even lekker testen', function () {
         expect(homepage.dashboard().rightColumn().searchResults().isActive()).toBe(false);
         expect(homepage.dashboard().rightColumn().straatbeeld().isActive()).toBe(false);
     });
+
+    it('make the map fullscreen', function () {
+        homepage.dashboard().middleColumn().map().toggleFullscreen().click();
+
+        expect(homepage.title()).toBe('Grote kaart - Atlas');
+
+        expect(homepage.dashboard().leftColumn().columnSize()).toBe(0);
+
+        expect(homepage.dashboard().middleColumn().columnSize()).toBe(12);
+        expect(homepage.dashboard().middleColumn().map().isVisible()).toBe(true);
+
+        // The underlying page remains active, but is invisible
+        expect(homepage.dashboard().rightColumn().page().isActive()).toBe(true);
+        expect(homepage.dashboard().rightColumn().page().isVisible()).toBe(false);
+
+        // The rest is inactive
+        expect(homepage.dashboard().leftColumn().layerSelection().isActive()).toBe(false);
+        expect(homepage.dashboard().rightColumn().columnSize()).toBe(0);
+        expect(homepage.dashboard().rightColumn().dataSelection().isActive()).toBe(false);
+        expect(homepage.dashboard().rightColumn().detail().isActive()).toBe(false);
+        expect(homepage.dashboard().rightColumn().searchResults().isActive()).toBe(false);
+        expect(homepage.dashboard().rightColumn().straatbeeld().isActive()).toBe(false);
+    });
 });
