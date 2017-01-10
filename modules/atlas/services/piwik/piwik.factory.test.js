@@ -42,14 +42,14 @@ describe('The piwik service', function () {
         expect($window._paq.length).toBe(3);
         expect($window._paq).toEqual(
             [['enableLinkTracking'],
-             ['setTrackerUrl', 'https://atlas.amsterdam.nl/piwik/piwik.php'],
+             ['setTrackerUrl', 'https://datapunt.amsterdam.nl/piwik/piwik.php'],
              ['setSiteId', 300]]);
 
         piwikScript = getScripts()[0];
         // Checking script
         expect(getScripts().length).toBe(numberOfScripts + 1);
         expect(piwikScript.getAttribute('type')).toBe('text/javascript');
-        expect(piwikScript.getAttribute('src')).toBe('https://atlas.amsterdam.nl/piwik/piwik.js');
+        expect(piwikScript.getAttribute('src')).toBe('https://datapunt.amsterdam.nl/piwik/piwik.js');
     });
 
     function getScripts () {

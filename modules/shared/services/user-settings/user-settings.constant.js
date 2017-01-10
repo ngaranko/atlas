@@ -10,6 +10,10 @@
             fullscreenStraatbeeld: {
                 storage: 'local',
                 default: true.toString()
+            },
+            showCatalogusIntroduction: {
+                storage: 'session',
+                default: true.toString()
             }
         });
 })();

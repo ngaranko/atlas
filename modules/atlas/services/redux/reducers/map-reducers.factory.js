@@ -136,18 +136,6 @@
             if (payload) {
                 // Set map to full screen
                 newState.layerSelection = false;
-                if (angular.isObject(newState.straatbeeld)) {
-                    // If the map is maximized when a straatbeeld is active
-                    // then inactivate straatbeeld
-                    newState.straatbeeld.isInvisible = true;
-                }
-            } else {
-                // Set map back to column view
-                if (angular.isObject(newState.straatbeeld)) {
-                    // If the map is minimized when a straatbeeld is inactive
-                    // then reactivate straatbeeld
-                    newState.straatbeeld.isInvisible = false;
-                }
             }
 
             newState.map.isFullscreen = payload;

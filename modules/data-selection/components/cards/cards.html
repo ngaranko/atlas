@@ -1,0 +1,46 @@
+<div ng-repeat="row in vm.content.body" class="c-data-selection-cards">
+   <button ng-click="vm.fetch_detail(row.detailEndpoint)" class="qa-cards-fetch-detail u-no-presentation">
+    <h3 class="c-data-selection-cards__header">
+            <dp-data-selection-formatter
+                variables="row.content[0]"
+                formatter="{{vm.content.formatters[0]}}"
+                use-inline="true">
+            </dp-data-selection-formatter>
+        </dp-link>
+    </h3>
+
+    <span class="c-data-selection-cards__date">
+        <dp-data-selection-formatter
+            variables="row.content[1]"
+            formatter="{{vm.content.formatters[1]}}"
+            use-inline="true">
+        </dp-data-selection-formatter>
+    </span>
+
+    <span class="c-data-selection-cards__formats">
+        <dp-data-selection-formatter
+            variables="row.content[2]"
+            formatter="{{vm.content.formatters[2]}}"
+            template="{{vm.content.templates[2]}}"
+            use-inline="true">
+        </dp-data-selection-formatter>
+    </span>
+
+    <span class="c-data-selection-cards__tags">
+        <dp-data-selection-formatter
+            variables="row.content[3]"
+            formatter="{{vm.content.formatters[3]}}"
+            template="{{vm.content.templates[3]}}"
+            use-inline="true">
+        </dp-data-selection-formatter>
+    </span>
+
+    <div class="c-data-selection-cards__description">
+        <dp-data-selection-formatter
+             variables="row.content[4]"
+             formatter="{{vm.content.formatters[4]}}"
+             use-inline="true">
+        </dp-data-selection-formatter>
+    </div>
+    </button>
+</div>

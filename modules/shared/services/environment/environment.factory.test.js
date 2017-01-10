@@ -1,5 +1,5 @@
 describe('The environment factory', function () {
-    var mockedHostname;
+    let mockedHostname;
 
     beforeEach(function () {
         angular.mock.module(
@@ -17,6 +17,16 @@ describe('The environment factory', function () {
     describe('returns different configuration based on the hostname', function () {
         it('has support for PRODUCTION', function () {
             mockedHostname = 'atlas.amsterdam.nl';
+
+            angular.mock.inject(function (environment) {
+                expect(environment).toEqual({
+                    NAME: 'PRODUCTION'
+                });
+            });
+        });
+
+        it('also uses PRODUCTION on data.amsterdam.nl', function () {
+            mockedHostname = 'data.amsterdam.nl';
 
             angular.mock.inject(function (environment) {
                 expect(environment).toEqual({

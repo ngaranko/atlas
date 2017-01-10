@@ -208,14 +208,6 @@ describe('The dp-link component', function () {
         let component = getComponent(null, null, 'ACTION_WITH_LINK', mockedPayload);
 
         expect(component.find('a').attr('href')).toBe(mockedTargetPath);
-    });
-
-    it('clicking the link will follow the href, it won\'t trigger a store.dispatch', function () {
-        let component;
-
-        component = getComponent(null, null, 'ACTION_WITH_LINK', mockedPayload);
-        component.find('a').click();
-        expect(store.dispatch).not.toHaveBeenCalled();
 
         // The value for the href attribute is composed by several injected dependencies, making sure these are used
         expect(mockedReducer).toHaveBeenCalledWith(
@@ -226,6 +218,30 @@ describe('The dp-link component', function () {
             }
         );
         expect(mockedStateToUrl.create).toHaveBeenCalledWith(mockedTargetState);
+    });
+
+    it('left clicking the link will NOT follow the href, it will trigger a regular store.dispatch', function () {
+        let component,
+            mockedClickEvent;
+
+        mockedClickEvent = jasmine.createSpyObj('e', ['preventDefault']);
+
+        component = getComponent(null, null, 'ACTION_WITH_LINK', mockedPayload);
+
+        // Testing $event.preventDefault
+        component.isolateScope().vm.followLink(mockedClickEvent);
+        expect(mockedClickEvent.preventDefault).toHaveBeenCalled();
+
+        // Testing the dispatch
+        component.find('a').click();
+        $rootScope.$apply();
+
+        expect(mockedClickEvent.preventDefault).toHaveBeenCalled();
+
+        expect(store.dispatch).toHaveBeenCalledWith({
+            type: mockedActions.ACTION_WITH_LINK,
+            payload: mockedPayload
+        });
     });
 
     it('transcludes content without adding whitespace', function () {

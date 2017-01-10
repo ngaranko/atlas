@@ -29,7 +29,8 @@
                 endpoint: 'http://api.example.com/bag/verblijfsobject/123/',
                 display: 'This is the _display variable as available in each endpoint',
                 geometry: null,
-                isLoading: false
+                isLoading: false,
+                isFullscreen: false
             }
             */
             straatbeeld: null,
@@ -64,11 +65,13 @@
                     buurtcombinatie: 'Geuzenbuurt',
                     buurt: 'Trompbuurt'
                 },
+                query: 'searchText',
                 page: 1,
                 markers: [
                     [52.1, 4.1],
                     [52.2, 4.0]
                 ],
+                isFullscreen: true,
                 isLoading: false
             },
             */
