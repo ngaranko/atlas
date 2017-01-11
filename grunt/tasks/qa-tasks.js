@@ -13,13 +13,14 @@ module.exports = function (grunt) {
 
     grunt.registerTask('test-js', [
         'test-js-modules',
-        'lint'
+        'lint',
+        'protractor:all'
     ]);
 
     grunt.registerTask('test-js-full', [
         'test-js-modules-full',
-        'protractor:all',
-        'lint'
+        'lint',
+        'protractor:all'
     ]);
 
     grunt.registerTask('test-css', [
