@@ -58,6 +58,7 @@
                 onMapClick.initialize(leafletMap);
 
                 scope.leafletMap = leafletMap;
+                scope.toggleMode = toggleMode;
 
                 scope.$watch('mapState.viewCenter', function (viewCenter) {
                     panning.panTo(leafletMap, viewCenter);
@@ -142,6 +143,11 @@
 
                 leafletMap.addControl(drawControl);
 
+                leafletMap.on('click', function () {
+                    if (!drawShapeHandler.enabled()) {
+                        deleteShape();
+                    }
+                });
                 leafletMap.on(L.Draw.Event.DRAWSTART, function () {
                     onMapClick.disable();
                 });
@@ -153,6 +159,17 @@
                     getLastMarker();
                     bindLastMarker();
                 });
+                leafletMap.on(L.Draw.Event.CREATED, function (e) {
+                    var type = e.layerType,
+                        layer = e.layer;
+
+                    if (type === 'polygon') {
+                        currentLayer = layer;
+                        drawnItems.addLayer(layer);
+                        layer.on('click', shapeClickHandler);
+                    }
+                });
+
                 function bindLastMarker () {
                     if (lastMarker) {
                         lastMarker.on('click', deleteLastMarker);
@@ -176,37 +193,13 @@
                         bindLastMarker();
                     }
                 }
-                leafletMap.on(L.Draw.Event.CREATED, function (e) {
-                    var type = e.layerType,
-                        layer = e.layer;
 
-                    if (type === 'polygon') {
-                        currentLayer = layer;
-                        drawnItems.addLayer(layer);
-
-                        let content = getPopupContent(layer);
-                        if (content) {
-                            layer.bindPopup(content);
-                            layer.on('popupopen', bindPopupHandlers);
-                            layer.openPopup();
-                        }
-                    }
-                });
-                leafletMap.on(L.Draw.Event.EDITVERTEX, updatePopup);
-                leafletMap.on(L.Draw.Event.EDITSTOP, updatePopup);
-                function updatePopup (e) {
-                    if (currentLayer) {
-                        let content = getPopupContent(currentLayer);
-                        if (content !== null) {
-                            currentLayer.setPopupContent(content);
-                            if (currentLayer.isPopupOpen()) {
-                                bindPopupHandlers();
-                            }
-                        }
-                    }
+                function shapeClickHandler (e) {
+                    L.DomEvent.stop(e);
+                    toggleMode();
                 }
 
-                scope.drawClick = function () {
+                function toggleMode () {
                     if (drawShapeHandler.enabled()) {
                         drawShapeHandler.completeShape();
                     } else if (editShapeHandler.enabled()) {
@@ -217,11 +210,12 @@
                     } else {
                         drawShapeHandler.enable();
                     }
-                };
+                }
 
-                function bindPopupHandlers () {
-                    angular.element(document.getElementById('dp-map-delete-shape')).on('click', () => {
+                function deleteShape () {
+                    if (currentLayer) {
                         let deletedLayers = new L.LayerGroup();
+                        currentLayer.off('click', shapeClickHandler);
                         drawnItems.removeLayer(currentLayer);
                         deletedLayers.addLayer(currentLayer);
                         leafletMap.fire(L.Draw.Event.DELETED, { layers: deletedLayers });
@@ -229,7 +223,7 @@
                         if (editShapeHandler.enabled()) {
                             editShapeHandler.disable();
                         }
-                    });
+                    }
                 }
             });
         }
