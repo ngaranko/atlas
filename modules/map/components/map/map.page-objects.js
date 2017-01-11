@@ -1,8 +1,8 @@
-const isVisible = require('../helpers/is-visible');
+const isVisible = require('../../../../e2e/helpers/is-visible');
 
-const toggleLayerSelectionPageObjects = require('./toggle-layer-selection.js');
-const activeOverlaysPageObjects = require('./active-overlays.js');
-const toggleFullscreenPageObjects = require('./toggle-fullscreen.js');
+const toggleLayerSelectionPageObjects = require('./../toggle-layer-selection/toggle-layer-selection.page-objects.js');
+const activeOverlaysPageObjects = require('./../active-overlays/active-overlays.page-objects.js');
+const toggleFullscreenPageObjects = require('./../toggle-fullscreen/toggle-fullscreen.page-objects.js');
 
 module.exports = function (mapElement) {
     return function () {

@@ -1,6 +1,6 @@
-const isVisible = require('../helpers/is-visible');
+const isVisible = require('../../../../e2e/helpers/is-visible');
 
-const loginPageObjects = require('./login');
+const loginPageObjects = require('./../login-form/login-form.page-objects.js');
 
 module.exports = function (pageElement) {
     return function () {

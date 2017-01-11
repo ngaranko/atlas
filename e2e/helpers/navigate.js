@@ -1,4 +1,4 @@
-const dashboardPageObjects = require('../page-objects/dashboard.js');
+const dashboardPageObjects = require('../../modules/atlas/components/dashboard/dashboard.page-objects');
 
 const URLS = {
     'DATA-SELECTION--CARDS':            'http://localhost:8000/#?lat=52.3719&lon=4.9012&basiskaart=topografie&zoom=9&view=CARDS&dataset=catalogus&dataset-pagina=1',

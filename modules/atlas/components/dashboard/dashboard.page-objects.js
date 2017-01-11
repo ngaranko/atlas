@@ -1,6 +1,6 @@
-const layerSelectionPageObject = require('./layer-selection');
-const mapPageObject = require('./map');
-const pagePageObject = require('./page');
+const layerSelectionPageObject = require('../../../layer-selection/components/layer-selection/layer-selection.page-objects');
+const mapPageObject = require('../../../map/components/map/map.page-objects');
+const pagePageObject = require('../../../page/components/page/page.page-objects');
 
 module.exports = function (dashboardElement) {
     return {

@@ -1,4 +1,4 @@
-const isVisible = require('../helpers/is-visible');
+const isVisible = require('../../../../e2e/helpers/is-visible');
 
 module.exports = function (layerSelectionElement) {
     return function () {
