@@ -8,7 +8,7 @@ describe('Even lekker testen', function () {
     let page;
 
     it('navigate from home to layer selection', function () {
-        page = navigate('HOMEPAGE');
+        page = navigate('MAP_PAGE--HOME');
         validateHomepage(page);
 
         // Open layer selection
@@ -29,7 +29,7 @@ describe('Even lekker testen', function () {
     });
 
     it('make the map fullscreen from the homepage', function () {
-        page = navigate('HOMEPAGE');
+        page = navigate('MAP_PAGE--HOME');
         validateHomepage(page);
 
         // Make the map fullscreen
