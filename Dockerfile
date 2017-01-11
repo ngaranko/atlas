@@ -16,6 +16,7 @@ COPY *.json /app/
 RUN npm cache clean \
  && bower cache clean --allow-root \
  && npm install \
+ && ./node_modules/protractor/node_modules/webdriver-manager/bin/webdriver-manager update
  && bower install --allow-root
 
 COPY . /app/
