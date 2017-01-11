@@ -110,10 +110,9 @@
                 }, true);
 
                 scope.$watchCollection('resize', function () {
-                    setTimeout(function(){
-                      leafletMap.invalidateSize();
-                    },2000);
-                    console.log('resized', layers);
+                    scope.$applyAsync(function () {
+                        leafletMap.invalidateSize();
+                    });
                 });
             });
         }
