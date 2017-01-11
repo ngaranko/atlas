@@ -110,6 +110,7 @@
                 }, true);
 
                 scope.$watchCollection('resize', function () {
+                    // Waiting for next digest cycle.
                     scope.$applyAsync(function () {
                         leafletMap.invalidateSize();
                     });
