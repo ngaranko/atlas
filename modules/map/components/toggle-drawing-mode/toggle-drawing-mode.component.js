@@ -13,6 +13,6 @@
 
     function DpToggleDrawingModeController ($scope, polygon) {
         let vm = this;
-        vm.toggleMode = polygon.toggle;
+        vm.polygon = polygon;
     }
 })();

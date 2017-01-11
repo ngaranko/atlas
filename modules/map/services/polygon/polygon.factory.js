@@ -13,12 +13,14 @@
             drawShapeHandler,
             editShapeHandler,
             lastMarker,
-            currentLayer;
+            currentLayer,
+            polygonInstance = {
+                initialize,
+                toggle,
+                isActive: false
+            };
 
-        return {
-            initialize,
-            toggle
-        };
+        return polygonInstance;
 
         function initialize (map) {
             let editConfig = angular.copy(POLYGON_CONFIG.edit),
@@ -57,6 +59,7 @@
                     currentLayer = layer;
                     drawnItems.addLayer(layer);
                     layer.on('click', shapeClickHandler);
+                    polygonInstance.isActive = false;
                 }
             });
         }
@@ -93,13 +96,17 @@
         function toggle () {
             if (drawShapeHandler.enabled()) {
                 drawShapeHandler.completeShape();
+                polygonInstance.isActive = false;
             } else if (editShapeHandler.enabled()) {
                 editShapeHandler.save();
                 editShapeHandler.disable();
+                polygonInstance.isActive = false;
             } else if (currentLayer) {
                 editShapeHandler.enable();
+                polygonInstance.isActive = true;
             } else {
                 drawShapeHandler.enable();
+                polygonInstance.isActive = true;
             }
         }
 
@@ -113,6 +120,7 @@
                 currentLayer = null;
                 if (editShapeHandler.enabled()) {
                     editShapeHandler.disable();
+                    polygonInstance.isActive = false;
                 }
             }
         }

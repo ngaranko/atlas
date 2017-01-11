@@ -1,3 +1,8 @@
-<button ng-click="vm.toggleMode()" class="c-toggle-drawing-mode">
+<button ng-click="vm.polygon.toggle()"
+        class="c-toggle-drawing-mode"
+        ng-class="{
+          'c-toggle-drawing-mode--active': vm.polygon.isActive,
+          'c-toggle-drawing-mode': !vm.polygon.isActive
+        }">
     <span class="u-sr-only">Meten</span>
 </button>
