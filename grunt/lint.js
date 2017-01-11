@@ -6,7 +6,7 @@ module.exports = function () {
             src: ['Gruntfile.js', 'grunt/**/*.js']
         },
         modules: {
-            src: ['modules/**/!(*.test).js']
+            src: ['modules/**/!(*.test|*.page-objects).js']
         },
         tests: {
             src: ['modules/**/*.test.js']

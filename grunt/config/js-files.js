@@ -8,7 +8,7 @@ var jsModuleFiles = module => [
 
 var jsTestModuleFiles = module => [
     `modules/${module.slug}/${module.slug}.module.js`,
-    `modules/${module.slug}/**/!(*.test|*.run).js`,
+    `modules/${module.slug}/**/!(*.test|*.page-objects|*.run).js`,
     `build/temp/${module.slug}.ngtemplates.js`
 ];
 
