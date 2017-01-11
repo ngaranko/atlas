@@ -1,4 +1,5 @@
-const layerSelectionPageObject = require('../../../layer-selection/components/layer-selection/layer-selection.page-objects');
+const layerSelectionPageObject =
+    require('../../../layer-selection/components/layer-selection/layer-selection.page-objects');
 const mapPageObject = require('../../../map/components/map/map.page-objects');
 const pagePageObject = require('../../../page/components/page/page.page-objects');
 
