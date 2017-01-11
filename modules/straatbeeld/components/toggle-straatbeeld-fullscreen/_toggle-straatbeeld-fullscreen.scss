@@ -3,6 +3,11 @@
   @include status-bar-button;
 
   float: left;
+
+  span {
+    position: relative;
+    top: -1px;
+  }
 }
 
 .c-toggle-straatbeeld-fullscreen--maximize {
@@ -10,4 +15,9 @@
   @include status-bar-button;
 
   float: left;
+
+  span {
+    position: relative;
+    top: -1px;
+  }
 }
