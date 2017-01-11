@@ -114,7 +114,7 @@
                 leafletMap.addLayer(drawnItems);
 
                 // Initialise the draw control and pass it the FeatureGroup of editable layers
-                var drawControl = new L.Control.Draw({
+                var drawOptions = {
                     edit: {
                         featureGroup: drawnItems
                     },
@@ -133,15 +133,49 @@
                         rectangle: false,
                         polyline: false
                     }
-                });
+                };
+                let drawControl = new L.Control.Draw(drawOptions),
+                    drawShapeHandler = new L.Draw.Polygon(leafletMap, drawOptions.draw.polygon),
+                    editToolbar = new L.EditToolbar(drawOptions.edit),
+                    editShapeHandler = editToolbar.getModeHandlers(leafletMap)[0].handler,
+                    lastMarker;
+
                 leafletMap.addControl(drawControl);
 
-                leafletMap.on(L.Draw.Event.DRAWSTART, function (e) {
+                leafletMap.on(L.Draw.Event.DRAWSTART, function () {
                     onMapClick.disable();
                 });
-                leafletMap.on(L.Draw.Event.DRAWSTOP, function (e) {
+                leafletMap.on(L.Draw.Event.DRAWSTOP, function () {
                     onMapClick.enable();
                 });
+                leafletMap.on(L.Draw.Event.DRAWVERTEX, function () {
+                    unbindLastMarker();
+                    getLastMarker();
+                    bindLastMarker();
+                });
+                function bindLastMarker () {
+                    if (lastMarker) {
+                        lastMarker.on('click', deleteLastMarker);
+                    }
+                }
+                function unbindLastMarker () {
+                    if (lastMarker) {
+                        lastMarker.off('click', deleteLastMarker);
+                    }
+                }
+                function getLastMarker () {
+                    if (drawShapeHandler.enabled()) {
+                        lastMarker = drawShapeHandler._markers[drawShapeHandler._markers.length - 1];
+                    }
+                }
+                function deleteLastMarker () {
+                    if (drawShapeHandler.enabled()) {
+                        unbindLastMarker();
+                        drawShapeHandler.deleteLastVertex();
+                        getLastMarker();
+                        bindLastMarker();
+                    }
+                }
                 leafletMap.on(L.Draw.Event.CREATED, function (e) {
                     var type = e.layerType,
                         layer = e.layer;
@@ -153,14 +187,8 @@
                         let content = getPopupContent(layer);
                         if (content) {
                             layer.bindPopup(content);
+                            layer.on('popupopen', bindPopupHandlers);
                             layer.openPopup();
-                            angular.element(document.getElementById('dp-map-delete-shape')).on('click', () => {
-                                let deletedLayers = new L.LayerGroup();
-                                drawnItems.removeLayer(currentLayer);
-                                deletedLayers.addLayer(currentLayer);
-                                leafletMap.fire(L.Draw.Event.DELETED, { layers: deletedLayers });
-                                currentLayer = null;
-                            });
                         }
                     }
                 });
@@ -171,8 +199,37 @@
                         let content = getPopupContent(currentLayer);
                         if (content !== null) {
                             currentLayer.setPopupContent(content);
+                            if (currentLayer.isPopupOpen()) {
+                                bindPopupHandlers();
+                            }
                         }
                     }
+                }
+
+                scope.drawClick = function () {
+                    if (drawShapeHandler.enabled()) {
+                        drawShapeHandler.completeShape();
+                    } else if (editShapeHandler.enabled()) {
+                        editShapeHandler.save();
+                        editShapeHandler.disable();
+                    } else if (currentLayer) {
+                        editShapeHandler.enable();
+                    } else {
+                        drawShapeHandler.enable();
+                    }
+                };
+
+                function bindPopupHandlers () {
+                    angular.element(document.getElementById('dp-map-delete-shape')).on('click', () => {
+                        let deletedLayers = new L.LayerGroup();
+                        drawnItems.removeLayer(currentLayer);
+                        deletedLayers.addLayer(currentLayer);
+                        leafletMap.fire(L.Draw.Event.DELETED, { layers: deletedLayers });
+                        currentLayer = null;
+                        if (editShapeHandler.enabled()) {
+                            editShapeHandler.disable();
+                        }
+                    });
                 }
             });
         }
