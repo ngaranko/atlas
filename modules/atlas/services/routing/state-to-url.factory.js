@@ -5,15 +5,16 @@
         .module('atlas')
         .factory('stateToUrl', stateToUrlFactory);
 
-    stateToUrlFactory.$inject = ['$location', '$window'];
+    stateToUrlFactory.$inject = ['$location', '$window', 'stateUrlConverter'];
 
-    function stateToUrlFactory ($location, $window) {
+    function stateToUrlFactory ($location, $window, stateUrlConverter) {
         return {
-            create,
+            // create,
             update
         };
 
         function create (state) {
+            console.log('=======================================================================');
             const params = getParams(state);
             let key,
                 queryString = '';
@@ -21,7 +22,8 @@
             for (key in params) {
                 if (params.hasOwnProperty(key) && params[key] !== null) {
                     queryString += queryString ? '&' : '?';
-                    queryString += `${key}=${encodeURI(params[key])}`;
+                    // queryString += `${key}=${encodeURI(params[key])}`;
+                    queryString += `${key}=${(params[key])}`;
                 }
             }
 
@@ -39,7 +41,9 @@
         }
 
         function getParams (state) {
-            return angular.merge(
+            let newParams = stateUrlConverter.state2params(state);
+
+            let oldParams = angular.merge(
                 getSearchParams(state),
                 getMapParams(state),
                 getLayerSelectionParams(state),
@@ -49,6 +53,13 @@
                 getDataSelectionParams(state),
                 getPrintParams(state)
             );
+
+            sessionStorage.setItem('oldParams', angular.toJson(oldParams));
+            sessionStorage.setItem('newParams', angular.toJson(newParams));
+
+            console.log('new params', newParams);
+            console.log('old params', oldParams);
+            return newParams;
         }
 
         function getSearchParams (state) {

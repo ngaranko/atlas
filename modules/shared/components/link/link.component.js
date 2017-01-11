@@ -22,7 +22,8 @@
         let vm = this;
 
         vm.className = vm.className || 'o-btn o-btn--link';
-        vm.tagName = getTagName(vm.type, vm.payload);
+        // vm.tagName = getTagName(vm.type, vm.payload);
+        vm.tagName = 'button';
 
         if (vm.tagName === 'a') {
             vm.href = getHref(vm.type, vm.payload);

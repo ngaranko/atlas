@@ -5,9 +5,9 @@
         .module('atlas')
         .factory('urlReducers', urlReducersFactory);
 
-    urlReducersFactory.$inject = ['$window', 'ACTIONS', 'DEFAULT_STATE'];
+    urlReducersFactory.$inject = ['$window', 'ACTIONS', 'DEFAULT_STATE', 'stateUrlConverter'];
 
-    function urlReducersFactory ($window, ACTIONS, DEFAULT_STATE) {
+    function urlReducersFactory ($window, ACTIONS, DEFAULT_STATE, stateUrlConverter) {
         var reducers = {};
 
         reducers[ACTIONS.URL_CHANGE.id] = urlChangeReducer;
@@ -15,22 +15,40 @@
         return reducers;
 
         function urlChangeReducer (oldState, payload) {
-            if (angular.equals(payload, {})) {
-                return DEFAULT_STATE;
+            console.log('Url get', oldState, payload);
+            let oldPayload = angular.fromJson(sessionStorage.getItem('oldParams'));
+            let newPayload = angular.fromJson(sessionStorage.getItem('newParams'));
+
+            let newNewState = stateUrlConverter.params2state(oldState, payload);
+
+            let newState;
+            if (angular.equals(oldPayload, {})) {
+                newState = DEFAULT_STATE;
             } else {
-                var newState = {};
+                newState = {};
 
-                newState.search = getSearchState(oldState, payload);
-                newState.map = getMapState(payload);
-                newState.layerSelection = getLayerSelectionState(payload);
-                newState.page = payload.pagina || null;
-                newState.detail = getDetailState(oldState, payload);
-                newState.straatbeeld = getStraatbeeldState(oldState, payload);
-                newState.dataSelection = getDataSelectionState(oldState, payload);
-                newState.isPrintMode = getPrintState(payload);
+                newState.search = getSearchState(oldState, oldPayload);
+                newState.map = getMapState(oldPayload);
+                newState.detail = getDetailState(oldState, oldPayload);
+                newState.straatbeeld = getStraatbeeldState(oldState, oldPayload);
+                newState.dataSelection = getDataSelectionState(oldState, oldPayload);
 
-                return newState;
+                newState.layerSelection = getLayerSelectionState(oldPayload);
+                newState.isPrintMode = getPrintState(oldPayload);
+                newState.page = oldPayload.pagina || null;
             }
+
+            let oldSt = angular.copy(newState);
+            let newSt = angular.copy(newNewState);
+
+            console.log('old state', oldSt);
+            console.log('new state', newSt);
+            console.log('Compare old - new');
+            stateUrlConverter.compareObject(oldSt, newSt);
+            console.log('Compare new - old');
+            stateUrlConverter.compareObject(newSt, oldSt);
+
+            return newNewState;
         }
 
         function getSearchState (oldState, payload) {
