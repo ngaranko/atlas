@@ -1,3 +1,5 @@
+'use strict';
+
 const mapPage = require('./map_page');
 
 module.exports = function (page) {

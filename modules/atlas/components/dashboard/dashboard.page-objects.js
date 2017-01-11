@@ -1,3 +1,5 @@
+'use strict';
+
 const layerSelectionPageObject =
     require('../../../layer-selection/components/layer-selection/layer-selection.page-objects');
 const mapPageObject = require('../../../map/components/map/map.page-objects');

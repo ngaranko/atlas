@@ -1,3 +1,5 @@
+'use strict';
+
 const dashboardPageObjects = require('../../modules/atlas/components/dashboard/dashboard.page-objects');
 
 const URLS = {

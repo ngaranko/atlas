@@ -1,3 +1,5 @@
+'use strict';
+
 const isVisible = require('../../../../e2e/helpers/is-visible');
 
 const toggleLayerSelectionPageObjects = require('./../toggle-layer-selection/toggle-layer-selection.page-objects.js');

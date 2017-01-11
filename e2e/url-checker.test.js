@@ -1,3 +1,5 @@
+'use strict';
+
 const navigate = require('./helpers/navigate');
 const validateMapPageHome = require('./validators/map_page--home');
 

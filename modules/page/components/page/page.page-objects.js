@@ -1,3 +1,5 @@
+'use strict';
+
 const isVisible = require('../../../../e2e/helpers/is-visible');
 
 const loginPageObjects = require('./../login-form/login-form.page-objects.js');

@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function (page) {
     expect(page.title()).toBe('Selecteer kaartlagen - Atlas');
 
