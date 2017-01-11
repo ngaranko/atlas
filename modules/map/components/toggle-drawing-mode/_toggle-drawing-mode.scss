@@ -1,0 +1,8 @@
+.c-toggle-drawing-mode {
+  @include icon-button("polygon-measure");
+
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  z-index: 2;
+}

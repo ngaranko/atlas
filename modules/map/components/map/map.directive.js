@@ -10,12 +10,12 @@
         'highlight',
         'panning',
         'zoom',
-        'measure',
+        'polygon',
         'variableWidth',
         'onMapClick'
     ];
 
-    function dpMapDirective (L, mapConfig, layers, highlight, panning, zoom, measure, variableWidth, onMapClick) {
+    function dpMapDirective (L, mapConfig, layers, highlight, panning, zoom, polygon, variableWidth, onMapClick) {
         return {
             restrict: 'E',
             scope: {
@@ -30,8 +30,7 @@
         function linkFunction (scope, element) {
             let leafletMap,
                 container,
-                options,
-                currentLayer;
+                options;
 
             scope.$watchGroup(['mapState.isFullscreen', 'showLayerSelection'], function () {
                 scope.isFullscreen = scope.mapState.isFullscreen && !scope.showLayerSelection;
@@ -53,12 +52,11 @@
                 panning.initialize(leafletMap);
                 highlight.initialize();
                 zoom.initialize(leafletMap);
-                measure.initialize(leafletMap);
+                polygon.initialize(leafletMap);
                 variableWidth.initialize(container, leafletMap);
                 onMapClick.initialize(leafletMap);
 
                 scope.leafletMap = leafletMap;
-                scope.toggleMode = toggleMode;
 
                 scope.$watch('mapState.viewCenter', function (viewCenter) {
                     panning.panTo(leafletMap, viewCenter);
@@ -109,122 +107,6 @@
                         highlight.clearCluster(leafletMap);
                     }
                 }, true);
-
-                // Initialise the FeatureGroup to store editable layers
-                var drawnItems = new L.FeatureGroup();
-                leafletMap.addLayer(drawnItems);
-
-                // Initialise the draw control and pass it the FeatureGroup of editable layers
-                var drawOptions = {
-                    edit: {
-                        featureGroup: drawnItems
-                    },
-                    draw: {
-                        polygon: {
-                            allowIntersection: false,
-                            showArea: true,
-                            showLength: true,
-                            metric: ['km', 'm'],
-                            precision: {
-                                m: 1
-                            }
-                        },
-                        marker: false,
-                        circle: false,
-                        rectangle: false,
-                        polyline: false
-                    }
-                };
-                let drawControl = new L.Control.Draw(drawOptions),
-                    drawShapeHandler = new L.Draw.Polygon(leafletMap, drawOptions.draw.polygon),
-                    editToolbar = new L.EditToolbar(drawOptions.edit),
-                    editShapeHandler = editToolbar.getModeHandlers(leafletMap)[0].handler,
-                    lastMarker;
-
-                leafletMap.addControl(drawControl);
-
-                leafletMap.on('click', function () {
-                    if (!drawShapeHandler.enabled()) {
-                        deleteShape();
-                    }
-                });
-                leafletMap.on(L.Draw.Event.DRAWSTART, function () {
-                    onMapClick.disable();
-                });
-                leafletMap.on(L.Draw.Event.DRAWSTOP, function () {
-                    onMapClick.enable();
-                });
-                leafletMap.on(L.Draw.Event.DRAWVERTEX, function () {
-                    unbindLastMarker();
-                    getLastMarker();
-                    bindLastMarker();
-                });
-                leafletMap.on(L.Draw.Event.CREATED, function (e) {
-                    var type = e.layerType,
-                        layer = e.layer;
-
-                    if (type === 'polygon') {
-                        currentLayer = layer;
-                        drawnItems.addLayer(layer);
-                        layer.on('click', shapeClickHandler);
-                    }
-                });
-
-                function bindLastMarker () {
-                    if (lastMarker) {
-                        lastMarker.on('click', deleteLastMarker);
-                    }
-                }
-                function unbindLastMarker () {
-                    if (lastMarker) {
-                        lastMarker.off('click', deleteLastMarker);
-                    }
-                }
-                function getLastMarker () {
-                    if (drawShapeHandler.enabled()) {
-                        lastMarker = drawShapeHandler._markers[drawShapeHandler._markers.length - 1];
-                    }
-                }
-                function deleteLastMarker () {
-                    if (drawShapeHandler.enabled()) {
-                        unbindLastMarker();
-                        drawShapeHandler.deleteLastVertex();
-                        getLastMarker();
-                        bindLastMarker();
-                    }
-                }
-
-                function shapeClickHandler (e) {
-                    L.DomEvent.stop(e);
-                    toggleMode();
-                }
-
-                function toggleMode () {
-                    if (drawShapeHandler.enabled()) {
-                        drawShapeHandler.completeShape();
-                    } else if (editShapeHandler.enabled()) {
-                        editShapeHandler.save();
-                        editShapeHandler.disable();
-                    } else if (currentLayer) {
-                        editShapeHandler.enable();
-                    } else {
-                        drawShapeHandler.enable();
-                    }
-                }
-
-                function deleteShape () {
-                    if (currentLayer) {
-                        let deletedLayers = new L.LayerGroup();
-                        currentLayer.off('click', shapeClickHandler);
-                        drawnItems.removeLayer(currentLayer);
-                        deletedLayers.addLayer(currentLayer);
-                        leafletMap.fire(L.Draw.Event.DELETED, { layers: deletedLayers });
-                        currentLayer = null;
-                        if (editShapeHandler.enabled()) {
-                            editShapeHandler.disable();
-                        }
-                    }
-                }
             });
         }
 
