@@ -21,7 +21,8 @@
             scope: {
                 mapState: '=',
                 markers: '=',
-                showLayerSelection: '='
+                showLayerSelection: '=',
+                resize: '<'
             },
             templateUrl: 'modules/map/components/map/map.html',
             link: linkFunction
@@ -107,6 +108,13 @@
                         highlight.clearCluster(leafletMap);
                     }
                 }, true);
+
+                scope.$watchCollection('resize', function () {
+                    setTimeout(function(){
+                      leafletMap.invalidateSize();
+                    },2000);
+                    console.log('resized', layers);
+                });
             });
         }
 
