@@ -12,6 +12,7 @@
             drawnItems,
             drawShapeHandler,
             editShapeHandler,
+            firstMarker,
             lastMarker,
             currentLayer,
             polygonInstance = {
@@ -72,6 +73,20 @@
                 if (lastMarker) {
                     lastMarker.on('click', deleteLastMarker);
                 }
+            }
+            if (!firstMarker && lastMarker) {
+                firstMarker = lastMarker;
+                firstMarker.on('click', completeShape);
+            }
+        }
+
+        // When trying to complete a shape of only two points (a line) by
+        // clicking on the first vertex again results in Leaflet draw giving an
+        // error that the lines should not cross. Even though
+        // `allowIntersection` is enabled in the configuration.
+        function completeShape () {
+            if (drawShapeHandler.enabled() && drawShapeHandler._markers.length === 2) {
+                toggle();
             }
         }
 
