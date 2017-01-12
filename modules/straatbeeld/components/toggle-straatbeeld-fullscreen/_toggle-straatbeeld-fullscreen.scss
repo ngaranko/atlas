@@ -8,15 +8,13 @@
 }
 
 .c-toggle-straatbeeld-fullscreen--minimize {
+  @extend %c-toggle-straatbeeld-fullscreen;
   @include icon-button-text-box-flat-right("forward", "black", "white");
   @include status-bar-button;
-
-  @extend %c-toggle-straatbeeld-fullscreen;
 }
 
 .c-toggle-straatbeeld-fullscreen--maximize {
+  @extend %c-toggle-straatbeeld-fullscreen;
   @include icon-button-text-box-flat-right("back", "black", "white");
   @include status-bar-button;
-
-  @extend %c-toggle-straatbeeld-fullscreen;
 }
