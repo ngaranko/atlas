@@ -6,10 +6,10 @@ const validateHomepage = require('./validators/map_page--home');
 const validateLayerSelection = require('./validators/layer-selection_map');
 const validateMapFullscreen = require('./validators/map');
 
-describe('Even lekker testen', function () {
+describe('The basic application navigation', function () {
     let page;
 
-    it('navigate from home to layer selection', function () {
+    it('allows to navigate from home to layerSelection and back', function () {
         page = navigate('MAP_PAGE--HOME');
         validateHomepage(page);
 
@@ -30,7 +30,7 @@ describe('Even lekker testen', function () {
         validateHomepage(page);
     });
 
-    it('make the map fullscreen from the homepage', function () {
+    it('allows to navigate from home to the (possibly fullscreen) map', function () {
         page = navigate('MAP_PAGE--HOME');
         validateHomepage(page);
 

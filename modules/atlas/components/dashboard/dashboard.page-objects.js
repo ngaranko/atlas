@@ -25,17 +25,9 @@ module.exports = function (dashboardElement) {
                 searchResults: getComponent(column.element(by.css('.qa-search-results'))),
                 straatbeeld: getComponent(column.element(by.css('.qa-straatbeeld'))),
                 columnSize: function () {
-                    return column.getAttribute('class').then(function (className) {
-                        if (className.match(/u-col-sm--4/) !== null) {
-                            return 4;
-                        } else if (className.match(/u-col-sm--8/) !== null) {
-                            return 8;
-                        } else if (className.match(/u-col-sm--12/) !== null) {
-                            return 12;
-                        } else {
-                            return 0;
-                        }
-                    });
+                    return column.getAttribute('class').then(
+                        className => Number(className.replace(/.*u-col-sm--(\d+).*/, '$1'))
+                    );
                 }
             };
 
