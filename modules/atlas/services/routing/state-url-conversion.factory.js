@@ -5,22 +5,27 @@
         .module('atlas')
         .factory('stateUrlConverter', stateUrlConverterFactory);
 
-    stateUrlConverterFactory.$inject = ['STATE_URL_CONVERSION'];
+    stateUrlConverterFactory.$inject = ['STATE_URL_CONVERSION', 'dpBaseCoder'];
 
-    function stateUrlConverterFactory (STATE_URL_CONVERSION) {
+    function stateUrlConverterFactory (STATE_URL_CONVERSION, dpBaseCoder) {
         const URL_ARRAY_SEPARATOR = ':';
         const ARRAY_DENOTATOR = '[]';
+        const STATE = 'state';
+        const BOOLEAN_TRUE = 'T';
+        const BOOLEAN_FALSE = 'F';
         const TYPENAME = {
             STRING: /^string$/,
             BOOLEAN: /^boolean$/,
             NUMBER: /^number$/,
+            BASE62: /^base62$/,
             ARRAY: /\[\]$/
         };
 
+        let base62Coder = dpBaseCoder.getCoderForBase(62);
+
         return {
             state2params,
-            params2state,
-            compareObject
+            params2state
         };
 
         function createObject (oldObj, key, params) {
@@ -49,6 +54,10 @@
             }
         }
 
+        function getNumberValue (n, precision) {
+            return precision === null ? n : dpBaseCoder.toPrecision(n, precision);
+        }
+
         function getValueForKey (obj, key) {
             let {mainKey, subKey} = getFullKey(key);
             if (subKey) {
@@ -68,41 +77,42 @@
             }
         }
 
-        function asUrlValue (value, typeName, separator = URL_ARRAY_SEPARATOR) {
+        function asUrlValue (value, typeName, precision = null, separator = URL_ARRAY_SEPARATOR) {
             // console.log('asUrlValue', value, typeName, separator);
-            let urlValue;
+            let urlValue = '';
 
             if (typeName.match(TYPENAME.STRING)) {
                 urlValue = value;
             } else if (typeName.match(TYPENAME.NUMBER)) {
-                urlValue = value;
+                urlValue = getNumberValue(value, precision);
+            } else if (typeName.match(TYPENAME.BASE62)) {
+                urlValue = base62Coder.encode(value, precision);
             } else if (typeName.match(TYPENAME.BOOLEAN)) {
-                urlValue = value ? 'T' : 'F';
+                urlValue = value ? BOOLEAN_TRUE : BOOLEAN_FALSE;
             } else if (typeName.match(TYPENAME.ARRAY)) {
                 let baseType = typeName.substr(0, typeName.length - ARRAY_DENOTATOR.length);
                 urlValue = (value || [])
-                    .map(v => asUrlValue(v, baseType, separator + URL_ARRAY_SEPARATOR))
+                    .map(v => asUrlValue(v, baseType, precision, separator + URL_ARRAY_SEPARATOR))
                     .join(separator);
-            } else {
-                // to be defined
             }
 
             // console.log('URL value', value, typeName, urlValue);
             return encodeURI(urlValue.toString());
         }
 
-        function asStateValue (decodedValue, typeName, separator = URL_ARRAY_SEPARATOR) {
+        function asStateValue (decodedValue, typeName, precision = null, separator = URL_ARRAY_SEPARATOR) {
             // console.log('asStateValue', decodedValue, typeName);
             let value = decodeURI(decodedValue);
-            let stateValue;
+            let stateValue = null;
 
             if (typeName.match(TYPENAME.STRING)) {
                 stateValue = value;
             } else if (typeName.match(TYPENAME.NUMBER)) {
-                stateValue = Number(value);
+                stateValue = getNumberValue(Number(value), precision);
+            } else if (typeName.match(TYPENAME.BASE62)) {
+                stateValue = base62Coder.decode(value, precision);
             } else if (typeName.match(TYPENAME.BOOLEAN)) {
-                // console.log('boolean', stateValue, stateValue === 'T');
-                stateValue = value === 'T';
+                stateValue = value === BOOLEAN_TRUE;
             } else if (typeName.match(TYPENAME.ARRAY)) {
                 if (value) {
                     let baseType = typeName.substr(0, typeName.length - ARRAY_DENOTATOR.length);
@@ -113,12 +123,10 @@
                     value = value.replace(splitOn, '$1' + TMP_SPLIT_CHAR + '$2');
                     stateValue = value
                         .split(TMP_SPLIT_CHAR)
-                        .map(v => asStateValue(v, baseType, separator + URL_ARRAY_SEPARATOR));
+                        .map(v => asStateValue(v, baseType, precision, separator + URL_ARRAY_SEPARATOR));
                 } else {
                     stateValue = [];
                 }
-            } else {
-                // to be defined
             }
 
             // console.log('State value', decodedValue, typeName, stateValue);
@@ -134,24 +142,22 @@
                     // store value in url
                     if (angular.isFunction(attribute.getValue)) {
                         value = attribute.getValue(value);
-                        // console.log('getValue', value);
                     }
-                    result[key] = asUrlValue(value, attribute.type);
+                    result[key] = asUrlValue(value, attribute.type, attribute.precision);
                 }
                 return result;
             }, {});
         }
 
         function params2state (oldState, params) {
-            let newState = createObject (oldState, 'state', params);
+            let newState = createObject (oldState, STATE, params);
 
-            // console.log('start with state', STATE_URL_CONVERSION.initialValues.state);
             newState = Object.keys(STATE_URL_CONVERSION.stateVariables).reduce((result, key) => {
                 let attribute = STATE_URL_CONVERSION.stateVariables[key];
                 let value = params[key];
-                if (! angular.isUndefined(value)) {
+                if (angular.isDefined(value)) {
                     // store value in state
-                    value = asStateValue(value, attribute.type);
+                    value = asStateValue(value, attribute.type, attribute.precision);
                     if (angular.isFunction(attribute.setValue)) {
                         value = attribute.setValue(value);
                     }
@@ -161,7 +167,7 @@
             }, newState);
 
             Object.keys(STATE_URL_CONVERSION.initialValues).forEach(key => {
-                if (key !== 'state' && !angular.isObject(newState[key])) {
+                if (key !== STATE && !angular.isObject(newState[key])) {
                     newState[key] = null;
                 }
             });
@@ -173,24 +179,6 @@
             });
 
             return newState;
-        }
-
-        function compareObject (obj1, obj2, prefix = '') {
-            if (obj1) {
-                Object.keys(obj1).forEach(key => {
-                    // console.log('compare key', prefix + key);
-                    if (angular.isObject(obj1[key]) && angular.isObject(obj2[key])) {
-                        compareObject(obj1[key], obj2[key], key + '.');
-                    } else if (angular.isArray(obj1[key]) && angular.isArray(obj2[key])) {
-                        // console.log('compare array', prefix + key);
-                        for (let i = 0; i < obj1[key].length; i++) {
-                            compareObject(obj1[key][i], obj2[key][i], key + '[' + i + '].');
-                        }
-                    } else if (obj1[key] !== obj2[key]) {
-                        console.log('Difference on key', prefix + key, obj1[key], obj2[key]);
-                    }
-                });
-            }
         }
     }
 })();

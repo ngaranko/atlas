@@ -2,44 +2,6 @@
     angular
         .module('atlas')
         .constant('STATE_URL_CONVERSION', {
-            pre: {
-                state: (oldState, newState, params, initialValues) => {
-                    if (angular.equals(params, {})) {
-                        // When no params, go to home page and initial map
-                        newState.page = 'home';
-                        newState.map = angular.copy(initialValues.map);
-                    }
-                    return newState;
-                },
-                search: (oldState, newState) => angular.copy(oldState || newState)
-            },
-            post: {
-                dataSelection: (oldState, newState) => {
-                    if (oldState) {
-                        newState.markers = oldState.markers;
-                        newState.isLoading = oldState.isLoading;
-                    }
-                    newState.isFullscreen = newState.view !== 'LIST'
-                },
-                detail: (oldState, newState) => {
-                    if (oldState && oldState.endpoint === newState.endpoint) {
-                        newState.display = oldState.display;
-                        newState.geometry = oldState.geometry;
-                        newState.isLoading = oldState.isLoading;
-                        newState.isFullscreen = oldState.isFullscreen;
-                    }
-                },
-                straatbeeld: (oldState, newState) => {
-                    if (oldState && oldState.id === newState.id) {
-                        newState.image = oldState.image;
-                        newState.hotspots = oldState.hotspots;
-                        newState.date = oldState.date;
-                        newState.location = oldState.location;
-                        newState.isInitial = false;
-                        newState.isLoading = oldState.isLoading;
-                    }
-                }
-            },
             initialValues: {
                 state: {
                     page: null,
@@ -62,7 +24,6 @@
                     overlays: [],
                     isFullscreen: false,
                     isLoading: false,
-                    // highlight: null,
                     showActiveOverlays: false
                 },
                 search: {
@@ -157,11 +118,13 @@
                 },
                 mpv: {
                     name: 'map.viewCenter',
-                    type: 'number[]'
+                    type: 'base62[]',
+                    precision: 7
                 },
                 sbf: {
                     name: 'straatbeeld.fov',
-                    type: 'number'
+                    type: 'base62',
+                    precision: 1
                 },
                 sbfs: {
                     name: 'straatbeeld.isFullscreen',
@@ -169,7 +132,8 @@
                 },
                 sbh: {
                     name: 'straatbeeld.heading',
-                    type: 'number'
+                    type: 'base62',
+                    precision: 1
                 },
                 sbi: {
                     name: 'straatbeeld.id',
@@ -177,11 +141,13 @@
                 },
                 sbl: {
                     name: 'straatbeeld.location',
-                    type: 'number[]'
+                    type: 'base62[]',
+                    precision: 7
                 },
                 sbp: {
                     name: 'straatbeeld.pitch',
-                    type: 'number'
+                    type: 'base62',
+                    precision: 1
                 },
                 src: {
                     name: 'search.category',
@@ -189,7 +155,8 @@
                 },
                 srl: {
                     name: 'search.location',
-                    type: 'number[]'
+                    type: 'base62[]',
+                    precision: 7
                 },
                 srq: {
                     name: 'search.query',
