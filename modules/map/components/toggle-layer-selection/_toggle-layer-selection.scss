@@ -1,27 +1,24 @@
 %toggle-layer-selection {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  min-width: 147px;
-  z-index: 3;
+  @extend %overlay-button;
+  border-left: none;
 }
 
 .c-toggle-layer-selection {
   @extend %toggle-layer-selection;
   @include icon-button-text-box-right("forward", "", "red");
-  border-bottom: none;
-  border-left: none;
+
+  &:hover,
+  &:active {
+    @extend %toggle-layer-selection;
+  }
 
   &.c-toggle-layer-selection--mirrored {
     @extend %toggle-layer-selection;
     @include icon-button-text-box-right("back");
-    border-bottom: none;
-    border-left: none;
-  }
-}
 
-.is-print-mode {
-  .c-toggle-layer-selection {
-    display: none;
+    &:hover,
+    &:active {
+      @extend %toggle-layer-selection;
+    }
   }
 }

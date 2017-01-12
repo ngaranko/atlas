@@ -79,7 +79,8 @@ $pagination-line-color: #e4e4e4;
 .c-data-selection-pagination__go {
   position: absolute;
   right: 0;
-  left: 0;
+  left: -$base-whitespace * 2;
+  line-height: 1.3;
   z-index: 1;
 }
 
@@ -110,10 +111,12 @@ $pagination-line-color: #e4e4e4;
 
 .c-data-selection-pagination-link--first {
   @include data-selection-pagination-button("first");
+  margin-right: $base-whitespace * 2;
 }
 
 .c-data-selection-pagination-link--last {
   @include data-selection-pagination-button-left("last");
+  margin-left: $base-whitespace * 2;
 }
 
 .c-data-selection-pagination-link--previous {
