@@ -13,7 +13,9 @@ RUN apt-get update \
 WORKDIR /app
 COPY *.json /app/
 
-RUN npm cache clean \
+RUN rm -rf node_modules\
+ && rm -rf bower_components \
+ && npm cache clean \
  && bower cache clean --allow-root \
  && npm install \
  && bower install --allow-root
