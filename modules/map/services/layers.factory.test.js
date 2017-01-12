@@ -2,9 +2,7 @@ describe('The layers factory', function () {
     var L,
         layers,
         mockedLeafletMap,
-        hasLayer,
-        baseLayer,
-        baseLayerLoaded;
+        hasLayer;
 
     beforeEach(function () {
         angular.mock.module(
