@@ -3,10 +3,17 @@
 <div class="c-map">
     <div class="c-map__leaflet js-leaflet-map"></div>
 
-    <dp-toggle-layer-selection
-        overlays="mapState.overlays"
-        show-layer-selection="showLayerSelection">
-    </dp-toggle-layer-selection>
+    <div class="c-map__overlay-buttons">
+        <dp-toggle-layer-selection
+            overlays="mapState.overlays"
+            show-layer-selection="showLayerSelection">
+        </dp-toggle-layer-selection>
+
+        <dp-toggle-active-overlays
+            overlays="mapState.overlays"
+            show-active-overlays="mapState.showActiveOverlays">
+        </dp-toggle-active-overlays>
+    </div>
 
     <dp-active-overlays
         overlays="mapState.overlays"

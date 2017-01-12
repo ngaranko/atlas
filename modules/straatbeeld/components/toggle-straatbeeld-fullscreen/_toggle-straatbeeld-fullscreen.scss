@@ -1,9 +1,23 @@
 .c-toggle-straatbeeld-fullscreen--minimize {
-  @include icon-button-text-right("forwardb", "", "white");
+  @include icon-button-text-box-flat-right("forward", "black", "white");
+  @include status-bar-button;
+
   float: left;
+
+  span {
+    position: relative;
+    top: -1px;
+  }
 }
 
 .c-toggle-straatbeeld-fullscreen--maximize {
-  @include icon-button-text-right("backb", "", "white");
+  @include icon-button-text-box-flat-right("back", "black", "white");
+  @include status-bar-button;
+
   float: left;
+
+  span {
+    position: relative;
+    top: -1px;
+  }
 }

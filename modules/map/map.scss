@@ -4,6 +4,7 @@
 @import "components/map/map";
 @import "components/toggle-drawing-mode/toggle-drawing-mode";
 @import "components/toggle-fullscreen/toggle-fullscreen";
+@import "components/toggle-active-overlays/toggle-active-overlays";
 @import "components/toggle-layer-selection/toggle-layer-selection";
 @import "services/highlight/highlight-cluster";
 @import "services/polygon/polygon";
@@ -11,4 +12,6 @@
 .is-print-mode {
   @import "components/map/map-print";
   @import "components/toggle-fullscreen/toggle-fullscreen-print";
+  @import "components/toggle-active-overlays/toggle-active-overlays-print";
+  @import "components/toggle-layer-selection/toggle-layer-selection-print";
 }

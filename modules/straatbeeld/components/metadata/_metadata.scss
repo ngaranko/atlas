@@ -1,0 +1,23 @@
+.c-straatbeeld__streetview-history-icon {
+  @include icon-button-text-box-flat-right("clock", "black", "white");
+  @include status-bar-button;
+
+  float: left;
+
+  span {
+    position: relative;
+    top: -1px;
+  }
+}
+
+.c-straatbeeld__coordinates {
+  padding-left: $base-whitespace;
+  float: right;
+  border-left: solid $secondary-gray20 1px;
+  line-height: $button-size;
+
+  span {
+    position: relative;
+    top: -1px;
+  }
+}
