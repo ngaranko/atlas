@@ -13,9 +13,8 @@ module.exports = {
             'angular-sanitize': 'angular',
             'bbga_visualisatie_d3': 'd3',
             'leaflet.wms': 'leaflet',
-            'leaflet-measure': 'leaflet',
-            'leaflet-rotatedmarker': 'leaflet',
             'leaflet.draw': 'leaflet',
+            'leaflet-rotatedmarker': 'leaflet',
             'proj4leaflet': ['leaflet', 'proj4']
         }
     },
