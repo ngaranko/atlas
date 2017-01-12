@@ -71,14 +71,14 @@ describe('The dp-straatbeeld-metadata component', function () {
         var component;
 
         component = getComponent(new Date(), [52.123, 4.789]);
-        expect(component.find('.c-straatbeeld__streetview-history-icon').length).toBeGreaterThan(0);
+        expect(component.find('.c-straatbeeld-metadata__streetview-history-icon').length).toBeGreaterThan(0);
     });
 
     it('Google streetview link has an ng-href and is filled properly', function () {
         var component;
 
         component = getComponent(new Date(), [52.123, 4.789], 12, 12);
-        expect(component.find('.c-straatbeeld__streetview-history-icon')
+        expect(component.find('.c-straatbeeld-metadata__streetview-history-icon')
             .attr('ng-href'))
             .toEqual('http://maps.google.com/maps?q=&layer=c&cbll=52.123,4.789&cbp=11,12,0,0,0');
     });

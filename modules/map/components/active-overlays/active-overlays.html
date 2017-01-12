@@ -1,23 +1,13 @@
-<div ng-if="!vm.hideEverything">
-    <button class="c-toggle-active-overlays"
-            ng-class="{
-                'c-toggle-active-overlays--mirrored': vm.showActiveOverlays
-            }"
-            ng-click="vm.toggle()"
-            title="{{vm.buttonTitle}}"
-        ><span>Legenda</span></button>
+<div ng-if="vm.visible" class="c-active-overlays">
+    <dp-link type="HIDE_MAP_ACTIVE_OVERLAYS" class-name="c-active-overlays__close" hover-text="Sluiten">
+        <span class="u-sr-only">Sluiten</span>
+    </dp-link>
 
-    <div ng-if="vm.showActiveOverlays" class="c-active-overlays">
-        <dp-link type="HIDE_MAP_ACTIVE_OVERLAYS" class-name="c-active-overlays__close" hover-text="Sluiten">
-            <span class="u-sr-only">Sluiten</span>
-        </dp-link>
-
-        <div class="c-active-overlays__scrollable">
-            <dp-active-overlays-item ng-repeat="overlay in vm.overlays | orderBy: '-' track by overlay.id"
-                overlay="{{overlay.id}}"
-                is-visible="overlay.isVisible"
-                zoom="vm.zoom">
-            </dp-active-overlays-item>
-        </div>
+    <div class="c-active-overlays__scrollable">
+        <dp-active-overlays-item ng-repeat="overlay in vm.overlays | orderBy: '-' track by overlay.id"
+            overlay="{{overlay.id}}"
+            is-visible="overlay.isVisible"
+            zoom="vm.zoom">
+        </dp-active-overlays-item>
     </div>
 </div>
