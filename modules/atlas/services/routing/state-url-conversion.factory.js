@@ -9,6 +9,13 @@
 
     function stateUrlConverterFactory (STATE_URL_CONVERSION) {
         const URL_ARRAY_SEPARATOR = ':';
+        const ARRAY_DENOTATOR = '[]';
+        const TYPENAME = {
+            STRING: /^string$/,
+            BOOLEAN: /^boolean$/,
+            NUMBER: /^number$/,
+            ARRAY: /\[\]$/
+        };
 
         return {
             state2params,
@@ -16,35 +23,48 @@
             compareObject
         };
 
-        function getValueForKey (obj, key) {
-            let dot = key.indexOf('.');
-            if (dot > 0) {
-                let pre = key.substr(0, dot),
-                    post = key.substr(dot + 1);
-                return angular.isObject(obj[pre]) ? getValueForKey(obj[pre], post) : null;
-            } else {
-                return obj[key] || null;
-            }
-        }
+        function createObject (oldObj, key, params) {
+            let initialValues = STATE_URL_CONVERSION.initialValues,
+                initialValue = initialValues[key] || {},
+                pre = STATE_URL_CONVERSION.pre[key];
 
-        function createObject (oldState, obj, key) {
-            let newObj = angular.copy(STATE_URL_CONVERSION.initialize[key]) || {};
-
-            if (angular.isFunction(STATE_URL_CONVERSION.pre[key])) {
-                newObj = STATE_URL_CONVERSION.pre[key](oldState[key], newObj);
+            let newObj = angular.copy(initialValue);
+            if (angular.isFunction(pre)) {
+                newObj = pre(oldObj, newObj, params, initialValues);
             }
             return newObj;
         }
 
-        function setValueForKey (obj, oldState, key, value) {
+        function getFullKey (key) {
             let dot = key.indexOf('.');
-            if (dot > 0) {
-                let pre = key.substr(0, dot),
-                    post = key.substr(dot + 1);
-                obj[pre] = obj[pre] || createObject(oldState, obj, pre);
-                setValueForKey(obj[pre], oldState, post, value);
+            if (dot >= 0) {
+                return {
+                    mainKey: key.substr(0, dot),
+                    subKey: key.substr(dot + 1)
+                };
             } else {
-                obj[key] = value;
+                return {
+                    mainKey: key
+                };
+            }
+        }
+
+        function getValueForKey (obj, key) {
+            let {mainKey, subKey} = getFullKey(key);
+            if (subKey) {
+                return angular.isObject(obj[mainKey]) ? getValueForKey(obj[mainKey], subKey) : null;
+            } else {
+                return obj[mainKey] || null;
+            }
+        }
+
+        function setValueForKey (obj, oldObj, key, value) {
+            let {mainKey, subKey} = getFullKey(key);
+            if (subKey) {
+                obj[mainKey] = obj[mainKey] || createObject(oldObj[mainKey], mainKey);
+                setValueForKey(obj[mainKey], oldObj[mainKey], subKey, value);
+            } else {
+                obj[mainKey] = value;
             }
         }
 
@@ -52,14 +72,14 @@
             // console.log('asUrlValue', value, typeName, separator);
             let urlValue;
 
-            if (typeName.match(/^string$/)) {
+            if (typeName.match(TYPENAME.STRING)) {
                 urlValue = value;
-            } else if (typeName.match(/^number$/)) {
+            } else if (typeName.match(TYPENAME.NUMBER)) {
                 urlValue = value;
-            } else if (typeName.match(/^boolean$/)) {
+            } else if (typeName.match(TYPENAME.BOOLEAN)) {
                 urlValue = value ? 'T' : 'F';
-            } else if (typeName.match(/\[\]$/)) {
-                let baseType = typeName.substr(0, typeName.length - 2);
+            } else if (typeName.match(TYPENAME.ARRAY)) {
+                let baseType = typeName.substr(0, typeName.length - ARRAY_DENOTATOR.length);
                 urlValue = (value || [])
                     .map(v => asUrlValue(v, baseType, separator + URL_ARRAY_SEPARATOR))
                     .join(separator);
@@ -76,21 +96,23 @@
             let value = decodeURI(decodedValue);
             let stateValue;
 
-            if (typeName.match(/^string$/)) {
+            if (typeName.match(TYPENAME.STRING)) {
                 stateValue = value;
-            } else if (typeName.match(/^number$/)) {
+            } else if (typeName.match(TYPENAME.NUMBER)) {
                 stateValue = Number(value);
-            } else if (typeName.match(/^boolean$/)) {
+            } else if (typeName.match(TYPENAME.BOOLEAN)) {
                 // console.log('boolean', stateValue, stateValue === 'T');
                 stateValue = value === 'T';
-            } else if (typeName.match(/\[\]$/)) {
+            } else if (typeName.match(TYPENAME.ARRAY)) {
                 if (value) {
-                    let baseType = typeName.substr(0, typeName.length - 2);
+                    let baseType = typeName.substr(0, typeName.length - ARRAY_DENOTATOR.length);
+                    // Split the array, replace the split char by a tmp split char because org split char can repeat
+                    const TMP_SPLIT_CHAR = '|';
                     let surroundBy = '([^' + URL_ARRAY_SEPARATOR + '])';
                     let splitOn = new RegExp(surroundBy + separator + surroundBy, 'g');
-                    value = value.replace(splitOn, '$1|$2');
+                    value = value.replace(splitOn, '$1' + TMP_SPLIT_CHAR + '$2');
                     stateValue = value
-                        .split('|')
+                        .split(TMP_SPLIT_CHAR)
                         .map(v => asStateValue(v, baseType, separator + URL_ARRAY_SEPARATOR));
                 } else {
                     stateValue = [];
@@ -120,26 +142,14 @@
             }, {});
         }
 
-        function postProcess (oldState, newState) {
-            Object.keys(STATE_URL_CONVERSION.post).forEach(key => {
-                if (angular.isObject(newState[key])) {
-                    STATE_URL_CONVERSION.post[key](oldState[key], newState[key]);
-                }
-            });
-        }
-
         function params2state (oldState, params) {
-            // console.log('start with state', STATE_URL_CONVERSION.initialize.state);
-            let newState = Object.keys(STATE_URL_CONVERSION.stateVariables).reduce((result, key) => {
+            let newState = createObject (oldState, 'state', params);
+
+            // console.log('start with state', STATE_URL_CONVERSION.initialValues.state);
+            newState = Object.keys(STATE_URL_CONVERSION.stateVariables).reduce((result, key) => {
                 let attribute = STATE_URL_CONVERSION.stateVariables[key];
                 let value = params[key];
-                if (angular.isUndefined(value)) {
-                    // console.log('No value for', attribute.name);
-                    // if (attribute.default !== undefined) {
-                    //     // console.log('Set default value for', attribute.name, attribute.default);
-                    //     setValueForKey(result, attribute.name, attribute.default);
-                    // }
-                } else {
+                if (! angular.isUndefined(value)) {
                     // store value in state
                     value = asStateValue(value, attribute.type);
                     if (angular.isFunction(attribute.setValue)) {
@@ -148,15 +158,19 @@
                     setValueForKey(result, oldState, attribute.name, value);
                 }
                 return result;
-            }, angular.copy(STATE_URL_CONVERSION.initialize.state));
+            }, newState);
 
-            Object.keys(STATE_URL_CONVERSION.initialize).forEach(key => {
+            Object.keys(STATE_URL_CONVERSION.initialValues).forEach(key => {
                 if (key !== 'state' && !angular.isObject(newState[key])) {
                     newState[key] = null;
                 }
             });
 
-            postProcess (oldState, newState);
+            Object.keys(STATE_URL_CONVERSION.post).forEach(key => {
+                if (angular.isObject(newState[key])) {
+                    STATE_URL_CONVERSION.post[key](oldState[key], newState[key]);
+                }
+            });
 
             return newState;
         }

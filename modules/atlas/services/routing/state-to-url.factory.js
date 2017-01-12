@@ -9,12 +9,11 @@
 
     function stateToUrlFactory ($location, $window, stateUrlConverter) {
         return {
-            // create,
+            create,
             update
         };
 
         function create (state) {
-            console.log('=======================================================================');
             const params = getParams(state);
             let key,
                 queryString = '';
@@ -43,22 +42,23 @@
         function getParams (state) {
             let newParams = stateUrlConverter.state2params(state);
 
-            let oldParams = angular.merge(
-                getSearchParams(state),
-                getMapParams(state),
-                getLayerSelectionParams(state),
-                getPageParams(state),
-                getDetailParams(state),
-                getStraatbeeldParams(state),
-                getDataSelectionParams(state),
-                getPrintParams(state)
-            );
+            // let oldParams = angular.merge(
+            //     getSearchParams(state),
+            //     getMapParams(state),
+            //     getLayerSelectionParams(state),
+            //     getPageParams(state),
+            //     getDetailParams(state),
+            //     getStraatbeeldParams(state),
+            //     getDataSelectionParams(state),
+            //     getPrintParams(state)
+            // );
+            //
+            // sessionStorage.setItem('oldParams', angular.toJson(oldParams));
+            // sessionStorage.setItem('newParams', angular.toJson(newParams));
 
-            sessionStorage.setItem('oldParams', angular.toJson(oldParams));
-            sessionStorage.setItem('newParams', angular.toJson(newParams));
+            // console.log('new params', newParams);
+            // console.log('old params', oldParams);
 
-            console.log('new params', newParams);
-            console.log('old params', oldParams);
             return newParams;
         }
 

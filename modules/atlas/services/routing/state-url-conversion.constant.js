@@ -3,10 +3,17 @@
         .module('atlas')
         .constant('STATE_URL_CONVERSION', {
             pre: {
-                search: (oldState, newState) => angular.copy(oldState || newState),
+                state: (oldState, newState, params, initialValues) => {
+                    if (angular.equals(params, {})) {
+                        // When no params, go to home page and initial map
+                        newState.page = 'home';
+                        newState.map = angular.copy(initialValues.map);
+                    }
+                    return newState;
+                },
+                search: (oldState, newState) => angular.copy(oldState || newState)
             },
             post: {
-                // search: (oldState, newState) => newState.isLoading = !angular.equals(oldState, newState),
                 dataSelection: (oldState, newState) => {
                     if (oldState) {
                         newState.markers = oldState.markers;
@@ -33,7 +40,7 @@
                     }
                 }
             },
-            initialize: {
+            initialValues: {
                 state: {
                     page: null,
                     layerSelection: false,
@@ -78,6 +85,7 @@
                 }
             },
             stateVariables: {
+                // property names are keys so that the compiler guarantees the uniqness
                 _ls: {
                     name: 'layerSelection',
                     type: 'boolean'

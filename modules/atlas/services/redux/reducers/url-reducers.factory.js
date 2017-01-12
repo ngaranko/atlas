@@ -15,38 +15,38 @@
         return reducers;
 
         function urlChangeReducer (oldState, payload) {
-            console.log('Url get', oldState, payload);
-            let oldPayload = angular.fromJson(sessionStorage.getItem('oldParams'));
-            let newPayload = angular.fromJson(sessionStorage.getItem('newParams'));
+            // console.log('Url get', oldState, payload);
+            // let oldPayload = angular.fromJson(sessionStorage.getItem('oldParams'));
+            // let newPayload = angular.fromJson(sessionStorage.getItem('newParams'));
 
             let newNewState = stateUrlConverter.params2state(oldState, payload);
 
-            let newState;
-            if (angular.equals(oldPayload, {})) {
-                newState = DEFAULT_STATE;
-            } else {
-                newState = {};
-
-                newState.search = getSearchState(oldState, oldPayload);
-                newState.map = getMapState(oldPayload);
-                newState.detail = getDetailState(oldState, oldPayload);
-                newState.straatbeeld = getStraatbeeldState(oldState, oldPayload);
-                newState.dataSelection = getDataSelectionState(oldState, oldPayload);
-
-                newState.layerSelection = getLayerSelectionState(oldPayload);
-                newState.isPrintMode = getPrintState(oldPayload);
-                newState.page = oldPayload.pagina || null;
-            }
-
-            let oldSt = angular.copy(newState);
-            let newSt = angular.copy(newNewState);
-
-            console.log('old state', oldSt);
-            console.log('new state', newSt);
-            console.log('Compare old - new');
-            stateUrlConverter.compareObject(oldSt, newSt);
-            console.log('Compare new - old');
-            stateUrlConverter.compareObject(newSt, oldSt);
+            // let newState;
+            // if (!oldPayload || angular.equals(oldPayload, {})) {
+            //     newState = DEFAULT_STATE;
+            // } else {
+            //     newState = {};
+            //
+            //     newState.search = getSearchState(oldState, oldPayload);
+            //     newState.map = getMapState(oldPayload);
+            //     newState.detail = getDetailState(oldState, oldPayload);
+            //     newState.straatbeeld = getStraatbeeldState(oldState, oldPayload);
+            //     newState.dataSelection = getDataSelectionState(oldState, oldPayload);
+            //
+            //     newState.layerSelection = getLayerSelectionState(oldPayload);
+            //     newState.isPrintMode = getPrintState(oldPayload);
+            //     newState.page = oldPayload.pagina || null;
+            // }
+            //
+            // let oldSt = angular.copy(newState);
+            // let newSt = angular.copy(newNewState);
+            //
+            // // console.log('old state', oldSt);
+            // // console.log('new state', newSt);
+            // console.log('Compare old - new');
+            // stateUrlConverter.compareObject(oldSt, newSt);
+            // console.log('Compare new - old');
+            // stateUrlConverter.compareObject(newSt, oldSt);
 
             return newNewState;
         }
