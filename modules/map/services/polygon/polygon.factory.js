@@ -95,7 +95,11 @@
 
         function toggle () {
             if (drawShapeHandler.enabled()) {
-                drawShapeHandler.completeShape();
+                if (drawShapeHandler._markers.length > 1) {
+                    drawShapeHandler.completeShape();
+                } else {
+                    drawShapeHandler.disable();
+                }
                 polygonInstance.isActive = false;
             } else if (editShapeHandler.enabled()) {
                 editShapeHandler.save();
