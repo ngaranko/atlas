@@ -1,9 +1,20 @@
-@import "modules/straatbeeld/components/toggle-straatbeeld-fullscreen/toggle-straatbeeld-fullscreen";
-
 @mixin smaller-font-definition {
   font-family: $header-font-family;
   font-size: $base-font-size - 2;
-  line-height: 24px;
+  line-height: $button-size;
+}
+
+@mixin status-bar-button {
+  @include smaller-font-definition;
+
+  padding-right: $base-whitespace;
+  border-right: solid $secondary-gray20 1px;
+  z-index: 2;
+
+  &:hover,
+  &:active {
+    border-right: solid $secondary-gray20 1px;
+  }
 }
 
 .c-straatbeeld {
@@ -34,13 +45,7 @@
   padding-right: $base-whitespace / 2;
   background-color: $primary-light-alpha66;
   color: $primary-dark;
-  line-height: $button-size;
   z-index: 2;
-}
-
-.c-straatbeeld__coordinates {
-  padding-left: $base-whitespace;
-  border-left: solid $secondary-gray20 1px;
 }
 
 .c-straatbeeld__close {
@@ -49,13 +54,4 @@
   top: 0;
   right: 0;
   z-index: 2;
-}
-
-.c-straatbeeld__streetview-history-icon {
-  @include icon-button-text-right("clock", "black", "white");
-  @include smaller-font-definition;
-
-  &::before {
-    margin-right: $base-whitespace / 2;
-  }
 }
