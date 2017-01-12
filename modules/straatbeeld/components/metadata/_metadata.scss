@@ -1,4 +1,4 @@
-.c-straatbeeld__streetview-history-icon {
+.c-straatbeeld-metadata__streetview-history-icon {
   @include icon-button-text-box-flat-right("clock", "black", "white");
   @include status-bar-button;
 
@@ -10,7 +10,7 @@
   }
 }
 
-.c-straatbeeld__coordinates {
+.c-straatbeeld-metadata__coordinates {
   padding-left: $base-whitespace;
   float: right;
   border-left: solid $secondary-gray20 1px;
