@@ -40,9 +40,9 @@
                     },
                     polygon: {
                         tooltip: {
-                            start: 'Click to start drawing shape.',
-                            cont: 'Click to continue drawing shape.',
-                            end: 'Click first point to close this shape.'
+                            start: '',
+                            cont: '',
+                            end: ''
                         }
                     },
                     polyline: {
@@ -87,8 +87,8 @@
                 handlers: {
                     edit: {
                         tooltip: {
-                            text: 'Drag handles, or marker to edit feature.',
-                            subtext: 'Click cancel to undo changes.'
+                            text: '',
+                            subtext: ''
                         }
                     },
                     remove: {

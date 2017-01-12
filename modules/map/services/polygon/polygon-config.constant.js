@@ -8,7 +8,7 @@
             },
             draw: {
                 polygon: {
-                    allowIntersection: true,
+                    allowIntersection: false,
                     showArea: true,
                     showLength: true,
                     metric: ['km', 'm'],
