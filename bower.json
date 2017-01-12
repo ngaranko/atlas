@@ -7,7 +7,7 @@
     "angular-i18n": "~1.5.7",
     "angular-sanitize": "~1.5.7",
     "angulartics-piwik": "^1.0.4",
-    "bbga_visualisatie_d3": "https://github.com/DatapuntAmsterdam/bbga_visualisatie_d3.git",
+    "bbga_visualisatie_d3": "https://github.com/DatapuntAmsterdam/bbga_visualisatie_d3.git#master",
     "d3": "^3.5.17",
     "leaflet": "^1.0.0",
     "leaflet.markercluster": "^1.0.0",
