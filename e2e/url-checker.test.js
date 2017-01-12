@@ -1,7 +1,7 @@
 'use strict';
 
 const navigate = require('./helpers/navigate');
-const validateMapPageHome = require('./validators/map_page--home');
+const validateMapPageHome = require('./helpers/validators/map_page--home');
 
 describe('each URL should load the corresponding view', function () {
     let page;
