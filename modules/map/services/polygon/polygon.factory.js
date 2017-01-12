@@ -47,8 +47,6 @@
                 onMapClick.enable();
             });
             leafletMap.on(L.Draw.Event.DRAWVERTEX, function () {
-                unbindLastMarker();
-                getLastMarker();
                 bindLastMarker();
             });
             leafletMap.on(L.Draw.Event.CREATED, function (e) {
@@ -66,25 +64,29 @@
 
         function bindLastMarker () {
             if (lastMarker) {
-                lastMarker.on('click', deleteLastMarker);
-            }
-        }
-        function unbindLastMarker () {
-            if (lastMarker) {
                 lastMarker.off('click', deleteLastMarker);
+                lastMarker = null;
             }
-        }
-        function getLastMarker () {
-            if (drawShapeHandler.enabled()) {
+            if (drawShapeHandler.enabled() && drawShapeHandler._markers.length) {
                 lastMarker = drawShapeHandler._markers[drawShapeHandler._markers.length - 1];
+                if (lastMarker) {
+                    lastMarker.on('click', deleteLastMarker);
+                }
             }
         }
+
         function deleteLastMarker () {
             if (drawShapeHandler.enabled()) {
-                unbindLastMarker();
-                drawShapeHandler.deleteLastVertex();
-                getLastMarker();
-                bindLastMarker();
+                if (drawShapeHandler._markers.length === 1) {
+                    // Leaflet draw does not allow deleting the very first
+                    // marker; work around by disabling and enabling the draw
+                    // tool.
+                    toggle();
+                    toggle();
+                } else if (drawShapeHandler._markers.length > 1) {
+                    drawShapeHandler.deleteLastVertex();
+                    bindLastMarker();
+                }
             }
         }
 
