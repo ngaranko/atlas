@@ -1,17 +1,26 @@
 %toggle-drawing-mode {
   position: absolute;
-  top: -1px;
-  left: -1px;
+  top: 0;
+  left: 0;
   z-index: 2;
 }
 
 .c-toggle-drawing-mode {
   @extend %toggle-drawing-mode;
   @include icon-button("polygon-measure");
-
 }
 
 &.c-toggle-drawing-mode--active {
   @extend %toggle-drawing-mode;
-  @include icon-button("polygon-measure", "red");
+  @include icon-button-text-box-right("polygon-measure", "red");
+
+  padding-left: $button-size + $base-whitespace;
+  border-top: none;
+  border-left: none;
+
+  &:hover,
+  &:active {
+    border-top: none;
+    border-left: none;
+  }
 }

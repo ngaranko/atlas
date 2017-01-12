@@ -4,5 +4,6 @@
           'c-toggle-drawing-mode--active': vm.polygon.isActive,
           'c-toggle-drawing-mode': !vm.polygon.isActive
         }">
-    <span class="u-sr-only">Meten</span>
+    <em class="u-sr-only">Polygoon meten</em>
+    <span ng-show="vm.polygon.isActive">Klaar</span>
 </button>
