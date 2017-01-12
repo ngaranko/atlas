@@ -20,3 +20,16 @@
   cursor: default;
   z-index: 1;
 }
+
+.c-map__overlay-buttons {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+%overlay-button {
+  margin-right: $base-whitespace * .2;
+  float: left;
+  border-bottom: none;
+  z-index: 3;
+}
