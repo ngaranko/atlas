@@ -13,12 +13,19 @@ RUN apt-get update \
 WORKDIR /app
 COPY *.json /app/
 
-RUN npm cache clean \
+RUN rm -rf node_modules\
+ && rm -rf bower_components \
+ && npm cache clean \
  && bower cache clean --allow-root \
  && npm install \
  && bower install --allow-root
 
 COPY . /app/
+
+ARG BUILD_ID
+ENV BUILD_ID=$BUILD_ID
+
+RUN grunt set-build-id --buildid=${BUILD_ID}
 
 RUN grunt build-release \
  && cp -r /app/build/. /var/www/html/

@@ -1,7 +1,4 @@
-.c-toggle-straatbeeld-fullscreen--minimize {
-  @include icon-button-text-box-flat-right("forward", "black", "white");
-  @include status-bar-button;
-
+%c-toggle-straatbeeld-fullscreen {
   float: left;
 
   span {
@@ -10,14 +7,14 @@
   }
 }
 
+.c-toggle-straatbeeld-fullscreen--minimize {
+  @extend %c-toggle-straatbeeld-fullscreen;
+  @include icon-button-text-box-flat-right("forward", "black", "white");
+  @include status-bar-button;
+}
+
 .c-toggle-straatbeeld-fullscreen--maximize {
+  @extend %c-toggle-straatbeeld-fullscreen;
   @include icon-button-text-box-flat-right("back", "black", "white");
   @include status-bar-button;
-
-  float: left;
-
-  span {
-    position: relative;
-    top: -1px;
-  }
 }
