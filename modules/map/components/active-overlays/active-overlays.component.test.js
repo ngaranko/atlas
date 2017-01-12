@@ -68,33 +68,11 @@ describe('The dp-active-overlays component', function () {
 
         // Without any overlays
         component = getComponent([], 8, true);
-        expect(component.find('.c-toggle-active-overlays').length).toBe(0);
         expect(component.find('.c-active-overlays').length).toBe(0);
 
         // With overlays
         component = getComponent([{id: 'overlay_a', isVisible: true}], 8, true);
-        expect(component.find('.c-toggle-active-overlays').length).toBe(1);
         expect(component.find('.c-active-overlays').length).toBe(1);
-    });
-
-    it('toggles between SHOW_MAP_ACTIVE_OVERLAYS and HIDE_MAP_ACTIVE_OVERLAYS', function () {
-        var component;
-
-        // With showActiveOverlays is false
-        component = getComponent([{id: 'overlay_a', isVisible: true}], 8, false);
-        component.find('.c-toggle-active-overlays').click();
-        expect(store.dispatch).toHaveBeenCalledTimes(1);
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.SHOW_MAP_ACTIVE_OVERLAYS
-        });
-
-        // With showActiveOverlays is true
-        component = getComponent([{id: 'overlay_a', isVisible: true}], 8, true);
-        component.find('.c-toggle-active-overlays').click();
-        expect(store.dispatch).toHaveBeenCalledTimes(2);
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.HIDE_MAP_ACTIVE_OVERLAYS
-        });
     });
 
     it('loads the dp-active-overlays-item components in reversed order', function () {
@@ -108,31 +86,6 @@ describe('The dp-active-overlays component', function () {
 
         expect(component.find('dp-active-overlays-item').eq(0).attr('overlay')).toBe('overlay_b');
         expect(component.find('dp-active-overlays-item').eq(1).attr('overlay')).toBe('overlay_a');
-    });
-
-    it('the toggle button has a variable title attribute value depending on the state', function () {
-        var component;
-
-        // When closed
-        component = getComponent(
-            [{id: 'overlay_a', isVisible: true}, {id: 'overlay_b', isVisible: true}],
-            10,
-            false
-        );
-        expect(component.find('.c-toggle-active-overlays').attr('title'))
-            .toBe('Toon legenda van geselecteerde kaartlagen');
-
-        // When opened
-        component = getComponent(
-            [{id: 'overlay_a', isVisible: true}, {id: 'overlay_b', isVisible: true}],
-            10,
-            true
-        );
-        expect(component.find('.c-toggle-active-overlays').attr('title'))
-            .toBe('Sluit legenda van geselecteerde kaartlagen');
-
-        // When opened; a close icon (dp-link) is shown as well
-        expect(component.find('.c-active-overlays button').eq(0).attr('title')).toBe('Sluiten');
     });
 
     describe('there is a close icon in the active overlays panel', function () {
