@@ -2,8 +2,18 @@
     angular
         .module('atlas')
         .constant('STATE_URL_CONVERSION', {
+            pre: {
+                // Optional initialisation methods for the url2state conversion
+                // These methods are executed after a state object has been initialized with the initialValues
+            },
+            post: {
+                // Optional post processing methods
+                // These methods are exectuted when the url2state conversion has finished
+            },
             initialValues: {
-                state: {
+                // When creating a state object it will be initialized with these values
+                // MAIN_STATE is used to denote the main or global state part of the state
+                MAIN_STATE: {
                     page: null,
                     layerSelection: false,
                     isPrintMode: false
@@ -46,7 +56,8 @@
                 }
             },
             stateVariables: {
-                // property names are keys so that the compiler guarantees the uniqness
+                // Property names are keys so that the compiler guarantees the uniqness
+                // The type is stored with the name, every state variable has to have a type specification
                 _ls: {
                     name: 'layerSelection',
                     type: 'boolean'

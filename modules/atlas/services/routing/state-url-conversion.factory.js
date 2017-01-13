@@ -10,7 +10,7 @@
     function stateUrlConverterFactory (STATE_URL_CONVERSION, dpBaseCoder) {
         const URL_ARRAY_SEPARATOR = ':';
         const ARRAY_DENOTATOR = '[]';
-        const STATE = 'state';
+        const STATE = 'MAIN_STATE';
         const BOOLEAN_TRUE = 'T';
         const BOOLEAN_FALSE = 'F';
         const TYPENAME = {
@@ -143,7 +143,9 @@
                     if (angular.isFunction(attribute.getValue)) {
                         value = attribute.getValue(value);
                     }
-                    result[key] = asUrlValue(value, attribute.type, attribute.precision);
+                    if (!['', [], {}].reduce((isEmpty, v) => isEmpty || angular.equals(value, v), false)) {
+                        result[key] = asUrlValue(value, attribute.type, attribute.precision);
+                    }
                 }
                 return result;
             }, {});

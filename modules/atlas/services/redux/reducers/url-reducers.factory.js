@@ -10,7 +10,7 @@
     function urlReducersFactory (ACTIONS, STATE_URL_CONVERSION, stateUrlConverter) {
         // Define the pre and post methods here to have the code coverage assured
         STATE_URL_CONVERSION.pre = {
-            state: defaultState,
+            MAIN_STATE: defaultState,
             search: defaultSearch
         };
         STATE_URL_CONVERSION.post = {
