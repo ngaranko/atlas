@@ -7,11 +7,7 @@ describe('The stateToUrl factory', function () {
     beforeEach(function () {
         angular.mock.module('atlas', {
             stateUrlConverter: {
-                state2params: state => {
-                    let newState = angular.copy(state);
-                    newState.convert = true;
-                    return newState;
-                }
+                state2params: state => angular.merge({}, state, {convert: true})
             }
         });
 

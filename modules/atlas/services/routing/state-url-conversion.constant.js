@@ -5,10 +5,44 @@
             pre: {
                 // Optional initialisation methods for the url2state conversion
                 // These methods are executed after a state object has been initialized with the initialValues
+                MAIN_STATE: (oldState, newState, params, initialValues) => {
+                    if (angular.equals(params, {})) {
+                        // When no params, go to home page and show initial map
+                        newState.page = 'home';
+                        newState.map = angular.copy(initialValues.map);
+                    }
+                    return newState;
+                },
+                search: (oldState, newState) => angular.isObject(oldState) ? angular.copy(oldState) : newState
             },
             post: {
-                // Optional post processing methods
+                // Post processing methods
                 // These methods are exectuted when the url2state conversion has finished
+                dataSelection: (oldState, newState) => {
+                    if (angular.isObject(oldState)) {
+                        newState.markers = oldState.markers;
+                        newState.isLoading = oldState.isLoading;
+                    }
+                    newState.isFullscreen = newState.view !== 'LIST';
+                },
+                detail: (oldState, newState) => {
+                    if (angular.isObject(oldState) && oldState.endpoint === newState.endpoint) {
+                        newState.display = oldState.display;
+                        newState.geometry = oldState.geometry;
+                        newState.isLoading = oldState.isLoading;
+                        newState.isFullscreen = oldState.isFullscreen;
+                    }
+                },
+                straatbeeld: (oldState, newState) => {
+                    if (angular.isObject(oldState) && oldState.id === newState.id) {
+                        newState.image = oldState.image;
+                        newState.hotspots = oldState.hotspots;
+                        newState.date = oldState.date;
+                        newState.location = oldState.location;
+                        newState.isInitial = false;
+                        newState.isLoading = oldState.isLoading;
+                    }
+                }
             },
             initialValues: {
                 // When creating a state object it will be initialized with these values
