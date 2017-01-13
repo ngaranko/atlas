@@ -71,7 +71,7 @@
             let {mainKey, subKey} = getFullKey(key);
             if (subKey) {
                 obj[mainKey] = obj[mainKey] || createObject(oldObj[mainKey], mainKey);
-                setValueForKey(obj[mainKey], oldObj[mainKey], subKey, value);
+                setValueForKey(obj[mainKey], oldObj[mainKey] || {}, subKey, value);
             } else {
                 obj[mainKey] = value;
             }
