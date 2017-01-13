@@ -5,9 +5,9 @@
         .module('atlas')
         .factory('stateToUrl', stateToUrlFactory);
 
-    stateToUrlFactory.$inject = ['$location', '$window', 'stateUrlConverter'];
+    stateToUrlFactory.$inject = ['$location', 'stateUrlConverter'];
 
-    function stateToUrlFactory ($location, $window, stateUrlConverter) {
+    function stateToUrlFactory ($location, stateUrlConverter) {
         return {
             create,
             update

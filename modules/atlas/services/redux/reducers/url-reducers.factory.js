@@ -37,7 +37,7 @@
         }
 
         function defaultSearch (oldState, newState) {
-            return angular.copy(oldState || newState);
+            return oldState ? angular.copy(oldState) : newState;
         }
 
         function postDataSelection (oldState, newState) {
