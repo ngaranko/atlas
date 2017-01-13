@@ -103,6 +103,24 @@ describe('The state url conversion factory', function () {
                 v: 'getValue.v'
             });
         });
+
+        it('skips empty values for strings and arrays', function () {
+            let params = stateUrlConverter.state2params({
+                s: '',
+                as: []
+            });
+
+            expect(params).toEqual({});
+        });
+
+        it('skips values of unknown type', function () {
+            mockedStateUrlConversion.stateVariables.s.type = 'string1';
+            let params = stateUrlConverter.state2params({
+                s: 'aap'
+            });
+
+            expect(params).toEqual({});
+        });
     });
 
     describe('The params to state translation', function () {
@@ -189,7 +207,7 @@ describe('The state url conversion factory', function () {
             });
         });
 
-        it ('can use a pre method to inialize a state object', function () {
+        it('can use a pre method to inialize a state object', function () {
             mockedStateUrlConversion.pre = {
                 x: (oldState, newState) => {
                     newState.mies = oldState.aap + ', ' + newState.aap;
@@ -217,7 +235,7 @@ describe('The state url conversion factory', function () {
             });
         });
 
-        it ('supplies the payload to a pre method for the main state object', function () {
+        it('supplies the payload to a pre method for the main state object', function () {
             mockedStateUrlConversion.pre = {
                 MAIN_STATE: (oldState, newState, params) => {
                     newState.mies = oldState.aap + ', ' + newState.aap + ', ' + params.s;
@@ -241,9 +259,13 @@ describe('The state url conversion factory', function () {
         });
 
         it('can use a post method to post process a state when all conversion has finished', function () {
+            let onlyPostForStates = true;
             mockedStateUrlConversion.post = {
                 x: (oldState, newState) => {
                     newState.mies = oldState.aap + ', ' + newState.aap + ', ' + newState.b;
+                },
+                y: () => {
+                    onlyPostForStates = false;
                 }
             };
 
@@ -264,6 +286,22 @@ describe('The state url conversion factory', function () {
                     mies: 'old noot, new noot, true',
                     b: true
                 }
+            });
+            expect(onlyPostForStates).toBe(true);
+        });
+
+        it('skips values of unknown type', function () {
+            mockedStateUrlConversion.stateVariables.s.type = 'string1';
+            let state = stateUrlConverter.params2state({}, {s: 'mies'});
+            expect(state).toEqual({});
+        });
+
+        it('restores empty values for multidimensional arrays', function () {
+            let state = stateUrlConverter.params2state({}, {
+                aab: 'T::F'
+            });
+            expect(state).toEqual({
+                aab: [[true, false]]
             });
         });
     });

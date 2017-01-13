@@ -91,7 +91,7 @@
                 urlValue = value ? BOOLEAN_TRUE : BOOLEAN_FALSE;
             } else if (typeName.match(TYPENAME.ARRAY)) {
                 let baseType = typeName.substr(0, typeName.length - ARRAY_DENOTATOR.length);
-                urlValue = (value || [])
+                urlValue = value
                     .map(v => asUrlValue(v, baseType, precision, separator + URL_ARRAY_SEPARATOR))
                     .join(separator);
             }
@@ -114,19 +114,15 @@
             } else if (typeName.match(TYPENAME.BOOLEAN)) {
                 stateValue = value === BOOLEAN_TRUE;
             } else if (typeName.match(TYPENAME.ARRAY)) {
-                if (value) {
-                    let baseType = typeName.substr(0, typeName.length - ARRAY_DENOTATOR.length);
-                    // Split the array, replace the split char by a tmp split char because org split char can repeat
-                    const TMP_SPLIT_CHAR = '|';
-                    let surroundBy = '([^' + URL_ARRAY_SEPARATOR + '])';
-                    let splitOn = new RegExp(surroundBy + separator + surroundBy, 'g');
-                    value = value.replace(splitOn, '$1' + TMP_SPLIT_CHAR + '$2');
-                    stateValue = value
-                        .split(TMP_SPLIT_CHAR)
-                        .map(v => asStateValue(v, baseType, precision, separator + URL_ARRAY_SEPARATOR));
-                } else {
-                    stateValue = [];
-                }
+                let baseType = typeName.substr(0, typeName.length - ARRAY_DENOTATOR.length);
+                // Split the array, replace the split char by a tmp split char because org split char can repeat
+                const TMP_SPLIT_CHAR = '|';
+                let surroundBy = '([^' + URL_ARRAY_SEPARATOR + '])';
+                let splitOn = new RegExp(surroundBy + separator + surroundBy, 'g');
+                value = value.replace(splitOn, '$1' + TMP_SPLIT_CHAR + '$2');
+                stateValue = value
+                    .split(TMP_SPLIT_CHAR)
+                    .map(v => asStateValue(v, baseType, precision, separator + URL_ARRAY_SEPARATOR));
             }
 
             // console.log('State value', decodedValue, typeName, stateValue);
@@ -143,9 +139,13 @@
                     if (angular.isFunction(attribute.getValue)) {
                         value = attribute.getValue(value);
                     }
-                    if (!['', [], {}].reduce((isEmpty, v) => isEmpty || angular.equals(value, v), false)) {
-                        result[key] = asUrlValue(value, attribute.type, attribute.precision);
+                    value = asUrlValue(value, attribute.type, attribute.precision);
+                    if (value) {
+                        result[key] = value;
                     }
+                    // if (!['', []].reduce((isEmpty, v) => isEmpty || angular.equals(value, v), false)) {
+                    //     result[key] = asUrlValue(value, attribute.type, attribute.precision);
+                    // }
                 }
                 return result;
             }, {});
@@ -163,7 +163,9 @@
                     if (angular.isFunction(attribute.setValue)) {
                         value = attribute.setValue(value);
                     }
-                    setValueForKey(result, oldState, attribute.name, value);
+                    if (value !== null) {
+                        setValueForKey(result, oldState, attribute.name, value);
+                    }
                 }
                 return result;
             }, newState);
