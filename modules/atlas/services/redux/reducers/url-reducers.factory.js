@@ -37,11 +37,11 @@
         }
 
         function defaultSearch (oldState, newState) {
-            return oldState ? angular.copy(oldState) : newState;
+            return angular.isObject(oldState) ? angular.copy(oldState) : newState;
         }
 
         function postDataSelection (oldState, newState) {
-            if (oldState) {
+            if (angular.isObject(oldState)) {
                 newState.markers = oldState.markers;
                 newState.isLoading = oldState.isLoading;
             }
@@ -49,7 +49,7 @@
         }
 
         function postDetail (oldState, newState) {
-            if (oldState && oldState.endpoint === newState.endpoint) {
+            if (angular.isObject(oldState) && oldState.endpoint === newState.endpoint) {
                 newState.display = oldState.display;
                 newState.geometry = oldState.geometry;
                 newState.isLoading = oldState.isLoading;
@@ -58,7 +58,7 @@
         }
 
         function postStraatbeeld (oldState, newState) {
-            if (oldState && oldState.id === newState.id) {
+            if (angular.isObject(oldState) && oldState.id === newState.id) {
                 newState.image = oldState.image;
                 newState.hotspots = oldState.hotspots;
                 newState.date = oldState.date;

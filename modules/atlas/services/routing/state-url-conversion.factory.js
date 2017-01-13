@@ -10,7 +10,7 @@
     function stateUrlConverterFactory (STATE_URL_CONVERSION, dpBaseCoder) {
         const URL_ARRAY_SEPARATOR = ':';
         const ARRAY_DENOTATOR = '[]';
-        const STATE = 'MAIN_STATE';
+        const MAIN_STATE = 'MAIN_STATE';
         const BOOLEAN_TRUE = 'T';
         const BOOLEAN_FALSE = 'F';
         const TYPENAME = {
@@ -78,7 +78,6 @@
         }
 
         function asUrlValue (value, typeName, precision = null, separator = URL_ARRAY_SEPARATOR) {
-            // console.log('asUrlValue', value, typeName, separator);
             let urlValue = '';
 
             if (typeName.match(TYPENAME.STRING)) {
@@ -96,12 +95,10 @@
                     .join(separator);
             }
 
-            // console.log('URL value', value, typeName, urlValue);
             return encodeURI(urlValue.toString());
         }
 
         function asStateValue (decodedValue, typeName, precision = null, separator = URL_ARRAY_SEPARATOR) {
-            // console.log('asStateValue', decodedValue, typeName);
             let value = decodeURI(decodedValue);
             let stateValue = null;
 
@@ -125,7 +122,6 @@
                     .map(v => asStateValue(v, baseType, precision, separator + URL_ARRAY_SEPARATOR));
             }
 
-            // console.log('State value', decodedValue, typeName, stateValue);
             return stateValue;
         }
 
@@ -133,7 +129,6 @@
             return Object.keys(STATE_URL_CONVERSION.stateVariables).reduce((result, key) => {
                 let attribute = STATE_URL_CONVERSION.stateVariables[key];
                 let value = getValueForKey(state, attribute.name);
-                // console.log('Value for', attribute.name, value);
                 if (value !== null) {
                     // store value in url
                     if (angular.isFunction(attribute.getValue)) {
@@ -143,16 +138,13 @@
                     if (value) {
                         result[key] = value;
                     }
-                    // if (!['', []].reduce((isEmpty, v) => isEmpty || angular.equals(value, v), false)) {
-                    //     result[key] = asUrlValue(value, attribute.type, attribute.precision);
-                    // }
                 }
                 return result;
             }, {});
         }
 
         function params2state (oldState, params) {
-            let newState = createObject (oldState, STATE, params);
+            let newState = createObject (oldState, MAIN_STATE, params);
 
             newState = Object.keys(STATE_URL_CONVERSION.stateVariables).reduce((result, key) => {
                 let attribute = STATE_URL_CONVERSION.stateVariables[key];
@@ -170,12 +162,14 @@
                 return result;
             }, newState);
 
+            // Set any missing state objects to null
             Object.keys(STATE_URL_CONVERSION.initialValues).forEach(key => {
-                if (key !== STATE && !angular.isObject(newState[key])) {
+                if (key !== MAIN_STATE && !angular.isObject(newState[key])) {
                     newState[key] = null;
                 }
             });
 
+            // Execute the post processing methods
             Object.keys(STATE_URL_CONVERSION.post).forEach(key => {
                 if (angular.isObject(newState[key])) {
                     STATE_URL_CONVERSION.post[key](oldState[key], newState[key]);
