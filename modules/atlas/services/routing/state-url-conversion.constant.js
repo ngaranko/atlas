@@ -3,7 +3,7 @@
         .module('atlas')
         .constant('STATE_URL_CONVERSION', {
             pre: {
-                // Optional initialisation methods for the url2state conversion
+                // Initialisation methods for the url2state conversion
                 // These methods are executed after a state object has been initialized with the initialValues
                 MAIN_STATE: (oldState, newState, params, initialValues) => {
                     if (angular.equals(params, {})) {

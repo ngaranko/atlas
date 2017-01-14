@@ -5,9 +5,9 @@
         .module('atlas')
         .factory('urlReducers', urlReducersFactory);
 
-    urlReducersFactory.$inject = ['ACTIONS', 'STATE_URL_CONVERSION', 'stateUrlConverter'];
+    urlReducersFactory.$inject = ['ACTIONS', 'stateUrlConverter'];
 
-    function urlReducersFactory (ACTIONS, STATE_URL_CONVERSION, stateUrlConverter) {
+    function urlReducersFactory (ACTIONS, stateUrlConverter) {
         return {
             [ACTIONS.URL_CHANGE.id]: urlChangeReducer
         };

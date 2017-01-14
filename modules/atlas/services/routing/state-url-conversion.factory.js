@@ -32,6 +32,7 @@
         };
 
         function createObject (oldObj, key, params) {
+            // create a state object by using its initial value (default {}) and pre method if defined
             let initialValues = STATE_URL_CONVERSION.initialValues,
                 initialValue = initialValues[key] || {},
                 pre = STATE_URL_CONVERSION.pre[key];
@@ -44,6 +45,8 @@
         }
 
         function getFullKey (key) {
+            // decompose 'map.viewCenter' in {mainKey: 'map', subKey: 'viewCenter'}
+            // or 'isPrintmode' in {mainKey: 'isPrintmode'}
             let dot = key.indexOf('.');
             if (dot >= 0) {
                 return {
@@ -58,10 +61,12 @@
         }
 
         function getNumberValue (n, precision) {
+            // eg return 10.1 for 10.123
             return precision === null ? n : dpBaseCoder.toPrecision(n, precision);
         }
 
         function getValueForKey (obj, key) {
+            // return 9 for obj={map: {zoom: 9}} and key = 'map.zoom', null when no value available
             let {mainKey, subKey} = getFullKey(key);
             if (subKey) {
                 return angular.isObject(obj[mainKey]) ? getValueForKey(obj[mainKey], subKey) : null;
@@ -71,6 +76,8 @@
         }
 
         function setValueForKey (obj, oldObj, key, value) {
+            // set obj:{map: {zoom: 9}} to {map: {zoom: 8}} for key 'map.zoom' and value 8
+            // the old object is used for createObject() in case of any pre method for the state object
             let {mainKey, subKey} = getFullKey(key);
             if (subKey) {
                 obj[mainKey] = obj[mainKey] || createObject(oldObj[mainKey], mainKey);
@@ -81,6 +88,7 @@
         }
 
         function asUrlValue (value, typeName, precision = null, separator = URL_ARRAY_SEPARATOR) {
+            // returns the value as a valid url value (URI-encoded string representation)
             let urlValue = '';
 
             if (typeName.match(TYPENAME.STRING)) {
@@ -102,6 +110,7 @@
         }
 
         function asStateValue (decodedValue, typeName, precision = null, separator = URL_ARRAY_SEPARATOR) {
+            // returns the value as a state value by using the URI-decoded string representation
             let value = decodeURI(decodedValue);
             let stateValue = null;
 
@@ -129,6 +138,7 @@
         }
 
         function state2params (state) {
+            // Converts a state to a params object that is stored in the url
             return Object.keys(STATE_URL_CONVERSION.stateVariables).reduce((result, key) => {
                 let attribute = STATE_URL_CONVERSION.stateVariables[key];
                 let value = getValueForKey(state, attribute.name);
@@ -147,6 +157,7 @@
         }
 
         function params2state (oldState, params) {
+            // Converts a params object (payload or url value) to a new state object
             let newState = createObject (oldState, MAIN_STATE, params);
 
             newState = Object.keys(STATE_URL_CONVERSION.stateVariables).reduce((result, key) => {
