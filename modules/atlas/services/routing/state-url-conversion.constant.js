@@ -13,7 +13,7 @@
                     }
                     return newState;
                 },
-                search: (oldState, newState) => angular.isObject(oldState) ? angular.copy(oldState) : newState
+                search: (oldState, newState) => angular.copy(oldState || newState)
             },
             post: {
                 // Post processing methods
