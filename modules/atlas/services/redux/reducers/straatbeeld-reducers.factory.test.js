@@ -276,61 +276,70 @@ describe('Straatbeeld reducers factory', function () {
             expect(output.straatbeeld.targetLocation).toEqual(location);
         });
 
-        it('heads towards a targetlocation', function () {
+        it('heads towards a targetlocation when straatbeeld is loaded by location', function () {
             let newState;
 
-            inputState.straatbeeld.targetLocation = [52, 4];
+            [
+                {target: [52, 4], heading: 0},
+                {target: [52, 5], heading: 90},
+                {target: [52, 3], heading: -90},
+                {target: [53, 5], heading: 45},
+                {target: [51, 3], heading: -135},
+                {target: [51, 5], heading: 135}
+            ].forEach(({target, heading}) => {
+                inputState.straatbeeld.targetLocation = target;
+                inputState.straatbeeld.location = inputState.straatbeeld.targetLocation;
+                newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id](inputState, payload);
+                expect(newState.straatbeeld).toEqual(jasmine.objectContaining({
+                    heading
+                }));
+            });
+        });
+
+        it('does not head towards a targetlocation when straatbeeld by location is reloaded', function () {
+            // When a straatbeeld is reloaded, there is no target location available
+            // There is however a location available to denote that the straatbeeld origins from a location
+            // The heading has already been calculated and saved on the first show of the straatbeeld
+            // and should not be repeated
+            let newState;
+
+            inputState.straatbeeld.location = [1, 2];
+            delete inputState.straatbeeld.targetLocation;   // not saved in state, so not present on reload
+            inputState.straatbeeld.heading = 'aap';
             newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id](inputState, payload);
             expect(newState.straatbeeld).toEqual(jasmine.objectContaining({
-                isLoading: false,
-                id: 'ABC',
-                heading: 0,
-                isInitial: true
+                heading: inputState.straatbeeld.heading // keep original heading
+            }));
+        });
+
+        it('Sets the map viewCenter when straatbeeld is loaded by id', function () {
+            // When a straatbeeld is loaded by id the map should be centered on the location
+            // Load by id is indicated by the absence of a location
+            // The map center should not be set when the straatbeeld is loaded by location
+            let newState;
+
+            delete inputState.straatbeeld.location;
+            delete inputState.straatbeeld.targetLocation;
+            inputState.map.viewCenter = 'aap';
+            newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id](inputState, payload);
+            expect(newState.map).toEqual(jasmine.objectContaining({
+                viewCenter: payload.location    // center map on payload location
             }));
 
-            inputState.straatbeeld.targetLocation = [52, 5];
+            delete inputState.straatbeeld.location;
+            inputState.straatbeeld.targetLocation = [1, 2];
+            inputState.map.viewCenter = 'aap';
             newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id](inputState, payload);
-            expect(newState.straatbeeld).toEqual(jasmine.objectContaining({
-                isLoading: false,
-                id: 'ABC',
-                heading: 90,
-                isInitial: true
+            expect(newState.map).toEqual(jasmine.objectContaining({
+                viewCenter: payload.location    // center map on payload location
             }));
 
-            inputState.straatbeeld.targetLocation = [52, 3];
+            inputState.straatbeeld.location = [1, 2];
+            delete inputState.straatbeeld.targetLocation;
+            inputState.map.viewCenter = 'aap';
             newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id](inputState, payload);
-            expect(newState.straatbeeld).toEqual(jasmine.objectContaining({
-                isLoading: false,
-                id: 'ABC',
-                heading: -90,
-                isInitial: true
-            }));
-
-            inputState.straatbeeld.targetLocation = [53, 5];
-            newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id](inputState, payload);
-            expect(newState.straatbeeld).toEqual(jasmine.objectContaining({
-                isLoading: false,
-                id: 'ABC',
-                heading: 45,
-                isInitial: true
-            }));
-
-            inputState.straatbeeld.targetLocation = [51, 3];
-            newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id](inputState, payload);
-            expect(newState.straatbeeld).toEqual(jasmine.objectContaining({
-                isLoading: false,
-                id: 'ABC',
-                heading: -135,
-                isInitial: true
-            }));
-
-            inputState.straatbeeld.targetLocation = [51, 5];
-            newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id](inputState, payload);
-            expect(newState.straatbeeld).toEqual(jasmine.objectContaining({
-                isLoading: false,
-                id: 'ABC',
-                heading: 135,
-                isInitial: true
+            expect(newState.map).toEqual(jasmine.objectContaining({
+                viewCenter: inputState.map.viewCenter   // keep original map viewCenter
             }));
         });
 

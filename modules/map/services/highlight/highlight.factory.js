@@ -54,7 +54,6 @@
             let layer;
 
             item.geometry.crs = crsService.getRdObject();
-
             layer = L.Proj.geoJson(item.geometry, {
                 style: function () {
                     return {

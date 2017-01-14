@@ -15,28 +15,6 @@
   z-index: 2;
 }
 
-.c-toggle-active-overlays {
-  @include icon-button-text-box-right("up", "", "red");
-  position: absolute;
-  bottom: 0;
-  left: 149px;
-  min-width: 94px;
-  border-bottom: none;
-  z-index: 3;
-
-  &.c-toggle-active-overlays--mirrored {
-    @include icon-button-text-box-right("down");
-    position: absolute;
-    border-bottom: none;
-  }
-}
-
-.is-print-mode {
-  .c-toggle-active-overlays {
-    display: none;
-  }
-}
-
 .c-active-overlays__close {
   @include icon-button("close", "red", "");
 

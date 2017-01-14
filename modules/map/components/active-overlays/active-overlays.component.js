@@ -14,25 +14,13 @@
             controllerAs: 'vm'
         });
 
-    DpActiveOverlaysController.$inject = ['$scope', 'store', 'ACTIONS'];
+    DpActiveOverlaysController.$inject = ['$scope'];
 
-    function DpActiveOverlaysController ($scope, store, ACTIONS) {
+    function DpActiveOverlaysController ($scope) {
         var vm = this;
 
-        vm.toggle = function () {
-            store.dispatch({
-                type: ACTIONS[!vm.showActiveOverlays ? 'SHOW_MAP_ACTIVE_OVERLAYS' : 'HIDE_MAP_ACTIVE_OVERLAYS']
-            });
-        };
-
-        $scope.$watchCollection('vm.overlays', function () {
-            vm.hideEverything = vm.overlays.length === 0;
-        });
-
-        $scope.$watch('vm.showActiveOverlays', function () {
-            vm.buttonTitle = vm.showActiveOverlays ? 'Sluit' : 'Toon';
-
-            vm.buttonTitle += ' legenda van geselecteerde kaartlagen';
-        });
+        $scope.$watchGroup(['vm.overlays', 'vm.showActiveOverlays'], function () {
+            vm.visible = vm.showActiveOverlays && vm.overlays.length > 0;
+        }, true);
     }
 })();

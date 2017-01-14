@@ -7,9 +7,9 @@ describe('The dp-map directive', function () {
         panning,
         zoom,
         measure,
-        variableWidth,
         onMapClick,
         mockedMapState,
+        mockedLeafletMap,
         mockedMarkers;
 
     beforeEach(function () {
@@ -18,6 +18,9 @@ describe('The dp-map directive', function () {
             {
                 store: {
                     dispatch: function () {}
+                },
+                leafletMap: {
+                    invalidateSize: angular.noop
                 },
                 mapConfig: {
                     MAP_OPTIONS: {
@@ -67,6 +70,9 @@ describe('The dp-map directive', function () {
                 });
             }
         );
+        mockedLeafletMap = {
+            invalidateSize: angular.noop
+        };
 
         angular.mock.inject(function (
             _$compile_,
@@ -77,7 +83,6 @@ describe('The dp-map directive', function () {
             _panning_,
             _zoom_,
             _measure_,
-            _variableWidth_,
             _onMapClick_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
@@ -87,12 +92,11 @@ describe('The dp-map directive', function () {
             panning = _panning_;
             zoom = _zoom_;
             measure = _measure_;
-            variableWidth = _variableWidth_;
             onMapClick = _onMapClick_;
         });
+        spyOn(L, 'map').and.returnValue(mockedLeafletMap);
 
-        spyOn(L, 'map').and.returnValue('I_AM_A_FAKE_LEAFLET_MAP');
-
+        spyOn(mockedLeafletMap, 'invalidateSize');
         spyOn(layers, 'setBaseLayer');
         spyOn(layers, 'addOverlay');
         spyOn(layers, 'removeOverlay');
@@ -108,7 +112,6 @@ describe('The dp-map directive', function () {
         spyOn(zoom, 'initialize');
         spyOn(zoom, 'setZoom');
         spyOn(measure, 'initialize');
-        spyOn(variableWidth, 'initialize');
         spyOn(onMapClick, 'initialize');
 
         mockedMapState = {
@@ -125,7 +128,7 @@ describe('The dp-map directive', function () {
         };
     });
 
-    function getDirective (mapState, showLayerSelection, markers, useRootScopeApply) {
+    function getDirective (mapState, showLayerSelection, markers, useRootScopeApply, resize) {
         let directive,
             element,
             scope;
@@ -134,10 +137,12 @@ describe('The dp-map directive', function () {
         element.setAttribute('map-state', 'mapState');
         element.setAttribute('markers', 'markers');
         element.setAttribute('show-layer-selection', 'showLayerSelection');
+        element.setAttribute('resize', 'resize');
 
         scope = $rootScope.$new();
         scope.mapState = mapState;
         scope.markers = markers;
+        scope.resize = resize;
         scope.showLayerSelection = showLayerSelection;
 
         directive = $compile(element)(scope);
@@ -182,7 +187,7 @@ describe('The dp-map directive', function () {
         it('is set on initialization', function () {
             getDirective(mockedMapState, false, mockedMarkers);
 
-            expect(layers.setBaseLayer).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', 'topografie');
+            expect(layers.setBaseLayer).toHaveBeenCalledWith(mockedLeafletMap, 'topografie');
         });
 
         it('changes when the mapState changes', function () {
@@ -193,7 +198,7 @@ describe('The dp-map directive', function () {
             $rootScope.$apply();
 
             expect(layers.setBaseLayer).toHaveBeenCalledTimes(2);
-            expect(layers.setBaseLayer).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', 'luchtfoto_2015');
+            expect(layers.setBaseLayer).toHaveBeenCalledWith(mockedLeafletMap, 'luchtfoto_2015');
         });
     });
 
@@ -202,7 +207,7 @@ describe('The dp-map directive', function () {
             mockedMapState.overlays = [{id: 'some_overlay', isVisible: true}];
             getDirective(mockedMapState, false, mockedMarkers);
 
-            expect(layers.addOverlay).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', 'some_overlay');
+            expect(layers.addOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_overlay');
         });
 
         it('can be added when the mapState changes', function () {
@@ -215,8 +220,8 @@ describe('The dp-map directive', function () {
             ];
             $rootScope.$apply();
 
-            expect(layers.addOverlay).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', 'some_overlay');
-            expect(layers.addOverlay).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', 'some_other_overlay');
+            expect(layers.addOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_overlay');
+            expect(layers.addOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_other_overlay');
         });
 
         it('can be removed when the mapState changes', function () {
@@ -231,8 +236,8 @@ describe('The dp-map directive', function () {
             mockedMapState.overlays = [];
             $rootScope.$apply();
 
-            expect(layers.removeOverlay).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', 'some_overlay');
-            expect(layers.removeOverlay).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', 'some_other_overlay');
+            expect(layers.removeOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_overlay');
+            expect(layers.removeOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_other_overlay');
         });
         it('can be removed when isVisible changes', function () {
             mockedMapState.overlays = [
@@ -247,8 +252,8 @@ describe('The dp-map directive', function () {
             ];
             $rootScope.$apply();
 
-            expect(layers.removeOverlay).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', 'some_overlay');
-            expect(layers.removeOverlay).not.toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', 'some_other_overlay');
+            expect(layers.removeOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_overlay');
+            expect(layers.removeOverlay).not.toHaveBeenCalledWith(mockedLeafletMap, 'some_other_overlay');
         });
     });
 
@@ -268,9 +273,9 @@ describe('The dp-map directive', function () {
                 });
 
                 expect(highlight.addMarker)
-                    .toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', {id: 'FAKE_HIGHLIGHT_ITEM_A'});
+                    .toHaveBeenCalledWith(mockedLeafletMap, {id: 'FAKE_HIGHLIGHT_ITEM_A'});
                 expect(highlight.addMarker)
-                    .toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', {id: 'FAKE_HIGHLIGHT_ITEM_B'});
+                    .toHaveBeenCalledWith(mockedLeafletMap, {id: 'FAKE_HIGHLIGHT_ITEM_B'});
             });
 
             it('can be added by changing the input', function () {
@@ -288,7 +293,7 @@ describe('The dp-map directive', function () {
                 $rootScope.$apply();
 
                 expect(highlight.addMarker)
-                    .toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', {id: 'FAKE_HIGHLIGHT_ITEM_C'});
+                    .toHaveBeenCalledWith(mockedLeafletMap, {id: 'FAKE_HIGHLIGHT_ITEM_C'});
             });
 
             it('can be removed from the map', function () {
@@ -306,7 +311,7 @@ describe('The dp-map directive', function () {
                 $rootScope.$apply();
 
                 expect(highlight.removeMarker).toHaveBeenCalledWith(
-                    'I_AM_A_FAKE_LEAFLET_MAP',
+                    mockedLeafletMap,
                     {
                         id: 'FAKE_HIGHLIGHT_ITEM_B'
                     }
@@ -324,7 +329,7 @@ describe('The dp-map directive', function () {
                 getDirective(mockedMapState, false, highlightItems);
 
                 expect(highlight.addMarker).toHaveBeenCalledTimes(1);
-                expect(highlight.addMarker).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', {
+                expect(highlight.addMarker).toHaveBeenCalledWith(mockedLeafletMap, {
                     id: 'FAKE_HIGHLIGHT_ITEM_A',
                     geometry: 'FAKE_GEOMETRY_A'
                 });
@@ -338,12 +343,12 @@ describe('The dp-map directive', function () {
                 });
                 $rootScope.$apply();
 
-                expect(highlight.removeMarker).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', {
+                expect(highlight.removeMarker).toHaveBeenCalledWith(mockedLeafletMap, {
                     id: 'FAKE_HIGHLIGHT_ITEM_A',
                     geometry: 'FAKE_GEOMETRY_A'
                 });
 
-                expect(highlight.addMarker).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', {
+                expect(highlight.addMarker).toHaveBeenCalledWith(mockedLeafletMap, {
                     id: 'FAKE_HIGHLIGHT_ITEM_A',
                     geometry: 'FAKE_GEOMETRY_B'
                 });
@@ -366,7 +371,7 @@ describe('The dp-map directive', function () {
                 highlightItems.clustered.push([52.1, 4.1], [52.2, 4.1]);
                 $rootScope.$apply();
                 expect(highlight.setCluster).toHaveBeenCalledWith(
-                    'I_AM_A_FAKE_LEAFLET_MAP',
+                    mockedLeafletMap,
                     [
                         [52.1, 4.1],
                         [52.2, 4.1]
@@ -390,7 +395,7 @@ describe('The dp-map directive', function () {
                 directive.isolateScope().mapState.isLoading = true;
                 $rootScope.$apply();
                 expect(highlight.setCluster).toHaveBeenCalledWith(
-                    'I_AM_A_FAKE_LEAFLET_MAP',
+                    mockedLeafletMap,
                     [
                         [52.1, 4.1],
                         [52.2, 4.1]
@@ -414,7 +419,7 @@ describe('The dp-map directive', function () {
                 highlightItems.clustered.length = 0;
                 $rootScope.$apply();
 
-                expect(highlight.clearCluster).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP');
+                expect(highlight.clearCluster).toHaveBeenCalledWith(mockedLeafletMap);
             });
         });
     });
@@ -425,18 +430,18 @@ describe('The dp-map directive', function () {
         });
 
         it('is initialized', function () {
-            expect(panning.initialize).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP');
+            expect(panning.initialize).toHaveBeenCalledWith(mockedLeafletMap);
         });
 
         it('is called whenever mapState.viewCenter changes', function () {
             expect(panning.panTo).toHaveBeenCalledTimes(1);
-            expect(panning.panTo).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', [52.789, 4.123]);
+            expect(panning.panTo).toHaveBeenCalledWith(mockedLeafletMap, [52.789, 4.123]);
 
             mockedMapState.viewCenter = [53, 5];
             $rootScope.$apply();
 
             expect(panning.panTo).toHaveBeenCalledTimes(2);
-            expect(panning.panTo).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', [53, 5]);
+            expect(panning.panTo).toHaveBeenCalledWith(mockedLeafletMap, [53, 5]);
         });
     });
 
@@ -446,41 +451,46 @@ describe('The dp-map directive', function () {
         });
 
         it('is initialized', function () {
-            expect(zoom.initialize).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP');
+            expect(zoom.initialize).toHaveBeenCalledWith(mockedLeafletMap);
         });
 
         it('is called whenever mapState.zoom changes', function () {
             expect(zoom.setZoom).toHaveBeenCalledTimes(1);
-            expect(zoom.setZoom).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', 12);
+            expect(zoom.setZoom).toHaveBeenCalledWith(mockedLeafletMap, 12);
 
             mockedMapState.zoom = 11;
             $rootScope.$apply();
 
             expect(zoom.setZoom).toHaveBeenCalledTimes(2);
-            expect(zoom.setZoom).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP', 11);
+            expect(zoom.setZoom).toHaveBeenCalledWith(mockedLeafletMap, 11);
         });
     });
 
     it('initializes the measure factory', function () {
         getDirective(mockedMapState, false, mockedMarkers);
 
-        expect(measure.initialize).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP');
-    });
-
-    it('initializes the variableWidth factory', function () {
-        let directive,
-            container;
-
-        directive = getDirective(mockedMapState, false, mockedMarkers);
-        container = directive[0].querySelector('.js-leaflet-map');
-
-        expect(variableWidth.initialize).toHaveBeenCalledWith(container, 'I_AM_A_FAKE_LEAFLET_MAP');
+        expect(measure.initialize).toHaveBeenCalledWith(mockedLeafletMap);
     });
 
     it('initializes the onMapClick factory', function () {
         getDirective(mockedMapState, false, mockedMarkers);
 
-        expect(onMapClick.initialize).toHaveBeenCalledWith('I_AM_A_FAKE_LEAFLET_MAP');
+        expect(onMapClick.initialize).toHaveBeenCalledWith(mockedLeafletMap);
+    });
+
+    describe('resize state', function () {
+        it('invalidateSize when resize state changes', function () {
+            let mockedResizeArray = ['1', '2'];
+
+            getDirective(mockedMapState, true, mockedMarkers, true, mockedResizeArray);
+
+            expect(mockedLeafletMap.invalidateSize).not.toHaveBeenCalled();
+
+            mockedResizeArray.push('3');
+            $rootScope.$apply();
+
+            expect(mockedLeafletMap.invalidateSize).toHaveBeenCalled();
+        });
     });
 
     describe('fullscreen state', function () {

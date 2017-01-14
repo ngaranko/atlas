@@ -382,6 +382,46 @@
                     legend: '/maps/bodem?version=1.3.0&service=WMS&request=GetLegen' +
                         'dGraphic&sld_version=1.1.0&layer=asbest&format=image/png&STYLE=default'
                 },
+                explosieven_inslagen: {
+                    url: 'maps/bommenkaart',
+                    label_short: 'Explosieven - Inslagen',
+                    label_long: 'Explosieven - Inslagen',
+                    layers: ['inslagen'],
+                    minZoom: 8,
+                    maxZoom: 16,
+                    legend: 'maps/bommenkaart?version=1.3.0&service=WMS&request=GetLegendGraphic&sld_version=1.1.0&la' +
+                    'yer=inslagen&format=image/png&STYLE=default'
+                },
+                explosieven_verdachte_gebieden: {
+                    url: 'maps/bommenkaart',
+                    label_short: 'Explosieven - Verdachte gebieden',
+                    label_long: 'Explosieven - Verdachte gebieden',
+                    layers: ['verdachte_gebieden'],
+                    minZoom: 8,
+                    maxZoom: 16,
+                    legend: 'maps/bommenkaart?version=1.3.0&service=WMS&request=GetLegendGraphic&sld_version=1.1.0&la' +
+                    'yer=verdachte_gebieden&format=image/png&STYLE=default'
+                },
+                explosieven_gevrijwaarde_gebieden: {
+                    url: 'maps/bommenkaart',
+                    label_short: 'Explosieven - Gevrijwaarde gebieden',
+                    label_long: 'Explosieven - Gevrijwaarde gebieden',
+                    layers: ['gevrijwaarde_gebieden'],
+                    minZoom: 8,
+                    maxZoom: 16,
+                    legend: 'maps/bommenkaart?version=1.3.0&service=WMS&request=GetLegendGraphic&sld_version=1.1.0&la' +
+                        'yer=gevrijwaarde_gebieden&format=image/png&STYLE=default'
+                },
+                explosieven_uitgevoerde_onderzoeken: {
+                    url: 'maps/bommenkaart',
+                    label_short: 'Explosieven - Uitgevoerde onderzoeken',
+                    label_long: 'Explosieven - Uitgevoerde onderzoeken',
+                    layers: ['uitgevoerde_CE_onderzoeken'],
+                    minZoom: 8,
+                    maxZoom: 16,
+                    legend: 'maps/bommenkaart?version=1.3.0&service=WMS&request=GetLegendGraphic&sld_version=1.1.0&la' +
+                    'yer=uitgevoerde_CE_onderzoeken&format=image/png&STYLE=default'
+                },
 
                 // milieu: veiligheid
                 mvlpgv: {
@@ -721,7 +761,11 @@
                     overlays: [
                         'mbgm',
                         'mbgwm',
-                        'mbaig'
+                        'mbaig',
+                        'explosieven_inslagen',
+                        'explosieven_verdachte_gebieden',
+                        'explosieven_gevrijwaarde_gebieden',
+                        'explosieven_uitgevoerde_onderzoeken'
                     ]
                 }, {
                     heading: 'Milieu: externe veiligheid',
