@@ -3,13 +3,31 @@ describe('The printReducers factory', function () {
         ACTIONS,
         defaultState;
 
+    defaultState = {
+        map: {
+            baseLayer: 'topografie',
+            overlays: [],
+            viewCenter: [52.3719, 4.9012],
+            zoom: 9,
+            showActiveOverlays: false,
+            isFullscreen: false,
+            isLoading: false
+        },
+        layerSelection: false,
+        search: null,
+        page: 'home',
+        detail: null,
+        straatbeeld: null,
+        dataSelection: null,
+        isPrintMode: false
+    };
+
     beforeEach(function () {
         angular.mock.module('atlas');
 
-        angular.mock.inject(function (_printReducers_, _ACTIONS_, _DEFAULT_STATE_) {
+        angular.mock.inject(function (_printReducers_, _ACTIONS_) {
             printReducers = _printReducers_;
             ACTIONS = _ACTIONS_;
-            defaultState = _DEFAULT_STATE_;
         });
     });
 

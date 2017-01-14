@@ -3,12 +3,30 @@ describe('The dataSelectionReducers factory', function () {
         DEFAULT_STATE,
         ACTIONS;
 
+    DEFAULT_STATE = {
+        map: {
+            baseLayer: 'topografie',
+            overlays: [],
+            viewCenter: [52.3719, 4.9012],
+            zoom: 9,
+            showActiveOverlays: false,
+            isFullscreen: false,
+            isLoading: false
+        },
+        layerSelection: false,
+        search: null,
+        page: 'home',
+        detail: null,
+        straatbeeld: null,
+        dataSelection: null,
+        isPrintMode: false
+    };
+
     beforeEach(function () {
         angular.mock.module('atlas');
 
-        angular.mock.inject(function (_dataSelectionReducers_, _DEFAULT_STATE_, _ACTIONS_) {
+        angular.mock.inject(function (_dataSelectionReducers_, _ACTIONS_) {
             dataSelectionReducers = _dataSelectionReducers_;
-            DEFAULT_STATE = _DEFAULT_STATE_;
             ACTIONS = _ACTIONS_;
         });
     });

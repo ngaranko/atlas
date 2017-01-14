@@ -3,11 +3,30 @@ describe('The pageReducers factory', function () {
         mockedState;
 
     beforeEach(function () {
+        let DEFAULT_STATE = {
+            map: {
+                baseLayer: 'topografie',
+                overlays: [],
+                viewCenter: [52.3719, 4.9012],
+                zoom: 9,
+                showActiveOverlays: false,
+                isFullscreen: false,
+                isLoading: false
+            },
+            layerSelection: false,
+            search: null,
+            page: 'home',
+            detail: null,
+            straatbeeld: null,
+            dataSelection: null,
+            isPrintMode: false
+        };
+
         angular.mock.module('atlas');
 
-        angular.mock.inject(function (_pageReducers_, _DEFAULT_STATE_) {
+        angular.mock.inject(function (_pageReducers_) {
             pageReducers = _pageReducers_;
-            mockedState = angular.copy(_DEFAULT_STATE_);
+            mockedState = angular.copy(DEFAULT_STATE);
         });
     });
 

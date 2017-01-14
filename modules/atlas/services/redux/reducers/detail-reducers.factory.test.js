@@ -2,12 +2,30 @@ describe('The detailReducers factory', function () {
     var detailReducers,
         defaultState;
 
+    defaultState = {
+        map: {
+            baseLayer: 'topografie',
+            overlays: [],
+            viewCenter: [52.3719, 4.9012],
+            zoom: 9,
+            showActiveOverlays: false,
+            isFullscreen: false,
+            isLoading: false
+        },
+        layerSelection: false,
+        search: null,
+        page: 'home',
+        detail: null,
+        straatbeeld: null,
+        dataSelection: null,
+        isPrintMode: false
+    };
+
     beforeEach(function () {
         angular.mock.module('atlas');
 
-        angular.mock.inject(function (_detailReducers_, _DEFAULT_STATE_) {
+        angular.mock.inject(function (_detailReducers_) {
             detailReducers = _detailReducers_;
-            defaultState = _DEFAULT_STATE_;
         });
     });
 

@@ -4,6 +4,25 @@ describe('Straatbeeld reducers factory', function () {
         ACTIONS;
 
     beforeEach(function () {
+        let DEFAULT_STATE = {
+            map: {
+                baseLayer: 'topografie',
+                overlays: [],
+                viewCenter: [52.3719, 4.9012],
+                zoom: 9,
+                showActiveOverlays: false,
+                isFullscreen: false,
+                isLoading: false
+            },
+            layerSelection: false,
+            search: null,
+            page: 'home',
+            detail: null,
+            straatbeeld: null,
+            dataSelection: null,
+            isPrintMode: false
+        };
+
         angular.mock.module(
             'atlas',
             {
@@ -13,9 +32,9 @@ describe('Straatbeeld reducers factory', function () {
             }
         );
 
-        angular.mock.inject(function (_straatbeeldReducers_, _DEFAULT_STATE_, _ACTIONS_) {
+        angular.mock.inject(function (_straatbeeldReducers_, _ACTIONS_) {
             straatbeeldReducers = _straatbeeldReducers_;
-            inputState = angular.copy(_DEFAULT_STATE_);
+            inputState = angular.copy(DEFAULT_STATE);
             ACTIONS = _ACTIONS_;
         });
     });

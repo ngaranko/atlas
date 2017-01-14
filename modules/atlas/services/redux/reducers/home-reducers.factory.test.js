@@ -10,9 +10,9 @@ describe('The homeReducers factory', function () {
     beforeEach(function () {
         angular.mock.module('atlas');
 
-        angular.mock.inject(function (_homeReducers_, _DEFAULT_STATE_) {
+        angular.mock.inject(function (_homeReducers_, _stateUrlConverter_) {
             homeReducers = _homeReducers_;
-            DEFAULT_STATE = _DEFAULT_STATE_;
+            DEFAULT_STATE = _stateUrlConverter_.DEFAULT_STATE;
         });
 
         mockedSearchState = angular.copy(DEFAULT_STATE);

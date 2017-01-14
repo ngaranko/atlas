@@ -34,12 +34,31 @@ describe('The dashboard component', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _dashboardColumns_, _DEFAULT_STATE_) {
+        let DEFAULT_STATE = {
+            map: {
+                baseLayer: 'topografie',
+                overlays: [],
+                viewCenter: [52.3719, 4.9012],
+                zoom: 9,
+                showActiveOverlays: false,
+                isFullscreen: false,
+                isLoading: false
+            },
+            layerSelection: false,
+            search: null,
+            page: 'home',
+            detail: null,
+            straatbeeld: null,
+            dataSelection: null,
+            isPrintMode: false
+        };
+
+        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _dashboardColumns_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
             dashboardColumns = _dashboardColumns_;
-            defaultState = angular.copy(_DEFAULT_STATE_);
+            defaultState = angular.copy(DEFAULT_STATE);
         });
 
         mockedState = angular.copy(defaultState);

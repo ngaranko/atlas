@@ -48,18 +48,26 @@
                 // When creating a state object it will be initialized with these values
                 // MAIN_STATE is used to denote the main or global state part of the state
                 MAIN_STATE: {
-                    page: null,
+                    page: null,     // eg: 'home'
                     layerSelection: false,
                     isPrintMode: false
                 },
                 dataSelection: {
-                    markers: [],
-                    filters: {},
+                    markers: [],    // eg: [[52.1, 4.1], [52.2, 4.0]],
+                    filters: {},    // eg: {buurtcombinatie: 'Geuzenbuurt', buurt: 'Trompbuurt'}
                     isLoading: true
+                    // view: 'TABLE',
+                    // dataset: 'bag',
+                    // query: 'searchText',
+                    // page: 1,
+                    // isFullscreen: true,
                 },
                 detail: {
                     isFullscreen: true,
                     isLoading: true
+                    // endpoint: 'http://api.example.com/bag/verblijfsobject/123/',
+                    // display: 'This is the _display variable as available in each endpoint',
+                    // geometry: null,
                 },
                 map: {
                     viewCenter: [52.3719, 4.9012],
@@ -71,22 +79,27 @@
                     showActiveOverlays: false
                 },
                 search: {
-                    query: null,
-                    location: null,
+                    query: null,    // eg: 'linnaeus'
+                    location: null, // eg: [52.123, 4.789]
                     category: null,
                     isLoading: true
+                    // numberOfResults: null
                 },
                 straatbeeld: {
-                    location: null,
-                    pitch: 0,
-                    heading: 0,
-                    fov: 0,
-                    image: null,
-                    hotspots: [],
-                    date: null,
+                    location: null, // eg: [52.8, 4.9]
+                    pitch: 0,       // eg: -10
+                    heading: 0,     // eg: 270
+                    fov: 0,         // eg: 65
+                    image: null,    // eg: {
+                                    //     pattern: 'http://www.example.com/path/some-id/{this}/{that}/{thingie}.jpg',
+                                    //     preview: 'http://www.example.com/path/some-id/preview.jpg'
+                                    // }
+                    hotspots: [],   // eg: [{id: 'ABC124', heading: 90, distance: 18}],
+                    date: null,     // eg: new Date()
                     isFullscreen: false,
                     isInitial: true,
                     isLoading: true
+                    // id: 'ABC123',
                 }
             },
             stateVariables: {

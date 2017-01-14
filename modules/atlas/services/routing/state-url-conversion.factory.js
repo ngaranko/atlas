@@ -8,7 +8,7 @@
     stateUrlConverterFactory.$inject = ['STATE_URL_CONVERSION', 'dpBaseCoder'];
 
     function stateUrlConverterFactory (STATE_URL_CONVERSION, dpBaseCoder) {
-        const URL_ARRAY_SEPARATOR = ':';
+        const URL_ARRAY_SEPARATOR = ':';    // Choose any of -._~:[]@!$'()*+,;`.
         const ARRAY_DENOTATOR = '[]';
         const MAIN_STATE = 'MAIN_STATE';
         const BOOLEAN_TRUE = 'T';
@@ -23,9 +23,12 @@
 
         let base62Coder = dpBaseCoder.getCoderForBase(62);
 
+        const DEFAULT_STATE = params2state({}, {});
+
         return {
             state2params,
-            params2state
+            params2state,
+            DEFAULT_STATE
         };
 
         function createObject (oldObj, key, params) {

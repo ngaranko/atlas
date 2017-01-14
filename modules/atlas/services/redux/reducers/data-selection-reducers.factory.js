@@ -7,10 +7,12 @@
 
     dataSelectionReducersFactory.$inject = [
         'ACTIONS',
-        'DEFAULT_STATE'
+        'stateUrlConverter'
     ];
 
-    function dataSelectionReducersFactory (ACTIONS, DEFAULT_STATE) {
+    function dataSelectionReducersFactory (ACTIONS, stateUrlConverter) {
+        const DEFAULT_STATE = stateUrlConverter.DEFAULT_STATE;
+
         let reducers = {};
 
         reducers[ACTIONS.FETCH_DATA_SELECTION.id] = fetchDataSelectionReducer;
