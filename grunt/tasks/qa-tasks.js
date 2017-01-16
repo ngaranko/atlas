@@ -25,6 +25,11 @@ module.exports = function (grunt) {
         'sasslint'
     ]);
 
+    grunt.registerTask('test-e2e', [
+        'connect:build',
+        'protractor:all'
+    ]);
+
     grunt.registerTask('build-test', [
         'concat-tests',
         'babel-tests'
