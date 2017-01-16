@@ -11,7 +11,6 @@
         'panning',
         'zoom',
         'drawTool',
-        'variableWidth',
         'onMapClick'
     ];
 
@@ -21,7 +20,8 @@
             scope: {
                 mapState: '=',
                 markers: '=',
-                showLayerSelection: '='
+                showLayerSelection: '=',
+                resize: '<'
             },
             templateUrl: 'modules/map/components/map/map.html',
             link: linkFunction
@@ -53,7 +53,6 @@
                 highlight.initialize();
                 zoom.initialize(leafletMap);
                 drawTool.initialize(leafletMap);
-                variableWidth.initialize(container, leafletMap);
                 onMapClick.initialize(leafletMap);
 
                 scope.leafletMap = leafletMap;
@@ -107,6 +106,13 @@
                         highlight.clearCluster(leafletMap);
                     }
                 }, true);
+
+                scope.$watchCollection('resize', function () {
+                    // Waiting for next digest cycle.
+                    scope.$applyAsync(function () {
+                        leafletMap.invalidateSize();
+                    });
+                });
             });
         }
 
