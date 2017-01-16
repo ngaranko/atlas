@@ -20,13 +20,16 @@ module.exports = function (grunt) {
 
     grunt.registerTask('test-js-full', [
         'test-js-modules-full',
-        'lint',
-        'connect:build',
-        'protractor:all'
+        'lint'
     ]);
 
     grunt.registerTask('test-css', [
         'sasslint'
+    ]);
+
+    grunt.registerTask('test-e2e', [
+        'connect:build',
+        'protractor:all'
     ]);
 
     grunt.registerTask('build-test', [

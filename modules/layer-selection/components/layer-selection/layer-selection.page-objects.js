@@ -7,7 +7,7 @@ module.exports = function (layerSelectionElement) {
         return {
             isVisible: isVisible(layerSelectionElement),
             close: function () {
-                layerSelectionElement.element(by.css('.c-layer-selection__heading button')).click();
+                layerSelectionElement.element(by.css('.qa-layer-selection-close')).click();
             }
         };
     };

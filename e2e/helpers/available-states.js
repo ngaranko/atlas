@@ -1,9 +1,9 @@
 module.exports = {
-    'DATA_SELECTION--CARDS': {
+    'DATA-SELECTION--CARDS': {
         url: '#?lat=52.3719&lon=4.9012&basiskaart=topografie&zoom=9&view=CARDS&dataset=catalogus&dataset-pagina=1',
         validator: require('./validators/data-selection--cards')
     },
-    'DATA_SELECTION--TABLE': {
+    'DATA-SELECTION--TABLE': {
         url: '#?lat=52.3719&lon=4.9012&basiskaart=topografie&zoom=9&view=TABLE&dataset=bag&dataset-pagina=1',
         validator: require('./validators/data-selection--table')
     },

@@ -6,12 +6,12 @@ EXPOSE 80
 
 
 RUN apt-get update \
- && apt-get install -y git nginx build-essential openjdk-7-jre \
+ && apt-get install -y git nginx build-essential openjdk-8-jre \
  && apt-get clean \
  && npm install -g bower grunt-cli \
  && mkdir /app
 
-ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 
 WORKDIR /app
 COPY *.json /app/
