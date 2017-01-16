@@ -69,7 +69,7 @@ describe('The state url conversion definition', function () {
         it('initialize a state to the home page and default map, (only) on an empty payload', function () {
             let state;
 
-            state = STATE_URL_CONVERSION.pre.MAIN_STATE({}, {}, {}, STATE_URL_CONVERSION.initialValues);
+            state = STATE_URL_CONVERSION.onCreate.MAIN_STATE({}, {}, {}, STATE_URL_CONVERSION.initialValues);
             expect(state).toEqual({
                 page: 'home',
                 map: {
@@ -83,17 +83,17 @@ describe('The state url conversion definition', function () {
                 }
             });
 
-            state = STATE_URL_CONVERSION.pre.MAIN_STATE({}, {}, {aap: 'noot'});
+            state = STATE_URL_CONVERSION.onCreate.MAIN_STATE({}, {}, {aap: 'noot'});
             expect(state).toEqual({});
         });
 
         it('initialize a search state to the previous search state if it exists', function () {
             let state;
 
-            state = STATE_URL_CONVERSION.pre.search({aap: 'noot'}, {});
+            state = STATE_URL_CONVERSION.onCreate.search({aap: 'noot'}, {});
             expect(state).toEqual({aap: 'noot'});
 
-            state = STATE_URL_CONVERSION.pre.search(null, {mies: 'teun'});
+            state = STATE_URL_CONVERSION.onCreate.search(null, {mies: 'teun'});
             expect(state).toEqual({mies: 'teun'});
         });
     });

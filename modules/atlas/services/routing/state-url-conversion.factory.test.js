@@ -39,7 +39,7 @@ describe('The state url conversion factory', function () {
 
         beforeEach(function () {
             mockedStateUrlConversion = {
-                pre: {},
+                onCreate: {},
                 post: {},
                 initialValues: {},
                 stateVariables: {
@@ -242,8 +242,8 @@ describe('The state url conversion factory', function () {
                 });
             });
 
-            it('can use a pre method to inialize a state object', function () {
-                mockedStateUrlConversion.pre = {
+            it('can use a onCreate method to inialize a state object', function () {
+                mockedStateUrlConversion.onCreate = {
                     x: (oldState, newState) => {
                         newState.mies = oldState.aap + ', ' + newState.aap;
                         return newState;
@@ -270,8 +270,8 @@ describe('The state url conversion factory', function () {
                 });
             });
 
-            it('supplies the payload to a pre method for the main state object', function () {
-                mockedStateUrlConversion.pre = {
+            it('supplies the payload to a onCreate method for the main state object', function () {
+                mockedStateUrlConversion.onCreate = {
                     MAIN_STATE: (oldState, newState, params) => {
                         newState.mies = oldState.aap + ', ' + newState.aap + ', ' + params.s;
                         return newState;

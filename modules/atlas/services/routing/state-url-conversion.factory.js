@@ -32,14 +32,14 @@
         };
 
         function createObject (oldObj, key, params) {
-            // create a state object by using its initial value (default {}) and pre method if defined
+            // create a state object by using its initial value (default {}) and onCreate method if defined
             let initialValues = STATE_URL_CONVERSION.initialValues,
                 initialValue = initialValues[key] || {},
-                pre = STATE_URL_CONVERSION.pre[key];
+                onCreate = STATE_URL_CONVERSION.onCreate[key];
 
             let newObj = angular.copy(initialValue);
-            if (angular.isFunction(pre)) {
-                newObj = pre(oldObj, newObj, params, initialValues);
+            if (angular.isFunction(onCreate)) {
+                newObj = onCreate(oldObj, newObj, params, initialValues);
             }
             return newObj;
         }
@@ -77,7 +77,7 @@
 
         function setValueForKey (obj, oldObj, key, value) {
             // set obj:{map: {zoom: 9}} to {map: {zoom: 8}} for key 'map.zoom' and value 8
-            // the old object is used for createObject() in case of any pre method for the state object
+            // the old object is used for createObject() in case of any onCreate method for the state object
             let {mainKey, subKey} = getFullKey(key);
             if (subKey) {
                 obj[mainKey] = obj[mainKey] || createObject(oldObj[mainKey], mainKey);
