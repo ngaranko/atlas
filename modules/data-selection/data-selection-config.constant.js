@@ -4,9 +4,9 @@
     angular
         .module('dpDataSelection')
         .constant('DATA_SELECTION_CONFIG', {
-            MAX_AVAILABLE_PAGES: 100,
             bag: {
                 CUSTOM_API: 'dataSelectionApiDataSelection',
+                MAX_AVAILABLE_PAGES: 100,
                 ENDPOINT_PREVIEW: 'dataselectie/bag/',
                 ENDPOINT_MARKERS: 'dataselectie/bag/geolocation/',
                 ENDPOINT_EXPORT: 'https://api.datapunt.amsterdam.nl/dataselectie/bag/export/',
@@ -123,6 +123,7 @@
             },
             hr: {
                 CUSTOM_API: 'dataSelectionApiDataSelection',
+                MAX_AVAILABLE_PAGES: 100,
                 ENDPOINT_PREVIEW: 'dataselectie/hr/',
                 ENDPOINT_EXPORT: 'https://api.datapunt.amsterdam.nl/dataselectie/hr/export/',
                 ENDPOINT_DETAIL: 'handelsregister/vestiging/',
@@ -157,42 +158,38 @@
                 ],
                 CONTENT: {
                     TABLE: [
-                        /*
                         {
                             label: 'KvK-num.',
-                            variables: []
+                            variables: ['kvk_nummer']
                         },
-                        */
                         {
                             label: 'Handelsnaam',
                             variables: ['bedrijfsnaam']
                         },
-                        /*
                         {
                             label: 'Bezoekadres',
-                            variables: ['bezoekadres_volledig_adres']
+                            variables: ['naam']
                         },
                         {
                             label: 'Num.',
-                            variables: []
+                            variables: ['huisnummer']
                         },
                         {
                             label: 'Let.',
-                            variables: []
+                            variables: ['huisletter']
                         },
                         {
                             label: 'Toev.',
-                            variables: []
+                            variables: ['toevoeging']
                         },
                         {
                             label: 'Postcode',
-                            variables: []
+                            variables: ['postcode']
                         },
                         {
                             label: 'Woonplaats',
-                            variables: []
+                            variables: ['woonplaats']
                         },
-                        */
                         {
                             label: 'Hoofdcategorie',
                             variables: ['hoofdcategorieen']
@@ -201,16 +198,14 @@
                             label: 'Subcategorie',
                             variables: ['subcategorieen']
                         },
-                        /*
                         {
                             label: 'SBI-omschrijving',
-                            variables: []
+                            variables: ['sbi_omschrijving']
                         },
                         {
                             label: 'SBI-code',
                             variables: ['sbicodes']
                         }
-                        */
                     ]
                 }
             }
