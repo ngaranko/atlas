@@ -9,7 +9,8 @@
                 zoom: 9,
                 showActiveOverlays: false,
                 isFullscreen: false,
-                isLoading: false
+                isLoading: false,
+                drawingMode: null
             },
             layerSelection: false,
             search: null,

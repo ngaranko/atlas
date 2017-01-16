@@ -11,13 +11,19 @@
         let enabled = true;
 
         return {
-            initialize,
-            disable,
-            enable
+            initialize
         };
 
         function initialize (leafletMap) {
             leafletMap.on('click', onMapClick);
+
+            store.subscribe(() => {
+                if (store.getState().map.drawingMode === 'DRAW') {
+                    disable();
+                } else {
+                    enable();
+                }
+            });
         }
 
         function disable () {

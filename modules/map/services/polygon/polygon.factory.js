@@ -5,27 +5,32 @@
         .module('dpMap')
         .factory('polygon', polygonFactory);
 
-    polygonFactory.$inject = ['L', 'POLYGON_CONFIG', 'onMapClick'];
+    polygonFactory.$inject = ['store', 'ACTIONS', 'L', 'POLYGON_CONFIG', 'onMapClick'];
 
-    function polygonFactory (L, POLYGON_CONFIG, onMapClick) {
+    function polygonFactory (store, ACTIONS, L, POLYGON_CONFIG, onMapClick) {
         let leafletMap,
             drawnItems,
             drawShapeHandler,
             editShapeHandler,
             firstMarker,
             lastMarker,
-            currentLayer,
-            polygonInstance = {
-                initialize,
-                toggle,
-                isActive: false
-            };
+            currentLayer;
 
-        return polygonInstance;
+        return {
+            initialize
+        };
 
         function initialize (map) {
             let editConfig = angular.copy(POLYGON_CONFIG.edit),
                 editToolbar;
+
+            store.subscribe(() => {
+                if (store.getState().map.drawingMode) {
+                    enable();
+                } else {
+                    disable();
+                }
+            });
 
             leafletMap = map;
             drawnItems = new L.FeatureGroup();
@@ -41,11 +46,8 @@
                     deleteShape();
                 }
             });
-            leafletMap.on(L.Draw.Event.DRAWSTART, function () {
-                onMapClick.disable();
-            });
             leafletMap.on(L.Draw.Event.DRAWSTOP, function () {
-                onMapClick.enable();
+                updateState();
             });
             leafletMap.on(L.Draw.Event.DRAWVERTEX, function () {
                 bindLastMarker();
@@ -58,8 +60,60 @@
                     currentLayer = layer;
                     drawnItems.addLayer(layer);
                     layer.on('click', shapeClickHandler);
-                    polygonInstance.isActive = false;
                 }
+            });
+        }
+
+        function toggle () {
+            if (isEnabled()) {
+                disable();
+            } else {
+                enable();
+            }
+        }
+
+        function isEnabled () {
+            return drawShapeHandler.enabled() || editShapeHandler.enabled();
+        }
+
+        function enable () {
+            if (!isEnabled()) {
+                if (currentLayer) {
+                    editShapeHandler.enable();
+                } else {
+                    drawShapeHandler.enable();
+                }
+                updateState(true);
+            }
+        }
+
+        function disable () {
+            if (isEnabled()) {
+                if (drawShapeHandler.enabled()) {
+                    if (drawShapeHandler._markers.length > 1) {
+                        drawShapeHandler.completeShape();
+                    } else {
+                        drawShapeHandler.disable();
+                    }
+                    updateState(false);
+                } else if (editShapeHandler.enabled()) {
+                    editShapeHandler.save();
+                    editShapeHandler.disable();
+                    updateState(false);
+                }
+            }
+        }
+
+        function updateState () {
+            let currentMode = null;
+
+            if (isEnabled()) {
+                currentMode = drawShapeHandler.enabled() ? 'DRAW' : 'EDIT';
+            }
+
+            store.dispatch({
+                type: ACTIONS.MAP_SET_DRAWING_MODE,
+                payload: currentMode
             });
         }
 
@@ -82,11 +136,10 @@
 
         // When trying to complete a shape of only two points (a line) by
         // clicking on the first vertex again results in Leaflet draw giving an
-        // error that the lines should not cross. Even though
-        // `allowIntersection` is enabled in the configuration.
+        // error that the lines should not cross.
         function completeShape () {
             if (drawShapeHandler.enabled() && drawShapeHandler._markers.length === 2) {
-                toggle();
+                disable();
             }
         }
 
@@ -96,8 +149,8 @@
                     // Leaflet draw does not allow deleting the very first
                     // marker; work around by disabling and enabling the draw
                     // tool.
-                    toggle();
-                    toggle();
+                    disable();
+                    enable();
                 } else if (drawShapeHandler._markers.length > 1) {
                     drawShapeHandler.deleteLastVertex();
                     bindLastMarker();
@@ -110,27 +163,6 @@
             toggle();
         }
 
-        function toggle () {
-            if (drawShapeHandler.enabled()) {
-                if (drawShapeHandler._markers.length > 1) {
-                    drawShapeHandler.completeShape();
-                } else {
-                    drawShapeHandler.disable();
-                }
-                polygonInstance.isActive = false;
-            } else if (editShapeHandler.enabled()) {
-                editShapeHandler.save();
-                editShapeHandler.disable();
-                polygonInstance.isActive = false;
-            } else if (currentLayer) {
-                editShapeHandler.enable();
-                polygonInstance.isActive = true;
-            } else {
-                drawShapeHandler.enable();
-                polygonInstance.isActive = true;
-            }
-        }
-
         function deleteShape () {
             if (currentLayer) {
                 let deletedLayers = new L.LayerGroup();
@@ -139,10 +171,7 @@
                 deletedLayers.addLayer(currentLayer);
                 leafletMap.fire(L.Draw.Event.DELETED, { layers: deletedLayers });
                 currentLayer = null;
-                if (editShapeHandler.enabled()) {
-                    editShapeHandler.disable();
-                    polygonInstance.isActive = false;
-                }
+                disable();
             }
         }
     }
