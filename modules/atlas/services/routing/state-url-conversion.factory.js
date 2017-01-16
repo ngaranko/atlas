@@ -18,6 +18,7 @@
             BOOLEAN: /^boolean$/,
             NUMBER: /^number$/,
             BASE62: /^base62$/,
+            OBJECT: /^object$/,
             ARRAY: /\[\]$/
         };
 
@@ -99,6 +100,9 @@
                 urlValue = base62Coder.encode(value, precision);
             } else if (typeName.match(TYPENAME.BOOLEAN)) {
                 urlValue = value ? BOOLEAN_TRUE : BOOLEAN_FALSE;
+            } else if (typeName.match(TYPENAME.OBJECT)) {
+                return asUrlValue(
+                    Object.keys(value).map(key => [key, value[key]]), 'string[][]', precision, separator);
             } else if (typeName.match(TYPENAME.ARRAY)) {
                 let baseType = typeName.substr(0, typeName.length - ARRAY_DENOTATOR.length);
                 urlValue = value
@@ -122,6 +126,12 @@
                 stateValue = base62Coder.decode(value, precision);
             } else if (typeName.match(TYPENAME.BOOLEAN)) {
                 stateValue = value === BOOLEAN_TRUE;
+            } else if (typeName.match(TYPENAME.OBJECT)) {
+                return asStateValue(decodedValue, 'string[][]', precision, separator)
+                    .reduce(([key, value]) => {
+                        result.key = value;
+                        return result;
+                    }, {});
             } else if (typeName.match(TYPENAME.ARRAY)) {
                 let baseType = typeName.substr(0, typeName.length - ARRAY_DENOTATOR.length);
                 // Split the array, replace the split char by a tmp split char because org split char can repeat

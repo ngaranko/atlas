@@ -123,12 +123,7 @@
                 },
                 dsf: {
                     name: 'dataSelection.filters',
-                    type: 'string[][]',
-                    getValue: filters => Object.keys(filters || {}).map(key => [key, filters[key]]),
-                    setValue: filters => filters.reduce((result, [key, value]) => {
-                        result[key] = value;
-                        return result;
-                    }, {})
+                    type: 'object'
                 },
                 dsp: {
                     name: 'dataSelection.page',
