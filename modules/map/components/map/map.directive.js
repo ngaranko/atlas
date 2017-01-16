@@ -116,37 +116,6 @@
             });
         }
 
-        // Truncate value based on number of decimals
-        function _round (num, len) {
-            return Math.round(num * (Math.pow(10, len))) / (Math.pow(10, len));
-        }
-
-        function getPopupContent (layer) {
-            if (!(layer instanceof L.Polyline)) {
-                return null;
-            }
-
-            let latlngs = layer._defaultShape ? layer._defaultShape() : layer.getLatLngs(),
-                distance = getDistance(latlngs),
-                area = getArea(latlngs),
-                deleteButton = '<br><a id="dp-map-delete-shape">Delete</a>';
-
-            return `${distance}<br>${area}<br>${deleteButton}`;
-        }
-
-        function getArea (latlngs) {
-            let area = L.GeometryUtil.geodesicArea(latlngs);
-            return 'Area: ' + L.GeometryUtil.readableArea(area, ['km', 'm'], false, false, { m: 1 });
-        }
-
-        function getDistance (latlngs) {
-            let distance = latlngs[latlngs.length - 1].distanceTo(latlngs[0]);
-            for (var i = 0; i < latlngs.length - 1; i++) {
-                distance += latlngs[i].distanceTo(latlngs[i + 1]);
-            }
-            return 'Distance: ' + _round(distance, 1) + ' m';
-        }
-
         function getDiffFromOverlays (over1, over2) {
             // Finds all the keys for items in over1 that
             // are not in over2
