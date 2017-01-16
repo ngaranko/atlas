@@ -13,9 +13,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('test-js', [
         'test-js-modules',
-        'lint',
-        'connect:build',
-        'protractor:all'
+        'lint'
     ]);
 
     grunt.registerTask('test-js-full', [
