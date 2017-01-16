@@ -105,15 +105,15 @@
             stateVariables: {
                 // Property names are keys so that the compiler guarantees the uniqness
                 // The type is stored with the name, every state variable has to have a type specification
-                _ls: {
+                atls: {
                     name: 'layerSelection',
                     type: 'boolean'
                 },
-                _pg: {
+                atpg: {
                     name: 'page',
                     type: 'string'
                 },
-                _pr: {
+                atpr: {
                     name: 'isPrintmode',
                     type: 'boolean'
                 },
