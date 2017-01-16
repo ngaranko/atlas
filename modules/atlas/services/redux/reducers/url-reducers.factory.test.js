@@ -305,27 +305,6 @@ describe('The urlReducers factory', function () {
                 expect(output.detail.endpoint).toBe('https://api.datapunt.amsterdam.nl/bag/verblijfsobject/123/');
             });
 
-            it('can restore its invisibility', function () {
-                let output;
-
-                mockedSearchParams.detail = 'ABC';
-                mockedSearchParams.detailInvisible = true;
-
-                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
-
-                expect(output.detail.isInvisible).toBe(true);
-            });
-
-            it('can restore its invisibility status when not invisible', function () {
-                let output;
-
-                mockedSearchParams.detail = 'ABC';
-
-                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
-
-                expect(output.detail.isInvisible).toBe(false);
-            });
-
             it('remembers the display and geometry of the previous state if the endpoint stays the same', function () {
                 var output;
 
@@ -471,27 +450,6 @@ describe('The urlReducers factory', function () {
                 expect(output.straatbeeld.hotspots).toEqual([]);
                 expect(output.straatbeeld.isLoading).toBe(true);
                 expect(output.straatbeeld.isInitial).toBe(true);
-            });
-
-            it('can restore its invisibility', function () {
-                let output;
-
-                mockedSearchParams.id = 'ABC';
-                mockedSearchParams.straatbeeldInvisible = true;
-
-                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
-
-                expect(output.straatbeeld.isInvisible).toBe(true);
-            });
-
-            it('can restore its invisibility status when not invisible', function () {
-                let output;
-
-                mockedSearchParams.id = 'ABC';
-
-                output = urlReducers.URL_CHANGE(mockedState, mockedSearchParams);
-
-                expect(output.straatbeeld.isInvisible).toBe(false);
             });
 
             it('can restore its location', function () {

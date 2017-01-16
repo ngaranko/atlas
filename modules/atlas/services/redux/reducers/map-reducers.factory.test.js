@@ -221,31 +221,6 @@ describe('The map reducers', function () {
             output = mapReducers[ACTIONS.MAP_FULLSCREEN.id](inputState, true);
             expect(output.layerSelection).toBe(false);
         });
-
-        it('when straatbeeld exists, reactivates it on minimize', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
-                output;
-
-            inputState.straatbeeld = {
-                id: 'abc',
-                isInvisible: true
-            };
-
-            output = mapReducers[ACTIONS.MAP_FULLSCREEN.id](inputState, false);
-            expect(output.straatbeeld.isInvisible).toBe(false);
-        });
-
-        it('when straatbeeld exists, hide it on maximize', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
-                output;
-
-            inputState.straatbeeld = {
-                id: 'abc'
-            };
-
-            output = mapReducers[ACTIONS.MAP_FULLSCREEN.id](inputState, true);
-            expect(output.straatbeeld.isInvisible).toBe(true);
-        });
     });
 
     describe('SHOW_MAP_ACTIVE_OVERLAYS', function () {

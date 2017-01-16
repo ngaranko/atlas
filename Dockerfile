@@ -4,21 +4,32 @@ MAINTAINER datapunt.ois@amsterdam.nl
 
 EXPOSE 80
 
+
 RUN apt-get update \
- && apt-get install -y git nginx build-essential \
+ && apt-get install -y git nginx build-essential openjdk-7-jre \
  && apt-get clean \
  && npm install -g bower grunt-cli \
  && mkdir /app
 
+ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
+
 WORKDIR /app
 COPY *.json /app/
 
-RUN npm cache clean \
+RUN rm -rf node_modules\
+ && rm -rf bower_components \
+ && npm cache clean \
  && bower cache clean --allow-root \
  && npm install \
+ && ./node_modules/protractor/node_modules/webdriver-manager/bin/webdriver-manager update \
  && bower install --allow-root
 
 COPY . /app/
+
+ARG BUILD_ID
+ENV BUILD_ID=$BUILD_ID
+
+RUN grunt set-build-id --buildid=${BUILD_ID}
 
 RUN grunt build-release \
  && cp -r /app/build/. /var/www/html/

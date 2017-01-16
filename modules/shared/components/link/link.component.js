@@ -26,6 +26,13 @@
 
         if (vm.tagName === 'a') {
             vm.href = getHref(vm.type, vm.payload);
+
+            // The href attribute is ignored when left-clicking, it's only a fallback for middle and right mouse button
+            vm.followLink = function (event) {
+                event.preventDefault();
+
+                vm.dispatch();
+            };
         }
 
         vm.dispatch = function () {
@@ -44,7 +51,7 @@
          * @returns {String} Either 'button' or 'a'
          */
         function getTagName (type, payload) {
-            let currentPath = decodeURIComponent($location.url());
+            let currentPath = '#' + decodeURIComponent($location.url());
             let targetPath = getHref(type, payload);
 
             if (currentPath === targetPath) {

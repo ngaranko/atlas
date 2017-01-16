@@ -43,13 +43,6 @@
                 newState.straatbeeld.isFullscreen = payload.isFullscreen;
             }
 
-            // If a straatbeeld is loaded by it's id
-            // and detail is active
-            // then inactivate detail
-            if (angular.isObject(newState.detail)) {
-                newState.detail.isInvisible = true;
-            }
-
             newState.map.highlight = null;
 
             newState.search = null;
@@ -100,8 +93,6 @@
         function initializeStraatbeeld (straatbeeld) {
             // Resets straatbeeld properties
             // Leave any other properties of straatbeeld untouched
-            straatbeeld.isInvisible = false;
-
             straatbeeld.id = null;
             straatbeeld.location = null;
 
@@ -140,20 +131,23 @@
 
             // Straatbeeld can be null if another action gets triggered between FETCH_STRAATBEELD and SHOW_STRAATBEELD
             if (angular.isObject(newState.straatbeeld)) {
-                newState.straatbeeld.isInvisible = false;
-
                 newState.straatbeeld.id = payload.id || newState.straatbeeld.id;
                 newState.straatbeeld.date = payload.date;
 
                 newState.straatbeeld.pitch = oldState.straatbeeld.pitch || 0;
                 newState.straatbeeld.fov = oldState.straatbeeld.fov || straatbeeldConfig.DEFAULT_FOV;
-                if (angular.isArray(newState.straatbeeld.targetLocation)) {
-                    // Point at the target location
-                    newState.straatbeeld.heading = getHeadingDegrees(
-                        payload.location,
-                        newState.straatbeeld.targetLocation);
+
+                if (angular.isArray(newState.straatbeeld.location)) {
+                    // straatbeeld is loaded by location
+                    if (angular.isArray(newState.straatbeeld.targetLocation)) {
+                        // Point at the target location
+                        newState.straatbeeld.heading = getHeadingDegrees(
+                            payload.location,
+                            newState.straatbeeld.targetLocation
+                        );
+                    }
                 } else {
-                    // Center map on new viewCenter
+                    // straatbeeld is loaded by id, center map on location
                     newState.map.viewCenter = payload.location;
                 }
 

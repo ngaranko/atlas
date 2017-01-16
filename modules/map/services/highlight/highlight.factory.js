@@ -54,7 +54,6 @@
             let layer;
 
             item.geometry.crs = crsService.getRdObject();
-
             layer = L.Proj.geoJson(item.geometry, {
                 style: function () {
                     return {
@@ -92,7 +91,7 @@
             leafletMap.removeLayer(layers[item.id]);
         }
 
-        function setCluster (leafletMap, markers, onReady) {
+        function setCluster (leafletMap, markers) {
             clusteredLayer = L.markerClusterGroup(clusteredMarkersConfig);
 
             markers.forEach(marker => {
@@ -102,16 +101,6 @@
                     })
                 );
             });
-
-            let onLayerAdd = (event) => {
-                if (event.layer === clusteredLayer) {
-                    leafletMap.off('layeradd', onLayerAdd);
-                    if (angular.isFunction(onReady)) {
-                        onReady();
-                    }
-                }
-            };
-            leafletMap.on('layeradd', onLayerAdd);
 
             zoomToLayer(leafletMap, clusteredLayer);
             leafletMap.addLayer(clusteredLayer);

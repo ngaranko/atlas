@@ -19,7 +19,7 @@ describe('The stateToUrl factory', function () {
     describe('create', function () {
         it('creates a query string', function () {
             expect(stateToUrl.create(mockedState)).toBe([
-                '?lat=', mockedState.map.viewCenter[0],
+                '#?lat=', mockedState.map.viewCenter[0],
                 '&lon=', mockedState.map.viewCenter[1],
                 '&basiskaart=', mockedState.map.baseLayer,
                 '&zoom=', mockedState.map.zoom,
@@ -244,20 +244,6 @@ describe('The stateToUrl factory', function () {
             }));
         });
 
-        it('can set the invisibility of the detail', function () {
-            mockedState.detail = {
-                endpoint: 'ABC',
-                isInvisible: true
-            };
-
-            stateToUrl.update(mockedState, false);
-
-            expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
-                detail: 'ABC',
-                detailInvisible: true
-            }));
-        });
-
         it('can set the fullscreen of detail', function () {
             mockedState.detail = {
                 endpoint: 'ABC',
@@ -269,34 +255,6 @@ describe('The stateToUrl factory', function () {
             expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
                 detail: 'ABC',
                 'volledig-detail': 'aan'
-            }));
-        });
-
-        it('can unset the invisibility of the detail', function () {
-            mockedState.detail = {
-                endpoint: 'ABC',
-                isInvisible: false
-            };
-
-            stateToUrl.update(mockedState, false);
-
-            expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
-                detailInvisible: true
-            }));
-            expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
-                detailInvisible: false
-            }));
-        });
-
-        it('can set the invisibility of the detail, even without endpoint', function () {
-            mockedState.detail = {
-                isInvisible: true
-            };
-
-            stateToUrl.update(mockedState, false);
-
-            expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
-                detailInvisible: true
             }));
         });
     });
@@ -362,36 +320,6 @@ describe('The stateToUrl factory', function () {
                 heading: '270',
                 pitch: '10.4',
                 fov: '20'
-            }));
-        });
-
-        it('can set the straatbeeld invisibility', function () {
-            mockedState.straatbeeld = {
-                id: 'ABC',
-                isInvisible: true
-            };
-
-            stateToUrl.update(mockedState, false);
-
-            expect($location.search).toHaveBeenCalledWith(jasmine.objectContaining({
-                id: 'ABC',
-                straatbeeldInvisible: true
-            }));
-        });
-
-        it('can unset the straatbeeld invisibility', function () {
-            mockedState.straatbeeld = {
-                id: 'ABC',
-                isInvisible: false
-            };
-
-            stateToUrl.update(mockedState, false);
-
-            expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
-                straatbeeldInvisible: false
-            }));
-            expect($location.search).not.toHaveBeenCalledWith(jasmine.objectContaining({
-                straatbeeldInvisible: true
             }));
         });
 

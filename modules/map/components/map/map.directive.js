@@ -11,17 +11,17 @@
         'panning',
         'zoom',
         'measure',
-        'variableWidth',
         'onMapClick'
     ];
 
-    function dpMapDirective (L, mapConfig, layers, highlight, panning, zoom, measure, variableWidth, onMapClick) {
+    function dpMapDirective (L, mapConfig, layers, highlight, panning, zoom, measure, onMapClick) {
         return {
             restrict: 'E',
             scope: {
                 mapState: '=',
                 markers: '=',
-                showLayerSelection: '='
+                showLayerSelection: '=',
+                resize: '<'
             },
             templateUrl: 'modules/map/components/map/map.html',
             link: linkFunction
@@ -53,7 +53,6 @@
                 highlight.initialize();
                 zoom.initialize(leafletMap);
                 measure.initialize(leafletMap);
-                variableWidth.initialize(container, leafletMap);
                 onMapClick.initialize(leafletMap);
 
                 scope.leafletMap = leafletMap;
@@ -102,14 +101,18 @@
 
                 scope.$watch('markers.clustered', function (newCollection, oldCollection) {
                     if (newCollection.length) {
-                        // Showing markers can take some time, set loading indicator
-                        scope.mapState.isLoading = true;
-                        let endLoading = () => scope.$applyAsync(() => scope.mapState.isLoading = false);
-                        highlight.setCluster(leafletMap, newCollection, endLoading);
+                        highlight.setCluster(leafletMap, newCollection);
                     } else {
                         highlight.clearCluster(leafletMap);
                     }
                 }, true);
+
+                scope.$watchCollection('resize', function () {
+                    // Waiting for next digest cycle.
+                    scope.$applyAsync(function () {
+                        leafletMap.invalidateSize();
+                    });
+                });
             });
         }
 
