@@ -176,7 +176,7 @@
                 },
                 mpv: {
                     name: 'map.viewCenter',
-                    type: 'base62[]',
+                    type: 'number[]',
                     precision: 7
                 },
                 sbf: {
