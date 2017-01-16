@@ -69,7 +69,7 @@ describe('The state url conversion definition', function () {
         it('initialize a state to the home page and default map, (only) on an empty payload', function () {
             let state;
 
-            state = STATE_URL_CONVERSION.onCreate.MAIN_STATE({}, {}, {}, STATE_URL_CONVERSION.initialValues);
+            state = STATE_URL_CONVERSION.onCreate.atlas({}, {}, {}, STATE_URL_CONVERSION.initialValues);
             expect(state).toEqual({
                 page: 'home',
                 map: {
@@ -83,7 +83,7 @@ describe('The state url conversion definition', function () {
                 }
             });
 
-            state = STATE_URL_CONVERSION.onCreate.MAIN_STATE({}, {}, {aap: 'noot'});
+            state = STATE_URL_CONVERSION.onCreate.atlas({}, {}, {aap: 'noot'});
             expect(state).toEqual({});
         });
 

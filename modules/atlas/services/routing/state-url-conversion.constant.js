@@ -5,7 +5,7 @@
             onCreate: {
                 // Initialisation methods for the url2state conversion
                 // These methods are executed after a state object has been initialized with the initialValues
-                MAIN_STATE: (oldState, newState, params, initialValues) => {
+                atlas: (oldState, newState, params, initialValues) => {
                     if (angular.equals(params, {})) {
                         // When no params, go to home page and show initial map
                         newState.page = 'home';
@@ -46,8 +46,8 @@
             },
             initialValues: {
                 // When creating a state object it will be initialized with these values
-                // MAIN_STATE is used to denote the main or global state part of the state
-                MAIN_STATE: {
+                // atlas is used to denote the main or global state part of the state
+                atlas: {
                     page: null,     // eg: 'home'
                     layerSelection: false,
                     isPrintMode: false

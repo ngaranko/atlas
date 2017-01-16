@@ -10,7 +10,7 @@
     function stateUrlConverterFactory (STATE_URL_CONVERSION, dpBaseCoder) {
         const URL_ARRAY_SEPARATOR = ':';    // Choose any of -._~:[]@!$'()*+,;`.
         const ARRAY_DENOTATOR = '[]';
-        const MAIN_STATE = 'MAIN_STATE';
+        const MAIN_STATE = 'atlas';
         const BOOLEAN_TRUE = 'T';
         const BOOLEAN_FALSE = 'F';
         const TYPENAME = {
