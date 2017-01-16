@@ -3,7 +3,7 @@
 
     angular
         .module('dpMap')
-        .constant('POLYGON_CONFIG', {
+        .constant('DRAW_TOOL_CONFIG', {
             edit: {
             },
             draw: {

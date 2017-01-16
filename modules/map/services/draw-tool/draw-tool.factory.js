@@ -3,11 +3,11 @@
 
     angular
         .module('dpMap')
-        .factory('polygon', polygonFactory);
+        .factory('drawTool', drawToolFactory);
 
-    polygonFactory.$inject = ['store', 'ACTIONS', 'L', 'POLYGON_CONFIG', 'onMapClick'];
+    drawToolFactory.$inject = ['store', 'ACTIONS', 'L', 'DRAW_TOOL_CONFIG', 'onMapClick'];
 
-    function polygonFactory (store, ACTIONS, L, POLYGON_CONFIG, onMapClick) {
+    function drawToolFactory (store, ACTIONS, L, DRAW_TOOL_CONFIG, onMapClick) {
         let leafletMap,
             drawnItems,
             drawShapeHandler,
@@ -21,7 +21,7 @@
         };
 
         function initialize (map) {
-            let editConfig = angular.copy(POLYGON_CONFIG.edit),
+            let editConfig = angular.copy(DRAW_TOOL_CONFIG.edit),
                 editToolbar;
 
             store.subscribe(() => {
@@ -34,7 +34,7 @@
 
             leafletMap = map;
             drawnItems = new L.FeatureGroup();
-            drawShapeHandler = new L.Draw.Polygon(leafletMap, POLYGON_CONFIG.draw.polygon);
+            drawShapeHandler = new L.Draw.Polygon(leafletMap, DRAW_TOOL_CONFIG.draw.polygon);
 
             editConfig.featureGroup = drawnItems;
             editToolbar = new L.EditToolbar(editConfig);

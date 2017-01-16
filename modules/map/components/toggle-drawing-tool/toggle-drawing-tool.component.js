@@ -3,18 +3,18 @@
 
     angular
         .module('dpMap')
-        .component('dpToggleDrawingMode', {
+        .component('dpToggleDrawingTool', {
             bindings: {
                 enabled: '='
             },
             templateUrl: 'modules/map/components/toggle-drawing-tool/toggle-drawing-tool.html',
-            controller: DpToggleDrawingModeController,
+            controller: DpToggleDrawingToolController,
             controllerAs: 'vm'
         });
 
-    DpToggleDrawingModeController.$inject = ['store', 'ACTIONS'];
+    DpToggleDrawingToolController.$inject = ['store', 'ACTIONS'];
 
-    function DpToggleDrawingModeController (store, ACTIONS) {
+    function DpToggleDrawingToolController (store, ACTIONS) {
         let vm = this;
 
         vm.toggle = () => {
