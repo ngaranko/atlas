@@ -19,6 +19,7 @@
             NUMBER: /^number$/,
             BASE62: /^base62$/,
             OBJECT: /^object$/,
+            OBJECTVALUES: /^object\((\w+:\w+[\[\]]*)(,\w+:\w+[\[\]]*)*\)$/,
             ARRAY: /\[\]$/
         };
 
@@ -103,6 +104,14 @@
             } else if (typeName.match(TYPENAME.OBJECT)) {
                 return asUrlValue(
                     Object.keys(value).map(key => [key, value[key]]), 'string[][]', precision, separator);
+            } else if (typeName.match(TYPENAME.OBJECTVALUES)) {
+                return typeName.substring('object('.length, typeName.length - 1)
+                    .split(',')
+                    .map(keyValue => {
+                        let [key, keyType] = keyValue.split(':');
+                        return asUrlValue(value[key], keyType, precision, separator + URL_ARRAY_SEPARATOR);
+                    })
+                    .join(separator);
             } else if (typeName.match(TYPENAME.ARRAY)) {
                 let baseType = typeName.substr(0, typeName.length - ARRAY_DENOTATOR.length);
                 urlValue = value
@@ -130,6 +139,15 @@
                 return asStateValue(decodedValue, 'string[][]', precision, separator)
                     .reduce(([key, value]) => {
                         result.key = value;
+                        return result;
+                    }, {});
+            } else if (typeName.match(TYPENAME.OBJECTVALUES)) {
+                let fields = asStateValue(value, 'string[]', precision, separator);
+                return typeName.substring('object('.length, typeName.length - 1)
+                    .split(',')
+                    .reduce((result, keyAndType, i) => {
+                        let [key, keyType] = keyAndType.split(':');
+                        result[key] = asStateValue(fields[i], keyType, precision, separator + URL_ARRAY_SEPARATOR);
                         return result;
                     }, {});
             } else if (typeName.match(TYPENAME.ARRAY)) {

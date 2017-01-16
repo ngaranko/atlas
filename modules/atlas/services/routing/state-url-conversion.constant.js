@@ -159,11 +159,7 @@
                 },
                 mpo: {
                     name: 'map.overlays',
-                    type: 'string[][]',
-                    getValue: overlays => (overlays || []).map(overlay => [overlay.id, overlay.isVisible ? 'T' : 'F']),
-                    setValue: overlays => overlays.map(([id, isVisible]) => {
-                        return {id, isVisible: isVisible === 'T'};
-                    })
+                    type: 'object(id:string,isVisible:boolean)[]'
                 },
                 mps: {
                     name: 'map.showActiveOverlays',
