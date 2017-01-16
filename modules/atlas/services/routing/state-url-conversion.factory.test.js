@@ -11,7 +11,7 @@ describe('The state url conversion factory', function () {
         });
 
         it('is exported as DEFAULT_STATE', function () {
-            let DEFAULT_STATE = stateUrlConverter.DEFAULT_STATE;
+            let DEFAULT_STATE = stateUrlConverter.getDefaultState();
 
             expect(DEFAULT_STATE).toEqual({
                 map: {

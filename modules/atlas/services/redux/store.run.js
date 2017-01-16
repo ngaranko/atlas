@@ -22,7 +22,7 @@
         applicationState.initialize(
             reducer,
             stateToUrl,
-            stateUrlConverter.DEFAULT_STATE,
+            stateUrlConverter.getDefaultState(),
             contextMiddleware,
             stateToUrlMiddleware);
     }

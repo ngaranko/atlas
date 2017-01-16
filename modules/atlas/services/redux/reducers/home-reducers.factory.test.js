@@ -12,7 +12,7 @@ describe('The homeReducers factory', function () {
 
         angular.mock.inject(function (_homeReducers_, _stateUrlConverter_) {
             homeReducers = _homeReducers_;
-            DEFAULT_STATE = _stateUrlConverter_.DEFAULT_STATE;
+            DEFAULT_STATE = _stateUrlConverter_.getDefaultState();
         });
 
         mockedSearchState = angular.copy(DEFAULT_STATE);

@@ -25,13 +25,15 @@
 
         let base62Coder = dpBaseCoder.getCoderForBase(62);
 
-        const DEFAULT_STATE = params2state({}, {});
-
         return {
             state2params,
             params2state,
-            DEFAULT_STATE
+            getDefaultState
         };
+
+        function getDefaultState () {
+            return params2state({}, {});
+        }
 
         function createObject (oldObj, key, params) {
             // create a state object by using its initial value (default {}) and onCreate method if defined
@@ -89,19 +91,8 @@
             }
         }
 
-        function asUrlValue (value, typeName, precision = null, separator = URL_ARRAY_SEPARATOR) {
-            // returns the value as a valid url value (URI-encoded string representation)
-            let urlValue = '';
-
-            if (typeName.match(TYPENAME.STRING)) {
-                urlValue = value;
-            } else if (typeName.match(TYPENAME.NUMBER)) {
-                urlValue = getNumberValue(value, precision);
-            } else if (typeName.match(TYPENAME.BASE62)) {
-                urlValue = base62Coder.encode(value, precision);
-            } else if (typeName.match(TYPENAME.BOOLEAN)) {
-                urlValue = value ? BOOLEAN_TRUE : BOOLEAN_FALSE;
-            } else if (typeName.match(TYPENAME.OBJECT)) {
+        function asUrlComplexValue (value, typeName, precision, separator) {
+            if (typeName.match(TYPENAME.OBJECT)) {
                 return asUrlValue(
                     Object.keys(value).map(key => [key, value[key]]), 'string[][]', precision, separator);
             } else if (typeName.match(TYPENAME.OBJECTVALUES)) {
@@ -114,31 +105,38 @@
                     .join(separator);
             } else if (typeName.match(TYPENAME.ARRAY)) {
                 let baseType = typeName.substr(0, typeName.length - ARRAY_DENOTATOR.length);
-                urlValue = value
+                return value
                     .map(v => asUrlValue(v, baseType, precision, separator + URL_ARRAY_SEPARATOR))
                     .join(separator);
+            } else {
+                return '';
+            }
+        }
+
+        function asUrlValue (value, typeName, precision = null, separator = URL_ARRAY_SEPARATOR) {
+            // returns the value as a valid url value (URI-encoded string representation)
+            let urlValue = '';
+
+            if (typeName.match(TYPENAME.STRING)) {
+                urlValue = value;
+            } else if (typeName.match(TYPENAME.NUMBER)) {
+                urlValue = getNumberValue(value, precision);
+            } else if (typeName.match(TYPENAME.BASE62)) {
+                urlValue = base62Coder.encode(value, precision);
+            } else if (typeName.match(TYPENAME.BOOLEAN)) {
+                urlValue = value ? BOOLEAN_TRUE : BOOLEAN_FALSE;
+            } else {
+                return asUrlComplexValue(value, typeName, precision, separator);
             }
 
             return encodeURI(urlValue.toString());
         }
 
-        function asStateValue (decodedValue, typeName, precision = null, separator = URL_ARRAY_SEPARATOR) {
-            // returns the value as a state value by using the URI-decoded string representation
-            let value = decodeURI(decodedValue);
-            let stateValue = null;
-
-            if (typeName.match(TYPENAME.STRING)) {
-                stateValue = value;
-            } else if (typeName.match(TYPENAME.NUMBER)) {
-                stateValue = getNumberValue(Number(value), precision);
-            } else if (typeName.match(TYPENAME.BASE62)) {
-                stateValue = base62Coder.decode(value, precision);
-            } else if (typeName.match(TYPENAME.BOOLEAN)) {
-                stateValue = value === BOOLEAN_TRUE;
-            } else if (typeName.match(TYPENAME.OBJECT)) {
-                return asStateValue(decodedValue, 'string[][]', precision, separator)
-                    .reduce(([key, value]) => {
-                        result.key = value;
+        function asComplexStateValue (value, typeName, precision, separator) {
+            if (typeName.match(TYPENAME.OBJECT)) {
+                return asStateValue(value, 'string[][]', precision, separator)
+                    .reduce((result, [key, keyValue]) => {
+                        result[key] = keyValue;
                         return result;
                     }, {});
             } else if (typeName.match(TYPENAME.OBJECTVALUES)) {
@@ -156,10 +154,30 @@
                 const TMP_SPLIT_CHAR = '|';
                 let surroundBy = '([^' + URL_ARRAY_SEPARATOR + '])';
                 let splitOn = new RegExp(surroundBy + separator + surroundBy, 'g');
-                value = value.replace(splitOn, '$1' + TMP_SPLIT_CHAR + '$2');
-                stateValue = value
+                let splitValue = value.replace(splitOn, '$1' + TMP_SPLIT_CHAR + '$2');
+                return splitValue
                     .split(TMP_SPLIT_CHAR)
                     .map(v => asStateValue(v, baseType, precision, separator + URL_ARRAY_SEPARATOR));
+            } else {
+                return null;
+            }
+        }
+
+        function asStateValue (decodedValue, typeName, precision = null, separator = URL_ARRAY_SEPARATOR) {
+            // returns the value as a state value by using the URI-decoded string representation
+            let value = decodeURI(decodedValue);
+            let stateValue = null;
+
+            if (typeName.match(TYPENAME.STRING)) {
+                stateValue = value;
+            } else if (typeName.match(TYPENAME.NUMBER)) {
+                stateValue = getNumberValue(Number(value), precision);
+            } else if (typeName.match(TYPENAME.BASE62)) {
+                stateValue = base62Coder.decode(value, precision);
+            } else if (typeName.match(TYPENAME.BOOLEAN)) {
+                stateValue = value === BOOLEAN_TRUE;
+            } else {
+                return asComplexStateValue(decodedValue, typeName, precision, separator);
             }
 
             return stateValue;

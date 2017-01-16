@@ -11,7 +11,7 @@
     ];
 
     function dataSelectionReducersFactory (ACTIONS, stateUrlConverter) {
-        const DEFAULT_STATE = stateUrlConverter.DEFAULT_STATE;
+        const DEFAULT_STATE = stateUrlConverter.getDefaultState();
 
         let reducers = {};
 

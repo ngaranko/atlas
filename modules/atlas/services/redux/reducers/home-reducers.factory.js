@@ -20,7 +20,7 @@
          * @returns {Object} newState
          */
         function showHomeReducer (oldState) {
-            var newState = angular.copy(stateUrlConverter.DEFAULT_STATE);
+            var newState = angular.copy(stateUrlConverter.getDefaultState());
 
             newState.isPrintMode = oldState.isPrintMode;
 

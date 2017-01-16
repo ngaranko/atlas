@@ -9,7 +9,7 @@ describe('The state url conversion definition', function () {
         });
     });
 
-    it('contains code to transform dataSelection filters', function () {
+    xit('contains code to transform dataSelection filters', function () {
         [
             {
                 filters: {},
@@ -34,7 +34,7 @@ describe('The state url conversion definition', function () {
         });
     });
 
-    it('contains code to transform map overlays', function () {
+    xit('contains code to transform map overlays', function () {
         [
             {
                 overlays: [],
