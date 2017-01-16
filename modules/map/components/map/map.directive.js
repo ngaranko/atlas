@@ -14,7 +14,7 @@
         'onMapClick'
     ];
 
-    function dpMapDirective (L, mapConfig, layers, highlight, panning, zoom, drawTool, variableWidth, onMapClick) {
+    function dpMapDirective (L, mapConfig, layers, highlight, panning, zoom, drawTool, onMapClick) {
         return {
             restrict: 'E',
             scope: {
