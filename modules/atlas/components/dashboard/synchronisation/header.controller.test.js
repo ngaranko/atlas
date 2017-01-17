@@ -15,7 +15,9 @@ describe('The header controller', function () {
             isFullscreen: false,
             isLoading: false
         },
-        layerSelection: false,
+        layerSelection: {
+            isEnabled: false
+        },
         search: null,
         page: {
             name: 'home'

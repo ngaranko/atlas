@@ -72,11 +72,14 @@
             newState.straatbeeld.location = payload;
             newState.straatbeeld.targetLocation = payload;
 
-            if (oldState.layerSelection || (oldState.map && oldState.map.isFullscreen)) {
+            if ((oldState.layerSelection && oldState.layerSelection.isEnabled) ||
+                (oldState.map && oldState.map.isFullscreen)) {
                 newState.map.viewCenter = payload;
             }
 
-            newState.layerSelection = false;
+            if (newState.layerSelection) {
+                newState.layerSelection.isEnabled = false;
+            }
             if (newState.map) {
                 newState.map.showActiveOverlays = false;
                 newState.map.isFullscreen = false;

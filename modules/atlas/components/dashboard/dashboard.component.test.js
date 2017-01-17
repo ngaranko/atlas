@@ -44,7 +44,9 @@ describe('The dashboard component', function () {
                 isFullscreen: false,
                 isLoading: false
             },
-            layerSelection: false,
+            layerSelection: {
+                isEnabled: false
+            },
             search: null,
             page: 'home',
             detail: null,

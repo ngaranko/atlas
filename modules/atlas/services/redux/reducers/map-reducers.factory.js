@@ -135,7 +135,9 @@
 
             if (payload) {
                 // Set map to full screen
-                newState.layerSelection = false;
+                if (newState.layerSelection) {
+                    newState.layerSelection.isEnabled = false;
+                }
             }
 
             newState.map.isFullscreen = payload;

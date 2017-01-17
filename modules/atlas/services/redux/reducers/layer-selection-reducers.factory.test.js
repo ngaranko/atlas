@@ -13,7 +13,9 @@ describe('The layerSelectionReducers factory', function () {
             isFullscreen: false,
             isLoading: false
         },
-        layerSelection: false,
+        layerSelection: {
+            isEnabled: false
+        },
         search: null,
         page: {
             name: 'home'
@@ -39,7 +41,7 @@ describe('The layerSelectionReducers factory', function () {
         it('sets the variable to true', function () {
             var output = layerSelectionReducers[ACTIONS.SHOW_LAYER_SELECTION.id](DEFAULT_STATE);
 
-            expect(output.layerSelection).toBe(true);
+            expect(output.layerSelection.isEnabled).toBe(true);
         });
 
         it('leaves the fullscreen mode as is', function () {
@@ -59,11 +61,11 @@ describe('The layerSelectionReducers factory', function () {
                 output;
 
             inputState = angular.copy(DEFAULT_STATE);
-            inputState.layerSelection = true;
+            inputState.layerSelection.isEnabled = true;
 
             output = layerSelectionReducers[ACTIONS.HIDE_LAYER_SELECTION.id](inputState);
 
-            expect(output.layerSelection).toBe(false);
+            expect(output.layerSelection.isEnabled).toBe(false);
         });
     });
 });

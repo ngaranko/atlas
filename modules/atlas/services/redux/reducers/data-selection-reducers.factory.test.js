@@ -13,7 +13,9 @@ describe('The dataSelectionReducers factory', function () {
             isFullscreen: false,
             isLoading: false
         },
-        layerSelection: false,
+        layerSelection: {
+            isEnabled: false
+        },
         search: null,
         page: {
             name: 'home'
@@ -63,7 +65,7 @@ describe('The dataSelectionReducers factory', function () {
                 isFullscreen: true,
                 isLoading: true
             };
-            mockedState.layerSelection = true;
+            mockedState.layerSelection.isEnabled = true;
 
             output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
 
@@ -78,7 +80,7 @@ describe('The dataSelectionReducers factory', function () {
             // It disables the rest
             expect(output.map.isFullscreen).toBe(false);
             expect(output.map.isLoading).toBe(false);
-            expect(output.layerSelection).toBe(false);
+            expect(output.layerSelection.isEnabled).toBe(null);
         });
 
         it('has a default table view', function () {

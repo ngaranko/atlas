@@ -13,7 +13,9 @@ describe('The pageReducers factory', function () {
                 isFullscreen: false,
                 isLoading: false
             },
-            layerSelection: false,
+            layerSelection: {
+                isEnabled: false
+            },
             search: null,
             page: {
                 name: 'home'
@@ -51,7 +53,7 @@ describe('The pageReducers factory', function () {
                 location: null
             };
 
-            mockedState.layerSelection = true;
+            mockedState.layerSelection.isEnabled = true;
 
             mockedState.detail = {
                 endpoint: 'http://some-endpoint/path/123',
@@ -71,7 +73,7 @@ describe('The pageReducers factory', function () {
             output = pageReducers.SHOW_PAGE(mockedState, 'goodbye');
 
             expect(output.search).toBeNull();
-            expect(output.layerSelection).toBe(false);
+            expect(output.layerSelection.isEnabled).toBe(false);
             expect(output.detail).toBeNull();
             expect(output.straatbeeld).toBeNull();
             expect(output.dataSelection).toBeNull();

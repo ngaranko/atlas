@@ -15,7 +15,9 @@ describe('The dashboardColumns factory', function () {
                 isFullscreen: false,
                 isLoading: false
             },
-            layerSelection: false,
+            layerSelection: {
+                isEnabled: false
+            },
             search: null,
             page: {
                 name: 'home'
@@ -51,11 +53,11 @@ describe('The dashboardColumns factory', function () {
         it('checks if map.layerSelection is true in the state', function () {
             let activity;
 
-            mockedState.layerSelection = true;
+            mockedState.layerSelection.isEnabled = true;
             activity = dashboardColumns.determineActivity(mockedState);
             expect(activity.layerSelection).toBe(true);
 
-            mockedState.layerSelection = false;
+            mockedState.layerSelection.isEnabled = false;
             activity = dashboardColumns.determineActivity(mockedState);
             expect(activity.layerSelection).toBe(false);
         });
@@ -423,7 +425,7 @@ describe('The dashboardColumns factory', function () {
                 uri: 'blah/blah/123',
                 isLoading: false
             };
-            mockedState.layerSelection = true;
+            mockedState.layerSelection.isEnabled = true;
         });
 
         describe('the default non-print version', function () {
@@ -543,7 +545,7 @@ describe('The dashboardColumns factory', function () {
                 uri: 'blah/blah/123',
                 isLoading: false
             };
-            mockedState.layerSelection = true;
+            mockedState.layerSelection.isEnabled = true;
             mockedState.map.isFullscreen = true;
         });
 

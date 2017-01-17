@@ -12,7 +12,9 @@ describe('The detailReducers factory', function () {
             isFullscreen: false,
             isLoading: false
         },
-        layerSelection: false,
+        layerSelection: {
+            isEnabled: false
+        },
         search: null,
         page: {
             name: 'home'
@@ -73,7 +75,7 @@ describe('The detailReducers factory', function () {
                 inputState = angular.copy(defaultState),
                 output;
 
-            inputState.layerSelection = true;
+            inputState.layerSelection.isEnabled = true;
             inputState.search = {some: 'object'};
             inputState.page.name = 'somePage';
             inputState.straatbeeld = {some: 'object'};
@@ -81,7 +83,7 @@ describe('The detailReducers factory', function () {
 
             output = detailReducers.FETCH_DETAIL(inputState, payload);
 
-            expect(output.layerSelection).toBe(false);
+            expect(output.layerSelection.isEnabled).toBe(false);
             expect(output.search).toBeNull();
             expect(output.page.name).toBeNull();
             expect(output.straatbeeld).toBeNull();
@@ -126,7 +128,9 @@ describe('The detailReducers factory', function () {
                     zoom: 12,
                     isLoading: true
                 },
-                layerSelection: false,
+                layerSelection: {
+                    isEnabled: false
+                },
                 search: null,
                 page: {
                     name: null

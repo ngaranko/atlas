@@ -22,7 +22,7 @@
         function determineActivity (state) {
             return {
                 map: true,
-                layerSelection: state.layerSelection,
+                layerSelection: state.layerSelection.isEnabled,
                 searchResults: angular.isObject(state.search),
                 page: angular.isString(state.page.name),
                 detail: angular.isObject(state.detail),
@@ -41,7 +41,7 @@
                 visibility.dataSelection = true;
 
                 visibility.map = !state.dataSelection.isFullscreen;
-                visibility.layerSelection = !state.dataSelection.isFullscreen && state.layerSelection;
+                visibility.layerSelection = !state.dataSelection.isFullscreen && state.layerSelection.isEnabled;
                 visibility.detail = false;
                 visibility.page = false;
                 visibility.searchResults = false;
@@ -58,7 +58,7 @@
                     visibility.map = true;
                 }
 
-                visibility.layerSelection = state.layerSelection;
+                visibility.layerSelection = state.layerSelection.isEnabled;
                 visibility.straatbeeld = activity.straatbeeld;
 
                 if (visibility.straatbeeld && state.straatbeeld.isFullscreen) {
@@ -66,7 +66,7 @@
                     visibility.page = false;
                     visibility.searchResults = false;
                     visibility.map = false;
-                } else if (state.layerSelection || state.map.isFullscreen) {
+                } else if (state.layerSelection.isEnabled || state.map.isFullscreen) {
                     visibility.detail = false;
                     visibility.page = false;
                     visibility.searchResults = false;

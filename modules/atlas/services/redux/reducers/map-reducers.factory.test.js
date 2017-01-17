@@ -13,7 +13,9 @@ describe('The map reducers', function () {
             isFullscreen: false,
             isLoading: false
         },
-        layerSelection: false,
+        layerSelection: {
+            isEnabled: false
+        },
         search: null,
         page: {
             name: 'home'
@@ -237,11 +239,11 @@ describe('The map reducers', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
-            inputState.layerSelection = true;
+            inputState.layerSelection.isEnabled = true;
 
             // Enable fullscreen
             output = mapReducers[ACTIONS.MAP_FULLSCREEN.id](inputState, true);
-            expect(output.layerSelection).toBe(false);
+            expect(output.layerSelection.isEnabled).toBe(false);
         });
     });
 

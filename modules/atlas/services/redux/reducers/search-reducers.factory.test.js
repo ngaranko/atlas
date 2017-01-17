@@ -13,7 +13,9 @@ describe('The search-reducers factory', function () {
             isFullscreen: false,
             isLoading: false
         },
-        layerSelection: false,
+        layerSelection: {
+            isEnabled: false
+        },
         search: null,
         page: {
             name: 'home'
@@ -60,7 +62,7 @@ describe('The search-reducers factory', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
-            inputState.layerSelection = true;
+            inputState.layerSelection.isEnabled = true;
             inputState.page.name = 'somePage';
             inputState.detail = {some: 'object'};
             inputState.straatbeeld = null;
@@ -68,7 +70,7 @@ describe('The search-reducers factory', function () {
 
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY.id](inputState, 'linnaeus');
 
-            expect(output.layerSelection).toBe(false);
+            expect(output.layerSelection.isEnabled).toBe(false);
             expect(output.page.name).toBeNull();
             expect(output.detail).toBeNull();
             expect(output.straatbeeld).toBeNull();
@@ -145,7 +147,7 @@ describe('The search-reducers factory', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
-            inputState.layerSelection = true;
+            inputState.layerSelection.isEnabled = true;
             inputState.map.showActiveOverlays = true;
             inputState.page.name = 'somePage';
             inputState.detail = {some: 'object'};
@@ -154,7 +156,7 @@ describe('The search-reducers factory', function () {
 
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, [52.001, 4.002]);
 
-            expect(output.layerSelection).toBe(false);
+            expect(output.layerSelection.isEnabled).toBe(false);
             expect(output.map.showActiveOverlays).toBe(false);
             expect(output.page.name).toBeNull();
             expect(output.detail).toBeNull();
@@ -180,7 +182,7 @@ describe('The search-reducers factory', function () {
             expect(output.map.viewCenter).toEqual([52.001, 4.002]);
 
             // With layer selection enabled
-            inputState.layerSelection = true;
+            inputState.layerSelection.isEnabled = true;
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, [52.001, 4.002]);
             expect(output.map.viewCenter).toEqual([52.001, 4.002]);
         });

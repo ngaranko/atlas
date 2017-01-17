@@ -36,7 +36,9 @@
 
             newState.map.isFullscreen = false;
 
-            newState.layerSelection = false;
+            if (newState.layerSelection) {
+                newState.layerSelection.isEnabled = false;
+            }
             if (newState.page) {
                 newState.page.name = null;
             }
@@ -64,11 +66,13 @@
                 numberOfResults: null
             };
 
-            if (oldState.layerSelection || (oldState.map && oldState.map.isFullscreen)) {
+            if (oldState.layerSelection.isEnabled || (oldState.map && oldState.map.isFullscreen)) {
                 newState.map.viewCenter = payload;
             }
 
-            newState.layerSelection = false;
+            if (newState.layerSelection) {
+                newState.layerSelection.isEnabled = false;
+            }
             if (newState.map) {
                 newState.map.showActiveOverlays = false;
                 newState.map.isFullscreen = false;

@@ -55,7 +55,9 @@
                     page: {
                         name: null  // eg: 'home'
                     },
-                    layerSelection: false,
+                    layerSelection: {
+                        isEnabled: false
+                    },
                     atlas: {
                         isPrintMode: false
                     }
@@ -114,7 +116,7 @@
                 // Property names are keys so that the compiler guarantees the uniqness
                 // The type is stored with the name, every state variable has to have a type specification
                 atls: {
-                    name: 'layerSelection',
+                    name: 'layerSelection.isEnabled',
                     type: 'boolean'
                 },
                 atpg: {

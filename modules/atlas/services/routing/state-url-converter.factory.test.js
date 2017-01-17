@@ -23,7 +23,9 @@ describe('The state url conversion factory', function () {
                     isFullscreen: false,
                     isLoading: false
                 },
-                layerSelection: false,
+                layerSelection: {
+                    isEnabled: false
+                },
                 search: null,
                 page: {
                     name: 'home'

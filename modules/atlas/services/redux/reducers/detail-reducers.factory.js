@@ -34,7 +34,9 @@
             newState.map.isLoading = true;
             newState.map.isFullscreen = false;
 
-            newState.layerSelection = false;
+            if (newState.layerSelection) {
+                newState.layerSelection.isEnabled = false;
+            }
             newState.search = null;
             if (newState.page) {
                 newState.page.name = null;

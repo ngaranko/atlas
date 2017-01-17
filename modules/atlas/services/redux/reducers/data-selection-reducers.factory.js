@@ -35,7 +35,9 @@
             newState.map.zoom = DEFAULT_STATE.map.zoom;
             newState.map.isFullscreen = false;
 
-            newState.layerSelection = false;
+            if (newState.layerSelection) {
+                newState.layerSelection.isEnabled = null;
+            }
             newState.search = null;
             if (newState.page) {
                 newState.page.name = null;
