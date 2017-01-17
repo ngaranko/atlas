@@ -57,7 +57,7 @@
             newState.dataSelection.markers = [];
             newState.dataSelection.isLoading = true;
             newState.dataSelection.isFullscreen = newState.dataSelection.view !== 'LIST';
-
+            console.log(newState);
             return newState;
         }
 

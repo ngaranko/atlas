@@ -57,9 +57,15 @@
                     layer = e.layer;
 
                 if (type === 'polygon') {
+                    let flatCoordinates = layer.getLatLngs()[0].map(function (coordinatePair) {
+                        return [coordinatePair.lat, coordinatePair.lng];
+                    });
+
+                    console.log(flatCoordinates);
                     currentLayer = layer;
                     drawnItems.addLayer(layer);
                     layer.on('click', shapeClickHandler);
+
                 }
             });
         }
