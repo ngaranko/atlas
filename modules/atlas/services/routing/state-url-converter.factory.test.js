@@ -170,6 +170,30 @@ describe('The state url conversion factory', function () {
             });
         });
 
+        describe('The state to url string', function () {
+            it('returns a url string for the converted state', function () {
+                let mockedState = {
+                    s: 'aap',
+                    x: {
+                        b: true
+                    }
+                };
+                let link = stateUrlConverter.state2url(mockedState);
+                expect(link).toEqual('#?s=aap&b=T');
+            });
+
+            it('skips any null values in the state', function () {
+                let mockedState = {
+                    s: null,
+                    x: {
+                        b: true
+                    }
+                };
+                let link = stateUrlConverter.state2url(mockedState);
+                expect(link).toEqual('#?b=T');
+            });
+        });
+
         describe('The params to state translation', function () {
             beforeEach(function () {
 

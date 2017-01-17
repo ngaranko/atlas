@@ -27,12 +27,23 @@
 
         return {
             state2params,
+            state2url,
             params2state,
             getDefaultState
         };
 
         function getDefaultState () {
             return params2state({}, {});
+        }
+
+        function state2url (state) {
+            // Convert the url parameters object into a url parameter string
+            const params = state2params(state);
+            return '#' + Object.keys(params).reduce((result, key) => {
+                result += result ? '&' : '?';
+                result += `${key}=${(params[key])}`;
+                return result;
+            }, '');
         }
 
         function createObject (oldObj, key, params) {
@@ -71,6 +82,7 @@
 
         function getValueForKey (obj, key) {
             // return 9 for obj={map: {zoom: 9}} and key = 'map.zoom', null when no value available
+            // Uses recursion for endless depth
             let {mainKey, subKey} = getFullKey(key);
             if (subKey) {
                 return angular.isObject(obj[mainKey]) ? getValueForKey(obj[mainKey], subKey) : null;

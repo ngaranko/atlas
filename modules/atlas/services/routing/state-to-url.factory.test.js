@@ -7,7 +7,8 @@ describe('The stateToUrl factory', function () {
     beforeEach(function () {
         angular.mock.module('atlas', {
             stateUrlConverter: {
-                state2params: state => angular.merge({}, state, {convert: true})
+                state2params: state => angular.merge({}, state, {convert: true}),
+                state2url: angular.noop
             }
         });
 
@@ -23,18 +24,13 @@ describe('The stateToUrl factory', function () {
 
         spyOn($location, 'replace');
         spyOn($location, 'search');
+        spyOn(stateUrlConverter, 'state2url');
     });
 
     describe('can convert a state to an hyperlink', function () {
         it('returns a url string for the converted state', function () {
-            let link = stateToUrl.create(mockedState);
-            expect(link).toEqual('#?aap=noot&mies=teun&convert=true');
-        });
-
-        it('skips any null values in the state', function () {
-            mockedState.wim = null;
-            let link = stateToUrl.create(mockedState);
-            expect(link).toEqual('#?aap=noot&mies=teun&convert=true');
+            stateToUrl.create(mockedState);
+            expect(stateUrlConverter.state2url).toHaveBeenCalledWith(mockedState);
         });
     });
 

@@ -34,7 +34,7 @@ describe('The dashboard component', function () {
             }
         );
 
-        let DEFAULT_STATE = {
+        const DEFAULT_STATE = {
             map: {
                 baseLayer: 'topografie',
                 overlays: [],
