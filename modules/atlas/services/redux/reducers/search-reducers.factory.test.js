@@ -15,7 +15,9 @@ describe('The search-reducers factory', function () {
         },
         layerSelection: false,
         search: null,
-        page: 'home',
+        page: {
+            name: 'home'
+        },
         detail: null,
         straatbeeld: null,
         dataSelection: null,
@@ -59,7 +61,7 @@ describe('The search-reducers factory', function () {
                 output;
 
             inputState.layerSelection = true;
-            inputState.page = 'somePage';
+            inputState.page.name = 'somePage';
             inputState.detail = {some: 'object'};
             inputState.straatbeeld = null;
             inputState.dataSelection = {some: 'object'};
@@ -67,7 +69,7 @@ describe('The search-reducers factory', function () {
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY.id](inputState, 'linnaeus');
 
             expect(output.layerSelection).toBe(false);
-            expect(output.page).toBeNull();
+            expect(output.page.name).toBeNull();
             expect(output.detail).toBeNull();
             expect(output.straatbeeld).toBeNull();
             expect(output.dataSelection).toBeNull();
@@ -145,7 +147,7 @@ describe('The search-reducers factory', function () {
 
             inputState.layerSelection = true;
             inputState.map.showActiveOverlays = true;
-            inputState.page = 'somePage';
+            inputState.page.name = 'somePage';
             inputState.detail = {some: 'object'};
             inputState.staatbeeld = {some: 'object'};
             inputState.dataSelection = {some: 'object'};
@@ -154,7 +156,7 @@ describe('The search-reducers factory', function () {
 
             expect(output.layerSelection).toBe(false);
             expect(output.map.showActiveOverlays).toBe(false);
-            expect(output.page).toBeNull();
+            expect(output.page.name).toBeNull();
             expect(output.detail).toBeNull();
             expect(output.straatbeeld).toBeNull();
             expect(output.dataSelection).toBeNull();

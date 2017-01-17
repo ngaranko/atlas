@@ -16,7 +16,9 @@ describe('Straatbeeld reducers factory', function () {
             },
             layerSelection: false,
             search: null,
-            page: 'home',
+            page: {
+                name: 'home'
+            },
             detail: null,
             straatbeeld: null,
             dataSelection: null,

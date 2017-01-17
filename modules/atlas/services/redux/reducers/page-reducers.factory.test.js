@@ -15,7 +15,9 @@ describe('The pageReducers factory', function () {
             },
             layerSelection: false,
             search: null,
-            page: 'home',
+            page: {
+                name: 'home'
+            },
             detail: null,
             straatbeeld: null,
             dataSelection: null,
@@ -37,10 +39,10 @@ describe('The pageReducers factory', function () {
 
         it('sets page name', function () {
             output = pageReducers.SHOW_PAGE(mockedState, 'welcome');
-            expect(output.page).toBe('welcome');
+            expect(output.page.name).toBe('welcome');
 
             output = pageReducers.SHOW_PAGE(mockedState, 'goodbye');
-            expect(output.page).toBe('goodbye');
+            expect(output.page.name).toBe('goodbye');
         });
 
         it('disables the layer selection, search, detail, straatbeeld and dataSelection', function () {

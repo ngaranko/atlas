@@ -14,7 +14,9 @@ describe('The detailReducers factory', function () {
         },
         layerSelection: false,
         search: null,
-        page: 'home',
+        page: {
+            name: 'home'
+        },
         detail: null,
         straatbeeld: null,
         dataSelection: null,
@@ -73,7 +75,7 @@ describe('The detailReducers factory', function () {
 
             inputState.layerSelection = true;
             inputState.search = {some: 'object'};
-            inputState.page = 'somePage';
+            inputState.page.name = 'somePage';
             inputState.straatbeeld = {some: 'object'};
             inputState.dataSelection = {some: 'object'};
 
@@ -81,7 +83,7 @@ describe('The detailReducers factory', function () {
 
             expect(output.layerSelection).toBe(false);
             expect(output.search).toBeNull();
-            expect(output.page).toBeNull();
+            expect(output.page.name).toBeNull();
             expect(output.straatbeeld).toBeNull();
             expect(output.dataSelection).toBeNull();
         });
@@ -126,7 +128,9 @@ describe('The detailReducers factory', function () {
                 },
                 layerSelection: false,
                 search: null,
-                page: null,
+                page: {
+                    name: null
+                },
                 detail: {
                     endpoint: 'bag/thing/123/',
                     isLoading: true

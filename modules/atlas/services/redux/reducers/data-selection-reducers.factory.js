@@ -37,7 +37,9 @@
 
             newState.layerSelection = false;
             newState.search = null;
-            newState.page = null;
+            if (newState.page) {
+                newState.page.name = null;
+            }
             newState.detail = null;
             newState.straatbeeld = null;
 

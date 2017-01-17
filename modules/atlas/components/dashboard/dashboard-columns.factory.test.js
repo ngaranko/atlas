@@ -17,7 +17,9 @@ describe('The dashboardColumns factory', function () {
             },
             layerSelection: false,
             search: null,
-            page: 'home',
+            page: {
+                name: 'home'
+            },
             detail: null,
             straatbeeld: null,
             dataSelection: null,
@@ -64,7 +66,7 @@ describe('The dashboardColumns factory', function () {
             activity = dashboardColumns.determineActivity(mockedState);
             expect(activity.page).toBe(true);
 
-            mockedState.page = null;
+            mockedState.page.name = null;
             activity = dashboardColumns.determineActivity(mockedState);
             expect(activity.page).toBe(false);
         });
@@ -163,7 +165,7 @@ describe('The dashboardColumns factory', function () {
     ['query', 'location'].forEach(function (searchInput) {
         describe('when searching by ' + searchInput, function () {
             beforeEach(function () {
-                mockedState.page = null;
+                mockedState.page.name = null;
 
                 if (searchInput === 'query') {
                     mockedState.search = {
@@ -237,7 +239,7 @@ describe('The dashboardColumns factory', function () {
             mockedState.detail = {
                 geometry: {fake: 'GEOMETRY'}
             };
-            mockedState.page = null;
+            mockedState.page.name = null;
         });
 
         describe('the default non-print version', function () {
@@ -315,7 +317,7 @@ describe('The dashboardColumns factory', function () {
     describe('when visiting straatbeeld', function () {
         beforeEach(function () {
             mockedState.straatbeeld = {id: 'xyz'};
-            mockedState.page = null;
+            mockedState.page.name = null;
         });
 
         describe('the default non-print version', function () {
@@ -610,7 +612,7 @@ describe('The dashboardColumns factory', function () {
                 page: 7
             };
 
-            mockedState.page = null;
+            mockedState.page.name = null;
         });
 
         describe('the default non-print version', function () {

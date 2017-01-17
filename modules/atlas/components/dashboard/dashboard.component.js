@@ -44,7 +44,7 @@
             vm.columnSizes = dashboardColumns.determineColumnSizes(state);
 
             // Needed for the dp-scrollable-content directive
-            vm.pageName = state.page;
+            vm.pageName = state.page.name;
         }
     }
 })();

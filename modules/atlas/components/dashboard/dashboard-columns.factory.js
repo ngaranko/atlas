@@ -24,7 +24,7 @@
                 map: true,
                 layerSelection: state.layerSelection,
                 searchResults: angular.isObject(state.search),
-                page: angular.isString(state.page),
+                page: angular.isString(state.page.name),
                 detail: angular.isObject(state.detail),
                 straatbeeld: angular.isObject(state.straatbeeld),
                 dataSelection: angular.isObject(state.dataSelection)
@@ -73,7 +73,7 @@
                     visibility.straatbeeld = false;
                 } else {
                     visibility.detail = activity.detail && !activity.straatbeeld;
-                    visibility.page = angular.isString(state.page);
+                    visibility.page = angular.isString(state.page.name);
                     visibility.searchResults = activity.searchResults;
                 }
 

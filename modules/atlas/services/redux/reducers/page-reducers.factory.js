@@ -24,7 +24,7 @@
         function showPageReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
-            newState.page = payload;
+            newState.page.name = payload;
 
             newState.map.isFullscreen = false;
 

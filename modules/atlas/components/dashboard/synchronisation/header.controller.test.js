@@ -17,7 +17,9 @@ describe('The header controller', function () {
         },
         layerSelection: false,
         search: null,
-        page: 'home',
+        page: {
+            name: 'home'
+        },
         detail: null,
         straatbeeld: null,
         dataSelection: null,

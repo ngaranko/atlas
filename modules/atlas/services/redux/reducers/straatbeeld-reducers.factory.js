@@ -46,7 +46,9 @@
             newState.map.highlight = null;
 
             newState.search = null;
-            newState.page = null;
+            if (newState.page) {
+                newState.page.name = null;
+            }
 
             newState.dataSelection = null;
 
@@ -80,7 +82,9 @@
                 newState.map.isFullscreen = false;
             }
             newState.search = null;
-            newState.page = null;
+            if (newState.page) {
+                newState.page.name = null;
+            }
 
             // If a straatbeeld is loaded by it's location
             // then clear any active detail

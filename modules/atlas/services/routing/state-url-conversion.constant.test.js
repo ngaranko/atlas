@@ -15,7 +15,9 @@ describe('The state url conversion definition', function () {
 
             state = STATE_URL_CONVERSION.onCreate.MAIN({}, {}, {}, STATE_URL_CONVERSION.initialValues);
             expect(state).toEqual({
-                page: 'home',
+                page: {
+                    name: 'home'
+                },
                 map: {
                     viewCenter: [52.3719, 4.9012],
                     baseLayer: 'topografie',

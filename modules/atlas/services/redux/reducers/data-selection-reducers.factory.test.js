@@ -15,7 +15,9 @@ describe('The dataSelectionReducers factory', function () {
         },
         layerSelection: false,
         search: null,
-        page: 'home',
+        page: {
+            name: 'home'
+        },
         detail: null,
         straatbeeld: null,
         dataSelection: null,
@@ -169,14 +171,14 @@ describe('The dataSelectionReducers factory', function () {
 
             mockedState = angular.copy(DEFAULT_STATE);
             mockedState.search = {some: 'object'};
-            mockedState.page = 'somePage';
+            mockedState.page.name = 'somePage';
             mockedState.detail = {some: 'object'};
             mockedState.straatbeeld = {some: 'object'};
 
             output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
 
             expect(output.search).toBeNull();
-            expect(output.page).toBeNull();
+            expect(output.page.name).toBeNull();
             expect(output.detail).toBeNull();
             expect(output.straatbeeld).toBeNull();
         });

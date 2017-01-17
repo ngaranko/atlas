@@ -8,7 +8,8 @@
                 MAIN: (oldState, newState, params, initialValues) => {
                     if (angular.equals(params, {})) {
                         // When no params, go to home page and show initial map
-                        newState.page = 'home';
+                        newState.page = newState.page || {};
+                        newState.page.name = 'home';
                         newState.map = angular.copy(initialValues.map);
                     }
                     return newState;
@@ -51,7 +52,9 @@
                 // When creating a state object it will be initialized with these values
                 // MAIN is used to denote the main or global state part of the state
                 MAIN: {
-                    page: null,     // eg: 'home'
+                    page: {
+                        name: null  // eg: 'home'
+                    },
                     layerSelection: false,
                     atlas: {
                         isPrintMode: false
@@ -115,7 +118,7 @@
                     type: 'boolean'
                 },
                 atpg: {
-                    name: 'page',
+                    name: 'page.name',
                     type: 'string'
                 },
                 atpr: {

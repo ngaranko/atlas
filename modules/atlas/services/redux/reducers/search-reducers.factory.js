@@ -37,7 +37,9 @@
             newState.map.isFullscreen = false;
 
             newState.layerSelection = false;
-            newState.page = null;
+            if (newState.page) {
+                newState.page.name = null;
+            }
             newState.detail = null;
             newState.straatbeeld = null;
             newState.dataSelection = null;
@@ -71,7 +73,9 @@
                 newState.map.showActiveOverlays = false;
                 newState.map.isFullscreen = false;
             }
-            newState.page = null;
+            if (newState.page) {
+                newState.page.name = null;
+            }
             newState.detail = null;
             newState.straatbeeld = null;
             newState.dataSelection = null;
