@@ -18,8 +18,8 @@
             BOOLEAN: /^boolean$/,
             NUMBER: /^number$/,
             BASE62: /^base62$/,
-            OBJECT: /^object$/,
-            OBJECTVALUES: /^object\((\w+:\w+[\[\]]*)(,\w+:\w+[\[\]]*)*\)$/,
+            KEYVALUES: /^keyvalues$/,
+            OBJECT: /^object\((\w+:\w+[\[\]]*)(,\w+:\w+[\[\]]*)*\)$/,
             ARRAY: /\[\]$/
         };
 
@@ -91,28 +91,6 @@
             }
         }
 
-        function asUrlComplexValue (value, typeName, precision, separator) {
-            if (typeName.match(TYPENAME.OBJECT)) {
-                return asUrlValue(
-                    Object.keys(value).map(key => [key, value[key]]), 'string[][]', precision, separator);
-            } else if (typeName.match(TYPENAME.OBJECTVALUES)) {
-                return typeName.substring('object('.length, typeName.length - 1)
-                    .split(',')
-                    .map(keyValue => {
-                        let [key, keyType] = keyValue.split(':');
-                        return asUrlValue(value[key], keyType, precision, separator + URL_ARRAY_SEPARATOR);
-                    })
-                    .join(separator);
-            } else if (typeName.match(TYPENAME.ARRAY)) {
-                let baseType = typeName.substr(0, typeName.length - ARRAY_DENOTATOR.length);
-                return value
-                    .map(v => asUrlValue(v, baseType, precision, separator + URL_ARRAY_SEPARATOR))
-                    .join(separator);
-            } else {
-                return '';
-            }
-        }
-
         function asUrlValue (value, typeName, precision = null, separator = URL_ARRAY_SEPARATOR) {
             // returns the value as a valid url value (URI-encoded string representation)
             let urlValue = '';
@@ -130,37 +108,6 @@
             }
 
             return encodeURI(urlValue.toString());
-        }
-
-        function asComplexStateValue (value, typeName, precision, separator) {
-            if (typeName.match(TYPENAME.OBJECT)) {
-                return asStateValue(value, 'string[][]', precision, separator)
-                    .reduce((result, [key, keyValue]) => {
-                        result[key] = keyValue;
-                        return result;
-                    }, {});
-            } else if (typeName.match(TYPENAME.OBJECTVALUES)) {
-                let fields = asStateValue(value, 'string[]', precision, separator);
-                return typeName.substring('object('.length, typeName.length - 1)
-                    .split(',')
-                    .reduce((result, keyAndType, i) => {
-                        let [key, keyType] = keyAndType.split(':');
-                        result[key] = asStateValue(fields[i], keyType, precision, separator + URL_ARRAY_SEPARATOR);
-                        return result;
-                    }, {});
-            } else if (typeName.match(TYPENAME.ARRAY)) {
-                let baseType = typeName.substr(0, typeName.length - ARRAY_DENOTATOR.length);
-                // Split the array, replace the split char by a tmp split char because org split char can repeat
-                const TMP_SPLIT_CHAR = '|';
-                let surroundBy = '([^' + URL_ARRAY_SEPARATOR + '])';
-                let splitOn = new RegExp(surroundBy + separator + surroundBy, 'g');
-                let splitValue = value.replace(splitOn, '$1' + TMP_SPLIT_CHAR + '$2');
-                return splitValue
-                    .split(TMP_SPLIT_CHAR)
-                    .map(v => asStateValue(v, baseType, precision, separator + URL_ARRAY_SEPARATOR));
-            } else {
-                return null;
-            }
         }
 
         function asStateValue (decodedValue, typeName, precision = null, separator = URL_ARRAY_SEPARATOR) {
@@ -181,6 +128,67 @@
             }
 
             return stateValue;
+        }
+
+        function asUrlComplexValue (value, typeName, precision, separator) {
+            // a complex value is a composition of primitive values
+            if (typeName.match(TYPENAME.KEYVALUES)) {
+                // { key: value, key:value, ... } => key::value:key::value...
+                return asUrlValue(
+                    Object.keys(value).map(key => [key, value[key]]), 'string[][]', precision, separator);
+            } else if (typeName.match(TYPENAME.OBJECT)) {
+                // { id:anyValue, ... } => anyValue:anyValue:...
+                return typeName.substring('object('.length, typeName.length - 1)    // (key:type,key:type,...)
+                    .split(',')     // ['key:type', 'key:type', ...]
+                    .map(keyValue => {
+                        let [key, keyType] = keyValue.split(':'); // key:type => key, type
+                        return asUrlValue(value[key], keyType, precision, separator + URL_ARRAY_SEPARATOR);
+                    })
+                    .join(separator);
+            } else if (typeName.match(TYPENAME.ARRAY)) {
+                // [ x, y, z, ... ] => x:y:z:...
+                let baseType = typeName.substr(0, typeName.length - ARRAY_DENOTATOR.length);
+                return value
+                    .map(v => asUrlValue(v, baseType, precision, separator + URL_ARRAY_SEPARATOR))
+                    .join(separator);
+            } else {
+                return '';
+            }
+        }
+
+        function asComplexStateValue (value, typeName, precision, separator) {
+            // a complex value is a composition of primitive values
+            if (typeName.match(TYPENAME.KEYVALUES)) {
+                // key::value:key::value... => { key: value, key:value, ... }
+                return asStateValue(value, 'string[][]', precision, separator)
+                    .reduce((result, [key, keyValue]) => {
+                        result[key] = keyValue;
+                        return result;
+                    }, {});
+            } else if (typeName.match(TYPENAME.OBJECT)) {
+                // anyValue:anyValue:... => { id:anyValue, ... }
+                let fields = asStateValue(value, 'string[]', precision, separator); // [ anyValue, anyValue, ...]
+                return typeName.substring('object('.length, typeName.length - 1) // (key:type,key:type,...)
+                    .split(',')     // ['key:type', 'key:type', ...]
+                    .reduce((result, keyAndType, i) => {
+                        let [key, keyType] = keyAndType.split(':'); // key:type => key, type
+                        result[key] = asStateValue(fields[i], keyType, precision, separator + URL_ARRAY_SEPARATOR);
+                        return result;
+                    }, {});
+            } else if (typeName.match(TYPENAME.ARRAY)) {
+                // x:y:z:... => [ x, y, z, ... ]
+                let baseType = typeName.substr(0, typeName.length - ARRAY_DENOTATOR.length);
+                // Split the array, replace the split char by a tmp split char because org split char can repeat
+                const TMP_SPLIT_CHAR = '|';
+                let surroundBy = '([^' + URL_ARRAY_SEPARATOR + '])';
+                let splitOn = new RegExp(surroundBy + separator + surroundBy, 'g');
+                let splitValue = value.replace(splitOn, '$1' + TMP_SPLIT_CHAR + '$2');
+                return splitValue
+                    .split(TMP_SPLIT_CHAR)
+                    .map(v => asStateValue(v, baseType, precision, separator + URL_ARRAY_SEPARATOR));
+            } else {
+                return null;
+            }
         }
 
         function state2params (state) {

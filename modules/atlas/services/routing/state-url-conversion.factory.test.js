@@ -77,6 +77,14 @@ describe('The state url conversion factory', function () {
                         name: 'aaan',
                         type: 'number[][][]'
                     },
+                    kv: {
+                        name: 'kv',
+                        type: 'keyvalues'
+                    },
+                    osb: {
+                        name: 'osb',
+                        type: 'object(id:string,isVisible:boolean)'
+                    },
                     v: {
                         name: 'v',
                         type: 'string',
@@ -123,6 +131,8 @@ describe('The state url conversion factory', function () {
                     as: ['aap', 'noot', 'mies'],
                     aab: [[true, false], [false, true]],
                     aaan: [[[1, 2], [3, 4]], [[5, 6], [7, 8]]],
+                    kv: { aap: 'noot', mies: 'teun' },
+                    osb: { id: 'aap', isVisible: true },
                     v: 'v'
                 });
 
@@ -135,6 +145,8 @@ describe('The state url conversion factory', function () {
                     as: 'aap:noot:mies',
                     aab: 'T::F:F::T',
                     aaan: '1:::2::3:::4:5:::6::7:::8',
+                    kv: 'aap::noot:mies::teun',
+                    osb: 'aap:T',
                     v: 'getValue.v'
                 });
             });
@@ -178,6 +190,8 @@ describe('The state url conversion factory', function () {
                     as: 'aap:noot:mies',
                     aab: 'T::F:F::T',
                     aaan: '1:::2::3:::4:5:::6::7:::8',
+                    kv: 'aap::noot:mies::teun',
+                    osb: 'aap:T',
                     v: 'v'
                 });
 
@@ -196,6 +210,8 @@ describe('The state url conversion factory', function () {
                     as: ['aap', 'noot', 'mies'],
                     aab: [[true, false], [false, true]],
                     aaan: [[[1, 2], [3, 4]], [[5, 6], [7, 8]]],
+                    kv: { aap: 'noot', mies: 'teun' },
+                    osb: { id: 'aap', isVisible: true },
                     v: 'setValue.v'
                 });
             });

@@ -9,62 +9,6 @@ describe('The state url conversion definition', function () {
         });
     });
 
-    xit('contains code to transform dataSelection filters', function () {
-        [
-            {
-                filters: {},
-                conversion: []
-            },
-            {
-                conversion: []
-            },
-            {
-                filters: {
-                    aap: 'noot',
-                    mies: 'teun'
-                },
-                conversion: [
-                    ['aap', 'noot'],
-                    ['mies', 'teun']
-                ]
-            }
-        ].forEach(({filters, conversion}) => {
-            expect(STATE_URL_CONVERSION.stateVariables.dsf.getValue(filters)).toEqual(conversion);
-            expect(STATE_URL_CONVERSION.stateVariables.dsf.setValue(conversion)).toEqual(filters || {});
-        });
-    });
-
-    xit('contains code to transform map overlays', function () {
-        [
-            {
-                overlays: [],
-                conversion: []
-            },
-            {
-                conversion: []
-            },
-            {
-                overlays: [
-                    {
-                        id: 'aap',
-                        isVisible: true
-                    },
-                    {
-                        id: 'noot',
-                        isVisible: false
-                    }
-                ],
-                conversion: [
-                    ['aap', 'T'],
-                    ['noot', 'F']
-                ]
-            }
-        ].forEach(({overlays, conversion}) => {
-            expect(STATE_URL_CONVERSION.stateVariables.mpo.getValue(overlays)).toEqual(conversion);
-            expect(STATE_URL_CONVERSION.stateVariables.mpo.setValue(conversion)).toEqual(overlays || []);
-        });
-    });
-
     describe('The registered state initialisation methods', function () {
         it('initialize a state to the home page and default map, (only) on an empty payload', function () {
             let state;

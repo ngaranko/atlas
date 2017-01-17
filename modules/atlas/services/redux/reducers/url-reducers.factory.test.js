@@ -11,7 +11,7 @@ describe('The urlReducers factory', function () {
             }
         );
 
-        angular.mock.inject(function (_urlReducers_, _stateUrlConverter_, _STATE_URL_CONVERSION_) {
+        angular.mock.inject(function (_urlReducers_, _stateUrlConverter_) {
             urlReducers = _urlReducers_;
             stateUrlConverter = _stateUrlConverter_;
         });

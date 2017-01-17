@@ -123,7 +123,7 @@
                 },
                 dsf: {
                     name: 'dataSelection.filters',
-                    type: 'object'
+                    type: 'keyvalues'
                 },
                 dsp: {
                     name: 'dataSelection.page',
