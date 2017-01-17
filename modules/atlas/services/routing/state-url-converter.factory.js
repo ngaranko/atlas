@@ -23,7 +23,99 @@
             ARRAY: /\[\]$/
         };
 
-        let base62Coder = dpBaseCoder.getCoderForBase(62);
+        let base62Coder = dpBaseCoder.getCoderForBase(62);  // Code coordinates in base62
+
+        // url-state converters for every possible type
+
+        class StringValue {
+            static urlValue (s) { return s; }
+            static stateValue (s) { return s; }
+        }
+
+        class NumberValue {
+            static getNumberValue (n, precision) {
+                // eg return 10.1 for 10.123
+                return precision === null ? n : dpBaseCoder.toPrecision(n, precision);
+            }
+            static urlValue (n, precision) { return NumberValue.getNumberValue(n, precision); }
+            static stateValue (s, precision) { return NumberValue.getNumberValue(Number(s), precision); }
+        }
+
+        class Base62Value {
+            static urlValue (n, precision) { return base62Coder.encode(n, precision); }
+            static stateValue (s, precision) { return base62Coder.decode(s, precision); }
+        }
+
+        class BooleanValue {
+            static urlValue (b) { return b ? BOOLEAN_TRUE : BOOLEAN_FALSE; }
+            static stateValue (s) { return s === BOOLEAN_TRUE; }
+        }
+
+        class KeyValuesValue {
+            static urlValue (kv, typeName, asValue, precision, separator) {
+                // { key: value, key:value, ... } => key::value:key::value...
+                return asValue(Object.keys(kv).map(key => [key, kv[key]]), 'string[][]', precision, separator);
+            }
+            static stateValue (s, typeName, asValue, precision, separator) {
+                // key::value:key::value... => { key: value, key:value, ... }
+                return asValue(s, 'string[][]', precision, separator)
+                    .reduce((result, [key, keyValue]) => {
+                        result[key] = keyValue;
+                        return result;
+                    }, {});
+            }
+        }
+
+        class ObjectValue {
+            static getKeyTypes (typeName) {
+                // object(key:type,key:type,...) => ['key:type', 'key:type', ...]
+                return typeName.substring('object('.length, typeName.length - 1).split(',');
+            }
+            static urlValue (o, typeName, asValue, precision, separator) {
+                // { id:anyValue, ... } => anyValue:anyValue:...
+                return ObjectValue.getKeyTypes(typeName)
+                    .map(keyValue => {
+                        let [key, keyType] = keyValue.split(':'); // key:type => key, type
+                        return asValue(o[key], keyType, precision, separator + URL_ARRAY_SEPARATOR);
+                    })
+                    .join(separator);
+            }
+            static stateValue (s, typeName, asValue, precision, separator) {
+                // anyValue:anyValue:... => { id:anyValue, ... }
+                let fields = asValue(s, 'string[]', precision, separator); // [ anyValue, anyValue, ...]
+                return ObjectValue.getKeyTypes(typeName)
+                    .reduce((result, keyAndType, i) => {
+                        let [key, keyType] = keyAndType.split(':'); // key:type => key, type
+                        result[key] = asValue(fields[i], keyType, precision, separator + URL_ARRAY_SEPARATOR);
+                        return result;
+                    }, {});
+            }
+        }
+
+        class ArrayValue {
+            static getBaseType (typeName) {
+                return typeName.substr(0, typeName.length - ARRAY_DENOTATOR.length);
+            }
+            static urlValue (a, typeName, asValue, precision, separator) {
+                // [ x, y, z, ... ] => x:y:z:...
+                let baseType = ArrayValue.getBaseType(typeName);
+                return a
+                    .map(v => asValue(v, baseType, precision, separator + URL_ARRAY_SEPARATOR))
+                    .join(separator);
+            }
+            static stateValue (s, typeName, asValue, precision, separator) {
+                // x:y:z:... => [ x, y, z, ... ]
+                let baseType = ArrayValue.getBaseType(typeName);
+                // Split the array, replace the split char by a tmp split char because org split char can repeat
+                const TMP_SPLIT_CHAR = '|';
+                let surroundBy = '([^' + URL_ARRAY_SEPARATOR + '])';
+                let splitOn = new RegExp(surroundBy + separator + surroundBy, 'g');
+                let splitValue = s.replace(splitOn, '$1' + TMP_SPLIT_CHAR + '$2');
+                return splitValue
+                    .split(TMP_SPLIT_CHAR)
+                    .map(v => asValue(v, baseType, precision, separator + URL_ARRAY_SEPARATOR));
+            }
+        }
 
         return {
             state2params,
@@ -75,11 +167,6 @@
             }
         }
 
-        function getNumberValue (n, precision) {
-            // eg return 10.1 for 10.123
-            return precision === null ? n : dpBaseCoder.toPrecision(n, precision);
-        }
-
         function getValueForKey (obj, key) {
             // return 9 for obj={map: {zoom: 9}} and key = 'map.zoom', null when no value available
             // Uses recursion for endless depth
@@ -108,15 +195,19 @@
             let urlValue = '';
 
             if (typeName.match(TYPENAME.STRING)) {
-                urlValue = value;
+                urlValue = StringValue.urlValue(value);
             } else if (typeName.match(TYPENAME.NUMBER)) {
-                urlValue = getNumberValue(value, precision);
+                urlValue = NumberValue.urlValue(value, precision);
             } else if (typeName.match(TYPENAME.BASE62)) {
-                urlValue = base62Coder.encode(value, precision);
+                urlValue = Base62Value.urlValue(value, precision);
             } else if (typeName.match(TYPENAME.BOOLEAN)) {
-                urlValue = value ? BOOLEAN_TRUE : BOOLEAN_FALSE;
-            } else {
-                return asUrlComplexValue(value, typeName, precision, separator);
+                urlValue = BooleanValue.urlValue(value);
+            } else if (typeName.match(TYPENAME.KEYVALUES)) {
+                return KeyValuesValue.urlValue(value, typeName, asUrlValue, precision, separator);
+            } else if (typeName.match(TYPENAME.OBJECT)) {
+                return ObjectValue.urlValue(value, typeName, asUrlValue, precision, separator);
+            } else if (typeName.match(TYPENAME.ARRAY)) {
+                return ArrayValue.urlValue(value, typeName, asUrlValue, precision, separator);
             }
 
             return encodeURI(urlValue.toString());
@@ -128,79 +219,22 @@
             let stateValue = null;
 
             if (typeName.match(TYPENAME.STRING)) {
-                stateValue = value;
+                stateValue = StringValue.stateValue(value);
             } else if (typeName.match(TYPENAME.NUMBER)) {
-                stateValue = getNumberValue(Number(value), precision);
+                stateValue = NumberValue.stateValue(value, precision);
             } else if (typeName.match(TYPENAME.BASE62)) {
-                stateValue = base62Coder.decode(value, precision);
+                stateValue = Base62Value.stateValue(value, precision);
             } else if (typeName.match(TYPENAME.BOOLEAN)) {
-                stateValue = value === BOOLEAN_TRUE;
-            } else {
-                return asComplexStateValue(decodedValue, typeName, precision, separator);
+                stateValue = BooleanValue.stateValue(value);
+            } else if (typeName.match(TYPENAME.KEYVALUES)) {
+                return KeyValuesValue.stateValue(value, typeName, asStateValue, precision, separator);
+            } else if (typeName.match(TYPENAME.OBJECT)) {
+                return ObjectValue.stateValue(value, typeName, asStateValue, precision, separator);
+            } else if (typeName.match(TYPENAME.ARRAY)) {
+                return ArrayValue.stateValue(value, typeName, asStateValue, precision, separator);
             }
 
             return stateValue;
-        }
-
-        function asUrlComplexValue (value, typeName, precision, separator) {
-            // a complex value is a composition of primitive values
-            if (typeName.match(TYPENAME.KEYVALUES)) {
-                // { key: value, key:value, ... } => key::value:key::value...
-                return asUrlValue(
-                    Object.keys(value).map(key => [key, value[key]]), 'string[][]', precision, separator);
-            } else if (typeName.match(TYPENAME.OBJECT)) {
-                // { id:anyValue, ... } => anyValue:anyValue:...
-                return typeName.substring('object('.length, typeName.length - 1)    // (key:type,key:type,...)
-                    .split(',')     // ['key:type', 'key:type', ...]
-                    .map(keyValue => {
-                        let [key, keyType] = keyValue.split(':'); // key:type => key, type
-                        return asUrlValue(value[key], keyType, precision, separator + URL_ARRAY_SEPARATOR);
-                    })
-                    .join(separator);
-            } else if (typeName.match(TYPENAME.ARRAY)) {
-                // [ x, y, z, ... ] => x:y:z:...
-                let baseType = typeName.substr(0, typeName.length - ARRAY_DENOTATOR.length);
-                return value
-                    .map(v => asUrlValue(v, baseType, precision, separator + URL_ARRAY_SEPARATOR))
-                    .join(separator);
-            } else {
-                return '';
-            }
-        }
-
-        function asComplexStateValue (value, typeName, precision, separator) {
-            // a complex value is a composition of primitive values
-            if (typeName.match(TYPENAME.KEYVALUES)) {
-                // key::value:key::value... => { key: value, key:value, ... }
-                return asStateValue(value, 'string[][]', precision, separator)
-                    .reduce((result, [key, keyValue]) => {
-                        result[key] = keyValue;
-                        return result;
-                    }, {});
-            } else if (typeName.match(TYPENAME.OBJECT)) {
-                // anyValue:anyValue:... => { id:anyValue, ... }
-                let fields = asStateValue(value, 'string[]', precision, separator); // [ anyValue, anyValue, ...]
-                return typeName.substring('object('.length, typeName.length - 1) // (key:type,key:type,...)
-                    .split(',')     // ['key:type', 'key:type', ...]
-                    .reduce((result, keyAndType, i) => {
-                        let [key, keyType] = keyAndType.split(':'); // key:type => key, type
-                        result[key] = asStateValue(fields[i], keyType, precision, separator + URL_ARRAY_SEPARATOR);
-                        return result;
-                    }, {});
-            } else if (typeName.match(TYPENAME.ARRAY)) {
-                // x:y:z:... => [ x, y, z, ... ]
-                let baseType = typeName.substr(0, typeName.length - ARRAY_DENOTATOR.length);
-                // Split the array, replace the split char by a tmp split char because org split char can repeat
-                const TMP_SPLIT_CHAR = '|';
-                let surroundBy = '([^' + URL_ARRAY_SEPARATOR + '])';
-                let splitOn = new RegExp(surroundBy + separator + surroundBy, 'g');
-                let splitValue = value.replace(splitOn, '$1' + TMP_SPLIT_CHAR + '$2');
-                return splitValue
-                    .split(TMP_SPLIT_CHAR)
-                    .map(v => asStateValue(v, baseType, precision, separator + URL_ARRAY_SEPARATOR));
-            } else {
-                return null;
-            }
         }
 
         function state2params (state) {
