@@ -10,7 +10,7 @@
                 ENDPOINT_PREVIEW: 'dataselectie/bag/',
                 ENDPOINT_MARKERS: 'dataselectie/bag/geolocation/',
                 ENDPOINT_EXPORT: 'https://api.datapunt.amsterdam.nl/dataselectie/bag/export/',
-                ENDPOINT_DETAIL: 'bag/nummeraanduiding/',
+                ENDPOINT_DETAIL: 'https://api.datapunt.amsterdam.nl/bag/nummeraanduiding/',
                 PRIMARY_KEY: 'id',
                 TITLE: 'Adressen',
                 FILTERS: [
@@ -126,7 +126,7 @@
                 MAX_AVAILABLE_PAGES: 100,
                 ENDPOINT_PREVIEW: 'dataselectie/hr/',
                 ENDPOINT_EXPORT: 'https://api.datapunt.amsterdam.nl/dataselectie/hr/export/',
-                ENDPOINT_DETAIL: 'handelsregister/vestiging/',
+                ENDPOINT_DETAIL: 'https://api.datapunt.amsterdam.nl/handelsregister/vestiging/',
                 PRIMARY_KEY: 'id',
                 TITLE: 'Handelsregister',
                 FILTERS: [
