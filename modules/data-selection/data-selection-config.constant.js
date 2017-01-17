@@ -173,6 +173,7 @@
                 CUSTOM_API: 'dataSelectionApiDataSelection',
                 MAX_AVAILABLE_PAGES: 100,
                 ENDPOINT_PREVIEW: 'dataselectie/hr/',
+                // ENDPOINT_MARKERS: 'dataselectie/hr/geolocation/',
                 ENDPOINT_EXPORT: 'https://api.datapunt.amsterdam.nl/dataselectie/hr/export/',
                 ENDPOINT_DETAIL: 'https://api.datapunt.amsterdam.nl/handelsregister/vestiging/',
                 PRIMARY_KEY: 'id',
