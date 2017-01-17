@@ -162,7 +162,7 @@
             var newState = angular.copy(oldState);
 
             newState.map.drawingMode = payload || null;
-
+        
             return newState;
         }
 
@@ -183,4 +183,3 @@
         }
     }
 })();
-

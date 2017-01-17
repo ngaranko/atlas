@@ -62,7 +62,7 @@
             dataSelection: {
                 view: 'TABLE',
                 dataset: 'bag',
-                filters: {
+                filters: { (OR :String)
                     buurtcombinatie: 'Geuzenbuurt',
                     buurt: 'Trompbuurt'
                 },
@@ -74,7 +74,7 @@
                 ],
                 isFullscreen: true,
                 isLoading: false,
-                geoFilter: [
+                shape: [
                     [52.1, 4.1],
                     [52.2, 4.0],
                     [52.3, 4.2]

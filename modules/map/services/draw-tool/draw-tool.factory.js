@@ -61,11 +61,19 @@
                         return [coordinatePair.lat, coordinatePair.lng];
                     });
 
-                    console.log(flatCoordinates);
+                    store.dispatch({
+                        type: ACTIONS.FETCH_DATA_SELECTION,
+                        payload: {
+                            dataset: 'bag',
+                            filters: 'shape',
+                            shape: flatCoordinates,
+                            page: 1
+                        }
+                    });
+
                     currentLayer = layer;
                     drawnItems.addLayer(layer);
                     layer.on('click', shapeClickHandler);
-
                 }
             });
         }
