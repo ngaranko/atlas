@@ -17,7 +17,6 @@
             // Making sure to not request pages higher then max allowed.
             // If that is the case requesting for page 1, to obtain filters.
             // In the response the data will be dumped.
-            console.log(page, config.MAX_AVAILABLE_PAGES);
             if (page > config.MAX_AVAILABLE_PAGES) {
                 searchPage = 1;
             }
@@ -47,7 +46,6 @@
 
         function formatFilters (rawData) {
             return Object.keys(rawData).reduce((filters, key) => {
-                console.log(rawData);
                 if (key === 'vestiging' || key === 'doc_count') {
                     return filters;
                 }
