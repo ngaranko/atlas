@@ -57,9 +57,8 @@
                     layer = e.layer;
 
                 if (type === 'polygon') {
-                    let flatCoordinates = layer.getLatLngs()[0].map(function (coordinatePair) {
-                        return [coordinatePair.lat, coordinatePair.lng];
-                    });
+                    let flatCoordinates = layer.getLatLngs()[0]
+                        .map(({lat, lng}) => [lat, lng]);
 
                     store.dispatch({
                         type: ACTIONS.FETCH_DATA_SELECTION,
