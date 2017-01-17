@@ -5,10 +5,10 @@
             onCreate: {
                 // Initialisation methods for the url2state conversion
                 // These methods are executed after a state object has been initialized with the initialValues
-                MAIN: (oldState, newState, params, initialValues) => {
+                DEFAULT: (oldState, newState, params, initialValues) => {
+                    ['atlas', 'page', 'layerSelection'].forEach(s => newState[s] = angular.copy(initialValues[s]));
                     if (angular.equals(params, {})) {
                         // When no params, go to home page and show initial map
-                        newState.page = newState.page || {};
                         newState.page.name = 'home';
                         newState.map = angular.copy(initialValues.map);
                     }
@@ -50,17 +50,14 @@
             },
             initialValues: {
                 // When creating a state object it will be initialized with these values
-                // MAIN is used to denote the main or global state part of the state
-                MAIN: {
-                    page: {
-                        name: null  // eg: 'home'
-                    },
-                    layerSelection: {
-                        isEnabled: false
-                    },
-                    atlas: {
-                        isPrintMode: false
-                    }
+                atlas: {
+                    isPrintMode: false
+                },
+                page: {
+                    name: null  // eg: 'home'
+                },
+                layerSelection: {
+                    isEnabled: false
                 },
                 dataSelection: {
                     markers: [],    // eg: [[52.1, 4.1], [52.2, 4.0]],

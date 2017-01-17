@@ -13,10 +13,16 @@ describe('The state url conversion definition', function () {
         it('initialize a state to the home page and default map, (only) on an empty payload', function () {
             let state;
 
-            state = STATE_URL_CONVERSION.onCreate.MAIN({}, {}, {}, STATE_URL_CONVERSION.initialValues);
+            state = STATE_URL_CONVERSION.onCreate.DEFAULT({}, {}, {}, STATE_URL_CONVERSION.initialValues);
             expect(state).toEqual({
+                atlas: {
+                    isPrintMode: false
+                },
                 page: {
                     name: 'home'
+                },
+                layerSelection: {
+                    isEnabled: false
                 },
                 map: {
                     viewCenter: [52.3719, 4.9012],
@@ -29,8 +35,8 @@ describe('The state url conversion definition', function () {
                 }
             });
 
-            state = STATE_URL_CONVERSION.onCreate.MAIN({}, {}, {aap: 'noot'});
-            expect(state).toEqual({});
+            state = STATE_URL_CONVERSION.onCreate.DEFAULT({}, {}, {aap: 'noot'}, {});
+            expect(state).toEqual({atlas: undefined, page: undefined, layerSelection: undefined});
         });
 
         it('initialize a search state to the previous search state if it exists', function () {
