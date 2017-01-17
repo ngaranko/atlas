@@ -254,6 +254,11 @@
                             label: 'SBI-code',
                             variables: ['sbicodes']
                         }
+                    ],
+                    LIST: [
+                        {
+                            variables: ['bedrijfsnaam']
+                        }
                     ]
                 }
             }
