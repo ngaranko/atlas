@@ -96,7 +96,7 @@
                         drawShapeHandler.disable();
                     }
                     updateState();
-                } else if (editShapeHandler.enabled()) {
+                } else {
                     editShapeHandler.save();
                     editShapeHandler.disable();
                     updateState();

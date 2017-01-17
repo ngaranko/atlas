@@ -301,6 +301,28 @@ describe('The draw tool factory', () => {
             expect(drawnItems.addLayer).toHaveBeenCalledWith(newLayer);
         });
 
+        it('will do nothing with layer types other than polygon', () => {
+            createdHandler({
+                layerType: 'polyline',
+                layer: newLayer
+            });
+
+            expect(drawnItems.addLayer).not.toHaveBeenCalled();
+
+            createdHandler({
+                layerType: null,
+                layer: newLayer
+            });
+
+            expect(drawnItems.addLayer).not.toHaveBeenCalled();
+
+            createdHandler({
+                layer: newLayer
+            });
+
+            expect(drawnItems.addLayer).not.toHaveBeenCalled();
+        });
+
         describe('polygon clicked event handler', () => {
             let clickHandler;
 
@@ -431,7 +453,8 @@ describe('The draw tool factory', () => {
 
                 // will also be called to bind to complete shape
                 expect(vertices[0].on).toHaveBeenCalledTimes(2);
-                expect(vertices[0].on).toHaveBeenCalledWith('click', jasmine.any(Function));
+                expect(vertices[0].on.calls.argsFor(0)).toEqual(['click', jasmine.any(Function)]);
+                expect(vertices[0].on.calls.argsFor(1)).toEqual(['click', jasmine.any(Function)]);
 
                 // Second vertex
                 drawShapeHandler._markers[1] = vertices[1];
@@ -468,6 +491,67 @@ describe('The draw tool factory', () => {
                 expect(vertices[1].off).toHaveBeenCalledWith('click', jasmine.any(Function));
             });
 
+            it('will not be bound in the corner case of the draw handler not being enabled', () => {
+                // Disable draw tool
+                drawShapeHandler.enabled.and.returnValue(false);
+
+                drawShapeHandler._markers = [vertices[0]];
+                createdHandler();
+
+                expect(vertices[0].on).not.toHaveBeenCalled();
+            });
+
+            it('will not be bound in the corner case of the draw handler having no vertices', () => {
+                // Disable draw tool
+                drawShapeHandler.enabled.and.returnValue(false);
+
+                // Empty array
+                drawShapeHandler._markers = [];
+                createdHandler();
+
+                expect(vertices[0].on).not.toHaveBeenCalled();
+
+                // null
+                drawShapeHandler._markers = null;
+                createdHandler();
+
+                expect(vertices[0].on).not.toHaveBeenCalled();
+
+                // undefined
+                delete drawShapeHandler._markers;
+                createdHandler();
+
+                expect(vertices[0].on).not.toHaveBeenCalled();
+            });
+
+            it('will not be bound in the corner case of the last vertex being falsy', () => {
+                drawShapeHandler.enabled.and.returnValue(true);
+
+                // false
+                drawShapeHandler._markers = [false];
+                createdHandler();
+
+                expect(vertices[0].on).not.toHaveBeenCalled();
+
+                // 0
+                drawShapeHandler._markers = [0];
+                createdHandler();
+
+                expect(vertices[0].on).not.toHaveBeenCalled();
+
+                // ''
+                drawShapeHandler._markers = [''];
+                createdHandler();
+
+                expect(vertices[0].on).not.toHaveBeenCalled();
+
+                // null
+                drawShapeHandler._markers = [null];
+                createdHandler();
+
+                expect(vertices[0].on).not.toHaveBeenCalled();
+            });
+
             it('will delete the last vertex, unbind itself and rebind the previous vertex', () => {
                 drawShapeHandler.deleteLastVertex.and.callFake(() => {
                     drawShapeHandler._markers.length--;
@@ -498,6 +582,7 @@ describe('The draw tool factory', () => {
                 // Delete second vertex
                 vertices[0].on.calls.reset();
                 clickHandlers[1]();
+
                 expect(drawShapeHandler.deleteLastVertex).toHaveBeenCalledTimes(2);
                 expect(vertices[1].off).toHaveBeenCalledWith('click', jasmine.any(Function));
                 expect(vertices[0].on).toHaveBeenCalledTimes(1);
@@ -520,6 +605,71 @@ describe('The draw tool factory', () => {
 
                 expect(drawShapeHandler.enable).toHaveBeenCalledTimes(1);
                 expect(drawShapeHandler.disable).toHaveBeenCalledTimes(1);
+            });
+
+            it('will not delete the last vertex in the corner case of the draw handler not being enabled', () => {
+                drawShapeHandler.enabled.and.returnValue(true);
+                drawShapeHandler._markers = [vertices[0]];
+                createdHandler();
+
+                // Second vertex
+                drawShapeHandler._markers[1] = vertices[1];
+                createdHandler();
+                clickHandlers[1] = vertices[1].on.calls.first().args[1];
+
+                // Disable draw tool
+                drawShapeHandler.enabled.and.returnValue(false);
+
+                // Delete second vertex
+                vertices[0].on.calls.reset();
+                clickHandlers[1]();
+
+                expect(drawShapeHandler.deleteLastVertex).not.toHaveBeenCalled();
+                expect(vertices[1].off).not.toHaveBeenCalled();
+                expect(vertices[0].on).not.toHaveBeenCalled();
+            });
+
+            it('will not delete the last vertex in the corner case of there being no vertices', () => {
+                drawShapeHandler.enabled.and.returnValue(true);
+                drawShapeHandler._markers = [vertices[0]];
+                createdHandler();
+
+                // Second vertex
+                drawShapeHandler._markers[1] = vertices[1];
+                createdHandler();
+                clickHandlers[1] = vertices[1].on.calls.first().args[1];
+
+                // Empty array
+                drawShapeHandler._markers = [];
+
+                // Delete second vertex
+                vertices[0].on.calls.reset();
+                clickHandlers[1]();
+
+                expect(drawShapeHandler.deleteLastVertex).not.toHaveBeenCalled();
+                expect(vertices[1].off).not.toHaveBeenCalled();
+                expect(vertices[0].on).not.toHaveBeenCalled();
+            });
+
+            it('will not be bound in the corner case of the draw handler having no vertices', () => {
+                // Empty array
+                drawShapeHandler.enabled.and.returnValue(false);
+                drawShapeHandler._markers = [];
+                createdHandler();
+
+                expect(vertices[0].on).not.toHaveBeenCalled();
+
+                // null
+                drawShapeHandler._markers = null;
+                createdHandler();
+
+                expect(vertices[0].on).not.toHaveBeenCalled();
+
+                // undefined
+                delete drawShapeHandler._markers;
+                createdHandler();
+
+                expect(vertices[0].on).not.toHaveBeenCalled();
             });
         });
 
