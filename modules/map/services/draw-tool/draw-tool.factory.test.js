@@ -1,6 +1,5 @@
 describe('The draw tool factory', () => {
-    let $rootScope,
-        store,
+    let store,
         ACTIONS,
         L,
         drawTool,
@@ -36,8 +35,7 @@ describe('The draw tool factory', () => {
             }
         );
 
-        angular.mock.inject((_$rootScope_, _store_, _L_, _drawTool_, _DRAW_TOOL_CONFIG_, _ACTIONS_) => {
-            $rootScope = _$rootScope_;
+        angular.mock.inject((_store_, _L_, _drawTool_, _DRAW_TOOL_CONFIG_, _ACTIONS_) => {
             store = _store_;
             L = _L_;
             drawTool = _drawTool_;
