@@ -1,4 +1,4 @@
-describe('The dp-toggle-fullscreen component', function () {
+describe('The dp-toggle-drawing-tool component', function () {
     var $compile,
         $rootScope,
         store,
@@ -25,16 +25,16 @@ describe('The dp-toggle-fullscreen component', function () {
         spyOn(store, 'dispatch');
     });
 
-    function getComponent (isFullscreen) {
+    function getComponent (isActive) {
         var result,
             element,
             scope;
 
-        element = document.createElement('dp-toggle-fullscreen');
-        element.setAttribute('is-fullscreen', 'isFullscreen');
+        element = document.createElement('dp-toggle-drawing-tool');
+        element.setAttribute('enabled', 'isActive');
 
         scope = $rootScope.$new();
-        scope.isFullscreen = isFullscreen;
+        scope.isActive = isActive;
 
         result = $compile(element)(scope);
         scope.$apply();
@@ -42,47 +42,43 @@ describe('The dp-toggle-fullscreen component', function () {
         return result;
     }
 
-    describe('when minimized', function () {
+    describe('when inactive', function () {
         beforeEach(function () {
             component = getComponent(false);
         });
 
-        it('shows a maximize icon', function () {
+        it('shows the button in default state', function () {
             expect(component.find('button').length).toBe(1);
-
-            expect(component.find('button').attr('class')).toContain('c-toggle-fullscreen__icon--fullscreen');
-            expect(component.find('button').attr('title')).toBe('Kaart vergroten');
-            expect(component.find('button .u-sr-only').text()).toBe('Kaart vergroten');
+            expect(component.find('button').attr('class')).toContain('c-toggle-drawing-tool');
+            expect(component.find('button span').attr('class')).toContain('ng-hide');
         });
 
-        it('triggers the MAP_FULLSCREEN action w/ payload=true when clicking the button', function () {
+        it('triggers the MAP_DRAWING_MODE action w/ payload=true when clicking the button', function () {
             component.find('button').click();
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.MAP_FULLSCREEN,
+                type: ACTIONS.MAP_SET_DRAWING_MODE,
                 payload: true
             });
         });
     });
 
-    describe('when maximized', function () {
+    describe('when active', function () {
         beforeEach(function () {
             component = getComponent(true);
         });
 
-        it('shows a minimize icon', function () {
+        it('shows the button in active state with extra label', function () {
             expect(component.find('button').length).toBe(1);
-
-            expect(component.find('button').attr('class')).toContain('c-toggle-fullscreen__icon--minimize');
-            expect(component.find('button').attr('title')).toBe('Kaart verkleinen');
-            expect(component.find('button .u-sr-only').text()).toBe('Kaart verkleinen');
+            expect(component.find('button').attr('class')).toContain('c-toggle-drawing-tool--active');
+            expect(component.find('button span').attr('class')).not.toContain('ng-hide');
         });
 
-        it('triggers the MAP_FULLSCREEN action w/ payload=false when clicking the button', function () {
+        it('triggers the MAP_DRAWING_MODE action w/ payload=false when clicking the button', function () {
             component.find('button').click();
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.MAP_FULLSCREEN,
+                type: ACTIONS.MAP_SET_DRAWING_MODE,
                 payload: false
             });
         });
