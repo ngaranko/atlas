@@ -19,7 +19,9 @@ describe('The dataSelectionReducers factory', function () {
         detail: null,
         straatbeeld: null,
         dataSelection: null,
-        isPrintMode: false
+        atlas: {
+            isPrintMode: false
+        }
     };
 
     beforeEach(function () {
@@ -186,14 +188,14 @@ describe('The dataSelectionReducers factory', function () {
             mockedState = angular.copy(DEFAULT_STATE);
 
             // With print mode enabled
-            mockedState.isPrintMode = true;
+            mockedState.atlas.isPrintMode = true;
             output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
-            expect(output.isPrintMode).toBe(true);
+            expect(output.atlas.isPrintMode).toBe(true);
 
             // With print mode disabled
-            mockedState.isPrintMode = false;
+            mockedState.atlas.isPrintMode = false;
             output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
-            expect(output.isPrintMode).toBe(false);
+            expect(output.atlas.isPrintMode).toBe(false);
         });
     });
 

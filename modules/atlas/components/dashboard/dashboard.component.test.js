@@ -50,7 +50,9 @@ describe('The dashboard component', function () {
             detail: null,
             straatbeeld: null,
             dataSelection: null,
-            isPrintMode: false
+            atlas: {
+                isPrintMode: false
+            }
         };
 
         angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _dashboardColumns_) {

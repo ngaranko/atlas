@@ -22,7 +22,7 @@
         function showHomeReducer (oldState) {
             var newState = angular.copy(stateUrlConverter.getDefaultState());
 
-            newState.isPrintMode = oldState.isPrintMode;
+            newState.atlas.isPrintMode = oldState.atlas.isPrintMode;
 
             return newState;
         }

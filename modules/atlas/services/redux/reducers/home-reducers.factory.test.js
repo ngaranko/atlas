@@ -70,11 +70,11 @@ describe('The homeReducers factory', function () {
 
         it('keeps the isPrintMode setting', function () {
             mockedStates.forEach(function (inputState) {
-                inputState.isPrintMode = false;
-                expect(homeReducers.SHOW_HOME(inputState).isPrintMode).toBe(false);
+                inputState.atlas.isPrintMode = false;
+                expect(homeReducers.SHOW_HOME(inputState).atlas.isPrintMode).toBe(false);
 
-                inputState.isPrintMode = true;
-                expect(homeReducers.SHOW_HOME(inputState).isPrintMode).toBe(true);
+                inputState.atlas.isPrintMode = true;
+                expect(homeReducers.SHOW_HOME(inputState).atlas.isPrintMode).toBe(true);
             });
         });
     });

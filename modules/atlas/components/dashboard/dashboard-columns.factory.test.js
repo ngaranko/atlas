@@ -21,7 +21,9 @@ describe('The dashboardColumns factory', function () {
             detail: null,
             straatbeeld: null,
             dataSelection: null,
-            isPrintMode: false
+            atlas: {
+                isPrintMode: false
+            }
         };
 
         angular.mock.module('atlas');
@@ -107,7 +109,7 @@ describe('The dashboardColumns factory', function () {
     describe('when visiting a page', function () {
         describe('the default non-print version', function () {
             beforeEach(function () {
-                mockedState.isPrintMode = false;
+                mockedState.atlas.isPrintMode = false;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
                 columnSizes = dashboardColumns.determineColumnSizes(mockedState);
@@ -133,7 +135,7 @@ describe('The dashboardColumns factory', function () {
 
         describe('the print version', function () {
             beforeEach(function () {
-                mockedState.isPrintMode = true;
+                mockedState.atlas.isPrintMode = true;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
                 columnSizes = dashboardColumns.determineColumnSizes(mockedState);
@@ -178,7 +180,7 @@ describe('The dashboardColumns factory', function () {
 
             describe('the default non-print version', function () {
                 beforeEach(function () {
-                    mockedState.isPrintMode = false;
+                    mockedState.atlas.isPrintMode = false;
 
                     visibility = dashboardColumns.determineVisibility(mockedState);
                     columnSizes = dashboardColumns.determineColumnSizes(mockedState);
@@ -204,7 +206,7 @@ describe('The dashboardColumns factory', function () {
 
             describe('the print version', function () {
                 beforeEach(function () {
-                    mockedState.isPrintMode = true;
+                    mockedState.atlas.isPrintMode = true;
 
                     visibility = dashboardColumns.determineVisibility(mockedState);
                     columnSizes = dashboardColumns.determineColumnSizes(mockedState);
@@ -240,7 +242,7 @@ describe('The dashboardColumns factory', function () {
 
         describe('the default non-print version', function () {
             beforeEach(function () {
-                mockedState.isPrintMode = false;
+                mockedState.atlas.isPrintMode = false;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
                 columnSizes = dashboardColumns.determineColumnSizes(mockedState);
@@ -277,7 +279,7 @@ describe('The dashboardColumns factory', function () {
 
         describe('the print version', function () {
             beforeEach(function () {
-                mockedState.isPrintMode = true;
+                mockedState.atlas.isPrintMode = true;
             });
 
             it('makes the map and detail page visibile', function () {
@@ -318,7 +320,7 @@ describe('The dashboardColumns factory', function () {
 
         describe('the default non-print version', function () {
             beforeEach(function () {
-                mockedState.isPrintMode = false;
+                mockedState.atlas.isPrintMode = false;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
                 columnSizes = dashboardColumns.determineColumnSizes(mockedState);
@@ -388,7 +390,7 @@ describe('The dashboardColumns factory', function () {
 
         describe('the print version', function () {
             beforeEach(function () {
-                mockedState.isPrintMode = true;
+                mockedState.atlas.isPrintMode = true;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
                 columnSizes = dashboardColumns.determineColumnSizes(mockedState);
@@ -424,7 +426,7 @@ describe('The dashboardColumns factory', function () {
 
         describe('the default non-print version', function () {
             beforeEach(function () {
-                mockedState.isPrintMode = false;
+                mockedState.atlas.isPrintMode = false;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
                 columnSizes = dashboardColumns.determineColumnSizes(mockedState);
@@ -450,7 +452,7 @@ describe('The dashboardColumns factory', function () {
 
         describe('the print version', function () {
             beforeEach(function () {
-                mockedState.isPrintMode = true;
+                mockedState.atlas.isPrintMode = true;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
                 columnSizes = dashboardColumns.determineColumnSizes(mockedState);
@@ -482,7 +484,7 @@ describe('The dashboardColumns factory', function () {
 
         describe('the default non-print version', function () {
             beforeEach(function () {
-                mockedState.isPrintMode = false;
+                mockedState.atlas.isPrintMode = false;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
                 columnSizes = dashboardColumns.determineColumnSizes(mockedState);
@@ -508,7 +510,7 @@ describe('The dashboardColumns factory', function () {
 
         describe('the print version', function () {
             beforeEach(function () {
-                mockedState.isPrintMode = true;
+                mockedState.atlas.isPrintMode = true;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
                 columnSizes = dashboardColumns.determineColumnSizes(mockedState);
@@ -545,7 +547,7 @@ describe('The dashboardColumns factory', function () {
 
         describe('the default non-print version', function () {
             beforeEach(function () {
-                mockedState.isPrintMode = false;
+                mockedState.atlas.isPrintMode = false;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
                 columnSizes = dashboardColumns.determineColumnSizes(mockedState);
@@ -571,7 +573,7 @@ describe('The dashboardColumns factory', function () {
 
         describe('the print version', function () {
             beforeEach(function () {
-                mockedState.isPrintMode = true;
+                mockedState.atlas.isPrintMode = true;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
                 columnSizes = dashboardColumns.determineColumnSizes(mockedState);
@@ -613,7 +615,7 @@ describe('The dashboardColumns factory', function () {
 
         describe('the default non-print version', function () {
             beforeEach(function () {
-                mockedState.isPrintMode = false;
+                mockedState.atlas.isPrintMode = false;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
                 columnSizes = dashboardColumns.determineColumnSizes(mockedState);
@@ -667,7 +669,7 @@ describe('The dashboardColumns factory', function () {
 
         describe('the print version', function () {
             beforeEach(function () {
-                mockedState.isPrintMode = true;
+                mockedState.atlas.isPrintMode = true;
 
                 visibility = dashboardColumns.determineVisibility(mockedState);
                 columnSizes = dashboardColumns.determineColumnSizes(mockedState);

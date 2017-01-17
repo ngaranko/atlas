@@ -88,7 +88,9 @@ describe('The reducer factory', function () {
             detail: null,
             straatbeeld: null,
             dataSelection: null,
-            isPrintMode: false
+            atlas: {
+                isPrintMode: false
+            }
         };
 
         angular.mock.inject(function (_reducer_) {

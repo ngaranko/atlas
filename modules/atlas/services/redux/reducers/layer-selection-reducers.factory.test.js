@@ -19,7 +19,9 @@ describe('The layerSelectionReducers factory', function () {
         detail: null,
         straatbeeld: null,
         dataSelection: null,
-        isPrintMode: false
+        atlas: {
+            isPrintMode: false
+        }
     };
 
     beforeEach(function () {

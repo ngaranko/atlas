@@ -5,7 +5,7 @@
             onCreate: {
                 // Initialisation methods for the url2state conversion
                 // These methods are executed after a state object has been initialized with the initialValues
-                atlas: (oldState, newState, params, initialValues) => {
+                MAIN: (oldState, newState, params, initialValues) => {
                     if (angular.equals(params, {})) {
                         // When no params, go to home page and show initial map
                         newState.page = 'home';
@@ -24,6 +24,7 @@
                         newState.isLoading = oldState.isLoading;
                     }
                     newState.isFullscreen = newState.view !== 'LIST';
+                    return newState;
                 },
                 detail: (oldState, newState) => {
                     if (angular.isObject(oldState) && oldState.endpoint === newState.endpoint) {
@@ -32,6 +33,7 @@
                         newState.isLoading = oldState.isLoading;
                         newState.isFullscreen = oldState.isFullscreen;
                     }
+                    return newState;
                 },
                 straatbeeld: (oldState, newState) => {
                     if (angular.isObject(oldState) && oldState.id === newState.id) {
@@ -42,15 +44,18 @@
                         newState.isInitial = false;
                         newState.isLoading = oldState.isLoading;
                     }
+                    return newState;
                 }
             },
             initialValues: {
                 // When creating a state object it will be initialized with these values
-                // atlas is used to denote the main or global state part of the state
-                atlas: {
+                // MAIN is used to denote the main or global state part of the state
+                MAIN: {
                     page: null,     // eg: 'home'
                     layerSelection: false,
-                    isPrintMode: false
+                    atlas: {
+                        isPrintMode: false
+                    }
                 },
                 dataSelection: {
                     markers: [],    // eg: [[52.1, 4.1], [52.2, 4.0]],
@@ -114,7 +119,7 @@
                     type: 'string'
                 },
                 atpr: {
-                    name: 'isPrintmode',
+                    name: 'atlas.isPrintMode',
                     type: 'boolean'
                 },
                 dsd: {

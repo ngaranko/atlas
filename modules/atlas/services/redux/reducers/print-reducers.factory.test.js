@@ -19,7 +19,9 @@ describe('The printReducers factory', function () {
         detail: null,
         straatbeeld: null,
         dataSelection: null,
-        isPrintMode: false
+        atlas: {
+            isPrintMode: false
+        }
     };
 
     beforeEach(function () {
@@ -35,7 +37,7 @@ describe('The printReducers factory', function () {
         it('sets the isPrintMode variable to true', function () {
             var output = printReducers[ACTIONS.SHOW_PRINT.id](defaultState);
 
-            expect(output.isPrintMode).toBe(true);
+            expect(output.atlas.isPrintMode).toBe(true);
         });
     });
 
@@ -45,11 +47,11 @@ describe('The printReducers factory', function () {
                 output;
 
             inputState = angular.copy(defaultState);
-            inputState.isPrintMode = true;
+            inputState.atlas.isPrintMode = true;
 
             output = printReducers[ACTIONS.HIDE_PRINT.id](inputState);
 
-            expect(output.isPrintMode).toBe(false);
+            expect(output.atlas.isPrintMode).toBe(false);
         });
     });
 });

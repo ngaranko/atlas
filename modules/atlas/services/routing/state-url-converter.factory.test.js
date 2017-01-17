@@ -29,7 +29,9 @@ describe('The state url conversion factory', function () {
                 detail: null,
                 straatbeeld: null,
                 dataSelection: null,
-                isPrintMode: false
+                atlas: {
+                    isPrintMode: false
+                }
             });
         });
     });
@@ -256,9 +258,9 @@ describe('The state url conversion factory', function () {
                 });
             });
 
-            it('uses atlas initialValues to denote the main part of the state object', function () {
+            it('uses MAIN initialValues to denote the main part of the state object', function () {
                 mockedStateUrlConversion.initialValues = {
-                    atlas: {
+                    MAIN: {
                         aap: 'noot'
                     }
                 };
@@ -312,13 +314,13 @@ describe('The state url conversion factory', function () {
 
             it('supplies the payload to a onCreate method for the main state object', function () {
                 mockedStateUrlConversion.onCreate = {
-                    atlas: (oldState, newState, params) => {
+                    MAIN: (oldState, newState, params) => {
                         newState.mies = oldState.aap + ', ' + newState.aap + ', ' + params.s;
                         return newState;
                     }
                 };
                 mockedStateUrlConversion.initialValues = {
-                    atlas: {
+                    MAIN: {
                         aap: 'new noot'
                     }
                 };
@@ -338,6 +340,7 @@ describe('The state url conversion factory', function () {
                 mockedStateUrlConversion.post = {
                     x: (oldState, newState) => {
                         newState.mies = oldState.aap + ', ' + newState.aap + ', ' + newState.b;
+                        return newState;
                     },
                     y: () => {
                         onlyPostForStates = false;

@@ -47,7 +47,7 @@
                 visibility.searchResults = false;
                 visibility.straatbeeld = false;
             } else {
-                if (state.isPrintMode) {
+                if (state.atlas.isPrintMode) {
                     visibility.map = !activity.layerSelection &&
                         (
                             state.map.isFullscreen ||
@@ -90,10 +90,10 @@
                 (visibility.detail && state.detail.isFullscreen) ||
                 (visibility.dataSelection && state.dataSelection.isFullscreen);
 
-            if (!state.isPrintMode) {
-                return determineColumnSizesDefault (state, visibility, hasFullscreenElement);
-            } else {
+            if (state.atlas.isPrintMode) {
                 return determineColumnSizesPrint (state, visibility, hasFullscreenElement);
+            } else {
+                return determineColumnSizesDefault (state, visibility, hasFullscreenElement);
             }
         }
 
