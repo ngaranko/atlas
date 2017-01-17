@@ -121,6 +121,54 @@
                     ]
                 }
             },
+            catalogus: {
+                MAX_ITEMS_PER_PAGE: 10,
+                CUSTOM_API: 'dataSelectionApiCkan',
+                ENDPOINT_PREVIEW: 'catalogus/api/3/action/package_search',
+                ENDPOINT_DETAIL: 'catalogus/api/3/action/package_show',
+                PRIMARY_KEY: 'id',
+                TITLE: 'Catalogus',
+                SHOW_FILTER_OPTION_COUNTS: false,
+                FILTERS: [
+                    {
+                        slug: 'groups',
+                        label: 'Thema\'s'
+                    }, {
+                        slug: 'res_format',
+                        label: 'Formaten',
+                        formatter: 'lowercase'
+                    }, {
+                        slug: 'organization',
+                        label: 'Gepubliceerd door'
+                    }
+                ],
+                CONTENT: {
+                    CARDS: [
+                        {
+                            label: 'Naam',
+                            variables: ['title']
+                        }, {
+                            label: 'Datum',
+                            variables: ['metadata_created', 'metadata_modified'],
+                            formatter: 'modificationDate'
+                        }, {
+                            label: 'Formaten',
+                            variables: ['resources.format'],
+                            formatter: 'aggregate',
+                            template: 'file-type'
+                        }, {
+                            label: 'Labels',
+                            variables: ['tags.display_name'],
+                            formatter: 'aggregate',
+                            template: 'tags'
+                        }, {
+                            label: 'Omschrijving',
+                            formatter: 'truncateHtmlAsText',
+                            variables: ['notes']
+                        }
+                    ]
+                }
+            },
             hr: {
                 CUSTOM_API: 'dataSelectionApiDataSelection',
                 MAX_AVAILABLE_PAGES: 100,

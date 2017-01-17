@@ -11,7 +11,6 @@
     <tbody class="c-data-selection-table__content">
         <tr class="c-data-selection-table__content-row"
             ng-repeat="row in vm.content.body track by $index" ng-click="vm.followLink(row.detailEndpoint)">
-            <td>{{row.detailEndpoint}}</td>
             <td class="c-data-selection-table__field c-data-selection-table__content-field"
                 ng-repeat="variables in row.content track by $index">
 
