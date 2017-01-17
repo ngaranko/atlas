@@ -177,7 +177,7 @@
                 ENDPOINT_EXPORT: 'https://api.datapunt.amsterdam.nl/dataselectie/hr/export/',
                 ENDPOINT_DETAIL: 'https://api.datapunt.amsterdam.nl/handelsregister/vestiging/',
                 PRIMARY_KEY: 'id',
-                TITLE: 'Handelsregister',
+                TITLE: 'Vestigingen',
                 FILTERS: [
                     {
                         slug: 'stadsdeel_naam',
