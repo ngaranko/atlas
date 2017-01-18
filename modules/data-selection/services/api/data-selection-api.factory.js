@@ -82,7 +82,7 @@
         }
 
         function getMarkers (dataset, activeFilters) {
-            return api.getByUrl(DATA_SELECTION_CONFIG[dataset].ENDPOINT_MARKERS, activeFilters).then(function (data) {
+            return api.getByUri(DATA_SELECTION_CONFIG[dataset].ENDPOINT_MARKERS, activeFilters).then(function (data) {
                 // The .reverse() is needed because the backend (Elastic) stores it's locations in [lon, lat] format
                 return data.object_list.map(marker => marker._source.centroid.reverse());
             });
