@@ -83,9 +83,9 @@
 
             if (vertexCount >= DRAW_TOOL_CONFIG.MAX_POINTS) {
                 completeShape();
-                try {
+                 
                     disable();
-                }
+
             }
         }
 
