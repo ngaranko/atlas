@@ -49,7 +49,8 @@
             leafletMap.on(L.Draw.Event.DRAWSTOP, function () {
                 updateState();
             });
-            leafletMap.on(L.Draw.Event.DRAWVERTEX, function () {
+            leafletMap.on(L.Draw.Event.DRAWVERTEX, function (e) {
+                check(e);
                 bindLastMarker();
             });
             leafletMap.on(L.Draw.Event.CREATED, function (e) {
@@ -62,6 +63,17 @@
                     layer.on('click', shapeClickHandler);
                 }
             });
+        }
+
+        function check (target) {
+            let vertexCount = Object.keys(target.layers._layers).length;
+
+            if (vertexCount >= DRAW_TOOL_CONFIG.MAX_POINTS) {
+                completeShape();
+                try {
+                    disable();
+                }
+            }
         }
 
         function toggle () {
