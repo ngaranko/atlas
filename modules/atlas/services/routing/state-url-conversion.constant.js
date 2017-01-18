@@ -97,7 +97,7 @@
                     // isFullscreen: true,
                 },
                 detail: {
-                    isFullscreen: true,
+                    isFullscreen: false,
                     isLoading: true
                     // endpoint: 'http://api.example.com/bag/verblijfsobject/123/',
                     // display: 'This is the _display variable as available in each endpoint',
