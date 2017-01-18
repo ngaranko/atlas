@@ -10,7 +10,8 @@
                 showActiveOverlays: false,
                 isFullscreen: false,
                 isLoading: false,
-                drawingMode: null
+                drawingMode: null,
+                pointsDrawn: 0
             },
             layerSelection: false,
             search: null,

@@ -21,6 +21,7 @@
                 rectangle: false,
                 polyline: false
             },
-            MAX_POINTS: 5
+            MAX_POINTS: 10,
+            POINT_WARNING_THRESHOLD: 5
         });
 })();

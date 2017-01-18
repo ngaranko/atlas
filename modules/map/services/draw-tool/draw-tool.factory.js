@@ -5,7 +5,9 @@
         .module('dpMap')
         .factory('drawTool', drawToolFactory);
 
-    drawToolFactory.$inject = ['store', 'ACTIONS', 'L', 'DRAW_TOOL_CONFIG', 'onMapClick'];
+    drawToolFactory.$inject = ['store', 'ACTIONS', 'L', 'DRAW_TOOL_CONFIG',
+        'onMapClick'
+    ];
 
     function drawToolFactory (store, ACTIONS, L, DRAW_TOOL_CONFIG, onMapClick) {
         let leafletMap,
@@ -34,7 +36,8 @@
 
             leafletMap = map;
             drawnItems = new L.FeatureGroup();
-            drawShapeHandler = new L.Draw.Polygon(leafletMap, DRAW_TOOL_CONFIG.draw.polygon);
+            drawShapeHandler = new L.Draw.Polygon(leafletMap,
+                DRAW_TOOL_CONFIG.draw.polygon);
 
             editConfig.featureGroup = drawnItems;
             editToolbar = new L.EditToolbar(editConfig);
@@ -50,7 +53,7 @@
                 updateState();
             });
             leafletMap.on(L.Draw.Event.DRAWVERTEX, function (e) {
-                check(e);
+                checkNumberOfPoints(e);
                 bindLastMarker();
             });
             leafletMap.on(L.Draw.Event.CREATED, function (e) {
@@ -58,8 +61,10 @@
                     layer = e.layer;
 
                 if (type === 'polygon') {
-                    let flatCoordinates = layer.getLatLngs()[0]
-                        .map(({lat, lng}) => [lat, lng]);
+                    let flatCoordinates = layer.getLatLngs ()[0]
+                        .map(({
+                            lat, lng
+                        }) => [lat, lng]);
 
                     store.dispatch({
                         type: ACTIONS.FETCH_DATA_SELECTION,
@@ -78,14 +83,17 @@
             });
         }
 
-        function check (target) {
+        function checkNumberOfPoints (target) {
             let vertexCount = Object.keys(target.layers._layers).length;
 
             if (vertexCount >= DRAW_TOOL_CONFIG.MAX_POINTS) {
                 completeShape();
-                 
-                    disable();
-
+                disable();
+            } else {
+                store.dispatch({
+                    type: ACTIONS.MAP_SET_POINTS,
+                    payload: vertexCount
+                });
             }
         }
 
@@ -206,7 +214,9 @@
                 currentLayer.off('click', shapeClickHandler);
                 drawnItems.removeLayer(currentLayer);
                 deletedLayers.addLayer(currentLayer);
-                leafletMap.fire(L.Draw.Event.DELETED, { layers: deletedLayers });
+                leafletMap.fire(L.Draw.Event.DELETED, {
+                    layers: deletedLayers
+                });
                 currentLayer = null;
                 disable();
             }

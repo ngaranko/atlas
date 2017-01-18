@@ -20,6 +20,7 @@
         reducers[ACTIONS.MAP_SET_DRAWING_MODE.id] = mapSetDrawingModeReducer;
         reducers[ACTIONS.SHOW_MAP_ACTIVE_OVERLAYS.id] = showActiveOverlaysReducer;
         reducers[ACTIONS.HIDE_MAP_ACTIVE_OVERLAYS.id] = hideActiveOverlaysReducer;
+        reducers[ACTIONS.MAP_SET_POINTS.id] = mapSetPointsReducer;
 
         return reducers;
 
@@ -162,10 +163,22 @@
             var newState = angular.copy(oldState);
 
             newState.map.drawingMode = payload || null;
-        
+
             return newState;
         }
+        /**
+         * @param {Object} oldState
+         * @param {Number} payload - The nr of points drawn on the map
+         *
+         * @returns {Object} newState
+         */
+        function mapSetPointsReducer (oldState, payload) {
+            var newState = angular.copy(oldState);
 
+            newState.map.pointsDrawn = payload;
+            console.log('in reducer', payload);
+            return newState;
+        }
         function showActiveOverlaysReducer (oldState) {
             var newState = angular.copy(oldState);
 
