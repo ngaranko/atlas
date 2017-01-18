@@ -46,10 +46,6 @@
 
         function formatFilters (rawData) {
             return Object.keys(rawData).reduce((filters, key) => {
-                if (key === 'vestiging' || key === 'doc_count') {
-                    return filters;
-                }
-
                 filters[key] = {
                     numberOfOptions: rawData[key].doc_count,
                     options: rawData[key].buckets.map(option => {

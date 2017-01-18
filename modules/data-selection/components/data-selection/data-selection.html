@@ -71,12 +71,12 @@
                     <dp-data-selection-list ng-if="vm.view === 'LIST'" content="vm.data"></dp-data-selection-list>
                     <dp-data-selection-cards ng-if="vm.view === 'CARDS'" content="vm.data"></dp-data-selection-cards>
                 </div>
-            </div>
 
-            <dp-data-selection-pagination
-                current-page="vm.currentPage"
-                number-of-pages="vm.numberOfPages">
-            </dp-data-selection-pagination>
+                <dp-data-selection-pagination
+                    current-page="vm.currentPage"
+                    number-of-pages="vm.numberOfPages">
+                </dp-data-selection-pagination>
+            </div>
         </div>
     </div>
 </div>
