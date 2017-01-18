@@ -36,12 +36,8 @@
 
             newState.map.isFullscreen = false;
 
-            if (newState.layerSelection) {
-                newState.layerSelection.isEnabled = false;
-            }
-            if (newState.page) {
-                newState.page.name = null;
-            }
+            newState.layerSelection.isEnabled = false;
+            newState.page.name = null;
             newState.detail = null;
             newState.straatbeeld = null;
             newState.dataSelection = null;
@@ -70,16 +66,12 @@
                 newState.map.viewCenter = payload;
             }
 
-            if (newState.layerSelection) {
-                newState.layerSelection.isEnabled = false;
-            }
+            newState.layerSelection.isEnabled = false;
             if (newState.map) {
                 newState.map.showActiveOverlays = false;
                 newState.map.isFullscreen = false;
             }
-            if (newState.page) {
-                newState.page.name = null;
-            }
+            newState.page.name = null;
             newState.detail = null;
             newState.straatbeeld = null;
             newState.dataSelection = null;

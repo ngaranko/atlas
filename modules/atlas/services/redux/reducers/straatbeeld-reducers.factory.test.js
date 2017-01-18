@@ -261,7 +261,9 @@ describe('Straatbeeld reducers factory', function () {
             let state = {
                 'map': {
                     isFullscreen: true
-                }
+                },
+                layerSelection: {},
+                page: {}
             };
             let location = [52.001, 4.002];
 

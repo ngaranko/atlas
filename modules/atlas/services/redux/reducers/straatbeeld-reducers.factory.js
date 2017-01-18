@@ -46,9 +46,7 @@
             newState.map.highlight = null;
 
             newState.search = null;
-            if (newState.page) {
-                newState.page.name = null;
-            }
+            newState.page.name = null;
 
             newState.dataSelection = null;
 

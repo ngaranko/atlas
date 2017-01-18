@@ -28,9 +28,7 @@
 
             newState.map.isFullscreen = false;
 
-            if (newState.layerSelection) {
-                newState.layerSelection.isEnabled = false;
-            }
+            newState.layerSelection.isEnabled = false;
             newState.search = null;
             newState.detail = null;
             newState.straatbeeld = null;

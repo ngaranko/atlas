@@ -35,13 +35,9 @@
             newState.map.zoom = DEFAULT_STATE.map.zoom;
             newState.map.isFullscreen = false;
 
-            if (newState.layerSelection) {
-                newState.layerSelection.isEnabled = null;
-            }
+            newState.layerSelection.isEnabled = null;
             newState.search = null;
-            if (newState.page) {
-                newState.page.name = null;
-            }
+            newState.page.name = null;
             newState.detail = null;
             newState.straatbeeld = null;
 

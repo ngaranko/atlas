@@ -34,13 +34,9 @@
             newState.map.isLoading = true;
             newState.map.isFullscreen = false;
 
-            if (newState.layerSelection) {
-                newState.layerSelection.isEnabled = false;
-            }
+            newState.layerSelection.isEnabled = false;
             newState.search = null;
-            if (newState.page) {
-                newState.page.name = null;
-            }
+            newState.page.name = null;
             newState.straatbeeld = null;
             newState.dataSelection = null;
 
