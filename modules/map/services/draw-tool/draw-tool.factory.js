@@ -49,7 +49,8 @@
             leafletMap.on(L.Draw.Event.DRAWSTOP, function () {
                 updateState();
             });
-            leafletMap.on(L.Draw.Event.DRAWVERTEX, function () {
+            leafletMap.on(L.Draw.Event.DRAWVERTEX, function (e) {
+                check(e);
                 bindLastMarker();
             });
             leafletMap.on(L.Draw.Event.CREATED, function (e) {
@@ -77,6 +78,17 @@
             });
         }
 
+        function check (target) {
+            let vertexCount = Object.keys(target.layers._layers).length;
+
+            if (vertexCount >= DRAW_TOOL_CONFIG.MAX_POINTS) {
+                completeShape();
+                try {
+                    disable();
+                }
+            }
+        }
+
         function toggle () {
             if (isEnabled()) {
                 disable();
@@ -96,23 +108,23 @@
                 } else {
                     drawShapeHandler.enable();
                 }
-                updateState(true);
+                updateState();
             }
         }
 
         function disable () {
             if (isEnabled()) {
                 if (drawShapeHandler.enabled()) {
-                    if (drawShapeHandler._markers.length > 1) {
+                    if (drawShapeHandler._markers && drawShapeHandler._markers.length > 1) {
                         drawShapeHandler.completeShape();
                     } else {
                         drawShapeHandler.disable();
                     }
-                    updateState(false);
-                } else if (editShapeHandler.enabled()) {
+                    updateState();
+                } else {
                     editShapeHandler.save();
                     editShapeHandler.disable();
-                    updateState(false);
+                    updateState();
                 }
             }
         }
@@ -150,6 +162,18 @@
         // When trying to complete a shape of only two points (a line) by
         // clicking on the first vertex again results in Leaflet draw giving an
         // error that the lines should not cross.
+        //
+        // When there is only one vertex, it will be deleted (see
+        // previous test).
+        // When there are more than two vertices Leaflet draw will
+        // complete the shape.
+        // In case there are exactly two vertices Leaflet draw will not
+        // allow you to complete the shape because the lines are not
+        // allowed to cross.
+        // To prevent this last error, we will call disable which in turn will
+        // call drawShapeHandler.completeShape manually which will
+        // automatically complete the shape for us. And in this case without
+        // an error.
         function completeShape () {
             if (drawShapeHandler.enabled() && drawShapeHandler._markers.length === 2) {
                 disable();

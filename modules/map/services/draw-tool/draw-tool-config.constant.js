@@ -20,6 +20,7 @@
                 circle: false,
                 rectangle: false,
                 polyline: false
-            }
+            },
+            MAX_POINTS: 5
         });
 })();
