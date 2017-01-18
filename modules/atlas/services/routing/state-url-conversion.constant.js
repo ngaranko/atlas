@@ -1,4 +1,37 @@
 (function () {
+    //
+    // This constant holds the configuration of all state variables that are stored in the url
+    // - The url parameter name can be found in stateVariables.<parameterName>
+    //   The association between the state variable and the url parameter is described by the name (eg 'map.zoom')
+    //   The type of the parameter is described by the type parameter
+    // - Any default value can be found in initialValues.<parameterName>
+    // - The default state is described in onCreate.DEFAULT
+    // - Any other default processing for a state object is described in onCreate.<stateObject>
+    // - The state variables that are copied from a previous state are described in post.<stateObject>
+    //
+    // To include a state variable (stateObject.stateVariable) in the url:
+    // - Define a unique short name for the variable
+    // - Define the type of the variable
+    // - Add <shortName>: { name: 'stateObject.stateVariable', type: <typeName> } to stateVariables
+    //
+    // Note: The depth of the stateVariable in the stateObject is free
+    //       eg 'map.x.y.z' is perfectly valid and corresponds to map: { x: { y: { z: <anyValue> } } }
+    //
+    // Valid types for state variables are:
+    // - string
+    // - boolean
+    // - number (precision van be specified in the precison property of the stateVariable)
+    // - base62 (encode any number in base 62, 0-9A-Za-z, precision van be specified in the precison property)
+    // and the complex types:
+    // - []
+    //   eg number[] for a coordinate like [52, 4] which will store as '52:4' in the url
+    // - keyvalues
+    //   for { key: stringValue, key: stringValue, ... } objects
+    //   like { aap: 'noot', mies: 'wim' } which will store as 'aap::noot:mies::wim' in the url
+    // - object(key:typeName,key:typeName,...)
+    //   for { key: valueOfType, key: valueOfType, ... } objects
+    //   like object(aap:string,mies:number) for { aap: 'noot', mies: 5 } which will store as 'noot:5' in the url
+    //
     angular
         .module('atlas')
         .constant('STATE_URL_CONVERSION', {
@@ -53,12 +86,6 @@
                 atlas: {
                     isPrintMode: false
                 },
-                page: {
-                    name: null  // eg: 'home'
-                },
-                layerSelection: {
-                    isEnabled: false
-                },
                 dataSelection: {
                     markers: [],    // eg: [[52.1, 4.1], [52.2, 4.0]],
                     filters: {},    // eg: {buurtcombinatie: 'Geuzenbuurt', buurt: 'Trompbuurt'}
@@ -76,6 +103,9 @@
                     // display: 'This is the _display variable as available in each endpoint',
                     // geometry: null,
                 },
+                layerSelection: {
+                    isEnabled: false
+                },
                 map: {
                     viewCenter: [52.3719, 4.9012],
                     baseLayer: 'topografie',
@@ -84,6 +114,9 @@
                     isFullscreen: false,
                     isLoading: false,
                     showActiveOverlays: false
+                },
+                page: {
+                    name: null  // eg: 'home'
                 },
                 search: {
                     query: null,    // eg: 'linnaeus'
@@ -112,18 +145,12 @@
             stateVariables: {
                 // Property names are keys so that the compiler guarantees the uniqness
                 // The type is stored with the name, every state variable has to have a type specification
-                atls: {
-                    name: 'layerSelection.isEnabled',
-                    type: 'boolean'
-                },
-                atpg: {
-                    name: 'page.name',
-                    type: 'string'
-                },
-                atpr: {
+                // atlas (at)
+                atp: {
                     name: 'atlas.isPrintMode',
                     type: 'boolean'
                 },
+                // dataSelection (ds)
                 dsd: {
                     name: 'dataSelection.dataset',
                     type: 'string'
@@ -144,6 +171,7 @@
                     name: 'dataSelection.view',
                     type: 'string'
                 },
+                // detail (dt)
                 dte: {
                     name: 'detail.endpoint',
                     type: 'string'
@@ -152,6 +180,13 @@
                     name: 'detail.isFullscreen',
                     type: 'boolean'
                 },
+                // header (hd, not used)
+                // layerSelection (ls)
+                lse: {
+                    name: 'layerSelection.isEnabled',
+                    type: 'boolean'
+                },
+                // map (mp)
                 mpb: {
                     name: 'map.baseLayer',
                     type: 'string'
@@ -177,6 +212,26 @@
                     type: 'number[]',
                     precision: 7
                 },
+                // page (pg)
+                pgn: {
+                    name: 'page.name',
+                    type: 'string'
+                },
+                // search (sr)
+                src: {
+                    name: 'search.category',
+                    type: 'string'
+                },
+                srl: {
+                    name: 'search.location',
+                    type: 'base62[]',
+                    precision: 7
+                },
+                srq: {
+                    name: 'search.query',
+                    type: 'string'
+                },
+                // straatbeeld (sb)
                 sbf: {
                     name: 'straatbeeld.fov',
                     type: 'base62',
@@ -204,19 +259,6 @@
                     name: 'straatbeeld.pitch',
                     type: 'base62',
                     precision: 1
-                },
-                src: {
-                    name: 'search.category',
-                    type: 'string'
-                },
-                srl: {
-                    name: 'search.location',
-                    type: 'base62[]',
-                    precision: 7
-                },
-                srq: {
-                    name: 'search.query',
-                    type: 'string'
                 }
             }
         });
