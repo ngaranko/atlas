@@ -14,16 +14,26 @@
         <h2 ng-if="vm.state.view === 'CARDS' && vm.numberOfRecords">{{vm.numberOfRecords | number}} dataset<span ng-if="vm.numberOfRecords !== 1">s</span></h2>
     </div>
 
-    <div class="o-tabs" ng-if="vm.state.view === 'LIST'">
-        <ul>
-            <li ng-repeat="tab in vm.tabs" ng-class="{'is-active': tab.isActive}">
-                <dp-link type="FETCH_DATA_SELECTION" payload="{dataset: tab.dataset, filters: vm.state.filters, page: 1, view: 'LIST'}" class-name="o-tabs__link">{{tab.title}}</dp-link>
-            </li>
-        </ul>
+    <div ng-if="vm.state.view === 'LIST'">
+        <div class="o-tabs">
+            <ul>
+                <li ng-repeat="tab in vm.tabs" ng-class="{'is-active': tab.isActive}">
+                    <dp-link type="FETCH_DATA_SELECTION" payload="{dataset: tab.dataset, filters: vm.state.filters, page: 1, view: 'LIST'}" class-name="o-tabs__link">{{tab.title}}</dp-link>
+                </li>
+            </ul>
+        </div>
+
+        <dp-loading-indicator is-loading="vm.isLoading" use-delay="false" show-inline="true"></dp-loading-indicator>
     </div>
 
-    <div ng-if="vm.numberOfRecords <= 0" class="qa-data-selection-header__no-records">
-        <h2>Geen resultaten gevonden</h2>
-        <p>Tip: verwijder één of meer filtercriteria</p>
+    <div ng-if="!vm.isLoading">
+        <p ng-if="vm.numberOfRecords && vm.state.view === 'LIST'">Er zijn {{vm.numberOfRecords | number}} {{vm.title | lowercase }} gevonden.</p>
+
+        <div ng-if="vm.numberOfRecords <= 0" class="qa-data-selection-header__no-records">
+            <h2>Geen resultaten gevonden</h2>
+            <p>Tip: verwijder één of meer filtercriteria</p>
+        </div>
     </div>
 </div>
+
+<dp-loading-indicator ng-if="!vm.showHeader" is-loading="vm.isLoading" use-delay="false" show-inline="true"></dp-loading-indicator>
