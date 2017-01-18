@@ -42,45 +42,43 @@
             'u-col-sm--12': !vm.showFilters,
             'u-col-sm--9': vm.showFilters}">
 
+            <dp-data-selection-header
+                state="vm.state"
+                number-of-records="vm.numberOfRecords"
+                is-loading="vm.isLoading">
+            </dp-data-selection-header>
+
             <dp-loading-indicator is-loading="vm.isLoading" use-delay="false" show-inline="true"></dp-loading-indicator>
 
             <div ng-if="!vm.isLoading">
-                <dp-data-selection-header
-                    state="vm.state"
-                    number-of-records="vm.numberOfRecords"
-                    header-title="vm.title">
-                </dp-data-selection-header>
+                <dp-panel ng-if="!vm.isPageAvailable" is-panel-visible="true" type="warning" can-close="true">
+                    <h3>Deze pagina kan niet worden getoond</h3>
+                    <p>
+                        Alleen de eerste 100 pagina's kunnen worden weergegeven (om technische redenen). Bij
+                        downloaden worden wel alle resultaten opgenomen.
+                    </p>
+                    <p>
+                        Tip: Gebruik de download-knop om alle resultaten te bekijken. Of voeg meer filtercriteria
+                        toe voor specifiekere resultaten.
+                    </p>
+                </dp-panel>
 
-                <div ng-if="vm.numberOfRecords">
-                    <dp-panel ng-if="!vm.isPageAvailable" is-panel-visible="true" type="warning" can-close="true">
-                        <h3>Deze pagina kan niet worden getoond</h3>
-                        <p>
-                            Alleen de eerste 100 pagina's kunnen worden weergegeven (om technische redenen). Bij
-                            downloaden worden wel alle resultaten opgenomen.
-                        </p>
-                        <p>
-                            Tip: Gebruik de download-knop om alle resultaten te bekijken. Of voeg meer filtercriteria
-                            toe voor specifiekere resultaten.
-                        </p>
-                    </dp-panel>
+                <dp-panel ng-if="vm.hasTooManyMarkers" is-panel-visible="true" type="warning" can-close="true">
+                    <p>Deze resultaten worden niet getoond op de kaart, omdat deze niet meer dan 10.000 resultaten tegelijk kan weergeven (om technische redenen).</p>
+                    <p class="u-margin__bottom--1">Tip: Bekijk de lijst resultaten in kleinere delen. Dit kan door een voor een filtercriteria toe te voegen (bijv. de verschillende buurtcombinaties uit de selectie).</p>
+                </dp-panel>
 
-                    <dp-panel ng-if="vm.hasTooManyMarkers" is-panel-visible="true" type="warning" can-close="true">
-                        <p>Deze resultaten worden niet getoond op de kaart, omdat deze niet meer dan 10.000 resultaten tegelijk kan weergeven (om technische redenen).</p>
-                        <p class="u-margin__bottom--1">Tip: Bekijk de lijst resultaten in kleinere delen. Dit kan door een voor een filtercriteria toe te voegen (bijv. de verschillende buurtcombinaties uit de selectie).</p>
-                    </dp-panel>
-
-                    <div ng-if="vm.isPageAvailable">
-                        <dp-data-selection-table ng-if="vm.view === 'TABLE'" content="vm.data"></dp-data-selection-table>
-                        <dp-data-selection-list ng-if="vm.view === 'LIST'" content="vm.data"></dp-data-selection-list>
-                        <dp-data-selection-cards ng-if="vm.view === 'CARDS'" content="vm.data"></dp-data-selection-cards>
-                    </div>
+                <div ng-if="vm.isPageAvailable">
+                    <dp-data-selection-table ng-if="vm.view === 'TABLE'" content="vm.data"></dp-data-selection-table>
+                    <dp-data-selection-list ng-if="vm.view === 'LIST'" content="vm.data"></dp-data-selection-list>
+                    <dp-data-selection-cards ng-if="vm.view === 'CARDS'" content="vm.data"></dp-data-selection-cards>
                 </div>
-
-                <dp-data-selection-pagination
-                    current-page="vm.currentPage"
-                    number-of-pages="vm.numberOfPages">
-                </dp-data-selection-pagination>
             </div>
+
+            <dp-data-selection-pagination
+                current-page="vm.currentPage"
+                number-of-pages="vm.numberOfPages">
+            </dp-data-selection-pagination>
         </div>
     </div>
 </div>

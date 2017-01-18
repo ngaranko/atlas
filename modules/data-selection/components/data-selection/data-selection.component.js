@@ -44,7 +44,6 @@
         function fetchData () {
             vm.isLoading = true;
 
-            vm.title = DATA_SELECTION_CONFIG[vm.state.dataset].TITLE;
             vm.view = vm.state.view;
             vm.showFilters = vm.state.view !== 'LIST';
             vm.currentPage = vm.state.page;
