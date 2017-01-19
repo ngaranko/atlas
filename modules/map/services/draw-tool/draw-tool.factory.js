@@ -16,6 +16,8 @@
             lastMarker,
             currentLayer;
 
+        let c = console;
+
         return {
             initialize
         };
@@ -50,7 +52,7 @@
                 updateState();
             });
             leafletMap.on(L.Draw.Event.DRAWVERTEX, function () {
-                bindLastMarker();
+                bindMarker();
             });
             leafletMap.on(L.Draw.Event.CREATED, function (e) {
                 var type = e.layerType,
@@ -117,22 +119,41 @@
             });
         }
 
-        function bindLastMarker () {
-            if (lastMarker) {
-                lastMarker.off('click', deleteLastMarker);
-                lastMarker = null;
-            }
-            if (drawShapeHandler.enabled() && drawShapeHandler._markers.length) {
-                lastMarker = drawShapeHandler._markers[drawShapeHandler._markers.length - 1];
-                if (lastMarker) {
-                    lastMarker.on('click', deleteLastMarker);
+        function deleteMarker (marker) {
+            let markers = drawShapeHandler._markers;
+            let index = markers.findIndex(m => m._leaflet_id === marker._leaflet_id);
+            if (index > 0) {    // Don't delete on click on first marker, this should close the shape
+                let nDelete = markers.length - index;   // Delete all from last to marker, inclusive
+                while (nDelete-- > 0) {
+                    drawShapeHandler.deleteLastVertex();
                 }
             }
-            if (!firstMarker && lastMarker) {
-                firstMarker = lastMarker;
-                firstMarker.on('click', completeShape);
-            }
         }
+
+        function bindMarker () {
+            let marker = drawShapeHandler._markers[drawShapeHandler._markers.length - 1];
+            ['mousedown', 'click'].forEach(key => marker.on(key, () => {
+                deleteMarker(marker);
+            }));
+        }
+
+        // function bindLastMarker () {
+        //     c.log('ERROR, bindLastMarker called');
+        //     if (lastMarker) {
+        //         lastMarker.off('click', deleteLastMarker);
+        //         lastMarker = null;
+        //     }
+        //     if (drawShapeHandler.enabled() && drawShapeHandler._markers.length) {
+        //         lastMarker = drawShapeHandler._markers[drawShapeHandler._markers.length - 1];
+        //         if (lastMarker) {
+        //             lastMarker.on('click', deleteLastMarker);
+        //         }
+        //     }
+        //     if (!firstMarker && lastMarker) {
+        //         firstMarker = lastMarker;
+        //         firstMarker.on('click', completeShape);
+        //     }
+        // }
 
         // When trying to complete a shape of only two points (a line) by
         // clicking on the first vertex again results in Leaflet draw giving an
@@ -155,20 +176,21 @@
             }
         }
 
-        function deleteLastMarker () {
-            if (drawShapeHandler.enabled()) {
-                if (drawShapeHandler._markers.length === 1) {
-                    // Leaflet draw does not allow deleting the very first
-                    // marker; work around by disabling and enabling the draw
-                    // tool.
-                    disable();
-                    enable();
-                } else if (drawShapeHandler._markers.length > 1) {
-                    drawShapeHandler.deleteLastVertex();
-                    bindLastMarker();
-                }
-            }
-        }
+        // function deleteLastMarker () {
+        //     c.log('ERROR, deleteLastMarker called');
+        //     if (drawShapeHandler.enabled()) {
+        //         if (drawShapeHandler._markers.length === 1) {
+        //             // Leaflet draw does not allow deleting the very first
+        //             // marker; work around by disabling and enabling the draw
+        //             // tool.
+        //             disable();
+        //             enable();
+        //         } else if (drawShapeHandler._markers.length > 1) {
+        //             drawShapeHandler.deleteLastVertex();
+        //             bindLastMarker();
+        //         }
+        //     }
+        // }
 
         function shapeClickHandler (e) {
             L.DomEvent.stop(e);
