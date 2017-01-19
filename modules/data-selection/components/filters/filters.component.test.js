@@ -15,14 +15,16 @@ describe('The dp-data-selection-filters component', function () {
             },
             function ($provide) {
                 $provide.constant('DATA_SELECTION_CONFIG', {
-                    my_special_dataset: {
-                        FILTERS: [
-                            {
-                                slug: 'filter_a_new'
-                            }, {
-                                slug: 'filterb'
-                            }
-                        ]
+                    datasets: {
+                        my_special_dataset: {
+                            FILTERS: [
+                                {
+                                    slug: 'filter_a_new'
+                                }, {
+                                    slug: 'filterb'
+                                }
+                            ]
+                        }
                     }
                 });
             }

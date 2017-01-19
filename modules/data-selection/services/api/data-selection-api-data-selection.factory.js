@@ -13,7 +13,7 @@
         function query (config, activeFilters, page) {
             let searchParams,
                 searchPage = page;
-console.log(config);
+
             // Making sure to not request pages higher then max allowed.
             // If that is the case requesting for page 1, to obtain filters.
             // In the response the data will be dumped.

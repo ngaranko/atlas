@@ -6,17 +6,23 @@ describe('The dp-data-selection-download-button component', function () {
         angular.mock.module(
             'dpDataSelection',
             function ($provide) {
+                $provide.constant('API_CONFIG', {
+                    ROOT: 'http://www.example.com/'
+                });
+
                 $provide.constant('DATA_SELECTION_CONFIG', {
-                    dataset_a: {
-                        ENDPOINT: 'http://www.example.com/datasets/a/',
-                        ENDPOINT_EXPORT: 'http://www.example.com/datasets/a/download/',
-                        FILTERS: [
-                            {
-                                slug: 'filter_a'
-                            }, {
-                                slug: 'filter_b'
-                            }
-                        ]
+                    datasets: {
+                        dataset_a: {
+                            ENDPOINT: 'datasets/a/',
+                            ENDPOINT_EXPORT: 'datasets/a/download/',
+                            FILTERS: [
+                                {
+                                    slug: 'filter_a'
+                                }, {
+                                    slug: 'filter_b'
+                                }
+                            ]
+                        }
                     }
                 });
             }

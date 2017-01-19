@@ -24,9 +24,7 @@
     function DpDataSelectionController ($scope, userSettings, dataSelectionApi, DATA_SELECTION_CONFIG, store, ACTIONS) {
         let vm = this;
 
-        console.log(vm.state);
-
-        vm.showCatalogusIntroduction = userSettings.showCatalogusIntroduction.value === true.toString();
+        vm.showCatalogusIntroduction = vm.state.view === 'CARDS' && userSettings.showCatalogusIntroduction.value === true.toString();
         $scope.$watch('vm.showCatalogusIntroduction', function () {
             userSettings.showCatalogusIntroduction.value = vm.showCatalogusIntroduction.toString();
         });
@@ -50,6 +48,7 @@
             vm.numberOfRecords = null;
             vm.numberOfPages = null;
 
+            vm.showContent = false;
             vm.isLoading = true;
 
             dataSelectionApi.query(vm.state.dataset,
@@ -63,6 +62,7 @@
                     vm.numberOfRecords = data.numberOfRecords;
                     vm.numberOfPages = data.numberOfPages;
 
+                    vm.showContent = angular.isUndefined(DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES) || vm.state.page <= DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES;
                     vm.isLoading = false;
 
                     if (vm.view === 'LIST' && vm.numberOfRecords <= DATA_SELECTION_CONFIG.options.MAX_NUMBER_OF_CLUSTERED_MARKERS) {
