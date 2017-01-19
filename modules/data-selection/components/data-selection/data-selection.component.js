@@ -23,7 +23,8 @@
 
     function DpDataSelectionController ($scope, userSettings, dataSelectionApi, DATA_SELECTION_CONFIG, store, ACTIONS) {
         let vm = this;
-        const MAXIMUM_NUMBER_OF_MARKERS = 10000;
+
+        console.log(vm.state);
 
         vm.showCatalogusIntroduction = userSettings.showCatalogusIntroduction.value === true.toString();
         $scope.$watch('vm.showCatalogusIntroduction', function () {
@@ -42,14 +43,14 @@
         }, fetchData, true);
 
         function fetchData () {
-            vm.isLoading = true;
-
             vm.view = vm.state.view;
             vm.showFilters = vm.state.view !== 'LIST';
             vm.currentPage = vm.state.page;
-            vm.isPageAvailable = !DATA_SELECTION_CONFIG.HAS_PAGE_LIMIT ||
-                vm.currentPage <= DATA_SELECTION_CONFIG.MAX_AVAILABLE_PAGES;
-            vm.hasTooManyMarkers = false;
+
+            vm.numberOfRecords = null;
+            vm.numberOfPages = null;
+
+            vm.isLoading = true;
 
             dataSelectionApi.query(vm.state.dataset,
                 vm.state.view,
@@ -62,10 +63,9 @@
                     vm.numberOfRecords = data.numberOfRecords;
                     vm.numberOfPages = data.numberOfPages;
 
-                    vm.hasTooManyMarkers = vm.view === 'LIST' && vm.numberOfRecords > MAXIMUM_NUMBER_OF_MARKERS;
                     vm.isLoading = false;
 
-                    if (vm.view === 'LIST' && vm.numberOfRecords <= MAXIMUM_NUMBER_OF_MARKERS) {
+                    if (vm.view === 'LIST' && vm.numberOfRecords <= DATA_SELECTION_CONFIG.options.MAX_NUMBER_OF_CLUSTERED_MARKERS) {
                         dataSelectionApi.getMarkers(vm.state.dataset, vm.state.filters).then(markerData => {
                             store.dispatch({
                                 type: ACTIONS.SHOW_DATA_SELECTION,

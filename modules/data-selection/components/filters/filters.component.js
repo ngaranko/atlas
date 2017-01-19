@@ -86,7 +86,7 @@
 
         function updateFilters () {
             if (angular.isObject(vm.availableFilters)) {
-                vm.showOptionCounts = DATA_SELECTION_CONFIG[vm.dataset].SHOW_FILTER_OPTION_COUNTS;
+                vm.showOptionCounts = DATA_SELECTION_CONFIG.datasets[vm.dataset].SHOW_FILTER_OPTION_COUNTS;
 
                 vm.formattedActiveFilters = vm.availableFilters.filter(filter => {
                     return angular.isString(vm.activeFilters[filter.slug]);

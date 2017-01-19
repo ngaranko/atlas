@@ -19,9 +19,9 @@
         let vm = this,
             filterParams = [];
 
-        vm.downloadUrl = API_CONFIG.ROOT + DATA_SELECTION_CONFIG[vm.dataset].ENDPOINT_EXPORT;
+        vm.downloadUrl = API_CONFIG.ROOT + DATA_SELECTION_CONFIG.datasets[vm.dataset].ENDPOINT_EXPORT;
 
-        DATA_SELECTION_CONFIG[vm.dataset].FILTERS.forEach(function (filter) {
+        DATA_SELECTION_CONFIG.datasets[vm.dataset].FILTERS.forEach(function (filter) {
             if (angular.isString(vm.activeFilters[filter.slug])) {
                 filterParams.push(filter.slug + '=' + $window.encodeURIComponent(vm.activeFilters[filter.slug]));
             }

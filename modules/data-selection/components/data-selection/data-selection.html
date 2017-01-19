@@ -1,5 +1,4 @@
 <div ng-if="vm.view === 'CARDS'">
-
     <dp-panel is-panel-visible="vm.showCatalogusIntroduction" can-close="true">
         <h3>Welkom op data.amsterdam.nl</h3>
         <p>De Gemeente Amsterdam beschikt over een goudmijn aan data over de stad. Deze data gebruikt de gemeente voor de uitvoering van haar taken. Doordat gemeentelijke onderdelen  hun datasets centraal toegankelijk maken via het Amsterdamse dataportaal, kunnen data buiten het oorspronkelijke domein in samenhang worden hergebruikt, gecombineerd en verwerkt. Hierdoor worden de beschikbare data optimaal gebruikt en krijgen ze meerwaarde.</p>
@@ -49,28 +48,9 @@
             </dp-data-selection-header>
 
             <div ng-if="!vm.isLoading">
-                <dp-panel ng-if="!vm.isPageAvailable" is-panel-visible="true" type="warning" can-close="true">
-                    <h3>Deze pagina kan niet worden getoond</h3>
-                    <p>
-                        Alleen de eerste 100 pagina's kunnen worden weergegeven (om technische redenen). Bij
-                        downloaden worden wel alle resultaten opgenomen.
-                    </p>
-                    <p>
-                        Tip: Gebruik de download-knop om alle resultaten te bekijken. Of voeg meer filtercriteria
-                        toe voor specifiekere resultaten.
-                    </p>
-                </dp-panel>
-
-                <dp-panel ng-if="vm.hasTooManyMarkers" is-panel-visible="true" type="warning" can-close="true">
-                    <p>Deze resultaten worden niet getoond op de kaart, omdat deze niet meer dan 10.000 resultaten tegelijk kan weergeven (om technische redenen).</p>
-                    <p class="u-margin__bottom--1">Tip: Bekijk de lijst resultaten in kleinere delen. Dit kan door een voor een filtercriteria toe te voegen (bijv. de verschillende buurtcombinaties uit de selectie).</p>
-                </dp-panel>
-
-                <div ng-if="vm.isPageAvailable">
-                    <dp-data-selection-table ng-if="vm.view === 'TABLE'" content="vm.data"></dp-data-selection-table>
-                    <dp-data-selection-list ng-if="vm.view === 'LIST'" content="vm.data"></dp-data-selection-list>
-                    <dp-data-selection-cards ng-if="vm.view === 'CARDS'" content="vm.data"></dp-data-selection-cards>
-                </div>
+                <dp-data-selection-table ng-if="vm.view === 'TABLE'" content="vm.data"></dp-data-selection-table>
+                <dp-data-selection-list ng-if="vm.view === 'LIST'" content="vm.data"></dp-data-selection-list>
+                <dp-data-selection-cards ng-if="vm.view === 'CARDS'" content="vm.data"></dp-data-selection-cards>
 
                 <dp-data-selection-pagination
                     current-page="vm.currentPage"

@@ -12,10 +12,10 @@
         };
 
         function query (dataset, view, activeFilters, page, searchText) {
-            const customApi = DATA_SELECTION_CONFIG[dataset].CUSTOM_API,
+            const customApi = DATA_SELECTION_CONFIG.datasets[dataset].CUSTOM_API,
                 apiService = $injector.get(customApi);
 
-            return apiService.query(DATA_SELECTION_CONFIG[dataset], activeFilters, page, searchText)
+            return apiService.query(DATA_SELECTION_CONFIG.datasets[dataset], activeFilters, page, searchText)
                 .then(function (data) {
                     return {
                         numberOfPages: data.numberOfPages,
@@ -27,7 +27,7 @@
         }
 
         function formatFilters (dataset, rawData) {
-            const formattedFilters = angular.copy(DATA_SELECTION_CONFIG[dataset].FILTERS);
+            const formattedFilters = angular.copy(DATA_SELECTION_CONFIG.datasets[dataset].FILTERS);
 
             return formattedFilters.filter(function (filter) {
                 // Only show the filters that are returned by the API
@@ -39,13 +39,13 @@
 
         function formatData (dataset, view, rawData) {
             return {
-                head: DATA_SELECTION_CONFIG[dataset].CONTENT[view]
+                head: DATA_SELECTION_CONFIG.datasets[dataset].CONTENT[view]
                     .map(item => item.label),
 
                 body: rawData.map(rawDataRow => {
                     return {
                         detailEndpoint: rawDataRow._links.self.href,
-                        content: DATA_SELECTION_CONFIG[dataset].CONTENT[view].map(item => {
+                        content: DATA_SELECTION_CONFIG.datasets[dataset].CONTENT[view].map(item => {
                             return item.variables.map(variable => {
                                 const path = variable.split('.');
                                 return {
@@ -57,8 +57,8 @@
                     };
                 }),
 
-                formatters: DATA_SELECTION_CONFIG[dataset].CONTENT[view].map(item => item.formatter),
-                templates: DATA_SELECTION_CONFIG[dataset].CONTENT[view].map(item => item.template)
+                formatters: DATA_SELECTION_CONFIG.datasets[dataset].CONTENT[view].map(item => item.formatter),
+                templates: DATA_SELECTION_CONFIG.datasets[dataset].CONTENT[view].map(item => item.template)
             };
         }
 
@@ -82,7 +82,7 @@
         }
 
         function getMarkers (dataset, activeFilters) {
-            return api.getByUri(DATA_SELECTION_CONFIG[dataset].ENDPOINT_MARKERS, activeFilters).then(function (data) {
+            return api.getByUri(DATA_SELECTION_CONFIG.datasets[dataset].ENDPOINT_MARKERS, activeFilters).then(function (data) {
                 // The .reverse() is needed because the backend (Elastic) stores it's locations in [lon, lat] format
                 return data.object_list.map(marker => marker._source.centroid.reverse());
             });

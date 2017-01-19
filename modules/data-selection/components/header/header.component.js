@@ -19,20 +19,33 @@
     function DpDataSelectionHeaderController ($scope, DATA_SELECTION_CONFIG) {
         let vm = this;
 
-        $scope.$watchGroup(['vm.state.dataset', 'vm.state.view', 'vm.isLoading'], setHeader);
+        $scope.$watchGroup([
+            'vm.state.dataset',
+            'vm.state.view',
+            'vm.numberOfRecords',
+            'vm.isLoading'
+        ], setHeader);
 
         function setHeader () {
-            vm.title = DATA_SELECTION_CONFIG[vm.state.dataset].TITLE;
+            vm.showHeader = vm.state.view === 'LIST' || !vm.isLoading;
+            vm.showButtons = vm.state.dataset !== 'catalogus';
+            vm.showTabs = vm.state.view === 'LIST';
+            vm.showNoResultsFound = vm.numberOfRecords === 0 && !vm.isLoading;
+
+            vm.showMessageMaxPages = angular.isDefined(DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES) &&
+                vm.state.page > DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES;
+            vm.showMessageClusteredMarkers = vm.state.view === 'LIST' &&
+                !vm.isLoading && vm.numberOfRecords > DATA_SELECTION_CONFIG.options.MAX_NUMBER_OF_CLUSTERED_MARKERS;
+
+            vm.datasetTitle = DATA_SELECTION_CONFIG.datasets[vm.state.dataset].TITLE;
 
             vm.tabs = ['bag', 'hr'].map(dataset => {
                 return {
                     dataset: dataset,
-                    title: DATA_SELECTION_CONFIG[dataset].TITLE,
+                    title: DATA_SELECTION_CONFIG.datasets[dataset].TITLE,
                     isActive: vm.state.dataset === dataset
                 };
             });
-
-            vm.showHeader = vm.state.view === 'LIST' || !vm.isLoading;
         }
     }
 })();
