@@ -5,9 +5,9 @@
         .module('dpMap')
         .factory('drawTool', drawToolFactory);
 
-    drawToolFactory.$inject = ['store', 'ACTIONS', 'L', 'DRAW_TOOL_CONFIG', 'onMapClick'];
+    drawToolFactory.$inject = ['$rootScope', '$timeout', 'store', 'ACTIONS', 'L', 'DRAW_TOOL_CONFIG', 'onMapClick'];
 
-    function drawToolFactory (store, ACTIONS, L, DRAW_TOOL_CONFIG, onMapClick) {
+    function drawToolFactory ($rootScope, $timeout, store, ACTIONS, L, DRAW_TOOL_CONFIG, onMapClick) {
         let leafletMap,
             drawnItems,
             drawShapeHandler,
@@ -17,6 +17,7 @@
             currentLayer;
 
         let c = console;
+        let lastState;
 
         return {
             initialize
@@ -43,6 +44,69 @@
             editShapeHandler = editToolbar.getModeHandlers(leafletMap)[0].handler;
 
             leafletMap.addLayer(drawnItems);
+
+            c.log('draw shape handler', drawShapeHandler);
+            c.log('edit shape handler', editShapeHandler);
+
+            Object.keys(L.Draw.Event).forEach(key => {
+                leafletMap.on(L.Draw.Event[key], function (...args) {
+                    c.log('Leaflet Event', key);
+
+                    let info = getHandlerInfo(drawShapeHandler);
+                    // c.log('Shape info', info);
+                    if (currentLayer) {
+                        if (key !== 'DELETED') {
+                            info = getInfo(currentLayer);
+                            // c.log('Event polygon', info);
+                            L.drawLocal.edit.handlers.edit.tooltip.text = info.area;
+                            L.drawLocal.edit.handlers.edit.tooltip.subtext = info.distance;
+                        }
+                    }
+
+                    c.log('Info', info);
+                    // c.log('Current layer', currentLayer);
+
+                    // if (key === 'DELETED') {
+                    //     let recreateFrom = angular.copy(lastState);
+                    //     $timeout(() => {
+                    //         c.log('Recreate from', recreateFrom);
+                    //         var polygon = new L.Polygon(recreateFrom);
+                    //         currentLayer = polygon;
+                    //         c.log('New polygon', polygon);
+                    //         drawnItems.addLayer(polygon);
+                    //         polygon.on('click', shapeClickHandler);
+                    //         enable();
+                    //     }, 1000);
+                    // }
+
+                    // lastState = angular.copy(info.latLngs);
+                    // c.log('lastState', lastState, info.latLngs);
+
+                    // if (key === 'EDITVERTEX') {
+                    //     if (info.latLngs.length > 5) {
+                    //         $rootScope.$applyAsync(() => {
+                    //             editShapeHandler.revertLayers();
+                    //             disable();
+                    //         });
+                    //     } else {
+                    //         editShapeHandler.save();
+                    //     }
+                    // }
+
+                    // if (key === 'EDITSTART') {
+                    //     if (info.latLngs.length > 5) {
+                    //         $rootScope.$applyAsync(() => disable());
+                    //     }
+                    // }
+                    //
+                    // if (key === 'DRAWVERTEX' || key === 'DRAWSTART') {
+                    //     if (info.latLngs.length >= 5) {
+                    //         $rootScope.$applyAsync(() => disable());
+                    //     }
+                    // }
+                });
+            });
+
             leafletMap.on('click', function () {
                 if (!drawShapeHandler.enabled()) {
                     deleteShape();
@@ -62,8 +126,63 @@
                     currentLayer = layer;
                     drawnItems.addLayer(layer);
                     layer.on('click', shapeClickHandler);
+                    ['mousedown', 'mouseup'].forEach(key => layer.on(key, () => {
+                        c.log('layer event', key);
+                    }));
                 }
             });
+        }
+
+        function getDistance (latLngs, isClosed) {
+            return latLngs.reduce((total, latlng, i) => {
+                if (i > 0) {
+                    let dist = latlng.distanceTo(latLngs[i - 1]);
+                    total += dist;
+                }
+                return total;
+            }, isClosed ? latLngs[0].distanceTo(latLngs[latLngs.length - 1]) : 0);
+        }
+
+        function getHandlerInfo (shapeHandler) {
+            // returns the coordinates, area and length of the unfinished shape
+            if (shapeHandler._markers) {
+                let latLngs = shapeHandler._markers.map(m => m._latlng);
+                let distance = getDistance(latLngs, false);
+                let area = shapeHandler._area;
+                return {
+                    latLngs: latLngs.map(({lat, lng}) => [lat, lng]),
+                    area: L.GeometryUtil.readableArea(area, true),
+                    distance: L.GeometryUtil.readableDistance(distance, true)
+                };
+            } else {
+                return {
+                    latLngs: [],
+                    area: L.GeometryUtil.readableArea(0, true),
+                    distance: L.GeometryUtil.readableDistance(0, true)
+                };
+            }
+        }
+
+        function getInfo (polygon) {
+            // returns the coordinates, area and length of the polygon
+            let latLngs = polygon.getLatLngs()[0];
+            let area = L.GeometryUtil.geodesicArea(latLngs);
+            let distance = getDistance(latLngs, true);
+
+            return {
+                latLngs: getLatLngs(polygon),
+                intersects: polygon.intersects(),
+                area: L.GeometryUtil.readableArea(area, true),
+                distance: L.GeometryUtil.readableDistance(distance, true)
+            };
+        }
+
+        function getLatLngs (polygon) {
+            // returns an array of [[lat, lng], ...] for the polygon
+            return polygon &&
+                polygon
+                    .getLatLngs()[0]
+                    .map(({lat, lng}) => [lat, lng]);
         }
 
         function toggle () {
