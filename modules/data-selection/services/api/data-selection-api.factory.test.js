@@ -15,7 +15,7 @@ describe('The dataSelectionApi factory', function () {
         },
         mockedConfig,
         api = {
-            getByUrl: function (url) {
+            getByUri: function (url) {
                 let q = $q.defer();
 
                 q.resolve(mockedApiMarkersResponse);
@@ -26,46 +26,48 @@ describe('The dataSelectionApi factory', function () {
 
     beforeEach(function () {
         mockedConfig = {
-            zwembaden: {
-                ENDPOINT_MARKERS: 'https://api.amsterdam.nl/zwembaden/markers/',
-                CUSTOM_API: 'mockedApiService',
-                FILTERS: [
-                    {
-                        slug: 'type',
-                        label: 'Type accomodatie'
-                    }, {
-                        slug: 'water',
-                        label: 'Watersoort'
+            datasets: {
+                zwembaden: {
+                    ENDPOINT_MARKERS: 'zwembaden/markers/',
+                    CUSTOM_API: 'mockedApiService',
+                    FILTERS: [
+                        {
+                            slug: 'type',
+                            label: 'Type accomodatie'
+                        }, {
+                            slug: 'water',
+                            label: 'Watersoort'
+                        }
+                    ],
+                    CONTENT: {
+                        TABLE: [
+                            {
+                                label: 'Adres',
+                                variables: ['adres']
+                            },
+                            {
+                                label: 'Openingstijden',
+                                variables: ['openingstijden'],
+                                formatter: 'openingstijdenFormatter'
+                            }
+                        ],
+                        LIST: [
+                            {
+                                variables: ['openbare_ruimte', 'huisnummer'],
+                                formatter: 'adres'
+                            }, {
+                                variables: ['buurtnaam']
+                            }
+                        ],
+                        CARDS: [
+                            {
+                                variables: ['adres.openbare_ruimte', 'huisnummer'],
+                                formatter: 'adres'
+                            }, {
+                                variables: ['buurtnaam']
+                            }
+                        ]
                     }
-                ],
-                CONTENT: {
-                    TABLE: [
-                        {
-                            label: 'Adres',
-                            variables: ['adres']
-                        },
-                        {
-                            label: 'Openingstijden',
-                            variables: ['openingstijden'],
-                            formatter: 'openingstijdenFormatter'
-                        }
-                    ],
-                    LIST: [
-                        {
-                            variables: ['openbare_ruimte', 'huisnummer'],
-                            formatter: 'adres'
-                        }, {
-                            variables: ['buurtnaam']
-                        }
-                    ],
-                    CARDS: [
-                        {
-                            variables: ['adres.openbare_ruimte', 'huisnummer'],
-                            formatter: 'adres'
-                        }, {
-                            variables: ['buurtnaam']
-                        }
-                    ]
                 }
             }
         };
@@ -88,7 +90,7 @@ describe('The dataSelectionApi factory', function () {
         });
 
         spyOn(mockedApiService, 'query').and.callThrough();
-        spyOn(api, 'getByUrl').and.callThrough();
+        spyOn(api, 'getByUri').and.callThrough();
     });
 
     describe('the query function', function () {
@@ -184,17 +186,17 @@ describe('The dataSelectionApi factory', function () {
         it('calls the api factory with the configuration, active filters and page', function () {
             // Without active filters
             dataSelectionApi.query('zwembaden', 'TABLE', {}, 1);
-            expect(mockedApiService.query).toHaveBeenCalledWith(mockedConfig.zwembaden, {}, 1, undefined);
+            expect(mockedApiService.query).toHaveBeenCalledWith(mockedConfig.datasets.zwembaden, {}, 1, undefined);
 
             // With active filters
             dataSelectionApi.query('zwembaden', 'TABLE', {water: 'Verwarmd'}, 1, 'searchText');
-            expect(mockedApiService.query).toHaveBeenCalledWith(mockedConfig.zwembaden, {
+            expect(mockedApiService.query).toHaveBeenCalledWith(mockedConfig.datasets.zwembaden, {
                 water: 'Verwarmd'
             }, 1, 'searchText');
 
             // With another page
             dataSelectionApi.query('zwembaden', 'TABLE', {water: 'Verwarmd'}, 2);
-            expect(mockedApiService.query).toHaveBeenCalledWith(mockedConfig.zwembaden, {
+            expect(mockedApiService.query).toHaveBeenCalledWith(mockedConfig.datasets.zwembaden, {
                 water: 'Verwarmd'
             }, 2, undefined);
         });
@@ -219,7 +221,7 @@ describe('The dataSelectionApi factory', function () {
             $rootScope.$apply();
             expect(output.numberOfPages).toBe(2);
 
-            mockedConfig.zwembaden.CONTENT.CARDS = [
+            mockedConfig.datasets.zwembaden.CONTENT.CARDS = [
                 {
                     variables: ['huisnummer']
                 }
@@ -231,7 +233,7 @@ describe('The dataSelectionApi factory', function () {
             $rootScope.$apply();
             expect(output.data.body[0].content[0][0].value).toEqual([1, 2]);
 
-            mockedConfig.zwembaden.CONTENT.CARDS = [
+            mockedConfig.datasets.zwembaden.CONTENT.CARDS = [
                 {
                     variables: ['huisnummer.adres']
                 }
@@ -439,15 +441,15 @@ describe('The dataSelectionApi factory', function () {
             dataSelectionApi.getMarkers('zwembaden', {});
             $rootScope.$apply();
 
-            expect(api.getByUrl).toHaveBeenCalledTimes(1);
-            expect(api.getByUrl).toHaveBeenCalledWith('https://api.amsterdam.nl/zwembaden/markers/', {});
+            expect(api.getByUri).toHaveBeenCalledTimes(1);
+            expect(api.getByUri).toHaveBeenCalledWith('zwembaden/markers/', {});
 
             // With filters
             dataSelectionApi.getMarkers('zwembaden', {water: 'Verwarmd'});
 
-            expect(api.getByUrl).toHaveBeenCalledTimes(2);
-            expect(api.getByUrl).toHaveBeenCalledWith(
-                'https://api.amsterdam.nl/zwembaden/markers/',
+            expect(api.getByUri).toHaveBeenCalledTimes(2);
+            expect(api.getByUri).toHaveBeenCalledWith(
+                'zwembaden/markers/',
                 {
                     water: 'Verwarmd'
                 }
