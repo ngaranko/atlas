@@ -367,6 +367,26 @@ describe('The dp-data-selection-header', () => {
         });
     });
 
+    it('the active filters are only shown when the loading is finished', () => {
+        let mockedInput = {
+            TABLE: mockedInputTable,
+            LIST: mockedInputList,
+            CARDS: mockedInputCards
+        };
+
+        ['TABLE', 'LIST', 'CARDS'].forEach(viewName => {
+            // When loading
+            component.isLoading = true;
+            component = getComponent(mockedInput[viewName]);
+            expect(component.find('.qa-active-filters').length).toBe(0);
+
+            // When loading is finished
+            component.isLoading = false;
+            component = getComponent(mockedInput[viewName]);
+            expect(component.find('.qa-active-filters').length).toBe(1);
+        });
+    });
+
     it('the messages about MAX_PAGES and MAX_CLUSTERED_MARKERS use DATA_SELECTION_CONFIG', () => {
         mockedInputList.state.page = 51;
         mockedInputList.numberOfRecords = 1001;

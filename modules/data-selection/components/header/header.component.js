@@ -33,6 +33,7 @@
             vm.showTitle = vm.state.view === 'LIST' || (!vm.isLoading && vm.numberOfRecords);
             vm.showTabs = vm.state.view === 'LIST';
             vm.showNoResultsFound = vm.numberOfRecords === 0 && !vm.isLoading;
+            vm.showActiveFilters = !vm.isLoading;
 
             vm.maxAvailablePages = DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES;
             vm.showMessageMaxPages = vm.maxAvailablePages && vm.state.page > vm.maxAvailablePages;
