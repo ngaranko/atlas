@@ -353,4 +353,16 @@ describe('The dp-data-selection-header', () => {
             });
         });
     });
+
+    it('the messages about MAX_PAGES and MAX_CLUSTERED_MARKERS use DATA_SELECTION_CONFIG', () => {
+        mockedInputList.state.page = 51;
+        mockedInputList.numberOfRecords = 1001;
+        mockedInputList.isLoading = false;
+
+        component = getComponent(mockedInputList);
+
+        // Where 50 and 1000 are part of DATA_SELECTION_CONFIG instead of some hardcoded copied value
+        expect(component.find('.qa-message-max-pages').text()).toContain('de eerste 50 pagina\'s');
+        expect(component.find('.qa-message-clustered-markers').text()).toContain('niet meer dan 1.000 resultaten');
+    });
 });

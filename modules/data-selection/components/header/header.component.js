@@ -33,11 +33,12 @@
             vm.showTabs = vm.state.view === 'LIST';
             vm.showNoResultsFound = vm.numberOfRecords === 0 && !vm.isLoading;
 
-            vm.showMessageMaxPages = DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES &&
-                vm.state.page > DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES;
+            vm.maxAvailablePages = DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES;
+            vm.showMessageMaxPages = vm.maxAvailablePages && vm.state.page > vm.maxAvailablePages;
 
+            vm.maxNumberOfClusteredMarkers = DATA_SELECTION_CONFIG.options.MAX_NUMBER_OF_CLUSTERED_MARKERS;
             vm.showMessageClusteredMarkers = vm.state.view === 'LIST' &&
-                !vm.isLoading && vm.numberOfRecords > DATA_SELECTION_CONFIG.options.MAX_NUMBER_OF_CLUSTERED_MARKERS;
+                !vm.isLoading && vm.numberOfRecords > vm.maxNumberOfClusteredMarkers;
 
             vm.datasetTitle = DATA_SELECTION_CONFIG.datasets[vm.state.dataset].TITLE;
 
