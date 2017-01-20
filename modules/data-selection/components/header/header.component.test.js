@@ -1,6 +1,8 @@
 describe('The dp-data-selection-header', () => {
     let $compile,
         $rootScope,
+        store,
+        ACTIONS,
         component,
         mockedViewInput,
         mockedInputTable,
@@ -10,6 +12,11 @@ describe('The dp-data-selection-header', () => {
     beforeEach(() => {
         angular.mock.module(
             'dpDataSelection',
+            {
+                store: {
+                    dispatch: angular.noop
+                }
+            },
             function ($provide) {
                 $provide.constant('DATA_SELECTION_CONFIG', {
                     options: {
@@ -38,19 +45,17 @@ describe('The dp-data-selection-header', () => {
                     return {};
                 });
 
-                $provide.factory('dpLinkDirective', () => {
-                    return {};
-                });
-
                 $provide.factory('dpLoadingIndicatorDirective', () => {
                     return {};
                 });
             }
         );
 
-        angular.mock.inject((_$compile_, _$rootScope_) => {
+        angular.mock.inject((_$compile_, _$rootScope_, _store_, _ACTIONS_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
+            store = _store_;
+            ACTIONS = _ACTIONS_;
         });
 
         mockedInputTable = {
@@ -80,6 +85,8 @@ describe('The dp-data-selection-header', () => {
             numberOfRecords: null,
             isLoading: true
         };
+
+        spyOn(store, 'dispatch');
     });
 
     function getComponent (mockedInput) {
@@ -364,5 +371,68 @@ describe('The dp-data-selection-header', () => {
         // Where 50 and 1000 are part of DATA_SELECTION_CONFIG instead of some hardcoded copied value
         expect(component.find('.qa-message-max-pages').text()).toContain('de eerste 50 pagina\'s');
         expect(component.find('.qa-message-clustered-markers').text()).toContain('niet meer dan 1.000 resultaten');
+    });
+
+    describe('the tabs in LIST view', () => {
+        it('use the TITLE values from DATA_SELECTION_CONFIG', () => {
+            component = getComponent(mockedInputList);
+
+            expect(component.find('.qa-tabs li:nth-child(1)').text().trim()).toBe('BAG Adressen');
+            expect(component.find('.qa-tabs li:nth-child(2)').text().trim()).toBe('HR Vestigingen');
+        });
+
+        it('are links to the first page of other datasets', () => {
+            mockedInputList.state.page = 123;
+            component = getComponent(mockedInputList);
+            expect(store.dispatch).not.toHaveBeenCalled();
+
+            component.find('.qa-tabs li:nth-child(1) dp-link .o-tabs__link').click();
+            expect(store.dispatch).toHaveBeenCalledTimes(1);
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.FETCH_DATA_SELECTION,
+                payload: jasmine.objectContaining({
+                    dataset: 'bag',
+                    view: 'LIST',
+                    page: 1
+                })
+            });
+
+            component.find('.qa-tabs li:nth-child(2) dp-link .o-tabs__link').click();
+            expect(store.dispatch).toHaveBeenCalledTimes(2);
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.FETCH_DATA_SELECTION,
+                payload: jasmine.objectContaining({
+                    dataset: 'hr',
+                    view: 'LIST',
+                    page: 1
+                })
+            });
+        });
+
+        it('shows the number of results in the tab heading for the active dataset', () => {
+            // It only shows the title while loading
+            mockedInputList.isLoading = true;
+            component = getComponent(mockedInputList);
+
+            expect(component.find('.qa-tabs li:nth-child(1)').text().trim()).toBe('BAG Adressen');
+            expect(component.find('.qa-tabs li:nth-child(2)').text().trim()).toBe('HR Vestigingen');
+
+            // It shows the number of results when loading has finished for the active tab only
+            mockedInputList.numberOfRecords = 12345;
+            mockedInputList.isLoading = false;
+            component = getComponent(mockedInputList);
+
+            expect(component.find('.qa-tabs li:nth-child(1)').text().trim()).toBe('BAG Adressen');
+            expect(component.find('.qa-tabs li:nth-child(2)').text()).toContain('HR Vestigingen');
+            expect(component.find('.qa-tabs li:nth-child(2)').text()).toContain(' (12.345)');
+
+            // When BAG is active
+            mockedInputList.state.dataset = 'bag';
+            component = getComponent(mockedInputList);
+
+            expect(component.find('.qa-tabs li:nth-child(1)').text()).toContain('BAG Adressen');
+            expect(component.find('.qa-tabs li:nth-child(1)').text()).toContain(' (12.345)');
+            expect(component.find('.qa-tabs li:nth-child(2)').text().trim()).toBe('HR Vestigingen');
+        });
     });
 });
