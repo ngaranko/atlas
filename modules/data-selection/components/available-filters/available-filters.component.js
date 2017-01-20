@@ -77,7 +77,7 @@
         }
 
         function updateConfig () {
-            vm.showOptionCounts = DATA_SELECTION_CONFIG[vm.dataset].SHOW_FILTER_OPTION_COUNTS;
+            vm.showOptionCounts = DATA_SELECTION_CONFIG.datasets[vm.dataset].SHOW_FILTER_OPTION_COUNTS;
         }
 
         function applyFilters (filters) {

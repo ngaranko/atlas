@@ -5,8 +5,9 @@
         .module('dpDataSelection')
         .component('dpDataSelectionHeader', {
             bindings: {
-                state: '=',
-                numberOfRecords: '=',
+                state: '<',
+                availableFilters: '<',
+                numberOfRecords: '<',
                 isLoading: '<'
             },
             templateUrl: 'modules/data-selection/components/header/header.html',

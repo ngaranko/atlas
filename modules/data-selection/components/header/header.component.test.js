@@ -45,6 +45,10 @@ describe('The dp-data-selection-header', () => {
                     return {};
                 });
 
+                $provide.factory('dpDataSelectionActiveFiltersDirective', () => {
+                    return {};
+                });
+
                 $provide.factory('dpLoadingIndicatorDirective', () => {
                     return {};
                 });
@@ -96,11 +100,13 @@ describe('The dp-data-selection-header', () => {
 
         element = document.createElement('dp-data-selection-header');
         element.setAttribute('state', 'state');
+        element.setAttribute('available-filters', 'availableFilters');
         element.setAttribute('number-of-records', 'numberOfRecords');
         element.setAttribute('is-loading', 'isLoading');
 
         scope = $rootScope.$new();
         scope.state = mockedInput.state;
+        scope.availableFilters = {};
         scope.numberOfRecords = mockedInput.numberOfRecords;
         scope.isLoading = mockedInput.isLoading;
 

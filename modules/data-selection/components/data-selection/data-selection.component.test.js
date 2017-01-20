@@ -133,7 +133,7 @@ describe('The dp-data-selection component', function () {
         return component;
     }
 
-    it('retieves the filter and table data and passes it to it\'s child directives', function () {
+    it('retieves the available-filters and table data and passes it to it\'s child directives', function () {
         const component = getComponent(mockedState);
         let scope = component.isolateScope();
 
