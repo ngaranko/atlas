@@ -29,6 +29,7 @@
         function setHeader () {
             vm.showHeader = vm.state.view === 'LIST' || !vm.isLoading;
             vm.showButtons = vm.state.dataset !== 'catalogus';
+            vm.showTitle = vm.state.view === 'LIST' || (!vm.isLoading && vm.numberOfRecords);
             vm.showTabs = vm.state.view === 'LIST';
             vm.showNoResultsFound = vm.numberOfRecords === 0 && !vm.isLoading;
 

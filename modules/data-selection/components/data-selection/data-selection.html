@@ -52,6 +52,7 @@
             </div>
 
             <dp-data-selection-pagination
+                ng-if="!vm.isLoading"
                 current-page="vm.currentPage"
                 number-of-pages="vm.numberOfPages">
             </dp-data-selection-pagination>
