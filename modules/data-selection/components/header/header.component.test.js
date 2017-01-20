@@ -376,12 +376,12 @@ describe('The dp-data-selection-header', () => {
 
         ['TABLE', 'LIST', 'CARDS'].forEach(viewName => {
             // When loading
-            component.isLoading = true;
+            mockedInput[viewName].isLoading = true;
             component = getComponent(mockedInput[viewName]);
             expect(component.find('.qa-active-filters').length).toBe(0);
 
             // When loading is finished
-            component.isLoading = false;
+            mockedInput[viewName].isLoading = false;
             component = getComponent(mockedInput[viewName]);
             expect(component.find('.qa-active-filters').length).toBe(1);
         });
