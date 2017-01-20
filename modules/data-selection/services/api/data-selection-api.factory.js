@@ -12,18 +12,22 @@
         };
 
         function query (dataset, view, activeFilters, page, searchText) {
-            const customApi = DATA_SELECTION_CONFIG.datasets[dataset].CUSTOM_API,
-                apiService = $injector.get(customApi);
+            const customApi = DATA_SELECTION_CONFIG.datasets[dataset].CUSTOM_API;
+            const apiService = $injector.get(customApi);
 
-            return apiService.query(DATA_SELECTION_CONFIG.datasets[dataset], activeFilters, page, searchText)
-                .then(function (data) {
-                    return {
-                        numberOfPages: data.numberOfPages,
-                        numberOfRecords: data.numberOfRecords,
-                        filters: formatFilters(dataset, data.filters),
-                        data: formatData(dataset, view, data.data)
-                    };
-                });
+            return apiService.query(
+                DATA_SELECTION_CONFIG.datasets[dataset],
+                filterUnavailableFilters(dataset, activeFilters),
+                page,
+                searchText
+            ).then(function (data) {
+                return {
+                    numberOfPages: data.numberOfPages,
+                    numberOfRecords: data.numberOfRecords,
+                    filters: formatFilters(dataset, data.filters),
+                    data: formatData(dataset, view, data.data)
+                };
+            });
         }
 
         function formatFilters (dataset, rawData) {
@@ -83,11 +87,29 @@
 
         function getMarkers (dataset, activeFilters) {
             return api
-                .getByUri(DATA_SELECTION_CONFIG.datasets[dataset].ENDPOINT_MARKERS, activeFilters)
+                .getByUri(DATA_SELECTION_CONFIG.datasets[dataset].ENDPOINT_MARKERS, filterUnavailableFilters(dataset, activeFilters))
                 .then(function (data) {
                     // The .reverse() is needed because the backend (Elastic) stores it's locations in [lon, lat] format
                     return data.object_list.map(marker => marker._source.centroid.reverse());
                 });
+        }
+
+        function filterUnavailableFilters (dataset, activeFilters) {
+            // Some activeFilters do not exist for the current data
+            let activeAndAvailableFilters = angular.copy(activeFilters);
+
+            // Filter activeFilters that are not available for this dataset
+            Object.keys(activeFilters).forEach(activeFilterKey => {
+                let isAvailable = DATA_SELECTION_CONFIG.datasets[dataset].FILTERS.filter(filter => {
+                        return activeFilterKey === filter.slug;
+                    }).length === 1;
+
+                if (!isAvailable) {
+                    delete activeAndAvailableFilters[activeFilterKey];
+                }
+            });
+
+            return activeAndAvailableFilters;
         }
     }
 })();
