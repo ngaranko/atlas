@@ -3,7 +3,7 @@
 
     angular
         .module('dpMap')
-        .factory('drawTool', drawToolFactory);
+        .factory('drawTool1', drawToolFactory);
 
     drawToolFactory.$inject = ['$rootScope', '$timeout', 'store', 'ACTIONS', 'L', 'DRAW_TOOL_CONFIG', 'onMapClick'];
 
@@ -12,12 +12,18 @@
             drawnItems,
             drawShapeHandler,
             editShapeHandler,
-            firstMarker,
-            lastMarker,
+            // firstMarker,
+            // lastMarker,
             currentLayer;
 
+        // Shape =
+        // mode: null, DRAW, EDIT
+        // drawHandler, editHandler, contents (currentLayer)
+
+        // tmp store in session??
+
         let c = console;
-        let lastState;
+        // let lastState;
 
         return {
             initialize
@@ -27,14 +33,21 @@
             let editConfig = angular.copy(DRAW_TOOL_CONFIG.edit),
                 editToolbar;
 
+            // Init with drawMode and latLngs
+            // with latlngs calls createShape, and set mode to MODE
+            // withoud latlngs set mode = null
             store.subscribe(() => {
                 if (store.getState().map.drawingMode) {
                     enable();
                 } else {
+                    c.log('Subscription!');
                     disable();
                 }
             });
 
+            // CreateShape ('polygon', coordinates) => See DELETE
+
+            // CreateShape ('polygon')
             leafletMap = map;
             drawnItems = new L.FeatureGroup();
             drawShapeHandler = new L.Draw.Polygon(leafletMap, DRAW_TOOL_CONFIG.draw.polygon);
@@ -52,12 +65,15 @@
                 leafletMap.on(L.Draw.Event[key], function (...args) {
                     c.log('Leaflet Event', key);
 
+                    // TODO: set tooltip on mouseMove
+
                     let info = getHandlerInfo(drawShapeHandler);
                     // c.log('Shape info', info);
                     if (currentLayer) {
                         if (key !== 'DELETED') {
                             info = getInfo(currentLayer);
                             // c.log('Event polygon', info);
+                            // TODO: clear info on mousedown, enable on mouseup??
                             L.drawLocal.edit.handlers.edit.tooltip.text = info.area;
                             L.drawLocal.edit.handlers.edit.tooltip.subtext = info.distance;
                         }
@@ -66,6 +82,7 @@
                     c.log('Info', info);
                     // c.log('Current layer', currentLayer);
 
+                    // TODO: test create from coordinates
                     // if (key === 'DELETED') {
                     //     let recreateFrom = angular.copy(lastState);
                     //     $timeout(() => {
@@ -82,6 +99,7 @@
                     // lastState = angular.copy(info.latLngs);
                     // c.log('lastState', lastState, info.latLngs);
 
+                    // TODO: switch back to last state when EDIT > maxCount
                     // if (key === 'EDITVERTEX') {
                     //     if (info.latLngs.length > 5) {
                     //         $rootScope.$applyAsync(() => {
@@ -93,27 +111,34 @@
                     //     }
                     // }
 
+                    // TODO: ?? not needed, end EDIT on start EDIT > maxCount
                     // if (key === 'EDITSTART') {
                     //     if (info.latLngs.length > 5) {
                     //         $rootScope.$applyAsync(() => disable());
                     //     }
                     // }
                     //
+
+                    // TODO: disable add marker when maxCount (auto close?)
                     // if (key === 'DRAWVERTEX' || key === 'DRAWSTART') {
                     //     if (info.latLngs.length >= 5) {
                     //         $rootScope.$applyAsync(() => disable());
                     //     }
                     // }
+
+                    // TODO; save last consistent state
                 });
             });
 
+            // Click outside shape => delete shape
             leafletMap.on('click', function () {
+                // Not in draw mode: new marker add!!
                 if (!drawShapeHandler.enabled()) {
                     deleteShape();
                 }
             });
             leafletMap.on(L.Draw.Event.DRAWSTOP, function () {
-                updateState();
+                updateState();  // State change
             });
             leafletMap.on(L.Draw.Event.DRAWVERTEX, function () {
                 bindMarker();
@@ -126,6 +151,7 @@
                     currentLayer = layer;
                     drawnItems.addLayer(layer);
                     layer.on('click', shapeClickHandler);
+                    // TODO: 'mousemove for tooltip...
                     ['mousedown', 'mouseup'].forEach(key => layer.on(key, () => {
                         c.log('layer event', key);
                     }));
@@ -133,6 +159,10 @@
             });
         }
 
+        // Shape method for shape.info
+        //
+        // TODO: for two points return line length
+        //
         function getDistance (latLngs, isClosed) {
             return latLngs.reduce((total, latlng, i) => {
                 if (i > 0) {
@@ -143,6 +173,7 @@
             }, isClosed ? latLngs[0].distanceTo(latLngs[latLngs.length - 1]) : 0);
         }
 
+        // before the shape is created, get the info from the drawHandler
         function getHandlerInfo (shapeHandler) {
             // returns the coordinates, area and length of the unfinished shape
             if (shapeHandler._markers) {
@@ -163,6 +194,7 @@
             }
         }
 
+        // After the shape has been created get the info from the layer
         function getInfo (polygon) {
             // returns the coordinates, area and length of the polygon
             let latLngs = polygon.getLatLngs()[0];
@@ -177,6 +209,7 @@
             };
         }
 
+        // utility method
         function getLatLngs (polygon) {
             // returns an array of [[lat, lng], ...] for the polygon
             return polygon &&
@@ -185,6 +218,11 @@
                     .map(({lat, lng}) => [lat, lng]);
         }
 
+        // TODO: follow events to know DRAW or EDIT mode
+        // endDraw: endDrawMode, endEditMode, startDraw: startEditMode, startDrawMode
+        // endDraw => mode = null, startDraw: mode = DRAW/EDIT
+
+        // toggle enableEdit
         function toggle () {
             if (isEnabled()) {
                 disable();
@@ -193,10 +231,12 @@
             }
         }
 
+        // isEnabled => shape is being created or being edited
         function isEnabled () {
             return drawShapeHandler.enabled() || editShapeHandler.enabled();
         }
 
+        // start draw or edit mode for current layer or start create mode for new shape
         function enable () {
             if (!isEnabled()) {
                 if (currentLayer) {
@@ -208,7 +248,9 @@
             }
         }
 
+        // end of draw or edit mode => in create mode complete shape, in edit mode save shape
         function disable () {
+            c.log('disable');
             if (isEnabled()) {
                 if (drawShapeHandler.enabled()) {
                     if (drawShapeHandler._markers && drawShapeHandler._markers.length > 1) {
@@ -225,8 +267,11 @@
             }
         }
 
+        // determine create (DRAW), edit (EDIT) or just show (possibly nothing)
+        // TODO: bepaal adh events!
+        // Restore dmv state (null=SHOW, create=DRAW, edit=EDIT) latlngs
         function updateState () {
-            let currentMode = null;
+            let currentMode = null; // 'SHOW'
 
             if (isEnabled()) {
                 currentMode = drawShapeHandler.enabled() ? 'DRAW' : 'EDIT';
@@ -238,6 +283,7 @@
             });
         }
 
+        // delete a marker in DRAW mode
         function deleteMarker (marker) {
             let markers = drawShapeHandler._markers;
             let index = markers.findIndex(m => m._leaflet_id === marker._leaflet_id);
@@ -249,6 +295,7 @@
             }
         }
 
+        // bind marker in DRAW mode to deleteMarker
         function bindMarker () {
             let marker = drawShapeHandler._markers[drawShapeHandler._markers.length - 1];
             ['mousedown', 'click'].forEach(key => marker.on(key, () => {
@@ -289,11 +336,13 @@
         // call drawShapeHandler.completeShape manually which will
         // automatically complete the shape for us. And in this case without
         // an error.
-        function completeShape () {
-            if (drawShapeHandler.enabled() && drawShapeHandler._markers.length === 2) {
-                disable();
-            }
-        }
+
+        // No longer used???
+        // function completeShape () {
+        //     if (drawShapeHandler.enabled() && drawShapeHandler._markers.length === 2) {
+        //         disable();
+        //     }
+        // }
 
         // function deleteLastMarker () {
         //     c.log('ERROR, deleteLastMarker called');
@@ -311,11 +360,14 @@
         //     }
         // }
 
+        // Click on the shape swiitches between DRAW and EDIT mode
         function shapeClickHandler (e) {
             L.DomEvent.stop(e);
             toggle();
         }
 
+        // Click outside shape deletes the shape
+        // TODO: createShape ()
         function deleteShape () {
             if (currentLayer) {
                 let deletedLayers = new L.LayerGroup();
