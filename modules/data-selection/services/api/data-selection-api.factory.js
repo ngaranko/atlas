@@ -87,7 +87,10 @@
 
         function getMarkers (dataset, activeFilters) {
             return api
-                .getByUri(DATA_SELECTION_CONFIG.datasets[dataset].ENDPOINT_MARKERS, filterUnavailableFilters(dataset, activeFilters))
+                .getByUri(
+                    DATA_SELECTION_CONFIG.datasets[dataset].ENDPOINT_MARKERS,
+                    filterUnavailableFilters(dataset, activeFilters)
+                )
                 .then(function (data) {
                     // The .reverse() is needed because the backend (Elastic) stores it's locations in [lon, lat] format
                     return data.object_list.map(marker => marker._source.centroid.reverse());
@@ -101,8 +104,8 @@
             // Filter activeFilters that are not available for this dataset
             Object.keys(activeFilters).forEach(activeFilterKey => {
                 let isAvailable = DATA_SELECTION_CONFIG.datasets[dataset].FILTERS.filter(filter => {
-                        return activeFilterKey === filter.slug;
-                    }).length === 1;
+                    return activeFilterKey === filter.slug;
+                }).length === 1;
 
                 if (!isAvailable) {
                     delete activeAndAvailableFilters[activeFilterKey];

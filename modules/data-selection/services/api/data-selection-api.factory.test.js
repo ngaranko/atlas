@@ -471,4 +471,47 @@ describe('The dataSelectionApi factory', function () {
             ]);
         });
     });
+
+    describe('only FILTERS that belong to a dataset may be part of the API call', function () {
+        it('ignores unavailable filters when using the dataselectie API call', () => {
+            dataSelectionApi.query(
+                'zwembaden',
+                'TABLE',
+                {
+                    water: 'Verwarmd',
+                    fake_filter: 'lalala'
+                },
+                1,
+                'searchText'
+            );
+
+            expect(mockedApiService.query).toHaveBeenCalledWith(
+                mockedConfig.datasets.zwembaden,
+                {
+                    water: 'Verwarmd'
+                    // Note that fake_filter is missing here
+                },
+                1,
+                'searchText'
+            );
+        });
+
+        it('ignores unavailable filters when using the geolocation (puntenwolk) API call', () => {
+            dataSelectionApi.getMarkers(
+                'zwembaden',
+                {
+                    water: 'Verwarmd',
+                    fake_filter: 'woohoo'
+                }
+            );
+
+            expect(api.getByUri).toHaveBeenCalledWith(
+                'zwembaden/markers/',
+                {
+                    water: 'Verwarmd'
+                    // Not that fake_filter isn't part of the api call
+                }
+            );
+        });
+    });
 });
