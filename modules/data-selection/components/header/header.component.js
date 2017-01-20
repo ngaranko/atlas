@@ -32,8 +32,9 @@
             vm.showTabs = vm.state.view === 'LIST';
             vm.showNoResultsFound = vm.numberOfRecords === 0 && !vm.isLoading;
 
-            vm.showMessageMaxPages = angular.isDefined(DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES) &&
+            vm.showMessageMaxPages = DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES &&
                 vm.state.page > DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES;
+
             vm.showMessageClusteredMarkers = vm.state.view === 'LIST' &&
                 !vm.isLoading && vm.numberOfRecords > DATA_SELECTION_CONFIG.options.MAX_NUMBER_OF_CLUSTERED_MARKERS;
 

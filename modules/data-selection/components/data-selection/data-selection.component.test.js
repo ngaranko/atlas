@@ -216,7 +216,7 @@ describe('The dp-data-selection component', function () {
             });
         });
 
-        it('sends an empty Array if there are too many records (> MAX_NUMBER_OF_CLUSTERED_MARKERS) to show', function () {
+        it('sends an empty Array if there are too many records (> MAX_NUMBER_OF_CLUSTERED_MARKERS)', function () {
             mockedState.view = 'LIST';
 
             // It should still send data with 10000 records
