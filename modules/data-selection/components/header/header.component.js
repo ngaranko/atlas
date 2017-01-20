@@ -38,7 +38,8 @@
 
             vm.maxNumberOfClusteredMarkers = DATA_SELECTION_CONFIG.options.MAX_NUMBER_OF_CLUSTERED_MARKERS;
             vm.showMessageClusteredMarkers = vm.state.view === 'LIST' &&
-                !vm.isLoading && vm.numberOfRecords > vm.maxNumberOfClusteredMarkers;
+                !vm.isLoading &&
+                vm.numberOfRecords > vm.maxNumberOfClusteredMarkers;
 
             vm.datasetTitle = DATA_SELECTION_CONFIG.datasets[vm.state.dataset].TITLE;
 

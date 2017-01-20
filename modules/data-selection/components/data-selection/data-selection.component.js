@@ -65,8 +65,11 @@
                     vm.numberOfPages = data.numberOfPages;
 
                     vm.showContent =
-                        angular.isUndefined(DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES) ||
-                        vm.state.page <= DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES;
+                        vm.numberOfRecords &&
+                        (
+                            angular.isUndefined(DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES) ||
+                            vm.state.page <= DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES
+                        );
 
                     vm.isLoading = false;
 
