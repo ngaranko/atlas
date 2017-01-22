@@ -5,9 +5,11 @@
         .module('dpMap')
         .factory('drawTool', drawToolFactory);
 
-    drawToolFactory.$inject = ['$rootScope', '$timeout', 'store', 'ACTIONS', 'L', 'DRAW_TOOL_CONFIG', 'onMapClick'];
+    // TODO Delete store and ACTIONS...
 
-    function drawToolFactory ($rootScope, $timeout, store, ACTIONS, L, DRAW_TOOL_CONFIG, onMapClick) {
+    drawToolFactory.$inject = ['$rootScope', 'store', 'ACTIONS', 'L', 'DRAW_TOOL_CONFIG'];
+
+    function drawToolFactory ($rootScope, store, ACTIONS, L, DRAW_TOOL_CONFIG) {
         let c = console;
 
         const MARKERS_MAX_COUNT = 4;
@@ -31,6 +33,9 @@
             editShapeHandler: null
         };
 
+        let _onFinishPolygon;
+
+        // obsolete...
         store.subscribe(() => {
             if (store.getState().map.drawingMode) {
                 enable();
@@ -40,9 +45,13 @@
         });
 
         return {
-            initialize
+            initialize,
+            isEnabled,
+            enable,
+            disable
         };
 
+        // Raise a rootScope event? onFinish voldoende, $watch function?
         function onDrawingMode (drawingMode) {
             c.log('Drawing mode changed', drawingMode);
             store.dispatch({
@@ -51,14 +60,31 @@
             });
         }
 
+        function getShapeInfo (shape) {
+            return {
+                type: shape.type,
+                markers: angular.copy(shape.markers),
+                markersMaxCount: MARKERS_MAX_COUNT,
+                area: shape.area,
+                areaTxt: shape.areaTxt,
+                distance: shape.distance,
+                distanceTxt: shape.distanceTxt
+            }
+        }
+
         function onFinishPolygon () {
             c.log('Polygon finished', currentShape);
+            if (angular.isFunction(_onFinishPolygon)) {
+                let shapeInfo =
+                _onFinishPolygon(getShapeInfo(currentShape));
+            }
             // store.dispatch({
             //     type: ACTIONS.FETCH....,
             //     payload: polygon.markers
             // });
         }
 
+        // obsolete
         function setDrawingMode (drawingMode) {
             // Called on watch map.drawingMode
             if (drawTool.drawingMode !== drawingMode) {
@@ -77,6 +103,7 @@
             drawTool.drawnItems.addLayer(layer);
             layer.on('click', shapeClickHandler);
             updateShape();
+            onFinishPolygon();
         }
 
         function deletePolygon () {
@@ -137,31 +164,34 @@
             }
         }
 
-        function handleDrawEvent (event, e) {
+        function handleDrawEvent (eventName, e) {
             let handlers = {
                 DRAWSTART: () => setDrawingMode('DRAW'),
-                EDITSTART: () => setDrawingMode('EDIT'),
-                DRAWVERTEX: () => bindLastDrawnMarker(),
-                // EDITVERTEX
+                DRAWVERTEX: bindLastDrawnMarker,
+                DRAWSTOP: finishPolygon,
                 CREATED: () => createPolygon(e.layer),
+                EDITSTART: () => setDrawingMode('EDIT'),
+                // EDITVERTEX
+                EDITSTOP: finishPolygon,
                 // EDITED
-                DRAWSTOP: () => finishPolygon(),
-                EDITSTOP: () => finishPolygon(),
-                DELETED: () => currentShape.layer = null
+                DELETED: () => {
+                    currentShape.layer = null;
+                    onFinishPolygon();
+                }
             };
 
-            let handler = handlers[event];
+            let handler = handlers[eventName];
             if (handler) {
                 handler(e);
             }
         }
 
         function registerDrawEvents () {
-            Object.keys(L.Draw.Event).forEach(event => {
-                drawTool.map.on(L.Draw.Event[event], function (e) {
-                    c.log('Leaflet Event', event);
+            Object.keys(L.Draw.Event).forEach(eventName => {
+                drawTool.map.on(L.Draw.Event[eventName], function (e) {
+                    c.log('Leaflet Event', eventName);
 
-                    handleDrawEvent(event, e);
+                    handleDrawEvent(eventName, e);
 
                     updateShape();
 
@@ -217,15 +247,13 @@
             }
         }
 
-        function initialize (map) {
+        function initialize (map, onFinish) {
             initDrawTool(map);
+            _onFinishPolygon = onFinish;    // callback method to call on finish draw/edit polygon
             registerEvents();
         }
 
         // Shape method for shape.info
-        //
-        // TODO: for two points return line length
-        //
         function getDistance (latLngs, isClosed) {
             return latLngs.reduce((total, latlng, i) => {
                 if (i > 0) {
@@ -233,7 +261,9 @@
                     total += dist;
                 }
                 return total;
-            }, isClosed ? latLngs[0].distanceTo(latLngs[latLngs.length - 1]) : 0);
+            }, isClosed && latLngs.length > 2 ?
+                latLngs[0].distanceTo(latLngs[latLngs.length - 1]) :
+                0);
         }
 
         function updateShape () {
