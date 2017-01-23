@@ -1,4 +1,4 @@
-fdescribe('The dp-data-selection-link component', () => {
+describe('The dp-data-selection-link component', () => {
     let $compile,
         $rootScope,
         store,
@@ -55,7 +55,7 @@ fdescribe('The dp-data-selection-link component', () => {
         const activeFilters = {stadsdeel_naam: 'Noord', buurt_naam: 'Ghetto C'};
         let component = getComponent(activeFilters);
 
-        component.find('.qa-bag-link').click();
+        component.find('dp-link button').click();
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.FETCH_DATA_SELECTION,
             payload: {
@@ -68,7 +68,7 @@ fdescribe('The dp-data-selection-link component', () => {
 
         store.dispatch.calls.reset();
 
-        component.find('.qa-hr-link').click();
+        component.find('dp-link button').click();
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.FETCH_DATA_SELECTION,
             payload: {
