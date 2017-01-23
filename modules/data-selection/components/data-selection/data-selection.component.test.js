@@ -205,15 +205,15 @@ describe('The dp-data-selection component', function () {
             mockedState.view = 'TABLE';
             getComponent(mockedState);
 
-            expect(store.dispatch).toHaveBeenCalledTimes(1);
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.SHOW_DATA_SELECTION,
                 payload: []
             });
 
+            store.dispatch.calls.reset();
+
             mockedState.view = 'CARDS';
             $rootScope.$apply();
-            expect(store.dispatch).toHaveBeenCalledTimes(2);
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.SHOW_DATA_SELECTION,
                 payload: []
