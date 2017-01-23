@@ -31,7 +31,7 @@
                             slug: 'buurt_naam',
                             label: 'Buurt'
                         }, {
-                            slug: '_openbare_ruimte_naam',
+                            slug: 'naam',
                             label: 'Openbare ruimte'
                         }, {
                             slug: 'postcode',
