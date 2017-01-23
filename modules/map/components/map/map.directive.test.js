@@ -10,7 +10,9 @@ describe('The dp-map directive', function () {
         onMapClick,
         mockedMapState,
         mockedLeafletMap,
-        mockedMarkers;
+        mockedMarkers,
+        onFinishShape,
+        onDrawingMode;
 
     beforeEach(function () {
         angular.mock.module(
@@ -45,8 +47,13 @@ describe('The dp-map directive', function () {
                     setZoom: angular.noop
                 },
                 drawTool: {
-                    initialize: angular.noop,
+                    initialize: (map, onFinish, onMode) => {
+                        onFinishShape = onFinish;
+                        onDrawingMode = onMode;
+                    },
                     isEnabled: angular.noop,
+                    enable: angular.noop,
+                    disable: angular.noop,
                     shape: {
                         markers: []
                     }
@@ -115,7 +122,9 @@ describe('The dp-map directive', function () {
         spyOn(panning, 'setOption');
         spyOn(zoom, 'initialize');
         spyOn(zoom, 'setZoom');
-        spyOn(drawTool, 'initialize');
+        spyOn(drawTool, 'initialize').and.callThrough();
+        spyOn(drawTool, 'enable');
+        spyOn(drawTool, 'disable');
         spyOn(onMapClick, 'initialize');
 
         mockedMapState = {
@@ -471,9 +480,33 @@ describe('The dp-map directive', function () {
     });
 
     it('initializes the drawTool factory', function () {
+        onFinishShape = null;
+        onDrawingMode = null;
+        getDirective(mockedMapState, false, mockedMarkers);
+        expect(drawTool.initialize).toHaveBeenCalledWith(mockedLeafletMap,
+            jasmine.any(Function), jasmine.any(Function));
+        expect(onFinishShape).toEqual(jasmine.any(Function));
+        expect(onDrawingMode).toEqual(jasmine.any(Function));
+        onFinishShape({});
+        onDrawingMode();
+    });
+
+    it('watches the drawing mode', function () {
         getDirective(mockedMapState, false, mockedMarkers);
 
-        expect(drawTool.initialize).toHaveBeenCalledWith(mockedLeafletMap, jasmine.any(Function));
+        mockedMapState.drawingMode = 'EDIT';
+        $rootScope.$digest();
+        expect(drawTool.enable).toHaveBeenCalled();
+
+        drawTool.enable.calls.reset();
+
+        mockedMapState.drawingMode = 'DRAW';
+        $rootScope.$digest();
+        expect(drawTool.enable).toHaveBeenCalled();
+
+        mockedMapState.drawingMode = null;
+        $rootScope.$digest();
+        expect(drawTool.disable).toHaveBeenCalled();
     });
 
     it('initializes the onMapClick factory', function () {

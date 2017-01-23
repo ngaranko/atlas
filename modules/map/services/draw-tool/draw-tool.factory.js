@@ -37,7 +37,8 @@
             editShapeHandler: null
         };
 
-        let _onFinishPolygon;
+        let _onFinishPolygon,
+            _onDrawingMode;
 
         return {
             initialize,
@@ -67,9 +68,11 @@
         }
 
         function setDrawingMode (drawingMode) {
-            // Called on watch map.drawingMode
             if (drawTool.drawingMode !== drawingMode) {
-                $rootScope.$applyAsync(() => drawTool.drawingMode = drawingMode);
+                $rootScope.$applyAsync(() => {
+                    drawTool.drawingMode = drawingMode;
+                    _onDrawingMode(drawingMode);
+                });
             }
         }
 
@@ -239,9 +242,10 @@
             }
         }
 
-        function initialize (map, onFinish) {
+        function initialize (map, onFinish, onDrawingMode) {
             initDrawTool(map);
             _onFinishPolygon = onFinish;    // callback method to call on finish draw/edit polygon
+            _onDrawingMode = onDrawingMode; // callback method to call on change of drawing mode
             registerEvents();
             return shapeInfo;
         }
