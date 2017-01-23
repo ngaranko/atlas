@@ -9,6 +9,7 @@
 
     drawToolFactory.$inject = ['$rootScope', 'L', 'DRAW_TOOL_CONFIG'];
 
+    /* istanbul ignore next */
     function drawToolFactory ($rootScope, L, DRAW_TOOL_CONFIG) {
         let c = console;
 

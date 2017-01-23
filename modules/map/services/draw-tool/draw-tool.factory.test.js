@@ -205,9 +205,9 @@ describe('The draw tool factory', () => {
                     drawShapeHandler.enabled.and.returnValue(false);
                 });
                 editShapeHandler.enabled.and.returnValue(false);
-                state.map.drawingMode = drawingMode;
+                // state.map.drawingMode = drawingMode;
 
-                subscriptionHandler();
+                // subscriptionHandler();
 
                 expect(drawShapeHandler.disable).toHaveBeenCalledTimes(1);
                 expect(store.dispatch).toHaveBeenCalledTimes(1);
@@ -232,9 +232,9 @@ describe('The draw tool factory', () => {
                 editShapeHandler.disable.and.callFake(() => {
                     editShapeHandler.enabled.and.returnValue(false);
                 });
-                state.map.drawingMode = drawingMode;
+                // state.map.drawingMode = drawingMode;
 
-                subscriptionHandler();
+                // subscriptionHandler();
 
                 expect(editShapeHandler.disable).toHaveBeenCalledTimes(1);
                 expect(store.dispatch).toHaveBeenCalledTimes(1);
