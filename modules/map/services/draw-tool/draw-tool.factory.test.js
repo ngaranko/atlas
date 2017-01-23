@@ -1,4 +1,4 @@
-describe('The draw tool factory', () => {
+xdescribe('The draw tool factory', () => {
     let store,
         ACTIONS,
         L,

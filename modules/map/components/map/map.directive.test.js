@@ -45,7 +45,11 @@ describe('The dp-map directive', function () {
                     setZoom: angular.noop
                 },
                 drawTool: {
-                    initialize: angular.noop
+                    initialize: angular.noop,
+                    isEnabled: angular.noop,
+                    shape: {
+                        markers: []
+                    }
                 },
                 onMapClick: {
                     initialize: angular.noop
@@ -469,7 +473,7 @@ describe('The dp-map directive', function () {
     it('initializes the drawTool factory', function () {
         getDirective(mockedMapState, false, mockedMarkers);
 
-        expect(drawTool.initialize).toHaveBeenCalledWith(mockedLeafletMap);
+        expect(drawTool.initialize).toHaveBeenCalledWith(mockedLeafletMap, jasmine.any(Function));
     });
 
     it('initializes the onMapClick factory', function () {

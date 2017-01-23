@@ -49,10 +49,14 @@
             scope.$applyAsync(function () {
                 leafletMap = L.map(container, options);
 
+                let onFinishShape = function (polygon) {
+                    // Dispatch fetch data action...
+                };
+
+                drawTool.initialize(leafletMap, onFinishShape);
                 panning.initialize(leafletMap);
                 highlight.initialize();
                 zoom.initialize(leafletMap);
-                drawTool.initialize(leafletMap);
                 onMapClick.initialize(leafletMap);
 
                 scope.leafletMap = leafletMap;
