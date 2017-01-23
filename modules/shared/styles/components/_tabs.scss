@@ -1,3 +1,4 @@
+$tab-height: 30px;
 $tab-border-radius: 2px;
 
 .o-tabs {
@@ -16,14 +17,17 @@ $tab-border-radius: 2px;
   }
 
   ul {
-    display: inline-block;
+    display: block;
     border-left: 1px solid $secondary-gray20;
     border-top-left-radius: $tab-border-radius;
     font-size: 0;
+    overflow: auto;
   }
 
   li {
-    display: inline-block;
+    float: left;
+    display: block;
+    height: $tab-height;
     border-top: 1px solid $secondary-gray20;
     border-right: 1px solid $secondary-gray20;
     border-top-left-radius: $tab-border-radius;
