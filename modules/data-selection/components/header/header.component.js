@@ -19,7 +19,6 @@
 
     function DpDataSelectionHeaderController ($scope, DATA_SELECTION_CONFIG) {
         let vm = this;
-        const IS_LIST_VIEW = vm.state.view === 'LIST';
 
         $scope.$watchGroup([
             'vm.state.dataset',
@@ -29,10 +28,12 @@
         ], setHeader);
 
         function setHeader () {
-            vm.showHeader = IS_LIST_VIEW || !vm.isLoading;
+            let isListView = vm.state.view === 'LIST';
+
+            vm.showHeader = isListView || !vm.isLoading;
             vm.showButtons = vm.state.dataset !== 'catalogus';
-            vm.showTitle = IS_LIST_VIEW || (!vm.isLoading && vm.numberOfRecords);
-            vm.showTabs = IS_LIST_VIEW;
+            vm.showTitle = isListView || (!vm.isLoading && vm.numberOfRecords);
+            vm.showTabs = isListView;
             vm.showNoResultsFound = vm.numberOfRecords === 0 && !vm.isLoading;
             vm.showActiveFilters = !vm.isLoading;
 
@@ -40,7 +41,7 @@
             vm.showMessageMaxPages = vm.maxAvailablePages && vm.state.page > vm.maxAvailablePages;
 
             vm.maxNumberOfClusteredMarkers = DATA_SELECTION_CONFIG.options.MAX_NUMBER_OF_CLUSTERED_MARKERS;
-            vm.showMessageClusteredMarkers = IS_LIST_VIEW &&
+            vm.showMessageClusteredMarkers = isListView &&
                 !vm.isLoading &&
                 vm.numberOfRecords > vm.maxNumberOfClusteredMarkers;
 
