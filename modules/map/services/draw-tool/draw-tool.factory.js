@@ -5,14 +5,10 @@
         .module('dpMap')
         .factory('drawTool', drawToolFactory);
 
-    // TODO Delete store and ACTIONS...
-
     drawToolFactory.$inject = ['$rootScope', 'L', 'DRAW_TOOL_CONFIG'];
 
     /* istanbul ignore next */
     function drawToolFactory ($rootScope, L, DRAW_TOOL_CONFIG) {
-        let c = console;
-
         const MARKERS_MAX_COUNT = 4;
 
         let currentShape = {
@@ -58,7 +54,6 @@
 
         function onFinishPolygon () {
             updateShape();
-            c.log('onFinishPolygon', currentShape);
             if (angular.isFunction(_onFinishPolygon)) {
                 $rootScope.$applyAsync(() => _onFinishPolygon(shapeInfo));
             }
@@ -189,8 +184,6 @@
         function registerDrawEvents () {
             Object.keys(L.Draw.Event).forEach(eventName => {
                 drawTool.map.on(L.Draw.Event[eventName], function (e) {
-                    c.log('Leaflet Event', eventName);
-
                     handleDrawEvent(eventName, e);
 
                     updateShape();
@@ -207,7 +200,6 @@
         function registerOtherEvents () {
             // Click outside shape => delete shape
             drawTool.map.on('click', function () {
-                // c.log('Click event', drawTool.drawingMode);
                 // Not in draw mode: new marker add!!
                 if (!(drawTool.drawingMode === 'DRAW' || currentShape.layer === null)) {
                     deletePolygon();
