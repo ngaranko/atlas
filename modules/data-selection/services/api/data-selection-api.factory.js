@@ -92,8 +92,9 @@
                     filterUnavailableFilters(dataset, activeFilters)
                 )
                 .then(function (data) {
-                    // The .reverse() is needed because the backend (Elastic) stores it's locations in [lon, lat] format
-                    return data.object_list.map(marker => marker._source.centroid.reverse());
+                    return data.object_list
+                        .map(object => object._source.centroid)
+                        .map(([lon, lat]) => [lat, lon]);
                 });
         }
 
