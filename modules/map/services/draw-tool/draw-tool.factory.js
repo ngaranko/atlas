@@ -154,10 +154,21 @@
             }
         }
 
+        function autoClose () {
+            if (drawTool.drawShapeHandler._markers.length === currentShape.markersMaxCount) {
+                $rootScope.$applyAsync(() => {
+                    disable();
+                });
+            }
+        }
+
         function handleDrawEvent (eventName, e) {
             let handlers = {
                 DRAWSTART: () => setDrawingMode('DRAW'),
-                DRAWVERTEX: bindLastDrawnMarker,
+                DRAWVERTEX: () => {
+                    autoClose();
+                    bindLastDrawnMarker();
+                },
                 DRAWSTOP: finishPolygon,
                 CREATED: () => createPolygon(e.layer),
                 EDITSTART: () => setDrawingMode('EDIT'),
@@ -312,8 +323,9 @@
         // bind last marker in DRAW mode to deleteMarker
         function bindLastDrawnMarker () {
             let lastMarker = getLastDrawnMarker();
+            let isFirstMarker = drawTool.drawShapeHandler._markers.length === 1;
             ['mousedown', 'click'].forEach(key => lastMarker.on(key, () => {
-                if (drawTool.drawShapeHandler.enabled() && drawTool.drawShapeHandler._markers.length === 2) {
+                if (drawTool.drawShapeHandler.enabled() && isFirstMarker) {
                     disable();
                 } else {
                     deleteMarker(lastMarker);
