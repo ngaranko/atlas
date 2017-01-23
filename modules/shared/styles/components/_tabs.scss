@@ -20,19 +20,17 @@ $tab-border-radius: 2px;
     display: block;
     border-left: 1px solid $secondary-gray20;
     border-top-left-radius: $tab-border-radius;
-    font-size: 0;
-    overflow: auto;
+    overflow: hidden;
   }
 
   li {
-    float: left;
     display: block;
     height: $tab-height;
+    float: left;
     border-top: 1px solid $secondary-gray20;
     border-right: 1px solid $secondary-gray20;
     border-top-left-radius: $tab-border-radius;
     border-top-right-radius: $tab-border-radius;
-    font-size: $base-font-size;
 
     &:not(.is-active) {
       background-image: linear-gradient(to bottom, $primary-light, $secondary-gray10);
@@ -60,9 +58,12 @@ $tab-border-radius: 2px;
   }
 }
 
-.o-tabs__link {
+.o-tabs__tab {
   display: block;
   padding: ($base-whitespace / 2) (2 * $base-whitespace);
+}
+
+.o-tabs__tab--link {
   color: $primary-dark;
   text-decoration: none;
 }

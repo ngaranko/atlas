@@ -407,13 +407,12 @@ describe('The dp-data-selection-header', () => {
             expect(component.find('.qa-tabs li:nth-child(2)').text().trim()).toBe('HR Vestigingen');
         });
 
-        it('are links to the first page of other datasets', () => {
+        it('inactive tabs are links to the first page of other datasets', () => {
+            mockedInputList.state.dataset = 'hr';
             mockedInputList.state.page = 123;
             component = getComponent(mockedInputList);
-            expect(store.dispatch).not.toHaveBeenCalled();
 
-            component.find('.qa-tabs li:nth-child(1) dp-link .o-tabs__link').click();
-            expect(store.dispatch).toHaveBeenCalledTimes(1);
+            component.find('.qa-tabs li:nth-child(1) dp-link .o-tabs__tab--link').click();
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.FETCH_DATA_SELECTION,
                 payload: jasmine.objectContaining({
@@ -422,17 +421,16 @@ describe('The dp-data-selection-header', () => {
                     page: 1
                 })
             });
+        });
 
-            component.find('.qa-tabs li:nth-child(2) dp-link .o-tabs__link').click();
-            expect(store.dispatch).toHaveBeenCalledTimes(2);
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DATA_SELECTION,
-                payload: jasmine.objectContaining({
-                    dataset: 'hr',
-                    view: 'LIST',
-                    page: 1
-                })
-            });
+        it('active tabs are just text (instead of a link)', () => {
+            mockedInputList.state.dataset = 'hr';
+            mockedInputList.state.page = 123;
+            component = getComponent(mockedInputList);
+            expect(store.dispatch).not.toHaveBeenCalled();
+
+            expect(component.find('.qa-tabs li:nth-child(2) dp-link .o-tabs__tab--text').length).toBe(0);
+            expect(component.find('.qa-tabs li:nth-child(2) .o-tabs__tab--active').length).toBe(1);
         });
 
         it('shows the number of results in the tab heading for the active dataset', () => {
