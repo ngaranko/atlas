@@ -441,13 +441,12 @@ describe('The dataSelectionApi factory', function () {
             dataSelectionApi.getMarkers('zwembaden', {});
             $rootScope.$apply();
 
-            expect(api.getByUri).toHaveBeenCalledTimes(1);
             expect(api.getByUri).toHaveBeenCalledWith('zwembaden/markers/', {});
 
             // With filters
+            api.getByUri.calls.reset();
             dataSelectionApi.getMarkers('zwembaden', {water: 'Verwarmd'});
 
-            expect(api.getByUri).toHaveBeenCalledTimes(2);
             expect(api.getByUri).toHaveBeenCalledWith(
                 'zwembaden/markers/',
                 {
