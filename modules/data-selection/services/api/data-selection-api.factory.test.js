@@ -189,12 +189,14 @@ describe('The dataSelectionApi factory', function () {
             expect(mockedApiService.query).toHaveBeenCalledWith(mockedConfig.datasets.zwembaden, {}, 1, undefined);
 
             // With active filters
+            mockedApiService.query.calls.reset();
             dataSelectionApi.query('zwembaden', 'TABLE', {water: 'Verwarmd'}, 1, 'searchText');
             expect(mockedApiService.query).toHaveBeenCalledWith(mockedConfig.datasets.zwembaden, {
                 water: 'Verwarmd'
             }, 1, 'searchText');
 
             // With another page
+            mockedApiService.query.calls.reset();
             dataSelectionApi.query('zwembaden', 'TABLE', {water: 'Verwarmd'}, 2);
             expect(mockedApiService.query).toHaveBeenCalledWith(mockedConfig.datasets.zwembaden, {
                 water: 'Verwarmd'
@@ -227,6 +229,8 @@ describe('The dataSelectionApi factory', function () {
                 }
             ];
             mockedApiPreviewResponse.data[0].huisnummer = [1, 2];
+
+            mockedApiService.query.calls.reset();
             dataSelectionApi.query('zwembaden', 'CARDS', {}, 1).then(function (_output_) {
                 output = _output_;
             });
@@ -239,6 +243,8 @@ describe('The dataSelectionApi factory', function () {
                 }
             ];
             mockedApiPreviewResponse.data[0].huisnummer = [1, 2];
+
+            mockedApiService.query.calls.reset();
             dataSelectionApi.query('zwembaden', 'CARDS', {}, 1).then(function (_output_) {
                 output = _output_;
             });
