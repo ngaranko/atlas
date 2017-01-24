@@ -15,8 +15,9 @@
         let vm = this;
 
         // Follow enable/disable status of the drawing tool
-        vm.isEnabled = drawTool.isEnabled();
-        $scope.$watch(() => drawTool.isEnabled(), () => vm.isEnabled = drawTool.isEnabled());
+        vm.isEnabled = drawTool.isEnabled;
+
+        vm.shape = drawTool.shape;
 
         vm.toggle = () => {
             return drawTool.isEnabled() ? drawTool.disable() : drawTool.enable();
