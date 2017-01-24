@@ -160,7 +160,7 @@
                     name: 'dataSelection.filters',
                     type: 'keyvalues'
                 },
-                dssf: {
+                dsgf: {
                     name: 'dataSelection.geometryFilter',
                     type: 'base62[][]',
                     precision: 7
