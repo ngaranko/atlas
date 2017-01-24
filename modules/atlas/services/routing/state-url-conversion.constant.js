@@ -162,7 +162,8 @@
                 },
                 dssf: {
                     name: 'dataSelection.geometryFilter',
-                    type: 'base62[][]'
+                    type: 'base62[][]',
+                    precision: 7
                 },
                 dsp: {
                     name: 'dataSelection.page',

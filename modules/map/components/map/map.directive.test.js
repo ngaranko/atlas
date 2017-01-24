@@ -540,6 +540,7 @@ describe('The dp-map directive', function () {
         $rootScope.$digest();
         expect(drawTool.disable).toHaveBeenCalled();
     });
+
     it('initializes the onMapClick factory', function () {
         getDirective(mockedMapState, false, mockedMarkers);
 
