@@ -65,7 +65,10 @@ describe('The dp-data-selection-header', () => {
         mockedInputTable = {
             state: {
                 dataset: 'bag',
-                view: 'TABLE'
+                view: 'TABLE',
+                filters: {
+                    fake_filter: 'abc'
+                }
             },
             numberOfRecords: null,
             isLoading: true
@@ -74,7 +77,10 @@ describe('The dp-data-selection-header', () => {
         mockedInputList = {
             state: {
                 dataset: 'hr',
-                view: 'LIST'
+                view: 'LIST',
+                filters: {
+                    fake_filter: 'abc'
+                }
             },
             numberOfRecords: null,
             isLoading: true
@@ -84,6 +90,9 @@ describe('The dp-data-selection-header', () => {
             state: {
                 dataset: 'catalogus',
                 view: 'CARDS',
+                filters: {
+                    fake_filter: 'abc'
+                },
                 page: 1
             },
             numberOfRecords: null,
@@ -367,13 +376,14 @@ describe('The dp-data-selection-header', () => {
         });
     });
 
-    it('the active filters are only shown when the loading is finished', () => {
+    it('the active filters are only shown when the loading is finished and at least one filter is active', () => {
         let mockedInput = {
             TABLE: mockedInputTable,
             LIST: mockedInputList,
             CARDS: mockedInputCards
         };
 
+        // With one active filter
         ['TABLE', 'LIST', 'CARDS'].forEach(viewName => {
             // When loading
             mockedInput[viewName].isLoading = true;
@@ -384,6 +394,18 @@ describe('The dp-data-selection-header', () => {
             mockedInput[viewName].isLoading = false;
             component = getComponent(mockedInput[viewName]);
             expect(component.find('.qa-active-filters').length).toBe(1);
+        });
+
+        // Without any active filter
+        mockedInput.TABLE.state.filters = {};
+        mockedInput.LIST.state.filters = {};
+        mockedInput.CARDS.state.filters = {};
+
+        ['TABLE', 'LIST', 'CARDS'].forEach(viewName => {
+            // When loading is finished
+            mockedInput[viewName].isLoading = false;
+            component = getComponent(mockedInput[viewName]);
+            expect(component.find('.qa-active-filters').length).toBe(0);
         });
     });
 
