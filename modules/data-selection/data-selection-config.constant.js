@@ -184,6 +184,12 @@
                     TITLE: 'Vestigingen',
                     FILTERS: [
                         {
+                            slug: 'hoofdcategorie',
+                            label: 'Hoofdcategorie'
+                        }, {
+                            slug: 'subcategorie',
+                            label: 'Subcategorie'
+                        }, {
                             slug: 'stadsdeel_naam',
                             label: 'Stadsdeel'
                         }, {
@@ -201,12 +207,6 @@
                         }, {
                             slug: 'postcode',
                             label: 'Postcode'
-                        }, {
-                            slug: 'hoofdcategorie',
-                            label: 'Hoofdcategorie'
-                        }, {
-                            slug: 'subcategorie',
-                            label: 'Subcategorie'
                         }
                     ],
                     CONTENT: {
