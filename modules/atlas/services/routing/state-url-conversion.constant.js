@@ -113,7 +113,8 @@
                     overlays: [],
                     isFullscreen: false,
                     isLoading: false,
-                    showActiveOverlays: false
+                    showActiveOverlays: false,
+                    drawingMode: null
                 },
                 page: {
                     name: null  // eg: 'home'

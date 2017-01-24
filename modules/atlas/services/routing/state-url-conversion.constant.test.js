@@ -31,7 +31,8 @@ describe('The state url conversion definition', function () {
                     overlays: [],
                     isFullscreen: false,
                     isLoading: false,
-                    showActiveOverlays: false
+                    showActiveOverlays: false,
+                    drawingMode: null
                 }
             });
 
