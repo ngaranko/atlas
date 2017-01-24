@@ -60,7 +60,7 @@ $tab-border-radius: 2px;
 
 .o-tabs__tab {
   display: block;
-  padding: ($base-whitespace / 2) (2 * $base-whitespace);
+  padding: ($base-whitespace / 2) $base-whitespace;
 }
 
 .o-tabs__tab--link {
