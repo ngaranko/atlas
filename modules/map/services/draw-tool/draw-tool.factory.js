@@ -6,10 +6,10 @@
         .factory('drawTool', drawToolFactory);
 
     drawToolFactory.$inject = ['store', 'ACTIONS', 'L', 'DRAW_TOOL_CONFIG',
-        'onMapClick'
+        'onMapClick', '$rootScope'
     ];
 
-    function drawToolFactory (store, ACTIONS, L, DRAW_TOOL_CONFIG, onMapClick) {
+    function drawToolFactory (store, ACTIONS, L, DRAW_TOOL_CONFIG, onMapClick, $rootScope) {
         let leafletMap,
             drawnItems,
             drawShapeHandler,
@@ -57,29 +57,32 @@
                 bindLastMarker();
             });
             leafletMap.on(L.Draw.Event.CREATED, function (e) {
-                var type = e.layerType,
-                    layer = e.layer;
+                $rootScope.$apply(function () {
+                    var type = e.layerType,
+                        layer = e.layer;
 
-                if (type === 'polygon') {
-                    let flatCoordinates = layer.getLatLngs ()[0]
-                        .map(({
-                            lat, lng
-                        }) => [lat, lng]);
+                    if (type === 'polygon') {
+                        let flatCoordinates = layer.getLatLngs ()[0]
+                            .map(({
+                                lat, lng
+                            }) => [lng, lat]); // REVERSE LAT LNG BECAUSE ELASTIC
 
-                    store.dispatch({
-                        type: ACTIONS.FETCH_DATA_SELECTION,
-                        payload: {
-                            dataset: 'bag',
-                            filters: 'shape',
-                            shape: flatCoordinates,
-                            page: 1
-                        }
-                    });
-
-                    currentLayer = layer;
-                    drawnItems.addLayer(layer);
-                    layer.on('click', shapeClickHandler);
-                }
+                        currentLayer = layer;
+                        drawnItems.addLayer(layer);
+                        layer.on('click', shapeClickHandler);
+                        
+                        store.dispatch({
+                            type: ACTIONS.FETCH_DATA_SELECTION,
+                            payload: {
+                                dataset: 'bag',
+                                filters: {},
+                                geometryFilters: flatCoordinates,
+                                view: 'LIST',
+                                page: 1
+                            }
+                        });
+                    }
+                });
             });
         }
 

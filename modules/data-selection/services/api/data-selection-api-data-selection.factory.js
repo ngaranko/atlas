@@ -10,9 +10,11 @@
             query: query
         };
 
-        function query (config, activeFilters, page) {
+        function query (config, activeFilters, page, search, geometryFilter) {
             let searchParams,
                 searchPage = page;
+
+            let shape = (angular.isDefined(geometryFilter)) ? geometryFilter : [];
 
             // Making sure to not request pages higher then max allowed.
             // If that is the case requesting for page 1, to obtain filters.
@@ -20,12 +22,16 @@
             if (page > config.MAX_AVAILABLE_PAGES) {
                 searchPage = 1;
             }
+
             searchParams = angular.merge(
                 {
-                    page: searchPage
+                    page: searchPage,
+                    shape: angular.toJson(shape)
                 },
                 activeFilters
             );
+
+            console.log('SEARCHPARAMS', searchParams);
 
             return api.getByUri(config.ENDPOINT_PREVIEW, searchParams)
                 .then(function (data) {

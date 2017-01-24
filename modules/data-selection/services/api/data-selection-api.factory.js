@@ -11,11 +11,10 @@
             getMarkers: getMarkers
         };
 
-        function query (dataset, view, activeFilters, page, searchText) {
+        function query (dataset, view, activeFilters, page, searchText, geometryFilters) {
             const customApi = DATA_SELECTION_CONFIG[dataset].CUSTOM_API,
                 apiService = $injector.get(customApi);
-
-            return apiService.query(DATA_SELECTION_CONFIG[dataset], activeFilters, page, searchText)
+            return apiService.query(DATA_SELECTION_CONFIG[dataset], activeFilters, page, searchText, geometryFilters)
                 .then(function (data) {
                     return {
                         numberOfPages: data.numberOfPages,
@@ -82,6 +81,7 @@
         }
 
         function getMarkers (dataset, activeFilters) {
+            console.log('activeFilters', activeFilters);
             return api.getByUrl(DATA_SELECTION_CONFIG[dataset].ENDPOINT_MARKERS, activeFilters).then(function (data) {
                 // The .reverse() is needed because the backend (Elastic) stores it's locations in [lon, lat] format
                 return data.object_list.map(marker => marker._source.centroid.reverse());

@@ -54,6 +54,7 @@
             },
             bag: {
                 ENDPOINT_PREVIEW: 'dataselectie/bag/',
+                ENDPOINT_GEOFILTER_PREVIEW: 'dataselectie/bag/geolocation/',
                 ENDPOINT_MARKERS: 'https://api.datapunt.amsterdam.nl/dataselectie/bag/geolocation/',
                 ENDPOINT_EXPORT: 'https://api.datapunt.amsterdam.nl/dataselectie/bag/export/',
                 ENDPOINT_DETAIL: 'https://api.datapunt.amsterdam.nl/bag/nummeraanduiding/',

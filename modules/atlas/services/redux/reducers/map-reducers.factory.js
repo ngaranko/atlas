@@ -176,7 +176,7 @@
             var newState = angular.copy(oldState);
 
             newState.map.pointsDrawn = payload;
-            console.log('in reducer', payload);
+
             return newState;
         }
         function showActiveOverlaysReducer (oldState) {
