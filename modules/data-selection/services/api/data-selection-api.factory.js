@@ -11,10 +11,10 @@
             getMarkers: getMarkers
         };
 
-        function query (dataset, view, activeFilters, page, searchText, geometryFilters) {
+        function query (dataset, view, activeFilters, page, searchText, geometryFilter) {
             const customApi = DATA_SELECTION_CONFIG[dataset].CUSTOM_API,
                 apiService = $injector.get(customApi);
-            return apiService.query(DATA_SELECTION_CONFIG[dataset], activeFilters, page, searchText, geometryFilters)
+            return apiService.query(DATA_SELECTION_CONFIG[dataset], activeFilters, page, searchText, geometryFilter)
                 .then(function (data) {
                     return {
                         numberOfPages: data.numberOfPages,

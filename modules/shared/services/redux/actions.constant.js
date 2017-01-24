@@ -75,11 +75,11 @@
                 isButton: true
             },
             MAP_START_DRAWING: {
-                id: 'MAP_SET_DRAWING_MODE',
+                id: 'MAP_START_DRAWING_MODE',
                 isButton: true
             },
             MAP_END_DRAWING: {
-                id: 'MAP_SET_DRAWING_MODE',
+                id: 'MAP_END_DRAWING_MODE',
                 isButton: true
             },
             SHOW_MAP_ACTIVE_OVERLAYS: {

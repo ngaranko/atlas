@@ -37,21 +37,13 @@
                 vm.state.dataset,
                 vm.state.view,
                 vm.state.filters,
-                vm.state.geometryFilters,
+                vm.state.geometryFilter,
                 vm.state.page,
                 vm.state.query
             ];
         }, fetchData, true);
 
-        $scope.$watch(function () {
-            // Watching all state variables except markers and isLoading
-            return [
-                vm.state.geometryFilters,
-            ];
-        }, function() { console.log('x', vm.state ); }, true);
-
         function fetchData () {
-            console.log('fetchData');
             vm.isLoading = true;
             vm.title = DATA_SELECTION_CONFIG[vm.state.dataset].TITLE;
             vm.view = vm.state.view;
@@ -66,7 +58,7 @@
                 vm.state.filters,
                 vm.currentPage,
                 vm.state.query,
-                vm.state.geometryFilters).then(data => {
+                vm.state.geometryFilter).then(data => {
                     vm.availableFilters = data.filters;
                     vm.data = data.data;
                     vm.numberOfRecords = data.numberOfRecords;
@@ -74,8 +66,8 @@
 
                     vm.hasTooManyMarkers = vm.view === 'LIST' && vm.numberOfRecords > MAXIMUM_NUMBER_OF_MARKERS;
                     vm.isLoading = false;
-                    let filterToUse = (angular.isDefined(vm.state.geometryFilters))
-                        ? vm.state.geometryFilters : vm.state.filters;
+                    let filterToUse = (angular.isDefined(vm.state.geometryFilter))
+                        ? vm.state.geometryFilter : vm.state.filters;
 
                     if (vm.view === 'LIST' && vm.numberOfRecords <= MAXIMUM_NUMBER_OF_MARKERS) {
                         dataSelectionApi.getMarkers(vm.state.dataset, filterToUse).then(markerData => {
