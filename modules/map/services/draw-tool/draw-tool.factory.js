@@ -148,39 +148,41 @@
             if (currentShape.markers.length > currentShape.markersMaxCount || currentShape.intersects) {
                 currentShape.isConsistent = false;  // undo actions should remain private
                 let markersPrev = angular.copy(currentShape.markersPrev);   // restore previous state
-                $rootScope.$applyAsync(() => {
-                    if (drawTool.drawingMode === 'DRAW') {
-                        deleteMarker(getLastDrawnMarker()); // simply delete last marker
+                if (drawTool.drawingMode === 'DRAW') {
+                    deleteMarker(getLastDrawnMarker()); // simply delete last marker
+                    currentShape.isConsistent = true;
+                } else {
+                    deletePolygon();    // delete current polygon
+                    $rootScope.$applyAsync(() => {
+                        setPolygon(markersPrev);    // restore previous polygon
                         currentShape.isConsistent = true;
-                    } else {
-                        deletePolygon();    // delete current polygon
-                        $rootScope.$applyAsync(() => {
-                            setPolygon(markersPrev);    // restore previous polygon
-                            currentShape.isConsistent = true;
-                            updateShape();
-                        });
-                    }
-                });
+                        updateShape();
+                    });
+                }
+            } else {
+                // check for auto close of shape in drawing mode
+                autoClose();
             }
         }
 
         // Auto close polygon when in drawing mode and max markers has been reached
         function autoClose () {
-            if (drawTool.drawShapeHandler._markers.length === currentShape.markersMaxCount) {
+            let doClose = drawTool.drawingMode === 'DRAW' &&
+                currentShape.markers.length === currentShape.markersMaxCount;
+
+            if (doClose) {
                 $rootScope.$applyAsync(() => {
                     disable();
                 });
             }
+            return doClose;
         }
 
         // handle any leaflet.draw event
         function handleDrawEvent (eventName, e) {
             let handlers = {
                 DRAWSTART: () => setDrawingMode('DRAW'),
-                DRAWVERTEX: () => {
-                    bindLastDrawnMarker();
-                    autoClose();
-                },
+                DRAWVERTEX: bindLastDrawnMarker,
                 DRAWSTOP: finishPolygon,
                 CREATED: () => createPolygon(e.layer),
                 EDITSTART: () => setDrawingMode('EDIT'),
@@ -203,11 +205,13 @@
 
                     updateShape();
 
-                    enforceLimits();
+                    $rootScope.$applyAsync(() => {
+                        enforceLimits();
 
-                    if (currentShape.isConsistent) {
-                        onChangePolygon();  // trigger change
-                    }
+                        if (currentShape.isConsistent) {
+                            onChangePolygon();  // trigger change
+                        }
+                    });
                 });
             });
         }
@@ -354,7 +358,9 @@
             let isFirstMarker = drawTool.drawShapeHandler._markers.length === 1;
             ['mousedown', 'click'].forEach(key => lastMarker.on(key, () => {
                 if (drawTool.drawShapeHandler.enabled() && isFirstMarker) {
-                    disable();
+                    if (currentShape.markers.length > 1) {
+                        disable();  // Includes auto close
+                    }
                 } else {
                     deleteMarker(lastMarker);
                 }

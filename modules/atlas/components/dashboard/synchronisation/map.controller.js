@@ -22,6 +22,11 @@
                 clustered: []
             };
 
+            // polygon = geometryfilter of dataselection
+            vm.polygon = {
+                markers: []
+            };
+
             if (state.search && state.search.location) {
                 vm.markers.regular.push({
                     id: 'search',
@@ -55,6 +60,7 @@
 
             if (angular.isObject(state.dataSelection)) {
                 vm.markers.clustered = state.dataSelection.markers;
+                vm.polygon.markers = state.dataSelection.geometryFilter || [];
             } else {
                 vm.markers.clustered = [];
             }
