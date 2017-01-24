@@ -72,7 +72,6 @@
             },
             MAP_SET_DRAWING_MODE: {
                 id: 'MAP_SET_DRAWING_MODE',
-                ignore: true,
                 isButton: true
             },
             SHOW_MAP_ACTIVE_OVERLAYS: {

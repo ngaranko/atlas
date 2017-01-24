@@ -4,6 +4,8 @@
         .directive('dpMap', dpMapDirective);
 
     dpMapDirective.$inject = [
+        'store',
+        'ACTIONS',
         'L',
         'mapConfig',
         'layers',
@@ -14,7 +16,7 @@
         'onMapClick'
     ];
 
-    function dpMapDirective (L, mapConfig, layers, highlight, panning, zoom, drawTool, onMapClick) {
+    function dpMapDirective (store, ACTIONS, L, mapConfig, layers, highlight, panning, zoom, drawTool, onMapClick) {
         return {
             restrict: 'E',
             scope: {
@@ -49,10 +51,32 @@
             scope.$applyAsync(function () {
                 leafletMap = L.map(container, options);
 
+                let onFinishShape = function (polygon) {
+                    // Dispatch fetch data action...
+                    if (polygon.markers.length > 2) {
+                        store.dispatch({
+                            type: ACTIONS.FETCH_DATA_SELECTION,
+                            payload: {
+                                geometryFilter: polygon.markers,
+                                filters: {},
+                                dataset: 'bag',
+                                page: 1
+                            }
+                        });
+                    }
+                };
+
+                let onDrawingMode = function (drawingMode) {
+                    store.dispatch({
+                        type: ACTIONS.MAP_SET_DRAWING_MODE,
+                        payload: drawingMode
+                    });
+                };
+
+                drawTool.initialize(leafletMap, onFinishShape, onDrawingMode);
                 panning.initialize(leafletMap);
                 highlight.initialize();
                 zoom.initialize(leafletMap);
-                drawTool.initialize(leafletMap);
                 onMapClick.initialize(leafletMap);
 
                 scope.leafletMap = leafletMap;
@@ -67,6 +91,14 @@
 
                 scope.$watch('mapState.baseLayer', function (baseLayer) {
                     layers.setBaseLayer(leafletMap, baseLayer);
+                });
+
+                scope.$watch('mapState.drawingMode', function (drawingMode) {
+                    if (drawingMode) {
+                        drawTool.enable();
+                    } else {
+                        drawTool.disable();
+                    }
                 });
 
                 scope.$watch('mapState.overlays', function (newOverlays, oldOverlays) {
