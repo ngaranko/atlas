@@ -31,7 +31,7 @@
             userSettings.showCatalogusIntroduction.value = vm.showCatalogusIntroduction.toString();
         });
 
-        $scope.$watch(function (x) {
+        $scope.$watch(function () {
             // Watching all state variables except markers and isLoading
             return [
                 vm.state.dataset,
@@ -43,7 +43,15 @@
             ];
         }, fetchData, true);
 
+        $scope.$watch(function () {
+            // Watching all state variables except markers and isLoading
+            return [
+                vm.state.geometryFilters,
+            ];
+        }, function() { console.log('x', vm.state ); }, true);
+
         function fetchData () {
+            console.log('fetchData');
             vm.isLoading = true;
             vm.title = DATA_SELECTION_CONFIG[vm.state.dataset].TITLE;
             vm.view = vm.state.view;
@@ -61,7 +69,6 @@
                 vm.state.geometryFilters).then(data => {
                     vm.availableFilters = data.filters;
                     vm.data = data.data;
-
                     vm.numberOfRecords = data.numberOfRecords;
                     vm.numberOfPages = data.numberOfPages;
 
