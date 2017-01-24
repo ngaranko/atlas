@@ -1,9 +1,10 @@
 describe('The dp-toggle-drawing-tool component', function () {
     var $compile,
         $rootScope,
-        store,
-        ACTIONS,
-        component;
+        component,
+        drawTool;
+
+    const MAXCOUNT = 5;
 
     beforeEach(function () {
         angular.mock.module(
@@ -11,31 +12,36 @@ describe('The dp-toggle-drawing-tool component', function () {
             {
                 store: {
                     dispatch: function () {}
+                },
+                drawTool: {
+                    isEnabled: angular.noop,
+                    enable: function () {},
+                    disable: function () {},
+                    shape: {
+                        markers: [],
+                        markersMaxCount: MAXCOUNT
+                    }
                 }
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _ACTIONS_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _drawTool_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
-            store = _store_;
-            ACTIONS = _ACTIONS_;
+            drawTool = _drawTool_;
         });
 
-        spyOn(store, 'dispatch');
+        spyOn(drawTool, 'enable');
+        spyOn(drawTool, 'disable');
     });
 
-    function getComponent (isActive) {
+    function getComponent () {
         var result,
             element,
             scope;
 
         element = document.createElement('dp-toggle-drawing-tool');
-        element.setAttribute('enabled', 'isActive');
-
         scope = $rootScope.$new();
-        scope.isActive = isActive;
-
         result = $compile(element)(scope);
         scope.$apply();
 
@@ -44,7 +50,8 @@ describe('The dp-toggle-drawing-tool component', function () {
 
     describe('when inactive', function () {
         beforeEach(function () {
-            component = getComponent(false);
+            spyOn(drawTool, 'isEnabled').and.returnValue(false);
+            component = getComponent();
         });
 
         it('shows the button in default state', function () {
@@ -53,18 +60,15 @@ describe('The dp-toggle-drawing-tool component', function () {
             expect(component.find('button span').attr('class')).toContain('ng-hide');
         });
 
-        it('triggers the MAP_DRAWING_MODE action w/ payload=true when clicking the button', function () {
+        it('enables drwa/edit mode when clicking the button', function () {
             component.find('button').click();
-
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.MAP_SET_DRAWING_MODE,
-                payload: true
-            });
+            expect(drawTool.enable).toHaveBeenCalled();
         });
     });
 
     describe('when active', function () {
         beforeEach(function () {
+            drawTool.isEnabled = () => true;
             component = getComponent(true);
         });
 
@@ -74,13 +78,9 @@ describe('The dp-toggle-drawing-tool component', function () {
             expect(component.find('button span').attr('class')).not.toContain('ng-hide');
         });
 
-        it('triggers the MAP_DRAWING_MODE action w/ payload=false when clicking the button', function () {
+        it('disables drwa/edit mode when clicking the button', function () {
             component.find('button').click();
-
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.MAP_SET_DRAWING_MODE,
-                payload: false
-            });
+            expect(drawTool.disable).toHaveBeenCalled();
         });
     });
 });

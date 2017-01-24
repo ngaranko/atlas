@@ -5,198 +5,360 @@
         .module('dpMap')
         .factory('drawTool', drawToolFactory);
 
-    drawToolFactory.$inject = ['store', 'ACTIONS', 'L', 'DRAW_TOOL_CONFIG', 'onMapClick'];
+    drawToolFactory.$inject = ['$rootScope', 'L', 'DRAW_TOOL_CONFIG'];
 
-    function drawToolFactory (store, ACTIONS, L, DRAW_TOOL_CONFIG, onMapClick) {
-        let leafletMap,
-            drawnItems,
-            drawShapeHandler,
-            editShapeHandler,
-            firstMarker,
-            lastMarker,
-            currentLayer;
+    /* istanbul ignore next */
+    function drawToolFactory ($rootScope, L, DRAW_TOOL_CONFIG) {
+        const MARKERS_MAX_COUNT = 4;
 
-        return {
-            initialize
+        // holds all information about the state of the shape being created or edited
+        let currentShape = {
+            isConsistent: true,
+            type: null,
+            layer: null,
+            markers: [],
+            markersPrev: [],
+            markersMaxCount: MARKERS_MAX_COUNT,
+            area: 0,
+            areaTxt: '',
+            distance: 0,
+            distanceTxt: ''
         };
 
-        function initialize (map) {
-            let editConfig = angular.copy(DRAW_TOOL_CONFIG.edit),
+        // holds all publicly available information about the last consistent state of the current shape
+        let shapeInfo = {};
+        updateShapeInfo(currentShape);  // initialise to initial current shape
+
+        // holds all information of the leaflet.draw drawing and editing structures
+        let drawTool = {
+            drawingMode: null,
+            drawnItems: null,
+            drawShapeHandler: null,
+            editShapeHandler: null
+        };
+
+        // these callback methods will be called on a finished polygon and on a change of drawing mode
+        let _onFinishPolygon,
+            _onDrawingMode;
+
+        return {
+            initialize,
+            isEnabled,
+            enable,
+            disable,
+            setPolygon,
+            shape: shapeInfo
+        };
+
+        // initialise factory; initialise draw tool, register callback methods and register events
+        function initialize (map, onFinish, onDrawingMode) {
+            initDrawTool(map);
+            _onFinishPolygon = onFinish;    // callback method to call on finish draw/edit polygon
+            _onDrawingMode = onDrawingMode; // callback method to call on change of drawing mode
+
+            registerDrawEvents();
+            registerMapEvents();
+        }
+
+        // triggered when a polygon has finished drawing or editing
+        function onFinishPolygon () {
+            if (angular.isFunction(_onFinishPolygon)) {
+                // call any registered callback function, applyAsync because triggered by a leaflet event
+                $rootScope.$applyAsync(() => _onFinishPolygon(shapeInfo));
+            }
+        }
+
+        // triggered when a polygon has changed to a new valid state
+        function onChangePolygon () {
+            // update the publicly available shape info, applyAsync because triggered by a leaflet event
+            $rootScope.$applyAsync(() => updateShapeInfo());
+        }
+
+        // triggered when the drawing mode has changed
+        function onChangeDrawingMode () {
+            if (angular.isFunction(_onDrawingMode)) {
+                $rootScope.$applyAsync(() => {
+                    // call any registered callback function, applyAsync because triggered by a leaflet event
+                    _onDrawingMode(drawTool.drawingMode);
+                });
+            }
+        }
+
+        // Construct a polygon from a array of coordinates
+        function setPolygon (latLngs) {
+            deletePolygon();    // delete any existing polygon
+            createPolygon(new L.Polygon(latLngs));
+        }
+
+        // Delete an existing polygon
+        function deletePolygon () {
+            if (currentShape.layer) {
+                currentShape.layer.off('click', shapeClickHandler); // deregister the click handler to start/end edit
+                drawTool.drawnItems.removeLayer(currentShape.layer);
+
+                let deletedLayers = new L.LayerGroup();
+                deletedLayers.addLayer(currentShape.layer);
+                drawTool.map.fire(L.Draw.Event.DELETED, { layers: deletedLayers });
+
+                currentShape.layer = null;
+            }
+        }
+
+        // Create a new polygon by registering the layer, show the layer and register a click handler to start/end edit
+        function createPolygon (layer) {
+            currentShape.layer = layer;
+            drawTool.drawnItems.addLayer(layer);
+            layer.on('click', shapeClickHandler);
+        }
+
+        // Called when a polygon is finished (end draw or end edit)
+        function finishPolygon () {
+            setDrawingMode(null);
+            onFinishPolygon();
+        }
+
+        // updates the drawing mode and trigger any callback method
+        function setDrawingMode (drawingMode) {
+            if (drawTool.drawingMode !== drawingMode) {
+                drawTool.drawingMode = drawingMode;
+                onChangeDrawingMode();
+            }
+        }
+
+        // Initialisation of the draw tool, initialise drawing and register required objects in the drawTool object
+        function initDrawTool (map) {
+            let editConfig,
                 editToolbar;
 
-            store.subscribe(() => {
-                if (store.getState().map.drawingMode) {
-                    enable();
-                } else {
-                    disable();
-                }
-            });
+            drawTool.map = map;
+            drawTool.drawnItems = new L.FeatureGroup();
+            drawTool.drawShapeHandler = new L.Draw.Polygon(drawTool.map, DRAW_TOOL_CONFIG.draw.polygon);
 
-            leafletMap = map;
-            drawnItems = new L.FeatureGroup();
-            drawShapeHandler = new L.Draw.Polygon(leafletMap, DRAW_TOOL_CONFIG.draw.polygon);
-
-            editConfig.featureGroup = drawnItems;
+            editConfig = angular.copy(DRAW_TOOL_CONFIG.edit);
+            editConfig.featureGroup = drawTool.drawnItems;
             editToolbar = new L.EditToolbar(editConfig);
-            editShapeHandler = editToolbar.getModeHandlers(leafletMap)[0].handler;
 
-            leafletMap.addLayer(drawnItems);
-            leafletMap.on('click', function () {
-                if (!drawShapeHandler.enabled()) {
-                    deleteShape();
-                }
-            });
-            leafletMap.on(L.Draw.Event.DRAWSTOP, function () {
-                updateState();
-            });
-            leafletMap.on(L.Draw.Event.DRAWVERTEX, function (e) {
-                check(e);
-                bindLastMarker();
-            });
-            leafletMap.on(L.Draw.Event.CREATED, function (e) {
-                var type = e.layerType,
-                    layer = e.layer;
+            drawTool.editShapeHandler = editToolbar.getModeHandlers(drawTool.map)[0].handler;
 
-                if (type === 'polygon') {
-                    currentLayer = layer;
-                    drawnItems.addLayer(layer);
-                    layer.on('click', shapeClickHandler);
-                }
-            });
+            drawTool.map.addLayer(drawTool.drawnItems);
         }
 
-        function check (target) {
-            let vertexCount = Object.keys(target.layers._layers).length;
-
-            if (vertexCount >= DRAW_TOOL_CONFIG.MAX_POINTS) {
-                completeShape();
-                try {
-                    disable();
-                }
-            }
-        }
-
-        function toggle () {
-            if (isEnabled()) {
-                disable();
-            } else {
-                enable();
-            }
-        }
-
-        function isEnabled () {
-            return drawShapeHandler.enabled() || editShapeHandler.enabled();
-        }
-
-        function enable () {
-            if (!isEnabled()) {
-                if (currentLayer) {
-                    editShapeHandler.enable();
-                } else {
-                    drawShapeHandler.enable();
-                }
-                updateState();
-            }
-        }
-
-        function disable () {
-            if (isEnabled()) {
-                if (drawShapeHandler.enabled()) {
-                    if (drawShapeHandler._markers && drawShapeHandler._markers.length > 1) {
-                        drawShapeHandler.completeShape();
+        // enforce the maximum markers limit and the non-intersection of line segments limit
+        function enforceLimits () {
+            if (currentShape.markers.length > currentShape.markersMaxCount || currentShape.intersects) {
+                currentShape.isConsistent = false;  // undo actions should remain private
+                let markersPrev = angular.copy(currentShape.markersPrev);   // restore previous state
+                $rootScope.$applyAsync(() => {
+                    if (drawTool.drawingMode === 'DRAW') {
+                        deleteMarker(getLastDrawnMarker()); // simply delete last marker
+                        currentShape.isConsistent = true;
                     } else {
-                        drawShapeHandler.disable();
+                        deletePolygon();    // delete current polygon
+                        $rootScope.$applyAsync(() => {
+                            setPolygon(markersPrev);    // restore previous polygon
+                            currentShape.isConsistent = true;
+                            updateShape();
+                        });
                     }
-                    updateState();
-                } else {
-                    editShapeHandler.save();
-                    editShapeHandler.disable();
-                    updateState();
-                }
+                });
             }
         }
 
-        function updateState () {
-            let currentMode = null;
-
-            if (isEnabled()) {
-                currentMode = drawShapeHandler.enabled() ? 'DRAW' : 'EDIT';
+        // Auto close polygon when in drawing mode and max markers has been reached
+        function autoClose () {
+            if (drawTool.drawShapeHandler._markers.length === currentShape.markersMaxCount) {
+                $rootScope.$applyAsync(() => {
+                    disable();
+                });
             }
+        }
 
-            store.dispatch({
-                type: ACTIONS.MAP_SET_DRAWING_MODE,
-                payload: currentMode
+        // handle any leaflet.draw event
+        function handleDrawEvent (eventName, e) {
+            let handlers = {
+                DRAWSTART: () => setDrawingMode('DRAW'),
+                DRAWVERTEX: () => {
+                    bindLastDrawnMarker();
+                    autoClose();
+                },
+                DRAWSTOP: finishPolygon,
+                CREATED: () => createPolygon(e.layer),
+                EDITSTART: () => setDrawingMode('EDIT'),
+                EDITSTOP: finishPolygon,
+                DELETED: () => currentShape.layer = null
+            };
+
+            let handler = handlers[eventName];
+            if (handler) {
+                handler(e);
+            }
+        }
+
+        // Every leaflet.draw event is catched, thereby taking care that the shape is always up-to-date,
+        // that all limits are respected and that the last consistent state gets exposed by the drawing tool
+        function registerDrawEvents () {
+            Object.keys(L.Draw.Event).forEach(eventName => {
+                drawTool.map.on(L.Draw.Event[eventName], function (e) {
+                    handleDrawEvent(eventName, e);
+
+                    updateShape();
+
+                    enforceLimits();
+
+                    if (currentShape.isConsistent) {
+                        onChangePolygon();  // trigger change
+                    }
+                });
             });
         }
 
-        function bindLastMarker () {
-            if (lastMarker) {
-                lastMarker.off('click', deleteLastMarker);
-                lastMarker = null;
-            }
-            if (drawShapeHandler.enabled() && drawShapeHandler._markers.length) {
-                lastMarker = drawShapeHandler._markers[drawShapeHandler._markers.length - 1];
-                if (lastMarker) {
-                    lastMarker.on('click', deleteLastMarker);
-                }
-            }
-            if (!firstMarker && lastMarker) {
-                firstMarker = lastMarker;
-                firstMarker.on('click', completeShape);
-            }
-        }
-
-        // When trying to complete a shape of only two points (a line) by
-        // clicking on the first vertex again results in Leaflet draw giving an
-        // error that the lines should not cross.
-        //
-        // When there is only one vertex, it will be deleted (see
-        // previous test).
-        // When there are more than two vertices Leaflet draw will
-        // complete the shape.
-        // In case there are exactly two vertices Leaflet draw will not
-        // allow you to complete the shape because the lines are not
-        // allowed to cross.
-        // To prevent this last error, we will call disable which in turn will
-        // call drawShapeHandler.completeShape manually which will
-        // automatically complete the shape for us. And in this case without
-        // an error.
-        function completeShape () {
-            if (drawShapeHandler.enabled() && drawShapeHandler._markers.length === 2) {
-                disable();
-            }
-        }
-
-        function deleteLastMarker () {
-            if (drawShapeHandler.enabled()) {
-                if (drawShapeHandler._markers.length === 1) {
-                    // Leaflet draw does not allow deleting the very first
-                    // marker; work around by disabling and enabling the draw
-                    // tool.
+        // register any non-leaflet.draw events
+        function registerMapEvents () {
+            // Click outside shape => delete shape
+            drawTool.map.on('click', function () {
+                // Not in draw mode (add new marker) or when no shape exists
+                if (!(drawTool.drawingMode === 'DRAW' || currentShape.layer === null)) {
+                    deletePolygon();
+                    onFinishPolygon();
                     disable();
-                    enable();
-                } else if (drawShapeHandler._markers.length > 1) {
-                    drawShapeHandler.deleteLastVertex();
-                    bindLastMarker();
                 }
-            }
+            });
         }
 
+        // Click on the shape toggles EDIT mode
         function shapeClickHandler (e) {
             L.DomEvent.stop(e);
             toggle();
         }
 
-        function deleteShape () {
-            if (currentLayer) {
-                let deletedLayers = new L.LayerGroup();
-                currentLayer.off('click', shapeClickHandler);
-                drawnItems.removeLayer(currentLayer);
-                deletedLayers.addLayer(currentLayer);
-                leafletMap.fire(L.Draw.Event.DELETED, { layers: deletedLayers });
-                currentLayer = null;
-                disable();
+        // toggle between draw/edit (enable) and show mode (null)
+        function toggle () {
+            return isEnabled() ? disable() : enable();
+        }
+
+        function isEnabled () {
+            // isEnabled => shape is being created or being edited
+            return ['EDIT', 'DRAW'].indexOf(drawTool.drawingMode) !== -1;
+        }
+
+        // start draw or edit mode for current layer or start create mode for new shape
+        function enable () {
+            if (!isEnabled()) {
+                if (currentShape.layer) {   // Shape exists, start edit
+                    drawTool.editShapeHandler.enable();
+                } else {    // Shape does not yet exist, start draw
+                    drawTool.drawShapeHandler.enable();
+                }
             }
+        }
+
+        // end of draw or edit mode => in create mode complete shape, in edit mode save shape
+        function disable () {
+            if (isEnabled()) {
+                if (drawTool.drawingMode === 'DRAW') {
+                    if (currentShape.markers.length > 1) {
+                        drawTool.drawShapeHandler.completeShape();
+                    } else {
+                        drawTool.drawShapeHandler.disable();
+                    }
+                } else {
+                    drawTool.editShapeHandler.save();
+                    drawTool.editShapeHandler.disable();
+                }
+                setDrawingMode(null);
+            }
+        }
+
+        // Shape method for shape.info
+        // while drawing the polygon is not closed => distance is distance of the lines
+        // When editing the polygon is closed => distance is surrounding
+        // When only tow points => distance is line lenght
+        function getDistance (latLngs, isClosed) {
+            return latLngs.reduce((total, latlng, i) => {
+                if (i > 0) {
+                    let dist = latlng.distanceTo(latLngs[i - 1]);
+                    total += dist;
+                }
+                return total;
+            }, isClosed && latLngs.length > 2 ? latLngs[0].distanceTo(latLngs[latLngs.length - 1]) : 0);
+        }
+
+        // Update the internal information about the current shape
+        // Note: in the enforceLimits( method this info may be declared temporarily inconsistent
+        function updateShape () {
+            let latLngs = [],
+                area = 0,
+                distance = 0,
+                intersects = false;
+
+            if (currentShape.layer) {
+                latLngs = currentShape.layer.getLatLngs()[0];
+                distance = getDistance(latLngs, true);
+                area = L.GeometryUtil.geodesicArea(latLngs);
+                intersects = currentShape.layer.intersects();
+            } else if (drawTool.drawShapeHandler._markers && drawTool.drawShapeHandler._markers.length > 0) {
+                latLngs = drawTool.drawShapeHandler._markers.map(m => m._latlng);
+                area = drawTool.drawShapeHandler._area;
+                distance = getDistance(latLngs, false);
+            }
+
+            currentShape.markersPrev = angular.copy(currentShape.markers);
+            currentShape.markers = latLngs.map(({lat, lng}) => [lat, lng]);
+            currentShape.area = area;
+            currentShape.areaTxt = L.GeometryUtil.readableArea(area, true);
+            currentShape.distance = distance;
+            currentShape.distanceTxt = L.GeometryUtil.readableDistance(distance, true);
+            currentShape.intersects = intersects;
+
+            L.drawLocal.edit.handlers.edit.tooltip.text = currentShape.areaTxt;
+            L.drawLocal.edit.handlers.edit.tooltip.subtext = currentShape.distanceTxt;
+
+            if (currentShape.isConsistent) {
+                updateShapeInfo();  // update public shape info
+            }
+        }
+
+        // Updates the publicly available info for the current shape
+        // Only to be called when shape is in a consistent state
+        function updateShapeInfo () {
+            // Copy a set of properties of the current shape into the shapeInfo object
+            ['type', 'markers', 'markersMaxCount', 'area', 'areaTxt', 'distance', 'distanceTxt']
+                .forEach(key => {
+                    shapeInfo[key] = currentShape[key];
+                });
+        }
+
+        // delete a marker in DRAW mode
+        function deleteMarker (marker) {
+            let drawShapeHandler = drawTool.drawShapeHandler;
+            let markers = drawShapeHandler._markers || [];
+            let index = markers.findIndex(m => m._leaflet_id === marker._leaflet_id);
+            if (index > 0) {    // Don't delete on click on first marker, this should close the shape
+                let nDelete = markers.length - index;   // Delete all from last to marker, inclusive
+                while (nDelete-- > 0) {
+                    drawShapeHandler.deleteLastVertex();
+                }
+            }
+        }
+
+        // returns the last marker that was added to the polygon (only called in draw mode)
+        function getLastDrawnMarker () {
+            let drawShapeHandler = drawTool.drawShapeHandler;
+            return drawShapeHandler._markers[drawShapeHandler._markers.length - 1];
+        }
+
+        // bind last marker in DRAW mode to deleteMarker
+        // bind first marker in DRAW mode to close polygon (by calling disable())
+        function bindLastDrawnMarker () {
+            let lastMarker = getLastDrawnMarker();
+            let isFirstMarker = drawTool.drawShapeHandler._markers.length === 1;
+            ['mousedown', 'click'].forEach(key => lastMarker.on(key, () => {
+                if (drawTool.drawShapeHandler.enabled() && isFirstMarker) {
+                    disable();
+                } else {
+                    deleteMarker(lastMarker);
+                }
+            }));
         }
     }
 })();

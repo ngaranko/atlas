@@ -1,9 +1,13 @@
 <button ng-click="vm.toggle()"
         class="c-toggle-drawing-tool"
         ng-class="{
-          'c-toggle-drawing-tool--active': vm.enabled,
-          'c-toggle-drawing-tool': !vm.enabled
+          'c-toggle-drawing-tool--active': vm.isEnabled(),
+          'c-toggle-drawing-tool': !vm.isEnabled()
         }">
     <em class="u-sr-only">Polygoon meten</em>
-    <span ng-show="vm.enabled">Klaar</span>
+    <span ng-show="vm.isEnabled()">
+        Klaar,
+        <span ng-bind-html="vm.shape.distanceTxt"></span>
+        <span ng-bind-html="vm.shape.areaTxt"></span>,
+        {{vm.shape.markersMaxCount - vm.shape.markers.length}} left</span>
 </button>

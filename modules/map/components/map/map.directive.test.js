@@ -2,6 +2,8 @@ describe('The dp-map directive', function () {
     let $compile,
         $rootScope,
         L,
+        store,
+        ACTIONS,
         layers,
         highlight,
         panning,
@@ -10,7 +12,9 @@ describe('The dp-map directive', function () {
         onMapClick,
         mockedMapState,
         mockedLeafletMap,
-        mockedMarkers;
+        mockedMarkers,
+        onFinishShape,
+        onDrawingMode;
 
     beforeEach(function () {
         angular.mock.module(
@@ -45,7 +49,16 @@ describe('The dp-map directive', function () {
                     setZoom: angular.noop
                 },
                 drawTool: {
-                    initialize: angular.noop
+                    initialize: (map, onFinish, onMode) => {
+                        onFinishShape = onFinish;
+                        onDrawingMode = onMode;
+                    },
+                    isEnabled: angular.noop,
+                    enable: angular.noop,
+                    disable: angular.noop,
+                    shape: {
+                        markers: []
+                    }
                 },
                 onMapClick: {
                     initialize: angular.noop
@@ -111,7 +124,9 @@ describe('The dp-map directive', function () {
         spyOn(panning, 'setOption');
         spyOn(zoom, 'initialize');
         spyOn(zoom, 'setZoom');
-        spyOn(drawTool, 'initialize');
+        spyOn(drawTool, 'initialize').and.callThrough();
+        spyOn(drawTool, 'enable');
+        spyOn(drawTool, 'disable');
         spyOn(onMapClick, 'initialize');
 
         mockedMapState = {
@@ -466,12 +481,65 @@ describe('The dp-map directive', function () {
         });
     });
 
-    it('initializes the drawTool factory', function () {
-        getDirective(mockedMapState, false, mockedMarkers);
+    describe('draw tool factory', function () {
+        beforeEach(function () {
+            angular.mock.inject(function (_store_, _ACTIONS_) {
+                store = _store_;
+                ACTIONS = _ACTIONS_;
+            });
+        });
 
-        expect(drawTool.initialize).toHaveBeenCalledWith(mockedLeafletMap);
+        it('initializes the drawTool factory', function () {
+            onFinishShape = null;
+            onDrawingMode = null;
+            getDirective(mockedMapState, false, mockedMarkers);
+            expect(drawTool.initialize).toHaveBeenCalledWith(mockedLeafletMap,
+                jasmine.any(Function), jasmine.any(Function));
+            expect(onFinishShape).toEqual(jasmine.any(Function));
+            expect(onDrawingMode).toEqual(jasmine.any(Function));
+
+            spyOn(store, 'dispatch');
+
+            onFinishShape({markers: []});
+            expect(store.dispatch).not.toHaveBeenCalledWith(true);
+
+            onFinishShape({markers: ['aap', 'noot', 'mies']});
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.FETCH_DATA_SELECTION,
+                payload: {
+                    geometryFilter: ['aap', 'noot', 'mies'],
+                    filters: {},
+                    dataset: 'bag',
+                    page: 1
+                }
+            });
+
+            store.dispatch.calls.reset();
+            onDrawingMode();
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.MAP_SET_DRAWING_MODE,
+                payload: undefined
+            });
+        });
     });
 
+    it('watches the drawing mode', function () {
+        getDirective(mockedMapState, false, mockedMarkers);
+
+        mockedMapState.drawingMode = 'EDIT';
+        $rootScope.$digest();
+        expect(drawTool.enable).toHaveBeenCalled();
+
+        drawTool.enable.calls.reset();
+
+        mockedMapState.drawingMode = 'DRAW';
+        $rootScope.$digest();
+        expect(drawTool.enable).toHaveBeenCalled();
+
+        mockedMapState.drawingMode = null;
+        $rootScope.$digest();
+        expect(drawTool.disable).toHaveBeenCalled();
+    });
     it('initializes the onMapClick factory', function () {
         getDirective(mockedMapState, false, mockedMarkers);
 
