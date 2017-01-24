@@ -18,6 +18,8 @@
         reducers[ACTIONS.MAP_ZOOM.id] = mapZoomReducer;
         reducers[ACTIONS.MAP_FULLSCREEN.id] = mapFullscreenReducer;
         reducers[ACTIONS.MAP_SET_DRAWING_MODE.id] = mapSetDrawingModeReducer;
+        // reducers[ACTIONS.MAP_START_DRAWING.id] = mapStartDrawingReducer;
+        // reducers[ACTIONS.MAP_END_DRAWING.id] = mapStopDrawingReducer;
         reducers[ACTIONS.SHOW_MAP_ACTIVE_OVERLAYS.id] = showActiveOverlaysReducer;
         reducers[ACTIONS.HIDE_MAP_ACTIVE_OVERLAYS.id] = hideActiveOverlaysReducer;
 
