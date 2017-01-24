@@ -2,6 +2,8 @@ describe('The dp-map directive', function () {
     let $compile,
         $rootScope,
         L,
+        store,
+        ACTIONS,
         layers,
         highlight,
         panning,
@@ -479,16 +481,46 @@ describe('The dp-map directive', function () {
         });
     });
 
-    it('initializes the drawTool factory', function () {
-        onFinishShape = null;
-        onDrawingMode = null;
-        getDirective(mockedMapState, false, mockedMarkers);
-        expect(drawTool.initialize).toHaveBeenCalledWith(mockedLeafletMap,
-            jasmine.any(Function), jasmine.any(Function));
-        expect(onFinishShape).toEqual(jasmine.any(Function));
-        expect(onDrawingMode).toEqual(jasmine.any(Function));
-        onFinishShape({});
-        onDrawingMode();
+    describe('draw tool factory', function () {
+        beforeEach(function () {
+            angular.mock.inject(function (_store_, _ACTIONS_) {
+                store = _store_;
+                ACTIONS = _ACTIONS_;
+            });
+        });
+
+        it('initializes the drawTool factory', function () {
+            onFinishShape = null;
+            onDrawingMode = null;
+            getDirective(mockedMapState, false, mockedMarkers);
+            expect(drawTool.initialize).toHaveBeenCalledWith(mockedLeafletMap,
+                jasmine.any(Function), jasmine.any(Function));
+            expect(onFinishShape).toEqual(jasmine.any(Function));
+            expect(onDrawingMode).toEqual(jasmine.any(Function));
+
+            spyOn(store, 'dispatch');
+
+            onFinishShape({markers: []});
+            expect(store.dispatch).not.toHaveBeenCalledWith(true);
+
+            onFinishShape({markers: ['aap', 'noot', 'mies']});
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.FETCH_DATA_SELECTION,
+                payload: {
+                    geometryFilter: ['aap', 'noot', 'mies'],
+                    filters: {},
+                    dataset: 'bag',
+                    page: 1
+                }
+            });
+
+            store.dispatch.calls.reset();
+            onDrawingMode();
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.MAP_SET_DRAWING_MODE,
+                payload: undefined
+            });
+        });
     });
 
     it('watches the drawing mode', function () {
@@ -508,7 +540,6 @@ describe('The dp-map directive', function () {
         $rootScope.$digest();
         expect(drawTool.disable).toHaveBeenCalled();
     });
-
     it('initializes the onMapClick factory', function () {
         getDirective(mockedMapState, false, mockedMarkers);
 
