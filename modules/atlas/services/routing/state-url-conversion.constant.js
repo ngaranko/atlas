@@ -160,6 +160,10 @@
                     name: 'dataSelection.filters',
                     type: 'keyvalues'
                 },
+                dssf: {
+                    name: 'dataSelection.geometryFilter',
+                    type: 'base62[][]'
+                },
                 dsp: {
                     name: 'dataSelection.page',
                     type: 'number'
@@ -212,6 +216,10 @@
                     name: 'map.viewCenter',
                     type: 'number[]',
                     precision: 7
+                },
+                mpd: {
+                    name: 'map.drawingMode',
+                    type: 'string'
                 },
                 // page (pg)
                 pgn: {

@@ -53,6 +53,17 @@
 
                 let onFinishShape = function (polygon) {
                     // Dispatch fetch data action...
+                    if (polygon.markers.length > 2) {
+                        store.dispatch({
+                            type: ACTIONS.FETCH_DATA_SELECTION,
+                            payload: {
+                                geometryFilter: polygon.markers,
+                                filters: {},
+                                dataset: 'bag',
+                                page: 1
+                            }
+                        });
+                    }
                 };
 
                 let onDrawingMode = function (drawingMode) {
