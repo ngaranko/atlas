@@ -16,7 +16,7 @@
 }
 
 .c-data-selection-active-filters--remove-filter {
-  @include icon-button("close", "info");
+  @include icon-button("close", "info", "");
 
   position: absolute;
   top: 0;
