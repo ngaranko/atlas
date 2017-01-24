@@ -22,6 +22,17 @@ describe('The dp-data-selection-download-button component', function () {
                                     slug: 'filter_b'
                                 }
                             ]
+                        },
+                        dataset_b: {
+                            ENDPOINT: 'datasets/b/',
+                            ENDPOINT_EXPORT: 'datasets/b/download/',
+                            FILTERS: [
+                                {
+                                    slug: 'filter_a'
+                                }, {
+                                    slug: 'filter_b'
+                                }
+                            ]
                         }
                     }
                 });
@@ -93,5 +104,31 @@ describe('The dp-data-selection-download-button component', function () {
                 'filter_b=Waarde%20met%20spaties');
         expect(component.find('a').attr('href')).toContain('filter_a=%C3%A4%C3%A9%C3%AB');
         expect(component.find('a').attr('href')).toContain('filter_b=Waarde%20met%20spaties');
+    });
+
+    fit('updates the download URL when the dataset or activeFilters change', () => {
+        let component,
+            scope,
+            dataset,
+            activeFilters;
+
+        dataset = 'dataset_a';
+        activeFilters = {
+            filter_a: 'hoi'
+        };
+        component = getComponent(dataset, activeFilters);
+        scope = component.isolateScope();
+
+        expect(component.find('a').attr('href'))
+            .toBe('http://www.example.com/datasets/a/download/?filter_a=hoi');
+
+        // Change the dataset and activeFilters
+        scope.vm.dataset = 'dataset_b';
+        delete scope.vm.activeFilters.filter_a;
+        scope.vm.activeFilters.filter_b = 'hallo';
+        component.isolateScope().$apply();
+
+        expect(component.find('a').attr('href'))
+            .toBe('http://www.example.com/datasets/b/download/?filter_b=hallo');
     });
 });
