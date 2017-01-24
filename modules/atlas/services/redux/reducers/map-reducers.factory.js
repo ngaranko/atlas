@@ -17,9 +17,9 @@
         reducers[ACTIONS.MAP_PAN.id] = mapPanReducer;
         reducers[ACTIONS.MAP_ZOOM.id] = mapZoomReducer;
         reducers[ACTIONS.MAP_FULLSCREEN.id] = mapFullscreenReducer;
-        reducers[ACTIONS.MAP_SET_DRAWING_MODE.id] = mapSetDrawingModeReducer;
-        // reducers[ACTIONS.MAP_START_DRAWING.id] = mapStartDrawingReducer;
-        // reducers[ACTIONS.MAP_END_DRAWING.id] = mapStopDrawingReducer;
+        // reducers[ACTIONS.MAP_SET_DRAWING_MODE.id] = mapSetDrawingModeReducer;
+        reducers[ACTIONS.MAP_START_DRAWING.id] = mapStartDrawingReducer;
+        reducers[ACTIONS.MAP_END_DRAWING.id] = mapEndDrawingReducer;
         reducers[ACTIONS.SHOW_MAP_ACTIVE_OVERLAYS.id] = showActiveOverlaysReducer;
         reducers[ACTIONS.HIDE_MAP_ACTIVE_OVERLAYS.id] = hideActiveOverlaysReducer;
 
@@ -160,10 +160,44 @@
          *
          * @returns {Object} The new state
          */
-        function mapSetDrawingModeReducer (oldState, payload) {
+        // function mapSetDrawingModeReducer (oldState, payload) {
+        //     var newState = angular.copy(oldState);
+        //
+        //     newState.map.drawingMode = payload || null;
+        //
+        //     return newState;
+        // }
+
+        function mapStartDrawingReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
             newState.map.drawingMode = payload || null;
+
+            return newState;
+        }
+
+        function mapEndDrawingReducer (oldState, payload) {
+            var newState = angular.copy(oldState);
+
+            newState.map.drawingMode = null;
+
+            if (payload.geometryFilter.length > 2) {
+                if (newState.dataSelection) {
+                    // Nothing yet
+                } else {
+                    newState.dataSelection = {};
+                    newState.dataSelection.dataset = 'bag';
+                    newState.dataSelection.filters = {};
+                }
+                newState.dataSelection.geometryFilter = payload.geometryFilter;
+                newState.dataSelection.page = 1;
+                newState.dataSelection.isFullscreen = false;
+                newState.dataSelection.isLoading = true;
+                newState.dataSelection.view = 'LIST';
+                newState.dataSelection.markers = [];
+            } else {
+                newState.dataSelection = null;
+            }
 
             return newState;
         }

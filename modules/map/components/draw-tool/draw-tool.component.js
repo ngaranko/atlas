@@ -6,6 +6,7 @@
         .component('dpDrawTool', {
             bindings: {
                 state: '=',
+                polygon: '=',
                 map: '='
             },
             controller: DpDrawToolComponent,
@@ -19,34 +20,29 @@
 
         drawTool.initialize(vm.map, onFinishShape, onDrawingMode);
 
-        $scope.$watch('state.drawingMode', function (drawingMode) {
-            if (drawingMode) {
-                drawTool.enable();
-            } else {
-                drawTool.disable();
-            }
+        $scope.$watch('vm.state.drawingMode', function (drawingMode) {
         });
+
+        $scope.$watch('vm.polygon.markers', function (polygon) {
+            if (!drawTool.isEnabled() && vm.polygon.markers.length > 0) {
+                drawTool.setPolygon(vm.polygon.markers);
+            }
+        }, true);
 
         function onFinishShape (polygon) {
             // Dispatch fetch data action...
-            if (polygon.markers.length > 2) {
-                store.dispatch({
-                    type: ACTIONS.FETCH_DATA_SELECTION,
-                    payload: {
-                        geometryFilter: polygon.markers,
-                        filters: {},
-                        dataset: 'bag',
-                        page: 1,
-                        view: 'LIST'
-                    }
-                });
-            }
+            store.dispatch({
+                type: ACTIONS.MAP_END_DRAWING,
+                payload: {
+                    geometryFilter: polygon.markers
+                }
+            });
         }
 
         function onDrawingMode (drawingMode) {
             if (drawingMode) {
                 store.dispatch({
-                    type: ACTIONS.MAP_SET_DRAWING_MODE,
+                    type: ACTIONS.MAP_START_DRAWING,
                     payload: drawingMode
                 });
             }
