@@ -106,7 +106,7 @@ describe('The dp-data-selection-download-button component', function () {
         expect(component.find('a').attr('href')).toContain('filter_b=Waarde%20met%20spaties');
     });
 
-    fit('updates the download URL when the dataset or activeFilters change', () => {
+    it('updates the download URL when the dataset or activeFilters change', () => {
         let component,
             scope,
             dataset,

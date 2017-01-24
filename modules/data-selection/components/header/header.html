@@ -1,4 +1,7 @@
-<div ng-if="vm.showHeader" class="u-margin__bottom--3">
+<div ng-if="vm.showHeader" ng-class="{
+        'u-margin__bottom--3': vm.showTabs || !vm.showActiveFilters,
+        'u-margin__bottom--1-5': !(vm.showTabs || !vm.showActiveFilters)
+    }">
     <div ng-if="vm.showButtons" class="u-pull--right qa-buttons">
         <div class="u-inline-block u-margin__right--1">
             <dp-data-selection-toggle-view-button view="vm.state.view"></dp-data-selection-toggle-view-button>
@@ -18,7 +21,7 @@
     <h2 ng-if="vm.showNoResultsFound && !vm.showTabs" class="qa-no-results-found">Geen resultaten gevonden</h2>
 </div>
 
-<div ng-if="vm.showTabs" class="o-tabs qa-tabs">
+<div ng-if="vm.showTabs" class="o-tabs qa-tabs u-margin__bottom--1-5">
     <ul>
         <li ng-repeat="tab in vm.tabs" ng-class="{'is-active': tab.isActive}">
             <dp-link ng-if="!tab.isActive" type="FETCH_DATA_SELECTION" payload="{dataset: tab.dataset, filters: vm.state.filters, page: 1, view: 'LIST'}" class-name="o-tabs__tab o-tabs__tab--link">
