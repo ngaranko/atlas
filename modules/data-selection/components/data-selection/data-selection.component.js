@@ -31,7 +31,7 @@
             userSettings.showCatalogusIntroduction.value = vm.showCatalogusIntroduction.toString();
         });
 
-        $scope.$watch(function () {
+        $scope.$watch(function (x) {
             // Watching all state variables except markers and isLoading
             return [
                 vm.state.dataset,
@@ -67,18 +67,15 @@
 
                     vm.hasTooManyMarkers = vm.view === 'LIST' && vm.numberOfRecords > MAXIMUM_NUMBER_OF_MARKERS;
                     vm.isLoading = false;
-                    let filterToUse = (typeof vm.state.geometryFilters !== 'undefined')
+                    let filterToUse = (angular.isDefined(vm.state.geometryFilters))
                         ? vm.state.geometryFilters : vm.state.filters;
 
-                    console.log('FILTERTOUSE', filterToUse);
-
-                    //filterToUse = "shape=[[4.895833999382631,52.37726209854141],[4.891800055383576,52.3761581382644],[4.897234940062647,52.37551638063261]]";
                     if (vm.view === 'LIST' && vm.numberOfRecords <= MAXIMUM_NUMBER_OF_MARKERS) {
                         dataSelectionApi.getMarkers(vm.state.dataset, filterToUse).then(markerData => {
-                                store.dispatch({
-                                    type: ACTIONS.SHOW_DATA_SELECTION,
-                                    payload: markerData
-                                });
+                            store.dispatch({
+                                type: ACTIONS.SHOW_DATA_SELECTION,
+                                payload: markerData
+                            });
                         });
                     } else {
                         store.dispatch({

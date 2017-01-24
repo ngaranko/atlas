@@ -26,12 +26,10 @@
             searchParams = angular.merge(
                 {
                     page: searchPage,
-                    shape: angular.toJson(shape)
+                    shape: angular.toJson(shape.map(([lat, lng]) => [lng, lat]))
                 },
                 activeFilters
             );
-
-            console.log('SEARCHPARAMS', searchParams);
 
             return api.getByUri(config.ENDPOINT_PREVIEW, searchParams)
                 .then(function (data) {

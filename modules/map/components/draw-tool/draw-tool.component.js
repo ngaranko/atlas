@@ -33,7 +33,7 @@
                 store.dispatch({
                     type: ACTIONS.FETCH_DATA_SELECTION,
                     payload: {
-                        geometryFilter: polygon.markers,
+                        geometryFilters: polygon.markers,
                         filters: {},
                         dataset: 'bag',
                         page: 1,
