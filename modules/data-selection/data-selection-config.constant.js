@@ -221,27 +221,7 @@
                             },
                             {
                                 label: 'Bezoekadres',
-                                variables: ['_openbare_ruimte_naam']
-                            },
-                            {
-                                label: 'Num.',
-                                variables: ['huisnummer']
-                            },
-                            {
-                                label: 'Let.',
-                                variables: ['huisletter']
-                            },
-                            {
-                                label: 'Toev.',
-                                variables: ['huisnummer_toevoeging']
-                            },
-                            {
-                                label: 'Postcode',
-                                variables: ['postcode']
-                            },
-                            {
-                                label: 'Woonplaats',
-                                variables: ['woonplaats']
+                                variables: ['bezoekadres_volledig_adres']
                             },
                             {
                                 label: 'Hoofdcategorie',
