@@ -311,10 +311,9 @@ describe('The draw tool factory', function () {
         });
 
         it('Can build a line', function () {
-            nVertices = 2;
-
             enable();
 
+            nVertices = 2;
             addVertices();
 
             expect(drawTool.shape.markers).toEqual([[4, 50], [4, 51]]);
