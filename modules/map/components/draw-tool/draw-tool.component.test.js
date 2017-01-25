@@ -24,12 +24,8 @@ describe('The draw tool component', function () {
                     },
                     setPolygon: angular.noop,
                     isEnabled: angular.noop,
-                    //
                     enable: angular.noop,
-                    disable: angular.noop,
-                    shape: {
-                        markers: []
-                    }
+                    disable: angular.noop
                 }
             });
 
@@ -65,6 +61,49 @@ describe('The draw tool component', function () {
         return component;
     }
 
+    describe('The state parameter', function () {
+        beforeEach(function () {
+            spyOn(drawTool, 'enable');
+            spyOn(drawTool, 'disable');
+        });
+
+        it('Uses this parameter to follow drawing mode, default is disable', function () {
+            getComponent();
+            $rootScope.$digest();
+
+            expect(drawTool.enable).not.toHaveBeenCalled();
+            expect(drawTool.disable).toHaveBeenCalled();
+        });
+
+        it('Uses this parameter to follow drawing mode disable', function () {
+            getComponent();
+            $rootScope.$digest();
+
+            drawTool.enable.calls.reset();
+            drawTool.disable.calls.reset();
+
+            state.drawingMode = null;
+            $rootScope.$digest();
+
+            expect(drawTool.enable).not.toHaveBeenCalled();
+            expect(drawTool.disable).toHaveBeenCalled();
+        });
+
+        it('Uses this parameter to follow drawing mode, not for enable', function () {
+            getComponent();
+            $rootScope.$digest();
+
+            drawTool.enable.calls.reset();
+            drawTool.disable.calls.reset();
+
+            state.drawingMode = 'DRAW';
+            $rootScope.$digest();
+
+            expect(drawTool.enable).not.toHaveBeenCalled();
+            expect(drawTool.disable).not.toHaveBeenCalled();
+        });
+    });
+
     describe('The map parameter', function () {
         beforeEach(function () {
             spyOn(drawTool, 'initialize');
@@ -83,6 +122,8 @@ describe('The draw tool component', function () {
     describe('The polygon parameter', function () {
         beforeEach(function () {
             spyOn(drawTool, 'setPolygon');
+            spyOn(drawTool, 'enable');
+            spyOn(drawTool, 'disable');
         });
 
         it('Informs the draw tool factory of any changes', function () {
@@ -103,6 +144,18 @@ describe('The draw tool component', function () {
             $rootScope.$digest();
 
             expect(drawTool.setPolygon).not.toHaveBeenCalled();
+        });
+
+        it('Does enable drawing mode when state drawing mode is enabled', function () {
+            spyOn(drawTool, 'isEnabled').and.returnValue(false);
+
+            getComponent();
+            polygon.markers = ['aap'];
+            state.drawingMode = 'DRAW';
+            $rootScope.$digest();
+
+            expect(drawTool.setPolygon).toHaveBeenCalled();
+            expect(drawTool.enable).toHaveBeenCalled();
         });
     });
 

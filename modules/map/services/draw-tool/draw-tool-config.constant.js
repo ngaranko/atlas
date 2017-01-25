@@ -5,8 +5,15 @@
         .module('dpMap')
         .constant('DRAW_TOOL_CONFIG', {
             MAX_MARKERS: 6,
-            edit: {
+            format: {
+                numeric: {
+                    delimiters: {
+                        thousands: '.',
+                        decimal: ','
+                    }
+                }
             },
+            edit: {},
             draw: {
                 polygon: {
                     allowIntersection: false,
