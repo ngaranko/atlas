@@ -24,7 +24,7 @@
         });
 
         $scope.$watch('vm.polygon.markers', function (polygon) {
-            if (!drawTool.isEnabled() && vm.polygon.markers.length > 0) {
+            if (!drawTool.isEnabled()) {
                 drawTool.setPolygon(vm.polygon.markers);
             }
         }, true);
@@ -43,7 +43,9 @@
             if (drawingMode) {
                 store.dispatch({
                     type: ACTIONS.MAP_START_DRAWING,
-                    payload: drawingMode
+                    payload: {
+                        drawingMode
+                    }
                 });
             }
         }
