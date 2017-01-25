@@ -1,4 +1,140 @@
-describe('The draw tool factory', () => {
+describe('The draw tool factory', function () {
+    let L,
+        DRAW_TOOL_CONFIG,
+        drawTool,
+        leafletMap;
+
+    beforeEach(function () {
+        let layerGroup = {
+            addLayer: angular.noop
+        };
+
+        let drawnItems = {
+            addLayer: angular.noop,
+            removeLayer: angular.noop
+        };
+
+        let editShapeHandler = {
+            enabled: angular.noop,
+            enable: angular.noop,
+            disable: angular.noop,
+            save: angular.noop
+        };
+
+        let modeHandlers = [{
+            handler: editShapeHandler
+        }];
+
+        let editToolbar = {
+            getModeHandlers: () => modeHandlers
+        };
+
+        let drawShapeHandler = {
+            enabled: angular.noop,
+            deleteLastVertex: angular.noop,
+            completeShape: angular.noop,
+            disable: angular.noop,
+            enable: angular.noop
+        };
+
+        angular.mock.module(
+            'dpMap',
+            {
+                L: {
+                    LayerGroup: () => layerGroup,
+                    FeatureGroup: () => drawnItems,
+                    EditToolbar: () => editToolbar,
+                    Draw: {
+                        Polygon: () => drawShapeHandler
+                    },
+                    DomEvent: {
+                        stop: angular.noop
+                    }
+                }
+            }
+        );
+
+        angular.mock.inject(function (_L_, _DRAW_TOOL_CONFIG_, _drawTool_) {
+            L = _L_;
+            DRAW_TOOL_CONFIG = _DRAW_TOOL_CONFIG_;
+            drawTool = _drawTool_;
+        });
+
+        DRAW_TOOL_CONFIG.MAX_MARKERS = 4;
+
+        leafletMap = {
+            addLayer: angular.noop,
+            on: angular.noop,
+            fire: angular.noop
+        };
+
+        spyOn(L, 'LayerGroup').and.returnValue(layerGroup);
+        spyOn(L, 'FeatureGroup').and.returnValue(drawnItems);
+        spyOn(L, 'EditToolbar').and.returnValue(editToolbar);
+        spyOn(L.Draw, 'Polygon').and.returnValue(drawShapeHandler);
+        spyOn(L.DomEvent, 'stop');
+        spyOn(leafletMap, 'addLayer');
+        spyOn(leafletMap, 'on');
+        spyOn(leafletMap, 'fire');
+        spyOn(layerGroup, 'addLayer');
+        spyOn(drawnItems, 'addLayer');
+        spyOn(drawnItems, 'removeLayer');
+        spyOn(drawShapeHandler, 'enabled');
+        spyOn(drawShapeHandler, 'deleteLastVertex');
+        spyOn(drawShapeHandler, 'completeShape');
+        spyOn(drawShapeHandler, 'disable');
+        spyOn(drawShapeHandler, 'enable');
+        spyOn(editToolbar, 'getModeHandlers').and.returnValue(modeHandlers);
+        spyOn(editShapeHandler, 'enabled');
+        spyOn(editShapeHandler, 'enable');
+        spyOn(editShapeHandler, 'disable');
+        spyOn(editShapeHandler, 'save');
+    });
+
+    function fireEvent (name, e) {
+        let handlers = {};
+
+        for (let i = 0; i < leafletMap.on.calls.count(); i++) {
+            let [fname, func] = leafletMap.on.calls.argsFor(i);
+            handlers[fname] = func;
+        }
+
+        if (handlers[name]) {
+            handlers[name](e);
+        }
+    }
+
+    let c = console;
+
+    describe('Initialisation', function () {
+        beforeEach(function () {
+            drawTool.initialize(leafletMap);
+        });
+
+        it('disable by default', function () {
+            c.log(leafletMap.on.calls);
+            for (let i = 0; i < leafletMap.on.calls.count(); i++) {
+                c.log('on', leafletMap.on.calls.argsFor(i)[0]);
+            }
+            expect(drawTool.isEnabled()).toBe(false);
+        });
+
+        it('can be enabled', function () {
+            drawTool.enable();
+            fireEvent('draw:drawstart');
+            expect(drawTool.isEnabled()).toBe(true);
+        });
+
+        it('can be disabled', function () {
+            drawTool.enable();
+            fireEvent('draw:drawstart');
+            drawTool.disable();
+            expect(drawTool.isEnabled()).toBe(false);
+        });
+    });
+});
+
+xdescribe('The draw tool factory', () => {
     let store,
         ACTIONS,
         L,
