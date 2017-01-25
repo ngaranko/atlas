@@ -85,18 +85,20 @@ describe('The onMapClick factory', () => {
             expect(store.dispatch).not.toHaveBeenCalled();
         });
 
-        it('does not keep onMapClick from dispatching an action when set to anything but DRAW', () => {
-            // EDIT
+        it('keeps onMapClick from dispatching an action when set to EDIT after an action has been dispatched', () => {
+            click();
+
+            store.dispatch.calls.reset();
+
             store.getState.and.returnValue({ map: { drawingMode: 'EDIT' } });
             handler();
 
             click();
 
-            expect(store.dispatch).toHaveBeenCalled();
+            expect(store.dispatch).not.toHaveBeenCalled();
+        });
 
-            // null
-            store.dispatch.calls.reset();
-
+        it('does not keep onMapClick from dispatching an action when set to anything but DRAW', () => {
             store.getState.and.returnValue({ map: { drawingMode: null } });
             handler();
 

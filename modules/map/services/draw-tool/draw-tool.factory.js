@@ -223,8 +223,11 @@
         function registerMapEvents () {
             // Click outside shape => delete shape
             drawTool.map.on('click', function () {
-                // Not in draw mode (add new marker) or when no shape exists
-                if (!(drawTool.drawingMode === 'DRAW' || currentShape.layer === null)) {
+                // In edit mode => disable()
+                if (drawTool.drawingMode === 'EDIT') {
+                    disable();
+                } else if (!(drawTool.drawingMode === 'DRAW' || currentShape.layer === null)) {
+                    // Not in draw mode (add new marker) or when no shape exists (first marker starts drawing mode)
                     deletePolygon();
                     onFinishPolygon();
                     disable();
