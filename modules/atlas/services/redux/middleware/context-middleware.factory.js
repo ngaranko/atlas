@@ -37,7 +37,6 @@
                             action.payload = straatbeeld.location;
                         }
                     }
-                    console.log(action.type, action);
                     // Update the state
                     return next(action);
                 };

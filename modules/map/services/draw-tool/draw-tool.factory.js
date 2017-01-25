@@ -9,7 +9,7 @@
 
     /* istanbul ignore next */
     function drawToolFactory ($rootScope, L, DRAW_TOOL_CONFIG) {
-        const MARKERS_MAX_COUNT = 4;
+        const MARKERS_MAX_COUNT = 30;
 
         // holds all information about the state of the shape being created or edited
         let currentShape = {
@@ -189,7 +189,6 @@
                 EDITSTOP: finishPolygon,
                 DELETED: () => currentShape.layer = null
             };
-
 
             let handler = handlers[eventName];
             if (handler) {
