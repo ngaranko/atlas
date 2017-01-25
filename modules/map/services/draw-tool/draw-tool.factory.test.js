@@ -200,6 +200,13 @@ describe('The draw tool factory', function () {
                     lat: 3,
                     lng: 51
                 }
+            },
+            {
+                on: angular.noop,
+                _latlng: {
+                    lat: 3,
+                    lng: 50
+                }
             }
         ];
         vertices.forEach(v => {
@@ -211,16 +218,35 @@ describe('The draw tool factory', function () {
             fireEvent('draw:drawstart');
         }
 
-        function buildPolygon () {
-            enable();
+        function addVertices (n = 3) {
             let markers = [];
-            vertices.forEach(v => {
+            for (let i = 0; i < n; i++) {
+                let v = vertices[i];
                 markers.push(v);
                 drawShapeHandler._markers = markers;
                 fireEvent('draw:drawvertex');
-            });
+            }
+        }
+
+        function buildPolygon (n = 3) {
+            enable();
+
+            addVertices(n);
+
             fireEvent('draw:drawstop');
             $rootScope.$digest();
+        }
+
+        function createPolygon () {
+            buildPolygon();
+            fireEvent('draw:created', {
+                layer: {
+                    on: angular.noop,
+                    off: angular.noop,
+                    getLatLngs: () => [vertices.map(v => v._latlng)],
+                    intersects: () => false
+                }
+            });
         }
 
         beforeEach(function () {
@@ -236,6 +262,7 @@ describe('The draw tool factory', function () {
         it('Can build a polygon', function () {
             drawTool.initialize(leafletMap);
             buildPolygon();
+            expect(drawTool.shape.markers).toEqual([[4, 50], [4, 51], [3, 51]]);
         });
 
         it('Can build a polygon and notifies on finish drawing', function () {
@@ -247,15 +274,29 @@ describe('The draw tool factory', function () {
         });
 
         it('Can delete a polygon', function () {
-            buildPolygon();
-            fireEvent('draw:created', {
-                layer: {
-                    on: angular.noop,
-                    getLatLngs: () => [vertices.map(v => v._latlng)],
-                    intersects: () => false
-                }
-            });
+            createPolygon();
+
+            drawTool.setPolygon([]);
+            drawShapeHandler._markers = [];
+            fireEvent('draw:deleted');
+
+            expect(drawTool.shape.markers).toEqual([]);
         });
+
+        it ('Auto closes a polygon', function () {
+            enable();
+
+            addVertices(4);
+            $rootScope.$digest();
+
+            expect(drawTool.isEnabled()).toBe(false);
+        });
+
+        it('can edit a polygon', function () {
+            createPolygon();
+
+
+        })
     });
 
     describe('Leaflet.draw events', function () {
