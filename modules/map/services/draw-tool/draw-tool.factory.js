@@ -7,7 +7,7 @@
 
     drawToolFactory.$inject = ['$rootScope', 'L', 'DRAW_TOOL_CONFIG'];
 
-    /* istanbul ignore next */
+    /* -istanbul ignore next */
     function drawToolFactory ($rootScope, L, DRAW_TOOL_CONFIG) {
         const MARKERS_MAX_COUNT = DRAW_TOOL_CONFIG.MAX_MARKERS;
 
