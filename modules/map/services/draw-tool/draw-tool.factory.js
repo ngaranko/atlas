@@ -152,17 +152,17 @@
             if (currentShape.markers.length > currentShape.markersMaxCount || currentShape.intersects) {
                 currentShape.isConsistent = false;  // undo actions should remain private
                 let markersPrev = angular.copy(currentShape.markersPrev);   // restore previous state
-                if (drawTool.drawingMode === 'DRAW') {
-                    deleteMarker(getLastDrawnMarker()); // simply delete last marker
+                // Because of auto close the delete last marker in draw mode is not needed
+                // if (drawTool.drawingMode === 'DRAW') {
+                //     deleteMarker(getLastDrawnMarker()); // simply delete last marker
+                //     currentShape.isConsistent = true;
+                // } else {
+                deletePolygon();    // delete current polygon
+                $rootScope.$applyAsync(() => {
+                    setPolygon(markersPrev);    // restore previous polygon
                     currentShape.isConsistent = true;
-                } else {
-                    deletePolygon();    // delete current polygon
-                    $rootScope.$applyAsync(() => {
-                        setPolygon(markersPrev);    // restore previous polygon
-                        currentShape.isConsistent = true;
-                        updateShape();
-                    });
-                }
+                    updateShape();
+                });
             } else {
                 // check for auto close of shape in drawing mode
                 autoClose();
@@ -202,6 +202,8 @@
         function registerDrawEvents () {
             Object.keys(L.Draw.Event).forEach(eventName => {
                 drawTool.map.on(L.Draw.Event[eventName], function (e) {
+                    console.log('Event', eventName);
+
                     handleDrawEvent(eventName, e);
 
                     updateShape();  // Update current shape and tooltip
@@ -325,6 +327,8 @@
 
             if (currentShape.isConsistent) {
                 updateShapeInfo();  // update public shape info
+            } else {
+                console.log('== updateShape ==');
             }
         }
 
@@ -341,13 +345,15 @@
         // delete a marker in DRAW mode
         function deleteMarker (marker) {
             let drawShapeHandler = drawTool.drawShapeHandler;
-            let markers = drawShapeHandler._markers || [];
+            let markers = drawShapeHandler._markers;    // is always an array
             let index = markers.findIndex(m => m._leaflet_id === marker._leaflet_id);
             if (index > 0) {    // Don't delete on click on first marker, this should close the shape
                 let nDelete = markers.length - index;   // Delete all from last to marker, inclusive
                 while (nDelete-- > 0) {
                     drawShapeHandler.deleteLastVertex();
                 }
+            } else {
+                console.log('== deleteMarker index ==');
             }
         }
 
@@ -364,9 +370,11 @@
             let isFirstMarker = drawTool.drawShapeHandler._markers.length === 1;
             ['mousedown', 'click'].forEach(key => lastMarker.on(key, () => {
                 if (drawTool.drawShapeHandler.enabled() && isFirstMarker) {
+                    console.log('A');
                     let isLineOrPolygon = currentShape.markers.length > 1;
                     disable();  // Includes auto close for any line or polygon
                     if (!isLineOrPolygon) {
+                        console.log('B');
                         // Reopen draw mode to place first marker somewhere else
                         enable();
                     }

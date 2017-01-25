@@ -52,6 +52,7 @@ describe('The draw tool factory', function () {
                     LayerGroup: () => layerGroup,
                     FeatureGroup: () => drawnItems,
                     EditToolbar: () => editToolbar,
+                    Polygon: angular.noop,
                     Draw: {
                         Polygon: () => drawShapeHandler
                     },
@@ -177,40 +178,52 @@ describe('The draw tool factory', function () {
     });
 
     describe('Draw polygon', function () {
+        let nVertices;
+
+        beforeEach(function () {
+            nVertices = 3;
+        });
+
         let distanceTo = () => 1;
 
         let vertices = [
             {
-                on: angular.noop,
                 _latlng: {
                     lat: 4,
                     lng: 50
                 }
             },
             {
-                on: angular.noop,
                 _latlng: {
                     lat: 4,
                     lng: 51
                 }
             },
             {
-                on: angular.noop,
                 _latlng: {
                     lat: 3,
                     lng: 51
                 }
             },
             {
-                on: angular.noop,
                 _latlng: {
                     lat: 3,
                     lng: 50
+                }
+            },
+            {
+                _latlng: {
+                    lat: 0,
+                    lng: 0
                 }
             }
         ];
-        vertices.forEach(v => {
+
+        vertices.forEach((v, i) => {
+            v.handler = {};
+            v.on = (on, func) => v.handler[on] = func;
             v._latlng.distanceTo = distanceTo;
+            v._leaflet_id = i;
         });
 
         function enable () {
@@ -218,9 +231,9 @@ describe('The draw tool factory', function () {
             fireEvent('draw:drawstart');
         }
 
-        function addVertices (n = 3) {
+        function addVertices () {
             let markers = [];
-            for (let i = 0; i < n; i++) {
+            for (let i = 0; i < nVertices; i++) {
                 let v = vertices[i];
                 markers.push(v);
                 drawShapeHandler._markers = markers;
@@ -228,25 +241,57 @@ describe('The draw tool factory', function () {
             }
         }
 
-        function buildPolygon (n = 3) {
+        function buildPolygon () {
             enable();
 
-            addVertices(n);
+            addVertices();
 
             fireEvent('draw:drawstop');
             $rootScope.$digest();
         }
 
+        class Layer {
+            constructor (latlngs) {
+                this._latlngs = latlngs.reduce((result, latlng) => {
+                    let [lat, lng] = latlng;
+                    result._latlng = {
+                        lat,
+                        lng,
+                        distanceTo
+                    };
+                    return result;
+                }, []);
+            }
+
+            on () { }   // shape click handler
+
+            off () { }
+
+            getLatLngs () { return [this._latlngs]; }
+
+            intersects () { return false; }
+        }
+
+        let shapeClickHandler = {};
+
+        let layer = {
+            on: (event, handler) => shapeClickHandler[event] = handler,
+            off: angular.noop,
+            getLatLngs: () => [vertices.map(v => v._latlng).slice(0, nVertices)],
+            intersects: () => false
+        };
+
         function createPolygon () {
             buildPolygon();
             fireEvent('draw:created', {
-                layer: {
-                    on: angular.noop,
-                    off: angular.noop,
-                    getLatLngs: () => [vertices.map(v => v._latlng)],
-                    intersects: () => false
-                }
+                layer
             });
+        }
+
+        function deletePolygon () {
+            drawTool.setPolygon([]);
+            drawShapeHandler._markers = [];
+            fireEvent('draw:deleted');
         }
 
         beforeEach(function () {
@@ -265,6 +310,30 @@ describe('The draw tool factory', function () {
             expect(drawTool.shape.markers).toEqual([[4, 50], [4, 51], [3, 51]]);
         });
 
+        it('Can build a line', function () {
+            nVertices = 2;
+
+            enable();
+
+            addVertices();
+
+            expect(drawTool.shape.markers).toEqual([[4, 50], [4, 51]]);
+            expect(drawTool.isEnabled()).toBe(true);
+
+            drawShapeHandler.enabled = () => true;
+            vertices[0].handler.click();
+
+            expect(drawShapeHandler.completeShape).toHaveBeenCalled();
+
+            drawShapeHandler.enabled = () => false;
+
+            fireEvent('draw:created', {layer});
+            $rootScope.$digest();
+
+            fireEvent('draw:drawstop');
+            $rootScope.$digest();
+        });
+
         it('Can build a polygon and notifies on finish drawing', function () {
             let onResult,
                 onFinish = shape => onResult = shape;
@@ -276,27 +345,151 @@ describe('The draw tool factory', function () {
         it('Can delete a polygon', function () {
             createPolygon();
 
-            drawTool.setPolygon([]);
-            drawShapeHandler._markers = [];
-            fireEvent('draw:deleted');
+            deletePolygon();
 
             expect(drawTool.shape.markers).toEqual([]);
+        });
+
+        it('Can delete the last marker', function () {
+            enable();
+
+            addVertices();
+
+            vertices[2].handler.click();
+            $rootScope.$digest();
+
+            // TODO expect(drawTool.shape.markers.length).toBe(2);
+        });
+
+        it('Can delete the last and nextlast marker', function () {
+            enable();
+
+            addVertices();
+
+            vertices[1].handler.click();
+            $rootScope.$digest();
+
+            // TODO expect(drawTool.shape.markers.length).toBe(1);
+        });
+
+        it('Can delete the first marker', function () {
+            nVertices = 1;
+
+            enable();
+
+            addVertices();
+
+            drawShapeHandler.enabled = () => true;
+
+            vertices[0].handler.click();
+            $rootScope.$digest();
+
+            // TODO expect(drawTool.shape.markers.length).toBe(0);
         });
 
         it ('Auto closes a polygon', function () {
             enable();
 
-            addVertices(4);
+            nVertices = 4;
+            addVertices();
             $rootScope.$digest();
 
             expect(drawTool.isEnabled()).toBe(false);
         });
 
+        it('can edit a polygon by clicking the drawn polygon', function () {
+            createPolygon();
+
+            expect(shapeClickHandler.click).toEqual(jasmine.any(Function));
+
+            shapeClickHandler.click();
+
+            expect(editShapeHandler.enable).toHaveBeenCalled();
+            fireEvent('draw:editstart');
+
+            shapeClickHandler.click();
+            expect(editShapeHandler.disable).toHaveBeenCalled();
+        });
+
         it('can edit a polygon', function () {
             createPolygon();
 
+            drawTool.enable();
+            expect(editShapeHandler.enable).toHaveBeenCalled();
 
-        })
+            fireEvent('draw:editstart');
+            $rootScope.$digest();
+
+            drawTool.disable();
+
+            expect(editShapeHandler.save).toHaveBeenCalled();
+            expect(editShapeHandler.disable).toHaveBeenCalled();
+        });
+
+        it('can add markers to a polygon in edit mode', function () {
+            createPolygon();
+
+            drawTool.enable();
+            fireEvent('draw:editstart');
+            $rootScope.$digest();
+
+            nVertices = 4;  // layer.getLatlngs() response
+
+            fireEvent('draw:editstop');
+            expect(drawTool.shape.markers.length).toBe(4);
+        });
+
+        it('does not let a polygon exceed max markers in edit mode', function () {
+            L.Polygon = Layer;
+
+            createPolygon();
+
+            drawTool.enable();
+            fireEvent('draw:editstart');
+            $rootScope.$digest();
+
+            nVertices = 5;  // layer.getLatlngs() response
+
+            fireEvent('draw:editvertex');
+            $rootScope.$digest();
+
+            fireEvent('draw:editstop');
+            $rootScope.$digest();
+
+            // TODO expect(drawTool.shape.markers.length).toBe(4);
+        });
+
+        it('click on map while drawing polygon does not end draw mode', function () {
+            enable();
+
+            addVertices();
+
+            fireEvent('click');
+
+            expect(drawTool.isEnabled()).toBe(true);
+        });
+
+        it('click on map while finished drawing polygon deletes polygon', function () {
+            createPolygon();
+
+            fireEvent('click');
+
+            deletePolygon();
+
+            expect(drawTool.isEnabled()).toBe(false);
+            expect(drawTool.shape.markers.length).toBe(0);
+        });
+
+        it('click on map while editing polygon ends edit mode', function () {
+            createPolygon();
+
+            drawTool.enable();
+            fireEvent('draw:editstart');
+
+            fireEvent('click');
+
+            expect(drawTool.isEnabled()).toBe(false);
+        });
     });
 
     describe('Leaflet.draw events', function () {
@@ -320,7 +513,8 @@ describe('The draw tool factory', function () {
         });
 
         it('creates a new polygon for the specified markers', function () {
-            drawTool.setPolygon(['aap']);
+            let markers = [[4, 50], [4, 51], [3, 51]];
+            drawTool.setPolygon(markers);
             expect(drawnItems.addLayer).toHaveBeenCalled();
         });
     });
