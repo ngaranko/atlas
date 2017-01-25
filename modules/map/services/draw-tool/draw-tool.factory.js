@@ -169,15 +169,12 @@
 
         // Auto close polygon when in drawing mode and max markers has been reached
         function autoClose () {
-            let doClose = drawTool.drawingMode === 'DRAW' &&
-                currentShape.markers.length === currentShape.markersMaxCount;
-
-            if (doClose) {
+            if (drawTool.drawingMode === 'DRAW' &&
+                currentShape.markers.length === currentShape.markersMaxCount) {
                 $rootScope.$applyAsync(() => {
                     disable();
                 });
             }
-            return doClose;
         }
 
         // handle any leaflet.draw event
@@ -205,8 +202,10 @@
                 drawTool.map.on(L.Draw.Event[eventName], function (e) {
                     handleDrawEvent(eventName, e);
 
+                    updateShape();  // Update current shape and tooltip
+
                     $rootScope.$applyAsync(() => {
-                        updateShape();
+                        // Execute this code after leaflet.draw has finished the event
 
                         enforceLimits();
 
