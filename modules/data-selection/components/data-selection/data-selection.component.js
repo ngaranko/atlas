@@ -23,9 +23,9 @@
 
     function DpDataSelectionController ($scope, userSettings, dataSelectionApi, DATA_SELECTION_CONFIG, store, ACTIONS) {
         let vm = this;
-        const MAXIMUM_NUMBER_OF_MARKERS = 10000;
 
-        vm.showCatalogusIntroduction = userSettings.showCatalogusIntroduction.value === true.toString();
+        vm.showCatalogusIntroduction = vm.state.view === 'CARDS' &&
+            userSettings.showCatalogusIntroduction.value === true.toString();
 
         $scope.$watch('vm.showCatalogusIntroduction', function () {
             userSettings.showCatalogusIntroduction.value = vm.showCatalogusIntroduction.toString();
@@ -44,14 +44,17 @@
         }, fetchData, true);
 
         function fetchData () {
-            vm.isLoading = true;
-            vm.title = DATA_SELECTION_CONFIG[vm.state.dataset].TITLE;
+            let isListView = vm.state.view === 'LIST';
+
             vm.view = vm.state.view;
-            vm.showFilters = vm.state.view !== 'LIST';
+            vm.showFilters = !isListView;
             vm.currentPage = vm.state.page;
-            vm.isPageAvailable = !DATA_SELECTION_CONFIG.HAS_PAGE_LIMIT ||
-                vm.currentPage <= DATA_SELECTION_CONFIG.MAX_AVAILABLE_PAGES;
-            vm.hasTooManyMarkers = false;
+
+            vm.numberOfRecords = null;
+            vm.numberOfPages = null;
+
+            vm.showContent = false;
+            vm.isLoading = true;
 
             dataSelectionApi.query(vm.state.dataset,
                 vm.state.view,
@@ -64,12 +67,23 @@
                     vm.numberOfRecords = data.numberOfRecords;
                     vm.numberOfPages = data.numberOfPages;
 
-                    vm.hasTooManyMarkers = vm.view === 'LIST' && vm.numberOfRecords > MAXIMUM_NUMBER_OF_MARKERS;
+                    vm.showContent =
+                        vm.numberOfRecords &&
+                        (
+                            angular.isUndefined(DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES) ||
+                            vm.state.page <= DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES
+                        );
+
                     vm.isLoading = false;
+
+                    // Use either geometry filters or 'normal' filters
                     let filterToUse = (angular.isDefined(vm.state.geometryFilter))
                         ? vm.state.geometryFilter : vm.state.filters;
 
-                    if (vm.view === 'LIST' && vm.numberOfRecords <= MAXIMUM_NUMBER_OF_MARKERS) {
+                    if (
+                        isListView &&
+                        vm.numberOfRecords <= DATA_SELECTION_CONFIG.options.MAX_NUMBER_OF_CLUSTERED_MARKERS
+                    ) {
                         dataSelectionApi.getMarkers(vm.state.dataset, filterToUse).then(markerData => {
                             store.dispatch({
                                 type: ACTIONS.SHOW_DATA_SELECTION,
