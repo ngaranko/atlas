@@ -1,35 +1,43 @@
 describe('The draw tool factory', function () {
-    let L,
+    let $rootScope,
+        L,
         DRAW_TOOL_CONFIG,
         drawTool,
         leafletMap;
 
+    let layerGroup,
+        drawnItems,
+        drawShapeHandler,
+        editShapeHandler,
+        modeHandlers,
+        editToolbar;
+
     beforeEach(function () {
-        let layerGroup = {
+        layerGroup = {
             addLayer: angular.noop
         };
 
-        let drawnItems = {
+        drawnItems = {
             addLayer: angular.noop,
             removeLayer: angular.noop
         };
 
-        let editShapeHandler = {
+        editShapeHandler = {
             enabled: angular.noop,
             enable: angular.noop,
             disable: angular.noop,
             save: angular.noop
         };
 
-        let modeHandlers = [{
+        modeHandlers = [{
             handler: editShapeHandler
         }];
 
-        let editToolbar = {
+        editToolbar = {
             getModeHandlers: () => modeHandlers
         };
 
-        let drawShapeHandler = {
+        drawShapeHandler = {
             enabled: angular.noop,
             deleteLastVertex: angular.noop,
             completeShape: angular.noop,
@@ -54,7 +62,8 @@ describe('The draw tool factory', function () {
             }
         );
 
-        angular.mock.inject(function (_L_, _DRAW_TOOL_CONFIG_, _drawTool_) {
+        angular.mock.inject(function (_$rootScope_, _L_, _DRAW_TOOL_CONFIG_, _drawTool_) {
+            $rootScope = _$rootScope_;
             L = _L_;
             DRAW_TOOL_CONFIG = _DRAW_TOOL_CONFIG_;
             drawTool = _drawTool_;
@@ -121,15 +130,157 @@ describe('The draw tool factory', function () {
 
         it('can be enabled', function () {
             drawTool.enable();
+            expect(drawShapeHandler.enable).toHaveBeenCalled();
+
             fireEvent('draw:drawstart');
             expect(drawTool.isEnabled()).toBe(true);
+        });
+
+        it('ignores enable when already enabled', function () {
+            drawTool.enable();
+            fireEvent('draw:drawstart');
+            drawShapeHandler.enable.calls.reset();
+
+            drawTool.enable();
+            expect(drawShapeHandler.enable).not.toHaveBeenCalled();
         });
 
         it('can be disabled', function () {
             drawTool.enable();
             fireEvent('draw:drawstart');
+
             drawTool.disable();
             expect(drawTool.isEnabled()).toBe(false);
+        });
+
+        it('ignores disable when already disabled', function () {
+            drawTool.disable();
+            expect(drawShapeHandler.disable).not.toHaveBeenCalled();
+        });
+    });
+
+    describe('On drawing mode changed event', function () {
+        let onResult,
+            onDrawingMode = status => onResult = status;
+
+        beforeEach(function () {
+            drawTool.initialize(leafletMap, null, onDrawingMode);
+        });
+
+        it('calls onDrawing when the drawing mode changes, in the next digest cycle', function () {
+            drawTool.enable();
+            fireEvent('draw:drawstart');
+            $rootScope.$digest();
+
+            expect(onResult).toBe('DRAW');
+        });
+    });
+
+    describe('Draw polygon', function () {
+        let distanceTo = () => 1;
+
+        let vertices = [
+            {
+                on: angular.noop,
+                _latlng: {
+                    lat: 4,
+                    lng: 50
+                }
+            },
+            {
+                on: angular.noop,
+                _latlng: {
+                    lat: 4,
+                    lng: 51
+                }
+            },
+            {
+                on: angular.noop,
+                _latlng: {
+                    lat: 3,
+                    lng: 51
+                }
+            }
+        ];
+        vertices.forEach(v => {
+            v._latlng.distanceTo = distanceTo;
+        });
+
+        function enable () {
+            drawTool.enable();
+            fireEvent('draw:drawstart');
+        }
+
+        function buildPolygon () {
+            enable();
+            let markers = [];
+            vertices.forEach(v => {
+                markers.push(v);
+                drawShapeHandler._markers = markers;
+                fireEvent('draw:drawvertex');
+            });
+            fireEvent('draw:drawstop');
+            $rootScope.$digest();
+        }
+
+        beforeEach(function () {
+            drawTool.initialize(leafletMap);
+        });
+
+        it('Can add a vertex', function () {
+            enable();
+            drawShapeHandler._markers = [vertices[0]];
+            fireEvent('draw:drawvertex');
+        });
+
+        it('Can build a polygon', function () {
+            drawTool.initialize(leafletMap);
+            buildPolygon();
+        });
+
+        it('Can build a polygon and notifies on finish drawing', function () {
+            let onResult,
+                onFinish = shape => onResult = shape;
+            drawTool.initialize(leafletMap, onFinish);
+            buildPolygon();
+            expect(onResult.markers).toEqual([[4, 50], [4, 51], [3, 51]]);
+        });
+
+        it('Can delete a polygon', function () {
+            buildPolygon();
+            fireEvent('draw:created', {
+                layer: {
+                    on: angular.noop,
+                    getLatLngs: () => [vertices.map(v => v._latlng)],
+                    intersects: () => false
+                }
+            });
+        });
+    });
+
+    describe('Leaflet.draw events', function () {
+        beforeEach(function () {
+            drawTool.initialize(leafletMap);
+        });
+    });
+
+    describe('Set polygon', function () {
+        beforeEach(function () {
+            drawTool.initialize(leafletMap);
+        });
+
+        it('deletes any existing polygon', function () {
+
+        });
+
+        it('does not create a new polygon for empty markers', function () {
+            drawTool.setPolygon([]);
+            expect(drawnItems.addLayer).not.toHaveBeenCalled();
+        });
+
+        it('creates a new polygon for the specified markers', function () {
+            drawTool.setPolygon(['aap']);
+            expect(drawnItems.addLayer).toHaveBeenCalled();
         });
     });
 });
