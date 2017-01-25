@@ -132,6 +132,8 @@
             let editConfig,
                 editToolbar;
 
+            L.drawLocal.format = DRAW_TOOL_CONFIG.format;
+
             drawTool.map = map;
             drawTool.drawnItems = new L.FeatureGroup();
             drawTool.drawShapeHandler = new L.Draw.Polygon(drawTool.map, DRAW_TOOL_CONFIG.draw.polygon);
