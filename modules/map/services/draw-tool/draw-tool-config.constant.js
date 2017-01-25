@@ -8,8 +8,8 @@
             format: {
                 numeric: {
                     delimiters: {
-                        thousands: '.',
-                        decimal: ','
+                        thousands: '#',
+                        decimal: '$'
                     }
                 }
             },
