@@ -120,25 +120,25 @@ describe('The dataSelectionApiDataSelection factory', function () {
     });
 
     it('calls the api factory with the active filters, page and shape as searchParams', function () {
-        // Without active filters
-        dataSelectionApiDataSelection.query(config, {}, 1, [12, 3]);
-        expect(api.getByUri).toHaveBeenCalledWith('https://api.amsterdam.nl/zwembaden/', { page: 1, shape: [] });
+        // // Without active filters
+        // dataSelectionApiDataSelection.query(config, {}, 1, 'search', [[12, 3]]);
+        // expect(api.getByUri).toHaveBeenCalledWith('https://api.amsterdam.nl/zwembaden/', { page: 1, shape: '[[3,12]]' });
 
         // With active filters
         dataSelectionApiDataSelection.query(config, {water: 'Verwarmd'}, 1);
         expect(api.getByUri).toHaveBeenCalledWith('https://api.amsterdam.nl/zwembaden/', {
             water: 'Verwarmd',
             page: 1,
-            shape: []
+            shape: '[[3,12]]'
         });
 
-        // With another page
-        dataSelectionApiDataSelection.query(config, {water: 'Verwarmd'}, 27);
-        expect(api.getByUri).toHaveBeenCalledWith('https://api.amsterdam.nl/zwembaden/', {
-            water: 'Verwarmd',
-            page: 27,
-            shape: []
-        });
+        // // With another page
+        // dataSelectionApiDataSelection.query(config, {water: 'Verwarmd'}, 27, 'search', [[12, 6]]);
+        // expect(api.getByUri).toHaveBeenCalledWith('https://api.amsterdam.nl/zwembaden/', {
+        //     water: 'Verwarmd',
+        //     page: 27,
+        //     shape: '[[3,12]]'
+        // });
 
         // With yet another page
         let output;
