@@ -223,8 +223,11 @@
         function registerMapEvents () {
             // Click outside shape => delete shape
             drawTool.map.on('click', function () {
-                // Not in draw mode (add new marker) or when no shape exists
-                if (!(drawTool.drawingMode === 'DRAW' || currentShape.layer === null)) {
+                // In edit mode => disable()
+                if (drawTool.drawingMode === 'EDIT') {
+                    disable();
+                } else if (!(drawTool.drawingMode === 'DRAW' || currentShape.layer === null)) {
+                    // Not in draw mode (add new marker) or when no shape exists (first marker starts drawing mode)
                     deletePolygon();
                     onFinishPolygon();
                     disable();
@@ -361,8 +364,11 @@
             let isFirstMarker = drawTool.drawShapeHandler._markers.length === 1;
             ['mousedown', 'click'].forEach(key => lastMarker.on(key, () => {
                 if (drawTool.drawShapeHandler.enabled() && isFirstMarker) {
-                    if (currentShape.markers.length > 1) {
-                        disable();  // Includes auto close
+                    let isLineOrPolygon = currentShape.markers.length > 1;
+                    disable();  // Includes auto close for any line or polygon
+                    if (!isLineOrPolygon) {
+                        // Reopen draw mode to place first marker somewhere else
+                        enable();
                     }
                 } else {
                     deleteMarker(lastMarker);
