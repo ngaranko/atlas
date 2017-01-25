@@ -130,19 +130,11 @@ describe('The dataSelectionApiDataSelection factory', function () {
         expect(api.getByUri).toHaveBeenCalledWith('zwembaden/', { page: 1, shape: '[[3,12]]' });
 
         // With active filters
-        dataSelectionApiDataSelection.query(config, {water: 'Verwarmd'}, 1);
+        dataSelectionApiDataSelection.query(config, {water: 'Verwarmd'}, 2);
         expect(api.getByUri).toHaveBeenCalledWith('zwembaden/', {
             water: 'Verwarmd',
-            page: 1,
+            page: 2,
             shape: '[]'
-        });
-
-        // With another page
-        dataSelectionApiDataSelection.query(config, {water: 'Verwarmd'}, 27, 'search', [[12, 6]]);
-        expect(api.getByUri).toHaveBeenCalledWith('https://api.amsterdam.nl/zwembaden/', {
-            water: 'Verwarmd',
-            page: 27,
-            shape: '[[3,12]]'
         });
 
         // With yet another page
