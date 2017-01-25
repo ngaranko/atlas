@@ -87,15 +87,10 @@
         }
 
         function getMarkers (dataset, activeFilters) {
-
-            let filters = (angular.isArray(activeFilters))
-            ? { shape: angular.toJson(activeFilters.map(([lat, lng]) => [lng, lat])) }
-            : activeFilters;
-
             return api
                 .getByUri(
                     DATA_SELECTION_CONFIG.datasets[dataset].ENDPOINT_MARKERS,
-                    filterUnavailableFilters(dataset, filters)
+                    filterUnavailableFilters(dataset, activeFilters)
                 )
                 .then(function (data) {
                     return data.object_list

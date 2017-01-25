@@ -76,15 +76,15 @@
 
                     vm.isLoading = false;
 
-                    // Use either geometry filters or 'normal' filters
-                    let filterToUse = (angular.isDefined(vm.state.geometryFilter))
-                        ? vm.state.geometryFilter : vm.state.filters;
+                    let activeFilters = angular.extend({
+                        shape: angular.toJson(vm.state.geometryFilter.map(([lat, lng]) => [lng, lat]))
+                    }, vm.state.filters);
 
                     if (
                         isListView &&
                         vm.numberOfRecords <= DATA_SELECTION_CONFIG.options.MAX_NUMBER_OF_CLUSTERED_MARKERS
                     ) {
-                        dataSelectionApi.getMarkers(vm.state.dataset, filterToUse).then(markerData => {
+                        dataSelectionApi.getMarkers(vm.state.dataset, activeFilters).then(markerData => {
                             store.dispatch({
                                 type: ACTIONS.SHOW_DATA_SELECTION,
                                 payload: markerData
