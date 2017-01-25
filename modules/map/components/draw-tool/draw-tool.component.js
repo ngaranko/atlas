@@ -43,7 +43,9 @@
             if (drawingMode) {
                 store.dispatch({
                     type: ACTIONS.MAP_START_DRAWING,
-                    payload: drawingMode
+                    payload: {
+                        drawingMode
+                    }
                 });
             }
         }
