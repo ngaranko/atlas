@@ -104,15 +104,17 @@ describe('The draw tool factory', function () {
         }
     }
 
+    let c = console;
+
     describe('Initialisation', function () {
         beforeEach(function () {
             drawTool.initialize(leafletMap);
         });
 
         it('disable by default', function () {
-            console.log(leafletMap.on.calls);
+            c.log(leafletMap.on.calls);
             for (let i = 0; i < leafletMap.on.calls.count(); i++) {
-                console.log('on', leafletMap.on.calls.argsFor(i)[0]);
+                c.log('on', leafletMap.on.calls.argsFor(i)[0]);
             }
             expect(drawTool.isEnabled()).toBe(false);
         });
