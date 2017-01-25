@@ -4,6 +4,7 @@
     angular
         .module('dpMap')
         .constant('DRAW_TOOL_CONFIG', {
+            MAX_MARKERS: 6,
             edit: {
             },
             draw: {
