@@ -96,20 +96,10 @@ describe('The draw tool component', function () {
         });
 
         it('Does not informs the draw tool factory when drawing mode is enabled', function () {
-            getComponent();
-
             spyOn(drawTool, 'isEnabled').and.returnValue(true);
-            polygon.markers = ['aap'];
-            $rootScope.$digest();
 
-            expect(drawTool.setPolygon).not.toHaveBeenCalled();
-        });
-
-        it('Does not informs the draw tool factory when the polygon is empty', function () {
             getComponent();
-
-            spyOn(drawTool, 'isEnabled').and.returnValue(false);
-            polygon.markers = [];
+            polygon.markers = ['aap'];
             $rootScope.$digest();
 
             expect(drawTool.setPolygon).not.toHaveBeenCalled();
