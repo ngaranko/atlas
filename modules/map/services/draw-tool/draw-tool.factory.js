@@ -9,7 +9,7 @@
 
     /* istanbul ignore next */
     function drawToolFactory ($rootScope, L, DRAW_TOOL_CONFIG) {
-        const MARKERS_MAX_COUNT = 30;
+        const MARKERS_MAX_COUNT = DRAW_TOOL_CONFIG.MAX_MARKERS;
 
         // holds all information about the state of the shape being created or edited
         let currentShape = {
@@ -87,7 +87,9 @@
         // Construct a polygon from a array of coordinates
         function setPolygon (latLngs) {
             deletePolygon();    // delete any existing polygon
-            createPolygon(new L.Polygon(latLngs));
+            if (latLngs.length > 0) {
+                createPolygon(new L.Polygon(latLngs));
+            }
         }
 
         // Delete an existing polygon
@@ -203,9 +205,9 @@
                 drawTool.map.on(L.Draw.Event[eventName], function (e) {
                     handleDrawEvent(eventName, e);
 
-                    updateShape();
-
                     $rootScope.$applyAsync(() => {
+                        updateShape();
+
                         enforceLimits();
 
                         if (currentShape.isConsistent) {

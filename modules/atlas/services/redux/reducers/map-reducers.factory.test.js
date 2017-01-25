@@ -247,37 +247,103 @@ describe('The map reducers', function () {
         });
     });
 
-    xdescribe('MAP_SET_DRAWING_MODE', function () {
-        it('can set the drawing mode', function () {
+    describe('MAP_START_DRAWING', function () {
+        it('Set the map drawing mode', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
-            // Enable
-            output = mapReducers[ACTIONS.MAP_SET_DRAWING_MODE.id](inputState, true);
-            expect(output.map.drawingMode).toBe(true);
+            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, {
+                drawingMode: 'aap'
+            });
+            expect(output.map.drawingMode).toBe('aap');
+        });
 
-            // Set to DRAW
-            output = mapReducers[ACTIONS.MAP_SET_DRAWING_MODE.id](inputState, 'DRAW');
-            expect(output.map.drawingMode).toBe('DRAW');
+        it('Set the map drawing mode to null when no drawing mode is specified', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
 
-            // Set to EDIT
-            output = mapReducers[ACTIONS.MAP_SET_DRAWING_MODE.id](inputState, 'EDIT');
-            expect(output.map.drawingMode).toBe('EDIT');
-
-            // Disabling
-            inputState.map.drawingMode = 'DRAW';
-
-            // Disable with false
-            output = mapReducers[ACTIONS.MAP_SET_DRAWING_MODE.id](inputState, false);
+            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, {});
             expect(output.map.drawingMode).toBe(null);
+        });
+    });
 
-            // Disable with null
-            output = mapReducers[ACTIONS.MAP_SET_DRAWING_MODE.id](inputState, false);
-            expect(output.map.drawingMode).toBe(null);
+    describe('MAP_END_DRAWING', function () {
+        it('Set the map drawing mode to null', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
 
-            // Disable with undefined
-            output = mapReducers[ACTIONS.MAP_SET_DRAWING_MODE.id](inputState);
+            output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
+                geometryFilter: []
+            });
             expect(output.map.drawingMode).toBe(null);
+        });
+
+        it('Sets the dataSelection state to null on a polygon with <= 2 markers', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.dataSelection = 'aap';
+            output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
+                geometryFilter: ['noot', 'mies']
+            });
+            expect(output.dataSelection).toBe(null);
+        });
+
+        it('Initializes the dataSelection state', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.dataSelection = null;
+            let geometryFilter = ['noot', 'mies', 'teun'];
+            output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {geometryFilter});
+            expect(output.dataSelection).not.toBe(null);
+            expect(output.dataSelection.geometryFilter).toBe(geometryFilter);
+        });
+
+        it('Leaves dataset and filters of an existing dataSelection state untouched', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.dataSelection = {
+                dataset: 'aap',
+                filters: 'noot'
+            };
+            output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
+                geometryFilter: ['noot', 'mies', 'teun']
+            });
+            ['dataset', 'filters'].forEach(key =>
+                expect(output.dataSelection[key]).toEqual(inputState.dataSelection[key])
+            );
+        });
+
+        it('Sets  dataset and filters of an existing dataSelection state untouched', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.dataSelection = {
+                dataset: 'aap',
+                filters: 'noot'
+            };
+            output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
+                geometryFilter: ['noot', 'mies', 'teun']
+            });
+            ['dataset', 'filters'].forEach(key =>
+                expect(output.dataSelection[key]).toEqual(inputState.dataSelection[key])
+            );
+        });
+
+        it('Sets page, fullscreen, loading, view and markers of the dataSelection state', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
+                geometryFilter: ['noot', 'mies', 'teun']
+            });
+            expect(output.dataSelection.page).toBe(1);
+            expect(output.dataSelection.isFullscreen).toBe(false);
+            expect(output.dataSelection.isLoading).toBe(true);
+            expect(output.dataSelection.view).toBe('LIST');
+            expect(output.dataSelection.markers).toEqual([]);
         });
     });
 

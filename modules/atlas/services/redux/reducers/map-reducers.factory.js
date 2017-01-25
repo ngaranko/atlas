@@ -17,7 +17,6 @@
         reducers[ACTIONS.MAP_PAN.id] = mapPanReducer;
         reducers[ACTIONS.MAP_ZOOM.id] = mapZoomReducer;
         reducers[ACTIONS.MAP_FULLSCREEN.id] = mapFullscreenReducer;
-        // reducers[ACTIONS.MAP_SET_DRAWING_MODE.id] = mapSetDrawingModeReducer;
         reducers[ACTIONS.MAP_START_DRAWING.id] = mapStartDrawingReducer;
         reducers[ACTIONS.MAP_END_DRAWING.id] = mapEndDrawingReducer;
         reducers[ACTIONS.SHOW_MAP_ACTIVE_OVERLAYS.id] = showActiveOverlaysReducer;
@@ -147,32 +146,10 @@
             return newState;
         }
 
-        /**
-         * Sets the mode of the drawing tool (DRAW or EDIT), or null when
-         * disabled.
-         *
-         * Instead of a string, true can also be given to simply turn on the
-         * drawing tool. The drawing tool will figure out what state to go into
-         * and will update this state accordingly.
-         *
-         * @param {Object} oldState
-         * @param {?string} payload The drawing mode, or null if the drawing
-         * tool is disabled.
-         *
-         * @returns {Object} The new state
-         */
-        // function mapSetDrawingModeReducer (oldState, payload) {
-        //     var newState = angular.copy(oldState);
-        //
-        //     newState.map.drawingMode = payload || null;
-        //
-        //     return newState;
-        // }
-
         function mapStartDrawingReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
-            newState.map.drawingMode = payload || null;
+            newState.map.drawingMode = payload.drawingMode || null;
 
             return newState;
         }
