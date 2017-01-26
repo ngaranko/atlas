@@ -8,34 +8,16 @@
     onMapClickFactory.$inject = ['$rootScope', 'store', 'ACTIONS'];
 
     function onMapClickFactory ($rootScope, store, ACTIONS) {
-        let enabled = true;
-
         return {
             initialize
         };
 
         function initialize (leafletMap) {
             leafletMap.on('click', onMapClick);
-
-            store.subscribe(() => {
-                if (['DRAW', 'EDIT'].indexOf(store.getState().map.drawingMode) !== -1) {
-                    disable();
-                } else {
-                    enable();
-                }
-            });
-        }
-
-        function disable () {
-            enabled = false;
-        }
-
-        function enable () {
-            enabled = true;
         }
 
         function onMapClick (event) {
-            if (enabled) {
+            if (['DRAW', 'EDIT'].indexOf(store.getState().map.drawingMode) === -1) {
                 $rootScope.$applyAsync(function () {
                     store.dispatch({
                         type: ACTIONS.MAP_CLICK,
