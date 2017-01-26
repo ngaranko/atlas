@@ -10,7 +10,8 @@ describe('The draw tool factory', function () {
         drawShapeHandler,
         editShapeHandler,
         modeHandlers,
-        editToolbar;
+        editToolbar,
+        geometryUtil;
 
     beforeEach(function () {
         layerGroup = {
@@ -45,6 +46,12 @@ describe('The draw tool factory', function () {
             enable: angular.noop
         };
 
+        geometryUtil = {
+            geodesicArea: () => 1,
+            readableArea: () => 1,
+            readableDistance: () => 1
+        };
+
         angular.mock.module(
             'dpMap',
             {
@@ -52,6 +59,7 @@ describe('The draw tool factory', function () {
                     LayerGroup: () => layerGroup,
                     FeatureGroup: () => drawnItems,
                     EditToolbar: () => editToolbar,
+                    GeometryUtil: geometryUtil,
                     Polygon: angular.noop,
                     Draw: {
                         Polygon: () => drawShapeHandler
@@ -92,7 +100,6 @@ describe('The draw tool factory', function () {
         spyOn(drawShapeHandler, 'enabled');
         spyOn(drawShapeHandler, 'deleteLastVertex');
         spyOn(drawShapeHandler, 'completeShape');
-        spyOn(drawShapeHandler, 'disable');
         spyOn(drawShapeHandler, 'enable');
         spyOn(editToolbar, 'getModeHandlers').and.returnValue(modeHandlers);
         spyOn(editShapeHandler, 'enabled');
@@ -101,7 +108,7 @@ describe('The draw tool factory', function () {
         spyOn(editShapeHandler, 'save');
     });
 
-    function fireEvent (name, e) {
+    function fireEventPlain (name, e) {
         let handlers = {};
 
         for (let i = 0; i < leafletMap.on.calls.count(); i++) {
@@ -114,18 +121,19 @@ describe('The draw tool factory', function () {
         }
     }
 
-    let c = console;
+    function fireEvent (name, e) {
+        fireEventPlain(name, e);
+
+        $rootScope.$digest();
+    }
 
     describe('Initialisation', function () {
         beforeEach(function () {
             drawTool.initialize(leafletMap);
+            spyOn(drawShapeHandler, 'disable');
         });
 
         it('disable by default', function () {
-            c.log(leafletMap.on.calls);
-            for (let i = 0; i < leafletMap.on.calls.count(); i++) {
-                c.log('on', leafletMap.on.calls.argsFor(i)[0]);
-            }
             expect(drawTool.isEnabled()).toBe(false);
         });
 
@@ -182,48 +190,27 @@ describe('The draw tool factory', function () {
 
         beforeEach(function () {
             nVertices = 3;
+            spyOn(L.GeometryUtil, 'readableArea').and.returnValue(1);
+            spyOn(L.GeometryUtil, 'readableDistance').and.returnValue(1);
+            spyOn(L.GeometryUtil, 'geodesicArea').and.returnValue(1);
         });
 
-        let distanceTo = () => 1;
+        let testMarkers = [[4, 50], [4, 51], [3, 51], [3, 50], [0, 0], [0, 0]];
 
-        let vertices = [
-            {
+        let vertices = testMarkers.map(([lat, lng], i) => {
+            return {
+                _leaflet_id: i,
+                handler: {},
                 _latlng: {
-                    lat: 4,
-                    lng: 50
+                    lat,
+                    lng,
+                    distanceTo: () => 1
                 }
-            },
-            {
-                _latlng: {
-                    lat: 4,
-                    lng: 51
-                }
-            },
-            {
-                _latlng: {
-                    lat: 3,
-                    lng: 51
-                }
-            },
-            {
-                _latlng: {
-                    lat: 3,
-                    lng: 50
-                }
-            },
-            {
-                _latlng: {
-                    lat: 0,
-                    lng: 0
-                }
-            }
-        ];
+            };
+        });
 
-        vertices.forEach((v, i) => {
-            v.handler = {};
+        vertices.forEach(v => {
             v.on = (on, func) => v.handler[on] = func;
-            v._latlng.distanceTo = distanceTo;
-            v._leaflet_id = i;
         });
 
         function enable () {
@@ -252,22 +239,26 @@ describe('The draw tool factory', function () {
 
         class Layer {
             constructor (latlngs) {
-                this._latlngs = latlngs.reduce((result, latlng) => {
-                    let [lat, lng] = latlng;
-                    result._latlng = {
-                        lat,
-                        lng,
-                        distanceTo
-                    };
-                    return result;
-                }, []);
+                this._latlngs = [];
+                latlngs.forEach(latlng => this.addVertex(latlng));
+            }
+
+            addVertex (latlng) {
+                let [lat, lng] = latlng;
+                this._latlngs.push({
+                    lat,
+                    lng,
+                    distanceTo: () => 1
+                });
             }
 
             on () { }   // shape click handler
 
             off () { }
 
-            getLatLngs () { return [this._latlngs]; }
+            getLatLngs () {
+                return [this._latlngs];
+            }
 
             intersects () { return false; }
         }
@@ -441,21 +432,36 @@ describe('The draw tool factory', function () {
         it('does not let a polygon exceed max markers in edit mode', function () {
             L.Polygon = Layer;
 
-            createPolygon();
+            spyOn(drawShapeHandler, 'disable').and.callFake(() => fireEvent('draw:drawstop'));
+            // spyOn(drawShapeHandler, 'completeShape').and.callFake(() => fireEvent('draw:created'));
+
+            drawTool.enable();
+            fireEvent('draw:drawstart');
+
+            nVertices = DRAW_TOOL_CONFIG.MAX_MARKERS;
+            addVertices();
+
+            expect(drawShapeHandler.completeShape).toHaveBeenCalled();
+            expect(drawTool.isEnabled()).toBe(false);
+            expect(drawTool.shape.markers.length).toBe(4);
+
+            fireEvent('draw:created', {
+                layer
+            });
+
+            fireEvent('draw:drawstop');
+
+            expect(drawTool.shape.markers.length).toBe(4);
 
             drawTool.enable();
             fireEvent('draw:editstart');
-            $rootScope.$digest();
+
+            expect(editShapeHandler.enable).toHaveBeenCalled();
 
             nVertices = 5;  // layer.getLatlngs() response
-
             fireEvent('draw:editvertex');
-            $rootScope.$digest();
 
-            fireEvent('draw:editstop');
-            $rootScope.$digest();
-
-            // TODO expect(drawTool.shape.markers.length).toBe(4);
+            expect(drawTool.shape.markers.length).toBe(4);
         });
 
         it('click on map while drawing polygon does not end draw mode', function () {
