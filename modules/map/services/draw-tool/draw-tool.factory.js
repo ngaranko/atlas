@@ -205,7 +205,7 @@
         function registerDrawEvents () {
             Object.keys(L.Draw.Event).forEach(eventName => {
                 drawTool.map.on(L.Draw.Event[eventName], function (e) {
-                    if (eventName === 'DELETED' && drawTool.lastEvent === 'DRAWSTOP') {
+                    if (eventName === 'DELETED' && ['DRAWSTOP', 'EDITSTOP'].indexOf(drawTool.lastEvent) !== -1) {
                         // ignore this leaflet.draw event sequence as it would clear the current shape
                         return;
                     }
