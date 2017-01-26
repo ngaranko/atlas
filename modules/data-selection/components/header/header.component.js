@@ -33,6 +33,7 @@
             vm.showHeader = isListView || !vm.isLoading;
             vm.showButtons = vm.state.dataset !== 'catalogus';
             vm.showTitle = isListView || (!vm.isLoading && vm.numberOfRecords);
+            vm.showSearchQuery = angular.isString(vm.state.query);
             vm.showTabs = isListView;
             vm.showNoResultsFound = vm.numberOfRecords === 0 && !vm.isLoading;
             vm.showActiveFilters = !vm.isLoading && Object.keys(vm.state.filters).length;

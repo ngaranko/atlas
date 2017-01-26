@@ -19,7 +19,10 @@
     </div>
 
     <h2 ng-if="vm.showNoResultsFound && !vm.showTabs" class="qa-no-results-found">Geen resultaten gevonden</h2>
+
+    <h3 ng-if="vm.showSearchQuery" class="u-font--s qa-search-query">met "{{vm.state.query}}"</h3>
 </div>
+
 
 <div ng-if="vm.showTabs" class="o-tabs qa-tabs u-margin__bottom--1-5">
     <ul>

@@ -1,40 +1,55 @@
 describe('The draw tool factory', function () {
-    let L,
+    let $rootScope,
+        L,
         DRAW_TOOL_CONFIG,
         drawTool,
         leafletMap;
 
+    let layerGroup,
+        drawnItems,
+        drawShapeHandler,
+        editShapeHandler,
+        modeHandlers,
+        editToolbar,
+        geometryUtil;
+
     beforeEach(function () {
-        let layerGroup = {
+        layerGroup = {
             addLayer: angular.noop
         };
 
-        let drawnItems = {
+        drawnItems = {
             addLayer: angular.noop,
             removeLayer: angular.noop
         };
 
-        let editShapeHandler = {
+        editShapeHandler = {
             enabled: angular.noop,
             enable: angular.noop,
             disable: angular.noop,
             save: angular.noop
         };
 
-        let modeHandlers = [{
+        modeHandlers = [{
             handler: editShapeHandler
         }];
 
-        let editToolbar = {
+        editToolbar = {
             getModeHandlers: () => modeHandlers
         };
 
-        let drawShapeHandler = {
+        drawShapeHandler = {
             enabled: angular.noop,
             deleteLastVertex: angular.noop,
             completeShape: angular.noop,
             disable: angular.noop,
             enable: angular.noop
+        };
+
+        geometryUtil = {
+            geodesicArea: () => 1,
+            readableArea: () => 1,
+            readableDistance: () => 1
         };
 
         angular.mock.module(
@@ -44,6 +59,8 @@ describe('The draw tool factory', function () {
                     LayerGroup: () => layerGroup,
                     FeatureGroup: () => drawnItems,
                     EditToolbar: () => editToolbar,
+                    GeometryUtil: geometryUtil,
+                    Polygon: angular.noop,
                     Draw: {
                         Polygon: () => drawShapeHandler
                     },
@@ -54,7 +71,8 @@ describe('The draw tool factory', function () {
             }
         );
 
-        angular.mock.inject(function (_L_, _DRAW_TOOL_CONFIG_, _drawTool_) {
+        angular.mock.inject(function (_$rootScope_, _L_, _DRAW_TOOL_CONFIG_, _drawTool_) {
+            $rootScope = _$rootScope_;
             L = _L_;
             DRAW_TOOL_CONFIG = _DRAW_TOOL_CONFIG_;
             drawTool = _drawTool_;
@@ -82,7 +100,6 @@ describe('The draw tool factory', function () {
         spyOn(drawShapeHandler, 'enabled');
         spyOn(drawShapeHandler, 'deleteLastVertex');
         spyOn(drawShapeHandler, 'completeShape');
-        spyOn(drawShapeHandler, 'disable');
         spyOn(drawShapeHandler, 'enable');
         spyOn(editToolbar, 'getModeHandlers').and.returnValue(modeHandlers);
         spyOn(editShapeHandler, 'enabled');
@@ -91,7 +108,7 @@ describe('The draw tool factory', function () {
         spyOn(editShapeHandler, 'save');
     });
 
-    function fireEvent (name, e) {
+    function fireEventPlain (name, e) {
         let handlers = {};
 
         for (let i = 0; i < leafletMap.on.calls.count(); i++) {
@@ -104,32 +121,422 @@ describe('The draw tool factory', function () {
         }
     }
 
-    let c = console;
+    function fireEvent (name, e) {
+        fireEventPlain(name, e);
+
+        $rootScope.$digest();
+    }
+
+    // Events
+    // 'draw:created'
+    // 'draw:edited'
+    // 'draw:deleted'
+    // 'draw:drawstart'
+    // 'draw:drawstop'
+    // 'draw:drawvertex'
+    // 'draw:editstart'
+    // 'draw:editmove'
+    // 'draw:editresize'
+    // 'draw:editvertex'
+    // 'draw:editstop'
+    // 'draw:deletestart'
+    // 'draw:deletestop'
+    // 'click'
 
     describe('Initialisation', function () {
         beforeEach(function () {
             drawTool.initialize(leafletMap);
+            spyOn(drawShapeHandler, 'disable');
         });
 
         it('disable by default', function () {
-            c.log(leafletMap.on.calls);
-            for (let i = 0; i < leafletMap.on.calls.count(); i++) {
-                c.log('on', leafletMap.on.calls.argsFor(i)[0]);
-            }
             expect(drawTool.isEnabled()).toBe(false);
         });
 
         it('can be enabled', function () {
             drawTool.enable();
+            expect(drawShapeHandler.enable).toHaveBeenCalled();
+
             fireEvent('draw:drawstart');
             expect(drawTool.isEnabled()).toBe(true);
+        });
+
+        it('ignores enable when already enabled', function () {
+            drawTool.enable();
+            fireEvent('draw:drawstart');
+            drawShapeHandler.enable.calls.reset();
+
+            drawTool.enable();
+            expect(drawShapeHandler.enable).not.toHaveBeenCalled();
         });
 
         it('can be disabled', function () {
             drawTool.enable();
             fireEvent('draw:drawstart');
+
             drawTool.disable();
             expect(drawTool.isEnabled()).toBe(false);
+        });
+
+        it('ignores disable when already disabled', function () {
+            drawTool.disable();
+            expect(drawShapeHandler.disable).not.toHaveBeenCalled();
+        });
+    });
+
+    describe('On drawing mode changed event', function () {
+        let onResult,
+            onDrawingMode = status => onResult = status;
+
+        beforeEach(function () {
+            drawTool.initialize(leafletMap, null, onDrawingMode);
+        });
+
+        it('calls onDrawing when the drawing mode changes, in the next digest cycle', function () {
+            drawTool.enable();
+            fireEvent('draw:drawstart');
+            $rootScope.$digest();
+
+            expect(onResult).toBe('DRAW');
+        });
+    });
+
+    describe('Draw polygon', function () {
+        let nVertices;
+
+        beforeEach(function () {
+            nVertices = 3;
+            spyOn(L.GeometryUtil, 'readableArea').and.returnValue(1);
+            spyOn(L.GeometryUtil, 'readableDistance').and.returnValue(1);
+            spyOn(L.GeometryUtil, 'geodesicArea').and.returnValue(1);
+        });
+
+        let testMarkers = [[4, 50], [4, 51], [3, 51], [3, 50], [0, 0], [0, 0]];
+
+        let vertices = testMarkers.map(([lat, lng], i) => {
+            return {
+                _leaflet_id: i,
+                handler: {},
+                _latlng: {
+                    lat,
+                    lng,
+                    distanceTo: () => 1
+                }
+            };
+        });
+
+        vertices.forEach(v => {
+            v.on = (on, func) => v.handler[on] = func;
+        });
+
+        function enable () {
+            drawTool.enable();
+            fireEvent('draw:drawstart');
+        }
+
+        function addVertices () {
+            let markers = [];
+            for (let i = 0; i < nVertices; i++) {
+                let v = vertices[i];
+                markers.push(v);
+                drawShapeHandler._markers = markers;
+                fireEvent('draw:drawvertex');
+            }
+        }
+
+        function buildPolygon () {
+            enable();
+
+            addVertices();
+
+            fireEvent('draw:drawstop');
+            fireEvent('draw:deleted');  // this is the event that leaflet fires after drawstop
+        }
+
+        class Layer {
+            constructor (latlngs) {
+                this._latlngs = [];
+                latlngs.forEach(latlng => this.addVertex(latlng));
+            }
+
+            addVertex (latlng) {
+                let [lat, lng] = latlng;
+                this._latlngs.push({
+                    lat,
+                    lng,
+                    distanceTo: () => 1
+                });
+            }
+
+            on () { }   // shape click handler
+
+            off () { }
+
+            getLatLngs () {
+                return [this._latlngs];
+            }
+
+            intersects () { return false; }
+        }
+
+        let shapeClickHandler = {};
+
+        let layer = {
+            on: (event, handler) => shapeClickHandler[event] = handler,
+            off: angular.noop,
+            getLatLngs: () => [vertices.map(v => v._latlng).slice(0, nVertices)],
+            intersects: () => false
+        };
+
+        function createPolygon () {
+            buildPolygon();
+            fireEvent('draw:created', {
+                layer
+            });
+        }
+
+        function deletePolygon () {
+            drawTool.setPolygon([]);
+            drawShapeHandler._markers = [];
+            fireEvent('draw:deleted');
+        }
+
+        beforeEach(function () {
+            drawTool.initialize(leafletMap);
+        });
+
+        it('Can add a vertex', function () {
+            enable();
+            drawShapeHandler._markers = [vertices[0]];
+            fireEvent('draw:drawvertex');
+        });
+
+        it('Can build a polygon', function () {
+            drawTool.initialize(leafletMap);
+            buildPolygon();
+            expect(drawTool.shape.markers).toEqual([[4, 50], [4, 51], [3, 51]]);
+        });
+
+        it('Can build a line', function () {
+            enable();
+
+            nVertices = 2;
+            addVertices();
+
+            expect(drawTool.shape.markers).toEqual([[4, 50], [4, 51]]);
+            expect(drawTool.isEnabled()).toBe(true);
+
+            drawShapeHandler.enabled = () => true;
+            vertices[0].handler.click();
+
+            expect(drawShapeHandler.completeShape).toHaveBeenCalled();
+
+            drawShapeHandler.enabled = () => false;
+
+            fireEvent('draw:created', {layer});
+            $rootScope.$digest();
+
+            fireEvent('draw:drawstop');
+            $rootScope.$digest();
+        });
+
+        it('Can build a polygon and notifies on finish drawing', function () {
+            let onResult,
+                onFinish = shape => onResult = shape;
+            drawTool.initialize(leafletMap, onFinish);
+            buildPolygon();
+            expect(onResult.markers).toEqual([[4, 50], [4, 51], [3, 51]]);
+        });
+
+        it('Can delete a polygon', function () {
+            createPolygon();
+
+            deletePolygon();
+
+            expect(drawTool.shape.markers).toEqual([]);
+        });
+
+        it('Can delete the last marker', function () {
+            enable();
+
+            addVertices();
+
+            vertices[2].handler.click();
+            $rootScope.$digest();
+
+            // TODO expect(drawTool.shape.markers.length).toBe(2);
+        });
+
+        it('Can delete the last and nextlast marker', function () {
+            enable();
+
+            addVertices();
+
+            vertices[1].handler.click();
+            $rootScope.$digest();
+
+            // TODO expect(drawTool.shape.markers.length).toBe(1);
+        });
+
+        it('Can delete the first marker', function () {
+            nVertices = 1;
+
+            enable();
+
+            addVertices();
+
+            drawShapeHandler.enabled = () => true;
+
+            vertices[0].handler.click();
+            $rootScope.$digest();
+
+            // TODO expect(drawTool.shape.markers.length).toBe(0);
+        });
+
+        it ('Auto closes a polygon', function () {
+            enable();
+
+            nVertices = 4;
+            addVertices();
+            $rootScope.$digest();
+
+            expect(drawTool.isEnabled()).toBe(false);
+        });
+
+        it('can edit a polygon by clicking the drawn polygon', function () {
+            createPolygon();
+
+            expect(shapeClickHandler.click).toEqual(jasmine.any(Function));
+
+            shapeClickHandler.click();
+
+            expect(editShapeHandler.enable).toHaveBeenCalled();
+            fireEvent('draw:editstart');
+
+            shapeClickHandler.click();
+            expect(editShapeHandler.disable).toHaveBeenCalled();
+        });
+
+        it('can edit a polygon', function () {
+            createPolygon();
+
+            drawTool.enable();
+            expect(editShapeHandler.enable).toHaveBeenCalled();
+
+            fireEvent('draw:editstart');
+            $rootScope.$digest();
+
+            drawTool.disable();
+
+            expect(editShapeHandler.save).toHaveBeenCalled();
+            expect(editShapeHandler.disable).toHaveBeenCalled();
+        });
+
+        it('can add markers to a polygon in edit mode', function () {
+            createPolygon();
+
+            drawTool.enable();
+            fireEvent('draw:editstart');
+            $rootScope.$digest();
+
+            nVertices = 4;  // layer.getLatlngs() response
+
+            fireEvent('draw:editstop');
+            expect(drawTool.shape.markers.length).toBe(4);
+        });
+
+        it('does not let a polygon exceed max markers in edit mode', function () {
+            L.Polygon = Layer;
+
+            spyOn(drawShapeHandler, 'disable').and.callFake(() => fireEvent('draw:drawstop'));
+            // spyOn(drawShapeHandler, 'completeShape').and.callFake(() => fireEvent('draw:created'));
+
+            drawTool.enable();
+            fireEvent('draw:drawstart');
+
+            nVertices = DRAW_TOOL_CONFIG.MAX_MARKERS;
+            addVertices();
+
+            expect(drawShapeHandler.completeShape).toHaveBeenCalled();
+            expect(drawTool.isEnabled()).toBe(false);
+            expect(drawTool.shape.markers.length).toBe(4);
+
+            fireEvent('draw:created', {
+                layer
+            });
+
+            fireEvent('draw:drawstop');
+
+            expect(drawTool.shape.markers.length).toBe(4);
+
+            drawTool.enable();
+            fireEvent('draw:editstart');
+
+            expect(editShapeHandler.enable).toHaveBeenCalled();
+
+            nVertices = 5;  // layer.getLatlngs() response
+            fireEvent('draw:editvertex');
+
+            expect(drawTool.shape.markers.length).toBe(4);
+        });
+
+        it('click on map while drawing polygon does not end draw mode', function () {
+            enable();
+
+            addVertices();
+
+            fireEvent('click');
+
+            expect(drawTool.isEnabled()).toBe(true);
+        });
+
+        it('click on map while finished drawing polygon deletes polygon', function () {
+            createPolygon();
+
+            fireEvent('click');
+
+            deletePolygon();
+
+            expect(drawTool.isEnabled()).toBe(false);
+            expect(drawTool.shape.markers.length).toBe(0);
+        });
+
+        it('click on map while editing polygon ends edit mode', function () {
+            createPolygon();
+
+            drawTool.enable();
+            fireEvent('draw:editstart');
+
+            fireEvent('click');
+
+            expect(drawTool.isEnabled()).toBe(false);
+        });
+    });
+
+    describe('Leaflet.draw events', function () {
+        beforeEach(function () {
+            drawTool.initialize(leafletMap);
+        });
+    });
+
+    describe('Set polygon', function () {
+        beforeEach(function () {
+            drawTool.initialize(leafletMap);
+        });
+
+        it('deletes any existing polygon', function () {
+
+        });
+
+        it('does not create a new polygon for empty markers', function () {
+            drawTool.setPolygon([]);
+            expect(drawnItems.addLayer).not.toHaveBeenCalled();
+        });
+
+        it('creates a new polygon for the specified markers', function () {
+            let markers = [[4, 50], [4, 51], [3, 51]];
+            drawTool.setPolygon(markers);
+            expect(drawnItems.addLayer).toHaveBeenCalled();
         });
     });
 });
