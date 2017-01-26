@@ -18,7 +18,7 @@
             leafletMap.on('click', onMapClick);
 
             store.subscribe(() => {
-                if (store.getState().map.drawingMode === 'DRAW') {
+                if (['DRAW', 'EDIT'].indexOf(store.getState().map.drawingMode) !== -1) {
                     disable();
                 } else {
                     enable();
