@@ -20,7 +20,14 @@
         vm.shape = drawTool.shape;
 
         vm.toggle = () => {
-            return drawTool.isEnabled() ? drawTool.disable() : drawTool.enable();
+            if (drawTool.isEnabled()) {
+                drawTool.disable();
+            } else {
+                if (drawTool.shape.markers.length > 0) {
+                    drawTool.setPolygon([]);
+                }
+                drawTool.enable();
+            }
         };
 
         // Follow the shape that is drawn or edited by the drawing tool

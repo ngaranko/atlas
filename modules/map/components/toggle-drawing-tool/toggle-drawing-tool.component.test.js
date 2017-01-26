@@ -20,7 +20,8 @@ describe('The dp-toggle-drawing-tool component', function () {
                     shape: {
                         markers: [],
                         markersMaxCount: MAXCOUNT
-                    }
+                    },
+                    setPolygon: angular.noop
                 }
             }
         );
@@ -60,8 +61,17 @@ describe('The dp-toggle-drawing-tool component', function () {
             expect(component.find('button span').attr('class')).toContain('ng-hide');
         });
 
-        it('enables drwa/edit mode when clicking the button', function () {
+        it('enables draw/edit mode when clicking the button', function () {
             component.find('button').click();
+            expect(drawTool.enable).toHaveBeenCalled();
+        });
+
+        it('enables draw/edit mode when clicking the button', function () {
+            drawTool.shape.markers = ['aap'];
+            spyOn(drawTool, 'setPolygon');
+
+            component.find('button').click();
+            expect(drawTool.setPolygon).toHaveBeenCalledWith([]);
             expect(drawTool.enable).toHaveBeenCalled();
         });
     });

@@ -127,6 +127,22 @@ describe('The draw tool factory', function () {
         $rootScope.$digest();
     }
 
+    // Events
+    // 'draw:created'
+    // 'draw:edited'
+    // 'draw:deleted'
+    // 'draw:drawstart'
+    // 'draw:drawstop'
+    // 'draw:drawvertex'
+    // 'draw:editstart'
+    // 'draw:editmove'
+    // 'draw:editresize'
+    // 'draw:editvertex'
+    // 'draw:editstop'
+    // 'draw:deletestart'
+    // 'draw:deletestop'
+    // 'click'
+
     describe('Initialisation', function () {
         beforeEach(function () {
             drawTool.initialize(leafletMap);
@@ -234,7 +250,7 @@ describe('The draw tool factory', function () {
             addVertices();
 
             fireEvent('draw:drawstop');
-            $rootScope.$digest();
+            fireEvent('draw:deleted');  // this is the event that leaflet fires after drawstop
         }
 
         class Layer {

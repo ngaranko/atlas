@@ -34,7 +34,8 @@
             drawingMode: null,
             drawnItems: null,
             drawShapeHandler: null,
-            editShapeHandler: null
+            editShapeHandler: null,
+            lastEvent: null
         };
 
         // these callback methods will be called on a finished polygon and on a change of drawing mode
@@ -195,6 +196,8 @@
             if (handler) {
                 handler(e);
             }
+
+            drawTool.lastEvent = eventName;
         }
 
         // Every leaflet.draw event is catched, thereby taking care that the shape is always up-to-date,
@@ -202,6 +205,11 @@
         function registerDrawEvents () {
             Object.keys(L.Draw.Event).forEach(eventName => {
                 drawTool.map.on(L.Draw.Event[eventName], function (e) {
+                    if (eventName === 'DELETED' && drawTool.lastEvent === 'DRAWSTOP') {
+                        // ignore this leaflet.draw event sequence as it would clear the current shape
+                        return;
+                    }
+
                     handleDrawEvent(eventName, e);
 
                     updateShape();  // Update current shape and tooltip
