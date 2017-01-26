@@ -37,7 +37,6 @@
         }, true);
 
         function onFinishShape (polygon) {
-            // Dispatch fetch data action...
             store.dispatch({
                 type: ACTIONS.MAP_END_DRAWING,
                 payload: {

@@ -51,9 +51,9 @@ describe('The draw tool factory', function () {
         };
 
         geometryUtil = {
-            geodesicArea: () => 1,
-            readableArea: () => 1,
-            readableDistance: () => 1
+            // geodesicArea: () => 1,
+            // readableArea: () => 1,
+            // readableDistance: () => 1
         };
 
         angular.mock.module(
@@ -90,15 +90,15 @@ describe('The draw tool factory', function () {
             fire: angular.noop
         };
 
-        spyOn(L, 'LayerGroup').and.returnValue(layerGroup);
+        // spyOn(L, 'LayerGroup').and.returnValue(layerGroup);
         spyOn(L, 'FeatureGroup').and.returnValue(drawnItems);
         spyOn(L, 'EditToolbar').and.returnValue(editToolbar);
         spyOn(L.Draw, 'Polygon').and.returnValue(drawShapeHandler);
         spyOn(L.DomEvent, 'stop');
         spyOn(leafletMap, 'addLayer');
         spyOn(leafletMap, 'on');
-        spyOn(leafletMap, 'fire');
-        spyOn(layerGroup, 'addLayer');
+        // spyOn(leafletMap, 'fire');
+        // spyOn(layerGroup, 'addLayer');
         spyOn(drawnItems, 'addLayer');
         spyOn(drawnItems, 'removeLayer');
         spyOn(drawShapeHandler, 'enabled');
@@ -106,31 +106,12 @@ describe('The draw tool factory', function () {
         spyOn(drawShapeHandler, 'completeShape');
         spyOn(drawShapeHandler, 'enable');
         spyOn(drawShapeHandler, 'disable');
-        spyOn(editToolbar, 'getModeHandlers').and.returnValue(modeHandlers);
-        spyOn(editShapeHandler, 'enabled');
+        // spyOn(editToolbar, 'getModeHandlers').and.returnValue(modeHandlers);
+        // spyOn(editShapeHandler, 'enabled');
         spyOn(editShapeHandler, 'enable');
         spyOn(editShapeHandler, 'disable');
         spyOn(editShapeHandler, 'save');
     });
-
-    function fireEventPlain (name, e) {
-        let handlers = {};
-
-        for (let i = 0; i < leafletMap.on.calls.count(); i++) {
-            let [fname, func] = leafletMap.on.calls.argsFor(i);
-            handlers[fname] = func;
-        }
-
-        if (handlers[name]) {
-            handlers[name](e);
-        }
-    }
-
-    function fireEvent (name, e) {
-        fireEventPlain(name, e);
-
-        $rootScope.$digest();
-    }
 
     // Events
     // 'draw:created'
@@ -147,6 +128,21 @@ describe('The draw tool factory', function () {
     // 'draw:deletestart'
     // 'draw:deletestop'
     // 'click'
+
+    function fireEvent (name, e) {
+        let handlers = {};
+
+        for (let i = 0; i < leafletMap.on.calls.count(); i++) {
+            let [fname, func] = leafletMap.on.calls.argsFor(i);
+            handlers[fname] = func;
+        }
+
+        if (handlers[name]) {
+            handlers[name](e);
+        }
+
+        $rootScope.$digest();
+    }
 
     describe('Initialisation', function () {
         beforeEach(function () {
@@ -347,7 +343,7 @@ describe('The draw tool factory', function () {
             expect(drawTool.isEnabled()).toBe(false);
         });
 
-        it('Can build a polygon and notifies on finish drawing', function () {
+        it('Can build a polygon and notifies info on shape on finish drawing', function () {
             let onResult,
                 onFinish = shape => onResult = shape;
 
@@ -357,6 +353,8 @@ describe('The draw tool factory', function () {
             fireEvent('draw:created', {layer});
 
             expect(onResult.markers).toEqual(testMarkers.slice(0, nVertices));
+            expect(drawTool.shape.distance).toBe(nVertices);
+            expect(drawTool.shape.area).toBe(1);
         });
 
         it('Can delete a polygon', function () {

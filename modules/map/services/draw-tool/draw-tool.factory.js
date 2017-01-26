@@ -186,7 +186,6 @@
             let handlers = {
                 DRAWSTART: () => setDrawingMode('DRAW'),
                 DRAWVERTEX: bindLastDrawnMarker,
-                // DRAWSTOP: finishPolygon,
                 CREATED: () => {
                     createPolygon(e.layer);
                     finishPolygon();
