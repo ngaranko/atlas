@@ -100,9 +100,10 @@
         }
 
         function filterUnavailableFilters (dataset, activeFilters) {
-            if (angular.isDefined(activeFilters.shape)) {
-                return activeFilters;
-            }
+            // if (angular.isDefined(activeFilters.shape)) {
+            //     // filter is a shape...
+            //     return activeFilters;
+            // }
 
             // Some activeFilters do not exist for the current data
             let activeAndAvailableFilters = angular.copy(activeFilters);
