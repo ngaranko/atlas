@@ -91,6 +91,7 @@
             if (latLngs.length > 0) {
                 createPolygon(new L.Polygon(latLngs));
             }
+            updateShape();
         }
 
         // Delete an existing polygon
@@ -185,8 +186,11 @@
             let handlers = {
                 DRAWSTART: () => setDrawingMode('DRAW'),
                 DRAWVERTEX: bindLastDrawnMarker,
-                DRAWSTOP: finishPolygon,
-                CREATED: () => createPolygon(e.layer),
+                // DRAWSTOP: finishPolygon,
+                CREATED: () => {
+                    createPolygon(e.layer);
+                    finishPolygon();
+                },
                 EDITSTART: () => setDrawingMode('EDIT'),
                 EDITSTOP: finishPolygon,
                 DELETED: () => currentShape.layer = null
@@ -205,10 +209,16 @@
         function registerDrawEvents () {
             Object.keys(L.Draw.Event).forEach(eventName => {
                 drawTool.map.on(L.Draw.Event[eventName], function (e) {
-                    if (eventName === 'DELETED' && ['DRAWSTOP', 'EDITSTOP'].indexOf(drawTool.lastEvent) !== -1) {
-                        // ignore this leaflet.draw event sequence as it would clear the current shape
-                        return;
-                    }
+                    // Ignore certain event sequences
+                    [
+                        { last: 'CREATED', current: 'DRAWSTOP' },
+                        { last: 'DRAWSTOP', current: 'DELETED' },
+                        { last: 'EDITSTOP', current: 'DELETED' }
+                    ].forEach(({last, current}) => {
+                        if (eventName === current && drawTool.lastEvent === last) {
+                            return;
+                        }
+                    });
 
                     handleDrawEvent(eventName, e);
 
@@ -237,6 +247,7 @@
                 } else if (!(drawTool.drawingMode === 'DRAW' || currentShape.layer === null)) {
                     // Not in draw mode (add new marker) or when no shape exists (first marker starts drawing mode)
                     deletePolygon();
+                    updateShape();
                     onFinishPolygon();
                     disable();
                 }
