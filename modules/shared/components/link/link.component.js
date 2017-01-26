@@ -70,12 +70,14 @@
 
             oldState = applicationState.getStore().getState();
 
-            targetState = reducer(oldState, {
-                type: ACTIONS[type],
-                payload: payload
-            });
+            // targetState = reducer(oldState, {
+            //     type: ACTIONS[type],
+            //     payload: payload
+            // });
+            //
+            // return stateToUrl.create(targetState);
 
-            return stateToUrl.create(targetState);
+            return('aap');
         }
     }
 })();
