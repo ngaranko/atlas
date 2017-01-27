@@ -197,6 +197,7 @@ describe('The dp-link component', function () {
         });
 
         // A dispatch without a payload
+        store.dispatch.calls.reset();
         component = getComponent(null, null, 'ACTION_WITH_BUTTON');
         component.find('button').click();
         expect(store.dispatch).toHaveBeenCalledWith({
