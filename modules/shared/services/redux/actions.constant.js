@@ -78,6 +78,10 @@
                 id: 'MAP_END_DRAWING_MODE',
                 isButton: true
             },
+            MAP_SET_POINT: {
+                id: 'MAP_SET_POINT',
+                isButton: false
+            },
             SHOW_MAP_ACTIVE_OVERLAYS: {
                 id: 'SHOW_MAP_ACTIVE_OVERLAYS',
                 replace: true,

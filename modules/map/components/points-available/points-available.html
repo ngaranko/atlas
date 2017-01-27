@@ -1,1 +1,6 @@
-<div class="c-points-available"><dp-panel is-panel-visible="true" type="warning" class-name="c-panel--header">Nog 10 punten mogelijk</dp-panel></div>
+<div class="c-points-available" ng-if="vm.drawingMode !== null">
+    <dp-panel is-panel-visible="true" type="warning" class="c-points-available__panel">
+        <span ng-if="vm.markersLeft > 0">Nog {{ vm.markersLeft }} {{ vm.pointText }} mogelijk</span>
+        <span ng-if="vm.markersLeft === 0">Geen punten mogelijk</span>
+    </dp-panel>
+</div>

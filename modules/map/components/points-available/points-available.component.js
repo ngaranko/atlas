@@ -12,23 +12,21 @@
             controllerAs: 'vm'
         });
 
-    DpPointsAvailableController.$inject = ['store', 'ACTIONS', 'DRAW_TOOL_CONFIG'];
+    DpPointsAvailableController.$inject = ['$scope', 'store', 'ACTIONS', 'DRAW_TOOL_CONFIG', 'drawTool'];
 
-    function DpPointsAvailableController (store, ACTIONS, DRAW_TOOL_CONFIG) {
+    function DpPointsAvailableController ($scope, store, ACTIONS, DRAW_TOOL_CONFIG, drawTool) {
         let vm = this;
         vm.store = store;
-        vm.pointsAvailable = 5;
+        vm.pointsAvailable = 0;
 
         store.subscribe(setPoints);
 
         function setPoints () {
             const state = store.getState();
-
-            let pointsOnMap = state.map.pointsDrawn;
-
-            // if (pointsOnMap > DRAW_TOOL_CONFIG.MAX_POINTS - DRAW_TOOL_CONFIG.POINT_WARNING_THRESHOLD) {
-            //     vm.pointsAvailable = 6;//DRAW_TOOL_CONFIG.MAX_POINTS - pointsOnMap;
-            // }
+            vm.drawingMode = state.map.drawingMode;
+            vm.markers = drawTool.shape.markers;
+            vm.markersLeft = drawTool.shape.markersMaxCount - drawTool.shape.markers.length;
+            vm.pointText = (vm.markersLeft === 1) ? 'punt' : 'punten';
         }
     }
 })();
