@@ -28,8 +28,12 @@
                              straatbeeldReducers,
                              dataSelectionReducers,
                              printReducers) {
-        return function (oldState, action) {
-            var actions = angular.merge(
+        let actions;
+
+        return reduce;
+
+        function mergeReducers () {
+            return angular.merge(
                 urlReducers,
                 detailReducers,
                 homeReducers,
@@ -41,6 +45,12 @@
                 dataSelectionReducers,
                 printReducers
             );
+        }
+
+        function reduce (oldState, action) {
+            if (angular.isUndefined(actions)) {
+                actions = mergeReducers();
+            }
 
             if (angular.isObject(action) &&
                 angular.isObject(action.type) &&
@@ -49,6 +59,6 @@
             } else {
                 return oldState;
             }
-        };
+        }
     }
 })();

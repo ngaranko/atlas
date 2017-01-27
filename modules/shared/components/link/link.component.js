@@ -42,7 +42,7 @@
         }
 
         function getTagName (type, payload) {
-            if (ACTIONS[vm.type].isButton) {
+            if (ACTIONS[type].isButton) {
                 return BUTTON;
             } else {
                 let currentPath = '#' + decodeURIComponent($location.url()),
@@ -65,12 +65,16 @@
         }
 
         function getHref (type, payload) {
+            // Remove state properties that do not relate to the url
+            // by converting the state to a url and back
+            // This prevents deep copying of large state objects in the reducer (eg dataSelection.markers)
             const reducer = applicationState.getReducer(),
-                stateToUrl = applicationState.getStateToUrl(),
-                oldState = applicationState.getStore().getState(),
-                targetState = reducer(oldState, getAction(type, payload));
+                state = applicationState.getStore().getState(),
+                params = applicationState.getStateUrlConverter().state2params(state),
+                sourceState = applicationState.getStateUrlConverter().params2state({}, params),
+                targetState = reducer(sourceState, getAction(type, payload));
 
-            return stateToUrl.create(targetState);
+            return applicationState.getStateUrlConverter().state2url(targetState);
         }
     }
 })();
