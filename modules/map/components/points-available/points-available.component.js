@@ -4,7 +4,6 @@
     angular
         .module('dpMap')
         .component('dpPointsAvailable', {
-            bindings: {},
             templateUrl: 'modules/map/components/points-available/points-available.html',
             controller: DpPointsAvailableController,
             controllerAs: 'vm'
@@ -15,16 +14,15 @@
     function DpPointsAvailableController ($scope, drawTool) {
         let vm = this;
 
-        $scope.$watchCollection(function () {
-            return drawTool.shape;
-        }, setPoints);
+        const MARKERS_LEFT_WARNING = 5;
+
+        setPoints();
+        $scope.$watch(() => drawTool.shape.markers.length, setPoints);
 
         function setPoints () {
-            console.log('--------------- hello -------------------', vm);
-            vm.drawingMode = drawTool.isEnabled();
-            vm.markers = drawTool.shape.markers;
             vm.markersLeft = drawTool.shape.markersMaxCount - drawTool.shape.markers.length;
             vm.pointText = (vm.markersLeft === 1) ? 'punt' : 'punten';
+            vm.showWarning = drawTool.isEnabled() && vm.markersLeft < MARKERS_LEFT_WARNING;
         }
     }
 })();

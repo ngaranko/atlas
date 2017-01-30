@@ -1,8 +1,6 @@
 describe('The dp-points-available component', function () {
     var $compile,
         $rootScope,
-        component,
-        store,
         scope,
         drawTool;
 
@@ -10,63 +8,80 @@ describe('The dp-points-available component', function () {
         angular.mock.module(
             'dpMap',
             {
-                store: {
-                    dispatch: angular.noop
-                },
                 drawTool: {
-                    initialize: angular.noop,
-                    setPolygon: angular.noop,
                     isEnabled: angular.noop,
-                    enable: angular.noop,
-                    disable: angular.noop,
                     shape: {
+                        markersMaxCount: 10,
                         markers: []
                     }
                 }
             }
         );
-        scope = {};
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _drawTool_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _drawTool_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
-            store = _store_;
+            drawTool = _drawTool_;
         });
-
-        spyOn(store, 'dispatch');
     });
 
     function getComponent () {
-        let result,
-            element;
-
-        element = document.createElement('dp-points-available');
+        let element = document.createElement('dp-points-available');
 
         scope = $rootScope.$new();
-
-        scope.drawingMode = false;
-        scope.markers = [];
-        scope.markersLeft = 10;
-
-        result = $compile(element)(scope);
+        let result = $compile(element)(scope);
 
         scope.$apply();
 
         return result;
     }
 
-    fdescribe('when active', function () {
-        it('shows countdown panel', function () {
-            component = getComponent();
+    describe('When the draw tool is enabled', function () {
+        beforeEach(function () {
+            spyOn(drawTool, 'isEnabled').and.returnValue(true);
+        });
 
-            console.log(component);
+        it('shows the remaining number of markers only when less than X markers left', function () {
+            drawTool.shape.markers = [];
+            let component = getComponent();
+            for (let i = 0; i < drawTool.shape.markersMaxCount; i++) {
+                let markersLeft = drawTool.shape.markersMaxCount - drawTool.shape.markers.length;
+                let showWarning = markersLeft < 5;
+                if (showWarning) {
+                    expect(component.find('.qa-few-points-available').length).toBe(1);
+                    expect(component.find('.qa-few-points-available').text()).toContain(
+                        'Nog ' + markersLeft + ' punt' + (markersLeft !== 1 ? 'en' : '') + ' mogelijk');
+                } else {
+                    expect(component.find('.qa-few-points-available').length).toBe(0);
+                }
 
-            expect(component.find('.c-points-available__panel').length).toBe(0);
+                drawTool.shape.markers.push(i);
+                $rootScope.$digest();
+            }
+            expect(component.find('.qa-few-points-available').length).toBe(0);
+            expect(component.find('.qa-no-more-points-available').length).toBe(1);
+            expect(component.find('.qa-no-more-points-available').text()).toContain(
+                'Geen punten mogelijk'
+            );
+        });
+    });
 
-            scope.drawingMode = true;
-            $rootScope.$digest();
+    describe('When the draw tool is disabled', function () {
+        beforeEach(function () {
+            spyOn(drawTool, 'isEnabled').and.returnValue(false);
+        });
 
-            expect(component.find('.c-points-available__panel').length).toBe(1);
+        it('shows nothing', function () {
+            drawTool.shape.markers = [];
+            let component = getComponent();
+            for (let i = 0; i < drawTool.shape.markersMaxCount; i++) {
+                expect(component.find('.qa-few-points-available').length).toBe(0);
+                expect(component.find('.qa-no-more-points-available').length).toBe(0);
+                drawTool.shape.markers.push(i);
+                $rootScope.$digest();
+            }
+            expect(component.find('.qa-few-points-available').length).toBe(0);
+            expect(component.find('.qa-no-more-points-available').length).toBe(0);
         });
     });
 });
