@@ -19,7 +19,7 @@
             scope: {
                 mapState: '=',
                 markers: '=',
-                polygon: '=',
+                drawGeometry: '=',
                 showLayerSelection: '=',
                 resize: '<'
             },
