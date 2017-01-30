@@ -17,7 +17,8 @@ describe('The dp-map directive', function () {
             'dpMap',
             {
                 store: {
-                    dispatch: angular.noop
+                    dispatch: angular.noop,
+                    subscribe: angular.noop
                 },
                 leafletMap: {
                     invalidateSize: angular.noop

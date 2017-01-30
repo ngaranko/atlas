@@ -10,17 +10,18 @@
             controllerAs: 'vm'
         });
 
-    DpPointsAvailableController.$inject = ['$scope', 'store', 'ACTIONS', 'DRAW_TOOL_CONFIG', 'drawTool'];
+    DpPointsAvailableController.$inject = ['$scope', 'drawTool'];
 
-    function DpPointsAvailableController ($scope, store, ACTIONS, DRAW_TOOL_CONFIG, drawTool) {
+    function DpPointsAvailableController ($scope, drawTool) {
         let vm = this;
 
-        store.subscribe(setPoints);
+        $scope.$watchCollection(function () {
+            return drawTool.shape;
+        }, setPoints);
 
         function setPoints () {
-            const state = store.getState();
-
-            vm.drawingMode = state.map.drawingMode;
+            console.log('--------------- hello -------------------', vm);
+            vm.drawingMode = drawTool.isEnabled();
             vm.markers = drawTool.shape.markers;
             vm.markersLeft = drawTool.shape.markersMaxCount - drawTool.shape.markers.length;
             vm.pointText = (vm.markersLeft === 1) ? 'punt' : 'punten';
