@@ -13,7 +13,7 @@
         };
 
         function initialize () {
-            L.drawLocal = LEAFLET_DRAW_TRANSLATIONS;
+            L.drawLocal = angular.merge(L.drawLocal, LEAFLET_DRAW_TRANSLATIONS);
         }
     }
 })();

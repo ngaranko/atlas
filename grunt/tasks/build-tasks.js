@@ -6,7 +6,6 @@ module.exports = function (grunt) {
         'copy:assets',
         'copy:bower_bbga_fonts',
         'copy:bower_leaflet_images',
-        'copy:bower_leaflet_draw_images',
 
         'build-js',
         'build-css'
