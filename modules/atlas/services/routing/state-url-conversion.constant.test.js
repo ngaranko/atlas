@@ -87,6 +87,26 @@ describe('The state url conversion definition', function () {
             });
         });
 
+        describe('The post processing for map', function () {
+            it('copies the drawing mode from the previous state', function () {
+                let oldState = {
+                    drawingMode: 'aap'
+                };
+                let newState = {};
+
+                STATE_URL_CONVERSION.post.map(oldState, newState);
+                expect(newState).toEqual({
+                    drawingMode: 'aap'
+                });
+
+                oldState = null;
+                newState = {};
+
+                STATE_URL_CONVERSION.post.map(oldState, newState);
+                expect(newState).toEqual({});
+            });
+        });
+
         describe('The post processing for detail', function () {
             it('copies display, geometry, isLoading and isFullscreen from old state if equal endpoint', function () {
                 let oldState,
