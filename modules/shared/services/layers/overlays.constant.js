@@ -762,10 +762,10 @@
                         'mbgm',
                         'mbgwm',
                         'mbaig',
-                        'exin',
                         'exvg',
-                        'exgg',
-                        'exuo'
+                        'exin',
+                        'exuo',
+                        'exgg'
                     ]
                 }, {
                     heading: 'Milieu: externe veiligheid',
