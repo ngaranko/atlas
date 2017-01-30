@@ -18,6 +18,7 @@
 
         setPoints();
         $scope.$watch(() => drawTool.shape.markers.length, setPoints);
+        $scope.$watch(drawTool.isEnabled, setPoints);
 
         function setPoints () {
             vm.markersLeft = drawTool.shape.markersMaxCount - drawTool.shape.markers.length;

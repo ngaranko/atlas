@@ -29,13 +29,5 @@
                 drawTool.enable();
             }
         };
-
-        // Follow the shape that is drawn or edited by the drawing tool
-        // Currently show the number of markers that is available to add to the shape
-        $scope.$watch(() => drawTool.shape, () => {
-            store.dispatch({
-                type: ACTIONS.MAP_SET_POINT
-            });
-        }, true);
     }
 })();
