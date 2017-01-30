@@ -63,6 +63,7 @@
                 vm.polygon.markers = state.dataSelection.geometryFilter || [];
             } else {
                 vm.markers.clustered = [];
+                vm.polygon.markers = [];
             }
 
             vm.mapState = state.map;

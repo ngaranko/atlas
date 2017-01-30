@@ -69,6 +69,12 @@
                     }
                     return newState;
                 },
+                map: (oldState, newState) => {
+                    if (angular.isObject(oldState)) {
+                        newState.drawingMode = oldState.drawingMode;
+                    }
+                    return newState;
+                },
                 straatbeeld: (oldState, newState) => {
                     if (angular.isObject(oldState) && oldState.id === newState.id) {
                         newState.image = oldState.image;
@@ -217,10 +223,6 @@
                     name: 'map.viewCenter',
                     type: 'number[]',
                     precision: 7
-                },
-                mpd: {
-                    name: 'map.drawingMode',
-                    type: 'string'
                 },
                 // page (pg)
                 pgn: {
