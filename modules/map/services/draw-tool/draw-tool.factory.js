@@ -97,7 +97,7 @@
         // Delete an existing polygon
         function deletePolygon () {
             if (currentShape.layer) {
-                currentShape.layer.off('click', shapeClickHandler); // deregister the click handler to start/end edit
+                currentShape.layer.off('click', toggleEditModeOnShapeClick);
                 drawTool.drawnItems.removeLayer(currentShape.layer);
 
                 let deletedLayers = new L.LayerGroup();
@@ -112,7 +112,7 @@
         function createPolygon (layer) {
             currentShape.layer = layer;
             drawTool.drawnItems.addLayer(layer);
-            layer.on('click', shapeClickHandler);
+            layer.on('click', toggleEditModeOnShapeClick);
         }
 
         // Called when a polygon is finished (end draw or end edit)
@@ -254,7 +254,7 @@
         }
 
         // Click on the shape toggles EDIT mode
-        function shapeClickHandler (e) {
+        function toggleEditModeOnShapeClick (e) {
             L.DomEvent.stop(e);
             toggle();
         }
