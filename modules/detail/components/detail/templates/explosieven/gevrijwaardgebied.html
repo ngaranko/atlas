@@ -4,17 +4,22 @@
 
         <dl class="c-key-value-list">
             <dt>Kenmerk</dt>
-            <dd>{{ vm.apiData.results.kenmerk }}</dd>
+            <dd>{{vm.apiData.results.kenmerk}}</dd>
+
             <dt>Soort handeling</dt>
-            <dd>{{ vm.apiData.results.type }}</dd>
+            <dd>{{vm.apiData.results.type}}</dd>
+
             <dt>Bron</dt>
-            <dd>{{ vm.apiData.results.bron }}</dd>
+            <dd>{{vm.apiData.results.bron}}</dd>
+
             <dt>Datum rapport</dt>
-            <dd>{{ vm.apiData.results.datum }}</dd>
+            <dd>{{vm.apiData.results.datum | date : 'd-M-yyyy'}}</dd>
+
             <dt>Intekening</dt>
-            <dd>{{ vm.apiData.results.intekening }}</dd>
+            <dd>{{vm.apiData.results.intekening}}</dd>
+
             <dt>Opmerking</dt>
-            <dd>{{ vm.apiData.results.opmerking }}</dd>
+            <dd>{{vm.apiData.results.opmerking}}</dd>
         </dl>
     </div>
 </div>
