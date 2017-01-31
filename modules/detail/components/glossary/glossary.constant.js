@@ -304,8 +304,8 @@
                     meta: ['id']
                 },
                 UITGEVOERDONDERZOEK: {
-                    label_singular: 'Uitgevoerd onderzoek',
-                    label_plural: 'Uitgevoerde onderzoeken',
+                    label_singular: 'Reeds uitgevoerd CE onderzoek',
+                    label_plural: 'Reeds uitgevoerde CE onderzoeken',
                     description: null,
                     url: null,
                     meta: []
