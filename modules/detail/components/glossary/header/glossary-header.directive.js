@@ -17,15 +17,15 @@
             },
             templateUrl: 'modules/detail/components/glossary/header/glossary-header.html',
             transclude: true,
-            controller: dpGlossaryHeaderController,
+            controller: DpGlossaryHeaderController,
             controllerAs: 'vm',
             bindToController: true
         };
     }
 
-    dpGlossaryHeaderController.$inject = ['$scope', '$sce', 'GLOSSARY'];
+    DpGlossaryHeaderController.$inject = ['$scope', '$sce', 'GLOSSARY'];
 
-    function dpGlossaryHeaderController ($scope, $sce, GLOSSARY) {
+    function DpGlossaryHeaderController ($scope, $sce, GLOSSARY) {
         let vm = this;
 
         vm.isVisible = {

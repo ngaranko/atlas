@@ -14,15 +14,15 @@
             },
             templateUrl: 'modules/detail/components/glossary/meta/glossary-meta.html',
             transclude: true,
-            controller: dpGlossaryMetaController,
+            controller: DpGlossaryMetaController,
             controllerAs: 'vm',
             bindToController: true
         };
     }
 
-    dpGlossaryMetaController.$inject = ['GLOSSARY'];
+    DpGlossaryMetaController.$inject = ['GLOSSARY'];
 
-    function dpGlossaryMetaController (GLOSSARY) {
+    function DpGlossaryMetaController (GLOSSARY) {
         let vm = this;
 
         vm.metaFields = [];
