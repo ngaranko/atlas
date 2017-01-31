@@ -1,10 +1,10 @@
-describe('The dp-stelselpedia-header directive', function () {
+describe('The dp-glossary-header directive', function () {
     var $compile,
         $rootScope;
 
     beforeEach(function () {
         angular.mock.module('dpDetail', function ($provide) {
-            $provide.constant('STELSELPEDIA', {
+            $provide.constant('GLOSSARY', {
                 DEFINITIONS: {
                     BOUWBLOK: {
                         label_singular: 'Bouwblok',
@@ -30,7 +30,7 @@ describe('The dp-stelselpedia-header directive', function () {
                 }
             });
 
-            $provide.factory('dpStelselpediaMetaDirective', function () {
+            $provide.factory('dpGlossaryMetaDirective', function () {
                 return {};
             });
             $provide.factory('dpWkpbLinkDirective', function () {
@@ -49,7 +49,7 @@ describe('The dp-stelselpedia-header directive', function () {
             element,
             scope;
 
-        element = document.createElement('dp-stelselpedia-header');
+        element = document.createElement('dp-glossary-header');
         scope = $rootScope.$new();
 
         if (heading !== null) {
@@ -77,7 +77,7 @@ describe('The dp-stelselpedia-header directive', function () {
         return directive;
     }
 
-    it('always shows the Stelselpedia label w/ an button to toggle more information', function () {
+    it('always shows the glossary label w/ an button to toggle more information', function () {
         var directive = getDirective(null, 'BOUWBLOK', false, null, null);
 
         // When it's closed
@@ -91,7 +91,7 @@ describe('The dp-stelselpedia-header directive', function () {
         expect(directive.find('.o-header__button:nth-of-type(1) .u-sr-only').text().trim()).toBe('Uitleg verbergen');
     });
 
-    it('has support for plurals in the Stelselpedia label', function () {
+    it('has support for plurals in the glossary label', function () {
         var directive;
 
         directive = getDirective(null, 'BOUWBLOK', false, null, null);
@@ -101,7 +101,7 @@ describe('The dp-stelselpedia-header directive', function () {
         expect(directive.find('.o-header__subtitle').text().trim()).toBe('Bouwblokken');
     });
 
-    it('has an optional heading that can be placed in front of the Stelselpedia label', function () {
+    it('has an optional heading that can be placed in front of the glossary label', function () {
         var directive = getDirective('Ik ben een hele specifieke titel', 'BOUWBLOK', false, null);
 
         expect(directive.find('.o-header__title').text().trim())
@@ -110,27 +110,27 @@ describe('The dp-stelselpedia-header directive', function () {
         expect(directive.find('.o-header__subtitle').text().trim()).toBe('Bouwblok');
     });
 
-    it('always has a Stelselpedia panel', function () {
+    it('always has a glossary panel', function () {
         var directive = getDirective(null, 'BOUWBLOK', false, null, null);
 
         // The panel is hidden by default
-        expect(directive.find('.qa-stelselpedia').length).toBe(0);
+        expect(directive.find('.qa-glossary').length).toBe(0);
 
         // The panel can be opened by clicking the 'toon uitleg' button
         directive.find('.o-header__button:nth-of-type(1)').click();
-        expect(directive.find('.qa-stelselpedia').length).toBe(1);
+        expect(directive.find('.qa-glossary').length).toBe(1);
 
         // Inside the content of the panel
-        expect(directive.find('.qa-stelselpedia h3').text()).toBe('Uitleg over bouwblok');
-        expect(directive.find('.qa-stelselpedia p:nth-of-type(1)')
+        expect(directive.find('.qa-glossary h3').text()).toBe('Uitleg over bouwblok');
+        expect(directive.find('.qa-glossary p:nth-of-type(1)')
             .text()).toBe('Verhaaltje over bouwblokken');
-        expect(directive.find('.qa-stelselpedia a').attr('href'))
+        expect(directive.find('.qa-glossary a').attr('href'))
             .toBe('http:// www.example.com/bouwblok/');
-        expect(directive.find('.qa-stelselpedia a').text().trim())
+        expect(directive.find('.qa-glossary a').text().trim())
             .toBe('Lees verder op stelselpedia');
     });
 
-    describe('optionally loads the dp-stelselpedia-meta directive', function () {
+    describe('optionally loads the dp-glossary-meta directive', function () {
         var metaData;
 
         beforeEach(function () {
@@ -166,7 +166,7 @@ describe('The dp-stelselpedia-header directive', function () {
                 .toBe('Informatie (metadata) verbergen');
         });
 
-        it('can open a panel that loads the dp-stelselpedia-meta directive', function () {
+        it('can open a panel that loads the dp-glossary-meta directive', function () {
             var directive = getDirective(null, 'BOUWBLOK', false, metaData, null);
 
             // The panel is hidden by default
@@ -177,7 +177,7 @@ describe('The dp-stelselpedia-header directive', function () {
 
             expect(directive.find('.qa-metadata').length).toBe(1);
             expect(directive.find('.qa-metadata h3').text().trim()).toBe('Metadata van bouwblok');
-            expect(directive.find('.qa-metadata dp-stelselpedia-meta').length).toBe(1);
+            expect(directive.find('.qa-metadata dp-glossary-meta').length).toBe(1);
         });
     });
 
@@ -213,15 +213,15 @@ describe('The dp-stelselpedia-header directive', function () {
         });
 
         it('can be opened and closed with the button in the header', function () {
-            expect(directive.find('.qa-stelselpedia').length).toBe(0);
+            expect(directive.find('.qa-glossary').length).toBe(0);
 
             // Open uitleg
             directive.find('.o-header__button:nth-of-type(1)').click();
-            expect(directive.find('.qa-stelselpedia').length).toBe(1);
+            expect(directive.find('.qa-glossary').length).toBe(1);
 
             // Close uitleg with the button in the header
             directive.find('.o-header__button:nth-of-type(1)').click();
-            expect(directive.find('.qa-stelselpedia').length).toBe(0);
+            expect(directive.find('.qa-glossary').length).toBe(0);
 
             // Open metadata
             directive.find('.o-header__button:nth-of-type(2)').click();
@@ -233,15 +233,15 @@ describe('The dp-stelselpedia-header directive', function () {
         });
 
         it('can be closed with the button (cross) in the panel', function () {
-            expect(directive.find('.qa-stelselpedia').length).toBe(0);
+            expect(directive.find('.qa-glossary').length).toBe(0);
 
             // Open uitleg
             directive.find('.o-header__button:nth-of-type(1)').click();
-            expect(directive.find('.qa-stelselpedia').length).toBe(1);
+            expect(directive.find('.qa-glossary').length).toBe(1);
 
             // Close uitleg with the cross
             directive.find('.o-btn--close--info').click();
-            expect(directive.find('.qa-stelselpedia').length).toBe(0);
+            expect(directive.find('.qa-glossary').length).toBe(0);
 
             // Open metadata
             directive.find('.o-header__button:nth-of-type(2)').click();
@@ -253,16 +253,16 @@ describe('The dp-stelselpedia-header directive', function () {
         });
 
         it('can open uitleg and metadata at the same time', function () {
-            expect(directive.find('.qa-stelselpedia').length).toBe(0);
+            expect(directive.find('.qa-glossary').length).toBe(0);
 
             // Open uitleg
             directive.find('.o-header__button:nth-of-type(1)').click();
-            expect(directive.find('.qa-stelselpedia').length).toBe(1);
+            expect(directive.find('.qa-glossary').length).toBe(1);
 
             // Open metadata
             directive.find('.o-header__button:nth-of-type(2)').click();
             expect(directive.find('.qa-metadata').length).toBe(1);
-            expect(directive.find('.qa-stelselpedia').length).toBe(1);
+            expect(directive.find('.qa-glossary').length).toBe(1);
         });
     });
 });

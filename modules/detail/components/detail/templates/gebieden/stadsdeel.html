@@ -1,12 +1,12 @@
 <div class="detail-page__content">
     <div class="detail-page__content--main">
         <div class="u-row">
-            <dp-stelselpedia-header
+            <dp-glossary-header
                 heading="{{vm.apiData.results.naam}}"
                 definition="STADSDEEL"
                 meta-data="vm.apiData">
 
-            </dp-stelselpedia-header>
+            </dp-glossary-header>
 
             <dl class="c-key-value-list">
                 <dt>Code</dt>
@@ -18,13 +18,13 @@
         </div>
 
         <div ng-if="vm.apiData.results.buurtcombinaties.count">
-            <dp-stelselpedia-header definition="BUURTCOMBINATIE" use-plural="true"></dp-stelselpedia-header>
+            <dp-glossary-header definition="BUURTCOMBINATIE" use-plural="true"></dp-glossary-header>
 
             <dp-api-call endpoint="{{vm.apiData.results.buurtcombinaties.href}}" partial="lijst"></dp-api-call>
         </div>
 
         <div ng-if="vm.apiData.results.gebiedsgerichtwerken.count">
-            <dp-stelselpedia-header definition="GEBIEDSGERICHTWERKEN" use-plural="true"></dp-stelselpedia-header>
+            <dp-glossary-header definition="GEBIEDSGERICHTWERKEN" use-plural="true"></dp-glossary-header>
 
             <dp-api-call endpoint="{{vm.apiData.results.gebiedsgerichtwerken.href}}" partial="lijst"></dp-api-call>
         </div>

@@ -9,7 +9,7 @@
         return {
             getTemplateUrl,
             getSubject,
-            getStelselpediaKey
+            getGlossaryKey
         };
 
         function getTemplateUrl (endpoint) {
@@ -19,10 +19,11 @@
 
         function getSubject (endpoint) {
             const [, subject] = getParts(endpoint);
+
             return subject;
         }
 
-        function getStelselpediaKey (endpoint) {
+        function getGlossaryKey (endpoint) {
             const [, subject] = getParts(endpoint);
             return subject.toUpperCase().replace(/-/g, '_');
         }

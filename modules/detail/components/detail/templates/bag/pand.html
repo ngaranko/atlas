@@ -1,11 +1,11 @@
 <div>
     <div class="u-row">
         <div class="o-header">
-            <dp-stelselpedia-header
+            <dp-glossary-header
                 heading="{{vm.apiData.results._display}}"
                 definition="PAND"
                 meta-data="vm.apiData">
-            </dp-stelselpedia-header>
+            </dp-glossary-header>
 
             <div ng-if="vm.apiData.results.status.code != 30 && vm.apiData.results.status.code != 31">
                 <dp-panel is-panel-visible="true" type="warning" class-name="c-panel--header">
@@ -45,13 +45,13 @@
         So; there are no adressen if there are no verblijfsobjecten. And if there are any verblijfsobjecten there must
         be at least one adres for each verblijfsobject as well.
         -->
-        <dp-stelselpedia-header definition="NUMMERAANDUIDING" use-plural="true"></dp-stelselpedia-header>
+        <dp-glossary-header definition="NUMMERAANDUIDING" use-plural="true"></dp-glossary-header>
 
         <dp-api-call endpoint="{{vm.apiData.results._adressen.href}}" partial="adressen_lijst"></dp-api-call>
     </div>
 
     <div>
-        <dp-stelselpedia-header definition="VESTIGING" use-plural="true"></dp-stelselpedia-header>
+        <dp-glossary-header definition="VESTIGING" use-plural="true"></dp-glossary-header>
 
         <dp-api-call endpoint="handelsregister/vestiging/?pand={{ vm.apiData.results.pandidentificatie }}" add-api-root="true" partial="lijst"></dp-api-call>
     </div>

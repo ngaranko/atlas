@@ -3,7 +3,7 @@
 
     angular
         .module('dpDetail')
-        .constant('STELSELPEDIA', {
+        .constant('GLOSSARY', {
             DEFINITIONS: {
                 A_PERCEEL: {
                     label_singular: 'A-perceel',
@@ -304,7 +304,7 @@
                     meta: ['id']
                 },
                 UITGEVOERDONDERZOEK: {
-                    label_singular: 'Uitgevoerde onderzoek',
+                    label_singular: 'Uitgevoerd onderzoek',
                     label_plural: 'Uitgevoerde onderzoeken',
                     description: null,
                     url: null,
