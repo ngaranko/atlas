@@ -44,7 +44,7 @@
                     slug: GEOMETRY_FILTER,
                     label: 'Locatie',
                     option: {
-                        label: 'ingetekend ' + vm.geometryFilter.description
+                        label: 'ingetekend (' + vm.geometryFilter.description + ')'
                     }
                 });
             }
