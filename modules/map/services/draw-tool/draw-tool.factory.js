@@ -100,12 +100,7 @@
             if (currentShape.layer) {
                 currentShape.layer.off('click', toggleEditModeOnShapeClick);
                 drawTool.drawnItems.removeLayer(currentShape.layer);
-
-                // Compose the layer to be deleted and fire the delete event
-                let layers = new L.LayerGroup();
-                layers.addLayer(currentShape.layer);
-                drawTool.map.fire(L.Draw.Event.DELETED, { layers });
-
+                drawTool.map.fire(L.Draw.Event.DELETED, { layers: currentShape.layer });
                 currentShape.layer = null;  // No current layer after delete polygon
             }
         }
@@ -186,14 +181,25 @@
         // handle any leaflet.draw event
         function handleDrawEvent (eventName, e) {
             let handlers = {
+                // Triggered when the user has chosen to draw a particular vector or marker
                 DRAWSTART: () => setDrawingMode('DRAW'),
+
+                // Triggered when a vertex is created on a polyline or polygon
                 DRAWVERTEX: bindLastDrawnMarker,
+
+                // Triggered when a new vector or marker has been created
                 CREATED: () => {
                     createPolygon(e.layer);
                     finishPolygon();
                 },
+
+                // Triggered when the user starts edit mode by clicking the edit tool button
                 EDITSTART: () => setDrawingMode('EDIT'),
+
+                // Triggered when the user has finshed editing (edit mode) and saves edits
                 EDITSTOP: finishPolygon,
+
+                // Triggered when layers have been removed (and saved) from the FeatureGroup
                 DELETED: () => currentShape.layer = null
             };
 
@@ -210,7 +216,8 @@
         function registerDrawEvents () {
             Object.keys(L.Draw.Event).forEach(eventName => {
                 drawTool.map.on(L.Draw.Event[eventName], function (e) {
-                    // Ignore certain event sequences
+                    // Ignore certain event sequences, basically because they would introduce duplication of actions
+                    // that have already been handled
                     [
                         { last: 'CREATED', current: 'DRAWSTOP' },
                         { last: 'DRAWSTOP', current: 'DELETED' },
@@ -246,8 +253,8 @@
                 if (drawTool.drawingMode === 'EDIT') {
                     disable();
                 } else if (drawTool.drawingMode !== 'DRAW') {
+                    // If not in Draw or EDIT mode then the current polygon gets deleted
                     // Note: In draw mode the click on map adds a new marker
-                    // If not in Draw mode then the current polygon gets deleted
                     deletePolygon();
                     updateShape();
                     onFinishPolygon();
@@ -289,12 +296,13 @@
             if (isEnabled()) {
                 if (drawTool.drawingMode === 'DRAW') {
                     if (currentShape.markers.length > 1) {
+                        // Close the polyline between the first and last points
                         drawTool.drawShapeHandler.completeShape();
                     } else {
                         drawTool.drawShapeHandler.disable();
                     }
                 } else {
-                    drawTool.editShapeHandler.save();
+                    drawTool.editShapeHandler.save();   // Save the layer geometries
                     drawTool.editShapeHandler.disable();
                 }
                 setDrawingMode(null);
@@ -316,7 +324,6 @@
         }
 
         // Update the internal information about the current shape
-        // Note: in the enforceLimits( method this info may be declared temporarily inconsistent
         function updateShape () {
             let latLngs = [],
                 area = 0,
@@ -353,7 +360,7 @@
             if (currentShape.isConsistent) {
                 L.drawLocal.edit.handlers.edit.tooltip.text = currentShape.areaTxt;
                 L.drawLocal.edit.handlers.edit.tooltip.subtext = currentShape.distanceTxt;
-                updateShapeInfo();  // update public shape info
+                updateShapeInfo();  // update public shape info of new consistent state of the polygon
             }
         }
 
@@ -374,6 +381,7 @@
             let index = markers.findIndex(m => m._leaflet_id === marker._leaflet_id);
             let nDelete = markers.length - index;   // Delete all from last to marker, inclusive
             while (nDelete-- > 0) {
+                // Remove the last vertex from the polyline, removes polyline from map if only one point exists
                 drawShapeHandler.deleteLastVertex();
             }
         }
