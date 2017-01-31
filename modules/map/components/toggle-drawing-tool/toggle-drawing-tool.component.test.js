@@ -58,7 +58,6 @@ describe('The dp-toggle-drawing-tool component', function () {
         it('shows the button in default state', function () {
             expect(component.find('button').length).toBe(1);
             expect(component.find('button').attr('class')).toContain('c-toggle-drawing-tool');
-            expect(component.find('button span').attr('class')).toContain('ng-hide');
         });
 
         it('enables draw/edit mode when clicking the button', function () {

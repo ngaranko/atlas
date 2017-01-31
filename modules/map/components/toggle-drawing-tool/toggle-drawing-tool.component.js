@@ -9,9 +9,9 @@
             controllerAs: 'vm'
         });
 
-    DpToggleDrawingToolController.$inject = ['$scope', 'drawTool'];
+    DpToggleDrawingToolController.$inject = ['$scope', 'drawTool', 'store', 'ACTIONS'];
 
-    function DpToggleDrawingToolController ($scope, drawTool) {
+    function DpToggleDrawingToolController ($scope, drawTool, store, ACTIONS) {
         let vm = this;
 
         // Follow enable/disable status of the drawing tool
@@ -29,11 +29,5 @@
                 drawTool.enable();
             }
         };
-
-        // Follow the shape that is drawn or edited by the drawing tool
-        // Currently show the number of markers that is available to add to the shape
-        $scope.$watch(() => drawTool.shape, () => {
-            vm.markersLeft = drawTool.shape.markersMaxCount - drawTool.shape.markers.length;
-        }, true);
     }
 })();
