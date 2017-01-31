@@ -32,7 +32,7 @@ describe('The state url conversion definition', function () {
                     isFullscreen: false,
                     isLoading: false,
                     showActiveOverlays: false,
-                    drawingMode: null
+                    drawingMode: false
                 }
             });
 

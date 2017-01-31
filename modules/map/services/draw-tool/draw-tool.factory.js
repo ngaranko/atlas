@@ -80,7 +80,9 @@
             if (angular.isFunction(_onDrawingMode)) {
                 $rootScope.$applyAsync(() => {
                     // call any registered callback function, applyAsync because triggered by a leaflet event
-                    _onDrawingMode(drawTool.drawingMode);
+                    // The exact drawingMode is an internal attribute of the factory
+                    // The outside knowledge is just true or false; enabled or disabled
+                    _onDrawingMode(drawTool.drawingMode !== null);
                 });
             }
         }

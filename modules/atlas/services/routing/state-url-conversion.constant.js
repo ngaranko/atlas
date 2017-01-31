@@ -120,7 +120,7 @@
                     isFullscreen: false,
                     isLoading: false,
                     showActiveOverlays: false,
-                    drawingMode: null
+                    drawingMode: false
                 },
                 page: {
                     name: null  // eg: 'home'

@@ -197,7 +197,7 @@ describe('The draw tool factory', function () {
             fireEvent('draw:drawstart');
             $rootScope.$digest();
 
-            expect(onResult).toBe('DRAW');
+            expect(onResult).toBe(true);
         });
     });
 

@@ -22,7 +22,7 @@ describe('The state url conversion factory', function () {
                     showActiveOverlays: false,
                     isFullscreen: false,
                     isLoading: false,
-                    drawingMode: null
+                    drawingMode: false
                 },
                 layerSelection: {
                     isEnabled: false

@@ -5,9 +5,9 @@
         .module('dpMap')
         .factory('onMapClick', onMapClickFactory);
 
-    onMapClickFactory.$inject = ['$rootScope', 'store', 'ACTIONS'];
+    onMapClickFactory.$inject = ['$rootScope', 'store', 'ACTIONS', 'drawTool'];
 
-    function onMapClickFactory ($rootScope, store, ACTIONS) {
+    function onMapClickFactory ($rootScope, store, ACTIONS, drawTool) {
         return {
             initialize
         };
@@ -17,7 +17,7 @@
         }
 
         function onMapClick (event) {
-            if (['DRAW', 'EDIT'].indexOf(store.getState().map.drawingMode) === -1) {
+            if (!drawTool.isEnabled()) {
                 $rootScope.$applyAsync(function () {
                     store.dispatch({
                         type: ACTIONS.MAP_CLICK,
