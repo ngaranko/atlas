@@ -25,7 +25,11 @@ describe('The draw tool component', function () {
                     setPolygon: angular.noop,
                     isEnabled: angular.noop,
                     enable: angular.noop,
-                    disable: angular.noop
+                    disable: angular.noop,
+                    shape: {
+                        distanceTxt: 'distance',
+                        areaTxt: 'area'
+                    }
                 }
             });
 
@@ -171,7 +175,8 @@ describe('The draw tool component', function () {
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.MAP_END_DRAWING,
                 payload: {
-                    geometryFilter: polygon.markers
+                    geometryFilter: polygon.markers,
+                    geometryFilterDescription: 'distance, area'
                 }
             });
         });
