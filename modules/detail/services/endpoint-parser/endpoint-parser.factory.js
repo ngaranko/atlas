@@ -36,7 +36,6 @@
                     .replace(/^\//, '') // Strip leading slash
                     .replace(/\/$/, '') // Strip trailing slash
                     .split('/');
-            const numberOfParts = uriParts.length;
 
             if (isZakelijkRecht(uriParts)) {
                 return ['brk', 'subject'];

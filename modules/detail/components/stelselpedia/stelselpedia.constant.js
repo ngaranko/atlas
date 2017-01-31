@@ -110,6 +110,13 @@
                     url: 'https://www.amsterdam.nl/stelselpedia/gebieden-index/catalogus/gebiedsgericht/',
                     meta: []
                 },
+                GEVRIJWAARDGEBIED: {
+                    label_singular: 'Gevrijwaard gebied',
+                    label_plural: 'Gevrijwaarde gebieden',
+                    description: null,
+                    url: null,
+                    meta: []
+                },
                 GROOTSTEDELIJKGEBIED: {
                     label_singular: 'Grootstedelijk gebied',
                     label_plural: 'Grootstedelijke gebieden',
@@ -118,30 +125,9 @@
                     url: 'https://www.amsterdam.nl/stelselpedia/gebieden-index/catalogus/grootstedelijk/',
                     meta: []
                 },
-                EXPLOSIEVEN_GEVRIJWAARDGEBIED: {
-                    label_singular: 'Gevrijwaard gebied',
-                    label_plural: 'Gevrijwaarde gebieden',
-                    description: null,
-                    url: null,
-                    meta: []
-                },
-                EXPLOSIEVEN_INSLAG: {
+                INSLAGEN: {
                     label_singular: 'Inslag',
                     label_plural: 'Inslagen',
-                    description: null,
-                    url: null,
-                    meta: []
-                },
-                EXPLOSIEVEN_UITGEVOERDONDERZOEK: {
-                    label_singular: 'Uitgevoerde onderzoek',
-                    label_plural: 'Uitgevoerde onderzoeken',
-                    description: null,
-                    url: null,
-                    meta: []
-                },
-                EXPLOSIEVEN_VERDACHTGEBIED: {
-                    label_singular: 'Verdacht gebied',
-                    label_plural: ' Verdachte gebieden',
                     description: null,
                     url: null,
                     meta: []
@@ -317,6 +303,13 @@
                     url: 'https://www.amsterdam.nl/stelselpedia/brk-index/catalog-brk-levering/kadastraal-subject/',
                     meta: ['id']
                 },
+                UITGEVOERDONDERZOEK: {
+                    label_singular: 'Uitgevoerde onderzoek',
+                    label_plural: 'Uitgevoerde onderzoeken',
+                    description: null,
+                    url: null,
+                    meta: []
+                },
                 UNESCO: {
                     label_singular: 'UNESCO',
                     label_plural: 'UNESCO',
@@ -343,6 +336,13 @@
                         'verblijfsobjectidentificatie',
                         'sleutelverzendend'
                     ]
+                },
+                VERDACHTGEBIED: {
+                    label_singular: 'Verdacht gebied',
+                    label_plural: ' Verdachte gebieden',
+                    description: null,
+                    url: null,
+                    meta: []
                 },
                 VESTIGING: {
                     label_singular: 'Vestiging',

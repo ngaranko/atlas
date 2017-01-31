@@ -14,7 +14,6 @@
         };
 
         function getTitle (detailState) {
-            return '';
             const stelselpediaKey = endpointParser.getStelselpediaKey(detailState.endpoint);
 
             return `${STELSELPEDIA.DEFINITIONS[stelselpediaKey].label_singular}: ${detailState.display}`;
