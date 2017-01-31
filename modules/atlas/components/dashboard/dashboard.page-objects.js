@@ -1,6 +1,7 @@
 'use strict';
 
 const dataSelectionPageObject = require('../../../data-selection/components/data-selection/data-selection.page-objects');
+const detailPageObject = require('../../../detail/components/detail/detail.page-objects');
 const layerSelectionPageObject = require('../../../layer-selection/components/layer-selection/layer-selection.page-objects');
 const mapPageObject = require('../../../map/components/map/map.page-objects');
 const pagePageObject = require('../../../page/components/page/page.page-objects');
@@ -18,7 +19,7 @@ module.exports = function (dashboardElement) {
         return function () {
             return {
                 dataSelection: dataSelectionPageObject(column.element(by.css('.qa-data-selection'))),
-                detail: getComponent(column.element(by.css('.qa-detail'))),
+                detail: detailPageObject(column.element(by.css('.qa-detail'))),
                 layerSelection: layerSelectionPageObject(column.element(by.css('.qa-layer-selection'))),
                 map: mapPageObject(column.element(by.css('.qa-map'))),
                 page: pagePageObject(column.element(by.css('.qa-page'))),

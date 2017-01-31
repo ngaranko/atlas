@@ -2,7 +2,6 @@
 
 const availableStates = require('./helpers/available-states');
 const navigate = require('./helpers/navigate');
-const validateMapPageHome = require('./helpers/validators/map_page--home');
 
 describe('each URL should load the corresponding view', function () {
     const AVAILABLE_STATE_KEYS = Object.keys(availableStates);
@@ -20,6 +19,16 @@ describe('each URL should load the corresponding view', function () {
     it('DATA-SELECTION--CARDS', () => {
         page = navigate('DATA-SELECTION--CARDS');
         availableStates['DATA-SELECTION--CARDS'].validator(page);
+    });
+
+    it('DATA-SELECTION--TABLE', () => {
+        page = navigate('DATA-SELECTION--TABLE');
+        availableStates['DATA-SELECTION--TABLE'].validator(page);
+    });
+
+    it('DETAIL', () => {
+        page = navigate('DETAIL');
+        availableStates['DETAIL'].validator(page);
     });
 });
 
