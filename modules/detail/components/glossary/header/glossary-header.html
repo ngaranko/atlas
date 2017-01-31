@@ -33,7 +33,7 @@
     <dp-panel is-panel-visible="vm.isVisible.help" can-close="true" class-name="qa-glossary">
         <h3 class="u-margin__bottom--1">Uitleg over {{vm.glossaryLabel | lowercase}}</h3>
         <p>{{vm.glossaryDescription}}</p>
-        <a class="o-link--arrow" ng-href="{{vm.glossaryUrl}}" target="_blank">
+        <a ng-if="vm.stelselpediaUrl" class="o-link--arrow" ng-href="{{vm.stelselpediaUrl}}" target="_blank">
             Lees verder op stelselpedia
         </a>
     </dp-panel>

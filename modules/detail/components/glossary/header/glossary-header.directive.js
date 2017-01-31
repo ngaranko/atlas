@@ -41,7 +41,7 @@
             ? GLOSSARY.DEFINITIONS[vm.definition].label_plural
             : GLOSSARY.DEFINITIONS[vm.definition].label_singular;
         vm.glossaryDescription = GLOSSARY.DEFINITIONS[vm.definition].description;
-        vm.glossaryUrl = GLOSSARY.DEFINITIONS[vm.definition].url;
+        vm.stelselpediaUrl = GLOSSARY.DEFINITIONS[vm.definition].url;
 
         vm.hasMetaData = angular.isDefined(vm.metaData);
 
