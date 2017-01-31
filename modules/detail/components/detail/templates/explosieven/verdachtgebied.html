@@ -34,12 +34,12 @@
             <dt>Cartografie</dt>
             <dd>{{vm.apiData.results.cartografie}}</dd>
 
-            <dt>Opmerking</dt>
+            <dt>Opmerkingen</dt>
             <dd>{{vm.apiData.results.opmerkingen}}</dd>
 
             <dt>Oorlogshandelingsrapport</dt>
             <dd ng-if="vm.apiData.results.pdf">
-                <a ng-href="{{vm.apiData.results.pdf}}" class="o-btn o-btn--link">{{vm.apiData.results.pdf}}</a>
+                <a ng-href="{{vm.apiData.results.pdf}}" class="o-btn o-btn--link" target="_blank">{{vm.apiData.results.pdf}}</a>
             </dd>
         </dl>
     </div>
