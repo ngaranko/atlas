@@ -26,6 +26,13 @@ describe('The dp-glossary-header directive', function () {
                         description: 'Lijst van beperkingen op een gebruiksrecht.',
                         url: 'http:// www.example.com/gemeentelijkebeperkingen/',
                         meta: []
+                    },
+                    INSLAG: {
+                        label_singular: 'Inslag',
+                        label_plural: 'Inslagen',
+                        description: null,
+                        url: null,
+                        meta: []
                     }
                 }
             });
@@ -45,7 +52,7 @@ describe('The dp-glossary-header directive', function () {
     });
 
     function getDirective (heading, definition, usePlural, metaData, brk) {
-        var directive,
+        let directive,
             element,
             scope;
 
@@ -77,10 +84,15 @@ describe('The dp-glossary-header directive', function () {
         return directive;
     }
 
-    it('always shows the glossary label w/ an button to toggle more information', function () {
-        var directive = getDirective(null, 'BOUWBLOK', false, null, null);
+    it('optionally shows the glossary label w/ an button to toggle more information', function () {
+        let directive;
+
+        // Don't show it if there is no description
+        directive = getDirective(null, 'INSLAG', false, null, null);
 
         // When it's closed
+        directive = getDirective(null, 'BOUWBLOK', false, null, null);
+
         expect(directive.find('.o-header__subtitle').text().trim()).toBe('Bouwblok');
         expect(directive.find('.o-header__button:nth-of-type(1)').attr('title').trim()).toBe('Uitleg tonen');
         expect(directive.find('.o-header__button:nth-of-type(1) .u-sr-only').text().trim()).toBe('Uitleg tonen');

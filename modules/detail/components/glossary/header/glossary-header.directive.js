@@ -43,7 +43,9 @@
         vm.glossaryDescription = GLOSSARY.DEFINITIONS[vm.definition].description;
         vm.stelselpediaUrl = GLOSSARY.DEFINITIONS[vm.definition].url;
 
+        vm.hasHelp = angular.isString(vm.glossaryDescription);
         vm.hasMetaData = angular.isDefined(vm.metaData);
+        vm.hasButton = vm.hasHelp || vm.hasMetaData;
 
         vm.helpTitle = 'Uitleg tonen';
         vm.metaDataTitle = 'Informatie (metadata) tonen';

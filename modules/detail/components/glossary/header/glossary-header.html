@@ -9,8 +9,8 @@
         <span ng-bind-html="vm.htmlHeading"></span>
     </h2>
 
-    <div class="o-header__buttongroup">
-        <button ng-click="vm.toggle('help')"
+    <div ng-if="vm.hasButton" class="o-header__buttongroup">
+        <button ng-if="vm.hasHelp" ng-click="vm.toggle('help')"
             class="o-header__button c-stelselpedia__button"
             title="{{ vm.helpTitle }}">
             <span class="o-header__button--image ">
@@ -30,7 +30,7 @@
         <dp-wkpb-link ng-if="vm.brk" brk-id="{{vm.brk.id}}"></dp-wkpb-link>
     </div>
 
-    <dp-panel is-panel-visible="vm.isVisible.help" can-close="true" class-name="qa-glossary">
+    <dp-panel ng-if="vm.hasHelp" is-panel-visible="vm.isVisible.help" can-close="true" class-name="qa-glossary">
         <h3 class="u-margin__bottom--1">Uitleg over {{vm.glossaryLabel | lowercase}}</h3>
         <p>{{vm.glossaryDescription}}</p>
         <a ng-if="vm.stelselpediaUrl" class="o-link--arrow" ng-href="{{vm.stelselpediaUrl}}" target="_blank">
