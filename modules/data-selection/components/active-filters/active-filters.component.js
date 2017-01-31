@@ -20,10 +20,12 @@
     function DpDataSelectionActiveFilterController ($scope, store, ACTIONS) {
         var vm = this;
 
+        const GEOMETRY_FILTER = 'GEOMETRY_FILTER';  // Identification for a geometry filter
+
         $scope.$watchGroup(['vm.dataset', 'vm.activeFilters'], updateFilters, true);
 
         vm.removeFilter = function (filterSlug) {
-            if (filterSlug === 'shape') {
+            if (filterSlug === GEOMETRY_FILTER) {
                 removeGeometryFilter();
             } else {
                 let filters = angular.copy(vm.activeFilters);
@@ -39,10 +41,10 @@
 
             if (vm.geometryFilter.markers.length > 0) {
                 vm.formattedActiveFilters.push({
-                    slug: 'shape',
+                    slug: GEOMETRY_FILTER,
                     label: 'Locatie',
                     option: {
-                        label: vm.geometryFilter.description
+                        label: 'ingetekend ' + vm.geometryFilter.description
                     }
                 });
             }
