@@ -46,7 +46,7 @@ describe('The dp-points-available component', function () {
             let component = getComponent();
             for (let i = 0; i < drawTool.shape.markersMaxCount; i++) {
                 let markersLeft = drawTool.shape.markersMaxCount - drawTool.shape.markers.length;
-                let showWarning = markersLeft < 5;
+                let showWarning = markersLeft <= 5;
                 if (showWarning) {
                     expect(component.find('.qa-few-points-available').length).toBe(1);
                     expect(component.find('.qa-few-points-available').text()).toContain(

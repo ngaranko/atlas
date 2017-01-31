@@ -4,7 +4,7 @@
     angular
         .module('dpMap')
         .constant('DRAW_TOOL_CONFIG', {
-            MAX_MARKERS: 6,
+            MAX_MARKERS: 10,
             format: {
                 numeric: {
                     delimiters: {

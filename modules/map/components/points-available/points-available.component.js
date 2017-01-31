@@ -23,7 +23,7 @@
         function setPoints () {
             vm.markersLeft = drawTool.shape.markersMaxCount - drawTool.shape.markers.length;
             vm.pointText = (vm.markersLeft === 1) ? 'punt' : 'punten';
-            vm.showWarning = drawTool.isEnabled() && vm.markersLeft < MARKERS_LEFT_WARNING;
+            vm.showWarning = drawTool.isEnabled() && vm.markersLeft <= MARKERS_LEFT_WARNING;
         }
     }
 })();
