@@ -1,8 +1,9 @@
 
 
 .c-shape-summary {
-  position: relative;
-  left: 87px;
+  position: absolute;
+  top: -1px;
+  left: 37px;
   z-index: 99;
 }
 
@@ -12,6 +13,9 @@
   .c-panel {
     height: $button-size;
     padding: 0 $base-whitespace;
+    border: 1px solid $secondary-gray20;
+    background-color: $primary-light;
+    color: $secondary-gray60;
     line-height: 24px;
   }
 }
