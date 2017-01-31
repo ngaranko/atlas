@@ -142,7 +142,7 @@ describe('The dp-data-selection component', function () {
         expect(component.find('dp-data-selection-available-filters').attr('dataset')).toBe('zwembaden');
         expect(component.find('dp-data-selection-available-filters').attr('available-filters'))
             .toBe('vm.availableFilters');
-        expect(component.find('dp-data-selection-available-filters').attr('active-filters')).toBe('vm.state.filters');
+        expect(component.find('dp-data-selection-available-filters').attr('active-filters')).toBe('vm.activeFilters');
         expect(scope.vm.availableFilters).toBe(mockedApiPreviewData.filters);
         expect(scope.vm.state.filters).toEqual({
             type: 'Buitenbad'

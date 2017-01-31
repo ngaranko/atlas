@@ -35,7 +35,6 @@
         };
 
         function updateFilters () {
-            console.log(vm.geometryFilter);
             vm.formattedActiveFilters = [];
 
             if (vm.geometryFilter.markers.length > 0) {
