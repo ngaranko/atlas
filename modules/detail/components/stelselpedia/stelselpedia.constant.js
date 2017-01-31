@@ -30,8 +30,8 @@
                 API: {
                     label_singular: 'Dataset',
                     label_plural: 'Datasets',
-                    description: '',
-                    url: '',
+                    description: null,
+                    url: null,
                     meta: []
                 },
                 BEPERKING: {
@@ -116,6 +116,34 @@
                     description: 'Grootstedelijke gebieden zijn gebieden binnen de gemeente Amsterdam, waar de ' +
                     'gemeenteraad, het college van burgemeester en wethouders of de burgemeester bevoegd is.',
                     url: 'https://www.amsterdam.nl/stelselpedia/gebieden-index/catalogus/grootstedelijk/',
+                    meta: []
+                },
+                EXPLOSIEVEN_GEVRIJWAARDGEBIED: {
+                    label_singular: 'Gevrijwaard gebied',
+                    label_plural: 'Gevrijwaarde gebieden',
+                    description: null,
+                    url: null,
+                    meta: []
+                },
+                EXPLOSIEVEN_INSLAG: {
+                    label_singular: 'Inslag',
+                    label_plural: 'Inslagen',
+                    description: null,
+                    url: null,
+                    meta: []
+                },
+                EXPLOSIEVEN_UITGEVOERDONDERZOEK: {
+                    label_singular: 'Uitgevoerde onderzoek',
+                    label_plural: 'Uitgevoerde onderzoeken',
+                    description: null,
+                    url: null,
+                    meta: []
+                },
+                EXPLOSIEVEN_VERDACHTGEBIED: {
+                    label_singular: 'Verdacht gebied',
+                    label_plural: ' Verdachte gebieden',
+                    description: null,
+                    url: null,
                     meta: []
                 },
                 LIGPLAATS: {
