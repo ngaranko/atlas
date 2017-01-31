@@ -16,7 +16,7 @@
                             ng-click="vm.addFilter(filter.slug, option.id)">
 
                             <span ng-class="{'c-data-selection-available-filters--empty-value': !option.label}">
-                                {{option.label}}
+                                <span class="qa-option-label">{{option.label}}</span>
                                 <span ng-if="vm.showOptionCounts">({{option.count}})</span>
                             </span>
                         </button>
