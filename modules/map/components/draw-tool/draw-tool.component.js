@@ -40,7 +40,8 @@
             store.dispatch({
                 type: ACTIONS.MAP_END_DRAWING,
                 payload: {
-                    geometryFilter: polygon.markers
+                    geometryFilter: polygon.markers,
+                    geometryFilterDescription: drawTool.shape.distanceTxt + ', ' + drawTool.shape.areaTxt
                 }
             });
         }

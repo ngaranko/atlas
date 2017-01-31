@@ -167,6 +167,7 @@
                     newState.dataSelection.filters = {};
                 }
                 newState.dataSelection.geometryFilter = payload.geometryFilter;
+                newState.dataSelection.geometryFilterDescription = payload.geometryFilterDescription;
                 newState.dataSelection.page = 1;
                 newState.dataSelection.isFullscreen = false;
                 newState.dataSelection.isLoading = true;

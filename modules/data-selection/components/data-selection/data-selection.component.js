@@ -63,6 +63,12 @@
                 vm.state.query,
                 vm.state.geometryFilter).then(data => {
                     vm.availableFilters = data.filters;
+                    vm.activeFilters = vm.state.filters;
+                    vm.geometryFilter = {
+                        markers: vm.state.geometryFilter,
+                        description: vm.state.geometryFilterDescription
+                    };
+
                     vm.data = data.data;
                     vm.numberOfRecords = data.numberOfRecords;
                     vm.numberOfPages = data.numberOfPages;
