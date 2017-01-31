@@ -1,6 +1,6 @@
 'use strict';
 
-const dataSelection = require('./data-selection');
+const dataSelectionValidator = require('./data-selection');
 
 module.exports = function (page) {
     expect(page.title()).toBe('Tabel Adressen - Atlas');
@@ -14,5 +14,5 @@ module.exports = function (page) {
     expect(page.dashboard().rightColumn().dataSelection().availableFilters().categories(1).header()).toBe('GGW-gebied');
     expect(page.dashboard().rightColumn().dataSelection().availableFilters().categories(1).options(0).label()).toBe('Bijlmer Centrum');
 
-    dataSelection(page);
+    dataSelectionValidator(page);
 };

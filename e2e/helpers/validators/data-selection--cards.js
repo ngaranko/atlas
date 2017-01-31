@@ -1,6 +1,6 @@
 'use strict';
 
-const dataSelection = require('./data-selection');
+const dataSelectionValidator = require('./data-selection');
 
 module.exports = function (page) {
     expect(page.title()).toBe('Dataset Catalogus - Atlas');
@@ -8,5 +8,5 @@ module.exports = function (page) {
     expect(page.dashboard().rightColumn().dataSelection().header().title()).toContain('datasets');
     expect(page.dashboard().rightColumn().dataSelection().availableFilters().categories(0).header()).toBe('Thema\'s');
 
-    dataSelection(page);
+    dataSelectionValidator(page);
 };

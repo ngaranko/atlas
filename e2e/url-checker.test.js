@@ -30,13 +30,14 @@ describe('each URL should load the corresponding view', function () {
         page = navigate('DETAIL');
         availableStates['DETAIL'].validator(page);
     });
+
+    it('LAYER-SELECTION_MAP', () => {
+        page = navigate('LAYER-SELECTION_MAP');
+        availableStates['LAYER-SELECTION_MAP'].validator(page);
+    });
 });
 
 /*
- DATA-SELECTION--CARDS
- DATA-SELECTION--TABLE
- DETAIL
- LAYER-SELECTION_MAP
  MAP
  MAP_DATA-SELECTION
  MAP_DETAIL--NUMMERAANDUIDING
