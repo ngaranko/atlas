@@ -1,0 +1,17 @@
+
+
+.c-shape-summary {
+  position: relative;
+  left: 87px;
+  z-index: 99;
+}
+
+.c-shape-summary__panel {
+  display: inline-block;
+
+  .c-panel {
+    height: $button-size;
+    padding: 0 $base-whitespace;
+    line-height: 24px;
+  }
+}
