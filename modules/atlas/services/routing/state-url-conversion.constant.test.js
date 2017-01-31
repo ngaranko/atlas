@@ -32,7 +32,7 @@ describe('The state url conversion definition', function () {
                     isFullscreen: false,
                     isLoading: false,
                     showActiveOverlays: false,
-                    drawingMode: null
+                    drawingMode: false
                 }
             });
 
@@ -84,6 +84,26 @@ describe('The state url conversion definition', function () {
                     view: 'TABLE',
                     isFullscreen: true
                 });
+            });
+        });
+
+        describe('The post processing for map', function () {
+            it('copies the drawing mode from the previous state', function () {
+                let oldState = {
+                    drawingMode: 'aap'
+                };
+                let newState = {};
+
+                STATE_URL_CONVERSION.post.map(oldState, newState);
+                expect(newState).toEqual({
+                    drawingMode: 'aap'
+                });
+
+                oldState = null;
+                newState = {};
+
+                STATE_URL_CONVERSION.post.map(oldState, newState);
+                expect(newState).toEqual({});
             });
         });
 

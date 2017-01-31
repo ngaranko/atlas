@@ -66,12 +66,9 @@
                 id: 'MAP_FULLSCREEN',
                 isButton: true
             },
-            MAP_SET_DRAWING_MODE: {
-                id: 'MAP_SET_DRAWING_MODE',
-                isButton: true
-            },
             MAP_START_DRAWING: {
                 id: 'MAP_START_DRAWING_MODE',
+                ignore: true,
                 isButton: true
             },
             MAP_END_DRAWING: {
@@ -82,7 +79,6 @@
                 id: 'SHOW_MAP_ACTIVE_OVERLAYS',
                 replace: true,
                 isButton: true
-
             },
             HIDE_MAP_ACTIVE_OVERLAYS: {
                 id: 'HIDE_MAP_ACTIVE_OVERLAYS',

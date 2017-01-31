@@ -11,12 +11,12 @@ describe('The dp-toggle-drawing-tool component', function () {
             'dpMap',
             {
                 store: {
-                    dispatch: function () {}
+                    dispatch: angular.noop
                 },
                 drawTool: {
                     isEnabled: angular.noop,
-                    enable: function () {},
-                    disable: function () {},
+                    enable: angular.noop,
+                    disable: angular.noop,
                     shape: {
                         markers: [],
                         markersMaxCount: MAXCOUNT

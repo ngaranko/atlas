@@ -19,7 +19,7 @@
             scope: {
                 mapState: '=',
                 markers: '=',
-                polygon: '=',
+                drawGeometry: '=',
                 showLayerSelection: '=',
                 resize: '<'
             },
@@ -100,6 +100,7 @@
 
                 scope.$watch('markers.clustered', function (newCollection, oldCollection) {
                     if (newCollection.length) {
+                        highlight.clearCluster(leafletMap);
                         highlight.setCluster(leafletMap, newCollection);
                     } else {
                         highlight.clearCluster(leafletMap);

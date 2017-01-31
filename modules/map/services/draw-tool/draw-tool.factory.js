@@ -7,7 +7,6 @@
 
     drawToolFactory.$inject = ['$rootScope', 'L', 'DRAW_TOOL_CONFIG'];
 
-    /* -istanbul ignore next */
     function drawToolFactory ($rootScope, L, DRAW_TOOL_CONFIG) {
         const MARKERS_MAX_COUNT = DRAW_TOOL_CONFIG.MAX_MARKERS;
 
@@ -80,7 +79,9 @@
             if (angular.isFunction(_onDrawingMode)) {
                 $rootScope.$applyAsync(() => {
                     // call any registered callback function, applyAsync because triggered by a leaflet event
-                    _onDrawingMode(drawTool.drawingMode);
+                    // The exact drawingMode is an internal attribute of the factory
+                    // The outside knowledge is just true or false; enabled or disabled
+                    _onDrawingMode(drawTool.drawingMode !== null);
                 });
             }
         }
@@ -97,14 +98,15 @@
         // Delete an existing polygon
         function deletePolygon () {
             if (currentShape.layer) {
-                currentShape.layer.off('click', shapeClickHandler); // deregister the click handler to start/end edit
+                currentShape.layer.off('click', toggleEditModeOnShapeClick);
                 drawTool.drawnItems.removeLayer(currentShape.layer);
 
-                let deletedLayers = new L.LayerGroup();
-                deletedLayers.addLayer(currentShape.layer);
-                drawTool.map.fire(L.Draw.Event.DELETED, { layers: deletedLayers });
+                // Compose the layer to be deleted and fire the delete event
+                let layers = new L.LayerGroup();
+                layers.addLayer(currentShape.layer);
+                drawTool.map.fire(L.Draw.Event.DELETED, { layers });
 
-                currentShape.layer = null;
+                currentShape.layer = null;  // No current layer after delete polygon
             }
         }
 
@@ -112,7 +114,7 @@
         function createPolygon (layer) {
             currentShape.layer = layer;
             drawTool.drawnItems.addLayer(layer);
-            layer.on('click', shapeClickHandler);
+            layer.on('click', toggleEditModeOnShapeClick);
         }
 
         // Called when a polygon is finished (end draw or end edit)
@@ -226,10 +228,10 @@
                     $rootScope.$applyAsync(() => {
                         // Execute this code after leaflet.draw has finished the event
 
-                        enforceLimits();
+                        enforceLimits();    // max vertices, auto close when max reached
 
                         if (currentShape.isConsistent) {
-                            onChangePolygon();  // trigger change
+                            onChangePolygon();  // trigger change on new consistent state of the polygon
                         }
                     });
                 });
@@ -243,8 +245,9 @@
                 // In edit mode => disable()
                 if (drawTool.drawingMode === 'EDIT') {
                     disable();
-                } else if (!(drawTool.drawingMode === 'DRAW' || currentShape.layer === null)) {
-                    // Not in draw mode (add new marker) or when no shape exists (first marker starts drawing mode)
+                } else if (drawTool.drawingMode !== 'DRAW') {
+                    // Note: In draw mode the click on map adds a new marker
+                    // If not in Draw mode then the current polygon gets deleted
                     deletePolygon();
                     updateShape();
                     onFinishPolygon();
@@ -254,7 +257,7 @@
         }
 
         // Click on the shape toggles EDIT mode
-        function shapeClickHandler (e) {
+        function toggleEditModeOnShapeClick (e) {
             L.DomEvent.stop(e);
             toggle();
         }
@@ -270,6 +273,7 @@
         }
 
         // start draw or edit mode for current layer or start create mode for new shape
+        // the outside only knows enabled or disabled, internally the mode is further defined in DRAW or EDIT
         function enable () {
             if (!isEnabled()) {
                 if (currentShape.layer) {   // Shape exists, start edit

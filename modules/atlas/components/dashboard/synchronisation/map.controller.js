@@ -22,8 +22,8 @@
                 clustered: []
             };
 
-            // polygon = geometryfilter of dataselection
-            vm.polygon = {
+            // drawGeometry = geometryfilter of dataselection
+            vm.drawGeometry = {
                 markers: []
             };
 
@@ -60,9 +60,10 @@
 
             if (angular.isObject(state.dataSelection)) {
                 vm.markers.clustered = state.dataSelection.markers;
-                vm.polygon.markers = state.dataSelection.geometryFilter || [];
+                vm.drawGeometry.markers = state.dataSelection.geometryFilter || [];
             } else {
                 vm.markers.clustered = [];
+                vm.drawGeometry.markers = [];
             }
 
             vm.mapState = state.map;
