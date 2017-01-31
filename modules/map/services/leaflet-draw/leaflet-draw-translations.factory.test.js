@@ -11,7 +11,7 @@ describe('The leafletDrawTranslations factory', function () {
                         toolbar: {
                             actions: {
                                 title: 'Tekenen annuleren',
-                                text: 'Annuleren'
+                                text: ''
                             }
                         }
                     }
@@ -26,12 +26,9 @@ describe('The leafletDrawTranslations factory', function () {
     });
 
     it('reads LEAFLET_DRAW_TRANSLATIONS and uses these values to set a global Leaflet variable', function () {
-        expect(L.drawLocal.draw.toolbar.actions.title).toBe('Cancel drawing');
-        expect(L.drawLocal.draw.toolbar.actions.text).toBe('Cancel');
-
         leafletDrawTranslations.initialize();
 
         expect(L.drawLocal.draw.toolbar.actions.title).toBe('Tekenen annuleren');
-        expect(L.drawLocal.draw.toolbar.actions.text).toBe('Annuleren');
+        expect(L.drawLocal.draw.toolbar.actions.text).toBe('');
     });
 });
