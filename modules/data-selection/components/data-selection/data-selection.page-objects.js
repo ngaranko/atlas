@@ -10,7 +10,9 @@ module.exports = function (dataSelectionElement) {
         return {
             isVisible: isVisible(dataSelectionElement),
             header: dataSelectionHeader(dataSelectionElement.element(by.css('dp-data-selection-header'))),
-            availableFilters: availableFilters(dataSelectionElement.element(by.css('dp-data-selection-available-filters')))
+            availableFilters: availableFilters(
+                dataSelectionElement.element(by.css('dp-data-selection-available-filters'))
+            )
         };
     };
 };

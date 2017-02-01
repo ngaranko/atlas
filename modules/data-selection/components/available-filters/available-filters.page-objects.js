@@ -7,7 +7,9 @@ module.exports = function (availableFiltersElement) {
                 return availableFiltersElement.isPresent();
             },
             categories: function (index) {
-                return categoryPageObject(availableFiltersElement.element(by.repeater('filter in vm.availableFilters').row(index)));
+                return categoryPageObject(
+                    availableFiltersElement.element(by.repeater('filter in vm.availableFilters').row(index))
+                );
             }
         };
     };
@@ -19,11 +21,11 @@ function categoryPageObject (categoryElement) {
         options: function (index) {
             return optionPageObject(categoryElement.element(by.repeater('option in filter.options').row(index)));
         }
-    }
+    };
 }
 
 function optionPageObject (optionElement) {
     return {
         label: optionElement.element(by.css('.qa-option-label')).getText
-    }
+    };
 }

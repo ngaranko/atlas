@@ -5,5 +5,5 @@ module.exports = function (linkElement) {
         return {
             label: linkElement.getText
         };
-    }
+    };
 };

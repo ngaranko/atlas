@@ -3,17 +3,18 @@
 const dataSelectionValidator = require('./data-selection');
 
 module.exports = function (page) {
+    const dataSelection = page.dashboard().rightColumn().dataSelection();
     expect(page.title()).toBe('Tabel Adressen - Atlas');
 
-    expect(page.dashboard().rightColumn().dataSelection().header().title()).toContain('Adressen');
+    expect(dataSelection.header().title()).toContain('Adressen');
 
-    expect(page.dashboard().rightColumn().dataSelection().availableFilters().isPresent()).toBe(true);
-    expect(page.dashboard().rightColumn().dataSelection().availableFilters().categories(0).header()).toBe('Stadsdeel');
-    expect(page.dashboard().rightColumn().dataSelection().availableFilters().categories(0).options(0).label()).toBe('Centrum');
-    expect(page.dashboard().rightColumn().dataSelection().availableFilters().categories(0).options(1).label()).toBe('Nieuw-West');
+    expect(dataSelection.availableFilters().isPresent()).toBe(true);
+    expect(dataSelection.availableFilters().categories(0).header()).toBe('Stadsdeel');
+    expect(dataSelection.availableFilters().categories(0).options(0).label()).toBe('Centrum');
+    expect(dataSelection.availableFilters().categories(0).options(1).label()).toBe('Nieuw-West');
 
-    expect(page.dashboard().rightColumn().dataSelection().availableFilters().categories(1).header()).toBe('GGW-gebied');
-    expect(page.dashboard().rightColumn().dataSelection().availableFilters().categories(1).options(0).label()).toBe('Bijlmer Centrum');
+    expect(dataSelection.availableFilters().categories(1).header()).toBe('GGW-gebied');
+    expect(dataSelection.availableFilters().categories(1).options(0).label()).toBe('Bijlmer Centrum');
 
     dataSelectionValidator(page);
 };

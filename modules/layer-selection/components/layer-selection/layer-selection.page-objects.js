@@ -35,7 +35,7 @@ function categoryPageObject (categoryElement, repeatBy) {
         options: function (index) {
             return optionPageObject(categoryElement.element(by.repeater(repeatBy).row(index)));
         }
-    }
+    };
 }
 
 function optionPageObject (optionElement) {

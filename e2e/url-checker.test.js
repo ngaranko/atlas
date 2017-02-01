@@ -11,6 +11,6 @@ describe('each URL should load the corresponding view', function () {
         it(key, () => {
             page = navigate(key);
             availableStates[key].validator(page);
-        })
+        });
     });
 });

@@ -19,10 +19,12 @@ function groupedDataPageObject (groupedDataElement) {
     return function () {
         return {
             stelselpediaHeader: stelselpediaHeader(groupedDataElement.element(by.css('dp-stelselpedia-header'))),
-            nummeraanduidingHeader: nummeraanduidingHeader(groupedDataElement.element(by.css('dp-nummeraanduiding-header'))),
+            nummeraanduidingHeader: nummeraanduidingHeader(
+                groupedDataElement.element(by.css('dp-nummeraanduiding-header'))
+            ),
             descriptionList: descriptionListPageObject(groupedDataElement.element(by.css('dl')))
-        }
-    }
+        };
+    };
 }
 
 function descriptionListPageObject (definitionListElement) {

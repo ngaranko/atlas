@@ -9,7 +9,9 @@ module.exports = function (searchResultsElement) {
         return {
             isVisible: isVisible(searchResultsElement),
             categories: function (index) {
-                return categoryPageObject(searchResultsElement.element(by.repeater('category in vm.searchResults').row(index)));
+                return categoryPageObject(
+                    searchResultsElement.element(by.repeater('category in vm.searchResults').row(index))
+                );
             }
         };
     };

@@ -1,12 +1,12 @@
 'use strict';
 
-const dataSelectionPageObject = require('../../../data-selection/components/data-selection/data-selection.page-objects');
-const detailPageObject = require('../../../detail/components/detail/detail.page-objects');
-const layerSelectionPageObject = require('../../../layer-selection/components/layer-selection/layer-selection.page-objects');
-const mapPageObject = require('../../../map/components/map/map.page-objects');
-const pagePageObject = require('../../../page/components/page/page.page-objects');
-const searchResultsPageObject = require('../../../search-results/components/search-results/search-results.page-objects');
-const straatbeeldPageObject = require('../../../straatbeeld/components/straatbeeld/straatbeeld.page-objects');
+const dataSelectionPO = require('../../../data-selection/components/data-selection/data-selection.page-objects');
+const detailPO = require('../../../detail/components/detail/detail.page-objects');
+const layerSelectionPO = require('../../../layer-selection/components/layer-selection/layer-selection.page-objects');
+const mapPO = require('../../../map/components/map/map.page-objects');
+const pagePO = require('../../../page/components/page/page.page-objects');
+const searchResultsPO = require('../../../search-results/components/search-results/search-results.page-objects');
+const straatbeeldPO = require('../../../straatbeeld/components/straatbeeld/straatbeeld.page-objects');
 
 module.exports = function (dashboardElement) {
     return {
@@ -20,13 +20,13 @@ module.exports = function (dashboardElement) {
 
         return function () {
             return {
-                dataSelection: dataSelectionPageObject(column.element(by.css('.qa-data-selection'))),
-                detail: detailPageObject(column.element(by.css('.qa-detail'))),
-                layerSelection: layerSelectionPageObject(column.element(by.css('.qa-layer-selection'))),
-                map: mapPageObject(column.element(by.css('.qa-map'))),
-                page: pagePageObject(column.element(by.css('.qa-page'))),
-                searchResults: searchResultsPageObject(column.element(by.css('.qa-search-results'))),
-                straatbeeld: straatbeeldPageObject(column.element(by.css('.qa-straatbeeld'))),
+                dataSelection: dataSelectionPO(column.element(by.css('.qa-data-selection'))),
+                detail: detailPO(column.element(by.css('.qa-detail'))),
+                layerSelection: layerSelectionPO(column.element(by.css('.qa-layer-selection'))),
+                map: mapPO(column.element(by.css('.qa-map'))),
+                page: pagePO(column.element(by.css('.qa-page'))),
+                searchResults: searchResultsPO(column.element(by.css('.qa-search-results'))),
+                straatbeeld: straatbeeldPO(column.element(by.css('.qa-straatbeeld'))),
                 columnSize: function () {
                     return column.getAttribute('class').then(
                         className => Number(className.replace(/.*u-col-sm--(\d+).*/, '$1'))
