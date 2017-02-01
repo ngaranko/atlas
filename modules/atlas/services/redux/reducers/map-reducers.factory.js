@@ -158,7 +158,7 @@
 
             newState.map.drawingMode = null;
 
-            if (payload.geometryFilter.length > 1) {
+            if (payload.geometryFilter.length > 2) {
                 if (newState.dataSelection) {
                     // Nothing yet
                 } else {
@@ -173,8 +173,13 @@
                 newState.dataSelection.isLoading = true;
                 newState.dataSelection.view = 'LIST';
                 newState.dataSelection.markers = [];
+
+                newState.map.geometry = [];
+            } else if (payload.geometryFilter.length === 2) {
+                newState.map.geometry = payload.geometryFilter;
             } else {
                 newState.dataSelection = null;
+                newState.map.geometry = [];
             }
 
             return newState;

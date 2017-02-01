@@ -289,6 +289,16 @@ describe('The map reducers', function () {
             expect(output.dataSelection).toBe(null);
         });
 
+        it('Sets the map geometry on a polygon with 2 markers', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
+                geometryFilter: ['noot', 'mies']
+            });
+            expect(output.map.geometry).toEqual(['noot', 'mies']);
+        });
+
         it('Initializes the dataSelection state', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
