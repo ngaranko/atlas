@@ -27,14 +27,17 @@
             }
         });
 
-        $scope.$watch('vm.polygon.markers', function (polygon) {
-            if (!drawTool.isEnabled()) {
-                drawTool.setPolygon(vm.polygon.markers);
+        $scope.$watch('vm.polygon.markers', setPolygon, true);
+        $scope.$watch('vm.state.geometry', setPolygon, true);
+
+        function setPolygon (polygon) {
+            if (angular.isArray(polygon) && polygon.length > 0 && !drawTool.isEnabled()) {
+                drawTool.setPolygon(polygon);
                 if (vm.state.drawingMode) {
                     drawTool.enable();
                 }
             }
-        }, true);
+        }
 
         function onFinishShape (polygon) {
             store.dispatch({

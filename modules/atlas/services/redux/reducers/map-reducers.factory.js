@@ -173,8 +173,13 @@
                 newState.dataSelection.isLoading = true;
                 newState.dataSelection.view = 'LIST';
                 newState.dataSelection.markers = [];
+
+                newState.map.geometry = [];
+            } else if (payload.geometryFilter.length === 2) {
+                newState.map.geometry = payload.geometryFilter;
             } else {
                 newState.dataSelection = null;
+                newState.map.geometry = [];
             }
 
             return newState;

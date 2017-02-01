@@ -163,6 +163,39 @@ describe('The draw tool component', function () {
         });
     });
 
+    describe('The geometry parameter', function () {
+        beforeEach(function () {
+            spyOn(drawTool, 'setPolygon');
+            spyOn(drawTool, 'enable');
+            spyOn(drawTool, 'disable');
+        });
+
+        it('Informs the draw tool factory of any changes', function () {
+            getComponent();
+
+            spyOn(drawTool, 'isEnabled').and.returnValue(false);
+            state.geometry = ['aap'];
+            $rootScope.$digest();
+
+            expect(drawTool.setPolygon).toHaveBeenCalledWith(state.geometry);
+        });
+
+        it('Informs the draw tool factory of any changes, ignores empty geometry', function () {
+            getComponent();
+
+            spyOn(drawTool, 'isEnabled').and.returnValue(false);
+            state.geometry = null;
+            $rootScope.$digest();
+
+            expect(drawTool.setPolygon).not.toHaveBeenCalled();
+
+            state.geometry = [];
+            $rootScope.$digest();
+
+            expect(drawTool.setPolygon).not.toHaveBeenCalled();
+        });
+    });
+
     describe('The dispatched actions', function () {
         beforeEach(function () {
             spyOn(store, 'dispatch');

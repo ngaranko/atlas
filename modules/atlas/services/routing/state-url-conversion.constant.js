@@ -216,6 +216,11 @@
                     name: 'map.isFullscreen',
                     type: 'boolean'
                 },
+                mpg: {
+                    name: 'map.geometry',
+                    type: 'base62[][]',
+                    precision: 7
+                },
                 mpo: {
                     name: 'map.overlays',
                     type: 'object(id:string,isVisible:boolean)[]'
