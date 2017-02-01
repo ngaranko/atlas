@@ -70,6 +70,11 @@ describe('each URL should load the corresponding view', function () {
         page = navigate('MAP_SEARCH-RESULTS--QUERY');
         availableStates['MAP_SEARCH-RESULTS--QUERY'].validator(page);
     });
+
+    it('MAP_STRAATBEELD--DETAIL', () => {
+        page = navigate('MAP_STRAATBEELD--DETAIL');
+        availableStates['MAP_STRAATBEELD--DETAIL'].validator(page);
+    });
 });
 
 /*

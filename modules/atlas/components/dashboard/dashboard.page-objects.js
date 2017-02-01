@@ -6,6 +6,7 @@ const layerSelectionPageObject = require('../../../layer-selection/components/la
 const mapPageObject = require('../../../map/components/map/map.page-objects');
 const pagePageObject = require('../../../page/components/page/page.page-objects');
 const searchResultsPageObject = require('../../../search-results/components/search-results/search-results.page-objects');
+const straatbeeldPageObject = require('../../../straatbeeld/components/straatbeeld/straatbeeld.page-objects');
 
 module.exports = function (dashboardElement) {
     return {
@@ -25,25 +26,13 @@ module.exports = function (dashboardElement) {
                 map: mapPageObject(column.element(by.css('.qa-map'))),
                 page: pagePageObject(column.element(by.css('.qa-page'))),
                 searchResults: searchResultsPageObject(column.element(by.css('.qa-search-results'))),
-                straatbeeld: getComponent(column.element(by.css('.qa-straatbeeld'))),
+                straatbeeld: straatbeeldPageObject(column.element(by.css('.qa-straatbeeld'))),
                 columnSize: function () {
                     return column.getAttribute('class').then(
                         className => Number(className.replace(/.*u-col-sm--(\d+).*/, '$1'))
                     );
                 }
             };
-
-            function getComponent (component) {
-                return function () {
-                    return {
-                        isVisible: function () {
-                            return component.getAttribute('class').then(function (className) {
-                                return className.match(/ng-hide/) === null;
-                            });
-                        }
-                    };
-                };
-            }
         };
     }
 };

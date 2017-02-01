@@ -1,6 +1,8 @@
 'use strict';
 
 module.exports = function (page) {
+    expect(page.dashboard().leftColumn().columnSize()).toBe(0);
+
     expect(page.dashboard().middleColumn().columnSize()).toBe(4);
     expect(page.dashboard().middleColumn().map().isVisible()).toBe(true);
 
