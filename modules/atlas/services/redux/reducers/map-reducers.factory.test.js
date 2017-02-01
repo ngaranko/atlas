@@ -278,13 +278,13 @@ describe('The map reducers', function () {
             expect(output.map.drawingMode).toBe(null);
         });
 
-        it('Sets the dataSelection state to null on a polygon with <= 2 markers', function () {
+        it('Sets the dataSelection state to null on a polygon with <= 1 markers', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
             inputState.dataSelection = 'aap';
             output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
-                geometryFilter: ['noot', 'mies']
+                geometryFilter: ['noot']
             });
             expect(output.dataSelection).toBe(null);
         });
