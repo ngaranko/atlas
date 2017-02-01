@@ -1,7 +1,7 @@
 'use strict';
 
 const navigate = require('./helpers/navigate');
-const validator = require('./helpers/validator');
+const validator = require('./validators/validator');
 
 describe('The basic application navigation', function () {
     let page;
