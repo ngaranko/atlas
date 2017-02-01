@@ -13,8 +13,7 @@
 &.c-toggle-drawing-tool--active {
   @extend %toggle-drawing-tool;
   @include icon-button-text-box-right-invert("polygon-measure", "red", "white");
-
-  padding-left: $button-size + $base-whitespace;
+  padding-left: 28px;
   border-top: none;
   border-left: none;
 
