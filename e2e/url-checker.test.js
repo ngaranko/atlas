@@ -35,6 +35,11 @@ describe('each URL should load the corresponding view', function () {
         page = navigate('LAYER-SELECTION_MAP');
         availableStates['LAYER-SELECTION_MAP'].validator(page);
     });
+
+    it('MAP', () => {
+        page = navigate('MAP');
+        availableStates['MAP'].validator(page);
+    });
 });
 
 /*

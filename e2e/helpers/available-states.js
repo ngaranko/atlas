@@ -18,7 +18,7 @@ module.exports = {
         validator: require('./validators/layer-selection_map')
     },
     'MAP': {
-        url: '#?mpv=52.3719:4.9012&mpb=topografie&mpz=9&mpfs=aan&pgn=home',
+        url: '#?mpv=52.3719:4.9012&mpb=topografie&mpz=9&mpfs=T&pgn=home',
         validator: require('./validators/map')
     },
     'MAP_DATA-SELECTION': {
