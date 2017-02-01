@@ -27,11 +27,19 @@
             }
         });
 
-        $scope.$watch('vm.polygon.markers', setPolygon, true);
-        $scope.$watch('vm.state.geometry', setPolygon, true);
+        $scope.$watch('vm.polygon.markers', (markers) => {
+            // polygon markers are always set, even if empty
+            setPolygon(markers);
+        }, true);
+
+        $scope.$watch('vm.state.geometry', (markers) => {
+            // when map geometry is empty, set it to polygon, else delete polygon
+            let geometry = markers || vm.polygon.markers;
+            setPolygon(geometry);
+        }, true);
 
         function setPolygon (polygon) {
-            if (angular.isArray(polygon) && polygon.length > 0 && !drawTool.isEnabled()) {
+            if (!drawTool.isEnabled()) {
                 drawTool.setPolygon(polygon);
                 if (vm.state.drawingMode) {
                     drawTool.enable();

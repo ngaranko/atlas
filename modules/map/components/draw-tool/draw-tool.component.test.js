@@ -180,19 +180,21 @@ describe('The draw tool component', function () {
             expect(drawTool.setPolygon).toHaveBeenCalledWith(state.geometry);
         });
 
-        it('Informs the draw tool factory of any changes, ignores empty geometry', function () {
+        it('Informs the draw tool factory of any changes, defaults to polygon', function () {
             getComponent();
 
             spyOn(drawTool, 'isEnabled').and.returnValue(false);
             state.geometry = null;
             $rootScope.$digest();
 
-            expect(drawTool.setPolygon).not.toHaveBeenCalled();
+            expect(drawTool.setPolygon).toHaveBeenCalledWith(polygon.markers);
+
+            drawTool.setPolygon.calls.reset();
 
             state.geometry = [];
             $rootScope.$digest();
 
-            expect(drawTool.setPolygon).not.toHaveBeenCalled();
+            expect(drawTool.setPolygon).toHaveBeenCalledWith(polygon.markers);
         });
     });
 
