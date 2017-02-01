@@ -158,7 +158,7 @@
 
             newState.map.drawingMode = null;
 
-            if (payload.geometryFilter.length > 2) {
+            if (payload.geometryFilter.length > 1) {
                 if (newState.dataSelection) {
                     // Nothing yet
                 } else {

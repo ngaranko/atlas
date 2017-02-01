@@ -59,6 +59,7 @@
             }
 
             if (angular.isObject(state.dataSelection)) {
+                vm.markers.regular = [];
                 vm.markers.clustered = state.dataSelection.markers;
                 vm.drawGeometry.markers = state.dataSelection.geometryFilter || [];
             } else {
