@@ -233,8 +233,10 @@
                     updateShape();  // Update current shape and tooltip
 
                     $rootScope.$applyAsync(() => {
-                        // Execute this code after leaflet.draw has finished the event
+                        // Force Leaflet to enable TextSelection (tg-2728)
+                        L.DomUtil.enableTextSelection();
 
+                        // Execute this code after leaflet.draw has finished the event
                         enforceLimits();    // max vertices, auto close when max reached
 
                         if (currentShape.isConsistent) {
