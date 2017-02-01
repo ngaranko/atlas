@@ -39,7 +39,7 @@
         function updateFilters () {
             vm.formattedActiveFilters = [];
 
-            if (vm.geometryFilter.markers.length > 0) {
+            if (vm.geometryFilter.markers.length > 2) {
                 vm.formattedActiveFilters.push({
                     slug: GEOMETRY_FILTER,
                     label: 'Locatie',
