@@ -83,7 +83,7 @@
                     vm.isLoading = false;
 
                     let activeFilters = angular.extend({
-                        shape: angular.toJson(vm.state.geometryFilter.map(([lat, lng]) => [lng, lat]))
+                        shape: angular.toJson(vm.geometryFilter.markers.map(([lat, lng]) => [lng, lat]))
                     }, vm.state.filters);
 
                     if (
