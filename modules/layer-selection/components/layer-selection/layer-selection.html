@@ -8,8 +8,8 @@
         </dp-link>
     </div>
     <div class="c-layer-selection__content">
-        <div class="u-margin__bottom--1">
-            <h2 class="o-header__subtitle u-margin__top--1-5 qa-baselayers-header">Achtergrond</h2>
+        <div class="u-margin__bottom--1 qa-baselayers">
+            <h2 class="o-header__subtitle u-margin__top--1-5 qa-category-header">Achtergrond</h2>
             <ul class="u-margin__bottom--2-5">
                 <li ng-repeat="baseLayer in vm.allBaseLayers" class="c-layer-selection__item">
                     <label>
@@ -26,7 +26,7 @@
         </div>
 
         <div class="u-margin__bottom--1" ng-repeat="category in vm.allOverlays">
-            <h2 class="o-header__subtitle qa-overlays-header">{{category.heading}}</h2>
+            <h2 class="o-header__subtitle qa-category-header">{{category.heading}}</h2>
             <ul class="u-margin__bottom--2-5">
                 <li ng-repeat="overlay in category.overlays" class="c-layer-selection__item">
                     <label>

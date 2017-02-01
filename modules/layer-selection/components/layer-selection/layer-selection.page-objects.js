@@ -10,10 +10,18 @@ module.exports = function (layerSelectionElement) {
                 layerSelectionElement.element(by.css('.qa-layer-selection-close')).click();
             },
             baselayers: function () {
+                return categoryPageObject(
+                    layerSelectionElement.element(by.css('.qa-baselayers')),
+                    'baseLayer in vm.allBaseLayers'
+                );
+            },
+            overlays: function () {
                 return {
-                    header: layerSelectionElement.element(by.css('.qa-baselayers-header')).getText,
-                    options: function (index) {
-                        return optionPageObject(layerSelectionElement.element(by.repeater('baseLayer in vm.allBaseLayers').row(index)));
+                    categories: function (index) {
+                        return categoryPageObject(
+                            layerSelectionElement.element(by.repeater('category in vm.allOverlays').row(index)),
+                            'overlay in category.overlays'
+                        );
                     }
                 };
             }
@@ -21,8 +29,17 @@ module.exports = function (layerSelectionElement) {
     };
 };
 
-function optionPageObject (categoryElement) {
+function categoryPageObject (categoryElement, repeatBy) {
     return {
-        label: categoryElement.element(by.css('.qa-option-label')).getText
+        header: categoryElement.element(by.css('.qa-category-header')).getText,
+        options: function (index) {
+            return optionPageObject(categoryElement.element(by.repeater(repeatBy).row(index)));
+        }
+    }
+}
+
+function optionPageObject (optionElement) {
+    return {
+        label: optionElement.element(by.css('.qa-option-label')).getText
     };
 }

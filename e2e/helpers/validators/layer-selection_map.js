@@ -1,7 +1,5 @@
 'use strict';
 
-const mapValidator = require('./map');
-
 module.exports = function (page) {
     expect(page.title()).toBe('Selecteer kaartlagen - Atlas');
 
@@ -16,12 +14,10 @@ module.exports = function (page) {
     expect(page.dashboard().leftColumn().layerSelection().overlays().categories(0).options(0).label()).toBe('Bouw');
     expect(page.dashboard().leftColumn().layerSelection().overlays().categories(0).options(1).label()).toBe('Cultuur, sport, recreatie');
 
-    expect(page.dashboard().leftColumn().layerSelection().overlays().categories(0).header()).toBe('Onroerende zaken');
-    expect(page.dashboard().leftColumn().layerSelection().overlays().categories(0).options(0).label()).toBe('Burgerlijke gemeenten');
-    expect(page.dashboard().leftColumn().layerSelection().overlays().categories(0).options(1).label()).toBe('Kadastrale gemeenten');
+    expect(page.dashboard().leftColumn().layerSelection().overlays().categories(1).header()).toBe('Onroerende zaken');
+    expect(page.dashboard().leftColumn().layerSelection().overlays().categories(1).options(0).label()).toBe('Burgerlijke gemeenten');
+    expect(page.dashboard().leftColumn().layerSelection().overlays().categories(1).options(1).label()).toBe('Kadastrale gemeenten');
 
     expect(page.dashboard().middleColumn().columnSize()).toBe(8);
     expect(page.dashboard().middleColumn().map().isVisible()).toBe(true);
-
-    mapValidator(page);
 };
