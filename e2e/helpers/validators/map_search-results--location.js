@@ -2,9 +2,8 @@
 
 const mapSearchResults = require('./map_search-results');
 
-
 module.exports = function (page) {
-    expect(page.title()).toMatch(/^(\d) resultaten met locatie 121332\.80, 487366\.72 \(52\.3731425, 4\.8928205\) - Atlas$/);
+    expect(page.title()).toMatch(/^\d resultaten met locatie 121332\.80, 487366\.72 \(52\.3731425, 4\.8928205\) - Atlas$/);
 
     expect(page.dashboard().rightColumn().searchResults().categories(0).header()).toBe('Openbare ruimte');
     expect(page.dashboard().rightColumn().searchResults().categories(0).list(0).link().label()).toBe('Dam');

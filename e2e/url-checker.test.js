@@ -65,11 +65,14 @@ describe('each URL should load the corresponding view', function () {
         page = navigate('MAP_SEARCH-RESULTS--LOCATION');
         availableStates['MAP_SEARCH-RESULTS--LOCATION'].validator(page);
     });
+
+    it('MAP_SEARCH-RESULTS--QUERY', () => {
+        page = navigate('MAP_SEARCH-RESULTS--QUERY');
+        availableStates['MAP_SEARCH-RESULTS--QUERY'].validator(page);
+    });
 });
 
 /*
- MAP_SEARCH-RESULTS--LOCATION
- MAP_SEARCH-RESULTS--QUERY
  MAP_STRAATBEELD--DETAIL
  MAP_STRAATBEELD--SEARCH-RESULTS
  STRAATBEELD--DETAIL
