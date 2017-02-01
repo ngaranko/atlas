@@ -1,49 +1,31 @@
-.c-toggle-drawing-tool {
-  @include icon-button("polygon-measure");
+%toggle-drawing-tool {
   position: absolute;
-  top: -1px;
+  top: 0;
   left: 0;
   z-index: 2;
+}
 
-  &:hover,
-  &:active {
-    background-color: $primary-light;
-    color: $secondary-gray60;
-  }
+.c-toggle-drawing-tool {
+  @extend %toggle-drawing-tool;
+  @include icon-button("polygon-measure");
 }
 
 &.c-toggle-drawing-tool--active {
-  @include icon-button("polygon-measure", "red");
+  @extend %toggle-drawing-tool;
+  @include icon-button-text-box-right-invert("polygon-measure", "red", "white");
+
+  padding-left: $button-size + $base-whitespace;
   border-top: none;
   border-left: none;
 
   &:hover,
   &:active {
-    @include icon-button("polygon-measure");
     border-top: none;
     border-left: none;
   }
 
-  .c-toggle-drawing-tool__label {
-    display: inline-block;
-    position: relative;
-    left: $button-size;
-    height: $button-size;
-    padding: {
-      right: $base-whitespace;
-      left: $base-whitespace;
-    }
-    border: $primary-contrast;
-    background-color: $primary-contrast;
-    color: $primary-light;
-    font-family: $header-font-family;
-    line-height: $button-size;
-
-    &:hover,
-    &:active {
-      border: 1px solid $secondary-gray20;
-      background-color: $primary-light;
-      color: $secondary-gray60;
-    }
+  &::before {
+    top: -1px;
+    border-bottom: solid $secondary-gray20 1px;
   }
 }
