@@ -65,7 +65,7 @@ module.exports = {
     },
     'STRAATBEELD--SEARCH-RESULTS': {
         url: '#?lat=52.3630723571084&lon=4.92265756777558&mpb=topografie&mpz=9&' +
-             'sbi=TMX7315120208-000048_pano_0000_002519&sbl=ZRWT3:3JISb&sbh=-30&sbp=0&sbf=10&sbfs=aan',
+             'sbi=TMX7315120208-000048_pano_0000_002519&sbl=ZRWT3:3JISb&sbh=-30&sbp=0&sbf=10&sbfs=T',
         validator: require('../validators/states/straatbeeld--search-results')
     }
 };
