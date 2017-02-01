@@ -5,6 +5,7 @@ const detailPageObject = require('../../../detail/components/detail/detail.page-
 const layerSelectionPageObject = require('../../../layer-selection/components/layer-selection/layer-selection.page-objects');
 const mapPageObject = require('../../../map/components/map/map.page-objects');
 const pagePageObject = require('../../../page/components/page/page.page-objects');
+const searchResultsPageObject = require('../../../search-results/components/search-results/search-results.page-objects');
 
 module.exports = function (dashboardElement) {
     return {
@@ -23,7 +24,7 @@ module.exports = function (dashboardElement) {
                 layerSelection: layerSelectionPageObject(column.element(by.css('.qa-layer-selection'))),
                 map: mapPageObject(column.element(by.css('.qa-map'))),
                 page: pagePageObject(column.element(by.css('.qa-page'))),
-                searchResults: getComponent(column.element(by.css('.qa-search-results'))),
+                searchResults: searchResultsPageObject(column.element(by.css('.qa-search-results'))),
                 straatbeeld: getComponent(column.element(by.css('.qa-straatbeeld'))),
                 columnSize: function () {
                     return column.getAttribute('class').then(

@@ -8,7 +8,7 @@
                 category: '=',
                 limitResults: '='
             },
-            templateUrl: 'modules/search-results/components/search-results/list/list.html',
+            templateUrl: 'modules/search-results/components/search-results/list/search-results-list.html',
             controller: DpSearchResultsListController,
             controllerAs: 'vm'
         });

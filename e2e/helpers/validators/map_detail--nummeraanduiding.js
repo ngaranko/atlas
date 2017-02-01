@@ -24,9 +24,9 @@ module.exports = function (page) {
 
     expect(page.dashboard().rightColumn().detail().verblijfsobject().stelselpediaHeader().subtitle()).toBe('Verblijfsobject');
     expect(page.dashboard().rightColumn().detail().verblijfsobject().descriptionList().term(0)).toBe('Gebruiksdoel');
-    expect(page.dashboard().rightColumn().detail().verblijfsobject().descriptionList().definition(0)).toBe('BEST-winkelfunctie');
+    expect(page.dashboard().rightColumn().detail().verblijfsobject().descriptionList().definition(0)).toBe('BEST-woning');
     expect(page.dashboard().rightColumn().detail().verblijfsobject().descriptionList().term(1)).toBe('Feitelijk gebruik');
-    expect(page.dashboard().rightColumn().detail().verblijfsobject().descriptionList().definition(1)).toBe('');
+    expect(page.dashboard().rightColumn().detail().verblijfsobject().descriptionList().definition(1)).toBe('woning');
 
     mapDetailValidator(page);
 };

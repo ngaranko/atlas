@@ -46,17 +46,28 @@ describe('each URL should load the corresponding view', function () {
         availableStates['MAP_DATA-SELECTION'].validator(page);
     });
 
-    fit('MAP_DETAIL--NUMMERAANDUIDING', () => {
+    it('MAP_DETAIL--NUMMERAANDUIDING', () => {
         page = navigate('MAP_DETAIL--NUMMERAANDUIDING');
         availableStates['MAP_DETAIL--NUMMERAANDUIDING'].validator(page);
+    });
+
+    it('MAP_PAGE--HOME', () => {
+        page = navigate('MAP_PAGE--HOME');
+        availableStates['MAP_PAGE--HOME'].validator(page);
+    });
+
+    it('MAP_PAGE--LOGIN', () => {
+        page = navigate('MAP_PAGE--LOGIN');
+        availableStates['MAP_PAGE--LOGIN'].validator(page);
+    });
+
+    it('MAP_SEARCH-RESULTS--LOCATION', () => {
+        page = navigate('MAP_SEARCH-RESULTS--LOCATION');
+        availableStates['MAP_SEARCH-RESULTS--LOCATION'].validator(page);
     });
 });
 
 /*
-
-
- MAP_PAGE--HOME
- MAP_PAGE--LOGIN
  MAP_SEARCH-RESULTS--LOCATION
  MAP_SEARCH-RESULTS--QUERY
  MAP_STRAATBEELD--DETAIL
