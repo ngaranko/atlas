@@ -40,11 +40,15 @@ describe('each URL should load the corresponding view', function () {
         page = navigate('MAP');
         availableStates['MAP'].validator(page);
     });
+
+    fit('MAP_DATA-SELECTION', () => {
+        page = navigate('MAP_DATA-SELECTION');
+        availableStates['MAP_DATA-SELECTION'].validator(page);
+    });
 });
 
 /*
- MAP
- MAP_DATA-SELECTION
+
  MAP_DETAIL--NUMMERAANDUIDING
  MAP_PAGE--HOME
  MAP_PAGE--LOGIN

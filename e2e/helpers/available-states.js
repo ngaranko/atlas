@@ -22,7 +22,7 @@ module.exports = {
         validator: require('./validators/map')
     },
     'MAP_DATA-SELECTION': {
-        url: '#?mpv=52.3719:4.9012&mpb=topografie&mpz=9&dsv=LIST&dsd=bag&dsp=1',
+        url: '#?mpv=52.3719:4.9012&mpb=topografie&mpz=9&dsv=LIST&dsd=hr&dsp=1',
         validator: require('./validators/map_data-selection')
     },
     'MAP_DETAIL--NUMMERAANDUIDING': {
