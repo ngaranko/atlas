@@ -45,11 +45,16 @@ describe('each URL should load the corresponding view', function () {
         page = navigate('MAP_DATA-SELECTION');
         availableStates['MAP_DATA-SELECTION'].validator(page);
     });
+
+    fit('MAP_DETAIL--NUMMERAANDUIDING', () => {
+        page = navigate('MAP_DETAIL--NUMMERAANDUIDING');
+        availableStates['MAP_DETAIL--NUMMERAANDUIDING'].validator(page);
+    });
 });
 
 /*
 
- MAP_DETAIL--NUMMERAANDUIDING
+
  MAP_PAGE--HOME
  MAP_PAGE--LOGIN
  MAP_SEARCH-RESULTS--LOCATION
