@@ -3,6 +3,9 @@
 module.exports = function (availableFiltersElement) {
     return function () {
         return {
+            isPresent: function () {
+                return availableFiltersElement.isPresent();
+            },
             categories: function (index) {
                 return categoryPageObject(availableFiltersElement.element(by.repeater('filter in vm.availableFilters').row(index)));
             }

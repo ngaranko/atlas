@@ -41,7 +41,7 @@ describe('each URL should load the corresponding view', function () {
         availableStates['MAP'].validator(page);
     });
 
-    fit('MAP_DATA-SELECTION', () => {
+    it('MAP_DATA-SELECTION', () => {
         page = navigate('MAP_DATA-SELECTION');
         availableStates['MAP_DATA-SELECTION'].validator(page);
     });

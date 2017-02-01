@@ -7,6 +7,7 @@ module.exports = function (page) {
 
     expect(page.dashboard().rightColumn().dataSelection().header().title()).toContain('Adressen');
 
+    expect(page.dashboard().rightColumn().dataSelection().availableFilters().isPresent()).toBe(true);
     expect(page.dashboard().rightColumn().dataSelection().availableFilters().categories(0).header()).toBe('Stadsdeel');
     expect(page.dashboard().rightColumn().dataSelection().availableFilters().categories(0).options(0).label()).toBe('Centrum');
     expect(page.dashboard().rightColumn().dataSelection().availableFilters().categories(0).options(1).label()).toBe('Nieuw-West');

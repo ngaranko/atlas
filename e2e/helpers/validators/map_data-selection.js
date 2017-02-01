@@ -18,5 +18,5 @@ module.exports = function (page) {
     expect(page.dashboard().rightColumn().dataSelection().header().tabs(1).label()).toContain('Vestigingen');
     expect(page.dashboard().rightColumn().dataSelection().header().tabs(1).isActive()).toBe(true);
 
-    //expect(page.dashboard().rightColumn().dataSelection().availableFilters()).toBe('ik besta niet?');
+    expect(page.dashboard().rightColumn().dataSelection().availableFilters().isPresent()).toBe(false);
 };
