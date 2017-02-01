@@ -1,39 +1,37 @@
-<div>
-    <div class="u-row">
-        <dp-glossary-header
-            heading="{{vm.apiData.results.kenmerk}}"
-            definition="INSLAGEN">
-        </dp-glossary-header>
+<div class="u-row">
+    <dp-glossary-header
+        heading="{{vm.apiData.results.kenmerk}}"
+        definition="INSLAGEN">
+    </dp-glossary-header>
 
-        <dl class="c-key-value-list">
-            <dt>Kenmerk</dt>
-            <dd>{{vm.apiData.results.kenmerk}}</dd>
+    <dl class="c-key-value-list">
+        <dt>Kenmerk</dt>
+        <dd>{{vm.apiData.results.kenmerk}}</dd>
 
-            <dt>Datum van inslag</dt>
-            <dd>{{vm.apiData.results.datum_inslag | date : 'd MMMM yyyy'}}</dd>
+        <dt>Datum van inslag</dt>
+        <dd>{{vm.apiData.results.datum_inslag | dpDate}}</dd>
 
-            <dt>Soort handeling</dt>
-            <dd>{{vm.apiData.results.type}}</dd>
+        <dt>Soort handeling</dt>
+        <dd>{{vm.apiData.results.type}}</dd>
 
-            <dt>Bron</dt>
-            <dd>{{vm.apiData.results.bron}}</dd>
+        <dt>Bron</dt>
+        <dd>{{vm.apiData.results.bron}}</dd>
 
-            <dt>Datum brondocument</dt>
-            <dd>{{vm.apiData.results.datum | date : 'd MMMM yyyy'}}</dd>
+        <dt>Datum brondocument</dt>
+        <dd>{{vm.apiData.results.datum | dpDate}}</dd>
 
-            <dt>Intekening</dt>
-            <dd>{{vm.apiData.results.intekening}}</dd>
+        <dt>Intekening</dt>
+        <dd>{{vm.apiData.results.intekening}}</dd>
 
-            <dt>Nauwkeurigheid</dt>
-            <dd>{{vm.apiData.results.nauwkeurig}}</dd>
+        <dt>Nauwkeurigheid</dt>
+        <dd>{{vm.apiData.results.nauwkeurig}}</dd>
 
-            <dt>Opmerking</dt>
-            <dd>{{vm.apiData.results.opmerking}}</dd>
+        <dt>Opmerking</dt>
+        <dd>{{vm.apiData.results.opmerking}}</dd>
 
-            <dt>Oorlogsincidentrapport</dt>
-            <dd ng-if="vm.apiData.results.pdf">
-                <a ng-href="{{vm.apiData.results.pdf}}" class="o-btn o-btn--link" target="_blank">{{vm.apiData.results.pdf}}</a>
-            </dd>
-        </dl>
-    </div>
+        <dt>Oorlogsincidentrapport</dt>
+        <dd ng-if="vm.apiData.results.pdf">
+            <a ng-href="{{vm.apiData.results.pdf}}" class="o-btn o-btn--link" target="_blank">{{vm.apiData.results.pdf}}</a>
+        </dd>
+    </dl>
 </div>
