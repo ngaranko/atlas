@@ -209,7 +209,7 @@ describe('The draw tool component', function () {
                 type: ACTIONS.MAP_END_DRAWING,
                 payload: {
                     geometryFilter: polygon.markers,
-                    geometryFilterDescription: 'distance, area'
+                    geometryFilterDescription: 'distance en area'
                 }
             });
         });

@@ -20,7 +20,7 @@
 
         function setSummary () {
             vm.showSummary = !drawTool.isEnabled() && drawTool.shape.markers.length > 0;
-            vm.summary = $sce.trustAsHtml(drawTool.shape.distanceTxt + ', ' + drawTool.shape.areaTxt);
+            vm.summary = $sce.trustAsHtml(drawTool.shape.distanceTxt + ' en ' + drawTool.shape.areaTxt);
         }
     }
 })();
