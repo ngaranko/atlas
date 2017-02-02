@@ -9,6 +9,7 @@
                 polygon: '=',
                 map: '='
             },
+            templateUrl: 'modules/map/components/draw-tool/draw-tool.html',
             controller: DpDrawToolComponent,
             controllerAs: 'vm'
         });

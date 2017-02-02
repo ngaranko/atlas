@@ -27,6 +27,7 @@ describe('The draw tool component', function () {
                     enable: angular.noop,
                     disable: angular.noop,
                     shape: {
+                        markers: [],
                         distanceTxt: 'distance',
                         areaTxt: 'area'
                     }
