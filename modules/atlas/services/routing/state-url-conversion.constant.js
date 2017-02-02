@@ -168,12 +168,12 @@
                     type: 'keyvalues'
                 },
                 dsgf: {
-                    name: 'dataSelection.geometryFilter',
+                    name: 'dataSelection.geometryFilter.markers',
                     type: 'base62[][]',
                     precision: 7
                 },
                 dsgd: {
-                    name: 'dataSelection.geometryFilterDescription',
+                    name: 'dataSelection.geometryFilter.description',
                     type: 'string'
                 },
                 dsp: {

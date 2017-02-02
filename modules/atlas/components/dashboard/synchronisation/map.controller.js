@@ -61,7 +61,7 @@
             if (angular.isObject(state.dataSelection)) {
                 vm.markers.regular = [];
                 vm.markers.clustered = state.dataSelection.markers;
-                vm.drawGeometry.markers = state.dataSelection.geometryFilter || [];
+                vm.drawGeometry.markers = state.dataSelection.geometryFilter.markers || [];
             } else {
                 vm.markers.clustered = [];
                 vm.drawGeometry.markers = [];
