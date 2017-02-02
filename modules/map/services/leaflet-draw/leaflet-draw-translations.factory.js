@@ -5,15 +5,26 @@
         .module('dpMap')
         .factory('leafletDrawTranslations', leafletDrawTranslationsFactory);
 
-    leafletDrawTranslationsFactory.$inject = ['L', 'LEAFLET_DRAW_TRANSLATIONS'];
+    leafletDrawTranslationsFactory.$inject = ['L'];
 
-    function leafletDrawTranslationsFactory (L, LEAFLET_DRAW_TRANSLATIONS) {
+    function leafletDrawTranslationsFactory (L) {
         return {
             initialize
         };
 
         function initialize () {
-            L.drawLocal = angular.merge(L.drawLocal, LEAFLET_DRAW_TRANSLATIONS);
+            clearTexts(L.drawLocal);
+        }
+
+        function clearTexts (obj) {
+            // Set all text properties to en ampty string
+            Object.keys(obj).forEach(key => {
+                if (angular.isObject(obj[key])) {
+                    clearTexts(obj[key]);
+                } else if (angular.isString(obj[key])) {
+                    obj[key] = '';
+                }
+            });
         }
     }
 })();

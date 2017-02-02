@@ -4,19 +4,7 @@ describe('The leafletDrawTranslations factory', function () {
 
     beforeEach(function () {
         angular.mock.module(
-            'dpMap',
-            $provide => {
-                $provide.constant('LEAFLET_DRAW_TRANSLATIONS', {
-                    draw: {
-                        toolbar: {
-                            actions: {
-                                title: 'Tekenen annuleren',
-                                text: ''
-                            }
-                        }
-                    }
-                });
-            }
+            'dpMap'
         );
 
         angular.mock.inject((_L_, _leafletDrawTranslations_) => {
@@ -25,10 +13,14 @@ describe('The leafletDrawTranslations factory', function () {
         });
     });
 
-    it('reads LEAFLET_DRAW_TRANSLATIONS and uses these values to set a global Leaflet variable', function () {
+    it('sets all L.drawLocal texts to ampty string', function () {
+        expect(L.drawLocal.draw.toolbar.actions.title).not.toBe('');
+        expect(L.drawLocal.draw.toolbar.actions.text).not.toBe('');
+
         leafletDrawTranslations.initialize();
 
-        expect(L.drawLocal.draw.toolbar.actions.title).toBe('Tekenen annuleren');
+        // Test any arbitrary texts to be set to ''
+        expect(L.drawLocal.draw.toolbar.actions.title).toBe('');
         expect(L.drawLocal.draw.toolbar.actions.text).toBe('');
     });
 });
