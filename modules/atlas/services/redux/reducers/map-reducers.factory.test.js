@@ -267,6 +267,25 @@ describe('The map reducers', function () {
         });
     });
 
+    describe('MAP_CLEAR_DRAWING', function () {
+        it('Clears the map geometry', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.map.geometry = 'aap';
+            output = mapReducers[ACTIONS.MAP_CLEAR_DRAWING.id](inputState);
+            expect(output.map.geometry).toEqual([]);
+        });
+
+        it('Set the map drawing mode to null when no drawing mode is specified', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, {});
+            expect(output.map.drawingMode).toBe(null);
+        });
+    });
+
     describe('MAP_END_DRAWING', function () {
         it('Set the map drawing mode to null', function () {
             var inputState = angular.copy(DEFAULT_STATE),

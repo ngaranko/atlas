@@ -27,6 +27,6 @@
             store.dispatch({
                 type: ACTIONS.MAP_CLEAR_DRAWING
             });
-        }
+        };
     }
 })();
