@@ -4,8 +4,6 @@ describe('The dp-toggle-drawing-tool component', function () {
         component,
         drawTool;
 
-    const MAXCOUNT = 5;
-
     beforeEach(function () {
         angular.mock.module(
             'dpMap',
@@ -19,7 +17,7 @@ describe('The dp-toggle-drawing-tool component', function () {
                     disable: angular.noop,
                     shape: {
                         markers: [],
-                        markersMaxCount: MAXCOUNT
+                        markersMaxCount: 5
                     },
                     setPolygon: angular.noop
                 }

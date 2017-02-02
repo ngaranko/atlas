@@ -33,7 +33,7 @@
         }, true);
 
         $scope.$watch('vm.state.geometry', (markers) => {
-            // when map geometry is empty, set it to polygon, else delete polygon
+            // when map geometry is empty, set it to polygon
             let geometry = markers || vm.polygon.markers;
             setPolygon(geometry);
         }, true);

@@ -59,8 +59,7 @@ describe('The dp-map directive', function () {
                     return {};
                 });
 
-                $provide.factory('dpDrawToolDirective' +
-                    '', function () {
+                $provide.factory('dpDrawToolDirective' + '', function () {
                     return {};
                 });
 

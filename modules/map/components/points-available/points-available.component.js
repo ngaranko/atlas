@@ -9,21 +9,18 @@
             controllerAs: 'vm'
         });
 
-    DpPointsAvailableController.$inject = ['$scope', 'drawTool'];
+    DpPointsAvailableController.$inject = ['$scope', 'drawTool', 'DRAW_TOOL_CONFIG'];
 
-    function DpPointsAvailableController ($scope, drawTool) {
+    function DpPointsAvailableController ($scope, drawTool, DRAW_TOOL_CONFIG) {
         let vm = this;
 
-        const MARKERS_LEFT_WARNING = 5;
-
-        setPoints();
         $scope.$watch(() => drawTool.shape.markers.length, setPoints);
         $scope.$watch(drawTool.isEnabled, setPoints);
 
         function setPoints () {
             vm.markersLeft = drawTool.shape.markersMaxCount - drawTool.shape.markers.length;
             vm.pointText = (vm.markersLeft === 1) ? 'punt' : 'punten';
-            vm.showWarning = drawTool.isEnabled() && vm.markersLeft <= MARKERS_LEFT_WARNING;
+            vm.showWarning = drawTool.isEnabled() && vm.markersLeft <= DRAW_TOOL_CONFIG.MARKERS_LEFT_WARNING;
         }
     }
 })();

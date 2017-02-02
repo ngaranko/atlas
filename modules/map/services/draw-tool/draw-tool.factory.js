@@ -8,8 +8,6 @@
     drawToolFactory.$inject = ['$rootScope', 'L', 'DRAW_TOOL_CONFIG'];
 
     function drawToolFactory ($rootScope, L, DRAW_TOOL_CONFIG) {
-        const MARKERS_MAX_COUNT = DRAW_TOOL_CONFIG.MAX_MARKERS;
-
         // holds all information about the state of the shape being created or edited
         let currentShape = {
             isConsistent: true,
@@ -17,7 +15,7 @@
             layer: null,
             markers: [],
             markersPrev: [],
-            markersMaxCount: MARKERS_MAX_COUNT,
+            markersMaxCount: DRAW_TOOL_CONFIG.MAX_MARKERS,
             area: 0,
             areaTxt: '',
             distance: 0,
@@ -150,12 +148,6 @@
         function enforceLimits () {
             if (!currentShape.isConsistent) {
                 let markersPrev = angular.copy(currentShape.markersPrev);   // restore previous state
-
-                // Because of auto close the delete last marker in draw mode is not needed
-                // if (drawTool.drawingMode === 'DRAW') {
-                //     deleteMarker(getLastDrawnMarker()); // simply delete last marker
-                //     currentShape.isConsistent = true;
-                // } else { ...
 
                 deletePolygon();    // delete current polygon
                 $rootScope.$applyAsync(() => {

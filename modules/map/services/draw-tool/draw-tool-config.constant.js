@@ -5,6 +5,7 @@
         .module('dpMap')
         .constant('DRAW_TOOL_CONFIG', {
             MAX_MARKERS: 10,
+            MARKERS_LEFT_WARNING: 5,
             format: {
                 numeric: {
                     delimiters: {

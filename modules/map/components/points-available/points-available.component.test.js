@@ -58,6 +58,11 @@ describe('The dp-points-available component', function () {
                 drawTool.shape.markers.push(i);
                 $rootScope.$digest();
             }
+        });
+
+        it('shows no markers available when 0 markers left', function () {
+            drawTool.shape.markers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+            let component = getComponent();
             expect(component.find('.qa-few-points-available').length).toBe(0);
             expect(component.find('.qa-no-more-points-available').length).toBe(1);
             expect(component.find('.qa-no-more-points-available').text()).toContain(

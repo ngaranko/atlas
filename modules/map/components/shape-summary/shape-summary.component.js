@@ -14,7 +14,6 @@
     function DpShapeSummaryController ($scope, $sce, drawTool) {
         let vm = this;
 
-        setSummary();
         $scope.$watch(() => drawTool.shape.markers, setSummary, true);
         $scope.$watch(drawTool.isEnabled, setSummary);
 
