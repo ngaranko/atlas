@@ -37,7 +37,7 @@
 
         <dt>Oorlogshandelingsrapport</dt>
         <dd ng-if="vm.apiData.results.pdf">
-            <a ng-href="{{vm.apiData.results.pdf}}" class="o-btn o-btn--link" target="_blank">{{vm.apiData.results.pdf}}</a>
+            <a ng-href="{{vm.apiData.results.pdf}}" class="o-btn o-btn--link" target="_blank">{{vm.apiData.results.pdf | filename}}</a>
         </dd>
     </dl>
 </div>
