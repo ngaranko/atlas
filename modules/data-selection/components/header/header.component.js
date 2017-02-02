@@ -7,7 +7,6 @@
             bindings: {
                 state: '<',
                 availableFilters: '<',
-                activeFilters: '<',
                 geometryFilter: '<',
                 numberOfRecords: '<',
                 isLoading: '<'
@@ -30,7 +29,8 @@
         ], setHeader);
 
         function setHeader () {
-            let isListView = vm.state.view === 'LIST';
+            let isListView = vm.state.view === 'LIST',
+                textFilters = vm.state.filters;
 
             vm.showHeader = isListView || !vm.isLoading;
             vm.showButtons = vm.state.dataset !== 'catalogus';
@@ -39,7 +39,7 @@
             vm.showTabs = isListView;
             vm.showNoResultsFound = vm.numberOfRecords === 0 && !vm.isLoading;
             vm.showActiveFilters = !vm.isLoading &&
-                (Object.keys(vm.activeFilters).length || vm.geometryFilter.markers.length);
+                (Object.keys(textFilters).length || vm.geometryFilter.markers.length);
 
             vm.maxAvailablePages = DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES;
             vm.showMessageMaxPages = vm.maxAvailablePages && vm.state.page > vm.maxAvailablePages;

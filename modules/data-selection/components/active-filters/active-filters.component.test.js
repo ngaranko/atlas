@@ -110,12 +110,12 @@ describe('The dp-data-selection-filters component', function () {
 
         element.setAttribute('dataset', 'my_special_dataset');
         element.setAttribute('available-filters', 'availableFilters');
-        element.setAttribute('active-filters', 'activeFilters');
+        element.setAttribute('text-filters', 'textFilters');
         element.setAttribute('geometry-filter', 'geometryFilter');
 
         scope = $rootScope.$new();
         scope.availableFilters = availableFilters;
-        scope.activeFilters = activeFilters;
+        scope.textFilters = activeFilters;
         scope.geometryFilter = geometryFilter;
 
         component = $compile(element)(scope);

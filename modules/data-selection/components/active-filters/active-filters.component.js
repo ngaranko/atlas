@@ -7,7 +7,7 @@
             bindings: {
                 dataset: '@',
                 availableFilters: '=',
-                activeFilters: '=',
+                textFilters: '=',
                 geometryFilter: '<'
             },
             templateUrl: 'modules/data-selection/components/active-filters/active-filters.html',
@@ -22,13 +22,13 @@
 
         const GEOMETRY_FILTER = 'GEOMETRY_FILTER';  // Identification for a geometry filter
 
-        $scope.$watchGroup(['vm.dataset', 'vm.activeFilters'], updateFilters, true);
+        $scope.$watchGroup(['vm.dataset', 'vm.textFilters'], updateFilters, true);
 
         vm.removeFilter = function (filterSlug) {
             if (filterSlug === GEOMETRY_FILTER) {
                 removeGeometryFilter();
             } else {
-                let filters = angular.copy(vm.activeFilters);
+                let filters = angular.copy(vm.textFilters);
 
                 delete filters[filterSlug];
 
@@ -51,12 +51,12 @@
 
             if (angular.isObject(vm.availableFilters)) {
                 let textFilters = vm.availableFilters
-                    .filter(filter => angular.isString(vm.activeFilters[filter.slug]))
+                    .filter(filter => angular.isString(vm.textFilters[filter.slug]))
                     .map(filter => {
                         return {
                             slug: filter.slug,
                             label: filter.label,
-                            option: filter.options.find(opt => opt.id === vm.activeFilters[filter.slug])
+                            option: filter.options.find(opt => opt.id === vm.textFilters[filter.slug])
                         };
                     });
                 vm.formattedActiveFilters = vm.formattedActiveFilters.concat(textFilters);
