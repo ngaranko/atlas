@@ -60,10 +60,7 @@
         function onDrawingMode (drawingMode) {
             if (drawingMode) {
                 store.dispatch({
-                    type: ACTIONS.MAP_START_DRAWING,
-                    payload: {
-                        drawingMode: drawingMode
-                    }
+                    type: ACTIONS.MAP_START_DRAWING
                 });
             }
         }

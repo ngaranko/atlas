@@ -248,22 +248,12 @@ describe('The map reducers', function () {
     });
 
     describe('MAP_START_DRAWING', function () {
-        it('Set the map drawing mode', function () {
+        it('Set the map drawing mode to true', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
-            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, {
-                drawingMode: 'aap'
-            });
-            expect(output.map.drawingMode).toBe('aap');
-        });
-
-        it('Set the map drawing mode to null when no drawing mode is specified', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
-                output;
-
-            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, {});
-            expect(output.map.drawingMode).toBe(null);
+            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState);
+            expect(output.map.drawingMode).toBe(true);
         });
     });
 
@@ -275,7 +265,7 @@ describe('The map reducers', function () {
             output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
                 geometryFilter: []
             });
-            expect(output.map.drawingMode).toBe(null);
+            expect(output.map.drawingMode).toBe(false);
         });
 
         it('Sets the dataSelection state to null on a polygon with <= 1 markers', function () {

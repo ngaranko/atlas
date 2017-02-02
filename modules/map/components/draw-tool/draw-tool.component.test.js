@@ -221,10 +221,7 @@ describe('The draw tool component', function () {
             let drawingMode = 'aap';
             onDrawingMode(drawingMode);
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.MAP_START_DRAWING,
-                payload: {
-                    drawingMode
-                }
+                type: ACTIONS.MAP_START_DRAWING
             });
         });
 

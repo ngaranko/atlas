@@ -145,10 +145,10 @@
             return newState;
         }
 
-        function mapStartDrawingReducer (oldState, payload) {
+        function mapStartDrawingReducer (oldState) {
             var newState = angular.copy(oldState);
 
-            newState.map.drawingMode = payload.drawingMode || null;
+            newState.map.drawingMode = true;
 
             return newState;
         }
@@ -156,12 +156,10 @@
         function mapEndDrawingReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
-            newState.map.drawingMode = null;
+            newState.map.drawingMode = false;
 
             if (payload.geometryFilter.length > 2) {
-                if (newState.dataSelection) {
-                    // Nothing yet
-                } else {
+                if (!newState.dataSelection) {
                     newState.dataSelection = {};
                     newState.dataSelection.dataset = 'bag';
                     newState.dataSelection.filters = {};

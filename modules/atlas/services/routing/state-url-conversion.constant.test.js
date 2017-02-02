@@ -90,13 +90,13 @@ describe('The state url conversion definition', function () {
         describe('The post processing for map', function () {
             it('copies the drawing mode from the previous state', function () {
                 let oldState = {
-                    drawingMode: 'aap'
+                    drawingMode: true
                 };
                 let newState = {};
 
                 STATE_URL_CONVERSION.post.map(oldState, newState);
                 expect(newState).toEqual({
-                    drawingMode: 'aap'
+                    drawingMode: true
                 });
 
                 oldState = null;
