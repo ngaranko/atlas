@@ -43,7 +43,7 @@ module.exports = {
         validator: require('../validators/states/map_search-results--location')
     },
     'MAP_SEARCH-RESULTS--QUERY': {
-        url: '#?srq=Linnaeusstraat%202&mpv=52.3719:4.9012&mpb=topografie&mpz=9',
+        url: '#?srq=Oost&mpv=52.3719:4.9012&mpb=topografie&mpz=9',
         validator: require('../validators/states/map_search-results--query')
     },
     'MAP_STRAATBEELD--DETAIL': {
