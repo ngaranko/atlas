@@ -18,6 +18,7 @@
         reducers[ACTIONS.MAP_ZOOM.id] = mapZoomReducer;
         reducers[ACTIONS.MAP_FULLSCREEN.id] = mapFullscreenReducer;
         reducers[ACTIONS.MAP_START_DRAWING.id] = mapStartDrawingReducer;
+        reducers[ACTIONS.MAP_CLEAR_DRAWING.id] = mapClearDrawingReducer;
         reducers[ACTIONS.MAP_END_DRAWING.id] = mapEndDrawingReducer;
         reducers[ACTIONS.SHOW_MAP_ACTIVE_OVERLAYS.id] = showActiveOverlaysReducer;
         reducers[ACTIONS.HIDE_MAP_ACTIVE_OVERLAYS.id] = hideActiveOverlaysReducer;
@@ -149,6 +150,14 @@
             var newState = angular.copy(oldState);
 
             newState.map.drawingMode = payload.drawingMode || null;
+
+            return newState;
+        }
+
+        function mapClearDrawingReducer (oldState) {
+            var newState = angular.copy(oldState);
+
+            newState.map.geometry = [];
 
             return newState;
         }

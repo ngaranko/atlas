@@ -1,10 +1,16 @@
-
-
 .c-shape-summary {
   position: absolute;
   top: -1px;
   left: 37px;
   z-index: 99;
+}
+
+.c-shape-summary--remove-geometry {
+  @include icon-button("close", "info", "");
+
+  position: absolute;
+  top: 0;
+  right: -1 * $button-size;
 }
 
 .c-shape-summary__panel {
