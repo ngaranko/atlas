@@ -20,7 +20,6 @@
             userState.isLoggedIn = false;
         }
 
-        console.log('user', userState)
         //  Refresh the successfully obtained token every 4 and a half minutes (token expires in 5 minutes)
         var intervalDuration = 270000;
         var intervalPromise = null;
