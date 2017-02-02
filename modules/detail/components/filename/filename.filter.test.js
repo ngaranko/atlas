@@ -13,6 +13,8 @@ describe('The filename filter', () => {
         expect(filenameFilter('http://www.example.com/path/my-file.pdf')).toBe('my-file.pdf');
         expect(filenameFilter('http://www.example.com/this/that/my-file.pdf')).toBe('my-file.pdf');
         expect(filenameFilter('https://www.example.com/la/la/la/la/la/my-file.pdf')).toBe('my-file.pdf');
+        expect(filenameFilter('https://www.example.com/readme.html')).toBe('readme.html');
+        expect(filenameFilter('https://www.example.com/readme.docx')).toBe('readme.docx');
     });
 
     it('returns the whole string if it doesn\'t recognize a filename', () => {
