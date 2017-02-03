@@ -63,7 +63,6 @@
                 vm.state.query,
                 vm.state.geometryFilter.markers).then(data => {
                     vm.availableFilters = data.filters;
-                    vm.activeFilters = vm.state.filters;
 
                     vm.data = data.data;
                     vm.numberOfRecords = data.numberOfRecords;

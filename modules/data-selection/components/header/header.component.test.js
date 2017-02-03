@@ -68,6 +68,10 @@ describe('The dp-data-selection-header', () => {
                 view: 'TABLE',
                 filters: {
                     fake_filter: 'abc'
+                },
+                geometryFilter: {
+                    markers: [],
+                    description: 'geometryFilter description'
                 }
             },
             numberOfRecords: null,
@@ -80,6 +84,10 @@ describe('The dp-data-selection-header', () => {
                 view: 'LIST',
                 filters: {
                     fake_filter: 'abc'
+                },
+                geometryFilter: {
+                    markers: [],
+                    description: 'geometryFilter description'
                 }
             },
             numberOfRecords: null,
@@ -92,6 +100,10 @@ describe('The dp-data-selection-header', () => {
                 view: 'CARDS',
                 filters: {
                     fake_filter: 'abc'
+                },
+                geometryFilter: {
+                    markers: [],
+                    description: 'geometryFilter description'
                 },
                 page: 1
             },
@@ -110,17 +122,12 @@ describe('The dp-data-selection-header', () => {
         element = document.createElement('dp-data-selection-header');
         element.setAttribute('state', 'state');
         element.setAttribute('available-filters', 'availableFilters');
-        element.setAttribute('geometry-filter', 'geometryFilter');
         element.setAttribute('number-of-records', 'numberOfRecords');
         element.setAttribute('is-loading', 'isLoading');
 
         scope = $rootScope.$new();
         scope.state = mockedInput.state;
         scope.availableFilters = {};
-        scope.geometryFilter = {
-            markers: [],
-            description: 'geometryFilter description'
-        };
         scope.numberOfRecords = mockedInput.numberOfRecords;
         scope.isLoading = mockedInput.isLoading;
 
