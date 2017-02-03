@@ -7,6 +7,7 @@ describe('The highlight factory', function () {
         store,
         ACTIONS,
         mockedLeafletMap,
+        mockedLatLngBounds,
         mockedItems = {
             item_multipolygon: {
                 id: 'item_multipolygon',
@@ -69,6 +70,7 @@ describe('The highlight factory', function () {
                 return 'FAKE_LAYER_BOUNDS';
             }
         },
+        areAllClusteredMarkersInViewport,
         projGeoJsonArguments;
 
     beforeEach(function () {
@@ -151,6 +153,9 @@ describe('The highlight factory', function () {
             addLayer: angular.noop,
             removeLayer: angular.noop,
             fitBounds: angular.noop,
+            getBounds: function () {
+                return mockedLatLngBounds;
+            },
             getBoundsZoom: angular.noop,
             getCenter: function () {
                 return {
@@ -162,6 +167,14 @@ describe('The highlight factory', function () {
             on: angular.noop,
             off: angular.noop
         };
+
+        mockedLatLngBounds = {
+            contains: function () {
+                return areAllClusteredMarkersInViewport;
+            }
+        };
+
+        areAllClusteredMarkersInViewport = true;
 
         spyOn(mockedLeafletMap, 'addLayer');
         spyOn(mockedLeafletMap, 'removeLayer');
@@ -339,8 +352,20 @@ describe('The highlight factory', function () {
         expect(mockedLeafletMap.addLayer).toHaveBeenCalledWith(mockedClusteredLayer);
     });
 
-    it('pans and zooms to the clustered markers after adding them to the map', function () {
-        spyOn(mockedLeafletMap, 'getZoom').and.returnValue(13);
+    it('doesn\'t pan and zoom to the clustered markers if all markers are already in the viewport', () => {
+        areAllClusteredMarkersInViewport = true;
+
+        highlight.setCluster(mockedLeafletMap, [
+            [52.1, 4.0],
+            [52.2, 4.0],
+            [52.3, 4.1]
+        ]);
+
+        expect(store.dispatch).not.toHaveBeenCalledWith(jasmine.objectContaining({type: ACTIONS.MAP_ZOOM}));
+    });
+
+    it('pans and zooms to the clustered markers if one or more are outside the viewport', () => {
+        areAllClusteredMarkersInViewport = false;
 
         highlight.setCluster(mockedLeafletMap, [
             [52.1, 4.0],
