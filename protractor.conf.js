@@ -8,5 +8,8 @@ exports.config = {
     },
     onPrepare: function () {
         global.dp = require('./e2e/helpers/datapunt');
+
+        // dp.navigate requires that other helpers are already loaded, just making sure the others are initialized first
+        global.dp.navigate = require('./e2e/helpers/navigate');
     }
 };

@@ -1,14 +1,12 @@
 'use strict';
 
-const isVisible = require('../../../../e2e/helpers/is-visible');
-
 const stelselpediaHeader = dp.require('modules/detail/components/stelselpedia/header/stelselpedia-header.page-objects');
 const nummeraanduidingHeader = dp.require('modules/detail/components/nummeraanduiding-header/nummeraanduiding-header.page-objects');
 
 module.exports = function (detailElement) {
     return function () {
         return {
-            isVisible: isVisible(detailElement),
+            isVisible: dp.isVisible(detailElement),
             nummeraanduiding: groupedDataPageObject(detailElement.element(by.css('.qa-nummeraanduiding'))),
             verblijfsobject: groupedDataPageObject(detailElement.element(by.css('.qa-verblijfsobject')))
         };

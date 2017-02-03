@@ -1,13 +1,11 @@
 'use strict';
 
-const isVisible = require('../../../../e2e/helpers/is-visible');
-
 const searchResultsList = dp.require('modules/search-results/components/search-results/list/search-results-list.page-objects');
 
 module.exports = function (searchResultsElement) {
     return function () {
         return {
-            isVisible: isVisible(searchResultsElement),
+            isVisible: dp.isVisible(searchResultsElement),
             categories: function (index) {
                 return categoryPageObject(
                     searchResultsElement.element(by.repeater('category in vm.searchResults').row(index))

@@ -1,10 +1,9 @@
 'use strict';
 
-const availableStates = require('./available-states');
 const dashboardPageObjects = dp.require('modules/atlas/components/dashboard/dashboard.page-objects');
 
 module.exports = function (pageName) {
-    browser.get(availableStates[pageName].url);
+    browser.get(dp.availableStates[pageName].url);
 
     return {
         title,

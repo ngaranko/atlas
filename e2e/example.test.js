@@ -1,13 +1,12 @@
 'use strict';
 
-const navigate = require('./helpers/navigate');
 const validator = require('./validators/validator');
 
 describe('The basic application navigation', function () {
     let page;
 
     it('allows to navigate from home to layerSelection and back', function () {
-        page = navigate('MAP_PAGE--HOME');
+        page = dp.navigate('MAP_PAGE--HOME');
         validator('MAP_PAGE--HOME', page);
 
         // Open layer selection
@@ -28,7 +27,7 @@ describe('The basic application navigation', function () {
     });
 
     it('allows to navigate from home to the (possibly fullscreen) map', function () {
-        page = navigate('MAP_PAGE--HOME');
+        page = dp.navigate('MAP_PAGE--HOME');
         validator('MAP_PAGE--HOME', page);
 
         // Make the map fullscreen

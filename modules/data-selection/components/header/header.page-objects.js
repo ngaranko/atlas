@@ -1,7 +1,5 @@
 'use strict';
 
-const hasClass = require('../../../../e2e/helpers/has-class');
-
 module.exports = function (headerElement) {
     return function () {
         return {
@@ -16,6 +14,6 @@ module.exports = function (headerElement) {
 function tabPageObject (tabElement) {
     return {
         label: tabElement.getText,
-        isActive: hasClass(tabElement, 'is-active')
+        isActive: dp.hasClass(tabElement, 'is-active')
     };
 }
