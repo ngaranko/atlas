@@ -61,12 +61,9 @@
                 vm.state.filters,
                 vm.currentPage,
                 vm.state.query,
-                vm.state.geometryFilter).then(data => {
+                vm.state.geometryFilter.markers).then(data => {
                     vm.availableFilters = data.filters;
-                    vm.geometryFilter = {
-                        markers: vm.state.geometryFilter,
-                        description: vm.state.geometryFilterDescription
-                    };
+                    vm.activeFilters = vm.state.filters;
 
                     vm.data = data.data;
                     vm.numberOfRecords = data.numberOfRecords;
@@ -82,7 +79,7 @@
                     vm.isLoading = false;
 
                     let activeFilters = angular.extend({
-                        shape: angular.toJson(vm.geometryFilter.markers.map(([lat, lng]) => [lng, lat]))
+                        shape: angular.toJson(vm.state.geometryFilter.markers.map(([lat, lng]) => [lng, lat]))
                     }, vm.state.filters);
 
                     if (

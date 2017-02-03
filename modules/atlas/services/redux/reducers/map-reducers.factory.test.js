@@ -263,7 +263,7 @@ describe('The map reducers', function () {
                 output;
 
             output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
-                geometryFilter: []
+                markers: []
             });
             expect(output.map.drawingMode).toBe(false);
         });
@@ -274,7 +274,7 @@ describe('The map reducers', function () {
 
             inputState.dataSelection = 'aap';
             output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
-                geometryFilter: ['noot']
+                markers: ['noot']
             });
             expect(output.dataSelection).toBe(null);
         });
@@ -284,7 +284,7 @@ describe('The map reducers', function () {
                 output;
 
             output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
-                geometryFilter: ['noot', 'mies']
+                markers: ['noot', 'mies']
             });
             expect(output.map.geometry).toEqual(['noot', 'mies']);
         });
@@ -294,10 +294,13 @@ describe('The map reducers', function () {
                 output;
 
             inputState.dataSelection = null;
-            let geometryFilter = ['noot', 'mies', 'teun'];
-            output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {geometryFilter});
+            let geometryFilter = {
+                markers: ['noot', 'mies', 'teun'],
+                description: 'description'
+            };
+            output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, geometryFilter);
             expect(output.dataSelection).not.toBe(null);
-            expect(output.dataSelection.geometryFilter).toBe(geometryFilter);
+            expect(output.dataSelection.geometryFilter).toEqual(geometryFilter);
         });
 
         it('Leaves dataset and filters of an existing dataSelection state untouched', function () {
@@ -309,7 +312,7 @@ describe('The map reducers', function () {
                 filters: 'noot'
             };
             output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
-                geometryFilter: ['noot', 'mies', 'teun']
+                markers: ['noot', 'mies', 'teun']
             });
             ['dataset', 'filters'].forEach(key =>
                 expect(output.dataSelection[key]).toEqual(inputState.dataSelection[key])
@@ -325,7 +328,7 @@ describe('The map reducers', function () {
                 filters: 'noot'
             };
             output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
-                geometryFilter: ['noot', 'mies', 'teun']
+                markers: ['noot', 'mies', 'teun']
             });
             ['dataset', 'filters'].forEach(key =>
                 expect(output.dataSelection[key]).toEqual(inputState.dataSelection[key])
@@ -337,7 +340,7 @@ describe('The map reducers', function () {
                 output;
 
             output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
-                geometryFilter: ['noot', 'mies', 'teun']
+                markers: ['noot', 'mies', 'teun']
             });
             expect(output.dataSelection.page).toBe(1);
             expect(output.dataSelection.isFullscreen).toBe(false);

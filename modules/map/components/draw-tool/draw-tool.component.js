@@ -52,8 +52,8 @@
             store.dispatch({
                 type: ACTIONS.MAP_END_DRAWING,
                 payload: {
-                    geometryFilter: polygon.markers.reverse(),
-                    geometryFilterDescription: drawTool.shape.distanceTxt + ' en ' + drawTool.shape.areaTxt
+                    markers: polygon.markers.reverse(),
+                    description: drawTool.shape.distanceTxt + ' en ' + drawTool.shape.areaTxt
                 }
             });
         }

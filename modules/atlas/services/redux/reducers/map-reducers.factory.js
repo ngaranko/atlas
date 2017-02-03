@@ -158,14 +158,13 @@
 
             newState.map.drawingMode = false;
 
-            if (payload.geometryFilter.length > 2) {
+            if (payload.markers.length > 2) {
                 if (!newState.dataSelection) {
                     newState.dataSelection = {};
                     newState.dataSelection.dataset = 'bag';
                     newState.dataSelection.filters = {};
                 }
-                newState.dataSelection.geometryFilter = payload.geometryFilter;
-                newState.dataSelection.geometryFilterDescription = payload.geometryFilterDescription;
+                newState.dataSelection.geometryFilter = angular.copy(payload);
                 newState.dataSelection.page = 1;
                 newState.dataSelection.isFullscreen = false;
                 newState.dataSelection.isLoading = true;
@@ -173,8 +172,8 @@
                 newState.dataSelection.markers = [];
 
                 newState.map.geometry = [];
-            } else if (payload.geometryFilter.length === 2) {
-                newState.map.geometry = payload.geometryFilter;
+            } else if (payload.markers.length === 2) {
+                newState.map.geometry = payload.markers;
             } else {
                 newState.dataSelection = null;
                 newState.map.geometry = [];

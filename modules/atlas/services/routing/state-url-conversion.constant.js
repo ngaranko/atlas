@@ -95,7 +95,9 @@
                 dataSelection: {
                     markers: [],    // eg: [[52.1, 4.1], [52.2, 4.0]],
                     filters: {},    // eg: {buurtcombinatie: 'Geuzenbuurt', buurt: 'Trompbuurt'}
-                    geometryFilter: [],
+                    geometryFilter: {
+                        markers: []
+                    },
                     isLoading: true
                     // view: 'TABLE',
                     // dataset: 'bag',
@@ -168,12 +170,12 @@
                     type: 'keyvalues'
                 },
                 dsgf: {
-                    name: 'dataSelection.geometryFilter',
+                    name: 'dataSelection.geometryFilter.markers',
                     type: 'base62[][]',
                     precision: 7
                 },
                 dsgd: {
-                    name: 'dataSelection.geometryFilterDescription',
+                    name: 'dataSelection.geometryFilter.description',
                     type: 'string'
                 },
                 dsp: {

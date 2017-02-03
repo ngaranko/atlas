@@ -91,7 +91,9 @@ describe('The dp-data-selection component', function () {
             filters: {
                 type: 'Buitenbad'
             },
-            geometryFilter: [[1, 2]],
+            geometryFilter: {
+                markers: [[1, 2]]
+            },
             page: 2,
             isLoading: false
         };

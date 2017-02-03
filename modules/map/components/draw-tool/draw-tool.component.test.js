@@ -211,8 +211,8 @@ describe('The draw tool component', function () {
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.MAP_END_DRAWING,
                 payload: {
-                    geometryFilter: polygon.markers,
-                    geometryFilterDescription: 'distance en area'
+                    markers: polygon.markers,
+                    description: 'distance en area'
                 }
             });
         });
