@@ -110,7 +110,6 @@ describe('The dp-data-selection-header', () => {
         element = document.createElement('dp-data-selection-header');
         element.setAttribute('state', 'state');
         element.setAttribute('available-filters', 'availableFilters');
-        element.setAttribute('active-filters', 'activeFilters');
         element.setAttribute('geometry-filter', 'geometryFilter');
         element.setAttribute('number-of-records', 'numberOfRecords');
         element.setAttribute('is-loading', 'isLoading');
@@ -118,7 +117,6 @@ describe('The dp-data-selection-header', () => {
         scope = $rootScope.$new();
         scope.state = mockedInput.state;
         scope.availableFilters = {};
-        scope.activeFilters = mockedInput.state.filters;
         scope.geometryFilter = {
             markers: [],
             description: 'geometryFilter description'
