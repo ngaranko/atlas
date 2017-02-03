@@ -1,6 +1,7 @@
 'use strict';
 
-const searchResultsList = dp.require('modules/search-results/components/search-results/list/search-results-list.page-objects');
+const searchResultsList =
+    dp.require('modules/search-results/components/search-results/list/search-results-list.page-objects');
 
 module.exports = function (searchResultsElement) {
     return function () {

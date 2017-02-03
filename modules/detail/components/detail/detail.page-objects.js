@@ -1,7 +1,8 @@
 'use strict';
 
 const stelselpediaHeader = dp.require('modules/detail/components/stelselpedia/header/stelselpedia-header.page-objects');
-const nummeraanduidingHeader = dp.require('modules/detail/components/nummeraanduiding-header/nummeraanduiding-header.page-objects');
+const nummeraanduidingHeader =
+    dp.require('modules/detail/components/nummeraanduiding-header/nummeraanduiding-header.page-objects');
 
 module.exports = function (detailElement) {
     return function () {
