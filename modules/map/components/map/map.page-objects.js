@@ -2,8 +2,8 @@
 
 const isVisible = require('../../../../e2e/helpers/is-visible');
 
-const toggleLayerSelectionPageObjects = require('./../toggle-layer-selection/toggle-layer-selection.page-objects.js');
-const toggleFullscreenPageObjects = require('./../toggle-fullscreen/toggle-fullscreen.page-objects.js');
+const toggleLayerSelectionPageObjects = dp.require('modules/map/components/toggle-layer-selection/toggle-layer-selection.page-objects');
+const toggleFullscreenPageObjects = dp.require('modules/map/components/toggle-fullscreen/toggle-fullscreen.page-objects');
 
 module.exports = function (mapElement) {
     return function () {

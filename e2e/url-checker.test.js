@@ -7,6 +7,7 @@ describe('each URL should load the corresponding view', function () {
     Object.keys(availableStates).forEach(key => {
         it(key, () => {
             const page = navigate(key);
+
             availableStates[key].validator(page);
         });
     });

@@ -1,12 +1,12 @@
 'use strict';
 
-const dataSelectionPO = require('../../../data-selection/components/data-selection/data-selection.page-objects');
-const detailPO = require('../../../detail/components/detail/detail.page-objects');
-const layerSelectionPO = require('../../../layer-selection/components/layer-selection/layer-selection.page-objects');
-const mapPO = require('../../../map/components/map/map.page-objects');
-const pagePO = require('../../../page/components/page/page.page-objects');
-const searchResultsPO = require('../../../search-results/components/search-results/search-results.page-objects');
-const straatbeeldPO = require('../../../straatbeeld/components/straatbeeld/straatbeeld.page-objects');
+const dataSelectionPO = dp.require('modules/data-selection/components/data-selection/data-selection.page-objects');
+const detailPO = dp.require('modules/detail/components/detail/detail.page-objects');
+const layerSelectionPO = dp.require('modules/layer-selection/components/layer-selection/layer-selection.page-objects');
+const mapPO = dp.require('modules/map/components/map/map.page-objects');
+const pagePO = dp.require('modules/page/components/page/page.page-objects');
+const searchResultsPO = dp.require('modules/search-results/components/search-results/search-results.page-objects');
+const straatbeeldPO = dp.require('modules/straatbeeld/components/straatbeeld/straatbeeld.page-objects');
 
 module.exports = function (dashboardElement) {
     return {

@@ -1,6 +1,6 @@
 'use strict';
 
-const link = require('../../../../shared/components/link/link.page-objects');
+const link = dp.require('modules/shared/components/link/link.page-objects');
 
 module.exports = function (searchResultsListElement) {
     return function (index) {

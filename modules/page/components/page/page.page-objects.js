@@ -2,7 +2,7 @@
 
 const isVisible = require('../../../../e2e/helpers/is-visible');
 
-const loginPageObjects = require('./../login-form/login-form.page-objects.js');
+const loginPageObjects = dp.require('modules/page/components/login-form/login-form.page-objects');
 
 module.exports = function (pageElement) {
     return function () {

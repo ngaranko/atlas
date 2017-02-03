@@ -5,5 +5,8 @@ exports.config = {
     capabilities: {
         browserName: 'phantomjs',
         'phantomjs.binary.path': './node_modules/phantomjs/bin/phantomjs'
+    },
+    onPrepare: function () {
+        global.dp = require('./e2e/helpers/datapunt');
     }
 };

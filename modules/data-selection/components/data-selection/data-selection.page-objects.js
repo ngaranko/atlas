@@ -2,8 +2,8 @@
 
 const isVisible = require('../../../../e2e/helpers/is-visible');
 
-const dataSelectionHeader = require('./../header/header.page-objects');
-const availableFilters = require('./../available-filters/available-filters.page-objects');
+const dataSelectionHeader = dp.require('modules/data-selection/components/header/header.page-objects');
+const availableFilters = dp.require('modules/data-selection/components/available-filters/available-filters.page-objects');
 
 module.exports = function (dataSelectionElement) {
     return function () {

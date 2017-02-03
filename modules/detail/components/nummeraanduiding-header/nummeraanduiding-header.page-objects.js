@@ -1,6 +1,6 @@
 'use strict';
 
-const stelselpediaHeader = require('../stelselpedia/header/stelselpedia-header.page-objects');
+const stelselpediaHeader = dp.require('modules/detail/components/stelselpedia/header/stelselpedia-header.page-objects');
 
 module.exports = function (nummeraanduidingHeaderElement) {
     return function () {
