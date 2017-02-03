@@ -68,7 +68,10 @@
                 type: ACTIONS.FETCH_DATA_SELECTION,
                 payload: {
                     dataset: vm.dataset,
-                    geometryFilter: [],
+                    geometryFilter: {
+                        markers: [],
+                        description: ''
+                    },
                     page: 1
                 }
             });

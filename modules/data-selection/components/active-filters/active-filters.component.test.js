@@ -230,7 +230,10 @@ describe('The dp-data-selection-filters component', function () {
             type: ACTIONS.FETCH_DATA_SELECTION,
             payload: {
                 dataset: 'my_special_dataset',
-                geometryFilter: [],
+                geometryFilter: {
+                    markers: [],
+                    description: ''
+                },
                 page: 1
             }
         });
