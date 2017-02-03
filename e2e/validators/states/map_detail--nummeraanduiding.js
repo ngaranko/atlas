@@ -3,9 +3,9 @@
 const mapDetailValidator = require('./map_detail');
 
 module.exports = function (page) {
-    const detail = page.dashboard().rightColumn().detail();
+    const detail = page.dashboard.rightColumn().detail();
 
-    expect(page.title()).toBe('Adres: Maria Austriastraat 730 - Atlas');
+    expect(page.title).toBe('Adres: Maria Austriastraat 730 - Atlas');
 
     expect(detail.nummeraanduiding().nummeraanduidingHeader().stelselpediaHeader().title())
         .toBe('Maria Austriastraat 730');

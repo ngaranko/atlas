@@ -10,19 +10,19 @@ describe('The basic application navigation', function () {
         validator('MAP_PAGE--HOME', page);
 
         // Open layer selection
-        page.dashboard().middleColumn().map().toggleLayerSelection().click();
+        page.dashboard.middleColumn().map().toggleLayerSelection().click();
         validator('LAYER-SELECTION_MAP', page);
 
         // Close layer selection by clicking the toggle button
-        page.dashboard().middleColumn().map().toggleLayerSelection().click();
+        page.dashboard.middleColumn().map().toggleLayerSelection().click();
         validator('MAP_PAGE--HOME', page);
 
         // Open it again
-        page.dashboard().middleColumn().map().toggleLayerSelection().click();
+        page.dashboard.middleColumn().map().toggleLayerSelection().click();
         validator('LAYER-SELECTION_MAP', page);
 
         // Close it by the cross inside the layer selection module (instead of the toggle button)
-        page.dashboard().leftColumn().layerSelection().close();
+        page.dashboard.leftColumn().layerSelection().close();
         validator('MAP_PAGE--HOME', page);
     });
 
@@ -31,11 +31,11 @@ describe('The basic application navigation', function () {
         validator('MAP_PAGE--HOME', page);
 
         // Make the map fullscreen
-        page.dashboard().middleColumn().map().toggleFullscreen().click();
+        page.dashboard.middleColumn().map().toggleFullscreen().click();
         validator('MAP', page);
 
         // Make the map small again
-        page.dashboard().middleColumn().map().toggleFullscreen().click();
+        page.dashboard.middleColumn().map().toggleFullscreen().click();
         validator('MAP_PAGE--HOME', page);
     });
 });

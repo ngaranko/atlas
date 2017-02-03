@@ -3,9 +3,9 @@
 const mapSearchResults = require('./map_search-results');
 
 module.exports = function (page) {
-    const searchResults = page.dashboard().rightColumn().searchResults();
+    const searchResults = page.dashboard.rightColumn().searchResults();
 
-    expect(page.title()).toMatch(/\d+ resultaten met \"Oost\" - Atlas$/);
+    expect(page.title).toMatch(/\d+ resultaten met \"Oost\" - Atlas$/);
 
     expect(searchResults.categories(0).header()).toMatch(/Openbare ruimtes \(\d+\)/);
     expect(searchResults.categories(0).list(0).link().label()).toMatch(/Oost/);

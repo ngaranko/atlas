@@ -6,15 +6,11 @@ module.exports = function (pageName) {
     browser.get(dp.availableStates[pageName].url);
 
     return {
-        title,
-        dashboard
+        get title () {
+            return browser.getTitle();
+        },
+        get dashboard () {
+            return dashboardPageObjects(element(by.css('dp-dashboard')));
+        }
     };
-
-    function title () {
-        return browser.getTitle();
-    }
-
-    function dashboard () {
-        return dashboardPageObjects(element(by.css('dp-dashboard')));
-    }
 };
