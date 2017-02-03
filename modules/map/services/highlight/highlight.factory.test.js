@@ -67,7 +67,7 @@ describe('The highlight factory', function () {
         mockedClusteredLayer = {
             addLayer: angular.noop,
             getBounds: function () {
-                return 'FAKE_LAYER_BOUNDS';
+                return 'FAKE_CLUSTERED_LAYER_BOUNDS';
             }
         },
         areAllClusteredMarkersInViewport,
@@ -198,6 +198,8 @@ describe('The highlight factory', function () {
         spyOn(geojson, 'getCenter').and.callThrough();
 
         spyOn(store, 'dispatch');
+
+        spyOn(mockedLatLngBounds, 'contains').and.callThrough();
     });
 
     afterEach(function () {
@@ -361,6 +363,7 @@ describe('The highlight factory', function () {
             [52.3, 4.1]
         ]);
 
+        expect(mockedLatLngBounds.contains).toHaveBeenCalledWith('FAKE_CLUSTERED_LAYER_BOUNDS');
         expect(store.dispatch).not.toHaveBeenCalledWith(jasmine.objectContaining({type: ACTIONS.MAP_ZOOM}));
     });
 
@@ -373,6 +376,7 @@ describe('The highlight factory', function () {
             [52.3, 4.1]
         ]);
 
+        expect(mockedLatLngBounds.contains).toHaveBeenCalledWith('FAKE_CLUSTERED_LAYER_BOUNDS');
         expect(store.dispatch).toHaveBeenCalledWith(jasmine.objectContaining({type: ACTIONS.MAP_ZOOM}));
     });
 
