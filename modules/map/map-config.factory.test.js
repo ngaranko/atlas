@@ -8,6 +8,13 @@ describe('The mapConfig factory', function () {
                 $provide.value('environment', {
                     NAME: environmentName
                 });
+
+                $provide.constant('BOUNDING_BOX', {
+                    COORDINATES: {
+                        southWest: [55, 5],
+                        northEast: [50, 4]
+                    }
+                });
             }
         );
 
@@ -40,5 +47,13 @@ describe('The mapConfig factory', function () {
             expect(mapConfig.OVERLAY_ROOT)
                 .toBe('https://map.datapunt.amsterdam.nl/');
         });
+    });
+
+    it('prevents Leaflet from loading unavailable tiles', () => {
+        const mapConfig = prepareMocks('DEVELOPMENT');
+
+        expect(mapConfig.MAP_OPTIONS.maxBounds).toEqual([[55, 5], [50, 4]]);
+        expect(mapConfig.MAP_OPTIONS.maxBoundsViscosity).toBe(1.0);
+        expect(mapConfig.BASE_LAYER_OPTIONS.bounds).toEqual([[55, 5], [50, 4]]);
     });
 });
