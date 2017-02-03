@@ -30,8 +30,6 @@
         ], setHeader);
 
         function setHeader () {
-            console.log('setHeader', vm.geometryFilter);
-
             let isListView = vm.state.view === 'LIST';
 
             vm.showHeader = isListView || !vm.isLoading;

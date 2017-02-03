@@ -56,8 +56,6 @@
             vm.showContent = false;
             vm.isLoading = true;
 
-            console.log('Geometry', vm.state.geometryFilter);
-
             dataSelectionApi.query(vm.state.dataset,
                 vm.state.view,
                 vm.state.filters,
