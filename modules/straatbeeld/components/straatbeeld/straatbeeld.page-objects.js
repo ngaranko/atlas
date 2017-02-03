@@ -1,9 +1,9 @@
 'use strict';
 
 module.exports = function (pageElement) {
-    return function () {
-        return {
-            isVisible: dp.isVisible(pageElement)
-        };
+    return {
+        get isVisible () {
+            return dp.isVisible(pageElement);
+        }
     };
 };

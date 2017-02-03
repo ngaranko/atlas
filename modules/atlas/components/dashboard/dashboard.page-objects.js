@@ -18,21 +18,19 @@ module.exports = function (dashboardElement) {
     function getColumn (position) {
         const column = dashboardElement.element(by.css('.qa-dashboard__column--' + position));
 
-        return function () {
-            return {
-                dataSelection: dataSelectionPO(column.element(by.css('.qa-data-selection'))),
-                detail: detailPO(column.element(by.css('.qa-detail'))),
-                layerSelection: layerSelectionPO(column.element(by.css('.qa-layer-selection'))),
-                map: mapPO(column.element(by.css('.qa-map'))),
-                page: pagePO(column.element(by.css('.qa-page'))),
-                searchResults: searchResultsPO(column.element(by.css('.qa-search-results'))),
-                straatbeeld: straatbeeldPO(column.element(by.css('.qa-straatbeeld'))),
-                columnSize: function () {
-                    return column.getAttribute('class').then(
-                        className => Number(className.replace(/.*u-col-sm--(\d+).*/, '$1'))
-                    );
-                }
-            };
+        return {
+            dataSelection: dataSelectionPO(column.element(by.css('.qa-data-selection'))),
+            detail: detailPO(column.element(by.css('.qa-detail'))),
+            layerSelection: layerSelectionPO(column.element(by.css('.qa-layer-selection'))),
+            map: mapPO(column.element(by.css('.qa-map'))),
+            page: pagePO(column.element(by.css('.qa-page'))),
+            searchResults: searchResultsPO(column.element(by.css('.qa-search-results'))),
+            straatbeeld: straatbeeldPO(column.element(by.css('.qa-straatbeeld'))),
+            get columnSize () {
+                return column.getAttribute('class').then(
+                    className => Number(className.replace(/.*u-col-sm--(\d+).*/, '$1'))
+                );
+            }
         };
     }
 };

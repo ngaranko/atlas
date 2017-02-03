@@ -1,10 +1,12 @@
 'use strict';
 
 module.exports = function (stelselpediaHeaderElement) {
-    return function () {
-        return {
-            title: stelselpediaHeaderElement.element(by.css('.qa-title')).getText,
-            subtitle: stelselpediaHeaderElement.element(by.css('.qa-subtitle')).getText
-        };
+    return {
+        get title () {
+            return stelselpediaHeaderElement.element(by.css('.qa-title')).getText();
+        },
+        get subtitle () {
+            return stelselpediaHeaderElement.element(by.css('.qa-subtitle')).getText();
+        }
     };
 };

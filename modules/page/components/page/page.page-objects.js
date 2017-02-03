@@ -3,11 +3,15 @@
 const loginPageObjects = dp.require('modules/page/components/login-form/login-form.page-objects');
 
 module.exports = function (pageElement) {
-    return function () {
-        return {
-            isVisible: dp.isVisible(pageElement),
-            text: pageElement.getText,
-            login: loginPageObjects(pageElement.element(by.css('dp-login')))
-        };
+    return {
+        get isVisible () {
+            return dp.isVisible(pageElement);
+        },
+        get text () {
+            return pageElement.getText();
+        },
+        get login () {
+            return loginPageObjects(pageElement.element(by.css('dp-login')));
+        }
     };
 };

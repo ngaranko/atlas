@@ -12,7 +12,11 @@ module.exports = function (searchResultsListElement) {
 
 function listItemPageObject (listItemElement) {
     return {
-        link: link(listItemElement.element(by.css('dp-link'))),
-        subtype: listItemElement.element(by.css('.qa-subtype')).getText
+        get link () {
+            return link(listItemElement.element(by.css('dp-link')));
+        },
+        get subtype () {
+            return listItemElement.element(by.css('.qa-subtype')).getText();
+        }
     };
 }
