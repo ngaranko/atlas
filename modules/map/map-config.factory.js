@@ -18,7 +18,7 @@
         globalConfig = {
             BASE_LAYER_OPTIONS: {
                 minZoom: 8,
-                maxZoom: 16,
+                maxZoom: 14,
                 tms: true,
                 bounds: BOUNDS
             },
@@ -26,6 +26,7 @@
                 crs: crsService.getRd(),
                 maxBounds: BOUNDS,
                 maxBoundsViscosity: 1.0,
+                bounceAtZoomLimits: false,
                 attributionControl: false,
                 zoomControl: false
             },

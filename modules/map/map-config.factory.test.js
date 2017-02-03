@@ -50,10 +50,12 @@ describe('The mapConfig factory', function () {
     });
 
     it('prevents Leaflet from loading unavailable tiles', () => {
+        // Fixes tg-2707; triggering API errors when accessing unavailable WMS tiles.
         const mapConfig = prepareMocks('DEVELOPMENT');
 
         expect(mapConfig.MAP_OPTIONS.maxBounds).toEqual([[55, 5], [50, 4]]);
         expect(mapConfig.MAP_OPTIONS.maxBoundsViscosity).toBe(1.0);
+        expect(mapConfig.MAP_OPTIONS.bounceAtZoomLimits).toBe(false);
         expect(mapConfig.BASE_LAYER_OPTIONS.bounds).toEqual([[55, 5], [50, 4]]);
     });
 });
