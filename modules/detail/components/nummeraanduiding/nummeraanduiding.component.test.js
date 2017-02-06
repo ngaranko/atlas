@@ -33,7 +33,7 @@ describe('The dp-nummeraanduiding-header directive', function () {
                 }
             },
             function ($provide) {
-                $provide.factory('dpStelselpediaHeaderDirective', function () {
+                $provide.factory('dpGlossaryHeaderDirective', function () {
                     return {};
                 });
             }
@@ -97,13 +97,13 @@ describe('The dp-nummeraanduiding-header directive', function () {
         });
     });
 
-    it('loads the dp-stelselpedia-header directive', function () {
+    it('loads the dp-glossary-header directive', function () {
         var directive = getDirective('http://www.example-endpoint.com/21/', true);
 
-        expect(directive.find('dp-stelselpedia-header').length).toBe(1);
-        expect(directive.find('dp-stelselpedia-header').attr('heading')).toBe('Maria Austriastraat 730');
-        expect(directive.find('dp-stelselpedia-header').attr('definition')).toBe('NUMMERAANDUIDING');
-        expect(directive.find('dp-stelselpedia-header').attr('meta-data')).toBe('vm.metaData');
+        expect(directive.find('dp-glossary-header').length).toBe(1);
+        expect(directive.find('dp-glossary-header').attr('heading')).toBe('Maria Austriastraat 730');
+        expect(directive.find('dp-glossary-header').attr('definition')).toBe('NUMMERAANDUIDING');
+        expect(directive.find('dp-glossary-header').attr('meta-data')).toBe('vm.metaData');
     });
 
     it('makes the header italic is the verblijfsobject status is \'Verblijfsobject gevormd\'', function () {
@@ -111,10 +111,10 @@ describe('The dp-nummeraanduiding-header directive', function () {
 
         // Status 'Verblijfsobject in gebruik', use a roman font
         directive = getDirective('http://www.example-endpoint.com/21/', true);
-        expect(directive.find('dp-stelselpedia-header').attr('heading')).toBe('Maria Austriastraat 730');
+        expect(directive.find('dp-glossary-header').attr('heading')).toBe('Maria Austriastraat 730');
 
         // Status 'Verblijfsobject gevormd', use an italic font
         directive = getDirective('http://www.example-endpoint.com/18/', true);
-        expect(directive.find('dp-stelselpedia-header').attr('heading')).toBe('<em>Maria Austriastraat 730</em>');
+        expect(directive.find('dp-glossary-header').attr('heading')).toBe('<em>Maria Austriastraat 730</em>');
     });
 });
