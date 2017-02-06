@@ -1,13 +1,4 @@
 .c-shape-summary {
-  position: absolute;
-  top: -1px;
-  left: 37px;
-  z-index: 99;
-}
-
-.c-shape-summary__panel {
-  display: inline-block;
-
   .c-panel {
     height: $button-size;
     padding: 0 $base-whitespace;
