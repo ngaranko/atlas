@@ -1,6 +1,6 @@
 'use strict';
 
-const stelselpediaHeader = dp.require('modules/detail/components/stelselpedia/header/stelselpedia-header.page-objects');
+const glossaryHeader = dp.require('modules/detail/components/glossary/header/glossary-header.page-objects');
 const nummeraanduidingHeader =
     dp.require('modules/detail/components/nummeraanduiding-header/nummeraanduiding-header.page-objects');
 
@@ -20,8 +20,8 @@ module.exports = function (detailElement) {
 
 function groupedDataPageObject (groupedDataElement) {
     return {
-        get stelselpediaHeader () {
-            return stelselpediaHeader(groupedDataElement.element(by.css('dp-stelselpedia-header')));
+        get glossaryHeader () {
+            return glossaryHeader(groupedDataElement.element(by.css('dp-glossary-header')));
         },
         get nummeraanduidingHeader () {
             return nummeraanduidingHeader(groupedDataElement.element(by.css('dp-nummeraanduiding-header')));

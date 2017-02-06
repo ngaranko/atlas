@@ -1,11 +1,11 @@
 'use strict';
 
-const stelselpediaHeader = dp.require('modules/detail/components/stelselpedia/header/stelselpedia-header.page-objects');
+const glossaryHeader = dp.require('modules/detail/components/glossary/header/glossary-header.page-objects');
 
 module.exports = function (nummeraanduidingHeaderElement) {
     return {
-        get stelselpediaHeader () {
-            return stelselpediaHeader(nummeraanduidingHeaderElement.element(by.css('dp-stelselpedia-header')));
+        get glossaryHeader () {
+            return glossaryHeader(nummeraanduidingHeaderElement.element(by.css('dp-glossary-header')));
         }
     };
 };
