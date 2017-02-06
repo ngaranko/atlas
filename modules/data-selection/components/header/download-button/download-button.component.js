@@ -6,7 +6,8 @@
         .component('dpDataSelectionDownloadButton', {
             bindings: {
                 dataset: '@',
-                activeFilters: '='
+                activeFilters: '=',
+                geoFilter: '='
             },
             templateUrl: 'modules/data-selection/components/header/download-button/download-button.html',
             controller: DpDataSelectionDownloadButtonController,
@@ -21,7 +22,8 @@
 
         $scope.$watchGroup([
             'vm.dataset',
-            'vm.activeFilters'
+            'vm.activeFilters',
+            'vm.geoFilter'
         ], setDownloadUrl);
 
         function setDownloadUrl () {
@@ -34,6 +36,10 @@
                     filterParams.push(filter.slug + '=' + $window.encodeURIComponent(vm.activeFilters[filter.slug]));
                 }
             });
+
+            if (angular.isArray(vm.geoFilter)) {
+                filterParams.push('shape=' + angular.toJson(vm.geoFilter.map(([lat, lng]) => [lng, lat])));
+            }
 
             if (filterParams.length) {
                 vm.downloadUrl += '?' + filterParams.join('&');

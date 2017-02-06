@@ -45,7 +45,7 @@ describe('The dp-data-selection-download-button component', function () {
         });
     });
 
-    function getComponent (dataset, activeFilters) {
+    function getComponent (dataset, activeFilters, geoFilter) {
         var component,
             element,
             scope;
@@ -54,8 +54,14 @@ describe('The dp-data-selection-download-button component', function () {
         element.setAttribute('dataset', dataset);
         element.setAttribute('active-filters', 'activeFilters');
 
+        if (angular.isDefined(geoFilter)) {
+            element.setAttribute('geo-filter', 'geoFilter');
+        }
+
         scope = $rootScope.$new();
         scope.activeFilters = activeFilters;
+
+        scope.geoFilter = geoFilter || null;
 
         component = $compile(element)(scope);
         scope.$apply();
@@ -110,12 +116,16 @@ describe('The dp-data-selection-download-button component', function () {
         let component,
             scope,
             dataset,
-            activeFilters;
+            activeFilters,
+            geoFilter;
 
         dataset = 'dataset_a';
         activeFilters = {
             filter_a: 'hoi'
         };
+
+        geoFilter = [[2, 3], [4, 5]];
+
         component = getComponent(dataset, activeFilters);
         scope = component.isolateScope();
 
@@ -130,5 +140,12 @@ describe('The dp-data-selection-download-button component', function () {
 
         expect(component.find('a').attr('href'))
             .toBe('http://www.example.com/datasets/b/download/?filter_b=hallo');
+
+        component = getComponent(dataset, activeFilters, geoFilter);
+
+        component.isolateScope().$apply();
+
+        expect(component.find('a').attr('href'))
+            .toBe('http://www.example.com/datasets/a/download/?filter_b=hallo&shape=[[3,2],[5,4]]');
     });
 });
