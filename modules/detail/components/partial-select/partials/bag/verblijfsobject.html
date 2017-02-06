@@ -1,6 +1,6 @@
 <div>
-    <div class="u-row qa-verblijfsobject">
-        <dp-stelselpedia-header definition="VERBLIJFSOBJECT" meta-data="apiData"></dp-stelselpedia-header>
+    <div class="u-row">
+        <dp-glossary-header definition="VERBLIJFSOBJECT" meta-data="apiData"></dp-glossary-header>
         <dl class="c-key-value-list u-margin__bottom--4">
             <dt>Gebruiksdoel</dt>
             <dd>{{ apiData.results.gebruiksdoel.omschrijving }}</dd>
@@ -42,28 +42,28 @@
 
     <!-- Adres -->
     <div ng-if="apiData.results.adressen.count > 1">
-        <dp-stelselpedia-header definition="NUMMERAANDUIDING" use-plural="true"></dp-stelselpedia-header>
+        <dp-glossary-header definition="NUMMERAANDUIDING" use-plural="true"></dp-glossary-header>
 
         <dp-api-call endpoint="{{apiData.results.adressen.href}}" partial="adressen_lijst"></dp-api-call>
     </div>
 
     <!-- Pand -->
     <div ng-if="apiData.results.panden.count">
-        <dp-stelselpedia-header definition="PAND" use-plural="true"></dp-stelselpedia-header>
+        <dp-glossary-header definition="PAND" use-plural="true"></dp-glossary-header>
 
         <dp-api-call endpoint="{{apiData.results.panden.href}}" partial="lijst"></dp-api-call>
     </div>
 
     <!-- Vestiging -->
     <div>
-        <dp-stelselpedia-header definition="VESTIGING" use-plural="true"></dp-stelselpedia-header>
+        <dp-glossary-header definition="VESTIGING" use-plural="true"></dp-glossary-header>
 
         <dp-api-call endpoint="handelsregister/vestiging/?nummeraanduiding={{ apiData.results.hoofdadres.landelijk_id }}" add-api-root="true" partial="lijst"></dp-api-call>
     </div>
 
     <!-- Kadastraal apiData -->
     <div ng-if="apiData.results.kadastrale_objecten.count">
-        <dp-stelselpedia-header definition="OBJECT" use-plural="true"></dp-stelselpedia-header>
+        <dp-glossary-header definition="OBJECT" use-plural="true"></dp-glossary-header>
 
         <dp-api-call
             endpoint="{{apiData.results.kadastrale_objecten.href}}"

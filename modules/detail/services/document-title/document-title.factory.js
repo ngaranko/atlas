@@ -6,17 +6,17 @@
         .module('dpDetail')
         .factory('dpDetailDocumentTitle', dpDetailDocumentTitleFactory);
 
-    dpDetailDocumentTitleFactory.$inject = ['endpointParser', 'STELSELPEDIA'];
+    dpDetailDocumentTitleFactory.$inject = ['endpointParser', 'GLOSSARY'];
 
-    function dpDetailDocumentTitleFactory (endpointParser, STELSELPEDIA) {
+    function dpDetailDocumentTitleFactory (endpointParser, GLOSSARY) {
         return {
             getTitle: getTitle
         };
 
         function getTitle (detailState) {
-            const stelselpediaKey = endpointParser.getStelselpediaKey(detailState.endpoint);
+            const glossaryKey = endpointParser.getGlossaryKey(detailState.endpoint);
 
-            return `${STELSELPEDIA.DEFINITIONS[stelselpediaKey].label_singular}: ${detailState.display}`;
+            return `${GLOSSARY.DEFINITIONS[glossaryKey].label_singular}: ${detailState.display}`;
         }
     }
 })();

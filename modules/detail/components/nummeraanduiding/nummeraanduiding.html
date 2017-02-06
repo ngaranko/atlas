@@ -1,12 +1,9 @@
 <div class="o-header">
-    <dp-glossary-header
-        heading="{{vm.isGevormd ? vm.headingHtml : vm.heading}}"
-        definition="NUMMERAANDUIDING"
-        meta-data="vm.metaData">
-    </dp-glossary-header>
+	<dp-glossary-header heading="{{vm.isGevormd ? vm.headingHtml : vm.heading}}" definition="NUMMERAANDUIDING" meta-data="vm.metaData">
+	</dp-glossary-header>
 
 	<div ng-if="!vm.hoofdadres || vm.isGevormd">
-		<div class="c-nummeraanduiding-header">
+		<div class="c-nummeraanduiding">
 			<dp-panel ng-if="!vm.hoofdadres" is-panel-visible="true" type="warning">
 				Dit is een nevenadres
 			</dp-panel>
@@ -16,4 +13,4 @@
 			</dp-panel>
 		</div>
 	</div>
-</div>
+<div>

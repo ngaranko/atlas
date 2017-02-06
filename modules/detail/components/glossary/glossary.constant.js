@@ -3,7 +3,7 @@
 
     angular
         .module('dpDetail')
-        .constant('STELSELPEDIA', {
+        .constant('GLOSSARY', {
             DEFINITIONS: {
                 A_PERCEEL: {
                     label_singular: 'A-perceel',
@@ -30,8 +30,8 @@
                 API: {
                     label_singular: 'Dataset',
                     label_plural: 'Datasets',
-                    description: '',
-                    url: '',
+                    description: null,
+                    url: null,
                     meta: []
                 },
                 BEPERKING: {
@@ -110,12 +110,26 @@
                     url: 'https://www.amsterdam.nl/stelselpedia/gebieden-index/catalogus/gebiedsgericht/',
                     meta: []
                 },
+                GEVRIJWAARDGEBIED: {
+                    label_singular: 'Gevrijwaard gebied',
+                    label_plural: 'Gevrijwaarde gebieden',
+                    description: null,
+                    url: null,
+                    meta: []
+                },
                 GROOTSTEDELIJKGEBIED: {
                     label_singular: 'Grootstedelijk gebied',
                     label_plural: 'Grootstedelijke gebieden',
                     description: 'Grootstedelijke gebieden zijn gebieden binnen de gemeente Amsterdam, waar de ' +
                     'gemeenteraad, het college van burgemeester en wethouders of de burgemeester bevoegd is.',
                     url: 'https://www.amsterdam.nl/stelselpedia/gebieden-index/catalogus/grootstedelijk/',
+                    meta: []
+                },
+                INSLAGEN: {
+                    label_singular: 'Inslag',
+                    label_plural: 'Inslagen',
+                    description: null,
+                    url: null,
                     meta: []
                 },
                 LIGPLAATS: {
@@ -289,6 +303,13 @@
                     url: 'https://www.amsterdam.nl/stelselpedia/brk-index/catalog-brk-levering/kadastraal-subject/',
                     meta: ['id']
                 },
+                UITGEVOERDONDERZOEK: {
+                    label_singular: 'Reeds uitgevoerd CE onderzoek',
+                    label_plural: 'Reeds uitgevoerde CE onderzoeken',
+                    description: null,
+                    url: null,
+                    meta: []
+                },
                 UNESCO: {
                     label_singular: 'UNESCO',
                     label_plural: 'UNESCO',
@@ -315,6 +336,13 @@
                         'verblijfsobjectidentificatie',
                         'sleutelverzendend'
                     ]
+                },
+                VERDACHTGEBIED: {
+                    label_singular: 'Verdacht gebied',
+                    label_plural: ' Verdachte gebieden',
+                    description: null,
+                    url: null,
+                    meta: []
                 },
                 VESTIGING: {
                     label_singular: 'Vestiging',
