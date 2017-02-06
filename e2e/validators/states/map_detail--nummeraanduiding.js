@@ -7,9 +7,9 @@ module.exports = function (page) {
 
     expect(page.title).toBe('Adres: Maria Austriastraat 730 - Atlas');
 
-    expect(detail.nummeraanduiding.nummeraanduidingHeader.stelselpediaHeader.title)
+    expect(detail.nummeraanduiding.nummeraanduidingHeader.glossaryHeader.title)
         .toBe('Maria Austriastraat 730');
-    expect(detail.nummeraanduiding.nummeraanduidingHeader.stelselpediaHeader.subtitle).toBe('Adres');
+    expect(detail.nummeraanduiding.nummeraanduidingHeader.glossaryHeader.subtitle).toBe('Adres');
     expect(detail.nummeraanduiding.descriptionList.term(0)).toBe('Naam openbare ruimte');
     expect(detail.nummeraanduiding.descriptionList.definition(0)).toBe('Maria Austriastraat');
     expect(detail.nummeraanduiding.descriptionList.term(1)).toBe('Huisnummer');
@@ -25,7 +25,7 @@ module.exports = function (page) {
     expect(detail.nummeraanduiding.descriptionList.term(6)).toBe('Status');
     expect(detail.nummeraanduiding.descriptionList.definition(6)).toBe('Naamgeving uitgegeven');
 
-    expect(detail.verblijfsobject.stelselpediaHeader.subtitle).toBe('Verblijfsobject');
+    expect(detail.verblijfsobject.glossaryHeader.subtitle).toBe('Verblijfsobject');
     expect(detail.verblijfsobject.descriptionList.term(0)).toBe('Gebruiksdoel');
     expect(detail.verblijfsobject.descriptionList.definition(0)).toBe('BEST-woning');
     expect(detail.verblijfsobject.descriptionList.term(1)).toBe('Feitelijk gebruik');
