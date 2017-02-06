@@ -3,7 +3,7 @@ module.exports = function (grunt) {
 
     return {
         index: {
-            src: ['index.html', 'catalogus.html', 'favicon.png'],
+            src: ['index.html', 'catalogus.html', '403-geen-toegang.html', 'favicon.png'],
             dest: 'build/'
         },
         assets: {
