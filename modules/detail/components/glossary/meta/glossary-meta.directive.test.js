@@ -1,12 +1,12 @@
-describe('The dp-stelselpedia-meta directive', function () {
-    var $compile,
+describe('The dp-glossary-meta directive', function () {
+    let $compile,
         $rootScope;
 
     beforeEach(function () {
         angular.mock.module(
             'dpDetail',
             function ($provide) {
-                $provide.constant('STELSELPEDIA', {
+                $provide.constant('GLOSSARY', {
                     DEFINITIONS: {
                         BOUWBLOK: {
                             meta: ['id', 'last_update']
@@ -36,7 +36,7 @@ describe('The dp-stelselpedia-meta directive', function () {
             element,
             scope;
 
-        element = document.createElement('dp-stelselpedia-meta');
+        element = document.createElement('dp-glossary-meta');
         element.setAttribute('definition', definition);
         element.setAttribute('api-data', 'apiData');
 
