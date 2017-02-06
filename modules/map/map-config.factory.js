@@ -17,9 +17,9 @@
 
         globalConfig = {
             BASE_LAYER_OPTIONS: {
-                minZoom: 8,
-                maxZoom: 14,
                 tms: true,
+                minZoom: 8,
+                maxZoom: 16,
                 bounds: BOUNDS
             },
             MAP_OPTIONS: {
