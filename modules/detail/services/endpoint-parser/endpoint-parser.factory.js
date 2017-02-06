@@ -9,7 +9,7 @@
         return {
             getTemplateUrl,
             getSubject,
-            getStelselpediaKey
+            getGlossaryKey
         };
 
         function getTemplateUrl (endpoint) {
@@ -19,10 +19,11 @@
 
         function getSubject (endpoint) {
             const [, subject] = getParts(endpoint);
+
             return subject;
         }
 
-        function getStelselpediaKey (endpoint) {
+        function getGlossaryKey (endpoint) {
             const [, subject] = getParts(endpoint);
             return subject.toUpperCase().replace(/-/g, '_');
         }
@@ -32,13 +33,20 @@
             anchor.href = endpoint;
 
             // Transform http://www.api-root.com/this/that/123 to ['this', 'that', '123']
-            const uriParts = anchor.pathname
+            let uriParts = anchor.pathname
                     .replace(/^\//, '') // Strip leading slash
                     .replace(/\/$/, '') // Strip trailing slash
-                    .split('/'),
-                zakelijkRecht = isZakelijkRecht(uriParts);
+                    .split('/');
 
-            return zakelijkRecht ? ['brk', 'subject'] : [uriParts[0], uriParts[1]];
+            if (isZakelijkRecht(uriParts)) {
+                return ['brk', 'subject'];
+            } else {
+                // Remove the last segment (the ID)
+                uriParts.pop();
+
+                // Return the last two 'path' segments
+                return uriParts.slice(-2);
+            }
 
             function isZakelijkRecht (someUriParts) {
                 return someUriParts[0] === 'brk' &&

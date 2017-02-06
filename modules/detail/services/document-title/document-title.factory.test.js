@@ -5,7 +5,7 @@ describe('The dpDetailDocumentTitle factory', function () {
         angular.mock.module(
             'dpDetail',
             function ($provide) {
-                $provide.constant('STELSELPEDIA', {
+                $provide.constant('GLOSSARY', {
                     DEFINITIONS: {
                         BEPERKING: {
                             label_singular: 'Gemeentelijke beperking'
@@ -23,7 +23,7 @@ describe('The dpDetailDocumentTitle factory', function () {
         });
     });
 
-    it('combines a stelselpedia label with a specific display variable', function () {
+    it('combines a GLOSSARY label with a specific display variable', function () {
         var mockedDetailState;
 
         mockedDetailState = {
