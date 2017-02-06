@@ -24,7 +24,9 @@
                     searchParams.radius = endpoint.radius;
                 }
 
-                request = api.getByUri(endpoint.uri, searchParams);
+                request = api.getByUri(endpoint.uri, searchParams).then(
+                    data => data,
+                    () => { return { features: [] }; });    // empty features on failure op api call
 
                 allRequests.push(request);
             });
