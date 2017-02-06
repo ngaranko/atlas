@@ -3,9 +3,9 @@
 
     angular
         .module('dpDetail')
-        .directive('dpStelselpediaHeader', dpStelselpediaHeaderDirective);
+        .directive('dpGlossaryHeader', dpGlossaryHeaderDirective);
 
-    function dpStelselpediaHeaderDirective () {
+    function dpGlossaryHeaderDirective () {
         return {
             restrict: 'E',
             scope: {
@@ -15,18 +15,18 @@
                 metaData: '=',
                 brk: '='
             },
-            templateUrl: 'modules/detail/components/stelselpedia/header/stelselpedia-header.html',
+            templateUrl: 'modules/detail/components/glossary/header/glossary-header.html',
             transclude: true,
-            controller: DpStelselpediaHeaderController,
+            controller: DpGlossaryHeaderController,
             controllerAs: 'vm',
             bindToController: true
         };
     }
 
-    DpStelselpediaHeaderController.$inject = ['$scope', '$sce', 'STELSELPEDIA'];
+    DpGlossaryHeaderController.$inject = ['$scope', '$sce', 'GLOSSARY'];
 
-    function DpStelselpediaHeaderController ($scope, $sce, STELSELPEDIA) {
-        var vm = this;
+    function DpGlossaryHeaderController ($scope, $sce, GLOSSARY) {
+        let vm = this;
 
         vm.isVisible = {
             help: false,
@@ -37,15 +37,17 @@
             vm.htmlHeading = $sce.trustAsHtml(heading);
         });
 
-        vm.stelselpediaLabel = vm.usePlural
-            ? STELSELPEDIA.DEFINITIONS[vm.definition].label_plural
-            : STELSELPEDIA.DEFINITIONS[vm.definition].label_singular;
-        vm.stelselpediaDescription = STELSELPEDIA.DEFINITIONS[vm.definition].description;
-        vm.stelselpediaUrl = STELSELPEDIA.DEFINITIONS[vm.definition].url;
+        vm.glossaryLabel = vm.usePlural
+            ? GLOSSARY.DEFINITIONS[vm.definition].label_plural
+            : GLOSSARY.DEFINITIONS[vm.definition].label_singular;
+        vm.glossaryDescription = GLOSSARY.DEFINITIONS[vm.definition].description;
+        vm.stelselpediaUrl = GLOSSARY.DEFINITIONS[vm.definition].url;
 
+        vm.hasHelp = angular.isString(vm.glossaryDescription);
         vm.hasMetaData = angular.isDefined(vm.metaData);
+        vm.hasButton = vm.hasHelp || vm.hasMetaData;
 
-        vm.stelselpediaTitle = 'Uitleg tonen';
+        vm.helpTitle = 'Uitleg tonen';
         vm.metaDataTitle = 'Informatie (metadata) tonen';
 
         vm.toggle = function (item) {
@@ -53,9 +55,9 @@
 
             if (item === 'help') {
                 if (vm.isVisible[item]) {
-                    vm.stelselpediaTitle = 'Uitleg verbergen';
+                    vm.helpTitle = 'Uitleg verbergen';
                 } else {
-                    vm.stelselpediaTitle = 'Uitleg tonen';
+                    vm.helpTitle = 'Uitleg tonen';
                 }
             }
             if (item === 'meta') {

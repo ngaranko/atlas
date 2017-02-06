@@ -23,7 +23,7 @@
                 if ((!angular.isString(categorySlug) || categorySlug === endpoint.slug) &&
                         endpoint.uri) {
                     queries.push(
-                        api.getByUri(endpoint.uri, params)
+                        api.getByUri(endpoint.uri, params).then(data => data, () => [])
                     );
                 }
             });

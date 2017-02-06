@@ -1,10 +1,10 @@
 <div>
     <div class="u-row">
-      <dp-stelselpedia-header
+      <dp-glossary-header
         heading="{{vm.apiData.results._display}}"
         definition="SUBJECT"
         meta-data="vm.apiData">
-      </dp-stelselpedia-header>
+      </dp-glossary-header>
 
       <!-- niet natuurlijke persoon -->
       <dl class="c-key-value-list" ng-if="vm.apiData.results.is_natuurlijk_persoon === false">
@@ -81,7 +81,7 @@
     </div>
 
     <div class="default-box">
-        <dp-stelselpedia-header definition="ZAKELIJK_RECHT" use-plural="true"></dp-stelselpedia-header>
+        <dp-glossary-header definition="ZAKELIJK_RECHT" use-plural="true"></dp-glossary-header>
 
         <dp-panel is-panel-visible="vm.isMoreInfoAvailable" type="warning" can-close="true" class-name="c-kadastraal-subject__warning">
             <dp-link type="SHOW_PAGE" payload="'login'" class-name="o-btn o-btn--link c-kadastraal-subject__login-link">
