@@ -50,6 +50,17 @@
                                 } else if (feature.type.match(/^gebieden\//)) {
                                     // Gebieden
                                     subtype = feature.type.replace(/^gebieden\//, '');
+                                } else if (feature.type.match(/^bommenkaart\//)) {
+                                    // Explosieven
+                                    const subtypeSlug = feature.type.match(/^bommenkaart\/(.*)/)[1];
+                                    const subtypes = {
+                                        bominslag: 'inslag',
+                                        gevrijwaardgebied: 'gevrijwaard gebied',
+                                        uitgevoerdonderzoek: 'reeds uitgevoerd CE onderzoek',
+                                        verdachtgebied: 'verdacht gebied'
+                                    };
+
+                                    subtype = subtypes[subtypeSlug];
                                 } else {
                                     subtype = null;
                                 }

@@ -414,8 +414,8 @@
                 },
                 exuo: {
                     url: 'maps/bommenkaart',
-                    label_short: 'Explosieven - Uitgevoerde onderzoeken',
-                    label_long: 'Explosieven - Uitgevoerde onderzoeken',
+                    label_short: 'Explosieven - Uitgevoerde CE onderzoeken',
+                    label_long: 'Explosieven - Reeds uitgevoerde CE onderzoeken',
                     layers: ['uitgevoerde_CE_onderzoeken'],
                     minZoom: 8,
                     maxZoom: 16,

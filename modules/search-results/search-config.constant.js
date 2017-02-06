@@ -129,6 +129,7 @@
                     label_plural: 'NAP Peilmerken',
                     features: ['nap/peilmerk']
                 }, {
+                    slug: 'explosief',
                     label_singular: 'Explosief',
                     label_plural: 'Explosieven',
                     features: [
