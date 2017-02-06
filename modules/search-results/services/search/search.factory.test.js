@@ -1,19 +1,40 @@
 describe('The search factory', function () {
-    var $q,
+    let $q,
         $rootScope,
         search,
         api,
-        searchFormatter;
+        searchFormatter,
+        queryEndpoints;
+
+    const FAIL_ON_URI = 'FAIL_ON_URI';
 
     beforeEach(function () {
+        queryEndpoints = [
+            {
+                slug: 'adres',
+                label_singular: 'Adres',
+                label_plural: 'Adressen',
+                uri: 'path/to/adres/'
+            }, {
+                slug: 'openbare_ruimte',
+                label_singular: 'Openbare ruimte',
+                label_plural: 'Openbare ruimtes',
+                uri: 'path/to/openbare_ruimte/'
+            }
+        ];
+
         angular.mock.module(
             'dpSearchResults',
             {
                 api: {
-                    getByUri: function () {
+                    getByUri: function (uri) {
                         var q = $q.defer();
 
-                        q.resolve('FAKE_RAW_RESULTS');
+                        if (uri === FAIL_ON_URI) {
+                            q.reject(FAIL_ON_URI);
+                        } else {
+                            q.resolve('FAKE_RAW_RESULTS');
+                        }
 
                         return q.promise;
                     },
@@ -75,19 +96,7 @@ describe('The search factory', function () {
             },
             function ($provide) {
                 $provide.constant('SEARCH_CONFIG', {
-                    QUERY_ENDPOINTS: [
-                        {
-                            slug: 'adres',
-                            label_singular: 'Adres',
-                            label_plural: 'Adressen',
-                            uri: 'path/to/adres/'
-                        }, {
-                            slug: 'openbare_ruimte',
-                            label_singular: 'Openbare ruimte',
-                            label_plural: 'Openbare ruimtes',
-                            uri: 'path/to/openbare_ruimte/'
-                        }
-                    ]
+                    QUERY_ENDPOINTS: queryEndpoints
                 });
             }
         );
@@ -123,6 +132,32 @@ describe('The search factory', function () {
         // The searchFormatter has ben called once
         expect(searchFormatter.formatCategories).toHaveBeenCalledTimes(1);
         expect(searchFormatter.formatCategories).toHaveBeenCalledWith(['FAKE_RAW_RESULTS', 'FAKE_RAW_RESULTS']);
+
+        expect(searchResults).toBe('FAKE_FORMATTED_CATEGORIES_RESULTS');
+    });
+
+    it('can retrieve formatted search results for all categories, even if one or more queries fail', function () {
+        queryEndpoints.push({
+            slug: 'fail',
+            label_singular: 'Fail',
+            label_plural: 'Fails',
+            uri: FAIL_ON_URI
+        });
+
+        let searchResults;
+
+        search.search('Waterlooplein').then(function (_searchResults_) {
+            searchResults = _searchResults_;
+        });
+
+        $rootScope.$apply();
+
+        // There have been 3 API calls
+        expect(api.getByUri).toHaveBeenCalledTimes(3);
+
+        // The searchFormatter has ben called once, with an empty array for the failed call
+        expect(searchFormatter.formatCategories).toHaveBeenCalledTimes(1);
+        expect(searchFormatter.formatCategories).toHaveBeenCalledWith(['FAKE_RAW_RESULTS', 'FAKE_RAW_RESULTS', []]);
 
         expect(searchResults).toBe('FAKE_FORMATTED_CATEGORIES_RESULTS');
     });
