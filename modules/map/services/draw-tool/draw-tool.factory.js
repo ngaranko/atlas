@@ -344,7 +344,11 @@
                 DRAW_TOOL_CONFIG.draw.polygon.precision
             );
             currentShape.distance = distance;
-            currentShape.distanceTxt = L.GeometryUtil.readableDistance(distance, true);
+            if (distance > 1000) {
+                currentShape.distanceTxt = L.GeometryUtil.formattedNumber(distance / 1000, 2) + ' km';
+            } else {
+                currentShape.distanceTxt = L.GeometryUtil.formattedNumber(distance, 1) + ' m';
+            }
             currentShape.intersects = intersects;
 
             currentShape.isConsistent = !(
