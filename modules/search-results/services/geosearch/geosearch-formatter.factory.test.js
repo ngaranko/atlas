@@ -31,6 +31,16 @@ describe('The geosearchFormatter factory', function () {
                             label_singular: 'Meetbout',
                             label_plural: 'Meetbouten',
                             features: ['meetbouten/meetbout']
+                        }, {
+                            slug: 'explosief',
+                            label_singular: 'Explosief',
+                            label_plural: 'Explosieven',
+                            features: [
+                                'bommenkaart/verdachtgebied',
+                                'bommenkaart/bominslag',
+                                'bommenkaart/uitgevoerdonderzoek',
+                                'bommenkaart/gevrijwaardgebied'
+                            ]
                         }
                     ]
                 });
@@ -86,6 +96,42 @@ describe('The geosearchFormatter factory', function () {
                             opr_type: 'Water',
                             type: 'bag/openbareruimte',
                             uri: 'https://api.datapunt.amsterdam.nl/bag/openbareruimte/03630011950509/'
+                        }
+                    }
+                ]
+            },
+            {
+                type: 'FeatureCollection',
+                features: [
+                    {
+                        properties: {
+                            display: 'Bommending #1',
+                            type: 'bommenkaart/verdachtgebied',
+                            uri: 'https://api.datapunt.amsterdam.nl/bommenkaart/verdachtgebied/123456/'
+                        }
+                    }, {
+                        properties: {
+                            display: 'Bommending #2',
+                            type: 'bommenkaart/uitgevoerdonderzoek',
+                            uri: 'https://api.datapunt.amsterdam.nl/bommenkaart/uitgevoerdonderzoek/123456/'
+                        }
+                    }, {
+                        properties: {
+                            display: 'Bommending #3',
+                            type: 'bommenkaart/gevrijwaardgebied',
+                            uri: 'https://api.datapunt.amsterdam.nl/bommenkaart/gevrijwaardgebied/123456/'
+                        }
+                    }
+                ]
+            },
+            {
+                type: 'FeatureCollection',
+                features: [
+                    {
+                        properties: {
+                            display: 'Bommending #4',
+                            type: 'bommenkaart/bominslag',
+                            uri: 'https://api.datapunt.amsterdam.nl/bommenkaart/bominslag/123456/'
                         }
                     }
                 ]
@@ -154,6 +200,35 @@ describe('The geosearchFormatter factory', function () {
                         subtype: null,
                         subtypeLabel: null,
                         endpoint: 'https://api.datapunt.amsterdam.nl/meetbouten/meetbout/12981535/'
+                    }
+                ],
+                useIndenting: false
+            }, {
+                slug: 'explosief',
+                label_singular: 'Explosief',
+                label_plural: 'Explosieven',
+                count: 4,
+                results: [
+                    {
+                        label: 'Bommending #1',
+                        subtype: 'verdacht gebied',
+                        subtypeLabel: 'verdacht gebied',
+                        endpoint: 'https://api.datapunt.amsterdam.nl/bommenkaart/verdachtgebied/123456/'
+                    }, {
+                        label: 'Bommending #4',
+                        subtype: 'inslag',
+                        subtypeLabel: 'inslag',
+                        endpoint: 'https://api.datapunt.amsterdam.nl/bommenkaart/bominslag/123456/'
+                    }, {
+                        label: 'Bommending #2',
+                        subtype: 'reeds uitgevoerd CE onderzoek',
+                        subtypeLabel: 'reeds uitgevoerd CE onderzoek',
+                        endpoint: 'https://api.datapunt.amsterdam.nl/bommenkaart/uitgevoerdonderzoek/123456/'
+                    }, {
+                        label: 'Bommending #3',
+                        subtype: 'gevrijwaard gebied',
+                        subtypeLabel: 'gevrijwaard gebied',
+                        endpoint: 'https://api.datapunt.amsterdam.nl/bommenkaart/gevrijwaardgebied/123456/'
                     }
                 ],
                 useIndenting: false
