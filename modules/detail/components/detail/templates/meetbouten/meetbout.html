@@ -1,7 +1,7 @@
 <div class="detail-page__content--main">
     <div class="u-row">
-        <dp-stelselpedia-header heading="{{vm.apiData.results.meetboutidentificatie}}" definition="MEETBOUT">
-        </dp-stelselpedia-header>
+        <dp-glossary-header heading="{{vm.apiData.results.meetboutidentificatie}}" definition="MEETBOUT">
+        </dp-glossary-header>
 
         <dl class="c-key-value-list">
             <dt>Status</dt>
@@ -40,7 +40,7 @@
     </div>
 
     <div>
-        <dp-stelselpedia-header definition="METING" use-plural="true"></dp-stelselpedia-header>
+        <dp-glossary-header definition="METING" use-plural="true"></dp-glossary-header>
 
         <p ng-if="!vm.apiData.results.metingen.href"><dp-message>Geen metingen beschikbaar</dp-message></p>
 
@@ -56,7 +56,7 @@
     </div>
 
     <div>
-        <dp-stelselpedia-header definition="ROLLAAG" use-plural="true"></dp-stelselpedia-header>
+        <dp-glossary-header definition="ROLLAAG" use-plural="true"></dp-glossary-header>
 
         <p ng-if="!vm.apiData.results.rollaag"><dp-message>Geen rollaagtekening beschikbaar</dp-message></p>
 
