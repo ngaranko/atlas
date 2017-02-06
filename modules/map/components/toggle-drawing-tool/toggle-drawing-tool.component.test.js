@@ -56,12 +56,7 @@ describe('The dp-toggle-drawing-tool component', function () {
         it('shows the button in default state', function () {
             expect(component.find('button').length).toBe(1);
             expect(component.find('button').attr('class')).toContain('c-toggle-drawing-tool');
-            expect(component.find('button').attr('title')).toBe('Meten en intekenen');
-        });
-
-        it('shows the button in default state', function () {
-            expect(component.find('button').length).toBe(1);
-            expect(component.find('button').attr('class')).toContain('c-toggle-drawing-tool');
+            expect(component.find('button').attr('title')).toBe('Begin meten en intekenen');
         });
 
         it('enables draw/edit mode when clicking the button', function () {
@@ -88,7 +83,7 @@ describe('The dp-toggle-drawing-tool component', function () {
         it('shows the button in active state with extra label', function () {
             expect(component.find('button').length).toBe(1);
             expect(component.find('button').attr('class')).toContain('c-toggle-drawing-tool--active');
-            expect(component.find('button').attr('title')).toBe('Sluit meten en intekenen');
+            expect(component.find('button').attr('title')).toBe('Eindig meten en intekenen');
             expect(component.find('button span').attr('class')).not.toContain('ng-hide');
         });
 
