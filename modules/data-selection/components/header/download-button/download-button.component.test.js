@@ -61,7 +61,7 @@ describe('The dp-data-selection-download-button component', function () {
         scope = $rootScope.$new();
         scope.activeFilters = activeFilters;
 
-        scope.geoFilter = geoFilter || null;
+        scope.geoFilter = { markers: geoFilter, description: 'hello' };
 
         component = $compile(element)(scope);
         scope.$apply();

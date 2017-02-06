@@ -37,8 +37,8 @@
                 }
             });
 
-            if (angular.isArray(vm.geoFilter)) {
-                filterParams.push('shape=' + angular.toJson(vm.geoFilter.map(([lat, lng]) => [lng, lat])));
+            if (angular.isDefined(vm.geoFilter)) {
+                filterParams.push('shape=' + angular.toJson(vm.geoFilter.markers.map(([lat, lng]) => [lng, lat])));
             }
 
             if (filterParams.length) {
