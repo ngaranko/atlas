@@ -39,7 +39,7 @@
         }
 
         function setDoubleClickZoom (leafletMap) {
-            if (leafletMap.getZoom() == mapConfig.BASE_LAYER_OPTIONS.maxZoom) {
+            if (leafletMap.getZoom() === mapConfig.BASE_LAYER_OPTIONS.maxZoom) {
                 leafletMap.doubleClickZoom.disable();
             } else {
                 leafletMap.doubleClickZoom.enable();
