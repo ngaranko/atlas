@@ -1,0 +1,44 @@
+<div class="o-header">
+    <h3 class="o-header__subtitle"
+        ng-class="{
+            'u-margin__bottom--05' : vm.heading
+        }">
+        {{vm.glossaryLabel}}
+    </h3>
+    <h2 ng-if="vm.heading" class="o-header__title u-margin__bottom--3">
+        <span ng-bind-html="vm.htmlHeading"></span>
+    </h2>
+
+    <div ng-if="vm.hasButton" class="o-header__buttongroup">
+        <button ng-if="vm.hasHelp" ng-click="vm.toggle('help')"
+            class="o-header__button c-stelselpedia__button"
+            title="{{ vm.helpTitle }}">
+            <span class="o-header__button--image ">
+                <span class="u-sr-only">{{ vm.helpTitle  }}</span>
+            </span>
+        </button>
+
+        <button ng-if="vm.hasMetaData"
+            ng-click="vm.toggle('meta')"
+            class="o-header__button c-metadata__button"
+            title="{{ vm.metaDataTitle  }}">
+            <span class="o-header__button--image ">
+                <span class="u-sr-only">{{ vm.metaDataTitle  }}</span>
+            </span>
+        </button>
+
+        <dp-wkpb-link ng-if="vm.brk" brk-id="{{vm.brk.id}}"></dp-wkpb-link>
+    </div>
+
+    <dp-panel ng-if="vm.hasHelp" is-panel-visible="vm.isVisible.help" can-close="true" class-name="qa-glossary">
+        <h3 class="u-margin__bottom--1">Uitleg over {{vm.glossaryLabel | lowercase}}</h3>
+        <p>{{vm.glossaryDescription}}</p>
+        <a ng-if="vm.stelselpediaUrl" class="o-link--arrow" ng-href="{{vm.stelselpediaUrl}}" target="_blank">
+            Lees verder op stelselpedia
+        </a>
+    </dp-panel>
+    <dp-panel ng-if="vm.hasMetaData" is-panel-visible="vm.isVisible.meta" can-close="true" class-name="qa-metadata">
+        <h3 class="u-margin__bottom--1">Metadata van {{vm.glossaryLabel | lowercase}}</h3>
+        <dp-glossary-meta definition="{{vm.definition}}" api-data="vm.metaData"></dp-glossary-meta>
+    </dp-panel>
+</div>
