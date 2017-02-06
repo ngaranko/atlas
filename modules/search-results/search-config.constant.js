@@ -62,17 +62,11 @@
                     uri: 'geosearch/atlas/',
                     radius: null
                 }, {
-                    uri: 'geosearch/search/?item=verdachtgebied',
-                    radius: 0
+                    uri: 'geosearch/munitie/',
+                    radius: null
                 }, {
-                    uri: 'geosearch/search/?item=bominslag',
+                    uri: 'geosearch/bominslag/',
                     radius: 25
-                }, {
-                    uri: 'geosearch/search/?item=uitgevoerdonderzoek',
-                    radius: 0
-                }, {
-                    uri: 'geosearch/search/?item=gevrijwaardgebied',
-                    radius: 0
                 }
             ],
             COORDINATES_HIERARCHY: [
@@ -138,10 +132,10 @@
                     label_singular: 'Explosief',
                     label_plural: 'Explosieven',
                     features: [
-                        'geosearch/search/?item=verdachtgebied',
-                        'geosearch/search/?item=bominslag',
-                        'geosearch/search/?item=uitgevoerdonderzoek',
-                        'geosearch/search/?item=gevrijwaardgebied'
+                        'bommenkaart/verdachtgebied',
+                        'bommenkaart/bominslag',
+                        'bommenkaart/uitgevoerdonderzoek',
+                        'bommenkaart/gevrijwaardgebied'
                     ]
                 }
             ]
