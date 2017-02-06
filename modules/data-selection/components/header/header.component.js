@@ -8,7 +8,8 @@
                 state: '<',
                 availableFilters: '<',
                 numberOfRecords: '<',
-                isLoading: '<'
+                isLoading: '<',
+                geoFilter: '<'
             },
             templateUrl: 'modules/data-selection/components/header/header.html',
             controllerAs: 'vm',
