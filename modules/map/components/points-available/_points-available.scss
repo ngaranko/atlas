@@ -1,7 +1,6 @@
 .c-points-available {
-  .c-panel {
-    height: $button-size;
-    padding: 0 $base-whitespace;
-    line-height: 24px;
-  }
+  @extend %draw-tool-info;
+
+  background-color: $thema-10;
+  color: $primary-light;
 }
