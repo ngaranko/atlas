@@ -7,7 +7,6 @@
             bindings: {
                 state: '<',
                 availableFilters: '<',
-                activeFilters: '<',
                 geometryFilter: '<',
                 numberOfRecords: '<',
                 isLoading: '<'
