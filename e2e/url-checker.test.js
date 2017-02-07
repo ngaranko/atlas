@@ -1,14 +1,13 @@
 'use strict';
 
-const navigate = require('./helpers/navigate');
-const validateMapPageHome = require('./helpers/validators/map_page--home');
+const availableStates = require('./helpers/available-states');
 
 describe('each URL should load the corresponding view', function () {
-    let page;
+    Object.keys(availableStates).forEach(key => {
+        it(key, () => {
+            const page = dp.navigate(key);
 
-    it('MAP_PAGE--HOME', function () {
-        page = navigate('MAP_PAGE--HOME');
-
-        validateMapPageHome(page);
+            availableStates[key].validator(page);
+        });
     });
 });

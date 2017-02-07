@@ -1,21 +1,16 @@
 'use strict';
 
-const availableStates = require('./available-states');
-const dashboardPageObjects = require('../../modules/atlas/components/dashboard/dashboard.page-objects');
+const dashboardPageObjects = dp.require('modules/atlas/components/dashboard/dashboard.page-objects');
 
 module.exports = function (pageName) {
-    browser.get(availableStates[pageName].url);
+    browser.get(dp.availableStates[pageName].url);
 
     return {
-        title,
-        dashboard
+        get title () {
+            return browser.getTitle();
+        },
+        get dashboard () {
+            return dashboardPageObjects(element(by.css('dp-dashboard')));
+        }
     };
-
-    function title () {
-        return browser.getTitle();
-    }
-
-    function dashboard () {
-        return dashboardPageObjects(element(by.css('dp-dashboard')));
-    }
 };
