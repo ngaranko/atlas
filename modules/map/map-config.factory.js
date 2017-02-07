@@ -8,21 +8,25 @@
     mapConfigFactory.$inject = ['environment', 'crsService', 'BOUNDING_BOX'];
 
     function mapConfigFactory (environment, crsService, BOUNDING_BOX) {
+        const BOUNDS = [
+            BOUNDING_BOX.COORDINATES.southWest,
+            BOUNDING_BOX.COORDINATES.northEast
+        ];
         var globalConfig,
             environmentConfig;
 
         globalConfig = {
             BASE_LAYER_OPTIONS: {
+                tms: true,
                 minZoom: 8,
                 maxZoom: 16,
-                tms: true
+                bounds: BOUNDS
             },
             MAP_OPTIONS: {
                 crs: crsService.getRd(),
-                maxBounds: [
-                    BOUNDING_BOX.COORDINATES.southWest,
-                    BOUNDING_BOX.COORDINATES.northEast
-                ],
+                maxBounds: BOUNDS,
+                maxBoundsViscosity: 1.0,
+                bounceAtZoomLimits: false,
                 attributionControl: false,
                 zoomControl: false
             },

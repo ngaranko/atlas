@@ -1,8 +1,8 @@
 <div>
     <div class="u-row">
-        <dp-stelselpedia-header
+        <dp-glossary-header
             definition="MAATSCHAPPELIJKEACTIVITEIT">
-        </dp-stelselpedia-header>
+        </dp-glossary-header>
 
         <dl class="c-key-value-list">
             <dt class="c-key-value-list--border-top">Handelsnamen</dt>
@@ -22,13 +22,13 @@
     </div>
 
     <div>
-        <dp-stelselpedia-header definition="FUNCTIEVERVULLING" use-plural="true"></dp-stelselpedia-header>
+        <dp-glossary-header definition="FUNCTIEVERVULLING" use-plural="true"></dp-glossary-header>
 
         <dp-api-call endpoint="{{apiData.results.eigenaar}}" partial="handelsregister/functievervullingen"></dp-api-call>
     </div>
 
     <div ng-if="apiData.results.vestigingen.count > 1">
-        <dp-stelselpedia-header definition="VESTIGING" use-plural="true"></dp-stelselpedia-header>
+        <dp-glossary-header definition="VESTIGING" use-plural="true"></dp-glossary-header>
 
         <dp-api-call endpoint="{{apiData.results.vestigingen.href}}" partial="lijst"></dp-api-call>
     </div>

@@ -5,6 +5,7 @@ describe('The geosearch factory', function () {
         api,
         geosearchFormatter,
         searchFormatter,
+        coordinateEndpoints,
         mockedSearchResultsWithRadius,
         mockedSearchResultsWithoutRadius,
         mockedEmptySearchResults,
@@ -20,7 +21,22 @@ describe('The geosearch factory', function () {
         mockedVestigingenApiResults,
         mockedFormattedVestigingenApiResults;
 
+    const FAIL_ON_URI = 'FAIL_ON_URI';
+
     beforeEach(function () {
+        coordinateEndpoints = [
+            {
+                uri: 'endpoint/with-radius/',
+                radius: 50
+            }, {
+                uri: 'other/endpoint/',
+                radius: null
+            }, {
+                uri: 'endpoint-with-no-results/',
+                radius: null
+            }
+        ];
+
         angular.mock.module(
             'dpSearchResults',
             {
@@ -35,6 +51,8 @@ describe('The geosearch factory', function () {
                         } else if (endpoint === 'handelsregister/vestiging/?pand=0456789' ||
                                 endpoint === 'handelsregister/vestiging/?nummeraanduiding=0123456789') {
                             q.resolve(mockedVestigingenApiResults);
+                        } else if (endpoint === FAIL_ON_URI) {
+                            q.reject(FAIL_ON_URI);
                         } else {
                             q.resolve(mockedEmptySearchResults);
                         }
@@ -69,18 +87,7 @@ describe('The geosearch factory', function () {
             },
             function ($provide) {
                 $provide.constant('SEARCH_CONFIG', {
-                    COORDINATES_ENDPOINTS: [
-                        {
-                            uri: 'endpoint/with-radius/',
-                            radius: 50
-                        }, {
-                            uri: 'other/endpoint/',
-                            radius: null
-                        }, {
-                            uri: 'endpoint-with-no-results/',
-                            radius: null
-                        }
-                    ]
+                    COORDINATES_ENDPOINTS: coordinateEndpoints
                 });
             }
         );
@@ -348,6 +355,31 @@ describe('The geosearch factory', function () {
             mockedSearchResultsWithRadius,
             mockedSearchResultsWithoutRadius,
             mockedEmptySearchResults
+        ]);
+
+        expect(searchResults).toEqual(mockedFormattedSearchResults);
+    });
+
+    it('retrieves formatted data based on a location, even if one or more queries fail', function () {
+        coordinateEndpoints.push({
+            uri: FAIL_ON_URI
+        });
+
+        var searchResults;
+
+        geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
+            searchResults = _searchResults_;
+        });
+
+        $rootScope.$apply();
+
+        expect(api.getByUri).toHaveBeenCalledTimes(4);
+
+        expect(geosearchFormatter.format).toHaveBeenCalledWith([
+            mockedSearchResultsWithRadius,
+            mockedSearchResultsWithoutRadius,
+            mockedEmptySearchResults,
+            { features: [] }
         ]);
 
         expect(searchResults).toEqual(mockedFormattedSearchResults);
