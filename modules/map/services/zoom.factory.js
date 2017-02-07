@@ -15,7 +15,11 @@
             L.control.scale(mapConfig.SCALE_OPTIONS).addTo(leafletMap);
             L.control.zoom(mapConfig.ZOOM_OPTIONS).addTo(leafletMap);
 
+            setDoubleClickZoom(leafletMap);
+
             leafletMap.on('zoomend', function () {
+                setDoubleClickZoom(leafletMap);
+
                 $rootScope.$applyAsync(function () {
                     store.dispatch({
                         type: ACTIONS.MAP_ZOOM,
@@ -32,6 +36,14 @@
             leafletMap.setZoom(zoomLevel, {
                 animate: false
             });
+        }
+
+        function setDoubleClickZoom (leafletMap) {
+            if (leafletMap.getZoom() === mapConfig.BASE_LAYER_OPTIONS.maxZoom) {
+                leafletMap.doubleClickZoom.disable();
+            } else {
+                leafletMap.doubleClickZoom.enable();
+            }
         }
     }
 })();

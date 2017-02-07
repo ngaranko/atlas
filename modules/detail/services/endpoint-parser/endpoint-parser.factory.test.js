@@ -33,6 +33,9 @@ describe('The endpointParser factory', function () {
 
             expect(endpointParser.getSubject('http://www.api-root.com/folder-1/folder-2/folder-3/123/'))
                 .toBe('folder-3');
+
+            expect(endpointParser.getSubject('http://www.api-root.com/catalogus/api/3/action/package_show?id=7'))
+                .toBe('api');
         });
     });
 
@@ -56,6 +59,11 @@ describe('The endpointParser factory', function () {
                     'some-id-with-numbers-123456/subject/'))
                 .toBe('modules/detail/components/detail/templates/brk/subject.html');
         });
+
+        it('has special exception for catalogus detail pages', () => {
+            expect(endpointParser.getTemplateUrl('http://www.api-root.com/catalogus/api/3/action/package_show?id=123'))
+                .toBe('modules/detail/components/detail/templates/catalogus/api.html');
+        });
     });
 
     describe('getGlossaryKey', () => {
@@ -71,6 +79,9 @@ describe('The endpointParser factory', function () {
 
             expect(endpointParser.getGlossaryKey('http://www.api-root.com/milieuthemas/explosieven/inslag/1/'))
                 .toBe('INSLAG');
+
+            expect(endpointParser.getGlossaryKey('http://www.api-root.com/catalogus/api/3/action/package_show?id=124'))
+                .toBe('API');
         });
 
         it('turns dashes (-) in the endpoint into underscores (_) in the glossary key', () => {
