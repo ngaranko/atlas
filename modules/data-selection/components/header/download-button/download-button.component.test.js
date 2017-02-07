@@ -45,7 +45,7 @@ describe('The dp-data-selection-download-button component', function () {
         });
     });
 
-    function getComponent (dataset, activeFilters, geoFilter) {
+    function getComponent (dataset, activeFilters, geometryMarkers) {
         var component,
             element,
             scope;
@@ -54,14 +54,14 @@ describe('The dp-data-selection-download-button component', function () {
         element.setAttribute('dataset', dataset);
         element.setAttribute('active-filters', 'activeFilters');
 
-        if (angular.isDefined(geoFilter)) {
-            element.setAttribute('geo-filter', 'geoFilter');
+        if (angular.isDefined(geometryMarkers)) {
+            element.setAttribute('geometry-filter', 'geometryFilter');
         }
 
         scope = $rootScope.$new();
         scope.activeFilters = activeFilters;
 
-        scope.geoFilter = { markers: geoFilter, description: 'hello' };
+        scope.geometryFilter = { markers: geometryMarkers, description: 'hello' };
 
         component = $compile(element)(scope);
         scope.$apply();
@@ -117,14 +117,14 @@ describe('The dp-data-selection-download-button component', function () {
             scope,
             dataset,
             activeFilters,
-            geoFilter;
+            markers;
 
         dataset = 'dataset_a';
         activeFilters = {
             filter_a: 'hoi'
         };
 
-        geoFilter = [[2, 3], [4, 5]];
+        markers = [[2, 3], [4, 5]];
 
         component = getComponent(dataset, activeFilters);
         scope = component.isolateScope();
@@ -141,7 +141,7 @@ describe('The dp-data-selection-download-button component', function () {
         expect(component.find('a').attr('href'))
             .toBe('http://www.example.com/datasets/b/download/?filter_b=hallo');
 
-        component = getComponent(dataset, activeFilters, geoFilter);
+        component = getComponent(dataset, activeFilters, markers);
 
         component.isolateScope().$apply();
 
