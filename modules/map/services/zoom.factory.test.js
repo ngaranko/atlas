@@ -155,34 +155,43 @@ describe('The zoom factory', function () {
 
     // With doubleClickZoom enabled L.markercluster has issues (tg-2709)
     describe('the deepest zoom level has doubleclickzoom disabled', () => {
+        beforeEach(() => {
+            spyOn(mockedLeafletMap.doubleClickZoom, 'enable');
+            spyOn(mockedLeafletMap.doubleClickZoom, 'disable');
+        });
+
         it('disables doubleClickZoom on the deepest zoom level', () => {
             // Initialization
             mockedZoomLevel = 10;
-            spyOn(mockedLeafletMap.doubleClickZoom, 'disable');
 
             zoom.initialize(mockedLeafletMap);
 
+            expect(mockedLeafletMap.doubleClickZoom.enable).not.toHaveBeenCalled();
             expect(mockedLeafletMap.doubleClickZoom.disable).toHaveBeenCalled();
 
             // When zoomend is triggered
+            mockedLeafletMap.doubleClickZoom.enable.calls.reset();
             mockedLeafletMap.doubleClickZoom.disable.calls.reset();
             moveEndCallback();
+            expect(mockedLeafletMap.doubleClickZoom.enable).not.toHaveBeenCalled();
             expect(mockedLeafletMap.doubleClickZoom.disable).toHaveBeenCalled();
         });
 
         it('enables doubleClickZoom on all other zoom levels', () => {
             // Initialization
             mockedZoomLevel = 9;
-            spyOn(mockedLeafletMap.doubleClickZoom, 'enable');
 
             zoom.initialize(mockedLeafletMap);
 
             expect(mockedLeafletMap.doubleClickZoom.enable).toHaveBeenCalled();
+            expect(mockedLeafletMap.doubleClickZoom.disable).not.toHaveBeenCalled();
 
             // When zoomend is triggered
             mockedLeafletMap.doubleClickZoom.enable.calls.reset();
+            mockedLeafletMap.doubleClickZoom.disable.calls.reset();
             moveEndCallback();
             expect(mockedLeafletMap.doubleClickZoom.enable).toHaveBeenCalled();
+            expect(mockedLeafletMap.doubleClickZoom.disable).not.toHaveBeenCalled();
         });
     });
 });
