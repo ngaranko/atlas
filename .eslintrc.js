@@ -9,6 +9,9 @@ module.exports = {
         "jasmine": true,        // adds all of the Jasmine testing global variables for version 1.3 and 2.0,
         "protractor": true
     },
+    "globals": {
+        "dp": true              // Used in E2E tests, defined in protractor.conf.js
+    },
     "extends": [
         "standard",             // Shareable config for JavaScript Standard Style
         "eslint:recommended",   // enables rules that report common problems

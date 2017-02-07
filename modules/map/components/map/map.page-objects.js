@@ -1,19 +1,19 @@
 'use strict';
 
-const isVisible = require('../../../../e2e/helpers/is-visible');
-
-const toggleLayerSelectionPageObjects = require('./../toggle-layer-selection/toggle-layer-selection.page-objects.js');
-// const activeOverlaysPageObjects = require('./../active-overlays/active-overlays.page-objects.js');
-const toggleFullscreenPageObjects = require('./../toggle-fullscreen/toggle-fullscreen.page-objects.js');
+const toggleLayerSelectionPO =
+    dp.require('modules/map/components/toggle-layer-selection/toggle-layer-selection.page-objects');
+const toggleFullscreenPO = dp.require('modules/map/components/toggle-fullscreen/toggle-fullscreen.page-objects');
 
 module.exports = function (mapElement) {
-    return function () {
-        return {
-            isVisible: isVisible(mapElement),
-            toggleLayerSelection:
-                toggleLayerSelectionPageObjects(mapElement.element(by.css('dp-toggle-layer-selection'))),
-            // activeOverlays: activeOverlaysPageObjects(mapElement.element(by.css('dp-active-overlays'))),
-            toggleFullscreen: toggleFullscreenPageObjects(mapElement.element(by.css('dp-toggle-fullscreen')))
-        };
+    return {
+        get visible () {
+            return dp.visible(mapElement);
+        },
+        get toggleLayerSelection () {
+            return toggleLayerSelectionPO(mapElement.element(by.css('dp-toggle-layer-selection')));
+        },
+        get toggleFullscreen () {
+            return toggleFullscreenPO(mapElement.element(by.css('dp-toggle-fullscreen')));
+        }
     };
 };
