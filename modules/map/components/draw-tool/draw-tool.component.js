@@ -19,6 +19,8 @@
     function DpDrawToolComponent ($scope, store, ACTIONS, drawTool) {
         var vm = this;
 
+        let previousMarkers;
+
         drawTool.initialize(vm.map, onFinishShape, onDrawingMode);
 
         $scope.$watch('vm.state.drawingMode', function (drawingMode) {
@@ -49,17 +51,22 @@
         }
 
         function onFinishShape (polygon) {
-            store.dispatch({
+            let action = {
                 type: ACTIONS.MAP_END_DRAWING,
-                payload: {
+            };
+            if (!angular.equals(drawTool.shape.markers, previousMarkers)) {
+                // polygon has changed => update geometry filter
+                action.payload = {
                     markers: polygon.markers.reverse(),
                     description: drawTool.shape.distanceTxt + ' en ' + drawTool.shape.areaTxt
                 }
-            });
+            }
+            store.dispatch(action);
         }
 
         function onDrawingMode (drawingMode) {
             if (drawingMode) {
+                previousMarkers = drawTool.shape.markers;
                 store.dispatch({
                     type: ACTIONS.MAP_START_DRAWING
                 });

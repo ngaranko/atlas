@@ -289,7 +289,7 @@ describe('The map reducers', function () {
             expect(output.map.geometry).toEqual(['noot', 'mies']);
         });
 
-        it('Initializes the dataSelection state', function () {
+        it('Initializes the dataSelection state when a payload is specified', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
@@ -301,6 +301,15 @@ describe('The map reducers', function () {
             output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, geometryFilter);
             expect(output.dataSelection).not.toBe(null);
             expect(output.dataSelection.geometryFilter).toEqual(geometryFilter);
+        });
+
+        it('Does not initialize the dataSelection state when payload is missing', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.dataSelection = 'aap';
+            output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState);
+            expect(output.dataSelection).toBe('aap');
         });
 
         it('Leaves dataset and filters of an existing dataSelection state untouched', function () {

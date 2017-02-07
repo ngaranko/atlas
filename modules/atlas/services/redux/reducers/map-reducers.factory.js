@@ -158,25 +158,27 @@
 
             newState.map.drawingMode = false;
 
-            if (payload.markers.length > 2) {
-                if (!newState.dataSelection) {
-                    newState.dataSelection = {};
-                    newState.dataSelection.dataset = 'bag';
-                    newState.dataSelection.filters = {};
-                }
-                newState.dataSelection.geometryFilter = angular.copy(payload);
-                newState.dataSelection.page = 1;
-                newState.dataSelection.isFullscreen = false;
-                newState.dataSelection.isLoading = true;
-                newState.dataSelection.view = 'LIST';
-                newState.dataSelection.markers = [];
+            if (payload) {
+                if (payload.markers.length > 2) {
+                    if (!newState.dataSelection) {
+                        newState.dataSelection = {};
+                        newState.dataSelection.dataset = 'bag';
+                        newState.dataSelection.filters = {};
+                    }
+                    newState.dataSelection.geometryFilter = angular.copy(payload);
+                    newState.dataSelection.page = 1;
+                    newState.dataSelection.isFullscreen = false;
+                    newState.dataSelection.isLoading = true;
+                    newState.dataSelection.view = 'LIST';
+                    newState.dataSelection.markers = [];
 
-                newState.map.geometry = [];
-            } else if (payload.markers.length === 2) {
-                newState.map.geometry = payload.markers;
-            } else {
-                newState.dataSelection = null;
-                newState.map.geometry = [];
+                    newState.map.geometry = [];
+                } else if (payload.markers.length === 2) {
+                    newState.map.geometry = payload.markers;
+                } else {
+                    newState.dataSelection = null;
+                    newState.map.geometry = [];
+                }
             }
 
             return newState;
