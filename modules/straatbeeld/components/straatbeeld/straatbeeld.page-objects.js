@@ -2,8 +2,8 @@
 
 module.exports = function (pageElement) {
     return {
-        get isVisible () {
-            return dp.isVisible(pageElement);
+        get visible () {
+            return dp.visible(pageElement);
         }
     };
 };

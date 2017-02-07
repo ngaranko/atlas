@@ -6,8 +6,8 @@ const toggleFullscreenPO = dp.require('modules/map/components/toggle-fullscreen/
 
 module.exports = function (mapElement) {
     return {
-        get isVisible () {
-            return dp.isVisible(mapElement);
+        get visible () {
+            return dp.visible(mapElement);
         },
         get toggleLayerSelection () {
             return toggleLayerSelectionPO(mapElement.element(by.css('dp-toggle-layer-selection')));

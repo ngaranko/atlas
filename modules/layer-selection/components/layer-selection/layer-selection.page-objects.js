@@ -2,8 +2,8 @@
 
 module.exports = function (layerSelectionElement) {
     return {
-        get isVisible () {
-            return dp.isVisible(layerSelectionElement);
+        get visible () {
+            return dp.visible(layerSelectionElement);
         },
         close: layerSelectionElement.element(by.css('.qa-layer-selection-close')).click,
         get baselayers () {

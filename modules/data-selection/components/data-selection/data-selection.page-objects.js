@@ -6,8 +6,8 @@ const availableFilters =
 
 module.exports = function (dataSelectionElement) {
     return {
-        get isVisible () {
-            return dp.isVisible(dataSelectionElement);
+        get visible () {
+            return dp.visible(dataSelectionElement);
         },
         get header () {
             return dataSelectionHeader(dataSelectionElement.element(by.css('dp-data-selection-header')));

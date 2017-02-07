@@ -5,8 +5,8 @@ const searchResultsList =
 
 module.exports = function (searchResultsElement) {
     return {
-        get isVisible () {
-            return dp.isVisible(searchResultsElement);
+        get visible () {
+            return dp.visible(searchResultsElement);
         },
         categories: function (index) {
             return categoryPageObject(

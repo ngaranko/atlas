@@ -6,8 +6,8 @@ const nummeraanduidingHeader =
 
 module.exports = function (detailElement) {
     return {
-        get isVisible () {
-            return dp.isVisible(detailElement);
+        get visible () {
+            return dp.visible(detailElement);
         },
         get nummeraanduiding () {
             return groupedDataPageObject(detailElement.element(by.css('.qa-nummeraanduiding')));

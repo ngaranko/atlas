@@ -2,7 +2,7 @@
 
 module.exports = function (availableFiltersElement) {
     return {
-        get isPresent () {
+        get visible () {
             return availableFiltersElement.isPresent();
         },
         categories: function (index) {

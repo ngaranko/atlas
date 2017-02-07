@@ -9,7 +9,7 @@ module.exports = function (page) {
 
     expect(dataSelection.header.title).toContain('Adressen');
 
-    expect(dataSelection.availableFilters.isPresent).toBe(true);
+    expect(dataSelection.availableFilters.visible).toBe(true);
     expect(dataSelection.availableFilters.categories(0).header).toBe('Stadsdeel');
     expect(dataSelection.availableFilters.categories(0).options(0).label).toBe('Centrum');
     expect(dataSelection.availableFilters.categories(0).options(1).label).toBe('Nieuw-West');
