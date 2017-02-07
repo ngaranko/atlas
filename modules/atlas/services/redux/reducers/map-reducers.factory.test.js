@@ -258,7 +258,7 @@ describe('The map reducers', function () {
     });
 
     describe('MAP_END_DRAWING', function () {
-        it('Set the map drawing mode to null', function () {
+        it('Set the map drawing mode to false', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
@@ -268,7 +268,7 @@ describe('The map reducers', function () {
             expect(output.map.drawingMode).toBe(false);
         });
 
-        it('Sets the dataSelection state to null on a polygon with <= 1 markers', function () {
+        it('Sets the dataSelection state to null on a polygon with <= 1 markers (clear filter)', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
