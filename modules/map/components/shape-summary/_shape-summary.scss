@@ -1,5 +1,6 @@
 .c-shape-summary {
   @extend %draw-tool-info;
+  padding-right: $button-size + $base-whitespace;
 }
 
 .c-shape-summary--remove-geometry {
