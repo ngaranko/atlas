@@ -1,6 +1,8 @@
-%draw-tool-info {
+%draw-tool-element {
   height: $button-size;
+  margin-right: $base-whitespace;
   padding: 0 $base-whitespace;
+  float: left;
   border: 1px solid $secondary-gray20;
   background-color: $primary-light;
   color: $secondary-gray60;
@@ -13,9 +15,4 @@
   left: -1px;
   width: 100%;
   z-index: 1;
-
-  > * {
-    margin-right: $base-whitespace;
-    float: left;
-  }
 }
