@@ -208,18 +208,6 @@
         function registerDrawEvents () {
             Object.keys(L.Draw.Event).forEach(eventName => {
                 drawTool.map.on(L.Draw.Event[eventName], function (e) {
-                    // Ignore certain event sequences, basically because they would introduce duplication of actions
-                    // that have already been handled
-                    [
-                        { last: 'CREATED', current: 'DRAWSTOP' },
-                        { last: 'DRAWSTOP', current: 'DELETED' },
-                        { last: 'EDITSTOP', current: 'DELETED' }
-                    ].forEach(({last, current}) => {
-                        if (eventName === current && drawTool.lastEvent === last) {
-                            return;
-                        }
-                    });
-
                     handleDrawEvent(eventName, e);
 
                     updateShape();  // Update current shape and tooltip

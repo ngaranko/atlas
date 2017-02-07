@@ -1,5 +1,5 @@
 .c-shape-summary {
-  @extend %draw-tool-info;
+  @extend %draw-tool-element;
   padding-right: $button-size + $base-whitespace;
 }
 
