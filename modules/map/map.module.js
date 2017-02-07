@@ -3,6 +3,8 @@
 
     angular
         .module('dpMap', [
+            'dpShared',
+            'ngSanitize',
             'dpShared'
         ]);
 })();

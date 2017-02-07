@@ -68,6 +68,10 @@ describe('The dp-data-selection-header', () => {
                 view: 'TABLE',
                 filters: {
                     fake_filter: 'abc'
+                },
+                geometryFilter: {
+                    markers: [],
+                    description: 'geometryFilter description'
                 }
             },
             numberOfRecords: null,
@@ -80,6 +84,10 @@ describe('The dp-data-selection-header', () => {
                 view: 'LIST',
                 filters: {
                     fake_filter: 'abc'
+                },
+                geometryFilter: {
+                    markers: [],
+                    description: 'geometryFilter description'
                 }
             },
             numberOfRecords: null,
@@ -92,6 +100,10 @@ describe('The dp-data-selection-header', () => {
                 view: 'CARDS',
                 filters: {
                     fake_filter: 'abc'
+                },
+                geometryFilter: {
+                    markers: [],
+                    description: 'geometryFilter description'
                 },
                 page: 1
             },

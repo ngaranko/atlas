@@ -258,7 +258,10 @@ describe('The map controller', function () {
                 [51.0, 4.0],
                 [51.1, 4.0],
                 [51.1, 4.2]
-            ]
+            ],
+            geometryFilter: {
+                markers: []
+            }
         };
         controller = getController();
         expect(controller.markers.clustered).toEqual([
