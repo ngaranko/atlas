@@ -16,14 +16,15 @@
 
     DpHeaderController.$inject = ['authentication'];
 
-    function DpHeaderController (user) {
+    function DpHeaderController (authentication) {
         var vm = this;
 
-        vm.authenticated = function () {
-            return false;//authentication.getStatus().isLoggedIn;
+        console.log(">>>", authentication);
+
+        vm.isAuthenticated = function () {
+            return authentication.getStatus().isLoggedIn;
         };
-        console.log('x', authentication);
+
         vm.authenticate = authentication.authenticate;
-        console.log(vm.authentication);
     }
 })();
