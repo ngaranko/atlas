@@ -4,7 +4,7 @@
 }
 
 .c-shape-summary--remove-geometry {
-  @include icon-button("remove-line", "", "");
+  @include icon-button("close", "transparent", "");
 
   position: absolute;
   top: -1px;
