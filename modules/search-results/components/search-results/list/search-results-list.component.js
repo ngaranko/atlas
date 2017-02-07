@@ -20,9 +20,9 @@
 
         vm.showSubtype = function (categorySlug, link) {
             return angular.isString(link.subtype) &&
-                ((categorySlug === 'openbareruimte' && link.subtype !== 'weg') ||
+                (categorySlug === 'openbareruimte' && link.subtype !== 'weg') ||
                 (categorySlug === 'adres' && link.subtype !== 'verblijfsobject') ||
-                categorySlug === 'gebied') ||
+                categorySlug === 'gebied' ||
                 categorySlug === 'explosief';
         };
 
