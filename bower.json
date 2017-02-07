@@ -16,7 +16,7 @@
     "leaflet-rotatedmarker": "https://unpkg.com/leaflet-rotatedmarker/leaflet.rotatedMarker.js",
     "marzipano": "https://github.com/DatapuntAmsterdam/marzipano.git#master",
     "proj4": "*",
-    "proj4leaflet": "https://github.com/DatapuntAmsterdam/proj4leaflet.git#master",
+    "proj4leaflet": "1.0.1",
     "redux": "https://unpkg.com/redux/dist/redux.js",
     "xhr-xdr-adapter": "^0.1.0"
   },
