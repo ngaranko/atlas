@@ -268,7 +268,7 @@ describe('The map reducers', function () {
             expect(output.map.drawingMode).toBe(false);
         });
 
-        it('Leaves the dataSelection state untouched when on a argument polygon with <= 1 markers', function () {
+        it('Leaves the dataSelection state untouched on an argument polygon with <= 1 markers', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
