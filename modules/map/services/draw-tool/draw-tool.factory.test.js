@@ -219,7 +219,7 @@ describe('The draw tool factory', function () {
                     _latlng: {
                         lat,
                         lng,
-                        distanceTo: () => 1
+                        distanceTo: () => 400
                     }
                 };
             });
@@ -264,7 +264,7 @@ describe('The draw tool factory', function () {
                 this._latlngs.push({
                     lat,
                     lng,
-                    distanceTo: () => 1
+                    distanceTo: angular.noop
                 });
             }
 
@@ -327,6 +327,8 @@ describe('The draw tool factory', function () {
             addVertices();
 
             expect(drawTool.shape.markers).toEqual(testMarkers.slice(0, nVertices));
+            expect(drawTool.shape.distanceTxt).toEqual('400,0 m');
+            expect(drawTool.shape.areaTxt).toEqual(1);
             expect(drawTool.isEnabled()).toBe(true);
 
             drawShapeHandler.enabled = () => true;
@@ -353,8 +355,36 @@ describe('The draw tool factory', function () {
             fireEvent('draw:created', {layer});
 
             expect(onResult.markers).toEqual(testMarkers.slice(0, nVertices));
-            expect(drawTool.shape.distance).toBe(nVertices);
+            expect(drawTool.shape.distance).toBe(nVertices * 400);
             expect(drawTool.shape.area).toBe(1);
+            expect(drawTool.shape.distanceTxt).toEqual('1,20 km');
+            expect(drawTool.shape.areaTxt).toEqual(1);
+        });
+
+        it('Can build a polygon and shows distance in meters with 1 decimal when < 1000 meters', function () {
+            vertices[0]._latlng.distanceTo = () => 900;
+            vertices[1]._latlng.distanceTo = () => 90;
+            vertices[2]._latlng.distanceTo = () => 9;
+            drawTool.initialize(leafletMap);
+            buildPolygon();
+
+            fireEvent('draw:created', {layer});
+
+            expect(drawTool.shape.distance).toBe(999);
+            expect(drawTool.shape.distanceTxt).toEqual('999,0 m');
+        });
+
+        it('Can build a polygon and shows distance in kilometers with 2 decimals when >= 1000 meters', function () {
+            vertices[0]._latlng.distanceTo = () => 1000;
+            vertices[1]._latlng.distanceTo = () => 0;
+            vertices[2]._latlng.distanceTo = () => 0;
+            drawTool.initialize(leafletMap);
+            buildPolygon();
+
+            fireEvent('draw:created', {layer});
+
+            expect(drawTool.shape.distance).toBe(1000);
+            expect(drawTool.shape.distanceTxt).toEqual('1,00 km');
         });
 
         it('Can delete a polygon', function () {
