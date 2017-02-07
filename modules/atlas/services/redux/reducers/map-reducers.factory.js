@@ -160,6 +160,7 @@
 
             if (payload) {
                 if (payload.markers.length > 2) {
+                    // Polygon
                     if (!newState.dataSelection) {
                         newState.dataSelection = {};
                         newState.dataSelection.dataset = 'bag';
@@ -174,10 +175,8 @@
 
                     newState.map.geometry = [];
                 } else if (payload.markers.length === 2) {
+                    // Line
                     newState.map.geometry = payload.markers;
-                } else {
-                    newState.dataSelection = null;
-                    newState.map.geometry = [];
                 }
             }
 
