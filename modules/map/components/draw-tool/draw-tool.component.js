@@ -52,21 +52,21 @@
 
         function onFinishShape (polygon) {
             let action = {
-                type: ACTIONS.MAP_END_DRAWING,
+                type: ACTIONS.MAP_END_DRAWING
             };
-            if (!angular.equals(drawTool.shape.markers, previousMarkers)) {
+            if (!angular.equals(polygon.markers, previousMarkers)) {
                 // polygon has changed => update geometry filter
                 action.payload = {
-                    markers: polygon.markers.reverse(),
+                    markers: polygon.markers,
                     description: drawTool.shape.distanceTxt + ' en ' + drawTool.shape.areaTxt
-                }
+                };
             }
             store.dispatch(action);
         }
 
         function onDrawingMode (drawingMode) {
             if (drawingMode) {
-                previousMarkers = drawTool.shape.markers;
+                previousMarkers = angular.copy(drawTool.shape.markers);
                 store.dispatch({
                     type: ACTIONS.MAP_START_DRAWING
                 });
