@@ -19,12 +19,13 @@
     function DpHeaderController (authentication) {
         var vm = this;
 
-        console.log(">>>", authentication);
-
         vm.isAuthenticated = function () {
             return authentication.getStatus().isLoggedIn;
         };
 
         vm.authenticate = authentication.authenticate;
+
+        // Am I in the process of gettng a response from SIAM? Check the URL for needed parameters and fetch token
+        authentication.fetchToken();
     }
 })();

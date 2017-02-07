@@ -9,9 +9,9 @@
             controllerAs: 'vm'
         });
 
-    DpDashboardController.$inject = ['$scope', 'store', 'dashboardColumns', '$location'];
+    DpDashboardController.$inject = ['$scope', 'store', 'dashboardColumns', '$location', 'authentication'];
 
-    function DpDashboardController ($scope, store, dashboardColumns, $location) {
+    function DpDashboardController ($scope, store, dashboardColumns, $location, authentication) {
         let vm = this;
 
         vm.store = store;
@@ -45,9 +45,6 @@
 
             // Needed for the dp-scrollable-content directive
             vm.pageName = state.page.name;
-
-            // Am I in the process of gettng a response from SIAM? Check the URL for needed parameters
-            console.log('hey, location and state', $location.search(), state)
 
         }
     }
