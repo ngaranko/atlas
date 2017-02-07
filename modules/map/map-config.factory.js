@@ -25,6 +25,7 @@
             MAP_OPTIONS: {
                 crs: crsService.getRd(),
                 maxBounds: BOUNDS,
+                // 1.0 makes the bounds fully solid, preventing the user from dragging outside the bounds
                 maxBoundsViscosity: 1.0,
                 bounceAtZoomLimits: false,
                 attributionControl: false,
