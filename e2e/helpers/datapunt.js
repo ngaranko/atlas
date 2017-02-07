@@ -3,6 +3,6 @@
 module.exports = {
     availableStates: require('./available-states'),
     hasClass: require('./has-class'),
-    isVisible: require('./is-visible'),
+    visible: require('./visible'),
     require: require('./require')
 };

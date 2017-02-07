@@ -6,7 +6,7 @@ module.exports = function (page) {
     expect(page.title).toBe('Selecteer kaartlagen - Atlas');
 
     expect(page.dashboard.leftColumn.columnSize).toBe(4);
-    expect(layerSelection.isVisible).toBe(true);
+    expect(layerSelection.visible).toBe(true);
 
     expect(layerSelection.baselayers.header).toBe('Achtergrond');
     expect(layerSelection.baselayers.options(0).label).toBe('Topografie');
@@ -21,7 +21,7 @@ module.exports = function (page) {
     expect(layerSelection.overlays.categories(1).options(1).label).toBe('Kadastrale gemeenten');
 
     expect(page.dashboard.middleColumn.columnSize).toBe(8);
-    expect(page.dashboard.middleColumn.map.isVisible).toBe(true);
+    expect(page.dashboard.middleColumn.map.visible).toBe(true);
 
     expect(page.dashboard.rightColumn.columnSize).toBe(0);
 };
