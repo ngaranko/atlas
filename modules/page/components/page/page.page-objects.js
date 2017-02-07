@@ -1,15 +1,17 @@
 'use strict';
 
-const isVisible = require('../../../../e2e/helpers/is-visible');
-
-const loginPageObjects = require('./../login-form/login-form.page-objects.js');
+const loginPageObjects = dp.require('modules/page/components/login-form/login-form.page-objects');
 
 module.exports = function (pageElement) {
-    return function () {
-        return {
-            isVisible: isVisible(pageElement),
-            text: pageElement.getText,
-            login: loginPageObjects(pageElement.element(by.css('dp-login')))
-        };
+    return {
+        get visible () {
+            return dp.visible(pageElement);
+        },
+        get text () {
+            return pageElement.getText();
+        },
+        get login () {
+            return loginPageObjects(pageElement.element(by.css('dp-login')));
+        }
     };
 };

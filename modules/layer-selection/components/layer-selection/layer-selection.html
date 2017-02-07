@@ -8,8 +8,8 @@
         </dp-link>
     </div>
     <div class="c-layer-selection__content">
-        <div class="u-margin__bottom--1">
-            <h2 class="o-header__subtitle u-margin__top--1-5">Achtergrond</h2>
+        <div class="u-margin__bottom--1 qa-baselayers">
+            <h2 class="o-header__subtitle u-margin__top--1-5 qa-category-header">Achtergrond</h2>
             <ul class="u-margin__bottom--2-5">
                 <li ng-repeat="baseLayer in vm.allBaseLayers" class="c-layer-selection__item">
                     <label>
@@ -19,14 +19,14 @@
                             type="radio"
                             value="{{baseLayer.slug}}">
 
-                        {{baseLayer.label}}
+                        <span class="qa-option-label">{{baseLayer.label}}</span>
                     </label>
                 </li>
             </ul>
         </div>
 
         <div class="u-margin__bottom--1" ng-repeat="category in vm.allOverlays">
-            <h2 class="o-header__subtitle">{{category.heading}}</h2>
+            <h2 class="o-header__subtitle qa-category-header">{{category.heading}}</h2>
             <ul class="u-margin__bottom--2-5">
                 <li ng-repeat="overlay in category.overlays" class="c-layer-selection__item">
                     <label>
@@ -36,11 +36,11 @@
                             ng-click="vm.toggleOverlay(overlay.slug)"
                             value="{{overlay.slug}}">
 
-                        <strong ng-if="vm.isOverlayActive(overlay.slug)">
+                        <strong ng-if="vm.isOverlayActive(overlay.slug)" class="qa-option-label">
                             {{overlay.label}}
                         </strong>
 
-                        <span ng-if="!vm.isOverlayActive(overlay.slug)">
+                        <span ng-if="!vm.isOverlayActive(overlay.slug)" class="qa-option-label">
                             {{overlay.label}}
                         </span>
                     </label>

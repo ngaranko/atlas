@@ -4,7 +4,7 @@
     <div class="qa-available-filters c-data-selection-available-filters--available-filters">
         <div ng-if="!vm.isLoading" ng-show="vm.hasInactiveFilterOptions(filter)" ng-repeat="filter in vm.availableFilters">
             <div class="c-data-selection-available-filters__available-filter">
-                <h3 class="c-data-selection-available-filters__available-filter-label">{{filter.label}}</h3>
+                <h3 class="c-data-selection-available-filters__available-filter-label qa-category-header">{{filter.label}}</h3>
                 <ul class="c-data-selection-available-filters__list">
                     <li class="c-data-selection-available-filters__listitem"
                         ng-repeat="option in filter.options | limitTo : vm.isExpandedFilter(filter.slug) ? undefined : vm.showMoreThreshold">
@@ -16,7 +16,7 @@
                             ng-click="vm.addFilter(filter.slug, option.id)">
 
                             <span ng-class="{'c-data-selection-available-filters--empty-value': !option.label}">
-                                {{option.label}}
+                                <span class="qa-option-label">{{option.label}}</span>
                                 <span ng-if="vm.showOptionCounts">({{option.count}})</span>
                             </span>
                         </button>
