@@ -49,8 +49,6 @@
                 registerServerError();
             } else if (isClientError && response && response.data && response.data.detail === 'Not found.') {
                 registerNotFoundError();
-            } else if (response.status === 403) {
-                $window.location = './403-geen-toegang.html';
             }
 
             return $q.reject(response);

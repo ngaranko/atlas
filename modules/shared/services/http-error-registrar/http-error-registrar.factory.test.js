@@ -7,7 +7,6 @@ describe('The http error registrar', function () {
             NOT_FOUND_ERROR: 'NOT_FOUND_ERROR',
             registerError: angular.noop
         },
-        $window,
         mockedData,
         onError,
         callbackCalled;
@@ -28,10 +27,9 @@ describe('The http error registrar', function () {
             $provide.value('$window', window);
         });
 
-        angular.mock.inject(function (_$httpBackend_, _$http_, _$window_, _$rootScope_) {
+        angular.mock.inject(function (_$httpBackend_, _$http_, _$rootScope_) {
             $httpBackend = _$httpBackend_;
             $http = _$http_;
-            $window = _$window_;
             $rootScope = _$rootScope_;
         });
 
@@ -103,16 +101,6 @@ describe('The http error registrar', function () {
 
         $httpBackend.flush();
         expect(callbackCalled).toBe(true);
-    });
-
-    it('does handle 403 (access denied) errors', function () {
-        $httpBackend
-            .whenGET('http://api-domain.amsterdam.nl/403')
-            .respond(403);
-
-        $http.get('http://api-domain.amsterdam.nl/403');
-        $httpBackend.flush();
-        expect($window.location).toBe('./403-geen-toegang.html');
     });
 
     it('does handle 404 errors with the correct body', function () {
