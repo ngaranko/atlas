@@ -33,3 +33,13 @@
   border-bottom: none;
   z-index: 3;
 }
+
+.s-leaflet-draw {
+  .leaflet-draw-tooltip {
+    color: $primary-light;
+
+    .leaflet-draw-tooltip-subtext {
+      color: $primary-light;
+    }
+  }
+}
