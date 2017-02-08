@@ -1,6 +1,8 @@
 .c-toggle-drawing-tool {
   @extend %draw-tool-element;
 
+  border: none;
+
   &:not(.c-toggle-drawing-tool--active) {
     @include icon-button("polygon-measure");
   }
