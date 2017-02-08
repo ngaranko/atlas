@@ -16,13 +16,14 @@
     function DpSearchResultsListController () {
         const STATUS_OBJECT_GEVORMD = 18;
 
-        var vm = this;
+        let vm = this;
 
         vm.showSubtype = function (categorySlug, link) {
             return angular.isString(link.subtype) &&
                 ((categorySlug === 'openbareruimte' && link.subtype !== 'weg') ||
                 (categorySlug === 'adres' && link.subtype !== 'verblijfsobject') ||
-                categorySlug === 'gebied');
+                categorySlug === 'gebied' ||
+                categorySlug === 'explosief');
         };
 
         vm.getExtraInfo = function (link) {
