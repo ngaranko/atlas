@@ -40,7 +40,13 @@ describe('The geosearchFormatter factory', function () {
                                 'bommenkaart/bominslag',
                                 'bommenkaart/uitgevoerdonderzoek',
                                 'bommenkaart/gevrijwaardgebied'
-                            ]
+                            ],
+                            subtypes: {
+                                bominslag: 'inslag',
+                                gevrijwaardgebied: 'gevrijwaard gebied',
+                                uitgevoerdonderzoek: 'reeds uitgevoerd CE onderzoek',
+                                verdachtgebied: 'verdacht gebied'
+                            }
                         }
                     ]
                 });
@@ -211,22 +217,22 @@ describe('The geosearchFormatter factory', function () {
                 results: [
                     {
                         label: 'Bommending #1',
-                        subtype: 'verdacht gebied',
+                        subtype: 'verdachtgebied',
                         subtypeLabel: 'verdacht gebied',
                         endpoint: 'https://api.datapunt.amsterdam.nl/bommenkaart/verdachtgebied/123456/'
                     }, {
                         label: 'Bommending #4',
-                        subtype: 'inslag',
+                        subtype: 'bominslag',
                         subtypeLabel: 'inslag',
                         endpoint: 'https://api.datapunt.amsterdam.nl/bommenkaart/bominslag/123456/'
                     }, {
                         label: 'Bommending #2',
-                        subtype: 'reeds uitgevoerd CE onderzoek',
+                        subtype: 'uitgevoerdonderzoek',
                         subtypeLabel: 'reeds uitgevoerd CE onderzoek',
                         endpoint: 'https://api.datapunt.amsterdam.nl/bommenkaart/uitgevoerdonderzoek/123456/'
                     }, {
                         label: 'Bommending #3',
-                        subtype: 'gevrijwaard gebied',
+                        subtype: 'gevrijwaardgebied',
                         subtypeLabel: 'gevrijwaard gebied',
                         endpoint: 'https://api.datapunt.amsterdam.nl/bommenkaart/gevrijwaardgebied/123456/'
                     }

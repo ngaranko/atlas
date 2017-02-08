@@ -137,7 +137,13 @@
                         'bommenkaart/bominslag',
                         'bommenkaart/uitgevoerdonderzoek',
                         'bommenkaart/gevrijwaardgebied'
-                    ]
+                    ],
+                    subtypes: {
+                        bominslag: 'inslag',
+                        gevrijwaardgebied: 'gevrijwaard gebied',
+                        uitgevoerdonderzoek: 'reeds uitgevoerd CE onderzoek',
+                        verdachtgebied: 'verdacht gebied'
+                    }
                 }
             ]
         });
