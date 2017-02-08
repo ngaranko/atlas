@@ -33,3 +33,14 @@
   border-bottom: none;
   z-index: 3;
 }
+
+.s-leaflet-draw {
+  //Override leaflet draw tooltip in draw and edit mode to show text in white
+  .leaflet-draw-tooltip {
+    color: $primary-light;
+
+    .leaflet-draw-tooltip-subtext {
+      color: $primary-light;
+    }
+  }
+}
