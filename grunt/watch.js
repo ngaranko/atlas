@@ -29,6 +29,15 @@ var targets = {
             'build-develop'
         ]
     },
+    html: {
+        files: [
+            '403-geen-toegang.html',
+            'catalogus.html'
+        ],
+        tasks: [
+            'copy:index'
+        ]
+    },
     assets: {
         files: [
             'modules/shared/assets/**/*',
