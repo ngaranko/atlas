@@ -1,3 +1,12 @@
 .c-shape-summary {
   @extend %draw-tool-element;
+  padding-right: $button-size + $base-whitespace;
+}
+
+.c-shape-summary--remove-geometry {
+  @include icon-button("close", "transparent", "");
+
+  position: absolute;
+  top: -1px;
+  right: 0;
 }

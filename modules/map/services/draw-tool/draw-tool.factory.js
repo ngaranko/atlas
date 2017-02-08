@@ -307,6 +307,8 @@
 
         // Update the internal information about the current shape
         function updateShape () {
+            const DISTANCE_IN_KILOMETERS = 1000;    // Show in km starting from this #meters, else show in m
+
             let latLngs = [],
                 area = 0,
                 distance = 0,
@@ -332,7 +334,11 @@
                 DRAW_TOOL_CONFIG.draw.polygon.precision
             );
             currentShape.distance = distance;
-            currentShape.distanceTxt = L.GeometryUtil.readableDistance(distance, true);
+            if (distance >= DISTANCE_IN_KILOMETERS) {
+                currentShape.distanceTxt = L.GeometryUtil.formattedNumber(distance / DISTANCE_IN_KILOMETERS, 2) + ' km';
+            } else {
+                currentShape.distanceTxt = L.GeometryUtil.formattedNumber(distance, 1) + ' m';
+            }
             currentShape.intersects = intersects;
 
             currentShape.isConsistent = !(
