@@ -215,6 +215,30 @@ describe('The dp-search-results-list component', function () {
         expect(component.find('li').eq(1).text()).toContain('(bouwblok)');
     });
 
+    it('shows the type of explosief', () => {
+        const mockedGebiedenCategory = {
+            slug: 'explosief',
+            count: 2,
+            results: [
+                {
+                    label: 'Link #1',
+                    endpoint: 'http://www.example.com/kaboom/1/',
+                    subtype: 'bominslag',
+                    subtypeLabel: 'inslag'
+                }, {
+                    label: 'Link #2',
+                    endpoint: 'http://www.example.com/kaboom/2/',
+                    subtype: 'uitgevoerdonderzoek',
+                    subtypeLabel: 'reeds uitgevoerd CE onderzoek'
+                }
+            ]
+        };
+        const component = getComponent(mockedGebiedenCategory);
+
+        expect(component.find('li').eq(0).text()).toContain('(inslag)');
+        expect(component.find('li').eq(1).text()).toContain('(reeds uitgevoerd CE onderzoek)');
+    });
+
     it('shows the type of adressen, except for verblijfsobjecten', function () {
         var component,
             mockedGebiedenCategory = {
