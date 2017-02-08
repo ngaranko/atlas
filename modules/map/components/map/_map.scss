@@ -35,6 +35,7 @@
 }
 
 .s-leaflet-draw {
+  //Override leaflet draw tooltip in draw and edit mode to show text in white
   .leaflet-draw-tooltip {
     color: $primary-light;
 
