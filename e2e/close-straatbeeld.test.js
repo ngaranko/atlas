@@ -37,3 +37,24 @@ Controle: Ben ik nu bij zoekresultaten (i.p.v. detail)
  Actie: Sluit straatbeeld
  Controle: Ben ik weer bij dezelfde detailpagina (en dus niet bij zoekresultaten)
 */
+
+'use strict';
+
+const validator = require('./validators/validator');
+
+describe('Navigating to and away from straatbeeld', function () {
+    let page;
+
+    it('allows to navigate from search results to straatbeeld and back', function () {
+        page = dp.navigate('MAP_SEARCH-RESULTS--LOCATION');
+        validator('MAP_SEARCH-RESULTS--LOCATION', page);
+
+        // Open straatbeeld
+        page.dashboard.rightColumn.searchResults.straatbeeldThumbnail.click();
+        validator('STRAATBEELD--SEARCH-RESULTS', page);
+
+        // Close straatbeeld by clicking the close button
+        page.dashboard.rightColumn.straatbeeld.close.click();
+        validator('MAP_SEARCH-RESULTS--LOCATION', page);
+    });
+});
