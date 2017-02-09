@@ -34,6 +34,7 @@
 
         // if sessionStorage is available use the refreshToken function to check if a token is available and valid
         if (accessToken) {
+            // sim refresh. But is not supported yet, this just fills userState with userSettings
             refreshToken();
         } else {
             userState.accessToken = null;
@@ -87,10 +88,11 @@
             }
 
             function fetchSuccess (response) {
+
                 userState.accessToken = response.data;
                 userSettings.token.value = userState.accessToken;
                 userState.isLoggedIn = true;
-                accessToken = response.token;
+                accessToken = response.data;
 
                 intervalPromise = $timeout(refreshToken, intervalDuration);
             }
@@ -121,7 +123,10 @@
         }
 
         function refreshToken () {
-            console.log('refresh called')
+            console.log('refresh called', userSettings);
+
+            //userState.accessToken = null;
+            //userState.isLoggedIn = false;
             // return $http({
             //     method: 'POST',
             //     url: API_CONFIG.AUTH + 'refresh/',
