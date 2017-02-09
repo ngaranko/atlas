@@ -61,7 +61,7 @@
             const authenticationUrl = API_CONFIG.AUTH + '/authenticate?callback=' + callbackUrl +
                 '&active=true';
 
-            if (userState.accessToken === null) {
+            if (!accessToken) {
                 $window.location.href = authenticationUrl;
             }
         }
@@ -82,8 +82,8 @@
                         'Content-Type': 'text/plain'
                     },
                     params: data
-                })
-                    .then(fetchSuccess, fetchError);
+                }).then(fetchSuccess, fetchError);
+
             }
 
             function fetchSuccess (response) {
@@ -97,7 +97,7 @@
 
             function fetchError (response) {
                 var q = $q.defer();
-
+                console.log('error', response);
                 switch (response.status) {
                     case 400:
                         q.reject('Verplichte parameter is niet aanwezig')
