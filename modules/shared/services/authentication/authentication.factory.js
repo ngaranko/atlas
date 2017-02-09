@@ -6,6 +6,7 @@
         .factory('authentication', authenticationFactory);
 
     authenticationFactory.$inject = [
+        '$q',
         '$http',
         '$httpParamSerializer',
         '$timeout',
@@ -18,6 +19,7 @@
     ];
 
     function authenticationFactory (
+        $q,
         $http,
         $httpParamSerializer,
         $timeout,
@@ -38,8 +40,11 @@
             userState.isLoggedIn = false;
         }
 
-        //  Refresh the successfully obtained token every 4 and a half minutes (token expires in 5 minutes)
-        const intervalDuration = 270000;
+        var intervalDuration = 270000;
+        var intervalPromise = null;
+
+        console.log('USERSTATE', userState.accessToken);
+        console.log('ACCESSTOK', accessToken);
 
         return {
             authenticate: authenticate,
@@ -56,8 +61,7 @@
             const authenticationUrl = API_CONFIG.AUTH + '/authenticate?callback=' + callbackUrl +
                 '&active=true';
 
-            console.log('accessToken', accessToken, userState)
-            if (angular.isUndefined(accessToken)) {
+            if (userState.accessToken === null) {
                 $window.location.href = authenticationUrl;
             }
         }
@@ -86,10 +90,33 @@
                 userState.accessToken = response.data;
                 userSettings.token.value = userState.accessToken;
                 userState.isLoggedIn = true;
+                accessToken = response.token;
+
+                intervalPromise = $timeout(refreshToken, intervalDuration);
             }
 
             function fetchError (response) {
-                console.log('ERROR', response);
+                var q = $q.defer();
+
+                switch (response.status) {
+                    case 400:
+                        q.reject('Verplichte parameter is niet aanwezig')
+                        break;
+                    case 404:
+                        q.reject('Er is iets mis met de inlog server, probeer het later nog eens.');
+                        break;
+                    case 502:
+                        q.reject('Probleem in de communicatie met de inlog server');
+                        break;
+                    case 504:
+                        q.reject('Inlog server timeout, probeer het later nog eens.');
+                        break;
+                    default:
+                        q.reject('Er is een fout opgetreden. Neem contact op met de beheerder en vermeld code: ' +
+                            response.status + ' status: ' + response.statusText + '.');
+                }
+
+                return q.promise;
             }
         }
 
