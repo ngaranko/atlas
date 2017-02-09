@@ -204,9 +204,11 @@ describe('The draw tool component', function () {
             spyOn(store, 'dispatch');
         });
 
-        it('dispatches a MAP_END_DRAWING action when a polygon is finished drawing or editing', function () {
-            polygon.markers = ['aap'];
+        it('dispatches a MAP_END_DRAWING action when a polygon is finished and has changed', function () {
+            drawTool.shape.markers = [1, 2, 3];
             getComponent();
+            onDrawingMode(true);
+            polygon.markers = [1, 2, 4];
             onFinishShape(polygon);
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.MAP_END_DRAWING,
@@ -215,6 +217,15 @@ describe('The draw tool component', function () {
                     description: 'distance en area'
                 }
             });
+        });
+
+        it('does not dispatch a MAP_END_DRAWING action when a polygon is finished and has not changed', function () {
+            drawTool.shape.markers = [1, 2, 3];
+            getComponent();
+            onDrawingMode(true);
+            polygon.markers = drawTool.shape.markers;
+            onFinishShape(polygon);
+            expect(store.dispatch).not.toHaveBeenCalledWith();
         });
 
         it('Dispatches a MAP_START_DRAWING action when the drawing or editing a polygon starts', function () {

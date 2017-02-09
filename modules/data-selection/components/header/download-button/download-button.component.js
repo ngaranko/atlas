@@ -7,7 +7,7 @@
             bindings: {
                 dataset: '@',
                 activeFilters: '=',
-                geoFilter: '='
+                geometryFilter: '='
             },
             templateUrl: 'modules/data-selection/components/header/download-button/download-button.html',
             controller: DpDataSelectionDownloadButtonController,
@@ -23,7 +23,7 @@
         $scope.$watchGroup([
             'vm.dataset',
             'vm.activeFilters',
-            'vm.geoFilter'
+            'vm.geometryFilter'
         ], setDownloadUrl);
 
         function setDownloadUrl () {
@@ -37,8 +37,8 @@
                 }
             });
 
-            if (angular.isArray(vm.geoFilter)) {
-                filterParams.push('shape=' + angular.toJson(vm.geoFilter.map(([lat, lng]) => [lng, lat])));
+            if (angular.isDefined(vm.geometryFilter)) {
+                filterParams.push('shape=' + angular.toJson(vm.geometryFilter.markers.map(([lat, lng]) => [lng, lat])));
             }
 
             if (filterParams.length) {

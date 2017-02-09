@@ -8,8 +8,7 @@
                 state: '<',
                 availableFilters: '<',
                 numberOfRecords: '<',
-                isLoading: '<',
-                geoFilter: '<'
+                isLoading: '<'
             },
             templateUrl: 'modules/data-selection/components/header/header.html',
             controllerAs: 'vm',
@@ -42,8 +41,6 @@
 
             vm.maxAvailablePages = DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES;
             vm.showMessageMaxPages = vm.maxAvailablePages && vm.state.page > vm.maxAvailablePages;
-
-            vm.geoFilter = vm.state.geometryFilter || [];
 
             vm.maxNumberOfClusteredMarkers = DATA_SELECTION_CONFIG.options.MAX_NUMBER_OF_CLUSTERED_MARKERS;
             vm.showMessageClusteredMarkers = isListView &&

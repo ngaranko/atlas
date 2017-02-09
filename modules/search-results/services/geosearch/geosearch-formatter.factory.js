@@ -41,20 +41,24 @@
                                 return indexA - indexB;
                             })
                             .map(function (feature) {
-                                var subtype,
+                                let subtype = null,
                                     subtypeLabel;
 
                                 if (feature.opr_type) {
                                     // Openbare ruimtes
                                     subtype = feature.opr_type.toLowerCase();
-                                } else if (feature.type.match(/^gebieden\//)) {
-                                    // Gebieden
-                                    subtype = feature.type.replace(/^gebieden\//, '');
                                 } else {
-                                    subtype = null;
+                                    ['gebieden', 'bommenkaart'].forEach((category) => {
+                                        const regex = new RegExp('^' + category + '/');
+
+                                        if (feature.type.match(regex)) {
+                                            subtype = feature.type.replace(regex, '');
+                                        }
+                                    });
                                 }
 
                                 subtypeLabel = subtype;
+
                                 if (subtype && rawCategory.subtypes) {
                                     subtypeLabel = rawCategory.subtypes[subtype] || subtype;
                                 }

@@ -208,18 +208,6 @@
         function registerDrawEvents () {
             Object.keys(L.Draw.Event).forEach(eventName => {
                 drawTool.map.on(L.Draw.Event[eventName], function (e) {
-                    // Ignore certain event sequences, basically because they would introduce duplication of actions
-                    // that have already been handled
-                    [
-                        { last: 'CREATED', current: 'DRAWSTOP' },
-                        { last: 'DRAWSTOP', current: 'DELETED' },
-                        { last: 'EDITSTOP', current: 'DELETED' }
-                    ].forEach(({last, current}) => {
-                        if (eventName === current && drawTool.lastEvent === last) {
-                            return;
-                        }
-                    });
-
                     handleDrawEvent(eventName, e);
 
                     updateShape();  // Update current shape and tooltip
@@ -319,6 +307,8 @@
 
         // Update the internal information about the current shape
         function updateShape () {
+            const DISTANCE_IN_KILOMETERS = 1000;    // Show in km starting from this #meters, else show in m
+
             let latLngs = [],
                 area = 0,
                 distance = 0,
@@ -344,8 +334,8 @@
                 DRAW_TOOL_CONFIG.draw.polygon.precision
             );
             currentShape.distance = distance;
-            if (distance > 1000) {
-                currentShape.distanceTxt = L.GeometryUtil.formattedNumber(distance / 1000, 2) + ' km';
+            if (distance >= DISTANCE_IN_KILOMETERS) {
+                currentShape.distanceTxt = L.GeometryUtil.formattedNumber(distance / DISTANCE_IN_KILOMETERS, 2) + ' km';
             } else {
                 currentShape.distanceTxt = L.GeometryUtil.formattedNumber(distance, 1) + ' m';
             }
