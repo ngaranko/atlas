@@ -6,14 +6,30 @@
         .factory('authentication', authenticationFactory);
 
     authenticationFactory.$inject = [
-        '$http', '$httpParamSerializer', '$timeout', 'API_CONFIG', 'userSettings', '$window', '$location', 'environment', 'AUTHENTICATION_SETTINGS'
+        '$http',
+        '$httpParamSerializer',
+        '$timeout',
+        'API_CONFIG',
+        'userSettings',
+        '$window',
+        '$location',
+        'environment',
+        'AUTHENTICATION_SETTINGS'
     ];
 
-    function authenticationFactory ($http, $httpParamSerializer, $timeout, API_CONFIG, userSettings, $window, $location, environment, AUTHENTICATION_SETTINGS) {
+    function authenticationFactory (
+        $http,
+        $httpParamSerializer,
+        $timeout,
+        API_CONFIG,
+        userSettings,
+        $window,
+        $location,
+        environment,
+        AUTHENTICATION_SETTINGS) {
         var userState = {},
             accessToken = userSettings.token.value;
 
-        console.log('ACCESS TOKEN', accessToken);
         // if sessionStorage is available use the refreshToken function to check if a token is available and valid
         if (accessToken) {
             refreshToken();
@@ -33,11 +49,15 @@
         };
 
         function authenticate () {
-            const isAuthenticated = false;
-            const authenticationUrl = API_CONFIG.AUTH + '/authenticate?callback=' + callbackUrl + '&active=true';
-            const callbackUrl =  encodeURIComponent(AUTHENTICATION_SETTINGS[environment.NAME].ENDPOINT + $window.location.hash);
+            // callback fails when there is no hash in de callbackUrl. Add one if needed.
+            const hashPart = ($window.location.hash.length > 0) ? $window.location.hash : '#';
 
-            if (!isAuthenticated) {
+            const callbackUrl = encodeURIComponent(AUTHENTICATION_SETTINGS[environment.NAME].ENDPOINT + hashPart);
+            const authenticationUrl = API_CONFIG.AUTH + '/authenticate?callback=' + callbackUrl +
+                '&active=true';
+
+            console.log('accessToken', accessToken, userState)
+            if (angular.isUndefined(accessToken)) {
                 $window.location.href = authenticationUrl;
             }
         }
