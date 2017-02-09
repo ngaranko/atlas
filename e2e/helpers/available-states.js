@@ -47,9 +47,9 @@ module.exports = {
         validator: require('../validators/states/map_search-results--query')
     },
     'MAP_STRAATBEELD--DETAIL': {
-        url: '#?lat=52.3630723571084&lon=4.92265756777558&mpb=topografie&mpz=16&' +
-             'dte=https:%2F%2Fapi.datapunt.amsterdam.nl%2Fbag%2Fverblijfsobject%2F03630024092601%2F&' +
-             'sbi=TMX7315120208-000048_pano_0000_002519&sbl=ZRWT3:3JISb&sbh=30&sbp=0&sbf=10',
+        url: '#?dte=https:%2F%2Fapi.datapunt.amsterdam.nl%2Fbag%2Fnummeraanduiding%2F03630000500149%2F&' +
+             'mpb=topografie&mpz=16&mpv=52.3532634:5.0013828&sbf=Cu&sbh=4W&' +
+             'sbi=TMX7315120208-000068_pano_0002_000405&sbl=ZQgX9:3Nqgu',
         validator: require('../validators/states/map_straatbeeld--detail')
     },
     'MAP_STRAATBEELD--SEARCH-RESULTS': {
@@ -58,9 +58,9 @@ module.exports = {
         validator: require('../validators/states/map_straatbeeld--search-results')
     },
     'STRAATBEELD--DETAIL': {
-        url: '#?lat=52.3630723571084&lon=4.92265756777558&mpb=topografie&mpz=16&' +
-             'dte=https:%2F%2Fapi.datapunt.amsterdam.nl%2Fbag%2Fverblijfsobject%2F03630024092601%2F&' +
-             'sbi=TMX7315120208-000048_pano_0000_002519&sbl=ZRWT3:3JISb&sbh=30&sbp=0&sbf=10&sbfs=T',
+        url: '#?dte=https:%2F%2Fapi.datapunt.amsterdam.nl%2Fbag%2Fnummeraanduiding%2F03630000500149%2F&' +
+             'mpb=topografie&mpz=16&mpv=52.3531791:5.00131&sbf=Cu&sbfs=T&sbh=4W&' +
+             'sbi=TMX7315120208-000068_pano_0002_000405&sbl=ZQgX9:3Nqgu',
         validator: require('../validators/states/straatbeeld--detail')
     },
     'STRAATBEELD--SEARCH-RESULTS': {
