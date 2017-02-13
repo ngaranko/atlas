@@ -47,5 +47,8 @@
             vm.pageName = state.page.name;
 
         }
+
+
+
     }
 })();

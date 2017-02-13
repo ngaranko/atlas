@@ -4,6 +4,9 @@
     angular
         .module('dpShared')
         .constant('USER_SETTINGS', {
+            test: {
+                storage: 'session'
+            },
             token: {
                 storage: 'session'
             },

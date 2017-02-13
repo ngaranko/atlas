@@ -5,6 +5,7 @@
         .module('dpShared')
         .constant('API_CONFIG', {
             ROOT: 'https://api.datapunt.amsterdam.nl/',
-            AUTH: 'https://api.datapunt.amsterdam.nl/auth/siam'
+            AUTH: 'https://api.datapunt.amsterdam.nl/auth/siam',
+            REFRESH: 'https://api.datapunt.amsterdam.nl/authenticatie/'
         });
 })();

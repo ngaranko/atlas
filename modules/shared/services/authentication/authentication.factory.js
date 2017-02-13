@@ -1,3 +1,4 @@
+
 (function () {
     'use strict';
 
@@ -29,23 +30,23 @@
         $location,
         environment,
         AUTHENTICATION_SETTINGS) {
-        var userState = {},
+        let userState = {},
+            accessToken;
+
+        // TEMP HACKKK...
+        $timeout(function() {
             accessToken = userSettings.token.value;
 
-        // if sessionStorage is available use the refreshToken function to check if a token is available and valid
-        if (accessToken) {
-            // sim refresh. But is not supported yet, this just fills userState with userSettings
-            refreshToken();
-        } else {
-            userState.accessToken = null;
-            userState.isLoggedIn = false;
-        }
+            if (accessToken) {
+                refreshToken();
+            } else {
+                userState.accessToken = null;
+                userState.isLoggedIn = false;
+            }
+        }, 1000);
 
-        var intervalDuration = 270000;
+        var intervalDuration = 27000;
         var intervalPromise = null;
-
-        console.log('USERSTATE', userState.accessToken);
-        console.log('ACCESSTOK', accessToken);
 
         return {
             authenticate: authenticate,
@@ -88,9 +89,8 @@
             }
 
             function fetchSuccess (response) {
-
                 userState.accessToken = response.data;
-                userSettings.token.value = userState.accessToken;
+                userSettings.token.value = response.data;
                 userState.isLoggedIn = true;
                 accessToken = response.data;
 
@@ -123,36 +123,47 @@
         }
 
         function refreshToken () {
-            console.log('refresh called', userSettings);
+            return $http({
+                method: 'POST',
+                url: API_CONFIG.REFRESH + 'refresh/',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: $httpParamSerializer({ token: accessToken })
+            }).then(refreshSuccess, refreshError);
 
-            //userState.accessToken = null;
-            //userState.isLoggedIn = false;
-            // return $http({
-            //     method: 'POST',
-            //     url: API_CONFIG.AUTH + 'refresh/',
-            //     headers: {
-            //         'Content-Type': 'application/x-www-form-urlencoded'
-            //     },
-            //     data: $httpParamSerializer(
-            //         {
-            //             token: accessToken
-            //         }
-            //         )
-            // })
-            //     .then(refreshSuccess, refreshError);
-            //
-            // function refreshSuccess (response) {
-            //     userState.accessToken = response.data;
-            //     userSettings.token.value = userState.accessToken;
-            //     accessToken = response.data.token;
-            //     userState.isLoggedIn = true;
-            //
-            //     intervalPromise = $timeout(refreshToken, intervalDuration);
-            // }
-            //
-            // function refreshError (error) {
-            //     console.log('ERROR', error);
-            // }
+            function refreshSuccess (response) {
+                userState.accessToken = response.data;
+                userSettings.token.value = userState.accessToken;
+                accessToken = response.data.token;
+                userState.isLoggedIn = true;
+
+                intervalPromise = $timeout(refreshToken, intervalDuration);
+            }
+
+            function refreshError (response) {
+                var q = $q.defer();
+
+                switch (response.status) {
+                    case 400:
+                        q.reject('Verplichte parameter is niet aanwezig')
+                        break;
+                    case 404:
+                        q.reject('Er is iets mis met de inlog server, probeer het later nog eens.');
+                        break;
+                    case 502:
+                        q.reject('Probleem in de communicatie met de inlog server');
+                        break;
+                    case 504:
+                        q.reject('Inlog server timeout, probeer het later nog eens.');
+                        break;
+                    default:
+                        q.reject('Er is een fout opgetreden. Neem contact op met de beheerder en vermeld code: ' +
+                            response.status + ' status: ' + response.statusText + '.');
+                }
+
+                return q.promise;
+            }
         }
 
         function getStatus () {
