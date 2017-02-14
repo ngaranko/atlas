@@ -5,7 +5,7 @@ const dataSelectionValidator = require('./data-selection');
 module.exports = function (page) {
     const dataSelection = page.dashboard.rightColumn.dataSelection;
 
-    expect(page.title).toBe('Tabel Adressen - Atlas');
+    expect(page.title).toMatch('Tabel Adressen - Atlas');
 
     expect(dataSelection.header.title).toContain('Adressen');
 

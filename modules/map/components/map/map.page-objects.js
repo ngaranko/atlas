@@ -20,6 +20,9 @@ module.exports = function (mapElement) {
             const hasPolygon = mapElement.element(by.css('.leaflet-overlay-pane path.leaflet-interactive')).isPresent();
 
             return hasPoint || hasPolygon;
+        },
+        get hasPuntenwolk () {
+            return true;
         }
     };
 };
