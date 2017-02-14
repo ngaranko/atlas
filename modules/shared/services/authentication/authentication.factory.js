@@ -33,29 +33,21 @@
         let userState = {},
             accessToken;
 
-        // TEMP HACKKK...
-        $timeout(function() {
-            accessToken = userSettings.token.value;
+        let intervalDuration = 27000;
+        let intervalPromise = null;
 
-            if (accessToken) {
-                refreshToken();
-            } else {
-                userState.accessToken = null;
-                userState.isLoggedIn = false;
-            }
-        }, 1000);
 
-        var intervalDuration = 27000;
-        var intervalPromise = null;
 
         return {
             authenticate: authenticate,
             fetchToken: fetchToken,
             refreshToken: refreshToken,
-            getStatus: getStatus
+            getStatus: getStatus,
+            logOut: logOut
         };
 
         function authenticate () {
+
             // callback fails when there is no hash in de callbackUrl. Add one if needed.
             const hashPart = ($window.location.hash.length > 0) ? $window.location.hash : '#';
 
@@ -99,9 +91,56 @@
 
             function fetchError (response) {
                 var q = $q.defer();
-                console.log('error', response);
+
                 switch (response.status) {
                     case 400:
+                        q.reject('Verplichte parameter is niet aanwezig');
+                        break;
+                    case 404:
+                        q.reject('Er is iets mis met de inlog server, probeer het later nog eens.');
+                        break;
+                    case 502:
+                        q.reject('Probleem in de communicatie met de inlog server');
+                        break;
+                    case 504:
+                        q.reject('Inlog server timeout, probeer het later nog eens.');
+                        break;
+                    default:
+                        q.reject('Er is een fout opgetreden. Neem contact op met de beheerder en vermeld code: ' +
+                            response.status + ' status: ' + response.statusText + '.');
+                }
+
+                return q.promise;
+            }
+        }
+
+        function refreshToken (token) {
+            accessToken = token;
+
+            return $http({
+                method: 'POST',
+                url: API_CONFIG.REFRESH + 'refresh/',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: $httpParamSerializer({ token: accessToken })
+            }).then(refreshSuccess, refreshError);
+
+            function refreshSuccess (response) {
+                userState.accessToken = response.data;
+                userSettings.token.value = userState.accessToken;
+                accessToken = response.data.token;
+                userState.isLoggedIn = true;
+
+                intervalPromise = $timeout(refreshToken, intervalDuration);
+            }
+
+            function refreshError (response) {
+                let q = $q.defer();
+
+                switch (response.status) {
+                    case 400:
+                        logOut();
                         q.reject('Verplichte parameter is niet aanwezig')
                         break;
                     case 404:
@@ -122,48 +161,16 @@
             }
         }
 
-        function refreshToken () {
-            return $http({
-                method: 'POST',
-                url: API_CONFIG.REFRESH + 'refresh/',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                data: $httpParamSerializer({ token: accessToken })
-            }).then(refreshSuccess, refreshError);
-
-            function refreshSuccess (response) {
-                userState.accessToken = response.data;
-                userSettings.token.value = userState.accessToken;
-                accessToken = response.data.token;
-                userState.isLoggedIn = true;
-
-                intervalPromise = $timeout(refreshToken, intervalDuration);
+        function logOut () {
+            if (intervalPromise) {
+                $timeout.cancel(intervalPromise);
             }
+            userSettings.token.remove();
 
-            function refreshError (response) {
-                var q = $q.defer();
-
-                switch (response.status) {
-                    case 400:
-                        q.reject('Verplichte parameter is niet aanwezig')
-                        break;
-                    case 404:
-                        q.reject('Er is iets mis met de inlog server, probeer het later nog eens.');
-                        break;
-                    case 502:
-                        q.reject('Probleem in de communicatie met de inlog server');
-                        break;
-                    case 504:
-                        q.reject('Inlog server timeout, probeer het later nog eens.');
-                        break;
-                    default:
-                        q.reject('Er is een fout opgetreden. Neem contact op met de beheerder en vermeld code: ' +
-                            response.status + ' status: ' + response.statusText + '.');
-                }
-
-                return q.promise;
-            }
+            accessToken = null;
+            userState.username = null;
+            userState.accessToken = null;
+            userState.isLoggedIn = false;
         }
 
         function getStatus () {

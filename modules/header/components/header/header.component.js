@@ -14,18 +14,27 @@
             controllerAs: 'vm'
         });
 
-    DpHeaderController.$inject = ['authentication'];
+    DpHeaderController.$inject = ['$scope', 'authentication', '$location', 'userSettings'];
 
-    function DpHeaderController (authentication) {
+    function DpHeaderController (scope, authentication, $location, userSettings) {
         var vm = this;
+
+        vm.authenticate = authentication.authenticate;
+        vm.logOut = authentication.logOut;
 
         vm.isAuthenticated = function () {
             return authentication.getStatus().isLoggedIn;
         };
 
-        vm.authenticate = authentication.authenticate;
-
-        // Am I in the process of gettng a response from SIAM? Check the URL for needed parameters and fetch token
-        authentication.fetchToken();
+        // Fetch authentication token
+        if (angular.isDefined($location.search().rid)) {
+            authentication.fetchToken(userSettings.token.value);
+        } else {
+            scope.$applyAsync(function() {
+                if (angular.isDefined(userSettings.token.value)) {
+                    authentication.refreshToken(userSettings.token.value);
+                }
+            });
+        }
     }
 })();

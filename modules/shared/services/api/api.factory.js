@@ -5,9 +5,9 @@
         .module('dpShared')
         .factory('api', apiFactory);
 
-    apiFactory.$inject = ['$http', 'user', 'API_CONFIG'];
+    apiFactory.$inject = ['$http', 'authentication', 'API_CONFIG'];
 
-    function apiFactory ($http, user, API_CONFIG) {
+    function apiFactory ($http, authentication, API_CONFIG) {
         return {
             getByUrl,
             getByUri
@@ -22,9 +22,9 @@
          */
         function getByUrl (url, params, cancel) {
             let headers = {},
-                userState = user.getStatus();
+                userState = authentication.getStatus();
 
-            if (userState.isLoggedIn) {
+            if (authentication.isLoggedIn) {
                 headers.Authorization = 'JWT ' + userState.accessToken;
             }
 

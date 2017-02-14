@@ -26,8 +26,8 @@
                         <button ng-if="!vm.isAuthenticated()" ng-click="vm.authenticate()" class="site-header__menu__item">
                             Inloggen
                         </button>
-                        <span ng-if="vm.isAuthenticated()" ng-click="vm.authenticate()" class="site-header__menu__item">
-                            Welkom                            
+                        <span ng-if="vm.isAuthenticated()" ng-click="vm.logOut()" class="site-header__menu__item">
+                            Uitloggen
                         </span>
                         <dp-menu-dropdown has-print-button="vm.hasPrintButton"></dp-menu-dropdown>
                     </nav>
