@@ -95,8 +95,6 @@ describe('each URL should load the corresponding view', function () {
         page = dp.navigate('MAP_PAGE--HOME');
 
         availableStates['MAP_PAGE--HOME'].validator(page);
-
-        expect(page.title).toBe('Home - Atlas');
     });
 
     it('MAP_PAGE--LOGIN', () => {
