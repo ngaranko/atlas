@@ -9,12 +9,12 @@ describe('Invisible components should still load relevant data', () => {
 
         // Make the map fullscreen
         page.dashboard.middleColumn.map.toggleFullscreen.click();
-        dp.availableStates.MAP.validator(page);
+        dp.validate('MAP', page);
         expect(page.dashboard.middleColumn.map.hasGeometry).toBe(true);
 
         // Reload the page
         browser.refresh();
-        dp.availableStates.MAP.validator(page);
+        dp.validate('MAP', page);
         expect(page.dashboard.middleColumn.map.hasGeometry).toBe(true);
     });
 
@@ -25,7 +25,7 @@ describe('Invisible components should still load relevant data', () => {
 
         // Switch to the TABLE view
         page.dashboard.rightColumn.dataSelection.header.toggleViewButton.click();
-        dp.availableStates['DATA-SELECTION--TABLE'].validator(page);
+        dp.validate('DATA-SELECTION--TABLE', page);
 
         // Pick some filters to reduce the number of clustered markers
         page.dashboard.rightColumn.dataSelection.availableFilters.categories(0).options(0).click();
@@ -33,17 +33,17 @@ describe('Invisible components should still load relevant data', () => {
 
         // Switch back to LIST view
         page.dashboard.rightColumn.dataSelection.header.toggleViewButton.click();
-        dp.availableStates['MAP_DATA-SELECTION'].validator(page);
+        dp.validate('MAP_DATA-SELECTION', page);
         expect(page.dashboard.middleColumn.map.hasPuntenwolk).toBe(true);
 
         // Make the map fullscreen
         page.dashboard.middleColumn.map.toggleFullscreen.click();
-        dp.availableStates.MAP.validator(page);
+        dp.validate('MAP', page);
         expect(page.dashboard.middleColumn.map.hasPuntenwolk).toBe(true);
 
         // Reload the page
         browser.refresh();
-        dp.availableStates.MAP.validator(page);
+        dp.validate('MAP', page);
         expect(page.dashboard.middleColumn.map.hasPuntenwolk).toBe(true);
     });
 });
