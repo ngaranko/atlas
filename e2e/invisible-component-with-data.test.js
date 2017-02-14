@@ -1,6 +1,5 @@
 'use strict';
 
-const validator = require('./validators/validator');
 let page;
 
 describe('Invisible components should still load relevant data', () => {
@@ -10,12 +9,12 @@ describe('Invisible components should still load relevant data', () => {
 
         // Make the map fullscreen
         page.dashboard.middleColumn.map.toggleFullscreen.click();
-        dp.availableStates['MAP'].validator(page);
+        dp.availableStates.MAP.validator(page);
         expect(page.dashboard.middleColumn.map.hasGeometry).toBe(true);
 
         // Reload the page
         browser.refresh();
-        dp.availableStates['MAP'].validator(page);
+        dp.availableStates.MAP.validator(page);
         expect(page.dashboard.middleColumn.map.hasGeometry).toBe(true);
     });
 
@@ -39,12 +38,12 @@ describe('Invisible components should still load relevant data', () => {
 
         // Make the map fullscreen
         page.dashboard.middleColumn.map.toggleFullscreen.click();
-        dp.availableStates['MAP'].validator(page);
+        dp.availableStates.MAP.validator(page);
         expect(page.dashboard.middleColumn.map.hasPuntenwolk).toBe(true);
 
         // Reload the page
         browser.refresh();
-        dp.availableStates['MAP'].validator(page);
+        dp.availableStates.MAP.validator(page);
         expect(page.dashboard.middleColumn.map.hasPuntenwolk).toBe(true);
     });
 });

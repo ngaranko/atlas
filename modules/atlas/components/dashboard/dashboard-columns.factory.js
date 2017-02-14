@@ -73,25 +73,31 @@
 
         function determineMapActivity (state) {
             if (!state.atlas.isPrintMode) {
-                // Non-print mode
-                return state.map.isFullscreen ||
-                    (
-                        !(state.detail && state.detail.isFullscreen) &&
-                        !(state.dataSelection && state.dataSelection.view !== 'LIST') &&
-                        !(state.straatbeeld && state.straatbeeld.isFullscreen)
-                    );
+                return determineMapActivityDefault(state);
             } else {
-                // Print mode
-                if (state.map.isFullscreen && !state.layerSelection.isEnabled) {
-                    return true;
-                } else if (state.page.name || state.search || state.dataSelection || state.layerSelection.isEnabled) {
-                    return false;
-                } else if (angular.isObject(state.detail)) {
-                    // Only print the map when detail is NOT fullscreen and has geometry
-                    return !state.detail.isFullscreen && angular.isObject(state.detail.geometry);
-                } else {
-                    return state.straatbeeld && !state.straatbeeld.isFullscreen;
-                }
+                return determineMapActivityPrint(state);
+            }
+        }
+
+        function determineMapActivityDefault (state) {
+            return state.map.isFullscreen ||
+                (
+                    !(state.detail && state.detail.isFullscreen) &&
+                    !(state.dataSelection && state.dataSelection.view !== 'LIST') &&
+                    !(state.straatbeeld && state.straatbeeld.isFullscreen)
+                );
+        }
+
+        function determineMapActivityPrint (state) {
+            if (state.map.isFullscreen && !state.layerSelection.isEnabled) {
+                return true;
+            } else if (state.page.name || state.search || state.dataSelection || state.layerSelection.isEnabled) {
+                return false;
+            } else if (angular.isObject(state.detail)) {
+                // Only print the map when detail is NOT fullscreen and has geometry
+                return !state.detail.isFullscreen && angular.isObject(state.detail.geometry);
+            } else {
+                return state.straatbeeld && !state.straatbeeld.isFullscreen;
             }
         }
 

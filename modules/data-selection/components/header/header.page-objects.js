@@ -1,6 +1,7 @@
 'use strict';
 
-const toggleViewButton = dp.require('modules/data-selection/components/header/toggle-view-button/toggle-view-button.page-objects');
+const toggleViewButton =
+    dp.require('modules/data-selection/components/header/toggle-view-button/toggle-view-button.page-objects');
 
 module.exports = function (headerElement) {
     return {
