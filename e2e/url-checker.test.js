@@ -4,7 +4,7 @@ const availableStates = require('./helpers/available-states');
 
 let page;
 
-fdescribe('each URL should load the corresponding view', function () {
+describe('each URL should load the corresponding view', function () {
     it('DATA-SELECTION--CARDS', () => {
         page = dp.navigate('DATA-SELECTION--CARDS');
 
