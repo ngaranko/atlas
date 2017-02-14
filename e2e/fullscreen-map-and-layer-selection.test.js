@@ -13,7 +13,6 @@ describe('The fullscreen map (or map w/ layerSelection) remembers how you got th
         dp.validate('MAP_STRAATBEELD--SEARCH-RESULTS', page);
     });
 
-
     it('remembers the active page', () => {
         page = dp.navigate('MAP_PAGE--HOME');
 
