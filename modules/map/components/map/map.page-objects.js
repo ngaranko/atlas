@@ -14,6 +14,15 @@ module.exports = function (mapElement) {
         },
         get toggleFullscreen () {
             return toggleFullscreenPO(mapElement.element(by.css('dp-toggle-fullscreen')));
+        },
+        get hasGeometry () {
+            const hasPoint = mapElement.element(by.css('.leaflet-marker-icon')).isPresent();
+            const hasPolygon = mapElement.element(by.css('.leaflet-overlay-pane path.leaflet-interactive')).isPresent();
+
+            return hasPoint || hasPolygon;
+        },
+        get hasPuntenwolk () {
+            return mapElement.all(by.css('.o-highlight-cluster')).count().then(numberOfMarkers => numberOfMarkers > 0);
         }
     };
 };
