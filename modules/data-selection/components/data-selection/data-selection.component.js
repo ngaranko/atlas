@@ -43,6 +43,27 @@
             ];
         }, fetchData, true);
 
+        $scope.$watchGroup(['vm.state.query', 'vm.numberOfRecords'], () => {
+            setTabs(vm.state.query);
+        });
+
+        function setTabs (query) {
+            vm.tabs = [
+                {
+                    title: 'Data',
+                    type: 'FETCH_SEARCH_RESULTS_BY_QUERY',
+                    payload: query
+                },
+                {
+                    isActive: true,
+                    title: 'Datasets',
+                    count: vm.numberOfRecords,
+                    type: 'FETCH_DATA_SELECTION',
+                    payload: {dataset: 'catalogus', view: 'CARDS', query, filters: {}, page: 1}
+                }
+            ];
+        }
+
         function fetchData () {
             let isListView = vm.state.view === 'LIST';
 

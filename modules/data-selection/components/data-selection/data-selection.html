@@ -24,6 +24,10 @@
     </p>
 </dp-panel>
 
+<dp-tab-header ng-if="vm.view === 'CARDS'"
+               title="Resultaten met &quot;{{vm.state.query}}&quot;"
+               tabs="vm.tabs"></dp-tab-header>
+
 <div class="u-grid">
     <div class="u-row">
         <div ng-if="vm.showFilters" class="u-col-sm--3">

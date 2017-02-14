@@ -55,6 +55,27 @@
             });
         };
 
+        $scope.$watchGroup(['vm.query', 'vm.numberOfResults'], () => {
+            setTabs(vm.query);
+        });
+
+        function setTabs (query) {
+            vm.tabs = [
+                {
+                    title: 'Data',
+                    isActive: true,
+                    count: vm.numberOfResults,
+                    type: 'FETCH_SEARCH_RESULTS_BY_QUERY',
+                    payload: query
+                },
+                {
+                    title: 'Datasets',
+                    type: 'FETCH_DATA_SELECTION',
+                    payload: {dataset: 'catalogus', view: 'CARDS', query, filters: {}, page: 1}
+                }
+            ];
+        }
+
         function searchByQuery (query, category) {
             let isQuery = angular.isString(query) && query.length;
             if (isQuery) {
