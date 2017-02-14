@@ -6,6 +6,8 @@ const toggleFullscreenPO = dp.require('modules/map/components/toggle-fullscreen/
 
 module.exports = function (mapElement) {
     return {
+        element: mapElement,
+        click: mapElement.element(by.css('.c-map__leaflet')).click,
         get visible () {
             return dp.visible(mapElement);
         },
