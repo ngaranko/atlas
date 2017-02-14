@@ -38,7 +38,7 @@
             visibility.httpStatus = httpStatus.getStatus().hasErrors;
             visibility.map = activity.map;
 
-            if (angular.isObject(state.dataSelection)) {
+            if (angular.isObject(state.dataSelection) && !state.map.isFullscreen) {
                 visibility.dataSelection = true;
 
                 visibility.layerSelection = !state.dataSelection.isFullscreen && state.layerSelection.isEnabled;
@@ -74,9 +74,12 @@
         function determineMapActivity (state) {
             if (!state.atlas.isPrintMode) {
                 // Non-print mode
-                return !(state.detail && state.detail.isFullscreen) &&
-                    !(state.dataSelection && state.dataSelection.view !== 'LIST') &&
-                    !(state.straatbeeld && state.straatbeeld.isFullscreen);
+                return state.map.isFullscreen ||
+                    (
+                        !(state.detail && state.detail.isFullscreen) &&
+                        !(state.dataSelection && state.dataSelection.view !== 'LIST') &&
+                        !(state.straatbeeld && state.straatbeeld.isFullscreen)
+                    );
             } else {
                 // Print mode
                 if (state.map.isFullscreen && !state.layerSelection.isEnabled) {
