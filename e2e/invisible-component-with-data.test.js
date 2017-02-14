@@ -19,32 +19,32 @@ describe('Invisible components should still load relevant data', () => {
         expect(page.dashboard.middleColumn.map.hasGeometry).toBe(true);
     });
 
-    fit('the puntenwolk of data selection should still be visible on the fullscreen map after a page refresh', () => {
+    it('the puntenwolk of data selection should still be visible on the fullscreen map after a page refresh', () => {
         page = dp.navigate('MAP_DATA-SELECTION');
-        expect(page.dashboard.middleColumn.map.hasPuntenwolk).toBe(true);
-
         // There is no puntenwolk yet because there are too many results (> MAX_NUMBER_OF_CLUSTERED_MARKERS)
-        // expect(page.dashboard.middleColumn.map.hasPuntenwolk).toBe(false);
+        expect(page.dashboard.middleColumn.map.hasPuntenwolk).toBe(false);
 
         // Switch to the TABLE view
         page.dashboard.rightColumn.dataSelection.header.toggleViewButton.click();
         dp.availableStates['DATA-SELECTION--TABLE'].validator(page);
 
         // Pick some filters to reduce the number of clustered markers
+        page.dashboard.rightColumn.dataSelection.availableFilters.categories(0).options(0).click();
+        page.dashboard.rightColumn.dataSelection.availableFilters.categories(1).options(0).click();
 
         // Switch back to LIST view
         page.dashboard.rightColumn.dataSelection.header.toggleViewButton.click();
         dp.availableStates['MAP_DATA-SELECTION'].validator(page);
+        expect(page.dashboard.middleColumn.map.hasPuntenwolk).toBe(true);
 
         // Make the map fullscreen
         page.dashboard.middleColumn.map.toggleFullscreen.click();
         dp.availableStates['MAP'].validator(page);
+        expect(page.dashboard.middleColumn.map.hasPuntenwolk).toBe(true);
 
         // Reload the page
-        /*
         browser.refresh();
         dp.availableStates['MAP'].validator(page);
         expect(page.dashboard.middleColumn.map.hasPuntenwolk).toBe(true);
-        */
     });
 });

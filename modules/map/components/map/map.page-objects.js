@@ -22,7 +22,7 @@ module.exports = function (mapElement) {
             return hasPoint || hasPolygon;
         },
         get hasPuntenwolk () {
-            return true;
+            return mapElement.all(by.css('.o-highlight-cluster')).count().then(numberOfMarkers => numberOfMarkers > 0);
         }
     };
 };

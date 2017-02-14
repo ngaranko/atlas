@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function (page) {
-    expect(page.title).toBe('Lijst Vestigingen - Atlas');
+    expect(page.title).toMatch(/^Lijst Vestigingen (.*)- Atlas$/);
 
     expect(page.dashboard.leftColumn.columnSize).toBe(0);
 
