@@ -1,8 +1,8 @@
 'use strict';
 
-let page;
-
 describe('each URL should load the corresponding view', function () {
+    let page;
+
     it('DATA-SELECTION--CARDS', () => {
         page = dp.navigate('DATA-SELECTION--CARDS');
 

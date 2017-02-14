@@ -1,8 +1,8 @@
 'use strict';
 
-let page;
-
 describe('Invisible components should still load relevant data', () => {
+    let page;
+
     it('the geometry of detail should be visible on a fullscreen map after a page refresh', () => {
         page = dp.navigate('MAP_DETAIL--NUMMERAANDUIDING');
         expect(page.dashboard.middleColumn.map.hasGeometry).toBe(true);
