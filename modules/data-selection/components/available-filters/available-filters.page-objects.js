@@ -28,6 +28,7 @@ function optionPageObject (optionElement) {
     return {
         get label () {
             return optionElement.element(by.css('.qa-option-label')).getText();
-        }
+        },
+        click: optionElement.element(by.css('button')).click
     };
 }
