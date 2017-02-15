@@ -108,7 +108,7 @@ describe('each URL should load the corresponding view', function () {
         dp.validate('MAP_SEARCH-RESULTS--LOCATION', page);
 
         expect(page.title)
-            .toMatch(/^\d+ resultaten met locatie 121332\.80, 487366\.72 \(52\.3731425, 4\.8928205\) - Atlas$/);
+            .toMatch(/^\d+ resultaten met locatie 121356\.94, 487341\.61 \(52\.3729183, 4\.8931775\) - Atlas$/);
 
         expect(searchResults.categories(0).header).toBe('Openbare ruimte');
         expect(searchResults.categories(0).list(0).link.label).toBe('Dam');
@@ -123,9 +123,9 @@ describe('each URL should load the corresponding view', function () {
         expect(searchResults.categories(2).list(1).subtype).toBe('(stadsdeel)');
         expect(searchResults.categories(2).list(2).link.label).toBe('Centrum-West');
         expect(searchResults.categories(2).list(2).subtype).toBe('(gebiedsgericht werken)');
-        expect(searchResults.categories(2).list(3).link.label).toBe('Burgwallen-Nieuwe Zijde');
+        expect(searchResults.categories(2).list(3).link.label).toBe('Burgwallen-Oude Zijde');
         expect(searchResults.categories(2).list(3).subtype).toBe('(buurtcombinatie)');
-        expect(searchResults.categories(2).list(4).link.label).toBe('Nieuwe Kerk e.o.');
+        expect(searchResults.categories(2).list(4).link.label).toBe('Oude Kerk e.o.');
         expect(searchResults.categories(2).list(4).subtype).toBe('(buurt)');
     });
 
@@ -161,7 +161,7 @@ describe('each URL should load the corresponding view', function () {
 
         dp.validate('MAP_STRAATBEELD--DETAIL', page);
 
-        expect(page.title).toBe('Panorama 123357.48, 486232.84 (52.3630724, 4.9226576) - Atlas');
+        expect(page.title).toBe('Panorama 128708.98, 485100.65 (52.3531791, 5.0013100) - Atlas');
     });
 
     it('MAP_STRAATBEELD--SEARCH-RESULTS', () => {
@@ -169,7 +169,7 @@ describe('each URL should load the corresponding view', function () {
 
         dp.validate('MAP_STRAATBEELD--SEARCH-RESULTS', page);
 
-        expect(page.title).toBe('Panorama 123357.48, 486232.84 (52.3630724, 4.9226576) - Atlas');
+        expect(page.title).toBe('Panorama 121356.94, 487341.61 (52.3729183, 4.8931775) - Atlas');
     });
 
     it('STRAATBEELD--DETAIL', () => {
@@ -177,7 +177,7 @@ describe('each URL should load the corresponding view', function () {
 
         dp.validate('STRAATBEELD--DETAIL', page);
 
-        expect(page.title).toBe('Panorama 123357.48, 486232.84 (52.3630724, 4.9226576) - Atlas');
+        expect(page.title).toBe('Panorama 128708.98, 485100.65 (52.3531791, 5.0013100) - Atlas');
     });
 
     it('STRAATBEELD--SEARCH-RESULTS', () => {
@@ -185,6 +185,6 @@ describe('each URL should load the corresponding view', function () {
 
         dp.validate('STRAATBEELD--SEARCH-RESULTS', page);
 
-        expect(page.title).toBe('Panorama 123357.48, 486232.84 (52.3630724, 4.9226576) - Atlas');
+        expect(page.title).toBe('Panorama 121356.94, 487341.61 (52.3729183, 4.8931775) - Atlas');
     });
 });

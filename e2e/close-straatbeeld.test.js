@@ -1,39 +1,103 @@
-/*
-Actie: Ga naar straatbeeld via search results
-Controle: Ben ik bij straatbeeld (fullscreen)
+'use strict';
 
-Actie: Sluit straatbeeld
-Controle: Ben ik weer bij search results
+describe('Navigating to and away from straatbeeld', function () {
+    let page;
 
-===
+    afterEach(function () {
+        dp.storage.clearAll();
+    });
 
-Actie: Ga naar straatbeeld via detail
-Controle: Ben ik bij straatbeeld (fullscreen)
+    it('goes from search results back to the same search results', function () {
+        // Open search results (search by location)
+        page = dp.navigate('MAP_SEARCH-RESULTS--LOCATION');
+        const titleBefore = page.title;
 
-Actie: Sluit straatbeeld
-Controle: Ben ik weer bij dezelfde detailpagina
+        // Open straatbeeld by clicking on the thumbnail
+        page.dashboard.rightColumn.searchResults.straatbeeldThumbnail.link.click();
+        dp.validate('STRAATBEELD--SEARCH-RESULTS', page);
 
-===
+        // Close straatbeeld by clicking the close button
+        // We should be back at the same search results
+        page.dashboard.rightColumn.straatbeeld.close.click();
+        dp.validate('MAP_SEARCH-RESULTS--LOCATION', page);
 
-Actie: Ga naar straatbeeld via detail
-Controle: Ben ik bij straatbeeld (fullscreen)
+        const titleAfter = page.title;
+        expect(titleAfter).toBe(titleBefore);
+    });
 
-Actie: Klik op de kaart
-Controle: Ben ik nog steeds bij straatbeeld (fullscreen)
-Controle: Is er een nieuwe panorama ingeladen
+    it('goes from a detail page back to the same detail page', function () {
+        // Open a detail page
+        page = dp.navigate('MAP_DETAIL--NUMMERAANDUIDING');
+        const titleBefore = page.title;
 
-Actie: Sluit straatbeeld
-Controle: Ben ik nu bij zoekresultaten (i.p.v. detail)
+        // Open straatbeeld by clicking on the thumbnail
+        page.dashboard.rightColumn.detail.straatbeeldThumbnail.link.click();
+        dp.validate('STRAATBEELD--DETAIL', page);
 
-===
+        // Close straatbeeld by clicking the close button
+        // We should be back at the same detail page
+        page.dashboard.rightColumn.straatbeeld.close.click();
+        dp.validate('MAP_DETAIL--NUMMERAANDUIDING', page);
 
- Actie: Ga naar straatbeeld via detail
- Controle: Ben ik bij straatbeeld (fullscreen)
+        const titleAfter = page.title;
+        expect(titleAfter).toBe(titleBefore);
+    });
 
- Actie: navigeer via hotspot
- Controle: Ben ik nog steeds bij straatbeeld (fullscreen)
- Controle: Is er een nieuwe panorama ingeladen
+    describe('clicking on the map when in straatbeeld', function () {
+        it('goes from search results back to different search results', function () {
+            // Open search results (search by location)
+            page = dp.navigate('MAP_SEARCH-RESULTS--LOCATION');
+            const titleBefore = page.title;
 
- Actie: Sluit straatbeeld
- Controle: Ben ik weer bij dezelfde detailpagina (en dus niet bij zoekresultaten)
-*/
+            // Open straatbeeld by clicking on the thumbnail
+            page.dashboard.rightColumn.searchResults.straatbeeldThumbnail.link.click();
+            dp.validate('STRAATBEELD--SEARCH-RESULTS', page);
+
+            // Open the map
+            page.dashboard.rightColumn.straatbeeld.toggleStraatbeeldFullscreen.click();
+            dp.validate('MAP_STRAATBEELD--DETAIL', page);
+
+            // Click on the map (the straatbeeld coordinates should change)
+            const coordinatesBefore = page.dashboard.rightColumn.straatbeeld.metadata.coordinates;
+            page.dashboard.middleColumn.map.click(100, 100);
+            const coordinatesAfter = page.dashboard.rightColumn.straatbeeld.metadata.coordinates;
+
+            dp.validate('MAP_STRAATBEELD--DETAIL', page);
+            expect(coordinatesAfter).not.toBe(coordinatesBefore);
+
+            // Close straatbeeld by clicking the close button
+            // We should be back at different search results
+            page.dashboard.rightColumn.straatbeeld.close.click();
+            dp.validate('MAP_SEARCH-RESULTS--LOCATION', page);
+
+            const titleAfter = page.title;
+            expect(titleAfter).not.toBe(titleBefore);
+        });
+
+        it('goes from a detail page back to search results', function () {
+            // Open a detail page
+            page = dp.navigate('MAP_DETAIL--NUMMERAANDUIDING');
+
+            // Open straatbeeld by clicking on the thumbnail
+            page.dashboard.rightColumn.detail.straatbeeldThumbnail.link.click();
+            dp.validate('STRAATBEELD--DETAIL', page);
+
+            // Open the map
+            page.dashboard.rightColumn.straatbeeld.toggleStraatbeeldFullscreen.click();
+            dp.validate('MAP_STRAATBEELD--DETAIL', page);
+
+            // Click on the map (the straatbeeld coordinates should change)
+            const coordinatesBefore = page.dashboard.rightColumn.straatbeeld.metadata.coordinates;
+            page.dashboard.middleColumn.map.click(100, 100);
+            const coordinatesAfter = page.dashboard.rightColumn.straatbeeld.metadata.coordinates;
+
+            dp.validate('MAP_STRAATBEELD--DETAIL', page);
+            expect(coordinatesAfter).not.toBe(coordinatesBefore);
+
+            // Close straatbeeld by clicking the close button
+            // We should be redirected to search results now
+            page.dashboard.rightColumn.straatbeeld.close.click();
+            dp.validate('MAP_SEARCH-RESULTS--LOCATION', page);
+        });
+    });
+});
