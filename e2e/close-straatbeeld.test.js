@@ -2,7 +2,7 @@
 
 const validator = require('./validators/validator');
 
-fdescribe('Navigating to and away from straatbeeld', function () {
+describe('Navigating to and away from straatbeeld', function () {
     let page;
 
     it('goes from search results back to the same search results', function () {
