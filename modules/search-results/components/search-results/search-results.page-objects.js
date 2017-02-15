@@ -1,12 +1,18 @@
 'use strict';
 
-const searchResultsList =
-    dp.require('modules/search-results/components/search-results/list/search-results-list.page-objects');
+const
+    searchResultsList = dp.require(
+        'modules/search-results/components/search-results/list/search-results-list.page-objects'),
+    straatbeeldThumbnail = dp.require(
+        'modules/shared/components/straatbeeld-thumbnail/straatbeeld-thumbnail.page-objects');
 
 module.exports = function (searchResultsElement) {
     return {
         get visible () {
             return dp.visible(searchResultsElement);
+        },
+        get straatbeeldThumbnail () {
+            return straatbeeldThumbnail(searchResultsElement.element(by.css('dp-straatbeeld-thumbnail')));
         },
         categories: function (index) {
             return categoryPageObject(

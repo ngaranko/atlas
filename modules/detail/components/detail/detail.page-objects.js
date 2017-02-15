@@ -1,8 +1,11 @@
 'use strict';
 
-const glossaryHeader = dp.require('modules/detail/components/glossary/header/glossary-header.page-objects');
-const nummeraanduidingHeader =
-    dp.require('modules/detail/components/nummeraanduiding-header/nummeraanduiding-header.page-objects');
+const
+    glossaryHeader = dp.require('modules/detail/components/glossary/header/glossary-header.page-objects'),
+    nummeraanduidingHeader = dp.require(
+        'modules/detail/components/nummeraanduiding-header/nummeraanduiding-header.page-objects'),
+    straatbeeldThumbnail = dp.require(
+        'modules/shared/components/straatbeeld-thumbnail/straatbeeld-thumbnail.page-objects');
 
 module.exports = function (detailElement) {
     return {
@@ -11,6 +14,9 @@ module.exports = function (detailElement) {
         },
         get nummeraanduiding () {
             return groupedDataPageObject(detailElement.element(by.css('.qa-nummeraanduiding')));
+        },
+        get straatbeeldThumbnail () {
+            return straatbeeldThumbnail(detailElement.element(by.css('dp-straatbeeld-thumbnail')));
         },
         get verblijfsobject () {
             return groupedDataPageObject(detailElement.element(by.css('.qa-verblijfsobject')));
