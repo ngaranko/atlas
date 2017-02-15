@@ -66,10 +66,9 @@ describe('Navigating forwards and backwards through history at straatbeeld', fun
             const mapStraatbeeldTitle = page.title;
 
             // Click on the map (the straatbeeld coordinates should change)
-            const coordinates = page.dashboard.rightColumn.straatbeeld.metadata.coordinates;
             page.dashboard.middleColumn.map.click(100, 100);
             dp.validate('MAP_STRAATBEELD--SEARCH-RESULTS', page);
-            expect(page.dashboard.rightColumn.straatbeeld.metadata.coordinates).not.toBe(coordinates);
+            expect(page.title).not.toBe(mapStraatbeeldTitle);
 
             // Go backwards to previous location (map still open)
             browser.navigate().back();
@@ -103,10 +102,9 @@ describe('Navigating forwards and backwards through history at straatbeeld', fun
             const mapStraatbeeldTitle = page.title;
 
             // Click on the map (the straatbeeld coordinates should change)
-            const coordinates = page.dashboard.rightColumn.straatbeeld.metadata.coordinates;
             page.dashboard.middleColumn.map.click(100, 100);
             dp.validate('MAP_STRAATBEELD--SEARCH-RESULTS', page);
-            expect(page.dashboard.rightColumn.straatbeeld.metadata.coordinates).not.toBe(coordinates);
+            expect(page.title).not.toBe(mapStraatbeeldTitle);
 
             // Go backwards to previous location (map still open)
             browser.navigate().back();
@@ -129,7 +127,7 @@ describe('Navigating forwards and backwards through history at straatbeeld', fun
         // Open straatbeeld
         page = dp.navigate('STRAATBEELD--SEARCH-RESULTS');
         dp.validate('STRAATBEELD--SEARCH-RESULTS', page);
-        const coordinates = page.dashboard.rightColumn.straatbeeld.metadata.coordinates;
+        const title = page.title;
 
         // Open the map
         page.dashboard.rightColumn.straatbeeld.toggleStraatbeeldFullscreen.click();
@@ -142,6 +140,6 @@ describe('Navigating forwards and backwards through history at straatbeeld', fun
         // Click on the map (straatbeeld should open with different coordinates)
         page.dashboard.middleColumn.map.click(100, 100);
         dp.validate('MAP_STRAATBEELD--SEARCH-RESULTS', page);
-        expect(page.dashboard.rightColumn.straatbeeld.metadata.coordinates).not.toBe(coordinates);
+        expect(page.title).not.toBe(title);
     });
 });

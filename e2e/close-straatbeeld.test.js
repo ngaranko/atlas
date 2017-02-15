@@ -10,7 +10,7 @@ describe('Navigating to and away from straatbeeld', function () {
     it('goes from search results back to the same search results', function () {
         // Open search results (search by location)
         page = dp.navigate('MAP_SEARCH-RESULTS--LOCATION');
-        const titleBefore = page.title;
+        const title = page.title;
 
         // Open straatbeeld by clicking on the thumbnail
         page.dashboard.rightColumn.searchResults.straatbeeldThumbnail.link.click();
@@ -21,14 +21,13 @@ describe('Navigating to and away from straatbeeld', function () {
         page.dashboard.rightColumn.straatbeeld.close.click();
         dp.validate('MAP_SEARCH-RESULTS--LOCATION', page);
 
-        const titleAfter = page.title;
-        expect(titleAfter).toBe(titleBefore);
+        expect(page.title).toBe(title);
     });
 
     it('goes from a detail page back to the same detail page', function () {
         // Open a detail page
         page = dp.navigate('MAP_DETAIL--NUMMERAANDUIDING');
-        const titleBefore = page.title;
+        const title = page.title;
 
         // Open straatbeeld by clicking on the thumbnail
         page.dashboard.rightColumn.detail.straatbeeldThumbnail.link.click();
@@ -39,15 +38,14 @@ describe('Navigating to and away from straatbeeld', function () {
         page.dashboard.rightColumn.straatbeeld.close.click();
         dp.validate('MAP_DETAIL--NUMMERAANDUIDING', page);
 
-        const titleAfter = page.title;
-        expect(titleAfter).toBe(titleBefore);
+        expect(page.title).toBe(title);
     });
 
     describe('clicking on the map when in straatbeeld', function () {
         it('goes from search results back to different search results', function () {
             // Open search results (search by location)
             page = dp.navigate('MAP_SEARCH-RESULTS--LOCATION');
-            const titleBefore = page.title;
+            const title = page.title;
 
             // Open straatbeeld by clicking on the thumbnail
             page.dashboard.rightColumn.searchResults.straatbeeldThumbnail.link.click();
@@ -56,22 +54,19 @@ describe('Navigating to and away from straatbeeld', function () {
             // Open the map
             page.dashboard.rightColumn.straatbeeld.toggleStraatbeeldFullscreen.click();
             dp.validate('MAP_STRAATBEELD--SEARCH-RESULTS', page);
+            const mapTitle = page.title;
 
             // Click on the map (the straatbeeld coordinates should change)
-            const coordinatesBefore = page.dashboard.rightColumn.straatbeeld.metadata.coordinates;
             page.dashboard.middleColumn.map.click(100, 100);
-            const coordinatesAfter = page.dashboard.rightColumn.straatbeeld.metadata.coordinates;
-
             dp.validate('MAP_STRAATBEELD--SEARCH-RESULTS', page);
-            expect(coordinatesAfter).not.toBe(coordinatesBefore);
+            expect(page.title).not.toBe(mapTitle);
 
             // Close straatbeeld by clicking the close button
             // We should be back at different search results
             page.dashboard.rightColumn.straatbeeld.close.click();
             dp.validate('MAP_SEARCH-RESULTS--LOCATION', page);
 
-            const titleAfter = page.title;
-            expect(titleAfter).not.toBe(titleBefore);
+            expect(page.title).not.toBe(title);
         });
 
         it('goes from a detail page back to search results', function () {
@@ -85,14 +80,12 @@ describe('Navigating to and away from straatbeeld', function () {
             // Open the map
             page.dashboard.rightColumn.straatbeeld.toggleStraatbeeldFullscreen.click();
             dp.validate('MAP_STRAATBEELD--DETAIL', page);
+            const mapTitle = page.title;
 
             // Click on the map (the straatbeeld coordinates should change)
-            const coordinatesBefore = page.dashboard.rightColumn.straatbeeld.metadata.coordinates;
             page.dashboard.middleColumn.map.click(100, 100);
-            const coordinatesAfter = page.dashboard.rightColumn.straatbeeld.metadata.coordinates;
-
             dp.validate('MAP_STRAATBEELD--SEARCH-RESULTS', page);
-            expect(coordinatesAfter).not.toBe(coordinatesBefore);
+            expect(page.title).not.toBe(mapTitle);
 
             // Close straatbeeld by clicking the close button
             // We should be redirected to search results now
