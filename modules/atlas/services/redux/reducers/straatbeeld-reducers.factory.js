@@ -10,7 +10,7 @@
     function straatbeeldReducersFactory (ACTIONS, straatbeeldConfig) {
         var reducers = {};
 
-        reducers[ACTIONS.FETCH_STRAATBEELD.id] = fetchStraatbeeldReducer;
+        reducers[ACTIONS.FETCH_STRAATBEELD_BY_ID.id] = fetchStraatbeeldByIdReducer;
         reducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION.id] = fetchStraatbeeldByLocationReducer;
         reducers[ACTIONS.STRAATBEELD_FULLSCREEN.id] = straatbeeldFullscreenReducer;
         reducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id] = showStraatbeeldReducer;
@@ -27,7 +27,7 @@
          *
          * @returns {Object} newState
          */
-        function fetchStraatbeeldReducer (oldState, payload) {
+        function fetchStraatbeeldByIdReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
             newState.straatbeeld = newState.straatbeeld || {};

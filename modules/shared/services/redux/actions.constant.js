@@ -102,8 +102,8 @@
                 id: 'SHOW_DETAIL'
             },
 
-            FETCH_STRAATBEELD: {
-                id: 'FETCH_STRAATBEELD',
+            FETCH_STRAATBEELD_BY_ID: {
+                id: 'FETCH_STRAATBEELD_BY_ID',
                 ignore: true
             },
             FETCH_STRAATBEELD_BY_LOCATION: {
