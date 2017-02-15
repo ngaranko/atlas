@@ -34,7 +34,7 @@ fdescribe('each URL should load the corresponding view', function () {
     it('DETAIL', () => {
         page = dp.navigate('DETAIL');
 
-        availableStates['DETAIL'].validator(page);
+        availableStates.DETAIL.validator(page);
     });
 
     it('LAYER-SELECTION_MAP', () => {
@@ -46,7 +46,7 @@ fdescribe('each URL should load the corresponding view', function () {
     it('MAP', () => {
         page = dp.navigate('MAP');
 
-        availableStates['MAP'].validator(page);
+        availableStates.MAP.validator(page);
     });
 
     it('MAP_DATA-SELECTION', () => {
