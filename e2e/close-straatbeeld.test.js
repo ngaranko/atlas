@@ -1,7 +1,5 @@
 'use strict';
 
-const validator = require('./validators/validator');
-
 describe('Navigating to and away from straatbeeld', function () {
     let page;
 
@@ -11,13 +9,13 @@ describe('Navigating to and away from straatbeeld', function () {
         const titleBefore = page.title;
 
         // Open straatbeeld by clicking on the thumbnail
-        page.dashboard.rightColumn.searchResults.straatbeeldThumbnail.click();
-        validator('STRAATBEELD--SEARCH-RESULTS', page);
+        page.dashboard.rightColumn.searchResults.straatbeeldThumbnail.link.click();
+        dp.validate('STRAATBEELD--SEARCH-RESULTS', page);
 
         // Close straatbeeld by clicking the close button
         // We should be back at the same search results
         page.dashboard.rightColumn.straatbeeld.close.click();
-        validator('MAP_SEARCH-RESULTS--LOCATION', page);
+        dp.validate('MAP_SEARCH-RESULTS--LOCATION', page);
 
         const titleAfter = page.title;
         expect(titleAfter).toBe(titleBefore);
@@ -29,13 +27,13 @@ describe('Navigating to and away from straatbeeld', function () {
         const titleBefore = page.title;
 
         // Open straatbeeld by clicking on the thumbnail
-        page.dashboard.rightColumn.detail.straatbeeldThumbnail.click();
-        validator('STRAATBEELD--DETAIL', page);
+        page.dashboard.rightColumn.detail.straatbeeldThumbnail.link.click();
+        dp.validate('STRAATBEELD--DETAIL', page);
 
         // Close straatbeeld by clicking the close button
         // We should be back at the same detail page
         page.dashboard.rightColumn.straatbeeld.close.click();
-        validator('MAP_DETAIL--NUMMERAANDUIDING', page);
+        dp.validate('MAP_DETAIL--NUMMERAANDUIDING', page);
 
         const titleAfter = page.title;
         expect(titleAfter).toBe(titleBefore);
@@ -48,12 +46,12 @@ describe('Navigating to and away from straatbeeld', function () {
             const titleBefore = page.title;
 
             // Open straatbeeld by clicking on the thumbnail
-            page.dashboard.rightColumn.searchResults.straatbeeldThumbnail.click();
-            validator('STRAATBEELD--SEARCH-RESULTS', page);
+            page.dashboard.rightColumn.searchResults.straatbeeldThumbnail.link.click();
+            dp.validate('STRAATBEELD--SEARCH-RESULTS', page);
 
             // Open the map
             page.dashboard.rightColumn.straatbeeld.toggleMap.click();
-            validator('MAP_STRAATBEELD--DETAIL', page);
+            dp.validate('MAP_STRAATBEELD--DETAIL', page);
 
             // Click on the map (the straatbeeld coordinates should change)
             const coordinatesBefore = page.dashboard.rightColumn.straatbeeld.metadata.coordinates;
@@ -63,13 +61,13 @@ describe('Navigating to and away from straatbeeld', function () {
                 perform();
             const coordinatesAfter = page.dashboard.rightColumn.straatbeeld.metadata.coordinates;
 
-            validator('MAP_STRAATBEELD--DETAIL', page);
+            dp.validate('MAP_STRAATBEELD--DETAIL', page);
             expect(coordinatesAfter).not.toBe(coordinatesBefore);
 
             // Close straatbeeld by clicking the close button
             // We should be back at the same search results
             page.dashboard.rightColumn.straatbeeld.close.click();
-            validator('MAP_SEARCH-RESULTS--LOCATION', page);
+            dp.validate('MAP_SEARCH-RESULTS--LOCATION', page);
 
             const titleAfter = page.title;
             expect(titleAfter).not.toBe(titleBefore);
@@ -80,12 +78,12 @@ describe('Navigating to and away from straatbeeld', function () {
             page = dp.navigate('MAP_DETAIL--NUMMERAANDUIDING');
 
             // Open straatbeeld by clicking on the thumbnail
-            page.dashboard.rightColumn.detail.straatbeeldThumbnail.click();
-            validator('STRAATBEELD--DETAIL', page);
+            page.dashboard.rightColumn.detail.straatbeeldThumbnail.link.click();
+            dp.validate('STRAATBEELD--DETAIL', page);
 
             // Open the map
             page.dashboard.rightColumn.straatbeeld.toggleMap.click();
-            validator('MAP_STRAATBEELD--DETAIL', page);
+            dp.validate('MAP_STRAATBEELD--DETAIL', page);
 
             // Click on the map (the straatbeeld coordinates should change)
             const coordinatesBefore = page.dashboard.rightColumn.straatbeeld.metadata.coordinates;
@@ -95,25 +93,25 @@ describe('Navigating to and away from straatbeeld', function () {
                 perform();
             const coordinatesAfter = page.dashboard.rightColumn.straatbeeld.metadata.coordinates;
 
-            validator('MAP_STRAATBEELD--DETAIL', page);
+            dp.validate('MAP_STRAATBEELD--DETAIL', page);
             expect(coordinatesAfter).not.toBe(coordinatesBefore);
 
             // Close straatbeeld by clicking the close button
             // We should be redirected to search results now
             page.dashboard.rightColumn.straatbeeld.close.click();
-            validator('MAP_SEARCH-RESULTS--LOCATION', page);
+            dp.validate('MAP_SEARCH-RESULTS--LOCATION', page);
         });
     });
 
-    describe('clicking on a hotspot when in straatbeeld', function () {
+    xdescribe('clicking on a hotspot when in straatbeeld', function () {
         it('goes from search results back to different search results', function () {
             // Open search results (search by location)
             page = dp.navigate('MAP_SEARCH-RESULTS--LOCATION');
             const titleBefore = page.title;
 
             // Open straatbeeld by clicking on the thumbnail
-            page.dashboard.rightColumn.searchResults.straatbeeldThumbnail.click();
-            validator('STRAATBEELD--SEARCH-RESULTS', page);
+            page.dashboard.rightColumn.searchResults.straatbeeldThumbnail.link.click();
+            dp.validate('STRAATBEELD--SEARCH-RESULTS', page);
 
             // Drag around to get the hotspots into view
             browser.actions().
@@ -127,13 +125,13 @@ describe('Navigating to and away from straatbeeld', function () {
             page.dashboard.rightColumn.straatbeeld.hotspots(5).click();
             const coordinatesAfter = page.dashboard.rightColumn.straatbeeld.metadata.coordinates;
 
-            validator('STRAATBEELD--SEARCH-RESULTS', page);
+            dp.validate('STRAATBEELD--SEARCH-RESULTS', page);
             expect(coordinatesAfter).not.toBe(coordinatesBefore);
 
             // Close straatbeeld by clicking the close button
             // We should be back at different search results
             page.dashboard.rightColumn.straatbeeld.close.click();
-            validator('MAP_SEARCH-RESULTS--LOCATION', page);
+            dp.validate('MAP_SEARCH-RESULTS--LOCATION', page);
 
             const titleAfter = page.title;
             expect(titleAfter).not.toBe(titleBefore);
@@ -144,8 +142,8 @@ describe('Navigating to and away from straatbeeld', function () {
             page = dp.navigate('MAP_DETAIL--NUMMERAANDUIDING');
 
             // Open straatbeeld by clicking on the thumbnail
-            page.dashboard.rightColumn.detail.straatbeeldThumbnail.click();
-            validator('STRAATBEELD--DETAIL', page);
+            page.dashboard.rightColumn.detail.straatbeeldThumbnail.link.click();
+            dp.validate('STRAATBEELD--DETAIL', page);
 
             // Drag around to get the hotspots into view
             browser.actions().
@@ -159,13 +157,13 @@ describe('Navigating to and away from straatbeeld', function () {
             page.dashboard.rightColumn.straatbeeld.hotspots(5).click();
             const coordinatesAfter = page.dashboard.rightColumn.straatbeeld.metadata.coordinates;
 
-            validator('STRAATBEELD--DETAIL', page);
+            dp.validate('STRAATBEELD--DETAIL', page);
             expect(coordinatesAfter).not.toBe(coordinatesBefore);
 
             // Close straatbeeld by clicking the close button
             // We should be back at the same detail page
             page.dashboard.rightColumn.straatbeeld.close.click();
-            validator('MAP_DETAIL--NUMMERAANDUIDING', page);
+            dp.validate('MAP_DETAIL--NUMMERAANDUIDING', page);
         });
     });
 });

@@ -11,7 +11,7 @@ module.exports = function (straatbeeldElement) {
     return {
         element: straatbeeldElement,
         get close () {
-            return link(straatbeeldElement.element(by.css('.qa-straatbeeld-close')));
+            return link(straatbeeldElement.element(by.css('.c-straatbeeld > dp-link')));
         },
         get visible () {
             return dp.visible(straatbeeldElement);
