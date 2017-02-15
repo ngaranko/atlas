@@ -3,7 +3,7 @@
 describe('Navigating to and away from straatbeeld', function () {
     let page;
 
-    afterEach(function () {
+    beforeEach(function () {
         dp.storage.clearAll();
     });
 
@@ -55,14 +55,14 @@ describe('Navigating to and away from straatbeeld', function () {
 
             // Open the map
             page.dashboard.rightColumn.straatbeeld.toggleStraatbeeldFullscreen.click();
-            dp.validate('MAP_STRAATBEELD--DETAIL', page);
+            dp.validate('MAP_STRAATBEELD--SEARCH-RESULTS', page);
 
             // Click on the map (the straatbeeld coordinates should change)
             const coordinatesBefore = page.dashboard.rightColumn.straatbeeld.metadata.coordinates;
             page.dashboard.middleColumn.map.click(100, 100);
             const coordinatesAfter = page.dashboard.rightColumn.straatbeeld.metadata.coordinates;
 
-            dp.validate('MAP_STRAATBEELD--DETAIL', page);
+            dp.validate('MAP_STRAATBEELD--SEARCH-RESULTS', page);
             expect(coordinatesAfter).not.toBe(coordinatesBefore);
 
             // Close straatbeeld by clicking the close button
@@ -91,7 +91,7 @@ describe('Navigating to and away from straatbeeld', function () {
             page.dashboard.middleColumn.map.click(100, 100);
             const coordinatesAfter = page.dashboard.rightColumn.straatbeeld.metadata.coordinates;
 
-            dp.validate('MAP_STRAATBEELD--DETAIL', page);
+            dp.validate('MAP_STRAATBEELD--SEARCH-RESULTS', page);
             expect(coordinatesAfter).not.toBe(coordinatesBefore);
 
             // Close straatbeeld by clicking the close button
