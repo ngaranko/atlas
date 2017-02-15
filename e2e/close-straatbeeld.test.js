@@ -55,10 +55,7 @@ describe('Navigating to and away from straatbeeld', function () {
 
             // Click on the map (the straatbeeld coordinates should change)
             const coordinatesBefore = page.dashboard.rightColumn.straatbeeld.metadata.coordinates;
-            browser.actions().
-                mouseMove(page.dashboard.middleColumn.map.element, {x: 100, y: 100}).
-                click().
-                perform();
+            page.dashboard.middleColumn.map.click(100, 100);
             const coordinatesAfter = page.dashboard.rightColumn.straatbeeld.metadata.coordinates;
 
             dp.validate('MAP_STRAATBEELD--DETAIL', page);
@@ -87,10 +84,7 @@ describe('Navigating to and away from straatbeeld', function () {
 
             // Click on the map (the straatbeeld coordinates should change)
             const coordinatesBefore = page.dashboard.rightColumn.straatbeeld.metadata.coordinates;
-            browser.actions().
-                mouseMove(page.dashboard.middleColumn.map.element, {x: 100, y: 100}).
-                click().
-                perform();
+            page.dashboard.middleColumn.map.click(100, 100);
             const coordinatesAfter = page.dashboard.rightColumn.straatbeeld.metadata.coordinates;
 
             dp.validate('MAP_STRAATBEELD--DETAIL', page);
