@@ -72,8 +72,6 @@
         }
 
         function determineMapActivity (state) {
-            // console.log;
-
             if (!state.atlas.isPrintMode) {
                 // Non-print mode
                 return !(state.page.name && !state.map.isFullscreen) &&
