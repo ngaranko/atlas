@@ -50,7 +50,7 @@ describe('Navigating forwards and backwards through history at straatbeeld', fun
     });
 
     describe('clicking on the map when in straatbeeld', function () {
-        fit('goes backwards to previous pano, to fullscreen, to search results', function () {
+        it('goes backwards to previous pano, to fullscreen, to search results', function () {
             // Open search results (search by location)
             page = dp.navigate('MAP_SEARCH-RESULTS--LOCATION');
             const searchResultsTitle = page.title;
