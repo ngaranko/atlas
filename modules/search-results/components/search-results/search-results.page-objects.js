@@ -1,9 +1,10 @@
 'use strict';
 
-const searchResultsList =
-    dp.require('modules/search-results/components/search-results/list/search-results-list.page-objects');
-const straatbeeldThumbnail =
-    dp.require('modules/shared/components/straatbeeld-thumbnail/straatbeeld-thumbnail.page-objects');
+const
+    searchResultsList = dp.require(
+        'modules/search-results/components/search-results/list/search-results-list.page-objects'),
+    straatbeeldThumbnail = dp.require(
+        'modules/shared/components/straatbeeld-thumbnail/straatbeeld-thumbnail.page-objects');
 
 module.exports = function (searchResultsElement) {
     return {

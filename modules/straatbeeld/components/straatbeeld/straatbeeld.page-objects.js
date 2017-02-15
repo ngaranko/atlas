@@ -8,6 +8,7 @@ const
 
 module.exports = function (straatbeeldElement) {
     return {
+        element: straatbeeldElement,
         get close () {
             return close(straatbeeldElement.element(by.css('.qa-straatbeeld-close')));
         },
