@@ -1,10 +1,11 @@
 'use strict';
 
-const glossaryHeader = dp.require('modules/detail/components/glossary/header/glossary-header.page-objects');
-const nummeraanduidingHeader =
-    dp.require('modules/detail/components/nummeraanduiding-header/nummeraanduiding-header.page-objects');
-const straatbeeldThumbnail =
-    dp.require('modules/shared/components/straatbeeld-thumbnail/straatbeeld-thumbnail.page-objects');
+const
+    glossaryHeader = dp.require('modules/detail/components/glossary/header/glossary-header.page-objects'),
+    nummeraanduidingHeader = dp.require(
+        'modules/detail/components/nummeraanduiding-header/nummeraanduiding-header.page-objects'),
+    straatbeeldThumbnail = dp.require(
+        'modules/shared/components/straatbeeld-thumbnail/straatbeeld-thumbnail.page-objects');
 
 module.exports = function (detailElement) {
     return {
