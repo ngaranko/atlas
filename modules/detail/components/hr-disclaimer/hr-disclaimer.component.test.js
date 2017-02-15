@@ -1,4 +1,4 @@
-describe('The dp-partial-select directive', function () {
+describe('The hr-disclaimer component', function () {
     var $compile,
         $rootScope;
 
