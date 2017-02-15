@@ -141,12 +141,12 @@
             accessToken = token;
 
             return $http({
-                method: 'POST',
-                url: API_CONFIG.REFRESH + 'refresh/',
+                method: 'GET',
+                url: API_CONFIG.REFRESH + 'auth/accesstoken',
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                data: $httpParamSerializer({ token: accessToken })
+                    'Content-Type': 'text/plain',
+                    'Authorization': 'Bearer ' + accessToken
+                }
             }).then(refreshSuccess, refreshError);
 
             function refreshSuccess (response) {
