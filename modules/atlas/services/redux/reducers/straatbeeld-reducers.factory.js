@@ -23,12 +23,12 @@
          * @description If the oldState had an active straatbeeld it will remember the heading.
          *
          * @param {Object} oldState
-         * @param {Object} payload - A straatbeeld ID (String)
+         * @param {Object} payload - {id: 'abc123', heading: 90}
          *
          * @returns {Object} newState
          */
         function fetchStraatbeeldByIdReducer (oldState, payload) {
-            var newState = angular.copy(oldState);
+            let newState = angular.copy(oldState);
 
             newState.straatbeeld = newState.straatbeeld || {};
             initializeStraatbeeld(newState.straatbeeld);
