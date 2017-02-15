@@ -117,9 +117,9 @@
                     isEnabled: false
                 },
                 map: {
-                    viewCenter: [52.3719, 4.9012],
+                    viewCenter: [52.3731081,4.8932945],
                     baseLayer: 'topografie',
-                    zoom: 9,
+                    zoom: 11,
                     overlays: [],
                     isFullscreen: false,
                     isLoading: false,
