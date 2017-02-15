@@ -493,6 +493,7 @@ describe('The dashboardColumns factory', function () {
 
     describe('when using a fullscreen map', function () {
         beforeEach(function () {
+            mockedState.dataSelection = {};
             mockedState.map.isFullscreen = true;
         });
 
