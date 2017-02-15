@@ -50,7 +50,7 @@ describe('Navigating to and away from straatbeeld', function () {
             dp.validate('STRAATBEELD--SEARCH-RESULTS', page);
 
             // Open the map
-            page.dashboard.rightColumn.straatbeeld.toggleMap.click();
+            page.dashboard.rightColumn.straatbeeld.toggleStraatbeeldFullscreen.click();
             dp.validate('MAP_STRAATBEELD--DETAIL', page);
 
             // Click on the map (the straatbeeld coordinates should change)
@@ -62,7 +62,7 @@ describe('Navigating to and away from straatbeeld', function () {
             expect(coordinatesAfter).not.toBe(coordinatesBefore);
 
             // Close straatbeeld by clicking the close button
-            // We should be back at the same search results
+            // We should be back at different search results
             page.dashboard.rightColumn.straatbeeld.close.click();
             dp.validate('MAP_SEARCH-RESULTS--LOCATION', page);
 
@@ -79,7 +79,7 @@ describe('Navigating to and away from straatbeeld', function () {
             dp.validate('STRAATBEELD--DETAIL', page);
 
             // Open the map
-            page.dashboard.rightColumn.straatbeeld.toggleMap.click();
+            page.dashboard.rightColumn.straatbeeld.toggleStraatbeeldFullscreen.click();
             dp.validate('MAP_STRAATBEELD--DETAIL', page);
 
             // Click on the map (the straatbeeld coordinates should change)
