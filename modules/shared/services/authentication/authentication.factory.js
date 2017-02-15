@@ -7,6 +7,7 @@
         .factory('authentication', authenticationFactory);
 
     authenticationFactory.$inject = [
+        '$rootScope',
         '$q',
         '$http',
         '$httpParamSerializer',
@@ -16,10 +17,12 @@
         '$window',
         '$location',
         'environment',
-        'AUTHENTICATION_SETTINGS'
+        'AUTHENTICATION_SETTINGS',
+        'applicationState'
     ];
 
     function authenticationFactory (
+        $rootScope,
         $q,
         $http,
         $httpParamSerializer,
@@ -29,15 +32,31 @@
         $window,
         $location,
         environment,
-        AUTHENTICATION_SETTINGS) {
+        AUTHENTICATION_SETTINGS,
+        applicationState) {
         let userState = {},
-            accessToken;
+            accessToken,
+            intervalDuration = 27000,
+            intervalPromise = null;
 
-        let intervalDuration = 27000;
-        let intervalPromise = null;
+        const state = applicationState.getStateUrlConverter().getDefaultState();
+        const defaultStateUrl = applicationState.getStateUrlConverter().state2url(state);
 
-
-
+        let unwatch = $rootScope.$watch(function () {
+            return $location.search();
+        }, function () {
+            // Fetch authentication token
+            if (angular.isDefined($location.search().rid)) {
+                fetchToken(userSettings.token.value);
+            } else {
+                $rootScope.$applyAsync(function() {
+                    if (angular.isDefined(userSettings.token.value)) {
+                        refreshToken(userSettings.token.value);
+                    }
+                });
+            }
+        });
+        $rootScope.$on('$destroy', unwatch);
         return {
             authenticate: authenticate,
             fetchToken: fetchToken,
@@ -47,9 +66,10 @@
         };
 
         function authenticate () {
-
-            // callback fails when there is no hash in de callbackUrl. Add one if needed.
-            const hashPart = ($window.location.hash.length > 0) ? $window.location.hash : '#';
+            // SIAM needs a callback url to be able to redirect back to the place you initiated the login from
+            // The callback fails when there is no hash in the URL. So we need to add one, and recreate the default url
+            // from the state.
+            const hashPart = ($window.location.hash.length > 0) ? $window.location.hash : defaultStateUrl;
 
             const callbackUrl = encodeURIComponent(AUTHENTICATION_SETTINGS[environment.NAME].ENDPOINT + hashPart);
             const authenticationUrl = API_CONFIG.AUTH + '/authenticate?callback=' + callbackUrl +
@@ -76,8 +96,7 @@
                         'Content-Type': 'text/plain'
                     },
                     params: data
-                }).then(fetchSuccess, fetchError);
-
+                }).then(fetchSuccess, fetchError).finally(clearLocation);
             }
 
             function fetchSuccess (response) {
@@ -86,11 +105,11 @@
                 userState.isLoggedIn = true;
                 accessToken = response.data;
 
-                intervalPromise = $timeout(refreshToken, intervalDuration);
+                intervalPromise = $timeout(refreshToken(response.data), intervalDuration);
             }
 
             function fetchError (response) {
-                var q = $q.defer();
+                let q = $q.defer();
 
                 switch (response.status) {
                     case 400:
@@ -112,16 +131,20 @@
 
                 return q.promise;
             }
+
+            function clearLocation () {
+                // URL Needs to be sanitized
+            }
         }
 
         function refreshToken (token) {
             accessToken = token;
 
             return $http({
-                method: 'POST',
+                method: 'GET',
                 url: API_CONFIG.REFRESH + 'refresh/',
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
+                    Accept: 'text/plain'
                 },
                 data: $httpParamSerializer({ token: accessToken })
             }).then(refreshSuccess, refreshError);
@@ -131,8 +154,6 @@
                 userSettings.token.value = userState.accessToken;
                 accessToken = response.data.token;
                 userState.isLoggedIn = true;
-
-                intervalPromise = $timeout(refreshToken, intervalDuration);
             }
 
             function refreshError (response) {
@@ -140,8 +161,12 @@
 
                 switch (response.status) {
                     case 400:
-                        logOut();
-                        q.reject('Verplichte parameter is niet aanwezig')
+                        if (angular.isDefined(response.data.non_field_errors[0])) {
+                            if (response.data.non_field_errors[0] === 'Signature has expired.') {
+                                logOut();
+                            }
+                        }
+                        q.reject('Verplichte parameter is niet aanwezig');
                         break;
                     case 404:
                         q.reject('Er is iets mis met de inlog server, probeer het later nog eens.');

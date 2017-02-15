@@ -25,16 +25,5 @@
         vm.isAuthenticated = function () {
             return authentication.getStatus().isLoggedIn;
         };
-
-        // Fetch authentication token
-        if (angular.isDefined($location.search().rid)) {
-            authentication.fetchToken(userSettings.token.value);
-        } else {
-            scope.$applyAsync(function() {
-                if (angular.isDefined(userSettings.token.value)) {
-                    authentication.refreshToken(userSettings.token.value);
-                }
-            });
-        }
     }
 })();

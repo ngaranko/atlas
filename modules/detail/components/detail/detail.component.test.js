@@ -3,7 +3,7 @@ describe('the dp-detail component', function () {
         $rootScope,
         $q,
         store,
-        user,
+        authentication,
         ACTIONS,
         mockedGeometryPoint = {type: 'Point', coordinates: 'FAKE_NUMMERAANDUIDING_POINT'},
         mockedGeometryMultiPolygon = {type: 'MultiPolygon', coordinates: 'FAKE_KADASTRAAL_OBJECT_MULTIPOLYGON'};
@@ -125,7 +125,7 @@ describe('the dp-detail component', function () {
         angular.mock.module(
             'dpShared',
             {
-                user: {
+                authentication: {
                     isLoggedIn: false,
                     getStatus: function () {
                         return {
@@ -142,7 +142,7 @@ describe('the dp-detail component', function () {
             _$q_,
             _store_,
             _ACTIONS_,
-            _user_,
+            _authentication_,
             _api_,
             _endpointParser_,
             _geometry_) {
@@ -151,7 +151,7 @@ describe('the dp-detail component', function () {
             $q = _$q_;
             store = _store_;
             ACTIONS = _ACTIONS_;
-            user = _user_;
+            authentication = _authentication_;
         });
 
         spyOn(store, 'dispatch');
@@ -347,7 +347,7 @@ describe('the dp-detail component', function () {
         var component,
             scope;
 
-        user.isLoggedIn = false;
+        authentication.isLoggedIn = false;
 
         component = getComponent('http://www.fake-endpoint.com/brk/subject/123/');
         scope = component.isolateScope();
@@ -363,7 +363,7 @@ describe('the dp-detail component', function () {
         var component,
             scope;
 
-        user.isLoggedIn = true;
+        authentication.isLoggedIn = true;
 
         component = getComponent('http://www.fake-endpoint.com/brk/subject/123/');
         scope = component.isolateScope();
@@ -374,7 +374,7 @@ describe('the dp-detail component', function () {
         scope.$apply();
         expect(scope.vm.isMoreInfoAvailable).toBe(false);
 
-        user.isLoggedIn = false;
+        authentication.isLoggedIn = false;
         scope.$apply();
         expect(scope.vm.isMoreInfoAvailable).toBe(false);
     });

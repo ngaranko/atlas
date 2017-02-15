@@ -10,7 +10,7 @@ describe('The api factory', function () {
         angular.mock.module(
             'dpShared',
             {
-                user: {
+                authentication: {
                     getStatus: function () {
                         if (isLoggedIn) {
                             return {
@@ -109,7 +109,7 @@ describe('The api factory', function () {
         expect(returnValue).toEqual(mockedApiData);
     });
 
-    it('adds an Authorization header if the user is logged in', function () {
+    fit('adds an Authorization header if the user is logged in', function () {
         // Not logged in
         isLoggedIn = false;
 
@@ -131,3 +131,4 @@ describe('The api factory', function () {
         $httpBackend.flush();
     });
 });
+
