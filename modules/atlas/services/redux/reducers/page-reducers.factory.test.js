@@ -40,10 +40,10 @@ describe('The pageReducers factory', function () {
         var output;
 
         it('sets page name', function () {
-            output = pageReducers.SHOW_PAGE(mockedState, 'welcome');
+            output = pageReducers.SHOW_PAGE(mockedState, {name: 'welcome'});
             expect(output.page.name).toBe('welcome');
 
-            output = pageReducers.SHOW_PAGE(mockedState, 'goodbye');
+            output = pageReducers.SHOW_PAGE(mockedState, {name: 'goodbye'});
             expect(output.page.name).toBe('goodbye');
         });
 
@@ -70,7 +70,7 @@ describe('The pageReducers factory', function () {
                 some: 'object'
             };
 
-            output = pageReducers.SHOW_PAGE(mockedState, 'goodbye');
+            output = pageReducers.SHOW_PAGE(mockedState, {name: 'goodbye'});
 
             expect(output.search).toBeNull();
             expect(output.layerSelection.isEnabled).toBe(false);
@@ -82,7 +82,7 @@ describe('The pageReducers factory', function () {
         it('disables the full screen mode of the map', function () {
             mockedState.map.isFullscreen = true;
 
-            output = pageReducers.SHOW_PAGE(mockedState, 'goodbye');
+            output = pageReducers.SHOW_PAGE(mockedState, {name: 'goodbye'});
             expect(output.map.isFullscreen).toBe(false);
         });
     });

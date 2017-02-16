@@ -209,7 +209,6 @@ describe('The draw tool factory', function () {
             nVertices = 3;
 
             spyOn(L.GeometryUtil, 'readableArea').and.returnValue(1);
-            spyOn(L.GeometryUtil, 'readableDistance').and.returnValue(1);
             spyOn(L.GeometryUtil, 'geodesicArea').and.returnValue(1);
 
             vertices = testMarkers.map(([lat, lng], i) => {
@@ -281,6 +280,10 @@ describe('The draw tool factory', function () {
 
         let shapeClickHandler = {};
 
+        let onHandler = {
+            finish: angular.noop
+        };
+
         let layer = {
             on: (event, handler) => shapeClickHandler[event] = handler,
             off: angular.noop,
@@ -302,7 +305,9 @@ describe('The draw tool factory', function () {
         }
 
         beforeEach(function () {
-            drawTool.initialize(leafletMap);
+            spyOn(onHandler, 'finish');
+
+            drawTool.initialize(leafletMap, onHandler.finish);
         });
 
         it('Can add a vertex', function () {
@@ -314,7 +319,6 @@ describe('The draw tool factory', function () {
         });
 
         it('Can build a polygon', function () {
-            drawTool.initialize(leafletMap);
             buildPolygon();
 
             expect(drawTool.shape.markers).toEqual(testMarkers.slice(0, nVertices));
@@ -378,7 +382,7 @@ describe('The draw tool factory', function () {
             vertices[0]._latlng.distanceTo = () => 1000;
             vertices[1]._latlng.distanceTo = () => 0;
             vertices[2]._latlng.distanceTo = () => 0;
-            drawTool.initialize(leafletMap);
+
             buildPolygon();
 
             fireEvent('draw:created', {layer});
@@ -519,15 +523,33 @@ describe('The draw tool factory', function () {
             expect(drawTool.isEnabled()).toBe(true);
         });
 
-        it('click on map while finished drawing polygon deletes polygon', function () {
+        it('click on map while finished drawing polygon deletes polygon and calls onFinish method', function () {
             createPolygon();
 
             drawShapeHandler._markers = []; // edit mode, no markers in draw mode
+
+            expect(drawTool.isEnabled()).toBe(false);
+            expect(drawTool.shape.markers.length).toBe(3);
 
             fireEvent('click');
 
             expect(drawTool.isEnabled()).toBe(false);
             expect(drawTool.shape.markers.length).toBe(0);
+            expect(onHandler.finish).toHaveBeenCalledWith({
+                type: null,
+                markers: [],
+                markersMaxCount: DRAW_TOOL_CONFIG.MAX_MARKERS,
+                area: 0,
+                areaTxt: 1, // testoutput from readableArea
+                distance: 0,
+                distanceTxt: '0,0 m'
+            });
+        });
+
+        it('click on map when no polygon exists and not in EDIT/DRAW mode does not call onFinish method', function () {
+            fireEvent('click');
+
+            expect(onHandler.finish).not.toHaveBeenCalled();
         });
 
         it('click on map while editing polygon ends edit mode', function () {
@@ -536,10 +558,21 @@ describe('The draw tool factory', function () {
             drawTool.enable();
             fireEvent('draw:editstart');
 
+            expect(drawTool.isEnabled()).toBe(true);
+
             fireEvent('click');
 
             expect(drawTool.isEnabled()).toBe(false);
             expect(drawTool.shape.markers.length).toBe(nVertices);
+            expect(onHandler.finish).toHaveBeenCalledWith({
+                type: null,
+                markers: [[4, 50], [4, 51], [3, 51]],
+                markersMaxCount: DRAW_TOOL_CONFIG.MAX_MARKERS,
+                area: 1,
+                areaTxt: 1,
+                distance: 1200,
+                distanceTxt: '1,20 km'
+            });
         });
     });
 
