@@ -37,6 +37,22 @@ describe('The map reducers', function () {
         });
     });
 
+    describe('SHOW_MAP', () => {
+        it('makes the map fullscreen', () => {
+            const inputState = angular.copy(DEFAULT_STATE);
+            const output = mapReducers[ACTIONS.SHOW_MAP.id](inputState);
+
+            expect(output.map.isFullscreen).toBe(true);
+        });
+
+        it('opens layerSelection', () => {
+            const inputState = angular.copy(DEFAULT_STATE);
+            const output = mapReducers[ACTIONS.SHOW_MAP.id](inputState);
+
+            expect(output.layerSelection.isEnabled).toBe(true);
+        });
+    });
+
     describe('MAP_SET_BASELAYER', function () {
         it('changes the baseLayer', function () {
             var inputState = angular.copy(DEFAULT_STATE),

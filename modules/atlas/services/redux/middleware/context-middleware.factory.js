@@ -14,7 +14,7 @@
                     // Straatbeeld and detail can both exist in an invisible state
                     // An invisible straatbeeld or detail determines the meaning of some events
                     // These events are thus context sensitive and therefore handled by this middleware
-                    let { straatbeeld, detail } = store.getState();
+                    let { straatbeeld, detail, page } = store.getState();
 
                     if (action.type.id === ACTIONS.MAP_CLICK.id) {
                         if (angular.isObject(straatbeeld)) {
@@ -31,6 +31,9 @@
                             // Close of straatbeeld reopens the original detail page if available
                             action.type = ACTIONS.FETCH_DETAIL;
                             action.payload = detail.endpoint;
+                        } else if (angular.isObject(page) && angular.isString(page.name)) {
+                            action.type = ACTIONS.SHOW_PAGE;
+                            action.payload = page.name;
                         } else {
                             // The default action is to show the search results at the location
                             action.type = ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION;

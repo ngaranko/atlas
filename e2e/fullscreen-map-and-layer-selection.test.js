@@ -16,7 +16,10 @@ describe('The fullscreen map (or map w/ layerSelection) remembers how you got th
     });
 
     it('remembers the active page', () => {
-        page = dp.navigate('MAP_PAGE--HOME');
+        page = dp.navigate('PAGE--HOME');
+
+        // Open the map
+        page.dashboard.rightColumn.page.homepage.map.click();
 
         // Make the map fullscreen
         page.dashboard.middleColumn.map.toggleFullscreen.click();
@@ -32,7 +35,7 @@ describe('The fullscreen map (or map w/ layerSelection) remembers how you got th
 
         // Close the fullscreen map, return to the homepage
         page.dashboard.middleColumn.map.toggleFullscreen.click();
-        dp.validate('MAP_PAGE--HOME', page);
+        dp.validate('PAGE--HOME', page);
     });
 
     it('remembers the active detail page when opening and closing layer selection', () => {

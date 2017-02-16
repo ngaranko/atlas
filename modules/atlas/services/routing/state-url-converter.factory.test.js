@@ -17,8 +17,8 @@ describe('The state url conversion factory', function () {
                 map: {
                     baseLayer: 'topografie',
                     overlays: [],
-                    viewCenter: [52.3719, 4.9012],
-                    zoom: 9,
+                    viewCenter: [52.3731081, 4.8932945],
+                    zoom: 11,
                     showActiveOverlays: false,
                     isFullscreen: false,
                     isLoading: false,
