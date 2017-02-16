@@ -20,7 +20,10 @@
 
         <!-- Body -->
         <div class="c-dashboard__body"
-             ng-class="{ 'c-dashboard__body--error': vm.visibility.httpStatus }">
+             ng-class="{
+                 'c-dashboard__body--home': vm.isHomePage,
+                 'c-dashboard__body--error': vm.visibility.httpStatus
+             }">
             <div class="u-grid">
 
                 <!-- Error message -->

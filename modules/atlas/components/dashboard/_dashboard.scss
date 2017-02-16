@@ -44,7 +44,6 @@ $dashboard-error-height: $button-size + 2 * $base-whitespace;
 .c-dashboard__body {
   position: relative;
   height: calc(100% - #{$dashboard-heading-height});
-  padding-left: $base-whitespace * 2;
   z-index: 1;
   overflow-y: hidden;
 
@@ -52,6 +51,11 @@ $dashboard-error-height: $button-size + 2 * $base-whitespace;
   .u-row {
     @extend %full-height;
   }
+}
+
+.c-dashboard__body--home {
+  padding-right: $base-whitespace * 4.2;
+  padding-left: $base-whitespace * 4.2;
 }
 
 .c-dashboard__body--error {
