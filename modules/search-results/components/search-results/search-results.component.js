@@ -77,7 +77,7 @@
         }
 
         function searchByQuery (query, category) {
-            let isQuery = angular.isString(query) && query.length;
+            let isQuery = angular.isString(query);
             if (isQuery) {
                 if (angular.isString(category) && category.length) {
                     search.search(query, category).then(setSearchResults);
