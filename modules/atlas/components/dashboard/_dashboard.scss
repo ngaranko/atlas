@@ -25,11 +25,13 @@ $dashboard-error-height: $button-size + 2 * $base-whitespace;
 
 .c-dashboard--max-width {
   max-width: 1800px;
-  margin: auto;
+  margin-right: auto;
+  margin-left: auto;
 
-  & .c-dashboard__inner {
+  .c-dashboard__inner {
     max-width: 1600px;
-    margin: auto;
+    margin-right: auto;
+    margin-left: auto;
   }
 }
 
@@ -46,8 +48,8 @@ $dashboard-error-height: $button-size + 2 * $base-whitespace;
   z-index: 1;
   overflow-y: hidden;
 
-  & .u-grid,
-  & .u-row {
+  .u-grid,
+  .u-row {
     @extend %full-height;
   }
 }
@@ -70,7 +72,7 @@ $dashboard-error-height: $button-size + 2 * $base-whitespace;
   padding-left: 0;
   overflow-y: auto;
 
-  &>div {
+  > div {
     @extend %full-height;
 
     position: relative;
