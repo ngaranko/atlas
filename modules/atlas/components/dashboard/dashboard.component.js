@@ -26,7 +26,7 @@
 
             vm.activity = dashboardColumns.determineActivity(state);
             vm.visibility = dashboardColumns.determineVisibility(state);
-            console.log(vm.activity.map, vm.visibility.map);
+
             vm.isPrintMode = state.atlas.isPrintMode;
 
             vm.isCatalogus = (state.dataSelection && state.dataSelection.view === 'CARDS') ||

@@ -32,7 +32,6 @@
                             action.type = ACTIONS.FETCH_DETAIL;
                             action.payload = detail.endpoint;
                         } else if (angular.isObject(page) && angular.isString(page.name)) {
-                            console.log(page.name);
                             action.type = ACTIONS.SHOW_HOME;
                             action.payload = null;
                         } else {
