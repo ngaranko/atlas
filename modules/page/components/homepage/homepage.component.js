@@ -9,21 +9,27 @@
             controllerAs: 'vm'
         });
 
-    DpHomepageController.$inject = ['store', 'ACTIONS', 'userSettings'];
+    DpHomepageController.$inject = ['$rootScope', 'userSettings'];
 
-    function DpHomepageController (store, ACTIONS, userSettings) {
+    function DpHomepageController ($rootScope, userSettings) {
         let vm = this;
 
-        vm.fetchStraatbeeld = function () {
-            store.dispatch({
-                type: ACTIONS.FETCH_STRAATBEELD_BY_ID,
-                payload: {
-                    id: 'TMX7315120208-000073_pano_0005_000451',
-                    heading: 226,
-                    isInitial: true,
-                    isFullscreen: userSettings.fullscreenStraatbeeld.value === true.toString()
-                }
-            });
-        };
+        setFetchStraatbeeldPayload();
+        const deregistrationFn = $rootScope.$watch(getFullscreenPreference, setFetchStraatbeeldPayload);
+
+        function getFullscreenPreference () {
+            return userSettings.fullscreenStraatbeeld.value === true.toString();
+        }
+
+        function setFetchStraatbeeldPayload () {
+            vm.fetchStraatbeeldPayload = {
+                id: 'TMX7315120208-000073_pano_0005_000451',
+                heading: 226,
+                isInitial: true,
+                isFullscreen: getFullscreenPreference()
+            };
+        }
+
+        $rootScope.$on('$destroy', deregistrationFn);
     }
 })();
