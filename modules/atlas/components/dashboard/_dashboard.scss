@@ -74,11 +74,6 @@ $dashboard-error-height: $button-size + 2 * $base-whitespace;
       padding-bottom: 1px; /* Makes sure content margins stay inside this element */
     }
   }
-
-  .c-dashboard__max-width--home {
-    padding-right: $base-whitespace * 4.2;
-    padding-left: $base-whitespace * 4.2;
-  }
 }
 
 .is-print-mode {

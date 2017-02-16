@@ -76,10 +76,7 @@
                         </div>
 
                         <!-- Page -->
-                        <div class="c-dashboard__max-width"
-                             ng-class="{
-                                 'c-dashboard__max-width--home': vm.isHomePage,
-                             }">
+                        <div class="c-dashboard__max-width">
                             <div class="c-dashboard__max-width__inner">
                                 <div ng-if="vm.activity.page" ng-show="vm.visibility.page" ng-controller="PageController as page" class="qa-page">
                                     <dp-page name="{{page.pageName}}"></dp-page>
