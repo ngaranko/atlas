@@ -61,7 +61,7 @@
                     visibility.straatbeeld = false;
                 } else {
                     visibility.detail = activity.detail && !activity.straatbeeld;
-                    visibility.page = angular.isString(state.page.name);
+                    visibility.page = angular.isString(state.page.name) && !activity.straatbeeld;
                     visibility.searchResults = activity.searchResults;
                 }
 
@@ -74,7 +74,7 @@
         function determineMapActivity (state) {
             if (!state.atlas.isPrintMode) {
                 // Non-print mode
-                return !(state.page.name && !state.map.isFullscreen) &&
+                return !(state.page.name && !state.map.isFullscreen && !state.straatbeeld) &&
                     !(state.detail && state.detail.isFullscreen) &&
                     !(state.dataSelection && state.dataSelection.view !== 'LIST') &&
                     !(state.straatbeeld && state.straatbeeld.isFullscreen);
