@@ -3,9 +3,13 @@
         .module('dpDataSelection')
         .factory('dataSelectionApi', dataSelectionApiFactory);
 
-    dataSelectionApiFactory.$inject = ['$injector', 'DATA_SELECTION_CONFIG', 'api'];
+    dataSelectionApiFactory.$inject = ['$injector', 'DATA_SELECTION_CONFIG', 'api', 'tabHeader'];
 
-    function dataSelectionApiFactory ($injector, DATA_SELECTION_CONFIG, api) {
+    function dataSelectionApiFactory ($injector, DATA_SELECTION_CONFIG, api, tabHeader) {
+        tabHeader.registerCounter('FETCH_DATA_SELECTION', payload =>
+            query(payload.dataset, payload.view, payload.filters, payload.page, payload.query, [])
+                .then(results => results.numberOfRecords));
+
         return {
             query: query,
             getMarkers: getMarkers

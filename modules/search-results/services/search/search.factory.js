@@ -5,9 +5,13 @@
         .module('dpSearchResults')
         .factory('search', searchFactory);
 
-    searchFactory.$inject = ['$q', 'SEARCH_CONFIG', 'api', 'searchFormatter'];
+    searchFactory.$inject = ['$q', 'SEARCH_CONFIG', 'api', 'searchFormatter', 'tabHeader'];
 
-    function searchFactory ($q, SEARCH_CONFIG, api, searchFormatter) {
+    function searchFactory ($q, SEARCH_CONFIG, api, searchFormatter, tabHeader) {
+        tabHeader.registerCounter('FETCH_SEARCH_RESULTS_BY_QUERY', payload =>
+            search(payload)
+                .then(results => results.reduce((previous, current) => previous + current.count, 0)));
+
         return {
             search: search,
             loadMore: loadMore

@@ -6,7 +6,7 @@
                      type="{{tab.type}}"
                      payload="tab.payload"
                      class-name="o-tabs__tab o-tabs__tab--link">
-                {{tab.title}}
+                {{tab.title}} <span ng-if="vm.count[tab.type]">({{vm.count[tab.type]}})</span>
             </dp-link>
 
             <span ng-if="tab.isActive"
