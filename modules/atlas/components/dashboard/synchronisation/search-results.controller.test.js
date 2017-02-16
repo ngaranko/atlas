@@ -65,6 +65,16 @@ describe('The searchResults controller', function () {
         expect(controller.location).toBeNull();
     });
 
+    it('allows for empty search strings', function () {
+        var controller;
+
+        mockedState.search.query = '""';
+
+        controller = getController();
+
+        expect(controller.query).toBe('');
+    });
+
     it('sets the location based on the state', function () {
         var controller;
 
