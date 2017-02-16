@@ -72,8 +72,6 @@ $dashboard-error-height: $button-size + 2 * $base-whitespace;
 .c-dashboard__column {
   @extend %full-height;
 
-  padding: $base-whitespace * 2;
-  padding-left: 0;
   overflow-y: auto;
 
   > div {

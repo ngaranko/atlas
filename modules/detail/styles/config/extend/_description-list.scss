@@ -1,10 +1,14 @@
 %description-list {
   margin-bottom: 4 * $base-whitespace;
+  margin-right: -2 * $base-whitespace;
+  margin-left: -2 * $base-whitespace;
   border-bottom: 1px solid $secondary-gray20;
   line-height: 2;
 
   dt {
+    padding-left: 2 * $base-whitespace;
     padding-right: $base-whitespace;
+    width: 50%;
     float: left;
     clear: both;
     border-top: 1px solid $secondary-gray20;
@@ -18,6 +22,8 @@
 
   dd {
     margin: 0;
+    padding-right: 2 * $base-whitespace;
+    width: 50%;
     float: right;
     border-top: 1px solid $secondary-gray20;
 
