@@ -38,7 +38,7 @@ describe('The coordinates filter', function () {
     });
 
     it('returns undefined for undefined coordinates', function () {
-        expect(coordinates(undefined, 'aap'))
+        expect(coordinates(undefined, 'RD'))
             .toBeUndefined();
     });
 
