@@ -82,7 +82,9 @@
                 newState.map.isFullscreen = false;
             }
             newState.search = null;
-
+            if (newState.page) {
+                newState.page.name = null;
+            }
             // If a straatbeeld is loaded by it's location
             // then clear any active detail
             newState.detail = null;
