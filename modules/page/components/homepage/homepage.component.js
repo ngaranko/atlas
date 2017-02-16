@@ -21,12 +21,12 @@
             return userSettings.fullscreenStraatbeeld.value === true.toString();
         }
 
-        function setFetchStraatbeeldPayload () {
+        function setFetchStraatbeeldPayload (useFullscreen) {
             vm.fetchStraatbeeldPayload = {
                 id: 'TMX7315120208-000073_pano_0005_000451',
                 heading: 226,
                 isInitial: true,
-                isFullscreen: getFullscreenPreference()
+                isFullscreen: useFullscreen
             };
         }
 
