@@ -36,5 +36,5 @@ describe('The dp-homepage component', () => {
         getComponent();
 
         expect(true).toBe(true);
-    })
+    });
 });
