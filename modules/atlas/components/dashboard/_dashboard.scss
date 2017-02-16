@@ -18,23 +18,6 @@ $dashboard-error-height: $button-size + 2 * $base-whitespace;
   overflow: hidden;
 }
 
-.c-dashboard__inner {
-  height: 100%;
-  overflow: hidden;
-}
-
-.c-dashboard--max-width {
-  max-width: 1800px;
-  margin-right: auto;
-  margin-left: auto;
-
-  .c-dashboard__inner {
-    max-width: 1600px;
-    margin-right: auto;
-    margin-left: auto;
-  }
-}
-
 .c-dashboard__heading {
   position: relative;
   height: $dashboard-heading-height;
@@ -53,11 +36,6 @@ $dashboard-error-height: $button-size + 2 * $base-whitespace;
   }
 }
 
-.c-dashboard__body--home {
-  padding-right: $base-whitespace * 4.2;
-  padding-left: $base-whitespace * 4.2;
-}
-
 .c-dashboard__body--error {
   .u-row {
     height: calc(100% - #{$dashboard-error-height});
@@ -72,12 +50,34 @@ $dashboard-error-height: $button-size + 2 * $base-whitespace;
 .c-dashboard__column {
   @extend %full-height;
 
+  background-color: $secondary-gray10;
   overflow-y: auto;
 
   > div {
     @extend %full-height;
 
     position: relative;
+    background-color: $primary-light;
+  }
+
+  .c-dashboard__max-width {
+    max-width: 1800px;
+    height: initial;
+    min-height: 100%;
+    margin-right: auto;
+    margin-left: auto;
+
+    .c-dashboard__max-width__inner {
+      max-width: 1600px;
+      margin-right: auto;
+      margin-left: auto;
+      padding-bottom: 1px; /* Makes sure content margins stay inside this element */
+    }
+  }
+
+  .c-dashboard__max-width--home {
+    padding-right: $base-whitespace * 4.2;
+    padding-left: $base-whitespace * 4.2;
   }
 }
 
