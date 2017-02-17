@@ -69,7 +69,8 @@ module.exports = {
         validator: require('../validators/straatbeeld--detail')
     },
     'STRAATBEELD--PAGE': {
-        url: '#?mpb=topografie&mpz=11&mpv=52.3731081:4.8932945&pgn=home&sbf=5e&sbfs=T&sbh=-Lc&sbi=TMX7315120208-000073_pano_0005_000451&sbl=ZRWNV:3JJh3',
+        url: '#?mpb=topografie&mpz=11&mpv=52.3731081:4.8932945&pgn=home&sbf=5e&sbfs=T&sbh=-Lc&sbi=TMX7315120208-00007' +
+            '3_pano_0005_000451&sbl=ZRWNV:3JJh3',
         validator: require('../validators/straatbeeld--page')
     },
     'STRAATBEELD--SEARCH-RESULTS': {

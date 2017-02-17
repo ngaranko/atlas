@@ -46,7 +46,6 @@ describe('The homepage', () => {
             dp.validate('STRAATBEELD--PAGE', page);
 
             // Close straatbeeld and return to the homepage
-            page.dashboard.rightColumn.straatbeeld.close.label.then(a => console.log(a));
             page.dashboard.rightColumn.straatbeeld.close.click();
             dp.validate('PAGE--HOME', page);
         });
@@ -75,7 +74,6 @@ describe('The homepage', () => {
             dp.validate('STRAATBEELD--PAGE', page);
 
             // Close straatbeeld and return to the homepage
-            page.dashboard.rightColumn.straatbeeld.close.label.then(a => console.log(a));
             page.dashboard.rightColumn.straatbeeld.close.click();
             dp.validate('PAGE--HOME', page);
         });
