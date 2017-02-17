@@ -8,12 +8,12 @@
                 data: {
                     title: 'Data',
                     action: 'FETCH_SEARCH_RESULTS_BY_QUERY',
-                    setPayload: query => query || '""'
+                    getPayload: query => query || '""'
                 },
                 datasets: {
                     title: 'Datasets',
                     action: 'FETCH_DATA_SELECTION',
-                    setPayload: query => {
+                    getPayload: query => {
                         return {dataset: 'catalogus', view: 'CARDS', query, filters: {}, page: 1};
                     }
                 }

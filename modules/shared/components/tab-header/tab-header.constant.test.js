@@ -16,11 +16,11 @@ describe('The TAB_HEADER_CONFIG', function () {
     it('the data-datasets tab header configuration provides for a title, action and payload for each tab', function () {
         expect(TAB_HEADER_CONFIG['data-datasets'].data.title).toBe('Data');
         expect(TAB_HEADER_CONFIG['data-datasets'].data.action).toBe('FETCH_SEARCH_RESULTS_BY_QUERY');
-        expect(TAB_HEADER_CONFIG['data-datasets'].data.setPayload('payload')).toBe('payload');
+        expect(TAB_HEADER_CONFIG['data-datasets'].data.getPayload('payload')).toBe('payload');
 
         expect(TAB_HEADER_CONFIG['data-datasets'].datasets.title).toBe('Datasets');
         expect(TAB_HEADER_CONFIG['data-datasets'].datasets.action).toBe('FETCH_DATA_SELECTION');
-        expect(TAB_HEADER_CONFIG['data-datasets'].datasets.setPayload('payload')).toEqual({
+        expect(TAB_HEADER_CONFIG['data-datasets'].datasets.getPayload('payload')).toEqual({
             dataset: 'catalogus',
             view: 'CARDS',
             query: 'payload',
@@ -30,6 +30,6 @@ describe('The TAB_HEADER_CONFIG', function () {
     });
 
     it('allows for searching on an empty string', function () {
-        expect(TAB_HEADER_CONFIG['data-datasets'].data.setPayload('')).toBe('""');
+        expect(TAB_HEADER_CONFIG['data-datasets'].data.getPayload('')).toBe('""');
     });
 });

@@ -12,11 +12,11 @@
             tabHeader = {};
 
         class TabPage {
-            constructor (id, {title, action, setPayload}) {
+            constructor (id, {title, action, getPayload}) {
                 this._id = id;
                 this._title = title;
                 this._action = action;
-                this._setPayload = setPayload;
+                this._getPayload = getPayload;
                 this._count = null;
             }
 
@@ -45,7 +45,12 @@
             }
 
             set query (query) {
-                this._payload = this._setPayload(query);
+                this._query = query;
+                this._payload = this._getPayload(query);
+            }
+
+            get query () {
+                return this._query;
             }
 
             get count () {
@@ -60,16 +65,16 @@
         class TabHeader {
             constructor (id) {
                 if (tabHeader[id]) {
-                    ['_tabs', '_tab'].forEach(key => this[key] = tabHeader[id][key]);
+                    this._tabs = tabHeader[id]._tabs;
                 } else {
                     this._tabs = Object.keys(TAB_HEADER_CONFIG[id])
                         .map(key => new TabPage(key, TAB_HEADER_CONFIG[id][key]));
-                    this._tab = this._tabs.reduce((all, tab) => {
-                        all[tab.id] = tab;
-                        return all;
-                    }, {});
                     tabHeader[id] = this;
                 }
+                this._tab = this._tabs.reduce((all, tab) => {
+                    all[tab.id] = tab;
+                    return all;
+                }, {});
             }
 
             get tabs () {
@@ -86,13 +91,15 @@
 
             set query (query) {
                 this._tabs.forEach(tab => {
-                    tab.query = query;
-                    if (!tab.isActive && countProvider[tab.action]) {
-                        // active tabs update their count directly
-                        // non-active tabs rely on a provider that is able to return the count
-                        countProvider[tab.action](tab.payload).then(count => {
-                            tab.count = count;
-                        });
+                    if (tab.query !== query) {
+                        tab.query = query;
+                        if (!tab.isActive && countProvider[tab.action]) {
+                            // active tabs update their count directly
+                            // non-active tabs rely on a provider that is able to return the count
+                            countProvider[tab.action](tab.payload).then(count => {
+                                tab.count = count;
+                            });
+                        }
                     }
                 });
             }

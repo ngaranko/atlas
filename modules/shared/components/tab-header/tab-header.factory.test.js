@@ -12,24 +12,24 @@ describe('The TabHeader factory', function () {
                         tab1: {
                             title: 'Tab1',
                             action: 'ACTION1',
-                            setPayload: q => q
+                            getPayload: angular.noop
                         },
                         tab2: {
                             title: 'Tab2',
                             action: 'ACTION2',
-                            setPayload: q => q
+                            getPayload: angular.noop
                         }
                     },
                     othertabs: {
                         tab1: {
                             title: 'OtherTab1',
                             action: 'OTHERACTION1',
-                            setPayload: angular.noop
+                            getPayload: angular.noop
                         },
                         tab2: {
                             title: 'OtherTab2',
                             action: 'OTHERACTION2',
-                            setPayload: angular.noop
+                            getPayload: angular.noop
                         }
                     }
                 });
@@ -42,6 +42,9 @@ describe('The TabHeader factory', function () {
             TAB_HEADER_CONFIG = _TAB_HEADER_CONFIG_;
             TabHeader = _TabHeader_;
         });
+
+        Object.keys(TAB_HEADER_CONFIG.tabs)
+            .forEach(key => spyOn(TAB_HEADER_CONFIG.tabs[key], 'getPayload'));
     });
 
     it('has a constructor that accepts an TAB_HEADER_CONFIG key', function () {
@@ -86,7 +89,24 @@ describe('The TabHeader factory', function () {
             query = 'a query';
 
         tabHeader.query = query;
-        tabHeader.tabs.forEach(tab => expect(tab.payload).toBe(query));
+
+        Object.keys(TAB_HEADER_CONFIG.tabs)
+            .forEach(key => expect(TAB_HEADER_CONFIG.tabs[key].getPayload).toHaveBeenCalledWith(query));
+    });
+
+    it('does not update the payload if called with the same query', function () {
+        let tabHeader = new TabHeader('tabs'),
+            query = 'a query';
+
+        tabHeader.query = query;
+
+        Object.keys(TAB_HEADER_CONFIG.tabs)
+            .forEach(key => expect(TAB_HEADER_CONFIG.tabs[key].getPayload.calls.reset()));
+
+        tabHeader.query = query;
+
+        Object.keys(TAB_HEADER_CONFIG.tabs)
+            .forEach(key => expect(TAB_HEADER_CONFIG.tabs[key].getPayload).not.toHaveBeenCalled());
     });
 
     it('accepts a count provider that can return counts for non-active pages', function () {
