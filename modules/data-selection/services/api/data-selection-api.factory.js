@@ -3,17 +3,23 @@
         .module('dpDataSelection')
         .factory('dataSelectionApi', dataSelectionApiFactory);
 
-    dataSelectionApiFactory.$inject = ['$injector', 'DATA_SELECTION_CONFIG', 'api', 'tabHeader'];
+    dataSelectionApiFactory.$inject = ['$injector', 'DATA_SELECTION_CONFIG', 'api', 'TabHeader'];
 
-    function dataSelectionApiFactory ($injector, DATA_SELECTION_CONFIG, api, tabHeader) {
-        tabHeader.registerCounter('FETCH_DATA_SELECTION', payload =>
-            query(payload.dataset, payload.view, payload.filters, payload.page, payload.query, [])
-                .then(results => results.numberOfRecords));
-
+    function dataSelectionApiFactory ($injector, DATA_SELECTION_CONFIG, api, TabHeader) {
         return {
-            query: query,
-            getMarkers: getMarkers
+            query,
+            getMarkers,
+            initialize
         };
+
+        function initialize () {
+            TabHeader.provideCounter('FETCH_DATA_SELECTION', payload => queryCount(payload));
+        }
+
+        function queryCount (payload) {
+            return query(payload.dataset, payload.view, payload.filters, payload.page, payload.query, [])
+                .then(results => results.numberOfRecords);
+        }
 
         function query (dataset, view, activeFilters, page, searchText, geometryFilter) {
             const customApi = DATA_SELECTION_CONFIG.datasets[dataset].CUSTOM_API;

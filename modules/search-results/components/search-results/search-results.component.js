@@ -16,9 +16,9 @@
             controllerAs: 'vm'
         });
 
-    DpSearchResultsController.$inject = ['$scope', 'search', 'geosearch', 'store', 'ACTIONS'];
+    DpSearchResultsController.$inject = ['$scope', 'search', 'geosearch', 'TabHeader', 'store', 'ACTIONS'];
 
-    function DpSearchResultsController ($scope, search, geosearch, store, ACTIONS) {
+    function DpSearchResultsController ($scope, search, geosearch, TabHeader, store, ACTIONS) {
         let vm = this;
 
         /**
@@ -55,25 +55,12 @@
             });
         };
 
-        $scope.$watchGroup(['vm.query', 'vm.numberOfResults'], () => {
-            setTabs(vm.query);
-        });
+        vm.tabHeader = new TabHeader('data-datasets');
+        vm.tabHeader.activeTab = vm.tabHeader.tab.data;
 
-        function setTabs (query) {
-            vm.tabs = [
-                {
-                    title: 'Data',
-                    isActive: true,
-                    count: vm.numberOfResults,
-                    type: 'FETCH_SEARCH_RESULTS_BY_QUERY',
-                    payload: query
-                },
-                {
-                    title: 'Datasets',
-                    type: 'FETCH_DATA_SELECTION',
-                    payload: {dataset: 'catalogus', view: 'CARDS', query, filters: {}, page: 1}
-                }
-            ];
+        function updateTabHeader (query, count) {
+            vm.tabHeader.query = query;
+            vm.tabHeader.tab.data.count = count;
         }
 
         function searchByQuery (query, category) {
@@ -103,6 +90,8 @@
             let numberOfResults = searchResults.reduce(function (previous, current) {
                 return previous + current.count;
             }, 0);
+
+            updateTabHeader(vm.query, numberOfResults);
 
             store.dispatch({
                 type: ACTIONS.SHOW_SEARCH_RESULTS,

@@ -5,17 +5,22 @@
         .module('dpSearchResults')
         .factory('search', searchFactory);
 
-    searchFactory.$inject = ['$q', 'SEARCH_CONFIG', 'api', 'searchFormatter', 'tabHeader'];
+    searchFactory.$inject = ['$q', 'SEARCH_CONFIG', 'api', 'searchFormatter', 'TabHeader'];
 
-    function searchFactory ($q, SEARCH_CONFIG, api, searchFormatter, tabHeader) {
-        tabHeader.registerCounter('FETCH_SEARCH_RESULTS_BY_QUERY', payload =>
-            search(payload)
-                .then(results => results.reduce((previous, current) => previous + current.count, 0)));
-
+    function searchFactory ($q, SEARCH_CONFIG, api, searchFormatter, TabHeader) {
         return {
-            search: search,
-            loadMore: loadMore
+            search,
+            loadMore,
+            initialize
         };
+
+        function initialize () {
+            TabHeader.provideCounter('FETCH_SEARCH_RESULTS_BY_QUERY', payload => searchCount(payload));
+        }
+
+        function searchCount (payload) {
+            return search(payload).then(results => results.reduce((count, current) => count + current.count, 0));
+        }
 
         function search (query, categorySlug) {
             var queries = [],

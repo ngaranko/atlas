@@ -3,7 +3,7 @@
 
     <div ng-if="!vm.isLoading" class="u-row">
 
-        <dp-tab-header title="Resultaten met &quot;{{vm.query}}&quot;"tabs="vm.tabs"></dp-tab-header>
+        <dp-tab-header title="Resultaten met &quot;{{vm.query}}&quot;" tab-header="vm.tabHeader"></dp-tab-header>
 
         <div ng-if="vm.numberOfResults" class="qa-search-results">
             <div ng-if="!vm.category">

@@ -10,7 +10,7 @@ describe('The tabHeader component', function () {
 
         mockedActiveItems = [1].map(i => getMockedItem(i, {isActive: true, count: i})); // One active tab
 
-        mockedInactiveItems = [0, 1, 2].map(i => getMockedItem(i)); // Multipe inactive tabs
+        mockedInactiveItems = [0, 1, 2].map(i => getMockedItem(i, {count: i || null})); // Multipe inactive tabs
 
         angular.mock.module('dpShared',
             function ($provide) {
@@ -27,7 +27,7 @@ describe('The tabHeader component', function () {
     });
 
     function getMockedItem (id, tpl = {}) {
-        let mockedItem = { title: 'title' + id, type: 'type' + id, payload: 'payload' + id };
+        let mockedItem = { title: 'title' + id, action: 'action' + id, payload: 'payload' + id };
         return angular.merge(mockedItem, tpl);
     }
 
@@ -38,11 +38,11 @@ describe('The tabHeader component', function () {
 
         element = document.createElement('dp-tab-header');
         element.setAttribute('title', title);
-        element.setAttribute('tabs', 'tabs');
+        element.setAttribute('tab-header', 'tabHeader');
 
         scope = $rootScope.$new();
 
-        scope.tabs = tabs;
+        scope.tabHeader = {tabs};
 
         component = $compile(element)(scope);
         scope.$apply();
@@ -61,8 +61,9 @@ describe('The tabHeader component', function () {
         let component = getComponent(mockedTitle, mockedInactiveItems);
         expect(component.find('ul dp-link').length).toBe(mockedInactiveItems.length);
         mockedInactiveItems.forEach((item, i) => {
-            expect(component.find('ul dp-link').eq(i).text().trim()).toBe(item.title);
-            expect(component.find('ul dp-link').eq(i).attr('type')).toBe(item.type);
+            expect(component.find('ul dp-link').eq(i).text().trim())
+                .toBe(item.title + (i ? ' (' + item.count + ')' : ''));
+            expect(component.find('ul dp-link').eq(i).attr('type')).toBe(item.action);
             expect(component.find('ul dp-link').eq(i).attr('payload')).toBe('tab.payload');
         });
         expect(component.find('.qa-tab-header__active').length).toBe(0);
