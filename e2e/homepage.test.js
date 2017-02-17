@@ -79,7 +79,21 @@ describe('The homepage', () => {
         });
 
         it('clicking on hotspots and then back to the homepage', () => {
+            const page = dp.navigate('PAGE--HOME');
 
+            // Go to straatbeeld
+            page.dashboard.rightColumn.page.homepage.straatbeeld.click();
+            dp.validate('STRAATBEELD--PAGE', page);
+
+            const oldPageTitle = page.title;
+
+            // Click a hotspot, load a different straatbeeld
+            page.dashboard.rightColumn.straatbeeld.hotspots(4).click();
+            expect(oldPageTitle).not.toBe(page.title);
+
+            // use the back button, return to the homepage
+            browser.navigate().back();
+            dp.validate('PAGE--HOME', page);
         });
     });
 });
