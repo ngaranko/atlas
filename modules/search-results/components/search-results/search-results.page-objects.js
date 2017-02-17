@@ -4,7 +4,8 @@ const
     searchResultsList = dp.require(
         'modules/search-results/components/search-results/list/search-results-list.page-objects'),
     straatbeeldThumbnail = dp.require(
-        'modules/shared/components/straatbeeld-thumbnail/straatbeeld-thumbnail.page-objects');
+        'modules/shared/components/straatbeeld-thumbnail/straatbeeld-thumbnail.page-objects'),
+    link = dp.require('modules/shared/components/link/link.page-objects');
 
 module.exports = function (searchResultsElement) {
     return {
@@ -29,6 +30,9 @@ function categoryPageObject (categoryElement) {
         },
         get list () {
             return searchResultsList(categoryElement.element(by.css('dp-search-results-list')));
+        },
+        get showMore () {
+            return link(categoryElement.element(by.css('.qa-show-more')));
         }
     };
 }
