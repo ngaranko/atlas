@@ -9,7 +9,7 @@ const
 module.exports = function (straatbeeldElement) {
     return {
         get close () {
-            return link(straatbeeldElement.element(by.css('.c-straatbeeld > dp-link')));
+            return link(straatbeeldElement.element(by.css('.qa-close dp-link')));
         },
         get visible () {
             return dp.visible(straatbeeldElement);
