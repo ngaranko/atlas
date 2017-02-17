@@ -234,8 +234,9 @@
                 // In edit mode => disable()
                 if (drawTool.drawingMode === 'EDIT') {
                     disable();
-                } else if (drawTool.drawingMode !== 'DRAW') {
-                    // If not in Draw or EDIT mode then the current polygon gets deleted
+                } else if (drawTool.drawingMode !== 'DRAW' && currentShape.layer) {
+                    // If not in Draw or EDIT mode and a polygon exists
+                    // then the current polygon gets deleted
                     // Note: In draw mode the click on map adds a new marker
                     deletePolygon();
                     updateShape();
