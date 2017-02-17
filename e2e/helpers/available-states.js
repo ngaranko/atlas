@@ -44,6 +44,11 @@ module.exports = {
              'sbi=TMX7315120208-000068_pano_0002_000405&sbl=ZQgX9:3Nqgu',
         validator: require('../validators/map_straatbeeld--detail')
     },
+    'MAP_STRAATBEELD--PAGE': {
+        url: '#?mpb=topografie&mpz=11&mpv=52.3731081:4.8932945&pgn=home&sbf=5e&sbh=-Lc&sbi=TMX7315120208-000073_pano_' +
+          '0005_000451&sbl=ZRWNV:3JJh3',
+        validator: require('../validators/map_straatbeeld--detail')
+    },
     'MAP_STRAATBEELD--SEARCH-RESULTS': {
         url: '#?mpb=topografie&mpz=11&mpv=52.3729183:4.8931775&sbf=Cu&sbh=-76&' +
              'sbi=TMX7315120208-000073_pano_0005_000446&sbl=ZRVst:3JJOB',

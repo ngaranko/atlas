@@ -51,6 +51,35 @@ describe('The homepage', () => {
             dp.validate('PAGE--HOME', page);
         });
 
+        it('make the map fullscreen, small again, and close straatbeeld then return to the homepage', () => {
+            const page = dp.navigate('PAGE--HOME');
+
+            // Go to straatbeeld
+            page.dashboard.rightColumn.page.homepage.straatbeeld.click();
+            dp.validate('STRAATBEELD--PAGE', page);
+
+            // Show the map
+            page.dashboard.rightColumn.straatbeeld.toggleStraatbeeldFullscreen.click();
+            dp.validate('MAP_STRAATBEELD--PAGE', page);
+
+            // Make the map fullscreen
+            page.dashboard.middleColumn.map.toggleFullscreen.click();
+            dp.validate('MAP', page);
+
+            // Make the map small again
+            page.dashboard.middleColumn.map.toggleFullscreen.click();
+            dp.validate('MAP_STRAATBEELD--PAGE', page);
+
+            // Make straatbeeld fullscreen again (hide the map)
+            page.dashboard.rightColumn.straatbeeld.toggleStraatbeeldFullscreen.click();
+            dp.validate('STRAATBEELD--PAGE', page);
+
+            // Close straatbeeld and return to the homepage
+            page.dashboard.rightColumn.straatbeeld.close.label.then(a => console.log(a));
+            page.dashboard.rightColumn.straatbeeld.close.click();
+            dp.validate('PAGE--HOME', page);
+        });
+
         it('clicking on hotspots and then back to the homepage', () => {
 
         });
