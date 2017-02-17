@@ -41,14 +41,14 @@ describe('The dp-homepage component', () => {
         scope = $rootScope.$new();
 
         component = $compile(element)(scope);
-        scope.$apply();
+        $rootScope.$apply();
 
         return component;
     }
 
     it('clicking on straatbeeld will dispatch FETCH_STRAATBEELD_BY_ID', () => {
         const component = getComponent();
-        component.find('.qa-straatbeeld button').click();
+        component.find('.qa-straatbeeld-link button').click();
 
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.FETCH_STRAATBEELD_BY_ID,
@@ -65,7 +65,7 @@ describe('The dp-homepage component', () => {
             hasFullscreenPreference = 'true';
 
             const component = getComponent();
-            component.find('.qa-straatbeeld button').click();
+            component.find('.qa-straatbeeld-link button').click();
 
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.FETCH_STRAATBEELD_BY_ID,
@@ -79,7 +79,7 @@ describe('The dp-homepage component', () => {
             hasFullscreenPreference = 'false';
 
             const component = getComponent();
-            component.find('.qa-straatbeeld button').click();
+            component.find('.qa-straatbeeld-link button').click();
 
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.FETCH_STRAATBEELD_BY_ID,
