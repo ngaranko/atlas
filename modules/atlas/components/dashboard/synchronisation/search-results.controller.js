@@ -18,7 +18,7 @@
 
             if (state.search) {
                 vm.isLoading = state.search.isLoading;
-                vm.query = state.search.query === '""' ? '' : state.search.query;
+                vm.query = state.search.query;
                 vm.location = state.search.location;
                 vm.category = state.search.category;
                 vm.numberOfResults = state.search.numberOfResults;

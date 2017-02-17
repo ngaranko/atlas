@@ -58,19 +58,6 @@ describe('The search-reducers factory', function () {
             expect(output.search.numberOfResults).toBeNull();
         });
 
-        it('allows searching on an empty string', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
-                output;
-
-            inputState.search = {
-                query: null
-            };
-
-            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY.id](inputState, '');
-
-            expect(output.search.query).toBe('""');
-        });
-
         it('hides the layer selection, page, detail, straatbeeld and dataSelection', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;

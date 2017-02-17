@@ -392,18 +392,6 @@ describe('The dp-search-results component', function () {
             expect(search.search).toHaveBeenCalled();
         });
 
-        it('search on empty query', function () {
-            getComponent(5, 'query');
-            spyOn(search, 'search').and.callThrough();
-            expect(search.search).not.toHaveBeenCalled();
-
-            element.setAttribute('query', '');
-            $compile(element)(scope);
-            scope.$apply();
-
-            expect(search.search).toHaveBeenCalled();
-        });
-
         it('does nothing when no query and no location are specified', function () {
             let component = getComponent(12);
 

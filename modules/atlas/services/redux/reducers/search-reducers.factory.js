@@ -28,7 +28,7 @@
 
             newState.search = {
                 isLoading: true,
-                query: payload || '""',  // Allow search on empty string
+                query: payload,
                 location: null,
                 category: null,
                 numberOfResults: null

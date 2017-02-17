@@ -79,16 +79,6 @@ describe('The header controller', function () {
         expect(store.subscribe).toHaveBeenCalledWith(jasmine.any(Function));
     });
 
-    it('allows for empty search strings', function () {
-        var controller;
-
-        mockedState.search.query = '""';
-
-        controller = getController();
-
-        expect(controller.query).toBe('');
-    });
-
     it('sets the query string based on the state', function () {
         var controller;
 
