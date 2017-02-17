@@ -42,17 +42,17 @@ module.exports = {
         url: '#?dte=https:%2F%2Fapi.datapunt.amsterdam.nl%2Fbag%2Fnummeraanduiding%2F03630000500149%2F&' +
              'mpb=topografie&mpz=16&mpv=52.3532634:5.0013828&sbf=Cu&sbh=4W&' +
              'sbi=TMX7315120208-000068_pano_0002_000405&sbl=ZQgX9:3Nqgu',
-        validator: require('../validators/map_straatbeeld--detail')
+        validator: require('../validators/map_straatbeeld')
     },
     'MAP_STRAATBEELD--PAGE': {
         url: '#?mpb=topografie&mpz=11&mpv=52.3731081:4.8932945&pgn=home&sbf=5e&sbh=-Lc&sbi=TMX7315120208-000073_pano_' +
           '0005_000451&sbl=ZRWNV:3JJh3',
-        validator: require('../validators/map_straatbeeld--detail')
+        validator: require('../validators/map_straatbeeld')
     },
     'MAP_STRAATBEELD--SEARCH-RESULTS': {
         url: '#?mpb=topografie&mpz=11&mpv=52.3729183:4.8931775&sbf=Cu&sbh=-76&' +
              'sbi=TMX7315120208-000073_pano_0005_000446&sbl=ZRVst:3JJOB',
-        validator: require('../validators/map_straatbeeld--search-results')
+        validator: require('../validators/map_straatbeeld')
     },
     'PAGE--HOME': {
         url: '',
@@ -66,16 +66,16 @@ module.exports = {
         url: '#?dte=https:%2F%2Fapi.datapunt.amsterdam.nl%2Fbag%2Fnummeraanduiding%2F03630000500149%2F&' +
              'mpb=topografie&mpz=16&mpv=52.3531791:5.00131&sbf=Cu&sbfs=T&sbh=4W&' +
              'sbi=TMX7315120208-000068_pano_0002_000405&sbl=ZQgX9:3Nqgu',
-        validator: require('../validators/straatbeeld--detail')
+        validator: require('../validators/straatbeeld')
     },
     'STRAATBEELD--PAGE': {
         url: '#?mpb=topografie&mpz=11&mpv=52.3731081:4.8932945&pgn=home&sbf=5e&sbfs=T&sbh=-Lc&sbi=TMX7315120208-00007' +
             '3_pano_0005_000451&sbl=ZRWNV:3JJh3',
-        validator: require('../validators/straatbeeld--page')
+        validator: require('../validators/straatbeeld')
     },
     'STRAATBEELD--SEARCH-RESULTS': {
         url: '#?mpb=topografie&mpz=11&mpv=52.3729183:4.8931775&sbf=Cu&sbfs=T&sbh=Ni&' +
              'sbi=TMX7315120208-000073_pano_0005_000446&sbl=ZRVst:3JJOB',
-        validator: require('../validators/straatbeeld--search-results')
+        validator: require('../validators/straatbeeld')
     }
 };
