@@ -10,16 +10,16 @@
         'highlight',
         'panning',
         'zoom',
-        'measure',
         'onMapClick'
     ];
 
-    function dpMapDirective (L, mapConfig, layers, highlight, panning, zoom, measure, onMapClick) {
+    function dpMapDirective (L, mapConfig, layers, highlight, panning, zoom, onMapClick) {
         return {
             restrict: 'E',
             scope: {
                 mapState: '=',
                 markers: '=',
+                drawGeometry: '=',
                 showLayerSelection: '=',
                 resize: '<'
             },
@@ -28,7 +28,7 @@
         };
 
         function linkFunction (scope, element) {
-            var leafletMap,
+            let leafletMap,
                 container,
                 options;
 
@@ -52,7 +52,6 @@
                 panning.initialize(leafletMap);
                 highlight.initialize();
                 zoom.initialize(leafletMap);
-                measure.initialize(leafletMap);
                 onMapClick.initialize(leafletMap);
 
                 scope.leafletMap = leafletMap;
@@ -100,10 +99,10 @@
                 }, true);
 
                 scope.$watch('markers.clustered', function (newCollection, oldCollection) {
+                    highlight.clearCluster(leafletMap);
+
                     if (newCollection.length) {
                         highlight.setCluster(leafletMap, newCollection);
-                    } else {
-                        highlight.clearCluster(leafletMap);
                     }
                 }, true);
 

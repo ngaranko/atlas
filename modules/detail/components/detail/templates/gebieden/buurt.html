@@ -1,7 +1,7 @@
 <div>
     <div class="u-row">
-      <dp-stelselpedia-header heading="{{vm.apiData.results.naam}}" definition="BUURT" meta-data="vm.apiData">
-      </dp-stelselpedia-header>
+      <dp-glossary-header heading="{{vm.apiData.results.naam}}" definition="BUURT" meta-data="vm.apiData">
+      </dp-glossary-header>
 
       <dl class="c-key-value-list">
         <dt>Volledige code</dt>
@@ -16,7 +16,7 @@
     </div>
 
     <div ng-if="vm.apiData.results.bouwblokken.count">
-      <dp-stelselpedia-header definition="BOUWBLOK" use-plural="true"></dp-stelselpedia-header>
+      <dp-glossary-header definition="BOUWBLOK" use-plural="true"></dp-glossary-header>
 
       <dp-api-call endpoint="{{vm.apiData.results.bouwblokken.href}}" partial="lijst"></dp-api-call>
     </div>

@@ -187,6 +187,26 @@ describe('The dp-search directive', function () {
         });
     });
 
+    it('does not search on empty query string', function () {
+        var directive = getDirective('');
+
+        spyOn(store, 'dispatch');
+
+        // Set a query
+        directive.find('.js-search-input')[0].value = '  ';
+        directive.find('.js-search-input').trigger('change');
+
+        // Submit the form by button click
+        directive.find('.c-search-form__submit').eq(0).click();
+        expect(store.dispatch).not.toHaveBeenCalled();
+
+        // Submit the form by enter key
+        let event = angular.element.Event('keydown');
+        event.which = 13;
+        directive.find('js-search-input').trigger(event);
+        expect(store.dispatch).not.toHaveBeenCalled();
+    });
+
     it('has a title attribute and text fallback for the search icon (submit button)', function () {
         var directive = getDirective('');
 

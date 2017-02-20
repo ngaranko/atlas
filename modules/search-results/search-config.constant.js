@@ -61,6 +61,12 @@
                 }, {
                     uri: 'geosearch/atlas/',
                     radius: null
+                }, {
+                    uri: 'geosearch/munitie/',
+                    radius: null
+                }, {
+                    uri: 'geosearch/bominslag/',
+                    radius: 25
                 }
             ],
             COORDINATES_HIERARCHY: [
@@ -122,6 +128,22 @@
                     label_singular: 'NAP Peilmerk',
                     label_plural: 'NAP Peilmerken',
                     features: ['nap/peilmerk']
+                }, {
+                    slug: 'explosief',
+                    label_singular: 'Explosief',
+                    label_plural: 'Explosieven',
+                    features: [
+                        'bommenkaart/verdachtgebied',
+                        'bommenkaart/bominslag',
+                        'bommenkaart/uitgevoerdonderzoek',
+                        'bommenkaart/gevrijwaardgebied'
+                    ],
+                    subtypes: {
+                        bominslag: 'inslag',
+                        gevrijwaardgebied: 'gevrijwaard gebied',
+                        uitgevoerdonderzoek: 'reeds uitgevoerd CE onderzoek',
+                        verdachtgebied: 'verdacht gebied'
+                    }
                 }
             ]
         });

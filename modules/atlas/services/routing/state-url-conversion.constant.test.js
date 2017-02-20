@@ -31,7 +31,8 @@ describe('The state url conversion definition', function () {
                     overlays: [],
                     isFullscreen: false,
                     isLoading: false,
-                    showActiveOverlays: false
+                    showActiveOverlays: false,
+                    drawingMode: false
                 }
             });
 
@@ -83,6 +84,54 @@ describe('The state url conversion definition', function () {
                     view: 'TABLE',
                     isFullscreen: true
                 });
+            });
+        });
+
+        describe('The post processing for map', function () {
+            it('copies the drawing mode and isLoading from the previous state', function () {
+                // isLoading and drawingMode
+                let oldState = {
+                    isLoading: true,
+                    drawingMode: true
+                };
+                let newState = {};
+
+                STATE_URL_CONVERSION.post.map(oldState, newState);
+                expect(newState).toEqual({
+                    isLoading: true,
+                    drawingMode: true
+                });
+
+                // only drawingMode
+                oldState = {
+                    drawingMode: false
+                };
+                newState = {};
+
+                STATE_URL_CONVERSION.post.map(oldState, newState);
+                expect(newState).toEqual({
+                    isLoading: undefined,
+                    drawingMode: false
+                });
+
+                // only isLoading
+                oldState = {
+                    isLoading: false
+                };
+                newState = {};
+
+                STATE_URL_CONVERSION.post.map(oldState, newState);
+                expect(newState).toEqual({
+                    isLoading: false,
+                    drawingMode: undefined
+                });
+
+                // no map state at all
+                oldState = null;
+                newState = {};
+
+                STATE_URL_CONVERSION.post.map(oldState, newState);
+                expect(newState).toEqual({});
             });
         });
 

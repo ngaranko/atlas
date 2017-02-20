@@ -3,7 +3,7 @@ module.exports = function (grunt) {
 
     return {
         index: {
-            src: ['index.html', 'catalogus.html', 'favicon.png'],
+            src: ['index.html', 'catalogus.html', '403-geen-toegang.html', 'favicon.png'],
             dest: 'build/'
         },
         assets: {
@@ -51,19 +51,6 @@ module.exports = function (grunt) {
                     ],
                     dest: 'build/assets',
                     expand: true
-                }
-            ]
-        },
-        bower_leaflet_measure_images: {
-            files: [
-                {
-                    cwd: 'bower_components/leaflet-measure/dist/',
-                    src: [
-                        '**/*.png'
-                    ],
-                    dest: 'build/',
-                    expand: true,
-                    flatten: false
                 }
             ]
         }

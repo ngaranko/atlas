@@ -52,6 +52,12 @@
             // LIST loading might include markers => set map loading accordingly
             newState.map.isLoading = newState.dataSelection.view === 'LIST';
 
+            newState.dataSelection.geometryFilter = newState.dataSelection.geometryFilter ||
+                {
+                    markers: [],
+                    description: ''
+                };
+
             newState.dataSelection.markers = [];
             newState.dataSelection.isLoading = true;
             newState.dataSelection.isFullscreen = newState.dataSelection.view !== 'LIST';
@@ -72,9 +78,10 @@
                 newState.dataSelection.markers = payload;
                 newState.dataSelection.isLoading = false;
 
-                newState.map.isLoading = false;
                 newState.dataSelection.isFullscreen = newState.dataSelection.view !== 'LIST';
             }
+
+            newState.map.isLoading = false;
 
             return newState;
         }

@@ -9,13 +9,17 @@ describe('The zoom factory', function () {
         mockedScaleControl,
         mockedZoomControl,
         moveEndCallback,
-        mockedLocation;
+        mockedLocation,
+        mockedZoomLevel;
 
     beforeEach(function () {
         angular.mock.module(
             'dpMap',
             {
                 mapConfig: {
+                    BASE_LAYER_OPTIONS: {
+                        maxZoom: 10
+                    },
                     ZOOM_OPTIONS: {
                         foo: 'bar'
                     },
@@ -41,12 +45,16 @@ describe('The zoom factory', function () {
 
         mockedLeafletMap = {
             getZoom: function () {
-                return 6;
+                return mockedZoomLevel;
             },
             on: function (eventName, callbackFn) {
                 moveEndCallback = callbackFn;
             },
-            setZoom: function () {}
+            setZoom: function () {},
+            doubleClickZoom: {
+                enable: angular.noop,
+                disable: angular.noop
+            }
         };
 
         mockedScaleControl = {
@@ -58,6 +66,7 @@ describe('The zoom factory', function () {
         };
 
         mockedLocation = [50.789, 4.987];
+        mockedZoomLevel = 6;
 
         spyOn(L.control, 'scale').and.returnValue(mockedScaleControl);
         spyOn(mockedScaleControl, 'addTo');
@@ -141,6 +150,48 @@ describe('The zoom factory', function () {
                 viewCenter: [50.789, 4.987],
                 zoom: 6
             }
+        });
+    });
+
+    // With doubleClickZoom enabled L.markercluster has issues (tg-2709)
+    describe('the deepest zoom level has doubleclickzoom disabled', () => {
+        beforeEach(() => {
+            spyOn(mockedLeafletMap.doubleClickZoom, 'enable');
+            spyOn(mockedLeafletMap.doubleClickZoom, 'disable');
+        });
+
+        it('disables doubleClickZoom on the deepest zoom level', () => {
+            // Initialization
+            mockedZoomLevel = 10;
+
+            zoom.initialize(mockedLeafletMap);
+
+            expect(mockedLeafletMap.doubleClickZoom.enable).not.toHaveBeenCalled();
+            expect(mockedLeafletMap.doubleClickZoom.disable).toHaveBeenCalled();
+
+            // When zoomend is triggered
+            mockedLeafletMap.doubleClickZoom.enable.calls.reset();
+            mockedLeafletMap.doubleClickZoom.disable.calls.reset();
+            moveEndCallback();
+            expect(mockedLeafletMap.doubleClickZoom.enable).not.toHaveBeenCalled();
+            expect(mockedLeafletMap.doubleClickZoom.disable).toHaveBeenCalled();
+        });
+
+        it('enables doubleClickZoom on all other zoom levels', () => {
+            // Initialization
+            mockedZoomLevel = 9;
+
+            zoom.initialize(mockedLeafletMap);
+
+            expect(mockedLeafletMap.doubleClickZoom.enable).toHaveBeenCalled();
+            expect(mockedLeafletMap.doubleClickZoom.disable).not.toHaveBeenCalled();
+
+            // When zoomend is triggered
+            mockedLeafletMap.doubleClickZoom.enable.calls.reset();
+            mockedLeafletMap.doubleClickZoom.disable.calls.reset();
+            moveEndCallback();
+            expect(mockedLeafletMap.doubleClickZoom.enable).toHaveBeenCalled();
+            expect(mockedLeafletMap.doubleClickZoom.disable).not.toHaveBeenCalled();
         });
     });
 });

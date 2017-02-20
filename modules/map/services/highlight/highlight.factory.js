@@ -102,7 +102,10 @@
                 );
             });
 
-            zoomToLayer(leafletMap, clusteredLayer);
+            if (!leafletMap.getBounds().contains(clusteredLayer.getBounds())) {
+                zoomToLayer(leafletMap, clusteredLayer);
+            }
+
             leafletMap.addLayer(clusteredLayer);
         }
 

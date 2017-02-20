@@ -17,6 +17,9 @@
         reducers[ACTIONS.MAP_PAN.id] = mapPanReducer;
         reducers[ACTIONS.MAP_ZOOM.id] = mapZoomReducer;
         reducers[ACTIONS.MAP_FULLSCREEN.id] = mapFullscreenReducer;
+        reducers[ACTIONS.MAP_START_DRAWING.id] = mapStartDrawingReducer;
+        reducers[ACTIONS.MAP_CLEAR_DRAWING.id] = mapClearDrawingReducer;
+        reducers[ACTIONS.MAP_END_DRAWING.id] = mapEndDrawingReducer;
         reducers[ACTIONS.SHOW_MAP_ACTIVE_OVERLAYS.id] = showActiveOverlaysReducer;
         reducers[ACTIONS.HIDE_MAP_ACTIVE_OVERLAYS.id] = hideActiveOverlaysReducer;
 
@@ -143,6 +146,53 @@
             return newState;
         }
 
+        function mapStartDrawingReducer (oldState) {
+            var newState = angular.copy(oldState);
+
+            newState.map.drawingMode = true;
+
+            return newState;
+        }
+
+        function mapClearDrawingReducer (oldState) {
+            var newState = angular.copy(oldState);
+
+            newState.map.geometry = [];
+
+            return newState;
+        }
+
+        function mapEndDrawingReducer (oldState, payload) {
+            var newState = angular.copy(oldState);
+
+            newState.map.drawingMode = false;
+
+            if (payload) {
+                if (payload.markers.length > 2) {
+                    // Polygon
+                    if (!newState.dataSelection) {
+                        newState.dataSelection = {};
+                        newState.dataSelection.dataset = 'bag';
+                        newState.dataSelection.filters = {};
+                    }
+                    newState.dataSelection.geometryFilter = angular.copy(payload);
+                    newState.dataSelection.page = 1;
+                    newState.dataSelection.isFullscreen = false;
+                    newState.dataSelection.isLoading = true;
+                    newState.dataSelection.view = 'LIST';
+                    newState.dataSelection.markers = [];
+
+                    newState.map.geometry = [];
+                    newState.map.isLoading = true;
+                } else if (payload.markers.length === 2) {
+                    // Line
+                    newState.map.geometry = payload.markers;
+                }
+            }
+
+            return newState;
+        }
+
         function showActiveOverlaysReducer (oldState) {
             var newState = angular.copy(oldState);
 
@@ -160,4 +210,3 @@
         }
     }
 })();
-

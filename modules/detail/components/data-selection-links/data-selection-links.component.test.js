@@ -44,11 +44,11 @@ describe('The dp-data-selection-link component', () => {
     it('renders a header for both BAG and HR', () => {
         const component = getComponent({});
 
-        expect(component.find('.qa-bag dp-stelselpedia-header').attr('definition')).toBe('NUMMERAANDUIDING');
-        expect(component.find('.qa-bag dp-stelselpedia-header').attr('use-plural')).toBe('true');
+        expect(component.find('.qa-bag dp-glossary-header').attr('definition')).toBe('NUMMERAANDUIDING');
+        expect(component.find('.qa-bag dp-glossary-header').attr('use-plural')).toBe('true');
 
-        expect(component.find('.qa-hr dp-stelselpedia-header').attr('definition')).toBe('VESTIGING');
-        expect(component.find('.qa-hr dp-stelselpedia-header').attr('use-plural')).toBe('true');
+        expect(component.find('.qa-hr dp-glossary-header').attr('definition')).toBe('VESTIGING');
+        expect(component.find('.qa-hr dp-glossary-header').attr('use-plural')).toBe('true');
     });
 
     it('has links to the LIST view of data-selection for both BAG and HR', () => {

@@ -1,26 +1,27 @@
-<h3 class="o-header__subtitle u-margin__bottom--1-5">Panoramabeeld</h3>
+<div class="qa-straatbeeld-thumbnail">
+    <h3 class="o-header__subtitle u-margin__bottom--1-5">Panoramabeeld</h3>
 
-<dp-link ng-if="vm.hasThumbnail"
-         type="FETCH_STRAATBEELD"
-         payload="vm.payload"
-         class-name="u-block u-width-100 u-margin__bottom--4"
-         hover-text="Panoramabeeld tonen">
-    <div class="u-aspect-ratio u-aspect-ratio--16-9">
-        <img class="c-straatbeeld-thumbnail--img"
-             ng-if="!vm.isLoading" ng-src="{{vm.imageUrl}}" dp-alt="Panoramabeeld tonen">
+    <dp-link ng-if="vm.hasThumbnail"
+             type="FETCH_STRAATBEELD"
+             payload="vm.payload"
+             class-name="u-block u-width-100 u-margin__bottom--4"
+             hover-text="Panoramabeeld tonen">
+        <div class="u-aspect-ratio u-aspect-ratio--16-9">
+            <img class="c-straatbeeld-thumbnail--img"
+                 ng-if="!vm.isLoading" ng-src="{{vm.imageUrl}}" dp-alt="Panoramabeeld tonen">
+        </div>
+    </dp-link>
+
+    <div class="qa-found-no-straatbeeld" ng-if="!vm.isLoading && !vm.hasThumbnail">
+        <dp-panel is-panel-visible="true" type="warning" can-close="true">
+            <p>
+                Geen panoramabeeld beschikbaar (binnen {{ vm.radius }}m van deze locatie).
+            </p>
+            <p class="u-margin__bottom--0">
+                Tip: kies via de kaart een nabije locatie.
+            </p>
+        </dp-panel>
     </div>
-</dp-link>
 
-<div class="qa-found-no-straatbeeld" ng-if="!vm.isLoading && !vm.hasThumbnail">
-    <dp-panel is-panel-visible="true" type="warning" can-close="true">
-        <p>
-            Geen panoramabeeld beschikbaar (binnen {{ vm.radius }}m van deze locatie).
-        </p>
-        <p class="u-margin__bottom--0">
-            Tip: kies via de kaart een nabije locatie.
-        </p>
-    </dp-panel>
+    <dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>
 </div>
-
-<dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>
-
