@@ -7,6 +7,7 @@ describe('Taiga issue #2866', () => {
         page.dashboard.header.search.submit();
 
         expect(page.dashboard.rightColumn.searchResults.categories(1).header).toContain('Adressen');
+        dp.validate('MAP_SEARCH-RESULTS--QUERY', page);
         const searchTitle = page.title;
 
         // Open the 'Adressen' category
