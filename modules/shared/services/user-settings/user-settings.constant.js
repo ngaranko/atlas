@@ -7,7 +7,7 @@
             test: {
                 storage: 'session'
             },
-            token: {
+            refreshToken: {
                 storage: 'session'
             },
             fullscreenStraatbeeld: {
