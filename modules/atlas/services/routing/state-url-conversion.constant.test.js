@@ -39,16 +39,6 @@ describe('The state url conversion definition', function () {
             state = STATE_URL_CONVERSION.onCreate.DEFAULT({}, {}, {aap: 'noot'}, {});
             expect(state).toEqual({atlas: undefined, page: undefined, layerSelection: undefined});
         });
-
-        it('initialize a search state to the previous search state if it exists', function () {
-            let state;
-
-            state = STATE_URL_CONVERSION.onCreate.search({aap: 'noot'}, {});
-            expect(state).toEqual({aap: 'noot'});
-
-            state = STATE_URL_CONVERSION.onCreate.search(null, {mies: 'teun'});
-            expect(state).toEqual({mies: 'teun'});
-        });
     });
 
     describe('The registered post processing methods', function () {
@@ -169,6 +159,83 @@ describe('The state url conversion definition', function () {
                 expect(newState).toEqual({
                     endpoint: 2
                 });
+            });
+        });
+
+        describe('The post processing for search', () => {
+            const OLD_STATE_WITH_QUERY = {
+                query: 'dam',
+                location: null,
+                category: null,
+                numberOfResults: 101,
+                isLoading: false
+            };
+            const OLD_STATE_WITH_QUERY_AND_CATEGORY = {
+                query: 'dam',
+                location: null,
+                category: 'adres',
+                numberOfResults: 102,
+                isLoading: false
+
+            };
+            const OLD_STATE_WITH_LOCATION = {
+                query: null,
+                location: [52.123, 4.789],
+                category: null,
+                numberOfResults: 103,
+                isLoading: false
+            };
+
+            it('does nothing if there is no old search state', () => {
+                let newState = angular.copy(OLD_STATE_WITH_QUERY);
+
+                STATE_URL_CONVERSION.post.search(undefined, newState);
+
+                expect(newState).toEqual(OLD_STATE_WITH_QUERY);
+            });
+
+            it('keeps isLoading and numberOfResults values if the query, location and category stay the same', () => {
+                let newState;
+
+                // With query
+                newState = angular.copy(OLD_STATE_WITH_QUERY);
+                STATE_URL_CONVERSION.post.search(OLD_STATE_WITH_QUERY, newState);
+                expect(newState).toEqual(OLD_STATE_WITH_QUERY);
+
+                // With query and category
+                newState = angular.copy(OLD_STATE_WITH_QUERY_AND_CATEGORY);
+                STATE_URL_CONVERSION.post.search(OLD_STATE_WITH_QUERY_AND_CATEGORY, newState);
+                expect(newState).toEqual(OLD_STATE_WITH_QUERY_AND_CATEGORY);
+
+                // With location
+                newState = angular.copy(OLD_STATE_WITH_LOCATION);
+                STATE_URL_CONVERSION.post.search(OLD_STATE_WITH_LOCATION, newState);
+                expect(newState).toEqual(OLD_STATE_WITH_LOCATION);
+            });
+
+            it('resets the isLoading and numberOfResults values if the query, location or category changes', () => {
+                let newState;
+
+                // When the query changes
+                newState = angular.copy(OLD_STATE_WITH_QUERY);
+                newState.query = 'damrak'; // Instead of 'dam'
+                STATE_URL_CONVERSION.post.search(OLD_STATE_WITH_QUERY, newState);
+                expect(newState.numberOfResults).toBeNull();
+                expect(newState.isLoading).toBe(true);
+
+                // When the category changes
+                newState = angular.copy(OLD_STATE_WITH_QUERY_AND_CATEGORY);
+                newState.category = null;
+                STATE_URL_CONVERSION.post.search(OLD_STATE_WITH_QUERY_AND_CATEGORY, newState);
+                expect(newState.numberOfResults).toBeNull();
+                expect(newState.isLoading).toBe(true);
+
+                // When the location changes
+                newState = angular.copy(OLD_STATE_WITH_LOCATION);
+                newState.location = [52.999, 4.111];
+                STATE_URL_CONVERSION.post.search(OLD_STATE_WITH_LOCATION, newState);
+                expect(newState.numberOfResults).toBeNull();
+                expect(newState.isLoading).toBe(true);
             });
         });
 

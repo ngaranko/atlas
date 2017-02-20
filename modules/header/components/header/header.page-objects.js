@@ -5,7 +5,7 @@ const searchPO = dp.require('modules/header/components/search/search.page-object
 module.exports = function (headerElement) {
     return {
         get search () {
-            return searchPO(headerElement.element(by.css('dp-search')))
+            return searchPO(headerElement.element(by.css('dp-search')));
         }
     };
 };

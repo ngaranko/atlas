@@ -1,5 +1,5 @@
 describe('Taiga issue #2866', () => {
-    fit('when opening a search category, the back button should return you to the list of all search results', () => {
+    it('when opening a search category, the back button should return you to the list of all search results', () => {
         const page = dp.navigate('PAGE--HOME');
 
         // Search for "Dam"
