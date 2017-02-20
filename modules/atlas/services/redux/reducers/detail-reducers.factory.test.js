@@ -101,6 +101,21 @@ describe('The detailReducers factory', function () {
 
             expect(output.map.isFullscreen).toBe(false);
         });
+
+        it('sets the isFullscreen flag for \'catalogus/api\'', function () {
+            var payload = 'bag/thing/123/',
+                inputState = angular.copy(defaultState),
+                output;
+
+            output = detailReducers.FETCH_DETAIL(inputState, payload);
+            expect(output.detail.isFullscreen).toBe(false);
+
+            payload = 'bag/catalogus/api/123/';
+            inputState = angular.copy(defaultState);
+            output = detailReducers.FETCH_DETAIL(inputState, payload);
+            expect(output.detail.isFullscreen).toBe(true);
+        });
+
         it('sets the reload flag in case the endpoint stays the same', function () {
             var payload = 'bag/thing/123/',
                 inputState = angular.copy(defaultState),
@@ -160,6 +175,19 @@ describe('The detailReducers factory', function () {
 
             expect(output.map.isLoading).toBe(false);
             expect(output.detail.isLoading).toBe(false);
+        });
+
+        it('sets the isFullscreen flag', function () {
+            let output = detailReducers.SHOW_DETAIL(stateAfterFetchDetail, payload);
+            expect(output.detail.isFullscreen).toBe(undefined);
+
+            payload.isFullscreen = false;
+            output = detailReducers.SHOW_DETAIL(stateAfterFetchDetail, payload);
+            expect(output.detail.isFullscreen).toBe(false);
+
+            payload.isFullscreen = true;
+            output = detailReducers.SHOW_DETAIL(stateAfterFetchDetail, payload);
+            expect(output.detail.isFullscreen).toBe(true);
         });
 
         it('turns the reload flag off', function () {
