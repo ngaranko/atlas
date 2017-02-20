@@ -45,8 +45,8 @@ module.exports = {
         validator: require('../validators/map_straatbeeld')
     },
     'MAP_STRAATBEELD--PAGE': {
-        url: '#?mpb=topografie&mpz=11&mpv=52.3731081:4.8932945&pgn=home&sbf=5e&sbh=-Lc&sbi=TMX7315120208-000073_pano_' +
-          '0005_000451&sbl=ZRWNV:3JJh3',
+        url: '#?mpb=topografie&mpz=11&mpv=52.3731081:4.8932945&pgn=home&sbf=5e&sbh=-Lc&sbi=TMX7315120208-000068_pano_' +
+             '0002_000405&sbl=ZQgX9:3Nqgu',
         validator: require('../validators/map_straatbeeld')
     },
     'MAP_STRAATBEELD--SEARCH-RESULTS': {
@@ -69,8 +69,8 @@ module.exports = {
         validator: require('../validators/straatbeeld')
     },
     'STRAATBEELD--PAGE': {
-        url: '#?mpb=topografie&mpz=11&mpv=52.3731081:4.8932945&pgn=home&sbf=5e&sbfs=T&sbh=-Lc&sbi=TMX7315120208-00007' +
-            '3_pano_0005_000451&sbl=ZRWNV:3JJh3',
+        url: '#?mpb=topografie&mpz=11&mpv=52.3731081:4.8932945&pgn=home&sbf=5e&sbfs=T&sbh=-Lc&sbi=TMX7315120208-00006' +
+             '8_pano_0002_000405&sbl=ZQgX9:3Nqgu',
         validator: require('../validators/straatbeeld')
     },
     'STRAATBEELD--SEARCH-RESULTS': {
