@@ -9,9 +9,9 @@
             controllerAs: 'vm'
         });
 
-    DpDashboardController.$inject = ['$scope', 'store', 'dashboardColumns', '$location', 'authentication'];
+    DpDashboardController.$inject = ['$scope', 'store', 'dashboardColumns'];
 
-    function DpDashboardController ($scope, store, dashboardColumns, $location, authentication) {
+    function DpDashboardController ($scope, store, dashboardColumns) {
         let vm = this;
 
         vm.store = store;
@@ -45,10 +45,6 @@
 
             // Needed for the dp-scrollable-content directive
             vm.pageName = state.page.name;
-
         }
-
-
-
     }
 })();

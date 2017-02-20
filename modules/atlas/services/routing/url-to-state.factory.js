@@ -21,6 +21,7 @@
                     payload: $location.search()
                 });
             });
+
             $rootScope.$on('$destroy', unwatch);
         }
     }
