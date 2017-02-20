@@ -6,7 +6,7 @@ $tab-border-radius: 2px;
   margin-left: $base-whitespace;
 
   &::before {
-    margin-left: -1 * $base-whitespace;
+    margin-left: - $base-whitespace;
   }
 
   &::before,

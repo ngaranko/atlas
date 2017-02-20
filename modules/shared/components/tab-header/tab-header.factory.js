@@ -18,6 +18,7 @@
                 this._action = action;
                 this._getPayload = getPayload;
                 this._count = null;
+                this._isActive = false;
             }
 
             get id () {
@@ -37,11 +38,11 @@
             }
 
             get isActive () {
-                return Boolean(this._isActive);
+                return this._isActive;
             }
 
             set isActive (isActive) {
-                this._isActive = isActive;
+                this._isActive = Boolean(isActive);
             }
 
             set query (query) {
