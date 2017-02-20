@@ -78,7 +78,9 @@ describe('The contextMiddleware factory', function () {
 
         expect(returnValue).toEqual({
             type: ACTIONS.SHOW_PAGE,
-            payload: 'home'
+            payload: {
+                name: 'home'
+            }
         });
     });
 

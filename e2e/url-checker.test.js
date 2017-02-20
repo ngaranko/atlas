@@ -152,6 +152,14 @@ describe('each URL should load the corresponding view', function () {
         expect(page.title).toBe('Panorama 128708.98, 485100.65 (52.3531791, 5.0013100) - Atlas');
     });
 
+    it('MAP_STRAATBEELD--PAGE', () => {
+        page = dp.navigate('MAP_STRAATBEELD--PAGE');
+
+        dp.validate('MAP_STRAATBEELD--PAGE', page);
+
+        expect(page.title).toBe('Panorama 128708.98, 485100.65 (52.3531791, 5.0013100) - Atlas');
+    });
+
     it('MAP_STRAATBEELD--SEARCH-RESULTS', () => {
         page = dp.navigate('MAP_STRAATBEELD--SEARCH-RESULTS');
 
@@ -176,6 +184,14 @@ describe('each URL should load the corresponding view', function () {
         page = dp.navigate('STRAATBEELD--DETAIL');
 
         dp.validate('STRAATBEELD--DETAIL', page);
+
+        expect(page.title).toBe('Panorama 128708.98, 485100.65 (52.3531791, 5.0013100) - Atlas');
+    });
+
+    it('STRAATBEELD--PAGE', () => {
+        page = dp.navigate('STRAATBEELD--PAGE');
+
+        dp.validate('STRAATBEELD--PAGE', page);
 
         expect(page.title).toBe('Panorama 128708.98, 485100.65 (52.3531791, 5.0013100) - Atlas');
     });
