@@ -46,8 +46,7 @@
                         newState.map = angular.copy(initialValues.map);
                     }
                     return newState;
-                },
-                search: (oldState, newState) => angular.copy(oldState || newState)
+                }
             },
             post: {
                 // Post processing methods
@@ -74,6 +73,24 @@
                         newState.drawingMode = oldState.drawingMode;
                         newState.isLoading = oldState.isLoading;
                     }
+                    return newState;
+                },
+                search: (oldState, newState) => {
+                    const HAS_OLD_STATE = angular.isObject(oldState);
+                    const HAS_INPUT_CHANGED = HAS_OLD_STATE && (
+                            oldState.query !== newState.query ||
+                            !angular.equals(oldState.location, newState.location) ||
+                            oldState.category !== newState.category
+                        );
+
+                    if (HAS_INPUT_CHANGED) {
+                        newState.numberOfResults = null;
+                        newState.isLoading = true;
+                    } else if (HAS_OLD_STATE) {
+                        newState.numberOfResults = oldState.numberOfResults;
+                        newState.isLoading = oldState.isLoading;
+                    }
+
                     return newState;
                 },
                 straatbeeld: (oldState, newState) => {
