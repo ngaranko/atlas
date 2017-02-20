@@ -16,9 +16,9 @@
             controllerAs: 'vm'
         });
 
-    DpSearchResultsController.$inject = ['$scope', 'search', 'geosearch', 'store', 'ACTIONS'];
+    DpSearchResultsController.$inject = ['$scope', 'search', 'geosearch', 'TabHeader', 'store', 'ACTIONS'];
 
-    function DpSearchResultsController ($scope, search, geosearch, store, ACTIONS) {
+    function DpSearchResultsController ($scope, search, geosearch, TabHeader, store, ACTIONS) {
         let vm = this;
 
         /**
@@ -55,6 +55,14 @@
             });
         };
 
+        vm.tabHeader = new TabHeader('data-datasets');
+        vm.tabHeader.activeTab = vm.tabHeader.getTab('data');
+
+        function updateTabHeader (query, count) {
+            vm.tabHeader.query = query;
+            vm.tabHeader.getTab('data').count = count;
+        }
+
         function searchByQuery (query, category) {
             let isQuery = angular.isString(query) && query.length;
             if (isQuery) {
@@ -82,6 +90,8 @@
             let numberOfResults = searchResults.reduce(function (previous, current) {
                 return previous + current.count;
             }, 0);
+
+            updateTabHeader(vm.query, numberOfResults);
 
             store.dispatch({
                 type: ACTIONS.SHOW_SEARCH_RESULTS,
