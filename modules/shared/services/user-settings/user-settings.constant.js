@@ -4,9 +4,6 @@
     angular
         .module('dpShared')
         .constant('USER_SETTINGS', {
-            test: {
-                storage: 'session'
-            },
             refreshToken: {
                 storage: 'session'
             },

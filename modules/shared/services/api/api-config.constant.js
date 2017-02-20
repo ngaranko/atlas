@@ -5,7 +5,7 @@
         .module('dpShared')
         .constant('API_CONFIG', {
             ROOT: 'https://api.datapunt.amsterdam.nl/',
-            AUTH: 'http://localhost:8109/auth',
+            AUTH: 'https://api.datapunt.amsterdam.nl/auth',
             AUTHZ_HEADER_PREFIX: 'Bearer '
         });
 })();

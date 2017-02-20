@@ -14,16 +14,16 @@
             controllerAs: 'vm'
         });
 
-    DpHeaderController.$inject = ['$scope', 'authentication', '$location', 'userSettings'];
+    DpHeaderController.$inject = ['$scope', 'authenticator', '$location', 'userSettings'];
 
-    function DpHeaderController (scope, authentication, $location, userSettings) {
+    function DpHeaderController (scope, authenticator, $location, userSettings) {
         var vm = this;
 
-        vm.authenticate = authentication.authenticate;
-        vm.logOut = authentication.logOut;
+        vm.authenticate = authenticator.login;
+        vm.logOut = authenticator.logOut;
 
         vm.isAuthenticated = function () {
-            return authentication.getStatus().isLoggedIn;
+            return false; // authenticator.getStatus().isLoggedIn;
         };
     }
 })();

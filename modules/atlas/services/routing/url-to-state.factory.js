@@ -18,7 +18,9 @@
             var unwatch = $rootScope.$watch(function () {
                 return $location.search();
             }, function (params) {
-                if (!authenticator.handleCallback(params)) {
+                if (authenticator.isCallback(params)) {
+                    authenticator.handleCallback(params);
+                } else {
                     store.dispatch({
                         type: ACTIONS.URL_CHANGE,
                         payload: params

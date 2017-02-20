@@ -42,23 +42,23 @@
         const state = applicationState.getStateUrlConverter().getDefaultState();
         const defaultStateUrl = applicationState.getStateUrlConverter().state2url(state);
 
-        let unwatch = $rootScope.$watch(function () {
-            return $location.search();
-        }, function () {
-            let params = $location.search();
-            if ('a-select-server' in params && 'aselect_credentials' in params && 'rid' in params) {
-                refreshTokenUser(params['a-select-server'], params['aselect_credentials'], params['rid']);
-            } else {
-                $rootScope.$applyAsync(function() {
-                    if (!angular.isDefined(userSettings.refreshToken.value)) {
-                        refreshTokenAnonymous ().then(accessTokenLoop);
-                    } else {
-                        accessTokenLoop();
-                    }
-                });
-            }
-        });
-        $rootScope.$on('$destroy', unwatch);
+        // let unwatch = $rootScope.$watch(function () {
+        //     return $location.search();
+        // }, function () {
+        //     let params = $location.search();
+        //     if ('a-select-server' in params && 'aselect_credentials' in params && 'rid' in params) {
+        //         refreshTokenUser(params['a-select-server'], params['aselect_credentials'], params['rid']);
+        //     } else {
+        //         $rootScope.$applyAsync(function() {
+        //             if (!angular.isDefined(userSettings.refreshToken.value)) {
+        //                 refreshTokenAnonymous ().then(accessTokenLoop);
+        //             } else {
+        //                 accessTokenLoop();
+        //             }
+        //         });
+        //     }
+        // });
+        // $rootScope.$on('$destroy', unwatch);
         return {
             authenticate: authenticate,
             fetchToken: refreshTokenUser,
