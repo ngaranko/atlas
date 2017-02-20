@@ -87,7 +87,7 @@
                         payload: {
                             display: data._display,
                             geometry: geoJSON,
-                            isFullscreen: subject === 'api'
+                            isFullscreen: subject === 'api' || !geoJSON
                         }
                     });
                 }, errorHandler);

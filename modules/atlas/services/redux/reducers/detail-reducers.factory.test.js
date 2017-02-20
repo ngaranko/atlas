@@ -179,14 +179,13 @@ describe('The detailReducers factory', function () {
 
         it('sets the isFullscreen flag', function () {
             let output = detailReducers.SHOW_DETAIL(stateAfterFetchDetail, payload);
+            expect(output.detail.isFullscreen).toBe(undefined);
+
+            payload.isFullscreen = false;
+            output = detailReducers.SHOW_DETAIL(stateAfterFetchDetail, payload);
             expect(output.detail.isFullscreen).toBe(false);
 
             payload.isFullscreen = true;
-            output = detailReducers.SHOW_DETAIL(stateAfterFetchDetail, payload);
-            expect(output.detail.isFullscreen).toBe(true);
-
-            payload.isFullscreen = false;
-            delete payload.geometry;
             output = detailReducers.SHOW_DETAIL(stateAfterFetchDetail, payload);
             expect(output.detail.isFullscreen).toBe(true);
         });
