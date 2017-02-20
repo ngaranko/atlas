@@ -1,8 +1,11 @@
-<div>
+<div class="c-search-results">
     <dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>
 
     <div ng-if="!vm.isLoading" class="u-row">
-        <div ng-if="vm.numberOfResults">
+
+        <dp-tab-header ng-if="!vm.location.length" title="Resultaten met &quot;{{vm.query}}&quot;" tab-header="vm.tabHeader"></dp-tab-header>
+
+        <div ng-if="vm.numberOfResults" class="qa-search-result">
             <div ng-if="!vm.category">
                 <dp-search-results-header
                     number-of-results="vm.numberOfResults"
