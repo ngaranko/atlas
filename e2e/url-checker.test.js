@@ -89,18 +89,6 @@ describe('each URL should load the corresponding view', function () {
         expect(detail.verblijfsobject.descriptionList.definition(1)).toBe('woning');
     });
 
-    it('MAP_PAGE--HOME', () => {
-        page = dp.navigate('MAP_PAGE--HOME');
-
-        dp.validate('MAP_PAGE--HOME', page);
-    });
-
-    it('MAP_PAGE--LOGIN', () => {
-        page = dp.navigate('MAP_PAGE--LOGIN');
-
-        dp.validate('MAP_PAGE--LOGIN', page);
-    });
-
     it('MAP_SEARCH-RESULTS--LOCATION', () => {
         page = dp.navigate('MAP_SEARCH-RESULTS--LOCATION');
         const searchResults = page.dashboard.rightColumn.searchResults;
@@ -170,6 +158,18 @@ describe('each URL should load the corresponding view', function () {
         dp.validate('MAP_STRAATBEELD--SEARCH-RESULTS', page);
 
         expect(page.title).toBe('Panorama 121356.94, 487341.61 (52.3729183, 4.8931775) - Atlas');
+    });
+
+    it('PAGE--HOME', () => {
+        page = dp.navigate('PAGE--HOME');
+
+        dp.validate('PAGE--HOME', page);
+    });
+
+    it('PAGE--LOGIN', () => {
+        page = dp.navigate('PAGE--LOGIN');
+
+        dp.validate('PAGE--LOGIN', page);
     });
 
     it('STRAATBEELD--DETAIL', () => {

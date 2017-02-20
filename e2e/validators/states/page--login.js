@@ -1,9 +1,9 @@
 'use strict';
 
-const mapPage = require('./map_page');
+const pagePO = require('./page');
 
 module.exports = function (page) {
     expect(page.title).toBe('Inloggen - Atlas');
 
-    mapPage(page);
+    pagePO(page);
 };
