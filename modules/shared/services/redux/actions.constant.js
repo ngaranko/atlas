@@ -33,6 +33,9 @@
                 id: 'SHOW_SEARCH_RESULTS'
             },
 
+            SHOW_MAP: {
+                id: 'SHOW_MAP'
+            },
             MAP_SET_BASELAYER: {
                 id: 'MAP_SET_BASELAYER',
                 replace: true
@@ -99,8 +102,8 @@
                 id: 'SHOW_DETAIL'
             },
 
-            FETCH_STRAATBEELD: {
-                id: 'FETCH_STRAATBEELD',
+            FETCH_STRAATBEELD_BY_ID: {
+                id: 'FETCH_STRAATBEELD_BY_ID',
                 ignore: true
             },
             FETCH_STRAATBEELD_BY_LOCATION: {

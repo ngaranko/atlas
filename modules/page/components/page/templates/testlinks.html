@@ -1,110 +1,183 @@
-<h1>E2E scenario testlinks</h1>
-<ul class="u-margin__bottom--2">
-    <li><a class="o-btn o-btn--link" href="#?dsd=catalogus&dsp=1&dsv=CARDS&mpb=topografie&mpz=9&mpv=52.3719:4.9012">DATA-SELECTION--CARDS</a></li>
-    <li><a class="o-btn o-btn--link" href="#?dsd=bag&dsp=1&dsv=TABLE&mpb=topografie&mpz=9&mpv=52.3719:4.9012">DATA-SELECTION--TABLE</a></li>
-    <li><a class="o-btn o-btn--link" href="#?dte=https://api.datapunt.amsterdam.nl/catalogus/api/3/action/package_show%3Fid%3D642f15c7-8368-4795-9e3d-1a87fa7e562a&dtfs=T&mpb=topografie&mpz=9&mpv=52.3719:4.9012">DETAIL</a></li>
-    <li><a class="o-btn o-btn--link" href="#?mpv=52.3719:4.9012&mpb=topografie&mpz=9&lse=T&pgn=home">LAYER-SELECTION_MAP</a></li>
-    <li><a class="o-btn o-btn--link" href="#?mpv=52.3719:4.9012&mpb=topografie&mpz=9&mpfs=T&pgn=home">MAP</a></li>
-    <li><a class="o-btn o-btn--link" href="#?dsd=hr&dsp=1&dsv=LIST&mpb=topografie&mpz=9&mpv=52.3719:4.9012">MAP_DATA-SELECTION</a></li>
-    <li><a class="o-btn o-btn--link" href="#?mpv=52.353263440372224:5.001382398402873&mpb=topografie&mpz=16&dte=https://api.datapunt.amsterdam.nl/bag/nummeraanduiding/03630000500149/">MAP_DETAIL--NUMMERAANDUIDING</a></li>
-    <li><a class="o-btn o-btn--link" href=".">MAP_PAGE--HOME</a></li>
-    <li><a class="o-btn o-btn--link" href="#?mpv=52.3719:4.9012&mpb=topografie&mpz=9&pgn=login">MAP_PAGE--LOGIN</a></li>
-    <li><a class="o-btn o-btn--link" href="#?mpb=topografie&mpz=11&mpv=52.3731081:4.8932945&src=adres&srq=dam">MAP_SEARCH-RESULTS--CATEGORY</a></li>
-    <li><a class="o-btn o-btn--link" href="#?mpb=topografie&mpz=9&mpv=52.3729183:4.8931775&srl=ZRVst:3JJOB">MAP_SEARCH-RESULTS--LOCATION</a></li>
-    <li><a class="o-btn o-btn--link" href="#?mpb=topografie&mpz=9&mpv=52.3719:4.9012&srq=Oost">MAP_SEARCH-RESULTS--QUERY</a></li>
-    <li><a class="o-btn o-btn--link" href="#?dte=https://api.datapunt.amsterdam.nl/bag/nummeraanduiding/03630000500149/&mpb=topografie&mpz=16&mpv=52.3532634:5.0013828&sbf=Cu&sbh=4W&sbi=TMX7315120208-000068_pano_0002_000405&sbl=ZQgX9:3Nqgu">MAP_STRAATBEELD--DETAIL</a></li>
-    <li><a class="o-btn o-btn--link" href="#?mpb=topografie&mpz=9&mpv=52.3729183:4.8931775&sbf=Cu&sbh=-76&sbi=TMX7315120208-000073_pano_0005_000446&sbl=ZRVst:3JJOB">MAP_STRAATBEELD--SEARCH-RESULTS</a></li>
-    <li><a class="o-btn o-btn--link" href="#?dte=https://api.datapunt.amsterdam.nl/bag/nummeraanduiding/03630000500149/&mpb=topografie&mpz=16&mpv=52.3531791:5.00131&sbf=Cu&sbfs=T&sbh=4W&sbi=TMX7315120208-000068_pano_0002_000405&sbl=ZQgX9:3Nqgu">STRAATBEELD--DETAIL</a></li>
-    <li><a class="o-btn o-btn--link" href="#?mpb=topografie&mpz=9&mpv=52.3729183:4.8931775&sbf=Cu&sbfs=T&sbh=Ni&sbi=TMX7315120208-000073_pano_0005_000446&sbl=ZRVst:3JJOB">STRAATBEELD--SEARCH-RESULTS</a></li>
-</ul>
+<ul>
+    <li><dp-link type="FETCH_DATA_SELECTION" payload="{dataset: 'bag', filters: {}, page: 1}">
+        BAG - data selectie
+    </dp-link></li>
+    <li><dp-link type="FETCH_DATA_SELECTION" payload="{dataset: 'catalogus', view: 'CARDS', filters: {}, page: 1}">
+        Catalogus
+    </dp-link></li>
+    <li><dp-link type="SHOW_PRINT">SHOW_PRINT</dp-link></li>
+    <li><dp-link type="HIDE_PRINT">HIDE_PRINT</dp-link></li>
+    <li><dp-link type="FETCH_STRAATBEELD_BY_ID" payload="1000017472453">Get straatbeeld by ID</dp-link></li>
+    <li><dp-link type="FETCH_STRAATBEELD_BY_LOCATION" payload="[52.356907, 5.001411]">Get straatbeeld by location</dp-link></li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/milieuthemas/explosieven/inslagen/1/'">
+            Explosieven: Inslagen
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/milieuthemas/explosieven/gevrijwaardgebied/1/'">
+            Explosieven: Gevrijwaard gebied
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/milieuthemas/explosieven/verdachtgebied/1/'">
+            Explosieven: Verdacht gebied
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/milieuthemas/explosieven/uitgevoerdonderzoek/1/'">
+            Explosieven: Uitgevoerd onderzoek
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/bag/openbareruimte/03630000003189/'">
+            Ga naar Damstraat - Openbare ruimte
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/bag/nummeraanduiding/03630000215880/'">
+            Ga naar Nieuwe Doelenstraat 1A - Adres (nummeraanduiding vbo)
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/03630001023080/'">
+            Ga naar Leeuwendalersweg 23B - Adres (veel kadastrale objecten)
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/bag/nummeraanduiding/03630000537323/'">
+            Ga naar binnenkant 5 - Adres (nevenadres)
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/03630023646964/'">
+            Ga naar Ad Windighof 12A - Adres (vbo code 18)
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/bag/nummeraanduiding/03630000517566/'">
+            Ga naar Binnenkant 1B - Adres (ligplaats nummmeraanduiding)
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/bag/ligplaats/03630001030154/'">
+            Ga naar Binnenkant 1B - Adres (ligplaats)
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/bag/nummeraanduiding/03630000153651/'">
+            Ga naar Johan Broedeletstraat 10 - Adres (standplaats nummeraanduiding)
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/bag/standplaats/03630000691674/'">
+            Ga naar Johan Broedeletstraat 10 - Adres (standplaats)
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/bag/pand/03630013077074/'">
+            Ga naar 0363100012135433 - Pand
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/gebieden/stadsdeel/03630000000018/'">
+            Ga naar Centrum - Stadsdeel
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/gebieden/buurtcombinatie/3630012052028/'">
+            Ga naar buurtcombinatie
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/gebieden/buurt/03630000000583/'">
+            Ga naar buurt
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/gebieden/bouwblok/03630012095971/'">
+            Ga naar bouwblok
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/gebieden/gebiedsgerichtwerken/DX01/'">
+            Ga naar gebiedsgericht werken
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/gebieden/unesco/kernzone/'">
+            Ga naar unesco
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/gebieden/grootstedelijkgebied/noord-zuidlijn/'">
+            Ga naar grootstdelijk gebied
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/wkpb/beperking/3488/'">
+            Ga naar beperking
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/brk/object/NL.KAD.OnroerendeZaak.11460160670000/'">
+            Ga naar kadastraal object (doorklikken natuurlijk subject)
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/brk/subject/NL.KAD.Persoon.259599452/'">
+            Ga naar kadastraal subject (niet natuurlijk)
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/meetbouten/meetbout/10581105/'">
+            Ga naar meetbouten
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/meetbouten/meetbout/11181168/'">
+            Ga naar meetbouten (rollaag)
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/nap/peilmerk/10580011/'">
+            Ga naar nap
+        </dp-link>
+    </li>
 
-<h1>Detailpagina's</h1>
-<ul class="u-margin__bottom--2">
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/bag/woonplaats/03630022796658/'">BAG - Woonplaats</dp-link></li>
-</ul>
-
-<h2>Openbare ruimtes (BAG)</h2>
-<ul class="u-margin__bottom--2">
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/bag/openbareruimte/03630000003186/'">Weg</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/bag/openbareruimte/03630011950328/'">Water</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/bag/openbareruimte/03630011950597/'">Kunstwerk</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/bag/openbareruimte/03630000005318/'">Landschappelijk gebied</dp-link></li>
-</ul>
-
-<h2>Nummeraanduiding (BAG)</h2>
-<ul class="u-margin__bottom--2">
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/bag/nummeraanduiding/03630000438761/'">Verblijfsobject</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/bag/nummeraanduiding/03630000517566/'">Ligplaats</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/bag/nummeraanduiding/03630000153651/'">Standplaats</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/bag/nummeraanduiding/03630000048658/'">Meerdere adressen</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/bag/nummeraanduiding/03630022325762/'">Meerdere panden</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/bag/nummeraanduiding/03630000215880/'">Hoofd- en nevenadres</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/bag/nummeraanduiding/03630003761448/'">Meerdere nevenadressen</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/bag/nummeraanduiding/03630023919714/'">Status code 18 / verblijfsobject gevormd</dp-link></li>
-</ul>
-
-<h2>Verblijfsobject (BAG)</h2>
-<ul class="u-margin__bottom--2">
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/03630000553603/'">Damstraat 1a (een 'gewone')</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/03630000586261/'">Meerdere adressen</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/03630022325965/'">Meedere panden</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/03630023646964/'">Status code 18 / verblijfsobject gevormd</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/03630000747172/'">Geen beperkingen</dp-link></li>
-</ul>
-
-<h2>Hetzelfde onder een andere URL</h2>
-<ul class="u-margin__bottom--2">
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/bag/ligplaats/03630001030155/'">BAG - Ligplaats (Binnenkant 1C)</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/bag/nummeraanduiding/03630000517566/'">BAG - Nummeraanduiding (Binnenkant 1C)</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/bag/standplaats/03630000691674/'">BAG - Standplaats (Johan Broedeletstraat 10)</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/bag/nummeraanduiding/03630000153651/'">BAG - Nummeraanduiding (Johan Broedeletstraat 10)</dp-link></li>
-</ul>
-
-<h2>Pand (BAG)</h2>
-<ul class="u-margin__bottom--2">
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/bag/pand/03630013105676/'">0363100012185506 (een 'gewone')</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/bag/pand/03630013077074/'">Meerdere adressen</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/bag/pand/03630012980786/'">Zonder verblijfsobject</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/bag/pand/03630013126606/'">Zonder adres</dp-link></li>
-</ul>
-
-<h2>Gebieden</h2>
-<ul class="u-margin__bottom--2">
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/gebieden/stadsdeel/03630000000018/'">Stadsdeel</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/gebieden/buurtcombinatie/3630012052036/'">Buurtcombinatie</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/gebieden/bouwblok/03630012095971/'">Bouwblok</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/gebieden/buurt/03630000000724/'">Buurt (G-buurt Oost)</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/gebieden/buurt/03630000000078/'">Buurt (Kop Zeedijk)</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/gebieden/buurt/03630000000601/'">Buurt (geen BBGA corporaties)</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/gebieden/gebiedsgerichtwerken/DX01/'">Gebiedsgericht werken</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/gebieden/gebiedsgerichtwerken/DXXX1/'">Gebiedsgericht werken (geen data beschikbaar)</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/gebieden/grootstedelijkgebied/noord-zuidlijn/'">Grootstedelijk gebied</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/gebieden/unesco/bufferzone/'">Unesco bufferzone</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/gebieden/unesco/kernzone/'">Unesco kerzone</dp-link></li>
-</ul>
-
-<h2>Beperkingen</h2>
-<ul class="u-margin__bottom--2">
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/wkpb/beperking/3488/'">WKPB beperking</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/brk/object/NL.KAD.OnroerendeZaak.11500193270000/'">BRK object met drie beperkingen</dp-link></li>
-</ul>
-
-<h2>Kadastraal object</h2>
-<ul class="u-margin__bottom--2">
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/brk/object/NL.KAD.OnroerendeZaak.11780225970000/'">Meerdere zakelijke rechten</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/brk/object/NL.KAD.OnroerendeZaak.11441034170000/'">Meerdere A percelen</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/brk/object/NL.KAD.OnroerendeZaak.14020919910003/'">A perceel in een A perceel</dp-link></li>
-</ul>
-
-<h2>Kadastraal subject</h2>
-<ul class="u-margin__bottom--2">
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/brk/subject/NL.KAD.Persoon.259599452/'">Niet natuurlijk persoon</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/brk/subject/NL.KAD.Persoon.172021189/'">Niet natuurlijk persoon (Veel zakelijke rechten met lange namen)</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/brk/subject/NL.KAD.Persoon.145754202/'">Natuurlijk persoon</dp-link></li>
-</ul>
-
-<h2>Meetbouten</h2>
-<ul class="u-margin__bottom--2">
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/meetbouten/meetbout/10581099/'">Veel metingen</dp-link></li>
-    <li><dp-link type="FETCH_DETAIL" payload="'https://api.datapunt.amsterdam.nl/meetbouten/meetbout/11681014/'">Met één meting</dp-link></li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/gebieden/bouwblok/03630012096424/'">
+            Erik's bouwblok
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/bag/verblijfsobject/03630001024765/'">
+            Erik's huis
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/handelsregister/maatschappelijkeactiviteit/33254539/'">
+            MAC
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/handelsregister/vestiging/000034326456/'">
+            [vestiging] BMN Bouwmaterialen B.V. (meer handelsnamen/vestigingen)
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/handelsregister/vestiging/000017790964/'">
+            [vestiging] Van Diepen Van der Kroef Advocaten (meer heeft-aansprakelijke)
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/handelsregister/vestiging/000007386451/'">
+            [vestiging] DTZ Zadelhoff Retail (meer heeft-aansprakelijke/handelsnamen)
+        </dp-link>
+    </li>
+    <li>
+        <dp-link type="FETCH_DETAIL" payload="'https://api-acc.datapunt.amsterdam.nl/handelsregister/vestiging/000000145114/'">
+            [VESTIGING] 007 Concepts
+        </dp-link>
+    </li>
 </ul>
