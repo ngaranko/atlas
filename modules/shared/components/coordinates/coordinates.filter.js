@@ -14,12 +14,12 @@
          * @returns {String} - A formatted string with RD and lat/lon coordinates "X, Y (lat, lon)"
          */
         return function (location, type) {
-            var wgs84Location,
+            let wgs84Location,
                 rdLocation,
                 formattedRdLocation,
                 formattedWgs84Location;
 
-            if (!location) {
+            if (angular.isUndefined(location) || (angular.isArray(location) && location.length !== 2)) {
                 return;
             }
 
