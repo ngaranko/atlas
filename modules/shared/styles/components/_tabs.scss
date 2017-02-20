@@ -3,7 +3,13 @@ $tab-border-radius: 2px;
 
 .o-tabs {
   position: relative;
+  margin-left: $base-whitespace;
 
+  &::before {
+    margin-left: - $base-whitespace;
+  }
+
+  &::before,
   &::after {
     display: block;
     position: absolute;
