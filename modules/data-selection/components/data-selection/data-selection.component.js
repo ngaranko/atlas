@@ -17,11 +17,19 @@
         'userSettings',
         'dataSelectionApi',
         'DATA_SELECTION_CONFIG',
+        'TabHeader',
         'store',
         'ACTIONS'
     ];
 
-    function DpDataSelectionController ($scope, userSettings, dataSelectionApi, DATA_SELECTION_CONFIG, store, ACTIONS) {
+    function DpDataSelectionController (
+        $scope,
+        userSettings,
+        dataSelectionApi,
+        DATA_SELECTION_CONFIG,
+        TabHeader,
+        store,
+        ACTIONS) {
         let vm = this;
 
         vm.showCatalogusIntroduction = vm.state.view === 'CARDS' &&
@@ -42,6 +50,16 @@
                 vm.state.query
             ];
         }, fetchData, true);
+
+        vm.tabHeader = new TabHeader('data-datasets');
+        vm.tabHeader.activeTab = vm.tabHeader.getTab('datasets');
+
+        function updateTabHeader (query, count) {
+            if (vm.view === 'CARDS') {
+                vm.tabHeader.query = query;
+                vm.tabHeader.getTab('datasets').count = count;
+            }
+        }
 
         function fetchData () {
             let isListView = vm.state.view === 'LIST';
@@ -67,6 +85,8 @@
                     vm.data = data.data;
                     vm.numberOfRecords = data.numberOfRecords;
                     vm.numberOfPages = data.numberOfPages;
+
+                    updateTabHeader(vm.state.query, vm.numberOfRecords);
 
                     vm.showContent =
                         vm.numberOfRecords &&

@@ -28,6 +28,7 @@
             vm.visibility = dashboardColumns.determineVisibility(state);
 
             vm.hasMaxWidth = vm.visibility.page;
+            vm.isHomePage = state.page && state.page.name === 'home';
 
             vm.isPrintMode = state.atlas.isPrintMode;
 

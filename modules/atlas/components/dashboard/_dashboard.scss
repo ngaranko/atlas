@@ -3,6 +3,9 @@
 $dashboard-heading-height: 50px;
 $dashboard-heading-height-printversion: 42px;
 $dashboard-error-height: $button-size + 2 * $base-whitespace;
+$dashboard-max-width-outer: 1800px;
+$dashboard-max-width-inner: 1600px;
+$dashboard-margin-home-page: 42px;
 
 %full-height {
   height: 100%;
@@ -16,22 +19,9 @@ $dashboard-error-height: $button-size + 2 * $base-whitespace;
   height: 100%;
   background-color: $primary-light;
   overflow: hidden;
-}
 
-.c-dashboard__inner {
-  height: 100%;
-  overflow: hidden;
-}
-
-.c-dashboard--max-width {
-  max-width: 1800px;
-  margin-right: auto;
-  margin-left: auto;
-
-  .c-dashboard__inner {
-    max-width: 1600px;
-    margin-right: auto;
-    margin-left: auto;
+  &.c-dashboard--max-width {
+    background-color: $secondary-gray10;
   }
 }
 
@@ -44,7 +34,6 @@ $dashboard-error-height: $button-size + 2 * $base-whitespace;
 .c-dashboard__body {
   position: relative;
   height: calc(100% - #{$dashboard-heading-height});
-  padding-left: $base-whitespace * 2;
   z-index: 1;
   overflow-y: hidden;
 
@@ -65,17 +54,43 @@ $dashboard-error-height: $button-size + 2 * $base-whitespace;
   margin-right: $base-whitespace * 2;
 }
 
+.c-dashboard__max-width {
+  max-width: $dashboard-max-width-outer;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: $primary-light;
+}
+
+.c-dashboard__max-width__inner {
+  max-width: $dashboard-max-width-inner;
+  margin-right: auto;
+  margin-left: auto;
+
+  &.c-dashboard__max-width__inner--home-page {
+    padding-right: $dashboard-margin-home-page;
+    padding-left: $dashboard-margin-home-page;
+  }
+}
+
 .c-dashboard__column {
   @extend %full-height;
 
-  padding: $base-whitespace * 2;
-  padding-left: 0;
   overflow-y: auto;
 
   > div {
     @extend %full-height;
 
     position: relative;
+    background-color: $primary-light;
+  }
+
+  .c-dashboard__max-width {
+    height: initial;
+    min-height: 100%;
+  }
+
+  .c-dashboard__max-width__inner {
+    padding-bottom: 1px; /* Makes sure content margins stay inside this element */
   }
 }
 
