@@ -27,6 +27,8 @@
             vm.activity = dashboardColumns.determineActivity(state);
             vm.visibility = dashboardColumns.determineVisibility(state);
 
+            vm.hasMaxWidth = vm.visibility.page;
+
             vm.isPrintMode = state.atlas.isPrintMode;
 
             vm.isCatalogus = (state.dataSelection && state.dataSelection.view === 'CARDS') ||
