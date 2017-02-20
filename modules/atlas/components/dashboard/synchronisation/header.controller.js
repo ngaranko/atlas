@@ -8,16 +8,21 @@
     HeaderController.$inject = ['store'];
 
     function HeaderController (store) {
-        var vm = this;
+        let vm = this;
 
         store.subscribe(update);
         update();
 
         function update () {
-            var state = store.getState();
+            const state = store.getState();
+
+            const IS_DATA_SELECTION = angular.isObject(state.dataSelection);
+            const IS_HOMEPAGE = angular.isObject(state.page) && state.page.name === 'home' &&
+                !state.map.isFullscreen &&
+                !angular.isObject(state.straatbeeld);
 
             vm.query = state.search && state.search.query;
-            vm.hasPrintButton = !angular.isObject(state.dataSelection);
+            vm.hasPrintButton = !IS_DATA_SELECTION && !IS_HOMEPAGE;
         }
     }
 })();

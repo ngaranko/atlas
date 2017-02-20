@@ -6,10 +6,10 @@ module.exports = function (homepageElement) {
             return homepageElement.element(by.css('.qa-header')).getText();
         },
         get map () {
-            return linkPO(homepageElement.element(by.css('.qa-map')));
+            return linkPO(homepageElement.element(by.css('.qa-map-link dp-link')));
         },
         get straatbeeld () {
-            return linkPO(homepageElement.element(by.css('.qa-straatbeeld')));
+            return linkPO(homepageElement.element(by.css('.qa-straatbeeld-link dp-link')));
         }
     };
 };

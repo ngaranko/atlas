@@ -33,7 +33,7 @@
                             action.payload = detail.endpoint;
                         } else if (angular.isObject(page) && angular.isString(page.name)) {
                             action.type = ACTIONS.SHOW_PAGE;
-                            action.payload = page.name;
+                            action.payload = page;
                         } else {
                             // The default action is to show the search results at the location
                             action.type = ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION;

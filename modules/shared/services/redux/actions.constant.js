@@ -34,7 +34,8 @@
             },
 
             SHOW_MAP: {
-                id: 'SHOW_MAP'
+                id: 'SHOW_MAP',
+                isButton: false
             },
             MAP_SET_BASELAYER: {
                 id: 'MAP_SET_BASELAYER',
