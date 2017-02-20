@@ -32,7 +32,7 @@ module.exports = {
     },
     'MAP_SEARCH-RESULTS--CATEGORY': {
         url: '#?mpb=topografie&mpz=11&mpv=52.3731081:4.8932945&src=adres&srq=dam',
-        validator: require('../validators/states/map_search-results--category')
+        validator: require('../validators/map_search-results--category')
     },
     'MAP_SEARCH-RESULTS--LOCATION': {
         url: '#?mpb=topografie&mpz=11&mpv=52.3729183:4.8931775&srl=ZRVst:3JJOB',
