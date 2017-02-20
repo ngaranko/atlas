@@ -77,7 +77,7 @@ describe('The dp-hotspot directive', function () {
         expect(maximumStyle).toBe(directive.find('button').attr('style'));
     });
 
-    it('clicking the hotspot will trigger the FETCH_STRAATBEELD action', function () {
+    it('clicking the hotspot will trigger the FETCH_STRAATBEELD_BY_ID action', function () {
         var directive;
 
         spyOn(store, 'dispatch');
@@ -86,7 +86,7 @@ describe('The dp-hotspot directive', function () {
         directive.find('button').click();
 
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.FETCH_STRAATBEELD,
+            type: ACTIONS.FETCH_STRAATBEELD_BY_ID,
             payload: {
                 id: 'ABC',
                 isInitial: false
