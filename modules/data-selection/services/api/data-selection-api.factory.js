@@ -13,7 +13,7 @@
         };
 
         function initialize () {
-            TabHeader.provideCounter('FETCH_DATA_SELECTION', payload => queryCount(payload));
+            TabHeader.provideCounter('FETCH_DATA_SELECTION', queryCount);
         }
 
         function queryCount (payload) {

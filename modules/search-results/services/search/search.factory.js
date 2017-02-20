@@ -15,7 +15,7 @@
         };
 
         function initialize () {
-            TabHeader.provideCounter('FETCH_SEARCH_RESULTS_BY_QUERY', payload => searchCount(payload));
+            TabHeader.provideCounter('FETCH_SEARCH_RESULTS_BY_QUERY', searchCount);
         }
 
         function searchCount (payload) {

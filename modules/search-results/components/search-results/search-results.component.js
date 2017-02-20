@@ -56,11 +56,11 @@
         };
 
         vm.tabHeader = new TabHeader('data-datasets');
-        vm.tabHeader.activeTab = vm.tabHeader.tab.data;
+        vm.tabHeader.activeTab = vm.tabHeader.getTab('data');
 
         function updateTabHeader (query, count) {
             vm.tabHeader.query = query;
-            vm.tabHeader.tab.data.count = count;
+            vm.tabHeader.getTab('data').count = count;
         }
 
         function searchByQuery (query, category) {

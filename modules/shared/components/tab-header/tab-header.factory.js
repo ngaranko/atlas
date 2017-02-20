@@ -37,7 +37,7 @@
             }
 
             get isActive () {
-                return !!this._isActive;
+                return Boolean(this._isActive);
             }
 
             set isActive (isActive) {
@@ -71,7 +71,7 @@
                         .map(key => new TabPage(key, TAB_HEADER_CONFIG[id][key]));
                     tabHeader[id] = this;
                 }
-                this._tab = this._tabs.reduce((all, tab) => {
+                this._tabPages = this._tabs.reduce((all, tab) => {
                     all[tab.id] = tab;
                     return all;
                 }, {});
@@ -81,8 +81,8 @@
                 return this._tabs;
             }
 
-            get tab () {
-                return this._tab;
+            getTab (page) {
+                return this._tabPages[page];
             }
 
             set activeTab (theActiveTab) {

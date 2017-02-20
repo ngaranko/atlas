@@ -52,12 +52,12 @@
         }, fetchData, true);
 
         vm.tabHeader = new TabHeader('data-datasets');
-        vm.tabHeader.activeTab = vm.tabHeader.tab.datasets;
+        vm.tabHeader.activeTab = vm.tabHeader.getTab('datasets');
 
         function updateTabHeader (query, count) {
             if (vm.view === 'CARDS') {
                 vm.tabHeader.query = query;
-                vm.tabHeader.tab.datasets.count = count;
+                vm.tabHeader.getTab('datasets').count = count;
             }
         }
 

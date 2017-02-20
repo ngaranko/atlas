@@ -13,13 +13,8 @@ describe('The TAB_HEADER_CONFIG', function () {
         expect(Object.keys(TAB_HEADER_CONFIG['data-datasets'])).toEqual(['data', 'datasets']);
     });
 
-    it('the data-datasets tab header configuration provides for a title, action and payload for each tab', function () {
-        expect(TAB_HEADER_CONFIG['data-datasets'].data.title).toBe('Data');
-        expect(TAB_HEADER_CONFIG['data-datasets'].data.action).toBe('FETCH_SEARCH_RESULTS_BY_QUERY');
+    it('the data-datasets tab header configuration provides for a getPayload method for each tab', function () {
         expect(TAB_HEADER_CONFIG['data-datasets'].data.getPayload('payload')).toBe('payload');
-
-        expect(TAB_HEADER_CONFIG['data-datasets'].datasets.title).toBe('Datasets');
-        expect(TAB_HEADER_CONFIG['data-datasets'].datasets.action).toBe('FETCH_DATA_SELECTION');
         expect(TAB_HEADER_CONFIG['data-datasets'].datasets.getPayload('payload')).toEqual({
             dataset: 'catalogus',
             view: 'CARDS',

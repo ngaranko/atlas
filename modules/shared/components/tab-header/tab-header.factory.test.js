@@ -55,22 +55,22 @@ describe('The TabHeader factory', function () {
             expect(tab.title).toBe(configTab.title);
             expect(tab.action).toBe(configTab.action);
             expect(tab.count).toBe(null);
-            expect(tabHeader.tab[tab.id]).toEqual(tab);
+            expect(tabHeader.getTab(tab.id)).toEqual(tab);
         });
     });
 
     it('reuses any already created tabheader with the same key', function () {
         let tabHeader = new TabHeader('tabs');
-        tabHeader.tab.tab1.isActive = true;
-        tabHeader.tab.tab1.count = 1;
+        tabHeader.getTab('tab1').isActive = true;
+        tabHeader.getTab('tab1').count = 1;
 
         tabHeader = new TabHeader('othertabs');
-        expect(tabHeader.tab.tab1.isActive).toBe(false);
-        expect(tabHeader.tab.tab1.count).toBe(null);
+        expect(tabHeader.getTab('tab1').isActive).toBe(false);
+        expect(tabHeader.getTab('tab1').count).toBe(null);
 
         tabHeader = new TabHeader('tabs');
-        expect(tabHeader.tab.tab1.isActive).toBe(true);
-        expect(tabHeader.tab.tab1.count).toBe(1);
+        expect(tabHeader.getTab('tab1').isActive).toBe(true);
+        expect(tabHeader.getTab('tab1').count).toBe(1);
     });
 
     it('can set the active tab to any given tab of the tabheader', function () {
@@ -78,9 +78,9 @@ describe('The TabHeader factory', function () {
         tabHeader.tabs.forEach(tab => {
             expect(tab.isActive).toBe(false);
         });
-        tabHeader.activeTab = tabHeader.tab.tab1;
+        tabHeader.activeTab = tabHeader.getTab('tab1');
         tabHeader.tabs.forEach(tab => {
-            expect(tab.isActive).toBe(tab === tabHeader.tab.tab1);
+            expect(tab.isActive).toBe(tab === tabHeader.getTab('tab1'));
         });
     });
 
@@ -120,7 +120,7 @@ describe('The TabHeader factory', function () {
 
         $rootScope.$apply();
 
-        expect(tabHeader.tab.tab1.count).toBe(count);
-        expect(tabHeader.tab.tab2.count).toBe(null);
+        expect(tabHeader.getTab('tab1').count).toBe(count);
+        expect(tabHeader.getTab('tab2').count).toBe(null);
     });
 });
