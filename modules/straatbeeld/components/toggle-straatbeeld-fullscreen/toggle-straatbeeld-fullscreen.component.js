@@ -6,7 +6,7 @@
         .component('dpToggleStraatbeeldFullscreen', {
             restrict: 'E',
             bindings: {
-                state: '<'
+                isFullscreen: '<'
             },
             templateUrl:
             'modules/straatbeeld/components/toggle-straatbeeld-fullscreen/toggle-straatbeeld-fullscreen.html',
@@ -14,17 +14,25 @@
             controllerAs: 'vm'
         });
 
-    DpStraatbeeldFullscreenController.$inject = ['store', 'ACTIONS'];
+    DpStraatbeeldFullscreenController.$inject = ['$rootScope', 'store', 'ACTIONS'];
 
-    function DpStraatbeeldFullscreenController (store, ACTIONS) {
+    function DpStraatbeeldFullscreenController ($rootScope, store, ACTIONS) {
         let vm = this;
+
+        const deregistrationFn = $rootScope.$watch('vm.isFullscreen', setScreenReaderText);
+
+        function setScreenReaderText () {
+            vm.screenReaderText = 'Kaart ' + (vm.isFullscreen ? 'verkleinen' : 'vergroten');
+        }
 
         vm.toggleFullscreen = function () {
             store.dispatch({
                 type: ACTIONS.STRAATBEELD_FULLSCREEN,
-                payload: !vm.state.isFullscreen
+                payload: !vm.isFullscreen
             });
         };
+
+        $rootScope.$on('$destroy', deregistrationFn);
     }
 })();
 

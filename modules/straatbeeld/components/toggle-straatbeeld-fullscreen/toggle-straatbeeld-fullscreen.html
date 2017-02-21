@@ -1,8 +1,8 @@
 <a ng-click="vm.toggleFullscreen()"
     class="c-toggle-straatbeeld-fullscreen qa-toggle-straatbeeld-fullscreen"
     ng-class="{
-        'c-toggle-straatbeeld-fullscreen--minimize': vm.state.isFullscreen,
-        'c-toggle-straatbeeld-fullscreen--maximize': !vm.state.isFullscreen
+        'c-toggle-straatbeeld-fullscreen--minimize': vm.isFullscreen,
+        'c-toggle-straatbeeld-fullscreen--maximize': !vm.isFullscreen
     }">
 
     <span class="u-sr-only">{{vm.screenReaderText}}</span>
