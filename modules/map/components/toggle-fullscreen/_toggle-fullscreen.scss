@@ -1,7 +1,7 @@
 .c-toggle-fullscreen {
   position: absolute;
-  top: calc(#{$base-whitespace} / 2);
-  right: calc(#{$base-whitespace} / 2);
+  top: $base-whitespace;
+  right: $base-whitespace;
   z-index: 2;
 }
 

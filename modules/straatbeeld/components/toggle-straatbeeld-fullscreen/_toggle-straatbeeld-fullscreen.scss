@@ -1,7 +1,7 @@
 .c-toggle-straatbeeld-fullscreen {
   position: absolute;
-  top: calc(#{$base-whitespace} / 2);
-  left: calc(#{$base-whitespace} / 2);
+  top: $base-whitespace;
+  left: $base-whitespace;
   cursor: pointer;
   z-index: 10;
 }
