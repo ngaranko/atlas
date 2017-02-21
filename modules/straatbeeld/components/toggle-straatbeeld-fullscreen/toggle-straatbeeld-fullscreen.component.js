@@ -3,7 +3,7 @@
 
     angular
         .module('dpStraatbeeld')
-        .component('dpStraatbeeldFullscreen', {
+        .component('dpToggleStraatbeeldFullscreen', {
             restrict: 'E',
             bindings: {
                 state: '<'

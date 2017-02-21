@@ -29,7 +29,7 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
         var result,
             element;
 
-        element = document.createElement('dp-straatbeeld-fullscreen');
+        element = document.createElement('dp-toggle-straatbeeld-fullscreen');
 
         element.setAttribute('state', 'state');
 
