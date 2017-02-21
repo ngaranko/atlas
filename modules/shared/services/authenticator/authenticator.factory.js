@@ -33,11 +33,46 @@
         const REFRESH_INTERVAL = 1000 * 60 * 0.5;   // every 4.5 minutes
         const RETRY_INTERVAL = 1000 * 5; // every 5 seconds
 
+        const STATE = {
+            INIT: () => STATE.RESTORE_REFRESH_TOKEN,
+            RESTORE_REFRESH_TOKEN: () => {
+                if (user.getRefreshToken()) {
+                    return STATE.REQUEST_ACCESS_TOKEN;
+                } else {
+                    return STATE.REQUEST_ANONYMOUS_REFRESH_TOKEN;
+                }
+            },
+            REQUEST_ANONYMOUS_REFRESH_TOKEN: () => {
+                requestAnonymousToken();
+                return STATE.REQUESTING;
+            },
+            ON_REFRESH_TOKEN: () => STATE.REQUEST_ACCESS_TOKEN,
+            REQUEST_ACCESS_TOKEN: () => {
+                requestAccessToken(user.getRefreshToken());
+                return STATE.REQUESTING;
+            },
+            ON_ACCESS_TOKEN: () => STATE.REFRESH_ACCESS_TOKEN,
+            REFRESH_ACCESS_TOKEN: () => {
+                tokenLoop(STATE.REQUEST_ACCESS_TOKEN, REFRESH_INTERVAL);
+                return STATE.WAITING;
+            },
+            ON_ERROR: () => {
+                tokenLoop(STATE.RESTART, RETRY_INTERVAL);
+                return STATE.WAITING;
+            },
+            ON_MAIN_ERROR: () => {
+                tokenLoop(STATE.REQUEST_ANONYMOUS_REFRESH_TOKEN, RETRY_INTERVAL);
+                return STATE.WAITING;
+            },
+            ON_LOGOUT: () => STATE.RESTART,
+            RESTART: () => STATE.REQUEST_ANONYMOUS_REFRESH_TOKEN,
+            REQUESTING: () => null,
+            WAITING: () => null
+        };
+
         let timeout;    // refresh or retry
 
-        let error = {
-            message: ''
-        };
+        let error = {}; // message, status and statusText
 
         return {
             initialize,
@@ -56,86 +91,52 @@
                 $timeout.cancel(timeout);
             }
 
-            while (state && state !== 'REQUESTING') {
-                console.log('STATE', state);
-                switch (state) {
-                    case 'INIT':
-                        state = 'RESTORE_REFRESH_TOKEN';
-                        break;
-                    case 'RESTORE_REFRESH_TOKEN':
-                        if (user.getRefreshToken()) {
-                            state = 'REQUEST_ACCESS_TOKEN';
-                        } else {
-                            state = 'REQUEST_ANONYMOUS_REFRESH_TOKEN';
-                        }
-                        break;
-                    case 'REQUEST_ANONYMOUS_REFRESH_TOKEN':
-                        requestAnonymousToken();
-                        state = 'REQUESTING';
-                        break;
-                    case 'ON_REFRESH_TOKEN':
-                    case 'REQUEST_ACCESS_TOKEN':
-                        accessToken(user.getRefreshToken());
-                        state = 'REQUESTING';
-                        break;
-                    case 'ON_ACCESS_TOKEN':
-                    case 'REFRESH_ACCESS_TOKEN':
-                        tokenLoop('REQUEST_ACCESS_TOKEN', REFRESH_INTERVAL);
-                        state = 'REQUESTING';
-                        break;
-                    case 'RETRY_REFRESH_TOKEN':
-                        tokenLoop('REQUEST_ANONYMOUS_REFRESH_TOKEN', RETRY_INTERVAL);
-                        state = 'REQUESTING';
-                        break;
-                    case 'ON_ERROR':
-                    case 'ON_LOGOUT':
-                    case 'CLEAR_TOKEN':
-                        user.clearToken();
-                        state = 'REQUEST_ANONYMOUS_REFRESH_TOKEN';
-                        break;
-                    case 'REQUESTING':
-                        break;
-                    default:
-                        state = null;
-                        break;
-                }
+            while (state) {
+                state = state();
             }
         }
 
         function initialize () {
-            tokenLoop('INIT');
-        }
-
-        function setError (message, status, statusText) {
-            error.message = message || '';
-            error.status = status || null;
-            error.statusText = statusText || '';
+            setError();
+            tokenLoop(STATE.INIT);
         }
 
         function onRefreshToken (token, userType) {
             setError();
             user.setRefreshToken(token, userType);
-            tokenLoop('ON_REFRESH_TOKEN');
+            tokenLoop(STATE.ON_REFRESH_TOKEN);
         }
 
         function onAccessToken (token) {
             setError();
             user.setAccessToken(token);
-            tokenLoop('ON_ACCESS_TOKEN');
+            tokenLoop(STATE.ON_ACCESS_TOKEN);
         }
 
-        function onError (response) {
+        function onMainError (response) {
+            onError(response, STATE.ON_MAIN_ERROR);
+        }
+
+        function onError (response, state = STATE.ON_ERROR) {
+            user.clearToken();
             setError(
                 ERROR_MESSAGES[response.status] ||
                 'Er is een fout opgetreden. Neem contact op met de beheerder en vermeld' +
                 ' code: ' + response.status + ' status: ' + response.statusText + '.',
                 response.status,
                 response.statusText);
-            tokenLoop('ON_ERROR');
+            tokenLoop(state);
         }
 
         function logout () {
-            tokenLoop('ON_LOGOUT');
+            user.clearToken();
+            tokenLoop(STATE.ON_LOGOUT);
+        }
+
+        function setError (message, status, statusText) {
+            error.message = message || '';
+            error.status = status || null;
+            error.statusText = statusText || '';
         }
 
         function login () {
@@ -149,13 +150,11 @@
         }
 
         function isCallback (params) {
-            // logParams(params);
             // true when unable to find an non-existent value for any of the authorization params
             return !AUTH_PARAMS.find(key => angular.isUndefined(params[key]));
         }
 
         function handleCallback (params) {
-            // logParams(params);
             return requestUserToken(params).finally(() => {
                 // Return params without authorization parameters (includes also language, sorry)
                 let newParams = angular.copy(params);
@@ -167,7 +166,7 @@
 
         function requestAnonymousToken () {
             return authRequest('/refreshtoken')
-                .then(response => onRefreshToken(response.data, user.USER_TYPE.ANONYMOUS), onError);
+                .then(response => onRefreshToken(response.data, user.USER_TYPE.ANONYMOUS), onMainError);
         }
 
         function requestUserToken (params) {
@@ -179,7 +178,7 @@
                 .then(response => onRefreshToken(response.data, user.USER_TYPE.AUTHENTICATED), onError);
         }
 
-        function accessToken (token) {
+        function requestAccessToken (token) {
             return authRequest('/accesstoken', {'Authorization': API_CONFIG.AUTH_HEADER_PREFIX + token})
                 .then(response => onAccessToken(response.data), onError);
         }

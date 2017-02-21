@@ -2,6 +2,7 @@ describe(' The authenticator factory', function () {
     let $httpBackend,
         $window,
         $location,
+        $timeout,
         API_CONFIG,
         user,
         authenticator,
@@ -42,12 +43,14 @@ describe(' The authenticator factory', function () {
             _$httpBackend_,
             _$window_,
             _$location_,
+            _$timeout_,
             _API_CONFIG_,
             _user_,
             _authenticator_) {
             $httpBackend = _$httpBackend_;
             $window = _$window_;
             $location = _$location_;
+            $timeout = _$timeout_;
             API_CONFIG = _API_CONFIG_;
             user = _user_;
             authenticator = _authenticator_;
@@ -93,7 +96,26 @@ describe(' The authenticator factory', function () {
         $httpBackend.flush();
         $httpBackend.verifyNoOutstandingRequest();
         expect(user.clearToken).toHaveBeenCalledWith();
-        expect(authenticator.state.errorMessage).toContain('Er is een fout opgetreden');
+        expect(authenticator.error.message).toContain('Er is een fout opgetreden');
+    });
+
+    it('tries to get an anonymous refreshtoken on accesstoken error', function () {
+        spyOn(user, 'getRefreshToken').and.returnValue('token');
+        spyOn(user, 'setRefreshToken');
+        spyOn(user, 'clearToken');
+
+        $httpBackend.whenGET(API_CONFIG.AUTH + '/refreshtoken').respond('token');
+        $httpBackend.whenGET(API_CONFIG.AUTH + '/accesstoken').respond(499, 'error message');
+
+        authenticator.initialize();
+        $httpBackend.flush();
+        $httpBackend.verifyNoOutstandingRequest();
+        expect(user.clearToken).toHaveBeenCalledWith();
+
+        $timeout.flush(5001);
+        $httpBackend.flush();
+        expect(user.setRefreshToken).toHaveBeenCalledWith('token', user.USER_TYPE.ANONYMOUS);
+        $httpBackend.verifyNoOutstandingRequest();
     });
 
     it('can login a user by redirecting to an external security provider', function () {
