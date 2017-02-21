@@ -57,7 +57,7 @@ describe('Navigating forwards and backwards through history at straatbeeld', fun
         page.dashboard.rightColumn.straatbeeld.hotspots(0).click();
         const secondTitle = page.title;
 
-        dp.validate('STRAATBEELD--DETAIL', page);
+        dp.validate('MAP_STRAATBEELD--DETAIL', page);
         expect(firstTitle).not.toBe(secondTitle);
 
         // Hit the back button, return to the detail page
@@ -68,7 +68,7 @@ describe('Navigating forwards and backwards through history at straatbeeld', fun
 
         // Hit forward and return to the last seen panorama
         browser.navigate().forward();
-        dp.validate('STRAATBEELD--DETAIL', page);
+        dp.validate('MAP_STRAATBEELD--DETAIL', page);
         expect(page.title).toBe(secondTitle);
     });
 

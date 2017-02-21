@@ -44,12 +44,12 @@ describe('Navigating to and away from straatbeeld', function () {
 
         // Open straatbeeld by clicking on the thumbnail
         page.dashboard.rightColumn.detail.straatbeeldThumbnail.link.click();
-        dp.validate('STRAATBEELD--DETAIL', page);
+        dp.validate('MAP_STRAATBEELD--DETAIL', page);
         const firstStraatbeeldTitle = page.title;
 
         // Navigate to another straatbeeld via a hotspot
         page.dashboard.rightColumn.straatbeeld.hotspots(0).click();
-        dp.validate('STRAATBEELD--DETAIL', page);
+        dp.validate('MAP_STRAATBEELD--DETAIL', page);
         expect(page.title).not.toBe(firstStraatbeeldTitle);
 
         // Close straatbeeld and return to the detail page
