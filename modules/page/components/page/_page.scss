@@ -1,2 +1,51 @@
 @import "templates/home";
 @import "templates/snel-wegwijs";
+
+.c-page {
+  padding-top: 50px;
+}
+
+.c-page__body {
+  margin-right: calc(100% / 12);
+  margin-left: calc(100% / 12);
+}
+
+.c-page__body__inner {
+  max-width: 866px;
+}
+
+.c-side-bar__header {
+  @include font-size($s-header-font);
+
+  margin-top: 3 * $base-whitespace;
+  margin-bottom: $base-whitespace;
+}
+
+.c-side-bar__sub-header {
+  @include font-size($s-header-font);
+
+  margin: $base-whitespace 0;
+  color: $secondary-gray60;
+}
+
+.c-side-bar__list {
+  font-weight: bold;
+  line-height: 1.5;
+}
+
+.c-side-bar__list__item {
+  position: relative;
+  margin: $base-whitespace 0 $base-whitespace $base-font-size;
+  padding-left: 2px;
+
+  &::before {
+    position: absolute;
+    left: -$base-font-size;
+    content: "⟩";
+  }
+}
+
+.c-side-bar__link {
+  color: $primary-dark;
+  text-decoration: none;
+}
