@@ -3,10 +3,6 @@
 describe('Navigating forwards and backwards through history at straatbeeld', function () {
     let page;
 
-    beforeEach(function () {
-        dp.storage.clearAll();
-    });
-
     it('goes backwards to search results and forwards to straatbeeld', function () {
         // Open search results (search by location)
         page = dp.navigate('MAP_SEARCH-RESULTS--LOCATION');

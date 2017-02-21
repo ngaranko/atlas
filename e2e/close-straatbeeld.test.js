@@ -3,10 +3,6 @@
 describe('Navigating to and away from straatbeeld', function () {
     let page;
 
-    beforeEach(function () {
-        dp.storage.clearAll();
-    });
-
     it('goes from search results back to the same search results', function () {
         // Open search results (search by location)
         page = dp.navigate('MAP_SEARCH-RESULTS--LOCATION');

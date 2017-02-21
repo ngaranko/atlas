@@ -1,5 +1,5 @@
 describe('The homepage', () => {
-    describe('navigate to the map w/ layer selection openend', () => {
+    describe('navigate to the map w/ layer selection opened', () => {
         it('close layer selection, then the map, return to the homepage', () => {
             const page = dp.navigate('PAGE--HOME');
 
@@ -30,10 +30,6 @@ describe('The homepage', () => {
     });
 
     describe('navigate to straatbeeld w/ a map', () => {
-        beforeEach(function () {
-            dp.storage.clearAll();
-        });
-
         it('and back to the homepage by closing it', () => {
             const page = dp.navigate('PAGE--HOME');
 
