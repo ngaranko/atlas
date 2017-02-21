@@ -3,8 +3,7 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
         $rootScope,
         store,
         scope,
-        ACTIONS,
-        userSettings;
+        ACTIONS;
 
     beforeEach(function () {
         angular.mock.module(
@@ -16,12 +15,11 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _ACTIONS_, _userSettings_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _ACTIONS_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
             ACTIONS = _ACTIONS_;
-            userSettings = _userSettings_;
         });
 
         spyOn(store, 'dispatch');
@@ -80,19 +78,6 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.STRAATBEELD_FULLSCREEN,
                 payload: false
-            });
-        });
-
-        it('stores the fullsreen state of the straatbeeld in the user settings', function () {
-            let directive = getDirective({ isFullscreen: false });
-            let toggle = directive.find('.qa-straatbeeld-streetview-map-button');
-
-            [true, false, true].forEach(b => {
-                scope.state.isFullscreen = b;
-                $rootScope.$apply();
-                toggle.click();
-                $rootScope.$apply();
-                expect(userSettings.fullscreenStraatbeeld.value).toBe((!b).toString());
             });
         });
     });

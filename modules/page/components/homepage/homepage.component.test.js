@@ -2,8 +2,7 @@ describe('The dp-homepage component', () => {
     let $compile,
         $rootScope,
         store,
-        ACTIONS,
-        hasFullscreenPreference;
+        ACTIONS;
 
     beforeEach(() => {
         angular.mock.module(
@@ -11,13 +10,6 @@ describe('The dp-homepage component', () => {
             {
                 store: {
                     dispatch: angular.noop
-                },
-                userSettings: {
-                    fullscreenStraatbeeld: {
-                        get value () {
-                            return hasFullscreenPreference;
-                        }
-                    }
                 }
             }
         );
@@ -55,38 +47,9 @@ describe('The dp-homepage component', () => {
             payload: jasmine.objectContaining({
                 id: jasmine.any(String),
                 heading: jasmine.any(Number),
-                isInitial: true // isInitial has to be true to make sure a new history entry is added
+                isInitial: true, // isInitial has to be true to make sure a new history entry is added
+                isFullscreen: false
             })
-        });
-    });
-
-    describe('it respects your user settings', () => {
-        it('with a fullscreen straatbeeld', () => {
-            hasFullscreenPreference = 'true';
-
-            const component = getComponent();
-            component.find('.qa-straatbeeld-link button').click();
-
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_STRAATBEELD_BY_ID,
-                payload: jasmine.objectContaining({
-                    isFullscreen: true
-                })
-            });
-        });
-
-        it('with a map + straatbeeld', () => {
-            hasFullscreenPreference = 'false';
-
-            const component = getComponent();
-            component.find('.qa-straatbeeld-link button').click();
-
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_STRAATBEELD_BY_ID,
-                payload: jasmine.objectContaining({
-                    isFullscreen: false
-                })
-            });
         });
     });
 });
