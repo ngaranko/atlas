@@ -7,6 +7,9 @@
             refreshToken: {
                 storage: 'session'
             },
+            userType: {
+                storage: 'session'
+            },
             fullscreenStraatbeeld: {
                 storage: 'local',
                 default: true.toString()

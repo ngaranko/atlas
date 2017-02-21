@@ -10,31 +10,22 @@
         '$http',
         '$timeout',
         'API_CONFIG',
-        'userSettings',
+        'user',
         '$window',
-        '$location',
-        'environment',
-        'AUTHENTICATION_SETTINGS'
+        '$location'
     ];
 
     function authenticatorFactory (
         $http,
         $timeout,
         API_CONFIG,
-        userSettings,
+        user,
         $window,
-        $location,
-        environment,
-        AUTHENTICATION_SETTINGS) {
-        const USER = ['NONE', 'ANONYMOUS', 'AUTHENTICATED'].reduce((states, state) => {
-            states[state] = state;
-            return states;
-        }, {});
-
-        const TOKEN = ['NONE', 'REFRESH', 'REQUEST', 'VALID', 'ERROR'].reduce((states, state) => {
-            states[state] = state;
-            return states;
-        }, {});
+        $location) {
+        const TOKEN_STATE = {
+            NONE: 'NONE',
+            VALID: 'VALID'
+        };
 
         const ERROR_MESSAGES = {
             400: 'Verplichte parameter is niet aanwezig',
@@ -43,25 +34,33 @@
             504: 'Inlog server timeout, probeer het later nog eens.'
         };
 
-        const AUTH_PARAMS = ['a-select-server', 'a-select_credentials', 'rid'];
+        const AUTH_PARAMS = ['a-select-server', 'aselect_credentials', 'rid'];
 
         const REFRESH_INTERVAL = 1000 * 60 * 0.5;   // every 4.5 minutes
         const RETRY_INTERVAL = 1000 * 5; // every 5 seconds
-        let timeout;
 
-        let state = {};
+        let timeout;    // refresh or retry
+
+        let state = {
+            tokenState: TOKEN_STATE.NONE,
+            errorMessage: ''
+        };
 
         return {
             initialize,
             login,
             logout,
             isCallback,
-            handleCallback,
-            getState
+            handleCallback
         };
 
         function initialize () {
-            clearState();
+            if (user.getRefreshToken()) {
+                state.tokenState = TOKEN_STATE.VALID;
+                state.errorMessage = '';
+            } else {
+                clearState();
+            }
             checkToken();
         }
 
@@ -69,28 +68,33 @@
             if (timeout) {
                 $timeout.cancel(timeout);
             }
-            state.userState = USER.NONE;
-            state.tokenState = TOKEN.NONE;
-            state.token = null;
+            user.clearToken();
+            state.tokenState = TOKEN_STATE.NONE;
             state.errorMessage = '';
         }
 
         function checkToken () {
-            console.log('checkToken');
+            console.log('checkToken', state.tokenState);
             switch (state.tokenState) {
-                case TOKEN.NONE:
+                case TOKEN_STATE.NONE:
                     requestAnonymousToken();
                     break;
-                case TOKEN.VALID:
-                    refreshToken(state.token);
+                case TOKEN_STATE.VALID:
+                    refreshToken(user.getRefreshToken());
                     break;
             }
         }
 
-        function onSuccess (token) {
-            console.log('onSucces', token);
-            state.tokenState = TOKEN.VALID;
-            state.token = token;
+        function onSuccess (token, userType) {
+            console.log('onSucces', token, userType);
+            if (userType) {
+                // refresh token
+                user.setRefreshToken(token, userType);
+            } else {
+                // access token
+                user.setAccessToken(token);
+            }
+            state.tokenState = TOKEN_STATE.VALID;
             state.errorMessage = '';
             timeout = $timeout(checkToken, REFRESH_INTERVAL);
         }
@@ -110,46 +114,36 @@
         }
 
         function login () {
-            // http://example.com/#/some/path?foo=bar&baz=xoxo => "/some/path?foo=bar&baz=xoxo"
-            const url = '#' + $location.url();
-            const callbackUrl = encodeURIComponent(AUTHENTICATION_SETTINGS[environment.NAME].ENDPOINT + url);
+            let url = $location.absUrl();
+            if (url.indexOf('#') === -1) {
+                url += '#';
+            }
+            console.log('callback url', url);
+            const callbackUrl = encodeURIComponent(url);
             const authenticationUrl = API_CONFIG.AUTH + '/siam/authenticate?active=true&callback=' + callbackUrl;
             $window.location.href = authenticationUrl;
         }
 
-        function getState () {
-            return state;
-        }
-
         function isCallback (params) {
-            console.log('isCallback', params, !AUTH_PARAMS.find(key => !params[key]));
+            // logParams(params);
             // true when unable to find an non-existent value for any of the authorization params
-
-            console.log('find', AUTH_PARAMS.find(key => {
-                console.log('key', key, params[key]);
-                return angular.isUndefined(params[key]);
-            }));
-            return false;
+            return !AUTH_PARAMS.find(key => angular.isUndefined(params[key]));
         }
 
         function handleCallback (params) {
-            console.log('handleCallback', params);
-            return requestUserToken(params).then(() => {
-                // Return params without authorization parameters
+            // logParams(params);
+            return requestUserToken(params).finally(() => {
+                // Return params without authorization parameters (includes also language, sorry)
                 let newParams = angular.copy(params);
-                AUTH_PARAMS.forEach(key => delete newParams[key]);
+                ['language'].concat(AUTH_PARAMS).forEach(key => delete newParams[key]);
+                $location.replace();
                 $location.search(newParams);
             });
         }
 
         function requestAnonymousToken () {
-            return $http({
-                method: 'GET',
-                url: API_CONFIG.AUTH + '/refreshtoken',
-                headers: {
-                    'Content-Type': 'text/plain'
-                }
-            }).then(onSuccess, onError);
+            return authRequest('/refreshtoken')
+                .then(response => onSuccess(response.data, user.USER_TYPE.ANONYMOUS), onError);
         }
 
         function requestUserToken (params) {
@@ -157,27 +151,23 @@
                 result[key] = params[key];
                 return result;
             }, {});
-
-            return $http({
-                method: 'GET',
-                url: API_CONFIG.AUTH + '/siam/token',
-                headers: {
-                    'Content-Type': 'text/plain'
-                },
-                params: httpParams
-            }).then(onSuccess, onError);
+            return authRequest('/siam/token', {}, httpParams)
+                .then(response => onSuccess(response.data, user.USER_TYPE.AUTHENTICATED), onError);
         }
 
         function refreshToken (token) {
-            console.log('refreshToken', token);
+            return authRequest('/accesstoken', {'Authorization': API_CONFIG.AUTH_HEADER_PREFIX + token})
+                .then(response => onSuccess(response.data), onError);
+        }
+
+        function authRequest(url, headers, params) {
+            console.log('auth request', url, headers, params);
             return $http({
                 method: 'GET',
-                url: API_CONFIG.AUTH + '/accesstoken',
-                headers: {
-                    'Content-Type': 'text/plain',
-                    'Authorization': API_CONFIG.AUTHZ_HEADER_PREFIX + token
-                }
-            }).then(onSuccess, onError);
+                url: API_CONFIG.AUTH + url,
+                headers: angular.merge({'Content-Type': 'text/plain'}, headers),
+                params: params
+            });
         }
     }
 })();

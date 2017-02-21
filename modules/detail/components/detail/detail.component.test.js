@@ -3,7 +3,7 @@ describe('the dp-detail component', function () {
         $rootScope,
         $q,
         store,
-        authentication,
+        user,
         ACTIONS,
         mockedGeometryPoint = {type: 'Point', coordinates: 'FAKE_NUMMERAANDUIDING_POINT'},
         mockedGeometryMultiPolygon = {type: 'MultiPolygon', coordinates: 'FAKE_KADASTRAAL_OBJECT_MULTIPOLYGON'};
@@ -125,12 +125,13 @@ describe('the dp-detail component', function () {
         angular.mock.module(
             'dpShared',
             {
-                authentication: {
+                user: {
                     isLoggedIn: false,
-                    getStatus: function () {
-                        return {
-                            isLoggedIn: this.isLoggedIn
-                        };
+                    getUserType: function () {
+                        return this.isLoggedIn ? this.USER_TYPE.AUTHENTICATED : null;
+                    },
+                    USER_TYPE: {
+                        AUTHENTICATED: 'AUTHENTICATED'
                     }
                 }
             }
@@ -142,7 +143,7 @@ describe('the dp-detail component', function () {
             _$q_,
             _store_,
             _ACTIONS_,
-            _authentication_,
+            _user_,
             _api_,
             _endpointParser_,
             _geometry_) {
@@ -151,7 +152,7 @@ describe('the dp-detail component', function () {
             $q = _$q_;
             store = _store_;
             ACTIONS = _ACTIONS_;
-            authentication = _authentication_;
+            user = _user_;
         });
 
         spyOn(store, 'dispatch');
@@ -347,7 +348,7 @@ describe('the dp-detail component', function () {
         var component,
             scope;
 
-        authentication.isLoggedIn = false;
+        user.isLoggedIn = false;
 
         component = getComponent('http://www.fake-endpoint.com/brk/subject/123/');
         scope = component.isolateScope();
@@ -363,7 +364,7 @@ describe('the dp-detail component', function () {
         var component,
             scope;
 
-        authentication.isLoggedIn = true;
+        user.isLoggedIn = true;
 
         component = getComponent('http://www.fake-endpoint.com/brk/subject/123/');
         scope = component.isolateScope();
@@ -374,7 +375,7 @@ describe('the dp-detail component', function () {
         scope.$apply();
         expect(scope.vm.isMoreInfoAvailable).toBe(false);
 
-        authentication.isLoggedIn = false;
+        user.isLoggedIn = false;
         scope.$apply();
         expect(scope.vm.isMoreInfoAvailable).toBe(false);
     });

@@ -18,7 +18,7 @@
         'ACTIONS',
         'api',
         'endpointParser',
-        'authentication',
+        'user',
         'geometry',
         'geojson',
         'crsConverter',
@@ -31,7 +31,7 @@
             ACTIONS,
             api,
             endpointParser,
-            authentication,
+            user,
             geometry,
             geojson,
             crsConverter,
@@ -50,7 +50,7 @@
         $scope.$watch('vm.endpoint', getData);
 
         // (Re)load the data when the user logs in or out
-        $scope.$watch(() => authentication.getStatus().isLoggedIn, (newValue, oldValue) => {
+        $scope.$watch(() => user.getUserType(), (newValue, oldValue) => {
             if (newValue !== oldValue) {
                 getData(vm.endpoint);
             }
@@ -70,9 +70,9 @@
                     results: data
                 };
 
-                // Derive whether more info is available if the user would login
+                // Derive whether more info is available if the user would be authenticated
                 vm.isMoreInfoAvailable = vm.apiData.results.is_natuurlijk_persoon &&
-                    !authentication.getStatus().isLoggedIn;
+                        user.getUserType() !== user.USER_TYPE.AUTHENTICATED;
 
                 vm.filterSelection = {
                     [subject]: vm.apiData.results.naam
