@@ -8,7 +8,6 @@
     dpStraatbeeldDirective.$inject = [
         '$rootScope',
         'store',
-        'userSettings',
         'ACTIONS',
         'marzipanoService',
         'straatbeeldApi',
@@ -18,7 +17,6 @@
     function dpStraatbeeldDirective (
         $rootScope,
         store,
-        userSettings,
         ACTIONS,
         marzipanoService,
         straatbeeldApi,

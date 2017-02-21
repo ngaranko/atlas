@@ -33,7 +33,7 @@ describe('The homepage', () => {
         });
     });
 
-    describe('navigate to straatbeeld', () => {
+    describe('navigate to straatbeeld w/ a map', () => {
         beforeEach(function () {
             dp.storage.clearAll();
         });
@@ -43,7 +43,7 @@ describe('The homepage', () => {
 
             // Go to straatbeeld
             page.dashboard.rightColumn.page.homepage.straatbeeld.click();
-            dp.validate('STRAATBEELD--PAGE', page);
+            dp.validate('MAP_STRAATBEELD--PAGE', page);
 
             // Close straatbeeld and return to the homepage
             page.dashboard.rightColumn.straatbeeld.close.click();
@@ -55,10 +55,6 @@ describe('The homepage', () => {
 
             // Go to straatbeeld
             page.dashboard.rightColumn.page.homepage.straatbeeld.click();
-            dp.validate('STRAATBEELD--PAGE', page);
-
-            // Show the map
-            page.dashboard.rightColumn.straatbeeld.toggleStraatbeeldFullscreen.click();
             dp.validate('MAP_STRAATBEELD--PAGE', page);
 
             // Make the map fullscreen

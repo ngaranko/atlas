@@ -14,21 +14,15 @@
             controllerAs: 'vm'
         });
 
-    DpStraatbeeldFullscreenController.$inject = ['$rootScope', 'store', 'ACTIONS', 'userSettings'];
+    DpStraatbeeldFullscreenController.$inject = ['store', 'ACTIONS'];
 
-    function DpStraatbeeldFullscreenController ($rootScope, store, ACTIONS, userSettings) {
-        var vm = this;
+    function DpStraatbeeldFullscreenController (store, ACTIONS) {
+        let vm = this;
 
         vm.toggleFullscreen = function () {
-            // Dispatch an action to change the pano
-            let isFullscreen = !vm.state.isFullscreen;
-
-            // Save the new state of the straatbeeld as a user setting
-            userSettings.fullscreenStraatbeeld.value = isFullscreen.toString();
-
             store.dispatch({
                 type: ACTIONS.STRAATBEELD_FULLSCREEN,
-                payload: isFullscreen
+                payload: !vm.state.isFullscreen
             });
         };
     }
