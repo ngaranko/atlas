@@ -1,12 +1,7 @@
-@font-face {
-  font-family: "Montserrat";
-  src: url("assets/fonts/Montserrat-Regular.ttf") format("truetype");
-}
+$base-font-family: Avenir, Arial, sans-serif;
+$header-font-family: Avenir, Arial, sans-serif;
 
-$base-font-family: Verdana, sans-serif;
-$header-font-family: Montserrat, Arial, Verdana, sans-serif;
-
-$base-font-size: 14px;
+$base-font-size: 16px;
 $base-line-height: 1.375;
 
 $breakpoints: (
