@@ -10,5 +10,5 @@
 }
 
 .c-toggle-fullscreen__icon--minimize {
-  @include icon-button("close", "red", "");
+  @include icon-button("minimize", "red", "");
 }
