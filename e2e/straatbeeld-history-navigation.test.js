@@ -49,6 +49,33 @@ describe('Navigating forwards and backwards through history at straatbeeld', fun
         expect(page.title).toBe(straatbeeldTitle);
     });
 
+    it('ignores hotspot navigation when using the back and forward button', () => {
+        page = dp.navigate('MAP_DETAIL--NUMMERAANDUIDING');
+        const detailTitle = page.title;
+
+        // Open straatbeeld by clicking on the thumbnail
+        page.dashboard.rightColumn.detail.straatbeeldThumbnail.link.click();
+        const firstTitle = page.title;
+
+        // Navigate to another straatbeeld
+        page.dashboard.rightColumn.straatbeeld.hotspots(0).click();
+        const secondTitle = page.title;
+
+        dp.validate('STRAATBEELD--DETAIL', page);
+        expect(firstTitle).not.toBe(secondTitle);
+
+        // Hit the back button, return to the detail page
+        browser.navigate().back();
+
+        dp.validate('MAP_DETAIL--NUMMERAANDUIDING', page);
+        expect(page.title).toBe(detailTitle);
+
+        // Hit forward and return to the last seen panorama
+        browser.navigate().forward();
+        dp.validate('STRAATBEELD--DETAIL', page);
+        expect(page.title).toBe(secondTitle);
+    });
+
     describe('clicking on the map when in straatbeeld', function () {
         it('goes backwards to previous pano, to fullscreen, to search results', function () {
             // Open search results (search by location)
