@@ -19,6 +19,10 @@
                 formattedRdLocation,
                 formattedWgs84Location;
 
+            if (!location) {
+                return;
+            }
+
             if (type === 'RD') {
                 rdLocation = location;
                 wgs84Location = crsConverter.rdToWgs84(rdLocation);

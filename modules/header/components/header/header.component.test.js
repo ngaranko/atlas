@@ -75,7 +75,7 @@ describe('The dp-header component', function () {
 
             // Show the login button
             expect(component.find('.site-header__menu dp-link').eq(0).attr('type')).toBe('SHOW_PAGE');
-            expect(component.find('.site-header__menu dp-link').eq(0).attr('payload')).toBe('\'login\'');
+            expect(component.find('.site-header__menu dp-link').eq(0).attr('payload')).toBe('{name: \'login\'}');
             expect(component.find('.site-header__menu dp-link').eq(0).attr('class-name'))
                 .toBe('site-header__menu__item');
 
