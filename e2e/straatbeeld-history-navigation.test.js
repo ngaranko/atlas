@@ -15,7 +15,7 @@ describe('Navigating forwards and backwards through history at straatbeeld', fun
         // Open straatbeeld by clicking on the thumbnail
         page.dashboard.rightColumn.searchResults.straatbeeldThumbnail.link.click();
         const straatbeeldTitle = page.title;
-        dp.validate('STRAATBEELD--SEARCH-RESULTS', page);
+        dp.validate('MAP_STRAATBEELD--SEARCH-RESULTS', page);
 
         // Go backwards to search results
         browser.navigate().back();
@@ -24,7 +24,7 @@ describe('Navigating forwards and backwards through history at straatbeeld', fun
 
         // Go forwards to straatbeeld
         browser.navigate().forward();
-        dp.validate('STRAATBEELD--SEARCH-RESULTS', page);
+        dp.validate('MAP_STRAATBEELD--SEARCH-RESULTS', page);
         expect(page.title).toBe(straatbeeldTitle);
     });
 
@@ -36,7 +36,7 @@ describe('Navigating forwards and backwards through history at straatbeeld', fun
         // Open straatbeeld by clicking on the thumbnail
         page.dashboard.rightColumn.detail.straatbeeldThumbnail.link.click();
         const straatbeeldTitle = page.title;
-        dp.validate('STRAATBEELD--DETAIL', page);
+        dp.validate('MAP_STRAATBEELD--DETAIL', page);
 
         // Go backwards to the detail page
         browser.navigate().back();
@@ -45,7 +45,7 @@ describe('Navigating forwards and backwards through history at straatbeeld', fun
 
         // Go forwards to straatbeeld
         browser.navigate().forward();
-        dp.validate('STRAATBEELD--DETAIL', page);
+        dp.validate('MAP_STRAATBEELD--DETAIL', page);
         expect(page.title).toBe(straatbeeldTitle);
     });
 
@@ -57,11 +57,6 @@ describe('Navigating forwards and backwards through history at straatbeeld', fun
 
             // Open straatbeeld by clicking on the thumbnail
             page.dashboard.rightColumn.searchResults.straatbeeldThumbnail.link.click();
-            dp.validate('STRAATBEELD--SEARCH-RESULTS', page);
-            const straatbeeldTitle = page.title;
-
-            // Open the map
-            page.dashboard.rightColumn.straatbeeld.toggleStraatbeeldFullscreen.click();
             dp.validate('MAP_STRAATBEELD--SEARCH-RESULTS', page);
             const mapStraatbeeldTitle = page.title;
 
@@ -74,11 +69,6 @@ describe('Navigating forwards and backwards through history at straatbeeld', fun
             browser.navigate().back();
             dp.validate('MAP_STRAATBEELD--SEARCH-RESULTS', page);
             expect(page.title).toBe(mapStraatbeeldTitle);
-
-            // Go backwards to straatbeeld fullscreen (map closed)
-            browser.navigate().back();
-            dp.validate('STRAATBEELD--SEARCH-RESULTS', page);
-            expect(page.title).toBe(straatbeeldTitle);
 
             // Go backwards to search results
             browser.navigate().back();
@@ -93,11 +83,6 @@ describe('Navigating forwards and backwards through history at straatbeeld', fun
 
             // Open straatbeeld by clicking on the thumbnail
             page.dashboard.rightColumn.detail.straatbeeldThumbnail.link.click();
-            dp.validate('STRAATBEELD--DETAIL', page);
-            const straatbeeldTitle = page.title;
-
-            // Open the map
-            page.dashboard.rightColumn.straatbeeld.toggleStraatbeeldFullscreen.click();
             dp.validate('MAP_STRAATBEELD--DETAIL', page);
             const mapStraatbeeldTitle = page.title;
 
@@ -110,11 +95,6 @@ describe('Navigating forwards and backwards through history at straatbeeld', fun
             browser.navigate().back();
             dp.validate('MAP_STRAATBEELD--DETAIL', page);
             expect(page.title).toBe(mapStraatbeeldTitle);
-
-            // Go backwards to straatbeeld fullscreen (map closed)
-            browser.navigate().back();
-            dp.validate('STRAATBEELD--DETAIL', page);
-            expect(page.title).toBe(straatbeeldTitle);
 
             // Go backwards to search results
             browser.navigate().back();
@@ -129,7 +109,7 @@ describe('Navigating forwards and backwards through history at straatbeeld', fun
         dp.validate('STRAATBEELD--SEARCH-RESULTS', page);
         const title = page.title;
 
-        // Open the map
+        // Show the map
         page.dashboard.rightColumn.straatbeeld.toggleStraatbeeldFullscreen.click();
         dp.validate('MAP_STRAATBEELD--SEARCH-RESULTS', page);
 

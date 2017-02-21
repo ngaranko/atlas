@@ -15,29 +15,6 @@ describe('The fullscreen map (or map w/ layerSelection) remembers how you got th
         dp.validate('MAP_STRAATBEELD--SEARCH-RESULTS', page);
     });
 
-    it('remembers the active page', () => {
-        page = dp.navigate('PAGE--HOME');
-
-        // Open the map
-        page.dashboard.rightColumn.page.homepage.map.click();
-
-        // Make the map fullscreen
-        page.dashboard.middleColumn.map.toggleFullscreen.click();
-        dp.validate('MAP', page);
-
-        // Open layer selection
-        page.dashboard.middleColumn.map.toggleLayerSelection.click();
-        dp.validate('LAYER-SELECTION_MAP', page);
-
-        // Close layer selection, return to the fullscreen map
-        page.dashboard.middleColumn.map.toggleLayerSelection.click();
-        dp.validate('MAP', page);
-
-        // Close the fullscreen map, return to the homepage
-        page.dashboard.middleColumn.map.toggleFullscreen.click();
-        dp.validate('PAGE--HOME', page);
-    });
-
     it('remembers the active detail page when opening and closing layer selection', () => {
         let initialPageTitle;
 
@@ -87,10 +64,6 @@ describe('The fullscreen map (or map w/ layerSelection) remembers how you got th
         // Open layer selection
         page.dashboard.middleColumn.map.toggleLayerSelection.click();
         dp.validate('LAYER-SELECTION_MAP', page);
-
-        // Make the map fullscreen (again)
-        page.dashboard.middleColumn.map.toggleFullscreen.click();
-        dp.validate('MAP', page);
 
         // Make the map small and return to the detail page (and NOT to layer selection)
         page.dashboard.middleColumn.map.toggleFullscreen.click();

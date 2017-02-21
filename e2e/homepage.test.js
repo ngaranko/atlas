@@ -16,16 +16,12 @@ describe('The homepage', () => {
             dp.validate('PAGE--HOME', page);
         });
 
-        it('make the map fullscreen, close it, return to the homepage', () => {
+        it('minimize the map, return to the homepage', () => {
             const page = dp.navigate('PAGE--HOME');
 
             // Go to the map
             page.dashboard.rightColumn.page.homepage.map.click();
             dp.validate('LAYER-SELECTION_MAP', page);
-
-            // Make the map fullscreen
-            page.dashboard.middleColumn.map.toggleFullscreen.click();
-            dp.validate('MAP', page);
 
             // Close the fullscreen map and return to the homepage
             page.dashboard.middleColumn.map.toggleFullscreen.click();
@@ -65,7 +61,7 @@ describe('The homepage', () => {
             page.dashboard.middleColumn.map.toggleFullscreen.click();
             dp.validate('MAP_STRAATBEELD--PAGE', page);
 
-            // Make straatbeeld fullscreen again (hide the map)
+            // Make straatbeeld fullscreen
             page.dashboard.rightColumn.straatbeeld.toggleStraatbeeldFullscreen.click();
             dp.validate('STRAATBEELD--PAGE', page);
 
@@ -79,7 +75,7 @@ describe('The homepage', () => {
 
             // Go to straatbeeld
             page.dashboard.rightColumn.page.homepage.straatbeeld.click();
-            dp.validate('STRAATBEELD--PAGE', page);
+            dp.validate('MAP_STRAATBEELD--PAGE', page);
 
             const oldPageTitle = page.title;
 
