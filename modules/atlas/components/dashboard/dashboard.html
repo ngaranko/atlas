@@ -10,7 +10,9 @@
              }"
              ng-controller="HeaderController as header">
 
-            <div class="c-dashboard__max-width__inner">
+            <div ng-class="{
+                     'c-dashboard__max-width__inner': vm.hasMaxWidth
+                 }">
                 <dp-header
                     query="{{header.query}}"
                     has-print-button="header.hasPrintButton"
