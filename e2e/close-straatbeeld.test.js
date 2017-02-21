@@ -37,6 +37,27 @@ describe('Navigating to and away from straatbeeld', function () {
         expect(page.title).toBe(title);
     });
 
+    it('goes from a detail page, to another straatbeeld (via hotspot) back to the same detail page', () => {
+        // Open a detail page
+        page = dp.navigate('MAP_DETAIL--NUMMERAANDUIDING');
+        const detailTitle = page.title;
+
+        // Open straatbeeld by clicking on the thumbnail
+        page.dashboard.rightColumn.detail.straatbeeldThumbnail.link.click();
+        dp.validate('STRAATBEELD--DETAIL', page);
+        const firstStraatbeeldTitle = page.title;
+
+        // Navigate to another straatbeeld via a hotspot
+        page.dashboard.rightColumn.straatbeeld.hotspots(0).click();
+        dp.validate('STRAATBEELD--DETAIL', page);
+        expect(page.title).not.toBe(firstStraatbeeldTitle);
+
+        // Close straatbeeld and return to the detail page
+        page.dashboard.rightColumn.straatbeeld.close.click();
+        page = dp.navigate('MAP_DETAIL--NUMMERAANDUIDING');
+        expect(page.title).toBe(detailTitle);
+    });
+
     describe('clicking on the map when in straatbeeld', function () {
         it('goes from search results back to different search results', function () {
             // Open search results (search by location)
