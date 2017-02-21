@@ -10,25 +10,14 @@ describe('The api factory', function () {
         angular.mock.module(
             'dpShared',
             {
-                authentication: {
-                    getStatus: function () {
-                        if (isLoggedIn) {
-                            return {
-                                accessToken: 'MY_FAKE_ACCESS_TOKEN',
-                                isLoggedIn: true
-                            };
-                        } else {
-                            return {
-                                accessToken: null,
-                                isLoggedIn: false
-                            };
-                        }
-                    }
+                user: {
+                    getAccessToken: () => isLoggedIn ? 'MY_FAKE_ACCESS_TOKEN' : null
                 }
             },
             function ($provide) {
                 $provide.constant('API_CONFIG', {
-                    ROOT: 'http://www.i-am-the-api-root.com/path/'
+                    ROOT: 'http://www.i-am-the-api-root.com/path/',
+                    AUTH_HEADER_PREFIX: 'Bearer '
                 });
             }
         );
@@ -109,7 +98,7 @@ describe('The api factory', function () {
         expect(returnValue).toEqual(mockedApiData);
     });
 
-    fit('adds an Authorization header if the user is logged in', function () {
+    it('adds an Authorization header if the user is logged in', function () {
         // Not logged in
         isLoggedIn = false;
 
@@ -125,7 +114,7 @@ describe('The api factory', function () {
 
         $httpBackend.expectGET(
             'http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/',
-            angular.merge({}, $http.defaults.headers.common, {Authorization: 'JWT MY_FAKE_ACCESS_TOKEN'})
+            angular.merge({}, $http.defaults.headers.common, {Authorization: 'Bearer MY_FAKE_ACCESS_TOKEN'})
         );
         api.getByUrl('http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/');
         $httpBackend.flush();

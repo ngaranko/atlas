@@ -2,6 +2,7 @@ describe('The urlToState factory', function () {
     var $location,
         $rootScope,
         urlToState,
+        authenticator,
         store,
         ACTIONS,
         mockedSearchParams;
@@ -12,13 +13,19 @@ describe('The urlToState factory', function () {
             {
                 store: {
                     dispatch: function () {}
+                },
+                authenticator: {
+                    initialize: angular.noop,
+                    isCallback: () => false,
+                    handleCallback: angular.noop
                 }
             }
         );
 
-        angular.mock.inject(function (_$location_, _$rootScope_, _urlToState_, _store_, _ACTIONS_) {
+        angular.mock.inject(function (_$location_, _$rootScope_, _urlToState_, _authenticator_, _store_, _ACTIONS_) {
             $location = _$location_;
             $rootScope = _$rootScope_;
+            authenticator = _authenticator_;
             urlToState = _urlToState_;
             store = _store_;
             ACTIONS = _ACTIONS_;
@@ -30,6 +37,29 @@ describe('The urlToState factory', function () {
         };
 
         spyOn(store, 'dispatch');
+    });
+
+    it('initializes the authenticator on startup', function () {
+        spyOn(authenticator, 'initialize');
+        urlToState.initialize();
+        expect(authenticator.initialize).toHaveBeenCalled();
+    });
+
+    it('routes authentication responses via the authenticator', function () {
+        spyOn(authenticator, 'isCallback').and.returnValue(true);
+        spyOn(authenticator, 'handleCallback');
+
+        urlToState.initialize();
+        $rootScope.$apply();
+        authenticator.handleCallback.calls.reset();
+
+        let params = {one: 1, two: 2};
+        $location.search(params);
+
+        urlToState.initialize();
+        $rootScope.$apply();
+
+        expect(authenticator.handleCallback).toHaveBeenCalledWith(params);
     });
 
     it('dispatches the URL_CHANGE action once on initialisation', function () {
