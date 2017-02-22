@@ -15,7 +15,7 @@
     DpToggleFullscreenController.$inject = ['$scope'];
 
     function DpToggleFullscreenController ($scope) {
-        var vm = this;
+        let vm = this;
 
         $scope.$watch('vm.isFullscreen', function () {
             vm.buttonText = `Kaart ${vm.isFullscreen ? 'verkleinen' : 'vergroten'}`;

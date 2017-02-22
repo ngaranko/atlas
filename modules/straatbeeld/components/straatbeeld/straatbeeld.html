@@ -1,4 +1,6 @@
 <div class="c-straatbeeld">
+    <dp-toggle-straatbeeld-fullscreen is-fullscreen="state.isFullscreen"></dp-toggle-straatbeeld-fullscreen>
+
     <div class="qa-close">
         <dp-link type="HIDE_STRAATBEELD" class-name="c-straatbeeld__close" hover-text="Sluiten"></dp-link>
     </div>
@@ -6,7 +8,6 @@
     <div class="c-straatbeeld__marzipano js-marzipano-viewer" ng-mousemove="updateOrientation()"></div>
 
     <div class="c-straatbeeld__status-bar">
-        <dp-straatbeeld-fullscreen state="state"></dp-straatbeeld-fullscreen>
         <dp-straatbeeld-metadata
             date="state.date"
             location="state.location"

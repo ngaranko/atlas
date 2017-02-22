@@ -3,8 +3,7 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
         $rootScope,
         store,
         scope,
-        ACTIONS,
-        userSettings;
+        ACTIONS;
 
     beforeEach(function () {
         angular.mock.module(
@@ -16,27 +15,26 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _ACTIONS_, _userSettings_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _ACTIONS_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
             ACTIONS = _ACTIONS_;
-            userSettings = _userSettings_;
         });
 
         spyOn(store, 'dispatch');
     });
 
-    function getDirective (state) {
+    function getDirective (isFullscreen) {
         var result,
             element;
 
-        element = document.createElement('dp-straatbeeld-fullscreen');
+        element = document.createElement('dp-toggle-straatbeeld-fullscreen');
 
-        element.setAttribute('state', 'state');
+        element.setAttribute('is-fullscreen', 'isFullscreen');
 
         scope = $rootScope.$new();
-        scope.state = state;
+        scope.isFullscreen = isFullscreen;
 
         result = $compile(element)(scope);
         scope.$apply();
@@ -46,12 +44,15 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
 
     describe ('The fullscreen button for panorama', function () {
         it('can change a window-view straatbeeld to fullscreen', function () {
-            let directive = getDirective({ isFullscreen: false });
-            let toggle = directive.find('.qa-straatbeeld-streetview-map-button');
+            let directive;
 
-            expect(toggle.attr('class')).toContain('toggle-straatbeeld-fullscreen--maximize');
+            // When straatbeeld is small
+            directive = getDirective(false);
 
-            toggle.click();
+            expect(directive.find('.qa-toggle-straatbeeld-fullscreen').attr('class'))
+                .toContain('toggle-straatbeeld-fullscreen--maximize');
+
+            directive.find('.qa-toggle-straatbeeld-fullscreen').click();
             $rootScope.$apply();
 
             expect(store.dispatch).toHaveBeenCalledWith({
@@ -59,9 +60,15 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
                 payload: true
             });
 
-            scope.state.isFullscreen = true;
+            store.dispatch.calls.reset();
 
-            toggle.click();
+            // When straatbeeld is large
+            directive = getDirective(true);
+
+            expect(directive.find('.qa-toggle-straatbeeld-fullscreen').attr('class'))
+                .toContain('toggle-straatbeeld-fullscreen--minimize');
+
+            directive.find('.qa-toggle-straatbeeld-fullscreen').click();
             $rootScope.$apply();
 
             expect(store.dispatch).toHaveBeenCalledWith({
@@ -71,8 +78,8 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
         });
 
         it('can change a fullscreen straatbeeld to window-view', function () {
-            let directive = getDirective({ isFullscreen: true });
-            let toggle = directive.find('.qa-straatbeeld-streetview-map-button');
+            let directive = getDirective(true);
+            let toggle = directive.find('.qa-toggle-straatbeeld-fullscreen');
 
             toggle.click();
             $rootScope.$apply();
@@ -83,17 +90,16 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
             });
         });
 
-        it('stores the fullsreen state of the straatbeeld in the user settings', function () {
-            let directive = getDirective({ isFullscreen: false });
-            let toggle = directive.find('.qa-straatbeeld-streetview-map-button');
+        it('sets a screen reader text', () => {
+            let component;
 
-            [true, false, true].forEach(b => {
-                scope.state.isFullscreen = b;
-                $rootScope.$apply();
-                toggle.click();
-                $rootScope.$apply();
-                expect(userSettings.fullscreenStraatbeeld.value).toBe((!b).toString());
-            });
+            // When the map is small
+            component = getDirective(false);
+            expect(component.find('.u-sr-only').text()).toBe('Kaart vergroten');
+
+            // When the map is large
+            component = getDirective(true);
+            expect(component.find('.u-sr-only').text()).toBe('Kaart verkleinen');
         });
     });
 });
