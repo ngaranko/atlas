@@ -31,9 +31,9 @@
         const AUTH_PARAMS = ['a-select-server', 'aselect_credentials', 'rid'];
 
         const REFRESH_INTERVAL = 1000 * 60 * 4.5;   // every 4.5 minutes
-        const RETRY_INTERVAL = 1000 * 5; // every 5 seconds
+        const RETRY_INTERVAL = 1000 * 5;            // every 5 seconds
 
-        const STATE = {
+        const STATE = {     // State transitions used in tokenLoop
             INIT: () =>
                 STATE.RESTORE_REFRESH_TOKEN,
             RESTORE_REFRESH_TOKEN: () =>
@@ -60,7 +60,7 @@
                 null // Wait for re-invocation of the tokenLoop...
         };
 
-        let interval;    // refresh or retry
+        let interval;   // refresh access token or retry after error interval
 
         let error = {}; // message, status and statusText
 
@@ -74,15 +74,15 @@
         };
 
         function tokenLoop (state, delay) {
-            if (delay) {
+            if (delay) {    // invoke tokenLoop after delay has passed
                 interval = $interval(() => tokenLoop(state), delay, 1); // $timeout will fail with protractor tests
                 return STATE.WAITING;
-            } else if (interval) {
+            } else if (interval) {  // cancel any existing delayed execution, eg when logout is called
                 $interval.cancel(interval);
             }
 
             while (state) {
-                state = state();
+                state = state();    // simple keep executing state transitions
             }
         }
 
@@ -138,7 +138,7 @@
             error.statusText = statusText || '';
         }
 
-        function login () {
+        function login () {     // redirect to external authentication provider
             let url = $location.absUrl();
             if (url.indexOf('#') === -1) {
                 url += '#';
@@ -152,12 +152,12 @@
             return !AUTH_PARAMS.find(key => angular.isUndefined(params[key]));
         }
 
-        function handleCallback (params) {
+        function handleCallback (params) {  // request user token with returned authorization parameters from callback
             return requestUserToken(params).finally(() => {
                 // Return params without authorization parameters (includes also language, sorry)
                 let newParams = angular.copy(params);
                 ['language'].concat(AUTH_PARAMS).forEach(key => delete newParams[key]);
-                $location.replace();    // overwrite the existing location
+                $location.replace();    // overwrite the existing location (prevent back button to re-login)
                 $location.search(newParams);
             });
         }
