@@ -1,6 +1,6 @@
 describe('The homepage', () => {
-    describe('navigate to the map w/ layer selection opened', () => {
-        it('close layer selection, then the map, return to the homepage', () => {
+    describe('can navigate to the map w/ layer selection opened', () => {
+        it('close layer selection, then close the map and then it returns to the homepage', () => {
             const page = dp.navigate('PAGE--HOME');
 
             // Go to the map
@@ -16,7 +16,7 @@ describe('The homepage', () => {
             dp.validate('PAGE--HOME', page);
         });
 
-        it('minimize the map, return to the homepage', () => {
+        it('returns to the homepage when minimizing the map', () => {
             const page = dp.navigate('PAGE--HOME');
 
             // Go to the map
@@ -29,8 +29,8 @@ describe('The homepage', () => {
         });
     });
 
-    describe('navigate to straatbeeld w/ a map', () => {
-        it('and back to the homepage by closing it', () => {
+    describe('The straatbeeld with a map navigation', () => {
+        it('navigates from home to straatbeeld and back to the homepage when closing straatbeeld', () => {
             const page = dp.navigate('PAGE--HOME');
 
             // Go to straatbeeld

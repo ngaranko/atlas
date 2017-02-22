@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Navigating forwards and backwards through history at straatbeeld', function () {
+describe('The back and forward navigation at straatbeeld', function () {
     let page;
 
     it('goes backwards to search results and forwards to straatbeeld', function () {

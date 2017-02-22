@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Navigating to and away from straatbeeld', function () {
+describe('The navigation to and away from straatbeeld', function () {
     let page;
 
     it('goes from search results back to the same search results', function () {

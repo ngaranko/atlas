@@ -251,7 +251,7 @@ describe('The map reducers', function () {
             expect(output.map.isFullscreen).toBe(false);
         });
 
-        it('when changing isFullscreen, the layer selection will also be disabled', function () {
+        it('disables layer selection when changing fullscreen', function () {
             let inputState = angular.copy(DEFAULT_STATE),
                 output;
 
