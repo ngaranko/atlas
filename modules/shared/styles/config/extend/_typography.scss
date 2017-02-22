@@ -6,6 +6,8 @@
   letter-spacing: normal;
 }
 
+/* Headers */
+
 %title-header {
   @extend %base-typography;
   @include font-size($xl-header-font);
@@ -36,95 +38,56 @@
   color: $secondary-gray60;
 }
 
-/*
-.H6-grijs {
-  font-size: 16px;
-  font-weight: 900;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.13;
-  letter-spacing: normal;
-  color: $brownish-grey;
+%content-header--inverted {
+  color: $primary-light;
 }
 
-.Tabel-header {
-  font-family: Montserrat;
-  font-size: 18px;
-  font-weight: 500;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: $white;
+%sub-header {
+  @extend %base-typography;
+  @include font-size($s-header-font);
+  color: $secondary-gray60;
+  font-weight: bold;
 }
 
-.Inline-tekst {
-  font-size: 18px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.44;
-  letter-spacing: normal;
-  color: $black;
+/* Body fonts */
+
+%inline-text {
+  @extend %base-typography;
+  @include font-size($m-font);
 }
 
-.Bullet-link {
-  font-size: 16px;
-  font-weight: 900;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.25;
-  letter-spacing: normal;
-  color: $black;
+%inline-text--strong {
+  font-weight: bold;
 }
 
-.Bullet-link-rood {
-  font-size: 16px;
-  font-weight: 900;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.25;
-  letter-spacing: normal;
-  color: $red;
+%strong-text {
+  @extend %base-typography;
+  @include font-size($s-font);
+  font-weight: bold;
 }
 
-Label {
-  font-size: 16px;
-  font-weight: 500;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.25;
-  letter-spacing: normal;
-  color: $brownish-grey;
+%strong-text--light {
+  color: $secondary-gray60;
 }
 
-.Blok-link {
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.25;
-  letter-spacing: normal;
-  color: $black;
+%strong-text--contrast {
+  color: $primary-contrast;
 }
 
-.Button---grijze-balk {
-  font-size: 14px;
-  font-weight: 900;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.29;
-  letter-spacing: normal;
-  color: $black;
+%secundary-text {
+  @extend %base-typography;
+  @include font-size($s-font);
+  color: $secondary-gray60;
+  font-weight: bold; /* Should be Avenir-Medium */
 }
 
-.Dataset---tag-klein {
-  font-size: 14px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.14;
-  letter-spacing: normal;
-  color: $black-grey;
+%small-text {
+  @extend %base-typography;
+  @include font-size($xs-font);
+  color: $secondary-gray80;
 }
-*/
+
+%small-text--strong {
+  color: $primary-dark;
+  font-weight: bold;
+}

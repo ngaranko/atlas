@@ -1,7 +1,10 @@
-body,
+body {
+  @extend %inline-text;
+}
+
 button {
-  @include font-size($body-font);
-  font-family: $base-font-family;
+  @extend %strong-text;
+  @extend %strong-text--light;
 }
 
 h1 {
@@ -31,13 +34,5 @@ h3 {
 h4,
 h5,
 h6 {
-  @include font-size($s-header-font);
-}
-
-.c-search-results__category-header {
-  @extend %page-header--contrast;
-}
-
-.c-search-results__indented-category-header {
-  @extend %content-header--light;
+  @extend %sub-header;
 }
