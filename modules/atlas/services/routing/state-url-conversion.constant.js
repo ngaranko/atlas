@@ -76,17 +76,17 @@
                     return newState;
                 },
                 search: (oldState, newState) => {
-                    const HAS_OLD_STATE = angular.isObject(oldState);
-                    const HAS_INPUT_CHANGED = HAS_OLD_STATE && (
+                    const hasOldState = angular.isObject(oldState);
+                    const hasInputChanged = hasOldState && (
                             oldState.query !== newState.query ||
                             !angular.equals(oldState.location, newState.location) ||
                             oldState.category !== newState.category
                         );
 
-                    if (HAS_INPUT_CHANGED) {
+                    if (hasInputChanged) {
                         newState.numberOfResults = null;
                         newState.isLoading = true;
-                    } else if (HAS_OLD_STATE) {
+                    } else if (hasOldState) {
                         newState.numberOfResults = oldState.numberOfResults;
                         newState.isLoading = oldState.isLoading;
                     }
