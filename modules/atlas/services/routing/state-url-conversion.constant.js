@@ -46,8 +46,7 @@
                         newState.map = angular.copy(initialValues.map);
                     }
                     return newState;
-                },
-                search: (oldState, newState) => angular.copy(oldState || newState)
+                }
             },
             post: {
                 // Post processing methods
@@ -74,6 +73,24 @@
                         newState.drawingMode = oldState.drawingMode;
                         newState.isLoading = oldState.isLoading;
                     }
+                    return newState;
+                },
+                search: (oldState, newState) => {
+                    const hasOldState = angular.isObject(oldState);
+                    const hasInputChanged = hasOldState && (
+                            oldState.query !== newState.query ||
+                            !angular.equals(oldState.location, newState.location) ||
+                            oldState.category !== newState.category
+                        );
+
+                    if (hasInputChanged) {
+                        newState.numberOfResults = null;
+                        newState.isLoading = true;
+                    } else if (hasOldState) {
+                        newState.numberOfResults = oldState.numberOfResults;
+                        newState.isLoading = oldState.isLoading;
+                    }
+
                     return newState;
                 },
                 straatbeeld: (oldState, newState) => {
