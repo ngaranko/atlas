@@ -9,16 +9,18 @@
             controllerAs: 'vm'
         });
 
-    DpHomepageController.$inject = [];
+    DpHomepageController.$inject = ['HOMEPAGE_CONFIG'];
 
-    function DpHomepageController () {
+    function DpHomepageController (HOMEPAGE_CONFIG) {
         let vm = this;
 
-        vm.fetchStraatbeeldPayload = {
-            id: 'TMX7315120208-000073_pano_0005_000451',
-            heading: 226,
-            isInitial: true,
-            isFullscreen: false
-        };
+        vm.fetchStraatbeeldPayload = angular.merge(
+            {},
+            HOMEPAGE_CONFIG.PANORAMA,
+            {
+                isInitial: true,
+                isFullscreen: false
+            }
+        );
     }
 })();
