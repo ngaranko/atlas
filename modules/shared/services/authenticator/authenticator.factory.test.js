@@ -76,12 +76,12 @@ describe(' The authenticator factory', function () {
         spyOn(user, 'getRefreshToken').and.returnValue('token');
         spyOn(user, 'setAccessToken');
 
-        $httpBackend.whenGET(API_CONFIG.AUTH + '/accesstoken').respond('token');
+        $httpBackend.whenGET(API_CONFIG.AUTH + '/accesstoken').respond('accesstoken');
 
         authenticator.initialize();
         $httpBackend.flush();
         $httpBackend.verifyNoOutstandingRequest();
-        expect(user.setAccessToken).toHaveBeenCalledWith('token');
+        expect(user.setAccessToken).toHaveBeenCalledWith('accesstoken');
     });
 
     it('requests an anonymous refreshtoken when no refresh token is available', function () {
@@ -102,7 +102,6 @@ describe(' The authenticator factory', function () {
 
     it('keeps retrying an anonymous refreshtoken on error', function () {
         spyOn(user, 'getRefreshToken').and.returnValue(null);
-        spyOn(user, 'setRefreshToken');
         spyOn(user, 'clearToken');
 
         $httpBackend.whenGET(API_CONFIG.AUTH + '/refreshtoken').respond(499);
@@ -134,9 +133,10 @@ describe(' The authenticator factory', function () {
     });
 
     it('can login a user by redirecting to an external security provider', function () {
+        absUrl = 'absUrl#arg';
         authenticator.login();
         expect($window.location.href)
-            .toBe(API_CONFIG.AUTH + '/siam/authenticate?active=true&callback=' + encodeURIComponent(absUrl + '#'));
+            .toBe(API_CONFIG.AUTH + '/siam/authenticate?active=true&callback=' + encodeURIComponent(absUrl));
     });
 
     it('can login a user by redirecting to an external security provider, adds # to path when missing', function () {
@@ -144,11 +144,6 @@ describe(' The authenticator factory', function () {
         authenticator.login();
         expect($window.location.href)
             .toBe(API_CONFIG.AUTH + '/siam/authenticate?active=true&callback=' + encodeURIComponent(absUrl + '#'));
-
-        absUrl = 'absUrl#arg';
-        authenticator.login();
-        expect($window.location.href)
-            .toBe(API_CONFIG.AUTH + '/siam/authenticate?active=true&callback=' + encodeURIComponent(absUrl));
     });
 
     it('can logout a user and then continue as anonymous user', function () {
@@ -222,9 +217,6 @@ describe(' The authenticator factory', function () {
 
     it('asks for an anonymous access token if a authenticated refresh token fails', function () {
         spyOn(user, 'setRefreshToken');
-        spyOn(user, 'setAccessToken');
-        spyOn($location, 'replace');
-        spyOn($location, 'search');
 
         $httpBackend.whenGET(API_CONFIG.AUTH + '/siam/token?a-select-server=1&aselect_credentials=2&rid=3')
             .respond(400, 'errorMessage');
@@ -241,8 +233,6 @@ describe(' The authenticator factory', function () {
     it('asks for an anonymous refresh token if an authenticated access token fails', function () {
         spyOn(user, 'setRefreshToken').and.callThrough();
         spyOn(user, 'setAccessToken').and.callThrough();
-        spyOn($location, 'replace');
-        spyOn($location, 'search');
 
         $httpBackend.whenGET(API_CONFIG.AUTH + '/siam/token?a-select-server=1&aselect_credentials=2&rid=3')
             .respond('token');
