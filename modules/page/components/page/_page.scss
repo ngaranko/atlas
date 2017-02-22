@@ -1,2 +1,22 @@
 @import "templates/home";
 @import "templates/snel-wegwijs";
+
+.c-page {
+  padding-top: 50px;
+}
+
+.c-page__body {
+  margin-right: calc(100% / 12);
+  margin-left: calc(100% / 12);
+}
+
+.c-page__body__inner {
+  max-width: 866px;
+}
+
+.c-side-bar__header {
+  @include font-size($s-header-font);
+
+  margin-top: 3 * $base-whitespace;
+  margin-bottom: $base-whitespace;
+}
