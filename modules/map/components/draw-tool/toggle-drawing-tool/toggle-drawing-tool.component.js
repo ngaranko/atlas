@@ -4,7 +4,7 @@
     angular
         .module('dpMap')
         .component('dpToggleDrawingTool', {
-            templateUrl: 'modules/map/components/toggle-drawing-tool/toggle-drawing-tool.html',
+            templateUrl: 'modules/map/components/draw-tool/toggle-drawing-tool/toggle-drawing-tool.html',
             controller: DpToggleDrawingToolController,
             controllerAs: 'vm'
         });

@@ -3,12 +3,12 @@
 @import "components/active-overlays/active-overlays";
 @import "components/draw-tool/draw-tool";
 @import "components/map/map";
-@import "components/toggle-drawing-tool/toggle-drawing-tool";
+@import "components/draw-tool/toggle-drawing-tool/toggle-drawing-tool";
 @import "components/toggle-fullscreen/toggle-fullscreen";
 @import "components/toggle-active-overlays/toggle-active-overlays";
 @import "components/toggle-layer-selection/toggle-layer-selection";
-@import "components/points-available/points-available";
-@import "components/shape-summary/shape-summary";
+@import "components/draw-tool/points-available/points-available";
+@import "components/draw-tool/shape-summary/shape-summary";
 @import "services/highlight/highlight-cluster";
 @import "services/draw-tool/draw-tool";
 

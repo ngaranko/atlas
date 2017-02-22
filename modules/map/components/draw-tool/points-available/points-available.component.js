@@ -4,7 +4,7 @@
     angular
         .module('dpMap')
         .component('dpPointsAvailable', {
-            templateUrl: 'modules/map/components/points-available/points-available.html',
+            templateUrl: 'modules/map/components/draw-tool/points-available/points-available.html',
             controller: DpPointsAvailableController,
             controllerAs: 'vm'
         });
