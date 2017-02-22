@@ -90,7 +90,7 @@
                         newState.numberOfResults = oldState.numberOfResults;
                         newState.isLoading = oldState.isLoading;
                     }
-                    //console.log(newState);
+
                     return newState;
                 },
                 straatbeeld: (oldState, newState) => {

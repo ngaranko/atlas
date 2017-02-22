@@ -45,11 +45,7 @@
             if (angular.isObject(action) &&
                 angular.isObject(action.type) &&
                 angular.isFunction(actions[action.type.id])) {
-                let newnewnew = actions[action.type.id](oldState, action.payload);
-
-                console.log(action.type.id, newnewnew);
-
-                return newnewnew;
+                return actions[action.type.id](oldState, action.payload);
             } else {
                 return oldState;
             }
