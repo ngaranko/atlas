@@ -171,6 +171,7 @@
         function mapEndDrawingReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
+            newState.page.name = null;
             newState.map.drawingMode = false;
 
             if (payload) {
