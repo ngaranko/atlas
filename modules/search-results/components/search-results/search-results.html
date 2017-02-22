@@ -22,12 +22,17 @@
                          class="u-margin__bottom--4"
                          ng-class="{
                             's-indented-result': category.useIndenting,
-                        }">
+                         }">
 
-                        <h2 class="o-header__subtitle qa-search-header">
+                        <h2 ng-if="!category.useIndenting" class="u-contrast qa-search-header">
                             <span ng-if="category.count > 1">{{category.label_plural}} ({{category.count | number}})</span>
                             <span ng-if="category.count === 1">{{category.label_singular}}</span>
                         </h2>
+
+                        <h3 ng-if="category.useIndenting" class="u-light qa-search-header">
+                            <span ng-if="category.count > 1">{{category.label_plural}} ({{category.count | number}})</span>
+                            <span ng-if="category.count === 1">{{category.label_singular}}</span>
+                        </h3>
 
                         <dp-search-results-list category="category" limit-results="true"></dp-search-results-list>
 

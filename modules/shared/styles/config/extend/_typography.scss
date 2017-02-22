@@ -1,0 +1,130 @@
+%base-typography {
+  @include font-size($body-font);
+  color: $primary-dark;
+  font-style: normal;
+  font-weight: normal;
+  letter-spacing: normal;
+}
+
+%title-header {
+  @extend %base-typography;
+  @include font-size($xl-header-font);
+  font-weight: bold;
+}
+
+%page-header {
+  @extend %base-typography;
+  @include font-size($l-header-font);
+  font-weight: bold;
+}
+
+%page-header--contrast {
+  color: $primary-contrast;
+}
+
+%page-header--inverted {
+  color: $primary-light;
+}
+
+%content-header {
+  @extend %base-typography;
+  @include font-size($m-header-font);
+  font-weight: bold;
+}
+
+%content-header--light {
+  color: $secondary-gray60;
+}
+
+/*
+.H6-grijs {
+  font-size: 16px;
+  font-weight: 900;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.13;
+  letter-spacing: normal;
+  color: $brownish-grey;
+}
+
+.Tabel-header {
+  font-family: Montserrat;
+  font-size: 18px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: $white;
+}
+
+.Inline-tekst {
+  font-size: 18px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.44;
+  letter-spacing: normal;
+  color: $black;
+}
+
+.Bullet-link {
+  font-size: 16px;
+  font-weight: 900;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  color: $black;
+}
+
+.Bullet-link-rood {
+  font-size: 16px;
+  font-weight: 900;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  color: $red;
+}
+
+Label {
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  color: $brownish-grey;
+}
+
+.Blok-link {
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  color: $black;
+}
+
+.Button---grijze-balk {
+  font-size: 14px;
+  font-weight: 900;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.29;
+  letter-spacing: normal;
+  color: $black;
+}
+
+.Dataset---tag-klein {
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.14;
+  letter-spacing: normal;
+  color: $black-grey;
+}
+*/

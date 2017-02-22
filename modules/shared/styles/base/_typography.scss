@@ -5,19 +5,39 @@ button {
 }
 
 h1 {
-  @include font-size($xl-header-font);
+  @extend %title-header;
 }
 
 h2 {
-  @include font-size($l-header-font);
+  @extend %page-header;
+
+  &.u-contrast {
+    @extend %page-header--contrast;
+  }
+
+  &.u-inverted {
+    @extend %page-header--inverted;
+  }
 }
 
 h3 {
-  @include font-size($m-header-font);
+  @extend %content-header;
+
+  &.u-light {
+    @extend %content-header--light;
+  }
 }
 
 h4,
 h5,
 h6 {
   @include font-size($s-header-font);
+}
+
+.c-search-results__category-header {
+  @extend %page-header--contrast;
+}
+
+.c-search-results__indented-category-header {
+  @extend %content-header--light;
 }

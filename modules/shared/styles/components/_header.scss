@@ -3,7 +3,7 @@
 }
 
 .o-header__title {
-  @include font-size($l-header-font);
+  @extend %title-header;
 }
 
 .o-header__subtitle {

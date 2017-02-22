@@ -1,13 +1,28 @@
 $base-font-family: Avenir, Arial, sans-serif;
-$header-font-family: Avenir, Arial, sans-serif;
+$header-font-family: $base-font-family;
 
-$base-font-size: 16px;
-$base-line-height: 1.375;
+$xs-font-size: 14px;
+$s-font-size: 16px;
+$m-font-size: 18px;
+$l-font-size: 20px;
+$xl-font-size: 26px;
+
+$xs-line-height: 1.14;
+$s-line-height: 1.25;
+$m-line-height: 1.44;
+$l-line-height: 1;
+$xl-line-height: 1;
+
+$base-font-size: $s-font-size;
+$base-line-height: $s-line-height;
+
+$p-font-size: $m-font-size;
+$p-line-height: $m-line-height;
 
 $breakpoints: (
   m: 1024px,
   l: 1200px,
-  xl: 1680px
+  xl: 1600px
 );
 
 // per breakpoint (font-family, font-size, line-height)
@@ -17,37 +32,74 @@ $breakpoints: (
 // }
 // typografie gebasseerd op http://typecast.com/blog/a-more-modern-scale-for-web-typography
 
-$body-font: (
-  null: ($base-font-family, $base-font-size, $base-line-height),
-  m: ($base-font-family, $base-font-size, $base-line-height),
-  l: ($base-font-family, $base-font-size, $base-line-height),
-  xl: ($base-font-family, $base-font-size, $base-line-height)
+/* Font sizes */
+
+$xs-font: (
+  null: ($base-font-family, $xs-font-size, $xs-line-height),
+  m: ($base-font-family, $xs-font-size, $xs-line-height),
+  l: ($base-font-family, $xs-font-size, $xs-line-height),
+  xl: ($base-font-family, $xs-font-size, $xs-line-height)
 );
 
-$xl-header-font: (
-  null: ($header-font-family, $base-font-size * 1.625, 1.25),
-  m: ($header-font-family, $base-font-size * 2, 1.25),
-  l: ($header-font-family, $base-font-size * 2.25, 1.25),
-  xl: ($header-font-family, $base-font-size * 2.25, 1.25)
+$s-font: (
+  null: ($base-font-family, $s-font-size * .875, $s-line-height),
+  m: ($base-font-family, $s-font-size, $s-line-height),
+  l: ($base-font-family, $s-font-size * 1.125, $s-line-height),
+  xl: ($base-font-family, $s-font-size * 1.25, $s-line-height)
 );
 
-$l-header-font: (
-  null: ($header-font-family, $base-font-size * 1.375, 1.25),
-  m: ($header-font-family, $base-font-size * 1.6, 1.25),
-  l: ($header-font-family, $base-font-size * 1.85, 1.25),
-  xl: ($header-font-family, $base-font-size * 1.85, 1.25)
+$m-font: (
+  null: ($base-font-family, $m-font-size, $m-line-height),
+  m: ($base-font-family, $m-font-size, $m-line-height),
+  l: ($base-font-family, $m-font-size, $m-line-height),
+  xl: ($base-font-family, $m-font-size, $m-line-height)
+);
+
+$l-font: (
+  null: ($base-font-family, $l-font-size, $l-line-height),
+  m: ($base-font-family, $l-font-size, $l-line-height),
+  l: ($base-font-family, $l-font-size, $l-line-height),
+  xl: ($base-font-family, $l-font-size, $l-line-height)
+);
+
+$xl-font: (
+  null: ($base-font-family, $xl-font-size, $xl-line-height),
+  m: ($base-font-family, $xl-font-size, $xl-line-height),
+  l: ($base-font-family, $xl-font-size, $xl-line-height),
+  xl: ($base-font-family, $xl-font-size, $xl-line-height)
+);
+
+/* Normal texts */
+
+$body-font: $s-font;
+$p-font: $m-font;
+
+/* Headers */
+
+$s-header-font: (
+  null: ($header-font-family, $s-font-size, $s-line-height),
+  m: ($header-font-family, $s-font-size, $s-line-height),
+  l: ($header-font-family, $s-font-size, $s-line-height),
+  xl: ($header-font-family, $s-font-size, $s-line-height)
 );
 
 $m-header-font: (
-  null: ($header-font-family, $base-font-size * 1.25, 1.11111111),
-  m: ($header-font-family, $base-font-size * 1.25, 1.22222222),
-  l: ($header-font-family, $base-font-size * 1.25, 1.22222222),
-  xl: ($header-font-family, $base-font-size * 1.25, 1.22222222)
+  null: ($header-font-family, $m-font-size * .875, $m-line-height),
+  m: ($header-font-family, $m-font-size, $m-line-height),
+  l: ($header-font-family, $m-font-size * 1.125, $m-line-height),
+  xl: ($header-font-family, $m-font-size * 1.25, $m-line-height)
 );
 
-$s-header-font: (
-  null: ($header-font-family, $base-font-size * 1, 1.11111111),
-  m: ($header-font-family, $base-font-size * 1, 1.22222222),
-  l: ($header-font-family, $base-font-size * 1, 1.22222222),
-  xl: ($header-font-family, $base-font-size * 1, 1.22222222)
+$l-header-font: (
+  null: ($header-font-family, $l-font-size * .875, $l-line-height),
+  m: ($header-font-family, $l-font-size, $l-line-height),
+  l: ($header-font-family, $l-font-size * 1.125, $l-line-height),
+  xl: ($header-font-family, $l-font-size * 1.25, $l-line-height)
+);
+
+$xl-header-font: (
+  null: ($header-font-family, $xl-font-size * .875, $xl-line-height),
+  m: ($header-font-family, $xl-font-size, $xl-line-height),
+  l: ($header-font-family, $xl-font-size * 1.125, $xl-line-height),
+  xl: ($header-font-family, $xl-font-size * 1.25, $xl-line-height)
 );

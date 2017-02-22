@@ -7,3 +7,11 @@
   padding-left: $base-font-size;
   border-left: 1px solid $secondary-gray20;
 }
+
+.c-search-results__category-header {
+  @extend %page-header--contrast;
+}
+
+.c-search-results__indented-category-header {
+  @extend %content-header--light;
+}
