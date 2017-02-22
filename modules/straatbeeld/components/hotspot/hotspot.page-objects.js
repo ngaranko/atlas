@@ -2,6 +2,8 @@
 
 module.exports = function (hotspotElement) {
     return {
-        click: hotspotElement.element(by.css('button')).click
+        click: function () {
+            browser.executeScript('arguments[0].click();', hotspotElement.element(by.css('button')));
+        }
     };
 };
