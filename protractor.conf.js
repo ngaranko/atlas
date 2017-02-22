@@ -4,6 +4,8 @@ exports.config = {
     specs: 'e2e/*.test.js',
     capabilities: {
         browserName: 'phantomjs',
+        shardTestFiles: true,
+        maxInstances: 10,
         'phantomjs.binary.path': './node_modules/phantomjs/bin/phantomjs'
     },
     onPrepare: function () {
