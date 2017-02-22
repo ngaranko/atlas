@@ -17,14 +17,23 @@
         let accessToken = null;
 
         return {
-            setRefreshToken,
-            setAccessToken,
             getRefreshToken,
+            setRefreshToken,
             getAccessToken,
-            clearToken,
+            setAccessToken,
             getUserType,
+            clearToken,
             USER_TYPE
         };
+
+        function getRefreshToken () {
+            return userSettings.refreshToken.value;
+        }
+
+        function setRefreshToken (token, userType) {
+            userSettings.refreshToken.value = token;
+            userSettings.userType.value = USER_TYPE[userType];
+        }
 
         function getAccessToken () {
             return accessToken;
@@ -34,17 +43,8 @@
             accessToken = token;
         }
 
-        function getRefreshToken () {
-            return userSettings.refreshToken.value;
-        }
-
         function getUserType () {
             return USER_TYPE[userSettings.userType.value] || USER_TYPE.NONE;
-        }
-
-        function setRefreshToken (token, userType) {
-            userSettings.refreshToken.value = token;
-            userSettings.userType.value = USER_TYPE[userType];
         }
 
         function clearToken () {
