@@ -30,44 +30,34 @@
 
         const AUTH_PARAMS = ['a-select-server', 'aselect_credentials', 'rid'];
 
-        const REFRESH_INTERVAL = 1000 * 60 * 0.5;   // every 4.5 minutes
+        const REFRESH_INTERVAL = 1000 * 60 * 4.5;   // every 4.5 minutes
         const RETRY_INTERVAL = 1000 * 5; // every 5 seconds
 
         const STATE = {
-            INIT: () => STATE.RESTORE_REFRESH_TOKEN,
-            RESTORE_REFRESH_TOKEN: () => {
-                if (user.getRefreshToken()) {
-                    return STATE.REQUEST_ACCESS_TOKEN;
-                } else {
-                    return STATE.REQUEST_ANONYMOUS_REFRESH_TOKEN;
-                }
-            },
-            REQUEST_ANONYMOUS_REFRESH_TOKEN: () => {
-                requestAnonymousToken();
-                return STATE.REQUESTING;
-            },
-            ON_REFRESH_TOKEN: () => STATE.REQUEST_ACCESS_TOKEN,
-            REQUEST_ACCESS_TOKEN: () => {
-                requestAccessToken(user.getRefreshToken());
-                return STATE.REQUESTING;
-            },
-            ON_ACCESS_TOKEN: () => STATE.REFRESH_ACCESS_TOKEN,
-            REFRESH_ACCESS_TOKEN: () => {
-                tokenLoop(STATE.REQUEST_ACCESS_TOKEN, REFRESH_INTERVAL);
-                return STATE.WAITING;
-            },
-            ON_ERROR: () => {
-                tokenLoop(STATE.RESTART, RETRY_INTERVAL);
-                return STATE.WAITING;
-            },
-            ON_MAIN_ERROR: () => {
-                tokenLoop(STATE.REQUEST_ANONYMOUS_REFRESH_TOKEN, RETRY_INTERVAL);
-                return STATE.WAITING;
-            },
-            ON_LOGOUT: () => STATE.RESTART,
-            RESTART: () => STATE.REQUEST_ANONYMOUS_REFRESH_TOKEN,
-            REQUESTING: () => null,
-            WAITING: () => null
+            INIT: () =>
+                STATE.RESTORE_REFRESH_TOKEN,
+            RESTORE_REFRESH_TOKEN: () =>
+                user.getRefreshToken() ? STATE.REQUEST_ACCESS_TOKEN : STATE.REQUEST_ANONYMOUS_REFRESH_TOKEN,
+            REQUEST_ANONYMOUS_REFRESH_TOKEN: () =>
+                requestAnonymousToken(),
+            ON_REFRESH_TOKEN: () =>
+                STATE.REQUEST_ACCESS_TOKEN,
+            ON_ANONYMOUS_REFRESH_TOKEN_ERROR: () =>
+                tokenLoop(STATE.REQUEST_ANONYMOUS_REFRESH_TOKEN, RETRY_INTERVAL),
+            ON_AUTHENTICATED_REFRESH_TOKEN_ERROR: () =>
+                STATE.REQUEST_ANONYMOUS_REFRESH_TOKEN,
+            REQUEST_ACCESS_TOKEN: () =>
+                requestAccessToken(user.getRefreshToken()),
+            ON_ACCESS_TOKEN: () =>
+                tokenLoop(STATE.REQUEST_ACCESS_TOKEN, REFRESH_INTERVAL),
+            ON_ANONYMOUS_ACCESS_TOKEN_ERROR: () =>
+                tokenLoop(STATE.REQUEST_ANONYMOUS_REFRESH_TOKEN, RETRY_INTERVAL),
+            ON_AUTHENTICATED_ACCESS_TOKEN_ERROR: () =>
+                STATE.REQUEST_ANONYMOUS_REFRESH_TOKEN,
+            ON_LOGOUT: () =>
+                STATE.REQUEST_ANONYMOUS_REFRESH_TOKEN,
+            WAITING: () =>
+                null // Wait for re-invocation of the tokenLoop...
         };
 
         let timeout;    // refresh or retry
@@ -86,7 +76,7 @@
         function tokenLoop (state, delay) {
             if (delay) {
                 timeout = $timeout(() => tokenLoop(state), delay);
-                return;
+                return STATE.WAITING;
             } else if (timeout) {
                 $timeout.cancel(timeout);
             }
@@ -113,11 +103,25 @@
             tokenLoop(STATE.ON_ACCESS_TOKEN);
         }
 
-        function onMainError (response) {
-            onError(response, STATE.ON_MAIN_ERROR);
+        function onRequestAnonymousTokenError (response) {
+            onError(response, STATE.ON_ANONYMOUS_REFRESH_TOKEN_ERROR);
         }
 
-        function onError (response, state = STATE.ON_ERROR) {
+        function onRequestUserTokenError (response) {
+            onError(response, STATE.ON_AUTHENTICATED_REFRESH_TOKEN_ERROR);
+        }
+
+        function onRequestAccessTokenError (response) {
+            onError(response, user.getUserType() === user.USER_TYPE.AUTHENTICATED
+                ? STATE.ON_AUTHENTICATED_ACCESS_TOKEN_ERROR : STATE.ON_ANONYMOUS_ACCESS_TOKEN_ERROR);
+        }
+
+        function logout () {
+            user.clearToken();
+            tokenLoop(STATE.ON_LOGOUT);
+        }
+
+        function onError (response, state) {
             user.clearToken();
             setError(
                 ERROR_MESSAGES[response.status] ||
@@ -126,11 +130,6 @@
                 response.status,
                 response.statusText);
             tokenLoop(state);
-        }
-
-        function logout () {
-            user.clearToken();
-            tokenLoop(STATE.ON_LOGOUT);
         }
 
         function setError (message, status, statusText) {
@@ -144,9 +143,8 @@
             if (url.indexOf('#') === -1) {
                 url += '#';
             }
-            const callbackUrl = encodeURIComponent(url);
-            const authenticationUrl = API_CONFIG.AUTH + '/siam/authenticate?active=true&callback=' + callbackUrl;
-            $window.location.href = authenticationUrl;
+            $window.location.href =
+                API_CONFIG.AUTH + '/siam/authenticate?active=true&callback=' + encodeURIComponent(url);
         }
 
         function isCallback (params) {
@@ -159,14 +157,16 @@
                 // Return params without authorization parameters (includes also language, sorry)
                 let newParams = angular.copy(params);
                 ['language'].concat(AUTH_PARAMS).forEach(key => delete newParams[key]);
-                $location.replace();
+                $location.replace();    // overwrite the existing location
                 $location.search(newParams);
             });
         }
 
         function requestAnonymousToken () {
-            return authRequest('/refreshtoken')
-                .then(response => onRefreshToken(response.data, user.USER_TYPE.ANONYMOUS), onMainError);
+            authRequest('/refreshtoken')
+                .then(response => onRefreshToken(response.data, user.USER_TYPE.ANONYMOUS),
+                    onRequestAnonymousTokenError);
+            return STATE.WAITING;
         }
 
         function requestUserToken (params) {
@@ -175,12 +175,15 @@
                 return result;
             }, {});
             return authRequest('/siam/token', {}, httpParams)
-                .then(response => onRefreshToken(response.data, user.USER_TYPE.AUTHENTICATED), onError);
+                .then(response => onRefreshToken(response.data, user.USER_TYPE.AUTHENTICATED),
+                    onRequestUserTokenError);
         }
 
         function requestAccessToken (token) {
-            return authRequest('/accesstoken', {'Authorization': API_CONFIG.AUTH_HEADER_PREFIX + token})
-                .then(response => onAccessToken(response.data), onError);
+            authRequest('/accesstoken', {'Authorization': API_CONFIG.AUTH_HEADER_PREFIX + token})
+                .then(response => onAccessToken(response.data),
+                    onRequestAccessTokenError);
+            return STATE.WAITING;
         }
 
         function authRequest (url, headers, params) {

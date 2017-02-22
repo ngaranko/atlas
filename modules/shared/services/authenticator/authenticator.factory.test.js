@@ -6,19 +6,32 @@ describe(' The authenticator factory', function () {
         API_CONFIG,
         user,
         authenticator,
-        absUrl;
+        absUrl,
+        mockedUser;
 
     beforeEach(function () {
         absUrl = 'absUrl';
+
+        const initUser = {
+            refreshToken: null,
+            accessToken: null,
+            userType: 'NONE'
+        };
+
+        mockedUser = initUser;
 
         angular.mock.module(
             'dpShared',
             {
                 user: {
-                    setRefreshToken: angular.noop,
-                    setAccessToken: angular.noop,
-                    getRefreshToken: angular.noop,
-                    clearToken: angular.noop,
+                    setRefreshToken: (token, type) => {
+                        mockedUser.refreshToken = token;
+                        mockedUser.userType = type;
+                    },
+                    setAccessToken: (token) => mockedUser.accessToken = token,
+                    getRefreshToken: () => mockedUser.refreshToken,
+                    clearToken: () => mockedUser = initUser,
+                    getUserType: () => mockedUser.userType,
                     USER_TYPE: {
                         NONE: 'NONE',
                         ANONYMOUS: 'ANONYMOUS',
@@ -112,7 +125,7 @@ describe(' The authenticator factory', function () {
         $httpBackend.verifyNoOutstandingRequest();
         expect(user.clearToken).toHaveBeenCalledWith();
 
-        $timeout.flush(5001);
+        $timeout.flush(100000);
         $httpBackend.flush();
         expect(user.setRefreshToken).toHaveBeenCalledWith('token', user.USER_TYPE.ANONYMOUS);
         $httpBackend.verifyNoOutstandingRequest();
@@ -205,11 +218,53 @@ describe(' The authenticator factory', function () {
         expect(user.setAccessToken).toHaveBeenCalledWith('accesstoken');
     });
 
-    it('', function () {
+    it('asks for an anonymous access token if a authenticated refresh token fails', function () {
+        spyOn(user, 'setRefreshToken');
+        spyOn(user, 'setAccessToken');
+        spyOn($location, 'replace');
+        spyOn($location, 'search');
 
+        $httpBackend.whenGET(API_CONFIG.AUTH + '/siam/token?a-select-server=1&aselect_credentials=2&rid=3')
+            .respond(400, 'errorMessage');
+        $httpBackend.whenGET(API_CONFIG.AUTH + '/refreshtoken').respond('anonymous token');
+        $httpBackend.whenGET(API_CONFIG.AUTH + '/accesstoken').respond('accesstoken');
+
+        authenticator.handleCallback({one: 1, 'a-select-server': 1, 'aselect_credentials': 2, 'rid': 3});
+        $httpBackend.flush();
+        $httpBackend.verifyNoOutstandingRequest();
+
+        expect(user.setRefreshToken).toHaveBeenCalledWith('anonymous token', user.USER_TYPE.ANONYMOUS);
     });
 
-    it('', function () {
+    it('asks for an anonymous refresh token if an authenticated access token fails', function () {
+        spyOn(user, 'setRefreshToken').and.callThrough();
+        spyOn(user, 'setAccessToken').and.callThrough();
+        spyOn($location, 'replace');
+        spyOn($location, 'search');
 
+        $httpBackend.whenGET(API_CONFIG.AUTH + '/siam/token?a-select-server=1&aselect_credentials=2&rid=3')
+            .respond('token');
+        let getAccessToken = $httpBackend.whenGET(API_CONFIG.AUTH + '/accesstoken');
+
+        getAccessToken.respond('accesstoken');
+
+        authenticator.handleCallback({one: 1, 'a-select-server': 1, 'aselect_credentials': 2, 'rid': 3});
+        $httpBackend.flush();
+        $httpBackend.verifyNoOutstandingRequest();
+
+        expect(user.setRefreshToken).toHaveBeenCalledWith('token', user.USER_TYPE.AUTHENTICATED);
+        expect(user.setAccessToken).toHaveBeenCalledWith('accesstoken');
+        expect(user.getUserType()).toBe(user.USER_TYPE.AUTHENTICATED);
+        user.setRefreshToken.calls.reset();
+        user.setAccessToken.calls.reset();
+
+        getAccessToken.respond(400, 'access token error');
+        $httpBackend.whenGET(API_CONFIG.AUTH + '/refreshtoken').respond('anonymous token');
+
+        $timeout.flush(100000);   // force refresh of access token
+        $httpBackend.flush();
+
+        expect(user.setRefreshToken).toHaveBeenCalledWith('anonymous token', user.USER_TYPE.ANONYMOUS);
+        $httpBackend.verifyNoOutstandingRequest();
     });
 });
