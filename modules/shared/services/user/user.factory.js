@@ -52,11 +52,5 @@
             userSettings.refreshToken.remove();
             userSettings.userType.remove();
         }
-
-        // function decodeToken (token) {
-        //     var base64Url = token.split('.')[1];
-        //     var base64 = base64Url.replace('-', '+').replace('_', '/');
-        //     return angular.fromJson($window.atob(base64));
-        // }
     }
 })();
