@@ -295,6 +295,18 @@ describe('The map reducers', function () {
             expect(output.map.drawingMode).toBe(false);
         });
 
+        it('reset the page', () => {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.page.name = 'home';
+            output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
+                markers: []
+            });
+
+            expect(output.page.name).toBeNull();
+        });
+
         it('Leaves the dataSelection state untouched on an argument polygon with <= 1 markers', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;

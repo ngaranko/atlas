@@ -1,5 +1,5 @@
 describe('Taiga issue #2938', () => {
-    it('should show the map and dataSelection after drawing a polygon on the map when navigating from the homepage', () => {
+    it('should show the map and dataSelection after drawing on the map when navigating from the homepage', () => {
         const page = dp.navigate('PAGE--HOME');
 
         // Go to the Map
@@ -16,8 +16,6 @@ describe('Taiga issue #2938', () => {
         page.dashboard.middleColumn.map.click(50, 50);
         page.dashboard.middleColumn.map.click(250, 50);
         page.dashboard.middleColumn.map.click(150, 200);
-
-        //page.dashboard.middleColumn.map.move(160, 200);
         page.dashboard.middleColumn.map.drawTool.toggleDrawingTool.click();
 
         dp.validate('MAP', page);
