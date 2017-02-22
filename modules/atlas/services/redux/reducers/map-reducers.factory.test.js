@@ -295,8 +295,8 @@ describe('The map reducers', function () {
             expect(output.map.drawingMode).toBe(false);
         });
 
-        it('reset the page', () => {
-            var inputState = angular.copy(DEFAULT_STATE),
+        it('resets the page', () => {
+            let inputState = angular.copy(DEFAULT_STATE),
                 output;
 
             inputState.page.name = 'home';
