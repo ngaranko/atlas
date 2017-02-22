@@ -143,6 +143,20 @@ describe('The search-reducers factory', function () {
             expect(output.search.numberOfResults).toBeNull();
         });
 
+        it('rounds the search location with a precision of 7 decimals', () => {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.search = null;
+
+            output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](
+                inputState,
+                [52.123456789, 4.12345671]
+            );
+
+            expect(output.search.location).toEqual([52.1234568, 4.1234567]);
+        });
+
         it('hides the layer selection, active overlays, page, detail, straatbeeld and dataSelection', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
