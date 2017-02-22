@@ -107,15 +107,15 @@
 
         /**
          * Reduces the number of decimals by the given precision factor
-         * @param {number|Array} it either be a single number of an array of numbers
+         * @param {number|Array} input - it either be a single number of an array of numbers
          * @param {number} decimals
          * @returns {number}
          */
-        static toPrecision (n, decimals) {
-            if (angular.isArray(n)) {
-                return n.map(item => BaseCoder.toPrecision(item, decimals));
+        static toPrecision (input, decimals) {
+            if (angular.isArray(input)) {
+                return input.map(item => BaseCoder.toPrecision(item, decimals));
             } else {
-                return Number(Math.round(n + `e${decimals}`) + `e-${decimals}`);
+                return Number(Math.round(input + `e${decimals}`) + `e-${decimals}`);
             }
         }
 

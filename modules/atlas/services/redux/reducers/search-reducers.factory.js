@@ -52,15 +52,12 @@
          * @returns {Object} newState
          */
         function fetchSearchResultsByLocationReducer (oldState, payload) {
-            var newState = angular.copy(oldState);
+            let newState = angular.copy(oldState);
 
             newState.search = {
                 isLoading: true,
                 query: null,
-                location: [
-                    dpBaseCoder.toPrecision(payload[0], 7),
-                    dpBaseCoder.toPrecision(payload[1], 7)
-                ],
+                location: dpBaseCoder.toPrecision(payload, 7),
                 category: null,
                 numberOfResults: null
             };
