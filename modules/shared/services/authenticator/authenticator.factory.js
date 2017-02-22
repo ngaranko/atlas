@@ -7,7 +7,7 @@
 
     authenticatorFactory.$inject = [
         '$http',
-        '$timeout',
+        '$interval',
         'API_CONFIG',
         'user',
         '$window',
@@ -16,7 +16,7 @@
 
     function authenticatorFactory (
         $http,
-        $timeout,
+        $interval,
         API_CONFIG,
         user,
         $window,
@@ -60,7 +60,7 @@
                 null // Wait for re-invocation of the tokenLoop...
         };
 
-        let timeout;    // refresh or retry
+        let interval;    // refresh or retry
 
         let error = {}; // message, status and statusText
 
@@ -75,10 +75,10 @@
 
         function tokenLoop (state, delay) {
             if (delay) {
-                timeout = $timeout(() => tokenLoop(state), delay);
+                interval = $interval(() => tokenLoop(state), delay, 1); // $timeout will fail with protractor tests
                 return STATE.WAITING;
-            } else if (timeout) {
-                $timeout.cancel(timeout);
+            } else if (interval) {
+                $interval.cancel(interval);
             }
 
             while (state) {

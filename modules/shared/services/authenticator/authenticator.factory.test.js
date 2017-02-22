@@ -2,12 +2,14 @@ describe(' The authenticator factory', function () {
     let $httpBackend,
         $window,
         $location,
-        $timeout,
+        $interval,
         API_CONFIG,
         user,
         authenticator,
         absUrl,
         mockedUser;
+
+    const REFRESH_INTERVAL = 1000 * 60 * 5;
 
     beforeEach(function () {
         absUrl = 'absUrl';
@@ -56,14 +58,14 @@ describe(' The authenticator factory', function () {
             _$httpBackend_,
             _$window_,
             _$location_,
-            _$timeout_,
+            _$interval_,
             _API_CONFIG_,
             _user_,
             _authenticator_) {
             $httpBackend = _$httpBackend_;
             $window = _$window_;
             $location = _$location_;
-            $timeout = _$timeout_;
+            $interval = _$interval_;
             API_CONFIG = _API_CONFIG_;
             user = _user_;
             authenticator = _authenticator_;
@@ -125,7 +127,7 @@ describe(' The authenticator factory', function () {
         $httpBackend.verifyNoOutstandingRequest();
         expect(user.clearToken).toHaveBeenCalledWith();
 
-        $timeout.flush(100000);
+        $interval.flush(REFRESH_INTERVAL);
         $httpBackend.flush();
         expect(user.setRefreshToken).toHaveBeenCalledWith('token', user.USER_TYPE.ANONYMOUS);
         $httpBackend.verifyNoOutstandingRequest();
@@ -261,7 +263,7 @@ describe(' The authenticator factory', function () {
         getAccessToken.respond(400, 'access token error');
         $httpBackend.whenGET(API_CONFIG.AUTH + '/refreshtoken').respond('anonymous token');
 
-        $timeout.flush(100000);   // force refresh of access token
+        $interval.flush(REFRESH_INTERVAL);   // force refresh of access token
         $httpBackend.flush();
 
         expect(user.setRefreshToken).toHaveBeenCalledWith('anonymous token', user.USER_TYPE.ANONYMOUS);
