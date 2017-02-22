@@ -3,8 +3,8 @@ exports.config = {
     framework: 'jasmine',
     specs: 'e2e/**/*.test.js',
     capabilities: {
-        browserName: 'chrome',
-        shardTestFiles: false,
+        browserName: 'phantomjs',
+        shardTestFiles: true,
         maxInstances: 10,
         'phantomjs.binary.path': './node_modules/phantomjs/bin/phantomjs'
     },

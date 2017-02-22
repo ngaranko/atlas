@@ -1,6 +1,7 @@
 'use strict';
 
-const toggleDrawingToolPO = dp.require('modules/map/components/draw-tool/toggle-drawing-tool/toggle-drawing-tool.page-objects');
+const toggleDrawingToolPO =
+    dp.require('modules/map/components/draw-tool/toggle-drawing-tool/toggle-drawing-tool.page-objects');
 
 module.exports = function (drawToolElement) {
     return {

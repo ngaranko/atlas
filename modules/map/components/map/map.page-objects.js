@@ -8,12 +8,12 @@ const drawToolPO = dp.require('modules/map/components/draw-tool/draw-tool.page-o
 module.exports = function (mapElement) {
     return {
         click: function (x, y) {
-            browser.actions()
+            browser.waitForAngular();
+
+            return browser.actions()
                 .mouseMove(mapElement, {x: x, y: y})
                 .click()
                 .perform();
-
-            return browser.sleep(1)
         },
         get visible () {
             return dp.visible(mapElement);
