@@ -22,9 +22,9 @@
         $window,
         $location) {
         const ERROR_MESSAGES = {
-            400: 'Verplichte parameter is niet aanwezig',
+            400: 'Verplichte parameter is niet aanwezig.',
             404: 'Er is iets mis met de inlog server, probeer het later nog eens.',
-            502: 'Probleem in de communicatie met de inlog server',
+            502: 'Probleem in de communicatie met de inlog server.',
             504: 'Inlog server timeout, probeer het later nog eens.'
         };
 
@@ -125,8 +125,8 @@
             user.clearToken();
             setError(
                 ERROR_MESSAGES[response.status] ||
-                'Er is een fout opgetreden. Neem contact op met de beheerder en vermeld' +
-                ' code: ' + response.status + ' status: ' + response.statusText + '.',
+                'Er is een fout opgetreden. Neem contact op met de beheerder en vermeld ' +
+                'code: ${response.status}, status: ${response.statusText}.',
                 response.status,
                 response.statusText);
             tokenLoop(state);
@@ -148,7 +148,9 @@
         }
 
         function isCallback (params) {
-            // true when unable to find an non-existent value for any of the authorization params
+            // it is a callback when all authorization parameters are defined in the params
+            // the fastest check is not to check if all parameters are defined but
+            // to check that no undefined parameter can be found
             return !AUTH_PARAMS.find(key => angular.isUndefined(params[key]));
         }
 
@@ -162,14 +164,7 @@
             });
         }
 
-        function requestAnonymousToken () {
-            authRequest('/refreshtoken')
-                .then(response => onRefreshToken(response.data, user.USER_TYPE.ANONYMOUS),
-                    onRequestAnonymousTokenError);
-            return STATE.WAITING;
-        }
-
-        function requestUserToken (params) {
+        function requestUserToken (params) {    // initiated externally, called by handleCallback
             let httpParams = AUTH_PARAMS.reduce((result, key) => {
                 result[key] = params[key];
                 return result;
@@ -179,7 +174,14 @@
                     onRequestUserTokenError);
         }
 
-        function requestAccessToken (token) {
+        function requestAnonymousToken () {     // initiated by tokenLoop, return WAITING
+            authRequest('/refreshtoken')
+                .then(response => onRefreshToken(response.data, user.USER_TYPE.ANONYMOUS),
+                    onRequestAnonymousTokenError);
+            return STATE.WAITING;
+        }
+
+        function requestAccessToken (token) {   // initiated by tokenLoop, return WAITING
             authRequest('/accesstoken', {'Authorization': API_CONFIG.AUTH_HEADER_PREFIX + token})
                 .then(response => onAccessToken(response.data),
                     onRequestAccessTokenError);

@@ -51,15 +51,35 @@ describe('The urlToState factory', function () {
 
         urlToState.initialize();
         $rootScope.$apply();
+
         authenticator.handleCallback.calls.reset();
 
         let params = {one: 1, two: 2};
         $location.search(params);
 
-        urlToState.initialize();
         $rootScope.$apply();
 
         expect(authenticator.handleCallback).toHaveBeenCalledWith(params);
+        expect(store.dispatch).not.toHaveBeenCalled();
+    });
+
+    it('routes all other responses via dispatch action', function () {
+        spyOn(authenticator, 'isCallback').and.returnValue(false);
+        spyOn(authenticator, 'handleCallback');
+
+        urlToState.initialize();
+        $rootScope.$apply();
+
+        let params = {one: 1, two: 2};
+        $location.search(params);
+
+        $rootScope.$apply();
+
+        expect(authenticator.handleCallback).not.toHaveBeenCalledWith();
+        expect(store.dispatch).toHaveBeenCalledWith({
+            type: ACTIONS.URL_CHANGE,
+            payload: params
+        });
     });
 
     it('dispatches the URL_CHANGE action once on initialisation', function () {

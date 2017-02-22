@@ -80,8 +80,9 @@ describe(' The authenticator factory', function () {
 
         authenticator.initialize();
         $httpBackend.flush();
-        $httpBackend.verifyNoOutstandingRequest();
+
         expect(user.setAccessToken).toHaveBeenCalledWith('accesstoken');
+        $httpBackend.verifyNoOutstandingRequest();
     });
 
     it('requests an anonymous refreshtoken when no refresh token is available', function () {
@@ -94,9 +95,9 @@ describe(' The authenticator factory', function () {
 
         authenticator.initialize();
         $httpBackend.flush();
+
         expect(user.setRefreshToken).toHaveBeenCalledWith('refreshtoken', user.USER_TYPE.ANONYMOUS);
         expect(user.setAccessToken).toHaveBeenCalledWith('accesstoken');
-
         $httpBackend.verifyNoOutstandingRequest();
     });
 
@@ -108,9 +109,10 @@ describe(' The authenticator factory', function () {
 
         authenticator.initialize();
         $httpBackend.flush();
-        $httpBackend.verifyNoOutstandingRequest();
+
         expect(user.clearToken).toHaveBeenCalledWith();
         expect(authenticator.error.message).toContain('Er is een fout opgetreden');
+        $httpBackend.verifyNoOutstandingRequest();
     });
 
     it('tries to get an anonymous refreshtoken on accesstoken error', function () {
@@ -123,11 +125,13 @@ describe(' The authenticator factory', function () {
 
         authenticator.initialize();
         $httpBackend.flush();
-        $httpBackend.verifyNoOutstandingRequest();
+
         expect(user.clearToken).toHaveBeenCalledWith();
+        $httpBackend.verifyNoOutstandingRequest();
 
         $interval.flush(REFRESH_INTERVAL);
         $httpBackend.flush();
+
         expect(user.setRefreshToken).toHaveBeenCalledWith('token', user.USER_TYPE.ANONYMOUS);
         $httpBackend.verifyNoOutstandingRequest();
     });
@@ -158,8 +162,10 @@ describe(' The authenticator factory', function () {
         expect(user.clearToken).toHaveBeenCalled();
 
         $httpBackend.flush();
+
         expect(user.setRefreshToken).toHaveBeenCalledWith('refreshtoken', user.USER_TYPE.ANONYMOUS);
         expect(user.setAccessToken).toHaveBeenCalledWith('accesstoken');
+        $httpBackend.verifyNoOutstandingRequest();
     });
 
     it('can logout an anonymous user and then re-continue as anonymous user', function () {
@@ -173,6 +179,7 @@ describe(' The authenticator factory', function () {
 
         authenticator.initialize();
         $httpBackend.flush();
+
         expect(user.setRefreshToken).toHaveBeenCalledWith('refreshtoken', user.USER_TYPE.ANONYMOUS);
         expect(user.setAccessToken).toHaveBeenCalledWith('accesstoken');
 
@@ -182,10 +189,11 @@ describe(' The authenticator factory', function () {
 
         authenticator.logout();
         $httpBackend.flush();
-        expect(user.clearToken).toHaveBeenCalled();
 
+        expect(user.clearToken).toHaveBeenCalled();
         expect(user.setRefreshToken).toHaveBeenCalledWith('refreshtoken', user.USER_TYPE.ANONYMOUS);
         expect(user.setAccessToken).toHaveBeenCalledWith('accesstoken');
+        $httpBackend.verifyNoOutstandingRequest();
     });
 
     it('is able to tell whether an url is a callback message from an external security provider', function () {
@@ -208,11 +216,12 @@ describe(' The authenticator factory', function () {
 
         authenticator.handleCallback({one: 1, 'a-select-server': 1, 'aselect_credentials': 2, 'rid': 3});
         $httpBackend.flush();
-        $httpBackend.verifyNoOutstandingRequest();
+
         expect(user.setRefreshToken).toHaveBeenCalledWith('token', user.USER_TYPE.AUTHENTICATED);
         expect($location.replace).toHaveBeenCalled();
         expect($location.search).toHaveBeenCalledWith({one: 1});
         expect(user.setAccessToken).toHaveBeenCalledWith('accesstoken');
+        $httpBackend.verifyNoOutstandingRequest();
     });
 
     it('asks for an anonymous access token if a authenticated refresh token fails', function () {
@@ -225,9 +234,9 @@ describe(' The authenticator factory', function () {
 
         authenticator.handleCallback({one: 1, 'a-select-server': 1, 'aselect_credentials': 2, 'rid': 3});
         $httpBackend.flush();
-        $httpBackend.verifyNoOutstandingRequest();
 
         expect(user.setRefreshToken).toHaveBeenCalledWith('anonymous token', user.USER_TYPE.ANONYMOUS);
+        $httpBackend.verifyNoOutstandingRequest();
     });
 
     it('asks for an anonymous refresh token if an authenticated access token fails', function () {
@@ -242,11 +251,12 @@ describe(' The authenticator factory', function () {
 
         authenticator.handleCallback({one: 1, 'a-select-server': 1, 'aselect_credentials': 2, 'rid': 3});
         $httpBackend.flush();
-        $httpBackend.verifyNoOutstandingRequest();
 
         expect(user.setRefreshToken).toHaveBeenCalledWith('token', user.USER_TYPE.AUTHENTICATED);
         expect(user.setAccessToken).toHaveBeenCalledWith('accesstoken');
         expect(user.getUserType()).toBe(user.USER_TYPE.AUTHENTICATED);
+        $httpBackend.verifyNoOutstandingRequest();
+
         user.setRefreshToken.calls.reset();
         user.setAccessToken.calls.reset();
 
