@@ -11,6 +11,14 @@ describe('The dp-homepage component', () => {
                 store: {
                     dispatch: angular.noop
                 }
+            },
+            function ($provide) {
+                $provide.constant('HOMEPAGE_CONFIG', {
+                    PANORAMA: {
+                        id: 'abc789',
+                        heading: 45
+                    }
+                });
             }
         );
 
@@ -45,8 +53,8 @@ describe('The dp-homepage component', () => {
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.FETCH_STRAATBEELD_BY_ID,
             payload: jasmine.objectContaining({
-                id: jasmine.any(String),
-                heading: jasmine.any(Number),
+                id: 'abc789',
+                heading: 45,
                 isInitial: true, // isInitial has to be true to make sure a new history entry is added
                 isFullscreen: false
             })
