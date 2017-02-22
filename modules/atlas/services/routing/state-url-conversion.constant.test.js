@@ -163,14 +163,14 @@ describe('The state url conversion definition', function () {
         });
 
         describe('The post processing for search', () => {
-            const OLD_STATE_WITH_QUERY = {
+            const oldStateWithQuery = {
                 query: 'dam',
                 location: null,
                 category: null,
                 numberOfResults: 101,
                 isLoading: false
             };
-            const OLD_STATE_WITH_QUERY_AND_CATEGORY = {
+            const oldStateWithQueryAndCategory = {
                 query: 'dam',
                 location: null,
                 category: 'adres',
@@ -178,7 +178,7 @@ describe('The state url conversion definition', function () {
                 isLoading: false
 
             };
-            const OLD_STATE_WITH_LOCATION = {
+            const oldStateWithLocation = {
                 query: null,
                 location: [52.123, 4.789],
                 category: null,
@@ -187,53 +187,53 @@ describe('The state url conversion definition', function () {
             };
 
             it('does nothing if there is no old search state', () => {
-                let newState = angular.copy(OLD_STATE_WITH_QUERY);
+                let newState = angular.copy(oldStateWithQuery);
 
                 STATE_URL_CONVERSION.post.search(undefined, newState);
 
-                expect(newState).toEqual(OLD_STATE_WITH_QUERY);
+                expect(newState).toEqual(oldStateWithQuery);
             });
 
             it('keeps isLoading and numberOfResults values if the query, location and category stay the same', () => {
                 let newState;
 
                 // With query
-                newState = angular.copy(OLD_STATE_WITH_QUERY);
-                STATE_URL_CONVERSION.post.search(OLD_STATE_WITH_QUERY, newState);
-                expect(newState).toEqual(OLD_STATE_WITH_QUERY);
+                newState = angular.copy(oldStateWithQuery);
+                STATE_URL_CONVERSION.post.search(oldStateWithQuery, newState);
+                expect(newState).toEqual(oldStateWithQuery);
 
                 // With query and category
-                newState = angular.copy(OLD_STATE_WITH_QUERY_AND_CATEGORY);
-                STATE_URL_CONVERSION.post.search(OLD_STATE_WITH_QUERY_AND_CATEGORY, newState);
-                expect(newState).toEqual(OLD_STATE_WITH_QUERY_AND_CATEGORY);
+                newState = angular.copy(oldStateWithQueryAndCategory);
+                STATE_URL_CONVERSION.post.search(oldStateWithQueryAndCategory, newState);
+                expect(newState).toEqual(oldStateWithQueryAndCategory);
 
                 // With location
-                newState = angular.copy(OLD_STATE_WITH_LOCATION);
-                STATE_URL_CONVERSION.post.search(OLD_STATE_WITH_LOCATION, newState);
-                expect(newState).toEqual(OLD_STATE_WITH_LOCATION);
+                newState = angular.copy(oldStateWithLocation);
+                STATE_URL_CONVERSION.post.search(oldStateWithLocation, newState);
+                expect(newState).toEqual(oldStateWithLocation);
             });
 
             it('resets the isLoading and numberOfResults values if the query, location or category changes', () => {
                 let newState;
 
                 // When the query changes
-                newState = angular.copy(OLD_STATE_WITH_QUERY);
+                newState = angular.copy(oldStateWithQuery);
                 newState.query = 'damrak'; // Instead of 'dam'
-                STATE_URL_CONVERSION.post.search(OLD_STATE_WITH_QUERY, newState);
+                STATE_URL_CONVERSION.post.search(oldStateWithQuery, newState);
                 expect(newState.numberOfResults).toBeNull();
                 expect(newState.isLoading).toBe(true);
 
                 // When the category changes
-                newState = angular.copy(OLD_STATE_WITH_QUERY_AND_CATEGORY);
+                newState = angular.copy(oldStateWithQueryAndCategory);
                 newState.category = null;
-                STATE_URL_CONVERSION.post.search(OLD_STATE_WITH_QUERY_AND_CATEGORY, newState);
+                STATE_URL_CONVERSION.post.search(oldStateWithQueryAndCategory, newState);
                 expect(newState.numberOfResults).toBeNull();
                 expect(newState.isLoading).toBe(true);
 
                 // When the location changes
-                newState = angular.copy(OLD_STATE_WITH_LOCATION);
+                newState = angular.copy(oldStateWithLocation);
                 newState.location = [52.999, 4.111];
-                STATE_URL_CONVERSION.post.search(OLD_STATE_WITH_LOCATION, newState);
+                STATE_URL_CONVERSION.post.search(oldStateWithLocation, newState);
                 expect(newState.numberOfResults).toBeNull();
                 expect(newState.isLoading).toBe(true);
             });
