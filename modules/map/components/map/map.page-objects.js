@@ -8,10 +8,12 @@ const drawToolPO = dp.require('modules/map/components/draw-tool/draw-tool.page-o
 module.exports = function (mapElement) {
     return {
         click: function (x, y) {
-            return browser.actions()
+            browser.actions()
                 .mouseMove(mapElement, {x: x, y: y})
                 .click()
                 .perform();
+
+            return browser.sleep(1)
         },
         get visible () {
             return dp.visible(mapElement);
@@ -33,26 +35,6 @@ module.exports = function (mapElement) {
         },
         get hasPuntenwolk () {
             return mapElement.all(by.css('.o-highlight-cluster')).count().then(numberOfMarkers => numberOfMarkers > 0);
-        },
-        drawPolygon: function () {
-            const pointA = {x: 50, y: 50};
-            const pointB = {x: 250, y: 50};
-            const pointC = {x: 150, y: 200};
-
-            browser.actions()
-                .mouseMove(mapElement, pointA)
-                .click()
-                .perform();
-
-            browser.actions()
-                .mouseMove(mapElement, pointB)
-                .click()
-                .perform();
-
-            browser.actions()
-                .mouseMove(mapElement, pointC)
-                .click()
-                .perform();
         }
     };
 };

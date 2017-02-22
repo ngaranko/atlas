@@ -24,7 +24,5 @@ fdescribe('Taiga issue #2938', () => {
         // Minimize the map
         page.dashboard.middleColumn.map.toggleFullscreen.click();
         dp.validate('MAP_DATA-SELECTION', page);
-
-        browser.sleep(2000);
     });
 });
