@@ -74,7 +74,7 @@
   color: $primary-contrast;
 }
 
-%secundary-text {
+%secondary-text {
   @extend %base-typography;
   @include font-size($s-font);
   color: $secondary-gray60;

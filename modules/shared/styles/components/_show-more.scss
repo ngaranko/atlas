@@ -1,0 +1,13 @@
+.c-show-more {
+  @extend %link--plus;
+
+  color: $secondary-gray60;
+}
+
+.c-show-more--contrast {
+  color: $primary-contrast;
+
+  &:hover {
+    color: $secondary-gray60;
+  }
+}

@@ -38,6 +38,19 @@ $link-offset: $base-font-size;
   }
 }
 
+%link--plus {
+  @extend %link;
+
+  margin-left: $link-offset;
+
+  &::before {
+    display: inline-block;
+    position: absolute;
+    left: -$link-offset;
+    content: "+";
+  }
+}
+
 %link--inline {
   @extend %link;
   @extend %inline-text;

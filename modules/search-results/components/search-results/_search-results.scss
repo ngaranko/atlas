@@ -2,8 +2,17 @@
   padding: 2 * $base-whitespace;
 }
 
-.s-indented-result {
+.c-search-results__category {
+  margin-bottom: 4 * $base-whitespace;
+}
+
+.c-search-results__category--indented {
   margin-top: -$base-whitespace;
   padding-left: $base-font-size;
   border-left: 1px solid $secondary-gray20;
+}
+
+.c-search-results__show-more {
+  height: $list-item-height;
+  line-height: $list-item-height;
 }

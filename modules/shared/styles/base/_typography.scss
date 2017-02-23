@@ -1,10 +1,6 @@
-body {
-  @extend %inline-text;
-}
-
+body,
 button {
-  @extend %strong-text;
-  @extend %strong-text--light;
+  @extend %inline-text;
 }
 
 h1 {
