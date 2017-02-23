@@ -43,7 +43,10 @@
   font-weight: 700;
   line-height: calc(#{$base-whitespace} * 2);
   text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   cursor: pointer;
+  overflow: hidden;
 
   &::before {
     display: inline-block;
