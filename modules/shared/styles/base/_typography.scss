@@ -1,6 +1,6 @@
 body,
 button {
-  @include font-size($m-font);
+  @include font-size($body-font);
   color: $primary-dark;
 }
 

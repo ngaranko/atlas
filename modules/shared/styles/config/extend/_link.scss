@@ -58,5 +58,6 @@ $link-offset: $base-font-size;
   @include font-size($m-font);
 
   display: inline;
+  font-weight: normal;
   text-decoration: underline;
 }
