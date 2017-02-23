@@ -5,7 +5,7 @@ exports.config = {
     capabilities: {
         browserName: 'phantomjs',
         shardTestFiles: true,
-        maxInstances: 10,
+        maxInstances: 4,
         'phantomjs.binary.path': './node_modules/phantomjs/bin/phantomjs'
     },
     onPrepare: function () {
