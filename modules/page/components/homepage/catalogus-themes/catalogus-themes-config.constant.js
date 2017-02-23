@@ -7,43 +7,43 @@
             {
                 name: 'Verkeer en infrastructuur',
                 slug: 'verkeer-infrastructuur',
-                icon: 'thema-parkeren-beheer'
+                icon: 'parkeren-beheer'
             }, {
                 name: 'Toerisme en cultuur',
                 slug: 'toerisme-cultuur',
-                icon: 'thema-toerisme'
+                icon: 'toerisme'
             }, {
                 name: 'Geografie',
                 slug: 'geografie',
-                icon: 'thema-kaart'
+                icon: 'kaart'
             }, {
                 name: 'Bevolking',
                 slug: 'bevolking',
-                icon: 'thema-bevolking'
+                icon: 'bevolking'
             }, {
                 name: 'Openbare ruimte en groen',
                 slug: 'openbare-ruimte-groen',
-                icon: 'thema-openbare-ruimte'
+                icon: 'openbare-ruimte'
             }, {
                 name: 'Stedelijke ontwikkeling',
                 slug: 'stedelijke-ontwikkeling',
-                icon: 'thema-stedelijke-ontwikkeling'
+                icon: 'stedelijke-ontwikkeling'
             }, {
                 name: 'Zorg en welzijn',
                 slug: 'zorg-welzijn',
-                icon: 'thema-gezondheid-zorg-welzijn'
+                icon: 'gezondheid-zorg-welzijn'
             }, {
                 name: 'Energie',
                 slug: 'energie',
-                icon: 'thema-energie'
+                icon: 'energie'
             }, {
                 name: 'Wonen en leefomgeving',
                 slug: 'wonen-leefomgeving',
-                icon: 'thema-wonen-leefomgeving'
+                icon: 'wonen-leefomgeving'
             }, {
                 name: 'Werk en inkomen',
                 slug: 'werk-inkomen',
-                icon: 'thema-werk en inkomen'
+                icon: 'werk-en-inkomen'
             }
         ]);
 })();

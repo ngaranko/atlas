@@ -14,6 +14,12 @@
     function DpCatalogusThemes (CATALOGUS_THEMES_CONFIG) {
         let vm = this;
 
-        vm.themes = CATALOGUS_THEMES_CONFIG;
+        vm.themes = angular.copy(CATALOGUS_THEMES_CONFIG);
+        vm.themeColumns = [];
+
+        const itemsInLeftColumn = Math.ceil(vm.themes.length / 2);
+
+        vm.themeColumns.push(vm.themes.splice(0, itemsInLeftColumn));
+        vm.themeColumns.push(vm.themes);
     }
 })();

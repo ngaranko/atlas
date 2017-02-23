@@ -33,6 +33,36 @@
   }
 }
 
+.o-btn--white {
+  display: inline-block;
+  width: 100%;
+  height: calc(#{$base-whitespace} * 4);
+  padding: $base-whitespace;
+  background-color: $primary-light;
+  color: $primary-dark;
+  font-weight: 700;
+  line-height: calc(#{$base-whitespace} * 2);
+  text-decoration: none;
+  cursor: pointer;
+
+  &::before {
+    display: inline-block;
+    width: 7px;
+    height: 12px;
+    margin-right: $base-whitespace;
+    background-image: url("assets/icons/link-arrow.svg");
+    content: "";
+  }
+
+  &:hover {
+    color: $primary-contrast;
+
+    &::before {
+      background-image: url("assets/icons/link-arrow-red.svg");
+    }
+  }
+}
+
 %btn-close {
   position: absolute;
   top: 0;

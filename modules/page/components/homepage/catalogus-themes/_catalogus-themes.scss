@@ -1,0 +1,59 @@
+.c-catalogus-themes {
+  padding: calc(#{$base-whitespace} * 2);
+  background-color: $secondary-gray4;
+}
+
+.c-catalogus-themes__column--left {
+  padding-right: $base-whitespace;
+}
+
+.c-catalogus-themes__column--right {
+  padding-left: $base-whitespace;
+}
+
+.c-catalogus-theme__icon {
+  &::before {
+    display: block;
+    float: left;
+  }
+}
+
+.c-catalogus-theme__icon--parkeren-beheer {
+  @include icon-button-text-right("parkeren-beheer", "", "red");
+}
+
+.c-catalogus-theme__icon--toerisme {
+  @include icon-button-text-right("toerisme", "", "red");
+}
+
+.c-catalogus-theme__icon--kaart {
+  @include icon-button-text-right("kaart", "", "red");
+}
+
+.c-catalogus-theme__icon--bevolking {
+  @include icon-button-text-right("bevolking", "", "red");
+}
+
+.c-catalogus-theme__icon--openbare-ruimte {
+  @include icon-button-text-right("openbare-ruimte", "", "red");
+}
+
+.c-catalogus-theme__icon--stedelijke-ontwikkeling {
+  @include icon-button-text-right("stedelijke-ontwikkeling", "", "red");
+}
+
+.c-catalogus-theme__icon--gezondheid-zorg-welzijn {
+  @include icon-button-text-right("gezondheid-zorg-welzijn", "", "red");
+}
+
+.c-catalogus-theme__icon--energie {
+  @include icon-button-text-right("energie", "", "red");
+}
+
+.c-catalogus-theme__icon--wonen-leefomgeving {
+  @include icon-button-text-right("wonen-leefomgeving", "", "red");
+}
+
+.c-catalogus-theme__icon--werk-en-inkomen {
+  @include icon-button-text-right("werk-en-inkomen", "", "red");
+}
