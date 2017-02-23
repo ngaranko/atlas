@@ -3,16 +3,18 @@
 $link-offset: $base-font-size;
 
 %link {
-  @extend %strong-text;
+  @include font-size($s-font);
 
   display: inline-block;
   position: relative;
+  color: $primary-dark;
+  font-weight: bold;
   text-decoration: none;
   cursor: pointer;
   overflow: visible;
 
   &:hover {
-    @extend %strong-text--contrast;
+    color: $primary-contrast;
     text-decoration: underline;
   }
 
@@ -53,7 +55,7 @@ $link-offset: $base-font-size;
 
 %link--inline {
   @extend %link;
-  @extend %inline-text;
+  @include font-size($m-font);
 
   display: inline;
   text-decoration: underline;

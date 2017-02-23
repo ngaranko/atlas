@@ -1,34 +1,28 @@
 body,
 button {
-  @extend %inline-text;
+  @include font-size($m-font);
+  color: $primary-dark;
 }
 
 h1 {
-  @extend %title-header;
+  @include font-size($xl-header-font);
+  font-weight: bold;
 }
 
 h2 {
-  @extend %page-header;
-
-  &.u-contrast {
-    @extend %page-header--contrast;
-  }
-
-  &.u-inverted {
-    @extend %page-header--inverted;
-  }
+  @include font-size($l-header-font);
+  font-weight: bold;
 }
 
 h3 {
-  @extend %content-header;
-
-  &.u-light {
-    @extend %content-header--light;
-  }
+  @include font-size($m-header-font);
+  font-weight: bold;
 }
 
 h4,
 h5,
 h6 {
-  @extend %sub-header;
+  @include font-size($s-header-font);
+  color: $secondary-gray60;
+  font-weight: bold;
 }
