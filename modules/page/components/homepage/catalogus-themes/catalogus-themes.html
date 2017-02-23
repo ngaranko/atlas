@@ -10,7 +10,7 @@
                         <li class="u-margin__bottom--1" ng-repeat="theme in column">
                             <dp-link
                                 type="FETCH_DATA_SELECTION"
-                                class-name="c-catalogus-theme__icon c-catalogus-theme__icon--{{theme.icon}}"
+                                class-name="c-catalogus-theme__icon c-catalogus-theme__icon--{{theme.icon}} qa-theme-link"
                                 payload="{
                                     dataset: 'catalogus',
                                     filters: {
@@ -28,7 +28,7 @@
             <div class="u-col-sm--6 c-catalogus-themes__column c-catalogus-themes__column--left">
                 <dp-link
                     type="FETCH_DATA_SELECTION"
-                    class-name="o-btn o-btn--white"
+                    class-name="o-btn o-btn--white qa-go-to-catalogus"
                     payload="{
                         dataset: 'catalogus',
                         filters: {},
