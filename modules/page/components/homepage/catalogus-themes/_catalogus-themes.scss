@@ -3,6 +3,10 @@
   background-color: $secondary-gray4;
 }
 
+.c-catalogus-themes__column {
+  font-size: 0;
+}
+
 .c-catalogus-themes__column--left {
   padding-right: $base-whitespace;
 }
@@ -12,10 +16,25 @@
 }
 
 .c-catalogus-theme__icon {
+  width: 100%;
+  height: 40px;
+
   &::before {
     display: block;
+    margin-top: 7px;
     float: left;
   }
+}
+
+.c-catalogus-theme__link {
+  display: table;
+  height: 40px;
+}
+
+.c-catalogus-theme__link__text {
+  display: table-cell;
+  line-height: 20px;
+  vertical-align: middle;
 }
 
 .c-catalogus-theme__icon--parkeren-beheer {

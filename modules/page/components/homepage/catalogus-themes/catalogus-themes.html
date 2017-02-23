@@ -7,7 +7,7 @@
                     'c-catalogus-themes__column--right': $last
                     }">
                     <ul class="u-margin__bottom--2">
-                        <li class="u-margin__bottom--1" ng-repeat="theme in column">
+                        <li class="u-margin__bottom--05" ng-repeat="theme in column">
                             <dp-link
                                 type="FETCH_DATA_SELECTION"
                                 class-name="c-catalogus-theme__icon c-catalogus-theme__icon--{{theme.icon}} qa-theme-link"
@@ -18,7 +18,7 @@
                                     },
                                     view: 'CARDS',
                                     page: 1
-                                }">{{theme.name}}</dp-link>
+                                }"><div class="c-catalogus-theme__link"><div class="c-catalogus-theme__link__text">{{theme.name}}</div></div></dp-link>
                         </li>
                     </ul>
                 </div>
