@@ -9,27 +9,18 @@
             controllerAs: 'vm'
         });
 
-    DpHomepageController.$inject = ['$rootScope', 'userSettings'];
+    DpHomepageController.$inject = ['HOMEPAGE_CONFIG'];
 
-    function DpHomepageController ($rootScope, userSettings) {
+    function DpHomepageController (HOMEPAGE_CONFIG) {
         let vm = this;
 
-        setFetchStraatbeeldPayload();
-        const deregistrationFn = $rootScope.$watch(getFullscreenPreference, setFetchStraatbeeldPayload);
-
-        function getFullscreenPreference () {
-            return userSettings.fullscreenStraatbeeld.value === true.toString();
-        }
-
-        function setFetchStraatbeeldPayload (useFullscreen) {
-            vm.fetchStraatbeeldPayload = {
-                id: 'TMX7315120208-000073_pano_0005_000451',
-                heading: 226,
+        vm.fetchStraatbeeldPayload = angular.merge(
+            {},
+            HOMEPAGE_CONFIG.PANORAMA,
+            {
                 isInitial: true,
-                isFullscreen: useFullscreen
-            };
-        }
-
-        $rootScope.$on('$destroy', deregistrationFn);
+                isFullscreen: false
+            }
+        );
     }
 })();

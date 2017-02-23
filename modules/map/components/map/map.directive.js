@@ -32,10 +32,6 @@
                 container,
                 options;
 
-            scope.$watchGroup(['mapState.isFullscreen', 'showLayerSelection'], function () {
-                scope.isFullscreen = scope.mapState.isFullscreen && !scope.showLayerSelection;
-            });
-
             container = element[0].querySelector('.js-leaflet-map');
             options = angular.merge(mapConfig.MAP_OPTIONS, {
                 center: scope.mapState.viewCenter,

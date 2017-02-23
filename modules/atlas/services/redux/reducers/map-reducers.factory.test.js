@@ -135,7 +135,7 @@ describe('The map reducers', function () {
         });
     });
 
-    describe('MAP_TOGGILE_VISIBILITY', function () {
+    describe('MAP_TOGGLE_VISIBILITY_OVERLAY', function () {
         it('hides an overlay', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
@@ -251,14 +251,20 @@ describe('The map reducers', function () {
             expect(output.map.isFullscreen).toBe(false);
         });
 
-        it('when enabling fullscreen, the layer selection will be disabled', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
+        it('disables layer selection when changing fullscreen', function () {
+            let inputState = angular.copy(DEFAULT_STATE),
                 output;
 
-            inputState.layerSelection.isEnabled = true;
-
             // Enable fullscreen
+            inputState.map.isFullscreen = false;
+            inputState.layerSelection.isEnabled = true;
             output = mapReducers[ACTIONS.MAP_FULLSCREEN.id](inputState, true);
+            expect(output.layerSelection.isEnabled).toBe(false);
+
+            // Disable fullscreen
+            inputState.map.isFullscreen = true;
+            inputState.layerSelection.isEnabled = true;
+            output = mapReducers[ACTIONS.MAP_FULLSCREEN.id](inputState, false);
             expect(output.layerSelection.isEnabled).toBe(false);
         });
     });
@@ -293,6 +299,18 @@ describe('The map reducers', function () {
                 markers: []
             });
             expect(output.map.drawingMode).toBe(false);
+        });
+
+        it('resets the page', () => {
+            let inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.page.name = 'home';
+            output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
+                markers: []
+            });
+
+            expect(output.page.name).toBeNull();
         });
 
         it('Leaves the dataSelection state untouched on an argument polygon with <= 1 markers', function () {

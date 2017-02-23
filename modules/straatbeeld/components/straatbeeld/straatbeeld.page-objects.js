@@ -15,7 +15,7 @@ module.exports = function (straatbeeldElement) {
             return dp.visible(straatbeeldElement);
         },
         get toggleStraatbeeldFullscreen () {
-            return toggleStraatbeeldFullscreen(straatbeeldElement.element(by.css('dp-straatbeeld-fullscreen')));
+            return toggleStraatbeeldFullscreen(straatbeeldElement.element(by.css('dp-toggle-straatbeeld-fullscreen')));
         },
         hotspots: function (index) {
             return hotspot(straatbeeldElement.all(by.css('dp-hotspot')).get(index));

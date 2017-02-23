@@ -146,11 +146,7 @@
         function mapFullscreenReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
-            if (payload) {
-                // Set map to full screen
-                newState.layerSelection.isEnabled = false;
-            }
-
+            newState.layerSelection.isEnabled = false;
             newState.map.isFullscreen = payload;
 
             return newState;
@@ -175,6 +171,7 @@
         function mapEndDrawingReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
+            newState.page.name = null;
             newState.map.drawingMode = false;
 
             if (payload) {

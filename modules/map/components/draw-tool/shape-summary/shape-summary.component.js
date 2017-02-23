@@ -4,7 +4,7 @@
     angular
         .module('dpMap')
         .component('dpShapeSummary', {
-            templateUrl: 'modules/map/components/shape-summary/shape-summary.html',
+            templateUrl: 'modules/map/components/draw-tool/shape-summary/shape-summary.html',
             controller: DpShapeSummaryController,
             controllerAs: 'vm'
         });

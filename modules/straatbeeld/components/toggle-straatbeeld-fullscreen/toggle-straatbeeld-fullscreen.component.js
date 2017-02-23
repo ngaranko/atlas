@@ -3,10 +3,10 @@
 
     angular
         .module('dpStraatbeeld')
-        .component('dpStraatbeeldFullscreen', {
+        .component('dpToggleStraatbeeldFullscreen', {
             restrict: 'E',
             bindings: {
-                state: '<'
+                isFullscreen: '<'
             },
             templateUrl:
             'modules/straatbeeld/components/toggle-straatbeeld-fullscreen/toggle-straatbeeld-fullscreen.html',
@@ -14,23 +14,25 @@
             controllerAs: 'vm'
         });
 
-    DpStraatbeeldFullscreenController.$inject = ['$rootScope', 'store', 'ACTIONS', 'userSettings'];
+    DpStraatbeeldFullscreenController.$inject = ['$rootScope', 'store', 'ACTIONS'];
 
-    function DpStraatbeeldFullscreenController ($rootScope, store, ACTIONS, userSettings) {
-        var vm = this;
+    function DpStraatbeeldFullscreenController ($rootScope, store, ACTIONS) {
+        let vm = this;
+
+        const deregistrationFn = $rootScope.$watch('vm.isFullscreen', setScreenReaderText);
+
+        function setScreenReaderText () {
+            vm.screenReaderText = 'Kaart ' + (vm.isFullscreen ? 'verkleinen' : 'vergroten');
+        }
 
         vm.toggleFullscreen = function () {
-            // Dispatch an action to change the pano
-            let isFullscreen = !vm.state.isFullscreen;
-
-            // Save the new state of the straatbeeld as a user setting
-            userSettings.fullscreenStraatbeeld.value = isFullscreen.toString();
-
             store.dispatch({
                 type: ACTIONS.STRAATBEELD_FULLSCREEN,
-                payload: isFullscreen
+                payload: !vm.isFullscreen
             });
         };
+
+        $rootScope.$on('$destroy', deregistrationFn);
     }
 })();
 
