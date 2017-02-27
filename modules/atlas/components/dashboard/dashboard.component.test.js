@@ -123,6 +123,13 @@ describe('The dashboard component', function () {
         component = getComponent();
         expect(component.find('.c-dashboard__footer').length).toBe(1);
 
+        // On other pages with the homepage 'behind' it
+        mockedState.page.name = 'home';
+        mockedState.map.isFullscreen = true;
+        mockedState.layerSelection.isEnabled = true;
+        component = getComponent();
+        expect(component.find('.c-dashboard__footer').length).toBe(0);
+
         // On other pages
         mockedState.page.name = 'snel-wegwijs';
         component = getComponent();
