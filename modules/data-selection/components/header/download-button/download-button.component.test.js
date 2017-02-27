@@ -5,11 +5,12 @@ describe('The dp-data-selection-download-button component', function () {
     beforeEach(function () {
         angular.mock.module(
             'dpDataSelection',
-            function ($provide) {
-                $provide.constant('API_CONFIG', {
+            {
+                apiConfig: {
                     ROOT: 'http://www.example.com/'
-                });
-
+                }
+            },
+            function ($provide) {
                 $provide.constant('DATA_SELECTION_CONFIG', {
                     datasets: {
                         dataset_a: {

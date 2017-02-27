@@ -5,9 +5,9 @@
         .module('dpHeader')
         .directive('dpSearch', dpSearchDirective);
 
-    dpSearchDirective.$inject = ['$timeout', 'autocompleteData', 'API_CONFIG', 'store', 'ACTIONS'];
+    dpSearchDirective.$inject = ['$timeout', 'autocompleteData', 'apiConfig', 'store', 'ACTIONS'];
 
-    function dpSearchDirective ($timeout, autocompleteData, API_CONFIG, store, ACTIONS) {
+    function dpSearchDirective ($timeout, autocompleteData, apiConfig, store, ACTIONS) {
         return {
             restrict: 'E',
             scope: {
@@ -104,7 +104,7 @@
 
                 store.dispatch({
                     type: ACTIONS.FETCH_DETAIL,
-                    payload: API_CONFIG.ROOT + uri
+                    payload: apiConfig.ROOT + uri
                 });
             };
 

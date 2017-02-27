@@ -51,15 +51,13 @@ describe('The dp-straatbeeld-thumbnail component', function () {
                         };
                         return q.promise;
                     }
-                }
-
-            }, function ($provide) {
-                $provide.constant('SHARED_CONFIG', {
+                },
+                sharedConfig: {
                     STRAATBEELD_THUMB_URL: 'http://fake.straatbeeld.url/path/',
                     RADIUS: 50,
                     THUMBNAIL_WIDTH: 240
-                });
-
+                }
+            }, function ($provide) {
                 $provide.factory('dpLoadingIndicatorDirective', function () {
                     return {};
                 });

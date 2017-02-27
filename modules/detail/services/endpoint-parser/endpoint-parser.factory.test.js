@@ -4,10 +4,10 @@ describe('The endpointParser factory', function () {
     beforeEach(function () {
         angular.mock.module(
             'dpDetail',
-            function ($provide) {
-                $provide.constant('API_CONFIG', {
+            {
+                apiConfig: {
                     ROOT: 'http://www.api-root.com/'
-                });
+                }
             }
         );
 

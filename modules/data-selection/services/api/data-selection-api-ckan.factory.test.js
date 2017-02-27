@@ -22,12 +22,10 @@ describe('The dataSelectionApiCkan factory', function () {
 
                         return q.promise;
                     }
-                }
-            },
-            function ($provide) {
-                $provide.constant('API_CONFIG', {
+                },
+                apiConfig: {
                     ROOT: 'https://api.amsterdam.nl/'
-                });
+                }
             }
         );
 

@@ -8,11 +8,12 @@ describe('The autocompleteData factory', function () {
     beforeEach(function () {
         angular.mock.module(
             'dpHeader',
-            function ($provide) {
-                $provide.constant('API_CONFIG', {
+            {
+                apiConfig: {
                     ROOT: 'http://api-domain.com/'
-                });
-
+                }
+            },
+            function ($provide) {
                 $provide.constant('HEADER_CONFIG', {
                     AUTOCOMPLETE_ENDPOINT: 'path/to/typeahead/'
                 });

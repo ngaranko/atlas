@@ -48,12 +48,10 @@ describe('The dp-search directive', function () {
 
                         return fakeSuggestions[index];
                     }
-                }
-            },
-            function ($provide) {
-                $provide.constant('API_CONFIG', {
+                },
+                apiConfig: {
                     ROOT: 'http://api.example.com/'
-                });
+                }
             }
         );
 
