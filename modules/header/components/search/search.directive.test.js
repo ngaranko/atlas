@@ -148,6 +148,22 @@ describe('The dp-search directive', function () {
         expect(directive.find('.js-search-input')[0].value).toBe('query without suggestions');
     });
 
+    it('provides for a clear button to clear the searchtext', function () {
+        let directive = getDirective('any query');
+        directive.find('.qa-search-form__clear').click();
+        expect(directive.find('.js-search-input')[0].value).toBe('');
+    });
+
+    it('searches on cleared input when searchOnly is set to be true', function () {
+        let directive = getDirective('any query', 'placeholder', 'FETCH_SEARCH_RESULTS_BY_QUERY', true);
+        spyOn(store, 'dispatch');
+        directive.find('.qa-search-form__clear').click();
+        expect(store.dispatch).toHaveBeenCalledWith({
+            type: ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY,
+            payload: ''
+        });
+    });
+
     it('optionally accepts a payload to include the query', function () {
         let directive = getDirective('q', 'ph', 'FETCH_SEARCH_RESULTS_BY_QUERY', true, '{aap: "noot"}');
 
