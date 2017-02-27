@@ -38,7 +38,9 @@
             scope.clear = function () {
                 scope.query = '';
 
-                search();
+                if (scope.searchOnly) {
+                    search();
+                }
             };
 
             scope.getSuggestions = function () {
