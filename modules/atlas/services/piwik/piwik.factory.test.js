@@ -42,14 +42,14 @@ describe('The piwik service', function () {
         expect($window._paq.length).toBe(3);
         expect($window._paq).toEqual(
             [['enableLinkTracking'],
-             ['setTrackerUrl', 'https://piwik.data.amsterdam.nl/piwik/piwik.php'],
+             ['setTrackerUrl', 'https://piwik.data.amsterdam.nl/piwik.php'],
              ['setSiteId', 300]]);
 
         piwikScript = getScripts()[0];
         // Checking script
         expect(getScripts().length).toBe(numberOfScripts + 1);
         expect(piwikScript.getAttribute('type')).toBe('text/javascript');
-        expect(piwikScript.getAttribute('src')).toBe('https://piwik.data.amsterdam.nl/piwik/piwik.js');
+        expect(piwikScript.getAttribute('src')).toBe('https://piwik.data.amsterdam.nl/piwik.js');
     });
 
     function getScripts () {
