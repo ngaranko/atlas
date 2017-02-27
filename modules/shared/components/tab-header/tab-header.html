@@ -6,12 +6,12 @@
                      type="{{tab.action}}"
                      payload="tab.payload"
                      class-name="o-tabs__tab o-tabs__tab--link">
-                {{tab.title}} <span ng-if="tab.count !== null">({{tab.count}})</span>
+                {{tab.title}} <span ng-if="tab.count !== null">({{tab.count | number}})</span>
             </dp-link>
 
             <span ng-if="tab.isActive"
                   class="qa-tab-header__active o-tabs__tab o-tabs__tab--active">
-                {{tab.title}} <span ng-if="tab.count !== null">({{tab.count}})</span>
+                {{tab.title}} <span ng-if="tab.count !== null">({{tab.count | number}})</span>
             </span>
         </li>
     </ul>
