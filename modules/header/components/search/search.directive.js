@@ -35,6 +35,12 @@
                 removeSuggestions();
             };
 
+            scope.clear = function () {
+                scope.query = '';
+
+                search();
+            };
+
             scope.getSuggestions = function () {
                 /**
                  * Cancel the last request (if any), this way we ensure that a resolved autocompleteData.search() call
