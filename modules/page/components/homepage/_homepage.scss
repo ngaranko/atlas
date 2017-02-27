@@ -10,7 +10,7 @@
 
   &:hover {
     .c-homepage__block__button {
-      color: $primary-contrast;
+      @include o-btn-white--hover;
     }
   }
 }
