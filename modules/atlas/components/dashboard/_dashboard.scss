@@ -57,8 +57,8 @@ $dashboard-margin-home-page: 42px;
 
 .c-dashboard__footer {
   height: calc(#{$dashboard-footer-height} + #{$dashboard-footer-separator-height});
-  font-size: $base-font-size;
   border-top: $dashboard-footer-separator-height solid $secondary-gray60;
+  font-size: $base-font-size;
   line-height: $dashboard-footer-height;
 }
 
