@@ -22,6 +22,10 @@
                 vm.location = state.search.location;
                 vm.category = state.search.category;
                 vm.numberOfResults = state.search.numberOfResults;
+
+                if (vm.location === null && vm.query === null) {
+                    vm.query = '';
+                }
             }
         }
     }
