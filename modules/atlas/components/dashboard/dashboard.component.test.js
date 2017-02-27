@@ -48,7 +48,9 @@ describe('The dashboard component', function () {
                 isEnabled: false
             },
             search: null,
-            page: 'home',
+            page: {
+                name: 'home'
+            },
             detail: null,
             straatbeeld: null,
             dataSelection: null,
@@ -111,6 +113,20 @@ describe('The dashboard component', function () {
         component = getComponent();
         expect(component.find('.qa-dashboard__catalogus-header').length).toBe(1);
         expect(component.find('.qa-dashboard__default-header').length).toBe(0);
+    });
+
+    it('shows a footer on the homepage', () => {
+        let component;
+
+        // On the homepage
+        mockedState.page.name = 'home';
+        component = getComponent();
+        expect(component.find('.c-dashboard__footer').length).toBe(1);
+
+        // On other pages
+        mockedState.page.name = 'snel-wegwijs';
+        component = getComponent();
+        expect(component.find('.c-dashboard__footer').length).toBe(0);
     });
 
     describe('error message', function () {
