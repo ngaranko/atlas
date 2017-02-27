@@ -5,7 +5,6 @@ $base-padding: calc(#{$base-whitespace} * 2);
   padding-right: $base-padding;
   padding-bottom: calc(#{$base-padding} - 4px); // The container needs 4 pixels to show a gray border
   padding-left: $base-padding;
-  background-color: $secondary-gray4;
 }
 
 .c-catalogus-themes__column {
