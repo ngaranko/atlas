@@ -1,1 +1,63 @@
 @import "catalogus-themes/catalogus-themes";
+
+.c-homepage__block {
+  display: block;
+  position: relative;
+  border-bottom: 4px solid $secondary-gray20;
+  background-position: center center;
+  background-size: cover;
+
+  &:hover {
+    .c-homepage__block__button {
+      color: $primary-contrast;
+    }
+  }
+}
+
+.c-homepage__block--left {
+  margin-right: 2px;
+}
+
+.c-homepage__block--middle {
+  margin-right: 2px;
+  margin-left: 2px;
+}
+
+.c-homepage__block--right {
+  margin-left: 2px;
+}
+
+.c-homepage__block--tall {
+  height: 320px;
+}
+
+.c-homepage__block--short {
+  height: 160px;
+  border-top: 2px solid $primary-light;
+}
+
+.c-homepage__block--homepage {
+  background-image: url("assets/images/homepage-map.png");
+}
+
+.c-homepage__block--straatbeeld {
+  background-image: url("assets/images/homepage-straatbeeld.png");
+}
+
+.c-homepage__block--vestigingen {
+  background-image: url("http://lorempixel.com/400/175/?1");
+  // background-image: url("assets/images/homepage-vestigingen.png");
+}
+
+.c-homepage__block--adressen {
+  background-image: url("http://lorempixel.com/400/175/?2");
+  // background-image: url("assets/images/homepage-adressen.png");
+}
+
+.c-homepage__block__button {
+  position: absolute;
+  right: $base-whitespace;
+  bottom: $base-whitespace;
+  left: $base-whitespace;
+  width: calc(100% - (2 * #{$base-whitespace}));
+}

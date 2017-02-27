@@ -1,5 +1,10 @@
+$base-padding: calc(#{$base-whitespace} * 2);
+
 .c-catalogus-themes {
-  padding: calc(#{$base-whitespace} * 2);
+  padding-top: $base-padding;
+  padding-right: $base-padding;
+  padding-bottom: calc(#{$base-padding} - 4px); // The container needs 4 pixels to show a gray border
+  padding-left: $base-padding;
   background-color: $secondary-gray4;
 }
 

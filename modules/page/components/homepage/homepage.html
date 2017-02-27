@@ -1,60 +1,74 @@
-<img class="o-home__logo u-margin__bottom--3" src="assets/images/gemeente-amsterdam.png" alt="Logo Gemeente Amsterdam">
+<div class="c-homepage">
+    <img class="o-home__logo u-margin__bottom--3" src="assets/images/gemeente-amsterdam.png" alt="Logo Gemeente Amsterdam">
 
-<h1 class="qa-header">Welkom</h1>
+    <h1 class="qa-header">Welkom</h1>
 
-
-
-<div class="u-grid">
-    <div class="u-row">
-        <div class="u-col-sm--6">
-            <!-- Link to map -->
-            <div class="qa-map-link">
-                <dp-link type="SHOW_MAP">Toon de kaart</dp-link>
+    <div class="u-grid">
+        <div class="u-row">
+            <div class="u-col-sm--6">
+                <!-- Link to map -->
+                <div class="qa-map-link">
+                    <dp-link type="SHOW_MAP" class-name="c-homepage__block c-homepage__block--left c-homepage__block--tall c-homepage__block--homepage">
+                        <div class="o-btn o-btn--white c-homepage__block__button">
+                            Data op de kaart
+                        </div>
+                    </dp-link>
+                </div>
+            </div>
+            <div class="u-col-sm--3">
+                <!-- Link to straatbeeld -->
+                <div class="qa-straatbeeld-link">
+                    <dp-link type="FETCH_STRAATBEELD_BY_ID" class-name="c-homepage__block c-homepage__block--middle c-homepage__block--tall c-homepage__block--straatbeeld" payload="vm.fetchStraatbeeldPayload">
+                        <div class="o-btn o-btn--white c-homepage__block__button">
+                            Panorama
+                        </div>
+                    </dp-link>
+                </div>
+            </div>
+            <div class="u-col-sm--3">
+                <!-- News -->
+                <dp-content-list dp-type="news"></dp-content-list>
             </div>
         </div>
-        <div class="u-col-sm--3">
-            <!-- Link to straatbeeld -->
-            <div class="qa-straatbeeld-link">
-                <dp-link type="FETCH_STRAATBEELD_BY_ID" payload="vm.fetchStraatbeeldPayload">Toon straatbeeld</dp-link>
+        <div class="u-row">
+            <div class="u-col-sm--6">
+                <!-- Links to data selection themes -->
+                <div class="c-homepage__block c-homepage__block--left c-homepage__block--tall">
+                    <dp-catalogus-themes></dp-catalogus-themes>
+                </div>
             </div>
-        </div>
-        <div class="u-col-sm--3">
-            <!-- News -->
-            <dp-content-list dp-type="news"></dp-content-list>
-        </div>
-    </div>
-    <div class="u-row">
-        <div class="u-col-sm--6">
-            <!-- Links to data selection themes -->
-            <dp-catalogus-themes></dp-catalogus-themes>
-        </div>
-        <div class="u-col-sm--3">
-            <div>
-                <!-- Link to data selection HR -->
-                <dp-link type="FETCH_DATA_SELECTION" payload="{dataset: 'hr', filters: {}, page: 1}">
-                    Vestigingen selecteren
-                </dp-link>
-            </div>
+            <div class="u-col-sm--3">
+                <div>
+                    <!-- Link to data selection HR -->
+                    <dp-link type="FETCH_DATA_SELECTION" class-name="c-homepage__block c-homepage__block--middle c-homepage__block--short c-homepage__block--vestigingen" payload="{dataset: 'hr', filters: {}, page: 1}">
+                        <div class="o-btn o-btn--white c-homepage__block__button">
+                            Vestigingen selecteren
+                        </div>
+                    </dp-link>
+                </div>
 
-            <div>
-                <!-- Link to data selection BAG -->
-                <dp-link type="FETCH_DATA_SELECTION" payload="{dataset: 'bag', filters: {}, page: 1}">
-                    Adressen selecteren
-                </dp-link>
+                <div>
+                    <!-- Link to data selection BAG -->
+                    <dp-link type="FETCH_DATA_SELECTION" class-name="c-homepage__block c-homepage__block--middle c-homepage__block--short c-homepage__block--adressen" payload="{dataset: 'bag', filters: {}, page: 1}">
+                        <div class="o-btn o-btn--white c-homepage__block__button">
+                            Adressen selecteren
+                        </div>
+                    </dp-link>
+                </div>
+            </div>
+            <div class="u-col-sm--3">
+                <!-- Events -->
+                <dp-content-list dp-type="events"></dp-content-list>
             </div>
         </div>
-        <div class="u-col-sm--3">
-            <!-- Events -->
-            <dp-content-list dp-type="events"></dp-content-list>
-        </div>
-    </div>
-    <div class="u-row">
-        <div class="u-col-sm--9">
-            <h1>Visie op data.amsterdam.nl</h1>
-            <p>Jajajaja jaja.</p>
-        </div>
-        <div class="u-col-sm--3">
-            Sidebar meuk
+        <div class="u-row">
+            <div class="u-col-sm--9">
+                <h1>Visie op data.amsterdam.nl</h1>
+                <p>Jajajaja jaja.</p>
+            </div>
+            <div class="u-col-sm--3">
+                Sidebar meuk
+            </div>
         </div>
     </div>
 </div>
