@@ -15,7 +15,7 @@
 }
 
 .c-side-bar__header {
-  @include font-size($s-header-font);
+  @include font-size($s-font);
 
   margin-top: 3 * $base-whitespace;
   margin-bottom: $base-whitespace;

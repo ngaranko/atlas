@@ -10,8 +10,8 @@
 }
 
 %icon-button-text {
-  @include font-size($s-font);
   @extend %link;
+  @include font-size($s-font);
   height: $button-size;
   margin-left: 0;
   color: inherit;

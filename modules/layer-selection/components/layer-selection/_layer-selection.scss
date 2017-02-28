@@ -6,7 +6,7 @@
 }
 
 .c-layer-selection__heading {
-  @include font-size($m-header-font);
+  @include font-size($m-font);
   position: relative;
   height: $button-size;
   padding-right: $base-whitespace;

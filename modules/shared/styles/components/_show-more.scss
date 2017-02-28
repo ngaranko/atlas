@@ -1,8 +1,8 @@
 .c-show-more {
   @extend %link--plus;
 
-  line-height: $list-item-height;
   color: $secondary-gray60;
+  line-height: $list-item-height;
 }
 
 .s-indented-result {

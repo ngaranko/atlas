@@ -1,5 +1,5 @@
 .c-sidebar__sub-header {
-  @include font-size($s-header-font);
+  @include font-size($s-font);
 
   margin: $base-whitespace 0;
   color: $secondary-gray60;

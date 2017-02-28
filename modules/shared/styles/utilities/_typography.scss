@@ -1,41 +1,41 @@
-.u-font--responsive-base {
-  @include font-size-responsive($body-font);
-}
-
-.u-font--responsive-xl {
-  @include font-size-responsive($xl-header-font);
-}
-
-.u-font--responsive-l {
-  @include font-size-responsive($l-header-font);
-}
-
-.u-font--responsive-m {
-  @include font-size-responsive($m-header-font);
+.u-font--responsive-xs {
+  @include font-size-responsive($xs-font);
 }
 
 .u-font--responsive-s {
-  @include font-size-responsive($s-header-font);
+  @include font-size-responsive($s-font);
 }
 
-.u-font--base {
-  @include font-size($body-font);
+.u-font--responsive-m {
+  @include font-size-responsive($m-font);
 }
 
-.u-font--xl {
-  @include font-size($xl-header-font);
+.u-font--responsive-l {
+  @include font-size-responsive($l-font);
 }
 
-.u-font--l {
-  @include font-size($l-header-font);
+.u-font--responsive-xl {
+  @include font-size-responsive($xl-font);
 }
 
-.u-font--m {
-  @include font-size($m-header-font);
+.u-font--xs {
+  @include font-size($xs-font);
 }
 
 .u-font--s {
-  @include font-size($s-header-font);
+  @include font-size($s-font);
+}
+
+.u-font--m {
+  @include font-size($m-font);
+}
+
+.u-font--l {
+  @include font-size($l-font);
+}
+
+.u-font--xl {
+  @include font-size($xl-font);
 }
 
 .u-line-height-base {

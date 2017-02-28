@@ -6,7 +6,6 @@ $bold-weight: "85 Heavy";
 $base-font-before: "Avenir LT W01 ";
 $base-font-family-after: Arial, sans-serif;
 $base-font-family: $base-font-before + $normal-weight, $base-font-family-after;
-$header-font-family: $base-font-family;
 
 $xs-font-size: 14px;
 $s-font-size: 16px;
@@ -35,9 +34,6 @@ $xl-line-height-factor: $xl-font-factor;
 $base-font-size: $s-font-size;
 $base-line-height: $s-line-height;
 
-$p-font-size: $m-font-size;
-$p-line-height: $m-line-height;
-
 $breakpoints: (
   s: 1024px,
   m: 1200px,
@@ -45,12 +41,14 @@ $breakpoints: (
   xl: 1920px
 );
 
-// per breakpoint (font-family, font-size, line-height)
-// te gebruiken met de font-size mixin
-// p {
-//  @include font-size($body-font);
-// }
-// typografie gebasseerd op http://typecast.com/blog/a-more-modern-scale-for-web-typography
+/**
+ * per breakpoint (font-size, line-height)
+ * te gebruiken met de font-size mixin
+ * p {
+ *  @include font-size($body-font);
+ * }
+ * typografie gebasseerd op http://typecast.com/blog/a-more-modern-scale-for-web-typography
+ */
 
 /* Font sizes */
 
@@ -87,45 +85,6 @@ $l-font: (
 );
 
 $xl-font: (
-  null: ($xl-font-size * $xs-font-factor, $xl-line-height * $xs-line-height-factor),
-  s: ($xl-font-size * $s-font-factor, $xl-line-height * $s-line-height-factor),
-  m: ($xl-font-size * $m-font-factor, $xl-line-height * $m-line-height-factor),
-  l: ($xl-font-size * $l-font-factor, $xl-line-height * $l-line-height-factor),
-  xl: ($xl-font-size * $xl-font-factor, $xl-line-height * $xl-line-height-factor)
-);
-
-/* Normal texts */
-
-$body-font: $s-font;
-$p-font: $m-font;
-
-/* Headers */
-
-$s-header-font: (
-  null: ($s-font-size * $xs-font-factor, $s-line-height * $xs-line-height-factor),
-  s: ($s-font-size * $s-font-factor, $s-line-height * $s-line-height-factor),
-  m: ($s-font-size * $m-font-factor, $s-line-height * $m-line-height-factor),
-  l: ($s-font-size * $l-font-factor, $s-line-height * $l-line-height-factor),
-  xl: ($s-font-size * $xl-font-factor, $s-line-height * $xl-line-height-factor)
-);
-
-$m-header-font: (
-  null: ($m-font-size * $xs-font-factor, $m-line-height * $xs-line-height-factor),
-  s: ($m-font-size * $s-font-factor, $m-line-height * $s-line-height-factor),
-  m: ($m-font-size * $m-font-factor, $m-line-height * $m-line-height-factor),
-  l: ($m-font-size * $l-font-factor, $m-line-height * $l-line-height-factor),
-  xl: ($m-font-size * $xl-font-factor, $m-line-height * $xl-line-height-factor)
-);
-
-$l-header-font: (
-  null: ($l-font-size * $xs-font-factor, $l-line-height * $xs-line-height-factor),
-  s: ($l-font-size * $s-font-factor, $l-line-height * $s-line-height-factor),
-  m: ($l-font-size * $m-font-factor, $l-line-height * $m-line-height-factor),
-  l: ($l-font-size * $l-font-factor, $l-line-height * $l-line-height-factor),
-  xl: ($l-font-size * $xl-font-factor, $l-line-height * $xl-line-height-factor)
-);
-
-$xl-header-font: (
   null: ($xl-font-size * $xs-font-factor, $xl-line-height * $xs-line-height-factor),
   s: ($xl-font-size * $s-font-factor, $xl-line-height * $s-line-height-factor),
   m: ($xl-font-size * $m-font-factor, $xl-line-height * $m-line-height-factor),
