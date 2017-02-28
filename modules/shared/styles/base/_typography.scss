@@ -1,28 +1,29 @@
 body,
 button {
-  @include font-size($body-font);
+  @include font-size($s-font);
   color: $primary-dark;
+  font-family: $base-font-family;
 }
 
 h1 {
-  @include font-size($xl-header-font);
+  @include font-size-responsive($xl-font);
   font-weight: bold;
 }
 
 h2 {
-  @include font-size($l-header-font);
+  @include font-size-responsive($l-font);
   font-weight: bold;
 }
 
 h3 {
-  @include font-size($m-header-font);
+  @include font-size-responsive($m-font);
   font-weight: bold;
 }
 
 h4,
 h5,
 h6 {
-  @include font-size($s-header-font);
+  @include font-size-responsive($s-font);
   color: $secondary-gray60;
   font-weight: bold;
 }
