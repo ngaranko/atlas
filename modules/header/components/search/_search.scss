@@ -11,7 +11,7 @@ $submit-button-width: 30px;
   display: block;
   width: calc(100% - #{$submit-button-width});
   height: $search-form-height;
-  padding-right: $base-whitespace;
+  padding-right: $base-whitespace + $submit-button-width;
   padding-left: $base-whitespace;
   float: left;
   outline: none;
