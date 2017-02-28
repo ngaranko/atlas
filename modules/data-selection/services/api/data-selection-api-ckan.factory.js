@@ -87,7 +87,7 @@
         }
 
         function getDetailEndpoint (config, rawDataRow) {
-            return sharedConfig.ROOT + config.ENDPOINT_DETAIL +
+            return sharedConfig.API_ROOT + config.ENDPOINT_DETAIL +
                 '?id=' + rawDataRow[config.PRIMARY_KEY];
         }
     }

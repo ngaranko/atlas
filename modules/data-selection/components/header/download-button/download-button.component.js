@@ -29,7 +29,7 @@
         function setDownloadUrl () {
             filterParams.length = 0;
 
-            vm.downloadUrl = sharedConfig.ROOT + DATA_SELECTION_CONFIG.datasets[vm.dataset].ENDPOINT_EXPORT;
+            vm.downloadUrl = sharedConfig.API_ROOT + DATA_SELECTION_CONFIG.datasets[vm.dataset].ENDPOINT_EXPORT;
 
             DATA_SELECTION_CONFIG.datasets[vm.dataset].FILTERS.forEach(function (filter) {
                 if (angular.isString(vm.activeFilters[filter.slug])) {
