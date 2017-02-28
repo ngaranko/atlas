@@ -37,10 +37,7 @@
 
             scope.clear = function () {
                 scope.query = '';
-
-                if (scope.searchOnly) {
-                    search();
-                }
+                scope.getSuggestions();
             };
 
             scope.getSuggestions = function () {
