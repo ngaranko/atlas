@@ -58,5 +58,5 @@
   right: $base-whitespace;
   bottom: $base-whitespace;
   left: $base-whitespace;
-  width: 100% - (2 * #{$base-whitespace});
+  width: 100% - (2 * $base-whitespace);
 }
