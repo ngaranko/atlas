@@ -38,14 +38,15 @@ describe('The user factory', function () {
                     userSettings: mockedUserSettings,
                     sharedConfig: {
                         API_ROOT: 'http://atlas.amsterdam.nl/'
-                    },
-                    apiConfig: {
-                        AUTH: 'authenticatie/'
                     }
                 },
                 function ($provide) {
                     $provide.factory('$timeout', function () {
                         return $timeoutspy;
+                    });
+
+                    $provide.constant('API_CONFIG', {
+                        AUTH: 'authenticatie/'
                     });
                 }
             );
