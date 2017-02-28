@@ -13,32 +13,27 @@
                     location="vm.location">
                 </dp-search-results-header>
 
-                <div ng-class="{
+                <div class="u-padding__top-2 u-padding__bottom--2" ng-class="{
                         'u-col-sm--12': !vm.location,
                         'u-col-sm--8': vm.location
                     }">
 
                     <div ng-repeat="category in vm.searchResults"
-                         class="c-search-results__category"
+                         class="u-margin__bottom--4"
                          ng-class="{
-                            'c-search-results__category--indented': category.useIndenting,
-                         }">
+                            's-indented-result': category.useIndenting,
+                        }">
 
-                        <h2 ng-if="!category.useIndenting" class="c-h2 c-h2--contrast qa-search-header">
+                        <h2 class="o-header__subtitle qa-search-header">
                             <span ng-if="category.count > 1">{{category.label_plural}} ({{category.count | number}})</span>
                             <span ng-if="category.count === 1">{{category.label_singular}}</span>
                         </h2>
-
-                        <h3 ng-if="category.useIndenting" class="c-h3 c-h3--light qa-search-header">
-                            <span ng-if="category.count > 1">{{category.label_plural}} ({{category.count | number}})</span>
-                            <span ng-if="category.count === 1">{{category.label_singular}}</span>
-                        </h3>
 
                         <dp-search-results-list category="category" limit-results="true"></dp-search-results-list>
 
                         <div ng-if="category.count > 10" class="qa-show-more">
                             <dp-link ng-if="category.more"
-                                class-name="c-search-results__show-more c-show-more c-show-more--contrast"
+                                class-name="o-list__separate-item o-btn o-btn--link u-color__primary--contrast u-margin__top-05"
                                 type="FETCH_DETAIL"
                                 payload="category.more.endpoint">
 
@@ -46,7 +41,7 @@
                             </dp-link>
 
                             <dp-link ng-if="!category.more"
-                                class-name="c-search-results__show-more c-show-more"
+                                class-name="o-list__separate-item o-btn o-btn--link u-color__primary--contrast u-margin__top-05"
                                 type="FETCH_SEARCH_RESULTS_CATEGORY"
                                 payload="category.slug">
 
@@ -67,7 +62,7 @@
                     category="{{vm.category}}">
                 </dp-search-results-header>
 
-                <div ng-class="{
+                <div class="u-padding__top-2 u-padding__bottom--2" ng-class="{
                         'u-col-sm--12': !vm.location,
                         'u-col-sm--8': vm.location
                     }">
@@ -76,7 +71,7 @@
 
                     <button
                         ng-if="vm.hasLoadMore()"
-                        class="c-search-results__show-more c-show-more"
+                        class="o-loadmore"
                         ng-click="vm.loadMore()">
 
                         Toon meer
@@ -99,7 +94,7 @@
                 location="vm.location">
             </dp-search-results-header>
 
-            <div ng-class="{
+            <div class="u-padding__top-2 u-padding__bottom--2" ng-class="{
                     'u-col-sm--12': !vm.location,
                     'u-col-sm--8': vm.location
                 }">

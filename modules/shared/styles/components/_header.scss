@@ -1,44 +1,24 @@
-.c-header {
+.o-header {
   position: relative;
-  margin-bottom: 3 * $base-whitespace;
 }
 
-.c-header__title {
-  @include font-size($xl-header-font);
-
-  font-weight: bold;
-}
-
-.c-header__subtitle {
-  @include font-size($m-header-font);
-
-  font-weight: bold;
-}
-
-.c-h2 {
+.o-header__title {
   @include font-size($l-header-font);
-
-  font-weight: bold;
 }
 
-.c-h2--contrast {
-  color: $primary-contrast;
-}
-
-.c-h3 {
+.o-header__subtitle {
   @include font-size($m-header-font);
 
-  font-weight: bold;
-}
+  display: block;
+  margin-bottom: $base-whitespace * 1.5;
+  color: $primary-contrast;
 
-.c-h3--light {
-  color: $secondary-gray60;
-}
-
-.c-h4 {
-  @include font-size($s-header-font);
-
-  font-weight: bold;
+  .s-indented-list &,
+  .s-indented-result & {
+    @include font-size($s-header-font);
+    margin-bottom: $base-whitespace / 2 !important;
+    color: $primary-dark;
+  }
 }
 
 .o-header__buttongroup {
