@@ -38,6 +38,7 @@
             scope.clear = function () {
                 scope.query = '';
                 scope.getSuggestions();
+                scope.setFocus();
             };
 
             scope.getSuggestions = function () {
