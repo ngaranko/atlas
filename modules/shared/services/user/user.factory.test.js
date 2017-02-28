@@ -35,15 +35,18 @@ describe('The user factory', function () {
             angular.mock.module(
                 'dpShared',
                 {
-                    userSettings: mockedUserSettings
+                    userSettings: mockedUserSettings,
+                    sharedConfig: {
+                        API_ROOT: 'http://atlas.amsterdam.nl/'
+                    }
                 },
                 function ($provide) {
-                    $provide.constant('API_CONFIG', {
-                        AUTH: 'http://atlas.amsterdam.nl/authenticatie/'
-                    });
-
                     $provide.factory('$timeout', function () {
                         return $timeoutspy;
+                    });
+
+                    $provide.constant('API_CONFIG', {
+                        AUTH: 'authenticatie/'
                     });
                 }
             );
@@ -276,12 +279,13 @@ describe('The user factory', function () {
             angular.mock.module(
                 'dpShared',
                 {
-                    userSettings: mockedUserSettings
-                },
-                function ($provide) {
-                    $provide.constant('API_CONFIG', {
-                        AUTH: 'http://atlas.amsterdam.nl/authenticatie/'
-                    });
+                    userSettings: mockedUserSettings,
+                    sharedConfig: {
+                        API_ROOT: 'http://atlas.amsterdam.nl/'
+                    },
+                    apiConfig: {
+                        AUTH: 'authenticatie/'
+                    }
                 }
             );
 

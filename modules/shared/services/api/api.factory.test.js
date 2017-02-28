@@ -24,12 +24,10 @@ describe('The api factory', function () {
                             };
                         }
                     }
+                },
+                sharedConfig: {
+                    API_ROOT: 'http://www.i-am-the-api-root.com/path/'
                 }
-            },
-            function ($provide) {
-                $provide.constant('API_CONFIG', {
-                    ROOT: 'http://www.i-am-the-api-root.com/path/'
-                });
             }
         );
 
@@ -97,7 +95,7 @@ describe('The api factory', function () {
         expect(isRejected).toBe(true);
     });
 
-    it('getByUri can be used when the API_CONFIG.ROOT is unknown', function () {
+    it('getByUri can be used when the sharedConfig.API_ROOT is unknown', function () {
         var returnValue;
 
         api.getByUri('bag/verblijfsobject/123/').then(function (data) {

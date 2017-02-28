@@ -12,11 +12,11 @@
             controllerAs: 'vm'
         });
 
-    DpWkpbLinkController.$inject = ['API_CONFIG'];
+    DpWkpbLinkController.$inject = ['sharedConfig'];
 
-    function DpWkpbLinkController (API_CONFIG) {
-        var vm = this;
+    function DpWkpbLinkController (sharedConfig) {
+        let vm = this;
 
-        vm.wkpbEndpoint = API_CONFIG.ROOT + 'brk/object-wkpb/' + vm.brkId + '/';
+        vm.wkpbEndpoint = sharedConfig.API_ROOT + 'brk/object-wkpb/' + vm.brkId + '/';
     }
 })();

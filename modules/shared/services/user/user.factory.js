@@ -5,9 +5,17 @@
         .module('dpShared')
         .factory('user', userFactory);
 
-    userFactory.$inject = ['$http', '$httpParamSerializer', '$q', '$timeout', 'API_CONFIG', 'userSettings'];
+    userFactory.$inject = [
+        '$http',
+        '$httpParamSerializer',
+        '$q',
+        '$timeout',
+        'sharedConfig',
+        'API_CONFIG',
+        'userSettings'
+    ];
 
-    function userFactory ($http, $httpParamSerializer, $q, $timeout, API_CONFIG, userSettings) {
+    function userFactory ($http, $httpParamSerializer, $q, $timeout, sharedConfig, API_CONFIG, userSettings) {
         var userState = {},
             accessToken = userSettings.token.value;
 
@@ -34,7 +42,7 @@
         function login (username, password) {
             return $http({
                 method: 'POST',
-                url: API_CONFIG.AUTH + 'token/',
+                url: sharedConfig.API_ROOT + API_CONFIG.AUTH + 'token/',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
@@ -82,7 +90,7 @@
         function refreshToken () {
             return $http({
                 method: 'POST',
-                url: API_CONFIG.AUTH + 'refresh/',
+                url: sharedConfig.API_ROOT + API_CONFIG.AUTH + 'refresh/',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
