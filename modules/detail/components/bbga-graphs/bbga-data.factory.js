@@ -51,7 +51,7 @@
         function getMetaData (variableName) {
             return $http({
                 method: 'GET',
-                url: sharedConfig.ROOT + 'bbga/meta/',
+                url: sharedConfig.API_ROOT + 'bbga/meta/',
                 params: {
                     variabele: variableName
                 }
@@ -66,7 +66,7 @@
         function getData (variableName, gebiedHeading, gebiedCode) {
             return $http({
                 method: 'GET',
-                url: sharedConfig.ROOT + 'bbga/cijfers/',
+                url: sharedConfig.API_ROOT + 'bbga/cijfers/',
                 params: {
                     variabele: variableName,
                     gebiedcode15: gebiedCode,
