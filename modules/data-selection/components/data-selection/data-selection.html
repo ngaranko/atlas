@@ -1,40 +1,47 @@
-<dp-tab-header ng-if="vm.showTabHeader()" search-text="{{vm.state.query}}" tab-header="vm.tabHeader"></dp-tab-header>
+<div class="c-data-selection">
+    <dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>
 
-<div class="u-grid">
-    <div class="u-row">
-        <div ng-if="vm.showFilters" class="u-col-sm--3">
-            <dp-data-selection-available-filters
-                dataset="{{vm.state.dataset}}"
-                available-filters="vm.availableFilters"
-                active-filters="vm.state.filters"
-                is-loading="vm.isLoading">
+    <div ng-if="!vm.isLoading">
+        <dp-tab-header ng-if="vm.showTabHeader()" search-text="{{vm.state.query}}" tab-header="vm.tabHeader"></dp-tab-header>
 
-            </dp-data-selection-available-filters>
-        </div>
-        <div class="c-data-selection__body"
-             ng-class="{
-                 'u-col-sm--12': !vm.showFilters,
-                 'u-col-sm--9': vm.showFilters
-             }">
+        <div class="u-grid">
+            <div class="u-row">
+                <div ng-if="vm.showFilters" class="u-col-sm--3">
+                    <dp-data-selection-available-filters
+                        dataset="{{vm.state.dataset}}"
+                        available-filters="vm.availableFilters"
+                        active-filters="vm.state.filters"
+                        is-loading="vm.isLoading">
 
-            <dp-data-selection-header
-                state="vm.state"
-                available-filters="vm.availableFilters"
-                number-of-records="vm.numberOfRecords"
-                is-loading="vm.isLoading">
-            </dp-data-selection-header>
+                    </dp-data-selection-available-filters>
+                </div>
+                <div class="c-data-selection__body"
+                     ng-class="{
+                         'u-col-sm--12': !vm.showFilters,
+                         'u-col-sm--9': vm.showFilters
+                     }">
 
-            <div ng-if="vm.showContent">
-                <dp-data-selection-table ng-if="vm.view === 'TABLE'" content="vm.data"></dp-data-selection-table>
-                <dp-data-selection-list ng-if="vm.view === 'LIST'" content="vm.data"></dp-data-selection-list>
-                <dp-data-selection-cards ng-if="vm.view === 'CARDS'" content="vm.data"></dp-data-selection-cards>
+                    <dp-data-selection-header
+                        ng-if="!vm.showTabHeader()"
+                        state="vm.state"
+                        available-filters="vm.availableFilters"
+                        number-of-records="vm.numberOfRecords"
+                        is-loading="vm.isLoading">
+                    </dp-data-selection-header>
+
+                    <div ng-if="vm.showContent">
+                        <dp-data-selection-table ng-if="vm.view === 'TABLE'" content="vm.data"></dp-data-selection-table>
+                        <dp-data-selection-list ng-if="vm.view === 'LIST'" content="vm.data"></dp-data-selection-list>
+                        <dp-data-selection-cards ng-if="vm.view === 'CARDS'" content="vm.data"></dp-data-selection-cards>
+                    </div>
+
+                    <dp-data-selection-pagination
+                        ng-if="!vm.isLoading"
+                        current-page="vm.currentPage"
+                        number-of-pages="vm.numberOfPages">
+                    </dp-data-selection-pagination>
+                </div>
             </div>
-
-            <dp-data-selection-pagination
-                ng-if="!vm.isLoading"
-                current-page="vm.currentPage"
-                number-of-pages="vm.numberOfPages">
-            </dp-data-selection-pagination>
         </div>
     </div>
 </div>

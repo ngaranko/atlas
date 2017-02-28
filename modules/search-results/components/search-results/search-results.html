@@ -2,12 +2,12 @@
     <dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>
 
     <div ng-if="!vm.isLoading" class="u-row">
-
-        <dp-tab-header ng-if="!vm.location.length" search-text="{{vm.query}}" tab-header="vm.tabHeader"></dp-tab-header>
+        <dp-tab-header ng-if="vm.showTabHeader()" search-text="{{vm.query}}" tab-header="vm.tabHeader"></dp-tab-header>
 
         <div ng-if="vm.numberOfResults" class="qa-search-result">
             <div ng-if="!vm.category">
                 <dp-search-results-header
+                    ng-if="!vm.showTabHeader()"
                     number-of-results="vm.numberOfResults"
                     query="{{vm.query}}"
                     location="vm.location">
@@ -87,7 +87,7 @@
             </div>
         </div>
 
-        <div ng-if="!vm.numberOfResults">
+        <div ng-if="vm.location && !vm.numberOfResults">
             <dp-search-results-header
                 number-of-results="vm.numberOfResults"
                 query="{{vm.query}}"
@@ -102,7 +102,7 @@
                 <p>Tip: maak de criteria minder specifiek (bijv. een straat i.p.v. specifiek adres)</p>
             </div>
 
-            <div ng-if="vm.location" class="u-col-sm--4">
+            <div class="u-col-sm--4">
                 <dp-straatbeeld-thumbnail location="vm.location"></dp-straatbeeld-thumbnail>
             </div>
         </div>

@@ -1,5 +1,5 @@
 .c-tab-header__title {
-  @include font-size($m-header-font);
-  margin-bottom: $base-whitespace;
+  @include font-size($l-header-font);
+  margin-bottom: 3 * $base-whitespace;
   font-family: $header-font-family;
 }
