@@ -57,7 +57,7 @@
             });
         };
 
-        vm.showTabHeader = () => !angular.isArray(vm.location);
+        vm.showTabHeader = () => !angular.isArray(vm.location) && !vm.category;
 
         vm.tabHeader = new TabHeader('data-datasets');
         vm.tabHeader.activeTab = vm.tabHeader.getTab('data');
