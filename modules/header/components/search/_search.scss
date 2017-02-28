@@ -8,6 +8,7 @@ $submit-button-width: 30px;
 }
 
 .c-search-form__input {
+  @include font-size($s-font);
   display: block;
   width: calc(100% - #{$submit-button-width});
   height: $search-form-height;
@@ -17,8 +18,6 @@ $submit-button-width: 30px;
   outline: none;
   background-color: $secondary-gray40;
   color: $primary-light;
-  font-family: $header-font-family;
-  font-size: $base-font-size;
 
   &::placeholder {
     color: $secondary-gray20;
@@ -32,6 +31,7 @@ $submit-button-width: 30px;
 }
 
 .c-search-form__submit {
+  @include font-size($s-font);
   @extend %dp-search-icon;
 
   width: $submit-button-width;
@@ -40,7 +40,6 @@ $submit-button-width: 30px;
   background-color: $secondary-gray40;
   background-repeat: no-repeat;
   color: $primary-light;
-  font-size: $base-font-size;
   cursor: pointer;
 
   &:hover {
