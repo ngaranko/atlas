@@ -5,9 +5,9 @@
         .module('dpStraatbeeld')
         .factory('marzipanoService', marzipanoService);
 
-    marzipanoService.$inject = ['Marzipano', 'straatbeeldConfig', 'angleConversion', 'hotspotService'];
+    marzipanoService.$inject = ['Marzipano', 'STRAATBEELD_CONFIG', 'angleConversion', 'hotspotService'];
 
-    function marzipanoService (Marzipano, straatbeeldConfig, angleConversion, hotspotService) {
+    function marzipanoService (Marzipano, STRAATBEELD_CONFIG, angleConversion, hotspotService) {
         var viewer;
 
         return {
@@ -44,15 +44,15 @@
             );
 
             viewLimiter = Marzipano.RectilinearView.limit.traditional(
-                straatbeeldConfig.MAX_RESOLUTION,
-                angleConversion.degreesToRadians(straatbeeldConfig.MAX_FOV)
+                STRAATBEELD_CONFIG.MAX_RESOLUTION,
+                angleConversion.degreesToRadians(STRAATBEELD_CONFIG.MAX_FOV)
             );
 
             view = new Marzipano.RectilinearView({}, viewLimiter);
 
             scene = viewer.createScene({
                 source: source,
-                geometry: new Marzipano.CubeGeometry(straatbeeldConfig.LEVEL_PROPERTIES_LIST),
+                geometry: new Marzipano.CubeGeometry(STRAATBEELD_CONFIG.LEVEL_PROPERTIES_LIST),
                 view: view,
                 pinFirstLevel: true
             });
@@ -63,7 +63,7 @@
                 hotspotService.createHotspotTemplate(hotspot.id, hotspot.distance).then(function (template) {
                     var position = {
                         yaw: angleConversion.degreesToRadians(hotspot.heading),
-                        pitch: calculateHotspotPitch(straatbeeldConfig.CAMERA_HEIGHT, hotspot.distance)
+                        pitch: calculateHotspotPitch(STRAATBEELD_CONFIG.CAMERA_HEIGHT, hotspot.distance)
                     };
 
                     scene.hotspotContainer().createHotspot(

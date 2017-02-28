@@ -3,15 +3,8 @@
 
     angular
         .module('dpStraatbeeld')
-        .factory('straatbeeldConfig', straatbeeldConfigFactory);
-
-    straatbeeldConfigFactory.$inject = ['environment'];
-
-    function straatbeeldConfigFactory (environment) {
-        var globalConfig,
-            environmentConfig;
-
-        globalConfig = {
+        .constant('STRAATBEELD_CONFIG', {
+            STRAATBEELD_ENDPOINT: 'panorama/opnamelocatie/',
             DEFAULT_FOV: 80,
             MAX_FOV: 90,
             MAX_RESOLUTION: 12 * 1024,
@@ -35,20 +28,5 @@
                     size: 2048
                 }
             ]
-        };
-
-        environmentConfig = {
-            DEVELOPMENT: {
-                STRAATBEELD_ENDPOINT: 'panorama/opnamelocatie/'
-            },
-            ACCEPTATION: {
-                STRAATBEELD_ENDPOINT: 'panorama/opnamelocatie/'
-            },
-            PRODUCTION: {
-                STRAATBEELD_ENDPOINT: 'panorama/opnamelocatie/'
-            }
-        };
-
-        return angular.merge(globalConfig, environmentConfig[environment.NAME]);
-    }
+        });
 })();
