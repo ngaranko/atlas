@@ -5,7 +5,15 @@
         .module('dpShared')
         .factory('user', userFactory);
 
-    userFactory.$inject = ['$http', '$httpParamSerializer', '$q', '$timeout', 'sharedConfig', 'API_CONFIG', 'userSettings'];
+    userFactory.$inject = [
+        '$http',
+        '$httpParamSerializer',
+        '$q',
+        '$timeout',
+        'sharedConfig',
+        'API_CONFIG',
+        'userSettings'
+    ];
 
     function userFactory ($http, $httpParamSerializer, $q, $timeout, sharedConfig, API_CONFIG, userSettings) {
         var userState = {},

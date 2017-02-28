@@ -13,21 +13,19 @@
 
         globalConfig = {
             RADIUS: 50,
-            THUMBNAIL_WIDTH: 240
+            THUMBNAIL_WIDTH: 240,
+            STRAATBEELD_THUMB_URL: 'panorama/thumbnail/'
         };
 
         environmentConfig = {
             PRODUCTION: {
-                API_ROOT: 'https://api.datapunt.amsterdam.nl/',
-                STRAATBEELD_THUMB_URL: 'panorama/thumbnail/'
+                API_ROOT: 'https://api.datapunt.amsterdam.nl/'
             },
             ACCEPTATION: {
-                API_ROOT: 'https://api-acc.datapunt.amsterdam.nl/',
-                STRAATBEELD_THUMB_URL: 'panorama/thumbnail/'
+                API_ROOT: 'https://api-acc.datapunt.amsterdam.nl/'
             },
             DEVELOPMENT: {
-                API_ROOT: 'https://api.datapunt.amsterdam.nl/',
-                STRAATBEELD_THUMB_URL: 'panorama/thumbnail/'
+                API_ROOT: 'https://api.datapunt.amsterdam.nl/'
             }
         };
 

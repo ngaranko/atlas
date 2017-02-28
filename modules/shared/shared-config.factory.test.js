@@ -25,9 +25,10 @@ describe('The sharedConfig factory', function () {
             // Global config
             expect(sharedConfig.RADIUS).toBe(50);
             expect(sharedConfig.THUMBNAIL_WIDTH).toBe(240);
+            expect(sharedConfig.STRAATBEELD_THUMB_URL).toBe('panorama/thumbnail/');
 
             // Environment config
-            expect(sharedConfig.STRAATBEELD_THUMB_URL).toBe('https://api.datapunt.amsterdam.nl/panorama/thumbnail/');
+            expect(sharedConfig.API_ROOT).toBe('https://api.datapunt.amsterdam.nl/');
         });
 
         it('ACCEPTATION', function () {
@@ -36,10 +37,10 @@ describe('The sharedConfig factory', function () {
             // Global config
             expect(sharedConfig.RADIUS).toBe(50);
             expect(sharedConfig.THUMBNAIL_WIDTH).toBe(240);
+            expect(sharedConfig.STRAATBEELD_THUMB_URL).toBe('panorama/thumbnail/');
 
             // Environment config
-            expect(sharedConfig.STRAATBEELD_THUMB_URL)
-                .toBe('https://api-acc.datapunt.amsterdam.nl/panorama/thumbnail/');
+            expect(sharedConfig.API_ROOT).toBe('https://api-acc.datapunt.amsterdam.nl/');
         });
 
         it('PRODUCTION', function () {
@@ -48,9 +49,10 @@ describe('The sharedConfig factory', function () {
             // Global config
             expect(sharedConfig.RADIUS).toBe(50);
             expect(sharedConfig.THUMBNAIL_WIDTH).toBe(240);
+            expect(sharedConfig.STRAATBEELD_THUMB_URL).toBe('panorama/thumbnail/');
 
             // Environment config
-            expect(sharedConfig.STRAATBEELD_THUMB_URL).toBe('https://api.datapunt.amsterdam.nl/panorama/thumbnail/');
+            expect(sharedConfig.API_ROOT).toBe('https://api.datapunt.amsterdam.nl/');
         });
     });
 });
