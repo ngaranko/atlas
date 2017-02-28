@@ -49,8 +49,8 @@ describe('The dp-search directive', function () {
                         return fakeSuggestions[index];
                     }
                 },
-                apiConfig: {
-                    ROOT: 'http://api.example.com/'
+                sharedConfig: {
+                    API_ROOT: 'http://api.example.com/'
                 }
             }
         );

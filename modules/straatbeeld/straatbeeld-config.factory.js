@@ -39,13 +39,13 @@
 
         environmentConfig = {
             DEVELOPMENT: {
-                STRAATBEELD_ENDPOINT: 'https://api.datapunt.amsterdam.nl/panorama/opnamelocatie/'
+                STRAATBEELD_ENDPOINT: 'panorama/opnamelocatie/'
             },
             ACCEPTATION: {
-                STRAATBEELD_ENDPOINT: 'https://api-acc.datapunt.amsterdam.nl/panorama/opnamelocatie/'
+                STRAATBEELD_ENDPOINT: 'panorama/opnamelocatie/'
             },
             PRODUCTION: {
-                STRAATBEELD_ENDPOINT: 'https://api.datapunt.amsterdam.nl/panorama/opnamelocatie/'
+                STRAATBEELD_ENDPOINT: 'panorama/opnamelocatie/'
             }
         };
 

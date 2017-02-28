@@ -25,8 +25,8 @@ describe('The api factory', function () {
                         }
                     }
                 },
-                apiConfig: {
-                    ROOT: 'http://www.i-am-the-api-root.com/path/'
+                sharedConfig: {
+                    API_ROOT: 'http://www.i-am-the-api-root.com/path/'
                 }
             }
         );

@@ -5,9 +5,9 @@
         .module('dpDetail')
         .factory('bbgaDataService', bbgaDataService);
 
-    bbgaDataService.$inject = ['$q', '$http', 'BBGA_CONFIG', 'apiConfig'];
+    bbgaDataService.$inject = ['$q', '$http', 'BBGA_CONFIG', 'sharedConfig'];
 
-    function bbgaDataService ($q, $http, BBGA_CONFIG, apiConfig) {
+    function bbgaDataService ($q, $http, BBGA_CONFIG, sharedConfig) {
         return {
             getGraphData: getGraphData
         };
@@ -51,7 +51,7 @@
         function getMetaData (variableName) {
             return $http({
                 method: 'GET',
-                url: apiConfig.ROOT + 'bbga/meta/',
+                url: sharedConfig.ROOT + 'bbga/meta/',
                 params: {
                     variabele: variableName
                 }
@@ -66,7 +66,7 @@
         function getData (variableName, gebiedHeading, gebiedCode) {
             return $http({
                 method: 'GET',
-                url: apiConfig.ROOT + 'bbga/cijfers/',
+                url: sharedConfig.ROOT + 'bbga/cijfers/',
                 params: {
                     variabele: variableName,
                     gebiedcode15: gebiedCode,

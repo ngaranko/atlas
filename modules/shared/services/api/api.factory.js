@@ -5,9 +5,9 @@
         .module('dpShared')
         .factory('api', apiFactory);
 
-    apiFactory.$inject = ['$http', 'user', 'apiConfig'];
+    apiFactory.$inject = ['$http', 'user', 'sharedConfig'];
 
-    function apiFactory ($http, user, apiConfig) {
+    function apiFactory ($http, user, sharedConfig) {
         return {
             getByUrl,
             getByUri
@@ -58,7 +58,7 @@
         }
 
         function getByUri (uri, params) {
-            return getByUrl(apiConfig.ROOT + uri, params);
+            return getByUrl(sharedConfig.API_ROOT + uri, params);
         }
     }
 })();

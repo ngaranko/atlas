@@ -5,9 +5,9 @@
         .module('dpHeader')
         .factory('autocompleteData', autocompleteDataService);
 
-    autocompleteDataService.$inject = ['$http', 'apiConfig', 'HEADER_CONFIG'];
+    autocompleteDataService.$inject = ['$http', 'sharedConfig', 'HEADER_CONFIG'];
 
-    function autocompleteDataService ($http, apiConfig, HEADER_CONFIG) {
+    function autocompleteDataService ($http, sharedConfig, HEADER_CONFIG) {
         return {
             search: search,
             getSuggestionByIndex: getSuggestionByIndex
@@ -16,7 +16,7 @@
         function search (query) {
             return $http({
                 method: 'GET',
-                url: apiConfig.ROOT + HEADER_CONFIG.AUTOCOMPLETE_ENDPOINT,
+                url: sharedConfig.API_ROOT + HEADER_CONFIG.AUTOCOMPLETE_ENDPOINT,
                 params: {
                     q: query
                 }

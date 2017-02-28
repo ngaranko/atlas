@@ -5,8 +5,8 @@ describe('The endpointParser factory', function () {
         angular.mock.module(
             'dpDetail',
             {
-                apiConfig: {
-                    ROOT: 'http://www.api-root.com/'
+                sharedConfig: {
+                    API_ROOT: 'http://www.api-root.com/'
                 }
             }
         );

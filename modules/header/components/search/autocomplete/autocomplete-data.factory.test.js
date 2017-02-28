@@ -9,8 +9,8 @@ describe('The autocompleteData factory', function () {
         angular.mock.module(
             'dpHeader',
             {
-                apiConfig: {
-                    ROOT: 'http://api-domain.com/'
+                sharedConfig: {
+                    API_ROOT: 'http://api-domain.com/'
                 }
             },
             function ($provide) {

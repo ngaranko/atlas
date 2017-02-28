@@ -36,8 +36,10 @@ describe('The user factory', function () {
                 'dpShared',
                 {
                     userSettings: mockedUserSettings,
+                    sharedConfig: {
+                        API_ROOT: 'http://atlas.amsterdam.nl/'
+                    },
                     apiConfig: {
-                        ROOT: 'http://atlas.amsterdam.nl/',
                         AUTH: 'authenticatie/'
                     }
                 },
@@ -277,8 +279,10 @@ describe('The user factory', function () {
                 'dpShared',
                 {
                     userSettings: mockedUserSettings,
+                    sharedConfig: {
+                        API_ROOT: 'http://atlas.amsterdam.nl/'
+                    },
                     apiConfig: {
-                        ROOT: 'http://atlas.amsterdam.nl/',
                         AUTH: 'authenticatie/'
                     }
                 }

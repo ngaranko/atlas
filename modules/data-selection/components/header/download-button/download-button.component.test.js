@@ -6,8 +6,8 @@ describe('The dp-data-selection-download-button component', function () {
         angular.mock.module(
             'dpDataSelection',
             {
-                apiConfig: {
-                    ROOT: 'http://www.example.com/'
+                sharedConfig: {
+                    API_ROOT: 'http://www.example.com/'
                 }
             },
             function ($provide) {

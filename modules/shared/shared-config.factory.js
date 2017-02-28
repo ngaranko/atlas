@@ -18,13 +18,16 @@
 
         environmentConfig = {
             PRODUCTION: {
-                STRAATBEELD_THUMB_URL: 'https://api.datapunt.amsterdam.nl/panorama/thumbnail/'
+                API_ROOT: 'https://api.datapunt.amsterdam.nl/',
+                STRAATBEELD_THUMB_URL: 'panorama/thumbnail/'
             },
             ACCEPTATION: {
-                STRAATBEELD_THUMB_URL: 'https://api-acc.datapunt.amsterdam.nl/panorama/thumbnail/'
+                API_ROOT: 'https://api-acc.datapunt.amsterdam.nl/',
+                STRAATBEELD_THUMB_URL: 'panorama/thumbnail/'
             },
             DEVELOPMENT: {
-                STRAATBEELD_THUMB_URL: 'https://api.datapunt.amsterdam.nl/panorama/thumbnail/'
+                API_ROOT: 'https://api.datapunt.amsterdam.nl/',
+                STRAATBEELD_THUMB_URL: 'panorama/thumbnail/'
             }
         };
 

@@ -27,7 +27,8 @@
         });
 
         function loadThumbnail () {
-            imageUrl = sharedConfig.STRAATBEELD_THUMB_URL +
+            imageUrl = sharedConfig.API_ROOT +
+                sharedConfig.STRAATBEELD_THUMB_URL +
                 '?lat=' + vm.location[0] +
                 '&lon=' + vm.location[1] +
                 '&width=' + sharedConfig.THUMBNAIL_WIDTH +

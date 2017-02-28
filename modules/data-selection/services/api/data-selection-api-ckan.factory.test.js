@@ -23,8 +23,8 @@ describe('The dataSelectionApiCkan factory', function () {
                         return q.promise;
                     }
                 },
-                apiConfig: {
-                    ROOT: 'https://api.amsterdam.nl/'
+                sharedConfig: {
+                    API_ROOT: 'https://api.amsterdam.nl/'
                 }
             }
         );
