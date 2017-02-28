@@ -1,13 +1,16 @@
 .c-show-more {
   @extend %link--plus;
 
+  line-height: $list-item-height;
   color: $secondary-gray60;
 }
 
-.c-show-more--contrast {
-  color: $primary-contrast;
+.s-indented-result {
+  .c-show-more {
+    color: $primary-contrast;
 
-  &:hover {
-    color: $secondary-gray60;
+    &:hover {
+      color: $secondary-gray60;
+    }
   }
 }
