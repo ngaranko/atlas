@@ -264,8 +264,8 @@
                     name: 'search.category',
                     type: 'string'
                 },
-                sre: {
-                    name: 'search.isEnabled',
+                srfs: {
+                    name: 'search.isFullscreen',
                     type: 'boolean'
                 },
                 srl: {

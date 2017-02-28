@@ -74,7 +74,7 @@ describe('The search-reducers factory', function () {
             expect(output.search.query).toBe(null);
         });
 
-        it('sets query isEnabled to true', function () {
+        it('sets query isFullscreen to true', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
@@ -87,7 +87,7 @@ describe('The search-reducers factory', function () {
 
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY.id](inputState, '');
 
-            expect(output.search.isEnabled).toBe(true);
+            expect(output.search.isFullscreen).toBe(true);
         });
 
         it('hides the layer selection, page, detail, straatbeeld and dataSelection', function () {
@@ -175,7 +175,7 @@ describe('The search-reducers factory', function () {
             expect(output.search.numberOfResults).toBeNull();
         });
 
-        it('sets query isEnabled to true', function () {
+        it('sets query isFullscreen to false', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
@@ -188,7 +188,7 @@ describe('The search-reducers factory', function () {
 
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, [52.001, 4.002]);
 
-            expect(output.search.isEnabled).toBe(true);
+            expect(output.search.isFullscreen).toBe(false);
         });
 
         it('rounds the search location with a precision of 7 decimals', () => {
