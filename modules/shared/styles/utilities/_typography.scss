@@ -1,3 +1,23 @@
+.u-font--responsive-base {
+  @include font-size-responsive($body-font);
+}
+
+.u-font--responsive-xl {
+  @include font-size-responsive($xl-header-font);
+}
+
+.u-font--responsive-l {
+  @include font-size-responsive($l-header-font);
+}
+
+.u-font--responsive-m {
+  @include font-size-responsive($m-header-font);
+}
+
+.u-font--responsive-s {
+  @include font-size-responsive($s-header-font);
+}
+
 .u-font--base {
   @include font-size($body-font);
 }

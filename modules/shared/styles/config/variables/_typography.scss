@@ -1,4 +1,11 @@
-$base-font-family: Avenir, Arial, sans-serif;
+$light-weight: "45 Book";
+$normal-weight: "55 Roman";
+$medium-weight: "65 Medium";
+$bold-weight: "85 Heavy";
+
+$base-font-before: "Avenir LT W01 ";
+$base-font-family-after: Arial, sans-serif;
+$base-font-family: $base-font-before + $normal-weight, $base-font-family-after;
 $header-font-family: $base-font-family;
 
 $xs-font-size: 14px;
@@ -13,17 +20,17 @@ $m-line-height: 1.44;
 $l-line-height: 1.5;
 $xl-line-height: 1.6;
 
-$phone-font-factor: .875;
-$tablet-font-factor: 1;
-$screen-font-factor: 1.05;
-$wide-font-factor: 1.1;
-$hd-font-factor: 1.14;
+$xs-font-factor: .875;
+$s-font-factor: 1;
+$m-font-factor: 1.05;
+$l-font-factor: 1.1;
+$xl-font-factor: 1.14;
 
-$phone-line-height-factor: $phone-font-factor;
-$tablet-line-height-factor: $tablet-font-factor;
-$screen-line-height-factor: $screen-font-factor;
-$wide-line-height-factor: $wide-font-factor;
-$hd-line-height-factor: $hd-font-factor;
+$xs-line-height-factor: $xs-font-factor;
+$s-line-height-factor: $s-font-factor;
+$m-line-height-factor: $m-font-factor;
+$l-line-height-factor: $l-font-factor;
+$xl-line-height-factor: $xl-font-factor;
 
 $base-font-size: $s-font-size;
 $base-line-height: $s-line-height;
@@ -32,10 +39,10 @@ $p-font-size: $m-font-size;
 $p-line-height: $m-line-height;
 
 $breakpoints: (
-  tablet: 1024px,
-  screen: 1200px,
-  wide: 1600px,
-  hd: 1920px
+  s: 1024px,
+  m: 1200px,
+  l: 1600px,
+  xl: 1920px
 );
 
 // per breakpoint (font-family, font-size, line-height)
@@ -48,43 +55,43 @@ $breakpoints: (
 /* Font sizes */
 
 $xs-font: (
-  null: ($base-font-family, $xs-font-size * $phone-font-factor, $xs-line-height * $phone-line-height-factor),
-  tablet: ($base-font-family, $xs-font-size * $tablet-font-factor, $xs-line-height * $tablet-line-height-factor),
-  screen: ($base-font-family, $xs-font-size * $screen-font-factor, $xs-line-height * $screen-line-height-factor),
-  wide: ($base-font-family, $xs-font-size * $wide-font-factor, $xs-line-height * $wide-line-height-factor),
-  hd: ($base-font-family, $xs-font-size * $hd-font-factor, $xs-line-height * $hd-line-height-factor)
+  null: ($xs-font-size * $xs-font-factor, $xs-line-height * $xs-line-height-factor),
+  s: ($xs-font-size * $s-font-factor, $xs-line-height * $s-line-height-factor),
+  m: ($xs-font-size * $m-font-factor, $xs-line-height * $m-line-height-factor),
+  l: ($xs-font-size * $l-font-factor, $xs-line-height * $l-line-height-factor),
+  xl: ($xs-font-size * $xl-font-factor, $xs-line-height * $xl-line-height-factor)
 );
 
 $s-font: (
-  null: ($base-font-family, $s-font-size * $phone-font-factor, $s-line-height * $phone-line-height-factor),
-  tablet: ($base-font-family, $s-font-size * $tablet-font-factor, $s-line-height * $tablet-line-height-factor),
-  screen: ($base-font-family, $s-font-size * $screen-font-factor, $s-line-height * $screen-line-height-factor),
-  wide: ($base-font-family, $s-font-size * $wide-font-factor, $s-line-height * $wide-line-height-factor),
-  hd: ($base-font-family, $s-font-size * $hd-font-factor, $s-line-height * $hd-line-height-factor)
+  null: ($s-font-size * $xs-font-factor, $s-line-height * $xs-line-height-factor),
+  s: ($s-font-size * $s-font-factor, $s-line-height * $s-line-height-factor),
+  m: ($s-font-size * $m-font-factor, $s-line-height * $m-line-height-factor),
+  l: ($s-font-size * $l-font-factor, $s-line-height * $l-line-height-factor),
+  xl: ($s-font-size * $xl-font-factor, $s-line-height * $xl-line-height-factor)
 );
 
 $m-font: (
-  null: ($base-font-family, $m-font-size * $phone-font-factor, $m-line-height * $phone-line-height-factor),
-  tablet: ($base-font-family, $m-font-size * $tablet-font-factor, $m-line-height * $tablet-line-height-factor),
-  screen: ($base-font-family, $m-font-size * $screen-font-factor, $m-line-height * $screen-line-height-factor),
-  wide: ($base-font-family, $m-font-size * $wide-font-factor, $m-line-height * $wide-line-height-factor),
-  hd: ($base-font-family, $m-font-size * $hd-font-factor, $m-line-height * $hd-line-height-factor)
+  null: ($m-font-size * $xs-font-factor, $m-line-height * $xs-line-height-factor),
+  s: ($m-font-size * $s-font-factor, $m-line-height * $s-line-height-factor),
+  m: ($m-font-size * $m-font-factor, $m-line-height * $m-line-height-factor),
+  l: ($m-font-size * $l-font-factor, $m-line-height * $l-line-height-factor),
+  xl: ($m-font-size * $xl-font-factor, $m-line-height * $xl-line-height-factor)
 );
 
 $l-font: (
-  null: ($base-font-family, $l-font-size * $phone-font-factor, $l-line-height * $phone-line-height-factor),
-  tablet: ($base-font-family, $l-font-size * $tablet-font-factor, $l-line-height * $tablet-line-height-factor),
-  screen: ($base-font-family, $l-font-size * $screen-font-factor, $l-line-height * $screen-line-height-factor),
-  wide: ($base-font-family, $l-font-size * $wide-font-factor, $l-line-height * $wide-line-height-factor),
-  hd: ($base-font-family, $l-font-size * $hd-font-factor, $l-line-height * $hd-line-height-factor)
+  null: ($l-font-size * $xs-font-factor, $l-line-height * $xs-line-height-factor),
+  s: ($l-font-size * $s-font-factor, $l-line-height * $s-line-height-factor),
+  m: ($l-font-size * $m-font-factor, $l-line-height * $m-line-height-factor),
+  l: ($l-font-size * $l-font-factor, $l-line-height * $l-line-height-factor),
+  xl: ($l-font-size * $xl-font-factor, $l-line-height * $xl-line-height-factor)
 );
 
 $xl-font: (
-  null: ($base-font-family, $xl-font-size * $phone-font-factor, $xl-line-height * $phone-line-height-factor),
-  tablet: ($base-font-family, $xl-font-size * $tablet-font-factor, $xl-line-height * $tablet-line-height-factor),
-  screen: ($base-font-family, $xl-font-size * $screen-font-factor, $xl-line-height * $screen-line-height-factor),
-  wide: ($base-font-family, $xl-font-size * $wide-font-factor, $xl-line-height * $wide-line-height-factor),
-  hd: ($base-font-family, $xl-font-size * $hd-font-factor, $xl-line-height * $hd-line-height-factor)
+  null: ($xl-font-size * $xs-font-factor, $xl-line-height * $xs-line-height-factor),
+  s: ($xl-font-size * $s-font-factor, $xl-line-height * $s-line-height-factor),
+  m: ($xl-font-size * $m-font-factor, $xl-line-height * $m-line-height-factor),
+  l: ($xl-font-size * $l-font-factor, $xl-line-height * $l-line-height-factor),
+  xl: ($xl-font-size * $xl-font-factor, $xl-line-height * $xl-line-height-factor)
 );
 
 /* Normal texts */
@@ -95,33 +102,33 @@ $p-font: $m-font;
 /* Headers */
 
 $s-header-font: (
-  null: ($header-font-family, $s-font-size * $phone-font-factor, $s-line-height * $phone-line-height-factor),
-  tablet: ($header-font-family, $s-font-size * $tablet-font-factor, $s-line-height * $tablet-line-height-factor),
-  screen: ($header-font-family, $s-font-size * $screen-font-factor, $s-line-height * $screen-line-height-factor),
-  wide: ($header-font-family, $s-font-size * $wide-font-factor, $s-line-height * $wide-line-height-factor),
-  hd: ($header-font-family, $s-font-size * $hd-font-factor, $s-line-height * $hd-line-height-factor)
+  null: ($s-font-size * $xs-font-factor, $s-line-height * $xs-line-height-factor),
+  s: ($s-font-size * $s-font-factor, $s-line-height * $s-line-height-factor),
+  m: ($s-font-size * $m-font-factor, $s-line-height * $m-line-height-factor),
+  l: ($s-font-size * $l-font-factor, $s-line-height * $l-line-height-factor),
+  xl: ($s-font-size * $xl-font-factor, $s-line-height * $xl-line-height-factor)
 );
 
 $m-header-font: (
-  null: ($header-font-family, $m-font-size * $phone-font-factor, $m-line-height * $phone-line-height-factor),
-  tablet: ($header-font-family, $m-font-size * $tablet-font-factor, $m-line-height * $tablet-line-height-factor),
-  screen: ($header-font-family, $m-font-size * $screen-font-factor, $m-line-height * $screen-line-height-factor),
-  wide: ($header-font-family, $m-font-size * $wide-font-factor, $m-line-height * $wide-line-height-factor),
-  hd: ($header-font-family, $m-font-size * $hd-font-factor, $m-line-height * $hd-line-height-factor)
+  null: ($m-font-size * $xs-font-factor, $m-line-height * $xs-line-height-factor),
+  s: ($m-font-size * $s-font-factor, $m-line-height * $s-line-height-factor),
+  m: ($m-font-size * $m-font-factor, $m-line-height * $m-line-height-factor),
+  l: ($m-font-size * $l-font-factor, $m-line-height * $l-line-height-factor),
+  xl: ($m-font-size * $xl-font-factor, $m-line-height * $xl-line-height-factor)
 );
 
 $l-header-font: (
-  null: ($header-font-family, $l-font-size * $phone-font-factor, $l-line-height * $phone-line-height-factor),
-  tablet: ($header-font-family, $l-font-size * $tablet-font-factor, $l-line-height * $tablet-line-height-factor),
-  screen: ($header-font-family, $l-font-size * $screen-font-factor, $l-line-height * $screen-line-height-factor),
-  wide: ($header-font-family, $l-font-size * $wide-font-factor, $l-line-height * $wide-line-height-factor),
-  hd: ($header-font-family, $l-font-size * $hd-font-factor, $l-line-height * $hd-line-height-factor)
+  null: ($l-font-size * $xs-font-factor, $l-line-height * $xs-line-height-factor),
+  s: ($l-font-size * $s-font-factor, $l-line-height * $s-line-height-factor),
+  m: ($l-font-size * $m-font-factor, $l-line-height * $m-line-height-factor),
+  l: ($l-font-size * $l-font-factor, $l-line-height * $l-line-height-factor),
+  xl: ($l-font-size * $xl-font-factor, $l-line-height * $xl-line-height-factor)
 );
 
 $xl-header-font: (
-  null: ($header-font-family, $xl-font-size * $phone-font-factor, $xl-line-height * $phone-line-height-factor),
-  tablet: ($header-font-family, $xl-font-size * $tablet-font-factor, $xl-line-height * $tablet-line-height-factor),
-  screen: ($header-font-family, $xl-font-size * $screen-font-factor, $xl-line-height * $screen-line-height-factor),
-  wide: ($header-font-family, $xl-font-size * $wide-font-factor, $xl-line-height * $wide-line-height-factor),
-  hd: ($header-font-family, $xl-font-size * $hd-font-factor, $xl-line-height * $hd-line-height-factor)
+  null: ($xl-font-size * $xs-font-factor, $xl-line-height * $xs-line-height-factor),
+  s: ($xl-font-size * $s-font-factor, $xl-line-height * $s-line-height-factor),
+  m: ($xl-font-size * $m-font-factor, $xl-line-height * $m-line-height-factor),
+  l: ($xl-font-size * $l-font-factor, $xl-line-height * $l-line-height-factor),
+  xl: ($xl-font-size * $xl-font-factor, $xl-line-height * $xl-line-height-factor)
 );
