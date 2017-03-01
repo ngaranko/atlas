@@ -164,6 +164,7 @@
                 // Return params without authorization parameters (includes also language, sorry)
                 let newParams = storage.session.getItem(CALLBACK_PARAMS);
                 newParams = newParams ? angular.fromJson(newParams) : {};
+                storage.session.removeItem(CALLBACK_PARAMS);
                 $location.replace();    // overwrite the existing location (prevent back button to re-login)
                 $location.search(newParams);
             });
