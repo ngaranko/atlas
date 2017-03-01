@@ -14,9 +14,9 @@
             controllerAs: 'vm'
         });
 
-    DpDataSelectionDownloadButtonController.$inject = ['$window', '$scope', 'API_CONFIG', 'DATA_SELECTION_CONFIG'];
+    DpDataSelectionDownloadButtonController.$inject = ['$window', '$scope', 'sharedConfig', 'DATA_SELECTION_CONFIG'];
 
-    function DpDataSelectionDownloadButtonController ($window, $scope, API_CONFIG, DATA_SELECTION_CONFIG) {
+    function DpDataSelectionDownloadButtonController ($window, $scope, sharedConfig, DATA_SELECTION_CONFIG) {
         let vm = this,
             filterParams = [];
 
@@ -29,7 +29,7 @@
         function setDownloadUrl () {
             filterParams.length = 0;
 
-            vm.downloadUrl = API_CONFIG.ROOT + DATA_SELECTION_CONFIG.datasets[vm.dataset].ENDPOINT_EXPORT;
+            vm.downloadUrl = sharedConfig.API_ROOT + DATA_SELECTION_CONFIG.datasets[vm.dataset].ENDPOINT_EXPORT;
 
             DATA_SELECTION_CONFIG.datasets[vm.dataset].FILTERS.forEach(function (filter) {
                 if (angular.isString(vm.activeFilters[filter.slug])) {

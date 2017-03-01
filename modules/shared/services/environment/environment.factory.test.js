@@ -35,6 +35,20 @@ describe('The environment factory', function () {
             });
         });
 
+        it('uses ACCEPTATION on acc.atlas.amsterdam.nl and acc.data.amsterdam.nl', () => {
+            const hostnames = ['acc.atlas.amsterdam.nl', 'acc.data.amsterdam.nl'];
+
+            hostnames.forEach(function (hostname) {
+                mockedHostname = hostname;
+
+                angular.mock.inject(function (environment) {
+                    expect(environment).toEqual({
+                        NAME: 'ACCEPTATION'
+                    });
+                });
+            });
+        });
+
         it('and a fallback to development for the rest', function () {
             const hostnames = ['localhost', 'example.com', 'acc.atlas.amsterdam.nl'];
 
