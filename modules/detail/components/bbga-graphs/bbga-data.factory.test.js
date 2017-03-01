@@ -7,11 +7,12 @@ describe('The bbgaDataService', function () {
     beforeEach(function () {
         angular.mock.module(
             'dpDetail',
+            {
+                sharedConfig: {
+                    API_ROOT: 'http://www.api-root.com/'
+                }
+            },
             function ($provide) {
-                $provide.constant('API_CONFIG', {
-                    ROOT: 'http://www.api-root.com/'
-                });
-
                 $provide.constant('BBGA_CONFIG', {
                     MY_GRAPH_SETTINGS: [
                         {

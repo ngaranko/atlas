@@ -31,10 +31,10 @@ describe('Straatbeeld reducers factory', function () {
 
         angular.mock.module(
             'atlas',
-            {
-                straatbeeldConfig: {
+            function ($provide) {
+                $provide.constant('STRAATBEELD_CONFIG', {
                     DEFAULT_FOV: 79
-                }
+                });
             }
         );
 
