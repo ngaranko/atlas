@@ -1,4 +1,8 @@
 body,
+input,
+textarea,
+keygen,
+select,
 button {
   @include font-size($s-font);
   color: $primary-dark;
