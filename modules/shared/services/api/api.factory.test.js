@@ -14,13 +14,9 @@ describe('The api factory', function () {
                     getAccessToken: () => isLoggedIn ? 'MY_FAKE_ACCESS_TOKEN' : null
                 },
                 sharedConfig: {
-                    API_ROOT: 'http://www.i-am-the-api-root.com/path/'
-                }
-            },
-            function ($provide) {
-                $provide.constant('API_CONFIG', {
+                    API_ROOT: 'http://www.i-am-the-api-root.com/path/',
                     AUTH_HEADER_PREFIX: 'Bearer '
-                });
+                }
             }
         );
 
@@ -122,3 +118,4 @@ describe('The api factory', function () {
         $httpBackend.flush();
     });
 });
+

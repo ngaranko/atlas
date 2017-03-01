@@ -25,7 +25,7 @@
 
             let token = user.getAccessToken();
             if (token) {
-                headers.Authorization = API_CONFIG.AUTH_HEADER_PREFIX + token;
+                headers.Authorization = sharedConfig.AUTH_HEADER_PREFIX + token;
             }
 
             let options = {

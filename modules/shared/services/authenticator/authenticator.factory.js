@@ -8,7 +8,6 @@
     authenticatorFactory.$inject = [
         '$http',
         '$interval',
-        'API_CONFIG',
         'sharedConfig',
         'user',
         '$window',
@@ -18,7 +17,6 @@
     function authenticatorFactory (
         $http,
         $interval,
-        API_CONFIG,
         sharedConfig,
         user,
         $window,
@@ -31,6 +29,8 @@
         };
 
         const AUTH_PARAMS = ['a-select-server', 'aselect_credentials', 'rid'];
+
+        const AUTH_PATH = 'auth';
 
         const REFRESH_INTERVAL = 1000 * 60 * 4.5;   // every 4.5 minutes
         const RETRY_INTERVAL = 1000 * 5;            // every 5 seconds
@@ -142,15 +142,12 @@
 
         function login () {     // redirect to external authentication provider
             let url = $location.absUrl();
-
             if (url.indexOf('#') === -1) {
                 url += '#';
             }
-
-            $window.location.href = sharedConfig.API_ROOT +
-                API_CONFIG.AUTH +
-                '/siam/authenticate?active=true&callback=' +
-                encodeURIComponent(url);
+            $window.location.href =
+                sharedConfig.API_ROOT + AUTH_PATH +
+                '/siam/authenticate?active=true&callback=' + encodeURIComponent(url);
         }
 
         function isCallback (params) {
@@ -188,7 +185,7 @@
         }
 
         function requestAccessToken (token) {   // initiated by tokenLoop, return WAITING
-            authRequest('/accesstoken', {'Authorization': API_CONFIG.AUTH_HEADER_PREFIX + token})
+            authRequest('/accesstoken', {'Authorization': sharedConfig.AUTH_HEADER_PREFIX + token})
                 .then(response => onAccessToken(response.data),
                     onRequestAccessTokenError);
             return STATE.WAITING;
@@ -197,7 +194,7 @@
         function authRequest (url, headers, params) {
             return $http({
                 method: 'GET',
-                url: sharedConfig.API_ROOT + API_CONFIG.AUTH + url,
+                url: sharedConfig.API_ROOT + AUTH_PATH + url,
                 headers: angular.merge({'Content-Type': 'text/plain'}, headers),
                 params: params
             });
