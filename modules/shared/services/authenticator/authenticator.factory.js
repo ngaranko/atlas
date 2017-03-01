@@ -6,27 +6,25 @@
         .factory('authenticator', authenticatorFactory);
 
     authenticatorFactory.$inject = [
-        '$rootScope',
         '$http',
         '$interval',
         'sharedConfig',
         'user',
+        'applicationState',
         '$window',
         '$location',
         'storage'
     ];
 
     function authenticatorFactory (
-        $rootScope,
         $http,
         $interval,
         sharedConfig,
         user,
+        applicationState,
         $window,
         $location,
         storage) {
-        console.log('Init authenticator');
-
         const ERROR_MESSAGES = {
             400: 'Verplichte parameter is niet aanwezig.',
             404: 'Er is iets mis met de inlog server, probeer het later nog eens.',
@@ -39,7 +37,6 @@
         const AUTH_PATH = 'auth';
 
         const CALLBACK_PARAMS = 'callbackParams';   // save callback params in session storage
-        const CALLBACK_URL = 'callbackUrl';   // save callback params in session storage
 
         const REFRESH_INTERVAL = 1000 * 60 * 4.5;   // every 4.5 minutes
 
@@ -100,19 +97,13 @@
         function onRefreshToken (token, userType) {
             setError();
             user.setRefreshToken(token, userType);
-            tokenLoop(STATE.REQUEST_ACCESS_TOKEN);
+            tokenLoop(STATE.ON_REFRESH_TOKEN);
         }
 
         function onAccessToken (token) {
             setError();
             user.setAccessToken(token);
             tokenLoop(STATE.ON_ACCESS_TOKEN);
-
-            let callback = storage.session.getItem(CALLBACK_URL);
-            if (callback) {
-                storage.session.removeItem(CALLBACK_URL);
-                $window.location.replace(callback);
-            }
         }
 
         function onRequestUserTokenError (response) {
@@ -146,14 +137,36 @@
             error.statusText = statusText || '';
         }
 
+        function savePath () {
+            storage.session.setItem(CALLBACK_PARAMS, angular.toJson($location.search()));   // encode params
+        }
+
+        function restorePath () {
+            let params = storage.session.getItem(CALLBACK_PARAMS);
+            storage.session.removeItem(CALLBACK_PARAMS);
+
+            params = params && angular.fromJson(params);    // decode params
+            if (!(params && Object.keys(params).length)) {
+                // set params to default state
+                let stateUrlConverter = applicationState.getStateUrlConverter();
+                params = stateUrlConverter.state2params(stateUrlConverter.getDefaultState());
+            }
+
+            $location.replace();    // overwrite the existing location (prevent back button to re-login)
+            $location.search(params);
+        }
+
         function login () {     // redirect to external authentication provider
-            let url = $location.absUrl().replace(/\#\?.*$/, '').concat('#');
-            storage.session.setItem(CALLBACK_PARAMS, angular.toJson($location.search()));
-            let callbackUrl = $location.absUrl().replace(/\/$/, '/#');
-            storage.session.setItem(CALLBACK_URL, callbackUrl);
+            savePath();
+            let callback = $location.absUrl().replace(/\#\?.*$/, '').concat('#');
             $window.location.href =
                 sharedConfig.API_ROOT + AUTH_PATH +
-                '/siam/authenticate?active=true&callback=' + encodeURIComponent(url);
+                '/siam/authenticate?active=true&callback=' + encodeURIComponent(callback);
+        }
+
+        function handleCallback (params) {  // request user token with returned authorization parameters from callback
+            restorePath();
+            requestUserToken(params);
         }
 
         function isCallback (params) {
@@ -161,28 +174,6 @@
             // the fastest check is not to check if all parameters are defined but
             // to check that no undefined parameter can be found
             return !AUTH_PARAMS.find(key => angular.isUndefined(params[key]));
-        }
-
-        function handleCallback (params) {  // request user token with returned authorization parameters from callback
-            console.log('Handle callback');
-            console.log('Change location');
-            requestUserToken(params);
-            // Return params without authorization parameters (includes also language, sorry)
-            // return requestUserToken(params).finally(() => {
-            //     // overwrite the existing location (prevent back button to re-login)
-            //     // let newParams = storage.session.getItem(CALLBACK_PARAMS);
-            //     // newParams = newParams ? angular.fromJson(newParams) : {};
-            //     // storage.session.removeItem(CALLBACK_PARAMS);
-            //     // console.log('Params', newParams);
-            //     // $location.replace();    // overwrite the existing location (prevent back button to re-login)
-            //     // if (Object.keys(newParams).length) {
-            //     //     console.log('setParams', newParams);
-            //     //     $location.search(newParams);
-            //     // } else {
-            //     //     console.log('setUrl', '/#');
-            //     //     $location.url('/#');
-            //     // }
-            // });
         }
 
         function requestUserToken (params) {    // initiated externally, called by handleCallback

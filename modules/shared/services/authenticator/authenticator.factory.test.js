@@ -62,6 +62,18 @@ describe(' The authenticator factory', function () {
                         getItem: angular.noop,
                         removeItem: angular.noop
                     }
+                },
+                applicationState: {
+                    getStateUrlConverter: () => {
+                        return {
+                            state2params: state => state,
+                            getDefaultState: () => {
+                                return {
+                                    default: 'state'
+                                };
+                            }
+                        };
+                    }
                 }
             }
         );
@@ -141,7 +153,7 @@ describe(' The authenticator factory', function () {
         authenticator.login();
         expect($window.location.href)
             .toBe(AUTH_PATH + '/siam/authenticate?active=true&callback=' + encodeURIComponent('absUrl/#'));
-        expect(storage.session.setItem).toHaveBeenCalledWith('callback', angular.toJson({one: 1}));
+        expect(storage.session.setItem).toHaveBeenCalledWith('callbackParams', angular.toJson({one: 1}));
     });
 
     it('can login a user by redirecting to an external security provider, adds # to path when missing', function () {
@@ -182,7 +194,7 @@ describe(' The authenticator factory', function () {
 
         expect(user.setRefreshToken).toHaveBeenCalledWith('token', user.USER_TYPE.AUTHENTICATED);
         expect($location.replace).toHaveBeenCalled();
-        expect($location.search).toHaveBeenCalledWith({});
+        expect($location.search).toHaveBeenCalledWith({default: 'state'});
         expect(user.setAccessToken).toHaveBeenCalledWith('accesstoken');
         $httpBackend.verifyNoOutstandingRequest();
     });
@@ -202,7 +214,7 @@ describe(' The authenticator factory', function () {
         $httpBackend.verifyNoOutstandingRequest();
     });
 
-    it('defaults to home page when no save callbackd path can be found', function () {
+    it('defaults to home page when no saved callback path can be found', function () {
         spyOn($location, 'search');
         spyOn(storage.session, 'getItem').and.returnValue(null);
 
@@ -213,7 +225,7 @@ describe(' The authenticator factory', function () {
         authenticator.handleCallback({'a-select-server': 1, 'aselect_credentials': 2, 'rid': 3});
         $httpBackend.flush();
 
-        expect($location.search).toHaveBeenCalledWith({});
+        expect($location.search).toHaveBeenCalledWith({default: 'state'});
         $httpBackend.verifyNoOutstandingRequest();
     });
 

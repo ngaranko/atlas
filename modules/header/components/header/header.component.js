@@ -24,8 +24,8 @@
 
         vm.isAuthenticated = () => user.getUserType() === user.USER_TYPE.AUTHENTICATED;
 
-        vm.userName = () => user.getName().replace(/@.*$/, '');
-
-        vm.userIsBevoegd = () => user.getAuthorizationLevel() === user.AUTHORIZATION_LEVEL.EMPLOYEE;
+        // vm.userName = () => user.getName().replace(/@.*$/, '');
+        //
+        // vm.userIsBevoegd = () => user.getAuthorizationLevel() === user.AUTHORIZATION_LEVEL.EMPLOYEE;
     }
 })();
