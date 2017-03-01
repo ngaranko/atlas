@@ -37,31 +37,26 @@
         const CALLBACK_PARAMS = 'callback';   // save callback params in session storage
 
         const REFRESH_INTERVAL = 1000 * 60 * 4.5;   // every 4.5 minutes
-        const RETRY_INTERVAL = 1000 * 5;            // every 5 seconds
 
         const STATE = {     // State transitions used in tokenLoop
             INIT: () =>
                 STATE.RESTORE_REFRESH_TOKEN,
             RESTORE_REFRESH_TOKEN: () =>
-                user.getRefreshToken() ? STATE.REQUEST_ACCESS_TOKEN : STATE.REQUEST_ANONYMOUS_REFRESH_TOKEN,
-            REQUEST_ANONYMOUS_REFRESH_TOKEN: () =>
-                requestAnonymousToken(),
+                user.getRefreshToken() ? STATE.REQUEST_ACCESS_TOKEN : STATE.WAIT,
             ON_REFRESH_TOKEN: () =>
                 STATE.REQUEST_ACCESS_TOKEN,
-            ON_ANONYMOUS_REFRESH_TOKEN_ERROR: () =>
-                tokenLoop(STATE.REQUEST_ANONYMOUS_REFRESH_TOKEN, RETRY_INTERVAL),
             ON_AUTHENTICATED_REFRESH_TOKEN_ERROR: () =>
-                STATE.REQUEST_ANONYMOUS_REFRESH_TOKEN,
+                STATE.WAIT,
             REQUEST_ACCESS_TOKEN: () =>
                 requestAccessToken(user.getRefreshToken()),
             ON_ACCESS_TOKEN: () =>
                 tokenLoop(STATE.REQUEST_ACCESS_TOKEN, REFRESH_INTERVAL),
             ON_ANONYMOUS_ACCESS_TOKEN_ERROR: () =>
-                tokenLoop(STATE.REQUEST_ANONYMOUS_REFRESH_TOKEN, RETRY_INTERVAL),
+                STATE.WAIT,
             ON_AUTHENTICATED_ACCESS_TOKEN_ERROR: () =>
-                STATE.REQUEST_ANONYMOUS_REFRESH_TOKEN,
+                STATE.WAIT,
             ON_LOGOUT: () =>
-                STATE.REQUEST_ANONYMOUS_REFRESH_TOKEN,
+                STATE.WAIT,
             WAITING: () =>
                 null // Wait for re-invocation of the tokenLoop...
         };
@@ -107,10 +102,6 @@
             setError();
             user.setAccessToken(token);
             tokenLoop(STATE.ON_ACCESS_TOKEN);
-        }
-
-        function onRequestAnonymousTokenError (response) {
-            onError(response, STATE.ON_ANONYMOUS_REFRESH_TOKEN_ERROR);
         }
 
         function onRequestUserTokenError (response) {
@@ -178,13 +169,6 @@
             return authRequest('/siam/token', {}, httpParams)
                 .then(response => onRefreshToken(response.data, user.USER_TYPE.AUTHENTICATED),
                     onRequestUserTokenError);
-        }
-
-        function requestAnonymousToken () {     // initiated by tokenLoop, return WAITING
-            authRequest('/refreshtoken')
-                .then(response => onRefreshToken(response.data, user.USER_TYPE.ANONYMOUS),
-                    onRequestAnonymousTokenError);
-            return STATE.WAITING;
         }
 
         function requestAccessToken (token) {   // initiated by tokenLoop, return WAITING

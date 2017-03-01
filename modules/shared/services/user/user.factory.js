@@ -150,8 +150,8 @@
         }
 
         function setRefreshToken (token, userType) {
-            user.refreshToken = token;
             user.type = userType;
+            user.refreshToken = token;
         }
 
         function getAccessToken () {
@@ -176,6 +176,7 @@
 
         function clearToken () {
             user.clear();
+            user.log();
         }
     }
 })();
