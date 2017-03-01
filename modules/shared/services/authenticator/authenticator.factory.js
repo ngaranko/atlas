@@ -6,6 +6,7 @@
         .factory('authenticator', authenticatorFactory);
 
     authenticatorFactory.$inject = [
+        '$rootScope',
         '$http',
         '$interval',
         'sharedConfig',
@@ -16,6 +17,7 @@
     ];
 
     function authenticatorFactory (
+        $rootScope,
         $http,
         $interval,
         sharedConfig,
@@ -23,6 +25,8 @@
         $window,
         $location,
         storage) {
+        console.log('Init authenticator');
+
         const ERROR_MESSAGES = {
             400: 'Verplichte parameter is niet aanwezig.',
             404: 'Er is iets mis met de inlog server, probeer het later nog eens.',
@@ -34,7 +38,8 @@
 
         const AUTH_PATH = 'auth';
 
-        const CALLBACK_PARAMS = 'callback';   // save callback params in session storage
+        const CALLBACK_PARAMS = 'callbackParams';   // save callback params in session storage
+        const CALLBACK_URL = 'callbackUrl';   // save callback params in session storage
 
         const REFRESH_INTERVAL = 1000 * 60 * 4.5;   // every 4.5 minutes
 
@@ -95,13 +100,19 @@
         function onRefreshToken (token, userType) {
             setError();
             user.setRefreshToken(token, userType);
-            tokenLoop(STATE.ON_REFRESH_TOKEN);
+            tokenLoop(STATE.REQUEST_ACCESS_TOKEN);
         }
 
         function onAccessToken (token) {
             setError();
             user.setAccessToken(token);
             tokenLoop(STATE.ON_ACCESS_TOKEN);
+
+            let callback = storage.session.getItem(CALLBACK_URL);
+            if (callback) {
+                storage.session.removeItem(CALLBACK_URL);
+                $window.location.replace(callback);
+            }
         }
 
         function onRequestUserTokenError (response) {
@@ -138,6 +149,8 @@
         function login () {     // redirect to external authentication provider
             let url = $location.absUrl().replace(/\#\?.*$/, '').concat('#');
             storage.session.setItem(CALLBACK_PARAMS, angular.toJson($location.search()));
+            let callbackUrl = $location.absUrl().replace(/\/$/, '/#');
+            storage.session.setItem(CALLBACK_URL, callbackUrl);
             $window.location.href =
                 sharedConfig.API_ROOT + AUTH_PATH +
                 '/siam/authenticate?active=true&callback=' + encodeURIComponent(url);
@@ -151,14 +164,25 @@
         }
 
         function handleCallback (params) {  // request user token with returned authorization parameters from callback
-            return requestUserToken(params).finally(() => {
-                // Return params without authorization parameters (includes also language, sorry)
-                let newParams = storage.session.getItem(CALLBACK_PARAMS);
-                newParams = newParams ? angular.fromJson(newParams) : {};
-                storage.session.removeItem(CALLBACK_PARAMS);
-                $location.replace();    // overwrite the existing location (prevent back button to re-login)
-                $location.search(newParams);
-            });
+            console.log('Handle callback');
+            console.log('Change location');
+            requestUserToken(params);
+            // Return params without authorization parameters (includes also language, sorry)
+            // return requestUserToken(params).finally(() => {
+            //     // overwrite the existing location (prevent back button to re-login)
+            //     // let newParams = storage.session.getItem(CALLBACK_PARAMS);
+            //     // newParams = newParams ? angular.fromJson(newParams) : {};
+            //     // storage.session.removeItem(CALLBACK_PARAMS);
+            //     // console.log('Params', newParams);
+            //     // $location.replace();    // overwrite the existing location (prevent back button to re-login)
+            //     // if (Object.keys(newParams).length) {
+            //     //     console.log('setParams', newParams);
+            //     //     $location.search(newParams);
+            //     // } else {
+            //     //     console.log('setUrl', '/#');
+            //     //     $location.url('/#');
+            //     // }
+            // });
         }
 
         function requestUserToken (params) {    // initiated externally, called by handleCallback
