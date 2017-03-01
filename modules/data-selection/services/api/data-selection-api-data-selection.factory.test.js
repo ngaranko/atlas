@@ -18,12 +18,10 @@ describe('The dataSelectionApiDataSelection factory', function () {
 
                         return q.promise;
                     }
+                },
+                sharedConfig: {
+                    API_ROOT: 'https://api.amsterdam.nl/'
                 }
-            },
-            function ($provide) {
-                $provide.constant('API_CONFIG', {
-                    ROOT: 'https://api.amsterdam.nl/'
-                });
             }
         );
 

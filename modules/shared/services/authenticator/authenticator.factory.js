@@ -8,7 +8,7 @@
     authenticatorFactory.$inject = [
         '$http',
         '$interval',
-        'API_CONFIG',
+        'sharedConfig',
         'user',
         '$window',
         '$location'
@@ -17,7 +17,7 @@
     function authenticatorFactory (
         $http,
         $interval,
-        API_CONFIG,
+        sharedConfig,
         user,
         $window,
         $location) {
@@ -29,6 +29,8 @@
         };
 
         const AUTH_PARAMS = ['a-select-server', 'aselect_credentials', 'rid'];
+
+        const AUTH_PATH = 'auth';
 
         const REFRESH_INTERVAL = 1000 * 60 * 4.5;   // every 4.5 minutes
         const RETRY_INTERVAL = 1000 * 5;            // every 5 seconds
@@ -144,7 +146,8 @@
                 url += '#';
             }
             $window.location.href =
-                API_CONFIG.AUTH + '/siam/authenticate?active=true&callback=' + encodeURIComponent(url);
+                sharedConfig.API_ROOT + AUTH_PATH +
+                '/siam/authenticate?active=true&callback=' + encodeURIComponent(url);
         }
 
         function isCallback (params) {
@@ -182,7 +185,7 @@
         }
 
         function requestAccessToken (token) {   // initiated by tokenLoop, return WAITING
-            authRequest('/accesstoken', {'Authorization': API_CONFIG.AUTH_HEADER_PREFIX + token})
+            authRequest('/accesstoken', {'Authorization': sharedConfig.AUTH_HEADER_PREFIX + token})
                 .then(response => onAccessToken(response.data),
                     onRequestAccessTokenError);
             return STATE.WAITING;
@@ -191,7 +194,7 @@
         function authRequest (url, headers, params) {
             return $http({
                 method: 'GET',
-                url: API_CONFIG.AUTH + url,
+                url: sharedConfig.API_ROOT + AUTH_PATH + url,
                 headers: angular.merge({'Content-Type': 'text/plain'}, headers),
                 params: params
             });

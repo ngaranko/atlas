@@ -12,9 +12,9 @@
             controllerAs: 'vm'
         });
 
-    DpStraatbeeldThumbnailController.$inject = ['$scope', 'SHARED_CONFIG', 'api', 'userSettings'];
+    DpStraatbeeldThumbnailController.$inject = ['$scope', 'sharedConfig', 'api', 'userSettings'];
 
-    function DpStraatbeeldThumbnailController ($scope, SHARED_CONFIG, api, userSettings) {
+    function DpStraatbeeldThumbnailController ($scope, sharedConfig, api, userSettings) {
         var vm = this,
             imageUrl,
             heading,
@@ -27,14 +27,15 @@
         });
 
         function loadThumbnail () {
-            imageUrl = SHARED_CONFIG.STRAATBEELD_THUMB_URL +
+            imageUrl = sharedConfig.API_ROOT +
+                sharedConfig.STRAATBEELD_THUMB_URL +
                 '?lat=' + vm.location[0] +
                 '&lon=' + vm.location[1] +
-                '&width=' + SHARED_CONFIG.THUMBNAIL_WIDTH +
-                '&radius=' + SHARED_CONFIG.RADIUS;
+                '&width=' + sharedConfig.THUMBNAIL_WIDTH +
+                '&radius=' + sharedConfig.RADIUS;
 
             vm.isLoading = true;
-            vm.radius = SHARED_CONFIG.RADIUS;
+            vm.radius = sharedConfig.RADIUS;
 
             api.getByUrl(imageUrl).then(function (thumbnailData) {
                 heading = thumbnailData.heading;
