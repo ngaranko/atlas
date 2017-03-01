@@ -14,12 +14,6 @@ describe('The marzipanoService factory', function () {
         angular.mock.module(
             'dpStraatbeeld',
             {
-                straatbeeldConfig: {
-                    MAX_RESOLUTION: 1000,
-                    MAX_FOV: 100,
-                    CAMERA_HEIGHT: 1,
-                    LEVEL_PROPERTIES_LIST: ['FAKE_LEVEL', 'PROPERTIES_LIST']
-                },
                 angleConversion: {
                     degreesToRadians: function (input) {
                         return input / 2;
@@ -34,6 +28,14 @@ describe('The marzipanoService factory', function () {
                         return q.promise;
                     }
                 }
+            },
+            function ($provide) {
+                $provide.constant('STRAATBEELD_CONFIG', {
+                    MAX_RESOLUTION: 1000,
+                    MAX_FOV: 100,
+                    CAMERA_HEIGHT: 1,
+                    LEVEL_PROPERTIES_LIST: ['FAKE_LEVEL', 'PROPERTIES_LIST']
+                });
             }
         );
 

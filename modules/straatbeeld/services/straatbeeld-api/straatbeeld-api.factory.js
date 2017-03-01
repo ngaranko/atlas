@@ -5,9 +5,9 @@
         .module('dpStraatbeeld')
         .factory('straatbeeldApi', straatbeeldApiFactory);
 
-    straatbeeldApiFactory.$inject = ['$q', 'straatbeeldConfig', 'geojson', 'api'];
+    straatbeeldApiFactory.$inject = ['$q', 'STRAATBEELD_CONFIG', 'sharedConfig', 'geojson', 'api'];
 
-    function straatbeeldApiFactory ($q, straatbeeldConfig, geojson, api) {
+    function straatbeeldApiFactory ($q, STRAATBEELD_CONFIG, sharedConfig, geojson, api) {
         const MAX_RADIUS = 10000;   // The maximum distance from a location to search for a straatbeeld
         const START_RADIUS = 1000;  // The distance to start searching for a straatbeeld
 
@@ -34,7 +34,8 @@
          */
         function searchWithinRadius (location, radius) {
             let cappedRadius = Math.min(radius, MAX_RADIUS);
-            return getStraatbeeld(straatbeeldConfig.STRAATBEELD_ENDPOINT +
+
+            return getStraatbeeld(sharedConfig.API_ROOT + STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT +
                 `?lat=${location[0]}&lon=${location[1]}&radius=${cappedRadius}`)
                 .then(
                     data => {
@@ -50,7 +51,7 @@
         }
 
         function getImageDataById (id) {
-            return getStraatbeeld(straatbeeldConfig.STRAATBEELD_ENDPOINT + id + '/');
+            return getStraatbeeld(sharedConfig.API_ROOT + STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT + id + '/');
         }
 
         function getStraatbeeld (url) {
