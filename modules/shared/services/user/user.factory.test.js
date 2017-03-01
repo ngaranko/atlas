@@ -76,15 +76,10 @@ describe('The user factory', function () {
             expect(user.getAuthorizationLevel()).toBe(user.AUTHORIZATION_LEVEL.NONE);
         });
 
-        it('can store and tell the type of the user', function () {
-            user.setRefreshToken(testToken, user.USER_TYPE.ANONYMOUS);
-            expect(user.getUserType()).toBe(user.USER_TYPE.ANONYMOUS);
-        });
-
         it('stores the refresh token and user type in the userSettings', function () {
-            user.setRefreshToken(testToken, user.USER_TYPE.ANONYMOUS);
+            user.setRefreshToken(testToken, user.USER_TYPE.AUTHENTICATED);
             expect(userSettings.refreshToken.value).toBe(testToken);
-            expect(userSettings.userType.value).toBe(user.USER_TYPE.ANONYMOUS);
+            expect(userSettings.userType.value).toBe(user.USER_TYPE.AUTHENTICATED);
         });
 
         it('returns a default access token null', function () {

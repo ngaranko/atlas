@@ -10,7 +10,6 @@
     function userFactory ($log, $window, userSettings) {
         const USER_TYPE = { // the possible types of a user
             NONE: 'NONE',
-            ANONYMOUS: 'ANONYMOUS',
             AUTHENTICATED: 'AUTHENTICATED'
         };
 
