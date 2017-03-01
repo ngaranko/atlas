@@ -6,7 +6,8 @@
         <div ng-if="!vm.isCatalogus"
              class="qa-dashboard__default-header c-dashboard__heading"
              ng-class="{
-                 'c-dashboard__max-width': vm.hasMaxWidth
+                 'c-dashboard__max-width': vm.hasMaxWidth,
+                 'c-dashboard__heading--home-page': vm.isHomePage
              }"
              ng-controller="HeaderController as header">
 
@@ -33,7 +34,7 @@
         <!-- Body -->
         <div class="c-dashboard__body"
             ng-class="{
-                'c-dashboard__body--has-footer': vm.isHomePage,
+                'c-dashboard__body--home-page': vm.isHomePage,
                 'c-dashboard__body--error': vm.visibility.httpStatus
             }">
             <div class="u-grid">

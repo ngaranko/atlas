@@ -1,6 +1,8 @@
 @import "modules/shared/styles/config";
 
 $dashboard-heading-height: 50px;
+$dashboard-heading-height-home-page: 108px;
+$dashboard-toolbar-height: 40px;
 $dashboard-heading-height-printversion: 42px;
 $dashboard-footer-height: 40px;
 $dashboard-footer-separator-height: 8px;
@@ -33,6 +35,11 @@ $dashboard-margin-home-page: 42px;
   z-index: 2;
 }
 
+.c-dashboard__heading--home-page {
+  height: $dashboard-heading-height-home-page + $dashboard-toolbar-height;
+  border-bottom: $dashboard-toolbar-height solid $secondary-gray4;
+}
+
 .c-dashboard__body {
   position: relative;
   height: calc(100% - #{$dashboard-heading-height});
@@ -45,8 +52,12 @@ $dashboard-margin-home-page: 42px;
   }
 }
 
-.c-dashboard__body--has-footer {
-  height: calc(100% - #{$dashboard-heading-height} - #{$dashboard-footer-separator-height} - #{$dashboard-footer-height});
+.c-dashboard__body--home-page {
+  height: calc(100%
+    - #{$dashboard-heading-height-home-page}
+    - #{$dashboard-toolbar-height}
+    - #{$dashboard-footer-separator-height}
+    - #{$dashboard-footer-height});
 }
 
 .c-dashboard__body--error {
