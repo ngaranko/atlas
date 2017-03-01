@@ -3,13 +3,13 @@ describe(' The authenticator factory', function () {
         $window,
         $location,
         $interval,
-        API_CONFIG,
         user,
         authenticator,
         absUrl,
         mockedUser;
 
     const REFRESH_INTERVAL = 1000 * 60 * 5;
+    const AUTH_PATH = 'auth';
 
     beforeEach(function () {
         absUrl = 'absUrl';
@@ -52,7 +52,8 @@ describe(' The authenticator factory', function () {
                     search: angular.noop
                 },
                 sharedConfig: {
-                    API_ROOT: ''
+                    API_ROOT: '',
+                    AUTH_HEADER_PREFIX: 'Bearer '
                 }
             }
         );
@@ -62,14 +63,12 @@ describe(' The authenticator factory', function () {
             _$window_,
             _$location_,
             _$interval_,
-            _API_CONFIG_,
             _user_,
             _authenticator_) {
             $httpBackend = _$httpBackend_;
             $window = _$window_;
             $location = _$location_;
             $interval = _$interval_;
-            API_CONFIG = _API_CONFIG_;
             user = _user_;
             authenticator = _authenticator_;
         });
@@ -79,7 +78,7 @@ describe(' The authenticator factory', function () {
         spyOn(user, 'getRefreshToken').and.returnValue('token');
         spyOn(user, 'setAccessToken');
 
-        $httpBackend.whenGET(API_CONFIG.AUTH + '/accesstoken').respond('accesstoken');
+        $httpBackend.whenGET(AUTH_PATH + '/accesstoken').respond('accesstoken');
 
         authenticator.initialize();
         $httpBackend.flush();
@@ -93,8 +92,8 @@ describe(' The authenticator factory', function () {
         spyOn(user, 'setRefreshToken');
         spyOn(user, 'setAccessToken');
 
-        $httpBackend.whenGET(API_CONFIG.AUTH + '/refreshtoken').respond('refreshtoken');
-        $httpBackend.whenGET(API_CONFIG.AUTH + '/accesstoken').respond('accesstoken');
+        $httpBackend.whenGET(AUTH_PATH + '/refreshtoken').respond('refreshtoken');
+        $httpBackend.whenGET(AUTH_PATH + '/accesstoken').respond('accesstoken');
 
         authenticator.initialize();
         $httpBackend.flush();
@@ -108,7 +107,7 @@ describe(' The authenticator factory', function () {
         spyOn(user, 'getRefreshToken').and.returnValue(null);
         spyOn(user, 'clearToken');
 
-        $httpBackend.whenGET(API_CONFIG.AUTH + '/refreshtoken').respond(499);
+        $httpBackend.whenGET(AUTH_PATH + '/refreshtoken').respond(499);
 
         authenticator.initialize();
         $httpBackend.flush();
@@ -123,8 +122,8 @@ describe(' The authenticator factory', function () {
         spyOn(user, 'setRefreshToken');
         spyOn(user, 'clearToken');
 
-        $httpBackend.whenGET(API_CONFIG.AUTH + '/refreshtoken').respond('token');
-        $httpBackend.whenGET(API_CONFIG.AUTH + '/accesstoken').respond(499, 'error message');
+        $httpBackend.whenGET(AUTH_PATH + '/refreshtoken').respond('token');
+        $httpBackend.whenGET(AUTH_PATH + '/accesstoken').respond(499, 'error message');
 
         authenticator.initialize();
         $httpBackend.flush();
@@ -143,14 +142,14 @@ describe(' The authenticator factory', function () {
         absUrl = 'absUrl#arg';
         authenticator.login();
         expect($window.location.href)
-            .toBe(API_CONFIG.AUTH + '/siam/authenticate?active=true&callback=' + encodeURIComponent(absUrl));
+            .toBe(AUTH_PATH + '/siam/authenticate?active=true&callback=' + encodeURIComponent(absUrl));
     });
 
     it('can login a user by redirecting to an external security provider, adds # to path when missing', function () {
         absUrl = 'absUrl';
         authenticator.login();
         expect($window.location.href)
-            .toBe(API_CONFIG.AUTH + '/siam/authenticate?active=true&callback=' + encodeURIComponent(absUrl + '#'));
+            .toBe(AUTH_PATH + '/siam/authenticate?active=true&callback=' + encodeURIComponent(absUrl + '#'));
     });
 
     it('can logout a user and then continue as anonymous user', function () {
@@ -158,8 +157,8 @@ describe(' The authenticator factory', function () {
         spyOn(user, 'setRefreshToken');
         spyOn(user, 'setAccessToken');
 
-        $httpBackend.whenGET(API_CONFIG.AUTH + '/refreshtoken').respond('refreshtoken');
-        $httpBackend.whenGET(API_CONFIG.AUTH + '/accesstoken').respond('accesstoken');
+        $httpBackend.whenGET(AUTH_PATH + '/refreshtoken').respond('refreshtoken');
+        $httpBackend.whenGET(AUTH_PATH + '/accesstoken').respond('accesstoken');
 
         authenticator.logout();
         expect(user.clearToken).toHaveBeenCalled();
@@ -177,8 +176,8 @@ describe(' The authenticator factory', function () {
         spyOn(user, 'setRefreshToken');
         spyOn(user, 'setAccessToken');
 
-        $httpBackend.whenGET(API_CONFIG.AUTH + '/refreshtoken').respond('refreshtoken');
-        $httpBackend.whenGET(API_CONFIG.AUTH + '/accesstoken').respond('accesstoken');
+        $httpBackend.whenGET(AUTH_PATH + '/refreshtoken').respond('refreshtoken');
+        $httpBackend.whenGET(AUTH_PATH + '/accesstoken').respond('accesstoken');
 
         authenticator.initialize();
         $httpBackend.flush();
@@ -213,9 +212,9 @@ describe(' The authenticator factory', function () {
         spyOn($location, 'replace');
         spyOn($location, 'search');
 
-        $httpBackend.whenGET(API_CONFIG.AUTH + '/siam/token?a-select-server=1&aselect_credentials=2&rid=3')
+        $httpBackend.whenGET(AUTH_PATH + '/siam/token?a-select-server=1&aselect_credentials=2&rid=3')
             .respond('token');
-        $httpBackend.whenGET(API_CONFIG.AUTH + '/accesstoken').respond('accesstoken');
+        $httpBackend.whenGET(AUTH_PATH + '/accesstoken').respond('accesstoken');
 
         authenticator.handleCallback({one: 1, 'a-select-server': 1, 'aselect_credentials': 2, 'rid': 3});
         $httpBackend.flush();
@@ -230,10 +229,10 @@ describe(' The authenticator factory', function () {
     it('asks for an anonymous access token if a authenticated refresh token fails', function () {
         spyOn(user, 'setRefreshToken');
 
-        $httpBackend.whenGET(API_CONFIG.AUTH + '/siam/token?a-select-server=1&aselect_credentials=2&rid=3')
+        $httpBackend.whenGET(AUTH_PATH + '/siam/token?a-select-server=1&aselect_credentials=2&rid=3')
             .respond(400, 'errorMessage');
-        $httpBackend.whenGET(API_CONFIG.AUTH + '/refreshtoken').respond('anonymous token');
-        $httpBackend.whenGET(API_CONFIG.AUTH + '/accesstoken').respond('accesstoken');
+        $httpBackend.whenGET(AUTH_PATH + '/refreshtoken').respond('anonymous token');
+        $httpBackend.whenGET(AUTH_PATH + '/accesstoken').respond('accesstoken');
 
         authenticator.handleCallback({one: 1, 'a-select-server': 1, 'aselect_credentials': 2, 'rid': 3});
         $httpBackend.flush();
@@ -246,9 +245,9 @@ describe(' The authenticator factory', function () {
         spyOn(user, 'setRefreshToken').and.callThrough();
         spyOn(user, 'setAccessToken').and.callThrough();
 
-        $httpBackend.whenGET(API_CONFIG.AUTH + '/siam/token?a-select-server=1&aselect_credentials=2&rid=3')
+        $httpBackend.whenGET(AUTH_PATH + '/siam/token?a-select-server=1&aselect_credentials=2&rid=3')
             .respond('token');
-        let getAccessToken = $httpBackend.whenGET(API_CONFIG.AUTH + '/accesstoken');
+        let getAccessToken = $httpBackend.whenGET(AUTH_PATH + '/accesstoken');
 
         getAccessToken.respond('accesstoken');
 
@@ -264,7 +263,7 @@ describe(' The authenticator factory', function () {
         user.setAccessToken.calls.reset();
 
         getAccessToken.respond(400, 'access token error');
-        $httpBackend.whenGET(API_CONFIG.AUTH + '/refreshtoken').respond('anonymous token');
+        $httpBackend.whenGET(AUTH_PATH + '/refreshtoken').respond('anonymous token');
 
         $interval.flush(REFRESH_INTERVAL);   // force refresh of access token
         $httpBackend.flush();

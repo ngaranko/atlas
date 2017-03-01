@@ -5,9 +5,9 @@
         .module('dpShared')
         .factory('api', apiFactory);
 
-    apiFactory.$inject = ['$http', 'user', 'API_CONFIG', 'sharedConfig'];
+    apiFactory.$inject = ['$http', 'user', 'sharedConfig'];
 
-    function apiFactory ($http, user, API_CONFIG, sharedConfig) {
+    function apiFactory ($http, user, sharedConfig) {
         return {
             getByUrl,
             getByUri
@@ -25,7 +25,7 @@
 
             let token = user.getAccessToken();
             if (token) {
-                headers.Authorization = API_CONFIG.AUTH_HEADER_PREFIX + token;
+                headers.Authorization = sharedConfig.AUTH_HEADER_PREFIX + token;
             }
 
             let options = {
