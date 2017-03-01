@@ -3,6 +3,7 @@ describe(' The authenticator factory', function () {
         $window,
         $location,
         $interval,
+        storage,
         user,
         authenticator,
         absUrl,
@@ -54,6 +55,12 @@ describe(' The authenticator factory', function () {
                 sharedConfig: {
                     API_ROOT: '',
                     AUTH_HEADER_PREFIX: 'Bearer '
+                },
+                storage: {
+                    session: {
+                        setItem: angular.noop,
+                        getItem: angular.noop
+                    }
                 }
             }
         );
@@ -63,12 +70,14 @@ describe(' The authenticator factory', function () {
             _$window_,
             _$location_,
             _$interval_,
+            _storage_,
             _user_,
             _authenticator_) {
             $httpBackend = _$httpBackend_;
             $window = _$window_;
             $location = _$location_;
             $interval = _$interval_;
+            storage = _storage_;
             user = _user_;
             authenticator = _authenticator_;
         });
@@ -139,10 +148,20 @@ describe(' The authenticator factory', function () {
     });
 
     it('can login a user by redirecting to an external security provider', function () {
-        absUrl = 'absUrl#arg';
+        absUrl = 'absUrl/#?arg';
         authenticator.login();
         expect($window.location.href)
-            .toBe(AUTH_PATH + '/siam/authenticate?active=true&callback=' + encodeURIComponent(absUrl));
+            .toBe(AUTH_PATH + '/siam/authenticate?active=true&callback=' + encodeURIComponent('absUrl/#'));
+    });
+
+    it('saves the current path in the session when redirecting to an external security provider', function () {
+        spyOn(storage.session, 'setItem');
+        spyOn($location, 'search').and.returnValue({one: 1});
+        absUrl = 'absUrl/#?arg';
+        authenticator.login();
+        expect($window.location.href)
+            .toBe(AUTH_PATH + '/siam/authenticate?active=true&callback=' + encodeURIComponent('absUrl/#'));
+        expect(storage.session.setItem).toHaveBeenCalledWith('callback', angular.toJson({one: 1}));
     });
 
     it('can login a user by redirecting to an external security provider, adds # to path when missing', function () {
@@ -221,8 +240,38 @@ describe(' The authenticator factory', function () {
 
         expect(user.setRefreshToken).toHaveBeenCalledWith('token', user.USER_TYPE.AUTHENTICATED);
         expect($location.replace).toHaveBeenCalled();
-        expect($location.search).toHaveBeenCalledWith({one: 1});
+        expect($location.search).toHaveBeenCalledWith({});
         expect(user.setAccessToken).toHaveBeenCalledWith('accesstoken');
+        $httpBackend.verifyNoOutstandingRequest();
+    });
+
+    it('retrieves a saved callback path when handling callback messages from external security provider', function () {
+        spyOn($location, 'search');
+        spyOn(storage.session, 'getItem').and.returnValue(angular.toJson({one: 1}));
+
+        $httpBackend.whenGET(AUTH_PATH + '/siam/token?a-select-server=1&aselect_credentials=2&rid=3')
+            .respond('token');
+        $httpBackend.whenGET(AUTH_PATH + '/accesstoken').respond('accesstoken');
+
+        authenticator.handleCallback({'a-select-server': 1, 'aselect_credentials': 2, 'rid': 3});
+        $httpBackend.flush();
+
+        expect($location.search).toHaveBeenCalledWith({one: 1});
+        $httpBackend.verifyNoOutstandingRequest();
+    });
+
+    it('defaults to home page when no save callbackd path can be found', function () {
+        spyOn($location, 'search');
+        spyOn(storage.session, 'getItem').and.returnValue(null);
+
+        $httpBackend.whenGET(AUTH_PATH + '/siam/token?a-select-server=1&aselect_credentials=2&rid=3')
+            .respond('token');
+        $httpBackend.whenGET(AUTH_PATH + '/accesstoken').respond('accesstoken');
+
+        authenticator.handleCallback({'a-select-server': 1, 'aselect_credentials': 2, 'rid': 3});
+        $httpBackend.flush();
+
+        expect($location.search).toHaveBeenCalledWith({});
         $httpBackend.verifyNoOutstandingRequest();
     });
 

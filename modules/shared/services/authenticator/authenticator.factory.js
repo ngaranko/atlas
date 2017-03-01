@@ -11,7 +11,8 @@
         'sharedConfig',
         'user',
         '$window',
-        '$location'
+        '$location',
+        'storage'
     ];
 
     function authenticatorFactory (
@@ -20,7 +21,8 @@
         sharedConfig,
         user,
         $window,
-        $location) {
+        $location,
+        storage) {
         const ERROR_MESSAGES = {
             400: 'Verplichte parameter is niet aanwezig.',
             404: 'Er is iets mis met de inlog server, probeer het later nog eens.',
@@ -31,6 +33,8 @@
         const AUTH_PARAMS = ['a-select-server', 'aselect_credentials', 'rid'];
 
         const AUTH_PATH = 'auth';
+
+        const CALLBACK_PARAMS = 'callback';   // save callback params in session storage
 
         const REFRESH_INTERVAL = 1000 * 60 * 4.5;   // every 4.5 minutes
         const RETRY_INTERVAL = 1000 * 5;            // every 5 seconds
@@ -141,10 +145,8 @@
         }
 
         function login () {     // redirect to external authentication provider
-            let url = $location.absUrl();
-            if (url.indexOf('#') === -1) {
-                url += '#';
-            }
+            let url = $location.absUrl().replace(/\#\?.*$/, '').concat('#');
+            storage.session.setItem(CALLBACK_PARAMS, angular.toJson($location.search()));
             $window.location.href =
                 sharedConfig.API_ROOT + AUTH_PATH +
                 '/siam/authenticate?active=true&callback=' + encodeURIComponent(url);
@@ -160,8 +162,8 @@
         function handleCallback (params) {  // request user token with returned authorization parameters from callback
             return requestUserToken(params).finally(() => {
                 // Return params without authorization parameters (includes also language, sorry)
-                let newParams = angular.copy(params);
-                ['language'].concat(AUTH_PARAMS).forEach(key => delete newParams[key]);
+                let newParams = storage.session.getItem(CALLBACK_PARAMS);
+                newParams = newParams ? angular.fromJson(newParams) : {};
                 $location.replace();    // overwrite the existing location (prevent back button to re-login)
                 $location.search(newParams);
             });
