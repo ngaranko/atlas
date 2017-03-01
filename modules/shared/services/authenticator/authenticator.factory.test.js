@@ -149,7 +149,7 @@ describe(' The authenticator factory', function () {
         absUrl = 'absUrl';
         authenticator.login();
         expect($window.location.href)
-            .toBe(API_CONFIG.AUTH + '/siam/authenticate?active=true&callback=' + encodeURIComponent(absUrl + '#'));
+            .toBe(AUTH_PATH + '/siam/authenticate?active=true&callback=' + encodeURIComponent(absUrl + '#'));
     });
 
     it('can logout a user and then continue as anonymous user', function () {
