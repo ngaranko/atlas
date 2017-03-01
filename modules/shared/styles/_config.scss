@@ -5,10 +5,10 @@
 @import "config/variables/typography";
 @import "config/variables/whitespace";
 
+@import "config/mixins/typography";
 @import "config/mixins/button-hover";
 @import "config/mixins/icons";
 @import "config/mixins/icon";
-@import "config/mixins/typography";
 
 @import "config/extend/clearfix";
 @import "config/extend/link";
