@@ -20,7 +20,7 @@
   }
 
   h3 {
-    @include font-size-responsive($l-font);
+    @include font-size-responsive($l-header-font);
   }
 }
 

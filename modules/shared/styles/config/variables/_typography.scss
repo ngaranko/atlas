@@ -91,3 +91,45 @@ $xl-font: (
   l: ($xl-font-size * $l-font-factor, $xl-line-height * $l-line-height-factor),
   xl: ($xl-font-size * $xl-font-factor, $xl-line-height * $xl-line-height-factor)
 );
+
+/* Header sizes */
+
+$xs-header-font: (
+  null: ($xs-font-size * $xs-font-factor, $xs-font-size * $xs-font-factor),
+  s: ($xs-font-size * $s-font-factor, $xs-font-size * $s-font-factor),
+  m: ($xs-font-size * $m-font-factor, $xs-font-size * $m-font-factor),
+  l: ($xs-font-size * $l-font-factor, $xs-font-size * $l-font-factor),
+  xl: ($xs-font-size * $xl-font-factor, $xs-font-size * $xl-font-factor)
+);
+
+$s-header-font: (
+  null: ($s-font-size * $xs-font-factor, $s-font-size * $xs-font-factor),
+  s: ($s-font-size * $s-font-factor, $s-font-size * $s-font-factor),
+  m: ($s-font-size * $m-font-factor, $s-font-size * $m-font-factor),
+  l: ($s-font-size * $l-font-factor, $s-font-size * $l-font-factor),
+  xl: ($s-font-size * $xl-font-factor, $s-font-size * $xl-font-factor)
+);
+
+$m-header-font: (
+  null: ($m-font-size * $xs-font-factor, $m-font-size * $xs-font-factor),
+  s: ($m-font-size * $s-font-factor, $m-font-size * $s-font-factor),
+  m: ($m-font-size * $m-font-factor, $m-font-size * $m-font-factor),
+  l: ($m-font-size * $l-font-factor, $m-font-size * $l-font-factor),
+  xl: ($m-font-size * $xl-font-factor, $m-font-size * $xl-font-factor)
+);
+
+$l-header-font: (
+  null: ($l-font-size * $xs-font-factor, $l-font-size * $xs-font-factor),
+  s: ($l-font-size * $s-font-factor, $l-font-size * $s-font-factor),
+  m: ($l-font-size * $m-font-factor, $l-font-size * $m-font-factor),
+  l: ($l-font-size * $l-font-factor, $l-font-size * $l-font-factor),
+  xl: ($l-font-size * $xl-font-factor, $l-font-size * $xl-font-factor)
+);
+
+$xl-header-font: (
+  null: ($xl-font-size * $xs-font-factor, $xl-font-size * $xs-font-factor),
+  s: ($xl-font-size * $s-font-factor, $xl-font-size * $s-font-factor),
+  m: ($xl-font-size * $m-font-factor, $xl-font-size * $m-font-factor),
+  l: ($xl-font-size * $l-font-factor, $xl-font-size * $l-font-factor),
+  xl: ($xl-font-size * $xl-font-factor, $xl-font-size * $xl-font-factor)
+);

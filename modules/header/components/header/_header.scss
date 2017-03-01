@@ -17,7 +17,7 @@
 }
 
 .site-header__logo {
-  @include font-size($xl-font);
+  @include font-size($xl-header-font);
   display: block;
   height: $site-header-height;
   padding-left: $base-whitespace * 3;

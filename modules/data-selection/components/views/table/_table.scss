@@ -20,7 +20,7 @@ $hover-table-color: #eee;
     }
 
     .c-data-selection-table__header-field {
-      @include font-size-responsive($m-font);
+      @include font-size-responsive($m-header-font);
       height: $button-size;
       padding: {
         top: 0;

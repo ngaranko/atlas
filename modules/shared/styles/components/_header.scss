@@ -3,19 +3,19 @@
 }
 
 .o-header__title {
-  @include font-size-responsive($xl-font);
+  @include font-size-responsive($xl-header-font);
 }
 
 .o-header__subtitle {
-  @include font-size-responsive($l-font);
+  @include font-size-responsive($l-header-font);
 
   display: block;
-  margin-bottom: $base-whitespace * 1.5;
+  margin-bottom: $base-whitespace;
   color: $primary-contrast;
 
   .s-indented-list &,
   .s-indented-result & {
-    @include font-size-responsive($m-font);
+    @include font-size-responsive($m-header-font);
     margin-bottom: $base-whitespace / 2 !important;
     color: $secondary-gray60;
   }

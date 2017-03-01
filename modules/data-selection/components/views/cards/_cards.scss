@@ -28,7 +28,7 @@
 }
 
 .c-data-selection-card__header-link {
-  @include font-size($m-font);
+  @include font-size($m-header-font);
   color: $primary-dark;
   text-decoration: none;
 }
