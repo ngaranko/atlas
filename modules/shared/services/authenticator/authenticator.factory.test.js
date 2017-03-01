@@ -50,6 +50,9 @@ describe(' The authenticator factory', function () {
                     absUrl: () => absUrl,
                     replace: angular.noop,
                     search: angular.noop
+                },
+                sharedConfig: {
+                    API_ROOT: ''
                 }
             }
         );
