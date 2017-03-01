@@ -37,29 +37,36 @@
         const CALLBACK_PARAMS = 'callback';   // save callback params in session storage
 
         const REFRESH_INTERVAL = 1000 * 60 * 4.5;   // every 4.5 minutes
+        const RETRY_INTERVAL = 1000 * 5;            // every 5 seconds
 
         const STATE = {     // State transitions used in tokenLoop
             INIT: () =>
                 STATE.RESTORE_REFRESH_TOKEN,
             RESTORE_REFRESH_TOKEN: () =>
-                user.getRefreshToken() ? STATE.REQUEST_ACCESS_TOKEN : STATE.WAIT,
+                user.getRefreshToken() ? STATE.REQUEST_ACCESS_TOKEN : STATE.REQUEST_ANONYMOUS_REFRESH_TOKEN,
+            REQUEST_ANONYMOUS_REFRESH_TOKEN: () =>
+                requestAnonymousToken(),
             ON_REFRESH_TOKEN: () =>
                 STATE.REQUEST_ACCESS_TOKEN,
-            ON_REFRESH_TOKEN_ERROR: () =>
-                STATE.WAIT,
+            ON_ANONYMOUS_REFRESH_TOKEN_ERROR: () =>
+                tokenLoop(STATE.REQUEST_ANONYMOUS_REFRESH_TOKEN, RETRY_INTERVAL),
+            ON_AUTHENTICATED_REFRESH_TOKEN_ERROR: () =>
+                STATE.REQUEST_ANONYMOUS_REFRESH_TOKEN,
             REQUEST_ACCESS_TOKEN: () =>
                 requestAccessToken(user.getRefreshToken()),
             ON_ACCESS_TOKEN: () =>
                 tokenLoop(STATE.REQUEST_ACCESS_TOKEN, REFRESH_INTERVAL),
-            ON_ACCESS_TOKEN_ERROR: () =>
-                STATE.WAIT,
+            ON_ANONYMOUS_ACCESS_TOKEN_ERROR: () =>
+                tokenLoop(STATE.REQUEST_ANONYMOUS_REFRESH_TOKEN, RETRY_INTERVAL),
+            ON_AUTHENTICATED_ACCESS_TOKEN_ERROR: () =>
+                STATE.REQUEST_ANONYMOUS_REFRESH_TOKEN,
             ON_LOGOUT: () =>
-                STATE.WAIT,
+                STATE.REQUEST_ANONYMOUS_REFRESH_TOKEN,
             WAITING: () =>
                 null // Wait for re-invocation of the tokenLoop...
         };
 
-        let interval;   // refresh access token
+        let interval;   // refresh access token or retry after error interval
 
         let error = {}; // message, status and statusText
 
@@ -96,18 +103,23 @@
             tokenLoop(STATE.ON_REFRESH_TOKEN);
         }
 
-        function onRefreshTokenError (response) {
-            onError(response, STATE.ON_REFRESH_TOKEN_ERROR);
-        }
-
         function onAccessToken (token) {
             setError();
             user.setAccessToken(token);
             tokenLoop(STATE.ON_ACCESS_TOKEN);
         }
 
-        function onAccessTokenError (response) {
-            onError(response, STATE.ON_ACCESS_TOKEN_ERROR);
+        function onRequestAnonymousTokenError (response) {
+            onError(response, STATE.ON_ANONYMOUS_REFRESH_TOKEN_ERROR);
+        }
+
+        function onRequestUserTokenError (response) {
+            onError(response, STATE.ON_AUTHENTICATED_REFRESH_TOKEN_ERROR);
+        }
+
+        function onRequestAccessTokenError (response) {
+            onError(response, user.getUserType() === user.USER_TYPE.AUTHENTICATED
+                ? STATE.ON_AUTHENTICATED_ACCESS_TOKEN_ERROR : STATE.ON_ANONYMOUS_ACCESS_TOKEN_ERROR);
         }
 
         function logout () {
@@ -148,7 +160,7 @@
         }
 
         function handleCallback (params) {  // request user token with returned authorization parameters from callback
-            return requestRefreshToken(params).finally(() => {
+            return requestUserToken(params).finally(() => {
                 // Return params without authorization parameters (includes also language, sorry)
                 let newParams = storage.session.getItem(CALLBACK_PARAMS);
                 newParams = newParams ? angular.fromJson(newParams) : {};
@@ -158,18 +170,27 @@
             });
         }
 
-        function requestRefreshToken (params) {    // initiated externally, called by handleCallback
+        function requestUserToken (params) {    // initiated externally, called by handleCallback
             let httpParams = AUTH_PARAMS.reduce((result, key) => {
                 result[key] = params[key];
                 return result;
             }, {});
             return authRequest('/siam/token', {}, httpParams)
-                .then(response => onRefreshToken(response.data, user.USER_TYPE.AUTHENTICATED), onRefreshTokenError);
+                .then(response => onRefreshToken(response.data, user.USER_TYPE.AUTHENTICATED),
+                    onRequestUserTokenError);
+        }
+
+        function requestAnonymousToken () {     // initiated by tokenLoop, return WAITING
+            authRequest('/refreshtoken')
+                .then(response => onRefreshToken(response.data, user.USER_TYPE.ANONYMOUS),
+                    onRequestAnonymousTokenError);
+            return STATE.WAITING;
         }
 
         function requestAccessToken (token) {   // initiated by tokenLoop, return WAITING
             authRequest('/accesstoken', {'Authorization': sharedConfig.AUTH_HEADER_PREFIX + token})
-                .then(response => onAccessToken(response.data), onAccessTokenError);
+                .then(response => onAccessToken(response.data),
+                    onRequestAccessTokenError);
             return STATE.WAITING;
         }
 
