@@ -11,23 +11,16 @@ describe('The api factory', function () {
             'dpShared',
             {
                 user: {
-                    getStatus: function () {
-                        if (isLoggedIn) {
-                            return {
-                                accessToken: 'MY_FAKE_ACCESS_TOKEN',
-                                isLoggedIn: true
-                            };
-                        } else {
-                            return {
-                                accessToken: null,
-                                isLoggedIn: false
-                            };
-                        }
-                    }
+                    getAccessToken: () => isLoggedIn ? 'MY_FAKE_ACCESS_TOKEN' : null
                 },
                 sharedConfig: {
                     API_ROOT: 'http://www.i-am-the-api-root.com/path/'
                 }
+            },
+            function ($provide) {
+                $provide.constant('API_CONFIG', {
+                    AUTH_HEADER_PREFIX: 'Bearer '
+                });
             }
         );
 
@@ -95,7 +88,7 @@ describe('The api factory', function () {
         expect(isRejected).toBe(true);
     });
 
-    it('getByUri can be used when the sharedConfig.API_ROOT is unknown', function () {
+    it('getByUri can be used when the API ROOT is unknown', function () {
         var returnValue;
 
         api.getByUri('bag/verblijfsobject/123/').then(function (data) {
@@ -123,7 +116,7 @@ describe('The api factory', function () {
 
         $httpBackend.expectGET(
             'http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/',
-            angular.merge({}, $http.defaults.headers.common, {Authorization: 'JWT MY_FAKE_ACCESS_TOKEN'})
+            angular.merge({}, $http.defaults.headers.common, {Authorization: 'Bearer MY_FAKE_ACCESS_TOKEN'})
         );
         api.getByUrl('http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/');
         $httpBackend.flush();

@@ -4,6 +4,7 @@
     angular
         .module('dpShared')
         .constant('API_CONFIG', {
-            AUTH: 'authenticatie/'
+            AUTH: 'auth',
+            AUTH_HEADER_PREFIX: 'Bearer '
         });
 })();

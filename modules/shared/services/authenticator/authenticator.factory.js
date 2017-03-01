@@ -9,6 +9,7 @@
         '$http',
         '$interval',
         'API_CONFIG',
+        'sharedConfig',
         'user',
         '$window',
         '$location'
@@ -18,6 +19,7 @@
         $http,
         $interval,
         API_CONFIG,
+        sharedConfig,
         user,
         $window,
         $location) {
@@ -140,11 +142,15 @@
 
         function login () {     // redirect to external authentication provider
             let url = $location.absUrl();
+
             if (url.indexOf('#') === -1) {
                 url += '#';
             }
-            $window.location.href =
-                API_CONFIG.AUTH + '/siam/authenticate?active=true&callback=' + encodeURIComponent(url);
+
+            $window.location.href = sharedConfig.API_ROOT +
+                API_CONFIG.AUTH +
+                '/siam/authenticate?active=true&callback=' +
+                encodeURIComponent(url);
         }
 
         function isCallback (params) {
@@ -191,7 +197,7 @@
         function authRequest (url, headers, params) {
             return $http({
                 method: 'GET',
-                url: API_CONFIG.AUTH + url,
+                url: sharedConfig.API_ROOT + API_CONFIG.AUTH + url,
                 headers: angular.merge({'Content-Type': 'text/plain'}, headers),
                 params: params
             });
