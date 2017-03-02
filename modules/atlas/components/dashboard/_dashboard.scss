@@ -80,6 +80,17 @@ $dashboard-margin-home-page: 42px;
   background-color: $primary-light;
 }
 
+/**
+ * Needed in case of a fixed scrollbar, which would otherwise mess up the
+ * margin left and  right on auto
+ *
+ * See:
+ * https://stackoverflow.com/questions/6357870/scrollbar-on-browser-and-div-margin-0-auto-jumping
+ */
+.c-dashboard__max-width--scrollable {
+  margin-left: calc(50vw - #{$dashboard-max-width-outer / 2});
+}
+
 .c-dashboard__max-width__inner {
   max-width: $dashboard-max-width-inner;
   margin-right: auto;
