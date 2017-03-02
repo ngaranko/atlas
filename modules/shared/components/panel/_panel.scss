@@ -18,6 +18,10 @@
     background-color: $primary-contrast;
     color: $primary-light;
   }
+
+  h3 {
+    @include font-size-responsive($l-header-font);
+  }
 }
 
 .c-panel--header {

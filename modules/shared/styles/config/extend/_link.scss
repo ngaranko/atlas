@@ -3,10 +3,12 @@
 $link-offset: $base-font-size;
 
 %link {
+  @include font-size($s-font);
+
   display: inline-block;
   position: relative;
-  color: $secondary-gray60;
-  font-weight: 700;
+  color: $primary-dark;
+  font-weight: bold;
   text-decoration: none;
   cursor: pointer;
   overflow: visible;
@@ -38,11 +40,24 @@ $link-offset: $base-font-size;
   }
 }
 
-%link--inline {
+%link--plus {
   @extend %link;
 
+  margin-left: $link-offset;
+
+  &::before {
+    display: inline-block;
+    position: absolute;
+    left: -$link-offset;
+    content: "+";
+  }
+}
+
+%link--inline {
+  @extend %link;
+  @include font-size($m-font);
+
   display: inline;
-  color: $primary-dark;
   font-weight: normal;
   text-decoration: underline;
 }

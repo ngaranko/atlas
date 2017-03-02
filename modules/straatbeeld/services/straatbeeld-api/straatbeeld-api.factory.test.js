@@ -10,56 +10,62 @@ describe('The straatbeeldApi Factory', function () {
     searchSteps = [1000, 2000, 4000, 8000, 10000];
 
     beforeEach(function () {
-        angular.mock.module('dpStraatbeeld', {
-            straatbeeldConfig: {
-                STRAATBEELD_ENDPOINT: 'http://example.com/example/'
-            },
-            sharedConfig: {
-                RADIUS: 100
-            },
-            geojson: {
-                getCenter: function () {
-                    return [52.3747994036985, 4.91359770418102];
+        angular.mock.module(
+            'dpStraatbeeld',
+            {
+                sharedConfig: {
+                    API_ROOT: 'http://example.com/',
+                    RADIUS: 100
+                },
+                geojson: {
+                    getCenter: function () {
+                        return [52.3747994036985, 4.91359770418102];
+                    }
+                },
+                api: {
+                    getByUrl: function (url, params, _cancel) {
+                        cancel = _cancel;
+
+                        let q = $q.defer();
+
+                        q.resolve({
+                            image_sets: {
+                                cubic: {
+                                    pattern: 'http://example.com/example/cubic/abf123/{a}/{b}/{c}.jpg',
+                                    preview: 'http://example.com/example/cubic/abf123/preview.jpg'
+                                }
+                            },
+                            geometrie: {
+                                type: 'Point',
+                                coordinates: [
+                                    4.91359770418102,
+                                    52.3747994036985,
+                                    46.9912552172318
+                                ]
+                            },
+                            adjacent: [{
+                                pano_id: 'TMX7315120208-000054_pano_0002_000177',
+                                heading: 116.48,
+                                distance: 10.14
+                            },
+                            {
+                                pano_id: 'TMX7315120208-000054_pano_0002_000178',
+                                heading: 127.37,
+                                distance: 5.25
+                            }],
+                            timestamp: '2016-05-19T13:04:15.341110Z'
+                        });
+
+                        return q.promise;
+                    }
                 }
             },
-            api: {
-                getByUrl: function (url, params, _cancel) {
-                    cancel = _cancel;
-
-                    let q = $q.defer();
-
-                    q.resolve({
-                        image_sets: {
-                            cubic: {
-                                pattern: 'http://example.com/example/cubic/abf123/{a}/{b}/{c}.jpg',
-                                preview: 'http://example.com/example/cubic/abf123/preview.jpg'
-                            }
-                        },
-                        geometrie: {
-                            type: 'Point',
-                            coordinates: [
-                                4.91359770418102,
-                                52.3747994036985,
-                                46.9912552172318
-                            ]
-                        },
-                        adjacent: [{
-                            pano_id: 'TMX7315120208-000054_pano_0002_000177',
-                            heading: 116.48,
-                            distance: 10.14
-                        },
-                        {
-                            pano_id: 'TMX7315120208-000054_pano_0002_000178',
-                            heading: 127.37,
-                            distance: 5.25
-                        }],
-                        timestamp: '2016-05-19T13:04:15.341110Z'
-                    });
-
-                    return q.promise;
-                }
+            function ($provide) {
+                $provide.constant('STRAATBEELD_CONFIG', {
+                    STRAATBEELD_ENDPOINT: 'example/'
+                });
             }
-        });
+        );
 
         angular.mock.inject(function (_straatbeeldApi_, _geojson_, _$q_, _api_, _$rootScope_) {
             straatbeeldApi = _straatbeeldApi_;

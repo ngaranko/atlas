@@ -26,8 +26,19 @@ describe('The mapConfig factory', function () {
     }
 
     describe('returns a combination of global and environment specific configuration', function () {
-        it('development', function () {
-            var mapConfig = prepareMocks('DEVELOPMENT');
+        it('DEVELOPMENT', function () {
+            const mapConfig = prepareMocks('DEVELOPMENT');
+
+            // Global config
+            expect(mapConfig.BASE_LAYER_OPTIONS.minZoom).toBe(8);
+
+            // Environment config
+            expect(mapConfig.OVERLAY_ROOT)
+                .toBe('https://map.datapunt.amsterdam.nl/');
+        });
+
+        it('ACCEPTATION', function () {
+            const mapConfig = prepareMocks('ACCEPTATION');
 
             // Global config
             expect(mapConfig.BASE_LAYER_OPTIONS.minZoom).toBe(8);
@@ -37,8 +48,8 @@ describe('The mapConfig factory', function () {
                 .toBe('https://map-acc.datapunt.amsterdam.nl/');
         });
 
-        it('production', function () {
-            var mapConfig = prepareMocks('PRODUCTION');
+        it('PRODUCTION', function () {
+            const mapConfig = prepareMocks('PRODUCTION');
 
             // Global config
             expect(mapConfig.BASE_LAYER_OPTIONS.minZoom).toBe(8);

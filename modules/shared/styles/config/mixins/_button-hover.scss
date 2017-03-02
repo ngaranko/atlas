@@ -1,0 +1,7 @@
+@mixin o-btn-white--hover {
+  color: $primary-contrast;
+
+  &::before {
+    background-image: url("assets/icons/link-arrow-red.svg");
+  }
+}

@@ -5,9 +5,9 @@
         .module('atlas')
         .factory('straatbeeldReducers', straatbeeldReducersFactory);
 
-    straatbeeldReducersFactory.$inject = ['ACTIONS', 'straatbeeldConfig'];
+    straatbeeldReducersFactory.$inject = ['ACTIONS', 'STRAATBEELD_CONFIG'];
 
-    function straatbeeldReducersFactory (ACTIONS, straatbeeldConfig) {
+    function straatbeeldReducersFactory (ACTIONS, STRAATBEELD_CONFIG) {
         var reducers = {};
 
         reducers[ACTIONS.FETCH_STRAATBEELD_BY_ID.id] = fetchStraatbeeldByIdReducer;
@@ -138,7 +138,7 @@
                 newState.straatbeeld.date = payload.date;
 
                 newState.straatbeeld.pitch = oldState.straatbeeld.pitch || 0;
-                newState.straatbeeld.fov = oldState.straatbeeld.fov || straatbeeldConfig.DEFAULT_FOV;
+                newState.straatbeeld.fov = oldState.straatbeeld.fov || STRAATBEELD_CONFIG.DEFAULT_FOV;
 
                 if (angular.isArray(newState.straatbeeld.location)) {
                     // straatbeeld is loaded by location

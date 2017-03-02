@@ -2,6 +2,8 @@
 
 $dashboard-heading-height: 50px;
 $dashboard-heading-height-printversion: 42px;
+$dashboard-footer-height: 40px;
+$dashboard-footer-separator-height: 8px;
 $dashboard-error-height: $button-size;
 $dashboard-max-width-outer: 1800px;
 $dashboard-max-width-inner: 1600px;
@@ -43,10 +45,21 @@ $dashboard-margin-home-page: 42px;
   }
 }
 
+.c-dashboard__body--has-footer {
+  height: calc(100% - #{$dashboard-heading-height} - #{$dashboard-footer-separator-height} - #{$dashboard-footer-height});
+}
+
 .c-dashboard__body--error {
   .u-row {
     height: calc(100% - #{$dashboard-error-height});
   }
+}
+
+.c-dashboard__footer {
+  height: calc(#{$dashboard-footer-height} + #{$dashboard-footer-separator-height});
+  border-top: $dashboard-footer-separator-height solid $secondary-gray60;
+  font-size: $base-font-size;
+  line-height: $dashboard-footer-height;
 }
 
 .c-dashboard__max-width {

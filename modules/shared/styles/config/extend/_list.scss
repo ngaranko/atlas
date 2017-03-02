@@ -1,9 +1,9 @@
 %list {
   li {
-    line-height: 28px;
+    line-height: $list-item-height;
   }
 }
 
 %list-item {
-  line-height: 28px;
+  line-height: $list-item-height;
 }

@@ -13,9 +13,9 @@
             controllerAs: 'vm'
         });
 
-    DpHotspotController.$inject = ['store', 'ACTIONS', 'straatbeeldConfig', 'angleConversion'];
+    DpHotspotController.$inject = ['store', 'ACTIONS', 'STRAATBEELD_CONFIG', 'angleConversion'];
 
-    function DpHotspotController (store, ACTIONS, straatbeeldConfig, angleConversion) {
+    function DpHotspotController (store, ACTIONS, STRAATBEELD_CONFIG, angleConversion) {
         var vm = this,
             realLifeHotspotSize = 0.3,
             minDistance = 4,
@@ -36,7 +36,7 @@
         making assumptions about the viewport and FOV.
         */
         viewport = 960;
-        vm.size = Math.round(angleConversion.radiansToDegrees(viewAngle) * viewport / straatbeeldConfig.DEFAULT_FOV);
+        vm.size = Math.round(angleConversion.radiansToDegrees(viewAngle) * viewport / STRAATBEELD_CONFIG.DEFAULT_FOV);
 
         vm.loadScene = function () {
             store.dispatch({

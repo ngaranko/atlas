@@ -33,7 +33,7 @@
 
                         <div ng-if="category.count > 10" class="qa-show-more">
                             <dp-link ng-if="category.more"
-                                class-name="o-list__separate-item o-btn o-btn--link u-color__primary--contrast u-margin__top-05"
+                                class-name="c-show-more u-margin__top-05"
                                 type="FETCH_DETAIL"
                                 payload="category.more.endpoint">
 
@@ -41,7 +41,7 @@
                             </dp-link>
 
                             <dp-link ng-if="!category.more"
-                                class-name="o-list__separate-item o-btn o-btn--link u-color__primary--contrast u-margin__top-05"
+                                class-name="c-show-more u-margin__top-05"
                                 type="FETCH_SEARCH_RESULTS_CATEGORY"
                                 payload="category.slug">
 
@@ -71,7 +71,7 @@
 
                     <button
                         ng-if="vm.hasLoadMore()"
-                        class="o-loadmore"
+                        class="c-show-more"
                         ng-click="vm.loadMore()">
 
                         Toon meer

@@ -12,13 +12,11 @@ describe('The api factory', function () {
             {
                 user: {
                     getAccessToken: () => isLoggedIn ? 'MY_FAKE_ACCESS_TOKEN' : null
-                }
-            },
-            function ($provide) {
-                $provide.constant('API_CONFIG', {
-                    ROOT: 'http://www.i-am-the-api-root.com/path/',
+                },
+                sharedConfig: {
+                    API_ROOT: 'http://www.i-am-the-api-root.com/path/',
                     AUTH_HEADER_PREFIX: 'Bearer '
-                });
+                }
             }
         );
 
@@ -86,7 +84,7 @@ describe('The api factory', function () {
         expect(isRejected).toBe(true);
     });
 
-    it('getByUri can be used when the API_CONFIG.ROOT is unknown', function () {
+    it('getByUri can be used when the API ROOT is unknown', function () {
         var returnValue;
 
         api.getByUri('bag/verblijfsobject/123/').then(function (data) {

@@ -3,9 +3,9 @@
         .module('dpDataSelection')
         .factory('dataSelectionApiDataSelection', dataSelectionApiDataSelectionFactory);
 
-    dataSelectionApiDataSelectionFactory.$inject = ['API_CONFIG', 'api'];
+    dataSelectionApiDataSelectionFactory.$inject = ['sharedConfig', 'api'];
 
-    function dataSelectionApiDataSelectionFactory (API_CONFIG, api) {
+    function dataSelectionApiDataSelectionFactory (sharedConfig, api) {
         return {
             query: query
         };
@@ -76,7 +76,7 @@
         }
 
         function getDetailEndpoint (config, rawDataRow) {
-            return API_CONFIG.ROOT + config.ENDPOINT_DETAIL +
+            return sharedConfig.API_ROOT + config.ENDPOINT_DETAIL +
                 rawDataRow[config.PRIMARY_KEY] + '/';
         }
     }

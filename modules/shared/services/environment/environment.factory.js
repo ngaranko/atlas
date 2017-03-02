@@ -16,6 +16,11 @@
                 config.NAME = 'PRODUCTION';
                 break;
 
+            case 'acc.atlas.amsterdam.nl':
+            case 'acc.data.amsterdam.nl':
+                config.NAME = 'ACCEPTATION';
+                break;
+
             default:
                 config.NAME = 'DEVELOPMENT';
         }
