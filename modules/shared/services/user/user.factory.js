@@ -5,9 +5,9 @@
         .module('dpShared')
         .factory('user', userFactory);
 
-    userFactory.$inject = ['$log', '$window', 'userSettings'];
+    userFactory.$inject = ['$window', 'userSettings'];
 
-    function userFactory ($log, $window, userSettings) {
+    function userFactory ($window, userSettings) {
         const USER_TYPE = { // the possible types of a user
             NONE: 'NONE',
             ANONYMOUS: 'ANONYMOUS',
@@ -58,8 +58,6 @@
                     if (angular.isDefined(content.authz)) { // contained in access token
                         this.authorizationLevel = content.authz;
                     }
-
-                    this.log();
                 };
 
                 this.init();
@@ -117,17 +115,6 @@
             set authorizationLevel (value) {
                 this._authorizationLevel = AUTHORIZATION_LEVEL_MAPPING[value] || AUTHORIZATION_LEVEL.NONE;
             }
-
-            log () {
-                $log.debug('User' + '\n' +
-                    'Type: ' + this.type + '\n' +
-                    'Authorization level: ' + this.authorizationLevel + '\n' +
-                    'Name: ' + this.name + '\n' +
-                    'Refresh token: ' + angular.toJson(this.decodeToken(this.refreshToken)) + '\n' +
-                    'Access token: ' + angular.toJson(this.decodeToken(this.accessToken)) + '\n' +
-                    'Raw refresh token: ' + this.refreshToken + '\n' +
-                    'Raw access token: ' + this.accessToken);
-            }
         }
 
         let user = new User();
@@ -176,7 +163,6 @@
 
         function clearToken () {
             user.clear();
-            user.log();
         }
     }
 })();
