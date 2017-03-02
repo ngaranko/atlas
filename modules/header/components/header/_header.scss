@@ -91,9 +91,12 @@
 .site-header__menu__item--toggle {
   position: relative;
 
+  > span {
+    padding-right: $base-whitespace * .5;
+  }
+
   &::after {
     display: inline-block;
-    padding-left: $base-whitespace * .5;
     transform: rotate(90deg); //Point downwards
     content: "›";
   }
