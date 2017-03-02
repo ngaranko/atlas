@@ -17,7 +17,7 @@
                     getPayload: query => {
                         return {dataset: 'catalogus', view: 'CARDS', query, filters: {}, page: 1};
                     },
-                    tip: 'gebruik in plaats van i.p.v. een zoekvraag de mogelijkheid om op thema te filteren'
+                    tip: 'gebruik in plaats van een zoekvraag de mogelijkheid om op thema te filteren'
                 }
             }
         });
