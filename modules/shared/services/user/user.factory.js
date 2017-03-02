@@ -131,7 +131,6 @@
         }
 
         let user = new User();
-        user.clear();
 
         return {
             getRefreshToken,

@@ -74,18 +74,47 @@ describe('The dp-header component', function () {
             component = getComponent('', false);
 
             expect(component.find('.qa-header__login').length).toBe(1);
-            expect(component.find('.qa-header__logout').length).toBe(0);
+            expect(component.find('dp-menu-dropdown').length).toBe(1);  // Only main menu
+            expect(component.find('dp-menu-dropdown').eq(0).attr('type')).toBe('main');
         });
 
         it('when logged in', function () {
             var component;
 
             spyOn(user, 'getUserType').and.returnValue('AUTHENTICATED');
+            spyOn(user, 'getName').and.returnValue('My username');
 
             component = getComponent('', false);
 
             expect(component.find('.qa-header__login').length).toBe(0);
-            expect(component.find('.qa-header__logout').length).toBe(1);
+            expect(component.find('dp-menu-dropdown').length).toBe(2);
+            expect(component.find('dp-menu-dropdown').eq(0).attr('type')).toBe('user');
+            expect(component.find('dp-menu-dropdown').eq(0).attr('title')).toBe('My username');
+            expect(component.find('dp-menu-dropdown').eq(1).attr('type')).toBe('main');
+        });
+
+        it('can show that a user is a bevoegd employee', function () {
+            var component;
+
+            spyOn(user, 'getUserType').and.returnValue('AUTHENTICATED');
+            spyOn(user, 'getName').and.returnValue('user');
+            spyOn(user, 'getAuthorizationLevel').and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE);
+
+            component = getComponent('', false);
+
+            expect(component.find('dp-menu-dropdown').eq(0).attr('title')).toBe('user');
+        });
+
+        it('can show that a user is a normal employee', function () {
+            var component;
+
+            spyOn(user, 'getUserType').and.returnValue('AUTHENTICATED');
+            spyOn(user, 'getName').and.returnValue('user');
+            spyOn(user, 'getAuthorizationLevel').and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS);
+
+            component = getComponent('', false);
+
+            expect(component.find('dp-menu-dropdown').eq(0).attr('title')).toBe('user (bevoegd)');
         });
     });
 
