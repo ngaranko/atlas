@@ -12,7 +12,7 @@ $suggestion-offset: $base-font-size;
   box-shadow: 0 3px 4px 0 $secondary-gray60;
 
   .c-autocomplete__tip {
-    @include font-size($body-font);
+    @include font-size($s-font);
     margin-top: $base-whitespace / 2;
     color: $secondary-gray40;
     font-style: italic;
@@ -40,7 +40,7 @@ $suggestion-offset: $base-font-size;
   }
 
   .c-autocomplete__category__suggestion {
-    @include font-size($body-font);
+    @include font-size($s-font);
     display: block;
     position: relative;
     width: 100%;

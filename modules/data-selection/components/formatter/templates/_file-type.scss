@@ -1,9 +1,9 @@
 .c-data-selection-file-type {
+  @include font-size($xs-font);
   height: 16px;
   margin-top: $base-whitespace / 5;
   float: left;
   color: $secondary-gray40;
-  font-size: $base-font-size - 2;
 }
 
 .c-data-selection-file-type__name {

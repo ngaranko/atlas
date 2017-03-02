@@ -4,32 +4,32 @@
   @markup
     <button class="btn btn--link">Lorem ipsum</button>
   */
-  &.o-btn--link {
-    @extend %link--arrow;
+}
 
-    background-color: transparent;
-    font-family: inherit;
-    font-size: inherit;
-    text-align: left;
-    overflow: visible;
+.o-btn--link {
+  @extend %link--arrow;
+
+  background-color: transparent;
+  font-size: inherit;
+  text-align: left;
+  overflow: visible;
+}
+
+.o-btn--contrast {
+  color: $primary-contrast;
+
+  &:hover {
+    color: $secondary-gray60;
   }
+}
 
-  &.o-btn--contrast {
-    color: $primary-contrast;
+.o-btn--link--inverse {
+  color: $primary-light;
 
-    &:hover {
-      color: $secondary-gray60;
-    }
-  }
-
-  &.o-btn--link--inverse {
+  &:hover,
+  &:visited,
+  &:active {
     color: $primary-light;
-
-    &:hover,
-    &:visited,
-    &:active {
-      color: $primary-light;
-    }
   }
 }
 

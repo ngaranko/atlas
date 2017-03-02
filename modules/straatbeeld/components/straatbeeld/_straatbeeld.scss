@@ -1,6 +1,5 @@
 @mixin smaller-font-definition {
-  font-family: $header-font-family;
-  font-size: $base-font-size - 2;
+  @include font-size($xs-font);
   line-height: $button-size;
 }
 
