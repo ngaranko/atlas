@@ -20,7 +20,6 @@
         var vm = this;
 
         vm.login = authenticator.login;
-        vm.logout = authenticator.logout;
 
         vm.isAuthenticated = () => user.getUserType() === user.USER_TYPE.AUTHENTICATED;
 

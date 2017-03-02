@@ -93,6 +93,18 @@ describe('The dp-header component', function () {
             expect(component.find('dp-menu-dropdown').eq(1).attr('type')).toBe('main');
         });
 
+        it('removes the domain name for a logged-in user', function () {
+            var component;
+
+            spyOn(user, 'getUserType').and.returnValue('AUTHENTICATED');
+            spyOn(user, 'getName').and.returnValue('user@xyz.com');
+            spyOn(user, 'getAuthorizationLevel').and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE);
+
+            component = getComponent('', false);
+
+            expect(component.find('dp-menu-dropdown').eq(0).attr('title')).toBe('user');
+        });
+
         it('can show that a user is a bevoegd employee', function () {
             var component;
 

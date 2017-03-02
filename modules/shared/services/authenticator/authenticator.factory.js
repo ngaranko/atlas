@@ -47,15 +47,13 @@
                 user.getRefreshToken() ? STATE.REQUEST_ACCESS_TOKEN : STATE.WAIT,
             ON_REFRESH_TOKEN: () =>
                 STATE.REQUEST_ACCESS_TOKEN,
-            ON_AUTHENTICATED_REFRESH_TOKEN_ERROR: () =>
+            ON_REFRESH_TOKEN_ERROR: () =>
                 STATE.WAIT,
             REQUEST_ACCESS_TOKEN: () =>
                 requestAccessToken(user.getRefreshToken()),
             ON_ACCESS_TOKEN: () =>
                 tokenLoop(STATE.REQUEST_ACCESS_TOKEN, REFRESH_INTERVAL),
-            ON_ANONYMOUS_ACCESS_TOKEN_ERROR: () =>
-                STATE.WAIT,
-            ON_AUTHENTICATED_ACCESS_TOKEN_ERROR: () =>
+            ON_ACCESS_TOKEN_ERROR: () =>
                 STATE.WAIT,
             ON_LOGOUT: () =>
                 STATE.WAIT,
@@ -106,13 +104,12 @@
             tokenLoop(STATE.ON_ACCESS_TOKEN);
         }
 
-        function onRequestUserTokenError (response) {
-            onError(response, STATE.ON_AUTHENTICATED_REFRESH_TOKEN_ERROR);
+        function onRefreshTokenError (response) {
+            onError(response, STATE.ON_REFRESH_TOKEN_ERROR);
         }
 
-        function onRequestAccessTokenError (response) {
-            onError(response, user.getUserType() === user.USER_TYPE.AUTHENTICATED
-                ? STATE.ON_AUTHENTICATED_ACCESS_TOKEN_ERROR : STATE.ON_ANONYMOUS_ACCESS_TOKEN_ERROR);
+        function onAccessTokenError (response) {
+            onError(response, STATE.ON_ACCESS_TOKEN_ERROR);
         }
 
         function logout () {
@@ -157,16 +154,16 @@
         }
 
         function login () {     // redirect to external authentication provider
-            savePath();
-            let callback = $location.absUrl().replace(/\#\?.*$/, '').concat('#');
+            savePath(); // Save current path in session
+            let callback = $location.absUrl().replace(/\#\?.*$/, '').concat('#');   // Remove all parameters
             $window.location.href =
                 sharedConfig.API_ROOT + AUTH_PATH +
                 '/siam/authenticate?active=true&callback=' + encodeURIComponent(callback);
         }
 
         function handleCallback (params) {  // request user token with returned authorization parameters from callback
-            restorePath();
-            requestUserToken(params);
+            restorePath();  // Restore path from session
+            RequestRefreshToken(params);
         }
 
         function isCallback (params) {
@@ -176,20 +173,18 @@
             return !AUTH_PARAMS.find(key => angular.isUndefined(params[key]));
         }
 
-        function requestUserToken (params) {    // initiated externally, called by handleCallback
+        function RequestRefreshToken (params) {    // initiated externally, called by handleCallback
             let httpParams = AUTH_PARAMS.reduce((result, key) => {
                 result[key] = params[key];
                 return result;
             }, {});
             return authRequest('/siam/token', {}, httpParams)
-                .then(response => onRefreshToken(response.data, user.USER_TYPE.AUTHENTICATED),
-                    onRequestUserTokenError);
+                .then(response => onRefreshToken(response.data, user.USER_TYPE.AUTHENTICATED), onRefreshTokenError);
         }
 
         function requestAccessToken (token) {   // initiated by tokenLoop, return WAITING
             authRequest('/accesstoken', {'Authorization': sharedConfig.AUTH_HEADER_PREFIX + token})
-                .then(response => onAccessToken(response.data),
-                    onRequestAccessTokenError);
+                .then(response => onAccessToken(response.data), onAccessTokenError);
             return STATE.WAITING;
         }
 
