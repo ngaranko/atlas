@@ -1,6 +1,21 @@
-.menu-dropdown {
+.c-menu-dropdown {
   position: absolute;
-  top: $site-header-height;
+  top: $toolbar-height;
+  padding: {
+    top: $base-whitespace * 1.2;
+    right: $base-whitespace * 3;
+    bottom: $base-whitespace * 1.2;
+    left: $base-whitespace * 2;
+  }
+  background-color: $secondary-gray10;
+  line-height: 2;
+  box-shadow: -2px 2px $secondary-gray40;
+}
+
+.c-menu-dropdown--align-left {
+  left: 0;
+}
+
+.c-menu-dropdown--align-right {
   right: 0;
-  background-color: $secondary-gray60;
 }

@@ -33,6 +33,9 @@ describe('The dp-menu-dropdown directive', function () {
 
         element = document.createElement('dp-menu-dropdown');
         element.setAttribute('has-print-button', 'hasPrintButton');
+        if (options.showAuthMenu) {
+            element.setAttribute('show-auth-menu', 'true');
+        }
 
         document.body.appendChild(element);
 
@@ -48,7 +51,7 @@ describe('The dp-menu-dropdown directive', function () {
     it('should initialize with the dropdown closed', function () {
         var directive = getDirective({hasPrintButton: true});
 
-        expect(directive.find('.menu-dropdown').length).toBe(0);
+        expect(directive.find('.c-menu-dropdown').length).toBe(0);
         expect(directive.find('dp-print-button').length).toBe(0);
         expect(directive.find('dp-terugmelden-button').length).toBe(0);
         expect(directive.find('dp-link').length).toBe(0);
@@ -61,18 +64,41 @@ describe('The dp-menu-dropdown directive', function () {
         directive.find('.site-header__menu__item--toggle').eq(0).click();
 
         // It should be openend
-        expect(directive.find('.menu-dropdown').length).toBe(1);
+        expect(directive.find('.c-menu-dropdown').length).toBe(1);
         expect(directive.find('dp-terugmelden-button').length).toBe(1);
-        expect(directive.find('dp-link').length).toBe(4);
+        expect(directive.find('dp-link').length).toBe(3);
+        expect(directive.find('.qa-header__logout').length).toBe(0);
 
         // Click it again
         directive.find('.site-header__menu__item--toggle').eq(0).click();
 
         // It should be closed again
-        expect(directive.find('.menu-dropdown').length).toBe(0);
-        expect(directive.find('dp-print-button').length).toBe(0);
+        expect(directive.find('.c-menu-dropdown').length).toBe(0);
         expect(directive.find('dp-terugmelden-button').length).toBe(0);
         expect(directive.find('dp-link').length).toBe(0);
+        expect(directive.find('.qa-header__logout').length).toBe(0);
+    });
+
+    it('should also toggle when you click the span inside the button', function () {
+        var directive = getDirective({hasPrintButton: true});
+
+        // Click it once
+        directive.find('.site-header__menu__item--toggle > span').eq(0).click();
+
+        // It should be openend
+        expect(directive.find('.c-menu-dropdown').length).toBe(1);
+        expect(directive.find('dp-terugmelden-button').length).toBe(1);
+        expect(directive.find('dp-link').length).toBe(3);
+        expect(directive.find('.qa-header__logout').length).toBe(0);
+
+        // Click it again
+        directive.find('.site-header__menu__item--toggle > span').eq(0).click();
+
+        // It should be closed again
+        expect(directive.find('.c-menu-dropdown').length).toBe(0);
+        expect(directive.find('dp-terugmelden-button').length).toBe(0);
+        expect(directive.find('dp-link').length).toBe(0);
+        expect(directive.find('.qa-header__logout').length).toBe(0);
     });
 
     it('changes the styling of the toggle button depending on the state of the dropdown', function () {
@@ -94,27 +120,27 @@ describe('The dp-menu-dropdown directive', function () {
 
         // Open the dropdown
         directive.find('.site-header__menu__item--toggle').eq(0).click();
-        expect(directive.find('.menu-dropdown').length).toBe(1);
+        expect(directive.find('.c-menu-dropdown').length).toBe(1);
 
         // Click anywhere but the toggle button
         angular.element(document.body).click();
-        expect(directive.find('.menu-dropdown').length).toBe(0);
+        expect(directive.find('.c-menu-dropdown').length).toBe(0);
     });
 
     it('supports multiple, standalone, dropdown menu\'s on one page', function () {
         var directive1 = getDirective({hasPrintButton: true}),
             directive2 = getDirective({hasPrintButton: true});
 
-        expect(directive1.find('.menu-dropdown').length).toBe(0);
-        expect(directive2.find('.menu-dropdown').length).toBe(0);
+        expect(directive1.find('.c-menu-dropdown').length).toBe(0);
+        expect(directive2.find('.c-menu-dropdown').length).toBe(0);
 
         directive1.find('.site-header__menu__item--toggle').eq(0).click();
-        expect(directive1.find('.menu-dropdown').length).toBe(1);
-        expect(directive2.find('.menu-dropdown').length).toBe(0);
+        expect(directive1.find('.c-menu-dropdown').length).toBe(1);
+        expect(directive2.find('.c-menu-dropdown').length).toBe(0);
 
         directive2.find('.site-header__menu__item--toggle').eq(0).click();
-        expect(directive1.find('.menu-dropdown').length).toBe(0);
-        expect(directive2.find('.menu-dropdown').length).toBe(1);
+        expect(directive1.find('.c-menu-dropdown').length).toBe(0);
+        expect(directive2.find('.c-menu-dropdown').length).toBe(1);
     });
 
     it('has an option to show/hide the print button', function () {
@@ -123,12 +149,12 @@ describe('The dp-menu-dropdown directive', function () {
         // With a print button
         directive = getDirective({hasPrintButton: true});
         directive.find('.site-header__menu__item--toggle').eq(0).click();
-        expect(directive.find('.menu-dropdown').text()).toContain('Printen');
+        expect(directive.find('.c-menu-dropdown').text()).toContain('Printen');
 
         // Without a print button
         directive = getDirective({hasPrintButton: false});
         directive.find('.site-header__menu__item--toggle').eq(0).click();
-        expect(directive.find('.menu-dropdown').text()).not.toContain('Printen');
+        expect(directive.find('.c-menu-dropdown').text()).not.toContain('Printen');
     });
 
     it('has an option to download adressen', function () {
@@ -136,6 +162,28 @@ describe('The dp-menu-dropdown directive', function () {
 
         directive = getDirective({hasPrintButton: false});
         directive.find('.site-header__menu__item--toggle').eq(0).click();
-        expect(directive.find('.menu-dropdown').text()).toContain('Downloaden adressen');
+        expect(directive.find('.c-menu-dropdown').text()).toContain('Downloaden adressen');
+    });
+
+    it('has an option to show the authentication menu', function () {
+        var directive = getDirective({showAuthMenu: true});
+
+        // Click it once
+        directive.find('.site-header__menu__item--toggle').eq(0).click();
+
+        // It should be openend
+        expect(directive.find('.c-menu-dropdown').length).toBe(1);
+        expect(directive.find('.qa-header__logout').length).toBe(1);
+        expect(directive.find('dp-terugmelden-button').length).toBe(0);
+        expect(directive.find('dp-link').length).toBe(0);
+
+        // Click it again
+        directive.find('.site-header__menu__item--toggle').eq(0).click();
+
+        // It should be closed again
+        expect(directive.find('.c-menu-dropdown').length).toBe(0);
+        expect(directive.find('.qa-header__logout').length).toBe(0);
+        expect(directive.find('dp-terugmelden-button').length).toBe(0);
+        expect(directive.find('dp-link').length).toBe(0);
     });
 });

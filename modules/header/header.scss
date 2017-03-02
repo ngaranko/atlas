@@ -2,8 +2,9 @@
 @import "../shared/styles/config";
 
 //Module specific variables
-$site-header-height: 50px;
-$search-form-height: $site-header-height - $base-whitespace * 2;
+$site-header-height: 108px;
+$toolbar-height: 40px;
+$search-form-height: 30px;
 
 @import "components/header/header";
 @import "components/menu-dropdown/menu-dropdown";

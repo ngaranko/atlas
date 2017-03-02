@@ -1,32 +1,29 @@
 @import "autocomplete/autocomplete";
 
-$submit-button-width: 30px;
-
 .c-search-form {
-  padding-top: $base-whitespace;
-  padding-bottom: $base-whitespace;
+  padding-top: $base-whitespace * .5;
+  padding-bottom: $base-whitespace * .5;
 }
 
 .c-search-form__input {
   @include font-size($s-font);
   display: block;
-  width: calc(100% - #{$submit-button-width});
+  width: calc(100% - #{$search-form-height + $base-whitespace * .5});
   height: $search-form-height;
   padding-right: $base-whitespace;
   padding-left: $base-whitespace;
   float: left;
+  border: 1px solid $secondary-gray20;
   outline: none;
-  background-color: $secondary-gray40;
-  color: $primary-light;
+  background-color: $primary-light;
+  color: $primary-dark;
 
   &::placeholder {
-    color: $secondary-gray20;
+    color: $secondary-gray60;
   }
 
   &:focus {
-    & + .c-search-form__submit {
-      background-color: $primary-contrast;
-    }
+    border-color: $primary-dark;
   }
 }
 
@@ -34,15 +31,16 @@ $submit-button-width: 30px;
   @extend %dp-search-icon;
   @include font-size($s-font);
 
-  width: $submit-button-width;
+  width: $search-form-height;
   height: $search-form-height;
+  margin-left: $base-whitespace * .5;
   float: left;
-  background-color: $secondary-gray40;
+  background-color: $primary-contrast;
   background-repeat: no-repeat;
   color: $primary-light;
   cursor: pointer;
 
   &:hover {
-    background-color: $primary-contrast;
+    background-color: $secondary-gray60;
   }
 }

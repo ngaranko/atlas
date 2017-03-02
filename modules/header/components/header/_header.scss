@@ -1,45 +1,50 @@
 %menu-item {
-  height: $site-header-height;
-  padding-right: $base-whitespace * 2;
-  padding-left: $base-whitespace * 2;
+  height: $toolbar-height;
+  padding-right: $base-whitespace;
+  padding-left: $base-whitespace;
 
   background-color: inherit;
   color: $primary-light;
-  line-height: $site-header-height;
+  line-height: $toolbar-height;
   text-decoration: none;
   cursor: pointer;
 }
 
 .site-header {
   position: relative;
-  height: $site-header-height;
-  background-color: $secondary-gray80;
+  height: $site-header-height + $toolbar-height;
+  padding-right: 42px;
+  padding-left: 42px;
 }
 
 .site-header__logo {
   @include font-size($xl-header-font);
   display: block;
   height: $site-header-height;
-  padding-left: $base-whitespace * 3;
-  background-color: $secondary-gray80;
-  color: $primary-light;
+  color: $primary-dark;
   text-decoration: none;
   cursor: pointer;
 
+  a {
+    color: $primary-dark;
+  }
+
+  button {
+    width: 100%;
+    text-align: left;
+  }
+
   img {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 14.5px;
-    padding-right: 2.75px;
-    padding-left: 2.75px;
-    background-color: $primary-light;
-    box-sizing: content-box;
+    top: 21px;
+    left: -27px;
+    width: 84px;
+    height: 67px;
   }
 
   span {
-    background-color: $secondary-gray80;
-    line-height: 50px;
+    font-size: 26px;
+    line-height: 60px;
   }
 
   &.site-header__logo--small {
@@ -47,54 +52,78 @@
   }
 }
 
+.site-header__contact {
+  float: right;
+  line-height: 60px;
+}
 
+
+
+.site-header__toolbar {
+  height: 40px;
+  background-color: $secondary-gray4;
+}
 
 .site-header__search {
-  padding-left: $base-whitespace * 2;
+  padding-top: $base-whitespace * .5;
+  padding-bottom: $base-whitespace * .5;
 }
 
 .site-header__menu {
-  position: relative;
-  height: $site-header-height;
-  float: right;
+  position: absolute;
+  top: 0;
+  right: -$base-whitespace;
+  height: $toolbar-height;
 }
 
 .site-header__menu__item {
   @extend %menu-item;
   display: block;
   float: left;
+  outline: none;
+  color: $primary-dark;
 
   &:hover {
-    background-color: $secondary-gray60;
+    background-color: $secondary-gray10;
   }
 }
 
 .site-header__menu__item--toggle {
+  position: relative;
+
   &::after {
     display: inline-block;
-    padding-left: $base-whitespace / 2;
+    padding-left: $base-whitespace * .5;
     transform: rotate(90deg); //Point downwards
     content: "›";
   }
 
   &.site-header__menu__item--toggle--active {
-    background-color: $secondary-gray60;
+    background-color: $secondary-gray10;
+    box-shadow: -2px 2px $secondary-gray40;
 
     &::after {
       transform: rotate(-90deg); //Point upwards
+    }
+
+    > span {
+      border-bottom: 2px solid $primary-contrast;
     }
   }
 }
 
 .site-header__menu__subitem {
-  @extend %menu-item;
+  @extend %link--arrow;
   display: block;
   width: 100%;
+  color: $primary-dark;
+  font-weight: normal;
+  line-height: 2;
   text-align: left;
   white-space: nowrap;
 
   &:hover {
-    background-color: $secondary-gray40;
+    color: $primary-contrast;
   }
 }
 
