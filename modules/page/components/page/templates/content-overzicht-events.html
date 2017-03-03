@@ -1,0 +1,26 @@
+<h1 class="c-user-content-overview__header">
+    Datalab
+</h1>
+
+<h4 class="c-user-content-overview__events-intro">
+    DataLab is een werkplaats met faciliteiten voor data makers en vragers.
+</h4>
+
+<h4 class="c-user-content-overview__events-intro">
+    DataLab is een kenniscentrum voor huidig en toekomstig data gebruik.
+</h4>
+
+<h4 class="c-user-content-overview__events-intro">
+    DataLab is een open podium voor experts en geïnteresseerden binnen en buiten de gemeente Amsterdam.
+    Je vindt ons op de begane grond van locatie Weesperstraat 113.
+    Je bent van harte welkom!
+</h4>
+
+<div id="{{vm.type}}{{entry.id}}" ng-repeat="entry in vm.entries" class="c-user-content-overview__item">
+    <dp-event date="entry.datum.date">
+        <div class="c-user-content-overview__events-item-contents">
+            <h2 class="c-user-content-overview__item-header">{{entry.titel.value}}</h2>
+            <div class="s-cms-content" ng-bind-html="entry.contents.html"></div>
+        </div>
+    </dp-event>
+</div>

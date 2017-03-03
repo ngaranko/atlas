@@ -1,0 +1,43 @@
+.c-user-content-widget {
+  margin-right: .5 * $base-whitespace;
+  margin-left: .5 * $base-whitespace;
+
+  .c-user-content-widget__entries {
+    margin-bottom: 2 * $base-whitespace;
+  }
+
+  .c-user-content-widget__meer {
+    color: $primary-dark;
+    font-weight: bold;
+  }
+
+  .c-user-content-widget__beleid-zie-ook {
+    margin-bottom: $base-whitespace;
+    font-weight: bold;
+  }
+
+  .c-user-content-widget__beleid-lees-meer {
+    margin-bottom: $base-whitespace;
+    color: $secondary-gray60;
+  }
+
+  .c-user-content-widget__beleid-item {
+    color: $primary-dark;
+  }
+
+  .c-user-content-widget__entry {
+    &:hover {
+      color: $primary-contrast;
+    }
+  }
+
+  .c-user-content-widget__events-event-short {
+    margin-left: .5 * $base-whitespace;
+  }
+
+  .c-user-content-widget__events-link {
+    &::before {
+      content: "";
+    }
+  }
+}

@@ -44,20 +44,15 @@ describe('The page component', function () {
             $q = _$q_;
             googleSheet = _googleSheet_;
         });
-
-        $templateCache.put('modules/page/components/page/templates/welcome.html', 'THIS_IS_WELCOME');
-        $templateCache.put('modules/page/components/page/templates/about.html', 'THIS_IS_ABOUT');
     });
 
-    function getComponent (name, type, item) {
+    function getComponent (type) {
         var component,
             scope,
             element;
 
-        element = document.createElement('dp-page');
-        element.setAttribute('name', name);
+        element = document.createElement('dp-user-content-widget');
         element.setAttribute('type', type);
-        element.setAttribute('item', item);
 
         scope = $rootScope.$new();
 
@@ -67,24 +62,12 @@ describe('The page component', function () {
         return component;
     }
 
-    it('loads an HTML page based on the name binding', function () {
-        var component;
-
-        // Welcome page
-        component = getComponent('welcome');
-        expect(component.text()).toContain('THIS_IS_WELCOME');
-
-        // About page
-        component = getComponent('about');
-        expect(component.text()).toContain('THIS_IS_ABOUT');
-    });
-
-    it('loads cms contents for the specified type and item', function () {
-        $templateCache.put('modules/page/components/page/templates/name.html', 'NAME');
+    it('loads cms contents for the specified type', function () {
+        $templateCache.put('modules/page/components/user-content-widget/templates/type.html', 'TYPE');
         spyOn(googleSheet, 'getContents').and.callThrough();
 
-        let component = getComponent('name', 'type', 'item');
-        let scope = component.isolateScope();
+        let component = getComponent('type'),
+            scope = component.isolateScope();
 
         expect(googleSheet.getContents).toHaveBeenCalledWith('CMSKEY', 99);
 
@@ -92,16 +75,5 @@ describe('The page component', function () {
 
         expect(scope.vm.feed).toBe('a feed');
         expect(scope.vm.entries).toEqual(entries);
-        expect(scope.vm.entry).toEqual({id: 'item'});
-    });
-
-    it('does nothing on empty type', function () {
-        let component = getComponent('about', '', '');
-        let scope = component.isolateScope();
-
-        $rootScope.$apply();
-
-        expect(scope.vm.feed).toBeNull();
-        expect(scope.vm.entries).toEqual([]);
     });
 });

@@ -32,6 +32,21 @@
   height: 320px;
 }
 
+.c-homepage__block--tall-user-content {
+  padding: $base-whitespace;
+}
+
+.c-homepage__block--tall-entries {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.c-homepage__block--tall-show-more {
+  position: absolute;
+  bottom: 2 * $base-whitespace;
+}
+
 .c-homepage__block--short {
   height: 160px;
   border-top: 2px solid $primary-light;

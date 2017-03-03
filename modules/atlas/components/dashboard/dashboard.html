@@ -98,7 +98,9 @@
                                      'c-dashboard__max-width__inner--home-page': vm.isHomePage
                                  }">
                                 <div ng-controller="PageController as page" class="qa-page">
-                                    <dp-page name="{{page.pageName}}"></dp-page>
+                                    <dp-page name="{{page.pageName}}"
+                                             type="{{page.pageType}}"
+                                             item="{{page.pageItem}}"></dp-page>
                                 </div>
                             </div>
                         </div>
