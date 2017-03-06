@@ -1,13 +1,20 @@
 @import "autocomplete/autocomplete";
 
+$clear-button-margin: ($search-form-height - $button-size) / 2;
+
+.c-search-form__input-container {
+  position: relative;
+  width: calc(100% - #{$search-form-height + $base-whitespace * .5});
+  float: left;
+}
+
 .c-search-form__input {
   @include font-size($s-font);
   display: block;
-  width: calc(100% - #{$search-form-height + $base-whitespace * .5});
+  width: 100%;
   height: $search-form-height;
-  padding-right: $base-whitespace + $submit-button-width;
+  padding-right: $base-whitespace + $search-form-height;
   padding-left: $base-whitespace;
-  float: left;
   border: 1px solid $secondary-gray20;
   outline: none;
   background-color: $primary-light;
@@ -19,6 +26,20 @@
 
   &:focus {
     border-color: $primary-dark;
+  }
+}
+
+.c-search-form__clear {
+  @include icon-button("clear");
+
+  position: absolute;
+  top: $clear-button-margin;
+  right: $clear-button-margin;
+  outline: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $primary-contrast;
   }
 }
 
@@ -37,20 +58,5 @@
 
   &:hover {
     background-color: $secondary-gray60;
-  }
-}
-
-.c-search-form__clear {
-  @include icon-button("close", "transparent", "red");
-
-  width: $submit-button-width;
-  height: $search-form-height;
-  margin-left: -2 * $submit-button-width;
-  float: left;
-  outline: none;
-  cursor: pointer;
-
-  &:hover {
-    background-color: $primary-contrast;
   }
 }
