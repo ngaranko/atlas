@@ -1,8 +1,5 @@
 @import "autocomplete/autocomplete";
 
-.c-search-form {
-}
-
 .c-search-form__input {
   @include font-size($s-font);
   display: block;

@@ -164,14 +164,13 @@
   @include icon-button("close", "red", "");
 
   position: absolute;
-  top: -35px;
-  right: -21px;
+  top: -($site-header-padding-print-version - $base-whitespace);
+  right: -($site-header-padding-print-version - $base-whitespace);
 }
 
 .c-print-button {
   @include icon-button-text-left("print");
 
-  margin-right: 4px;
   float: right;
 }
 
@@ -187,5 +186,13 @@
     &:hover {
       background-color: transparent;
     }
+  }
+
+  .site-header__title {
+    @include font-size($xl-font);
+  }
+
+  .site-header__menu {
+    height: $site-header-height-print-version - 2 * $site-header-padding-print-version;
   }
 }
