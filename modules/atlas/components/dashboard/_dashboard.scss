@@ -33,11 +33,11 @@ $dashboard-margin-home-page: 42px;
   position: relative;
   height: $dashboard-heading-height;
   z-index: 2;
-}
 
-.c-dashboard__heading--home-page {
-  height: $dashboard-heading-height-home-page + $dashboard-toolbar-height;
-  border-bottom: $dashboard-toolbar-height solid $secondary-gray4;
+  .t-homepage & {
+    height: $dashboard-heading-height-home-page + $dashboard-toolbar-height;
+    border-bottom: $dashboard-toolbar-height solid $secondary-gray4;
+  }
 }
 
 .c-dashboard__body {
@@ -50,14 +50,14 @@ $dashboard-margin-home-page: 42px;
   .u-row {
     @extend %full-height;
   }
-}
 
-.c-dashboard__body--home-page {
-  height: calc(100%
-    - #{$dashboard-heading-height-home-page}
-    - #{$dashboard-toolbar-height}
-    - #{$dashboard-footer-separator-height}
-    - #{$dashboard-footer-height});
+  .t-homepage & {
+    height: calc(100%
+      - #{$dashboard-heading-height-home-page}
+      - #{$dashboard-toolbar-height}
+      - #{$dashboard-footer-separator-height}
+      - #{$dashboard-footer-height});
+  }
 }
 
 .c-dashboard__body--error {
@@ -80,23 +80,12 @@ $dashboard-margin-home-page: 42px;
   background-color: $primary-light;
 }
 
-/**
- * Needed in case of a fixed scrollbar, which would otherwise mess up the
- * margin left and  right on auto
- *
- * See:
- * https://stackoverflow.com/questions/6357870/scrollbar-on-browser-and-div-margin-0-auto-jumping
- */
-.c-dashboard__max-width--scrollable {
-  margin-left: calc(50vw - #{$dashboard-max-width-outer / 2});
-}
-
 .c-dashboard__max-width__inner {
   max-width: $dashboard-max-width-inner;
   margin-right: auto;
   margin-left: auto;
 
-  &.c-dashboard__max-width__inner--home-page {
+  .t-homepage .c-dashboard__body & {
     padding-right: $dashboard-margin-home-page;
     padding-left: $dashboard-margin-home-page;
   }

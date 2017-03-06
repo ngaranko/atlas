@@ -1,5 +1,5 @@
 %menu-item {
-  height: $toolbar-height;
+  height: $site-header-height;
   padding-right: $base-whitespace;
   padding-left: $base-whitespace;
 
@@ -8,13 +8,21 @@
   line-height: $toolbar-height;
   text-decoration: none;
   cursor: pointer;
+
+  .t-homepage & {
+    height: $toolbar-height;
+  }
 }
 
 .site-header {
   position: relative;
-  height: $site-header-height + $toolbar-height;
-  padding-right: 42px;
-  padding-left: 42px;
+  height: $site-header-height;
+
+  .t-homepage & {
+    height: $site-header-height-homepage + $toolbar-height;
+    padding-right: 42px;
+    padding-left: 42px;
+  }
 }
 
 .site-header__logo {
@@ -36,19 +44,30 @@
 
   img {
     position: absolute;
-    top: 21px;
-    left: -27px;
-    width: 84px;
-    height: 67px;
+    top: $base-whitespace;
+    right: $base-whitespace;
+    left: $base-whitespace;
   }
 
   span {
-    font-size: 26px;
-    line-height: 60px;
+    @include font-size($s-header-font);
+    line-height: $site-header-height;
   }
 
-  &.site-header__logo--small {
-    font-size: 24px;
+  .t-homepage & {
+    height: $site-header-height-homepage;
+
+    img {
+      top: 21px;
+      left: -27px;
+      width: 84px;
+      height: 67px;
+    }
+
+    span {
+      @include font-size($xl-header-font);
+      line-height: 60px;
+    }
   }
 }
 
@@ -60,20 +79,31 @@
 
 
 .site-header__toolbar {
-  height: 40px;
+  height: $toolbar-height;
   background-color: $secondary-gray4;
 }
 
 .site-header__search {
-  padding-top: $base-whitespace * .5;
-  padding-bottom: $base-whitespace * .5;
+  height: $search-form-height;
+  margin-top: ($site-header-height - $search-form-height) / 2;
+  margin-bottom: ($site-header-height - $search-form-height) / 2;
+
+  .t-homepage & {
+    margin-top: ($toolbar-height - $search-form-height) / 2;
+    margin-bottom: ($toolbar-height - $search-form-height) / 2;
+  }
 }
 
 .site-header__menu {
   position: absolute;
   top: 0;
-  right: -$base-whitespace;
-  height: $toolbar-height;
+  right: 0;
+  height: $site-header-height;
+
+  .t-homepage & {
+    right: -$base-whitespace;
+    height: $toolbar-height;
+  }
 }
 
 .site-header__menu__item {

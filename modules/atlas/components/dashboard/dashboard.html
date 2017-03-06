@@ -1,13 +1,13 @@
 <div class="c-dashboard"
      ng-class="{
-         'c-dashboard--max-width': vm.hasMaxWidth
+         'c-dashboard--max-width': vm.hasMaxWidth,
+         't-homepage': vm.isHomePage
      }">
         <!-- Header -->
         <div ng-if="!vm.isCatalogus"
              class="qa-dashboard__default-header c-dashboard__heading"
              ng-class="{
                  'c-dashboard__max-width': vm.hasMaxWidth,
-                 'c-dashboard__heading--home-page': vm.isHomePage
              }"
              ng-controller="HeaderController as header">
 
@@ -35,13 +35,19 @@
         <!-- Body -->
         <div class="c-dashboard__body"
             ng-class="{
-                'c-dashboard__body--home-page': vm.isHomePage,
                 'c-dashboard__body--error': vm.visibility.httpStatus
             }">
             <div class="u-grid">
                 <!-- Error message -->
-                <div ng-if="vm.visibility.httpStatus">
-                    <dp-api-error></dp-api-error>
+                <div ng-if="vm.visibility.httpStatus"
+                     ng-class="{
+                         'c-dashboard__max-width': vm.hasMaxWidth
+                     }">
+                    <div ng-class="{
+                             'c-dashboard__max-width__inner': vm.hasMaxWidth
+                         }">
+                        <dp-api-error></dp-api-error>
+                    </div>
                 </div>
 
                 <!-- Columns -->
@@ -95,10 +101,7 @@
 
                         <!-- Page -->
                         <div ng-if="vm.activity.page" ng-show="vm.visibility.page" class="c-dashboard__max-width c-dashboard__max-width--scrollable">
-                            <div class="c-dashboard__max-width__inner"
-                                 ng-class="{
-                                     'c-dashboard__max-width__inner--home-page': vm.isHomePage
-                                 }">
+                            <div class="c-dashboard__max-width__inner">
                                 <div ng-controller="PageController as page" class="qa-page">
                                     <dp-page name="{{page.pageName}}"></dp-page>
                                 </div>
@@ -138,7 +141,7 @@
         </div>
         <div ng-if="vm.isHomePage" class="c-dashboard__max-width">
             <footer class="c-dashboard__footer">
-                <div class="c-dashboard__max-width__inner c-dashboard__max-width__inner--home-page">
+                <div class="c-dashboard__max-width__inner">
                     <a href="https://www.amsterdam.nl/proclaimer" class="o-btn o-btn--link" target="_blank">Proclaimer</a>
                 </div>
             </footer>
