@@ -25,22 +25,26 @@
                 CARDS: 'Dataset'
             };
 
-            view = VIEW_NAMES[dataSelectionState.view];
-            variant = DATA_SELECTION_CONFIG.datasets[dataSelectionState.dataset].TITLE;
-            criteria = DATA_SELECTION_CONFIG.datasets[dataSelectionState.dataset].FILTERS
+            if (dataSelectionState.view === 'CARDS' && Object.keys(dataSelectionState.filters).length === 0) {
+                return `Datasets met ${dataSelectionState.query}`;
+            } else {
+                view = VIEW_NAMES[dataSelectionState.view];
+                variant = DATA_SELECTION_CONFIG.datasets[dataSelectionState.dataset].TITLE;
+                criteria = DATA_SELECTION_CONFIG.datasets[dataSelectionState.dataset].FILTERS
                 // Retrieve all the active filters
-                .filter(availableFilter => angular.isDefined(dataSelectionState.filters[availableFilter.slug]))
-                // Show the value of each active filter
-                .map(activeFilter => dataSelectionState.filters[activeFilter.slug])
-                .join(', ');
+                    .filter(availableFilter => angular.isDefined(dataSelectionState.filters[availableFilter.slug]))
+                    // Show the value of each active filter
+                    .map(activeFilter => dataSelectionState.filters[activeFilter.slug])
+                    .join(', ');
 
-            output = view + ' ' + variant;
+                output = view + ' ' + variant;
 
-            if (criteria.length) {
-                output += ' met ' + criteria;
+                if (criteria.length) {
+                    output += ' met ' + criteria;
+                }
+
+                return output;
             }
-
-            return output;
         }
     }
 })();

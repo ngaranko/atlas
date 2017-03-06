@@ -13,43 +13,59 @@ describe('The dpSearchResultsDocumentTitle factory', function () {
         spyOn(searchTitle, 'getTitleData');
     });
 
-    it('does not return only a sub title', () => {
-        searchTitle.getTitleData.and.returnValue({
-            title: '',
-            subTitle: 'subTitle'
+    describe('For searches on text', function () {
+        it('returns "Data met <searchText> as a title', function () {
+            expect(documentTitle.getTitle({query: 'a query'})).toBe('Data met a query');
         });
-        expect(documentTitle.getTitle({})).toBe('');
+    });
 
-        searchTitle.getTitleData.and.returnValue({
-            title: null,
-            subTitle: 'subTitle'
+    describe('For searches on a location', function () {
+        let searchOnLocation;
+
+        beforeEach(function () {
+            searchOnLocation = {
+                location: [52, 4]
+            };
         });
-        expect(documentTitle.getTitle({})).toBe('');
+
+        it('does not return only a sub title', () => {
+            searchTitle.getTitleData.and.returnValue({
+                title: '',
+                subTitle: 'subTitle'
+            });
+            expect(documentTitle.getTitle(searchOnLocation)).toBe('');
+
+            searchTitle.getTitleData.and.returnValue({
+                title: null,
+                subTitle: 'subTitle'
+            });
+            expect(documentTitle.getTitle(searchOnLocation)).toBe('');
+        });
+
+        it('returns the title', () => {
+            searchTitle.getTitleData.and.returnValue({
+                title: 'title',
+                subTitle: ''
+            });
+            expect(documentTitle.getTitle(searchOnLocation)).toBe('title');
+
+            searchTitle.getTitleData.and.returnValue({
+                title: 'title',
+                subTitle: null
+            });
+            expect(documentTitle.getTitle(searchOnLocation)).toBe('title');
+        });
+
+        it('returns both the title and the sub title with a space in between', () => {
+            searchTitle.getTitleData.and.returnValue({
+                title: 'title',
+                subTitle: 'sub title'
+            });
+            expect(documentTitle.getTitle(searchOnLocation)).toBe('title sub title');
+        });
     });
 
     it('returns an empty title when no searchState is known', () => {
         expect(documentTitle.getTitle()).toBe('');
-    });
-
-    it('returns the title', () => {
-        searchTitle.getTitleData.and.returnValue({
-            title: 'title',
-            subTitle: ''
-        });
-        expect(documentTitle.getTitle({})).toBe('title');
-
-        searchTitle.getTitleData.and.returnValue({
-            title: 'title',
-            subTitle: null
-        });
-        expect(documentTitle.getTitle({})).toBe('title');
-    });
-
-    it('returns both the title and the sub title with a space in between', () => {
-        searchTitle.getTitleData.and.returnValue({
-            title: 'title',
-            subTitle: 'sub title'
-        });
-        expect(documentTitle.getTitle({})).toBe('title sub title');
     });
 });

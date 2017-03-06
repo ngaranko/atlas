@@ -12,7 +12,7 @@ $submit-button-width: 30px;
   display: block;
   width: calc(100% - #{$submit-button-width});
   height: $search-form-height;
-  padding-right: $base-whitespace;
+  padding-right: $base-whitespace + $submit-button-width;
   padding-left: $base-whitespace;
   float: left;
   outline: none;
@@ -40,6 +40,21 @@ $submit-button-width: 30px;
   background-color: $secondary-gray40;
   background-repeat: no-repeat;
   color: $primary-light;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $primary-contrast;
+  }
+}
+
+.c-search-form__clear {
+  @include icon-button("close", "transparent", "red");
+
+  width: $submit-button-width;
+  height: $search-form-height;
+  margin-left: -2 * $submit-button-width;
+  float: left;
+  outline: none;
   cursor: pointer;
 
   &:hover {

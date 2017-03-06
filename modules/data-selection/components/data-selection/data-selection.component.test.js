@@ -163,6 +163,36 @@ describe('The dp-data-selection component', function () {
         expect(scope.vm.numberOfRecords).toBe(77);
     });
 
+    it('hides the tab header in CARDS view when any filters are active', function () {
+        mockedState.view = 'CARDS';
+        const component = getComponent(mockedState);
+        let scope = component.isolateScope();
+        expect(scope.vm.showTabHeader()).toBe(false);
+        expect(component.find('dp-tab-header').length).toBe(0);
+    });
+
+    it('shows the tab header in CARDS view when no filters are active', function () {
+        mockedState.view = 'CARDS';
+        mockedState.filters = {};
+        const component = getComponent(mockedState);
+        let scope = component.isolateScope();
+        expect(scope.vm.showTabHeader()).toBe(true);
+        expect(component.find('dp-tab-header').length).toBe(1);
+    });
+
+    it('hides the tab header in any other than CARDS view', function () {
+        ['TABLE', 'LIST'].forEach(view => {
+            [{}, {filter: 'any filter'}].forEach(filters => {
+                mockedState.view = view;
+                mockedState.filters = filters;
+                const component = getComponent(mockedState);
+                let scope = component.isolateScope();
+                expect(scope.vm.showTabHeader()).toBe(false);
+                expect(component.find('dp-tab-header').length).toBe(0);
+            });
+        });
+    });
+
     it('either calls the TABLE, LIST or CARDS view', function () {
         let component;
 

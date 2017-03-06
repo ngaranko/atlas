@@ -117,13 +117,13 @@ describe('each URL should load the corresponding view', function () {
         expect(searchResults.categories(2).list(4).subtype).toBe('(buurt)');
     });
 
-    it('MAP_SEARCH-RESULTS--QUERY', () => {
-        page = dp.navigate('MAP_SEARCH-RESULTS--QUERY');
+    it('SEARCH-RESULTS--QUERY', () => {
+        page = dp.navigate('SEARCH-RESULTS--QUERY');
         const searchResults = page.dashboard.rightColumn.searchResults;
 
-        dp.validate('MAP_SEARCH-RESULTS--QUERY', page);
+        dp.validate('SEARCH-RESULTS--QUERY', page);
 
-        expect(page.title).toMatch(/\d+ resultaten met \"Oost\" - Atlas$/);
+        expect(page.title).toMatch(/Data met Oost - Atlas$/);
 
         expect(searchResults.categories(0).header).toMatch(/Openbare ruimtes \(\d+\)/);
         expect(searchResults.categories(0).list(0).link.label).toMatch(/Oost/);

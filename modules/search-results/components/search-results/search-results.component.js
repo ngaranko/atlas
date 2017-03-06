@@ -27,8 +27,10 @@
          */
         $scope.$watch('vm.isLoading', () => {
             if (vm.isLoading) {
-                if (!searchByQuery(vm.query, vm.category)) {
-                    searchByLocation(vm.location);
+                // First try to search on location
+                // Test on isArray(location) is more precise than isString(query) because null maps to empty string (@)
+                if (!searchByLocation(vm.location)) {
+                    searchByQuery(vm.query, vm.category);
                 }
             }
         });
@@ -55,16 +57,20 @@
             });
         };
 
+        vm.showTabHeader = () => !angular.isArray(vm.location) && !vm.category;
+
         vm.tabHeader = new TabHeader('data-datasets');
         vm.tabHeader.activeTab = vm.tabHeader.getTab('data');
 
         function updateTabHeader (query, count) {
-            vm.tabHeader.query = query;
-            vm.tabHeader.getTab('data').count = count;
+            if (vm.showTabHeader()) {
+                vm.tabHeader.query = query;
+                vm.tabHeader.getTab('data').count = count;
+            }
         }
 
         function searchByQuery (query, category) {
-            let isQuery = angular.isString(query) && query.length;
+            let isQuery = angular.isString(query);
             if (isQuery) {
                 if (angular.isString(category) && category.length) {
                     search.search(query, category).then(setSearchResults);
