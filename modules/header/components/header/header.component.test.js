@@ -105,7 +105,7 @@ describe('The dp-header component', function () {
             expect(component.find('dp-menu-dropdown').eq(0).attr('title')).toBe('user');
         });
 
-        it('can show that a user is a bevoegd employee', function () {
+        it('can show that a user is a normal employee', function () {
             var component;
 
             spyOn(user, 'getUserType').and.returnValue('AUTHENTICATED');
@@ -117,7 +117,7 @@ describe('The dp-header component', function () {
             expect(component.find('dp-menu-dropdown').eq(0).attr('title')).toBe('user');
         });
 
-        it('can show that a user is a normal employee', function () {
+        it('can show that a user is a bevoegd employee', function () {
             var component;
 
             spyOn(user, 'getUserType').and.returnValue('AUTHENTICATED');
