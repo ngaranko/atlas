@@ -1,4 +1,4 @@
-describe('The page component', function () {
+describe('The user content widget component', function () {
     var $compile,
         $rootScope,
         $templateCache,

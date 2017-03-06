@@ -1,16 +1,4 @@
 .c-user-content-widget {
-  margin-right: .5 * $base-whitespace;
-  margin-left: .5 * $base-whitespace;
-
-  .c-user-content-widget__entries {
-    margin-bottom: 2 * $base-whitespace;
-  }
-
-  .c-user-content-widget__meer {
-    color: $primary-dark;
-    font-weight: bold;
-  }
-
   .c-user-content-widget__beleid-zie-ook {
     margin-bottom: $base-whitespace;
     font-weight: bold;
@@ -21,11 +9,9 @@
     color: $secondary-gray60;
   }
 
-  .c-user-content-widget__beleid-item {
-    color: $primary-dark;
-  }
-
   .c-user-content-widget__entry {
+    margin-bottom: $base-whitespace;
+
     &:hover {
       color: $primary-contrast;
     }
@@ -36,8 +22,10 @@
   }
 
   .c-user-content-widget__events-link {
+    margin-left: 0;
+
     &::before {
-      content: "";
+      display: none;
     }
   }
 }

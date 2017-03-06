@@ -23,11 +23,15 @@
             </div>
             <div class="u-col-sm--3">
                 <!-- News -->
-                <div class="c-homepage__block c-homepage__block--right c-homepage__block--tall c-homepage__block--tall-user-content">
-                    <dp-user-content-widget type="news"
-                                            entries-classname="c-homepage__block--tall-entries"
-                                            show-more-classname="c-homepage__block--tall-show-more">
-                    </dp-user-content-widget>
+                <div class="c-homepage__block c-homepage__block--right c-homepage__block--tall">
+                    <div class="c-homepage__block--tall-entries">
+                        <dp-user-content-widget type="news"></dp-user-content-widget>
+                    </div>
+                    <div class="c-homepage__block--tall-show-more">
+                        <dp-link type="SHOW_PAGE" payload="{name: 'content-overzicht', type: vm.type}">
+                            Al het nieuws tonen
+                        </dp-link>
+                    </div>
                 </div>
             </div>
         </div>
@@ -59,11 +63,15 @@
             </div>
             <div class="u-col-sm--3">
                 <!-- Events -->
-                <div class="c-homepage__block c-homepage__block--right c-homepage__block--tall c-homepage__block--tall-user-content">
-                    <dp-user-content-widget type="events"
-                                            entries-classname="c-homepage__block--tall-entries"
-                                            show-more-classname="c-homepage__block--tall-show-more">
-                    </dp-user-content-widget>
+                <div class="c-homepage__block c-homepage__block--right c-homepage__block--tall">
+                    <div class="c-homepage__block--tall-entries">
+                        <dp-user-content-widget type="events"></dp-user-content-widget>
+                    </div>
+                    <div class="c-homepage__block--tall-show-more">
+                        <dp-link type="SHOW_PAGE" payload="{name: 'content-overzicht', type: vm.type}">
+                            Meer over datalab
+                        </dp-link>
+                    </div>
                 </div>
             </div>
         </div>
@@ -74,7 +82,9 @@
                 <p>Het is een uitnodiging om met de Amsterdamse data innovatieve toepassingen te ontwikkelen.</p>
             </div>
             <div class="u-col-sm--3">
-                <dp-user-content-widget type="beleid"></dp-user-content-widget>
+                <div class="c-homepage__block--right c-homepage__block--right-beleid">
+                    <dp-user-content-widget type="beleid"></dp-user-content-widget>
+                </div>
             </div>
         </div>
     </div>

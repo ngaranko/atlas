@@ -1,21 +1,11 @@
 <div ng-if="vm.feed" class="c-user-content-widget">
-    <div class="c-user-content-widget__entries" ng-class="vm.entriesClassname">
-        <div ng-repeat="entry in vm.entries" class="c-user-content-widget__entry">
-            <div ng-if="entry.short.isHref"
-                 class="o-btn o-btn--link s-cms-content"
-                 ng-bind-html="entry.short.html"></div>
-            <dp-link ng-if="!entry.short.isHref"
-                     type="SHOW_PAGE"
-                     payload="{name: 'content-detail', type: vm.type, item: entry.id}">
-                <div class="s-cms-content" ng-bind-html="entry.short.html"></div>
-            </dp-link>
-        </div>
-    </div>
-
-    <div ng-class="vm.showMoreClassname">
-        <dp-link type="SHOW_PAGE"
-                 payload="{name: 'content-overzicht', type: vm.type}">
-            <div class="c-user-content-widget__entry c-user-content-widget__meer">Al het nieuws tonen</div>
+    <div ng-repeat="entry in vm.entries" class="c-user-content-widget__entry">
+        <div ng-if="entry.short.isHref"
+             class="o-btn o-btn--link s-cms-content"
+             ng-bind-html="entry.short.html"></div>
+        <dp-link ng-if="!entry.short.isHref"
+                 type="SHOW_PAGE" payload="{name: 'content-detail', type: vm.type, item: entry.id}">
+            <div class="s-cms-content" ng-bind-html="entry.short.html"></div>
         </dp-link>
     </div>
 </div>

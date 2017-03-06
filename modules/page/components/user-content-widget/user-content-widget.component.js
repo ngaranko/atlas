@@ -5,9 +5,7 @@
         .module('dpPage')
         .component('dpUserContentWidget', {
             bindings: {
-                type: '@',
-                entriesClassname: '@',
-                showMoreClassname: '@'
+                type: '@'
             },
             templateUrl: 'modules/page/components/user-content-widget/user-content-widget.html',
             controller: DpUserContentWidgetController,
