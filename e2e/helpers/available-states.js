@@ -25,29 +25,6 @@ module.exports = {
         url: '#?mpv=52.3731081:4.8932945&mpb=topografie&mpz=11&dsv=LIST&dsd=hr&dsp=1',
         validator: require('../validators/map_data-selection')
     },
-<<<<<<< HEAD
-=======
-    'MAP_DETAIL--BEPERKING': {
-        url: '#?dte=https:%2F%2Fapi-acc.datapunt.amsterdam.nl%2Fwkpb%2Fbeperking%2F3488%2F&mpb=topografie&mpz=16&mpv=' +
-            '52.3785997:4.8457623',
-        validator: require('../validators/map_detail--beperking')
-    },
-    'MAP_DETAIL--KADASTRAAL-OBJECT': {
-        url: '#?dte=https:%2F%2Fapi-acc.datapunt.amsterdam.nl%2Fbrk%2Fobject%2FNL.KAD.OnroerendeZaak.14110053810001%2' +
-            'F&mpb=topografie&mpz=16&mpv=52.3785997:4.8457623',
-        validator: require('../validators/map_detail--kadastraal-object')
-    },
-    'MAP_DETAIL--KADASTRAAL-SUBJECT-NATUURLIJK-PERSOON': {
-        url: '#?dte=https:%2F%2Fapi.datapunt.amsterdam.nl%2Fbrk%2Fsubject%2FNL.KAD.Persoon.304757725%2F&mpb=topografi' +
-        'e&mpz=9&mpv=52.3719:4.9012',
-        validator: require('../validators/map_detail--kadastraal-subject')
-    },
-    'MAP_DETAIL--KADASTRAAL-SUBJECT-NIET-NATUURLIJK-PERSOON': {
-        url: '#?dte=https:%2F%2Fapi.datapunt.amsterdam.nl%2Fbrk%2Fsubject%2FNL.KAD.Persoon.172031668%2F&mpb=topografi' +
-             'e&mpz=16&mpv=52.3408374:4.9044968',
-        validator: require('../validators/map_detail--kadastraal-subject')
-    },
->>>>>>> url-checker test for gemeentelijke beperking
     'MAP_DETAIL--NUMMERAANDUIDING': {
         url: '#?mpv=52.353263440372224:5.001382398402873&mpb=topografie&mpz=16&' +
         'dte=https:%2F%2Fapi.datapunt.amsterdam.nl%2Fbag%2Fnummeraanduiding%2F03630000500149%2F',
