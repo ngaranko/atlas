@@ -68,7 +68,7 @@ describe('The tabHeader component', function () {
 
     it('shows a tip when no results are found', function () {
         let component = getComponent(mockedSearchText, []);
-        expect(component.text()).toContain('tip: ');
+        expect(component.text()).toContain('Tip: ');
     });
 
     it('does not show the search text in the header when any count is null', function () {
