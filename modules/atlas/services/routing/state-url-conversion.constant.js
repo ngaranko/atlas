@@ -264,6 +264,10 @@
                     name: 'search.category',
                     type: 'string'
                 },
+                srfs: {
+                    name: 'search.isFullscreen',
+                    type: 'boolean'
+                },
                 srl: {
                     name: 'search.location',
                     type: 'base62[]',

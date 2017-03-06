@@ -28,7 +28,8 @@
 
             newState.search = {
                 isLoading: true,
-                query: payload,
+                isFullscreen: true,
+                query: payload || null,
                 location: null,
                 category: null,
                 numberOfResults: null
@@ -56,6 +57,7 @@
 
             newState.search = {
                 isLoading: true,
+                isFullscreen: false,
                 query: null,
                 location: dpBaseCoder.toPrecision(payload, 7),
                 category: null,

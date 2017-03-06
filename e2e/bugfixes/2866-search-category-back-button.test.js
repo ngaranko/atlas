@@ -7,16 +7,16 @@ describe('Taiga issue #2866', () => {
         page.dashboard.header.search.submit();
 
         expect(page.dashboard.rightColumn.searchResults.categories(1).header).toContain('Adressen');
-        dp.validate('MAP_SEARCH-RESULTS--QUERY', page);
+        dp.validate('SEARCH-RESULTS--QUERY', page);
         const searchTitle = page.title;
 
         // Open the 'Adressen' category
         page.dashboard.rightColumn.searchResults.categories(1).showMore.click();
-        dp.validate('MAP_SEARCH-RESULTS--CATEGORY', page);
+        dp.validate('SEARCH-RESULTS--CATEGORY', page);
 
         // Hit the back button, return to the search results overview
         browser.navigate().back();
-        dp.validate('MAP_SEARCH-RESULTS--QUERY', page);
+        dp.validate('SEARCH-RESULTS--QUERY', page);
 
         expect(page.title).toBe(searchTitle);
     });
