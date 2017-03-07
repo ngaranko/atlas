@@ -4,9 +4,9 @@
 }
 
 .site-header--tall {
-  height: $site-header-height-homepage + $toolbar-height;
-  padding-right: 42px;
-  padding-left: 42px;
+  height: $site-header-height-tall + $site-header-toolbar-height;
+  padding-right: $site-header-gutter;
+  padding-left: $site-header-gutter;
 }
 
 .site-header__logo {
@@ -40,7 +40,7 @@
 }
 
 .site-header__logo--tall {
-  height: $site-header-height-homepage;
+  height: $site-header-height-tall;
 
   img {
     top: 21px;
@@ -63,19 +63,19 @@
 
 
 .site-header__toolbar {
-  height: $toolbar-height;
+  height: $site-header-toolbar-height;
   background-color: $secondary-gray4;
 }
 
 .site-header__search {
-  height: $search-form-height;
-  margin-top: ($site-header-height - $search-form-height) / 2;
-  margin-bottom: ($site-header-height - $search-form-height) / 2;
+  height: $site-header-search-form-height;
+  margin-top: ($site-header-height - $site-header-search-form-height) / 2;
+  margin-bottom: ($site-header-height - $site-header-search-form-height) / 2;
 }
 
 .site-header__search--toolbar {
-  margin-top: ($toolbar-height - $search-form-height) / 2;
-  margin-bottom: ($toolbar-height - $search-form-height) / 2;
+  margin-top: ($site-header-toolbar-height - $site-header-search-form-height) / 2;
+  margin-bottom: ($site-header-toolbar-height - $site-header-search-form-height) / 2;
 }
 
 .site-header__menu {
@@ -87,19 +87,17 @@
 
 .site-header__menu--toolbar {
   right: -$base-whitespace;
-  height: $toolbar-height;
+  height: $site-header-toolbar-height;
 }
 
 .site-header__menu__item {
+  display: block;
   height: 100%;
   padding-right: $base-whitespace;
   padding-left: $base-whitespace;
-
-  background-color: inherit;
-  line-height: $toolbar-height;
-
-  display: block;
   float: left;
+  background-color: inherit;
+  line-height: $site-header-toolbar-height;
 
   &:hover {
     background-color: $secondary-gray10;
@@ -114,7 +112,7 @@
 }
 
 .site-header__menu__item--toolbar {
-  height: $toolbar-height;
+  height: $site-header-toolbar-height;
 }
 
 .site-header__menu__item--toggle {

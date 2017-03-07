@@ -3,11 +3,12 @@
 
 //Module specific variables
 $site-header-height: 50px;
-$site-header-height-homepage: 108px;
+$site-header-height-tall: 108px;
+$site-header-gutter: 42px;
 $site-header-height-print-version: 118px;
 $site-header-padding-print-version: 46px;
-$toolbar-height: 40px;
-$search-form-height: 30px;
+$site-header-toolbar-height: 40px;
+$site-header-search-form-height: 30px;
 
 @import "components/header/header";
 @import "components/menu-dropdown/menu-dropdown";

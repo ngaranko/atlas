@@ -1,10 +1,10 @@
 @import "autocomplete/autocomplete";
 
-$clear-button-margin: ($search-form-height - $button-size) / 2;
+$clear-button-margin: ($site-header-search-form-height - $button-size) / 2;
 
 .c-search-form__input-container {
   position: relative;
-  width: calc(100% - #{$search-form-height + $base-whitespace * .5});
+  width: calc(100% - #{$site-header-search-form-height + $base-whitespace * .5});
   float: left;
 }
 
@@ -12,8 +12,8 @@ $clear-button-margin: ($search-form-height - $button-size) / 2;
   @include font-size($s-font);
   display: block;
   width: 100%;
-  height: $search-form-height;
-  padding-right: $base-whitespace + $search-form-height;
+  height: $site-header-search-form-height;
+  padding-right: $base-whitespace + $site-header-search-form-height;
   padding-left: $base-whitespace;
   border: 1px solid $secondary-gray20;
   outline: none;
@@ -47,8 +47,8 @@ $clear-button-margin: ($search-form-height - $button-size) / 2;
   @extend %dp-search-icon;
   @include font-size($s-font);
 
-  width: $search-form-height;
-  height: $search-form-height;
+  width: $site-header-search-form-height;
+  height: $site-header-search-form-height;
   margin-left: $base-whitespace * .5;
   float: left;
   background-color: $primary-contrast;
