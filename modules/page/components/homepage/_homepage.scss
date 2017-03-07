@@ -1,5 +1,8 @@
 @import "catalogus-themes/catalogus-themes";
 
+$block-tall-height: 320px;
+$block-short-height: 160px;
+
 .c-homepage__block {
   display: block;
   position: relative;
@@ -30,26 +33,26 @@
 }
 
 .c-homepage__block--tall {
-  height: 320px;
+  height: $block-tall-height;
 }
 
-.c-homepage__block--tall-entries {
+.c-homepage__block--entries {
   position: relative;
-  height: 245px;
+  height: $block-tall-height - 75;
   overflow: hidden;
 }
 
-.c-homepage__block--tall-show-more {
+.c-homepage__block--show-more {
   position: absolute;
   bottom: 2 * $base-whitespace;
 }
 
-.c-homepage__block--right-beleid {
+.c-homepage__block--beleid {
   padding-top: 0;
 }
 
 .c-homepage__block--short {
-  height: 160px;
+  height: $block-short-height;
   border-top: 2px solid $primary-light;
 }
 
