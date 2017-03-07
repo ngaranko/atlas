@@ -20,10 +20,11 @@
         var vm = this;
 
         vm.login = authenticator.login;
-        vm.logout = authenticator.logout;
 
-        vm.isAuthenticated = function () {
-            return user.getUserType() === user.USER_TYPE.AUTHENTICATED;
-        };
+        vm.isAuthenticated = () => user.getUserType() === user.USER_TYPE.AUTHENTICATED;
+
+        vm.userName = () => user.getName().replace(/@.*$/, '');
+
+        vm.userIsBevoegd = () => user.getAuthorizationLevel() === user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS;
     }
 })();
