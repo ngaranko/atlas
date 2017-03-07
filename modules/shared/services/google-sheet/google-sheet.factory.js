@@ -46,8 +46,9 @@
         }
 
         function parseContents (contents) {
-            const isDate = /(\d{1,2})-(\d{1,2})-(\d{4})/;
-            const isHref = /^(\[link |<a href=)/;
+            const isDateValue = /(\d{1,2})-(\d{1,2})-(\d{4})/,
+                isDateKey = /datum/i,
+                isHref = /^(\[link |<a href=)/;
 
             // Set feed properties
             let feed = {
@@ -69,10 +70,10 @@
                                 value,
                                 html: $sce.trustAsHtml(markdownParser.parse(value)),
                                 isHref: Boolean(value.match(isHref)),
-                                isDate: Boolean(value.match(isDate) && key.match(/datum/i))
+                                isDate: Boolean(value.match(isDateValue) && key.match(isDateKey))
                             };
                             if (item[key].isDate) {
-                                let match = isDate.exec(value);
+                                let match = isDateValue.exec(value);
                                 item[key].date = new Date(match[3], match[2] - 1, match[1]);
                             }
                         }
