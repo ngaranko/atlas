@@ -1,13 +1,15 @@
 <div ng-if="vm.feed" class="c-user-content-widget">
     <div ng-repeat="entry in vm.entries" class="c-user-content-widget__entry">
-        <dp-event date="entry.datum.date">
+        <div class="c-user-content-widget__entry">
             <div class="c-user-content-widget__events-short">
-                <dp-link type="SHOW_PAGE"
-                         payload="{name: 'content-detail', type: vm.type, item: entry.id}"
-                         class-name="o-btn o-btn--link c-user-content-widget__events-link">
-                    <div class="s-cms-content" ng-bind-html="entry.short.html"></div>
-                </dp-link>
+            <dp-link type="SHOW_PAGE"
+                     payload="{name: 'content-detail', type: vm.type, item: entry.id}"
+                     class-name="o-btn o-btn--link c-user-content-widget__events-link">
+                    <dp-event date="entry.datum.date">
+                        <div class="c-user-content-widget__short s-cms-content" ng-bind-html="entry.short.html"></div>
+                    </dp-event>
+            </dp-link>
             </div>
-        </dp-event>
+        </div>
     </div>
 </div>

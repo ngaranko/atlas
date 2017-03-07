@@ -11,14 +11,10 @@
 
   .c-user-content-widget__entry {
     margin-bottom: $base-whitespace;
-
-    &:hover {
-      color: $primary-contrast;
-    }
   }
 
-  .c-user-content-widget__events-short {
-    margin-left: .5 * $base-whitespace;
+  .c-user-content-widget__short {
+    font-weight: normal;
   }
 
   .c-user-content-widget__events-link {
