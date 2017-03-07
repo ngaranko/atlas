@@ -1,7 +1,7 @@
 <div ng-if="vm.feed" class="c-user-content-widget">
     <div ng-repeat="entry in vm.entries" class="c-user-content-widget__entry">
         <div ng-if="entry.short.isHref"
-             class="o-btn o-btn--link c-user-content-widget__entry s-cms-content"
+             class="o-btn o-btn--link c-user-content-widget__short s-cms-content"
              ng-bind-html="entry.short.html"></div>
         <dp-link ng-if="!entry.short.isHref"
                  type="SHOW_PAGE" payload="{name: 'content-detail', type: vm.type, item: entry.id}">
