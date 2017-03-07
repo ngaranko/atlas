@@ -7,7 +7,8 @@
         <div ng-if="!vm.isCatalogus"
              class="qa-dashboard__default-header c-dashboard__heading"
              ng-class="{
-                 'c-dashboard__max-width': vm.hasMaxWidth,
+                 'c-dashboard__heading--homepage': vm.isHomePage,
+                 'c-dashboard__max-width': vm.hasMaxWidth
              }"
              ng-controller="HeaderController as header">
 
@@ -34,9 +35,10 @@
 
         <!-- Body -->
         <div class="c-dashboard__body"
-            ng-class="{
-                'c-dashboard__body--error': vm.visibility.httpStatus
-            }">
+             ng-class="{
+                 'c-dashboard__body--error': vm.visibility.httpStatus,
+                 'c-dashboard__body--homepage': vm.isHomePage
+             }">
             <div class="u-grid">
                 <!-- Error message -->
                 <div ng-if="vm.visibility.httpStatus"
@@ -45,7 +47,8 @@
                          'c-dashboard__max-width': vm.hasMaxWidth
                      }">
                     <div ng-class="{
-                             'c-dashboard__max-width__inner': vm.hasMaxWidth
+                             'c-dashboard__max-width__inner': vm.hasMaxWidth,
+                             'c-dashboard__max-width__inner--homepage': vm.isHomePage
                          }">
                         <dp-api-error></dp-api-error>
                     </div>
@@ -102,7 +105,10 @@
 
                         <!-- Page -->
                         <div ng-if="vm.activity.page" ng-show="vm.visibility.page" class="c-dashboard__max-width c-dashboard__max-width--scrollable">
-                            <div class="c-dashboard__max-width__inner">
+                            <div class="c-dashboard__max-width__inner"
+                                 ng-class="{
+                                     'c-dashboard__max-width__inner--homepage': vm.isHomePage
+                                 }">
                                 <div ng-controller="PageController as page" class="qa-page">
                                     <dp-page name="{{page.pageName}}"></dp-page>
                                 </div>

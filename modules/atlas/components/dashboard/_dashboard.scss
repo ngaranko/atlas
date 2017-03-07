@@ -1,7 +1,7 @@
 @import "modules/shared/styles/config";
 
 $dashboard-heading-height: 50px;
-$dashboard-heading-height-home-page: 108px;
+$dashboard-heading-height-homepage: 108px;
 $dashboard-toolbar-height: 40px;
 $dashboard-footer-height: 40px;
 $dashboard-footer-separator-height: 8px;
@@ -32,11 +32,11 @@ $dashboard-gutter: 42px;
   position: relative;
   height: $dashboard-heading-height;
   z-index: 2;
+}
 
-  .t-homepage & {
-    height: $dashboard-heading-height-home-page + $dashboard-toolbar-height;
-    border-bottom: $dashboard-toolbar-height solid $secondary-gray4;
-  }
+.c-dashboard__heading--homepage {
+  height: $dashboard-heading-height-homepage + $dashboard-toolbar-height;
+  border-bottom: $dashboard-toolbar-height solid $secondary-gray4;
 }
 
 .c-dashboard__body {
@@ -49,14 +49,14 @@ $dashboard-gutter: 42px;
   .u-row {
     @extend %full-height;
   }
+}
 
-  .t-homepage & {
-    height: calc(100%
-      - #{$dashboard-heading-height-home-page}
-      - #{$dashboard-toolbar-height}
-      - #{$dashboard-footer-separator-height}
-      - #{$dashboard-footer-height});
-  }
+.c-dashboard__body--homepage {
+  height: calc(100%
+    - #{$dashboard-heading-height-homepage}
+    - #{$dashboard-toolbar-height}
+    - #{$dashboard-footer-separator-height}
+    - #{$dashboard-footer-height});
 }
 
 .c-dashboard__body--error {
@@ -83,13 +83,11 @@ $dashboard-gutter: 42px;
   max-width: $dashboard-max-width-inner;
   margin-right: auto;
   margin-left: auto;
+}
 
-  .t-homepage {
-    .c-dashboard__body & {
-      padding-right: $dashboard-gutter;
-      padding-left: $dashboard-gutter;
-    }
-  }
+.c-dashboard__max-width__inner--homepage {
+  padding-right: $dashboard-gutter;
+  padding-left: $dashboard-gutter;
 }
 
 .c-dashboard__column {
