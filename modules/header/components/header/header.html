@@ -1,9 +1,11 @@
-<header class="site-header u-hide-on-print">
+<header class="site-header u-hide-on-print"
+        ng-class="{ 'site-header--tall': vm.isTall }">
 
     <!-- Home -->
-    <div class="u-grid" ng-if="!vm.isPrintMode && vm.isHomePage">
+    <div class="u-grid" ng-if="!vm.isPrintMode && vm.isTall">
         <div class="u-row">
-            <div class="u-col-sm--6 site-header__logo">
+            <div class="u-col-sm--6 site-header__logo"
+                 ng-class="{ 'site-header__logo--tall': vm.isTall }">
                 <dp-link type="SHOW_HOME" class-name="" hover-text="Naar voorpagina Dataportaal">
                     <div class="u-col-sm--2">
                         <img src="assets/images/logo.svg" alt="Logo Gemeente Amsterdam">
@@ -18,29 +20,40 @@
             </div>
         </div>
         <div class="site-header__toolbar u-row">
-            <div class="u-col-sm--6 site-header__search">
+            <div class="u-col-sm--6 site-header__search"
+                 ng-class="{ 'site-header__search--toolbar': vm.isTall }">
                 <dp-search
                     query="{{vm.query}}"
                     type="FETCH_SEARCH_RESULTS_BY_QUERY"
                     placeholder="Zoek op adres of postcode, kadastrale aanduiding, etc."></dp-search>
             </div>
             <div class="u-col-sm--6 u-padding__right--2">
-                <nav class="site-header__menu">
-                    <button ng-if="!vm.isAuthenticated()" ng-click="vm.login()" class="qa-header__login site-header__menu__item">
+                <nav class="site-header__menu"
+                     ng-class="{ 'site-header__menu--toolbar': vm.isTall }">
+                    <button ng-if="!vm.isAuthenticated()"
+                            ng-click="vm.login()"
+                            class="qa-header__login site-header__menu__item"
+                            ng-class="{ 'site-header__menu__item--toolbar': vm.isTall }">
                         Inloggen
                     </button>
-                    <dp-menu-dropdown ng-if="vm.isAuthenticated()" show-auth-menu="true"></dp-menu-dropdown>
-                    <dp-link type="SHOW_PAGE" payload="{name: 'help'}" class-name="site-header__menu__item">
-                        Help
-                    </dp-link>
-                    <dp-menu-dropdown has-print-button="vm.hasPrintButton"></dp-menu-dropdown>
+                    <dp-menu-dropdown ng-if="vm.isAuthenticated()"
+                                      show-auth-menu="true"
+                                      is-toolbar="vm.isTall"></dp-menu-dropdown>
+                    <span class="site-header__menu__item"
+                          ng-class="{ 'site-header__menu__item--toolbar': vm.isTall }">
+                        <dp-link type="SHOW_PAGE" payload="{name: 'help'}" class-name="site-header__menu__link">
+                            Help
+                        </dp-link>
+                    </span>
+                    <dp-menu-dropdown has-print-button="vm.hasPrintButton"
+                                      is-toolbar="vm.isTall"></dp-menu-dropdown>
                 </nav>
             </div>
         </div>
     </div>
 
     <!-- Default -->
-    <div class="u-grid" ng-if="!vm.isPrintMode && !vm.isHomePage">
+    <div class="u-grid" ng-if="!vm.isPrintMode && !vm.isTall">
         <div class="u-row">
             <div class="u-col-sm--3 site-header__logo">
                 <dp-link type="SHOW_HOME" class-name="" hover-text="Naar voorpagina Dataportaal">

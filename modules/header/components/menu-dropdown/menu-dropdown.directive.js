@@ -11,6 +11,7 @@
         return {
             restrict: 'E',
             scope: {
+                isToolbar: '=',
                 showAuthMenu: '@',
                 hasPrintButton: '<'
             },

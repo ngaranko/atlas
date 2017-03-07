@@ -1,6 +1,7 @@
 <button ng-if="showAuthMenu"
         class="site-header__menu__item site-header__menu__item--toggle"
         ng-class="{
+            'site-header__menu__item--toolbar': isToolbar,
             'site-header__menu__item--toggle--active': isVisible
         }"
         ng-click="toggleDropdown()">
@@ -20,6 +21,7 @@
 <button ng-if="!showAuthMenu"
         class="site-header__menu__item site-header__menu__item--toggle"
         ng-class="{
+            'site-header__menu__item--toolbar': isToolbar,
             'site-header__menu__item--toggle--active': isVisible
         }"
         ng-click="toggleDropdown()">

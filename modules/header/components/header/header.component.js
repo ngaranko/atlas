@@ -7,7 +7,7 @@
             bindings: {
                 query: '@',
                 hasPrintButton: '<',
-                isHomePage: '=',
+                isTall: '=',
                 isPrintMode: '='
             },
             templateUrl: 'modules/header/components/header/header.html',

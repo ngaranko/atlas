@@ -1,28 +1,30 @@
+%menu-link {
+  outline: none;
+  color: $primary-dark;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 %menu-item {
+  @extend %menu-link;
+
   height: $site-header-height;
   padding-right: $base-whitespace;
   padding-left: $base-whitespace;
 
   background-color: inherit;
-  color: $primary-light;
   line-height: $toolbar-height;
-  text-decoration: none;
-  cursor: pointer;
-
-  .t-homepage & {
-    height: $toolbar-height;
-  }
 }
 
 .site-header {
   position: relative;
   height: $site-header-height;
+}
 
-  .t-homepage & {
-    height: $site-header-height-homepage + $toolbar-height;
-    padding-right: 42px;
-    padding-left: 42px;
-  }
+.site-header--tall {
+  height: $site-header-height-homepage + $toolbar-height;
+  padding-right: 42px;
+  padding-left: 42px;
 }
 
 .site-header__logo {
@@ -53,21 +55,21 @@
     @include font-size($s-header-font);
     line-height: $site-header-height;
   }
+}
 
-  .t-homepage & {
-    height: $site-header-height-homepage;
+.site-header__logo--tall {
+  height: $site-header-height-homepage;
 
-    img {
-      top: 21px;
-      left: -27px;
-      width: 84px;
-      height: 67px;
-    }
+  img {
+    top: 21px;
+    left: -27px;
+    width: 84px;
+    height: 67px;
+  }
 
-    span {
-      @include font-size($xl-header-font);
-      line-height: 60px;
-    }
+  span {
+    @include font-size($xl-header-font);
+    line-height: 60px;
   }
 }
 
@@ -87,11 +89,11 @@
   height: $search-form-height;
   margin-top: ($site-header-height - $search-form-height) / 2;
   margin-bottom: ($site-header-height - $search-form-height) / 2;
+}
 
-  .t-homepage & {
-    margin-top: ($toolbar-height - $search-form-height) / 2;
-    margin-bottom: ($toolbar-height - $search-form-height) / 2;
-  }
+.site-header__search--toolbar {
+  margin-top: ($toolbar-height - $search-form-height) / 2;
+  margin-bottom: ($toolbar-height - $search-form-height) / 2;
 }
 
 .site-header__menu {
@@ -99,23 +101,29 @@
   top: 0;
   right: 0;
   height: $site-header-height;
+}
 
-  .t-homepage & {
-    right: -$base-whitespace;
-    height: $toolbar-height;
-  }
+.site-header__menu--toolbar {
+  right: -$base-whitespace;
+  height: $toolbar-height;
 }
 
 .site-header__menu__item {
   @extend %menu-item;
   display: block;
   float: left;
-  outline: none;
-  color: $primary-dark;
 
   &:hover {
     background-color: $secondary-gray10;
   }
+}
+
+.site-header__menu__link {
+  @extend %menu-link;
+}
+
+.site-header__menu__item--toolbar {
+  height: $toolbar-height;
 }
 
 .site-header__menu__item--toggle {
