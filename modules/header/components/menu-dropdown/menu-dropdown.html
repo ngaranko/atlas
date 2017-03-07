@@ -1,5 +1,7 @@
 <button ng-if="showAuthMenu"
-        class="site-header__menu__item site-header__menu__item--toggle"
+        class="site-header__menu__item
+               site-header__menu__item--toggle
+               site-header__menu__link"
         ng-class="{
             'site-header__menu__item--toolbar': isToolbar,
             'site-header__menu__item--toggle--active': isVisible
@@ -19,7 +21,9 @@
 </button>
 
 <button ng-if="!showAuthMenu"
-        class="site-header__menu__item site-header__menu__item--toggle"
+        class="site-header__menu__item
+               site-header__menu__item--toggle
+               site-header__menu__link"
         ng-class="{
             'site-header__menu__item--toolbar': isToolbar,
             'site-header__menu__item--toggle--active': isVisible

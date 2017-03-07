@@ -1,21 +1,3 @@
-%menu-link {
-  outline: none;
-  color: $primary-dark;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-%menu-item {
-  @extend %menu-link;
-
-  height: $site-header-height;
-  padding-right: $base-whitespace;
-  padding-left: $base-whitespace;
-
-  background-color: inherit;
-  line-height: $toolbar-height;
-}
-
 .site-header {
   position: relative;
   height: $site-header-height;
@@ -109,7 +91,13 @@
 }
 
 .site-header__menu__item {
-  @extend %menu-item;
+  height: 100%;
+  padding-right: $base-whitespace;
+  padding-left: $base-whitespace;
+
+  background-color: inherit;
+  line-height: $toolbar-height;
+
   display: block;
   float: left;
 
@@ -119,7 +107,10 @@
 }
 
 .site-header__menu__link {
-  @extend %menu-link;
+  outline: none;
+  color: $primary-dark;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .site-header__menu__item--toolbar {

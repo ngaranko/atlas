@@ -32,7 +32,9 @@
                      ng-class="{ 'site-header__menu--toolbar': vm.isTall }">
                     <button ng-if="!vm.isAuthenticated()"
                             ng-click="vm.login()"
-                            class="qa-header__login site-header__menu__item"
+                            class="site-header__menu__item
+                                   site-header__menu__link
+                                   qa-header__login"
                             ng-class="{ 'site-header__menu__item--toolbar': vm.isTall }">
                         Inloggen
                     </button>
@@ -41,9 +43,9 @@
                                       is-toolbar="vm.isTall"></dp-menu-dropdown>
                     <span class="site-header__menu__item"
                           ng-class="{ 'site-header__menu__item--toolbar': vm.isTall }">
-                        <dp-link type="SHOW_PAGE" payload="{name: 'help'}" class-name="site-header__menu__link">
-                            Help
-                        </dp-link>
+                        <dp-link type="SHOW_PAGE"
+                                 payload="{name: 'help'}"
+                                 class-name="site-header__menu__link">Help</dp-link>
                     </span>
                     <dp-menu-dropdown has-print-button="vm.hasPrintButton"
                                       is-toolbar="vm.isTall"></dp-menu-dropdown>
