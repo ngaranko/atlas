@@ -14,7 +14,7 @@ $dashboard-heading-padding-print-version: 46px;
   }
 
   .c-dashboard__heading {
-    position: initial;
+    position: initial; // Otherwise the top box shadow of the body gets hidden
     height: $dashboard-heading-height-print-version;
     padding: $dashboard-heading-padding-print-version;
   }
