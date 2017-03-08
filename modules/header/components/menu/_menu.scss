@@ -5,8 +5,6 @@
 .c-menu__item {
   display: block;
   height: 100%;
-  padding-right: $base-whitespace;
-  padding-left: $base-whitespace;
   float: left;
   background-color: inherit;
   line-height: $site-header-height;
@@ -17,6 +15,10 @@
 }
 
 .c-menu__link {
+  display: block;
+  height: 100%;
+  padding-right: $base-whitespace;
+  padding-left: $base-whitespace;
   outline: none;
   color: $primary-dark;
   text-decoration: none;
