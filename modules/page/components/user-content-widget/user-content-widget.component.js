@@ -5,7 +5,8 @@
         .module('dpPage')
         .component('dpUserContentWidget', {
             bindings: {
-                type: '@'
+                type: '@',
+                limitTo: '<'
             },
             templateUrl: 'modules/page/components/user-content-widget/user-content-widget.html',
             controller: DpUserContentWidgetController,
