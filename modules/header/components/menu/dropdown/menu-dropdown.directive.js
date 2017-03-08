@@ -16,7 +16,7 @@
                 hasPrintButton: '<'
             },
             transclude: true,
-            templateUrl: 'modules/header/components/menu-dropdown/menu-dropdown.html',
+            templateUrl: 'modules/header/components/menu/dropdown/menu-dropdown.html',
             link: linkFunction
         };
 

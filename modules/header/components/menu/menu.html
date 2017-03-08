@@ -1,0 +1,22 @@
+<nav class="c-menu"
+     ng-class="{ 'c-menu--toolbar': vm.isToolbar }">
+    <button ng-if="!vm.isAuthenticated()"
+            ng-click="vm.login()"
+            class="c-menu__item
+                   c-menu__link
+                   qa-header__login"
+            ng-class="{ 'c-menu__item--toolbar': vm.isToolbar }">
+        Inloggen
+    </button>
+    <dp-menu-dropdown ng-if="vm.isAuthenticated()"
+                      show-auth-menu="true"
+                      is-toolbar="vm.isToolbar"></dp-menu-dropdown>
+    <span class="c-menu__item"
+          ng-class="{ 'c-menu__item--toolbar': vm.isToolbar }">
+        <dp-link type="SHOW_PAGE"
+                 payload="{name: 'help'}"
+                 class-name="c-menu__link">Help</dp-link>
+    </span>
+    <dp-menu-dropdown has-print-button="vm.hasPrintButton"
+                      is-toolbar="vm.isToolbar"></dp-menu-dropdown>
+</nav>
