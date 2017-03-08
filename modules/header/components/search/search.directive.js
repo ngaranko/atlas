@@ -26,6 +26,7 @@
 
             scope.activeSuggestionIndex = -1;
             scope.originalQuery = scope.query;
+            scope.placeholder = scope.placeholder || 'Zoek op adres of postcode, kadastrale aanduiding, etc.';
 
             scope.formSubmit = function (event) {
                 event.preventDefault();
@@ -125,6 +126,8 @@
             scope.removeSuggestions = removeSuggestions;
 
             function search () {
+                const searchType = scope.type || 'FETCH_SEARCH_RESULTS_BY_QUERY';
+
                 if (scope.activeSuggestionIndex === -1) {
                     // Load the search results
                     let payload = scope.query;
@@ -134,7 +137,7 @@
                         });
                     }
                     store.dispatch({
-                        type: ACTIONS[scope.type],
+                        type: ACTIONS[searchType],
                         payload: payload
                     });
                 } else {

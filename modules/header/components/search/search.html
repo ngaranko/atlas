@@ -14,12 +14,19 @@
                 ng-keydown="navigateSuggestions($event)"
                 ng-blur="removeSuggestions($event)">
 
-            <button ng-if="query" class="qa-search-form__clear c-search-form__clear" ng-click="clear()" title="Wis zoektekst">
+            <button ng-if="query"
+                    type="button"
+                    class="qa-search-form__clear c-search-form__clear"
+                    ng-click="clear()"
+                    title="Wis zoektekst">
                 <span class="u-sr-only">Wis zoektekst</span>
             </button>
         </div>
 
-        <button ng-disabled="!query.trim()" class="c-search-form__submit" type="submit" title="Zoeken">
+        <button ng-disabled="!query.trim()"
+                class="c-search-form__submit"
+                type="submit"
+                title="Zoeken">
             <span class="u-sr-only">Zoeken</span>
         </button>
 
