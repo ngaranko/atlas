@@ -11,8 +11,10 @@
         return {
             restrict: 'E',
             scope: {
+                title: '@',
+                type: '@',
+                align: '@',
                 isToolbar: '=',
-                showAuthMenu: '@',
                 hasPrintButton: '<'
             },
             transclude: true,
@@ -24,6 +26,7 @@
             var everywhere = angular.element(window.document);
 
             scope.isVisible = false;
+            scope.align = scope.align === 'left' ? 'left' : 'right';
 
             scope.toggleDropdown = function () {
                 scope.isVisible = !scope.isVisible;

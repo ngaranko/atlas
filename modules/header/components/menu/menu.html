@@ -9,7 +9,9 @@
         Inloggen
     </button>
     <dp-menu-dropdown ng-if="vm.isAuthenticated()"
-                      show-auth-menu="true"
+                      title="Jij"
+                      type="user"
+                      align="left"
                       is-toolbar="vm.isToolbar"></dp-menu-dropdown>
     <span class="c-menu__item"
           ng-class="{ 'c-menu__item--toolbar': vm.isToolbar }">
@@ -17,6 +19,8 @@
                  payload="{name: 'help'}"
                  class-name="c-menu__link">Help</dp-link>
     </span>
-    <dp-menu-dropdown has-print-button="vm.hasPrintButton"
+    <dp-menu-dropdown title="Menu"
+                      type="main"
+                      has-print-button="vm.hasPrintButton"
                       is-toolbar="vm.isToolbar"></dp-menu-dropdown>
 </nav>

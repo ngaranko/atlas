@@ -1,5 +1,4 @@
-<button ng-if="showAuthMenu"
-        class="c-menu__item
+<button class="c-menu__item
                c-menu__item--toggle
                c-menu__link"
         ng-class="{
@@ -7,54 +6,11 @@
             'c-menu__item--toggle--active': isVisible
         }"
         ng-click="toggleDropdown()">
-    <span>Jij</span>
+    <span>{{title}}</span>
 
-    <nav ng-if="isVisible" class="c-menu__dropdown c-menu__dropdown--align-left">
-        <ul>
-            <li>
-                <span ng-click="logout()" class="qa-header__logout c-menu__subitem">
-                    Uitloggen
-                </span>
-            </li>
-        </ul>
-    </nav>
-</button>
-
-<button ng-if="!showAuthMenu"
-        class="c-menu__item
-               c-menu__item--toggle
-               c-menu__link"
-        ng-class="{
-            'c-menu__item--toolbar': isToolbar,
-            'c-menu__item--toggle--active': isVisible
-        }"
-        ng-click="toggleDropdown()">
-    <span>Menu</span>
-
-    <nav ng-if="isVisible" class="c-menu__dropdown c-menu__dropdown--align-right">
-        <ul>
-            <li>
-                <dp-link type="FETCH_DATA_SELECTION" payload="{dataset: 'bag', filters: {}, page: 1}"
-                    class-name="c-menu__subitem">
-                    Downloaden adressen
-                </dp-link>
-            </li>
-            <li>
-                <dp-link type="FETCH_DATA_SELECTION" payload="{dataset: 'hr', filters: {}, page: 1}"
-                    class-name="c-menu__subitem">
-                    Downloaden vestigingen
-                </dp-link>
-            </li>
-            <li ng-if="hasPrintButton">
-                <dp-link type="SHOW_PRINT" class-name="c-menu__subitem">
-                    Printen
-                </dp-link>
-            </li>
-            <li>
-                <dp-terugmelden-button>
-                    Terugmelden
-                </dp-terugmelden-button>
-            </li>
-        </ul>
+    <nav ng-if="isVisible"
+         class="c-menu__dropdown"
+         ng-class="'c-menu__dropdown--align-' + align">
+        <ng-include src="'modules/header/components/menu/dropdown/templates/' + type + '.html'"></ng-include>
     </nav>
 </button>
