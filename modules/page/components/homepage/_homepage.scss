@@ -57,6 +57,24 @@ $block-short-height: 160px;
   border-top: 2px solid $primary-light;
 }
 
+.c-homepage__block--under {
+  margin-top: 6 * $base-whitespace;
+}
+
+.c-homepage__block--visie {
+  margin-right: 8 * $base-whitespace;
+}
+
+.c-homepage__block--visie-header {
+  font-weight: bold;
+}
+
+.c-homepage__block--visie-paragraph {
+  margin-top: 2 * $base-whitespace;
+  font-size: $m-font-size;
+  line-height: $l-line-height;
+}
+
 .c-homepage__block--homepage {
   background-image: url("assets/images/homepage-map.png");
 }
