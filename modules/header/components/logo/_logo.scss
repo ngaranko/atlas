@@ -1,0 +1,44 @@
+.c-logo {
+  @include font-size($xl-header-font);
+  display: block;
+  height: 100%;
+  color: $primary-dark;
+  text-decoration: none;
+  cursor: pointer;
+
+  a {
+    color: $primary-dark;
+  }
+
+  button {
+    width: 100%;
+    text-align: left;
+  }
+
+  img {
+    position: absolute;
+    top: $base-whitespace;
+    right: $base-whitespace;
+    left: $base-whitespace;
+  }
+
+  span {
+    @include font-size($s-header-font);
+    line-height: $site-header-height;
+  }
+}
+
+.c-logo--tall {
+  img {
+    top: 21px;
+    left: -27px;
+    width: 84px;
+    height: 67px;
+  }
+
+  span {
+    @include font-size($xl-header-font);
+    line-height: 60px;
+  }
+}
+

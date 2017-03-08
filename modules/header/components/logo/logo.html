@@ -1,0 +1,17 @@
+<div class="c-logo"
+     ng-class="{ 'c-logo--tall': vm.isTall }">
+    <dp-link type="SHOW_HOME" class-name="" hover-text="Naar voorpagina Dataportaal">
+        <div ng-class="{
+                 'u-col-sm--2': vm.isTall,
+                 'u-col-sm--4': !vm.isTall
+             }">
+            <img src="assets/images/logo.svg" alt="Logo Gemeente Amsterdam">
+        </div>
+        <div ng-class="{
+                 'u-col-sm--10': vm.isTall,
+                 'u-col-sm--8': !vm.isTall
+             }">
+            <span class="c-logo__title">data.amsterdam.nl</span>
+        </div>
+    </dp-link>
+</div>
