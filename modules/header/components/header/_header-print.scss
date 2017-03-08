@@ -1,38 +1,5 @@
-$site-header-height-print-version: 118px;
-$site-header-padding-print-version: 46px;
-
 .is-print-mode {
-  .c-exit-print-mode {
-    @include icon-button("close", "red", "");
-
-    position: absolute;
-    top: -($site-header-padding-print-version - $base-whitespace);
-    right: -($site-header-padding-print-version - $base-whitespace);
-  }
-
-  .c-print-button {
-    @include icon-button-text-left("print");
-
-    float: right;
-  }
-
   .site-header {
     background-color: transparent;
-  }
-
-  .site-header__menu__item {
-    color: $secondary-gray60;
-
-    &:hover {
-      background-color: transparent;
-    }
-  }
-
-  .site-header__title {
-    @include font-size($xl-font);
-  }
-
-  .site-header__menu {
-    height: $site-header-height-print-version - 2 * $site-header-padding-print-version;
   }
 }

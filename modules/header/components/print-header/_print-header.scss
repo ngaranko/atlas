@@ -1,0 +1,24 @@
+$print-header-height: 118px;
+$print-header-padding: 46px;
+
+.c-print-header__title {
+  @include font-size($xl-header-font);
+}
+
+.c-print-header__menu {
+  height: $print-header-height - 2 * $print-header-padding;
+}
+
+.c-print-header__close {
+  @include icon-button("close", "red", "");
+
+  position: absolute;
+  top: -($print-header-padding - $base-whitespace);
+  right: -($print-header-padding - $base-whitespace);
+}
+
+.c-print-header__print {
+  @include icon-button-text-left("print");
+
+  float: right;
+}
