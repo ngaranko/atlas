@@ -5,11 +5,11 @@
 $site-header-height: 50px;
 $site-header-height-tall: 108px;
 $site-header-gutter: 42px;
-$site-header-height-print-version: 118px;
-$site-header-padding-print-version: 46px;
 $site-header-toolbar-height: 40px;
 $site-header-search-form-height: 30px;
 
 @import "components/header/header";
-@import "components/menu-dropdown/menu-dropdown";
+@import "components/header/header-print";
+@import "components/logo/logo";
+@import "components/menu/menu";
 @import "components/search/search";
