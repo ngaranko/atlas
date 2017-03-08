@@ -1,3 +1,7 @@
+.c-menu {
+  height: 100%;
+}
+
 .c-menu__item {
   display: block;
   height: 100%;
@@ -5,7 +9,7 @@
   padding-left: $base-whitespace;
   float: left;
   background-color: inherit;
-  line-height: $site-header-toolbar-height;
+  line-height: $site-header-height;
 
   &:hover {
     background-color: $secondary-gray10;
@@ -20,7 +24,7 @@
 }
 
 .c-menu__item--toolbar {
-  height: $site-header-toolbar-height;
+  line-height: $site-header-toolbar-height;
 }
 
 .c-menu__item--toggle {

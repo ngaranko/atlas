@@ -5,7 +5,8 @@
                  'u-col-sm--2': vm.isTall,
                  'u-col-sm--4': !vm.isTall
              }">
-            <img src="assets/images/logo.svg" alt="Logo Gemeente Amsterdam">
+            <img ng-src="assets/images/logo{{vm.isTall ? '' : '-small'}}.svg"
+                 alt="Logo Gemeente Amsterdam">
         </div>
         <div ng-class="{
                  'u-col-sm--10': vm.isTall,
