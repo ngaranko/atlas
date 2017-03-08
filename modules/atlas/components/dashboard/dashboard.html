@@ -4,7 +4,7 @@
      }">
 
     <!-- Header -->
-    <div class="qa-dashboard__default-header c-dashboard__heading"
+    <div class="c-dashboard__heading"
          ng-class="{
              'c-dashboard__heading--homepage': vm.isHomePage,
              'c-dashboard__max-width': vm.hasMaxWidth
@@ -12,11 +12,14 @@
          ng-controller="HeaderController as header">
 
         <div ng-class="{ 'c-dashboard__max-width__inner': vm.hasMaxWidth }">
-            <dp-header ng-if="!vm.isPrintMode"
-                       is-tall="vm.isHomePage"
-                       has-print-button="header.hasPrintButton"
-                       query="{{header.query}}"></dp-header>
-            <dp-print-header ng-if="vm.isPrintMode"></dp-print-header>
+            <div ng-if="!vm.isPrintMode" class="qa-dashboard__header">
+                <dp-header is-tall="vm.isHomePage"
+                           has-print-button="header.hasPrintButton"
+                           query="{{header.query}}"></dp-header>
+            </div>
+            <div ng-if="vm.isPrintMode" class="qa-dashboard__print-header">
+                <dp-print-header></dp-print-header>
+            </div>
         </div>
     </div>
 
