@@ -1,51 +1,36 @@
-describe('The dp-header component', function () {
-    var $compile,
-        $rootScope,
-        authenticator,
-        user;
+describe('The dp-header component', () => {
+    let $compile,
+        $rootScope;
 
-    beforeEach(function () {
+    beforeEach(() => {
         angular.mock.module(
             'dpHeader',
             {
                 store: {
-                    dispatch: function () {}
+                    dispatch: angular.noop
                 }
-            },
-            function ($provide) {
-                $provide.factory('dpLinkDirective', function () {
-                    return {};
-                });
-
-                $provide.factory('dpMenuDropdownDirective', function () {
-                    return {};
-                });
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _authenticator_, _user_) {
+        angular.mock.inject((_$compile_, _$rootScope_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
-            authenticator = _authenticator_;
-            user = _user_;
         });
-
-        spyOn(authenticator, 'logout');
     });
 
-    function getComponent (query, isPrintMode) {
-        var component,
+    function getComponent (query, isTall) {
+        let component,
             element,
             scope;
 
         element = document.createElement('dp-header');
         element.setAttribute('query', query);
         element.setAttribute('has-print-button', 'hasPrintButton');
-        element.setAttribute('is-print-mode', isPrintMode);
+        element.setAttribute('is-tall', 'isTall');
 
         scope = $rootScope.$new();
         scope.hasPrintButton = true;
-        scope.isPrintMode = isPrintMode;
+        scope.isTall = isTall;
 
         component = $compile(element)(scope);
         scope.$apply();
@@ -53,8 +38,8 @@ describe('The dp-header component', function () {
         return component;
     }
 
-    it('inserts the dp-search component and passes down a query string', function () {
-        var component;
+    it('inserts the dp-search component and passes down a query string', () => {
+        let component;
 
         // Without a query
         component = getComponent('', false);
@@ -63,66 +48,94 @@ describe('The dp-header component', function () {
         // With a query
         component = getComponent('I_AM_A_FAKE_QUERY', false);
         expect(component.find('dp-search')[0].getAttribute('query')).toBe('I_AM_A_FAKE_QUERY');
+
+        // Tall version
+        // Without a query
+        component = getComponent('', true);
+        expect(component.find('dp-search')[0].getAttribute('query')).toBe('');
+
+        // With a query
+        component = getComponent('I_AM_A_FAKE_QUERY', true);
+        expect(component.find('dp-search')[0].getAttribute('query')).toBe('I_AM_A_FAKE_QUERY');
     });
 
-    describe('user state', function () {
-        it('when not logged in', function () {
-            var component;
+    describe('the short version', () => {
+        let component;
 
-            spyOn(user, 'getUserType').and.returnValue('ANONYMOUS');
-
+        beforeEach(() => {
             component = getComponent('', false);
-
-            expect(component.find('.qa-header__login').length).toBe(1);
-            expect(component.find('.qa-header__logout').length).toBe(0);
         });
 
-        it('when logged in', function () {
-            var component;
+        it('doesn\'t have a modifier on the header', () => {
+            expect(component.find('.qa-site-header')[0].getAttribute('class')).not.toContain('site-header--tall');
+        });
 
-            spyOn(user, 'getUserType').and.returnValue('AUTHENTICATED');
+        it('has the logo 3 wide', () => {
+            expect(component.find('.qa-site-header__logo-col')[0].getAttribute('class')).toContain('u-col-sm--3');
+        });
 
-            component = getComponent('', false);
+        it('doesn\'t have a modifier on the logo', () => {
+            expect(component.find('.qa-site-header__logo')[0].getAttribute('class')).not.toContain('site-header__logo--tall');
+        });
 
-            expect(component.find('.qa-header__login').length).toBe(0);
-            expect(component.find('.qa-header__logout').length).toBe(1);
+        it('doesn\'t have a toolbar', () => {
+            expect(component.find('.qa-site-header__toolbar').length).toBe(0);
+        });
+
+        it('defines search only once, without modifier', () => {
+            expect(component.find('.qa-site-header__search').length).toBe(1);
+            expect(component.find('.qa-site-header__search')[0].getAttribute('class')).not.toContain('site-header__search--toolbar');
+        });
+
+        it('defines the menu only once, 3 wide, without modifier', () => {
+            expect(component.find('.qa-site-header__menu-col').length).toBe(1);
+            expect(component.find('.qa-site-header__menu').length).toBe(1);
+            expect(component.find('.qa-site-header__menu-col')[0].getAttribute('class')).toContain('u-col-sm--3');
+            expect(component.find('.qa-site-header__menu')[0].getAttribute('class')).not.toContain('site-header__menu--toolbar');
+        });
+
+        it('doesn\'t have a contact link', () => {
+            expect(component.find('.qa-site-header__contact').length).toBe(0);
         });
     });
 
-    describe('with print mode enabled', function () {
-        var component;
+    describe('the tall version', () => {
+        let component;
 
-        beforeEach(function () {
+        beforeEach(() => {
             component = getComponent('', true);
         });
 
-        it('doesn\'t show the search form', function () {
-            expect(component.find('dp-search').length).toBe(0);
+        it('has a modifier on the header', () => {
+            expect(component.find('.qa-site-header')[0].getAttribute('class')).toContain('site-header--tall');
         });
 
-        it('doesn\'t show the login state', function () {
-            expect(component.text().toLowerCase()).not.toContain('inloggen');
-            expect(component.text().toLowerCase()).not.toContain('uitloggen');
+        it('has the logo 6 wide', () => {
+            expect(component.find('.qa-site-header__logo-col')[0].getAttribute('class')).toContain('u-col-sm--6');
         });
 
-        it('doesn\'t show the dropdown menu', function () {
-            expect(component.find('dp-menu-dropdown').length).toBe(0);
+        it('has a modifier on the logo', () => {
+            expect(component.find('.qa-site-header__logo')[0].getAttribute('class')).toContain('site-header__logo--tall');
         });
 
-        it('shows a link to leave the print mode', function () {
-            expect(component.find('.c-exit-print-mode').length).toBe(1);
-        });
-    });
-
-    describe('with print mode disabled', function () {
-        var component;
-
-        beforeEach(function () {
-            component = getComponent('', false);
+        it('has a toolbar', () => {
+            expect(component.find('.qa-site-header__toolbar').length).toBe(1);
         });
 
-        it('doesn\'t show the link to leave print mode', function () {
-            expect(component.find('.c-exit-print-mode').length).toBe(0);
+        it('defines search only once, with a modifier', () => {
+            expect(component.find('.qa-site-header__search').length).toBe(1);
+            expect(component.find('.qa-site-header__search')[0].getAttribute('class')).toContain('site-header__search--toolbar');
+        });
+
+        it('defines the menu only once, 6 wide, with a modifier', () => {
+            expect(component.find('.qa-site-header__menu-col').length).toBe(1);
+            expect(component.find('.qa-site-header__menu').length).toBe(1);
+            expect(component.find('.qa-site-header__menu-col')[0].getAttribute('class')).toContain('u-col-sm--6');
+            expect(component.find('.qa-site-header__menu')[0].getAttribute('class')).toContain('site-header__menu--toolbar');
+        });
+
+        it('has a contact link', () => {
+            expect(component.find('.qa-site-header__contact').length).toBe(1);
         });
     });
 });
