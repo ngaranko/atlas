@@ -34,13 +34,13 @@ $block-short-height: 141px;
   height: $block-tall-height;
 }
 
-.c-homepage__block--entries {
+.c-homepage__entries {
   position: relative;
   height: $block-tall-height - 70;
   overflow: hidden;
 }
 
-.c-homepage__block--show-more {
+.c-homepage__show-more {
   position: absolute;
   bottom: 2 * $base-whitespace;
   font-weight: 700;
