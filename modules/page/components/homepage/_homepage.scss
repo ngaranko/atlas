@@ -62,18 +62,15 @@ $block-short-height: 160px;
 }
 
 .c-homepage__visie {
-  max-width: 734px;
-  margin-left: 2 * $base-whitespace;
+  @include font-size-responsive($m-font);
 }
 
 .c-homepage__visie-header {
   margin-bottom: 2 * $base-whitespace;
-  font-weight: bold;
 }
 
 .c-homepage__visie-paragraph {
   margin-bottom: 1.6 * $base-whitespace;
-  font-size: $m-font-size;
   line-height: $l-line-height;
 }
 
