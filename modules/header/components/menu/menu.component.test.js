@@ -11,7 +11,12 @@ describe('The dp-menu component', () => {
                 store: {
                     dispatch: angular.noop
                 }
-            }
+            },
+            function ($provide) {
+                $provide.factory('dpMenuDropdownDirective', function () {
+                    return {};
+                });
+			}
         );
 
         angular.mock.inject((_$compile_, _$rootScope_, _authenticator_, _user_) => {
@@ -29,7 +34,7 @@ describe('The dp-menu component', () => {
             element,
             scope;
 
-        element = document.createElement('dp-header');
+        element = document.createElement('dp-menu');
         element.setAttribute('is-toolbar', 'isToolbar');
         element.setAttribute('has-print-button', true);
 
@@ -85,7 +90,7 @@ describe('The dp-menu component', () => {
         });
 
         it('calls user.login on click', () => {
-            component.find('.qa-menu__login')[0].click();
+            component.find('.qa-menu__login').click();
             expect(authenticator.login).toHaveBeenCalledWith();
         });
     });
@@ -98,15 +103,15 @@ describe('The dp-menu component', () => {
         });
 
         it('doesn\'t have a modifier on the root element', () => {
-            expect(component.find('.qa-menu')[0].getAttribute('class')).not.toContain('c-menu--toolbar');
+            expect(component.find('.qa-menu').prop('class')).not.toContain('c-menu--toolbar');
         });
 
         it('doesn\'t have a modifier on the login button', () => {
-            expect(component.find('.qa-menu__login')[0].getAttribute('class')).not.toContain('c-menu__item--toolbar');
+            expect(component.find('.qa-menu__login').prop('class')).not.toContain('c-menu__item--toolbar');
         });
 
-        xit('doesn\'t have a modifier on the other menu items', () => {
-            component.find('.qa-menu__item').forEach(item => {
+        it('doesn\'t have a modifier on the other menu items', () => {
+            component.find('.qa-menu__item').each((index, item) => {
                 expect(item.getAttribute('class')).not.toContain('c-menu__item--toolbar');
             });
         });
@@ -120,15 +125,15 @@ describe('The dp-menu component', () => {
         });
 
         it('has a modifier on the root element', () => {
-            expect(component.find('.qa-menu')[0].getAttribute('class')).toContain('c-menu--toolbar');
+            expect(component.find('.qa-menu').prop('class')).toContain('c-menu--toolbar');
         });
 
         it('has a modifier on the login button', () => {
-            expect(component.find('.qa-menu__login')[0].getAttribute('class')).toContain('c-menu__item--toolbar');
+            expect(component.find('.qa-menu__login').prop('class')).toContain('c-menu__item--toolbar');
         });
 
-        xit('has a modifier on the other menu items', () => {
-            component.find('.qa-menu__item').forEach(item => {
+        it('has a modifier on the other menu items', () => {
+            component.find('.qa-menu__item').each((index, item) => {
                 expect(item.getAttribute('class')).toContain('c-menu__item--toolbar');
             });
         });
