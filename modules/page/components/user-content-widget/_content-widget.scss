@@ -10,7 +10,13 @@
   }
 
   .c-user-content-widget__entry {
-    margin-bottom: $base-whitespace;
+    margin-bottom: 1.2 * $base-whitespace;
+    max-height: 4 * $base-whitespace;
+    overflow: hidden;
+
+    p {
+      margin-bottom: 0;
+    }
   }
 
   .c-user-content-widget__short {

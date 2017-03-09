@@ -3,16 +3,16 @@ $c-event-date-width: 3 * $base-whitespace;
 .c-event__day {
   position: absolute;
   width: $c-event-date-width;
-  font-size: 26px;
+  font-size: 24px;
   font-weight: bolder;
-  line-height: 26px;
+  line-height: 24px;
   text-align: center;
 }
 
 .c-event__month {
   position: absolute;
   width: $c-event-date-width;
-  margin-top: 22px;
+  margin-top: 19px;
   font-weight: normal;
   line-height: 19px;
   text-align: center;

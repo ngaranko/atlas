@@ -1,12 +1,12 @@
 @import "catalogus-themes/catalogus-themes";
 
-$block-tall-height: 320px;
-$block-short-height: 160px;
+$block-tall-height: 287px;
+$block-short-height: 141px;
 
 .c-homepage__block {
   display: block;
   position: relative;
-  border-bottom: 4px solid $secondary-gray20;
+  margin-bottom: 5px;
   background-color: $secondary-gray4;
   background-position: center center;
   background-size: cover;
@@ -38,14 +38,14 @@ $block-short-height: 160px;
 
 .c-homepage__block--entries {
   position: relative;
-  height: $block-tall-height - 75;
+  height: $block-tall-height - 70;
   overflow: hidden;
 }
 
 .c-homepage__block--show-more {
   position: absolute;
   bottom: 2 * $base-whitespace;
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .c-homepage__block--beleid {
@@ -54,7 +54,6 @@ $block-short-height: 160px;
 
 .c-homepage__block--short {
   height: $block-short-height;
-  border-top: 2px solid $primary-light;
 }
 
 .c-homepage__block--homepage {
