@@ -40,10 +40,8 @@
                 title = numberFilter(numberOfResults) + ' ' + lowercaseFilter(categoryName);
             } else if (numberOfResults === 0) {
                 title = 'Geen resultaten gevonden';
-            } else if (numberOfResults === 1) {
-                title = '1 resultaat';
-            } else if (numberOfResults > 1) {
-                title = numberFilter(numberOfResults) + ' resultaten';
+            } else if (numberOfResults > 0) {
+                title = `Data (${numberFilter(numberOfResults)})`;
             }
 
             return title;
