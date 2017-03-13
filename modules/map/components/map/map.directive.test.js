@@ -133,23 +133,19 @@ describe('The dp-map directive', function () {
     });
 
     function getDirective (mapState, showLayerSelection, markers, useRootScopeApply, resize) {
-        let directive,
-            element,
-            scope;
-
-        element = document.createElement('dp-map');
+        const element = document.createElement('dp-map');
         element.setAttribute('map-state', 'mapState');
         element.setAttribute('markers', 'markers');
         element.setAttribute('show-layer-selection', 'showLayerSelection');
         element.setAttribute('resize', 'resize');
 
-        scope = $rootScope.$new();
+        const scope = $rootScope.$new();
         scope.mapState = mapState;
         scope.markers = markers;
         scope.resize = resize;
         scope.showLayerSelection = showLayerSelection;
 
-        directive = $compile(element)(scope);
+        const directive = $compile(element)(scope);
 
         scope.$apply();
 
@@ -173,11 +169,8 @@ describe('The dp-map directive', function () {
     });
 
     it('creates a Leaflet map with options based on both the map state and mapConfig', function () {
-        let directive,
-            element;
-
-        directive = getDirective(mockedMapState, false, mockedMarkers);
-        element = directive[0].querySelector('.js-leaflet-map');
+        const directive = getDirective(mockedMapState, false, mockedMarkers);
+        const element = directive[0].querySelector('.js-leaflet-map');
 
         expect(L.map).toHaveBeenCalledWith(element, {
             center: [52.789, 4.123],

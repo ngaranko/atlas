@@ -126,18 +126,15 @@
 
         // Initialisation of the draw tool, initialise drawing and register required objects in the drawTool object
         function initDrawTool (map) {
-            let editConfig,
-                editToolbar;
-
             L.drawLocal.format = DRAW_TOOL_CONFIG.format;
 
             drawTool.map = map;
             drawTool.drawnItems = new L.FeatureGroup();
             drawTool.drawShapeHandler = new L.Draw.Polygon(drawTool.map, DRAW_TOOL_CONFIG.draw.polygon);
 
-            editConfig = angular.copy(DRAW_TOOL_CONFIG.edit);
+            const editConfig = angular.copy(DRAW_TOOL_CONFIG.edit);
             editConfig.featureGroup = drawTool.drawnItems;
-            editToolbar = new L.EditToolbar(editConfig);
+            const editToolbar = new L.EditToolbar(editConfig);
 
             drawTool.editShapeHandler = editToolbar.getModeHandlers(drawTool.map)[0].handler;
 

@@ -21,7 +21,7 @@
          * @returns {Promise}
          */
         function getByUrl (url, params, cancel) {
-            let headers = {},
+            const headers = {},
                 userState = user.getStatus();
 
             if (userState.isLoggedIn) {

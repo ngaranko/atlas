@@ -11,8 +11,7 @@
         };
 
         function query (config, activeFilters, page, search, geometryFilter) {
-            let searchParams,
-                searchPage = page;
+            let searchPage = page;
 
             const shape = (angular.isDefined(geometryFilter)) ? geometryFilter : [];
 
@@ -23,7 +22,7 @@
                 searchPage = 1;
             }
 
-            searchParams = angular.merge(
+            const searchParams = angular.merge(
                 {
                     page: searchPage,
                     shape: angular.toJson(shape.map(([lat, lng]) => [lng, lat]))

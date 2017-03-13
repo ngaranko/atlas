@@ -10,11 +10,10 @@ describe('The bagAddress filter', function () {
     });
 
     it('returns _openbare_ruimte_naam followed by the huisnummer and an optional huisletter', function () {
-        let input,
-            output;
+        let output;
 
         // huisnummer
-        input = {
+        const input = {
             _openbare_ruimte_naam: 'Weesperstraat',
             huisnummer: 113,
             huisletter: '',
@@ -30,11 +29,10 @@ describe('The bagAddress filter', function () {
     });
 
     it('shows an optional huisnummer_toevoeging after the huisnummer+huisletter', function () {
-        let input,
-            output;
+        let output;
 
         // huisnummer
-        input = {
+        const input = {
             _openbare_ruimte_naam: 'Weesperstraat',
             huisnummer: 113,
             huisletter: '',

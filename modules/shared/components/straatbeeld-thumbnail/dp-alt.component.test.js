@@ -12,7 +12,7 @@ describe('The dp-alt directive', function () {
     });
 
     function getComponent () {
-        let scope = $rootScope.$new(),
+        const scope = $rootScope.$new(),
             component = $compile('<img src="srcUrl" dp-alt="altText">')(scope);
 
         return component;

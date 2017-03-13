@@ -45,7 +45,7 @@
             if (ACTIONS[type].isButton) {
                 return BUTTON;
             } else {
-                let currentPath = '#' + decodeURIComponent($location.url()),
+                const currentPath = '#' + decodeURIComponent($location.url()),
                     href = getHref(type, payload);
 
                 if (currentPath === href) {

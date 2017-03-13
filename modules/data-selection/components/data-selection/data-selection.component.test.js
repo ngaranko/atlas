@@ -120,17 +120,13 @@ describe('The dp-data-selection component', function () {
     });
 
     function getComponent (state) {
-        let component,
-            element,
-            scope;
-
-        element = document.createElement('dp-data-selection');
+        const element = document.createElement('dp-data-selection');
         element.setAttribute('state', 'state');
 
-        scope = $rootScope.$new();
+        const scope = $rootScope.$new();
         scope.state = state;
 
-        component = $compile(element)(scope);
+        const component = $compile(element)(scope);
         scope.$apply();
 
         return component;
@@ -269,19 +265,15 @@ describe('The dp-data-selection component', function () {
 
     describe('it has a technical limit for the MAX_AVAILABLE_PAGES', function () {
         it('shows the content on pages up to this limit', function () {
-            let component;
-
             mockedState.page = 5;
-            component = getComponent(mockedState);
+            const component = getComponent(mockedState);
 
             expect(component.find('dp-data-selection-table').length).toBe(1);
         });
 
         it('doesn\'t show the content for pages above this limit', function () {
-            let component;
-
             mockedState.page = 6;
-            component = getComponent(mockedState);
+            const component = getComponent(mockedState);
 
             expect(component.find('dp-data-selection-table').length).toBe(0);
         });

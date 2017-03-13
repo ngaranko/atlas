@@ -1,6 +1,5 @@
 describe('The contextMiddleware factory', function () {
-    let contextMiddleware,
-        mockedStore = {
+    const mockedStore = {
             getState: function () {
                 return 'FAKE_STATE';
             }
@@ -11,7 +10,8 @@ describe('The contextMiddleware factory', function () {
         mockedAction = {
             type: 'FAKE_ACTION',
             payload: {}
-        },
+        };
+    let contextMiddleware,
         ACTIONS;
 
     beforeEach(function () {

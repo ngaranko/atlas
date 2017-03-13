@@ -140,7 +140,7 @@
 
         function createObject (oldObj, key, params) {
             // create a state object by using its initial value (default {}) and onCreate method if defined
-            let initialValues = STATE_URL_CONVERSION.initialValues,
+            const initialValues = STATE_URL_CONVERSION.initialValues,
                 initialValue = initialValues[key] || {},
                 onCreate = STATE_URL_CONVERSION.onCreate[key];
 

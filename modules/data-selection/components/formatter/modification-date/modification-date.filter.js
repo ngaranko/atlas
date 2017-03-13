@@ -12,8 +12,8 @@
                 const modified = input.metadata_modified;
                 const compact = input.metadata_compact;
 
-                let last = new Date(modified || created),
-                    ago = new Date() - last,
+                const last = new Date(modified || created);
+                let ago = new Date() - last,
                     agoCount = ago,
                     agoDuration = 'milliseconden';
                 [

@@ -316,8 +316,6 @@ describe('The dp-search-results component', function () {
     });
 
     function getComponent (numberOfResults, query, location, category) {
-        let component;
-
         element = document.createElement('dp-search-results');
         scope = $rootScope.$new();
 
@@ -342,7 +340,7 @@ describe('The dp-search-results component', function () {
         element.setAttribute('is-loading', 'isLoading');
         scope.isLoading = true;
 
-        component = $compile(element)(scope);
+        const component = $compile(element)(scope);
         scope.$apply();
 
         return component;
@@ -617,8 +615,6 @@ describe('The dp-search-results component', function () {
         });
 
         it('has more link support', function () {
-            let numberOfDpLinks;
-
             // When there are more than 10 adressen
             expect(component.find('dp-link').eq(11).find('button').text().trim())
                 .toBe('Bekijk alle 12 adressen binnen dit pand');
@@ -629,7 +625,7 @@ describe('The dp-search-results component', function () {
                 payload: 'https://api.datapunt.amsterdam.nl/bag/pand/03630013054429/'
             });
 
-            numberOfDpLinks = component.find('dp-link').length;
+            const numberOfDpLinks = component.find('dp-link').length;
 
             // When there are 10 or less adressen
             mockedGeosearchResults[1].count = 10;

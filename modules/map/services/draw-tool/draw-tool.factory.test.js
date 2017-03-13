@@ -185,8 +185,8 @@ describe('The draw tool factory', function () {
     });
 
     describe('On drawing mode changed event', function () {
-        let onResult,
-            onDrawingMode = status => onResult = status;
+        let onResult;
+        const onDrawingMode = status => onResult = status;
 
         beforeEach(function () {
             drawTool.initialize(leafletMap, null, onDrawingMode);
@@ -350,8 +350,8 @@ describe('The draw tool factory', function () {
         });
 
         it('Can build a polygon and notifies info on shape on finish drawing', function () {
-            let onResult,
-                onFinish = shape => onResult = shape;
+            let onResult;
+            const onFinish = shape => onResult = shape;
 
             drawTool.initialize(leafletMap, onFinish);
             buildPolygon();

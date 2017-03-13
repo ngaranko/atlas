@@ -309,12 +309,10 @@ describe('Straatbeeld reducers factory', function () {
             // There is however a location available to denote that the straatbeeld origins from a location
             // The heading has already been calculated and saved on the first show of the straatbeeld
             // and should not be repeated
-            let newState;
-
             inputState.straatbeeld.location = [1, 2];
             delete inputState.straatbeeld.targetLocation;   // not saved in state, so not present on reload
             inputState.straatbeeld.heading = 'aap';
-            newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id](inputState, payload);
+            const newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id](inputState, payload);
             expect(newState.straatbeeld).toEqual(jasmine.objectContaining({
                 heading: inputState.straatbeeld.heading // keep original heading
             }));

@@ -1,12 +1,12 @@
 describe('The api-error component', function () {
     let $compile,
         $rootScope,
-        currentStatus,
-        httpStatus = {
-            SERVER_ERROR: 'SERVER_ERROR',
-            NOT_FOUND_ERROR: 'NOT_FOUND_ERROR',
-            getStatus: () => currentStatus
-        };
+        currentStatus;
+    const httpStatus = {
+        SERVER_ERROR: 'SERVER_ERROR',
+        NOT_FOUND_ERROR: 'NOT_FOUND_ERROR',
+        getStatus: () => currentStatus
+    };
 
     beforeEach(function () {
         angular.mock.module('dpShared', {

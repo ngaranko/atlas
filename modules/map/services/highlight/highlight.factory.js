@@ -29,8 +29,8 @@
         store,
         ACTIONS,
         clusteredMarkersConfig) {
-        let layers = {},
-            clusteredLayer;
+        const layers = {};
+        let clusteredLayer;
 
         return {
             initialize,
@@ -51,10 +51,8 @@
          *  - geometry: GeoJSON using RD coordinates
          */
         function addMarker (leafletMap, item) {
-            let layer;
-
             item.geometry.crs = crsService.getRdObject();
-            layer = L.Proj.geoJson(item.geometry, {
+            const layer = L.Proj.geoJson(item.geometry, {
                 style: function () {
                     return {
                         color: 'red',
@@ -65,11 +63,8 @@
                     };
                 },
                 pointToLayer: function (feature, latLng) {
-                    let icon,
-                        rotationAngle;
-
-                    icon = L.icon(ICON_CONFIG[item.id]);
-                    rotationAngle = item.orientation || 0;
+                    const icon = L.icon(ICON_CONFIG[item.id]),
+                        rotationAngle = item.orientation || 0;
 
                     return L.marker(latLng, {
                         icon: icon,
@@ -116,11 +111,10 @@
         }
 
         function zoomToLayer (leafletMap, layer, geometry) {
-            let bounds,
-                location,
+            let location,
                 zoomLevel;
 
-            bounds = layer.getBounds();
+            const bounds = layer.getBounds();
             zoomLevel = leafletMap.getBoundsZoom(bounds);
 
             if (!isNaN(zoomLevel)) {

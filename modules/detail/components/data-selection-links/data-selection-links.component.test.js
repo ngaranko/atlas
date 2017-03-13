@@ -25,17 +25,13 @@ describe('The dp-data-selection-link component', () => {
     });
 
     function getComponent (activeFilters) {
-        let component,
-            element,
-            scope;
-
-        element = document.createElement('dp-data-selection-links');
+        const element = document.createElement('dp-data-selection-links');
         element.setAttribute('active-filters', 'activeFilters');
 
-        scope = $rootScope.$new();
+        const scope = $rootScope.$new();
         scope.activeFilters = activeFilters;
 
-        component = $compile(element)(scope);
+        const component = $compile(element)(scope);
         scope.$apply();
 
         return component;
