@@ -2,6 +2,10 @@
 
 $clear-button-margin: ($site-header-search-form-height - $button-size) / 2;
 
+.c-search-form {
+  position: relative;
+}
+
 .c-search-form__input-container {
   position: relative;
   width: calc(100% - #{$site-header-search-form-height + $base-whitespace * .5});

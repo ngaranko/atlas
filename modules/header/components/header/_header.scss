@@ -11,6 +11,7 @@
 
 .site-header__logo {
   height: $site-header-height;
+  font-weight: bold;
 }
 
 .site-header__logo--tall {
@@ -18,7 +19,11 @@
 }
 
 .site-header__contact {
+  @extend %link--arrow;
+  @include font-size($xs-font);
   float: right;
+  color: $secondary-gray60;
+  font-weight: normal;
   line-height: 60px;
 }
 
