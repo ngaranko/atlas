@@ -1,4 +1,8 @@
-<div ng-if="vm.feed" class="c-user-content-detail">
+<div ng-if="vm.type !== 'beleid'">
+    <ng-include src="'modules/page/components/page/templates/content-overzicht.html'"></ng-include>
+</div>
+
+<div ng-if="vm.feed && vm.type === 'beleid'" class="c-user-content-detail">
     <div class="u-grid">
         <div class="u-row">
             <div class="u-col-sm--8">

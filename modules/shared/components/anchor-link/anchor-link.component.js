@@ -4,7 +4,8 @@
         .component('dpAnchorLink', {
             bindings: {
                 link: '@',
-                className: '@'
+                className: '@',
+                scrollTo: '<'
             },
             transclude: true,
             templateUrl: 'modules/shared/components/anchor-link/anchor-link.html',
@@ -20,5 +21,9 @@
         vm.scrollTo = function (anchor) {
             $anchorScroll(anchor);
         };
+
+        if (vm.scrollTo) {
+            vm.scrollTo(vm.link)
+        }
     }
 })();

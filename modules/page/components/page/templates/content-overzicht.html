@@ -33,10 +33,11 @@
                 <div class="c-user-content-overview__toc">
                     <h3 class="c-user-content-overview__toc-header">Op deze pagina</h3>
 
-                    <dp-anchor-link ng-repeat="entry in vm.entries"
-                                    link="{{$first ? (vm.type + 'top') : (vm.type + entry.id)}}"
-                                    class-name="c-user-content-overview__toc-item">
-                        {{entry.titel.value}}
+                    <dp-anchor-link ng-repeat="e in vm.entries"
+                                    link="{{$first ? (vm.type + 'top') : (vm.type + e.id)}}"
+                                    class-name="c-user-content-overview__toc-item"
+                                    scroll-to="e.id === vm.entry.id">
+                        {{e.titel.value}}
                     </dp-anchor-link>
                 </div>
             </div>
