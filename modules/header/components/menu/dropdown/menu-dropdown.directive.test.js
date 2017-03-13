@@ -1,46 +1,60 @@
-describe('The dp-menu-dropdown directive', function () {
-    var $compile,
-        $rootScope;
+describe('The dp-menu-dropdown directive', () => {
+    let $compile,
+        $rootScope,
+        options;
 
-    beforeEach(function () {
+    beforeEach(() => {
         angular.mock.module(
             'dpHeader',
-            function ($provide) {
-                $provide.factory('dpPrintButtonDirective', function () {
+            {
+                store: {
+                    dispatch: angular.noop
+                }
+            },
+            ($provide) => {
+                $provide.factory('dpPrintButtonDirective', () => {
                     return {};
                 });
 
-                $provide.factory('dpTerugmeldenButtonDirective', function () {
-                    return {};
-                });
-
-                $provide.factory('dpLinkDirective', function () {
+                $provide.factory('dpTerugmeldenButtonDirective', () => {
                     return {};
                 });
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_) {
+        angular.mock.inject((_$compile_, _$rootScope_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
         });
+
+        options = {
+            title: 'Menu',
+            type: 'main',
+            align: 'right',
+            isToolbar: false,
+            hasPrintButton: true
+        };
     });
 
-    function getDirective (options) {
-        var directive,
+    function getDirective (attrs) {
+        let directive,
             element,
             scope;
 
         element = document.createElement('dp-menu-dropdown');
-        element.setAttribute('has-print-button', 'hasPrintButton');
-        if (options.showAuthMenu) {
-            element.setAttribute('show-auth-menu', 'true');
+        element.setAttribute('title', attrs.title);
+        element.setAttribute('type', attrs.type);
+        if (attrs.align) {
+            element.setAttribute('align', attrs.align);
         }
+        element.setAttribute('is-toolbar', 'isToolbar');
+        element.setAttribute('has-print-button', 'hasPrintButton');
 
         document.body.appendChild(element);
 
         scope = $rootScope.$new();
-        scope.hasPrintButton = options.hasPrintButton;
+        scope.isToolbar = attrs.isToolbar;
+        scope.hasPrintButton = attrs.hasPrintButton;
 
         directive = $compile(element)(scope);
         scope.$apply();
@@ -48,142 +62,179 @@ describe('The dp-menu-dropdown directive', function () {
         return directive;
     }
 
-    it('should initialize with the dropdown closed', function () {
-        var directive = getDirective({hasPrintButton: true});
+    it('should initialize with the dropdown closed', () => {
+        let directive = getDirective(options);
 
-        expect(directive.find('.c-menu-dropdown').length).toBe(0);
+        expect(directive.find('.c-menu__dropdown').length).toBe(0);
         expect(directive.find('dp-print-button').length).toBe(0);
         expect(directive.find('dp-terugmelden-button').length).toBe(0);
         expect(directive.find('dp-link').length).toBe(0);
     });
 
-    it('should toggle the visibility of the menu items when you click menu button', function () {
-        var directive = getDirective({hasPrintButton: true});
+    it('should toggle the visibility of the menu items when you click menu button', () => {
+        let directive = getDirective(options);
 
         // Click it once
-        directive.find('.site-header__menu__item--toggle').eq(0).click();
+        directive.find('.qa-menu__toggle').eq(0).click();
 
         // It should be openend
-        expect(directive.find('.c-menu-dropdown').length).toBe(1);
+        expect(directive.find('.qa-menu__dropdown').length).toBe(1);
         expect(directive.find('dp-terugmelden-button').length).toBe(1);
         expect(directive.find('dp-link').length).toBe(3);
-        expect(directive.find('.qa-header__logout').length).toBe(0);
 
         // Click it again
-        directive.find('.site-header__menu__item--toggle').eq(0).click();
+        directive.find('.qa-menu__toggle').eq(0).click();
 
         // It should be closed again
-        expect(directive.find('.c-menu-dropdown').length).toBe(0);
+        expect(directive.find('.qa-menu__dropdown').length).toBe(0);
         expect(directive.find('dp-terugmelden-button').length).toBe(0);
         expect(directive.find('dp-link').length).toBe(0);
-        expect(directive.find('.qa-header__logout').length).toBe(0);
     });
 
-    it('should also toggle when you click the span inside the button', function () {
-        var directive = getDirective({hasPrintButton: true});
+    it('should also toggle when you click the title element inside the button', () => {
+        let directive = getDirective(options);
 
         // Click it once
-        directive.find('.site-header__menu__item--toggle > span').eq(0).click();
+        directive.find('.qa-menu__title').eq(0).click();
 
         // It should be openend
-        expect(directive.find('.c-menu-dropdown').length).toBe(1);
+        expect(directive.find('.qa-menu__dropdown').length).toBe(1);
         expect(directive.find('dp-terugmelden-button').length).toBe(1);
         expect(directive.find('dp-link').length).toBe(3);
-        expect(directive.find('.qa-header__logout').length).toBe(0);
 
         // Click it again
-        directive.find('.site-header__menu__item--toggle > span').eq(0).click();
+        directive.find('.qa-menu__title').eq(0).click();
 
         // It should be closed again
-        expect(directive.find('.c-menu-dropdown').length).toBe(0);
+        expect(directive.find('.qa-menu__dropdown').length).toBe(0);
         expect(directive.find('dp-terugmelden-button').length).toBe(0);
         expect(directive.find('dp-link').length).toBe(0);
-        expect(directive.find('.qa-header__logout').length).toBe(0);
     });
 
-    it('changes the styling of the toggle button depending on the state of the dropdown', function () {
-        var directive = getDirective({hasPrintButton: true});
+    it('changes the styling of the toggle button depending on the state of the dropdown', () => {
+        let directive = getDirective(options);
 
         // When closed
-        expect(directive.find('.site-header__menu__item--toggle').attr('class'))
-            .not.toContain('site-header__menu__item--toggle--active');
+        expect(directive.find('.qa-menu__toggle').attr('class'))
+            .not.toContain('c-menu__item--toggle--active');
 
         // When openend
-        directive.find('.site-header__menu__item--toggle').eq(0).click();
+        directive.find('.qa-menu__toggle').eq(0).click();
 
-        expect(directive.find('.site-header__menu__item--toggle').attr('class'))
-            .toContain('site-header__menu__item--toggle--active');
+        expect(directive.find('.qa-menu__toggle').attr('class'))
+            .toContain('c-menu__item--toggle--active');
     });
 
-    it('should hide the menu items if you click elsewhere on the page', function () {
-        var directive = getDirective({hasPrintButton: true});
+    it('should hide the menu items if you click elsewhere on the page', () => {
+        let directive = getDirective(options);
 
         // Open the dropdown
-        directive.find('.site-header__menu__item--toggle').eq(0).click();
-        expect(directive.find('.c-menu-dropdown').length).toBe(1);
+        directive.find('.qa-menu__toggle').eq(0).click();
+        expect(directive.find('.qa-menu__dropdown').length).toBe(1);
 
         // Click anywhere but the toggle button
         angular.element(document.body).click();
-        expect(directive.find('.c-menu-dropdown').length).toBe(0);
+        expect(directive.find('.qa-menu__dropdown').length).toBe(0);
     });
 
-    it('supports multiple, standalone, dropdown menu\'s on one page', function () {
-        var directive1 = getDirective({hasPrintButton: true}),
-            directive2 = getDirective({hasPrintButton: true});
+    it('supports multiple, standalone, dropdown menu\'s on one page', () => {
+        let directive1 = getDirective(options),
+            directive2 = getDirective(options);
 
-        expect(directive1.find('.c-menu-dropdown').length).toBe(0);
-        expect(directive2.find('.c-menu-dropdown').length).toBe(0);
+        expect(directive1.find('.qa-menu__dropdown').length).toBe(0);
+        expect(directive2.find('.qa-menu__dropdown').length).toBe(0);
 
-        directive1.find('.site-header__menu__item--toggle').eq(0).click();
-        expect(directive1.find('.c-menu-dropdown').length).toBe(1);
-        expect(directive2.find('.c-menu-dropdown').length).toBe(0);
+        directive1.find('.qa-menu__toggle').eq(0).click();
+        expect(directive1.find('.qa-menu__dropdown').length).toBe(1);
+        expect(directive2.find('.qa-menu__dropdown').length).toBe(0);
 
-        directive2.find('.site-header__menu__item--toggle').eq(0).click();
-        expect(directive1.find('.c-menu-dropdown').length).toBe(0);
-        expect(directive2.find('.c-menu-dropdown').length).toBe(1);
+        directive2.find('.qa-menu__toggle').eq(0).click();
+        expect(directive1.find('.qa-menu__dropdown').length).toBe(0);
+        expect(directive2.find('.qa-menu__dropdown').length).toBe(1);
     });
 
-    it('has an option to show/hide the print button', function () {
-        var directive;
+    it('has an option to show/hide the print button', () => {
+        let directive;
 
         // With a print button
-        directive = getDirective({hasPrintButton: true});
-        directive.find('.site-header__menu__item--toggle').eq(0).click();
-        expect(directive.find('.c-menu-dropdown').text()).toContain('Printen');
+        directive = getDirective(options);
+        directive.find('.qa-menu__toggle').eq(0).click();
+        expect(directive.find('.qa-menu__dropdown').text()).toContain('Printen');
 
         // Without a print button
-        directive = getDirective({hasPrintButton: false});
-        directive.find('.site-header__menu__item--toggle').eq(0).click();
-        expect(directive.find('.c-menu-dropdown').text()).not.toContain('Printen');
+        options.hasPrintButton = false;
+        directive = getDirective(options);
+        directive.find('.qa-menu__toggle').eq(0).click();
+        expect(directive.find('.qa-menu__dropdown').text()).not.toContain('Printen');
     });
 
-    it('has an option to download adressen', function () {
-        var directive;
+    it('shows the menu item title specified', () => {
+        let directive;
 
-        directive = getDirective({hasPrintButton: false});
-        directive.find('.site-header__menu__item--toggle').eq(0).click();
-        expect(directive.find('.c-menu-dropdown').text()).toContain('Downloaden adressen');
+        directive = getDirective(options);
+        expect(directive.find('.qa-menu__title').text().trim()).toBe(options.title);
+
+        options.title = 'Different title';
+        directive = getDirective(options);
+        expect(directive.find('.qa-menu__title').text().trim()).toBe(options.title);
     });
 
-    it('has an option to show the authentication menu', function () {
-        var directive = getDirective({showAuthMenu: true});
+    it('shows the user menu when type is user', () => {
+        options.type = 'user';
+        let directive = getDirective(options);
 
         // Click it once
-        directive.find('.site-header__menu__item--toggle').eq(0).click();
+        directive.find('.qa-menu__toggle').eq(0).click();
 
         // It should be openend
-        expect(directive.find('.c-menu-dropdown').length).toBe(1);
-        expect(directive.find('.qa-header__logout').length).toBe(1);
+        expect(directive.find('.qa-menu__dropdown').length).toBe(1);
         expect(directive.find('dp-terugmelden-button').length).toBe(0);
+        expect(directive.find('dp-logout-button').length).toBe(1);
         expect(directive.find('dp-link').length).toBe(0);
 
         // Click it again
-        directive.find('.site-header__menu__item--toggle').eq(0).click();
+        directive.find('.qa-menu__toggle').eq(0).click();
 
         // It should be closed again
-        expect(directive.find('.c-menu-dropdown').length).toBe(0);
-        expect(directive.find('.qa-header__logout').length).toBe(0);
+        expect(directive.find('.qa-menu__dropdown').length).toBe(0);
         expect(directive.find('dp-terugmelden-button').length).toBe(0);
+        expect(directive.find('dp-logout-button').length).toBe(0);
         expect(directive.find('dp-link').length).toBe(0);
+    });
+
+    it('aligns the dropdown', () => {
+        let directive;
+
+        // Align right
+        directive = getDirective(options);
+        directive.find('.qa-menu__toggle').eq(0).click();
+        expect(directive.find('.qa-menu__dropdown').attr('class')).toContain('c-menu__dropdown--align-right');
+
+        // Align left
+        options.align = 'left';
+        directive = getDirective(options);
+        directive.find('.qa-menu__toggle').eq(0).click();
+        expect(directive.find('.qa-menu__dropdown').attr('class')).toContain('c-menu__dropdown--align-left');
+
+        // Align right by default
+        delete options.align;
+        directive = getDirective(options);
+        directive.find('.qa-menu__toggle').eq(0).click();
+        expect(directive.find('.qa-menu__dropdown').attr('class')).toContain('c-menu__dropdown--align-right');
+    });
+
+    it('changes the styling of the toggle button depending on it being in a toolbar or not', () => {
+        let directive;
+
+        // Normal styling
+        directive = getDirective(options);
+        expect(directive.find('.qa-menu__toggle').attr('class'))
+            .not.toContain('c-menu__item--toolbar');
+
+        // Modifier in case of toolbar
+        options.isToolbar = true;
+        directive = getDirective(options);
+        expect(directive.find('.qa-menu__toggle').attr('class'))
+            .toContain('c-menu__item--toolbar');
     });
 });

@@ -5,9 +5,7 @@
         .module('dpHeader')
         .directive('dpMenuDropdown', dpMenuDropdownDirective);
 
-    dpMenuDropdownDirective.$inject = ['authenticator'];
-
-    function dpMenuDropdownDirective (authenticator) {
+    function dpMenuDropdownDirective () {
         return {
             restrict: 'E',
             scope: {
@@ -31,8 +29,6 @@
             scope.toggleDropdown = function () {
                 scope.isVisible = !scope.isVisible;
             };
-
-            scope.logout = authenticator.logout;
 
             everywhere.bind('click', function (event) {
                 const button = element.find('button');
