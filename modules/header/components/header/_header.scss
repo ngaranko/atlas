@@ -1,24 +1,24 @@
-.site-header {
+.c-site-header {
   position: relative;
   height: $site-header-height;
 }
 
-.site-header--tall {
+.c-site-header--tall {
   height: $site-header-height-tall + $site-header-toolbar-height;
   padding-right: $site-header-gutter;
   padding-left: $site-header-gutter;
 }
 
-.site-header__logo {
+.c-site-header__logo {
   height: $site-header-height;
   font-weight: bold;
 }
 
-.site-header__logo--tall {
+.c-site-header__logo--tall {
   height: $site-header-height-tall;
 }
 
-.site-header__contact {
+.c-site-header__contact {
   @extend %link--arrow;
   @include font-size($xs-font);
   float: right;
@@ -29,30 +29,30 @@
 
 
 
-.site-header__toolbar {
+.c-site-header__toolbar {
   height: $site-header-toolbar-height;
   background-color: $secondary-gray4;
 }
 
-.site-header__search {
+.c-site-header__search {
   height: $site-header-search-form-height;
   margin-top: ($site-header-height - $site-header-search-form-height) / 2;
   margin-bottom: ($site-header-height - $site-header-search-form-height) / 2;
 }
 
-.site-header__search--toolbar {
+.c-site-header__search--toolbar {
   margin-top: ($site-header-toolbar-height - $site-header-search-form-height) / 2;
   margin-bottom: ($site-header-toolbar-height - $site-header-search-form-height) / 2;
 }
 
-.site-header__menu {
+.c-site-header__menu {
   position: absolute;
   top: 0;
   right: 0;
   height: $site-header-height;
 }
 
-.site-header__menu--toolbar {
+.c-site-header__menu--toolbar {
   right: -$base-whitespace;
   height: $site-header-toolbar-height;
 }

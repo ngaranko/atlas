@@ -1,42 +1,42 @@
-<header class="site-header u-hide-on-print qa-site-header"
-        ng-class="{ 'site-header--tall': vm.isTall }">
+<header class="c-site-header u-hide-on-print qa-site-header"
+        ng-class="{ 'c-site-header--tall': vm.isTall }">
     <div class="u-grid">
         <div class="u-row">
             <div class="qa-site-header__logo-col" ng-class="{
                      'u-col-sm--6': vm.isTall,
                      'u-col-sm--3': !vm.isTall
                  }">
-                <div class="site-header__logo qa-site-header__logo"
-                     ng-class="{ 'site-header__logo--tall': vm.isTall }">
+                <div class="c-site-header__logo qa-site-header__logo"
+                     ng-class="{ 'c-site-header__logo--tall': vm.isTall }">
                     <dp-logo is-tall="vm.isTall"></dp-logo>
                 </div>
             </div>
             <div ng-if="vm.isTall" class="u-col-sm--6 qa-site-header__contact">
-                <a href="https://amsterdam.nl/contact" class="site-header__contact">Contact</a>
+                <a href="https://amsterdam.nl/contact" class="c-site-header__contact">Contact</a>
             </div>
             <div ng-if="!vm.isTall" class="u-col-sm--6">
-                <div class="site-header__search qa-site-header__search">
+                <div class="c-site-header__search qa-site-header__search">
                     <dp-search query="{{vm.query}}"></dp-search>
                 </div>
             </div>
             <div ng-if="!vm.isTall" class="u-col-sm--3 u-padding__right--2 qa-site-header__menu-col">
-                <div class="site-header__menu qa-site-header__menu"
-                     ng-class="{ 'site-header__menu--toolbar': vm.isTall }">
+                <div class="c-site-header__menu qa-site-header__menu"
+                     ng-class="{ 'c-site-header__menu--toolbar': vm.isTall }">
                     <dp-menu is-toolbar="vm.isTall" has-print-button="vm.hasPrintButton"></dp-menu>
                 </div>
             </div>
         </div>
         <div ng-if="vm.isTall" class="u-row">
-            <div class="site-header__toolbar qa-site-header__toolbar">
+            <div class="c-site-header__toolbar qa-site-header__toolbar">
                 <div class="u-col-sm--6">
-                    <div class="site-header__search qa-site-header__search"
-                         ng-class="{ 'site-header__search--toolbar': vm.isTall }">
+                    <div class="c-site-header__search qa-site-header__search"
+                         ng-class="{ 'c-site-header__search--toolbar': vm.isTall }">
                         <dp-search query="{{vm.query}}"></dp-search>
                     </div>
                 </div>
                 <div class="u-col-sm--6 u-padding__right--2 qa-site-header__menu-col">
-                    <div class="site-header__menu qa-site-header__menu"
-                         ng-class="{ 'site-header__menu--toolbar': vm.isTall }">
+                    <div class="c-site-header__menu qa-site-header__menu"
+                         ng-class="{ 'c-site-header__menu--toolbar': vm.isTall }">
                         <dp-menu is-toolbar="vm.isTall" has-print-button="vm.hasPrintButton"></dp-menu>
                     </div>
                 </div>
