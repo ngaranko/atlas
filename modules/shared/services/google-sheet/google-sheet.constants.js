@@ -9,8 +9,10 @@
                 news: 1,
                 events: 2,
                 beleid: 3,
-                faq: 4,
-                versions: 5
+                help: 4,
+                snelwegwijs: 5,
+                apis: 6,
+                versions: 7
             }
         });
 })();
