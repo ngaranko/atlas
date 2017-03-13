@@ -1,14 +1,9 @@
 .c-user-content-overview {
   @include font-size-responsive($m-font);
 
-
-
-  .c-user-content-overview__contents {
-    margin-right: $base-whitespace;
-  }
-
   .c-user-content-overview__toc {
     position: fixed;
+    margin-right: 60px;
   }
 
   .c-user-content-overview__toc-header {
@@ -17,8 +12,7 @@
   }
 
   .c-user-content-overview__toc-item {
-    margin-bottom: .5 * $base-whitespace;
-    color: $primary-dark;
+    margin-bottom: $base-whitespace;
   }
 
   .c-user-content-overview__header {
@@ -34,7 +28,7 @@
   }
 
   .c-user-content-overview__events-item-contents {
-    margin-left: 2 * $base-whitespace;
+    margin-left: $base-whitespace;
   }
 
   .c-user-content-overview__events-intro {
