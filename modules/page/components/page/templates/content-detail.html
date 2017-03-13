@@ -1,2 +1,3 @@
-<h1>{{vm.name}}</h1>
-<h2>{{vm.type}}, {{vm.item}}</h2>
+<div ng-if="vm.feed" class="c-user-content-detail">
+    <ng-include src="'modules/page/components/page/templates/' + vm.name + '-' + vm.type + '.html'"></ng-include>
+</div>
