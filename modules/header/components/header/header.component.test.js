@@ -67,15 +67,18 @@ describe('The dp-header component', () => {
         });
 
         it('doesn\'t have a modifier on the header', () => {
-            expect(component.find('.qa-site-header')[0].getAttribute('class')).not.toContain('site-header--tall');
+            expect(component.find('.qa-site-header')[0].getAttribute('class'))
+                .not.toContain('site-header--tall');
         });
 
         it('has the logo 3 wide', () => {
-            expect(component.find('.qa-site-header__logo-col')[0].getAttribute('class')).toContain('u-col-sm--3');
+            expect(component.find('.qa-site-header__logo-col')[0].getAttribute('class'))
+                .toContain('u-col-sm--3');
         });
 
         it('doesn\'t have a modifier on the logo', () => {
-            expect(component.find('.qa-site-header__logo')[0].getAttribute('class')).not.toContain('site-header__logo--tall');
+            expect(component.find('.qa-site-header__logo')[0].getAttribute('class'))
+                .not.toContain('site-header__logo--tall');
         });
 
         it('doesn\'t have a toolbar', () => {
@@ -84,14 +87,17 @@ describe('The dp-header component', () => {
 
         it('defines search only once, without modifier', () => {
             expect(component.find('.qa-site-header__search').length).toBe(1);
-            expect(component.find('.qa-site-header__search')[0].getAttribute('class')).not.toContain('site-header__search--toolbar');
+            expect(component.find('.qa-site-header__search')[0].getAttribute('class'))
+                .not.toContain('site-header__search--toolbar');
         });
 
         it('defines the menu only once, 3 wide, without modifier', () => {
             expect(component.find('.qa-site-header__menu-col').length).toBe(1);
             expect(component.find('.qa-site-header__menu').length).toBe(1);
-            expect(component.find('.qa-site-header__menu-col')[0].getAttribute('class')).toContain('u-col-sm--3');
-            expect(component.find('.qa-site-header__menu')[0].getAttribute('class')).not.toContain('site-header__menu--toolbar');
+            expect(component.find('.qa-site-header__menu-col')[0].getAttribute('class'))
+                .toContain('u-col-sm--3');
+            expect(component.find('.qa-site-header__menu')[0].getAttribute('class'))
+                .not.toContain('site-header__menu--toolbar');
         });
 
         it('doesn\'t have a contact link', () => {
@@ -107,15 +113,18 @@ describe('The dp-header component', () => {
         });
 
         it('has a modifier on the header', () => {
-            expect(component.find('.qa-site-header')[0].getAttribute('class')).toContain('site-header--tall');
+            expect(component.find('.qa-site-header')[0].getAttribute('class'))
+                .toContain('site-header--tall');
         });
 
         it('has the logo 6 wide', () => {
-            expect(component.find('.qa-site-header__logo-col')[0].getAttribute('class')).toContain('u-col-sm--6');
+            expect(component.find('.qa-site-header__logo-col')[0].getAttribute('class'))
+                .toContain('u-col-sm--6');
         });
 
         it('has a modifier on the logo', () => {
-            expect(component.find('.qa-site-header__logo')[0].getAttribute('class')).toContain('site-header__logo--tall');
+            expect(component.find('.qa-site-header__logo')[0].getAttribute('class'))
+                .toContain('site-header__logo--tall');
         });
 
         it('has a toolbar', () => {
@@ -124,14 +133,17 @@ describe('The dp-header component', () => {
 
         it('defines search only once, with a modifier', () => {
             expect(component.find('.qa-site-header__search').length).toBe(1);
-            expect(component.find('.qa-site-header__search')[0].getAttribute('class')).toContain('site-header__search--toolbar');
+            expect(component.find('.qa-site-header__search')[0].getAttribute('class'))
+                .toContain('site-header__search--toolbar');
         });
 
         it('defines the menu only once, 6 wide, with a modifier', () => {
             expect(component.find('.qa-site-header__menu-col').length).toBe(1);
             expect(component.find('.qa-site-header__menu').length).toBe(1);
-            expect(component.find('.qa-site-header__menu-col')[0].getAttribute('class')).toContain('u-col-sm--6');
-            expect(component.find('.qa-site-header__menu')[0].getAttribute('class')).toContain('site-header__menu--toolbar');
+            expect(component.find('.qa-site-header__menu-col')[0].getAttribute('class'))
+                .toContain('u-col-sm--6');
+            expect(component.find('.qa-site-header__menu')[0].getAttribute('class'))
+                .toContain('site-header__menu--toolbar');
         });
 
         it('has a contact link', () => {

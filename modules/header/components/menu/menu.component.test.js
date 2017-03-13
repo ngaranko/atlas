@@ -16,7 +16,7 @@ describe('The dp-menu component', () => {
                 $provide.factory('dpMenuDropdownDirective', function () {
                     return {};
                 });
-			}
+            }
         );
 
         angular.mock.inject((_$compile_, _$rootScope_, _authenticator_, _user_) => {
