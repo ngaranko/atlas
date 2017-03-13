@@ -1,2 +1,5 @@
 @import "components/dashboard/dashboard";
-@import "components/dashboard/dashboard-print";
+
+.is-print-mode {
+  @import "components/dashboard/dashboard-print";
+}
