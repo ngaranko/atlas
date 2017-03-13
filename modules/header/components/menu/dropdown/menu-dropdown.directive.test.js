@@ -65,7 +65,7 @@ describe('The dp-menu-dropdown directive', () => {
     it('should initialize with the dropdown closed', () => {
         let directive = getDirective(options);
 
-        expect(directive.find('.c-menu__dropdown').length).toBe(0);
+        expect(directive.find('.qa-menu__dropdown').length).toBe(0);
         expect(directive.find('dp-print-button').length).toBe(0);
         expect(directive.find('dp-terugmelden-button').length).toBe(0);
         expect(directive.find('dp-link').length).toBe(0);
