@@ -5,9 +5,7 @@
                 <!-- Link to map -->
                 <div class="qa-map-link">
                     <dp-link type="SHOW_MAP" class-name="c-homepage__block c-homepage__block--left c-homepage__block--tall c-homepage__block--homepage">
-                        <div class="o-btn o-btn--white c-homepage__block__button">
-                            Data op de kaart
-                        </div>
+                        <div class="o-btn o-btn--white c-homepage__block__button">Data op de kaart</div>
                     </dp-link>
                 </div>
             </div>
@@ -15,19 +13,17 @@
                 <!-- Link to straatbeeld -->
                 <div class="qa-straatbeeld-link">
                     <dp-link type="FETCH_STRAATBEELD_BY_ID" class-name="c-homepage__block c-homepage__block--middle c-homepage__block--tall c-homepage__block--straatbeeld" payload="vm.fetchStraatbeeldPayload">
-                        <div class="o-btn o-btn--white c-homepage__block__button">
-                            Panorama
-                        </div>
+                        <div class="o-btn o-btn--white c-homepage__block__button">Panorama</div>
                     </dp-link>
                 </div>
             </div>
             <div class="u-col-sm--3">
                 <!-- News -->
                 <div class="c-homepage__block c-homepage__block--right c-homepage__block--tall">
-                    <div class="c-homepage__block--entries">
+                    <div class="c-homepage__entries">
                         <dp-user-content-widget type="news" limit-to="4"></dp-user-content-widget>
                     </div>
-                    <div class="c-homepage__block--show-more">
+                    <div class="c-homepage__show-more">
                         <dp-link type="SHOW_PAGE" payload="{name: 'content-overzicht', type: vm.type}">
                             Nieuws
                         </dp-link>
@@ -46,28 +42,24 @@
                 <div>
                     <!-- Link to data selection BAG -->
                     <dp-link type="FETCH_DATA_SELECTION" class-name="c-homepage__block c-homepage__block--middle c-homepage__block--short c-homepage__block--adressen" payload="{dataset: 'bag', filters: {}, page: 1}">
-                        <div class="o-btn o-btn--white c-homepage__block__button">
-                            Adressen downloaden
-                        </div>
+                        <div class="o-btn o-btn--white c-homepage__block__button">Adressentabel</div>
                     </dp-link>
                 </div>
 
                 <div>
                     <!-- Link to data selection HR -->
                     <dp-link type="FETCH_DATA_SELECTION" class-name="c-homepage__block c-homepage__block--middle c-homepage__block--short c-homepage__block--vestigingen" payload="{dataset: 'hr', filters: {}, page: 1}">
-                        <div class="o-btn o-btn--white c-homepage__block__button">
-                            Vestigingen downloaden
-                        </div>
+                        <div class="o-btn o-btn--white c-homepage__block__button">Vestigingentabel</div>
                     </dp-link>
                 </div>
             </div>
             <div class="u-col-sm--3">
                 <!-- Events -->
                 <div class="c-homepage__block c-homepage__block--right c-homepage__block--tall">
-                    <div class="c-homepage__block--entries">
+                    <div class="c-homepage__entries">
                         <dp-user-content-widget type="events" limit-to="4"></dp-user-content-widget>
                     </div>
-                    <div class="c-homepage__block--show-more">
+                    <div class="c-homepage__show-more">
                         <dp-link type="SHOW_PAGE" payload="{name: 'content-overzicht', type: vm.type}">
                             Evenementen
                         </dp-link>

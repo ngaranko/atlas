@@ -19,7 +19,7 @@ $link-offset: $base-font-size;
   }
 
   &:active {
-    color: $secondary-gray80;
+    color: $primary-contrast;
 
     &:focus {
       outline: none;
@@ -41,7 +41,7 @@ $link-offset: $base-font-size;
   &::before {
     display: inline-block;
     position: absolute;
-    top: 3px;
+    top: 4px;
     left: -$link-offset;
     width: 7px;
     height: 12px;

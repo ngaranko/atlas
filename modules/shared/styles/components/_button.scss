@@ -9,6 +9,7 @@
 .o-btn--link {
   @extend %link--arrow;
 
+  padding-left: 1px;
   background-color: transparent;
   font-size: inherit;
   text-align: left;
