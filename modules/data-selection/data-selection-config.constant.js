@@ -202,7 +202,7 @@
                             slug: 'buurt_naam',
                             label: 'Buurt'
                         }, {
-                            slug: 'naam',
+                            slug: 'openbare_ruimte',
                             label: 'Openbare ruimte'
                         }, {
                             slug: 'postcode',
@@ -217,7 +217,7 @@
                             },
                             {
                                 label: 'Handelsnaam',
-                                variables: ['bedrijfsnaam']
+                                variables: ['handelsnaam']
                             },
                             {
                                 label: 'Bezoekadres',
@@ -225,11 +225,11 @@
                             },
                             {
                                 label: 'Hoofdcategorie',
-                                variables: ['hoofdcategorieen']
+                                variables: ['hoofdcategorie']
                             },
                             {
                                 label: 'Subcategorie',
-                                variables: ['subcategorieen']
+                                variables: ['subcategorie']
                             },
                             {
                                 label: 'SBI-omschrijving',
@@ -237,12 +237,12 @@
                             },
                             {
                                 label: 'SBI-code',
-                                variables: ['sbicodes']
+                                variables: ['sbi_code']
                             }
                         ],
                         LIST: [
                             {
-                                variables: ['bedrijfsnaam']
+                                variables: ['handelsnaam']
                             }
                         ]
                     }
