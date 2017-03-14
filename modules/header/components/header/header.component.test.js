@@ -18,7 +18,7 @@ describe('The dp-header component', () => {
         });
     });
 
-    function getComponent (query, isTall) {
+    function getComponent (query, size) {
         let component,
             element,
             scope;
@@ -26,11 +26,11 @@ describe('The dp-header component', () => {
         element = document.createElement('dp-header');
         element.setAttribute('query', query);
         element.setAttribute('has-print-button', 'hasPrintButton');
-        element.setAttribute('is-tall', 'isTall');
+        element.setAttribute('size', 'size');
 
         scope = $rootScope.$new();
         scope.hasPrintButton = true;
-        scope.isTall = isTall;
+        scope.size = size;
 
         component = $compile(element)(scope);
         scope.$apply();
@@ -42,20 +42,20 @@ describe('The dp-header component', () => {
         let component;
 
         // Without a query
-        component = getComponent('', false);
+        component = getComponent('', 'short');
         expect(component.find('dp-search')[0].getAttribute('query')).toBe('');
 
         // With a query
-        component = getComponent('I_AM_A_FAKE_QUERY', false);
+        component = getComponent('I_AM_A_FAKE_QUERY', 'short');
         expect(component.find('dp-search')[0].getAttribute('query')).toBe('I_AM_A_FAKE_QUERY');
 
         // Tall version
         // Without a query
-        component = getComponent('', true);
+        component = getComponent('', 'tall');
         expect(component.find('dp-search')[0].getAttribute('query')).toBe('');
 
         // With a query
-        component = getComponent('I_AM_A_FAKE_QUERY', true);
+        component = getComponent('I_AM_A_FAKE_QUERY', 'tall');
         expect(component.find('dp-search')[0].getAttribute('query')).toBe('I_AM_A_FAKE_QUERY');
     });
 
@@ -63,10 +63,12 @@ describe('The dp-header component', () => {
         let component;
 
         beforeEach(() => {
-            component = getComponent('', false);
+            component = getComponent('', 'short');
         });
 
-        it('doesn\'t have a modifier on the header', () => {
+        it('has the short modifier on the header', () => {
+            expect(component.find('.qa-site-header')[0].getAttribute('class'))
+                .toContain('c-site-header--short');
             expect(component.find('.qa-site-header')[0].getAttribute('class'))
                 .not.toContain('c-site-header--tall');
         });
@@ -76,19 +78,12 @@ describe('The dp-header component', () => {
                 .toContain('u-col-sm--3');
         });
 
-        it('doesn\'t have a modifier on the logo', () => {
-            expect(component.find('.qa-site-header__logo')[0].getAttribute('class'))
-                .not.toContain('c-site-header__logo--tall');
-        });
-
         it('doesn\'t have a toolbar', () => {
             expect(component.find('.qa-site-header__toolbar').length).toBe(0);
         });
 
         it('defines search only once, without modifier', () => {
             expect(component.find('.qa-site-header__search').length).toBe(1);
-            expect(component.find('.qa-site-header__search')[0].getAttribute('class'))
-                .not.toContain('c-site-header__search--toolbar');
         });
 
         it('defines the menu only once, 3 wide, without modifier', () => {
@@ -96,8 +91,6 @@ describe('The dp-header component', () => {
             expect(component.find('.qa-site-header__menu').length).toBe(1);
             expect(component.find('.qa-site-header__menu-col')[0].getAttribute('class'))
                 .toContain('u-col-sm--3');
-            expect(component.find('.qa-site-header__menu')[0].getAttribute('class'))
-                .not.toContain('c-site-header__menu--toolbar');
         });
 
         it('doesn\'t have a contact link', () => {
@@ -109,10 +102,12 @@ describe('The dp-header component', () => {
         let component;
 
         beforeEach(() => {
-            component = getComponent('', true);
+            component = getComponent('', 'tall');
         });
 
-        it('has a modifier on the header', () => {
+        it('has the tall modifier on the header', () => {
+            expect(component.find('.qa-site-header')[0].getAttribute('class'))
+                .not.toContain('c-site-header--short');
             expect(component.find('.qa-site-header')[0].getAttribute('class'))
                 .toContain('c-site-header--tall');
         });
@@ -122,19 +117,12 @@ describe('The dp-header component', () => {
                 .toContain('u-col-sm--6');
         });
 
-        it('has a modifier on the logo', () => {
-            expect(component.find('.qa-site-header__logo')[0].getAttribute('class'))
-                .toContain('c-site-header__logo--tall');
-        });
-
         it('has a toolbar', () => {
             expect(component.find('.qa-site-header__toolbar').length).toBe(1);
         });
 
         it('defines search only once, with a modifier', () => {
             expect(component.find('.qa-site-header__search').length).toBe(1);
-            expect(component.find('.qa-site-header__search')[0].getAttribute('class'))
-                .toContain('c-site-header__search--toolbar');
         });
 
         it('defines the menu only once, 6 wide, with a modifier', () => {
@@ -142,8 +130,6 @@ describe('The dp-header component', () => {
             expect(component.find('.qa-site-header__menu').length).toBe(1);
             expect(component.find('.qa-site-header__menu-col')[0].getAttribute('class'))
                 .toContain('u-col-sm--6');
-            expect(component.find('.qa-site-header__menu')[0].getAttribute('class'))
-                .toContain('c-site-header__menu--toolbar');
         });
 
         it('has a contact link', () => {

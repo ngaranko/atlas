@@ -10,7 +10,7 @@
          ng-controller="HeaderController as header">
         <div ng-class="{ 'c-dashboard__max-width__inner': vm.hasMaxWidth }">
             <div ng-if="!vm.isPrintMode" class="qa-dashboard__header">
-                <dp-header is-tall="vm.isHomePage"
+                <dp-header size="vm.headerSize"
                            has-print-button="header.hasPrintButton"
                            query="{{header.query}}"></dp-header>
             </div>

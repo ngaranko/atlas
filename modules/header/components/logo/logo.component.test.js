@@ -18,16 +18,16 @@ describe('The dp-logo component', () => {
         });
     });
 
-    function getComponent (isTall) {
+    function getComponent (size) {
         var component,
             element,
             scope;
 
         element = document.createElement('dp-logo');
-        element.setAttribute('is-tall', 'isTall');
+        element.setAttribute('size', 'size');
 
         scope = $rootScope.$new();
-        scope.isTall = isTall;
+        scope.size = size;
 
         component = $compile(element)(scope);
         scope.$apply();
@@ -39,10 +39,11 @@ describe('The dp-logo component', () => {
         let component;
 
         beforeEach(() => {
-            component = getComponent(false);
+            component = getComponent('short');
         });
 
-        it('doesn\'t have a modifier on the root element', () => {
+        it('has the short modifier on the root element', () => {
+            expect(component.find('.qa-logo')[0].getAttribute('class')).toContain('c-logo--short');
             expect(component.find('.qa-logo')[0].getAttribute('class')).not.toContain('c-logo--tall');
         });
 
@@ -63,10 +64,11 @@ describe('The dp-logo component', () => {
         let component;
 
         beforeEach(() => {
-            component = getComponent(true);
+            component = getComponent('tall');
         });
 
-        it('has a modifier on the root element', () => {
+        it('has the tall modifier on the root element', () => {
+            expect(component.find('.qa-logo')[0].getAttribute('class')).not.toContain('c-logo--short');
             expect(component.find('.qa-logo')[0].getAttribute('class')).toContain('c-logo--tall');
         });
 

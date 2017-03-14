@@ -17,14 +17,6 @@
 
   img {
     position: absolute;
-    top: $base-whitespace;
-    right: $base-whitespace;
-    left: $base-whitespace;
-  }
-
-  span {
-    @include font-size($s-header-font);
-    line-height: $site-header-height;
   }
 }
 
@@ -42,3 +34,15 @@
   }
 }
 
+.c-logo--short {
+  img {
+    top: $base-whitespace;
+    right: $base-whitespace;
+    left: $base-whitespace;
+  }
+
+  span {
+    @include font-size($s-header-font);
+    line-height: $site-header-height;
+  }
+}
