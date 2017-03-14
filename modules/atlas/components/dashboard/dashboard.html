@@ -1,16 +1,13 @@
 <div class="c-dashboard"
      ng-class="{
-         'c-dashboard--max-width': vm.hasMaxWidth
+         'c-dashboard--max-width': vm.hasMaxWidth,
+         'c-dashboard--homepage': vm.isHomePage
      }">
 
     <!-- Header -->
     <div class="c-dashboard__heading"
-         ng-class="{
-             'c-dashboard__heading--homepage': vm.isHomePage,
-             'c-dashboard__max-width': vm.hasMaxWidth
-         }"
+         ng-class="{ 'c-dashboard__max-width': vm.hasMaxWidth }"
          ng-controller="HeaderController as header">
-
         <div ng-class="{ 'c-dashboard__max-width__inner': vm.hasMaxWidth }">
             <div ng-if="!vm.isPrintMode" class="qa-dashboard__header">
                 <dp-header is-tall="vm.isHomePage"
@@ -25,17 +22,12 @@
 
     <!-- Body -->
     <div class="c-dashboard__body"
-         ng-class="{
-             'c-dashboard__body--error': vm.visibility.httpStatus,
-             'c-dashboard__body--homepage': vm.isHomePage
-         }">
+         ng-class="{ 'c-dashboard__body--error': vm.visibility.httpStatus }">
         <div class="u-grid">
             <!-- Error message -->
             <div ng-if="vm.visibility.httpStatus"
                  class="c-dashboard__error"
-                 ng-class="{
-                     'c-dashboard__max-width': vm.hasMaxWidth
-                 }">
+                 ng-class="{ 'c-dashboard__max-width': vm.hasMaxWidth }">
                 <div ng-class="{
                          'c-dashboard__max-width__inner': vm.hasMaxWidth,
                          'c-dashboard__max-width__inner--homepage': vm.isHomePage
