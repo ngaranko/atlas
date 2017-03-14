@@ -1,8 +1,8 @@
-<div ng-if="vm.type !== 'beleid'">
+<div ng-if="!(vm.type === 'beleid' || vm.type === 'help')">
     <ng-include src="'modules/page/components/page/templates/content-overzicht.html'"></ng-include>
 </div>
 
-<div ng-if="vm.feed && vm.type === 'beleid'" class="c-user-content-detail">
+<div ng-if="vm.feed && (vm.type === 'beleid' || vm.type === 'help')" class="c-user-content-detail">
 
     <h1 class="u-margin__bottom--3">{{vm.entry.titel.value}}</h1>
 
@@ -28,7 +28,7 @@
 
         <div class="u-col-sm--3 u-col-sm--offset-1">
             <div class="c-user-content-detail--right">
-                <dp-user-content-widget type="{{vm.type}}"></dp-user-content-widget>
+                <dp-user-content-widget type="beleid"></dp-user-content-widget>
             </div>
         </div>
 
