@@ -1,47 +1,45 @@
 <div id="{{vm.type + 'top'}}" ng-if="vm.feed" class="c-user-content-overview">
     <h1 class="c-user-content-overview__header">{{vm.feed.title}}</h1>
 
-    <div class="u-grid">
-        <div class="u-row">
-            <div class="u-col-sm--8">
+    <div class="u-row">
+        <div class="u-col-sm--8">
 
-                <div id="{{vm.type}}{{entry.id}}" ng-repeat="entry in vm.entries" class="c-user-content-overview__item">
+            <div id="{{vm.type}}{{entry.id}}" ng-repeat="entry in vm.entries" class="c-user-content-overview__item">
 
-                    <div ng-if="vm.type !== 'events'">
-                        <h2 class="c-user-content-overview__item-header">{{entry.titel.value}}</h2>
-                        <div class="s-cms-content" ng-bind-html="entry.contents.html"></div>
-                    </div>
-
-                    <div ng-if="vm.type === 'events'">
-                        <dp-event date="entry.datum.date">
-                            <div class="c-user-content-overview__events-item-contents c-user-content-detail">
-                                <h2 class="c-user-content-overview__item-header">{{entry.titel.value}}</h2>
-                                <div class="c-user-content-detail__event-when-where">
-                                    {{entry.datum.date | dpDate}} {{entry.tijd.value}}
-                                    |
-                                    {{entry.location.value}}
-                                </div>
-                                <div class="s-cms-content" ng-bind-html="entry.contents.html"></div>
-                            </div>
-                        </dp-event>
-                    </div>
+                <div ng-if="vm.type !== 'events'">
+                    <h2 class="c-user-content-overview__item-header">{{entry.titel.value}}</h2>
+                    <div class="s-cms-content" ng-bind-html="entry.contents.html"></div>
                 </div>
 
-            </div>
-
-            <div class="u-col-sm--3 u-col-sm--offset-1">
-                <div class="c-user-content-overview__toc">
-                    <h3 class="c-user-content-overview__toc-header">Op deze pagina</h3>
-
-                    <dp-anchor-link ng-repeat="e in vm.entries"
-                                    link="{{$first ? (vm.type + 'top') : (vm.type + e.id)}}"
-                                    class-name="c-user-content-overview__toc-item"
-                                    scroll-to="e.id === vm.entry.id">
-                        {{e.titel.value}}
-                    </dp-anchor-link>
+                <div ng-if="vm.type === 'events'">
+                    <dp-event date="entry.datum.date">
+                        <div class="c-user-content-overview__events-item-contents c-user-content-detail">
+                            <h2 class="c-user-content-overview__item-header">{{entry.titel.value}}</h2>
+                            <div class="c-user-content-detail__event-when-where">
+                                {{entry.datum.date | dpDate}} {{entry.tijd.value}}
+                                |
+                                {{entry.location.value}}
+                            </div>
+                            <div class="s-cms-content" ng-bind-html="entry.contents.html"></div>
+                        </div>
+                    </dp-event>
                 </div>
             </div>
 
         </div>
+
+        <div class="u-col-sm--3 u-col-sm--offset-1">
+            <div class="c-user-content-overview__toc">
+                <h3 class="c-user-content-overview__toc-header">Op deze pagina</h3>
+
+                <dp-anchor-link ng-repeat="e in vm.entries"
+                                link="{{$first ? (vm.type + 'top') : (vm.type + e.id)}}"
+                                class-name="c-user-content-overview__toc-item"
+                                auto-scroll="e.id === vm.entry.id">
+                    {{e.titel.value}}
+                </dp-anchor-link>
+            </div>
+        </div>
+
     </div>
 </div>

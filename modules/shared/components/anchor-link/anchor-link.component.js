@@ -5,7 +5,7 @@
             bindings: {
                 link: '@',
                 className: '@',
-                scrollTo: '<'
+                autoScroll: '<'
             },
             transclude: true,
             templateUrl: 'modules/shared/components/anchor-link/anchor-link.html',
@@ -13,17 +13,19 @@
             controllerAs: 'vm'
         });
 
-    DpAnchorLinkController.$inject = ['$anchorScroll'];
+    DpAnchorLinkController.$inject = ['$scope', '$anchorScroll'];
 
-    function DpAnchorLinkController ($anchorScroll) {
+    function DpAnchorLinkController ($scope, $anchorScroll) {
         let vm = this;
 
         vm.scrollTo = function (anchor) {
             $anchorScroll(anchor);
         };
 
-        if (vm.scrollTo) {
-            vm.scrollTo(vm.link)
+        if (vm.autoScroll) {
+            $scope.$applyAsync(() => {
+                vm.scrollTo(vm.link)
+            });
         }
     }
 })();
