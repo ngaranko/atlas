@@ -73,7 +73,7 @@
                     rawValue = rawData[key];
 
                 return angular.isArray(rawValue)
-                    ? rawValue.map(value => value)
+                    ? rawValue.filter(angular.identity).join(' | ')
                     : rawValue;
             } else {
                 const key = path[0],
@@ -95,6 +95,7 @@
                 .then(function (data) {
                     return data.object_list
                         .map(object => object._source.centroid)
+                        .filter(angular.identity)
                         .map(([lon, lat]) => [lat, lon]);
                 });
         }

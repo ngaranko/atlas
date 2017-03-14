@@ -15,7 +15,7 @@
                     ENDPOINT_MARKERS: 'dataselectie/bag/geolocation/',
                     ENDPOINT_EXPORT: 'dataselectie/bag/export/',
                     ENDPOINT_DETAIL: 'bag/nummeraanduiding/',
-                    PRIMARY_KEY: 'id',
+                    PRIMARY_KEY: 'nummeraanduiding_id',
                     TITLE: 'Adressen',
                     FILTERS: [
                         {
@@ -180,7 +180,7 @@
                     ENDPOINT_MARKERS: 'dataselectie/hr/geolocation/',
                     ENDPOINT_EXPORT: 'dataselectie/hr/export/',
                     ENDPOINT_DETAIL: 'handelsregister/vestiging/',
-                    PRIMARY_KEY: 'id',
+                    PRIMARY_KEY: 'vestiging_id',
                     TITLE: 'Vestigingen',
                     FILTERS: [
                         {
@@ -202,7 +202,7 @@
                             slug: 'buurt_naam',
                             label: 'Buurt'
                         }, {
-                            slug: 'naam',
+                            slug: 'openbare_ruimte',
                             label: 'Openbare ruimte'
                         }, {
                             slug: 'postcode',
@@ -217,7 +217,7 @@
                             },
                             {
                                 label: 'Handelsnaam',
-                                variables: ['bedrijfsnaam']
+                                variables: ['handelsnaam']
                             },
                             {
                                 label: 'Bezoekadres',
@@ -225,11 +225,11 @@
                             },
                             {
                                 label: 'Hoofdcategorie',
-                                variables: ['hoofdcategorieen']
+                                variables: ['hoofdcategorie']
                             },
                             {
                                 label: 'Subcategorie',
-                                variables: ['subcategorieen']
+                                variables: ['subcategorie']
                             },
                             {
                                 label: 'SBI-omschrijving',
@@ -237,12 +237,12 @@
                             },
                             {
                                 label: 'SBI-code',
-                                variables: ['sbicodes']
+                                variables: ['sbi_code']
                             }
                         ],
                         LIST: [
                             {
-                                variables: ['bedrijfsnaam']
+                                variables: ['handelsnaam']
                             }
                         ]
                     }

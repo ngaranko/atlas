@@ -92,6 +92,10 @@ describe('The state url conversion factory', function () {
                         name: 'osb',
                         type: 'object(id:string,isVisible:boolean)'
                     },
+                    oss: {
+                        name: 'oss',
+                        type: 'object(id:string,value:string)'
+                    },
                     v: {
                         name: 'v',
                         type: 'string',
@@ -165,6 +169,13 @@ describe('The state url conversion factory', function () {
                 });
 
                 expect(params).toEqual({});
+            });
+
+            it('can handle key values with empty values', function () {
+                let params = stateUrlConverter.state2params({
+                    kv: { aap: '' }
+                });
+                expect(params).toEqual({kv: 'aap::'});
             });
 
             it('skips values of unknown type', function () {
@@ -244,6 +255,16 @@ describe('The state url conversion factory', function () {
                     kv: { aap: 'noot', mies: 'teun' },
                     osb: { id: 'aap', isVisible: true },
                     v: 'setValue.v'
+                });
+            });
+
+            it('can translate keyvalues with empty values', function () {
+                let state = stateUrlConverter.params2state({}, {
+                    kv: 'aap::'
+                });
+
+                expect(state).toEqual({
+                    kv: { aap: '' }
                 });
             });
 
