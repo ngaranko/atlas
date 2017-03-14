@@ -16,8 +16,8 @@ def tryStep(String message, Closure block, Closure tearDown = null) {
     }
 }
 
-node {
 
+node {
     stage("Checkout") {
         checkout scm
     }
@@ -29,11 +29,10 @@ node {
         }
     }
 
-    stage("Build develop image") {
+    stage("Build image") {
         tryStep "build", {
             def image = docker.build("build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}")
             image.push()
-            image.push("acceptance")
         }
     }
 }
@@ -42,6 +41,17 @@ String BRANCH = "${env.BRANCH_NAME}"
 
 if (BRANCH == "master") {
 
+    node {
+        stage('Push acceptance image') {
+            tryStep "image tagging", {
+                def image = docker.image("build.datapunt.amsterdam.nl:5000/datapunt/afvalophaalgebieden:${env.BUILD_NUMBER}")
+                image.pull()
+                image.push("acceptance")
+            }
+        }
+    }
+
+
 node {
     stage("Deploy to ACC") {
         tryStep "deployment", {
@@ -49,7 +59,6 @@ node {
                     parameters: [
                             [$class: 'StringParameterValue', name: 'INVENTORY', value: 'acceptance'],
                             [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-client.yml'],
-                            [$class: 'StringParameterValue', name: 'BRANCH', value: 'master'],
                     ]
         }
     }
@@ -61,14 +70,11 @@ stage('Waiting for approval') {
     input "Deploy to Production?"
 }
 
-
-
 node {
     stage('Push production image') {
         tryStep "image tagging", {
             def image = docker.image("build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}")
             image.pull()
-
             image.push("production")
             image.push("latest")
         }
@@ -82,7 +88,6 @@ node {
                     parameters: [
                             [$class: 'StringParameterValue', name: 'INVENTORY', value: 'production'],
                             [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-client.yml'],
-                            [$class: 'StringParameterValue', name: 'BRANCH', value: 'master'],
                     ]
         }
     }
