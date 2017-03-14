@@ -1,10 +1,10 @@
-describe('The dp-header component', () => {
+describe('The dp-site-header component', () => {
     let $compile,
         $rootScope;
 
     beforeEach(() => {
         angular.mock.module(
-            'dpHeader',
+            'dpSiteHeader',
             {
                 store: {
                     dispatch: angular.noop
@@ -23,7 +23,7 @@ describe('The dp-header component', () => {
             element,
             scope;
 
-        element = document.createElement('dp-header');
+        element = document.createElement('dp-site-header');
         element.setAttribute('query', query);
         element.setAttribute('has-print-button', 'hasPrintButton');
         element.setAttribute('size', 'size');

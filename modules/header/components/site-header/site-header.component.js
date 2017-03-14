@@ -3,20 +3,20 @@
 
     angular
         .module('dpHeader')
-        .component('dpHeader', {
+        .component('dpSiteHeader', {
             bindings: {
                 query: '@',
                 hasPrintButton: '<',
                 size: '='
             },
-            templateUrl: 'modules/header/components/header/header.html',
-            controller: DpHeaderController,
+            templateUrl: 'modules/header/components/site-header/site-header.html',
+            controller: DpSiteHeaderController,
             controllerAs: 'vm'
         });
 
-    DpHeaderController.$inject = ['$scope'];
+    DpSiteHeaderController.$inject = ['$scope'];
 
-    function DpHeaderController ($scope) {
+    function DpSiteHeaderController ($scope) {
         let vm = this;
 
         $scope.$watch('vm.size', updateSize);
