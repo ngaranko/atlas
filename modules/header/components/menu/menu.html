@@ -1,27 +1,24 @@
 <nav class="c-menu qa-menu"
-     ng-class="{ 'c-menu--toolbar': vm.isToolbar }">
+     ng-class="{
+         'c-menu--tall': vm.isTall,
+         'c-menu--short': vm.isShort
+     }">
     <button ng-if="!vm.isAuthenticated()"
             ng-click="vm.login()"
-            class="c-menu__item
-                   c-menu__link
-                   qa-menu__login"
-            ng-class="{ 'c-menu__item--toolbar': vm.isToolbar }">
+            class="c-menu__item c-menu__link qa-menu__login">
         Inloggen
     </button>
     <div ng-if="vm.isAuthenticated()" class="qa-menu__user-menu">
         <dp-menu-dropdown title="Jij"
                           type="user"
-                          align="left"
-                          is-toolbar="vm.isToolbar"></dp-menu-dropdown>
+                          align="left"></dp-menu-dropdown>
     </div>
-    <span class="c-menu__item qa-menu__item"
-          ng-class="{ 'c-menu__item--toolbar': vm.isToolbar }">
+    <span class="c-menu__item qa-menu__item">
         <dp-link type="SHOW_PAGE"
                  payload="{name: 'help'}"
                  class-name="c-menu__link">Help</dp-link>
     </span>
     <dp-menu-dropdown title="Menu"
                       type="main"
-                      has-print-button="vm.hasPrintButton"
-                      is-toolbar="vm.isToolbar"></dp-menu-dropdown>
+                      has-print-button="vm.hasPrintButton"></dp-menu-dropdown>
 </nav>

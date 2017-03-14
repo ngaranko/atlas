@@ -7,7 +7,6 @@
   height: 100%;
   float: left;
   background-color: inherit;
-  line-height: $site-header-height;
 
   &:hover {
     background-color: $secondary-gray10;
@@ -23,10 +22,6 @@
   color: $primary-dark;
   text-decoration: none;
   cursor: pointer;
-}
-
-.c-menu__item--toolbar {
-  line-height: $site-header-toolbar-height;
 }
 
 .c-menu__item--toggle {
@@ -71,10 +66,8 @@
   }
 }
 
-
 .c-menu__dropdown {
   position: absolute;
-  top: $site-header-toolbar-height;
   padding: {
     top: $base-whitespace * 1.2;
     right: $base-whitespace * 3;
@@ -92,4 +85,24 @@
 
 .c-menu__dropdown--align-right {
   right: 0;
+}
+
+.c-menu--short {
+  .c-menu__item {
+    line-height: $site-header-toolbar-height;
+  }
+
+  .c-menu__dropdown {
+    top: $site-header-toolbar-height;
+  }
+}
+
+.c-menu--tall {
+  .c-menu__item {
+    line-height: $site-header-height;
+  }
+
+  .c-menu__dropdown {
+    top: $site-header-height;
+  }
 }

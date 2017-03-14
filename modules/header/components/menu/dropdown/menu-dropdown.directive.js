@@ -12,7 +12,6 @@
                 title: '@',
                 type: '@',
                 align: '@',
-                isToolbar: '=',
                 hasPrintButton: '<'
             },
             transclude: true,

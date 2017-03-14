@@ -2,10 +2,7 @@
                c-menu__item--toggle
                c-menu__link
                qa-menu__toggle"
-        ng-class="{
-            'c-menu__item--toolbar': isToolbar,
-            'c-menu__item--toggle--active': isVisible
-        }"
+        ng-class="{ 'c-menu__item--toggle--active': isVisible }"
         ng-click="toggleDropdown()">
     <span class="qa-menu__title">{{title}}</span>
 

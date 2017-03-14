@@ -29,17 +29,17 @@ describe('The dp-menu component', () => {
         spyOn(authenticator, 'login');
     });
 
-    function getComponent (isToolbar) {
+    function getComponent (size) {
         let component,
             element,
             scope;
 
         element = document.createElement('dp-menu');
-        element.setAttribute('is-toolbar', 'isToolbar');
+        element.setAttribute('size', 'size');
         element.setAttribute('has-print-button', true);
 
         scope = $rootScope.$new();
-        scope.isToolbar = Boolean(isToolbar);
+        scope.size = size;
 
         component = $compile(element)(scope);
         scope.$apply();
@@ -52,7 +52,7 @@ describe('The dp-menu component', () => {
 
         beforeEach(() => {
             spyOn(user, 'getUserType').and.returnValue('ANONYMOUS');
-            component = getComponent();
+            component = getComponent('tall');
         });
 
         it('shows the login button', () => {
@@ -69,7 +69,7 @@ describe('The dp-menu component', () => {
 
         beforeEach(() => {
             spyOn(user, 'getUserType').and.returnValue('AUTHENTICATED');
-            component = getComponent();
+            component = getComponent('tall');
         });
 
         it('doesn\'t show the login button', () => {
@@ -86,7 +86,7 @@ describe('The dp-menu component', () => {
 
         beforeEach(() => {
             spyOn(user, 'getUserType').and.returnValue('ANONYMOUS');
-            component = getComponent();
+            component = getComponent('tall');
         });
 
         it('calls user.login on click', () => {
@@ -95,47 +95,29 @@ describe('The dp-menu component', () => {
         });
     });
 
-    describe('when not displayed in a toolbar', () => {
+    describe('size tall', () => {
         let component;
 
         beforeEach(() => {
-            component = getComponent(false);
+            component = getComponent('tall');
         });
 
-        it('doesn\'t have a modifier on the root element', () => {
-            expect(component.find('.qa-menu').prop('class')).not.toContain('c-menu--toolbar');
-        });
-
-        it('doesn\'t have a modifier on the login button', () => {
-            expect(component.find('.qa-menu__login').prop('class')).not.toContain('c-menu__item--toolbar');
-        });
-
-        it('doesn\'t have a modifier on the other menu items', () => {
-            component.find('.qa-menu__item').each((index, item) => {
-                expect(item.getAttribute('class')).not.toContain('c-menu__item--toolbar');
-            });
+        it('has the tall modifier on the root element', () => {
+            expect(component.find('.qa-menu').prop('class')).not.toContain('c-menu--short');
+            expect(component.find('.qa-menu').prop('class')).toContain('c-menu--tall');
         });
     });
 
-    describe('when displayed in a toolbar', () => {
+    describe('size short', () => {
         let component;
 
         beforeEach(() => {
-            component = getComponent(true);
+            component = getComponent('short');
         });
 
-        it('has a modifier on the root element', () => {
-            expect(component.find('.qa-menu').prop('class')).toContain('c-menu--toolbar');
-        });
-
-        it('has a modifier on the login button', () => {
-            expect(component.find('.qa-menu__login').prop('class')).toContain('c-menu__item--toolbar');
-        });
-
-        it('has a modifier on the other menu items', () => {
-            component.find('.qa-menu__item').each((index, item) => {
-                expect(item.getAttribute('class')).toContain('c-menu__item--toolbar');
-            });
+        it('has the short modifier on the root element', () => {
+            expect(component.find('.qa-menu').prop('class')).toContain('c-menu--short');
+            expect(component.find('.qa-menu').prop('class')).not.toContain('c-menu--tall');
         });
     });
 });

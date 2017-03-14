@@ -25,6 +25,7 @@
 
         function updateSize (size) {
             vm.size = size === 'tall' ? 'tall' : 'short';
+            vm.menuSize = vm.size === 'tall' ? 'short' : 'tall';
             vm.isTall = vm.size === 'tall';
             vm.isShort = vm.size === 'short';
         }

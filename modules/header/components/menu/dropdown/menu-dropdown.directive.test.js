@@ -31,7 +31,6 @@ describe('The dp-menu-dropdown directive', () => {
             title: 'Menu',
             type: 'main',
             align: 'right',
-            isToolbar: false,
             hasPrintButton: true
         };
     });
@@ -47,13 +46,11 @@ describe('The dp-menu-dropdown directive', () => {
         if (attrs.align) {
             element.setAttribute('align', attrs.align);
         }
-        element.setAttribute('is-toolbar', 'isToolbar');
         element.setAttribute('has-print-button', 'hasPrintButton');
 
         document.body.appendChild(element);
 
         scope = $rootScope.$new();
-        scope.isToolbar = attrs.isToolbar;
         scope.hasPrintButton = attrs.hasPrintButton;
 
         directive = $compile(element)(scope);
@@ -221,20 +218,5 @@ describe('The dp-menu-dropdown directive', () => {
         directive = getDirective(options);
         directive.find('.qa-menu__toggle').eq(0).click();
         expect(directive.find('.qa-menu__dropdown').attr('class')).toContain('c-menu__dropdown--align-right');
-    });
-
-    it('changes the styling of the toggle button depending on it being in a toolbar or not', () => {
-        let directive;
-
-        // Normal styling
-        directive = getDirective(options);
-        expect(directive.find('.qa-menu__toggle').attr('class'))
-            .not.toContain('c-menu__item--toolbar');
-
-        // Modifier in case of toolbar
-        options.isToolbar = true;
-        directive = getDirective(options);
-        expect(directive.find('.qa-menu__toggle').attr('class'))
-            .toContain('c-menu__item--toolbar');
     });
 });
