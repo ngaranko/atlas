@@ -227,7 +227,7 @@ describe('The dataSelectionReducers factory', function () {
 
     describe('SET_DATA_SELECTION_VIEW', function () {
         it('can set the view to list view', function () {
-            let output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW.id](
+            const output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW.id](
                 {dataSelection: {}},
                 'LIST'
             );
@@ -236,7 +236,7 @@ describe('The dataSelectionReducers factory', function () {
         });
 
         it('can set the view to table view', function () {
-            let output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW.id](
+            const output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW.id](
                 {dataSelection: {}},
                 'TABLE'
             );
@@ -245,7 +245,7 @@ describe('The dataSelectionReducers factory', function () {
         });
 
         it('refuses to set the view to an unknown view', function () {
-            let output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW.id](
+            const output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW.id](
                 {dataSelection: {}},
                 'aap'
             );
@@ -254,7 +254,7 @@ describe('The dataSelectionReducers factory', function () {
         });
 
         it('sets isLoading to true', function () {
-            let output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW.id](
+            const output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW.id](
                 {
                     dataSelection: {
                         isLoading: false

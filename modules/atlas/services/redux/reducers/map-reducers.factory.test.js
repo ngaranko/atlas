@@ -310,7 +310,7 @@ describe('The map reducers', function () {
                 output;
 
             inputState.dataSelection = null;
-            let geometryFilter = {
+            const geometryFilter = {
                 markers: ['noot', 'mies', 'teun'],
                 description: 'description'
             };

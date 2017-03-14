@@ -35,7 +35,7 @@ describe('The api-error component', function () {
 
     it('is shown based on the httpStatus.hasErrors flag', function () {
         currentStatus = {};
-        let component = getComponent();
+        const component = getComponent();
         expect(component.find('.qa-api-error').attr('is-panel-visible')).toBe('vm.httpStatus.hasErrors');
     });
 
@@ -46,7 +46,7 @@ describe('The api-error component', function () {
             NOT_FOUND_ERROR: false
         };
 
-        let component = getComponent();
+        const component = getComponent();
         expect(component.find('.qa-api-server-error').length).toBe(1);
         expect(component.find('.qa-api-not-found-error').length).toBe(0);
     });
@@ -57,7 +57,7 @@ describe('The api-error component', function () {
             NOT_FOUND_ERROR: true
         };
 
-        let component = getComponent();
+        const component = getComponent();
         expect(component.find('.qa-api-server-error').length).toBe(0);
         expect(component.find('.qa-api-not-found-error').length).toBe(1);
     });
@@ -67,7 +67,7 @@ describe('The api-error component', function () {
             hasErrors: true
         };
 
-        let component = getComponent();
+        const component = getComponent();
         expect(component.find('.qa-api-server-error').length).toBe(1);
         expect(component.find('.qa-api-not-found-error').length).toBe(0);
     });
@@ -78,7 +78,7 @@ describe('The api-error component', function () {
             FAULTY_ERROR_TYPE: true
         };
 
-        let component = getComponent();
+        const component = getComponent();
         expect(component.find('.qa-api-server-error').length).toBe(1);
         expect(component.find('.qa-api-not-found-error').length).toBe(0);
     });

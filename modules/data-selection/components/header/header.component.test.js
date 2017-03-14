@@ -403,7 +403,7 @@ describe('The dp-data-selection-header', () => {
     });
 
     it('the active filters are only shown when the loading is finished and at least one filter is active', () => {
-        let mockedInput = {
+        const mockedInput = {
             TABLE: mockedInputTable,
             LIST: mockedInputList,
             CARDS: mockedInputCards

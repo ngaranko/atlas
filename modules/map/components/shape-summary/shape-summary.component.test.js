@@ -34,10 +34,10 @@ describe('The dp-shape-summary component', function () {
     });
 
     function getComponent () {
-        let element = document.createElement('dp-shape-summary');
+        const element = document.createElement('dp-shape-summary');
 
         scope = $rootScope.$new();
-        let result = $compile(element)(scope);
+        const result = $compile(element)(scope);
 
         scope.$apply();
 
@@ -51,7 +51,7 @@ describe('The dp-shape-summary component', function () {
 
         it('shows nothing', function () {
             drawTool.shape.markers = [1, 2, 3];
-            let component = getComponent();
+            const component = getComponent();
             expect(component.find('.qa-summary-available').length).toBe(0);
         });
     });
@@ -63,19 +63,19 @@ describe('The dp-shape-summary component', function () {
 
         it('shows a summary for a line', function () {
             drawTool.shape.markers = [1, 2];
-            let component = getComponent();
+            const component = getComponent();
             expect(component.find('.qa-summary-available').length).toBe(1);
         });
 
         it('shows a remove geometry button for a line', function () {
             drawTool.shape.markers = [1, 2];
-            let component = getComponent();
+            const component = getComponent();
             expect(component.find('.qa-summary-remove-geometry').length).toBe(1);
         });
 
         it('removes a geometry when the remove geometry button is clicked', function () {
             drawTool.shape.markers = [1, 2];
-            let component = getComponent();
+            const component = getComponent();
 
             spyOn(store, 'dispatch');
             component.find('.qa-summary-available').find('button').click();
@@ -86,7 +86,7 @@ describe('The dp-shape-summary component', function () {
 
         it('doesn\'t show a summary for polygons', function () {
             drawTool.shape.markers = [1, 2, 3];
-            let component = getComponent();
+            const component = getComponent();
             expect(component.find('.qa-summary-available').length).toBe(0);
         });
     });

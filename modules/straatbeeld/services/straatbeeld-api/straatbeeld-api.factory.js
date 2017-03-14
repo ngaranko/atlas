@@ -33,7 +33,7 @@
          * @returns {Promise.imageData} a Promise that resolves to the found straatbeeld or null on failure
          */
         function searchWithinRadius (location, radius) {
-            let cappedRadius = Math.min(radius, MAX_RADIUS);
+            const cappedRadius = Math.min(radius, MAX_RADIUS);
 
             return getStraatbeeld(sharedConfig.API_ROOT + STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT +
                 `?lat=${location[0]}&lon=${location[1]}&radius=${cappedRadius}`)
@@ -67,7 +67,7 @@
 
         function imageData (response) {
             if (angular.isObject(response.geometrie)) {
-                let formattedGeometrie = {
+                const formattedGeometrie = {
                     coordinates: [
                         response.geometrie.coordinates[1],
                         response.geometrie.coordinates[0]

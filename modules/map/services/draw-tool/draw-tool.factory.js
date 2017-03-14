@@ -9,7 +9,7 @@
 
     function drawToolFactory ($rootScope, L, DRAW_TOOL_CONFIG) {
         // holds all information about the state of the shape being created or edited
-        let currentShape = {
+        const currentShape = {
             isConsistent: true,
             type: null,
             layer: null,
@@ -23,11 +23,11 @@
         };
 
         // holds all publicly available information about the last consistent state of the current shape
-        let shapeInfo = {};
+        const shapeInfo = {};
         updateShapeInfo(currentShape);  // initialise to initial current shape
 
         // holds all information of the leaflet.draw drawing and editing structures
-        let drawTool = {
+        const drawTool = {
             drawingMode: null,
             drawnItems: null,
             drawShapeHandler: null,
@@ -147,7 +147,7 @@
         // enforce the maximum markers limit and the non-intersection of line segments limit
         function enforceLimits () {
             if (!currentShape.isConsistent) {
-                let markersPrev = angular.copy(currentShape.markersPrev);   // restore previous state
+                const markersPrev = angular.copy(currentShape.markersPrev);   // restore previous state
 
                 deletePolygon();    // delete current polygon
                 $rootScope.$applyAsync(() => {
@@ -172,7 +172,7 @@
 
         // handle any leaflet.draw event
         function handleDrawEvent (eventName, e) {
-            let handlers = {
+            const handlers = {
                 // Triggered when the user has chosen to draw a particular vector or marker
                 DRAWSTART: () => setDrawingMode('DRAW'),
 
@@ -195,7 +195,7 @@
                 DELETED: () => currentShape.layer = null
             };
 
-            let handler = handlers[eventName];
+            const handler = handlers[eventName];
             if (handler) {
                 handler(e);
             }
@@ -299,7 +299,7 @@
         function getDistance (latLngs, isClosed) {
             return latLngs.reduce((total, latlng, i) => {
                 if (i > 0) {
-                    let dist = latlng.distanceTo(latLngs[i - 1]);
+                    const dist = latlng.distanceTo(latLngs[i - 1]);
                     total += dist;
                 }
                 return total;
@@ -365,9 +365,9 @@
 
         // delete a marker in DRAW mode
         function deleteMarker (marker) {
-            let drawShapeHandler = drawTool.drawShapeHandler;
-            let markers = drawShapeHandler._markers;    // is always an array
-            let index = markers.findIndex(m => m._leaflet_id === marker._leaflet_id);
+            const drawShapeHandler = drawTool.drawShapeHandler;
+            const markers = drawShapeHandler._markers;    // is always an array
+            const index = markers.findIndex(m => m._leaflet_id === marker._leaflet_id);
             let nDelete = markers.length - index;   // Delete all from last to marker, inclusive
             while (nDelete-- > 0) {
                 // Remove the last vertex from the polyline, removes polyline from map if only one point exists
@@ -377,18 +377,18 @@
 
         // returns the last marker that was added to the polygon (only called in draw mode)
         function getLastDrawnMarker () {
-            let drawShapeHandler = drawTool.drawShapeHandler;
+            const drawShapeHandler = drawTool.drawShapeHandler;
             return drawShapeHandler._markers[drawShapeHandler._markers.length - 1];
         }
 
         // bind last marker in DRAW mode to deleteMarker
         // bind first marker in DRAW mode to close polygon (by calling disable())
         function bindLastDrawnMarker () {
-            let lastMarker = getLastDrawnMarker();
-            let isFirstMarker = drawTool.drawShapeHandler._markers.length === 1;
+            const lastMarker = getLastDrawnMarker();
+            const isFirstMarker = drawTool.drawShapeHandler._markers.length === 1;
             ['mousedown', 'click'].forEach(key => lastMarker.on(key, () => {
                 if (drawTool.drawShapeHandler.enabled() && isFirstMarker) {
-                    let isLineOrPolygon = currentShape.markers.length > 1;
+                    const isLineOrPolygon = currentShape.markers.length > 1;
                     disable();  // Includes auto close for any line or polygon
                     if (!isLineOrPolygon) {
                         // Reopen draw mode to place first marker somewhere else

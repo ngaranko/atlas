@@ -6,7 +6,7 @@ describe('The dataSelectionApi factory', function () {
         mockedApiMarkersResponse,
         mockedApiService = {
             query: function () {
-                let q = $q.defer();
+                const q = $q.defer();
 
                 q.resolve(mockedApiPreviewResponse);
 
@@ -16,7 +16,7 @@ describe('The dataSelectionApi factory', function () {
         mockedConfig,
         api = {
             getByUri: function (url) {
-                let q = $q.defer();
+                const q = $q.defer();
 
                 q.resolve(mockedApiMarkersResponse);
 

@@ -130,10 +130,10 @@ describe('The draw tool factory', function () {
     // 'click'
 
     function fireEvent (name, e) {
-        let handlers = {};
+        const handlers = {};
 
         for (let i = 0; i < leafletMap.on.calls.count(); i++) {
-            let [fname, func] = leafletMap.on.calls.argsFor(i);
+            const [fname, func] = leafletMap.on.calls.argsFor(i);
             handlers[fname] = func;
         }
 
@@ -234,9 +234,9 @@ describe('The draw tool factory', function () {
         }
 
         function addVertices () {
-            let markers = [];
+            const markers = [];
             for (let i = 0; i < nVertices; i++) {
-                let v = vertices[i];
+                const v = vertices[i];
                 markers.push(v);
                 drawShapeHandler._markers = markers;
                 fireEvent('draw:drawvertex');
@@ -259,7 +259,7 @@ describe('The draw tool factory', function () {
             }
 
             addVertex (latlng) {
-                let [lat, lng] = latlng;
+                const [lat, lng] = latlng;
                 this._latlngs.push({
                     lat,
                     lng,
@@ -278,13 +278,13 @@ describe('The draw tool factory', function () {
             intersects () { return false; }
         }
 
-        let shapeClickHandler = {};
+        const shapeClickHandler = {};
 
-        let onHandler = {
+        const onHandler = {
             finish: angular.noop
         };
 
-        let layer = {
+        const layer = {
             on: (event, handler) => shapeClickHandler[event] = handler,
             off: angular.noop,
             getLatLngs: () => [vertices.map(v => v._latlng).slice(0, nVertices)],
@@ -589,7 +589,7 @@ describe('The draw tool factory', function () {
         });
 
         it('creates a new polygon for the specified markers', function () {
-            let markers = testMarkers.slice(0, 3);
+            const markers = testMarkers.slice(0, 3);
             drawTool.setPolygon(markers);
 
             expect(drawnItems.addLayer).toHaveBeenCalled();
@@ -597,7 +597,7 @@ describe('The draw tool factory', function () {
         });
 
         it('deletes any existing polygon', function () {
-            let markers = testMarkers.slice(0, 3);
+            const markers = testMarkers.slice(0, 3);
             drawTool.setPolygon(markers);
 
             drawnItems.addLayer.calls.reset();

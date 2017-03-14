@@ -283,7 +283,7 @@ describe('The dp-map directive', function () {
             });
 
             it('can be added by changing the input', function () {
-                let highlightItems = {
+                const highlightItems = {
                     regular: [
                         {id: 'FAKE_HIGHLIGHT_ITEM_A'},
                         {id: 'FAKE_HIGHLIGHT_ITEM_B'}
@@ -362,7 +362,7 @@ describe('The dp-map directive', function () {
         describe('that manages clustered markers', function () {
             it('can add a group of clustered markers', function () {
                 // Start without any clustered markers
-                let highlightItems = {
+                const highlightItems = {
                     regular: [],
                     clustered: []
                 };
@@ -384,7 +384,7 @@ describe('The dp-map directive', function () {
             });
 
             it('can remove a group of clustered markers', function () {
-                let highlightItems = {
+                const highlightItems = {
                     regular: [],
                     clustered: [
                         [52.1, 4.1],
@@ -454,7 +454,7 @@ describe('The dp-map directive', function () {
 
     describe('resize state', function () {
         it('invalidateSize when resize state changes', function () {
-            let mockedResizeArray = ['1', '2'];
+            const mockedResizeArray = ['1', '2'];
 
             getDirective(mockedMapState, true, mockedMarkers, true, mockedResizeArray);
 

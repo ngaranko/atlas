@@ -15,14 +15,14 @@ describe('The dp-data-selection component', function () {
             {
                 dataSelectionApi: {
                     query: function () {
-                        let q = $q.defer();
+                        const q = $q.defer();
 
                         q.resolve(mockedApiPreviewData);
 
                         return q.promise;
                     },
                     getMarkers: function () {
-                        let q = $q.defer();
+                        const q = $q.defer();
 
                         q.resolve(mockedApiMarkersData);
 
@@ -138,7 +138,7 @@ describe('The dp-data-selection component', function () {
 
     it('retieves the available-filters and table data and passes it to it\'s child directives', function () {
         const component = getComponent(mockedState);
-        let scope = component.isolateScope();
+        const scope = component.isolateScope();
 
         expect(component.find('dp-data-selection-available-filters').length).toBe(1);
         expect(component.find('dp-data-selection-available-filters').attr('dataset')).toBe('zwembaden');
@@ -190,7 +190,7 @@ describe('The dp-data-selection component', function () {
 
     it('retrieves new data when the state changes', function () {
         const component = getComponent(mockedState);
-        let scope = component.isolateScope();
+        const scope = component.isolateScope();
 
         expect(dataSelectionApi.query).toHaveBeenCalledTimes(1);
         expect(scope.vm.currentPage).toBe(2);

@@ -13,7 +13,7 @@ describe('The http error registrar', function () {
 
     beforeEach(function () {
         onError = null;
-        let window = {
+        const window = {
             addEventListener: function (type, func) {
                 if (type === 'error') {
                     onError = func;

@@ -55,8 +55,8 @@
 
         function formatFilters (rawData, filtersConfig) {
             return Object.keys(rawData).reduce((filters, key) => {
-                let items = rawData[key].items;
-                let filterConfig = filtersConfig.find(config => config.slug === key);
+                const items = rawData[key].items;
+                const filterConfig = filtersConfig.find(config => config.slug === key);
                 if (filterConfig && filterConfig.formatter) {
                     items.forEach(item => item.display_name = $filter(filterConfig.formatter)(item.display_name));
                 }

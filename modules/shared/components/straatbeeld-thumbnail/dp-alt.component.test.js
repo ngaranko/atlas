@@ -19,14 +19,14 @@ describe('The dp-alt directive', function () {
     }
 
     it('sets the alt text when the src is loaded', function () {
-        let component = getComponent();
+        const component = getComponent();
         expect(component.attr('alt')).toBeUndefined();
         component.trigger('load');
         expect(component.attr('alt')).toBe('altText');
     });
 
     it('sets the alt text when the src fails to load', function () {
-        let component = getComponent();
+        const component = getComponent();
         expect(component.attr('alt')).toBeUndefined();
         component.trigger('error');
         expect(component.attr('alt')).toBe('altText');

@@ -20,7 +20,7 @@ describe('The dp-search-results component', function () {
             {
                 search: {
                     search: function (query) {
-                        let q = $q.defer();
+                        const q = $q.defer();
 
                         if (query === 'QUERY_WITHOUT_RESULTS') {
                             q.resolve(mockedNoResults);
@@ -31,7 +31,7 @@ describe('The dp-search-results component', function () {
                         return q.promise;
                     },
                     loadMore: function () {
-                        let q = $q.defer();
+                        const q = $q.defer();
 
                         q.resolve(mockedSearchResultsNextPage);
 
@@ -40,7 +40,7 @@ describe('The dp-search-results component', function () {
                 },
                 geosearch: {
                     search: function (location) {
-                        let q = $q.defer();
+                        const q = $q.defer();
 
                         if (location[0] === 52.999 && location[1] === 4.999) {
                             q.resolve(mockedNoResults);
@@ -350,7 +350,7 @@ describe('The dp-search-results component', function () {
 
     describe('search by query', function () {
         it('shows search results', function () {
-            let component = getComponent(12, 'Weesperstraat');
+            const component = getComponent(12, 'Weesperstraat');
 
             // It shows 10 results from the first category and 1 results from the second category
             expect(component.find('ul dp-link').length).toBe(11);
@@ -393,7 +393,7 @@ describe('The dp-search-results component', function () {
         });
 
         it('does nothing when no query and no location are specified', function () {
-            let component = getComponent(12);
+            const component = getComponent(12);
 
             expect(component.find('ul dp-link').length).toBe(0);
         });
@@ -408,7 +408,7 @@ describe('The dp-search-results component', function () {
         });
 
         it('doesn\'t show the dp-straatbeeld-thumbnail component', function () {
-            let component = getComponent(12, 'Weesperstraat');
+            const component = getComponent(12, 'Weesperstraat');
 
             expect(component.find('dp-straatbeeld-thumbnail').length).toBe(0);
         });

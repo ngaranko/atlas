@@ -19,7 +19,7 @@
     DpLinkController.$inject = ['$location', 'store', 'ACTIONS', 'applicationState'];
 
     function DpLinkController ($location, store, ACTIONS, applicationState) {
-        let vm = this;
+        const vm = this;
 
         const BUTTON = 'button',
             LINK = 'a';
@@ -32,7 +32,7 @@
         };
 
         function getAction (type, payload) {
-            let action = {
+            const action = {
                 type: ACTIONS[type]
             };
             if (angular.isDefined(payload)) {

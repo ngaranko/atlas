@@ -28,7 +28,7 @@
                 headers.Authorization = 'JWT ' + userState.accessToken;
             }
 
-            let options = {
+            const options = {
                 method: 'GET',
                 url: url,
                 headers: headers,

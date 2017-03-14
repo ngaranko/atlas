@@ -41,7 +41,7 @@ describe('The dp-cards-header component', () => {
     }
 
     it('clears the search query when navigating back to \'home\'', () => {
-        let component = getComponent('verkeer');
+        const component = getComponent('verkeer');
 
         component.find('.qa-link-to-home').click();
 

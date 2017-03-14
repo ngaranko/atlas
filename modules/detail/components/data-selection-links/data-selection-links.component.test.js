@@ -53,7 +53,7 @@ describe('The dp-data-selection-link component', () => {
 
     it('has links to the LIST view of data-selection for both BAG and HR', () => {
         const activeFilters = {stadsdeel_naam: 'Noord', buurt_naam: 'Ghetto C'};
-        let component = getComponent(activeFilters);
+        const component = getComponent(activeFilters);
 
         component.find('dp-link button').click();
         expect(store.dispatch).toHaveBeenCalledWith({

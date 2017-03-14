@@ -13,17 +13,17 @@ describe('The dpBaseCoder', function () {
     });
 
     function encode (e, base, ndecimals) {
-        let code = baseCoder.getCoderForBase(base);
+        const code = baseCoder.getCoderForBase(base);
         return code.encode(e, ndecimals);
     }
 
     function stringEncode (e, base, ndecimals) {
-        let code = baseCoder.getCoderForBase(base);
+        const code = baseCoder.getCoderForBase(base);
         return code.encodeFromString(e, ndecimals);
     }
 
     function decode (e, base, ndecimals) {
-        let code = baseCoder.getCoderForBase(base);
+        const code = baseCoder.getCoderForBase(base);
         return code.decode(e, ndecimals);
     }
 
@@ -45,7 +45,7 @@ describe('The dpBaseCoder', function () {
             expect(decode('11', base)).toBe(base + 1);
 
             for (let n = -100; n < 100; n += 1) {
-                let enc = encode(n, base);
+                const enc = encode(n, base);
                 expect(decode(enc, base)).toBe(n);
             }
 
@@ -53,7 +53,7 @@ describe('The dpBaseCoder', function () {
                 .map(n => [n, -n])
                 .reduce((r, n) => r.concat(n), [])
                 .forEach(n => {
-                    let enc = encode(n, base);
+                    const enc = encode(n, base);
                     expect(decode(enc, base)).toBe(n);
                 });
         }
@@ -135,19 +135,19 @@ describe('The dpBaseCoder', function () {
 
         it('works only for integer base', function () {
             [[525, 'aap'], [525, 10.1]].forEach(a => {
-                let f = () => decode(...a);
+                const f = () => decode(...a);
                 expect(f).toThrowError(RangeError);
             });
         });
 
         it('works only for valid strings', function () {
-            let f = () => decode('G', 16);
+            const f = () => decode('G', 16);
             expect(f).toThrowError(TypeError);
         });
 
         it('works only for valid precisions', function () {
             [['F', 16, -1], ['F', 16, 1.5], ['F', 16, 'aap'], ['F', 16, true]].forEach(a => {
-                let f = () => decode(...a);
+                const f = () => decode(...a);
                 expect(f).toThrowError(RangeError);
             });
         });
@@ -166,14 +166,14 @@ describe('The dpBaseCoder', function () {
 
         it('works only for integer base', function () {
             [[525, 'aap'], [525, 10.1]].forEach(a => {
-                let f = () => encode(...a);
+                const f = () => encode(...a);
                 expect(f).toThrowError(RangeError);
             });
         });
 
         it('works only for valid precisions', function () {
             [[525, 10, -25], [525, 10, 5.7], [525, 10, 'noot'], [525, 10, false]].forEach(a => {
-                let f = () => encode(...a);
+                const f = () => encode(...a);
                 expect(f).toThrowError(RangeError);
             });
         });

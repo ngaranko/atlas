@@ -11,7 +11,7 @@
     ];
 
     function dataSelectionReducersFactory (ACTIONS, stateUrlConverter) {
-        let reducers = {};
+        const reducers = {};
 
         reducers[ACTIONS.FETCH_DATA_SELECTION.id] = fetchDataSelectionReducer;
         reducers[ACTIONS.SHOW_DATA_SELECTION.id] = showDataSelectionReducer;
@@ -27,7 +27,7 @@
          * @returns {Object} newState
          */
         function fetchDataSelectionReducer (oldState, payload) {
-            let newState = angular.copy(oldState);
+            const newState = angular.copy(oldState);
 
             newState.map.isFullscreen = false;
 
@@ -37,7 +37,7 @@
             newState.detail = null;
             newState.straatbeeld = null;
 
-            let mergeInto = angular.isString(payload) ? {query: payload} : payload;
+            const mergeInto = angular.isString(payload) ? {query: payload} : payload;
 
             newState.dataSelection = Object.keys(mergeInto).reduce((result, key) => {
                 result[key] = mergeInto[key];
@@ -72,7 +72,7 @@
          * @returns {Object} newState
          */
         function showDataSelectionReducer (oldState, payload) {
-            let newState = angular.copy(oldState);
+            const newState = angular.copy(oldState);
 
             if (newState.dataSelection) {
                 newState.dataSelection.markers = payload;
@@ -93,7 +93,7 @@
          * @returns {Object} newState
          */
         function navigateDataSelectionReducer (oldState, payload) {
-            let newState = angular.copy(oldState);
+            const newState = angular.copy(oldState);
 
             newState.dataSelection.page = payload;
 
@@ -107,7 +107,7 @@
          * @returns {Object} newState
          */
         function setDataSelectionViewReducer (oldState, payload) {
-            let newState = angular.copy(oldState);
+            const newState = angular.copy(oldState);
 
             ['LIST', 'TABLE', 'CARDS'].forEach(legalValue => {
                 if (payload === legalValue) {

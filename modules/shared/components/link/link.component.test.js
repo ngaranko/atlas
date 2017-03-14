@@ -208,7 +208,7 @@ describe('The dp-link component', function () {
     });
 
     it('sets the href attribute for actions with a link', function () {
-        let component = getComponent(null, null, 'ACTION_WITH_LINK', mockedPayload);
+        const component = getComponent(null, null, 'ACTION_WITH_LINK', mockedPayload);
 
         expect(component.find('a').attr('href')).toBe(mockedTargetPath);
 

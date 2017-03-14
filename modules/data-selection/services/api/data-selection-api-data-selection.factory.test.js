@@ -12,7 +12,7 @@ describe('The dataSelectionApiDataSelection factory', function () {
             {
                 api: {
                     getByUri: function () {
-                        let q = $q.defer();
+                        const q = $q.defer();
 
                         q.resolve(mockedApiResponse);
 

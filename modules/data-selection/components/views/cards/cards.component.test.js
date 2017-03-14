@@ -6,15 +6,15 @@ describe('The cards component', function () {
         store,
         ACTIONS;
 
-    let mockedStore = {
+    const mockedStore = {
         dispatch: angular.noop
     };
 
-    let mockedACTIONS = {
+    const mockedACTIONS = {
         FETCH_DETAIL: 'Fetch Detail'
     };
 
-    let mockedContent = {
+    const mockedContent = {
         body: [
             {
                 content: [
@@ -86,7 +86,7 @@ describe('The cards component', function () {
     }
 
     it('can load a detail page for a card', function () {
-        let component = getComponent();
+        const component = getComponent();
 
         component.find('.qa-card-fetch-detail')[0].click();
 

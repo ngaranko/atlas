@@ -11,7 +11,7 @@ describe('The state url conversion factory', function () {
         });
 
         it('is exported as DEFAULT_STATE', function () {
-            let DEFAULT_STATE = stateUrlConverter.getDefaultState();
+            const DEFAULT_STATE = stateUrlConverter.getDefaultState();
 
             expect(DEFAULT_STATE).toEqual({
                 map: {
@@ -118,12 +118,12 @@ describe('The state url conversion factory', function () {
             });
 
             it('translates an empty state to empty params', function () {
-                let params = stateUrlConverter.state2params({});
+                const params = stateUrlConverter.state2params({});
                 expect(params).toEqual({});
             });
 
             it('translates a state to the corresponding params', function () {
-                let params = stateUrlConverter.state2params({
+                const params = stateUrlConverter.state2params({
                     s: 'aap',
                     x: {
                         b: true,
@@ -159,7 +159,7 @@ describe('The state url conversion factory', function () {
             });
 
             it('skips empty values for strings and arrays', function () {
-                let params = stateUrlConverter.state2params({
+                const params = stateUrlConverter.state2params({
                     s: '',
                     as: []
                 });
@@ -169,7 +169,7 @@ describe('The state url conversion factory', function () {
 
             it('skips values of unknown type', function () {
                 mockedStateUrlConversion.stateVariables.s.type = 'string1';
-                let params = stateUrlConverter.state2params({
+                const params = stateUrlConverter.state2params({
                     s: 'aap'
                 });
 
@@ -179,24 +179,24 @@ describe('The state url conversion factory', function () {
 
         describe('The state to url string', function () {
             it('returns a url string for the converted state', function () {
-                let mockedState = {
+                const mockedState = {
                     s: 'aap',
                     x: {
                         b: true
                     }
                 };
-                let link = stateUrlConverter.state2url(mockedState);
+                const link = stateUrlConverter.state2url(mockedState);
                 expect(link).toEqual('#?s=aap&b=T');
             });
 
             it('skips any null values in the state', function () {
-                let mockedState = {
+                const mockedState = {
                     s: null,
                     x: {
                         b: true
                     }
                 };
-                let link = stateUrlConverter.state2url(mockedState);
+                const link = stateUrlConverter.state2url(mockedState);
                 expect(link).toEqual('#?b=T');
             });
         });
@@ -207,12 +207,12 @@ describe('The state url conversion factory', function () {
             });
 
             it('translates empty params to an empty state', function () {
-                let state = stateUrlConverter.params2state({}, {});
+                const state = stateUrlConverter.params2state({}, {});
                 expect(state).toEqual({});
             });
 
             it('translates params to the corresponding state', function () {
-                let state = stateUrlConverter.params2state({}, {
+                const state = stateUrlConverter.params2state({}, {
                     s: 'aap',
                     b: 'T',
                     n: '10',
@@ -254,7 +254,7 @@ describe('The state url conversion factory', function () {
                     }
                 };
 
-                let state = stateUrlConverter.params2state({}, {b: 'T'});
+                const state = stateUrlConverter.params2state({}, {b: 'T'});
                 expect(state).toEqual({
                     x: {
                         aap: 'noot',
@@ -270,7 +270,7 @@ describe('The state url conversion factory', function () {
                     }
                 };
 
-                let state = stateUrlConverter.params2state({}, {});
+                const state = stateUrlConverter.params2state({}, {});
                 expect(state).toEqual({
                     aap: 'noot'
                 });
@@ -283,7 +283,7 @@ describe('The state url conversion factory', function () {
                     }
                 };
 
-                let state = stateUrlConverter.params2state({}, {});
+                const state = stateUrlConverter.params2state({}, {});
                 expect(state).toEqual({
                     xyz: null
                 });
@@ -303,7 +303,7 @@ describe('The state url conversion factory', function () {
                     }
                 };
 
-                let state = stateUrlConverter.params2state({
+                const state = stateUrlConverter.params2state({
                     x: {
                         aap: 'old noot'
                     }
@@ -330,7 +330,7 @@ describe('The state url conversion factory', function () {
                     }
                 };
 
-                let state = stateUrlConverter.params2state({
+                const state = stateUrlConverter.params2state({
                     aap: 'old noot'
                 }, {s: 'mies'});
                 expect(state).toEqual({
@@ -358,7 +358,7 @@ describe('The state url conversion factory', function () {
                     }
                 };
 
-                let state = stateUrlConverter.params2state({
+                const state = stateUrlConverter.params2state({
                     x: {
                         aap: 'old noot'
                     }
@@ -375,12 +375,12 @@ describe('The state url conversion factory', function () {
 
             it('skips values of unknown type', function () {
                 mockedStateUrlConversion.stateVariables.s.type = 'string1';
-                let state = stateUrlConverter.params2state({}, {s: 'mies'});
+                const state = stateUrlConverter.params2state({}, {s: 'mies'});
                 expect(state).toEqual({});
             });
 
             it('restores empty values for multidimensional arrays', function () {
-                let state = stateUrlConverter.params2state({}, {
+                const state = stateUrlConverter.params2state({}, {
                     aab: 'T::F'
                 });
                 expect(state).toEqual({
