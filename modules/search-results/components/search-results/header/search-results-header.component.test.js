@@ -64,9 +64,16 @@ describe('The dp-search-results-header component', function () {
     });
 
     it('shows the title and sub title', function () {
-        var component = getComponent(45, 'westerpark', [52.123, 4.789], 'Adressen');
+        var component = getComponent(45, 'westerpark', [52.123, 4.789]);
 
         expect(component.find('h1').text()).toBe('title');
         expect(component.find('h2').text()).toBe('subTitle');
+    });
+
+    it('if category is passed it shows both the results and query in the title', function () {
+        var component = getComponent(45, 'westerpark', [52.123, 4.789], 'Adressen');
+
+        expect(component.find('h1').text()).toBe('title subTitle');
+        expect(component.find('h1').attr('class')).toMatch('u-margin__bottom--3');
     });
 });
