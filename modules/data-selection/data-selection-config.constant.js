@@ -15,7 +15,7 @@
                     ENDPOINT_MARKERS: 'dataselectie/bag/geolocation/',
                     ENDPOINT_EXPORT: 'dataselectie/bag/export/',
                     ENDPOINT_DETAIL: 'bag/nummeraanduiding/',
-                    PRIMARY_KEY: 'id',
+                    PRIMARY_KEY: 'nummeraanduiding_id',
                     TITLE: 'Adressen',
                     FILTERS: [
                         {
@@ -180,7 +180,7 @@
                     ENDPOINT_MARKERS: 'dataselectie/hr/geolocation/',
                     ENDPOINT_EXPORT: 'dataselectie/hr/export/',
                     ENDPOINT_DETAIL: 'handelsregister/vestiging/',
-                    PRIMARY_KEY: 'id',
+                    PRIMARY_KEY: 'vestiging_id',
                     TITLE: 'Vestigingen',
                     FILTERS: [
                         {
