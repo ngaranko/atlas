@@ -41,7 +41,7 @@ node {
             image.push()
         }
     }
-}
+
 
 String BRANCH = "${env.BRANCH_NAME}"
 
