@@ -18,7 +18,5 @@ $print-header-padding: 46px;
 }
 
 .c-print-header__print {
-  @include icon-button-text-left("print");
-
   float: right;
 }
