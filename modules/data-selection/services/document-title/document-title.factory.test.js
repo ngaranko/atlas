@@ -62,8 +62,15 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
         expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState)).toMatch(/^Lijst/);
     });
 
-    it('shows a special title for text search in datasets', function () {
-        expect(dpDataSelectionDocumentTitle.getTitle(mockedCardsState)).toMatch(/^Datasets met my query/);
+    it('shows a special title when showing all datasets', function () {
+        expect(dpDataSelectionDocumentTitle.getTitle({
+            view: 'CARDS',
+            filters: {}
+        })).toBe('Alle datasets');
+    });
+
+    it('shows a the datasets query for text search in datasets', function () {
+        expect(dpDataSelectionDocumentTitle.getTitle(mockedCardsState)).toBe('Datasets met my query');
     });
 
     it('shows the title of the current dataset', function () {
