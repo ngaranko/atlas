@@ -12,11 +12,12 @@
             tabHeader = {};
 
         class TabPage {
-            constructor (id, {title, action, getPayload}) {
+            constructor (id, {title, action, getPayload, tip}) {
                 this._id = id;
                 this._title = title;
                 this._action = action;
                 this._getPayload = getPayload;
+                this._tip = tip;
                 this._count = null;
                 this._isActive = false;
             }
@@ -35,6 +36,10 @@
 
             get payload () {
                 return this._payload;
+            }
+
+            get tip () {
+                return this._tip;
             }
 
             get isActive () {

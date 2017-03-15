@@ -14,14 +14,18 @@
         };
 
         function getTitle (searchState) {
-            var titleData = searchState ? searchTitle.getTitleData(
+            if (searchState && !angular.isArray(searchState.location) && !searchState.category) {
+                return `Data met ${searchState.query}`;
+            } else {
+                let titleData = searchState ? searchTitle.getTitleData(
                         searchState.numberOfResults,
                         searchState.query,
                         searchState.location,
                         searchState.category) : null,
-                baseTitle = (titleData && titleData.title) ? titleData.title : '';
+                    baseTitle = (titleData && titleData.title) ? titleData.title : '';
 
-            return (baseTitle && titleData.subTitle) ? `${baseTitle} ${titleData.subTitle}` : baseTitle;
+                return (baseTitle && titleData.subTitle) ? `${baseTitle} ${titleData.subTitle}` : baseTitle;
+            }
         }
     }
 })();
