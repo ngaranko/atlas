@@ -28,7 +28,7 @@ describe('Invisible components should still load relevant data', () => {
         dp.validate('DATA-SELECTION--TABLE', page);
 
         // Pick some filters to reduce the number of clustered markers
-        page.dashboard.rightColumn.dataSelection.availableFilters.categories(0).options(0).click();
+        page.dashboard.rightColumn.dataSelection.availableFilters.categories(0).options(1).click();
         page.dashboard.rightColumn.dataSelection.availableFilters.categories(1).options(0).click();
         page.dashboard.rightColumn.dataSelection.availableFilters.categories(2).options(0).click();
         page.dashboard.rightColumn.dataSelection.availableFilters.categories(3).options(0).click();
