@@ -25,6 +25,6 @@ describe('The TAB_HEADER_CONFIG', function () {
     });
 
     it('allows for searching on an empty string', function () {
-        expect(TAB_HEADER_CONFIG['data-datasets'].data.getPayload('')).toBe('""');
+        expect(TAB_HEADER_CONFIG['data-datasets'].data.getPayload('')).toBe('');
     });
 });

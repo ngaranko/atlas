@@ -1,9 +1,9 @@
 'use strict';
 
-const mapSearchResults = require('./map_search-results');
+const searchResults = require('./search-results');
 
 module.exports = function (page) {
     expect(page.title).toMatch(/\d+ adressen met \"\w+\" - Atlas$/);
 
-    mapSearchResults(page);
+    searchResults(page);
 };
