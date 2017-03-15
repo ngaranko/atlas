@@ -248,7 +248,7 @@ describe('The dataSelectionApi factory', function () {
                 output = _output_;
             });
             $rootScope.$apply();
-            expect(output.data.body[0].content[0][0].value).toEqual([1, 2]);
+            expect(output.data.body[0].content[0][0].value).toEqual('1 | 2');
 
             mockedConfig.datasets.zwembaden.CONTENT.CARDS = [
                 {

@@ -12,12 +12,14 @@ describe('The TabHeader factory', function () {
                         tab1: {
                             title: 'Tab1',
                             action: 'ACTION1',
-                            getPayload: angular.noop
+                            getPayload: angular.noop,
+                            tip: 'tip1'
                         },
                         tab2: {
                             title: 'Tab2',
                             action: 'ACTION2',
-                            getPayload: angular.noop
+                            getPayload: angular.noop,
+                            tip: 'tip2'
                         }
                     },
                     othertabs: {
@@ -55,6 +57,7 @@ describe('The TabHeader factory', function () {
             expect(tab.title).toBe(configTab.title);
             expect(tab.action).toBe(configTab.action);
             expect(tab.count).toBe(null);
+            expect(tab.tip).toBe(configTab.tip);
             expect(tabHeader.getTab(tab.id)).toEqual(tab);
         });
     });

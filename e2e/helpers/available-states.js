@@ -30,17 +30,17 @@ module.exports = {
              'dte=https:%2F%2Fapi.datapunt.amsterdam.nl%2Fbag%2Fnummeraanduiding%2F03630000500149%2F',
         validator: require('../validators/map_detail--nummeraanduiding')
     },
-    'MAP_SEARCH-RESULTS--CATEGORY': {
-        url: '#?mpb=topografie&mpz=11&mpv=52.3731081:4.8932945&src=adres&srq=dam',
-        validator: require('../validators/map_search-results--category')
+    'SEARCH-RESULTS--CATEGORY': {
+        url: '#?mpb=topografie&mpz=11&mpv=52.3731081:4.8932945&src=adres&srq=dam&srfs=T',
+        validator: require('../validators/search-results--category')
     },
     'MAP_SEARCH-RESULTS--LOCATION': {
         url: '#?mpb=topografie&mpz=11&mpv=52.3729183:4.8931775&srl=ZRVst:3JJOB',
         validator: require('../validators/map_search-results--location')
     },
-    'MAP_SEARCH-RESULTS--QUERY': {
-        url: '#?srq=Oost&mpv=52.3731081:4.8932945&mpb=topografie&mpz=11',
-        validator: require('../validators/map_search-results--query')
+    'SEARCH-RESULTS--QUERY': {
+        url: '#?srq=Oost&srfs=T&mpv=52.3731081:4.8932945&mpb=topografie&mpz=11',
+        validator: require('../validators/search-results--query')
     },
     'MAP_STRAATBEELD--DETAIL': {
         url: '#?dte=https:%2F%2Fapi.datapunt.amsterdam.nl%2Fbag%2Fnummeraanduiding%2F03630000500149%2F&' +

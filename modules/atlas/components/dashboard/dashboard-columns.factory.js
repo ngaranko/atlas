@@ -85,6 +85,7 @@
                     !(state.page.name && !state.map.isFullscreen && !state.straatbeeld) &&
                     !(state.detail && state.detail.isFullscreen) &&
                     !(state.dataSelection && state.dataSelection.view !== 'LIST') &&
+                    !(state.search && state.search.isFullscreen) &&
                     !(state.straatbeeld && state.straatbeeld.isFullscreen)
                 );
         }
@@ -108,6 +109,7 @@
                 (visibility.map && state.map.isFullscreen) ||
                 (visibility.straatbeeld && state.straatbeeld.isFullscreen) ||
                 (visibility.detail && state.detail.isFullscreen) ||
+                (visibility.searchResults && state.search.isFullscreen) ||
                 (visibility.dataSelection && state.dataSelection.isFullscreen);
 
             if (!state.atlas.isPrintMode) {
