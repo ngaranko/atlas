@@ -60,6 +60,7 @@ $block-short-height: 141px;
 
 .c-homepage__visie {
   @include font-size-responsive($m-font);
+  max-width: 734px;
 }
 
 .c-homepage__visie-header {
