@@ -3,12 +3,11 @@
          'c-menu--tall': vm.isTall,
          'c-menu--short': vm.isShort
      }">
-    <button ng-if="!vm.isAuthenticated()"
-            ng-click="vm.login()"
-            class="c-menu__item c-menu__link qa-menu__login">
+    <dp-link ng-if="!vm.isLoggedIn()"
+        type="SHOW_PAGE" payload="{name: 'login'}" class-name="c-menu__item c-menu__link qa-menu__login">
         Inloggen
-    </button>
-    <div ng-if="vm.isAuthenticated()" class="qa-menu__user-menu">
+    </dp-link>
+    <div ng-if="vm.isLoggedIn()" class="qa-menu__user-menu">
         <dp-menu-dropdown title="Jij"
                           type="user"
                           align="left"></dp-menu-dropdown>

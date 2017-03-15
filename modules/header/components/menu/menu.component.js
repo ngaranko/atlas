@@ -13,14 +13,14 @@
             controllerAs: 'vm'
         });
 
-    DpMenuController.$inject = ['$scope', 'authenticator', 'user'];
+    DpMenuController.$inject = ['$scope', 'user'];
 
-    function DpMenuController ($scope, authenticator, user) {
+    function DpMenuController ($scope, user) {
         var vm = this;
 
-        vm.login = authenticator.login;
-
-        vm.isAuthenticated = () => user.getUserType() === user.USER_TYPE.AUTHENTICATED;
+        vm.isLoggedIn = function () {
+            return user.getStatus().isLoggedIn;
+        };
 
         $scope.$watch('vm.size', updateSize);
 

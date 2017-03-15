@@ -1,10 +1,17 @@
 describe('The dp-menu component', () => {
     let $compile,
         $rootScope,
-        authenticator,
-        user;
+        store,
+        user,
+        mockedActions;
 
     beforeEach(() => {
+        mockedActions = {
+            SHOW_PAGE: {
+                id: 'SHOW_PAGE'
+            }
+        };
+
         angular.mock.module(
             'dpHeader',
             {
@@ -12,21 +19,22 @@ describe('The dp-menu component', () => {
                     dispatch: angular.noop
                 }
             },
-            function ($provide) {
+            $provide => {
+                $provide.constant('ACTIONS', mockedActions);
                 $provide.factory('dpMenuDropdownDirective', function () {
                     return {};
                 });
             }
         );
 
-        angular.mock.inject((_$compile_, _$rootScope_, _authenticator_, _user_) => {
+        angular.mock.inject((_$compile_, _$rootScope_, _store_, _user_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
-            authenticator = _authenticator_;
+            store = _store_;
             user = _user_;
         });
 
-        spyOn(authenticator, 'login');
+        spyOn(store, 'dispatch');
     });
 
     function getComponent (size) {
@@ -51,7 +59,7 @@ describe('The dp-menu component', () => {
         let component;
 
         beforeEach(() => {
-            spyOn(user, 'getUserType').and.returnValue('ANONYMOUS');
+            spyOn(user, 'getStatus').and.returnValue({isLoggedIn: false});
             component = getComponent('tall');
         });
 
@@ -68,7 +76,7 @@ describe('The dp-menu component', () => {
         let component;
 
         beforeEach(() => {
-            spyOn(user, 'getUserType').and.returnValue('AUTHENTICATED');
+            spyOn(user, 'getStatus').and.returnValue({isLoggedIn: true});
             component = getComponent('tall');
         });
 
@@ -85,13 +93,18 @@ describe('The dp-menu component', () => {
         let component;
 
         beforeEach(() => {
-            spyOn(user, 'getUserType').and.returnValue('ANONYMOUS');
+            spyOn(user, 'getStatus').and.returnValue({isLoggedIn: false});
             component = getComponent('tall');
         });
 
-        it('calls user.login on click', () => {
+        it('dispatches the SHOW_PAGE action with the login page', () => {
             component.find('.qa-menu__login').click();
-            expect(authenticator.login).toHaveBeenCalledWith();
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: mockedActions.SHOW_PAGE,
+                payload: jasmine.objectContaining({
+                    name: 'login'
+                })
+            });
         });
     });
 
