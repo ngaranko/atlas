@@ -2,10 +2,6 @@
   position: relative;
 }
 
-.c-site-header__logo {
-  font-weight: bold;
-}
-
 .c-site-header__contact {
   @extend %link--arrow;
   @include font-size($xs-font);
