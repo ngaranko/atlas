@@ -8,7 +8,7 @@
 
                 <div ng-if="vm.type !== 'events'">
                     <h2 class="c-user-content-overview__item-header">{{entry.titel.value}}</h2>
-                    <div class="s-cms-content" ng-bind-html="entry.contents.html"></div>
+                    <div class="s-cms-page-content" ng-bind-html="entry.contents.html"></div>
                 </div>
 
                 <div ng-if="vm.type === 'events'">
@@ -20,7 +20,7 @@
                                 |
                                 {{entry.location.value}}
                             </div>
-                            <div class="s-cms-content" ng-bind-html="entry.contents.html"></div>
+                            <div class="s-cms-page-content" ng-bind-html="entry.contents.html"></div>
                         </div>
                     </dp-event>
                 </div>

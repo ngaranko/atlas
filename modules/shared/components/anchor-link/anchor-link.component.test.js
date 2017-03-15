@@ -18,7 +18,7 @@ describe('The anchorLink component', function () {
         });
     });
 
-    function getComponent (link, className) {
+    function getComponent (link, className, autoScroll = false) {
         let component,
             element,
             scope;
@@ -26,8 +26,10 @@ describe('The anchorLink component', function () {
         element = document.createElement('dp-anchor-link');
         element.setAttribute('link', link);
         element.setAttribute('class-name', className);
+        element.setAttribute('auto-scroll', 'autoScroll');
 
         scope = $rootScope.$new();
+        scope.autoScroll = autoScroll;
 
         element.innerText = 'Transcluded text';
 
@@ -50,6 +52,12 @@ describe('The anchorLink component', function () {
     it('can scroll to the specified link (bookmark)', function () {
         let component = getComponent('a link');
         component.find('button').click();
+        expect(anchor).toBe('a link');
+    });
+
+    it('can auto scroll to the specified link (bookmark)', function () {
+        getComponent('a link', '', true);
+        $rootScope.$apply();
         expect(anchor).toBe('a link');
     });
 });

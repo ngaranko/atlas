@@ -24,7 +24,7 @@
 
         if (vm.autoScroll) {
             $scope.$applyAsync(() => {
-                vm.scrollTo(vm.link)
+                vm.scrollTo(vm.link);
             });
         }
     }

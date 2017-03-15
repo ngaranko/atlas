@@ -11,7 +11,7 @@
         <div class="u-col-sm--8">
 
             <div ng-if="vm.type !== 'events'">
-                <div class="s-cms-content" ng-bind-html="vm.entry.contents.html"></div>
+                <div class="s-cms-page-content" ng-bind-html="vm.entry.contents.html"></div>
             </div>
 
             <div ng-if="vm.type === 'events'">
@@ -21,7 +21,7 @@
                     |
                     {{vm.entry.location.value}}
                 </div>
-                <div class="s-cms-content" ng-bind-html="vm.entry.contents.html"></div>
+                <div class="s-cms-page-content" ng-bind-html="vm.entry.contents.html"></div>
             </div>
 
         </div>
