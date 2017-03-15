@@ -35,7 +35,7 @@ describe('The search title factory', function () {
     it('can show the number of search results when searching with a query', function () {
         var titleData = searchTitle.getTitleData(45, 'westerpark', null, null);
 
-        expect(titleData.title).toContain('Data (45)');
+        expect(titleData.title).toBe('Data (45)');
         expect(titleData.subTitle).toContain('"westerpark"');
     });
 
@@ -56,16 +56,16 @@ describe('The search title factory', function () {
     it('can show the number of search results when searching by location', function () {
         var titleData = searchTitle.getTitleData(46, null, [52.123, 4.789], null);
 
-        expect(titleData.title).toContain('Data (46)');
+        expect(titleData.title).toBe('Data (46)');
         expect(titleData.subTitle).toContain('X, Y (52.123, 4.789)');
     });
 
-    it('can show the number of search results for a specific category (query search only)', function () {
+    it('shows the number of results for a category and the query in the title only', function () {
         var titleData = searchTitle.getTitleData(47, 'westerpark', null, 'adres');
 
         // The category name will be converted to lowercase
-        expect(titleData.title).toContain('47 adressen');
-        expect(titleData.subTitle).toContain('"westerpark"');
+        expect(titleData.title).toBe('47 adressen met "westerpark"');
+        expect(titleData.subTitle).toBeUndefined();
     });
 
     it('shows a message when no results have been found', function () {
@@ -73,12 +73,12 @@ describe('The search title factory', function () {
 
         // When searching by query
         titleData = searchTitle.getTitleData(0, 'westerpark', null, null);
-        expect(titleData.title).toContain('Geen resultaten gevonden');
+        expect(titleData.title).toBe('Geen resultaten gevonden');
         expect(titleData.subTitle).toContain('"westerpark"');
 
         // When searching by location
         titleData = searchTitle.getTitleData(0, null, [52.123, 4.789], null);
-        expect(titleData.title).toContain('Geen resultaten gevonden');
+        expect(titleData.title).toBe('Geen resultaten gevonden');
         expect(titleData.subTitle).toContain('X, Y (52.123, 4.789)');
     });
 

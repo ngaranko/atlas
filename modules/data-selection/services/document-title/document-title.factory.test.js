@@ -63,10 +63,8 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
     });
 
     it('shows a special title when showing all datasets', function () {
-        expect(dpDataSelectionDocumentTitle.getTitle({
-            view: 'CARDS',
-            filters: {}
-        })).toBe('Alle datasets');
+        delete mockedCardsState.query;
+        expect(dpDataSelectionDocumentTitle.getTitle(mockedCardsState)).toBe('Alle datasets');
     });
 
     it('shows a the datasets query for text search in datasets', function () {

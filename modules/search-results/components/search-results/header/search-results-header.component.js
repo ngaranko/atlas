@@ -27,12 +27,8 @@
                     vm.location,
                     vm.category);
 
-            if (vm.category) {
-                vm.title = `${titleData.title} ${titleData.subTitle}`;
-            } else {
-                vm.title = titleData.title;
-                vm.subTitle = titleData.subTitle;
-            }
+            vm.title = titleData.title;
+            vm.subTitle = titleData.subTitle;
         });
     }
 })();

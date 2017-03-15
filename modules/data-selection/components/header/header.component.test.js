@@ -185,15 +185,15 @@ describe('The dp-data-selection-header', () => {
             expect(component.find('.qa-title').text().trim()).toBe('BAG Adressen (1.234)');
         });
 
-        it('in CARDS view shows the number of results followed by the word \'dataset(s)\'', () => {
+        it('in CARDS view shows the number of results', () => {
             mockedInputCards.isLoading = false;
 
-            // Singular
+            // Single record
             mockedInputCards.numberOfRecords = 1;
             component = getComponent(mockedInputCards);
-            expect(component.find('.qa-title').text().trim()).toBe('Dataset (1)');
+            expect(component.find('.qa-title').text().trim()).toBe('Datasets (1)');
 
-            // Plural, with thousand separator
+            // Multiple records, with thousand separator
             mockedInputCards.numberOfRecords = 1234;
             component = getComponent(mockedInputCards);
             expect(component.find('.qa-title').text().trim()).toBe('Datasets (1.234)');
