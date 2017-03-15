@@ -92,7 +92,7 @@
                 fdvrog: {
                     url: 'maps/handelsregister',
                     label_short: 'Financ. dienstverl., verhuur',
-                    label_long: 'financiële_dienstverlening_verhuur_van_roerend_en_onroerend_goed',
+                    label_long: 'financiële dienstverlening verhuur van roerend en onroerend goed',
                     layers: ['financiele_dienstverlening_verhuur', 'financiele_dienstverlening_verhuur_label'],
                     minZoom: 11,
                     maxZoom: 16,
@@ -145,7 +145,7 @@
                 ovrg: {
                     url: 'maps/handelsregister',
                     label_short: 'Overige',
-                    label_long: 'Overige niet hierboven genoemd',
+                    label_long: 'Overige',
                     layers: ['overige', 'overige_label'],
                     minZoom: 11,
                     maxZoom: 16,
@@ -207,7 +207,7 @@
                 gbep: {
                     url: 'maps/wkpb',
                     label_short: 'Gemeentelijke beperkingen',
-                    label_long: 'Gemeentelijke beperkingen',
+                    label_long: 'Gemeentelijke beperkingen (WKPB)',
                     layers: ['wkpb'],
                     minZoom: 12,
                     maxZoom: 16,
@@ -394,7 +394,7 @@
                 },
                 exvg: {
                     url: 'maps/bommenkaart',
-                    label_short: 'Explosieven - Verdachte gebieden',
+                    label_short: 'Explosieven - Verdachte geb.',
                     label_long: 'Explosieven - Verdachte gebieden',
                     layers: ['verdachte_gebieden'],
                     minZoom: 8,
@@ -414,7 +414,7 @@
                 },
                 exuo: {
                     url: 'maps/bommenkaart',
-                    label_short: 'Explosieven - Uitgevoerde CE onderzoeken',
+                    label_short: 'Explosieven - Uitgevoerde onderz.',
                     label_long: 'Explosieven - Reeds uitgevoerde CE onderzoeken',
                     layers: ['uitgevoerde_CE_onderzoeken'],
                     minZoom: 8,
@@ -642,7 +642,7 @@
                 },
                 mgpsh: {
                     url: 'maps/planologischezonesschiphol',
-                    label_short: 'Schiphol - Ruimtelijke beperkingen',
+                    label_short: 'Schiphol - Ruimtel. beperkingen',
                     label_long: 'Schiphol - Ruimtelijke beperkingen',
                     layers: ['geluidszoneschiphol'],
                     minZoom: 8,
@@ -654,7 +654,7 @@
                 mghv: {
                     url: 'maps/planologischezonesschiphol',
                     label_short: 'Schiphol - Hoogtebeperking',
-                    label_long: 'Schiphol - Hoogtebeperking',
+                    label_long: 'Schiphol - Hoogtebeperkende vlakken',
                     layers: ['hoogtebeperkingschiphol'],
                     minZoom: 8,
                     maxZoom: 16,
@@ -665,7 +665,7 @@
                 mgvvgsh: {
                     url: 'maps/planologischezonesschiphol',
                     label_short: 'Schiphol - Vogelvrijwaring',
-                    label_long: 'Schiphol - Vogelvrijwaring',
+                    label_long: 'Schiphol - Vogelvrijwaringsgebied',
                     layers: ['vogelvrijwaringsgebiedschiphol'],
                     minZoom: 8,
                     maxZoom: 16,
