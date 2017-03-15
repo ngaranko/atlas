@@ -1,23 +1,21 @@
 .c-logo {
   @include font-size($xl-header-font);
+
   display: block;
   height: 100%;
   color: $primary-dark;
   text-decoration: none;
   cursor: pointer;
+}
 
-  a {
-    color: $primary-dark;
-  }
+.c-logo__link {
+  color: $primary-dark;
+  width: 100%;
+  text-align: left;
+}
 
-  button {
-    width: 100%;
-    text-align: left;
-  }
-
-  img {
-    position: absolute;
-  }
+.c-logo__image {
+  position: absolute;
 }
 
 .c-logo__title {
@@ -25,27 +23,27 @@
 }
 
 .c-logo--tall {
-  img {
+  .c-logo__image {
     top: 21px;
     left: -27px;
     width: 84px;
     height: 67px;
   }
 
-  span {
+  .c-logo__title {
     @include font-size($xl-header-font);
     line-height: 60px;
   }
 }
 
 .c-logo--short {
-  img {
+  .c-logo__image {
     top: $base-whitespace;
     right: $base-whitespace;
     left: $base-whitespace;
   }
 
-  span {
+  .c-logo__title {
     @include font-size($s-header-font);
     line-height: $site-header-height;
   }
