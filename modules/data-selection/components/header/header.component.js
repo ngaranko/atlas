@@ -39,14 +39,6 @@
             vm.showActiveFilters = !vm.isLoading &&
                 (Object.keys(vm.state.filters).length || vm.state.geometryFilter.markers.length);
 
-            vm.maxAvailablePages = DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES;
-            vm.showMessageMaxPages = vm.maxAvailablePages && vm.state.page > vm.maxAvailablePages;
-
-            vm.maxNumberOfClusteredMarkers = DATA_SELECTION_CONFIG.options.MAX_NUMBER_OF_CLUSTERED_MARKERS;
-            vm.showMessageClusteredMarkers = isListView &&
-                !vm.isLoading &&
-                vm.numberOfRecords > vm.maxNumberOfClusteredMarkers;
-
             vm.datasetTitle = DATA_SELECTION_CONFIG.datasets[vm.state.dataset].TITLE;
 
             vm.tabs = ['bag', 'hr'].map(dataset => {

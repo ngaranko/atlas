@@ -82,11 +82,19 @@
                 vm.currentPage,
                 vm.state.query,
                 vm.state.geometryFilter.markers).then(data => {
+                    vm.isLoading = false;
                     vm.availableFilters = data.filters;
 
                     vm.data = data.data;
                     vm.numberOfRecords = data.numberOfRecords;
                     vm.numberOfPages = data.numberOfPages;
+
+                    // determine if warning messages should be shown
+                    vm.maxAvailablePages = DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES;
+                    vm.showMessageMaxPages = vm.maxAvailablePages && vm.state.page > vm.maxAvailablePages;
+
+                    vm.maxNumberOfClusteredMarkers = DATA_SELECTION_CONFIG.options.MAX_NUMBER_OF_CLUSTERED_MARKERS;
+                    vm.showMessageClusteredMarkers = isListView && vm.numberOfRecords > vm.maxNumberOfClusteredMarkers;
 
                     updateTabHeader(vm.state.query, vm.numberOfRecords);
 
@@ -96,8 +104,6 @@
                             angular.isUndefined(DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES) ||
                             vm.state.page <= DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES
                         );
-
-                    vm.isLoading = false;
 
                     let activeFilters = angular.extend({
                         shape: angular.toJson(vm.state.geometryFilter.markers.map(([lat, lng]) => [lng, lat]))
