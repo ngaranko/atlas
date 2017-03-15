@@ -9,8 +9,11 @@ $site-header-toolbar-height: 40px;
 $site-header-search-form-height: 30px;
 
 @import "components/site-header/site-header";
-@import "components/site-header/site-header-print";
-@import "components/print-header/print-header";
 @import "components/logo/logo";
 @import "components/menu/menu";
 @import "components/search/search";
+
+.is-print-mode {
+  @import "components/site-header/site-header-print";
+  @import "components/print-header/print-header";
+}
