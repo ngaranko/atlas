@@ -1,6 +1,11 @@
 .s-cms-page-content {
   h2 {
-    //margin-top: 1.5 * $base-whitespace;
+    margin-bottom: 2 * $base-whitespace;
+    margin-top: 40px;
+
+    &:first-child {
+      margin-top: 0;
+    }
   }
 
   ul {
@@ -11,12 +16,12 @@
 
   li,
   p {
-    margin-bottom: .5 * $base-whitespace;
+    margin-bottom: 1.6 * $base-whitespace;
   }
 
   a {
     color: $primary-dark;
-    text-decoration: none;
+    text-decoration: underline;
 
     &:hover {
       color: $primary-contrast;

@@ -1,7 +1,11 @@
 .c-user-content-overview {
   @include font-size-responsive($m-font);
 
-  .c-user-content-overview__toc {
+  .c-user-content-overview--left {
+    max-width:799px;
+  }
+
+  .c-user-content-overview--right {
     position: fixed;
     margin-right: 60px;
   }

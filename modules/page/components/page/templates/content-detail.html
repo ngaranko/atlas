@@ -4,26 +4,30 @@
 
 <div ng-if="vm.feed && (vm.type === 'beleid' || vm.type === 'help')" class="c-user-content-detail">
 
-    <h1 class="u-margin__bottom--3">{{vm.entry.titel.value}}</h1>
+    <div class="u-row">
+        <div class="u-col-sm--offset-1 u-col-sm--7">
+            <h1 class="u-margin__bottom--3">{{vm.entry.titel.value}}</h1>
+        </div>
+    </div>
 
     <div class="u-row">
 
-        <div class="u-col-sm--8">
-
-            <div ng-if="vm.type !== 'events'">
-                <div class="s-cms-page-content" ng-bind-html="vm.entry.contents.html"></div>
-            </div>
-
-            <div ng-if="vm.type === 'events'">
-                <h1 class="c-user-content-detail__event-item-header">{{vm.entry.titel.value}}</h1>
-                <div class="c-user-content-detail__event-when-where">
-                    {{vm.entry.datum.date | dpDate}} {{vm.entry.tijd.value}}
-                    |
-                    {{vm.entry.location.value}}
+        <div class="u-col-sm--offset-1 u-col-sm--7">
+            <div class="c-user-content-detail--left">
+                <div ng-if="vm.type !== 'events'">
+                    <div class="s-cms-page-content" ng-bind-html="vm.entry.contents.html"></div>
                 </div>
-                <div class="s-cms-page-content" ng-bind-html="vm.entry.contents.html"></div>
-            </div>
 
+                <div ng-if="vm.type === 'events'">
+                    <h1 class="c-user-content-detail__event-item-header">{{vm.entry.titel.value}}</h1>
+                    <div class="c-user-content-detail__event-when-where">
+                        {{vm.entry.datum.date | dpDate}} {{vm.entry.tijd.value}}
+                        |
+                        {{vm.entry.location.value}}
+                    </div>
+                    <div class="s-cms-page-content" ng-bind-html="vm.entry.contents.html"></div>
+                </div>
+            </div>
         </div>
 
         <div class="u-col-sm--3 u-col-sm--offset-1">

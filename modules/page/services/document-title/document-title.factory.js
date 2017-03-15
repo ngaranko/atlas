@@ -11,7 +11,7 @@
     function dpPageDocumentTitleFactory (pageName) {
         return {
             getTitle: pageState => {
-                return pageName(pageState.name);
+                return pageName(pageState.type ? pageState.type : pageState.name);
             }
         };
     }
