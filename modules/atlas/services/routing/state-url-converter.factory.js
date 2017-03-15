@@ -108,7 +108,7 @@
                 const baseType = ArrayValue.getBaseType(typeName);
                 // Split the array, replace the split char by a tmp split char because org split char can repeat
                 const TMP_SPLIT_CHAR = '|';
-                const surroundBy = '([^' + URL_ARRAY_SEPARATOR + '])';
+                const surroundBy = '(^|[^' + URL_ARRAY_SEPARATOR + ']|$)';
                 const splitOn = new RegExp(surroundBy + separator + surroundBy, 'g');
                 const splitValue = s.replace(splitOn, '$1' + TMP_SPLIT_CHAR + '$2');
                 return splitValue
