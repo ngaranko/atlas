@@ -4,7 +4,7 @@ describe('The dp-site-header component', () => {
 
     beforeEach(() => {
         angular.mock.module(
-            'dpSiteHeader',
+            'dpHeader',
             {
                 store: {
                     dispatch: angular.noop

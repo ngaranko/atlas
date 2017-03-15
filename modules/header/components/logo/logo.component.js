@@ -26,7 +26,7 @@
             vm.isTall = vm.size === 'tall';
             vm.isShort = vm.size === 'short';
             let logoSize = vm.isShort ? '-small' : '';
-            vm.logo = `assets/images/logo${logoSize}.svg`
+            vm.logo = `assets/images/logo${logoSize}.svg`;
         }
     }
 })();
