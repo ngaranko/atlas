@@ -315,5 +315,19 @@ describe('The dp-data-selection component', function () {
 
             expect(component.find('dp-data-selection-table').length).toBe(0);
         });
+
+        it('shows the max pages messages if page > max pages', () => {
+            let component;
+
+            // Don't show the message
+            mockedState.page = 5;
+            component = getComponent(mockedState);
+            expect(component.find('.qa-message-max-pages').length).toBe(0);
+
+            // Show the message
+            mockedState.page = 6;
+            component = getComponent(mockedState);
+            expect(component.find('.qa-message-max-pages').length).toBe(1);
+        });
     });
 });
