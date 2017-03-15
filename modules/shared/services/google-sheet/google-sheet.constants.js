@@ -12,7 +12,8 @@
                 help: 4,
                 snelwegwijs: 5,
                 apis: 6,
-                versions: 7
+                versions: 7,
+                proclaimer: 8
             }
         });
 })();
