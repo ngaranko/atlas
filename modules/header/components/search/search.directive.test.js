@@ -147,13 +147,13 @@ describe('The dp-search directive', function () {
     });
 
     it('provides for a clear button to clear the searchtext', function () {
-        let directive = getDirective('any query');
+        const directive = getDirective('any query');
         directive.find('.qa-search-form__clear').click();
         expect(directive.find('.js-search-input')[0].value).toBe('');
     });
 
     it('searches on cleared input when searchOnly is set to be true', function () {
-        let directive = getDirective('any query', 'placeholder', 'FETCH_SEARCH_RESULTS_BY_QUERY', true);
+        const directive = getDirective('any query', 'placeholder', 'FETCH_SEARCH_RESULTS_BY_QUERY', true);
         spyOn(store, 'dispatch');
         directive.find('.qa-search-form__clear').click();
         expect(store.dispatch).toHaveBeenCalledWith({
@@ -163,7 +163,7 @@ describe('The dp-search directive', function () {
     });
 
     it('does not search on cleared input when searchOnly is set to be false', function () {
-        let directive = getDirective('any query', 'placeholder', 'FETCH_SEARCH_RESULTS_BY_QUERY', false);
+        const directive = getDirective('any query', 'placeholder', 'FETCH_SEARCH_RESULTS_BY_QUERY', false);
         spyOn(store, 'dispatch');
         directive.find('.qa-search-form__clear').click();
         expect(store.dispatch).not.toHaveBeenCalledWith();

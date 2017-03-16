@@ -239,8 +239,8 @@ describe('The map reducers', function () {
 
     describe('MAP_FULLSCREEN', function () {
         it('can toggle the fullscreen mode', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
-                output;
+            const inputState = angular.copy(DEFAULT_STATE);
+            let output;
 
             // Enable fullscreen
             output = mapReducers[ACTIONS.MAP_FULLSCREEN.id](inputState, true);
@@ -252,8 +252,8 @@ describe('The map reducers', function () {
         });
 
         it('disables layer selection when changing fullscreen', function () {
-            let inputState = angular.copy(DEFAULT_STATE),
-                output;
+            const inputState = angular.copy(DEFAULT_STATE);
+            let output;
 
             // Enable fullscreen
             inputState.map.isFullscreen = false;
@@ -302,11 +302,10 @@ describe('The map reducers', function () {
         });
 
         it('resets the page', () => {
-            let inputState = angular.copy(DEFAULT_STATE),
-                output;
+            const inputState = angular.copy(DEFAULT_STATE);
 
             inputState.page.name = 'home';
-            output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
+            const output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
                 markers: []
             });
 

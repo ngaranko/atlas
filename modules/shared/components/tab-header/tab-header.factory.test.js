@@ -50,10 +50,10 @@ describe('The TabHeader factory', function () {
     });
 
     it('has a constructor that accepts an TAB_HEADER_CONFIG key', function () {
-        let tabHeader = new TabHeader('tabs');
+        const tabHeader = new TabHeader('tabs');
         expect(tabHeader.tabs.length).toBe(2);
         tabHeader.tabs.forEach(tab => {
-            let configTab = TAB_HEADER_CONFIG.tabs[tab.id];
+            const configTab = TAB_HEADER_CONFIG.tabs[tab.id];
             expect(tab.title).toBe(configTab.title);
             expect(tab.action).toBe(configTab.action);
             expect(tab.count).toBe(null);
@@ -77,7 +77,7 @@ describe('The TabHeader factory', function () {
     });
 
     it('can set the active tab to any given tab of the tabheader', function () {
-        let tabHeader = new TabHeader('tabs');
+        const tabHeader = new TabHeader('tabs');
         tabHeader.tabs.forEach(tab => {
             expect(tab.isActive).toBe(false);
         });
@@ -88,7 +88,7 @@ describe('The TabHeader factory', function () {
     });
 
     it('can set the query that unites the tab header pages', function () {
-        let tabHeader = new TabHeader('tabs'),
+        const tabHeader = new TabHeader('tabs'),
             query = 'a query';
 
         tabHeader.query = query;
@@ -98,7 +98,7 @@ describe('The TabHeader factory', function () {
     });
 
     it('does not update the payload if called with the same query', function () {
-        let tabHeader = new TabHeader('tabs'),
+        const tabHeader = new TabHeader('tabs'),
             query = 'a query';
 
         tabHeader.query = query;
@@ -113,7 +113,7 @@ describe('The TabHeader factory', function () {
     });
 
     it('accepts a count provider that can return counts for non-active pages', function () {
-        let tabHeader = new TabHeader('tabs'),
+        const tabHeader = new TabHeader('tabs'),
             count = 100,
             getCount = () => $q.resolve(count),
             query = 'a query';

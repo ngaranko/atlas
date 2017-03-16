@@ -74,7 +74,7 @@ describe('The contextMiddleware factory', function () {
             };
         };
 
-        let returnValue = contextMiddleware(mockedStore)(mockedNext)(mockedAction);
+        const returnValue = contextMiddleware(mockedStore)(mockedNext)(mockedAction);
 
         expect(returnValue).toEqual({
             type: ACTIONS.SHOW_PAGE,

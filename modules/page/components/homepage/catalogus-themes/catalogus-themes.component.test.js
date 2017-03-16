@@ -50,14 +50,10 @@ describe('The dp-catalogus-themes', () => {
     });
 
     function getComponent () {
-        let component,
-            element,
-            scope;
+        const element = document.createElement('dp-catalogus-themes');
+        const scope = $rootScope.$new();
 
-        element = document.createElement('dp-catalogus-themes');
-        scope = $rootScope.$new();
-
-        component = $compile(element)(scope);
+        const component = $compile(element)(scope);
         scope.$apply();
 
         return component;

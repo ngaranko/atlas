@@ -27,7 +27,7 @@
         return reducers;
 
         function showMapReducer (oldState) {
-            let newState = angular.copy(oldState);
+            const newState = angular.copy(oldState);
 
             newState.map.isFullscreen = true;
             newState.layerSelection.isEnabled = true;

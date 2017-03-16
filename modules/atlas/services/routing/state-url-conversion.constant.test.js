@@ -186,7 +186,7 @@ describe('The state url conversion definition', function () {
             };
 
             it('does nothing if there is no old search state', () => {
-                let newState = angular.copy(oldStateWithQuery);
+                const newState = angular.copy(oldStateWithQuery);
 
                 STATE_URL_CONVERSION.post.search(undefined, newState);
 

@@ -36,10 +36,9 @@ describe('The header controller', function () {
     });
 
     function getController () {
-        var controller,
-            scope = $rootScope.$new();
+        const scope = $rootScope.$new();
 
-        controller = $controller('HeaderController', {
+        const controller = $controller('HeaderController', {
             $scope: scope
         });
 
@@ -57,63 +56,53 @@ describe('The header controller', function () {
     });
 
     it('sets the query string based on the state', function () {
-        var controller;
-
         spyOn(store, 'getState').and.returnValue(mockedState);
 
-        controller = getController();
+        const controller = getController();
 
         expect(controller.query).toBe('i am a search query');
     });
 
     it('doesn\'t break when search is null', function () {
-        var controller;
-
         mockedState = {
             search: null
         };
 
         spyOn(store, 'getState').and.returnValue(mockedState);
 
-        controller = getController();
+        const controller = getController();
 
         expect(controller.query).toBeNull();
     });
 
     describe('not all states have a print version', function () {
         it('there is no print button when dataSelection is active', function () {
-            var controller;
-
             mockedState.dataSelection = {};
 
             spyOn(store, 'getState').and.returnValue(mockedState);
-            controller = getController();
+            const controller = getController();
 
             expect(controller.hasPrintButton).toBe(false);
         });
 
         it('there is no print button on the homepage', () => {
-            var controller;
-
             mockedState.page = {
                 name: 'home'
             };
 
             spyOn(store, 'getState').and.returnValue(mockedState);
-            controller = getController();
+            const controller = getController();
 
             expect(controller.hasPrintButton).toBe(false);
         });
 
         it('all other pages and non dataSelection content has a printButton', function () {
-            let controller;
-
             mockedState.page = {
                 name: 'snel-wegwijs'
             };
 
             spyOn(store, 'getState').and.returnValue(mockedState);
-            controller = getController();
+            const controller = getController();
 
             expect(controller.hasPrintButton).toBe(true);
         });
