@@ -1,12 +1,11 @@
 $c-event-date-width: 3 * $base-whitespace;
 
-.c-event__content {
-  min-height: 45px;
-  margin-left: $c-event-date-width + $base-whitespace;
+.c-event {
+  position: relative;
 }
 
-.daymonth {
-  margin-right: 30px;
+.c-event__daymonth {
+  position: absolute;
 }
 
 .c-event__day {
@@ -29,14 +28,7 @@ $c-event-date-width: 3 * $base-whitespace;
   margin-top: -5px;
 }
 
-.title {
-  display: inline-block;
-}
-
-.c-event {
-  position: relative;
-}
-
-.c-event__daymonth {
-  position: absolute;
+.c-event__content {
+  min-height: 45px;
+  margin-left: $c-event-date-width + $base-whitespace;
 }

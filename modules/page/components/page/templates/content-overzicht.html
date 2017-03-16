@@ -2,23 +2,23 @@
 
     <div class="u-row">
         <div class="u-col-sm--offset-1 u-col-sm--7">
-            <h1 class="c-user-content-overview__header">{{vm.feed.title}}</h1>
+            <h1 class="u-margin__bottom--3">{{vm.feed.title}}</h1>
         </div>
     </div>
 
     <div class="u-row">
         <div class="u-col-sm--offset-1 u-col-sm--7">
             <div class="c-user-content-overview--left">
-                <div id="{{vm.type}}{{entry.id}}" ng-repeat="entry in vm.entries" class="c-user-content-overview__item">
+                <div id="{{vm.type}}{{entry.id}}" ng-repeat="entry in vm.entries" class="u-margin__bottom--4">
 
                     <div ng-if="vm.type !== 'events'">
-                        <h2 class="c-user-content-overview__item-header">{{entry.titel.value}}</h2>
+                        <h2 class="u-margin__bottom--1">{{entry.titel.value}}</h2>
                         <div class="s-cms-page-content" ng-bind-html="entry.contents.html"></div>
                     </div>
 
                     <div ng-if="vm.type === 'events'">
                         <dp-event date="entry.datum.date">
-                            <div class="c-user-content-overview__events-item-contents c-user-content-detail">
+                            <div class="u-margin__bottom--1 c-user-content-detail">
                                 <h2 class="c-user-content-overview__event-header">{{entry.titel.value}}</h2>
                                 <div ng-if="entry.tijd.value || entry.location.value" class="c-user-content-detail__event-when-where">
                                     <span ng-if="entry.tijd.value && entry.location.value">
@@ -40,7 +40,7 @@
 
                 <dp-anchor-link ng-repeat="e in vm.entries"
                                 link="{{$first ? (vm.type + 'top') : (vm.type + e.id)}}"
-                                class-name="c-user-content-overview__toc-item"
+                                class-name="u-margin__bottom--1"
                                 auto-scroll="e.id === vm.entry.id">
                     {{e.titel.value}}
                 </dp-anchor-link>

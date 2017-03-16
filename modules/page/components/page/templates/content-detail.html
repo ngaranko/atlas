@@ -2,7 +2,7 @@
     <ng-include src="'modules/page/components/page/templates/content-overzicht.html'"></ng-include>
 </div>
 
-<div ng-if="vm.feed && (vm.type === 'beleid' || vm.type === 'help')">
+<div ng-if="vm.feed && (vm.type === 'beleid' || vm.type === 'help')" class="c-user-content-detail">
 
     <div class="u-row">
         <div class="u-col-sm--offset-1 u-col-sm--7">
@@ -13,7 +13,7 @@
     <div class="u-row">
 
         <div class="u-col-sm--offset-1 u-col-sm--7">
-            <div class="c-user-content-detail c-user-content-detail--left">
+            <div class="c-user-content-detail--left">
                 <div ng-if="vm.type !== 'events'">
                     <div class="s-cms-page-content" ng-bind-html="vm.entry.contents.html"></div>
                 </div>

@@ -9,44 +9,15 @@
     margin-right: 60px;
     font-size: $s-font-size;
   }
+}
 
-  .c-user-content-overview__toc-header {
-    margin-bottom: $base-whitespace;
-    color: $primary-contrast;
-  }
+.c-user-content-overview__event-header {
+  margin-bottom: 0;
+  font-size: 24px;
+  line-height: 24px;
+}
 
-  .c-user-content-overview__toc-item {
-    margin-bottom: $base-whitespace;
-  }
-
-  .c-user-content-overview__header {
-    margin-bottom: 3 * $base-whitespace;
-  }
-
-  .c-user-content-overview__item {
-    margin-bottom: 4 * $base-whitespace;
-  }
-
-  .c-user-content-overview__item-header {
-    margin-bottom: $base-whitespace;
-  }
-
-  .c-user-content-overview__event-day {
-    margin-bottom: .5 * $base-whitespace;
-  }
-
-  .c-user-content-overview__event-header {
-    margin-bottom: 0;
-    font-size: 24px;
-    line-height: 24px;
-  }
-
-  .c-user-content-overview__events-item-contents {
-    margin-left: $base-whitespace;
-  }
-
-  .c-user-content-overview__events-intro {
-    margin-bottom: 1.5 * $base-whitespace;
-    line-height: $button-size;
-  }
+.c-user-content-overview__toc-header {
+  margin-bottom: $base-whitespace;
+  color: $primary-contrast;
 }
