@@ -21,7 +21,7 @@
             reducer = _reducer_;
             stateUrlConverter = _stateUrlConverter_;
 
-            let enhancer = Redux.applyMiddleware(...middleware);
+            const enhancer = Redux.applyMiddleware(...middleware);
             store = Redux.createStore(reducer, defaultState, enhancer);
         }
     }

@@ -33,11 +33,7 @@ describe('The dp-data-selection-formatter component', function () {
     });
 
     function getComponent (variables, formatter, useInline, template) {
-        let component,
-            element,
-            scope;
-
-        element = document.createElement('dp-data-selection-formatter');
+        const element = document.createElement('dp-data-selection-formatter');
         element.setAttribute('variables', 'variables');
 
         if (angular.isString(formatter)) {
@@ -50,12 +46,12 @@ describe('The dp-data-selection-formatter component', function () {
 
         element.setAttribute('use-inline', 'useInline');
 
-        scope = $rootScope.$new();
+        const scope = $rootScope.$new();
         scope.variables = variables;
         scope.useInline = useInline;
         scope.template = template;
 
-        component = $compile(element)(scope);
+        const component = $compile(element)(scope);
         scope.$apply();
 
         return component;
@@ -91,9 +87,7 @@ describe('The dp-data-selection-formatter component', function () {
     });
 
     it('supports formatters with HTML output', function () {
-        let component;
-
-        component = getComponent(
+        const component = getComponent(
             [{
                 key: 'my_var_1',
                 value: 'my_first_value'

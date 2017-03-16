@@ -12,7 +12,7 @@
     DpToggleDrawingToolController.$inject = ['$scope', 'drawTool', 'store', 'ACTIONS'];
 
     function DpToggleDrawingToolController ($scope, drawTool, store, ACTIONS) {
-        let vm = this;
+        const vm = this;
 
         // Follow enable/disable status of the drawing tool
         vm.isEnabled = drawTool.isEnabled;

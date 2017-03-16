@@ -19,7 +19,7 @@
     DpSearchResultsController.$inject = ['$scope', 'search', 'geosearch', 'TabHeader', 'store', 'ACTIONS'];
 
     function DpSearchResultsController ($scope, search, geosearch, TabHeader, store, ACTIONS) {
-        let vm = this;
+        const vm = this;
 
         /**
          * watch isLoading and the query and location parameters of the state
@@ -70,7 +70,7 @@
         }
 
         function searchByQuery (query, category) {
-            let isQuery = angular.isString(query);
+            const isQuery = angular.isString(query);
             if (isQuery) {
                 if (angular.isString(category) && category.length) {
                     search.search(query, category).then(setSearchResults);
@@ -82,7 +82,7 @@
         }
 
         function searchByLocation (location) {
-            let isLocation = angular.isArray(location);
+            const isLocation = angular.isArray(location);
             if (isLocation) {
                 geosearch.search(location).then(setSearchResults);
             }
@@ -93,7 +93,7 @@
          * For both SEARCH BY QUERY (with and without category) and GEOSEARCH
          */
         function setSearchResults (searchResults) {
-            let numberOfResults = searchResults.reduce(function (previous, current) {
+            const numberOfResults = searchResults.reduce(function (previous, current) {
                 return previous + current.count;
             }, 0);
 

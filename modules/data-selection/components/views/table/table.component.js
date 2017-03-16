@@ -15,7 +15,7 @@
     DpDataSelectionTableController.$inject = ['store', 'ACTIONS'];
 
     function DpDataSelectionTableController (store, ACTIONS) {
-        let vm = this;
+        const vm = this;
 
         vm.followLink = function (endpoint) {
             store.dispatch({

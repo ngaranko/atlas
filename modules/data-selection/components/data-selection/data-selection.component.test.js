@@ -15,14 +15,14 @@ describe('The dp-data-selection component', function () {
             {
                 dataSelectionApi: {
                     query: function () {
-                        let q = $q.defer();
+                        const q = $q.defer();
 
                         q.resolve(mockedApiPreviewData);
 
                         return q.promise;
                     },
                     getMarkers: function () {
-                        let q = $q.defer();
+                        const q = $q.defer();
 
                         q.resolve(mockedApiMarkersData);
 
@@ -120,17 +120,13 @@ describe('The dp-data-selection component', function () {
     });
 
     function getComponent (state) {
-        let component,
-            element,
-            scope;
-
-        element = document.createElement('dp-data-selection');
+        const element = document.createElement('dp-data-selection');
         element.setAttribute('state', 'state');
 
-        scope = $rootScope.$new();
+        const scope = $rootScope.$new();
         scope.state = state;
 
-        component = $compile(element)(scope);
+        const component = $compile(element)(scope);
         scope.$apply();
 
         return component;
@@ -138,7 +134,7 @@ describe('The dp-data-selection component', function () {
 
     it('retieves the available-filters and table data and passes it to it\'s child directives', function () {
         const component = getComponent(mockedState);
-        let scope = component.isolateScope();
+        const scope = component.isolateScope();
 
         expect(component.find('dp-data-selection-available-filters').length).toBe(1);
         expect(component.find('dp-data-selection-available-filters').attr('dataset')).toBe('zwembaden');
@@ -166,7 +162,7 @@ describe('The dp-data-selection component', function () {
     it('hides the tab header in CARDS view when any filters are active', function () {
         mockedState.view = 'CARDS';
         const component = getComponent(mockedState);
-        let scope = component.isolateScope();
+        const scope = component.isolateScope();
         expect(scope.vm.showTabHeader()).toBe(false);
         expect(component.find('dp-tab-header').length).toBe(0);
     });
@@ -175,7 +171,7 @@ describe('The dp-data-selection component', function () {
         mockedState.view = 'CARDS';
         mockedState.filters = {};
         const component = getComponent(mockedState);
-        let scope = component.isolateScope();
+        const scope = component.isolateScope();
         expect(scope.vm.showTabHeader()).toBe(true);
         expect(component.find('dp-tab-header').length).toBe(1);
     });
@@ -186,7 +182,7 @@ describe('The dp-data-selection component', function () {
                 mockedState.view = view;
                 mockedState.filters = filters;
                 const component = getComponent(mockedState);
-                let scope = component.isolateScope();
+                const scope = component.isolateScope();
                 expect(scope.vm.showTabHeader()).toBe(false);
                 expect(component.find('dp-tab-header').length).toBe(0);
             });
@@ -220,7 +216,7 @@ describe('The dp-data-selection component', function () {
 
     it('retrieves new data when the state changes', function () {
         const component = getComponent(mockedState);
-        let scope = component.isolateScope();
+        const scope = component.isolateScope();
 
         expect(dataSelectionApi.query).toHaveBeenCalledTimes(1);
         expect(scope.vm.currentPage).toBe(2);
@@ -299,19 +295,15 @@ describe('The dp-data-selection component', function () {
 
     describe('it has a technical limit for the MAX_AVAILABLE_PAGES', function () {
         it('shows the content on pages up to this limit', function () {
-            let component;
-
             mockedState.page = 5;
-            component = getComponent(mockedState);
+            const component = getComponent(mockedState);
 
             expect(component.find('dp-data-selection-table').length).toBe(1);
         });
 
         it('doesn\'t show the content for pages above this limit', function () {
-            let component;
-
             mockedState.page = 6;
-            component = getComponent(mockedState);
+            const component = getComponent(mockedState);
 
             expect(component.find('dp-data-selection-table').length).toBe(0);
         });

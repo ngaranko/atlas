@@ -20,7 +20,7 @@
         }
 
         function formatApiData (data) {
-            let formattedData = {
+            const formattedData = {
                 _display: data.result.title
             };
             return [

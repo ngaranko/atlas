@@ -15,9 +15,7 @@
          */
         return function (location, type) {
             let wgs84Location,
-                rdLocation,
-                formattedRdLocation,
-                formattedWgs84Location;
+                rdLocation;
 
             if (angular.isUndefined(location) || (angular.isArray(location) && location.length !== 2)) {
                 return;
@@ -33,11 +31,11 @@
                 return;
             }
 
-            formattedWgs84Location = wgs84Location.map(function (coordinate) {
+            const formattedWgs84Location = wgs84Location.map(function (coordinate) {
                 return coordinate.toFixed(7);
             }).join(', ');
 
-            formattedRdLocation = rdLocation.map(function (coordinate) {
+            const formattedRdLocation = rdLocation.map(function (coordinate) {
                 return coordinate.toFixed(2);
             }).join(', ');
 

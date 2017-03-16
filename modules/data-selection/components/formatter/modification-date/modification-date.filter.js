@@ -8,12 +8,12 @@
     function modificationDateFilter () {
         return function (input) {
             if (angular.isObject(input)) {
-                let created = input.metadata_created;
-                let modified = input.metadata_modified;
-                let compact = input.metadata_compact;
+                const created = input.metadata_created;
+                const modified = input.metadata_modified;
+                const compact = input.metadata_compact;
 
-                let last = new Date(modified || created),
-                    ago = new Date() - last,
+                const last = new Date(modified || created);
+                let ago = new Date() - last,
                     agoCount = ago,
                     agoDuration = 'milliseconden';
                 [

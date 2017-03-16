@@ -8,7 +8,7 @@
     environmentFactory.$inject = ['$location'];
 
     function environmentFactory ($location) {
-        let config = {};
+        const config = {};
 
         switch ($location.host()) {
             case 'atlas.amsterdam.nl':

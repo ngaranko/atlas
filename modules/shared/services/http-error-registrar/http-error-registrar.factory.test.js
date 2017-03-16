@@ -1,19 +1,19 @@
 describe('The http error registrar', function () {
+    const httpStatus = {
+        SERVER_ERROR: 'SERVER_ERROR',
+        NOT_FOUND_ERROR: 'NOT_FOUND_ERROR',
+        registerError: angular.noop
+    };
     let $httpBackend,
         $http,
         $rootScope,
-        httpStatus = {
-            SERVER_ERROR: 'SERVER_ERROR',
-            NOT_FOUND_ERROR: 'NOT_FOUND_ERROR',
-            registerError: angular.noop
-        },
         mockedData,
         onError,
         callbackCalled;
 
     beforeEach(function () {
         onError = null;
-        let window = {
+        const window = {
             addEventListener: function (type, func) {
                 if (type === 'error') {
                     onError = func;
