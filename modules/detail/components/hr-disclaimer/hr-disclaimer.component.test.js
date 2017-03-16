@@ -28,26 +28,26 @@ describe('The hr-disclaimer component', function () {
     }
 
     it('is shown in a warning panel that can be closed', function () {
-        let component = getComponent();
+        const component = getComponent();
 
         expect(component.find('dp-panel').attr('type')).toBe('warning');
         expect(component.find('dp-panel').attr('can-close')).toBe('true');
     });
 
     it('has a Disclaimer header', function () {
-        let component = getComponent();
+        const component = getComponent();
 
         expect(component.find('dp-panel h3').text()).toBe('Disclaimer');
     });
 
     it('contains paragraphs that hold the contents of the disclaimer', function () {
-        let component = getComponent();
+        const component = getComponent();
 
         expect(component.find('dp-panel p').length > 0).toBe(true);
     });
 
     it('contains a link to the KvK zoek page', function () {
-        let component = getComponent();
+        const component = getComponent();
 
         expect(component.find('dp-panel a').attr('href')).toBe('https://www.kvk.nl/zoeken/');
     });

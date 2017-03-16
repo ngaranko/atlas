@@ -10,7 +10,7 @@
     DpApiErrorController.$inject = ['$scope', 'httpStatus'];
 
     function DpApiErrorController ($scope, httpStatus) {
-        let vm = this;
+        const vm = this;
 
         // Simply expose the http status as well
         vm.httpStatus = httpStatus.getStatus();

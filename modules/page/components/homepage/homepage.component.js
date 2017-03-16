@@ -12,7 +12,7 @@
     DpHomepageController.$inject = ['HOMEPAGE_CONFIG'];
 
     function DpHomepageController (HOMEPAGE_CONFIG) {
-        let vm = this;
+        const vm = this;
 
         vm.fetchStraatbeeldPayload = angular.merge(
             {},

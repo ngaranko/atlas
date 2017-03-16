@@ -16,7 +16,7 @@
     function DpSearchResultsListController () {
         const STATUS_OBJECT_GEVORMD = 18;
 
-        let vm = this;
+        const vm = this;
 
         vm.showSubtype = function (categorySlug, link) {
             return angular.isString(link.subtype) &&

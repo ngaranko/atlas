@@ -28,7 +28,7 @@
             if (filterSlug === GEOMETRY_FILTER) {
                 removeGeometryFilter();
             } else {
-                let filters = angular.copy(vm.textFilters);
+                const filters = angular.copy(vm.textFilters);
 
                 delete filters[filterSlug];
 
@@ -50,7 +50,7 @@
             }
 
             if (angular.isObject(vm.availableFilters)) {
-                let textFilters = vm.availableFilters
+                const textFilters = vm.availableFilters
                     .filter(filter => angular.isString(vm.textFilters[filter.slug]))
                     .map(filter => {
                         return {

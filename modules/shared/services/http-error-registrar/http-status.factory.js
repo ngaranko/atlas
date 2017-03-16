@@ -13,7 +13,7 @@
                 registerError
             });
 
-        let currentStatus = {
+        const currentStatus = {
             hasErrors: false
         };
 

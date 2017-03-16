@@ -15,7 +15,7 @@
     DpToggleViewButtonController.$inject = ['$scope'];
 
     function DpToggleViewButtonController ($scope) {
-        let vm = this;
+        const vm = this;
 
         $scope.$watch('vm.view', function () {
             if (vm.view === 'TABLE') {
