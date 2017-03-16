@@ -26,7 +26,8 @@
 
             scope.activeSuggestionIndex = -1;
             scope.originalQuery = scope.query;
-            scope.placeholder = scope.placeholder || 'Zoek op adres of postcode, kadastrale aanduiding, etc.';
+            scope.placeholder = scope.placeholder || 'Zoek data op adres, ' +
+                'postcode, kadastrale aanduiding, etc. Of datasets op trefwoord.';
 
             scope.formSubmit = function (event) {
                 event.preventDefault();
