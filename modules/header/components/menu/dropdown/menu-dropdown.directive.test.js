@@ -73,7 +73,7 @@ describe('The dp-menu-dropdown directive', () => {
         // It should be openend
         expect(directive.find('.qa-menu__dropdown').length).toBe(1);
         expect(directive.find('dp-terugmelden-button').length).toBe(1);
-        expect(directive.find('dp-link').length).toBe(3);
+        expect(directive.find('dp-link').length).toBe(1);
 
         // Click it again
         directive.find('.qa-menu__toggle .qa-menu__link').eq(0).click();
@@ -93,7 +93,7 @@ describe('The dp-menu-dropdown directive', () => {
         // It should be openend
         expect(directive.find('.qa-menu__dropdown').length).toBe(1);
         expect(directive.find('dp-terugmelden-button').length).toBe(1);
-        expect(directive.find('dp-link').length).toBe(3);
+        expect(directive.find('dp-link').length).toBe(1);
 
         // Click it again
         directive.find('.qa-menu__title').eq(0).click();

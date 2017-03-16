@@ -72,12 +72,9 @@ describe('The dp-logo component', () => {
             expect(component.find('.qa-logo')[0].getAttribute('class')).toContain('c-logo--tall');
         });
 
-        it('has the logo 2 wide', () => {
-            expect(component.find('.qa-logo__image-col')[0].getAttribute('class')).toContain('u-col-sm--2');
-        });
-
-        it('has the title 10 wide', () => {
-            expect(component.find('.qa-logo__title-col')[0].getAttribute('class')).toContain('u-col-sm--10');
+        it('does not use grid layout', () => {
+            expect(component.find('.qa-logo__image-col')[0].getAttribute('class')).not.toContain('u-col-sm--4');
+            expect(component.find('.qa-logo__title-col')[0].getAttribute('class')).not.toContain('u-col-sm--8');
         });
 
         it('shows the tall logo image', () => {
