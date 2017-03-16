@@ -16,7 +16,7 @@
     DpUserContentWidgetController.$inject = ['googleSheet', 'GOOGLE_SHEET_CMS'];
 
     function DpUserContentWidgetController (googleSheet, GOOGLE_SHEET_CMS) {
-        let vm = this;
+        const vm = this;
 
         vm.feed = null;
         vm.entries = [];
