@@ -51,7 +51,7 @@
             ];
         }, fetchData, true);
 
-        vm.showTabHeader = () => vm.view === 'CARDS' && Object.keys(vm.state.filters).length === 0;
+        vm.showTabHeader = () => vm.view === 'CARDS' && vm.state.query && vm.state.query.trim();
 
         vm.tabHeader = new TabHeader('data-datasets');
         vm.tabHeader.activeTab = vm.tabHeader.getTab('datasets');

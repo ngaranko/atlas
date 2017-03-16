@@ -8,7 +8,8 @@
                 state: '<',
                 availableFilters: '<',
                 numberOfRecords: '<',
-                isLoading: '<'
+                isLoading: '<',
+                showHeader: '<'
             },
             templateUrl: 'modules/data-selection/components/header/header.html',
             controllerAs: 'vm',
@@ -30,7 +31,6 @@
         function setHeader () {
             let isListView = vm.state.view === 'LIST';
 
-            vm.showHeader = isListView || !vm.isLoading;
             vm.showButtons = vm.state.dataset !== 'catalogus';
             vm.showTitle = isListView || (!vm.isLoading && vm.numberOfRecords);
             vm.showSearchQuery = angular.isString(vm.state.query);
