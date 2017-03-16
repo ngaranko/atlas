@@ -41,7 +41,7 @@
                 pir: {
                     url: 'maps/handelsregister',
                     label_short: 'Productie, install., repar.',
-                    label_long: 'Productie installatie reparatie',
+                    label_long: 'Productie, installatie, reparatie',
                     layers: ['productie_installatie_reparatie', 'productie_installatie_reparatie_label'],
                     minZoom: 11,
                     maxZoom: 16,
@@ -82,7 +82,7 @@
                 itc: {
                     url: 'maps/handelsregister',
                     label_short: 'Inform., telecom.',
-                    label_long: 'Informatie telecommunicatie',
+                    label_long: 'Informatie, telecommunicatie',
                     layers: ['telecommunicatie', 'telecommunicatie_label'],
                     minZoom: 11,
                     maxZoom: 16,
@@ -91,8 +91,8 @@
                 },
                 fdvrog: {
                     url: 'maps/handelsregister',
-                    label_short: 'Financ. dienstverl., verhuur',
-                    label_long: 'financiële dienstverlening verhuur van roerend en onroerend goed',
+                    label_short: 'Financiële dienstverl., verhuur',
+                    label_long: 'Financiële dienstverlening, verhuur van roerend en onroerend goed',
                     layers: ['financiele_dienstverlening_verhuur', 'financiele_dienstverlening_verhuur_label'],
                     minZoom: 11,
                     maxZoom: 16,
@@ -404,7 +404,7 @@
                 },
                 exgg: {
                     url: 'maps/bommenkaart',
-                    label_short: 'Explosieven - Gevrijwaarde gebieden',
+                    label_short: 'Explosieven - Gevrijw. geb.',
                     label_long: 'Explosieven - Gevrijwaarde gebieden',
                     layers: ['gevrijwaarde_gebieden'],
                     minZoom: 8,
@@ -414,8 +414,8 @@
                 },
                 exuo: {
                     url: 'maps/bommenkaart',
-                    label_short: 'Explosieven - Uitgevoerde onderz.',
-                    label_long: 'Explosieven - Reeds uitgevoerde CE onderzoeken',
+                    label_short: 'Explosieven - Uitgev. onderz.',
+                    label_long: 'Explosieven - Uitgevoerde CE-onderzoeken',
                     layers: ['uitgevoerde_CE_onderzoeken'],
                     minZoom: 8,
                     maxZoom: 16,
@@ -476,7 +476,7 @@
                 mvbr: {
                     url: 'maps/externeveiligheid',
                     label_short: 'Bedrijf - bronnen en risicozones',
-                    label_long: 'Bedrijf - bronnen en risicozones',
+                    label_long: 'Bedrijf - Bronnen en risicozones',
                     layers: ['overigerisicobedrijven'],
                     minZoom: 8,
                     maxZoom: 16,
@@ -762,10 +762,10 @@
                         'mbgm',
                         'mbgwm',
                         'mbaig',
-                        'exvg',
                         'exin',
-                        'exuo',
-                        'exgg'
+                        'exvg',
+                        'exgg',
+                        'exuo'
                     ]
                 }, {
                     heading: 'Milieu: externe veiligheid',
