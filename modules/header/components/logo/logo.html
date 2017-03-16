@@ -1,20 +1,14 @@
 <div class="c-logo qa-logo"
      ng-class="'c-logo--' + vm.size">
     <dp-link type="SHOW_HOME" class-name="c-logo__link" hover-text="Naar voorpagina Dataportaal">
-        <div class="qa-logo__image-col"
-             ng-class="{
-                 'u-col-sm--2': vm.isTall,
-                 'u-col-sm--4': vm.isShort
-             }">
+        <div class="c-logo__image-col qa-logo__image-col"
+             ng-class="{ 'u-col-sm--4': vm.isShort }">
             <img class="c-logo__image qa-logo__image"
                  ng-src="assets/images/logo-{{vm.size}}.svg"
                  alt="Logo Gemeente Amsterdam">
         </div>
-        <div class="qa-logo__title-col"
-             ng-class="{
-                 'u-col-sm--10': vm.isTall,
-                 'u-col-sm--8': vm.isShort
-             }">
+        <div class="c-logo__title-col qa-logo__title-col"
+             ng-class="{ 'u-col-sm--8': vm.isShort }">
             <span class="c-logo__title">data.amsterdam.nl</span>
         </div>
     </dp-link>

@@ -1,3 +1,9 @@
+$image-tall-offset-top: 19px;
+$image-tall-offset-right: 28px;
+$image-tall-offset-left: -30px;
+$image-tall-width: 85px;
+$image-tall-height: 68px;
+
 .c-logo {
   @include font-size($xl-header-font);
 
@@ -23,11 +29,15 @@
 }
 
 .c-logo--tall {
+  .c-logo__title-col {
+    margin-left: $image-tall-offset-left + $image-tall-width + $image-tall-offset-right;
+  }
+
   .c-logo__image {
-    top: 19px;
-    left: -30px;
-    width: 85px;
-    height: 68px;
+    top: $image-tall-offset-top;
+    left: $image-tall-offset-left;
+    width: $image-tall-width;
+    height: $image-tall-height;
   }
 
   .c-logo__title {
