@@ -115,23 +115,19 @@ describe('The dp-data-selection-header', () => {
     });
 
     function getComponent (mockedInput) {
-        let compiledComponent,
-            element,
-            scope;
-
-        element = document.createElement('dp-data-selection-header');
+        const element = document.createElement('dp-data-selection-header');
         element.setAttribute('state', 'state');
         element.setAttribute('available-filters', 'availableFilters');
         element.setAttribute('number-of-records', 'numberOfRecords');
         element.setAttribute('is-loading', 'isLoading');
 
-        scope = $rootScope.$new();
+        const scope = $rootScope.$new();
         scope.state = mockedInput.state;
         scope.availableFilters = {};
         scope.numberOfRecords = mockedInput.numberOfRecords;
         scope.isLoading = mockedInput.isLoading;
 
-        compiledComponent = $compile(element)(scope);
+        const compiledComponent = $compile(element)(scope);
         scope.$apply();
 
         return compiledComponent;
@@ -403,7 +399,7 @@ describe('The dp-data-selection-header', () => {
     });
 
     it('the active filters are only shown when the loading is finished and at least one filter is active', () => {
-        let mockedInput = {
+        const mockedInput = {
             TABLE: mockedInputTable,
             LIST: mockedInputList,
             CARDS: mockedInputCards

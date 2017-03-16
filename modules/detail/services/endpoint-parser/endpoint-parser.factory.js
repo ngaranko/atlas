@@ -33,7 +33,7 @@
             anchor.href = endpoint;
 
             // Transform http://www.api-root.com/this/that/123 to ['this', 'that', '123']
-            let uriParts = anchor.pathname
+            const uriParts = anchor.pathname
                     .replace(/^\//, '') // Strip leading slash
                     .replace(/\/$/, '') // Strip trailing slash
                     .split('/');

@@ -20,7 +20,7 @@
                     // truncate srting but leave space for ellipses
                     truncated = truncated.substr(0, maxLength - ELLIPSES.length);
                     // truncate on last space(s)
-                    let lastSpace = truncated.lastIndexOf(' ');
+                    const lastSpace = truncated.lastIndexOf(' ');
                     if (lastSpace >= 0) {
                         truncated = truncated
                             .substr(0, lastSpace)

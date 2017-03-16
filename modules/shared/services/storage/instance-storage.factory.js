@@ -30,7 +30,7 @@
              * @returns {String} value
              */
             getItem (key) {
-                let value = this._keys[key];
+                const value = this._keys[key];
                 return angular.isDefined(value) ? value : null;
             }
             /**

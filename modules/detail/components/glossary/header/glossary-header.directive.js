@@ -26,7 +26,7 @@
     DpGlossaryHeaderController.$inject = ['$scope', '$sce', 'GLOSSARY'];
 
     function DpGlossaryHeaderController ($scope, $sce, GLOSSARY) {
-        let vm = this;
+        const vm = this;
 
         vm.isVisible = {
             help: false,

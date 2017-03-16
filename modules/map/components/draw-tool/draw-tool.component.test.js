@@ -50,17 +50,17 @@ describe('The draw tool component', function () {
     });
 
     function getComponent () {
-        let element = document.createElement('dp-draw-tool');
+        const element = document.createElement('dp-draw-tool');
         element.setAttribute('state', 'state');
         element.setAttribute('polygon', 'polygon');
         element.setAttribute('map', 'map');
 
-        let scope = $rootScope.$new();
+        const scope = $rootScope.$new();
         scope.state = state;
         scope.polygon = polygon;
         scope.map = map;
 
-        let component = $compile(element)(scope);
+        const component = $compile(element)(scope);
         scope.$apply();
 
         return component;
@@ -230,7 +230,7 @@ describe('The draw tool component', function () {
 
         it('Dispatches a MAP_START_DRAWING action when the drawing or editing a polygon starts', function () {
             getComponent();
-            let drawingMode = 'aap';
+            const drawingMode = 'aap';
             onDrawingMode(drawingMode);
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.MAP_START_DRAWING
@@ -239,7 +239,7 @@ describe('The draw tool component', function () {
 
         it('Does not dispatch a MAP_START_DRAWING action when the drawing or editing has finished', function () {
             getComponent();
-            let drawingMode = null;
+            const drawingMode = null;
             onDrawingMode(drawingMode);
             expect(store.dispatch).not.toHaveBeenCalled();
         });
