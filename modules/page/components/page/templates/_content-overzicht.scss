@@ -1,13 +1,13 @@
 .c-user-content-overview {
   .c-user-content-overview--left {
     @include font-size-responsive($m-font);
-    max-width:799px;
+    max-width: 799px;
   }
 
   .c-user-content-overview--right {
     position: fixed;
-    font-size: $s-font-size;
     margin-right: 60px;
+    font-size: $s-font-size;
   }
 
   .c-user-content-overview__toc-header {
@@ -28,11 +28,11 @@
   }
 
   .c-user-content-overview__item-header {
-    margin-bottom: .5 * $base-whitespace;
+    margin-bottom: $base-whitespace;
   }
 
   .c-user-content-overview__event-day {
-    margin-bottom: 0.5 * $base-whitespace;
+    margin-bottom: .5 * $base-whitespace;
   }
 
   .c-user-content-overview__event-header {

@@ -1,7 +1,7 @@
 .s-cms-page-content {
   h2 {
-    margin-bottom: 2 * $base-whitespace;
     margin-top: 40px;
+    margin-bottom: $base-whitespace;
 
     &:first-child {
       margin-top: 0;
@@ -16,9 +16,19 @@
 
   li,
   p {
+    margin-bottom: 1.6 * $base-whitespace;
     font-size: 16px;
     line-height: 22px;
-    margin-bottom: 1.6 * $base-whitespace;
+  }
+
+  blockquote {
+    padding: 5px 16px;
+    border-left: 2px solid $secondary-gray20;
+    font-style: italic;
+
+    p {
+      margin-bottom: 0;
+    }
   }
 
   a {
