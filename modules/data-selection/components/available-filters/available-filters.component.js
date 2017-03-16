@@ -7,8 +7,7 @@
             bindings: {
                 dataset: '@',
                 availableFilters: '=',
-                activeFilters: '=',
-                isLoading: '='
+                activeFilters: '='
             },
             templateUrl: 'modules/data-selection/components/available-filters/available-filters.html',
             controller: DpDataSelectionAvailableFiltersController,
