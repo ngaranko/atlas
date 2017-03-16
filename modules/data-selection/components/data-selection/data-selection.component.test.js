@@ -36,7 +36,7 @@ describe('The dp-data-selection component', function () {
             function ($provide) {
                 $provide.constant('DATA_SELECTION_CONFIG', {
                     options: {
-                        MAX_NUMBER_OF_CLUSTERED_MARKERS: 500
+                        MAX_NUMBER_OF_CLUSTERED_MARKERS: 1000
                     },
                     datasets: {
                         zwembaden: {
@@ -132,7 +132,7 @@ describe('The dp-data-selection component', function () {
         return component;
     }
 
-    it('retieves the available-filters and table data and passes it to it\'s child directives', function () {
+    it('retrieves the available-filters and table data and passes it to it\'s child directives', function () {
         const component = getComponent(mockedState);
         const scope = component.isolateScope();
 
@@ -159,17 +159,18 @@ describe('The dp-data-selection component', function () {
         expect(scope.vm.numberOfRecords).toBe(77);
     });
 
-    it('hides the tab header in CARDS view when any filters are active', function () {
+    it('hides the tab header in CARDS view when no search query is provided', function () {
         mockedState.view = 'CARDS';
+        mockedState.query = '';
         const component = getComponent(mockedState);
         const scope = component.isolateScope();
         expect(scope.vm.showTabHeader()).toBe(false);
         expect(component.find('dp-tab-header').length).toBe(0);
     });
 
-    it('shows the tab header in CARDS view when no filters are active', function () {
+    it('shows the tab header in CARDS view when a search query is provided', function () {
         mockedState.view = 'CARDS';
-        mockedState.filters = {};
+        mockedState.query = 'foo';
         const component = getComponent(mockedState);
         const scope = component.isolateScope();
         expect(scope.vm.showTabHeader()).toBe(true);
@@ -252,8 +253,8 @@ describe('The dp-data-selection component', function () {
         it('sends an empty Array if there are too many records (> MAX_NUMBER_OF_CLUSTERED_MARKERS)', function () {
             mockedState.view = 'LIST';
 
-            // It should still send data with 10000 records
-            mockedApiPreviewData.numberOfRecords = 500;
+            // It should still send data with less than MAX_NUMBER_OF_CLUSTERED_MARKERS
+            mockedApiPreviewData.numberOfRecords = 1000;
 
             getComponent(mockedState);
 
@@ -267,7 +268,7 @@ describe('The dp-data-selection component', function () {
             });
 
             // It should send an empty Array with more than MAX_NUMBER_OF_CLUSTERED_MARKERS
-            mockedApiPreviewData.numberOfRecords = 501;
+            mockedApiPreviewData.numberOfRecords = 1001;
 
             getComponent(mockedState);
 
@@ -321,5 +322,48 @@ describe('The dp-data-selection component', function () {
             component = getComponent(mockedState);
             expect(component.find('.qa-message-max-pages').length).toBe(1);
         });
+    });
+
+    describe('the clustered marker message', () => {
+        it('is potentially shown on the LIST view', () => {
+            let component;
+            mockedState.view = 'LIST';
+
+            // // Don't show the message
+            mockedApiPreviewData.numberOfRecords = 1000;
+            component = getComponent(mockedState);
+            expect(component.find('.qa-message-clustered-markers').length).toBe(0);
+
+            // // Show the message
+            mockedApiPreviewData.numberOfRecords = 1001;
+            component = getComponent(mockedState);
+            expect(component.find('.qa-message-clustered-markers').length).toBe(1);
+        });
+
+        it('is not shown on the CARDS view', () => {
+            mockedState.view = 'CARDS';
+            mockedApiPreviewData.numberOfRecords = 1001;
+            const component = getComponent(mockedState);
+            expect(component.find('.qa-message-clustered-markers').length).toBe(0);
+        });
+
+        it('is not shown on the TABLE view', () => {
+            mockedState.view = 'TABLE';
+            mockedApiPreviewData.numberOfRecords = 1001;
+            const component = getComponent(mockedState);
+            expect(component.find('.qa-message-clustered-markers').length).toBe(0);
+        });
+    });
+
+    it('the messages about MAX_PAGES and MAX_CLUSTERED_MARKERS use DATA_SELECTION_CONFIG', () => {
+        mockedState.page = 6;
+        mockedApiPreviewData.numberOfRecords = 1001;
+        mockedState.view = 'LIST'; // required to even show cluster message
+
+        const component = getComponent(mockedState);
+
+        // Where 5 and 1000 are part of DATA_SELECTION_CONFIG instead of some hardcoded copied value
+        expect(component.find('.qa-message-max-pages').text()).toContain('de eerste 5 pagina\'s');
+        expect(component.find('.qa-message-clustered-markers').text()).toContain('niet meer dan 1.000 resultaten');
     });
 });

@@ -19,9 +19,6 @@ describe('The dp-data-selection-header', () => {
             },
             function ($provide) {
                 $provide.constant('DATA_SELECTION_CONFIG', {
-                    options: {
-                        MAX_NUMBER_OF_CLUSTERED_MARKERS: 1000
-                    },
                     datasets: {
                         bag: {
                             MAX_AVAILABLE_PAGES: 50,
@@ -150,16 +147,16 @@ describe('The dp-data-selection-header', () => {
             expect(component.find('.qa-title').text().trim()).toBe('BAG Adressen (1.234)');
         });
 
-        it('in CARDS view shows the number of results followed by the word \'dataset(s)\'', () => {
+        it('in CARDS view shows the number of results followed using \'Datasets(number)\'', () => {
             // Singular
             mockedInputCards.numberOfRecords = 1;
             component = getComponent(mockedInputCards);
-            expect(component.find('.qa-title').text().trim()).toBe('1 dataset');
+            expect(component.find('.qa-title').text().trim()).toBe('Datasets (1)');
 
             // Plural, with thousand separator
             mockedInputCards.numberOfRecords = 1234;
             component = getComponent(mockedInputCards);
-            expect(component.find('.qa-title').text().trim()).toBe('1.234 datasets');
+            expect(component.find('.qa-title').text().trim()).toBe('Datasets (1.234)');
         });
 
         it('in LIST view shows just the string \'Resultaten\'', () => {
@@ -232,24 +229,6 @@ describe('The dp-data-selection-header', () => {
 
                 expect(component.find('.qa-tabs').length).toBe(0);
             });
-
-            it('potentially shows the max pages message', () => {
-                // Don't show the message
-                mockedViewInput.state.page = 50;
-                component = getComponent(mockedViewInput);
-                expect(component.find('.qa-message-max-pages').length).toBe(0);
-
-                // Show the message
-                mockedViewInput.state.page = 51;
-                component = getComponent(mockedViewInput);
-                expect(component.find('.qa-message-max-pages').length).toBe(1);
-            });
-
-            it('doesn\'t show the clustered markers message', () => {
-                mockedViewInput.numberOfRecords = 1001;
-                component = getComponent(mockedViewInput);
-                expect(component.find('.qa-message-clustered-markers').length).toBe(0);
-            });
         });
     });
 
@@ -280,30 +259,6 @@ describe('The dp-data-selection-header', () => {
             // Make sure it isn't shown as a h2 as well
             expect(component.find('h2.qa-no-results-found').length).toBe(0);
         });
-
-        it('potentially shows the max pages message', () => {
-            // Don't show the message
-            mockedInputList.state.page = 50;
-            component = getComponent(mockedInputList);
-            expect(component.find('.qa-message-max-pages').length).toBe(0);
-
-            // Show the message
-            mockedInputList.state.page = 51;
-            component = getComponent(mockedInputList);
-            expect(component.find('.qa-message-max-pages').length).toBe(1);
-        });
-
-        it('potentially shows the clustered markers message', () => {
-            // Don't show the message
-            mockedInputList.numberOfRecords = 1000;
-            component = getComponent(mockedInputList);
-            expect(component.find('.qa-message-clustered-markers').length).toBe(0);
-
-            // Show the message
-            mockedInputList.numberOfRecords = 1001;
-            component = getComponent(mockedInputList);
-            expect(component.find('.qa-message-clustered-markers').length).toBe(1);
-        });
     });
 
     it('the active filters are only shown when at least one filter is active', () => {
@@ -328,17 +283,6 @@ describe('The dp-data-selection-header', () => {
             component = getComponent(mockedInput[viewName]);
             expect(component.find('.qa-active-filters').length).toBe(0);
         });
-    });
-
-    it('the messages about MAX_PAGES and MAX_CLUSTERED_MARKERS use DATA_SELECTION_CONFIG', () => {
-        mockedInputList.state.page = 51;
-        mockedInputList.numberOfRecords = 1001;
-
-        component = getComponent(mockedInputList);
-
-        // Where 50 and 1000 are part of DATA_SELECTION_CONFIG instead of some hardcoded copied value
-        expect(component.find('.qa-message-max-pages').text()).toContain('de eerste 50 pagina\'s');
-        expect(component.find('.qa-message-clustered-markers').text()).toContain('niet meer dan 1.000 resultaten');
     });
 
     describe('the tabs in LIST view', () => {
