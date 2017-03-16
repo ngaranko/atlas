@@ -9,9 +9,9 @@
             controllerAs: 'vm'
         });
 
-    DpDashboardController.$inject = ['$scope', 'store', 'dashboardColumns'];
+    DpDashboardController.$inject = ['$scope', 'store', 'dashboardColumns', 'HEADER'];
 
-    function DpDashboardController ($scope, store, dashboardColumns) {
+    function DpDashboardController ($scope, store, dashboardColumns, HEADER) {
         let vm = this;
 
         vm.store = store;
@@ -29,7 +29,7 @@
 
             vm.hasMaxWidth = vm.visibility.page;
             vm.isHomePage = vm.visibility.page && state.page && state.page.name === 'home';
-            vm.headerSize = vm.isHomePage ? 'tall' : 'short';
+            vm.headerSize = vm.isHomePage ? HEADER.SIZE.TALL : HEADER.SIZE.SHORT;
 
             vm.isPrintMode = state.atlas.isPrintMode;
 

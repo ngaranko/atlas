@@ -1,8 +1,5 @@
 <div class="c-logo qa-logo"
-     ng-class="{
-         'c-logo--tall': vm.isTall,
-         'c-logo--short': vm.isShort
-     }">
+     ng-class="'c-logo--' + vm.size">
     <dp-link type="SHOW_HOME" class-name="c-logo__link" hover-text="Naar voorpagina Dataportaal">
         <div class="qa-logo__image-col"
              ng-class="{
@@ -10,7 +7,7 @@
                  'u-col-sm--4': vm.isShort
              }">
             <img class="c-logo__image qa-logo__image"
-                 ng-src="{{vm.logo}}"
+                 ng-src="assets/images/logo-{{vm.size}}.svg"
                  alt="Logo Gemeente Amsterdam">
         </div>
         <div class="qa-logo__title-col"

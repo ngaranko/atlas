@@ -1,8 +1,5 @@
 <nav class="c-menu qa-menu"
-     ng-class="{
-         'c-menu--tall': vm.isTall,
-         'c-menu--short': vm.isShort
-     }">
+     ng-class="'c-menu--' + vm.size">
     <dp-link ng-if="!vm.isLoggedIn()"
         type="SHOW_PAGE" payload="{name: 'login'}" class-name="c-menu__item c-menu__link qa-menu__login">
         Inloggen

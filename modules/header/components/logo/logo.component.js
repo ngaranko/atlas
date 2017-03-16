@@ -12,21 +12,16 @@
             controllerAs: 'vm'
         });
 
-    DpLogoController.$inject = ['$scope'];
+    DpLogoController.$inject = ['$scope', 'HEADER'];
 
-    function DpLogoController ($scope) {
+    function DpLogoController ($scope, HEADER) {
         let vm = this;
 
         $scope.$watch('vm.size', updateSize);
 
-        updateSize(vm.size);
-
         function updateSize (size) {
-            vm.size = size === 'tall' ? 'tall' : 'short';
-            vm.isTall = vm.size === 'tall';
-            vm.isShort = vm.size === 'short';
-            let logoSize = vm.isShort ? '-small' : '';
-            vm.logo = `assets/images/logo${logoSize}.svg`;
+            vm.isTall = vm.size === HEADER.SIZE.TALL;
+            vm.isShort = vm.size === HEADER.SIZE.SHORT;
         }
     }
 })();

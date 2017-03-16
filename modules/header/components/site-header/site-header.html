@@ -1,8 +1,5 @@
 <header class="c-site-header u-hide-on-print qa-site-header"
-        ng-class="{
-            'c-site-header--tall': vm.size === 'tall',
-            'c-site-header--short': vm.size === 'short'
-        }">
+        ng-class="'c-site-header--' + vm.size">
     <div class="u-grid">
         <div class="u-row">
             <div class="qa-site-header__logo-col" ng-class="{

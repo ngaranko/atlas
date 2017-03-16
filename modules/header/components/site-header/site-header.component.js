@@ -14,20 +14,17 @@
             controllerAs: 'vm'
         });
 
-    DpSiteHeaderController.$inject = ['$scope'];
+    DpSiteHeaderController.$inject = ['$scope', 'HEADER'];
 
-    function DpSiteHeaderController ($scope) {
+    function DpSiteHeaderController ($scope, HEADER) {
         let vm = this;
 
         $scope.$watch('vm.size', updateSize);
 
-        updateSize(vm.size);
-
         function updateSize (size) {
-            vm.size = size === 'tall' ? 'tall' : 'short';
-            vm.menuSize = vm.size === 'tall' ? 'short' : 'tall';
-            vm.isTall = vm.size === 'tall';
-            vm.isShort = vm.size === 'short';
+            vm.menuSize = vm.size === HEADER.SIZE.TALL ? HEADER.SIZE.SHORT : HEADER.SIZE.TALL;
+            vm.isTall = vm.size === HEADER.SIZE.TALL;
+            vm.isShort = vm.size === HEADER.SIZE.SHORT;
         }
     }
 })();

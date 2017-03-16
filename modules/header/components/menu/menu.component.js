@@ -13,23 +13,13 @@
             controllerAs: 'vm'
         });
 
-    DpMenuController.$inject = ['$scope', 'user'];
+    DpMenuController.$inject = ['$scope', 'user', 'HEADER'];
 
-    function DpMenuController ($scope, user) {
+    function DpMenuController ($scope, user, HEADER) {
         var vm = this;
 
         vm.isLoggedIn = function () {
             return user.getStatus().isLoggedIn;
         };
-
-        $scope.$watch('vm.size', updateSize);
-
-        updateSize(vm.size);
-
-        function updateSize (size) {
-            vm.size = size === 'tall' ? 'tall' : 'short';
-            vm.isTall = vm.size === 'tall';
-            vm.isShort = vm.size === 'short';
-        }
     }
 })();

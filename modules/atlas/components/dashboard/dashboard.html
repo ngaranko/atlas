@@ -11,8 +11,8 @@
         <div ng-class="{ 'c-dashboard__max-width__inner': vm.hasMaxWidth }">
             <div ng-if="!vm.isPrintMode" class="qa-dashboard__header">
                 <dp-site-header size="vm.headerSize"
-                           has-print-button="header.hasPrintButton"
-                           query="{{header.query}}"></dp-site-header>
+                                has-print-button="header.hasPrintButton"
+                                query="{{header.query}}"></dp-site-header>
             </div>
             <div ng-if="vm.isPrintMode" class="qa-dashboard__print-header">
                 <dp-print-header></dp-print-header>

@@ -56,7 +56,7 @@ describe('The dp-logo component', () => {
         });
 
         it('shows the short logo image', () => {
-            expect(component.find('.qa-logo__image')[0].getAttribute('src')).toContain('logo-small.');
+            expect(component.find('.qa-logo__image')[0].getAttribute('src')).toContain('logo-short');
         });
     });
 
@@ -81,7 +81,7 @@ describe('The dp-logo component', () => {
         });
 
         it('shows the tall logo image', () => {
-            expect(component.find('.qa-logo__image')[0].getAttribute('src')).toContain('logo.');
+            expect(component.find('.qa-logo__image')[0].getAttribute('src')).toContain('logo-tall');
         });
     });
 });
