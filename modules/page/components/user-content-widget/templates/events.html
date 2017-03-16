@@ -3,7 +3,7 @@
         <dp-link type="SHOW_PAGE"
                  payload="{name: 'content-detail', type: vm.type, item: entry.id}"
                  class-name="o-btn o-btn--link c-user-content-widget__events-link">
-                <dp-event date="entry.datum.date">
+                <dp-event date="entry.datum.date" is-compact="true">
                     <div class="c-user-content-widget__short s-cms-widget-content" ng-bind-html="entry.short.html"></div>
                 </dp-event>
         </dp-link>

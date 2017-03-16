@@ -5,7 +5,8 @@
         .module('dpPage')
         .component('dpEvent', {
             bindings: {
-                date: '<'
+                date: '<',
+                isCompact: '@'
             },
             transclude: true,
             templateUrl: 'modules/page/components/event/event.html',

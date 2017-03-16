@@ -31,9 +31,14 @@
     margin-bottom: .5 * $base-whitespace;
   }
 
+  .c-user-content-overview__event-day {
+    margin-bottom: 0.5 * $base-whitespace;
+  }
+
   .c-user-content-overview__event-header {
-    line-height: 24px;
     margin-bottom: 0;
+    font-size: 24px;
+    line-height: 24px;
   }
 
   .c-user-content-overview__events-item-contents {
