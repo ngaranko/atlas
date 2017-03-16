@@ -1,12 +1,12 @@
 .c-user-content-overview {
-  @include font-size-responsive($m-font);
-
   .c-user-content-overview--left {
+    @include font-size-responsive($m-font);
     max-width:799px;
   }
 
   .c-user-content-overview--right {
     position: fixed;
+    font-size: $s-font-size;
     margin-right: 60px;
   }
 
@@ -29,6 +29,11 @@
 
   .c-user-content-overview__item-header {
     margin-bottom: .5 * $base-whitespace;
+  }
+
+  .c-user-content-overview__event-header {
+    line-height: 24px;
+    margin-bottom: 0;
   }
 
   .c-user-content-overview__events-item-contents {

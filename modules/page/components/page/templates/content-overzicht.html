@@ -19,11 +19,12 @@
                     <div ng-if="vm.type === 'events'">
                         <dp-event date="entry.datum.date">
                             <div class="c-user-content-overview__events-item-contents c-user-content-detail">
-                                <h2 class="c-user-content-overview__item-header">{{entry.titel.value}}</h2>
-                                <div class="c-user-content-detail__event-when-where">
-                                    {{entry.datum.date | dpDate}} {{entry.tijd.value}}
-                                    |
-                                    {{entry.location.value}}
+                                <h2 class="c-user-content-overview__event-header">{{entry.titel.value}}</h2>
+                                <div ng-if="entry.tijd.value || entry.location.value" class="c-user-content-detail__event-when-where">
+                                    <span ng-if="entry.tijd.value && entry.location.value">
+                                        {{entry.tijd.value}} | {{entry.location.value}}
+                                    </span>
+                                    <span ng-if="!(entry.tijd.value && entry.location.value)">{{entry.tijd.value || entry.location.value}}</span>
                                 </div>
                                 <div class="s-cms-page-content" ng-bind-html="entry.contents.html"></div>
                             </div>
