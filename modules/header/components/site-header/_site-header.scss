@@ -53,8 +53,8 @@
   }
 
   .c-site-header__search {
-    margin-top: ($site-header-height - $site-header-search-form-height) / 2;
-    margin-bottom: ($site-header-height - $site-header-search-form-height) / 2;
+    margin: ($site-header-height - $site-header-search-form-height) / 2
+      $base-whitespace * 2;
   }
 
   .c-site-header__menu {
