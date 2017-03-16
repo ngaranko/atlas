@@ -68,7 +68,7 @@ describe('The dp-menu-dropdown directive', () => {
         const directive = getDirective(options);
 
         // Click it once
-        directive.find('.qa-menu__toggle').eq(0).click();
+        directive.find('.qa-menu__toggle .qa-menu__link').eq(0).click();
 
         // It should be openend
         expect(directive.find('.qa-menu__dropdown').length).toBe(1);
@@ -76,7 +76,7 @@ describe('The dp-menu-dropdown directive', () => {
         expect(directive.find('dp-link').length).toBe(3);
 
         // Click it again
-        directive.find('.qa-menu__toggle').eq(0).click();
+        directive.find('.qa-menu__toggle .qa-menu__link').eq(0).click();
 
         // It should be closed again
         expect(directive.find('.qa-menu__dropdown').length).toBe(0);
@@ -112,7 +112,7 @@ describe('The dp-menu-dropdown directive', () => {
             .not.toContain('c-menu__item--toggle--active');
 
         // When openend
-        directive.find('.qa-menu__toggle').eq(0).click();
+        directive.find('.qa-menu__toggle .qa-menu__link').eq(0).click();
 
         expect(directive.find('.qa-menu__toggle').attr('class'))
             .toContain('c-menu__item--toggle--active');
@@ -122,7 +122,7 @@ describe('The dp-menu-dropdown directive', () => {
         const directive = getDirective(options);
 
         // Open the dropdown
-        directive.find('.qa-menu__toggle').eq(0).click();
+        directive.find('.qa-menu__toggle .qa-menu__link').eq(0).click();
         expect(directive.find('.qa-menu__dropdown').length).toBe(1);
 
         // Click anywhere but the toggle button
@@ -137,11 +137,11 @@ describe('The dp-menu-dropdown directive', () => {
         expect(directive1.find('.qa-menu__dropdown').length).toBe(0);
         expect(directive2.find('.qa-menu__dropdown').length).toBe(0);
 
-        directive1.find('.qa-menu__toggle').eq(0).click();
+        directive1.find('.qa-menu__toggle .qa-menu__link').eq(0).click();
         expect(directive1.find('.qa-menu__dropdown').length).toBe(1);
         expect(directive2.find('.qa-menu__dropdown').length).toBe(0);
 
-        directive2.find('.qa-menu__toggle').eq(0).click();
+        directive2.find('.qa-menu__toggle .qa-menu__link').eq(0).click();
         expect(directive1.find('.qa-menu__dropdown').length).toBe(0);
         expect(directive2.find('.qa-menu__dropdown').length).toBe(1);
     });
@@ -151,13 +151,13 @@ describe('The dp-menu-dropdown directive', () => {
 
         // With a print button
         directive = getDirective(options);
-        directive.find('.qa-menu__toggle').eq(0).click();
+        directive.find('.qa-menu__toggle .qa-menu__link').eq(0).click();
         expect(directive.find('.qa-menu__dropdown').text()).toContain('Printen');
 
         // Without a print button
         options.hasPrintButton = false;
         directive = getDirective(options);
-        directive.find('.qa-menu__toggle').eq(0).click();
+        directive.find('.qa-menu__toggle .qa-menu__link').eq(0).click();
         expect(directive.find('.qa-menu__dropdown').text()).not.toContain('Printen');
     });
 
@@ -177,7 +177,7 @@ describe('The dp-menu-dropdown directive', () => {
         const directive = getDirective(options);
 
         // Click it once
-        directive.find('.qa-menu__toggle').eq(0).click();
+        directive.find('.qa-menu__toggle .qa-menu__link').eq(0).click();
 
         // It should be openend
         expect(directive.find('.qa-menu__dropdown').length).toBe(1);
@@ -186,7 +186,7 @@ describe('The dp-menu-dropdown directive', () => {
         expect(directive.find('dp-link').length).toBe(0);
 
         // Click it again
-        directive.find('.qa-menu__toggle').eq(0).click();
+        directive.find('.qa-menu__toggle .qa-menu__link').eq(0).click();
 
         // It should be closed again
         expect(directive.find('.qa-menu__dropdown').length).toBe(0);
@@ -200,19 +200,19 @@ describe('The dp-menu-dropdown directive', () => {
 
         // Align right
         directive = getDirective(options);
-        directive.find('.qa-menu__toggle').eq(0).click();
+        directive.find('.qa-menu__toggle .qa-menu__link').eq(0).click();
         expect(directive.find('.qa-menu__dropdown').attr('class')).toContain('c-menu__dropdown--align-right');
 
         // Align left
         options.align = 'left';
         directive = getDirective(options);
-        directive.find('.qa-menu__toggle').eq(0).click();
+        directive.find('.qa-menu__toggle .qa-menu__link').eq(0).click();
         expect(directive.find('.qa-menu__dropdown').attr('class')).toContain('c-menu__dropdown--align-left');
 
         // Align right by default
         delete options.align;
         directive = getDirective(options);
-        directive.find('.qa-menu__toggle').eq(0).click();
+        directive.find('.qa-menu__toggle .qa-menu__link').eq(0).click();
         expect(directive.find('.qa-menu__dropdown').attr('class')).toContain('c-menu__dropdown--align-right');
     });
 });

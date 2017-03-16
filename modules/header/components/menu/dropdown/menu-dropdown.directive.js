@@ -30,10 +30,12 @@
             };
 
             everywhere.bind('click', function (event) {
-                const button = element.find('button');
-                const span = button.find('span');
-                const isButtonClick = event.target === button[0] ||
-                    event.target === span[0];
+                const button = element.find('button'),
+                    span = button.find('span'),
+                    nav = element.find('nav'),
+                    isButtonClick = event.target === button[0] ||
+                        event.target === span[0] ||
+                        event.target === nav[0];
 
                 if (!isButtonClick) {
                     scope.isVisible = false;

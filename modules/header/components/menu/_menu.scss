@@ -27,25 +27,29 @@
 .c-menu__item--toggle {
   position: relative;
 
-  > span {
-    padding-right: $base-whitespace * .5;
+  .c-menu__link {
+    &::after {
+      display: inline-block;
+      transform: rotate(90deg); //Point downwards
+      content: "›";
+    }
   }
 
-  &::after {
-    display: inline-block;
-    transform: rotate(90deg); //Point downwards
-    content: "›";
+  .c-menu__title {
+    padding-right: $base-whitespace * .5;
   }
 
   &.c-menu__item--toggle--active {
     background-color: $secondary-gray10;
     box-shadow: -2px 2px $secondary-gray40;
 
-    &::after {
-      transform: rotate(-90deg); //Point upwards
+    .c-menu__link {
+      &::after {
+        transform: rotate(-90deg); //Point upwards
+      }
     }
 
-    > span {
+    .c-menu__title {
       border-bottom: 2px solid $primary-contrast;
     }
   }
