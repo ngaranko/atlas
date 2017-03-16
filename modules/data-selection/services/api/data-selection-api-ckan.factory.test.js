@@ -12,7 +12,7 @@ describe('The dataSelectionApiCkan factory', function () {
             {
                 api: {
                     getByUri: function (url) {
-                        let q = $q.defer();
+                        const q = $q.defer();
 
                         if (url === 'catalogus/reject') {
                             q.reject();

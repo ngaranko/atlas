@@ -65,6 +65,7 @@ module.exports = {
                 // }
             }
         ],
+        "prefer-const": "error",            // require const variable over let if not reassigned
         "no-unused-vars": "error",          // disallow unused variables
         "semi": ["error", "always"],        // require or disallow semicolons instead of ASI
         "comma-dangle": ["error", "never"], // require or disallow trailing commas

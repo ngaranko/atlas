@@ -12,7 +12,7 @@
     DpPointsAvailableController.$inject = ['$scope', 'drawTool', 'DRAW_TOOL_CONFIG'];
 
     function DpPointsAvailableController ($scope, drawTool, DRAW_TOOL_CONFIG) {
-        let vm = this;
+        const vm = this;
 
         $scope.$watch(() => drawTool.shape.markers.length, setPoints);
         $scope.$watch(drawTool.isEnabled, setPoints);

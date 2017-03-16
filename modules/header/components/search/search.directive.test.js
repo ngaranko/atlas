@@ -170,7 +170,7 @@ describe('The dp-search directive', function () {
     });
 
     it('optionally accepts a payload to include the query', function () {
-        let directive = getDirective('q', 'ph', 'FETCH_SEARCH_RESULTS_BY_QUERY', true, '{aap: "noot"}');
+        const directive = getDirective('q', 'ph', 'FETCH_SEARCH_RESULTS_BY_QUERY', true, '{aap: "noot"}');
 
         spyOn(store, 'dispatch');
 
@@ -222,7 +222,7 @@ describe('The dp-search directive', function () {
         expect(store.dispatch).not.toHaveBeenCalled();
 
         // Submit the form by enter key
-        let event = angular.element.Event('keydown');
+        const event = angular.element.Event('keydown');
         event.which = 13;
         directive.find('js-search-input').trigger(event);
         expect(store.dispatch).not.toHaveBeenCalled();

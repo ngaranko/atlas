@@ -4,7 +4,7 @@ describe('Straatbeeld reducers factory', function () {
         ACTIONS;
 
     beforeEach(function () {
-        let DEFAULT_STATE = {
+        const DEFAULT_STATE = {
             map: {
                 baseLayer: 'topografie',
                 overlays: [],
@@ -248,7 +248,7 @@ describe('Straatbeeld reducers factory', function () {
             var state = { straatbeeld: {} },
                 output;
 
-            let location = [52.001, 4.002];
+            const location = [52.001, 4.002];
             output = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION.id](state, location);
 
             expect(output.straatbeeld.id).toBeNull();
@@ -258,14 +258,14 @@ describe('Straatbeeld reducers factory', function () {
         });
 
         it('centers the map when layerselection or fullscreen map is active', function () {
-            let state = {
+            const state = {
                 'map': {
                     isFullscreen: true
                 },
                 layerSelection: {},
                 page: {}
             };
-            let location = [52.001, 4.002];
+            const location = [52.001, 4.002];
 
             var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION.id](state, location);
             expect(newState.map.viewCenter).toEqual(location);
@@ -275,7 +275,7 @@ describe('Straatbeeld reducers factory', function () {
             var state = {},
                 output;
 
-            let location = [52.001, 4.002];
+            const location = [52.001, 4.002];
             output = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION.id](state, location);
 
             expect(output.straatbeeld.id).toBeNull();
@@ -309,12 +309,10 @@ describe('Straatbeeld reducers factory', function () {
             // There is however a location available to denote that the straatbeeld origins from a location
             // The heading has already been calculated and saved on the first show of the straatbeeld
             // and should not be repeated
-            let newState;
-
             inputState.straatbeeld.location = [1, 2];
             delete inputState.straatbeeld.targetLocation;   // not saved in state, so not present on reload
             inputState.straatbeeld.heading = 'aap';
-            newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id](inputState, payload);
+            const newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id](inputState, payload);
             expect(newState.straatbeeld).toEqual(jasmine.objectContaining({
                 heading: inputState.straatbeeld.heading // keep original heading
             }));

@@ -88,14 +88,10 @@ describe('The dp-link component', function () {
     });
 
     function getComponent (className, hoverText, type, payload) {
-        let component,
-            element,
-            scope;
-
-        element = document.createElement('dp-link');
+        const element = document.createElement('dp-link');
         element.setAttribute('type', type);
 
-        scope = $rootScope.$new();
+        const scope = $rootScope.$new();
 
         if (angular.isDefined(payload)) {
             element.setAttribute('payload', 'payload');
@@ -112,7 +108,7 @@ describe('The dp-link component', function () {
 
         element.innerText = 'Transcluded text';
 
-        component = $compile(element)(scope);
+        const component = $compile(element)(scope);
         scope.$apply();
 
         return component;
@@ -133,19 +129,15 @@ describe('The dp-link component', function () {
     });
 
     it('shows a button when there is no isButton variabele present for this ACTION', function () {
-        let component;
-
         // When using ACTION_WITH_LINK
-        component = getComponent(null, null, 'ACTION_WITHOUT_BUTTON_CONFIG', mockedPayload);
+        const component = getComponent(null, null, 'ACTION_WITHOUT_BUTTON_CONFIG', mockedPayload);
         expect(component.find('a').length).toBe(1);
         expect(component.find('button').length).toBe(0);
     });
 
     it('a button is always used when linking to the current page, regardless of the ACTION configuration', function () {
-        let component;
-
         mockedCurrentPath = 'this=something-else';
-        component = getComponent(null, null, 'ACTION_WITH_LINK', mockedPayload);
+        const component = getComponent(null, null, 'ACTION_WITH_LINK', mockedPayload);
 
         expect(component.find('button').length).toBe(1);
         expect(component.find('a').length).toBe(0);
@@ -208,7 +200,7 @@ describe('The dp-link component', function () {
     });
 
     it('sets the href attribute for actions with a link', function () {
-        let component = getComponent(null, null, 'ACTION_WITH_LINK', mockedPayload);
+        const component = getComponent(null, null, 'ACTION_WITH_LINK', mockedPayload);
 
         expect(component.find('a').attr('href')).toBe(mockedTargetPath);
 
@@ -224,12 +216,9 @@ describe('The dp-link component', function () {
     });
 
     it('left clicking the link will NOT follow the href, it will trigger a regular store.dispatch', function () {
-        let component,
-            mockedClickEvent;
+        const mockedClickEvent = jasmine.createSpyObj('e', ['preventDefault']);
 
-        mockedClickEvent = jasmine.createSpyObj('e', ['preventDefault']);
-
-        component = getComponent(null, null, 'ACTION_WITH_LINK', mockedPayload);
+        const component = getComponent(null, null, 'ACTION_WITH_LINK', mockedPayload);
 
         // Testing $event.preventDefault
         component.isolateScope().vm.followLink(mockedClickEvent);

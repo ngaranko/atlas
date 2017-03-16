@@ -37,7 +37,7 @@
 
         $scope.$watch('vm.state.geometry', (markers) => {
             // when map geometry is empty, set it to polygon
-            let geometry = markers || vm.polygon.markers;
+            const geometry = markers || vm.polygon.markers;
             setPolygon(geometry);
         }, true);
 
@@ -51,7 +51,7 @@
         }
 
         function onFinishShape (polygon) {
-            let action = {
+            const action = {
                 type: ACTIONS.MAP_END_DRAWING
             };
             if (!angular.equals(polygon.markers, previousMarkers)) {

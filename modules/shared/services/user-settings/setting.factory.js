@@ -21,7 +21,7 @@
                 this._storage.setItem(this._key, value);
             }
             get value () {
-                let keyValue = this._storage.getItem(this._key);
+                const keyValue = this._storage.getItem(this._key);
                 return keyValue === null ? this._defaultValue : keyValue;
             }
             remove () {

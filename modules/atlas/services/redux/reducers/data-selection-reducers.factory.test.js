@@ -1,9 +1,8 @@
 describe('The dataSelectionReducers factory', function () {
     let dataSelectionReducers,
-        DEFAULT_STATE,
         ACTIONS;
 
-    DEFAULT_STATE = {
+    const DEFAULT_STATE = {
         map: {
             baseLayer: 'topografie',
             overlays: [],
@@ -52,24 +51,18 @@ describe('The dataSelectionReducers factory', function () {
         });
 
         it('makes the map small (!isFullscreen), relevant when navigating via dp-dropdown-menu', () => {
-            let mockedState,
-                output;
-
-            mockedState = angular.copy(DEFAULT_STATE);
+            const mockedState = angular.copy(DEFAULT_STATE);
             mockedState.map.isFullscreen = true;
 
-            output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
+            const output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
 
             expect(output.map.isFullscreen).toBe(false);
         });
 
         it('has a default table view', function () {
-            let mockedState,
-                output;
+            const mockedState = angular.copy(DEFAULT_STATE);
 
-            mockedState = angular.copy(DEFAULT_STATE);
-
-            output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
+            const output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
 
             expect(output.dataSelection).toEqual(jasmine.objectContaining({
                 view: 'TABLE'
@@ -77,13 +70,10 @@ describe('The dataSelectionReducers factory', function () {
         });
 
         it('can display in list view', function () {
-            let mockedState,
-                output;
-
-            mockedState = angular.copy(DEFAULT_STATE);
+            const mockedState = angular.copy(DEFAULT_STATE);
             payload.view = 'LIST';
 
-            output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
+            const output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
 
             expect(output.dataSelection).toEqual(jasmine.objectContaining({
                 view: 'LIST'
@@ -91,12 +81,9 @@ describe('The dataSelectionReducers factory', function () {
         });
 
         it('sets the dataSelection dataset, filters and page', function () {
-            let mockedState,
-                output;
+            const mockedState = angular.copy(DEFAULT_STATE);
 
-            mockedState = angular.copy(DEFAULT_STATE);
-
-            output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
+            const output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
 
             expect(output.dataSelection).toEqual(jasmine.objectContaining({
                 dataset: 'bag',
@@ -109,14 +96,11 @@ describe('The dataSelectionReducers factory', function () {
         });
 
         it('sets the dataSelection query', function () {
-            let mockedState,
-                output;
-
-            mockedState = angular.copy(DEFAULT_STATE);
+            const mockedState = angular.copy(DEFAULT_STATE);
 
             payload = 'zoek';
 
-            output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
+            const output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
 
             expect(output.dataSelection).toEqual(jasmine.objectContaining({
                 query: 'zoek'
@@ -124,12 +108,9 @@ describe('The dataSelectionReducers factory', function () {
         });
 
         it('makes the Array of markers empty', function () {
-            let mockedState,
-                output;
+            const mockedState = angular.copy(DEFAULT_STATE);
 
-            mockedState = angular.copy(DEFAULT_STATE);
-
-            output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
+            const output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
 
             expect(output.dataSelection).toEqual(jasmine.objectContaining({
                 markers: []
@@ -137,27 +118,21 @@ describe('The dataSelectionReducers factory', function () {
         });
 
         it('sets isLoading to true', function () {
-            let mockedState,
-                output;
+            const mockedState = angular.copy(DEFAULT_STATE);
 
-            mockedState = angular.copy(DEFAULT_STATE);
-
-            output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
+            const output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
 
             expect(output.dataSelection.isLoading).toBe(true);
         });
 
         it('disables search, page, detail and straatbeeld', function () {
-            let mockedState,
-                output;
-
-            mockedState = angular.copy(DEFAULT_STATE);
+            const mockedState = angular.copy(DEFAULT_STATE);
             mockedState.search = {some: 'object'};
             mockedState.page.name = 'somePage';
             mockedState.detail = {some: 'object'};
             mockedState.straatbeeld = {some: 'object'};
 
-            output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
+            const output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
 
             expect(output.search).toBeNull();
             expect(output.page.name).toBeNull();
@@ -166,10 +141,8 @@ describe('The dataSelectionReducers factory', function () {
         });
 
         it('preserves the isPrintMode variable', function () {
-            let mockedState,
-                output;
-
-            mockedState = angular.copy(DEFAULT_STATE);
+            let output;
+            const mockedState = angular.copy(DEFAULT_STATE);
 
             // With print mode enabled
             mockedState.atlas.isPrintMode = true;
@@ -227,7 +200,7 @@ describe('The dataSelectionReducers factory', function () {
 
     describe('SET_DATA_SELECTION_VIEW', function () {
         it('can set the view to list view', function () {
-            let output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW.id](
+            const output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW.id](
                 {dataSelection: {}},
                 'LIST'
             );
@@ -236,7 +209,7 @@ describe('The dataSelectionReducers factory', function () {
         });
 
         it('can set the view to table view', function () {
-            let output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW.id](
+            const output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW.id](
                 {dataSelection: {}},
                 'TABLE'
             );
@@ -245,7 +218,7 @@ describe('The dataSelectionReducers factory', function () {
         });
 
         it('refuses to set the view to an unknown view', function () {
-            let output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW.id](
+            const output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW.id](
                 {dataSelection: {}},
                 'aap'
             );
@@ -254,7 +227,7 @@ describe('The dataSelectionReducers factory', function () {
         });
 
         it('sets isLoading to true', function () {
-            let output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW.id](
+            const output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW.id](
                 {
                     dataSelection: {
                         isLoading: false
@@ -269,8 +242,7 @@ describe('The dataSelectionReducers factory', function () {
 
     describe('NAVIGATE_DATA_SELECTION', function () {
         it('updates the page', function () {
-            let mockedState = angular.copy(DEFAULT_STATE),
-                output;
+            const mockedState = angular.copy(DEFAULT_STATE);
 
             mockedState.dataSelection = {
                 dataset: 'bag',
@@ -281,7 +253,7 @@ describe('The dataSelectionReducers factory', function () {
                 page: 1
             };
 
-            output = dataSelectionReducers[ACTIONS.NAVIGATE_DATA_SELECTION.id](mockedState, 4);
+            const output = dataSelectionReducers[ACTIONS.NAVIGATE_DATA_SELECTION.id](mockedState, 4);
 
             expect(output.dataSelection).toEqual({
                 dataset: 'bag',
