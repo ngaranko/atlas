@@ -14,10 +14,7 @@
         };
 
         function getTitle (dataSelectionState) {
-            let output,
-                view,
-                variant,
-                criteria;
+            let output;
 
             const VIEW_NAMES = {
                 TABLE: 'Tabel',
@@ -25,9 +22,9 @@
                 CARDS: 'Dataset'
             };
 
-            view = VIEW_NAMES[dataSelectionState.view];
-            variant = DATA_SELECTION_CONFIG.datasets[dataSelectionState.dataset].TITLE;
-            criteria = DATA_SELECTION_CONFIG.datasets[dataSelectionState.dataset].FILTERS
+            const view = VIEW_NAMES[dataSelectionState.view];
+            const variant = DATA_SELECTION_CONFIG.datasets[dataSelectionState.dataset].TITLE;
+            const criteria = DATA_SELECTION_CONFIG.datasets[dataSelectionState.dataset].FILTERS
                 // Retrieve all the active filters
                 .filter(availableFilter => angular.isDefined(dataSelectionState.filters[availableFilter.slug]))
                 // Show the value of each active filter

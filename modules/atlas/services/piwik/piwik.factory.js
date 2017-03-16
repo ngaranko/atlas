@@ -13,10 +13,7 @@
         };
 
         function initialize () {
-            let urlBase = 'https://piwik.data.amsterdam.nl/',
-                doc,
-                piwik,
-                scripts;
+            const urlBase = 'https://piwik.data.amsterdam.nl/';
 
             $window._paq = $window._paq || [];
 
@@ -25,9 +22,9 @@
             $window._paq.push(['setTrackerUrl', urlBase + 'piwik.php']);
             $window._paq.push(['setSiteId', PIWIK_CONFIG[environment.NAME].SITE_ID]);
 
-            doc = $document[0];
-            piwik = doc.createElement('script');
-            scripts = doc.getElementsByTagName('script')[0];
+            const doc = $document[0];
+            const piwik = doc.createElement('script');
+            const scripts = doc.getElementsByTagName('script')[0];
 
             piwik.type = 'text/javascript';
             piwik.async = true;

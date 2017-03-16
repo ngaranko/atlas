@@ -4,19 +4,19 @@ describe('The dataSelectionApi factory', function () {
         dataSelectionApi,
         mockedApiPreviewResponse,
         mockedApiMarkersResponse,
-        mockedApiService = {
+        mockedConfig;
+    const mockedApiService = {
             query: function () {
-                let q = $q.defer();
+                const q = $q.defer();
 
                 q.resolve(mockedApiPreviewResponse);
 
                 return q.promise;
             }
         },
-        mockedConfig,
         api = {
             getByUri: function (url) {
-                let q = $q.defer();
+                const q = $q.defer();
 
                 q.resolve(mockedApiMarkersResponse);
 

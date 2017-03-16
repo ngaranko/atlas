@@ -133,23 +133,19 @@ describe('The dp-map directive', function () {
     });
 
     function getDirective (mapState, showLayerSelection, markers, useRootScopeApply, resize) {
-        let directive,
-            element,
-            scope;
-
-        element = document.createElement('dp-map');
+        const element = document.createElement('dp-map');
         element.setAttribute('map-state', 'mapState');
         element.setAttribute('markers', 'markers');
         element.setAttribute('show-layer-selection', 'showLayerSelection');
         element.setAttribute('resize', 'resize');
 
-        scope = $rootScope.$new();
+        const scope = $rootScope.$new();
         scope.mapState = mapState;
         scope.markers = markers;
         scope.resize = resize;
         scope.showLayerSelection = showLayerSelection;
 
-        directive = $compile(element)(scope);
+        const directive = $compile(element)(scope);
 
         scope.$apply();
 
@@ -173,11 +169,8 @@ describe('The dp-map directive', function () {
     });
 
     it('creates a Leaflet map with options based on both the map state and mapConfig', function () {
-        let directive,
-            element;
-
-        directive = getDirective(mockedMapState, false, mockedMarkers);
-        element = directive[0].querySelector('.js-leaflet-map');
+        const directive = getDirective(mockedMapState, false, mockedMarkers);
+        const element = directive[0].querySelector('.js-leaflet-map');
 
         expect(L.map).toHaveBeenCalledWith(element, {
             center: [52.789, 4.123],
@@ -283,7 +276,7 @@ describe('The dp-map directive', function () {
             });
 
             it('can be added by changing the input', function () {
-                let highlightItems = {
+                const highlightItems = {
                     regular: [
                         {id: 'FAKE_HIGHLIGHT_ITEM_A'},
                         {id: 'FAKE_HIGHLIGHT_ITEM_B'}
@@ -362,7 +355,7 @@ describe('The dp-map directive', function () {
         describe('that manages clustered markers', function () {
             it('can add a group of clustered markers', function () {
                 // Start without any clustered markers
-                let highlightItems = {
+                const highlightItems = {
                     regular: [],
                     clustered: []
                 };
@@ -384,7 +377,7 @@ describe('The dp-map directive', function () {
             });
 
             it('can remove a group of clustered markers', function () {
-                let highlightItems = {
+                const highlightItems = {
                     regular: [],
                     clustered: [
                         [52.1, 4.1],
@@ -454,7 +447,7 @@ describe('The dp-map directive', function () {
 
     describe('resize state', function () {
         it('invalidateSize when resize state changes', function () {
-            let mockedResizeArray = ['1', '2'];
+            const mockedResizeArray = ['1', '2'];
 
             getDirective(mockedMapState, true, mockedMarkers, true, mockedResizeArray);
 

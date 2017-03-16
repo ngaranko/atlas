@@ -65,17 +65,13 @@ describe('The dp-data-selection-table component', function () {
     });
 
     function getComponent () {
-        let component,
-            element,
-            scope;
-
-        element = document.createElement('dp-data-selection-table');
+        const element = document.createElement('dp-data-selection-table');
         element.setAttribute('content', 'content');
 
-        scope = $rootScope.$new();
+        const scope = $rootScope.$new();
         scope.content = mockedContent;
 
-        component = $compile(element)(scope);
+        const component = $compile(element)(scope);
         scope.$apply();
 
         return component;

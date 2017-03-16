@@ -114,21 +114,17 @@ describe('The dp-data-selection-download-button component', function () {
     });
 
     it('updates the download URL when the dataset or activeFilters change', () => {
-        let component,
-            scope,
-            dataset,
-            activeFilters,
-            markers;
+        let component;
 
-        dataset = 'dataset_a';
-        activeFilters = {
+        const dataset = 'dataset_a';
+        const activeFilters = {
             filter_a: 'hoi'
         };
 
-        markers = [[2, 3], [4, 5]];
+        const markers = [[2, 3], [4, 5]];
 
         component = getComponent(dataset, activeFilters);
-        scope = component.isolateScope();
+        const scope = component.isolateScope();
 
         expect(component.find('a').attr('href'))
             .toBe('http://www.example.com/datasets/a/download/?filter_a=hoi');

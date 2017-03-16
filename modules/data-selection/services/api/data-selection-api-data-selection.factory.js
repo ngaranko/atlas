@@ -11,10 +11,9 @@
         };
 
         function query (config, activeFilters, page, search, geometryFilter) {
-            let searchParams,
-                searchPage = page;
+            let searchPage = page;
 
-            let shape = (angular.isDefined(geometryFilter)) ? geometryFilter : [];
+            const shape = (angular.isDefined(geometryFilter)) ? geometryFilter : [];
 
             // Making sure to not request pages higher then max allowed.
             // If that is the case requesting for page 1, to obtain filters.
@@ -23,7 +22,7 @@
                 searchPage = 1;
             }
 
-            searchParams = angular.merge(
+            const searchParams = angular.merge(
                 {
                     page: searchPage,
                     shape: angular.toJson(shape.map(([lat, lng]) => [lng, lat]))
