@@ -141,7 +141,7 @@
                         payload: payload
                     });
                 } else {
-                    let activeSuggestion = autocompleteData.getSuggestionByIndex(
+                    const activeSuggestion = autocompleteData.getSuggestionByIndex(
                         scope.suggestions,
                         scope.activeSuggestionIndex
                     );

@@ -29,7 +29,7 @@ describe('The dpStraatbeeldDocumentTitle factory', function () {
     });
 
     it('returns the text \'Panorama\' when no coordinates are (yet) available', function () {
-        let mockedStraatbeeldState = {};
+        const mockedStraatbeeldState = {};
         expect(documentTitle.getTitle(mockedStraatbeeldState)).toBe('Panorama');
     });
 });

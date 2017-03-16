@@ -15,7 +15,7 @@
     DpDataSelectionCardsController.$inject = ['store', 'ACTIONS'];
 
     function DpDataSelectionCardsController (store, ACTIONS) {
-        let vm = this;
+        const vm = this;
 
         vm.fetch_detail = function (endpoint) {
             store.dispatch({

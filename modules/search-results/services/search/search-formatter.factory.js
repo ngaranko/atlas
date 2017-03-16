@@ -46,8 +46,8 @@
             const endpointConfig = SEARCH_CONFIG.QUERY_ENDPOINTS.filter(endpoint => endpoint.slug === slug)[0];
 
             return links.map(function (item) {
-                let subtype = item.subtype || null,
-                    subtypeLabel = subtype;
+                const subtype = item.subtype || null;
+                let subtypeLabel = subtype;
 
                 if (item.subtype && endpointConfig.subtypes) {
                     subtypeLabel = endpointConfig.subtypes[item.subtype] || item.subtype;

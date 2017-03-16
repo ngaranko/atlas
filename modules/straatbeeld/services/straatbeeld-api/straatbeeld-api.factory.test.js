@@ -26,7 +26,7 @@ describe('The straatbeeldApi Factory', function () {
                     getByUrl: function (url, params, _cancel) {
                         cancel = _cancel;
 
-                        let q = $q.defer();
+                        const q = $q.defer();
 
                         q.resolve({
                             image_sets: {
@@ -117,7 +117,7 @@ describe('The straatbeeldApi Factory', function () {
 
     it('keeps calling the API factory until a straatbeeld is found', function () {
         spyOn(api, 'getByUrl').and.callFake(url => {
-            let defer = $q.defer();
+            const defer = $q.defer();
             if (url.includes('radius=10000')) {
                 defer.resolve({
                     geometrie: {
@@ -147,7 +147,7 @@ describe('The straatbeeldApi Factory', function () {
 
     it('stops calling the API factory when no straatbeeld is found within 10km and then returns null', function () {
         spyOn(api, 'getByUrl').and.callFake(url => {
-            let defer = $q.defer();
+            const defer = $q.defer();
             defer.resolve({});
             return defer.promise;
         });

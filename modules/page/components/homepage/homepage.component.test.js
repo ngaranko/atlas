@@ -33,14 +33,10 @@ describe('The dp-homepage component', () => {
     });
 
     function getComponent () {
-        let component,
-            element,
-            scope;
+        const element = document.createElement('dp-homepage');
+        const scope = $rootScope.$new();
 
-        element = document.createElement('dp-homepage');
-        scope = $rootScope.$new();
-
-        component = $compile(element)(scope);
+        const component = $compile(element)(scope);
         $rootScope.$apply();
 
         return component;

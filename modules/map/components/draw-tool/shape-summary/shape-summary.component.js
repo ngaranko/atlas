@@ -12,7 +12,7 @@
     DpShapeSummaryController.$inject = ['$scope', '$sce', 'store', 'ACTIONS', 'drawTool'];
 
     function DpShapeSummaryController ($scope, $sce, store, ACTIONS, drawTool) {
-        let vm = this;
+        const vm = this;
 
         $scope.$watch(() => drawTool.shape.markers, setSummary, true);
         $scope.$watch(drawTool.isEnabled, setSummary);

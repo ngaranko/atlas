@@ -17,7 +17,7 @@
     DpDataSelectionDownloadButtonController.$inject = ['$window', '$scope', 'sharedConfig', 'DATA_SELECTION_CONFIG'];
 
     function DpDataSelectionDownloadButtonController ($window, $scope, sharedConfig, DATA_SELECTION_CONFIG) {
-        let vm = this,
+        const vm = this,
             filterParams = [];
 
         $scope.$watchGroup([

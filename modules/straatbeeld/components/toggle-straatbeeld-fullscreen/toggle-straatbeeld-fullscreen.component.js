@@ -17,7 +17,7 @@
     DpStraatbeeldFullscreenController.$inject = ['$rootScope', 'store', 'ACTIONS'];
 
     function DpStraatbeeldFullscreenController ($rootScope, store, ACTIONS) {
-        let vm = this;
+        const vm = this;
 
         const deregistrationFn = $rootScope.$watch('vm.isFullscreen', setScreenReaderText);
 

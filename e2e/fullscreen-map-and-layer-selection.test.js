@@ -16,10 +16,8 @@ describe('The fullscreen map (or map w/ layerSelection) remembers how you got th
     });
 
     it('remembers the active detail page when opening and closing layer selection', () => {
-        let initialPageTitle;
-
         page = dp.navigate('MAP_DETAIL--NUMMERAANDUIDING');
-        initialPageTitle = page.title;
+        const initialPageTitle = page.title;
 
         // Open layer selection
         page.dashboard.middleColumn.map.toggleLayerSelection.click();
@@ -32,10 +30,8 @@ describe('The fullscreen map (or map w/ layerSelection) remembers how you got th
     });
 
     it('remembers the active detail page when playing with layer selection followed by a fullscreen map', () => {
-        let initialPageTitle;
-
         page = dp.navigate('MAP_DETAIL--NUMMERAANDUIDING');
-        initialPageTitle = page.title;
+        const initialPageTitle = page.title;
 
         // Open layer selection
         page.dashboard.middleColumn.map.toggleLayerSelection.click();
@@ -52,10 +48,8 @@ describe('The fullscreen map (or map w/ layerSelection) remembers how you got th
     });
 
     it('remembers the active detail page when playing with a fullscreen map followed by layer selection', () => {
-        let initialPageTitle;
-
         page = dp.navigate('MAP_DETAIL--NUMMERAANDUIDING');
-        initialPageTitle = page.title;
+        const initialPageTitle = page.title;
 
         // Make the map fullscreen
         page.dashboard.middleColumn.map.toggleFullscreen.click();
@@ -72,10 +66,8 @@ describe('The fullscreen map (or map w/ layerSelection) remembers how you got th
     });
 
     it('remebers the detail and fullscreen map state when toggling the layer selection panel', () => {
-        let initialPageTitle;
-
         page = dp.navigate('MAP_DETAIL--NUMMERAANDUIDING');
-        initialPageTitle = page.title;
+        const initialPageTitle = page.title;
 
         // Make the map fullscreen
         page.dashboard.middleColumn.map.toggleFullscreen.click();
