@@ -58,16 +58,12 @@ describe('The dp-terugmelden-button component', function () {
     });
 
     it('can have a custom className', function () {
-        let component;
-
-        component = getComponent(null, 'my-special-class');
+        const component = getComponent(null, 'my-special-class');
         expect(component.find('.qa-link').attr('class')).toContain('my-special-class');
     });
 
     it('has a default fallback class if no className is specified', function () {
-        let component;
-
-        component = getComponent();
+        const component = getComponent();
         expect(component.find('.qa-link').attr('class')).toContain('o-btn o-btn--link');
     });
 });

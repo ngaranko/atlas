@@ -38,18 +38,14 @@ describe('The dp-menu component', () => {
     });
 
     function getComponent (size) {
-        let component,
-            element,
-            scope;
-
-        element = document.createElement('dp-menu');
+        const element = document.createElement('dp-menu');
         element.setAttribute('size', 'size');
         element.setAttribute('has-print-button', true);
 
-        scope = $rootScope.$new();
+        const scope = $rootScope.$new();
         scope.size = size;
 
-        component = $compile(element)(scope);
+        const component = $compile(element)(scope);
         scope.$apply();
 
         return component;

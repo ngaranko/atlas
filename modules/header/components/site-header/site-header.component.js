@@ -17,7 +17,7 @@
     DpSiteHeaderController.$inject = ['$scope', 'HEADER'];
 
     function DpSiteHeaderController ($scope, HEADER) {
-        let vm = this;
+        const vm = this;
 
         $scope.$watch('vm.size', updateSize);
 

@@ -36,11 +36,7 @@ describe('The dp-menu-dropdown directive', () => {
     });
 
     function getDirective (attrs) {
-        let directive,
-            element,
-            scope;
-
-        element = document.createElement('dp-menu-dropdown');
+        const element = document.createElement('dp-menu-dropdown');
         element.setAttribute('title', attrs.title);
         element.setAttribute('type', attrs.type);
         if (attrs.align) {
@@ -50,17 +46,17 @@ describe('The dp-menu-dropdown directive', () => {
 
         document.body.appendChild(element);
 
-        scope = $rootScope.$new();
+        const scope = $rootScope.$new();
         scope.hasPrintButton = attrs.hasPrintButton;
 
-        directive = $compile(element)(scope);
+        const directive = $compile(element)(scope);
         scope.$apply();
 
         return directive;
     }
 
     it('should initialize with the dropdown closed', () => {
-        let directive = getDirective(options);
+        const directive = getDirective(options);
 
         expect(directive.find('.qa-menu__dropdown').length).toBe(0);
         expect(directive.find('dp-print-button').length).toBe(0);
@@ -69,7 +65,7 @@ describe('The dp-menu-dropdown directive', () => {
     });
 
     it('should toggle the visibility of the menu items when you click menu button', () => {
-        let directive = getDirective(options);
+        const directive = getDirective(options);
 
         // Click it once
         directive.find('.qa-menu__toggle').eq(0).click();
@@ -89,7 +85,7 @@ describe('The dp-menu-dropdown directive', () => {
     });
 
     it('should also toggle when you click the title element inside the button', () => {
-        let directive = getDirective(options);
+        const directive = getDirective(options);
 
         // Click it once
         directive.find('.qa-menu__title').eq(0).click();
@@ -109,7 +105,7 @@ describe('The dp-menu-dropdown directive', () => {
     });
 
     it('changes the styling of the toggle button depending on the state of the dropdown', () => {
-        let directive = getDirective(options);
+        const directive = getDirective(options);
 
         // When closed
         expect(directive.find('.qa-menu__toggle').attr('class'))
@@ -123,7 +119,7 @@ describe('The dp-menu-dropdown directive', () => {
     });
 
     it('should hide the menu items if you click elsewhere on the page', () => {
-        let directive = getDirective(options);
+        const directive = getDirective(options);
 
         // Open the dropdown
         directive.find('.qa-menu__toggle').eq(0).click();
@@ -135,7 +131,7 @@ describe('The dp-menu-dropdown directive', () => {
     });
 
     it('supports multiple, standalone, dropdown menu\'s on one page', () => {
-        let directive1 = getDirective(options),
+        const directive1 = getDirective(options),
             directive2 = getDirective(options);
 
         expect(directive1.find('.qa-menu__dropdown').length).toBe(0);
@@ -178,7 +174,7 @@ describe('The dp-menu-dropdown directive', () => {
 
     it('shows the user menu when type is user', () => {
         options.type = 'user';
-        let directive = getDirective(options);
+        const directive = getDirective(options);
 
         // Click it once
         directive.find('.qa-menu__toggle').eq(0).click();

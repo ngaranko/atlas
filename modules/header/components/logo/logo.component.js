@@ -15,7 +15,7 @@
     DpLogoController.$inject = ['$scope', 'HEADER'];
 
     function DpLogoController ($scope, HEADER) {
-        let vm = this;
+        const vm = this;
 
         $scope.$watch('vm.size', updateSize);
 
