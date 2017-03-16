@@ -19,14 +19,16 @@
                     <div ng-if="vm.type === 'events'">
                         <dp-event date="entry.datum.date">
                             <div class="u-margin__bottom--1 c-user-content-detail">
-                                <h2 class="c-user-content-overview__event-header">{{entry.titel.value}}</h2>
-                                <div ng-if="entry.tijd.value || entry.location.value" class="c-user-content-detail__event-when-where">
+                                <div class="u-margin__left--2">
+                                    <h2 class="c-user-content-overview__event-header">{{entry.titel.value}}</h2>
+                                    <div ng-if="entry.tijd.value || entry.location.value" class="c-user-content-detail__event-when-where">
                                     <span ng-if="entry.tijd.value && entry.location.value">
                                         {{entry.tijd.value}} | {{entry.location.value}}
                                     </span>
-                                    <span ng-if="!(entry.tijd.value && entry.location.value)">{{entry.tijd.value || entry.location.value}}</span>
+                                        <span ng-if="!(entry.tijd.value && entry.location.value)">{{entry.tijd.value || entry.location.value}}</span>
+                                    </div>
+                                    <div class="s-cms-page-content" ng-bind-html="entry.contents.html"></div>
                                 </div>
-                                <div class="s-cms-page-content" ng-bind-html="entry.contents.html"></div>
                             </div>
                         </dp-event>
                     </div>
@@ -36,7 +38,7 @@
 
         <div ng-if="vm.entries.length > 1" class="u-col-sm--offset-1 u-col-sm--3">
             <div class="c-user-content-overview--right">
-                <h3 class="c-user-content-overview__toc-header">Op deze pagina</h3>
+                <div class="c-user-content-overview__toc-header">Op deze pagina</div>
 
                 <dp-anchor-link ng-repeat="e in vm.entries"
                                 link="{{$first ? (vm.type + 'top') : (vm.type + e.id)}}"

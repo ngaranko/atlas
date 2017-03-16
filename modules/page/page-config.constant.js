@@ -13,8 +13,8 @@
             beleid: 'Beleid',
             events: 'Evenementen',
             help: 'Help',
-            snelwegwijs: 'Snel wegwijs',
-            apis: 'API\'s',
+            snelwegwijs: 'Bediening portaal',
+            apis: 'API\'s gebruiken',
             versions: 'Versiehistorie',
             proclaimer: 'Proclaimer'
 

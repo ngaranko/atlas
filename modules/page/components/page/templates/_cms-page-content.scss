@@ -8,6 +8,15 @@
     }
   }
 
+  h3 {
+    margin-bottom: .5 * $base-whitespace;
+  }
+
+  img {
+    width: 100%; border:
+    solid 1px $secondary-gray20;
+  }
+
   ul {
     margin-bottom: .5 * $base-whitespace;
     padding-left: 2 * $base-whitespace;
