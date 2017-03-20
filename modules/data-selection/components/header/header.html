@@ -9,13 +9,11 @@
         </div>
     </div>
 
-    <div ng-if="vm.showTitle" class="qa-title">
+    <div class="qa-title">
         <h1 ng-if="vm.state.view === 'TABLE'">{{vm.datasetTitle}} ({{vm.numberOfRecords | number}})</h1>
         <h1 ng-if="vm.state.view === 'CARDS'">Datasets ({{vm.numberOfRecords | number}})</h1>
         <h1 ng-if="vm.state.view === 'LIST'">Resultaten</h1>
     </div>
-
-    <h2 ng-if="vm.showNoResultsFound && !vm.showTabs" class="qa-no-results-found-header">Geen resultaten gevonden</h2>
 
     <h3 ng-if="vm.showSearchQuery" class="u-font--s qa-search-query">met "{{vm.state.query}}"</h3>
 </div>
@@ -45,4 +43,8 @@
     </dp-data-selection-active-filters>
 </div>
 
-<p ng-if="vm.showNoResultsFound && vm.showTabs" class="qa-no-results-found-message">Geen resultaten gevonden</p>
+<div ng-if="vm.showNoResultsFound" class="qa-no-results-found">
+    <p class="u-margin__bottom--1-5">Geen resultaten van deze soort</p>
+
+    <p>Tip: maak de zoekcriteria minder specifiek</p>
+</div>

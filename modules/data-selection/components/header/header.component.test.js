@@ -227,22 +227,16 @@ describe('The dp-data-selection-header', () => {
                 expect(component.find('.qa-title').length).toBe(1);
             });
 
-            it('potentially shows the no results found message (instead of the title)', function () {
+            it('potentially shows the no results found message', function () {
                 // When there are results
                 mockedViewInput.numberOfRecords = 1;
                 component = getComponent(mockedViewInput);
-
-                expect(component.find('.qa-title').length).toBe(1);
                 expect(component.find('.qa-no-results-found').length).toBe(0);
 
                 // When there are no results
                 mockedViewInput.numberOfRecords = 0;
                 component = getComponent(mockedViewInput);
-
-                expect(component.find('.qa-title').length).toBe(0);
-                expect(component.find('.qa-no-results-found-header').length).toBe(1);
-                // Make sure it isn't also shown as a message
-                expect(component.find('.qa-no-results-found-message').length).toBe(0);
+                expect(component.find('.qa-no-results-found').length).toBe(1);
             });
 
             it('doesn\'t show tabs', function () {
@@ -276,9 +270,7 @@ describe('The dp-data-selection-header', () => {
             // Show the message
             mockedInputList.numberOfRecords = 0;
             component = getComponent(mockedInputList);
-            expect(component.find('.qa-no-results-found-message').length).toBe(1);
-            // Make sure it isn't also shown in the header
-            expect(component.find('.qa-no-results-found-header').length).toBe(0);
+            expect(component.find('.qa-no-results-found').length).toBe(1);
         });
     });
 
