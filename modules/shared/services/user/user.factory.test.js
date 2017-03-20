@@ -171,8 +171,4 @@ describe('The user factory', function () {
             expect(user.getName()).toBe('');
         });
     });
-
-    describe('The test if a user\'s authorization level meets a certain required level', function () {
-
-    });
 });

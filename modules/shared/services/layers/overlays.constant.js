@@ -31,7 +31,7 @@
                 hvo: {
                     url: 'maps/handelsregister',
                     label_short: 'Handel, vervoer, opslag',
-                    label_long: 'Handel, vervoer, opslagdsfsafdd',
+                    label_long: 'Handel, vervoer, opslag',
                     layers: ['handel_vervoer_opslag', 'handel_vervoer_opslag_label'],
                     minZoom: 11,
                     maxZoom: 16,
