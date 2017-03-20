@@ -18,22 +18,8 @@ describe('The layers factory', function () {
                         shouldThisWork: true
                     },
                     OVERLAY_ROOT: 'http://www.example.com/overlay-root/'
-                }
-            },
-            function ($provide) {
-                $provide.constant('BASE_LAYERS', [
-                    {
-                        slug: 'baselayer_a',
-                        label: 'Base layer A',
-                        urlTemplate: 'https://example.com/mocked-base-layer-a.png'
-                    }, {
-                        slug: 'baselayer_b',
-                        label: 'Base layer B',
-                        urlTemplate: 'https://example.com/mocked-base-layer-b.png'
-                    }
-                ]);
-
-                $provide.constant('OVERLAYS', {
+                },
+                overlays: {
                     SOURCES: {
                         overlay_a: {
                             url: 'overlay_a_url',
@@ -51,7 +37,20 @@ describe('The layers factory', function () {
                             external: true
                         }
                     }
-                });
+                }
+            },
+            function ($provide) {
+                $provide.constant('BASE_LAYERS', [
+                    {
+                        slug: 'baselayer_a',
+                        label: 'Base layer A',
+                        urlTemplate: 'https://example.com/mocked-base-layer-a.png'
+                    }, {
+                        slug: 'baselayer_b',
+                        label: 'Base layer B',
+                        urlTemplate: 'https://example.com/mocked-base-layer-b.png'
+                    }
+                ]);
             }
         );
 

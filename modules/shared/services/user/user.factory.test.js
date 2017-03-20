@@ -76,6 +76,46 @@ describe('The user factory', function () {
             expect(user.getAuthorizationLevel()).toBe(user.AUTHORIZATION_LEVEL.NONE);
         });
 
+        it('can test wether the user meets a required authorization level', function () {
+            const dummyValues = [null, undefined, 'some strange value'];
+
+            ['NONE']
+                .forEach(level => expect(user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL[level])).toBe(true));
+            ['DEFAULT', 'EMPLOYEE', 'EMPLOYEE_PLUS']
+                .forEach(level => expect(user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL[level])).toBe(false));
+            dummyValues.forEach(level => expect(user.meetsRequiredLevel(level)).toBe(true));
+
+            user.setAccessToken(testAccessTokenAuthz99);
+            expect(user.getAuthorizationLevel()).toBe(user.AUTHORIZATION_LEVEL.NONE);
+            ['NONE']
+                .forEach(level => expect(user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL[level])).toBe(true));
+            ['DEFAULT', 'EMPLOYEE', 'EMPLOYEE_PLUS']
+                .forEach(level => expect(user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL[level])).toBe(false));
+            dummyValues.forEach(level => expect(user.meetsRequiredLevel(level)).toBe(true));
+
+            user.setAccessToken(testAccessTokenAuthz0);
+            expect(user.getAuthorizationLevel()).toBe(user.AUTHORIZATION_LEVEL.DEFAULT);
+            ['NONE', 'DEFAULT']
+                .forEach(level => expect(user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL[level])).toBe(true));
+            ['EMPLOYEE', 'EMPLOYEE_PLUS']
+                .forEach(level => expect(user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL[level])).toBe(false));
+            dummyValues.forEach(level => expect(user.meetsRequiredLevel(level)).toBe(true));
+
+            user.setAccessToken(testAccessTokenAuthz1);
+            expect(user.getAuthorizationLevel()).toBe(user.AUTHORIZATION_LEVEL.EMPLOYEE);
+            ['NONE', 'DEFAULT', 'EMPLOYEE']
+                .forEach(level => expect(user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL[level])).toBe(true));
+            ['EMPLOYEE_PLUS']
+                .forEach(level => expect(user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL[level])).toBe(false));
+            dummyValues.forEach(level => expect(user.meetsRequiredLevel(level)).toBe(true));
+
+            user.setAccessToken(testAccessTokenAuthz3);
+            expect(user.getAuthorizationLevel()).toBe(user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS);
+            ['NONE', 'DEFAULT', 'EMPLOYEE', 'EMPLOYEE_PLUS']
+                .forEach(level => expect(user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL[level])).toBe(true));
+            dummyValues.forEach(level => expect(user.meetsRequiredLevel(level)).toBe(true));
+        });
+
         it('can store and tell the type of the user', function () {
             user.setRefreshToken(testToken, user.USER_TYPE.ANONYMOUS);
             expect(user.getUserType()).toBe(user.USER_TYPE.ANONYMOUS);
@@ -130,5 +170,9 @@ describe('The user factory', function () {
         it('tells "" as the name of an anonymous user', function () {
             expect(user.getName()).toBe('');
         });
+    });
+
+    describe('The test if a user\'s authorization level meets a certain required level', function () {
+
     });
 });

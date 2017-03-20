@@ -6,7 +6,7 @@
         .constant('OVERLAYS', {
             SOURCES: {
                 // overige niet gebruikt op dit moment
-                bestemmingsplannen: {
+                bpl: {
                     label_short: 'Bestemmingsplannen',
                     label_long: 'Bestemmingsplannen',
                     url: 'http://afnemers.ruimtelijkeplannen.nl/afnemers/services',
@@ -16,7 +16,7 @@
                     legend: 'http://www.ruimtelijkeplannen.nl/web-theme2.0/images/mapviewer/legend.png',
                     external: true
                 },
-                panorama_rijlijnen_2012: {
+                pan2012: {
                     url: 'maps/panorama',
                     label_short: 'Straatbeeld rijlijnen 2012',
                     label_long: 'Straatbeeld rijlijnen 2012',
@@ -31,7 +31,7 @@
                 hvo: {
                     url: 'maps/handelsregister',
                     label_short: 'Handel, vervoer, opslag',
-                    label_long: 'Handel, vervoer, opslag',
+                    label_long: 'Handel, vervoer, opslagdsfsafdd',
                     layers: ['handel_vervoer_opslag', 'handel_vervoer_opslag_label'],
                     minZoom: 11,
                     maxZoom: 16,

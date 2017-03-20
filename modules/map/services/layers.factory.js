@@ -5,9 +5,9 @@
         .module('dpMap')
         .factory('layers', layersFactory);
 
-    layersFactory.$inject = ['L', 'mapConfig', 'BASE_LAYERS', 'OVERLAYS'];
+    layersFactory.$inject = ['L', 'mapConfig', 'BASE_LAYERS', 'overlays'];
 
-    function layersFactory (L, mapConfig, BASE_LAYERS, OVERLAYS) {
+    function layersFactory (L, mapConfig, BASE_LAYERS, overlays) {
         var baseLayer,
             wmsLayers = {};
 
@@ -69,17 +69,20 @@
 
             if (angular.isUndefined(wmsLayers[wmsLayerId])) {
                 wmsLayers[wmsLayerId] = [];
-                wmsUrl = OVERLAYS.SOURCES[overlayName].url;
 
-                if (!OVERLAYS.SOURCES[overlayName].external) {
-                    wmsUrl = mapConfig.OVERLAY_ROOT + wmsUrl;
+                if (overlays.SOURCES[overlayName]) {
+                    wmsUrl = overlays.SOURCES[overlayName].url;
+
+                    if (!overlays.SOURCES[overlayName].external) {
+                        wmsUrl = mapConfig.OVERLAY_ROOT + wmsUrl;
+                    }
+
+                    wmsSource = L.WMS.source(wmsUrl, mapConfig.OVERLAY_OPTIONS);
+
+                    overlays.SOURCES[overlayName].layers.forEach(function (layerName) {
+                        wmsLayers[wmsLayerId].push(wmsSource.getLayer(layerName));
+                    });
                 }
-
-                wmsSource = L.WMS.source(wmsUrl, mapConfig.OVERLAY_OPTIONS);
-
-                OVERLAYS.SOURCES[overlayName].layers.forEach(function (layerName) {
-                    wmsLayers[wmsLayerId].push(wmsSource.getLayer(layerName));
-                });
             }
 
             return wmsLayers[wmsLayerId];

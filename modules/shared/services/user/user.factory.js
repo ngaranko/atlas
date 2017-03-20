@@ -128,6 +128,7 @@
             getAuthorizationLevel,
             getUserType,
             clearToken,
+            meetsRequiredLevel,
             USER_TYPE,
             AUTHORIZATION_LEVEL
         };
@@ -159,6 +160,17 @@
 
         function getAuthorizationLevel () {
             return user.authorizationLevel;
+        }
+
+        function meetsRequiredLevel (requiredLevel) {
+            let access = Object.keys(AUTHORIZATION_LEVEL_MAPPING).reduce((result, value) => ({
+                user: user.authorizationLevel === AUTHORIZATION_LEVEL_MAPPING[value] ? +value : result.user,
+                required: requiredLevel === AUTHORIZATION_LEVEL_MAPPING[value] ? +value : result.required
+            }), {
+                user: Number.NEGATIVE_INFINITY,
+                required: Number.NEGATIVE_INFINITY
+            });
+            return access.user >= access.required;
         }
 
         function clearToken () {

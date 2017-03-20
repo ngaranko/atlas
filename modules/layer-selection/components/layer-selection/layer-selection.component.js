@@ -14,9 +14,9 @@
             controllerAs: 'vm'
         });
 
-    DpLayerSelectionController.$inject = ['BASE_LAYERS', 'OVERLAYS', 'store', 'ACTIONS'];
+    DpLayerSelectionController.$inject = ['BASE_LAYERS', 'overlays', 'store', 'ACTIONS'];
 
-    function DpLayerSelectionController (BASE_LAYERS, OVERLAYS, store, ACTIONS) {
+    function DpLayerSelectionController (BASE_LAYERS, overlays, store, ACTIONS) {
         var vm = this;
 
         vm.allBaseLayers = BASE_LAYERS;
@@ -28,13 +28,13 @@
             });
         };
 
-        vm.allOverlays = OVERLAYS.HIERARCHY.map(function (category) {
+        vm.allOverlays = overlays.HIERARCHY.map(function (category) {
             var formattedOverlays = angular.copy(category);
 
             formattedOverlays.overlays = formattedOverlays.overlays.map(function (overlaySlug) {
                 return {
                     slug: overlaySlug,
-                    label: OVERLAYS.SOURCES[overlaySlug].label_short
+                    label: overlays.SOURCES[overlaySlug].label_short
                 };
             });
             return formattedOverlays;
@@ -65,8 +65,8 @@
         };
 
         vm.isOverlayVisible = function (overlay) {
-            return vm.zoom >= OVERLAYS.SOURCES[overlay].minZoom &&
-                vm.zoom <= OVERLAYS.SOURCES[overlay].maxZoom;
+            return vm.zoom >= overlays.SOURCES[overlay].minZoom &&
+                vm.zoom <= overlays.SOURCES[overlay].maxZoom;
         };
     }
 })();
