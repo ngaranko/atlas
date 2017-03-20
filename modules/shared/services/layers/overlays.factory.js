@@ -8,7 +8,7 @@
     overlaysFactory.$inject = ['$rootScope', 'OVERLAYS', 'user'];
 
     function overlaysFactory ($rootScope, OVERLAYS, user) {
-        let overlays = {
+        const overlays = {
             SOURCES: {},
             HIERARCHY: []
         };

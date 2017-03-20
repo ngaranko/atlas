@@ -163,7 +163,7 @@
         }
 
         function meetsRequiredLevel (requiredLevel) {
-            let access = Object.keys(AUTHORIZATION_LEVEL_MAPPING).reduce((result, value) => ({
+            const access = Object.keys(AUTHORIZATION_LEVEL_MAPPING).reduce((result, value) => ({
                 user: user.authorizationLevel === AUTHORIZATION_LEVEL_MAPPING[value] ? +value : result.user,
                 required: requiredLevel === AUTHORIZATION_LEVEL_MAPPING[value] ? +value : result.required
             }), {
