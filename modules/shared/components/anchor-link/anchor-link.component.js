@@ -16,7 +16,7 @@
     DpAnchorLinkController.$inject = ['$scope', '$anchorScroll'];
 
     function DpAnchorLinkController ($scope, $anchorScroll) {
-        let vm = this;
+        const vm = this;
 
         vm.scrollTo = function (anchor) {
             $anchorScroll(anchor);

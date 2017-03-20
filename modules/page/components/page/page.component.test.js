@@ -19,7 +19,7 @@ describe('The page component', function () {
         angular.mock.module('dpPage', {
             googleSheet: {
                 getContents: () => {
-                    let q = $q.defer();
+                    const q = $q.defer();
                     q.resolve({
                         feed: 'a feed',
                         entries
@@ -83,8 +83,8 @@ describe('The page component', function () {
         $templateCache.put('modules/page/components/page/templates/name.html', 'NAME');
         spyOn(googleSheet, 'getContents').and.callThrough();
 
-        let component = getComponent('name', 'type', 'item');
-        let scope = component.isolateScope();
+        const component = getComponent('name', 'type', 'item');
+        const scope = component.isolateScope();
 
         expect(googleSheet.getContents).toHaveBeenCalledWith('CMSKEY', 99);
 
@@ -96,8 +96,8 @@ describe('The page component', function () {
     });
 
     it('does nothing on empty type', function () {
-        let component = getComponent('about', '', '');
-        let scope = component.isolateScope();
+        const component = getComponent('about', '', '');
+        const scope = component.isolateScope();
 
         $rootScope.$apply();
 
