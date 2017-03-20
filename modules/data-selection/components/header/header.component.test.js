@@ -67,7 +67,8 @@ describe('The dp-data-selection-header', () => {
                     description: 'geometryFilter description'
                 }
             },
-            numberOfRecords: null
+            numberOfRecords: null,
+            showHeader: true
         };
 
         mockedInputList = {
@@ -82,7 +83,8 @@ describe('The dp-data-selection-header', () => {
                     description: 'geometryFilter description'
                 }
             },
-            numberOfRecords: null
+            numberOfRecords: null,
+            showHeader: true
         };
 
         mockedInputCards = {
@@ -98,7 +100,8 @@ describe('The dp-data-selection-header', () => {
                 },
                 page: 1
             },
-            numberOfRecords: null
+            numberOfRecords: null,
+            showHeader: true
         };
 
         spyOn(store, 'dispatch');
@@ -109,17 +112,25 @@ describe('The dp-data-selection-header', () => {
         element.setAttribute('state', 'state');
         element.setAttribute('available-filters', 'availableFilters');
         element.setAttribute('number-of-records', 'numberOfRecords');
+        element.setAttribute('show-header', 'showHeader');
 
         const scope = $rootScope.$new();
         scope.state = mockedInput.state;
         scope.availableFilters = {};
         scope.numberOfRecords = mockedInput.numberOfRecords;
+        scope.showHeader = mockedInput.showHeader;
 
         const compiledComponent = $compile(element)(scope);
         scope.$apply();
 
         return compiledComponent;
     }
+
+    it('should not show the header if showHeader is not true', () => {
+        mockedInputTable.showHeader = false;
+        component = getComponent(mockedInputTable);
+        expect(component.find('.qa-header').length).toBe(0);
+    });
 
     describe('The buttons (download and toggle view)', () => {
         it('are available in the TABLE view', () => {

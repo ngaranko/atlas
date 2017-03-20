@@ -51,9 +51,6 @@
             ];
         }, fetchData, true);
 
-        const isQueryView = angular.isDefined(vm.state.query) && vm.state.query.trim().length >= 1;
-        vm.showTabHeader = () => vm.view === 'CARDS' && isQueryView;
-
         vm.tabHeader = new TabHeader('data-datasets');
         vm.tabHeader.activeTab = vm.tabHeader.getTab('datasets');
 
@@ -68,6 +65,8 @@
             const isListView = vm.state.view === 'LIST';
 
             vm.view = vm.state.view;
+            const isQueryView = angular.isDefined(vm.state.query) && vm.state.query.trim().length >= 1;
+            vm.showTabHeader = () => vm.view === 'CARDS' && isQueryView;
             vm.showFilters = !isListView;
             vm.currentPage = vm.state.page;
 
