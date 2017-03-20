@@ -3,7 +3,7 @@
         <div class="u-inline-block u-margin__right--1">
             <dp-data-selection-toggle-view-button view="vm.state.view"></dp-data-selection-toggle-view-button>
         </div>
-        <div class="u-inline-block">
+        <div ng-if="vm.showDownloadButton" class="u-inline-block qa-download-button">
             <dp-data-selection-download-button dataset="{{vm.state.dataset}}" active-filters="vm.state.filters" geometry-filter="vm.state.geometryFilter">
             </dp-data-selection-download-button>
         </div>

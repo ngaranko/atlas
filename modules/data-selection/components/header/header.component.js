@@ -30,6 +30,7 @@
             const isListView = vm.state.view === 'LIST';
 
             vm.showButtons = vm.state.dataset !== 'catalogus';
+            vm.showDownloadButton = vm.numberOfRecords > 0;
             vm.showTitle = isListView || vm.numberOfRecords;
             vm.showSearchQuery = angular.isString(vm.state.query);
             vm.showTabs = isListView;

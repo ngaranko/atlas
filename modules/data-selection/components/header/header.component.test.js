@@ -149,6 +149,16 @@ describe('The dp-data-selection-header', () => {
         });
     });
 
+    it('the download button is hidden when there are no results', () => {
+        mockedInputTable.numberOfRecords = 1;
+        component = getComponent(mockedInputTable);
+        expect(component.find('.qa-download-button').length).toBe(1);
+
+        mockedInputTable.numberOfRecords = 0;
+        component = getComponent(mockedInputTable);
+        expect(component.find('.qa-download-button').length).toBe(0);
+    });
+
     describe('the header title', function () {
         it('in TABLE view shows the name followed by the number of results', () => {
             mockedInputTable.numberOfRecords = 1234;
