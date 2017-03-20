@@ -1,8 +1,8 @@
 $image-tall-offset-top: 20px;
-$image-tall-offset-right: 28px;
 $image-tall-offset-left: -26px;
 $image-tall-width: 85px;
 $image-tall-height: 68px;
+$title-tall-offset-left: 80px;
 
 .c-logo {
   @include font-size($xl-header-font);
@@ -30,7 +30,7 @@ $image-tall-height: 68px;
 
 .c-logo--tall {
   .c-logo__title-col {
-    margin-left: $image-tall-offset-left + $image-tall-width + $image-tall-offset-right;
+    margin-left: $title-tall-offset-left;
   }
 
   .c-logo__image {
