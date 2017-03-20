@@ -109,7 +109,7 @@ describe('The dp-search directive', function () {
 
     function getDirective (query,
                            placeholder = 'placeholder',
-                           type = 'FETCH_SEARCH_RESULTS_BY_QUERY',
+                           type = null,
                            searchOnly = false,
                            payload) {
         var directive,
@@ -119,7 +119,9 @@ describe('The dp-search directive', function () {
         element = document.createElement('dp-search');
         element.setAttribute('query', query);
         element.setAttribute('placeholder', placeholder);
-        element.setAttribute('type', type);
+        if (type) {
+            element.setAttribute('type', type);
+        }
         if (payload) {
             element.setAttribute('payload', payload);
         }
@@ -187,6 +189,42 @@ describe('The dp-search directive', function () {
                 aap: 'noot',
                 query: 'query'
             }
+        });
+    });
+
+    it('defaults search type to FETCH_SEARCH_RESULTS_BY_QUERY', function () {
+        var directive = getDirective('');
+
+        spyOn(store, 'dispatch');
+
+        // Set a query
+        directive.find('.js-search-input')[0].value = 'query without suggestions';
+        directive.find('.js-search-input').trigger('change');
+
+        // Submit the form
+        directive.find('.c-search-form').trigger('submit');
+
+        expect(store.dispatch).toHaveBeenCalledWith({
+            type: ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY,
+            payload: 'query without suggestions'
+        });
+    });
+
+    it('allows other search types', function () {
+        var directive = getDirective('', 'placeholder', 'FETCH_SEARCH_RESULTS_BY_LOCATION');
+
+        spyOn(store, 'dispatch');
+
+        // Set a query
+        directive.find('.js-search-input')[0].value = 'query without suggestions';
+        directive.find('.js-search-input').trigger('change');
+
+        // Submit the form
+        directive.find('.c-search-form').trigger('submit');
+
+        expect(store.dispatch).toHaveBeenCalledWith({
+            type: ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION,
+            payload: 'query without suggestions'
         });
     });
 

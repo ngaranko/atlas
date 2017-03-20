@@ -1,0 +1,60 @@
+$dashboard-heading-height-print-version: 118px;
+$dashboard-heading-padding-print-version: 46px;
+
+.c-dashboard {
+  padding: 0;
+  border: solid $secondary-gray20 1px;
+  border-top: none;
+  overflow: visible;
+}
+
+.c-dashboard__heading {
+  position: initial; // Otherwise the top box shadow of the body gets hidden
+  height: $dashboard-heading-height-print-version;
+  padding: $dashboard-heading-padding-print-version;
+  border-bottom: none;
+}
+
+.c-dashboard__body {
+  padding: $base-whitespace * 2;
+  background-color: $primary-light;
+  box-shadow: 0 0 5px $secondary-gray40;
+}
+
+.c-dashboard__error {
+  margin: 0;
+  margin-bottom: $base-whitespace * 2;
+}
+
+.c-dashboard__column {
+  margin: 0;
+  margin-bottom: $base-whitespace * 2;
+  padding: 0;
+}
+
+.c-dashboard__content {
+  page-break-before: always;
+}
+
+&.print-landscape {
+  body {
+    width: 1280px;
+  }
+}
+
+@media print {
+  .is-print-mode {
+    .c-dashboard {
+      border: none;
+    }
+
+    .c-dashboard__heading,
+    .c-dashboard__error {
+      display: none;
+    }
+
+    .c-dashboard__body {
+      box-shadow: none;
+    }
+  }
+}

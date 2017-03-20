@@ -4,6 +4,9 @@
     angular
         .module('dpHeader')
         .component('dpTerugmeldenButton', {
+            bindings: {
+                className: '@'
+            },
             transclude: true,
             templateUrl: 'modules/header/components/terugmelden-button/terugmelden-button.html',
             controller: DpTerugmeldenButtonController,
@@ -17,6 +20,8 @@
             recipient,
             subject,
             body;
+
+        vm.className = vm.className || 'o-btn o-btn--link';
 
         recipient = 'terugmelding.basisinformatie@amsterdam.nl';
         subject = 'Terugmelding atlas.amsterdam.nl';
