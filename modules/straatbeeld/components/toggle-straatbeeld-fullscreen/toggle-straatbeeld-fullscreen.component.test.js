@@ -46,8 +46,8 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
 
     describe ('The fullscreen button for panorama', function () {
         it('can change a window-view straatbeeld to fullscreen', function () {
-            let directive = getDirective({ isFullscreen: false });
-            let toggle = directive.find('.qa-straatbeeld-streetview-map-button');
+            const directive = getDirective({ isFullscreen: false });
+            const toggle = directive.find('.qa-straatbeeld-streetview-map-button');
 
             expect(toggle.attr('class')).toContain('toggle-straatbeeld-fullscreen--maximize');
 
@@ -71,8 +71,8 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
         });
 
         it('can change a fullscreen straatbeeld to window-view', function () {
-            let directive = getDirective({ isFullscreen: true });
-            let toggle = directive.find('.qa-straatbeeld-streetview-map-button');
+            const directive = getDirective({ isFullscreen: true });
+            const toggle = directive.find('.qa-straatbeeld-streetview-map-button');
 
             toggle.click();
             $rootScope.$apply();
@@ -84,8 +84,8 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
         });
 
         it('stores the fullsreen state of the straatbeeld in the user settings', function () {
-            let directive = getDirective({ isFullscreen: false });
-            let toggle = directive.find('.qa-straatbeeld-streetview-map-button');
+            const directive = getDirective({ isFullscreen: false });
+            const toggle = directive.find('.qa-straatbeeld-streetview-map-button');
 
             [true, false, true].forEach(b => {
                 scope.state.isFullscreen = b;

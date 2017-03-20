@@ -28,16 +28,14 @@
         };
 
         function linkFunction (scope, element) {
-            let leafletMap,
-                container,
-                options;
+            let leafletMap;
 
             scope.$watchGroup(['mapState.isFullscreen', 'showLayerSelection'], function () {
                 scope.isFullscreen = scope.mapState.isFullscreen && !scope.showLayerSelection;
             });
 
-            container = element[0].querySelector('.js-leaflet-map');
-            options = angular.merge(mapConfig.MAP_OPTIONS, {
+            const container = element[0].querySelector('.js-leaflet-map');
+            const options = angular.merge(mapConfig.MAP_OPTIONS, {
                 center: scope.mapState.viewCenter,
                 zoom: scope.mapState.zoom
             });

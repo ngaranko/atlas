@@ -6,15 +6,15 @@ describe('The cards component', function () {
         store,
         ACTIONS;
 
-    let mockedStore = {
+    const mockedStore = {
         dispatch: angular.noop
     };
 
-    let mockedACTIONS = {
+    const mockedACTIONS = {
         FETCH_DETAIL: 'Fetch Detail'
     };
 
-    let mockedContent = {
+    const mockedContent = {
         body: [
             {
                 content: [
@@ -69,24 +69,20 @@ describe('The cards component', function () {
     });
 
     function getComponent () {
-        let component,
-            element,
-            scope;
-
-        element = document.createElement('dp-data-selection-cards');
+        const element = document.createElement('dp-data-selection-cards');
         element.setAttribute('content', 'content');
 
-        scope = $rootScope.$new();
+        const scope = $rootScope.$new();
         scope.content = mockedContent;
 
-        component = $compile(element)(scope);
+        const component = $compile(element)(scope);
         scope.$apply();
 
         return component;
     }
 
     it('can load a detail page for a card', function () {
-        let component = getComponent();
+        const component = getComponent();
 
         component.find('.qa-card-fetch-detail')[0].click();
 

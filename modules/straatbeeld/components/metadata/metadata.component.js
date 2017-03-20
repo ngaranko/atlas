@@ -17,7 +17,7 @@
     DpStraatbeeldMetadataController.$inject = ['$scope'];
 
     function DpStraatbeeldMetadataController ($scope) {
-        let vm = this;
+        const vm = this;
 
         $scope.$watch ('vm.location', updateLocation, true);
 
@@ -26,8 +26,8 @@
                 vm.lat = vm.location[0];
                 vm.lon = vm.location[1];
 
-                let path = 'http://maps.google.com/maps?q=&layer=c&';
-                let parameters = `cbll=${vm.lat},${vm.lon}&cbp=11,${vm.heading},0,0,0`;
+                const path = 'http://maps.google.com/maps?q=&layer=c&';
+                const parameters = `cbll=${vm.lat},${vm.lon}&cbp=11,${vm.heading},0,0,0`;
 
                 vm.streetviewUrl = `${path}${parameters}`;
                 vm.showStreetview = true;

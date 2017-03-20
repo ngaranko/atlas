@@ -49,7 +49,7 @@
                 };
 
                 this.parseToken = function (token) {   // private method to parse a refresh or access token
-                    let content = this.decodeToken(token);
+                    const content = this.decodeToken(token);
 
                     if (angular.isDefined(content.sub)) {   // contained in refresh token
                         this.name = content.sub || '';
@@ -117,7 +117,7 @@
             }
         }
 
-        let user = new User();
+        const user = new User();
 
         return {
             getRefreshToken,

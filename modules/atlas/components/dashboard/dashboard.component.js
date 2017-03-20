@@ -12,7 +12,7 @@
     DpDashboardController.$inject = ['$scope', 'store', 'dashboardColumns'];
 
     function DpDashboardController ($scope, store, dashboardColumns) {
-        let vm = this;
+        const vm = this;
 
         vm.store = store;
 

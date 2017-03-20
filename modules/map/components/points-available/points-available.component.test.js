@@ -26,10 +26,10 @@ describe('The dp-points-available component', function () {
     });
 
     function getComponent () {
-        let element = document.createElement('dp-points-available');
+        const element = document.createElement('dp-points-available');
 
         scope = $rootScope.$new();
-        let result = $compile(element)(scope);
+        const result = $compile(element)(scope);
 
         scope.$apply();
 
@@ -43,10 +43,10 @@ describe('The dp-points-available component', function () {
 
         it('shows the remaining number of markers only when less than X markers left', function () {
             drawTool.shape.markers = [];
-            let component = getComponent();
+            const component = getComponent();
             for (let i = 0; i < drawTool.shape.markersMaxCount; i++) {
-                let markersLeft = drawTool.shape.markersMaxCount - drawTool.shape.markers.length;
-                let showWarning = markersLeft <= 5;
+                const markersLeft = drawTool.shape.markersMaxCount - drawTool.shape.markers.length;
+                const showWarning = markersLeft <= 5;
                 if (showWarning) {
                     expect(component.find('.qa-few-points-available').length).toBe(1);
                     expect(component.find('.qa-few-points-available').text()).toContain(
@@ -62,7 +62,7 @@ describe('The dp-points-available component', function () {
 
         it('shows no markers available when 0 markers left', function () {
             drawTool.shape.markers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-            let component = getComponent();
+            const component = getComponent();
             expect(component.find('.qa-few-points-available').length).toBe(0);
             expect(component.find('.qa-no-more-points-available').length).toBe(1);
             expect(component.find('.qa-no-more-points-available').text()).toContain(
@@ -78,7 +78,7 @@ describe('The dp-points-available component', function () {
 
         it('shows nothing', function () {
             drawTool.shape.markers = [];
-            let component = getComponent();
+            const component = getComponent();
             for (let i = 0; i < drawTool.shape.markersMaxCount; i++) {
                 expect(component.find('.qa-few-points-available').length).toBe(0);
                 expect(component.find('.qa-no-more-points-available').length).toBe(0);

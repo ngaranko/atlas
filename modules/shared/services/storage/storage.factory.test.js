@@ -32,7 +32,7 @@ describe('the storage factory', function () {
         it('accepts only string key values', function () {
             [5, true, {}].forEach(key => {
                 storage.instance.setItem(key, 'value');
-                let data = storage.instance.getItem(key);
+                const data = storage.instance.getItem(key);
                 expect(data).toBeUndefined();
                 storage.instance.removeItem(key);
                 expect(data).toBeUndefined();
@@ -42,7 +42,7 @@ describe('the storage factory', function () {
         it('accepts only string values', function () {
             [5, true, {}].forEach(value => {
                 storage.instance.setItem('key', value);
-                let data = storage.instance.getItem('key');
+                const data = storage.instance.getItem('key');
                 expect(data).toBeNull();
                 storage.instance.removeItem('key');
                 expect(data).toBeNull();
@@ -66,7 +66,7 @@ describe('the storage factory', function () {
         it('can set and get an item from the storage', function () {
             ['instance', 'session', 'local'].forEach(s => {
                 storage[s].setItem('key', 'value');
-                let data = storage[s].getItem('key');
+                const data = storage[s].getItem('key');
 
                 expect(data).toBe('value');
             });
@@ -76,7 +76,7 @@ describe('the storage factory', function () {
             ['instance', 'session', 'local'].forEach(s => {
                 storage[s].setItem('key', 'value');
                 storage[s].removeItem('key');
-                let data = storage[s].getItem('key');
+                const data = storage[s].getItem('key');
 
                 expect(data).toBeNull();
             });
@@ -99,7 +99,7 @@ describe('the storage factory', function () {
         it('can set and get an item from the storage', function () {
             ['instance', 'session', 'local'].forEach(s => {
                 storage[s].setItem('key', 'value');
-                let data = storage[s].getItem('key');
+                const data = storage[s].getItem('key');
 
                 expect(data).toBe('value');
             });
@@ -109,7 +109,7 @@ describe('the storage factory', function () {
             ['instance', 'session', 'local'].forEach(s => {
                 storage[s].setItem('key', 'value');
                 storage[s].removeItem('key');
-                let data = storage[s].getItem('key');
+                const data = storage[s].getItem('key');
 
                 expect(data).toBeNull();
             });

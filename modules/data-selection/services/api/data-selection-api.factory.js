@@ -73,7 +73,7 @@
                     rawValue = rawData[key];
 
                 return angular.isArray(rawValue)
-                    ? rawValue.map(value => value)
+                    ? rawValue.filter(angular.identity).join(' | ')
                     : rawValue;
             } else {
                 const key = path[0],
@@ -95,17 +95,18 @@
                 .then(function (data) {
                     return data.object_list
                         .map(object => object._source.centroid)
+                        .filter(angular.identity)
                         .map(([lon, lat]) => [lat, lon]);
                 });
         }
 
         function filterUnavailableFilters (dataset, activeFilters) {
             // Some activeFilters do not exist for the current data
-            let activeAndAvailableFilters = angular.copy(activeFilters);
+            const activeAndAvailableFilters = angular.copy(activeFilters);
 
             // Filter activeFilters that are not available for this dataset
             Object.keys(activeFilters).forEach(activeFilterKey => {
-                let isAvailable = DATA_SELECTION_CONFIG.datasets[dataset].FILTERS.filter(filter => {
+                const isAvailable = DATA_SELECTION_CONFIG.datasets[dataset].FILTERS.filter(filter => {
                     return activeFilterKey === filter.slug;
                 }).length === 1;
 

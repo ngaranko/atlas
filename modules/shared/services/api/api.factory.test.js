@@ -55,7 +55,7 @@ describe('The api factory', function () {
     });
 
     it('getByUrl optionally accepts a promise to allow for cancelling the request', function () {
-        let cancel = $q.defer();
+        const cancel = $q.defer();
 
         api.getByUrl('http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/', undefined, cancel)
             .then(function () {
@@ -68,7 +68,7 @@ describe('The api factory', function () {
 
     it('getByUrl optionally accepts a promise, rejects the promise when the request is not cancelled', function () {
         var returnValue;
-        let cancel = $q.defer();
+        const cancel = $q.defer();
 
         api.getByUrl('http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/', undefined, cancel)
             .then(function (data) {

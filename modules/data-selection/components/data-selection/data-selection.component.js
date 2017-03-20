@@ -22,7 +22,7 @@
     ];
 
     function DpDataSelectionController ($scope, userSettings, dataSelectionApi, DATA_SELECTION_CONFIG, store, ACTIONS) {
-        let vm = this;
+        const vm = this;
 
         vm.showCatalogusIntroduction = vm.state.view === 'CARDS' &&
             userSettings.showCatalogusIntroduction.value === true.toString();
@@ -44,7 +44,7 @@
         }, fetchData, true);
 
         function fetchData () {
-            let isListView = vm.state.view === 'LIST';
+            const isListView = vm.state.view === 'LIST';
 
             vm.view = vm.state.view;
             vm.showFilters = !isListView;
@@ -77,7 +77,7 @@
 
                     vm.isLoading = false;
 
-                    let activeFilters = angular.extend({
+                    const activeFilters = angular.extend({
                         shape: angular.toJson(vm.state.geometryFilter.markers.map(([lat, lng]) => [lng, lat]))
                     }, vm.state.filters);
 

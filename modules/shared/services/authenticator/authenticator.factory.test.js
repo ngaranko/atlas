@@ -250,7 +250,7 @@ describe(' The authenticator factory', function () {
 
         $httpBackend.whenGET(AUTH_PATH + '/siam/token?a-select-server=1&aselect_credentials=2&rid=3')
             .respond('token');
-        let getAccessToken = $httpBackend.whenGET(AUTH_PATH + '/accesstoken');
+        const getAccessToken = $httpBackend.whenGET(AUTH_PATH + '/accesstoken');
 
         getAccessToken.respond('accesstoken');
 

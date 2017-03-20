@@ -145,12 +145,12 @@ describe('The dp-menu-dropdown directive', function () {
 
     describe('the user menu', function () {
         it('can have the username as the title', function () {
-            let directive = getDirective({}, 'My name', 'user');
+            const directive = getDirective({}, 'My name', 'user');
             expect(directive.find('.qa-menu-title').text()).toContain('My name');
         });
 
         it('provides for a logout menu item', function () {
-            let directive = getDirective({}, 'My name', 'user');
+            const directive = getDirective({}, 'My name', 'user');
             expect(directive.find('dp-logout-button').length).toBe(0);
 
             // Open the menu

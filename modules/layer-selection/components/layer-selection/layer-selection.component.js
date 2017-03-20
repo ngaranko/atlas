@@ -34,7 +34,7 @@
             formattedOverlays.overlays = formattedOverlays.overlays.map(function (overlaySlug) {
                 return {
                     slug: overlaySlug,
-                    label: overlays.SOURCES[overlaySlug].label_short
+                    label: overlays.SOURCES[overlaySlug].label_long
                 };
             });
             return formattedOverlays;
