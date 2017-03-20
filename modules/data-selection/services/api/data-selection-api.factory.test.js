@@ -4,19 +4,19 @@ describe('The dataSelectionApi factory', function () {
         dataSelectionApi,
         mockedApiPreviewResponse,
         mockedApiMarkersResponse,
-        mockedApiService = {
+        mockedConfig;
+    const mockedApiService = {
             query: function () {
-                let q = $q.defer();
+                const q = $q.defer();
 
                 q.resolve(mockedApiPreviewResponse);
 
                 return q.promise;
             }
         },
-        mockedConfig,
         api = {
             getByUri: function (url) {
-                let q = $q.defer();
+                const q = $q.defer();
 
                 q.resolve(mockedApiMarkersResponse);
 
@@ -228,7 +228,7 @@ describe('The dataSelectionApi factory', function () {
                 output = _output_;
             });
             $rootScope.$apply();
-            expect(output.data.body[0].content[0][0].value).toEqual([1, 2]);
+            expect(output.data.body[0].content[0][0].value).toEqual('1 | 2');
 
             mockedConfig.datasets.zwembaden.CONTENT.CARDS = [
                 {

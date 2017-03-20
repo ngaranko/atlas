@@ -162,7 +162,7 @@ describe('The dp-straatbeeld directive', function () {
         it('Listens to resize changes', function () {
             spyOn(mockedMarzipanoViewer, 'updateSize');
 
-            let resize = [true, true];
+            const resize = [true, true];
 
             getDirective({}, resize);
             scope.$apply(); // trigger digest to invoke upodateSize

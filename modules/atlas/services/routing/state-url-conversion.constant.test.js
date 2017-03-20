@@ -137,10 +137,9 @@ describe('The state url conversion definition', function () {
 
         describe('The post processing for detail', function () {
             it('copies display, geometry, isLoading and isFullscreen from old state if equal endpoint', function () {
-                let oldState,
-                    newState;
+                let newState;
 
-                oldState = {
+                const oldState = {
                     endpoint: 1,
                     display: 'aap',
                     geometry: 'noot',
@@ -174,10 +173,9 @@ describe('The state url conversion definition', function () {
 
         describe('The post processing for straatbeeld', function () {
             it('copies image, hotspots, data, location, isInitial, isLoading from old state if equal id', function () {
-                let oldState,
-                    newState;
+                let newState;
 
-                oldState = {
+                const oldState = {
                     id: 1,
                     image: 'aap',
                     hotspots: 'noot',

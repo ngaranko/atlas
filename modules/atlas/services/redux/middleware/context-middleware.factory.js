@@ -14,7 +14,7 @@
                     // Straatbeeld and detail can both exist in an invisible state
                     // An invisible straatbeeld or detail determines the meaning of some events
                     // These events are thus context sensitive and therefore handled by this middleware
-                    let { straatbeeld, detail } = store.getState();
+                    const { straatbeeld, detail } = store.getState();
 
                     if (action.type.id === ACTIONS.MAP_CLICK.id) {
                         if (angular.isObject(straatbeeld)) {

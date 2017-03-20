@@ -8,7 +8,7 @@
     MapController.$inject = ['store', 'crsConverter'];
 
     function MapController (store, crsConverter) {
-        let vm = this;
+        const vm = this;
 
         store.subscribe(update);
 

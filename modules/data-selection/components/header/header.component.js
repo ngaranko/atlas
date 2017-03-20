@@ -18,7 +18,7 @@
     DpDataSelectionHeaderController.$inject = ['$scope', 'DATA_SELECTION_CONFIG'];
 
     function DpDataSelectionHeaderController ($scope, DATA_SELECTION_CONFIG) {
-        let vm = this;
+        const vm = this;
 
         $scope.$watchGroup([
             'vm.state.dataset',
@@ -28,7 +28,7 @@
         ], setHeader);
 
         function setHeader () {
-            let isListView = vm.state.view === 'LIST';
+            const isListView = vm.state.view === 'LIST';
 
             vm.showHeader = isListView || !vm.isLoading;
             vm.showButtons = vm.state.dataset !== 'catalogus';

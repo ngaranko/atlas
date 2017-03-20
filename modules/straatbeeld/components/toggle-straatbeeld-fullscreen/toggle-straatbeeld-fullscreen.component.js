@@ -21,7 +21,7 @@
 
         vm.toggleFullscreen = function () {
             // Dispatch an action to change the pano
-            let isFullscreen = !vm.state.isFullscreen;
+            const isFullscreen = !vm.state.isFullscreen;
 
             // Save the new state of the straatbeeld as a user setting
             userSettings.fullscreenStraatbeeld.value = isFullscreen.toString();

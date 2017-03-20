@@ -21,14 +21,15 @@
          * @returns {Promise}
          */
         function getByUrl (url, params, cancel) {
-            let headers = {};
+            const headers = {},
+                userState = user.getStatus();
 
             let token = user.getAccessToken();
             if (token) {
                 headers.Authorization = sharedConfig.AUTH_HEADER_PREFIX + token;
             }
 
-            let options = {
+            const options = {
                 method: 'GET',
                 url: url,
                 headers: headers,

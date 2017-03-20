@@ -18,7 +18,7 @@
     DpDataSelectionFormatterController.$inject = ['$filter'];
 
     function DpDataSelectionFormatterController ($filter) {
-        let vm = this,
+        const vm = this,
             variablesObj = {};
 
         if (vm.formatter) {
