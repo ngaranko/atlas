@@ -63,7 +63,7 @@
 
         let interval;   // refresh access token or retry after error interval
 
-        let error = {}; // message, status and statusText
+        const error = {}; // message, status and statusText
 
         return {
             initialize,
@@ -145,7 +145,7 @@
             params = params && angular.fromJson(params);    // decode params
             if (!(params && Object.keys(params).length)) {
                 // set params to default state
-                let stateUrlConverter = applicationState.getStateUrlConverter();
+                const stateUrlConverter = applicationState.getStateUrlConverter();
                 params = stateUrlConverter.state2params(stateUrlConverter.getDefaultState());
             }
 
@@ -155,7 +155,7 @@
 
         function login () {     // redirect to external authentication provider
             savePath(); // Save current path in session
-            let callback = $location.absUrl().replace(/\#\?.*$/, '').concat('#');   // Remove all parameters
+            const callback = $location.absUrl().replace(/\#\?.*$/, '').concat('#');   // Remove all parameters
             $window.location.href =
                 sharedConfig.API_ROOT + AUTH_PATH +
                 '/siam/authenticate?active=true&callback=' + encodeURIComponent(callback);
@@ -174,7 +174,7 @@
         }
 
         function RequestRefreshToken (params) {    // initiated externally, called by handleCallback
-            let httpParams = AUTH_PARAMS.reduce((result, key) => {
+            const httpParams = AUTH_PARAMS.reduce((result, key) => {
                 result[key] = params[key];
                 return result;
             }, {});

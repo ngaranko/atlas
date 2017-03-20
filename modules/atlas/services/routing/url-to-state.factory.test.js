@@ -54,7 +54,7 @@ describe('The urlToState factory', function () {
 
         authenticator.handleCallback.calls.reset();
 
-        let params = {one: 1, two: 2};
+        const params = {one: 1, two: 2};
         $location.search(params);
 
         $rootScope.$apply();
@@ -70,7 +70,7 @@ describe('The urlToState factory', function () {
         urlToState.initialize();
         $rootScope.$apply();
 
-        let params = {one: 1, two: 2};
+        const params = {one: 1, two: 2};
         $location.search(params);
 
         $rootScope.$apply();

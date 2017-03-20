@@ -21,10 +21,9 @@
          * @returns {Promise}
          */
         function getByUrl (url, params, cancel) {
-            const headers = {},
-                userState = user.getStatus();
+            const headers = {};
 
-            let token = user.getAccessToken();
+            const token = user.getAccessToken();
             if (token) {
                 headers.Authorization = sharedConfig.AUTH_HEADER_PREFIX + token;
             }
