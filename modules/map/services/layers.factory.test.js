@@ -144,6 +144,14 @@ describe('The layers factory', function () {
             expect(mockedLeafletMap.addLayer).toHaveBeenCalledWith('FAKE_SUBLAYER_1');
         });
 
+        it('adds only overlays that exist', function () {
+            layers.addOverlay(mockedLeafletMap, 'overlay_does_not_exist');
+
+            expect(L.WMS.source).not.toHaveBeenCalled();
+
+            expect(mockedLeafletMap.addLayer).not.toHaveBeenCalled();
+        });
+
         it('can add multiples sublayers per overlay', function () {
             layers.addOverlay(mockedLeafletMap, 'overlay_b');
 
