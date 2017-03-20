@@ -23,9 +23,11 @@ $clear-button-margin: ($site-header-search-form-height - $button-size) / 2;
   outline: none;
   background-color: $primary-light;
   color: $primary-dark;
+  font-weight: bold;
 
   &::placeholder {
     color: $secondary-gray60;
+    font-weight: normal;
   }
 
   &:focus {
