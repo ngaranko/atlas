@@ -17,7 +17,7 @@
     DpEventController.$inject = ['dateFilter'];
 
     function DpEventController (dateFilter) {
-        let vm = this;
+        const vm = this;
 
         vm.day = vm.date.getDate();
 

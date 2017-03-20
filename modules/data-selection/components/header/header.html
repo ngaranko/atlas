@@ -1,4 +1,4 @@
-<div ng-if="vm.showHeader" ng-class="{
+<div ng-class="{
         'u-margin__bottom--3': vm.showTabs || !vm.showActiveFilters,
         'u-margin__bottom--1-5': !(vm.showTabs || !vm.showActiveFilters)
     }">
@@ -33,7 +33,7 @@
 
             <span ng-if="tab.isActive" class="o-tabs__tab o-tabs__tab--active">
                 {{tab.title}}
-                <span ng-if="!vm.isLoading && tab.isActive">({{vm.numberOfRecords | number}})</span>
+                <span ng-if="tab.isActive">({{vm.numberOfRecords | number}})</span>
             </span>
         </li>
     </ul>
@@ -50,7 +50,6 @@
 
 <p ng-if="vm.showNoResultsFound && vm.showTabs" class="qa-no-results-found">Geen resultaten gevonden</p>
 
-<dp-loading-indicator is-loading="vm.isLoading" use-delay="false" show-inline="true"></dp-loading-indicator>
 
 <dp-panel ng-if="vm.showMessageMaxPages" is-panel-visible="true" type="warning" can-close="true">
     <div class="qa-message-max-pages">

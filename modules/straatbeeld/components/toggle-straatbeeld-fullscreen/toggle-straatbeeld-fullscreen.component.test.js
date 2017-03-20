@@ -78,8 +78,8 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
         });
 
         it('can change a fullscreen straatbeeld to window-view', function () {
-            let directive = getDirective(true);
-            let toggle = directive.find('.qa-toggle-straatbeeld-fullscreen');
+            const directive = getDirective(true);
+            const toggle = directive.find('.qa-toggle-straatbeeld-fullscreen');
 
             toggle.click();
             $rootScope.$apply();

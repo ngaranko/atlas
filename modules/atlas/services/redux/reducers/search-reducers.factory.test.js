@@ -337,7 +337,7 @@ describe('The search-reducers factory', function () {
 
     describe('FETCH_SEARCH_RESULTS_CATEGORY', function () {
         it('only updates the search state when a search is active', function () {
-            let inputState = angular.copy(DEFAULT_STATE);
+            const inputState = angular.copy(DEFAULT_STATE);
             delete inputState.search;
             searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_CATEGORY.id](inputState, 'adres');
             expect(inputState.search).toBeUndefined();
@@ -372,7 +372,7 @@ describe('The search-reducers factory', function () {
 
     describe('SHOW_SEARCH_RESULTS', function () {
         it('only updates the search state when a search is active', function () {
-            let inputState = angular.copy(DEFAULT_STATE);
+            const inputState = angular.copy(DEFAULT_STATE);
             delete inputState.search;
             searchReducers[ACTIONS.SHOW_SEARCH_RESULTS.id](inputState, 23);
             expect(inputState.search).toBeUndefined();

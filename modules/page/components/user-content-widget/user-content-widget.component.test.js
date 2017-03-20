@@ -19,7 +19,7 @@ describe('The user content widget component', function () {
         angular.mock.module('dpPage', {
             googleSheet: {
                 getContents: () => {
-                    let q = $q.defer();
+                    const q = $q.defer();
                     q.resolve({
                         feed: 'a feed',
                         entries
@@ -66,7 +66,7 @@ describe('The user content widget component', function () {
         $templateCache.put('modules/page/components/user-content-widget/templates/type.html', 'TYPE');
         spyOn(googleSheet, 'getContents').and.callThrough();
 
-        let component = getComponent('type'),
+        const component = getComponent('type'),
             scope = component.isolateScope();
 
         expect(googleSheet.getContents).toHaveBeenCalledWith('CMSKEY', 99);

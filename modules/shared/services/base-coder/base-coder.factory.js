@@ -32,7 +32,7 @@
              * @private
              */
             this._characterValue = function (c) {
-                let i = this._CHARSET.indexOf(c);
+                const i = this._CHARSET.indexOf(c);
                 if (0 <= i && i < this._base) {
                     return i;
                 } else {
@@ -49,8 +49,8 @@
              */
             this._encodeNumber = function (n) {
                 if (n >= this._base) {
-                    let quotient = Math.trunc(n / this._base);
-                    let remainder = n % this._base;
+                    const quotient = Math.trunc(n / this._base);
+                    const remainder = n % this._base;
                     return this._encodeNumber(quotient) +
                         this._encodeNumber(remainder);
                 } else {
@@ -67,8 +67,8 @@
              */
             this._decodeString = function (s, len = s.length) {
                 if (len > 1) {
-                    let quotient = s.substr(0, len - 1);
-                    let remainder = s.charAt(len - 1);
+                    const quotient = s.substr(0, len - 1);
+                    const remainder = s.charAt(len - 1);
                     return this._base *
                         this._decodeString(quotient, len - 1) +
                         this._decodeString(remainder, 1);
@@ -141,7 +141,7 @@
                 if (nDecimals === 0 && !BaseCoder.isInt(expr)) {
                     return undefined;
                 } else if (nDecimals !== 0) {
-                    let precisionFactor = BaseCoder.precisionFactor(nDecimals);
+                    const precisionFactor = BaseCoder.precisionFactor(nDecimals);
                     if (isFinite(precisionFactor)) {
                         expr = BaseCoder.toPrecision(expr, nDecimals);
                         expr = Math.round(expr * precisionFactor);
@@ -176,7 +176,7 @@
                 }
                 let result = sign * this._decodeString(expr);
                 if (nDecimals !== 0) {
-                    let precisionFactor = BaseCoder.precisionFactor(nDecimals);
+                    const precisionFactor = BaseCoder.precisionFactor(nDecimals);
                     if (isFinite(precisionFactor)) {
                         result = result / precisionFactor;
                     } else {

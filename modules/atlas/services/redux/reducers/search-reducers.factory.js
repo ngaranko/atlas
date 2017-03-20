@@ -53,7 +53,7 @@
          * @returns {Object} newState
          */
         function fetchSearchResultsByLocationReducer (oldState, payload) {
-            let newState = angular.copy(oldState);
+            const newState = angular.copy(oldState);
 
             newState.search = {
                 isLoading: true,

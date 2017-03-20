@@ -28,7 +28,7 @@
          * @returns {Object} newState
          */
         function fetchStraatbeeldByIdReducer (oldState, payload) {
-            let newState = angular.copy(oldState);
+            const newState = angular.copy(oldState);
 
             newState.straatbeeld = newState.straatbeeld || {};
             initializeStraatbeeld(newState.straatbeeld);

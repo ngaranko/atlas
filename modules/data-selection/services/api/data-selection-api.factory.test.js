@@ -4,20 +4,21 @@ describe('The dataSelectionApi factory', function () {
         dataSelectionApi,
         mockedApiPreviewResponse,
         mockedApiMarkersResponse,
-        mockedApiService = {
+        mockedConfig,
+        TabHeader;
+
+    const mockedApiService = {
             query: function () {
-                let q = $q.defer();
+                const q = $q.defer();
 
                 q.resolve(mockedApiPreviewResponse);
 
                 return q.promise;
             }
         },
-        mockedConfig,
-        TabHeader,
         api = {
             getByUri: function (url) {
-                let q = $q.defer();
+                const q = $q.defer();
 
                 q.resolve(mockedApiMarkersResponse);
 
@@ -189,7 +190,7 @@ describe('The dataSelectionApi factory', function () {
             spyOn(TabHeader, 'provideCounter');
             dataSelectionApi.initialize();
             expect(TabHeader.provideCounter).toHaveBeenCalled();
-            let [action, getCount] = TabHeader.provideCounter.calls.argsFor(0);
+            const [action, getCount] = TabHeader.provideCounter.calls.argsFor(0);
             expect(action).toBe('FETCH_DATA_SELECTION');
             let count;
             getCount({

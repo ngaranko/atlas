@@ -8,14 +8,14 @@
     googleSheetFactory.$inject = ['$q', '$window', '$sce', 'markdownParser', 'GOOGLE_SHEET_CMS'];
 
     function googleSheetFactory ($q, $window, $sce, markdownParser, GOOGLE_SHEET_CMS) {
-        let sheets = {};    // local cache of parsed sheets
+        const sheets = {};    // local cache of parsed sheets
 
         return {
             getContents
         };
 
         function getContents (key, index) {
-            let defer = $q.defer();
+            const defer = $q.defer();
 
             if (sheets[key] && sheets[key][index]) {
                 defer.resolve(sheets[key][index]);  // resolves to the value or the promise
@@ -23,14 +23,14 @@
                 // Create a temporary function in the global scope that can be called by the google script
                 sheets[key] = sheets[key] || {};
                 sheets[key][index] = defer.promise; // later replaced by its contents
-                let callbackName = 'googleScriptCallback_' + key + '_' + index;
+                const callbackName = 'googleScriptCallback_' + key + '_' + index;
                 $window[callbackName] = (contents) => {
                     sheets[key][index] = parseContents(contents);
                     defer.resolve(sheets[key][index]);
                 };
 
                 // Create the script
-                let script = document.createElement('script');
+                const script = document.createElement('script');
                 script.type = 'text/javascript';
                 script.src =
                     'https://spreadsheets.google.com/feeds/list/' +
@@ -51,13 +51,13 @@
                 isHref = /^(\[link |<a href=)/;
 
             // Set feed properties
-            let feed = {
+            const feed = {
                 title: contents.feed.title.$t,
                 lastUpdated: contents.feed.updated.$t
             };
 
             // Extract entries
-            let entries = contents.feed.entry.map((entry, id) => {
+            const entries = contents.feed.entry.map((entry, id) => {
                 // Extract the contents
                 return entry.content.$t         // attrx: value, attry: value, ....
                     .replace(/^attr/, '')       // x: value, attry: value, ...
@@ -73,7 +73,7 @@
                                 isDate: Boolean(value.match(isDateValue) && key.match(isDateKey))
                             };
                             if (item[key].isDate) {
-                                let match = isDateValue.exec(value);
+                                const match = isDateValue.exec(value);
                                 item[key].date = new Date(match[3], match[2] - 1, match[1]);
                             }
                         }

@@ -40,10 +40,9 @@ describe('The map controller', function () {
     });
 
     function getController () {
-        let controller,
-            scope = $rootScope.$new();
+        const scope = $rootScope.$new();
 
-        controller = $controller('MapController', {
+        const controller = $controller('MapController', {
             $scope: scope
         });
 
@@ -61,9 +60,7 @@ describe('The map controller', function () {
     });
 
     it('sets the mapState based on the Redux state', function () {
-        let controller;
-
-        controller = getController();
+        const controller = getController();
 
         expect(controller.mapState).toEqual({
             var_1: 'a',

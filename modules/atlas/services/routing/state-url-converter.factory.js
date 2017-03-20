@@ -23,7 +23,7 @@
             ARRAY: /\[\]$/
         };
 
-        let base62Coder = dpBaseCoder.getCoderForBase(62);  // Code coordinates in base62
+        const base62Coder = dpBaseCoder.getCoderForBase(62);  // Code coordinates in base62
 
         // url-state converters for every possible type
 
@@ -75,17 +75,17 @@
                 // { id:anyValue, ... } => anyValue:anyValue:...
                 return ObjectValue.getKeyTypes(typeName)
                     .map(keyValue => {
-                        let [key, keyType] = keyValue.split(':'); // key:type => key, type
+                        const [key, keyType] = keyValue.split(':'); // key:type => key, type
                         return asValue(o[key], keyType, precision, separator + URL_ARRAY_SEPARATOR);
                     })
                     .join(separator);
             }
             static stateValue (s, typeName, asValue, precision, separator) {
                 // anyValue:anyValue:... => { id:anyValue, ... }
-                let fields = asValue(s, 'string[]', precision, separator); // [ anyValue, anyValue, ...]
+                const fields = asValue(s, 'string[]', precision, separator); // [ anyValue, anyValue, ...]
                 return ObjectValue.getKeyTypes(typeName)
                     .reduce((result, keyAndType, i) => {
-                        let [key, keyType] = keyAndType.split(':'); // key:type => key, type
+                        const [key, keyType] = keyAndType.split(':'); // key:type => key, type
                         result[key] = asValue(fields[i], keyType, precision, separator + URL_ARRAY_SEPARATOR);
                         return result;
                     }, {});
@@ -98,19 +98,19 @@
             }
             static urlValue (a, typeName, asValue, precision, separator) {
                 // [ x, y, z, ... ] => x:y:z:...
-                let baseType = ArrayValue.getBaseType(typeName);
+                const baseType = ArrayValue.getBaseType(typeName);
                 return a
                     .map(v => asValue(v, baseType, precision, separator + URL_ARRAY_SEPARATOR))
                     .join(separator);
             }
             static stateValue (s, typeName, asValue, precision, separator) {
                 // x:y:z:... => [ x, y, z, ... ]
-                let baseType = ArrayValue.getBaseType(typeName);
+                const baseType = ArrayValue.getBaseType(typeName);
                 // Split the array, replace the split char by a tmp split char because org split char can repeat
                 const TMP_SPLIT_CHAR = '|';
-                let surroundBy = '(^|[^' + URL_ARRAY_SEPARATOR + ']|$)';
-                let splitOn = new RegExp(surroundBy + separator + surroundBy, 'g');
-                let splitValue = s.replace(splitOn, '$1' + TMP_SPLIT_CHAR + '$2');
+                const surroundBy = '(^|[^' + URL_ARRAY_SEPARATOR + ']|$)';
+                const splitOn = new RegExp(surroundBy + separator + surroundBy, 'g');
+                const splitValue = s.replace(splitOn, '$1' + TMP_SPLIT_CHAR + '$2');
                 return splitValue
                     .split(TMP_SPLIT_CHAR)
                     .map(v => asValue(v, baseType, precision, separator + URL_ARRAY_SEPARATOR));
@@ -140,7 +140,7 @@
 
         function createObject (oldObj, key, params) {
             // create a state object by using its initial value (default {}) and onCreate method if defined
-            let initialValues = STATE_URL_CONVERSION.initialValues,
+            const initialValues = STATE_URL_CONVERSION.initialValues,
                 initialValue = initialValues[key] || {},
                 onCreate = STATE_URL_CONVERSION.onCreate[key];
 
@@ -154,7 +154,7 @@
         function getFullKey (key) {
             // decompose 'map.viewCenter' in {mainKey: 'map', subKey: 'viewCenter'}
             // or 'isPrintmode' in {mainKey: 'isPrintmode'}
-            let dot = key.indexOf('.');
+            const dot = key.indexOf('.');
             if (dot >= 0) {
                 return {
                     mainKey: key.substr(0, dot),
@@ -170,7 +170,7 @@
         function getValueForKey (obj, key) {
             // return 9 for obj={map: {zoom: 9}} and key = 'map.zoom', null when no value available
             // Uses recursion for endless depth
-            let {mainKey, subKey} = getFullKey(key);
+            const {mainKey, subKey} = getFullKey(key);
             if (subKey) {
                 return angular.isObject(obj[mainKey]) ? getValueForKey(obj[mainKey], subKey) : null;
             } else {
@@ -181,7 +181,7 @@
         function setValueForKey (obj, oldObj, key, value) {
             // set obj:{map: {zoom: 9}} to {map: {zoom: 8}} for key 'map.zoom' and value 8
             // the old object is used for createObject() in case of any onCreate method for the state object
-            let {mainKey, subKey} = getFullKey(key);
+            const {mainKey, subKey} = getFullKey(key);
             if (subKey) {
                 obj[mainKey] = obj[mainKey] || createObject(oldObj[mainKey], mainKey);
                 setValueForKey(obj[mainKey], oldObj[mainKey] || {}, subKey, value);
@@ -215,7 +215,7 @@
 
         function asStateValue (decodedValue, typeName, precision = null, separator = URL_ARRAY_SEPARATOR) {
             // returns the value as a state value by using the URI-decoded string representation
-            let value = decodeURI(decodedValue);
+            const value = decodeURI(decodedValue);
             let stateValue = null;
 
             if (typeName.match(TYPENAME.STRING)) {
@@ -240,7 +240,7 @@
         function state2params (state) {
             // Converts a state to a params object that is stored in the url
             return Object.keys(STATE_URL_CONVERSION.stateVariables).reduce((result, key) => {
-                let attribute = STATE_URL_CONVERSION.stateVariables[key];
+                const attribute = STATE_URL_CONVERSION.stateVariables[key];
                 let value = getValueForKey(state, attribute.name);
                 if (value !== null) {
                     // store value in url
@@ -261,7 +261,7 @@
             let newState = createObject (oldState, MAIN_STATE, params);
 
             newState = Object.keys(STATE_URL_CONVERSION.stateVariables).reduce((result, key) => {
-                let attribute = STATE_URL_CONVERSION.stateVariables[key];
+                const attribute = STATE_URL_CONVERSION.stateVariables[key];
                 let value = params[key];
                 if (angular.isDefined(value)) {
                     // store value in state

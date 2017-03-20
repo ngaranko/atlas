@@ -10,7 +10,7 @@ describe('The user factory', function () {
         httpPostRefreshData,
         dummyPromise;
 
-    let mockedUserSettings = {
+    const mockedUserSettings = {
         token: {
             get value () { return mockedUserSettings.getItem(); },
             set value (value) { mockedUserSettings.setItem ('token', value); },

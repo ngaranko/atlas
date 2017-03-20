@@ -52,12 +52,8 @@ describe('The dp-glossary-header directive', function () {
     });
 
     function getDirective (heading, definition, usePlural, metaData, brk) {
-        let directive,
-            element,
-            scope;
-
-        element = document.createElement('dp-glossary-header');
-        scope = $rootScope.$new();
+        const element = document.createElement('dp-glossary-header');
+        const scope = $rootScope.$new();
 
         if (heading !== null) {
             element.setAttribute('heading', heading);
@@ -78,7 +74,7 @@ describe('The dp-glossary-header directive', function () {
             scope.brk = brk;
         }
 
-        directive = $compile(element)(scope);
+        const directive = $compile(element)(scope);
         $rootScope.$apply();
 
         return directive;

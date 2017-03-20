@@ -29,7 +29,7 @@ describe('The event component', function () {
     }
 
     it('shows the day and month', function () {
-        let component = getComponent(new Date(2020, 0, 1));
+        const component = getComponent(new Date(2020, 0, 1));
 
         expect(component.find('.qa-event__day').text()).toBe('1');
         expect(component.find('.qa-event__month').text()).toBe('jan');

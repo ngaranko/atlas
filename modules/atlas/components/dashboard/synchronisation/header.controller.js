@@ -8,7 +8,7 @@
     HeaderController.$inject = ['store'];
 
     function HeaderController (store) {
-        let vm = this;
+        const vm = this;
 
         store.subscribe(update);
         update();

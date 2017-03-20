@@ -23,7 +23,7 @@
     DpGlossaryMetaController.$inject = ['GLOSSARY'];
 
     function DpGlossaryMetaController (GLOSSARY) {
-        let vm = this;
+        const vm = this;
 
         vm.metaFields = [];
 

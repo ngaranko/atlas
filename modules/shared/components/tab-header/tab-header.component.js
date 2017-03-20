@@ -16,7 +16,7 @@
     DpTabHeaderController.$inject = [];
 
     function DpTabHeaderController () {
-        let vm = this;
+        const vm = this;
 
         // show the tabHeader when any searchText is set and all counts are known
         vm.show = () => vm.searchText.trim() && vm.totalCount() !== null;
