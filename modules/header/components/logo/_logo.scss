@@ -1,0 +1,60 @@
+$image-tall-offset-top: 20px;
+$image-tall-offset-left: -26px;
+$image-tall-width: 85px;
+$image-tall-height: 68px;
+$title-tall-offset-left: 80px;
+
+.c-logo {
+  @include font-size($xl-header-font);
+
+  display: block;
+  height: 100%;
+  color: $primary-dark;
+  cursor: pointer;
+}
+
+.c-logo__link {
+  width: 100%;
+  color: $primary-dark;
+  text-align: left;
+  text-decoration: none;
+}
+
+.c-logo__image {
+  position: absolute;
+}
+
+.c-logo__title {
+  font-weight: bold;
+}
+
+.c-logo--tall {
+  .c-logo__title-col {
+    margin-left: $title-tall-offset-left;
+  }
+
+  .c-logo__image {
+    top: $image-tall-offset-top;
+    left: $image-tall-offset-left;
+    width: $image-tall-width;
+    height: $image-tall-height;
+  }
+
+  .c-logo__title {
+    @include font-size($xl-header-font);
+    line-height: 60px;
+  }
+}
+
+.c-logo--short {
+  .c-logo__image {
+    top: $base-whitespace;
+    right: $base-whitespace;
+    left: $base-whitespace;
+  }
+
+  .c-logo__title {
+    @include font-size($s-header-font);
+    line-height: $site-header-height;
+  }
+}

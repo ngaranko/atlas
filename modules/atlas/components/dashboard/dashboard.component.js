@@ -9,9 +9,9 @@
             controllerAs: 'vm'
         });
 
-    DpDashboardController.$inject = ['$scope', 'store', 'dashboardColumns'];
+    DpDashboardController.$inject = ['$scope', 'store', 'dashboardColumns', 'HEADER'];
 
-    function DpDashboardController ($scope, store, dashboardColumns) {
+    function DpDashboardController ($scope, store, dashboardColumns, HEADER) {
         const vm = this;
 
         vm.store = store;
@@ -29,11 +29,10 @@
 
             vm.hasMaxWidth = vm.visibility.page;
             vm.isHomePage = vm.visibility.page && state.page && state.page.name === 'home';
+            vm.headerSize = vm.isHomePage ? HEADER.SIZE.TALL : HEADER.SIZE.SHORT;
 
             vm.isPrintMode = state.atlas.isPrintMode;
 
-            vm.isCatalogus = (state.dataSelection && state.dataSelection.view === 'CARDS') ||
-                (state.detail && state.detail.endpoint.includes('/catalogus/api/'));
             vm.dataSelectionState = state.dataSelection;
 
             vm.isRightColumnScrollable = !vm.isFullscreen &&
