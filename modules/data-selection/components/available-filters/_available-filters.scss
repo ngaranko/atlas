@@ -1,5 +1,4 @@
 .c-data-selection-available-filters {
-  margin-top: $base-whitespace * 2;
 
   .c-data-selection-available-filters__list {
 
@@ -29,6 +28,7 @@
 }
 
 .c-data-selection-available-filters--available-filters {
+  padding-top: $base-whitespace;
   padding-right: $base-whitespace;
   padding-left: $base-whitespace;
   background-color: $secondary-gray4;

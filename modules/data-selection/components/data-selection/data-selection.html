@@ -19,10 +19,9 @@
                         active-filters="vm.state.filters">
                     </dp-data-selection-available-filters>
                 </div>
-                <div class="c-data-selection__body"
-                     ng-class="{
+                <div ng-class="{
                          'u-col-sm--12': !vm.showFilters,
-                         'u-col-sm--9': vm.showFilters
+                         'u-col-sm--9, u-padding__left--2': vm.showFilters
                      }">
 
                     <dp-panel ng-if="vm.showMessageMaxPages" is-panel-visible="true" type="warning" can-close="true">

@@ -1,7 +1,4 @@
-<div ng-if="vm.showHeader" class="qa-header" ng-class="{
-        'u-margin__bottom--3': vm.showTabs || !vm.showActiveFilters,
-        'u-margin__bottom--1-5': !(vm.showTabs || !vm.showActiveFilters)
-    }">
+<div ng-if="vm.showHeader" class="qa-header u-margin__bottom--3">
     <div ng-if="vm.showButtons" class="u-pull--right qa-buttons">
         <div class="u-inline-block u-margin__right--1">
             <dp-data-selection-toggle-view-button view="vm.state.view"></dp-data-selection-toggle-view-button>

@@ -36,7 +36,7 @@ describe('The search title factory', function () {
         var titleData = searchTitle.getTitleData(45, 'westerpark', null, null);
 
         expect(titleData.title).toBe('Data (45)');
-        expect(titleData.subTitle).toContain('"westerpark"');
+        expect(titleData.subTitle).toContain('\'westerpark\'');
     });
 
     it('returns an empty title and empty subtitle on a negative search result', function () {
@@ -64,7 +64,7 @@ describe('The search title factory', function () {
         var titleData = searchTitle.getTitleData(47, 'westerpark', null, 'adres');
 
         // The category name will be converted to lowercase
-        expect(titleData.title).toBe('47 adressen met "westerpark"');
+        expect(titleData.title).toBe('47 adressen met \'westerpark\'');
         expect(titleData.subTitle).toBeUndefined();
     });
 
@@ -74,7 +74,7 @@ describe('The search title factory', function () {
         // When searching by query
         titleData = searchTitle.getTitleData(0, 'westerpark', null, null);
         expect(titleData.title).toBe('Geen resultaten gevonden');
-        expect(titleData.subTitle).toContain('"westerpark"');
+        expect(titleData.subTitle).toContain('\'westerpark\'');
 
         // When searching by location
         titleData = searchTitle.getTitleData(0, null, [52.123, 4.789], null);
