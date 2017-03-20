@@ -14,10 +14,12 @@
             controllerAs: 'vm'
         });
 
-    DpActiveOverlaysController.$inject = ['$scope'];
+    DpActiveOverlaysController.$inject = ['$scope', 'overlays'];
 
-    function DpActiveOverlaysController ($scope) {
+    function DpActiveOverlaysController ($scope, overlays) {
         var vm = this;
+
+        vm.validOverlays = vm.overlays.filter(overlay => overlays.SOURCES[overlay.id]);
 
         $scope.$watchGroup(['vm.overlays', 'vm.showActiveOverlays'], function () {
             vm.visible = vm.showActiveOverlays && vm.overlays.length > 0;

@@ -10,10 +10,8 @@ describe('The dp-active-overlays component', function () {
             {
                 store: {
                     dispatch: function () {}
-                }
-            },
-            function ($provide) {
-                $provide.constant('OVERLAYS', {
+                },
+                overlays: {
                     SOURCES: {
                         overlay_a: {
                             minZoom: 8,
@@ -24,8 +22,9 @@ describe('The dp-active-overlays component', function () {
                             maxZoom: 14
                         }
                     }
-                });
-
+                }
+            },
+            function ($provide) {
                 $provide.factory('dpActiveOverlaysItemDirective', function () {
                     return {};
                 });

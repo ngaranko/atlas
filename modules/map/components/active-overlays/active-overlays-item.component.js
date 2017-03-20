@@ -19,9 +19,8 @@
     function DpActiveOverlaysItemController ($scope, mapConfig, overlays) {
         var vm = this;
 
-        vm.overlayExists = Boolean(overlays.SOURCES[vm.overlay]);
-        vm.overlayLabel = overlays.SOURCES[vm.overlay] && overlays.SOURCES[vm.overlay].label_short;
-        vm.hasLegend = angular.isString(overlays.SOURCES[vm.overlay] && overlays.SOURCES[vm.overlay].legend);
+        vm.overlayLabel = overlays.SOURCES[vm.overlay].label_short;
+        vm.hasLegend = angular.isString(overlays.SOURCES[vm.overlay].legend);
 
         $scope.$watchCollection(function () {
             return [vm.isVisible, vm.zoom];
@@ -46,20 +45,17 @@
         function getLegendImageSrc (overlay) {
             var url = '';
 
-            if (overlays.SOURCES[overlay]) {
-                if (!overlays.SOURCES[overlay].external) {
-                    url += mapConfig.OVERLAY_ROOT;
-                }
-
-                url += overlays.SOURCES[overlay].legend;
+            if (!overlays.SOURCES[overlay].external) {
+                url += mapConfig.OVERLAY_ROOT;
             }
+
+            url += overlays.SOURCES[overlay].legend;
 
             return url;
         }
 
         function isVisibleAtCurrentZoom (overlay, zoom) {
-            return overlays.SOURCES[overlay] &&
-                zoom >= overlays.SOURCES[overlay].minZoom && zoom <= overlays.SOURCES[overlay].maxZoom;
+            return zoom >= overlays.SOURCES[overlay].minZoom && zoom <= overlays.SOURCES[overlay].maxZoom;
         }
     }
 })();
