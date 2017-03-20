@@ -14,10 +14,10 @@
 
     <div class="qa-found-no-straatbeeld" ng-if="!vm.isLoading && !vm.hasThumbnail">
         <dp-panel is-panel-visible="true" type="warning" can-close="true">
-            <p>
+            <p class="c-panel__p">
                 Geen panoramabeeld beschikbaar (binnen {{ vm.radius }}m van deze locatie).
             </p>
-            <p class="u-margin__bottom--0">
+            <p class="c-panel__p">
                 Tip: kies via de kaart een nabije locatie.
             </p>
         </dp-panel>

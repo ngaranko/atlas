@@ -20,35 +20,32 @@
   }
 }
 
-.s-panel {
-  h1,
-  h2,
-  h3 {
-    @include font-size-responsive($l-header-font);
-    margin-bottom: $base-whitespace;
-    font-weight: bold;
-  }
+%c-panel-h {
+  margin-bottom: $base-whitespace;
+  font-weight: bold;
+}
 
-  h4 {
-    @include font-size-responsive($m-header-font);
-    margin-bottom: $base-whitespace;
-    font-weight: bold;
-  }
+.c-panel__h1 {
+  @extend %c-panel-h;
+  @include font-size-responsive($l-header-font);
+}
 
-  h5,
-  h6 {
-    @include font-size-responsive($s-header-font);
-    margin-bottom: $base-whitespace;
-    color: $secondary-gray60;
-    font-weight: bold;
-  }
+.c-panel__h2 {
+  @extend %c-panel-h;
+  @include font-size-responsive($m-header-font);
+}
 
-  p {
-    margin-bottom: $base-whitespace;
+.c-panel__h3 {
+  @extend %c-panel-h;
+  @include font-size-responsive($s-header-font);
+  color: $secondary-gray60;
+}
 
-    &:last-child {
-      margin-bottom: 0;
-    }
+.c-panel__p {
+  margin-bottom: $base-whitespace;
+
+  &:last-child {
+    margin-bottom: 0;
   }
 }
 
