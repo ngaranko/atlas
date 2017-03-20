@@ -159,6 +159,12 @@ describe('The dp-data-selection component', function () {
         expect(scope.vm.numberOfRecords).toBe(77);
     });
 
+    it('hides the available-filters when no results are found', () => {
+        mockedApiPreviewData.numberOfRecords = 0;
+        const component = getComponent(mockedState);
+        expect(component.find('dp-data-selection-available-filters').length).toBe(0);
+    });
+
     it('hides the tab header in CARDS view when no search query is provided', function () {
         mockedState.view = 'CARDS';
         mockedState.query = '';

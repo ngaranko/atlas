@@ -67,7 +67,6 @@
             vm.view = vm.state.view;
             const isQueryView = angular.isDefined(vm.state.query) && vm.state.query.trim().length >= 1;
             vm.showTabHeader = () => vm.view === 'CARDS' && isQueryView;
-            vm.showFilters = !isListView;
             vm.currentPage = vm.state.page;
 
             vm.numberOfRecords = null;
@@ -88,6 +87,8 @@
                     vm.data = data.data;
                     vm.numberOfRecords = data.numberOfRecords;
                     vm.numberOfPages = data.numberOfPages;
+
+                    vm.showFilters = !isListView && vm.numberOfRecords > 0;
 
                     // determine if warning messages should be shown
                     vm.maxAvailablePages = DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES;
