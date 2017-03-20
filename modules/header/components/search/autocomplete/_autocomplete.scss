@@ -12,9 +12,8 @@ $suggestion-offset: $base-font-size;
   .c-autocomplete__tip {
     @include font-size($s-font);
     margin-top: $base-whitespace / 2;
-    color: $secondary-gray40;
-    font-style: italic;
-    font-weight: 400;
+    color: $secondary-gray60;
+    font-weight: normal;
     text-align: center;
   }
 
@@ -54,7 +53,7 @@ $suggestion-offset: $base-font-size;
 
     &:hover,
     &.c-autocomplete__category__suggestion--active {
-      background-color: $secondary-gray20;
+      background-color: $secondary-gray10;
       font-weight: inherit;
     }
 
