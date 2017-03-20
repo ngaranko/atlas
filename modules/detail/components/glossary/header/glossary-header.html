@@ -28,16 +28,16 @@
     </div>
 
     <dp-panel ng-if="vm.hasHelp" is-panel-visible="vm.isVisible.help" can-close="true" class-name="qa-glossary">
-        <h3 class="c-panel__h1">Uitleg over {{vm.glossaryLabel | lowercase}}</h3>
-        <p class="c-panel__p">{{vm.glossaryDescription}}</p>
-        <p class="c-panel__p">
+        <h3 class="c-panel__title">Uitleg over {{vm.glossaryLabel | lowercase}}</h3>
+        <p class="c-panel__paragraph">{{vm.glossaryDescription}}</p>
+        <p class="c-panel__paragraph">
             <a ng-if="vm.stelselpediaUrl" class="o-link--arrow" ng-href="{{vm.stelselpediaUrl}}" target="_blank">
                 Lees verder op stelselpedia
             </a>
         </p>
     </dp-panel>
     <dp-panel ng-if="vm.hasMetaData" is-panel-visible="vm.isVisible.meta" can-close="true" class-name="qa-metadata">
-        <h3 class="c-panel__h1">Metadata van {{vm.glossaryLabel | lowercase}}</h3>
+        <h3 class="c-panel__title">Metadata van {{vm.glossaryLabel | lowercase}}</h3>
         <dp-glossary-meta definition="{{vm.definition}}" api-data="vm.metaData"></dp-glossary-meta>
     </dp-panel>
 </div>

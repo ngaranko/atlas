@@ -20,28 +20,12 @@
   }
 }
 
-%c-panel-h {
+.c-panel__title {
+  @include font-size-responsive($l-header-font);
   margin-bottom: $base-whitespace;
   font-weight: bold;
 }
-
-.c-panel__h1 {
-  @extend %c-panel-h;
-  @include font-size-responsive($l-header-font);
-}
-
-.c-panel__h2 {
-  @extend %c-panel-h;
-  @include font-size-responsive($m-header-font);
-}
-
-.c-panel__h3 {
-  @extend %c-panel-h;
-  @include font-size-responsive($s-header-font);
-  color: $secondary-gray60;
-}
-
-.c-panel__p {
+.c-panel__paragraph {
   margin-bottom: $base-whitespace;
 
   &:last-child {
