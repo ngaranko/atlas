@@ -27,26 +27,31 @@ describe('The dp-layer-selection component', function () {
                     SOURCES: {
                         overlay_1_a: {
                             label_short: 'Overlay 1a',
+                            label_long: 'L_Overlay 1a',
                             minZoom: 8,
                             maxZoom: 16
                         },
                         overlay_1_b: {
                             label_short: 'Overlay 1b',
+                            label_long: 'L_Overlay 1b',
                             minZoom: 8,
                             maxZoom: 16
                         },
                         overlay_2_a: {
                             label_short: 'Overlay 2a',
+                            label_long: 'L_Overlay 2a',
                             minZoom: 8,
                             maxZoom: 10
                         },
                         overlay_2_b: {
                             label_short: 'Overlay 2b',
+                            label_long: 'L_Overlay 2b',
                             minZoom: 11,
                             maxZoom: 14
                         },
                         overlay_2_c: {
                             label_short: 'Overlay 2c',
+                            label_long: 'L_Overlay 2c',
                             minZoom: 15,
                             maxZoom: 16
                         }
@@ -172,25 +177,25 @@ describe('The dp-layer-selection component', function () {
 
             expect(contentDiv.find('div').eq(1).find('h2').text()).toBe('Category 1');
 
-            expect(contentDiv.find('div').eq(1).find('li').eq(0).find('label').text().trim()).toBe('Overlay 1a');
+            expect(contentDiv.find('div').eq(1).find('li').eq(0).find('label').text().trim()).toBe('L_Overlay 1a');
             expect(contentDiv.find('div').eq(1).find('li').eq(0).find('input').attr('type')).toBe('checkbox');
             expect(contentDiv.find('div').eq(1).find('li').eq(0).find('input').val()).toBe('overlay_1_a');
 
-            expect(contentDiv.find('div').eq(1).find('li').eq(1).find('label').text().trim()).toBe('Overlay 1b');
+            expect(contentDiv.find('div').eq(1).find('li').eq(1).find('label').text().trim()).toBe('L_Overlay 1b');
             expect(contentDiv.find('div').eq(1).find('li').eq(1).find('input').attr('type')).toBe('checkbox');
             expect(contentDiv.find('div').eq(1).find('li').eq(1).find('input').val()).toBe('overlay_1_b');
 
             expect(contentDiv.find('div').eq(2).find('h2').text()).toBe('Category 2');
 
-            expect(contentDiv.find('div').eq(2).find('li').eq(0).find('label').text().trim()).toBe('Overlay 2a');
+            expect(contentDiv.find('div').eq(2).find('li').eq(0).find('label').text().trim()).toBe('L_Overlay 2a');
             expect(contentDiv.find('div').eq(2).find('li').eq(0).find('input').attr('type')).toBe('checkbox');
             expect(contentDiv.find('div').eq(2).find('li').eq(0).find('input').val()).toBe('overlay_2_a');
 
-            expect(contentDiv.find('div').eq(2).find('li').eq(1).find('label').text().trim()).toBe('Overlay 2b');
+            expect(contentDiv.find('div').eq(2).find('li').eq(1).find('label').text().trim()).toBe('L_Overlay 2b');
             expect(contentDiv.find('div').eq(2).find('li').eq(1).find('input').attr('type')).toBe('checkbox');
             expect(contentDiv.find('div').eq(2).find('li').eq(1).find('input').val()).toBe('overlay_2_b');
 
-            expect(contentDiv.find('div').eq(2).find('li').eq(2).find('label').text().trim()).toBe('Overlay 2c');
+            expect(contentDiv.find('div').eq(2).find('li').eq(2).find('label').text().trim()).toBe('L_Overlay 2c');
             expect(contentDiv.find('div').eq(2).find('li').eq(2).find('input').attr('type')).toBe('checkbox');
             expect(contentDiv.find('div').eq(2).find('li').eq(2).find('input').val()).toBe('overlay_2_c');
         });
