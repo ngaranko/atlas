@@ -21,6 +21,7 @@ $clear-button-margin: ($site-header-search-form-height - $button-size) / 2;
   padding-right: $base-whitespace + $site-header-search-form-height;
   padding-left: $base-whitespace;
   border: 1px solid $secondary-gray20;
+  border-radius: 0;
   outline: none;
   background-color: $primary-light;
   color: $primary-dark;
