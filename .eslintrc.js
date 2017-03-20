@@ -33,6 +33,7 @@ module.exports = {
         "eol-last": "error",            //require or disallow newline at the end of files
         "no-shadow": "error",           // disallow variable declarations shadowing outer scope variables
         "angular/json-functions": "error",    // use angular.fromJson/toJson instead of JSON.parse and JSON.stringify
+        "angular/module-getter": "off", // When using a module, avoid variable, use chaining with the getter syntax
         "spaced-comment": "error",      // enforce consistent spacing after the // or /* in a comment
         "indent": [                     // enforce consistent indentation
             "error",
@@ -65,6 +66,7 @@ module.exports = {
                 // }
             }
         ],
+        "prefer-const": "error",            // require const variable over let if not reassigned
         "no-unused-vars": "error",          // disallow unused variables
         "semi": ["error", "always"],        // require or disallow semicolons instead of ASI
         "comma-dangle": ["error", "never"], // require or disallow trailing commas

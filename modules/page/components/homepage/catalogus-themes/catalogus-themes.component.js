@@ -12,7 +12,7 @@
     DpCatalogusThemes.$inject = ['CATALOGUS_THEMES_CONFIG'];
 
     function DpCatalogusThemes (CATALOGUS_THEMES_CONFIG) {
-        let vm = this;
+        const vm = this;
 
         vm.themes = angular.copy(CATALOGUS_THEMES_CONFIG);
         vm.themeColumns = [];

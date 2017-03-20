@@ -31,7 +31,7 @@
                     let isAvailable;
                     try {
                         storageProvider.setItem('test', 'testvalue');
-                        let data = storageProvider.getItem('test');
+                        const data = storageProvider.getItem('test');
                         storageProvider.removeItem('test');
                         isAvailable = data === 'testvalue';
                     } catch (e) {

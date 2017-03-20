@@ -8,7 +8,7 @@
     tabHeaderFactory.$inject = ['TAB_HEADER_CONFIG'];
 
     function tabHeaderFactory (TAB_HEADER_CONFIG) {
-        let countProvider = {},
+        const countProvider = {},
             tabHeader = {};
 
         class TabPage {

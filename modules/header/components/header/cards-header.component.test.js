@@ -25,23 +25,19 @@ describe('The dp-cards-header component', () => {
     });
 
     function getComponent (query) {
-        let component,
-            element,
-            scope;
-
-        element = document.createElement('dp-cards-header');
+        const element = document.createElement('dp-cards-header');
         element.setAttribute('query', query);
 
-        scope = $rootScope.$new();
+        const scope = $rootScope.$new();
 
-        component = $compile(element)(scope);
+        const component = $compile(element)(scope);
         scope.$apply();
 
         return component;
     }
 
     it('clears the search query when navigating back to \'home\'', () => {
-        let component = getComponent('verkeer');
+        const component = getComponent('verkeer');
 
         component.find('.qa-link-to-home').click();
 

@@ -21,14 +21,14 @@
          * @returns {Promise}
          */
         function getByUrl (url, params, cancel) {
-            let headers = {},
+            const headers = {},
                 userState = user.getStatus();
 
             if (userState.isLoggedIn) {
                 headers.Authorization = 'JWT ' + userState.accessToken;
             }
 
-            let options = {
+            const options = {
                 method: 'GET',
                 url: url,
                 headers: headers,

@@ -10,9 +10,7 @@
                     <dp-data-selection-available-filters
                         dataset="{{vm.state.dataset}}"
                         available-filters="vm.availableFilters"
-                        active-filters="vm.state.filters"
-                        is-loading="vm.isLoading">
-
+                        active-filters="vm.state.filters">
                     </dp-data-selection-available-filters>
                 </div>
                 <div class="c-data-selection__body"
@@ -25,8 +23,7 @@
                         ng-if="!vm.showTabHeader()"
                         state="vm.state"
                         available-filters="vm.availableFilters"
-                        number-of-records="vm.numberOfRecords"
-                        is-loading="vm.isLoading">
+                        number-of-records="vm.numberOfRecords">
                     </dp-data-selection-header>
 
                     <div ng-if="vm.showContent">

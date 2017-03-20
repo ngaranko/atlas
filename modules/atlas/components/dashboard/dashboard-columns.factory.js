@@ -33,7 +33,7 @@
 
         function determineVisibility (state) {
             const activity = determineActivity(state);
-            let visibility = {};
+            const visibility = {};
 
             visibility.httpStatus = httpStatus.getStatus().hasErrors;
             visibility.map = activity.map;
@@ -120,7 +120,7 @@
         }
 
         function determineColumnSizesDefault (state, visibility, hasFullscreenElement) {
-            let columnSizes = {};
+            const columnSizes = {};
 
             if (visibility.layerSelection) {
                 columnSizes.left = 4;
@@ -140,7 +140,7 @@
         }
 
         function determineColumnSizesPrint (state, visibility, hasFullscreenElement) {
-            let columnSizes = {};
+            const columnSizes = {};
 
             if (visibility.layerSelection) {
                 columnSizes.left = 12;

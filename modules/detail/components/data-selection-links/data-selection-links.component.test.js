@@ -25,17 +25,13 @@ describe('The dp-data-selection-link component', () => {
     });
 
     function getComponent (activeFilters) {
-        let component,
-            element,
-            scope;
-
-        element = document.createElement('dp-data-selection-links');
+        const element = document.createElement('dp-data-selection-links');
         element.setAttribute('active-filters', 'activeFilters');
 
-        scope = $rootScope.$new();
+        const scope = $rootScope.$new();
         scope.activeFilters = activeFilters;
 
-        component = $compile(element)(scope);
+        const component = $compile(element)(scope);
         scope.$apply();
 
         return component;
@@ -53,7 +49,7 @@ describe('The dp-data-selection-link component', () => {
 
     it('has links to the LIST view of data-selection for both BAG and HR', () => {
         const activeFilters = {stadsdeel_naam: 'Noord', buurt_naam: 'Ghetto C'};
-        let component = getComponent(activeFilters);
+        const component = getComponent(activeFilters);
 
         component.find('dp-link button').click();
         expect(store.dispatch).toHaveBeenCalledWith({

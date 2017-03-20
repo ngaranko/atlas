@@ -15,7 +15,7 @@
     DpWkpbLinkController.$inject = ['sharedConfig'];
 
     function DpWkpbLinkController (sharedConfig) {
-        let vm = this;
+        const vm = this;
 
         vm.wkpbEndpoint = sharedConfig.API_ROOT + 'brk/object-wkpb/' + vm.brkId + '/';
     }

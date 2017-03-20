@@ -20,7 +20,7 @@ describe('The dp-search-results component', function () {
             {
                 search: {
                     search: function (query) {
-                        let q = $q.defer();
+                        const q = $q.defer();
 
                         if (query === 'QUERY_WITHOUT_RESULTS') {
                             q.resolve(mockedNoResults);
@@ -31,7 +31,7 @@ describe('The dp-search-results component', function () {
                         return q.promise;
                     },
                     loadMore: function () {
-                        let q = $q.defer();
+                        const q = $q.defer();
 
                         q.resolve(mockedSearchResultsNextPage);
 
@@ -40,7 +40,7 @@ describe('The dp-search-results component', function () {
                 },
                 geosearch: {
                     search: function (location) {
-                        let q = $q.defer();
+                        const q = $q.defer();
 
                         if (location[0] === 52.999 && location[1] === 4.999) {
                             q.resolve(mockedNoResults);
@@ -316,8 +316,6 @@ describe('The dp-search-results component', function () {
     });
 
     function getComponent (numberOfResults, query, location, category) {
-        let component;
-
         element = document.createElement('dp-search-results');
         scope = $rootScope.$new();
 
@@ -342,7 +340,7 @@ describe('The dp-search-results component', function () {
         element.setAttribute('is-loading', 'isLoading');
         scope.isLoading = true;
 
-        component = $compile(element)(scope);
+        const component = $compile(element)(scope);
         scope.$apply();
 
         return component;
@@ -350,7 +348,7 @@ describe('The dp-search-results component', function () {
 
     describe('search by query', function () {
         it('shows search results', function () {
-            let component = getComponent(12, 'Weesperstraat');
+            const component = getComponent(12, 'Weesperstraat');
 
             // It shows 10 results from the first category and 1 results from the second category
             expect(component.find('.qa-search-result ul dp-link').length).toBe(11);
@@ -393,7 +391,7 @@ describe('The dp-search-results component', function () {
         });
 
         it('does nothing when no query and no location are specified', function () {
-            let component = getComponent(12);
+            const component = getComponent(12);
 
             expect(component.find('.qa-search-result ul dp-link').length).toBe(0);
         });
@@ -408,7 +406,7 @@ describe('The dp-search-results component', function () {
         });
 
         it('doesn\'t show the dp-straatbeeld-thumbnail component', function () {
-            let component = getComponent(12, 'Weesperstraat');
+            const component = getComponent(12, 'Weesperstraat');
 
             expect(component.find('dp-straatbeeld-thumbnail').length).toBe(0);
         });
@@ -626,8 +624,6 @@ describe('The dp-search-results component', function () {
         });
 
         it('has more link support', function () {
-            let numberOfDpLinks;
-
             // When there are more than 10 adressen
             expect(component.find('.qa-search-result dp-link').eq(11).find('button').text().trim())
                 .toBe('Bekijk alle 12 adressen binnen dit pand');
@@ -638,7 +634,7 @@ describe('The dp-search-results component', function () {
                 payload: 'https://api.datapunt.amsterdam.nl/bag/pand/03630013054429/'
             });
 
-            numberOfDpLinks = component.find('.qa-search-result dp-link').length;
+            const numberOfDpLinks = component.find('.qa-search-result dp-link').length;
 
             // When there are 10 or less adressen
             mockedGeosearchResults[1].count = 10;

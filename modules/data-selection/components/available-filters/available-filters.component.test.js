@@ -110,7 +110,7 @@ describe('The dp-data-selection-available-filters component', function () {
         spyOn(store, 'dispatch');
     });
 
-    function getComponent (activeFilters, isLoading) {
+    function getComponent (activeFilters) {
         var component,
             element,
             scope;
@@ -120,12 +120,10 @@ describe('The dp-data-selection-available-filters component', function () {
         element.setAttribute('dataset', 'my_special_dataset');
         element.setAttribute('available-filters', 'availableFilters');
         element.setAttribute('active-filters', 'activeFilters');
-        element.setAttribute('is-loading', 'isLoading');
 
         scope = $rootScope.$new();
         scope.availableFilters = availableFilters;
         scope.activeFilters = activeFilters;
-        scope.isLoading = isLoading;
 
         component = $compile(element)(scope);
         scope.$apply();

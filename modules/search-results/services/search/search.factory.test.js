@@ -126,7 +126,7 @@ describe('The search factory', function () {
         spyOn(TabHeader, 'provideCounter');
         search.initialize();
         expect(TabHeader.provideCounter).toHaveBeenCalled();
-        let [action, getCount] = TabHeader.provideCounter.calls.argsFor(0);
+        const [action, getCount] = TabHeader.provideCounter.calls.argsFor(0);
         expect(action).toBe('FETCH_SEARCH_RESULTS_BY_QUERY');
         let count;
         getCount('Waterlooplein').then(n => count = n);

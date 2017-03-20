@@ -3,7 +3,7 @@ describe('The pageReducers factory', function () {
         mockedState;
 
     beforeEach(function () {
-        let DEFAULT_STATE = {
+        const DEFAULT_STATE = {
             map: {
                 baseLayer: 'topografie',
                 overlays: [],
