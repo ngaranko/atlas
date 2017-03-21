@@ -30,7 +30,7 @@ $link-offset: $base-font-size;
 %link--arrow {
   @extend %link;
 
-  margin-left: calc(#{$link-offset} + 1px);
+  margin-left: $link-offset + 1px;
 
   &:hover {
     &::before {

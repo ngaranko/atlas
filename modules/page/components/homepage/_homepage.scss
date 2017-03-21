@@ -13,10 +13,6 @@ $show-more-height: 70px;
   background-size: cover;
 }
 
-.c-homepage__block__button :hover {
-  @include o-btn-white--hover;
-}
-
 .c-homepage__block--left {
   margin-right: .5 * $base-whitespace;
 }
@@ -69,10 +65,14 @@ $show-more-height: 70px;
   background-image: url("assets/images/homepage-adressen.png");
 }
 
-.c-homepage__block__button {
+.c-homepage__block-button {
   position: absolute;
   right: $base-whitespace;
   bottom: $base-whitespace;
   left: $base-whitespace;
   width: calc(100% - (2 * #{$base-whitespace}));
+
+  &:hover {
+    @include o-btn-white--hover;
+  }
 }
