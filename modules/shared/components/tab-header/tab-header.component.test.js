@@ -54,12 +54,12 @@ describe('The tabHeader component', function () {
 
     it('shows the search text in the header', function () {
         const component = getComponent(mockedSearchText, mockedActiveItems);
-        expect(component.find('.qa-tab-header__title').text().trim()).toBe('Resultaten met ‘AnySearchText’');
+        expect(component.find('.qa-tab-header__title').text().trim()).toBe('Resultaten met \'AnySearchText\'');
     });
 
     it('does show "Geen resultaten" and the search text in the header when no results are found', function () {
         const component = getComponent(mockedSearchText, []);
-        expect(component.find('.qa-tab-header__title').text().trim()).toBe('Geen resultaten met ‘AnySearchText’');
+        expect(component.find('.qa-tab-header__title').text().trim()).toBe('Geen resultaten met \'AnySearchText\'');
     });
 
     it('shows a tip when no results are found', function () {
