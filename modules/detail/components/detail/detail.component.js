@@ -49,8 +49,8 @@
         // (Re)load the data when the endpoint is set or gets changed
         $scope.$watch('vm.endpoint', getData);
 
-        // (Re)load the data when the user logs in or out
-        $scope.$watch(() => user.getUserType(), (newValue, oldValue) => {
+        // (Re)load the data when the user logs in or out or on a change of authorization level
+        $scope.$watch(() => user.getUserType() + user.getAuthorizationLevel(), (newValue, oldValue) => {
             if (newValue !== oldValue) {
                 getData(vm.endpoint);
             }
