@@ -1,6 +1,8 @@
-$c-event-date-width: 3 * $base-whitespace;
+$c-event-day-width: 3 * $base-whitespace;
+$c-event-day-height: 24px;
+$c-event-month-height: 19px;
 
-.c-event {
+c-event {
   position: relative;
 }
 
@@ -9,15 +11,15 @@ $c-event-date-width: 3 * $base-whitespace;
 }
 
 .c-event__day {
-  width: $c-event-date-width;
-  font-size: 24px;
+  width: $c-event-day-width;
+  font-size: $c-event-day-height;
   font-weight: bolder;
-  line-height: 24px;
+  line-height: $c-event-day-height;
   text-align: center;
 }
 
 .c-event__month {
-  width: $c-event-date-width;
+  width: $c-event-day-width;
   font-size: 16px;
   font-weight: normal;
   line-height: 22px;
@@ -29,6 +31,6 @@ $c-event-date-width: 3 * $base-whitespace;
 }
 
 .c-event__content {
-  min-height: 45px;
-  margin-left: $c-event-date-width + $base-whitespace;
+  min-height: $c-event-day-height + $c-event-month-height;
+  margin-left: $c-event-day-width + $base-whitespace;
 }

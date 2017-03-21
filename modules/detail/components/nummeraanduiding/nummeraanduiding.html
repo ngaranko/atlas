@@ -1,16 +1,16 @@
 <div class="o-header">
-	<dp-glossary-header heading="{{vm.isGevormd ? vm.headingHtml : vm.heading}}" definition="NUMMERAANDUIDING" meta-data="vm.metaData">
-	</dp-glossary-header>
+    <dp-glossary-header heading="{{vm.isGevormd ? vm.headingHtml : vm.heading}}" definition="NUMMERAANDUIDING" meta-data="vm.metaData">
+    </dp-glossary-header>
 
-	<div ng-if="!vm.hoofdadres || vm.isGevormd">
-		<div class="c-nummeraanduiding">
-			<dp-panel ng-if="!vm.hoofdadres" is-panel-visible="true" type="warning">
-				Dit is een nevenadres
-			</dp-panel>
+    <div ng-if="!vm.hoofdadres || vm.isGevormd">
+        <div class="c-nummeraanduiding">
+            <dp-panel ng-if="!vm.hoofdadres" is-panel-visible="true" type="warning">
+                Dit is een nevenadres
+            </dp-panel>
 
-			<dp-panel ng-if="vm.isGevormd" is-panel-visible="true" type="danger">
-				Status: {{vm.statusOmschrijving}}
-			</dp-panel>
-		</div>
-	</div>
-<div>
+            <dp-panel ng-if="vm.isGevormd" is-panel-visible="true" type="danger">
+                Status: {{vm.statusOmschrijving}}
+            </dp-panel>
+        </div>
+    </div>
+</div>
