@@ -74,6 +74,11 @@
                 vm.isMoreInfoAvailable = vm.apiData.results.is_natuurlijk_persoon &&
                         user.getUserType() !== user.USER_TYPE.AUTHENTICATED;
 
+                // Derive whether more info is available if the user would have special privileges
+                vm.hasInsufficientRights = vm.apiData.results.is_natuurlijk_persoon &&
+                    user.getUserType() === user.USER_TYPE.AUTHENTICATED &&
+                    user.getAuthorizationLevel() !== user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS;
+
                 vm.filterSelection = {
                     [subject]: vm.apiData.results.naam
                 };
