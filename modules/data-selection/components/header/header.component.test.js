@@ -271,6 +271,7 @@ describe('The dp-data-selection-header', () => {
             mockedInputList.numberOfRecords = 0;
             component = getComponent(mockedInputList);
             expect(component.find('.qa-no-results-found').length).toBe(1);
+            expect(component.find('.qa-no-results-found').text()).toContain('Tip: verwijder een of meer criteria');
         });
     });
 
