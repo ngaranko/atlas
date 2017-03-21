@@ -2,7 +2,7 @@
     <ng-include src="'modules/page/components/page/templates/content-overzicht.html'"></ng-include>
 </div>
 
-<div ng-if="vm.feed && (vm.type === 'beleid' || vm.type === 'help')" class="c-user-content-detail">
+<div ng-if="vm.feed && (vm.type === 'beleid' || vm.type === 'help')">
 
     <div class="u-row">
         <div class="u-col-sm--offset-1 u-col-sm--7">
@@ -13,25 +13,22 @@
     <div class="u-row">
 
         <div class="u-col-sm--offset-1 u-col-sm--7">
-            <div class="c-user-content-detail--left">
+            <div class="c-user-content-detail-left">
                 <div ng-if="vm.type !== 'events'">
                     <div class="s-cms-page-content" ng-bind-html="vm.entry.contents.html"></div>
                 </div>
 
                 <div ng-if="vm.type === 'events'">
-                    <h1 class="c-user-content-detail__event-item-header">{{vm.entry.titel.value}}</h1>
-                    <div class="c-user-content-detail__event-when-where">
-                        {{vm.entry.datum.date | dpDate}} {{vm.entry.tijd.value}}
-                        |
-                        {{vm.entry.location.value}}
-                    </div>
+                    <dp-event-when-where title="vm.entry.titel.value"
+                                         time="entry.tijd.value"
+                                         location="entry.location.value"></dp-event-when-where>
                     <div class="s-cms-page-content" ng-bind-html="vm.entry.contents.html"></div>
                 </div>
             </div>
         </div>
 
         <div class="u-col-sm--3 u-col-sm--offset-1">
-            <div class="c-user-content-detail--right">
+            <div class="c-user-content-detail-right">
                 <dp-user-content-widget type="beleid"></dp-user-content-widget>
             </div>
         </div>

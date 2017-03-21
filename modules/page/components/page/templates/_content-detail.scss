@@ -1,20 +1,10 @@
-.c-user-content-detail {
-  .c-user-content-detail--left {
-    @include font-size-responsive($m-font);
-    max-width: 799px;
-  }
-
-  .c-user-content-detail--right {
-    margin-right: 60px;
-    font-size: $s-font-size;
-  }
+.c-user-content-detail-left {
+  @include font-size-responsive($m-font);
+  max-width: $page-max-left-pane-width;
 }
 
-.c-user-content-detail__event-when-where {
-  margin-bottom: $base-whitespace;
-  color: $secondary-gray60;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 22px;
+.c-user-content-detail-right {
+  margin-right: $page-right-pane-margin;
+  font-size: $s-font-size;
 }
 

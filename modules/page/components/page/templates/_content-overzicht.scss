@@ -1,23 +1,15 @@
-.c-user-content-overview {
-  .c-user-content-overview--left {
-    @include font-size-responsive($m-font);
-    max-width: 799px;
-  }
-
-  .c-user-content-overview--right {
-    position: fixed;
-    margin-right: 60px;
-    font-size: $s-font-size;
-  }
+.c-user-content-overview-left {
+  @include font-size-responsive($m-font);
+  max-width: $page-max-left-pane-width;
 }
 
-.c-user-content-overview__event-header {
-  margin-bottom: 0;
-  font-size: 24px;
-  line-height: 24px;
+.c-user-content-overview-right {
+  position: fixed;
+  margin-right: $page-right-pane-margin;
+  font-size: $s-font-size;
 }
 
-.c-user-content-overview__toc-header {
+.c-user-content-overview-toc-header {
   margin-bottom: $base-whitespace;
   color: $primary-contrast;
   font-weight: bold;

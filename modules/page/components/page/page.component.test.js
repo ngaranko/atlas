@@ -96,6 +96,7 @@ describe('The page component', function () {
     });
 
     it('does nothing on empty type', function () {
+        spyOn(googleSheet, 'getContents').and.callThrough();
         const component = getComponent('about', '', '');
         const scope = component.isolateScope();
 
@@ -103,5 +104,6 @@ describe('The page component', function () {
 
         expect(scope.vm.feed).toBeNull();
         expect(scope.vm.entries).toEqual([]);
+        expect(googleSheet.getContents).not.toHaveBeenCalled();
     });
 });

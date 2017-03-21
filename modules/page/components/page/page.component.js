@@ -32,7 +32,7 @@
                     .then(contents => {
                         vm.feed = contents.feed;
                         vm.entries = contents.entries;
-                        vm.entry = vm.entries.reduce((result, entry) => entry.id === vm.item ? entry : result, null);
+                        vm.entry = vm.entries.find(entry => entry.id === vm.item);
                     });
             }
         });

@@ -1,4 +1,4 @@
-<div id="{{vm.type + 'top'}}" ng-if="vm.feed" class="c-user-content-overview">
+<div id="{{vm.type + 'top'}}" ng-if="vm.feed">
 
     <div class="u-row">
         <div class="u-col-sm--offset-1 u-col-sm--7">
@@ -8,7 +8,7 @@
 
     <div class="u-row">
         <div class="u-col-sm--offset-1 u-col-sm--7">
-            <div class="c-user-content-overview--left">
+            <div class="c-user-content-overview-left">
                 <div id="{{vm.type}}{{entry.id}}" ng-repeat="entry in vm.entries" class="u-margin__bottom--4">
 
                     <div ng-if="vm.type !== 'events'">
@@ -18,15 +18,11 @@
 
                     <div ng-if="vm.type === 'events'">
                         <dp-event date="entry.datum.date">
-                            <div class="u-margin__bottom--1 c-user-content-detail">
+                            <div class="u-margin__bottom--1">
                                 <div class="u-margin__left--2">
-                                    <h2 class="c-user-content-overview__event-header">{{entry.titel.value}}</h2>
-                                    <div ng-if="entry.tijd.value || entry.location.value" class="c-user-content-detail__event-when-where">
-                                    <span ng-if="entry.tijd.value && entry.location.value">
-                                        {{entry.tijd.value}} | {{entry.location.value}}
-                                    </span>
-                                        <span ng-if="!(entry.tijd.value && entry.location.value)">{{entry.tijd.value || entry.location.value}}</span>
-                                    </div>
+                                    <dp-event-when-where title="entry.titel.value"
+                                                         time="entry.tijd.value"
+                                                         location="entry.location.value"></dp-event-when-where>
                                     <div class="s-cms-page-content" ng-bind-html="entry.contents.html"></div>
                                 </div>
                             </div>
@@ -37,8 +33,8 @@
         </div>
 
         <div ng-if="vm.entries.length > 1" class="u-col-sm--offset-1 u-col-sm--3">
-            <div class="c-user-content-overview--right">
-                <div class="c-user-content-overview__toc-header">Op deze pagina</div>
+            <div class="c-user-content-overview-right">
+                <div class="c-user-content-overview-toc-header">Op deze pagina</div>
 
                 <dp-anchor-link ng-repeat="e in vm.entries"
                                 link="{{$first ? (vm.type + 'top') : (vm.type + e.id)}}"
