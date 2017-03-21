@@ -3,8 +3,8 @@ describe('Taiga issue #2866', () => {
         const page = dp.navigate('PAGE--HOME');
 
         // Search for "Dam"
-        page.dashboard.header.search.setQuery('dam');
-        page.dashboard.header.search.submit();
+        page.dashboard.siteHeader.search.setQuery('dam');
+        page.dashboard.siteHeader.search.submit();
 
         expect(page.dashboard.rightColumn.searchResults.categories(1).header).toContain('Adressen');
         dp.validate('SEARCH-RESULTS--QUERY', page);

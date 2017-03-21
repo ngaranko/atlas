@@ -16,7 +16,7 @@ describe('The dp-terugmelden-button component', function () {
         spyOn($location, 'absUrl').and.returnValue(currentUrl);
     });
 
-    function getComponent (transcludeStr) {
+    function getComponent (transcludeStr, className) {
         var component,
             element,
             scope;
@@ -25,6 +25,10 @@ describe('The dp-terugmelden-button component', function () {
 
         if (angular.isString(transcludeStr)) {
             element.innerHTML = transcludeStr;
+        }
+
+        if (angular.isString(className)) {
+            element.setAttribute('class-name', className);
         }
 
         scope = $rootScope.$new();
@@ -51,5 +55,15 @@ describe('The dp-terugmelden-button component', function () {
         var htmlStr = '<p id="unit-test-selector">This will be transcluded!</p>';
 
         expect(getComponent(htmlStr).find('p[id="unit-test-selector"]').text()).toBe('This will be transcluded!');
+    });
+
+    it('can have a custom className', function () {
+        const component = getComponent(null, 'my-special-class');
+        expect(component.find('.qa-link').attr('class')).toContain('my-special-class');
+    });
+
+    it('has a default fallback class if no className is specified', function () {
+        const component = getComponent();
+        expect(component.find('.qa-link').attr('class')).toContain('o-btn o-btn--link');
     });
 });

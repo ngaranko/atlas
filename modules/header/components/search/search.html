@@ -1,24 +1,33 @@
 <form class="c-search-form" ng-submit="query.trim() && formSubmit($event)">
     <fieldset>
-        <input
-            class="c-search-form__input js-search-input"
-            type="text"
-            ng-model="query"
-            autocapitalize="off"
-            autocorrect="off"
-            autocomplete="off"
-            spellcheck="false"
-            placeholder="{{placeholder}}"
-            ng-change="getSuggestions()"
-            ng-keydown="navigateSuggestions($event)"
-            ng-blur="removeSuggestions($event)">
+        <div class="c-search-form__input-container">
+            <input
+                class="c-search-form__input js-search-input"
+                type="text"
+                ng-model="query"
+                autocapitalize="off"
+                autocorrect="off"
+                autocomplete="off"
+                spellcheck="false"
+                placeholder="{{placeholder}}"
+                ng-change="getSuggestions()"
+                ng-keydown="navigateSuggestions($event)"
+                ng-blur="removeSuggestions($event)">
 
-        <button ng-disabled="!query.trim()" class="c-search-form__submit" type="submit" title="Zoeken">
+            <button ng-if="query"
+                    type="button"
+                    class="qa-search-form__clear c-search-form__clear"
+                    ng-click="clear()"
+                    title="Wis zoektekst">
+                <span class="u-sr-only">Wis zoektekst</span>
+            </button>
+        </div>
+
+        <button ng-disabled="!query.trim()"
+                class="c-search-form__submit"
+                type="submit"
+                title="Zoeken">
             <span class="u-sr-only">Zoeken</span>
-        </button>
-
-        <button ng-if="query" class="qa-search-form__clear c-search-form__clear" ng-click="clear()" title="Wis zoektekst">
-            <span class="u-sr-only">Wis zoektekst</span>
         </button>
 
         <div ng-if="!searchOnly && numberOfSuggestions" class="c-autocomplete">

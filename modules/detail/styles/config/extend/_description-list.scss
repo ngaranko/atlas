@@ -5,11 +5,8 @@
   border-bottom: 1px solid $secondary-gray20;
   line-height: 2;
 
-  /**
-   * The dd needs more than 50% in width, so the dt has to be less (see below).
-   */
   dt {
-    width: 49%;
+    width: 50%;
     padding-right: $base-whitespace;
     padding-left: 2 * $base-whitespace;
     float: left;
@@ -23,16 +20,16 @@
     }
   }
 
-  /**
-   * The width needs to be more than 50%, otherwise two conecutive dd's can be
-   * positioned next to each other, instead of below each other to the right.
-   */
   dd {
-    width: 51%;
+    width: 50%;
     margin: 0;
     padding-right: 2 * $base-whitespace;
-    padding-left: 1%; // Compensate for the extra % in width
     float: right;
+    /*
+     * Make sure multiple dd's after one dt are all aligned to the right,
+     * below each other, and not floating next to each other
+     */
+    clear: right;
     border-top: 1px solid $secondary-gray20;
 
     &:first-of-type {
