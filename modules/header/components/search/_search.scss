@@ -1,32 +1,54 @@
 @import "autocomplete/autocomplete";
 
-$submit-button-width: 30px;
+$clear-button-margin: ($site-header-search-form-height - $button-size) / 2;
 
 .c-search-form {
-  padding-top: $base-whitespace;
-  padding-bottom: $base-whitespace;
+  position: relative;
+}
+
+.c-search-form__input-container {
+  position: relative;
+  width: calc(100% - #{$site-header-search-form-height + $base-whitespace * .5});
+  float: left;
 }
 
 .c-search-form__input {
   @include font-size($s-font);
+
   display: block;
-  width: calc(100% - #{$submit-button-width});
-  height: $search-form-height;
-  padding-right: $base-whitespace + $submit-button-width;
+  width: 100%;
+  height: $site-header-search-form-height;
+  padding-right: $base-whitespace + $site-header-search-form-height;
   padding-left: $base-whitespace;
-  float: left;
+  border: 1px solid $secondary-gray20;
+  border-radius: 0;
   outline: none;
-  background-color: $secondary-gray40;
-  color: $primary-light;
+  background-color: $primary-light;
+  color: $primary-dark;
+  font-weight: bold;
+  appearance: none;
 
   &::placeholder {
-    color: $secondary-gray20;
+    color: $secondary-gray60;
+    font-weight: normal;
   }
 
   &:focus {
-    & + .c-search-form__submit {
-      background-color: $primary-contrast;
-    }
+    border-color: $primary-dark;
+  }
+}
+
+.c-search-form__clear {
+  @include icon-button("clear");
+
+  position: absolute;
+  top: $clear-button-margin;
+  right: $clear-button-margin;
+  outline: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $primary-contrast;
   }
 }
 
@@ -34,30 +56,16 @@ $submit-button-width: 30px;
   @extend %dp-search-icon;
   @include font-size($s-font);
 
-  width: $submit-button-width;
-  height: $search-form-height;
+  width: $site-header-search-form-height;
+  height: $site-header-search-form-height;
+  margin-left: $base-whitespace * .5;
   float: left;
-  background-color: $secondary-gray40;
+  background-color: $primary-contrast;
   background-repeat: no-repeat;
   color: $primary-light;
   cursor: pointer;
 
   &:hover {
-    background-color: $primary-contrast;
-  }
-}
-
-.c-search-form__clear {
-  @include icon-button("close", "transparent", "red");
-
-  width: $submit-button-width;
-  height: $search-form-height;
-  margin-left: -2 * $submit-button-width;
-  float: left;
-  outline: none;
-  cursor: pointer;
-
-  &:hover {
-    background-color: $primary-contrast;
+    background-color: $secondary-gray60;
   }
 }
