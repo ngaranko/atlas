@@ -84,21 +84,17 @@
         <dp-glossary-header definition="ZAKELIJK_RECHT" use-plural="true"></dp-glossary-header>
 
         <dp-panel is-panel-visible="vm.isMoreInfoAvailable" type="warning" can-close="true" class-name="c-kadastraal-subject__warning">
-            Om alle gegevens (ook zakelijke rechten) te kunnen zien, moet je
-            <dp-link type="SHOW_PAGE" payload="{name: 'login'}" class-name="o-btn o-btn--link c-kadastraal-subject__login-link">inloggen</dp-link>
-            en
-            <a class="o-link-inline" href="http://intranet.amsterdam.nl/mdw-basisinformatie/projecten-0/programma-datapunt/autorisatie-atlas/" target="_blank">speciale bevoegdheden</a>
+            Om alle gegevens (ook zakelijke rechten) te kunnen zien, moet je inloggen en
+            <a class="o-link-inline o-link-inline--light" target="_blank" href="http://intranet.amsterdam.nl/mdw-basisinformatie/projecten-0/programma-datapunt/autorisatie-atlas/">speciale bevoegdheden</a>
             hebben.
             Zie
-            <dp-link type="SHOW_PAGE" payload="{name: 'snel-wegwijs'}" class-name="o-link-inline">Snel wegwijs</dp-link>
+            <dp-link class-name="o-link-inline o-link-inline--light" type="SHOW_PAGE" payload="{name: 'snel-wegwijs'}">Snel wegwijs</dp-link>
             voor hulp bij in- of uitloggen.
-            <dp-link type="SHOW_PAGE" payload="{name: 'login'}" class-name="o-btn o-btn--link c-kadastraal-subject__login-link">
-            </dp-link>
         </dp-panel>
 
         <dp-panel is-panel-visible="vm.hasInsufficientRights" type="warning" can-close="true" class-name="c-kadastraal-subject__warning">
             Om alle gegevens (ook zakelijke rechten) te kunnen zien, moet je
-            <a class="o-link-inline" href="http://intranet.amsterdam.nl/mdw-basisinformatie/projecten-0/programma-datapunt/autorisatie-atlas/" target="_blank">speciale bevoegdheden</a>
+            <a class="o-link-inline o-link-inline--light" target="_blank" href="http://intranet.amsterdam.nl/mdw-basisinformatie/projecten-0/programma-datapunt/autorisatie-atlas/">speciale bevoegdheden</a>
             hebben.
         </dp-panel>
 
