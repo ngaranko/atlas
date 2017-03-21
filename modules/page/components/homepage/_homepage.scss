@@ -2,28 +2,27 @@
 
 $block-tall-height: 287px;
 $block-short-height: 141px;
+$show-more-height: 70px;
 
 .c-homepage__block {
   display: block;
   position: relative;
-  margin-bottom: 5px;
+  margin-bottom: .5 * $base-whitespace;
   background-color: $secondary-gray4;
   background-position: center center;
   background-size: cover;
+}
 
-  &:hover {
-    .c-homepage__block__button {
-      @include o-btn-white--hover;
-    }
-  }
+.c-homepage__block__button :hover {
+  @include o-btn-white--hover;
 }
 
 .c-homepage__block--left {
-  margin-right: 5px;
+  margin-right: .5 * $base-whitespace;
 }
 
 .c-homepage__block--middle {
-  margin-right: 5px;
+  margin-right: .5 * $base-whitespace;
 }
 
 .c-homepage__block--right {
@@ -36,14 +35,14 @@ $block-short-height: 141px;
 
 .c-homepage__entries {
   position: relative;
-  height: $block-tall-height - 70;
+  height: $block-tall-height - $show-more-height;
   overflow: hidden;
 }
 
 .c-homepage__show-more {
   position: absolute;
   bottom: 2 * $base-whitespace;
-  font-weight: 700;
+  font-weight: bold;
 }
 
 .c-homepage__block--beleid {
