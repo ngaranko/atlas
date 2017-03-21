@@ -27,12 +27,12 @@
 
                     <dp-panel ng-if="vm.showMessageMaxPages" is-panel-visible="true" type="warning" can-close="true">
                         <div class="qa-message-max-pages">
-                            <h3>Deze pagina kan niet worden getoond</h3>
-                            <p>
+                            <h2 class="c-panel__title">Deze pagina kan niet worden getoond</h2>
+                            <p class="c-panel__paragraph">
                                 Alleen de eerste {{vm.maxAvailablePages | number}} pagina's kunnen worden weergegeven (om technische redenen). Bij
                                 downloaden worden wel alle resultaten opgenomen.
                             </p>
-                            <p>
+                            <p class="c-panel__paragraph">
                                 Tip: Gebruik de download-knop om alle resultaten te bekijken. Of voeg meer filtercriteria
                                 toe voor specifiekere resultaten.
                             </p>
@@ -41,8 +41,8 @@
 
                     <dp-panel ng-if="vm.showMessageClusteredMarkers" is-panel-visible="true" type="warning" can-close="true">
                         <div class="qa-message-clustered-markers">
-                            <p>Deze resultaten worden niet getoond op de kaart, omdat deze niet meer dan {{vm.maxNumberOfClusteredMarkers | number}} resultaten tegelijk kan weergeven (om technische redenen).</p>
-                            <p class="u-margin__bottom--1">Tip: Bekijk de lijst resultaten in kleinere delen. Dit kan door een voor een filtercriteria toe te voegen (bijv. de verschillende buurtcombinaties uit de selectie).</p>
+                            <p class="c-panel__paragraph">Deze resultaten worden niet getoond op de kaart, omdat deze niet meer dan {{vm.maxNumberOfClusteredMarkers | number}} resultaten tegelijk kan weergeven (om technische redenen).</p>
+                            <p class="c-panel__paragraph">Tip: Bekijk de lijst resultaten in kleinere delen. Dit kan door een voor een filtercriteria toe te voegen (bijv. de verschillende buurtcombinaties uit de selectie).</p>
                         </div>
                     </dp-panel>
 

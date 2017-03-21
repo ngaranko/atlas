@@ -1,0 +1,15 @@
+<div class="c-menu__item
+               c-menu__item--toggle
+               qa-menu__toggle"
+        ng-class="{ 'c-menu__item--toggle--active': isVisible }">
+    <button class="c-menu__link qa-menu__link"
+            ng-click="toggleDropdown()">
+        <span class="c-menu__title qa-menu__title">{{title}}</span>
+    </button>
+
+    <nav ng-if="isVisible"
+         class="c-menu__dropdown qa-menu__dropdown"
+         ng-class="'c-menu__dropdown--align-' + align">
+        <ng-include src="'modules/header/components/menu/dropdown/templates/' + type + '.html'"></ng-include>
+    </nav>
+</div>
