@@ -230,9 +230,9 @@ describe('The dp-data-selection-header', () => {
                 component = getComponent(mockedViewInput);
 
                 expect(component.find('.qa-title').length).toBe(0);
-                expect(component.find('h2.qa-no-results-found').length).toBe(1);
-                // Make sure it isn't shown as a p as well
-                expect(component.find('p.qa-no-results-found').length).toBe(0);
+                expect(component.find('.qa-no-results-found-header').length).toBe(1);
+                // Make sure it isn't also shown as a message
+                expect(component.find('.qa-no-results-found-message').length).toBe(0);
             });
 
             it('doesn\'t show tabs', function () {
@@ -266,9 +266,9 @@ describe('The dp-data-selection-header', () => {
             // Show the message
             mockedInputList.numberOfRecords = 0;
             component = getComponent(mockedInputList);
-            expect(component.find('p.qa-no-results-found').length).toBe(1);
-            // Make sure it isn't shown as a h2 as well
-            expect(component.find('h2.qa-no-results-found').length).toBe(0);
+            expect(component.find('.qa-no-results-found-message').length).toBe(1);
+            // Make sure it isn't also shown in the header
+            expect(component.find('.qa-no-results-found-header').length).toBe(0);
         });
     });
 

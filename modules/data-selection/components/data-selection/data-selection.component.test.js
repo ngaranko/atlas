@@ -335,12 +335,12 @@ describe('The dp-data-selection component', function () {
             let component;
             mockedState.view = 'LIST';
 
-            // // Don't show the message
+            // Don't show the message
             mockedApiPreviewData.numberOfRecords = 1000;
             component = getComponent(mockedState);
             expect(component.find('.qa-message-clustered-markers').length).toBe(0);
 
-            // // Show the message
+            // Show the message
             mockedApiPreviewData.numberOfRecords = 1001;
             component = getComponent(mockedState);
             expect(component.find('.qa-message-clustered-markers').length).toBe(1);
@@ -368,7 +368,6 @@ describe('The dp-data-selection component', function () {
 
         const component = getComponent(mockedState);
 
-        // Where 5 and 1000 are part of DATA_SELECTION_CONFIG instead of some hardcoded copied value
         expect(component.find('.qa-message-max-pages').text()).toContain('de eerste 5 pagina\'s');
         expect(component.find('.qa-message-clustered-markers').text()).toContain('niet meer dan 1.000 resultaten');
     });

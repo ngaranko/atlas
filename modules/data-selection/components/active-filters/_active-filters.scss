@@ -1,6 +1,6 @@
 .c-data-selection-active-filters {
   margin-top: $base-whitespace * 2;
-  margin-bottom: $base-whitespace * 2 - $base-whitespace / 2; // 2 * base - bottom margin for stacked items
+  margin-bottom: $base-whitespace * 1.5;
   line-height: $button-size;
 
   .c-data-selection-active-filters__listitem {
