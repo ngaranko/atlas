@@ -86,7 +86,8 @@
 
                     <!-- Page -->
                     <div ng-if="vm.activity.page" ng-show="vm.visibility.page" class="c-dashboard__page o-max-width">
-                        <div class="o-max-width__inner">
+                        <div class="o-max-width__inner"
+                             ng-class="{ 'u-gutter': vm.isHomePage }">
                             <div ng-controller="PageController as page" class="qa-page">
                                 <dp-page name="{{page.pageName}}"></dp-page>
                             </div>
