@@ -486,7 +486,6 @@
                     'efault'
                 },
                 mvbd: {
-                    authorizationLevel: 'EMPLOYEE_PLUS',
                     url: 'maps/externeveiligheid',
                     label_short: 'Bedrijven - Terreingrenzen',
                     label_long: 'Bedrijven - Terreingrenzen',

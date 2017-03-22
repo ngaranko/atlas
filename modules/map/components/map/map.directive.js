@@ -10,10 +10,12 @@
         'highlight',
         'panning',
         'zoom',
-        'onMapClick'
+        'onMapClick',
+        'user',
+        'overlays'
     ];
 
-    function dpMapDirective (L, mapConfig, layers, highlight, panning, zoom, onMapClick) {
+    function dpMapDirective (L, mapConfig, layers, highlight, panning, zoom, onMapClick, user, overlays) {
         return {
             restrict: 'E',
             scope: {
@@ -28,7 +30,8 @@
         };
 
         function linkFunction (scope, element) {
-            let leafletMap;
+            let leafletMap,
+                oldOverlays = [];
 
             scope.$watchGroup(['mapState.isFullscreen', 'showLayerSelection'], function () {
                 scope.isFullscreen = scope.mapState.isFullscreen && !scope.showLayerSelection;
@@ -66,17 +69,9 @@
                     layers.setBaseLayer(leafletMap, baseLayer);
                 });
 
-                scope.$watch('mapState.overlays', function (newOverlays, oldOverlays) {
-                    scope.hasActiveOverlays = scope.mapState.overlays.length > 0;
+                scope.$watch(user.getAuthorizationLevel, setOverlays);
 
-                    getRemovedOverlays(newOverlays, oldOverlays).forEach(function (overlay) {
-                        layers.removeOverlay(leafletMap, overlay);
-                    });
-
-                    getAddedOverlays(newOverlays, oldOverlays).forEach(function (overlay) {
-                        layers.addOverlay(leafletMap, overlay);
-                    });
-                }, true);
+                scope.$watch('mapState.overlays', setOverlays, true);
 
                 scope.$watch('markers.regular', function (newCollection, oldCollection) {
                     if (angular.equals(newCollection, oldCollection)) {
@@ -111,6 +106,22 @@
                     });
                 });
             });
+
+            function setOverlays () {
+                const newOverlays = scope.mapState.overlays.filter(overlay => overlays.SOURCES[overlay.id]);
+
+                scope.hasActiveOverlays = newOverlays.length > 0;
+
+                getRemovedOverlays(newOverlays, oldOverlays).forEach(function (overlay) {
+                    layers.removeOverlay(leafletMap, overlay);
+                });
+
+                getAddedOverlays(newOverlays, oldOverlays).forEach(function (overlay) {
+                    layers.addOverlay(leafletMap, overlay);
+                });
+
+                oldOverlays = newOverlays;
+            }
         }
 
         function getDiffFromOverlays (over1, over2) {

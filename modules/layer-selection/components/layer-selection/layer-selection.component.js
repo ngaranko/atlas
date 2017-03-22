@@ -31,8 +31,6 @@
         };
 
         function setOverlays () {
-            console.log('set overlays');
-
             vm.allOverlays = overlays.HIERARCHY.map(function (category) {
                 var formattedOverlays = angular.copy(category);
 
