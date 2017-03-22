@@ -236,7 +236,7 @@ describe('The dp-map directive', function () {
                 {id: 'some_overlay', isVisible: true},
                 {id: 'some_other_overlay', isVisible: true}
             ];
-            $rootScope.$digest();
+            $rootScope.$apply();
 
             expect(layers.addOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_overlay');
             expect(layers.addOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_other_overlay');
