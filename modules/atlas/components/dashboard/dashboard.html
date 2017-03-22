@@ -6,17 +6,19 @@
      }">
 
     <!-- Header -->
-    <div class="c-dashboard__heading"
-         ng-class="{ 'c-dashboard__max-width': vm.hasMaxWidth }"
-         ng-controller="HeaderController as header">
-        <div ng-class="{ 'c-dashboard__max-width__inner': vm.hasMaxWidth }">
-            <div ng-if="!vm.isPrintMode" class="qa-dashboard__header">
-                <dp-site-header size="vm.headerSize"
-                                has-print-button="header.hasPrintButton"
-                                query="{{header.query}}"></dp-site-header>
-            </div>
-            <div ng-if="vm.isPrintMode" class="qa-dashboard__print-header">
-                <dp-print-header></dp-print-header>
+    <div class="u-fixed">
+        <div class="c-dashboard__heading"
+             ng-class="{ 'o-max-width': vm.hasMaxWidth }"
+             ng-controller="HeaderController as header">
+            <div ng-class="{ 'o-max-width__inner': vm.hasMaxWidth }">
+                <div ng-if="!vm.isPrintMode" class="qa-dashboard__header">
+                    <dp-site-header size="vm.headerSize"
+                                    has-print-button="header.hasPrintButton"
+                                    query="{{header.query}}"></dp-site-header>
+                </div>
+                <div ng-if="vm.isPrintMode" class="qa-dashboard__print-header">
+                    <dp-print-header></dp-print-header>
+                </div>
             </div>
         </div>
     </div>
@@ -28,11 +30,8 @@
             <!-- Error message -->
             <div ng-if="vm.visibility.httpStatus"
                  class="c-dashboard__error"
-                 ng-class="{ 'c-dashboard__max-width': vm.hasMaxWidth }">
-                <div ng-class="{
-                         'c-dashboard__max-width__inner': vm.hasMaxWidth,
-                         'c-dashboard__max-width__inner--homepage': vm.isHomePage
-                     }">
+                 ng-class="{ 'o-max-width': vm.hasMaxWidth }">
+                <div ng-class="{ 'o-max-width__inner': vm.hasMaxWidth }">
                     <dp-api-error></dp-api-error>
                 </div>
             </div>
@@ -84,11 +83,8 @@
                     </div>
 
                     <!-- Page -->
-                    <div ng-if="vm.activity.page" ng-show="vm.visibility.page" class="c-dashboard__max-width c-dashboard__max-width--scrollable">
-                        <div class="c-dashboard__max-width__inner"
-                             ng-class="{
-                                 'c-dashboard__max-width__inner--homepage': vm.isHomePage
-                             }">
+                    <div ng-if="vm.activity.page" ng-show="vm.visibility.page" class="c-dashboard__page o-max-width">
+                        <div class="o-max-width__inner">
                             <div ng-controller="PageController as page" class="qa-page">
                                 <dp-page name="{{page.pageName}}"></dp-page>
                             </div>
@@ -109,7 +105,7 @@
                     <!-- Straatbeeld -->
                     <div ng-if="vm.activity.straatbeeld" ng-show="vm.visibility.straatbeeld"
                         ng-controller="StraatbeeldController as straatbeeld"
-                        class="u-dashboard--full-height qa-straatbeeld">
+                        class="u-full-height qa-straatbeeld">
 
                         <!--Resize straatbeeld when any of printMode, errorMode or fullscreen changes-->
                         <dp-straatbeeld
@@ -126,9 +122,9 @@
             </div>
         </div>
     </div>
-    <div ng-if="vm.isHomePage" class="c-dashboard__max-width">
+    <div ng-if="vm.isHomePage" class="o-max-width">
         <footer class="c-dashboard__footer">
-            <div class="c-dashboard__max-width__inner">
+            <div class="o-max-width__inner">
                 <a href="https://www.amsterdam.nl/proclaimer" class="o-btn o-btn--link" target="_blank">Proclaimer</a>
             </div>
         </footer>

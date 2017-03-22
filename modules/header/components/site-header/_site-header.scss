@@ -1,5 +1,6 @@
 .c-site-header {
   position: relative;
+  background-color: $primary-light;
 }
 
 .c-site-header__contact {
@@ -27,8 +28,8 @@
 
 .c-site-header--tall {
   height: $site-header-height-tall + $site-header-toolbar-height;
-  padding-right: $site-header-gutter;
-  padding-left: $site-header-gutter;
+  margin-right: $site-header-gutter;
+  margin-left: $site-header-gutter;
 
   .c-site-header__logo {
     height: $site-header-height-tall;
