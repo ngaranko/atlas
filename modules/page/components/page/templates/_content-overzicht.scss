@@ -1,15 +1,15 @@
-.c-user-content-overview-left {
+.c-user-content-overview__left {
   @include font-size-responsive($m-font);
   max-width: $page-max-left-pane-width;
 }
 
-.c-user-content-overview-right {
+.c-user-content-overview__right {
   position: fixed;
   margin-right: $page-right-pane-margin;
   font-size: $s-font-size;
 }
 
-.c-user-content-overview-toc-header {
+.c-user-content-overview__toc-header {
   margin-bottom: $base-whitespace;
   color: $primary-contrast;
   font-weight: bold;

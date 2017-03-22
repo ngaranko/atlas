@@ -8,7 +8,7 @@
 
     <div class="u-row">
         <div class="u-col-sm--offset-1 u-col-sm--7">
-            <div class="c-user-content-overview-left">
+            <div class="c-user-content-overview__left">
                 <div id="{{vm.type}}{{entry.id}}" ng-repeat="entry in vm.entries" class="u-margin__bottom--4">
 
                     <div ng-if="vm.type !== 'events'">
@@ -33,8 +33,8 @@
         </div>
 
         <div ng-if="vm.entries.length > 1" class="u-col-sm--offset-1 u-col-sm--3">
-            <div class="c-user-content-overview-right">
-                <div class="c-user-content-overview-toc-header">Op deze pagina</div>
+            <div class="c-user-content-overview__right">
+                <div class="c-user-content-overview__toc-header">Op deze pagina</div>
 
                 <dp-anchor-link ng-repeat="e in vm.entries"
                                 link="{{$first ? (vm.type + 'top') : (vm.type + e.id)}}"
