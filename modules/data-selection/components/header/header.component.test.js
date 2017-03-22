@@ -198,19 +198,6 @@ describe('The dp-data-selection-header', () => {
         });
     });
 
-    it('shows the search query in the header', () => {
-        // When there is a query
-        mockedInputCards.state.query = 'parkeren';
-
-        component = getComponent(mockedInputCards);
-        expect(component.find('.qa-search-query').text()).toBe('met "parkeren"');
-
-        // Without a query, there is no text message
-        delete mockedInputCards.state.query;
-        component = getComponent(mockedInputCards);
-        expect(component.find('.qa-search-query').length).toBe(0);
-    });
-
     ['TABLE', 'CARDS'].forEach(viewName => {
         beforeEach(function () {
             mockedViewInput = viewName === 'TABLE' ? mockedInputTable : mockedInputCards;

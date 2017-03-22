@@ -31,7 +31,6 @@
 
             vm.showButtons = vm.state.dataset !== 'catalogus';
             vm.showDownloadButton = vm.numberOfRecords > 0;
-            vm.showSearchQuery = angular.isString(vm.state.query);
             vm.showTabs = isListView;
             vm.showNoResultsFound = vm.numberOfRecords === 0;
             vm.showActiveFilters = Object.keys(vm.state.filters).length || vm.state.geometryFilter.markers.length;
