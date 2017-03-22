@@ -125,31 +125,6 @@ describe('the dp-detail component', function () {
             }
         );
 
-        angular.mock.module(
-            'dpShared',
-            {
-                user: {
-                    isLoggedIn: false,
-                    authorizationLevel: false,
-                    getUserType: function () {
-                        return this.isLoggedIn ? this.USER_TYPE.AUTHENTICATED : null;
-                    },
-                    getAuthorizationLevel: function () {
-                        return this.isAuthorized ? this.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS : null;
-                    },
-                    meetsRequiredLevel: function () {
-                        return this.isAuthorized;
-                    },
-                    USER_TYPE: {
-                        AUTHENTICATED: 'AUTHENTICATED'
-                    },
-                    AUTHORIZATION_LEVEL: {
-                        EMPLOYEE_PLUS: 'EMPLOYEE_PLUS'
-                    }
-                }
-            }
-        );
-
         angular.mock.inject(function (
             _$compile_,
             _$rootScope_,
@@ -169,6 +144,9 @@ describe('the dp-detail component', function () {
         });
 
         spyOn(store, 'dispatch');
+        spyOn(user, 'getUserType').and.returnValue(null);
+        spyOn(user, 'getAuthorizationLevel').and.returnValue(null);
+        spyOn(user, 'meetsRequiredLevel').and.returnValue(false);
     });
 
     function getComponent (endpoint, isLoading) {
@@ -358,8 +336,6 @@ describe('the dp-detail component', function () {
     });
 
     it('does not display "kadastraal subject" details and shows a message that login is required', function () {
-        user.isLoggedIn = false;
-
         const component = getComponent(naturalPersonEndPoint);
 
         const scope = component.isolateScope();
@@ -368,9 +344,9 @@ describe('the dp-detail component', function () {
     });
 
     it('displays "kadastraal subject" detail if logged in as employee', function () {
-        user.isLoggedIn = true;
-        spyOn(user, 'getAuthorizationLevel').and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE);
-        spyOn(user, 'meetsRequiredLevel').and.returnValue(true);
+        user.getUserType.and.returnValue(user.USER_TYPE.AUTHENTICATED);
+        user.getAuthorizationLevel.and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE);
+        user.meetsRequiredLevel.and.returnValue(true);
 
         const component = getComponent(naturalPersonEndPoint);
 
@@ -381,13 +357,12 @@ describe('the dp-detail component', function () {
 
     describe('a normal employee user', () => {
         beforeEach(() => {
-            spyOn(user, 'getAuthorizationLevel').and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE);
-            spyOn(user, 'meetsRequiredLevel').and.returnValue(true);
+            user.getUserType.and.returnValue(user.USER_TYPE.AUTHENTICATED);
+            user.getAuthorizationLevel.and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE);
+            user.meetsRequiredLevel.and.returnValue(true);
         });
 
         it('shows a message that more info is available for "natuurlijke personen"', function () {
-            user.isLoggedIn = true;
-
             const component = getComponent(naturalPersonEndPoint);
 
             const scope = component.isolateScope();
@@ -395,8 +370,6 @@ describe('the dp-detail component', function () {
         });
 
         it('does not show a message that more info is available for none "natuurlijke personen"', function () {
-            user.isLoggedIn = true;
-
             const component = getComponent(naturalPersonEndPoint);
 
             const scope = component.isolateScope();
@@ -405,9 +378,9 @@ describe('the dp-detail component', function () {
     });
 
     it('does not show a message that more info is available employee plus users', function () {
-        user.isLoggedIn = true;
-        spyOn(user, 'getAuthorizationLevel').and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS);
-        spyOn(user, 'meetsRequiredLevel').and.returnValue(true);
+        user.getUserType.and.returnValue(user.USER_TYPE.AUTHENTICATED);
+        user.getAuthorizationLevel.and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS);
+        user.meetsRequiredLevel.and.returnValue(true);
 
         const component = getComponent(naturalPersonEndPoint);
 
