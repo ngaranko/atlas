@@ -70,12 +70,17 @@
                     results: data
                 };
 
+                // TODO: R: use proper info to determine if we are looking a "Kadastraal subject" (and "natural person")
+                // or extract Kadastraal subject details to own component (along with logic).
+                //
                 // Derive whether more info is available if the user would be authenticated
-                vm.isMoreInfoAvailable = vm.apiData.results.is_natuurlijk_persoon &&
-                        user.getUserType() !== user.USER_TYPE.AUTHENTICATED;
+                vm.showSubjectDetails =
+                        user.getUserType() === user.USER_TYPE.AUTHENTICATED &&
+                        user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL.EMPLOYEE);
+                vm.showNoAccessMessage = !vm.showSubjectDetails;
 
                 // Derive whether more info is available if the user would have special privileges
-                vm.hasInsufficientRights = vm.apiData.results.is_natuurlijk_persoon &&
+                vm.showInsufficientRightsMessage = vm.apiData.results.is_natuurlijk_persoon &&
                     user.getUserType() === user.USER_TYPE.AUTHENTICATED &&
                     user.getAuthorizationLevel() !== user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS;
 
