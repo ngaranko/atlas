@@ -16,21 +16,19 @@
         setOverlays();  // Initialize overlays
 
         // Update overlays on any change in the authorization level of the user
-        $rootScope.$on('$destroy', $rootScope.$watch(() => user.getAuthorizationLevel(), setOverlays));
+        const unwatchAuthorizationLevel = $rootScope.$watch(() => user.getAuthorizationLevel(), setOverlays);
+        $rootScope.$on('$destroy', unwatchAuthorizationLevel);  // for the weak of heart...
 
         return {
-            overlays,
-            SOURCES: overlays.SOURCES,
-            HIERARCHY: overlays.HIERARCHY
+            get SOURCES () {return overlays.SOURCES;},
+            get HIERARCHY () {return overlays.HIERARCHY;}
         };
 
         function setOverlays () {
-            overlays.SOURCES = Object.keys(OVERLAYS.SOURCES)
+            overlays.SOURCES = {};
+            Object.keys(OVERLAYS.SOURCES)
                 .filter(source => user.meetsRequiredLevel(OVERLAYS.SOURCES[source].authorizationLevel))
-                .reduce((sources, source) => {
-                    sources[source] = OVERLAYS.SOURCES[source];
-                    return sources;
-                }, {});
+                .forEach(source => overlays.SOURCES[source] = OVERLAYS.SOURCES[source]);
 
             overlays.HIERARCHY = angular.copy(OVERLAYS.HIERARCHY)
                 .map(hierarchy => {
