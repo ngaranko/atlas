@@ -259,6 +259,14 @@
                     name: 'page.name',
                     type: 'string'
                 },
+                pgi: {
+                    name: 'page.item',
+                    type: 'string'
+                },
+                pgt: {
+                    name: 'page.type',
+                    type: 'string'
+                },
                 // search (sr)
                 src: {
                     name: 'search.category',

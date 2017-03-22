@@ -1,0 +1,49 @@
+<div id="{{vm.type + 'top'}}" ng-if="vm.feed">
+
+    <div class="u-row">
+        <div class="u-col-sm--offset-1 u-col-sm--7">
+            <h1 class="u-margin__bottom--3">{{vm.feed.title}}</h1>
+        </div>
+    </div>
+
+    <div class="u-row">
+        <div class="u-col-sm--offset-1 u-col-sm--7">
+            <div class="c-user-content-overview__left">
+                <div id="{{vm.type}}{{entry.id}}" ng-repeat="entry in vm.entries" class="u-margin__bottom--4">
+
+                    <div ng-if="vm.type !== 'events'">
+                        <h2 class="u-margin__bottom--1">{{entry.titel.value}}</h2>
+                        <div class="s-cms-page-content" ng-bind-html="entry.contents.html"></div>
+                    </div>
+
+                    <div ng-if="vm.type === 'events'">
+                        <dp-event date="entry.datum.date">
+                            <div class="u-margin__bottom--1">
+                                <div class="u-margin__left--2">
+                                    <dp-event-when-where title="entry.titel.value"
+                                                         time="entry.tijd.value"
+                                                         location="entry.location.value"></dp-event-when-where>
+                                    <div class="s-cms-page-content" ng-bind-html="entry.contents.html"></div>
+                                </div>
+                            </div>
+                        </dp-event>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="vm.entries.length > 1" class="u-col-sm--offset-1 u-col-sm--3">
+            <div class="c-user-content-overview__right">
+                <div class="c-user-content-overview__toc-header">Op deze pagina</div>
+
+                <dp-anchor-link ng-repeat="e in vm.entries"
+                                link="{{$first ? (vm.type + 'top') : (vm.type + e.id)}}"
+                                class-name="u-margin__bottom--1"
+                                auto-scroll="e.id === vm.entry.id">
+                    {{e.titel.value}}
+                </dp-anchor-link>
+            </div>
+        </div>
+
+    </div>
+</div>

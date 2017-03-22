@@ -19,7 +19,7 @@ $link-offset: $base-font-size;
   }
 
   &:active {
-    color: $secondary-gray80;
+    color: $primary-contrast;
 
     &:focus {
       outline: none;
@@ -30,13 +30,23 @@ $link-offset: $base-font-size;
 %link--arrow {
   @extend %link;
 
-  margin-left: $link-offset;
+  margin-left: $link-offset + 1px;
+
+  &:hover {
+    &::before {
+      background-image: url("assets/icons/link-arrow-red.svg");
+    }
+  }
 
   &::before {
     display: inline-block;
     position: absolute;
+    top: 4px;
     left: -$link-offset;
-    content: "›";
+    width: 7px;
+    height: 12px;
+    background-image: url("assets/icons/link-arrow.svg");
+    content: "";
   }
 }
 

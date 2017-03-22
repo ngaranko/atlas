@@ -1,40 +1,71 @@
 @import "catalogus-themes/catalogus-themes";
 
+$block-tall-height: 287px;
+$block-short-height: 141px;
+$show-more-height: 70px;
+
 .c-homepage__block {
   display: block;
   position: relative;
-  border-bottom: 4px solid $secondary-gray20;
+  margin-bottom: .5 * $base-whitespace;
   background-color: $secondary-gray4;
   background-position: center center;
   background-size: cover;
-
-  &:hover {
-    .c-homepage__block__button {
-      @include o-btn-white--hover;
-    }
-  }
 }
 
 .c-homepage__block--left {
-  margin-right: 2px;
+  margin-right: .5 * $base-whitespace;
 }
 
 .c-homepage__block--middle {
-  margin-right: 2px;
-  margin-left: 2px;
+  margin-right: .5 * $base-whitespace;
 }
 
 .c-homepage__block--right {
-  margin-left: 2px;
+  padding: 2 * $base-whitespace;
 }
 
 .c-homepage__block--tall {
-  height: 320px;
+  height: $block-tall-height;
+}
+
+.c-homepage__entries {
+  position: relative;
+  height: $block-tall-height - $show-more-height;
+  overflow: hidden;
+}
+
+.c-homepage__show-more {
+  position: absolute;
+  bottom: 2 * $base-whitespace;
+  font-weight: bold;
 }
 
 .c-homepage__block--short {
-  height: 160px;
-  border-top: 2px solid $primary-light;
+  height: $block-short-height;
+}
+
+.c-homepage__text {
+  margin-top: 6 * $base-whitespace;
+}
+
+.c-homepage__visie {
+  @include font-size-responsive($m-font);
+  max-width: 734px;
+}
+
+.c-homepage__visie-header {
+  margin-bottom: 2 * $base-whitespace;
+}
+
+.c-homepage__visie-paragraph {
+  margin-bottom: 1.6 * $base-whitespace;
+  line-height: $l-line-height;
+}
+
+.c-homepage__beleid {
+  padding: 2 * $base-whitespace;
+  padding-top: 0;
 }
 
 .c-homepage__block--homepage {
@@ -53,10 +84,14 @@
   background-image: url("assets/images/homepage-adressen.png");
 }
 
-.c-homepage__block__button {
+.c-homepage__block-button {
   position: absolute;
   right: $base-whitespace;
   bottom: $base-whitespace;
   left: $base-whitespace;
   width: calc(100% - (2 * #{$base-whitespace}));
+
+  &:hover {
+    @include o-btn-white--hover;
+  }
 }

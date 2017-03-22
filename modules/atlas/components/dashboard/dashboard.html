@@ -92,7 +92,9 @@
                                  'c-dashboard__max-width__inner--homepage': vm.isHomePage
                              }">
                             <div ng-controller="PageController as page" class="qa-page">
-                                <dp-page name="{{page.pageName}}"></dp-page>
+                                <dp-page name="{{page.pageName}}"
+                                         type="{{page.pageType}}"
+                                         item="{{page.pageItem}}"></dp-page>
                             </div>
                         </div>
                     </div>
@@ -131,7 +133,9 @@
     <div ng-if="vm.isHomePage" class="c-dashboard__max-width">
         <footer class="c-dashboard__footer">
             <div class="c-dashboard__max-width__inner">
-                <a href="https://www.amsterdam.nl/proclaimer" class="o-btn o-btn--link" target="_blank">Proclaimer</a>
+                <dp-link type="SHOW_PAGE" payload="{name: 'content-overzicht', type: 'proclaimer'}">
+                    Proclaimer
+                </dp-link>
             </div>
         </footer>
     </div>
