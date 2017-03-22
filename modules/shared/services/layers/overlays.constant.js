@@ -474,6 +474,7 @@
                     'STYLE=default'
                 },
                 mvbr: {
+                    authorizationLevel: 'EMPLOYEE',
                     url: 'maps/externeveiligheid',
                     label_short: 'Bedrijven - Bronnen en risicozones',
                     label_long: 'Bedrijven - Bronnen en risicozones',
@@ -485,6 +486,7 @@
                     'efault'
                 },
                 mvbd: {
+                    authorizationLevel: 'EMPLOYEE_PLUS',
                     url: 'maps/externeveiligheid',
                     label_short: 'Bedrijven - Terreingrenzen',
                     label_long: 'Bedrijven - Terreingrenzen',
