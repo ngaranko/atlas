@@ -15,7 +15,7 @@
         };
 
         const AUTHORIZATION_LEVEL = {   // The possible user authorization levels
-            NONE: 'NONE',
+            NONE: 'NONE',       // unkown authorization level or authorization level not set
             DEFAULT: 'DEFAULT',
             EMPLOYEE: 'EMPLOYEE',
             EMPLOYEE_PLUS: 'EMPLOYEE_PLUS'
@@ -128,6 +128,7 @@
             getAuthorizationLevel,
             getUserType,
             clearToken,
+            meetsRequiredLevel,
             USER_TYPE,
             AUTHORIZATION_LEVEL
         };
@@ -159,6 +160,21 @@
 
         function getAuthorizationLevel () {
             return user.authorizationLevel;
+        }
+
+        function meetsRequiredLevel (requiredLevel) {
+            if (angular.isDefined(AUTHORIZATION_LEVEL[requiredLevel])) {
+                const access = Object.keys(AUTHORIZATION_LEVEL_MAPPING).reduce((result, value) => ({
+                    user: user.authorizationLevel === AUTHORIZATION_LEVEL_MAPPING[value] ? value : result.user,
+                    required: requiredLevel === AUTHORIZATION_LEVEL_MAPPING[value] ? value : result.required
+                }), {
+                    user: Number.NEGATIVE_INFINITY,
+                    required: Number.NEGATIVE_INFINITY
+                });
+                return access.user >= access.required;
+            } else {
+                return angular.isUndefined(requiredLevel);
+            }
         }
 
         function clearToken () {
