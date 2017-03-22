@@ -10,20 +10,8 @@ describe('The dp-layer-selection component', function () {
             {
                 store: {
                     dispatch: function () {}
-                }
-            },
-            function ($provide) {
-                $provide.constant('BASE_LAYERS', [
-                    {
-                        slug: 'base_layer_a',
-                        label: 'Base layer A'
-                    }, {
-                        slug: 'base_layer_b',
-                        label: 'Base layer B'
-                    }
-                ]);
-
-                $provide.constant('OVERLAYS', {
+                },
+                overlays: {
                     SOURCES: {
                         overlay_1_a: {
                             label_short: 'Overlay 1a',
@@ -65,7 +53,18 @@ describe('The dp-layer-selection component', function () {
                             overlays: ['overlay_2_a', 'overlay_2_b', 'overlay_2_c']
                         }
                     ]
-                });
+                }
+            },
+            function ($provide) {
+                $provide.constant('BASE_LAYERS', [
+                    {
+                        slug: 'base_layer_a',
+                        label: 'Base layer A'
+                    }, {
+                        slug: 'base_layer_b',
+                        label: 'Base layer B'
+                    }
+                ]);
 
                 $provide.factory('dpPanelDirective', function () {
                     return {};
@@ -171,6 +170,18 @@ describe('The dp-layer-selection component', function () {
     });
 
     describe('overlays', function () {
+        let user,
+            overlays;
+
+        beforeEach(function () {
+            angular.mock.inject(function (
+                _overlays_,
+                _user_) {
+                overlays = _overlays_;
+                user = _user_;
+            });
+        });
+
         it('lists all overlays as checkboxes w/ labels', function () {
             var component = getComponent('base_layer_a', [], 8),
                 contentDiv = component.find('.c-layer-selection__content');
@@ -198,6 +209,34 @@ describe('The dp-layer-selection component', function () {
             expect(contentDiv.find('div').eq(2).find('li').eq(2).find('label').text().trim()).toBe('L_Overlay 2c');
             expect(contentDiv.find('div').eq(2).find('li').eq(2).find('input').attr('type')).toBe('checkbox');
             expect(contentDiv.find('div').eq(2).find('li').eq(2).find('input').val()).toBe('overlay_2_c');
+        });
+
+        it('re-computes overlays collection when the user authorization level changes', function () {
+            spyOn(user, 'getAuthorizationLevel').and.returnValue(1);
+
+            const component = getComponent('base_layer_a', [], 8);
+            const scope = component.isolateScope();
+
+            expect(scope.vm.allOverlays.length).toBe(2);
+
+            user.getAuthorizationLevel.and.returnValue(2);
+            overlays.SOURCES = {
+                overlay_1_a: {
+                    label_short: 'Overlay 1a',
+                    label_long: 'L_Overlay 1a',
+                    minZoom: 8,
+                    maxZoom: 16
+                }
+            };
+            overlays.HIERARCHY = [
+                {
+                    heading: 'Category 1',
+                    overlays: ['overlay_1_a']
+                }
+            ];
+            $rootScope.$digest();
+
+            expect(scope.vm.allOverlays.length).toBe(1);
         });
 
         it('marks the checkboxes for active overlays', function () {
