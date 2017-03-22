@@ -41,12 +41,31 @@ $show-more-height: 70px;
   font-weight: bold;
 }
 
-.c-homepage__block--beleid {
-  padding-top: 0;
-}
-
 .c-homepage__block--short {
   height: $block-short-height;
+}
+
+.c-homepage__text {
+  margin-top: 6 * $base-whitespace;
+}
+
+.c-homepage__visie {
+  @include font-size-responsive($m-font);
+  max-width: 734px;
+}
+
+.c-homepage__visie-header {
+  margin-bottom: 2 * $base-whitespace;
+}
+
+.c-homepage__visie-paragraph {
+  margin-bottom: 1.6 * $base-whitespace;
+  line-height: $l-line-height;
+}
+
+.c-homepage__beleid {
+  padding: 2 * $base-whitespace;
+  padding-top: 0;
 }
 
 .c-homepage__block--homepage {

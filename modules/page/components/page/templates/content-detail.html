@@ -1,2 +1,37 @@
-<h1>{{vm.name}}</h1>
-<h2>{{vm.type}}, {{vm.item}}</h2>
+<div ng-if="!(vm.type === 'beleid' || vm.type === 'help')">
+    <ng-include src="'modules/page/components/page/templates/content-overzicht.html'"></ng-include>
+</div>
+
+<div ng-if="vm.feed && (vm.type === 'beleid' || vm.type === 'help')">
+
+    <div class="u-row">
+        <div class="u-col-sm--offset-1 u-col-sm--7">
+            <h1 class="u-margin__bottom--3">{{vm.entry.titel.value}}</h1>
+        </div>
+    </div>
+
+    <div class="u-row">
+
+        <div class="u-col-sm--offset-1 u-col-sm--7">
+            <div class="c-user-content-detail__left">
+                <div ng-if="vm.type !== 'events'">
+                    <div class="s-cms-page-content" ng-bind-html="vm.entry.contents.html"></div>
+                </div>
+
+                <div ng-if="vm.type === 'events'">
+                    <dp-event-when-where title="vm.entry.titel.value"
+                                         time="entry.tijd.value"
+                                         location="entry.location.value"></dp-event-when-where>
+                    <div class="s-cms-page-content" ng-bind-html="vm.entry.contents.html"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="u-col-sm--3 u-col-sm--offset-1">
+            <div class="c-user-content-detail__right">
+                <dp-user-content-widget type="beleid"></dp-user-content-widget>
+            </div>
+        </div>
+
+    </div>
+</div>

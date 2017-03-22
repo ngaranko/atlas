@@ -1,0 +1,10 @@
+.c-user-content-detail__left {
+  @include font-size-responsive($m-font);
+  max-width: $page-max-left-pane-width;
+}
+
+.c-user-content-detail__right {
+  margin-right: $page-right-pane-margin;
+  font-size: $s-font-size;
+}
+

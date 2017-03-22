@@ -2,33 +2,12 @@
     <ng-include src="'modules/page/components/page/templates/home.html'"></ng-include>
 </div>
 
-<div ng-if="vm.name !== 'home'" class="c-page u-grid">
-    <div class="u-row">
-        <div class="c-page__body u-col-sm--7">
-            <div class="c-page__body__inner">
-                <ng-include src="'modules/page/components/page/templates/' + vm.name + '.html'"></ng-include>
-            </div>
-        </div>
-        <div class="c-sidebar u-col-sm--2">
-            <h1 class="c-sidebar__header">Zie ook</h1>
-            <h2 class="c-sidebar__sub-header">Bekijk meer evenementen</h2>
-            <ul class="c-sidebar__list">
-                <li class="c-sidebar__list__item">
-                    <a class="c-sidebar__link" href="#">Anderhalf jaar Fixxx, snelle innovatie die werkt!</a>
-                </li>
-                <li class="c-sidebar__list__item">
-                    <a class="c-sidebar__link" href="#">Data start café (en Maptime Amsterdam)</a>
-                </li>
-                <li class="c-sidebar__list__item">
-                    <a class="c-sidebar__link" href="#">Hoe blijf ik op de hoogte van wijzigingen?</a>
-                </li>
-                <li class="c-sidebar__list__item">
-                    <a class="c-sidebar__link" href="#">Demo Donderdag in DataLab - Data en Communicatie</a>
-                </li>
-                <li class="c-sidebar__list__item">
-                    <a class="c-sidebar__link" href="#">Demo Donderdag in DataLab</a>
-                </li>
-            </ul>
-        </div>
+<div ng-if="vm.name.indexOf('content-') === 0" class="c-page">
+    <ng-include src="'modules/page/components/page/templates/' + vm.name + '.html'"></ng-include>
+</div>
+
+<div ng-if="vm.name.indexOf('content-') !== 0 && vm.name !== 'home'" class="c-page">
+    <div class="u-margin__left--2">
+        <ng-include src="'modules/page/components/page/templates/' + vm.name + '.html'"></ng-include>
     </div>
 </div>

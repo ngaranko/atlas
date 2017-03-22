@@ -24,7 +24,7 @@
                         <dp-user-content-widget type="news" limit-to="4"></dp-user-content-widget>
                     </div>
                     <div class="c-homepage__show-more">
-                        <dp-link type="SHOW_PAGE" payload="{name: 'content-overzicht', type: vm.type}">
+                        <dp-link type="SHOW_PAGE" payload="{name: 'content-overzicht', type: 'news'}">
                             Nieuws
                         </dp-link>
                     </div>
@@ -60,7 +60,7 @@
                         <dp-user-content-widget type="events" limit-to="4"></dp-user-content-widget>
                     </div>
                     <div class="c-homepage__show-more">
-                        <dp-link type="SHOW_PAGE" payload="{name: 'content-overzicht', type: vm.type}">
+                        <dp-link type="SHOW_PAGE" payload="{name: 'content-overzicht', type: 'events'}">
                             Evenementen
                         </dp-link>
                     </div>
@@ -68,14 +68,18 @@
             </div>
         </div>
         <div class="u-row">
-            <div class="u-col-sm--9">
-                <h1>Visie op data.amsterdam.nl</h1>
-                <p>De Gemeente Amsterdam beschikt over een goudmijn aan data over de stad. Met het Amsterdamse dataportaal maakt de gemeente mogelijk dat de open data over de stad ook beschikbaar komen voor burgers, ondernemers en onderwijsinstellingen.</p>
-                <p>Het is een uitnodiging om met de Amsterdamse data innovatieve toepassingen te ontwikkelen.</p>
-            </div>
-            <div class="u-col-sm--3">
-                <div class="c-homepage__block--right c-homepage__block--beleid">
-                    <dp-user-content-widget type="beleid"></dp-user-content-widget>
+            <div class="c-homepage__text">
+                <div class="u-col-sm--8">
+                    <div class="u-margin__left--2 c-homepage__visie">
+                        <h1 class="c-homepage__visie-header">Visie op data.amsterdam.nl</h1>
+                        <p class="c-homepage__visie-paragraph">De Gemeente Amsterdam beschikt over een goudmijn aan data over de stad. Met het Amsterdamse dataportaal maakt de gemeente mogelijk dat de open data over de stad ook beschikbaar komen voor burgers, ondernemers en onderwijsinstellingen.</p>
+                        <p class="c-homepage__visie-paragraph">Het is een uitnodiging om met de Amsterdamse data innovatieve toepassingen te ontwikkelen.</p>
+                    </div>
+                </div>
+                <div class="u-col-sm--3 u-col-sm--offset-1">
+                    <div class="c-homepage__beleid">
+                        <dp-user-content-widget type="beleid"></dp-user-content-widget>
+                    </div>
                 </div>
             </div>
         </div>
