@@ -16,9 +16,9 @@
             controllerAs: 'vm'
         });
 
-    DpSearchResultsController.$inject = ['$scope', 'search', 'geosearch', 'store', 'ACTIONS'];
+    DpSearchResultsController.$inject = ['$scope', 'search', 'geosearch', 'store', 'user', 'ACTIONS'];
 
-    function DpSearchResultsController ($scope, search, geosearch, store, ACTIONS) {
+    function DpSearchResultsController ($scope, search, geosearch, store, user, ACTIONS) {
         const vm = this;
 
         /**
@@ -87,6 +87,22 @@
                 type: ACTIONS.SHOW_SEARCH_RESULTS,
                 payload: numberOfResults
             });
+
+            // TODO: R: reload on login
+            // TODO: R: determine "Kadastraal subject" result using better determinant.
+            const kadastraleSubject = searchResults.find(category => category.slug === 'subject');
+            if (kadastraleSubject) {
+                if (user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS)) {
+                    delete kadastraleSubject.warning;
+                } else if (user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL.EMPLOYEE)) {
+                    kadastraleSubject.warning = 'Om alle gegevens (ook natuurlijke personen) te kunnen vinden,' +
+                    ' moet je als medewerker _speciale bevoegdheden_ hebben.'; // TODO: R: Links
+                } else {
+                    kadastraleSubject.warning = 'Om kadastraal subjecten te kunnen vinden,' +
+                    ' moet je als medewerker/ketenpartner van Gemeente Amsterdam _inloggen_' +
+                    ' en _speciale bevoegdheden_ hebben.'; // TODO: R: Links
+                }
+            }
 
             vm.searchResults = searchResults;
             vm.hasLoadMore = function () {
