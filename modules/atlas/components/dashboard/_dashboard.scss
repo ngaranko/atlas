@@ -21,6 +21,13 @@ $dashboard-error-height: $button-size;
   z-index: 2;
 }
 
+.c-dashboard__error {
+  position: fixed;
+  top: $dashboard-heading-height;
+  width: 100%;
+  z-index: 2;
+}
+
 .c-dashboard__body {
   position: relative;
   top: $dashboard-heading-height;
@@ -34,9 +41,8 @@ $dashboard-error-height: $button-size;
 }
 
 .c-dashboard__body--error {
-  .u-row {
-    height: calc(100% - #{$dashboard-error-height});
-  }
+  top: $dashboard-heading-height + $dashboard-error-height;
+  height: calc(100% - #{$dashboard-heading-height + $dashboard-error-height});
 }
 
 .c-dashboard__footer {
