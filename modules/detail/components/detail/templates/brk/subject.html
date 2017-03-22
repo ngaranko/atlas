@@ -84,9 +84,23 @@
         <dp-glossary-header definition="ZAKELIJK_RECHT" use-plural="true"></dp-glossary-header>
 
         <dp-panel is-panel-visible="vm.isMoreInfoAvailable" type="warning" can-close="true" class-name="c-kadastraal-subject__warning">
-            <dp-link type="SHOW_PAGE" payload="{name: 'login'}" class-name="o-btn o-btn--link c-kadastraal-subject__login-link">
-                Log in om alle gegevens (ook zakelijke rechten) te kunnen zien.
-            </dp-link>
+            Om alle gegevens (ook zakelijke rechten) te kunnen zien, moet je inloggen en
+            <a class="o-link-inline o-link-inline--light"
+               target="_blank"
+               href="http://intranet.amsterdam.nl/mdw-basisinformatie/projecten-0/programma-datapunt/autorisatie-atlas/">speciale bevoegdheden</a>
+            hebben. Zie
+            <dp-link class-name="o-link-inline o-link-inline--light"
+                     type="SHOW_PAGE"
+                     payload="{name: 'snel-wegwijs'}">Snel wegwijs</dp-link>
+            voor hulp bij in- of uitloggen.
+        </dp-panel>
+
+        <dp-panel is-panel-visible="vm.hasInsufficientRights" type="warning" can-close="true" class-name="c-kadastraal-subject__warning">
+            Om alle gegevens (ook zakelijke rechten) te kunnen zien, moet je
+            <a class="o-link-inline o-link-inline--light"
+               target="_blank"
+               href="http://intranet.amsterdam.nl/mdw-basisinformatie/projecten-0/programma-datapunt/autorisatie-atlas/">speciale bevoegdheden</a>
+            hebben.
         </dp-panel>
 
         <dp-api-call ng-if="vm.apiData.results.rechten.count" endpoint="{{vm.apiData.results.rechten.href}}" partial="brk/subject-rechten"></dp-api-call>

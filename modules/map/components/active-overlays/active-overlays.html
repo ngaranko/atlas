@@ -4,7 +4,7 @@
     </dp-link>
 
     <div class="c-active-overlays__scrollable">
-        <dp-active-overlays-item ng-repeat="overlay in vm.overlays | orderBy: '-' track by overlay.id"
+        <dp-active-overlays-item ng-repeat="overlay in vm.validOverlays | orderBy: '-' track by overlay.id"
             overlay="{{overlay.id}}"
             is-visible="overlay.isVisible"
             zoom="vm.zoom">
