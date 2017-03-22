@@ -1,6 +1,7 @@
 <div class="c-dashboard"
      ng-class="{
          'c-dashboard--max-width': vm.hasMaxWidth,
+         'c-dashboard--full-height': vm.isFullHeight,
          'c-dashboard--homepage': vm.isHomePage
      }">
 
@@ -71,10 +72,7 @@
 
                 <!-- Right column -->
                 <div ng-show="vm.columnSizes.right"
-                    dp-scrollable-content
-                    visibility="vm.visibility"
-                    page-name="{{vm.pageName}}"
-                    class="c-dashboard__column c-dashboard__content u-col-sm--{{vm.columnSizes.right}} qa-dashboard__column--right">
+                     class="c-dashboard__column c-dashboard__content u-col-sm--{{vm.columnSizes.right}} qa-dashboard__column--right">
 
                     <!-- Detail -->
                     <div ng-if="vm.activity.detail" ng-show="vm.visibility.detail" ng-controller="DetailController as detail" class="qa-detail">

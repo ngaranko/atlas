@@ -35,18 +35,15 @@
 
             vm.dataSelectionState = state.dataSelection;
 
-            vm.isRightColumnScrollable = !vm.isFullscreen &&
-                (
-                    vm.visibility.page ||
-                    vm.visibility.detail ||
-                    vm.visibility.searchResults ||
-                    vm.visibility.dataSelection
-                );
+            vm.isRightColumnScrollable =
+                vm.visibility.page ||
+                vm.visibility.detail ||
+                vm.visibility.searchResults ||
+                vm.visibility.dataSelection;
 
             vm.columnSizes = dashboardColumns.determineColumnSizes(state);
 
-            // Needed for the dp-scrollable-content directive
-            vm.pageName = state.page.name;
+            vm.isFullHeight = !vm.isRightColumnScrollable || vm.columnSizes.right < 12;
         }
     }
 })();

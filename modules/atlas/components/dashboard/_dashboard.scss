@@ -1,6 +1,6 @@
 @import "modules/shared/styles/config";
 
-$dashboard-heading-height: 50px;
+$dashboard-heading-height: 52px;
 $dashboard-heading-height-homepage: 108px;
 $dashboard-heading-shadow-height: 2px;
 $dashboard-toolbar-height: 40px;
@@ -18,12 +18,11 @@ $dashboard-gutter: 42px;
 .c-dashboard {
   height: 100%;
   background-color: $primary-light;
-  overflow: hidden;
 }
 
 .c-dashboard__heading {
   position: relative;
-  height: $dashboard-heading-height + $dashboard-heading-shadow-height;
+  height: $dashboard-heading-height;
   border-bottom: $dashboard-heading-shadow-height solid $secondary-gray40;
   z-index: 2;
 }
@@ -32,7 +31,6 @@ $dashboard-gutter: 42px;
   position: relative;
   height: calc(100% - #{$dashboard-heading-height});
   z-index: 1;
-  overflow-y: hidden;
 
   .u-grid,
   .u-row {
@@ -74,8 +72,6 @@ $dashboard-gutter: 42px;
 .c-dashboard__column {
   height: 100%;
 
-  overflow-y: auto;
-
   > div {
     position: relative;
     height: 100%;
@@ -94,6 +90,18 @@ $dashboard-gutter: 42px;
 
 .c-dashboard--max-width {
   background-color: $secondary-gray10;
+}
+
+.c-dashboard--full-height {
+  overflow: hidden;
+
+  .c-dashboard__body {
+    overflow-y: hidden;
+  }
+
+  .c-dashboard__column {
+    overflow-y: auto;
+  }
 }
 
 .c-dashboard--homepage {
