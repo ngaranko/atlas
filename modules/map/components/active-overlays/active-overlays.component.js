@@ -19,9 +19,8 @@
     function DpActiveOverlaysController ($scope, overlays) {
         var vm = this;
 
-        vm.validOverlays = vm.overlays.filter(overlay => overlays.SOURCES[overlay.id]);
-
         $scope.$watchGroup(['vm.overlays', 'vm.showActiveOverlays'], function () {
+            vm.validOverlays = vm.overlays.filter(overlay => overlays.SOURCES[overlay.id]);
             vm.visible = vm.showActiveOverlays && vm.overlays.length > 0;
         }, true);
     }

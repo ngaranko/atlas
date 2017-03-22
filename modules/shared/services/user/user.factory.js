@@ -173,7 +173,7 @@
                 });
                 return access.user >= access.required;
             } else {
-                return false;
+                return angular.isUndefined(requiredLevel);
             }
         }
 

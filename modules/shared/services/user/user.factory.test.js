@@ -108,7 +108,7 @@ describe('The user factory', function () {
     });
 
     describe('The tests wether the user meets a required authorization level', function () {
-        const dummyValues = [null, undefined, 'some strange value'];
+        const dummyValues = [null, 0, true, false, 'some strange value'];
 
         it('can test wether the a non-authorized user meets a required authorization level', function () {
             ['NONE']
@@ -116,6 +116,7 @@ describe('The user factory', function () {
             ['DEFAULT', 'EMPLOYEE', 'EMPLOYEE_PLUS']
                 .forEach(level => expect(user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL[level])).toBe(false));
             dummyValues.forEach(level => expect(user.meetsRequiredLevel(level)).toBe(false));
+            expect(user.meetsRequiredLevel(undefined)).toBe(true);
         });
 
         it('can test wether a user with unknown auth. level meets a required authorization level', function () {
@@ -126,6 +127,7 @@ describe('The user factory', function () {
             ['DEFAULT', 'EMPLOYEE', 'EMPLOYEE_PLUS']
                 .forEach(level => expect(user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL[level])).toBe(false));
             dummyValues.forEach(level => expect(user.meetsRequiredLevel(level)).toBe(false));
+            expect(user.meetsRequiredLevel(undefined)).toBe(true);
         });
 
         it('can test wether a DEFAULT user meets a required authorization level', function () {
@@ -136,6 +138,7 @@ describe('The user factory', function () {
             ['EMPLOYEE', 'EMPLOYEE_PLUS']
                 .forEach(level => expect(user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL[level])).toBe(false));
             dummyValues.forEach(level => expect(user.meetsRequiredLevel(level)).toBe(false));
+            expect(user.meetsRequiredLevel(undefined)).toBe(true);
         });
 
         it('can test wether a EMPLOYEE user meets a required authorization level', function () {
@@ -146,6 +149,7 @@ describe('The user factory', function () {
             ['EMPLOYEE_PLUS']
                 .forEach(level => expect(user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL[level])).toBe(false));
             dummyValues.forEach(level => expect(user.meetsRequiredLevel(level)).toBe(false));
+            expect(user.meetsRequiredLevel(undefined)).toBe(true);
         });
 
         it('can test wether a EMPLOYEE_PLUS user meets a required authorization level', function () {
@@ -154,6 +158,7 @@ describe('The user factory', function () {
             ['NONE', 'DEFAULT', 'EMPLOYEE', 'EMPLOYEE_PLUS']
                 .forEach(level => expect(user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL[level])).toBe(true));
             dummyValues.forEach(level => expect(user.meetsRequiredLevel(level)).toBe(false));
+            expect(user.meetsRequiredLevel(undefined)).toBe(true);
         });
     });
 
