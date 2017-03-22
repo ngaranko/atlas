@@ -149,6 +149,16 @@ describe('The dp-data-selection-header', () => {
         });
     });
 
+    it('the download button is hidden when there are no results', () => {
+        mockedInputTable.numberOfRecords = 1;
+        component = getComponent(mockedInputTable);
+        expect(component.find('.qa-download-button').length).toBe(1);
+
+        mockedInputTable.numberOfRecords = 0;
+        component = getComponent(mockedInputTable);
+        expect(component.find('.qa-download-button').length).toBe(0);
+    });
+
     describe('the header title', function () {
         it('in TABLE view shows the name followed by the number of results', () => {
             mockedInputTable.numberOfRecords = 1234;
@@ -188,19 +198,6 @@ describe('The dp-data-selection-header', () => {
         });
     });
 
-    it('shows the search query in the header', () => {
-        // When there is a query
-        mockedInputCards.state.query = 'parkeren';
-
-        component = getComponent(mockedInputCards);
-        expect(component.find('.qa-search-query').text()).toBe('met "parkeren"');
-
-        // Without a query, there is no text message
-        delete mockedInputCards.state.query;
-        component = getComponent(mockedInputCards);
-        expect(component.find('.qa-search-query').length).toBe(0);
-    });
-
     ['TABLE', 'CARDS'].forEach(viewName => {
         beforeEach(function () {
             mockedViewInput = viewName === 'TABLE' ? mockedInputTable : mockedInputCards;
@@ -217,22 +214,16 @@ describe('The dp-data-selection-header', () => {
                 expect(component.find('.qa-title').length).toBe(1);
             });
 
-            it('potentially shows the no results found message (instead of the title)', function () {
+            it('potentially shows the no results found message', function () {
                 // When there are results
                 mockedViewInput.numberOfRecords = 1;
                 component = getComponent(mockedViewInput);
-
-                expect(component.find('.qa-title').length).toBe(1);
                 expect(component.find('.qa-no-results-found').length).toBe(0);
 
                 // When there are no results
                 mockedViewInput.numberOfRecords = 0;
                 component = getComponent(mockedViewInput);
-
-                expect(component.find('.qa-title').length).toBe(0);
-                expect(component.find('.qa-no-results-found-header').length).toBe(1);
-                // Make sure it isn't also shown as a message
-                expect(component.find('.qa-no-results-found-message').length).toBe(0);
+                expect(component.find('.qa-no-results-found').length).toBe(1);
             });
 
             it('doesn\'t show tabs', function () {
@@ -266,9 +257,8 @@ describe('The dp-data-selection-header', () => {
             // Show the message
             mockedInputList.numberOfRecords = 0;
             component = getComponent(mockedInputList);
-            expect(component.find('.qa-no-results-found-message').length).toBe(1);
-            // Make sure it isn't also shown in the header
-            expect(component.find('.qa-no-results-found-header').length).toBe(0);
+            expect(component.find('.qa-no-results-found').length).toBe(1);
+            expect(component.find('.qa-no-results-found').text()).toContain('Tip: verwijder een of meer criteria');
         });
     });
 

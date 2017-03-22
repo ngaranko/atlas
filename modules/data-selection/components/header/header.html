@@ -3,25 +3,21 @@
         <div class="u-inline-block u-margin__right--1">
             <dp-data-selection-toggle-view-button view="vm.state.view"></dp-data-selection-toggle-view-button>
         </div>
-        <div class="u-inline-block">
+        <div ng-if="vm.showDownloadButton" class="u-inline-block qa-download-button">
             <dp-data-selection-download-button dataset="{{vm.state.dataset}}" active-filters="vm.state.filters" geometry-filter="vm.state.geometryFilter">
             </dp-data-selection-download-button>
         </div>
     </div>
 
-    <div ng-if="vm.showTitle" class="qa-title">
+    <div class="qa-title">
         <h1 ng-if="vm.state.view === 'TABLE'">{{vm.datasetTitle}} ({{vm.numberOfRecords | number}})</h1>
         <h1 ng-if="vm.state.view === 'CARDS'">Datasets ({{vm.numberOfRecords | number}})</h1>
         <h1 ng-if="vm.state.view === 'LIST'">Resultaten</h1>
     </div>
-
-    <h2 ng-if="vm.showNoResultsFound && !vm.showTabs" class="qa-no-results-found-header">Geen resultaten gevonden</h2>
-
-    <h3 ng-if="vm.showSearchQuery" class="u-font--s qa-search-query">met "{{vm.state.query}}"</h3>
 </div>
 
 
-<div ng-if="vm.showTabs" class="o-tabs qa-tabs u-margin__bottom--1-5">
+<div ng-if="vm.showTabs" class="o-tabs qa-tabs u-margin__bottom--2">
     <ul>
         <li ng-repeat="tab in vm.tabs" ng-class="{'is-active': tab.isActive}">
             <dp-link ng-if="!tab.isActive" type="FETCH_DATA_SELECTION" payload="{dataset: tab.dataset, filters: vm.state.filters, page: 1, view: 'LIST'}" class-name="o-tabs__tab o-tabs__tab--link">
@@ -45,4 +41,8 @@
     </dp-data-selection-active-filters>
 </div>
 
-<p ng-if="vm.showNoResultsFound && vm.showTabs" class="qa-no-results-found-message">Geen resultaten gevonden</p>
+<div ng-if="vm.showNoResultsFound" class="qa-no-results-found">
+    <p class="u-margin__bottom--1-5">Geen resultaten van deze soort</p>
+
+    <p>Tip: verwijder een of meer criteria</p>
+</div>
