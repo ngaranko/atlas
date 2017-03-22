@@ -5,7 +5,7 @@
 
     <div ng-repeat="entry in vm.entries  | limitTo: vm.limitTo" class="c-user-content-widget__entry">
         <dp-link type="SHOW_PAGE" payload="{name: 'content-detail', type: vm.type, item: entry.id}">
-            <div class="s-cms-content" ng-bind-html="entry.short.html"></div>
+            <div class="s-cms-widget-content" ng-bind-html="entry.short.html"></div>
         </dp-link>
     </div>
 </div>

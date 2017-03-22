@@ -133,7 +133,9 @@
     <div ng-if="vm.isHomePage" class="c-dashboard__max-width">
         <footer class="c-dashboard__footer">
             <div class="c-dashboard__max-width__inner">
-                <a href="https://www.amsterdam.nl/proclaimer" class="o-btn o-btn--link" target="_blank">Proclaimer</a>
+                <dp-link type="SHOW_PAGE" payload="{name: 'content-overzicht', type: 'proclaimer'}">
+                    Proclaimer
+                </dp-link>
             </div>
         </footer>
     </div>

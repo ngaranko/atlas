@@ -160,7 +160,8 @@
                 id: 'SHOW_HOME'
             },
             SHOW_PAGE: {
-                id: 'SHOW_PAGE'
+                id: 'SHOW_PAGE',
+                isButton: true
             },
 
             SHOW_PRINT: {
