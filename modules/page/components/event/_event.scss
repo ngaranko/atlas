@@ -36,13 +36,13 @@ c-event {
   margin-left: $c-event-day-width + $base-whitespace;
 }
 
-.c-event-title {
+.c-event-when-where__title {
   margin-bottom: 0;
   font-size: $c-event-day-height;
   line-height: $c-event-day-height;
 }
 
-.c-event-when-where {
+.c-event-when-where__time-location {
   margin-bottom: $base-whitespace;
   color: $secondary-gray60;
   font-size: $c-event-month-font-size;
