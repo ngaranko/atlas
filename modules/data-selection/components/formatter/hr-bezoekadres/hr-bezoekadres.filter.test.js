@@ -8,19 +8,22 @@ describe('The hrBezoekadres filter', function () {
             'dpDataSelection',
             {
                 'user': {
-                    getStatus: function () {
-                        return mockedUser.logged_in;
+                    getUserType: function () {
+                        return mockedUser.type;
                     },
                     login: function () {
-                        mockedUser.logged_in.isLoggedIn = true;
+                        mockedUser.type = 'AUTHENTICATED';
+                    },
+                    USER_TYPE: {
+                        NONE: 'NONE',
+                        ANONYMOUS: 'ANONYMOUS',
+                        AUTHENTICATED: 'AUTHENTICATED'
                     }
                 }
             });
 
         mockedUser = {
-            logged_in: {
-                isLoggedIn: false
-            }
+            type: 'ANONYMOUS'
         };
 
         angular.mock.inject(function (_hrBezoekadresFilter_, _user_) {
