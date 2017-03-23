@@ -1,112 +1,93 @@
-@import "modules/shared/styles/config";
-
-$dashboard-heading-height: 50px;
-$dashboard-heading-height-homepage: 108px;
-$dashboard-heading-shadow-height: 2px;
-$dashboard-toolbar-height: 40px;
-$dashboard-footer-height: 40px;
-$dashboard-footer-separator-height: 8px;
-$dashboard-error-height: $button-size;
-$dashboard-max-width-outer: 1800px;
-$dashboard-max-width-inner: 1600px;
-$dashboard-gutter: 42px;
-
-.u-dashboard--full-height {
-  height: 100%;
-}
-
 .c-dashboard {
   height: 100%;
   background-color: $primary-light;
-  overflow: hidden;
 }
 
 .c-dashboard__heading {
   position: relative;
-  height: $dashboard-heading-height + $dashboard-heading-shadow-height;
-  border-bottom: $dashboard-heading-shadow-height solid $secondary-gray40;
-  z-index: 2;
+  height: $dashboard-heading-height;
+  background-color: $primary-light;
+  box-shadow: 0 $dashboard-heading-shadow-height $secondary-gray40;
+}
+
+.c-dashboard__error {
+  position: fixed;
+  top: $dashboard-heading-height + $dashboard-heading-shadow-height;
+  width: 100%;
+  z-index: $fixed-position-z-index;
 }
 
 .c-dashboard__body {
   position: relative;
+  top: $dashboard-heading-height;
   height: calc(100% - #{$dashboard-heading-height});
-  z-index: 1;
-  overflow-y: hidden;
-
-  .u-grid,
-  .u-row {
-    height: 100%;
-  }
+  z-index: $body-z-index;
 }
 
 .c-dashboard__body--error {
-  .u-row {
-    height: calc(100% - #{$dashboard-error-height});
-  }
-}
-
-.c-dashboard__footer {
-  height: calc(#{$dashboard-footer-height} + #{$dashboard-footer-separator-height});
-  border-top: $dashboard-footer-separator-height solid $secondary-gray60;
-  font-size: $base-font-size;
-  line-height: $dashboard-footer-height;
-}
-
-.c-dashboard__max-width {
-  max-width: $dashboard-max-width-outer;
-  margin-right: auto;
-  margin-left: auto;
-  background-color: $primary-light;
-}
-
-.c-dashboard__max-width__inner {
-  max-width: $dashboard-max-width-inner;
-  margin-right: auto;
-  margin-left: auto;
-}
-
-.c-dashboard__max-width__inner--homepage {
-  padding-right: $dashboard-gutter;
-  padding-left: $dashboard-gutter;
+  top: $dashboard-heading-height + $dashboard-error-height;
+  height: calc(100% - #{$dashboard-heading-height + $dashboard-error-height});
 }
 
 .c-dashboard__column {
   height: 100%;
+}
 
-  overflow-y: auto;
+.c-dashboard__page {
+  position: relative;
+  min-height: 100%;
+  background-color: $primary-light;
+}
 
-  > div {
-    position: relative;
-    height: 100%;
-    background-color: $primary-light;
-  }
+.c-dashboard__page-inner {
+  padding-bottom: $dashboard-gutter-bottom;
+}
 
-  .c-dashboard__max-width {
-    height: initial;
-    min-height: 100%;
-  }
+.c-dashboard__footer {
+  @include font-size($xs-font);
 
-  .c-dashboard__max-width__inner {
-    padding-bottom: 1px; /* Makes sure content margins stay inside this element */
-  }
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: $dashboard-footer-height + $dashboard-footer-separator-height;
+  border-top: $dashboard-footer-separator-height solid $secondary-gray60;
+  background-color: $primary-light;
+  line-height: $dashboard-footer-height;
 }
 
 .c-dashboard--max-width {
   background-color: $secondary-gray10;
 }
 
+.c-dashboard--full-height {
+  overflow: hidden;
+
+  .c-dashboard__body {
+    overflow-y: hidden;
+  }
+
+  .c-dashboard__column {
+    overflow-y: auto;
+  }
+}
+
 .c-dashboard--homepage {
   .c-dashboard__heading {
     height: $dashboard-heading-height-homepage + $dashboard-toolbar-height;
     border-bottom: $dashboard-toolbar-height solid $secondary-gray4;
+    box-shadow: none;
+  }
+
+  .c-dashboard__error {
+    top: $dashboard-heading-height-homepage + $dashboard-toolbar-height;
   }
 
   .c-dashboard__body {
-    height: calc(100%
-      - #{$dashboard-heading-height-homepage}
-      - #{$dashboard-toolbar-height}
-      - #{$dashboard-footer-separator-height}
-      - #{$dashboard-footer-height});
+    top: $dashboard-heading-height-homepage + $dashboard-toolbar-height;
+    height: calc(100% - #{$dashboard-heading-height-homepage + $dashboard-toolbar-height});
+  }
+
+  .c-dashboard__page-inner {
+    padding-bottom: $dashboard-gutter-bottom-homepage + $dashboard-footer-height + $dashboard-footer-separator-height;
   }
 }
