@@ -48,13 +48,13 @@ describe('The dp-max-width-class directive', () => {
         return directive;
     }
 
-    it('calls dashboardColumns.determineVisibility with the state', () => {
+    it('determines the visibility of the component in the current state', () => {
         getDirective('test-class');
 
         expect(dashboardColumns.determineVisibility).toHaveBeenCalledWith('mockedState');
     });
 
-    it('adds u-background-color__secondary--gray10 class to the element when a page is visible', () => {
+    it('adds the specified css class to the element when a page is visible', () => {
         visibility.page = true;
 
         const directive = getDirective('test-class');
@@ -62,7 +62,7 @@ describe('The dp-max-width-class directive', () => {
         expect(directive.hasClass('test-class')).toBe(true);
     });
 
-    it('removes u-background-color__secondary--gray10 class from the element when a page is not visible', () => {
+    it('removes the specified css class from the element when a page is not visible', () => {
         const directive = getDirective('test-class');
 
         expect(directive.hasClass('test-class')).toBe(false);
