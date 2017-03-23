@@ -1,4 +1,4 @@
-describe('The dp-max-width directive', () => {
+describe('The dp-max-width-class directive', () => {
     let $compile,
         $rootScope,
         dashboardColumns,
@@ -37,9 +37,9 @@ describe('The dp-max-width directive', () => {
         spyOn(dashboardColumns, 'determineVisibility').and.callThrough();
     });
 
-    function getDirective () {
+    function getDirective (className) {
         const element = document.createElement('div');
-        element.setAttribute('dp-max-width', '');
+        element.setAttribute('dp-max-width-class', className);
 
         const scope = $rootScope.$new();
         const directive = $compile(element)(scope);
@@ -49,7 +49,7 @@ describe('The dp-max-width directive', () => {
     }
 
     it('calls dashboardColumns.determineVisibility with the state', () => {
-        getDirective();
+        getDirective('test-class');
 
         expect(dashboardColumns.determineVisibility).toHaveBeenCalledWith('mockedState');
     });
@@ -57,24 +57,24 @@ describe('The dp-max-width directive', () => {
     it('adds u-background-color__secondary--gray10 class to the element when a page is visible', () => {
         visibility.page = true;
 
-        const directive = getDirective();
+        const directive = getDirective('test-class');
 
-        expect(directive.hasClass('u-background-color__secondary--gray10')).toBe(true);
+        expect(directive.hasClass('test-class')).toBe(true);
     });
 
     it('removes u-background-color__secondary--gray10 class from the element when a page is not visible', () => {
-        const directive = getDirective();
+        const directive = getDirective('test-class');
 
-        expect(directive.hasClass('u-background-color__secondary--gray10')).toBe(false);
+        expect(directive.hasClass('test-class')).toBe(false);
 
         visibility.page = true;
         callbackFn();
         $rootScope.$apply();
-        expect(directive.hasClass('u-background-color__secondary--gray10')).toBe(true);
+        expect(directive.hasClass('test-class')).toBe(true);
 
         visibility.page = false;
         callbackFn();
         $rootScope.$apply();
-        expect(directive.hasClass('u-background-color__secondary--gray10')).toBe(false);
+        expect(directive.hasClass('test-class')).toBe(false);
     });
 });
