@@ -51,8 +51,6 @@
             ];
         }, fetchData, true);
 
-        vm.showTabHeader = () => vm.view === 'CARDS' && Object.keys(vm.state.filters).length === 0;
-
         vm.tabHeader = new TabHeader('data-datasets');
         vm.tabHeader.activeTab = vm.tabHeader.getTab('datasets');
 
@@ -67,7 +65,8 @@
             const isListView = vm.state.view === 'LIST';
 
             vm.view = vm.state.view;
-            vm.showFilters = !isListView;
+            const isQueryView = angular.isDefined(vm.state.query) && vm.state.query.trim().length >= 1;
+            vm.showTabHeader = () => vm.view === 'CARDS' && isQueryView;
             vm.currentPage = vm.state.page;
 
             vm.numberOfRecords = null;
@@ -82,11 +81,21 @@
                 vm.currentPage,
                 vm.state.query,
                 vm.state.geometryFilter.markers).then(data => {
+                    vm.isLoading = false;
                     vm.availableFilters = data.filters;
 
                     vm.data = data.data;
                     vm.numberOfRecords = data.numberOfRecords;
                     vm.numberOfPages = data.numberOfPages;
+
+                    vm.showFilters = !isListView && vm.numberOfRecords > 0;
+
+                    // determine if warning messages should be shown
+                    vm.maxAvailablePages = DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES;
+                    vm.showMessageMaxPages = vm.maxAvailablePages && vm.state.page > vm.maxAvailablePages;
+
+                    vm.maxNumberOfClusteredMarkers = DATA_SELECTION_CONFIG.options.MAX_NUMBER_OF_CLUSTERED_MARKERS;
+                    vm.showMessageClusteredMarkers = isListView && vm.numberOfRecords > vm.maxNumberOfClusteredMarkers;
 
                     updateTabHeader(vm.state.query, vm.numberOfRecords);
 
@@ -96,8 +105,6 @@
                             angular.isUndefined(DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES) ||
                             vm.state.page <= DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES
                         );
-
-                    vm.isLoading = false;
 
                     const activeFilters = angular.extend({
                         shape: angular.toJson(vm.state.geometryFilter.markers.map(([lat, lng]) => [lng, lat]))

@@ -96,7 +96,7 @@ describe('each URL should load the corresponding view', function () {
         dp.validate('MAP_SEARCH-RESULTS--LOCATION', page);
 
         expect(page.title)
-            .toMatch(/^\d+ resultaten met locatie 121356\.94, 487341\.61 \(52\.3729183, 4\.8931775\) - Atlas$/);
+            .toBe('Data (7) met locatie 121356\.94, 487341\.61 \(52\.3729183, 4\.8931775\) - Atlas');
 
         expect(searchResults.categories(0).header).toBe('Openbare ruimte');
         expect(searchResults.categories(0).list(0).link.label).toBe('Dam');

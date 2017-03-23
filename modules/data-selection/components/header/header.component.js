@@ -7,7 +7,8 @@
             bindings: {
                 state: '<',
                 availableFilters: '<',
-                numberOfRecords: '<'
+                numberOfRecords: '<',
+                showHeader: '<'
             },
             templateUrl: 'modules/data-selection/components/header/header.html',
             controllerAs: 'vm',
@@ -29,17 +30,10 @@
             const isListView = vm.state.view === 'LIST';
 
             vm.showButtons = vm.state.dataset !== 'catalogus';
-            vm.showTitle = isListView || vm.numberOfRecords;
-            vm.showSearchQuery = angular.isString(vm.state.query);
+            vm.showDownloadButton = vm.numberOfRecords > 0;
             vm.showTabs = isListView;
             vm.showNoResultsFound = vm.numberOfRecords === 0;
             vm.showActiveFilters = Object.keys(vm.state.filters).length || vm.state.geometryFilter.markers.length;
-
-            vm.maxAvailablePages = DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES;
-            vm.showMessageMaxPages = vm.maxAvailablePages && vm.state.page > vm.maxAvailablePages;
-
-            vm.maxNumberOfClusteredMarkers = DATA_SELECTION_CONFIG.options.MAX_NUMBER_OF_CLUSTERED_MARKERS;
-            vm.showMessageClusteredMarkers = isListView && vm.numberOfRecords > vm.maxNumberOfClusteredMarkers;
 
             vm.datasetTitle = DATA_SELECTION_CONFIG.datasets[vm.state.dataset].TITLE;
 

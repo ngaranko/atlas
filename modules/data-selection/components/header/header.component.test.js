@@ -19,9 +19,6 @@ describe('The dp-data-selection-header', () => {
             },
             function ($provide) {
                 $provide.constant('DATA_SELECTION_CONFIG', {
-                    options: {
-                        MAX_NUMBER_OF_CLUSTERED_MARKERS: 1000
-                    },
                     datasets: {
                         bag: {
                             MAX_AVAILABLE_PAGES: 50,
@@ -70,7 +67,8 @@ describe('The dp-data-selection-header', () => {
                     description: 'geometryFilter description'
                 }
             },
-            numberOfRecords: null
+            numberOfRecords: null,
+            showHeader: true
         };
 
         mockedInputList = {
@@ -85,7 +83,8 @@ describe('The dp-data-selection-header', () => {
                     description: 'geometryFilter description'
                 }
             },
-            numberOfRecords: null
+            numberOfRecords: null,
+            showHeader: true
         };
 
         mockedInputCards = {
@@ -101,7 +100,8 @@ describe('The dp-data-selection-header', () => {
                 },
                 page: 1
             },
-            numberOfRecords: null
+            numberOfRecords: null,
+            showHeader: true
         };
 
         spyOn(store, 'dispatch');
@@ -112,17 +112,25 @@ describe('The dp-data-selection-header', () => {
         element.setAttribute('state', 'state');
         element.setAttribute('available-filters', 'availableFilters');
         element.setAttribute('number-of-records', 'numberOfRecords');
+        element.setAttribute('show-header', 'showHeader');
 
         const scope = $rootScope.$new();
         scope.state = mockedInput.state;
         scope.availableFilters = {};
         scope.numberOfRecords = mockedInput.numberOfRecords;
+        scope.showHeader = mockedInput.showHeader;
 
         const compiledComponent = $compile(element)(scope);
         scope.$apply();
 
         return compiledComponent;
     }
+
+    it('should not show the header if showHeader is not true', () => {
+        mockedInputTable.showHeader = false;
+        component = getComponent(mockedInputTable);
+        expect(component.find('.qa-header').length).toBe(0);
+    });
 
     describe('The buttons (download and toggle view)', () => {
         it('are available in the TABLE view', () => {
@@ -141,6 +149,16 @@ describe('The dp-data-selection-header', () => {
         });
     });
 
+    it('the download button is hidden when there are no results', () => {
+        mockedInputTable.numberOfRecords = 1;
+        component = getComponent(mockedInputTable);
+        expect(component.find('.qa-download-button').length).toBe(1);
+
+        mockedInputTable.numberOfRecords = 0;
+        component = getComponent(mockedInputTable);
+        expect(component.find('.qa-download-button').length).toBe(0);
+    });
+
     describe('the header title', function () {
         it('in TABLE view shows the name followed by the number of results', () => {
             mockedInputTable.numberOfRecords = 1234;
@@ -150,16 +168,16 @@ describe('The dp-data-selection-header', () => {
             expect(component.find('.qa-title').text().trim()).toBe('BAG Adressen (1.234)');
         });
 
-        it('in CARDS view shows the number of results followed by the word \'dataset(s)\'', () => {
+        it('in CARDS view shows the number of results followed using \'Datasets(number)\'', () => {
             // Singular
             mockedInputCards.numberOfRecords = 1;
             component = getComponent(mockedInputCards);
-            expect(component.find('.qa-title').text().trim()).toBe('1 dataset');
+            expect(component.find('.qa-title').text().trim()).toBe('Datasets (1)');
 
             // Plural, with thousand separator
             mockedInputCards.numberOfRecords = 1234;
             component = getComponent(mockedInputCards);
-            expect(component.find('.qa-title').text().trim()).toBe('1.234 datasets');
+            expect(component.find('.qa-title').text().trim()).toBe('Datasets (1.234)');
         });
 
         it('in LIST view shows just the string \'Resultaten\'', () => {
@@ -180,19 +198,6 @@ describe('The dp-data-selection-header', () => {
         });
     });
 
-    it('shows the search query in the header', () => {
-        // When there is a query
-        mockedInputCards.state.query = 'parkeren';
-
-        component = getComponent(mockedInputCards);
-        expect(component.find('.qa-search-query').text()).toBe('met "parkeren"');
-
-        // Without a query, there is no text message
-        delete mockedInputCards.state.query;
-        component = getComponent(mockedInputCards);
-        expect(component.find('.qa-search-query').length).toBe(0);
-    });
-
     ['TABLE', 'CARDS'].forEach(viewName => {
         beforeEach(function () {
             mockedViewInput = viewName === 'TABLE' ? mockedInputTable : mockedInputCards;
@@ -209,46 +214,22 @@ describe('The dp-data-selection-header', () => {
                 expect(component.find('.qa-title').length).toBe(1);
             });
 
-            it('potentially shows the no results found message (instead of the title)', function () {
+            it('potentially shows the no results found message', function () {
                 // When there are results
                 mockedViewInput.numberOfRecords = 1;
                 component = getComponent(mockedViewInput);
-
-                expect(component.find('.qa-title').length).toBe(1);
                 expect(component.find('.qa-no-results-found').length).toBe(0);
 
                 // When there are no results
                 mockedViewInput.numberOfRecords = 0;
                 component = getComponent(mockedViewInput);
-
-                expect(component.find('.qa-title').length).toBe(0);
-                expect(component.find('h2.qa-no-results-found').length).toBe(1);
-                // Make sure it isn't shown as a p as well
-                expect(component.find('p.qa-no-results-found').length).toBe(0);
+                expect(component.find('.qa-no-results-found').length).toBe(1);
             });
 
             it('doesn\'t show tabs', function () {
                 component = getComponent(mockedViewInput);
 
                 expect(component.find('.qa-tabs').length).toBe(0);
-            });
-
-            it('potentially shows the max pages message', () => {
-                // Don't show the message
-                mockedViewInput.state.page = 50;
-                component = getComponent(mockedViewInput);
-                expect(component.find('.qa-message-max-pages').length).toBe(0);
-
-                // Show the message
-                mockedViewInput.state.page = 51;
-                component = getComponent(mockedViewInput);
-                expect(component.find('.qa-message-max-pages').length).toBe(1);
-            });
-
-            it('doesn\'t show the clustered markers message', () => {
-                mockedViewInput.numberOfRecords = 1001;
-                component = getComponent(mockedViewInput);
-                expect(component.find('.qa-message-clustered-markers').length).toBe(0);
             });
         });
     });
@@ -276,33 +257,8 @@ describe('The dp-data-selection-header', () => {
             // Show the message
             mockedInputList.numberOfRecords = 0;
             component = getComponent(mockedInputList);
-            expect(component.find('p.qa-no-results-found').length).toBe(1);
-            // Make sure it isn't shown as a h2 as well
-            expect(component.find('h2.qa-no-results-found').length).toBe(0);
-        });
-
-        it('potentially shows the max pages message', () => {
-            // Don't show the message
-            mockedInputList.state.page = 50;
-            component = getComponent(mockedInputList);
-            expect(component.find('.qa-message-max-pages').length).toBe(0);
-
-            // Show the message
-            mockedInputList.state.page = 51;
-            component = getComponent(mockedInputList);
-            expect(component.find('.qa-message-max-pages').length).toBe(1);
-        });
-
-        it('potentially shows the clustered markers message', () => {
-            // Don't show the message
-            mockedInputList.numberOfRecords = 1000;
-            component = getComponent(mockedInputList);
-            expect(component.find('.qa-message-clustered-markers').length).toBe(0);
-
-            // Show the message
-            mockedInputList.numberOfRecords = 1001;
-            component = getComponent(mockedInputList);
-            expect(component.find('.qa-message-clustered-markers').length).toBe(1);
+            expect(component.find('.qa-no-results-found').length).toBe(1);
+            expect(component.find('.qa-no-results-found').text()).toContain('Tip: verwijder een of meer criteria');
         });
     });
 
@@ -328,17 +284,6 @@ describe('The dp-data-selection-header', () => {
             component = getComponent(mockedInput[viewName]);
             expect(component.find('.qa-active-filters').length).toBe(0);
         });
-    });
-
-    it('the messages about MAX_PAGES and MAX_CLUSTERED_MARKERS use DATA_SELECTION_CONFIG', () => {
-        mockedInputList.state.page = 51;
-        mockedInputList.numberOfRecords = 1001;
-
-        component = getComponent(mockedInputList);
-
-        // Where 50 and 1000 are part of DATA_SELECTION_CONFIG instead of some hardcoded copied value
-        expect(component.find('.qa-message-max-pages').text()).toContain('de eerste 50 pagina\'s');
-        expect(component.find('.qa-message-clustered-markers').text()).toContain('niet meer dan 1.000 resultaten');
     });
 
     describe('the tabs in LIST view', () => {

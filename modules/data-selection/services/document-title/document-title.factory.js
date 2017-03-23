@@ -26,7 +26,11 @@
             };
 
             if (dataSelectionState.view === 'CARDS' && Object.keys(dataSelectionState.filters).length === 0) {
-                return `Datasets met ${dataSelectionState.query}`;
+                if (dataSelectionState.query) {
+                    return `Datasets met ${dataSelectionState.query}`;
+                } else {
+                    return 'Alle datasets';
+                }
             } else {
                 view = VIEW_NAMES[dataSelectionState.view];
                 variant = DATA_SELECTION_CONFIG.datasets[dataSelectionState.dataset].TITLE;

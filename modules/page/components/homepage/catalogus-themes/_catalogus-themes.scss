@@ -3,11 +3,12 @@ $base-padding: calc(#{$base-whitespace} * 2);
 .c-catalogus-themes {
   padding-top: $base-padding;
   padding-right: $base-padding;
-  padding-bottom: calc(#{$base-padding} - 4px); // The container needs 4 pixels to show a gray border
+  padding-bottom: $base-padding;
   padding-left: $base-padding;
 }
 
 .c-catalogus-themes__column {
+  margin-bottom: 17px;  // to position the button links under the themes
   font-size: 0;
 }
 
