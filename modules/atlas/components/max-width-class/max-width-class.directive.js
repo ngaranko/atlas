@@ -32,9 +32,9 @@
 
             function setMaxWidthClass () {
                 const state = store.getState(),
-                    visibility = dashboardColumns.determineVisibility(state);
+                    maxWidth = dashboardColumns.hasLimitedWidth(state);
 
-                if (visibility.page) {
+                if (maxWidth) {
                     element.addClass(className);
                 } else {
                     element.removeClass(className);

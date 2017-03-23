@@ -2,8 +2,7 @@ describe('The dp-max-width-class directive', () => {
     let $compile,
         $rootScope,
         dashboardColumns,
-        callbackFn,
-        visibility;
+        callbackFn;
 
     beforeEach(() => {
         angular.mock.module(
@@ -19,7 +18,7 @@ describe('The dp-max-width-class directive', () => {
                     }
                 },
                 dashboardColumns: {
-                    determineVisibility: () => visibility
+                    hasLimitedWidth: angular.noop
                 }
             }
         );
@@ -30,11 +29,7 @@ describe('The dp-max-width-class directive', () => {
             dashboardColumns = _dashboardColumns_;
         });
 
-        visibility = {
-            page: false
-        };
-
-        spyOn(dashboardColumns, 'determineVisibility').and.callThrough();
+        spyOn(dashboardColumns, 'hasLimitedWidth').and.returnValue(false);
     });
 
     function getDirective (className) {
@@ -48,31 +43,31 @@ describe('The dp-max-width-class directive', () => {
         return directive;
     }
 
-    it('determines the visibility of the component in the current state', () => {
+    it('determines if the dashboard columns have a limited width', () => {
         getDirective('test-class');
 
-        expect(dashboardColumns.determineVisibility).toHaveBeenCalledWith('mockedState');
+        expect(dashboardColumns.hasLimitedWidth).toHaveBeenCalledWith('mockedState');
     });
 
-    it('adds the specified css class to the element when a page is visible', () => {
-        visibility.page = true;
+    it('adds the specified css class to the element when the app has limited width', () => {
+        dashboardColumns.hasLimitedWidth.and.returnValue(true);
 
         const directive = getDirective('test-class');
 
         expect(directive.hasClass('test-class')).toBe(true);
     });
 
-    it('removes the specified css class from the element when a page is not visible', () => {
+    it('removes the specified css class from the element when the app has unlimited width', () => {
         const directive = getDirective('test-class');
 
         expect(directive.hasClass('test-class')).toBe(false);
 
-        visibility.page = true;
+        dashboardColumns.hasLimitedWidth.and.returnValue(true);
         callbackFn();
         $rootScope.$apply();
         expect(directive.hasClass('test-class')).toBe(true);
 
-        visibility.page = false;
+        dashboardColumns.hasLimitedWidth.and.returnValue(false);
         callbackFn();
         $rootScope.$apply();
         expect(directive.hasClass('test-class')).toBe(false);
