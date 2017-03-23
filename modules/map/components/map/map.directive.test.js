@@ -213,9 +213,7 @@ describe('The dp-map directive', function () {
             overlays;
 
         beforeEach(function () {
-            angular.mock.inject(function (
-                _overlays_,
-                _user_) {
+            angular.mock.inject(function (_overlays_, _user_) {
                 overlays = _overlays_;
                 user = _user_;
             });

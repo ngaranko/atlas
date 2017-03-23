@@ -30,20 +30,6 @@
             });
         };
 
-        function setOverlays () {
-            vm.allOverlays = overlays.HIERARCHY.map(function (category) {
-                var formattedOverlays = angular.copy(category);
-
-                formattedOverlays.overlays = formattedOverlays.overlays.map(function (overlaySlug) {
-                    return {
-                        slug: overlaySlug,
-                        label: overlays.SOURCES[overlaySlug].label_long
-                    };
-                });
-                return formattedOverlays;
-            });
-        }
-
         vm.toggleOverlay = function (overlay) {
             var action;
 
@@ -72,5 +58,19 @@
             return vm.zoom >= overlays.SOURCES[overlay].minZoom &&
                 vm.zoom <= overlays.SOURCES[overlay].maxZoom;
         };
+
+        function setOverlays () {
+            vm.allOverlays = overlays.HIERARCHY.map(function (category) {
+                var formattedOverlays = angular.copy(category);
+
+                formattedOverlays.overlays = formattedOverlays.overlays.map(function (overlaySlug) {
+                    return {
+                        slug: overlaySlug,
+                        label: overlays.SOURCES[overlaySlug].label_long
+                    };
+                });
+                return formattedOverlays;
+            });
+        }
     }
 })();

@@ -174,9 +174,7 @@ describe('The dp-layer-selection component', function () {
             overlays;
 
         beforeEach(function () {
-            angular.mock.inject(function (
-                _overlays_,
-                _user_) {
+            angular.mock.inject(function (_overlays_, _user_) {
                 overlays = _overlays_;
                 user = _user_;
             });
@@ -219,6 +217,10 @@ describe('The dp-layer-selection component', function () {
 
             expect(scope.vm.allOverlays.length).toBe(2);
 
+            // Simulate a change in authorization level, this should trigger a re-compute
+            // Verify the re-compute by simulating that the user auth. level limits the possible overlays
+            // by removing all other overlays and reflect these changes also in the hierarchy
+            // This is exactly what happens in the overlay factory when the user auth.level changes
             user.getAuthorizationLevel.and.returnValue(2);
             overlays.SOURCES = {
                 overlay_1_a: {
