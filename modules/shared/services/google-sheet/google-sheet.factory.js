@@ -16,7 +16,7 @@
 
         function getContents (key, index) {
             const defer = $q.defer(),
-                getSheet = GOOGLE_SHEET_CMS.getLocally[environment.NAME] ? getSheetLocally : getSheetOnline;
+                getSheet = GOOGLE_SHEET_CMS.getStatic[environment.NAME] ? getStaticSheet : getDynamicSheet;
 
             if (sheets[key] && sheets[key][index]) {
                 defer.resolve(sheets[key][index]);  // resolves to the value or the promise
@@ -40,11 +40,16 @@
             return defer.promise;
         }
 
-        function getSheetLocally (key, index) {
-            return api.getByUrl(`${GOOGLE_SHEET_CMS.localAddress}/${key}.${index}.json`);
+        function getStaticSheet (key, index) {
+            // The 'static' version of the sheet is accessed by url
+            // The contents is refreshed on a daily basis or on demand by a curl script that is run by Jenkins
+            // Like curl https://spreadsheets.google.com/feeds/list/$KEY/$INDEX/public/basic?alt=json > [somefile]
+            return api.getByUrl(`${GOOGLE_SHEET_CMS.staticAddress}/${key}.${index}.json`);
         }
 
-        function getSheetOnline (key, index) {
+        function getDynamicSheet (key, index) {
+            // The 'dynamic' version of the sheet is accessed by calling a Google script from the head of the document
+            // The script accepts a callback method to receive the contents in json format
             const defer = $q.defer(),
                 callbackName = 'googleScriptCallback_' + key + '_' + index;
 

@@ -68,11 +68,11 @@ describe('The google sheet factory', function () {
         },
         function ($provide) {
             $provide.constant('GOOGLE_SHEET_CMS', {
-                getLocally: {
+                getStatic: {
                     PRODUCTION: true,
                     ACCEPTATION: false
                 },
-                localAddress: 'localAddress',
+                staticAddress: 'staticAddress',
                 key: 'CMSKEY',
                 index: {
                     type: 99
@@ -88,7 +88,7 @@ describe('The google sheet factory', function () {
         });
     });
 
-    describe('The local variant', function () {
+    describe('The static variant', function () {
         let environment;
 
         beforeEach(function () {
@@ -99,8 +99,8 @@ describe('The google sheet factory', function () {
             environment.NAME = 'PRODUCTION';
         });
 
-        it('reads its data from a local address, specified in the confiuration', function () {
-            $httpBackend.whenGET('localAddress/CMSKEY.0.json').respond(feed);
+        it('reads its data from an address, specified in the confiuration', function () {
+            $httpBackend.whenGET('staticAddress/CMSKEY.0.json').respond(feed);
 
             let result;
             googleSheet.getContents('CMSKEY', 0).then(contents => result = contents);
@@ -113,7 +113,7 @@ describe('The google sheet factory', function () {
         });
 
         it('uses the cached value if loaded twice', function () {
-            $httpBackend.whenGET('localAddress/CMSKEY.0.json').respond(feed);
+            $httpBackend.whenGET('staticAddress/CMSKEY.0.json').respond(feed);
 
             googleSheet.getContents('CMSKEY', 0);
 
@@ -128,7 +128,7 @@ describe('The google sheet factory', function () {
         });
 
         it('returns an empty feed when the get fails', function () {
-            $httpBackend.whenGET('localAddress/CMSKEY.0.json').respond(500, 'ERROR');
+            $httpBackend.whenGET('staticAddress/CMSKEY.0.json').respond(500, 'ERROR');
 
             let result;
             googleSheet.getContents('CMSKEY', 0).then(contents => result = contents);
@@ -146,7 +146,7 @@ describe('The google sheet factory', function () {
         });
     });
 
-    describe('The online variant is the default variant', function () {
+    describe('The dynamic variant is the default variant', function () {
         it('puts a scripts in the document header to load the sheet contents', function () {
             googleSheet.getContents('CMSKEY', 0);
             expect(document.head.innerHTML).toContain(
@@ -167,7 +167,7 @@ describe('The google sheet factory', function () {
         });
     });
 
-    describe('The online variant can also be specified explicitly', function () {
+    describe('The dynamic variant can also be specified explicitly', function () {
         let environment;
 
         beforeEach(function () {

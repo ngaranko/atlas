@@ -4,12 +4,12 @@
     angular
         .module('dpShared')
         .constant('GOOGLE_SHEET_CMS', {
-            getLocally: {   // when to get CMS data locally or directly from the sheet
+            getStatic: {   // when to get CMS static data (daily refreshed) or dynamically direct from the sheet
                 PRODUCTION: true,
                 ACCEPTATION: false,
                 DEVELOPMENT: false
             },
-            localAddress: 'https://atlas.amsterdam.nl/cms',
+            staticAddress: 'https://atlas.amsterdam.nl/cms',
             key: '1aQF5boEYQvXPESFumP0we4CoKuL8hpkZhFy43mTtmrM',
             index: {
                 news: 1,
