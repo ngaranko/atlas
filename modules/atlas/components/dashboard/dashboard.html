@@ -28,7 +28,10 @@
          class="c-dashboard__error">
         <div class="u-background-color__primary--light"
              ng-class="{ 'o-max-width': vm.hasMaxWidth }">
-            <div ng-class="{ 'o-max-width__inner': vm.hasMaxWidth }">
+            <div ng-class="{
+                     'o-max-width__inner': vm.hasMaxWidth,
+                     'u-gutter': vm.isHomePage
+                 }">
                 <dp-api-error></dp-api-error>
             </div>
         </div>

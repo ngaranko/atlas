@@ -78,6 +78,10 @@
     box-shadow: none;
   }
 
+  .c-dashboard__error {
+    top: $dashboard-heading-height-homepage + $dashboard-toolbar-height;
+  }
+
   .c-dashboard__body {
     top: $dashboard-heading-height-homepage + $dashboard-toolbar-height;
     height: calc(100% - #{$dashboard-heading-height-homepage + $dashboard-toolbar-height});
