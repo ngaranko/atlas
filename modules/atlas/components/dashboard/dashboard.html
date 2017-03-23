@@ -37,9 +37,9 @@
     <!-- Body -->
     <div class="c-dashboard__body"
          ng-class="{ 'c-dashboard__body--error': vm.visibility.httpStatus }">
-        <div class="u-grid">
+        <div class="u-grid u-full-height">
             <!-- Columns -->
-            <div class="u-row">
+            <div class="u-row u-full-height">
                 <!-- Left column -->
                 <div ng-show="vm.columnSizes.left"
                     class="qa-dashboard__column--left c-dashboard__column"
@@ -92,6 +92,11 @@
                                 <dp-page name="{{page.pageName}}"></dp-page>
                             </div>
                         </div>
+                        <footer ng-if="vm.isHomePage" class="c-dashboard__footer">
+                            <div class="o-max-width__inner u-gutter">
+                                <a href="https://www.amsterdam.nl/proclaimer" class="o-btn o-btn--link" target="_blank">Proclaimer</a>
+                            </div>
+                        </footer>
                     </div>
 
                     <!-- Search results -->
@@ -124,12 +129,5 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div ng-if="vm.isHomePage" class="o-max-width">
-        <footer class="c-dashboard__footer">
-            <div class="o-max-width__inner">
-                <a href="https://www.amsterdam.nl/proclaimer" class="o-btn o-btn--link" target="_blank">Proclaimer</a>
-            </div>
-        </footer>
     </div>
 </div>
