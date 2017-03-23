@@ -50,11 +50,19 @@ $dashboard-error-height: $button-size;
   background-color: $primary-light;
 }
 
+.c-dashboard__page-inner {
+  padding-bottom: $dashboard-footer-height + $dashboard-footer-separator-height;
+}
+
 .c-dashboard__footer {
   @include font-size($xs-font);
 
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   height: $dashboard-footer-height + $dashboard-footer-separator-height;
   border-top: $dashboard-footer-separator-height solid $secondary-gray60;
+  background-color: $primary-light;
   line-height: $dashboard-footer-height;
 }
 
