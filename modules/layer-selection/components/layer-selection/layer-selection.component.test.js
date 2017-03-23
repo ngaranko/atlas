@@ -2,6 +2,7 @@ describe('The dp-layer-selection component', function () {
     var $compile,
         $rootScope,
         store,
+        user,
         ACTIONS;
 
     beforeEach(function () {
@@ -81,10 +82,11 @@ describe('The dp-layer-selection component', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _ACTIONS_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _user_, _ACTIONS_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
+            user = _user_;
             ACTIONS = _ACTIONS_;
         });
 
@@ -379,6 +381,35 @@ describe('The dp-layer-selection component', function () {
 
             expect(contentDiv.find('div').eq(2).find('li').eq(1).find('.qa-show-invisble-by-zoom').length).toBe(0);
             expect(contentDiv.find('div').eq(2).find('li').eq(2).find('.qa-show-invisble-by-zoom').length).toBe(0);
+        });
+
+        describe('the warning message', () => {
+            let component;
+            beforeEach(() => {
+                spyOn(user, 'getUserType').and.returnValue(user.USER_TYPE.NONE);
+                spyOn(user, 'meetsRequiredLevel').and.returnValue(false);
+            });
+            it('is shown if not logged in', () => {
+                component = getComponent('base_layer_a', [], 8);
+
+                expect(component.find('.qa-category-warning').text())
+                    .toContain('\'Bedrijven - Bronnen en risicozones\' verschijnt na _inloggen_');
+            });
+            it('is shown for a non-employee', () => {
+                user.getUserType.and.returnValue(user.USER_TYPE.AUTHENTICATED);
+
+                component = getComponent('base_layer_a', [], 8);
+
+                expect(component.find('.qa-category-warning').length).toBe(1);
+            });
+            it('is not shown for an employee', () => {
+                user.getUserType.and.returnValue(user.USER_TYPE.AUTHENTICATED);
+                user.meetsRequiredLevel.and.returnValue(true);
+
+                component = getComponent('base_layer_a', [], 8);
+
+                expect(component.find('.qa-category-warning').length).toBe(0);
+            });
         });
     });
 });

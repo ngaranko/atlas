@@ -335,57 +335,65 @@ describe('the dp-detail component', function () {
         expect(scope.vm.location).toBeNull();
     });
 
-    it('does not display "kadastraal subject" details and shows a message that login is required', function () {
-        const component = getComponent(naturalPersonEndPoint);
-
-        const scope = component.isolateScope();
-        expect(scope.vm.showSubjectDetails).toBe(false);
-        expect(scope.vm.showNoAccessMessage).toBe(true);
-    });
-
-    it('displays "kadastraal subject" detail if logged in as employee', function () {
-        user.getUserType.and.returnValue(user.USER_TYPE.AUTHENTICATED);
-        user.getAuthorizationLevel.and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE);
-        user.meetsRequiredLevel.and.returnValue(true);
-
-        const component = getComponent(naturalPersonEndPoint);
-
-        const scope = component.isolateScope();
-        expect(scope.vm.showSubjectDetails).toBe(true);
-        expect(scope.vm.showNoAccessMessage).toBe(false);
-    });
-
-    describe('a normal employee user', () => {
+    describe('the "natural kadastraal subject" warning message', () => {
         beforeEach(() => {
             user.getUserType.and.returnValue(user.USER_TYPE.AUTHENTICATED);
-            user.getAuthorizationLevel.and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE);
             user.meetsRequiredLevel.and.returnValue(true);
         });
 
-        it('shows a message that more info is available for "natuurlijke personen"', function () {
-            const component = getComponent(naturalPersonEndPoint);
+        describe('a normal employee user', () => {
+            beforeEach(() => {
+                user.getAuthorizationLevel.and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE);
+            });
 
-            const scope = component.isolateScope();
-            expect(scope.vm.showInsufficientRightsMessage).toBe(true);
+            it('shows a message that more info is available for "natuurlijke personen"', function () {
+                const component = getComponent(naturalPersonEndPoint);
+
+                const scope = component.isolateScope();
+                expect(scope.vm.showInsufficientRightsMessage).toBe(true);
+            });
+
+            it('does not show a message that more info is available for none "natuurlijke personen"', function () {
+                const component = getComponent(noneNaturalPersonEndPoint);
+
+                const scope = component.isolateScope();
+                expect(scope.vm.showInsufficientRightsMessage).toBe(false);
+            });
         });
 
-        it('does not show a message that more info is available for none "natuurlijke personen"', function () {
+        it('does not show a message that more info is available employee plus users', function () {
+            user.getAuthorizationLevel.and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS);
+
             const component = getComponent(naturalPersonEndPoint);
 
             const scope = component.isolateScope();
-            expect(scope.vm.showInsufficientRightsMessage).toBe(true);
+            expect(scope.vm.showInsufficientRightsMessage).toBe(false);
         });
     });
 
-    it('does not show a message that more info is available employee plus users', function () {
-        user.getUserType.and.returnValue(user.USER_TYPE.AUTHENTICATED);
-        user.getAuthorizationLevel.and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS);
-        user.meetsRequiredLevel.and.returnValue(true);
+    describe('the warning message', () => {
+        it('is shown if not logged in', () => {
+            const component = getComponent(naturalPersonEndPoint);
 
-        const component = getComponent(naturalPersonEndPoint);
+            const scope = component.isolateScope();
+            expect(scope.vm.showMoreInfoWarning).toBe(true);
+        });
+        it('is shown for a non-employee', () => {
+            user.getUserType.and.returnValue(user.USER_TYPE.AUTHENTICATED);
 
-        const scope = component.isolateScope();
-        expect(scope.vm.showInsufficientRightsMessage).toBe(false);
+            const component = getComponent(naturalPersonEndPoint);
+
+            const scope = component.isolateScope();
+            expect(scope.vm.showMoreInfoWarning).toBe(true);
+        });
+        it('is not shown for an employee', () => {
+            user.getUserType.and.returnValue(user.USER_TYPE.AUTHENTICATED);
+            user.meetsRequiredLevel.and.returnValue(true);
+
+            const component = getComponent(naturalPersonEndPoint);
+            const scope = component.isolateScope();
+            expect(scope.vm.showMoreInfoWarning).toBe(false);
+        });
     });
 
     it('gracefully handles a 404 with no data', function () {
