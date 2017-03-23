@@ -21,11 +21,11 @@
          * @returns {Promise}
          */
         function getByUrl (url, params, cancel) {
-            const headers = {},
-                userState = user.getStatus();
+            const headers = {};
 
-            if (userState.isLoggedIn) {
-                headers.Authorization = 'JWT ' + userState.accessToken;
+            const token = user.getAccessToken();
+            if (token) {
+                headers.Authorization = sharedConfig.AUTH_HEADER_PREFIX + token;
             }
 
             const options = {
