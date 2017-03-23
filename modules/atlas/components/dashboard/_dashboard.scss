@@ -7,6 +7,8 @@ $dashboard-toolbar-height: 40px;
 $dashboard-footer-height: 40px;
 $dashboard-footer-separator-height: 8px;
 $dashboard-error-height: $button-size;
+$dashboard-gutter-bottom: $base-whitespace * 4;
+$dashboard-gutter-bottom-homepage: $base-whitespace * 6;
 
 .c-dashboard {
   height: 100%;
@@ -51,7 +53,7 @@ $dashboard-error-height: $button-size;
 }
 
 .c-dashboard__page-inner {
-  padding-bottom: $dashboard-footer-height + $dashboard-footer-separator-height;
+  padding-bottom: $dashboard-gutter-bottom;
 }
 
 .c-dashboard__footer {
@@ -92,5 +94,9 @@ $dashboard-error-height: $button-size;
   .c-dashboard__body {
     top: $dashboard-heading-height-homepage + $dashboard-toolbar-height;
     height: calc(100% - #{$dashboard-heading-height-homepage + $dashboard-toolbar-height});
+  }
+
+  .c-dashboard__page-inner {
+    padding-bottom: $dashboard-gutter-bottom-homepage + $dashboard-footer-height + $dashboard-footer-separator-height;
   }
 }
