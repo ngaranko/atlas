@@ -7,7 +7,8 @@
 
     hrBezoekadresFilter.$inject = [
         'user'
-    ]
+    ];
+
     function hrBezoekadresFilter (user) {
         return function (input) {
             if (input.non_mailing && !user.getStatus().isLoggedIn) {
