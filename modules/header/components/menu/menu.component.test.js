@@ -71,20 +71,46 @@ describe('The dp-menu component', () => {
     });
 
     describe('logged in', () => {
-        let component;
-
         beforeEach(() => {
             spyOn(user, 'getUserType').and.returnValue('AUTHENTICATED');
-            spyOn(user, 'getName').and.returnValue('My username');
-            component = getComponent('tall');
         });
 
         it('doesn\'t show the login button', () => {
+            spyOn(user, 'getName').and.returnValue('My username');
+            const component = getComponent('tall');
             expect(component.find('.qa-menu__login').length).toBe(0);
         });
 
         it('shows the user menu', () => {
+            const component = getComponent('tall');
             expect(component.find('.qa-menu__user-menu').length).toBe(1);
+        });
+
+        it('removes the domain name for a logged-in user', function () {
+            spyOn(user, 'getName').and.returnValue('user@xyz.com');
+            spyOn(user, 'getAuthorizationLevel').and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE);
+
+            const component = getComponent('tall');
+
+            expect(component.find('dp-menu-dropdown').eq(0).attr('title')).toBe('user');
+        });
+
+        it('can show that a user is a normal employee', function () {
+            spyOn(user, 'getName').and.returnValue('user');
+            spyOn(user, 'getAuthorizationLevel').and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE);
+
+            const component = getComponent('tall');
+
+            expect(component.find('dp-menu-dropdown').eq(0).attr('title')).toBe('user');
+        });
+
+        it('can show that a user is a bevoegd employee', function () {
+            spyOn(user, 'getName').and.returnValue('user');
+            spyOn(user, 'getAuthorizationLevel').and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS);
+
+            const component = getComponent('tall');
+
+            expect(component.find('dp-menu-dropdown').eq(0).attr('title')).toBe('user (bevoegd)');
         });
     });
 
