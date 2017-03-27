@@ -19,7 +19,7 @@
         var vm = this;
 
         vm.isLoggedIn = function () {
-            return user.getStatus().isLoggedIn;
+            return user.getUserType() === user.USER_TYPE.AUTHENTICATED;
         };
     }
 })();
