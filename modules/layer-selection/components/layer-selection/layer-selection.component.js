@@ -24,7 +24,7 @@
             vm.isMoreInfoAvailable = !(user.getUserType() === user.USER_TYPE.AUTHENTICATED &&
             user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL.EMPLOYEE));
         });
-        $rootScope.$on('$destroy', unwatchAuthorizationLevel);  // for the weak of heart...
+        $rootScope.$on('$destroy', unwatchAuthorizationLevel);
 
         vm.allBaseLayers = BASE_LAYERS;
 

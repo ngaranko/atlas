@@ -384,13 +384,12 @@ describe('The dp-layer-selection component', function () {
         });
 
         describe('the warning message', () => {
-            let component;
             beforeEach(() => {
                 spyOn(user, 'getUserType').and.returnValue(user.USER_TYPE.NONE);
                 spyOn(user, 'meetsRequiredLevel').and.returnValue(false);
             });
             it('is shown if not logged in', () => {
-                component = getComponent('base_layer_a', [], 8);
+                const component = getComponent('base_layer_a', [], 8);
 
                 expect(component.find('.qa-category-warning').text())
                     .toContain('\'Bedrijven - Bronnen en risicozones\' verschijnt na _inloggen_');
@@ -398,7 +397,7 @@ describe('The dp-layer-selection component', function () {
             it('is shown for a non-employee', () => {
                 user.getUserType.and.returnValue(user.USER_TYPE.AUTHENTICATED);
 
-                component = getComponent('base_layer_a', [], 8);
+                const component = getComponent('base_layer_a', [], 8);
 
                 expect(component.find('.qa-category-warning').length).toBe(1);
             });
@@ -406,7 +405,18 @@ describe('The dp-layer-selection component', function () {
                 user.getUserType.and.returnValue(user.USER_TYPE.AUTHENTICATED);
                 user.meetsRequiredLevel.and.returnValue(true);
 
-                component = getComponent('base_layer_a', [], 8);
+                const component = getComponent('base_layer_a', [], 8);
+
+                expect(component.find('.qa-category-warning').length).toBe(0);
+            });
+            it('should update the message on authorization change', function () {
+                const component = getComponent('base_layer_a', [], 8);
+                expect(component.find('.qa-category-warning').length).toBe(1);
+
+                spyOn(user, 'getAuthorizationLevel').and.returnValue('foo'); // changed so $watch fires
+                user.getUserType.and.returnValue(user.USER_TYPE.AUTHENTICATED);
+                user.meetsRequiredLevel.and.returnValue(true);
+                $rootScope.$apply();
 
                 expect(component.find('.qa-category-warning').length).toBe(0);
             });

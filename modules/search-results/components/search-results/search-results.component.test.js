@@ -697,6 +697,22 @@ describe('The dp-search-results component', function () {
                 ' en _speciale bevoegdheden_ hebben.'
             );
         });
+
+        it('should update the message on authorization change', function () {
+            user.meetsRequiredLevel.and.callFake(
+                required => required === user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS
+            );
+            const component = getComponent(22, null, [51.123, 4.789]);
+            const categoryNode = component.find('[ng-repeat="category in vm.searchResults"]').eq(3);
+            expect(categoryNode.find('h2').text().trim()).toBe('Kadastraal object');
+            expect(categoryNode.find('.qa-category-warning').length).toBe(0);
+
+            spyOn(user, 'getAuthorizationLevel').and.returnValue('foo'); // changed so $watch fires
+            user.meetsRequiredLevel.and.returnValue(false);
+            $rootScope.$apply();
+
+            expect(categoryNode.find('.qa-category-warning').length).toBe(1);
+        });
     });
 
     function removeWhitespace (input) {
