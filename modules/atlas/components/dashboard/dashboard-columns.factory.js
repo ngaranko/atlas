@@ -16,7 +16,8 @@
         return {
             determineActivity,
             determineVisibility,
-            determineColumnSizes
+            determineColumnSizes,
+            hasLimitedWidth
         };
 
         function determineActivity (state) {
@@ -157,6 +158,11 @@
             }
 
             return columnSizes;
+        }
+
+        function hasLimitedWidth (state) {
+            const visibility = determineVisibility(state);
+            return Boolean(visibility.page);
         }
     }
 })();

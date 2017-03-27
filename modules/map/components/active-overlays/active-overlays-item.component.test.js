@@ -8,10 +8,8 @@ describe('The dp-active-overlays-item component', function () {
             {
                 mapConfig: {
                     OVERLAY_ROOT: 'http://atlas.example.com/overlays/'
-                }
-            },
-            function ($provide) {
-                $provide.constant('OVERLAYS', {
+                },
+                overlays: {
                     SOURCES: {
                         overlay_without_legend: {
                             label_short: 'Overlay A',
@@ -32,8 +30,9 @@ describe('The dp-active-overlays-item component', function () {
                             external: true
                         }
                     }
-                });
-
+                }
+            },
+            function ($provide) {
                 $provide.factory('dpLinkDirective', function () {
                     return {};
                 });

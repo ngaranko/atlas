@@ -2,6 +2,7 @@ describe('The dp-menu component', () => {
     let $compile,
         $rootScope,
         store,
+        authenticator,
         user,
         mockedActions;
 
@@ -27,10 +28,11 @@ describe('The dp-menu component', () => {
             }
         );
 
-        angular.mock.inject((_$compile_, _$rootScope_, _store_, _user_) => {
+        angular.mock.inject((_$compile_, _$rootScope_, _store_, _authenticator_, _user_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
+            authenticator = _authenticator_;
             user = _user_;
         });
 
@@ -55,7 +57,7 @@ describe('The dp-menu component', () => {
         let component;
 
         beforeEach(() => {
-            spyOn(user, 'getStatus').and.returnValue({isLoggedIn: false});
+            spyOn(user, 'getUserType').and.returnValue('ANONYMOUS');
             component = getComponent('tall');
         });
 
@@ -69,19 +71,46 @@ describe('The dp-menu component', () => {
     });
 
     describe('logged in', () => {
-        let component;
-
         beforeEach(() => {
-            spyOn(user, 'getStatus').and.returnValue({isLoggedIn: true});
-            component = getComponent('tall');
+            spyOn(user, 'getUserType').and.returnValue('AUTHENTICATED');
         });
 
         it('doesn\'t show the login button', () => {
+            spyOn(user, 'getName').and.returnValue('My username');
+            const component = getComponent('tall');
             expect(component.find('.qa-menu__login').length).toBe(0);
         });
 
         it('shows the user menu', () => {
+            const component = getComponent('tall');
             expect(component.find('.qa-menu__user-menu').length).toBe(1);
+        });
+
+        it('removes the domain name for a logged-in user', function () {
+            spyOn(user, 'getName').and.returnValue('user@xyz.com');
+            spyOn(user, 'getAuthorizationLevel').and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE);
+
+            const component = getComponent('tall');
+
+            expect(component.find('dp-menu-dropdown').eq(0).attr('title')).toBe('user');
+        });
+
+        it('can show that a user is a normal employee', function () {
+            spyOn(user, 'getName').and.returnValue('user');
+            spyOn(user, 'getAuthorizationLevel').and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE);
+
+            const component = getComponent('tall');
+
+            expect(component.find('dp-menu-dropdown').eq(0).attr('title')).toBe('user');
+        });
+
+        it('can show that a user is a bevoegd employee', function () {
+            spyOn(user, 'getName').and.returnValue('user');
+            spyOn(user, 'getAuthorizationLevel').and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS);
+
+            const component = getComponent('tall');
+
+            expect(component.find('dp-menu-dropdown').eq(0).attr('title')).toBe('user (bevoegd)');
         });
     });
 
@@ -89,18 +118,14 @@ describe('The dp-menu component', () => {
         let component;
 
         beforeEach(() => {
-            spyOn(user, 'getStatus').and.returnValue({isLoggedIn: false});
+            spyOn(user, 'getUserType').and.returnValue('ANONYMOUS');
+            spyOn(authenticator, 'login').and.returnValue(null);
             component = getComponent('tall');
         });
 
-        it('dispatches the SHOW_PAGE action with the login page', () => {
+        it('calls the authenticator logon method', () => {
             component.find('.qa-menu__login').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: mockedActions.SHOW_PAGE,
-                payload: jasmine.objectContaining({
-                    name: 'login'
-                })
-            });
+            expect(authenticator.login).toHaveBeenCalledWith();
         });
     });
 

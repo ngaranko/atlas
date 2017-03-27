@@ -4,6 +4,7 @@ describe('The dashboardColumns factory', function () {
         activity,
         visibility,
         columnSizes,
+        hasLimitedWidth,
         DEFAULT_STATE = {
             map: {
                 baseLayer: 'topografie',
@@ -105,6 +106,7 @@ describe('The dashboardColumns factory', function () {
                 activity = dashboardColumns.determineActivity(mockedState);
                 visibility = dashboardColumns.determineVisibility(mockedState);
                 columnSizes = dashboardColumns.determineColumnSizes(mockedState);
+                hasLimitedWidth = dashboardColumns.hasLimitedWidth(mockedState);
             });
 
             it('makes only the page visibile', function () {
@@ -123,6 +125,10 @@ describe('The dashboardColumns factory', function () {
                 expect(columnSizes.left).toBe(0);
                 expect(columnSizes.middle).toBe(0);
                 expect(columnSizes.right).toBe(12);
+            });
+
+            it('has limited width', () => {
+                expect(hasLimitedWidth).toBe(true);
             });
         });
 
@@ -248,6 +254,7 @@ describe('The dashboardColumns factory', function () {
                 activity = dashboardColumns.determineActivity(mockedState);
                 visibility = dashboardColumns.determineVisibility(mockedState);
                 columnSizes = dashboardColumns.determineColumnSizes(mockedState);
+                hasLimitedWidth = dashboardColumns.hasLimitedWidth(mockedState);
             });
 
             it('makes the map and detail page visibile', function () {
@@ -278,6 +285,10 @@ describe('The dashboardColumns factory', function () {
                 expect(columnSizes.left).toBe(0);
                 expect(columnSizes.middle).toBe(0);
                 expect(columnSizes.right).toBe(12);
+            });
+
+            it('has unlimited width', () => {
+                expect(hasLimitedWidth).toBe(false);
             });
         });
 
