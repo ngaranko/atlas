@@ -2,6 +2,7 @@ describe('The dp-menu component', () => {
     let $compile,
         $rootScope,
         store,
+        authenticator,
         user,
         mockedActions;
 
@@ -27,10 +28,11 @@ describe('The dp-menu component', () => {
             }
         );
 
-        angular.mock.inject((_$compile_, _$rootScope_, _store_, _user_) => {
+        angular.mock.inject((_$compile_, _$rootScope_, _store_, _authenticator_, _user_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
+            authenticator = _authenticator_;
             user = _user_;
         });
 
@@ -55,7 +57,7 @@ describe('The dp-menu component', () => {
         let component;
 
         beforeEach(() => {
-            spyOn(user, 'getStatus').and.returnValue({isLoggedIn: false});
+            spyOn(user, 'getUserType').and.returnValue('ANONYMOUS');
             component = getComponent('tall');
         });
 
@@ -72,7 +74,8 @@ describe('The dp-menu component', () => {
         let component;
 
         beforeEach(() => {
-            spyOn(user, 'getStatus').and.returnValue({isLoggedIn: true});
+            spyOn(user, 'getUserType').and.returnValue('AUTHENTICATED');
+            spyOn(user, 'getName').and.returnValue('My username');
             component = getComponent('tall');
         });
 
@@ -89,18 +92,14 @@ describe('The dp-menu component', () => {
         let component;
 
         beforeEach(() => {
-            spyOn(user, 'getStatus').and.returnValue({isLoggedIn: false});
+            spyOn(user, 'getUserType').and.returnValue('ANONYMOUS');
+            spyOn(authenticator, 'login').and.returnValue(null);
             component = getComponent('tall');
         });
 
-        it('dispatches the SHOW_PAGE action with the login page', () => {
+        it('calls the authenticator logon method', () => {
             component.find('.qa-menu__login').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: mockedActions.SHOW_PAGE,
-                payload: jasmine.objectContaining({
-                    name: 'login'
-                })
-            });
+            expect(authenticator.login).toHaveBeenCalledWith();
         });
     });
 
