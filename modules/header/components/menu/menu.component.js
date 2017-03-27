@@ -13,13 +13,17 @@
             controllerAs: 'vm'
         });
 
-    DpMenuController.$inject = ['$scope', 'user', 'HEADER'];
+    DpMenuController.$inject = ['authenticator', 'user'];
 
-    function DpMenuController ($scope, user, HEADER) {
-        var vm = this;
+    function DpMenuController (authenticator, user) {
+        const vm = this;
 
-        vm.isLoggedIn = function () {
-            return user.getUserType() === user.USER_TYPE.AUTHENTICATED;
-        };
+        vm.login = authenticator.login;
+
+        vm.isAuthenticated = () => user.getUserType() === user.USER_TYPE.AUTHENTICATED;
+
+        vm.userName = () => user.getName().replace(/@.*$/, '');
+
+        vm.userIsBevoegd = () => user.getAuthorizationLevel() === user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS;
     }
 })();
