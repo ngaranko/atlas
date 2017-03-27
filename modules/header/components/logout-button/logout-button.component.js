@@ -9,11 +9,11 @@
             controllerAs: 'vm'
         });
 
-    DpLogoutButtonController.$inject = ['user'];
+    DpLogoutButtonController.$inject = ['authenticator'];
 
-    function DpLogoutButtonController (user) {
+    function DpLogoutButtonController (authenticator) {
         var vm = this;
 
-        vm.logout = user.logout;
+        vm.logout = authenticator.logout;
     }
 })();

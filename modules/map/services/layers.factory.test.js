@@ -18,22 +18,8 @@ describe('The layers factory', function () {
                         shouldThisWork: true
                     },
                     OVERLAY_ROOT: 'http://www.example.com/overlay-root/'
-                }
-            },
-            function ($provide) {
-                $provide.constant('BASE_LAYERS', [
-                    {
-                        slug: 'baselayer_a',
-                        label: 'Base layer A',
-                        urlTemplate: 'https://example.com/mocked-base-layer-a.png'
-                    }, {
-                        slug: 'baselayer_b',
-                        label: 'Base layer B',
-                        urlTemplate: 'https://example.com/mocked-base-layer-b.png'
-                    }
-                ]);
-
-                $provide.constant('OVERLAYS', {
+                },
+                overlays: {
                     SOURCES: {
                         overlay_a: {
                             url: 'overlay_a_url',
@@ -51,7 +37,20 @@ describe('The layers factory', function () {
                             external: true
                         }
                     }
-                });
+                }
+            },
+            function ($provide) {
+                $provide.constant('BASE_LAYERS', [
+                    {
+                        slug: 'baselayer_a',
+                        label: 'Base layer A',
+                        urlTemplate: 'https://example.com/mocked-base-layer-a.png'
+                    }, {
+                        slug: 'baselayer_b',
+                        label: 'Base layer B',
+                        urlTemplate: 'https://example.com/mocked-base-layer-b.png'
+                    }
+                ]);
             }
         );
 
@@ -143,6 +142,14 @@ describe('The layers factory', function () {
 
             expect(mockedLeafletMap.addLayer).toHaveBeenCalledTimes(1);
             expect(mockedLeafletMap.addLayer).toHaveBeenCalledWith('FAKE_SUBLAYER_1');
+        });
+
+        it('adds only overlays that exist', function () {
+            layers.addOverlay(mockedLeafletMap, 'overlay_does_not_exist');
+
+            expect(L.WMS.source).not.toHaveBeenCalled();
+
+            expect(mockedLeafletMap.addLayer).not.toHaveBeenCalled();
         });
 
         it('can add multiples sublayers per overlay', function () {

@@ -49,8 +49,8 @@
         // (Re)load the data when the endpoint is set or gets changed
         $scope.$watch('vm.endpoint', getData);
 
-        // (Re)load the data when the user logs in or out
-        $scope.$watch(() => user.getStatus().isLoggedIn, (newValue, oldValue) => {
+        // (Re)load the data when the user logs in or out or on a change of authorization level
+        $scope.$watch(() => user.getUserType() + user.getAuthorizationLevel(), (newValue, oldValue) => {
             if (newValue !== oldValue) {
                 getData(vm.endpoint);
             }
@@ -70,8 +70,14 @@
                     results: data
                 };
 
-                // Derive whether more info is available if the user would login
-                vm.isMoreInfoAvailable = vm.apiData.results.is_natuurlijk_persoon && !user.getStatus().isLoggedIn;
+                // Derive whether more info is available if the user would be authenticated
+                vm.isMoreInfoAvailable = vm.apiData.results.is_natuurlijk_persoon &&
+                        user.getUserType() !== user.USER_TYPE.AUTHENTICATED;
+
+                // Derive whether more info is available if the user would have special privileges
+                vm.hasInsufficientRights = vm.apiData.results.is_natuurlijk_persoon &&
+                    user.getUserType() === user.USER_TYPE.AUTHENTICATED &&
+                    user.getAuthorizationLevel() !== user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS;
 
                 vm.filterSelection = {
                     [subject]: vm.apiData.results.naam

@@ -1,15 +1,15 @@
 describe('The dp-logout-button component', function () {
     var $compile,
         $rootScope,
-        user;
+        authenticator;
 
     beforeEach(function () {
         angular.mock.module('dpHeader');
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _user_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _authenticator_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
-            user = _user_;
+            authenticator = _authenticator_;
         });
     });
 
@@ -30,11 +30,11 @@ describe('The dp-logout-button component', function () {
     it('logs the user out when clicking the button', function () {
         var component;
 
-        spyOn(user, 'logout');
+        spyOn(authenticator, 'logout');
 
         component = getComponent();
         component.find('button').click();
 
-        expect(user.logout).toHaveBeenCalled();
+        expect(authenticator.logout).toHaveBeenCalled();
     });
 });

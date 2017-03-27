@@ -135,10 +135,18 @@ describe('the dp-detail component', function () {
             {
                 user: {
                     isLoggedIn: false,
-                    getStatus: function () {
-                        return {
-                            isLoggedIn: this.isLoggedIn
-                        };
+                    isBevoegd: false,
+                    getUserType: function () {
+                        return this.isLoggedIn ? this.USER_TYPE.AUTHENTICATED : null;
+                    },
+                    getAuthorizationLevel: function () {
+                        return this.isBevoegd ? this.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS : null;
+                    },
+                    USER_TYPE: {
+                        AUTHENTICATED: 'AUTHENTICATED'
+                    },
+                    AUTHORIZATION_LEVEL: {
+                        EMPLOYEE_PLUS: 'EMPLOYEE_PLUS'
                     }
                 }
             }
@@ -402,24 +410,45 @@ describe('the dp-detail component', function () {
         expect(scope.vm.isMoreInfoAvailable).toBe(false);
     });
 
-    it('does not show a message that more info is available when a user is logged in', function () {
+    it('shows a message that more info is available for natuurlijke personen and not bevoegde users', function () {
         var component,
             scope;
 
         user.isLoggedIn = true;
+        user.isBevoegd = false;
+
+        component = getComponent('http://www.fake-endpoint.com/brk/subject/123/');
+        scope = component.isolateScope();
+
+        expect(scope.vm.hasInsufficientRights).toBe(true);
+
+        scope.vm.endpoint = 'http://www.fake-endpoint.com/brk/subject/456/';
+        scope.$apply();
+        expect(scope.vm.hasInsufficientRights).toBe(false);
+    });
+
+    it('does not show a message that more info is available when a user is logged in and bevoegd', function () {
+        var component,
+            scope;
+
+        user.isLoggedIn = true;
+        user.isBevoegd = true;
 
         component = getComponent('http://www.fake-endpoint.com/brk/subject/123/');
         scope = component.isolateScope();
 
         expect(scope.vm.isMoreInfoAvailable).toBe(false);
+        expect(scope.vm.hasInsufficientRights).toBe(false);
 
         scope.vm.endpoint = 'http://www.fake-endpoint.com/brk/subject/456/';
         scope.$apply();
         expect(scope.vm.isMoreInfoAvailable).toBe(false);
+        expect(scope.vm.hasInsufficientRights).toBe(false);
 
         user.isLoggedIn = false;
         scope.$apply();
         expect(scope.vm.isMoreInfoAvailable).toBe(false);
+        expect(scope.vm.hasInsufficientRights).toBe(false);
     });
 
     it('gracefully handles a 404 with no data', function () {
