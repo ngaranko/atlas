@@ -16,7 +16,7 @@
                         <div class="s-cms-page-content" ng-bind-html="entry.contents.html"></div>
                     </div>
 
-                    <div ng-if="vm.type === 'events'">
+                    <div ng-if="vm.type === 'events' && !entry.short.isHref">
                         <dp-event date="entry.datum.date">
                             <div class="u-margin__bottom--1">
                                 <div class="u-margin__left--2">
@@ -36,12 +36,16 @@
             <div class="c-user-content-overview__right">
                 <div class="c-user-content-overview__toc-header">Op deze pagina</div>
 
-                <dp-anchor-link ng-repeat="e in vm.entries"
-                                link="{{$first ? (vm.type + 'top') : (vm.type + e.id)}}"
-                                class-name="u-margin__bottom--1"
-                                auto-scroll="e.id === vm.entry.id">
-                    {{e.titel.value}}
-                </dp-anchor-link>
+                <div ng-repeat="e in vm.entries">
+                    <div ng-if="e.short.isHref"
+                         class="o-btn o-btn--link s-cms-page-content__toc u-margin__bottom--1"
+                         ng-bind-html="e.short.html"></div>
+                    <dp-anchor-link ng-if="!e.short.isHref"
+                                    link="{{$first ? (vm.type + 'top') : (vm.type + e.id)}}"
+                                    class-name="u-margin__bottom--1"
+                                    auto-scroll="e.id === vm.entry.id">
+                        {{e.titel.value}}</dp-anchor-link>
+                </div>
             </div>
         </div>
 

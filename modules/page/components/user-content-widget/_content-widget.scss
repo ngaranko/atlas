@@ -21,6 +21,10 @@
 
   .c-user-content-widget__short {
     font-weight: normal;
+
+    &:hover {
+      color: $primary-contrast;
+    }
   }
 
   .c-user-content-widget__events-link {
