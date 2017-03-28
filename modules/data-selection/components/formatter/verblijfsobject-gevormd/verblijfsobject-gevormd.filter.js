@@ -7,8 +7,10 @@
 
     function verblijfsobjectGevormdFilter () {
         return function (statusId) {
-            // Status id voor verblijfsobject gevormd is 18
-            return (Number(statusId) === 18) ? '(verblijfsobject gevormd)' : '';
+            const VERBLIJFSOBJECT_GEVORMD = 18;
+            const isVerblijfsobjectGevormd = Number(statusId) === VERBLIJFSOBJECT_GEVORMD;
+
+            return isVerblijfsobjectGevormd ? '(verblijfsobject gevormd)' : '';
         };
     }
 })();

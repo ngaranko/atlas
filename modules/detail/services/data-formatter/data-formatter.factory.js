@@ -25,10 +25,10 @@
             };
             return [
                 'title',
-                'publisher',
-                'publisher_email',
-                'contact_name',
-                'contact_email',
+                'author',
+                'author_email',
+                'maintainer',
+                'maintainer_email',
                 'metadata_created',
                 'metadata_modified',
                 'notes',
