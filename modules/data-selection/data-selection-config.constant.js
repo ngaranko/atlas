@@ -222,7 +222,8 @@
                             {
                                 label: 'Bezoekadres',
                                 variables: ['bezoekadres_volledig_adres', 'non_mailing'],
-                                formatter: 'hrBezoekadres'
+                                formatter: 'hrBezoekadres',
+                                template: 'bezoekadres'
                             },
                             {
                                 label: 'Hoofdcategorie',

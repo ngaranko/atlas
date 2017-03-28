@@ -1,30 +1,11 @@
 describe('The hrBezoekadres filter', function () {
     let hrBezoekadresFilter,
-        mockedUser,
         user;
 
     beforeEach(function () {
         angular.mock.module(
-            'dpDataSelection',
-            {
-                'user': {
-                    getUserType: function () {
-                        return mockedUser.type;
-                    },
-                    login: function () {
-                        mockedUser.type = 'AUTHENTICATED';
-                    },
-                    USER_TYPE: {
-                        NONE: 'NONE',
-                        ANONYMOUS: 'ANONYMOUS',
-                        AUTHENTICATED: 'AUTHENTICATED'
-                    }
-                }
-            });
-
-        mockedUser = {
-            type: 'ANONYMOUS'
-        };
+            'dpDataSelection', {}
+            );
 
         angular.mock.inject(function (_hrBezoekadresFilter_, _user_) {
             hrBezoekadresFilter = _hrBezoekadresFilter_;
@@ -37,7 +18,12 @@ describe('The hrBezoekadres filter', function () {
             bezoekadres_volledig_adres: 'Weesperstraat 113, Amsterdam',
             non_mailing: false
         };
-        const output = hrBezoekadresFilter(input);
+        spyOn(user, 'getUserType').and.returnValue(user.USER_TYPE.NONE);
+        let output = hrBezoekadresFilter(input);
+        expect(output).toBe('Weesperstraat 113, Amsterdam');
+
+        user.getUserType.and.returnValue(user.USER_TYPE.AUTHENTICATED);
+        output = hrBezoekadresFilter(input);
         expect(output).toBe('Weesperstraat 113, Amsterdam');
     });
 
@@ -46,6 +32,7 @@ describe('The hrBezoekadres filter', function () {
             bezoekadres_volledig_adres: 'Weesperstraat 113, Amsterdam',
             non_mailing: true
         };
+        spyOn(user, 'getUserType').and.returnValue(user.USER_TYPE.NONE);
         const output = hrBezoekadresFilter(input);
         expect(output).toBe('Non-mailing-indicatie actief');
     });
@@ -55,9 +42,7 @@ describe('The hrBezoekadres filter', function () {
             bezoekadres_volledig_adres: 'Weesperstraat 113, Amsterdam',
             non_mailing: true
         };
-        // Setting user to logged in
-        user.login();
-
+        spyOn(user, 'getUserType').and.returnValue(user.USER_TYPE.AUTHENTICATED);
         const output = hrBezoekadresFilter(input);
         expect(output).toBe('Weesperstraat 113, Amsterdam');
     });
