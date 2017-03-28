@@ -24,7 +24,7 @@
             if ((state.dataSelection && state.dataSelection.view === 'CARDS') ||
                 (state.detail && state.detail.endpoint.includes('/catalogus/api/'))) {
                 // Search in datasets
-                vm.query = state.dataSelection.query;
+                vm.query = state.dataSelection && state.dataSelection.query;
                 vm.actionType = ACTIONS.FETCH_DATA_SELECTION;
             } else {
                 // Default action is to search in data
