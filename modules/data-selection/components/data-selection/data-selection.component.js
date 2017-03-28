@@ -81,7 +81,6 @@
                 vm.currentPage,
                 vm.state.query,
                 vm.state.geometryFilter.markers).then(data => {
-                    vm.isLoading = false;
                     vm.availableFilters = data.filters;
 
                     vm.data = data.data;
@@ -105,6 +104,8 @@
                             angular.isUndefined(DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES) ||
                             vm.state.page <= DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES
                         );
+
+                    vm.isLoading = false;
 
                     const activeFilters = angular.extend({
                         shape: angular.toJson(vm.state.geometryFilter.markers.map(([lat, lng]) => [lng, lat]))
