@@ -59,46 +59,51 @@
         function getData (endpoint) {
             vm.location = null;
 
-            api.getByUrl(endpoint).then(function (data) {
-                vm.includeSrc = endpointParser.getTemplateUrl(endpoint);
+            vm.includeSrc = endpointParser.getTemplateUrl(endpoint);
 
-                const subject = endpointParser.getSubject(endpoint);
+            // Derive whether more info is available if the user would be authenticated
+            const isEmployee = user.getUserType() === user.USER_TYPE.AUTHENTICATED &&
+            user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL.EMPLOYEE);
+            vm.showMoreInfoWarning = !isEmployee;
 
-                data = dataFormatter.formatData(data, subject);
+            const [category, subject] = endpointParser.getParts(endpoint);
+            if (!isEmployee && category === 'brk' && subject === 'subject') {
+                // User is not authenticated / authorized to view detail so do not fetch data
+                vm.isLoading = false;
+            } else {
+                api.getByUrl(endpoint).then(function (data) {
+                    data = dataFormatter.formatData(data, subject);
 
-                vm.apiData = {
-                    results: data
-                };
+                    vm.apiData = {
+                        results: data
+                    };
 
-                // Derive whether more info is available if the user would be authenticated
-                vm.showMoreInfoWarning = !(user.getUserType() === user.USER_TYPE.AUTHENTICATED &&
-                user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL.EMPLOYEE));
+                    // In the case of a "natuurlijk" kadastraal subject, derive whether more info is available if
+                    // the user would have special privileges
+                    vm.showInsufficientRightsMessage = vm.apiData.results.is_natuurlijk_persoon &&
+                        user.getUserType() === user.USER_TYPE.AUTHENTICATED &&
+                        user.getAuthorizationLevel() !== user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS;
 
-                // In the case of a "natuurlijk" kadastraal subject, derive whether more info is available if
-                // the user would have special privileges
-                vm.showInsufficientRightsMessage = vm.apiData.results.is_natuurlijk_persoon &&
-                    user.getUserType() === user.USER_TYPE.AUTHENTICATED &&
-                    user.getAuthorizationLevel() !== user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS;
+                    vm.filterSelection = {
+                        [subject]: vm.apiData.results.naam
+                    };
 
-                vm.filterSelection = {
-                    [subject]: vm.apiData.results.naam
-                };
-
-                geometry.getGeoJSON(endpoint).then(function (geoJSON) {
-                    if (geoJSON !== null) {
-                        vm.location = crsConverter.rdToWgs84(geojson.getCenter(geoJSON));
-                    }
-
-                    store.dispatch({
-                        type: ACTIONS.SHOW_DETAIL,
-                        payload: {
-                            display: data._display,
-                            geometry: geoJSON,
-                            isFullscreen: subject === 'api'
+                    geometry.getGeoJSON(endpoint).then(function (geoJSON) {
+                        if (geoJSON !== null) {
+                            vm.location = crsConverter.rdToWgs84(geojson.getCenter(geoJSON));
                         }
-                    });
+
+                        store.dispatch({
+                            type: ACTIONS.SHOW_DETAIL,
+                            payload: {
+                                display: data._display,
+                                geometry: geoJSON,
+                                isFullscreen: subject === 'api'
+                            }
+                        });
+                    }, errorHandler);
                 }, errorHandler);
-            }, errorHandler);
+            }
         }
 
         function errorHandler () {

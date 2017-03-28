@@ -58,18 +58,22 @@ describe('the dp-detail component', function () {
                     }
                 },
                 endpointParser: {
-                    getSubject: function (endpoint) {
+                    getParts: function (endpoint) {
+                        let category = '';
                         let subject = '';
 
                         if (endpoint === 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/') {
+                            category = 'bag';
                             subject = 'nummeraanduiding';
                         } else if (endpoint === 'http://www.fake-endpoint.com/brk/object/789/') {
+                            category = 'brk';
                             subject = 'object';
                         } else if (endpoint === naturalPersonEndPoint) {
+                            category = 'brk';
                             subject = 'subject';
                         }
 
-                        return subject;
+                        return [category, subject];
                     },
                     getTemplateUrl: function (endpoint) {
                         var templateUrl = 'modules/detail/components/detail/templates/';
@@ -310,6 +314,9 @@ describe('the dp-detail component', function () {
     });
 
     it('sets the SHOW_DETAIL geometry payload to null if there is no geometry', function () {
+        user.getUserType.and.returnValue(user.USER_TYPE.AUTHENTICATED);
+        user.meetsRequiredLevel.and.returnValue(true);
+
         getComponent(naturalPersonEndPoint);
 
         expect(store.dispatch).toHaveBeenCalledWith({
@@ -411,6 +418,24 @@ describe('the dp-detail component', function () {
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.SHOW_DETAIL,
             payload: {}
+        });
+    });
+
+    describe('"kadastraal subject" data', () => {
+        it('should be fetched if is authenticated as EMPLOYEE', () => {
+            user.getUserType.and.returnValue(user.USER_TYPE.AUTHENTICATED);
+            user.meetsRequiredLevel.and.returnValue(true);
+
+            getComponent(naturalPersonEndPoint);
+
+            expect(store.dispatch).toHaveBeenCalled();
+        });
+        it('should not fetch data if not authorized', () => {
+            user.getUserType.and.returnValue(user.USER_TYPE.NONE);
+
+            getComponent(naturalPersonEndPoint);
+
+            expect(store.dispatch).not.toHaveBeenCalled();
         });
     });
 });
