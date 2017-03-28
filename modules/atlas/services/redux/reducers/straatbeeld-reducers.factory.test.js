@@ -45,7 +45,7 @@ describe('Straatbeeld reducers factory', function () {
         });
     });
 
-    describe('FETCH_STRAATBEELD', function () {
+    describe('FETCH_STRAATBEELD_BY_ID', function () {
         var payload;
 
         beforeEach(function () {
@@ -69,23 +69,23 @@ describe('Straatbeeld reducers factory', function () {
                 'image': 'http://example.com/example.png'
             };
 
-            var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD.id](inputState, payload);
+            var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_ID.id](inputState, payload);
             expect(newState.straatbeeld.heading).toBe(179);
         });
 
         it('when heading is in payload, use the payload heading', function () {
-            var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD.id](inputState, payload);
+            var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_ID.id](inputState, payload);
             expect(newState.straatbeeld.heading).toBe(123);
         });
 
         it('Set INITIAL id, heading, isInitial', function () {
             inputState.straatbeeld = null;
-            var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD.id](inputState, payload);
+            var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_ID.id](inputState, payload);
             expect(newState.straatbeeld).toEqual(jasmine.objectContaining(payload));
         });
 
         it('Sets loading indication for map and straatbeeld', function () {
-            var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD.id](inputState, payload);
+            var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_ID.id](inputState, payload);
             expect(newState.straatbeeld.isLoading).toBe(true);
             expect(newState.map.isLoading).toBe(true);
         });
@@ -100,7 +100,7 @@ describe('Straatbeeld reducers factory', function () {
                 'image': 'http://example.com/example.png'
             };
 
-            var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD.id](inputState, payload);
+            var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_ID.id](inputState, payload);
 
             expect(newState.straatbeeld.fov).toBeNull();
             expect(newState.straatbeeld.pitch).toBeNull();
@@ -115,7 +115,7 @@ describe('Straatbeeld reducers factory', function () {
                 query: 'linnaeus'
             };
 
-            var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD.id](inputState, payload);
+            var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_ID.id](inputState, payload);
             expect(newState.search).toBeNull();
         });
 
@@ -126,7 +126,7 @@ describe('Straatbeeld reducers factory', function () {
             inputState.straatbeeld = null;
             payload.heading = null;
 
-            var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD.id](inputState, payload);
+            var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_ID.id](inputState, payload);
             expect(newState.straatbeeld.heading).toBe(0);
         });
 
@@ -137,23 +137,23 @@ describe('Straatbeeld reducers factory', function () {
                 isLoading: false
             };
 
-            let newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD.id](inputState, payload);
+            let newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_ID.id](inputState, payload);
             expect(newState.straatbeeld.isFullscreen).toBeUndefined();
 
             payload.isFullscreen = true;
-            newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD.id](newState, payload);
+            newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_ID.id](newState, payload);
             expect(newState.straatbeeld.isFullscreen).toBe(true);
 
             delete payload.isFullscreen;
-            newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD.id](newState, payload);
+            newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_ID.id](newState, payload);
             expect(newState.straatbeeld.isFullscreen).toBe(true);
 
             payload.isFullscreen = false;
-            newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD.id](newState, payload);
+            newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_ID.id](newState, payload);
             expect(newState.straatbeeld.isFullscreen).toBe(false);
 
             delete payload.isFullscreen;
-            newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD.id](newState, payload);
+            newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_ID.id](newState, payload);
             expect(newState.straatbeeld.isFullscreen).toBe(false);
         });
 

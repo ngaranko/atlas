@@ -44,12 +44,12 @@ describe('The stateToUrlMiddleware factory', function () {
         expect(stateToUrl.update).toHaveBeenCalledWith('FAKE_STATE', jasmine.anything());
     });
 
-    it('doesn\'t call stateToUrl.update for URL_CHANGE, FETCH_DETAIL, FETCH_STRAATBEELD, SHOW_LAYER_SELECTION and ' +
-        'HIDE_LAYER_SELECTION', function () {
+    it('doesn\'t call stateToUrl.update for URL_CHANGE, FETCH_DETAIL, FETCH_STRAATBEELD_BY_ID, SHOW_LAYER_SELECTION ' +
+        'and HIDE_LAYER_SELECTION', function () {
         var actionWithoutUrlUpdate = [
             ACTIONS.URL_CHANGE,
             ACTIONS.FETCH_DETAIL,
-            ACTIONS.FETCH_STRAATBEELD,
+            ACTIONS.FETCH_STRAATBEELD_BY_ID,
             ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY,
             ACTIONS.MAP_CLICK,
             ACTIONS.HIDE_STRAATBEELD,

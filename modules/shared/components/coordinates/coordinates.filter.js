@@ -14,12 +14,10 @@
          * @returns {String} - A formatted string with RD and lat/lon coordinates "X, Y (lat, lon)"
          */
         return function (location, type) {
-            var wgs84Location,
-                rdLocation,
-                formattedRdLocation,
-                formattedWgs84Location;
+            let wgs84Location,
+                rdLocation;
 
-            if (!location) {
+            if (angular.isUndefined(location) || (angular.isArray(location) && location.length !== 2)) {
                 return;
             }
 
@@ -33,11 +31,11 @@
                 return;
             }
 
-            formattedWgs84Location = wgs84Location.map(function (coordinate) {
+            const formattedWgs84Location = wgs84Location.map(function (coordinate) {
                 return coordinate.toFixed(7);
             }).join(', ');
 
-            formattedRdLocation = rdLocation.map(function (coordinate) {
+            const formattedRdLocation = rdLocation.map(function (coordinate) {
                 return coordinate.toFixed(2);
             }).join(', ');
 

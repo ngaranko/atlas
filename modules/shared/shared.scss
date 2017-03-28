@@ -16,6 +16,7 @@
 @import "styles/components/list-bulleted";
 @import "styles/components/loadmore";
 @import "styles/components/paragraph";
+@import "styles/components/show-more";
 @import "styles/components/table";
 @import "styles/components/tabs";
 @import "styles/components/tag";
@@ -34,11 +35,13 @@
 @import "styles/utilities/typography";
 @import "styles/utilities/width";
 
+@import "components/anchor-link/anchor-link";
 @import "components/api-error/api-error";
 @import "components/loading-indicator/loading-indicator";
 @import "components/message/message";
 @import "components/panel/panel";
 @import "components/straatbeeld-thumbnail/straatbeeld-thumbnail";
+@import "components/tab-header/tab-header";
 
 .is-print-mode {
   @import "styles/base/reset-print";

@@ -1,0 +1,14 @@
+.s-cms-widget-content {
+  p {
+    margin-bottom: .5 * $base-whitespace;
+  }
+
+  a {
+    color: $primary-dark;
+    text-decoration: none;
+
+    &:hover {
+      color: $primary-contrast;
+    }
+  }
+}

@@ -4,7 +4,9 @@ describe('The dataSelectionApi factory', function () {
         dataSelectionApi,
         mockedApiPreviewResponse,
         mockedApiMarkersResponse,
-        mockedConfig;
+        mockedConfig,
+        TabHeader;
+
     const mockedApiService = {
             query: function () {
                 const q = $q.defer();
@@ -83,10 +85,11 @@ describe('The dataSelectionApi factory', function () {
             }
         );
 
-        angular.mock.inject(function (_$rootScope_, _$q_, _dataSelectionApi_) {
+        angular.mock.inject(function (_$rootScope_, _$q_, _dataSelectionApi_, _TabHeader_) {
             $rootScope = _$rootScope_;
             $q = _$q_;
             dataSelectionApi = _dataSelectionApi_;
+            TabHeader = _TabHeader_;
         });
 
         spyOn(mockedApiService, 'query').and.callThrough();
@@ -181,6 +184,24 @@ describe('The dataSelectionApi factory', function () {
                 numberOfPages: 2,
                 numberOfRecords: 3
             };
+        });
+
+        it('can be initialised to register as a count provider for the tabheader', function () {
+            spyOn(TabHeader, 'provideCounter');
+            dataSelectionApi.initialize();
+            expect(TabHeader.provideCounter).toHaveBeenCalled();
+            const [action, getCount] = TabHeader.provideCounter.calls.argsFor(0);
+            expect(action).toBe('FETCH_DATA_SELECTION');
+            let count;
+            getCount({
+                dataset: 'zwembaden',
+                view: 'TABLE',
+                filters: {},
+                page: 1,
+                query: 'a query'
+            }).then(n => count = n);
+            $rootScope.$apply();
+            expect(count).toBe(3);
         });
 
         it('calls the api factory with the configuration, active filters and page', function () {

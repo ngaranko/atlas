@@ -1,129 +1,93 @@
-@import "modules/shared/styles/config";
-
-$dashboard-heading-height: 50px;
-$dashboard-heading-height-printversion: 42px;
-$dashboard-error-height: $button-size + 2 * $base-whitespace;
-
-%full-height {
-  height: 100%;
-}
-
-.u-dashboard--full-height {
-  @extend %full-height;
-}
-
 .c-dashboard {
   height: 100%;
-  overflow: hidden;
+  background-color: $primary-light;
 }
 
 .c-dashboard__heading {
   position: relative;
   height: $dashboard-heading-height;
-  z-index: 2;
+  background-color: $primary-light;
+  box-shadow: 0 $dashboard-heading-shadow-height $secondary-gray40;
+}
+
+.c-dashboard__error {
+  position: fixed;
+  top: $dashboard-heading-height + $dashboard-heading-shadow-height;
+  width: 100%;
+  z-index: $fixed-position-z-index;
 }
 
 .c-dashboard__body {
   position: relative;
+  top: $dashboard-heading-height;
   height: calc(100% - #{$dashboard-heading-height});
-  padding-left: $base-whitespace * 2;
-  z-index: 1;
-  overflow-y: hidden;
-
-  & .u-grid,
-  & .u-row {
-    @extend %full-height;
-  }
+  z-index: $body-z-index;
 }
 
 .c-dashboard__body--error {
-  .u-row {
-    height: calc(100% - #{$dashboard-error-height});
-  }
-}
-
-.c-dashboard__error {
-  margin-top: $base-whitespace * 2;
-  margin-right: $base-whitespace * 2;
+  top: $dashboard-heading-height + $dashboard-error-height;
+  height: calc(100% - #{$dashboard-heading-height + $dashboard-error-height});
 }
 
 .c-dashboard__column {
-  @extend %full-height;
-
-  padding: $base-whitespace * 2;
-  padding-left: 0;
-  overflow-y: auto;
-
-  &>div {
-    @extend %full-height;
-
-    position: relative;
-  }
+  height: 100%;
 }
 
-.is-print-mode {
-  %full-height {
-    height: auto;
-  }
+.c-dashboard__page {
+  position: relative;
+  min-height: 100%;
+  background-color: $primary-light;
+}
 
-  .c-dashboard {
-    padding: 0;
-    padding-top: $base-whitespace * 2;
-    border: solid $secondary-gray20 1px;
-    border-top: none;
-    overflow: visible;
-  }
+.c-dashboard__page-inner {
+  padding-bottom: $dashboard-gutter-bottom;
+}
 
-  .c-dashboard__heading {
-    height: $dashboard-heading-height-printversion * 2;
-    padding: $base-whitespace * 1.5 $base-whitespace * 2;
-  }
+.c-dashboard__footer {
+  @include font-size($xs-font);
+
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: $dashboard-footer-height + $dashboard-footer-separator-height;
+  border-top: $dashboard-footer-separator-height solid $secondary-gray60;
+  background-color: $primary-light;
+  line-height: $dashboard-footer-height;
+}
+
+.c-dashboard--max-width {
+  background-color: $secondary-gray10;
+}
+
+.c-dashboard--full-height {
+  overflow: hidden;
 
   .c-dashboard__body {
-    padding: $base-whitespace * 2;
-    padding-bottom: 0;
-    box-shadow: 0 0 5px $secondary-gray40;
-  }
-
-  .c-dashboard__error {
-    margin: 0;
-    margin-bottom: $base-whitespace * 2;
+    overflow-y: hidden;
   }
 
   .c-dashboard__column {
-    margin: 0;
-    margin-bottom: $base-whitespace * 2;
-    padding: 0;
-  }
-
-  .c-dashboard__content {
-    page-break-before: always;
-  }
-
-  &.print-landscape {
-    body {
-      width: 1280px;
-    }
-  }
-
-  .c-map {
-    height: 700px;
+    overflow-y: auto;
   }
 }
 
-@media print {
-  .is-print-mode {
-    .c-dashboard {
-      border: none;
-    }
+.c-dashboard--homepage {
+  .c-dashboard__heading {
+    height: $dashboard-heading-height-homepage + $dashboard-toolbar-height;
+    border-bottom: $dashboard-toolbar-height solid $secondary-gray4;
+    box-shadow: none;
+  }
 
-    .c-dashboard__heading,
-    .c-dashboard__error {
-      display: none;
-    }
+  .c-dashboard__error {
+    top: $dashboard-heading-height-homepage + $dashboard-toolbar-height;
+  }
 
-    .c-dashboard__body {
-      box-shadow: none;
-    }
+  .c-dashboard__body {
+    top: $dashboard-heading-height-homepage + $dashboard-toolbar-height;
+    height: calc(100% - #{$dashboard-heading-height-homepage + $dashboard-toolbar-height});
+  }
+
+  .c-dashboard__page-inner {
+    padding-bottom: $dashboard-gutter-bottom-homepage + $dashboard-footer-height + $dashboard-footer-separator-height;
   }
 }

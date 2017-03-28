@@ -14,17 +14,12 @@
             controllerAs: 'vm'
         });
 
-    DpLayerSelectionController.$inject = ['$rootScope', 'BASE_LAYERS', 'overlays', 'store', 'user', 'ACTIONS'];
+    DpLayerSelectionController.$inject = ['$scope', 'BASE_LAYERS', 'overlays', 'store', 'ACTIONS', 'user'];
 
-    function DpLayerSelectionController ($rootScope, BASE_LAYERS, overlays, store, user, ACTIONS) {
+    function DpLayerSelectionController ($scope, BASE_LAYERS, overlays, store, ACTIONS, user) {
         var vm = this;
 
-        // Show warning if not logged in as employee
-        const unwatchAuthorizationLevel = $rootScope.$watch(() => user.getAuthorizationLevel(), () => {
-            vm.isMoreInfoAvailable = !(user.getUserType() === user.USER_TYPE.AUTHENTICATED &&
-            user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL.EMPLOYEE));
-        });
-        $rootScope.$on('$destroy', unwatchAuthorizationLevel);
+        $scope.$watch(user.getAuthorizationLevel, onAuthorizationChange);
 
         vm.allBaseLayers = BASE_LAYERS;
 
@@ -34,18 +29,6 @@
                 payload: baseLayer
             });
         };
-
-        vm.allOverlays = overlays.HIERARCHY.map(function (category) {
-            var formattedOverlays = angular.copy(category);
-
-            formattedOverlays.overlays = formattedOverlays.overlays.map(function (overlaySlug) {
-                return {
-                    slug: overlaySlug,
-                    label: overlays.SOURCES[overlaySlug].label_long
-                };
-            });
-            return formattedOverlays;
-        });
 
         vm.toggleOverlay = function (overlay) {
             var action;
@@ -75,5 +58,26 @@
             return vm.zoom >= overlays.SOURCES[overlay].minZoom &&
                 vm.zoom <= overlays.SOURCES[overlay].maxZoom;
         };
+
+        function onAuthorizationChange () {
+            vm.isMoreInfoAvailable = !(user.getUserType() === user.USER_TYPE.AUTHENTICATED &&
+            user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL.EMPLOYEE));
+
+            setOverlays();
+        }
+
+        function setOverlays () {
+            vm.allOverlays = overlays.HIERARCHY.map(function (category) {
+                var formattedOverlays = angular.copy(category);
+
+                formattedOverlays.overlays = formattedOverlays.overlays.map(function (overlaySlug) {
+                    return {
+                        slug: overlaySlug,
+                        label: overlays.SOURCES[overlaySlug].label_long
+                    };
+                });
+                return formattedOverlays;
+            });
+        }
     }
 })();

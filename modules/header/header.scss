@@ -3,8 +3,18 @@
 
 //Module specific variables
 $site-header-height: 50px;
-$search-form-height: $site-header-height - $base-whitespace * 2;
+$site-header-height-tall: 108px;
+$site-header-gutter: 42px;
+$site-header-toolbar-height: 40px;
+$site-header-search-form-height: 30px;
 
-@import "components/header/header";
-@import "components/menu-dropdown/menu-dropdown";
+@import "components/site-header/site-header";
+@import "components/logo/logo";
+@import "components/menu/menu";
 @import "components/search/search";
+
+.is-print-mode {
+  @import "components/site-header/site-header-print";
+  @import "components/print-header/print-header";
+  @import "components/print-button/print-button";
+}

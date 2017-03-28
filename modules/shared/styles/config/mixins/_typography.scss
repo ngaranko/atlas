@@ -1,4 +1,20 @@
+/**
+ * Set fixed font-size and line-height
+ * @include font-size($m-font);
+ */
 @mixin font-size($fs-map, $fs-breakpoints: $breakpoints) {
+  @each $fs-breakpoint, $fs-font-size in $fs-map {
+    @if $fs-breakpoint == s {
+      @include make-font-size($fs-font-size);
+    }
+  }
+}
+
+/**
+ * Set responsive font-size and line-height
+ * @include font-size-responsive($m-font);
+ */
+@mixin font-size-responsive($fs-map, $fs-breakpoints: $breakpoints) {
   @each $fs-breakpoint, $fs-font-size in $fs-map {
     @if $fs-breakpoint == null {
       @include make-font-size($fs-font-size);
@@ -15,17 +31,22 @@
   }
 }
 
+/**
+ * Set font-weight
+ * @include font-weight($weight-bold);
+ */
+@mixin font-weight($weight) {
+  font-family: $base-font-before + $weight, $base-font-family-after;
+}
+
 // Utility function for mixin font-size
 @mixin make-font-size($fs-font-size) {
   // If $fs-font-size is a list, include
   // both font-size and line-height
   @if type-of($fs-font-size) == "list" {
-    font-family: nth($fs-font-size, 1);
+    font-size: nth($fs-font-size, 1);
     @if (length($fs-font-size) > 1) {
-      font-size: nth($fs-font-size, 2);
-      @if (length($fs-font-size) > 2) {
-        line-height: nth($fs-font-size, 3);
-      }
+      line-height: nth($fs-font-size, 2);
     }
   } @else {
     font-size: $fs-font-size;

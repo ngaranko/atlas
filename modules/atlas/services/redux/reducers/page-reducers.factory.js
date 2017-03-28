@@ -25,6 +25,8 @@
             var newState = angular.copy(oldState);
 
             newState.page.name = payload.name;
+            newState.page.type = payload.type;
+            newState.page.item = payload.item;
 
             newState.map.isFullscreen = false;
 

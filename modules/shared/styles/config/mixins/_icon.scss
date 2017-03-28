@@ -11,12 +11,11 @@
 
 %icon-button-text {
   @extend %link;
+  @include font-size($s-font);
   height: $button-size;
   margin-left: 0;
   color: inherit;
-  font-family: $header-font-family;
-  font-size: $base-font-size;
-  font-weight: lighter;
+  font-weight: bold;
 }
 
 %icon-button-text-extra {
@@ -62,6 +61,7 @@
 }
 
 %icon-button-text-box {
+  @include font-size($s-font);
   display: block;
   position: relative;
   height: $button-size;
@@ -70,9 +70,7 @@
   border: 1px solid $secondary-gray20;
   background-color: $primary-light;
   color: $secondary-gray60;
-  font-family: $header-font-family;
-  font-size: $base-font-size;
-  font-weight: lighter;
+  font-weight: bold;
   line-height: $button-size - 2;
   text-align: left;
   text-decoration: none;

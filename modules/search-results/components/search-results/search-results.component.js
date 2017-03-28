@@ -16,9 +16,11 @@
             controllerAs: 'vm'
         });
 
-    DpSearchResultsController.$inject = ['$rootScope', '$scope', 'search', 'geosearch', 'store', 'user', 'ACTIONS'];
+    DpSearchResultsController.$inject = [
+        '$rootScope', '$scope', 'search', 'geosearch', 'TabHeader', 'user', 'store', 'ACTIONS'
+    ];
 
-    function DpSearchResultsController ($rootScope, $scope, search, geosearch, store, user, ACTIONS) {
+    function DpSearchResultsController ($rootScope, $scope, search, geosearch, TabHeader, user, store, ACTIONS) {
         const vm = this;
 
         /**
@@ -27,8 +29,10 @@
          */
         $scope.$watch('vm.isLoading', () => {
             if (vm.isLoading) {
-                if (!searchByQuery(vm.query, vm.category)) {
-                    searchByLocation(vm.location);
+                // First try to search on location
+                // Test on isArray(location) is more precise than isString(query) because null maps to empty string (@)
+                if (!searchByLocation(vm.location)) {
+                    searchByQuery(vm.query, vm.category);
                 }
             }
         });
@@ -59,8 +63,20 @@
             });
         };
 
+        vm.showTabHeader = () => !angular.isArray(vm.location) && !vm.category;
+
+        vm.tabHeader = new TabHeader('data-datasets');
+        vm.tabHeader.activeTab = vm.tabHeader.getTab('data');
+
+        function updateTabHeader (query, count) {
+            if (vm.showTabHeader()) {
+                vm.tabHeader.query = query;
+                vm.tabHeader.getTab('data').count = count;
+            }
+        }
+
         function searchByQuery (query, category) {
-            const isQuery = angular.isString(query) && query.length;
+            const isQuery = angular.isString(query);
             if (isQuery) {
                 if (angular.isString(category) && category.length) {
                     search.search(query, category).then(setSearchResults).then(updateWarningMessage);
@@ -103,6 +119,8 @@
             const numberOfResults = searchResults.reduce(function (previous, current) {
                 return previous + current.count;
             }, 0);
+
+            updateTabHeader(vm.query, numberOfResults);
 
             store.dispatch({
                 type: ACTIONS.SHOW_SEARCH_RESULTS,

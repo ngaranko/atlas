@@ -46,8 +46,7 @@
                         newState.map = angular.copy(initialValues.map);
                     }
                     return newState;
-                },
-                search: (oldState, newState) => angular.copy(oldState || newState)
+                }
             },
             post: {
                 // Post processing methods
@@ -74,6 +73,24 @@
                         newState.drawingMode = oldState.drawingMode;
                         newState.isLoading = oldState.isLoading;
                     }
+                    return newState;
+                },
+                search: (oldState, newState) => {
+                    const hasOldState = angular.isObject(oldState);
+                    const hasInputChanged = hasOldState && (
+                            oldState.query !== newState.query ||
+                            !angular.equals(oldState.location, newState.location) ||
+                            oldState.category !== newState.category
+                        );
+
+                    if (hasInputChanged) {
+                        newState.numberOfResults = null;
+                        newState.isLoading = true;
+                    } else if (hasOldState) {
+                        newState.numberOfResults = oldState.numberOfResults;
+                        newState.isLoading = oldState.isLoading;
+                    }
+
                     return newState;
                 },
                 straatbeeld: (oldState, newState) => {
@@ -117,9 +134,9 @@
                     isEnabled: false
                 },
                 map: {
-                    viewCenter: [52.3719, 4.9012],
+                    viewCenter: [52.3731081, 4.8932945],
                     baseLayer: 'topografie',
-                    zoom: 9,
+                    zoom: 11,
                     overlays: [],
                     isFullscreen: false,
                     isLoading: false,
@@ -242,10 +259,22 @@
                     name: 'page.name',
                     type: 'string'
                 },
+                pgi: {
+                    name: 'page.item',
+                    type: 'string'
+                },
+                pgt: {
+                    name: 'page.type',
+                    type: 'string'
+                },
                 // search (sr)
                 src: {
                     name: 'search.category',
                     type: 'string'
+                },
+                srfs: {
+                    name: 'search.isFullscreen',
+                    type: 'boolean'
                 },
                 srl: {
                     name: 'search.location',

@@ -1,3 +1,13 @@
-<div>
+<div ng-if="vm.name === 'home'">
+    <ng-include src="'modules/page/components/page/templates/home.html'"></ng-include>
+</div>
+
+<div ng-if="vm.name.indexOf('content-') === 0" class="c-page">
     <ng-include src="'modules/page/components/page/templates/' + vm.name + '.html'"></ng-include>
+</div>
+
+<div ng-if="vm.name.indexOf('content-') !== 0 && vm.name !== 'home'" class="c-page">
+    <div class="u-margin__left--2">
+        <ng-include src="'modules/page/components/page/templates/' + vm.name + '.html'"></ng-include>
+    </div>
 </div>

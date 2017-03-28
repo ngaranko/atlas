@@ -1,0 +1,9 @@
+.c-search-results {
+  padding: 2 * $base-whitespace;
+}
+
+.s-indented-result {
+  margin-top: -$base-whitespace;
+  padding-left: $base-font-size;
+  border-left: 1px solid $secondary-gray20;
+}

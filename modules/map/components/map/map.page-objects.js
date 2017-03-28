@@ -3,10 +3,13 @@
 const toggleLayerSelectionPO =
     dp.require('modules/map/components/toggle-layer-selection/toggle-layer-selection.page-objects');
 const toggleFullscreenPO = dp.require('modules/map/components/toggle-fullscreen/toggle-fullscreen.page-objects');
+const drawToolPO = dp.require('modules/map/components/draw-tool/draw-tool.page-objects');
 
 module.exports = function (mapElement) {
     return {
         click: function (x, y) {
+            browser.waitForAngular();
+
             return browser.actions()
                 .mouseMove(mapElement, {x: x, y: y})
                 .click()
@@ -20,6 +23,9 @@ module.exports = function (mapElement) {
         },
         get toggleFullscreen () {
             return toggleFullscreenPO(mapElement.element(by.css('dp-toggle-fullscreen')));
+        },
+        get drawTool () {
+            return drawToolPO(mapElement.element(by.css('dp-draw-tool')));
         },
         get hasGeometry () {
             const hasPoint = mapElement.element(by.css('.leaflet-marker-icon')).isPresent();

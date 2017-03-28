@@ -11,20 +11,8 @@ describe('The dp-layer-selection component', function () {
             {
                 store: {
                     dispatch: function () {}
-                }
-            },
-            function ($provide) {
-                $provide.constant('BASE_LAYERS', [
-                    {
-                        slug: 'base_layer_a',
-                        label: 'Base layer A'
-                    }, {
-                        slug: 'base_layer_b',
-                        label: 'Base layer B'
-                    }
-                ]);
-
-                $provide.constant('OVERLAYS', {
+                },
+                overlays: {
                     SOURCES: {
                         overlay_1_a: {
                             label_short: 'Overlay 1a',
@@ -66,7 +54,18 @@ describe('The dp-layer-selection component', function () {
                             overlays: ['overlay_2_a', 'overlay_2_b', 'overlay_2_c']
                         }
                     ]
-                });
+                }
+            },
+            function ($provide) {
+                $provide.constant('BASE_LAYERS', [
+                    {
+                        slug: 'base_layer_a',
+                        label: 'Base layer A'
+                    }, {
+                        slug: 'base_layer_b',
+                        label: 'Base layer B'
+                    }
+                ]);
 
                 $provide.factory('dpPanelDirective', function () {
                     return {};
@@ -173,6 +172,14 @@ describe('The dp-layer-selection component', function () {
     });
 
     describe('overlays', function () {
+        let overlays;
+
+        beforeEach(function () {
+            angular.mock.inject(function (_overlays_) {
+                overlays = _overlays_;
+            });
+        });
+
         it('lists all overlays as checkboxes w/ labels', function () {
             var component = getComponent('base_layer_a', [], 8),
                 contentDiv = component.find('.c-layer-selection__content');
@@ -200,6 +207,38 @@ describe('The dp-layer-selection component', function () {
             expect(contentDiv.find('div').eq(2).find('li').eq(2).find('label').text().trim()).toBe('L_Overlay 2c');
             expect(contentDiv.find('div').eq(2).find('li').eq(2).find('input').attr('type')).toBe('checkbox');
             expect(contentDiv.find('div').eq(2).find('li').eq(2).find('input').val()).toBe('overlay_2_c');
+        });
+
+        it('re-computes overlays collection when the user authorization level changes', function () {
+            spyOn(user, 'getAuthorizationLevel').and.returnValue(1);
+
+            const component = getComponent('base_layer_a', [], 8);
+            const scope = component.isolateScope();
+
+            expect(scope.vm.allOverlays.length).toBe(2);
+
+            // Simulate a change in authorization level, this should trigger a re-compute
+            // Verify the re-compute by simulating that the user auth. level limits the possible overlays
+            // by removing all other overlays and reflect these changes also in the hierarchy
+            // This is exactly what happens in the overlay factory when the user auth.level changes
+            user.getAuthorizationLevel.and.returnValue(2);
+            overlays.SOURCES = {
+                overlay_1_a: {
+                    label_short: 'Overlay 1a',
+                    label_long: 'L_Overlay 1a',
+                    minZoom: 8,
+                    maxZoom: 16
+                }
+            };
+            overlays.HIERARCHY = [
+                {
+                    heading: 'Category 1',
+                    overlays: ['overlay_1_a']
+                }
+            ];
+            $rootScope.$digest();
+
+            expect(scope.vm.allOverlays.length).toBe(1);
         });
 
         it('marks the checkboxes for active overlays', function () {
@@ -385,6 +424,7 @@ describe('The dp-layer-selection component', function () {
 
         describe('the warning message', () => {
             beforeEach(() => {
+                spyOn(user, 'getAuthorizationLevel').and.returnValue('foo');
                 spyOn(user, 'getUserType').and.returnValue(user.USER_TYPE.NONE);
                 spyOn(user, 'meetsRequiredLevel').and.returnValue(false);
             });
@@ -413,10 +453,10 @@ describe('The dp-layer-selection component', function () {
                 const component = getComponent('base_layer_a', [], 8);
                 expect(component.find('.qa-category-warning').length).toBe(1);
 
-                spyOn(user, 'getAuthorizationLevel').and.returnValue('foo'); // changed so $watch fires
+                user.getAuthorizationLevel.and.returnValue('bar'); // changed so $watch fires
                 user.getUserType.and.returnValue(user.USER_TYPE.AUTHENTICATED);
                 user.meetsRequiredLevel.and.returnValue(true);
-                $rootScope.$apply();
+                $rootScope.$digest();
 
                 expect(component.find('.qa-category-warning').length).toBe(0);
             });

@@ -20,6 +20,20 @@
   }
 }
 
+.c-panel__title {
+  @include font-size-responsive($l-header-font);
+  margin-bottom: $base-whitespace;
+  font-weight: bold;
+}
+
+.c-panel__paragraph {
+  margin-bottom: $base-whitespace;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
 .c-panel--header {
   position: absolute;
   top: 0;

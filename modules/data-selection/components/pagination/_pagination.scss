@@ -15,9 +15,8 @@ $pagination-line-color: #e4e4e4;
 }
 
 @mixin data-selection-pagination-font {
-  font-family: $header-font-family;
-  font-size: $base-font-size;
-  font-weight: lighter;
+  @include font-size($s-font);
+  font-weight: normal;
 }
 
 .c-data-selection-pagination {

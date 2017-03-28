@@ -1,10 +1,13 @@
-<div>
+<div class="c-search-results">
     <dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>
 
     <div ng-if="!vm.isLoading" class="u-row">
-        <div ng-if="vm.numberOfResults">
+        <dp-tab-header ng-if="vm.showTabHeader()" search-text="{{vm.query}}" tab-header="vm.tabHeader"></dp-tab-header>
+
+        <div ng-if="vm.numberOfResults" class="qa-search-result">
             <div ng-if="!vm.category">
                 <dp-search-results-header
+                    ng-if="!vm.showTabHeader()"
                     number-of-results="vm.numberOfResults"
                     query="{{vm.query}}"
                     location="vm.location">
@@ -32,9 +35,9 @@
 
                         <dp-search-results-list category="category" limit-results="true"></dp-search-results-list>
 
-                        <div ng-if="category.count > 10">
+                        <div ng-if="category.count > 10" class="qa-show-more">
                             <dp-link ng-if="category.more"
-                                class-name="o-list__separate-item o-btn o-btn--link u-color__primary--contrast u-margin__top-05"
+                                class-name="c-show-more u-margin__top-05"
                                 type="FETCH_DETAIL"
                                 payload="category.more.endpoint">
 
@@ -42,7 +45,7 @@
                             </dp-link>
 
                             <dp-link ng-if="!category.more"
-                                class-name="o-list__separate-item o-btn o-btn--link u-color__primary--contrast u-margin__top-05"
+                                class-name="c-show-more u-margin__top-05"
                                 type="FETCH_SEARCH_RESULTS_CATEGORY"
                                 payload="category.slug">
 
@@ -72,7 +75,7 @@
 
                     <button
                         ng-if="vm.hasLoadMore()"
-                        class="o-loadmore"
+                        class="c-show-more"
                         ng-click="vm.loadMore()">
 
                         Toon meer
@@ -88,7 +91,7 @@
             </div>
         </div>
 
-        <div ng-if="!vm.numberOfResults">
+        <div ng-if="vm.location && !vm.numberOfResults">
             <dp-search-results-header
                 number-of-results="vm.numberOfResults"
                 query="{{vm.query}}"
@@ -103,7 +106,7 @@
                 <p>Tip: maak de criteria minder specifiek (bijv. een straat i.p.v. specifiek adres)</p>
             </div>
 
-            <div ng-if="vm.location" class="u-col-sm--4">
+            <div class="u-col-sm--4">
                 <dp-straatbeeld-thumbnail location="vm.location"></dp-straatbeeld-thumbnail>
             </div>
         </div>
