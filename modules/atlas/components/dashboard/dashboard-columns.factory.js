@@ -16,7 +16,8 @@
         return {
             determineActivity,
             determineVisibility,
-            determineColumnSizes
+            determineColumnSizes,
+            hasLimitedWidth
         };
 
         function determineActivity (state) {
@@ -61,7 +62,7 @@
                     visibility.straatbeeld = false;
                 } else {
                     visibility.detail = activity.detail && !activity.straatbeeld;
-                    visibility.page = angular.isString(state.page.name);
+                    visibility.page = angular.isString(state.page.name) && !activity.straatbeeld;
                     visibility.searchResults = activity.searchResults;
                 }
 
@@ -82,8 +83,10 @@
         function determineMapActivityDefault (state) {
             return state.map.isFullscreen ||
                 (
+                    !(state.page.name && !state.map.isFullscreen && !state.straatbeeld) &&
                     !(state.detail && state.detail.isFullscreen) &&
                     !(state.dataSelection && state.dataSelection.view !== 'LIST') &&
+                    !(state.search && state.search.isFullscreen) &&
                     !(state.straatbeeld && state.straatbeeld.isFullscreen)
                 );
         }
@@ -103,9 +106,11 @@
 
         function determineColumnSizes (state) {
             const visibility = determineVisibility(state);
-            const hasFullscreenElement = (visibility.map && state.map.isFullscreen) ||
+            const hasFullscreenElement = visibility.page ||
+                (visibility.map && state.map.isFullscreen) ||
                 (visibility.straatbeeld && state.straatbeeld.isFullscreen) ||
                 (visibility.detail && state.detail.isFullscreen) ||
+                (visibility.searchResults && state.search.isFullscreen) ||
                 (visibility.dataSelection && state.dataSelection.isFullscreen);
 
             if (!state.atlas.isPrintMode) {
@@ -153,6 +158,11 @@
             }
 
             return columnSizes;
+        }
+
+        function hasLimitedWidth (state) {
+            const visibility = determineVisibility(state);
+            return Boolean(visibility.page);
         }
     }
 })();

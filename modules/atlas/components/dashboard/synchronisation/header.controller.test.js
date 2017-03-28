@@ -2,33 +2,7 @@ describe('The header controller', function () {
     var $controller,
         $rootScope,
         store,
-        mockedState,
-        DEFAULT_STATE;
-
-    DEFAULT_STATE = {
-        map: {
-            baseLayer: 'topografie',
-            overlays: [],
-            viewCenter: [52.3719, 4.9012],
-            zoom: 9,
-            showActiveOverlays: false,
-            isFullscreen: false,
-            isLoading: false
-        },
-        layerSelection: {
-            isEnabled: false
-        },
-        search: null,
-        page: {
-            name: 'home'
-        },
-        detail: null,
-        straatbeeld: null,
-        dataSelection: null,
-        atlas: {
-            isPrintMode: false
-        }
-    };
+        mockedState;
 
     beforeEach(function () {
         angular.mock.module(
@@ -52,6 +26,9 @@ describe('The header controller', function () {
         });
 
         mockedState = {
+            map: {
+                isFullscreen: false
+            },
             search: {
                 query: 'i am a search query'
             }
@@ -59,10 +36,9 @@ describe('The header controller', function () {
     });
 
     function getController () {
-        var controller,
-            scope = $rootScope.$new();
+        const scope = $rootScope.$new();
 
-        controller = $controller('HeaderController', {
+        const controller = $controller('HeaderController', {
             $scope: scope
         });
 
@@ -80,46 +56,53 @@ describe('The header controller', function () {
     });
 
     it('sets the query string based on the state', function () {
-        var controller;
-
         spyOn(store, 'getState').and.returnValue(mockedState);
 
-        controller = getController();
+        const controller = getController();
 
         expect(controller.query).toBe('i am a search query');
     });
 
     it('doesn\'t break when search is null', function () {
-        var controller;
-
         mockedState = {
             search: null
         };
 
         spyOn(store, 'getState').and.returnValue(mockedState);
 
-        controller = getController();
+        const controller = getController();
 
         expect(controller.query).toBeNull();
     });
 
     describe('not all states have a print version', function () {
         it('there is no print button when dataSelection is active', function () {
-            var controller;
-
             mockedState.dataSelection = {};
 
             spyOn(store, 'getState').and.returnValue(mockedState);
-            controller = getController();
+            const controller = getController();
 
             expect(controller.hasPrintButton).toBe(false);
         });
 
-        it('all non dataSelection modules have a printButton', function () {
-            var controller;
+        it('there is no print button on the homepage', () => {
+            mockedState.page = {
+                name: 'home'
+            };
 
-            spyOn(store, 'getState').and.returnValue(DEFAULT_STATE);
-            controller = getController();
+            spyOn(store, 'getState').and.returnValue(mockedState);
+            const controller = getController();
+
+            expect(controller.hasPrintButton).toBe(false);
+        });
+
+        it('all other pages and non dataSelection content has a printButton', function () {
+            mockedState.page = {
+                name: 'snel-wegwijs'
+            };
+
+            spyOn(store, 'getState').and.returnValue(mockedState);
+            const controller = getController();
 
             expect(controller.hasPrintButton).toBe(true);
         });

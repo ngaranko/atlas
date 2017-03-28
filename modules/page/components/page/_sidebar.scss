@@ -1,0 +1,28 @@
+.c-sidebar__sub-header {
+  @include font-size($s-header-font);
+
+  margin: $base-whitespace 0;
+  color: $secondary-gray60;
+}
+
+.c-sidebar__list {
+  font-weight: bold;
+  line-height: 1.5;
+}
+
+.c-sidebar__list__item {
+  position: relative;
+  margin: $base-whitespace 0 $base-whitespace $base-font-size;
+  padding-left: 2px;
+
+  &::before {
+    position: absolute;
+    left: -$base-font-size;
+    content: "⟩";
+  }
+}
+
+.c-sidebar__link {
+  color: $primary-dark;
+  text-decoration: none;
+}

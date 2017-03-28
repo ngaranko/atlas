@@ -1,6 +1,5 @@
 @mixin smaller-font-definition {
-  font-family: $header-font-family;
-  font-size: $base-font-size - 2;
+  @include font-size($xs-font);
   line-height: $button-size;
 }
 
@@ -49,9 +48,9 @@
 }
 
 .c-straatbeeld__close {
-  @include icon-button("close", "red", "");
+  @include icon-button("close", "white", "red");
   position: absolute;
-  top: 0;
-  right: 0;
+  top: $base-whitespace;
+  right: $base-whitespace;
   z-index: 2;
 }

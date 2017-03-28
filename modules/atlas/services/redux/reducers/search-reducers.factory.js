@@ -5,9 +5,9 @@
         .module('atlas')
         .factory('searchReducers', searchReducersFactory);
 
-    searchReducersFactory.$inject = ['ACTIONS'];
+    searchReducersFactory.$inject = ['ACTIONS', 'dpBaseCoder'];
 
-    function searchReducersFactory (ACTIONS) {
+    function searchReducersFactory (ACTIONS, dpBaseCoder) {
         var reducers = {};
 
         reducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY.id] = fetchSearchResultsByQueryReducer;
@@ -28,7 +28,8 @@
 
             newState.search = {
                 isLoading: true,
-                query: payload,
+                isFullscreen: true,
+                query: payload || null,
                 location: null,
                 category: null,
                 numberOfResults: null
@@ -52,12 +53,13 @@
          * @returns {Object} newState
          */
         function fetchSearchResultsByLocationReducer (oldState, payload) {
-            var newState = angular.copy(oldState);
+            const newState = angular.copy(oldState);
 
             newState.search = {
                 isLoading: true,
+                isFullscreen: false,
                 query: null,
-                location: payload,
+                location: dpBaseCoder.toPrecision(payload, 7),
                 category: null,
                 numberOfResults: null
             };

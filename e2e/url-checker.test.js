@@ -89,18 +89,6 @@ describe('each URL should load the corresponding view', function () {
         expect(detail.verblijfsobject.descriptionList.definition(1)).toBe('woning');
     });
 
-    it('MAP_PAGE--HOME', () => {
-        page = dp.navigate('MAP_PAGE--HOME');
-
-        dp.validate('MAP_PAGE--HOME', page);
-    });
-
-    it('MAP_PAGE--LOGIN', () => {
-        page = dp.navigate('MAP_PAGE--LOGIN');
-
-        dp.validate('MAP_PAGE--LOGIN', page);
-    });
-
     it('MAP_SEARCH-RESULTS--LOCATION', () => {
         page = dp.navigate('MAP_SEARCH-RESULTS--LOCATION');
         const searchResults = page.dashboard.rightColumn.searchResults;
@@ -108,7 +96,7 @@ describe('each URL should load the corresponding view', function () {
         dp.validate('MAP_SEARCH-RESULTS--LOCATION', page);
 
         expect(page.title)
-            .toMatch(/^\d+ resultaten met locatie 121356\.94, 487341\.61 \(52\.3729183, 4\.8931775\) - Atlas$/);
+            .toBe('Data (7) met locatie 121356\.94, 487341\.61 \(52\.3729183, 4\.8931775\) - Atlas');
 
         expect(searchResults.categories(0).header).toBe('Openbare ruimte');
         expect(searchResults.categories(0).list(0).link.label).toBe('Dam');
@@ -129,13 +117,13 @@ describe('each URL should load the corresponding view', function () {
         expect(searchResults.categories(2).list(4).subtype).toBe('(buurt)');
     });
 
-    it('MAP_SEARCH-RESULTS--QUERY', () => {
-        page = dp.navigate('MAP_SEARCH-RESULTS--QUERY');
+    it('SEARCH-RESULTS--QUERY', () => {
+        page = dp.navigate('SEARCH-RESULTS--QUERY');
         const searchResults = page.dashboard.rightColumn.searchResults;
 
-        dp.validate('MAP_SEARCH-RESULTS--QUERY', page);
+        dp.validate('SEARCH-RESULTS--QUERY', page);
 
-        expect(page.title).toMatch(/\d+ resultaten met \"Oost\" - Atlas$/);
+        expect(page.title).toMatch(/Data met Oost - Atlas$/);
 
         expect(searchResults.categories(0).header).toMatch(/Openbare ruimtes \(\d+\)/);
         expect(searchResults.categories(0).list(0).link.label).toMatch(/Oost/);
@@ -164,6 +152,14 @@ describe('each URL should load the corresponding view', function () {
         expect(page.title).toBe('Panorama 128708.98, 485100.65 (52.3531791, 5.0013100) - Atlas');
     });
 
+    it('MAP_STRAATBEELD--PAGE', () => {
+        page = dp.navigate('MAP_STRAATBEELD--PAGE');
+
+        dp.validate('MAP_STRAATBEELD--PAGE', page);
+
+        expect(page.title).toBe('Panorama 128708.98, 485100.65 (52.3531791, 5.0013100) - Atlas');
+    });
+
     it('MAP_STRAATBEELD--SEARCH-RESULTS', () => {
         page = dp.navigate('MAP_STRAATBEELD--SEARCH-RESULTS');
 
@@ -172,10 +168,30 @@ describe('each URL should load the corresponding view', function () {
         expect(page.title).toBe('Panorama 121356.94, 487341.61 (52.3729183, 4.8931775) - Atlas');
     });
 
+    it('PAGE--HOME', () => {
+        page = dp.navigate('PAGE--HOME');
+
+        dp.validate('PAGE--HOME', page);
+    });
+
+    it('PAGE--LOGIN', () => {
+        page = dp.navigate('PAGE--LOGIN');
+
+        dp.validate('PAGE--LOGIN', page);
+    });
+
     it('STRAATBEELD--DETAIL', () => {
         page = dp.navigate('STRAATBEELD--DETAIL');
 
         dp.validate('STRAATBEELD--DETAIL', page);
+
+        expect(page.title).toBe('Panorama 128708.98, 485100.65 (52.3531791, 5.0013100) - Atlas');
+    });
+
+    it('STRAATBEELD--PAGE', () => {
+        page = dp.navigate('STRAATBEELD--PAGE');
+
+        dp.validate('STRAATBEELD--PAGE', page);
 
         expect(page.title).toBe('Panorama 128708.98, 485100.65 (52.3531791, 5.0013100) - Atlas');
     });

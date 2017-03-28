@@ -20,7 +20,8 @@ describe('the dp-detail component', function () {
                         var q = $q.defer();
 
                         if (endpoint === 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/' ||
-                                endpoint === 'http://www.fake-endpoint.amsterdam.nl/brk/geo/404/') {
+                                endpoint === 'http://www.fake-endpoint.amsterdam.nl/brk/geo/404/' ||
+                                endpoint === 'http://fake-endpoint.amsterdam.nl/api/subject/123/') {
                             q.resolve({
                                 _display: 'Adresstraat 1A',
                                 dummy: 'A',
@@ -64,6 +65,8 @@ describe('the dp-detail component', function () {
                             subject = 'object';
                         } else if (endpoint === 'http://www.fake-endpoint.com/brk/subject/123/') {
                             subject = 'subject';
+                        } else if (endpoint === 'http://fake-endpoint.amsterdam.nl/api/subject/123/') {
+                            subject = 'api';
                         }
 
                         return subject;
@@ -71,7 +74,8 @@ describe('the dp-detail component', function () {
                     getTemplateUrl: function (endpoint) {
                         var templateUrl = 'modules/detail/components/detail/templates/';
 
-                        if (endpoint === 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/') {
+                        if (endpoint === 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/' ||
+                                endpoint === 'http://fake-endpoint.amsterdam.nl/api/subject/123/') {
                             templateUrl += 'bag/nummeraanduiding';
                         } else if (endpoint === 'http://www.fake-endpoint.com/brk/object/789/') {
                             templateUrl += 'brk/object';
@@ -84,11 +88,15 @@ describe('the dp-detail component', function () {
                         return templateUrl;
                     }
                 },
+                dataFormatter: {
+                    formatData: angular.identity
+                },
                 geometry: {
                     getGeoJSON: function (endpoint) {
                         var q = $q.defer();
 
-                        if (endpoint === 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/') {
+                        if (endpoint === 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/' ||
+                                endpoint === 'http://fake-endpoint.amsterdam.nl/api/subject/123/') {
                             q.resolve(mockedGeometryPoint);
                         } else if (endpoint === 'http://www.fake-endpoint.com/brk/object/789/') {
                             q.resolve(mockedGeometryMultiPolygon);
@@ -333,6 +341,41 @@ describe('the dp-detail component', function () {
             payload: jasmine.objectContaining({
                 geometry: null
             })
+        });
+    });
+
+    describe('the SHOW_DETAIL isFullscreen payload', function () {
+        it('sets it to true when the subject is \'api\'', function () {
+            getComponent('http://fake-endpoint.amsterdam.nl/api/subject/123/');
+
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.SHOW_DETAIL,
+                payload: jasmine.objectContaining({
+                    isFullscreen: true
+                })
+            });
+        });
+
+        it('sets it to true when there is no geometry', function () {
+            getComponent('http://www.fake-endpoint.com/brk/subject/123/');
+
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.SHOW_DETAIL,
+                payload: jasmine.objectContaining({
+                    isFullscreen: true
+                })
+            });
+        });
+
+        it('sets it to false otherwise', function () {
+            getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/');
+
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.SHOW_DETAIL,
+                payload: jasmine.objectContaining({
+                    isFullscreen: false
+                })
+            });
         });
     });
 

@@ -1,7 +1,8 @@
 describe('The dpDataSelectionDocumentTitle factory', function () {
     let dpDataSelectionDocumentTitle,
         mockedBagState,
-        mockedHrState;
+        mockedHrState,
+        mockedCardsState;
 
     beforeEach(function () {
         angular.mock.module(
@@ -46,6 +47,12 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
             view: 'TABLE',
             filters: {}
         };
+
+        mockedCardsState = {
+            view: 'CARDS',
+            query: 'my query',
+            filters: {}
+        };
     });
 
     it('shows a different title based on the active view', function () {
@@ -53,6 +60,15 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
 
         mockedBagState.view = 'LIST';
         expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState)).toMatch(/^Lijst/);
+    });
+
+    it('shows a special title when showing all datasets', function () {
+        delete mockedCardsState.query;
+        expect(dpDataSelectionDocumentTitle.getTitle(mockedCardsState)).toBe('Alle datasets');
+    });
+
+    it('shows a the datasets query for text search in datasets', function () {
+        expect(dpDataSelectionDocumentTitle.getTitle(mockedCardsState)).toBe('Datasets met my query');
     });
 
     it('shows the title of the current dataset', function () {

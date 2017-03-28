@@ -1,27 +1,57 @@
 describe('The dp-scrollable-content directive', function () {
-    var $compile,
-        $rootScope;
+    let $compile,
+        $rootScope,
+        scope,
+        callbackFn,
+        state,
+        visibility;
 
     beforeEach(function () {
-        angular.mock.module('atlas');
+        angular.mock.module(
+            'atlas',
+            {
+                store: {
+                    subscribe: (fn) => {
+                        callbackFn = fn;
+                        callbackFn();
+                    },
+                    getState: () => {
+                        return state;
+                    }
+                },
+                dashboardColumns: {
+                    determineVisibility: () => visibility
+                }
+            }
+        );
 
         angular.mock.inject(function (_$compile_, _$rootScope_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
         });
+
+        state = {
+            page: {
+                name: ''
+            }
+        };
+
+        visibility = {
+            page: false,
+            detail: false,
+            searchResults: false,
+            dataSelection: false
+        };
     });
 
-    function getDirective (visibility, pageName) {
+    function getDirective () {
         var directive,
             element,
-            scope,
             i,
             paragraph;
 
         element = document.createElement('div');
         element.setAttribute('dp-scrollable-content', '');
-        element.setAttribute('visibility', 'visibility');
-        element.setAttribute('page-name', pageName || '');
         element.setAttribute('style', 'height: 100px; overflow-y: scroll;');
 
         // Insert a lot of dummy content to enable scrolling
@@ -33,7 +63,6 @@ describe('The dp-scrollable-content directive', function () {
         }
 
         scope = $rootScope.$new();
-        scope.visibility = visibility;
 
         directive = $compile(element)(scope);
         scope.$apply();
@@ -44,28 +73,21 @@ describe('The dp-scrollable-content directive', function () {
     }
 
     it('resets the scrollTop property whenever the active component changes', function () {
-        var directive,
-            scope,
-            visibility;
+        var directive;
 
-        visibility = {
-            page: false,
-            detail: true,
-            searchResults: false,
-            dataSelection: false
-        };
+        visibility.detail = true;
 
-        directive = getDirective(visibility);
+        directive = getDirective();
         expect(directive[0].scrollTop).toBe(0);
 
         // Now scroll down
         directive[0].scrollTop = 100;
 
         // Show another component
-        scope = directive.isolateScope();
-        scope.visibility.detail = false;
-        scope.visibility.page = true;
-        scope.pageName = 'home';
+        visibility.detail = false;
+        visibility.page = true;
+        state.page.name = 'home';
+        callbackFn();
         scope.$apply();
 
         // Make sure the scrollTop has been reset
@@ -73,30 +95,68 @@ describe('The dp-scrollable-content directive', function () {
     });
 
     it('resets the scrollTop property when navigating between pages', function () {
-        var directive,
-            scope,
-            visibility;
+        var directive;
 
-        visibility = {
-            page: true,
-            detail: false,
-            searchResults: false,
-            dataSelection: false
-        };
+        visibility.page = true;
+        state.page.name = 'home';
 
         // Open the 'home' page
-        directive = getDirective(visibility, 'home');
+        directive = getDirective();
         expect(directive[0].scrollTop).toBe(0);
 
         // Now scroll down
         directive[0].scrollTop = 100;
 
         // Open the 'about-us' page
-        scope = directive.isolateScope();
-        scope.pageName = 'about-us';
+        state.page.name = 'about-us';
+        callbackFn();
         scope.$apply();
 
         // Make sure the scrollTop has been reset
         expect(directive[0].scrollTop).toBe(0);
+    });
+
+    it('resets the scrollTop property when nothing is visible', function () {
+        var directive;
+
+        visibility.page = true;
+        state.page.name = 'home';
+
+        // Open the 'home' page
+        directive = getDirective();
+        expect(directive[0].scrollTop).toBe(0);
+
+        // Now scroll down
+        directive[0].scrollTop = 100;
+
+        // Close the page
+        visibility.page = false;
+        state.page.name = '';
+        callbackFn();
+        scope.$apply();
+
+        // Make sure the scrollTop has been reset
+        expect(directive[0].scrollTop).toBe(0);
+    });
+
+    it('doesn\'t reset the scrollTop property when nothing changes', function () {
+        var directive;
+
+        visibility.page = true;
+        state.page.name = 'home';
+
+        // Open the 'home' page
+        directive = getDirective();
+        expect(directive[0].scrollTop).toBe(0);
+
+        // Now scroll down
+        directive[0].scrollTop = 100;
+
+        // Trigger a state change
+        callbackFn();
+        scope.$apply();
+
+        // Make sure the scrollTop has not been reset
+        expect(directive[0].scrollTop).toBe(100);
     });
 });

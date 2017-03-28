@@ -17,6 +17,8 @@
             var state = store.getState();
 
             vm.pageName = state.page.name;
+            vm.pageType = state.page.type;
+            vm.pageItem = state.page.item;
         }
     }
 })();

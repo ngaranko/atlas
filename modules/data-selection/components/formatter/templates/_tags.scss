@@ -1,6 +1,6 @@
 .c-data-selection-tag {
+  @include font-size($xs-font);
   float: left;
-  font-size: $base-font-size * .8;
 }
 
 .c-data-selection-tag__name {

@@ -4,6 +4,7 @@ describe('The dashboardColumns factory', function () {
         activity,
         visibility,
         columnSizes,
+        hasLimitedWidth,
         DEFAULT_STATE = {
             map: {
                 baseLayer: 'topografie',
@@ -105,24 +106,29 @@ describe('The dashboardColumns factory', function () {
                 activity = dashboardColumns.determineActivity(mockedState);
                 visibility = dashboardColumns.determineVisibility(mockedState);
                 columnSizes = dashboardColumns.determineColumnSizes(mockedState);
+                hasLimitedWidth = dashboardColumns.hasLimitedWidth(mockedState);
             });
 
-            it('makes the map and page visibile', function () {
-                expect(activity.map).toBe(true);
-                expect(visibility.map).toBe(true);
+            it('makes only the page visibile', function () {
                 expect(visibility.page).toBe(true);
 
                 expect(visibility.detail).toBe(false);
                 expect(visibility.layerSelection).toBe(false);
+                expect(activity.map).toBe(false);
+                expect(visibility.map).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
             });
 
-            it('left column: 0/3, middle column: 1/3, right column 2/3', function () {
+            it('left column: 0/3, middle column: 0/3, right column 3/3', function () {
                 expect(columnSizes.left).toBe(0);
-                expect(columnSizes.middle).toBe(4);
-                expect(columnSizes.right).toBe(8);
+                expect(columnSizes.middle).toBe(0);
+                expect(columnSizes.right).toBe(12);
+            });
+
+            it('has limited width', () => {
+                expect(hasLimitedWidth).toBe(true);
             });
         });
 
@@ -163,11 +169,13 @@ describe('The dashboardColumns factory', function () {
                 if (searchInput === 'query') {
                     mockedState.search = {
                         query: 'this is a search query',
+                        isFullscreen: true,
                         location: null
                     };
                 } else {
                     mockedState.search = {
                         query: null,
+                        isFullscreen: false,
                         location: [52.123, 4789]
                     };
                 }
@@ -183,8 +191,8 @@ describe('The dashboardColumns factory', function () {
                 });
 
                 it('makes the map and searchResults visibile', function () {
-                    expect(activity.map).toBe(true);
-                    expect(visibility.map).toBe(true);
+                    expect(activity.map).toBe(searchInput === 'location');
+                    expect(visibility.map).toBe(searchInput === 'location');
                     expect(visibility.searchResults).toBe(true);
 
                     expect(visibility.layerSelection).toBe(false);
@@ -196,8 +204,8 @@ describe('The dashboardColumns factory', function () {
 
                 it('left column: 0/3, middle column: 1/3, right column 2/3', function () {
                     expect(columnSizes.left).toBe(0);
-                    expect(columnSizes.middle).toBe(4);
-                    expect(columnSizes.right).toBe(8);
+                    expect(columnSizes.middle).toBe(searchInput === 'location' ? 4 : 0);
+                    expect(columnSizes.right).toBe(searchInput === 'location' ? 8 : 12);
                 });
             });
 
@@ -246,6 +254,7 @@ describe('The dashboardColumns factory', function () {
                 activity = dashboardColumns.determineActivity(mockedState);
                 visibility = dashboardColumns.determineVisibility(mockedState);
                 columnSizes = dashboardColumns.determineColumnSizes(mockedState);
+                hasLimitedWidth = dashboardColumns.hasLimitedWidth(mockedState);
             });
 
             it('makes the map and detail page visibile', function () {
@@ -276,6 +285,10 @@ describe('The dashboardColumns factory', function () {
                 expect(columnSizes.left).toBe(0);
                 expect(columnSizes.middle).toBe(0);
                 expect(columnSizes.right).toBe(12);
+            });
+
+            it('has unlimited width', () => {
+                expect(hasLimitedWidth).toBe(false);
             });
         });
 
@@ -427,8 +440,9 @@ describe('The dashboardColumns factory', function () {
 
     describe('when using layer selection', function () {
         beforeEach(function () {
+            mockedState.page.name = null;
             mockedState.detail = {
-                uri: 'blah/blah/123',
+                endpoint: 'http://api.example.com/blah/blah/123',
                 isLoading: false
             };
             mockedState.layerSelection.isEnabled = true;

@@ -1,0 +1,23 @@
+<nav class="c-menu qa-menu"
+     ng-class="'c-menu--' + vm.size">
+    <button ng-if="!vm.isAuthenticated()" ng-click="vm.login()" class="c-menu__item c-menu__link qa-menu__login">
+        Inloggen
+    </button>
+    <!--<dp-link ng-if="!vm.isAuthenticated()"-->
+        <!--type="SHOW_PAGE" payload="{name: 'login'}" class-name="c-menu__item c-menu__link qa-menu__login">-->
+        <!--Inloggen-->
+    <!--</dp-link>-->
+    <div ng-if="vm.isAuthenticated()" class="qa-menu__user-menu">
+        <dp-menu-dropdown title="{{vm.userName() + (vm.userIsBevoegd() ? ' (bevoegd)': '')}}"
+                          type="user"
+                          align="left"></dp-menu-dropdown>
+    </div>
+    <span class="c-menu__item qa-menu__item">
+        <dp-link type="SHOW_PAGE"
+                 payload="{name: 'help'}"
+                 class-name="c-menu__link">Help</dp-link>
+    </span>
+    <dp-menu-dropdown title="Menu"
+                      type="main"
+                      has-print-button="vm.hasPrintButton"></dp-menu-dropdown>
+</nav>

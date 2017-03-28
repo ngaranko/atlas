@@ -1,5 +1,5 @@
 .leaflet-control-measure {
-  @include font-size($body-font);
+  @include font-size($s-font);
 }
 
 .leaflet-control-measure-interaction {
@@ -10,7 +10,7 @@
 
 //This is the popup that opens when finishing a measurement
 .leaflet-measure-resultpopup {
-  @include font-size($body-font);
+  @include font-size($s-font);
 }
 
 .is-print-mode {

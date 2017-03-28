@@ -1,1 +1,10 @@
+@import "styles/config";
+@import "styles/utilities/fixed";
+@import "styles/utilities/full-height";
+@import "styles/utilities/gutter";
+@import "styles/objects/max-width";
 @import "components/dashboard/dashboard";
+
+.is-print-mode {
+  @import "components/dashboard/dashboard-print";
+}

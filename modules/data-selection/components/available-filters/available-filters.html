@@ -1,10 +1,8 @@
 <div class="c-data-selection-available-filters">
-    <dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>
-
     <div class="qa-available-filters c-data-selection-available-filters--available-filters">
-        <div ng-if="!vm.isLoading" ng-show="vm.hasInactiveFilterOptions(filter)" ng-repeat="filter in vm.availableFilters">
+        <div ng-show="vm.hasInactiveFilterOptions(filter)" ng-repeat="filter in vm.availableFilters">
             <div class="c-data-selection-available-filters__available-filter">
-                <h3 class="c-data-selection-available-filters__available-filter-label qa-category-header">{{filter.label}}</h3>
+                <h2 class="c-data-selection-available-filters__available-filter-label qa-category-header">{{filter.label}}</h2>
                 <ul class="c-data-selection-available-filters__list">
                     <li class="c-data-selection-available-filters__listitem"
                         ng-repeat="option in filter.options | limitTo : vm.isExpandedFilter(filter.slug) ? undefined : vm.showMoreThreshold">

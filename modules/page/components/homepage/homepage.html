@@ -1,0 +1,87 @@
+<div class="c-homepage u-padding__top--2">
+    <div class="u-grid">
+        <div class="u-row">
+            <div class="u-col-sm--6">
+                <!-- Link to map -->
+                <div class="qa-map-link">
+                    <dp-link type="SHOW_MAP" class-name="c-homepage__block c-homepage__block--left c-homepage__block--tall c-homepage__block--homepage">
+                        <div class="o-btn o-btn--white c-homepage__block-button">Data op de kaart</div>
+                    </dp-link>
+                </div>
+            </div>
+            <div class="u-col-sm--3">
+                <!-- Link to straatbeeld -->
+                <div class="qa-straatbeeld-link">
+                    <dp-link type="FETCH_STRAATBEELD_BY_ID" class-name="c-homepage__block c-homepage__block--middle c-homepage__block--tall c-homepage__block--straatbeeld" payload="vm.fetchStraatbeeldPayload">
+                        <div class="o-btn o-btn--white c-homepage__block-button">Panorama</div>
+                    </dp-link>
+                </div>
+            </div>
+            <div class="u-col-sm--3">
+                <!-- News -->
+                <div class="c-homepage__block c-homepage__block--right c-homepage__block--tall">
+                    <div class="c-homepage__entries">
+                        <dp-user-content-widget type="news" limit-to="4"></dp-user-content-widget>
+                    </div>
+                    <div class="c-homepage__show-more">
+                        <dp-link type="SHOW_PAGE" payload="{name: 'content-overzicht', type: 'news'}">
+                            Nieuws
+                        </dp-link>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="u-row u-margin__bottom--2">
+            <div class="u-col-sm--6">
+                <!-- Links to data selection themes -->
+                <div class="c-homepage__block c-homepage__block--left c-homepage__block--tall">
+                    <dp-catalogus-themes></dp-catalogus-themes>
+                </div>
+            </div>
+            <div class="u-col-sm--3">
+                <div>
+                    <!-- Link to data selection BAG -->
+                    <dp-link type="FETCH_DATA_SELECTION" class-name="c-homepage__block c-homepage__block--middle c-homepage__block--short c-homepage__block--adressen" payload="{dataset: 'bag', filters: {}, page: 1}">
+                        <div class="o-btn o-btn--white c-homepage__block-button">Adressentabel</div>
+                    </dp-link>
+                </div>
+
+                <div>
+                    <!-- Link to data selection HR -->
+                    <dp-link type="FETCH_DATA_SELECTION" class-name="c-homepage__block c-homepage__block--middle c-homepage__block--short c-homepage__block--vestigingen" payload="{dataset: 'hr', filters: {}, page: 1}">
+                        <div class="o-btn o-btn--white c-homepage__block-button">Vestigingentabel</div>
+                    </dp-link>
+                </div>
+            </div>
+            <div class="u-col-sm--3">
+                <!-- Events -->
+                <div class="c-homepage__block c-homepage__block--right c-homepage__block--tall">
+                    <div class="c-homepage__entries">
+                        <dp-user-content-widget type="events" limit-to="4"></dp-user-content-widget>
+                    </div>
+                    <div class="c-homepage__show-more">
+                        <dp-link type="SHOW_PAGE" payload="{name: 'content-overzicht', type: 'events'}">
+                            Evenementen
+                        </dp-link>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="u-row">
+            <div class="c-homepage__text">
+                <div class="u-col-sm--8">
+                    <div class="u-margin__left--2 c-homepage__visie">
+                        <h1 class="c-homepage__visie-header">Visie op data.amsterdam.nl</h1>
+                        <p class="c-homepage__visie-paragraph">De Gemeente Amsterdam beschikt over een goudmijn aan data over de stad. Met het Amsterdamse dataportaal maakt de gemeente mogelijk dat de open data over de stad ook beschikbaar komen voor burgers, ondernemers en onderwijsinstellingen.</p>
+                        <p class="c-homepage__visie-paragraph">Het is een uitnodiging om met de Amsterdamse data innovatieve toepassingen te ontwikkelen.</p>
+                    </div>
+                </div>
+                <div class="u-col-sm--3 u-col-sm--offset-1">
+                    <div class="c-homepage__beleid">
+                        <dp-user-content-widget type="beleid"></dp-user-content-widget>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

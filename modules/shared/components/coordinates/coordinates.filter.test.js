@@ -42,6 +42,12 @@ describe('The coordinates filter', function () {
             .toBeUndefined();
     });
 
+    it('returns undefined if the coordinates are incomplete', () => {
+        expect(coordinates([], 'RD')).toBeUndefined();
+        expect(coordinates([51.234], 'RD')).toBeUndefined();
+        expect(coordinates([4.789], 'RD')).toBeUndefined();
+    });
+
     it('rounds latitude and longitude down to 7 decimals', function () {
         expect(coordinates([52.1234565246, 4.4567894123], 'WGS84'))
             .toBe('123456.00, 654123.00 (52.1234565, 4.4567894)');

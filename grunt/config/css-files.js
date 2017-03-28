@@ -5,4 +5,6 @@ modules.forEach(function (module) {
     cssFiles.push('build/temp/' + module.slug + '.css');
 });
 
+cssFiles.push('modules/shared/styles/vendor-fix.css');
+
 module.exports = cssFiles;
