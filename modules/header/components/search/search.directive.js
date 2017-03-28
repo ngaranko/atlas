@@ -12,6 +12,7 @@
             restrict: 'E',
             scope: {
                 query: '@',
+                actionType: '<',
                 placeholder: '@',
                 type: '@',
                 payload: '<',
@@ -138,7 +139,7 @@
                         });
                     }
                     store.dispatch({
-                        type: ACTIONS[searchType],
+                        type: scope.actionType,
                         payload: payload
                     });
                 } else {

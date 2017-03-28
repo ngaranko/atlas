@@ -15,7 +15,7 @@
             </div>
             <div ng-if="vm.isShort" class="u-col-sm--6">
                 <div class="c-site-header__search qa-site-header__search">
-                    <dp-search query="{{vm.query}}"></dp-search>
+                    <dp-search query="{{vm.query}}" action-type="vm.actionType"></dp-search>
                 </div>
             </div>
             <div ng-if="vm.isShort" class="u-col-sm--3 u-padding__right--2 qa-site-header__menu-col">
@@ -28,7 +28,7 @@
             <div class="c-site-header__toolbar qa-site-header__toolbar">
                 <div class="u-col-sm--6">
                     <div class="c-site-header__search qa-site-header__search">
-                        <dp-search query="{{vm.query}}"></dp-search>
+                        <dp-search query="{{vm.query}}" action-type="vm.actionType"></dp-search>
                     </div>
                 </div>
                 <div class="u-col-sm--6 u-padding__right--2 qa-site-header__menu-col">
