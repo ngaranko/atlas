@@ -65,7 +65,7 @@
   position: relative;
   width: $button-size;
   height: $button-size;
-  box-shadow: 2px 2px 0 0 $secondary-gray40;
+  box-shadow: $button-shadow-size $button-shadow-size 0 0 $secondary-gray40;
 }
 
 %icon-button-box-white {
@@ -113,23 +113,23 @@
   @include font-size($s-font);
   width: auto;
   height: $button-size;
-  padding-right: 10px;
-  padding-left: 10px;
+  padding-right: $base-whitespace;
+  padding-left: $base-whitespace;
   font-weight: bold;
-  line-height: $button-size - 2;
+  line-height: $button-size - 2px; // Compensate for the border, defined below
   text-align: left;
   text-decoration: none;
   cursor: pointer;
 
   span {
     position: relative;
-    top: -1px;
+    top: 0;
   }
 }
 
 %icon-button-text-box-extra {
   @extend %icon-button-box-extra;
-  top: -1px;
+  top: -1px; // Compensate for the border
 }
 
 %icon-button-text-box-white {
@@ -147,13 +147,13 @@
   // extend icon-button-box-[$state | $hover-state] defaults to 'white'
   @extend %#{"icon-button-text-box" + if(str-length($state) > 0, "-", "-white") + $state};
 
-  padding-right: 10px + $button-size;
+  padding-right: $base-whitespace + $button-size;
 
   &::after {
     @extend %#{"dp-" + $icon + if(str-length($state) > 0, "-", "") + $state + "-icon"};
     @extend %icon-button-text-box-extra;
 
-    right: -1px;
+    right: -1px; // Compensate for the border
   }
 
   &:hover {
@@ -177,7 +177,7 @@
     @extend %#{"dp-" + $icon + if(str-length($state) > 0, "-", "") + $state + "-icon"};
     @extend %icon-button-text-box-extra;
 
-    left: -1px;
+    left: -1px; // Compensate for the border
   }
 
   &:hover {
@@ -211,7 +211,7 @@
 @mixin icon-button-text-box-flat-left($icon, $state: "", $hover-state: "red") {
   @extend %icon-button-text-box-flat;
 
-  padding-right: 10px + $button-size;
+  padding-right: $base-whitespace + $button-size;
 
   &::after {
     @extend %#{"dp-" + $icon + if(str-length($state) > 0, "-", "") + $state + "-icon"};

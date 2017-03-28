@@ -15,5 +15,5 @@
   left: 0;
   width: 100%;
   padding: $base-whitespace;
-  z-index: 1;
+  z-index: $fixed-position-z-index;
 }
