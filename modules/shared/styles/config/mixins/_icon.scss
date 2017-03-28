@@ -60,16 +60,61 @@
   }
 }
 
-%icon-button-text-box {
-  @include font-size($s-font);
+%icon-button-box-base {
   display: block;
   position: relative;
+  width: $button-size;
+  height: $button-size;
+  box-shadow: 2px 2px 0 0 $secondary-gray40;
+}
+
+%icon-button-box-white {
+  background-color: $primary-light;
+  color: $secondary-gray60;
+}
+
+%icon-button-box-red {
+  background-color: $primary-contrast;
+  color: $primary-light;
+}
+
+%icon-button-box-extra {
+  position: absolute;
+  top: 0;
+  width: $button-size;
+  height: $button-size;
+  content: "";
+  vertical-align: middle;
+}
+
+@mixin icon-button-box($icon, $state: "", $hover-state: "red") {
+  @extend %icon-button-box-base;
+  // extend icon-button-box-[$state | $hover-state] defaults to 'white'
+  @extend %#{"icon-button-box" + if(str-length($state) > 0, "-", "-white") + $state};
+
+  &::after {
+    @extend %#{"dp-" + $icon + if(str-length($state) > 0, "-", "") + $state + "-icon"};
+    @extend %icon-button-box-extra;
+    left: 0;
+  }
+
+  &:hover {
+    // extend icon-button-box-[$state | $hover-state] defaults to 'white'
+    @extend %#{"icon-button-box" + if(str-length($hover-state) > 0, "-", "-white") + $hover-state};
+
+    &::after {
+      @extend %#{"dp-" + $icon + if(str-length($hover-state) > 0, "-", "") + $hover-state + "-icon"};
+    }
+  }
+}
+
+%icon-button-text-box {
+  @extend %icon-button-box-base;
+  @include font-size($s-font);
+  width: auto;
   height: $button-size;
   padding-right: 10px;
   padding-left: 10px;
-  border: 1px solid $secondary-gray20;
-  background-color: $primary-light;
-  color: $secondary-gray60;
   font-weight: bold;
   line-height: $button-size - 2;
   text-align: left;
@@ -83,23 +128,24 @@
 }
 
 %icon-button-text-box-extra {
-  position: absolute;
-  top: 0;
-  width: $button-size;
-  height: $button-size;
-  content: "";
-  vertical-align: middle;
+  @extend %icon-button-box-extra;
+  top: -1px;
 }
 
-%icon-button-text-box-hover {
-  border: solid $primary-contrast 1px;
-  background-color: $primary-contrast;
-  color: $primary-light;
-  text-decoration: none;
+%icon-button-text-box-white {
+  @extend %icon-button-box-white;
+  border: 1px solid $secondary-gray20;
+}
+
+%icon-button-text-box-red {
+  @extend %icon-button-box-red;
+  border: 1px solid $primary-contrast;
 }
 
 @mixin icon-button-text-box-left($icon, $state: "", $hover-state: "red") {
   @extend %icon-button-text-box;
+  // extend icon-button-box-[$state | $hover-state] defaults to 'white'
+  @extend %#{"icon-button-text-box" + if(str-length($state) > 0, "-", "-white") + $state};
 
   padding-right: 10px + $button-size;
 
@@ -107,12 +153,12 @@
     @extend %#{"dp-" + $icon + if(str-length($state) > 0, "-", "") + $state + "-icon"};
     @extend %icon-button-text-box-extra;
 
-    top: 0;
-    right: 0;
+    right: -1px;
   }
 
   &:hover {
-    @extend %icon-button-text-box-hover;
+    // extend icon-button-box-[$state | $hover-state] defaults to 'white'
+    @extend %#{"icon-button-text-box" + if(str-length($hover-state) > 0, "-", "-white") + $hover-state};
 
     &::after {
       @extend %#{"dp-" + $icon + if(str-length($hover-state) > 0, "-", "") + $hover-state + "-icon"};
@@ -122,50 +168,21 @@
 
 @mixin icon-button-text-box-right($icon, $state: "", $hover-state: "red") {
   @extend %icon-button-text-box;
+  // extend icon-button-box-[$state | $hover-state] defaults to 'white'
+  @extend %#{"icon-button-text-box" + if(str-length($state) > 0, "-", "-white") + $state};
 
   padding-left: $button-size;
 
   &::before {
     @extend %#{"dp-" + $icon + if(str-length($state) > 0, "-", "") + $state + "-icon"};
     @extend %icon-button-text-box-extra;
-    left: 0;
+
+    left: -1px;
   }
 
   &:hover {
-    @extend %icon-button-text-box-hover;
-
-    &::before {
-      @extend %#{"dp-" + $icon + if(str-length($hover-state) > 0, "-", "") + $hover-state + "-icon"};
-    }
-  }
-}
-
-// Icon with a text box on the right side, hover state inverted
-%icon-button-text-box-hover-invert {
-  border: solid $primary-light 1px;
-  border-right: solid $secondary-gray20 1px;
-  border-bottom: solid $secondary-gray20 1px;
-  background-color: $primary-light;
-  color: $secondary-gray60;
-  text-decoration: none;
-}
-
-@mixin icon-button-text-box-right-invert($icon, $state: "", $hover-state: "") {
-  @extend %icon-button-text-box;
-
-  padding-left: $button-size;
-  // Overuling default attributes for inverted state
-  background-color: $primary-contrast;
-  color: $primary-light;
-
-  &::before {
-    @extend %#{"dp-" + $icon + if(str-length($state) > 0, "-", "") + $state + "-icon"};
-    @extend %icon-button-text-box-extra;
-    left: 0;
-  }
-
-  &:hover {
-    @extend %icon-button-text-box-hover-invert;
+    // extend icon-button-box-[$state | $hover-state] defaults to 'white'
+    @extend %#{"icon-button-text-box" + if(str-length($hover-state) > 0, "-", "-white") + $hover-state};
 
     &::before {
       @extend %#{"dp-" + $icon + if(str-length($hover-state) > 0, "-", "") + $hover-state + "-icon"};
@@ -186,7 +203,7 @@
 }
 
 %icon-button-text-box-flat-hover {
-  @extend %icon-button-text-box-hover;
+  @extend %icon-button-text-box-red;
 
   border: none;
 }

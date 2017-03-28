@@ -6,9 +6,9 @@
 }
 
 .c-toggle-fullscreen__icon--fullscreen {
-  @include icon-button("maximize", "", "red");
+  @include icon-button-box("maximize");
 }
 
 .c-toggle-fullscreen__icon--minimize {
-  @include icon-button("minimize", "", "red");
+  @include icon-button-box("minimize");
 }
