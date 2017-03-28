@@ -3,10 +3,6 @@
     <button ng-if="!vm.isAuthenticated()" ng-click="vm.login()" class="c-menu__item c-menu__link qa-menu__login">
         Inloggen
     </button>
-    <!--<dp-link ng-if="!vm.isAuthenticated()"-->
-        <!--type="SHOW_PAGE" payload="{name: 'login'}" class-name="c-menu__item c-menu__link qa-menu__login">-->
-        <!--Inloggen-->
-    <!--</dp-link>-->
     <dp-menu-dropdown ng-if="vm.isAuthenticated()"
                       class="qa-menu__user-menu"
                       title="{{vm.userName() + (vm.userIsBevoegd() ? ' (bevoegd)': '')}}"
