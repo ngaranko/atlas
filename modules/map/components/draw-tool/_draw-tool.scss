@@ -13,7 +13,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: calc(100% - #{$button-size + $base-whitespace}); // Don't overlap the fullscreen button
   padding: $base-whitespace;
   z-index: $fixed-position-z-index;
 }
