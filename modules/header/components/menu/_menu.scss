@@ -16,8 +16,8 @@
 .c-menu__link {
   display: block;
   height: 100%;
-  padding-right: $base-whitespace * .8;
-  padding-left: $base-whitespace * .8;
+  padding-right: 8px; // Was $base-whitespace;
+  padding-left: 8px;  // We need to save space for the usermenu
   outline: none;
   color: $primary-dark;
   text-decoration: none;
@@ -30,7 +30,7 @@
   .c-menu__link {
     &::after {
       display: inline-block;
-      margin: -3px;
+      margin: -3px; // We need to save space for the usermenu
       transform: rotate(90deg);
       content: "›"; //Point downwards
     }

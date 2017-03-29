@@ -34,7 +34,8 @@
 
         function setUserMenuLabel ([username, isBevoegd]) {
             const maxLength = isBevoegd ? 4 : 9,
-                name = username.substr(0, maxLength),
+                name = username.length > maxLength + 1
+                    ? username.substr(0, maxLength) : username,
                 ellipsis = name !== username ? '...' : '',
                 space = ellipsis ? '' : ' ',
                 bevoegd = isBevoegd ? space + '(bevoegd)' : '';

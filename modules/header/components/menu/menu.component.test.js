@@ -119,21 +119,26 @@ describe('The dp-menu component', () => {
 
             const component = getComponent('tall');
 
+            // Name too long; ellipsis
             expect(component.find('dp-menu-dropdown').eq(0).attr('title')).toBe('longusern...');
 
+            // Name only one character too long; no ellipsis
             user.getName.and.returnValue('longuserna');
             $rootScope.$digest();
-            expect(component.find('dp-menu-dropdown').eq(0).attr('title')).toBe('longusern...');
+            expect(component.find('dp-menu-dropdown').eq(0).attr('title')).toBe('longuserna');
 
-            user.getName.and.returnValue('longuserna');
+            // User bevoegd
             user.getAuthorizationLevel.and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS);
+
+            // Name too long; ellipsis
             $rootScope.$digest();
             expect(component.find('dp-menu-dropdown').eq(0).attr('title')).toBe('long...(bevoegd)');
 
+            // Name only one character too long; no ellipsis
             user.getName.and.returnValue('longu');
             user.getAuthorizationLevel.and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS);
             $rootScope.$digest();
-            expect(component.find('dp-menu-dropdown').eq(0).attr('title')).toBe('long...(bevoegd)');
+            expect(component.find('dp-menu-dropdown').eq(0).attr('title')).toBe('longu (bevoegd)');
         });
     });
 
