@@ -9,14 +9,17 @@
     <div class="u-row">
         <div class="u-col-sm--offset-1 u-col-sm--7">
             <div class="c-user-content-overview__left">
-                <div id="{{vm.type}}{{entry.id}}" ng-repeat="entry in vm.entries" class="u-margin__bottom--4">
+                <div ng-if="!entry.short.isHref"
+                     id="{{vm.type}}{{entry.id}}"
+                     ng-repeat="entry in vm.entries"
+                     class="u-margin__bottom--4">
 
                     <div ng-if="vm.type !== 'events'">
                         <h2 class="u-margin__bottom--1">{{entry.titel.value}}</h2>
                         <div class="s-cms-page-content" ng-bind-html="entry.contents.html"></div>
                     </div>
 
-                    <div ng-if="vm.type === 'events' && !entry.short.isHref">
+                    <div ng-if="vm.type === 'events'">
                         <dp-event date="entry.datum.date">
                             <div class="u-margin__bottom--1">
                                 <div class="u-margin__left--2">
