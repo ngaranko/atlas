@@ -41,11 +41,11 @@ $link-offset: $base-font-size;
   &::before {
     display: inline-block;
     position: absolute;
-    top: 4px;
+    top: 0;
     left: -$link-offset;
     width: 7px;
-    height: 12px;
-    background-image: url("assets/icons/link-arrow.svg");
+    height: 100%;
+    background: url("assets/icons/link-arrow.svg") no-repeat center;
     content: "";
   }
 }
