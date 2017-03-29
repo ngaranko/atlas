@@ -112,6 +112,29 @@ describe('The dp-menu component', () => {
 
             expect(component.find('dp-menu-dropdown').eq(0).attr('title')).toBe('user (bevoegd)');
         });
+
+        it('shortens the name in every possible way', () => {
+            spyOn(user, 'getName').and.returnValue('longusername');
+            spyOn(user, 'getAuthorizationLevel').and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE);
+
+            const component = getComponent('tall');
+
+            expect(component.find('dp-menu-dropdown').eq(0).attr('title')).toBe('longusern...');
+
+            user.getName.and.returnValue('longuserna');
+            $rootScope.$digest();
+            expect(component.find('dp-menu-dropdown').eq(0).attr('title')).toBe('longusern...');
+
+            user.getName.and.returnValue('longuserna');
+            user.getAuthorizationLevel.and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS);
+            $rootScope.$digest();
+            expect(component.find('dp-menu-dropdown').eq(0).attr('title')).toBe('long...(bevoegd)');
+
+            user.getName.and.returnValue('longu');
+            user.getAuthorizationLevel.and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS);
+            $rootScope.$digest();
+            expect(component.find('dp-menu-dropdown').eq(0).attr('title')).toBe('long...(bevoegd)');
+        });
     });
 
     describe('the login button', () => {
