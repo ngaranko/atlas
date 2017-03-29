@@ -102,12 +102,12 @@
                 if (user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS)) {
                     delete kadastraleSubject.warning;
                 } else if (user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL.EMPLOYEE)) {
-                    kadastraleSubject.warning = 'Om alle gegevens (ook natuurlijke personen) te kunnen vinden,' +
-                    ' moet je als medewerker _speciale bevoegdheden_ hebben.'; // TODO: R: Links
+                    kadastraleSubject.warning = 'Om alle gegevens (ook natuurlijke personen) te kunnen vinden, moet' +
+                    ' je als medewerker speciale bevoegdheden hebben. Zie Help > Bediening dataportaal > Inloggen.';
                 } else {
                     kadastraleSubject.warning = 'Om kadastraal subjecten te kunnen vinden,' +
-                    ' moet je als medewerker/ketenpartner van Gemeente Amsterdam _inloggen_' +
-                    ' en _speciale bevoegdheden_ hebben.'; // TODO: R: Links
+                    ' moet je als medewerker/ketenpartner van Gemeente Amsterdam inloggen' +
+                    ' en speciale bevoegdheden hebben. Zie Help > Bediening dataportaal > Inloggen.';
                 }
             }
         }

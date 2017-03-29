@@ -689,7 +689,7 @@ describe('The dp-search-results component', function () {
 
             expect(categoryNode.find('.qa-category-warning').text()).toContain(
                 'Om alle gegevens (ook natuurlijke personen) te kunnen vinden,' +
-                ' moet je als medewerker _speciale bevoegdheden_ hebben.'
+                ' moet je als medewerker speciale bevoegdheden hebben. Zie Help > Bediening dataportaal > Inloggen.'
             );
         });
 
@@ -703,7 +703,7 @@ describe('The dp-search-results component', function () {
             expect(categoryNode.find('.qa-category-warning').text()).toContain(
                 'Om kadastraal subjecten te kunnen vinden,' +
                 ' moet je als medewerker/ketenpartner van Gemeente Amsterdam _inloggen_' +
-                ' en _speciale bevoegdheden_ hebben.'
+                ' en speciale bevoegdheden hebben. Zie Help > Bediening dataportaal > Inloggen.'
             );
         });
 
