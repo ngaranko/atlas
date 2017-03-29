@@ -68,7 +68,8 @@
   box-shadow: $button-shadow-size $button-shadow-size 0 0 $secondary-gray40;
 }
 
-%icon-button-box-white {
+%icon-button-box-white,
+%icon-button-box-transparent {
   background-color: $primary-light;
   color: $secondary-gray60;
 }
@@ -132,7 +133,8 @@
   top: -1px; // Compensate for the border
 }
 
-%icon-button-text-box-white {
+%icon-button-text-box-white,
+%icon-button-text-box-transparent {
   @extend %icon-button-box-white;
   border: 1px solid $secondary-gray20;
 }
