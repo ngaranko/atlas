@@ -16,8 +16,8 @@
 .c-menu__link {
   display: block;
   height: 100%;
-  padding-right: $base-whitespace;
-  padding-left: $base-whitespace;
+  padding-right: $base-whitespace * .8;
+  padding-left: $base-whitespace * .8;
   outline: none;
   color: $primary-dark;
   text-decoration: none;
@@ -30,6 +30,7 @@
   .c-menu__link {
     &::after {
       display: inline-block;
+      margin: -3px;
       transform: rotate(90deg);
       content: "›"; //Point downwards
     }
@@ -109,4 +110,8 @@
   .c-menu__dropdown {
     top: $site-header-height;
   }
+}
+
+._extra-space-for-the-menu-keep-right {
+  float: right;
 }
