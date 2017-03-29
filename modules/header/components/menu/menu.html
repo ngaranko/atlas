@@ -5,7 +5,7 @@
     </button>
     <dp-menu-dropdown ng-if="vm.isAuthenticated()"
                       class="qa-menu__user-menu"
-                      title="{{vm.userName() + (vm.userIsBevoegd() ? ' (bevoegd)': '')}}"
+                      title="{{vm.userMenuLabel}}"
                       type="user"
                       align="left"></dp-menu-dropdown>
     <span class="c-menu__item qa-menu__item">
