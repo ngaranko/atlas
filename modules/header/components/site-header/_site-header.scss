@@ -1,3 +1,5 @@
+$contact-height: 60px;
+
 .c-site-header {
   position: relative;
   background-color: $primary-light;
@@ -6,11 +8,15 @@
 .c-site-header__contact {
   @extend %link--arrow;
   @include font-size($xs-font);
-  height: 60px;
+  height: $contact-height;
   float: right;
   color: $primary-dark;
   font-weight: normal;
-  line-height: 60px;
+  line-height: $contact-height;
+
+  &::before {
+    height: $contact-height;
+  }
 }
 
 .c-site-header__toolbar {

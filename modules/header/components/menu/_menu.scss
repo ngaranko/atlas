@@ -69,6 +69,10 @@
   &:hover {
     color: $primary-contrast;
   }
+
+  &::before {
+    height: 2 * $s-font-size;
+  }
 }
 
 .c-menu__dropdown {
