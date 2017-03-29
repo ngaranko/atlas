@@ -6,7 +6,7 @@
         .component('dpSiteHeader', {
             bindings: {
                 query: '@',
-                actionType: '<',
+                searchAction: '<',
                 hasPrintButton: '<',
                 size: '='
             },

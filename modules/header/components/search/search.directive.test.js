@@ -107,7 +107,7 @@ describe('The dp-search directive', function () {
         promises = [];
     });
 
-    function getDirective (query, actionType = ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY) {
+    function getDirective (query, searchAction = ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY) {
         var directive,
             element,
             scope;
@@ -115,11 +115,11 @@ describe('The dp-search directive', function () {
         element = document.createElement('dp-search');
 
         element.setAttribute('query', query);
-        element.setAttribute('action-type', 'actionType');
+        element.setAttribute('search-action', 'searchAction');
 
         scope = $rootScope.$new();
 
-        scope.actionType = actionType;
+        scope.searchAction = searchAction;
 
         directive = $compile(element)(scope);
         scope.$apply();

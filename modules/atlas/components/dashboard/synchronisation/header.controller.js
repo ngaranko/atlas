@@ -25,11 +25,11 @@
                 (state.detail && state.detail.endpoint.includes('/catalogus/api/'))) {
                 // Search in datasets
                 vm.query = state.dataSelection && state.dataSelection.query;
-                vm.actionType = ACTIONS.FETCH_DATA_SELECTION;
+                vm.searchAction = ACTIONS.FETCH_DATA_SELECTION;
             } else {
                 // Default action is to search in data
                 vm.query = state.search && state.search.query;
-                vm.actionType = ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY;
+                vm.searchAction = ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY;
             }
 
             vm.hasPrintButton = !IS_DATA_SELECTION && !IS_HOMEPAGE;

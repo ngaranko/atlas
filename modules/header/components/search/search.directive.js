@@ -12,7 +12,7 @@
             restrict: 'E',
             scope: {
                 query: '@',
-                actionType: '<'
+                searchAction: '<'
             },
             templateUrl: 'modules/header/components/search/search.html',
             link: linkFunction
@@ -23,7 +23,6 @@
 
             scope.activeSuggestionIndex = -1;
             scope.originalQuery = scope.query;
-            scope.placeholder = 'Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord.';
 
             scope.formSubmit = function (event) {
                 event.preventDefault();
@@ -40,10 +39,6 @@
             };
 
             scope.getSuggestions = function () {
-                /**
-                 * Cancel the last request (if any), this way we ensure that a resolved autocompleteData.search() call
-                 * always has the latest data.
-                 */
                 scope.activeSuggestionIndex = -1;
                 scope.originalQuery = scope.query;
 
@@ -120,7 +115,7 @@
                 if (scope.activeSuggestionIndex === -1) {
                     // Load the search results
                     store.dispatch({
-                        type: scope.actionType,
+                        type: scope.searchAction,
                         payload: scope.query
                     });
                 } else {
