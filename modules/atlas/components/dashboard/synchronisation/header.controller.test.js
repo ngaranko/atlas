@@ -67,7 +67,7 @@ describe('The header controller', function () {
         const controller = getController();
 
         expect(controller.query).toBe('search query');
-        expect(controller.actionType).toEqual(ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY);
+        expect(controller.searchAction).toEqual(ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY);
     });
 
     it('sets the dataSelection query and action when datasets are active', function () {
@@ -81,7 +81,7 @@ describe('The header controller', function () {
         const controller = getController();
 
         expect(controller.query).toBe('dataSelection query');
-        expect(controller.actionType).toEqual(ACTIONS.FETCH_DATA_SELECTION);
+        expect(controller.searchAction).toEqual(ACTIONS.FETCH_DATA_SELECTION);
     });
 
     it('sets the dataSelection query and action when detail API view is active', function () {
@@ -94,7 +94,7 @@ describe('The header controller', function () {
         const controller = getController();
 
         expect(controller.query).toBeUndefined();
-        expect(controller.actionType).toEqual(ACTIONS.FETCH_DATA_SELECTION);
+        expect(controller.searchAction).toEqual(ACTIONS.FETCH_DATA_SELECTION);
     });
 
     it('default sets the search query and search action', function () {
@@ -103,7 +103,7 @@ describe('The header controller', function () {
         const controller = getController();
 
         expect(controller.query).toBeUndefined();
-        expect(controller.actionType).toEqual(ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY);
+        expect(controller.searchAction).toEqual(ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY);
     });
 
     it('doesn\'t break when search is null', function () {
