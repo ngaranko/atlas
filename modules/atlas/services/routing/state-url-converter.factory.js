@@ -121,11 +121,31 @@
             state2params,
             state2url,
             params2state,
+            urlSafeState,
             getDefaultState
         };
 
         function getDefaultState () {
             return params2state({}, {});
+        }
+
+        function urlSafeState (state) {
+            // modifies the given state so that state2url and url2state are identical
+            // This means that all values that are 'truncated' to a certain precision
+            // are truncated before they get in the url
+            Object.keys(STATE_URL_CONVERSION.stateVariables)
+                .map(key => STATE_URL_CONVERSION.stateVariables[key])
+                .filter(attribute => angular.isDefined(attribute.precision))
+                .map(attribute => [attribute, getValueForKey(state, attribute.name)])
+                .filter(([attribute, value]) => value !== null)
+                .forEach(([attribute, value]) => {
+                    // Convert the state value so that when it is read from the url no change exists
+                    // between the current state and the state read from the url
+                    // This prevents erroneous back-button behaviour
+                    const newValue = dpBaseCoder.toPrecision(value, attribute.precision);
+                    setValueForKey(state, state, attribute.name, newValue);
+                });
+            return state;
         }
 
         function state2url (state) {
