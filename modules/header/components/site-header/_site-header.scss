@@ -6,8 +6,9 @@
 .c-site-header__contact {
   @extend %link--arrow;
   @include font-size($xs-font);
+  height: 60px;
   float: right;
-  color: $secondary-gray60;
+  color: $primary-dark;
   font-weight: normal;
   line-height: 60px;
 }
