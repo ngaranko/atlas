@@ -105,14 +105,19 @@
 
             FETCH_STRAATBEELD_BY_ID: {
                 id: 'FETCH_STRAATBEELD_BY_ID',
+                ignore: false
+            },
+            FETCH_STRAATBEELD_BY_HOTSPOT: {
+                id: 'FETCH_STRAATBEELD_BY_HOTSPOT',
                 ignore: true
             },
             FETCH_STRAATBEELD_BY_LOCATION: {
                 id: 'FETCH_STRAATBEELD_BY_LOCATION',
-                ignore: true
+                ignore: false
             },
             SHOW_STRAATBEELD_INITIAL: {
-                id: 'SHOW_STRAATBEELD_INITIAL'
+                id: 'SHOW_STRAATBEELD_INITIAL',
+                ignore: true
             },
             SHOW_STRAATBEELD_SUBSEQUENT: {
                 id: 'SHOW_STRAATBEELD_SUBSEQUENT',
