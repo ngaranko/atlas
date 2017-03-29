@@ -64,3 +64,7 @@
     height: $site-header-height;
   }
 }
+
+._extra-space-for-the-menu {
+  left: $base-whitespace * -2;
+}
