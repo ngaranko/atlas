@@ -87,11 +87,7 @@
                 <dp-glossary-header definition="ZAKELIJK_RECHT" use-plural="true"></dp-glossary-header>
 
                 <dp-panel is-panel-visible="vm.showInsufficientRightsMessage" type="warning" can-close="true" class-name="c-kadastraal-subject__warning">
-                    Om alle gegevens (ook zakelijke rechten) te kunnen zien, moet je als medewerker
-                    <a class="o-link-inline o-link-inline--light"
-                       target="_blank"
-                       href="http://intranet.amsterdam.nl/mdw-basisinformatie/projecten-0/programma-datapunt/autorisatie-atlas/">speciale bevoegdheden</a>
-                    hebben.
+                    Om alle gegevens (ook zakelijke rechten) te kunnen zien, moet je als medewerker speciale bevoegdheden hebben. Zie Help > Bediening dataportaal > Inloggen.
                 </dp-panel>
 
                 <dp-api-call ng-if="vm.apiData.results.rechten.count" endpoint="{{vm.apiData.results.rechten.href}}" partial="brk/subject-rechten"></dp-api-call>
