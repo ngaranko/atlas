@@ -70,6 +70,7 @@
             if (!isEmployee && category === 'brk' && subject === 'subject') {
                 // User is not authenticated / authorized to view detail so do not fetch data
                 vm.isLoading = false;
+                delete vm.apiData;
             } else {
                 api.getByUrl(endpoint).then(function (data) {
                     data = dataFormatter.formatData(data, subject);
