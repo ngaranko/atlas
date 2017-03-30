@@ -60,8 +60,7 @@
         };
 
         function onAuthorizationChange () {
-            vm.isMoreInfoAvailable = !(user.getUserType() === user.USER_TYPE.AUTHENTICATED &&
-            user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL.EMPLOYEE));
+            vm.isMoreInfoAvailable = !user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL.EMPLOYEE);
 
             setOverlays();
         }

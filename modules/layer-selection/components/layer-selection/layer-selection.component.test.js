@@ -70,14 +70,6 @@ describe('The dp-layer-selection component', function () {
                 $provide.factory('dpPanelDirective', function () {
                     return {};
                 });
-
-                $provide.factory('dpPanelIconDirective', function () {
-                    return {};
-                });
-
-                $provide.factory('dpPanelBodyDirective', function () {
-                    return {};
-                });
             }
         );
 
@@ -425,7 +417,6 @@ describe('The dp-layer-selection component', function () {
         describe('the warning message', () => {
             beforeEach(() => {
                 spyOn(user, 'getAuthorizationLevel').and.returnValue('foo');
-                spyOn(user, 'getUserType').and.returnValue(user.USER_TYPE.NONE);
                 spyOn(user, 'meetsRequiredLevel').and.returnValue(false);
             });
             it('is shown if not logged in', () => {
@@ -436,14 +427,13 @@ describe('The dp-layer-selection component', function () {
                      ' Zie Help > Bediening dataportaal > Inloggen.');
             });
             it('is shown for a non-employee', () => {
-                user.getUserType.and.returnValue(user.USER_TYPE.AUTHENTICATED);
+                user.meetsRequiredLevel.and.returnValue(false);
 
                 const component = getComponent('base_layer_a', [], 8);
 
                 expect(component.find('.qa-category-warning').length).toBe(1);
             });
             it('is not shown for an employee', () => {
-                user.getUserType.and.returnValue(user.USER_TYPE.AUTHENTICATED);
                 user.meetsRequiredLevel.and.returnValue(true);
 
                 const component = getComponent('base_layer_a', [], 8);
@@ -455,7 +445,6 @@ describe('The dp-layer-selection component', function () {
                 expect(component.find('.qa-category-warning').length).toBe(1);
 
                 user.getAuthorizationLevel.and.returnValue('bar'); // changed so $watch fires
-                user.getUserType.and.returnValue(user.USER_TYPE.AUTHENTICATED);
                 user.meetsRequiredLevel.and.returnValue(true);
                 $rootScope.$digest();
 
