@@ -432,6 +432,20 @@ describe('The dp-search-results component', function () {
                 expect(component.find('.qa-search-header').eq(0).text().trim()).toBe('Adres');
             });
 
+            it('has a plural heading in case only a warning is shown', function () {
+                user.meetsRequiredLevel.and.returnValue(false);
+                const component = getComponent(22, null, [51.123, 4.789]);
+                const isolateScope = component.isolateScope();
+
+                isolateScope.vm.searchResults[3].results = [];
+                isolateScope.vm.searchResults[3].count = 0;
+                isolateScope.$digest();
+
+                const categoryNode = component.find('[ng-repeat="category in vm.searchResults"]').eq(3);
+                expect(categoryNode.find('.qa-category-warning').length).toBe(1);
+                expect(categoryNode.find('.qa-search-header').text().trim()).toBe('Kadastrale objecten');
+            });
+
             it('categories with more than 10 results show a link to the category', function () {
                 let component;
 
