@@ -1,7 +1,7 @@
 <div ng-if="vm.feed">
-    <div class="c-user-content-widget__beleid-zie-ook">Zie ook</div>
+    <div class="c-user-content-widget__beleid-zie-ook">Meer over dit dataportaal</div>
 
-    <div class="c-user-content-widget__beleid-lees-meer">Meer over dit dataportaal</div>
+    <!--div class="c-user-content-widget__beleid-lees-meer">Meer over dit dataportaal</div-->
 
     <div ng-repeat="entry in vm.entries  | limitTo: vm.limitTo" class="c-user-content-widget__entry">
         <dp-link type="SHOW_PAGE" payload="{name: 'content-detail', type: vm.type, item: entry.id}">
