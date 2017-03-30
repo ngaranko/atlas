@@ -429,7 +429,7 @@ describe('The dp-search-results component', function () {
                 mockedSearchResults[0].count = 1;
                 mockedSearchResults[0].results.length = 1;
                 component = getComponent(12, 'Weesperstraat');
-                expect(component.find('h2').eq(0).text().trim()).toBe('Adres');
+                expect(component.find('.qa-search-header').eq(0).text().trim()).toBe('Adres');
             });
 
             it('categories with more than 10 results show a link to the category', function () {
@@ -527,13 +527,14 @@ describe('The dp-search-results component', function () {
         });
 
         it('shows search results from the geosearch API on the scope', function () {
-            expect(component.find('h2').length).toBe(5);
+            expect(component.find('.qa-search-header').length).toBe(5);
 
             // 21 Links include an additional 'show more' link to Pand and it includes only 10 adressen instead of 12
             expect(component.find('.qa-search-result dp-link').length).toBe(21);
 
             // First category
-            expect(component.find('h2').eq(0).text().trim()).toBe('Pand'); // Singular, no number of results shown
+            expect(component.find('.qa-search-header').
+                eq(0).text().trim()).toBe('Pand'); // Singular, no number of results shown
 
             expect(removeWhitespace(component.find('.qa-search-result dp-link').eq(0).text())).toBe('03630013054429');
             component.find('.qa-search-result dp-link').eq(0).find('button').click();
@@ -543,7 +544,8 @@ describe('The dp-search-results component', function () {
             });
 
             // Second category
-            expect(component.find('h2').eq(1).text().trim()).toBe('Adressen (12)'); // Plural, with number of results
+            expect(component.find('.qa-search-header')
+                .eq(1).text().trim()).toBe('Adressen (12)'); // Plural, with number of results
 
             expect(removeWhitespace(component.find('.qa-search-result dp-link').eq(1).text()))
                 .toBe('Lumièrestraat 6');
@@ -562,7 +564,7 @@ describe('The dp-search-results component', function () {
             });
 
             // Third category
-            expect(component.find('h2').eq(2).text().trim()).toBe('Openbare ruimtes (3)'); // Plural
+            expect(component.find('.qa-search-header').eq(2).text().trim()).toBe('Openbare ruimtes (3)'); // Plural
 
             expect(removeWhitespace(component.find('.qa-search-result dp-link').eq(12).text())).toBe('Test OR #1');
             component.find('.qa-search-result dp-link').eq(12).find('button').click();
@@ -579,7 +581,7 @@ describe('The dp-search-results component', function () {
             });
 
             // Fourth category
-            expect(component.find('h2').eq(3).text().trim()).toBe('Kadastraal object'); // Singular
+            expect(component.find('.qa-search-header').eq(3).text().trim()).toBe('Kadastraal object'); // Singular
 
             expect(removeWhitespace(component.find('.qa-search-result dp-link').eq(15).text()))
                 .toBe('ASD41AU00154G0000');
@@ -590,7 +592,7 @@ describe('The dp-search-results component', function () {
             });
 
             // Fifth category
-            expect(component.find('h2').eq(4).text().trim()).toBe('Gebieden (5)'); // Plural
+            expect(component.find('.qa-search-header').eq(4).text().trim()).toBe('Gebieden (5)'); // Plural
 
             expect(removeWhitespace(component.find('.qa-search-result dp-link').eq(16).text()))
                 .toBe('Haveneiland Noordoost');
@@ -673,7 +675,7 @@ describe('The dp-search-results component', function () {
             const component = getComponent(22, null, [51.123, 4.789]);
 
             const categoryNode = component.find('[ng-repeat="category in vm.searchResults"]').eq(3);
-            expect(categoryNode.find('h2').text().trim()).toBe('Kadastraal object');
+            expect(categoryNode.find('.qa-search-header').text().trim()).toBe('Kadastraal object');
 
             expect(categoryNode.find('.qa-category-warning').length).toBe(0);
         });
@@ -685,7 +687,7 @@ describe('The dp-search-results component', function () {
             const component = getComponent(22, null, [51.123, 4.789]);
 
             const categoryNode = component.find('[ng-repeat="category in vm.searchResults"]').eq(3);
-            expect(categoryNode.find('h2').text().trim()).toBe('Kadastraal object');
+            expect(categoryNode.find('.qa-search-header').text().trim()).toBe('Kadastraal object');
 
             expect(categoryNode.find('.qa-category-warning').text()).toContain(
                 'Om alle gegevens (ook natuurlijke personen) te kunnen vinden,' +
@@ -698,7 +700,7 @@ describe('The dp-search-results component', function () {
             const component = getComponent(22, null, [51.123, 4.789]);
 
             const categoryNode = component.find('[ng-repeat="category in vm.searchResults"]').eq(3);
-            expect(categoryNode.find('h2').text().trim()).toBe('Kadastraal object');
+            expect(categoryNode.find('.qa-search-header').text().trim()).toBe('Kadastraal object');
 
             expect(categoryNode.find('.qa-category-warning').text()).toContain(
                 'Om kadastraal subjecten te kunnen vinden,' +
@@ -713,7 +715,7 @@ describe('The dp-search-results component', function () {
             );
             const component = getComponent(22, null, [51.123, 4.789]);
             const categoryNode = component.find('[ng-repeat="category in vm.searchResults"]').eq(3);
-            expect(categoryNode.find('h2').text().trim()).toBe('Kadastraal object');
+            expect(categoryNode.find('.qa-search-header').text().trim()).toBe('Kadastraal object');
             expect(categoryNode.find('.qa-category-warning').length).toBe(0);
 
             spyOn(user, 'getAuthorizationLevel').and.returnValue('foo'); // changed so $watch fires
