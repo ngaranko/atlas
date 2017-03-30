@@ -21,8 +21,7 @@
         function linkFunction (scope, element) {
             var templateUrl = 'modules/detail/components/partial-select/partials/' + scope.partial + '.html';
 
-            scope.showMoreInfoWarning = !(user.getUserType() === user.USER_TYPE.AUTHENTICATED &&
-                user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL.EMPLOYEE));
+            scope.showMoreInfoWarning = !user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL.EMPLOYEE);
 
             partialCompiler.getHtml(templateUrl, scope).then(function (partial) {
                 scope.loadMore = scope.loadMoreFn;

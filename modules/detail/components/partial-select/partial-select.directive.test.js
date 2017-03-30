@@ -22,22 +22,6 @@ describe('The dp-partial-select directive', function () {
 
                         return q.promise;
                     }
-                },
-                api: {
-                    getByUrl: function () {
-                        var q = $q.defer();
-
-                        q.resolve({
-                            _links: {
-                                next: {
-                                    href: 'http://www.fake-domain.com/something?page=2'
-                                }
-                            },
-                            results: ['ITEM_D', 'ITEM_E', 'ITEM_F']
-                        });
-
-                        return q.promise;
-                    }
                 }
             }
         );
@@ -53,7 +37,6 @@ describe('The dp-partial-select directive', function () {
 
         spyOn(partialCompiler, 'getHtml').and.callThrough();
         spyOn(api, 'getByUrl').and.callThrough();
-        spyOn(user, 'getUserType').and.returnValue(null);
         spyOn(user, 'meetsRequiredLevel').and.returnValue(false);
     });
 
@@ -112,16 +95,7 @@ describe('The dp-partial-select directive', function () {
             const scope = directive.isolateScope();
             expect(scope.showMoreInfoWarning).toBe(true);
         });
-        it('is shown for a non-employee', () => {
-            user.getUserType.and.returnValue(user.USER_TYPE.AUTHENTICATED);
-
-            const directive = getDirective({foo: 'FAKE_API_DATA_A'}, 'my-template');
-
-            const scope = directive.isolateScope();
-            expect(scope.showMoreInfoWarning).toBe(true);
-        });
         it('is not shown for an employee', () => {
-            user.getUserType.and.returnValue(user.USER_TYPE.AUTHENTICATED);
             user.meetsRequiredLevel.and.returnValue(true);
 
             const directive = getDirective({foo: 'FAKE_API_DATA_A'}, 'my-template');
