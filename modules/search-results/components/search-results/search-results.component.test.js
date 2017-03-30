@@ -176,7 +176,7 @@ describe('The dp-search-results component', function () {
                     {
                         label: '03630013054429',
                         subtype: null,
-                        endpoint: 'https://api.datapunt.amsterdam.nl/bag/pand/03630013054429/'
+                        endpoint: 'https://api.data.amsterdam.nl/bag/pand/03630013054429/'
                     }
                 ],
                 count: 1,
@@ -190,57 +190,57 @@ describe('The dp-search-results component', function () {
                 results: [
                     {
                         label: 'Lumièrestraat 6',
-                        endpoint: 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/03630001023953/'
+                        endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023953/'
                     },
                     {
                         label: 'Lumièrestraat 8',
-                        endpoint: 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/03630001023954/'
+                        endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023954/'
                     },
                     {
                         label: 'Lumièrestraat 10',
-                        endpoint: 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/03630001023955/'
+                        endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023955/'
                     },
                     {
                         label: 'Lumièrestraat 12',
-                        endpoint: 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/03630001023956/'
+                        endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023956/'
                     },
                     {
                         label: 'Lumièrestraat 14',
-                        endpoint: 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/03630001023957/'
+                        endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023957/'
                     },
                     {
                         label: 'Lumièrestraat 16',
-                        endpoint: 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/03630001023958/'
+                        endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023958/'
                     },
                     {
                         label: 'Lumièrestraat 18',
-                        endpoint: 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/03630001023959/'
+                        endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023959/'
                     },
                     {
                         label: 'Lumièrestraat 20',
-                        endpoint: 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/03630001023960/'
+                        endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023960/'
                     },
                     {
                         label: 'Lumièrestraat 22',
-                        endpoint: 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/03630001023961/'
+                        endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023961/'
                     },
                     {
                         label: 'Lumièrestraat 24',
-                        endpoint: 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/03630001023962/'
+                        endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023962/'
                     },
                     {
                         label: 'Lumièrestraat 26',
-                        endpoint: 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/03630001023963/'
+                        endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023963/'
                     },
                     {
                         label: 'Lumièrestraat 28',
-                        endpoint: 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/03630001023964/'
+                        endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023964/'
                     }
                 ],
-                next: 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/?page=2&panden__id=03630013054429',
+                next: 'https://api.data.amsterdam.nl/bag/verblijfsobject/?page=2&panden__id=03630013054429',
                 more: {
                     label: 'Bekijk alle 12 adressen binnen dit pand',
-                    endpoint: 'https://api.datapunt.amsterdam.nl/bag/pand/03630013054429/'
+                    endpoint: 'https://api.data.amsterdam.nl/bag/pand/03630013054429/'
                 },
                 useIndenting: true
             },
@@ -251,17 +251,17 @@ describe('The dp-search-results component', function () {
                     {
                         label: 'Test OR #1',
                         subtype: 'landschappelijk gebied',
-                        endpoint: 'https://api.datapunt.amsterdam.nl/bag/openbareruimte/123/'
+                        endpoint: 'https://api.data.amsterdam.nl/bag/openbareruimte/123/'
                     },
                     {
                         label: 'Test OR #2',
                         subtype: 'weg',
-                        endpoint: 'https://api.datapunt.amsterdam.nl/bag/openbareruimte/456/'
+                        endpoint: 'https://api.data.amsterdam.nl/bag/openbareruimte/456/'
                     },
                     {
                         label: 'Test OR #3',
                         subtype: 'water',
-                        endpoint: 'https://api.datapunt.amsterdam.nl/bag/openbareruimte/789/'
+                        endpoint: 'https://api.data.amsterdam.nl/bag/openbareruimte/789/'
                     }
                 ],
                 count: 3,
@@ -275,7 +275,7 @@ describe('The dp-search-results component', function () {
                     {
                         label: 'ASD41AU00154G0000',
                         subtype: null,
-                        endpoint: 'https://api.datapunt.amsterdam.nl/brk/object/NL.KAD.OnroerendeZaak.11820015470000/'
+                        endpoint: 'https://api.data.amsterdam.nl/brk/object/NL.KAD.OnroerendeZaak.11820015470000/'
                     }
                 ],
                 count: 1,
@@ -288,27 +288,27 @@ describe('The dp-search-results component', function () {
                     {
                         label: 'Haveneiland Noordoost',
                         subtype: null,
-                        endpoint: 'https://api.datapunt.amsterdam.nl/gebieden/buurt/03630023754004/'
+                        endpoint: 'https://api.data.amsterdam.nl/gebieden/buurt/03630023754004/'
                     },
                     {
                         label: 'IJburg West',
                         subtype: null,
-                        endpoint: 'https://api.datapunt.amsterdam.nl/gebieden/buurtcombinatie/3630012052079/'
+                        endpoint: 'https://api.data.amsterdam.nl/gebieden/buurtcombinatie/3630012052079/'
                     },
                     {
                         label: 'Ijburg / Eiland Zeeburg',
                         subtype: null,
-                        endpoint: 'https://api.datapunt.amsterdam.nl/gebieden/gebiedsgerichtwerken/DX16/'
+                        endpoint: 'https://api.data.amsterdam.nl/gebieden/gebiedsgerichtwerken/DX16/'
                     },
                     {
                         label: 'AW33',
                         subtype: null,
-                        endpoint: 'https://api.datapunt.amsterdam.nl/gebieden/bouwblok/03630012096424/'
+                        endpoint: 'https://api.data.amsterdam.nl/gebieden/bouwblok/03630012096424/'
                     },
                     {
                         label: 'Oost',
                         subtype: null,
-                        endpoint: 'https://api.datapunt.amsterdam.nl/gebieden/stadsdeel/03630011872039/'
+                        endpoint: 'https://api.data.amsterdam.nl/gebieden/stadsdeel/03630011872039/'
                     }
                 ],
                 count: 5,
@@ -554,7 +554,7 @@ describe('The dp-search-results component', function () {
             component.find('.qa-search-result dp-link').eq(0).find('button').click();
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://api.datapunt.amsterdam.nl/bag/pand/03630013054429/'
+                payload: 'https://api.data.amsterdam.nl/bag/pand/03630013054429/'
             });
 
             // Second category
@@ -566,7 +566,7 @@ describe('The dp-search-results component', function () {
             component.find('.qa-search-result dp-link').eq(1).find('button').click();
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/03630001023953/'
+                payload: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023953/'
             });
 
             expect(removeWhitespace(component.find('.qa-search-result dp-link').eq(10).text()))
@@ -574,7 +574,7 @@ describe('The dp-search-results component', function () {
             component.find('.qa-search-result dp-link').eq(10).find('button').click();
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://api.datapunt.amsterdam.nl/bag/verblijfsobject/03630001023962/'
+                payload: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023962/'
             });
 
             // Third category
@@ -584,14 +584,14 @@ describe('The dp-search-results component', function () {
             component.find('.qa-search-result dp-link').eq(12).find('button').click();
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://api.datapunt.amsterdam.nl/bag/openbareruimte/123/'
+                payload: 'https://api.data.amsterdam.nl/bag/openbareruimte/123/'
             });
 
             expect(removeWhitespace(component.find('.qa-search-result dp-link').eq(14).text())).toBe('Test OR #3');
             component.find('.qa-search-result dp-link').eq(14).find('button').click();
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://api.datapunt.amsterdam.nl/bag/openbareruimte/789/'
+                payload: 'https://api.data.amsterdam.nl/bag/openbareruimte/789/'
             });
 
             // Fourth category
@@ -602,7 +602,7 @@ describe('The dp-search-results component', function () {
             component.find('.qa-search-result dp-link').eq(15).find('button').click();
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://api.datapunt.amsterdam.nl/brk/object/NL.KAD.OnroerendeZaak.11820015470000/'
+                payload: 'https://api.data.amsterdam.nl/brk/object/NL.KAD.OnroerendeZaak.11820015470000/'
             });
 
             // Fifth category
@@ -613,14 +613,14 @@ describe('The dp-search-results component', function () {
             component.find('.qa-search-result dp-link').eq(16).find('button').click();
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://api.datapunt.amsterdam.nl/gebieden/buurt/03630023754004/'
+                payload: 'https://api.data.amsterdam.nl/gebieden/buurt/03630023754004/'
             });
 
             expect(removeWhitespace(component.find('.qa-search-result dp-link').eq(20).text())).toBe('Oost');
             component.find('.qa-search-result dp-link').eq(20).find('button').click();
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://api.datapunt.amsterdam.nl/gebieden/stadsdeel/03630011872039/'
+                payload: 'https://api.data.amsterdam.nl/gebieden/stadsdeel/03630011872039/'
             });
         });
 
@@ -653,7 +653,7 @@ describe('The dp-search-results component', function () {
             component.find('.qa-search-result dp-link').eq(11).find('button').click();
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://api.datapunt.amsterdam.nl/bag/pand/03630013054429/'
+                payload: 'https://api.data.amsterdam.nl/bag/pand/03630013054429/'
             });
 
             const numberOfDpLinks = component.find('.qa-search-result dp-link').length;
