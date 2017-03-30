@@ -138,14 +138,8 @@
         }
 
         function setRefreshToken (token, userType) {
-            const currentAuthorizationLevel = user.authorizationLevel;
-
             user.type = userType;
             user.refreshToken = token;
-
-            if (! meetsRequiredLevel(currentAuthorizationLevel)) {
-                onLowerAuthorizationLevel();
-            }
         }
 
         function getAccessToken () {
@@ -153,7 +147,13 @@
         }
 
         function setAccessToken (token) {
+            const currentAuthorizationLevel = user.authorizationLevel;
+
             user.accessToken = token;
+
+            if (!meetsRequiredLevel(currentAuthorizationLevel)) {
+                onLowerAuthorizationLevel();
+            }
         }
 
         function getUserType () {
