@@ -547,8 +547,8 @@ describe('The dp-search-results component', function () {
             expect(component.find('.qa-search-result dp-link').length).toBe(21);
 
             // First category
-            expect(component.find('.qa-search-header').
-                eq(0).text().trim()).toBe('Pand'); // Singular, no number of results shown
+            expect(component.find('.qa-search-header')
+                .eq(0).text().trim()).toBe('Pand'); // Singular, no number of results shown
 
             expect(removeWhitespace(component.find('.qa-search-result dp-link').eq(0).text())).toBe('03630013054429');
             component.find('.qa-search-result dp-link').eq(0).find('button').click();

@@ -89,7 +89,7 @@ describe('The dp-partial-select directive', function () {
     });
 
     describe('the warning message', () => {
-        it('is shown if not logged in', () => {
+        it('is shown if not an employee', () => {
             const directive = getDirective({foo: 'FAKE_API_DATA_A'}, 'my-template');
 
             const scope = directive.isolateScope();
