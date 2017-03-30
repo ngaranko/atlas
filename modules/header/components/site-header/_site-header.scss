@@ -10,6 +10,10 @@
   color: $secondary-gray60;
   font-weight: normal;
   line-height: 60px;
+
+  &::before {
+    top: 20px;
+  }
 }
 
 .c-site-header__toolbar {
