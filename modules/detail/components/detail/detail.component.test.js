@@ -322,7 +322,6 @@ describe('the dp-detail component', function () {
     });
 
     it('sets the SHOW_DETAIL geometry payload to null if there is no geometry', function () {
-        user.getUserType.and.returnValue(user.USER_TYPE.AUTHENTICATED);
         user.meetsRequiredLevel.and.returnValue(true);
 
         getComponent(naturalPersonEndPoint);
@@ -348,7 +347,6 @@ describe('the dp-detail component', function () {
         });
 
         it('sets it to true when there is no geometry', function () {
-            user.getUserType.and.returnValue(user.USER_TYPE.AUTHENTICATED);
             user.meetsRequiredLevel.and.returnValue(true);
 
             getComponent('http://www.fake-endpoint.com/brk/subject/123/');
@@ -414,7 +412,7 @@ describe('the dp-detail component', function () {
             });
         });
 
-        it('does not show a message that more info is available employee plus users', function () {
+        it('does not show a message that more info is available for employee plus users', function () {
             user.getAuthorizationLevel.and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS);
 
             const component = getComponent(naturalPersonEndPoint);
@@ -425,14 +423,8 @@ describe('the dp-detail component', function () {
     });
 
     describe('the warning message', () => {
-        it('is shown if not logged in', () => {
-            const component = getComponent(naturalPersonEndPoint);
-
-            const scope = component.isolateScope();
-            expect(scope.vm.showMoreInfoWarning).toBe(true);
-        });
-        it('is shown for a non-employee', () => {
-            user.getUserType.and.returnValue(user.USER_TYPE.AUTHENTICATED);
+        it('is shown if not an employee', () => {
+            user.meetsRequiredLevel.and.returnValue(false);
 
             const component = getComponent(naturalPersonEndPoint);
 
@@ -440,7 +432,6 @@ describe('the dp-detail component', function () {
             expect(scope.vm.showMoreInfoWarning).toBe(true);
         });
         it('is not shown for an employee', () => {
-            user.getUserType.and.returnValue(user.USER_TYPE.AUTHENTICATED);
             user.meetsRequiredLevel.and.returnValue(true);
 
             const component = getComponent(naturalPersonEndPoint);
@@ -469,15 +460,19 @@ describe('the dp-detail component', function () {
 
     describe('"kadastraal subject" data', () => {
         it('should be fetched if is authenticated as EMPLOYEE', () => {
-            user.getUserType.and.returnValue(user.USER_TYPE.AUTHENTICATED);
             user.meetsRequiredLevel.and.returnValue(true);
 
             getComponent(naturalPersonEndPoint);
 
-            expect(store.dispatch).toHaveBeenCalled();
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.SHOW_DETAIL,
+                payload: jasmine.objectContaining({
+                    geometry: null
+                })
+            });
         });
         it('should not fetch data if not authorized', () => {
-            user.getUserType.and.returnValue(user.USER_TYPE.NONE);
+            user.meetsRequiredLevel.and.returnValue(false);
 
             const component = getComponent(naturalPersonEndPoint);
 
@@ -489,14 +484,14 @@ describe('the dp-detail component', function () {
         });
         it('should remove apiData if not authorized', () => {
             // Special case where user is logged out while on detail page and the user loses access to content
-            user.getUserType.and.returnValue(user.USER_TYPE.AUTHENTICATED);
             user.meetsRequiredLevel.and.returnValue(true);
             const component = getComponent(naturalPersonEndPoint);
             const scope = component.isolateScope();
             store.dispatch.calls.reset();
             expect(scope.vm.apiData).toBeDefined(); // data shown
 
-            user.getUserType.and.returnValue(user.USER_TYPE.NONE);
+            user.getUserType.and.returnValue(user.USER_TYPE.NONE); // triggers $watch
+            user.meetsRequiredLevel.and.returnValue(false);
             scope.$digest();
 
             expect(scope.vm.isLoading).toBe(false);

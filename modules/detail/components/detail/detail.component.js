@@ -62,8 +62,7 @@
             vm.includeSrc = endpointParser.getTemplateUrl(endpoint);
 
             // Derive whether more info is available if the user would be authenticated
-            const isEmployee = user.getUserType() === user.USER_TYPE.AUTHENTICATED &&
-            user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL.EMPLOYEE);
+            const isEmployee = user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL.EMPLOYEE);
             vm.showMoreInfoWarning = !isEmployee;
 
             const [category, subject] = endpointParser.getParts(endpoint);
