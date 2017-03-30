@@ -183,7 +183,7 @@ describe('The user factory', function () {
             user.setAccessToken(testAccessTokenAuthz0);
             expect($window.location.reload).not.toHaveBeenCalled();
             user.setAccessToken(testAccessTokenAuthz1);
-            expect($window.location.reload).not.toHaveBeenCalledWith();
+            expect($window.location.reload).not.toHaveBeenCalled();
         });
     });
 
