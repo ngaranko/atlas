@@ -9,7 +9,7 @@
     <div class="u-row">
         <div class="u-col-sm--offset-1 u-col-sm--7">
             <div class="c-user-content-overview__left">
-                <div id="{{vm.type}}{{entry.id}}" ng-repeat="entry in vm.entries" class="u-margin__bottom--4">
+                <div id="{{vm.type}}{{entry.id}}" ng-repeat="entry in vm.entries" ng-if="entry.titel.value" class="u-margin__bottom--4">
 
                     <div ng-if="vm.type !== 'events'">
                         <h2 class="u-margin__bottom--1">{{entry.titel.value}}</h2>
@@ -39,7 +39,8 @@
                 <dp-anchor-link ng-repeat="e in vm.entries"
                                 link="{{$first ? (vm.type + 'top') : (vm.type + e.id)}}"
                                 class-name="u-margin__bottom--1"
-                                auto-scroll="e.id === vm.entry.id">
+                                auto-scroll="e.id === vm.entry.id"
+                                ng-if="e.titel.value">
                     {{e.titel.value}}
                 </dp-anchor-link>
             </div>
