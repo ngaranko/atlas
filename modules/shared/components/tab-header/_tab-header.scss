@@ -1,3 +1,8 @@
 .c-tab-header__title {
   margin-bottom: 3 * $base-whitespace;
 }
+
+.c-tab-header__reset {
+  float: right;
+  border: 1px solid $secondary-gray40;
+}
