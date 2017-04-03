@@ -1,3 +1,5 @@
+$contact-height: 60px;
+
 .c-site-header {
   position: relative;
   background-color: $primary-light;
@@ -6,13 +8,15 @@
 .c-site-header__contact {
   @extend %link--arrow;
   @include font-size($xs-font);
+  height: $contact-height;
   float: right;
-  color: $secondary-gray60;
+  color: $primary-dark;
   font-weight: normal;
-  line-height: 60px;
+  line-height: $contact-height;
 
   &::before {
     top: 20px;
+    height: $contact-height;
   }
 }
 
@@ -66,4 +70,8 @@
     right: 0;
     height: $site-header-height;
   }
+}
+
+._extra-space-for-the-menu {
+  left: $base-whitespace * -2;
 }

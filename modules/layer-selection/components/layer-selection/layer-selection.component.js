@@ -19,7 +19,7 @@
     function DpLayerSelectionController ($scope, BASE_LAYERS, overlays, store, ACTIONS, user) {
         var vm = this;
 
-        $scope.$watch(user.getAuthorizationLevel, setOverlays);
+        $scope.$watch(user.getAuthorizationLevel, onAuthorizationChange);
 
         vm.allBaseLayers = BASE_LAYERS;
 
@@ -58,6 +58,12 @@
             return vm.zoom >= overlays.SOURCES[overlay].minZoom &&
                 vm.zoom <= overlays.SOURCES[overlay].maxZoom;
         };
+
+        function onAuthorizationChange () {
+            vm.isMoreInfoAvailable = !user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL.EMPLOYEE);
+
+            setOverlays();
+        }
 
         function setOverlays () {
             vm.allOverlays = overlays.HIERARCHY.map(function (category) {

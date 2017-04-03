@@ -2,6 +2,7 @@ describe('The dp-layer-selection component', function () {
     var $compile,
         $rootScope,
         store,
+        user,
         ACTIONS;
 
     beforeEach(function () {
@@ -69,21 +70,14 @@ describe('The dp-layer-selection component', function () {
                 $provide.factory('dpPanelDirective', function () {
                     return {};
                 });
-
-                $provide.factory('dpPanelIconDirective', function () {
-                    return {};
-                });
-
-                $provide.factory('dpPanelBodyDirective', function () {
-                    return {};
-                });
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _ACTIONS_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _user_, _ACTIONS_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
+            user = _user_;
             ACTIONS = _ACTIONS_;
         });
 
@@ -170,13 +164,11 @@ describe('The dp-layer-selection component', function () {
     });
 
     describe('overlays', function () {
-        let user,
-            overlays;
+        let overlays;
 
         beforeEach(function () {
-            angular.mock.inject(function (_overlays_, _user_) {
+            angular.mock.inject(function (_overlays_) {
                 overlays = _overlays_;
-                user = _user_;
             });
         });
 
@@ -420,6 +412,44 @@ describe('The dp-layer-selection component', function () {
 
             expect(contentDiv.find('div').eq(2).find('li').eq(1).find('.qa-show-invisble-by-zoom').length).toBe(0);
             expect(contentDiv.find('div').eq(2).find('li').eq(2).find('.qa-show-invisble-by-zoom').length).toBe(0);
+        });
+
+        describe('the warning message', () => {
+            beforeEach(() => {
+                spyOn(user, 'getAuthorizationLevel').and.returnValue('foo');
+                spyOn(user, 'meetsRequiredLevel').and.returnValue(false);
+            });
+            it('is shown if not logged in', () => {
+                const component = getComponent('base_layer_a', [], 8);
+
+                expect(component.find('.qa-category-warning').text())
+                    .toContain('\'Bedrijven - Bronnen en risicozones\' verschijnt na inloggen.' +
+                     ' Zie Help > Bediening dataportaal > Inloggen.');
+            });
+            it('is shown for a non-employee', () => {
+                user.meetsRequiredLevel.and.returnValue(false);
+
+                const component = getComponent('base_layer_a', [], 8);
+
+                expect(component.find('.qa-category-warning').length).toBe(1);
+            });
+            it('is not shown for an employee', () => {
+                user.meetsRequiredLevel.and.returnValue(true);
+
+                const component = getComponent('base_layer_a', [], 8);
+
+                expect(component.find('.qa-category-warning').length).toBe(0);
+            });
+            it('should update the message on authorization change', function () {
+                const component = getComponent('base_layer_a', [], 8);
+                expect(component.find('.qa-category-warning').length).toBe(1);
+
+                user.getAuthorizationLevel.and.returnValue('bar'); // changed so $watch fires
+                user.meetsRequiredLevel.and.returnValue(true);
+                $rootScope.$digest();
+
+                expect(component.find('.qa-category-warning').length).toBe(0);
+            });
         });
     });
 });
