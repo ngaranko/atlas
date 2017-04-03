@@ -6,7 +6,7 @@
      }">
 
     <!-- Header -->
-    <div class="u-fixed">
+    <div ng-class="{ 'u-fixed': !vm.isPrintMode }">
         <div class="c-dashboard__heading"
              ng-class="{ 'o-max-width': vm.hasMaxWidth }"
              ng-controller="HeaderController as header">
