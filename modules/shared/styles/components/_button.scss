@@ -48,7 +48,7 @@
   white-space: nowrap;
   cursor: pointer;
   overflow: hidden;
-
+  /*
   &::before {
     display: inline-block;
     width: 7px;
@@ -61,6 +61,7 @@
   &:hover {
     @include o-btn-white--hover;
   }
+  */
 }
 
 %btn-close {
