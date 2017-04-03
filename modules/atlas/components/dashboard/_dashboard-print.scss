@@ -28,17 +28,12 @@ $dashboard-heading-padding-print-version: 46px;
 }
 
 .c-dashboard__error {
-  margin: 0;
-  margin-bottom: $base-whitespace * 2;
+  position: initial;
 }
 
 .c-dashboard__column {
   margin: 0;
   padding: 0;
-}
-
-.c-dashboard__content {
-  page-break-before: always;
 }
 
 &.print-landscape {
