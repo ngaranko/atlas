@@ -131,7 +131,7 @@ describe('each URL should load the corresponding view', function () {
         expect(searchResults.categories(0).list(2).link.label).toMatch(/Oost/);
         expect(searchResults.categories(0).list(9).link.label).toMatch(/Oost/);
 
-        expect(searchResults.categories(1).header).toMatch(/Adressen/);
+        expect(searchResults.categories(1).header).toMatch(/Adressen \([\d.]+\)$/);
         expect(searchResults.categories(1).list(0).link.label).toMatch(/Oost/);
         expect(searchResults.categories(1).list(9).link.label).toMatch(/Oost/);
 
@@ -141,7 +141,7 @@ describe('each URL should load the corresponding view', function () {
 
         expect(searchResults.categories(3).header).toMatch(/^Maatschappelijke activiteiten \(\d+\)$/);
 
-        expect(searchResults.categories(4).header).toMatch(/^Kadastrale subjecten \(\d+\)$/);
+        expect(searchResults.categories(5).header).toMatch(/^Gebieden \(\d+\)$/);
     });
 
     it('MAP_STRAATBEELD--DETAIL', () => {
