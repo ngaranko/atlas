@@ -14,14 +14,15 @@
         update();
 
         function update () {
-            const state = store.getState();
+            const state = store.getState(),
+                isDataSelection = angular.isObject(state.dataSelection),
+                isListView = isDataSelection && state.dataSelection.view === 'LIST',
+                isCardsView = isDataSelection && state.dataSelection.view === 'CARDS',
+                isHomepage = angular.isObject(state.page) && state.page.name === 'home' &&
+                    !state.map.isFullscreen &&
+                    !angular.isObject(state.straatbeeld);
 
-            const IS_DATA_SELECTION = angular.isObject(state.dataSelection);
-            const IS_HOMEPAGE = angular.isObject(state.page) && state.page.name === 'home' &&
-                !state.map.isFullscreen &&
-                !angular.isObject(state.straatbeeld);
-
-            if ((state.dataSelection && state.dataSelection.view === 'CARDS') ||
+            if ((isCardsView) ||
                 (state.detail && state.detail.endpoint.includes('/catalogus/api/'))) {
                 // Search in datasets
                 vm.query = state.dataSelection && state.dataSelection.query;
@@ -32,7 +33,7 @@
                 vm.searchAction = ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY;
             }
 
-            vm.hasPrintButton = !IS_DATA_SELECTION && !IS_HOMEPAGE;
+            vm.hasPrintButton = (!isDataSelection || isListView) && !isHomepage;
         }
     }
 })();

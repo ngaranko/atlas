@@ -94,8 +94,11 @@
         function determineMapActivityPrint (state) {
             if (state.map.isFullscreen && !state.layerSelection.isEnabled) {
                 return true;
-            } else if (state.page.name || state.search || state.dataSelection || state.layerSelection.isEnabled) {
+            } else if (state.page.name || state.search || state.layerSelection.isEnabled) {
                 return false;
+            } else if (state.dataSelection) {
+                // Show the map when in list view of data selection
+                return state.dataSelection.view === 'LIST';
             } else if (angular.isObject(state.detail)) {
                 // Only print the map when detail is NOT fullscreen and has geometry
                 return !state.detail.isFullscreen && angular.isObject(state.detail.geometry);
@@ -154,7 +157,7 @@
             } else {
                 columnSizes.left = 0;
                 columnSizes.middle = visibility.page || visibility.searchResults ? 0 : 12;
-                columnSizes.right = 12;
+                columnSizes.right = visibility.dataSelection ? 0 : 12;
             }
 
             return columnSizes;
