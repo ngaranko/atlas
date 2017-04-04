@@ -19,8 +19,8 @@ $dashboard-heading-padding-print-version: 46px;
   top: initial;
   height: calc(100% - $dashboard-heading-height-print-version);
   padding: $base-whitespace * 2;
+  border: 2px solid $secondary-gray40;
   background-color: $primary-light;
-  box-shadow: 0 0 5px $secondary-gray40;
 }
 
 .c-dashboard__page-inner {
@@ -53,6 +53,6 @@ $dashboard-heading-padding-print-version: 46px;
   }
 
   .c-dashboard__body {
-    box-shadow: none;
+    border: none;
   }
 }

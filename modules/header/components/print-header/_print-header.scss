@@ -10,7 +10,7 @@ $print-header-padding: 46px;
 }
 
 .c-print-header__close {
-  @include icon-button("close", "red", "");
+  @include icon-button("close", "transparent", "red");
 
   position: absolute;
   top: -($print-header-padding - $base-whitespace);
