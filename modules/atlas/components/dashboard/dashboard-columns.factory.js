@@ -94,8 +94,8 @@
         function determineMapActivityPrint (state) {
             if (state.map.isFullscreen && !state.layerSelection.isEnabled) {
                 return true;
-            } else if (state.page.name || state.search || state.layerSelection.isEnabled) {
-                return false;
+            } else if (state.straatbeeld) {
+                return !state.straatbeeld.isFullscreen;
             } else if (state.dataSelection) {
                 // Show the map when in list view of data selection
                 return state.dataSelection.view === 'LIST';
@@ -103,7 +103,7 @@
                 // Only print the map when detail is NOT fullscreen and has geometry
                 return !state.detail.isFullscreen && angular.isObject(state.detail.geometry);
             } else {
-                return state.straatbeeld && !state.straatbeeld.isFullscreen;
+                return !state.page.name && !state.search && !state.layerSelection.isEnabled;
             }
         }
 
