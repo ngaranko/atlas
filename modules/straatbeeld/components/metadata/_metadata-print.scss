@@ -1,0 +1,17 @@
+.c-straatbeeld-metadata__history {
+  padding-left: $base-whitespace;
+  border: none;
+
+  &::before {
+    display: none;
+  }
+
+  &:hover,
+  &:active {
+    border: none;
+  }
+}
+
+.c-straatbeeld-metadata__coordinates {
+  border: none;
+}
