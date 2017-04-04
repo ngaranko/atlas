@@ -192,39 +192,40 @@
   }
 }
 
-%icon-button-text-box-flat {
+%icon-button-text-flat {
   @extend %icon-button-text-box;
 
   border: none;
   background-color: transparent;
   color: $primary-dark;
+  box-shadow: none;
 }
 
-%icon-button-text-box-flat-extra {
+%icon-button-text-flat-extra {
   @extend %icon-button-text-box-extra;
 }
 
-%icon-button-text-box-flat-hover {
+%icon-button-text-flat-hover {
   @extend %icon-button-text-box-red;
 
   border: none;
 }
 
-@mixin icon-button-text-box-flat-left($icon, $state: "", $hover-state: "red") {
-  @extend %icon-button-text-box-flat;
+@mixin icon-button-text-flat-left($icon, $state: "", $hover-state: "red") {
+  @extend %icon-button-text-flat;
 
   padding-right: $base-whitespace + $button-size;
 
   &::after {
     @extend %#{"dp-" + $icon + if(str-length($state) > 0, "-", "") + $state + "-icon"};
-    @extend %icon-button-text-box-flat-extra;
+    @extend %icon-button-text-flat-extra;
 
     top: 0;
     right: 0;
   }
 
   &:hover {
-    @extend %icon-button-text-box-flat-hover;
+    @extend %icon-button-text-flat-hover;
 
     &::after {
       @extend %#{"dp-" + $icon + if(str-length($hover-state) > 0, "-", "") + $hover-state + "-icon"};
@@ -232,19 +233,19 @@
   }
 }
 
-@mixin icon-button-text-box-flat-right($icon, $state: "", $hover-state: "red") {
-  @extend %icon-button-text-box-flat;
+@mixin icon-button-text-flat-right($icon, $state: "", $hover-state: "red") {
+  @extend %icon-button-text-flat;
 
   padding-left: $button-size;
 
   &::before {
     @extend %#{"dp-" + $icon + if(str-length($state) > 0, "-", "") + $state + "-icon"};
-    @extend %icon-button-text-box-flat-extra;
+    @extend %icon-button-text-flat-extra;
     left: 0;
   }
 
   &:hover {
-    @extend %icon-button-text-box-flat-hover;
+    @extend %icon-button-text-flat-hover;
 
     &::before {
       @extend %#{"dp-" + $icon + if(str-length($hover-state) > 0, "-", "") + $hover-state + "-icon"};

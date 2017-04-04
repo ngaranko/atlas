@@ -3,19 +3,6 @@
   line-height: $button-size;
 }
 
-@mixin status-bar-button {
-  @include smaller-font-definition;
-
-  padding-right: $base-whitespace;
-  border-right: solid $secondary-gray20 1px;
-  z-index: 2;
-
-  &:hover,
-  &:active {
-    border-right: solid $secondary-gray20 1px;
-  }
-}
-
 .c-straatbeeld {
   position: absolute;
   top: 0;
