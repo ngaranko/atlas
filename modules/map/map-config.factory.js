@@ -52,9 +52,9 @@
         environmentConfig = {
             DEVELOPMENT: {
                 BASE_LAYER_OPTIONS: {
-                    subdomains: ['t1', 't2', 't3', 't4']
+                    subdomains: ['t1-acc', 't2-acc', 't3-acc', 't4-acc']
                 },
-                OVERLAY_ROOT: 'https://map.datapunt.amsterdam.nl/'
+                OVERLAY_ROOT: 'https://map-acc.datapunt.amsterdam.nl/'
             },
             ACCEPTATION: {
                 BASE_LAYER_OPTIONS: {
