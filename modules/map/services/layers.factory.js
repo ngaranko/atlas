@@ -5,9 +5,9 @@
         .module('dpMap')
         .factory('layers', layersFactory);
 
-    layersFactory.$inject = ['L', 'mapConfig', 'BASE_LAYERS', 'overlays'];
+    layersFactory.$inject = ['$q', 'api', 'L', 'mapConfig', 'BASE_LAYERS', 'overlays'];
 
-    function layersFactory (L, mapConfig, BASE_LAYERS, overlays) {
+    function layersFactory ($q, api, L, mapConfig, BASE_LAYERS, overlays) {
         var baseLayer,
             wmsLayers = {};
 
@@ -49,43 +49,42 @@
         }
 
         function addOverlay (leafletMap, layerName) {
-            getSubLayers(leafletMap, layerName).forEach(function (layer) {
-                leafletMap.addLayer(layer);
+            getSubLayers(leafletMap, layerName).then(subLayers => {
+                subLayers.forEach(function (layer) {
+                    leafletMap.addLayer(layer);
+                });
             });
         }
 
         function removeOverlay (leafletMap, layerName) {
-            getSubLayers(leafletMap, layerName).forEach(function (layer) {
-                leafletMap.removeLayer(layer);
+            getSubLayers(leafletMap, layerName).then(subLayers => {
+                subLayers.forEach(function (layer) {
+                    leafletMap.removeLayer(layer);
+                });
             });
         }
 
         function getSubLayers (leafletMap, overlayName) {
-            var wmsLayerId,
-                wmsUrl,
-                wmsSource;
+            const wmsLayerId = leafletMap._leaflet_id + '_' + overlayName;
 
-            wmsLayerId = leafletMap._leaflet_id + '_' + overlayName;
-
-            if (angular.isUndefined(wmsLayers[wmsLayerId])) {
-                wmsLayers[wmsLayerId] = [];
-
-                if (overlays.SOURCES[overlayName]) {
-                    wmsUrl = overlays.SOURCES[overlayName].url;
-
-                    if (!overlays.SOURCES[overlayName].external) {
-                        wmsUrl = mapConfig.OVERLAY_ROOT + wmsUrl;
-                    }
-
-                    wmsSource = L.WMS.source(wmsUrl, mapConfig.OVERLAY_OPTIONS);
-
-                    overlays.SOURCES[overlayName].layers.forEach(function (layerName) {
-                        wmsLayers[wmsLayerId].push(wmsSource.getLayer(layerName));
+            if (!wmsLayers[wmsLayerId] && overlays.SOURCES[overlayName]) {
+                wmsLayers[wmsLayerId] = getWmsUrl(overlayName).then(wmsUrl => {
+                    const wmsSource = L.WMS.source(wmsUrl, mapConfig.OVERLAY_OPTIONS);
+                    return overlays.SOURCES[overlayName].layers.map(layerName => {
+                        return wmsSource.getLayer(layerName);
                     });
-                }
+                });
+            } else if (!wmsLayers[wmsLayerId]) {
+                wmsLayers[wmsLayerId] = $q.resolve([]);
             }
 
             return wmsLayers[wmsLayerId];
+        }
+
+        function getWmsUrl (overlayName) {
+            const overlay = overlays.SOURCES[overlayName];
+            return overlay.external ? $q.resolve(overlay.url)
+                : api.createUrlWithToken(mapConfig.OVERLAY_ROOT + overlay.url);
         }
     }
 })();
