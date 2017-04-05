@@ -1,6 +1,5 @@
 describe('The api factory', function () {
     var $rootScope,
-        $interval,
         $http,
         $httpBackend,
         $q,
@@ -15,6 +14,7 @@ describe('The api factory', function () {
             {
                 user: {
                     getAccessToken: () => isLoggedIn ? 'MY_FAKE_ACCESS_TOKEN' : null,
+                    waitForAccessToken: () => $q.resolve(user.getAccessToken()),
                     getRefreshToken: angular.noop
                 },
                 sharedConfig: {
@@ -24,9 +24,8 @@ describe('The api factory', function () {
             }
         );
 
-        angular.mock.inject(function (_$rootScope_, _$interval_, _$http_, _$httpBackend_, _$q_, _api_, _user_) {
+        angular.mock.inject(function (_$rootScope_, _$http_, _$httpBackend_, _$q_, _api_, _user_) {
             $rootScope = _$rootScope_;
-            $interval = _$interval_;
             $http = _$http_;
             $httpBackend = _$httpBackend_;
             $q = _$q_;
@@ -58,68 +57,6 @@ describe('The api factory', function () {
 
         $httpBackend.flush();
 
-        expect(returnValue).toEqual(mockedApiData);
-    });
-
-    it('waits for an access token if user is logging in, continues if login succeeds', function () {
-        var returnValue;
-
-        spyOn(user, 'getRefreshToken').and.returnValue(true);
-        spyOn(user, 'getAccessToken').and.returnValue(false);
-
-        api.getByUrl('http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/').then(function (data) {
-            returnValue = data;
-        });
-
-        $rootScope.$digest();
-        $httpBackend.verifyNoOutstandingRequest();
-
-        user.getAccessToken.and.returnValue(true);
-        $interval.flush(350);   // force refresh of access token
-        $rootScope.$digest();
-
-        $httpBackend.flush();
-        expect(returnValue).toEqual(mockedApiData);
-    });
-
-    it('waits for an access token if user is logging in, continues if login fails', function () {
-        var returnValue;
-
-        spyOn(user, 'getRefreshToken').and.returnValue(true);
-        spyOn(user, 'getAccessToken').and.returnValue(false);
-
-        api.getByUrl('http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/').then(function (data) {
-            returnValue = data;
-        });
-
-        $rootScope.$digest();
-        $httpBackend.verifyNoOutstandingRequest();
-
-        user.getRefreshToken.and.returnValue(false);
-        $interval.flush(350);   // force refresh of access token
-        $rootScope.$digest();
-
-        $httpBackend.flush();
-        expect(returnValue).toEqual(mockedApiData);
-    });
-
-    it('waits for an access token if user is logging in for max 5 seconds', function () {
-        var returnValue;
-
-        spyOn(user, 'getRefreshToken').and.returnValue(true);
-        spyOn(user, 'getAccessToken').and.returnValue(false);
-
-        api.getByUrl('http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/').then(function (data) {
-            returnValue = data;
-        });
-
-        $rootScope.$digest();
-        $httpBackend.verifyNoOutstandingRequest();
-
-        $interval.flush(5500);   // force end of interval
-        $rootScope.$digest();
-
-        $httpBackend.flush();
         expect(returnValue).toEqual(mockedApiData);
     });
 
@@ -186,5 +123,38 @@ describe('The api factory', function () {
         api.getByUrl('http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/');
         $httpBackend.flush();
     });
-});
+    describe('generating a URL with an access token', () => {
+        it('adds the access token when logged in', () => {
+            isLoggedIn = true;
+            checkMappings(new Map([
+                [['http://test.amsterdam.nl/'], 'http://test.amsterdam.nl/?access_token=MY_FAKE_ACCESS_TOKEN'],
+                [['http://test.amsterdam.nl/?a=b'], 'http://test.amsterdam.nl/?a=b&access_token=MY_FAKE_ACCESS_TOKEN']
+            ]));
+        });
 
+        it('does not add the access token when not logged in', () => {
+            isLoggedIn = false;
+            checkMappings(new Map([
+                [['http://test.amsterdam.nl/'], 'http://test.amsterdam.nl/'],
+                [['http://test.amsterdam.nl/?a=b'], 'http://test.amsterdam.nl/?a=b']
+            ]));
+        });
+
+        it('adds extra params to the url when specified', () => {
+            isLoggedIn = false;
+            checkMappings(new Map([
+                [['http://test.amsterdam.nl/'], 'http://test.amsterdam.nl/'],
+                [['http://test.amsterdam.nl/?a=b'], 'http://test.amsterdam.nl/?a=b']
+            ]));
+        });
+
+        function checkMappings (mappings) {
+            for (const [input, expected] of mappings) {
+                api.createUrlWithToken(...input).then(actual => {
+                    expect(actual).toBe(expected);
+                });
+            }
+            $rootScope.$digest();
+        }
+    });
+});
