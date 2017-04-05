@@ -13,9 +13,11 @@ $contact-height: 60px;
   color: $primary-dark;
   font-weight: normal;
   line-height: $contact-height;
+  opacity: .6;
 
   &::before {
-    top: 20px;
+    position: static;
+    vertical-align: text-bottom;
   }
 }
 

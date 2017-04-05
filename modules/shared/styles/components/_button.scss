@@ -48,20 +48,6 @@
   white-space: nowrap;
   cursor: pointer;
   overflow: hidden;
-  /*
-  &::before {
-    display: inline-block;
-    width: 7px;
-    height: 12px;
-    margin-right: $base-whitespace;
-    background-image: url("assets/icons/link-arrow.svg");
-    content: "";
-  }
-
-  &:hover {
-    @include o-btn-white--hover;
-  }
-  */
 }
 
 %btn-close {
