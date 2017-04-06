@@ -35,6 +35,8 @@
         vm.showCatalogusIntroduction = vm.state.view === 'CARDS' &&
             userSettings.showCatalogusIntroduction.value === true.toString();
 
+        vm.filtersActive = () => Object.keys(vm.state.filters).length;
+
         $scope.$watch('vm.showCatalogusIntroduction', function () {
             userSettings.showCatalogusIntroduction.value = vm.showCatalogusIntroduction.toString();
         });

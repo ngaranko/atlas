@@ -3,6 +3,17 @@
 }
 
 .c-tab-header__reset {
+  padding: .2em 1em;
   float: right;
   border: 1px solid $secondary-gray40;
+  font-size: .5em;
+  opacity: .6;
+
+  .c-tab-header__reset__icon {
+    @extend %dp-close-info-icon;
+    display: inline-block;
+    width: 1.3em;
+    height: 1.3em;
+    vertical-align: text-bottom;
+  }
 }

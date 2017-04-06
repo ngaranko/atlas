@@ -2,7 +2,11 @@
     <dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>
 
     <div ng-if="!vm.isLoading">
-        <dp-tab-header ng-if="vm.showTabHeader()" search-text="{{vm.state.query}}" tab-header="vm.tabHeader"></dp-tab-header>
+        <dp-tab-header ng-if="vm.showTabHeader()"
+                       search-text="{{vm.state.query}}"
+                       tab-header="vm.tabHeader"
+                       filters-active="vm.filtersActive()">
+        </dp-tab-header>
         <dp-data-selection-header
             ng-if="!vm.showTabHeader() || vm.numberOfRecords > 0"
             state="vm.state"
