@@ -22,12 +22,16 @@
 
         /**
          * @param {Object} oldState
-         * @param {Object} payload - On object with two keys: dataset (String) and filters (Object)
+         * @param {Object} payload A tring with the search query or
+         *                         An object with the following keys:
+         *                          - query (String): The search query
+         *                          - filters (Object): Active filters
          *
          * @returns {Object} newState
          */
         function fetchDataSelectionReducer (oldState, payload) {
             const newState = angular.copy(oldState);
+            let mergeInto;
 
             newState.map.isFullscreen = false;
 
@@ -37,7 +41,15 @@
             newState.detail = null;
             newState.straatbeeld = null;
 
-            const mergeInto = angular.isString(payload) ? {query: payload} : payload;
+            if (angular.isString(payload)) {
+                mergeInto = {
+                    query: payload,
+                    filters: {}
+                };
+            }  else {
+                mergeInto = payload;
+                mergeInto.filters = mergeInto.filters || {};
+            }
 
             newState.dataSelection = Object.keys(mergeInto).reduce((result, key) => {
                 result[key] = mergeInto[key];
