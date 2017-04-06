@@ -49,7 +49,7 @@
                     query: payload,
                     filters: {}
                 };
-            }  else {
+            } else {
                 mergeInto = payload;
                 mergeInto.filters = mergeInto.filters || {};
             }
