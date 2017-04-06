@@ -3,7 +3,7 @@
  * @name atlas.directive:dpPrintState
  * @restrict: 'A'
  * @description
- * Directive to add the ```is-print-mode``` class and/or ```print-landscape```
+ * Directive to add the ```is-print-mode``` class and/or ```is-print-mode--landscape```
  *  to the element on which it is included, based on the state.
  *  This would display the page in a wide format for landscape printing in
  *  the following conditions.
@@ -13,7 +13,7 @@
  *
  * Result:
  * <pre>
- *    <div class="is-print-mode print-landscape"></div>
+ *    <div class="is-print-mode is-print-mode--landscape"></div>
  * </pre>
  *
 */
@@ -41,14 +41,14 @@
                 if (state.atlas.isPrintMode) {
                     element.addClass('is-print-mode');
 
-                    // Check if we are not on a detail page or search result page. Only add the class
-                    // when we are on a map+panorama or fullscreen map page.
+                    // Add the landscape modifier when we are at straatbeeld,
+                    // fullscreen map, or data selection in list view
                     if (state.straatbeeld ||
                             (state.map && state.map.isFullscreen) ||
                             (state.dataSelection && state.dataSelection.view === 'LIST')) {
-                        element.addClass('print-landscape');
+                        element.addClass('is-print-mode--landscape');
                     } else {
-                        element.removeClass('print-landscape');
+                        element.removeClass('is-print-mode--landscape');
                     }
                 } else {
                     element.removeClass('is-print-mode');

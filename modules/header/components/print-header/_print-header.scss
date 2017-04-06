@@ -5,10 +5,6 @@ $print-header-padding: 46px;
   @include font-size($xl-header-font);
 }
 
-.c-print-header__menu {
-  height: $print-header-height - 2 * $print-header-padding;
-}
-
 .c-print-header__close {
   @include icon-button("close", "transparent", "red");
 

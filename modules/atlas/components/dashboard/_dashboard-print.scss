@@ -17,7 +17,7 @@ $dashboard-heading-padding-print-version: 46px;
 
 .c-dashboard__body {
   top: initial;
-  height: calc(100% - $dashboard-heading-height-print-version);
+  height: calc(100% - #{$dashboard-heading-height-print-version});
   padding: $base-whitespace * 2;
   border: 2px solid $secondary-gray40;
   background-color: $primary-light;
@@ -34,12 +34,6 @@ $dashboard-heading-padding-print-version: 46px;
 .c-dashboard__column {
   margin: 0;
   padding: 0;
-}
-
-&.print-landscape {
-  body {
-    width: 1280px;
-  }
 }
 
 @media print {

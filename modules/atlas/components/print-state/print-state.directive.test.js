@@ -75,13 +75,13 @@ describe('The dp-print-state directive', function () {
         it('adds the class when at straatbeeld', () => {
             mockedState.straatbeeld = {};
             const directive = getDirective();
-            expect(directive.hasClass('print-landscape')).toBe(true);
+            expect(directive.hasClass('is-print-mode--landscape')).toBe(true);
         });
 
         it('adds the class when at the map', () => {
             mockedState.map.isFullscreen = true;
             const directive = getDirective();
-            expect(directive.hasClass('print-landscape')).toBe(true);
+            expect(directive.hasClass('is-print-mode--landscape')).toBe(true);
         });
 
         it('adds the class when at data selection in list view', () => {
@@ -89,12 +89,12 @@ describe('The dp-print-state directive', function () {
                 view: 'LIST'
             };
             const directive = getDirective();
-            expect(directive.hasClass('print-landscape')).toBe(true);
+            expect(directive.hasClass('is-print-mode--landscape')).toBe(true);
         });
 
         it('removes the class when not at straatbeeld, map or data selection', () => {
             const directive = getDirective();
-            expect(directive.hasClass('print-landscape')).toBe(false);
+            expect(directive.hasClass('is-print-mode--landscape')).toBe(false);
         });
 
         it('removes the class when at data selection in another view than list', () => {
@@ -102,7 +102,7 @@ describe('The dp-print-state directive', function () {
                 view: 'TABLE'
             };
             const directive = getDirective();
-            expect(directive.hasClass('print-landscape')).toBe(false);
+            expect(directive.hasClass('is-print-mode--landscape')).toBe(false);
         });
     });
 });
