@@ -45,7 +45,7 @@
                             <span ng-if="!resource.description">{{resource.url}}</span>
                         </td>
                         <td class="c-data-selection-table__column--size u-align--right">
-                            <a ng-href="{{resource.url}}" class="c-download-button o-btn" title="Downloaden dataset">{{resource.size / 1024 | number:0}} KB</a>
+                            <a ng-if="resource.size > 0" ng-href="{{resource.url}}" class="c-download-button o-btn" title="Downloaden dataset">{{resource.size / 1024 | number:0}} KB</a>
                         </td>
                     </tr>
                 </tbody>
