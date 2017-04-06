@@ -6,6 +6,7 @@
         .component('dpPanel', {
             bindings: {
                 isPanelVisible: '=',
+                size: '@',
                 type: '@',
                 canClose: '=',
                 className: '@'
@@ -16,6 +17,10 @@
             controllerAs: 'vm'
         });
 
+    // size:
+    // Small (less padding, no marging)
+    // Tiny (just to fit some words)
+    //
     // type :
     // Danger (rode vormgeving)
     // Warning (blauwe vormgeving)
@@ -23,6 +28,9 @@
 
     function DpPanelController () {
         var vm = this;
+
+        vm.sizeClass = vm.size ? `c-panel--${vm.size}` : '';
+        vm.typeClass = vm.type ? `c-panel--${vm.type}` : '';
 
         vm.close = function () {
             vm.isPanelVisible = false;

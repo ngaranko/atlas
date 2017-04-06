@@ -14,6 +14,7 @@
 
 .is-print-mode {
   @import "components/map/map-print";
+  @import "components/draw-tool/draw-tool-print";
   @import "components/toggle-fullscreen/toggle-fullscreen-print";
   @import "components/toggle-active-overlays/toggle-active-overlays-print";
   @import "components/toggle-layer-selection/toggle-layer-selection-print";
