@@ -26,6 +26,9 @@
          *                         An object with the following keys:
          *                          - query (String): The search query
          *                          - filters (Object): Active filters
+         *                          Except these two keys other keys will
+         *                          be copied if the are in the object
+         *                          but no defualt value will be provided.
          *
          * @returns {Object} newState
          */
