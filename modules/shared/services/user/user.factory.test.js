@@ -1,4 +1,7 @@
 describe('The user factory', function () {
+    const FORCE_REFRESH_TIMEOUT = 350,
+        FORCE_END_TIMEOUT = 5500;
+
     let $rootScope,
         $interval,
         $window,
@@ -247,7 +250,7 @@ describe('The user factory', function () {
             $rootScope.$digest();
 
             user.setAccessToken(testAccessTokenAuthz1);
-            $interval.flush(350);   // force refresh of access token
+            $interval.flush(FORCE_REFRESH_TIMEOUT);   // force refresh of access token
             $rootScope.$digest();
 
             expect(accessToken).toEqual(testAccessTokenAuthz1);
@@ -265,7 +268,7 @@ describe('The user factory', function () {
             $rootScope.$digest();
 
             refreshToken = null;
-            $interval.flush(350);   // force refresh of access token
+            $interval.flush(FORCE_REFRESH_TIMEOUT);   // force refresh of access token
             $rootScope.$digest();
 
             expect(accessToken).toEqual(null);
@@ -282,7 +285,7 @@ describe('The user factory', function () {
 
             $rootScope.$digest();
 
-            $interval.flush(5500);   // force end of interval
+            $interval.flush(FORCE_END_TIMEOUT);   // force end of interval
             $rootScope.$digest();
 
             expect(accessToken).toEqual(null);

@@ -72,28 +72,36 @@ describe('The dp-active-overlays-item component', function () {
     it('shows uses the short label from the OVERLAYS config', function () {
         var component = getComponent('overlay_without_legend', true, 8);
 
-        expect(component.find('h3').eq(0).text()).toContain('Overlay A');
+        expect(component.find('.qa-active-overlay-header').eq(0).text()).toContain('Overlay A');
     });
 
-    it('has an optional legend image', function () {
-        const tokenized = $q.resolve('http://atlas.example.com/overlays/blabla.png?token=abc');
-        var component;
+    describe('the legend image', () => {
+        beforeEach(() => {
+            const tokenized = $q.resolve('http://atlas.example.com/overlays/blabla.png?token=abc');
+            spyOn(api, 'createUrlWithToken').and.returnValue(tokenized);
+        });
 
-        spyOn(api, 'createUrlWithToken').and.returnValue(tokenized);
+        it('is optional', function () {
+            const component = getComponent('overlay_without_legend', true, 10);
 
-        // No legend
-        component = getComponent('overlay_without_legend', true, 10);
-        expect(component.find('img').length).toBe(0);
+            expect(component.find('.qa-active-overlay-image').length).toBe(0);
+        });
 
-        // A self-hosted legend
-        component = getComponent('overlay_with_internal_legend', true, 10);
-        expect(component.find('img').length).toBe(1);
-        expect(component.find('img').attr('src')).toBe('http://atlas.example.com/overlays/blabla.png?token=abc');
+        it('can display a self-hosted legend', function () {
+            const component = getComponent('overlay_with_internal_legend', true, 10),
+                image = component.find('.qa-active-overlay-image');
 
-        // An externally hosted legend
-        component = getComponent('overlay_with_external_legend', true, 10);
-        expect(component.find('img').length).toBe(1);
-        expect(component.find('img').attr('src')).toBe('http://not-atlas.example.com/blabla.png');
+            expect(image.length).toBe(1);
+            expect(image.attr('src')).toBe('http://atlas.example.com/overlays/blabla.png?token=abc');
+        });
+
+        it('can display an externally hosted legend', function () {
+            const component = getComponent('overlay_with_external_legend', true, 10),
+                image = component.find('.qa-active-overlay-image');
+
+            expect(image.length).toBe(1);
+            expect(image.attr('src')).toBe('http://not-atlas.example.com/blabla.png');
+        });
     });
 
     it('shows a message for visibile layers that have no legend', function () {

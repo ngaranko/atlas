@@ -30,7 +30,7 @@
             vm.isOverlayVisible = vm.isVisible && isVisibleAtCurrentZoom(vm.overlay, vm.zoom);
 
             if (vm.hasLegend) {
-                vm.legendImageSrc = getLegendImageSrc(vm.overlay).then(src => {
+                getLegendImageSrc(vm.overlay).then(src => {
                     vm.legendImageSrc = src;
                 });
             }

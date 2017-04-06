@@ -1,9 +1,10 @@
 describe('The layers factory', function () {
     var $rootScope,
+        $q,
+        api,
         L,
         layers,
-        mockedLeafletMap,
-        hasLayer;
+        mockedLeafletMap;
 
     beforeEach(function () {
         angular.mock.module(
@@ -55,30 +56,28 @@ describe('The layers factory', function () {
             }
         );
 
-        angular.mock.inject(function (_$rootScope_, _L_, _layers_) {
+        angular.mock.inject(function (_$rootScope_, _$q_, _api_, _L_, _layers_) {
             $rootScope = _$rootScope_;
+            $q = _$q_;
+            api = _api_;
             L = _L_;
             layers = _layers_;
         });
 
         mockedLeafletMap = {
             _leaflet_id: 1,
-            hasLayer: function () {
-                return hasLayer;
-            },
-            addLayer: function () {},
-            removeLayer: function () {}
+            hasLayer: angular.noop,
+            addLayer: angular.noop,
+            removeLayer: angular.noop
         };
 
-        spyOn(mockedLeafletMap, 'hasLayer').and.callThrough();
+        spyOn(mockedLeafletMap, 'hasLayer');
         spyOn(mockedLeafletMap, 'addLayer');
         spyOn(mockedLeafletMap, 'removeLayer');
     });
 
     describe('baseLayer', function () {
         beforeEach(function () {
-            hasLayer = false;
-
             spyOn(L, 'tileLayer').and.returnValue('FAKE_BASE_LAYER');
         });
 
@@ -100,7 +99,7 @@ describe('The layers factory', function () {
             layers.setBaseLayer(mockedLeafletMap, 'baselayer_a');
             expect(mockedLeafletMap.hasLayer).toHaveBeenCalledWith(undefined);
 
-            hasLayer = true;
+            mockedLeafletMap.hasLayer.and.returnValue(true);
 
             layers.setBaseLayer(mockedLeafletMap, 'baselayer_b');
             expect(mockedLeafletMap.hasLayer).toHaveBeenCalledWith('FAKE_BASE_LAYER');
@@ -170,6 +169,21 @@ describe('The layers factory', function () {
             expect(mockedLeafletMap.addLayer).toHaveBeenCalledTimes(2);
             expect(mockedLeafletMap.addLayer).toHaveBeenCalledWith('FAKE_SUBLAYER_1');
             expect(mockedLeafletMap.addLayer).toHaveBeenCalledWith('FAKE_SUBLAYER_2');
+        });
+
+        it('adds the access token to internal overlay sources', () => {
+            const tokenized = $q.resolve('http://www.example.com/overlay-root/overlay_b_url?token=abc');
+            spyOn(api, 'createUrlWithToken').and.returnValue(tokenized);
+
+            layers.addOverlay(mockedLeafletMap, 'overlay_b');
+            $rootScope.$digest();
+
+            expect(L.WMS.source).toHaveBeenCalledWith(
+                'http://www.example.com/overlay-root/overlay_b_url?token=abc', {
+                    numberOfThings: 4,
+                    shouldThisWork: true
+                }
+            );
         });
 
         it('can add on overlay from an external source', function () {

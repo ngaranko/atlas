@@ -18,7 +18,7 @@ describe('The api factory', function () {
                     getRefreshToken: angular.noop
                 },
                 sharedConfig: {
-                    API_ROOT: 'http://www.i-am-the-api-root.com/path/',
+                    API_ROOT: 'https://www.i-am-the-api-root.com/path/',
                     AUTH_HEADER_PREFIX: 'Bearer '
                 }
             }
@@ -38,7 +38,7 @@ describe('The api factory', function () {
             title: 'This is a fake title'
         };
 
-        $httpBackend.whenGET('http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/').respond(mockedApiData);
+        $httpBackend.whenGET('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/').respond(mockedApiData);
 
         isLoggedIn = false;
     });
@@ -51,7 +51,7 @@ describe('The api factory', function () {
     it('getByUrl returns the data as a promise', function () {
         var returnValue;
 
-        api.getByUrl('http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/').then(function (data) {
+        api.getByUrl('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/').then(function (data) {
             returnValue = data;
         });
 
@@ -63,7 +63,7 @@ describe('The api factory', function () {
     it('getByUrl optionally accepts a promise to allow for cancelling the request', function () {
         const cancel = $q.defer();
 
-        api.getByUrl('http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/', undefined, cancel)
+        api.getByUrl('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/', undefined, cancel)
             .then(function () {
                 fail();   // Should never be resolved
             });
@@ -76,7 +76,7 @@ describe('The api factory', function () {
         var returnValue;
         const cancel = $q.defer();
 
-        api.getByUrl('http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/', undefined, cancel)
+        api.getByUrl('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/', undefined, cancel)
             .then(function (data) {
                 returnValue = data;
             });
@@ -107,54 +107,64 @@ describe('The api factory', function () {
         isLoggedIn = false;
 
         $httpBackend.expectGET(
-            'http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/',
+            'https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/',
             $http.defaults.headers.common
         );
-        api.getByUrl('http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/');
+        api.getByUrl('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/');
         $httpBackend.flush();
 
         // Logged in
         isLoggedIn = true;
 
         $httpBackend.expectGET(
-            'http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/',
+            'https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/',
             angular.merge({}, $http.defaults.headers.common, {Authorization: 'Bearer MY_FAKE_ACCESS_TOKEN'})
         );
-        api.getByUrl('http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/');
+        api.getByUrl('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/');
         $httpBackend.flush();
     });
+
     describe('generating a URL with an access token', () => {
         it('adds the access token when logged in', () => {
             isLoggedIn = true;
-            checkMappings(new Map([
-                [['http://test.amsterdam.nl/'], 'http://test.amsterdam.nl/?access_token=MY_FAKE_ACCESS_TOKEN'],
-                [['http://test.amsterdam.nl/?a=b'], 'http://test.amsterdam.nl/?a=b&access_token=MY_FAKE_ACCESS_TOKEN']
-            ]));
+
+            api.createUrlWithToken('https://test.amsterdam.nl/').then(actual => {
+                expect(actual).toBe('https://test.amsterdam.nl/?access_token=MY_FAKE_ACCESS_TOKEN');
+            });
+
+            api.createUrlWithToken('https://test.amsterdam.nl/?a=b').then(actual => {
+                expect(actual).toBe('https://test.amsterdam.nl/?a=b&access_token=MY_FAKE_ACCESS_TOKEN');
+            });
+
+            $rootScope.$digest();
         });
 
         it('does not add the access token when not logged in', () => {
             isLoggedIn = false;
-            checkMappings(new Map([
-                [['http://test.amsterdam.nl/'], 'http://test.amsterdam.nl/'],
-                [['http://test.amsterdam.nl/?a=b'], 'http://test.amsterdam.nl/?a=b']
-            ]));
+
+            api.createUrlWithToken('https://test.amsterdam.nl/').then(actual => {
+                expect(actual).toBe('https://test.amsterdam.nl/');
+            });
+
+            api.createUrlWithToken('https://test.amsterdam.nl/?a=b').then(actual => {
+                expect(actual).toBe('https://test.amsterdam.nl/?a=b');
+            });
+
+            $rootScope.$digest();
         });
 
         it('adds extra params to the url when specified', () => {
             isLoggedIn = false;
-            checkMappings(new Map([
-                [['http://test.amsterdam.nl/'], 'http://test.amsterdam.nl/'],
-                [['http://test.amsterdam.nl/?a=b'], 'http://test.amsterdam.nl/?a=b']
-            ]));
-        });
 
-        function checkMappings (mappings) {
-            for (const [input, expected] of mappings) {
-                api.createUrlWithToken(...input).then(actual => {
-                    expect(actual).toBe(expected);
-                });
-            }
+            api.createUrlWithToken('https://test.amsterdam.nl/', {c: 'd'}).then(actual => {
+                expect(actual).toBe('https://test.amsterdam.nl/?c=d');
+            });
+
+            api.createUrlWithToken('https://test.amsterdam.nl/?a=b', {c: 'd'}).then(actual => {
+                expect(actual).toBe('https://test.amsterdam.nl/?a=b&c=d');
+            });
+
             $rootScope.$digest();
-        }
+        });
     });
 });

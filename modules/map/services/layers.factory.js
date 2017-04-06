@@ -50,7 +50,7 @@
 
         function addOverlay (leafletMap, layerName) {
             getSubLayers(leafletMap, layerName).then(subLayers => {
-                subLayers.forEach(function (layer) {
+                subLayers.forEach(layer => {
                     leafletMap.addLayer(layer);
                 });
             });
@@ -58,7 +58,7 @@
 
         function removeOverlay (leafletMap, layerName) {
             getSubLayers(leafletMap, layerName).then(subLayers => {
-                subLayers.forEach(function (layer) {
+                subLayers.forEach(layer => {
                     leafletMap.removeLayer(layer);
                 });
             });
