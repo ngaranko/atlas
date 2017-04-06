@@ -1,6 +1,8 @@
 <div ng-if="vm.isPanelVisible"
-     class="c-panel {{vm.className}}"
-     ng-class="{'c-panel--{{vm.type}}': vm.type, 'c-panel--can-close': vm.canClose}">
+     class="c-panel"
+     ng-class="[vm.sizeClass, vm.typeClass, vm.className, {
+         'c-panel--can-close': vm.canClose
+     }]">
 
     <section>
         <ng-transclude></ng-transclude>
