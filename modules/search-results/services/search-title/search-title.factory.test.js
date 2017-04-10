@@ -60,7 +60,7 @@ describe('The search title factory', function () {
         expect(titleData.subTitle).toContain('X, Y (52.123, 4.789)');
     });
 
-    it('shows the query in the title only', function () {
+    it('shows only the query in the title', function () {
         var titleData = searchTitle.getTitleData(47, 'westerpark', null, 'adres');
 
         // The category name will be converted to lowercase
