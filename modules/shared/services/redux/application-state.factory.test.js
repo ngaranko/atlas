@@ -1,6 +1,7 @@
 describe('The applicationState factory', function () {
-    var Redux,
-        applicationState,
+    let Redux,
+        applicationState;
+    const $window = {},
         fakeReducer = 'I_AM_THE_REDUCER',
         fakeStateUrlConverter = 'I_AM_THE_STATE_URL_CONVERTER',
         fakeDefaultState = 'THIS_IS_THE_DEFAULT_STATE',
@@ -9,13 +10,16 @@ describe('The applicationState factory', function () {
         fakeStore = 'THIS_IS_THE_FAKE_STORE';
 
     beforeEach(function () {
-        angular.mock.module('dpShared');
+        angular.mock.module('dpShared', function ($provide) {
+            $provide.value('$window', $window);
+        });
 
         angular.mock.inject(function (_Redux_, _applicationState_) {
             Redux = _Redux_;
             applicationState = _applicationState_;
         });
 
+        spyOn(Redux, 'compose').and.callThrough();
         spyOn(Redux, 'applyMiddleware').and.returnValue(fakeEnhancer);
         spyOn(Redux, 'createStore').and.returnValue(fakeStore);
     });
@@ -49,5 +53,18 @@ describe('The applicationState factory', function () {
     it('can return the stateToUrl', function () {
         applicationState.initialize(fakeReducer, fakeStateUrlConverter, fakeDefaultState, fakeMiddleware);
         expect(applicationState.getStateUrlConverter()).toBe('I_AM_THE_STATE_URL_CONVERTER');
+    });
+
+    it('should call Redux.compose if devtool is not on window', () => {
+        applicationState.initialize(fakeReducer, fakeStateUrlConverter, fakeDefaultState, fakeMiddleware);
+        expect(Redux.compose).toHaveBeenCalledWith(fakeEnhancer);
+    });
+
+    it('should use the window __REDUX_DEVTOOLS_EXTENSION_COMPOSE__ if available', () => {
+        $window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ = jasmine.createSpy('__REDUX_DEVTOOLS_EXTENSION_COMPOSE__');
+
+        applicationState.initialize(fakeReducer, fakeStateUrlConverter, fakeDefaultState, fakeMiddleware);
+        expect(Redux.compose).not.toHaveBeenCalledWith(fakeEnhancer);
+        expect($window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__).toHaveBeenCalledWith(fakeEnhancer);
     });
 });
