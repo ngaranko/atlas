@@ -407,7 +407,7 @@ describe('The map reducers', function () {
             expect(output.dataSelection.markers).toEqual([]);
         });
 
-        it('Closes the full screen map', () => {
+        it('Closes the full screen map and layer selection', () => {
             const inputState = angular.copy(DEFAULT_STATE);
             inputState.map.isFullscreen = true;
 
@@ -416,6 +416,7 @@ describe('The map reducers', function () {
             });
 
             expect(output.map.isFullscreen).toBe(false);
+            expect(output.layerSelection.isEnabled).toBe(false);
         });
     });
 
