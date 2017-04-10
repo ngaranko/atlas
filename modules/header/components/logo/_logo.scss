@@ -24,12 +24,15 @@ $title-tall-offset-left: 80px;
   position: absolute;
 }
 
-.c-logo__title {
-  font-weight: bold;
+
+.c-logo__title-col {
+  display: flex;
+  align-items: center;
 }
 
 .c-logo--tall {
   .c-logo__title-col {
+    height: $site-header-height + 10;
     margin-left: $title-tall-offset-left;
   }
 
@@ -42,11 +45,14 @@ $title-tall-offset-left: 80px;
 
   .c-logo__title {
     @include font-size($xl-header-font);
-    line-height: 60px;
   }
 }
 
 .c-logo--short {
+  .c-logo__title-col {
+    height: $site-header-height;
+  }
+
   .c-logo__image {
     top: $base-whitespace;
     right: $base-whitespace;
@@ -55,6 +61,18 @@ $title-tall-offset-left: 80px;
 
   .c-logo__title {
     @include font-size($s-header-font);
-    line-height: $site-header-height;
+  }
+}
+
+.c-logo__title {
+  display: inline-block;
+  font-weight: bold;
+  line-height: normal;
+
+  &.c-logo__title-super {
+    align-self: flex-start;
+    margin: 12px 0 0 4px;
+    color: $secondary-gray60;
+    font-size: 10px;
   }
 }
