@@ -173,6 +173,7 @@
 
             newState.page.name = null;
             newState.map.drawingMode = false;
+            newState.map.isFullscreen = false;
 
             if (payload) {
                 if (payload.markers.length > 2) {

@@ -406,6 +406,17 @@ describe('The map reducers', function () {
             expect(output.dataSelection.view).toBe('LIST');
             expect(output.dataSelection.markers).toEqual([]);
         });
+
+        it('Closes the full screen map', () => {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map.isFullscreen = true;
+
+            const output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
+                markers: ['noot', 'mies', 'teun']
+            });
+
+            expect(output.map.isFullscreen).toBe(false);
+        });
     });
 
     describe('SHOW_MAP_ACTIVE_OVERLAYS', function () {
