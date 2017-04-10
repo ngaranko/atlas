@@ -14,11 +14,6 @@ $contact-height: 60px;
   font-weight: normal;
   line-height: $contact-height;
   opacity: .6;
-
-  &::before {
-    position: static;
-    vertical-align: text-bottom;
-  }
 }
 
 .c-site-header__toolbar {

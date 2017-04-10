@@ -5,7 +5,9 @@
                 <!-- Link to map -->
                 <div class="qa-map-link">
                     <dp-link type="SHOW_MAP" class-name="c-homepage__block c-homepage__block--left c-homepage__block--tall c-homepage__block--homepage">
-                        <div class="o-btn o-btn--white c-homepage__block-button">Data op de kaart</div>
+                        <div class="o-btn o-btn--white c-homepage__block-button">
+                            <span class="o-btn--white__label">Data op de kaart</span>
+                        </div>
                     </dp-link>
                 </div>
             </div>
@@ -14,7 +16,7 @@
                 <div class="qa-straatbeeld-link">
                     <dp-link type="FETCH_STRAATBEELD_BY_ID" class-name="c-homepage__block c-homepage__block--middle c-homepage__block--tall c-homepage__block--straatbeeld" payload="vm.fetchStraatbeeldPayload">
                         <div class="o-btn o-btn--white c-homepage__block-button">
-                            <span class="o-btn--link">Panorama</span>
+                            <span class="o-btn--white__label">Panorama</span>
                         </div>
                     </dp-link>
                 </div>
@@ -45,7 +47,7 @@
                     <!-- Link to data selection BAG -->
                     <dp-link type="FETCH_DATA_SELECTION" class-name="c-homepage__block c-homepage__block--middle c-homepage__block--short c-homepage__block--adressen" payload="{dataset: 'bag', filters: {}, page: 1}">
                         <div class="o-btn o-btn--white c-homepage__block-button">
-                            <span class="o-btn--link">Adressentabel</span>
+                            <span class="o-btn--white__label">Adressentabel</span>
                         </div>
                     </dp-link>
                 </div>
@@ -54,7 +56,7 @@
                     <!-- Link to data selection HR -->
                     <dp-link type="FETCH_DATA_SELECTION" class-name="c-homepage__block c-homepage__block--middle c-homepage__block--short c-homepage__block--vestigingen" payload="{dataset: 'hr', filters: {}, page: 1}">
                         <div class="o-btn o-btn--white c-homepage__block-button">
-                            <span class="o-btn--link">Vestigingentabel</span>
+                            <span class="o-btn--white__label">Vestigingentabel</span>
                         </div>
                     </dp-link>
                 </div>

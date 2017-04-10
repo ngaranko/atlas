@@ -1,11 +1,12 @@
 <div ng-if="vm.feed">
     <div ng-repeat="entry in vm.entries | limitTo: vm.limitTo" class="c-user-content-widget__entry">
         <div ng-if="entry.short.isHref"
-             class="o-btn o-btn--link c-user-content-widget__short s-cms-widget-content"
+             class="o-btn o-btn--link c-user-content-widget__short s-cms-widget-content s-cms-widget-content--inline"
              ng-bind-html="entry.short.html"></div>
         <dp-link ng-if="!entry.short.isHref"
-                 type="SHOW_PAGE" payload="{name: 'content-detail', type: vm.type, item: entry.id}">
-            <div class="c-user-content-widget__short s-cms-widget-content" ng-bind-html="entry.short.html"></div>
-        </dp-link>
+                 type="SHOW_PAGE"
+                 payload="{name: 'content-detail', type: vm.type, item: entry.id}"
+            ><div class="c-user-content-widget__short s-cms-widget-content s-cms-widget-content--inline"
+                  ng-bind-html="entry.short.html"></div></dp-link>
     </div>
 </div>

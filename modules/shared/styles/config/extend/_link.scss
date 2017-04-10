@@ -1,6 +1,7 @@
 //This is an extend so it can be used by both the anchor tag as well as buttons with .btn--link
 
-$link-offset: $base-font-size;
+$icon-size: 1.22em;
+$link-offset: 3px;
 
 %link {
   @include font-size($s-font);
@@ -30,28 +31,35 @@ $link-offset: $base-font-size;
 %link--arrow {
   @extend %link;
 
-  margin-left: $link-offset + 1px;
+  margin-left: calc(#{$icon-size} + #{2 * $link-offset});
 
   &::before {
     @include icon-button("link-arrow");
+
     display: inline-block;
-    position: absolute;
-    left: -$link-offset;
-    width: 1.22em;
-    height: 1.22em;
+    position: static;
+    width: $icon-size;
+    height: $icon-size;
+    margin-right: $link-offset;
+    margin-left: calc(-#{$icon-size} - #{$link-offset});
     content: "";
+    vertical-align: text-bottom;
   }
 }
 
 %link--plus {
   @extend %link;
 
-  margin-left: $link-offset;
+  margin-left: calc(#{$icon-size} + #{2 * $link-offset});
 
   &::before {
     display: inline-block;
-    position: absolute;
-    left: -$link-offset;
+    position: static;
+    width: $icon-size;
+    height: $icon-size;
+    margin-right: $link-offset;
+    margin-left: calc(-#{$icon-size} - #{$link-offset});
+    text-align: center;
     content: "+";
   }
 }
