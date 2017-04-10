@@ -66,7 +66,7 @@ describe('The dp-header component', function () {
     });
 
     describe('user state', function () {
-        it('when not logged in', function () {
+        it('the login button should open the help page', function () {
             var component;
 
             spyOn(user, 'getUserType').and.returnValue('ANONYMOUS');
