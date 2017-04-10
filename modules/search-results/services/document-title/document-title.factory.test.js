@@ -15,7 +15,7 @@ describe('The dpSearchResultsDocumentTitle factory', function () {
 
     describe('For searches on text', function () {
         it('returns "Data met <searchText> as a title', function () {
-            expect(documentTitle.getTitle({query: 'a query'})).toBe('Data met a query');
+            expect(documentTitle.getTitle({query: 'a query'})).toBe('Data met \'a query\'');
         });
     });
 

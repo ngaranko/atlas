@@ -17,7 +17,7 @@ describe('each URL should load the corresponding view', function () {
 
         dp.validate('DATA-SELECTION--TABLE', page);
 
-        expect(page.title).toBe('Tabel Adressen - Atlas');
+        expect(page.title).toBe('Tabel Adressen - Dataportaal');
 
         expect(dataSelection.header.title).toContain('Adressen');
 
@@ -62,7 +62,7 @@ describe('each URL should load the corresponding view', function () {
 
         dp.validate('MAP_DETAIL--NUMMERAANDUIDING', page);
 
-        expect(page.title).toMatch('Adres: Maria Austriastraat 730 - Atlas');
+        expect(page.title).toMatch('Adres: Maria Austriastraat 730 - Dataportaal');
 
         expect(detail.nummeraanduiding.nummeraanduidingHeader.glossaryHeader.title)
             .toBe('Maria Austriastraat 730');
@@ -96,7 +96,7 @@ describe('each URL should load the corresponding view', function () {
         dp.validate('MAP_SEARCH-RESULTS--LOCATION', page);
 
         expect(page.title)
-            .toBe('Data (7) met locatie 121356\.94, 487341\.61 \(52\.3729183, 4\.8931775\) - Atlas');
+            .toBe('Data (7) met locatie 121356\.94, 487341\.61 \(52\.3729183, 4\.8931775\) - Dataportaal');
 
         expect(searchResults.categories(0).header).toBe('Openbare ruimte');
         expect(searchResults.categories(0).list(0).link.label).toBe('Dam');
@@ -123,7 +123,7 @@ describe('each URL should load the corresponding view', function () {
 
         dp.validate('SEARCH-RESULTS--QUERY', page);
 
-        expect(page.title).toMatch(/Data met Oost - Atlas$/);
+        expect(page.title).toMatch(/Data met 'Oost' - Dataportaal$/);
 
         expect(searchResults.categories(0).header).toMatch(/^Openbare ruimtes \(\d+\)/);
         expect(searchResults.categories(0).list(0).link.label).toMatch(/Oost/);
@@ -151,7 +151,7 @@ describe('each URL should load the corresponding view', function () {
 
         dp.validate('MAP_STRAATBEELD--DETAIL', page);
 
-        expect(page.title).toBe('Panorama 128708.98, 485100.65 (52.3531791, 5.0013100) - Atlas');
+        expect(page.title).toBe('Panorama 128708.98, 485100.65 (52.3531791, 5.0013100) - Dataportaal');
     });
 
     it('MAP_STRAATBEELD--PAGE', () => {
@@ -159,7 +159,7 @@ describe('each URL should load the corresponding view', function () {
 
         dp.validate('MAP_STRAATBEELD--PAGE', page);
 
-        expect(page.title).toBe('Panorama 128708.98, 485100.65 (52.3531791, 5.0013100) - Atlas');
+        expect(page.title).toBe('Panorama 128708.98, 485100.65 (52.3531791, 5.0013100) - Dataportaal');
     });
 
     it('MAP_STRAATBEELD--SEARCH-RESULTS', () => {
@@ -167,7 +167,7 @@ describe('each URL should load the corresponding view', function () {
 
         dp.validate('MAP_STRAATBEELD--SEARCH-RESULTS', page);
 
-        expect(page.title).toBe('Panorama 121356.94, 487341.61 (52.3729183, 4.8931775) - Atlas');
+        expect(page.title).toBe('Panorama 121356.94, 487341.61 (52.3729183, 4.8931775) - Dataportaal');
     });
 
     it('PAGE--HOME', () => {
@@ -181,7 +181,7 @@ describe('each URL should load the corresponding view', function () {
 
         dp.validate('STRAATBEELD--DETAIL', page);
 
-        expect(page.title).toBe('Panorama 128708.98, 485100.65 (52.3531791, 5.0013100) - Atlas');
+        expect(page.title).toBe('Panorama 128708.98, 485100.65 (52.3531791, 5.0013100) - Dataportaal');
     });
 
     it('STRAATBEELD--PAGE', () => {
@@ -189,7 +189,7 @@ describe('each URL should load the corresponding view', function () {
 
         dp.validate('STRAATBEELD--PAGE', page);
 
-        expect(page.title).toBe('Panorama 128708.98, 485100.65 (52.3531791, 5.0013100) - Atlas');
+        expect(page.title).toBe('Panorama 128708.98, 485100.65 (52.3531791, 5.0013100) - Dataportaal');
     });
 
     it('STRAATBEELD--SEARCH-RESULTS', () => {
@@ -197,6 +197,6 @@ describe('each URL should load the corresponding view', function () {
 
         dp.validate('STRAATBEELD--SEARCH-RESULTS', page);
 
-        expect(page.title).toBe('Panorama 121356.94, 487341.61 (52.3729183, 4.8931775) - Atlas');
+        expect(page.title).toBe('Panorama 121356.94, 487341.61 (52.3729183, 4.8931775) - Dataportaal');
     });
 });

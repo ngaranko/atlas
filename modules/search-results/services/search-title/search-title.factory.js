@@ -43,7 +43,7 @@
             let title = '';
 
             if (categoryName) {
-                title = numberFilter(numberOfResults) + ' ' + lowercaseFilter(categoryName);
+                title = categoryName;
             } else if (numberOfResults === 0) {
                 title = 'Geen resultaten gevonden';
             } else if (numberOfResults > 0) {

@@ -68,7 +68,7 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
     });
 
     it('shows a the datasets query for text search in datasets', function () {
-        expect(dpDataSelectionDocumentTitle.getTitle(mockedCardsState)).toBe('Datasets met my query');
+        expect(dpDataSelectionDocumentTitle.getTitle(mockedCardsState)).toBe('Datasets met \'my query\'');
     });
 
     it('shows the title of the current dataset', function () {

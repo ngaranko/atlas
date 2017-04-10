@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function (page) {
-    expect(page.title).toBe('Dataset: Activiteiten - Atlas');
+    expect(page.title).toBe('Dataset: Activiteiten - Dataportaal');
 
     expect(page.dashboard.leftColumn.columnSize).toBe(0);
 
