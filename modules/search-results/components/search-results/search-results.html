@@ -39,20 +39,16 @@
 
                         <div ng-if="category.count > 10" class="qa-show-more">
                             <dp-link ng-if="category.more"
-                                class-name="c-show-more u-margin__top-05"
-                                type="FETCH_DETAIL"
-                                payload="category.more.endpoint">
-
-                                {{category.more.label}}
-                            </dp-link>
+                                     class-name="c-show-more u-margin__top-05"
+                                     type="FETCH_DETAIL"
+                                     payload="category.more.endpoint"
+                                >{{category.more.label}}</dp-link>
 
                             <dp-link ng-if="!category.more"
-                                class-name="c-show-more u-margin__top-05"
-                                type="FETCH_SEARCH_RESULTS_CATEGORY"
-                                payload="category.slug">
-
-                                Toon alle {{category.count | number}}
-                            </dp-link>
+                                     class-name="c-show-more u-margin__top-05"
+                                     type="FETCH_SEARCH_RESULTS_CATEGORY"
+                                     payload="category.slug"
+                                >Toon alle {{category.count | number}}</dp-link>
                         </div>
                     </div>
                 </div>
@@ -75,13 +71,10 @@
 
                     <dp-search-results-list category="vm.searchResults[0]"></dp-search-results-list>
 
-                    <button
-                        ng-if="vm.hasLoadMore()"
-                        class="c-show-more"
-                        ng-click="vm.loadMore()">
-
-                        Toon meer
-                    </button>
+                    <button ng-if="vm.hasLoadMore()"
+                            class="c-show-more"
+                            ng-click="vm.loadMore()"
+                        >Toon meer</button>
 
                     <dp-loading-indicator is-loading="vm.isLoadMoreLoading" use-delay="true" show-inline="true">
                     </dp-loading-indicator>

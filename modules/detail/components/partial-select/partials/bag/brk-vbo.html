@@ -3,9 +3,10 @@
 
   <ul class="o-list">
     <li ng-repeat="object in apiData.results">
-        <dp-link type="FETCH_DETAIL" payload="object._links.self.href" class-name="o-btn o-btn--link o-btn--contrast s-btn--nested">
-          {{ object._display}}
-        </dp-link>
+        <dp-link type="FETCH_DETAIL"
+                 payload="object._links.self.href"
+                 class-name="o-btn o-btn--link o-btn--contrast s-btn--nested"
+            >{{ object._display}}</dp-link>
 
         <div class="s-indented-list">
             <dp-partial-select partial="brk" api-data="{results:object}"></dp-partial-select>
@@ -13,7 +14,5 @@
     </li>
   </ul>
 
-  <button class="o-loadmore" ng-click="loadMore()" ng-if="apiData.next">
-    Meer
-  </button>
+  <button class="o-loadmore" ng-click="loadMore()" ng-if="apiData.next">Meer</button>
 </div>
