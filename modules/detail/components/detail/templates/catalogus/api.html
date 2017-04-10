@@ -43,7 +43,7 @@
                             <span ng-if="!resource.description">{{resource.url}}</span>
                         </td>
                         <td class="c-data-selection-table__column--size u-align--right">
-                            <span ng-if="resource.size > 0" >{{resource.size / 1024 | number:0}} KB</span>
+                            <span ng-if="resource.size > 0" >{{resource.size | filesize}}</span>
                             <a ng-href="{{resource.url}}" class="o-btn o-btn--block o-btn--block--inverted"></a>
                         </td>
                     </tr>
