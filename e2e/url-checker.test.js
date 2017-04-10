@@ -17,7 +17,7 @@ describe('each URL should load the corresponding view', function () {
 
         dp.validate('DATA-SELECTION--TABLE', page);
 
-        expect(page.title).toBe('Tabel Adressen - Dataportaal');
+        expect(page.title).toBe('Tabel adressen - Dataportaal');
 
         expect(dataSelection.header.title).toContain('Adressen');
 
@@ -123,7 +123,7 @@ describe('each URL should load the corresponding view', function () {
 
         dp.validate('SEARCH-RESULTS--QUERY', page);
 
-        expect(page.title).toMatch(/Data met 'Oost' - Dataportaal$/);
+        expect(page.title).toMatch(/Resultaten met 'Oost' - Dataportaal$/);
 
         expect(searchResults.categories(0).header).toMatch(/^Openbare ruimtes \(\d+\)/);
         expect(searchResults.categories(0).list(0).link.label).toMatch(/Oost/);

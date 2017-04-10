@@ -4,9 +4,9 @@
     angular
         .module('dpSearchResults')
         .factory('searchTitle', searchTitleFactory);
-    searchTitleFactory.$inject = ['SEARCH_CONFIG', 'numberFilter', 'lowercaseFilter', 'coordinatesFilter'];
+    searchTitleFactory.$inject = ['SEARCH_CONFIG', 'numberFilter', 'coordinatesFilter'];
 
-    function searchTitleFactory (SEARCH_CONFIG, numberFilter, lowercaseFilter, coordinatesFilter) {
+    function searchTitleFactory (SEARCH_CONFIG, numberFilter, coordinatesFilter) {
         return {
             getTitleData: getTitleData
         };

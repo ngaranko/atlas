@@ -14,7 +14,6 @@
         'dpPageDocumentTitle',
         'dpSearchResultsDocumentTitle',
         'dpStraatbeeldDocumentTitle'
-
     ];
 
     function DpDocumentTitleDirective (
