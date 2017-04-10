@@ -23,9 +23,13 @@
                 </div>
                 <div class="u-col-sm--5 u-padding__right--2">
                     <nav class="site-header__menu">
-                        <button ng-if="!vm.isAuthenticated()" ng-click="vm.login()" class="qa-header__login site-header__menu__item">
+                        <dp-link ng-if="!vm.isAuthenticated()"
+                                 type="SHOW_PAGE"
+                                 payload="{name: 'help'}"
+                                 class="qa-header__login"
+                                 class-name="site-header__menu__item">
                             Inloggen
-                        </button>
+                        </dp-link>
                         <dp-menu-dropdown ng-if="vm.isAuthenticated()"
                                           title="{{vm.userName() + (vm.userIsBevoegd() ? ' (bevoegd)': '')}}"
                                           type="user">
