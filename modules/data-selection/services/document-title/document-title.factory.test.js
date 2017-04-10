@@ -26,6 +26,15 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
                         hr: {
                             TITLE: 'Handelsregister',
                             FILTERS: []
+                        },
+                        catalogus: {
+                            TITLE: 'Catalogus',
+                            FILTERS: [
+                                {
+                                    slug: 'groups',
+                                    label: 'Thema\'s'
+                                }
+                            ]
                         }
                     }
                 });
@@ -49,6 +58,7 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
         };
 
         mockedCardsState = {
+            dataset: 'catalogus',
             view: 'CARDS',
             query: 'my query',
             filters: {}
@@ -69,6 +79,12 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
 
     it('shows a the datasets query for text search in datasets', function () {
         expect(dpDataSelectionDocumentTitle.getTitle(mockedCardsState)).toBe('Datasets met \'my query\'');
+    });
+
+    it('shows both the query and the active filter', function () {
+        mockedCardsState.filters.groups = 'bestuur-en-organisatie';
+        expect(dpDataSelectionDocumentTitle.getTitle(mockedCardsState))
+            .toBe('Dataset Catalogus met \'my query\', bestuur-en-organisatie');
     });
 
     it('shows the title of the current dataset', function () {
