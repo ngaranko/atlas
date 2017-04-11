@@ -18,11 +18,7 @@ describe('Taiga issue #2938', () => {
         page.dashboard.middleColumn.map.click(150, 200);
         page.dashboard.middleColumn.map.drawTool.toggleDrawingTool.click();
 
-        dp.validate('MAP', page);
         expect(page.dashboard.middleColumn.map.hasPuntenwolk).toBe(true);
-
-        // Minimize the map
-        page.dashboard.middleColumn.map.toggleFullscreen.click();
         dp.validate('MAP_DATA-SELECTION', page);
     });
 });
