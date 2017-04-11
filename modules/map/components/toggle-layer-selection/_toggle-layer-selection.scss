@@ -6,15 +6,16 @@
   &:active {
     @extend %overlay-button;
   }
-}
 
-.c-toggle-layer-selection--mirrored {
-  @extend %overlay-button;
-  @include icon-button-text-box-right("back");
-
-  &:hover,
-  &:active {
+  &.c-toggle-layer-selection--mirrored {
     @extend %overlay-button;
+    @include icon-button-text-box-right("back");
+
+    &:hover,
+    &:active {
+      @extend %overlay-button;
+    }
   }
 }
+
 
