@@ -718,8 +718,9 @@ describe('The dp-search-results component', function () {
 
             expect(categoryNode.find('.qa-category-warning').text()).toContain(
                 'Om kadastraal subjecten te kunnen vinden,' +
-                ' moet je als medewerker/ketenpartner van Gemeente Amsterdam inloggen' +
-                ' en speciale bevoegdheden hebben. Zie Help > Bediening dataportaal > Inloggen.'
+                ' moet je als medewerker/ketenpartner van Gemeente Amsterdam inloggen.' +
+                ' Om ook natuurlijke personen te vinden, moet je als medewerker bovendien' +
+                ' speciale bevoegdheden hebben. Zie Help > Bediening dataportaal > Inloggen.'
             );
         });
 

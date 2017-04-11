@@ -10,3 +10,7 @@
 @import "components/pagination/pagination";
 @import "components/views/cards/cards";
 @import "components/views/table/table";
+
+.is-print-mode {
+  @import "components/data-selection/data-selection-print";
+}
