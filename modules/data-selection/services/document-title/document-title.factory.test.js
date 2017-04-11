@@ -87,7 +87,7 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
     it('shows both the query and the active filter', function () {
         mockedCardsState.filters.groups = 'bestuur-en-organisatie';
         expect(dpDataSelectionDocumentTitle.getTitle(mockedCardsState))
-            .toBe('Dataset met \'my query\', bestuur-en-organisatie');
+            .toBe('Datasets met \'my query\', bestuur-en-organisatie');
     });
 
     it('shows the surface of the current selection', function () {

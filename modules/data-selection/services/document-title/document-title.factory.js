@@ -13,7 +13,7 @@
             getTitle: getTitle
         };
 
-        // TODO: Might be worth replacing with some more advanced templating that allows conditions like Mustache (#3335)
+        // TODO: Might be worth replacing with more advanced templating that allows conditions like Mustache (#3335)
         // eslint-disable-next-line complexity
         function getTitle (dataSelectionState) {
             let output,
@@ -25,7 +25,7 @@
             const VIEW_NAMES = {
                 TABLE: 'Tabel',
                 LIST: 'Lijst',
-                CARDS: 'Dataset'
+                CARDS: 'Datasets'
             };
 
             if (dataSelectionState.view === 'CARDS' && Object.keys(dataSelectionState.filters).length === 0) {
