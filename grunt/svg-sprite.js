@@ -6,6 +6,8 @@ module.exports = {
         options: {
             shape: {
                 spacing: {
+                    // top, right, bottom, left spacing around each icon in the
+                    // sprite in pixels
                     padding: [0, 1, 0, 1]
                 }
             },
