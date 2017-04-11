@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function (page) {
-    expect(page.title).toBe('Grote kaart - Atlas');
+    expect(page.title).toBe('Grote kaart - Dataportaal');
 
     expect(page.dashboard.leftColumn.columnSize).toBe(0);
 

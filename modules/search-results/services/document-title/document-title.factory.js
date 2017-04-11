@@ -15,7 +15,7 @@
 
         function getTitle (searchState) {
             if (searchState && !angular.isArray(searchState.location) && !searchState.category) {
-                return `Data met ${searchState.query}`;
+                return `Data met '${searchState.query}'`;
             } else {
                 const titleData = searchState ? searchTitle.getTitleData(
                         searchState.numberOfResults,
