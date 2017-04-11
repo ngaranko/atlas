@@ -50,7 +50,10 @@
                     ng-class="'u-col-sm--' + vm.columnSizes.left">
 
                     <!-- Layer selection -->
-                    <div ng-if="vm.activity.layerSelection" ng-show="vm.visibility.layerSelection" ng-controller="LayerSelectionController as layerSelection" class="qa-layer-selection">
+                    <div ng-if="vm.activity.layerSelection"
+                        ng-show="vm.visibility.layerSelection"
+                        ng-controller="LayerSelectionController as layerSelection"
+                        class="u-full-height qa-layer-selection">
                         <dp-layer-selection
                             base-layer="{{layerSelection.baseLayer}}"
                             overlays="layerSelection.overlays"
