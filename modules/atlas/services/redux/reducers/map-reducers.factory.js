@@ -173,8 +173,6 @@
 
             newState.page.name = null;
             newState.map.drawingMode = false;
-            newState.map.isFullscreen = false;
-            newState.layerSelection.isEnabled = false;
 
             if (payload) {
                 if (payload.markers.length > 2) {
@@ -193,6 +191,9 @@
 
                     newState.map.geometry = [];
                     newState.map.isLoading = true;
+                    newState.map.isFullscreen = false;
+
+                    newState.layerSelection.isEnabled = false;
                 } else if (payload.markers.length === 2) {
                     // Line
                     newState.map.geometry = payload.markers;
