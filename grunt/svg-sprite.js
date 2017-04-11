@@ -4,6 +4,11 @@ module.exports = {
         src: ['*.svg'],
         dest: '',
         options: {
+            shape: {
+                spacing: {
+                    padding: [0, 1, 0, 1]
+                }
+            },
             mode: {
                 css: {
                     dest: 'build',
