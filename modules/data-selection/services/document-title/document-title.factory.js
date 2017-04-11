@@ -13,7 +13,7 @@
             getTitle: getTitle
         };
 
-        /* TODO: Might be worth replacing with some more advances templating that allows conditions like Mustache */
+        // TODO: Might be worth replacing with some more advanced templating that allows conditions like Mustache (#3335)
         // eslint-disable-next-line complexity
         function getTitle (dataSelectionState) {
             let output,
@@ -56,7 +56,7 @@
                 }
 
                 if (markers.length) {
-                    /* NB: Manual replacement of the superscript 2 is required due to improper browser rendering */
+                    // NB: Manual replacement of the superscript 2 is required due to improper browser rendering
                     const geometryFilterDescription = dataSelectionState.geometryFilter.description
                             .replace('&sup2;', '²');
                     output += `ingetekend (${geometryFilterDescription})`;

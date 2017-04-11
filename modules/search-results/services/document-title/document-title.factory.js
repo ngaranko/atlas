@@ -14,10 +14,12 @@
         };
 
         function getTitle (searchState) {
-            if (searchState && !angular.isArray(searchState.location) && !searchState.category && searchState.numberOfResults) {
+            if (searchState && !angular.isArray(searchState.location) && !searchState.category) {
+               if (searchState.numberOfResults) {
                 return `Resultaten met '${searchState.query}'`;
-            } else if (searchState && !angular.isArray(searchState.location) && !searchState.category && !searchState.numberOfResults) {
+              } else {
                 return `Geen resultaten met '${searchState.query}'`;
+              }
             } else {
                 const titleData = searchState ? searchTitle.getTitleData(
                         searchState.numberOfResults,
