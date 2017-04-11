@@ -45,12 +45,10 @@
                          ng-bind-html="entry.short.html"></div>
                     <dp-anchor-link ng-if="!entry.short.isHref"
                                     link="{{$first ? (vm.type + 'top') : (vm.type + entry.id)}}"
-                                    auto-scroll="entry.id === vm.entry.id">
-                        {{entry.short.value}}
-                    </dp-anchor-link>
+                                    auto-scroll="entry.id === vm.entry.id"
+                        >{{entry.short.value}}</dp-anchor-link>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
