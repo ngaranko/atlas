@@ -3,7 +3,7 @@
 const searchResults = require('./search-results');
 
 module.exports = function (page) {
-    expect(page.title).toMatch(/Resultaten met '\w+' - Dataportaal$/);
+    expect(page.title).toMatch(/Data met '\w+' - Dataportaal$/);
 
     searchResults(page);
 };
