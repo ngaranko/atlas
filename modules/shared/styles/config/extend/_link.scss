@@ -1,6 +1,7 @@
 //This is an extend so it can be used by both the anchor tag as well as buttons with .btn--link
 
 $icon-size: 1.22em;
+$icon-offset: .4em;
 $link-offset: 3px;
 
 %link {
@@ -31,7 +32,7 @@ $link-offset: 3px;
 %link--arrow {
   @extend %link;
 
-  margin-left: calc(#{$icon-size} + #{2 * $link-offset});
+  margin-left: -$icon-offset;
 
   &::before {
     @include icon-button("link-arrow");
@@ -41,7 +42,6 @@ $link-offset: 3px;
     width: $icon-size;
     height: $icon-size;
     margin-right: $link-offset;
-    margin-left: calc(-#{$icon-size} - #{$link-offset});
     content: "";
     vertical-align: text-bottom;
   }

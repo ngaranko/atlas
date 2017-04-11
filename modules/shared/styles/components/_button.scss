@@ -53,6 +53,7 @@
   @extend %link--arrow;
 
   width: 100%;
+  padding-left: $base-whitespace;
   line-height: $base-whitespace * 4;
 }
 
