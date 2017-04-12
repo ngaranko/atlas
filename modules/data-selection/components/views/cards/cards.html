@@ -1,46 +1,38 @@
 <div ng-repeat="row in vm.content.body">
     <button ng-click="vm.fetch_detail(row.detailEndpoint)" class="c-data-selection-card qa-card-fetch-detail u-no-presentation">
-    <h2 class="c-data-selection-card__header">
+        <h2 class="c-data-selection-card__header">
+                <dp-data-selection-formatter
+                    variables="row.content[0]"
+                    formatter="{{vm.content.formatters[0]}}"
+                    use-inline="true">
+                </dp-data-selection-formatter>
+            </dp-link>
+        </h2>
+
+        <span class="c-data-selection-card__formats">
             <dp-data-selection-formatter
-                variables="row.content[0]"
-                formatter="{{vm.content.formatters[0]}}"
+                variables="row.content[2]"
+                formatter="{{vm.content.formatters[2]}}"
+                template="{{vm.content.templates[2]}}"
                 use-inline="true">
             </dp-data-selection-formatter>
-        </dp-link>
-    </h2>
+        </span>
 
-    <span class="c-data-selection-card__date">
-        <dp-data-selection-formatter
-            variables="row.content[1]"
-            formatter="{{vm.content.formatters[1]}}"
-            use-inline="true">
-        </dp-data-selection-formatter>
-    </span>
+        <span class="c-data-selection-card__tags">
+            <dp-data-selection-formatter
+                variables="row.content[3]"
+                formatter="{{vm.content.formatters[3]}}"
+                template="{{vm.content.templates[3]}}"
+                use-inline="true">
+            </dp-data-selection-formatter>
+        </span>
 
-    <span class="c-data-selection-card__formats">
-        <dp-data-selection-formatter
-            variables="row.content[2]"
-            formatter="{{vm.content.formatters[2]}}"
-            template="{{vm.content.templates[2]}}"
-            use-inline="true">
-        </dp-data-selection-formatter>
-    </span>
-
-    <span class="c-data-selection-card__tags">
-        <dp-data-selection-formatter
-            variables="row.content[3]"
-            formatter="{{vm.content.formatters[3]}}"
-            template="{{vm.content.templates[3]}}"
-            use-inline="true">
-        </dp-data-selection-formatter>
-    </span>
-
-    <div class="c-data-selection-card__description">
-        <dp-data-selection-formatter
-             variables="row.content[4]"
-             formatter="{{vm.content.formatters[4]}}"
-             use-inline="true">
-        </dp-data-selection-formatter>
-    </div>
+        <div class="c-data-selection-card__description">
+            <dp-data-selection-formatter
+                 variables="row.content[4]"
+                 formatter="{{vm.content.formatters[4]}}"
+                 use-inline="true">
+            </dp-data-selection-formatter>
+        </div>
     </button>
 </div>

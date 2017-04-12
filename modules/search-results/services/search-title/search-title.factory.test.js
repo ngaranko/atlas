@@ -60,11 +60,11 @@ describe('The search title factory', function () {
         expect(titleData.subTitle).toContain('X, Y (52.123, 4.789)');
     });
 
-    it('shows the number of results for a category and the query in the title only', function () {
+    it('shows only the query in the title', function () {
         var titleData = searchTitle.getTitleData(47, 'westerpark', null, 'adres');
 
         // The category name will be converted to lowercase
-        expect(titleData.title).toBe('47 adressen met \'westerpark\'');
+        expect(titleData.title).toBe('Adressen met \'westerpark\'');
         expect(titleData.subTitle).toBeUndefined();
     });
 
@@ -80,24 +80,5 @@ describe('The search title factory', function () {
         titleData = searchTitle.getTitleData(0, null, [52.123, 4.789], null);
         expect(titleData.title).toBe('Geen resultaten gevonden');
         expect(titleData.subTitle).toContain('X, Y (52.123, 4.789)');
-    });
-
-    it('uses a thousands separator for the number of search results', function () {
-        var titleData;
-
-        // When searching by query
-        titleData = searchTitle.getTitleData(1000, 'zuiderpark', null, null);
-        expect(titleData.title).not.toContain('1000');
-        expect(titleData.title).toContain('1.000');
-
-        // When searching by location
-        titleData = searchTitle.getTitleData(1000, null, [52.963, 4.741], null);
-        expect(titleData.title).not.toContain('1000');
-        expect(titleData.title).toContain('1.000');
-
-        // When viewing a category of search results
-        titleData = searchTitle.getTitleData(1000, 'zuiderpark', null, 'adres');
-        expect(titleData.title).not.toContain('1000');
-        expect(titleData.title).toContain('1.000');
     });
 });

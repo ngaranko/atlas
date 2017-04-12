@@ -1,20 +1,11 @@
 .c-toggle-layer-selection {
   @extend %overlay-button;
-  @include icon-button-text-box-right("forward", "", "red");
-
-  &:hover,
-  &:active {
-    @extend %overlay-button;
-  }
 }
 
-.c-toggle-layer-selection--mirrored {
-  @extend %overlay-button;
+.c-toggle-layer-selection--opened {
   @include icon-button-text-box-right("back");
-
-  &:hover,
-  &:active {
-    @extend %overlay-button;
-  }
 }
 
+.c-toggle-layer-selection--closed {
+  @include icon-button-text-box-right("forward", "", "red");
+}

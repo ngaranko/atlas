@@ -406,6 +406,32 @@ describe('The map reducers', function () {
             expect(output.dataSelection.view).toBe('LIST');
             expect(output.dataSelection.markers).toEqual([]);
         });
+
+        it('Closes the full screen map and layer selection on polygon', () => {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map.isFullscreen = true;
+            inputState.layerSelection.isEnabled = true;
+
+            const output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
+                markers: ['p1', 'p2', 'p3']
+            });
+
+            expect(output.map.isFullscreen).toBe(false);
+            expect(output.layerSelection.isEnabled).toBe(false);
+        });
+
+        it('Does not close full screen map and layer selection on line', () => {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map.isFullscreen = true;
+            inputState.layerSelection.isEnabled = true;
+
+            const output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
+                markers: ['p1', 'p2']
+            });
+
+            expect(output.map.isFullscreen).toBe(true);
+            expect(output.layerSelection.isEnabled).toBe(true);
+        });
     });
 
     describe('SHOW_MAP_ACTIVE_OVERLAYS', function () {
