@@ -39,16 +39,4 @@ describe('The localization service', function () {
             expect(Number.prototype.toLocaleString).not.toHaveBeenCalled();
         });
     });
-
-    describe('toLocaleString feature detection', () => {
-        it('returns false if not supported', () => {
-            expect(localization.toLocaleStringSupportsOptions()).toBe(false);
-        });
-
-        it('returns true if supported', () => {
-            window.Intl = { NumberFormat: () => {} }; // eslint-disable-line angular/window-service
-
-            expect(localization.toLocaleStringSupportsOptions()).toBe(true);
-        });
-    });
 });
