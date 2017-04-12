@@ -17,7 +17,9 @@
                     getPayload: query => {
                         return {dataset: 'catalogus', view: 'CARDS', query, filters: {}, page: 1};
                     },
-                    tip: 'gebruik in plaats van een zoekvraag de mogelijkheid om op thema te filteren'
+                    tip: 'in datasets kun je momenteel alleen zoeken op hele woorden (dus zoek niet op \'zonne\' ' +
+                        'maar op \'zonnepanelen\' of \'zonnepaneel\'). Alternatief is de optie \'Alle datasets ' +
+                        'tonen\' en filteren op thema.'
                 }
             }
         });
