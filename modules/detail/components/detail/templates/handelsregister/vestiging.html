@@ -1,8 +1,18 @@
 <div class="u-row">
-    <dp-glossary-header
-        heading="{{vm.apiData.results._display}}"
-        definition="VESTIGING">
-    </dp-glossary-header>
+    <div class="o-header">
+        <dp-glossary-header
+            heading="{{vm.apiData.results._display}}"
+            definition="VESTIGING">
+        </dp-glossary-header>
+
+        <dp-panel
+            is-panel-visible="true"
+            ng-if="vm.apiData.results.datum_einde"
+            size="tiny"
+            type="danger">
+            Datum einde: {{ vm.apiData.results.datum_einde | date:'dd-MM-yyyy' }}
+        </dp-panel>
+    </div>
 
     <dl class="c-key-value-list">
         <dt>Eerste handelsnaam</dt>
@@ -28,6 +38,8 @@
         <dd> {{  vm.apiData.results.vestigingsnummer }} </dd>
         <dt>Datum aanvang</dt>
         <dd> {{ vm.apiData.results.datum_aanvang | date:'dd-MM-yyyy' }} </dd>
+        <dt>Datum einde</dt>
+        <dd> {{ vm.apiData.results.datum_einde | date:'dd-MM-yyyy' }} </dd>
         <dt>Coördinaten</dt>
         <dd ng-if="vm.apiData.results.bezoekadres.geometrie.coordinates[0]">
             {{ vm.apiData.results.bezoekadres.geometrie.coordinates | coordinates: 'RD' }}
