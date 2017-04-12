@@ -65,18 +65,6 @@ describe(' The authenticator factory', function () {
                         getItem: angular.noop,
                         removeItem: angular.noop
                     }
-                },
-                applicationState: {
-                    getStateUrlConverter: () => {
-                        return {
-                            state2params: state => state,
-                            getDefaultState: () => {
-                                return {
-                                    default: 'state'
-                                };
-                            }
-                        };
-                    }
                 }
             }
         );

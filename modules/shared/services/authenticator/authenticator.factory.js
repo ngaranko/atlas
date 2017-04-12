@@ -10,7 +10,6 @@
         '$interval',
         'sharedConfig',
         'user',
-        'applicationState',
         '$window',
         '$location',
         'storage'
@@ -21,7 +20,6 @@
         $interval,
         sharedConfig,
         user,
-        applicationState,
         $window,
         $location,
         storage) {
