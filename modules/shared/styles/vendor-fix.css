@@ -1,0 +1,7 @@
+/*Vendor fixes are normally covered by postcss*/
+/*However, some fixes are not handled by postcss*/
+/*Instead of writing a postcss plugin, the exceptions are kept in this file and added by grunt/config/css-files*/
+input[type=text]::-ms-clear {
+/*prevent IE to display own clear button...*/
+display: none;
+}

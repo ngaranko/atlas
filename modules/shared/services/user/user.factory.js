@@ -5,9 +5,9 @@
         .module('dpShared')
         .factory('user', userFactory);
 
-    userFactory.$inject = ['$window', 'userSettings'];
+    userFactory.$inject = ['$window', '$q', '$interval', 'userSettings'];
 
-    function userFactory ($window, userSettings) {
+    function userFactory ($window, $q, $interval, userSettings) {
         const USER_TYPE = { // the possible types of a user
             NONE: 'NONE',
             ANONYMOUS: 'ANONYMOUS',
@@ -124,6 +124,7 @@
             setRefreshToken,
             getAccessToken,
             setAccessToken,
+            waitForAccessToken,
             getName,
             getAuthorizationLevel,
             getUserType,
@@ -147,7 +148,47 @@
         }
 
         function setAccessToken (token) {
+            const currentAuthorizationLevel = user.authorizationLevel;
+
             user.accessToken = token;
+
+            if (!meetsRequiredLevel(currentAuthorizationLevel)) {
+                onLowerAuthorizationLevel();
+            }
+        }
+
+        /**
+         * Returns a promise that will resolve to an access token if available.
+         * When the user is in the process of loggin in, the promise will not
+         * be resolved until after the loggin process has finished (or after a
+         * maximum of 5 seconds).
+         *
+         * @return {Promise} The user access token or null.
+         */
+        function waitForAccessToken () {
+            const defer = $q.defer(),
+                token = getAccessToken();
+
+            if (token) {
+                defer.resolve(token);
+            } else if (getRefreshToken()) {
+                // user is logging in, refresh token is available, access token not yet
+                const interval = $interval(() => {
+                    const newToken = getAccessToken();
+                    if (!getRefreshToken() || newToken) {
+                        // Refresh token was invalid or access token has been received
+                        $interval.cancel(interval);
+                        defer.resolve(newToken);
+                    }
+                }, 250, 20);    // try every 1/4 second, for max 20 * 250 = 5 seconds
+
+                // On interval ends resolve without a token
+                interval.then(() => defer.resolve(null));
+            } else {
+                defer.resolve(null);
+            }
+
+            return defer.promise;
         }
 
         function getUserType () {
@@ -177,8 +218,14 @@
             }
         }
 
+        function onLowerAuthorizationLevel () {
+            // Brute fix to reload the application when the user authorization decreases
+            $window.location.reload(true);
+        }
+
         function clearToken () {
             user.clear();
+            onLowerAuthorizationLevel();
         }
     }
 })();

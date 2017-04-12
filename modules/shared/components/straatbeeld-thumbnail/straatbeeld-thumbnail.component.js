@@ -48,7 +48,7 @@
                         id: id,
                         heading: heading,
                         isInitial: true,
-                        isFullscreen: userSettings.fullscreenStraatbeeld.value === true.toString()
+                        isFullscreen: false
                     };
                 } else {
                     vm.hasThumbnail = false;

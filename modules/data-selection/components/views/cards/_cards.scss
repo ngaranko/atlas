@@ -28,18 +28,9 @@
 }
 
 .c-data-selection-card__header-link {
+  @include font-size($m-header-font);
   color: $primary-dark;
-  font-size: $base-font-size * 1.2;
   text-decoration: none;
-}
-
-.c-data-selection-card__date {
-  position: absolute;
-  top: $base-whitespace * 2;
-  right: 0;
-  color: $secondary-gray40;
-  font-size: $base-font-size * .9;
-  line-height: $base-font-size * 1.2;
 }
 
 .c-data-selection-card__formats {

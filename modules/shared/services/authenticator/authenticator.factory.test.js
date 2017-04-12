@@ -10,7 +10,10 @@ describe(' The authenticator factory', function () {
         mockedUser;
 
     const REFRESH_INTERVAL = 1000 * 60 * 5;
-    const AUTH_PATH = 'auth';
+    const AUTH_PATH = 'auth/';
+    const LOGIN_PATH = 'idp/login';
+    const REFRESH_TOKEN_PATH = 'idp/token';
+    const ACCESS_TOKEN_PATH = 'accesstoken';
 
     beforeEach(function () {
         absUrl = 'absUrl';
@@ -62,18 +65,6 @@ describe(' The authenticator factory', function () {
                         getItem: angular.noop,
                         removeItem: angular.noop
                     }
-                },
-                applicationState: {
-                    getStateUrlConverter: () => {
-                        return {
-                            state2params: state => state,
-                            getDefaultState: () => {
-                                return {
-                                    default: 'state'
-                                };
-                            }
-                        };
-                    }
                 }
             }
         );
@@ -100,7 +91,7 @@ describe(' The authenticator factory', function () {
         spyOn(user, 'getRefreshToken').and.returnValue('token');
         spyOn(user, 'setAccessToken');
 
-        $httpBackend.whenGET(AUTH_PATH + '/accesstoken').respond('accesstoken');
+        $httpBackend.whenGET(AUTH_PATH + ACCESS_TOKEN_PATH).respond('accesstoken');
 
         authenticator.initialize();
         $httpBackend.flush();
@@ -126,8 +117,7 @@ describe(' The authenticator factory', function () {
         spyOn(user, 'setRefreshToken');
         spyOn(user, 'clearToken');
 
-        $httpBackend.whenGET(AUTH_PATH + '/refreshtoken').respond('token');
-        $httpBackend.whenGET(AUTH_PATH + '/accesstoken').respond(499, 'error message');
+        $httpBackend.whenGET(AUTH_PATH + ACCESS_TOKEN_PATH).respond(499, 'error message');
 
         authenticator.initialize();
         $httpBackend.flush();
@@ -143,7 +133,7 @@ describe(' The authenticator factory', function () {
         absUrl = 'absUrl/#?arg';
         authenticator.login();
         expect($window.location.href)
-            .toBe(AUTH_PATH + '/siam/authenticate?active=true&callback=' + encodeURIComponent('absUrl/#'));
+            .toBe(AUTH_PATH + LOGIN_PATH + '?callback=' + encodeURIComponent('absUrl/#'));
     });
 
     it('saves the current path in the session when redirecting to an external security provider', function () {
@@ -152,7 +142,7 @@ describe(' The authenticator factory', function () {
         absUrl = 'absUrl/#?arg';
         authenticator.login();
         expect($window.location.href)
-            .toBe(AUTH_PATH + '/siam/authenticate?active=true&callback=' + encodeURIComponent('absUrl/#'));
+            .toBe(AUTH_PATH + LOGIN_PATH + '?callback=' + encodeURIComponent('absUrl/#'));
         expect(storage.session.setItem).toHaveBeenCalledWith('callbackParams', angular.toJson({one: 1}));
     });
 
@@ -160,7 +150,7 @@ describe(' The authenticator factory', function () {
         absUrl = 'absUrl';
         authenticator.login();
         expect($window.location.href)
-            .toBe(AUTH_PATH + '/siam/authenticate?active=true&callback=' + encodeURIComponent(absUrl + '#'));
+            .toBe(AUTH_PATH + LOGIN_PATH + '?callback=' + encodeURIComponent(absUrl + '#'));
     });
 
     it('can logout a user by clearing its tokens', function () {
@@ -184,18 +174,52 @@ describe(' The authenticator factory', function () {
         spyOn(user, 'setAccessToken');
         spyOn($location, 'replace');
         spyOn($location, 'search');
+        spyOn(storage.session, 'getItem').and.returnValue(angular.toJson({one: 1}));
 
-        $httpBackend.whenGET(AUTH_PATH + '/siam/token?a-select-server=1&aselect_credentials=2&rid=3')
+        $httpBackend.whenGET(AUTH_PATH + REFRESH_TOKEN_PATH + '?a-select-server=1&aselect_credentials=2&rid=3')
             .respond('token');
-        $httpBackend.whenGET(AUTH_PATH + '/accesstoken').respond('accesstoken');
+        $httpBackend.whenGET(AUTH_PATH + ACCESS_TOKEN_PATH).respond('accesstoken');
 
         authenticator.handleCallback({one: 1, 'a-select-server': 1, 'aselect_credentials': 2, 'rid': 3});
         $httpBackend.flush();
 
         expect(user.setRefreshToken).toHaveBeenCalledWith('token', user.USER_TYPE.AUTHENTICATED);
         expect($location.replace).toHaveBeenCalled();
-        expect($location.search).toHaveBeenCalledWith({default: 'state'});
+        expect($location.search).toHaveBeenCalledWith({one: 1});
         expect(user.setAccessToken).toHaveBeenCalledWith('accesstoken');
+        $httpBackend.verifyNoOutstandingRequest();
+    });
+
+    it('returns to the saved callback path on a refresh token error', function () {
+        spyOn($location, 'replace');
+        spyOn($location, 'search');
+        spyOn(storage.session, 'getItem').and.returnValue(angular.toJson({one: 1}));
+
+        $httpBackend.whenGET(AUTH_PATH + REFRESH_TOKEN_PATH + '?a-select-server=1&aselect_credentials=2&rid=3')
+            .respond(400, 'refresh token error');
+
+        authenticator.handleCallback({one: 1, 'a-select-server': 1, 'aselect_credentials': 2, 'rid': 3});
+        $httpBackend.flush();
+
+        expect($location.replace).toHaveBeenCalled();
+        expect($location.search).toHaveBeenCalledWith({one: 1});
+        $httpBackend.verifyNoOutstandingRequest();
+    });
+
+    it('returns to the saved callback path on an access token error', function () {
+        spyOn($location, 'replace');
+        spyOn($location, 'search');
+        spyOn(storage.session, 'getItem').and.returnValue(angular.toJson({one: 1}));
+
+        $httpBackend.whenGET(AUTH_PATH + REFRESH_TOKEN_PATH + '?a-select-server=1&aselect_credentials=2&rid=3')
+            .respond('token');
+        $httpBackend.whenGET(AUTH_PATH + ACCESS_TOKEN_PATH).respond(400, 'accesstoken error');
+
+        authenticator.handleCallback({one: 1, 'a-select-server': 1, 'aselect_credentials': 2, 'rid': 3});
+        $httpBackend.flush();
+
+        expect($location.replace).toHaveBeenCalled();
+        expect($location.search).toHaveBeenCalledWith({one: 1});
         $httpBackend.verifyNoOutstandingRequest();
     });
 
@@ -203,9 +227,9 @@ describe(' The authenticator factory', function () {
         spyOn($location, 'search');
         spyOn(storage.session, 'getItem').and.returnValue(angular.toJson({one: 1}));
 
-        $httpBackend.whenGET(AUTH_PATH + '/siam/token?a-select-server=1&aselect_credentials=2&rid=3')
+        $httpBackend.whenGET(AUTH_PATH + REFRESH_TOKEN_PATH + '?a-select-server=1&aselect_credentials=2&rid=3')
             .respond('token');
-        $httpBackend.whenGET(AUTH_PATH + '/accesstoken').respond('accesstoken');
+        $httpBackend.whenGET(AUTH_PATH + ACCESS_TOKEN_PATH).respond('accesstoken');
 
         authenticator.handleCallback({'a-select-server': 1, 'aselect_credentials': 2, 'rid': 3});
         $httpBackend.flush();
@@ -214,28 +238,27 @@ describe(' The authenticator factory', function () {
         $httpBackend.verifyNoOutstandingRequest();
     });
 
-    it('defaults to home page when no saved callback path can be found', function () {
+    it('stays at home page when no saved callback path can be found', function () {
         spyOn($location, 'search');
         spyOn(storage.session, 'getItem').and.returnValue(null);
 
-        $httpBackend.whenGET(AUTH_PATH + '/siam/token?a-select-server=1&aselect_credentials=2&rid=3')
+        $httpBackend.whenGET(AUTH_PATH + REFRESH_TOKEN_PATH + '?a-select-server=1&aselect_credentials=2&rid=3')
             .respond('token');
-        $httpBackend.whenGET(AUTH_PATH + '/accesstoken').respond('accesstoken');
+        $httpBackend.whenGET(AUTH_PATH + ACCESS_TOKEN_PATH).respond('accesstoken');
 
         authenticator.handleCallback({'a-select-server': 1, 'aselect_credentials': 2, 'rid': 3});
         $httpBackend.flush();
 
-        expect($location.search).toHaveBeenCalledWith({default: 'state'});
+        expect($location.search).not.toHaveBeenCalled();
         $httpBackend.verifyNoOutstandingRequest();
     });
 
     it('does not ask for an anonymous access token if a authenticated refresh token fails', function () {
         spyOn(user, 'setRefreshToken');
 
-        $httpBackend.whenGET(AUTH_PATH + '/siam/token?a-select-server=1&aselect_credentials=2&rid=3')
+        $httpBackend.whenGET(AUTH_PATH + REFRESH_TOKEN_PATH + '?a-select-server=1&aselect_credentials=2&rid=3')
             .respond(400, 'errorMessage');
-        $httpBackend.whenGET(AUTH_PATH + '/refreshtoken').respond('anonymous token');
-        $httpBackend.whenGET(AUTH_PATH + '/accesstoken').respond('accesstoken');
+        $httpBackend.whenGET(AUTH_PATH + ACCESS_TOKEN_PATH).respond('accesstoken');
 
         authenticator.handleCallback({one: 1, 'a-select-server': 1, 'aselect_credentials': 2, 'rid': 3});
         $httpBackend.flush();
@@ -248,9 +271,9 @@ describe(' The authenticator factory', function () {
         spyOn(user, 'setRefreshToken').and.callThrough();
         spyOn(user, 'setAccessToken').and.callThrough();
 
-        $httpBackend.whenGET(AUTH_PATH + '/siam/token?a-select-server=1&aselect_credentials=2&rid=3')
+        $httpBackend.whenGET(AUTH_PATH + REFRESH_TOKEN_PATH + '?a-select-server=1&aselect_credentials=2&rid=3')
             .respond('token');
-        const getAccessToken = $httpBackend.whenGET(AUTH_PATH + '/accesstoken');
+        const getAccessToken = $httpBackend.whenGET(AUTH_PATH + ACCESS_TOKEN_PATH);
 
         getAccessToken.respond('accesstoken');
 
@@ -266,7 +289,6 @@ describe(' The authenticator factory', function () {
         user.setAccessToken.calls.reset();
 
         getAccessToken.respond(400, 'access token error');
-        $httpBackend.whenGET(AUTH_PATH + '/refreshtoken').respond('anonymous token');
 
         $interval.flush(REFRESH_INTERVAL);   // force refresh of access token
         $httpBackend.flush();

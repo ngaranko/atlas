@@ -1,12 +1,15 @@
-.c-straatbeeld-metadata__streetview-history-icon {
-  @include icon-button-text-box-flat-right("clock", "black", "white");
-  @include status-bar-button;
+.c-straatbeeld-metadata__history {
+  @include icon-button-text-flat-right("clock", "black", "white");
+  @include smaller-font-definition;
 
+  padding-right: $base-whitespace;
   float: left;
+  border-right: solid $secondary-gray20 1px;
+  z-index: 2;
 
-  span {
-    position: relative;
-    top: -1px;
+  &:hover,
+  &:active {
+    border-right: solid $secondary-gray20 1px;
   }
 }
 
@@ -14,10 +17,6 @@
   padding-left: $base-whitespace;
   float: right;
   border-left: solid $secondary-gray20 1px;
+  font-weight: bold;
   line-height: $button-size;
-
-  span {
-    position: relative;
-    top: -1px;
-  }
 }

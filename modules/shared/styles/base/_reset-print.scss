@@ -8,3 +8,9 @@ body {
   margin-right: auto;
   margin-left: auto;
 }
+
+&.is-print-mode--landscape {
+  body {
+    width: 1280px;
+  }
+}

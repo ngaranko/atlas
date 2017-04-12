@@ -10,6 +10,7 @@
     function mapReducersFactory (ACTIONS) {
         var reducers = {};
 
+        reducers[ACTIONS.SHOW_MAP.id] = showMapReducer;
         reducers[ACTIONS.MAP_SET_BASELAYER.id] = mapSetBaselayerReducer;
         reducers[ACTIONS.MAP_ADD_OVERLAY.id] = mapAddOverlayReducer;
         reducers[ACTIONS.MAP_REMOVE_OVERLAY.id] = mapRemoveOverlayReducer;
@@ -24,6 +25,15 @@
         reducers[ACTIONS.HIDE_MAP_ACTIVE_OVERLAYS.id] = hideActiveOverlaysReducer;
 
         return reducers;
+
+        function showMapReducer (oldState) {
+            const newState = angular.copy(oldState);
+
+            newState.map.isFullscreen = true;
+            newState.layerSelection.isEnabled = true;
+
+            return newState;
+        }
 
         /**
          * @param {Object} oldState
@@ -136,11 +146,7 @@
         function mapFullscreenReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
-            if (payload) {
-                // Set map to full screen
-                newState.layerSelection.isEnabled = false;
-            }
-
+            newState.layerSelection.isEnabled = false;
             newState.map.isFullscreen = payload;
 
             return newState;
@@ -165,6 +171,7 @@
         function mapEndDrawingReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
+            newState.page.name = null;
             newState.map.drawingMode = false;
 
             if (payload) {
@@ -184,6 +191,9 @@
 
                     newState.map.geometry = [];
                     newState.map.isLoading = true;
+                    newState.map.isFullscreen = false;
+
+                    newState.layerSelection.isEnabled = false;
                 } else if (payload.markers.length === 2) {
                     // Line
                     newState.map.geometry = payload.markers;

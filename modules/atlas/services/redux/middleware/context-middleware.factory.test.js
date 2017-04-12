@@ -61,6 +61,29 @@ describe('The contextMiddleware factory', function () {
         });
     });
 
+    it('translates HIDE_STRAATBEELD action in SHOW_PAGE if there is a page active (but invisible)', () => {
+        mockedAction.type = ACTIONS.HIDE_STRAATBEELD;
+        mockedStore.getState = () => {
+            return {
+                page: {
+                    name: 'home'
+                },
+                straatbeeld: {
+                    location: [1, 2]
+                }
+            };
+        };
+
+        const returnValue = contextMiddleware(mockedStore)(mockedNext)(mockedAction);
+
+        expect(returnValue).toEqual({
+            type: ACTIONS.SHOW_PAGE,
+            payload: {
+                name: 'home'
+            }
+        });
+    });
+
     it('translates HIDE_STRAATBEELD action in search results', function () {
         mockedAction.type = ACTIONS.HIDE_STRAATBEELD;
         mockedStore.getState = () => {

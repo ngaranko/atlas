@@ -20,14 +20,13 @@ $hover-table-color: #eee;
     }
 
     .c-data-selection-table__header-field {
+      @include font-size-responsive($m-header-font);
       height: $button-size;
       padding: {
         top: 0;
         bottom: 0;
       }
-      font-family: $header-font-family;
-      font-size: $base-font-size * 1.2;
-      font-weight: lighter;
+      font-weight: normal;
     }
   }
 

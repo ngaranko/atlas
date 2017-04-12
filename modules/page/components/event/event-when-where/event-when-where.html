@@ -1,0 +1,5 @@
+<h2 class="c-event-when-where__title">{{vm.title}}</h2>
+<div ng-if="vm.time || vm.location" class="c-event-when-where__time-location">
+    <span ng-if="vm.time && vm.location">{{vm.time}} | {{vm.location}}</span>
+    <span ng-if="!(vm.time && vm.location)">{{vm.timee || vm.location}}</span>
+</div>

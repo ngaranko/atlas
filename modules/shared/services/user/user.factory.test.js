@@ -1,5 +1,11 @@
 describe('The user factory', function () {
-    let userSettings,
+    const FORCE_REFRESH_TIMEOUT = 350,
+        FORCE_END_TIMEOUT = 5500;
+
+    let $rootScope,
+        $interval,
+        $window,
+        userSettings,
         refreshToken,
         userType,
         user;
@@ -38,10 +44,15 @@ describe('The user factory', function () {
             }
         );
 
-        angular.mock.inject(function (_userSettings_, _user_) {
+        angular.mock.inject(function (_$rootScope_, _$interval_, _$window_, _userSettings_, _user_) {
+            $rootScope = _$rootScope_;
+            $interval = _$interval_;
+            $window = _$window_;
             userSettings = _userSettings_;
             user = _user_;
         });
+
+        spyOn($window.location, 'reload').and.returnValue(null);
     });
 
     describe('The regular behaviour', function () {
@@ -162,6 +173,27 @@ describe('The user factory', function () {
         });
     });
 
+    describe('The behaviour when the user authorization changes', function () {
+        it('reloads the application on logout', function () {
+            user.clearToken();
+            expect($window.location.reload).toHaveBeenCalledWith(true);
+        });
+
+        it('reloads the application on a lower authorization level', function () {
+            user.setAccessToken(testAccessTokenAuthz1);
+            expect($window.location.reload).not.toHaveBeenCalled();
+            user.setAccessToken(testAccessTokenAuthz0);
+            expect($window.location.reload).toHaveBeenCalledWith(true);
+        });
+
+        it('does not reload the application on a higher authorization level', function () {
+            user.setAccessToken(testAccessTokenAuthz0);
+            expect($window.location.reload).not.toHaveBeenCalled();
+            user.setAccessToken(testAccessTokenAuthz1);
+            expect($window.location.reload).not.toHaveBeenCalled();
+        });
+    });
+
     describe('The behaviour when a refreshToken and userType is available from the session storage', function () {
         beforeEach(function () {
             refreshToken = 'refreshToken';
@@ -187,6 +219,76 @@ describe('The user factory', function () {
 
         it('tells "" as the name of an anonymous user', function () {
             expect(user.getName()).toBe('');
+        });
+    });
+
+    describe('waiting for an access token if user is logging in', () => {
+        it('continues if an access token is already available', function () {
+            var accessToken;
+
+            refreshToken = 'refreshToken';
+            user.setAccessToken(testAccessTokenAuthz1);
+
+            user.waitForAccessToken().then(function (token) {
+                accessToken = token;
+            });
+
+            $rootScope.$digest();
+
+            expect(accessToken).toEqual(testAccessTokenAuthz1);
+        });
+
+        it('continues if login succeeds', function () {
+            var accessToken;
+
+            refreshToken = 'refreshToken';
+
+            user.waitForAccessToken().then(function (token) {
+                accessToken = token;
+            });
+
+            $rootScope.$digest();
+
+            user.setAccessToken(testAccessTokenAuthz1);
+            $interval.flush(FORCE_REFRESH_TIMEOUT);   // force refresh of access token
+            $rootScope.$digest();
+
+            expect(accessToken).toEqual(testAccessTokenAuthz1);
+        });
+
+        it('continues if login fails', function () {
+            var accessToken;
+
+            refreshToken = 'refreshToken';
+
+            user.waitForAccessToken().then(function (token) {
+                accessToken = token;
+            });
+
+            $rootScope.$digest();
+
+            refreshToken = null;
+            $interval.flush(FORCE_REFRESH_TIMEOUT);   // force refresh of access token
+            $rootScope.$digest();
+
+            expect(accessToken).toEqual(null);
+        });
+
+        it('waits for max 5 seconds', function () {
+            var accessToken;
+
+            refreshToken = 'refreshToken';
+
+            user.waitForAccessToken().then(function (token) {
+                accessToken = token;
+            });
+
+            $rootScope.$digest();
+
+            $interval.flush(FORCE_END_TIMEOUT);   // force end of interval
+            $rootScope.$digest();
+
+            expect(accessToken).toEqual(null);
         });
     });
 });

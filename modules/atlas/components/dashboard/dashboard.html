@@ -1,39 +1,59 @@
-<div class="c-dashboard">
+<div class="c-dashboard"
+     ng-class="{
+         'c-dashboard--max-width': vm.hasMaxWidth,
+         'c-dashboard--full-height': vm.isFullHeight,
+         'c-dashboard--homepage': vm.isHomePage
+     }">
 
     <!-- Header -->
-    <div ng-if="!vm.isCatalogus" class="qa-dashboard__default-header c-dashboard__heading"
-        ng-controller="HeaderController as header">
-
-        <dp-header
-            query="{{header.query}}"
-            has-print-button="header.hasPrintButton"
-            is-print-mode="vm.isPrintMode"></dp-header>
+    <div ng-class="{ 'u-fixed': !vm.isPrintMode }">
+        <div class="c-dashboard__heading"
+             ng-class="{ 'o-max-width': vm.hasMaxWidth }"
+             ng-controller="HeaderController as header">
+            <div ng-class="{ 'o-max-width__inner': vm.hasMaxWidth }">
+                <div ng-if="!vm.isPrintMode" class="qa-dashboard__header">
+                    <dp-site-header size="vm.headerSize"
+                                    has-print-button="header.hasPrintButton"
+                                    search-action="header.searchAction"
+                                    query="{{header.query}}"></dp-site-header>
+                </div>
+                <div ng-if="vm.isPrintMode" class="qa-dashboard__print-header">
+                    <dp-print-header></dp-print-header>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Header -->
-    <div ng-if="vm.isCatalogus" class="qa-dashboard__catalogus-header c-dashboard__heading">
-        <dp-cards-header query="{{vm.dataSelectionState.query}}"></dp-cards-header>
+    <!-- Error message -->
+    <div ng-if="vm.visibility.httpStatus"
+         class="c-dashboard__error">
+        <div class="u-background-color__primary--light"
+             ng-class="{ 'o-max-width': vm.hasMaxWidth }">
+            <div ng-class="{
+                     'o-max-width__inner': vm.hasMaxWidth,
+                     'u-gutter': vm.isHomePage
+                 }">
+                <dp-api-error></dp-api-error>
+            </div>
+        </div>
     </div>
 
     <!-- Body -->
     <div class="c-dashboard__body"
-        ng-class="{ 'c-dashboard__body--error': vm.visibility.httpStatus }">
-        <div class="u-grid">
-
-            <!-- Error message -->
-            <div ng-if="vm.visibility.httpStatus" class="c-dashboard__error">
-                <dp-api-error></dp-api-error>
-            </div>
-
+         ng-class="{ 'c-dashboard__body--error': vm.visibility.httpStatus }">
+        <div class="u-grid u-full-height">
             <!-- Columns -->
-            <div class="u-row">
+            <div class="u-row u-full-height">
                 <!-- Left column -->
                 <div ng-show="vm.columnSizes.left"
                     class="qa-dashboard__column--left c-dashboard__column"
                     ng-class="'u-col-sm--' + vm.columnSizes.left">
 
                     <!-- Layer selection -->
-                    <div ng-if="vm.activity.layerSelection" ng-show="vm.visibility.layerSelection" ng-controller="LayerSelectionController as layerSelection" class="qa-layer-selection">
+                    <div ng-if="vm.activity.layerSelection"
+                        ng-show="vm.visibility.layerSelection"
+                        ng-controller="LayerSelectionController as layerSelection"
+                        class="u-full-height qa-layer-selection">
                         <dp-layer-selection
                             base-layer="{{layerSelection.baseLayer}}"
                             overlays="layerSelection.overlays"
@@ -44,7 +64,8 @@
 
                 <!-- Middle column -->
                 <div ng-show="vm.columnSizes.middle"
-                    class="c-dashboard__column u-col-sm--{{vm.columnSizes.middle}} qa-dashboard__column--middle">
+                    class="c-dashboard__column u-col-sm--{{vm.columnSizes.middle}} qa-dashboard__column--middle"
+                    ng-class="{ 'u-page-break-after': vm.columnSizes.middle && vm.columnSizes.right }">
 
                     <!-- Map -->
                     <div ng-if="vm.activity.map" ng-show="vm.visibility.map" ng-controller="MapController as map" class="qa-map">
@@ -60,10 +81,7 @@
 
                 <!-- Right column -->
                 <div ng-show="vm.columnSizes.right"
-                    dp-scrollable-content
-                    visibility="vm.visibility"
-                    page-name="{{vm.pageName}}"
-                    class="c-dashboard__column c-dashboard__content u-col-sm--{{vm.columnSizes.right}} qa-dashboard__column--right">
+                     class="c-dashboard__column c-dashboard__content u-col-sm--{{vm.columnSizes.right}} qa-dashboard__column--right">
 
                     <!-- Detail -->
                     <div ng-if="vm.activity.detail" ng-show="vm.visibility.detail" ng-controller="DetailController as detail" class="qa-detail">
@@ -75,8 +93,22 @@
                     </div>
 
                     <!-- Page -->
-                    <div ng-if="vm.activity.page" ng-show="vm.visibility.page" ng-controller="PageController as page" class="qa-page">
-                        <dp-page name="{{page.pageName}}"></dp-page>
+                    <div ng-if="vm.activity.page" ng-show="vm.visibility.page" class="c-dashboard__page o-max-width">
+                        <div class="c-dashboard__page-inner o-max-width__inner"
+                             ng-class="{ 'u-gutter': vm.isHomePage }">
+                            <div ng-controller="PageController as page" class="qa-page">
+                                <dp-page name="{{page.pageName}}"
+                                         type="{{page.pageType}}"
+                                         item="{{page.pageItem}}"></dp-page>
+                            </div>
+                        </div>
+                        <footer ng-if="vm.isHomePage" class="c-dashboard__footer">
+                            <div class="o-max-width__inner u-gutter">
+                                <dp-link type="SHOW_PAGE" payload="{name: 'content-overzicht', type: 'proclaimer'}">
+                                    Proclaimer
+                                </dp-link>
+                            </div>
+                        </footer>
                     </div>
 
                     <!-- Search results -->
@@ -93,7 +125,7 @@
                     <!-- Straatbeeld -->
                     <div ng-if="vm.activity.straatbeeld" ng-show="vm.visibility.straatbeeld"
                         ng-controller="StraatbeeldController as straatbeeld"
-                        class="u-dashboard--full-height qa-straatbeeld">
+                        class="u-full-height qa-straatbeeld">
 
                         <!--Resize straatbeeld when any of printMode, errorMode or fullscreen changes-->
                         <dp-straatbeeld

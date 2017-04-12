@@ -10,7 +10,7 @@ describe('The state url conversion definition', function () {
     });
 
     describe('The registered state initialisation methods', function () {
-        it('initialize a state to the home page and default map, (only) on an empty payload', function () {
+        it('initialize a state to the home page and it sets a default map, (only) on an empty payload', function () {
             let state;
 
             state = STATE_URL_CONVERSION.onCreate.DEFAULT({}, {}, {}, STATE_URL_CONVERSION.initialValues);
@@ -25,9 +25,9 @@ describe('The state url conversion definition', function () {
                     isEnabled: false
                 },
                 map: {
-                    viewCenter: [52.3719, 4.9012],
+                    viewCenter: [52.3731081, 4.8932945],
                     baseLayer: 'topografie',
-                    zoom: 9,
+                    zoom: 11,
                     overlays: [],
                     isFullscreen: false,
                     isLoading: false,
@@ -38,16 +38,6 @@ describe('The state url conversion definition', function () {
 
             state = STATE_URL_CONVERSION.onCreate.DEFAULT({}, {}, {aap: 'noot'}, {});
             expect(state).toEqual({atlas: undefined, page: undefined, layerSelection: undefined});
-        });
-
-        it('initialize a search state to the previous search state if it exists', function () {
-            let state;
-
-            state = STATE_URL_CONVERSION.onCreate.search({aap: 'noot'}, {});
-            expect(state).toEqual({aap: 'noot'});
-
-            state = STATE_URL_CONVERSION.onCreate.search(null, {mies: 'teun'});
-            expect(state).toEqual({mies: 'teun'});
         });
     });
 
@@ -168,6 +158,83 @@ describe('The state url conversion definition', function () {
                 expect(newState).toEqual({
                     endpoint: 2
                 });
+            });
+        });
+
+        describe('The post processing for search', () => {
+            const oldStateWithQuery = {
+                query: 'dam',
+                location: null,
+                category: null,
+                numberOfResults: 101,
+                isLoading: false
+            };
+            const oldStateWithQueryAndCategory = {
+                query: 'dam',
+                location: null,
+                category: 'adres',
+                numberOfResults: 102,
+                isLoading: false
+
+            };
+            const oldStateWithLocation = {
+                query: null,
+                location: [52.123, 4.789],
+                category: null,
+                numberOfResults: 103,
+                isLoading: false
+            };
+
+            it('does nothing if there is no old search state', () => {
+                const newState = angular.copy(oldStateWithQuery);
+
+                STATE_URL_CONVERSION.post.search(undefined, newState);
+
+                expect(newState).toEqual(oldStateWithQuery);
+            });
+
+            it('keeps isLoading and numberOfResults values if the query, location and category stay the same', () => {
+                let newState;
+
+                // With query
+                newState = angular.copy(oldStateWithQuery);
+                STATE_URL_CONVERSION.post.search(oldStateWithQuery, newState);
+                expect(newState).toEqual(oldStateWithQuery);
+
+                // With query and category
+                newState = angular.copy(oldStateWithQueryAndCategory);
+                STATE_URL_CONVERSION.post.search(oldStateWithQueryAndCategory, newState);
+                expect(newState).toEqual(oldStateWithQueryAndCategory);
+
+                // With location
+                newState = angular.copy(oldStateWithLocation);
+                STATE_URL_CONVERSION.post.search(oldStateWithLocation, newState);
+                expect(newState).toEqual(oldStateWithLocation);
+            });
+
+            it('resets the isLoading and numberOfResults values if the query, location or category changes', () => {
+                let newState;
+
+                // When the query changes
+                newState = angular.copy(oldStateWithQuery);
+                newState.query = 'damrak'; // Instead of 'dam'
+                STATE_URL_CONVERSION.post.search(oldStateWithQuery, newState);
+                expect(newState.numberOfResults).toBeNull();
+                expect(newState.isLoading).toBe(true);
+
+                // When the category changes
+                newState = angular.copy(oldStateWithQueryAndCategory);
+                newState.category = null;
+                STATE_URL_CONVERSION.post.search(oldStateWithQueryAndCategory, newState);
+                expect(newState.numberOfResults).toBeNull();
+                expect(newState.isLoading).toBe(true);
+
+                // When the location changes
+                newState = angular.copy(oldStateWithLocation);
+                newState.location = [52.999, 4.111];
+                STATE_URL_CONVERSION.post.search(oldStateWithLocation, newState);
+                expect(newState.numberOfResults).toBeNull();
+                expect(newState.isLoading).toBe(true);
             });
         });
 

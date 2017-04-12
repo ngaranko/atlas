@@ -1,5 +1,5 @@
 <div class="c-active-overlays__item">
-    <h3 class="c-active-overlays__item__header">{{vm.overlayLabel}}</h3>
+    <h3 class="c-active-overlays__item__header qa-active-overlay-header">{{vm.overlayLabel}}</h3>
 
     <dp-link ng-if="vm.isVisible"
         class-name="c-active-overlays__item__link"
@@ -16,9 +16,9 @@
     </dp-link>
 
     <img ng-if="vm.hasLegend && vm.isOverlayVisible"
-        class="c-active-overlays__item__legend"
-        ng-src="{{vm.legendImageSrc}}"
-        alt="Legenda voor {{vm.overlayLabel}}">
+         class="c-active-overlays__item__legend qa-active-overlay-image"
+         ng-src="{{vm.legendImageSrc}}"
+         alt="Legenda voor {{vm.overlayLabel}}">
 
     <p ng-if="vm.overlayMessage" class="c-active-overlays__item__message">{{vm.overlayMessage}}</p>
 </div>

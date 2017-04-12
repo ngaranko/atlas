@@ -71,12 +71,12 @@ describe('The dp-toggle-layer-selection component', function () {
         // When showActiveOverlays is false
         component = getComponent([], false);
         expect(component.find('.c-toggle-layer-selection').attr('class'))
-            .not.toContain('c-toggle-layer-selection--mirrored');
+            .toContain('c-toggle-layer-selection--closed');
 
         // When showActiveOverlays is true
         component = getComponent([], true);
         expect(component.find('.c-toggle-layer-selection').attr('class'))
-            .toContain('c-toggle-layer-selection--mirrored');
+            .toContain('c-toggle-layer-selection--opened');
     });
 
     it('has a different title and alt attribute depending on showLayerSelection', function () {

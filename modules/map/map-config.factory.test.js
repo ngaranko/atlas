@@ -33,8 +33,9 @@ describe('The mapConfig factory', function () {
             expect(mapConfig.BASE_LAYER_OPTIONS.minZoom).toBe(8);
 
             // Environment config
+            expect(mapConfig.BASE_LAYER_OPTIONS.subdomains).toEqual(['acc.t1', 'acc.t2', 'acc.t3', 'acc.t4']);
             expect(mapConfig.OVERLAY_ROOT)
-                .toBe('https://map.datapunt.amsterdam.nl/');
+                .toBe('https://acc.map.data.amsterdam.nl/');
         });
 
         it('ACCEPTATION', function () {
@@ -44,8 +45,9 @@ describe('The mapConfig factory', function () {
             expect(mapConfig.BASE_LAYER_OPTIONS.minZoom).toBe(8);
 
             // Environment config
+            expect(mapConfig.BASE_LAYER_OPTIONS.subdomains).toEqual(['acc.t1', 'acc.t2', 'acc.t3', 'acc.t4']);
             expect(mapConfig.OVERLAY_ROOT)
-                .toBe('https://map-acc.datapunt.amsterdam.nl/');
+                .toBe('https://acc.map.data.amsterdam.nl/');
         });
 
         it('PRODUCTION', function () {
@@ -55,8 +57,9 @@ describe('The mapConfig factory', function () {
             expect(mapConfig.BASE_LAYER_OPTIONS.minZoom).toBe(8);
 
             // Environment config
+            expect(mapConfig.BASE_LAYER_OPTIONS.subdomains).toEqual(['t1', 't2', 't3', 't4']);
             expect(mapConfig.OVERLAY_ROOT)
-                .toBe('https://map.datapunt.amsterdam.nl/');
+                .toBe('https://map.data.amsterdam.nl/');
         });
     });
 

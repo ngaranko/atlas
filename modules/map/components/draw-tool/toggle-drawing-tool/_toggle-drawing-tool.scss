@@ -1,0 +1,11 @@
+.c-toggle-drawing-tool {
+  @extend %draw-tool-element;
+
+  &.c-toggle-drawing-tool--inactive {
+    @include icon-button-box("polygon-measure", "transparent");
+  }
+
+  &.c-toggle-drawing-tool--active {
+    @include icon-button-text-box-right("polygon-measure", "red", "transparent");
+  }
+}

@@ -33,6 +33,10 @@
                 id: 'SHOW_SEARCH_RESULTS'
             },
 
+            SHOW_MAP: {
+                id: 'SHOW_MAP',
+                isButton: false
+            },
             MAP_SET_BASELAYER: {
                 id: 'MAP_SET_BASELAYER',
                 replace: true
@@ -99,16 +103,19 @@
                 id: 'SHOW_DETAIL'
             },
 
-            FETCH_STRAATBEELD: {
-                id: 'FETCH_STRAATBEELD',
+            FETCH_STRAATBEELD_BY_ID: {
+                id: 'FETCH_STRAATBEELD_BY_ID'
+            },
+            FETCH_STRAATBEELD_BY_HOTSPOT: {
+                id: 'FETCH_STRAATBEELD_BY_HOTSPOT',
                 ignore: true
             },
             FETCH_STRAATBEELD_BY_LOCATION: {
-                id: 'FETCH_STRAATBEELD_BY_LOCATION',
-                ignore: true
+                id: 'FETCH_STRAATBEELD_BY_LOCATION'
             },
             SHOW_STRAATBEELD_INITIAL: {
-                id: 'SHOW_STRAATBEELD_INITIAL'
+                id: 'SHOW_STRAATBEELD_INITIAL',
+                ignore: true
             },
             SHOW_STRAATBEELD_SUBSEQUENT: {
                 id: 'SHOW_STRAATBEELD_SUBSEQUENT',
@@ -156,7 +163,8 @@
                 id: 'SHOW_HOME'
             },
             SHOW_PAGE: {
-                id: 'SHOW_PAGE'
+                id: 'SHOW_PAGE',
+                isButton: true
             },
 
             SHOW_PRINT: {

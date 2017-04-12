@@ -9,13 +9,13 @@ const
 module.exports = function (straatbeeldElement) {
     return {
         get close () {
-            return link(straatbeeldElement.element(by.css('.c-straatbeeld > dp-link')));
+            return link(straatbeeldElement.element(by.css('.qa-close dp-link')));
         },
         get visible () {
             return dp.visible(straatbeeldElement);
         },
         get toggleStraatbeeldFullscreen () {
-            return toggleStraatbeeldFullscreen(straatbeeldElement.element(by.css('dp-straatbeeld-fullscreen')));
+            return toggleStraatbeeldFullscreen(straatbeeldElement.element(by.css('dp-toggle-straatbeeld-fullscreen')));
         },
         hotspots: function (index) {
             return hotspot(straatbeeldElement.all(by.css('dp-hotspot')).get(index));
