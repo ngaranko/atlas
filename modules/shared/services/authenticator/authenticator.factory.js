@@ -10,7 +10,6 @@
         '$interval',
         'sharedConfig',
         'user',
-        'applicationState',
         '$window',
         '$location',
         'storage'
@@ -21,7 +20,6 @@
         $interval,
         sharedConfig,
         user,
-        applicationState,
         $window,
         $location,
         storage) {
@@ -34,7 +32,10 @@
 
         const AUTH_PARAMS = ['a-select-server', 'aselect_credentials', 'rid'];
 
-        const AUTH_PATH = 'auth';
+        const AUTH_PATH = 'auth/';
+        const LOGIN_PATH = 'idp/login';
+        const REFRESH_TOKEN_PATH = 'idp/token';
+        const ACCESS_TOKEN_PATH = 'accesstoken';
 
         const CALLBACK_PARAMS = 'callbackParams';   // save callback params in session storage
 
@@ -155,7 +156,7 @@
             const callback = $location.absUrl().replace(/\#\?.*$/, '').concat('#');   // Remove all parameters
             $window.location.href =
                 sharedConfig.API_ROOT + AUTH_PATH +
-                '/siam/authenticate?active=true&callback=' + encodeURIComponent(callback);
+                LOGIN_PATH + '?callback=' + encodeURIComponent(callback);
         }
 
         function handleCallback (params) {  // request user token with returned authorization parameters from callback
@@ -174,12 +175,12 @@
                 result[key] = params[key];
                 return result;
             }, {});
-            return authRequest('/siam/token', {}, httpParams)
+            return authRequest(REFRESH_TOKEN_PATH, {}, httpParams)
                 .then(response => onRefreshToken(response.data, user.USER_TYPE.AUTHENTICATED), onRefreshTokenError);
         }
 
         function requestAccessToken (token) {   // initiated by tokenLoop, return WAITING
-            authRequest('/accesstoken', {'Authorization': sharedConfig.AUTH_HEADER_PREFIX + token})
+            authRequest(ACCESS_TOKEN_PATH, {'Authorization': sharedConfig.AUTH_HEADER_PREFIX + token})
                 .then(response => onAccessToken(response.data), onAccessTokenError);
             return STATE.WAITING;
         }
