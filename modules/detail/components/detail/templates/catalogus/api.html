@@ -7,8 +7,6 @@
         <dt>Aangemaakt</dt>
         <dd>{{ { metadata_created: vm.apiData.results.metadata_created, metadata_compact: true } | modificationDate }} ({{vm.apiData.results.metadata_created | date:'dd MMMM yyyy'}})</dd>
 
-        <dt>Gewijzigd</dt>
-        <dd>{{ { metadata_modified: vm.apiData.results.metadata_modified, metadata_compact: true } | modificationDate }} ({{vm.apiData.results.metadata_modified | date:'dd MMMM yyyy'}})</dd>
         <dt>Gepubliceerd door</dt>
         <dd><a href="mailto:{{vm.apiData.results.publisher_email}}" class="o-btn o-btn--link">{{vm.apiData.results.publisher}} ({{vm.apiData.results.publisher_email}})</a>                    </dd>
         <dt>Contactpersoon</dt>
@@ -45,7 +43,8 @@
                             <span ng-if="!resource.description">{{resource.url}}</span>
                         </td>
                         <td class="c-data-selection-table__column--size u-align--right">
-                            <a ng-href="{{resource.url}}" class="c-download-button o-btn" title="Downloaden dataset">{{resource.size / 1024 | number:0}} KB</a>
+                            <span ng-if="resource.size > 0" >{{resource.size | filesize}}</span>
+                            <a ng-href="{{resource.url}}" class="o-btn o-btn--block o-btn--block--inverted"></a>
                         </td>
                     </tr>
                 </tbody>
