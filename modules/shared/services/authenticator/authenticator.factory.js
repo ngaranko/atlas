@@ -35,7 +35,7 @@
         const AUTH_PARAMS = ['a-select-server', 'aselect_credentials', 'rid'];
 
         const AUTH_PATH = 'auth/';
-        const LOGIN_PATH = 'idp/login?callback=';
+        const LOGIN_PATH = 'idp/login';
         const REFRESH_TOKEN_PATH = 'idp/token';
         const ACCESS_TOKEN_PATH = 'accesstoken';
 
@@ -158,7 +158,7 @@
             const callback = $location.absUrl().replace(/\#\?.*$/, '').concat('#');   // Remove all parameters
             $window.location.href =
                 sharedConfig.API_ROOT + AUTH_PATH +
-                LOGIN_PATH + encodeURIComponent(callback);
+                LOGIN_PATH + '?callback=' + encodeURIComponent(callback);
         }
 
         function handleCallback (params) {  // request user token with returned authorization parameters from callback
