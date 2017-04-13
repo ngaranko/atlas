@@ -55,7 +55,7 @@
     </div>
 
     <!-- Vestiging -->
-    <div>
+    <div ng-if="apiData.results.hoofdadres.landelijk_id">
         <dp-glossary-header definition="VESTIGING" use-plural="true"></dp-glossary-header>
 
         <dp-api-call endpoint="handelsregister/vestiging/?nummeraanduiding={{ apiData.results.hoofdadres.landelijk_id }}" add-api-root="true" partial="lijst"></dp-api-call>
