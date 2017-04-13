@@ -1,7 +1,10 @@
 //This is an extend so it can be used by both the anchor tag as well as buttons with .btn--link
 
+// The size of the link arrow icon (relative to the font size)
 $icon-size: 1.22em;
+// The offset of the actual arrow inside the image from the left of the image
 $icon-offset: .4em;
+// Extra space between the link arrow icon and the link text
 $link-offset: 3px;
 
 %link {
@@ -32,7 +35,11 @@ $link-offset: 3px;
 %link--arrow {
   @extend %link;
 
-  margin-left: -$icon-offset;
+  // Make sure multi line links have all lines aligned under the first icon
+  // That is the size of the icon plus the space between the icon and the link
+  // text, minus the space within the icon image between the actual arrow and
+  // the left side of the image.
+  margin-left: calc(#{$icon-size - $icon-offset} + #{$link-offset});
 
   &::before {
     @include icon-button("link-arrow");
@@ -42,6 +49,9 @@ $link-offset: 3px;
     width: $icon-size;
     height: $icon-size;
     margin-right: $link-offset;
+    // Move the arrow icon left of the link text by the width of the icon plus
+    // the space needed between the icon and the link
+    margin-left: calc(-#{$icon-size} - #{$link-offset});
     content: "";
     vertical-align: text-bottom;
   }
