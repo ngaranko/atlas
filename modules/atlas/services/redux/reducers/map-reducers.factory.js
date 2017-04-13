@@ -198,6 +198,9 @@
                 } else if (payload.markers.length === 2) {
                     // Line
                     newState.map.geometry = payload.markers;
+                } else if (payload.markers.length === 0) {
+                    // none
+                    newState.page.name = null;
                 }
             }
 

@@ -301,14 +301,19 @@ describe('The map reducers', function () {
             expect(output.map.drawingMode).toBe(false);
         });
 
-        it('resets the page', () => {
+        it('resets the page with 0 and more than 2 markers', () => {
             const inputState = angular.copy(DEFAULT_STATE);
+            let output;
 
             inputState.page.name = 'home';
-            const output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
+            output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
                 markers: []
             });
+            expect(output.page.name).toBeNull();
 
+            output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
+                markers: ['noot', 'mies', 'teun']
+            });
             expect(output.page.name).toBeNull();
         });
 
@@ -336,6 +341,7 @@ describe('The map reducers', function () {
                 markers: ['noot', 'mies']
             });
             expect(output.map.geometry).toEqual(['noot', 'mies']);
+            expect(output.page.name).toBe('home');
         });
 
         it('Initializes the dataSelection state when a payload is specified', function () {
