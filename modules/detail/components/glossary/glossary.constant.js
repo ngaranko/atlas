@@ -176,6 +176,13 @@
                     url: 'https://www.amsterdam.nl/stelselpedia/meetbouten-index/catalogus-amsterdams/meting/',
                     meta: []
                 },
+                MONUMENTEN: {
+                    label_singular: 'Monument',
+                    label_plural: 'Monumenten',
+                    description: null,
+                    url: null,
+                    meta: []
+                },
                 NUMMERAANDUIDING: {
                     label_singular: 'Adres',
                     label_plural: 'Adressen',
