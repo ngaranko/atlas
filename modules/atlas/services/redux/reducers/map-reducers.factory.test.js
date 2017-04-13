@@ -301,15 +301,9 @@ describe('The map reducers', function () {
             expect(output.map.drawingMode).toBe(false);
         });
 
-        it('resets the page with 0 and more than 2 markers', () => {
+        it('resets the page with more than 2 markers', () => {
             const inputState = angular.copy(DEFAULT_STATE);
             let output;
-
-            inputState.page.name = 'home';
-            output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
-                markers: []
-            });
-            expect(output.page.name).toBeNull();
 
             output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
                 markers: ['noot', 'mies', 'teun']
