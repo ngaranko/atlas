@@ -50,11 +50,17 @@
         };
 
         environmentConfig = {
-            DEVELOPMENT: {
+            PRODUCTION: {
                 BASE_LAYER_OPTIONS: {
-                    subdomains: ['acc.t1', 'acc.t2', 'acc.t3', 'acc.t4']
+                    subdomains: ['t1', 't2', 't3', 't4']
                 },
-                OVERLAY_ROOT: 'https://acc.map.data.amsterdam.nl/'
+                OVERLAY_ROOT: 'https://map.data.amsterdam.nl/'
+            },
+            PRE_PRODUCTION: {
+                BASE_LAYER_OPTIONS: {
+                    subdomains: ['t1', 't2', 't3', 't4']
+                },
+                OVERLAY_ROOT: 'https://map.data.amsterdam.nl/'
             },
             ACCEPTATION: {
                 BASE_LAYER_OPTIONS: {
@@ -62,11 +68,11 @@
                 },
                 OVERLAY_ROOT: 'https://acc.map.data.amsterdam.nl/'
             },
-            PRODUCTION: {
+            DEVELOPMENT: {
                 BASE_LAYER_OPTIONS: {
-                    subdomains: ['t1', 't2', 't3', 't4']
+                    subdomains: ['acc.t1', 'acc.t2', 'acc.t3', 'acc.t4']
                 },
-                OVERLAY_ROOT: 'https://map.data.amsterdam.nl/'
+                OVERLAY_ROOT: 'https://acc.map.data.amsterdam.nl/'
             }
         };
 

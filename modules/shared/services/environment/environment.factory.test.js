@@ -35,6 +35,20 @@ describe('The environment factory', function () {
             });
         });
 
+        it('uses PRE_PRODUCTION on pre.atlas.amsterdam.nl and pre.data.amsterdam.nl', () => {
+            const hostnames = ['pre.atlas.amsterdam.nl', 'pre.data.amsterdam.nl'];
+
+            hostnames.forEach(function (hostname) {
+                mockedHostname = hostname;
+
+                angular.mock.inject(function (environment) {
+                    expect(environment).toEqual({
+                        NAME: 'PRE_PRODUCTION'
+                    });
+                });
+            });
+        });
+
         it('uses ACCEPTATION on acc.atlas.amsterdam.nl and acc.data.amsterdam.nl', () => {
             const hostnames = ['acc.atlas.amsterdam.nl', 'acc.data.amsterdam.nl'];
 
