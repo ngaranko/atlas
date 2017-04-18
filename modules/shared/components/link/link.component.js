@@ -45,10 +45,7 @@
             if (ACTIONS[type].isButton) {
                 return BUTTON;
             } else {
-                const currentPath = '#' + decodeURIComponent($location.url()),
-                    href = getHref(type, payload);
-
-                vm.href = href;
+                vm.href = getHref(type, payload);
                 vm.followLink = function (event) {
                     // The href attribute is ignored when left-clicking
                     // It's only a fallback for middle and right mouse button
