@@ -64,7 +64,7 @@ describe('The applicationState factory', function () {
         $window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ = jasmine.createSpy('__REDUX_DEVTOOLS_EXTENSION_COMPOSE__');
 
         applicationState.initialize(fakeReducer, fakeStateUrlConverter, fakeDefaultState, fakeMiddleware);
-        expect(Redux.compose).not.toHaveBeenCalledWith(fakeEnhancer);
+        expect(Redux.compose).not.toHaveBeenCalled();
         expect($window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__).toHaveBeenCalledWith(fakeEnhancer);
     });
 });
