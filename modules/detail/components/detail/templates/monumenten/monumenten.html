@@ -1,4 +1,9 @@
 <div>
+    <dp-panel is-panel-visible="vm.showMoreInfoWarning" type="warning" can-close="true">
+        Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer gegevens te zien: architect en opdrachtgever,
+        bouwjaar, oorspronkelijke functie, coordinaten en geometrie, beschrijving en redengevende omschrijving. Zie Help > Bediening dataportaal > Inloggen.
+    </dp-panel>
+
     <dp-partial-select partial="monumenten/monumenten" api-data="vm.apiData"></dp-partial-select>
 
     <pre>{{ vm.apiData | json }}</pre>
