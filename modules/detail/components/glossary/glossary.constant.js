@@ -27,6 +27,13 @@
                     url: 'https://www.amsterdam.nl/stelselpedia/brk-index/catalog-brk-levering/objectklasse-aant/',
                     meta: []
                 },
+                ADRES: {
+                    label_singular: 'Adres',
+                    label_plural: 'Adressen',
+                    description: null,
+                    url: null,
+                    meta: []
+                },
                 API: {
                     label_singular: 'Dataset',
                     label_plural: 'Datasets',
@@ -71,6 +78,13 @@
                     'gebaseerd zijn op topografische elementen.',
                     url: 'https://www.amsterdam.nl/stelselpedia/gebieden-index/catalogus/buurt/',
                     meta: ['begin_geldigheid', 'brondocument_datum', 'brondocument_naam', 'buurtidentificatie']
+                },
+                COMPLEX: {
+                    label_singular: 'Complex',
+                    label_plural: 'Complexen',
+                    description: null,
+                    url: null,
+                    meta: []
                 },
                 BUURTCOMBINATIE: {
                     label_singular: 'Buurtcombinatie',
