@@ -4,7 +4,8 @@ describe('The search factory', function () {
         search,
         api,
         searchFormatter,
-        queryEndpoints;
+        queryEndpoints,
+        TabHeader;
 
     const FAIL_ON_URI = 'FAIL_ON_URI';
 
@@ -101,18 +102,36 @@ describe('The search factory', function () {
             }
         );
 
-        angular.mock.inject(function (_$q_, _$rootScope_, _search_, _api_, _searchFormatter_) {
+        angular.mock.inject(function (_$q_, _$rootScope_, _search_, _api_, _searchFormatter_, _TabHeader_) {
             $q = _$q_;
             $rootScope = _$rootScope_;
             search = _search_;
             api = _api_;
             searchFormatter = _searchFormatter_;
+            TabHeader = _TabHeader_;
         });
 
         spyOn(api, 'getByUri').and.callThrough();
         spyOn(searchFormatter, 'formatCategories').and.callThrough();
         spyOn(searchFormatter, 'formatCategory').and.callThrough();
         spyOn(searchFormatter, 'formatLinks').and.callThrough();
+    });
+
+    it('can be initialised to register as a count provider for the tabheader', function () {
+        searchFormatter.formatCategories = () => {
+            return [{
+                count: 1
+            }];
+        };
+        spyOn(TabHeader, 'provideCounter');
+        search.initialize();
+        expect(TabHeader.provideCounter).toHaveBeenCalled();
+        const [action, getCount] = TabHeader.provideCounter.calls.argsFor(0);
+        expect(action).toBe('FETCH_SEARCH_RESULTS_BY_QUERY');
+        let count;
+        getCount('Waterlooplein').then(n => count = n);
+        $rootScope.$apply();
+        expect(count).toBe(1);
     });
 
     it('can retrieve formatted search results for all categories based on a query', function () {

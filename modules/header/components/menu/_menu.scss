@@ -1,0 +1,121 @@
+.c-menu {
+  height: 100%;
+}
+
+.c-menu__item {
+  display: block;
+  height: 100%;
+  float: left;
+  background-color: inherit;
+
+  &:hover {
+    background-color: $secondary-gray10;
+  }
+}
+
+.c-menu__link {
+  display: block;
+  height: 100%;
+  padding-right: 6px; // Was $base-whitespace;
+  padding-left: 6px;  // We need to save space for the usermenu
+  outline: none;
+  color: $primary-dark;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.c-menu__item--toggle {
+  position: relative;
+
+  .c-menu__link {
+    &::after {
+      display: inline-block;
+      margin: -3px; // We need to save space for the usermenu
+      transform: rotate(90deg);
+      content: "›"; //Point downwards
+    }
+  }
+
+  .c-menu__title {
+    margin-right: $base-whitespace * .5;
+  }
+
+  &.c-menu__item--toggle--active {
+    background-color: $secondary-gray10;
+    box-shadow: -2px 2px $secondary-gray40;
+
+    .c-menu__link {
+      &::after {
+        content: "‹"; //Point upwards
+      }
+    }
+
+    .c-menu__title {
+      border-bottom: 2px solid $primary-contrast;
+    }
+  }
+}
+
+.c-menu__subitem {
+  @extend %link--arrow;
+  display: block;
+  width: 100%;
+  color: $primary-dark;
+  font-weight: normal;
+  line-height: 2;
+  text-align: left;
+  white-space: nowrap;
+
+  &:hover {
+    color: $primary-contrast;
+  }
+
+  &::before {
+    height: 2 * $s-font-size;
+  }
+}
+
+.c-menu__dropdown {
+  position: absolute;
+  padding: {
+    top: $base-whitespace * 1.2;
+    right: $base-whitespace * 3;
+    bottom: $base-whitespace * 1.2;
+    left: $base-whitespace * 2;
+  }
+  background-color: $secondary-gray10;
+  line-height: 2;
+  box-shadow: -2px 2px $secondary-gray40;
+}
+
+.c-menu__dropdown--align-left {
+  left: 0;
+}
+
+.c-menu__dropdown--align-right {
+  right: 0;
+}
+
+.c-menu--short {
+  .c-menu__item {
+    line-height: $site-header-toolbar-height;
+  }
+
+  .c-menu__dropdown {
+    top: $site-header-toolbar-height;
+  }
+}
+
+.c-menu--tall {
+  .c-menu__item {
+    line-height: $site-header-height;
+  }
+
+  .c-menu__dropdown {
+    top: $site-header-height;
+  }
+}
+
+._extra-space-for-the-menu-keep-right {
+  float: right;
+}

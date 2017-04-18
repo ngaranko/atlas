@@ -1,0 +1,15 @@
+.s-cms-widget-content {
+  p {
+    margin-bottom: 0;
+  }
+
+  a {
+    color: $primary-dark;
+    text-decoration: none;
+
+    &:hover {
+      color: $primary-contrast;
+      text-decoration: underline;
+    }
+  }
+}

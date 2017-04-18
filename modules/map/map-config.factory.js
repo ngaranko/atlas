@@ -50,23 +50,29 @@
         };
 
         environmentConfig = {
-            DEVELOPMENT: {
-                BASE_LAYER_OPTIONS: {
-                    subdomains: ['t1', 't2', 't3', 't4']
-                },
-                OVERLAY_ROOT: 'https://map.datapunt.amsterdam.nl/'
-            },
-            ACCEPTATION: {
-                BASE_LAYER_OPTIONS: {
-                    subdomains: ['t1-acc', 't2-acc', 't3-acc', 't4-acc']
-                },
-                OVERLAY_ROOT: 'https://map-acc.datapunt.amsterdam.nl/'
-            },
             PRODUCTION: {
                 BASE_LAYER_OPTIONS: {
                     subdomains: ['t1', 't2', 't3', 't4']
                 },
-                OVERLAY_ROOT: 'https://map.datapunt.amsterdam.nl/'
+                OVERLAY_ROOT: 'https://map.data.amsterdam.nl/'
+            },
+            PRE_PRODUCTION: {
+                BASE_LAYER_OPTIONS: {
+                    subdomains: ['t1', 't2', 't3', 't4']
+                },
+                OVERLAY_ROOT: 'https://map.data.amsterdam.nl/'
+            },
+            ACCEPTATION: {
+                BASE_LAYER_OPTIONS: {
+                    subdomains: ['acc.t1', 'acc.t2', 'acc.t3', 'acc.t4']
+                },
+                OVERLAY_ROOT: 'https://acc.map.data.amsterdam.nl/'
+            },
+            DEVELOPMENT: {
+                BASE_LAYER_OPTIONS: {
+                    subdomains: ['acc.t1', 'acc.t2', 'acc.t3', 'acc.t4']
+                },
+                OVERLAY_ROOT: 'https://acc.map.data.amsterdam.nl/'
             }
         };
 

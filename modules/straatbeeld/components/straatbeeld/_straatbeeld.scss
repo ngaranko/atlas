@@ -1,20 +1,6 @@
 @mixin smaller-font-definition {
-  font-family: $header-font-family;
-  font-size: $base-font-size - 2;
+  @include font-size($xs-font);
   line-height: $button-size;
-}
-
-@mixin status-bar-button {
-  @include smaller-font-definition;
-
-  padding-right: $base-whitespace;
-  border-right: solid $secondary-gray20 1px;
-  z-index: 2;
-
-  &:hover,
-  &:active {
-    border-right: solid $secondary-gray20 1px;
-  }
 }
 
 .c-straatbeeld {
@@ -49,9 +35,9 @@
 }
 
 .c-straatbeeld__close {
-  @include icon-button("close", "red", "");
+  @include icon-button-box("close", "white");
   position: absolute;
-  top: 0;
-  right: 0;
+  top: $base-whitespace;
+  right: $base-whitespace;
   z-index: 2;
 }

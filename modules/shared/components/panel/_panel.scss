@@ -4,23 +4,45 @@
   padding: $base-whitespace / 2;
   padding-left: $base-whitespace;
   background-color: $secondary-gray10;
+}
 
-  &.c-panel--can-close {
-    padding-right: $button-size;
-  }
+.c-panel__title {
+  @include font-size-responsive($l-header-font);
+  margin-bottom: $base-whitespace;
+  font-weight: bold;
+}
 
-  &.c-panel--warning {
-    background-color: $thema-10;
-    color: $primary-light;
-  }
+.c-panel__paragraph {
+  margin-bottom: $base-whitespace;
 
-  &.c-panel--danger {
-    background-color: $primary-contrast;
-    color: $primary-light;
+  &:last-child {
+    margin-bottom: 0;
   }
 }
 
-.c-panel--header {
+.c-panel--can-close {
+  padding-right: $button-size;
+}
+
+.c-panel--warning {
+  background-color: $thema-10;
+  color: $primary-light;
+}
+
+.c-panel--danger {
+  background-color: $primary-contrast;
+  color: $primary-light;
+}
+
+.c-panel--small {
+  margin: 0;
+  padding-top: $base-whitespace * .3;
+  padding-bottom: $base-whitespace * .4;
+  padding-left: $base-whitespace;
+  line-height: $button-size - ($base-whitespace * .3) - ($base-whitespace * .4);
+}
+
+.c-panel--tiny {
   position: absolute;
   top: 0;
   right: ($button-size + $base-whitespace) * 2; //afstand berekend mbt metadata en stelselpedia buttons

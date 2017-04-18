@@ -47,6 +47,15 @@ describe('The dp-map directive', function () {
                 },
                 onMapClick: {
                     initialize: angular.noop
+                },
+                user: {
+                    getAuthorizationLevel: angular.noop
+                },
+                overlays: {
+                    SOURCES: {
+                        'some_overlay': 'some_overlay',
+                        'some_other_overlay': 'some_other_overlay'
+                    }
                 }
             },
 
@@ -200,6 +209,16 @@ describe('The dp-map directive', function () {
     });
 
     describe('has overlays which', function () {
+        let user,
+            overlays;
+
+        beforeEach(function () {
+            angular.mock.inject(function (_overlays_, _user_) {
+                overlays = _overlays_;
+                user = _user_;
+            });
+        });
+
         it('can be added on initialization', function () {
             mockedMapState.overlays = [{id: 'some_overlay', isVisible: true}];
             getDirective(mockedMapState, false, mockedMarkers);
@@ -236,6 +255,28 @@ describe('The dp-map directive', function () {
             expect(layers.removeOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_overlay');
             expect(layers.removeOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_other_overlay');
         });
+
+        it('is updated when the user authorization level changes', function () {
+            mockedMapState.overlays = [
+                {id: 'some_overlay', isVisible: true},
+                {id: 'some_other_overlay', isVisible: true}
+            ];
+            spyOn(user, 'getAuthorizationLevel').and.returnValue(1);
+
+            getDirective(mockedMapState, false, mockedMarkers);
+
+            expect(layers.removeOverlay).not.toHaveBeenCalled();
+
+            user.getAuthorizationLevel.and.returnValue(2);
+            overlays.SOURCES = {
+                'some_overlay': 'some_overlay'  // the other overlay is removed for  this auth level
+            };
+
+            $rootScope.$digest();
+
+            expect(layers.removeOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_other_overlay');
+        });
+
         it('can be removed when isVisible changes', function () {
             mockedMapState.overlays = [
                 {id: 'some_overlay', isVisible: true},
@@ -457,54 +498,6 @@ describe('The dp-map directive', function () {
             $rootScope.$apply();
 
             expect(mockedLeafletMap.invalidateSize).toHaveBeenCalled();
-        });
-    });
-
-    describe('fullscreen state', function () {
-        let directive,
-            scope;
-
-        it('is true when fullscreen is set and layers is not', function () {
-            mockedMapState.isFullscreen = true;
-            directive = getDirective(mockedMapState, false, mockedMarkers);
-            scope = directive.isolateScope();
-            expect(scope.isFullscreen).toEqual(true);
-        });
-
-        it('is false when fullscreen is set and layers is too', function () {
-            mockedMapState.isFullscreen = true;
-            directive = getDirective(mockedMapState, true, mockedMarkers);
-            scope = directive.isolateScope();
-            expect(scope.isFullscreen).toEqual(false);
-        });
-
-        it('is false when fullscreen is not set', function () {
-            mockedMapState.isFullscreen = false;
-            directive = getDirective(mockedMapState, false, mockedMarkers);
-            scope = directive.isolateScope();
-            expect(scope.isFullscreen).toEqual(false);
-
-            mockedMapState.isFullscreen = false;
-            directive = getDirective(mockedMapState, true, mockedMarkers);
-            scope = directive.isolateScope();
-            expect(scope.isFullscreen).toEqual(false);
-        });
-        it('updates on the fly', function () {
-            mockedMapState.isFullscreen = true;
-            directive = getDirective(mockedMapState, false, mockedMarkers);
-            scope = directive.isolateScope();
-
-            mockedMapState.isFullscreen = false;
-            $rootScope.$digest();
-            expect(scope.isFullscreen).toEqual(false);
-
-            mockedMapState.isFullscreen = true;
-            $rootScope.$digest();
-            expect(scope.isFullscreen).toEqual(true);
-
-            scope.showLayerSelection = true;
-            $rootScope.$digest();
-            expect(scope.isFullscreen).toEqual(false);
         });
     });
 });

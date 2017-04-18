@@ -14,9 +14,9 @@
             controllerAs: 'vm'
         });
 
-    DpActiveOverlaysItemController.$inject = ['$scope', 'mapConfig', 'overlays'];
+    DpActiveOverlaysItemController.$inject = ['$scope', '$q', 'api', 'mapConfig', 'overlays'];
 
-    function DpActiveOverlaysItemController ($scope, mapConfig, overlays) {
+    function DpActiveOverlaysItemController ($scope, $q, api, mapConfig, overlays) {
         var vm = this;
 
         vm.overlayLabel = overlays.SOURCES[vm.overlay].label_short;
@@ -30,7 +30,9 @@
             vm.isOverlayVisible = vm.isVisible && isVisibleAtCurrentZoom(vm.overlay, vm.zoom);
 
             if (vm.hasLegend) {
-                vm.legendImageSrc = getLegendImageSrc(vm.overlay);
+                getLegendImageSrc(vm.overlay).then(src => {
+                    vm.legendImageSrc = src;
+                });
             }
 
             if (vm.isVisible && !isVisibleAtCurrentZoom(vm.overlay, vm.zoom)) {
@@ -42,16 +44,19 @@
             }
         }
 
+        /**
+         * Returns a promise to the url of the legend image. The access token
+         * will be added to the URL, unless it is an external URL.
+         *
+         * @param {Object} overlay The overlay ID to get the legend URL for.
+         * @return {Promise} The URL of the legend image.
+         */
         function getLegendImageSrc (overlay) {
-            var url = '';
+            const overlayData = overlays.SOURCES[overlay],
+                root = overlayData.external ? '' : mapConfig.OVERLAY_ROOT,
+                url = root + overlayData.legend;
 
-            if (!overlays.SOURCES[overlay].external) {
-                url += mapConfig.OVERLAY_ROOT;
-            }
-
-            url += overlays.SOURCES[overlay].legend;
-
-            return url;
+            return overlayData.external ? $q.resolve(url) : api.createUrlWithToken(url);
         }
 
         function isVisibleAtCurrentZoom (overlay, zoom) {

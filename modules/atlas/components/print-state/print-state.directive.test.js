@@ -60,23 +60,49 @@ describe('The dp-print-state directive', function () {
         expect(directive.hasClass('is-print-mode')).toBe(false);
     });
 
-    it('adds a print-landscape class to the element when map or panorama or fullscreen map is visible', function () {
-        var directive;
+    describe('landscape', () => {
+        beforeEach(() => {
+            mockedState = {
+                atlas: {
+                    isPrintMode: true
+                },
+                map: {
+                    isFullscreen: false
+                }
+            };
+        });
 
-        mockedState = { atlas: {isPrintMode: true}, map: { isFullscreen: true } };
+        it('adds the class when at straatbeeld', () => {
+            mockedState.straatbeeld = {};
+            const directive = getDirective();
+            expect(directive.hasClass('is-print-mode--landscape')).toBe(true);
+        });
 
-        directive = getDirective();
+        it('adds the class when at the map', () => {
+            mockedState.map.isFullscreen = true;
+            const directive = getDirective();
+            expect(directive.hasClass('is-print-mode--landscape')).toBe(true);
+        });
 
-        expect(directive.hasClass('print-landscape')).toBe(true);
-    });
+        it('adds the class when at data selection in list view', () => {
+            mockedState.dataSelection = {
+                view: 'LIST'
+            };
+            const directive = getDirective();
+            expect(directive.hasClass('is-print-mode--landscape')).toBe(true);
+        });
 
-    it('Do not add a print-landscape class when we are on a page, detail or results view', function () {
-        var directive;
+        it('removes the class when not at straatbeeld, map or data selection', () => {
+            const directive = getDirective();
+            expect(directive.hasClass('is-print-mode--landscape')).toBe(false);
+        });
 
-        mockedState = { atlas: {isPrintMode: true}, straatbeeld: null, map: { isFullscreen: false } };
-
-        directive = getDirective();
-
-        expect(directive.hasClass('print-landscape')).toBe(false);
+        it('removes the class when at data selection in another view than list', () => {
+            mockedState.dataSelection = {
+                view: 'TABLE'
+            };
+            const directive = getDirective();
+            expect(directive.hasClass('is-print-mode--landscape')).toBe(false);
+        });
     });
 });

@@ -12,10 +12,7 @@
             restrict: 'E',
             scope: {
                 query: '@',
-                placeholder: '@',
-                type: '@',
-                payload: '<',
-                searchOnly: '<'
+                searchAction: '<'
             },
             templateUrl: 'modules/header/components/search/search.html',
             link: linkFunction
@@ -35,31 +32,27 @@
                 removeSuggestions();
             };
 
-            scope.getSuggestions = function () {
-                /**
-                 * Cancel the last request (if any), this way we ensure that a resolved autocompleteData.search() call
-                 * always has the latest data.
-                 */
-                if (scope.searchOnly) {
-                    if (scope.query.trim() === '') {
-                        search();
-                    }
-                } else {
-                    scope.activeSuggestionIndex = -1;
-                    scope.originalQuery = scope.query;
+            scope.clear = function () {
+                scope.query = '';
+                scope.getSuggestions();
+                scope.setFocus();
+            };
 
-                    if (angular.isString(scope.query) && scope.query.length) {
-                        autocompleteData.search(scope.query).then(function (suggestions) {
-                            // Only load suggestions if they are still relevant.
-                            if (suggestions.query === scope.query) {
-                                scope.suggestions = suggestions.data;
-                                scope.numberOfSuggestions = suggestions.count;
-                            }
-                        });
-                    } else {
-                        scope.suggestions = [];
-                        scope.numberOfSuggestions = 0;
-                    }
+            scope.getSuggestions = function () {
+                scope.activeSuggestionIndex = -1;
+                scope.originalQuery = scope.query;
+
+                if (angular.isString(scope.query) && scope.query.length) {
+                    autocompleteData.search(scope.query).then(function (suggestions) {
+                        // Only load suggestions if they are still relevant.
+                        if (suggestions.query === scope.query) {
+                            scope.suggestions = suggestions.data;
+                            scope.numberOfSuggestions = suggestions.count;
+                        }
+                    });
+                } else {
+                    scope.suggestions = [];
+                    scope.numberOfSuggestions = 0;
                 }
             };
 
@@ -121,15 +114,9 @@
             function search () {
                 if (scope.activeSuggestionIndex === -1) {
                     // Load the search results
-                    let payload = scope.query;
-                    if (angular.isObject(scope.payload)) {
-                        payload = angular.merge({}, scope.payload, {
-                            query: scope.query
-                        });
-                    }
                     store.dispatch({
-                        type: ACTIONS[scope.type],
-                        payload: payload
+                        type: scope.searchAction,
+                        payload: scope.query
                     });
                 } else {
                     const activeSuggestion = autocompleteData.getSuggestionByIndex(

@@ -1,8 +1,18 @@
 <div class="u-row">
-    <dp-glossary-header
-        heading="{{vm.apiData.results._display}}"
-        definition="VESTIGING">
-    </dp-glossary-header>
+    <div class="o-header">
+        <dp-glossary-header
+            heading="{{vm.apiData.results._display}}"
+            definition="VESTIGING">
+        </dp-glossary-header>
+
+        <dp-panel
+            is-panel-visible="true"
+            ng-if="vm.apiData.results.datum_einde"
+            size="tiny"
+            type="danger">
+            Datum einde: {{ vm.apiData.results.datum_einde | date:'dd-MM-yyyy' }}
+        </dp-panel>
+    </div>
 
     <dl class="c-key-value-list">
         <dt>Eerste handelsnaam</dt>
@@ -12,7 +22,11 @@
         <dt>Postadres</dt>
         <dd> {{ vm.apiData.results.postadres.volledig_adres }} </dd>
         <dt>Bezoekadres</dt>
-        <dd> {{ vm.apiData.results.bezoekadres.volledig_adres }} </dd>
+        <dd> {{ vm.apiData.results.bezoekadres.volledig_adres }}</dd>
+        <dt>Indicatie non-mailing</dt>
+        <dp-api-call endpoint="{{vm.apiData.results.maatschappelijke_activiteit}}" partial="handelsregister/non-mailing"></dp-api-call>
+        <dt>Afgeschermd</dt>
+        <dd>{{ vm.apiData.results.bezoekadres.afgeschermd?'Ja':'Nee' }}</dd>
         <dt>Type vestiging</dt>
         <dd>
             {{ vm.apiData.results.hoofdvestiging ? "Hoofdvestiging" : vm.apiData.results.hoofdvestiging === false ? "Nevenvestiging" : "" }}
@@ -28,6 +42,8 @@
         <dd> {{  vm.apiData.results.vestigingsnummer }} </dd>
         <dt>Datum aanvang</dt>
         <dd> {{ vm.apiData.results.datum_aanvang | date:'dd-MM-yyyy' }} </dd>
+        <dt>Datum einde</dt>
+        <dd> {{ vm.apiData.results.datum_einde | date:'dd-MM-yyyy' }} </dd>
         <dt>Coördinaten</dt>
         <dd ng-if="vm.apiData.results.bezoekadres.geometrie.coordinates[0]">
             {{ vm.apiData.results.bezoekadres.geometrie.coordinates | coordinates: 'RD' }}

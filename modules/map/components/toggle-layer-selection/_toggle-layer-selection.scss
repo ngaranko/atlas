@@ -1,24 +1,11 @@
-%toggle-layer-selection {
+.c-toggle-layer-selection {
   @extend %overlay-button;
-  border-left: none;
 }
 
-.c-toggle-layer-selection {
-  @extend %toggle-layer-selection;
+.c-toggle-layer-selection--opened {
+  @include icon-button-text-box-right("back");
+}
+
+.c-toggle-layer-selection--closed {
   @include icon-button-text-box-right("forward", "", "red");
-
-  &:hover,
-  &:active {
-    @extend %toggle-layer-selection;
-  }
-
-  &.c-toggle-layer-selection--mirrored {
-    @extend %toggle-layer-selection;
-    @include icon-button-text-box-right("back");
-
-    &:hover,
-    &:active {
-      @extend %toggle-layer-selection;
-    }
-  }
 }

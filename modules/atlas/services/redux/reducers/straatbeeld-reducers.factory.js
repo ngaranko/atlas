@@ -10,7 +10,8 @@
     function straatbeeldReducersFactory (ACTIONS, STRAATBEELD_CONFIG) {
         var reducers = {};
 
-        reducers[ACTIONS.FETCH_STRAATBEELD.id] = fetchStraatbeeldReducer;
+        reducers[ACTIONS.FETCH_STRAATBEELD_BY_ID.id] = fetchStraatbeeldByIdReducer;
+        reducers[ACTIONS.FETCH_STRAATBEELD_BY_HOTSPOT.id] = fetchStraatbeeldByIdReducer;
         reducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION.id] = fetchStraatbeeldByLocationReducer;
         reducers[ACTIONS.STRAATBEELD_FULLSCREEN.id] = straatbeeldFullscreenReducer;
         reducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id] = showStraatbeeldReducer;
@@ -23,12 +24,12 @@
          * @description If the oldState had an active straatbeeld it will remember the heading.
          *
          * @param {Object} oldState
-         * @param {Object} payload - A straatbeeld ID (String)
+         * @param {Object} payload - {id: 'abc123', heading: 90}
          *
          * @returns {Object} newState
          */
-        function fetchStraatbeeldReducer (oldState, payload) {
-            var newState = angular.copy(oldState);
+        function fetchStraatbeeldByIdReducer (oldState, payload) {
+            const newState = angular.copy(oldState);
 
             newState.straatbeeld = newState.straatbeeld || {};
             initializeStraatbeeld(newState.straatbeeld);
@@ -46,7 +47,6 @@
             newState.map.highlight = null;
 
             newState.search = null;
-            newState.page.name = null;
 
             newState.dataSelection = null;
 
@@ -86,7 +86,6 @@
             if (newState.page) {
                 newState.page.name = null;
             }
-
             // If a straatbeeld is loaded by it's location
             // then clear any active detail
             newState.detail = null;

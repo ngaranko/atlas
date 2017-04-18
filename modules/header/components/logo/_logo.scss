@@ -1,0 +1,78 @@
+$image-tall-offset-top: 20px;
+$image-tall-offset-left: -26px;
+$image-tall-width: 85px;
+$image-tall-height: 68px;
+$title-tall-offset-left: 80px;
+
+.c-logo {
+  @include font-size($xl-header-font);
+
+  display: block;
+  height: 100%;
+  color: $primary-dark;
+  cursor: pointer;
+}
+
+.c-logo__link {
+  width: 100%;
+  color: $primary-dark;
+  text-align: left;
+  text-decoration: none;
+}
+
+.c-logo__title-col {
+  display: flex;
+  align-items: center;
+
+  .c-logo--short & {
+    height: $site-header-height;
+  }
+
+  .c-logo--tall & {
+    height: $site-header-height + $base-whitespace;
+    margin-left: $title-tall-offset-left;
+  }
+}
+
+.c-logo__image {
+  position: absolute;
+
+  .c-logo--short & {
+    top: $base-whitespace;
+    right: $base-whitespace;
+    left: $base-whitespace;
+  }
+
+  .c-logo--tall & {
+    top: $image-tall-offset-top;
+    left: $image-tall-offset-left;
+    width: $image-tall-width;
+    height: $image-tall-height;
+  }
+}
+
+.c-logo__title {
+  display: inline-block;
+  font-weight: bold;
+  line-height: normal;
+
+  .c-logo--short & {
+    @include font-size($s-header-font);
+
+    &.c-logo__title--super {
+      margin-top: 14px;
+    }
+  }
+
+  .c-logo--tall & {
+    @include font-size($xl-header-font);
+  }
+
+  &.c-logo__title--super {
+    align-self: flex-start;
+    margin: 12px 0 0 3px;
+    color: $secondary-gray60;
+    font-size: 10px;
+    font-weight: normal;
+  }
+}

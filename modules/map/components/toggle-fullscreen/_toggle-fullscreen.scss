@@ -1,14 +1,14 @@
 .c-toggle-fullscreen {
   position: absolute;
-  top: -1px;
-  right: -1px;
-  z-index: 2;
+  top: $base-whitespace;
+  right: $base-whitespace;
+  z-index: $fixed-position-z-index;
 }
 
 .c-toggle-fullscreen__icon--fullscreen {
-  @include icon-button("maximize", "", "red");
+  @include icon-button-box("maximize");
 }
 
 .c-toggle-fullscreen__icon--minimize {
-  @include icon-button("close", "red", "");
+  @include icon-button-box("minimize");
 }

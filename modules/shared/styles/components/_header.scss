@@ -3,21 +3,21 @@
 }
 
 .o-header__title {
-  @include font-size($l-header-font);
+  @include font-size-responsive($xl-header-font);
 }
 
 .o-header__subtitle {
-  @include font-size($m-header-font);
+  @include font-size-responsive($l-header-font);
 
   display: block;
-  margin-bottom: $base-whitespace * 1.5;
+  margin-bottom: $base-whitespace;
   color: $primary-contrast;
 
   .s-indented-list &,
   .s-indented-result & {
-    @include font-size($s-header-font);
-    margin-bottom: $base-whitespace / 2 !important;
-    color: $primary-dark;
+    @include font-size-responsive($m-header-font);
+    margin-bottom: $base-whitespace;
+    color: $secondary-gray60;
   }
 }
 

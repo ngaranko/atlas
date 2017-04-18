@@ -1,7 +1,8 @@
 describe('The dpDataSelectionDocumentTitle factory', function () {
     let dpDataSelectionDocumentTitle,
         mockedBagState,
-        mockedHrState;
+        mockedHrState,
+        mockedCardsState;
 
     beforeEach(function () {
         angular.mock.module(
@@ -25,6 +26,15 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
                         hr: {
                             TITLE: 'Handelsregister',
                             FILTERS: []
+                        },
+                        catalogus: {
+                            TITLE: 'Catalogus',
+                            FILTERS: [
+                                {
+                                    slug: 'groups',
+                                    label: 'Thema\'s'
+                                }
+                            ]
                         }
                     }
                 });
@@ -38,13 +48,23 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
         mockedBagState = {
             dataset: 'bag',
             view: 'TABLE',
-            filters: {}
+            filters: {},
+            geometryFilter: {}
         };
 
         mockedHrState = {
             dataset: 'hr',
             view: 'TABLE',
-            filters: {}
+            filters: {},
+            geometryFilter: {}
+        };
+
+        mockedCardsState = {
+            dataset: 'catalogus',
+            view: 'CARDS',
+            query: 'my query',
+            filters: {},
+            geometryFilter: {}
         };
     });
 
@@ -55,20 +75,45 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
         expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState)).toMatch(/^Lijst/);
     });
 
-    it('shows the title of the current dataset', function () {
-        expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState)).toBe('Tabel Adressen');
+    it('shows a special title when showing all datasets', function () {
+        delete mockedCardsState.query;
+        expect(dpDataSelectionDocumentTitle.getTitle(mockedCardsState)).toBe('Datasets');
+    });
 
-        expect(dpDataSelectionDocumentTitle.getTitle(mockedHrState)).toBe('Tabel Handelsregister');
+    it('shows a the datasets query for text search in datasets', function () {
+        expect(dpDataSelectionDocumentTitle.getTitle(mockedCardsState)).toBe('Datasets met \'my query\'');
+    });
+
+    it('shows both the query and the active filter', function () {
+        mockedCardsState.filters.groups = 'bestuur-en-organisatie';
+        expect(dpDataSelectionDocumentTitle.getTitle(mockedCardsState))
+            .toBe('Datasets met \'my query\', bestuur-en-organisatie');
+    });
+
+    it('shows the surface of the current selection', function () {
+        mockedBagState.geometryFilter = {
+            description: '1,95 km en 216.980,2 m&sup2;',
+            markers: [{}, {}]
+        };
+
+        expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState))
+            .toBe('Tabel adressen met ingetekend (1,95 km en 216.980,2 m²)');
+    });
+
+    it('shows the title of the current dataset', function () {
+        expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState)).toBe('Tabel adressen');
+
+        expect(dpDataSelectionDocumentTitle.getTitle(mockedHrState)).toBe('Tabel handelsregister');
     });
 
     it('optionally lists the (selected values of the) active filters', function () {
         // One active filter
         mockedBagState.filters.stadsdeel_naam = 'Oost';
-        expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState)).toBe('Tabel Adressen met Oost');
+        expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState)).toBe('Tabel adressen met Oost');
 
         // Two active filters (comma-separated_
         mockedBagState.filters.buurt_naam = 'Flevopark';
-        expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState)).toBe('Tabel Adressen met Oost, Flevopark');
+        expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState)).toBe('Tabel adressen met Oost, Flevopark');
     });
 
     it('respects the filter order from DATA_SELECTION_CONFIG', function () {
@@ -77,6 +122,6 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
             buurt_naam: 'Flevopark'
         };
 
-        expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState)).toBe('Tabel Adressen met Oost, Flevopark');
+        expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState)).toBe('Tabel adressen met Oost, Flevopark');
     });
 });

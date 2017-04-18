@@ -1,0 +1,14 @@
+.c-event-when-where__title {
+  margin-bottom: 0;
+  font-size: $c-event-day-height;
+  line-height: $c-event-day-height;
+}
+
+.c-event-when-where__time-location {
+  margin-bottom: $base-whitespace;
+  color: $secondary-gray60;
+  font-size: $c-event-month-font-size;
+  font-weight: normal;
+  line-height: $c-event-month-height;
+}
+

@@ -102,8 +102,8 @@
                     meta: []
                 },
                 GEBIEDSGERICHTWERKEN: {
-                    label_singular: 'Gebiedsgericht-werken gebied',
-                    label_plural: 'Gebiedsgericht-werken gebieden',
+                    label_singular: 'Gebiedsgerichtwerken-gebied',
+                    label_plural: 'Gebiedsgerichtwerken-gebieden',
                     description: 'Gebiedsgericht werken is een manier van werken om samenwerken in de stad te ' +
                     'verbeteren. De samenwerking betreft gemeente, bewoners, ondernemers, (lokale) partners en ' +
                     'maatschappelijke organisaties.',

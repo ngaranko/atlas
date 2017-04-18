@@ -4,9 +4,9 @@
     angular
         .module('dpSearchResults')
         .factory('searchTitle', searchTitleFactory);
-    searchTitleFactory.$inject = ['SEARCH_CONFIG', 'numberFilter', 'lowercaseFilter', 'coordinatesFilter'];
+    searchTitleFactory.$inject = ['SEARCH_CONFIG', 'numberFilter', 'coordinatesFilter'];
 
-    function searchTitleFactory (SEARCH_CONFIG, numberFilter, lowercaseFilter, coordinatesFilter) {
+    function searchTitleFactory (SEARCH_CONFIG, numberFilter, coordinatesFilter) {
         return {
             getTitleData: getTitleData
         };
@@ -16,10 +16,16 @@
                 title = getTitle(categoryName, numberOfResults),
                 subTitle = getSubTitle(query, location);
 
-            return {
-                title: title,
-                subTitle: title && subTitle
-            };
+            if (category) {
+                return {
+                    title: `${title} ${subTitle}`
+                };
+            } else {
+                return {
+                    title: title,
+                    subTitle: title && subTitle
+                };
+            }
         }
 
         function getCategoryName (category) {
@@ -37,13 +43,11 @@
             let title = '';
 
             if (categoryName) {
-                title = numberFilter(numberOfResults) + ' ' + lowercaseFilter(categoryName);
+                title = categoryName;
             } else if (numberOfResults === 0) {
                 title = 'Geen resultaten gevonden';
-            } else if (numberOfResults === 1) {
-                title = '1 resultaat';
-            } else if (numberOfResults > 1) {
-                title = numberFilter(numberOfResults) + ' resultaten';
+            } else if (numberOfResults > 0) {
+                title = `Data (${numberFilter(numberOfResults)})`;
             }
 
             return title;
@@ -53,9 +57,9 @@
             let subTitle = '';
 
             if (query) {
-                subTitle = ' "' + query + '"';
+                subTitle = `'${query}'`;
             } else if (location) {
-                subTitle = ' locatie ' + coordinatesFilter(location, 'WGS84');
+                subTitle = 'locatie ' + coordinatesFilter(location, 'WGS84');
             }
 
             if (subTitle) {
