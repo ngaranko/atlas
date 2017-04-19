@@ -88,8 +88,8 @@
                     vm.numberOfRecords = data.numberOfRecords;
                     vm.numberOfPages = data.numberOfPages;
 
-                    vm.showFilters = !isListView;
-
+                    vm.showFilters = !isListView && vm.numberOfRecords > 0;
+                    
                     // determine if warning messages should be shown
                     vm.maxAvailablePages = DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES;
                     vm.showMessageMaxPages = vm.maxAvailablePages && vm.state.page > vm.maxAvailablePages;
