@@ -7,6 +7,9 @@
             PRODUCTION: {
                 SITE_ID: 1
             },
+            PRE_PRODUCTION: {
+                SITE_ID: 3
+            },
             ACCEPTATION: {
                 SITE_ID: 3
             },

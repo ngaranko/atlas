@@ -14,6 +14,8 @@
             <dd> {{ vm.apiData.results.kvk_nummer }} </dd>
             <dt>Bezoekadres</dt>
             <dd> {{ vm.apiData.results.bezoekadres.volledig_adres }} </dd>
+            <dt>Indicatie non-mailing</dt>
+            <dd>{{ vm.apiData.results.non_mailing?'Ja':'Nee' }}</dd>
             <dt>Datum aanvang</dt>
             <dd> {{ vm.apiData.results.datum_aanvang | date:'dd-MM-yyyy' }} </dd>
             <dt>Soort bijzondere rechtstoestand</dt>
