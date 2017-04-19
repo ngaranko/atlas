@@ -45,11 +45,13 @@
           </button>
     </dl>
 
-    <dp-glossary-header
-        definition="COMPLEX"
-        meta-data="vm.apiData">
-    </dp-glossary-header>
-    <dp-api-call endpoint="{{ vm.apiData.results.ligt_in_complex.href }}" partial="monumenten/complex"></dp-api-call>
+    <div ng-if="vm.apiData.results.ligt_in_complex.href">
+      <dp-glossary-header
+          definition="COMPLEX"
+          meta-data="vm.apiData">
+      </dp-glossary-header>
+      <dp-api-call endpoint="{{ vm.apiData.results.ligt_in_complex.href }}" partial="monumenten/complex"></dp-api-call>
+    </div>
 
     <div ng-if="vm.apiData.results.heeft_als_grondslag_beperking.href">
       <dp-glossary-header
@@ -59,8 +61,10 @@
       <dp-api-call endpoint="{{ vm.apiData.results.heeft_als_grondslag_beperking.href }}" partial="berperking"></dp-api-call>
     </div>
 
-    <dp-glossary-header definition="PAND"></dp-glossary-header>
-    <dp-api-call endpoint="{{ vm.apiData.results.betreft_pand.href }}" partial="monumenten/pand"></dp-api-call>
+    <div ng-if="vm.apiData.results.betreft_pand.href">
+      <dp-glossary-header definition="PAND"></dp-glossary-header>
+      <dp-api-call endpoint="{{ vm.apiData.results.betreft_pand.href }}" partial="monumenten/pand"></dp-api-call>
+    </div>
 
     <dp-glossary-header
         definition="ADRES"
