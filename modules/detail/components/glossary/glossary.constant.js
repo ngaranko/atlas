@@ -84,7 +84,9 @@
                     label_plural: 'Complexen',
                     description: null,
                     url: null,
-                    meta: []
+                    meta: [
+                        'id' // TODO: Rename to more descriptive property (TG-TBD)
+                    ]
                 },
                 BUURTCOMBINATIE: {
                     label_singular: 'Buurtcombinatie',
@@ -195,7 +197,10 @@
                     label_plural: 'Monumenten',
                     description: null,
                     url: null,
-                    meta: []
+                    meta: [
+                        'monument_aanwijzingsdatum',
+                        'id' // TODO: Rename to more descriptive property (TG-TBD)
+                    ]
                 },
                 NUMMERAANDUIDING: {
                     label_singular: 'Adres',
@@ -439,6 +444,9 @@
                 },
                 ligplaatsidentificatie: {
                     label: 'Ligplaatsidentificatie'
+                },
+                monument_aanwijzingsdatum: {
+                    label: 'Aanwijzingsdatum'
                 },
                 nummeraanduidingidentificatie: {
                     label: 'Nummeraanduidingidentificatie'

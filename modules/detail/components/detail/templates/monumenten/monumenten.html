@@ -1,8 +1,9 @@
 <div class="u-row">
     <div class="o-header">
         <dp-glossary-header
+            definition="MONUMENTEN"
             heading="{{ vm.apiData.results.monumentnaam }}"
-            definition="MONUMENTEN">
+            meta-data="vm.apiData">
         </dp-glossary-header>
     </div>
 
@@ -44,17 +45,26 @@
           </button>
     </dl>
 
-    <dp-glossary-header definition="COMPLEX"></dp-glossary-header>
+    <dp-glossary-header
+        definition="COMPLEX"
+        meta-data="vm.apiData">
+    </dp-glossary-header>
     <dp-api-call endpoint="{{ vm.apiData.results.ligt_in_complex.href }}" partial="monumenten/complex"></dp-api-call>
 
     <div ng-if="vm.apiData.results.heeft_als_grondslag_beperking.href">
-      <dp-glossary-header definition="BEPERKING" use-plural="true"></dp-glossary-header>
+      <dp-glossary-header
+          definition="BEPERKING"
+          use-plural="true">
+      </dp-glossary-header>
       <dp-api-call endpoint="{{ vm.apiData.results.heeft_als_grondslag_beperking.href }}" partial="berperking"></dp-api-call>
     </div>
 
     <dp-glossary-header definition="PAND"></dp-glossary-header>
     <dp-api-call endpoint="{{ vm.apiData.results.betreft_pand.href }}" partial="monumenten/pand"></dp-api-call>
 
-    <dp-glossary-header definition="ADRES" use-plural="true"></dp-glossary-header>
+    <dp-glossary-header
+        definition="ADRES"
+        use-plural="true">
+    </dp-glossary-header>
     <dp-api-call endpoint="{{ vm.apiData.results.heeft_situeringen.href }}" partial="adressen_lijst"></dp-api-call>
 </div>
