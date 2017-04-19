@@ -41,7 +41,7 @@
                 <div class="c-user-content-overview__toc-header">Op deze pagina</div>
                 <div ng-repeat="entry in vm.entries" ng-if="entry.titel.value" class="u-margin__bottom--1">
                     <div ng-if="entry.short.isHref"
-                         class="o-btn o-btn--link s-cms-page-content__toc"
+                         class="o-btn o-btn--link s-cms-page-content s-cms-page-content--toc"
                          ng-bind-html="entry.short.html"></div>
                     <dp-anchor-link ng-if="!entry.short.isHref"
                                     link="{{$first ? (vm.type + 'top') : (vm.type + entry.id)}}"

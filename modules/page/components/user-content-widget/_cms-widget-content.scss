@@ -17,9 +17,11 @@
 .s-cms-widget-content--link {
   a {
     color: inherit;
+    text-decoration: inherit;
 
     &:hover {
       color: inherit;
+      text-decoration: inherit;
     }
   }
 }
