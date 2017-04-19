@@ -25,10 +25,23 @@
         <dd>{{ vm.apiData.results.oorspronkelijke_functie_monument }}</dd>
         <dt>In onderzoek</dt>
         <dd> {{ vm.apiData.results.in_onderzoek === 'J' ? 'Ja' : 'Nee' }} </dd>
-        <dt>Beschrijving</dt>
-        <dd> {{ vm.apiData.results.beschrijving_monument }} </dd>
-        <dt>Redengevende omschrijving</dt>
-        <dd> {{ vm.apiData.results.redengevende_omschrijving_monument }} </dd>
+        <dt class="c-key-value-list__key--full-width">Beschrijving</dt>
+        <dd class="c-key-value-list__value--full-width">
+          <p ng-if="vm.apiData.results.beschrijving_monument">{{ vm.apiData.results.beschrijving_monument }}</p>
+          <button
+              class="o-loadmore o-loadmore--content"
+              ng-if="vm.apiData.results.beschrijving_monument.length > 700">
+            Toon meer
+          </button>
+        </dd>
+        <dt class="c-key-value-list__key--full-width">Redengevende omschrijving</dt>
+        <dd class="c-key-value-list__value--full-width">
+          <p ng-if="vm.apiDate.results.redengevende_omschrijving_monument">{{ vm.apiData.results.redengevende_omschrijving_monument }}</p>
+          <button
+              class="o-loadmore--content o-loadmore--content"
+              ng-if="vm.apiData.results.redengevende_omschrijving_monument.length > 700">
+            Toon meer
+          </button>
     </dl>
 
     <dp-glossary-header definition="COMPLEX"></dp-glossary-header>

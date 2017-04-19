@@ -5,6 +5,13 @@
     <dd>{{ apiData.results.monumentnummer }}</dd>
     <dt>Complexnaam</dt>
     <dd> {{ apiData.results.complex_naam }} </dd>
-    <dt>Beschrijving</dt>
-    <dd> {{ apiData.results.beschrijving }}</dd>
+    <dt class="c-key-value-list__key--full-width">Beschrijving</dt>
+    <dd class="c-key-value-list__value--full-width">
+      <p ng-if="apiData.results.beschrijving">{{ apiData.results.beschrijving }}</p>
+      <button
+          class="o-loadmore o-loadmore--content"
+          ng-if="apiData.results.beschrijving.length > 700">
+        Toon meer
+      </button>
+    </dd>
 </dl>
