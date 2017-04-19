@@ -1,0 +1,19 @@
+.c-link {
+  @extend %link;
+}
+
+.c-link--light {
+  color: $primary-light;
+
+  &:hover {
+    color: $primary-light;
+  }
+}
+
+.c-link--arrow {
+  @extend %link--arrow;
+}
+
+.c-link--inline {
+  @extend %link--inline;
+}
