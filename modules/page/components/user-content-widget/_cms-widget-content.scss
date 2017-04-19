@@ -14,6 +14,16 @@
   }
 }
 
+.s-cms-widget-content--link {
+  a {
+    color: inherit;
+
+    &:hover {
+      color: inherit;
+    }
+  }
+}
+
 .s-cms-widget-content--inline {
   p {
     display: inline;

@@ -12,25 +12,11 @@
   max-height: 4 * $base-whitespace;
   margin-bottom: 1.2 * $base-whitespace;
   overflow: hidden;
-
-  &:hover {
-    color: $primary-contrast;
-    text-decoration: underline;
-  }
 }
 
 .c-user-content-widget__short {
   display: inline;
   font-weight: normal;
-}
-
-.c-user-content-widget__external-link {
-  &:hover {
-    a {
-      color: $primary-contrast;
-      text-decoration: underline;
-    }
-  }
 }
 
 .c-user-content-widget__events-link {
