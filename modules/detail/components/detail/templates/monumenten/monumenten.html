@@ -28,21 +28,19 @@
         <dd>{{ vm.apiData.results.in_onderzoek === 'J' ? 'Ja' : 'Nee' }}</dd>
         <dt class="c-key-value-list__key--full-width">Beschrijving</dt>
         <dd class="c-key-value-list__value--full-width">
-          <p ng-if="vm.apiData.results.beschrijving_monument">{{ vm.apiData.results.beschrijving_monument }}</p>
-          <button
-              class="c-show-more"
-              ng-if="vm.apiData.results.beschrijving_monument.length > 700">
-            Toon meer
-          </button>
+          <p
+              dp-expand-collapse
+              ng-if="vm.apiData.results.beschrijving_monument">
+            {{ vm.apiData.results.beschrijving_monument }}
+          </p>
         </dd>
         <dt class="c-key-value-list__key--full-width">Redengevende omschrijving</dt>
         <dd class="c-key-value-list__value--full-width">
-          <p ng-if="vm.apiDate.results.redengevende_omschrijving_monument">{{ vm.apiData.results.redengevende_omschrijving_monument }}</p>
-          <button
-              class="c-show-more"
-              ng-if="vm.apiData.results.redengevende_omschrijving_monument.length > 700">
-            Toon meer
-          </button>
+          <p
+              dp-expand-collapse
+              ng-if="vm.apiDate.results.redengevende_omschrijving_monument">
+            {{ vm.apiData.results.redengevende_omschrijving_monument }}
+          </p>
     </dl>
 
     <div ng-if="vm.apiData.results.ligt_in_complex.href">
