@@ -1,3 +1,4 @@
+/* eslint angular/di: [2,"array"] */
 (function () {
     'use strict';
 

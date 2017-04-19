@@ -5,9 +5,9 @@
         .module('dpShared')
         .factory('user', userFactory);
 
-    userFactory.$inject = ['$window', '$q', '$interval', 'userSettings'];
+    userFactory.$inject = ['$window', '$q', '$interval', '$cacheFactory', 'userSettings'];
 
-    function userFactory ($window, $q, $interval, userSettings) {
+    function userFactory ($window, $q, $interval, $cacheFactory, userSettings) {
         const USER_TYPE = { // the possible types of a user
             NONE: 'NONE',
             ANONYMOUS: 'ANONYMOUS',
@@ -219,6 +219,13 @@
         }
 
         function onLowerAuthorizationLevel () {
+            // Clearing the cache whenever authorization level is lowered
+            const $httpCache = $cacheFactory.get('$http');
+            if ($httpCache) {
+                const c = console;
+                c.log('Clearing cache');
+                $httpCache.removeAll();
+            }
             // Brute fix to reload the application when the user authorization decreases
             $window.location.reload(true);
         }
