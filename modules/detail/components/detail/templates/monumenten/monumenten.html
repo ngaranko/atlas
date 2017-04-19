@@ -13,11 +13,11 @@
         <dt>Naam</dt>
         <dd>{{ vm.apiData.results.monumentnaam }}</dd>
         <dt>Type</dt>
-        <dd> {{ vm.apiData.results.monumenttype }} </dd>
+        <dd>{{ vm.apiData.results.monumenttype }}</dd>
         <dt>Status</dt>
-        <dd> {{ vm.apiData.results.monumentstatus }}</dd>
+        <dd>{{ vm.apiData.results.monumentstatus }}</dd>
         <dt>Architect ontwerp</dt>
-        <dd> {{ vm.apiData.results.architect_ontwerp_monument }}</dd>
+        <dd>{{ vm.apiData.results.architect_ontwerp_monument }}</dd>
         <dt>Opdrachtgever bouw</dt>
         <dd>{{ vm.apiData.results.opdrachtgever_bouw_monument }}</dd>
         <dt>Bouwjaar start bouwperiode</dt>
@@ -25,7 +25,7 @@
         <dt>Oorspronkelijke functie</dt>
         <dd>{{ vm.apiData.results.oorspronkelijke_functie_monument }}</dd>
         <dt>In onderzoek</dt>
-        <dd> {{ vm.apiData.results.in_onderzoek === 'J' ? 'Ja' : 'Nee' }} </dd>
+        <dd>{{ vm.apiData.results.in_onderzoek === 'J' ? 'Ja' : 'Nee' }}</dd>
         <dt class="c-key-value-list__key--full-width">Beschrijving</dt>
         <dd class="c-key-value-list__value--full-width">
           <p ng-if="vm.apiData.results.beschrijving_monument">{{ vm.apiData.results.beschrijving_monument }}</p>
