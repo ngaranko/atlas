@@ -207,12 +207,7 @@
 
         function clearHttpCache () {
             // Clearing the cache whenever authorization level is lowered
-            const $httpCache = $cacheFactory.get('$http');
-            if ($httpCache) {
-                const c = console;
-                c.log('Clearing cache');
-                $httpCache.removeAll();
-            }
+            $cacheFactory.get('$http').removeAll();
         }
 
         function meetsRequiredLevel (requiredLevel) {
