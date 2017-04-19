@@ -47,7 +47,7 @@ describe('The api factory', function () {
 
         clearHttpCache = function () {
             // Clearing the cache whenever authorization level is lowered
-            const $httpCache = $cacheFactory.get('$http').removeAll();
+            $cacheFactory.get('$http').removeAll();
         };
     });
 
