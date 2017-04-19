@@ -21,14 +21,15 @@
   }
 
   .c-key-value-list__value--full-width {
-    width: calc(100% - 60px);
+    width: 100%;
+    padding: 0 20px;
     float: none;
 
     p {
       display: inline-block;
       max-height: 100px;
       margin: 10px 0 0;
-      padding: 0 20px 0 40px;
+      padding-left: 16px;
       transition: max-height .5s linear;
       border-top: none;
       line-height: 20px;
@@ -36,16 +37,6 @@
       white-space: pre-line;
       overflow: hidden;
       box-sizing: content-box;
-    }
-
-    .o-loadmore--content {
-      color: $secondary-gray60;
-
-      &::before {
-        top: -1px;
-        left: -20px;
-        font-size: 16px;
-      }
     }
   }
 }

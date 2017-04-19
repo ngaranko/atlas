@@ -29,7 +29,7 @@
         <dd class="c-key-value-list__value--full-width">
           <p ng-if="vm.apiData.results.beschrijving_monument">{{ vm.apiData.results.beschrijving_monument }}</p>
           <button
-              class="o-loadmore o-loadmore--content"
+              class="c-show-more"
               ng-if="vm.apiData.results.beschrijving_monument.length > 700">
             Toon meer
           </button>
@@ -38,7 +38,7 @@
         <dd class="c-key-value-list__value--full-width">
           <p ng-if="vm.apiDate.results.redengevende_omschrijving_monument">{{ vm.apiData.results.redengevende_omschrijving_monument }}</p>
           <button
-              class="o-loadmore--content o-loadmore--content"
+              class="c-show-more"
               ng-if="vm.apiData.results.redengevende_omschrijving_monument.length > 700">
             Toon meer
           </button>
