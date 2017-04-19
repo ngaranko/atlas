@@ -26,11 +26,6 @@
                 url: url,
                 headers: headers,
                 params: params,
-
-                /*
-                 Caching is set to false to enforce distinction between logged in users and guests. The API doesn't
-                 support tokens yet.
-                 */
                 cache: true
             };
 

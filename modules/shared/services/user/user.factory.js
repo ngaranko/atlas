@@ -141,6 +141,8 @@
         function setRefreshToken (token, userType) {
             user.type = userType;
             user.refreshToken = token;
+            // Clearing cache on refresh token change
+            clearHttpCache();
         }
 
         function getAccessToken () {
@@ -203,6 +205,16 @@
             return user.authorizationLevel;
         }
 
+        function clearHttpCache () {
+            // Clearing the cache whenever authorization level is lowered
+            const $httpCache = $cacheFactory.get('$http');
+            if ($httpCache) {
+                const c = console;
+                c.log('Clearing cache');
+                $httpCache.removeAll();
+            }
+        }
+
         function meetsRequiredLevel (requiredLevel) {
             if (angular.isDefined(AUTHORIZATION_LEVEL[requiredLevel])) {
                 const access = Object.keys(AUTHORIZATION_LEVEL_MAPPING).reduce((result, value) => ({
@@ -219,13 +231,7 @@
         }
 
         function onLowerAuthorizationLevel () {
-            // Clearing the cache whenever authorization level is lowered
-            const $httpCache = $cacheFactory.get('$http');
-            if ($httpCache) {
-                const c = console;
-                c.log('Clearing cache');
-                $httpCache.removeAll();
-            }
+            clearHttpCache();
             // Brute fix to reload the application when the user authorization decreases
             $window.location.reload(true);
         }
