@@ -15,6 +15,28 @@
     border: none;
     line-height: $base-line-height;
   }
+
+  .c-key-value-list__key--full-width {
+    width: 100%;
+  }
+
+  .c-key-value-list__value--full-width {
+    width: 100%;
+    padding: 0 20px;
+    float: none;
+
+    p {
+      display: inline-block;
+      max-height: 100px;
+      margin: 10px 0 0;
+      padding-left: 16px;
+      transition: max-height .5s linear;
+      border-top: none;
+      line-height: 20px;
+      text-overflow: ellipsis;
+      white-space: pre-line;
+      overflow: hidden;
+      box-sizing: content-box;
+    }
+  }
 }
-
-

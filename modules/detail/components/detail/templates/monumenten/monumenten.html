@@ -1,10 +1,75 @@
-<div>
+<div class="u-row">
+    <div class="o-header">
+        <dp-glossary-header
+            definition="MONUMENTEN"
+            heading="{{ vm.apiData.results.monumentnaam }}"
+            meta-data="vm.apiData">
+        </dp-glossary-header>
+    </div>
+
     <dp-panel is-panel-visible="vm.showMoreInfoWarning" type="warning" can-close="true">
         Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer gegevens te zien: architect en opdrachtgever,
         bouwjaar, oorspronkelijke functie, coordinaten en geometrie, beschrijving en redengevende omschrijving. Zie Help > Bediening dataportaal > Inloggen.
     </dp-panel>
 
-    <dp-partial-select partial="monumenten/monumenten" api-data="vm.apiData"></dp-partial-select>
+    <dl class="c-key-value-list">
+        <dt>Nummer</dt>
+        <dd>{{ vm.apiData.results.monumentnummer }}</dd>
+        <dt>Naam</dt>
+        <dd>{{ vm.apiData.results.monumentnaam }}</dd>
+        <dt>Type</dt>
+        <dd>{{ vm.apiData.results.monumenttype }}</dd>
+        <dt>Status</dt>
+        <dd>{{ vm.apiData.results.monumentstatus }}</dd>
+        <dt>Architect ontwerp</dt>
+        <dd>{{ vm.apiData.results.architect_ontwerp_monument }}</dd>
+        <dt>Opdrachtgever bouw</dt>
+        <dd>{{ vm.apiData.results.opdrachtgever_bouw_monument }}</dd>
+        <dt>Bouwjaar start bouwperiode</dt>
+        <dd>{{ bouwjaar_start_bouwperiode_monument }}</dd>
+        <dt>Oorspronkelijke functie</dt>
+        <dd>{{ vm.apiData.results.oorspronkelijke_functie_monument }}</dd>
+        <dt>In onderzoek</dt>
+        <dd>{{ vm.apiData.results.in_onderzoek === 'J' ? 'Ja' : 'Nee' }}</dd>
+        <dt class="c-key-value-list__key--full-width">Beschrijving</dt>
+        <dd class="c-key-value-list__value--full-width">
+          <p ng-if="vm.apiData.results.beschrijving_monument">{{ vm.apiData.results.beschrijving_monument }}</p>
+          <button
+              class="c-show-more"
+              ng-if="vm.apiData.results.beschrijving_monument.length > 700">
+            Toon meer
+          </button>
+        </dd>
+        <dt class="c-key-value-list__key--full-width">Redengevende omschrijving</dt>
+        <dd class="c-key-value-list__value--full-width">
+          <p ng-if="vm.apiDate.results.redengevende_omschrijving_monument">{{ vm.apiData.results.redengevende_omschrijving_monument }}</p>
+          <button
+              class="c-show-more"
+              ng-if="vm.apiData.results.redengevende_omschrijving_monument.length > 700">
+            Toon meer
+          </button>
+    </dl>
 
-    <pre>{{ vm.apiData | json }}</pre>
+    <dp-glossary-header
+        definition="COMPLEX"
+        meta-data="vm.apiData">
+    </dp-glossary-header>
+    <dp-api-call endpoint="{{ vm.apiData.results.ligt_in_complex.href }}" partial="monumenten/complex"></dp-api-call>
+
+    <div ng-if="vm.apiData.results.heeft_als_grondslag_beperking.href">
+      <dp-glossary-header
+          definition="BEPERKING"
+          use-plural="true">
+      </dp-glossary-header>
+      <dp-api-call endpoint="{{ vm.apiData.results.heeft_als_grondslag_beperking.href }}" partial="berperking"></dp-api-call>
+    </div>
+
+    <dp-glossary-header definition="PAND"></dp-glossary-header>
+    <dp-api-call endpoint="{{ vm.apiData.results.betreft_pand.href }}" partial="monumenten/pand"></dp-api-call>
+
+    <dp-glossary-header
+        definition="ADRES"
+        use-plural="true">
+    </dp-glossary-header>
+    <dp-api-call endpoint="{{ vm.apiData.results.heeft_situeringen.href }}" partial="adressen_lijst"></dp-api-call>
 </div>
