@@ -105,6 +105,7 @@ describe('The dataSelectionReducers factory', function () {
             expect(output.dataSelection).toEqual(jasmine.objectContaining({
                 query: 'zoek'
             }));
+            expect(output.dataSelection.filters).toEqual({});
         });
 
         it('makes the Array of markers empty', function () {
