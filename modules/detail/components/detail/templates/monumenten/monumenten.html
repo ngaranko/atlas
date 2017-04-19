@@ -28,57 +28,57 @@
         <dd>{{ vm.apiData.results.in_onderzoek === 'J' ? 'Ja' : 'Nee' }}</dd>
         <dt class="c-key-value-list__key--full-width">Beschrijving</dt>
         <dd class="c-key-value-list__value--full-width">
-          <p
+            <p
               dp-expand-collapse
               ng-if="vm.apiData.results.beschrijving_monument">
-            {{ vm.apiData.results.beschrijving_monument }}
-          </p>
+                {{ vm.apiData.results.beschrijving_monument }}
+            </p>
         </dd>
         <dt class="c-key-value-list__key--full-width">Redengevende omschrijving</dt>
         <dd class="c-key-value-list__value--full-width">
-          <p
+            <p
               dp-expand-collapse
               ng-if="vm.apiDate.results.redengevende_omschrijving_monument">
-            {{ vm.apiData.results.redengevende_omschrijving_monument }}
-          </p>
+                {{ vm.apiData.results.redengevende_omschrijving_monument }}
+            </p>
     </dl>
 
     <div ng-if="vm.apiData.results.ligt_in_complex.href">
-      <dp-glossary-header
+        <dp-glossary-header
           definition="COMPLEX"
           meta-data="vm.apiData">
-      </dp-glossary-header>
-      <dp-api-call
+        </dp-glossary-header>
+        <dp-api-call
           endpoint="{{ vm.apiData.results.ligt_in_complex.href }}"
           partial="monumenten/complex">
-      </dp-api-call>
+        </dp-api-call>
     </div>
 
     <div ng-if="vm.apiData.results.heeft_als_grondslag_beperking.href">
-      <dp-glossary-header
+        <dp-glossary-header
           definition="BEPERKING"
           use-plural="true">
-      </dp-glossary-header>
-      <dp-api-call
+        </dp-glossary-header>
+        <dp-api-call
           endpoint="{{ vm.apiData.results.heeft_als_grondslag_beperking.href }}"
           partial="berperking">
-      </dp-api-call>
+        </dp-api-call>
     </div>
 
     <div ng-if="vm.apiData.results.betreft_pand.href">
-      <dp-glossary-header definition="PAND"></dp-glossary-header>
-      <dp-api-call
+        <dp-glossary-header definition="PAND"></dp-glossary-header>
+        <dp-api-call
           endpoint="{{ vm.apiData.results.betreft_pand.href }}"
           partial="monumenten/pand">
-      </dp-api-call>
+        </dp-api-call>
     </div>
 
     <dp-glossary-header
-        definition="ADRES"
-        use-plural="true">
+      definition="ADRES"
+      use-plural="true">
     </dp-glossary-header>
     <dp-api-call
-        endpoint="{{ vm.apiData.results.heeft_situeringen.href }}"
-        partial="adressen_lijst">
+      endpoint="{{ vm.apiData.results.heeft_situeringen.href }}"
+      partial="adressen_lijst">
     </dp-api-call>
 </div>
