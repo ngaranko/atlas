@@ -53,6 +53,7 @@ $link-offset: $base-font-size;
   @extend %link;
 
   margin-left: $link-offset;
+  outline: none;
 
   &::before {
     display: inline-block;
