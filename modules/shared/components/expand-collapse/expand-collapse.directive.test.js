@@ -6,7 +6,7 @@ describe('`dpExpandCollapse` directive', () => {
 
     beforeEach(module('dpShared'));
 
-    beforeEach(inject((_$compile_, _$rootScope_, _$timeout_) => {
+    beforeEach(angular.mock.inject((_$compile_, _$rootScope_, _$timeout_) => {
         $compile = _$compile_;
         $rootScope = _$rootScope_;
         $timeout = _$timeout_;
