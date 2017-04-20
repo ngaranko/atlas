@@ -95,7 +95,7 @@ describe('The dataSelectionReducers factory', function () {
             }));
         });
 
-        it('sets the dataSelection query', function () {
+        it('sets the dataSelection query and empties filters', function () {
             const mockedState = angular.copy(DEFAULT_STATE);
 
             payload = 'zoek';
@@ -105,7 +105,6 @@ describe('The dataSelectionReducers factory', function () {
             expect(output.dataSelection).toEqual(jasmine.objectContaining({
                 query: 'zoek'
             }));
-            // when searching string filters should be emtied
             expect(output.dataSelection.filters).toEqual({});
         });
 
