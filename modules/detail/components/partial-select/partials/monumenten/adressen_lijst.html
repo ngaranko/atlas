@@ -1,0 +1,26 @@
+<div class="u-margin__bottom--4">
+  <h4 ng-if="apiData.count >= 5" class="c-paginering">1-{{ apiData.results.length }} van {{apiData.count}}</h4>
+  <ul class="o-list">
+    <li ng-repeat="object in apiData.results">
+      <dp-link type="FETCH_DETAIL" payload="object.betreft_nummeraanduiding._links.self.href">
+        {{ object._display }}
+      </dp-link>
+      <span class="muted" ng-if="object.hoofdadres === false">
+          (nevenadres)
+      </span>
+      <span class="muted" ng-if="object.situering_nummeraanduiding === 'Actueel/Bij'">
+          (object is gelegen bij dit adres)
+      </span>
+      <span class="muted" ng-if="object.situering_nummeraanduiding === 'Actueel/Tegenover'">
+          (object is gelegen tegenover dit adres)
+      </span>
+      <span class="muted" ng-if="object.situering_nummeraanduiding === 'Actueel/Via'">
+          (object kan worden betreden via dit adres)
+      </span>
+    </li>
+  </ul>
+
+  <button class="o-loadmore" ng-click="loadMore()" ng-if="apiData.next">
+    Meer
+  </button>
+</div>

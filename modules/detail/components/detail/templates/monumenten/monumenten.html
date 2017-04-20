@@ -43,32 +43,32 @@
             </p>
     </dl>
 
-    <div ng-if="vm.apiData.results.ligt_in_complex.href">
+    <div ng-if="vm.apiData.results.ligt_in_complex._links.self.href">
         <dp-glossary-header
           definition="COMPLEX"
           meta-data="vm.apiData">
         </dp-glossary-header>
         <dp-api-call
-          endpoint="{{ vm.apiData.results.ligt_in_complex.href }}"
+          endpoint="{{ vm.apiData.results.ligt_in_complex._links.self.href }}"
           partial="monumenten/complex">
         </dp-api-call>
     </div>
 
-    <div ng-if="vm.apiData.results.heeft_als_grondslag_beperking.href">
+    <div ng-if="vm.apiData.results.heeft_als_grondslag_beperking._links.self.href">
         <dp-glossary-header
           definition="BEPERKING"
           use-plural="true">
         </dp-glossary-header>
         <dp-api-call
-          endpoint="{{ vm.apiData.results.heeft_als_grondslag_beperking.href }}"
+          endpoint="{{ vm.apiData.results.heeft_als_grondslag_beperking._links.self.href }}"
           partial="berperking">
         </dp-api-call>
     </div>
 
-    <div ng-if="vm.apiData.results.betreft_pand.href">
+    <div ng-if="vm.apiData.results.betreft_pand._links.self.href">
         <dp-glossary-header definition="PAND"></dp-glossary-header>
         <dp-api-call
-          endpoint="{{ vm.apiData.results.betreft_pand.href }}"
+          endpoint="{{ vm.apiData.results.betreft_pand._links.self.href }}"
           partial="monumenten/pand">
         </dp-api-call>
     </div>
@@ -79,6 +79,6 @@
     </dp-glossary-header>
     <dp-api-call
       endpoint="{{ vm.apiData.results.heeft_situeringen.href }}"
-      partial="adressen_lijst">
+      partial="monumenten/adressen_lijst">
     </dp-api-call>
 </div>
