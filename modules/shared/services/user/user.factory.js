@@ -153,7 +153,7 @@
             const currentAuthorizationLevel = user.authorizationLevel;
 
             user.accessToken = token;
-
+            clearHttpCache();
             if (!meetsRequiredLevel(currentAuthorizationLevel)) {
                 onLowerAuthorizationLevel();
             }
@@ -226,7 +226,6 @@
         }
 
         function onLowerAuthorizationLevel () {
-            clearHttpCache();
             // Brute fix to reload the application when the user authorization decreases
             $window.location.reload(true);
         }

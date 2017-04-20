@@ -205,10 +205,9 @@ describe('The user factory', function () {
         it('clears cache on refresh token change', function () {
             api.getByUrl('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/');
             $httpBackend.flush();
-            let $httpCache = $cacheFactory.get('$http');
+            const $httpCache = $cacheFactory.get('$http');
             expect($httpCache.info().size).toBe(1);
             user.setRefreshToken(testToken, user.USER_TYPE.ANONYMOUS);
-            $httpCache = $cacheFactory.get('$http');
             expect($httpCache.info().size).toBe(0);
         });
     });
