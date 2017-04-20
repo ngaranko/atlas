@@ -14,9 +14,9 @@
             <dd>{{ vm.apiData.results.geometrie.coordinates | coordinates: 'RD' }}</dd>
             <dt>Bouwblok</dt>
             <dd>
-                <dp-link type="FETCH_DETAIL" payload="vm.apiData.results.bouwblok_link">
-                    {{ vm.apiData.results.bouwblok }}
-                </dp-link>
+                <dp-link type="FETCH_DETAIL"
+                         payload="vm.apiData.results.bouwblok_link"
+                    >{{ vm.apiData.results.bouwblok }}</dp-link>
             </dd>
             <dt>Bouwblokzijde</dt>
             <dd>{{ vm.apiData.results.bouwblokzijde }}</dd>
@@ -24,9 +24,9 @@
             <dd>{{ vm.apiData.results.blokeenheid }}</dd>
             <dt>Stadsdeel</dt>
             <dd>
-                <dp-link type="FETCH_DETAIL" payload="vm.apiData.results.stadsdeel_link">
-                    {{ vm.apiData.results.stadsdeel }}
-                </dp-link>
+                <dp-link type="FETCH_DETAIL"
+                         payload="vm.apiData.results.stadsdeel_link"
+                    >{{ vm.apiData.results.stadsdeel }}</dp-link>
             </dd>
             <dt>Indicatie beveiligd</dt>
             <dd>{{ vm.apiData.results.beveiligd | yesNo }}</dd>

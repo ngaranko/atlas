@@ -171,11 +171,12 @@
         function mapEndDrawingReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
-            newState.page.name = null;
             newState.map.drawingMode = false;
 
             if (payload) {
                 if (payload.markers.length > 2) {
+                    newState.page.name = null;
+
                     // Polygon
                     if (!newState.dataSelection) {
                         newState.dataSelection = {};

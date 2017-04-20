@@ -13,10 +13,7 @@ $contact-height: 60px;
   color: $primary-dark;
   font-weight: normal;
   line-height: $contact-height;
-
-  &::before {
-    height: $contact-height;
-  }
+  opacity: .6;
 }
 
 .c-site-header__toolbar {

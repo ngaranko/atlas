@@ -22,7 +22,11 @@
         <dt>Postadres</dt>
         <dd> {{ vm.apiData.results.postadres.volledig_adres }} </dd>
         <dt>Bezoekadres</dt>
-        <dd> {{ vm.apiData.results.bezoekadres.volledig_adres }} </dd>
+        <dd> {{ vm.apiData.results.bezoekadres.volledig_adres }}</dd>
+        <dt>Indicatie non-mailing</dt>
+        <dp-api-call endpoint="{{vm.apiData.results.maatschappelijke_activiteit}}" partial="handelsregister/non-mailing"></dp-api-call>
+        <dt>Afgeschermd</dt>
+        <dd>{{ vm.apiData.results.bezoekadres.afgeschermd?'Ja':'Nee' }}</dd>
         <dt>Type vestiging</dt>
         <dd>
             {{ vm.apiData.results.hoofdvestiging ? "Hoofdvestiging" : vm.apiData.results.hoofdvestiging === false ? "Nevenvestiging" : "" }}
@@ -59,9 +63,9 @@
     </dp-glossary-header>
 
     <div class="u-margin__bottom--4">
-        <dp-link type="FETCH_DETAIL" payload="vm.apiData.results.maatschappelijke_activiteit">
-            {{ vm.apiData.results.naam }}
-        </dp-link>
+        <dp-link type="FETCH_DETAIL"
+                 payload="vm.apiData.results.maatschappelijke_activiteit"
+            >{{ vm.apiData.results.naam }}</dp-link>
     </div>
 
     <dp-hr-disclaimer></dp-hr-disclaimer>

@@ -5,6 +5,9 @@ describe('The user factory', function () {
     let $rootScope,
         $interval,
         $window,
+        $httpBackend,
+        $cacheFactory,
+        api,
         userSettings,
         refreshToken,
         userType,
@@ -44,13 +47,20 @@ describe('The user factory', function () {
             }
         );
 
-        angular.mock.inject(function (_$rootScope_, _$interval_, _$window_, _userSettings_, _user_) {
+        angular.mock.inject(function (_$rootScope_, _$interval_, _$window_,
+                                      _$httpBackend_, _$cacheFactory_, _api_,
+                                      _userSettings_, _user_) {
             $rootScope = _$rootScope_;
             $interval = _$interval_;
             $window = _$window_;
+            $httpBackend = _$httpBackend_;
+            $cacheFactory = _$cacheFactory_;
+            api = _api_;
             userSettings = _userSettings_;
             user = _user_;
         });
+
+        $httpBackend.whenGET('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/').respond({});
 
         spyOn($window.location, 'reload').and.returnValue(null);
     });
@@ -191,6 +201,14 @@ describe('The user factory', function () {
             expect($window.location.reload).not.toHaveBeenCalled();
             user.setAccessToken(testAccessTokenAuthz1);
             expect($window.location.reload).not.toHaveBeenCalled();
+        });
+        it('clears cache on refresh token change', function () {
+            api.getByUrl('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/');
+            $httpBackend.flush();
+            const $httpCache = $cacheFactory.get('$http');
+            expect($httpCache.info().size).toBe(1);
+            user.setRefreshToken(testToken, user.USER_TYPE.ANONYMOUS);
+            expect($httpCache.info().size).toBe(0);
         });
     });
 
