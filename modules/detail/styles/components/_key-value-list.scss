@@ -16,6 +16,14 @@
     line-height: $base-line-height;
   }
 
+  .c-key-value-list__key {
+    @extend %description-list-key;
+  }
+
+  .c-key-value-list__value {
+    @extend %description-list-value;
+  }
+
   .c-key-value-list__key--full-width {
     width: 100%;
   }
@@ -24,19 +32,19 @@
     width: 100%;
     padding: 0 20px;
     float: none;
+  }
 
-    p {
-      display: inline-block;
-      max-height: 100px;
-      margin: 0;
-      padding-left: 16px;
-      transition: max-height .5s linear;
-      border-top: none;
-      line-height: 20px;
-      text-overflow: ellipsis;
-      white-space: pre-line;
-      overflow: hidden;
-      box-sizing: content-box;
-    }
+  .c-key-value-list__content {
+    display: inline-block;
+    max-height: 100px;
+    margin: 0;
+    padding-left: 16px;
+    transition: max-height .5s linear;
+    border-top: none;
+    line-height: 20px;
+    text-overflow: ellipsis;
+    white-space: pre-line;
+    overflow: hidden;
+    box-sizing: content-box;
   }
 }
