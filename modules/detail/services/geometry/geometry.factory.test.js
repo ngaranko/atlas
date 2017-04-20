@@ -97,6 +97,14 @@ describe('The geometry factory', function () {
                     }
                 }
             }, {
+                // Monument
+                url: 'http://www.api-root.nl/monumenten/monumenten/987654321/',
+                response: {
+                    monumentcoordinaten: {
+                        coordinates: [119695.616, 483365.537]
+                    }
+                }
+            }, {
                 // vestiging Rotterdam (zowel x als y buiten range)
                 url: 'https://www.api-root.nl/handelsregister/vestiging/456/',
                 response: {
@@ -158,6 +166,22 @@ describe('The geometry factory', function () {
 
         expect(response).toEqual({
             FAKE_GEOJSON: 'G_PERCEEL'
+        });
+    });
+
+    it('returns the GeoJSON of the monument', function () {
+        var response;
+
+        geometry
+            .getGeoJSON('http://www.api-root.nl/monumenten/monumenten/987654321/')
+            .then(function (data) {
+                response = data;
+            });
+
+        $rootScope.$apply();
+
+        expect(response).toEqual({
+            coordinates: [119695.616, 483365.537]
         });
     });
 

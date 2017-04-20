@@ -29,6 +29,8 @@
                     return getGPerceel(data).then(getGeometry);
                 } else if (isNummeraanduiding(url)) {
                     return getAdresseerbaarObject(data).then(getGeometry);
+                } else if (isMonument(url)) {
+                    return data.monumentcoordinaten;
                 } else {
                     return null;
                 }
@@ -64,6 +66,10 @@
 
             function isNummeraanduiding (anUrl) {
                 return anUrl.indexOf('bag/nummeraanduiding') !== -1;
+            }
+
+            function isMonument (anUrl) {
+                return anUrl.indexOf('monumenten/monumenten') !== -1;
             }
 
             function getAdresseerbaarObject (nummeraanduidingData) {
