@@ -105,6 +105,7 @@ describe('The dataSelectionReducers factory', function () {
             expect(output.dataSelection).toEqual(jasmine.objectContaining({
                 query: 'zoek'
             }));
+            // when searching string filters should be emtied
             expect(output.dataSelection.filters).toEqual({});
         });
 
