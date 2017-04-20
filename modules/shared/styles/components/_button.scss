@@ -45,30 +45,23 @@
   display: inline-block;
   width: 100%;
   height: $base-whitespace * 4;
-  padding: $base-whitespace;
   background-color: $primary-light;
   color: $primary-dark;
   font-size: $base-font-size;
-  font-weight: 700;
-  line-height: $base-whitespace * 2;
+  font-weight: bold;
+  line-height: $base-whitespace * 4;
   text-decoration: none;
-  text-overflow: ellipsis;
   white-space: nowrap;
   cursor: pointer;
   overflow: hidden;
+}
 
-  &::before {
-    display: inline-block;
-    width: 7px;
-    height: 12px;
-    margin-right: $base-whitespace;
-    background-image: url("assets/icons/link-arrow.svg");
-    content: "";
-  }
+.o-btn--white__label {
+  @extend %link--arrow;
 
-  &:hover {
-    @include o-btn-white--hover;
-  }
+  width: 100%;
+  padding-left: $base-whitespace;
+  line-height: $base-whitespace * 4;
 }
 
 %btn-close {
