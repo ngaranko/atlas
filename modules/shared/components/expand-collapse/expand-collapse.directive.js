@@ -16,6 +16,7 @@
         };
 
         function linkFn (scope, element, attrs, controller, transcludeFn) {
+            // NB: `$timeout` is required to await the element's rendering
             $timeout(() => {
                 const initialHeight = element[0].offsetHeight;
                 const scrollHeight = element[0].scrollHeight;
