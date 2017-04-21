@@ -359,6 +359,7 @@
                 L.drawLocal.edit.handlers.edit.tooltip.subtext = currentShape.distanceTxt;
                 updateShapeInfo();  // update public shape info of new consistent state of the polygon
             }
+            setHasDrawnPolygon(currentShape.markers.length > 0);
         }
 
         // Updates the publicly available info for the current shape

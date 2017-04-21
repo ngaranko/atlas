@@ -33,7 +33,6 @@
         $scope.$watch('vm.polygon.markers', (markers) => {
             // polygon markers are always set, even if empty
             setPolygon(markers);
-            drawTool.setHasDrawnPolygon(markers.length > 0);
         }, true);
 
         $scope.$watch('vm.state.geometry', (markers) => {
