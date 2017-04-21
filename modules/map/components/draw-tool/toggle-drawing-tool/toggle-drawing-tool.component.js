@@ -18,11 +18,8 @@
         vm.isEnabled = drawTool.isEnabled;
 
         vm.shape = drawTool.shape;
-        vm.hasDrawnPolygon = drawTool.hasDrawnPolygon;
 
-        $scope.$watch(drawTool.getHasDrawnPolygon, function(val){
-            vm.hasDrawnPolygon = val;
-        });
+        $scope.$watch(drawTool.getHasDrawnPolygon, setHasDrawnPolygon);
 
         vm.toggle = () => {
             if (drawTool.isEnabled()) {
@@ -34,5 +31,9 @@
                 drawTool.enable();
             }
         };
+
+        function setHasDrawnPolygon (value) {
+            vm.hasDrawnPolygon = value;
+        }
     }
 })();
