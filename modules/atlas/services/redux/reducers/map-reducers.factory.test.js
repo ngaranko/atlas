@@ -277,6 +277,19 @@ describe('The map reducers', function () {
             output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState);
             expect(output.map.drawingMode).toBe(true);
         });
+
+        it('Reset dataSelection state', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState);
+            expect(output.dataSelection.geometryFilter).toEqual({markers: []});
+            expect(output.dataSelection.page).toBe(1);
+            expect(output.dataSelection.isFullscreen).toBe(false);
+            expect(output.dataSelection.isLoading).toBe(true);
+            expect(output.dataSelection.view).toBe('LIST');
+            expect(output.dataSelection.markers).toEqual([]);
+        });
     });
 
     describe('MAP_CLEAR_DRAWING', function () {
@@ -397,6 +410,9 @@ describe('The map reducers', function () {
                 output;
 
             output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
+                markers: ['noot', 'mies', 'teun']
+            });
+            expect(output.dataSelection.geometryFilter).toEqual({
                 markers: ['noot', 'mies', 'teun']
             });
             expect(output.dataSelection.page).toBe(1);
