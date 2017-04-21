@@ -156,6 +156,7 @@
             var newState = angular.copy(oldState);
 
             newState.map.drawingMode = true;
+            newState = resetDataSelection(newState);
 
             return newState;
         }
@@ -178,17 +179,7 @@
                     newState.page.name = null;
 
                     // Polygon
-                    if (!newState.dataSelection) {
-                        newState.dataSelection = {};
-                        newState.dataSelection.dataset = 'bag';
-                        newState.dataSelection.filters = {};
-                    }
-                    newState.dataSelection.geometryFilter = angular.copy(payload);
-                    newState.dataSelection.page = 1;
-                    newState.dataSelection.isFullscreen = false;
-                    newState.dataSelection.isLoading = true;
-                    newState.dataSelection.view = 'LIST';
-                    newState.dataSelection.markers = [];
+                    newState = resetDataSelection(newState, angular.copy(payload));
 
                     newState.map.geometry = [];
                     newState.map.isLoading = true;
@@ -216,6 +207,24 @@
             var newState = angular.copy(oldState);
 
             newState.map.showActiveOverlays = false;
+
+            return newState;
+        }
+
+        function resetDataSelection (state, payload = {markers: []}) {
+            const newState = angular.copy(state);
+
+            if (!newState.dataSelection) {
+                newState.dataSelection = {};
+                newState.dataSelection.dataset = 'bag';
+                newState.dataSelection.filters = {};
+            }
+            newState.dataSelection.geometryFilter = payload;
+            newState.dataSelection.page = 1;
+            newState.dataSelection.isFullscreen = false;
+            newState.dataSelection.isLoading = true;
+            newState.dataSelection.view = 'LIST';
+            newState.dataSelection.markers = [];
 
             return newState;
         }
