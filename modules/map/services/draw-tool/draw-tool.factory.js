@@ -57,6 +57,7 @@
             _onFinishPolygon = onFinish;    // callback method to call on finish draw/edit polygon
             _onDrawingMode = onDrawingMode; // callback method to call on change of drawing mode
 
+            setHasDrawnPolygon(false);
             registerDrawEvents();
             registerMapEvents();
         }
