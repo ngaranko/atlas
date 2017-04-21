@@ -8,4 +8,8 @@
   &.c-toggle-drawing-tool--active {
     @include icon-button-text-box-right("polygon-measure", "red", "transparent");
   }
+
+  &.c-toggle-drawing-tool--again {
+    @include icon-button-text-box-right("polygon-measure", "white", "transparent");
+  }
 }

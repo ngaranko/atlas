@@ -29,6 +29,7 @@
         // holds all information of the leaflet.draw drawing and editing structures
         const drawTool = {
             drawingMode: null,
+            hasDrawnPolygon: null,
             drawnItems: null,
             drawShapeHandler: null,
             editShapeHandler: null,
@@ -44,6 +45,8 @@
             isEnabled,
             enable,
             disable,
+            setHasDrawnPolygon,
+            getHasDrawnPolygon,
             setPolygon,
             shape: shapeInfo
         };
@@ -287,6 +290,14 @@
                 }
                 setDrawingMode(null);
             }
+        }
+
+        function setHasDrawnPolygon (found) {
+            drawTool.hasDrawnPolygon = found;
+        }
+
+        function getHasDrawnPolygon () {
+            return drawTool.hasDrawnPolygon;
         }
 
         // Shape method for shape.info
