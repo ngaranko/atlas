@@ -1,13 +1,16 @@
 <div class="u-row">
     <div class="o-header">
         <dp-glossary-header
-            definition="MONUMENTEN"
-            heading="{{ vm.apiData.results.monumentnaam }}"
-            meta-data="vm.apiData">
+          definition="MONUMENTEN"
+          heading="{{ vm.apiData.results.monumentnaam }}"
+          meta-data="vm.apiData">
         </dp-glossary-header>
     </div>
 
-    <dp-panel is-panel-visible="vm.showMoreInfoWarning" type="warning" can-close="true">
+    <dp-panel
+      can-close="true"
+      is-panel-visible="vm.showMoreInfoWarning"
+      type="warning">
         Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer gegevens te zien: architect en opdrachtgever,
         bouwjaar, oorspronkelijke functie, coordinaten en geometrie, beschrijving en redengevende omschrijving. Zie Help > Bediening dataportaal > Inloggen.
     </dp-panel>
@@ -80,12 +83,14 @@
         </dp-api-call>
     </div>
 
-    <dp-glossary-header
-      definition="ADRES"
-      use-plural="true">
-    </dp-glossary-header>
-    <dp-api-call
-      endpoint="{{ vm.apiData.results.heeft_situeringen.href }}"
-      partial="monumenten/adressen_lijst">
-    </dp-api-call>
+    <div ng-if="vm.apiData.results.heeft_situeringen.href">
+        <dp-glossary-header
+          definition="ADRES"
+          use-plural="true">
+        </dp-glossary-header>
+        <dp-api-call
+          endpoint="{{ vm.apiData.results.heeft_situeringen.href }}"
+          partial="monumenten/adressen_lijst">
+        </dp-api-call>
+    </div>
 </div>
