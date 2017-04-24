@@ -157,7 +157,10 @@
 
             newState.map.drawingMode = true;
 
-            if (newState.dataSelection && newState.dataSelection.geometryFilter && newState.dataSelection.geometryFilter.markers && newState.dataSelection.geometryFilter.markers.length > 0) { // eslint-disable-line
+            if (newState.dataSelection &&
+                newState.dataSelection.geometryFilter &&
+                newState.dataSelection.geometryFilter.markers &&
+                newState.dataSelection.geometryFilter.markers.length > 0) {
                 resetDataSelection(newState);
             }
 
