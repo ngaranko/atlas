@@ -1,0 +1,17 @@
+<dl class="c-key-value-list">
+    <dt>Identificerende sleutel</dt>
+    <dd>{{ apiData.results.id }}</dd>
+    <dt>Monumentnummer</dt>
+    <dd>{{ apiData.results.monumentnummer }}</dd>
+    <dt>Complexnaam</dt>
+    <dd>{{ apiData.results.complex_naam }}</dd>
+    <dt class="c-key-value-list__key--full-width">Beschrijving</dt>
+    <dd class="c-key-value-list__value--full-width">
+        <p
+          class="c-key-value-list__content"
+          dp-expand-collapse
+          ng-if="apiData.results.beschrijving">
+            {{ apiData.results.beschrijving }}
+        </p>
+    </dd>
+</dl>

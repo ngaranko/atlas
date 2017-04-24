@@ -8,13 +8,22 @@
       <span class="muted" ng-if="object.hoofdadres === false">
           (nevenadres)
       </span>
+      <span class="muted" ng-if="object.situering_nummeraanduiding === 'Actueel/Bij'">
+          (object is gelegen bij dit adres)
+      </span>
+      <span class="muted" ng-if="object.situering_nummeraanduiding === 'Actueel/Tegenover'">
+          (object is gelegen tegenover dit adres)
+      </span>
+      <span class="muted" ng-if="object.situering_nummeraanduiding === 'Actueel/Via'">
+          (object kan worden betreden via dit adres)
+      </span>
       <span class="muted" ng-if="object.status.code === '18'">
           ({{object.status.omschrijving.toLowerCase()}})
       </span>
     </li>
   </ul>
 
-  <button class="o-loadmore" ng-click="loadMore()" ng-if="apiData.next">
+  <button class="c-show-more" ng-click="loadMore()" ng-if="apiData.next">
     Meer
   </button>
 </div>

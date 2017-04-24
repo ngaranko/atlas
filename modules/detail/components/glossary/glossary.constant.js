@@ -27,6 +27,13 @@
                     url: 'https://www.amsterdam.nl/stelselpedia/brk-index/catalog-brk-levering/objectklasse-aant/',
                     meta: []
                 },
+                ADRES: {
+                    label_singular: 'Adres',
+                    label_plural: 'Adressen',
+                    description: null,
+                    url: null,
+                    meta: []
+                },
                 API: {
                     label_singular: 'Dataset',
                     label_plural: 'Datasets',
@@ -71,6 +78,17 @@
                     'gebaseerd zijn op topografische elementen.',
                     url: 'https://www.amsterdam.nl/stelselpedia/gebieden-index/catalogus/buurt/',
                     meta: ['begin_geldigheid', 'brondocument_datum', 'brondocument_naam', 'buurtidentificatie']
+                },
+                COMPLEX: {
+                    label_singular: 'Complex',
+                    label_plural: 'Complexen',
+                    description: 'Een Complex is een verzameling monumenten waarvan de onderlinge samenhang een ' +
+                    'zekere cultuurhistorische waarde bezit.',
+                    url: 'https://www.amsterdam.nl/stelselpedia/monumenten-index/catalogus-monumenten/' +
+                    'objectklasse-complex/',
+                    meta: [
+                        'id' // TODO: Rename to more descriptive property (TG-TBD)
+                    ]
                 },
                 BUURTCOMBINATIE: {
                     label_singular: 'Buurtcombinatie',
@@ -175,6 +193,19 @@
                         'gedrag.',
                     url: 'https://www.amsterdam.nl/stelselpedia/meetbouten-index/catalogus-amsterdams/meting/',
                     meta: []
+                },
+                MONUMENTEN: {
+                    label_singular: 'Monument',
+                    label_plural: 'Monumenten',
+                    description: 'Een monument is een onroerende zaak (fysiek bouwwerk of historische structuur) die ' +
+                    'beschermd is door middel van een status op grond van de Erfgoedverordening Amsterdam (voor ' +
+                    'gemeentelijke monumenten) of de Monumentenwet 1988 (voor rijksmonumenten), vanwege het algemeen ' +
+                    'belang wegens zijn schoonheid, betekenis voor de wetenschap of cultuurhistorische waarde.',
+                    url: 'https://www.amsterdam.nl/stelselpedia/monumenten-index/catalogus-monumenten/objectklasse/',
+                    meta: [
+                        'monument_aanwijzingsdatum',
+                        'id' // TODO: Rename to more descriptive property (TG-TBD)
+                    ]
                 },
                 NUMMERAANDUIDING: {
                     label_singular: 'Adres',
@@ -418,6 +449,9 @@
                 },
                 ligplaatsidentificatie: {
                     label: 'Ligplaatsidentificatie'
+                },
+                monument_aanwijzingsdatum: {
+                    label: 'Aanwijzingsdatum'
                 },
                 nummeraanduidingidentificatie: {
                     label: 'Nummeraanduidingidentificatie'
