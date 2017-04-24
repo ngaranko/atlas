@@ -1,10 +1,14 @@
 'use strict';
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 const siteHeaderPO = dp.require('modules/header/components/site-header/site-header.page-objects');
 =======
 const headerPO = dp.require('modules/header/components/header/header.page-objects');
 >>>>>>> E2E tests voor autocomplete kadastraal subject.
+=======
+const siteHeaderPO = dp.require('modules/header/components/site-header/site-header.page-objects');
+>>>>>>> Merge E2E authorization config into latest version
 
 const dataSelectionPO = dp.require('modules/data-selection/components/data-selection/data-selection.page-objects');
 const detailPO = dp.require('modules/detail/components/detail/detail.page-objects');
