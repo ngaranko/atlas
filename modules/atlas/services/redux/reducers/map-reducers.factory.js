@@ -156,7 +156,10 @@
             var newState = angular.copy(oldState);
 
             newState.map.drawingMode = true;
-            resetDataSelection(newState);
+
+            if (newState.dataSelection && newState.dataSelection.geometryFilter && newState.dataSelection.geometryFilter.markers && newState.dataSelection.geometryFilter.markers.length > 0) { // eslint-disable-line
+                resetDataSelection(newState);
+            }
 
             return newState;
         }

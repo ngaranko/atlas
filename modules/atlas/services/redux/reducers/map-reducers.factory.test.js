@@ -278,9 +278,11 @@ describe('The map reducers', function () {
             expect(output.map.drawingMode).toBe(true);
         });
 
-        it('Reset dataSelection state', function () {
+        it('Should reset dataSelection state only when markers are drawn on the map', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
+
+            inputState.dataSelection = { geometryFilter: { markers: [1, 2] } };
 
             output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState);
             expect(output.dataSelection.geometryFilter).toEqual({markers: []});
