@@ -156,7 +156,7 @@
             var newState = angular.copy(oldState);
 
             newState.map.drawingMode = true;
-            newState = resetDataSelection(newState);
+            resetDataSelection(newState);
 
             return newState;
         }
@@ -179,7 +179,7 @@
                     newState.page.name = null;
 
                     // Polygon
-                    newState = resetDataSelection(newState, angular.copy(payload));
+                    resetDataSelection(newState, angular.copy(payload));
 
                     newState.map.geometry = [];
                     newState.map.isLoading = true;
@@ -211,9 +211,7 @@
             return newState;
         }
 
-        function resetDataSelection (state, payload = {markers: []}) {
-            const newState = angular.copy(state);
-
+        function resetDataSelection (newState, payload = {markers: []}) {
             if (!newState.dataSelection) {
                 newState.dataSelection = {};
                 newState.dataSelection.dataset = 'bag';
