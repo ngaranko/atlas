@@ -1,7 +1,8 @@
 'use strict';
 
-// const loginPageObjects = dp.require('e2e/authorization/page-objects/login.page-objects');
+const credentials = dp.require('e2e/helpers/credentials');
 const dashboardPageObjects = dp.require('modules/atlas/components/dashboard/dashboard.page-objects');
+const loginPageObjects = dp.require('e2e/authorization/page-objects/login.page-objects');
 
 module.exports = function (pageName, role) {
     browser.get(dp.availableStates[pageName].url);
