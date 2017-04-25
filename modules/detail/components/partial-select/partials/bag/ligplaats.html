@@ -19,6 +19,6 @@
     <div ng-if="apiData.results.geometrie.coordinates">
         <dp-glossary-header definition="MONUMENTEN" use-plural="true"></dp-glossary-header>
 
-        <dp-api-call endpoint="monumenten/monumenten/?locatie={{ apiData.results.geometrie.coordinates.toString() }},5" add-api-root="true" partial="lijst"></dp-api-call>
+        <dp-api-call endpoint="monumenten/monumenten/?locatie={{ apiData.results.geometrie.coordinates.join(',') }},5" add-api-root="true" partial="lijst"></dp-api-call>
     </div>
 </div>
