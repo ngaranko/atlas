@@ -119,15 +119,10 @@
 
         // updates the drawing mode and trigger any callback method
         function setDrawingMode (drawingMode) {
-            console.log('setDrawingMode', drawingMode);
             if (drawTool.drawingMode !== drawingMode) {
                 drawTool.drawingMode = drawingMode;
                 onChangeDrawingMode();
             }
-        }
-
-        function isEditing() {
-            return drawTool.drawingMode === 'EDIT';
         }
 
         // Initialisation of the draw tool, initialise drawing and register required objects in the drawTool object
@@ -263,6 +258,10 @@
         function isEnabled () {
             // isEnabled => shape is being created or being edited
             return ['EDIT', 'DRAW'].indexOf(drawTool.drawingMode) !== -1;
+        }
+
+        function isEditing () {
+            return drawTool.drawingMode === 'EDIT';
         }
 
         // start draw or edit mode for current layer or start create mode for new shape

@@ -24,6 +24,7 @@ describe('The draw tool component', function () {
                     },
                     setPolygon: angular.noop,
                     isEnabled: angular.noop,
+                    isEditing: angular.noop,
                     enable: angular.noop,
                     disable: angular.noop,
                     shape: {
@@ -229,11 +230,13 @@ describe('The draw tool component', function () {
         });
 
         it('Dispatches a MAP_START_DRAWING action when the drawing or editing a polygon starts', function () {
+            spyOn(drawTool, 'isEditing').and.returnValue('noot');
             getComponent();
             const drawingMode = 'aap';
             onDrawingMode(drawingMode);
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.MAP_START_DRAWING
+                type: ACTIONS.MAP_START_DRAWING,
+                payload: 'noot'
             });
         });
 
