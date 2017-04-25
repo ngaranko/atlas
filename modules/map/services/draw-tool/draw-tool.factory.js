@@ -42,6 +42,7 @@
         return {
             initialize,
             isEnabled,
+            isEditing,
             enable,
             disable,
             setPolygon,
@@ -118,10 +119,15 @@
 
         // updates the drawing mode and trigger any callback method
         function setDrawingMode (drawingMode) {
+            console.log('setDrawingMode', drawingMode);
             if (drawTool.drawingMode !== drawingMode) {
                 drawTool.drawingMode = drawingMode;
                 onChangeDrawingMode();
             }
+        }
+
+        function isEditing() {
+            return drawTool.drawingMode === 'EDIT';
         }
 
         // Initialisation of the draw tool, initialise drawing and register required objects in the drawTool object

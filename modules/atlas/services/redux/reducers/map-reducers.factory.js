@@ -152,12 +152,13 @@
             return newState;
         }
 
-        function mapStartDrawingReducer (oldState) {
+        function mapStartDrawingReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
             newState.map.drawingMode = true;
 
-            if (newState.dataSelection &&
+            if (!payload &&  // not editing
+                newState.dataSelection &&
                 newState.dataSelection.geometryFilter &&
                 newState.dataSelection.geometryFilter.markers &&
                 newState.dataSelection.geometryFilter.markers.length > 0) {
