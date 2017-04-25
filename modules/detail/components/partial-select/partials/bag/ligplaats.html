@@ -14,4 +14,11 @@
 
         <dp-api-call endpoint="handelsregister/vestiging/?nummeraanduiding={{ apiData.results.hoofdadres.landelijk_id }}" add-api-root="true" partial="lijst"></dp-api-call>
     </div>
+
+    <!-- Monument met radius van 5 meter -->
+    <div>
+        <dp-glossary-header definition="MONUMENTEN" use-plural="true"></dp-glossary-header>
+
+        <dp-api-call endpoint="monumenten/monumenten/?locatie={{ apiData.results.geometrie.coordinates.toString() }},5" add-api-root="true" partial="lijst"></dp-api-call>
+    </div>
 </div>
