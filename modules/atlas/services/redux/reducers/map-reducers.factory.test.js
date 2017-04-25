@@ -278,13 +278,13 @@ describe('The map reducers', function () {
             expect(output.map.drawingMode).toBe(true);
         });
 
-        it('Should reset dataSelection state only when markers are drawn on the map', function () {
+        it('Should reset dataSelection state only when markers are on the map and draw mode is not edit', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
             inputState.dataSelection = { geometryFilter: { markers: [1, 2] } };
 
-            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState);
+            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, 'mies');
             expect(output.dataSelection.geometryFilter).toEqual({markers: []});
             expect(output.dataSelection.page).toBe(1);
             expect(output.dataSelection.isFullscreen).toBe(false);

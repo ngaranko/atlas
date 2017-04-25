@@ -69,7 +69,7 @@
                 previousMarkers = angular.copy(drawTool.shape.markers);
                 store.dispatch({
                     type: ACTIONS.MAP_START_DRAWING,
-                    payload: drawTool.isEditing()
+                    payload: drawTool.getDrawingMode()
                 });
             }
         }

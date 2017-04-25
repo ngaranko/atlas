@@ -157,12 +157,12 @@
 
             newState.map.drawingMode = true;
 
-            if (!payload &&  // not editing
+            if (payload !== 'EDIT' &&
                 newState.dataSelection &&
                 newState.dataSelection.geometryFilter &&
                 newState.dataSelection.geometryFilter.markers &&
                 newState.dataSelection.geometryFilter.markers.length > 0) {
-                resetDataSelection(newState);
+                newState = resetDataSelection(newState);
             }
 
             return newState;
@@ -186,7 +186,7 @@
                     newState.page.name = null;
 
                     // Polygon
-                    resetDataSelection(newState, angular.copy(payload));
+                    newState = resetDataSelection(newState, angular.copy(payload));
 
                     newState.map.geometry = [];
                     newState.map.isLoading = true;
@@ -218,7 +218,9 @@
             return newState;
         }
 
-        function resetDataSelection (newState, payload = {markers: []}) {
+        function resetDataSelection (state, payload = {markers: []}) {
+            const newState = angular.copy(state);
+
             if (!newState.dataSelection) {
                 newState.dataSelection = {};
                 newState.dataSelection.dataset = 'bag';
