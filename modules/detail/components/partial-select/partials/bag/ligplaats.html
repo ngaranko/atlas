@@ -15,10 +15,9 @@
         <dp-api-call endpoint="handelsregister/vestiging/?nummeraanduiding={{ apiData.results.hoofdadres.landelijk_id }}" add-api-root="true" partial="lijst"></dp-api-call>
     </div>
 
-    <!-- Monument met radius van 25 meter -->
+    <!-- Monumenten binnen radius van 25 meter -->
     <div ng-if="apiData.results.geometrie.coordinates">
         <dp-glossary-header definition="MONUMENTEN" use-plural="true"></dp-glossary-header>
-        {{ apiData.results.geometrie.coordinates | firstInFlattened }}
 
         <dp-api-call endpoint="monumenten/monumenten/?locatie={{ apiData.results.geometrie.coordinates | firstInFlattened }},25" add-api-root="true" partial="lijst"></dp-api-call>
     </div>

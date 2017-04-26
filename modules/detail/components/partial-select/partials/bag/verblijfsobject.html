@@ -77,7 +77,7 @@
         </dp-api-call>
     </div>
 
-    <!-- Monument met radius van 5 meter -->
+    <!-- Monumenten binnen radius van 5 meter -->
     <div ng-if="apiData.results.geometrie.coordinates">
         <dp-glossary-header definition="MONUMENTEN" use-plural="true"></dp-glossary-header>
         <dp-api-call endpoint="monumenten/monumenten/?locatie={{ apiData.results.geometrie.coordinates | firstInFlattened }},5" add-api-root="true" partial="lijst"></dp-api-call>
