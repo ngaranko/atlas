@@ -32,6 +32,16 @@ describe('The coordinates filter', function () {
             .toBe('123456.00, 654123.00 (52.1234560, 4.4567890)');
     });
 
+    it('returns a string with the first item in a nested array of polygon coordinates', function () {
+        expect(coordinates([[[123456.12, 654123.39], [525788.96, 876433.99]]], 'first'))
+            .toBe('123456.12,654123.39');
+    });
+
+    it('returns a string with the first item in a single point coordinate', function () {
+        expect(coordinates([525788.96, 876433.99], 'first'))
+            .toBe('525788.96,876433.99');
+    });
+
     it('returns undefined for an unkown coordinate system', function () {
         expect(coordinates([123456, 654123], 'aap'))
             .toBeUndefined();

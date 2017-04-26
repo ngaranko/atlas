@@ -17,16 +17,18 @@
             let wgs84Location,
                 rdLocation;
 
-            if (angular.isUndefined(location) || (angular.isArray(location) && location.length !== 2)) {
+            if (angular.isUndefined(location) || !angular.isArray(location)) {
                 return;
             }
 
-            if (type === 'RD') {
+            if (type === 'RD' && location.length === 2) {
                 rdLocation = location;
                 wgs84Location = crsConverter.rdToWgs84(rdLocation);
-            } else if (type === 'WGS84') {
+            } else if (type === 'WGS84' && location.length === 2) {
                 wgs84Location = location;
                 rdLocation = crsConverter.wgs84ToRd(wgs84Location);
+            } else if (type === 'first') {
+                return location.join(',').replace(/(,\d+\.\d*,\d+\.\d*)*$/, '');
             } else {
                 return;
             }
