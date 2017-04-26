@@ -5,9 +5,9 @@
         .module('atlas')
         .factory('mapReducers', mapReducersFactory);
 
-    mapReducersFactory.$inject = ['ACTIONS'];
+    mapReducersFactory.$inject = ['ACTIONS', 'DRAW_TOOL_CONFIG'];
 
-    function mapReducersFactory (ACTIONS) {
+    function mapReducersFactory (ACTIONS, DRAW_TOOL_CONFIG) {
         var reducers = {};
 
         reducers[ACTIONS.SHOW_MAP.id] = showMapReducer;
@@ -152,11 +152,18 @@
             return newState;
         }
 
-        function mapStartDrawingReducer (oldState) {
+        function mapStartDrawingReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
             newState.map.drawingMode = true;
-            resetDataSelection(newState);
+
+            if (payload !== DRAW_TOOL_CONFIG.DRAWING_MODE.EDIT &&
+                newState.dataSelection &&
+                newState.dataSelection.geometryFilter &&
+                newState.dataSelection.geometryFilter.markers &&
+                newState.dataSelection.geometryFilter.markers.length > 0) {
+                newState = resetDataSelection(newState);
+            }
 
             return newState;
         }
@@ -179,7 +186,7 @@
                     newState.page.name = null;
 
                     // Polygon
-                    resetDataSelection(newState, angular.copy(payload));
+                    newState = resetDataSelection(newState, angular.copy(payload));
 
                     newState.map.geometry = [];
                     newState.map.isLoading = true;
@@ -211,7 +218,9 @@
             return newState;
         }
 
-        function resetDataSelection (newState, payload = {markers: []}) {
+        function resetDataSelection (state, payload = {markers: []}) {
+            const newState = angular.copy(state);
+
             if (!newState.dataSelection) {
                 newState.dataSelection = {};
                 newState.dataSelection.dataset = 'bag';
