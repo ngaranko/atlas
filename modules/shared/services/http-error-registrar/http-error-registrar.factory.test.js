@@ -125,7 +125,7 @@ describe('The http error registrar', function () {
         expect(callbackCalled).toBe(true);
     });
 
-    it('handles other errors as server errors', function () {
+    it('handles 404 errors with an unexpected body as server errors', function () {
         mockedData = {};
 
         $httpBackend

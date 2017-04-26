@@ -50,7 +50,7 @@
             } else if (isClientError) {
                 if (response && response.data && response.data.detail === 'Not found.') {
                     registerNotFoundError();
-                } else if (isClientError) {
+                } else {
                     registerServerError();
                 }
             }
