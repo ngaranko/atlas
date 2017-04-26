@@ -1,4 +1,4 @@
-describe('The flatten filter', () => {
+describe('The firstInFlattened filter', () => {
     let firstInFlattenedFilter;
 
     beforeEach(() => {
