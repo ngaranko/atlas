@@ -5,9 +5,9 @@
         .module('atlas')
         .factory('mapReducers', mapReducersFactory);
 
-    mapReducersFactory.$inject = ['ACTIONS'];
+    mapReducersFactory.$inject = ['ACTIONS', 'DRAW_TOOL_CONFIG'];
 
-    function mapReducersFactory (ACTIONS) {
+    function mapReducersFactory (ACTIONS, DRAW_TOOL_CONFIG) {
         var reducers = {};
 
         reducers[ACTIONS.SHOW_MAP.id] = showMapReducer;
@@ -157,7 +157,7 @@
 
             newState.map.drawingMode = true;
 
-            if (payload !== 'EDIT' &&
+            if (payload !== DRAW_TOOL_CONFIG.DRAWING_MODE.EDIT &&
                 newState.dataSelection &&
                 newState.dataSelection.geometryFilter &&
                 newState.dataSelection.geometryFilter.markers &&
