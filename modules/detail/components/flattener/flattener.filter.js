@@ -12,7 +12,7 @@
 
         return array => {
             if (!angular.isArray(array)) {
-                return [];
+                return array;
             }
 
             return flatten(array);

@@ -26,6 +26,6 @@ describe('The flattener filter', () => {
     });
 
     it('returns empty array when input is not an array', () => {
-        expect(flattenerFilter('aap')).toEqual([]);
+        expect(flattenerFilter('aap')).toEqual('aap');
     });
 });
