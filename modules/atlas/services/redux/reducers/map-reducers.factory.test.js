@@ -301,6 +301,7 @@ describe('The map reducers', function () {
 
             output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, 'EDIT');
             expect(output.dataSelection.geometryFilter).toEqual({ markers: [1] });
+            expect(output.dataSelection.page).toBeUndefined();
         });
 
         it('Should not reset dataSelection state with no markers on the map and draw mode is not edit', function () {
@@ -310,7 +311,7 @@ describe('The map reducers', function () {
             inputState.dataSelection = { geometryFilter: { markers: [] } };
 
             output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, 'DRAW');
-            expect(output.dataSelection.geometryFilter).toEqual({ markers: [] });
+            expect(output.dataSelection.page).toBeUndefined();
         });
     });
 
