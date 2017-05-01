@@ -46,8 +46,6 @@
             getDrawingMode,
             enable,
             disable,
-            setHasDrawnPolygon,
-            getHasDrawnPolygon,
             setPolygon,
             shape: shapeInfo
         };
@@ -58,7 +56,6 @@
             _onFinishPolygon = onFinish;    // callback method to call on finish draw/edit polygon
             _onDrawingMode = onDrawingMode; // callback method to call on change of drawing mode
 
-            setHasDrawnPolygon(false);
             registerDrawEvents();
             registerMapEvents();
         }
@@ -299,14 +296,6 @@
             }
         }
 
-        function setHasDrawnPolygon (found) {
-            drawTool.hasDrawnPolygon = found;
-        }
-
-        function getHasDrawnPolygon () {
-            return drawTool.hasDrawnPolygon;
-        }
-
         // Shape method for shape.info
         // while drawing the polygon is not closed => distance is distance of the lines
         // When editing the polygon is closed => distance is surrounding
@@ -366,7 +355,6 @@
                 L.drawLocal.edit.handlers.edit.tooltip.subtext = currentShape.distanceTxt;
                 updateShapeInfo();  // update public shape info of new consistent state of the polygon
             }
-            setHasDrawnPolygon(currentShape.markers.length > 0);
         }
 
         // Updates the publicly available info for the current shape

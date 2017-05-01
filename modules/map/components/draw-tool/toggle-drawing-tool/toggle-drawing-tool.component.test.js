@@ -97,7 +97,7 @@ describe('The dp-toggle-drawing-tool component', function () {
     describe('when not active and has drawn polygon', function () {
         beforeEach(function () {
             drawTool.isEnabled = () => false;
-            drawTool.getHasDrawnPolygon = () => true;
+            drawTool.shape.markers = [1, 2, 3, 5];
 
             component = getComponent(true);
         });

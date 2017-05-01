@@ -182,10 +182,6 @@ describe('The draw tool factory', function () {
             drawTool.disable();
             expect(drawShapeHandler.disable).not.toHaveBeenCalled();
         });
-
-        it('has no drawn polygons by default', function () {
-            expect(drawTool.getHasDrawnPolygon()).toBe(false);
-        });
     });
 
     describe('On drawing mode changed event', function () {
@@ -330,8 +326,6 @@ describe('The draw tool factory', function () {
 
         it('After building a polygon the drawn polygon should be true', function () {
             buildPolygon();
-
-            expect(drawTool.getHasDrawnPolygon()).toBe(true);
         });
 
         it('Can build a line', function () {
