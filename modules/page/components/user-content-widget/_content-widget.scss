@@ -1,6 +1,6 @@
 .c-user-content-widget__beleid-zie-ook {
+  @include font-weight($bold-weight);
   margin-bottom: $base-whitespace;
-  font-weight: bold;
 }
 
 .c-user-content-widget__beleid-lees-meer {
@@ -15,8 +15,8 @@
 }
 
 .c-user-content-widget__short {
+  @include font-weight($normal-weight);
   display: inline;
-  font-weight: normal;
 }
 
 .c-user-content-widget__events-link {

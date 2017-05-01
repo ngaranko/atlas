@@ -40,7 +40,7 @@
 
   tbody {
     th {
-      font-weight: 400;
+      @include font-weight($normal-weight);
     }
   }
 }

@@ -52,8 +52,8 @@ $title-tall-offset-left: 80px;
 }
 
 .c-logo__title {
+  @include font-weight($bold-weight);
   display: inline-block;
-  font-weight: bold;
   line-height: normal;
 
   .c-logo--short & {

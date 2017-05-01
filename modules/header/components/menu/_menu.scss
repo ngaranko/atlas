@@ -58,10 +58,10 @@
 
 .c-menu__subitem {
   @extend %link--arrow;
+  @include font-weight($normal-weight);
   display: block;
   width: 100%;
   color: $primary-dark;
-  font-weight: normal;
   line-height: 2;
   text-align: left;
   white-space: nowrap;

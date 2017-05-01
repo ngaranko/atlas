@@ -9,11 +9,10 @@ $link-offset: 3px;
 
 %link {
   @include font-size($s-font);
-
+  @include font-weight($bold-weight);
   display: inline-block;
   position: relative;
   color: $primary-dark;
-  font-weight: bold;
   text-decoration: none;
   cursor: pointer;
   overflow: visible;
@@ -43,7 +42,6 @@ $link-offset: 3px;
 
   &::before {
     @include icon-button("link-arrow");
-
     display: inline-block;
     position: static;
     width: $icon-size;
@@ -83,8 +81,7 @@ $link-offset: 3px;
 %link--inline {
   @extend %link;
   @include font-size($m-font);
-
+  @include font-weight($normal-weight);
   display: inline;
-  font-weight: normal;
   text-decoration: underline;
 }

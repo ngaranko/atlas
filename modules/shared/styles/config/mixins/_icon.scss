@@ -12,10 +12,10 @@
 %icon-button-text {
   @extend %link;
   @include font-size($s-font);
+  @include font-weight($bold-weight);
   height: $button-size;
   margin-left: 0;
   color: inherit;
-  font-weight: bold;
 }
 
 %icon-button-text-extra {
@@ -112,11 +112,11 @@
 %icon-button-text-box {
   @extend %icon-button-box-base;
   @include font-size($s-font);
+  @include font-weight($bold-weight);
   width: auto;
   height: $button-size;
   padding-right: $base-whitespace;
   padding-left: $base-whitespace;
-  font-weight: bold;
   line-height: $button-size - 2px; // Compensate for the border, defined below
   text-align: left;
   text-decoration: none;
