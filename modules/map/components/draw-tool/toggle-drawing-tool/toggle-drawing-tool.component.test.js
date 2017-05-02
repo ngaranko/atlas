@@ -81,11 +81,10 @@ describe('The dp-toggle-drawing-tool component', function () {
             component = getComponent(true);
         });
 
-        it('shows the button in active state with extra label', function () {
+        it('shows the button in eindig tekenen state with extra label', function () {
             expect(component.find('button').length).toBe(1);
             expect(component.find('button').attr('class')).toContain('c-toggle-drawing-tool--active');
             expect(component.find('button').attr('title')).toBe('Eindig meten en intekenen');
-            expect(component.find('button span.ng-hide').text()).toBe('Opnieuw');
         });
 
         it('disables draw/edit mode when clicking the button', function () {
@@ -102,11 +101,10 @@ describe('The dp-toggle-drawing-tool component', function () {
             component = getComponent(true);
         });
 
-        it('shows the button in again state with extra label', function () {
+        it('shows the button in opnieuw tekenen state with extra label', function () {
             expect(component.find('button').length).toBe(1);
             expect(component.find('button').attr('class')).toContain('c-toggle-drawing-tool--again');
             expect(component.find('button').attr('title')).toBe('Opnieuw meten en intekenen');
-            expect(component.find('button span.ng-hide').text()).toBe('Eindig');
         });
 
         it('disables draw/edit mode when clicking the button', function () {
