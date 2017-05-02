@@ -56,39 +56,6 @@ describe('each URL should load the corresponding view', function () {
         expect(page.dashboard.rightColumn.dataSelection.header.tabs(1).isActive).toBe(true);
     });
 
-    it('MAP_DETAIL--BEPERKING', () => {
-        page = dp.navigate('MAP_DETAIL--BEPERKING');
-
-        dp.validate('MAP_DETAIL--BEPERKING', page);
-
-        expect(page.title).toBe('Gemeentelijke beperking: Huisvestingsverordening, splitsingsvergunningstelsel, Huisv' +
-            'estingswet - Atlas');
-    });
-
-    it('MAP_DETAIL--KADASTRAAL-OBJECT', () => {
-        page = dp.navigate('MAP_DETAIL--KADASTRAAL-OBJECT');
-
-        dp.validate('MAP_DETAIL--KADASTRAAL-OBJECT', page);
-
-        expect(page.title).toBe('Kadastraal object: STN02 N 00538 A 0001 - Atlas');
-    });
-
-    it('MAP_DETAIL--KADASTRAAL-SUBJECT-NATUURLIJK-PERSOON', () => {
-        page = dp.navigate('MAP_DETAIL--KADASTRAAL-SUBJECT-NATUURLIJK-PERSOON');
-
-        dp.validate('MAP_DETAIL--KADASTRAAL-SUBJECT-NATUURLIJK-PERSOON', page);
-
-        expect(page.title).toBe('Kadastraal subject: Erik Niels Nijland - Atlas');
-    });
-
-    it('MAP_DETAIL--KADASTRAAL-SUBJECT-NIET-NATUURLIJK-PERSOON', () => {
-        page = dp.navigate('MAP_DETAIL--KADASTRAAL-SUBJECT-NIET-NATUURLIJK-PERSOON');
-
-        dp.validate('MAP_DETAIL--KADASTRAAL-SUBJECT-NIET-NATUURLIJK-PERSOON', page);
-
-        expect(page.title).toBe('Kadastraal subject: De Gemeente Gods Amsterdam - Atlas');
-    });
-
     it('MAP_DETAIL--NUMMERAANDUIDING', () => {
         page = dp.navigate('MAP_DETAIL--NUMMERAANDUIDING');
         const detail = page.dashboard.rightColumn.detail;

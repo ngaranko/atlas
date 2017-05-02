@@ -1,13 +1,35 @@
 'use strict';
 
-const credentials = dp.require('e2e/helpers/credentials');
 const dashboardPageObjects = dp.require('modules/atlas/components/dashboard/dashboard.page-objects');
-const loginPageObjects = dp.require('e2e/authorization/page-objects/login.page-objects');
+
+const roles = {
+  EMPLOYEE: {
+    password: process.env.PASSWORD_EMPLOYEE,
+    username: process.env.USERNAME_EMPLOYEE
+  },
+  EMPLOYEE_PLUS: {
+    password: process.env.PASSWORD_EMPLOYEE_PLUS,
+    username: process.env.USERNAME_EMPLOYEE_PLUS
+  }
+};
 
 module.exports = function (pageName, role) {
-    browser.get(dp.availableStates[pageName].url);
+    browser.get('http://localhost:8000');
 
-    login(role || 'DEFAULT');
+    if (element(by.css('.qa-menu__login')).isPresent().then((present) => {
+        if (present && role) {
+            browser.driver.findElement(by.css('.qa-menu__login')).click();
+            browser.driver.findElement(by.css('input[name="email"]')).sendKeys(roles[role].username);
+            browser.driver.findElement(by.css('input[name="password"]')).sendKeys(roles[role].password);
+            browser.driver.findElement(by.css('.c-form-buttons__button[value="employee_plus"]')).click();
+            browser.refresh();
+        } else if (!present && !role) {
+            element(by.css('.qa-menu__toggle .qa-menu__link')).click();
+            element(by.css('.qa-menu__dropdown dp-logout-button button')).click();
+        }
+        browser.getLocationAbsUrl(); // NB: Forces to await login flow completion
+        browser.get(dp.availableStates[pageName].url);
+    }));
 
     return {
         get title () {
@@ -18,24 +40,3 @@ module.exports = function (pageName, role) {
         }
     };
 };
-
-function login (role) {
-    const isLoggedIn = element(by.css('.qa-header__login')).isPresent() &&
-        !element(by.css('.qa-header__logout')).isPresent();
-
-    if (isLoggedIn) {
-        browser.ignoreSynchronization = true;
-        element(by.css('.qa-header__logout')).click();
-    }
-
-    if (role === 'EMPLOYEE' || role === 'EMPLOYEE_PLUS') {
-        browser.ignoreSynchronization = true;
-        element(by.css('.qa-header__login')).click();
-
-        const loginPage = loginPageObjects(element(by.css('body')));
-
-        loginPage.username.setText(credentials['USERNAME_' + role]);
-        loginPage.password.setText(credentials['PASSWORD_' + role]);
-        loginPage.submit();
-    }
-}

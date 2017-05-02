@@ -13,6 +13,9 @@ module.exports = {
              'package_show%3Fid%3D642f15c7-8368-4795-9e3d-1a87fa7e562a&dtfs=T',
         validator: require('../validators/detail')
     },
+    'KADASTRALE_SUBJECTEN': {
+      url: '#?mpb=topografie&mpz=11&mpv=52.3731081:4.8932945&src=subject&srfs=T&srq=bakker'
+    },
     'LAYER-SELECTION_MAP': {
         url: '#?lse=T&mpb=topografie&mpz=11&mpfs=T&mpv=52.3731081:4.8932945&pgn=home',
         validator: require('../validators/layer-selection_map')
