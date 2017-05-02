@@ -29,7 +29,6 @@
         // holds all information of the leaflet.draw drawing and editing structures
         const drawTool = {
             drawingMode: null,
-            hasDrawnPolygon: null,
             drawnItems: null,
             drawShapeHandler: null,
             editShapeHandler: null,

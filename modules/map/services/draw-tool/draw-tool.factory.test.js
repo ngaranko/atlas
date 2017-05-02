@@ -324,10 +324,6 @@ describe('The draw tool factory', function () {
             expect(drawTool.shape.markers).toEqual(testMarkers.slice(0, nVertices));
         });
 
-        it('After building a polygon the drawn polygon should be true', function () {
-            buildPolygon();
-        });
-
         it('Can build a line', function () {
             enable();
 
