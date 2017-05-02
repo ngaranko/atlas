@@ -48,7 +48,7 @@
             <p
               class="c-key-value-list__content"
               dp-expand-collapse
-              ng-if="vm.apiDate.results.redengevende_omschrijving_monument">
+              ng-if="vm.apiData.results.redengevende_omschrijving_monument">
                 {{ vm.apiData.results.redengevende_omschrijving_monument }}
             </p>
     </dl>
@@ -76,7 +76,10 @@
     </div>
 
     <div ng-if="vm.apiData.results.betreft_pand._links.self.href">
-        <dp-glossary-header definition="PAND"></dp-glossary-header>
+        <dp-glossary-header
+          definition="PAND"
+          use-plural="true">
+        </dp-glossary-header>
         <dp-api-call
           endpoint="{{ vm.apiData.results.betreft_pand._links.self.href }}"
           partial="monumenten/pand">
