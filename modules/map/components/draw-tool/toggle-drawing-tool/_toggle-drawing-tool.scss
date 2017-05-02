@@ -12,7 +12,7 @@
   }
 
   &.c-toggle-drawing-tool--again {
-    @include icon-button-text-box-right("polygon-measure", "transparent", "transparent");
+    @include icon-button-text-box-right("polygon-measure", "transparent", "red");
 
     border: 1px solid $secondary-gray20;
 
