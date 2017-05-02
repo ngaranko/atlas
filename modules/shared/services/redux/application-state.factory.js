@@ -3,9 +3,9 @@
         .module('dpShared')
         .factory('applicationState', applicationStateFactory);
 
-    applicationStateFactory.$inject = ['Redux'];
+    applicationStateFactory.$inject = ['$window', 'Redux'];
 
-    function applicationStateFactory (Redux) {
+    function applicationStateFactory ($window, Redux) {
         let store,
             reducer,
             stateUrlConverter;
@@ -21,7 +21,11 @@
             reducer = _reducer_;
             stateUrlConverter = _stateUrlConverter_;
 
-            const enhancer = Redux.applyMiddleware(...middleware);
+            const composeEnhancers = $window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Redux.compose;
+            const enhancer = composeEnhancers(
+                Redux.applyMiddleware(...middleware)
+            );
+
             store = Redux.createStore(reducer, defaultState, enhancer);
         }
     }

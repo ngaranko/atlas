@@ -153,7 +153,7 @@
 
         function login () {     // redirect to external authentication provider
             savePath(); // Save current path in session
-            const callback = $location.absUrl().replace(/\#\?.*$/, '').concat('#');   // Remove all parameters
+            const callback = $location.absUrl().replace(/\#.*$/, '').concat('#');   // Remove all parameters
             $window.location.href =
                 sharedConfig.API_ROOT + AUTH_PATH +
                 LOGIN_PATH + '?callback=' + encodeURIComponent(callback);

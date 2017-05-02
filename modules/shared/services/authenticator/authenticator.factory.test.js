@@ -129,28 +129,82 @@ describe(' The authenticator factory', function () {
         $httpBackend.verifyNoOutstandingRequest();
     });
 
-    it('can login a user by redirecting to an external security provider', function () {
-        absUrl = 'absUrl/#?arg';
-        authenticator.login();
-        expect($window.location.href)
-            .toBe(AUTH_PATH + LOGIN_PATH + '?callback=' + encodeURIComponent('absUrl/#'));
-    });
+    describe('login', () => {
+        it('can login a user by redirecting to an external security provider', function () {
+            absUrl = 'absUrl/#?arg';
+            authenticator.login();
+            expect($window.location.href)
+                .toBe(AUTH_PATH + LOGIN_PATH + '?callback=' + encodeURIComponent('absUrl/#'));
+        });
 
-    it('saves the current path in the session when redirecting to an external security provider', function () {
-        spyOn(storage.session, 'setItem');
-        spyOn($location, 'search').and.returnValue({one: 1});
-        absUrl = 'absUrl/#?arg';
-        authenticator.login();
-        expect($window.location.href)
-            .toBe(AUTH_PATH + LOGIN_PATH + '?callback=' + encodeURIComponent('absUrl/#'));
-        expect(storage.session.setItem).toHaveBeenCalledWith('callbackParams', angular.toJson({one: 1}));
-    });
+        it('saves the current path in the session when redirecting to an external security provider', function () {
+            spyOn(storage.session, 'setItem');
+            spyOn($location, 'search').and.returnValue({one: 1});
+            absUrl = 'absUrl/#?arg';
+            authenticator.login();
+            expect($window.location.href)
+                .toBe(AUTH_PATH + LOGIN_PATH + '?callback=' + encodeURIComponent('absUrl/#'));
+            expect(storage.session.setItem).toHaveBeenCalledWith('callbackParams', angular.toJson({one: 1}));
+        });
 
-    it('can login a user by redirecting to an external security provider, adds # to path when missing', function () {
-        absUrl = 'absUrl';
-        authenticator.login();
-        expect($window.location.href)
-            .toBe(AUTH_PATH + LOGIN_PATH + '?callback=' + encodeURIComponent(absUrl + '#'));
+        it('adds # to path when missing', function () {
+            absUrl = 'absUrl';
+            authenticator.login();
+            expect($window.location.href)
+                .toBe(AUTH_PATH + LOGIN_PATH + '?callback=' + encodeURIComponent('absUrl#'));
+        });
+
+        it('removes everything after # if present', function () {
+            absUrl = 'absUrl/#/?arg';
+            authenticator.login();
+            expect($window.location.href)
+                .toBe(AUTH_PATH + LOGIN_PATH + '?callback=' + encodeURIComponent('absUrl/#'));
+
+            absUrl = 'absUrl/#/arg';
+            authenticator.login();
+            expect($window.location.href)
+                .toBe(AUTH_PATH + LOGIN_PATH + '?callback=' + encodeURIComponent('absUrl/#'));
+
+            absUrl = 'absUrl/#arg';
+            authenticator.login();
+            expect($window.location.href)
+                .toBe(AUTH_PATH + LOGIN_PATH + '?callback=' + encodeURIComponent('absUrl/#'));
+
+            absUrl = 'absUrl/#?arg';
+            authenticator.login();
+            expect($window.location.href)
+                .toBe(AUTH_PATH + LOGIN_PATH + '?callback=' + encodeURIComponent('absUrl/#'));
+
+            absUrl = 'absUrl#/?arg';
+            authenticator.login();
+            expect($window.location.href)
+                .toBe(AUTH_PATH + LOGIN_PATH + '?callback=' + encodeURIComponent('absUrl#'));
+
+            absUrl = 'absUrl#/arg';
+            authenticator.login();
+            expect($window.location.href)
+                .toBe(AUTH_PATH + LOGIN_PATH + '?callback=' + encodeURIComponent('absUrl#'));
+
+            absUrl = 'absUrl#?arg';
+            authenticator.login();
+            expect($window.location.href)
+                .toBe(AUTH_PATH + LOGIN_PATH + '?callback=' + encodeURIComponent('absUrl#'));
+
+            absUrl = 'absUrl#arg';
+            authenticator.login();
+            expect($window.location.href)
+                .toBe(AUTH_PATH + LOGIN_PATH + '?callback=' + encodeURIComponent('absUrl#'));
+
+            absUrl = 'absUrl#';
+            authenticator.login();
+            expect($window.location.href)
+                .toBe(AUTH_PATH + LOGIN_PATH + '?callback=' + encodeURIComponent('absUrl#'));
+
+            absUrl = 'absUrl';
+            authenticator.login();
+            expect($window.location.href)
+                .toBe(AUTH_PATH + LOGIN_PATH + '?callback=' + encodeURIComponent('absUrl#'));
+        });
     });
 
     it('can logout a user by clearing its tokens', function () {

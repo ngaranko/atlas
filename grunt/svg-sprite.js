@@ -4,6 +4,13 @@ module.exports = {
         src: ['*.svg'],
         dest: '',
         options: {
+            shape: {
+                spacing: {
+                    // top, right, bottom, left spacing around each icon in the
+                    // sprite in pixels
+                    padding: [0, 1, 0, 1]
+                }
+            },
             mode: {
                 css: {
                     dest: 'build',

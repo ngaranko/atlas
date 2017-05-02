@@ -270,12 +270,48 @@ describe('The map reducers', function () {
     });
 
     describe('MAP_START_DRAWING', function () {
-        it('Set the map drawing mode to true', function () {
+        it('Set the map drawing mode to true and dataSelection is empty', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
             output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState);
             expect(output.map.drawingMode).toBe(true);
+        });
+
+        it('Should reset dataSelection state only when markers are on the map and draw mode is not edit', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.dataSelection = { geometryFilter: { markers: [1, 2] } };
+
+            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, 'DRAW');
+            expect(output.dataSelection.geometryFilter).toEqual({markers: []});
+            expect(output.dataSelection.page).toBe(1);
+            expect(output.dataSelection.isFullscreen).toBe(false);
+            expect(output.dataSelection.isLoading).toBe(true);
+            expect(output.dataSelection.view).toBe('LIST');
+            expect(output.dataSelection.markers).toEqual([]);
+        });
+
+        it('Should not reset dataSelection state with markers on the map and draw mode is edit', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.dataSelection = { geometryFilter: { markers: [1] } };
+
+            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, 'EDIT');
+            expect(output.dataSelection.geometryFilter).toEqual({ markers: [1] });
+            expect(output.dataSelection.page).toBeUndefined();
+        });
+
+        it('Should not reset dataSelection state with no markers on the map and draw mode is not edit', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.dataSelection = { geometryFilter: { markers: [] } };
+
+            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, 'DRAW');
+            expect(output.dataSelection.page).toBeUndefined();
         });
     });
 
@@ -301,14 +337,12 @@ describe('The map reducers', function () {
             expect(output.map.drawingMode).toBe(false);
         });
 
-        it('resets the page', () => {
+        it('resets the page with more than 2 markers', () => {
             const inputState = angular.copy(DEFAULT_STATE);
 
-            inputState.page.name = 'home';
             const output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
-                markers: []
+                markers: ['noot', 'mies', 'teun']
             });
-
             expect(output.page.name).toBeNull();
         });
 
@@ -336,6 +370,7 @@ describe('The map reducers', function () {
                 markers: ['noot', 'mies']
             });
             expect(output.map.geometry).toEqual(['noot', 'mies']);
+            expect(output.page.name).toBe('home');
         });
 
         it('Initializes the dataSelection state when a payload is specified', function () {
@@ -398,6 +433,9 @@ describe('The map reducers', function () {
                 output;
 
             output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
+                markers: ['noot', 'mies', 'teun']
+            });
+            expect(output.dataSelection.geometryFilter).toEqual({
                 markers: ['noot', 'mies', 'teun']
             });
             expect(output.dataSelection.page).toBe(1);

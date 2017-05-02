@@ -516,17 +516,17 @@ describe('The dp-search-results component', function () {
 
                     // It only shows the first 25 results
                     expect(component.find('.qa-search-result dp-link').length).toBe(25);
-                    expect(component.find('.qa-search-result button').eq(25).text().trim()).toBe('Toon meer');
+                    expect(component.find('.qa-show-more').text().trim()).toBe('Toon meer');
 
-                    // Click the 'Toon meer' button
-                    component.find('.qa-search-result button').eq(25).click();
+                    // Click the 'Toon meer' link
+                    component.find('.qa-show-more').click();
                     $rootScope.$apply();
 
                     // Now it shows all 30 search results
                     expect(component.find('.qa-search-result dp-link').length).toBe(30);
 
-                    // And it no longer shows a 'Toon meer' button
-                    expect(component.find('.qa-search-result button').length)
+                    // And it no longer shows a 'Toon meer' link
+                    expect(component.find('.qa-search-result dp-link').length)
                         .toBe(30); // Instead of 31 (30 dp-link + 1 'Toon meer')
                 });
             });

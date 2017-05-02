@@ -48,17 +48,19 @@
   }
 }
 
-.s-cms-page-content__toc {
+.s-cms-page-content--toc {
   p {
+    display: inline;
     margin: 0;
   }
 
   a {
-    color: $primary-dark;
-    text-decoration: none;
+    color: inherit;
+    text-decoration: inherit;
 
     &:hover {
-      color: $primary-contrast;
+      color: inherit;
+      text-decoration: inherit;
     }
   }
 }

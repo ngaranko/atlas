@@ -5,9 +5,9 @@
         .module('dpShared')
         .factory('user', userFactory);
 
-    userFactory.$inject = ['$window', '$q', '$interval', 'userSettings'];
+    userFactory.$inject = ['$window', '$q', '$interval', '$cacheFactory', 'userSettings'];
 
-    function userFactory ($window, $q, $interval, userSettings) {
+    function userFactory ($window, $q, $interval, $cacheFactory, userSettings) {
         const USER_TYPE = { // the possible types of a user
             NONE: 'NONE',
             ANONYMOUS: 'ANONYMOUS',
@@ -141,6 +141,8 @@
         function setRefreshToken (token, userType) {
             user.type = userType;
             user.refreshToken = token;
+            // Clearing cache on refresh token change
+            clearHttpCache();
         }
 
         function getAccessToken () {
@@ -151,7 +153,7 @@
             const currentAuthorizationLevel = user.authorizationLevel;
 
             user.accessToken = token;
-
+            clearHttpCache();
             if (!meetsRequiredLevel(currentAuthorizationLevel)) {
                 onLowerAuthorizationLevel();
             }
@@ -201,6 +203,11 @@
 
         function getAuthorizationLevel () {
             return user.authorizationLevel;
+        }
+
+        function clearHttpCache () {
+            // Clearing the cache whenever authorization level is lowered
+            $cacheFactory.get('$http').removeAll();
         }
 
         function meetsRequiredLevel (requiredLevel) {
