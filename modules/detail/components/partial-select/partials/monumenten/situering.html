@@ -1,0 +1,13 @@
+<div>
+    <dp-glossary-header definition="MONUMENTEN" use-plural="true"></dp-glossary-header>
+
+    <div class="u-margin__bottom--4">
+        <p ng-if="!apiData.results.length"><dp-message>Op dit moment geen gegevens beschikbaar</dp-message></p>
+
+        <ul ng-if="apiData.results.length" class="o-list">
+            <li ng-repeat="monument in [apiData.results[4], apiData.results[99]]">
+                <dp-api-call endpoint="{{ monument.hoort_bij_monument._links.self.href }}" partial="monumenten/link">{</dp-api-call>
+            </li>
+        </ul>
+   </div>
+</div>
