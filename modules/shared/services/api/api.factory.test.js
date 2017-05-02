@@ -2,11 +2,13 @@ describe('The api factory', function () {
     var $rootScope,
         $http,
         $httpBackend,
+        $cacheFactory,
         $q,
         api,
         mockedApiData,
         user,
-        isLoggedIn;
+        isLoggedIn,
+        clearHttpCache;
 
     beforeEach(function () {
         angular.mock.module(
@@ -24,10 +26,11 @@ describe('The api factory', function () {
             }
         );
 
-        angular.mock.inject(function (_$rootScope_, _$http_, _$httpBackend_, _$q_, _api_, _user_) {
+        angular.mock.inject(function (_$rootScope_, _$http_, _$httpBackend_, _$cacheFactory_, _$q_, _api_, _user_) {
             $rootScope = _$rootScope_;
             $http = _$http_;
             $httpBackend = _$httpBackend_;
+            $cacheFactory = _$cacheFactory_;
             $q = _$q_;
             api = _api_;
             user = _user_;
@@ -41,11 +44,17 @@ describe('The api factory', function () {
         $httpBackend.whenGET('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/').respond(mockedApiData);
 
         isLoggedIn = false;
+
+        clearHttpCache = function () {
+            // Clearing the cache whenever authorization level is lowered
+            $cacheFactory.get('$http').removeAll();
+        };
     });
 
     afterEach(function () {
         $httpBackend.verifyNoOutstandingExpectation();
         $httpBackend.verifyNoOutstandingRequest();
+        clearHttpCache();
     });
 
     it('getByUrl returns the data as a promise', function () {
@@ -102,7 +111,7 @@ describe('The api factory', function () {
         expect(returnValue).toEqual(mockedApiData);
     });
 
-    it('adds an Authorization header if the user is logged in', function () {
+    it('does not add an Authorization header if the user is not logged in', function () {
         // Not logged in
         isLoggedIn = false;
 
@@ -112,10 +121,11 @@ describe('The api factory', function () {
         );
         api.getByUrl('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/');
         $httpBackend.flush();
+    });
 
+    it('adds an Authorization header if the user is logged in', function () {
         // Logged in
         isLoggedIn = true;
-
         $httpBackend.expectGET(
             'https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/',
             angular.merge({}, $http.defaults.headers.common, {Authorization: 'Bearer MY_FAKE_ACCESS_TOKEN'})
@@ -127,7 +137,6 @@ describe('The api factory', function () {
     describe('generating a URL with an access token', () => {
         it('adds the access token when logged in', () => {
             isLoggedIn = true;
-
             api.createUrlWithToken('https://test.amsterdam.nl/').then(actual => {
                 expect(actual).toBe('https://test.amsterdam.nl/?access_token=MY_FAKE_ACCESS_TOKEN');
             });

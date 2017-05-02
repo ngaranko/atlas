@@ -26,18 +26,19 @@
         </div>
         <div class="u-row">
             <div class="u-col-sm--6 c-catalogus-themes__column c-catalogus-themes__column--left">
-                <dp-link
-                    type="FETCH_DATA_SELECTION"
-                    class-name="o-btn o-btn--white qa-go-to-catalogus"
-                    payload="{
-                        dataset: 'catalogus',
-                        filters: {},
-                        view: 'CARDS',
-                        page: 1
-                    }">Datasets</dp-link>
+                <dp-link type="FETCH_DATA_SELECTION"
+                         class-name="o-btn o-btn--white qa-go-to-catalogus"
+                         payload="{
+                             dataset: 'catalogus',
+                             filters: {},
+                             view: 'CARDS',
+                             page: 1
+                         }"
+                    ><span class="o-btn--white__label">Datasets</span></dp-link>
             </div>
             <div class="u-col-sm--6 c-catalogus-themes__column c-catalogus-themes__column--right">
-                <a class="o-btn o-btn--white" href="https://api.data.amsterdam.nl/api/">API's</a>
+                <a class="o-btn o-btn--white" href="https://api.data.amsterdam.nl/api/"
+                    ><span class="o-btn--white__label">API's</span></a>
             </div>
         </div>
     </div>

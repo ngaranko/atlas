@@ -62,6 +62,11 @@
             newState.dataSelection.isLoading = true;
             newState.dataSelection.isFullscreen = newState.dataSelection.view !== 'LIST';
 
+            if (angular.isString(payload)) {
+                // text search: reset filter
+                newState.dataSelection.filters = {};
+            }
+
             return newState;
         }
 

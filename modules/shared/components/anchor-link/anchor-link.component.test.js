@@ -37,17 +37,17 @@ describe('The anchorLink component', function () {
 
     it('accepts an optional classname', function () {
         const component = getComponent('', 'some className');
-        expect(component.find('button').attr('class')).toContain('some className');
+        expect(component.find('.qa-anchor-link').attr('class')).toContain('some className');
     });
 
     it('transcludes content', function () {
         const component = getComponent('a link', 'some className');
-        expect(component.find('button').text()).toBe('Transcluded text');
+        expect(component.find('.qa-anchor-link').text()).toBe('Transcluded text');
     });
 
     it('can scroll to the specified link (bookmark)', function () {
         const component = getComponent('a link');
-        component.find('button').click();
+        component.find('.qa-anchor-link').click();
         expect(anchor).toBe('a link');
     });
 
