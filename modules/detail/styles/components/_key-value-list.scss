@@ -37,9 +37,10 @@
 
   .c-key-value-list__content {
     display: inline-block;
-    max-height: 100px;
+    max-width: 734px;
+    max-height: 200px;
     margin: 0;
-    padding-left: 16px;
+    padding: 0 16px;
     transition: max-height .5s linear;
     border-top: none;
     line-height: 20px;

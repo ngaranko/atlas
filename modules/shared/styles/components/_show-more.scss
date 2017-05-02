@@ -1,13 +1,18 @@
 .c-show-more {
   @extend %link--plus;
 
+  display: block;
   color: $secondary-gray60;
   line-height: $list-item-height;
+
+  .c-key-value-list__value--full-width & {
+    color: $primary-dark;
+  }
 }
 
 .s-indented-result {
   .c-show-more {
-    color: $primary-contrast;
+    color: $primary-dark;
 
     &:hover {
       color: $secondary-gray60;

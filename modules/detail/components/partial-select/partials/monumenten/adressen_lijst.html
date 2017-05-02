@@ -11,25 +11,29 @@
               type="FETCH_DETAIL">
                 {{ object._display }}
             </dp-link>
+
             <span
               class="muted"
               ng-if="object.hoofdadres === false">
                 (nevenadres)
             </span>
+
             <span
               class="muted"
               ng-if="object.situering_nummeraanduiding === 'Actueel/Bij'">
-                (object is gelegen bij dit adres)
+                (gelegen bij)
             </span>
+
             <span
               class="muted"
               ng-if="object.situering_nummeraanduiding === 'Actueel/Tegenover'">
-                (object is gelegen tegenover dit adres)
+                (gelegen tegenover)
             </span>
+
             <span
               class="muted"
               ng-if="object.situering_nummeraanduiding === 'Actueel/Via'">
-                (object kan worden betreden via dit adres)
+                (betreden via)
             </span>
         </li>
     </ul>
