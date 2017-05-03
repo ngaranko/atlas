@@ -25,6 +25,7 @@
 
   li,
   p {
+    @include font-weight($light-weight);
     margin-bottom: 1.6 * $base-whitespace;
   }
 
