@@ -1,4 +1,4 @@
-FROM node:7.9
+FROM node:7.9-alpine
 
 MAINTAINER datapunt.ois@amsterdam.nl
 
@@ -11,13 +11,12 @@ ARG PASSWORD_EMPLOYEE_PLUS
 ENV PASSWORD_EMPLOYEE=$PASSWORD_EMPLOYEE
 ENV PASSWORD_EMPLOYEE_PLUS=$PASSWORD_EMPLOYEE_PLUS
 
-RUN apt-get update \
- && apt-get install -y git nginx build-essential openjdk-8-jre \
- && apt-get clean \
+RUN apk update && apk upgrade \
+ && apk add git nginx openjdk8-jre \
  && npm install -g bower grunt-cli \
  && mkdir /app
 
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
+ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk
 
 WORKDIR /app
 COPY *.json /app/
