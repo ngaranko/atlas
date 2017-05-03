@@ -87,7 +87,7 @@
                     url: 'https://www.amsterdam.nl/stelselpedia/monumenten-index/catalogus-monumenten/' +
                     'objectklasse-complex/',
                     meta: [
-                        'id' // TODO: Rename to more descriptive property (TG-TBD)
+                        'identificerende_sleutel_complex'
                     ]
                 },
                 BUURTCOMBINATIE: {
@@ -204,7 +204,7 @@
                     url: 'https://www.amsterdam.nl/stelselpedia/monumenten-index/catalogus-monumenten/objectklasse/',
                     meta: [
                         'monument_aanwijzingsdatum',
-                        'id' // TODO: Rename to more descriptive property (TG-TBD)
+                        'identificerende_sleutel_monument'
                     ]
                 },
                 NUMMERAANDUIDING: {
@@ -446,6 +446,12 @@
                 },
                 id: {
                     label: 'Identificatiecode'
+                },
+                identificerende_sleutel_complex: {
+                    label: 'Identificerende sleutel'
+                },
+                identificerende_sleutel_monument: {
+                    label: 'Identificerende sleutel'
                 },
                 ligplaatsidentificatie: {
                     label: 'Ligplaatsidentificatie'

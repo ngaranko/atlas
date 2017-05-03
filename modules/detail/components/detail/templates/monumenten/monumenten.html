@@ -54,10 +54,6 @@
     </dl>
 
     <div ng-if="vm.apiData.results.ligt_in_complex._links.self.href">
-        <dp-glossary-header
-          definition="COMPLEX"
-          meta-data="vm.apiData">
-        </dp-glossary-header>
         <dp-api-call
           endpoint="{{ vm.apiData.results.ligt_in_complex._links.self.href }}"
           partial="monumenten/complex">
