@@ -85,7 +85,7 @@ describe('The dp-toggle-drawing-tool component', function () {
             expect(component.find('.qa-button').length).toBe(1);
             expect(component.find('.qa-button').attr('class')).toContain('c-toggle-drawing-tool--active');
             expect(component.find('.qa-button').attr('title')).toBe('Eindig meten en intekenen');
-            expect(component.find('.qa-button .qa-button-finish').length).toBe(1);
+            expect(component.find('.qa-button-finish').length).toBe(1);
         });
 
         it('disables draw/edit mode when clicking the button', function () {
@@ -106,7 +106,7 @@ describe('The dp-toggle-drawing-tool component', function () {
             expect(component.find('.qa-button').length).toBe(1);
             expect(component.find('.qa-button').attr('class')).toContain('c-toggle-drawing-tool--again');
             expect(component.find('.qa-button').attr('title')).toBe('Opnieuw meten en intekenen');
-            expect(component.find('.qa-button .qa-button-again').length).toBe(1);
+            expect(component.find('.qa-button-again').length).toBe(1);
         });
 
         it('disables draw/edit mode when clicking the button', function () {
