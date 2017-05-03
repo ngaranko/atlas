@@ -14,7 +14,7 @@ module.exports = {
         validator: require('../validators/detail')
     },
     'KADASTRALE_SUBJECTEN': {
-      url: '#?mpb=topografie&mpz=11&mpv=52.3731081:4.8932945&src=subject&srfs=T&srq=bakker'
+        url: '#?mpb=topografie&mpz=11&mpv=52.3731081:4.8932945&src=subject&srfs=T&srq=bakker'
     },
     'LAYER-SELECTION_MAP': {
         url: '#?lse=T&mpb=topografie&mpz=11&mpfs=T&mpv=52.3731081:4.8932945&pgn=home',

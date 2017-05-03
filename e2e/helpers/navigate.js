@@ -3,14 +3,14 @@
 const dashboardPageObjects = dp.require('modules/atlas/components/dashboard/dashboard.page-objects');
 
 const roles = {
-  EMPLOYEE: {
-    password: process.env.PASSWORD_EMPLOYEE,
-    username: process.env.USERNAME_EMPLOYEE
-  },
-  EMPLOYEE_PLUS: {
-    password: process.env.PASSWORD_EMPLOYEE_PLUS,
-    username: process.env.USERNAME_EMPLOYEE_PLUS
-  }
+    EMPLOYEE: {
+        password: process.env.PASSWORD_EMPLOYEE,
+        username: process.env.USERNAME_EMPLOYEE
+    },
+    EMPLOYEE_PLUS: {
+        password: process.env.PASSWORD_EMPLOYEE_PLUS,
+        username: process.env.USERNAME_EMPLOYEE_PLUS
+    }
 };
 
 module.exports = function (pageName, role) {
