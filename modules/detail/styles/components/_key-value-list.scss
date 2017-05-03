@@ -15,6 +15,38 @@
     border: none;
     line-height: $base-line-height;
   }
+
+  .c-key-value-list__key {
+    @extend %description-list-key;
+  }
+
+  .c-key-value-list__value {
+    @extend %description-list-value;
+  }
+
+  .c-key-value-list__key--full-width {
+    width: 100%;
+  }
+
+  .c-key-value-list__value--full-width {
+    width: 100%;
+    padding: 0 20px;
+    float: none;
+    border-top: none;
+  }
+
+  .c-key-value-list__content {
+    display: inline-block;
+    max-width: 734px;
+    max-height: 200px;
+    margin: 0;
+    padding: 0 16px;
+    transition: max-height .5s linear;
+    border-top: none;
+    line-height: 20px;
+    text-overflow: ellipsis;
+    white-space: pre-line;
+    overflow: hidden;
+    box-sizing: content-box;
+  }
 }
-
-

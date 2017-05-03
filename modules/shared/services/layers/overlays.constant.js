@@ -683,6 +683,19 @@
                     'image/png&STYLE=default'
                 },
 
+                // Toerisme en cultuur
+                tcmnmt: {
+                    url: 'maps/monumenten',
+                    label_short: 'Monumenten',
+                    label_long: 'Monumenten',
+                    layers: ['monument_coordinaten'],
+                    minZoom: 11,
+                    maxZoom: 16,
+                    legend: 'maps/monumenten?version=1.3.0&service' +
+                    '=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=monument_coordinaten&format=' +
+                    'image/png&STYLE=default'
+                },
+
                 // Verkeer
                 pv: {
                     url: 'maps/parkeervakken',
@@ -806,6 +819,11 @@
                         'mgth',
                         'mthr',
                         'mgvvgsh'
+                    ]
+                }, {
+                    heading: 'Toerisme en cultuur',
+                    overlays: [
+                        'tcmnmt'
                     ]
                 }, {
                     heading: 'Verkeer en infrastructuur',

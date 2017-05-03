@@ -65,6 +65,7 @@ $link-offset: 3px;
   // text, minus the space within the icon image between the actual arrow and
   // the left side of the image.
   margin-left: calc(#{$icon-size - $icon-offset} + #{$link-offset});
+  outline: none;
 
   &::before {
     display: inline-block;

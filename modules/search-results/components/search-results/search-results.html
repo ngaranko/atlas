@@ -71,7 +71,7 @@
                         'u-col-sm--8': vm.location
                     }">
 
-                    <dp-search-results-list category="vm.searchResults[0]"></dp-search-results-list>
+                    <dp-search-results-list category="(vm.searchResults | filter: { slug: vm.category })[0]"></dp-search-results-list>
 
                     <a ng-if="vm.hasLoadMore()"
                             class="c-show-more c-show-more--gray qa-show-more"
