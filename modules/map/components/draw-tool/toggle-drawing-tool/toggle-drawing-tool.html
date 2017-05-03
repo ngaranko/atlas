@@ -7,6 +7,6 @@
         }"
         title="{{ vm.isEnabled() ? 'Eindig meten en intekenen' : ( vm.hasDrawnPolygon ? 'Opnieuw' : 'Begin' ) + ' meten en intekenen' }}">
     <em class="u-sr-only">Polygoon meten</em>
-    <span ng-if="vm.isEnabled()" class="qa-button--finish">Eindig</span>
-    <span ng-if="vm.hasDrawnPolygon && !vm.isEnabled()" class="qa-button--again">Opnieuw</span>
+    <span ng-if="vm.isEnabled()" class="qa-button-finish">Eindig</span>
+    <span ng-if="vm.hasDrawnPolygon && !vm.isEnabled()" class="qa-button-again">Opnieuw</span>
 </button>
