@@ -6,7 +6,7 @@
 }
 
 .c-sidebar__list {
-  font-weight: bold;
+  @include font-weight($bold-weight);
   line-height: 1.5;
 }
 

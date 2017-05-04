@@ -8,8 +8,8 @@
 
 .c-panel__title {
   @include font-size-responsive($l-header-font);
+  @include font-weight($bold-weight);
   margin-bottom: $base-whitespace;
-  font-weight: bold;
 }
 
 .c-panel__paragraph {

@@ -42,13 +42,13 @@
 }
 
 .o-btn--white {
+  @include font-weight($bold-weight);
   display: inline-block;
   width: 100%;
   height: $base-whitespace * 4;
   background-color: $primary-light;
   color: $primary-dark;
   font-size: $base-font-size;
-  font-weight: bold;
   line-height: $base-whitespace * 4;
   text-decoration: none;
   white-space: nowrap;

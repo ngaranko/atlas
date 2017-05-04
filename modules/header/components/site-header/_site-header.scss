@@ -8,10 +8,10 @@ $contact-height: 60px;
 .c-site-header__contact {
   @extend %link--arrow;
   @include font-size($xs-font);
+  @include font-weight($normal-weight);
   height: $contact-height;
   float: right;
   color: $primary-dark;
-  font-weight: normal;
   line-height: $contact-height;
   opacity: .6;
 }
