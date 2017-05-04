@@ -154,8 +154,7 @@
 
         function mapStartDrawingReducer (oldState, payload) {
             var newState = angular.copy(oldState);
-
-            newState.map.drawingMode = true;
+            newState.map.drawingMode = payload;
 
             if (payload !== DRAW_TOOL_CONFIG.DRAWING_MODE.EDIT &&
                 newState.dataSelection &&
@@ -179,7 +178,7 @@
         function mapEndDrawingReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
-            newState.map.drawingMode = false;
+            newState.map.drawingMode = 'none';
 
             if (payload) {
                 if (payload.markers.length > 2) {

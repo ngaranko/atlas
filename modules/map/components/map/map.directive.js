@@ -103,8 +103,8 @@
                     });
                 });
 
-                scope.$watch(drawTool.getDrawingMode, (drawingMode) => {
-                    scope.drawingMode = drawingMode ? drawingMode.toLowerCase() : 'none';
+                scope.$watch('mapState.drawingMode', (drawingMode) => {
+                    scope.drawingMode = drawingMode;
                 });
             });
 

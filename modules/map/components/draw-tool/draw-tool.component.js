@@ -44,7 +44,7 @@
         function setPolygon (polygon) {
             if (!drawTool.isEnabled()) {
                 drawTool.setPolygon(polygon);
-                if (vm.state.drawingMode) {
+                if (vm.state.drawingMode !== 'none') {
                     drawTool.enable();
                 }
             }
@@ -65,7 +65,7 @@
         }
 
         function onDrawingMode (drawingMode) {
-            if (drawingMode) {
+            if (drawingMode !== 'none') {
                 previousMarkers = angular.copy(drawTool.shape.markers);
                 store.dispatch({
                     type: ACTIONS.MAP_START_DRAWING,
