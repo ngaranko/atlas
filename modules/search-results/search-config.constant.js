@@ -52,6 +52,11 @@
                     label_singular: 'Meetbout',
                     label_plural: 'Meetbouten',
                     uri: 'meetbouten/search/'
+                }, {
+                    slug: 'monument',
+                    label_singular: 'Monument',
+                    label_plural: 'Monumenten',
+                    uri: 'monumenten/search/'
                 }
             ],
             COORDINATES_ENDPOINTS: [
@@ -66,6 +71,10 @@
                     radius: null
                 }, {
                     uri: 'geosearch/bominslag/',
+                    radius: 25
+                }, {
+                    // TODO: Change to conventional URL when delivered (#995)
+                    uri: 'geosearch/search/?item=monument',
                     radius: 25
                 }
             ],
@@ -144,6 +153,13 @@
                         uitgevoerdonderzoek: 'reeds uitgevoerd CE onderzoek',
                         verdachtgebied: 'verdacht gebied'
                     }
+                }, {
+                    slug: 'monument',
+                    label_singular: 'Monument',
+                    label_plural: 'Monumenten',
+                    features: [
+                        'monumenten/monument'
+                    ]
                 }
             ]
         });
