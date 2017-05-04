@@ -4,7 +4,7 @@
     <div class="u-margin__bottom--4">
         <ul class="o-list">
             <li ng-repeat="object in apiData.results">
-                <dp-link type="FETCH_DETAIL" payload="object.hoort_bij_monument._links.self.href">{{ object._display}}</dp-link>
+                <dp-api-call endpoint="{{ monument.hoort_bij_monument._links.self.href }}" partial="monumenten/link">{</dp-api-call>
             </li>
         </ul>
    </div>
