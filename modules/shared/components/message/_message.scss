@@ -1,4 +1,5 @@
 .c-message {
+  @include font-weight($light-weight);
   color: $secondary-gray40;
   font-style: italic;
 }

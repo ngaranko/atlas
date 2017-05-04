@@ -76,4 +76,13 @@
             use-brk-object-expanded="true">
         </dp-api-call>
     </div>
+
+    <!-- monumenten -->
+    <div ng-if="apiData.results.hoofdadres.landelijk_id">
+        <dp-api-call
+            endpoint="monumenten/situeringen/?betreft_nummeraanduiding={{apiData.results.hoofdadres.landelijk_id}}"
+            add-api-root="true"
+            partial="monumenten/situering">
+        </dp-api-call>
+    </div>
 </div>

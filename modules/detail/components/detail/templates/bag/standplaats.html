@@ -17,4 +17,10 @@
     <!-- standplaats -->
     <dp-partial-select partial="bag/standplaats" api-data="vm.apiData"></dp-partial-select>
 
+    <!-- monumenten -->
+    <dp-api-call
+        endpoint="monumenten/situeringen/?betreft_nummeraanduiding={{vm.apiData.results.landelijk_id}}"
+        add-api-root="true"
+        partial="monumenten/situering">
+    </dp-api-call>
 </div>

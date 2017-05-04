@@ -11,23 +11,23 @@ button {
 
 h1 {
   @include font-size-responsive($xl-header-font);
-  font-weight: bold;
+  @include font-weight($bold-weight);
 }
 
 h2 {
   @include font-size-responsive($l-header-font);
-  font-weight: bold;
+  @include font-weight($bold-weight);
 }
 
 h3 {
   @include font-size-responsive($m-header-font);
-  font-weight: bold;
+  @include font-weight($bold-weight);
 }
 
 h4,
 h5,
 h6 {
   @include font-size-responsive($s-header-font);
+  @include font-weight($bold-weight);
   color: $secondary-gray60;
-  font-weight: bold;
 }

@@ -36,9 +36,9 @@ $show-more-height: 70px;
 }
 
 .c-homepage__show-more {
+  @include font-weight($bold-weight);
   position: absolute;
   bottom: 2 * $base-whitespace;
-  font-weight: bold;
 }
 
 .c-homepage__block--short {

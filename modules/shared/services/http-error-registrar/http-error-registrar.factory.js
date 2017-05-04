@@ -47,8 +47,12 @@
 
             if (isServerError) {
                 registerServerError();
-            } else if (isClientError && response && response.data && response.data.detail === 'Not found.') {
-                registerNotFoundError();
+            } else if (isClientError) {
+                if (response && response.data && response.data.detail === 'Not found.') {
+                    registerNotFoundError();
+                } else {
+                    registerServerError();
+                }
             }
 
             return $q.reject(response);

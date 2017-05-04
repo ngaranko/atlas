@@ -445,11 +445,13 @@ describe('The draw tool factory', function () {
 
             expect(editShapeHandler.enable).toHaveBeenCalled();
             fireEvent('draw:editstart');
+            expect(drawTool.getDrawingMode()).toEqual('EDIT');
 
             shapeClickHandler.click();
 
             expect(editShapeHandler.save).toHaveBeenCalled();
             expect(editShapeHandler.disable).toHaveBeenCalled();
+            expect(drawTool.getDrawingMode()).toEqual(null);
         });
 
         it('can edit a polygon by enabling the draw tool', function () {
@@ -459,11 +461,13 @@ describe('The draw tool factory', function () {
             expect(editShapeHandler.enable).toHaveBeenCalled();
 
             fireEvent('draw:editstart');
+            expect(drawTool.getDrawingMode()).toEqual('EDIT');
 
             drawTool.disable();
 
             expect(editShapeHandler.save).toHaveBeenCalled();
             expect(editShapeHandler.disable).toHaveBeenCalled();
+            expect(drawTool.getDrawingMode()).toEqual(null);
         });
 
         it('can add markers to a polygon in edit mode', function () {
