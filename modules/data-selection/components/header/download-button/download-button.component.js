@@ -14,9 +14,21 @@
             controllerAs: 'vm'
         });
 
-    DpDataSelectionDownloadButtonController.$inject = ['$window', '$scope', 'sharedConfig', 'DATA_SELECTION_CONFIG'];
+    DpDataSelectionDownloadButtonController.$inject = [
+        '$window',
+        '$scope',
+        'api',
+        'sharedConfig',
+        'DATA_SELECTION_CONFIG'
+    ];
 
-    function DpDataSelectionDownloadButtonController ($window, $scope, sharedConfig, DATA_SELECTION_CONFIG) {
+    function DpDataSelectionDownloadButtonController (
+        $window,
+        $scope,
+        api,
+        sharedConfig,
+        DATA_SELECTION_CONFIG
+    ) {
         const vm = this,
             filterParams = [];
 
@@ -29,7 +41,7 @@
         function setDownloadUrl () {
             filterParams.length = 0;
 
-            vm.downloadUrl = sharedConfig.API_ROOT + DATA_SELECTION_CONFIG.datasets[vm.dataset].ENDPOINT_EXPORT;
+            let url = sharedConfig.API_ROOT + DATA_SELECTION_CONFIG.datasets[vm.dataset].ENDPOINT_EXPORT;
 
             DATA_SELECTION_CONFIG.datasets[vm.dataset].FILTERS.forEach(function (filter) {
                 if (angular.isString(vm.activeFilters[filter.slug])) {
@@ -42,8 +54,10 @@
             }
 
             if (filterParams.length) {
-                vm.downloadUrl += '?' + filterParams.join('&');
+                url += '?' + filterParams.join('&');
             }
+
+            api.createUrlWithToken(url).then(tokenUrl => vm.downloadUrl = tokenUrl);
         }
     }
 })();
