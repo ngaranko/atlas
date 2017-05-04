@@ -7,9 +7,8 @@
             MAX_MARKERS: 40,
             MARKERS_LEFT_WARNING: 5,
             DRAWING_MODE: {
-                NONE: 'none',
-                DRAW: 'draw',
-                EDIT: 'edit'
+                DRAW: 'DRAW',
+                EDIT: 'EDIT'
             },
             format: {
                 numeric: {

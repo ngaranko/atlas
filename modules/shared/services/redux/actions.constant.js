@@ -93,10 +93,6 @@
                 replace: true,
                 isButton: true
             },
-            MAP_CHANGE_DRAWING_MODE: {
-                id: 'MAP_CHANGE_DRAWING_MODE',
-                ignore: true
-            },
 
             FETCH_DETAIL: {
                 id: 'FETCH_DETAIL',

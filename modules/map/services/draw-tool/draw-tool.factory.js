@@ -5,9 +5,9 @@
         .module('dpMap')
         .factory('drawTool', drawToolFactory);
 
-    drawToolFactory.$inject = ['$rootScope', 'L', 'DRAW_TOOL_CONFIG', 'ACTIONS', 'store'];
+    drawToolFactory.$inject = ['$rootScope', 'L', 'DRAW_TOOL_CONFIG'];
 
-    function drawToolFactory ($rootScope, L, DRAW_TOOL_CONFIG, ACTIONS, store) {
+    function drawToolFactory ($rootScope, L, DRAW_TOOL_CONFIG) {
         // holds all information about the state of the shape being created or edited
         const currentShape = {
             isConsistent: true,
@@ -28,7 +28,7 @@
 
         // holds all information of the leaflet.draw drawing and editing structures
         const drawTool = {
-            drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
+            drawingMode: null,
             drawnItems: null,
             drawShapeHandler: null,
             editShapeHandler: null,
@@ -75,18 +75,12 @@
 
         // triggered when the drawing mode has changed
         function onChangeDrawingMode () {
-            console.log('onChangeDrawingMode', drawTool.drawingMode);
-            store.dispatch({
-                type: ACTIONS.MAP_CHANGE_DRAWING_MODE,
-                payload: drawTool.drawingMode
-            });
-
             if (angular.isFunction(_onDrawingMode)) {
                 $rootScope.$applyAsync(() => {
                     // call any registered callback function, applyAsync because triggered by a leaflet event
                     // The exact drawingMode is an internal attribute of the factory
                     // The outside knowledge is just true or false; enabled or disabled
-                    _onDrawingMode(drawTool.drawingMode !== DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
+                    _onDrawingMode(drawTool.drawingMode !== null);
                 });
             }
         }
@@ -119,7 +113,7 @@
 
         // Called when a polygon is finished (end draw or end edit)
         function finishPolygon () {
-            setDrawingMode(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
+            setDrawingMode(null);
             onFinishPolygon();
         }
 
@@ -267,7 +261,7 @@
 
         function isEnabled () {
             // isEnabled => shape is being created or being edited
-            return drawTool.drawingMode !== DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
+            return Object.keys(DRAW_TOOL_CONFIG.DRAWING_MODE).indexOf(drawTool.drawingMode) !== -1;
         }
 
         // start draw or edit mode for current layer or start create mode for new shape
@@ -296,7 +290,7 @@
                     drawTool.editShapeHandler.save();   // Save the layer geometries
                     drawTool.editShapeHandler.disable();
                 }
-                setDrawingMode(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
+                setDrawingMode(null);
             }
         }
 
