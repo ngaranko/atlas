@@ -23,6 +23,7 @@
         reducers[ACTIONS.MAP_END_DRAWING.id] = mapEndDrawingReducer;
         reducers[ACTIONS.SHOW_MAP_ACTIVE_OVERLAYS.id] = showActiveOverlaysReducer;
         reducers[ACTIONS.HIDE_MAP_ACTIVE_OVERLAYS.id] = hideActiveOverlaysReducer;
+        reducers[ACTIONS.MAP_CHANGE_DRAWING_MODE.id] = mapChangeDrawingMode;
 
         return reducers;
 
@@ -214,6 +215,14 @@
             var newState = angular.copy(oldState);
 
             newState.map.showActiveOverlays = false;
+
+            return newState;
+        }
+
+        function mapChangeDrawingMode(oldState, payload) {
+            var newState = angular.copy(oldState);
+
+            newState.map.drawingMode = payload;
 
             return newState;
         }
