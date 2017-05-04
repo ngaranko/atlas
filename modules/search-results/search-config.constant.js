@@ -52,11 +52,6 @@
                     label_singular: 'Meetbout',
                     label_plural: 'Meetbouten',
                     uri: 'meetbouten/search/'
-                }, {
-                    slug: 'monument',
-                    label_singular: 'Monument',
-                    label_plural: 'Monumenten',
-                    uri: 'monumenten/search/'
                 }
             ],
             COORDINATES_ENDPOINTS: [
