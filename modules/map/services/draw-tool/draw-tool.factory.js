@@ -44,7 +44,6 @@
             isEnabled,
             enable,
             disable,
-            getDrawingMode,
             setPolygon,
             shape: shapeInfo
         };
@@ -123,10 +122,6 @@
                 drawTool.drawingMode = drawingMode;
                 onChangeDrawingMode();
             }
-        }
-
-        function getDrawingMode () {
-            return drawTool.drawingMode;
         }
 
         // Initialisation of the draw tool, initialise drawing and register required objects in the drawTool object
