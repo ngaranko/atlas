@@ -611,8 +611,8 @@
                     label_short: 'Industrie - Geluidszones',
                     label_long: 'Industrie - Geluidszones',
                     layers: [
-                        'gezoneerdindustrieterrein',
-                        'geluidzoneindustrieterrein'
+                        'geluidzoneindustrieterrein',
+                        'gezoneerdindustrieterrein'
                     ],
                     minZoom: 8,
                     maxZoom: 16,

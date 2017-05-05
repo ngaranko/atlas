@@ -11,9 +11,9 @@ $suggestion-offset: $base-font-size;
 
   .c-autocomplete__tip {
     @include font-size($s-font);
+    @include font-weight($normal-weight);
     margin-top: $base-whitespace / 2;
     color: $secondary-gray60;
-    font-weight: normal;
     text-align: center;
   }
 
@@ -26,6 +26,7 @@ $suggestion-offset: $base-font-size;
   }
 
   .c-autocomplete__category__heading {
+    @include font-weight($normal-weight);
     margin: {
       top: 0;
       right: $base-whitespace;
@@ -33,7 +34,6 @@ $suggestion-offset: $base-font-size;
       left: $base-whitespace;
     };
     color: $secondary-gray60;
-    font-weight: 400;
   }
 
   .c-autocomplete__category__suggestion {
