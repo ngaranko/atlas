@@ -12,6 +12,10 @@
     padding-left: $base-whitespace;
     background-color: $secondary-gray10;
     color: $primary-dark;
+
+    & :hover {
+      color: $primary-contrast;
+    }
   }
 }
 
