@@ -12,11 +12,10 @@
         'zoom',
         'onMapClick',
         'user',
-        'overlays',
-        'drawTool'
+        'overlays'
     ];
 
-    function dpMapDirective (L, mapConfig, layers, highlight, panning, zoom, onMapClick, user, overlays, drawTool) {
+    function dpMapDirective (L, mapConfig, layers, highlight, panning, zoom, onMapClick, user, overlays) {
         return {
             restrict: 'E',
             scope: {
