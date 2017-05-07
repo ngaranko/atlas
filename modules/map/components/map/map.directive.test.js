@@ -182,9 +182,9 @@ describe('The dp-map directive', function () {
 
     it('creates a Leaflet map with options based on both the map state and mapConfig', function () {
         const directive = getDirective(mockedMapState, false, mockedMarkers);
-        const element = directive[0].querySelector('.js-leaflet-map');
+        const element = directive.find('.qa-leaflet-map');
 
-        expect(L.map).toHaveBeenCalledWith(element, {
+        expect(L.map).toHaveBeenCalledWith(element[0], {
             center: [52.789, 4.123],
             zoom: 12,
             doThisThing: false,
@@ -509,27 +509,27 @@ describe('The dp-map directive', function () {
             mockedMapState.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
 
             const directive = getDirective(mockedMapState, false, mockedMarkers);
-            const element = directive[0].querySelector('.c-map');
+            const element = directive.find('.qa-map');
 
-            expect(element.getAttribute('class')).toContain('c-map--drawing-mode-none');
+            expect(element.attr('class')).toContain('c-map--drawing-mode-none');
         });
 
         it('should set the draw mode to draw when drawing is active', () => {
             mockedMapState.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW;
 
             const directive = getDirective(mockedMapState, false, mockedMarkers);
-            const element = directive[0].querySelector('.c-map');
+            const element = directive.find('.qa-map');
 
-            expect(element.getAttribute('class')).toContain('c-map--drawing-mode-draw');
+            expect(element.attr('class')).toContain('c-map--drawing-mode-draw');
         });
 
         it('should set the draw mode to draw when editing is active', () => {
             mockedMapState.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.EDIT;
 
             const directive = getDirective(mockedMapState, false, mockedMarkers);
-            const element = directive[0].querySelector('.c-map');
+            const element = directive.find('.qa-map');
 
-            expect(element.getAttribute('class')).toContain('c-map--drawing-mode-edit');
+            expect(element.attr('class')).toContain('c-map--drawing-mode-edit');
         });
     });
 });
