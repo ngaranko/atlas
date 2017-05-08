@@ -56,13 +56,14 @@
 // sass-lint:enable nesting-depth
 
 // pano popje
-.leaflet-marker-pane {
-  > .leaflet-marker-icon {
-    cursor: default;
+.leaflet-pane {
+  &.leaflet-marker-pane {
+    > img {
+      cursor: default;
 
-    .leaflet-dragging & {
-      cursor: move;
+      .leaflet-dragging & {
+        cursor: move;
+      }
     }
   }
 }
-
