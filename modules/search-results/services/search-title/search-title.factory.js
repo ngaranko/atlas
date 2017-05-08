@@ -12,7 +12,7 @@
         };
 
         function getTitleData (numberOfResults, query, location, category) {
-            const categoryName = getCategoryName(category),
+            const categoryName = getCategoryName(category, query, location),
                 title = getTitle(categoryName, numberOfResults),
                 subTitle = getSubTitle(query, location);
 
@@ -28,15 +28,17 @@
             }
         }
 
-        function getCategoryName (category) {
-            let categoryName = null;
+        function getCategoryName (categorySlug, query, location) {
+            const config = query
+                ? SEARCH_CONFIG.QUERY_ENDPOINTS
+                : SEARCH_CONFIG.COORDINATES_HIERARCHY;
+            const categories = categorySlug
+                ? config.filter(endpoint => endpoint.slug === categorySlug)
+                : null;
 
-            if (category) {
-                categoryName = SEARCH_CONFIG.QUERY_ENDPOINTS.filter(
-                    endpoint => endpoint.slug === category)[0].label_plural;
-            }
-
-            return categoryName;
+            return categories && categories.length
+                ? categories[0].label_plural
+                : null;
         }
 
         function getTitle (categoryName, numberOfResults) {
