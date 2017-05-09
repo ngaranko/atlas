@@ -42,10 +42,10 @@
 .leaflet-overlay-pane {
   > svg {
     .leaflet-interactive {
-      cursor: url("assets/images/cursors/edit.svg") 3 19, pointer;
+      cursor: url("../assets/images/cursors/edit.cur"), url("assets/images/cursors/edit.cur"), pointer;
 
       .c-map--drawing-mode-edit & {
-        cursor: url("assets/images/cursors/save.svg") 10 10, pointer;
+        cursor: url("../assets/images/cursors/save.cur"), url("assets/images/cursors/save.cur"), pointer;
       }
 
       .leaflet-dragging & {
