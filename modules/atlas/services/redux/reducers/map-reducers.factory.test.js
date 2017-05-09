@@ -272,20 +272,24 @@ describe('The map reducers', function () {
     });
 
     describe('MAP_START_DRAWING', function () {
-        it('Set the map drawing mode to draw and dataSelection is empty', function () {
+        it('Set the map drawing mode to draw and not to reset dataSelection', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
+            inputState.dataSelection = 'leave this as it is';
             output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW);
             expect(output.map.drawingMode).toBe(DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW);
+            expect(output.dataSelection).toBe('leave this as it is');
         });
 
-        it('Set the map drawing mode to edit and dataSelection is empty', function () {
+        it('Set the map drawing mode to edit and not to reset dataSelection', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
+            inputState.dataSelection = 'leave this as it is';
             output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, DRAW_TOOL_CONFIG.DRAWING_MODE.EDIT);
             expect(output.map.drawingMode).toBe(DRAW_TOOL_CONFIG.DRAWING_MODE.EDIT);
+            expect(output.dataSelection).toBe('leave this as it is');
         });
 
         it('Should reset dataSelection state only when markers are on the map and draw mode is not edit', function () {
