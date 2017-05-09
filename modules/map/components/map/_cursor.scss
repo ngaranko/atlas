@@ -1,5 +1,8 @@
 // this css selectors are longer because they mainly use the leaflet selectors
-// therefore the nesting-depth is disabled
+// therefore the nesting-depth is disabled and duplicates are needed for ie compatibility
+
+// sass-lint:disable nesting-depth
+// sass-lint:disable no-duplicate-properties
 
 .leaflet-dragging {
   // dragging the map
@@ -12,11 +15,11 @@
   // edit anchor
   &.leaflet-editing-icon {
     cursor: grab;
-    cursor: url('../assets/images/cursors/grab.cur'), url('assets/images/cursors/grab.cur'), pointer; // no grab icon for ie
+    cursor: url("../assets/images/cursors/grab.cur"), url("assets/images/cursors/grab.cur"), pointer; // no grab icon for ie
 
     .leaflet-dragging & {
       cursor: grabbing;
-      cursor: url('../assets/images/cursors/grabbing.cur'), url('assets/images/cursors/grabbing.cur'), pointer; // no grabbing icon for ie
+      cursor: url("../assets/images/cursors/grabbing.cur"), url("assets/images/cursors/grabbing.cur"), pointer; // no grabbing icon for ie
     }
 
     .c-map--drawing-mode-draw & {
@@ -27,7 +30,7 @@
   // cluster icon
   &.o-highlight-cluster {
     cursor: zoom-in;
-    cursor: url('../assets/images/cursors/zoom-in.cur'), url('assets/images/cursors/zoom-in.cur'), pointer; // no zoom-in icon for ie
+    cursor: url("../assets/images/cursors/zoom-in.cur"), url("assets/images/cursors/zoom-in.cur"), pointer; // no zoom-in icon for ie
 
     .leaflet-dragging & {
       cursor: move;
@@ -35,12 +38,11 @@
   }
 }
 
-// sass-lint:disable nesting-depth
 // drawn polygon on the map
 .leaflet-overlay-pane {
   > svg {
     .leaflet-interactive {
-      cursor: url('assets/images/cursors/edit.svg') 3 19, pointer;
+      cursor: url("assets/images/cursors/edit.svg") 3 19, pointer;
 
       .c-map--drawing-mode-edit & {
         cursor: url("assets/images/cursors/save.svg") 10 10, pointer;
@@ -65,4 +67,6 @@
     }
   }
 }
+
+// sass-lint:enable no-duplicate-properties
 // sass-lint:enable nesting-depth
