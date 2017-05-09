@@ -14,11 +14,11 @@
 .leaflet-marker-icon {
   // edit anchor
   &.leaflet-editing-icon {
-    // fix the marker size for firefox
-    width: 20px !important;
-    height: 20px !important;
-    margin-top: -10px !important;
-    margin-left: -10px !important;
+    // fix the marker size
+    width: 14px !important;
+    height: 14px !important;
+    margin-top: -7px !important;
+    margin-left: -7px !important;
 
     cursor: grab;
     cursor: url("../assets/images/cursors/grab.cur"), url("assets/images/cursors/grab.cur"), pointer; // no grab icon for ie
