@@ -28,6 +28,20 @@
             }
         }
 
+        /**
+         * Retrieves the name of the category based on the categorySlug
+         * provided.
+         *
+         * When searched by query the name will be retrieved from the
+         * QUERY_ENDPOINTS. When searched by location the name will be
+         * retrieved from the COORDINATES_HIERARCHY.
+         *
+         * @param {string} categorySlug The slug of the category to get the
+         * name for.
+         * @param {string} query Truthy when seached by query.
+         * @param {number[]} location Truthy when searched by location.
+         * @return {?string} The name of the category or null.
+         */
         function getCategoryName (categorySlug, query, location) {
             const config = query
                 ? SEARCH_CONFIG.QUERY_ENDPOINTS
