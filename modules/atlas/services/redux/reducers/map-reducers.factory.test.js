@@ -1,7 +1,8 @@
 describe('The map reducers', function () {
     var mapReducers,
         ACTIONS,
-        DEFAULT_STATE;
+        DEFAULT_STATE,
+        DRAW_TOOL_CONFIG;
 
     DEFAULT_STATE = {
         map: {
@@ -31,9 +32,10 @@ describe('The map reducers', function () {
     beforeEach(function () {
         angular.mock.module('atlas');
 
-        angular.mock.inject(function (_mapReducers_, _ACTIONS_) {
+        angular.mock.inject(function (_mapReducers_, _ACTIONS_, _DRAW_TOOL_CONFIG_) {
             mapReducers = _mapReducers_;
             ACTIONS = _ACTIONS_;
+            DRAW_TOOL_CONFIG = _DRAW_TOOL_CONFIG_;
         });
     });
 
@@ -270,12 +272,24 @@ describe('The map reducers', function () {
     });
 
     describe('MAP_START_DRAWING', function () {
-        it('Set the map drawing mode to true and dataSelection is empty', function () {
+        it('Set the map drawing mode to draw and not to reset dataSelection', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
-            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState);
-            expect(output.map.drawingMode).toBe(true);
+            inputState.dataSelection = 'leave this as it is';
+            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW);
+            expect(output.map.drawingMode).toBe(DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW);
+            expect(output.dataSelection).toBe('leave this as it is');
+        });
+
+        it('Set the map drawing mode to edit and not to reset dataSelection', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.dataSelection = 'leave this as it is';
+            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, DRAW_TOOL_CONFIG.DRAWING_MODE.EDIT);
+            expect(output.map.drawingMode).toBe(DRAW_TOOL_CONFIG.DRAWING_MODE.EDIT);
+            expect(output.dataSelection).toBe('leave this as it is');
         });
 
         it('Should reset dataSelection state only when markers are on the map and draw mode is not edit', function () {
@@ -284,7 +298,7 @@ describe('The map reducers', function () {
 
             inputState.dataSelection = { geometryFilter: { markers: [1, 2] } };
 
-            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, 'DRAW');
+            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW);
             expect(output.dataSelection.geometryFilter).toEqual({markers: []});
             expect(output.dataSelection.page).toBe(1);
             expect(output.dataSelection.isFullscreen).toBe(false);
@@ -299,7 +313,7 @@ describe('The map reducers', function () {
 
             inputState.dataSelection = { geometryFilter: { markers: [1] } };
 
-            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, 'EDIT');
+            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, DRAW_TOOL_CONFIG.DRAWING_MODE.EDIT);
             expect(output.dataSelection.geometryFilter).toEqual({ markers: [1] });
             expect(output.dataSelection.page).toBeUndefined();
         });
@@ -310,7 +324,7 @@ describe('The map reducers', function () {
 
             inputState.dataSelection = { geometryFilter: { markers: [] } };
 
-            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, 'DRAW');
+            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW);
             expect(output.dataSelection.page).toBeUndefined();
         });
     });
@@ -334,7 +348,7 @@ describe('The map reducers', function () {
             output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
                 markers: []
             });
-            expect(output.map.drawingMode).toBe(false);
+            expect(output.map.drawingMode).toBe(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
         });
 
         it('resets the page with more than 2 markers', () => {

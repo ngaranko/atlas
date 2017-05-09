@@ -28,7 +28,7 @@
 
         // holds all information of the leaflet.draw drawing and editing structures
         const drawTool = {
-            drawingMode: null,
+            drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
             drawnItems: null,
             drawShapeHandler: null,
             editShapeHandler: null,
@@ -42,7 +42,6 @@
         return {
             initialize,
             isEnabled,
-            getDrawingMode,
             enable,
             disable,
             setPolygon,
@@ -80,7 +79,7 @@
                     // call any registered callback function, applyAsync because triggered by a leaflet event
                     // The exact drawingMode is an internal attribute of the factory
                     // The outside knowledge is just true or false; enabled or disabled
-                    _onDrawingMode(drawTool.drawingMode !== null);
+                    _onDrawingMode(drawTool.drawingMode);
                 });
             }
         }
@@ -113,7 +112,7 @@
 
         // Called when a polygon is finished (end draw or end edit)
         function finishPolygon () {
-            setDrawingMode(null);
+            setDrawingMode(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
             onFinishPolygon();
         }
 
@@ -123,11 +122,6 @@
                 drawTool.drawingMode = drawingMode;
                 onChangeDrawingMode();
             }
-        }
-
-        // returns drawing mode: edit or draw
-        function getDrawingMode () {
-            return drawTool.drawingMode;
         }
 
         // Initialisation of the draw tool, initialise drawing and register required objects in the drawTool object
@@ -262,7 +256,7 @@
 
         function isEnabled () {
             // isEnabled => shape is being created or being edited
-            return Object.keys(DRAW_TOOL_CONFIG.DRAWING_MODE).indexOf(drawTool.drawingMode) !== -1;
+            return drawTool.drawingMode !== DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
         }
 
         // start draw or edit mode for current layer or start create mode for new shape
@@ -291,7 +285,7 @@
                     drawTool.editShapeHandler.save();   // Save the layer geometries
                     drawTool.editShapeHandler.disable();
                 }
-                setDrawingMode(null);
+                setDrawingMode(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
             }
         }
 

@@ -141,7 +141,7 @@
                     isFullscreen: false,
                     isLoading: false,
                     showActiveOverlays: false,
-                    drawingMode: false
+                    drawingMode: 'none'
                 },
                 page: {
                     name: null  // eg: 'home'
