@@ -12,23 +12,22 @@
   // edit anchor
   &.leaflet-editing-icon {
     cursor: grab;
+    cursor: url('../assets/images/cursors/grab.cur'), url('assets/images/cursors/grab.cur'), pointer; // no grab icon for ie
 
     .leaflet-dragging & {
       cursor: grabbing;
+      cursor: url('../assets/images/cursors/grabbing.cur'), url('assets/images/cursors/grabbing.cur'), pointer; // no grabbing icon for ie
     }
 
     .c-map--drawing-mode-draw & {
       cursor: pointer;
-    }
-
-    &:active {
-      cursor: grabbing;
     }
   }
 
   // cluster icon
   &.o-highlight-cluster {
     cursor: zoom-in;
+    cursor: url('../assets/images/cursors/zoom-in.cur'), url('assets/images/cursors/zoom-in.cur'), pointer; // no zoom-in icon for ie
 
     .leaflet-dragging & {
       cursor: move;
@@ -41,10 +40,10 @@
 .leaflet-overlay-pane {
   > svg {
     .leaflet-interactive {
-      cursor: url("assets/images/cursor-edit.cur") 3 19, pointer;
+      cursor: url('assets/images/cursors/edit.svg') 3 19, pointer;
 
       .c-map--drawing-mode-edit & {
-        cursor: url("assets/images/cursor-save.cur") 10 10, pointer;
+        cursor: url("assets/images/cursors/save.svg") 10 10, pointer;
       }
 
       .leaflet-dragging & {

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="21px" height="21px" viewBox="0 0 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>edit</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="17.41131 6.1200868 12.0170243 0.725801086 1.64281076 11.1000146 0.179992676 17.9097635 6.85423933 16.7228718"></polygon>
+    </defs>
+    <g id="Dataportaal" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Polygoon---clusters" transform="translate(-151.000000, -456.000000)">
+            <g id="edit" transform="translate(153.000000, 457.000000)">
+                <g id="Shape">
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <path stroke="#FFFFFF" stroke-width="1" d="M17.7648634,5.76653341 L12.3705777,0.372247695 L12.0170243,0.0186943049 L11.6634709,0.372247695 L1.28925737,10.7464613 L1.18494476,10.8507739 L1.15396235,10.995004 L-0.308855726,17.8047529 L-0.465149263,18.5323346 L0.267535011,18.4020402 L6.94178166,17.2151485 L7.09718578,17.1875127 L7.20855572,17.0756605 L17.7656264,6.47287554 L18.1176538,6.1193238 L17.7648634,5.76653341 Z"></path>
+                </g>
+                <polygon id="Rectangle-path" fill="#000000" transform="translate(9.854366, 8.282210) rotate(-45.000000) translate(-9.854366, -8.282210) " points="2.95727991 7.36793284 16.7514525 7.36793284 16.7514525 9.19648674 2.95727991 9.19648674"></polygon>
+                <polygon id="Shape" fill="#000000" points="17.4142136 6.11721501 16.1342136 4.83721501 6.17142857 14.8 3.88571429 15.3028571 2.78857143 14.2057143 3.2 12.1028571 13.2999278 2.00292929 12.0199278 0.722929295 1.64571429 11.0971429 0.182896205 17.9068917 6.85714286 16.72"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>
