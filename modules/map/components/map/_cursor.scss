@@ -14,6 +14,7 @@
 .leaflet-marker-icon {
   // edit anchor
   &.leaflet-editing-icon {
+    // fix the marker size for firefox
     width: 20px !important;
     height: 20px !important;
     margin-top: -10px !important;
