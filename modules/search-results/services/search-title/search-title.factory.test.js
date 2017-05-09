@@ -18,6 +18,16 @@ describe('The search title factory', function () {
                             label_plural: 'Adressen',
                             uri: 'path/to/adres/'
                         }
+                    ],
+                    COORDINATES_HIERARCHY: [
+                        {
+                            slug: 'monument',
+                            label_singular: 'Monument',
+                            label_plural: 'Monumenten',
+                            features: [
+                                'monumenten/monument'
+                            ]
+                        }
                     ]
                 });
 
@@ -60,11 +70,17 @@ describe('The search title factory', function () {
         expect(titleData.subTitle).toContain('X, Y (52.123, 4.789)');
     });
 
-    it('shows only the query in the title', function () {
+    it('can show category and query', function () {
         var titleData = searchTitle.getTitleData(47, 'westerpark', null, 'adres');
 
-        // The category name will be converted to lowercase
         expect(titleData.title).toBe('Adressen met \'westerpark\'');
+        expect(titleData.subTitle).toBeUndefined();
+    });
+
+    it('can show category and location', function () {
+        var titleData = searchTitle.getTitleData(47, null, [52.123, 4.789], 'monument');
+
+        expect(titleData.title).toBe('Monumenten met locatie X, Y (52.123, 4.789)');
         expect(titleData.subTitle).toBeUndefined();
     });
 
