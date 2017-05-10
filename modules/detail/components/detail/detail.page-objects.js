@@ -84,7 +84,7 @@ function groupedDataPageObject (groupedDataElement) {
 
             return listItemPageObject(listItem);
         },
-        get countList () {
+        get listCount () {
             const item = groupedDataElement.all(by.css('ul li'));
             return item.count();
         }

@@ -42,7 +42,7 @@ describe('Detail kadastraal subject - niet natuurlijke persoon', () => {
             expect(detail.kadastraalSubject.descriptionList.definition(4)).toBe('Rietschoot 106 1511WN OOSTZAAN');
 
             expect(detail.kadastraalSubjectRecht.isPresent).toBe(true);
-            expect(detail.kadastraalSubjectRecht.countList).toBe(1);
+            expect(detail.kadastraalSubjectRecht.listCount).toBe(1);
             expect(detail.kadastraalSubjectRecht.list(0).text).toBe('OZN00C03755A0008 - Eigendom (recht van) (1/1)');
 
             dp.logout();
@@ -64,7 +64,7 @@ describe('Detail kadastraal subject - niet natuurlijke persoon', () => {
             expect(detail.kadastraalSubject.glossaryHeader.subtitle).toBe('Kadastraal subject');
 
             expect(detail.kadastraalSubjectRecht.isPresent).toBe(true);
-            expect(detail.kadastraalSubjectRecht.countList).toBe(1);
+            expect(detail.kadastraalSubjectRecht.listCount).toBe(1);
             expect(detail.kadastraalSubjectRecht.list(0).text).toBe('OZN00C03755A0008 - Eigendom (recht van) (1/1)');
 
             dp.logout();

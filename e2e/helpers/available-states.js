@@ -51,6 +51,9 @@ module.exports = {
         url: '#?srq=Oost&srfs=T&mpv=52.3731081:4.8932945&mpb=topografie&mpz=11',
         validator: require('../validators/search-results--query')
     },
+    'SEARCH-RESULTS--KADASTRAAL-SUBJECT': {
+        url: '#?mpb=topografie&mpz=10&mpv=52.3738384:4.8949098&srfs=T&srq=Bakker'
+    },
     'MAP_STRAATBEELD--DETAIL': {
         url: '#?dte=https:%2F%2Fapi.datapunt.amsterdam.nl%2Fbag%2Fnummeraanduiding%2F03630000500149%2F&' +
              'mpb=topografie&mpz=16&mpv=52.3532634:5.0013828&sbf=Cu&sbh=4W&' +

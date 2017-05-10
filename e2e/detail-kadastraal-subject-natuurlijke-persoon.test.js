@@ -46,7 +46,7 @@ describe('Detail kadastraal subject - natuurlijke persoon', () => {
             expect(detail.kadastraalSubject.descriptionList.definition(8)).toBe('Overtoom 34-1 1054HK AMSTERDAM');
 
             expect(detail.kadastraalSubjectRecht.isPresent).toBe(true);
-            expect(detail.kadastraalSubjectRecht.countList).toBe(0);
+            expect(detail.kadastraalSubjectRecht.listCount).toBe(0);
 
             dp.logout();
         });
@@ -67,7 +67,7 @@ describe('Detail kadastraal subject - natuurlijke persoon', () => {
             expect(detail.kadastraalSubject.glossaryHeader.subtitle).toBe('Kadastraal subject');
 
             expect(detail.kadastraalSubjectRecht.isPresent).toBe(true);
-            expect(detail.kadastraalSubjectRecht.countList).toBe(1);
+            expect(detail.kadastraalSubjectRecht.listCount).toBe(1);
             expect(detail.kadastraalSubjectRecht.list(0).text).toBe('ASD05G08575A0001 - Eigendom (recht van) (1/3)');
 
             dp.logout();
