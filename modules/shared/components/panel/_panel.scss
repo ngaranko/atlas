@@ -4,6 +4,12 @@
   padding: $base-whitespace / 2;
   padding-left: $base-whitespace;
   background-color: $secondary-gray10;
+
+  .c-key-value-list {
+    margin-right: -$button-size;
+    margin-bottom: 0;
+    margin-left: -$base-whitespace;
+  }
 }
 
 .c-panel__title {
@@ -18,10 +24,6 @@
   &:last-child {
     margin-bottom: 0;
   }
-}
-
-.c-panel--can-close {
-  padding-right: $button-size;
 }
 
 .c-panel--warning {
@@ -50,4 +52,8 @@
   right: ($button-size + $base-whitespace) * 2; //afstand berekend mbt metadata en stelselpedia buttons
   padding: 0 $base-whitespace;
   line-height: $button-size;
+}
+
+.c-panel--can-close {
+  padding-right: $button-size;
 }
