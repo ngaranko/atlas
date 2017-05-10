@@ -9,6 +9,6 @@
 // Negate negative margins for glossary meta inside a panel
 ._c-glossary-meta--in-panel {
   margin-right: -$base-whitespace * .6;
-  margin-bottom: 4 * $base-whitespace;
+  margin-bottom: $base-whitespace * -4;
   padding-left: $base-whitespace;
 }
