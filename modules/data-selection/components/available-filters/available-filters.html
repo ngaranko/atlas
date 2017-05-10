@@ -23,8 +23,8 @@
                 <div class="c-data-selection-available-filters--toon-meerminder" ng-if="vm.canExpandImplode(filter.slug) && vm.showExpandButton(filter.slug)">
                     <div class="c-data-selection-available-filters__separator"></div>
                     <button class="o-btn o-btn--link qa-show-more-button"
-                            ng-click="vm.expandFilter(filter.slug)">
-                        <strong>Toon meer</strong>
+                            ng-click="vm.expandFilter(filter.slug)"
+                        ><strong>Toon meer</strong>
                     </button>
                     <div class="c-data-selection-available-filters__separator"></div>
                 </div>
@@ -37,9 +37,8 @@
                     </div>
 
                     <button class="o-btn o-btn--link qa-show-more-button"
-                            ng-click="vm.implodeFilter(filter.slug)">
-
-                        <strong>Toon minder</strong>
+                            ng-click="vm.implodeFilter(filter.slug)"
+                        ><strong>Toon minder</strong>
                     </button>
 
                     <div class="c-data-selection-available-filters__separator"></div>
