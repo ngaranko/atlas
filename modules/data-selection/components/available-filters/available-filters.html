@@ -8,9 +8,6 @@
                         ng-repeat="option in filter.options | limitTo : vm.isExpandedFilter(filter.slug) ? undefined : vm.showMoreThreshold">
                         <button
                             class="o-btn o-btn--link"
-                            ng-class="{
-                                'u-color__primary--dark': vm.isFilterOptionActive(filter.slug, option.id)
-                            }"
                             ng-click="vm.addFilter(filter.slug, option.id)">
 
                             <span ng-class="{'c-data-selection-available-filters--empty-value': !option.label}">

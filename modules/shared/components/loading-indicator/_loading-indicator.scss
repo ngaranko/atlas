@@ -1,6 +1,7 @@
 .c-loading-indicator--box {
-  margin-top: $base-whitespace;
-  margin-left: $base-whitespace;
+  position: absolute;
+  top: $base-whitespace;
+  left: $base-whitespace;
   padding: $base-whitespace / 2;
   border: 1px solid $secondary-gray40;
   background-color: $primary-light;
