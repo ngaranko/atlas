@@ -25,11 +25,13 @@
 }
 
 .c-panel--warning {
+  padding: $base-whitespace * .3 $base-whitespace;
   background-color: $thema-10;
   color: $primary-light;
 }
 
 .c-panel--danger {
+  padding: $base-whitespace * .3 $base-whitespace;
   background-color: $primary-contrast;
   color: $primary-light;
 }
