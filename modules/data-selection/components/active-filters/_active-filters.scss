@@ -13,7 +13,8 @@
     background-color: $secondary-gray10;
     color: $primary-dark;
 
-    & :hover {
+    & :hover,
+    & :focus {
       color: $primary-contrast;
     }
   }
