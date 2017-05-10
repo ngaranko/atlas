@@ -40,6 +40,9 @@ module.exports = function (detailElement) {
         get kadastraalSubject () {
             return groupedDataPageObject(detailElement.element(by.css('.qa-kadastraal-subject')));
         },
+        get kadastraalSubjectRecht () {
+            return groupedDataPageObject(detailElement.element(by.css('.qa-kadastraal-subject-recht')));
+        },
         get natuurlijkPersoon () {
             return groupedDataPageObject(detailElement.element(by.css('.qa-natuurlijk-persoon')));
         },
@@ -80,6 +83,10 @@ function groupedDataPageObject (groupedDataElement) {
             const listItem = list.all(by.css('li')).get(index);
 
             return listItemPageObject(listItem);
+        },
+        get countList () {
+            const item = groupedDataElement.all(by.css('ul li'));
+            return item.count();
         }
     };
 }
