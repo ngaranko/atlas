@@ -288,7 +288,8 @@ describe('The draw tool factory', function () {
             on: (event, handler) => shapeClickHandler[event] = handler,
             off: angular.noop,
             getLatLngs: () => [vertices.map(v => v._latlng).slice(0, nVertices)],
-            intersects: () => false
+            intersects: () => false,
+            _path: angular.element()
         };
 
         function createPolygon () {
