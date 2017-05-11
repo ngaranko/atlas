@@ -5,14 +5,22 @@
   border: none;
   border-radius: 60px;
   outline: none;
-  background-color: $primary-contrast;
-  background-image: url("assets/icons/hotspot.svg");
   background-size: cover;
   cursor: pointer;
 
   animation: hotspot-animation 1s linear infinite;
   animation-direction: alternate;
   animation-play-state: paused;
+
+  &.hotspot--year-2016 {
+    background-color: $primary-contrast;
+    background-image: url("assets/images/hotspots/2016.svg");
+  }
+
+  &.hotspot--year-2017 {
+    background-color: $thema-3;
+    background-image: url("assets/images/hotspots/2017.svg");
+  }
 
   &:hover {
     animation-play-state: running;

@@ -6,7 +6,8 @@
         .component('dpHotspot', {
             bindings: {
                 sceneId: '=',
-                distance: '='
+                distance: '=',
+                year: '='
             },
             templateUrl: 'modules/straatbeeld/components/hotspot/hotspot.html',
             controller: DpHotspotController,
