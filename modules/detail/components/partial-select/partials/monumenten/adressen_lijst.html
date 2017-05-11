@@ -8,9 +8,8 @@
         <li ng-repeat="object in apiData.results">
             <dp-link
               payload="object.betreft_nummeraanduiding._links.self.href"
-              type="FETCH_DETAIL">
-                {{ object._display }}
-            </dp-link>
+              type="FETCH_DETAIL"
+              >{{ object._display }}</dp-link>
 
             <span
               class="muted"

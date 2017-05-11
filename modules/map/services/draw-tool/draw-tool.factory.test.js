@@ -197,7 +197,7 @@ describe('The draw tool factory', function () {
             fireEvent('draw:drawstart');
             $rootScope.$digest();
 
-            expect(onResult).toBe(true);
+            expect(onResult).toBe('draw');
         });
     });
 
@@ -288,7 +288,8 @@ describe('The draw tool factory', function () {
             on: (event, handler) => shapeClickHandler[event] = handler,
             off: angular.noop,
             getLatLngs: () => [vertices.map(v => v._latlng).slice(0, nVertices)],
-            intersects: () => false
+            intersects: () => false,
+            _path: angular.element()
         };
 
         function createPolygon () {
@@ -445,13 +446,11 @@ describe('The draw tool factory', function () {
 
             expect(editShapeHandler.enable).toHaveBeenCalled();
             fireEvent('draw:editstart');
-            expect(drawTool.getDrawingMode()).toEqual('EDIT');
 
             shapeClickHandler.click();
 
             expect(editShapeHandler.save).toHaveBeenCalled();
             expect(editShapeHandler.disable).toHaveBeenCalled();
-            expect(drawTool.getDrawingMode()).toEqual(null);
         });
 
         it('can edit a polygon by enabling the draw tool', function () {
@@ -461,13 +460,11 @@ describe('The draw tool factory', function () {
             expect(editShapeHandler.enable).toHaveBeenCalled();
 
             fireEvent('draw:editstart');
-            expect(drawTool.getDrawingMode()).toEqual('EDIT');
 
             drawTool.disable();
 
             expect(editShapeHandler.save).toHaveBeenCalled();
             expect(editShapeHandler.disable).toHaveBeenCalled();
-            expect(drawTool.getDrawingMode()).toEqual(null);
         });
 
         it('can add markers to a polygon in edit mode', function () {
