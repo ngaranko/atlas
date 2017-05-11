@@ -43,21 +43,15 @@
 }
 
 // drawn polygon on the map
-.leaflet-overlay-pane {
-  > svg {
-    .leaflet-interactive {
-      cursor: url("../assets/images/cursors/edit.cur"), url("assets/images/cursors/edit.cur"), pointer;
+.c-map__leaflet-drawn-polygon {
+  cursor: url("../assets/images/cursors/edit.cur"), url("assets/images/cursors/edit.cur"), pointer;
 
-      // sass-lint:disable nesting-depth
-      .c-map--drawing-mode-edit & {
-        cursor: url("../assets/images/cursors/save.cur"), url("assets/images/cursors/save.cur"), pointer;
-      }
+  .c-map--drawing-mode-edit & {
+    cursor: url("../assets/images/cursors/save.cur"), url("assets/images/cursors/save.cur"), pointer;
+  }
 
-      .leaflet-dragging & {
-        cursor: move;
-      }
-      // sass-lint:enable nesting-depth
-    }
+  .leaflet-dragging & {
+    cursor: move;
   }
 }
 

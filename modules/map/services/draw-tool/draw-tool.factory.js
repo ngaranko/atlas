@@ -68,6 +68,13 @@
 
         // triggered when a polygon has changed to a new valid state
         function onChangePolygon () {
+            //console.log('onChangePolygon', currentShape.layer._path);
+            // add class to drawn polygon
+            if (currentShape.layer && currentShape.layer._path) {
+                console.log('onChangePolygon change class');
+                angular.element(currentShape.layer._path).addClass('c-map__leaflet-drawn-polygon');
+            }
+
             // update the publicly available shape info, applyAsync because triggered by a leaflet event
             $rootScope.$applyAsync(() => updateShapeInfo());
         }
