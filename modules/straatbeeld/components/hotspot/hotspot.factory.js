@@ -26,7 +26,6 @@
             element.setAttribute('distance', 'distance');
             element.setAttribute('year', 'year');
 
-
             scope = $rootScope.$new();
             scope.sceneId = sceneId;
             scope.distance = distance;

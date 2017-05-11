@@ -60,17 +60,18 @@
             hotspots.sort(function (hotspotA, hotspotB) {
                 return hotspotB.distance - hotspotA.distance;
             }).forEach(function (hotspot) {
-                hotspotService.createHotspotTemplate(hotspot.id, hotspot.distance, hotspot.year).then(function (template) {
-                    var position = {
-                        yaw: angleConversion.degreesToRadians(hotspot.heading),
-                        pitch: calculateHotspotPitch(STRAATBEELD_CONFIG.CAMERA_HEIGHT, hotspot.distance)
-                    };
+                hotspotService.createHotspotTemplate(hotspot.id, hotspot.distance, hotspot.year)
+                    .then(function (template) {
+                        var position = {
+                            yaw: angleConversion.degreesToRadians(hotspot.heading),
+                            pitch: calculateHotspotPitch(STRAATBEELD_CONFIG.CAMERA_HEIGHT, hotspot.distance)
+                        };
 
-                    scene.hotspotContainer().createHotspot(
-                        template,
-                        position
-                    );
-                });
+                        scene.hotspotContainer().createHotspot(
+                            template,
+                            position
+                        );
+                    });
             });
 
             view.setYaw(angleConversion.degreesToRadians(heading));

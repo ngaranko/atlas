@@ -83,7 +83,7 @@
                             id: item.pano_id,
                             heading: item.heading,
                             distance: item.distance,
-                            year: Math.round(Math.random()+ 2016) // item.year
+                            year: item.year
                         };
                     }),
                     location: geojson.getCenter(formattedGeometrie),

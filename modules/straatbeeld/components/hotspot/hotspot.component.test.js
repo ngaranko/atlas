@@ -22,7 +22,7 @@ describe('The dp-hotspot directive', function () {
         });
     });
 
-    function getComponent (sceneId, distance) {
+    function getComponent (sceneId, distance, year) {
         var directive,
             element,
             scope;
@@ -30,10 +30,12 @@ describe('The dp-hotspot directive', function () {
         element = document.createElement('dp-hotspot');
         element.setAttribute('scene-id', 'sceneId');
         element.setAttribute('distance', 'distance');
+        element.setAttribute('year', 'year');
 
         scope = $rootScope.$new();
         scope.sceneId = sceneId;
         scope.distance = distance;
+        scope.year = year;
 
         directive = $compile(element)(scope);
         scope.$apply();
@@ -44,16 +46,16 @@ describe('The dp-hotspot directive', function () {
     it('creates a button with dimensions based on the distance', function () {
         var directive;
 
-        directive = getComponent('ABC', 4);
+        directive = getComponent('ABC', 4, 2016);
         expect(directive.find('button').attr('style')).toContain('width: 51px; height: 51px;');
 
-        directive = getComponent('ABC', 10);
+        directive = getComponent('ABC', 10, 2017);
         expect(directive.find('button').attr('style')).toContain('width: 21px; height: 21px;');
 
-        directive = getComponent('ABC', 15);
+        directive = getComponent('ABC', 15, 2016);
         expect(directive.find('button').attr('style')).toContain('width: 14px; height: 14px;');
 
-        directive = getComponent('ABC', 21);
+        directive = getComponent('ABC', 21, 2017);
         expect(directive.find('button').attr('style')).toContain('width: 10px; height: 10px;');
     });
 
@@ -63,18 +65,30 @@ describe('The dp-hotspot directive', function () {
             maximumStyle;
 
         // Minimum size
-        directive = getComponent('ABC', 4);
+        directive = getComponent('ABC', 4, 2016);
         minimumStyle = directive.find('button').attr('style');
 
-        directive = getComponent('ABC', 3);
+        directive = getComponent('ABC', 3, 2017);
         expect(minimumStyle).toBe(directive.find('button').attr('style'));
 
         // Maximum size
-        directive = getComponent('ABC', 21);
+        directive = getComponent('ABC', 21, 2016);
         maximumStyle = directive.find('button').attr('style');
 
-        directive = getComponent('ABC', 22);
+        directive = getComponent('ABC', 22, 2017);
         expect(maximumStyle).toBe(directive.find('button').attr('style'));
+    });
+
+    it('hotspots have the correct year attached to them', function () {
+        let directive;
+
+        // 2016
+        directive = getComponent('ABC', 4, 2016);
+        expect(directive.find('button').attr('class')).toContain('hotspot--year-2016');
+
+        // 2017
+        directive = getComponent('ABC', 4, 2017);
+        expect(directive.find('button').attr('class')).toContain('hotspot--year-2017');
     });
 
     it('clicking the hotspot will trigger the FETCH_STRAATBEELD_BY_HOTSPOT action', function () {
@@ -82,7 +96,7 @@ describe('The dp-hotspot directive', function () {
 
         spyOn(store, 'dispatch');
 
-        directive = getComponent('ABC', 20);
+        directive = getComponent('ABC', 20, 2016);
         directive.find('button').click();
 
         expect(store.dispatch).toHaveBeenCalledWith({
@@ -97,7 +111,7 @@ describe('The dp-hotspot directive', function () {
     it('has a screen reader fallback text', function () {
         var directive;
 
-        directive = getComponent('ABC', 5);
+        directive = getComponent('ABC', 5, 2017);
         expect(directive.find('button .u-sr-only').text()).toContain('Navigeer naar deze locatie');
     });
 });
