@@ -42,16 +42,30 @@
   }
 }
 
-// drawn polygon on the map
-.c-map__leaflet-drawn-polygon {
-  cursor: url("../assets/images/cursors/edit.cur"), url("assets/images/cursors/edit.cur"), pointer;
+.leaflet-overlay-pane {
+  > svg {
+    .leaflet-interactive {
+      cursor: default;
 
-  .c-map--drawing-mode-edit & {
-    cursor: url("../assets/images/cursors/save.cur"), url("assets/images/cursors/save.cur"), pointer;
-  }
+      // sass-lint:disable nesting-depth
+      .leaflet-dragging & {
+        cursor: move;
+      }
 
-  .leaflet-dragging & {
-    cursor: move;
+      // drawn polygon on the map
+      &.c-map__leaflet-drawn-polygon {
+        cursor: url("../assets/images/cursors/edit.cur"), url("assets/images/cursors/edit.cur"), pointer;
+
+        .c-map--drawing-mode-edit & {
+          cursor: url("../assets/images/cursors/save.cur"), url("assets/images/cursors/save.cur"), pointer;
+        }
+
+        .leaflet-dragging & {
+          cursor: move;
+        }
+      }
+      // sass-lint:enable nesting-depth
+    }
   }
 }
 
