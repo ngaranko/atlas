@@ -8,10 +8,9 @@
                         ng-repeat="option in filter.options | limitTo : vm.isExpandedFilter(filter.slug) ? undefined : vm.showMoreThreshold">
                         <button
                             class="o-btn o-btn--link"
-                            ng-click="vm.addFilter(filter.slug, option.id)">
-
-                            <span ng-class="{'c-data-selection-available-filters--empty-value': !option.label}">
-                                <span class="qa-option-label">{{option.label}}</span>
+                            ng-click="vm.addFilter(filter.slug, option.id)"
+                            ><span ng-class="{'c-data-selection-available-filters--empty-value': !option.label}"
+                                ><span class="qa-option-label">{{option.label}}</span>
                                 <span ng-if="vm.showOptionCounts">({{option.count}})</span>
                             </span>
                         </button>
@@ -22,7 +21,6 @@
                     <div class="c-data-selection-available-filters__separator"></div>
                     <button class="o-btn o-btn--link qa-show-more-button"
                             ng-click="vm.expandFilter(filter.slug)">
-
                         <strong>Toon meer</strong>
                     </button>
                     <div class="c-data-selection-available-filters__separator"></div>
