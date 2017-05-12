@@ -81,6 +81,7 @@
             if (newState.map) {
                 newState.map.showActiveOverlays = false;
                 newState.map.isFullscreen = false;
+                newState.map.geometry = [];
             }
             newState.search = null;
             if (newState.page) {
