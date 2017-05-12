@@ -72,6 +72,7 @@
             if (newState.map) {
                 newState.map.showActiveOverlays = false;
                 newState.map.isFullscreen = false;
+                newState.map.geometry = [];
             }
             newState.page.name = null;
             newState.detail = null;
