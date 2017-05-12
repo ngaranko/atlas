@@ -29,6 +29,7 @@
             newState.page.item = payload.item;
 
             newState.map.isFullscreen = false;
+            newState.map.drawingMode = 'none';
 
             newState.layerSelection.isEnabled = false;
             newState.search = null;

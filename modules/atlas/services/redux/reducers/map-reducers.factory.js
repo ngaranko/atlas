@@ -31,6 +31,7 @@
 
             newState.map.isFullscreen = true;
             newState.layerSelection.isEnabled = true;
+            newState.map.drawingMode = 'none';
 
             return newState;
         }
