@@ -59,6 +59,8 @@
                 newState.detail.isFullscreen = payload.isFullscreen;
 
                 newState.map.isLoading = false;
+                newState.map.drawingMode = 'none';
+
                 newState.detail.isLoading = false;
                 newState.detail.reload = false;
             }
