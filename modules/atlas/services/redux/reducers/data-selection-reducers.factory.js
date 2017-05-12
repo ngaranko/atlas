@@ -87,6 +87,9 @@
             }
 
             newState.map.isLoading = false;
+            if (newState.dataSelection.isFullscreen) {
+                newState.map.drawingMode = 'none';
+            }
 
             return newState;
         }
