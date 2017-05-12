@@ -24,6 +24,7 @@
             var newState = angular.copy(oldState);
 
             newState.atlas.isPrintMode = true;
+            newState.map.drawingMode = 'none';
 
             return newState;
         }
@@ -37,6 +38,7 @@
             var newState = angular.copy(oldState);
 
             newState.atlas.isPrintMode = false;
+            newState.map.drawingMode = 'none';
 
             return newState;
         }
