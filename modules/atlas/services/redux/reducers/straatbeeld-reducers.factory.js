@@ -120,6 +120,7 @@
 
             if (angular.isDefined(payload)) {
                 newState.straatbeeld.isFullscreen = payload;
+                newState.map.drawingMode = 'none';
             }
 
             return newState;
