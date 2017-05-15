@@ -1,10 +1,10 @@
 .hotspot {
-  width: 60px;
-  height: 60px;
+  width: 42px;
+  height: 42px;
   transform: scale(1);
   border: none;
-  border-radius: 60px;
   outline: none;
+  border-radius: 50%;
   background-size: cover;
   cursor: pointer;
 
@@ -12,14 +12,8 @@
   animation-direction: alternate;
   animation-play-state: paused;
 
-  &.hotspot--year-2016 {
-    background-color: $primary-contrast;
-    background-image: url("assets/images/hotspots/2016.svg");
-  }
-
-  &.hotspot--year-2017 {
-    background-color: $thema-3;
-    background-image: url("assets/images/hotspots/2017.svg");
+  .hotspot--image {
+    border-radius: 50%;
   }
 
   &:hover {
