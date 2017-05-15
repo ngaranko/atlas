@@ -1,40 +1,41 @@
-.hotspot {
+.c-hotspot {
   margin: 0 -20px;
   padding: 0 20px;
   outline: none;
   cursor: pointer;
 
-  .hotspot--image {
+  .c-hotspot__image {
+    transform: scale(1);
     background-size: cover;
-
-    &.hotspot--year-2016,
-    &.hotspot--year-2017 {
-      transform: scale(1);
-    }
-
-    &.hotspot--year-2016 {
-      background-image: url("assets/images/hotspots/2016.svg");
-    }
-
-    &.hotspot--year-2017 {
-      background-image: url("assets/images/hotspots/2017.svg");
-    }
   }
 
-  &.hotspot--year-2016:hover,
-  &.hotspot--year-2017:hover {
+  &:hover {
     transform: scale(1.15);
     animation: hotspot-animation 100ms linear;
   }
 
-  &.hotspot--year-2016:hover {
-    .hotspot--image {
-      background-image: url("assets/images/hotspots/2016-hover.svg");
+  &.c-hotspot--year-2016 {
+    .c-hotspot__image {
+      background-image: url("assets/images/hotspots/2016.svg");
+    }
+
+    &:hover {
+      .c-hotspot__image {
+        background-image: url("assets/images/hotspots/2016-hover.svg");
+      }
     }
   }
 
-  &.hotspot--year-2017:hover .hotspot--image {
-    background-image: url("assets/images/hotspots/2017-hover.svg");
+  &.c-hotspot--year-2017 {
+    .c-hotspot__image {
+      background-image: url("assets/images/hotspots/2017.svg");
+    }
+
+    &:hover {
+      .c-hotspot__image {
+        background-image: url("assets/images/hotspots/2017-hover.svg");
+      }
+    }
   }
 }
 
