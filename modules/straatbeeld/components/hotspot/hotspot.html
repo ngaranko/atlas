@@ -1,4 +1,7 @@
-<button class="hotspot" dp-hotspot-touch="vm.loadScene">
+<button class="hotspot" dp-hotspot-touch="vm.loadScene" ng-style="{
+    width: vm.size.width + 'px',
+    height: vm.size.height + 'px'
+    }">
     <image class="hotspot--image" ng-src="assets/images/hotspots/{{ vm.year }}-round.png" ng-style="{
     width: vm.size.width + 'px',
     height: vm.size.height + 'px'
