@@ -170,7 +170,6 @@ describe('The marzipanoService factory', function () {
                     distance: 5,
                     heading: 270,
                     year: 2016
-
                 }, {
                     id: 'XYZ',
                     distance: 11,
@@ -182,8 +181,8 @@ describe('The marzipanoService factory', function () {
             marzipanoService.loadScene('example.png', 179, 1, 2, mockedHotspots);
 
             expect(hotspotService.createHotspotTemplate).toHaveBeenCalledTimes(2);
-            expect(hotspotService.createHotspotTemplate).toHaveBeenCalledWith('XYZ', 11, 2017);
-            expect(hotspotService.createHotspotTemplate).toHaveBeenCalledWith('ABC', 5, 2016);
+            expect(hotspotService.createHotspotTemplate).toHaveBeenCalledWith('XYZ', 11, 0.09065988720074511, 2017);
+            expect(hotspotService.createHotspotTemplate).toHaveBeenCalledWith('ABC', 5, 0.19739555984988078, 2016);
 
             $rootScope.$apply();
 
