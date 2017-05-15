@@ -1,26 +1,49 @@
 .hotspot {
-  width: 42px;
-  height: 42px;
-  transform: rotateX(0.5rad);
-  border: none;
-  border-radius: 50%;
+  margin: 0 -20px;
+  padding: 0 20px;
   outline: none;
-  background-size: cover;
   cursor: pointer;
 
-  &.hotspot--year-2016 {
-    background-image: url("assets/images/hotspots/2016.svg");
+  .hotspot--image {
+    background-size: cover;
 
-    &:hover {
+    &.hotspot--year-2016,
+    &.hotspot--year-2017 {
+      transform: scale(1);
+    }
+
+    &.hotspot--year-2016 {
+      background-image: url("assets/images/hotspots/2016.svg");
+    }
+
+    &.hotspot--year-2017 {
+      background-image: url("assets/images/hotspots/2017.svg");
+    }
+  }
+
+  &.hotspot--year-2016:hover,
+  &.hotspot--year-2017:hover {
+    transform: scale(1.15);
+    animation: hotspot-animation 100ms linear;
+  }
+
+  &.hotspot--year-2016:hover {
+    .hotspot--image {
       background-image: url("assets/images/hotspots/2016-hover.svg");
     }
   }
 
-  &.hotspot--year-2017 {
-    background-image: url("assets/images/hotspots/2017.svg");
+  &.hotspot--year-2017:hover .hotspot--image {
+    background-image: url("assets/images/hotspots/2017-hover.svg");
+  }
+}
 
-    &:hover {
-      background-image: url("assets/images/hotspots/2017-hover.svg");
-    }
+@keyframes hotspot-animation {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.15);
   }
 }

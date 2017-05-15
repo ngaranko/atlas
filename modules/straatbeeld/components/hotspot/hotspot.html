@@ -1,6 +1,10 @@
 <button class="hotspot hotspot--year-{{vm.year}}" dp-hotspot-touch="vm.loadScene"
-        ng-style="{
+>
+    <div class="hotspot-rotation" ng-style="{
     width: vm.size + 'px',
     height: vm.size + 'px',
     transform: vm.transform
-    }"><span class="u-sr-only">Navigeer naar deze locatie</span></button>
+    }"><div class="hotspot--image hotspot--year-{{vm.year}}" ng-style="{
+    width: vm.size + 'px',
+    height: vm.size + 'px',
+    }"><span class="u-sr-only">Navigeer naar deze locatie</span></div></div></button>
