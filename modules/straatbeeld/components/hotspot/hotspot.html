@@ -1,10 +1,6 @@
-<button class="hotspot" dp-hotspot-touch="vm.loadScene" ng-style="{
-    width: vm.size.width + 'px',
-    height: vm.size.height + 'px'
-    }">
-    <image class="hotspot--image" ng-src="assets/images/hotspots/{{ vm.year }}-round.png" ng-style="{
-    width: vm.size.width + 'px',
-    height: vm.size.height + 'px'
-    }"></image>
-    <span class="u-sr-only">Navigeer naar deze locatie</span>
-</button>
+<button class="hotspot hotspot--year-{{vm.year}}" dp-hotspot-touch="vm.loadScene"
+        ng-style="{
+    width: vm.size + 'px',
+    height: vm.size + 'px',
+    transform: vm.transform
+    }"><span class="u-sr-only">Navigeer naar deze locatie</span></button>

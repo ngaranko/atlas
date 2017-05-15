@@ -1,38 +1,26 @@
 .hotspot {
   width: 42px;
   height: 42px;
-  transform: scale(1);
+  transform: rotateX(0.5rad);
   border: none;
-  outline: none;
   border-radius: 50%;
+  outline: none;
   background-size: cover;
   cursor: pointer;
 
-  animation: hotspot-animation 1s linear infinite;
-  animation-direction: alternate;
-  animation-play-state: paused;
+  &.hotspot--year-2016 {
+    background-image: url("assets/images/hotspots/2016.svg");
 
-  .hotspot--image {
-    border-radius: 50%;
+    &:hover {
+      background-image: url("assets/images/hotspots/2016-hover.svg");
+    }
   }
 
-  &:hover {
-    animation-play-state: running;
-  }
+  &.hotspot--year-2017 {
+    background-image: url("assets/images/hotspots/2017.svg");
 
-  &:focus {
-    border: 1px solid $primary-contrast;
-  }
-}
-
-@keyframes hotspot-animation {
-  0% {
-    transform: scale(1);
-    opacity: .5;
-  }
-
-  100% {
-    transform: scale(1.1);
-    opacity: 1;
+    &:hover {
+      background-image: url("assets/images/hotspots/2017-hover.svg");
+    }
   }
 }

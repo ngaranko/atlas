@@ -60,11 +60,13 @@
             hotspots.sort(function (hotspotA, hotspotB) {
                 return hotspotB.distance - hotspotA.distance;
             }).forEach(function (hotspot) {
-                hotspotService.createHotspotTemplate(hotspot.id, hotspot.distance, hotspot.year)
+
+                var pitch = calculateHotspotPitch(STRAATBEELD_CONFIG.CAMERA_HEIGHT, hotspot.distance);
+                hotspotService.createHotspotTemplate(hotspot.id, hotspot.distance, pitch, hotspot.year)
                     .then(function (template) {
                         var position = {
                             yaw: angleConversion.degreesToRadians(hotspot.heading),
-                            pitch: calculateHotspotPitch(STRAATBEELD_CONFIG.CAMERA_HEIGHT, hotspot.distance)
+                            pitch: pitch
                         };
 
                         scene.hotspotContainer().createHotspot(
