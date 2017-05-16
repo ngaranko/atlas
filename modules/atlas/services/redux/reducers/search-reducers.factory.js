@@ -36,6 +36,7 @@
             };
 
             newState.map.isFullscreen = false;
+            newState.map.drawingMode = 'none';
 
             newState.layerSelection.isEnabled = false;
             newState.page.name = null;
@@ -73,6 +74,7 @@
                 newState.map.showActiveOverlays = false;
                 newState.map.isFullscreen = false;
                 newState.map.geometry = [];
+                newState.map.drawingMode = 'none';
             }
             newState.page.name = null;
             newState.detail = null;
