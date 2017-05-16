@@ -82,6 +82,7 @@
                 newState.map.showActiveOverlays = false;
                 newState.map.isFullscreen = false;
                 newState.map.geometry = [];
+                newState.map.drawingMode = 'none';
             }
             newState.search = null;
             if (newState.page) {
@@ -179,7 +180,6 @@
             if (angular.isObject(newState.straatbeeld)) {
                 // Keep map centered on last selected hotspot
                 newState.map.viewCenter = payload.location;
-                newState.map.drawingMode = 'none';
             }
 
             return newState;
