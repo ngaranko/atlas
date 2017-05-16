@@ -12,18 +12,14 @@
   &:hover {
     transform: scale(1.15);
     animation: hotspot-animation 100ms linear;
-  }
 
-  &.c-hotspot--year-2016 {
-    &:hover {
+    &.c-hotspot--year-2016 {
       .c-hotspot__image {
         background-image: url("assets/images/hotspots/2016-hover.svg");
       }
     }
-  }
 
-  &.c-hotspot--year-2017 {
-    &:hover {
+    &.c-hotspot--year-2017 {
       .c-hotspot__image {
         background-image: url("assets/images/hotspots/2017-hover.svg");
       }
@@ -35,6 +31,7 @@
   .c-hotspot--year-2016 & {
     background-image: url("assets/images/hotspots/2016.svg");
   }
+  
   .c-hotspot--year-2017 & {
     background-image: url("assets/images/hotspots/2017.svg");
   }
