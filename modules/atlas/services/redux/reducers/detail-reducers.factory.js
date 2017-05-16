@@ -33,6 +33,7 @@
 
             newState.map.isLoading = true;
             newState.map.isFullscreen = false;
+            newState.map.drawingMode = 'none';
 
             newState.layerSelection.isEnabled = false;
             newState.search = null;
@@ -59,7 +60,6 @@
                 newState.detail.isFullscreen = payload.isFullscreen;
 
                 newState.map.isLoading = false;
-                newState.map.drawingMode = 'none';
 
                 newState.detail.isLoading = false;
                 newState.detail.reload = false;

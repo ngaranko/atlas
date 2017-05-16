@@ -23,7 +23,7 @@
 
         vm.toggle = () => {
             if (drawTool.isEnabled()) {
-                drawTool.disable();
+                drawTool.disable(true);
             } else {
                 if (drawTool.shape.markers.length > 0) {
                     drawTool.setPolygon([]);
