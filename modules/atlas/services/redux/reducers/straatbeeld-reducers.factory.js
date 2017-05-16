@@ -121,7 +121,10 @@
 
             if (angular.isDefined(payload)) {
                 newState.straatbeeld.isFullscreen = payload;
-                newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
+
+                if (newState.straatbeeld.isFullscreen) {
+                    newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
+                }
             }
 
             return newState;

@@ -1,6 +1,7 @@
 describe('The printReducers factory', function () {
     var printReducers,
         ACTIONS,
+        DRAW_TOOL_CONFIG,
         defaultState;
 
     defaultState = {
@@ -31,9 +32,10 @@ describe('The printReducers factory', function () {
     beforeEach(function () {
         angular.mock.module('atlas');
 
-        angular.mock.inject(function (_printReducers_, _ACTIONS_) {
+        angular.mock.inject(function (_printReducers_, _ACTIONS_, _DRAW_TOOL_CONFIG_) {
             printReducers = _printReducers_;
             ACTIONS = _ACTIONS_;
+            DRAW_TOOL_CONFIG = _DRAW_TOOL_CONFIG_;
         });
     });
 
@@ -42,6 +44,11 @@ describe('The printReducers factory', function () {
             var output = printReducers[ACTIONS.SHOW_PRINT.id](defaultState);
 
             expect(output.atlas.isPrintMode).toBe(true);
+        });
+
+        it('should reset drawing mode', function () {
+            var output = printReducers[ACTIONS.SHOW_PRINT.id](defaultState);
+            expect(output.map.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
         });
     });
 
@@ -56,6 +63,11 @@ describe('The printReducers factory', function () {
             output = printReducers[ACTIONS.HIDE_PRINT.id](inputState);
 
             expect(output.atlas.isPrintMode).toBe(false);
+        });
+
+        it('should reset drawing mode', function () {
+            var output = printReducers[ACTIONS.SHOW_PRINT.id](defaultState);
+            expect(output.map.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
         });
     });
 });

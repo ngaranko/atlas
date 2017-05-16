@@ -85,12 +85,13 @@
                 newState.dataSelection.isLoading = false;
 
                 newState.dataSelection.isFullscreen = newState.dataSelection.view !== 'LIST';
+
+                if (newState.dataSelection.isFullscreen) {
+                    newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
+                }
             }
 
             newState.map.isLoading = false;
-            if (newState.dataSelection.isFullscreen) {
-                newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
-            }
 
             return newState;
         }
