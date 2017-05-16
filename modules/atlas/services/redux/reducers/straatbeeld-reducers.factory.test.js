@@ -163,9 +163,11 @@ describe('Straatbeeld reducers factory', function () {
     describe('STRAATBEELD_FULLSCREEN', () => {
         let payload;
 
-        it('can set straatbeeld explicitly to fullscreen', function () {
+        beforeEach(function () {
             inputState.straatbeeld = {};
+        });
 
+        it('can set straatbeeld explicitly to fullscreen', function () {
             let newState = straatbeeldReducers[ACTIONS.STRAATBEELD_FULLSCREEN.id](inputState);
             expect(newState.straatbeeld.isFullscreen).toBeUndefined();
 
@@ -184,14 +186,16 @@ describe('Straatbeeld reducers factory', function () {
 
         it('should reset drawing mode when fullscreen is active', function () {
             payload = true;
-            inputState.straatbeeld = {};
-            const input = angular.copy(inputState);
-            let newState = straatbeeldReducers[ACTIONS.STRAATBEELD_FULLSCREEN.id](input, payload);
+            const input = angular.copy(inputState),
+                newState = straatbeeldReducers[ACTIONS.STRAATBEELD_FULLSCREEN.id](input, payload);
 
             expect(newState.map.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
+        });
 
+        it('should reset drawing mode when fullscreen is not active', function () {
             payload = false;
-            newState = straatbeeldReducers[ACTIONS.STRAATBEELD_FULLSCREEN.id](input, payload);
+            const input = angular.copy(inputState),
+                newState = straatbeeldReducers[ACTIONS.STRAATBEELD_FULLSCREEN.id](input, payload);
 
             expect(newState.map.drawingMode).toBeUndefined();
         });
