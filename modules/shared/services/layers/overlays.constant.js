@@ -653,8 +653,8 @@
                 },
                 mgth: {
                     url: 'maps/planologischezonesschiphol',
-                    label_short: 'Schiphol - Maatg. toetshoogtes',
-                    label_long: 'Schiphol - Maatgevende toetshoogtes',
+                    label_short: 'Schiphol - Toetshoogte',
+                    label_long: 'Schiphol - Maatgevende toetshoogte',
                     layers: ['maatgevendetoetshoogteschiphol'],
                     minZoom: 8,
                     maxZoom: 16,
@@ -663,8 +663,8 @@
                 },
                 mthr: {
                     url: 'maps/planologischezonesschiphol',
-                    label_short: 'Schiphol - Toetshoogtes radar',
-                    label_long: 'Schiphol - Toetshoogtes voor radar',
+                    label_short: 'Schiphol - Toetshoogte radar',
+                    label_long: 'Schiphol - Toetshoogte i.v.m. radar',
                     layers: ['toetshoogteradarschiphol'],
                     minZoom: 8,
                     maxZoom: 16,
