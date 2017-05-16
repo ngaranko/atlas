@@ -6,7 +6,9 @@
         .component('dpHotspot', {
             bindings: {
                 sceneId: '=',
-                distance: '='
+                distance: '=',
+                pitch: '=',
+                year: '='
             },
             templateUrl: 'modules/straatbeeld/components/hotspot/hotspot.html',
             controller: DpHotspotController,
@@ -17,12 +19,12 @@
 
     function DpHotspotController (store, ACTIONS, STRAATBEELD_CONFIG, angleConversion) {
         var vm = this,
-            realLifeHotspotSize = 0.3,
+            realLifeHotspotSize = 0.6,
             minDistance = 4,
             maxDistance = 21,
             correctedDistance,
             viewAngle,
-            viewport;
+            viewport = 960;
 
         /*
         All hotspots are shown, the min- and maxDistance variables are only used to determine the minimum and maximum
@@ -35,8 +37,8 @@
         The actual hotspot size is dependent on the width of the straatbeeld and the FOV. For this first version we're
         making assumptions about the viewport and FOV.
         */
-        viewport = 960;
         vm.size = Math.round(angleConversion.radiansToDegrees(viewAngle) * viewport / STRAATBEELD_CONFIG.DEFAULT_FOV);
+        vm.transform = 'rotateX(' + (90 - angleConversion.radiansToDegrees(vm.pitch)) + 'deg)';
 
         vm.loadScene = function () {
             store.dispatch({

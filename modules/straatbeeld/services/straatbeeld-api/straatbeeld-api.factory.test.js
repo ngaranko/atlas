@@ -46,12 +46,14 @@ describe('The straatbeeldApi Factory', function () {
                             adjacent: [{
                                 pano_id: 'TMX7315120208-000054_pano_0002_000177',
                                 heading: 116.48,
-                                distance: 10.14
+                                distance: 10.14,
+                                year: 2016
                             },
                             {
                                 pano_id: 'TMX7315120208-000054_pano_0002_000178',
                                 heading: 127.37,
-                                distance: 5.25
+                                distance: 5.25,
+                                year: 2017
                             }],
                             timestamp: '2016-05-19T13:04:15.341110Z'
                         });
@@ -216,11 +218,13 @@ describe('The straatbeeldApi Factory', function () {
                 [{
                     id: 'TMX7315120208-000054_pano_0002_000177',
                     heading: 116.48,
-                    distance: 10.14
+                    distance: 10.14,
+                    year: 2016
                 }, {
                     id: 'TMX7315120208-000054_pano_0002_000178',
                     heading: 127.37,
-                    distance: 5.25
+                    distance: 5.25,
+                    year: 2017
                 }]
             );
         });
