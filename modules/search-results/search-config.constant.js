@@ -67,6 +67,10 @@
                 }, {
                     uri: 'geosearch/bominslag/',
                     radius: 25
+                }, {
+                    // TODO: Change to conventional URL when delivered (#995)
+                    uri: 'geosearch/search/?item=monument',
+                    radius: 25
                 }
             ],
             COORDINATES_HIERARCHY: [
@@ -144,6 +148,13 @@
                         uitgevoerdonderzoek: 'reeds uitgevoerd CE onderzoek',
                         verdachtgebied: 'verdacht gebied'
                     }
+                }, {
+                    slug: 'monument',
+                    label_singular: 'Monument',
+                    label_plural: 'Monumenten',
+                    features: [
+                        'monumenten/monument'
+                    ]
                 }
             ]
         });

@@ -1,6 +1,8 @@
 describe('The dp-data-selection-download-button component', function () {
-    var $compile,
-        $rootScope;
+    let $compile,
+        $q,
+        $rootScope,
+        api;
 
     beforeEach(function () {
         angular.mock.module(
@@ -40,18 +42,18 @@ describe('The dp-data-selection-download-button component', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_) {
+        angular.mock.inject(function (_$compile_, _$q_, _$rootScope_, _api_) {
             $compile = _$compile_;
+            $q = _$q_;
             $rootScope = _$rootScope_;
+            api = _api_;
         });
+
+        spyOn(api, 'createUrlWithToken').and.callFake($q.resolve); // wrap url in promise
     });
 
     function getComponent (dataset, activeFilters, geometryMarkers) {
-        var component,
-            element,
-            scope;
-
-        element = document.createElement('dp-data-selection-download-button');
+        const element = document.createElement('dp-data-selection-download-button');
         element.setAttribute('dataset', dataset);
         element.setAttribute('active-filters', 'activeFilters');
 
@@ -59,25 +61,25 @@ describe('The dp-data-selection-download-button component', function () {
             element.setAttribute('geometry-filter', 'geometryFilter');
         }
 
-        scope = $rootScope.$new();
+        const scope = $rootScope.$new();
         scope.activeFilters = activeFilters;
 
         scope.geometryFilter = { markers: geometryMarkers, description: 'hello' };
 
-        component = $compile(element)(scope);
-        scope.$apply();
+        const component = $compile(element)(scope);
+        scope.$digest();
 
         return component;
     }
 
     it('will generate a download link for the current dataset', function () {
-        var component = getComponent('dataset_a', {});
+        const component = getComponent('dataset_a', {});
 
         expect(component.find('a').attr('href')).toBe('http://www.example.com/datasets/a/download/');
     });
 
     it('will filters as parameters to the download link', function () {
-        var component;
+        let component;
 
         // With one active filter
         component = getComponent('dataset_a', {
@@ -98,10 +100,8 @@ describe('The dp-data-selection-download-button component', function () {
     });
 
     it('uses URL encoding for the values of the active filters', function () {
-        var component;
-
         // With one active filter
-        component = getComponent('dataset_a', {
+        const component = getComponent('dataset_a', {
             filter_a: 'äéë',
             filter_b: 'Waarde met spaties'
         });
@@ -133,16 +133,24 @@ describe('The dp-data-selection-download-button component', function () {
         scope.vm.dataset = 'dataset_b';
         delete scope.vm.activeFilters.filter_a;
         scope.vm.activeFilters.filter_b = 'hallo';
-        component.isolateScope().$apply();
+        component.isolateScope().$digest();
 
         expect(component.find('a').attr('href'))
             .toBe('http://www.example.com/datasets/b/download/?filter_b=hallo');
 
         component = getComponent(dataset, activeFilters, markers);
 
-        component.isolateScope().$apply();
+        component.isolateScope().$digest();
 
         expect(component.find('a').attr('href'))
             .toBe('http://www.example.com/datasets/a/download/?filter_b=hallo&shape=[[3,2],[5,4]]');
+    });
+
+    it('enriches the download url with the access token', () => {
+        api.createUrlWithToken.and.returnValue($q.resolve('tokenUrl'));
+        const component = getComponent('dataset_a', {
+            filter_a: 'äéë'
+        });
+        expect(component.find('a').attr('href')).toBe('tokenUrl');
     });
 });

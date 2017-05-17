@@ -14,9 +14,9 @@
 }
 
 .c-straatbeeld-metadata__coordinates {
+  @include font-weight($bold-weight);
   padding-left: $base-whitespace;
   float: right;
   border-left: solid $secondary-gray20 1px;
-  font-weight: bold;
   line-height: $button-size;
 }

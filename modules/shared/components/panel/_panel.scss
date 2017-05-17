@@ -8,8 +8,8 @@
 
 .c-panel__title {
   @include font-size-responsive($l-header-font);
+  @include font-weight($bold-weight);
   margin-bottom: $base-whitespace;
-  font-weight: bold;
 }
 
 .c-panel__paragraph {
@@ -20,16 +20,14 @@
   }
 }
 
-.c-panel--can-close {
-  padding-right: $button-size;
-}
-
 .c-panel--warning {
+  padding: $base-whitespace * .3 $base-whitespace;
   background-color: $thema-10;
   color: $primary-light;
 }
 
 .c-panel--danger {
+  padding: $base-whitespace * .3 $base-whitespace;
   background-color: $primary-contrast;
   color: $primary-light;
 }
@@ -48,4 +46,8 @@
   right: ($button-size + $base-whitespace) * 2; //afstand berekend mbt metadata en stelselpedia buttons
   padding: 0 $base-whitespace;
   line-height: $button-size;
+}
+
+.c-panel--can-close {
+  padding-right: $button-size;
 }

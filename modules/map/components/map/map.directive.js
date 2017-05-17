@@ -101,6 +101,10 @@
                         leafletMap.invalidateSize();
                     });
                 });
+
+                scope.$watch('mapState.drawingMode', (drawingMode) => {
+                    scope.drawingMode = drawingMode;
+                });
             });
 
             function setOverlays () {
