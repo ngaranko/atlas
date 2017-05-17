@@ -22,7 +22,7 @@ describe('The dp-hotspot directive', function () {
         });
     });
 
-    function getComponent (sceneId, distance) {
+    function getComponent (sceneId, distance, pitch, year) {
         var directive,
             element,
             scope;
@@ -30,10 +30,14 @@ describe('The dp-hotspot directive', function () {
         element = document.createElement('dp-hotspot');
         element.setAttribute('scene-id', 'sceneId');
         element.setAttribute('distance', 'distance');
+        element.setAttribute('pitch', 'pitch');
+        element.setAttribute('year', 'year');
 
         scope = $rootScope.$new();
         scope.sceneId = sceneId;
         scope.distance = distance;
+        scope.pitch = pitch;
+        scope.year = year;
 
         directive = $compile(element)(scope);
         scope.$apply();
@@ -41,20 +45,24 @@ describe('The dp-hotspot directive', function () {
         return directive;
     }
 
-    it('creates a button with dimensions based on the distance', function () {
+    it('creates a button with dimensions and rotations based on the distance', function () {
         var directive;
 
-        directive = getComponent('ABC', 4);
-        expect(directive.find('button').attr('style')).toContain('width: 51px; height: 51px;');
+        directive = getComponent('ABC', 4, 0.1, 2016);
+        expect(directive.find('.qa-hotspot-rotation').attr('style')).toContain('width: 102px; height: 102px;');
+        expect(directive.find('.qa-hotspot-rotation').attr('style')).toContain('rotateX(84.27042204869177deg)');
 
-        directive = getComponent('ABC', 10);
-        expect(directive.find('button').attr('style')).toContain('width: 21px; height: 21px;');
+        directive = getComponent('ABC', 10, 0.15, 2017);
+        expect(directive.find('.qa-hotspot-rotation').attr('style')).toContain('width: 41px; height: 41px;');
+        expect(directive.find('.qa-hotspot-rotation').attr('style')).toContain('rotateX(81.40563307303765deg)');
 
-        directive = getComponent('ABC', 15);
-        expect(directive.find('button').attr('style')).toContain('width: 14px; height: 14px;');
+        directive = getComponent('ABC', 15, 0.2, 2016);
+        expect(directive.find('.qa-hotspot-rotation').attr('style')).toContain('width: 27px; height: 27px;');
+        expect(directive.find('.qa-hotspot-rotation').attr('style')).toContain('rotateX(78.54084409738354deg)');
 
-        directive = getComponent('ABC', 21);
-        expect(directive.find('button').attr('style')).toContain('width: 10px; height: 10px;');
+        directive = getComponent('ABC', 21, 0.5, 2017);
+        expect(directive.find('.qa-hotspot-rotation').attr('style')).toContain('width: 20px; height: 20px;');
+        expect(directive.find('.qa-hotspot-rotation').attr('style')).toContain('rotateX(61.35211024345884deg)');
     });
 
     it('hotspots have a minimum and maximum size as if they in the 4-21 meter range', function () {
@@ -63,18 +71,30 @@ describe('The dp-hotspot directive', function () {
             maximumStyle;
 
         // Minimum size
-        directive = getComponent('ABC', 4);
-        minimumStyle = directive.find('button').attr('style');
+        directive = getComponent('ABC', 4, 0.1, 2016);
+        minimumStyle = directive.find('.qa-hotspot-button').attr('style');
 
-        directive = getComponent('ABC', 3);
-        expect(minimumStyle).toBe(directive.find('button').attr('style'));
+        directive = getComponent('ABC', 3, 0.1, 2017);
+        expect(minimumStyle).toBe(directive.find('.qa-hotspot-button').attr('style'));
 
         // Maximum size
-        directive = getComponent('ABC', 21);
-        maximumStyle = directive.find('button').attr('style');
+        directive = getComponent('ABC', 21, 0.1, 2016);
+        maximumStyle = directive.find('.qa-hotspot-button').attr('style');
 
-        directive = getComponent('ABC', 22);
-        expect(maximumStyle).toBe(directive.find('button').attr('style'));
+        directive = getComponent('ABC', 22, 0.1, 2017);
+        expect(maximumStyle).toBe(directive.find('.qa-hotspot-button').attr('style'));
+    });
+
+    it('hotspots have the correct year attached to them', function () {
+        let directive;
+
+        // 2016
+        directive = getComponent('ABC', 4, 0.1, 2016);
+        expect(directive.find('.qa-hotspot-button').attr('class')).toContain('c-hotspot--year-2016');
+
+        // 2017
+        directive = getComponent('ABC', 4, 0.3, 2017);
+        expect(directive.find('.qa-hotspot-button').attr('class')).toContain('c-hotspot--year-2017');
     });
 
     it('clicking the hotspot will trigger the FETCH_STRAATBEELD_BY_HOTSPOT action', function () {
@@ -82,7 +102,7 @@ describe('The dp-hotspot directive', function () {
 
         spyOn(store, 'dispatch');
 
-        directive = getComponent('ABC', 20);
+        directive = getComponent('ABC', 20, 0.5, 2016);
         directive.find('button').click();
 
         expect(store.dispatch).toHaveBeenCalledWith({
@@ -97,7 +117,7 @@ describe('The dp-hotspot directive', function () {
     it('has a screen reader fallback text', function () {
         var directive;
 
-        directive = getComponent('ABC', 5);
+        directive = getComponent('ABC', 5, 0.7, 2017);
         expect(directive.find('button .u-sr-only').text()).toContain('Navigeer naar deze locatie');
     });
 });

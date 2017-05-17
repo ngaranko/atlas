@@ -19,38 +19,17 @@ describe('The hotspotService', function () {
     });
 
     it('creates hotspot HTML', function () {
-        hotspotService.createHotspotTemplate(789, 15).then(function (template) {
+        hotspotService.createHotspotTemplate(789, 15, 0.29, 2016).then(function (template) {
             var html = template.outerHTML,
                 scope = angular.element(template).scope();
 
-            expect(html).toContain('<dp-hotspot scene-id="sceneId" distance="distance"');
+            expect(html).toContain('<dp-hotspot scene-id="sceneId" distance="distance" pitch="pitch" year="year"');
             expect(scope.sceneId).toBe(789);
             expect(scope.distance).toBe(15);
+            expect(scope.pitch).toBe(0.29);
+            expect(scope.year).toBe(2016);
         });
 
         $rootScope.$apply();
-    });
-
-    it('calculates the location of the hotspot', function () {
-        var absolutePosition,
-            camera,
-            hotspot;
-
-        camera = {
-            heading: 2,
-            pitch: 0.5
-        };
-
-        hotspot = {
-            relativeLocation: {
-                yaw: 0.5,
-                pitch: 0.1
-            }
-        };
-
-        absolutePosition = hotspotService.calculateHotspotPosition(camera, hotspot);
-
-        expect(absolutePosition.yaw).toBe(-1.5);
-        expect(absolutePosition.pitch).toBe(0.6);
     });
 });
