@@ -30,8 +30,8 @@ RUN { \
 
 # do some fancy footwork to create a JAVA_HOME that's cross-architecture-safe
 RUN ln -svT "/usr/lib/jvm/java-8-openjdk-$(dpkg --print-architecture)" /docker-java-home
-ENV JAVA_HOME /docker-java-home
 
+ENV JAVA_HOME /docker-java-home
 ENV JAVA_VERSION 8u131
 ENV JAVA_DEBIAN_VERSION 8u131-b11-1~bpo8+1
 
@@ -64,17 +64,16 @@ WORKDIR /app
 
 ENV PATH=./node_modules/.bin/:~/node_modules/.bin/:$PATH
 RUN git config --global url.https://github.com/.insteadOf git://github.com/ \
-  && git config --global url."https://github.com/".insteadOf git@github.com:
-RUN npm install && bower install --allow-root && ./node_modules/protractor/node_modules/webdriver-manager/bin/webdriver-manager update
-# RUN chown -R root /usr/local/lib/node_modules/
+  && git config --global url."https://github.com/".insteadOf git@github.com: \
+  && npm install && bower install --allow-root \
+  && ./node_modules/protractor/node_modules/webdriver-manager/bin/webdriver-manager update
 
 ARG BUILD_ID
 ENV BUILD_ID=$BUILD_ID
 
-RUN grunt set-build-id --buildid=${BUILD_ID}
-
-RUN grunt build-release \
- && cp -r /app/build/. /var/www/html/
+RUN grunt set-build-id --buildid=${BUILD_ID} \
+  && grunt build-release \
+  && cp -r /app/build/. /var/www/html/
 
 COPY default.conf /etc/nginx/conf.d/
 RUN rm /etc/nginx/sites-enabled/default
