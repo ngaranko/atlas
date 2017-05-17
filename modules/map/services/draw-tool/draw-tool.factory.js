@@ -281,15 +281,12 @@
         }
 
         // end of draw or edit mode => in create mode complete shape, in edit mode save shape
-        function disable (doCompleteShape) {
+        function disable () {
             if (isEnabled()) {
                 if (drawTool.drawingMode === DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW) {
                     if (currentShape.markers.length > 1) {
                         // Close the polyline between the first and last points
-                        if (doCompleteShape) {
-                            drawTool.drawShapeHandler.completeShape();
-                        }
-                        drawTool.drawShapeHandler.disable();
+                        drawTool.drawShapeHandler.completeShape();
                     } else {
                         drawTool.drawShapeHandler.disable();
                     }
