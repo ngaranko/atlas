@@ -122,6 +122,7 @@ describe('The contextMiddleware factory', function () {
 
     it('translates MAP_END_DRAWING action in reset drawing when map is active and resetDrawing is true', function () {
         mockedAction.type = ACTIONS.MAP_END_DRAWING;
+        mockedAction.payload = 'aap';
         mockedStore.getState = () => {
             return {
                 map: {

@@ -307,6 +307,14 @@ describe('Straatbeeld reducers factory', function () {
             expect(output.straatbeeld.targetLocation).toEqual(location);
         });
 
+        it('removes a drawn line from the map', function () {
+            const state = { map: {} },
+                location = [52.001, 4.002],
+                output = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION.id](state, location);
+
+            expect(output.map.geometry).toEqual([]);
+        });
+
         it('heads towards a targetlocation when straatbeeld is loaded by location', function () {
             let newState;
 

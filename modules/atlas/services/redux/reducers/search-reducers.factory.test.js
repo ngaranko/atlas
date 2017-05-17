@@ -302,6 +302,13 @@ describe('The search-reducers factory', function () {
             expect(output.map.isFullscreen).toBe(false);
         });
 
+        it('removes a drawn line from the map', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, [52.001, 4.002]);
+
+            expect(output.map.geometry).toEqual([]);
+        });
+
         it('does not depend on a map being present', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
