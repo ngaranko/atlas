@@ -14,7 +14,7 @@
                     // Straatbeeld and detail can both exist in an invisible state
                     // An invisible straatbeeld or detail determines the meaning of some events
                     // These events are thus context sensitive and therefore handled by this middleware
-                    const { straatbeeld, detail, page } = store.getState();
+                    const { straatbeeld, detail, page, map } = store.getState();
 
                     if (action.type.id === ACTIONS.MAP_CLICK.id) {
                         if (angular.isObject(straatbeeld)) {
@@ -41,10 +41,12 @@
                         }
                     }
 
-                    if(action.type.id === ACTIONS.MAP_END_DRAWING.id && angular.isObject(map) && map.resetDrawing) {
+                    // if the MAP_END_DRAWING action is started and the map is active and the drawing should be reset
+                    if (action.type.id === ACTIONS.MAP_END_DRAWING.id && angular.isObject(map) && map.resetDrawing) {
                         action.type = ACTIONS.MAP_RESET_DRAWING;
+                        delete action.payload;
                     }
-                    // Update the state
+
                     return next(action);
                 };
             };
