@@ -21,8 +21,20 @@
         <dp-api-call endpoint="{{vm.apiData.results.maatschappelijke_activiteit}}" partial="handelsregister/kvk-nummer"></dp-api-call>
         <dt>Postadres</dt>
         <dd> {{ vm.apiData.results.postadres.volledig_adres }} </dd>
+        <dd ng-if="vm.apiData.results.postadres.correctie"
+            class="c-key-value-list--multiple-values">
+            <dp-message>
+                <span>Officieel BAG-locatie niet bekend, schatting: {{ ::vm.apiData.results.postadres.query_string }}</span>
+            </dp-message>
+        </dd>
         <dt>Bezoekadres</dt>
         <dd> {{ vm.apiData.results.bezoekadres.volledig_adres }}</dd>
+        <dd ng-if="vm.apiData.results.bezoekadres.correctie"
+            class="c-key-value-list--multiple-values">
+            <dp-message>
+                <span>Officieel BAG-adres niet bekend, schatting: {{ ::vm.apiData.results.bezoekadres.query_string }}</span>
+            </dp-message>
+        </dd>
         <dt>Indicatie non-mailing</dt>
         <dp-api-call endpoint="{{vm.apiData.results.maatschappelijke_activiteit}}" partial="handelsregister/non-mailing"></dp-api-call>
         <dt>Afgeschermd</dt>
