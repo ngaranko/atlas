@@ -51,6 +51,8 @@
             newState.dataSelection = null;
 
             newState.map.isLoading = true;
+            newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
+            newState.map.resetDrawing = true;
 
             return newState;
         }
@@ -82,7 +84,6 @@
                 newState.map.showActiveOverlays = false;
                 newState.map.isFullscreen = false;
                 newState.map.geometry = [];
-                newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
             }
             newState.search = null;
             if (newState.page) {
