@@ -83,6 +83,10 @@
                 id: 'MAP_END_DRAWING',
                 isButton: true
             },
+            MAP_RESET_DRAWING: {
+                id: 'MAP_RESET_DRAWING',
+                ignore: true
+            },
             SHOW_MAP_ACTIVE_OVERLAYS: {
                 id: 'SHOW_MAP_ACTIVE_OVERLAYS',
                 replace: true,

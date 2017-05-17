@@ -34,6 +34,7 @@
             newState.map.isLoading = true;
             newState.map.isFullscreen = false;
             newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
+            newState.map.resetDrawing = true;
 
             newState.layerSelection.isEnabled = false;
             newState.search = null;
