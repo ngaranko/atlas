@@ -12,9 +12,9 @@ ENV PASSWORD_EMPLOYEE=$PASSWORD_EMPLOYEE
 ENV PASSWORD_EMPLOYEE_PLUS=$PASSWORD_EMPLOYEE_PLUS
 
 RUN apt-get update && apt-get upgrade -y --no-install-recommends \
- && apt-get install -y bzip2 git nginx unzip xz-utils \
- && rm -rf /var/lib/apt/lists/* \
- && npm install -g bower grunt-cli
+  && apt-get install -y bzip2 git nginx unzip xz-utils \
+  && rm -rf /var/lib/apt/lists/* \
+  && npm install -g bower grunt-cli
 
 RUN echo 'deb http://deb.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/jessie-backports.list
 
