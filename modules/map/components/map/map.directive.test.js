@@ -10,7 +10,8 @@ describe('The dp-map directive', function () {
         onMapClick,
         mockedMapState,
         mockedLeafletMap,
-        mockedMarkers;
+        mockedMarkers,
+        DRAW_TOOL_CONFIG;
 
     beforeEach(function () {
         angular.mock.module(
@@ -94,7 +95,8 @@ describe('The dp-map directive', function () {
             _panning_,
             _zoom_,
             _drawTool_,
-            _onMapClick_) {
+            _onMapClick_,
+            _DRAW_TOOL_CONFIG_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             L = _L_;
@@ -104,6 +106,7 @@ describe('The dp-map directive', function () {
             zoom = _zoom_;
             drawTool = _drawTool_;
             onMapClick = _onMapClick_;
+            DRAW_TOOL_CONFIG = _DRAW_TOOL_CONFIG_;
         });
         spyOn(L, 'map').and.returnValue(mockedLeafletMap);
 
@@ -179,9 +182,9 @@ describe('The dp-map directive', function () {
 
     it('creates a Leaflet map with options based on both the map state and mapConfig', function () {
         const directive = getDirective(mockedMapState, false, mockedMarkers);
-        const element = directive[0].querySelector('.js-leaflet-map');
+        const element = directive.find('.qa-leaflet-map');
 
-        expect(L.map).toHaveBeenCalledWith(element, {
+        expect(L.map).toHaveBeenCalledWith(element[0], {
             center: [52.789, 4.123],
             zoom: 12,
             doThisThing: false,
@@ -498,6 +501,35 @@ describe('The dp-map directive', function () {
             $rootScope.$apply();
 
             expect(mockedLeafletMap.invalidateSize).toHaveBeenCalled();
+        });
+    });
+
+    describe('draw state', () => {
+        it('should set the draw mode to none when drawing and editing are not active', () => {
+            mockedMapState.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
+
+            const directive = getDirective(mockedMapState, false, mockedMarkers);
+            const element = directive.find('.qa-map');
+
+            expect(element.attr('class')).toContain('c-map--drawing-mode-none');
+        });
+
+        it('should set the draw mode to draw when drawing is active', () => {
+            mockedMapState.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW;
+
+            const directive = getDirective(mockedMapState, false, mockedMarkers);
+            const element = directive.find('.qa-map');
+
+            expect(element.attr('class')).toContain('c-map--drawing-mode-draw');
+        });
+
+        it('should set the draw mode to draw when editing is active', () => {
+            mockedMapState.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.EDIT;
+
+            const directive = getDirective(mockedMapState, false, mockedMarkers);
+            const element = directive.find('.qa-map');
+
+            expect(element.attr('class')).toContain('c-map--drawing-mode-edit');
         });
     });
 });

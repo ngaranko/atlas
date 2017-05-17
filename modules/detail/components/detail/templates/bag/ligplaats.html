@@ -17,4 +17,10 @@
     <!-- ligplaats -->
     <dp-partial-select partial="bag/ligplaats" api-data="vm.apiData"></dp-partial-select>
 
+    <!-- monumenten -->
+    <dp-api-call
+        endpoint="monumenten/situeringen/?betreft_nummeraanduiding={{vm.apiData.results.ligplaatsidentificatie}}"
+        add-api-root="true"
+        partial="monumenten/situering">
+    </dp-api-call>
 </div>

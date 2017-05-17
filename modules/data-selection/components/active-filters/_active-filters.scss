@@ -12,6 +12,11 @@
     padding-left: $base-whitespace;
     background-color: $secondary-gray10;
     color: $primary-dark;
+
+    & :hover,
+    & :focus {
+      color: $primary-contrast;
+    }
   }
 }
 

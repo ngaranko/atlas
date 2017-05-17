@@ -20,9 +20,9 @@ $c-event-month-height: 22px;
 }
 
 .c-event__month {
+  @include font-weight($normal-weight);
   width: $c-event-day-width;
   font-size: $c-event-month-font-size;
-  font-weight: normal;
   line-height: $c-event-month-height;
   text-align: center;
 }

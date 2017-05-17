@@ -19,6 +19,8 @@
 
         vm.shape = drawTool.shape;
 
+        $scope.$watch(() => drawTool.shape.markers.length, setHasDrawnPolygon);
+
         vm.toggle = () => {
             if (drawTool.isEnabled()) {
                 drawTool.disable();
@@ -29,5 +31,9 @@
                 drawTool.enable();
             }
         };
+
+        function setHasDrawnPolygon (count) {
+            vm.hasDrawnPolygon = count > 0;
+        }
     }
 })();

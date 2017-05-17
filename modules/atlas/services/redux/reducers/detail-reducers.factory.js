@@ -28,7 +28,7 @@
                 endpoint: payload,
                 reload: Boolean(oldState.detail && oldState.detail.endpoint === payload),
                 isLoading: true,
-                isFullscreen: payload.includes('catalogus/api')
+                isFullscreen: payload && payload.includes('catalogus/api')
             };
 
             newState.map.isLoading = true;
@@ -67,4 +67,3 @@
         }
     }
 })();
-
