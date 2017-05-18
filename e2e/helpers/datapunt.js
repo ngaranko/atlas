@@ -1,9 +1,10 @@
 'use strict';
 
 module.exports = {
-    availableStates: require('./available-states'),
-    hasClass: require('./has-class'),
     authenticate: require('./authenticate'),
+    availableStates: require('./available-states'),
+    count: require('./count'),
+    hasClass: require('./has-class'),
     require: require('./require'),
     storage: require('./storage'),
     validate: require('./validate'),
