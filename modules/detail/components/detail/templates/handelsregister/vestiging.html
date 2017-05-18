@@ -23,7 +23,7 @@
         <dd>
             {{ vm.apiData.results.postadres.volledig_adres }}
             <dp-message ng-if="vm.apiData.results.postadres.correctie">
-                <span>Officieel BAG-adres niet bekend, schatting: {{ ::vm.apiData.results.bezoekadres.query_string }}</span>
+                <span>Officieel BAG-adres niet bekend, schatting: {{ ::vm.apiData.results.postadres.query_string }}</span>
             </dp-message>
         </dd>
         <dt>Bezoekadres</dt>
@@ -57,7 +57,7 @@
         <dd ng-if="vm.apiData.results.bezoekadres.geometrie.coordinates[0]">
             {{ vm.apiData.results.bezoekadres.geometrie.coordinates | coordinates: 'RD' }}
             <dp-message ng-if="vm.apiData.results.bezoekadres.correctie">
-                <span>Officiële BAG-locatie niet bekend, schatting: {{ ::vm.apiData.results.postadres.query_string }}</span>
+                <span>Officiële BAG-locatie niet bekend, schatting: {{ ::vm.apiData.results.bezoekadres.query_string }}</span>
             </dp-message>
         </dd>
     </dl>
