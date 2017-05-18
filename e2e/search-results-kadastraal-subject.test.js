@@ -11,31 +11,38 @@ describe('Zoekresultaten kadastraal subjecten', () => {
         });
     });
 
-    describe('ingelogd als employee', () => {
-        it('er mogen sommige kadastraal subjecten zichtbaar zijn', () => {
-            const page = dp.navigate('SEARCH-RESULTS--KADASTRAAL-SUBJECT', 'EMPLOYEE'),
-                searchResults = page.dashboard.rightColumn.searchResults;
+    describe('ingelogd', () => {
 
-            expect(page.title).toBe('Data met \'Bakker\' - Dataportaal');
-
-            expect(searchResults.categories(4).header).toBe('Kadastrale subjecten (28)');
-            expect(searchResults.categories(4).listCount).toBe(10);
-
-            dp.logout();
+        afterEach(() => {
+            dp.authenticate.logout();
         });
-    });
 
-    describe('ingelogd als employee plus', () => {
-        it('alle kadastraal subjecten moeten zichtbaar zijn', () => {
-            const page = dp.navigate('SEARCH-RESULTS--KADASTRAAL-SUBJECT', 'EMPLOYEE_PLUS'),
-                searchResults = page.dashboard.rightColumn.searchResults;
+        describe('als employee', () => {
+            it('er mogen sommige kadastraal subjecten zichtbaar zijn', () => {
+                dp.authenticate.login('EMPLOYEE');
 
-            expect(page.title).toBe('Data met \'Bakker\' - Dataportaal');
+                const page = dp.navigate('SEARCH-RESULTS--KADASTRAAL-SUBJECT'),
+                    searchResults = page.dashboard.rightColumn.searchResults;
 
-            expect(searchResults.categories(4).header).toBe('Kadastrale subjecten (1.346)');
-            expect(searchResults.categories(4).listCount).toBe(10);
+                expect(page.title).toBe('Data met \'Bakker\' - Dataportaal');
 
-            dp.logout();
+                expect(searchResults.categories(4).header).toBe('Kadastrale subjecten (28)');
+                expect(searchResults.categories(4).listCount).toBe(10);
+            });
+        });
+
+        describe('als employee plus', () => {
+            it('alle kadastraal subjecten moeten zichtbaar zijn', () => {
+                dp.authenticate.login('EMPLOYEE_PLUS');
+
+                const page = dp.navigate('SEARCH-RESULTS--KADASTRAAL-SUBJECT'),
+                    searchResults = page.dashboard.rightColumn.searchResults;
+
+                expect(page.title).toBe('Data met \'Bakker\' - Dataportaal');
+
+                expect(searchResults.categories(4).header).toBe('Kadastrale subjecten (1.346)');
+                expect(searchResults.categories(4).listCount).toBe(10);
+            });
         });
     });
 });
