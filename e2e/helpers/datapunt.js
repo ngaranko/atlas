@@ -3,7 +3,7 @@
 module.exports = {
     availableStates: require('./available-states'),
     hasClass: require('./has-class'),
-    logout: require('./logout'),
+    authenticate: require('./authenticate'),
     require: require('./require'),
     storage: require('./storage'),
     validate: require('./validate'),
