@@ -2,11 +2,11 @@
 
 const roles = {
     EMPLOYEE: {
-        password: process.env.PASSWORD_EMPLOYEE || 'Winterdag2016',
+        password: process.env.PASSWORD_EMPLOYEE,
         username: process.env.USERNAME_EMPLOYEE || 'atlas.employee@amsterdam.nl'
     },
     EMPLOYEE_PLUS: {
-        password: process.env.PASSWORD_EMPLOYEE_PLUS || 'Winterdag2016',
+        password: process.env.PASSWORD_EMPLOYEE_PLUS,
         username: process.env.USERNAME_EMPLOYEE_PLUS || 'atlas.employee.plus@amsterdam.nl'
     }
 };
