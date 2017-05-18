@@ -14,10 +14,12 @@ module.exports = {
         validator: require('../validators/detail')
     },
     'DETAIL-KADASTRAAL-SUBJECT--NATUURLIJKE-PERSOON': {
-        url: '#?dte=https:%2F%2Facc.api.data.amsterdam.nl%2Fbrk%2Fsubject%2FNL.KAD.Persoon.171720901%2F&dtfs=T&mpb=topografie&mpz=10&mpv=52.3738384:4.8949098'
+        url: '#?dte=https:%2F%2Facc.api.data.amsterdam.nl%2Fbrk%2Fsubject%2FNL.KAD.Persoon.171720901%2F' +
+        '&dtfs=T&mpb=topografie&mpz=10&mpv=52.3738384:4.8949098'
     },
     'DETAIL-KADASTRAAL-SUBJECT--NIET-NATUURLIJKE-PERSOON': {
-        url: '#?dte=https:%2F%2Facc.api.data.amsterdam.nl%2Fbrk%2Fsubject%2FNL.KAD.Persoon.423186718%2F&dtfs=T&mpb=topografie&mpz=11&mpv=52.3731081:4.8932945'
+        url: '#?dte=https:%2F%2Facc.api.data.amsterdam.nl%2Fbrk%2Fsubject%2FNL.KAD.Persoon.423186718%2F' +
+        '&dtfs=T&mpb=topografie&mpz=11&mpv=52.3731081:4.8932945'
     },
     'KADASTRALE_SUBJECTEN': {
         url: '#?mpb=topografie&mpz=11&mpv=52.3731081:4.8932945&src=subject&srfs=T&srq=bakker'

@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function () {
-    //browser.get('http://localhost:8000');
+    // browser.get('http://localhost:8000');
 
     element(by.css('.qa-menu__user-menu .c-menu__item--toggle')).isDisplayed().then((present) => {
         if (present) {

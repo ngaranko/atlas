@@ -1,8 +1,8 @@
 describe('Zoekresultaten kadastraal subjecten', () => {
     describe('niet ingelogd', () => {
         it('er mogen geen kadastraal subjecten zichtbaar zijn', () => {
-            page = dp.navigate('SEARCH-RESULTS--KADASTRAAL-SUBJECT');
-            const searchResults = page.dashboard.rightColumn.searchResults;
+            const page = dp.navigate('SEARCH-RESULTS--KADASTRAAL-SUBJECT'),
+                searchResults = page.dashboard.rightColumn.searchResults;
 
             expect(page.title).toBe('Data met \'Bakker\' - Dataportaal');
 
@@ -13,10 +13,8 @@ describe('Zoekresultaten kadastraal subjecten', () => {
 
     describe('ingelogd als employee', () => {
         it('er mogen sommige kadastraal subjecten zichtbaar zijn', () => {
-            page = dp.navigate('SEARCH-RESULTS--KADASTRAAL-SUBJECT', 'EMPLOYEE');
-            const detail = page.dashboard.rightColumn.detail;
-
-            const searchResults = page.dashboard.rightColumn.searchResults;
+            const page = dp.navigate('SEARCH-RESULTS--KADASTRAAL-SUBJECT', 'EMPLOYEE'),
+                searchResults = page.dashboard.rightColumn.searchResults;
 
             expect(page.title).toBe('Data met \'Bakker\' - Dataportaal');
 
@@ -29,10 +27,8 @@ describe('Zoekresultaten kadastraal subjecten', () => {
 
     describe('ingelogd als employee plus', () => {
         it('alle kadastraal subjecten moeten zichtbaar zijn', () => {
-            page = dp.navigate('SEARCH-RESULTS--KADASTRAAL-SUBJECT', 'EMPLOYEE_PLUS');
-            const detail = page.dashboard.rightColumn.detail;
-
-            const searchResults = page.dashboard.rightColumn.searchResults;
+            const page = dp.navigate('SEARCH-RESULTS--KADASTRAAL-SUBJECT', 'EMPLOYEE_PLUS'),
+                searchResults = page.dashboard.rightColumn.searchResults;
 
             expect(page.title).toBe('Data met \'Bakker\' - Dataportaal');
 

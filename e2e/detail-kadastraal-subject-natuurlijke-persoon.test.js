@@ -1,8 +1,8 @@
 describe('Detail kadastraal subject - natuurlijke persoon', () => {
     describe('niet ingelogd', () => {
         it('er mogen geen subject en rechten zichtbaar zijn', () => {
-            page = dp.navigate('DETAIL-KADASTRAAL-SUBJECT--NATUURLIJKE-PERSOON');
-            const detail = page.dashboard.rightColumn.detail;
+            const page = dp.navigate('DETAIL-KADASTRAAL-SUBJECT--NATUURLIJKE-PERSOON'),
+                detail = page.dashboard.rightColumn.detail;
 
             expect(page.title).toBe('Dataportaal');
 
@@ -18,8 +18,8 @@ describe('Detail kadastraal subject - natuurlijke persoon', () => {
 
     describe('ingelogd als employee', () => {
         it('er mag alleen subject informatie zichtbaar zijn', () => {
-            page = dp.navigate('DETAIL-KADASTRAAL-SUBJECT--NATUURLIJKE-PERSOON', 'EMPLOYEE');
-            const detail = page.dashboard.rightColumn.detail;
+            const page = dp.navigate('DETAIL-KADASTRAAL-SUBJECT--NATUURLIJKE-PERSOON', 'EMPLOYEE'),
+                detail = page.dashboard.rightColumn.detail;
 
             expect(page.title).toBe('Kadastraal subject: Barbara Bakker - Dataportaal');
 
@@ -54,8 +54,8 @@ describe('Detail kadastraal subject - natuurlijke persoon', () => {
 
     describe('ingelogd als employee plus', () => {
         it('er moeten zowel subject als rechten zichtbaar zijn', () => {
-            page = dp.navigate('DETAIL-KADASTRAAL-SUBJECT--NATUURLIJKE-PERSOON', 'EMPLOYEE_PLUS');
-            const detail = page.dashboard.rightColumn.detail;
+            const page = dp.navigate('DETAIL-KADASTRAAL-SUBJECT--NATUURLIJKE-PERSOON', 'EMPLOYEE_PLUS'),
+                detail = page.dashboard.rightColumn.detail;
 
             expect(page.title).toBe('Kadastraal subject: Barbara Bakker - Dataportaal');
 
