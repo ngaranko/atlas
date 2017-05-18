@@ -1,3 +1,7 @@
+dp-message {
+  display: block;
+}
+
 .c-message {
   @include font-weight($light-weight);
   color: $secondary-gray40;
