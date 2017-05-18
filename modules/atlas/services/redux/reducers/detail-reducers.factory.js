@@ -5,9 +5,9 @@
         .module('atlas')
         .factory('detailReducers', detailReducersFactory);
 
-    detailReducersFactory.$inject = ['ACTIONS'];
+    detailReducersFactory.$inject = ['ACTIONS', 'DRAW_TOOL_CONFIG'];
 
-    function detailReducersFactory (ACTIONS) {
+    function detailReducersFactory (ACTIONS, DRAW_TOOL_CONFIG) {
         var reducers = {};
 
         reducers[ACTIONS.FETCH_DETAIL.id] = fetchDetailReducer;
@@ -33,6 +33,8 @@
 
             newState.map.isLoading = true;
             newState.map.isFullscreen = false;
+            newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
+            newState.map.resetDrawing = true;
 
             newState.layerSelection.isEnabled = false;
             newState.search = null;
@@ -59,6 +61,7 @@
                 newState.detail.isFullscreen = payload.isFullscreen;
 
                 newState.map.isLoading = false;
+
                 newState.detail.isLoading = false;
                 newState.detail.reload = false;
             }

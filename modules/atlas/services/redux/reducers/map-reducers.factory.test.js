@@ -53,6 +53,13 @@ describe('The map reducers', function () {
 
             expect(output.layerSelection.isEnabled).toBe(true);
         });
+
+        it('should reset drawing mode', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            const output = mapReducers[ACTIONS.SHOW_MAP.id](inputState);
+
+            expect(output.map.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
+        });
     });
 
     describe('MAP_SET_BASELAYER', function () {
@@ -483,6 +490,19 @@ describe('The map reducers', function () {
 
             expect(output.map.isFullscreen).toBe(true);
             expect(output.layerSelection.isEnabled).toBe(true);
+        });
+    });
+
+    describe('MAP_RESET_DRAWING', () => {
+        it('resets drawing state', () => {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map.resetDrawing = true;
+
+            const output = mapReducers[ACTIONS.MAP_RESET_DRAWING.id](inputState);
+
+            expect(output.dataSelection).toBeNull();
+            expect(output.map.geometry).toEqual([]);
+            expect(output.map.resetDrawing).toEqual(false);
         });
     });
 
