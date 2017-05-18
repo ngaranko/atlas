@@ -8,7 +8,15 @@
 
 .o-btn--link {
   @extend %link--arrow;
+  @extend %o-btn-link;
+}
 
+.o-btn--plus {
+  @extend %link--plus;
+  @extend %o-btn-link;
+}
+
+%o-btn-link {
   background-color: transparent;
   font-size: inherit;
   text-align: left;
