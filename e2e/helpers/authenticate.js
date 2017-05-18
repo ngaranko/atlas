@@ -13,6 +13,7 @@ const roles = {
 
 module.exports = {
     login: (role) => {
+        browser.get('http://localhost:8000');
         if (element(by.css('.qa-menu__login')).isPresent().then((present) => {
                 if (present && role) {
                     browser.driver.findElement(by.css('.qa-menu__login')).click();
