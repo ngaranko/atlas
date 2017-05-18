@@ -16,9 +16,7 @@ describe('Detail kadastraal subject - natuurlijke persoon', () => {
         });
     });
 
-
     describe('ingelogd', () => {
-
         afterEach(() => {
             dp.authenticate.logout();
         });
@@ -77,7 +75,8 @@ describe('Detail kadastraal subject - natuurlijke persoon', () => {
 
                 expect(detail.kadastraalSubjectRecht.isPresent).toBe(true);
                 expect(detail.kadastraalSubjectRecht.listCount).toBe(1);
-                expect(detail.kadastraalSubjectRecht.list(0).text).toBe('ASD05G08575A0001 - Eigendom (recht van) (1/3)');
+                expect(detail.kadastraalSubjectRecht.list(0).text).toBe('ASD05G08575A0001 - ' +
+                    'Eigendom (recht van) (1/3)');
             });
         });
     });

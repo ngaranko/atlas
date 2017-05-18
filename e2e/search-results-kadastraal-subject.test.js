@@ -12,7 +12,6 @@ describe('Zoekresultaten kadastraal subjecten', () => {
     });
 
     describe('ingelogd', () => {
-
         afterEach(() => {
             dp.authenticate.logout();
         });

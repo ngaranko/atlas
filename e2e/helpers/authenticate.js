@@ -15,16 +15,16 @@ module.exports = {
     login: (role) => {
         browser.get('http://localhost:8000');
         if (element(by.css('.qa-menu__login')).isPresent().then((present) => {
-                if (present && role) {
-                    browser.driver.findElement(by.css('.qa-menu__login')).click();
-                    browser.driver.findElement(by.css('input[name="email"]')).sendKeys(roles[role].username);
-                    browser.driver.findElement(by.css('input[name="password"]')).sendKeys(roles[role].password);
-                    browser.driver.findElement(by.css('.c-form-buttons__button[value="employee_plus"]')).click();
-                    browser.refresh();
-                }
+            if (present && role) {
+                browser.driver.findElement(by.css('.qa-menu__login')).click();
+                browser.driver.findElement(by.css('input[name="email"]')).sendKeys(roles[role].username);
+                browser.driver.findElement(by.css('input[name="password"]')).sendKeys(roles[role].password);
+                browser.driver.findElement(by.css('.c-form-buttons__button[value="employee_plus"]')).click();
+                browser.refresh();
+            }
 
-                browser.getLocationAbsUrl(); // NB: Forces to await login flow completion
-            }));
+            browser.getLocationAbsUrl(); // NB: Forces to await login flow completion
+        }));
     },
     logout: () => {
         element(by.css('.qa-menu__user-menu .c-menu__item--toggle')).isDisplayed().then((present) => {

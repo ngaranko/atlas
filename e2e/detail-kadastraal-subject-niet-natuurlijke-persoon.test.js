@@ -17,7 +17,6 @@ describe('Detail kadastraal subject - niet natuurlijke persoon', () => {
     });
 
     describe('ingelogd', () => {
-
         afterEach(() => {
             dp.authenticate.logout();
         });
@@ -51,7 +50,8 @@ describe('Detail kadastraal subject - niet natuurlijke persoon', () => {
 
                 expect(detail.kadastraalSubjectRecht.isPresent).toBe(true);
                 expect(detail.kadastraalSubjectRecht.listCount).toBe(1);
-                expect(detail.kadastraalSubjectRecht.list(0).text).toBe('OZN00C03755A0008 - Eigendom (recht van) (1/1)');
+                expect(detail.kadastraalSubjectRecht.list(0).text).toBe('OZN00C03755A0008 - ' +
+                    'Eigendom (recht van) (1/1)');
             });
         });
 
@@ -73,7 +73,8 @@ describe('Detail kadastraal subject - niet natuurlijke persoon', () => {
 
                 expect(detail.kadastraalSubjectRecht.isPresent).toBe(true);
                 expect(detail.kadastraalSubjectRecht.listCount).toBe(1);
-                expect(detail.kadastraalSubjectRecht.list(0).text).toBe('OZN00C03755A0008 - Eigendom (recht van) (1/1)');
+                expect(detail.kadastraalSubjectRecht.list(0).text).toBe('OZN00C03755A0008 - ' +
+                    'Eigendom (recht van) (1/1)');
             });
         });
     });
