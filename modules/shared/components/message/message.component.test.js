@@ -21,7 +21,7 @@ describe('The message component', function () {
     it('displays a styled message', function () {
         var component = getComponent();
 
-        expect(component.find('span.c-message').length).toBe(1);
+        expect(component.find('span').length).toBe(1);
         expect(component.text().trim()).toBe('melding');
     });
 });
