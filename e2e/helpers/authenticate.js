@@ -14,7 +14,7 @@ const roles = {
 module.exports = {
     login: (role) => {
         browser.get('http://localhost:8000');
-        if (element(by.css('.qa-menu__login')).isPresent().then((present) => {
+        element(by.css('.qa-menu__login')).isPresent().then((present) => {
             if (present && role) {
                 browser.driver.findElement(by.css('.qa-menu__login')).click();
                 browser.driver.findElement(by.css('input[name="email"]')).sendKeys(roles[role].username);
@@ -24,7 +24,7 @@ module.exports = {
             }
 
             browser.getLocationAbsUrl(); // NB: Forces to await login flow completion
-        }));
+        });
     },
     logout: () => {
         element(by.css('.qa-menu__user-menu .c-menu__item--toggle')).isDisplayed().then((present) => {
