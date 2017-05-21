@@ -124,10 +124,11 @@
             }
         }
 
-        function getDiffFromOverlays (over1, over2) {
+        function getDiffFromOverlays (over1, over2, ignore) {
             // Finds all the keys for items in over1 that
             // are not in over2
             // Or if visibility was changed.
+            // ignore will ignore changes in visibility when added or removed
             var keys = [],
                 add;
 
@@ -136,7 +137,9 @@
                 for (var j = 0; j < over2.length; j++) {
                     if (over2[j].id === over1[i].id) {
                         // Checking visibility change
-                        if (over2[j].isVisible !== over1[i].isVisible) {
+                        if (ignore) {
+                            add = ignore === 'remove' && !over1[i].isVisible || ignore === 'add' && over1[i].isVisible;
+                        } else if (over2[j].isVisible !== over1[i].isVisible) {
                             // Making sure visibility was changed to what we expect
                             if (over2[j].isVisible) {
                                 add = false;
@@ -157,15 +160,14 @@
 
         function getAddedOverlays (newOverlays, oldOverlays) {
             // checking for init state when both are the same
-            if (angular.equals(newOverlays, oldOverlays)) {
-                oldOverlays = [];
-            }
-
-            return getDiffFromOverlays(newOverlays, oldOverlays);
+            const init = angular.equals(newOverlays, oldOverlays);
+            return getDiffFromOverlays(newOverlays, oldOverlays, init ? 'add' : '');
         }
 
         function getRemovedOverlays (newOverlays, oldOverlays) {
-            return getDiffFromOverlays(oldOverlays, newOverlays);
+            // checking for init state when both are the same
+            const init = angular.equals(newOverlays, oldOverlays);
+            return getDiffFromOverlays(oldOverlays, newOverlays, init ? 'remove' : '');
         }
 
         function getAddedGeojson (newCollection, oldCollection) {
