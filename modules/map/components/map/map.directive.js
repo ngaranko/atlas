@@ -124,11 +124,11 @@
             }
         }
 
-        function getDiffFromOverlays (over1, over2, ignore) {
+        function getDiffFromOverlays (over1, over2, callback) {
             // Finds all the keys for items in over1 that
             // are not in over2
             // Or if visibility was changed.
-            // ignore will ignore changes in visibility when added or removed
+            // or use callback to decide which to show and hide
             var keys = [],
                 add;
 
@@ -137,8 +137,8 @@
                 for (var j = 0; j < over2.length; j++) {
                     if (over2[j].id === over1[i].id) {
                         // Checking visibility change
-                        if (ignore) {
-                            add = ignore === 'remove' && !over1[i].isVisible || ignore === 'add' && over1[i].isVisible;
+                        if (angular.isFunction(callback)) {
+                            add = callback.call(this, over1[i]);
                         } else if (over2[j].isVisible !== over1[i].isVisible) {
                             // Making sure visibility was changed to what we expect
                             if (over2[j].isVisible) {
@@ -161,13 +161,13 @@
         function getAddedOverlays (newOverlays, oldOverlays) {
             // checking for init state when both are the same
             const init = angular.equals(newOverlays, oldOverlays);
-            return getDiffFromOverlays(newOverlays, oldOverlays, init ? 'add' : '');
+            return getDiffFromOverlays(newOverlays, oldOverlays, init ? (item) => item.isVisible : '');
         }
 
         function getRemovedOverlays (newOverlays, oldOverlays) {
             // checking for init state when both are the same
             const init = angular.equals(newOverlays, oldOverlays);
-            return getDiffFromOverlays(oldOverlays, newOverlays, init ? 'remove' : '');
+            return getDiffFromOverlays(oldOverlays, newOverlays, init ? (item) => !item.isVisible : '');
         }
 
         function getAddedGeojson (newCollection, oldCollection) {
