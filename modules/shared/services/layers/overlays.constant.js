@@ -199,7 +199,7 @@
                     label_short: 'Kadastrale objecten',
                     label_long: 'Kadastrale objecten',
                     layers: ['kadastraal_object', 'kadastraal_object_label'],
-                    minZoom: 12,
+                    minZoom: 13,
                     maxZoom: 16,
                     legend: 'maps/lki?version=1.3.0&service=WMS&request=GetLegend' +
                     'Graphic&sld_version=1.1.0&layer=kadastraal_object&format=image/png&STYLE=default'
@@ -209,7 +209,7 @@
                     label_short: 'Gemeentelijke beperkingen',
                     label_long: 'Gemeentelijke beperkingen (WKPB)',
                     layers: ['wkpb'],
-                    minZoom: 12,
+                    minZoom: 13,
                     maxZoom: 16,
                     legend: 'maps/wkpb?version=1.3.0&service=WMS&request=GetLegend' +
                     'Graphic&sld_version=1.1.0&layer=wkpb&format=image/png&STYLE=default'
@@ -231,7 +231,7 @@
                     label_short: 'Unesco werelderfgoedzones',
                     label_long: 'Unesco werelderfgoedzones',
                     layers: ['unesco', 'unesco_label'],
-                    minZoom: 9,
+                    minZoom: 10,
                     maxZoom: 16,
                     legend: 'maps/gebieden?version=1.3.0&service=WMS&request=GetLe' +
                     'gendGraphic&sld_version=1.1.0&layer=unesco&format=image/png&STYLE=default'
@@ -281,7 +281,7 @@
                     label_short: 'Bouwblokken',
                     label_long: 'Bouwblokken',
                     layers: ['bouwblok', 'bouwblok_label'],
-                    minZoom: 11,
+                    minZoom: 12,
                     maxZoom: 16,
                     legend: 'maps/gebieden?version=1.3.0&service=WMS&request=GetLegend' +
                     'Graphic&sld_version=1.1.0&layer=bouwblok&format=image/png&STYLE=default'
@@ -325,7 +325,7 @@
                     label_short: 'Meetbouten - Status',
                     label_long: 'Meetbouten - Status',
                     layers: ['meetbouten_status', 'meetbouten_labels'],
-                    minZoom: 11,
+                    minZoom: 12,
                     maxZoom: 16,
                     legend: 'maps/meetbouten?version=1.3.0&service=WMS&request=Get' +
                     'LegendGraphic&sld_version=1.1.0&layer=meetbouten_status&format=image/png&STYLE=default'
@@ -335,7 +335,7 @@
                     label_short: 'Meetbouten - Zaksnelheid',
                     label_long: 'Meetbouten - Zaksnelheid',
                     layers: ['meetbouten_zaksnelheid', 'meetbouten_labels'],
-                    minZoom: 11,
+                    minZoom: 12,
                     maxZoom: 16,
                     legend: 'maps/meetbouten?version=1.3.0&service=WMS&request=Get' +
                     'LegendGraphic&sld_version=1.1.0&layer=meetbouten_zaksnelheid&format=image/png&STYLE=default'
@@ -345,7 +345,7 @@
                     label_short: 'Meetbouten - Referentiepunten',
                     label_long: 'Meetbouten - Referentiepunten',
                     layers: ['referentiepunten'],
-                    minZoom: 11,
+                    minZoom: 12,
                     maxZoom: 16,
                     legend: 'maps/meetbouten?version=1.3.0&service=WMS&request=Get' +
                     'LegendGraphic&sld_version=1.1.0&layer=referentiepunten&format=image/png&STYLE=default'
@@ -357,7 +357,7 @@
                     label_short: 'Grondmonsters',
                     label_long: 'Grondmonsters',
                     layers: ['grondmonsters'],
-                    minZoom: 10,
+                    minZoom: 11,
                     maxZoom: 16,
                     legend: 'maps/bodem?version=1.3.0&service=WMS&request=GetLegen' +
                     'dGraphic&sld_version=1.1.0&layer=grondmonsters&format=image/png&STYLE=default'
@@ -377,7 +377,7 @@
                     label_short: 'Grondmonsters asbest',
                     label_long: 'Grondmonsters asbest',
                     layers: ['asbest'],
-                    minZoom: 10,
+                    minZoom: 11,
                     maxZoom: 16,
                     legend: 'maps/bodem?version=1.3.0&service=WMS&request=GetLegen' +
                     'dGraphic&sld_version=1.1.0&layer=asbest&format=image/png&STYLE=default'
@@ -689,7 +689,7 @@
                     label_short: 'Monumenten',
                     label_long: 'Monumenten',
                     layers: ['monument_coordinaten'],
-                    minZoom: 11,
+                    minZoom: 12,
                     maxZoom: 16,
                     legend: 'maps/monumenten?version=1.3.0&service' +
                     '=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=monument_coordinaten&format=' +
