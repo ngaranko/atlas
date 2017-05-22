@@ -37,6 +37,8 @@
         The actual hotspot size is dependent on the width of the straatbeeld and the FOV. For this first version we're
         making assumptions about the viewport and FOV.
         */
+        // offset is a value between 7 and 10 degrees depending on the distance. it is subtracted from the angle of the
+        // hotspot x rotation to render hotspots better that are far away
         const offset = 5 / (maxDistance - correctedDistance + 1) + 8;
         const angle = 90 - angleConversion.radiansToDegrees(vm.pitch) - offset;
 
