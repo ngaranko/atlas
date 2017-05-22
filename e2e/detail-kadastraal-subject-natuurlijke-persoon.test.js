@@ -25,9 +25,6 @@ describe('Detail kadastraal subject - natuurlijke persoon', () => {
             it('er mag alleen subject informatie zichtbaar zijn', () => {
                 dp.authenticate.login('EMPLOYEE');
 
-                console.log(process.env.PASSWORD_EMPLOYEE);
-                console.log(process.env.PASSWORD_EMPLOYEE_PLUS);
-
                 const page = dp.navigate('DETAIL-KADASTRAAL-SUBJECT--NATUURLIJKE-PERSOON'),
                     detail = page.dashboard.rightColumn.detail;
 
