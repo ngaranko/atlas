@@ -37,8 +37,11 @@
         The actual hotspot size is dependent on the width of the straatbeeld and the FOV. For this first version we're
         making assumptions about the viewport and FOV.
         */
+        const offset = 5 / (maxDistance - correctedDistance + 1) + 8;
+        const angle = 90 - angleConversion.radiansToDegrees(vm.pitch) - offset;
+
         vm.size = Math.round(angleConversion.radiansToDegrees(viewAngle) * viewport / STRAATBEELD_CONFIG.DEFAULT_FOV);
-        vm.transform = 'rotateX(' + (90 - angleConversion.radiansToDegrees(vm.pitch)) + 'deg)';
+        vm.transform = 'rotateX(' + angle + 'deg)';
 
         vm.loadScene = function () {
             store.dispatch({
