@@ -108,15 +108,17 @@
             });
 
             function setOverlays () {
-                const newOverlays = scope.mapState.overlays.filter(overlay => overlays.SOURCES[overlay.id]);
+                const newOverlays = scope.mapState.overlays.filter(overlay => overlays.SOURCES[overlay.id]),
+                    // checking for init state when both are the same
+                    isInit = angular.equals(newOverlays, oldOverlays);
 
                 scope.hasActiveOverlays = newOverlays.length > 0;
 
-                getRemovedOverlays(newOverlays, oldOverlays).forEach(function (overlay) {
+                getRemovedOverlays(newOverlays, oldOverlays, isInit).forEach(function (overlay) {
                     layers.removeOverlay(leafletMap, overlay);
                 });
 
-                getAddedOverlays(newOverlays, oldOverlays).forEach(function (overlay) {
+                getAddedOverlays(newOverlays, oldOverlays, isInit).forEach(function (overlay) {
                     layers.addOverlay(leafletMap, overlay);
                 });
 
@@ -158,16 +160,12 @@
             return keys;
         }
 
-        function getAddedOverlays (newOverlays, oldOverlays) {
-            // checking for init state when both are the same
-            const init = angular.equals(newOverlays, oldOverlays);
-            return getDiffFromOverlays(newOverlays, oldOverlays, init ? (item) => item.isVisible : '');
+        function getAddedOverlays (newOverlays, oldOverlays, isInit) {
+            return getDiffFromOverlays(newOverlays, oldOverlays, isInit ? (item) => item.isVisible : '');
         }
 
-        function getRemovedOverlays (newOverlays, oldOverlays) {
-            // checking for init state when both are the same
-            const init = angular.equals(newOverlays, oldOverlays);
-            return getDiffFromOverlays(oldOverlays, newOverlays, init ? (item) => !item.isVisible : '');
+        function getRemovedOverlays (newOverlays, oldOverlays, isInit) {
+            return getDiffFromOverlays(oldOverlays, newOverlays, isInit ? (item) => !item.isVisible : '');
         }
 
         function getAddedGeojson (newCollection, oldCollection) {
