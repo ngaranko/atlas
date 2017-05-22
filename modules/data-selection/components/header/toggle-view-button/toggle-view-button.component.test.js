@@ -41,7 +41,7 @@ describe('The dp-data-selection-toggle-view-button component', function () {
         const component = getComponent('TABLE');
         $rootScope.$apply();
 
-        expect(component.text().trim()).toBe('Kaartweergave');
+        expect(component.text().trim()).toBe('Kaart weergeven');
 
         component.find('button').click();
 
@@ -55,7 +55,7 @@ describe('The dp-data-selection-toggle-view-button component', function () {
         const component = getComponent('LIST');
         $rootScope.$apply();
 
-        expect(component.text().trim()).toBe('Tabelweergave');
+        expect(component.text().trim()).toBe('Tabel weergeven');
 
         component.find('button').click();
         expect(store.dispatch).toHaveBeenCalledWith({

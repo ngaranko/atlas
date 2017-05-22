@@ -20,10 +20,10 @@
         $scope.$watch('vm.view', function () {
             if (vm.view === 'TABLE') {
                 vm.targetView = 'LIST';
-                vm.targetLabel = 'Kaartweergave';
+                vm.targetLabel = 'Kaart weergeven';
             } else {
                 vm.targetView = 'TABLE';
-                vm.targetLabel = 'Tabelweergave';
+                vm.targetLabel = 'Tabel weergeven';
             }
         });
     }
