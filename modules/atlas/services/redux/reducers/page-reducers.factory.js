@@ -5,9 +5,9 @@
         .module('atlas')
         .factory('pageReducers', pageReducersFactory);
 
-    pageReducersFactory.$inject = ['ACTIONS'];
+    pageReducersFactory.$inject = ['ACTIONS', 'DRAW_TOOL_CONFIG'];
 
-    function pageReducersFactory (ACTIONS) {
+    function pageReducersFactory (ACTIONS, DRAW_TOOL_CONFIG) {
         var reducers = {};
 
         reducers[ACTIONS.SHOW_PAGE.id] = showPageReducer;
@@ -29,6 +29,7 @@
             newState.page.item = payload.item;
 
             newState.map.isFullscreen = false;
+            newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
 
             newState.layerSelection.isEnabled = false;
             newState.search = null;

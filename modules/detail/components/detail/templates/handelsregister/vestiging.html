@@ -20,9 +20,19 @@
         <dt>KvK-nummer</dt>
         <dp-api-call endpoint="{{vm.apiData.results.maatschappelijke_activiteit}}" partial="handelsregister/kvk-nummer"></dp-api-call>
         <dt>Postadres</dt>
-        <dd> {{ vm.apiData.results.postadres.volledig_adres }} </dd>
+        <dd>
+            {{ vm.apiData.results.postadres.volledig_adres }}
+            <dp-message ng-if="vm.apiData.results.postadres.correctie">
+                <span>Officieel BAG-adres niet bekend, schatting: {{ ::vm.apiData.results.postadres.query_string }}</span>
+            </dp-message>
+        </dd>
         <dt>Bezoekadres</dt>
-        <dd> {{ vm.apiData.results.bezoekadres.volledig_adres }}</dd>
+        <dd>
+            {{ vm.apiData.results.bezoekadres.volledig_adres }}
+            <dp-message ng-if="vm.apiData.results.bezoekadres.correctie">
+                <span>Officieel BAG-adres niet bekend, schatting: {{ ::vm.apiData.results.bezoekadres.query_string }}</span>
+            </dp-message>
+        </dd>
         <dt>Indicatie non-mailing</dt>
         <dp-api-call endpoint="{{vm.apiData.results.maatschappelijke_activiteit}}" partial="handelsregister/non-mailing"></dp-api-call>
         <dt>Afgeschermd</dt>
@@ -32,11 +42,10 @@
             {{ vm.apiData.results.hoofdvestiging ? "Hoofdvestiging" : vm.apiData.results.hoofdvestiging === false ? "Nevenvestiging" : "" }}
         </dd>
         <dt>SBI-activiteiten</dt>
-        <dd ng-if="!vm.apiData.results.activiteiten[0]"></dd>
-        <dd ng-if="vm.apiData.results.activiteiten[0]" class="c-key-value-list--multiple-values" ng-repeat="object in vm.apiData.results.activiteiten" ng-class="{'c-key-value-list--border-top': $first}">
-            <span class="u-line-height-base u-margin--0">
+        <dd>
+            <div ng-repeat="object in vm.apiData.results.activiteiten">
                 {{ object.sbi_code }}: {{ object.sbi_omschrijving }}
-            </span>
+            </div>
         </dd>
         <dt>Vestigingsnummer</dt>
         <dd> {{  vm.apiData.results.vestigingsnummer }} </dd>
@@ -47,13 +56,8 @@
         <dt>Coördinaten</dt>
         <dd ng-if="vm.apiData.results.bezoekadres.geometrie.coordinates[0]">
             {{ vm.apiData.results.bezoekadres.geometrie.coordinates | coordinates: 'RD' }}
-        </dd>
-        <dd ng-if="vm.apiData.results.bezoekadres.geometrie.coordinates[0] && vm.apiData.results.bezoekadres.correctie"
-            class="c-key-value-list--multiple-values">
-            <dp-message>
-                <span>Exacte locatie niet bekend</span><span ng-if="vm.apiData.results.bezoekadres.query_string">,
-                    coördinaten gebruikt van {{vm.apiData.results.bezoekadres.query_string}}
-                </span>
+            <dp-message ng-if="vm.apiData.results.bezoekadres.correctie">
+                <span>Officiële BAG-locatie niet bekend, schatting: {{ ::vm.apiData.results.bezoekadres.query_string }}</span>
             </dp-message>
         </dd>
     </dl>

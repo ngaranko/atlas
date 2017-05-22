@@ -72,6 +72,7 @@
                     if (angular.isObject(oldState)) {
                         newState.drawingMode = oldState.drawingMode;
                         newState.isLoading = oldState.isLoading;
+                        newState.resetDrawing = oldState.resetDrawing;
                     }
                     return newState;
                 },
@@ -140,6 +141,7 @@
                     overlays: [],
                     isFullscreen: false,
                     isLoading: false,
+                    resetDrawing: false,
                     showActiveOverlays: false,
                     drawingMode: 'none'
                 },
