@@ -229,6 +229,13 @@ describe('The dp-map directive', function () {
             expect(layers.addOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_overlay');
         });
 
+        it('can be removed on initialization', function () {
+            mockedMapState.overlays = [{id: 'some_overlay', isVisible: false}];
+            getDirective(mockedMapState, false, mockedMarkers);
+
+            expect(layers.removeOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_overlay');
+        });
+
         it('can be added when the mapState changes', function () {
             getDirective(mockedMapState, false, mockedMarkers);
             expect(layers.addOverlay).not.toHaveBeenCalled();
