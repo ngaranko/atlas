@@ -5,6 +5,8 @@ describe('The dp-straatbeeld-thumbnail component', function () {
         $q,
         api,
         hasMockedThumbnail,
+        httpStatus,
+        response,
         finishApiCall;
 
     beforeEach(function () {
@@ -35,18 +37,23 @@ describe('The dp-straatbeeld-thumbnail component', function () {
                         var q = $q.defer();
 
                         finishApiCall = function () {
-                            var response;
-
-                            if (hasMockedThumbnail) {
+                            if (httpStatus && httpStatus !== 200) {
                                 response = {
-                                    url: 'http://example.com/example.png',
-                                    pano_id: 'ABC',
-                                    heading: 179
+                                    status: httpStatus
                                 };
+                                q.reject(response);
                             } else {
-                                response = [];
+                                if (hasMockedThumbnail) {
+                                    response = {
+                                        url: 'http://example.com/example.png',
+                                        pano_id: 'ABC',
+                                        heading: 179
+                                    };
+                                } else {
+                                    response = [];
+                                }
+                                q.resolve(response);
                             }
-                            q.resolve(response);
                             $rootScope.$apply();
                         };
                         return q.promise;
@@ -77,6 +84,8 @@ describe('The dp-straatbeeld-thumbnail component', function () {
         });
 
         hasMockedThumbnail = true;
+        httpStatus = 200;
+        response = null;
 
         spyOn(store, 'dispatch');
         spyOn(api, 'getByUrl').and.callThrough();
@@ -106,6 +115,50 @@ describe('The dp-straatbeeld-thumbnail component', function () {
         var scope = component.isolateScope();
 
         finishApiCall();
+
+        expect(component.find('img').length).toBe(0);
+        expect(scope.vm.isLoading).toBe(false);
+
+        expect(component.find('.qa-found-no-straatbeeld').text())
+            .toContain(
+                'Geen panoramabeeld beschikbaar (binnen 50m van deze locatie).'
+            );
+        expect(component.find('.qa-found-no-straatbeeld').text())
+            .toContain(
+                'Tip: kies via de kaart een nabije locatie.'
+            );
+    });
+
+    it('shows a message when the response is a 404 not found', function () {
+        httpStatus = 404;
+        var component = getComponent([52, 4]);
+        var scope = component.isolateScope();
+
+        finishApiCall();
+
+        expect(response.errorHandled).toBeTruthy();
+
+        expect(component.find('img').length).toBe(0);
+        expect(scope.vm.isLoading).toBe(false);
+
+        expect(component.find('.qa-found-no-straatbeeld').text())
+            .toContain(
+                'Geen panoramabeeld beschikbaar (binnen 50m van deze locatie).'
+            );
+        expect(component.find('.qa-found-no-straatbeeld').text())
+            .toContain(
+                'Tip: kies via de kaart een nabije locatie.'
+            );
+    });
+
+    it('does not mark error handled when status is neither 200 nor 404', function () {
+        httpStatus = 500;
+        var component = getComponent([52, 4]);
+        var scope = component.isolateScope();
+
+        finishApiCall();
+
+        expect(response.errorHandled).toBeFalsy();
 
         expect(component.find('img').length).toBe(0);
         expect(scope.vm.isLoading).toBe(false);

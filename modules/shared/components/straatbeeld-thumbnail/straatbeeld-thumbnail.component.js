@@ -12,9 +12,9 @@
             controllerAs: 'vm'
         });
 
-    DpStraatbeeldThumbnailController.$inject = ['$scope', 'sharedConfig', 'api', 'userSettings'];
+    DpStraatbeeldThumbnailController.$inject = ['$q', '$scope', 'sharedConfig', 'api', 'userSettings'];
 
-    function DpStraatbeeldThumbnailController ($scope, sharedConfig, api, userSettings) {
+    function DpStraatbeeldThumbnailController ($q, $scope, sharedConfig, api, userSettings) {
         var vm = this,
             imageUrl,
             heading,
@@ -54,6 +54,13 @@
                     vm.hasThumbnail = false;
                 }
 
+                vm.isLoading = false;
+            }, (rejection) => {
+                if (rejection.status === 404) {
+                    rejection.errorHandled = true;
+                }
+
+                vm.hasThumbnail = false;
                 vm.isLoading = false;
             });
         }
