@@ -13,24 +13,12 @@
                      id="{{vm.type}}{{entry.id}}"
                      ng-repeat="entry in vm.entries"
                      class="u-margin__bottom--4">
-
-                    <div ng-if="vm.type !== 'events'">
-                        <h2 class="u-margin__bottom--1">{{entry.titel.value}}</h2>
-                        <div class="s-cms-page-content" ng-bind-html="entry.content.html"></div>
+                    <h2 class="u-margin__bottom--1">{{entry.titel.value}}</h2>
+                    <div ng-if="entry.datum.date"
+                         class="c-user-content-overview__date">
+                        {{entry.datum.date | date}}
                     </div>
-
-                    <div ng-if="vm.type === 'events'">
-                        <dp-event date="entry.datum.date">
-                            <div class="u-margin__bottom--1">
-                                <div class="u-margin__left--2">
-                                    <dp-event-when-where title="entry.titel.value"
-                                                         time="entry.tijd.value"
-                                                         location="entry.location.value"></dp-event-when-where>
-                                    <div class="s-cms-page-content" ng-bind-html="entry.content.html"></div>
-                                </div>
-                            </div>
-                        </dp-event>
-                    </div>
+                    <div class="s-cms-page-content" ng-bind-html="entry.content.html"></div>
                 </div>
             </div>
         </div>
