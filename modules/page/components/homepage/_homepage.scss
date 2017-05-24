@@ -63,6 +63,15 @@ $show-more-height: 70px;
   margin-top: 3 * $base-whitespace;
 }
 
+.c-homepage__news-instructions {
+  padding: 0 2 * $base-whitespace;
+}
+
+.c-homepage__news-instructions-title {
+  @include font-size($s-font);
+  margin-bottom: $base-whitespace;
+}
+
 .c-homepage__visie {
   @include font-size-responsive($m-font);
   max-width: 734px;

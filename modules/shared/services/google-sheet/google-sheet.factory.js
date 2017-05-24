@@ -14,8 +14,10 @@
             getContents
         };
 
-        function getContents (key, index) {
+        function getContents (type) {
             const defer = $q.defer(),
+                key = GOOGLE_SHEET_CMS.key,
+                index = GOOGLE_SHEET_CMS.index[type],
                 getSheet = GOOGLE_SHEET_CMS.getStatic[environment.NAME] ? getStaticSheet : getDynamicSheet;
 
             if (sheets[key] && sheets[key][index]) {

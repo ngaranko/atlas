@@ -20,7 +20,8 @@
                 snelwegwijs: 5,
                 apis: 6,
                 versions: 7,
-                proclaimer: 8
+                proclaimer: 8,
+                info: 9
             }
         });
 })();
