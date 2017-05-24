@@ -11,7 +11,7 @@
                 DEVELOPMENT: false
             },
             staticAddress: 'https://atlas.amsterdam.nl/cms',
-            key: '1aQF5boEYQvXPESFumP0we4CoKuL8hpkZhFy43mTtmrM',
+            key: '1ZExuZHhmvBRP-7rhuY43Lv7dWuAsGKXwfKd1_3BZfbI',
             index: {
                 news: 1,
                 events: 2,

@@ -51,7 +51,8 @@
             // The 'dynamic' version of the sheet is accessed by calling a Google script from the head of the document
             // The script accepts a callback method to receive the contents in json format
             const defer = $q.defer(),
-                callbackName = 'googleScriptCallback_' + key + '_' + index;
+                callbackId = key.replace('-', '_'),
+                callbackName = `googleScriptCallback_${callbackId}_${index}`;
 
             $window[callbackName] = contents => defer.resolve(contents);
 

@@ -155,6 +155,14 @@ describe('The google sheet factory', function () {
                 'alt=json-in-script&amp;callback=googleScriptCallback_CMSKEY_0"></script>');
         });
 
+        it('turs any dashes in the key into underscores for in the callback identifier', function () {
+            googleSheet.getContents('CMS-KEY', 1);
+            expect(document.head.innerHTML).toContain(
+                '<script type="text/javascript" ' +
+                'src="https://spreadsheets.google.com/feeds/list/CMS-KEY/1/public/basic?' +
+                'alt=json-in-script&amp;callback=googleScriptCallback_CMS_KEY_1"></script>');
+        });
+
         it('uses the cached value if loaded twice', function () {
             googleSheet.getContents('CMSKEY', 0);
             $window.googleScriptCallback_CMSKEY_0(feed);
