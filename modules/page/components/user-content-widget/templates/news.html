@@ -21,7 +21,10 @@
             <div class="c-user-content-widget__news-content s-cms-widget-content"
                  ng-bind-html="entry.verkorteContent.html"></div>
 
-            <div class="c-user-content-widget__news-date">{{entry.datum.date | date}}</div>
+            <div ng-if="entry.datum.date"
+                 class="c-user-content-widget__news-date">
+                {{entry.datum.date | date}}
+            </div>
         </div>
     </div>
     <div class="u-clearfix"></div>
