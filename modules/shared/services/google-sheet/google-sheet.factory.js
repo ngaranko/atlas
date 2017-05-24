@@ -85,28 +85,28 @@
             // Extract entries
             const entries = contents.feed.entry.map((entry, id) => {
                 // Extract the contents
-                return entry.content.$t         // attrx: value, attry: value, ....
-                    .replace(/^attr/, '')       // x: value, attry: value, ...
-                    .split(/, attr/)            // [x:value, y:value, ...]
-                    .map(keyValue => keyValue.split(/: ([^]*)/))    // [[x, value], [y, value], ...
+                return entry.content.$t                             // 'attr-x: value, attr-y: value, ...'
+                    .replace(/^attr-/, '')                          // 'x: value, attr-y: value, ...'
+                    .split(/, attr-/)                               // ['x:value', 'y:value', ...]
+                    .map(keyValue => keyValue.split(/: ([^]*)/))    // [[x, value], [y, value], ...]
                     .reduce((item, [key, value]) => {
-                        // item.x = value, item.y = value, ...
+                        // { id: 'item0', x: { value: value, ... }, y: {...}, ...}
+                        const camelKey = camelCase(key);
                         if (angular.isDefined(value)) {
-                            item[key] = {
+                            item[camelKey] = {
                                 value,
                                 html: $sce.trustAsHtml(markdownParser.parse(value)),
                                 isHref: Boolean(value.match(isHref)),
                                 isDate: Boolean(value.match(isDateValue) && key.match(isDateKey))
                             };
-                            if (item[key].isDate) {
+                            if (item[camelKey].isDate) {
                                 const match = isDateValue.exec(value);
-                                item[key].date = new Date(match[3], match[2] - 1, match[1]);
+                                item[camelKey].date = new Date(match[3], match[2] - 1, match[1]);
                             }
                         }
                         return item;
                     }, {
-                        id: `item${id}`,
-                        extId: entry.title.$t      // start with setting the item.id
+                        id: `item${id}`
                     });
             });
 
@@ -114,6 +114,16 @@
                 feed,
                 entries
             };
+        }
+
+        function camelCase (identifier) {
+            return identifier.split('-').reduce((whole, part) => {
+                return whole + (whole ? uppercaseFirst(part) : part);
+            }, '');
+        }
+
+        function uppercaseFirst (string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
         }
     }
 })();

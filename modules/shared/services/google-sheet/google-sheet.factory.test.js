@@ -20,7 +20,7 @@ describe('The google sheet factory', function () {
                             '$t': 'entry1'
                         },
                         content: {
-                            '$t': 'attrdatum: 1-1-2017, attrtitel: titel1, attrcontents: [link link](http://link/)'
+                            '$t': 'attr-datum: 1-1-2017, attr-titel: titel1, attr-contents: [link link](http://link/)'
                         }
                     },
                     {
@@ -28,7 +28,8 @@ describe('The google sheet factory', function () {
                             '$t': 'entry2'
                         },
                         content: {
-                            '$t': 'attrdatum: 10-1-2017, attrtitel: titel2, attrshort: <a href="http://link/">link</a>'
+                            '$t': 'attr-datum: 10-1-2017, attr-titel: titel2, ' +
+                                'attr-verkorte-titel: <a href="http://link/">link</a>'
                         }
                     },
                     {
@@ -36,7 +37,7 @@ describe('The google sheet factory', function () {
                             '$t': 'entry3'
                         },
                         content: {
-                            '$t': 'attrdatum: 1-12-2017, attrtitel: titel3, attrshort: short3'
+                            '$t': 'attr-datum: 1-12-2017, attr-titel: titel3, attr-verkorte-titel: short3'
                         }
                     },
                     {
@@ -44,7 +45,8 @@ describe('The google sheet factory', function () {
                             '$t': 'entry4'
                         },
                         content: {
-                            '$t': 'attrdatum: 12-12-2017, attrtitel:, attrshort: See [link link](http://link/)'
+                            '$t': 'attr-datum: 12-12-2017, attr-titel:, ' +
+                                'attr-verkorte-titel: See [link link](http://link/)'
                         }
                     }
 
@@ -210,8 +212,8 @@ describe('The google sheet factory', function () {
         });
 
         it('provides for a raw and html representation of each attribute', function () {
-            expect(result.entries[2].short.value).toBe('short3');
-            expect(result.entries[2].short.html).toBe('HTMLMDshort3');
+            expect(result.entries[2].verkorteTitel.value).toBe('short3');
+            expect(result.entries[2].verkorteTitel.html).toBe('HTMLMDshort3');
         });
 
         it('skips empty values', function () {
@@ -223,12 +225,12 @@ describe('The google sheet factory', function () {
             expect(result.entries[0].contents.isHref).toBe(true);
             expect(result.entries[0].contents.isDate).toBe(false);
 
-            expect(result.entries[1].short.value).toBe('<a href="http://link/">link</a>');
-            expect(result.entries[1].short.isHref).toBe(true);
-            expect(result.entries[1].short.isDate).toBe(false);
+            expect(result.entries[1].verkorteTitel.value).toBe('<a href="http://link/">link</a>');
+            expect(result.entries[1].verkorteTitel.isHref).toBe(true);
+            expect(result.entries[1].verkorteTitel.isDate).toBe(false);
 
-            expect(result.entries[2].short.isHref).toBe(false);
-            expect(result.entries[3].short.isHref).toBe(false);
+            expect(result.entries[2].verkorteTitel.isHref).toBe(false);
+            expect(result.entries[3].verkorteTitel.isHref).toBe(false);
         });
 
         it('parses date values', function () {
@@ -240,7 +242,7 @@ describe('The google sheet factory', function () {
                 expect(result.entries[i].datum.isHref).toBe(false);
                 expect(result.entries[i].datum.isDate).toBe(true);
             });
-            expect(result.entries[2].short.isDate).toBe(false);
+            expect(result.entries[2].verkorteTitel.isDate).toBe(false);
         });
     });
 });
