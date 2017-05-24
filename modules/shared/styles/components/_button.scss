@@ -4,15 +4,18 @@
   @markup
     <button class="btn btn--link">Lorem ipsum</button>
   */
-}
-
-.o-btn--link {
-  @extend %link--arrow;
-
   background-color: transparent;
   font-size: inherit;
   text-align: left;
   overflow: visible;
+}
+
+.o-btn--link {
+  @extend %link--arrow;
+}
+
+.o-btn--plus {
+  @extend %link--plus;
 }
 
 .o-btn--contrast {
