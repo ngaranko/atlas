@@ -22,8 +22,8 @@
 
 .c-menu__title {
   &:hover {
-    color: $primary-contrast;
     border-bottom: 2px solid $primary-contrast;
+    color: $primary-contrast;
   }
 }
 
