@@ -2,8 +2,8 @@ $image-tall-offset-top: 20px;
 $image-tall-offset-left: -26px;
 $image-tall-width: 85px;
 $image-tall-height: 68px;
-$title-tall-offset-left: 80px;
 $title-short-offset-left: 86px;
+$title-tall-offset-left: 100px;
 
 .c-logo {
   @include font-size($xl-header-font);
