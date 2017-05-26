@@ -27,6 +27,14 @@
   }
 }
 
+.c-menu__item--help {
+  .c-menu__title {
+    .c-dashboard--page-type-help & {
+      border-bottom: 2px solid $primary-contrast;
+    }
+  }
+}
+
 .c-menu__item--toggle {
   position: relative;
 
