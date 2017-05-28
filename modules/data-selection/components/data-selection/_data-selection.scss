@@ -33,24 +33,13 @@
 
 .c-data-selection-notes {
   ul {
-    margin-left: $base-whitespace;
+    margin-bottom: .5 * $base-whitespace;
+    padding-left: 2 * $base-whitespace;
+    list-style-type: square;
   }
 
   li {
-    position: relative;
-    margin: {
-      bottom: $base-whitespace;
-      left: 14px;
-    }
-    padding-left: 2px;
-
-    &::before {
-      display: inline-block;
-      position: absolute;
-      top: -13px;
-      left: -14px;
-      font-size: 30px;
-      content: "▪";
-    }
+    @include font-weight($light-weight);
+    margin-bottom: $base-whitespace;
   }
 }
