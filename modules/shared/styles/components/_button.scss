@@ -67,6 +67,24 @@
   line-height: $base-whitespace * 4;
 }
 
+.o-btn--white__label-right {
+  @extend %link--arrow;
+
+  width: 100%;
+  padding-right: $base-whitespace;
+  line-height: $base-whitespace * 4;
+
+  &::after {
+    display: inline-block;
+    margin: 10px;
+    float: right;
+  }
+
+  &::before {
+    display: none;
+  }
+}
+
 %btn-close {
   position: absolute;
   top: 0;
