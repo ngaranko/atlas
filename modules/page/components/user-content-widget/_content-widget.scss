@@ -36,11 +36,3 @@
   @include font-weight($normal-weight);
   display: inline;
 }
-
-.c-user-content-widget__events-link {
-  margin-left: 0;
-
-  &::before {
-    display: none;
-  }
-}
