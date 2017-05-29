@@ -124,6 +124,20 @@ describe('The dashboard component', function () {
         expect(component.find('.c-dashboard__footer').length).toBe(0);
     });
 
+    it('has a help class when page type is help', () => {
+        let component;
+
+        // On the help page
+        mockedState.page.type = 'help';
+        component = getComponent();
+        expect(component.find('.c-dashboard--page-type-help').length).toBe(1);
+
+        // On the help page
+        mockedState.page.type = 'some other page';
+        component = getComponent();
+        expect(component.find('.c-dashboard--page-type-help').length).toBe(0);
+    });
+
     describe('error message', function () {
         var component,
             mockedVisibility = {
