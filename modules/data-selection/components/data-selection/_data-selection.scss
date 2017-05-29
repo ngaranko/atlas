@@ -30,25 +30,3 @@
   white-space: nowrap;
   overflow: hidden;
 }
-
-.c-data-selection-notes {
-  a {
-    color: $primary-dark;
-    text-decoration: underline;
-
-    &:hover {
-      color: $primary-contrast;
-    }
-  }
-
-  ul {
-    margin: 0 0 2.6 * $base-whitespace .6 * $base-whitespace;
-    padding-left: 2 * $base-whitespace;
-    list-style-type: square;
-  }
-
-  li {
-    @include font-weight($light-weight);
-    margin-bottom: .6 * $base-whitespace;
-  }
-}

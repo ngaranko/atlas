@@ -1,0 +1,14 @@
+.c-data-selection-notes {
+  a {
+    color: $primary-dark;
+    text-decoration: underline;
+
+    &:hover {
+      color: $primary-contrast;
+    }
+  }
+
+  ul {
+    @extend %content-list;
+  }
+}
