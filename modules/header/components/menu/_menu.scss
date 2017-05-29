@@ -7,6 +7,13 @@
   height: 100%;
   float: left;
   background-color: inherit;
+
+  &:hover {
+    .c-menu__title {
+      border-bottom: 2px solid $primary-contrast;
+      color: $primary-contrast;
+    }
+  }
 }
 
 .c-menu__link {
@@ -18,13 +25,6 @@
   color: $secondary-gray70;
   text-decoration: none;
   cursor: pointer;
-}
-
-.c-menu__title {
-  &:hover {
-    border-bottom: 2px solid $primary-contrast;
-    color: $primary-contrast;
-  }
 }
 
 .c-menu__item--help {
