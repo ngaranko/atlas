@@ -18,12 +18,17 @@
   }
 
   ul {
-    margin-bottom: .5 * $base-whitespace;
+    margin: 0 0 2.6 * $base-whitespace .6 * $base-whitespace;
     padding-left: 2 * $base-whitespace;
     list-style-type: square;
+
+    li,
+    p {
+      @include font-weight($light-weight);
+      margin-bottom: .6 * $base-whitespace;
+    }
   }
 
-  li,
   p {
     @include font-weight($light-weight);
     margin-bottom: 1.6 * $base-whitespace;
