@@ -136,7 +136,7 @@
                      * by removeSuggestionFromScope.
                      */
 
-                    $timeout(removeSuggestionFromScope, 500);
+                    $timeout(removeSuggestionFromScope, 200);
                 } else {
                     removeSuggestionFromScope();
                 }
