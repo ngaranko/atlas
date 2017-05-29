@@ -127,21 +127,25 @@ describe('The dashboard component', function () {
     it('has a type class when page type is help or snelwegwijs or apis', () => {
         let component;
 
+        mockedState.page.name = 'content-overzicht';
+
         // On the help page
         mockedState.page.type = 'help';
         component = getComponent();
         expect(component.find('.c-dashboard--page-type-help').length).toBe(1);
 
+        // On the snelwegwijs page
         mockedState.page.type = 'snelwegwijs';
         component = getComponent();
         expect(component.find('.c-dashboard--page-type-snelwegwijs').length).toBe(1);
 
+        // On the apis page
         mockedState.page.type = 'apis';
         component = getComponent();
         expect(component.find('.c-dashboard--page-type-apis').length).toBe(1);
 
-        // On the help page
-        mockedState.page.type = '';
+        // On a page with no page type
+        delete mockedState.page.type;
         component = getComponent();
         expect(component.find('.c-dashboard--page-type-help').length).toBe(0);
         expect(component.find('.c-dashboard--page-type-snelwegwijs').length).toBe(0);
