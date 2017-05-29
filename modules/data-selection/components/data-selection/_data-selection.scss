@@ -32,6 +32,15 @@
 }
 
 .c-data-selection-notes {
+  a {
+    color: $primary-dark;
+    text-decoration: underline;
+
+    &:hover {
+      color: $primary-contrast;
+    }
+  }
+
   ul {
     margin-bottom: .5 * $base-whitespace;
     padding-left: 2 * $base-whitespace;
