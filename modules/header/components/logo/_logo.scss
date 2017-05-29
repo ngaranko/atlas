@@ -4,6 +4,8 @@ $image-tall-width: 85px;
 $image-tall-height: 68px;
 $title-short-offset-left: 86px;
 $title-tall-offset-left: 100px;
+$title-short-height: 47px;
+$title-tall-height: 61px;
 
 .c-logo {
   @include font-size($xl-header-font);
@@ -26,12 +28,12 @@ $title-tall-offset-left: 100px;
   align-items: center;
 
   .c-logo--short & {
-    height: $site-header-height;
+    height: $title-short-height;
     margin-left: $title-short-offset-left;
   }
 
   .c-logo--tall & {
-    height: $site-header-height + $base-whitespace;
+    height: $title-tall-height;
     margin-left: $title-tall-offset-left;
   }
 }
