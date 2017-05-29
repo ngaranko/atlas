@@ -48,11 +48,11 @@
   @include font-weight($bold-weight);
   display: inline-block;
   width: 100%;
-  height: $base-whitespace * 4;
+  height: $base-whitespace * 5;
   background-color: $primary-light;
   color: $primary-dark;
   font-size: $base-font-size;
-  line-height: $base-whitespace * 4;
+  line-height: $base-whitespace * 5;
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
@@ -72,11 +72,12 @@
 
   width: 100%;
   padding-right: $base-whitespace;
+  padding-left: calc(#{$base-whitespace - 6px});
   line-height: $base-whitespace * 4;
 
   &::after {
     display: inline-block;
-    margin: 10px;
+    margin: 7px 16px;
     float: right;
   }
 
