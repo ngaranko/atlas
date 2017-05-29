@@ -18,12 +18,12 @@
   color: $secondary-gray70;
   text-decoration: none;
   cursor: pointer;
-}
-
-.c-menu__title {
+  
   &:hover {
-    border-bottom: 2px solid $primary-contrast;
-    color: $primary-contrast;
+    .c-menu__title {
+      border-bottom: 2px solid $primary-contrast !important;
+      color: $primary-contrast !important;
+    }
   }
 }
 
