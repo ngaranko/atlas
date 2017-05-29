@@ -124,7 +124,7 @@ describe('The dashboard component', function () {
         expect(component.find('.c-dashboard__footer').length).toBe(0);
     });
 
-    it('has a help class when page type is help', () => {
+    it('has a type class when page type is help or snelwegwijs or apis', () => {
         let component;
 
         // On the help page
@@ -132,10 +132,20 @@ describe('The dashboard component', function () {
         component = getComponent();
         expect(component.find('.c-dashboard--page-type-help').length).toBe(1);
 
+        mockedState.page.type = 'snelwegwijs';
+        component = getComponent();
+        expect(component.find('.c-dashboard--page-type-snelwegwijs').length).toBe(1);
+
+        mockedState.page.type = 'apis';
+        component = getComponent();
+        expect(component.find('.c-dashboard--page-type-apis').length).toBe(1);
+
         // On the help page
-        mockedState.page.type = 'some other page';
+        mockedState.page.type = '';
         component = getComponent();
         expect(component.find('.c-dashboard--page-type-help').length).toBe(0);
+        expect(component.find('.c-dashboard--page-type-snelwegwijs').length).toBe(0);
+        expect(component.find('.c-dashboard--page-type-apis').length).toBe(0);
     });
 
     describe('error message', function () {

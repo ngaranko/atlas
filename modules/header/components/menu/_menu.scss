@@ -29,7 +29,9 @@
 
 .c-menu__item--help {
   .c-menu__title {
-    .c-dashboard--page-type-help & {
+    .c-dashboard--page-type-help &,
+    .c-dashboard--page-type-snelwegwijs &,
+    .c-dashboard--page-type-apis & {
       border-bottom: 2px solid $primary-contrast;
     }
   }
