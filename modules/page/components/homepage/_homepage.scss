@@ -63,6 +63,15 @@ $show-more-height: 70px;
   line-height: $l-line-height;
 }
 
+.c-homepage__visie-paragraph--panel {
+  margin-bottom: .8 * $base-whitespace;
+}
+
+.c-homepage__visie-panel {
+  @include font-size($s-font);
+  margin-top: 4.6 * $base-whitespace;
+}
+
 .c-homepage__beleid {
   padding: 2 * $base-whitespace;
   padding-top: 0;
