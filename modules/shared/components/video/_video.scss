@@ -1,4 +1,7 @@
 .c-video {
   width: 100%;
-  max-height: 100%;
+  min-height: 100%; // min-height instead of height for better IE & Edge layout
+  padding-bottom: $base-whitespace * 5;
+  object-fit: cover; // sass-lint:disable-line property-sort-order
+  background-size: cover; // fallback instead of object-fit property for IE & Edge
 }
