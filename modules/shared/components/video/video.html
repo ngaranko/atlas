@@ -3,6 +3,8 @@
     ng-mouseout="vm.mouseOut()"
     preload="metadata"
     muted="true"
+    width="{{vm.width}}"
+    height="{{vm.height}}"
     class="c-video">
-    <source src="{{vm.src}}" type="video/mp4">
+    <source ng-src="{{vm.src}}.mp4" type="video/mp4">
 </video>

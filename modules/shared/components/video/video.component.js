@@ -1,6 +1,12 @@
 (function () {
     'use strict';
 
+    /**
+     * The dpVideo component for mp4 video.
+     * width and height bindings are required so the browser can reserve spacing before video load.
+     * A poster image (splash image) is set on Safari to prevent nothing being displayed.
+     */
+
     angular
         .module('dpShared')
         .component('dpVideo', {
@@ -9,7 +15,7 @@
             controllerAs: 'vm',
             bindings: {
                 src: '<',
-                width: '<', // TODO: R: set and use
+                width: '<',
                 height: '<'
             }
         });
@@ -30,6 +36,14 @@
 
         vm.$onInit = function () {
             videoElement = $element.find('video')[0];
+
+            // Detect safari: https://stackoverflow.com/a/31732310/2583290
+            const isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
+               navigator.userAgent && !navigator.userAgent.match('CriOS');
+
+            if (isSafari) {
+                videoElement.setAttribute('poster', vm.src + '.jpg');
+            }
         };
     }
 })();
