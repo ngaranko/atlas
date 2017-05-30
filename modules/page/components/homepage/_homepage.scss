@@ -1,7 +1,7 @@
 @import "catalogus-themes/catalogus-themes";
 
-$block-tall-height: 302px;
-$block-short-height: 141px;
+$block-tall-height: 288px;
+$block-short-height: 134px;
 $show-more-height: 70px;
 
 .c-homepage__block {
@@ -165,8 +165,8 @@ $show-more-height: 70px;
 }
 
 .c-homepage__block-details {
+  @include font-weight($normal-weight);
   width: 100%;
   color: $primary-dark;
-  font-family: $base-font-family;
   line-height: 4 * $base-whitespace;
 }
