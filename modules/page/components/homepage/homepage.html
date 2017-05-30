@@ -5,8 +5,9 @@
                 <!-- Link to map -->
                 <div class="qa-map-link">
                     <dp-link type="SHOW_MAP" class-name="c-homepage__block c-homepage__block--left c-homepage__block--tall c-homepage__block--homepage">
-                        <div class="o-btn o-btn--white c-homepage__block-button">
-                            <span class="o-btn--white__label-right">Data op de kaart</span>
+                        <div class="c-homepage__block-button">
+                            <div class="o-btn--transparent">Data op de kaart</div>
+                            <div class="c-homepage__block-details">Zoek in de kaart, bekijk kaartlagen, maak metingen</div>
                         </div>
                     </dp-link>
                 </div>
@@ -15,8 +16,9 @@
                 <!-- Link to straatbeeld -->
                 <div class="qa-straatbeeld-link">
                     <dp-link type="FETCH_STRAATBEELD_BY_ID" class-name="c-homepage__block c-homepage__block--right c-homepage__block--tall c-homepage__block--straatbeeld" payload="vm.fetchStraatbeeldPayload">
-                        <div class="o-btn o-btn--white c-homepage__block-button">
-                            <span class="o-btn--white__label-right">Panorama</span>
+                        <div class="c-homepage__block-button">
+                            <div class="o-btn--transparent">Panorama</div>
+                            <div class="c-homepage__block-details">Kijk rond op straat</div>
                         </div>
                     </dp-link>
                 </div>
@@ -33,8 +35,9 @@
                 <div>
                     <!-- Link to data selection BAG -->
                     <dp-link type="FETCH_DATA_SELECTION" class-name="c-homepage__block c-homepage__block--right c-homepage__block--short c-homepage__block--adressen" payload="{dataset: 'bag', filters: {}, page: 1}">
-                        <div class="o-btn o-btn--white c-homepage__block-button">
-                            <span class="o-btn--white__label-right">Adressentabel</span>
+                        <div class="c-homepage__block-button">
+                            <div class="o-btn--transparent">Adressentabel</div>
+                            <div class="c-homepage__block-details">Maak een selectie en download als csv</div>
                         </div>
                     </dp-link>
                 </div>
@@ -42,8 +45,9 @@
                 <div>
                     <!-- Link to data selection HR -->
                     <dp-link type="FETCH_DATA_SELECTION" class-name="c-homepage__block c-homepage__block--right c-homepage__block--short c-homepage__block--vestigingen" payload="{dataset: 'hr', filters: {}, page: 1}">
-                        <div class="o-btn o-btn--white c-homepage__block-button">
-                            <span class="o-btn--white__label-right">Vestigingentabel</span>
+                        <div class="c-homepage__block-button">
+                            <div class="o-btn--transparent">Vestigingentabel</div>
+                            <div class="c-homepage__block-details">Maak een selectie en download als csv</div>
                         </div>
                     </dp-link>
                 </div>

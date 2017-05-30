@@ -44,7 +44,7 @@
   @include icon-button-text-left("forward", "gray-inverted")
 }
 
-.o-btn--white {
+%o-btn {
   @include font-weight($bold-weight);
   display: inline-block;
   width: 100%;
@@ -57,6 +57,15 @@
   white-space: nowrap;
   cursor: pointer;
   overflow: hidden;
+}
+
+.o-btn--transparent {
+  @extend %o-btn;
+  background-color: transparent;
+}
+
+.o-btn--white {
+  @extend %o-btn;
 }
 
 .o-btn--white__label {

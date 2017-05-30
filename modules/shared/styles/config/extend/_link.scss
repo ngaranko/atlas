@@ -56,7 +56,7 @@ $link-offset: 3px;
   }
 
   &::after {
-    @include icon-button("link-arrow", "light-gray", "");
+    @include icon-button("link-arrow", "light-gray", "light-gray");
     display: none;
   }
 }
