@@ -5,9 +5,9 @@
         .module('dpMap')
         .factory('drawTool', drawToolFactory);
 
-    drawToolFactory.$inject = ['$rootScope', 'L', 'DRAW_TOOL_CONFIG'];
+    drawToolFactory.$inject = ['$rootScope', 'L', 'DRAW_TOOL_CONFIG', 'debounce'];
 
-    function drawToolFactory ($rootScope, L, DRAW_TOOL_CONFIG) {
+    function drawToolFactory ($rootScope, L, DRAW_TOOL_CONFIG, debounce) {
         // holds all information about the state of the shape being created or edited
         const DEFAULTS = {
             isConsistent: true,
@@ -34,7 +34,8 @@
             drawnItems: null,
             drawShapeHandler: null,
             editShapeHandler: null,
-            lastEvent: null
+            lastEvent: null,
+            timeout: null
         };
 
         // these callback methods will be called on a finished polygon and on a change of drawing mode
@@ -104,6 +105,7 @@
 
         // Delete an existing polygon
         function deletePolygon () {
+            console.log('currentShape.layer', currentShape.layer);
             if (currentShape.layer) {
                 currentShape.layer.off('click', toggleEditModeOnShapeClick);
                 drawTool.drawnItems.removeLayer(currentShape.layer);
@@ -214,6 +216,13 @@
         function registerDrawEvents () {
             Object.keys(L.Draw.Event).forEach(eventName => {
                 drawTool.map.on(L.Draw.Event[eventName], function (e) {
+                    console.log('draw event', eventName);
+
+                    if(eventName === "DELETED") { // IE HACK
+                        console.log("Start timeout debounce");
+                        debounce.startDebouncePeriod();
+                    }
+
                     handleDrawEvent(eventName, e);
 
                     updateShape();  // Update current shape and tooltip
@@ -237,6 +246,14 @@
         function registerMapEvents () {
             // Click outside shape => delete shape
             drawTool.map.on('click', function () {
+                console.log('map event');
+
+                const inDebouncePeriod = debounce.isInDebouncePeriod();
+                if(inDebouncePeriod) {
+                    console.log('skipping map event');
+                    return;
+                }
+
                 // In edit mode => disable()
                 if (drawTool.drawingMode === DRAW_TOOL_CONFIG.DRAWING_MODE.EDIT) {
                     disable();
@@ -393,6 +410,7 @@
             const lastMarker = getLastDrawnMarker();
             const isFirstMarker = drawTool.drawShapeHandler._markers.length === 1;
             ['mousedown', 'click'].forEach(key => lastMarker.on(key, () => {
+                console.log('marker event');
                 if (drawTool.drawShapeHandler.enabled() && isFirstMarker) {
                     const isLineOrPolygon = currentShape.markers.length > 1;
                     disable();  // Includes auto close for any line or polygon
