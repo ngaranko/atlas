@@ -3,11 +3,11 @@
 
     angular
         .module('dpMap')
-        .factory('debounce', debounceFactory);
+        .factory('debounce', debounceService);
 
-    debounceFactory.$inject = ['$timeout'];
+    debounceService.$inject = ['$timeout'];
 
-    function debounceFactory ($timeout) {
+    function debounceService ($timeout) {
         let isIgnoringInput = false;
 
         return {
