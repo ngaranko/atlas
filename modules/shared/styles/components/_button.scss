@@ -48,11 +48,11 @@
   @include font-weight($bold-weight);
   display: inline-block;
   width: 100%;
-  height: $base-whitespace * 5;
+  height: $base-whitespace * 4;
   background-color: $primary-light;
   color: $primary-dark;
   font-size: $base-font-size;
-  line-height: $base-whitespace * 5;
+  line-height: $base-whitespace * 4;
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
@@ -61,7 +61,9 @@
 
 .o-btn--transparent {
   @extend %o-btn;
+  height: $base-whitespace * 5;
   background-color: transparent;
+  line-height: $base-whitespace * 5;
 }
 
 .o-btn--white {
