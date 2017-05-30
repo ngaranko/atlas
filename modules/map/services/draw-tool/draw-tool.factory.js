@@ -105,7 +105,6 @@
 
         // Delete an existing polygon
         function deletePolygon () {
-            console.log('currentShape.layer', currentShape.layer);
             if (currentShape.layer) {
                 currentShape.layer.off('click', toggleEditModeOnShapeClick);
                 drawTool.drawnItems.removeLayer(currentShape.layer);
@@ -216,10 +215,7 @@
         function registerDrawEvents () {
             Object.keys(L.Draw.Event).forEach(eventName => {
                 drawTool.map.on(L.Draw.Event[eventName], function (e) {
-                    console.log('draw event', eventName);
-
                     if(eventName === "DELETED") { // IE HACK
-                        console.log("Start timeout debounce");
                         debounce.startDebouncePeriod();
                     }
 
@@ -246,11 +242,8 @@
         function registerMapEvents () {
             // Click outside shape => delete shape
             drawTool.map.on('click', function () {
-                console.log('map event');
-
                 const inDebouncePeriod = debounce.isInDebouncePeriod();
                 if(inDebouncePeriod) {
-                    console.log('skipping map event');
                     return;
                 }
 
@@ -410,7 +403,6 @@
             const lastMarker = getLastDrawnMarker();
             const isFirstMarker = drawTool.drawShapeHandler._markers.length === 1;
             ['mousedown', 'click'].forEach(key => lastMarker.on(key, () => {
-                console.log('marker event');
                 if (drawTool.drawShapeHandler.enabled() && isFirstMarker) {
                     const isLineOrPolygon = currentShape.markers.length > 1;
                     disable();  // Includes auto close for any line or polygon
