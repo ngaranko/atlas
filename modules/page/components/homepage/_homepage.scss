@@ -135,6 +135,12 @@ $show-more-height: 70px;
       background-color: $primary-light;
     }
   }
+
+  &:not(.c-homepage__block--shadow) {
+    &::after {
+      @include icon-button("link-arrow", "light-gray", "light-gray");
+    }
+  }
 }
 
 .c-homepage__block-button {
