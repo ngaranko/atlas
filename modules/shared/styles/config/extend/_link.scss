@@ -42,7 +42,6 @@ $link-offset: 3px;
 
   &::after,
   &::before {
-    @include icon-button("link-arrow");
     display: inline-block;
     position: static;
     width: $icon-size;
@@ -56,8 +55,12 @@ $link-offset: 3px;
   }
 
   &::after {
-    @include icon-button("link-arrow", "light-gray", "light-gray");
+    @include icon-button("link-arrow", "light-gray", "");
     display: none;
+  }
+
+  &::before {
+    @include icon-button("link-arrow");
   }
 }
 
