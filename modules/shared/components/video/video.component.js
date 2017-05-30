@@ -32,6 +32,7 @@
 
         vm.mouseOut = () => {
             videoElement.pause();
+            videoElement.currentTime = 0;
         };
 
         vm.$onInit = function () {
