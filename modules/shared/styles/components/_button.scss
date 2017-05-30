@@ -18,6 +18,10 @@
   @extend %link--arrow;
 
   color: $primary-light;
+
+  &::before {
+    @include icon-button("link-arrow", "white", "white");
+  }
 }
 
 .o-btn--contrast {
