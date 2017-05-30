@@ -4,7 +4,8 @@ describe('The draw tool factory', function () {
         DRAW_TOOL_CONFIG,
         drawTool,
         leafletMap,
-        $timeout;
+        $timeout,
+        debounce;
 
     let layerGroup,
         drawnItems,
@@ -76,12 +77,13 @@ describe('The draw tool factory', function () {
             }
         );
 
-        angular.mock.inject(function (_$rootScope_, _L_, _DRAW_TOOL_CONFIG_, _drawTool_, _$timeout_) {
+        angular.mock.inject(function (_$rootScope_, _L_, _DRAW_TOOL_CONFIG_, _drawTool_, _$timeout_, _debounce_) {
             $rootScope = _$rootScope_;
             L = _L_;
             DRAW_TOOL_CONFIG = _DRAW_TOOL_CONFIG_;
             drawTool = _drawTool_;
             $timeout = _$timeout_;
+            debounce = _debounce_;
         });
 
         DRAW_TOOL_CONFIG.MAX_MARKERS = 4;
@@ -526,15 +528,24 @@ describe('The draw tool factory', function () {
             expect(drawTool.isEnabled()).toBe(true);
         });
 
+        it('click on map when debouncing is active it should do nothing', function () {
+            spyOn(debounce, 'isInDebouncePeriod').and.returnValue(true);
+            spyOn(drawTool, 'disable');
+
+            fireEvent('click');
+
+            expect(drawTool.disable).not.toHaveBeenCalled();
+        });
+
         it('click on map while finished drawing polygon deletes polygon and calls onFinish method', function () {
             createPolygon();
-            $timeout.flush();
 
             drawShapeHandler._markers = []; // edit mode, no markers in draw mode
 
             expect(drawTool.isEnabled()).toBe(false);
             expect(drawTool.shape.markers.length).toBe(3);
 
+            $timeout.flush();
             fireEvent('click');
 
             expect(drawTool.isEnabled()).toBe(false);
@@ -558,13 +569,13 @@ describe('The draw tool factory', function () {
 
         it('click on map while editing polygon ends edit mode', function () {
             createPolygon();
-            $timeout.flush();
 
             drawTool.enable();
             fireEvent('draw:editstart');
 
             expect(drawTool.isEnabled()).toBe(true);
 
+            $timeout.flush();
             fireEvent('click');
 
             expect(drawTool.isEnabled()).toBe(false);
