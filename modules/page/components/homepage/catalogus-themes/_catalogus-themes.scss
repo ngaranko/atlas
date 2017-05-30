@@ -86,6 +86,10 @@ $base-padding: calc(#{$base-whitespace} * 2);
   @include icon-button-text-right("dienstverlening", "", "red");
 }
 
+.c-catalogus-theme__icon--bestuur-organisatie {
+  @include icon-button-text-right("bestuur-organisatie", "", "red");
+}
+
 .c-catalogus-theme__icon--educatie-jeugd-diversiteit {
   @include icon-button-text-right("educatie-jeugd-diversiteit", "", "red");
 }

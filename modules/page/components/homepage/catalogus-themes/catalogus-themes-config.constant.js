@@ -46,9 +46,9 @@
                 icon: 'werk-en-inkomen'
             },
             {
-                name: 'Dienstverlening',
-                slug: 'dienstverlening',
-                icon: 'dienstverlening'
+                name: 'Bestuur en organisatie',
+                slug: 'bestuur-en-organisatie',
+                icon: 'bestuur-organisatie'
             },
             {
                 name: 'Educatie, jeugd en diversiteit',
