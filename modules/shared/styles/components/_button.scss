@@ -14,8 +14,10 @@
   @extend %link--arrow;
 }
 
-.o-btn--plus {
-  @extend %link--plus;
+.o-btn--link--inverse {
+  @extend %link--arrow;
+
+  color: $primary-light;
 }
 
 .o-btn--contrast {
