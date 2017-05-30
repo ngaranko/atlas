@@ -215,7 +215,7 @@
         function registerDrawEvents () {
             Object.keys(L.Draw.Event).forEach(eventName => {
                 drawTool.map.on(L.Draw.Event[eventName], function (e) {
-                    if(eventName === "DELETED") { // IE HACK
+                    if (eventName === 'DELETED') { // IE HACK
                         debounce.startDebouncePeriod();
                     }
 
@@ -243,7 +243,7 @@
             // Click outside shape => delete shape
             drawTool.map.on('click', function () {
                 const inDebouncePeriod = debounce.isInDebouncePeriod();
-                if(inDebouncePeriod) {
+                if (inDebouncePeriod) {
                     return;
                 }
 

@@ -1,5 +1,6 @@
 describe('The debounce factory', function () {
-    let debounce, $timeout;
+    let debounce,
+        $timeout;
 
     beforeEach(function () {
         angular.mock.module('dpMap');
@@ -14,7 +15,7 @@ describe('The debounce factory', function () {
         expect(debounce.isInDebouncePeriod()).toEqual(false);
     });
 
-    it('after starting isIgnoringInput should first be true and after timeout ends it should be false again', function () {
+    it('after starting isIgnoringInput should first be true and after timeout ends it should be false', function () {
         debounce.startDebouncePeriod();
 
         expect(debounce.isInDebouncePeriod()).toEqual(true);

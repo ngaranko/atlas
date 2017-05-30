@@ -18,8 +18,7 @@
 
         function onMapClick (event) {
             const inDebouncePeriod = debounce.isInDebouncePeriod();
-            if(inDebouncePeriod) {
-                console.log('skipping clickmap event');
+            if (inDebouncePeriod) {
                 return;
             }
 
