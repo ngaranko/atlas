@@ -9,6 +9,7 @@ $show-more-height: 70px;
   display: block;
   position: relative;
   margin-bottom: 2 * $base-whitespace;
+  margin-left: 0;
   background-color: $secondary-gray4;
   background-position: center center;
   background-size: cover;
@@ -16,8 +17,10 @@ $show-more-height: 70px;
   box-sizing: border-box;
   background-origin: border-box;
 
-  &:hover {
-    box-shadow: $primary-dark 2px 2px, $primary-dark 2px 0;
+  &:not(.c-homepage__block--datasets) {
+    &:hover {
+      box-shadow: $primary-dark 2px 2px, $primary-dark 2px 0;
+    }
   }
 
   &::before {
@@ -30,6 +33,10 @@ $show-more-height: 70px;
     right: 0;
     bottom: 12px;
   }
+}
+
+.c-homepage__block--shadow {
+  box-shadow: $primary-dark 2px 2px, $primary-dark 2px 0;
 }
 
 .c-homepage__block--left {
@@ -47,10 +54,12 @@ $show-more-height: 70px;
 .c-homepage__block--tall {
   height: $block-tall-height;
 
-  &:hover {
-    .c-homepage__block-button {
-      transform: translateY(0);
-      background-color: $primary-light;
+  &:not(.c-homepage__block--datasets) {
+    &:hover {
+      .c-homepage__block-button { // sass-lint:disable-line nesting-depth
+        transform: translateY(0);
+        background-color: $primary-light;
+      }
     }
   }
 }
@@ -70,10 +79,12 @@ $show-more-height: 70px;
 .c-homepage__block--short {
   height: $block-short-height;
 
-  &:hover {
-    .c-homepage__block-button {
-      transform: translateY(0);
-      background-color: $primary-light;
+  &:not(.c-homepage__block--datasets) {
+    &:hover {
+      .c-homepage__block-button { // sass-lint:disable-line nesting-depth
+        transform: translateY(0);
+        background-color: $primary-light;
+      }
     }
   }
 }
@@ -117,6 +128,15 @@ $show-more-height: 70px;
   background-image: url("assets/images/homepage-adressen.png");
 }
 
+.c-homepage__block--datasets {
+  .c-homepage__block-button {
+    &:hover {
+      transform: translateY(0);
+      background-color: $primary-light;
+    }
+  }
+}
+
 .c-homepage__block-button {
   position: absolute;
   right: 0;
@@ -136,12 +156,6 @@ $show-more-height: 70px;
     height: 100px;
     transform: translateY(5 * $base-whitespace);
   }
-}
-
-.c-homepage__block-button--datasets {
-  bottom: -85px;
-  left: -20px;
-  width: calc(100% + 50px);
 }
 
 .c-homepage__block-details {

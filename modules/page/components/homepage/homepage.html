@@ -27,8 +27,8 @@
         <div class="u-row u-margin__bottom--2">
             <div class="u-col-sm--9">
                 <!-- Links to data selection themes -->
-                <div class="c-homepage__block c-homepage__block--left c-homepage__block--tall">
-                    <div class="c-homepage__block-button">
+                <div class="c-homepage__block c-homepage__block--left c-homepage__block--tall c-homepage__block--datasets" ng-class="{ 'c-homepage__block--shadow': datasetsHover }">
+                    <div class="c-homepage__block-button" ng-mouseover="datasetsHover = true" ng-mouseout="datasetsHover = false">
                         <div class="o-btn--transparent">Datasets</div>
                         <div class="c-homepage__block-details">Uitleg over datasets</div>
                     </div>
