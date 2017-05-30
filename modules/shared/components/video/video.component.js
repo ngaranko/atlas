@@ -3,6 +3,7 @@
 
     /**
      * The dpVideo component for mp4 video.
+     * The video playback is governed by the play variable set from outside this component
      * width and height bindings are required so the browser can reserve spacing before video load.
      * A poster image (splash image) is set on Safari to prevent nothing being displayed.
      */
@@ -16,7 +17,8 @@
             bindings: {
                 src: '<',
                 width: '<',
-                height: '<'
+                height: '<',
+                play: '<'
             }
         });
 
@@ -26,16 +28,7 @@
         const vm = this;
         let videoElement;
 
-        vm.mouseOver = () => {
-            videoElement.play();
-        };
-
-        vm.mouseOut = () => {
-            videoElement.pause();
-            videoElement.currentTime = 0;
-        };
-
-        vm.$onInit = function () {
+        vm.$onInit = () => {
             videoElement = $element.find('video')[0];
 
             // Detect safari: https://stackoverflow.com/a/31732310/2583290
@@ -44,6 +37,17 @@
 
             if (isSafari) {
                 videoElement.setAttribute('poster', vm.src + '.jpg');
+            }
+        };
+
+        vm.$onChanges = (changes) => {
+            if (changes.play && videoElement) {
+                if (changes.play.currentValue) {
+                    videoElement.play();
+                } else {
+                    videoElement.pause();
+                    videoElement.currentTime = 0;
+                }
             }
         };
     }

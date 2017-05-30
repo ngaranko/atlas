@@ -4,11 +4,17 @@
             <div class="u-col-sm--9">
                 <!-- Link to map -->
                 <div class="qa-map-link">
-                    <dp-link type="SHOW_MAP" class-name="c-homepage__block c-homepage__block--left c-homepage__block--tall">
+                    <dp-link
+                        type="SHOW_MAP"
+                        ng-mouseenter="vm.mapLinkHover=true;"
+                        ng-mouseleave="vm.mapLinkHover=false;"
+                        class-name="c-homepage__block c-homepage__block--left c-homepage__block--tall"
+                        >
                         <dp-video
                             src="'assets/video/map'"
                             width="1200"
                             height="250"
+                            play="vm.mapLinkHover"
                             ></dp-video>
                         <div class="c-homepage__block-button">
                             <div class="o-btn--transparent">Data op de kaart</div>
@@ -20,11 +26,16 @@
             <div class="u-col-sm--3">
                 <!-- Link to straatbeeld -->
                 <div class="qa-straatbeeld-link">
-                    <dp-link type="FETCH_STRAATBEELD_BY_ID" class-name="c-homepage__block c-homepage__block--right c-homepage__block--tall" payload="vm.fetchStraatbeeldPayload">
+                    <dp-link
+                        type="FETCH_STRAATBEELD_BY_ID"
+                        ng-mouseenter="vm.panoramaLinkHover=true;"
+                        ng-mouseleave="vm.panoramaLinkHover=false;"
+                        class-name="c-homepage__block c-homepage__block--right c-homepage__block--tall" payload="vm.fetchStraatbeeldPayload">
                         <dp-video
                             src="'assets/video/panorama'"
                             width="400"
                             height="250"
+                            play="vm.panoramaLinkHover"
                             ></dp-video>
                         <div class="c-homepage__block-button">
                             <div class="o-btn--transparent">Panorama</div>
