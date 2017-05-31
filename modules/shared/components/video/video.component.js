@@ -22,9 +22,9 @@
             }
         });
 
-    VideoController.$inject = ['$element'];
+    VideoController.$inject = ['$element', '$window'];
 
-    function VideoController ($element) {
+    function VideoController ($element, $window) {
         const vm = this;
         let videoElement;
 
@@ -32,8 +32,8 @@
             videoElement = $element.find('video')[0];
 
             // Detect safari: https://stackoverflow.com/a/31732310/2583290
-            const isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
-               navigator.userAgent && !navigator.userAgent.match('CriOS');
+            const isSafari = $window.navigator.vendor && $window.navigator.vendor.indexOf('Apple') > -1 &&
+               $window.navigator.userAgent && !$window.navigator.userAgent.match('CriOS');
 
             if (isSafari) {
                 videoElement.setAttribute('poster', vm.src + '.jpg');
