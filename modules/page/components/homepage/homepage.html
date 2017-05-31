@@ -4,7 +4,19 @@
             <div class="u-col-sm--9">
                 <!-- Link to map -->
                 <div class="qa-map-link">
-                    <dp-link type="SHOW_MAP" class-name="c-homepage__block c-homepage__block--left c-homepage__block--tall c-homepage__block--homepage">
+                    <dp-link
+                        type="SHOW_MAP"
+                        ng-mouseenter="vm.mapLinkHover=true;"
+                        ng-mouseleave="vm.mapLinkHover=false;"
+                        class-name="c-homepage__block c-homepage__block--left c-homepage__block--tall"
+                        >
+                        <dp-video
+                            src="'assets/video/map.mp4'"
+                            poster="'assets/video/map.jpg'"
+                            width="1200"
+                            height="250"
+                            play="vm.mapLinkHover"
+                            ></dp-video>
                         <div class="c-homepage__block-button">
                             <div class="o-btn--transparent">Data op de kaart</div>
                             <div class="c-homepage__block-details">Selecteer kaartlagen, vind gegevens op een punt in de kaart, meet of teken een gebied</div>
@@ -15,7 +27,18 @@
             <div class="u-col-sm--3">
                 <!-- Link to straatbeeld -->
                 <div class="qa-straatbeeld-link">
-                    <dp-link type="FETCH_STRAATBEELD_BY_ID" class-name="c-homepage__block c-homepage__block--right c-homepage__block--tall c-homepage__block--straatbeeld" payload="vm.fetchStraatbeeldPayload">
+                    <dp-link
+                        type="FETCH_STRAATBEELD_BY_ID"
+                        ng-mouseenter="vm.panoramaLinkHover=true;"
+                        ng-mouseleave="vm.panoramaLinkHover=false;"
+                        class-name="c-homepage__block c-homepage__block--right c-homepage__block--tall" payload="vm.fetchStraatbeeldPayload">
+                        <dp-video
+                            src="'assets/video/panorama.mp4'"
+                            poster="'assets/video/panorama.jpg'"
+                            width="400"
+                            height="250"
+                            play="vm.panoramaLinkHover"
+                            ></dp-video>
                         <div class="c-homepage__block-button">
                             <div class="o-btn--transparent">Panoramabeelden</div>
                             <div class="c-homepage__block-details">Kijk rond ter plaatse</div>
@@ -24,7 +47,7 @@
                 </div>
             </div>
         </div>
-        <div class="u-row u-margin__bottom--2">
+        <div class="u-row">
             <div class="u-col-sm--9">
                 <!-- Links to data selection themes -->
                 <div class="c-homepage__block c-homepage__block--left c-homepage__block--tall c-homepage__block--datasets" ng-class="{ 'c-homepage__block--shadow': datasetsHover }">
@@ -67,8 +90,7 @@
         <div class="u-row">
             <div class="c-homepage__news">
                 <div class="u-col-sm--9">
-                    <div class="u-margin__left--2">
-                        <h1 class="c-homepage__news-header">Nieuws</h1>
+                    <div class="u-padding__left--2 u-padding__right--2 u-margin__right--2">
                         <div class="">
                             <dp-user-content-widget type="news" limit-to="3"></dp-user-content-widget>
                         </div>

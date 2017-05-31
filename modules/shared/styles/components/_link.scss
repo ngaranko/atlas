@@ -8,6 +8,10 @@
 
   color: $primary-light;
   text-decoration: underline;
+
+  &:hover {
+    color: $primary-light;
+  }
 }
 
 .c-link--light {

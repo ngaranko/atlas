@@ -32,6 +32,8 @@ $show-more-height: 70px;
     position: absolute;
     right: 0;
     bottom: 12px;
+    cursor: pointer;
+    pointer-events: none;
   }
 }
 
@@ -45,10 +47,6 @@ $show-more-height: 70px;
 
 .c-homepage__block--middle {
   margin-right: 2 * $base-whitespace;
-}
-
-.c-homepage__block--right {
-  padding: 2 * $base-whitespace;
 }
 
 .c-homepage__block--tall {
@@ -82,7 +80,7 @@ $show-more-height: 70px;
 }
 
 .c-homepage__news {
-  margin-top: 6 * $base-whitespace;
+  margin-top: 4 * $base-whitespace;
   padding-bottom: 6 * $base-whitespace;
   border-bottom: 1px solid $secondary-gray20;
 }
@@ -100,7 +98,7 @@ $show-more-height: 70px;
 }
 
 .c-homepage__news-instructions-title {
-  @include font-size($s-font);
+  @include font-size($l-font);
   margin-bottom: $base-whitespace;
 }
 
@@ -124,20 +122,12 @@ $show-more-height: 70px;
 
 .c-homepage__visie-panel {
   @include font-size($s-font);
-  margin-top: 4.6 * $base-whitespace;
+  margin-top: (2 * $base-whitespace);
 }
 
 .c-homepage__beleid {
   padding: 2 * $base-whitespace;
   padding-top: 0;
-}
-
-.c-homepage__block--homepage {
-  background-image: url("assets/images/homepage-map.png");
-}
-
-.c-homepage__block--straatbeeld {
-  background-image: url("assets/images/homepage-straatbeeld.png");
 }
 
 .c-homepage__block--vestigingen {
@@ -189,5 +179,5 @@ $show-more-height: 70px;
   @include font-weight($normal-weight);
   width: 100%;
   color: $primary-dark;
-  line-height: 4 * $base-whitespace;
+  line-height: 3.5 * $base-whitespace;
 }

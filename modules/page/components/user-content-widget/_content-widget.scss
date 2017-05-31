@@ -17,6 +17,7 @@
 }
 
 .c-user-content-widget__beleid-zie-ook {
+  @include font-size($l-font);
   @include font-weight($bold-weight);
   margin-bottom: $base-whitespace;
 }
@@ -33,6 +34,6 @@
 }
 
 .c-user-content-widget__short {
-  @include font-weight($normal-weight);
+  @include font-weight($bold-weight);
   display: inline;
 }
