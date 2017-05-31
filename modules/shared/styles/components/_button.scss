@@ -30,6 +30,10 @@
   }
 }
 
+.o-btn--plus {
+  @extend %link--plus;
+}
+
 .o-btn--contrast {
   color: $primary-contrast;
 
