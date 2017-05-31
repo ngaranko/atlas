@@ -41,13 +41,15 @@
         };
 
         vm.$onChanges = (changes) => {
-            if (changes.play && videoElement) {
-                if (changes.play.currentValue) {
-                    videoElement.play();
-                } else {
-                    videoElement.pause();
-                    videoElement.currentTime = 0;
-                }
+            if (angular.isUndefined(changes.play) || !videoElement) {
+                return;
+            }
+
+            if (changes.play.currentValue) {
+                videoElement.play();
+            } else {
+                videoElement.pause();
+                videoElement.currentTime = 0;
             }
         };
     }
