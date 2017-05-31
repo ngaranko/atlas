@@ -44,15 +44,31 @@
 }
 
 .c-dashboard__footer {
-  @include font-size($xs-font);
+  @include font-size($s-font);
 
-  position: absolute;
-  bottom: 0;
   width: 100%;
-  height: $dashboard-footer-height + $dashboard-footer-separator-height;
-  border-top: $dashboard-footer-separator-height solid $secondary-gray60;
-  background-color: $primary-light;
+  padding: (2 * $base-whitespace) $dashboard-gutter;
+  background-color: $secondary-gray60;
+  color: $primary-light;
   line-height: $dashboard-footer-height;
+}
+
+.c-dashboard__proclaimer {
+  max-width: 734px;
+}
+
+.c-dashboard__proclaimer-header,
+.c-dashboard__social-header {
+  margin-bottom: 2 * $base-whitespace;
+}
+
+.c-dashboard__proclaimer-paragraph {
+  margin-bottom: 1.6 * $base-whitespace;
+  line-height: $l-line-height;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .c-dashboard--max-width {

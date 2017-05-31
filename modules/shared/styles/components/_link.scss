@@ -2,6 +2,14 @@
   @extend %link;
 }
 
+.c-link--inverse {
+  @extend %link;
+  @include font-weight($normal-weight);
+
+  color: $primary-light;
+  text-decoration: underline;
+}
+
 .c-link--light {
   color: $primary-light;
 
