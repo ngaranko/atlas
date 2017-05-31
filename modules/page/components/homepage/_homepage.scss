@@ -32,6 +32,8 @@ $show-more-height: 70px;
     position: absolute;
     right: 0;
     bottom: 12px;
+    cursor: pointer;
+    pointer-events: none;
   }
 }
 
