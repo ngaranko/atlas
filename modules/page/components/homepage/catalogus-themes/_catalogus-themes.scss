@@ -1,7 +1,7 @@
 $base-padding: calc(#{$base-whitespace} * 2);
 
 .c-catalogus-themes {
-  padding-top: ($base-whitespace / 2);
+  padding-top: ($base-whitespace * .8);
   padding-right: $base-padding;
   padding-bottom: $base-padding;
   padding-left: $base-padding;
@@ -25,6 +25,7 @@ $base-padding: calc(#{$base-whitespace} * 2);
 }
 
 .c-catalogus-theme__link {
+  @include font-weight($normal-weight);
   display: table;
   height: 40px;
 }
