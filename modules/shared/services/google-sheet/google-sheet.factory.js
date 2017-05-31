@@ -14,8 +14,10 @@
             getContents
         };
 
-        function getContents (key, index) {
+        function getContents (type) {
             const defer = $q.defer(),
+                key = GOOGLE_SHEET_CMS.key,
+                index = GOOGLE_SHEET_CMS.index[type],
                 getSheet = GOOGLE_SHEET_CMS.getStatic[environment.NAME] ? getStaticSheet : getDynamicSheet;
 
             if (sheets[key] && sheets[key][index]) {
@@ -51,7 +53,8 @@
             // The 'dynamic' version of the sheet is accessed by calling a Google script from the head of the document
             // The script accepts a callback method to receive the contents in json format
             const defer = $q.defer(),
-                callbackName = 'googleScriptCallback_' + key + '_' + index;
+                callbackId = key.replace('-', '_'),
+                callbackName = `googleScriptCallback_${callbackId}_${index}`;
 
             $window[callbackName] = contents => defer.resolve(contents);
 
@@ -84,28 +87,28 @@
             // Extract entries
             const entries = contents.feed.entry.map((entry, id) => {
                 // Extract the contents
-                return entry.content.$t         // attrx: value, attry: value, ....
-                    .replace(/^attr/, '')       // x: value, attry: value, ...
-                    .split(/, attr/)            // [x:value, y:value, ...]
-                    .map(keyValue => keyValue.split(/: ([^]*)/))    // [[x, value], [y, value], ...
+                return entry.content.$t                             // 'attr-x: value, attr-y: value, ...'
+                    .replace(/^attr-/, '')                          // 'x: value, attr-y: value, ...'
+                    .split(/, attr-/)                               // ['x:value', 'y:value', ...]
+                    .map(keyValue => keyValue.split(/: ([^]*)/))    // [[x, value], [y, value], ...]
                     .reduce((item, [key, value]) => {
-                        // item.x = value, item.y = value, ...
+                        // { id: 'item0', x: { value: value, ... }, y: {...}, ...}
+                        const camelKey = camelCase(key);
                         if (angular.isDefined(value)) {
-                            item[key] = {
+                            item[camelKey] = {
                                 value,
                                 html: $sce.trustAsHtml(markdownParser.parse(value)),
                                 isHref: Boolean(value.match(isHref)),
                                 isDate: Boolean(value.match(isDateValue) && key.match(isDateKey))
                             };
-                            if (item[key].isDate) {
+                            if (item[camelKey].isDate) {
                                 const match = isDateValue.exec(value);
-                                item[key].date = new Date(match[3], match[2] - 1, match[1]);
+                                item[camelKey].date = new Date(match[3], match[2] - 1, match[1]);
                             }
                         }
                         return item;
                     }, {
-                        id: `item${id}`,
-                        extId: entry.title.$t      // start with setting the item.id
+                        id: `item${id}`
                     });
             });
 
@@ -113,6 +116,16 @@
                 feed,
                 entries
             };
+        }
+
+        function camelCase (identifier) {
+            return identifier.split('-').reduce((whole, part) => {
+                return whole + (whole ? uppercaseFirst(part) : part);
+            }, '');
+        }
+
+        function uppercaseFirst (string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
         }
     }
 })();

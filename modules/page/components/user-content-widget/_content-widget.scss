@@ -1,3 +1,21 @@
+.c-user-content-widget__news-entry {
+  padding-right: 3 * $base-whitespace;
+}
+
+.c-user-content-widget__news-title {
+  @include font-size($s-font);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.c-user-content-widget__news-content {
+  padding: 1.2 * $base-whitespace 0;
+}
+
+.c-user-content-widget__news-date {
+  color: $secondary-gray60;
+}
+
 .c-user-content-widget__beleid-zie-ook {
   @include font-weight($bold-weight);
   margin-bottom: $base-whitespace;
@@ -17,12 +35,4 @@
 .c-user-content-widget__short {
   @include font-weight($normal-weight);
   display: inline;
-}
-
-.c-user-content-widget__events-link {
-  margin-left: 0;
-
-  &::before {
-    display: none;
-  }
 }

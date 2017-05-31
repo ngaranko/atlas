@@ -2,6 +2,14 @@
   @extend %link;
 }
 
+.c-link--inverse {
+  @extend %link;
+  @include font-weight($normal-weight);
+
+  color: $primary-light;
+  text-decoration: underline;
+}
+
 .c-link--light {
   color: $primary-light;
 
@@ -12,6 +20,19 @@
 
 .c-link--arrow {
   @extend %link--arrow;
+}
+
+.c-link--arrow-right {
+  @extend %link--arrow;
+
+  &::after {
+    display: inline-block;
+  }
+
+
+  &::before {
+    display: none;
+  }
 }
 
 .c-link--inline {

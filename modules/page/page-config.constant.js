@@ -8,11 +8,9 @@
             metadata: 'Metadata',
             news: 'Nieuws',
             beleid: 'Beleid',
-            events: 'Evenementen',
             help: 'Help',
             snelwegwijs: 'Bediening portaal',
             apis: 'API\'s gebruiken',
-            versions: 'Versiehistorie',
             proclaimer: 'Proclaimer'
         });
 })();
