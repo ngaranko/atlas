@@ -172,6 +172,7 @@ $show-more-height: 70px;
   padding-left: 2 * $base-whitespace;
   transition: transform .2s;
   background-color: $secondary-gray4;
+  text-decoration: none;
 
   .c-homepage__block--short & {
     height: $block-short-height;
