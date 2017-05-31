@@ -98,7 +98,7 @@ $show-more-height: 70px;
 }
 
 .c-homepage__news-instructions-title {
-  @include font-size($s-font);
+  @include font-size($l-font);
   margin-bottom: $base-whitespace;
 }
 
