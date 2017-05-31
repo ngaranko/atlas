@@ -47,10 +47,6 @@ $show-more-height: 70px;
   margin-right: 2 * $base-whitespace;
 }
 
-.c-homepage__block--right {
-  padding: 2 * $base-whitespace;
-}
-
 .c-homepage__block--tall {
   height: $block-tall-height;
 
@@ -130,14 +126,6 @@ $show-more-height: 70px;
 .c-homepage__beleid {
   padding: 2 * $base-whitespace;
   padding-top: 0;
-}
-
-.c-homepage__block--homepage {
-  background-image: url("assets/images/homepage-map.png");
-}
-
-.c-homepage__block--straatbeeld {
-  background-image: url("assets/images/homepage-straatbeeld.png");
 }
 
 .c-homepage__block--vestigingen {
