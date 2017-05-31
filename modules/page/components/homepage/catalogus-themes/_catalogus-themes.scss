@@ -32,6 +32,7 @@ $base-padding: calc(#{$base-whitespace} * 2);
 
 .c-catalogus-theme__link__text {
   display: table-cell;
+  padding-right: $base-whitespace;
   line-height: 20px;
   vertical-align: middle;
 }
