@@ -64,18 +64,6 @@ $show-more-height: 70px;
   }
 }
 
-.c-homepage__entries {
-  position: relative;
-  height: $block-tall-height - $show-more-height;
-  overflow: hidden;
-}
-
-.c-homepage__show-more {
-  @include font-weight($bold-weight);
-  position: absolute;
-  bottom: 2 * $base-whitespace;
-}
-
 .c-homepage__block--short {
   height: $block-short-height;
 
