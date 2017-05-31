@@ -47,14 +47,23 @@
   @include font-size($s-font);
 
   width: 100%;
+  max-width: $dashboard-max-width-outer;
   padding: (2 * $base-whitespace) $dashboard-gutter;
   background-color: $secondary-gray60;
   color: $primary-light;
   line-height: $dashboard-footer-height;
 }
 
+.c-dashboard__footer-content {
+  margin: 0 (10 * $base-whitespace);
+}
+
 .c-dashboard__proclaimer {
   max-width: 734px;
+}
+
+.c-dashboard__social {
+  padding-left: 2 * $base-whitespace;
 }
 
 .c-dashboard__proclaimer-header,
