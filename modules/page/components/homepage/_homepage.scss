@@ -176,7 +176,7 @@ $show-more-height: 70px;
 
   .c-homepage__block--short & {
     height: $block-short-height;
-    transform: translateY(calc(#{$block-short-height - (5 * $base-whitespace)}));
+    transform: translateY($block-short-height - (5 * $base-whitespace));
   }
 
   .c-homepage__block--tall & {
