@@ -82,7 +82,7 @@ $show-more-height: 70px;
 }
 
 .c-homepage__news {
-  margin-top: 6 * $base-whitespace;
+  margin-top: 4 * $base-whitespace;
   padding-bottom: 6 * $base-whitespace;
   border-bottom: 1px solid $secondary-gray20;
 }
@@ -124,7 +124,7 @@ $show-more-height: 70px;
 
 .c-homepage__visie-panel {
   @include font-size($s-font);
-  margin-top: 4.6 * $base-whitespace;
+  margin-top: (2 * $base-whitespace);
 }
 
 .c-homepage__beleid {
@@ -189,5 +189,5 @@ $show-more-height: 70px;
   @include font-weight($normal-weight);
   width: 100%;
   color: $primary-dark;
-  line-height: 4 * $base-whitespace;
+  line-height: 3.5 * $base-whitespace;
 }

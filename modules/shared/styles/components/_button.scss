@@ -21,6 +21,8 @@
 
   &::before {
     @include icon-button("link-arrow", "white", "white");
+    width: $icon-size;
+    height: $icon-size;
   }
 
   &:hover,

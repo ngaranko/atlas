@@ -47,15 +47,15 @@
   @include font-size($s-font);
 
   width: 100%;
-  max-width: $dashboard-max-width-outer;
-  padding: (2 * $base-whitespace) $dashboard-gutter;
   background-color: $secondary-gray60;
   color: $primary-light;
   line-height: $dashboard-footer-height;
 }
 
 .c-dashboard__footer-content {
-  margin: 0 (10 * $base-whitespace);
+  max-width: $dashboard-max-width-inner;
+  margin: 0 auto;
+  padding: (2 * $base-whitespace) $dashboard-gutter;
 }
 
 .c-dashboard__proclaimer {
@@ -113,6 +113,6 @@
   }
 
   .c-dashboard__page-inner {
-    padding-bottom: $dashboard-gutter-bottom-homepage + $dashboard-footer-height + $dashboard-footer-separator-height;
+    padding-bottom: $dashboard-gutter-bottom-homepage;
   }
 }

@@ -1,7 +1,7 @@
 $base-padding: calc(#{$base-whitespace} * 2);
 
 .c-catalogus-themes {
-  padding-top: $base-padding;
+  padding-top: ($base-whitespace / 2);
   padding-right: $base-padding;
   padding-bottom: $base-padding;
   padding-left: $base-padding;
@@ -12,17 +12,10 @@ $base-padding: calc(#{$base-whitespace} * 2);
   font-size: 0;
 }
 
-.c-catalogus-themes__column--left {
-  padding-right: $base-whitespace;
-}
-
-.c-catalogus-themes__column--right {
-  padding-left: $base-whitespace;
-}
-
 .c-catalogus-theme__icon {
   width: 100%;
   height: 40px;
+  margin-bottom: ($base-whitespace / 2);
 
   &::before {
     display: block;
