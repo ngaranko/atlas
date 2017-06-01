@@ -25,7 +25,7 @@ describe('Zoekresultaten kadastraal subjecten', () => {
 
                 expect(page.title).toBe('Data met \'Bakker\' - Dataportaal');
 
-                expect(searchResults.categories(4).header).toBe(/Kadastrale subjecten \([0-9\.]{1,3}\)/);
+                expect(searchResults.categories(4).header).toMatch(/Kadastrale subjecten \([0-9\.]{1,3}\)/);
                 expect(searchResults.categories(4).listCount).not.toBe(0);
             });
         });
