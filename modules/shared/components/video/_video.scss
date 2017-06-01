@@ -1,7 +1,6 @@
 .c-video {
-  min-width: 100%; // min-width instead of width for better IE & Edge layout
+  width: 100%;
   height: 100%;
   padding-bottom: $base-whitespace * 5;
-  object-fit: cover; // sass-lint:disable-line property-sort-order
-  background-size: cover; // fallback instead of object-fit property for IE & Edge
+  object-fit: cover; // not yet supported IE & Edge, polyfilled
 }
