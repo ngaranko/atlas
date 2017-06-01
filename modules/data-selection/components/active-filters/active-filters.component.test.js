@@ -1,12 +1,12 @@
-describe('The dp-data-selection-filters component', function () {
-    var $compile,
+describe('The dp-data-selection-filters component', () => {
+    let $compile,
         $rootScope,
         store,
         ACTIONS,
         availableFilters,
         geometryFilter;
 
-    beforeEach(function () {
+    beforeEach(() => {
         angular.mock.module(
             'dpDataSelection',
             {
@@ -102,32 +102,27 @@ describe('The dp-data-selection-filters component', function () {
     });
 
     function getComponent (activeFilters) {
-        var component,
-            element,
-            scope;
-
-        element = document.createElement('dp-data-selection-active-filters');
+        const element = document.createElement('dp-data-selection-active-filters');
 
         element.setAttribute('dataset', 'my_special_dataset');
         element.setAttribute('available-filters', 'availableFilters');
         element.setAttribute('text-filters', 'textFilters');
         element.setAttribute('geometry-filter', 'geometryFilter');
 
-        scope = $rootScope.$new();
+        const scope = $rootScope.$new();
         scope.availableFilters = availableFilters;
         scope.textFilters = activeFilters;
         scope.geometryFilter = geometryFilter;
 
-        component = $compile(element)(scope);
+        const component = $compile(element)(scope);
         scope.$apply();
 
         return component;
     }
 
-    it('shows a list of all active filters', function () {
-        var component,
+    it('shows a list of all active filters', () => {
+        let component,
             activeFilters;
-
         // Without any active filters
         activeFilters = {};
         component = getComponent(activeFilters);
@@ -148,24 +143,21 @@ describe('The dp-data-selection-filters component', function () {
         expect(component.find('.qa-active-filters li').eq(1).text()).toContain('Optie B-3');
     });
 
-    it('shows the geometry filter when one is defined', function () {
-        var component,
-            activeFilters;
-
+    it('shows the geometry filter when one is defined', () => {
         // Without any active filters, but with a geometry filter
-        activeFilters = {};
+        const activeFilters = {};
         geometryFilter = {
             markers: [1, 2, 3],
             description: 'description'
         };
 
-        component = getComponent(activeFilters);
+        const component = getComponent(activeFilters);
         expect(component.find('.qa-active-filters').length).toBe(1);
     });
 
-    it('shows an empty list with no available filters', function () {
-        var component,
-            activeFilters;
+    it('shows an empty list with no available filters', () => {
+        let activeFilters,
+            component;
 
         availableFilters = null;
 
@@ -184,17 +176,14 @@ describe('The dp-data-selection-filters component', function () {
         expect(component.find('.qa-active-filters').length).toBe(0);
     });
 
-    it('active filters can be removed, dispatching an action', function () {
-        var component,
-            activeFilters;
-
+    it('active filters can be removed, dispatching an action', () => {
         // Without any active filters
-        activeFilters = {
+        const activeFilters = {
             filter_a_new: 'optie-a-2',
             filterb: 'optie-b-2'
         };
 
-        component = getComponent(activeFilters);
+        const component = getComponent(activeFilters);
 
         // Remove 'Optie B2' (filterb)
         component.find('.qa-active-filters li').eq(1).find('button').click();
@@ -211,18 +200,15 @@ describe('The dp-data-selection-filters component', function () {
         });
     });
 
-    it('a geometry filters can be removed, dispatching an action', function () {
-        var component,
-            activeFilters;
-
+    it('a geometry filters can be removed, dispatching an action', () => {
         // Without any active filters, but with a geometry filter
-        activeFilters = {};
+        const activeFilters = {};
         geometryFilter = {
             markers: [1, 2, 3],
             description: 'description'
         };
 
-        component = getComponent(activeFilters);
+        const component = getComponent(activeFilters);
 
         component.find('.qa-active-filters li').eq(0).find('button').click();
 
@@ -237,5 +223,18 @@ describe('The dp-data-selection-filters component', function () {
                 page: 1
             }
         });
+    });
+
+    it('shows active filters correctly when filter has no options', () => {
+        const activeFilters = {
+            filter_a_new: 'optie-a-7'
+        };
+        availableFilters[0].options = [];
+        availableFilters[0].numberOfOptions = 0;
+
+        const component = getComponent(activeFilters);
+
+        expect(component.find('.qa-active-filters').length).toBe(1);
+        expect(component.find('.qa-active-filters li').eq(0).text()).toContain('optie-a-7');
     });
 });
