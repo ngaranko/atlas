@@ -99,7 +99,7 @@ $show-more-height: 70px;
 
 .c-homepage__news-instructions-title {
   @include font-size($l-font);
-  margin-bottom: $base-whitespace;
+  margin-bottom: (2 * $base-whitespace);
 }
 
 .c-homepage__visie {

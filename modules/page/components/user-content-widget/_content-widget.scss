@@ -20,7 +20,7 @@
 .c-user-content-widget__beleid-zie-ook {
   @include font-size($l-font);
   @include font-weight($bold-weight);
-  margin-bottom: $base-whitespace;
+  margin-bottom: (2 * $base-whitespace);
 }
 
 .c-user-content-widget__beleid-lees-meer {
