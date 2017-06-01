@@ -4,7 +4,7 @@
     angular
         .module('dpStraatbeeld')
         .constant('STRAATBEELD_CONFIG', {
-            STRAATBEELD_ENDPOINT: 'panorama/opnamelocatie/',
+            STRAATBEELD_ENDPOINT: 'panorama/recente_opnames/alle/',
             DEFAULT_FOV: 80,
             MAX_FOV: 90,
             MAX_RESOLUTION: 12 * 1024,

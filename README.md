@@ -1,5 +1,4 @@
-Atlas
-=====
+# Atlas
 
 Requirements
 - NPM

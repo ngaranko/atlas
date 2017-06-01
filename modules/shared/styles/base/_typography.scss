@@ -7,21 +7,25 @@ button {
   @include font-size($s-font);
   color: $primary-dark;
   font-family: $base-font-family;
+  font-weight: normal;
 }
 
 h1 {
   @include font-size-responsive($xl-header-font);
   @include font-weight($bold-weight);
+  font-weight: normal;
 }
 
 h2 {
   @include font-size-responsive($l-header-font);
   @include font-weight($bold-weight);
+  font-weight: normal;
 }
 
 h3 {
   @include font-size-responsive($m-header-font);
   @include font-weight($bold-weight);
+  font-weight: normal;
 }
 
 h4,
@@ -30,4 +34,5 @@ h6 {
   @include font-size-responsive($s-header-font);
   @include font-weight($bold-weight);
   color: $secondary-gray60;
+  font-weight: normal;
 }

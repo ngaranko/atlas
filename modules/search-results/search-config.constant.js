@@ -68,8 +68,7 @@
                     uri: 'geosearch/bominslag/',
                     radius: 25
                 }, {
-                    // TODO: Change to conventional URL when delivered (#995)
-                    uri: 'geosearch/search/?item=monument',
+                    uri: 'geosearch/monumenten/',
                     radius: 25
                 }
             ],
