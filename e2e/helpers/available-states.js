@@ -13,6 +13,14 @@ module.exports = {
              'package_show%3Fid%3D642f15c7-8368-4795-9e3d-1a87fa7e562a&dtfs=T',
         validator: require('../validators/detail')
     },
+    'DETAIL-KADASTRAAL-SUBJECT--NATUURLIJKE-PERSOON': {
+        url: '#?dte=https:%2F%2Facc.api.data.amsterdam.nl%2Fbrk%2Fsubject%2FNL.KAD.Persoon.171720901%2F' +
+        '&dtfs=T&mpb=topografie&mpz=10&mpv=52.3738384:4.8949098'
+    },
+    'DETAIL-KADASTRAAL-SUBJECT--NIET-NATUURLIJKE-PERSOON': {
+        url: '#?dte=https:%2F%2Facc.api.data.amsterdam.nl%2Fbrk%2Fsubject%2FNL.KAD.Persoon.423186718%2F' +
+        '&dtfs=T&mpb=topografie&mpz=11&mpv=52.3731081:4.8932945'
+    },
     'KADASTRALE_SUBJECTEN': {
         url: '#?mpb=topografie&mpz=11&mpv=52.3731081:4.8932945&src=subject&srfs=T&srq=bakker'
     },
@@ -44,6 +52,9 @@ module.exports = {
     'SEARCH-RESULTS--QUERY': {
         url: '#?srq=Oost&srfs=T&mpv=52.3731081:4.8932945&mpb=topografie&mpz=11',
         validator: require('../validators/search-results--query')
+    },
+    'SEARCH-RESULTS--KADASTRAAL-SUBJECT': {
+        url: '#?mpb=topografie&mpz=10&mpv=52.3738384:4.8949098&srfs=T&srq=Bakker'
     },
     'MAP_STRAATBEELD--DETAIL': {
         url: '#?dte=https:%2F%2Fapi.datapunt.amsterdam.nl%2Fbag%2Fnummeraanduiding%2F03630000500149%2F&' +
