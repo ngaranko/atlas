@@ -41,12 +41,6 @@
                         }
                     }
 
-                    // if the MAP_END_DRAWING action is started and the map is active and the drawing should be reset
-                    if (action.type.id === ACTIONS.MAP_END_DRAWING.id && angular.isObject(map) && map.resetDrawing) {
-                        action.type = ACTIONS.MAP_RESET_DRAWING;
-                        delete action.payload;
-                    }
-
                     return next(action);
                 };
             };

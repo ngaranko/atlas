@@ -222,9 +222,9 @@
         function resetDrawingReducer (oldState) {
             var newState = angular.copy(oldState);
 
-            newState.dataSelection = null;
-            newState.map.geometry = [];
-            newState.map.resetDrawing = false;
+            //newState.dataSelection = null;
+            //newState.map.geometry = [];
+            //newState.map.resetDrawing = false;
 
             return newState;
         }

@@ -47,6 +47,7 @@
             isEnabled,
             enable,
             disable,
+            reset,
             setPolygon,
             shape: shapeInfo
         };
@@ -215,6 +216,7 @@
         function registerDrawEvents () {
             Object.keys(L.Draw.Event).forEach(eventName => {
                 drawTool.map.on(L.Draw.Event[eventName], function (e) {
+                    console.log('draw tool factory - draw event', eventName);
                     if (eventName === 'DELETED') { // IE HACK
                         suppress.start();
                     }
@@ -304,6 +306,19 @@
                     drawTool.editShapeHandler.disable();
                 }
                 setDrawingMode(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
+            }
+        }
+
+        function reset () {
+            console.log('draw tool factory - reset', currentShape.layer);
+            if (currentShape.layer) {
+                currentShape.layer = null;
+                currentShape.markers = [];
+                //drawTool.drawShapeHandler.disable();
+                //deletePolygon();
+                //updateShape();
+                console.log('draw tool factory - reset DONE ===============================================', angular.copy(currentShape));
+
             }
         }
 
