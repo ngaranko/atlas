@@ -23,7 +23,6 @@
         reducers[ACTIONS.MAP_END_DRAWING.id] = mapEndDrawingReducer;
         reducers[ACTIONS.SHOW_MAP_ACTIVE_OVERLAYS.id] = showActiveOverlaysReducer;
         reducers[ACTIONS.HIDE_MAP_ACTIVE_OVERLAYS.id] = hideActiveOverlaysReducer;
-        reducers[ACTIONS.MAP_RESET_DRAWING.id] = resetDrawingReducer;
 
         return reducers;
 
@@ -215,16 +214,6 @@
             var newState = angular.copy(oldState);
 
             newState.map.showActiveOverlays = false;
-
-            return newState;
-        }
-
-        function resetDrawingReducer (oldState) {
-            var newState = angular.copy(oldState);
-
-            //newState.dataSelection = null;
-            //newState.map.geometry = [];
-            //newState.map.resetDrawing = false;
 
             return newState;
         }

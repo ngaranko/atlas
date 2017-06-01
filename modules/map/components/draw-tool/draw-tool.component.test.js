@@ -102,6 +102,16 @@ describe('The draw tool component', function () {
             expect(drawTool.enable).toHaveBeenCalled();
             expect(drawTool.disable).not.toHaveBeenCalled();
         });
+
+        it('when drawing mode is none ', function () {
+            state.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
+            state.resetDrawing = true;
+            getComponent();
+            $rootScope.$digest();
+
+            expect(state.geometry).toEqual([]);
+            expect(state.resetDrawing).toEqual(false);
+        });
     });
 
     describe('The map parameter', function () {
