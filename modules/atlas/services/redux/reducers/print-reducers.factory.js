@@ -25,6 +25,7 @@
 
             newState.atlas.isPrintMode = true;
             newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
+            newState.map.resetDrawing = true;
 
             return newState;
         }
