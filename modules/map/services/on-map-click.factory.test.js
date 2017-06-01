@@ -48,7 +48,7 @@ describe('The onMapClick factory', () => {
         $rootScope.$apply();
     }
 
-    it('click on map when debouncing is active it should stop proceeding', () => {
+    it('click on map when suppressing is busy it should stop proceeding', () => {
         spyOn(suppress, 'isBusy').and.returnValue(true);
         click();
         expect(drawTool.isEnabled).not.toHaveBeenCalled();

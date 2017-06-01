@@ -11,11 +11,11 @@ describe('The suppress factory', function () {
         });
     });
 
-    it('default isIgnoringInput is false', function () {
+    it('busy should be false by default', function () {
         expect(suppress.isBusy()).toEqual(false);
     });
 
-    it('after starting isIgnoringInput should first be true and after timeout ends it should be false', function () {
+    it('after start suppressing it should be busy, after the timeout ends it should not be busy anymore', function () {
         suppress.start();
 
         expect(suppress.isBusy()).toEqual(true);

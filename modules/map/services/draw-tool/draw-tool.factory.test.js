@@ -528,7 +528,7 @@ describe('The draw tool factory', function () {
             expect(drawTool.isEnabled()).toBe(true);
         });
 
-        it('click on map when debouncing is active it should do nothing', function () {
+        it('click on map when suppressing is busy it should do nothing', function () {
             spyOn(suppress, 'isBusy').and.returnValue(true);
             spyOn(drawTool, 'disable');
 
