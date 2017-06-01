@@ -27,14 +27,6 @@ describe('The user content widget component', function () {
                     return q.promise;
                 }
             }
-        },
-        function ($provide) {
-            $provide.constant('GOOGLE_SHEET_CMS', {
-                key: 'CMSKEY',
-                index: {
-                    type: 99
-                }
-            });
         });
 
         angular.mock.inject(function (_$compile_, _$rootScope_, _$templateCache_, _$q_, _googleSheet_) {
@@ -69,7 +61,7 @@ describe('The user content widget component', function () {
         const component = getComponent('type'),
             scope = component.isolateScope();
 
-        expect(googleSheet.getContents).toHaveBeenCalledWith('CMSKEY', 99);
+        expect(googleSheet.getContents).toHaveBeenCalledWith('type');
 
         $rootScope.$apply();
 

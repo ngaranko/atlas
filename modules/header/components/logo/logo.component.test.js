@@ -47,14 +47,6 @@ describe('The dp-logo component', () => {
             expect(component.find('.qa-logo')[0].getAttribute('class')).not.toContain('c-logo--tall');
         });
 
-        it('has the logo 4 wide', () => {
-            expect(component.find('.qa-logo__image-col')[0].getAttribute('class')).toContain('u-col-sm--4');
-        });
-
-        it('has the title 8 wide', () => {
-            expect(component.find('.qa-logo__title-col')[0].getAttribute('class')).toContain('u-col-sm--8');
-        });
-
         it('shows the short logo image', () => {
             expect(component.find('.qa-logo__image')[0].getAttribute('src')).toContain('logo-short');
         });

@@ -30,6 +30,7 @@
             vm.hasMaxWidth = vm.visibility.page;
             vm.isHomePage = vm.visibility.page && state.page && state.page.name === 'home';
             vm.headerSize = vm.isHomePage ? HEADER.SIZE.TALL : HEADER.SIZE.SHORT;
+            vm.pageType = state.page && state.page.type ? state.page.type : '';
 
             vm.isPrintMode = state.atlas.isPrintMode;
 
