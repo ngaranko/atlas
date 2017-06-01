@@ -14,7 +14,7 @@ describe('The video component', () => {
         });
     });
 
-    function getComponent (isSafari = false) {
+    function getComponent () {
         scope = $rootScope.$new();
         const component = $compile(`<dp-video
             src="'foo/bar.mp4'"
