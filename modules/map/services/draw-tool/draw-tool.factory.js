@@ -215,7 +215,6 @@
         function registerDrawEvents () {
             Object.keys(L.Draw.Event).forEach(eventName => {
                 drawTool.map.on(L.Draw.Event[eventName], function (e) {
-                    console.log('draw tool factory - draw event', eventName);
                     if (eventName === 'DELETED') { // IE HACK
                         suppress.start();
                     }
