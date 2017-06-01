@@ -28,6 +28,7 @@
             // enable is handled by the polygon markers watch method
             if (drawingMode === DRAW_TOOL_CONFIG.DRAWING_MODE.NONE) {
                 if (vm.state.resetDrawing) {
+                    console.log('WATCH drawingMode RESET');
                     vm.state.geometry = [];
                     vm.state.resetDrawing = false;
                 }
