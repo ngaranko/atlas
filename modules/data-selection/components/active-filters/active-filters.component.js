@@ -53,6 +53,16 @@
                 const textFilters = vm.availableFilters
                     .filter(filter => angular.isString(vm.textFilters[filter.slug]))
                     .map(filter => {
+                        // If there are no options but the filter is active, adding the filtered
+                        // value as an option with 0 values available
+                        if (filter.numberOfOptions === 0) {
+                            filter.numberOfOptions = 1;
+                            filter.options = [{
+                                id: vm.textFilters[filter.slug],
+                                label: vm.textFilters[filter.slug],
+                                count: 0
+                            }];
+                        }
                         return {
                             slug: filter.slug,
                             label: filter.label,
