@@ -14,9 +14,9 @@
             controllerAs: 'vm'
         });
 
-    DpPageComponent.inject = ['$scope', 'googleSheet', 'GOOGLE_SHEET_CMS'];
+    DpPageComponent.inject = ['$scope', 'googleSheet'];
 
-    function DpPageComponent ($scope, googleSheet, GOOGLE_SHEET_CMS) {
+    function DpPageComponent ($scope, googleSheet) {
         const vm = this;
 
         vm.feed = null;
@@ -28,7 +28,7 @@
                 vm.feed = null;
                 vm.entries = [];
                 vm.entry = null;
-                googleSheet.getContents(GOOGLE_SHEET_CMS.key, GOOGLE_SHEET_CMS.index[vm.type])
+                googleSheet.getContents(vm.type)
                     .then(contents => {
                         vm.feed = contents.feed;
                         vm.entries = contents.entries;
