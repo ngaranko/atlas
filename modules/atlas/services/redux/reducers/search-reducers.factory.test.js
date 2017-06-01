@@ -1,7 +1,8 @@
 describe('The search-reducers factory', function () {
     var searchReducers,
         DEFAULT_STATE,
-        ACTIONS;
+        ACTIONS,
+        DRAW_TOOL_CONFIG;
 
     DEFAULT_STATE = {
         map: {
@@ -31,9 +32,10 @@ describe('The search-reducers factory', function () {
     beforeEach(function () {
         angular.mock.module('atlas');
 
-        angular.mock.inject(function (_searchReducers_, _ACTIONS_) {
+        angular.mock.inject(function (_searchReducers_, _ACTIONS_, _DRAW_TOOL_CONFIG_) {
             searchReducers = _searchReducers_;
             ACTIONS = _ACTIONS_;
+            DRAW_TOOL_CONFIG = _DRAW_TOOL_CONFIG_;
         });
     });
 
@@ -151,6 +153,13 @@ describe('The search-reducers factory', function () {
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY.id](inputState, 'linnaeus');
 
             expect(output.map.isFullscreen).toBe(false);
+        });
+
+        it('should reset drawing mode', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY.id](inputState, 'linnaeus');
+
+            expect(output.map.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
         });
     });
 
@@ -293,6 +302,13 @@ describe('The search-reducers factory', function () {
             expect(output.map.isFullscreen).toBe(false);
         });
 
+        it('removes a drawn line from the map', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, [52.001, 4.002]);
+
+            expect(output.map.geometry).toEqual([]);
+        });
+
         it('does not depend on a map being present', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
@@ -302,6 +318,13 @@ describe('The search-reducers factory', function () {
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, [52.001, 4.002]);
 
             expect(output.map).toBeNull();
+        });
+
+        it('should reset drawing mode', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, [52.001, 4.002]);
+
+            expect(output.map.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
         });
     });
 

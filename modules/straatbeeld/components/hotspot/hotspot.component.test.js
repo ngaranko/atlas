@@ -50,19 +50,19 @@ describe('The dp-hotspot directive', function () {
 
         directive = getComponent('ABC', 4, 0.1, 2016);
         expect(directive.find('.qa-hotspot-rotation').attr('style')).toContain('width: 102px; height: 102px;');
-        expect(directive.find('.qa-hotspot-rotation').attr('style')).toContain('rotateX(84.27042204869177deg)');
+        expect(directive.find('.qa-hotspot-rotation').attr('style')).toContain('rotateX(75.99264427091398deg)');
 
         directive = getComponent('ABC', 10, 0.15, 2017);
         expect(directive.find('.qa-hotspot-rotation').attr('style')).toContain('width: 41px; height: 41px;');
-        expect(directive.find('.qa-hotspot-rotation').attr('style')).toContain('rotateX(81.40563307303765deg)');
+        expect(directive.find('.qa-hotspot-rotation').attr('style')).toContain('rotateX(72.98896640637098deg)');
 
         directive = getComponent('ABC', 15, 0.2, 2016);
         expect(directive.find('.qa-hotspot-rotation').attr('style')).toContain('width: 27px; height: 27px;');
-        expect(directive.find('.qa-hotspot-rotation').attr('style')).toContain('rotateX(78.54084409738354deg)');
+        expect(directive.find('.qa-hotspot-rotation').attr('style')).toContain('rotateX(69.82655838309783deg)');
 
         directive = getComponent('ABC', 21, 0.5, 2017);
         expect(directive.find('.qa-hotspot-rotation').attr('style')).toContain('width: 20px; height: 20px;');
-        expect(directive.find('.qa-hotspot-rotation').attr('style')).toContain('rotateX(61.35211024345884deg)');
+        expect(directive.find('.qa-hotspot-rotation').attr('style')).toContain('rotateX(48.35211024345884deg)');
     });
 
     it('hotspots have a minimum and maximum size as if they in the 4-21 meter range', function () {

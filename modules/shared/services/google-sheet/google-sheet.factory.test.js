@@ -1,4 +1,5 @@
 describe('The google sheet factory', function () {
+    const config = {};
     let $rootScope,
         $window,
         $httpBackend,
@@ -20,7 +21,7 @@ describe('The google sheet factory', function () {
                             '$t': 'entry1'
                         },
                         content: {
-                            '$t': 'attrdatum: 1-1-2017, attrtitel: titel1, attrcontents: [link link](http://link/)'
+                            '$t': 'attr-datum: 1-1-2017, attr-titel: titel1, attr-contents: [link link](http://link/)'
                         }
                     },
                     {
@@ -28,7 +29,8 @@ describe('The google sheet factory', function () {
                             '$t': 'entry2'
                         },
                         content: {
-                            '$t': 'attrdatum: 10-1-2017, attrtitel: titel2, attrshort: <a href="http://link/">link</a>'
+                            '$t': 'attr-datum: 10-1-2017, attr-titel: titel2, ' +
+                                'attr-verkorte-titel: <a href="http://link/">link</a>'
                         }
                     },
                     {
@@ -36,7 +38,7 @@ describe('The google sheet factory', function () {
                             '$t': 'entry3'
                         },
                         content: {
-                            '$t': 'attrdatum: 1-12-2017, attrtitel: titel3, attrshort: short3'
+                            '$t': 'attr-datum: 1-12-2017, attr-titel: titel3, attr-verkorte-titel: short3'
                         }
                     },
                     {
@@ -44,7 +46,8 @@ describe('The google sheet factory', function () {
                             '$t': 'entry4'
                         },
                         content: {
-                            '$t': 'attrdatum: 12-12-2017, attrtitel:, attrshort: See [link link](http://link/)'
+                            '$t': 'attr-datum: 12-12-2017, attr-titel:, ' +
+                                'attr-verkorte-titel: See [link link](http://link/)'
                         }
                     }
 
@@ -67,17 +70,7 @@ describe('The google sheet factory', function () {
             }
         },
         function ($provide) {
-            $provide.constant('GOOGLE_SHEET_CMS', {
-                getStatic: {
-                    PRODUCTION: true,
-                    ACCEPTATION: false
-                },
-                staticAddress: 'staticAddress',
-                key: 'CMSKEY',
-                index: {
-                    type: 99
-                }
-            });
+            $provide.constant('GOOGLE_SHEET_CMS', config);
         });
 
         angular.mock.inject(function (_$rootScope_, _$window_, _$httpBackend_, _googleSheet_) {
@@ -85,6 +78,18 @@ describe('The google sheet factory', function () {
             $window = _$window_;
             $httpBackend = _$httpBackend_;
             googleSheet = _googleSheet_;
+        });
+
+        angular.extend(config, {
+            getStatic: {
+                PRODUCTION: true,
+                ACCEPTATION: false
+            },
+            staticAddress: 'staticAddress',
+            key: 'CMSKEY',
+            index: {
+                type: 99
+            }
         });
     });
 
@@ -100,10 +105,10 @@ describe('The google sheet factory', function () {
         });
 
         it('reads its data from an address, specified in the confiuration', function () {
-            $httpBackend.whenGET('staticAddress/CMSKEY.0.json').respond(feed);
+            $httpBackend.whenGET('staticAddress/CMSKEY.99.json').respond(feed);
 
             let result;
-            googleSheet.getContents('CMSKEY', 0).then(contents => result = contents);
+            googleSheet.getContents('type').then(contents => result = contents);
 
             $httpBackend.flush();
             expect(result.feed.title).toEqual(feed.feed.title.$t);
@@ -113,25 +118,25 @@ describe('The google sheet factory', function () {
         });
 
         it('uses the cached value if loaded twice', function () {
-            $httpBackend.whenGET('staticAddress/CMSKEY.0.json').respond(feed);
+            $httpBackend.whenGET('staticAddress/CMSKEY.99.json').respond(feed);
 
-            googleSheet.getContents('CMSKEY', 0);
+            googleSheet.getContents('type');
 
             $httpBackend.flush();
             $httpBackend.verifyNoOutstandingExpectation();
             $httpBackend.verifyNoOutstandingRequest();
 
-            googleSheet.getContents('CMSKEY', 0);
+            googleSheet.getContents('type');
 
             $httpBackend.verifyNoOutstandingExpectation();
             $httpBackend.verifyNoOutstandingRequest();
         });
 
         it('returns an empty feed when the get fails', function () {
-            $httpBackend.whenGET('staticAddress/CMSKEY.0.json').respond(500, 'ERROR');
+            $httpBackend.whenGET('staticAddress/CMSKEY.99.json').respond(500, 'ERROR');
 
             let result;
-            googleSheet.getContents('CMSKEY', 0).then(contents => result = contents);
+            googleSheet.getContents('type').then(contents => result = contents);
 
             $httpBackend.flush();
             expect(result).toEqual({
@@ -148,22 +153,31 @@ describe('The google sheet factory', function () {
 
     describe('The dynamic variant is the default variant', function () {
         it('puts a scripts in the document header to load the sheet contents', function () {
-            googleSheet.getContents('CMSKEY', 0);
+            googleSheet.getContents('type');
             expect(document.head.innerHTML).toContain(
                 '<script type="text/javascript" ' +
-                'src="https://spreadsheets.google.com/feeds/list/CMSKEY/0/public/basic?' +
-                'alt=json-in-script&amp;callback=googleScriptCallback_CMSKEY_0"></script>');
+                'src="https://spreadsheets.google.com/feeds/list/CMSKEY/99/public/basic?' +
+                'alt=json-in-script&amp;callback=googleScriptCallback_CMSKEY_99"></script>');
+        });
+
+        it('turs any dashes in the key into underscores for in the callback identifier', function () {
+            config.key = 'CMS-KEY';
+            googleSheet.getContents('type');
+            expect(document.head.innerHTML).toContain(
+                '<script type="text/javascript" ' +
+                'src="https://spreadsheets.google.com/feeds/list/CMS-KEY/99/public/basic?' +
+                'alt=json-in-script&amp;callback=googleScriptCallback_CMS_KEY_99"></script>');
         });
 
         it('uses the cached value if loaded twice', function () {
-            googleSheet.getContents('CMSKEY', 0);
-            $window.googleScriptCallback_CMSKEY_0(feed);
+            googleSheet.getContents('type');
+            $window.googleScriptCallback_CMSKEY_99(feed);
 
             $rootScope.$apply();
 
-            spyOn($window, 'googleScriptCallback_CMSKEY_0');
-            googleSheet.getContents('CMSKEY', 0);
-            expect($window.googleScriptCallback_CMSKEY_0).not.toHaveBeenCalled();
+            spyOn($window, 'googleScriptCallback_CMSKEY_99');
+            googleSheet.getContents('type');
+            expect($window.googleScriptCallback_CMSKEY_99).not.toHaveBeenCalled();
         });
     });
 
@@ -179,11 +193,11 @@ describe('The google sheet factory', function () {
         });
 
         it('puts a scripts in the document header to load the sheet contents', function () {
-            googleSheet.getContents('CMSKEY', 0);
+            googleSheet.getContents('type');
             expect(document.head.innerHTML).toContain(
                 '<script type="text/javascript" ' +
-                'src="https://spreadsheets.google.com/feeds/list/CMSKEY/0/public/basic?' +
-                'alt=json-in-script&amp;callback=googleScriptCallback_CMSKEY_0"></script>');
+                'src="https://spreadsheets.google.com/feeds/list/CMSKEY/99/public/basic?' +
+                'alt=json-in-script&amp;callback=googleScriptCallback_CMSKEY_99"></script>');
         });
     });
 
@@ -191,8 +205,8 @@ describe('The google sheet factory', function () {
         let result;
 
         beforeEach(function () {
-            googleSheet.getContents('CMSKEY', 0).then(contents => result = contents);
-            $window.googleScriptCallback_CMSKEY_0(feed);
+            googleSheet.getContents('type').then(contents => result = contents);
+            $window.googleScriptCallback_CMSKEY_99(feed);
             $rootScope.$apply();
         });
 
@@ -202,8 +216,8 @@ describe('The google sheet factory', function () {
         });
 
         it('provides for a raw and html representation of each attribute', function () {
-            expect(result.entries[2].short.value).toBe('short3');
-            expect(result.entries[2].short.html).toBe('HTMLMDshort3');
+            expect(result.entries[2].verkorteTitel.value).toBe('short3');
+            expect(result.entries[2].verkorteTitel.html).toBe('HTMLMDshort3');
         });
 
         it('skips empty values', function () {
@@ -215,12 +229,12 @@ describe('The google sheet factory', function () {
             expect(result.entries[0].contents.isHref).toBe(true);
             expect(result.entries[0].contents.isDate).toBe(false);
 
-            expect(result.entries[1].short.value).toBe('<a href="http://link/">link</a>');
-            expect(result.entries[1].short.isHref).toBe(true);
-            expect(result.entries[1].short.isDate).toBe(false);
+            expect(result.entries[1].verkorteTitel.value).toBe('<a href="http://link/">link</a>');
+            expect(result.entries[1].verkorteTitel.isHref).toBe(true);
+            expect(result.entries[1].verkorteTitel.isDate).toBe(false);
 
-            expect(result.entries[2].short.isHref).toBe(false);
-            expect(result.entries[3].short.isHref).toBe(false);
+            expect(result.entries[2].verkorteTitel.isHref).toBe(false);
+            expect(result.entries[3].verkorteTitel.isHref).toBe(false);
         });
 
         it('parses date values', function () {
@@ -232,7 +246,7 @@ describe('The google sheet factory', function () {
                 expect(result.entries[i].datum.isHref).toBe(false);
                 expect(result.entries[i].datum.isDate).toBe(true);
             });
-            expect(result.entries[2].short.isDate).toBe(false);
+            expect(result.entries[2].verkorteTitel.isDate).toBe(false);
         });
     });
 });

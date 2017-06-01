@@ -13,15 +13,15 @@
             controllerAs: 'vm'
         });
 
-    DpUserContentWidgetController.$inject = ['googleSheet', 'GOOGLE_SHEET_CMS'];
+    DpUserContentWidgetController.$inject = ['googleSheet'];
 
-    function DpUserContentWidgetController (googleSheet, GOOGLE_SHEET_CMS) {
+    function DpUserContentWidgetController (googleSheet) {
         const vm = this;
 
         vm.feed = null;
         vm.entries = [];
 
-        googleSheet.getContents(GOOGLE_SHEET_CMS.key, GOOGLE_SHEET_CMS.index[vm.type])
+        googleSheet.getContents(vm.type)
             .then(contents => {
                 vm.feed = contents.feed;
                 vm.entries = contents.entries;

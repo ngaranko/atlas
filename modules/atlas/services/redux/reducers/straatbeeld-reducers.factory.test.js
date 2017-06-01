@@ -1,7 +1,8 @@
 describe('Straatbeeld reducers factory', function () {
     var straatbeeldReducers,
         inputState,
-        ACTIONS;
+        ACTIONS,
+        DRAW_TOOL_CONFIG;
 
     beforeEach(function () {
         const DEFAULT_STATE = {
@@ -38,10 +39,11 @@ describe('Straatbeeld reducers factory', function () {
             }
         );
 
-        angular.mock.inject(function (_straatbeeldReducers_, _ACTIONS_) {
+        angular.mock.inject(function (_straatbeeldReducers_, _ACTIONS_, _DRAW_TOOL_CONFIG_) {
             straatbeeldReducers = _straatbeeldReducers_;
             inputState = angular.copy(DEFAULT_STATE);
             ACTIONS = _ACTIONS_;
+            DRAW_TOOL_CONFIG = _DRAW_TOOL_CONFIG_;
         });
     });
 
@@ -156,11 +158,16 @@ describe('Straatbeeld reducers factory', function () {
             newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_ID.id](newState, payload);
             expect(newState.straatbeeld.isFullscreen).toBe(false);
         });
+    });
+
+    describe('STRAATBEELD_FULLSCREEN', () => {
+        let payload;
+
+        beforeEach(function () {
+            inputState.straatbeeld = {};
+        });
 
         it('can set straatbeeld explicitly to fullscreen', function () {
-            inputState.straatbeeld = {
-            };
-
             let newState = straatbeeldReducers[ACTIONS.STRAATBEELD_FULLSCREEN.id](inputState);
             expect(newState.straatbeeld.isFullscreen).toBeUndefined();
 
@@ -175,6 +182,22 @@ describe('Straatbeeld reducers factory', function () {
             expect(newState.straatbeeld.isFullscreen).toBe(false);
             newState = straatbeeldReducers[ACTIONS.STRAATBEELD_FULLSCREEN.id](newState);
             expect(newState.straatbeeld.isFullscreen).toBe(false);
+        });
+
+        it('should reset drawing mode when fullscreen is active', function () {
+            payload = true;
+            const input = angular.copy(inputState),
+                newState = straatbeeldReducers[ACTIONS.STRAATBEELD_FULLSCREEN.id](input, payload);
+
+            expect(newState.map.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
+        });
+
+        it('should reset drawing mode when fullscreen is not active', function () {
+            payload = false;
+            const input = angular.copy(inputState),
+                newState = straatbeeldReducers[ACTIONS.STRAATBEELD_FULLSCREEN.id](input, payload);
+
+            expect(newState.map.drawingMode).toBeUndefined();
         });
     });
 
@@ -282,6 +305,14 @@ describe('Straatbeeld reducers factory', function () {
             expect(output.straatbeeld.isLoading).toBe(true);
             expect(output.straatbeeld.location).toEqual(location);
             expect(output.straatbeeld.targetLocation).toEqual(location);
+        });
+
+        it('removes a drawn line from the map', function () {
+            const state = { map: {} },
+                location = [52.001, 4.002],
+                output = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION.id](state, location);
+
+            expect(output.map.geometry).toEqual([]);
         });
 
         it('heads towards a targetlocation when straatbeeld is loaded by location', function () {

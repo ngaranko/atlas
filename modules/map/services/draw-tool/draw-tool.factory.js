@@ -5,11 +5,11 @@
         .module('dpMap')
         .factory('drawTool', drawToolFactory);
 
-    drawToolFactory.$inject = ['$rootScope', 'L', 'DRAW_TOOL_CONFIG'];
+    drawToolFactory.$inject = ['$rootScope', 'L', 'DRAW_TOOL_CONFIG', 'suppress'];
 
-    function drawToolFactory ($rootScope, L, DRAW_TOOL_CONFIG) {
+    function drawToolFactory ($rootScope, L, DRAW_TOOL_CONFIG, suppress) {
         // holds all information about the state of the shape being created or edited
-        const currentShape = {
+        const DEFAULTS = {
             isConsistent: true,
             type: null,
             layer: null,
@@ -22,6 +22,8 @@
             distanceTxt: ''
         };
 
+        let currentShape = angular.copy(DEFAULTS);
+
         // holds all publicly available information about the last consistent state of the current shape
         const shapeInfo = {};
         updateShapeInfo(currentShape);  // initialise to initial current shape
@@ -32,7 +34,8 @@
             drawnItems: null,
             drawShapeHandler: null,
             editShapeHandler: null,
-            lastEvent: null
+            lastEvent: null,
+            timeout: null
         };
 
         // these callback methods will be called on a finished polygon and on a change of drawing mode
@@ -50,6 +53,8 @@
 
         // initialise factory; initialise draw tool, register callback methods and register events
         function initialize (map, onFinish, onDrawingMode) {
+            currentShape = angular.copy(DEFAULTS);
+
             initDrawTool(map);
             _onFinishPolygon = onFinish;    // callback method to call on finish draw/edit polygon
             _onDrawingMode = onDrawingMode; // callback method to call on change of drawing mode
@@ -210,6 +215,10 @@
         function registerDrawEvents () {
             Object.keys(L.Draw.Event).forEach(eventName => {
                 drawTool.map.on(L.Draw.Event[eventName], function (e) {
+                    if (eventName === 'DELETED') { // IE HACK
+                        suppress.start();
+                    }
+
                     handleDrawEvent(eventName, e);
 
                     updateShape();  // Update current shape and tooltip
@@ -233,6 +242,10 @@
         function registerMapEvents () {
             // Click outside shape => delete shape
             drawTool.map.on('click', function () {
+                if (suppress.isBusy()) {
+                    return;
+                }
+
                 // In edit mode => disable()
                 if (drawTool.drawingMode === DRAW_TOOL_CONFIG.DRAWING_MODE.EDIT) {
                     disable();
