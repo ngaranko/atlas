@@ -23,8 +23,8 @@
 
         drawTool.initialize(vm.map, onFinishShape, onDrawingMode);
 
-        $scope.$watch('vm.state.drawingMode', function (drawingMode, prev) {
-            console.log('WATCH drawingMode', drawingMode, prev);
+        $scope.$watch('vm.state.drawingMode', function (drawingMode) {
+            console.log('WATCH drawingMode', drawingMode);
             // enable is handled by the polygon markers watch method
             if (drawingMode === DRAW_TOOL_CONFIG.DRAWING_MODE.NONE) {
                 if (vm.state.resetDrawing) {
