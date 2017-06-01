@@ -5,7 +5,7 @@ describe('The draw tool factory', function () {
         drawTool,
         leafletMap,
         $timeout,
-        debounce;
+        suppress;
 
     let layerGroup,
         drawnItems,
@@ -77,13 +77,13 @@ describe('The draw tool factory', function () {
             }
         );
 
-        angular.mock.inject(function (_$rootScope_, _L_, _DRAW_TOOL_CONFIG_, _drawTool_, _$timeout_, _debounce_) {
+        angular.mock.inject(function (_$rootScope_, _L_, _DRAW_TOOL_CONFIG_, _drawTool_, _$timeout_, _suppress_) {
             $rootScope = _$rootScope_;
             L = _L_;
             DRAW_TOOL_CONFIG = _DRAW_TOOL_CONFIG_;
             drawTool = _drawTool_;
             $timeout = _$timeout_;
-            debounce = _debounce_;
+            suppress = _suppress_;
         });
 
         DRAW_TOOL_CONFIG.MAX_MARKERS = 4;
@@ -529,7 +529,7 @@ describe('The draw tool factory', function () {
         });
 
         it('click on map when debouncing is active it should do nothing', function () {
-            spyOn(debounce, 'isInDebouncePeriod').and.returnValue(true);
+            spyOn(suppress, 'isBusy').and.returnValue(true);
             spyOn(drawTool, 'disable');
 
             fireEvent('click');

@@ -5,9 +5,9 @@
         .module('dpMap')
         .factory('drawTool', drawToolFactory);
 
-    drawToolFactory.$inject = ['$rootScope', 'L', 'DRAW_TOOL_CONFIG', 'debounce'];
+    drawToolFactory.$inject = ['$rootScope', 'L', 'DRAW_TOOL_CONFIG', 'suppress'];
 
-    function drawToolFactory ($rootScope, L, DRAW_TOOL_CONFIG, debounce) {
+    function drawToolFactory ($rootScope, L, DRAW_TOOL_CONFIG, suppress) {
         // holds all information about the state of the shape being created or edited
         const DEFAULTS = {
             isConsistent: true,
@@ -216,7 +216,7 @@
             Object.keys(L.Draw.Event).forEach(eventName => {
                 drawTool.map.on(L.Draw.Event[eventName], function (e) {
                     if (eventName === 'DELETED') { // IE HACK
-                        debounce.startDebouncePeriod();
+                        suppress.start();
                     }
 
                     handleDrawEvent(eventName, e);
@@ -242,8 +242,7 @@
         function registerMapEvents () {
             // Click outside shape => delete shape
             drawTool.map.on('click', function () {
-                const inDebouncePeriod = debounce.isInDebouncePeriod();
-                if (inDebouncePeriod) {
+                if (suppress.isBusy()) {
                     return;
                 }
 

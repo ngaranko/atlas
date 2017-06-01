@@ -5,9 +5,9 @@
         .module('dpMap')
         .factory('onMapClick', onMapClickFactory);
 
-    onMapClickFactory.$inject = ['$rootScope', 'store', 'ACTIONS', 'drawTool', 'debounce'];
+    onMapClickFactory.$inject = ['$rootScope', 'store', 'ACTIONS', 'drawTool', 'suppress'];
 
-    function onMapClickFactory ($rootScope, store, ACTIONS, drawTool, debounce) {
+    function onMapClickFactory ($rootScope, store, ACTIONS, drawTool, suppress) {
         return {
             initialize
         };
@@ -17,8 +17,7 @@
         }
 
         function onMapClick (event) {
-            const inDebouncePeriod = debounce.isInDebouncePeriod();
-            if (inDebouncePeriod) {
+            if (suppress.isBusy()) {
                 return;
             }
 
