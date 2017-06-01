@@ -163,6 +163,7 @@ $show-more-height: 70px;
   transition: transform .2s;
   background-color: $secondary-gray4;
   text-decoration: none;
+  z-index: 1000;
 
   .c-homepage__block--short & {
     height: $block-short-height;
