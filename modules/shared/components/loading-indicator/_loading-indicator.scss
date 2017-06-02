@@ -13,9 +13,20 @@
   height: 20px;
   margin-right: $base-whitespace / 2;
   vertical-align: middle;
+  animation: rotating-spinner 1s linear infinite;
 }
 
 .c-loading-indicator__text {
   //Overruling side-effects from the base font settings here
   line-height: 1 !important;
+}
+
+@keyframes rotating-spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
