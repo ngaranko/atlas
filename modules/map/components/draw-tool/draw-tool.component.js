@@ -26,7 +26,7 @@
         $scope.$watch('vm.state.drawingMode', function (drawingMode) {
             // enable is handled by the polygon markers watch method
             if (drawingMode === DRAW_TOOL_CONFIG.DRAWING_MODE.NONE) {
-                if (vm.state.resetDrawing) {
+                if (vm.state.resetDrawing && vm.state.geometry && vm.state.geometry.length !== 2) {
                     vm.state.geometry = [];
                     vm.state.resetDrawing = false;
                 }
