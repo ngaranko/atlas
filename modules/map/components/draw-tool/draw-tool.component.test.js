@@ -103,13 +103,25 @@ describe('The draw tool component', function () {
             expect(drawTool.disable).not.toHaveBeenCalled();
         });
 
-        it('when drawing mode is none ', function () {
+        it('when drawing mode and resetDrawing is true with a polygon then drawing should be reset', function () {
             state.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
             state.resetDrawing = true;
+            state.geometry = [0, 1, 2];
             getComponent();
             $rootScope.$digest();
 
             expect(state.geometry).toEqual([]);
+            expect(state.resetDrawing).toEqual(false);
+        });
+
+        it('when drawing mode and resetDrawing is true with a line then drawing should not be reset', function () {
+            state.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
+            state.resetDrawing = true;
+            state.geometry = [0, 1];
+            getComponent();
+            $rootScope.$digest();
+
+            expect(state.geometry).toEqual([0, 1]);
             expect(state.resetDrawing).toEqual(false);
         });
     });
