@@ -1,3 +1,7 @@
+.c-loading-indicator {
+  display: flex;
+}
+
 .c-loading-indicator--box {
   position: absolute;
   top: $base-whitespace;
@@ -9,16 +13,15 @@
 }
 
 .c-loading-indicator__icon {
-  width: 20px;
-  height: 20px;
+  align-self: center;
+  width: 18px;
+  height: 18px;
   margin-right: $base-whitespace / 2;
-  vertical-align: middle;
   animation: rotating-spinner 1s linear infinite;
 }
 
 .c-loading-indicator__text {
-  //Overruling side-effects from the base font settings here
-  line-height: 1 !important;
+  align-self: center;
 }
 
 @keyframes rotating-spinner {
