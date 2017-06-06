@@ -24,8 +24,7 @@
             var newState = angular.copy(oldState);
 
             newState.atlas.isPrintMode = true;
-            newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
-            newState.map.resetDrawing = true;
+            newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.RESET;
 
             return newState;
         }
