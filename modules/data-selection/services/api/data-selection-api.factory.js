@@ -111,7 +111,8 @@
         }
 
         function filterUnavailableFilters (dataset, activeFilters) {
-            // Some activeFilters do not exist for the current data
+            // Filter out the filters that are not used in the current dataset
+            // Filtering is done based on the configured possible filters.
             const activeAndAvailableFilters = angular.copy(activeFilters);
 
             // Filter activeFilters that are not available for this dataset

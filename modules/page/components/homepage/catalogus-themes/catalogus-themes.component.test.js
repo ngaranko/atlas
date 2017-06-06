@@ -114,20 +114,4 @@ describe('The dp-catalogus-themes', () => {
         expect(secondColumn.attr('class')).toContain('c-catalogus-themes__column--right');
         expect(secondColumn.find('.qa-theme-link').length).toBe(1);
     });
-
-    it('has a link to all catalogus items (without any active filters)', () => {
-        const component = getComponent();
-
-        component.find('.qa-go-to-catalogus').click();
-
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.FETCH_DATA_SELECTION,
-            payload: {
-                dataset: 'catalogus',
-                filters: {},
-                view: 'CARDS',
-                page: 1
-            }
-        });
-    });
 });

@@ -33,6 +33,7 @@ $show-more-height: 70px;
     right: 0;
     bottom: 12px;
     cursor: pointer;
+    z-index: 20;
     pointer-events: none;
   }
 }
@@ -99,7 +100,7 @@ $show-more-height: 70px;
 
 .c-homepage__news-instructions-title {
   @include font-size($l-font);
-  margin-bottom: $base-whitespace;
+  margin-bottom: (2 * $base-whitespace);
 }
 
 .c-homepage__visie {
@@ -163,6 +164,7 @@ $show-more-height: 70px;
   transition: transform .2s;
   background-color: $secondary-gray4;
   text-decoration: none;
+  z-index: 10;
 
   .c-homepage__block--short & {
     height: $block-short-height;
