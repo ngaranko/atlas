@@ -6,7 +6,7 @@
   position: absolute;
   top: $base-whitespace;
   left: $base-whitespace;
-  padding: $base-whitespace / 2;
+  padding: $base-whitespace / 2 $base-whitespace;
   border: 1px solid $secondary-gray40;
   background-color: $primary-light;
   z-index: 3;
@@ -16,7 +16,7 @@
   align-self: center;
   width: 18px;
   height: 18px;
-  margin-right: $base-whitespace / 2;
+  margin-right: $base-whitespace;
   animation: rotating-spinner 1s linear infinite;
 }
 
