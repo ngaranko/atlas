@@ -73,15 +73,15 @@ describe('The search title factory', function () {
     it('can show category and query', function () {
         var titleData = searchTitle.getTitleData(47, 'westerpark', null, 'adres');
 
-        expect(titleData.title).toBe('Adressen met \'westerpark\'');
-        expect(titleData.subTitle).toBeUndefined();
+        expect(titleData.title).toBe('Adressen');
+        expect(titleData.subTitle).toBe('met \'westerpark\'');
     });
 
     it('can show category and location', function () {
         var titleData = searchTitle.getTitleData(47, null, [52.123, 4.789], 'monument');
 
-        expect(titleData.title).toBe('Monumenten met locatie X, Y (52.123, 4.789)');
-        expect(titleData.subTitle).toBeUndefined();
+        expect(titleData.title).toBe('Monumenten');
+        expect(titleData.subTitle).toBe('met locatie X, Y (52.123, 4.789)');
     });
 
     it('shows a message when no results have been found', function () {

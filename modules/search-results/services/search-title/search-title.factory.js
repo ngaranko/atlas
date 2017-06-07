@@ -16,16 +16,10 @@
                 title = getTitle(categoryName, numberOfResults),
                 subTitle = getSubTitle(query, location);
 
-            if (category) {
-                return {
-                    title: `${title} ${subTitle}`
-                };
-            } else {
-                return {
-                    title: title,
-                    subTitle: title && subTitle
-                };
-            }
+            return {
+                title: title,
+                subTitle: title && subTitle
+            };
         }
 
         /**
