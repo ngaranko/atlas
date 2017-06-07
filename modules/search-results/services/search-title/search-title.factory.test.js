@@ -71,16 +71,17 @@ describe('The search title factory', function () {
     });
 
     it('can show category and query', function () {
-        var titleData = searchTitle.getTitleData(47, 'westerpark', null, 'adres');
+        var titleData = searchTitle.getTitleData(47, 'westerpark', null, 'adres', [{slug: 'adres', count: 13}]);
 
-        expect(titleData.title).toBe('Adressen');
+        expect(titleData.title).toBe('Adressen (13)');
         expect(titleData.subTitle).toBe('met \'westerpark\'');
     });
 
     it('can show category and location', function () {
-        var titleData = searchTitle.getTitleData(47, null, [52.123, 4.789], 'monument');
+        var titleData = searchTitle.getTitleData(
+            47, null, [52.123, 4.789], 'monument', [{slug: 'monument', count: 14}]);
 
-        expect(titleData.title).toBe('Monumenten');
+        expect(titleData.title).toBe('Monumenten (14)');
         expect(titleData.subTitle).toBe('met locatie X, Y (52.123, 4.789)');
     });
 
