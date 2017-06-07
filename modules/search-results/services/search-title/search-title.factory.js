@@ -68,7 +68,7 @@
             } else if (numberOfResults === 0) {
                 title = 'Geen resultaten gevonden';
             } else if (numberOfResults > 0) {
-                title = `Data (${numberFilter(numberOfResults)})`;
+                title = `Resultaten (${numberFilter(numberOfResults)})`;
             }
 
             return title;

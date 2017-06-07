@@ -45,7 +45,7 @@ describe('The search title factory', function () {
     it('can show the number of search results when searching with a query', function () {
         var titleData = searchTitle.getTitleData(45, 'westerpark', null, null);
 
-        expect(titleData.title).toBe('Data (45)');
+        expect(titleData.title).toBe('Resultaten (45)');
         expect(titleData.subTitle).toContain('\'westerpark\'');
     });
 
@@ -66,7 +66,7 @@ describe('The search title factory', function () {
     it('can show the number of search results when searching by location', function () {
         var titleData = searchTitle.getTitleData(46, null, [52.123, 4.789], null);
 
-        expect(titleData.title).toBe('Data (46)');
+        expect(titleData.title).toBe('Resultaten (46)');
         expect(titleData.subTitle).toContain('X, Y (52.123, 4.789)');
     });
 
