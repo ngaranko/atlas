@@ -1,6 +1,9 @@
 (function () {
     angular
         .module('dpShared')
+        .run(['$anchorScroll', ($anchorScroll) => {
+            $anchorScroll.yOffset = 90;   // always scroll by 50 extra pixels
+        }])
         .component('dpAnchorLink', {
             bindings: {
                 link: '@',
