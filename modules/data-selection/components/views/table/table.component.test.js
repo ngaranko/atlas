@@ -1,6 +1,7 @@
 describe('The dp-data-selection-table component', function () {
     let $compile,
         $rootScope,
+        $templateCache,
         mockedContent,
         store,
         ACTIONS;
@@ -18,9 +19,10 @@ describe('The dp-data-selection-table component', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _ACTIONS_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _$templateCache_, _store_, _ACTIONS_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
+            $templateCache = _$templateCache_;
             store = _store_;
             ACTIONS = _ACTIONS_;
         });
@@ -61,21 +63,41 @@ describe('The dp-data-selection-table component', function () {
             formatters: [null, null, 'makeBoldFormatter']
         };
 
+        $templateCache.put('modules/data-selection/components/views/table/templates/dataset.html', 'MESSAGE');
         spyOn(store, 'dispatch');
     });
 
     function getComponent () {
         const element = document.createElement('dp-data-selection-table');
         element.setAttribute('content', 'content');
+        element.setAttribute('dataset', 'dataset');
 
         const scope = $rootScope.$new();
         scope.content = mockedContent;
+        scope.dataset = 'dataset';
 
         const component = $compile(element)(scope);
         scope.$apply();
 
         return component;
     }
+
+    it('shows a panel when content has been sensored', () => {
+        const normalComponent = getComponent();
+        expect(normalComponent.find('dp-panel').length).toBe(0);
+
+        // Explicitly set to false
+        mockedContent.sensored = false;
+        const explicitComponent = getComponent();
+        expect(explicitComponent.find('dp-panel').length).toBe(0);
+
+        // Sensored
+        mockedContent.sensored = true;
+        const sensoredComponent = getComponent();
+        const panel = sensoredComponent.find('dp-panel');
+        expect(panel.length).toBe(1);
+        expect(panel.text()).toContain('MESSAGE');
+    });
 
     it('renders a <thead> with all the column names', function () {
         const component = getComponent();

@@ -54,16 +54,17 @@
 
         function formatData (dataset, view, rawData) {
             // Filter on fields allowed by current authorization level
-            const field = DATA_SELECTION_CONFIG.datasets[dataset].CONTENT[view].filter((column) => {
+            const config = DATA_SELECTION_CONFIG.datasets[dataset].CONTENT[view];
+            const fields = config.filter((column) => {
                 return !column.authLevel || user.meetsRequiredLevel(column.authLevel);
             });
 
             return {
-                head: field.map(item => item.label),
+                head: fields.map(item => item.label),
                 body: rawData.map(rawDataRow => {
                     return {
                         detailEndpoint: rawDataRow._links.self.href,
-                        content: field.map(item => {
+                        content: fields.map(item => {
                             return item.variables.map(variable => {
                                 const path = variable.split('.');
                                 return {
@@ -74,8 +75,9 @@
                         })
                     };
                 }),
-                formatters: field.map(item => item.formatter),
-                templates: field.map(item => item.template)
+                formatters: fields.map(item => item.formatter),
+                templates: fields.map(item => item.template),
+                sensored: config.length !== fields.length
             };
         }
 

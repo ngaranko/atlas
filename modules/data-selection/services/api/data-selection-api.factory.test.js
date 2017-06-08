@@ -494,6 +494,30 @@ describe('The dataSelectionApi factory', function () {
                     ]
                 });
             });
+
+            it('flags if columns have been omitted due to authentication level', () => {
+                let output;
+
+                dataSelectionApi.query('zwembaden', 'TABLE', {}, 1).then(function (_output_) {
+                    output = _output_;
+                });
+                $rootScope.$apply();
+
+                expect(output.data.sensored).toBe(true);
+
+                user.meetsRequiredLevel.and.returnValue(true);
+
+                mockedApiPreviewResponse.data[0].kvk_nummer = '123';
+                mockedApiPreviewResponse.data[1].kvk_nummer = '234';
+                mockedApiPreviewResponse.data[2].kvk_nummer = '345';
+
+                dataSelectionApi.query('zwembaden', 'TABLE', {}, 1).then(function (_output_) {
+                    output = _output_;
+                });
+                $rootScope.$apply();
+
+                expect(output.data.sensored).toBe(false);
+            });
         });
     });
 
