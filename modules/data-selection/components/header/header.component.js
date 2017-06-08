@@ -15,9 +15,9 @@
             controller: DpDataSelectionHeaderController
         });
 
-    DpDataSelectionHeaderController.$inject = ['$scope', 'DATA_SELECTION_CONFIG'];
+    DpDataSelectionHeaderController.$inject = ['$scope', 'DATA_SELECTION_CONFIG', 'user'];
 
-    function DpDataSelectionHeaderController ($scope, DATA_SELECTION_CONFIG) {
+    function DpDataSelectionHeaderController ($scope, DATA_SELECTION_CONFIG, user) {
         const vm = this;
 
         $scope.$watchGroup([
@@ -28,9 +28,12 @@
 
         function setHeader () {
             const isListView = vm.state.view === 'LIST';
+            const config = DATA_SELECTION_CONFIG.datasets[vm.state.dataset];
+            const exportAuthLevel = config.AUTH_LEVEL_EXPORT;
 
             vm.showButtons = vm.state.dataset !== 'catalogus';
-            vm.showDownloadButton = vm.numberOfRecords > 0;
+            vm.showDownloadButton = vm.numberOfRecords > 0 &&
+                (!exportAuthLevel || user.meetsRequiredLevel(exportAuthLevel));
             vm.showTabs = isListView;
             vm.showNoResultsFound = vm.numberOfRecords === 0;
             vm.showActiveFilters = Object.keys(vm.state.filters).length || vm.state.geometryFilter.markers.length;

@@ -180,6 +180,7 @@
                     ENDPOINT_MARKERS: 'dataselectie/hr/geolocation/',
                     ENDPOINT_EXPORT: 'dataselectie/hr/export/',
                     ENDPOINT_DETAIL: 'handelsregister/vestiging/',
+                    AUTH_LEVEL_EXPORT: 'EMPLOYEE',
                     PRIMARY_KEY: 'vestiging_id',
                     TITLE: 'Vestigingen',
                     FILTERS: [
