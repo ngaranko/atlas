@@ -44,7 +44,10 @@
     [class*="u-col-"] {
       position: relative;
       min-height: 1px;
-      float: left;
+
+      &:not([class*="12"]) {
+        float: left;
+      }
     }
 
     @media (min-width: $breakpoint-sm) {
