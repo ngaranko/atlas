@@ -98,6 +98,7 @@ describe('The search-reducers factory', function () {
 
             inputState.layerSelection.isEnabled = true;
             inputState.page.name = 'somePage';
+            inputState.page.type = 'someType';
             inputState.detail = {some: 'object'};
             inputState.straatbeeld = null;
             inputState.dataSelection = {some: 'object'};
@@ -106,6 +107,7 @@ describe('The search-reducers factory', function () {
 
             expect(output.layerSelection.isEnabled).toBe(false);
             expect(output.page.name).toBeNull();
+            expect(output.page.type).toBeNull();
             expect(output.detail).toBeNull();
             expect(output.straatbeeld).toBeNull();
             expect(output.dataSelection).toBeNull();
