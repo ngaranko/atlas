@@ -81,4 +81,11 @@ describe('The video component', () => {
         expect(videoElement.pause).toHaveBeenCalled();
         expect(videoElement.currentTime).toBe(0);
     });
+
+    it('calls the polyfill window function', () => {
+        let called = false;
+        $window.objectFitPolyfill = () => called = true;
+        getComponent();
+        expect(called).toBe(true);
+    });
 });
