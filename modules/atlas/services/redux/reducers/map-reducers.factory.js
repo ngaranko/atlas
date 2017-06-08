@@ -181,6 +181,7 @@
             var newState = angular.copy(oldState);
 
             newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
+            newState.map.isLoading = true;
 
             if (payload) {
                 if (payload.markers.length > 2) {
@@ -199,6 +200,7 @@
                     newState.map.geometry = payload.markers;
                 }
             }
+            console.log('mapEndDrawingReducer', newState.map.isLoading);
 
             return newState;
         }
