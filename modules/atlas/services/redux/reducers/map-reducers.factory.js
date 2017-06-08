@@ -200,7 +200,6 @@
                     newState.map.geometry = payload.markers;
                 }
             }
-            console.log('mapEndDrawingReducer', newState.map.isLoading);
 
             return newState;
         }
