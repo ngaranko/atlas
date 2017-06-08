@@ -61,8 +61,8 @@
             // by converting the state to a url and back
             // This prevents deep copying of large state objects in the reducer (eg dataSelection.markers)
             const reducer = applicationState.getReducer(),
-                ghostState = angular.copy(applicationState.getStore().getState()),
-                params = applicationState.getStateUrlConverter().state2params(ghostState),
+                state = applicationState.getStore().getState(),
+                params = applicationState.getStateUrlConverter().state2params(state),
                 sourceState = applicationState.getStateUrlConverter().params2state({}, params),
                 targetState = reducer(sourceState, getAction(type, payload));
 
