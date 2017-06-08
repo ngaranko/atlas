@@ -2,7 +2,8 @@ describe('The video component', () => {
     let $compile,
         $rootScope,
         $window,
-        scope;
+        scope,
+        originalPolyfill;
 
     beforeEach(() => {
         angular.mock.module('dpShared');
@@ -12,6 +13,18 @@ describe('The video component', () => {
             $rootScope = _$rootScope_;
             $window = _$window_;
         });
+
+        // always set the state so no polyfill is provided.
+        // This is done by achieved by deleting the window function and
+        // restoring it after each tests.
+        if ($window.objectFitPolyfill) {
+            originalPolyfill = $window.objectFitPolyfill;
+            delete $window.objectFitPolyfill;
+        }
+    });
+
+    afterEach(() => {
+        $window.objectFitPolyfill = originalPolyfill;
     });
 
     function getComponent () {
@@ -82,10 +95,9 @@ describe('The video component', () => {
         expect(videoElement.currentTime).toBe(0);
     });
 
-    it('calls the polyfill window function', () => {
-        let called = false;
-        $window.objectFitPolyfill = () => called = true;
+    it('calls the polyfill window function if provided', () => {
+        $window.objectFitPolyfill = jasmine.createSpy('objectFitPolyfill');
         getComponent();
-        expect(called).toBe(true);
+        expect($window.objectFitPolyfill).toHaveBeenCalled();
     });
 });
