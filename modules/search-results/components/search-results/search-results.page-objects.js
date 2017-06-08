@@ -31,6 +31,9 @@ function categoryPageObject (categoryElement) {
         get list () {
             return searchResultsList(categoryElement.element(by.css('dp-search-results-list')));
         },
+        get listCount () {
+            return dp.count(categoryElement.all(by.css('ul li')));
+        },
         get showMore () {
             return link(categoryElement.element(by.css('.qa-show-more')));
         }
