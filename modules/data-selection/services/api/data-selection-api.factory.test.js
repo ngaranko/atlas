@@ -2,6 +2,7 @@ describe('The dataSelectionApi factory', function () {
     let $rootScope,
         $q,
         dataSelectionApi,
+        user,
         mockedApiPreviewResponse,
         mockedApiMarkersResponse,
         mockedConfig,
@@ -51,6 +52,11 @@ describe('The dataSelectionApi factory', function () {
                                 label: 'Openingstijden',
                                 variables: ['openingstijden'],
                                 formatter: 'openingstijdenFormatter'
+                            },
+                            {
+                                label: 'KvK-nummer',
+                                variables: ['kvk_nummer'],
+                                authLevel: 'EMPLOYEE'
                             }
                         ],
                         LIST: [
@@ -85,15 +91,17 @@ describe('The dataSelectionApi factory', function () {
             }
         );
 
-        angular.mock.inject(function (_$rootScope_, _$q_, _dataSelectionApi_, _TabHeader_) {
+        angular.mock.inject(function (_$rootScope_, _$q_, _dataSelectionApi_, _user_, _TabHeader_) {
             $rootScope = _$rootScope_;
             $q = _$q_;
             dataSelectionApi = _dataSelectionApi_;
+            user = _user_;
             TabHeader = _TabHeader_;
         });
 
         spyOn(mockedApiService, 'query').and.callThrough();
         spyOn(api, 'getByUri').and.callThrough();
+        spyOn(user, 'meetsRequiredLevel').and.returnValue(false);
     });
 
     describe('the query function', function () {
@@ -431,6 +439,60 @@ describe('The dataSelectionApi factory', function () {
                 $rootScope.$apply();
 
                 expect(outputTable).not.toEqual(outputList);
+            });
+
+            it('Shows columns with an authentication level only when that level is met by the current user', () => {
+                let output;
+
+                user.meetsRequiredLevel.and.returnValue(true);
+
+                mockedApiPreviewResponse.data[0].kvk_nummer = '123';
+                mockedApiPreviewResponse.data[1].kvk_nummer = '234';
+                mockedApiPreviewResponse.data[2].kvk_nummer = '345';
+
+                dataSelectionApi.query('zwembaden', 'TABLE', {}, 1).then(function (_output_) {
+                    output = _output_;
+                });
+                $rootScope.$apply();
+
+                // Formatters
+                expect(output.data.formatters).toEqual([undefined, 'openingstijdenFormatter', undefined]);
+
+                // Head
+                expect(output.data.head).toEqual(['Adres', 'Openingstijden', 'KvK-nummer']);
+
+                // Body
+                expect(output.data.body.length).toBe(3);
+                expect(output.data.body[0]).toEqual({
+                    detailEndpoint: 'https://amsterdam.nl/api_endpoint/zwembaden/1/',
+                    content: [
+                        [{
+                            key: 'adres',
+                            value: 'Sneeuwbalweg 24'
+                        }], [{
+                            key: 'openingstijden',
+                            value: 'Alleen op dinsdag'
+                        }], [{
+                            key: 'kvk_nummer',
+                            value: '123'
+                        }]
+                    ]
+                });
+                expect(output.data.body[1]).toEqual({
+                    detailEndpoint: 'https://amsterdam.nl/api_endpoint/zwembaden/2/',
+                    content: [
+                        [{
+                            key: 'adres',
+                            value: 'Marnixstraat 1'
+                        }], [{
+                            key: 'openingstijden',
+                            value: 'Ligt er een beetje aan'
+                        }], [{
+                            key: 'kvk_nummer',
+                            value: '234'
+                        }]
+                    ]
+                });
             });
         });
     });

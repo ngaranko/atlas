@@ -213,7 +213,8 @@
                         TABLE: [
                             {
                                 label: 'KvK-num.',
-                                variables: ['kvk_nummer']
+                                variables: ['kvk_nummer'],
+                                authLevel: 'EMPLOYEE'
                             },
                             {
                                 label: 'Handelsnaam',
@@ -223,7 +224,8 @@
                                 label: 'Bezoekadres',
                                 variables: ['bezoekadres_volledig_adres', 'non_mailing'],
                                 formatter: 'hrBezoekadres',
-                                template: 'bezoekadres'
+                                template: 'bezoekadres',
+                                authLevel: 'EMPLOYEE'
                             },
                             {
                                 label: 'Hoofdcategorie',
@@ -235,11 +237,13 @@
                             },
                             {
                                 label: 'SBI-omschrijving',
-                                variables: ['sbi_omschrijving']
+                                variables: ['sbi_omschrijving'],
+                                authLevel: 'EMPLOYEE'
                             },
                             {
                                 label: 'SBI-code',
-                                variables: ['sbi_code']
+                                variables: ['sbi_code'],
+                                authLevel: 'EMPLOYEE'
                             }
                         ],
                         LIST: [
