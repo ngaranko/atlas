@@ -26,7 +26,7 @@
                             label: 'GGW-gebied'
                         }, {
                             slug: 'buurtcombinatie_naam',
-                            label: 'Buurtcombinatie'
+                            label: 'Wijk'
                         }, {
                             slug: 'buurt_naam',
                             label: 'Buurt'
@@ -77,7 +77,7 @@
                                 variables: ['ggw_code']
                             },
                             {
-                                label: 'Buurtcombinatie',
+                                label: 'Wijk',
                                 variables: ['buurtcombinatie_naam']
                             },
                             {
@@ -197,7 +197,7 @@
                             label: 'GGW-gebied'
                         }, {
                             slug: 'buurtcombinatie_naam',
-                            label: 'Buurtcombinatie'
+                            label: 'Wijk'
                         }, {
                             slug: 'buurt_naam',
                             label: 'Buurt'

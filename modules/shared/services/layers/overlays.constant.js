@@ -258,8 +258,8 @@
                 },
                 bc: {
                     url: 'maps/gebieden?service=wms',
-                    label_short: 'Buurtcombinaties',
-                    label_long: 'Buurtcombinaties',
+                    label_short: 'Wijken',
+                    label_long: 'Wijken',
                     layers: ['buurtcombinatie', 'buurtcombinatie_label'],
                     minZoom: 8,
                     maxZoom: 16,
