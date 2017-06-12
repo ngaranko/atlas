@@ -9,16 +9,16 @@ module.exports = {
     },
     'DETAIL': {
         url: '#?mpv=52.3731081:4.8932945&mpb=topografie&mpz=11&' +
-             'dte=https:%2F%2Fapi.datapunt.amsterdam.nl%2Fcatalogus%2Fapi%2F3%2Faction%2F' +
+             'dte=catalogus%2Fapi%2F3%2Faction%2F' +
              'package_show%3Fid%3D642f15c7-8368-4795-9e3d-1a87fa7e562a&dtfs=T',
         validator: require('../validators/detail')
     },
     'DETAIL-KADASTRAAL-SUBJECT--NATUURLIJKE-PERSOON': {
-        url: '#?dte=https:%2F%2Facc.api.data.amsterdam.nl%2Fbrk%2Fsubject%2FNL.KAD.Persoon.171720901%2F' +
+        url: '#?dte=brk%2Fsubject%2FNL.KAD.Persoon.171720901%2F' +
         '&dtfs=T&mpb=topografie&mpz=10&mpv=52.3738384:4.8949098'
     },
     'DETAIL-KADASTRAAL-SUBJECT--NIET-NATUURLIJKE-PERSOON': {
-        url: '#?dte=https:%2F%2Facc.api.data.amsterdam.nl%2Fbrk%2Fsubject%2FNL.KAD.Persoon.423186718%2F' +
+        url: '#?dte=brk%2Fsubject%2FNL.KAD.Persoon.423186718%2F' +
         '&dtfs=T&mpb=topografie&mpz=11&mpv=52.3731081:4.8932945'
     },
     'KADASTRALE_SUBJECTEN': {
@@ -38,7 +38,7 @@ module.exports = {
     },
     'MAP_DETAIL--NUMMERAANDUIDING': {
         url: '#?mpv=52.353263440372224:5.001382398402873&mpb=topografie&mpz=16&' +
-             'dte=https:%2F%2Fapi.datapunt.amsterdam.nl%2Fbag%2Fnummeraanduiding%2F03630000500149%2F',
+             'dte=bag%2Fnummeraanduiding%2F03630000500149%2F',
         validator: require('../validators/map_detail--nummeraanduiding')
     },
     'SEARCH-RESULTS--CATEGORY': {
@@ -57,7 +57,7 @@ module.exports = {
         url: '#?mpb=topografie&mpz=10&mpv=52.3738384:4.8949098&srfs=T&srq=Bakker'
     },
     'MAP_STRAATBEELD--DETAIL': {
-        url: '#?dte=https:%2F%2Fapi.datapunt.amsterdam.nl%2Fbag%2Fnummeraanduiding%2F03630000500149%2F&' +
+        url: '#?dte=bag%2Fnummeraanduiding%2F03630000500149%2F&' +
              'mpb=topografie&mpz=16&mpv=52.3532634:5.0013828&sbf=Cu&sbh=4W&' +
              'sbi=TMX7315120208-000068_pano_0002_000405&sbl=ZQgX9:3Nqgu',
         validator: require('../validators/map_straatbeeld')
@@ -77,7 +77,7 @@ module.exports = {
         validator: require('../validators/page--home')
     },
     'STRAATBEELD--DETAIL': {
-        url: '#?dte=https:%2F%2Fapi.datapunt.amsterdam.nl%2Fbag%2Fnummeraanduiding%2F03630000500149%2F&' +
+        url: '#?dte=bag%2Fnummeraanduiding%2F03630000500149%2F&' +
              'mpb=topografie&mpz=16&mpv=52.3531791:5.00131&sbf=Cu&sbfs=T&sbh=4W&' +
              'sbi=TMX7315120208-000068_pano_0002_000405&sbl=ZQgX9:3Nqgu',
         validator: require('../validators/straatbeeld')
