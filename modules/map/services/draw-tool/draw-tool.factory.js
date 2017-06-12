@@ -216,7 +216,7 @@
             Object.keys(L.Draw.Event).forEach(eventName => {
                 drawTool.map.on(L.Draw.Event[eventName], function (e) {
                     if (eventName === 'DELETED') { // IE HACK
-                        suppress.start();
+                        suppress.start(300);
                     }
                     console.log('draw event', eventName);
 
@@ -266,6 +266,10 @@
 
         // Click on the shape toggles EDIT mode
         function toggleEditModeOnShapeClick (e) {
+            if (suppress.isBusy()) {
+                console.log('toggle edit event busy');
+                return;
+            }
             L.DomEvent.stop(e);
             toggle();
         }
@@ -406,7 +410,7 @@
             const isFirstMarker = drawTool.drawShapeHandler._markers.length === 1;
 
             console.log('bindLastDrawnMarker', isFirstMarker, lastMarker);
-            suppress.start();
+            suppress.start(500);
             ['mousedown', 'click'].forEach(key => lastMarker.on(key, (e) => {
                 if (suppress.isBusy()) {
                     console.log('marker event busy');
