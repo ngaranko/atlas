@@ -5,9 +5,9 @@
         .module('atlas')
         .factory('detailReducers', detailReducersFactory);
 
-    detailReducersFactory.$inject = ['ACTIONS', 'DRAW_TOOL_CONFIG'];
+    detailReducersFactory.$inject = ['ACTIONS', 'DRAW_TOOL_CONFIG', 'uriStripper'];
 
-    function detailReducersFactory (ACTIONS, DRAW_TOOL_CONFIG) {
+    function detailReducersFactory (ACTIONS, DRAW_TOOL_CONFIG, uriStripper) {
         var reducers = {};
 
         reducers[ACTIONS.FETCH_DETAIL.id] = fetchDetailReducer;
@@ -24,6 +24,7 @@
         function fetchDetailReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
+            payload = uriStripper.stripUri(payload);
             newState.detail = {
                 endpoint: payload,
                 reload: Boolean(oldState.detail && oldState.detail.endpoint === payload),

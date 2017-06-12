@@ -71,7 +71,7 @@
                 vm.isLoading = false;
                 delete vm.apiData;
             } else {
-                api.getByUrl(endpoint).then(function (data) {
+                api.getByUri(endpoint).then(function (data) {
                     data = dataFormatter.formatData(data, subject);
 
                     vm.apiData = {
