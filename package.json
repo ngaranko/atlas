@@ -58,7 +58,7 @@
     "test": "grunt test",
     "start": "grunt",
     "clean-dirs": "rimraf ./bower_components ./node_modules ./reports ./build",
-    "clean-cache": "npm cache verify --force && bower cache clean",
+    "clean-cache": "npm cache verify && bower cache clean",
     "clean": "npm run clean-cache && npm run clean-dirs"
   },
   "repository": {
