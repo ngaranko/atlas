@@ -15,7 +15,7 @@ describe('The video component', () => {
         });
 
         // always set the state so no polyfill is provided.
-        // This is done by achieved by deleting the window function and
+        // This is achieved by deleting the window function and
         // restoring it after each tests.
         if ($window.objectFitPolyfill) {
             originalPolyfill = $window.objectFitPolyfill;
