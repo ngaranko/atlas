@@ -32,7 +32,8 @@
             const exportAuthLevel = config.AUTH_LEVEL_EXPORT;
 
             vm.showButtons = vm.state.dataset !== 'catalogus';
-            vm.showDownloadButton = vm.numberOfRecords > 0 &&
+            vm.showDownloadButton = vm.state.view !== 'LIST' &&
+                vm.numberOfRecords > 0 &&
                 (!exportAuthLevel || user.meetsRequiredLevel(exportAuthLevel));
             vm.showTabs = isListView;
             vm.showNoResultsFound = vm.numberOfRecords === 0;

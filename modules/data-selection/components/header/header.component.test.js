@@ -166,6 +166,15 @@ describe('The dp-data-selection-header', () => {
             expect(component.find('.qa-download-button').length).toBe(0);
         });
 
+        it('is hidden when in LIST view', () => {
+            mockedInputTable.numberOfRecords = 1;
+            component = getComponent(mockedInputTable);
+            expect(component.find('.qa-download-button').length).toBe(1);
+
+            component = getComponent(mockedInputList);
+            expect(component.find('.qa-download-button').length).toBe(0);
+        });
+
         it('is hidden when the authentication level is not met', () => {
             mockedInputTable.numberOfRecords = 1;
             // An authentication level is set
