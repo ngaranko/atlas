@@ -17,7 +17,9 @@
         }
 
         function onMapClick (event) {
+            console.log('map onClick event');
             if (suppress.isBusy()) {
+                console.log('map onClick event busy');
                 return;
             }
 

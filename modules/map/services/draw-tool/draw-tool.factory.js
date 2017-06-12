@@ -216,8 +216,9 @@
             Object.keys(L.Draw.Event).forEach(eventName => {
                 drawTool.map.on(L.Draw.Event[eventName], function (e) {
                     if (eventName === 'DELETED') { // IE HACK
-                        suppress.start();
+                        suppress.start(500);
                     }
+                    console.log('draw event', eventName);
 
                     handleDrawEvent(eventName, e);
 
@@ -242,7 +243,9 @@
         function registerMapEvents () {
             // Click outside shape => delete shape
             drawTool.map.on('click', function () {
+                console.log('map event');
                 if (suppress.isBusy()) {
+                    console.log('map event busy');
                     return;
                 }
 
@@ -401,18 +404,39 @@
         function bindLastDrawnMarker () {
             const lastMarker = getLastDrawnMarker();
             const isFirstMarker = drawTool.drawShapeHandler._markers.length === 1;
-            ['mousedown', 'click'].forEach(key => lastMarker.on(key, () => {
-                if (drawTool.drawShapeHandler.enabled() && isFirstMarker) {
-                    const isLineOrPolygon = currentShape.markers.length > 1;
-                    disable();  // Includes auto close for any line or polygon
-                    if (!isLineOrPolygon) {
-                        // Reopen draw mode to place first marker somewhere else
-                        enable();
+
+            window.setTimeout(() => {
+                ['mousedown', 'click'].forEach(key => lastMarker.on(key, () => {
+                    console.log('marker event =====================================================');
+                    if (drawTool.drawShapeHandler.enabled() && isFirstMarker) {
+                        const isLineOrPolygon = currentShape.markers.length > 1;
+                        disable();  // Includes auto close for any line or polygon
+                        if (!isLineOrPolygon) {
+                            // Reopen draw mode to place first marker somewhere else
+                            enable();
+                        }
+                    } else {
+                        deleteMarker(lastMarker);
                     }
-                } else {
-                    deleteMarker(lastMarker);
-                }
-            }));
+                }));
+
+            }, 500);
+
+            console.log('bindLastDrawnMarker', isFirstMarker, lastMarker);
+
+            //['mousedown', 'click'].forEach(key => lastMarker.on(key, () => {
+            //    console.log('marker event');
+            //    if (drawTool.drawShapeHandler.enabled() && isFirstMarker) {
+            //        const isLineOrPolygon = currentShape.markers.length > 1;
+            //        disable();  // Includes auto close for any line or polygon
+            //        if (!isLineOrPolygon) {
+            //            // Reopen draw mode to place first marker somewhere else
+            //            enable();
+            //        }
+            //    } else {
+            //        deleteMarker(lastMarker);
+            //    }
+            //}));
         }
     }
 })();
