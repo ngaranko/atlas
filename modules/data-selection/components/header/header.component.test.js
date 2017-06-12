@@ -4,12 +4,30 @@ describe('The dp-data-selection-header', () => {
         store,
         ACTIONS,
         component,
+        config,
+        user,
         mockedViewInput,
         mockedInputTable,
         mockedInputList,
         mockedInputCards;
 
     beforeEach(() => {
+        config = {
+            datasets: {
+                bag: {
+                    MAX_AVAILABLE_PAGES: 50,
+                    TITLE: 'BAG Adressen'
+                },
+                hr: {
+                    MAX_AVAILABLE_PAGES: 50,
+                    TITLE: 'HR Vestigingen'
+                },
+                catalogus: {
+                    MAX_AVAILABLE_PAGES: 50
+                }
+            }
+        };
+
         angular.mock.module(
             'dpDataSelection',
             {
@@ -18,21 +36,7 @@ describe('The dp-data-selection-header', () => {
                 }
             },
             function ($provide) {
-                $provide.constant('DATA_SELECTION_CONFIG', {
-                    datasets: {
-                        bag: {
-                            MAX_AVAILABLE_PAGES: 50,
-                            TITLE: 'BAG Adressen'
-                        },
-                        hr: {
-                            MAX_AVAILABLE_PAGES: 50,
-                            TITLE: 'HR Vestigingen'
-                        },
-                        catalogus: {
-                            MAX_AVAILABLE_PAGES: 50
-                        }
-                    }
-                });
+                $provide.constant('DATA_SELECTION_CONFIG', config);
 
                 $provide.factory('dpDataSelectionToggleViewButtonDirective', () => {
                     return {};
@@ -48,11 +52,12 @@ describe('The dp-data-selection-header', () => {
             }
         );
 
-        angular.mock.inject((_$compile_, _$rootScope_, _store_, _ACTIONS_) => {
+        angular.mock.inject((_$compile_, _$rootScope_, _store_, _ACTIONS_, _user_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
             ACTIONS = _ACTIONS_;
+            user = _user_;
         });
 
         mockedInputTable = {
@@ -105,6 +110,7 @@ describe('The dp-data-selection-header', () => {
         };
 
         spyOn(store, 'dispatch');
+        spyOn(user, 'meetsRequiredLevel').and.returnValue(false);
     });
 
     function getComponent (mockedInput) {
@@ -149,14 +155,45 @@ describe('The dp-data-selection-header', () => {
         });
     });
 
-    it('the download button is hidden when there are no results', () => {
-        mockedInputTable.numberOfRecords = 1;
-        component = getComponent(mockedInputTable);
-        expect(component.find('.qa-download-button').length).toBe(1);
+    describe('the download button', () => {
+        it('is hidden when there are no results', () => {
+            mockedInputTable.numberOfRecords = 1;
+            component = getComponent(mockedInputTable);
+            expect(component.find('.qa-download-button').length).toBe(1);
 
-        mockedInputTable.numberOfRecords = 0;
-        component = getComponent(mockedInputTable);
-        expect(component.find('.qa-download-button').length).toBe(0);
+            mockedInputTable.numberOfRecords = 0;
+            component = getComponent(mockedInputTable);
+            expect(component.find('.qa-download-button').length).toBe(0);
+        });
+
+        it('is hidden when in LIST view', () => {
+            mockedInputTable.numberOfRecords = 1;
+            component = getComponent(mockedInputTable);
+            expect(component.find('.qa-download-button').length).toBe(1);
+
+            component = getComponent(mockedInputList);
+            expect(component.find('.qa-download-button').length).toBe(0);
+        });
+
+        it('is hidden when the authentication level is not met', () => {
+            mockedInputTable.numberOfRecords = 1;
+            // An authentication level is set
+            config.datasets.bag.AUTH_LEVEL_EXPORT = 'EMPLOYEE';
+
+            // But it is not met
+            component = getComponent(mockedInputTable);
+            expect(component.find('.qa-download-button').length).toBe(0);
+
+            // Now the authentication is met
+            user.meetsRequiredLevel.and.returnValue(true);
+            component = getComponent(mockedInputTable);
+            expect(component.find('.qa-download-button').length).toBe(1);
+
+            // This time there are now records however
+            mockedInputTable.numberOfRecords = 0;
+            component = getComponent(mockedInputTable);
+            expect(component.find('.qa-download-button').length).toBe(0);
+        });
     });
 
     describe('the header title', function () {
