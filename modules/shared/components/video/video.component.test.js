@@ -1,16 +1,14 @@
 describe('The video component', () => {
     let $compile,
         $rootScope,
-        $window,
         scope;
 
     beforeEach(() => {
         angular.mock.module('dpShared');
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _$window_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
-            $window = _$window_;
         });
     });
 
@@ -40,26 +38,12 @@ describe('The video component', () => {
         expect(videoElement.getAttribute('width')).toBe('1');
         expect(videoElement.getAttribute('height')).toBe('2');
         expect(sourceElement.getAttribute('ng-src')).toBe('foo/bar.mp4');
-    });
-
-    it('sets a poster image on safari', () => {
-        const component = getComponent();
-        const videoElement = component.find('video')[0];
         expect(videoElement.getAttribute('poster')).toBe('foo/bar.jpg');
     });
 
-    it('does not set a post image on other browsers', () => {
-        $window.navigator = { vendor: 'other' };
-        const component = getComponent();
-
-        const videoElement = component.find('video')[0];
-        expect(videoElement.getAttribute('poster')).not.toBe('foo/bar.jpg');
-    });
-
     it('plays the video', () => {
-        const component = getComponent();
-
-        const videoElement = component.find('video')[0];
+        const component = getComponent(),
+            videoElement = component.find('video')[0];
 
         scope.playVideo = true;
         scope.$digest();
@@ -68,9 +52,8 @@ describe('The video component', () => {
     });
 
     it('stops and resets the video', () => {
-        const component = getComponent();
-
-        const videoElement = component.find('video')[0];
+        const component = getComponent(),
+            videoElement = component.find('video')[0];
 
         scope.playVideo = true;
         scope.$digest();
