@@ -7,18 +7,15 @@
 
     function uriStripperFactory (sharedConfig) {
         return {
-            stripUri,
-            stripSelfLink
+            stripUri
         };
 
         function stripUri (uri) {
             // remove first occurrence of API_ROOT
-            return uri.replace(sharedConfig.API_ROOT, '');
-        }
-
-        function stripSelfLink (obj) {
-            obj._links.self.href = stripUri(obj._links.self.href);
-            return obj;
+            if (uri) {
+                return uri.replace(sharedConfig.API_ROOT, '');
+            }
+            return uri;
         }
     }
 })();

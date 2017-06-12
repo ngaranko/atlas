@@ -24,7 +24,6 @@
         function fetchDetailReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
-            payload = uriStripper.stripUri(payload);
             newState.detail = {
                 endpoint: payload,
                 reload: Boolean(oldState.detail && oldState.detail.endpoint === payload),
