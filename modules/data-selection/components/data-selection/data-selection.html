@@ -5,7 +5,7 @@
         <dp-tab-header ng-if="vm.showTabHeader()"
                        search-text="{{vm.state.query}}"
                        tab-header="vm.tabHeader"
-                       filters-active="vm.filtersActive()">
+                       filters-active="true">
         </dp-tab-header>
         <dp-data-selection-header
             ng-if="!vm.showTabHeader() || vm.numberOfRecords > 0"
