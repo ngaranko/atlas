@@ -128,6 +128,8 @@
                 payload: numberOfResults
             });
 
+            searchResults = replaceBuurtcombinatie(searchResults);
+
             vm.searchResults = searchResults;
 
             vm.hasLoadMore = function () {
@@ -135,6 +137,23 @@
                     vm.searchResults[0].count > vm.searchResults[0].results.length &&
                     !vm.isLoadMoreLoading;
             };
+        }
+
+        function replaceBuurtcombinatie (searchResults) {
+            const results = angular.copy(searchResults);
+
+            console.log('replaceBuurtcombinatie');
+
+            results.forEach((result) => {
+                result.results.forEach((item) => {
+                    console.log('item', item);
+                    if (item.subtypeLabel === 'buurtcombinatie') {
+                        item.subtypeLabel = 'wijk';
+                    }
+                });
+            });
+
+            return results;
         }
     }
 })();
