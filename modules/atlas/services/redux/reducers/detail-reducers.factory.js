@@ -38,6 +38,7 @@
             newState.layerSelection.isEnabled = false;
             newState.search = null;
             newState.page.name = null;
+            newState.page.type = null;
             newState.straatbeeld = null;
             newState.dataSelection = null;
 
