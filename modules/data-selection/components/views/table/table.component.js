@@ -5,7 +5,8 @@
         .module('dpDataSelection')
         .component('dpDataSelectionTable', {
             bindings: {
-                content: '<'
+                content: '<',
+                dataset: '<'
             },
             templateUrl: 'modules/data-selection/components/views/table/table.html',
             controller: DpDataSelectionTableController,
