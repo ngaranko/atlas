@@ -3,7 +3,7 @@
 module.exports = function (page) {
     const layerSelection = page.dashboard.leftColumn.layerSelection;
 
-    expect(page.title).toBe('Selecteer kaartlagen - Atlas');
+    expect(page.title).toBe('Selecteer kaartlagen - Dataportaal');
 
     expect(page.dashboard.leftColumn.columnSize).toBe(4);
     expect(layerSelection.visible).toBe(true);

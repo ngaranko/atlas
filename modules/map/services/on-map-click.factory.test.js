@@ -4,7 +4,8 @@ describe('The onMapClick factory', () => {
         store,
         ACTIONS,
         drawTool,
-        mockedLeafletMap;
+        mockedLeafletMap,
+        suppress;
 
     beforeEach(() => {
         angular.mock.module(
@@ -18,13 +19,14 @@ describe('The onMapClick factory', () => {
 
         let L;
 
-        angular.mock.inject((_$rootScope_, _L_, _onMapClick_, _store_, _ACTIONS_, _drawTool_) => {
+        angular.mock.inject((_$rootScope_, _L_, _onMapClick_, _store_, _ACTIONS_, _drawTool_, _suppress_) => {
             $rootScope = _$rootScope_;
             onMapClick = _onMapClick_;
             store = _store_;
             ACTIONS = _ACTIONS_;
             drawTool = _drawTool_;
             L = _L_;
+            suppress = _suppress_;
         });
 
         mockedLeafletMap = L.map(document.createElement('div'));
@@ -45,6 +47,12 @@ describe('The onMapClick factory', () => {
         });
         $rootScope.$apply();
     }
+
+    it('click on map when suppressing is busy it should stop proceeding', () => {
+        spyOn(suppress, 'isBusy').and.returnValue(true);
+        click();
+        expect(drawTool.isEnabled).not.toHaveBeenCalled();
+    });
 
     it('dispatches an action when the map is clicked and drawtool is not enabled', () => {
         drawTool.isEnabled.and.returnValue(false);

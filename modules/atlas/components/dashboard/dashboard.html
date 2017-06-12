@@ -1,4 +1,4 @@
-<div class="c-dashboard"
+<div class="c-dashboard c-dashboard--page-type-{{vm.pageType}}"
      ng-class="{
          'c-dashboard--max-width': vm.hasMaxWidth,
          'c-dashboard--full-height': vm.isFullHeight,
@@ -6,7 +6,7 @@
      }">
 
     <!-- Header -->
-    <div class="u-fixed">
+    <div ng-class="{ 'u-fixed': !vm.isPrintMode }">
         <div class="c-dashboard__heading"
              ng-class="{ 'o-max-width': vm.hasMaxWidth }"
              ng-controller="HeaderController as header">
@@ -50,7 +50,10 @@
                     ng-class="'u-col-sm--' + vm.columnSizes.left">
 
                     <!-- Layer selection -->
-                    <div ng-if="vm.activity.layerSelection" ng-show="vm.visibility.layerSelection" ng-controller="LayerSelectionController as layerSelection" class="qa-layer-selection">
+                    <div ng-if="vm.activity.layerSelection"
+                        ng-show="vm.visibility.layerSelection"
+                        ng-controller="LayerSelectionController as layerSelection"
+                        class="u-full-height qa-layer-selection">
                         <dp-layer-selection
                             base-layer="{{layerSelection.baseLayer}}"
                             overlays="layerSelection.overlays"
@@ -61,7 +64,8 @@
 
                 <!-- Middle column -->
                 <div ng-show="vm.columnSizes.middle"
-                    class="c-dashboard__column u-col-sm--{{vm.columnSizes.middle}} qa-dashboard__column--middle">
+                    class="c-dashboard__column u-col-sm--{{vm.columnSizes.middle}} qa-dashboard__column--middle"
+                    ng-class="{ 'u-page-break-after': vm.columnSizes.middle && vm.columnSizes.right }">
 
                     <!-- Map -->
                     <div ng-if="vm.activity.map" ng-show="vm.visibility.map" ng-controller="MapController as map" class="qa-map">
@@ -98,11 +102,51 @@
                                          item="{{page.pageItem}}"></dp-page>
                             </div>
                         </div>
-                        <footer ng-if="vm.isHomePage" class="c-dashboard__footer">
-                            <div class="o-max-width__inner u-gutter">
-                                <dp-link type="SHOW_PAGE" payload="{name: 'content-overzicht', type: 'proclaimer'}">
-                                    Proclaimer
-                                </dp-link>
+                        <footer ng-if="vm.isHomePage" class="c-dashboard__footer o-max-width">
+                            <div class="c-dashboard__footer-content u-row">
+                                <div class="u-col-sm--8">
+                                    <div class="u-margin__left--2 c-dashboard__proclaimer">
+                                        <h2 class="c-dashboard__proclaimer-header">Proclaimer</h2>
+                                        <p class="c-dashboard__proclaimer-paragraph">Gemeente Amsterdam biedt met AmsterdamData een voorziening waar data voor iedereen beschikbaar zijn en hergebruikt mogen worden. De gegevens worden aangeboden door gemeentelijke en externe partijen. De eigenaren van deze gegevens zijn verantwoordelijk voor de kwaliteit van hun gepubliceerde data. Opmerkingen en aanvullingen op de gegevens kunt u <a class="c-link--inverse" href="mailto:algemeen.ois@amsterdam.nl">melden</a>.</p>
+                                        <p class="c-dashboard__proclaimer-paragraph">
+                                            <a class="o-btn o-btn--link--inverse" href="#?mpb=topografie&mpz=11&mpv=52.3731081:4.8932945&pgn=content-overzicht&pgt=proclaimer">Lees de hele proclaimer</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="u-col-sm--3 u-col-sm--offset-1">
+                                    <div class="c-dashboard__social">
+                                        <h2 class="c-dashboard__social-header">Volg de gemeente</h2>
+                                        <div class="c-dashboard__social-link">
+                                            <a
+                                              class="o-btn--link--inverse"
+                                              href="https://twitter.com/AmsterdamNL"
+                                              rel="external"
+                                              target="_blank">Twitter</a>
+                                        </div>
+                                        <div class="c-dashboard__social-link">
+                                            <a
+                                              class="o-btn o-btn--link--inverse"
+                                              href="https://www.facebook.com/gemeenteamsterdam"
+                                              rel="external"
+                                              target="_blank">Facebook</a>
+                                        </div>
+                                        <div class="c-dashboard__social-link">
+                                            <a
+                                              class="o-btn o-btn--link--inverse"
+                                              href="https://www.linkedin.com/company/gemeente-amsterdam"
+                                              rel="external"
+                                              target="_blank">LinkedIn</a>
+                                        </div>
+                                        <div class="c-dashboard__social-link">
+                                            <a
+                                              class="o-btn o-btn--link--inverse"
+                                              href="https://github.com/DatapuntAmsterdam"
+                                              rel="external"
+                                              target="_blank">GitHub</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="u-clearfix"></div>
                             </div>
                         </footer>
                     </div>

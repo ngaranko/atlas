@@ -1,14 +1,18 @@
 //This is an extend so it can be used by both the anchor tag as well as buttons with .btn--link
 
-$link-offset: $base-font-size;
+// The size of the link arrow icon (relative to the font size)
+$icon-size: 1.22em;
+// The offset of the actual arrow inside the image from the left of the image
+$icon-offset: .4em;
+// Extra space between the link arrow icon and the link text
+$link-offset: 3px;
 
 %link {
   @include font-size($s-font);
-
+  @include font-weight($bold-weight);
   display: inline-block;
   position: relative;
   color: $primary-dark;
-  font-weight: bold;
   text-decoration: none;
   cursor: pointer;
   overflow: visible;
@@ -30,34 +34,56 @@ $link-offset: $base-font-size;
 %link--arrow {
   @extend %link;
 
-  margin-left: $link-offset + 1px;
+  // Make sure multi line links have all lines aligned under the first icon
+  // That is the size of the icon plus the space between the icon and the link
+  // text, minus the space within the icon image between the actual arrow and
+  // the left side of the image.
+  margin-left: calc(#{$icon-size - $icon-offset} + #{$link-offset});
 
-  &:hover {
-    &::before {
-      background-image: url("assets/icons/link-arrow-red.svg");
-    }
+  &::after,
+  &::before {
+    display: inline-block;
+    position: static;
+    margin-right: $link-offset;
+    // Move the arrow icon left of the link text by the width of the icon plus
+    // the space needed between the icon and the link
+    margin-left: calc(-#{$icon-size} - #{$link-offset});
+    content: "";
+    vertical-align: text-bottom;
+  }
+
+  &::after {
+    @include icon-button("link-arrow", "light-gray", "");
+    display: none;
   }
 
   &::before {
-    display: inline-block;
-    position: absolute;
-    left: -$link-offset;
-    width: 7px;
-    height: $s-font-size * $s-line-height;
-    background: url("assets/icons/link-arrow.svg") no-repeat center;
-    content: "";
+    @include icon-button("link-arrow");
+    width: $icon-size;
+    height: $icon-size;
   }
 }
 
 %link--plus {
   @extend %link;
 
-  margin-left: $link-offset;
+  // Make sure multi line links have all lines aligned under the first icon
+  // That is the size of the icon plus the space between the icon and the link
+  // text, minus the space within the icon image between the actual arrow and
+  // the left side of the image.
+  margin-left: calc(#{$icon-size - $icon-offset} + #{$link-offset});
+  outline: none;
 
   &::before {
     display: inline-block;
-    position: absolute;
-    left: -$link-offset;
+    position: static;
+    width: $icon-size;
+    height: $icon-size;
+    margin-right: $link-offset;
+    // Move the arrow icon left of the link text by the width of the icon plus
+    // the space needed between the icon and the link
+    margin-left: calc(-#{$icon-size} - #{$link-offset});
+    text-align: center;
     content: "+";
   }
 }
@@ -65,8 +91,7 @@ $link-offset: $base-font-size;
 %link--inline {
   @extend %link;
   @include font-size($m-font);
-
+  @include font-weight($normal-weight);
   display: inline;
-  font-weight: normal;
   text-decoration: underline;
 }

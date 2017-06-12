@@ -25,6 +25,10 @@ module.exports = function (grunt) {
             src: 'build/temp/atlas.libs.js',
             dest: `build/atlas.${uniqueIdJs}.libs.js`
         },
+        polyfill: {
+            src: 'bower_components/objectFitPolyfill/dist/objectFitPolyfill.basic.min.js',
+            dest: 'build/polyfill.js'
+        },
         bower_bbga_fonts: {
             files: [
                 {

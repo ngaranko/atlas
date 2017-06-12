@@ -1,6 +1,7 @@
 describe('The detailReducers factory', function () {
     var detailReducers,
-        defaultState;
+        defaultState,
+        DRAW_TOOL_CONFIG;
 
     defaultState = {
         map: {
@@ -30,8 +31,9 @@ describe('The detailReducers factory', function () {
     beforeEach(function () {
         angular.mock.module('atlas');
 
-        angular.mock.inject(function (_detailReducers_) {
+        angular.mock.inject(function (_detailReducers_, _DRAW_TOOL_CONFIG_) {
             detailReducers = _detailReducers_;
+            DRAW_TOOL_CONFIG = _DRAW_TOOL_CONFIG_;
         });
     });
 
@@ -78,6 +80,7 @@ describe('The detailReducers factory', function () {
             inputState.layerSelection.isEnabled = true;
             inputState.search = {some: 'object'};
             inputState.page.name = 'somePage';
+            inputState.page.type = 'someType';
             inputState.straatbeeld = {some: 'object'};
             inputState.dataSelection = {some: 'object'};
 
@@ -86,6 +89,7 @@ describe('The detailReducers factory', function () {
             expect(output.layerSelection.isEnabled).toBe(false);
             expect(output.search).toBeNull();
             expect(output.page.name).toBeNull();
+            expect(output.page.type).toBeNull();
             expect(output.straatbeeld).toBeNull();
             expect(output.dataSelection).toBeNull();
         });
@@ -131,6 +135,15 @@ describe('The detailReducers factory', function () {
             output = detailReducers.FETCH_DETAIL(inputState, payload);
             expect(output.detail.reload).toBe(true);
             expect(output.detail.endpoint).toBe('bag/thing/123/');
+        });
+
+        it('should reset drawing mode', function () {
+            var payload = 'bag/thing/123/',
+                output;
+
+            output = detailReducers.FETCH_DETAIL(defaultState, payload);
+
+            expect(output.map.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
         });
     });
 

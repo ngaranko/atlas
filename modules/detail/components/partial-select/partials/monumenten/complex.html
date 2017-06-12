@@ -1,0 +1,19 @@
+<dp-glossary-header
+  definition="COMPLEX"
+  meta-data="apiData">
+</dp-glossary-header>
+<dl class="c-key-value-list">
+    <dt>Nummer</dt>
+    <dd>{{ apiData.results.monumentnummer_complex }}</dd>
+    <dt>Naam</dt>
+    <dd>{{ apiData.results.complexnaam }}</dd>
+    <dt class="c-key-value-list__key--full-width">Beschrijving</dt>
+    <dd class="c-key-value-list__value--full-width">
+        <p
+          class="c-key-value-list__content"
+          dp-expand-collapse
+          ng-if="apiData.results.beschrijving_complex">
+            {{ apiData.results.beschrijving_complex }}
+        </p>
+    </dd>
+</dl>

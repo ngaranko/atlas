@@ -8,15 +8,12 @@ $contact-height: 60px;
 .c-site-header__contact {
   @extend %link--arrow;
   @include font-size($xs-font);
+  @include font-weight($normal-weight);
   height: $contact-height;
   float: right;
   color: $primary-dark;
-  font-weight: normal;
   line-height: $contact-height;
-
-  &::before {
-    height: $contact-height;
-  }
+  opacity: .6;
 }
 
 .c-site-header__toolbar {
@@ -34,7 +31,7 @@ $contact-height: 60px;
 }
 
 .c-site-header--tall {
-  height: $site-header-height-tall + $site-header-toolbar-height;
+  height: $site-header-height-tall + $site-header-toolbar-height + $site-header-tall-bottom-gutter;
   margin-right: $site-header-gutter;
   margin-left: $site-header-gutter;
 

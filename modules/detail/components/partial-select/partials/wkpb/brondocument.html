@@ -1,12 +1,14 @@
-<dl class="c-key-value-list" ng-repeat="object in apiData.results">
-    <dt>Inschrijfnummer</dt>
-    <dd>{{ object.inschrijfnummer }}</dd>
-    <dt>Soort besluit</dt>
-    <dd>{{ object.soort_besluit }}</dd>
-    <dt>Bevoegd orgaan</dt>
-    <dd>{{ object.bevoegd_orgaan }}</dd>
-    <dt>Documentnaam</dt>
-    <dd><a target="_blank" ng-href="{{object.url}}" ng-if="object.url" class="o-btn o-btn--link o-btn--contrast">{{ object._display }}</a></dd>
-    <dt>Persoonsgegevens afschermen</dt>
-    <dd>{{ object.persoonsgegevens_afschermen | yesNo }}</dd>
-</dl>
+<div>
+    <dl class="c-key-value-list" ng-repeat="object in apiData.results">
+        <dt>Inschrijfnummer</dt>
+        <dd>{{ object.inschrijfnummer }}</dd>
+        <dt>Soort besluit</dt>
+        <dd>{{ object.soort_besluit }}</dd>
+        <dt>Bevoegd orgaan</dt>
+        <dd>{{ object.bevoegd_orgaan }}</dd>
+        <dt>Documentnaam</dt>
+        <dd><a target="_blank" ng-href="{{object.url}}" ng-if="object.url" class="o-btn o-btn--link">{{ object._display }}</a></dd>
+        <dt>Persoonsgegevens afschermen</dt>
+        <dd>{{ object.persoonsgegevens_afschermen | yesNo }}</dd>
+    </dl>
+</div>

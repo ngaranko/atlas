@@ -734,5 +734,35 @@ describe('The dashboardColumns factory', function () {
                 expect(columnSizes.right).toBe(12);
             });
         });
+
+        describe('the list view print version', function () {
+            beforeEach(function () {
+                mockedState.atlas.isPrintMode = true;
+                mockedState.dataSelection.view = 'LIST';
+                mockedState.dataSelection.isFullscreen = false;
+
+                activity = dashboardColumns.determineActivity(mockedState);
+                visibility = dashboardColumns.determineVisibility(mockedState);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState);
+            });
+
+            it('shows data selection and the map', function () {
+                expect(visibility.dataSelection).toBe(true);
+
+                expect(activity.map).toBe(true);
+                expect(visibility.map).toBe(true);
+                expect(visibility.detail).toBe(false);
+                expect(visibility.layerSelection).toBe(false);
+                expect(visibility.page).toBe(false);
+                expect(visibility.searchResults).toBe(false);
+                expect(visibility.straatbeeld).toBe(false);
+            });
+
+            it('left column: 0/3, middle column: 3/3, right column 0/3', function () {
+                expect(columnSizes.left).toBe(0);
+                expect(columnSizes.middle).toBe(12);
+                expect(columnSizes.right).toBe(0);
+            });
+        });
     });
 });

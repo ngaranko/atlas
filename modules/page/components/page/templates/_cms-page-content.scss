@@ -18,17 +18,16 @@
   }
 
   ul {
-    margin-bottom: .5 * $base-whitespace;
-    padding-left: 2 * $base-whitespace;
-    list-style-type: square;
+    @extend %content-list;
   }
 
-  li,
   p {
+    @include font-weight($light-weight);
     margin-bottom: 1.6 * $base-whitespace;
   }
 
   blockquote {
+    margin-bottom: 20px;
     padding: 5px 16px;
     border-left: 2px solid $secondary-gray20;
     font-style: italic;
@@ -48,17 +47,19 @@
   }
 }
 
-.s-cms-page-content__toc {
+.s-cms-page-content--toc {
   p {
+    display: inline;
     margin: 0;
   }
 
   a {
-    color: $primary-dark;
-    text-decoration: none;
+    color: inherit;
+    text-decoration: inherit;
 
     &:hover {
-      color: $primary-contrast;
+      color: inherit;
+      text-decoration: inherit;
     }
   }
 }

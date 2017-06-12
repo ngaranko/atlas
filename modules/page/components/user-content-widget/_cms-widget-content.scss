@@ -13,3 +13,21 @@
     }
   }
 }
+
+.s-cms-widget-content--link {
+  a {
+    color: inherit;
+    text-decoration: inherit;
+
+    &:hover {
+      color: inherit;
+      text-decoration: inherit;
+    }
+  }
+}
+
+.s-cms-widget-content--inline {
+  p {
+    display: inline;
+  }
+}

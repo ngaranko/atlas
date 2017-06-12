@@ -1,6 +1,26 @@
+.c-user-content-widget__news-entry {
+  padding-right: 3 * $base-whitespace;
+}
+
+.c-user-content-widget__news-title {
+  @include font-size($s-font);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.c-user-content-widget__news-content {
+  padding: 1.2 * $base-whitespace 0;
+  line-height: $l-line-height;
+}
+
+.c-user-content-widget__news-date {
+  color: $secondary-gray60;
+}
+
 .c-user-content-widget__beleid-zie-ook {
-  margin-bottom: $base-whitespace;
-  font-weight: bold;
+  @include font-size($l-font);
+  @include font-weight($bold-weight);
+  margin-bottom: (2 * $base-whitespace);
 }
 
 .c-user-content-widget__beleid-lees-meer {
@@ -12,30 +32,9 @@
   max-height: 4 * $base-whitespace;
   margin-bottom: 1.2 * $base-whitespace;
   overflow: hidden;
-
-  &:hover {
-    color: $primary-contrast;
-    text-decoration: underline;
-  }
 }
 
 .c-user-content-widget__short {
-  font-weight: normal;
-}
-
-.c-user-content-widget__external-link {
-  &:hover {
-    a {
-      color: $primary-contrast;
-      text-decoration: underline;
-    }
-  }
-}
-
-.c-user-content-widget__events-link {
-  margin-left: 0;
-
-  &::before {
-    display: none;
-  }
+  @include font-weight($bold-weight);
+  display: inline;
 }

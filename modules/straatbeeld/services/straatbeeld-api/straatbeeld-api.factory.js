@@ -82,7 +82,8 @@
                         return {
                             id: item.pano_id,
                             heading: item.heading,
-                            distance: item.distance
+                            distance: item.distance,
+                            year: item.year
                         };
                     }),
                     location: geojson.getCenter(formattedGeometrie),

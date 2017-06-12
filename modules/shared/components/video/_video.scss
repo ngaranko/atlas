@@ -1,0 +1,6 @@
+.c-video {
+  width: 100%;
+  height: 100%;
+  padding-bottom: $base-whitespace * 5;
+  object-fit: cover; // not yet supported IE & Edge, polyfilled
+}

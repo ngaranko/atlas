@@ -1,13 +1,14 @@
 describe('The api factory', function () {
     var $rootScope,
-        $interval,
         $http,
         $httpBackend,
+        $cacheFactory,
         $q,
         api,
         mockedApiData,
         user,
-        isLoggedIn;
+        isLoggedIn,
+        clearHttpCache;
 
     beforeEach(function () {
         angular.mock.module(
@@ -15,20 +16,21 @@ describe('The api factory', function () {
             {
                 user: {
                     getAccessToken: () => isLoggedIn ? 'MY_FAKE_ACCESS_TOKEN' : null,
+                    waitForAccessToken: () => $q.resolve(user.getAccessToken()),
                     getRefreshToken: angular.noop
                 },
                 sharedConfig: {
-                    API_ROOT: 'http://www.i-am-the-api-root.com/path/',
+                    API_ROOT: 'https://www.i-am-the-api-root.com/path/',
                     AUTH_HEADER_PREFIX: 'Bearer '
                 }
             }
         );
 
-        angular.mock.inject(function (_$rootScope_, _$interval_, _$http_, _$httpBackend_, _$q_, _api_, _user_) {
+        angular.mock.inject(function (_$rootScope_, _$http_, _$httpBackend_, _$cacheFactory_, _$q_, _api_, _user_) {
             $rootScope = _$rootScope_;
-            $interval = _$interval_;
             $http = _$http_;
             $httpBackend = _$httpBackend_;
+            $cacheFactory = _$cacheFactory_;
             $q = _$q_;
             api = _api_;
             user = _user_;
@@ -39,94 +41,38 @@ describe('The api factory', function () {
             title: 'This is a fake title'
         };
 
-        $httpBackend.whenGET('http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/').respond(mockedApiData);
+        $httpBackend.whenGET('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/').respond(mockedApiData);
 
         isLoggedIn = false;
+
+        clearHttpCache = function () {
+            // Clearing the cache whenever authorization level is lowered
+            $cacheFactory.get('$http').removeAll();
+        };
     });
 
     afterEach(function () {
         $httpBackend.verifyNoOutstandingExpectation();
         $httpBackend.verifyNoOutstandingRequest();
+        clearHttpCache();
     });
 
     it('getByUrl returns the data as a promise', function () {
         var returnValue;
 
-        api.getByUrl('http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/').then(function (data) {
+        api.getByUrl('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/').then(function (data) {
             returnValue = data;
         });
 
         $httpBackend.flush();
 
-        expect(returnValue).toEqual(mockedApiData);
-    });
-
-    it('waits for an access token if user is logging in, continues if login succeeds', function () {
-        var returnValue;
-
-        spyOn(user, 'getRefreshToken').and.returnValue(true);
-        spyOn(user, 'getAccessToken').and.returnValue(false);
-
-        api.getByUrl('http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/').then(function (data) {
-            returnValue = data;
-        });
-
-        $rootScope.$digest();
-        $httpBackend.verifyNoOutstandingRequest();
-
-        user.getAccessToken.and.returnValue(true);
-        $interval.flush(350);   // force refresh of access token
-        $rootScope.$digest();
-
-        $httpBackend.flush();
-        expect(returnValue).toEqual(mockedApiData);
-    });
-
-    it('waits for an access token if user is logging in, continues if login fails', function () {
-        var returnValue;
-
-        spyOn(user, 'getRefreshToken').and.returnValue(true);
-        spyOn(user, 'getAccessToken').and.returnValue(false);
-
-        api.getByUrl('http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/').then(function (data) {
-            returnValue = data;
-        });
-
-        $rootScope.$digest();
-        $httpBackend.verifyNoOutstandingRequest();
-
-        user.getRefreshToken.and.returnValue(false);
-        $interval.flush(350);   // force refresh of access token
-        $rootScope.$digest();
-
-        $httpBackend.flush();
-        expect(returnValue).toEqual(mockedApiData);
-    });
-
-    it('waits for an access token if user is logging in for max 5 seconds', function () {
-        var returnValue;
-
-        spyOn(user, 'getRefreshToken').and.returnValue(true);
-        spyOn(user, 'getAccessToken').and.returnValue(false);
-
-        api.getByUrl('http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/').then(function (data) {
-            returnValue = data;
-        });
-
-        $rootScope.$digest();
-        $httpBackend.verifyNoOutstandingRequest();
-
-        $interval.flush(5500);   // force end of interval
-        $rootScope.$digest();
-
-        $httpBackend.flush();
         expect(returnValue).toEqual(mockedApiData);
     });
 
     it('getByUrl optionally accepts a promise to allow for cancelling the request', function () {
         const cancel = $q.defer();
 
-        api.getByUrl('http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/', undefined, cancel)
+        api.getByUrl('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/', undefined, cancel)
             .then(function () {
                 fail();   // Should never be resolved
             });
@@ -139,7 +85,7 @@ describe('The api factory', function () {
         var returnValue;
         const cancel = $q.defer();
 
-        api.getByUrl('http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/', undefined, cancel)
+        api.getByUrl('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/', undefined, cancel)
             .then(function (data) {
                 returnValue = data;
             });
@@ -165,26 +111,69 @@ describe('The api factory', function () {
         expect(returnValue).toEqual(mockedApiData);
     });
 
-    it('adds an Authorization header if the user is logged in', function () {
+    it('does not add an Authorization header if the user is not logged in', function () {
         // Not logged in
         isLoggedIn = false;
 
         $httpBackend.expectGET(
-            'http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/',
+            'https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/',
             $http.defaults.headers.common
         );
-        api.getByUrl('http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/');
-        $httpBackend.flush();
-
-        // Logged in
-        isLoggedIn = true;
-
-        $httpBackend.expectGET(
-            'http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/',
-            angular.merge({}, $http.defaults.headers.common, {Authorization: 'Bearer MY_FAKE_ACCESS_TOKEN'})
-        );
-        api.getByUrl('http://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/');
+        api.getByUrl('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/');
         $httpBackend.flush();
     });
-});
 
+    it('adds an Authorization header if the user is logged in', function () {
+        // Logged in
+        isLoggedIn = true;
+        $httpBackend.expectGET(
+            'https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/',
+            angular.merge({}, $http.defaults.headers.common, {Authorization: 'Bearer MY_FAKE_ACCESS_TOKEN'})
+        );
+        api.getByUrl('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/');
+        $httpBackend.flush();
+    });
+
+    describe('generating a URL with an access token', () => {
+        it('adds the access token when logged in', () => {
+            isLoggedIn = true;
+            api.createUrlWithToken('https://test.amsterdam.nl/').then(actual => {
+                expect(actual).toBe('https://test.amsterdam.nl/?access_token=MY_FAKE_ACCESS_TOKEN');
+            });
+
+            api.createUrlWithToken('https://test.amsterdam.nl/?a=b').then(actual => {
+                expect(actual).toBe('https://test.amsterdam.nl/?a=b&access_token=MY_FAKE_ACCESS_TOKEN');
+            });
+
+            $rootScope.$digest();
+        });
+
+        it('does not add the access token when not logged in', () => {
+            isLoggedIn = false;
+
+            api.createUrlWithToken('https://test.amsterdam.nl/').then(actual => {
+                expect(actual).toBe('https://test.amsterdam.nl/');
+            });
+
+            api.createUrlWithToken('https://test.amsterdam.nl/?a=b').then(actual => {
+                expect(actual).toBe('https://test.amsterdam.nl/?a=b');
+            });
+
+            $rootScope.$digest();
+        });
+
+        it('adds extra params to the url when specified', () => {
+            isLoggedIn = false;
+
+            api.createUrlWithToken('https://test.amsterdam.nl/', {c: 'd'}).then(actual => {
+                expect(actual).toBe('https://test.amsterdam.nl/?c=d');
+            });
+
+            api.createUrlWithToken('https://test.amsterdam.nl/?a=b', {c: 'd'}).then(actual => {
+                expect(actual).toBe('https://test.amsterdam.nl/?a=b&c=d');
+            });
+
+            $rootScope.$digest();
+        });
+    });
+});

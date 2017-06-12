@@ -1,12 +1,14 @@
 describe('The state url conversion factory', function () {
-    let stateUrlConverter;
+    let stateUrlConverter,
+        DRAW_TOOL_CONFIG;
 
     describe('The default state', function () {
         beforeEach(function () {
             angular.mock.module('atlas');
 
-            angular.mock.inject(function (_stateUrlConverter_) {
+            angular.mock.inject(function (_stateUrlConverter_, _DRAW_TOOL_CONFIG_) {
                 stateUrlConverter = _stateUrlConverter_;
+                DRAW_TOOL_CONFIG = _DRAW_TOOL_CONFIG_;
             });
         });
 
@@ -22,7 +24,8 @@ describe('The state url conversion factory', function () {
                     showActiveOverlays: false,
                     isFullscreen: false,
                     isLoading: false,
-                    drawingMode: false
+                    drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
+                    resetDrawing: false
                 },
                 layerSelection: {
                     isEnabled: false

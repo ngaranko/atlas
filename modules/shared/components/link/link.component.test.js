@@ -135,14 +135,6 @@ describe('The dp-link component', function () {
         expect(component.find('button').length).toBe(0);
     });
 
-    it('a button is always used when linking to the current page, regardless of the ACTION configuration', function () {
-        mockedCurrentPath = 'this=something-else';
-        const component = getComponent(null, null, 'ACTION_WITH_LINK', mockedPayload);
-
-        expect(component.find('button').length).toBe(1);
-        expect(component.find('a').length).toBe(0);
-    });
-
     it('can have a custom className', function () {
         let component;
 

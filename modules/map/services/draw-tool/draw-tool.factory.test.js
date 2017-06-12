@@ -3,7 +3,9 @@ describe('The draw tool factory', function () {
         L,
         DRAW_TOOL_CONFIG,
         drawTool,
-        leafletMap;
+        leafletMap,
+        $timeout,
+        suppress;
 
     let layerGroup,
         drawnItems,
@@ -75,11 +77,13 @@ describe('The draw tool factory', function () {
             }
         );
 
-        angular.mock.inject(function (_$rootScope_, _L_, _DRAW_TOOL_CONFIG_, _drawTool_) {
+        angular.mock.inject(function (_$rootScope_, _L_, _DRAW_TOOL_CONFIG_, _drawTool_, _$timeout_, _suppress_) {
             $rootScope = _$rootScope_;
             L = _L_;
             DRAW_TOOL_CONFIG = _DRAW_TOOL_CONFIG_;
             drawTool = _drawTool_;
+            $timeout = _$timeout_;
+            suppress = _suppress_;
         });
 
         DRAW_TOOL_CONFIG.MAX_MARKERS = 4;
@@ -197,7 +201,7 @@ describe('The draw tool factory', function () {
             fireEvent('draw:drawstart');
             $rootScope.$digest();
 
-            expect(onResult).toBe(true);
+            expect(onResult).toBe('draw');
         });
     });
 
@@ -288,7 +292,8 @@ describe('The draw tool factory', function () {
             on: (event, handler) => shapeClickHandler[event] = handler,
             off: angular.noop,
             getLatLngs: () => [vertices.map(v => v._latlng).slice(0, nVertices)],
-            intersects: () => false
+            intersects: () => false,
+            _path: angular.element()
         };
 
         function createPolygon () {
@@ -523,6 +528,15 @@ describe('The draw tool factory', function () {
             expect(drawTool.isEnabled()).toBe(true);
         });
 
+        it('click on map when suppressing is busy it should do nothing', function () {
+            spyOn(suppress, 'isBusy').and.returnValue(true);
+            spyOn(drawTool, 'disable');
+
+            fireEvent('click');
+
+            expect(drawTool.disable).not.toHaveBeenCalled();
+        });
+
         it('click on map while finished drawing polygon deletes polygon and calls onFinish method', function () {
             createPolygon();
 
@@ -531,6 +545,7 @@ describe('The draw tool factory', function () {
             expect(drawTool.isEnabled()).toBe(false);
             expect(drawTool.shape.markers.length).toBe(3);
 
+            $timeout.flush();
             fireEvent('click');
 
             expect(drawTool.isEnabled()).toBe(false);
@@ -560,6 +575,7 @@ describe('The draw tool factory', function () {
 
             expect(drawTool.isEnabled()).toBe(true);
 
+            $timeout.flush();
             fireEvent('click');
 
             expect(drawTool.isEnabled()).toBe(false);

@@ -10,11 +10,9 @@
 
 @import "styles/components/button";
 @import "styles/components/header";
-@import "styles/components/link-arrow";
-@import "styles/components/link-inline";
+@import "styles/components/link";
 @import "styles/components/list";
 @import "styles/components/list-bulleted";
-@import "styles/components/loadmore";
 @import "styles/components/paragraph";
 @import "styles/components/show-more";
 @import "styles/components/table";
@@ -42,6 +40,7 @@
 @import "components/panel/panel";
 @import "components/straatbeeld-thumbnail/straatbeeld-thumbnail";
 @import "components/tab-header/tab-header";
+@import "components/video/video";
 
 .is-print-mode {
   @import "styles/base/reset-print";

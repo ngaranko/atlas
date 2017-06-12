@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function (page) {
-    expect(page.title).toMatch(/^Panorama \d+.\d+, \d+.\d+ \(\d+.\d+, \d+.\d+\) - Atlas$/);
+    expect(page.title).toMatch(/^Panorama \d+.\d+, \d+.\d+ \(\d+.\d+, \d+.\d+\) - Dataportaal$/);
 
     expect(page.dashboard.leftColumn.columnSize).toBe(0);
     expect(page.dashboard.middleColumn.columnSize).toBe(0);

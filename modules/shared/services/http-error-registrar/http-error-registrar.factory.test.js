@@ -7,6 +7,7 @@ describe('The http error registrar', function () {
     let $httpBackend,
         $http,
         $rootScope,
+        $timeout,
         mockedData,
         onError,
         callbackCalled;
@@ -27,10 +28,11 @@ describe('The http error registrar', function () {
             $provide.value('$window', window);
         });
 
-        angular.mock.inject(function (_$httpBackend_, _$http_, _$rootScope_) {
+        angular.mock.inject(function (_$httpBackend_, _$http_, _$rootScope_, _$timeout_) {
             $httpBackend = _$httpBackend_;
             $http = _$http_;
             $rootScope = _$rootScope_;
+            $timeout = _$timeout_;
         });
 
         mockedData = {
@@ -67,11 +69,13 @@ describe('The http error registrar', function () {
             .then(data => {
                 expect(data.data).toEqual(mockedData);
                 expect(data.status).toBe(200);
-                expect(httpStatus.registerError).not.toHaveBeenCalled();
                 callbackCalled = true;
             });
 
         $httpBackend.flush();
+        $timeout.flush();
+
+        expect(httpStatus.registerError).not.toHaveBeenCalled();
         expect(callbackCalled).toBe(true);
     });
 
@@ -81,25 +85,29 @@ describe('The http error registrar', function () {
             .catch(data => {
                 expect(data.data).toEqual(mockedData);
                 expect(data.status).toBe(300);
-                expect(httpStatus.registerError).not.toHaveBeenCalled();
                 callbackCalled = true;
             });
 
         $httpBackend.flush();
+        $timeout.flush();
+
+        expect(httpStatus.registerError).not.toHaveBeenCalled();
         expect(callbackCalled).toBe(true);
     });
 
-    it('does not handle client error responses and requests', function () {
+    it('does handle client error responses and requests', function () {
         $http
             .get('http://api-domain.amsterdam.nl/400')
             .catch(data => {
                 expect(data.data).toEqual(mockedData);
                 expect(data.status).toBe(400);
-                expect(httpStatus.registerError).not.toHaveBeenCalled();
                 callbackCalled = true;
             });
 
         $httpBackend.flush();
+        $timeout.flush();
+
+        expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
         expect(callbackCalled).toBe(true);
     });
 
@@ -117,15 +125,17 @@ describe('The http error registrar', function () {
             .catch(data => {
                 expect(data.data).toEqual(mockedData);
                 expect(data.status).toBe(404);
-                expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.NOT_FOUND_ERROR);
                 callbackCalled = true;
             });
 
         $httpBackend.flush();
+        $timeout.flush();
+
+        expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.NOT_FOUND_ERROR);
         expect(callbackCalled).toBe(true);
     });
 
-    it('does not handle 404 errors without the correct body', function () {
+    it('handles 404 errors with an unexpected body as server errors', function () {
         mockedData = {};
 
         $httpBackend
@@ -137,11 +147,13 @@ describe('The http error registrar', function () {
             .catch(data => {
                 expect(data.data).toEqual(mockedData);
                 expect(data.status).toBe(404);
-                expect(httpStatus.registerError).not.toHaveBeenCalled();
                 callbackCalled = true;
             });
 
         $httpBackend.flush();
+        $timeout.flush();
+
+        expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
         expect(callbackCalled).toBe(true);
     });
 
@@ -151,11 +163,13 @@ describe('The http error registrar', function () {
             .catch(data => {
                 expect(data.data).toEqual(mockedData);
                 expect(data.status).toBe(500);
-                expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
                 callbackCalled = true;
             });
 
         $httpBackend.flush();
+        $timeout.flush();
+
+        expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
         expect(callbackCalled).toBe(true);
     });
 
@@ -182,11 +196,13 @@ describe('The http error registrar', function () {
         }).catch(data => {
             expect(data.data).toEqual(mockedData);
             expect(data.status).toBe(-1);
-            expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
             callbackCalled = true;
         });
 
         $httpBackend.flush();
+        $timeout.flush();
+
+        expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
         expect(callbackCalled).toBe(true);
     });
 
@@ -204,11 +220,13 @@ describe('The http error registrar', function () {
             .catch(data => {
                 expect(data.data).toEqual(mockedData);
                 expect(data.status).toBe(-1);
-                expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
                 callbackCalled = true;
             });
 
         $httpBackend.flush();
+        $timeout.flush();
+
+        expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
         expect(callbackCalled).toBe(true);
     });
 
@@ -222,11 +240,60 @@ describe('The http error registrar', function () {
             .catch(data => {
                 expect(data.data).toEqual(mockedData);
                 expect(data.status).toBe(-1);
-                expect(httpStatus.registerError).not.toHaveBeenCalled();
                 callbackCalled = true;
             });
 
         $httpBackend.flush();
+        $timeout.flush();
+
+        expect(httpStatus.registerError).not.toHaveBeenCalled();
+        expect(callbackCalled).toBe(true);
+    });
+
+    it('calls the local error handler before the global one', function () {
+        mockedData = {};
+
+        $httpBackend
+            .whenGET('http://api-domain.amsterdam.nl/404')
+            .respond(404, mockedData);
+
+        $http
+            .get('http://api-domain.amsterdam.nl/404')
+            .catch(data => {
+                callbackCalled = true;
+            });
+
+        expect(callbackCalled).toBe(false);
+
+        $httpBackend.flush();
+
+        expect(httpStatus.registerError).not.toHaveBeenCalled();
+        expect(callbackCalled).toBe(true);
+
+        $timeout.flush();
+
+        expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
+    });
+
+    it('does not handle an error that has already been handled locally', function () {
+        mockedData = {};
+
+        $httpBackend
+            .whenGET('http://api-domain.amsterdam.nl/404')
+            .respond(404, mockedData);
+
+        $http
+            .get('http://api-domain.amsterdam.nl/404')
+            .catch(data => {
+                // Mark the error to be handled
+                data.errorHandled = true;
+                callbackCalled = true;
+            });
+
+        $httpBackend.flush();
+        $timeout.flush();
+
+        expect(httpStatus.registerError).not.toHaveBeenCalled();
         expect(callbackCalled).toBe(true);
     });
 });

@@ -8,7 +8,7 @@
             </dp-glossary-header>
 
             <div ng-if="vm.apiData.results.status.code != 30 && vm.apiData.results.status.code != 31">
-                <dp-panel is-panel-visible="true" type="warning" class-name="c-panel--header">
+                <dp-panel is-panel-visible="true" size="tiny" type="warning">
                     {{vm.apiData.results.status.omschrijving}}
                 </dp-panel>
             </div>

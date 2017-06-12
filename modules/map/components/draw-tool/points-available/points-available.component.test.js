@@ -2,7 +2,8 @@ describe('The dp-points-available component', function () {
     var $compile,
         $rootScope,
         scope,
-        drawTool;
+        drawTool,
+        DRAW_TOOL_CONFIG;
 
     beforeEach(function () {
         angular.mock.module(
@@ -18,10 +19,11 @@ describe('The dp-points-available component', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _drawTool_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _drawTool_, _DRAW_TOOL_CONFIG_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             drawTool = _drawTool_;
+            DRAW_TOOL_CONFIG = _DRAW_TOOL_CONFIG_;
         });
     });
 
@@ -46,7 +48,7 @@ describe('The dp-points-available component', function () {
             const component = getComponent();
             for (let i = 0; i < drawTool.shape.markersMaxCount; i++) {
                 const markersLeft = drawTool.shape.markersMaxCount - drawTool.shape.markers.length;
-                const showWarning = markersLeft <= 5;
+                const showWarning = markersLeft <= DRAW_TOOL_CONFIG.MARKERS_LEFT_WARNING;
                 if (showWarning) {
                     expect(component.find('.qa-few-points-available').length).toBe(1);
                     expect(component.find('.qa-few-points-available').text()).toContain(

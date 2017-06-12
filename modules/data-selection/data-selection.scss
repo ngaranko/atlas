@@ -3,6 +3,7 @@
 @import "components/active-filters/active-filters";
 @import "components/available-filters/available-filters";
 @import "components/data-selection/data-selection";
+@import "components/data-selection/data-selection-notes";
 @import "components/formatter/templates/bezoekadres";
 @import "components/formatter/templates/file-type";
 @import "components/formatter/templates/tags";
@@ -10,3 +11,7 @@
 @import "components/pagination/pagination";
 @import "components/views/cards/cards";
 @import "components/views/table/table";
+
+.is-print-mode {
+  @import "components/data-selection/data-selection-print";
+}

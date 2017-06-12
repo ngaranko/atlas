@@ -55,14 +55,14 @@
     </div>
 
     <!-- Vestiging -->
-    <div>
+    <div ng-if="apiData.results.hoofdadres.landelijk_id">
         <dp-glossary-header definition="VESTIGING" use-plural="true"></dp-glossary-header>
 
         <dp-api-call endpoint="handelsregister/vestiging/?nummeraanduiding={{ apiData.results.hoofdadres.landelijk_id }}" add-api-root="true" partial="lijst"></dp-api-call>
     </div>
 
     <!-- Kadastraal apiData -->
-    <div ng-if="apiData.results.kadastrale_objecten.count">
+    <div ng-if="apiData.results.kadastrale_objecten.count" class="qa-kadastraal-object-list">
         <dp-glossary-header definition="OBJECT" use-plural="true"></dp-glossary-header>
 
         <dp-panel is-panel-visible="showMoreInfoWarning" type="warning" can-close="true">
@@ -74,6 +74,15 @@
             endpoint="{{apiData.results.kadastrale_objecten.href}}"
             partial="bag/brk-vbo"
             use-brk-object-expanded="true">
+        </dp-api-call>
+    </div>
+
+    <!-- monumenten -->
+    <div ng-if="apiData.results.hoofdadres.landelijk_id">
+        <dp-api-call
+            endpoint="monumenten/situeringen/?betreft_nummeraanduiding={{apiData.results.hoofdadres.landelijk_id}}"
+            add-api-root="true"
+            partial="monumenten/situering">
         </dp-api-call>
     </div>
 </div>

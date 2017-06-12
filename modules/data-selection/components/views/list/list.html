@@ -1,12 +1,11 @@
 <ul class="o-list">
     <li ng-repeat="row in vm.content.body">
-        <dp-link type="FETCH_DETAIL" payload="row.detailEndpoint">
-            <dp-data-selection-formatter
+        <dp-link type="FETCH_DETAIL"
+                 payload="row.detailEndpoint"
+            ><dp-data-selection-formatter
                 variables="row.content[0]"
                 formatter="{{vm.content.formatters[0]}}"
-                use-inline="true">
-            </dp-data-selection-formatter>
-        </dp-link>
+                use-inline="true"></dp-data-selection-formatter></dp-link>
 
         <dp-data-selection-formatter ng-if="!$first" ng-repeat="variables in row.content track by $index"
              variables="variables"

@@ -14,8 +14,14 @@ describe('The dpSearchResultsDocumentTitle factory', function () {
     });
 
     describe('For searches on text', function () {
-        it('returns "Data met <searchText> as a title', function () {
-            expect(documentTitle.getTitle({query: 'a query'})).toBe('Data met a query');
+        it('returns "Resultaten met \'<searchText>\'" as a title', function () {
+            expect(documentTitle.getTitle({query: 'a query', numberOfResults: 10}))
+                .toBe('Data met \'a query\'');
+        });
+
+        it('returns "Geen resultaten met \'<searchText>\'" if no results as a title', function () {
+            expect(documentTitle.getTitle({query: 'a query', numberOfResults: 0}))
+                .toBe('Data met \'a query\'');
         });
     });
 

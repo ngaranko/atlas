@@ -33,14 +33,6 @@
   text-decoration: none;
 }
 
-.c-data-selection-card__date {
-  @include font-size($xs-font);
-  position: absolute;
-  top: $base-whitespace * 2;
-  right: 0;
-  color: $secondary-gray40;
-}
-
 .c-data-selection-card__formats {
   float: left;
 }

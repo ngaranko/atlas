@@ -7,4 +7,5 @@
 
 .is-print-mode {
   @import "components/dashboard/dashboard-print";
+  @import "styles/utilities/page-break";
 }

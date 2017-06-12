@@ -225,29 +225,6 @@ describe('The dp-data-selection-available-filters component', function () {
         });
     });
 
-    it('uses different styling for active filters in the list w/ all filters', function () {
-        var component,
-            activeFilters;
-
-        // Without any active filters
-        activeFilters = {
-            filterb: 'optie-b-2'
-        };
-
-        component = getComponent(activeFilters, false);
-
-        // Regular styling for 'Optie B-1' & 'Optie B-3'
-        expect(component.find('.qa-available-filters ul').eq(1).find('li').eq(0).find('button').attr('class'))
-            .not.toContain('u-color__primary--dark');
-
-        expect(component.find('.qa-available-filters ul').eq(1).find('li').eq(2).find('button').attr('class'))
-            .not.toContain('u-color__primary--dark');
-
-        // Custom styling for 'Optie B-2'
-        expect(component.find('.qa-available-filters ul').eq(1).find('li').eq(1).find('button').attr('class'))
-            .toContain('u-color__primary--dark');
-    });
-
     it('updates its active filters when available filters are changed', function () {
         var component,
             activeFilters;

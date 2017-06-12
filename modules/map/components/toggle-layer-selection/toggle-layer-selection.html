@@ -1,5 +1,5 @@
 <dp-link type="{{vm.action}}"
-         class-name="{{'c-toggle-layer-selection' + (vm.showLayerSelection ? ' c-toggle-layer-selection--mirrored' : '')}}"
+         class-name="{{'c-toggle-layer-selection ' + (vm.showLayerSelection ? 'c-toggle-layer-selection--opened' : 'c-toggle-layer-selection--closed')}}"
          hover-text="{{vm.buttonTitle}}">
     <span>Meer kaartlagen</span>
 </dp-link>

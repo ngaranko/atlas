@@ -30,27 +30,3 @@
   white-space: nowrap;
   overflow: hidden;
 }
-
-.c-data-selection-notes {
-  ul {
-    margin-left: $base-whitespace;
-  }
-
-  li {
-    position: relative;
-    margin: {
-      bottom: $base-whitespace;
-      left: 14px;
-    }
-    padding-left: 2px;
-
-    &::before {
-      display: inline-block;
-      position: absolute;
-      top: -13px;
-      left: -14px;
-      font-size: 30px;
-      content: "▪";
-    }
-  }
-}

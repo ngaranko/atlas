@@ -5,9 +5,9 @@
         .module('atlas')
         .factory('mapReducers', mapReducersFactory);
 
-    mapReducersFactory.$inject = ['ACTIONS'];
+    mapReducersFactory.$inject = ['ACTIONS', 'DRAW_TOOL_CONFIG'];
 
-    function mapReducersFactory (ACTIONS) {
+    function mapReducersFactory (ACTIONS, DRAW_TOOL_CONFIG) {
         var reducers = {};
 
         reducers[ACTIONS.SHOW_MAP.id] = showMapReducer;
@@ -23,6 +23,7 @@
         reducers[ACTIONS.MAP_END_DRAWING.id] = mapEndDrawingReducer;
         reducers[ACTIONS.SHOW_MAP_ACTIVE_OVERLAYS.id] = showActiveOverlaysReducer;
         reducers[ACTIONS.HIDE_MAP_ACTIVE_OVERLAYS.id] = hideActiveOverlaysReducer;
+        reducers[ACTIONS.MAP_RESET_DRAWING.id] = resetDrawingReducer;
 
         return reducers;
 
@@ -31,6 +32,7 @@
 
             newState.map.isFullscreen = true;
             newState.layerSelection.isEnabled = true;
+            newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
 
             return newState;
         }
@@ -152,10 +154,17 @@
             return newState;
         }
 
-        function mapStartDrawingReducer (oldState) {
+        function mapStartDrawingReducer (oldState, payload) {
             var newState = angular.copy(oldState);
+            newState.map.drawingMode = payload;
 
-            newState.map.drawingMode = true;
+            if (payload !== DRAW_TOOL_CONFIG.DRAWING_MODE.EDIT &&
+                newState.dataSelection &&
+                newState.dataSelection.geometryFilter &&
+                newState.dataSelection.geometryFilter.markers &&
+                newState.dataSelection.geometryFilter.markers.length > 0) {
+                newState = resetDataSelection(newState);
+            }
 
             return newState;
         }
@@ -171,26 +180,20 @@
         function mapEndDrawingReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
-            newState.page.name = null;
-            newState.map.drawingMode = false;
+            newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
 
             if (payload) {
                 if (payload.markers.length > 2) {
+                    newState.page.name = null;
+
                     // Polygon
-                    if (!newState.dataSelection) {
-                        newState.dataSelection = {};
-                        newState.dataSelection.dataset = 'bag';
-                        newState.dataSelection.filters = {};
-                    }
-                    newState.dataSelection.geometryFilter = angular.copy(payload);
-                    newState.dataSelection.page = 1;
-                    newState.dataSelection.isFullscreen = false;
-                    newState.dataSelection.isLoading = true;
-                    newState.dataSelection.view = 'LIST';
-                    newState.dataSelection.markers = [];
+                    newState = resetDataSelection(newState, angular.copy(payload));
 
                     newState.map.geometry = [];
                     newState.map.isLoading = true;
+                    newState.map.isFullscreen = false;
+
+                    newState.layerSelection.isEnabled = false;
                 } else if (payload.markers.length === 2) {
                     // Line
                     newState.map.geometry = payload.markers;
@@ -212,6 +215,34 @@
             var newState = angular.copy(oldState);
 
             newState.map.showActiveOverlays = false;
+
+            return newState;
+        }
+
+        function resetDrawingReducer (oldState) {
+            var newState = angular.copy(oldState);
+
+            newState.dataSelection = null;
+            newState.map.geometry = [];
+            newState.map.resetDrawing = false;
+
+            return newState;
+        }
+
+        function resetDataSelection (state, payload = {markers: []}) {
+            const newState = angular.copy(state);
+
+            if (!newState.dataSelection) {
+                newState.dataSelection = {};
+                newState.dataSelection.dataset = 'bag';
+                newState.dataSelection.filters = {};
+            }
+            newState.dataSelection.geometryFilter = payload;
+            newState.dataSelection.page = 1;
+            newState.dataSelection.isFullscreen = false;
+            newState.dataSelection.isLoading = true;
+            newState.dataSelection.view = 'LIST';
+            newState.dataSelection.markers = [];
 
             return newState;
         }

@@ -11,7 +11,7 @@ describe('The dp-panel component', function () {
         });
     });
 
-    function getComponent (isPanelVisible, canClose, type, className) {
+    function getComponent (isPanelVisible, canClose, size, type, className) {
         var component,
             element,
             scope;
@@ -23,11 +23,15 @@ describe('The dp-panel component', function () {
             element.setAttribute('can-close', 'canClose');
         }
 
-        if (angular.isDefined(type)) {
+        if (size) {
+            element.setAttribute('size', size);
+        }
+
+        if (type) {
             element.setAttribute('type', type);
         }
 
-        if (angular.isString(className)) {
+        if (className) {
             element.setAttribute('class-name', className);
         }
 
@@ -87,8 +91,20 @@ describe('The dp-panel component', function () {
             expect(component.find('div').attr('class')).toContain('c-panel');
             expect(component.find('button').attr('class')).toContain('o-btn--close');
         });
+        it('has an optional small size styling', function () {
+            var component = getComponent(true, true, 'small');
+
+            expect(component.find('div').attr('class')).toContain('c-panel');
+            expect(component.find('div').attr('class')).toContain('c-panel--small');
+        });
+        it('has an optional tiny size styling', function () {
+            var component = getComponent(true, true, 'tiny');
+
+            expect(component.find('div').attr('class')).toContain('c-panel');
+            expect(component.find('div').attr('class')).toContain('c-panel--tiny');
+        });
         it('has an optional danger type styling', function () {
-            var component = getComponent(true, true, 'danger');
+            var component = getComponent(true, true, false, 'danger');
 
             expect(component.find('div').attr('class')).toContain('c-panel');
             expect(component.find('button').attr('class')).toContain('o-btn--close');
@@ -96,7 +112,7 @@ describe('The dp-panel component', function () {
             expect(component.find('button').attr('class')).toContain('o-btn--close--danger');
         });
         it('has an optional warning type styling', function () {
-            var component = getComponent(true, true, 'warning');
+            var component = getComponent(true, true, 'small', 'warning');
 
             expect(component.find('div').attr('class')).toContain('c-panel');
             expect(component.find('button').attr('class')).toContain('o-btn--close');
@@ -104,7 +120,7 @@ describe('The dp-panel component', function () {
             expect(component.find('button').attr('class')).toContain('o-btn--close--warning');
         });
         it('has an option to add additional classes', function () {
-            var component = getComponent(true, true, 'warning', 'my-class an-other-class');
+            var component = getComponent(true, true, 'tiny', 'warning', 'my-class an-other-class');
 
             expect(component.find('div').attr('class')).toContain('c-panel');
             expect(component.find('button').attr('class')).toContain('o-btn--close');

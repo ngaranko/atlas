@@ -5,9 +5,9 @@
         .module('dpMap')
         .factory('onMapClick', onMapClickFactory);
 
-    onMapClickFactory.$inject = ['$rootScope', 'store', 'ACTIONS', 'drawTool'];
+    onMapClickFactory.$inject = ['$rootScope', 'store', 'ACTIONS', 'drawTool', 'suppress'];
 
-    function onMapClickFactory ($rootScope, store, ACTIONS, drawTool) {
+    function onMapClickFactory ($rootScope, store, ACTIONS, drawTool, suppress) {
         return {
             initialize
         };
@@ -17,6 +17,10 @@
         }
 
         function onMapClick (event) {
+            if (suppress.isBusy()) {
+                return;
+            }
+
             if (!drawTool.isEnabled()) {
                 $rootScope.$applyAsync(function () {
                     store.dispatch({

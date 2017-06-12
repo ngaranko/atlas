@@ -14,9 +14,9 @@
             controllerAs: 'vm'
         });
 
-    DpDrawToolComponent.$inject = ['$scope', 'store', 'ACTIONS', 'drawTool'];
+    DpDrawToolComponent.$inject = ['$scope', 'store', 'ACTIONS', 'drawTool', 'DRAW_TOOL_CONFIG'];
 
-    function DpDrawToolComponent ($scope, store, ACTIONS, drawTool) {
+    function DpDrawToolComponent ($scope, store, ACTIONS, drawTool, DRAW_TOOL_CONFIG) {
         var vm = this;
 
         let previousMarkers;
@@ -25,7 +25,7 @@
 
         $scope.$watch('vm.state.drawingMode', function (drawingMode) {
             // enable is handled by the polygon markers watch method
-            if (!drawingMode) {
+            if (drawingMode === DRAW_TOOL_CONFIG.DRAWING_MODE.NONE) {
                 drawTool.disable();
             }
         });
@@ -44,7 +44,7 @@
         function setPolygon (polygon) {
             if (!drawTool.isEnabled()) {
                 drawTool.setPolygon(polygon);
-                if (vm.state.drawingMode) {
+                if (vm.state.drawingMode !== DRAW_TOOL_CONFIG.DRAWING_MODE.NONE) {
                     drawTool.enable();
                 }
             }
@@ -65,10 +65,11 @@
         }
 
         function onDrawingMode (drawingMode) {
-            if (drawingMode) {
+            if (drawingMode !== DRAW_TOOL_CONFIG.DRAWING_MODE.NONE) {
                 previousMarkers = angular.copy(drawTool.shape.markers);
                 store.dispatch({
-                    type: ACTIONS.MAP_START_DRAWING
+                    type: ACTIONS.MAP_START_DRAWING,
+                    payload: drawingMode
                 });
             }
         }

@@ -1,7 +1,8 @@
 describe('The map reducers', function () {
     var mapReducers,
         ACTIONS,
-        DEFAULT_STATE;
+        DEFAULT_STATE,
+        DRAW_TOOL_CONFIG;
 
     DEFAULT_STATE = {
         map: {
@@ -31,9 +32,10 @@ describe('The map reducers', function () {
     beforeEach(function () {
         angular.mock.module('atlas');
 
-        angular.mock.inject(function (_mapReducers_, _ACTIONS_) {
+        angular.mock.inject(function (_mapReducers_, _ACTIONS_, _DRAW_TOOL_CONFIG_) {
             mapReducers = _mapReducers_;
             ACTIONS = _ACTIONS_;
+            DRAW_TOOL_CONFIG = _DRAW_TOOL_CONFIG_;
         });
     });
 
@@ -50,6 +52,13 @@ describe('The map reducers', function () {
             const output = mapReducers[ACTIONS.SHOW_MAP.id](inputState);
 
             expect(output.layerSelection.isEnabled).toBe(true);
+        });
+
+        it('should reset drawing mode', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            const output = mapReducers[ACTIONS.SHOW_MAP.id](inputState);
+
+            expect(output.map.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
         });
     });
 
@@ -270,12 +279,60 @@ describe('The map reducers', function () {
     });
 
     describe('MAP_START_DRAWING', function () {
-        it('Set the map drawing mode to true', function () {
+        it('Set the map drawing mode to draw and not to reset dataSelection', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
-            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState);
-            expect(output.map.drawingMode).toBe(true);
+            inputState.dataSelection = 'leave this as it is';
+            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW);
+            expect(output.map.drawingMode).toBe(DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW);
+            expect(output.dataSelection).toBe('leave this as it is');
+        });
+
+        it('Set the map drawing mode to edit and not to reset dataSelection', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.dataSelection = 'leave this as it is';
+            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, DRAW_TOOL_CONFIG.DRAWING_MODE.EDIT);
+            expect(output.map.drawingMode).toBe(DRAW_TOOL_CONFIG.DRAWING_MODE.EDIT);
+            expect(output.dataSelection).toBe('leave this as it is');
+        });
+
+        it('Should reset dataSelection state only when markers are on the map and draw mode is not edit', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.dataSelection = { geometryFilter: { markers: [1, 2] } };
+
+            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW);
+            expect(output.dataSelection.geometryFilter).toEqual({markers: []});
+            expect(output.dataSelection.page).toBe(1);
+            expect(output.dataSelection.isFullscreen).toBe(false);
+            expect(output.dataSelection.isLoading).toBe(true);
+            expect(output.dataSelection.view).toBe('LIST');
+            expect(output.dataSelection.markers).toEqual([]);
+        });
+
+        it('Should not reset dataSelection state with markers on the map and draw mode is edit', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.dataSelection = { geometryFilter: { markers: [1] } };
+
+            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, DRAW_TOOL_CONFIG.DRAWING_MODE.EDIT);
+            expect(output.dataSelection.geometryFilter).toEqual({ markers: [1] });
+            expect(output.dataSelection.page).toBeUndefined();
+        });
+
+        it('Should not reset dataSelection state with no markers on the map and draw mode is not edit', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            inputState.dataSelection = { geometryFilter: { markers: [] } };
+
+            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW);
+            expect(output.dataSelection.page).toBeUndefined();
         });
     });
 
@@ -298,17 +355,15 @@ describe('The map reducers', function () {
             output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
                 markers: []
             });
-            expect(output.map.drawingMode).toBe(false);
+            expect(output.map.drawingMode).toBe(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
         });
 
-        it('resets the page', () => {
+        it('resets the page with more than 2 markers', () => {
             const inputState = angular.copy(DEFAULT_STATE);
 
-            inputState.page.name = 'home';
             const output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
-                markers: []
+                markers: ['noot', 'mies', 'teun']
             });
-
             expect(output.page.name).toBeNull();
         });
 
@@ -336,6 +391,7 @@ describe('The map reducers', function () {
                 markers: ['noot', 'mies']
             });
             expect(output.map.geometry).toEqual(['noot', 'mies']);
+            expect(output.page.name).toBe('home');
         });
 
         it('Initializes the dataSelection state when a payload is specified', function () {
@@ -400,11 +456,53 @@ describe('The map reducers', function () {
             output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
                 markers: ['noot', 'mies', 'teun']
             });
+            expect(output.dataSelection.geometryFilter).toEqual({
+                markers: ['noot', 'mies', 'teun']
+            });
             expect(output.dataSelection.page).toBe(1);
             expect(output.dataSelection.isFullscreen).toBe(false);
             expect(output.dataSelection.isLoading).toBe(true);
             expect(output.dataSelection.view).toBe('LIST');
             expect(output.dataSelection.markers).toEqual([]);
+        });
+
+        it('Closes the full screen map and layer selection on polygon', () => {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map.isFullscreen = true;
+            inputState.layerSelection.isEnabled = true;
+
+            const output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
+                markers: ['p1', 'p2', 'p3']
+            });
+
+            expect(output.map.isFullscreen).toBe(false);
+            expect(output.layerSelection.isEnabled).toBe(false);
+        });
+
+        it('Does not close full screen map and layer selection on line', () => {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map.isFullscreen = true;
+            inputState.layerSelection.isEnabled = true;
+
+            const output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
+                markers: ['p1', 'p2']
+            });
+
+            expect(output.map.isFullscreen).toBe(true);
+            expect(output.layerSelection.isEnabled).toBe(true);
+        });
+    });
+
+    describe('MAP_RESET_DRAWING', () => {
+        it('resets drawing state', () => {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map.resetDrawing = true;
+
+            const output = mapReducers[ACTIONS.MAP_RESET_DRAWING.id](inputState);
+
+            expect(output.dataSelection).toBeNull();
+            expect(output.map.geometry).toEqual([]);
+            expect(output.map.resetDrawing).toEqual(false);
         });
     });
 
