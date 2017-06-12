@@ -12,10 +12,7 @@
 
         function stripUri (uri) {
             // remove first occurrence of API_ROOT
-            if (uri) {
-                return uri.replace(sharedConfig.API_ROOT, '');
-            }
-            return uri;
+            return uri.replace(sharedConfig.API_ROOT, '');
         }
     }
 })();
