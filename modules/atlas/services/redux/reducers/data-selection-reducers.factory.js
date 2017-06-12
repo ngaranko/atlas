@@ -23,19 +23,19 @@
 
         /**
          * @param {Object} oldState
-         * @param {Object} payload A tring with the search query or
-         *                         An object with the following keys:
-         *                          - query (String): The search query
-         *                          - filters (Object): Active filters
-         *                          Except these two keys other keys will
-         *                          be copied if the are in the object
-         *                          but no defualt value will be provided.
+         * @param {string|Object} payload A string with the search query or
+         *                                an object with the following keys:
+         *                                - query (String): The search query
+         *                                - filters (Object): Active filters
+         *                                Except these two keys, other keys
+         *                                will be copied if they are in the
+         *                                object, but no defualt value will be
+         *                                provided.
          *
          * @returns {Object} newState
          */
         function fetchDataSelectionReducer (oldState, payload) {
             const newState = angular.copy(oldState);
-            let mergeInto;
 
             newState.map.isFullscreen = false;
 
@@ -45,15 +45,8 @@
             newState.detail = null;
             newState.straatbeeld = null;
 
-            if (angular.isString(payload)) {
-                mergeInto = {
-                    query: payload,
-                    filters: {}
-                };
-            } else {
-                mergeInto = payload;
-                mergeInto.filters = mergeInto.filters || {};
-            }
+            const mergeInto = angular.isString(payload) ? {query: payload} : payload;
+            mergeInto.filters = mergeInto.filters || {};
 
             newState.dataSelection = Object.keys(mergeInto).reduce((result, key) => {
                 result[key] = mergeInto[key];
