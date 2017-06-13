@@ -128,6 +128,7 @@
                 payload: numberOfResults
             });
 
+            // @TODO remove the exception when backend uses correct sub type name tg-3551
             searchResults = replaceBuurtcombinatie(searchResults);
 
             vm.searchResults = searchResults;
@@ -139,14 +140,12 @@
             };
         }
 
+        // @TODO remove the exception when backend uses correct sub type name tg-3551
         function replaceBuurtcombinatie (searchResults) {
             const results = angular.copy(searchResults);
 
-            console.log('replaceBuurtcombinatie');
-
             results.forEach((result) => {
                 result.results.forEach((item) => {
-                    console.log('item', item);
                     if (item.subtypeLabel === 'buurtcombinatie') {
                         item.subtypeLabel = 'wijk';
                     }
