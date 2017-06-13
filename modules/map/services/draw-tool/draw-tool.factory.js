@@ -245,7 +245,7 @@
             drawTool.map.on('click', function () {
                 console.log('map event');
                 if (suppress.isBusy()) {
-                    console.log('map event busy');
+                    console.log('map event busy  =====================================================');
                     return;
                 }
 
@@ -267,7 +267,7 @@
         // Click on the shape toggles EDIT mode
         function toggleEditModeOnShapeClick (e) {
             if (suppress.isBusy()) {
-                console.log('toggle edit event busy');
+                console.log('toggle edit event busy  =====================================================');
                 return;
             }
             L.DomEvent.stop(e);
@@ -413,12 +413,11 @@
             suppress.start(300);
             ['mousedown', 'click'].forEach(key => lastMarker.on(key, (e) => {
                 if (suppress.isBusy()) {
-                    console.log('marker event busy');
+                    console.log('marker event busy  =====================================================');
                     return;
                 }
-                console.log('marker event =====================================================', e);
+                console.log('marker event', e);
 
-                return;
                 if (drawTool.drawShapeHandler.enabled() && isFirstMarker) {
                     const isLineOrPolygon = currentShape.markers.length > 1;
                     disable();  // Includes auto close for any line or polygon
