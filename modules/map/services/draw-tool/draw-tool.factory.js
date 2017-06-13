@@ -47,6 +47,7 @@
             isEnabled,
             enable,
             disable,
+            reset,
             setPolygon,
             shape: shapeInfo
         };
@@ -308,6 +309,11 @@
                 }
                 setDrawingMode(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
             }
+        }
+
+        // resets by removing all current markers
+        function reset () {
+            currentShape.markers = [];
         }
 
         // Shape method for shape.info

@@ -24,8 +24,7 @@ describe('The state url conversion factory', function () {
                     showActiveOverlays: false,
                     isFullscreen: false,
                     isLoading: false,
-                    drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
-                    resetDrawing: false
+                    drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE
                 },
                 layerSelection: {
                     isEnabled: false

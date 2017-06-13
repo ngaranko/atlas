@@ -119,22 +119,4 @@ describe('The contextMiddleware factory', function () {
             payload: 'aap'
         });
     });
-
-    it('translates MAP_END_DRAWING action in reset drawing when map is active and resetDrawing is true', function () {
-        mockedAction.type = ACTIONS.MAP_END_DRAWING;
-        mockedAction.payload = 'aap';
-        mockedStore.getState = () => {
-            return {
-                map: {
-                    resetDrawing: true
-                }
-            };
-        };
-
-        const returnValue = contextMiddleware(mockedStore)(mockedNext)(mockedAction);
-
-        expect(returnValue).toEqual({
-            type: ACTIONS.MAP_RESET_DRAWING
-        });
-    });
 });
