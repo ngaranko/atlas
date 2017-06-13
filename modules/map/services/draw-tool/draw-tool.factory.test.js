@@ -516,6 +516,11 @@ describe('The draw tool factory', function () {
             expect(drawTool.shape.markers.length).toBe(4);
         });
 
+        it('drawing can be reset', function () {
+            drawTool.reset();
+            expect(drawTool.shape.markers.length).toBe(0);
+        });
+
         it('click on map while drawing polygon does not end draw mode', function () {
             enable();
 

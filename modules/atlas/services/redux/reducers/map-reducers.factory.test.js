@@ -497,19 +497,6 @@ describe('The map reducers', function () {
         });
     });
 
-    describe('MAP_RESET_DRAWING', () => {
-        it('resets drawing state', () => {
-            const inputState = angular.copy(DEFAULT_STATE);
-            inputState.map.resetDrawing = true;
-
-            const output = mapReducers[ACTIONS.MAP_RESET_DRAWING.id](inputState);
-
-            expect(output.dataSelection).toBeNull();
-            expect(output.map.geometry).toEqual([]);
-            expect(output.map.resetDrawing).toEqual(false);
-        });
-    });
-
     describe('SHOW_MAP_ACTIVE_OVERLAYS', function () {
         it('sets the variable to true', function () {
             var output;
