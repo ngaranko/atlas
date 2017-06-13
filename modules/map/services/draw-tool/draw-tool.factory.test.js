@@ -330,6 +330,8 @@ describe('The draw tool factory', function () {
         });
 
         it('Can build a line', function () {
+            spyOn(suppress, 'isBusy').and.returnValue(false);
+
             enable();
 
             nVertices = 2;
@@ -341,7 +343,6 @@ describe('The draw tool factory', function () {
             expect(drawTool.isEnabled()).toBe(true);
 
             drawShapeHandler.enabled = () => true;
-            $timeout.flush();
             vertices[0].handler.click();
 
             expect(drawShapeHandler.completeShape).toHaveBeenCalled();
@@ -353,6 +354,21 @@ describe('The draw tool factory', function () {
 
             expect(drawTool.shape.markers).toEqual(testMarkers.slice(0, nVertices));
             expect(drawTool.isEnabled()).toBe(false);
+        });
+
+        it('Can not build a line when suppressing', function () {
+            spyOn(suppress, 'isBusy').and.returnValue(true);
+
+            enable();
+
+            nVertices = 2;
+            addVertices();
+
+            drawShapeHandler.enabled = () => true;
+
+            vertices[0].handler.click();
+
+            expect(drawShapeHandler.completeShape).not.toHaveBeenCalled();
         });
 
         it('Can build a polygon and notifies info on shape on finish drawing', function () {
@@ -406,14 +422,27 @@ describe('The draw tool factory', function () {
         });
 
         it('Can delete the last marker', function () {
+            spyOn(suppress, 'isBusy').and.returnValue(false);
+
             enable();
 
             addVertices();
 
-            $timeout.flush();
             vertices[2].handler.click();
 
             expect(drawShapeHandler.deleteLastVertex).toHaveBeenCalled();
+        });
+
+        it('Can not delete the last marker when suppressing', function () {
+            spyOn(suppress, 'isBusy').and.returnValue(true);
+
+            enable();
+
+            addVertices();
+
+            vertices[2].handler.click();
+
+            expect(drawShapeHandler.deleteLastVertex).not.toHaveBeenCalled();
         });
 
         it('Can delete the first marker', function () {
@@ -446,11 +475,12 @@ describe('The draw tool factory', function () {
         });
 
         it('can edit a polygon by clicking the drawn polygon', function () {
+            spyOn(suppress, 'isBusy').and.returnValue(false);
+
             createPolygon();
 
             expect(shapeClickHandler.click).toEqual(jasmine.any(Function));
 
-            $timeout.flush();
             shapeClickHandler.click();
 
             expect(editShapeHandler.enable).toHaveBeenCalled();
@@ -460,6 +490,16 @@ describe('The draw tool factory', function () {
 
             expect(editShapeHandler.save).toHaveBeenCalled();
             expect(editShapeHandler.disable).toHaveBeenCalled();
+        });
+
+        it('can not edit a polygon by clicking the drawn polygon when suppressing', function () {
+            spyOn(suppress, 'isBusy').and.returnValue(true);
+
+            createPolygon();
+
+            shapeClickHandler.click();
+
+            expect(editShapeHandler.enable).not.toHaveBeenCalled();
         });
 
         it('can edit a polygon by enabling the draw tool', function () {
