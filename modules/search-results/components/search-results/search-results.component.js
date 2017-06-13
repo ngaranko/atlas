@@ -146,7 +146,7 @@
 
             results.forEach((result) => {
                 result.results.forEach((item) => {
-                    if (item.subtypeLabel === 'buurtcombinatie') {
+                    if (item.subtype === 'buurtcombinatie') {
                         item.subtypeLabel = 'wijk';
                     }
                 });
