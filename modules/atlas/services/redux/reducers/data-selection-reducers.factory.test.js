@@ -61,7 +61,7 @@ describe('The dataSelectionReducers factory', function () {
             expect(output.map.isFullscreen).toBe(false);
         });
 
-        it('has a default table view', function () {
+        it('has a default table view and set map not to be loading', function () {
             const mockedState = angular.copy(DEFAULT_STATE);
 
             const output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
@@ -69,9 +69,10 @@ describe('The dataSelectionReducers factory', function () {
             expect(output.dataSelection).toEqual(jasmine.objectContaining({
                 view: 'TABLE'
             }));
+            expect(output.map.isLoading).toEqual(false);
         });
 
-        it('can display in list view', function () {
+        it('can display in list view and set map to be loading', function () {
             const mockedState = angular.copy(DEFAULT_STATE);
             payload.view = 'LIST';
 
@@ -80,6 +81,7 @@ describe('The dataSelectionReducers factory', function () {
             expect(output.dataSelection).toEqual(jasmine.objectContaining({
                 view: 'LIST'
             }));
+            expect(output.map.isLoading).toEqual(true);
         });
 
         it('sets the dataSelection dataset, filters and page', function () {
@@ -175,7 +177,9 @@ describe('The dataSelectionReducers factory', function () {
                     page: 1,
                     isLoading: true
                 },
-                map: {}
+                map: {
+                    isLoading: true
+                }
             };
 
             payload = ['MOCKED', 'MARKER', 'ARRAY'];
@@ -191,6 +195,12 @@ describe('The dataSelectionReducers factory', function () {
             output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
 
             expect(output.dataSelection.isLoading).toEqual(false);
+        });
+
+        it('sets map isLoading to false', function () {
+            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
+
+            expect(output.map.isLoading).toEqual(false);
         });
 
         it('does nothing if the user has navigated away from dataSelection before the API is finished', function () {
@@ -216,42 +226,56 @@ describe('The dataSelectionReducers factory', function () {
     });
 
     describe('SET_DATA_SELECTION_VIEW', function () {
-        it('can set the view to list view', function () {
-            const output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW.id](
-                {dataSelection: {}},
-                'LIST'
-            );
+        let mockedState,
+            payload,
+            output;
 
-            expect(output.dataSelection.view).toBe('LIST');
+        beforeEach(function () {
+            mockedState = {
+                dataSelection: {
+                    dataset: 'bag',
+                    filters: {
+                        buurtcombinatie: 'Geuzenbuurt',
+                        buurt: 'Trompbuurt'
+                    },
+                    page: 1,
+                    isLoading: true
+                },
+                map: {}
+            };
         });
 
-        it('can set the view to table view', function () {
-            const output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW.id](
-                {dataSelection: {}},
-                'TABLE'
-            );
+        it('can set the view to list view and set map to be loading', function () {
+            payload = 'LIST';
+
+            output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW.id](mockedState, payload);
+
+            expect(output.dataSelection.view).toBe('LIST');
+            expect(output.map.isLoading).toBe(true);
+        });
+
+        it('can set the view to table view and set map not to be loading', function () {
+            payload = 'TABLE';
+
+            output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW.id](mockedState, payload);
 
             expect(output.dataSelection.view).toBe('TABLE');
+            expect(output.map.isLoading).toBe(false);
         });
 
         it('refuses to set the view to an unknown view', function () {
-            const output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW.id](
-                {dataSelection: {}},
-                'aap'
-            );
+            payload = 'aap';
+
+            output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW.id](mockedState, payload);
 
             expect(output.dataSelection.view).toBeUndefined();
         });
 
         it('sets isLoading to true', function () {
-            const output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW.id](
-                {
-                    dataSelection: {
-                        isLoading: false
-                    }
-                },
-                'LIST'
-            );
+            payload = 'LIST';
+            mockedState.dataSelection.isLoading = false;
+
+            output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW.id](mockedState, payload);
 
             expect(output.dataSelection.isLoading).toBe(true);
         });

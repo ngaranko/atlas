@@ -126,6 +126,9 @@
                 }
             });
 
+            // LIST loading might include markers => set map loading accordingly
+            newState.map.isLoading = newState.dataSelection.view === 'LIST';
+
             return newState;
         }
     }
