@@ -175,6 +175,7 @@
                 },
                 hr: {
                     CUSTOM_API: 'dataSelectionApiDataSelection',
+                    AUTH_LEVEL: 'EMPLOYEE',
                     MAX_AVAILABLE_PAGES: 100,
                     ENDPOINT_PREVIEW: 'dataselectie/hr/',
                     ENDPOINT_MARKERS: 'dataselectie/hr/geolocation/',

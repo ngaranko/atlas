@@ -1,3 +1,8 @@
+dp-link {
+  // fix unwanted spaces inside of a dp-link element
+  display: inline-block;
+}
+
 .c-link {
   @extend %link;
 }
