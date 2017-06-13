@@ -32,6 +32,7 @@
                 count: angular.isObject(endpointSearchResults) && endpointSearchResults.count || 0,
                 results: formatLinks(slug, links),
                 useIndenting: false,
+                authLevel: endpointConfig.authLevel || null,
                 next: angular.isObject(endpointSearchResults) &&
                 endpointSearchResults._links &&
                 endpointSearchResults._links.next.href || null

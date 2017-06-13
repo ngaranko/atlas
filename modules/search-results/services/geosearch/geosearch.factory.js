@@ -80,13 +80,13 @@
                     const formatted = (vestigingen && vestigingen.count)
                             ? searchFormatter.formatCategory('vestiging', vestigingen) : null,
                         extended = formatted ? angular.extend(formatted, {
+                            authLevel: 'EMPLOYEE',
                             useIndenting: true,
                             more: {
                                 label: `Bekijk alle ${formatted.count} vestigingen binnen dit pand`,
                                 endpoint: pand._links.self.href
                             }
                         }) : null;
-
                     return extended;
                 }
 
