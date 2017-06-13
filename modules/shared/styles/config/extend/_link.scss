@@ -90,7 +90,6 @@ $link-offset: 3px;
 
 %link--inline {
   @extend %link;
-  @include font-size($m-font);
   @include font-weight($normal-weight);
   display: inline;
   text-decoration: underline;
