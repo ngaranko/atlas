@@ -26,7 +26,7 @@
                 API_ROOT: 'https://acc.api.data.amsterdam.nl/'
             },
             DEVELOPMENT: {
-                API_ROOT: 'https://api.data.amsterdam.nl/'
+                API_ROOT: 'https://acc.api.data.amsterdam.nl/'
             }
         };
 
