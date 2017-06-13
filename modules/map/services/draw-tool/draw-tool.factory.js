@@ -410,7 +410,7 @@
             const isFirstMarker = drawTool.drawShapeHandler._markers.length === 1;
 
             console.log('bindLastDrawnMarker', isFirstMarker, lastMarker);
-            suppress.start(500);
+            suppress.start(300);
             ['mousedown', 'click'].forEach(key => lastMarker.on(key, (e) => {
                 if (suppress.isBusy()) {
                     console.log('marker event busy');
