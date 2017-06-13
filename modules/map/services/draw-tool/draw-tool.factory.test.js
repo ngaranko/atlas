@@ -341,6 +341,7 @@ describe('The draw tool factory', function () {
             expect(drawTool.isEnabled()).toBe(true);
 
             drawShapeHandler.enabled = () => true;
+            $timeout.flush();
             vertices[0].handler.click();
 
             expect(drawShapeHandler.completeShape).toHaveBeenCalled();
@@ -409,6 +410,7 @@ describe('The draw tool factory', function () {
 
             addVertices();
 
+            $timeout.flush();
             vertices[2].handler.click();
 
             expect(drawShapeHandler.deleteLastVertex).toHaveBeenCalled();
@@ -421,6 +423,8 @@ describe('The draw tool factory', function () {
             drawShapeHandler.enabled = () => true;
 
             addVertices();
+
+            $timeout.flush();
 
             drawShapeHandler.disable.calls.reset();
             drawShapeHandler.enable.calls.reset();
@@ -446,6 +450,7 @@ describe('The draw tool factory', function () {
 
             expect(shapeClickHandler.click).toEqual(jasmine.any(Function));
 
+            $timeout.flush();
             shapeClickHandler.click();
 
             expect(editShapeHandler.enable).toHaveBeenCalled();
