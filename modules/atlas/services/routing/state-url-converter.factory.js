@@ -252,7 +252,7 @@
             // encoded in the URL.
             const modifiedState = angular.copy(state);
             if (modifiedState.detail && modifiedState.detail.endpoint) {
-                modifiedState.detail.endpoint = uriStripper.stripUri(modifiedState.detail.endpoint);
+                modifiedState.detail.endpoint = uriStripper.stripDomain(modifiedState.detail.endpoint);
             }
 
             // Converts a state to a params object that is stored in the url

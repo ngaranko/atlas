@@ -148,7 +148,7 @@
                 // This step ensures no domain and protocol are stored, so the correct path is restored after login.
                 // Seems like an Angular bug when not using HTML5 $location provider. Consider removing when/if
                 // HTML5 location mode is activated. https://github.com/angular/angular.js/issues/1521
-                params.dte = uriStripper.stripUri(params.dte);
+                params.dte = uriStripper.stripDomain(params.dte);
             }
             storage.session.setItem(CALLBACK_PARAMS, angular.toJson(params));   // encode params
         }

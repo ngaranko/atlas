@@ -67,7 +67,7 @@ describe(' The authenticator factory', function () {
                         removeItem: angular.noop
                     }
                 },
-                uriStripper: jasmine.createSpyObj('uriStripper', ['stripUri'])
+                uriStripper: jasmine.createSpyObj('uriStripper', ['stripDomain'])
             }
         );
 
@@ -159,11 +159,11 @@ describe(' The authenticator factory', function () {
             const path = 'foo/bar';
             const dte = 'https://api.data.amsterdam.nl' + path;
             $location.search.and.returnValue({dte});
-            uriStripper.stripUri.and.returnValue(path);
+            uriStripper.stripDomain.and.returnValue(path);
 
             authenticator.login();
 
-            expect(uriStripper.stripUri).toHaveBeenCalledWith(dte);
+            expect(uriStripper.stripDomain).toHaveBeenCalledWith(dte);
             expect(storage.session.setItem).toHaveBeenCalledWith('callbackParams', angular.toJson({dte: path}));
         });
 

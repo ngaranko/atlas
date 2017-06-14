@@ -7,10 +7,10 @@
 
     function uriStripperFactory (sharedConfig) {
         return {
-            stripUri
+            stripDomain
         };
 
-        function stripUri (uri) {
+        function stripDomain (uri) {
             // remove first occurrence of API_ROOT
             return uri.replace(sharedConfig.API_ROOT, '');
         }
