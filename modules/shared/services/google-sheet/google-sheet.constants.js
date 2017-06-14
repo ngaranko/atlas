@@ -10,7 +10,7 @@
                 ACCEPTATION: false,
                 DEVELOPMENT: false
             },
-            staticAddress: 'https://atlas.amsterdam.nl/cms',
+            staticAddress: 'https://data.amsterdam.nl/cms',
             key: '1ZExuZHhmvBRP-7rhuY43Lv7dWuAsGKXwfKd1_3BZfbI',
             index: {
                 news: 1,
