@@ -5,9 +5,9 @@
         .module('dpSearchResults')
         .factory('search', searchFactory);
 
-    searchFactory.$inject = ['$q', 'SEARCH_CONFIG', 'api', 'searchFormatter', 'TabHeader'];
+    searchFactory.$inject = ['$q', 'SEARCH_CONFIG', 'api', 'searchFormatter', 'TabHeader', 'user'];
 
-    function searchFactory ($q, SEARCH_CONFIG, api, searchFormatter, TabHeader) {
+    function searchFactory ($q, SEARCH_CONFIG, api, searchFormatter, TabHeader, user) {
         return {
             search,
             loadMore,
@@ -30,7 +30,7 @@
 
             SEARCH_CONFIG.QUERY_ENDPOINTS.forEach(function (endpoint) {
                 if ((!angular.isString(categorySlug) || categorySlug === endpoint.slug) &&
-                        endpoint.uri) {
+                        endpoint.uri && user.meetsRequiredLevel(endpoint.authLevel)) {
                     queries.push(
                         api.getByUri(endpoint.uri, params).then(data => data, () => [])
                     );

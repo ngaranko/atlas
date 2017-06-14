@@ -83,6 +83,9 @@ describe('The geosearch factory', function () {
                             return mockedFormattedVestigingenApiResults;
                         }
                     }
+                },
+                user: {
+                    meetsRequiredLevel: () => true
                 }
             },
             function ($provide) {
