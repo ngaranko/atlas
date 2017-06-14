@@ -423,8 +423,9 @@ describe('The dp-layer-selection component', function () {
                 const component = getComponent('base_layer_a', [], 8);
 
                 expect(component.find('.qa-category-warning').text())
-                    .toContain('\'Bedrijven - Bronnen en risicozones\' verschijnt na inloggen.' +
-                     ' Zie Help > Bediening dataportaal > Inloggen.');
+                    .toContain('Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer ' +
+                    'kaartlagen te zien: alles van Economie (vestigingen) en van Milieu de \'Bedrijven - Bronnen' +
+                    ' en risicozones\'. Zie Help > Bediening dataportaal > Inloggen.');
             });
             it('is shown for a non-employee', () => {
                 user.meetsRequiredLevel.and.returnValue(false);

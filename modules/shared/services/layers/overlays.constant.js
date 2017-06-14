@@ -29,6 +29,7 @@
 
                 // economie
                 hvo: {
+                    authorizationLevel: 'EMPLOYEE',
                     url: 'maps/handelsregister',
                     label_short: 'Handel, vervoer, opslag',
                     label_long: 'Handel, vervoer, opslag',
@@ -39,6 +40,7 @@
                     'gendGraphic&sld_version=1.1.0&layer=handel_vervoer_opslag&format=image/png&STYLE=default'
                 },
                 pir: {
+                    authorizationLevel: 'EMPLOYEE',
                     url: 'maps/handelsregister',
                     label_short: 'Productie, installatie, reparatie',
                     label_long: 'Productie, installatie, reparatie',
@@ -50,6 +52,7 @@
                     'layer=productie_installatie_reparatie&format=image/png&STYLE=default'
                 },
                 bouw: {
+                    authorizationLevel: 'EMPLOYEE',
                     url: 'maps/handelsregister',
                     label_short: 'Bouw',
                     label_long: 'Bouw',
@@ -60,6 +63,7 @@
                     'gendGraphic&sld_version=1.1.0&layer=bouw&format=image/png&STYLE=default'
                 },
                 lb: {
+                    authorizationLevel: 'EMPLOYEE',
                     url: 'maps/handelsregister',
                     label_short: 'Landbouw',
                     label_long: 'Landbouw',
@@ -70,6 +74,7 @@
                     'gendGraphic&sld_version=1.1.0&layer=landbouw&format=image/png&STYLE=default'
                 },
                 hrc: {
+                    authorizationLevel: 'EMPLOYEE',
                     url: 'maps/handelsregister',
                     label_short: 'Horeca',
                     label_long: 'Horeca',
@@ -80,6 +85,7 @@
                     'gendGraphic&sld_version=1.1.0&layer=horeca&format=image/png&STYLE=default'
                 },
                 itc: {
+                    authorizationLevel: 'EMPLOYEE',
                     url: 'maps/handelsregister',
                     label_short: 'Informatie, telecommunicatie',
                     label_long: 'Informatie, telecommunicatie',
@@ -90,6 +96,7 @@
                     'gendGraphic&sld_version=1.1.0&layer=telecommunicatie&format=image/png&STYLE=default'
                 },
                 fdvrog: {
+                    authorizationLevel: 'EMPLOYEE',
                     url: 'maps/handelsregister',
                     label_short: 'Financiële dienstverl., verhuur',
                     label_long: 'Financiële dienstverlening, verhuur van roerend en onroerend goed',
@@ -102,6 +109,7 @@
                     '&format=image/png&STYLE=default'
                 },
                 zd: {
+                    authorizationLevel: 'EMPLOYEE',
                     url: 'maps/handelsregister',
                     label_short: 'Zakelijke dienstverlening',
                     label_long: 'Zakelijke dienstverlening',
@@ -112,6 +120,7 @@
                     'gendGraphic&sld_version=1.1.0&layer=zakelijke_dienstverlening&format=image/png&STYLE=default'
                 },
                 ooz: {
+                    authorizationLevel: 'EMPLOYEE',
                     url: 'maps/handelsregister',
                     label_short: 'Overheid, onderwijs, zorg',
                     label_long: 'Overheid, onderwijs, zorg',
@@ -122,6 +131,7 @@
                     'gendGraphic&sld_version=1.1.0&layer=overheid_onderwijs_zorg&format=image/png&STYLE=default'
                 },
                 csr: {
+                    authorizationLevel: 'EMPLOYEE',
                     url: 'maps/handelsregister',
                     label_short: 'Cultuur, sport, recreatie',
                     label_long: 'Cultuur, sport, recreatie',
@@ -132,6 +142,7 @@
                     'gendGraphic&sld_version=1.1.0&layer=cultuur_sport_recreatie&format=image/png&STYLE=default'
                 },
                 pd: {
+                    authorizationLevel: 'EMPLOYEE',
                     url: 'maps/handelsregister',
                     label_short: 'Persoonlijke dienstverlening',
                     label_long: 'Persoonlijke dienstverlening',
@@ -143,6 +154,7 @@
                     'layer=persoonlijke_dienstverlening&format=image/png&STYLE=default'
                 },
                 ovrg: {
+                    authorizationLevel: 'EMPLOYEE',
                     url: 'maps/handelsregister',
                     label_short: 'Overige',
                     label_long: 'Overige',
