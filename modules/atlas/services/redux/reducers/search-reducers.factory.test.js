@@ -382,6 +382,7 @@ describe('The search-reducers factory', function () {
                 category: null,
                 numberOfResults: null
             };
+            inputState.map = { isLoading: true };
 
             output = searchReducers[ACTIONS.SHOW_SEARCH_RESULTS.id](inputState, 23);
         });
@@ -392,6 +393,16 @@ describe('The search-reducers factory', function () {
 
         it('sets isLoading to false', function () {
             expect(output.search.isLoading).toBe(false);
+        });
+
+        it('sets map isLoading to false when map is available', function () {
+            expect(output.map.isLoading).toBe(false);
+        });
+
+        it('does not set map isLoading to false when map is not available', function () {
+            delete inputState.map;
+            output = searchReducers[ACTIONS.SHOW_SEARCH_RESULTS.id](inputState, 23);
+            expect(output.map).toBeUndefined();
         });
     });
 
