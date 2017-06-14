@@ -424,8 +424,8 @@ describe('The dp-layer-selection component', function () {
 
                 expect(component.find('.qa-category-warning').text())
                     .toContain('Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer ' +
-                    'kaartlagen te zien: Economie (ofwel Handelsregister KvK) en \'Bedrijven - Bronnen en ' +
-                    'risicozones\'. Zie Help > Bediening dataportaal > Inloggen.');
+                    'kaartlagen te zien: alles van Economie (vestigingen) en van Milieu de \'Bedrijven - Bronnen' +
+                    ' en risicozones\'. Zie Help > Bediening dataportaal > Inloggen.');
             });
             it('is shown for a non-employee', () => {
                 user.meetsRequiredLevel.and.returnValue(false);
