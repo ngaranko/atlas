@@ -1,8 +1,8 @@
-describe('The geosearch factory', function () {
+describe('The uri stripper factory', function () {
     var uriStripper;
 
     beforeEach(function () {
-        angular.mock.module('dpSearchResults',
+        angular.mock.module('dpShared',
             function ($provide) {
                 $provide.factory('sharedConfig', () => {
                     return {

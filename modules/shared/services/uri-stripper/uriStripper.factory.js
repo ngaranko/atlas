@@ -1,6 +1,6 @@
 (function () {
     angular
-        .module('dpSearchResults')
+        .module('dpShared')
         .factory('uriStripper', uriStripperFactory);
 
     uriStripperFactory.$inject = ['sharedConfig'];
