@@ -12,7 +12,8 @@ describe('The draw tool factory', function () {
         editShapeHandler,
         modeHandlers,
         editToolbar,
-        geometryUtil;
+        geometryUtil,
+        suppressSpy;
 
     let testMarkers;
 
@@ -308,6 +309,7 @@ describe('The draw tool factory', function () {
         }
 
         beforeEach(function () {
+            suppressSpy = spyOn(suppress, 'isBusy').and.returnValue(false);
             spyOn(onHandler, 'finish');
 
             drawTool.initialize(leafletMap, onHandler.finish);
@@ -328,8 +330,6 @@ describe('The draw tool factory', function () {
         });
 
         it('Can build a line', function () {
-            spyOn(suppress, 'isBusy').and.returnValue(false);
-
             enable();
 
             nVertices = 2;
@@ -355,7 +355,7 @@ describe('The draw tool factory', function () {
         });
 
         it('Can not build a line when suppressing', function () {
-            spyOn(suppress, 'isBusy').and.returnValue(true);
+            suppressSpy.and.returnValue(true);
 
             enable();
 
@@ -420,8 +420,6 @@ describe('The draw tool factory', function () {
         });
 
         it('Can delete the last marker', function () {
-            spyOn(suppress, 'isBusy').and.returnValue(false);
-
             enable();
 
             addVertices();
@@ -432,7 +430,7 @@ describe('The draw tool factory', function () {
         });
 
         it('Can not delete the last marker when suppressing', function () {
-            spyOn(suppress, 'isBusy').and.returnValue(true);
+            suppressSpy.and.returnValue(true);
 
             enable();
 
@@ -444,7 +442,6 @@ describe('The draw tool factory', function () {
         });
 
         it('Can delete the first marker', function () {
-            spyOn(suppress, 'isBusy').and.returnValue(false);
             nVertices = 1;
 
             enable();
@@ -462,7 +459,7 @@ describe('The draw tool factory', function () {
         });
 
         it('Can not delete the first marker when suppressing', function () {
-            spyOn(suppress, 'isBusy').and.returnValue(true);
+            suppressSpy.and.returnValue(true);
             nVertices = 1;
 
             enable();
@@ -490,8 +487,6 @@ describe('The draw tool factory', function () {
         });
 
         it('can edit a polygon by clicking the drawn polygon', function () {
-            spyOn(suppress, 'isBusy').and.returnValue(false);
-
             createPolygon();
 
             expect(shapeClickHandler.click).toEqual(jasmine.any(Function));
@@ -508,7 +503,7 @@ describe('The draw tool factory', function () {
         });
 
         it('can not edit a polygon by clicking the drawn polygon when suppressing', function () {
-            spyOn(suppress, 'isBusy').and.returnValue(true);
+            suppressSpy.and.returnValue(true);
 
             createPolygon();
 
@@ -594,7 +589,7 @@ describe('The draw tool factory', function () {
         });
 
         it('click on map when suppressing is busy it should do nothing', function () {
-            spyOn(suppress, 'isBusy').and.returnValue(true);
+            suppressSpy.and.returnValue(true);
             spyOn(drawTool, 'disable');
 
             fireEvent('click');
@@ -603,8 +598,6 @@ describe('The draw tool factory', function () {
         });
 
         it('click on map while finished drawing polygon deletes polygon and calls onFinish method', function () {
-            spyOn(suppress, 'isBusy').and.returnValue(false);
-
             createPolygon();
 
             drawShapeHandler._markers = []; // edit mode, no markers in draw mode
@@ -628,7 +621,7 @@ describe('The draw tool factory', function () {
         });
 
         it('click on map while finished drawing polygon does not delete polygon while suppressing', function () {
-            spyOn(suppress, 'isBusy').and.returnValue(true);
+            suppressSpy.and.returnValue(true);
 
             createPolygon();
 
@@ -649,8 +642,6 @@ describe('The draw tool factory', function () {
         });
 
         it('click on map while editing polygon ends edit mode', function () {
-            spyOn(suppress, 'isBusy').and.returnValue(false);
-
             createPolygon();
 
             drawTool.enable();
@@ -674,7 +665,7 @@ describe('The draw tool factory', function () {
         });
 
         it('click on map while editing polygon does not end edit mode while suppressing', function () {
-            spyOn(suppress, 'isBusy').and.returnValue(true);
+            suppressSpy.and.returnValue(true);
 
             createPolygon();
 
