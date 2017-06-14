@@ -12,13 +12,13 @@ module.exports = function (page) {
     expect(layerSelection.baselayers.options(0).label).toBe('Topografie');
     expect(layerSelection.baselayers.options(1).label).toBe('Luchtfoto 2016');
 
-    expect(layerSelection.overlays.categories(0).header).toBe('Geografie: onroerende zaken');
-    expect(layerSelection.overlays.categories(0).options(0).label).toBe('Burgerlijke gemeenten');
-    expect(layerSelection.overlays.categories(0).options(1).label).toBe('Kadastrale gemeenten');
+    expect(layerSelection.overlays.categories(0).header).toBe('Economie');
+    expect(layerSelection.overlays.categories(0).options(0).label).toBe('Bouw');
+    expect(layerSelection.overlays.categories(0).options(1).label).toBe('Cultuur, sport, recreatie');
 
-    expect(layerSelection.overlays.categories(1).header).toBe('Geografie: gebieden');
-    expect(layerSelection.overlays.categories(1).options(0).label).toBe('Grootstedelijke gebieden');
-    expect(layerSelection.overlays.categories(1).options(1).label).toBe('Unesco werelderfgoedzones');
+    expect(layerSelection.overlays.categories(1).header).toBe('Geografie: onroerende zaken');
+    expect(layerSelection.overlays.categories(1).options(0).label).toBe('Burgerlijke gemeenten');
+    expect(layerSelection.overlays.categories(1).options(1).label).toBe('Kadastrale gemeenten');
 
     expect(page.dashboard.middleColumn.columnSize).toBe(8);
     expect(page.dashboard.middleColumn.map.visible).toBe(true);
