@@ -52,5 +52,15 @@
                 videoElement.currentTime = 0;
             }
         };
+
+        vm.$postLink = () => {
+            if ($window.objectFitPolyfill) {
+                // window.objectFitPolyfill mimics object-fit CSS property for
+                // IE & Edge. The function is stubbed (fast) for browsers
+                // supporting the CSS property. The function is added to the
+                // window by a polyfill script.
+                $window.objectFitPolyfill();
+            }
+        };
     }
 })();

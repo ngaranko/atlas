@@ -29,10 +29,8 @@ module.exports = function (grunt) {
 
     grunt.registerTask('update-build-js', [
         'copy:libs',
-        'copy:polyfill',
         'concat:modules',
         'babel-concat-modules',
-        'tags:js',           // update the script names in index.html
-        'tags:polyfill'           // update the polyfill script names in index.html
+        'tags:js'           // update the script names in index.html
     ]);
 };
