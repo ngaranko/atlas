@@ -22,9 +22,9 @@
             }
         });
 
-    VideoController.$inject = ['$element'];
+    VideoController.$inject = ['$element', '$window'];
 
-    function VideoController ($element) {
+    function VideoController ($element, $window) {
         const vm = this,
             videoElement = $element.find('video')[0];
 

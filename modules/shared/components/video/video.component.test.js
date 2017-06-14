@@ -8,9 +8,10 @@ describe('The video component', () => {
     beforeEach(() => {
         angular.mock.module('dpShared');
 
-        angular.mock.inject(function (_$compile_, _$rootScope_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _$window_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
+            $window = _$window_;
         });
 
         // always set the state so no polyfill is provided.
@@ -51,8 +52,8 @@ describe('The video component', () => {
         const sourceElement = component.find('source')[0];
         expect(videoElement.getAttribute('width')).toBe('1');
         expect(videoElement.getAttribute('height')).toBe('2');
-        expect(sourceElement.getAttribute('ng-src')).toBe('foo/bar.mp4');
         expect(videoElement.getAttribute('poster')).toBe('foo/bar.jpg');
+        expect(sourceElement.getAttribute('ng-src')).toBe('foo/bar.mp4');
     });
 
     it('plays the video', () => {
