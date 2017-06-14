@@ -5,9 +5,19 @@
         .module('atlas')
         .factory('stateUrlConverter', stateUrlConverterFactory);
 
-    stateUrlConverterFactory.$inject = ['STATE_URL_CONVERSION', 'dpBaseCoder'];
+    stateUrlConverterFactory.$inject = [
+        'STATE_URL_CONVERSION',
+        'dpBaseCoder',
+        'sharedConfig',
+        'uriStripper'
+    ];
 
-    function stateUrlConverterFactory (STATE_URL_CONVERSION, dpBaseCoder) {
+    function stateUrlConverterFactory (
+        STATE_URL_CONVERSION,
+        dpBaseCoder,
+        sharedConfig,
+        uriStripper
+    ) {
         const URL_ARRAY_SEPARATOR = ':';    // Choose any of -._~:[]@!$'()*+,;`.
         const ARRAY_DENOTATOR = '[]';
         const MAIN_STATE = 'DEFAULT';
@@ -238,10 +248,17 @@
         }
 
         function state2params (state) {
+            // Remove the domain from the endpoint so only the relative URI is
+            // encoded in the URL.
+            const modifiedState = angular.copy(state);
+            if (modifiedState.detail && modifiedState.detail.endpoint) {
+                modifiedState.detail.endpoint = uriStripper.stripUri(modifiedState.detail.endpoint);
+            }
+
             // Converts a state to a params object that is stored in the url
             return Object.keys(STATE_URL_CONVERSION.stateVariables).reduce((result, key) => {
                 const attribute = STATE_URL_CONVERSION.stateVariables[key];
-                let value = getValueForKey(state, attribute.name);
+                let value = getValueForKey(modifiedState, attribute.name);
                 if (value !== null) {
                     // store value in url
                     if (angular.isFunction(attribute.getValue)) {
@@ -257,6 +274,11 @@
         }
 
         function params2state (oldState, params) {
+            // Prepend domain before endpoint full URL ends up in the state.
+            if (params.dte) {
+                params.dte = sharedConfig.API_ROOT + params.dte;
+            }
+
             // Converts a params object (payload or url value) to a new state object
             let newState = createObject (oldState, MAIN_STATE, params);
 

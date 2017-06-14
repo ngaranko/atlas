@@ -5,9 +5,9 @@
         .module('dpMap')
         .factory('drawTool', drawToolFactory);
 
-    drawToolFactory.$inject = ['$rootScope', 'L', 'DRAW_TOOL_CONFIG'];
+    drawToolFactory.$inject = ['$rootScope', 'L', 'DRAW_TOOL_CONFIG', 'suppress'];
 
-    function drawToolFactory ($rootScope, L, DRAW_TOOL_CONFIG) {
+    function drawToolFactory ($rootScope, L, DRAW_TOOL_CONFIG, suppress) {
         // holds all information about the state of the shape being created or edited
         const DEFAULTS = {
             isConsistent: true,
@@ -34,7 +34,8 @@
             drawnItems: null,
             drawShapeHandler: null,
             editShapeHandler: null,
-            lastEvent: null
+            lastEvent: null,
+            timeout: null
         };
 
         // these callback methods will be called on a finished polygon and on a change of drawing mode
@@ -46,6 +47,7 @@
             isEnabled,
             enable,
             disable,
+            reset,
             setPolygon,
             shape: shapeInfo
         };
@@ -214,6 +216,10 @@
         function registerDrawEvents () {
             Object.keys(L.Draw.Event).forEach(eventName => {
                 drawTool.map.on(L.Draw.Event[eventName], function (e) {
+                    if (eventName === 'DELETED') { // IE HACK
+                        suppress.start();
+                    }
+
                     handleDrawEvent(eventName, e);
 
                     updateShape();  // Update current shape and tooltip
@@ -237,6 +243,10 @@
         function registerMapEvents () {
             // Click outside shape => delete shape
             drawTool.map.on('click', function () {
+                if (suppress.isBusy()) {
+                    return;
+                }
+
                 // In edit mode => disable()
                 if (drawTool.drawingMode === DRAW_TOOL_CONFIG.DRAWING_MODE.EDIT) {
                     disable();
@@ -296,6 +306,11 @@
                 }
                 setDrawingMode(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
             }
+        }
+
+        // resets by removing all current markers
+        function reset () {
+            currentShape.markers = [];
         }
 
         // Shape method for shape.info

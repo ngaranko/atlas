@@ -27,6 +27,7 @@ describe('The draw tool component', function () {
                     isEnabled: angular.noop,
                     enable: angular.noop,
                     disable: angular.noop,
+                    reset: angular.noop,
                     shape: {
                         markers: [],
                         distanceTxt: 'distance',
@@ -75,6 +76,7 @@ describe('The draw tool component', function () {
         beforeEach(function () {
             spyOn(drawTool, 'enable');
             spyOn(drawTool, 'disable');
+            spyOn(drawTool, 'reset');
         });
 
         it('Uses this parameter to follow drawing mode, default none should trigger disable', function () {
@@ -101,6 +103,30 @@ describe('The draw tool component', function () {
 
             expect(drawTool.enable).toHaveBeenCalled();
             expect(drawTool.disable).not.toHaveBeenCalled();
+        });
+
+        it('when drawing mode is reset then drawing should be reset', function () {
+            state.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.RESET;
+            getComponent();
+            $rootScope.$digest();
+
+            expect(drawTool.reset).toHaveBeenCalled();
+        });
+
+        it('when drawing mode is none then drawing should not be reset', function () {
+            state.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
+            getComponent();
+            $rootScope.$digest();
+
+            expect(drawTool.reset).not.toHaveBeenCalled();
+        });
+
+        it('when drawing mode is reset then it should be switched to none', function () {
+            state.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.RESET;
+            getComponent();
+            $rootScope.$digest();
+
+            expect(state.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
         });
     });
 

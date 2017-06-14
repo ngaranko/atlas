@@ -3,9 +3,9 @@
         .module('dpDataSelection')
         .factory('dataSelectionApi', dataSelectionApiFactory);
 
-    dataSelectionApiFactory.$inject = ['$injector', 'DATA_SELECTION_CONFIG', 'api', 'TabHeader'];
+    dataSelectionApiFactory.$inject = ['$injector', 'DATA_SELECTION_CONFIG', 'api', 'user', 'TabHeader'];
 
-    function dataSelectionApiFactory ($injector, DATA_SELECTION_CONFIG, api, TabHeader) {
+    function dataSelectionApiFactory ($injector, DATA_SELECTION_CONFIG, api, user, TabHeader) {
         return {
             query,
             getMarkers,
@@ -53,14 +53,18 @@
         }
 
         function formatData (dataset, view, rawData) {
-            return {
-                head: DATA_SELECTION_CONFIG.datasets[dataset].CONTENT[view]
-                    .map(item => item.label),
+            // Filter on fields allowed by current authorization level
+            const config = DATA_SELECTION_CONFIG.datasets[dataset].CONTENT[view];
+            const fields = config.filter((column) => {
+                return !column.authLevel || user.meetsRequiredLevel(column.authLevel);
+            });
 
+            return {
+                head: fields.map(item => item.label),
                 body: rawData.map(rawDataRow => {
                     return {
                         detailEndpoint: rawDataRow._links.self.href,
-                        content: DATA_SELECTION_CONFIG.datasets[dataset].CONTENT[view].map(item => {
+                        content: fields.map(item => {
                             return item.variables.map(variable => {
                                 const path = variable.split('.');
                                 return {
@@ -71,9 +75,9 @@
                         })
                     };
                 }),
-
-                formatters: DATA_SELECTION_CONFIG.datasets[dataset].CONTENT[view].map(item => item.formatter),
-                templates: DATA_SELECTION_CONFIG.datasets[dataset].CONTENT[view].map(item => item.template)
+                formatters: fields.map(item => item.formatter),
+                templates: fields.map(item => item.template),
+                sensored: config.length !== fields.length
             };
         }
 
@@ -111,7 +115,8 @@
         }
 
         function filterUnavailableFilters (dataset, activeFilters) {
-            // Some activeFilters do not exist for the current data
+            // Filter out the filters that are not used in the current dataset
+            // Filtering is done based on the configured possible filters.
             const activeAndAvailableFilters = angular.copy(activeFilters);
 
             // Filter activeFilters that are not available for this dataset

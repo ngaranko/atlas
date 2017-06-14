@@ -80,6 +80,7 @@ describe('The detailReducers factory', function () {
             inputState.layerSelection.isEnabled = true;
             inputState.search = {some: 'object'};
             inputState.page.name = 'somePage';
+            inputState.page.type = 'someType';
             inputState.straatbeeld = {some: 'object'};
             inputState.dataSelection = {some: 'object'};
 
@@ -88,6 +89,7 @@ describe('The detailReducers factory', function () {
             expect(output.layerSelection.isEnabled).toBe(false);
             expect(output.search).toBeNull();
             expect(output.page.name).toBeNull();
+            expect(output.page.type).toBeNull();
             expect(output.straatbeeld).toBeNull();
             expect(output.dataSelection).toBeNull();
         });
@@ -141,7 +143,7 @@ describe('The detailReducers factory', function () {
 
             output = detailReducers.FETCH_DETAIL(defaultState, payload);
 
-            expect(output.map.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
+            expect(output.map.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.RESET);
         });
     });
 

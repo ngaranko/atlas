@@ -466,8 +466,9 @@ describe('The map reducers', function () {
             expect(output.dataSelection.markers).toEqual([]);
         });
 
-        it('Closes the full screen map and layer selection on polygon', () => {
+        it('Closes the full screen map and layer selection on polygon and sets map to be loading', () => {
             const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map.isLoading = false;
             inputState.map.isFullscreen = true;
             inputState.layerSelection.isEnabled = true;
 
@@ -476,11 +477,13 @@ describe('The map reducers', function () {
             });
 
             expect(output.map.isFullscreen).toBe(false);
+            expect(output.map.isLoading).toBe(true);
             expect(output.layerSelection.isEnabled).toBe(false);
         });
 
-        it('Does not close full screen map and layer selection on line', () => {
+        it('Does not close full screen map and layer selection on line and does not set map to be loading', () => {
             const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map.isLoading = false;
             inputState.map.isFullscreen = true;
             inputState.layerSelection.isEnabled = true;
 
@@ -489,20 +492,8 @@ describe('The map reducers', function () {
             });
 
             expect(output.map.isFullscreen).toBe(true);
+            expect(output.map.isLoading).toBe(false);
             expect(output.layerSelection.isEnabled).toBe(true);
-        });
-    });
-
-    describe('MAP_RESET_DRAWING', () => {
-        it('resets drawing state', () => {
-            const inputState = angular.copy(DEFAULT_STATE);
-            inputState.map.resetDrawing = true;
-
-            const output = mapReducers[ACTIONS.MAP_RESET_DRAWING.id](inputState);
-
-            expect(output.dataSelection).toBeNull();
-            expect(output.map.geometry).toEqual([]);
-            expect(output.map.resetDrawing).toEqual(false);
         });
     });
 

@@ -3,7 +3,9 @@ describe('The draw tool factory', function () {
         L,
         DRAW_TOOL_CONFIG,
         drawTool,
-        leafletMap;
+        leafletMap,
+        $timeout,
+        suppress;
 
     let layerGroup,
         drawnItems,
@@ -75,11 +77,13 @@ describe('The draw tool factory', function () {
             }
         );
 
-        angular.mock.inject(function (_$rootScope_, _L_, _DRAW_TOOL_CONFIG_, _drawTool_) {
+        angular.mock.inject(function (_$rootScope_, _L_, _DRAW_TOOL_CONFIG_, _drawTool_, _$timeout_, _suppress_) {
             $rootScope = _$rootScope_;
             L = _L_;
             DRAW_TOOL_CONFIG = _DRAW_TOOL_CONFIG_;
             drawTool = _drawTool_;
+            $timeout = _$timeout_;
+            suppress = _suppress_;
         });
 
         DRAW_TOOL_CONFIG.MAX_MARKERS = 4;
@@ -512,6 +516,11 @@ describe('The draw tool factory', function () {
             expect(drawTool.shape.markers.length).toBe(4);
         });
 
+        it('drawing can be reset', function () {
+            drawTool.reset();
+            expect(drawTool.shape.markers.length).toBe(0);
+        });
+
         it('click on map while drawing polygon does not end draw mode', function () {
             enable();
 
@@ -524,6 +533,15 @@ describe('The draw tool factory', function () {
             expect(drawTool.isEnabled()).toBe(true);
         });
 
+        it('click on map when suppressing is busy it should do nothing', function () {
+            spyOn(suppress, 'isBusy').and.returnValue(true);
+            spyOn(drawTool, 'disable');
+
+            fireEvent('click');
+
+            expect(drawTool.disable).not.toHaveBeenCalled();
+        });
+
         it('click on map while finished drawing polygon deletes polygon and calls onFinish method', function () {
             createPolygon();
 
@@ -532,6 +550,7 @@ describe('The draw tool factory', function () {
             expect(drawTool.isEnabled()).toBe(false);
             expect(drawTool.shape.markers.length).toBe(3);
 
+            $timeout.flush();
             fireEvent('click');
 
             expect(drawTool.isEnabled()).toBe(false);
@@ -561,6 +580,7 @@ describe('The draw tool factory', function () {
 
             expect(drawTool.isEnabled()).toBe(true);
 
+            $timeout.flush();
             fireEvent('click');
 
             expect(drawTool.isEnabled()).toBe(false);

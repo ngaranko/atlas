@@ -5,9 +5,9 @@
         .module('atlas')
         .factory('detailReducers', detailReducersFactory);
 
-    detailReducersFactory.$inject = ['ACTIONS', 'DRAW_TOOL_CONFIG'];
+    detailReducersFactory.$inject = ['ACTIONS', 'DRAW_TOOL_CONFIG', 'uriStripper'];
 
-    function detailReducersFactory (ACTIONS, DRAW_TOOL_CONFIG) {
+    function detailReducersFactory (ACTIONS, DRAW_TOOL_CONFIG, uriStripper) {
         var reducers = {};
 
         reducers[ACTIONS.FETCH_DETAIL.id] = fetchDetailReducer;
@@ -33,12 +33,12 @@
 
             newState.map.isLoading = true;
             newState.map.isFullscreen = false;
-            newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
-            newState.map.resetDrawing = true;
+            newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.RESET;
 
             newState.layerSelection.isEnabled = false;
             newState.search = null;
             newState.page.name = null;
+            newState.page.type = null;
             newState.straatbeeld = null;
             newState.dataSelection = null;
 
