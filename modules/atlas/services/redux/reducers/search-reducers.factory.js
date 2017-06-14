@@ -117,6 +117,10 @@
                 newState.search.numberOfResults = payload;
             }
 
+            if (angular.isObject(newState.map)) {
+                newState.map.isLoading = false;
+            }
+
             return newState;
         }
     }

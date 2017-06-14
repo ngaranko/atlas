@@ -5,11 +5,25 @@ describe('The dp-data-selection component', function () {
         dataSelectionApi,
         store,
         ACTIONS,
+        config,
+        user,
         mockedState,
         mockedApiPreviewData,
         mockedApiMarkersData;
 
     beforeEach(function () {
+        config = {
+            options: {
+                MAX_NUMBER_OF_CLUSTERED_MARKERS: 1000
+            },
+            datasets: {
+                zwembaden: {
+                    TITLE: 'Zwembaden',
+                    MAX_AVAILABLE_PAGES: 5
+                }
+            }
+        };
+
         angular.mock.module(
             'dpDataSelection',
             {
@@ -34,17 +48,7 @@ describe('The dp-data-selection component', function () {
                 }
             },
             function ($provide) {
-                $provide.constant('DATA_SELECTION_CONFIG', {
-                    options: {
-                        MAX_NUMBER_OF_CLUSTERED_MARKERS: 1000
-                    },
-                    datasets: {
-                        zwembaden: {
-                            TITLE: 'Zwembaden',
-                            MAX_AVAILABLE_PAGES: 5
-                        }
-                    }
-                });
+                $provide.constant('DATA_SELECTION_CONFIG', config);
 
                 $provide.factory('dpLoadingIndicatorDirective', function () {
                     return {};
@@ -76,13 +80,14 @@ describe('The dp-data-selection component', function () {
             }
         );
 
-        angular.mock.inject(function (_$rootScope_, _$compile_, _$q_, _dataSelectionApi_, _store_, _ACTIONS_) {
+        angular.mock.inject(function (_$rootScope_, _$compile_, _$q_, _dataSelectionApi_, _store_, _ACTIONS_, _user_) {
             $rootScope = _$rootScope_;
             $compile = _$compile_;
             $q = _$q_;
             dataSelectionApi = _dataSelectionApi_;
             store = _store_;
             ACTIONS = _ACTIONS_;
+            user = _user_;
         });
 
         mockedState = {
@@ -117,6 +122,7 @@ describe('The dp-data-selection component', function () {
         spyOn(dataSelectionApi, 'query').and.callThrough();
         spyOn(dataSelectionApi, 'getMarkers').and.callThrough();
         spyOn(store, 'dispatch');
+        spyOn(user, 'meetsRequiredLevel').and.returnValue(true);
     });
 
     function getComponent (state) {
@@ -370,5 +376,25 @@ describe('The dp-data-selection component', function () {
 
         expect(component.find('.qa-message-max-pages').text()).toContain('de eerste 5 pagina\'s');
         expect(component.find('.qa-message-clustered-markers').text()).toContain('niet meer dan 1.000 resultaten');
+    });
+
+    it('does not show data when not allowed', () => {
+        // Normally it's there
+        const component = getComponent(mockedState);
+        expect(component.find('.qa-data-grid').length).toBe(1);
+
+        // With required authentication level
+        config.datasets.zwembaden.AUTH_LEVEL = 'EMPLOYEE';
+        // which the user does not have
+        user.meetsRequiredLevel.and.returnValue(false);
+
+        const disabledComponent = getComponent(mockedState);
+
+        // It is not shown
+        expect(user.meetsRequiredLevel).toHaveBeenCalledWith('EMPLOYEE');
+        expect(disabledComponent.find('.qa-data-grid').length).toBe(0);
+
+        // and a message is displayed
+        expect(disabledComponent.find('.qa-disabled-message').length).toBe(1);
     });
 });

@@ -11,21 +11,15 @@
             getTitleData: getTitleData
         };
 
-        function getTitleData (numberOfResults, query, location, category) {
+        function getTitleData (numberOfResults, query, location, category, searchResults) {
             const categoryName = getCategoryName(category, query, location),
-                title = getTitle(categoryName, numberOfResults),
+                title = getTitle(category, categoryName, numberOfResults, searchResults),
                 subTitle = getSubTitle(query, location);
 
-            if (category) {
-                return {
-                    title: `${title} ${subTitle}`
-                };
-            } else {
-                return {
-                    title: title,
-                    subTitle: title && subTitle
-                };
-            }
+            return {
+                title: title,
+                subTitle: title && subTitle
+            };
         }
 
         /**
@@ -55,15 +49,26 @@
                 : null;
         }
 
-        function getTitle (categoryName, numberOfResults) {
+        function getTitle (categorySlug, categoryName, numberOfResults, searchResults) {
             let title = '';
 
             if (categoryName) {
+                const category = searchResults
+                    ? searchResults.find((item) => {
+                        return item.slug === categorySlug;
+                    })
+                    : null;
+                const count = category
+                    ? category.count
+                    : null;
                 title = categoryName;
+                if (count !== null) {
+                    title += ` (${numberFilter(count)})`;
+                }
             } else if (numberOfResults === 0) {
                 title = 'Geen resultaten gevonden';
             } else if (numberOfResults > 0) {
-                title = `Data (${numberFilter(numberOfResults)})`;
+                title = `Resultaten (${numberFilter(numberOfResults)})`;
             }
 
             return title;
