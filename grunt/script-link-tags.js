@@ -15,14 +15,6 @@ module.exports = function (grunt) {
             src: [`build/atlas.${uniqueIdJs}.libs.js`, `build/atlas.${uniqueIdJs}.js`],
             dest: 'build/index.html'
         },
-        polyfill: {
-            options: {
-                openTag: '<!-- POLYFILL_SCRIPTS_START -->',
-                closeTag: '<!-- POLYFILL_SCRIPTS_END -->'
-            },
-            src: ['build/polyfill.js'],
-            dest: 'build/index.html'
-        },
         css: {
             options: {
                 openTag: '<!-- STYLESHEETS_START -->',

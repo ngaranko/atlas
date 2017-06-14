@@ -24,8 +24,7 @@ describe('The state url conversion factory', function () {
                     showActiveOverlays: false,
                     isFullscreen: false,
                     isLoading: false,
-                    drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
-                    resetDrawing: false
+                    drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE
                 },
                 layerSelection: {
                     isEnabled: false
@@ -104,6 +103,10 @@ describe('The state url conversion factory', function () {
                         type: 'string',
                         getValue: v => 'getValue.' + v,
                         setValue: v => 'setValue.' + v
+                    },
+                    dte: {
+                        name: 'detail.endpoint',
+                        type: 'string'
                     }
                 }
             };
@@ -213,6 +216,16 @@ describe('The state url conversion factory', function () {
                 const link = stateUrlConverter.state2url(mockedState);
                 expect(link).toEqual('#?b=T');
             });
+
+            it('removes the API_ROOT from the detail endpoint URL', () => {
+                const mockedState = {
+                    detail: {
+                        endpoint: 'https://acc.api.data.amsterdam.nl/foo/bar'
+                    }
+                };
+                const link = stateUrlConverter.state2url(mockedState);
+                expect(link).toEqual('#?dte=foo/bar');
+            });
         });
 
         describe('The params to state translation', function () {
@@ -258,6 +271,18 @@ describe('The state url conversion factory', function () {
                     kv: { aap: 'noot', mies: 'teun' },
                     osb: { id: 'aap', isVisible: true },
                     v: 'setValue.v'
+                });
+            });
+
+            it('prepends the API_ROOT to the detail endpoint', () => {
+                const state = stateUrlConverter.params2state({}, {
+                    dte: 'foo/bar'
+                });
+
+                expect(state).toEqual({
+                    detail: {
+                        endpoint: 'https://acc.api.data.amsterdam.nl/foo/bar'
+                    }
                 });
             });
 

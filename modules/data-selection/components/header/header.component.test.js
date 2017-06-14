@@ -4,12 +4,30 @@ describe('The dp-data-selection-header', () => {
         store,
         ACTIONS,
         component,
+        config,
+        user,
         mockedViewInput,
         mockedInputTable,
         mockedInputList,
         mockedInputCards;
 
     beforeEach(() => {
+        config = {
+            datasets: {
+                bag: {
+                    MAX_AVAILABLE_PAGES: 50,
+                    TITLE: 'BAG Adressen'
+                },
+                hr: {
+                    MAX_AVAILABLE_PAGES: 50,
+                    TITLE: 'HR Vestigingen'
+                },
+                catalogus: {
+                    MAX_AVAILABLE_PAGES: 50
+                }
+            }
+        };
+
         angular.mock.module(
             'dpDataSelection',
             {
@@ -18,21 +36,7 @@ describe('The dp-data-selection-header', () => {
                 }
             },
             function ($provide) {
-                $provide.constant('DATA_SELECTION_CONFIG', {
-                    datasets: {
-                        bag: {
-                            MAX_AVAILABLE_PAGES: 50,
-                            TITLE: 'BAG Adressen'
-                        },
-                        hr: {
-                            MAX_AVAILABLE_PAGES: 50,
-                            TITLE: 'HR Vestigingen'
-                        },
-                        catalogus: {
-                            MAX_AVAILABLE_PAGES: 50
-                        }
-                    }
-                });
+                $provide.constant('DATA_SELECTION_CONFIG', config);
 
                 $provide.factory('dpDataSelectionToggleViewButtonDirective', () => {
                     return {};
@@ -48,11 +52,12 @@ describe('The dp-data-selection-header', () => {
             }
         );
 
-        angular.mock.inject((_$compile_, _$rootScope_, _store_, _ACTIONS_) => {
+        angular.mock.inject((_$compile_, _$rootScope_, _store_, _ACTIONS_, _user_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
             ACTIONS = _ACTIONS_;
+            user = _user_;
         });
 
         mockedInputTable = {
@@ -105,6 +110,7 @@ describe('The dp-data-selection-header', () => {
         };
 
         spyOn(store, 'dispatch');
+        spyOn(user, 'meetsRequiredLevel').and.returnValue(false);
     });
 
     function getComponent (mockedInput) {
@@ -149,14 +155,45 @@ describe('The dp-data-selection-header', () => {
         });
     });
 
-    it('the download button is hidden when there are no results', () => {
-        mockedInputTable.numberOfRecords = 1;
-        component = getComponent(mockedInputTable);
-        expect(component.find('.qa-download-button').length).toBe(1);
+    describe('the download button', () => {
+        it('is hidden when there are no results', () => {
+            mockedInputTable.numberOfRecords = 1;
+            component = getComponent(mockedInputTable);
+            expect(component.find('.qa-download-button').length).toBe(1);
 
-        mockedInputTable.numberOfRecords = 0;
-        component = getComponent(mockedInputTable);
-        expect(component.find('.qa-download-button').length).toBe(0);
+            mockedInputTable.numberOfRecords = 0;
+            component = getComponent(mockedInputTable);
+            expect(component.find('.qa-download-button').length).toBe(0);
+        });
+
+        it('is hidden when in LIST view', () => {
+            mockedInputTable.numberOfRecords = 1;
+            component = getComponent(mockedInputTable);
+            expect(component.find('.qa-download-button').length).toBe(1);
+
+            component = getComponent(mockedInputList);
+            expect(component.find('.qa-download-button').length).toBe(0);
+        });
+
+        it('is hidden when the authentication level is not met', () => {
+            mockedInputTable.numberOfRecords = 1;
+            // An authentication level is set
+            config.datasets.bag.AUTH_LEVEL_EXPORT = 'EMPLOYEE';
+
+            // But it is not met
+            component = getComponent(mockedInputTable);
+            expect(component.find('.qa-download-button').length).toBe(0);
+
+            // Now the authentication is met
+            user.meetsRequiredLevel.and.returnValue(true);
+            component = getComponent(mockedInputTable);
+            expect(component.find('.qa-download-button').length).toBe(1);
+
+            // This time there are now records however
+            mockedInputTable.numberOfRecords = 0;
+            component = getComponent(mockedInputTable);
+            expect(component.find('.qa-download-button').length).toBe(0);
+        });
     });
 
     describe('the header title', function () {
@@ -165,7 +202,15 @@ describe('The dp-data-selection-header', () => {
             component = getComponent(mockedInputTable);
 
             // Avec thousand separator
-            expect(component.find('.qa-title').text().trim()).toBe('BAG Adressen (1.234)');
+            expect(component.find('.qa-title').text()).toContain('BAG Adressen');
+            expect(component.find('.qa-title').text()).toContain('(1.234)');
+        });
+
+        it('in TABLE view shows does not show the number of results when not available', () => {
+            mockedInputTable.numberOfRecords = null;
+            component = getComponent(mockedInputTable);
+
+            expect(component.find('.qa-title').text().trim()).toBe('BAG Adressen');
         });
 
         it('in CARDS view shows the number of results followed using \'Datasets(number)\'', () => {
@@ -335,6 +380,14 @@ describe('The dp-data-selection-header', () => {
 
             expect(component.find('.qa-tabs li:nth-child(1)').text()).toContain('BAG Adressen');
             expect(component.find('.qa-tabs li:nth-child(1)').text()).toContain(' (12.345)');
+            expect(component.find('.qa-tabs li:nth-child(2)').text().trim()).toBe('HR Vestigingen');
+        });
+
+        it('it does not show the number of results in the tab heading when not available', () => {
+            mockedInputList.numberOfRecords = null;
+            component = getComponent(mockedInputList);
+
+            expect(component.find('.qa-tabs li:nth-child(1)').text().trim()).toBe('BAG Adressen');
             expect(component.find('.qa-tabs li:nth-child(2)').text().trim()).toBe('HR Vestigingen');
         });
     });

@@ -2,7 +2,11 @@
     <dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>
 
     <div ng-if="!vm.isLoading">
-        <dp-tab-header ng-if="vm.showTabHeader()" search-text="{{vm.state.query}}" tab-header="vm.tabHeader"></dp-tab-header>
+        <dp-tab-header ng-if="vm.showTabHeader()"
+                       search-text="{{vm.state.query}}"
+                       tab-header="vm.tabHeader"
+                       filters-active="true">
+        </dp-tab-header>
         <dp-data-selection-header
             ng-if="!vm.showTabHeader() || vm.numberOfRecords > 0"
             state="vm.state"
@@ -11,7 +15,7 @@
             show-header="!vm.showTabHeader() && ( vm.state.view === 'LIST' || !vm.isLoading )">
         </dp-data-selection-header>
 
-        <div class="u-grid">
+        <div class="u-grid qa-data-grid" ng-if="!vm.disabled">
             <div class="u-row">
                 <div ng-if="vm.showFilters" class="u-col-sm--3">
                     <dp-data-selection-available-filters
@@ -48,7 +52,10 @@
                     </dp-panel>
 
                     <div ng-if="vm.showContent">
-                        <dp-data-selection-table ng-if="vm.view === 'TABLE'" content="vm.data"></dp-data-selection-table>
+                        <dp-data-selection-table
+                            ng-if="vm.view === 'TABLE'"
+                            content="vm.data"
+                            dataset="vm.state.dataset"></dp-data-selection-table>
                         <dp-data-selection-list ng-if="vm.view === 'LIST'" content="vm.data"></dp-data-selection-list>
                         <dp-data-selection-cards ng-if="vm.view === 'CARDS'" content="vm.data"></dp-data-selection-cards>
                     </div>
@@ -61,5 +68,22 @@
                 </div>
             </div>
         </div>
+
+        <dp-panel ng-if="vm.disabled" is-panel-visible="true" can-close="true" type="warning" class="qa-disabled-message">
+            <h2 class="c-panel__title">Vestigingen zichtbaar na inloggen</h2>
+            <p class="c-panel__paragraph">Om vestigingen te kunnen bekijken, moet je als medewerker/ketenpartner van Gemeente Amsterdam inloggen.</p>
+            <p class="c-panel__paragraph">
+                Zie
+                <dp-link
+                    type="SHOW_PAGE"
+                    payload="{
+                        name: 'content-overzicht',
+                        type: 'snelwegwijs',
+                        item: 'item9'
+                    }"
+                    class-name="c-link--light c-link--inline"
+                    >Help &gt; Bediening dataportaal &gt; Inloggen</dp-link>.
+            </p>
+        </dp-panel>
     </div>
 </div>
