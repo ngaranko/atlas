@@ -12,7 +12,8 @@
         'user',
         '$window',
         '$location',
-        'storage'
+        'storage',
+        'uriStripper'
     ];
 
     function authenticatorFactory (
@@ -22,7 +23,8 @@
         user,
         $window,
         $location,
-        storage) {
+        storage,
+        uriStripper) {
         const ERROR_MESSAGES = {
             400: 'Verplichte parameter is niet aanwezig.',
             404: 'Er is iets mis met de inlog server, probeer het later nog eens.',
@@ -138,7 +140,17 @@
         }
 
         function savePath () {
-            storage.session.setItem(CALLBACK_PARAMS, angular.toJson($location.search()));   // encode params
+            const params = $location.search();
+            if (params.dte) {
+                // $location.search may return old parameters even though URL does not list them.
+                // This mean the dte parameter may incorrectly contain the domain:
+                //  e.g.: https:data.amsterdam.nl/foo/bar instead of foo/bar.
+                // This step ensures no domain and protocol are stored, so the correct path is restored after login.
+                // Seems like an Angular bug when not using HTML5 $location provider. Consider removing when/if
+                // HTML5 location mode is activated. https://github.com/angular/angular.js/issues/1521
+                params.dte = uriStripper.stripUri(params.dte);
+            }
+            storage.session.setItem(CALLBACK_PARAMS, angular.toJson(params));   // encode params
         }
 
         function restorePath () {
