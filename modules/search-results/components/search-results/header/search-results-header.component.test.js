@@ -27,7 +27,7 @@ describe('The dp-search-results-header component', function () {
         spyOn(searchTitle, 'getTitleData').and.callThrough();
     });
 
-    function getComponent (numberOfResults, query, location, category) {
+    function getComponent (numberOfResults, query, location, category, searchResults) {
         var component,
             element,
             scope;
@@ -47,8 +47,13 @@ describe('The dp-search-results-header component', function () {
             element.setAttribute('category', category);
         }
 
+        if (searchResults) {
+            element.setAttribute('search-results', 'searchResults');
+        }
+
         scope = $rootScope.$new();
         scope.numberOfResults = numberOfResults;
+        scope.searchResults = searchResults;
         scope.location = location;
 
         component = $compile(element)(scope);
@@ -58,9 +63,10 @@ describe('The dp-search-results-header component', function () {
     }
 
     it('calls the getTitleData function of the searchTitle service with the same parameters', function () {
-        getComponent(45, 'westerpark', [52.123, 4.789], 'Adressen');
+        getComponent(45, 'westerpark', [52.123, 4.789], 'Adressen', [{slug: 'category'}]);
 
-        expect(searchTitle.getTitleData).toHaveBeenCalledWith(45, 'westerpark', [52.123, 4.789], 'Adressen');
+        expect(searchTitle.getTitleData).toHaveBeenCalledWith(
+            45, 'westerpark', [52.123, 4.789], 'Adressen', [{slug: 'category'}]);
     });
 
     it('shows the title and sub title', function () {
