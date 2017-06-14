@@ -33,7 +33,7 @@ module.exports = {
         validator: require('../validators/map')
     },
     'MAP_DATA-SELECTION': {
-        url: '#?mpv=52.3731081:4.8932945&mpb=topografie&mpz=11&dsv=LIST&dsd=hr&dsp=1',
+        url: '#?mpv=52.3731081:4.8932945&mpb=topografie&mpz=11&dsv=LIST&dsd=bag&dsp=1',
         validator: require('../validators/map_data-selection')
     },
     'MAP_DETAIL--NUMMERAANDUIDING': {

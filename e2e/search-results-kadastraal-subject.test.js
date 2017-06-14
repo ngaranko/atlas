@@ -6,8 +6,8 @@ describe('Zoekresultaten kadastraal subjecten', () => {
 
             expect(page.title).toBe('Data met \'Bakker\' - Dataportaal');
 
-            expect(searchResults.categories(4).header).toBe('Kadastrale subjecten');
-            expect(searchResults.categories(4).listCount).toBe(0);
+            expect(searchResults.categories(2).header).toBe('Kadastrale subjecten');
+            expect(searchResults.categories(2).listCount).toBe(0);
         });
     });
 

@@ -48,12 +48,16 @@ describe('each URL should load the corresponding view', function () {
     });
 
     it('MAP_DATA-SELECTION', () => {
+        dp.authenticate.login('EMPLOYEE');
+
         page = dp.navigate('MAP_DATA-SELECTION');
 
         dp.validate('MAP_DATA-SELECTION', page);
 
-        expect(page.dashboard.rightColumn.dataSelection.header.tabs(0).isActive).toBe(false);
-        expect(page.dashboard.rightColumn.dataSelection.header.tabs(1).isActive).toBe(true);
+        expect(page.dashboard.rightColumn.dataSelection.header.tabs(0).isActive).toBe(true);
+        expect(page.dashboard.rightColumn.dataSelection.header.tabs(1).isActive).toBe(false);
+
+        dp.authenticate.logout();
     });
 
     it('MAP_DETAIL--NUMMERAANDUIDING', () => {
@@ -135,15 +139,9 @@ describe('each URL should load the corresponding view', function () {
         expect(searchResults.categories(1).list(0).link.label).toMatch(/Oost/);
         expect(searchResults.categories(1).list(9).link.label).toMatch(/Oost/);
 
-        expect(searchResults.categories(2).header).toMatch(/^Vestigingen \(\d+\)$/);
-        expect(searchResults.categories(2).list(0).link.label).toMatch(/Oost/);
-        expect(searchResults.categories(2).list(9).link.label).toMatch(/Oost/);
+        expect(searchResults.categories(2).header).toMatch(/Kadastrale subjecten/);
 
-        expect(searchResults.categories(3).header).toMatch(/^Maatschappelijke activiteiten \(\d+\)$/);
-
-        expect(searchResults.categories(4).header).toMatch(/Kadastrale subjecten/);
-
-        expect(searchResults.categories(5).header).toMatch(/^Gebieden \(\d+\)$/);
+        expect(searchResults.categories(3).header).toMatch(/^Gebieden \(\d+\)$/);
     });
 
     it('MAP_STRAATBEELD--DETAIL', () => {
