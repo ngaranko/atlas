@@ -7,7 +7,8 @@ describe(' The authenticator factory', function () {
         user,
         authenticator,
         absUrl,
-        mockedUser;
+        mockedUser,
+        uriStripper;
 
     const REFRESH_INTERVAL = 1000 * 60 * 5;
     const AUTH_PATH = 'auth/';
@@ -65,7 +66,8 @@ describe(' The authenticator factory', function () {
                         getItem: angular.noop,
                         removeItem: angular.noop
                     }
-                }
+                },
+                uriStripper: jasmine.createSpyObj('uriStripper', ['stripDomain'])
             }
         );
 
@@ -76,7 +78,9 @@ describe(' The authenticator factory', function () {
             _$interval_,
             _storage_,
             _user_,
-            _authenticator_) {
+            _authenticator_,
+            _uriStripper_
+            ) {
             $httpBackend = _$httpBackend_;
             $window = _$window_;
             $location = _$location_;
@@ -84,7 +88,10 @@ describe(' The authenticator factory', function () {
             storage = _storage_;
             user = _user_;
             authenticator = _authenticator_;
+            uriStripper = _uriStripper_;
         });
+
+        spyOn($location, 'search').and.returnValue({});
     });
 
     it('requests a accesstoken if a refresh token is available', function () {
@@ -139,12 +146,25 @@ describe(' The authenticator factory', function () {
 
         it('saves the current path in the session when redirecting to an external security provider', function () {
             spyOn(storage.session, 'setItem');
-            spyOn($location, 'search').and.returnValue({one: 1});
+            $location.search.and.returnValue({one: 1});
             absUrl = 'absUrl/#?arg';
             authenticator.login();
             expect($window.location.href)
                 .toBe(AUTH_PATH + LOGIN_PATH + '?callback=' + encodeURIComponent('absUrl/#'));
             expect(storage.session.setItem).toHaveBeenCalledWith('callbackParams', angular.toJson({one: 1}));
+        });
+
+        it('saves the current path in the session removing the protocol and domain', function () {
+            spyOn(storage.session, 'setItem');
+            const path = 'foo/bar';
+            const dte = 'https://api.data.amsterdam.nl' + path;
+            $location.search.and.returnValue({dte});
+            uriStripper.stripDomain.and.returnValue(path);
+
+            authenticator.login();
+
+            expect(uriStripper.stripDomain).toHaveBeenCalledWith(dte);
+            expect(storage.session.setItem).toHaveBeenCalledWith('callbackParams', angular.toJson({dte: path}));
         });
 
         it('adds # to path when missing', function () {
@@ -227,7 +247,6 @@ describe(' The authenticator factory', function () {
         spyOn(user, 'setRefreshToken');
         spyOn(user, 'setAccessToken');
         spyOn($location, 'replace');
-        spyOn($location, 'search');
         spyOn(storage.session, 'getItem').and.returnValue(angular.toJson({one: 1}));
 
         $httpBackend.whenGET(AUTH_PATH + REFRESH_TOKEN_PATH + '?a-select-server=1&aselect_credentials=2&rid=3')
@@ -246,7 +265,6 @@ describe(' The authenticator factory', function () {
 
     it('returns to the saved callback path on a refresh token error', function () {
         spyOn($location, 'replace');
-        spyOn($location, 'search');
         spyOn(storage.session, 'getItem').and.returnValue(angular.toJson({one: 1}));
 
         $httpBackend.whenGET(AUTH_PATH + REFRESH_TOKEN_PATH + '?a-select-server=1&aselect_credentials=2&rid=3')
@@ -262,7 +280,6 @@ describe(' The authenticator factory', function () {
 
     it('returns to the saved callback path on an access token error', function () {
         spyOn($location, 'replace');
-        spyOn($location, 'search');
         spyOn(storage.session, 'getItem').and.returnValue(angular.toJson({one: 1}));
 
         $httpBackend.whenGET(AUTH_PATH + REFRESH_TOKEN_PATH + '?a-select-server=1&aselect_credentials=2&rid=3')
@@ -278,7 +295,6 @@ describe(' The authenticator factory', function () {
     });
 
     it('retrieves a saved callback path when handling callback messages from external security provider', function () {
-        spyOn($location, 'search');
         spyOn(storage.session, 'getItem').and.returnValue(angular.toJson({one: 1}));
 
         $httpBackend.whenGET(AUTH_PATH + REFRESH_TOKEN_PATH + '?a-select-server=1&aselect_credentials=2&rid=3')
@@ -293,7 +309,6 @@ describe(' The authenticator factory', function () {
     });
 
     it('stays at home page when no saved callback path can be found', function () {
-        spyOn($location, 'search');
         spyOn(storage.session, 'getItem').and.returnValue(null);
 
         $httpBackend.whenGET(AUTH_PATH + REFRESH_TOKEN_PATH + '?a-select-server=1&aselect_credentials=2&rid=3')

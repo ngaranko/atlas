@@ -101,6 +101,9 @@ describe('The dataSelectionReducers factory', function () {
 
         it('sets the dataSelection query and empties filters', function () {
             const mockedState = angular.copy(DEFAULT_STATE);
+            mockedState.filters = {
+                a: 'a'
+            };
 
             payload = 'zoek';
 
@@ -110,6 +113,20 @@ describe('The dataSelectionReducers factory', function () {
                 query: 'zoek'
             }));
             expect(output.dataSelection.filters).toEqual({});
+        });
+
+        it('defaults the filters to an empty object', function () {
+            const mockedState = angular.copy(DEFAULT_STATE);
+
+            // Object as payload
+            delete payload.filters;
+            const fromObjectOutput = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
+            expect(fromObjectOutput.dataSelection.filters).toEqual({});
+
+            // String as payload
+            payload = 'zoek';
+            const fromStringOutput = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
+            expect(fromStringOutput.dataSelection.filters).toEqual({});
         });
 
         it('makes the Array of markers empty', function () {

@@ -4,7 +4,6 @@ describe('The draw tool factory', function () {
         DRAW_TOOL_CONFIG,
         drawTool,
         leafletMap,
-        $timeout,
         suppress;
 
     let layerGroup,
@@ -77,12 +76,11 @@ describe('The draw tool factory', function () {
             }
         );
 
-        angular.mock.inject(function (_$rootScope_, _L_, _DRAW_TOOL_CONFIG_, _drawTool_, _$timeout_, _suppress_) {
+        angular.mock.inject(function (_$rootScope_, _L_, _DRAW_TOOL_CONFIG_, _drawTool_, _suppress_) {
             $rootScope = _$rootScope_;
             L = _L_;
             DRAW_TOOL_CONFIG = _DRAW_TOOL_CONFIG_;
             drawTool = _drawTool_;
-            $timeout = _$timeout_;
             suppress = _suppress_;
         });
 
@@ -310,6 +308,7 @@ describe('The draw tool factory', function () {
         }
 
         beforeEach(function () {
+            spyOn(suppress, 'isBusy').and.returnValue(false);
             spyOn(onHandler, 'finish');
 
             drawTool.initialize(leafletMap, onHandler.finish);
@@ -352,6 +351,21 @@ describe('The draw tool factory', function () {
 
             expect(drawTool.shape.markers).toEqual(testMarkers.slice(0, nVertices));
             expect(drawTool.isEnabled()).toBe(false);
+        });
+
+        it('Can not build a line when suppressing', function () {
+            suppress.isBusy.and.returnValue(true);
+
+            enable();
+
+            nVertices = 2;
+            addVertices();
+
+            drawShapeHandler.enabled = () => true;
+
+            vertices[0].handler.click();
+
+            expect(drawShapeHandler.completeShape).not.toHaveBeenCalled();
         });
 
         it('Can build a polygon and notifies info on shape on finish drawing', function () {
@@ -414,6 +428,18 @@ describe('The draw tool factory', function () {
             expect(drawShapeHandler.deleteLastVertex).toHaveBeenCalled();
         });
 
+        it('Can not delete the last marker when suppressing', function () {
+            suppress.isBusy.and.returnValue(true);
+
+            enable();
+
+            addVertices();
+
+            vertices[2].handler.click();
+
+            expect(drawShapeHandler.deleteLastVertex).not.toHaveBeenCalled();
+        });
+
         it('Can delete the first marker', function () {
             nVertices = 1;
 
@@ -429,6 +455,24 @@ describe('The draw tool factory', function () {
 
             expect(drawShapeHandler.disable).toHaveBeenCalled();
             expect(drawShapeHandler.enable).toHaveBeenCalled();
+        });
+
+        it('Can not delete the first marker when suppressing', function () {
+            suppress.isBusy.and.returnValue(true);
+            nVertices = 1;
+
+            enable();
+            drawShapeHandler.enabled = () => true;
+
+            addVertices();
+
+            drawShapeHandler.disable.calls.reset();
+            drawShapeHandler.enable.calls.reset();
+
+            vertices[0].handler.click();
+
+            expect(drawShapeHandler.disable).not.toHaveBeenCalled();
+            expect(drawShapeHandler.enable).not.toHaveBeenCalled();
         });
 
         it ('Auto closes a polygon', function () {
@@ -455,6 +499,16 @@ describe('The draw tool factory', function () {
 
             expect(editShapeHandler.save).toHaveBeenCalled();
             expect(editShapeHandler.disable).toHaveBeenCalled();
+        });
+
+        it('can not edit a polygon by clicking the drawn polygon when suppressing', function () {
+            suppress.isBusy.and.returnValue(true);
+
+            createPolygon();
+
+            shapeClickHandler.click();
+
+            expect(editShapeHandler.enable).not.toHaveBeenCalled();
         });
 
         it('can edit a polygon by enabling the draw tool', function () {
@@ -534,7 +588,7 @@ describe('The draw tool factory', function () {
         });
 
         it('click on map when suppressing is busy it should do nothing', function () {
-            spyOn(suppress, 'isBusy').and.returnValue(true);
+            suppress.isBusy.and.returnValue(true);
             spyOn(drawTool, 'disable');
 
             fireEvent('click');
@@ -550,7 +604,6 @@ describe('The draw tool factory', function () {
             expect(drawTool.isEnabled()).toBe(false);
             expect(drawTool.shape.markers.length).toBe(3);
 
-            $timeout.flush();
             fireEvent('click');
 
             expect(drawTool.isEnabled()).toBe(false);
@@ -564,6 +617,21 @@ describe('The draw tool factory', function () {
                 distance: 0,
                 distanceTxt: '0,0 m'
             });
+        });
+
+        it('click on map while finished drawing polygon does not delete polygon while suppressing', function () {
+            suppress.isBusy.and.returnValue(true);
+
+            createPolygon();
+
+            drawShapeHandler._markers = []; // edit mode, no markers in draw mode
+
+            expect(drawTool.isEnabled()).toBe(false);
+            expect(drawTool.shape.markers.length).toBe(3);
+
+            fireEvent('click');
+
+            expect(drawTool.shape.markers.length).toBe(3);
         });
 
         it('click on map when no polygon exists and not in EDIT/DRAW mode does not call onFinish method', function () {
@@ -580,7 +648,6 @@ describe('The draw tool factory', function () {
 
             expect(drawTool.isEnabled()).toBe(true);
 
-            $timeout.flush();
             fireEvent('click');
 
             expect(drawTool.isEnabled()).toBe(false);
@@ -594,6 +661,21 @@ describe('The draw tool factory', function () {
                 distance: 1200,
                 distanceTxt: '1,20 km'
             });
+        });
+
+        it('click on map while editing polygon does not end edit mode while suppressing', function () {
+            suppress.isBusy.and.returnValue(true);
+
+            createPolygon();
+
+            drawTool.enable();
+            fireEvent('draw:editstart');
+
+            expect(drawTool.isEnabled()).toBe(true);
+
+            fireEvent('click');
+
+            expect(drawTool.isEnabled()).toBe(true);
         });
     });
 
