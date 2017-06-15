@@ -2,7 +2,8 @@ describe('The video component', () => {
     let $compile,
         $rootScope,
         $window,
-        scope;
+        scope,
+        originalPolyfill;
 
     beforeEach(() => {
         angular.mock.module('dpShared');
@@ -12,6 +13,18 @@ describe('The video component', () => {
             $rootScope = _$rootScope_;
             $window = _$window_;
         });
+
+        // always set the state so no polyfill is provided.
+        // This is achieved by deleting the window function and
+        // restoring it after each tests.
+        if ($window.objectFitPolyfill) {
+            originalPolyfill = $window.objectFitPolyfill;
+            delete $window.objectFitPolyfill;
+        }
+    });
+
+    afterEach(() => {
+        $window.objectFitPolyfill = originalPolyfill;
     });
 
     function getComponent () {
@@ -39,27 +52,13 @@ describe('The video component', () => {
         const sourceElement = component.find('source')[0];
         expect(videoElement.getAttribute('width')).toBe('1');
         expect(videoElement.getAttribute('height')).toBe('2');
+        expect(videoElement.getAttribute('poster')).toBe('foo/bar.jpg');
         expect(sourceElement.getAttribute('ng-src')).toBe('foo/bar.mp4');
     });
 
-    it('sets a poster image on safari', () => {
-        const component = getComponent();
-        const videoElement = component.find('video')[0];
-        expect(videoElement.getAttribute('poster')).toBe('foo/bar.jpg');
-    });
-
-    it('does not set a post image on other browsers', () => {
-        $window.navigator = { vendor: 'other' };
-        const component = getComponent();
-
-        const videoElement = component.find('video')[0];
-        expect(videoElement.getAttribute('poster')).not.toBe('foo/bar.jpg');
-    });
-
     it('plays the video', () => {
-        const component = getComponent();
-
-        const videoElement = component.find('video')[0];
+        const component = getComponent(),
+            videoElement = component.find('video')[0];
 
         scope.playVideo = true;
         scope.$digest();
@@ -68,9 +67,8 @@ describe('The video component', () => {
     });
 
     it('stops and resets the video', () => {
-        const component = getComponent();
-
-        const videoElement = component.find('video')[0];
+        const component = getComponent(),
+            videoElement = component.find('video')[0];
 
         scope.playVideo = true;
         scope.$digest();
@@ -80,5 +78,11 @@ describe('The video component', () => {
 
         expect(videoElement.pause).toHaveBeenCalled();
         expect(videoElement.currentTime).toBe(0);
+    });
+
+    it('calls the polyfill window function if provided', () => {
+        $window.objectFitPolyfill = jasmine.createSpy('objectFitPolyfill');
+        getComponent();
+        expect($window.objectFitPolyfill).toHaveBeenCalled();
     });
 });

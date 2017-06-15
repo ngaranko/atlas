@@ -47,6 +47,7 @@
             isEnabled,
             enable,
             disable,
+            reset,
             setPolygon,
             shape: shapeInfo
         };
@@ -216,7 +217,7 @@
             Object.keys(L.Draw.Event).forEach(eventName => {
                 drawTool.map.on(L.Draw.Event[eventName], function (e) {
                     if (eventName === 'DELETED') { // IE HACK
-                        suppress.start();
+                        suppress.start(300);
                     }
 
                     handleDrawEvent(eventName, e);
@@ -263,6 +264,9 @@
 
         // Click on the shape toggles EDIT mode
         function toggleEditModeOnShapeClick (e) {
+            if (suppress.isBusy()) {
+                return;
+            }
             L.DomEvent.stop(e);
             toggle();
         }
@@ -305,6 +309,11 @@
                 }
                 setDrawingMode(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
             }
+        }
+
+        // resets by removing all current markers
+        function reset () {
+            currentShape.markers = [];
         }
 
         // Shape method for shape.info
@@ -401,7 +410,13 @@
         function bindLastDrawnMarker () {
             const lastMarker = getLastDrawnMarker();
             const isFirstMarker = drawTool.drawShapeHandler._markers.length === 1;
-            ['mousedown', 'click'].forEach(key => lastMarker.on(key, () => {
+
+            suppress.start(300);
+            ['mousedown', 'click'].forEach(key => lastMarker.on(key, (e) => {
+                if (suppress.isBusy()) {
+                    return;
+                }
+
                 if (drawTool.drawShapeHandler.enabled() && isFirstMarker) {
                     const isLineOrPolygon = currentShape.markers.length > 1;
                     disable();  // Includes auto close for any line or polygon

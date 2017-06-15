@@ -17,11 +17,12 @@ describe('The suppress factory', function () {
 
     it('after start suppressing it should be busy, after the timeout ends it should not be busy anymore', function () {
         suppress.start();
-
         expect(suppress.isBusy()).toEqual(true);
 
-        $timeout.flush();
+        $timeout.flush(99);
+        expect(suppress.isBusy()).toEqual(true);
 
+        $timeout.flush(1);
         expect(suppress.isBusy()).toEqual(false);
     });
 });

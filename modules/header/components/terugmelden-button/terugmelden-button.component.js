@@ -24,7 +24,7 @@
         vm.className = vm.className || 'o-btn o-btn--link';
 
         recipient = 'terugmelding.basisinformatie@amsterdam.nl';
-        subject = 'Terugmelding atlas.amsterdam.nl';
+        subject = 'Terugmelding data.amsterdam.nl';
         body = 'Terugmeldingen voor de pagina: ' + $location.absUrl() + '\n\n' +
             'Beschrijf zo volledig mogelijk van welk onjuist gegeven je een melding wilt maken:\n' +
             '- Welk gegeven is kennelijk onjuist of ontbreekt?\n' +

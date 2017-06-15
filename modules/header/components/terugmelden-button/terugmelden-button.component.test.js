@@ -42,7 +42,7 @@ describe('The dp-terugmelden-button component', function () {
         var component = getComponent();
 
         expect(component.find('a').attr('href'))
-            .toBe('mailto:terugmelding.basisinformatie@amsterdam.nl?subject=Terugmelding%20atlas.amsterdam.nl&body=Te' +
+            .toBe('mailto:terugmelding.basisinformatie@amsterdam.nl?subject=Terugmelding%20data.amsterdam.nl&body=Te' +
                 'rugmeldingen%20voor%20de%20pagina%3A%20http%3A%2F%2Fwww.example.com%2Fpath%2Ffilename.html%3Ffoo%3Db' +
                 'ar%23baz%0A%0ABeschrijf%20zo%20volledig%20mogelijk%20van%20welk%20onjuist%20gegeven%20je%20een%20mel' +
                 'ding%20wilt%20maken%3A%0A-%20Welk%20gegeven%20is%20kennelijk%20onjuist%20of%20ontbreekt%3F%0A-%20Wee' +

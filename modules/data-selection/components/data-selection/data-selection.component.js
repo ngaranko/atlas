@@ -19,7 +19,8 @@
         'DATA_SELECTION_CONFIG',
         'TabHeader',
         'store',
-        'ACTIONS'
+        'ACTIONS',
+        'user'
     ];
 
     function DpDataSelectionController (
@@ -29,7 +30,8 @@
         DATA_SELECTION_CONFIG,
         TabHeader,
         store,
-        ACTIONS) {
+        ACTIONS,
+        user) {
         const vm = this;
 
         vm.showCatalogusIntroduction = vm.state.view === 'CARDS' &&
@@ -62,9 +64,11 @@
         }
 
         function fetchData () {
-            const isListView = vm.state.view === 'LIST';
+            const config = DATA_SELECTION_CONFIG.datasets[vm.state.dataset];
 
+            const isListView = vm.state.view === 'LIST';
             vm.view = vm.state.view;
+
             const isQueryView = angular.isDefined(vm.state.query) && vm.state.query.trim().length >= 1;
             vm.showTabHeader = () => vm.view === 'CARDS' && isQueryView;
             vm.currentPage = vm.state.page;
@@ -73,6 +77,18 @@
             vm.numberOfPages = null;
 
             vm.showContent = false;
+            vm.disabled = false;
+
+            if (config.AUTH_LEVEL && !user.meetsRequiredLevel(config.AUTH_LEVEL)) {
+                vm.disabled = true;
+                vm.availableFilters = [];
+                store.dispatch({
+                    type: ACTIONS.SHOW_DATA_SELECTION,
+                    payload: []
+                });
+                return;
+            }
+
             vm.isLoading = true;
 
             dataSelectionApi.query(vm.state.dataset,

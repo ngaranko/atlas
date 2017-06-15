@@ -1,6 +1,7 @@
 describe('The anchorLink component', function () {
     let $compile,
         $rootScope,
+        $timeout,
         anchor;
 
     beforeEach(function () {
@@ -12,9 +13,10 @@ describe('The anchorLink component', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _$timeout_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
+            $timeout = _$timeout_;
         });
     });
 
@@ -48,12 +50,14 @@ describe('The anchorLink component', function () {
     it('can scroll to the specified link (bookmark)', function () {
         const component = getComponent('a link');
         component.find('.qa-anchor-link').click();
+        $timeout.flush();
         expect(anchor).toBe('a link');
     });
 
     it('can auto scroll to the specified link (bookmark)', function () {
         getComponent('a link', '', true);
         $rootScope.$apply();
+        $timeout.flush();
         expect(anchor).toBe('a link');
     });
 });

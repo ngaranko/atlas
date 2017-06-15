@@ -43,7 +43,7 @@ $link-offset: 3px;
   &::after,
   &::before {
     display: inline-block;
-    position: static;
+    position: relative;
     margin-right: $link-offset;
     // Move the arrow icon left of the link text by the width of the icon plus
     // the space needed between the icon and the link
@@ -76,7 +76,7 @@ $link-offset: 3px;
 
   &::before {
     display: inline-block;
-    position: static;
+    position: relative;
     width: $icon-size;
     height: $icon-size;
     margin-right: $link-offset;

@@ -45,7 +45,7 @@ describe('The search title factory', function () {
     it('can show the number of search results when searching with a query', function () {
         var titleData = searchTitle.getTitleData(45, 'westerpark', null, null);
 
-        expect(titleData.title).toBe('Data (45)');
+        expect(titleData.title).toBe('Resultaten (45)');
         expect(titleData.subTitle).toContain('\'westerpark\'');
     });
 
@@ -66,22 +66,31 @@ describe('The search title factory', function () {
     it('can show the number of search results when searching by location', function () {
         var titleData = searchTitle.getTitleData(46, null, [52.123, 4.789], null);
 
-        expect(titleData.title).toBe('Data (46)');
+        expect(titleData.title).toBe('Resultaten (46)');
         expect(titleData.subTitle).toContain('X, Y (52.123, 4.789)');
     });
 
     it('can show category and query', function () {
-        var titleData = searchTitle.getTitleData(47, 'westerpark', null, 'adres');
+        var titleData = searchTitle.getTitleData(47, 'westerpark', null, 'adres', [{slug: 'adres', count: 13}]);
 
-        expect(titleData.title).toBe('Adressen met \'westerpark\'');
-        expect(titleData.subTitle).toBeUndefined();
+        expect(titleData.title).toBe('Adressen (13)');
+        expect(titleData.subTitle).toBe('met \'westerpark\'');
     });
 
     it('can show category and location', function () {
-        var titleData = searchTitle.getTitleData(47, null, [52.123, 4.789], 'monument');
+        var titleData = searchTitle.getTitleData(
+            47, null, [52.123, 4.789], 'monument', [{slug: 'monument', count: 14}]);
 
-        expect(titleData.title).toBe('Monumenten met locatie X, Y (52.123, 4.789)');
-        expect(titleData.subTitle).toBeUndefined();
+        expect(titleData.title).toBe('Monumenten (14)');
+        expect(titleData.subTitle).toBe('met locatie X, Y (52.123, 4.789)');
+    });
+
+    it('does not show a count when no search results are specified', () => {
+        var titleData = searchTitle.getTitleData(
+            47, null, [52.123, 4.789], 'monument');
+
+        expect(titleData.title).toBe('Monumenten');
+        expect(titleData.subTitle).toBe('met locatie X, Y (52.123, 4.789)');
     });
 
     it('shows a message when no results have been found', function () {

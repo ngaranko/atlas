@@ -10,7 +10,10 @@
     </div>
 
     <div class="qa-title">
-        <h1 ng-if="vm.state.view === 'TABLE'">{{vm.datasetTitle}} ({{vm.numberOfRecords | number}})</h1>
+        <h1 ng-if="vm.state.view === 'TABLE'">
+            {{vm.datasetTitle}}
+            <span ng-if="vm.numberOfRecords !== null">({{vm.numberOfRecords | number}})</span>
+        </h1>
         <h1 ng-if="vm.state.view === 'CARDS'">Datasets ({{vm.numberOfRecords | number}})</h1>
         <h1 ng-if="vm.state.view === 'LIST'">Resultaten</h1>
     </div>
@@ -26,7 +29,7 @@
 
             <span ng-if="tab.isActive" class="o-tabs__tab o-tabs__tab--active">
                 {{tab.title}}
-                <span ng-if="tab.isActive">({{vm.numberOfRecords | number}})</span>
+                <span ng-if="tab.isActive && vm.numberOfRecords !== null">({{vm.numberOfRecords | number}})</span>
             </span>
         </li>
     </ul>
