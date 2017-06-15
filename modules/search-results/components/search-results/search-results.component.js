@@ -65,6 +65,8 @@
 
         vm.showTabHeader = () => !angular.isArray(vm.location) && !vm.category;
 
+        vm.meetsRequiredLevel = user.meetsRequiredLevel;
+
         vm.tabHeader = new TabHeader('data-datasets');
         vm.tabHeader.activeTab = vm.tabHeader.getTab('data');
 

@@ -353,6 +353,11 @@ describe('The dp-search-results component', function () {
     }
 
     describe('search by query', function () {
+        it('should have access to UserService for autorization', function () {
+            var comp = getComponent(12, 'Weesperstraat');
+            expect(typeof comp.isolateScope().vm.meetsRequiredLevel).toBe('function');
+        });
+
         it('shows search results', function () {
             const component = getComponent(12, 'Weesperstraat');
 

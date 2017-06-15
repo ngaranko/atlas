@@ -381,7 +381,8 @@
                     description: 'Een Vestiging is gebouw of een complex van gebouwen waar duurzame uitoefening ' +
                         'van activiteiten van een Onderneming of Rechtspersoon plaatsvindt.',
                     url: 'https://www.amsterdam.nl/stelselpedia/hr-index/catalogus/vestiging/',
-                    meta: []
+                    meta: [],
+                    authLevel: 'EMPLOYEE'
                 },
                 WOONPLAATS: {
                     label_singular: 'Woonplaats',
