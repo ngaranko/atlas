@@ -29,6 +29,9 @@
                              dataSelectionReducers,
                              printReducers) {
         return function (oldState, action) {
+            // TODO: Redux: replace
+            // Warning: angular.merge is deprecated, use lodash merge.
+            // -- https://docs.angularjs.org/api/ng/function/angular.merge
             var actions = angular.merge(
                 urlReducers,
                 detailReducers,
@@ -47,6 +50,7 @@
                 angular.isFunction(actions[action.type.id])) {
                 return actions[action.type.id](oldState, action.payload);
             } else {
+                // TODO: Redux: throw error
                 return oldState;
             }
         };
