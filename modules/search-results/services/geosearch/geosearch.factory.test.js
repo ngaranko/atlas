@@ -19,7 +19,8 @@ describe('The geosearch factory', function () {
         mockedNummeraanduidingApiResults,
         mockedFormattedNummeraanduidingenApiResults,
         mockedVestigingenApiResults,
-        mockedFormattedVestigingenApiResults;
+        mockedFormattedVestigingenApiResults,
+        user;
 
     const FAIL_ON_URI = 'FAIL_ON_URI';
 
@@ -83,6 +84,9 @@ describe('The geosearch factory', function () {
                             return mockedFormattedVestigingenApiResults;
                         }
                     }
+                },
+                user: {
+                    meetsRequiredLevel: () => true
                 }
             },
             function ($provide) {
@@ -92,13 +96,15 @@ describe('The geosearch factory', function () {
             }
         );
 
-        angular.mock.inject(function (_$q_, _$rootScope_, _geosearch_, _api_, _geosearchFormatter_, _searchFormatter_) {
+        angular.mock.inject(function (_$q_, _$rootScope_, _geosearch_, _api_, _geosearchFormatter_, _searchFormatter_,
+                                      _user_) {
             $q = _$q_;
             $rootScope = _$rootScope_;
             geosearch = _geosearch_;
             api = _api_;
             geosearchFormatter = _geosearchFormatter_;
             searchFormatter = _searchFormatter_;
+            user = _user_;
         });
 
         mockedEmptySearchResults = {
@@ -502,6 +508,37 @@ describe('The geosearch factory', function () {
                 .toHaveBeenCalledWith('handelsregister/vestiging/?pand=0456789');
 
             expect(searchFormatter.formatCategory).toHaveBeenCalledWith('vestiging', mockedVestigingenApiResults);
+            expect(searchResults).toEqual(expectedSearchResults);
+        });
+
+        it('loads just related verblijfsobjecten if unauthorized', function () {
+            var searchResults,
+                expectedSearchResults;
+
+            user.meetsRequiredLevel = () => false;
+
+            // Insert a pand into the mocked result set
+            mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedPandSearchResult);
+            mockedFormattedSearchResults.splice(1, 0, mockedFormattedPandSearchResult);
+
+            expectedSearchResults = angular.copy(mockedFormattedSearchResults);
+            // expectedSearchResults.splice(2, 0, mockedFormattedVestigingenApiResults);
+            expectedSearchResults.splice(2, 0, mockedFormattedNummeraanduidingenApiResults);
+
+            geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
+                searchResults = _searchResults_;
+            });
+
+            $rootScope.$apply();
+
+            expectedSearchResults[2].useIndenting = true;
+            expectedSearchResults[2].more = {
+                label: 'Bekijk alle 2 adressen binnen dit pand',
+                endpoint: 'https://api.data.amsterdam.nl/bag/pand/0456789/'
+            };
+
+            expect(api.getByUri)
+                .not.toHaveBeenCalledWith('handelsregister/vestiging/?pand=0456789');
             expect(searchResults).toEqual(expectedSearchResults);
         });
 
