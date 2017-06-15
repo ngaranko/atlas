@@ -5,7 +5,7 @@ exports.config = {
     capabilities: {
         browserName: 'phantomjs',
         shardTestFiles: true,
-        maxInstances: 1,
+        maxInstances: 4,
         'phantomjs.binary.path': './node_modules/phantomjs-prebuilt/bin/phantomjs'
     },
     seleniumServerJar: 'node_modules/protractor/node_modules/webdriver-manager/selenium/selenium-server-standalone-3.4.0.jar',
