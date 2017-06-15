@@ -233,6 +233,13 @@
             newState.dataSelection.view = 'LIST';
             newState.dataSelection.markers = [];
 
+            // No markers, the data selection goes back to its default state of
+            // showing all data => make sure it will not trigger a url state
+            // change
+            if (payload.markers.length === 0) {
+                newState.dataSelection.reset = true;
+            }
+
             return newState;
         }
     }

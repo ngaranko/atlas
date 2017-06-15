@@ -16,6 +16,7 @@
 
         reducers[ACTIONS.FETCH_DATA_SELECTION.id] = fetchDataSelectionReducer;
         reducers[ACTIONS.SHOW_DATA_SELECTION.id] = showDataSelectionReducer;
+        reducers[ACTIONS.RESET_DATA_SELECTION.id] = resetDataSelectionReducer;
         reducers[ACTIONS.NAVIGATE_DATA_SELECTION.id] = navigateDataSelectionReducer;
         reducers[ACTIONS.SET_DATA_SELECTION_VIEW.id] = setDataSelectionViewReducer;
 
@@ -97,6 +98,36 @@
                 if (newState.dataSelection.isFullscreen) {
                     newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
                 }
+            }
+
+            newState.map.isLoading = false;
+
+            return newState;
+        }
+
+        /**
+         * Does the same as `showDataSelectionReducer`, but will not trigger a
+         * url state change.
+         *
+         * @param {Object} oldState
+         * @param {Array} payload - Markers for the leaflet.markercluster plugin
+         *
+         * @returns {Object} newState
+         */
+        function resetDataSelectionReducer (oldState, payload) {
+            const newState = angular.copy(oldState);
+
+            if (newState.dataSelection) {
+                newState.dataSelection.markers = payload;
+                newState.dataSelection.isLoading = false;
+
+                newState.dataSelection.isFullscreen = newState.dataSelection.view !== 'LIST';
+
+                if (newState.dataSelection.isFullscreen) {
+                    newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
+                }
+
+                newState.dataSelection.reset = false;
             }
 
             newState.map.isLoading = false;

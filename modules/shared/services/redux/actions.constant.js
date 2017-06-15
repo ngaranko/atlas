@@ -139,6 +139,10 @@
                 id: 'FETCH_DATA_SELECTION',
                 ignore: true
             },
+            RESET_DATA_SELECTION: {
+                id: 'RESET_DATA_SELECTION',
+                ignore: true
+            },
             SHOW_DATA_SELECTION: {
                 id: 'SHOW_DATA_SELECTION'
             },
