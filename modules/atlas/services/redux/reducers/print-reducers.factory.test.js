@@ -48,7 +48,7 @@ describe('The printReducers factory', function () {
 
         it('should reset drawing mode', function () {
             var output = printReducers[ACTIONS.SHOW_PRINT.id](defaultState);
-            expect(output.map.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.RESET);
+            expect(output.map.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
         });
     });
 
@@ -67,7 +67,7 @@ describe('The printReducers factory', function () {
 
         it('should reset drawing mode', function () {
             var output = printReducers[ACTIONS.SHOW_PRINT.id](defaultState);
-            expect(output.map.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.RESET);
+            expect(output.map.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
         });
     });
 });
