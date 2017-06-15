@@ -516,7 +516,7 @@ describe('The dp-map directive', function () {
             mockedMapState.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
 
             const directive = getDirective(mockedMapState, false, mockedMarkers);
-            const element = directive.find('.qa-map');
+            const element = directive.find('.qa-map-container');
 
             expect(element.attr('class')).toContain('c-map--drawing-mode-none');
         });
@@ -525,7 +525,7 @@ describe('The dp-map directive', function () {
             mockedMapState.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW;
 
             const directive = getDirective(mockedMapState, false, mockedMarkers);
-            const element = directive.find('.qa-map');
+            const element = directive.find('.qa-map-container');
 
             expect(element.attr('class')).toContain('c-map--drawing-mode-draw');
         });
@@ -534,7 +534,7 @@ describe('The dp-map directive', function () {
             mockedMapState.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.EDIT;
 
             const directive = getDirective(mockedMapState, false, mockedMarkers);
-            const element = directive.find('.qa-map');
+            const element = directive.find('.qa-map-container');
 
             expect(element.attr('class')).toContain('c-map--drawing-mode-edit');
         });
