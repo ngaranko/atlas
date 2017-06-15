@@ -139,9 +139,7 @@ describe('each URL should load the corresponding view', function () {
         expect(searchResults.categories(1).list(0).link.label).toMatch(/Oost/);
         expect(searchResults.categories(1).list(9).link.label).toMatch(/Oost/);
 
-        expect(searchResults.categories(2).header).toMatch(/Kadastrale subjecten/);
-
-        expect(searchResults.categories(3).header).toMatch(/^Gebieden \(\d+\)$/);
+        expect(searchResults.categories(2).header).toMatch(/^Gebieden \(\d+\)$/);
     });
 
     it('MAP_STRAATBEELD--DETAIL', () => {
