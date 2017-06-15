@@ -18,6 +18,9 @@
 - npm run clean
 
 ## E2E testing
+Installation:
+- ./node_modules/webdriver-manager/bin/webdriver-manager update
+
 In order to run the E2E tests, the following environment variables should be set:
 - `PASSWORD_EMPLOYEE`
 - `PASSWORD_EMPLOYEE_PLUS`
