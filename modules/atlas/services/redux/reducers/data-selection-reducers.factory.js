@@ -47,7 +47,9 @@
 
             const mergeInto = angular.isString(payload) ? {
                 query: payload,
-                page: 1
+                page: 1,
+                view: 'CARDS',
+                dataset: 'catalogus'
             } : payload;
             mergeInto.filters = mergeInto.filters || {};
 
