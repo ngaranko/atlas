@@ -6,6 +6,7 @@ module.exports = {
     count: require('./count'),
     hasClass: require('./has-class'),
     require: require('./require'),
+    search: require('./search'),
     storage: require('./storage'),
     validate: require('./validate'),
     visible: require('./visible')

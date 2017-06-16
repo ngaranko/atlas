@@ -1,47 +1,42 @@
-//describe('Zoekresultaten kadastraal subjecten', () => {
-//    describe('niet ingelogd', () => {
-//        it('er mogen geen kadastraal subjecten zichtbaar zijn', () => {
-//            const page = dp.navigate('SEARCH-RESULTS--KADASTRAAL-SUBJECT'),
-//                searchResults = page.dashboard.rightColumn.searchResults;
-//
-//            expect(page.title).toBe('Data met \'Bakker\' - Dataportaal');
-//
-//            expect(searchResults.categories(2).header).toBe('Kadastrale subjecten');
-//            expect(searchResults.categories(2).listCount).toBe(0);
-//        });
-//    });
-//
-//    describe('ingelogd', () => {
-//        afterEach(() => {
-//            dp.authenticate.logout();
-//        });
-//
-//        describe('als employee', () => {
-//            it('er mogen sommige kadastraal subjecten zichtbaar zijn', () => {
-//                dp.authenticate.login('EMPLOYEE');
-//
-//                const page = dp.navigate('SEARCH-RESULTS--KADASTRAAL-SUBJECT'),
-//                    searchResults = page.dashboard.rightColumn.searchResults;
-//
-//                expect(page.title).toBe('Data met \'Bakker\' - Dataportaal');
-//
-//                expect(searchResults.categories(4).header).toMatch(/Kadastrale subjecten \([0-9\.]{1,3}\)/);
-//                expect(searchResults.categories(4).listCount).not.toBe(0);
-//            });
-//        });
-//
-//        describe('als employee plus', () => {
-//            it('alle kadastraal subjecten moeten zichtbaar zijn', () => {
-//                dp.authenticate.login('EMPLOYEE_PLUS');
-//
-//                const page = dp.navigate('SEARCH-RESULTS--KADASTRAAL-SUBJECT'),
-//                    searchResults = page.dashboard.rightColumn.searchResults;
-//
-//                expect(page.title).toBe('Data met \'Bakker\' - Dataportaal');
-//
-//                expect(searchResults.categories(4).header).toMatch(/Kadastrale subjecten \([0-9\.]{5,}\)/);
-//                expect(searchResults.categories(4).listCount).not.toBe(0);
-//            });
-//        });
-//    });
-//});
+describe('Zoekresultaten kadastraal subjecten', () => {
+    let page, searchResults;
+
+    beforeEach(() => {
+        page = dp.navigate('PAGE--HOME');
+        searchResults = page.dashboard.rightColumn.searchResults;
+    });
+
+    describe('niet ingelogd', () => {
+        it('er mogen geen kadastraal subjecten zichtbaar zijn', () => {
+            dp.search('Bakker');
+
+            expect(page.title).toBe('Data met \'Bakker\' - Dataportaal');
+
+            expect(searchResults.categories(0).header).toContain('Openbare ruimtes');
+            expect(searchResults.categories(1).header).toContain('Adressen');
+        });
+    });
+
+    describe('ingelogd', () => {
+        afterEach(() => {
+            dp.authenticate.logout();
+        });
+
+        ['EMPLOYEE', 'EMPLOYEE_PLUS'].forEach(role => {
+            describe('als ' + role, () => {
+                it('er mogen sommige kadastraal subjecten zichtbaar zijn', () => {
+                    dp.authenticate.login(role);
+
+                    dp.search('Bakker');
+
+                    expect(page.title).toBe('Data met \'Bakker\' - Dataportaal');
+
+                    expect(searchResults.categories(3).header).toContain('Maatschappelijke activiteiten');
+
+                    expect(searchResults.categories(4).header).toContain('Kadastrale subjecten');
+                    expect(searchResults.categories(4).listCount).not.toBe(0);
+                });
+            });
+        });
+    });
+});
