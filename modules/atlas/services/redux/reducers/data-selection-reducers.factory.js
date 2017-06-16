@@ -45,7 +45,10 @@
             newState.detail = null;
             newState.straatbeeld = null;
 
-            const mergeInto = angular.isString(payload) ? {query: payload} : payload;
+            const mergeInto = angular.isString(payload) ? {
+                query: payload,
+                page: 1
+            } : payload;
             mergeInto.filters = mergeInto.filters || {};
 
             newState.dataSelection = Object.keys(mergeInto).reduce((result, key) => {
