@@ -11,7 +11,7 @@
                 iconAnchor: [15, 51]
             },
             detail: {
-                iconUrl: 'assets/icons/icon-detail.svg',
+                iconUrl: 'assets/images/map/detail.svg',
                 iconSize: [21, 21],
                 iconAnchor: [10, 10]
             },
