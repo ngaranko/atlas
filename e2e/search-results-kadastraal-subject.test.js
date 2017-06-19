@@ -1,5 +1,6 @@
 describe('Zoekresultaten kadastraal subjecten', () => {
-    let page, searchResults;
+    let page,
+        searchResults;
 
     beforeEach(() => {
         page = dp.navigate('PAGE--HOME');
