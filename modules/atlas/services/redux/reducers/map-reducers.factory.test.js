@@ -312,6 +312,7 @@ describe('The map reducers', function () {
             expect(output.dataSelection.isLoading).toBe(true);
             expect(output.dataSelection.view).toBe('LIST');
             expect(output.dataSelection.markers).toEqual([]);
+            expect(output.dataSelection.reset).toBe(true);
         });
 
         it('Should not reset dataSelection state with markers on the map and draw mode is edit', function () {
@@ -323,6 +324,7 @@ describe('The map reducers', function () {
             output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, DRAW_TOOL_CONFIG.DRAWING_MODE.EDIT);
             expect(output.dataSelection.geometryFilter).toEqual({ markers: [1] });
             expect(output.dataSelection.page).toBeUndefined();
+            expect(output.dataSelection.reset).toBeFalsy();
         });
 
         it('Should not reset dataSelection state with no markers on the map and draw mode is not edit', function () {
@@ -333,6 +335,7 @@ describe('The map reducers', function () {
 
             output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW);
             expect(output.dataSelection.page).toBeUndefined();
+            expect(output.dataSelection.reset).toBeFalsy();
         });
     });
 
@@ -365,6 +368,7 @@ describe('The map reducers', function () {
                 markers: ['noot', 'mies', 'teun']
             });
             expect(output.page.name).toBeNull();
+            expect(output.dataSelection.reset).toBeFalsy();
         });
 
         it('Leaves the dataSelection state untouched on an argument polygon with <= 1 markers', function () {
