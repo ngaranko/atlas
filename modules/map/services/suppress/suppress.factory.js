@@ -5,18 +5,18 @@
         .module('dpMap')
         .factory('suppress', suppressFactory);
 
-    suppressFactory.$inject = ['$timeout'];
+    suppressFactory.$inject = ['$interval'];
 
-    function suppressFactory ($timeout) {
+    function suppressFactory ($interval) {
         let suppressing = false;
 
         return {
             isBusy: () => suppressing,
             start: (period = 100) => {
                 suppressing = true;
-                $timeout(() => {
+                $interval(() => {
                     suppressing = false;
-                }, period);
+                }, period, 1);
             }
         };
     }

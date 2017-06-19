@@ -5,9 +5,9 @@
         .module('dpHeader')
         .directive('dpSearch', dpSearchDirective);
 
-    dpSearchDirective.$inject = ['$timeout', 'autocompleteData', 'sharedConfig', 'store', 'ACTIONS'];
+    dpSearchDirective.$inject = ['$interval', 'autocompleteData', 'sharedConfig', 'store', 'ACTIONS'];
 
-    function dpSearchDirective ($timeout, autocompleteData, sharedConfig, store, ACTIONS) {
+    function dpSearchDirective ($interval, autocompleteData, sharedConfig, store, ACTIONS) {
         return {
             restrict: 'E',
             scope: {
@@ -136,7 +136,7 @@
                      * by removeSuggestionFromScope.
                      */
 
-                    $timeout(removeSuggestionFromScope, 200);
+                    $interval(removeSuggestionFromScope, 200, 1);
                 } else {
                     removeSuggestionFromScope();
                 }
