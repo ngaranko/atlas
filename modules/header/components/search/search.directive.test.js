@@ -1,7 +1,7 @@
 describe('The dp-search directive', function () {
     var $compile,
         $rootScope,
-        $timeout,
+        $interval,
         $q,
         store,
         ACTIONS,
@@ -56,10 +56,10 @@ describe('The dp-search directive', function () {
         );
 
         angular.mock.inject(
-            function (_$compile_, _$rootScope_, _$timeout_, _$q_, _store_, _ACTIONS_, _autocompleteData_) {
+            function (_$compile_, _$rootScope_, _$interval_, _$q_, _store_, _ACTIONS_, _autocompleteData_) {
                 $compile = _$compile_;
                 $rootScope = _$rootScope_;
-                $timeout = _$timeout_;
+                $interval = _$interval_;
                 $q = _$q_;
                 store = _store_;
                 ACTIONS = _ACTIONS_;
@@ -310,7 +310,7 @@ describe('The dp-search directive', function () {
                 // Click a suggestion
                 directive.find('.c-autocomplete button').eq(0).click();
                 directive.find('.js-search-input').trigger('blur');
-                $timeout.flush();
+                $interval.flush(9999999);
 
                 expect(directive.find('.c-autocomplete').length).toBe(0);
             });
@@ -530,7 +530,7 @@ describe('The dp-search directive', function () {
 
             // Lose focus
             directive.find('.js-search-input').trigger('blur');
-            $timeout.flush();
+            $interval.flush(9999999);
 
             expect(directive.find('.c-autocomplete').length).toBe(0);
         });

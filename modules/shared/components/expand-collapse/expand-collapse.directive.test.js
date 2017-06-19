@@ -1,15 +1,15 @@
 describe('`dpExpandCollapse` directive', () => {
     let $compile;
     let $rootScope;
-    let $timeout;
+    let $interval;
     let content = 'Lorem ipsum dolor sit amet.\n';
 
     beforeEach(module('dpShared'));
 
-    beforeEach(angular.mock.inject((_$compile_, _$rootScope_, _$timeout_) => {
+    beforeEach(angular.mock.inject((_$compile_, _$rootScope_, _$interval_) => {
         $compile = _$compile_;
         $rootScope = _$rootScope_;
-        $timeout = _$timeout_;
+        $interval = _$interval_;
     }));
 
     it('Should collapse and expand too lengthy content', () => {
@@ -26,8 +26,8 @@ describe('`dpExpandCollapse` directive', () => {
 
         angular.element(document).find('body').append(collapsedElement);
 
-        $timeout.flush();
-        $timeout.verifyNoPendingTasks();
+        $interval.flush(9999999);
+        //$interval.verifyNoPendingTasks();
 
         const button = angular.element(document).find('body').find('button');
 
@@ -48,8 +48,8 @@ describe('`dpExpandCollapse` directive', () => {
 
         angular.element(document).find('body').append(untouchedElement);
 
-        $timeout.flush();
-        $timeout.verifyNoPendingTasks();
+        $interval.flush(9999999);
+        //$timeout.verifyNoPendingTasks();
 
         expect(untouchedElement.scope().collapsed).toBeUndefined();
     });

@@ -1,15 +1,15 @@
 describe('The dp-loading-indicator', function () {
     var $compile,
         $rootScope,
-        $timeout;
+        $interval;
 
     beforeEach(function () {
         angular.mock.module('dpShared');
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _$timeout_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _$interval_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
-            $timeout = _$timeout_;
+            $interval = _$interval_;
         });
     });
 
@@ -40,7 +40,7 @@ describe('The dp-loading-indicator', function () {
 
         isLoading = true;
         component = getComponent(isLoading, false, true);
-        $timeout.flush(0);
+        $interval.flush(0);
 
         expect(component.find('.c-loading-indicator').length).toBe(1);
         expect(component.find('.c-loading-indicator img').attr('src')).toBe('assets/images/spinner.svg');
@@ -57,11 +57,11 @@ describe('The dp-loading-indicator', function () {
         component = getComponent(isLoading, true, true);
 
         // Not enough time has passed
-        $timeout.flush(399);
+        $interval.flush(399);
         expect(component.find('.c-loading-indicator').length).toBe(0);
 
         // Enough time has passed
-        $timeout.flush(1);
+        $interval.flush(1);
         expect(component.find('.c-loading-indicator').length).toBe(1);
     });
 
@@ -73,7 +73,7 @@ describe('The dp-loading-indicator', function () {
         scope = component.isolateScope();
 
         // Not enough time has passed
-        $timeout.flush(200);
+        $interval.flush(200);
         expect(component.find('.c-loading-indicator').length).toBe(0);
 
         // The loading finishes
@@ -81,7 +81,7 @@ describe('The dp-loading-indicator', function () {
         $rootScope.$apply();
 
         // More time passes, but the loading indicator will never be shown
-        $timeout.flush(5000);
+        $interval.flush(5000);
         expect(component.find('.c-loading-indicator').length).toBe(0);
     });
 
@@ -95,14 +95,14 @@ describe('The dp-loading-indicator', function () {
 
         it('as a box in the top left corner', function () {
             component = getComponent(isLoading, false, true);
-            $timeout.flush(0);
+            $interval.flush(0);
 
             expect(component.find('.c-loading-indicator').attr('class')).not.toContain('c-loading-indicator--box');
         });
 
         it('inline', function () {
             component = getComponent(isLoading, false, false);
-            $timeout.flush(0);
+            $interval.flush(0);
 
             expect(component.find('.c-loading-indicator').attr('class')).toContain('c-loading-indicator--box');
         });

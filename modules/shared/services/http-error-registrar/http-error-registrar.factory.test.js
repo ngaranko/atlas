@@ -7,7 +7,7 @@ describe('The http error registrar', function () {
     let $httpBackend,
         $http,
         $rootScope,
-        $timeout,
+        $interval,
         mockedData,
         onError,
         callbackCalled;
@@ -28,11 +28,11 @@ describe('The http error registrar', function () {
             $provide.value('$window', window);
         });
 
-        angular.mock.inject(function (_$httpBackend_, _$http_, _$rootScope_, _$timeout_) {
+        angular.mock.inject(function (_$httpBackend_, _$http_, _$rootScope_, _$interval_) {
             $httpBackend = _$httpBackend_;
             $http = _$http_;
             $rootScope = _$rootScope_;
-            $timeout = _$timeout_;
+            $interval = _$interval_;
         });
 
         mockedData = {
@@ -73,7 +73,7 @@ describe('The http error registrar', function () {
             });
 
         $httpBackend.flush();
-        $timeout.flush();
+        $interval.flush();
 
         expect(httpStatus.registerError).not.toHaveBeenCalled();
         expect(callbackCalled).toBe(true);
@@ -89,7 +89,7 @@ describe('The http error registrar', function () {
             });
 
         $httpBackend.flush();
-        $timeout.flush();
+        $interval.flush(9999999);
 
         expect(httpStatus.registerError).not.toHaveBeenCalled();
         expect(callbackCalled).toBe(true);
@@ -105,7 +105,7 @@ describe('The http error registrar', function () {
             });
 
         $httpBackend.flush();
-        $timeout.flush();
+        $interval.flush(9999999);
 
         expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
         expect(callbackCalled).toBe(true);
@@ -129,7 +129,7 @@ describe('The http error registrar', function () {
             });
 
         $httpBackend.flush();
-        $timeout.flush();
+        $interval.flush(9999999);
 
         expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.NOT_FOUND_ERROR);
         expect(callbackCalled).toBe(true);
@@ -151,7 +151,7 @@ describe('The http error registrar', function () {
             });
 
         $httpBackend.flush();
-        $timeout.flush();
+        $interval.flush(9999999);
 
         expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
         expect(callbackCalled).toBe(true);
@@ -167,7 +167,7 @@ describe('The http error registrar', function () {
             });
 
         $httpBackend.flush();
-        $timeout.flush();
+        $interval.flush(9999999);
 
         expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
         expect(callbackCalled).toBe(true);
@@ -200,7 +200,7 @@ describe('The http error registrar', function () {
         });
 
         $httpBackend.flush();
-        $timeout.flush();
+        $interval.flush(9999999);
 
         expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
         expect(callbackCalled).toBe(true);
@@ -224,7 +224,7 @@ describe('The http error registrar', function () {
             });
 
         $httpBackend.flush();
-        $timeout.flush();
+        $interval.flush(9999999);
 
         expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
         expect(callbackCalled).toBe(true);
@@ -244,7 +244,7 @@ describe('The http error registrar', function () {
             });
 
         $httpBackend.flush();
-        $timeout.flush();
+        $interval.flush(9999999);
 
         expect(httpStatus.registerError).not.toHaveBeenCalled();
         expect(callbackCalled).toBe(true);
@@ -270,7 +270,7 @@ describe('The http error registrar', function () {
         expect(httpStatus.registerError).not.toHaveBeenCalled();
         expect(callbackCalled).toBe(true);
 
-        $timeout.flush();
+        $interval.flush(9999999);
 
         expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
     });
@@ -291,7 +291,7 @@ describe('The http error registrar', function () {
             });
 
         $httpBackend.flush();
-        $timeout.flush();
+        $interval.flush(9999999);
 
         expect(httpStatus.registerError).not.toHaveBeenCalled();
         expect(callbackCalled).toBe(true);
