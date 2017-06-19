@@ -178,80 +178,136 @@ describe('The dataSelectionReducers factory', function () {
         });
     });
 
-    ['SHOW_DATA_SELECTION', 'RESET_DATA_SELECTION'].forEach((action) => {
-        describe(action, function () {
-            let mockedState,
-                payload,
-                output;
+    describe('SHOW_DATA_SELECTION', function () {
+        let mockedState,
+            payload,
+            output;
 
-            beforeEach(function () {
-                mockedState = {
-                    dataSelection: {
-                        dataset: 'bag',
-                        filters: {
-                            buurtcombinatie: 'Geuzenbuurt',
-                            buurt: 'Trompbuurt'
-                        },
-                        page: 1,
-                        isLoading: true
+        beforeEach(function () {
+            mockedState = {
+                dataSelection: {
+                    dataset: 'bag',
+                    filters: {
+                        buurtcombinatie: 'Geuzenbuurt',
+                        buurt: 'Trompbuurt'
                     },
-                    map: {
-                        isLoading: true
-                    }
-                };
+                    page: 1,
+                    isLoading: true
+                },
+                map: {
+                    isLoading: true
+                }
+            };
 
-                payload = ['MOCKED', 'MARKER', 'ARRAY'];
-            });
+            payload = ['MOCKED', 'MARKER', 'ARRAY'];
+        });
 
-            it('adds markers to the state', function () {
-                output = dataSelectionReducers[ACTIONS[action].id](mockedState, payload);
+        it('adds markers to the state', function () {
+            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
 
-                expect(output.dataSelection.markers).toEqual(['MOCKED', 'MARKER', 'ARRAY']);
-            });
+            expect(output.dataSelection.markers).toEqual(['MOCKED', 'MARKER', 'ARRAY']);
+        });
 
-            it('sets isLoading to false', function () {
-                output = dataSelectionReducers[ACTIONS[action].id](mockedState, payload);
+        it('sets isLoading to false', function () {
+            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
 
-                expect(output.dataSelection.isLoading).toEqual(false);
-            });
+            expect(output.dataSelection.isLoading).toEqual(false);
+        });
 
-            it('sets map isLoading to false', function () {
-                output = dataSelectionReducers[ACTIONS[action].id](mockedState, payload);
+        it('sets map isLoading to false', function () {
+            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
 
-                expect(output.map.isLoading).toEqual(false);
-            });
+            expect(output.map.isLoading).toEqual(false);
+        });
 
-            it('does nothing if the user has navigated away from dataSelection before the API is finished', () => {
-                mockedState.dataSelection = null;
-                output = dataSelectionReducers[ACTIONS[action].id](mockedState, payload);
+        it('does nothing if the user has navigated away from dataSelection before the API is finished', () => {
+            mockedState.dataSelection = null;
+            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
 
-                expect(output.dataSelection).toBeNull();
-            });
+            expect(output.dataSelection).toBeNull();
+        });
 
-            it('should reset drawing mode when full screen', function () {
-                mockedState.dataSelection.view = 'TABLE';
-                output = dataSelectionReducers[ACTIONS[action].id](mockedState, payload);
+        it('should reset drawing mode when full screen', function () {
+            mockedState.dataSelection.view = 'TABLE';
+            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
 
-                expect(output.map.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
-            });
+            expect(output.map.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
+        });
 
-            it('should reset drawing mode when not full screen', function () {
-                mockedState.dataSelection.view = 'LIST';
-                output = dataSelectionReducers[ACTIONS[action].id](mockedState, payload);
+        it('should reset drawing mode when not full screen', function () {
+            mockedState.dataSelection.view = 'LIST';
+            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
 
-                expect(output.map.drawingMode).toBeUndefined();
-            });
+            expect(output.map.drawingMode).toBeUndefined();
         });
     });
 
-    describe('RESET_DATA_SELECTION reset flag', function () {
-        it('is being set to false', function () {
-            const output = dataSelectionReducers[ACTIONS.RESET_DATA_SELECTION.id]({
+    describe('RESET_DATA_SELECTION', function () {
+        let mockedState,
+            payload,
+            output;
+
+        beforeEach(function () {
+            mockedState = {
                 dataSelection: {
-                    reset: true
+                    dataset: 'bag',
+                    filters: {
+                        buurtcombinatie: 'Geuzenbuurt',
+                        buurt: 'Trompbuurt'
+                    },
+                    page: 1,
+                    isLoading: true
                 },
-                map: {}
-            });
+                map: {
+                    isLoading: true
+                }
+            };
+
+            payload = ['MOCKED', 'MARKER', 'ARRAY'];
+        });
+
+        it('adds markers to the state', function () {
+            output = dataSelectionReducers[ACTIONS.RESET_DATA_SELECTION.id](mockedState, payload);
+
+            expect(output.dataSelection.markers).toEqual(['MOCKED', 'MARKER', 'ARRAY']);
+        });
+
+        it('sets isLoading to false', function () {
+            output = dataSelectionReducers[ACTIONS.RESET_DATA_SELECTION.id](mockedState, payload);
+
+            expect(output.dataSelection.isLoading).toEqual(false);
+        });
+
+        it('sets map isLoading to false', function () {
+            output = dataSelectionReducers[ACTIONS.RESET_DATA_SELECTION.id](mockedState, payload);
+
+            expect(output.map.isLoading).toEqual(false);
+        });
+
+        it('does nothing if the user has navigated away from dataSelection before the API is finished', () => {
+            mockedState.dataSelection = null;
+            output = dataSelectionReducers[ACTIONS.RESET_DATA_SELECTION.id](mockedState, payload);
+
+            expect(output.dataSelection).toBeNull();
+        });
+
+        it('should reset drawing mode when full screen', function () {
+            mockedState.dataSelection.view = 'TABLE';
+            output = dataSelectionReducers[ACTIONS.RESET_DATA_SELECTION.id](mockedState, payload);
+
+            expect(output.map.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
+        });
+
+        it('should reset drawing mode when not full screen', function () {
+            mockedState.dataSelection.view = 'LIST';
+            output = dataSelectionReducers[ACTIONS.RESET_DATA_SELECTION.id](mockedState, payload);
+
+            expect(output.map.drawingMode).toBeUndefined();
+        });
+
+        it('sets the reset flag to false', function () {
+            mockedState.dataSelection.reset = true;
+            output = dataSelectionReducers[ACTIONS.RESET_DATA_SELECTION.id](mockedState, payload);
 
             expect(output.dataSelection.reset).toBe(false);
         });
