@@ -34,5 +34,5 @@ module.exports = {
             }
         });
     },
-    roles : Object.keys(roles)
+    roles: Object.keys(roles)
 };

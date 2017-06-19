@@ -2,7 +2,7 @@ describe('Kaartlagen', () => {
     let page,
         layerSelection;
 
-   describe('niet ingelogd', () => {
+    describe('niet ingelogd', () => {
         beforeEach(() => {
             page = dp.navigate('PAGE--HOME');
             layerSelection = page.dashboard.leftColumn.layerSelection;
