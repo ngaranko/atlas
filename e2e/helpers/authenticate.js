@@ -33,5 +33,6 @@ module.exports = {
                 browser.driver.findElement(by.css('.qa-menu__dropdown dp-logout-button button')).click();
             }
         });
-    }
+    },
+    roles : Object.keys(roles)
 };
