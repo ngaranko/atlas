@@ -37,6 +37,11 @@
         function getRelatedContent (parent) {
             parent.data = vm.content[parent.variable] || vm.content['_' + parent.variable] || null;
 
+            // @TODO remove the exception when backend uses correct variable name tg-3551
+            if (parent.variable === 'buurtcombinatie') {
+                parent.variable = 'wijk';
+            }
+
             return parent;
         }
 
