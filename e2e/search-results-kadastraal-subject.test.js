@@ -21,9 +21,10 @@ describe('Zoekresultaten kadastraal subjecten', () => {
     describe('ingelogd', () => {
         afterEach(() => {
             dp.authenticate.logout();
+            //console.log('search results logged out');
         });
 
-        ['EMPLOYEE', 'EMPLOYEE_PLUS'].forEach(role => {
+        dp.authenticate.roles.forEach(role => {
             describe('als ' + role, () => {
                 it('er mogen sommige kadastraal subjecten zichtbaar zijn', () => {
                     dp.authenticate.login(role);
