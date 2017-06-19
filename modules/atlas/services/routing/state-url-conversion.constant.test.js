@@ -33,7 +33,6 @@ describe('The state url conversion definition', function () {
                     overlays: [],
                     isFullscreen: false,
                     isLoading: false,
-                    resetDrawing: false,
                     showActiveOverlays: false,
                     drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE
                 }
@@ -81,20 +80,18 @@ describe('The state url conversion definition', function () {
         });
 
         describe('The post processing for map', function () {
-            it('copies the drawing mode and isLoading and resetDrawing from the previous state', function () {
+            it('copies the drawing mode and isLoading from the previous state', function () {
                 // isLoading and drawingMode
                 let oldState = {
                     isLoading: true,
-                    drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW,
-                    resetDrawing: true
+                    drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW
                 };
                 let newState = {};
 
                 STATE_URL_CONVERSION.post.map(oldState, newState);
                 expect(newState).toEqual({
                     isLoading: true,
-                    drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW,
-                    resetDrawing: true
+                    drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW
                 });
 
                 // only drawingMode
@@ -106,8 +103,7 @@ describe('The state url conversion definition', function () {
                 STATE_URL_CONVERSION.post.map(oldState, newState);
                 expect(newState).toEqual({
                     isLoading: undefined,
-                    drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
-                    resetDrawing: undefined
+                    drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE
                 });
 
                 // only isLoading
@@ -119,21 +115,7 @@ describe('The state url conversion definition', function () {
                 STATE_URL_CONVERSION.post.map(oldState, newState);
                 expect(newState).toEqual({
                     isLoading: false,
-                    drawingMode: undefined,
-                    resetDrawing: undefined
-                });
-
-                // only resetDrawing
-                oldState = {
-                    resetDrawing: true
-                };
-                newState = {};
-
-                STATE_URL_CONVERSION.post.map(oldState, newState);
-                expect(newState).toEqual({
-                    isLoading: undefined,
-                    drawingMode: undefined,
-                    resetDrawing: true
+                    drawingMode: undefined
                 });
 
                 // no map state at all

@@ -23,7 +23,14 @@
 
         /**
          * @param {Object} oldState
-         * @param {Object} payload - On object with two keys: dataset (String) and filters (Object)
+         * @param {string|Object} payload A string with the search query or
+         *                                an object with the following keys:
+         *                                - query (String): The search query
+         *                                - filters (Object): Active filters
+         *                                Except these two keys, other keys
+         *                                will be copied if they are in the
+         *                                object, but no defualt value will be
+         *                                provided.
          *
          * @returns {Object} newState
          */
@@ -38,7 +45,13 @@
             newState.detail = null;
             newState.straatbeeld = null;
 
-            const mergeInto = angular.isString(payload) ? {query: payload} : payload;
+            const mergeInto = angular.isString(payload) ? {
+                query: payload,
+                page: 1,
+                view: 'CARDS',
+                dataset: 'catalogus'
+            } : payload;
+            mergeInto.filters = mergeInto.filters || {};
 
             newState.dataSelection = Object.keys(mergeInto).reduce((result, key) => {
                 result[key] = mergeInto[key];
@@ -125,6 +138,9 @@
                     newState.dataSelection.isLoading = true;
                 }
             });
+
+            // LIST loading might include markers => set map loading accordingly
+            newState.map.isLoading = newState.dataSelection.view === 'LIST';
 
             return newState;
         }

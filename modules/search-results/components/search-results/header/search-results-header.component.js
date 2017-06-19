@@ -8,7 +8,8 @@
                 numberOfResults: '=',
                 query: '@',
                 location: '=',
-                category: '@'
+                category: '@',
+                searchResults: '='
             },
             templateUrl: 'modules/search-results/components/search-results/header/search-results-header.html',
             controllerAs: 'vm',
@@ -20,12 +21,19 @@
     function DpSearchResultsHeaderController ($scope, searchTitle) {
         var vm = this;
 
-        $scope.$watchGroup(['vm.numberOfResults', 'vm.category', 'vm.query', 'vm.location'], function () {
+        $scope.$watchGroup([
+            'vm.numberOfResults',
+            'vm.category',
+            'vm.query',
+            'vm.location',
+            'vm.searchResults'
+        ], function () {
             var titleData = searchTitle.getTitleData(
                     vm.numberOfResults,
                     vm.query,
                     vm.location,
-                    vm.category);
+                    vm.category,
+                    vm.searchResults);
 
             vm.title = titleData.title;
             vm.subTitle = titleData.subTitle;

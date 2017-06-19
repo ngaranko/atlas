@@ -3,9 +3,9 @@
         .module('dpSearchResults')
         .factory('geosearch', geosearchFactory);
 
-    geosearchFactory.$inject = ['$q', 'SEARCH_CONFIG', 'api', 'geosearchFormatter', 'searchFormatter'];
+    geosearchFactory.$inject = ['$q', 'SEARCH_CONFIG', 'api', 'geosearchFormatter', 'searchFormatter', 'user'];
 
-    function geosearchFactory ($q, SEARCH_CONFIG, api, geosearchFormatter, searchFormatter) {
+    function geosearchFactory ($q, SEARCH_CONFIG, api, geosearchFormatter, searchFormatter, user) {
         return {
             search: searchFeatures
         };
@@ -54,10 +54,15 @@
             function processPandData (pand) {
                 const vestigingenUri = `handelsregister/vestiging/?pand=${pand.pandidentificatie}`;
 
-                $q.all([
-                    api.getByUrl(pand._adressen.href).then(formatVerblijfsobjecten),
-                    api.getByUri(vestigingenUri).then(formatVestigingen)
-                ]).then(combineResults);
+                const requests = [
+                    api.getByUrl(pand._adressen.href).then(formatVerblijfsobjecten)
+                ];
+
+                if (user.meetsRequiredLevel('EMPLOYEE')) {
+                    requests.push(api.getByUri(vestigingenUri).then(formatVestigingen));
+                }
+
+                $q.all(requests).then(combineResults);
 
                 function formatVerblijfsobjecten (objecten) {
                     // In verblijfsobjecten the status field is really a vbo_status field
@@ -80,13 +85,13 @@
                     const formatted = (vestigingen && vestigingen.count)
                             ? searchFormatter.formatCategory('vestiging', vestigingen) : null,
                         extended = formatted ? angular.extend(formatted, {
+                            authLevel: 'EMPLOYEE',
                             useIndenting: true,
                             more: {
                                 label: `Bekijk alle ${formatted.count} vestigingen binnen dit pand`,
                                 endpoint: pand._links.self.href
                             }
                         }) : null;
-
                     return extended;
                 }
 

@@ -48,12 +48,16 @@ describe('each URL should load the corresponding view', function () {
     });
 
     it('MAP_DATA-SELECTION', () => {
+        dp.authenticate.login('EMPLOYEE');
+
         page = dp.navigate('MAP_DATA-SELECTION');
 
         dp.validate('MAP_DATA-SELECTION', page);
 
-        expect(page.dashboard.rightColumn.dataSelection.header.tabs(0).isActive).toBe(false);
-        expect(page.dashboard.rightColumn.dataSelection.header.tabs(1).isActive).toBe(true);
+        expect(page.dashboard.rightColumn.dataSelection.header.tabs(0).isActive).toBe(true);
+        expect(page.dashboard.rightColumn.dataSelection.header.tabs(1).isActive).toBe(false);
+
+        dp.authenticate.logout();
     });
 
     it('MAP_DETAIL--NUMMERAANDUIDING', () => {
@@ -96,7 +100,7 @@ describe('each URL should load the corresponding view', function () {
         dp.validate('MAP_SEARCH-RESULTS--LOCATION', page);
 
         expect(page.title)
-            .toBe('Data (7) met locatie 121356\.94, 487341\.61 \(52\.3729183, 4\.8931775\) - Dataportaal');
+            .toBe('Resultaten (7) met locatie 121356\.94, 487341\.61 \(52\.3729183, 4\.8931775\) - Dataportaal');
 
         expect(searchResults.categories(0).header).toBe('Openbare ruimte');
         expect(searchResults.categories(0).list(0).link.label).toBe('Dam');
@@ -135,15 +139,7 @@ describe('each URL should load the corresponding view', function () {
         expect(searchResults.categories(1).list(0).link.label).toMatch(/Oost/);
         expect(searchResults.categories(1).list(9).link.label).toMatch(/Oost/);
 
-        expect(searchResults.categories(2).header).toMatch(/^Vestigingen \(\d+\)$/);
-        expect(searchResults.categories(2).list(0).link.label).toMatch(/Oost/);
-        expect(searchResults.categories(2).list(9).link.label).toMatch(/Oost/);
-
-        expect(searchResults.categories(3).header).toMatch(/^Maatschappelijke activiteiten \(\d+\)$/);
-
-        expect(searchResults.categories(4).header).toMatch(/Kadastrale subjecten/);
-
-        expect(searchResults.categories(5).header).toMatch(/^Gebieden \(\d+\)$/);
+        expect(searchResults.categories(2).header).toMatch(/^Gebieden \(\d+\)$/);
     });
 
     it('MAP_STRAATBEELD--DETAIL', () => {

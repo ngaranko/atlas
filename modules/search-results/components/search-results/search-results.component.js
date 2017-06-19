@@ -65,6 +65,8 @@
 
         vm.showTabHeader = () => !angular.isArray(vm.location) && !vm.category;
 
+        vm.meetsRequiredLevel = user.meetsRequiredLevel;
+
         vm.tabHeader = new TabHeader('data-datasets');
         vm.tabHeader.activeTab = vm.tabHeader.getTab('data');
 
@@ -128,6 +130,9 @@
                 payload: numberOfResults
             });
 
+            // @TODO remove the exception when backend uses correct sub type name tg-3551
+            searchResults = replaceBuurtcombinatie(searchResults);
+
             vm.searchResults = searchResults;
 
             vm.hasLoadMore = function () {
@@ -135,6 +140,21 @@
                     vm.searchResults[0].count > vm.searchResults[0].results.length &&
                     !vm.isLoadMoreLoading;
             };
+        }
+
+        // @TODO remove the exception when backend uses correct sub type name tg-3551
+        function replaceBuurtcombinatie (searchResults) {
+            const results = angular.copy(searchResults);
+
+            results.forEach((result) => {
+                result.results.forEach((item) => {
+                    if (item.subtype === 'buurtcombinatie') {
+                        item.subtypeLabel = 'wijk';
+                    }
+                });
+            });
+
+            return results;
         }
     }
 })();

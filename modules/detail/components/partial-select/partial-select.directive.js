@@ -26,6 +26,9 @@
             partialCompiler.getHtml(templateUrl, scope).then(function (partial) {
                 scope.loadMore = scope.loadMoreFn;
 
+                scope.isEmployee = user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL.EMPLOYEE);
+                scope.showMoreInfoWarning = !scope.isEmployee;
+
                 element.append(partial);
             });
         }

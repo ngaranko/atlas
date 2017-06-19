@@ -287,27 +287,27 @@ describe('The dp-search-results component', function () {
                 results: [
                     {
                         label: 'Haveneiland Noordoost',
-                        subtype: null,
+                        subtype: 'buurt',
                         endpoint: 'https://api.data.amsterdam.nl/gebieden/buurt/03630023754004/'
                     },
                     {
                         label: 'IJburg West',
-                        subtype: null,
+                        subtype: 'buurtcombinatie',
                         endpoint: 'https://api.data.amsterdam.nl/gebieden/buurtcombinatie/3630012052079/'
                     },
                     {
                         label: 'Ijburg / Eiland Zeeburg',
-                        subtype: null,
+                        subtype: 'gebiedsgerichtwerken',
                         endpoint: 'https://api.data.amsterdam.nl/gebieden/gebiedsgerichtwerken/DX16/'
                     },
                     {
                         label: 'AW33',
-                        subtype: null,
+                        subtype: 'bouwblok',
                         endpoint: 'https://api.data.amsterdam.nl/gebieden/bouwblok/03630012096424/'
                     },
                     {
                         label: 'Oost',
-                        subtype: null,
+                        subtype: 'stadsdeel',
                         endpoint: 'https://api.data.amsterdam.nl/gebieden/stadsdeel/03630011872039/'
                     }
                 ],
@@ -353,6 +353,11 @@ describe('The dp-search-results component', function () {
     }
 
     describe('search by query', function () {
+        it('should have access to UserService for autorization', function () {
+            var comp = getComponent(12, 'Weesperstraat');
+            expect(typeof comp.isolateScope().vm.meetsRequiredLevel).toBe('function');
+        });
+
         it('shows search results', function () {
             const component = getComponent(12, 'Weesperstraat');
 
