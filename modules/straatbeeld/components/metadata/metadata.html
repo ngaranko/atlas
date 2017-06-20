@@ -1,9 +1,15 @@
 <div ng-if="vm.showMetaInfo()">
-    <a ng-href="{{vm.streetviewUrl}}" target="_blank" class="c-straatbeeld-metadata__history">
-        <span>{{vm.date | date : 'dd-MM-yyyy'}}</span>
-    </a>
-    <div class="c-straatbeeld-metadata__coordinates">
-        <span>{{vm.location | coordinates: 'WGS84'}}</span>
+    <dp-straatbeeld-history
+        location="vm.location"
+        heading="vm.heading"
+        class="c-straatbeeld-metadata__history"></dp-straatbeeld-history>
+    <div class="c-straatbeeld-metadata__info">
+        <div class="c-straatbeeld-metadata__info-item">
+            <span>{{vm.date | date : 'dd-MM-yyyy'}}</span>
+        </div>
+        <div class="c-straatbeeld-metadata__info-item">
+            <span>{{vm.location | coordinates: 'WGS84'}}</span>
+        </div>
     </div>
     <div class="u-clearfix"></div>
 </div>

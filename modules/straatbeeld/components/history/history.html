@@ -1,0 +1,24 @@
+<div class="c-straatbeeld-history">
+    <div class="c-straatbeeld-history__button"
+        ng-click="toggleMenu()">
+        Current selection
+    </div>
+    <ul class="c-straatbeeld-history__menu"
+        ng-class="{'c-straatbeeld-history__menu--active': menuActive}">
+        <li class="c-straatbeeld-history__item c-straatbeeld-history__item--active">Meest recent</li>
+        <li class="c-straatbeeld-history__item"
+            ng-repeat="year in range">
+            Alleen {{year}}
+        </li>
+        <li class="c-straatbeeld-history__devider"></li>
+        <li class="c-straatbeeld-history__external">
+            <a ng-href="{{streetviewUrl}}"
+                target="_blank"
+                class="
+                    c-link
+                    c-link--arrow
+                    c-straatbeeld-history__external-link"
+                >Google Street View</a>
+        </li>
+    </ul>
+</div>

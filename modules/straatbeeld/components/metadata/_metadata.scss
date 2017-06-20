@@ -1,22 +1,20 @@
 .c-straatbeeld-metadata__history {
-  @include icon-button-text-flat-right("clock", "black", "white");
-  @include smaller-font-definition;
-
-  padding-right: $base-whitespace;
   float: left;
-  border-right: solid $secondary-gray20 1px;
+  border-right: 1px solid $secondary-gray20;
   z-index: 2;
-
-  &:hover,
-  &:active {
-    border-right: solid $secondary-gray20 1px;
-  }
 }
 
-.c-straatbeeld-metadata__coordinates {
+.c-straatbeeld-metadata__info {
+  @include font-size($xs-font);
   @include font-weight($bold-weight);
-  padding-left: $base-whitespace;
+
   float: right;
-  border-left: solid $secondary-gray20 1px;
   line-height: $button-size;
+}
+
+.c-straatbeeld-metadata__info-item {
+  margin-left: $base-whitespace;
+  padding-left: $base-whitespace;
+  float: left;
+  border-left: solid $secondary-gray20 1px;
 }
