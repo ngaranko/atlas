@@ -4,11 +4,11 @@
  *
  * @description this function receives a promise with a text value and returns a promise with a number value
  */
-module.exports = function (text) {
-    var deferred = protractor.promise.defer();
+module.exports = text => {
+    const deferred = protractor.promise.defer();
 
     if (text) {
-        text.then(function(value) {
+        text.then(value => {
             value = parseFloat(value.replace('.', '').replace(',', '.'));
 
             if (!isNaN(value)) {
