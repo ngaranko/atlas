@@ -2,7 +2,7 @@
 
 /**
  *
- * @description this function returns true when lower is lower than higher
+ * @description this function receives a promise with a text value and returns a promise with a number value
  */
 module.exports = function (text) {
     var deferred = protractor.promise.defer();
