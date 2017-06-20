@@ -5,11 +5,68 @@
 }
 
 .c-straatbeeld-history__button {
-  @include icon-button-text-flat-right("clock", "black", "white");
   @include font-size($s-font);
   @include font-weight($bold-weight);
 
+  min-width: 202px;
+  height: $button-size;
+  padding: 0 #{$button-size + 6};
+  border: 1px solid $secondary-gray20;
+  background-color: $primary-light-alpha48;
   line-height: $button-size;
+  cursor: pointer;
+
+  &::before {
+    @extend %dp-clock-black-icon;
+    @extend %icon-button-text-extra;
+
+    position: absolute;
+    top: 0;
+    left: 4px;
+  }
+
+  &::after {
+    @extend %dp-up-icon;
+    @extend %icon-button-text-extra;
+
+    position: absolute;
+    top: 0;
+    right: 4px;
+  }
+
+  &:hover {
+    border-color: $primary-contrast;
+    background-color: $primary-contrast;
+    color: $primary-light;
+
+    &::before {
+      @extend %dp-clock-white-icon;
+    }
+
+    &::after {
+      @extend %dp-up-red-icon;
+    }
+  }
+
+  &.c-straatbeeld-history__button--active {
+    border-color: $primary-contrast;
+    background-color: $primary-contrast;
+    color: $primary-light;
+
+    &::before {
+      @extend %dp-clock-white-icon;
+    }
+
+    &::after {
+      @extend %dp-down-red-icon;
+    }
+
+    &:hover {
+      &::after {
+        @extend %dp-down-red-icon;
+      }
+    }
+  }
 }
 
 .c-straatbeeld-history__menu {
@@ -18,8 +75,8 @@
   bottom: $button-size;
   padding: 12px 0 6px;
   border: 1px solid $secondary-gray20;
-  border-right: 2px solid $secondary-gray40;
   background-color: $primary-light;
+  box-shadow: 2px 0 0 0 $secondary-gray40;
 
   &.c-straatbeeld-history__menu--active {
     display: block;
@@ -30,7 +87,7 @@
   @include font-weight($bold-weight);
 
   height: 32px;
-  padding: 0 20px 0 32px;
+  padding: 0 32px;
   line-height: 32px;
   white-space: nowrap;
   cursor: pointer;
@@ -58,7 +115,7 @@
 
 .c-straatbeeld-history__external {
   height: 32px;
-  padding: 0 20px 0 32px;
+  padding: 0 20px 0 16px;
   white-space: nowrap;
 }
 
