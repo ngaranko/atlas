@@ -19,6 +19,9 @@ describe('Zoekresultaten kadastraal subjecten', () => {
     });
 
     describe('ingelogd', () => {
+        let headerCountEmployee,
+            headerCountEmployeePlus;
+
         afterEach(() => {
             dp.authenticate.logout();
         });
@@ -33,8 +36,9 @@ describe('Zoekresultaten kadastraal subjecten', () => {
 
                 expect(searchResults.categories(3).header).toContain('Maatschappelijke activiteiten');
 
+                headerCountEmployee = searchResults.categories(4).headerCount;
+
                 expect(searchResults.categories(4).header).toContain('Kadastrale subjecten');
-                expect(searchResults.categories(4).headerCount).toBe('26');
                 expect(searchResults.categories(4).listCount).not.toBe(0);
             });
         });
@@ -49,8 +53,12 @@ describe('Zoekresultaten kadastraal subjecten', () => {
 
                 expect(searchResults.categories(3).header).toContain('Maatschappelijke activiteiten');
 
-                expect(searchResults.categories(4).header).toContain('Kadastrale subjecten (1.347)');
+                expect(searchResults.categories(4).header).toContain('Kadastrale subjecten');
                 expect(searchResults.categories(4).listCount).not.toBe(0);
+
+                headerCountEmployeePlus = searchResults.categories(4).headerCount;
+
+                expect(dp.isLargerThan(headerCountEmployee, headerCountEmployeePlus)).toEqual(true);
             });
         });
     });
