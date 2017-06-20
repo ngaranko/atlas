@@ -1,4 +1,4 @@
-describe('The dp-straatbeeld-metadata component', function () {
+describe('The dp-straatbeeld-status-bar component', function () {
     var $compile,
         $rootScope,
         $window;
@@ -27,7 +27,7 @@ describe('The dp-straatbeeld-metadata component', function () {
             element,
             scope;
 
-        element = document.createElement('dp-straatbeeld-metadata');
+        element = document.createElement('dp-straatbeeld-status-bar');
         element.setAttribute('date', 'date');
         element.setAttribute('location', 'location');
         element.setAttribute('heading', 'heading');
@@ -71,14 +71,14 @@ describe('The dp-straatbeeld-metadata component', function () {
         var component;
 
         component = getComponent(new Date(), [52.123, 4.789]);
-        expect(component.find('.c-straatbeeld-metadata__history').length).toBeGreaterThan(0);
+        expect(component.find('.c-straatbeeld-status-bar__history').length).toBeGreaterThan(0);
     });
 
     it('Google streetview link has an ng-href and is filled properly', function () {
         var component;
 
         component = getComponent(new Date(), [52.123, 4.789], 12, 12);
-        expect(component.find('.c-straatbeeld-metadata__history')
+        expect(component.find('.c-straatbeeld-status-bar__history')
             .attr('ng-href'))
             .toEqual('http://maps.google.com/maps?q=&layer=c&cbll=52.123,4.789&cbp=11,12,0,0,0');
     });

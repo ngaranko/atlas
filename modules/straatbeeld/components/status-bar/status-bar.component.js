@@ -3,20 +3,20 @@
 
     angular
         .module('dpStraatbeeld')
-        .component('dpStraatbeeldMetadata', {
+        .component('dpStraatbeeldStatusBar', {
             bindings: {
                 date: '<',
                 location: '<',
                 heading: '<'
             },
-            templateUrl: 'modules/straatbeeld/components/metadata/metadata.html',
-            controller: DpStraatbeeldMetadataController,
+            templateUrl: 'modules/straatbeeld/components/status-bar/status-bar.html',
+            controller: DpStraatbeeldStatusBarController,
             controllerAs: 'vm'
         });
 
-    DpStraatbeeldMetadataController.$inject = ['$scope'];
+    DpStraatbeeldStatusBarController.$inject = ['$scope'];
 
-    function DpStraatbeeldMetadataController ($scope) {
+    function DpStraatbeeldStatusBarController ($scope) {
         const vm = this;
 
         vm.showMetaInfo = () => angular.isDate(vm.date) && angular.isArray(vm.location);

@@ -3,12 +3,12 @@
 @import "components/hotspot/hotspot";
 @import "components/straatbeeld/straatbeeld";
 @import "components/history/history";
-@import "components/metadata/metadata";
+@import "components/status-bar/status-bar";
 @import "components/toggle-straatbeeld-fullscreen/toggle-straatbeeld-fullscreen";
 
 
 .is-print-mode {
   @import "components/straatbeeld/straatbeeld-print";
-  @import "components/metadata/metadata-print";
+  @import "components/status-bar/status-bar-print";
   @import "components/toggle-straatbeeld-fullscreen/toggle-straatbeeld-fullscreen-print";
 }
