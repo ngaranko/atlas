@@ -189,6 +189,15 @@ describe('The http error registrar', function () {
         expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
     });
 
+    it('does not register error if piwik is not loaded', function () {
+        onError({
+            target: {
+                src: 'https://piwik.data.amsterdam.nl/piwik.js'
+            }
+        });
+        expect(httpStatus.registerError).not.toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
+    });
+
     it('registers http server error -1 for non-cancellable responses, leaves content untouched', function () {
         $http({
             method: 'GET',
