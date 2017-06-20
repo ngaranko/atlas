@@ -116,7 +116,7 @@ describe('each URL should load the corresponding view', function () {
         expect(searchResults.categories(2).list(2).link.label).toBe('Centrum-West');
         expect(searchResults.categories(2).list(2).subtype).toBe('(gebiedsgericht werken)');
         expect(searchResults.categories(2).list(3).link.label).toBe('Burgwallen-Oude Zijde');
-        expect(searchResults.categories(2).list(3).subtype).toBe('(buurtcombinatie)');
+        expect(searchResults.categories(2).list(3).subtype).toBe('(wijk)');
         expect(searchResults.categories(2).list(4).link.label).toBe('Oude Kerk e.o.');
         expect(searchResults.categories(2).list(4).subtype).toBe('(buurt)');
     });

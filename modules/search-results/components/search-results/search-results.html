@@ -28,7 +28,7 @@
                         <div ng-if="!category.authLevel || vm.meetsRequiredLevel(category.authLevel)">
 
                             <h2 class="o-header__subtitle qa-search-header">
-                                <span ng-if="category.count > 1">{{category.label_plural}} ({{category.count | number}})</span>
+                                <span ng-if="category.count > 1">{{category.label_plural}} (<span class="qa-search-header-count">{{category.count | number}}</span>)</span>
                                 <span ng-if="category.count === 1">{{category.label_singular}}</span>
                                 <span ng-if="category.count === 0">{{category.label_plural}}</span>
                             </h2>

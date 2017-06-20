@@ -28,6 +28,9 @@ function categoryPageObject (categoryElement) {
         get header () {
             return categoryElement.element(by.css('.qa-search-header')).getText();
         },
+        get headerCount () {
+            return categoryElement.element(by.css('.qa-search-header-count')).getText();
+        },
         get list () {
             return searchResultsList(categoryElement.element(by.css('dp-search-results-list')));
         },
