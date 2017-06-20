@@ -13,7 +13,7 @@
         <dp-glossary-header definition="VESTIGING" use-plural="true"></dp-glossary-header>
 
         <dp-panel is-panel-visible="showMoreInfoWarning" type="warning">
-            Om vestigingen te kunnen bekijken, moet je als medewerker/ketenpartner van Gemeente Amsterdam inloggen. Zie Help > Bediening dataportaal > Inloggen.
+            Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om vestigingen te bekijken. Zie Help > Bediening > Inloggen.
         </dp-panel>
 
         <dp-api-call ng-if="isEmployee" endpoint="handelsregister/vestiging/?nummeraanduiding={{ apiData.results.hoofdadres.landelijk_id }}" add-api-root="true" partial="lijst"></dp-api-call>
