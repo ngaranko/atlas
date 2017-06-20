@@ -39,6 +39,7 @@ describe('Zoekresultaten kadastraal subjecten', () => {
                 headerCountEmployee = searchResults.categories(4).headerCount;
 
                 expect(searchResults.categories(4).header).toContain('Kadastrale subjecten');
+                expect(searchResults.categories(4).headerCount).not.toBe('0');
                 expect(searchResults.categories(4).listCount).not.toBe(0);
             });
         });
@@ -54,6 +55,7 @@ describe('Zoekresultaten kadastraal subjecten', () => {
                 expect(searchResults.categories(3).header).toContain('Maatschappelijke activiteiten');
 
                 expect(searchResults.categories(4).header).toContain('Kadastrale subjecten');
+                expect(searchResults.categories(4).headerCount).not.toBe('0');
                 expect(searchResults.categories(4).listCount).not.toBe(0);
 
                 headerCountEmployeePlus = searchResults.categories(4).headerCount;
