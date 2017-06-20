@@ -710,7 +710,7 @@ describe('The dp-search-results component', function () {
 
             expect(categoryNode.find('.qa-category-warning').text()).toContain(
                 'Medewerkers met speciale bevoegdheden' +
-                '  kunnen alle gegevens vinden (ook natuurlijke personen). Zie Help > Bediening > Inloggen.'
+                ' kunnen alle gegevens vinden (ook natuurlijke personen). Zie Help > Bediening > Inloggen.'
             );
         });
 
