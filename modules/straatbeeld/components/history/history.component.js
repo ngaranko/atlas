@@ -22,11 +22,25 @@
             const total = currentYear - firstYear + 1;
             const everywhere = angular.element(window.document);
 
-            scope.range = Array(total)
+            scope.options = Array(total)
                 .fill(0)
-                .map((value, index) => currentYear - index);
+                .map((value, index) => {
+                    const year = currentYear - index;
+                    return {
+                        year: year,
+                        label: 'Alleen ' + year
+                    };
+                });
+
+            scope.selectedOption = {
+                year: 0,
+                label: 'Meest recent'
+            };
+
+            scope.options.unshift(scope.selectedOption);
 
             scope.toggleMenu = () => scope.menuActive = !scope.menuActive;
+            scope.setSelectedOption = (option) => scope.selectedOption = option;
 
             scope.$watch('location', updateLocation, true);
 

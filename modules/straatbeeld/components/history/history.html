@@ -2,14 +2,15 @@
     <div class="c-straatbeeld-history__button"
         ng-class="{'c-straatbeeld-history__button--active': menuActive}"
         ng-click="toggleMenu()">
-        Current selection
+        {{selectedOption.label}}
     </div>
     <ul class="c-straatbeeld-history__menu"
         ng-class="{'c-straatbeeld-history__menu--active': menuActive}">
-        <li class="c-straatbeeld-history__item c-straatbeeld-history__item--active">Meest recent</li>
         <li class="c-straatbeeld-history__item"
-            ng-repeat="year in range">
-            Alleen {{year}}
+            ng-class="{'c-straatbeeld-history__item--active': selectedOption === option}"
+            ng-click="setSelectedOption(option)"
+            ng-repeat="option in options">
+            {{option.label}}
         </li>
         <li class="c-straatbeeld-history__devider"></li>
         <li class="c-straatbeeld-history__external">
