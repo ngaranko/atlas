@@ -1,8 +1,3 @@
-@mixin smaller-font-definition {
-  @include font-size($xs-font);
-  line-height: $button-size;
-}
-
 .c-straatbeeld {
   position: absolute;
   top: 0;
@@ -22,15 +17,17 @@
 }
 
 .c-straatbeeld__status-bar {
-  @include smaller-font-definition;
+  @include font-size($xs-font);
+
   position: absolute;
   right: 0;
   bottom: 0;
   left: 0;
   height: $button-size;
   padding-right: $base-whitespace / 2;
-  background-color: $primary-light-alpha66;
+  background-color: $primary-light-alpha67;
   color: $primary-dark;
+  line-height: $button-size;
   z-index: 2;
 }
 
