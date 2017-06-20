@@ -2,24 +2,20 @@
 
 /**
  *
- * @description this function receives a promise with a text value and returns a promise with a number value
+ * @description this function receives a with a text value and returns a number value
  */
 module.exports = text => {
-    const deferred = protractor.promise.defer();
-
     if (text) {
-        text.then(value => {
+        return text.then(value => {
             value = parseFloat(value.replace('.', '').replace(',', '.'));
 
             if (!isNaN(value)) {
-                deferred.fulfill(value);
+                return value;
             } else {
-                deferred.reject();
+                return null;
             }
         });
     } else {
-        deferred.reject();
+        return null;
     }
-
-    return deferred.promise;
 };
