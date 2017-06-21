@@ -1,4 +1,5 @@
 describe('The anchorLink component', function () {
+    const FLUSH_PERIOD = 150;
     let $compile,
         $rootScope,
         $interval,
@@ -50,14 +51,14 @@ describe('The anchorLink component', function () {
     it('can scroll to the specified link (bookmark)', function () {
         const component = getComponent('a link');
         component.find('.qa-anchor-link').click();
-        $interval.flush(9999999);
+        $interval.flush(FLUSH_PERIOD);
         expect(anchor).toBe('a link');
     });
 
     it('can auto scroll to the specified link (bookmark)', function () {
         getComponent('a link', '', true);
         $rootScope.$apply();
-        $interval.flush(9999999);
+        $interval.flush(FLUSH_PERIOD);
         expect(anchor).toBe('a link');
     });
 });

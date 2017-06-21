@@ -8,7 +8,8 @@ describe('The dp-search directive', function () {
         autocompleteData,
         fakeAutocompleteData,
         finishApiCall,
-        promises = [];
+        promises = [],
+        FLUSH_PERIOD = 200;
 
     beforeEach(function () {
         angular.mock.module(
@@ -310,7 +311,7 @@ describe('The dp-search directive', function () {
                 // Click a suggestion
                 directive.find('.c-autocomplete button').eq(0).click();
                 directive.find('.js-search-input').trigger('blur');
-                $interval.flush(9999999);
+                $interval.flush(FLUSH_PERIOD);
 
                 expect(directive.find('.c-autocomplete').length).toBe(0);
             });
@@ -530,7 +531,7 @@ describe('The dp-search directive', function () {
 
             // Lose focus
             directive.find('.js-search-input').trigger('blur');
-            $interval.flush(9999999);
+            $interval.flush(FLUSH_PERIOD);
 
             expect(directive.find('.c-autocomplete').length).toBe(0);
         });

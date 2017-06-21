@@ -1,9 +1,10 @@
 describe('The http error registrar', function () {
-    const httpStatus = {
-        SERVER_ERROR: 'SERVER_ERROR',
-        NOT_FOUND_ERROR: 'NOT_FOUND_ERROR',
-        registerError: angular.noop
-    };
+    const FLUSH_PERIOD = 1,
+        httpStatus = {
+            SERVER_ERROR: 'SERVER_ERROR',
+            NOT_FOUND_ERROR: 'NOT_FOUND_ERROR',
+            registerError: angular.noop
+        };
     let $httpBackend,
         $http,
         $rootScope,
@@ -89,7 +90,7 @@ describe('The http error registrar', function () {
             });
 
         $httpBackend.flush();
-        $interval.flush(9999999);
+        $interval.flush(FLUSH_PERIOD);
 
         expect(httpStatus.registerError).not.toHaveBeenCalled();
         expect(callbackCalled).toBe(true);
@@ -105,7 +106,7 @@ describe('The http error registrar', function () {
             });
 
         $httpBackend.flush();
-        $interval.flush(9999999);
+        $interval.flush(FLUSH_PERIOD);
 
         expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
         expect(callbackCalled).toBe(true);
@@ -129,7 +130,7 @@ describe('The http error registrar', function () {
             });
 
         $httpBackend.flush();
-        $interval.flush(9999999);
+        $interval.flush(FLUSH_PERIOD);
 
         expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.NOT_FOUND_ERROR);
         expect(callbackCalled).toBe(true);
@@ -151,7 +152,7 @@ describe('The http error registrar', function () {
             });
 
         $httpBackend.flush();
-        $interval.flush(9999999);
+        $interval.flush(FLUSH_PERIOD);
 
         expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
         expect(callbackCalled).toBe(true);
@@ -167,7 +168,7 @@ describe('The http error registrar', function () {
             });
 
         $httpBackend.flush();
-        $interval.flush(9999999);
+        $interval.flush(FLUSH_PERIOD);
 
         expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
         expect(callbackCalled).toBe(true);
@@ -200,7 +201,7 @@ describe('The http error registrar', function () {
         });
 
         $httpBackend.flush();
-        $interval.flush(9999999);
+        $interval.flush(FLUSH_PERIOD);
 
         expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
         expect(callbackCalled).toBe(true);
@@ -224,7 +225,7 @@ describe('The http error registrar', function () {
             });
 
         $httpBackend.flush();
-        $interval.flush(9999999);
+        $interval.flush(FLUSH_PERIOD);
 
         expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
         expect(callbackCalled).toBe(true);
@@ -244,7 +245,7 @@ describe('The http error registrar', function () {
             });
 
         $httpBackend.flush();
-        $interval.flush(9999999);
+        $interval.flush(FLUSH_PERIOD);
 
         expect(httpStatus.registerError).not.toHaveBeenCalled();
         expect(callbackCalled).toBe(true);
@@ -270,7 +271,7 @@ describe('The http error registrar', function () {
         expect(httpStatus.registerError).not.toHaveBeenCalled();
         expect(callbackCalled).toBe(true);
 
-        $interval.flush(9999999);
+        $interval.flush(FLUSH_PERIOD);
 
         expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
     });
@@ -291,7 +292,7 @@ describe('The http error registrar', function () {
             });
 
         $httpBackend.flush();
-        $interval.flush(9999999);
+        $interval.flush(FLUSH_PERIOD);
 
         expect(httpStatus.registerError).not.toHaveBeenCalled();
         expect(callbackCalled).toBe(true);

@@ -1,4 +1,5 @@
 describe('`dpExpandCollapse` directive', () => {
+    const FLUSH_PERIOD = 1;
     let $compile;
     let $rootScope;
     let $interval;
@@ -26,7 +27,7 @@ describe('`dpExpandCollapse` directive', () => {
 
         angular.element(document).find('body').append(collapsedElement);
 
-        $interval.flush(9999999);
+        $interval.flush(FLUSH_PERIOD);
         // $timeout.verifyNoPendingTasks();
 
         const button = angular.element(document).find('body').find('button');
@@ -48,7 +49,7 @@ describe('`dpExpandCollapse` directive', () => {
 
         angular.element(document).find('body').append(untouchedElement);
 
-        $interval.flush(9999999);
+        $interval.flush(FLUSH_PERIOD);
         // $timeout.verifyNoPendingTasks();
 
         expect(untouchedElement.scope().collapsed).toBeUndefined();
