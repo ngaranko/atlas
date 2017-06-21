@@ -2,24 +2,20 @@
 
 /**
  *
- * @description this function returns true when lower is lower than higher
+ * @description this function receives a with a text value and returns a number value
  */
-module.exports = function (text) {
-    var deferred = protractor.promise.defer();
-
+module.exports = text => {
     if (text) {
-        text.then(function(value) {
+        return text.then(value => {
             value = parseFloat(value.replace('.', '').replace(',', '.'));
 
             if (!isNaN(value)) {
-                deferred.fulfill(value);
+                return value;
             } else {
-                deferred.reject();
+                return null;
             }
         });
     } else {
-        deferred.reject();
+        return null;
     }
-
-    return deferred.promise;
 };
