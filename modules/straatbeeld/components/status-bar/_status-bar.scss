@@ -28,8 +28,7 @@
 }
 
 .c-straatbeeld-status-bar__info-item {
-  margin-left: $base-whitespace;
-  padding-left: $base-whitespace;
+  padding: 0 $base-whitespace;
   float: right;
   border-left: solid $secondary-gray20 1px;
 }

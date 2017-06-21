@@ -13,7 +13,7 @@
   padding: 0 #{$button-size + 6};
   border: 1px solid $secondary-gray20;
   background-color: $primary-light-alpha48;
-  line-height: $button-size;
+  line-height: #{$button-size - 3};
   cursor: pointer;
 
   &::before {
@@ -26,7 +26,7 @@
   }
 
   &::after {
-    @extend %dp-up-icon;
+    @extend %dp-up-black-icon;
     @extend %icon-button-text-extra;
 
     position: absolute;
@@ -44,7 +44,7 @@
     }
 
     &::after {
-      @extend %dp-up-red-icon;
+      @extend %dp-up-white-icon;
     }
   }
 
@@ -58,29 +58,24 @@
     }
 
     &::after {
-      @extend %dp-down-red-icon;
+      @extend %dp-down-white-icon;
     }
 
     &:hover {
       &::after {
-        @extend %dp-down-red-icon;
+        @extend %dp-down-white-icon;
       }
     }
   }
 }
 
 .c-straatbeeld-history__menu {
-  display: none;
   position: absolute;
   bottom: $button-size;
   padding: 12px 0 6px;
   border: 1px solid $secondary-gray20;
   background-color: $primary-light;
   box-shadow: 2px 0 0 0 $secondary-gray40;
-
-  &.c-straatbeeld-history__menu--active {
-    display: block;
-  }
 }
 
 .c-straatbeeld-history__item {
@@ -120,6 +115,11 @@
 }
 
 .c-straatbeeld-history__external-link {
-  color: $secondary-gray60;
   line-height: 32px;
+  opacity: .6;
+
+  &:active,
+  &:hover {
+    opacity: 1;
+  }
 }

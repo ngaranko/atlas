@@ -1,25 +1,26 @@
-<div class="c-straatbeeld-history">
-    <div class="c-straatbeeld-history__button"
+<div class="c-straatbeeld-history qa-straatbeeld-history">
+    <div class="c-straatbeeld-history__button qa-straatbeeld-history__button"
         ng-class="{'c-straatbeeld-history__button--active': menuActive}"
         ng-click="toggleMenu()">
         {{selectedOption.label}}
     </div>
-    <ul class="c-straatbeeld-history__menu"
-        ng-class="{'c-straatbeeld-history__menu--active': menuActive}">
-        <li class="c-straatbeeld-history__item"
+    <ul class="c-straatbeeld-history__menu qa-straatbeeld-history__menu"
+        ng-if="menuActive">
+        <li class="c-straatbeeld-history__item qa-straatbeeld-history__item"
             ng-class="{'c-straatbeeld-history__item--active': selectedOption === option}"
             ng-click="setSelectedOption(option)"
             ng-repeat="option in options">
             {{option.label}}
         </li>
-        <li class="c-straatbeeld-history__devider"></li>
-        <li class="c-straatbeeld-history__external">
+        <li class="c-straatbeeld-history__devider qa-straatbeeld-history__devider"></li>
+        <li class="c-straatbeeld-history__external qa-straatbeeld-history__external">
             <a ng-href="{{streetviewUrl}}"
                 target="_blank"
                 class="
                     c-link
                     c-link--arrow
-                    c-straatbeeld-history__external-link"
+                    c-straatbeeld-history__external-link
+                    qa-straatbeeld-history__external-link"
                 >Google Street View</a>
         </li>
     </ul>
