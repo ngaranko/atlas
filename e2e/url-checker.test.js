@@ -106,7 +106,7 @@ describe('each URL should load the corresponding view', function () {
         expect(searchResults.categories(0).list(0).link.label).toBe('Dam');
 
         expect(searchResults.categories(1).header).toBe('Kadastraal object');
-        expect(searchResults.categories(1).list(0).link.label).toBe('ASD04F06685G0000');
+        expect(searchResults.categories(1).list(0).link.label).toBe('ASD04 F 06685 G 0000');
 
         expect(searchResults.categories(2).header).toBe('Gebieden (5)');
         expect(searchResults.categories(2).list(0).link.label).toBe('Bufferzone');
