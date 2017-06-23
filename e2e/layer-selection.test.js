@@ -1,9 +1,14 @@
 describe('Kaartlagen', () => {
-    describe('niet ingelogd', () => {
-        it('de eerste set kaartlagen is Geografie: onroerende zaken', () => {
-            const page = dp.navigate('PAGE--HOME'),
-                layerSelection = page.dashboard.leftColumn.layerSelection;
+    let page,
+        layerSelection;
 
+    describe('niet ingelogd', () => {
+        beforeEach(() => {
+            page = dp.navigate('PAGE--HOME');
+            layerSelection = page.dashboard.leftColumn.layerSelection;
+        });
+
+        it('de eerste set kaartlagen is Geografie: onroerende zaken', () => {
             // Go to the Map
             page.dashboard.rightColumn.page.homepage.map.click();
 
@@ -36,13 +41,10 @@ describe('Kaartlagen', () => {
             dp.authenticate.logout();
         });
 
-        ['EMPLOYEE', 'EMPLOYEE_PLUS'].forEach(role => {
+        dp.authenticate.roles.forEach(role => {
             describe('als ' + role, () => {
                 it('er mag alleen subject informatie zichtbaar zijn', () => {
                     dp.authenticate.login(role);
-
-                    const page = dp.navigate('PAGE--HOME'),
-                        layerSelection = page.dashboard.leftColumn.layerSelection;
 
                     // Go to the Map
                     page.dashboard.rightColumn.page.homepage.map.click();

@@ -28,7 +28,7 @@
                         <div ng-if="!category.authLevel || vm.meetsRequiredLevel(category.authLevel)">
 
                             <h2 class="o-header__subtitle qa-search-header">
-                                <span ng-if="category.count > 1">{{category.label_plural}} ({{category.count | number}})</span>
+                                <span ng-if="category.count > 1">{{category.label_plural}} (<span class="qa-search-header-count">{{category.count | number}}</span>)</span>
                                 <span ng-if="category.count === 1">{{category.label_singular}}</span>
                                 <span ng-if="category.count === 0">{{category.label_plural}}</span>
                             </h2>
@@ -60,7 +60,7 @@
 
                     <dp-panel ng-if="!vm.meetsRequiredLevel('EMPLOYEE')" is-panel-visible="!vm.meetsRequiredLevel('EMPLOYEE')" type="warning" can-close="true" class="qa-category-warning">
                         <h3 class="c-panel__title">Meer resultaten na inloggen</h3>
-                        <p class="c-panel__paragraph">Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer te vinden: kadastraal subjecten, vestigingen en maatschappelijke activiteiten. Zie Help > Bediening dataportaal > Inloggen.</p>
+                        <p class="c-panel__paragraph">Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer te vinden: kadastrale subjecten, vestigingen en maatschappelijke activiteiten. Zie Help > Bediening > Inloggen.</p>
                     </dp-panel>
                 </div>
 

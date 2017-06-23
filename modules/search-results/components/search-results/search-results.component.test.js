@@ -709,8 +709,8 @@ describe('The dp-search-results component', function () {
             expect(categoryNode.find('.qa-search-header').text().trim()).toBe('Kadastraal object');
 
             expect(categoryNode.find('.qa-category-warning').text()).toContain(
-                'Om alle gegevens (ook natuurlijke personen) te kunnen vinden,' +
-                ' moet je als medewerker speciale bevoegdheden hebben. Zie Help > Bediening dataportaal > Inloggen.'
+                'Medewerkers met speciale bevoegdheden' +
+                ' kunnen alle gegevens vinden (ook natuurlijke personen). Zie Help > Bediening > Inloggen.'
             );
         });
 
@@ -725,7 +725,7 @@ describe('The dp-search-results component', function () {
                 'Om kadastraal subjecten te kunnen vinden,' +
                 ' moet je als medewerker/ketenpartner van Gemeente Amsterdam inloggen.' +
                 ' Om ook natuurlijke personen te vinden, moet je als medewerker bovendien' +
-                ' speciale bevoegdheden hebben. Zie Help > Bediening dataportaal > Inloggen.'
+                ' speciale bevoegdheden hebben. Zie Help > Bediening > Inloggen.'
             );
         });
 

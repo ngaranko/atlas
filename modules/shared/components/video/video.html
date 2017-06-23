@@ -7,6 +7,9 @@
         width="{{vm.width}}"
         height="{{vm.height}}"
         class="c-video__element">
-        <source ng-src="{{vm.src}}" type="video/mp4">
+        <source
+            ng-if="vm.src"
+            ng-src="{{vm.src}}"
+            type="video/mp4">
     </video>
 </div>
