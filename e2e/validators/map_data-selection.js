@@ -1,9 +1,6 @@
 'use strict';
 
 module.exports = function (page) {
-    // @todo tg-3963
-    // expect(page.title).toMatch(/^Lijst .* - Dataportaal$/);
-
     expect(page.dashboard.leftColumn.columnSize).toBe(0);
 
     expect(page.dashboard.middleColumn.columnSize).toBe(4);
