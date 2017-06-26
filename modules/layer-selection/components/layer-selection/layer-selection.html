@@ -52,7 +52,18 @@
         </div>
 
         <dp-panel ng-if="vm.isMoreInfoAvailable" is-panel-visible="vm.isMoreInfoAvailable" type="warning" can-close="true" class="qa-category-warning">
-            Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer kaartlagen te zien: alles van Economie (vestigingen) en van Milieu de 'Bedrijven - Bronnen en risicozones'. Zie Help > Bediening > Inloggen.
+            Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer kaartlagen te zien: alles van Economie (vestigingen) en van Milieu de 'Bedrijven - Bronnen en risicozones'.
+            Zie
+            <dp-link
+                type="SHOW_PAGE"
+                payload="{
+                    name: 'content-overzicht',
+                    type: 'snelwegwijs',
+                    item: 'item9'
+                }"
+                class-name="c-link--light"
+                inline="true"
+                >Help &gt; Bediening &gt; Inloggen</dp-link>.
         </dp-panel>
     </div>
 </div>

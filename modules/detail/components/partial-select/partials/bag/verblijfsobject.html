@@ -59,7 +59,18 @@
         <dp-glossary-header definition="VESTIGING" use-plural="true"></dp-glossary-header>
 
         <dp-panel is-panel-visible="showMoreInfoWarning" can-close="true" type="warning">
-            Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om vestigingen te bekijken. Zie Help > Bediening > Inloggen.
+            Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om vestigingen te bekijken.
+            Zie
+            <dp-link
+                type="SHOW_PAGE"
+                payload="{
+                    name: 'content-overzicht',
+                    type: 'snelwegwijs',
+                    item: 'item9'
+                }"
+                class-name="c-link--light"
+                inline="true"
+                >Help &gt; Bediening &gt; Inloggen</dp-link>.
         </dp-panel>
 
         <dp-api-call ng-if="isEmployee" endpoint="handelsregister/vestiging/?nummeraanduiding={{ apiData.results.hoofdadres.landelijk_id }}" add-api-root="true" partial="lijst"></dp-api-call>
@@ -71,7 +82,18 @@
 
         <dp-panel is-panel-visible="showMoreInfoWarning" type="warning" can-close="true">
             Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer gegevens te zien:
-            zakelijke rechten en aantekeningen. Zie Help > Bediening > Inloggen.
+            zakelijke rechten en aantekeningen.
+            Zie
+            <dp-link
+                type="SHOW_PAGE"
+                payload="{
+                    name: 'content-overzicht',
+                    type: 'snelwegwijs',
+                    item: 'item9'
+                }"
+                class-name="c-link--light"
+                inline="true"
+                >Help &gt; Bediening &gt; Inloggen</dp-link>.
         </dp-panel>
 
         <dp-api-call
