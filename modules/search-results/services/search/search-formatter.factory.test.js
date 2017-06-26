@@ -202,11 +202,13 @@ describe('The searchFormatter factory', function () {
                     }
                 ],
                 useIndenting: false,
+                authLevel: null,
                 next: null
             }, {
                 label_singular: 'Meetbout',
                 label_plural: 'Meetbouten',
                 slug: 'meetbouten',
+                authLevel: null,
                 count: 6,
                 results: [
                     {
@@ -255,6 +257,7 @@ describe('The searchFormatter factory', function () {
                 count: 0,
                 results: [],
                 useIndenting: false,
+                authLevel: null,
                 next: null
             }, {
                 label_singular: 'Kadastraal object',
@@ -263,6 +266,7 @@ describe('The searchFormatter factory', function () {
                 count: 0,
                 results: [],
                 useIndenting: false,
+                authLevel: null,
                 next: null
             }
         ]);
@@ -299,6 +303,7 @@ describe('The searchFormatter factory', function () {
                 }
             ],
             useIndenting: false,
+            authLevel: null,
             next: null
         });
     });

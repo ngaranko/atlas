@@ -4,7 +4,7 @@
     /**
      * The video playback is governed by the play variable set from outside this component
      * width and height bindings are required so the browser can reserve spacing before video load.
-     * A poster image (splash image) is set on Safari to prevent nothing being displayed.
+     * A poster image (splash image) always needs to be set
      */
 
     angular
@@ -25,23 +25,11 @@
     VideoController.$inject = ['$element', '$window'];
 
     function VideoController ($element, $window) {
-        const vm = this;
-        let videoElement;
-
-        vm.$onInit = () => {
+        const vm = this,
             videoElement = $element.find('video')[0];
 
-            // Detect safari: https://stackoverflow.com/a/31732310/2583290
-            const isSafari = $window.navigator.vendor && $window.navigator.vendor.indexOf('Apple') > -1 &&
-               $window.navigator.userAgent && !$window.navigator.userAgent.match('CriOS');
-
-            if (isSafari) {
-                videoElement.setAttribute('poster', vm.poster);
-            }
-        };
-
         vm.$onChanges = (changes) => {
-            if (angular.isUndefined(changes.play) || !videoElement) {
+            if (angular.isUndefined(changes.play) || !videoElement || !videoElement.play || !videoElement.pause) {
                 return;
             }
 
@@ -51,6 +39,19 @@
                 videoElement.pause();
                 videoElement.currentTime = 0;
             }
+        };
+
+        vm.$postLink = () => {
+            if ($window.objectFitPolyfill) {
+                // window.objectFitPolyfill mimics object-fit CSS property for
+                // IE & Edge. The function is stubbed (fast) for browsers
+                // supporting the CSS property. The function is added to the
+                // window by a polyfill script.
+                $window.objectFitPolyfill();
+            }
+
+            // set poster after loading
+            videoElement.setAttribute('poster', vm.poster);
         };
     }
 })();

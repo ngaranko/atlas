@@ -2,7 +2,11 @@
     <dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>
 
     <div ng-if="!vm.isLoading">
-        <dp-tab-header ng-if="vm.showTabHeader()" search-text="{{vm.state.query}}" tab-header="vm.tabHeader"></dp-tab-header>
+        <dp-tab-header ng-if="vm.showTabHeader()"
+                       search-text="{{vm.state.query}}"
+                       tab-header="vm.tabHeader"
+                       filters-active="true">
+        </dp-tab-header>
         <dp-data-selection-header
             ng-if="!vm.showTabHeader() || vm.numberOfRecords > 0"
             state="vm.state"
@@ -11,7 +15,7 @@
             show-header="!vm.showTabHeader() && ( vm.state.view === 'LIST' || !vm.isLoading )">
         </dp-data-selection-header>
 
-        <div class="u-grid">
+        <div class="u-grid qa-data-grid" ng-if="!vm.disabled">
             <div class="u-row">
                 <div ng-if="vm.showFilters" class="u-col-sm--3">
                     <dp-data-selection-available-filters
@@ -43,7 +47,7 @@
                     <dp-panel ng-if="vm.showMessageClusteredMarkers" is-panel-visible="true" type="warning" can-close="true">
                         <div class="qa-message-clustered-markers">
                             <p class="c-panel__paragraph">Deze resultaten worden niet getoond op de kaart, omdat deze niet meer dan {{vm.maxNumberOfClusteredMarkers | number}} resultaten tegelijk kan weergeven (om technische redenen).</p>
-                            <p class="c-panel__paragraph">Tip: Bekijk de lijst resultaten in kleinere delen. Dit kan door een voor een filtercriteria toe te voegen (bijv. de verschillende buurtcombinaties uit de selectie).</p>
+                            <p class="c-panel__paragraph">Tip: Bekijk de lijst resultaten in kleinere delen. Dit kan door een voor een filtercriteria toe te voegen (bijv. de verschillende wijken uit de selectie).</p>
                         </div>
                     </dp-panel>
 
@@ -64,5 +68,22 @@
                 </div>
             </div>
         </div>
+
+        <dp-panel ng-if="vm.disabled" is-panel-visible="true" can-close="true" type="warning" class="qa-disabled-message">
+            <h2 class="c-panel__title">Vestigingen zichtbaar na inloggen</h2>
+            <p class="c-panel__paragraph">Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om vestigingen te bekijken.</p>
+            <p class="c-panel__paragraph">
+                Zie
+                <dp-link
+                    type="SHOW_PAGE"
+                    payload="{
+                        name: 'content-overzicht',
+                        type: 'snelwegwijs',
+                        item: 'item9'
+                    }"
+                    class-name="c-link--light c-link--inline"
+                    >Help &gt; Bediening &gt; Inloggen</dp-link>.
+            </p>
+        </dp-panel>
     </div>
 </div>

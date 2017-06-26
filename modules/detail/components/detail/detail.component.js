@@ -61,12 +61,13 @@
 
             vm.includeSrc = endpointParser.getTemplateUrl(endpoint);
 
+            vm.isEmployee = user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL.EMPLOYEE);
             // Derive whether more info is available if the user would be authenticated
-            const isEmployee = user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL.EMPLOYEE);
-            vm.showMoreInfoWarning = !isEmployee;
+            // stored as separate variable to prevent vm manipulation to change the controller logic
+            vm.showMoreInfoWarning = !vm.isEmployee;
 
             const [category, subject] = endpointParser.getParts(endpoint);
-            if (!isEmployee && category === 'brk' && subject === 'subject') {
+            if (!vm.isEmployee && category === 'brk' && subject === 'subject') {
                 // User is not authenticated / authorized to view detail so do not fetch data
                 vm.isLoading = false;
                 delete vm.apiData;

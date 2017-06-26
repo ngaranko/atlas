@@ -91,8 +91,8 @@
                     ]
                 },
                 BUURTCOMBINATIE: {
-                    label_singular: 'Buurtcombinatie',
-                    label_plural: 'Buurtcombinaties',
+                    label_singular: 'Wijk',
+                    label_plural: 'Wijken',
                     description: 'Een aaneengesloten gedeelte van het grondgebied van een gemeente, waarvan ' +
                     'de grenzen zo veel mogelijk zijn gebaseerd op sociaal-geografische kenmerken.',
                     url: 'https://www.amsterdam.nl/stelselpedia/gebieden-index/catalogus/buurtcombinatie/',
@@ -381,7 +381,8 @@
                     description: 'Een Vestiging is gebouw of een complex van gebouwen waar duurzame uitoefening ' +
                         'van activiteiten van een Onderneming of Rechtspersoon plaatsvindt.',
                     url: 'https://www.amsterdam.nl/stelselpedia/hr-index/catalogus/vestiging/',
-                    meta: []
+                    meta: [],
+                    authLevel: 'EMPLOYEE'
                 },
                 WOONPLAATS: {
                     label_singular: 'Woonplaats',
@@ -424,7 +425,7 @@
                     label: 'Bouwblokidentificatie'
                 },
                 buurtcombinatie_identificatie: {
-                    label: 'Buurtcombinatie-identificatie'
+                    label: 'Wijk-identificatie'
                 },
                 buurtidentificatie: {
                     label: 'Buurtidentificatie'

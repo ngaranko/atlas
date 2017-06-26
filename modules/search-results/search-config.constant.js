@@ -21,12 +21,14 @@
                     slug: 'vestiging',
                     label_singular: 'Vestiging',
                     label_plural: 'Vestigingen',
-                    uri: 'handelsregister/search/vestiging/'
+                    uri: 'handelsregister/search/vestiging/',
+                    authLevel: 'EMPLOYEE'
                 }, {
                     slug: 'mac',
                     label_singular: 'Maatschappelijke activiteit',
                     label_plural: 'Maatschappelijke activiteiten',
-                    uri: 'handelsregister/search/maatschappelijkeactiviteit/'
+                    uri: 'handelsregister/search/maatschappelijkeactiviteit/',
+                    authLevel: 'EMPLOYEE'
                 }, {
                     slug: 'object',
                     label_singular: 'Kadastraal object',
@@ -36,7 +38,8 @@
                     slug: 'subject',
                     label_singular: 'Kadastraal subject',
                     label_plural: 'Kadastrale subjecten',
-                    uri: 'atlas/search/kadastraalsubject/'
+                    uri: 'atlas/search/kadastraalsubject/',
+                    authLevel: 'EMPLOYEE'
                 }, {
                     // The slug variable is used to indentify this category in list.component.js
                     slug: 'gebied',
@@ -80,33 +83,31 @@
                     label_plural: 'Openbare ruimtes',
                     features: ['bag/openbareruimte']
                 }, {
-                    // The slug variable is used to indentify this category in geosearch.factory.js
                     slug: 'pand',
                     label_singular: 'Pand',
                     label_plural: 'Panden',
                     features: ['bag/pand']
                 }, {
-                    // The slug variable is used to indentify this category in geosearch.factory.js
                     slug: 'standplaats',
                     label_singular: 'Standplaats',
                     label_plural: 'Standplaatsen',
                     features: ['bag/standplaats']
                 }, {
-                    // The slug variable is used to indentify this category in geosearch.factory.js
                     slug: 'ligplaats',
                     label_singular: 'Ligplaats',
                     label_plural: 'Ligplaatsen',
                     features: ['bag/ligplaats']
                 }, {
+                    slug: 'kadastraal-object',
                     label_singular: 'Kadastraal object',
                     label_plural: 'Kadastrale objecten',
                     features: ['kadaster/kadastraal_object']
                 }, {
+                    slug: 'gemeentelijke-beperking',
                     label_singular: 'Gemeentelijke beperking',
                     label_plural: 'Gemeentelijke beperkingen',
                     features: ['wkpb/beperking']
                 }, {
-                    // The slug variable is used to indentify this category in list.component.js
                     slug: 'gebied',
                     label_singular: 'Gebied',
                     label_plural: 'Gebieden',
@@ -124,10 +125,12 @@
                         gebiedsgerichtwerken: 'gebiedsgericht werken'
                     }
                 }, {
+                    slug: 'meetbout',
                     label_singular: 'Meetbout',
                     label_plural: 'Meetbouten',
                     features: ['meetbouten/meetbout']
                 }, {
+                    slug: 'nap-peilmerk',
                     label_singular: 'NAP Peilmerk',
                     label_plural: 'NAP Peilmerken',
                     features: ['nap/peilmerk']

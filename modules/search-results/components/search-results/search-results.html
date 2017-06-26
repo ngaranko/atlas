@@ -25,34 +25,43 @@
                          }"
                          ng-if="category.count >= 1 || category.warning">
 
-                        <h2 class="o-header__subtitle qa-search-header">
-                            <span ng-if="category.count > 1">{{category.label_plural}} ({{category.count | number}})</span>
-                            <span ng-if="category.count === 1">{{category.label_singular}}</span>
-                            <span ng-if="category.count === 0">{{category.label_plural}}</span>
-                        </h2>
+                        <div ng-if="!category.authLevel || vm.meetsRequiredLevel(category.authLevel)">
 
-                        <dp-panel ng-if="category.warning" is-panel-visible="category.warning" type="warning" can-close="true" class="qa-category-warning">
-                            {{ category.warning }}
-                        </dp-panel>
+                            <h2 class="o-header__subtitle qa-search-header">
+                                <span ng-if="category.count > 1">{{category.label_plural}} (<span class="qa-search-header-count">{{category.count | number}}</span>)</span>
+                                <span ng-if="category.count === 1">{{category.label_singular}}</span>
+                                <span ng-if="category.count === 0">{{category.label_plural}}</span>
+                            </h2>
 
-                        <dp-search-results-list category="category" limit-results="true"></dp-search-results-list>
+                            <dp-panel ng-if="category.warning" is-panel-visible="category.warning" type="warning" can-close="true" class="qa-category-warning">
+                                {{ category.warning }}
+                            </dp-panel>
 
-                        <div ng-if="category.count > 10" class="qa-show-more">
-                            <dp-link ng-if="category.more"
-                                     class-name="c-show-more u-margin__top-05
-                                         {{category.useIndenting ? '' : 'c-show-more--gray'}}"
-                                     type="FETCH_DETAIL"
-                                     payload="category.more.endpoint"
-                                >{{category.more.label}}</dp-link>
+                            <dp-search-results-list category="category" limit-results="true"></dp-search-results-list>
 
-                            <dp-link ng-if="!category.more"
-                                     class-name="c-show-more u-margin__top-05
-                                         {{category.useIndenting ? '' : 'c-show-more--gray'}}"
-                                     type="FETCH_SEARCH_RESULTS_CATEGORY"
-                                     payload="category.slug"
-                                >Toon alle {{category.count | number}}</dp-link>
+                            <div ng-if="category.count > 10" class="qa-show-more">
+                                <dp-link ng-if="category.more"
+                                         class-name="c-show-more u-margin__top-05
+                                             {{category.useIndenting ? '' : 'c-show-more--gray'}}"
+                                         type="FETCH_DETAIL"
+                                         payload="category.more.endpoint"
+                                    >{{category.more.label}}</dp-link>
+
+                                <dp-link ng-if="!category.more"
+                                         class-name="c-show-more u-margin__top-05
+                                             {{category.useIndenting ? '' : 'c-show-more--gray'}}"
+                                         type="FETCH_SEARCH_RESULTS_CATEGORY"
+                                         payload="category.slug"
+                                    >Toon alle {{category.count | number}}</dp-link>
+                            </div>
+
                         </div>
                     </div>
+
+                    <dp-panel ng-if="!vm.meetsRequiredLevel('EMPLOYEE')" is-panel-visible="!vm.meetsRequiredLevel('EMPLOYEE')" type="warning" can-close="true" class="qa-category-warning">
+                        <h3 class="c-panel__title">Meer resultaten na inloggen</h3>
+                        <p class="c-panel__paragraph">Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer te vinden: kadastrale subjecten, vestigingen en maatschappelijke activiteiten. Zie Help > Bediening > Inloggen.</p>
+                    </dp-panel>
                 </div>
 
                 <div ng-if="vm.location" class="u-col-sm--4">
@@ -64,7 +73,8 @@
                     number-of-results="vm.numberOfResults"
                     query="{{vm.query}}"
                     location="vm.location"
-                    category="{{vm.category}}">
+                    category="{{vm.category}}"
+                    search-results="vm.searchResults">
                 </dp-search-results-header>
 
                 <div class="u-padding__top-2 u-padding__bottom--2" ng-class="{
