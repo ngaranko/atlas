@@ -30,7 +30,7 @@
                              printReducers) {
         return function (oldState, action) {
             // TODO: Redux: replace
-            // Warning: angular.merge is deprecated, use lodash merge.
+            // Warning: angular.merge is deprecated
             // -- https://docs.angularjs.org/api/ng/function/angular.merge
             var actions = angular.merge(
                 urlReducers,
