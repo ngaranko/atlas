@@ -6,6 +6,11 @@ describe('The dp-straatbeeld-status-bar component', function () {
     beforeEach(function () {
         angular.mock.module(
             'dpStraatbeeld',
+            {
+                store: {
+                    dispatch: angular.noop
+                }
+            },
             function ($provide) {
                 $provide.value('coordinatesFilter', function (input) {
                     return 'MOCKED_RD_COORDINATES (' + input.join(', ') + ')';

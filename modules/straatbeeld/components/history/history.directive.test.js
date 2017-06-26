@@ -1,11 +1,18 @@
 describe('The dp-straatbeeld-history component', function () {
     var $compile,
         $rootScope,
-        $window;
+        $window,
+        store,
+        ACTIONS;
 
     beforeEach(function () {
         angular.mock.module(
             'dpStraatbeeld',
+            {
+                store: {
+                    dispatch: angular.noop
+                }
+            },
             function ($provide) {
                 $provide.value('coordinatesFilter', function (input) {
                     return 'MOCKED_RD_COORDINATES (' + input.join(', ') + ')';
@@ -13,24 +20,29 @@ describe('The dp-straatbeeld-history component', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _$window_, _$document_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _$window_, _store_, _ACTIONS_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             $window = _$window_;
+            store = _store_;
+            ACTIONS = _ACTIONS_;
         });
 
         spyOn($window, 'open');
+        spyOn(store, 'dispatch');
     });
 
-    function getComponent (location, heading) {
+    function getComponent (location, heading, history) {
         const element = document.createElement('dp-straatbeeld-history');
         element.setAttribute('location', 'location');
         element.setAttribute('heading', 'heading');
+        element.setAttribute('history', 'history');
         document.body.appendChild(element);
 
         const scope = $rootScope.$new();
         scope.location = location;
         scope.heading = heading;
+        scope.history = history;
 
         const component = $compile(element)(scope);
         scope.$apply();
@@ -254,6 +266,66 @@ describe('The dp-straatbeeld-history component', function () {
             items = component.find('.qa-straatbeeld-history__item');
             items.eq(0).click();
             expect(button.text()).toContain('recent');
+        });
+
+        it('dispatches an action', () => {
+            let items;
+
+            clock.mockDate(new Date(2020, 10, 16));
+
+            const component = getComponent();
+            const button = component.find('.qa-straatbeeld-history__button');
+
+            button.click();
+            items = component.find('.qa-straatbeeld-history__item');
+            items.eq(1).click();
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.SET_STRAATBEELD_HISTORY,
+                payload: 2020
+            });
+
+            button.click();
+            items = component.find('.qa-straatbeeld-history__item');
+            items.eq(3).click();
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.SET_STRAATBEELD_HISTORY,
+                payload: 2018
+            });
+
+            button.click();
+            items = component.find('.qa-straatbeeld-history__item');
+            items.eq(5).click();
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.SET_STRAATBEELD_HISTORY,
+                payload: 2016
+            });
+
+            button.click();
+            items = component.find('.qa-straatbeeld-history__item');
+            items.eq(0).click();
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.SET_STRAATBEELD_HISTORY,
+                payload: 0
+            });
+        });
+
+        it('can have its selection initialized', () => {
+            clock.mockDate(new Date(2020, 10, 16));
+
+            const component = getComponent(null, null, 2020);
+            const button = component.find('.qa-straatbeeld-history__button');
+
+            expect(button.text()).toContain('2020');
+
+            button.click();
+            const items = component.find('.qa-straatbeeld-history__item');
+
+            expect(items.eq(0).hasClass('c-straatbeeld-history__item--active')).toBeFalsy();
+            expect(items.eq(1).hasClass('c-straatbeeld-history__item--active')).toBeTruthy();
+            expect(items.eq(2).hasClass('c-straatbeeld-history__item--active')).toBeFalsy();
+            expect(items.eq(3).hasClass('c-straatbeeld-history__item--active')).toBeFalsy();
+            expect(items.eq(4).hasClass('c-straatbeeld-history__item--active')).toBeFalsy();
+            expect(items.eq(5).hasClass('c-straatbeeld-history__item--active')).toBeFalsy();
         });
 
         it('highlights the selection', () => {

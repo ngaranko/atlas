@@ -14,7 +14,7 @@ describe('The straatbeeldApi Factory', function () {
             'dpStraatbeeld',
             {
                 sharedConfig: {
-                    API_ROOT: 'http://example.com/',
+                    API_ROOT: 'http://pano.amsterdam.nl/',
                     RADIUS: 100
                 },
                 geojson: {
@@ -31,8 +31,8 @@ describe('The straatbeeldApi Factory', function () {
                         q.resolve({
                             image_sets: {
                                 cubic: {
-                                    pattern: 'http://example.com/example/cubic/abf123/{a}/{b}/{c}.jpg',
-                                    preview: 'http://example.com/example/cubic/abf123/preview.jpg'
+                                    pattern: 'http://pano.amsterdam.nl/all/cubic/abf123/{a}/{b}/{c}.jpg',
+                                    preview: 'http://pano.amsterdam.nl/all/cubic/abf123/preview.jpg'
                                 }
                             },
                             geometrie: {
@@ -64,7 +64,8 @@ describe('The straatbeeldApi Factory', function () {
             },
             function ($provide) {
                 $provide.constant('STRAATBEELD_CONFIG', {
-                    STRAATBEELD_ENDPOINT: 'example/'
+                    STRAATBEELD_ENDPOINT_ALL: 'all/',
+                    STRAATBEELD_ENDPOINT_YEAR: 'year/'
                 });
             }
         );
@@ -83,7 +84,7 @@ describe('The straatbeeldApi Factory', function () {
 
         straatbeeldApi.getImageDataById('ABC');
 
-        expect(api.getByUrl).toHaveBeenCalledWith('http://example.com/example/ABC/',
+        expect(api.getByUrl).toHaveBeenCalledWith('http://pano.amsterdam.nl/all/ABC/',
             undefined, jasmine.anything()); // Test the last argument for being a promise lateron
     });
 
@@ -113,7 +114,7 @@ describe('The straatbeeldApi Factory', function () {
 
         straatbeeldApi.getImageDataByLocation([52, 4]);
 
-        expect(api.getByUrl).toHaveBeenCalledWith('http://example.com/example/?lat=52&lon=4&radius=1000',
+        expect(api.getByUrl).toHaveBeenCalledWith('http://pano.amsterdam.nl/all/?lat=52&lon=4&radius=1000',
             undefined, jasmine.anything());
     });
 
@@ -140,7 +141,7 @@ describe('The straatbeeldApi Factory', function () {
         searchSteps.forEach(n => {
             $rootScope.$apply();
             expect(api.getByUrl).toHaveBeenCalledWith(
-                `http://example.com/example/?lat=52&lon=4&radius=${n}`,
+                `http://pano.amsterdam.nl/all/?lat=52&lon=4&radius=${n}`,
                 undefined,
                 jasmine.anything()
             );
@@ -164,7 +165,7 @@ describe('The straatbeeldApi Factory', function () {
         searchSteps.forEach(n => {
             $rootScope.$apply();
             expect(api.getByUrl).toHaveBeenCalledWith(
-                `http://example.com/example/?lat=52&lon=4&radius=${n}`,
+                `http://pano.amsterdam.nl/all/?lat=52&lon=4&radius=${n}`,
                 undefined,
                 jasmine.anything()
             );
@@ -243,8 +244,8 @@ describe('The straatbeeldApi Factory', function () {
 
         it('fetches the cubic image', function () {
             expect(response.image).toEqual({
-                pattern: 'http://example.com/example/cubic/abf123/{a}/{b}/{c}.jpg',
-                preview: 'http://example.com/example/cubic/abf123/preview.jpg'
+                pattern: 'http://pano.amsterdam.nl/all/cubic/abf123/{a}/{b}/{c}.jpg',
+                preview: 'http://pano.amsterdam.nl/all/cubic/abf123/preview.jpg'
             });
         });
     });
