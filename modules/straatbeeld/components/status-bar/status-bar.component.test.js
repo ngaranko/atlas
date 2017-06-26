@@ -66,20 +66,4 @@ describe('The dp-straatbeeld-status-bar component', function () {
         component = getComponent(new Date(), [52.123, 4.789]);
         expect(component.text()).toContain('MOCKED_RD_COORDINATES (52.123, 4.789)');
     });
-
-    it('It has a google streetview link', function () {
-        var component;
-
-        component = getComponent(new Date(), [52.123, 4.789]);
-        expect(component.find('.c-straatbeeld-status-bar__history').length).toBeGreaterThan(0);
-    });
-
-    it('Google streetview link has an ng-href and is filled properly', function () {
-        var component;
-
-        component = getComponent(new Date(), [52.123, 4.789], 12, 12);
-        expect(component.find('.c-straatbeeld-status-bar__history')
-            .attr('ng-href'))
-            .toEqual('http://maps.google.com/maps?q=&layer=c&cbll=52.123,4.789&cbp=11,12,0,0,0');
-    });
 });

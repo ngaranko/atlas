@@ -67,7 +67,7 @@
                     const path = 'http://maps.google.com/maps?q=&layer=c&';
                     const parameters = `cbll=${lat},${lon}&cbp=11,${scope.heading},0,0,0`;
 
-                    scope.streetviewUrl = `${path}${parameters}`;
+                    scope.streetViewUrl = `${path}${parameters}`;
                 }
             }
         }
