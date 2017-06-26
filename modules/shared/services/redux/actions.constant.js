@@ -134,6 +134,9 @@
                 id: 'SET_STRAATBEELD_ORIENTATION',
                 replace: true
             },
+            SET_STRAATBEELD_HISTORY: {
+                id: 'SET_STRAATBEELD_HISTORY'
+            },
 
             FETCH_DATA_SELECTION: {
                 id: 'FETCH_DATA_SELECTION',

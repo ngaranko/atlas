@@ -47,7 +47,7 @@
             // Fetch scene by location
             scope.$watchCollection('state.location', function (location) {
                 if (!scope.state.id && angular.isArray(location)) {
-                    straatbeeldApi.getImageDataByLocation(location).then(showStraatbeeld);
+                    straatbeeldApi.getImageDataByLocation(location, scope.state.history).then(showStraatbeeld);
                 }
             });
 
@@ -55,7 +55,13 @@
             scope.$watch('state.id', function (id) {
                 // Load straatbeeld on id when no location is set or no image is yet loaded
                 if (!(angular.isArray(scope.state.location) && scope.state.image) && angular.isString(id)) {
-                    straatbeeldApi.getImageDataById(id).then(showStraatbeeld);
+                    straatbeeldApi.getImageDataById(id, scope.state.history).then(showStraatbeeld);
+                }
+            });
+
+            scope.$watch('state.history', function (history) {
+                if (angular.isArray(scope.state.location)) {
+                    straatbeeldApi.getImageDataByLocation(scope.state.location, history).then(showStraatbeeld);
                 }
             });
 
@@ -70,7 +76,10 @@
                 });
             }
 
-            scope.$watchCollection('state.image', function () {
+            scope.$watchGroup([
+                (newScope) => angular.toJson(newScope.state.image),
+                (newScope) => angular.toJson(newScope.state.hotspots)
+            ], () => {
                 if (angular.isObject(scope.state.image)) {
                     marzipanoService.loadScene(
                         scope.state.image,

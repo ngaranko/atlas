@@ -5,12 +5,15 @@
         .module('dpStraatbeeld')
         .directive('dpStraatbeeldHistory', DpStraatbeeldHistoryDirective);
 
-    function DpStraatbeeldHistoryDirective () {
+    DpStraatbeeldHistoryDirective.$inject = ['store', 'ACTIONS'];
+
+    function DpStraatbeeldHistoryDirective (store, ACTIONS) {
         return {
             restrict: 'E',
             scope: {
                 location: '<',
-                heading: '<'
+                heading: '<',
+                history: '<'
             },
             templateUrl: 'modules/straatbeeld/components/history/history.html',
             link: linkFunction
@@ -39,10 +42,21 @@
 
             scope.options.unshift(scope.selectedOption);
 
-            scope.toggleMenu = () => scope.menuActive = !scope.menuActive;
-            scope.setSelectedOption = (option) => scope.selectedOption = option;
+            if (scope.history) {
+                scope.selectedOption = scope.options.find(
+                    (option) => option.year === scope.history);
+            }
 
-            scope.$watch('location', updateLocation, true);
+            scope.toggleMenu = () => scope.menuActive = !scope.menuActive;
+            scope.setSelectedOption = (option) => {
+                scope.selectedOption = option;
+                store.dispatch({
+                    type: ACTIONS.SET_STRAATBEELD_HISTORY,
+                    payload: option.year
+                });
+            };
+
+            scope.$watchCollection('location', updateLocation, true);
 
             everywhere.bind('click', (event) => {
                 const container = element.find('div').eq(0);

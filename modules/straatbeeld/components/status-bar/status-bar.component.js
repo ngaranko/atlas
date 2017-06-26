@@ -7,7 +7,8 @@
             bindings: {
                 date: '<',
                 location: '<',
-                heading: '<'
+                heading: '<',
+                history: '<'
             },
             templateUrl: 'modules/straatbeeld/components/status-bar/status-bar.html',
             controller: DpStraatbeeldStatusBarController,
