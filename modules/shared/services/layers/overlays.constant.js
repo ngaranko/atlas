@@ -167,53 +167,53 @@
 
                 // onroerende zaken
                 kadaster: {
-                    url: 'maps/lki?service=wms',
+                    url: 'maps/brk?service=wms',
                     label_short: 'Kadastrale perceelgrenzen',
                     label_long: 'Kadastrale perceelgrenzen',
                     layers: ['kadaster'],
                     minZoom: 8,
                     maxZoom: 16,
-                    legend: 'maps/lki?version=1.3.0&service=WMS&request=GetLegend' +
+                    legend: 'maps/brk?version=1.3.0&service=WMS&request=GetLegend' +
                     'Graphic&sld_version=1.1.0&layer=kadaster&format=image/png&STYLE=default'
                 },
                 bgem: {
-                    url: 'maps/lki?service=wms',
+                    url: 'maps/brk?service=wms',
                     label_short: 'Burgerlijke gemeenten',
                     label_long: 'Burgerlijke gemeenten',
                     layers: ['burgerlijke_gemeente', 'burgerlijke_gemeente_label'],
                     minZoom: 8,
                     maxZoom: 16,
-                    legend: 'maps/lki?version=1.3.0&service=WMS&request=GetLegend' +
+                    legend: 'maps/brk?version=1.3.0&service=WMS&request=GetLegend' +
                     'Graphic&sld_version=1.1.0&layer=burgerlijke_gemeente&format=image/png&STYLE=default'
                 },
                 kgem: {
-                    url: 'maps/lki?service=wms',
+                    url: 'maps/brk?service=wms',
                     label_short: 'Kadastrale gemeenten',
                     label_long: 'Kadastrale gemeenten',
                     layers: ['kadastrale_gemeente', 'kadastrale_gemeente_label'],
                     minZoom: 8,
                     maxZoom: 16,
-                    legend: 'maps/lki?version=1.3.0&service=WMS&request=GetLegend' +
+                    legend: 'maps/brk?version=1.3.0&service=WMS&request=GetLegend' +
                     'Graphic&sld_version=1.1.0&layer=kadastrale_gemeente&format=image/png&STYLE=default'
                 },
                 ksec: {
-                    url: 'maps/lki?service=wms',
+                    url: 'maps/brk?service=wms',
                     label_short: 'Kadastrale secties',
                     label_long: 'Kadastrale secties',
                     layers: ['kadastrale_sectie', 'kadastrale_sectie_label'],
                     minZoom: 10,
                     maxZoom: 16,
-                    legend: 'maps/lki?version=1.3.0&service=WMS&request=GetLegend' +
+                    legend: 'maps/brk?version=1.3.0&service=WMS&request=GetLegend' +
                     'Graphic&sld_version=1.1.0&layer=kadastrale_sectie&format=image/png&STYLE=default'
                 },
                 kot: {
-                    url: 'maps/lki?service=wms',
+                    url: 'maps/brk?service=wms',
                     label_short: 'Kadastrale objecten',
                     label_long: 'Kadastrale objecten',
                     layers: ['kadastraal_object', 'kadastraal_object_label'],
                     minZoom: 13,
                     maxZoom: 16,
-                    legend: 'maps/lki?version=1.3.0&service=WMS&request=GetLegend' +
+                    legend: 'maps/brk?version=1.3.0&service=WMS&request=GetLegend' +
                     'Graphic&sld_version=1.1.0&layer=kadastraal_object&format=image/png&STYLE=default'
                 },
                 gbep: {
@@ -270,8 +270,8 @@
                 },
                 bc: {
                     url: 'maps/gebieden?service=wms',
-                    label_short: 'Buurtcombinaties',
-                    label_long: 'Buurtcombinaties',
+                    label_short: 'Wijken',
+                    label_long: 'Wijken',
                     layers: ['buurtcombinatie', 'buurtcombinatie_label'],
                     minZoom: 8,
                     maxZoom: 16,

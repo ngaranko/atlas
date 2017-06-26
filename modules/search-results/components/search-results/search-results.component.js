@@ -104,13 +104,13 @@
                 if (user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS)) {
                     delete kadastraleSubject.warning;
                 } else if (user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL.EMPLOYEE)) {
-                    kadastraleSubject.warning = 'Om alle gegevens (ook natuurlijke personen) te kunnen vinden, moet' +
-                        ' je als medewerker speciale bevoegdheden hebben. Zie Help > Bediening dataportaal > Inloggen.';
+                    kadastraleSubject.warning = 'Medewerkers met speciale bevoegdheden' +
+                        ' kunnen alle gegevens vinden (ook natuurlijke personen). Zie Help > Bediening > Inloggen.';
                 } else {
                     kadastraleSubject.warning = 'Om kadastraal subjecten te kunnen vinden,' +
                         ' moet je als medewerker/ketenpartner van Gemeente Amsterdam inloggen.' +
                         ' Om ook natuurlijke personen te vinden, moet je als medewerker bovendien' +
-                        ' speciale bevoegdheden hebben. Zie Help > Bediening dataportaal > Inloggen.';
+                        ' speciale bevoegdheden hebben. Zie Help > Bediening > Inloggen.';
                 }
             }
         }
@@ -130,6 +130,9 @@
                 payload: numberOfResults
             });
 
+            // @TODO remove the exception when backend uses correct sub type name tg-3551
+            searchResults = replaceBuurtcombinatie(searchResults);
+
             vm.searchResults = searchResults;
 
             vm.hasLoadMore = function () {
@@ -137,6 +140,21 @@
                     vm.searchResults[0].count > vm.searchResults[0].results.length &&
                     !vm.isLoadMoreLoading;
             };
+        }
+
+        // @TODO remove the exception when backend uses correct sub type name tg-3551
+        function replaceBuurtcombinatie (searchResults) {
+            const results = angular.copy(searchResults);
+
+            results.forEach((result) => {
+                result.results.forEach((item) => {
+                    if (item.subtype === 'buurtcombinatie') {
+                        item.subtypeLabel = 'wijk';
+                    }
+                });
+            });
+
+            return results;
         }
     }
 })();

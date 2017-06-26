@@ -6,12 +6,18 @@
         .factory('httpErrorRegistrar', httpErrorRegistrarFactory)
         .config($httpProvider => $httpProvider.interceptors.push('httpErrorRegistrar'));
 
-    httpErrorRegistrarFactory.inject = ['$rootScope', '$window', '$q', '$timeout', 'httpStatus'];
+    httpErrorRegistrarFactory.inject = ['$log', '$rootScope', '$window', '$q', '$timeout', 'httpStatus'];
 
-    function httpErrorRegistrarFactory ($rootScope, $window, $q, $timeout, httpStatus) {
+    function httpErrorRegistrarFactory ($log, $rootScope, $window, $q, $timeout, httpStatus) {
         $window.addEventListener('error', function (e) {
             if (e.target && e.target.src) {
                 // URL load error
+                if (e.target.src === 'https://piwik.data.amsterdam.nl/piwik.js') {
+                    // Don't show UI error
+                    $log.error('piwik load error', e);
+                    return;
+                }
+
                 $rootScope.$applyAsync(registerServerError);
             }
         }, true);

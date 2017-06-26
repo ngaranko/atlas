@@ -49,6 +49,9 @@
                 // window by a polyfill script.
                 $window.objectFitPolyfill();
             }
+
+            // set poster after loading
+            videoElement.setAttribute('poster', vm.poster);
         };
     }
 })();

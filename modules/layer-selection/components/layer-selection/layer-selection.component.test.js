@@ -425,7 +425,7 @@ describe('The dp-layer-selection component', function () {
                 expect(component.find('.qa-category-warning').text())
                     .toContain('Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer ' +
                     'kaartlagen te zien: alles van Economie (vestigingen) en van Milieu de \'Bedrijven - Bronnen' +
-                    ' en risicozones\'. Zie Help > Bediening dataportaal > Inloggen.');
+                    ' en risicozones\'. Zie Help > Bediening > Inloggen.');
             });
             it('is shown for a non-employee', () => {
                 user.meetsRequiredLevel.and.returnValue(false);

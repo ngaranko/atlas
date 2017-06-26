@@ -1,3 +1,17 @@
+var ENV_VARIABLES = [
+    'PASSWORD_EMPLOYEE',
+    'USERNAME_EMPLOYEE',
+    'PASSWORD_EMPLOYEE_PLUS',
+    'USERNAME_EMPLOYEE_PLUS'
+];
+
+for (var VARIABLE of ENV_VARIABLES) {
+    if (!process.env[VARIABLE]) {
+        console.error('missing environmental variable, ', VARIABLE); // eslint-disable-line angular/log, no-console
+        process.exit(1); // exit failure
+    }
+}
+
 exports.config = {
     baseUrl: 'http://localhost:8000/',
     framework: 'jasmine',

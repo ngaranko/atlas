@@ -287,27 +287,27 @@ describe('The dp-search-results component', function () {
                 results: [
                     {
                         label: 'Haveneiland Noordoost',
-                        subtype: null,
+                        subtype: 'buurt',
                         endpoint: 'https://api.data.amsterdam.nl/gebieden/buurt/03630023754004/'
                     },
                     {
                         label: 'IJburg West',
-                        subtype: null,
+                        subtype: 'buurtcombinatie',
                         endpoint: 'https://api.data.amsterdam.nl/gebieden/buurtcombinatie/3630012052079/'
                     },
                     {
                         label: 'Ijburg / Eiland Zeeburg',
-                        subtype: null,
+                        subtype: 'gebiedsgerichtwerken',
                         endpoint: 'https://api.data.amsterdam.nl/gebieden/gebiedsgerichtwerken/DX16/'
                     },
                     {
                         label: 'AW33',
-                        subtype: null,
+                        subtype: 'bouwblok',
                         endpoint: 'https://api.data.amsterdam.nl/gebieden/bouwblok/03630012096424/'
                     },
                     {
                         label: 'Oost',
-                        subtype: null,
+                        subtype: 'stadsdeel',
                         endpoint: 'https://api.data.amsterdam.nl/gebieden/stadsdeel/03630011872039/'
                     }
                 ],
@@ -709,8 +709,8 @@ describe('The dp-search-results component', function () {
             expect(categoryNode.find('.qa-search-header').text().trim()).toBe('Kadastraal object');
 
             expect(categoryNode.find('.qa-category-warning').text()).toContain(
-                'Om alle gegevens (ook natuurlijke personen) te kunnen vinden,' +
-                ' moet je als medewerker speciale bevoegdheden hebben. Zie Help > Bediening dataportaal > Inloggen.'
+                'Medewerkers met speciale bevoegdheden' +
+                ' kunnen alle gegevens vinden (ook natuurlijke personen). Zie Help > Bediening > Inloggen.'
             );
         });
 
@@ -725,7 +725,7 @@ describe('The dp-search-results component', function () {
                 'Om kadastraal subjecten te kunnen vinden,' +
                 ' moet je als medewerker/ketenpartner van Gemeente Amsterdam inloggen.' +
                 ' Om ook natuurlijke personen te vinden, moet je als medewerker bovendien' +
-                ' speciale bevoegdheden hebben. Zie Help > Bediening dataportaal > Inloggen.'
+                ' speciale bevoegdheden hebben. Zie Help > Bediening > Inloggen.'
             );
         });
 
