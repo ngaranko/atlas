@@ -249,4 +249,50 @@ describe('The straatbeeldApi Factory', function () {
             });
         });
     });
+
+    describe('the history selection', () => {
+        beforeEach(() => {
+            spyOn(api, 'getByUrl').and.callThrough();
+        });
+
+        it('will make \'getImageDataByLocation\' use another endpoint', () => {
+            straatbeeldApi.getImageDataByLocation([52, 4], 2020);
+
+            expect(api.getByUrl).toHaveBeenCalledWith(
+                'http://pano.amsterdam.nl/year/2020/?lat=52&lon=4&radius=1000',
+                undefined,
+                jasmine.anything()
+            );
+        });
+
+        it('will make \'getImageDataById\' use another endpoint', () => {
+            straatbeeldApi.getImageDataById('ABC', 2020);
+
+            expect(api.getByUrl).toHaveBeenCalledWith(
+                'http://pano.amsterdam.nl/year/2020/ABC/',
+                undefined,
+                jasmine.anything()
+            );
+        });
+
+        it('will not change the endpoint when falsy', () => {
+            straatbeeldApi.getImageDataByLocation([52, 4], 0);
+
+            expect(api.getByUrl).toHaveBeenCalledWith(
+                'http://pano.amsterdam.nl/all/?lat=52&lon=4&radius=1000',
+                undefined,
+                jasmine.anything()
+            );
+
+            api.getByUrl.calls.reset();
+
+            straatbeeldApi.getImageDataById('ABC', 0);
+
+            expect(api.getByUrl).toHaveBeenCalledWith(
+                'http://pano.amsterdam.nl/all/ABC/',
+                undefined,
+                jasmine.anything()
+            );
+        });
+    });
 });

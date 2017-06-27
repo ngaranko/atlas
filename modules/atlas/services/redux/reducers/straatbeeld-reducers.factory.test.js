@@ -440,4 +440,37 @@ describe('Straatbeeld reducers factory', function () {
             expect(output.straatbeeld.fov).toEqual(payload.fov);
         });
     });
+
+    describe('setStraatbeeldHistoryReducer', function () {
+        it('sets the straatbeeld history selection', function () {
+            inputState.straatbeeld = {};
+
+            const payload = 2020;
+            const output = straatbeeldReducers.SET_STRAATBEELD_HISTORY(inputState, payload);
+
+            expect(output.straatbeeld.history).toEqual(payload);
+        });
+
+        it('updates the straatbeeld history selection', function () {
+            inputState.straatbeeld = {};
+
+            inputState.straatbeeld.history = 0;
+
+            const payload = 2020;
+            const output = straatbeeldReducers.SET_STRAATBEELD_HISTORY(inputState, payload);
+
+            expect(output.straatbeeld.history).toEqual(payload);
+        });
+
+        it('can set the history selection to zero', function () {
+            inputState.straatbeeld = {};
+
+            inputState.straatbeeld.history = 2020;
+
+            const payload = 0;
+            const output = straatbeeldReducers.SET_STRAATBEELD_HISTORY(inputState, payload);
+
+            expect(output.straatbeeld.history).toEqual(payload);
+        });
+    });
 });
