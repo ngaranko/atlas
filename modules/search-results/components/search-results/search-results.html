@@ -35,17 +35,7 @@
 
                             <dp-panel ng-if="category.warning" is-panel-visible="category.warning" type="warning" can-close="true" class="qa-category-warning">
                                 {{ category.warning }}
-                                Zie
-                                <dp-link
-                                    type="SHOW_PAGE"
-                                    payload="{
-                                        name: 'content-overzicht',
-                                        type: 'snelwegwijs',
-                                        item: 'item9'
-                                    }"
-                                    class-name="c-link--light"
-                                    inline="true"
-                                    >Help &gt; Bediening &gt; Inloggen</dp-link>.</p>
+                                Zie <dp-link-to-page item="item9"></dp-link-to-page>.
                             </dp-panel>
 
                             <dp-search-results-list category="category" limit-results="true"></dp-search-results-list>
@@ -72,17 +62,7 @@
                     <dp-panel ng-if="!vm.meetsRequiredLevel('EMPLOYEE')" is-panel-visible="!vm.meetsRequiredLevel('EMPLOYEE')" type="warning" can-close="true" class="qa-category-warning">
                         <h3 class="c-panel__title">Meer resultaten na inloggen</h3>
                         <p class="c-panel__paragraph">Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer te vinden: kadastrale subjecten, vestigingen en maatschappelijke activiteiten.
-                        Zie
-                        <dp-link
-                            type="SHOW_PAGE"
-                            payload="{
-                                name: 'content-overzicht',
-                                type: 'snelwegwijs',
-                                item: 'item9'
-                            }"
-                            class-name="c-link--light"
-                            inline="true"
-                            >Help &gt; Bediening &gt; Inloggen</dp-link>.</p>
+                        Zie <dp-link-to-page item="item9"></dp-link-to-page>.
                     </dp-panel>
                 </div>
 
