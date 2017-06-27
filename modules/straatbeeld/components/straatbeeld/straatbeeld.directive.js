@@ -69,7 +69,7 @@
                 var type = scope.state.isInitial ? ACTIONS.SHOW_STRAATBEELD_INITIAL
                     : ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT;
 
-                // Dispatch an action to change the pano
+                // Update the scene
                 store.dispatch({
                     type: type,
                     payload: straatbeeldData

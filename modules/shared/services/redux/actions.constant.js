@@ -49,6 +49,14 @@
                 id: 'MAP_REMOVE_OVERLAY',
                 replace: true
             },
+            MAP_ADD_PANO_OVERLAY: {
+                id: 'MAP_ADD_PANO_OVERLAY',
+                ignore: true
+            },
+            MAP_REMOVE_PANO_OVERLAY: {
+                id: 'MAP_REMOVE_PANO_OVERLAY',
+                ignore: true
+            },
             MAP_TOGGLE_VISIBILITY_OVERLAY: {
                 id: 'MAP_TOGGLE_VISIBILITY_OVERLAY',
                 replace: true,

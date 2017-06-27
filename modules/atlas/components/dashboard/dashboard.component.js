@@ -9,9 +9,9 @@
             controllerAs: 'vm'
         });
 
-    DpDashboardController.$inject = ['$scope', 'store', 'dashboardColumns', 'HEADER'];
+    DpDashboardController.$inject = ['$scope', 'store', 'ACTIONS', 'dashboardColumns', 'HEADER'];
 
-    function DpDashboardController ($scope, store, dashboardColumns, HEADER) {
+    function DpDashboardController ($scope, store, ACTIONS, dashboardColumns, HEADER) {
         const vm = this;
 
         vm.store = store;
@@ -20,6 +20,13 @@
         setLayout();
 
         $scope.$watch(() => dashboardColumns.determineVisibility(store.getState()).httpStatus, setLayout);
+        $scope.$watch('vm.isStraatbeeldActive', (isActive) => {
+            if (isActive) {
+                store.dispatch({ type: ACTIONS.MAP_ADD_PANO_OVERLAY });
+            } else {
+                store.dispatch({ type: ACTIONS.MAP_REMOVE_PANO_OVERLAY });
+            }
+        });
 
         function setLayout () {
             const state = store.getState();
@@ -45,6 +52,8 @@
             vm.columnSizes = dashboardColumns.determineColumnSizes(state);
 
             vm.isFullHeight = !vm.isRightColumnScrollable || vm.columnSizes.right < 12;
+
+            vm.isStraatbeeldActive = state.straatbeeld;
         }
     }
 })();
