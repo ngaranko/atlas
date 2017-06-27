@@ -1,4 +1,4 @@
-describe('The link to help component', function () {
+describe('The link-to-page component', function () {
     let $compile,
         $rootScope,
         mockedReducer,
@@ -54,7 +54,7 @@ describe('The link to help component', function () {
     });
 
     function getComponent (item, type, label) {
-        const element = document.createElement('dp-link-to-help');
+        const element = document.createElement('dp-link-to-page');
 
         if (type) {
             element.setAttribute('type', type);
@@ -83,19 +83,19 @@ describe('The link to help component', function () {
 
     it('has default label', function () {
         const component = getComponent();
-        expect(component.find('.qa-link-to-help-button').text()).toBe('Help > Bediening > Inloggen');
+        expect(component.find('.qa-link-to-page-button').text()).toBe('Help > Bediening > Inloggen');
     });
 
     it('transcludes label', function () {
         const component = getComponent('infoitem4', 'info', 'Some label');
-        expect(component.find('.qa-link-to-help-button').text()).toBe('Some label');
+        expect(component.find('.qa-link-to-page-button').text()).toBe('Some label');
     });
 
     it('clicking the button will trigger a call to store.dispatch with default type and no item', function () {
         store.dispatch.calls.reset();
         const component = getComponent();
 
-        component.find('.qa-link-to-help-button').click();
+        component.find('.qa-link-to-page-button').click();
         expect(store.dispatch).toHaveBeenCalledWith({
             type: { id: 'SHOW_PAGE' },
             payload: { name: 'content-overzicht', type: 'snelwegwijs' }
@@ -106,7 +106,7 @@ describe('The link to help component', function () {
         store.dispatch.calls.reset();
         const component = getComponent('infoitem4', 'info');
 
-        component.find('.qa-link-to-help-button').click();
+        component.find('.qa-link-to-page-button').click();
         expect(store.dispatch).toHaveBeenCalledWith({
             type: { id: 'SHOW_PAGE' },
             payload: { name: 'content-overzicht', type: 'info', item: 'infoitem4' }

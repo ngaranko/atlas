@@ -3,20 +3,20 @@
 
     angular
         .module('dpShared')
-        .component('dpLinkToHelp', {
-            templateUrl: 'modules/shared/components/link-to-help/link-to-help.html',
+        .component('dpLinkToPage', {
+            templateUrl: 'modules/shared/components/link-to-page/link-to-page.html',
             transclude: true,
             bindings: {
                 type: '@',
                 item: '@'
             },
-            controller: DpLinkToHelpController,
+            controller: DpLinkToPageController,
             controllerAs: 'vm'
         });
 
-    DpLinkToHelpController.$inject = ['$transclude'];
+    DpLinkToPageController.$inject = ['$transclude'];
 
-    function DpLinkToHelpController ($transclude) {
+    function DpLinkToPageController ($transclude) {
         const vm = this,
             label = $transclude().text();
 
