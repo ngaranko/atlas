@@ -53,10 +53,27 @@ describe('The link to help component', function () {
         spyOn(store, 'dispatch');
     });
 
-    function getComponent () {
+    function getComponent (item, type, label) {
         const element = document.createElement('dp-link-to-help');
 
+        if (type) {
+            element.setAttribute('type', type);
+        }
+        if (item) {
+            element.setAttribute('item', item);
+        }
+
         const scope = $rootScope.$new();
+        if (type) {
+            scope.type = type;
+        }
+        if (item) {
+            scope.item = item;
+        }
+
+        if (label) {
+            element.innerText = label;
+        }
 
         const component = $compile(element)(scope);
         scope.$apply();
@@ -64,14 +81,35 @@ describe('The link to help component', function () {
         return component;
     }
 
-    it('clicking the button will trigger a call to store.dispatch', function () {
+    it('has default label', function () {
+        const component = getComponent();
+        expect(component.find('.qa-link-to-help-button').text()).toBe('Help > Bediening > Inloggen');
+    });
+
+    it('transcludes label', function () {
+        const component = getComponent('infoitem4', 'info', 'Some label');
+        expect(component.find('.qa-link-to-help-button').text()).toBe('Some label');
+    });
+
+    it('clicking the button will trigger a call to store.dispatch with default type and no item', function () {
         store.dispatch.calls.reset();
         const component = getComponent();
 
         component.find('.qa-link-to-help-button').click();
         expect(store.dispatch).toHaveBeenCalledWith({
             type: { id: 'SHOW_PAGE' },
-            payload: { name: 'content-overzicht', type: 'snelwegwijs', item: 'item9' }
+            payload: { name: 'content-overzicht', type: 'snelwegwijs' }
+        });
+    });
+
+    it('clicking the button will trigger a call to store.dispatch with type info and infoitem4 item', function () {
+        store.dispatch.calls.reset();
+        const component = getComponent('infoitem4', 'info');
+
+        component.find('.qa-link-to-help-button').click();
+        expect(store.dispatch).toHaveBeenCalledWith({
+            type: { id: 'SHOW_PAGE' },
+            payload: { name: 'content-overzicht', type: 'info', item: 'infoitem4' }
         });
     });
 });

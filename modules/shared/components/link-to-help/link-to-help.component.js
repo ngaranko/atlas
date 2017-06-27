@@ -10,13 +10,13 @@
                 type: '@',
                 item: '@'
             },
-            controller: dpLinkToHelpController,
+            controller: DpLinkToHelpController,
             controllerAs: 'vm'
         });
 
-    dpLinkToHelpController.$inject = ['$transclude'];
+    DpLinkToHelpController.$inject = ['$transclude'];
 
-    function dpLinkToHelpController ($transclude) {
+    function DpLinkToHelpController ($transclude) {
         const vm = this,
             label = $transclude().text();
 
@@ -26,7 +26,7 @@
         };
 
         if (vm.item) {
-            vm.payload.item = `item${vm.item}`;
+            vm.payload.item = vm.item;
         }
 
         vm.label = label || 'Help > Bediening > Inloggen';
