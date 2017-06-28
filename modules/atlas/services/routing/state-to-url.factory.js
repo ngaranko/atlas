@@ -9,13 +9,8 @@
 
     function stateToUrlFactory ($location, stateUrlConverter) {
         return {
-            create,
             update
         };
-
-        function create (state) {
-            return stateUrlConverter.state2url(state);
-        }
 
         function update (state, useReplace) {
             if (useReplace) {
