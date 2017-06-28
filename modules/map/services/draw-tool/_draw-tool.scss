@@ -13,7 +13,8 @@
   @include font-size($s-font);
 }
 
-.is-print-mode {
+.is-print-mode,
+.is-embed-preview {
   .leaflet-control-measure {
     display: none;
   }

@@ -14,7 +14,8 @@
 @import "services/highlight/highlight-cluster";
 @import "services/draw-tool/draw-tool";
 
-.is-print-mode {
+.is-print-mode,
+.is-embed-preview {
   @import "components/map/map-print";
   @import "components/draw-tool/draw-tool-print";
   @import "components/toggle-fullscreen/toggle-fullscreen-print";

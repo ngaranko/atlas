@@ -5,7 +5,8 @@
 @import "styles/objects/max-width";
 @import "components/dashboard/dashboard";
 
-.is-print-mode {
+.is-print-mode,
+.is-embed-preview {
   @import "components/dashboard/dashboard-print";
   @import "styles/utilities/page-break";
 }
