@@ -5,6 +5,7 @@
 
     runBlock.$inject = [
         'applicationState',
+        'freeze',
         'reducer',
         'stateUrlConverter',
         'contextMiddleware',
@@ -13,6 +14,7 @@
 
     function runBlock (
             applicationState,
+            freeze,
             reducer,
             stateUrlConverter,
             contextMiddleware,
@@ -20,7 +22,7 @@
         applicationState.initialize(
             reducer,
             stateUrlConverter,
-            stateUrlConverter.getDefaultState(),
+            freeze.deepFreeze(stateUrlConverter.getDefaultState()),
             contextMiddleware,
             stateToUrlMiddleware);
     }

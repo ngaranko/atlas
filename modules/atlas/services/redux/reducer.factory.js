@@ -10,6 +10,7 @@
     reducerFactory.$inject = [
         'urlReducers',
         'detailReducers',
+        'freeze',
         'homeReducers',
         'layerSelectionReducers',
         'mapReducers',
@@ -22,6 +23,7 @@
 
     function reducerFactory (urlReducers,
                              detailReducers,
+                             freeze,
                              homeReducers,
                              layerSelectionReducers,
                              mapReducers,
@@ -53,6 +55,7 @@
                 angular.isObject(action.type) &&
                 angular.isFunction(actions[action.type.id])) {
                 const result = actions[action.type.id](oldState, action.payload);
+                freeze.deepFreeze(result);
                 const t2 = performance.now();
                 const diff = t2 - t1;
                 totalReducerTime += diff;
