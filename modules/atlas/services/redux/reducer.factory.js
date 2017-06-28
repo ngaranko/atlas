@@ -15,7 +15,8 @@
         'searchReducers',
         'straatbeeldReducers',
         'dataSelectionReducers',
-        'printReducers'
+        'printReducers',
+        'embedReducers'
     ];
 
     function reducerFactory (urlReducers,
@@ -27,7 +28,8 @@
                              searchReducers,
                              straatbeeldReducers,
                              dataSelectionReducers,
-                             printReducers) {
+                             printReducers,
+                             embedReducers) {
         return function (oldState, action) {
             // TODO: Redux: replace
             // Warning: angular.merge is deprecated
@@ -42,7 +44,8 @@
                 searchReducers,
                 straatbeeldReducers,
                 dataSelectionReducers,
-                printReducers
+                printReducers,
+                embedReducers
             );
 
             if (angular.isObject(action) &&
