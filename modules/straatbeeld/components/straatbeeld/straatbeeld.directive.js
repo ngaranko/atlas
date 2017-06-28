@@ -69,17 +69,19 @@
                 var type = scope.state.isInitial ? ACTIONS.SHOW_STRAATBEELD_INITIAL
                     : ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT;
 
-                // Dispatch an action to change the pano
+                // Update the scene
                 store.dispatch({
                     type: type,
                     payload: straatbeeldData
                 });
             }
 
-            scope.$watchGroup([
-                (newScope) => angular.toJson(newScope.state.image),
-                (newScope) => angular.toJson(newScope.state.hotspots)
-            ], () => {
+            // We need to watch for object equality instead of reference
+            // equality for both the `image` and `hotspots` object/array. This
+            // can be done with `$watch` (third and last parameter is true),
+            // but not with `$watchGroup`. Therefor we return an array
+            // containing both `image` and `hotspots`.
+            scope.$watch((newScope) => [newScope.state.image, newScope.state.hotspots], () => {
                 if (angular.isObject(scope.state.image)) {
                     marzipanoService.loadScene(
                         scope.state.image,
@@ -89,7 +91,7 @@
                         scope.state.hotspots
                     );
                 }
-            });
+            }, true);
 
             // Re-render the Marzipano viewer if the size changes (through an added parent CSS class)
             scope.$watchCollection('resize', function () {
