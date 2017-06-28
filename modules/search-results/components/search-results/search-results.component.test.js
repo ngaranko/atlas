@@ -461,7 +461,7 @@ describe('The dp-search-results component', function () {
                 component = getComponent(12, 'Weesperstraat');
                 expect(removeWhitespace(component.find(linkSelector).eq(10).text()))
                     .toBe('Toon alle 11');
-                component.find('.qa-search-result dp-link:not(dp-link-to-page dp-link) button').click();
+                component.find(`${linkSelector} button`).click();
                 expect(store.dispatch).toHaveBeenCalledWith({
                     type: ACTIONS.FETCH_SEARCH_RESULTS_CATEGORY,
                     payload: 'adres'
@@ -489,7 +489,7 @@ describe('The dp-search-results component', function () {
                     // The first link
                     expect(removeWhitespace(component.find(linkSelector).eq(0).text()))
                         .toBe('Weesperstraat 101');
-                    component.find('.qa-search-result dp-link:not(dp-link-to-page dp-link) button').click();
+                    component.find(`${linkSelector} button`).click();
                     expect(store.dispatch).toHaveBeenCalledWith({
                         type: ACTIONS.FETCH_DETAIL,
                         payload: 'https://some-domain/bag/verblijfsobject/03630000864309/'
@@ -498,7 +498,7 @@ describe('The dp-search-results component', function () {
                     // The last link
                     expect(removeWhitespace(component.find(linkSelector).eq(10).text()))
                         .toBe('Weesperstraat 117');
-                    component.find('.qa-search-result dp-link:not(dp-link-to-page dp-link) button').click();
+                    component.find(`${linkSelector} button`).click();
                     expect(store.dispatch).toHaveBeenCalledWith({
                         type: ACTIONS.FETCH_DETAIL,
                         payload: 'https://some-domain/bag/verblijfsobject/03630000864316/'
