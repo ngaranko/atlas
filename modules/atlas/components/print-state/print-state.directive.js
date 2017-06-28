@@ -53,6 +53,12 @@
                 } else {
                     element.removeClass('is-print-mode');
                 }
+
+                if (state.atlas.isEmbedPreview) {
+                    element.addClass('is-embed-preview');                    
+                } else {
+                    element.removeClass('is-embed-preview');                    
+                }
             }
         }
     }
