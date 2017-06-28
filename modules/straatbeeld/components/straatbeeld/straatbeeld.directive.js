@@ -47,7 +47,7 @@
             // Fetch scene by location
             scope.$watchCollection('state.location', function (location) {
                 if (!scope.state.id && angular.isArray(location)) {
-                    straatbeeldApi.getImageDataByLocation(location).then(showStraatbeeld);
+                    straatbeeldApi.getImageDataByLocation(location, scope.state.history).then(showStraatbeeld);
                 }
             });
 
@@ -55,7 +55,13 @@
             scope.$watch('state.id', function (id) {
                 // Load straatbeeld on id when no location is set or no image is yet loaded
                 if (!(angular.isArray(scope.state.location) && scope.state.image) && angular.isString(id)) {
-                    straatbeeldApi.getImageDataById(id).then(showStraatbeeld);
+                    straatbeeldApi.getImageDataById(id, scope.state.history).then(showStraatbeeld);
+                }
+            });
+
+            scope.$watch('state.history', function (history) {
+                if (angular.isArray(scope.state.location)) {
+                    straatbeeldApi.getImageDataByLocation(scope.state.location, history).then(showStraatbeeld);
                 }
             });
 
@@ -63,14 +69,19 @@
                 var type = scope.state.isInitial ? ACTIONS.SHOW_STRAATBEELD_INITIAL
                     : ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT;
 
-                // Dispatch an action to change the pano
+                // Update the scene
                 store.dispatch({
                     type: type,
                     payload: straatbeeldData
                 });
             }
 
-            scope.$watchCollection('state.image', function () {
+            // We need to watch for object equality instead of reference
+            // equality for both the `image` and `hotspots` object/array. This
+            // can be done with `$watch` (third and last parameter is true),
+            // but not with `$watchGroup`. Therefor we return an array
+            // containing both `image` and `hotspots`.
+            scope.$watch((newScope) => [newScope.state.image, newScope.state.hotspots], () => {
                 if (angular.isObject(scope.state.image)) {
                     marzipanoService.loadScene(
                         scope.state.image,
@@ -80,7 +91,7 @@
                         scope.state.hotspots
                     );
                 }
-            });
+            }, true);
 
             // Re-render the Marzipano viewer if the size changes (through an added parent CSS class)
             scope.$watchCollection('resize', function () {

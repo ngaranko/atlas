@@ -107,6 +107,42 @@ describe('The map reducers', function () {
             output = mapReducers[ACTIONS.MAP_ADD_OVERLAY.id](inputState, 'meetbouten');
             expect(output.map.showActiveOverlays).toBe(false);
         });
+
+        it('opens the active overlays panel if there were only active pano overlays before', function () {
+            var inputState = angular.copy(DEFAULT_STATE),
+                output;
+
+            // When there is only a pano layer active; open the active overlays panel
+            inputState.map.showActiveOverlays = false;
+            inputState.map.overlays = [{id: 'pano', isVisible: true}];
+            output = mapReducers[ACTIONS.MAP_ADD_OVERLAY.id](inputState, 'meetbouten');
+            expect(output.map.showActiveOverlays).toBe(true);
+
+            // When there is only another pano layer active; open the active overlays panel
+            inputState.map.showActiveOverlays = false;
+            inputState.map.overlays = [{id: 'pano2020', isVisible: true}];
+            output = mapReducers[ACTIONS.MAP_ADD_OVERLAY.id](inputState, 'meetbouten');
+            expect(output.map.showActiveOverlays).toBe(true);
+
+            // When there are only multiple pano layers active; open the active overlays panel
+            inputState.map.showActiveOverlays = false;
+            inputState.map.overlays = [
+                {id: 'pano', isVisible: true},
+                {id: 'pano2020', isVisible: true}
+            ];
+            output = mapReducers[ACTIONS.MAP_ADD_OVERLAY.id](inputState, 'meetbouten');
+            expect(output.map.showActiveOverlays).toBe(true);
+
+            // When there already were active (non-pano) overlays; do nothing
+            inputState.map.showActiveOverlays = false;
+            inputState.map.overlays = [
+                {id: 'pano', isVisible: true},
+                {id: 'pano2020', isVisible: true},
+                {id: 'nap', isVisible: true}
+            ];
+            output = mapReducers[ACTIONS.MAP_ADD_OVERLAY.id](inputState, 'meetbouten');
+            expect(output.map.showActiveOverlays).toBe(false);
+        });
     });
 
     describe('MAP_REMOVE_OVERLAY', function () {
@@ -141,6 +177,224 @@ describe('The map reducers', function () {
 
             output = mapReducers[ACTIONS.MAP_REMOVE_OVERLAY.id](inputState, 'parkeren');
             expect(output.map.overlays).toEqual([]);
+        });
+    });
+
+    describe('MAP_ADD_PANO_OVERLAY', function () {
+        it('adds a pano overlay', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.straatbeeld = { history: 2020 };
+
+            const output = mapReducers[ACTIONS.MAP_ADD_PANO_OVERLAY.id](inputState);
+            expect(output.map.overlays.length).toBe(1);
+            expect(output.map.overlays[0].isVisible).toBe(true);
+            expect(output.map.overlays[0].id).toBe('pano2020');
+        });
+
+        it('defaults to \'pano\' when no history selection exists', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+
+            const output = mapReducers[ACTIONS.MAP_ADD_PANO_OVERLAY.id](inputState);
+            expect(output.map.overlays.length).toBe(1);
+            expect(output.map.overlays[0].isVisible).toBe(true);
+            expect(output.map.overlays[0].id).toBe('pano');
+
+            // With existing straatbeeld but without history
+            inputState.straatbeeld = {};
+
+            const outputStraatbeeld = mapReducers[ACTIONS.MAP_ADD_PANO_OVERLAY.id](inputState);
+            expect(outputStraatbeeld.map.overlays.length).toBe(1);
+            expect(outputStraatbeeld.map.overlays[0].isVisible).toBe(true);
+            expect(outputStraatbeeld.map.overlays[0].id).toBe('pano');
+        });
+
+        it('removes any pre-existing pano layers', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map.overlays.push({
+                id: 'pano2020',
+                isVisible: true
+            });
+
+            const output = mapReducers[ACTIONS.MAP_ADD_PANO_OVERLAY.id](inputState);
+            expect(output.map.overlays.length).toBe(1);
+            expect(output.map.overlays[0].isVisible).toBe(true);
+            expect(output.map.overlays[0].id).toBe('pano');
+
+            // With multiple pre-existing pano layers
+            inputState.map.overlays.push({
+                id: 'pano',
+                isVisible: true
+            });
+            inputState.straatbeeld = { history: 2016 };
+
+            const outputMultiple = mapReducers[ACTIONS.MAP_ADD_PANO_OVERLAY.id](inputState);
+            expect(outputMultiple.map.overlays.length).toBe(1);
+            expect(outputMultiple.map.overlays[0].isVisible).toBe(true);
+            expect(outputMultiple.map.overlays[0].id).toBe('pano2016');
+        });
+
+        it('does not add an already active layer', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map.overlays.push({
+                id: 'pano',
+                isVisible: true
+            });
+
+            const output = mapReducers[ACTIONS.MAP_ADD_PANO_OVERLAY.id](inputState);
+            expect(output.map.overlays.length).toBe(1);
+            expect(output.map.overlays[0].isVisible).toBe(true);
+            expect(output.map.overlays[0].id).toBe('pano');
+        });
+
+        it('appends to other active layers', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map.overlays.push({
+                id: 'a',
+                isVisible: true
+            });
+
+            const output = mapReducers[ACTIONS.MAP_ADD_PANO_OVERLAY.id](inputState);
+            expect(output.map.overlays).toEqual([{
+                id: 'a',
+                isVisible: true
+            }, {
+                id: 'pano',
+                isVisible: true
+            }]);
+
+            // With pano overlay and other overlays
+            inputState.map.overlays.push({
+                id: 'pano2016',
+                isVisible: true
+            });
+            inputState.map.overlays.push({
+                id: 'b',
+                isVisible: false
+            });
+
+            const outputOthers = mapReducers[ACTIONS.MAP_ADD_PANO_OVERLAY.id](inputState);
+            expect(outputOthers.map.overlays).toEqual([{
+                id: 'a',
+                isVisible: true
+            }, {
+                id: 'b',
+                isVisible: false
+            }, {
+                id: 'pano',
+                isVisible: true
+            }]);
+
+            // With pano overlays and another overlay
+            inputState.map.overlays.push({
+                id: 'pano2018',
+                isVisible: true
+            });
+            inputState.map.overlays.shift();
+
+            const outputOther = mapReducers[ACTIONS.MAP_ADD_PANO_OVERLAY.id](inputState);
+            expect(outputOther.map.overlays).toEqual([{
+                id: 'b',
+                isVisible: false
+            }, {
+                id: 'pano',
+                isVisible: true
+            }]);
+        });
+    });
+
+    describe('MAP_REMOVE_PANO_OVERLAY', function () {
+        it('removes the active pano overlay', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map.overlays.push({
+                id: 'pano',
+                isVisible: true
+            });
+
+            const output = mapReducers[ACTIONS.MAP_REMOVE_PANO_OVERLAY.id](inputState);
+            expect(output.map.overlays.length).toBe(0);
+        });
+
+        it('removes all active pano overlays', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map.overlays.push({
+                id: 'pano',
+                isVisible: true
+            });
+            inputState.map.overlays.push({
+                id: 'pano2020',
+                isVisible: true
+            });
+
+            const output = mapReducers[ACTIONS.MAP_REMOVE_PANO_OVERLAY.id](inputState);
+            expect(output.map.overlays.length).toBe(0);
+        });
+
+        it('leaves other active overlays be', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map.overlays.push({
+                id: 'a',
+                isVisible: true
+            });
+            inputState.map.overlays.push({
+                id: 'pano2016',
+                isVisible: true
+            });
+            inputState.map.overlays.push({
+                id: 'b',
+                isVisible: false
+            });
+            inputState.map.overlays.push({
+                id: 'pano2019',
+                isVisible: true
+            });
+            inputState.map.overlays.push({
+                id: 'c',
+                isVisible: true
+            });
+
+            const output = mapReducers[ACTIONS.MAP_REMOVE_PANO_OVERLAY.id](inputState);
+            expect(output.map.overlays).toEqual([{
+                id: 'a',
+                isVisible: true
+            }, {
+                id: 'b',
+                isVisible: false
+            }, {
+                id: 'c',
+                isVisible: true
+            }]);
+        });
+
+        it('does nothing when there are no active pano overlays', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            const output = mapReducers[ACTIONS.MAP_REMOVE_PANO_OVERLAY.id](inputState);
+            expect(output.map.overlays.length).toBe(0);
+
+            // With other active overlays
+            inputState.map.overlays.push({
+                id: 'a',
+                isVisible: false
+            });
+            inputState.map.overlays.push({
+                id: 'b',
+                isVisible: true
+            });
+            inputState.map.overlays.push({
+                id: 'c',
+                isVisible: false
+            });
+
+            const outputWithLayers = mapReducers[ACTIONS.MAP_REMOVE_PANO_OVERLAY.id](inputState);
+            expect(outputWithLayers.map.overlays).toEqual([{
+                id: 'a',
+                isVisible: false
+            }, {
+                id: 'b',
+                isVisible: true
+            }, {
+                id: 'c',
+                isVisible: false
+            }]);
         });
     });
 

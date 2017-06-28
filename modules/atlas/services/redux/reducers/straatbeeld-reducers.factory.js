@@ -13,6 +13,7 @@
         reducers[ACTIONS.FETCH_STRAATBEELD_BY_ID.id] = fetchStraatbeeldByIdReducer;
         reducers[ACTIONS.FETCH_STRAATBEELD_BY_HOTSPOT.id] = fetchStraatbeeldByIdReducer;
         reducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION.id] = fetchStraatbeeldByLocationReducer;
+        reducers[ACTIONS.SET_STRAATBEELD_HISTORY.id] = setStraatbeeldHistoryReducer;
         reducers[ACTIONS.STRAATBEELD_FULLSCREEN.id] = straatbeeldFullscreenReducer;
         reducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id] = showStraatbeeldReducer;
         reducers[ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT.id] = showStraatbeeldSubsequentReducer;
@@ -195,6 +196,12 @@
             newState.straatbeeld.pitch = payload.pitch;
             newState.straatbeeld.fov = payload.fov;
 
+            return newState;
+        }
+
+        function setStraatbeeldHistoryReducer (oldState, payload) {
+            const newState = angular.copy(oldState);
+            newState.straatbeeld.history = payload;
             return newState;
         }
 

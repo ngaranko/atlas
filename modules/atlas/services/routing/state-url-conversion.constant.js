@@ -155,6 +155,7 @@
                 },
                 straatbeeld: {
                     location: null, // eg: [52.8, 4.9]
+                    history: 0,     // eg: 2016
                     pitch: 0,       // eg: -10
                     heading: 0,     // eg: 270
                     fov: 0,         // eg: 65
@@ -311,6 +312,11 @@
                 },
                 sbp: {
                     name: 'straatbeeld.pitch',
+                    type: 'base62',
+                    precision: 1
+                },
+                sby: {
+                    name: 'straatbeeld.history',
                     type: 'base62',
                     precision: 1
                 }
