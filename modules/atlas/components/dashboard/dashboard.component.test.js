@@ -287,7 +287,7 @@ describe('The dashboard component', function () {
         });
 
         it('are removed when there is no straatbeeld on the state', () => {
-            mockedState.straatbeeld = {};
+            mockedState.straatbeeld = { history: 2020 };
             handler();
             $rootScope.$digest();
 
@@ -299,6 +299,45 @@ describe('The dashboard component', function () {
 
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.MAP_REMOVE_PANO_OVERLAY
+            });
+        });
+
+        it('are changed when the straatbeeld history selection changes', () => {
+            mockedState.straatbeeld = {};
+            handler();
+            $rootScope.$digest();
+
+            store.dispatch.calls.reset();
+
+            // Change history
+            mockedState.straatbeeld.history = 2020;
+            handler();
+            $rootScope.$digest();
+
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.MAP_ADD_PANO_OVERLAY
+            });
+
+            store.dispatch.calls.reset();
+
+            // Change history
+            mockedState.straatbeeld.history = 2018;
+            handler();
+            $rootScope.$digest();
+
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.MAP_ADD_PANO_OVERLAY
+            });
+
+            store.dispatch.calls.reset();
+
+            // Change history (reset to default)
+            mockedState.straatbeeld.history = null;
+            handler();
+            $rootScope.$digest();
+
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.MAP_ADD_PANO_OVERLAY
             });
         });
     });

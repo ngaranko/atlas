@@ -20,8 +20,8 @@
         setLayout();
 
         $scope.$watch(() => dashboardColumns.determineVisibility(store.getState()).httpStatus, setLayout);
-        $scope.$watch('vm.isStraatbeeldActive', (isActive) => {
-            if (isActive) {
+        $scope.$watchGroup(['vm.isStraatbeeldActive', 'vm.straatbeeldHistory'], () => {
+            if (vm.isStraatbeeldActive) {
                 store.dispatch({ type: ACTIONS.MAP_ADD_PANO_OVERLAY });
             } else {
                 store.dispatch({ type: ACTIONS.MAP_REMOVE_PANO_OVERLAY });
@@ -54,6 +54,7 @@
             vm.isFullHeight = !vm.isRightColumnScrollable || vm.columnSizes.right < 12;
 
             vm.isStraatbeeldActive = Boolean(state.straatbeeld);
+            vm.straatbeeldHistory = vm.isStraatbeeldActive ? state.straatbeeld.history : null;
         }
     }
 })();
