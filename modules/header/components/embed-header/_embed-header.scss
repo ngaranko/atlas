@@ -1,0 +1,14 @@
+$embed-header-height: 118px;
+$embed-header-padding: 46px;
+
+.c-embed-header__title {
+  @include font-size($xl-header-font);
+}
+
+.c-embed-header__close {
+  @include icon-button("close", "transparent", "red");
+
+  position: absolute;
+  top: -($embed-header-padding - $base-whitespace);
+  right: -($embed-header-padding - $base-whitespace);
+}
