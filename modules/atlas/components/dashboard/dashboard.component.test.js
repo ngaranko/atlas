@@ -2,8 +2,8 @@ describe('The dashboard component', function () {
     var $compile,
         $rootScope,
         store,
+        ACTIONS,
         dashboardColumns,
-        defaultState,
         mockedState;
 
     beforeEach(function () {
@@ -11,9 +11,10 @@ describe('The dashboard component', function () {
             'atlas',
             {
                 store: {
+                    dispatch: angular.noop,
                     subscribe: angular.noop,
                     getState: function () {
-                        return mockedState;
+                        return angular.copy(mockedState);
                     }
                 }
             },
@@ -59,15 +60,15 @@ describe('The dashboard component', function () {
             }
         };
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _dashboardColumns_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _ACTIONS_, _dashboardColumns_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
+            ACTIONS = _ACTIONS_;
             dashboardColumns = _dashboardColumns_;
-            defaultState = angular.copy(DEFAULT_STATE);
         });
 
-        mockedState = angular.copy(defaultState);
+        mockedState = angular.copy(angular.copy(DEFAULT_STATE));
     });
 
     function getComponent () {
@@ -254,6 +255,51 @@ describe('The dashboard component', function () {
             expect(component.find('.qa-dashboard__column--left').attr('class')).toContain('u-col-sm--1');
             expect(component.find('.qa-dashboard__column--middle').attr('class')).toContain('u-col-sm--2');
             expect(component.find('.qa-dashboard__column--right').attr('class')).toContain('u-col-sm--3');
+        });
+    });
+
+    describe('Panorama layers', () => {
+        let handler;
+
+        beforeEach(() => {
+            spyOn(store, 'dispatch');
+            spyOn(store, 'subscribe').and.callFake((fn) => {
+                // This function will be called later on by other components as
+                // well
+                handler = handler || fn;
+            });
+
+            getComponent();
+        });
+
+        afterEach(() => handler = null);
+
+        it('are added when there is straatbeeld on the state', () => {
+            store.dispatch.calls.reset();
+
+            mockedState.straatbeeld = {};
+            handler();
+            $rootScope.$digest();
+
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.MAP_ADD_PANO_OVERLAY
+            });
+        });
+
+        it('are removed when there is no straatbeeld on the state', () => {
+            mockedState.straatbeeld = {};
+            handler();
+            $rootScope.$digest();
+
+            store.dispatch.calls.reset();
+
+            mockedState.straatbeeld = null;
+            handler();
+            $rootScope.$digest();
+
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.MAP_REMOVE_PANO_OVERLAY
+            });
         });
     });
 });

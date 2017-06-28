@@ -53,7 +53,7 @@
 
             vm.isFullHeight = !vm.isRightColumnScrollable || vm.columnSizes.right < 12;
 
-            vm.isStraatbeeldActive = state.straatbeeld;
+            vm.isStraatbeeldActive = Boolean(state.straatbeeld);
         }
     }
 })();
