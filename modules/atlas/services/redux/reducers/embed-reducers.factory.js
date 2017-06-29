@@ -25,6 +25,7 @@
 
             newState.atlas.isEmbedPreview = true;
             newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
+            newState.layerSelection.isEnabled = false;
 
             return newState;
         }
