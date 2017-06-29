@@ -91,8 +91,8 @@
                     ]
                 },
                 BUURTCOMBINATIE: {
-                    label_singular: 'Buurtcombinatie',
-                    label_plural: 'Buurtcombinaties',
+                    label_singular: 'Wijk',
+                    label_plural: 'Wijken',
                     description: 'Een aaneengesloten gedeelte van het grondgebied van een gemeente, waarvan ' +
                     'de grenzen zo veel mogelijk zijn gebaseerd op sociaal-geografische kenmerken.',
                     url: 'https://www.amsterdam.nl/stelselpedia/gebieden-index/catalogus/buurtcombinatie/',
@@ -425,7 +425,7 @@
                     label: 'Bouwblokidentificatie'
                 },
                 buurtcombinatie_identificatie: {
-                    label: 'Buurtcombinatie-identificatie'
+                    label: 'Wijk-identificatie'
                 },
                 buurtidentificatie: {
                     label: 'Buurtidentificatie'

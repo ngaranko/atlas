@@ -18,20 +18,6 @@ describe('The dp-straatbeeld-thumbnail component', function () {
                     subscribe: angular.noop,
                     getState: angular.noop
                 },
-                applicationState: {
-                    getReducer: function () {
-                        return function (state, action) {
-                            return angular.toJson(action);
-                        };
-                    },
-                    getStateToUrl: function () {
-                        return {
-                            create: function (state) {
-                                return state;
-                            }
-                        };
-                    }
-                },
                 api: {
                     getByUrl: function () {
                         var q = $q.defer();

@@ -5,25 +5,22 @@
         .module('dpMap')
         .constant('ICON_CONFIG', {
             search: {
-                iconUrl: 'assets/icons/icon-search.png',
-                iconRetinaUrl: 'assets/icons/icon-search-retina.png',
-                iconSize: [30, 48],
-                iconAnchor: [15, 51]
+                iconUrl: 'assets/images/map/search.svg',
+                iconSize: [48, 77],
+                iconAnchor: [23, 65]
             },
             detail: {
-                iconUrl: 'assets/icons/icon-detail.svg',
+                iconUrl: 'assets/images/map/detail.svg',
                 iconSize: [21, 21],
                 iconAnchor: [10, 10]
             },
             straatbeeld_orientation: {
-                iconUrl: 'assets/icons/icon-straatbeeld-orientation.png',
-                iconRetinaUrl: 'assets/icons/icon-straatbeeld-orientation-retina.png',
-                iconSize: [62, 62],
-                iconAnchor: [31, 31]
+                iconUrl: 'assets/images/map/straatbeeld-orientation.svg',
+                iconSize: [70, 70],
+                iconAnchor: [35, 35]
             },
             straatbeeld_person: {
-                iconUrl: 'assets/icons/icon-straatbeeld-person.png',
-                iconRetinaUrl: 'assets/icons/icon-straatbeeld-person-retina.png',
+                iconUrl: 'assets/images/map/straatbeeld-person.svg',
                 iconSize: [18, 31],
                 iconAnchor: [9, 22]
             }

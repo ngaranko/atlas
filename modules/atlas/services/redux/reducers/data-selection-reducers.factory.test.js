@@ -99,7 +99,7 @@ describe('The dataSelectionReducers factory', function () {
             }));
         });
 
-        it('sets the dataSelection query and empties filters', function () {
+        it('sets the dataSelection query, page, view, dataset and empties filters', function () {
             const mockedState = angular.copy(DEFAULT_STATE);
             mockedState.filters = {
                 a: 'a'
@@ -110,7 +110,10 @@ describe('The dataSelectionReducers factory', function () {
             const output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
 
             expect(output.dataSelection).toEqual(jasmine.objectContaining({
-                query: 'zoek'
+                query: 'zoek',
+                page: 1,
+                view: 'CARDS',
+                dataset: 'catalogus'
             }));
             expect(output.dataSelection.filters).toEqual({});
         });
