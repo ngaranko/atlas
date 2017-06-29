@@ -9,7 +9,8 @@
         'reducer',
         'stateUrlConverter',
         'contextMiddleware',
-        'stateToUrlMiddleware'
+        'stateToUrlMiddleware',
+        'environment'
     ];
 
     function runBlock (
@@ -18,11 +19,14 @@
             reducer,
             stateUrlConverter,
             contextMiddleware,
-            stateToUrlMiddleware) {
+            stateToUrlMiddleware,
+            environment) {
+        const urlDefaultState = stateUrlConverter.getDefaultState();
+        const initialState = environment.isDevelopment() ? freeze.deepFreeze(urlDefaultState) : urlDefaultState;
         applicationState.initialize(
             reducer,
             stateUrlConverter,
-            freeze.deepFreeze(stateUrlConverter.getDefaultState()),
+            initialState,
             contextMiddleware,
             stateToUrlMiddleware);
     }

@@ -20,19 +20,20 @@
         'environment'
     ];
 
-    function reducerFactory (urlReducers,
-                             detailReducers,
-                             freeze,
-                             homeReducers,
-                             layerSelectionReducers,
-                             mapReducers,
-                             pageReducers,
-                             searchReducers,
-                             straatbeeldReducers,
-                             dataSelectionReducers,
-                             printReducers,
-                             environment
-                             ) {
+    function reducerFactory ( // eslint-disable-line max-params
+            urlReducers,
+            detailReducers,
+            freeze,
+            homeReducers,
+            layerSelectionReducers,
+            mapReducers,
+            pageReducers,
+            searchReducers,
+            straatbeeldReducers,
+            dataSelectionReducers,
+            printReducers,
+            environment
+        ) {
         return function (oldState, action) {
             // TODO: Redux: replace
             // Warning: angular.merge is deprecated

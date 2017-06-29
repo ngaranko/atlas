@@ -53,7 +53,7 @@ describe('The reducer factory', function () {
             }
         );
 
-        angular.mock.inject(function (
+        angular.mock.inject(function ( // eslint-disable-line max-params
             _urlReducers_,
             _detailReducers_,
             _homeReducers_,
