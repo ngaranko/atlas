@@ -250,21 +250,20 @@
         function state2params (state) {
             // Remove the domain from the endpoint so only the relative URI is
             // encoded in the URL.
-            let stripDomainState = state;
-            if (state.detail && state.detail.endpoint) {
-                stripDomainState = {
+            const strippedDomainState = (state.detail && state.detail.endpoint)
+                ? {
                     ...state,
                     detail: {
                         ...state.detail,
                         endpoint: uriStripper.stripDomain(state.detail.endpoint)
                     }
-                };
-            }
+                }
+                : state;
 
             // Converts a state to a params object that is stored in the url
             return Object.keys(STATE_URL_CONVERSION.stateVariables).reduce((result, key) => {
                 const attribute = STATE_URL_CONVERSION.stateVariables[key];
-                let value = getValueForKey(stripDomainState, attribute.name);
+                let value = getValueForKey(strippedDomainState, attribute.name);
                 if (value !== null) {
                     // store value in url
                     if (angular.isFunction(attribute.getValue)) {
