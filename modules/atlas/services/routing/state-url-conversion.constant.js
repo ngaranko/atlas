@@ -70,7 +70,8 @@
                 },
                 map: (oldState, newState) => {
                     if (angular.isObject(oldState)) {
-                        newState.drawingMode = oldState.drawingMode;
+                        // Do not keep the state of the drawing mode
+
                         newState.isLoading = oldState.isLoading;
                     }
                     return newState;

@@ -243,6 +243,26 @@ describe('The dp-data-selection component', function () {
     });
 
     describe('it triggers SHOW_DATA_SELECTION to communicate the related marker locations', function () {
+        it('dispatches the RESET_DATA_SELECTION action when state.reset is set', () => {
+            mockedState.view = 'TABLE';
+            mockedState.reset = true;
+            getComponent(mockedState);
+
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.RESET_DATA_SELECTION,
+                payload: []
+            });
+
+            store.dispatch.calls.reset();
+
+            mockedState.view = 'CARDS';
+            $rootScope.$apply();
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.RESET_DATA_SELECTION,
+                payload: []
+            });
+        });
+
         it('sends an empty Array if the TABLE or CARDS view is active', function () {
             mockedState.view = 'TABLE';
             getComponent(mockedState);
