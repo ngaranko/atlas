@@ -13,6 +13,7 @@
         //
         // Based on https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze
         // When packager is available (WebPack), consider switching to https://github.com/buunguyen/redux-freeze
+        // TODO: tg 4069
         //
         function deepFreeze (obj) {
             // Retrieve the property names defined on obj
