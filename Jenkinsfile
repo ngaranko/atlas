@@ -22,22 +22,13 @@ node {
         checkout scm
     }
 
-    stage('Test') {
-        tryStep "test", {
-            withCredentials([[$class: 'StringBinding', credentialsId: 'PASSWORD_EMPLOYEE', variable: 'PASSWORD_EMPLOYEE'],
-                             [$class: 'StringBinding', credentialsId: 'PASSWORD_EMPLOYEE_PLUS', variable: 'PASSWORD_EMPLOYEE_PLUS']]) {
-                sh "docker-compose -p atlas -f .jenkins/docker-compose.yml build"
-            }
-            }, {
-                sh "docker-compose -p atlas -f .jenkins/docker-compose.yml down"
-            }
-        }
-    }
-
     stage("Build image") {
         tryStep "build", {
-            def image = docker.build("build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}")
-            image.push()
+            withCredentials([[$class: 'StringBinding', credentialsId: 'PASSWORD_EMPLOYEE', variable: 'PASSWORD_EMPLOYEE'],
+                             [$class: 'StringBinding', credentialsId: 'PASSWORD_EMPLOYEE_PLUS', variable: 'PASSWORD_EMPLOYEE_PLUS']]) {
+                def image = docker.build("build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}")
+                image.push()
+            }
         }
     }
 
