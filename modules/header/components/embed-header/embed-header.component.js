@@ -9,10 +9,21 @@
             controllerAs: 'vm'
         });
 
-    function DpEmbedHeader () {
-        const vm = this;
+    DpEmbedHeader.$inject = ['store', 'stateUrlConverter', '$location'];
 
-        vm.link = '123';
-        vm.html = 'abc';
+    function DpEmbedHeader (store, stateUrlConverter, $location) {
+        const vm = this,
+            url = $location.protocol() + '://' + $location.host() + ':' + $location.port();
+
+        store.subscribe(update);
+        update();
+
+        function update () {
+            const ghostState = angular.copy(store.getState());
+
+            ghostState.atlas.isEmbedPreview = false;
+            vm.link = url + stateUrlConverter.state2url(ghostState);
+            vm.html = '<iframe ... bla';
+        }
     }
 })();
