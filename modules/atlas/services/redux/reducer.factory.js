@@ -16,7 +16,8 @@
         'searchReducers',
         'straatbeeldReducers',
         'dataSelectionReducers',
-        'printReducers'
+        'printReducers',
+        'environment'
     ];
 
     function reducerFactory (urlReducers,
@@ -29,7 +30,9 @@
                              searchReducers,
                              straatbeeldReducers,
                              dataSelectionReducers,
-                             printReducers) {
+                             printReducers,
+                             environment
+                             ) {
         return function (oldState, action) {
             // TODO: Redux: replace
             // Warning: angular.merge is deprecated
@@ -51,7 +54,9 @@
                 angular.isObject(action.type) &&
                 angular.isFunction(actions[action.type.id])) {
                 const result = actions[action.type.id](oldState, action.payload);
-                freeze.deepFreeze(result);
+                if (environment.isDevelopment()) {
+                    freeze.deepFreeze(result);
+                }
                 return result;
             } else {
                 // TODO: Redux: throw error
