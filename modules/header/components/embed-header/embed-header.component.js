@@ -23,7 +23,7 @@
 
             ghostState.atlas.isEmbedPreview = false;
             vm.link = url + stateUrlConverter.state2url(ghostState);
-            vm.html = '<iframe ... bla';
+            vm.html = `<iframe width="500" height="400" src="${vm.link}" frameborder="0"></iframe>`;
         }
     }
 })();
