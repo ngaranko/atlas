@@ -5,8 +5,16 @@
 @import "styles/objects/max-width";
 @import "components/dashboard/dashboard";
 
+.is-print-mode {
+  @import "components/dashboard/dashboard-print";
+}
+
+.is-embed-preview {
+  @import "components/dashboard/dashboard-embed";
+}
+
 .is-print-mode,
 .is-embed-preview {
-  @import "components/dashboard/dashboard-print";
   @import "styles/utilities/page-break";
 }
+
