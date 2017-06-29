@@ -23,6 +23,7 @@
             var newState = angular.copy(stateUrlConverter.getDefaultState());
 
             newState.atlas.isPrintMode = oldState.atlas.isPrintMode;
+            newState.atlas.isEmbedPreview = oldState.atlas.isEmbedPreview;
 
             return newState;
         }

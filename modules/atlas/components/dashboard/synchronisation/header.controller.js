@@ -34,6 +34,7 @@
             }
 
             vm.hasPrintButton = (!isDataSelection || isListView) && !isHomepage;
+            vm.hasEmbedButton = (!isDataSelection || isListView) && !isHomepage;
         }
     }
 })();
