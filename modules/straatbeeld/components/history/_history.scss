@@ -1,0 +1,125 @@
+.c-straatbeeld-history {
+  @include font-size($s-font);
+
+  position: relative;
+}
+
+.c-straatbeeld-history__button {
+  @include font-size($s-font);
+  @include font-weight($bold-weight);
+
+  min-width: 202px;
+  height: $button-size;
+  padding: 0 #{$button-size + 6};
+  border: 1px solid $secondary-gray20;
+  background-color: $primary-light-alpha48;
+  line-height: #{$button-size - 3};
+  cursor: pointer;
+
+  &::before {
+    @extend %dp-clock-black-icon;
+    @extend %icon-button-text-extra;
+
+    position: absolute;
+    top: 0;
+    left: 4px;
+  }
+
+  &::after {
+    @extend %dp-up-black-icon;
+    @extend %icon-button-text-extra;
+
+    position: absolute;
+    top: 0;
+    right: 4px;
+  }
+
+  &:hover {
+    border-color: $primary-contrast;
+    background-color: $primary-contrast;
+    color: $primary-light;
+
+    &::before {
+      @extend %dp-clock-white-icon;
+    }
+
+    &::after {
+      @extend %dp-up-white-icon;
+    }
+  }
+
+  &.c-straatbeeld-history__button--active {
+    border-color: $primary-contrast;
+    background-color: $primary-contrast;
+    color: $primary-light;
+
+    &::before {
+      @extend %dp-clock-white-icon;
+    }
+
+    &::after {
+      @extend %dp-down-white-icon;
+    }
+
+    &:hover {
+      &::after {
+        @extend %dp-down-white-icon;
+      }
+    }
+  }
+}
+
+.c-straatbeeld-history__menu {
+  position: absolute;
+  bottom: $button-size;
+  padding: 12px 0 6px;
+  border: 1px solid $secondary-gray20;
+  background-color: $primary-light;
+  box-shadow: 2px 0 0 0 $secondary-gray40;
+}
+
+.c-straatbeeld-history__item {
+  @include font-weight($bold-weight);
+
+  height: 32px;
+  padding: 0 32px;
+  line-height: 32px;
+  white-space: nowrap;
+  cursor: pointer;
+
+  &.c-straatbeeld-history__item--active {
+    background-color: $secondary-gray10;
+
+    &:hover,
+    &:active {
+      background-color: $secondary-gray10;
+    }
+  }
+
+  &:hover,
+  &:active {
+    background-color: $secondary-gray4;
+  }
+}
+
+.c-straatbeeld-history__devider {
+  height: 1px;
+  margin: 12px 0 6px;
+  background-color: $secondary-gray20;
+}
+
+.c-straatbeeld-history__external {
+  height: 32px;
+  padding: 0 20px 0 16px;
+  white-space: nowrap;
+}
+
+.c-straatbeeld-history__external-link {
+  line-height: 32px;
+  opacity: .6;
+
+  &:active,
+  &:hover {
+    opacity: 1;
+  }
+}

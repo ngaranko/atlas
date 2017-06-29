@@ -27,13 +27,6 @@ describe('The stateToUrl factory', function () {
         spyOn(stateUrlConverter, 'state2url');
     });
 
-    describe('can convert a state to an hyperlink', function () {
-        it('returns a url string for the converted state', function () {
-            stateToUrl.create(mockedState);
-            expect(stateUrlConverter.state2url).toHaveBeenCalledWith(mockedState);
-        });
-    });
-
     describe('can update the url to reflect the state', function () {
         it('by calling $location.search', function () {
             stateToUrl.update(mockedState);

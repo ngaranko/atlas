@@ -9,8 +9,7 @@
             DRAWING_MODE: {
                 NONE: 'none',
                 DRAW: 'draw',
-                EDIT: 'edit',
-                RESET: 'reset'
+                EDIT: 'edit'
             },
             format: {
                 numeric: {

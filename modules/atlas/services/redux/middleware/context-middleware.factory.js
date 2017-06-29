@@ -5,16 +5,17 @@
         .module('atlas')
         .factory('contextMiddleware', contextMiddlewareFactory);
 
-    contextMiddlewareFactory.$inject = ['ACTIONS'];
+    contextMiddlewareFactory.$inject = ['ACTIONS', 'DRAW_TOOL_CONFIG'];
 
-    function contextMiddlewareFactory (ACTIONS) {
+    function contextMiddlewareFactory (ACTIONS, DRAW_TOOL_CONFIG) {
         return function (store) {
             return function (next) {
+                /* eslint-disable complexity */
                 return function (action) {
                     // Straatbeeld and detail can both exist in an invisible state
                     // An invisible straatbeeld or detail determines the meaning of some events
                     // These events are thus context sensitive and therefore handled by this middleware
-                    const { straatbeeld, detail, page } = store.getState();
+                    const { map, straatbeeld, detail, page } = store.getState();
 
                     if (action.type.id === ACTIONS.MAP_CLICK.id) {
                         if (angular.isObject(straatbeeld)) {
@@ -41,8 +42,20 @@
                         }
                     }
 
+                    if (map && map.drawingMode !== DRAW_TOOL_CONFIG.DRAWING_MODE.NONE) {
+                        if (action.type.id === ACTIONS.MAP_ZOOM.id) {
+                            action.type = Object.assign({}, action.type);
+                            action.type.ignore = true;
+                        }
+                        if (action.type.id === ACTIONS.MAP_PAN.id) {
+                            action.type = Object.assign({}, action.type);
+                            action.type.ignore = true;
+                        }
+                    }
+
                     return next(action);
                 };
+                /* eslint-enable complexity */
             };
         };
     }

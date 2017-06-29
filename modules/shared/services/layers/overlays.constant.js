@@ -741,6 +741,74 @@
                     legend: 'maps/parkeervakken?version=1.3.0&service=WMS&request=' +
                     'GetLegendGraphic&sld_version=1.1.0&layer=parkeervakken_reservering&format=image/png&STYLE=de' +
                     'fault'
+                },
+
+                // Panoramabeelden
+                pano: {
+                    url: 'maps/panorama',
+                    label_short: 'Panoramabeelden',
+                    label_long: 'Panoramabeelden',
+                    layers: ['panorama_recent'],
+                    minZoom: 11,
+                    maxZoom: 16,
+                    legend: 'maps/panorama?version=1.3.0&service=WMS&request=' +
+                    'GetLegendGraphic&sld_version=1.1.0&layer=panorama_recent&format=image/png&STYLE=de' +
+                    'fault'
+                },
+                pano2016: {
+                    url: 'maps/panorama',
+                    label_short: 'Panoramabeelden',
+                    label_long: 'Panoramabeelden',
+                    layers: ['panorama_recent_2016'],
+                    minZoom: 11,
+                    maxZoom: 16,
+                    legend: 'maps/panorama?version=1.3.0&service=WMS&request=' +
+                    'GetLegendGraphic&sld_version=1.1.0&layer=panorama_recent_2016&format=image/png&STYLE=de' +
+                    'fault'
+                },
+                pano2017: {
+                    url: 'maps/panorama',
+                    label_short: 'Panoramabeelden',
+                    label_long: 'Panoramabeelden',
+                    layers: ['panorama_recent_2017'],
+                    minZoom: 11,
+                    maxZoom: 16,
+                    legend: 'maps/panorama?version=1.3.0&service=WMS&request=' +
+                    'GetLegendGraphic&sld_version=1.1.0&layer=panorama_recent_2017&format=image/png&STYLE=de' +
+                    'fault'
+                },
+                pano2018: {
+                    url: 'maps/panorama',
+                    label_short: 'Panoramabeelden',
+                    label_long: 'Panoramabeelden',
+                    layers: ['panorama_recent_2018'],
+                    minZoom: 11,
+                    maxZoom: 16,
+                    legend: 'maps/panorama?version=1.3.0&service=WMS&request=' +
+                    'GetLegendGraphic&sld_version=1.1.0&layer=panorama_recent_2018&format=image/png&STYLE=de' +
+                    'fault'
+                },
+                pano2019: {
+                    url: 'maps/panorama',
+                    label_short: 'Panoramabeelden',
+                    label_long: 'Panoramabeelden',
+                    layers: ['panorama_recent_2019'],
+                    minZoom: 11,
+                    maxZoom: 16,
+                    legend: 'maps/panorama?version=1.3.0&service=WMS&request=' +
+                    'GetLegendGraphic&sld_version=1.1.0&layer=panorama_recent_2019&format=image/png&STYLE=de' +
+                    'fault'
+                },
+                pano2020: {
+                    url: 'maps/panorama',
+                    label_short: 'Panoramabeelden',
+                    label_long: 'Panoramabeelden',
+                    layers: ['panorama_recent_2020'],
+                    minZoom: 11,
+                    maxZoom: 16,
+                    legend: 'maps/panorama?version=1.3.0&service=WMS&request=' +
+                    'GetLegendGraphic&sld_version=1.1.0&layer=panorama_recent_2020&format=image/png&STYLE=de' +
+                    'fault'
                 }
             },
             HIERARCHY: [

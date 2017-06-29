@@ -14,6 +14,8 @@
         reducers[ACTIONS.MAP_SET_BASELAYER.id] = mapSetBaselayerReducer;
         reducers[ACTIONS.MAP_ADD_OVERLAY.id] = mapAddOverlayReducer;
         reducers[ACTIONS.MAP_REMOVE_OVERLAY.id] = mapRemoveOverlayReducer;
+        reducers[ACTIONS.MAP_ADD_PANO_OVERLAY.id] = mapAddPanoOverlayReducer;
+        reducers[ACTIONS.MAP_REMOVE_PANO_OVERLAY.id] = mapRemovePanoOverlayReducer;
         reducers[ACTIONS.MAP_TOGGLE_VISIBILITY_OVERLAY.id] = mapToggleVisibilityOverlay;
         reducers[ACTIONS.MAP_PAN.id] = mapPanReducer;
         reducers[ACTIONS.MAP_ZOOM.id] = mapZoomReducer;
@@ -59,7 +61,12 @@
         function mapAddOverlayReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
-            if (newState.map.overlays.length === 0) {
+            if (!oldState.map.overlays
+                .filter((overlay) => overlay.id.indexOf('pano') !== 0)
+                .length
+            ) {
+                // Show active overlays only if there were no active overlays
+                // yet (disregarding 'pano' layers)
                 newState.map.showActiveOverlays = true;
             }
 
@@ -84,6 +91,69 @@
                 }
             }
             newState.map.overlays.splice(i, 1);
+
+            return newState;
+        }
+
+        /**
+         * Adds a 'pano' (street view) layer according to the 'history'
+         * selection in the state ('pano2016', 'pano2020', or 'pano' by default
+         * for the most recent version).
+         *
+         * Removes any active 'pano' (street view) layer before adding the new
+         * one.
+         *
+         * @param {Object} oldState
+         *
+         * @returns {Object} newState
+         */
+        function mapAddPanoOverlayReducer (oldState) {
+            const newLayer = (oldState.straatbeeld && oldState.straatbeeld.history)
+                ? `pano${oldState.straatbeeld.history}`
+                : 'pano';
+
+            if (oldState.map.overlays.filter((overlay) => overlay.id === newLayer).length === 1) {
+                // Ovelay already exists
+                return oldState;
+            }
+
+            // Remove any active 'pano' layers
+            const newOverlays = oldState.map.overlays
+                .filter((overlay) => overlay.id.indexOf('pano') !== 0);
+
+            const newState = angular.copy(oldState);
+
+            // Add the new 'pano' layer
+            newOverlays.push({
+                id: newLayer,
+                isVisible: true
+            });
+
+            newState.map.overlays = newOverlays;
+
+            return newState;
+        }
+
+        /**
+         * Removes any active 'pano' (street view) layer.
+         *
+         * @param {Object} oldState
+         *
+         * @returns {Object} newState
+         */
+        function mapRemovePanoOverlayReducer (oldState) {
+            // Remove all active 'pano' layers
+            const newOverlays = oldState.map.overlays
+                .filter((overlay) => overlay.id.indexOf('pano') !== 0);
+
+            if (newOverlays.length === oldState.map.overlays.length) {
+                // No 'pano' layers were active
+                return oldState;
+            }
+
+            const newState = angular.copy(oldState);
+
+            newState.map.overlays = newOverlays;
 
             return newState;
         }
@@ -232,6 +302,13 @@
             newState.dataSelection.isLoading = true;
             newState.dataSelection.view = 'LIST';
             newState.dataSelection.markers = [];
+
+            // No markers, the data selection goes back to its default state of
+            // showing all data => make sure it will not trigger a url state
+            // change
+            if (payload.markers.length === 0) {
+                newState.dataSelection.reset = true;
+            }
 
             return newState;
         }

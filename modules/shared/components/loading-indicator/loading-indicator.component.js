@@ -14,9 +14,9 @@
             controllerAs: 'vm'
         });
 
-    DpLoadingIndicatorController.$inject = ['$scope', '$timeout'];
+    DpLoadingIndicatorController.$inject = ['$scope', '$interval'];
 
-    function DpLoadingIndicatorController ($scope, $timeout) {
+    function DpLoadingIndicatorController ($scope, $interval) {
         var vm = this,
             timer,
             threshold = 400;
@@ -25,11 +25,11 @@
 
         $scope.$watch('vm.isLoading', function (isLoading) {
             if (isLoading) {
-                timer = $timeout(function () {
+                timer = $interval(function () {
                     vm.showLoadingIndicator = true;
-                }, vm.useDelay ? threshold : 0);
+                }, vm.useDelay ? threshold : 0, 1);
             } else {
-                $timeout.cancel(timer);
+                $interval.cancel(timer);
 
                 vm.showLoadingIndicator = false;
             }
