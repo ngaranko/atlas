@@ -33,6 +33,7 @@
             vm.pageType = state.page && state.page.type ? state.page.type : '';
 
             vm.isPrintMode = state.atlas.isPrintMode;
+            vm.isEmbedPreview = state.atlas.isEmbedPreview;
 
             vm.dataSelectionState = state.dataSelection;
 

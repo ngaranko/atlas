@@ -73,7 +73,7 @@
         }
 
         function determineMapActivity (state) {
-            if (!state.atlas.isPrintMode) {
+            if (!state.atlas.isPrintMode && !state.atlas.isEmbedPreview) {
                 return determineMapActivityDefault(state);
             } else {
                 return determineMapActivityPrint(state);
@@ -116,7 +116,7 @@
                 (visibility.searchResults && state.search.isFullscreen) ||
                 (visibility.dataSelection && state.dataSelection.isFullscreen);
 
-            if (!state.atlas.isPrintMode) {
+            if (!state.atlas.isPrintMode && !state.atlas.isEmbedPreview) {
                 return determineColumnSizesDefault (state, visibility, hasFullscreenElement);
             } else {
                 return determineColumnSizesPrint (state, visibility, hasFullscreenElement);

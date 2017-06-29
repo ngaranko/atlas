@@ -6,19 +6,23 @@
      }">
 
     <!-- Header -->
-    <div ng-class="{ 'u-fixed': !vm.isPrintMode }">
+    <div ng-class="{ 'u-fixed': !vm.isPrintMode && !vm.isEmbedPreview }">
         <div class="c-dashboard__heading"
              ng-class="{ 'o-max-width': vm.hasMaxWidth }"
              ng-controller="HeaderController as header">
             <div ng-class="{ 'o-max-width__inner': vm.hasMaxWidth }">
-                <div ng-if="!vm.isPrintMode" class="qa-dashboard__header">
+                <div ng-if="!vm.isPrintMode && !vm.isEmbedPreview" class="qa-dashboard__header">
                     <dp-site-header size="vm.headerSize"
                                     has-print-button="header.hasPrintButton"
+                                    has-embed-button="header.hasEmbedButton"
                                     search-action="header.searchAction"
                                     query="{{header.query}}"></dp-site-header>
                 </div>
                 <div ng-if="vm.isPrintMode" class="qa-dashboard__print-header">
                     <dp-print-header></dp-print-header>
+                </div>
+                <div ng-if="vm.isEmbedPreview" class="qa-dashboard__embed-header">
+                    <dp-embed-header></dp-embed-header>
                 </div>
             </div>
         </div>
@@ -74,7 +78,7 @@
                             show-layer-selection="map.showLayerSelection"
                             markers="map.markers"
                             draw-geometry="map.drawGeometry"
-                            resize="[vm.isPrintMode, vm.visibility.httpStatus, vm.visibility.map, vm.columnSizes.middle]">
+                            resize="[vm.isPrintMode, vm.isEmbedPreview, vm.visibility.httpStatus, vm.visibility.map, vm.columnSizes.middle]">
                         </dp-map>
                     </div>
                 </div>
@@ -170,7 +174,7 @@
                         <!--Resize straatbeeld when any of printMode, errorMode or fullscreen changes-->
                         <dp-straatbeeld
                             state="straatbeeld.straatbeeldState"
-                            resize="[vm.isPrintMode, vm.visibility.httpStatus, vm.visibility.straatbeeld, vm.columnSizes.right]">
+                            resize="[vm.isPrintMode, vm.isEmbedPreview, vm.visibility.httpStatus, vm.visibility.straatbeeld, vm.columnSizes.right]">
                         </dp-straatbeeld>
                     </div>
 
