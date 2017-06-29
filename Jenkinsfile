@@ -26,8 +26,7 @@ node {
         tryStep "test", {
             withCredentials([[$class: 'StringBinding', credentialsId: 'PASSWORD_EMPLOYEE', variable: 'PASSWORD_EMPLOYEE'],
                              [$class: 'StringBinding', credentialsId: 'PASSWORD_EMPLOYEE_PLUS', variable: 'PASSWORD_EMPLOYEE_PLUS']]) {
-                sh "docker-compose -p atlas -f .jenkins/docker-compose.yml build && " +
-                    "docker-compose -p atlas -f .jenkins/docker-compose.yml run --rm -u root atlas npm test"
+                sh "docker-compose -p atlas -f .jenkins/docker-compose.yml build"
             }
             }, {
                 sh "docker-compose -p atlas -f .jenkins/docker-compose.yml down"
