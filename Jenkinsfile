@@ -29,6 +29,7 @@ node {
                 def image = docker.build("build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}")
                 image.push()
             }
+            }
         }
     }
 
