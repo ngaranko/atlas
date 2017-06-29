@@ -51,7 +51,7 @@
                         element.removeClass('is-print-mode--landscape');
                     }
                 } else {
-                    element.removeClass('is-print-mode');
+                    element.removeClass('is-print-mode is-print-mode--landscape');
                 }
 
                 if (state.atlas.isEmbedPreview) {

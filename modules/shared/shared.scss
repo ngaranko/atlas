@@ -42,8 +42,15 @@
 @import "components/tab-header/tab-header";
 @import "components/video/video";
 
+.is-print-mode {
+  @import "styles/base/reset-print";
+}
+
+.is-embed-preview {
+  @import "styles/base/reset-embed";
+}
+
 .is-print-mode,
 .is-embed-preview {
-  @import "styles/base/reset-print";
   @import "components/loading-indicator/loading-indicator-print";
 }
