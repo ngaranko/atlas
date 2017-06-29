@@ -34,7 +34,7 @@
             }
 
             vm.hasPrintButton = (!isDataSelection || isListView) && !isHomepage;
-            vm.hasEmbedButton = (!isDataSelection || isListView) && !isHomepage;
+            vm.hasEmbedButton = angular.isObject(state.map) ? state.map.isFullscreen : false;
         }
     }
 })();
