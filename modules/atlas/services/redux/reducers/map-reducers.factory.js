@@ -127,25 +127,21 @@
          * @returns {Object} newState
          */
         function mapZoomReducer (state, payload) {
-            if (angular.isArray(payload.viewCenter)) {
-                state = {
+            return angular.isArray(payload.viewCenter)
+                ? {
                     ...state,
                     map: {
                         ...state.map,
                         viewCenter: payload.viewCenter
                     }
-                };
-            }
-
-            state = {
-                ...state,
-                map: {
-                    ...state.map,
-                    zoom: payload.zoom
                 }
-            };
-
-            return state;
+                : {
+                    ...state,
+                    map: {
+                        ...state.map,
+                        zoom: payload.zoom
+                    }
+                };
         }
 
         /**
