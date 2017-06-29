@@ -1,7 +1,7 @@
 describe('The dp-straatbeeld directive', function () {
     var $compile,
         $rootScope,
-        $store,
+        store,
         scope,
         ACTIONS,
         $q,
@@ -48,14 +48,14 @@ describe('The dp-straatbeeld directive', function () {
         ) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
-            $store = _store_;
+            store = _store_;
             ACTIONS = _ACTIONS_;
             $q = _$q_;
             marzipanoService = _marzipanoService_;
             orientation = _orientation_;
         });
 
-        spyOn($store, 'dispatch');
+        spyOn(store, 'dispatch');
         spyOn(marzipanoService, 'loadScene');
         spyOn(marzipanoService, 'initialize').and.callThrough();
         spyOn(orientation, 'update');
@@ -97,7 +97,7 @@ describe('The dp-straatbeeld directive', function () {
 
             $rootScope.$apply();
 
-            expect($store.dispatch).toHaveBeenCalledWith({
+            expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.HIDE_STRAATBEELD
             });
         });
@@ -109,7 +109,7 @@ describe('The dp-straatbeeld directive', function () {
 
             getDirective(state, false);
 
-            expect($store.dispatch).not.toHaveBeenCalled();
+            expect(store.dispatch).not.toHaveBeenCalled();
         });
 
         it('Does call SHOW_STRAATBEELD_INITIAL', function () {
@@ -120,7 +120,7 @@ describe('The dp-straatbeeld directive', function () {
 
             getDirective(state, false);
 
-            expect($store.dispatch).toHaveBeenCalledWith({
+            expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.SHOW_STRAATBEELD_INITIAL,
                 payload: {
                     foo: 'bar'
@@ -136,7 +136,7 @@ describe('The dp-straatbeeld directive', function () {
 
             getDirective(state, false);
 
-            expect($store.dispatch).toHaveBeenCalledWith({
+            expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT,
                 payload: {
                     foo: 'bar'
@@ -146,17 +146,17 @@ describe('The dp-straatbeeld directive', function () {
 
         it('Listens to changes on scope for id', function () {
             var directive = getDirective({}, false);
-            expect($store.dispatch).not.toHaveBeenCalled();
+            expect(store.dispatch).not.toHaveBeenCalled();
 
             directive.isolateScope().state.id = 'ABC';
             directive.isolateScope().$apply();
 
-            expect($store.dispatch).toHaveBeenCalledTimes(1);   // show pano
+            expect(store.dispatch).toHaveBeenCalledTimes(1);   // show pano
 
             directive.isolateScope().state.id = 'XYZ';
             directive.isolateScope().$apply();
 
-            expect($store.dispatch).toHaveBeenCalledTimes(2);
+            expect(store.dispatch).toHaveBeenCalledTimes(2);
         });
 
         it('Listens to resize changes', function () {
@@ -183,28 +183,28 @@ describe('The dp-straatbeeld directive', function () {
 
         it('Listens to changes on scope for location', function () {
             var directive = getDirective({}, false);
-            expect($store.dispatch).not.toHaveBeenCalled();
+            expect(store.dispatch).not.toHaveBeenCalled();
 
             directive.isolateScope().state.location = [52, 4];
             directive.isolateScope().$apply();
 
-            expect($store.dispatch).toHaveBeenCalledTimes(1);   // show pano
+            expect(store.dispatch).toHaveBeenCalledTimes(1);   // show pano
 
             directive.isolateScope().state.location = [52, 5];
             directive.isolateScope().$apply();
 
-            expect($store.dispatch).toHaveBeenCalledTimes(2);
+            expect(store.dispatch).toHaveBeenCalledTimes(2);
         });
 
         it('triggers show action', function () {
             var directive = getDirective({}, false);
-            expect($store.dispatch).not.toHaveBeenCalled();
+            expect(store.dispatch).not.toHaveBeenCalled();
 
             directive.isolateScope().state.id = 'ABC';
             directive.isolateScope().$apply();
 
-            expect($store.dispatch).toHaveBeenCalledTimes(1);   // show pano
-            expect($store.dispatch).toHaveBeenCalledWith({
+            expect(store.dispatch).toHaveBeenCalledTimes(1);   // show pano
+            expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT,
                 payload: {
                     foo: 'bar'
@@ -271,6 +271,95 @@ describe('The dp-straatbeeld directive', function () {
         });
     });
 
+    describe('Changing hotspots', function () {
+        let directive;
+
+        beforeEach(() => {
+            directive = getDirective({
+                image: {
+                    pattern: 'http://example.com/example/{a}/{b}/{c}.png',
+                    preview: 'http://example.com/example/preview.png'
+                }
+            }, false);
+        });
+
+        it('Triggers marzipano to load the scene', function () {
+            marzipanoService.loadScene.calls.reset();
+
+            directive.isolateScope().state.hotspots = [{
+                id: 'TMX7316010203-000224_pano_0000_000852',
+                year: 2020
+            }, {
+                id: 'TMX7316010203-000224_pano_0000_000853',
+                year: 2020
+            }];
+            directive.isolateScope().$apply();
+
+            expect(marzipanoService.loadScene).toHaveBeenCalledTimes(1);
+            marzipanoService.loadScene.calls.reset();
+
+            directive.isolateScope().state.hotspots[0].year = 2017;
+            directive.isolateScope().state.hotspots[1].year = 2017;
+            directive.isolateScope().$apply();
+
+            expect(marzipanoService.loadScene).toHaveBeenCalledTimes(1);
+        });
+
+        it('Triggers load scene on entire new array', function () {
+            marzipanoService.loadScene.calls.reset();
+
+            directive.isolateScope().state.hotspots = [{
+                id: 'TMX7316010203-000224_pano_0000_000852',
+                year: 2020
+            }, {
+                id: 'TMX7316010203-000224_pano_0000_000853',
+                year: 2020
+            }];
+            directive.isolateScope().$apply();
+
+            expect(marzipanoService.loadScene).toHaveBeenCalledTimes(1);
+            marzipanoService.loadScene.calls.reset();
+
+            directive.isolateScope().state.hotspots = [{
+                id: 'TMX7316010203-000224_pano_0000_000852',
+                year: 2017
+            }, {
+                id: 'TMX7316010203-000224_pano_0000_000853',
+                year: 2017
+            }];
+            directive.isolateScope().$apply();
+
+            expect(marzipanoService.loadScene).toHaveBeenCalledTimes(1);
+        });
+
+        it('Does not trigger load scene on entire new array with the exact same data', function () {
+            marzipanoService.loadScene.calls.reset();
+
+            directive.isolateScope().state.hotspots = [{
+                id: 'TMX7316010203-000224_pano_0000_000852',
+                year: 2020
+            }, {
+                id: 'TMX7316010203-000224_pano_0000_000853',
+                year: 2020
+            }];
+            directive.isolateScope().$apply();
+
+            expect(marzipanoService.loadScene).toHaveBeenCalledTimes(1);
+            marzipanoService.loadScene.calls.reset();
+
+            directive.isolateScope().state.hotspots = [{
+                id: 'TMX7316010203-000224_pano_0000_000852',
+                year: 2020
+            }, {
+                id: 'TMX7316010203-000224_pano_0000_000853',
+                year: 2020
+            }];
+            directive.isolateScope().$apply();
+
+            expect(marzipanoService.loadScene).not.toHaveBeenCalled();
+        });
+    });
+
     describe('set orientation on mouse move', function () {
         it('calls the orientation factory on mousemove to keep the state in sync', function () {
             var directive;
@@ -310,6 +399,27 @@ describe('The dp-straatbeeld directive', function () {
             mockedState.isLoading = false;
             triggerMousemove(directive.find('.js-marzipano-viewer'));
             expect(orientation.update).toHaveBeenCalled();
+        });
+    });
+
+    describe('Changing history selection', () => {
+        it('dispatches an action with new data', () => {
+            const directive = getDirective({
+                location: [52, 4]
+            }, false);
+
+            store.dispatch.calls.reset();
+
+            directive.isolateScope().state.history = 2020;
+            directive.isolateScope().$apply();
+
+            expect(store.dispatch).toHaveBeenCalledTimes(1);
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT,
+                payload: {
+                    foo: 'bar'
+                }
+            });
         });
     });
 });

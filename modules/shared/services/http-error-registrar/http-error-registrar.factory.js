@@ -6,9 +6,9 @@
         .factory('httpErrorRegistrar', httpErrorRegistrarFactory)
         .config($httpProvider => $httpProvider.interceptors.push('httpErrorRegistrar'));
 
-    httpErrorRegistrarFactory.inject = ['$log', '$rootScope', '$window', '$q', '$timeout', 'httpStatus'];
+    httpErrorRegistrarFactory.inject = ['$log', '$rootScope', '$window', '$q', '$interval', 'httpStatus'];
 
-    function httpErrorRegistrarFactory ($log, $rootScope, $window, $q, $timeout, httpStatus) {
+    function httpErrorRegistrarFactory ($log, $rootScope, $window, $q, $interval, httpStatus) {
         $window.addEventListener('error', function (e) {
             if (e.target && e.target.src) {
                 // URL load error
@@ -39,7 +39,7 @@
             // itself. See:
             // https://stackoverflow.com/questions/33605486/
             // handle-angular-http-errors-locally-with-fallback-to-global-error-handling
-            $timeout(() => {
+            $interval(() => {
                 // Check if the error has already been handled locally
                 const errorHandled = response.errorHandled;
 
@@ -68,7 +68,7 @@
                         registerServerError();
                     }
                 }
-            });
+            }, 0, 1);
 
             return $q.reject(response);
         }
