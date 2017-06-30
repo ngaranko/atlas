@@ -46,7 +46,10 @@
   @import "styles/base/reset-print";
 }
 
-.is-embed-preview,
+.is-embed-preview {
+  @import "styles/base/reset-embed-preview";
+}
+
 .is-embed {
   @import "styles/base/reset-embed";
 }
