@@ -150,4 +150,39 @@ describe('The header controller', function () {
             expect(controller.hasPrintButton).toBe(true);
         });
     });
+
+    describe('not all states have an embed version', function () {
+        it('only in fullscreen map there is an embed button', function () {
+            mockedState.map.isFullscreen = true;
+
+            mockedState.page = {
+                name: 'home'
+            };
+
+            spyOn(store, 'getState').and.returnValue(mockedState);
+            const controller = getController();
+
+            expect(controller.hasEmbedButton).toBe(true);
+        });
+
+        // it('there is no print button when dataSelection is active', function () {
+        //     mockedState.dataSelection = {};
+
+        //     spyOn(store, 'getState').and.returnValue(mockedState);
+        //     const controller = getController();
+
+        //     expect(controller.hasPrintButton).toBe(false);
+        // });
+
+        it('there is no embed button on the homepage', () => {
+            mockedState.page = {
+                name: 'home'
+            };
+
+            spyOn(store, 'getState').and.returnValue(mockedState);
+            const controller = getController();
+
+            expect(controller.hasEmbedButton).toBe(false);
+        });
+    });
 });
