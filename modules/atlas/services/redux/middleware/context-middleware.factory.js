@@ -40,6 +40,7 @@
                             action.payload = straatbeeld.location;
                         }
                     }
+console.log('=', action.type.id);
 
                     return next(action);
                 };

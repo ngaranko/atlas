@@ -9,9 +9,12 @@
   @import "components/dashboard/dashboard-print";
 }
 
-.is-embed-preview,
 .is-embed {
   @import "components/dashboard/dashboard-embed";
+}
+
+.is-embed-preview {
+  @import "components/dashboard/dashboard-embed-preview";
 }
 
 .is-print-mode,

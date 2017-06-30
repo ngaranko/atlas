@@ -1,6 +1,3 @@
-$dashboard-heading-height-embed-version: 211px;
-$dashboard-heading-padding-embed-version: 46px;
-
 .c-dashboard {
   padding: 0;
   border: solid $secondary-gray20 1px;
@@ -8,19 +5,9 @@ $dashboard-heading-padding-embed-version: 46px;
   overflow: visible;
 }
 
-.c-dashboard__heading {
-  position: initial; // Otherwise the top box shadow of the body gets hidden
-  height: $dashboard-heading-height-embed-version;
-  padding: $dashboard-heading-padding-embed-version;
-  border-bottom: none;
-}
-
 .c-dashboard__body {
   top: initial;
-  height: calc(100% - #{$dashboard-heading-height-embed-version});
-  padding: $base-whitespace * 2;
-  border: 2px solid $secondary-gray40;
-  background-color: $primary-light;
+  height: 100%; 
 }
 
 .c-dashboard__page-inner {
