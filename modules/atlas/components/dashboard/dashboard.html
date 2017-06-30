@@ -6,7 +6,7 @@
      }">
 
     <!-- Header -->
-    <div ng-class="{ 'u-fixed': !vm.isPrintMode && !vm.isEmbedPreview && !vm.isEmbed }">
+    <div ng-if="!vm.isEmbed" ng-class="{ 'u-fixed': !vm.isPrintMode && !vm.isEmbedPreview }">
         <div class="c-dashboard__heading"
              ng-class="{ 'o-max-width': vm.hasMaxWidth }"
              ng-controller="HeaderController as header">
@@ -21,7 +21,7 @@
                 <div ng-if="vm.isPrintMode" class="qa-dashboard__print-header">
                     <dp-print-header></dp-print-header>
                 </div>
-                <div ng-if="vm.isEmbedPreview || vm.isEmbed" class="qa-dashboard__embed-header">
+                <div ng-if="vm.isEmbedPreview" class="qa-dashboard__embed-header">
                     <dp-embed-header></dp-embed-header>
                 </div>
             </div>
