@@ -9,11 +9,10 @@
             controllerAs: 'vm'
         });
 
-    DpEmbedHeader.$inject = ['store', 'stateUrlConverter', '$location'];
+    DpEmbedHeader.$inject = ['store', 'embed'];
 
-    function DpEmbedHeader (store, stateUrlConverter, $location) {
-        const vm = this,
-            url = $location.protocol() + '://' + $location.host() + ':' + $location.port();
+    function DpEmbedHeader (store, embed) {
+        const vm = this;
 
         store.subscribe(update);
         update();
@@ -22,8 +21,9 @@
             const ghostState = angular.copy(store.getState());
 
             ghostState.atlas.isEmbedPreview = false;
-            vm.link = url + stateUrlConverter.state2url(ghostState);
-            vm.html = `<iframe width="500" height="400" src="${vm.link}" frameborder="0"></iframe>`;
+
+            vm.link = embed.getLink(ghostState);
+            vm.html = embed.getHtml(ghostState);
         }
     }
 })();

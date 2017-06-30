@@ -8,6 +8,6 @@
   z-index: $fixed-position-z-index;
 
   .is-embed-preview & {
-    display: block;
+    display: inline-block;
   }
 }
