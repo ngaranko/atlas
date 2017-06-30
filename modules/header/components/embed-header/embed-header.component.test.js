@@ -1,21 +1,20 @@
-describe('The dp-embed-header component', function () {
-    var $compile,
+describe('The dp-embed-header component', () => {
+    let $compile,
         $rootScope,
         embed,
         store,
+        scope,
         mockState;
 
-    beforeEach(function () {
+    beforeEach(() => {
         angular.mock.module(
             'dpHeader',
             {
                 store: {
-                    subscribe: function (callbackFn) {
+                    subscribe: callbackFn => {
                         callbackFn();
                     },
-                    getState: function () {
-                        return mockState;
-                    }
+                    getState: angular.noop
                 },
                 embed: {
                     getLink: angular.noop,
@@ -24,7 +23,7 @@ describe('The dp-embed-header component', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _embed_) {
+        angular.mock.inject((_$compile_, _$rootScope_, _store_, _embed_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             embed = _embed_;
@@ -35,15 +34,15 @@ describe('The dp-embed-header component', function () {
             atlas: {}
         };
 
-        spyOn(store, 'subscribe');
-        spyOn(embed, 'getLink');
-        spyOn(embed, 'getHtml');
+        spyOn(store, 'subscribe').and.callThrough();
+        spyOn(store, 'getState').and.returnValue(mockState);
+        spyOn(embed, 'getLink').and.returnValue('123');
+        spyOn(embed, 'getHtml').and.returnValue('abc');
     });
 
     function getComponent () {
         var component,
-            element,
-            scope;
+            element;
 
         element = document.createElement('dp-embed-header');
 
@@ -55,19 +54,19 @@ describe('The dp-embed-header component', function () {
         return component;
     }
 
-    it('default state', function () {
-        mockState.atlas.isEmbedPreview = false;
-
+    it('subscribes to the store to listen for changes', () => {
         getComponent();
 
         expect(store.subscribe).toHaveBeenCalledWith(jasmine.any(Function));
+    });
 
-        expect(embed.getLink).toHaveBeenCalledWith(mockState);
-        expect(embed.getHtml).toHaveBeenCalledWith(mockState);
+    it('updates the values in the form', () => {
+        const component = getComponent();
 
-        // embed.getLink.calls.reset();
-        // mockState.atlas.isEmbedPreview = true;
+        expect(component.find('.qa-embed-header-form-input-link')[0].value).toBe('123');
+        expect(component.find('.qa-embed-header-form-input-html')[0].value).toBe('abc');
 
-        // expect(embed.getLink).toHaveBeenCalled();
+        expect(embed.getLink).toHaveBeenCalled();
+        expect(embed.getHtml).toHaveBeenCalled();
     });
 });
