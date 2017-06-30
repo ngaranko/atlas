@@ -10,13 +10,19 @@
             controllerAs: 'vm'
         });
 
-    DpEmbedButtonController.$inject = [];
+    DpEmbedButtonController.$inject = ['store', 'embed'];
 
-    function DpEmbedButtonController () {
-        var vm = this;
+    function DpEmbedButtonController (store, embed) {
+        const vm = this;
 
-        vm.click = function () {
-            console.log('click embed button');
-        };
+        store.subscribe(update);
+        update();
+
+        function update () {
+            const ghostState = angular.copy(store.getState());
+            ghostState.atlas.isEmbedPreview = false;
+
+            vm.link = embed.getLink(ghostState);
+        }
     }
 })();
