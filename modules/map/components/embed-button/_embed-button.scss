@@ -1,0 +1,13 @@
+.c-embed-button {
+  @include icon-button-text-box-right("logo", "", "red");
+
+  display: none;
+  position: absolute;
+  top: $base-whitespace;
+  right: $base-whitespace;
+  z-index: $fixed-position-z-index;
+
+  .is-embed-preview & {
+    display: block;
+  }
+}
