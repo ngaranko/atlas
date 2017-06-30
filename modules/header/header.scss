@@ -15,7 +15,8 @@ $site-header-search-form-height: 30px;
 @import "components/search/search";
 
 .is-print-mode,
-.is-embed-preview {
+.is-embed-preview,
+.is-embed {
   @import "components/site-header/site-header-print";
   @import "components/print-header/print-header";
   @import "components/print-button/print-button";

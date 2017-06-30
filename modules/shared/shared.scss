@@ -46,11 +46,13 @@
   @import "styles/base/reset-print";
 }
 
-.is-embed-preview {
+.is-embed-preview,
+.is-embed {
   @import "styles/base/reset-embed";
 }
 
 .is-print-mode,
-.is-embed-preview {
+.is-embed-preview,
+.is-embed {
   @import "components/loading-indicator/loading-indicator-print";
 }

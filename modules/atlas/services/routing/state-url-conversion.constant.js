@@ -109,7 +109,8 @@
                 // When creating a state object it will be initialized with these values
                 atlas: {
                     isPrintMode: false,
-                    isEmbedPreview: false
+                    isEmbedPreview: false,
+                    isEmbed: false
                 },
                 dataSelection: {
                     markers: [],    // eg: [[52.1, 4.1], [52.2, 4.0]],
@@ -178,6 +179,10 @@
                 // atlas (at)
                 atp: {
                     name: 'atlas.isPrintMode',
+                    type: 'boolean'
+                },
+                ate: {
+                    name: 'atlas.isEmbed',
                     type: 'boolean'
                 },
                 atep: {

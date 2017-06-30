@@ -19,7 +19,7 @@
         function onMapClick (event) {
             const state = store.getState();
 
-            if (suppress.isBusy() || state.atlas.isEmbedPreview) {
+            if (suppress.isBusy() || state.atlas.isEmbedPreview || state.atlas.isEmbed) {
                 return;
             }
 

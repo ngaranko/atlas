@@ -16,7 +16,8 @@
 @import "services/draw-tool/draw-tool";
 
 .is-print-mode,
-.is-embed-preview {
+.is-embed-preview,
+.is-embed {
   @import "components/map/map-print";
   @import "components/draw-tool/draw-tool-print";
   @import "components/toggle-fullscreen/toggle-fullscreen-print";

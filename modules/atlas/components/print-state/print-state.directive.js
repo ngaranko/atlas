@@ -55,9 +55,15 @@
                 }
 
                 if (state.atlas.isEmbedPreview) {
-                    element.addClass('is-embed-preview');                    
+                    element.addClass('is-embed-preview');
                 } else {
-                    element.removeClass('is-embed-preview');                    
+                    element.removeClass('is-embed-preview');
+                }
+
+                if (state.atlas.isEmbed) {
+                    element.addClass('is-embed');
+                } else {
+                    element.removeClass('is-embed');
                 }
             }
         }

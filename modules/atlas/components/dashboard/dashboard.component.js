@@ -41,6 +41,7 @@
 
             vm.isPrintMode = state.atlas.isPrintMode;
             vm.isEmbedPreview = state.atlas.isEmbedPreview;
+            vm.isEmbed = state.atlas.isEmbed;
 
             vm.dataSelectionState = state.dataSelection;
 

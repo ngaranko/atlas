@@ -7,7 +7,8 @@
   right: $base-whitespace;
   z-index: $fixed-position-z-index;
 
-  .is-embed-preview & {
+  .is-embed-preview &,
+  .is-embed & {
     display: block;
   }
 }

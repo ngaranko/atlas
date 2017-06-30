@@ -14,7 +14,8 @@
 }
 
 .is-print-mode,
-.is-embed-preview {
+.is-embed-preview,
+.is-embed {
   .leaflet-control-measure {
     display: none;
   }
