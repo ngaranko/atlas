@@ -1,28 +1,32 @@
-// describe('The angleConversion service', function () {
-//     var angleConversion;
+describe('The embed factory', function () {
+    let embed,
+        $location;
 
-//     beforeEach(function () {
-//         angular.mock.module('dpShared');
+    beforeEach(function () {
+        angular.mock.module('dpShared', {
+            stateUrlConverter: {
+                state2url: () => {
+                    return '/#foo=1&bar=x';
+                }
+            }
+        });
 
-//         angular.mock.inject(function (_angleConversion_) {
-//             angleConversion = _angleConversion_;
-//         });
-//     });
+        angular.mock.inject(function (_$location_, _embed_) {
+            $location = _$location_;
+            embed = _embed_;
+        });
 
-//     it('can convert degrees to radians', function () {
-//         expect(angleConversion.degreesToRadians(0).toFixed(2)).toBe('0.00');
-//         expect(angleConversion.degreesToRadians(45).toFixed(2)).toBe('0.79');
-//         expect(angleConversion.degreesToRadians(50).toFixed(2)).toBe('0.87');
-//         expect(angleConversion.degreesToRadians(270).toFixed(2)).toBe('4.71');
-//         expect(angleConversion.degreesToRadians(360).toFixed(2)).toBe('6.28');
-//         expect(angleConversion.degreesToRadians(361).toFixed(2)).toBe('6.30');
-//     });
+        spyOn($location, 'protocol').and.returnValue('https');
+        spyOn($location, 'host').and.returnValue('devil.com');
+        spyOn($location, 'port').and.returnValue('666');
+    });
 
-//     it('can convert radians to degrees', function () {
-//         expect(angleConversion.radiansToDegrees(0).toFixed(2)).toBe('0.00');
-//         expect(angleConversion.radiansToDegrees(1).toFixed(2)).toBe('57.30');
-//         expect(angleConversion.radiansToDegrees(2).toFixed(2)).toBe('114.59');
-//         expect(angleConversion.radiansToDegrees(6).toFixed(2)).toBe('343.77');
-//         expect(angleConversion.radiansToDegrees(7).toFixed(2)).toBe('401.07');
-//     });
-// });
+    it('can create a embed link', function () {
+        expect(embed.getLink({})).toBe('https://devil.com:666/#foo=1&bar=x');
+    });
+
+    it('can create a embed html', function () {
+        expect(embed.getHtml({})).toBe('<iframe width="500" height="400" ' +
+            'src="https://devil.com:666/#foo=1&bar=x" frameborder="0"></iframe>');
+    });
+});
