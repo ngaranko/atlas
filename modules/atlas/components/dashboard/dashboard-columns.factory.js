@@ -69,6 +69,11 @@
                 visibility.dataSelection = false;
             }
 
+            if (isEmbedPreview(state)) {
+                console.log('EMBED determineVisibility', state);
+                visibility.layerSelection = false;
+            }
+
             return visibility;
         }
 
@@ -92,6 +97,11 @@
         }
 
         function determineMapActivityPrint (state) {
+            if (isEmbedPreview(state)) {
+                console.log('EMBED determineMapActivityPrint', state);
+                return true;
+            }
+
             if (state.map.isFullscreen && !state.layerSelection.isEnabled) {
                 return true;
             } else if (state.straatbeeld) {
@@ -166,6 +176,10 @@
         function hasLimitedWidth (state) {
             const visibility = determineVisibility(state);
             return Boolean(visibility.page);
+        }
+
+        function isEmbedPreview(state) {
+            return state.atlas.isEmbedPreview && state.map.isFullscreen && !state.straatbeeld;
         }
     }
 })();
