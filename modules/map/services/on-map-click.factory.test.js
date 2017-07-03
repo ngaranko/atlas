@@ -32,7 +32,7 @@ describe('The onMapClick factory', () => {
         });
 
         mockState = {
-            atlas: { 
+            atlas: {
                 isEmbedPreview: false
             }
         };

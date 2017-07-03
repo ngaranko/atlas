@@ -19,6 +19,7 @@
         'embedReducers'
     ];
 
+    // eslint-disable-next-line max-params
     function reducerFactory (urlReducers,
                              detailReducers,
                              homeReducers,
