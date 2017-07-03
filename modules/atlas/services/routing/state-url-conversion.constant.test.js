@@ -19,7 +19,8 @@ describe('The state url conversion definition', function () {
             expect(state).toEqual({
                 atlas: {
                     isPrintMode: false,
-                    isEmbedPreview: false
+                    isEmbedPreview: false,
+                    isEmbed: false
                 },
                 page: {
                     name: 'home'

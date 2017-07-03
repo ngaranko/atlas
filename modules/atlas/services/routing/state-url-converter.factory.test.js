@@ -38,7 +38,8 @@ describe('The state url conversion factory', function () {
                 dataSelection: null,
                 atlas: {
                     isPrintMode: false,
-                    isEmbedPreview: false
+                    isEmbedPreview: false,
+                    isEmbed: false
                 }
             });
         });

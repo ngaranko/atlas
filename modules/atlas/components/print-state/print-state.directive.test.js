@@ -125,4 +125,24 @@ describe('The dp-print-state directive', function () {
 
         expect(directive.hasClass('is-embed-preview')).toBe(false);
     });
+
+    it('adds a embed class to the element when isEmbed is true', function () {
+        var directive;
+
+        mockedState = {atlas: {isEmbed: true}};
+
+        directive = getDirective();
+
+        expect(directive.hasClass('is-embed')).toBe(true);
+    });
+
+    it('does not add a embed to the element when isEmbed is false', function () {
+        var directive;
+
+        mockedState = {atlas: {isEmbed: false}};
+
+        directive = getDirective();
+
+        expect(directive.hasClass('is-embed')).toBe(false);
+    });
 });
