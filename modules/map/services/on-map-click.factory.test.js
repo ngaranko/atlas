@@ -5,6 +5,7 @@ describe('The onMapClick factory', () => {
         ACTIONS,
         drawTool,
         mockedLeafletMap,
+        mockState,
         suppress;
 
     beforeEach(() => {
@@ -12,7 +13,8 @@ describe('The onMapClick factory', () => {
             'dpMap',
             {
                 store: {
-                    dispatch: angular.noop
+                    dispatch: angular.noop,
+                    getState: angular.noop
                 }
             }
         );
@@ -28,6 +30,14 @@ describe('The onMapClick factory', () => {
             L = _L_;
             suppress = _suppress_;
         });
+
+        mockState = {
+            atlas: { 
+                isEmbedPreview: false
+            }
+        };
+
+        spyOn(store, 'getState').and.returnValue(mockState);
 
         mockedLeafletMap = L.map(document.createElement('div'));
 
@@ -50,6 +60,12 @@ describe('The onMapClick factory', () => {
 
     it('click on map when suppressing is busy it should stop proceeding', () => {
         spyOn(suppress, 'isBusy').and.returnValue(true);
+        click();
+        expect(drawTool.isEnabled).not.toHaveBeenCalled();
+    });
+
+    it('click on map when in embed preview it should stop proceeding', () => {
+        mockState.atlas.isEmbedPreview = true;
         click();
         expect(drawTool.isEnabled).not.toHaveBeenCalled();
     });
