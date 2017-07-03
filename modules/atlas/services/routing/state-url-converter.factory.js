@@ -251,13 +251,11 @@
             // Remove the domain from the endpoint so only the relative URI is
             // encoded in the URL.
             const strippedDomainState = (state.detail && state.detail.endpoint)
-                ? {
-                    ...state,
-                    detail: {
-                        ...state.detail,
+                ? Object.assign({}, state, {
+                    detail: Object.assign({}, state.detail, {
                         endpoint: uriStripper.stripDomain(state.detail.endpoint)
-                    }
-                }
+                    })
+                })
                 : state;
 
             // Converts a state to a params object that is stored in the url
