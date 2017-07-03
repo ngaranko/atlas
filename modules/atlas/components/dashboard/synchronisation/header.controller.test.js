@@ -165,14 +165,15 @@ describe('The header controller', function () {
             expect(controller.hasEmbedButton).toBe(true);
         });
 
-        // it('there is no print button when dataSelection is active', function () {
-        //     mockedState.dataSelection = {};
+        it('there is no embed button when both full screen map and straatbeeld are active', function () {
+            mockedState.map.isFullscreen = true;
+            mockedState.straatbeeld = {};
 
-        //     spyOn(store, 'getState').and.returnValue(mockedState);
-        //     const controller = getController();
+            spyOn(store, 'getState').and.returnValue(mockedState);
+            const controller = getController();
 
-        //     expect(controller.hasPrintButton).toBe(false);
-        // });
+            expect(controller.hasEmbedButton).toBe(false);
+        });
 
         it('there is no embed button on the homepage', () => {
             mockedState.page = {

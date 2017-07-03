@@ -21,11 +21,11 @@ describe('The dp-site-header component', () => {
     function getComponent (query, size) {
         const element = document.createElement('dp-site-header');
         element.setAttribute('query', query);
-        element.setAttribute('has-print-button', 'hasPrintButton');
+        element.setAttribute('has-print-button', true);
+        element.setAttribute('has-embed-button', true);
         element.setAttribute('size', 'size');
 
         const scope = $rootScope.$new();
-        scope.hasPrintButton = true;
         scope.size = size;
 
         const component = $compile(element)(scope);

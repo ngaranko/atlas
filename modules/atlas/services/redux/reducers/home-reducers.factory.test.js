@@ -78,8 +78,8 @@ describe('The homeReducers factory', function () {
 
         it('keeps the isPrintMode and isEmbedPreview setting', function () {
             mockedStates.forEach(function (inputState) {
-                inputState.atlas.isEmbedPreview = false;
-                expect(homeReducers.SHOW_HOME(inputState).atlas.isEmbedPreview).toBe(false);
+                inputState.atlas.isPrintMode = false;
+                expect(homeReducers.SHOW_HOME(inputState).atlas.isPrintMode).toBe(false);
 
                 inputState.atlas.isEmbedPreview = true;
                 expect(homeReducers.SHOW_HOME(inputState).atlas.isEmbedPreview).toBe(true);
