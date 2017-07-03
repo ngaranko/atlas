@@ -105,4 +105,24 @@ describe('The dp-print-state directive', function () {
             expect(directive.hasClass('is-print-mode--landscape')).toBe(false);
         });
     });
+
+    it('adds a embed preview class to the element when isEmbedPreview is true', function () {
+        var directive;
+
+        mockedState = {atlas: {isEmbedPreview: true}};
+
+        directive = getDirective();
+
+        expect(directive.hasClass('is-embed-preview')).toBe(true);
+    });
+
+    it('does not add a embed preview to the element when isPrintMode is false', function () {
+        var directive;
+
+        mockedState = {atlas: {isEmbedPreview: false}};
+
+        directive = getDirective();
+
+        expect(directive.hasClass('is-embed-preview')).toBe(false);
+    });
 });

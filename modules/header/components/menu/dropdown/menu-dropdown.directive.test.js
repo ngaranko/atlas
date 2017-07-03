@@ -31,7 +31,8 @@ describe('The dp-menu-dropdown directive', () => {
             title: 'Menu',
             type: 'main',
             align: 'right',
-            hasPrintButton: true
+            hasPrintButton: true,
+            hasEmbedButton: true
         };
     });
 
@@ -42,12 +43,13 @@ describe('The dp-menu-dropdown directive', () => {
         if (attrs.align) {
             element.setAttribute('align', attrs.align);
         }
-        element.setAttribute('has-print-button', 'hasPrintButton');
+        element.setAttribute('has-print-button', attrs.hasPrintButton);
+        element.setAttribute('has-embed-button', attrs.hasEmbedButton);
 
         document.body.appendChild(element);
 
         const scope = $rootScope.$new();
-        scope.hasPrintButton = attrs.hasPrintButton;
+        // scope.hasPrintButton = attrs.hasPrintButton;
 
         const directive = $compile(element)(scope);
         scope.$apply();
@@ -70,10 +72,10 @@ describe('The dp-menu-dropdown directive', () => {
         // Click it once
         directive.find('.qa-menu__toggle .qa-menu__link').eq(0).click();
 
-        // It should be openend
+        // print and  embed should be openend
         expect(directive.find('.qa-menu__dropdown').length).toBe(1);
         expect(directive.find('dp-terugmelden-button').length).toBe(1);
-        expect(directive.find('dp-link').length).toBe(1);
+        expect(directive.find('dp-link').length).toBe(2);
 
         // Click it again
         directive.find('.qa-menu__toggle .qa-menu__link').eq(0).click();
@@ -90,10 +92,10 @@ describe('The dp-menu-dropdown directive', () => {
         // Click it once
         directive.find('.qa-menu__title').eq(0).click();
 
-        // It should be openend
+        // print and  embed should be openend
         expect(directive.find('.qa-menu__dropdown').length).toBe(1);
         expect(directive.find('dp-terugmelden-button').length).toBe(1);
-        expect(directive.find('dp-link').length).toBe(1);
+        expect(directive.find('dp-link').length).toBe(2);
 
         // Click it again
         directive.find('.qa-menu__title').eq(0).click();
@@ -153,12 +155,15 @@ describe('The dp-menu-dropdown directive', () => {
         directive = getDirective(options);
         directive.find('.qa-menu__toggle .qa-menu__link').eq(0).click();
         expect(directive.find('.qa-menu__dropdown').text()).toContain('Printen');
+        expect(directive.find('.qa-menu__dropdown').text()).toContain('Embedden');
 
         // Without a print button
         options.hasPrintButton = false;
+        options.hasEmbedButton = false;
         directive = getDirective(options);
         directive.find('.qa-menu__toggle .qa-menu__link').eq(0).click();
         expect(directive.find('.qa-menu__dropdown').text()).not.toContain('Printen');
+        expect(directive.find('.qa-menu__dropdown').text()).not.toContain('Embedden');
     });
 
     it('shows the menu item title specified', () => {

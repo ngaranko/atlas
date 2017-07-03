@@ -70,7 +70,6 @@
             }
 
             if (isEmbedPreview(state)) {
-                console.log('EMBED determineVisibility', state);
                 visibility.layerSelection = false;
             }
 
@@ -98,7 +97,6 @@
 
         function determineMapActivityPrint (state) {
             if (isEmbedPreview(state)) {
-                console.log('EMBED determineMapActivityPrint', state);
                 return true;
             }
 
@@ -178,7 +176,7 @@
             return Boolean(visibility.page);
         }
 
-        function isEmbedPreview(state) {
+        function isEmbedPreview (state) {
             return state.atlas.isEmbedPreview && state.map.isFullscreen && !state.straatbeeld;
         }
     }
