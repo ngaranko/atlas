@@ -73,6 +73,7 @@ ENV BUILD_ID=$BUILD_ID
 
 RUN grunt set-build-id --buildid=${BUILD_ID} \
   && grunt build-release \
+  && grunt test-e2e \
   && cp -r /app/build/. /var/www/html/
 
 COPY default.conf /etc/nginx/conf.d/
