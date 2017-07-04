@@ -49,7 +49,6 @@ describe('The dp-menu-dropdown directive', () => {
         document.body.appendChild(element);
 
         const scope = $rootScope.$new();
-        // scope.hasPrintButton = attrs.hasPrintButton;
 
         const directive = $compile(element)(scope);
         scope.$apply();

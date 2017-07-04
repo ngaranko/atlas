@@ -1,6 +1,6 @@
 /**
  * @ngdoc directive
- * @name atlas.directive:dpPrintState
+ * @name atlas.directive:dpPreviewState
  * @restrict: 'A'
  * @description
  * Directive to add the ```is-print-mode``` class and/or ```is-print-mode--landscape```
@@ -21,11 +21,11 @@
 (function () {
     angular
         .module('atlas')
-        .directive('dpPrintState', DpPrintStateDirective);
+        .directive('dpPreviewState', DpPreviewStateDirective);
 
-    DpPrintStateDirective.$inject = ['store'];
+    DpPreviewStateDirective.$inject = ['store'];
 
-    function DpPrintStateDirective (store) {
+    function DpPreviewStateDirective (store) {
         return {
             restrict: 'A',
             link: linkFunction

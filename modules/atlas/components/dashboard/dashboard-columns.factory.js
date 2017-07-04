@@ -77,10 +77,10 @@
         }
 
         function determineMapActivity (state) {
-            if (!state.atlas.isPrintMode && !state.atlas.isEmbedPreview && !state.atlas.isEmbed) {
-                return determineMapActivityDefault(state);
-            } else {
+            if (isPrintOrEmbedOrPreview(state)) {
                 return determineMapActivityPrint(state);
+            } else {
+                return determineMapActivityDefault(state);
             }
         }
 
@@ -124,10 +124,10 @@
                 (visibility.searchResults && state.search.isFullscreen) ||
                 (visibility.dataSelection && state.dataSelection.isFullscreen);
 
-            if (!state.atlas.isPrintMode && !state.atlas.isEmbedPreview && !state.atlas.isEmbed) {
-                return determineColumnSizesDefault (state, visibility, hasFullscreenElement);
-            } else {
+            if (isPrintOrEmbedOrPreview(state)) {
                 return determineColumnSizesPrint (state, visibility, hasFullscreenElement);
+            } else {
+                return determineColumnSizesDefault (state, visibility, hasFullscreenElement);
             }
         }
 
@@ -178,6 +178,10 @@
 
         function isEmbedPreview (state) {
             return state.atlas.isEmbedPreview && state.map.isFullscreen && !state.straatbeeld;
+        }
+
+        function isPrintOrEmbedOrPreview (state) {
+            return state.atlas.isPrintMode || state.atlas.isEmbedPreview || state.atlas.isEmbed;
         }
     }
 })();

@@ -22,18 +22,3 @@
   margin: 0;
   padding: 0;
 }
-
-@media print {
-  .c-dashboard {
-    border: none;
-  }
-
-  .c-dashboard__heading,
-  .c-dashboard__error {
-    display: none;
-  }
-
-  .c-dashboard__body {
-    border: none;
-  }
-}
