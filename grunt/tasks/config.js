@@ -25,6 +25,7 @@ module.exports = function (grunt) {
         'console-log-test': require(gruntDir + 'lint')('console-log-test'),
         copy: require(gruntDir + 'copy')(grunt),
         eslint: require(gruntDir + 'lint')('eslint'),
+        exec: require(gruntDir + 'exec'),
         karma: require(gruntDir + 'karma')(grunt),
         ngtemplates: require(gruntDir + 'angular-templates'),
         npmcopy: require(gruntDir + 'npmcopy'),
@@ -48,6 +49,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-eslint');
+    grunt.loadNpmTasks('grunt-exec');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-newer');
     grunt.loadNpmTasks('grunt-npmcopy');
