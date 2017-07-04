@@ -19,11 +19,7 @@
         function onMapClick (event) {
             const state = store.getState();
 
-            if (suppress.isBusy() || state.atlas.isEmbedPreview || state.atlas.isEmbed) {
-                return;
-            }
-
-            if (!drawTool.isEnabled()) {
+            if (!(suppress.isBusy() || state.atlas.isEmbedPreview || state.atlas.isEmbed || drawTool.isEnabled())) {
                 $rootScope.$applyAsync(function () {
                     store.dispatch({
                         type: ACTIONS.MAP_CLICK,
