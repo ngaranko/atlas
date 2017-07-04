@@ -77,10 +77,10 @@
         }
 
         function determineMapActivity (state) {
-            if (!state.atlas.isPrintMode && !state.atlas.isEmbedPreview) {
-                return determineMapActivityDefault(state);
-            } else {
+            if (state.atlas.isPrintMode || state.atlas.isEmbedPreview) {
                 return determineMapActivityPrint(state);
+            } else {
+                return determineMapActivityDefault(state);
             }
         }
 
@@ -124,10 +124,10 @@
                 (visibility.searchResults && state.search.isFullscreen) ||
                 (visibility.dataSelection && state.dataSelection.isFullscreen);
 
-            if (!state.atlas.isPrintMode && !state.atlas.isEmbedPreview) {
-                return determineColumnSizesDefault (state, visibility, hasFullscreenElement);
-            } else {
+            if (state.atlas.isPrintMode || state.atlas.isEmbedPreview) {
                 return determineColumnSizesPrint (state, visibility, hasFullscreenElement);
+            } else {
+                return determineColumnSizesDefault (state, visibility, hasFullscreenElement);
             }
         }
 

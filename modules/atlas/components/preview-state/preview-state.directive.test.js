@@ -1,4 +1,4 @@
-describe('The dp-print-state directive', function () {
+describe('The dp-preview-state directive', function () {
     var $compile,
         $rootScope,
         mockedState;
@@ -30,7 +30,7 @@ describe('The dp-print-state directive', function () {
             scope;
 
         element = document.createElement('div');
-        element.setAttribute('dp-print-state', '');
+        element.setAttribute('dp-preview-state', '');
 
         scope = $rootScope.$new();
 
@@ -106,7 +106,7 @@ describe('The dp-print-state directive', function () {
         });
     });
 
-    it('adds a embed preview class to the element when isEmbedPreview is true', function () {
+    it('adds an embed preview class to the element when isEmbedPreview is true', function () {
         var directive;
 
         mockedState = {atlas: {isEmbedPreview: true}};
@@ -116,7 +116,7 @@ describe('The dp-print-state directive', function () {
         expect(directive.hasClass('is-embed-preview')).toBe(true);
     });
 
-    it('does not add a embed preview to the element when isPrintMode is false', function () {
+    it('does not add an embed preview to the element when isEmbedPreview is false', function () {
         var directive;
 
         mockedState = {atlas: {isEmbedPreview: false}};

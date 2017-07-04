@@ -12,7 +12,7 @@
 @import "components/views/cards/cards";
 @import "components/views/table/table";
 
-.is-print-mod,
+.is-print-mode,
 .is-embed-preview {
   @import "components/data-selection/data-selection-print";
 }

@@ -5,7 +5,7 @@
         .module('atlas')
         .factory('embedReducers', embedReducersFactory);
 
-    embedReducersFactory.$inject = ['ACTIONS', 'DRAW_TOOL_CONFIG'];
+    embedReducersFactory.$inject = ['ACTIONS'];
 
     function embedReducersFactory (ACTIONS, DRAW_TOOL_CONFIG) {
         var reducers = {};
@@ -24,7 +24,6 @@
             var newState = angular.copy(oldState);
 
             newState.atlas.isEmbedPreview = true;
-            newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
 
             return newState;
         }
@@ -38,7 +37,6 @@
             var newState = angular.copy(oldState);
 
             newState.atlas.isEmbedPreview = false;
-            newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
 
             return newState;
         }

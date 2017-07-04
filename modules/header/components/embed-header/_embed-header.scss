@@ -33,10 +33,10 @@ $embed-header-padding: 46px;
   }
 }
 
-.c-embed-header-form {
+.c-embed-header__form {
   margin-top: 24px;
 
-  .u-row {
+  .c-embed-header__form-row {
     display: flex;
     margin: 0 -46px;
     padding: ($base-whitespace / 2) 0;
