@@ -17,7 +17,8 @@
             determineActivity,
             determineVisibility,
             determineColumnSizes,
-            hasLimitedWidth
+            hasLimitedWidth,
+            isPrintOrEmbedOrPreview
         };
 
         function determineActivity (state) {

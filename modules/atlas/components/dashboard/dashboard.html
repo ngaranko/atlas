@@ -11,7 +11,7 @@
              ng-class="{ 'o-max-width': vm.hasMaxWidth }"
              ng-controller="HeaderController as header">
             <div ng-class="{ 'o-max-width__inner': vm.hasMaxWidth }">
-                <div ng-if="!vm.isPrintMode && !vm.isEmbedPreview && !vm.isEmbed" class="qa-dashboard__header">
+                <div ng-if="!vm.isPrintOrEmbedOrPreview" class="qa-dashboard__header">
                     <dp-site-header size="vm.headerSize"
                                     has-print-button="header.hasPrintButton"
                                     has-embed-button="header.hasEmbedButton"
