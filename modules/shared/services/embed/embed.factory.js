@@ -16,7 +16,7 @@
         };
 
         function getLink (state) {
-            return `${baseUrl}${stateUrlConverter.state2url(state)}`;
+            return ${baseUrl} + ${stateUrlConverter.state2url(state)};
         }
 
         function getHtml (state) {
