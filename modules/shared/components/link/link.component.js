@@ -8,6 +8,7 @@
             transclude: true,
             bindings: {
                 className: '@',
+                inline: '@',
                 hoverText: '@',
                 type: '@',
                 payload: '<'
@@ -26,6 +27,7 @@
 
         vm.className = vm.className || 'o-btn o-btn--link';
         vm.tagName = getTagName(vm.type, vm.payload);
+        vm.inline = vm.inline || false;
 
         vm.dispatch = function () {
             store.dispatch(getAction(vm.type, vm.payload));

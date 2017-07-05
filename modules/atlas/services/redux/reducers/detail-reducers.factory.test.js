@@ -143,7 +143,7 @@ describe('The detailReducers factory', function () {
 
             output = detailReducers.FETCH_DETAIL(defaultState, payload);
 
-            expect(output.map.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.RESET);
+            expect(output.map.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
         });
     });
 

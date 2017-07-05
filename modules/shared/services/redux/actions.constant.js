@@ -49,6 +49,14 @@
                 id: 'MAP_REMOVE_OVERLAY',
                 replace: true
             },
+            MAP_ADD_PANO_OVERLAY: {
+                id: 'MAP_ADD_PANO_OVERLAY',
+                ignore: true
+            },
+            MAP_REMOVE_PANO_OVERLAY: {
+                id: 'MAP_REMOVE_PANO_OVERLAY',
+                ignore: true
+            },
             MAP_TOGGLE_VISIBILITY_OVERLAY: {
                 id: 'MAP_TOGGLE_VISIBILITY_OVERLAY',
                 replace: true,
@@ -134,9 +142,16 @@
                 id: 'SET_STRAATBEELD_ORIENTATION',
                 replace: true
             },
+            SET_STRAATBEELD_HISTORY: {
+                id: 'SET_STRAATBEELD_HISTORY'
+            },
 
             FETCH_DATA_SELECTION: {
                 id: 'FETCH_DATA_SELECTION',
+                ignore: true
+            },
+            RESET_DATA_SELECTION: {
+                id: 'RESET_DATA_SELECTION',
                 ignore: true
             },
             SHOW_DATA_SELECTION: {

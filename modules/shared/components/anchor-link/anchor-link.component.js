@@ -13,15 +13,15 @@
             controllerAs: 'vm'
         });
 
-    DpAnchorLinkController.$inject = ['$scope', '$timeout', '$anchorScroll'];
+    DpAnchorLinkController.$inject = ['$scope', '$interval', '$anchorScroll'];
 
-    function DpAnchorLinkController ($scope, $timeout, $anchorScroll) {
+    function DpAnchorLinkController ($scope, $interval, $anchorScroll) {
         const vm = this;
 
         vm.scrollTo = function (anchor) {
-            $timeout(() => {
+            $interval(() => {
                 $anchorScroll(anchor);
-            }, 150);
+            }, 150, 1);
         };
 
         if (vm.autoScroll) {

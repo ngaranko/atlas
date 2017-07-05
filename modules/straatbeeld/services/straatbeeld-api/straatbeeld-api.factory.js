@@ -19,30 +19,40 @@
         };
 
         /**
-         * @param {Number[]} location the center location
-         * @returns {Promise.imageData} a Promise that resolves to the found straatbeeld or null on failure
+         * @param {Number[]} location The center location.
+         * @param {Number} history The year to featch hotspots for, queries all
+         *   years when falsy.
+         * @returns {Promise.imageData} The fetched straatbeeld, or null on failure.
          */
-        function getImageDataByLocation (location) {
-            return searchWithinRadius(location, START_RADIUS);
+        function getImageDataByLocation (location, history) {
+            return searchWithinRadius(location, START_RADIUS, history);
         }
 
         /**
-         * Search for a straatbeeld
-         * @param {Number[]} location the center location
-         * @param {Number} radius the distance from the location within to search for a straatbeeld
-         * @returns {Promise.imageData} a Promise that resolves to the found straatbeeld or null on failure
+         * Search for a straatbeeld.
+         *
+         * @param {Number[]} location The center location.
+         * @param {Number} radius The distance from the location within to
+         *   search for a straatbeeld.
+         * @param {Number} history The year to featch hotspots for, queries all
+         *   years when falsy.
+         *
+         * @returns {Promise.imageData} The fetched straatbeeld, or null on failure.
          */
-        function searchWithinRadius (location, radius) {
+        function searchWithinRadius (location, radius, history) {
             const cappedRadius = Math.min(radius, MAX_RADIUS);
+            const endpoint = history
+                ? `${STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_YEAR}${history}/`
+                : STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_ALL;
 
-            return getStraatbeeld(sharedConfig.API_ROOT + STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT +
+            return getStraatbeeld(`${sharedConfig.API_ROOT}${endpoint}` +
                 `?lat=${location[0]}&lon=${location[1]}&radius=${cappedRadius}`)
                 .then(
                     data => {
                         if (data) {
                             return data;
                         } else if (radius < MAX_RADIUS) {
-                            return searchWithinRadius(location, cappedRadius * 2);
+                            return searchWithinRadius(location, cappedRadius * 2, history);
                         } else {
                             return null;
                         }
@@ -50,8 +60,12 @@
                 );
         }
 
-        function getImageDataById (id) {
-            return getStraatbeeld(sharedConfig.API_ROOT + STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT + id + '/');
+        function getImageDataById (id, history) {
+            const endpoint = history
+                ? `${STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_YEAR}${history}/`
+                : STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_ALL;
+
+            return getStraatbeeld(`${sharedConfig.API_ROOT}${endpoint}${id}/`);
         }
 
         function getStraatbeeld (url) {

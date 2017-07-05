@@ -24,15 +24,11 @@
         drawTool.initialize(vm.map, onFinishShape, onDrawingMode);
 
         $scope.$watch('vm.state.drawingMode', function (drawingMode) {
-            if (drawingMode === DRAW_TOOL_CONFIG.DRAWING_MODE.RESET) {
-                vm.state.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
-                drawTool.reset();
-                return;
-            }
-
             // enable is handled by the polygon markers watch method
             if (drawingMode === DRAW_TOOL_CONFIG.DRAWING_MODE.NONE) {
-                drawTool.disable();
+                // The drawing mode 'suddenly' appears to be `none` => cancel
+                // drawing without saving anything drawn
+                drawTool.cancel();
             }
         });
 
@@ -47,6 +43,13 @@
             setPolygon(geometry);
         }, true);
 
+        /**
+         * Pepares the draw tool service to show a polygon. Only in case the
+         * draw tool is disabled. Will also enable the draw tool according to
+         * the DRAWING_MODE in the state.
+         *
+         * @param {Array<[number, number]>} polygon The polygon to set.
+         */
         function setPolygon (polygon) {
             if (!drawTool.isEnabled()) {
                 drawTool.setPolygon(polygon);
@@ -56,6 +59,13 @@
             }
         }
 
+        /**
+         * Updates the state when a polygon has been finished.
+         *
+         * Triggered by the draw tool.
+         *
+         * @param {Array<[number, number]>} polygon The finished polygon.
+         */
         function onFinishShape (polygon) {
             const action = {
                 type: ACTIONS.MAP_END_DRAWING
@@ -70,8 +80,21 @@
             store.dispatch(action);
         }
 
+        /**
+         * Updates the state when the drawing mode has changed.
+         *
+         * Triggered by the draw tool.
+         *
+         * @param {string} drawingMode The new drawing mode.
+         */
         function onDrawingMode (drawingMode) {
-            if (drawingMode !== DRAW_TOOL_CONFIG.DRAWING_MODE.NONE) {
+            if (drawingMode === DRAW_TOOL_CONFIG.DRAWING_MODE.NONE) {
+                // Make sure the NONE state goes into the store
+                // We do not supply a payload, we do not finish a shape here
+                store.dispatch({
+                    type: ACTIONS.MAP_END_DRAWING
+                });
+            } else {
                 previousMarkers = angular.copy(drawTool.shape.markers);
                 store.dispatch({
                     type: ACTIONS.MAP_START_DRAWING,
