@@ -74,7 +74,8 @@ module.exports = function (grunt) {
                     // Use the ES6 code as source; code coverage runs on the ES6 code
                     files.moduleDependencies(module)
                         .map(mod => files.jsTestModuleFiles(mod))
-                        .reduce((result, deps) => result.concat(deps), [])
+                        .reduce((result, deps) => result.concat(deps), []),
+                    'modules/shared-mocks/shared-pre-mocks.module.js'
                 ];
                 var lastFiles = [
                     'bower_components/angular-mocks/angular-mocks.js',
