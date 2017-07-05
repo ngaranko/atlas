@@ -53,13 +53,6 @@ describe('The map reducers', function () {
 
             expect(output.layerSelection.isEnabled).toBe(true);
         });
-
-        it('should reset drawing mode', function () {
-            const inputState = angular.copy(DEFAULT_STATE);
-            const output = mapReducers[ACTIONS.SHOW_MAP.id](inputState);
-
-            expect(output.map.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
-        });
     });
 
     describe('MAP_SET_BASELAYER', function () {
