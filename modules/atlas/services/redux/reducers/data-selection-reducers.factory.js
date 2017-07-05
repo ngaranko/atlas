@@ -123,10 +123,6 @@
 
                 newState.dataSelection.isFullscreen = newState.dataSelection.view !== 'LIST';
 
-                if (newState.dataSelection.isFullscreen) {
-                    newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
-                }
-
                 newState.dataSelection.reset = false;
             }
 

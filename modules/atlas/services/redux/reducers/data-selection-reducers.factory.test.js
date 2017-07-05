@@ -278,20 +278,6 @@ describe('The dataSelectionReducers factory', function () {
             expect(output.dataSelection).toBeNull();
         });
 
-        it('should reset drawing mode when full screen', function () {
-            mockedState.dataSelection.view = 'TABLE';
-            output = dataSelectionReducers[ACTIONS.RESET_DATA_SELECTION.id](mockedState, payload);
-
-            expect(output.map.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
-        });
-
-        it('should reset drawing mode when not full screen', function () {
-            mockedState.dataSelection.view = 'LIST';
-            output = dataSelectionReducers[ACTIONS.RESET_DATA_SELECTION.id](mockedState, payload);
-
-            expect(output.map.drawingMode).toBeUndefined();
-        });
-
         it('sets the reset flag to false', function () {
             mockedState.dataSelection.reset = true;
             output = dataSelectionReducers[ACTIONS.RESET_DATA_SELECTION.id](mockedState, payload);
