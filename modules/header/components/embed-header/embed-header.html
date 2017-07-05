@@ -1,0 +1,46 @@
+<div class="u-grid">
+    <div class="u-row">
+        <div class="u-col-sm--3">
+            <h1 class="c-embed-header__title">Embedversie</h1>
+        </div>
+        <div class="u-col-sm--9">
+            <nav>
+                <dp-link type="HIDE_EMBED_PREVIEW" class-name="c-embed-header__close"></dp-link>
+            </nav>
+        </div>
+    </div>
+    <form class="c-embed-header__form">
+        <div class="u-row c-embed-header__form-row">
+            <div class="u-col-sm--2 c-embed-header__field-label">
+               Link
+            </div>
+            <div class="u-col-sm--10 c-embed-header__field-value">
+                <input
+                    class="c-embed-header-form__input qa-embed-header-form-input-link"
+                    type="text"
+                    ng-model="vm.link"
+                    autocapitalize="off"
+                    autocorrect="off"
+                    autocomplete="off"
+                    spellcheck="false"
+                    placeholder="Link">
+            </div>
+        </div>
+        <div class="u-row c-embed-header__form-row">
+            <div class="u-col-sm--2 c-embed-header__field-label">
+               HTML-code
+            </div>
+            <div class="u-col-sm--10 c-embed-header__field-value">
+                <input
+                    class="c-embed-header-form__input qa-embed-header-form-input-html"
+                    type="text"
+                    ng-model="vm.html"
+                    autocapitalize="off"
+                    autocorrect="off"
+                    autocomplete="off"
+                    spellcheck="false"
+                    placeholder="Link">
+            </div>
+        </div>
+    </form>
+</div>

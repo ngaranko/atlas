@@ -15,9 +15,11 @@
         'searchReducers',
         'straatbeeldReducers',
         'dataSelectionReducers',
-        'printReducers'
+        'printReducers',
+        'embedReducers'
     ];
 
+    // eslint-disable-next-line max-params
     function reducerFactory (urlReducers,
                              detailReducers,
                              homeReducers,
@@ -27,7 +29,8 @@
                              searchReducers,
                              straatbeeldReducers,
                              dataSelectionReducers,
-                             printReducers) {
+                             printReducers,
+                             embedReducers) {
         return function (oldState, action) {
             // TODO: Redux: replace
             // Warning: angular.merge is deprecated
@@ -42,7 +45,8 @@
                 searchReducers,
                 straatbeeldReducers,
                 dataSelectionReducers,
-                printReducers
+                printReducers,
+                embedReducers
             );
 
             if (angular.isObject(action) &&

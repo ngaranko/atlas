@@ -56,7 +56,8 @@ describe('The dashboard component', function () {
             straatbeeld: null,
             dataSelection: null,
             atlas: {
-                isPrintMode: false
+                isPrintMode: false,
+                isEmbedPreview: false
             }
         };
 
@@ -102,6 +103,17 @@ describe('The dashboard component', function () {
         component = getComponent();
         expect(component.find('.qa-dashboard__header').length).toBe(0);
         expect(component.find('.qa-dashboard__print-header').length).toBe(1);
+    });
+
+    it('shows a special header when in embed preview', function () {
+        let component = getComponent();
+        expect(component.find('.qa-dashboard__header').length).toBe(1);
+        expect(component.find('.qa-dashboard__embed-header').length).toBe(0);
+
+        mockedState.atlas.isEmbedPreview = true;
+        component = getComponent();
+        expect(component.find('.qa-dashboard__header').length).toBe(0);
+        expect(component.find('.qa-dashboard__embed-header').length).toBe(1);
     });
 
     it('shows a footer on the homepage', () => {

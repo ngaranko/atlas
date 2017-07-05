@@ -40,6 +40,9 @@
             vm.pageType = state.page && state.page.type ? state.page.type : '';
 
             vm.isPrintMode = state.atlas.isPrintMode;
+            vm.isEmbedPreview = state.atlas.isEmbedPreview;
+            vm.isEmbed = state.atlas.isEmbed;
+            vm.isPrintOrEmbedOrPreview = dashboardColumns.isPrintOrEmbedOrPreview(state);
 
             vm.dataSelectionState = state.dataSelection;
 

@@ -10,6 +10,7 @@ describe('The reducer factory', function () {
         straatbeeldReducers,
         dataSelectionReducers,
         printReducers,
+        embedReducers,
         inputState;
 
     beforeEach(function () {
@@ -45,10 +46,14 @@ describe('The reducer factory', function () {
                 },
                 printReducers: {
                     ACTION_J: function () {}
+                },
+                embedReducers: {
+                    ACTION_K: function () {}
                 }
             }
         );
 
+        // eslint-disable-next-line max-params
         angular.mock.inject(function (
             _urlReducers_,
             _detailReducers_,
@@ -59,7 +64,8 @@ describe('The reducer factory', function () {
             _searchReducers_,
             _straatbeeldReducers_,
             _dataSelectionReducers_,
-            _printReducers_) {
+            _printReducers_,
+            _embedReducers_) {
             urlReducers = _urlReducers_;
             detailReducers = _detailReducers_;
             homeReducers = _homeReducers_;
@@ -70,6 +76,7 @@ describe('The reducer factory', function () {
             straatbeeldReducers = _straatbeeldReducers_;
             dataSelectionReducers = _dataSelectionReducers_;
             printReducers = _printReducers_;
+            embedReducers = _embedReducers_;
         });
 
         const DEFAULT_STATE = {
@@ -114,6 +121,7 @@ describe('The reducer factory', function () {
         spyOn(straatbeeldReducers, 'ACTION_H').and.callThrough();
         spyOn(dataSelectionReducers, 'ACTION_I').and.callThrough();
         spyOn(printReducers, 'ACTION_J').and.callThrough();
+        spyOn(embedReducers, 'ACTION_K').and.callThrough();
 
         reducer(inputState, {type: {id: 'ACTION_A'}});
         reducer(inputState, {type: {id: 'ACTION_B'}});
@@ -125,6 +133,7 @@ describe('The reducer factory', function () {
         reducer(inputState, {type: {id: 'ACTION_H'}});
         reducer(inputState, {type: {id: 'ACTION_I'}});
         reducer(inputState, {type: {id: 'ACTION_J'}});
+        reducer(inputState, {type: {id: 'ACTION_K'}});
 
         expect(urlReducers.ACTION_A).toHaveBeenCalled();
         expect(detailReducers.ACTION_B).toHaveBeenCalled();
@@ -136,6 +145,7 @@ describe('The reducer factory', function () {
         expect(straatbeeldReducers.ACTION_H).toHaveBeenCalled();
         expect(dataSelectionReducers.ACTION_I).toHaveBeenCalled();
         expect(printReducers.ACTION_J).toHaveBeenCalled();
+        expect(embedReducers.ACTION_K).toHaveBeenCalled();
     });
 
     it('returns the oldState if the specified action type has no separate reducer', function () {

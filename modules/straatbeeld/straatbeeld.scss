@@ -7,7 +7,9 @@
 @import "components/toggle-straatbeeld-fullscreen/toggle-straatbeeld-fullscreen";
 
 
-.is-print-mode {
+.is-print-mode,
+.is-embed-preview,
+.is-embed {
   @import "components/straatbeeld/straatbeeld-print";
   @import "components/status-bar/status-bar-print";
   @import "components/toggle-straatbeeld-fullscreen/toggle-straatbeeld-fullscreen-print";
