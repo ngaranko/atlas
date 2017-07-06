@@ -6,6 +6,7 @@ module.exports = {
     count: require('./count'),
     hasClass: require('./has-class'),
     require: require('./require'),
+    screenshot: require('./screenshot'),
     search: require('./search'),
     storage: require('./storage'),
     toNumber: require('./to-number'),
