@@ -19,10 +19,10 @@ describe('Embed preview', () => {
 
         expect(header.menu.dropDownMain.items(1).text).toBe('Embedden');
 
+        expect(header.menu.dropDownMain.itemCount).toBe(3);
+
         header.menu.dropDownMain.items(1).click();
 
         dp.screenshot('yo.png');
-
-        expect(header.menu.dropDownMain.itemCount).toBe(3);
     });
 });
