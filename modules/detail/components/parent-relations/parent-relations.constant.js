@@ -7,6 +7,8 @@
             'stadsdeel',
             'buurtcombinatie',
             'buurt',
-            'bouwblok'
+            'bouwblok',
+            'gebiedsgerichtwerken',
+            'grootstedelijkgebied'
         ]);
 })();
