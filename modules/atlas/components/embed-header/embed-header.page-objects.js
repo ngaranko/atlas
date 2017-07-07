@@ -2,6 +2,9 @@
 
 module.exports = function (embedHeaderElement) {
     return {
+        get visible () {
+            return dp.visible(embedHeaderElement);
+        },
         get inputLink () {
             return inputPageObject(embedHeaderElement.element(by.css('.qa-embed-header-form-link')));
         },
