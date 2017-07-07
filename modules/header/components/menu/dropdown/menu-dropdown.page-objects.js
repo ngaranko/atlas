@@ -11,9 +11,7 @@ module.exports = function (menuDropdownElement) {
             return menuDropdownElement.element(by.css('.qa-menu__toggle .qa-menu__link')).click();
         },
         items: index => {
-            return itemPageObject(
-                menuDropdownElement.all(by.css('ul li')).get(index)
-            );
+            return itemPageObject(menuDropdownElement.all(by.css('ul li')).get(index));
         },
         get itemCount () {
             return dp.count(menuDropdownElement.all(by.css('ul li')));
@@ -27,7 +25,7 @@ function itemPageObject (menuItem) {
         get text () {
             return menuItem.element(by.css('.qa-dp-link')).getText();
         },
-        click () {
+        click: () => {
             return menuItem.element(by.css('.qa-dp-link')).click();
         }
     };
