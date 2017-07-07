@@ -8,7 +8,7 @@ describe('The dp-embed-header component', () => {
 
     beforeEach(() => {
         angular.mock.module(
-            'dpHeader',
+            'atlas',
             {
                 store: {
                     subscribe: callbackFn => {
