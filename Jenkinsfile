@@ -28,7 +28,7 @@ node {
                              [$class: 'StringBinding', credentialsId: 'PASSWORD_EMPLOYEE_PLUS', variable: 'PASSWORD_EMPLOYEE_PLUS']]) {
                 def image = docker.build("build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}")
                 image.withRun {
-                    sh "PASSWORD_EMPLOYEE=$PASSWORD_EMPLOYEE PASSWORD_EMPLOYEE_PLUS=$PASSWORD_EMPLOYEE_PLUS grunt test-e2e"
+                    -e PASSWORD_EMPLOYEE=$PASSWORD_EMPLOYEE -e PASSWORD_EMPLOYEE_PLUS=$PASSWORD_EMPLOYEE_PLUS grunt test-e2e
                 }
                 image.push()
             }
