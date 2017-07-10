@@ -21,6 +21,7 @@
         function update () {
             const ghostState = angular.copy(store.getState());
             ghostState.atlas.isEmbedPreview = false;
+            ghostState.atlas.isEmbed = false;
 
             vm.link = embed.getLink(ghostState);
         }
