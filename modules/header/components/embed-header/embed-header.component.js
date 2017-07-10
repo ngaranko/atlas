@@ -2,10 +2,10 @@
     'use strict';
 
     angular
-        .module('atlas')
+        .module('dpHeader')
         .component('dpEmbedHeader', {
             controller: DpEmbedHeader,
-            templateUrl: 'modules/atlas/components/embed-header/embed-header.html',
+            templateUrl: 'modules/header/components/embed-header/embed-header.html',
             controllerAs: 'vm'
         });
 
