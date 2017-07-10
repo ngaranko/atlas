@@ -27,7 +27,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('test-e2e', [
         'connect:build',
-        'protractor:all'
+        'exec:protractor-flake'
     ]);
 
     grunt.registerTask('build-test', [

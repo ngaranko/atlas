@@ -33,7 +33,6 @@
 
             newState.map.isFullscreen = true;
             newState.layerSelection.isEnabled = true;
-            newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
 
             return newState;
         }
@@ -302,6 +301,13 @@
             newState.dataSelection.isLoading = true;
             newState.dataSelection.view = 'LIST';
             newState.dataSelection.markers = [];
+
+            // No markers, the data selection goes back to its default state of
+            // showing all data => make sure it will not trigger a url state
+            // change
+            if (payload.markers.length === 0) {
+                newState.dataSelection.reset = true;
+            }
 
             return newState;
         }

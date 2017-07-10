@@ -49,7 +49,8 @@
                 vm.state.filters,
                 vm.state.geometryFilter,
                 vm.state.page,
-                vm.state.query
+                vm.state.query,
+                user.getAuthorizationLevel()
             ];
         }, fetchData, true);
 
@@ -130,13 +131,23 @@
                         isListView &&
                         vm.numberOfRecords <= DATA_SELECTION_CONFIG.options.MAX_NUMBER_OF_CLUSTERED_MARKERS
                     ) {
+                        // Get marker data and update the state to show the
+                        // data
                         dataSelectionApi.getMarkers(vm.state.dataset, activeFilters).then(markerData => {
                             store.dispatch({
                                 type: ACTIONS.SHOW_DATA_SELECTION,
                                 payload: markerData
                             });
                         });
+                    } else if (vm.state.reset) {
+                        // Update the state to show the data, do not trigger a
+                        // url state change however
+                        store.dispatch({
+                            type: ACTIONS.RESET_DATA_SELECTION,
+                            payload: []
+                        });
                     } else {
+                        // Update the state to show the data
                         store.dispatch({
                             type: ACTIONS.SHOW_DATA_SELECTION,
                             payload: []

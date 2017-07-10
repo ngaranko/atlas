@@ -1,7 +1,6 @@
 describe('The dataSelectionReducers factory', function () {
     let dataSelectionReducers,
-        ACTIONS,
-        DRAW_TOOL_CONFIG;
+        ACTIONS;
 
     const DEFAULT_STATE = {
         map: {
@@ -31,10 +30,9 @@ describe('The dataSelectionReducers factory', function () {
     beforeEach(function () {
         angular.mock.module('atlas');
 
-        angular.mock.inject(function (_dataSelectionReducers_, _ACTIONS_, _DRAW_TOOL_CONFIG_) {
+        angular.mock.inject(function (_dataSelectionReducers_, _ACTIONS_) {
             dataSelectionReducers = _dataSelectionReducers_;
             ACTIONS = _ACTIONS_;
-            DRAW_TOOL_CONFIG = _DRAW_TOOL_CONFIG_;
         });
     });
 
@@ -223,25 +221,68 @@ describe('The dataSelectionReducers factory', function () {
             expect(output.map.isLoading).toEqual(false);
         });
 
-        it('does nothing if the user has navigated away from dataSelection before the API is finished', function () {
+        it('does nothing if the user has navigated away from dataSelection before the API is finished', () => {
             mockedState.dataSelection = null;
             output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
 
             expect(output.dataSelection).toBeNull();
         });
+    });
 
-        it('should reset drawing mode when full screen', function () {
-            mockedState.dataSelection.view = 'TABLE';
-            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
+    describe('RESET_DATA_SELECTION', function () {
+        let mockedState,
+            payload,
+            output;
 
-            expect(output.map.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
+        beforeEach(function () {
+            mockedState = {
+                dataSelection: {
+                    dataset: 'bag',
+                    filters: {
+                        buurtcombinatie: 'Geuzenbuurt',
+                        buurt: 'Trompbuurt'
+                    },
+                    page: 1,
+                    isLoading: true
+                },
+                map: {
+                    isLoading: true
+                }
+            };
+
+            payload = ['MOCKED', 'MARKER', 'ARRAY'];
         });
 
-        it('should reset drawing mode when not full screen', function () {
-            mockedState.dataSelection.view = 'LIST';
-            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
+        it('adds markers to the state', function () {
+            output = dataSelectionReducers[ACTIONS.RESET_DATA_SELECTION.id](mockedState, payload);
 
-            expect(output.map.drawingMode).toBeUndefined();
+            expect(output.dataSelection.markers).toEqual(['MOCKED', 'MARKER', 'ARRAY']);
+        });
+
+        it('sets isLoading to false', function () {
+            output = dataSelectionReducers[ACTIONS.RESET_DATA_SELECTION.id](mockedState, payload);
+
+            expect(output.dataSelection.isLoading).toEqual(false);
+        });
+
+        it('sets map isLoading to false', function () {
+            output = dataSelectionReducers[ACTIONS.RESET_DATA_SELECTION.id](mockedState, payload);
+
+            expect(output.map.isLoading).toEqual(false);
+        });
+
+        it('does nothing if the user has navigated away from dataSelection before the API is finished', () => {
+            mockedState.dataSelection = null;
+            output = dataSelectionReducers[ACTIONS.RESET_DATA_SELECTION.id](mockedState, payload);
+
+            expect(output.dataSelection).toBeNull();
+        });
+
+        it('sets the reset flag to false', function () {
+            mockedState.dataSelection.reset = true;
+            output = dataSelectionReducers[ACTIONS.RESET_DATA_SELECTION.id](mockedState, payload);
+
+            expect(output.dataSelection.reset).toBe(false);
         });
     });
 

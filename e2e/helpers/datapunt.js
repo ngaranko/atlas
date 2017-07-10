@@ -5,6 +5,7 @@ module.exports = {
     availableStates: require('./available-states'),
     count: require('./count'),
     hasClass: require('./has-class'),
+    log: require('./log'),
     require: require('./require'),
     search: require('./search'),
     storage: require('./storage'),

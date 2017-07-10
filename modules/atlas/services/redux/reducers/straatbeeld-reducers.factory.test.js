@@ -1,8 +1,7 @@
 describe('Straatbeeld reducers factory', function () {
     var straatbeeldReducers,
         inputState,
-        ACTIONS,
-        DRAW_TOOL_CONFIG;
+        ACTIONS;
 
     beforeEach(function () {
         const DEFAULT_STATE = {
@@ -39,11 +38,10 @@ describe('Straatbeeld reducers factory', function () {
             }
         );
 
-        angular.mock.inject(function (_straatbeeldReducers_, _ACTIONS_, _DRAW_TOOL_CONFIG_) {
+        angular.mock.inject(function (_straatbeeldReducers_, _ACTIONS_) {
             straatbeeldReducers = _straatbeeldReducers_;
             inputState = angular.copy(DEFAULT_STATE);
             ACTIONS = _ACTIONS_;
-            DRAW_TOOL_CONFIG = _DRAW_TOOL_CONFIG_;
         });
     });
 
@@ -78,11 +76,6 @@ describe('Straatbeeld reducers factory', function () {
         it('when heading is in payload, use the payload heading', function () {
             var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_ID.id](inputState, payload);
             expect(newState.straatbeeld.heading).toBe(123);
-        });
-
-        it('should be resetting drawing mode', function () {
-            var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_ID.id](inputState, payload);
-            expect(newState.map.drawingMode).toBe(DRAW_TOOL_CONFIG.DRAWING_MODE.RESET);
         });
 
         it('Set INITIAL id, heading, isInitial', function () {
@@ -187,22 +180,6 @@ describe('Straatbeeld reducers factory', function () {
             expect(newState.straatbeeld.isFullscreen).toBe(false);
             newState = straatbeeldReducers[ACTIONS.STRAATBEELD_FULLSCREEN.id](newState);
             expect(newState.straatbeeld.isFullscreen).toBe(false);
-        });
-
-        it('should reset drawing mode when fullscreen is active', function () {
-            payload = true;
-            const input = angular.copy(inputState),
-                newState = straatbeeldReducers[ACTIONS.STRAATBEELD_FULLSCREEN.id](input, payload);
-
-            expect(newState.map.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
-        });
-
-        it('should reset drawing mode when fullscreen is not active', function () {
-            payload = false;
-            const input = angular.copy(inputState),
-                newState = straatbeeldReducers[ACTIONS.STRAATBEELD_FULLSCREEN.id](input, payload);
-
-            expect(newState.map.drawingMode).toBeUndefined();
         });
     });
 

@@ -5,9 +5,9 @@
         .module('atlas')
         .factory('straatbeeldReducers', straatbeeldReducersFactory);
 
-    straatbeeldReducersFactory.$inject = ['ACTIONS', 'STRAATBEELD_CONFIG', 'DRAW_TOOL_CONFIG'];
+    straatbeeldReducersFactory.$inject = ['ACTIONS', 'STRAATBEELD_CONFIG'];
 
-    function straatbeeldReducersFactory (ACTIONS, STRAATBEELD_CONFIG, DRAW_TOOL_CONFIG) {
+    function straatbeeldReducersFactory (ACTIONS, STRAATBEELD_CONFIG) {
         var reducers = {};
 
         reducers[ACTIONS.FETCH_STRAATBEELD_BY_ID.id] = fetchStraatbeeldByIdReducer;
@@ -52,7 +52,6 @@
             newState.dataSelection = null;
 
             newState.map.isLoading = true;
-            newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.RESET;
 
             return newState;
         }
@@ -122,10 +121,6 @@
 
             if (angular.isDefined(payload)) {
                 newState.straatbeeld.isFullscreen = payload;
-
-                if (newState.straatbeeld.isFullscreen) {
-                    newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
-                }
             }
 
             return newState;
