@@ -1,7 +1,6 @@
 describe('The pageReducers factory', function () {
     var pageReducers,
-        mockedState,
-        DRAW_TOOL_CONFIG;
+        mockedState;
 
     beforeEach(function () {
         const DEFAULT_STATE = {
@@ -31,9 +30,8 @@ describe('The pageReducers factory', function () {
 
         angular.mock.module('atlas');
 
-        angular.mock.inject(function (_pageReducers_, _DRAW_TOOL_CONFIG_) {
+        angular.mock.inject(function (_pageReducers_) {
             pageReducers = _pageReducers_;
-            DRAW_TOOL_CONFIG = _DRAW_TOOL_CONFIG_;
             mockedState = angular.copy(DEFAULT_STATE);
         });
     });
@@ -86,11 +84,6 @@ describe('The pageReducers factory', function () {
 
             output = pageReducers.SHOW_PAGE(mockedState, {name: 'goodbye'});
             expect(output.map.isFullscreen).toBe(false);
-        });
-
-        it('should reset drawing mode', function () {
-            output = pageReducers.SHOW_PAGE(mockedState, {name: 'welcome'});
-            expect(output.map.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
         });
     });
 });
