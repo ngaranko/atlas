@@ -1,4 +1,6 @@
 %description-list-key {
+  @include font-weight($medium-weight);
+
   width: 50%;
   padding-right: $base-whitespace;
   padding-left: 2 * $base-whitespace;
