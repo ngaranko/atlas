@@ -3,7 +3,7 @@ describe('The embed factory', function () {
         $location;
 
     beforeEach(function () {
-        angular.mock.module('atlas', {
+        angular.mock.module('dpShared', {
             stateUrlConverter: {
                 state2url: () => {
                     return '/#foo=1&bar=x';
