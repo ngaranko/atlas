@@ -64,6 +64,11 @@ describe('The dp-embed-button component', () => {
 
         expect(component.find('.qa-embed-button').attr('href')).toBe('123');
 
-        expect(embed.getLink).toHaveBeenCalled();
+        expect(embed.getLink).toHaveBeenCalledWith({
+            atlas: {
+                isEmbedPreview: false,
+                isEmbed: false
+            }
+        });
     });
 });
