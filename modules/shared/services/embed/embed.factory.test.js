@@ -6,7 +6,7 @@ describe('The embed factory', function () {
         angular.mock.module('dpShared', {
             stateUrlConverter: {
                 state2url: () => {
-                    return '/#foo=1&bar=x';
+                    return '#foo=1&bar=x';
                 }
             }
         });

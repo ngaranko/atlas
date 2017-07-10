@@ -34,14 +34,14 @@ describe('Embed preview', () => {
         // go to embed preview
         header.menu.dropDownMain.items(1).click();
 
-        expect(page.dashboard.embedHeader.visible).toBeTruthy();
+        expect(header.embedHeader.visible).toBeTruthy();
 
-        expect(page.dashboard.embedHeader.inputLink.label).toBe('Link');
-        expect(page.dashboard.embedHeader.inputLink.value).toBe('http://localhost:8000/#?ate=T&lse=T&mpb=topografie&m' +
+        expect(header.embedHeader.inputLink.label).toBe('Link');
+        expect(header.embedHeader.inputLink.value).toBe('http://localhost:8000/#?ate=T&lse=T&mpb=topografie&m' +
             'pz=11&mpfs=T&mpv=52.3731081:4.8932945&pgn=home');
 
-        expect(page.dashboard.embedHeader.inputHtml.label).toBe('HTML-code');
-        expect(page.dashboard.embedHeader.inputHtml.value).toBe('<iframe width="500" height="400" src="http://localho' +
+        expect(header.embedHeader.inputHtml.label).toBe('HTML-code');
+        expect(header.embedHeader.inputHtml.value).toBe('<iframe width="500" height="400" src="http://localho' +
             'st:8000/#?ate=T&lse=T&mpb=topografie&mpz=11&mpfs=T&mpv=52.3731081:4.8932945&pgn=home" frameborder="0">' +
             '</iframe>');
     });
