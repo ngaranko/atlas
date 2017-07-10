@@ -23,7 +23,7 @@ module.exports = {
                 browser.refresh();
             }
 
-            browser.getLocationAbsUrl(); // NB: Forces to await login flow completion
+            browser.getCurrentUrl(); // NB: Forces to await login flow completion
         });
     },
     logout: () => {
