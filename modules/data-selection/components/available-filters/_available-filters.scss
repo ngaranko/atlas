@@ -1,64 +1,52 @@
+$data-selection-available-filters-gutter: 2 * $base-whitespace;
+$data-selection-available-filters-item-height: 32px;
+
 .c-data-selection-available-filters {
+  padding: $data-selection-available-filters-gutter;
+  background-color: $secondary-gray4;
+}
 
-  .c-data-selection-available-filters__list {
+.c-data-selection-available-filters__category {
+  padding-bottom: 2.5 * $base-whitespace;
 
-    .c-data-selection-available-filters__listitem {
-      overflow: hidden;
+  &:last-child {
+    padding: 0;
+  }
+}
+
+.c-data-selection-available-filters__category-label {
+  margin-bottom: $base-whitespace;
+  color: $primary-contrast;
+}
+
+.c-data-selection-available-filters__item {
+  line-height: $data-selection-available-filters-item-height;
+  overflow: hidden;
+}
+
+.c-data-selection-available-filters__item-label {
+  &.c-data-selection-available-filters__item-label--empty-value {
+    font-style: italic;
+
+    &::before {
+      display: inline-block;
+      content: "(geen)";
     }
   }
 }
 
-.c-data-selection-available-filters--empty-value {
-  font-style: italic;
-
-  &::before {
-    display: inline-block;
-    content: "(geen)";
-  }
+.c-data-selection-available-filters__show-more {
+  margin: 0 (-$data-selection-available-filters-gutter);
+  padding: 0 $data-selection-available-filters-gutter 6px;
+  border-bottom: 1px solid $secondary-gray20;
 }
 
-.c-data-selection-available-filters--toon-meerminder {
-  margin-top: $base-whitespace;
-  margin-bottom: $base-whitespace;
+.c-data-selection-available-filters__show-more-button {
+  height: $data-selection-available-filters-item-height;
+  line-height: $data-selection-available-filters-item-height;
 }
 
-.c-data-selection-available-filters--hidden-options {
+.c-data-selection-available-filters__hidden-options {
   margin-bottom: $base-whitespace / 2;
   color: $secondary-gray40;
-}
-
-.c-data-selection-available-filters--available-filters {
-  padding-top: $base-whitespace;
-  padding-right: $base-whitespace;
-  padding-left: $base-whitespace;
-  background-color: $secondary-gray4;
-
-  .c-data-selection-available-filters__available-filter {
-    padding-bottom: 1.5 * $base-whitespace;
-  }
-
-  .c-data-selection-available-filters__separator {
-    width: auto;
-    height: 1px;
-    margin: {
-      top: $base-whitespace / 2 ;
-      right: - $base-whitespace;
-      bottom: $base-whitespace / 2;
-      left: - $base-whitespace;
-    }
-    background: $secondary-gray40;
-  }
-
-  .c-data-selection-available-filters__available-filter-label {
-    margin-bottom: $base-whitespace;
-    padding-top: $base-whitespace;
-    color: $primary-contrast;
-  }
-
-  .c-data-selection-available-filters__list {
-
-    .c-data-selection-available-filters__listitem {
-      margin-bottom: $base-whitespace;
-    }
-  }
 }
