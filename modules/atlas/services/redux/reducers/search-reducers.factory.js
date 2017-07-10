@@ -5,9 +5,9 @@
         .module('atlas')
         .factory('searchReducers', searchReducersFactory);
 
-    searchReducersFactory.$inject = ['ACTIONS', 'dpBaseCoder', 'DRAW_TOOL_CONFIG'];
+    searchReducersFactory.$inject = ['ACTIONS', 'dpBaseCoder'];
 
-    function searchReducersFactory (ACTIONS, dpBaseCoder, DRAW_TOOL_CONFIG) {
+    function searchReducersFactory (ACTIONS, dpBaseCoder) {
         var reducers = {};
 
         reducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY.id] = fetchSearchResultsByQueryReducer;
@@ -36,7 +36,6 @@
             };
 
             newState.map.isFullscreen = false;
-            newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
 
             newState.layerSelection.isEnabled = false;
             newState.page.name = null;
@@ -75,7 +74,6 @@
                 newState.map.showActiveOverlays = false;
                 newState.map.isFullscreen = false;
                 newState.map.geometry = [];
-                newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
             }
             newState.page.name = null;
             newState.detail = null;
