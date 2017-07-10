@@ -1,12 +1,7 @@
 'use strict';
 
-const menuDropdownPO = dp.require('modules/header/components/search/search.page-objects');
-
 module.exports = function (menuDropdownElement) {
     return {
-        get search () {
-            return menuDropdownPO(menuDropdownElement.element(by.css('dp-menu-dropdown')));
-        },
         toggle: () => {
             return menuDropdownElement.element(by.css('.qa-menu__toggle .qa-menu__link')).click();
         },
