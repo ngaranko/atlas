@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Thanks to Sander van Driel :-)
+
 CURRENT_BRANCH=$(git status | head -n 1 | awk '{print $3}')
 
 if [ $CURRENT_BRANCH != "develop" ]; then
