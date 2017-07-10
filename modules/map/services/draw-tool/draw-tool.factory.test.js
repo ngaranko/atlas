@@ -184,6 +184,20 @@ describe('The draw tool factory', function () {
             drawTool.disable();
             expect(drawShapeHandler.disable).not.toHaveBeenCalled();
         });
+
+        it('can be canceled', function () {
+            drawTool.enable();
+            fireEvent('draw:drawstart');
+
+            drawTool.cancel();
+            expect(drawTool.isEnabled()).toBe(false);
+        });
+
+        it('ignores cancel() when already disabled', function () {
+            drawTool.cancel();
+            expect(drawShapeHandler.disable).not.toHaveBeenCalled();
+            expect(editShapeHandler.disable).not.toHaveBeenCalled();
+        });
     });
 
     describe('On drawing mode changed event', function () {
@@ -194,12 +208,30 @@ describe('The draw tool factory', function () {
             drawTool.initialize(leafletMap, null, onDrawingMode);
         });
 
-        it('calls onDrawing when the drawing mode changes, in the next digest cycle', function () {
+        it('calls onDrawingMode when the drawing mode changes, in the next digest cycle', function () {
             drawTool.enable();
             fireEvent('draw:drawstart');
             $rootScope.$digest();
 
             expect(onResult).toBe('draw');
+        });
+
+        it('calls onDrawingMode when disabling, in the next digest cycle', function () {
+            drawTool.enable();
+            fireEvent('draw:drawstart');
+            drawTool.disable();
+            $rootScope.$digest();
+
+            expect(onResult).toBe('none');
+        });
+
+        it('calls onDrawingMode when canceling, in the next digest cycle', function () {
+            drawTool.enable();
+            fireEvent('draw:drawstart');
+            drawTool.cancel();
+            $rootScope.$digest();
+
+            expect(onResult).toBe('none');
         });
     });
 
@@ -525,6 +557,28 @@ describe('The draw tool factory', function () {
             expect(editShapeHandler.disable).toHaveBeenCalled();
         });
 
+        it('can cancel drawing', function () {
+            enable();
+            drawShapeHandler._markers = [vertices[0]];
+            fireEvent('draw:drawvertex');
+
+            drawTool.cancel();
+
+            expect(drawShapeHandler.completeShape).not.toHaveBeenCalled();
+            expect(drawShapeHandler.disable).toHaveBeenCalled();
+        });
+
+        it('can cancel editing', function () {
+            createPolygon();
+            drawTool.enable();
+            fireEvent('draw:editstart');
+
+            drawTool.cancel();
+
+            expect(editShapeHandler.save).not.toHaveBeenCalled();
+            expect(editShapeHandler.disable).toHaveBeenCalled();
+        });
+
         it('can add markers to a polygon in edit mode', function () {
             createPolygon();
 
@@ -568,11 +622,6 @@ describe('The draw tool factory', function () {
             fireEvent('draw:editvertex');
 
             expect(drawTool.shape.markers.length).toBe(4);
-        });
-
-        it('drawing can be reset', function () {
-            drawTool.reset();
-            expect(drawTool.shape.markers.length).toBe(0);
         });
 
         it('click on map while drawing polygon does not end draw mode', function () {

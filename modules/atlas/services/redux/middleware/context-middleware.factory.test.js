@@ -1,18 +1,16 @@
 describe('The contextMiddleware factory', function () {
     const mockedStore = {
-            getState: function () {
-                return 'FAKE_STATE';
-            }
-        },
-        mockedNext = function (action) {
-            return action;
-        },
-        mockedAction = {
-            type: 'FAKE_ACTION',
-            payload: {}
-        };
-    let contextMiddleware,
-        ACTIONS;
+        getState: function () {
+            return 'FAKE_STATE';
+        }
+    };
+    const mockedNext = function (action) {
+        return action;
+    };
+    const mockedAction = {};
+
+    let contextMiddleware;
+    let ACTIONS;
 
     beforeEach(function () {
         angular.mock.module('atlas');
@@ -21,6 +19,9 @@ describe('The contextMiddleware factory', function () {
             contextMiddleware = _contextMiddleware_;
             ACTIONS = _ACTIONS_;
         });
+
+        mockedAction.type = 'FAKE_ACTION';
+        mockedAction.payload = {};
     });
 
     it('calls the next action', function () {
@@ -117,6 +118,172 @@ describe('The contextMiddleware factory', function () {
         expect(returnValue).toEqual({
             type: ACTIONS.FETCH_DETAIL,
             payload: 'aap'
+        });
+    });
+
+    describe('MAP_ZOOM', () => {
+        it('adds \'ignore\' flag while drawing', function () {
+            mockedAction.type = ACTIONS.MAP_ZOOM;
+            mockedStore.getState = () => {
+                return {
+                    map: {
+                        drawingMode: 'draw'
+                    }
+                };
+            };
+
+            const returnValue = contextMiddleware(mockedStore)(mockedNext)(mockedAction);
+
+            expect(returnValue).toEqual({
+                type: {
+                    id: 'MAP_ZOOM',
+                    replace: true,
+                    ignore: true
+                },
+                payload: {}
+            });
+        });
+
+        it('adds \'ignore\' flag while editing a drawing', function () {
+            mockedAction.type = ACTIONS.MAP_ZOOM;
+            mockedStore.getState = () => {
+                return {
+                    map: {
+                        drawingMode: 'edit'
+                    }
+                };
+            };
+
+            const returnValue = contextMiddleware(mockedStore)(mockedNext)(mockedAction);
+
+            expect(returnValue).toEqual({
+                type: {
+                    id: 'MAP_ZOOM',
+                    replace: true,
+                    ignore: true
+                },
+                payload: {}
+            });
+        });
+
+        it('does not add \'ignore\' flag while not drawing', function () {
+            mockedAction.type = ACTIONS.MAP_ZOOM;
+            mockedStore.getState = () => {
+                return {
+                    map: {
+                        drawingMode: 'none'
+                    }
+                };
+            };
+
+            const returnValue = contextMiddleware(mockedStore)(mockedNext)(mockedAction);
+
+            expect(returnValue).toEqual({
+                type: {
+                    id: 'MAP_ZOOM',
+                    replace: true
+                },
+                payload: {}
+            });
+
+            // With no map state at all
+            mockedStore.getState = () => {
+                return {
+                };
+            };
+
+            const returnValueNoState = contextMiddleware(mockedStore)(mockedNext)(mockedAction);
+
+            expect(returnValueNoState).toEqual({
+                type: {
+                    id: 'MAP_ZOOM',
+                    replace: true
+                },
+                payload: {}
+            });
+        });
+    });
+
+    describe('MAP_PAN', () => {
+        it('adds \'ignore\' flag while drawing', function () {
+            mockedAction.type = ACTIONS.MAP_PAN;
+            mockedStore.getState = () => {
+                return {
+                    map: {
+                        drawingMode: 'draw'
+                    }
+                };
+            };
+
+            const returnValue = contextMiddleware(mockedStore)(mockedNext)(mockedAction);
+
+            expect(returnValue).toEqual({
+                type: {
+                    id: 'MAP_PAN',
+                    replace: true,
+                    ignore: true
+                },
+                payload: {}
+            });
+        });
+
+        it('adds \'ignore\' flag while editing a drawing', function () {
+            mockedAction.type = ACTIONS.MAP_PAN;
+            mockedStore.getState = () => {
+                return {
+                    map: {
+                        drawingMode: 'edit'
+                    }
+                };
+            };
+
+            const returnValue = contextMiddleware(mockedStore)(mockedNext)(mockedAction);
+
+            expect(returnValue).toEqual({
+                type: {
+                    id: 'MAP_PAN',
+                    replace: true,
+                    ignore: true
+                },
+                payload: {}
+            });
+        });
+
+        it('does not add \'ignore\' flag while not drawing', function () {
+            mockedAction.type = ACTIONS.MAP_PAN;
+            mockedStore.getState = () => {
+                return {
+                    map: {
+                        drawingMode: 'none'
+                    }
+                };
+            };
+
+            const returnValue = contextMiddleware(mockedStore)(mockedNext)(mockedAction);
+
+            expect(returnValue).toEqual({
+                type: {
+                    id: 'MAP_PAN',
+                    replace: true
+                },
+                payload: {}
+            });
+
+            // With no map state at all
+            mockedStore.getState = () => {
+                return {
+                };
+            };
+
+            const returnValueNoState = contextMiddleware(mockedStore)(mockedNext)(mockedAction);
+
+            expect(returnValueNoState).toEqual({
+                type: {
+                    id: 'MAP_PAN',
+                    replace: true
+                },
+                payload: {}
+            });
         });
     });
 });

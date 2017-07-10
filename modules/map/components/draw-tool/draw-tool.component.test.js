@@ -27,7 +27,7 @@ describe('The draw tool component', function () {
                     isEnabled: angular.noop,
                     enable: angular.noop,
                     disable: angular.noop,
-                    reset: angular.noop,
+                    cancel: angular.noop,
                     shape: {
                         markers: [],
                         distanceTxt: 'distance',
@@ -76,15 +76,16 @@ describe('The draw tool component', function () {
         beforeEach(function () {
             spyOn(drawTool, 'enable');
             spyOn(drawTool, 'disable');
-            spyOn(drawTool, 'reset');
+            spyOn(drawTool, 'cancel');
         });
 
-        it('Uses this parameter to follow drawing mode, default none should trigger disable', function () {
+        it('Uses this parameter to follow drawing mode, default none should trigger cancel', function () {
             getComponent();
             $rootScope.$digest();
 
             expect(drawTool.enable).not.toHaveBeenCalled();
-            expect(drawTool.disable).toHaveBeenCalled();
+            expect(drawTool.disable).not.toHaveBeenCalled();
+            expect(drawTool.cancel).toHaveBeenCalled();
         });
 
         it('Uses this parameter to follow drawing mode: draw should enable drawing', function () {
@@ -94,6 +95,7 @@ describe('The draw tool component', function () {
 
             expect(drawTool.enable).toHaveBeenCalled();
             expect(drawTool.disable).not.toHaveBeenCalled();
+            expect(drawTool.cancel).not.toHaveBeenCalled();
         });
 
         it('Uses this parameter to follow drawing mode: edit should enable drawing', function () {
@@ -103,30 +105,7 @@ describe('The draw tool component', function () {
 
             expect(drawTool.enable).toHaveBeenCalled();
             expect(drawTool.disable).not.toHaveBeenCalled();
-        });
-
-        it('when drawing mode is reset then drawing should be reset', function () {
-            state.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.RESET;
-            getComponent();
-            $rootScope.$digest();
-
-            expect(drawTool.reset).toHaveBeenCalled();
-        });
-
-        it('when drawing mode is none then drawing should not be reset', function () {
-            state.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
-            getComponent();
-            $rootScope.$digest();
-
-            expect(drawTool.reset).not.toHaveBeenCalled();
-        });
-
-        it('when drawing mode is reset then it should be switched to none', function () {
-            state.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.RESET;
-            getComponent();
-            $rootScope.$digest();
-
-            expect(state.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
+            expect(drawTool.cancel).not.toHaveBeenCalled();
         });
     });
 
@@ -258,10 +237,12 @@ describe('The draw tool component', function () {
             });
         });
 
-        it('Does not dispatch a MAP_START_DRAWING action when the drawing or editing has finished', function () {
+        it('Dispatches a MAP_END_DRAWING action without payload when the drawing mode is changed to `none`', () => {
             getComponent();
             onDrawingMode(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
-            expect(store.dispatch).not.toHaveBeenCalled();
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.MAP_END_DRAWING
+            });
         });
     });
 });

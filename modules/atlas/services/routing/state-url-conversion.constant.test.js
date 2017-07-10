@@ -82,7 +82,7 @@ describe('The state url conversion definition', function () {
         });
 
         describe('The post processing for map', function () {
-            it('copies the drawing mode and isLoading from the previous state', function () {
+            it('copies isLoading from the previous state, but not the drawing mode ', function () {
                 // isLoading and drawingMode
                 let oldState = {
                     isLoading: true,
@@ -92,8 +92,7 @@ describe('The state url conversion definition', function () {
 
                 STATE_URL_CONVERSION.post.map(oldState, newState);
                 expect(newState).toEqual({
-                    isLoading: true,
-                    drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW
+                    isLoading: true
                 });
 
                 // only drawingMode
@@ -104,8 +103,7 @@ describe('The state url conversion definition', function () {
 
                 STATE_URL_CONVERSION.post.map(oldState, newState);
                 expect(newState).toEqual({
-                    isLoading: undefined,
-                    drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE
+                    isLoading: undefined
                 });
 
                 // only isLoading
@@ -116,8 +114,7 @@ describe('The state url conversion definition', function () {
 
                 STATE_URL_CONVERSION.post.map(oldState, newState);
                 expect(newState).toEqual({
-                    isLoading: false,
-                    drawingMode: undefined
+                    isLoading: false
                 });
 
                 // no map state at all

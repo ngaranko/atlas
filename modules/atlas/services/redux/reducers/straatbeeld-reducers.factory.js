@@ -52,7 +52,7 @@
             newState.dataSelection = null;
 
             newState.map.isLoading = true;
-            newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.RESET;
+            newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
 
             return newState;
         }

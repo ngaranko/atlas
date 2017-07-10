@@ -82,7 +82,7 @@ describe('Straatbeeld reducers factory', function () {
 
         it('should be resetting drawing mode', function () {
             var newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_ID.id](inputState, payload);
-            expect(newState.map.drawingMode).toBe(DRAW_TOOL_CONFIG.DRAWING_MODE.RESET);
+            expect(newState.map.drawingMode).toBe(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
         });
 
         it('Set INITIAL id, heading, isInitial', function () {
