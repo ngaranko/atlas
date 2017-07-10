@@ -63,8 +63,8 @@ describe('The dp-embed-header component', () => {
     it('updates the values in the form', () => {
         const component = getComponent();
 
-        expect(component.find('.qa-embed-header-form-link .qa-embed-header-form-input')[0].value).toBe('123');
-        expect(component.find('.qa-embed-header-form-html .qa-embed-header-form-input')[0].value).toBe('abc');
+        expect(component.find('.qa-embed-header-form-input-link')[0].value).toBe('123');
+        expect(component.find('.qa-embed-header-form-input-html')[0].value).toBe('abc');
 
         expect(embed.getLink).toHaveBeenCalled();
         expect(embed.getHtml).toHaveBeenCalled();
