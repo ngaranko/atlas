@@ -7,6 +7,7 @@ module.exports = {
     hasClass: require('./has-class'),
     log: require('./log'),
     require: require('./require'),
+    screenshot: require('./screenshot'),
     search: require('./search'),
     storage: require('./storage'),
     toNumber: require('./to-number'),
