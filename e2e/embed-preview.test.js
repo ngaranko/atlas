@@ -17,7 +17,7 @@ describe('Embed preview', () => {
         expect(header.menu.dropDownMain.itemCount).toBe(1);
     });
 
-    it('ga naar embedden', () => {
+    it('ga naar full screen kaart en ga naar embed preview', () => {
         // Go to the Map
         page.dashboard.rightColumn.page.homepage.map.click();
 
