@@ -22,8 +22,12 @@
   }
 
   p {
-    @include font-weight($light-weight);
+    @include font-weight($normal-weight);
     margin-bottom: 1.6 * $base-whitespace;
+
+    strong {
+      @include font-weight($bold-weight);
+    }
   }
 
   blockquote {
