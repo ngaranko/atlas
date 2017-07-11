@@ -8,6 +8,7 @@
     reducerFactory.$inject = [
         'urlReducers',
         'detailReducers',
+        'freeze',
         'homeReducers',
         'layerSelectionReducers',
         'mapReducers',
@@ -15,19 +16,24 @@
         'searchReducers',
         'straatbeeldReducers',
         'dataSelectionReducers',
-        'printReducers'
+        'printReducers',
+        'environment'
     ];
 
-    function reducerFactory (urlReducers,
-                             detailReducers,
-                             homeReducers,
-                             layerSelectionReducers,
-                             mapReducers,
-                             pageReducers,
-                             searchReducers,
-                             straatbeeldReducers,
-                             dataSelectionReducers,
-                             printReducers) {
+    function reducerFactory ( // eslint-disable-line max-params
+            urlReducers,
+            detailReducers,
+            freeze,
+            homeReducers,
+            layerSelectionReducers,
+            mapReducers,
+            pageReducers,
+            searchReducers,
+            straatbeeldReducers,
+            dataSelectionReducers,
+            printReducers,
+            environment
+        ) {
         return function (oldState, action) {
             // TODO: Redux: replace
             // Warning: angular.merge is deprecated
@@ -48,7 +54,11 @@
             if (angular.isObject(action) &&
                 angular.isObject(action.type) &&
                 angular.isFunction(actions[action.type.id])) {
-                return actions[action.type.id](oldState, action.payload);
+                const result = actions[action.type.id](oldState, action.payload);
+                if (environment.isDevelopment()) {
+                    freeze.deepFreeze(result);
+                }
+                return result;
             } else {
                 // TODO: Redux: throw error
                 return oldState;
