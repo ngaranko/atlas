@@ -1,3 +1,4 @@
 .c-download-button {
-  @include icon-button-text-box-left("download", "transparent", "transparent");
+  @extend %icon--border-hover;
+  @include icon-label-left("download", "transparent", "red");
 }

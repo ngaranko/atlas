@@ -1,3 +1,4 @@
 .c-toggle-view-button {
-  @include icon-button-text-box-left("forward", "", "");
+  @extend %icon--border-hover;
+  @include icon-label-left("forward", "", "white");
 }
