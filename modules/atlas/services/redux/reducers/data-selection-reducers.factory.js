@@ -7,11 +7,10 @@
 
     dataSelectionReducersFactory.$inject = [
         'ACTIONS',
-        'stateUrlConverter',
-        'DRAW_TOOL_CONFIG'
+        'stateUrlConverter'
     ];
 
-    function dataSelectionReducersFactory (ACTIONS, stateUrlConverter, DRAW_TOOL_CONFIG) {
+    function dataSelectionReducersFactory (ACTIONS, stateUrlConverter) {
         const reducers = {};
 
         reducers[ACTIONS.FETCH_DATA_SELECTION.id] = fetchDataSelectionReducer;
@@ -99,10 +98,6 @@
                 newState.dataSelection.isLoading = false;
 
                 newState.dataSelection.isFullscreen = newState.dataSelection.view !== 'LIST';
-
-                if (newState.dataSelection.isFullscreen) {
-                    newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
-                }
             }
 
             newState.map.isLoading = false;
@@ -127,10 +122,6 @@
                 newState.dataSelection.isLoading = false;
 
                 newState.dataSelection.isFullscreen = newState.dataSelection.view !== 'LIST';
-
-                if (newState.dataSelection.isFullscreen) {
-                    newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
-                }
 
                 newState.dataSelection.reset = false;
             }

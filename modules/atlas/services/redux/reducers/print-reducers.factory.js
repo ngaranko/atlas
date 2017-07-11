@@ -5,9 +5,9 @@
         .module('atlas')
         .factory('printReducers', printReducersFactory);
 
-    printReducersFactory.$inject = ['ACTIONS', 'DRAW_TOOL_CONFIG'];
+    printReducersFactory.$inject = ['ACTIONS'];
 
-    function printReducersFactory (ACTIONS, DRAW_TOOL_CONFIG) {
+    function printReducersFactory (ACTIONS) {
         var reducers = {};
 
         reducers[ACTIONS.SHOW_PRINT.id] = showPrintReducer;
@@ -24,7 +24,6 @@
             var newState = angular.copy(oldState);
 
             newState.atlas.isPrintMode = true;
-            newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
 
             return newState;
         }
@@ -38,10 +37,8 @@
             var newState = angular.copy(oldState);
 
             newState.atlas.isPrintMode = false;
-            newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
 
             return newState;
         }
     }
 })();
-

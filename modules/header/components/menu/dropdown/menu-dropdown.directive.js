@@ -12,7 +12,8 @@
                 title: '@',
                 type: '@',
                 align: '@',
-                hasPrintButton: '<'
+                hasPrintButton: '<',
+                hasEmbedButton: '<'
             },
             transclude: true,
             templateUrl: 'modules/header/components/menu/dropdown/menu-dropdown.html',

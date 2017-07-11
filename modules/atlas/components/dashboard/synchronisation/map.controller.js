@@ -30,7 +30,7 @@
             if (state.search && state.search.location) {
                 vm.markers.regular.push({
                     id: 'search',
-                    geometry: convertLocationToGeoJSON(state.search.location),
+                    geometry: angular.copy(convertLocationToGeoJSON(state.search.location)),
                     useAutoFocus: false
                 });
             }
@@ -38,7 +38,7 @@
             if (state.detail && state.detail.geometry) {
                 vm.markers.regular.push({
                     id: 'detail',
-                    geometry: state.detail.geometry,
+                    geometry: angular.copy(state.detail.geometry),
                     useAutoFocus: true
                 });
             }
@@ -46,14 +46,14 @@
             if (state.straatbeeld && angular.isArray(state.straatbeeld.location)) {
                 vm.markers.regular.push({
                     id: 'straatbeeld_orientation',
-                    geometry: convertLocationToGeoJSON(state.straatbeeld.location),
+                    geometry: angular.copy(convertLocationToGeoJSON(state.straatbeeld.location)),
                     orientation: state.straatbeeld.heading,
                     useAutoFocus: false
                 });
 
                 vm.markers.regular.push({
                     id: 'straatbeeld_person',
-                    geometry: convertLocationToGeoJSON(state.straatbeeld.location),
+                    geometry: angular.copy(convertLocationToGeoJSON(state.straatbeeld.location)),
                     useAutoFocus: false
                 });
             }

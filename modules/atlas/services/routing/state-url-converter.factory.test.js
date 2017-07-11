@@ -37,7 +37,9 @@ describe('The state url conversion factory', function () {
                 straatbeeld: null,
                 dataSelection: null,
                 atlas: {
-                    isPrintMode: false
+                    isPrintMode: false,
+                    isEmbedPreview: false,
+                    isEmbed: false
                 }
             });
         });
@@ -229,10 +231,6 @@ describe('The state url conversion factory', function () {
         });
 
         describe('The params to state translation', function () {
-            beforeEach(function () {
-
-            });
-
             it('translates empty params to an empty state', function () {
                 const state = stateUrlConverter.params2state({}, {});
                 expect(state).toEqual({});

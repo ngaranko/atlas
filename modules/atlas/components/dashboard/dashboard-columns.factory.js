@@ -17,7 +17,8 @@
             determineActivity,
             determineVisibility,
             determineColumnSizes,
-            hasLimitedWidth
+            hasLimitedWidth,
+            isPrintOrEmbedOrPreview
         };
 
         function determineActivity (state) {
@@ -69,14 +70,18 @@
                 visibility.dataSelection = false;
             }
 
+            if (isEmbedOrPreviewWithFullscreenMap(state)) {
+                visibility.layerSelection = false;
+            }
+
             return visibility;
         }
 
         function determineMapActivity (state) {
-            if (!state.atlas.isPrintMode) {
-                return determineMapActivityDefault(state);
-            } else {
+            if (isPrintOrEmbedOrPreview(state)) {
                 return determineMapActivityPrint(state);
+            } else {
+                return determineMapActivityDefault(state);
             }
         }
 
@@ -92,6 +97,10 @@
         }
 
         function determineMapActivityPrint (state) {
+            if (isEmbedOrPreviewWithFullscreenMap(state)) {
+                return true;
+            }
+
             if (state.map.isFullscreen && !state.layerSelection.isEnabled) {
                 return true;
             } else if (state.straatbeeld) {
@@ -116,10 +125,10 @@
                 (visibility.searchResults && state.search.isFullscreen) ||
                 (visibility.dataSelection && state.dataSelection.isFullscreen);
 
-            if (!state.atlas.isPrintMode) {
-                return determineColumnSizesDefault (state, visibility, hasFullscreenElement);
-            } else {
+            if (isPrintOrEmbedOrPreview(state)) {
                 return determineColumnSizesPrint (state, visibility, hasFullscreenElement);
+            } else {
+                return determineColumnSizesDefault (state, visibility, hasFullscreenElement);
             }
         }
 
@@ -166,6 +175,14 @@
         function hasLimitedWidth (state) {
             const visibility = determineVisibility(state);
             return Boolean(visibility.page);
+        }
+
+        function isEmbedOrPreviewWithFullscreenMap (state) {
+            return (state.atlas.isEmbed || state.atlas.isEmbedPreview) && state.map.isFullscreen && !state.straatbeeld;
+        }
+
+        function isPrintOrEmbedOrPreview (state) {
+            return state.atlas.isPrintMode || state.atlas.isEmbedPreview || state.atlas.isEmbed;
         }
     }
 })();

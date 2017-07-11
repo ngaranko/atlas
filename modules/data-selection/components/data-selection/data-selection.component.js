@@ -49,7 +49,8 @@
                 vm.state.filters,
                 vm.state.geometryFilter,
                 vm.state.page,
-                vm.state.query
+                vm.state.query,
+                user.getAuthorizationLevel()
             ];
         }, fetchData, true);
 

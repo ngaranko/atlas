@@ -1,8 +1,7 @@
 describe('The search-reducers factory', function () {
     var searchReducers,
         DEFAULT_STATE,
-        ACTIONS,
-        DRAW_TOOL_CONFIG;
+        ACTIONS;
 
     DEFAULT_STATE = {
         map: {
@@ -32,10 +31,9 @@ describe('The search-reducers factory', function () {
     beforeEach(function () {
         angular.mock.module('atlas');
 
-        angular.mock.inject(function (_searchReducers_, _ACTIONS_, _DRAW_TOOL_CONFIG_) {
+        angular.mock.inject(function (_searchReducers_, _ACTIONS_) {
             searchReducers = _searchReducers_;
             ACTIONS = _ACTIONS_;
-            DRAW_TOOL_CONFIG = _DRAW_TOOL_CONFIG_;
         });
     });
 
@@ -155,13 +153,6 @@ describe('The search-reducers factory', function () {
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY.id](inputState, 'linnaeus');
 
             expect(output.map.isFullscreen).toBe(false);
-        });
-
-        it('should reset drawing mode', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
-                output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY.id](inputState, 'linnaeus');
-
-            expect(output.map.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
         });
     });
 
@@ -320,13 +311,6 @@ describe('The search-reducers factory', function () {
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, [52.001, 4.002]);
 
             expect(output.map).toBeNull();
-        });
-
-        it('should reset drawing mode', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
-                output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, [52.001, 4.002]);
-
-            expect(output.map.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
         });
     });
 

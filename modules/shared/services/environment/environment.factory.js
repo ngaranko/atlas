@@ -30,6 +30,8 @@
                 config.NAME = 'DEVELOPMENT';
         }
 
+        config.isDevelopment = () => config.NAME === 'DEVELOPMENT';
+
         return config;
     }
 })();

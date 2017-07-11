@@ -1,4 +1,4 @@
-describe('The dp-print-state directive', function () {
+describe('The dp-preview-state directive', function () {
     var $compile,
         $rootScope,
         mockedState;
@@ -30,7 +30,7 @@ describe('The dp-print-state directive', function () {
             scope;
 
         element = document.createElement('div');
-        element.setAttribute('dp-print-state', '');
+        element.setAttribute('dp-preview-state', '');
 
         scope = $rootScope.$new();
 
@@ -104,5 +104,45 @@ describe('The dp-print-state directive', function () {
             const directive = getDirective();
             expect(directive.hasClass('is-print-mode--landscape')).toBe(false);
         });
+    });
+
+    it('adds an embed preview class to the element when isEmbedPreview is true', function () {
+        var directive;
+
+        mockedState = {atlas: {isEmbedPreview: true}};
+
+        directive = getDirective();
+
+        expect(directive.hasClass('is-embed-preview')).toBe(true);
+    });
+
+    it('does not add an embed preview to the element when isEmbedPreview is false', function () {
+        var directive;
+
+        mockedState = {atlas: {isEmbedPreview: false}};
+
+        directive = getDirective();
+
+        expect(directive.hasClass('is-embed-preview')).toBe(false);
+    });
+
+    it('adds a embed class to the element when isEmbed is true', function () {
+        var directive;
+
+        mockedState = {atlas: {isEmbed: true}};
+
+        directive = getDirective();
+
+        expect(directive.hasClass('is-embed')).toBe(true);
+    });
+
+    it('does not add a embed to the element when isEmbed is false', function () {
+        var directive;
+
+        mockedState = {atlas: {isEmbed: false}};
+
+        directive = getDirective();
+
+        expect(directive.hasClass('is-embed')).toBe(false);
     });
 });

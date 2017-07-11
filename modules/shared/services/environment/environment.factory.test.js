@@ -19,9 +19,7 @@ describe('The environment factory', function () {
             mockedHostname = 'atlas.amsterdam.nl';
 
             angular.mock.inject(function (environment) {
-                expect(environment).toEqual({
-                    NAME: 'PRODUCTION'
-                });
+                expect(environment.NAME).toEqual('PRODUCTION');
             });
         });
 
@@ -29,9 +27,7 @@ describe('The environment factory', function () {
             mockedHostname = 'data.amsterdam.nl';
 
             angular.mock.inject(function (environment) {
-                expect(environment).toEqual({
-                    NAME: 'PRODUCTION'
-                });
+                expect(environment.NAME).toEqual('PRODUCTION');
             });
         });
 
@@ -42,9 +38,7 @@ describe('The environment factory', function () {
                 mockedHostname = hostname;
 
                 angular.mock.inject(function (environment) {
-                    expect(environment).toEqual({
-                        NAME: 'PRE_PRODUCTION'
-                    });
+                    expect(environment.NAME).toEqual('PRE_PRODUCTION');
                 });
             });
         });
@@ -56,9 +50,7 @@ describe('The environment factory', function () {
                 mockedHostname = hostname;
 
                 angular.mock.inject(function (environment) {
-                    expect(environment).toEqual({
-                        NAME: 'ACCEPTATION'
-                    });
+                    expect(environment.NAME).toEqual('ACCEPTATION');
                 });
             });
         });
@@ -70,9 +62,24 @@ describe('The environment factory', function () {
                 mockedHostname = hostname;
 
                 angular.mock.inject(function (environment) {
-                    expect(environment).toEqual({
-                        NAME: 'DEVELOPMENT'
-                    });
+                    expect(environment.NAME).toEqual('DEVELOPMENT');
+                });
+            });
+        });
+
+        describe('the development check', () => {
+            it('is true for a development host', () => {
+                mockedHostname = 'localhost';
+
+                angular.mock.inject(function (environment) {
+                    expect(environment.isDevelopment()).toBe(true);
+                });
+            });
+            it('is false for an other host', () => {
+                mockedHostname = 'data.amsterdam.nl';
+
+                angular.mock.inject(function (environment) {
+                    expect(environment.isDevelopment()).toBe(false);
                 });
             });
         });

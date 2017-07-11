@@ -33,7 +33,6 @@
 
             newState.map.isFullscreen = true;
             newState.layerSelection.isEnabled = true;
-            newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
 
             return newState;
         }
@@ -196,14 +195,16 @@
          *
          * @returns {Object} newState
          */
-        function mapZoomReducer (oldState, payload) {
-            var newState = angular.copy(oldState);
+        function mapZoomReducer (state, payload) {
+            const newState = Object.assign({}, state, {
+                map: Object.assign({}, state.map, {
+                    zoom: payload.zoom
+                })
+            });
 
             if (angular.isArray(payload.viewCenter)) {
                 newState.map.viewCenter = payload.viewCenter;
             }
-
-            newState.map.zoom = payload.zoom;
 
             return newState;
         }
