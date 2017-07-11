@@ -88,6 +88,14 @@ $link-offset: 3px;
   }
 }
 
+%link--min {
+  @extend %link--plus;
+
+  &::before {
+    content: "−";
+  }
+}
+
 %link--inline {
   @extend %link;
   @include font-weight($normal-weight);
