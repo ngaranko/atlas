@@ -57,24 +57,26 @@
                 pinFirstLevel: true
             });
 
-            hotspots.sort(function (hotspotA, hotspotB) {
-                return hotspotB.distance - hotspotA.distance;
-            }).forEach(function (hotspot) {
-                const hotspotPitch = calculateHotspotPitch(STRAATBEELD_CONFIG.CAMERA_HEIGHT, hotspot.distance);
+            angular.copy(hotspots) // Do not mutate someone else's data collection!
+                .sort(function (hotspotA, hotspotB) {
+                    return hotspotB.distance - hotspotA.distance;
+                })
+                .forEach(function (hotspot) {
+                    const hotspotPitch = calculateHotspotPitch(STRAATBEELD_CONFIG.CAMERA_HEIGHT, hotspot.distance);
 
-                hotspotService.createHotspotTemplate(hotspot.id, hotspot.distance, hotspotPitch, hotspot.year)
-                    .then(function (template) {
-                        var position = {
-                            yaw: angleConversion.degreesToRadians(hotspot.heading),
-                            pitch: hotspotPitch
-                        };
+                    hotspotService.createHotspotTemplate(hotspot.id, hotspot.distance, hotspotPitch, hotspot.year)
+                        .then(function (template) {
+                            var position = {
+                                yaw: angleConversion.degreesToRadians(hotspot.heading),
+                                pitch: hotspotPitch
+                            };
 
-                        scene.hotspotContainer().createHotspot(
-                            template,
-                            position
-                        );
-                    });
-            });
+                            scene.hotspotContainer().createHotspot(
+                                template,
+                                position
+                            );
+                        });
+                });
 
             view.setYaw(angleConversion.degreesToRadians(heading));
             view.setPitch(angleConversion.degreesToRadians(pitch));
@@ -88,4 +90,3 @@
         }
     }
 })();
-

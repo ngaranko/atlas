@@ -11,12 +11,16 @@ describe('The reducer factory', function () {
         dataSelectionReducers,
         printReducers,
         embedReducers,
-        inputState;
+        inputState,
+        freeze,
+        environment;
 
     beforeEach(function () {
         angular.mock.module(
             'atlas',
             {
+                freeze: jasmine.createSpyObj('freeze', ['deepFreeze']),
+                environment: jasmine.createSpyObj('environment', ['isDevelopment']),
                 urlReducers: {
                     ACTION_A: function () {}
                 },
@@ -65,7 +69,10 @@ describe('The reducer factory', function () {
             _straatbeeldReducers_,
             _dataSelectionReducers_,
             _printReducers_,
-            _embedReducers_) {
+            _embedReducers_,
+            _freeze_,
+            _environment_
+        ) {
             urlReducers = _urlReducers_;
             detailReducers = _detailReducers_;
             homeReducers = _homeReducers_;
@@ -77,6 +84,8 @@ describe('The reducer factory', function () {
             dataSelectionReducers = _dataSelectionReducers_;
             printReducers = _printReducers_;
             embedReducers = _embedReducers_;
+            freeze = _freeze_;
+            environment = _environment_;
         });
 
         const DEFAULT_STATE = {
@@ -108,6 +117,8 @@ describe('The reducer factory', function () {
             reducer = _reducer_;
             inputState = DEFAULT_STATE;
         });
+
+        environment.isDevelopment.and.returnValue(false);
     });
 
     it('groups all separate reducers and calls the appropriate one depening on the action type', function () {
@@ -150,8 +161,18 @@ describe('The reducer factory', function () {
 
     it('returns the oldState if the specified action type has no separate reducer', function () {
         // Note redux has some built-in action types that we can safely ignore.
-        var output = reducer(inputState, {type: 'ACTION_K'});
+        var output = reducer(inputState, {type: {id: 'ACTION_K'}});
 
         expect(output).toBe(inputState);
+    });
+
+    it('deep freezes the state in development', () => {
+        const state = { foo: 'bar' };
+        spyOn(urlReducers, 'ACTION_A').and.returnValue(state);
+        environment.isDevelopment.and.returnValue(true);
+
+        reducer(inputState, {type: {id: 'ACTION_A'}});
+
+        expect(freeze.deepFreeze).toHaveBeenCalledWith(state);
     });
 });

@@ -13,8 +13,8 @@ module.exports = function (grunt) {
         options: {
             sourceMap: true,
             compact: false,
-            minified: false,
-            presets: ['es2015']
+            minified: false
+            // presets from .babelrc used
         },
         modules: {
             options: {

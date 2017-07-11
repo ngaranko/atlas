@@ -195,14 +195,16 @@
          *
          * @returns {Object} newState
          */
-        function mapZoomReducer (oldState, payload) {
-            var newState = angular.copy(oldState);
+        function mapZoomReducer (state, payload) {
+            const newState = Object.assign({}, state, {
+                map: Object.assign({}, state.map, {
+                    zoom: payload.zoom
+                })
+            });
 
             if (angular.isArray(payload.viewCenter)) {
                 newState.map.viewCenter = payload.viewCenter;
             }
-
-            newState.map.zoom = payload.zoom;
 
             return newState;
         }

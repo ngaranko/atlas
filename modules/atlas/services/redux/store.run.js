@@ -5,22 +5,28 @@
 
     runBlock.$inject = [
         'applicationState',
+        'freeze',
         'reducer',
         'stateUrlConverter',
         'contextMiddleware',
-        'stateToUrlMiddleware'
+        'stateToUrlMiddleware',
+        'environment'
     ];
 
     function runBlock (
             applicationState,
+            freeze,
             reducer,
             stateUrlConverter,
             contextMiddleware,
-            stateToUrlMiddleware) {
+            stateToUrlMiddleware,
+            environment) {
+        const urlDefaultState = stateUrlConverter.getDefaultState();
+        const initialState = environment.isDevelopment() ? freeze.deepFreeze(urlDefaultState) : urlDefaultState;
         applicationState.initialize(
             reducer,
             stateUrlConverter,
-            stateUrlConverter.getDefaultState(),
+            initialState,
             contextMiddleware,
             stateToUrlMiddleware);
     }
