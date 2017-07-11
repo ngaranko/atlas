@@ -58,21 +58,12 @@
                         <dp-data-selection-list ng-if="vm.view === 'LIST'" content="vm.data"></dp-data-selection-list>
                         <dp-data-selection-cards ng-if="vm.view === 'CARDS'" content="vm.data"></dp-data-selection-cards>
                     </div>
-                </div>
-            </div>
-            <div class="u-row c-data-selection__pagination-row">
-                <div ng-if="vm.showFilters" class="u-col-sm--3"></div>
-                <div class="c-data-selection__pagination-cell" ng-class="{
-                         'u-col-sm--12': !vm.showFilters,
-                         'u-col-sm--9': vm.showFilters
-                     }">
-                    <div class="c-data-selection__pagination-content">
-                        <dp-data-selection-pagination
-                            ng-if="!vm.isLoading"
-                            current-page="vm.currentPage"
-                            number-of-pages="vm.numberOfPages">
-                        </dp-data-selection-pagination>
-                    </div>
+
+                    <dp-data-selection-pagination
+                        ng-if="!vm.isLoading"
+                        current-page="vm.currentPage"
+                        number-of-pages="vm.numberOfPages">
+                    </dp-data-selection-pagination>
                 </div>
             </div>
         </div>

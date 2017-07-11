@@ -1,3 +1,11 @@
+.c-data-selection-pagination {
+  margin: 0 (-2 * $base-whitespace);
+  padding: 2 * $base-whitespace;
+  padding-bottom: 0;
+  border-top: 2px solid $secondary-gray40;
+  background-color: $primary-light;
+}
+
 .c-data-selection-pagination__controls {
   @include font-size($s-font);
   @include font-weight($normal-weight);
