@@ -37,7 +37,7 @@
                 {{vm.apiData.results.grootte}} m<sup>2</sup>
             </span>
         </dd>
-        <dt>Vestigingsdatum</dt>
+        <dt>Toestandsdatum</dt>
         <dd>{{vm.apiData.results.toestandsdatum | date:'dd-MM-yyyy'}}</dd>
         <dt>Coordinaten</dt>
         <dd>{{vm.apiData.results.geometrie.coordinates[0][0][0].join(', ')}}</dd>
@@ -58,9 +58,15 @@
             </dl>
         </div>
 
-        <p class="u-padding__top--2">
-            * Alleen de gemeentelijke publiekrechtelijke beperkingen worden getoond. Voor een volledig overzicht van alle
-            publiekrechtelijke beperkingen bij dit kadastraal object wordt u verzocht Kadaster Online te raadplegen.
+        <p>
+            * Alleen de Alleen de gemeentelijke beperkingen worden getoond. Er kunnen vier dagen zitten tussen het kenbaar maken van een beperkingenbesluit en inschrijving daarvan in het register. Voor een volledig overzicht van alle publiek- en privaatrechtelijke beperkingen bij dit kadastraal object wordt u verzocht de website van het Kadaster, www.kadaster.nl, te raadplegen.
         </p>
+    </div>
+
+    <div class="c-panel u-margin__top--1">
+        <section>
+            <h3 class="c-panel__title">Disclaimer</h3>
+            <p class="c-panel__paragraph">Let op: de Wet kenbaarheid publiekrechtelijke beperkingen onroerende zaken schrijft voor dat beperkingen op kadastraal object worden geregistreerd. Om zeker te weten waar een beperking op rust, raadpleeg het brondocument via het Stadsloket.</p>
+        </section>
     </div>
 </div>
