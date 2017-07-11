@@ -60,7 +60,7 @@ $data-selection-pagination-height: 4 * $base-whitespace + $button-size;
   right: 0;
   bottom: 0;
   left: -$base-whitespace; /* Outlining correction */
-  background-color: $primary-light;
   padding: 2 * $base-whitespace;
   border-top: 2px solid $secondary-gray60;
+  background-color: $primary-light;
 }

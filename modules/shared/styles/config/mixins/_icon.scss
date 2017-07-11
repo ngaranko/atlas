@@ -1,6 +1,6 @@
 @mixin icon($icon, $state: "", $hover-state: "red") {
-  position: relative;
   display: inline-block;
+  position: relative;
   width: $button-size;
   height: $button-size;
   padding: 0;
