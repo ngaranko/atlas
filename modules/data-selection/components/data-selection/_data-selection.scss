@@ -1,7 +1,9 @@
 $data-selection-outer-padding: 2 * $base-whitespace;
+$data-selection-pagination-height: 4 * $base-whitespace + $button-size;
 
 .c-data-selection {
   padding: $data-selection-outer-padding;
+  padding-bottom: $data-selection-outer-padding + $data-selection-pagination-height;
 }
 
 .c-data-selection__available-filters {
@@ -40,4 +42,25 @@ $data-selection-outer-padding: 2 * $base-whitespace;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+.c-data-selection__pagination-row {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.c-data-selection__pagination-cell {
+  position: relative;
+}
+
+.c-data-selection__pagination-content {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: -$base-whitespace; /* Outlining correction */
+  background-color: $primary-light;
+  padding: 2 * $base-whitespace;
+  border-top: 2px solid $secondary-gray60;
 }

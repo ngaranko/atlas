@@ -1,4 +1,6 @@
 @mixin icon($icon, $state: "", $hover-state: "red") {
+  position: relative;
+  display: inline-block;
   width: $button-size;
   height: $button-size;
   padding: 0;
@@ -52,6 +54,11 @@
 %icon--border {
   background-color: $primary-light;
   color: $secondary-gray60;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
 
   &::after {
     position: absolute;
