@@ -2,6 +2,8 @@
 
 @import "components/layer-selection/layer-selection";
 
-.is-print-mode {
+.is-print-mode,
+.is-embed-preview,
+.is-embed {
   @import "components/layer-selection/layer-selection-print";
 }

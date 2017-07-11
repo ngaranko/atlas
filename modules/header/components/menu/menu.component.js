@@ -6,6 +6,7 @@
         .component('dpMenu', {
             bindings: {
                 hasPrintButton: '<',
+                hasEmbedButton: '<',
                 size: '='
             },
             templateUrl: 'modules/header/components/menu/menu.html',

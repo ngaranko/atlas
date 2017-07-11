@@ -8,6 +8,7 @@
                 query: '@',
                 searchAction: '<',
                 hasPrintButton: '<',
+                hasEmbedButton: '<',
                 size: '='
             },
             templateUrl: 'modules/header/components/site-header/site-header.html',

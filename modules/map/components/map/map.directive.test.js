@@ -80,6 +80,10 @@ describe('The dp-map directive', function () {
                 $provide.factory('dpToggleFullscreenDirective', function () {
                     return {};
                 });
+
+                $provide.factory('dpEmbedButtonDirective', function () {
+                    return {};
+                });
             }
         );
         mockedLeafletMap = {

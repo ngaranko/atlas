@@ -17,23 +17,24 @@
         'straatbeeldReducers',
         'dataSelectionReducers',
         'printReducers',
+        'embedReducers',
         'environment'
     ];
 
-    function reducerFactory ( // eslint-disable-line max-params
-            urlReducers,
-            detailReducers,
-            freeze,
-            homeReducers,
-            layerSelectionReducers,
-            mapReducers,
-            pageReducers,
-            searchReducers,
-            straatbeeldReducers,
-            dataSelectionReducers,
-            printReducers,
-            environment
-        ) {
+    // eslint-disable-next-line max-params
+    function reducerFactory (urlReducers,
+                             detailReducers,
+                             freeze,
+                             homeReducers,
+                             layerSelectionReducers,
+                             mapReducers,
+                             pageReducers,
+                             searchReducers,
+                             straatbeeldReducers,
+                             dataSelectionReducers,
+                             printReducers,
+                             embedReducers,
+                             environment) {
         return function (oldState, action) {
             // TODO: Redux: replace
             // Warning: angular.merge is deprecated
@@ -48,7 +49,9 @@
                 searchReducers,
                 straatbeeldReducers,
                 dataSelectionReducers,
-                printReducers
+                printReducers,
+                embedReducers,
+                environment
             );
 
             if (angular.isObject(action) &&
