@@ -161,7 +161,7 @@ describe('The reducer factory', function () {
 
     it('returns the oldState if the specified action type has no separate reducer', function () {
         // Note redux has some built-in action types that we can safely ignore.
-        var output = reducer(inputState, {type: {id: 'ACTION_K'}});
+        var output = reducer(inputState, {type: {id: 'ACTION_NO_REDUCER'}});
 
         expect(output).toBe(inputState);
     });
