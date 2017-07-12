@@ -16,7 +16,7 @@
         '$scope',
         'userSettings',
         'dataSelectionApi',
-        'DATA_SELECTION_CONFIG',
+        'dataSelectionConfig',
         'TabHeader',
         'store',
         'ACTIONS',
@@ -27,7 +27,7 @@
         $scope,
         userSettings,
         dataSelectionApi,
-        DATA_SELECTION_CONFIG,
+        dataSelectionConfig,
         TabHeader,
         store,
         ACTIONS,
@@ -65,7 +65,7 @@
         }
 
         function fetchData () {
-            const config = DATA_SELECTION_CONFIG.datasets[vm.state.dataset];
+            const config = dataSelectionConfig.datasets[vm.state.dataset];
 
             const isListView = vm.state.view === 'LIST';
             vm.view = vm.state.view;
@@ -108,10 +108,10 @@
                     vm.showFilters = !isListView && vm.numberOfRecords > 0;
 
                     // determine if warning messages should be shown
-                    vm.maxAvailablePages = DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES;
+                    vm.maxAvailablePages = dataSelectionConfig.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES;
                     vm.showMessageMaxPages = vm.maxAvailablePages && vm.state.page > vm.maxAvailablePages;
 
-                    vm.maxNumberOfClusteredMarkers = DATA_SELECTION_CONFIG.options.MAX_NUMBER_OF_CLUSTERED_MARKERS;
+                    vm.maxNumberOfClusteredMarkers = dataSelectionConfig.options.MAX_NUMBER_OF_CLUSTERED_MARKERS;
                     vm.showMessageClusteredMarkers = isListView && vm.numberOfRecords > vm.maxNumberOfClusteredMarkers;
 
                     updateTabHeader(vm.state.query, vm.numberOfRecords);
@@ -119,8 +119,8 @@
                     vm.showContent =
                         vm.numberOfRecords &&
                         (
-                            angular.isUndefined(DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES) ||
-                            vm.state.page <= DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES
+                            angular.isUndefined(dataSelectionConfig.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES) ||
+                            vm.state.page <= dataSelectionConfig.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES
                         );
 
                     const activeFilters = angular.extend({
@@ -129,7 +129,7 @@
 
                     if (
                         isListView &&
-                        vm.numberOfRecords <= DATA_SELECTION_CONFIG.options.MAX_NUMBER_OF_CLUSTERED_MARKERS
+                        vm.numberOfRecords <= dataSelectionConfig.options.MAX_NUMBER_OF_CLUSTERED_MARKERS
                     ) {
                         // Get marker data and update the state to show the
                         // data
