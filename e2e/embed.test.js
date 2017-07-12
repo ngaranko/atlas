@@ -46,3 +46,17 @@ describe('Embed preview', () => {
             '</iframe>');
     });
 });
+
+it('Embed kaart', () => {
+    const page = dp.navigate('PAGE--EMBED'),
+        map = page.dashboard.middleColumn.map,
+        link = 'http://localhost:8000/#?lse=T&mpb=topografie&mpz=11&mpfs=T&mpv=52.3731081:4.8932945&pgn=home';
+
+    expect(map.embedButton.text).toBe('City Data');
+    expect(map.embedButton.link).toBe(link);
+
+    map.zoomIn();
+
+    // city data button should have adjusted link
+    expect(map.embedButton.link).not.toBe(link);
+});
