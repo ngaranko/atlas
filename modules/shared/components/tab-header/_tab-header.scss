@@ -3,7 +3,8 @@
 }
 
 .c-tab-header__reset {
-  @include icon-button-text-box-right("datasets", "", "");
+  @extend %icon--border;
+  @include icon-label-right("datasets", "", "");
+
   float: right;
-  box-shadow: none;
 }
