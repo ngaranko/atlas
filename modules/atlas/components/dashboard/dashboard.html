@@ -6,19 +6,23 @@
      }">
 
     <!-- Header -->
-    <div ng-class="{ 'u-fixed': !vm.isPrintMode }">
+    <div ng-if="!vm.isEmbed" ng-class="{ 'u-fixed': !vm.isPrintMode && !vm.isEmbedPreview }">
         <div class="c-dashboard__heading"
              ng-class="{ 'o-max-width': vm.hasMaxWidth }"
              ng-controller="HeaderController as header">
             <div ng-class="{ 'o-max-width__inner': vm.hasMaxWidth }">
-                <div ng-if="!vm.isPrintMode" class="qa-dashboard__header">
+                <div ng-if="!vm.isPrintOrEmbedOrPreview" class="qa-dashboard__header">
                     <dp-site-header size="vm.headerSize"
                                     has-print-button="header.hasPrintButton"
+                                    has-embed-button="header.hasEmbedButton"
                                     search-action="header.searchAction"
                                     query="{{header.query}}"></dp-site-header>
                 </div>
                 <div ng-if="vm.isPrintMode" class="qa-dashboard__print-header">
                     <dp-print-header></dp-print-header>
+                </div>
+                <div ng-if="vm.isEmbedPreview" class="qa-dashboard__embed-header">
+                    <dp-embed-header></dp-embed-header>
                 </div>
             </div>
         </div>
@@ -74,7 +78,7 @@
                             show-layer-selection="map.showLayerSelection"
                             markers="map.markers"
                             draw-geometry="map.drawGeometry"
-                            resize="[vm.isPrintMode, vm.visibility.httpStatus, vm.visibility.map, vm.columnSizes.middle]">
+                            resize="[vm.isPrintMode, vm.isEmbedPreview, vm.isEmbed, vm.visibility.httpStatus, vm.visibility.map, vm.columnSizes.middle]">
                         </dp-map>
                     </div>
                 </div>
@@ -121,28 +125,28 @@
                                               class="o-btn--link--inverse"
                                               href="https://twitter.com/AmsterdamNL"
                                               rel="external"
-                                              target="_blank">Twitter</a>
+                                              target="_blank" rel="noopener">Twitter</a>
                                         </div>
                                         <div class="c-dashboard__social-link">
                                             <a
                                               class="o-btn o-btn--link--inverse"
                                               href="https://www.facebook.com/gemeenteamsterdam"
                                               rel="external"
-                                              target="_blank">Facebook</a>
+                                              target="_blank" rel="noopener">Facebook</a>
                                         </div>
                                         <div class="c-dashboard__social-link">
                                             <a
                                               class="o-btn o-btn--link--inverse"
                                               href="https://www.linkedin.com/company/gemeente-amsterdam"
                                               rel="external"
-                                              target="_blank">LinkedIn</a>
+                                              target="_blank" rel="noopener">LinkedIn</a>
                                         </div>
                                         <div class="c-dashboard__social-link">
                                             <a
                                               class="o-btn o-btn--link--inverse"
                                               href="https://github.com/DatapuntAmsterdam"
                                               rel="external"
-                                              target="_blank">GitHub</a>
+                                              target="_blank" rel="noopener">GitHub</a>
                                         </div>
                                     </div>
                                 </div>
@@ -170,7 +174,7 @@
                         <!--Resize straatbeeld when any of printMode, errorMode or fullscreen changes-->
                         <dp-straatbeeld
                             state="straatbeeld.straatbeeldState"
-                            resize="[vm.isPrintMode, vm.visibility.httpStatus, vm.visibility.straatbeeld, vm.columnSizes.right]">
+                            resize="[vm.isPrintMode, vm.isEmbedPreview, vm.isEmbed, vm.visibility.httpStatus, vm.visibility.straatbeeld, vm.columnSizes.right]">
                         </dp-straatbeeld>
                     </div>
 

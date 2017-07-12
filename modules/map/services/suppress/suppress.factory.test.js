@@ -1,12 +1,12 @@
 describe('The suppress factory', function () {
     let suppress,
-        $timeout;
+        $interval;
 
     beforeEach(function () {
         angular.mock.module('dpMap');
 
-        angular.mock.inject(function (_$timeout_, _suppress_) {
-            $timeout = _$timeout_;
+        angular.mock.inject(function (_$interval_, _suppress_) {
+            $interval = _$interval_;
             suppress = _suppress_;
         });
     });
@@ -19,10 +19,10 @@ describe('The suppress factory', function () {
         suppress.start();
         expect(suppress.isBusy()).toEqual(true);
 
-        $timeout.flush(99);
+        $interval.flush(99);
         expect(suppress.isBusy()).toEqual(true);
 
-        $timeout.flush(1);
+        $interval.flush(1);
         expect(suppress.isBusy()).toEqual(false);
     });
 });

@@ -11,10 +11,10 @@ describe('The dataSelectionApiCkan factory', function () {
             'dpDataSelection',
             {
                 api: {
-                    getByUri: function (url) {
+                    getByUrl: function (url) {
                         const q = $q.defer();
 
-                        if (url === 'catalogus/reject') {
+                        if (url.indexOf('reject') !== -1) {
                             q.reject();
                         } else {
                             q.resolve(mockedApiResponse);
@@ -22,9 +22,6 @@ describe('The dataSelectionApiCkan factory', function () {
 
                         return q.promise;
                     }
-                },
-                sharedConfig: {
-                    API_ROOT: 'https://api.amsterdam.nl/'
                 }
             }
         );
@@ -38,6 +35,7 @@ describe('The dataSelectionApiCkan factory', function () {
 
         config = {
             MAX_ITEMS_PER_PAGE: 2,
+            ENDPOINT_ROOT: 'https://catalogus.data.amsterdam.nl/',
             ENDPOINT_PREVIEW: 'catalogus/',
             ENDPOINT_DETAIL: 'api_endpoint/catalogus/',
             PRIMARY_KEY: 'id',
@@ -129,13 +127,13 @@ describe('The dataSelectionApiCkan factory', function () {
             }
         };
 
-        spyOn(api, 'getByUri').and.callThrough();
+        spyOn(api, 'getByUrl').and.callThrough();
     });
 
     it('calls the api factory with available filters, active filters and offset as searchParams', function () {
         // Without active filters
         dataSelectionApiCkan.query(config, {}, 1);
-        expect(api.getByUri).toHaveBeenCalledWith('catalogus/', {
+        expect(api.getByUrl).toHaveBeenCalledWith('https://catalogus.data.amsterdam.nl/catalogus/', {
             start: 0,
             rows: config.MAX_ITEMS_PER_PAGE,
             'facet.field': '["type","water"]',
@@ -143,11 +141,11 @@ describe('The dataSelectionApiCkan factory', function () {
             sort: 'name asc'
         });
 
-        api.getByUri.calls.reset();
+        api.getByUrl.calls.reset();
 
         // With an active filter and search text
         dataSelectionApiCkan.query(config, {water: 'verwarmd'}, 1, 'searchText');
-        expect(api.getByUri).toHaveBeenCalledWith('catalogus/', {
+        expect(api.getByUrl).toHaveBeenCalledWith('https://catalogus.data.amsterdam.nl/catalogus/', {
             start: 0,
             rows: config.MAX_ITEMS_PER_PAGE,
             'facet.field': '["type","water"]',
@@ -156,11 +154,11 @@ describe('The dataSelectionApiCkan factory', function () {
             sort: 'name asc'
         });
 
-        api.getByUri.calls.reset();
+        api.getByUrl.calls.reset();
 
         // With active filters
         dataSelectionApiCkan.query(config, {water: 'verwarmd', type: 'overdekt'}, 1);
-        expect(api.getByUri).toHaveBeenCalledWith('catalogus/', {
+        expect(api.getByUrl).toHaveBeenCalledWith('https://catalogus.data.amsterdam.nl/catalogus/', {
             start: 0,
             rows: config.MAX_ITEMS_PER_PAGE,
             'facet.field': '["type","water"]',
@@ -168,11 +166,11 @@ describe('The dataSelectionApiCkan factory', function () {
             sort: 'name asc'
         });
 
-        api.getByUri.calls.reset();
+        api.getByUrl.calls.reset();
 
         // With another page
         dataSelectionApiCkan.query(config, {water: 'extra-koud'}, 2);
-        expect(api.getByUri).toHaveBeenCalledWith('catalogus/', {
+        expect(api.getByUrl).toHaveBeenCalledWith('https://catalogus.data.amsterdam.nl/catalogus/', {
             start: 2,
             rows: config.MAX_ITEMS_PER_PAGE,
             'facet.field': '["type","water"]',
@@ -366,7 +364,7 @@ describe('The dataSelectionApiCkan factory', function () {
         expect(output.data[0]).toEqual({
             _links: {
                 self: {
-                    href: 'https://api.amsterdam.nl/api_endpoint/catalogus/?id=1'
+                    href: 'https://catalogus.data.amsterdam.nl/api_endpoint/catalogus/?id=1'
                 }
             },
             _openbare_ruimte_naam: 'Binnenkant',
@@ -382,7 +380,7 @@ describe('The dataSelectionApiCkan factory', function () {
         expect(output.data[1]).toEqual({
             _links: {
                 self: {
-                    href: 'https://api.amsterdam.nl/api_endpoint/catalogus/?id=2'
+                    href: 'https://catalogus.data.amsterdam.nl/api_endpoint/catalogus/?id=2'
                 }
             },
             _openbare_ruimte_naam: 'Binnenkant',
@@ -400,7 +398,7 @@ describe('The dataSelectionApiCkan factory', function () {
         expect(output.data[2]).toEqual({
             _links: {
                 self: {
-                    href: 'https://api.amsterdam.nl/api_endpoint/catalogus/?id=3'
+                    href: 'https://catalogus.data.amsterdam.nl/api_endpoint/catalogus/?id=3'
                 }
             },
             _openbare_ruimte_naam: 'Binnenkant',

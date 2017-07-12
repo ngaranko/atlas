@@ -150,6 +150,10 @@
                 id: 'FETCH_DATA_SELECTION',
                 ignore: true
             },
+            RESET_DATA_SELECTION: {
+                id: 'RESET_DATA_SELECTION',
+                ignore: true
+            },
             SHOW_DATA_SELECTION: {
                 id: 'SHOW_DATA_SELECTION'
             },
@@ -182,6 +186,14 @@
             },
             HIDE_PRINT: {
                 id: 'HIDE_PRINT',
+                isButton: true
+            },
+
+            SHOW_EMBED_PREVIEW: {
+                id: 'SHOW_EMBED_PREVIEW'
+            },
+            HIDE_EMBED_PREVIEW: {
+                id: 'HIDE_EMBED_PREVIEW',
                 isButton: true
             }
         });

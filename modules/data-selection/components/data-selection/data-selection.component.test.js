@@ -45,11 +45,10 @@ describe('The dp-data-selection component', function () {
                 },
                 store: {
                     dispatch: angular.noop
-                }
+                },
+                dataSelectionConfig: config
             },
             function ($provide) {
-                $provide.constant('DATA_SELECTION_CONFIG', config);
-
                 $provide.factory('dpLoadingIndicatorDirective', function () {
                     return {};
                 });
@@ -243,6 +242,26 @@ describe('The dp-data-selection component', function () {
     });
 
     describe('it triggers SHOW_DATA_SELECTION to communicate the related marker locations', function () {
+        it('dispatches the RESET_DATA_SELECTION action when state.reset is set', () => {
+            mockedState.view = 'TABLE';
+            mockedState.reset = true;
+            getComponent(mockedState);
+
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.RESET_DATA_SELECTION,
+                payload: []
+            });
+
+            store.dispatch.calls.reset();
+
+            mockedState.view = 'CARDS';
+            $rootScope.$apply();
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.RESET_DATA_SELECTION,
+                payload: []
+            });
+        });
+
         it('sends an empty Array if the TABLE or CARDS view is active', function () {
             mockedState.view = 'TABLE';
             getComponent(mockedState);
@@ -367,7 +386,7 @@ describe('The dp-data-selection component', function () {
         });
     });
 
-    it('the messages about MAX_PAGES and MAX_CLUSTERED_MARKERS use DATA_SELECTION_CONFIG', () => {
+    it('the messages about MAX_PAGES and MAX_CLUSTERED_MARKERS use dataSelectionConfig', () => {
         mockedState.page = 6;
         mockedApiPreviewData.numberOfRecords = 1001;
         mockedState.view = 'LIST'; // required to even show cluster message

@@ -150,4 +150,40 @@ describe('The header controller', function () {
             expect(controller.hasPrintButton).toBe(true);
         });
     });
+
+    describe('not all states have an embed version', function () {
+        it('only in fullscreen map there is an embed button', function () {
+            mockedState.map.isFullscreen = true;
+
+            mockedState.page = {
+                name: 'home'
+            };
+
+            spyOn(store, 'getState').and.returnValue(mockedState);
+            const controller = getController();
+
+            expect(controller.hasEmbedButton).toBe(true);
+        });
+
+        it('there is no embed button when both full screen map and straatbeeld are active', function () {
+            mockedState.map.isFullscreen = true;
+            mockedState.straatbeeld = {};
+
+            spyOn(store, 'getState').and.returnValue(mockedState);
+            const controller = getController();
+
+            expect(controller.hasEmbedButton).toBe(false);
+        });
+
+        it('there is no embed button on the homepage', () => {
+            mockedState.page = {
+                name: 'home'
+            };
+
+            spyOn(store, 'getState').and.returnValue(mockedState);
+            const controller = getController();
+
+            expect(controller.hasEmbedButton).toBe(false);
+        });
+    });
 });

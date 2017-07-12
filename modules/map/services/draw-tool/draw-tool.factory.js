@@ -47,7 +47,7 @@
             isEnabled,
             enable,
             disable,
-            reset,
+            cancel,
             setPolygon,
             shape: shapeInfo
         };
@@ -88,8 +88,6 @@
             if (angular.isFunction(_onDrawingMode)) {
                 $rootScope.$applyAsync(() => {
                     // call any registered callback function, applyAsync because triggered by a leaflet event
-                    // The exact drawingMode is an internal attribute of the factory
-                    // The outside knowledge is just true or false; enabled or disabled
                     _onDrawingMode(drawTool.drawingMode);
                 });
             }
@@ -123,6 +121,7 @@
 
         // Called when a polygon is finished (end draw or end edit)
         function finishPolygon () {
+            // Silently change the drawing mode
             setDrawingMode(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
             onFinishPolygon();
         }
@@ -311,9 +310,18 @@
             }
         }
 
-        // resets by removing all current markers
-        function reset () {
-            currentShape.markers = [];
+        // Cancel drawing => disable the draw tool and do not save anything
+        // that has been drawn
+        function cancel () {
+            if (isEnabled()) {
+                if (drawTool.drawingMode === DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW) {
+                    drawTool.drawShapeHandler.disable();
+                } else {
+                    drawTool.editShapeHandler.disable();
+                }
+                // Silently change the drawing mode
+                setDrawingMode(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
+            }
         }
 
         // Shape method for shape.info

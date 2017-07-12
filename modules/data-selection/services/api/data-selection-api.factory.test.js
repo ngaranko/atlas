@@ -84,10 +84,8 @@ describe('The dataSelectionApi factory', function () {
             'dpDataSelection',
             {
                 api,
-                mockedApiService
-            },
-            function ($provide) {
-                $provide.constant('DATA_SELECTION_CONFIG', mockedConfig);
+                mockedApiService,
+                dataSelectionConfig: mockedConfig
             }
         );
 

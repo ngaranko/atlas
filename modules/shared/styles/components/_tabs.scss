@@ -1,5 +1,6 @@
-$tab-height: 30px;
+$tab-height: 36px;
 $tab-border-radius: 2px;
+$tab-v-padding: 8px;
 
 .o-tabs {
   position: relative;
@@ -65,7 +66,7 @@ $tab-border-radius: 2px;
 
 .o-tabs__tab {
   display: block;
-  padding: ($base-whitespace / 2) $base-whitespace;
+  padding: $tab-v-padding (2 * $base-whitespace);
 }
 
 .o-tabs__tab--link {

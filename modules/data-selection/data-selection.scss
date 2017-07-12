@@ -12,6 +12,8 @@
 @import "components/views/cards/cards";
 @import "components/views/table/table";
 
-.is-print-mode {
+.is-print-mode,
+.is-embed-preview,
+.is-embed {
   @import "components/data-selection/data-selection-print";
 }
