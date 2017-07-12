@@ -1,10 +1,12 @@
 describe('Embed preview', () => {
     let page,
-        header;
+        header,
+        map;
 
     beforeEach(() => {
         page = dp.navigate('PAGE--HOME');
-        header = page.dashboard.siteHeader;
+        header = page.dashboard.siteHeader,
+        map = page.dashboard.middleColumn.map;
     });
 
     it('op de homepage is geen embed button', () => {
@@ -44,6 +46,16 @@ describe('Embed preview', () => {
         expect(header.embedHeader.inputHtml.value).toBe('<iframe width="500" height="400" src="http://localho' +
             'st:8000/#?ate=T&lse=T&mpb=topografie&mpz=11&mpfs=T&mpv=52.3731081:4.8932945&pgn=home" frameborder="0">' +
             '</iframe>');
+
+        const link = 'http://localhost:8000/#?lse=T&mpb=topografie&mpz=11&mpfs=T&mpv=52.3731081:4.8932945&pgn=home';
+
+        expect(map.embedButton.text).toBe('City Data');
+        expect(map.embedButton.link).toBe(link);
+
+        map.zoomIn();
+
+        // city data button should have adjusted link in preview
+        expect(map.embedButton.link).not.toBe(link);
     });
 });
 
@@ -57,6 +69,6 @@ it('Embed kaart', () => {
 
     map.zoomIn();
 
-    // city data button should have adjusted link
+    // city data button should have adjusted link in embed map
     expect(map.embedButton.link).not.toBe(link);
 });
