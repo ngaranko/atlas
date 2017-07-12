@@ -11,17 +11,14 @@
         const config = {};
 
         switch ($location.host()) {
-            case 'atlas.amsterdam.nl':
             case 'data.amsterdam.nl':
                 config.NAME = 'PRODUCTION';
                 break;
 
-            case 'pre.atlas.amsterdam.nl':
             case 'pre.data.amsterdam.nl':
                 config.NAME = 'PRE_PRODUCTION';
                 break;
 
-            case 'acc.atlas.amsterdam.nl':
             case 'acc.data.amsterdam.nl':
                 config.NAME = 'ACCEPTATION';
                 break;
