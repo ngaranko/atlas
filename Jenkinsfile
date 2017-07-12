@@ -28,13 +28,9 @@ node {
                              [$class: 'StringBinding', credentialsId: 'PASSWORD_EMPLOYEE_PLUS', variable: 'PASSWORD_EMPLOYEE_PLUS']]) {
                 def image = docker.build("build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}")
                 // The following line...
-                //sh "docker run --rm --env PASSWORD_EMPLOYEE='$PASSWORD_EMPLOYEE' --env PASSWORD_EMPLOYEE_PLUS='$PASSWORD_EMPLOYEE_PLUS' --entrypoint grunt 'build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}' test-e2e"
-                // ... is a workaround for ...
-                image.inside() {
-                    PASSWORD_EMPLOYEE='$PASSWORD_EMPLOYEE' PASSWORD_EMPLOYEE_PLUS='$PASSWORD_EMPLOYEE_PLUS' groovy test-e2e
-                }
-                // ... which will work in future versions of Jenkins.
-                // See <https://issues.jenkins-ci.org/browse/JENKINS-36332>
+                sh "docker run --rm --env PASSWORD_EMPLOYEE='$PASSWORD_EMPLOYEE' --env PASSWORD_EMPLOYEE_PLUS='$PASSWORD_EMPLOYEE_PLUS' --entrypoint grunt 'build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}' test-e2e"
+                // ... can probably done more elegantly, but we don't know how.
+                // docker.inside doesn't seem to work.
 
                 image.push()
             }
