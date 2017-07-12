@@ -27,8 +27,13 @@ node {
             withCredentials([[$class: 'StringBinding', credentialsId: 'PASSWORD_EMPLOYEE', variable: 'PASSWORD_EMPLOYEE'],
                              [$class: 'StringBinding', credentialsId: 'PASSWORD_EMPLOYEE_PLUS', variable: 'PASSWORD_EMPLOYEE_PLUS']]) {
                 def image = docker.build("build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}")
-                //image.withRun("--env PASSWORD_EMPLOYEE='$PASSWORD_EMPLOYEE' --env PASSWORD_EMPLOYEE_PLUS='$PASSWORD_EMPLOYEE_PLUS' --entrypoint grunt", "test-e2e")
-                sh "docker run --rm --env PASSWORD_EMPLOYEE='$PASSWORD_EMPLOYEE' --env PASSWORD_EMPLOYEE_PLUS='$PASSWORD_EMPLOYEE_PLUS' --entrypoint grunt 'build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}' test-e2e"
+                // The following line...
+                //sh "docker run --rm --env PASSWORD_EMPLOYEE='$PASSWORD_EMPLOYEE' --env PASSWORD_EMPLOYEE_PLUS='$PASSWORD_EMPLOYEE_PLUS' --entrypoint grunt 'build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}' test-e2e"
+                // ... is a workaround for ...
+                image.withRun("--env PASSWORD_EMPLOYEE='$PASSWORD_EMPLOYEE' --env PASSWORD_EMPLOYEE_PLUS='$PASSWORD_EMPLOYEE_PLUS' --entrypoint grunt", "test-e2e")
+                // ... which will work in future versions of Jenkins.
+                // See <https://issues.jenkins-ci.org/browse/JENKINS-36332>
+
                 image.push()
             }
         }
