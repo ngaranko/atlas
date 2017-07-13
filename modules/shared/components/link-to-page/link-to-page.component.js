@@ -8,7 +8,8 @@
             transclude: true,
             bindings: {
                 type: '@',
-                item: '@'
+                item: '@',
+                className: '@'
             },
             controller: DpLinkToPageController,
             controllerAs: 'vm'
