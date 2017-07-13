@@ -60,7 +60,7 @@
 
         <dp-panel is-panel-visible="showMoreInfoWarning" can-close="true" type="warning">
             Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om vestigingen te bekijken.
-            Zie <dp-link-to-page item="item9"></dp-link-to-page>.
+            Zie <dp-link-to-page item="item9" class-name="c-link--light"></dp-link-to-page>.
         </dp-panel>
 
         <dp-api-call ng-if="isEmployee" endpoint="handelsregister/vestiging/?nummeraanduiding={{ apiData.results.hoofdadres.landelijk_id }}" add-api-root="true" partial="lijst"></dp-api-call>
@@ -73,7 +73,7 @@
         <dp-panel is-panel-visible="showMoreInfoWarning" type="warning" can-close="true">
             Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer gegevens te zien:
             zakelijke rechten en aantekeningen.
-            Zie <dp-link-to-page item="item9"></dp-link-to-page>.
+            Zie <dp-link-to-page item="item9" class-name="c-link--light"></dp-link-to-page>.
         </dp-panel>
 
         <dp-api-call
