@@ -21,6 +21,10 @@
   }
 }
 
+.c-show-more--less {
+  @extend %link--min;
+}
+
 .c-show-more--gray {
   color: $secondary-gray60;
 }

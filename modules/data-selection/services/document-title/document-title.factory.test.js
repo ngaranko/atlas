@@ -7,8 +7,8 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
     beforeEach(function () {
         angular.mock.module(
             'dpDataSelection',
-            function ($provide) {
-                $provide.constant('DATA_SELECTION_CONFIG', {
+            {
+                dataSelectionConfig: {
                     datasets: {
                         bag: {
                             TITLE: 'Adressen',
@@ -37,7 +37,7 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
                             ]
                         }
                     }
-                });
+                }
             }
         );
 
@@ -116,7 +116,7 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
         expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState)).toBe('Tabel adressen met Oost, Flevopark');
     });
 
-    it('respects the filter order from DATA_SELECTION_CONFIG', function () {
+    it('respects the filter order from dataSelectionConfig', function () {
         mockedBagState.filters = {
             stadsdeel_naam: 'Oost',
             buurt_naam: 'Flevopark'

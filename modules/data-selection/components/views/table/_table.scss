@@ -21,18 +21,18 @@ $hover-table-color: #eee;
 
     .c-data-selection-table__header-field {
       @include font-size-responsive($m-header-font);
-      @include font-weight($normal-weight);
+      @include font-weight($medium-weight);
       height: $button-size;
       padding: {
         top: 0;
         bottom: 0;
       }
+      border: none;
     }
   }
 
   .c-data-selection-table__content {
     .c-data-selection-table__content-row {
-
       &:hover {
         background-color: $hover-table-color;
         cursor: pointer;
@@ -40,11 +40,6 @@ $hover-table-color: #eee;
     }
 
     .c-data-selection-table__content-field {
-      padding: {
-        top: .8 * $base-whitespace;
-        bottom: .8 * $base-whitespace;
-      }
-
       &:hover {
         cursor: pointer;
       }
@@ -55,4 +50,3 @@ $hover-table-color: #eee;
 .c-data-selection-table--full {
   display: inline-table;
 }
-

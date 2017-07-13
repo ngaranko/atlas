@@ -91,5 +91,8 @@ module.exports = {
         url: '#?mpb=topografie&mpz=11&mpv=52.3729183:4.8931775&sbf=Cu&sbfs=T&sbh=Ni&' +
              'sbi=TMX7315120208-000073_pano_0005_000446&sbl=ZRVst:3JJOB',
         validator: require('../validators/straatbeeld')
+    },
+    'PAGE--EMBED': {
+        url: '#?ate=T&lse=T&mpb=topografie&mpz=11&mpfs=T&mpv=52.3731081:4.8932945&pgn=home'
     }
 };

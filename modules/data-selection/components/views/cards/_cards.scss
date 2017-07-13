@@ -1,4 +1,3 @@
-
 @mixin o-tag {
   .o-tag {
     &::before {
@@ -15,6 +14,10 @@
   width: 100%;
   padding-top: $base-whitespace * 2;
   border-bottom: 1px solid $secondary-gray20;
+
+  &:last-child {
+    border: none;
+  }
 
   &:hover {
     @include o-tag;

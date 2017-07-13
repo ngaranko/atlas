@@ -45,11 +45,10 @@ describe('The dp-data-selection component', function () {
                 },
                 store: {
                     dispatch: angular.noop
-                }
+                },
+                dataSelectionConfig: config
             },
             function ($provide) {
-                $provide.constant('DATA_SELECTION_CONFIG', config);
-
                 $provide.factory('dpLoadingIndicatorDirective', function () {
                     return {};
                 });
@@ -387,7 +386,7 @@ describe('The dp-data-selection component', function () {
         });
     });
 
-    it('the messages about MAX_PAGES and MAX_CLUSTERED_MARKERS use DATA_SELECTION_CONFIG', () => {
+    it('the messages about MAX_PAGES and MAX_CLUSTERED_MARKERS use dataSelectionConfig', () => {
         mockedState.page = 6;
         mockedApiPreviewData.numberOfRecords = 1001;
         mockedState.view = 'LIST'; // required to even show cluster message
