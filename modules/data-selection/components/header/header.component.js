@@ -15,9 +15,9 @@
             controller: DpDataSelectionHeaderController
         });
 
-    DpDataSelectionHeaderController.$inject = ['$scope', 'dataSelectionConfig', 'user'];
+    DpDataSelectionHeaderController.$inject = ['$scope', 'DATA_SELECTION_CONFIG', 'user'];
 
-    function DpDataSelectionHeaderController ($scope, dataSelectionConfig, user) {
+    function DpDataSelectionHeaderController ($scope, DATA_SELECTION_CONFIG, user) {
         const vm = this;
 
         $scope.$watchGroup([
@@ -28,7 +28,7 @@
 
         function setHeader () {
             const isListView = vm.state.view === 'LIST';
-            const config = dataSelectionConfig.datasets[vm.state.dataset];
+            const config = DATA_SELECTION_CONFIG.datasets[vm.state.dataset];
             const exportAuthLevel = config.AUTH_LEVEL_EXPORT;
 
             vm.showButtons = vm.state.dataset !== 'catalogus';
@@ -39,12 +39,12 @@
             vm.showNoResultsFound = vm.numberOfRecords === 0;
             vm.showActiveFilters = Object.keys(vm.state.filters).length || vm.state.geometryFilter.markers.length;
 
-            vm.datasetTitle = dataSelectionConfig.datasets[vm.state.dataset].TITLE;
+            vm.datasetTitle = DATA_SELECTION_CONFIG.datasets[vm.state.dataset].TITLE;
 
             vm.tabs = ['bag', 'hr'].map(dataset => {
                 return {
                     dataset: dataset,
-                    title: dataSelectionConfig.datasets[dataset].TITLE,
+                    title: DATA_SELECTION_CONFIG.datasets[dataset].TITLE,
                     isActive: vm.state.dataset === dataset
                 };
             });

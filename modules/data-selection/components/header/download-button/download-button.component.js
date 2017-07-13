@@ -19,7 +19,7 @@
         '$scope',
         'api',
         'sharedConfig',
-        'dataSelectionConfig'
+        'DATA_SELECTION_CONFIG'
     ];
 
     function DpDataSelectionDownloadButtonController (
@@ -27,7 +27,7 @@
         $scope,
         api,
         sharedConfig,
-        dataSelectionConfig
+        DATA_SELECTION_CONFIG
     ) {
         const vm = this,
             filterParams = [];
@@ -41,9 +41,9 @@
         function setDownloadUrl () {
             filterParams.length = 0;
 
-            let url = sharedConfig.API_ROOT + dataSelectionConfig.datasets[vm.dataset].ENDPOINT_EXPORT;
+            let url = sharedConfig.API_ROOT + DATA_SELECTION_CONFIG.datasets[vm.dataset].ENDPOINT_EXPORT;
 
-            dataSelectionConfig.datasets[vm.dataset].FILTERS.forEach(function (filter) {
+            DATA_SELECTION_CONFIG.datasets[vm.dataset].FILTERS.forEach(function (filter) {
                 if (angular.isString(vm.activeFilters[filter.slug])) {
                     filterParams.push(filter.slug + '=' + $window.encodeURIComponent(vm.activeFilters[filter.slug]));
                 }
