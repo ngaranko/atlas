@@ -11,8 +11,10 @@ describe('The dp-data-selection-available-filters component', function () {
             {
                 store: {
                     dispatch: function () {}
-                },
-                dataSelectionConfig: {
+                }
+            },
+            function ($provide) {
+                $provide.constant('DATA_SELECTION_CONFIG', {
                     datasets: {
                         my_special_dataset: {
                             FILTERS: [
@@ -24,7 +26,7 @@ describe('The dp-data-selection-available-filters component', function () {
                             ]
                         }
                     }
-                }
+                });
             }
         );
 
