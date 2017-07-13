@@ -715,7 +715,7 @@ describe('The dp-search-results component', function () {
                 'Medewerkers met speciale bevoegdheden' +
                 ' kunnen alle gegevens vinden (ook natuurlijke personen).'
             );
-            expect(categoryNode.find('.qa-category-warning').text()).toContain('Help > Bediening > Inloggen.');
+            expect(categoryNode.find('.qa-category-warning').text()).toContain('Help > Bediening > Inloggen');
         });
 
         it('should show a general message for all other users', function () {
@@ -731,7 +731,7 @@ describe('The dp-search-results component', function () {
                 ' Om ook natuurlijke personen te vinden, moet je als medewerker bovendien' +
                 ' speciale bevoegdheden hebben.'
             );
-            expect(categoryNode.find('.qa-category-warning').text()).toContain('Help > Bediening > Inloggen.');
+            expect(categoryNode.find('.qa-category-warning').text()).toContain('Help > Bediening > Inloggen');
         });
 
         it('should update the message on authorization change', function () {
