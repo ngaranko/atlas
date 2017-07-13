@@ -3,12 +3,7 @@
 
     angular
         .module('dpDataSelection')
-        .factory('dataSelectionConfig', dataSelectionConfigFactory);
-
-    dataSelectionConfigFactory.$inject = ['environment'];
-
-    function dataSelectionConfigFactory (environment) {
-        const globalConfig = {
+        .constant('DATA_SELECTION_CONFIG', {
             options: {
                 MAX_NUMBER_OF_CLUSTERED_MARKERS: 10000
             },
@@ -133,8 +128,8 @@
                 catalogus: {
                     MAX_ITEMS_PER_PAGE: 100,
                     CUSTOM_API: 'dataSelectionApiCkan',
-                    ENDPOINT_PREVIEW: 'api/3/action/package_search',
-                    ENDPOINT_DETAIL: 'api/3/action/package_show',
+                    ENDPOINT_PREVIEW: 'catalogus/api/3/action/package_search',
+                    ENDPOINT_DETAIL: 'catalogus/api/3/action/package_show',
                     PRIMARY_KEY: 'id',
                     TITLE: 'Catalogus',
                     SHOW_FILTER_OPTION_COUNTS: false,
@@ -261,39 +256,5 @@
                     }
                 }
             }
-        };
-
-        const environmentConfig = {
-            PRODUCTION: {
-                datasets: {
-                    catalogus: {
-                        ENDPOINT_ROOT: 'https://catalogus.data.amsterdam.nl/'
-                    }
-                }
-            },
-            PRE_PRODUCTION: {
-                datasets: {
-                    catalogus: {
-                        ENDPOINT_ROOT: 'https://catalogus.data.amsterdam.nl/'
-                    }
-                }
-            },
-            ACCEPTATION: {
-                datasets: {
-                    catalogus: {
-                        ENDPOINT_ROOT: 'https://acc.catalogus.data.amsterdam.nl/'
-                    }
-                }
-            },
-            DEVELOPMENT: {
-                datasets: {
-                    catalogus: {
-                        ENDPOINT_ROOT: 'https://acc.catalogus.data.amsterdam.nl/'
-                    }
-                }
-            }
-        };
-
-        return angular.merge(globalConfig, environmentConfig[environment.NAME]);
-    }
+        });
 })();
