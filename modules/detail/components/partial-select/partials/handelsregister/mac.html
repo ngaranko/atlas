@@ -1,5 +1,5 @@
 <div>
-    <div class="u-row">
+    <div class="c-detail__block">
         <dp-glossary-header
             definition="MAATSCHAPPELIJKEACTIVITEIT">
         </dp-glossary-header>
@@ -21,13 +21,14 @@
         </dl>
     </div>
 
-    <div>
+    <div class="c-detail__block">
         <dp-glossary-header definition="FUNCTIEVERVULLING" use-plural="true"></dp-glossary-header>
 
         <dp-api-call endpoint="{{apiData.results.eigenaar}}" partial="handelsregister/functievervullingen"></dp-api-call>
     </div>
 
-    <div ng-if="apiData.results.vestigingen.count > 1">
+    <div ng-if="apiData.results.vestigingen.count > 1"
+         class="c-detail__block">
         <dp-glossary-header definition="VESTIGING" use-plural="true"></dp-glossary-header>
 
         <dp-api-call endpoint="{{apiData.results.vestigingen.href}}" partial="lijst"></dp-api-call>

@@ -1,9 +1,4 @@
 .s-indented-list {
+  padding-bottom: $base-whitespace;
   padding-left: $base-font-size;
-  border-left: 1px solid $secondary-gray20;
-
-  & .u-margin__bottom--4 {
-    margin-bottom: 0 !important;
-    padding-bottom: $base-whitespace * 2 !important;
-  }
 }

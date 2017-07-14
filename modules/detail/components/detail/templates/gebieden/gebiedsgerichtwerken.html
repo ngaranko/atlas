@@ -1,13 +1,15 @@
-<div class="u-row">
-    <dp-glossary-header heading="{{vm.apiData.results.naam}}" definition="GEBIEDSGERICHTWERKEN">
-    </dp-glossary-header>
+<div>
+    <div class="c-detail__block">
+        <dp-glossary-header heading="{{vm.apiData.results.naam}}" definition="GEBIEDSGERICHTWERKEN">
+        </dp-glossary-header>
 
-    <dl class="c-key-value-list">
-        <dt>Code</dt>
-        <dd>{{ vm.apiData.results.code }}</dd>
-        <dt>Stadsdeel</dt>
-        <dd><dp-link type="FETCH_DETAIL" payload="vm.apiData.results.stadsdeel._links.self.href">{{ vm.apiData.results.stadsdeel._display }}</dp-link></dd>
-    </dl>
+        <dl class="c-key-value-list">
+            <dt>Code</dt>
+            <dd>{{ vm.apiData.results.code }}</dd>
+            <dt>Stadsdeel</dt>
+            <dd><dp-link type="FETCH_DETAIL" payload="vm.apiData.results.stadsdeel._links.self.href">{{ vm.apiData.results.stadsdeel._display }}</dp-link></dd>
+        </dl>
+    </div>
 
     <dp-data-selection-links active-filters="{'ggw_naam': vm.filterSelection.gebiedsgerichtwerken}"></dp-data-selection-links>
 

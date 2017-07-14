@@ -1,5 +1,5 @@
 <div>
-    <div class="u-row">
+    <div class="c-detail__block">
       <dp-glossary-header heading="{{vm.apiData.results.naam}}" definition="BUURT" meta-data="vm.apiData">
       </dp-glossary-header>
 
@@ -15,7 +15,8 @@
         </div>
     </div>
 
-    <div ng-if="vm.apiData.results.bouwblokken.count">
+    <div ng-if="vm.apiData.results.bouwblokken.count"
+         class="c-detail__block">
       <dp-glossary-header definition="BOUWBLOK" use-plural="true"></dp-glossary-header>
 
       <dp-api-call endpoint="{{vm.apiData.results.bouwblokken.href}}" partial="lijst"></dp-api-call>
