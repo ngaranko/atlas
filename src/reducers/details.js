@@ -7,6 +7,7 @@ window.reducers.detailReducer = (state = {}, action) => {
     case 'FETCH_DETAIL':
       return {
         ...state,
+        dataSelection: null,
         detail: {
           endpoint: action.payload,
           reload: Boolean(state.detail && state.detail.endpoint === action.payload),
@@ -26,7 +27,9 @@ window.reducers.detailReducer = (state = {}, action) => {
           ...state.page,
           name: '',
           type: ''
-        }
+        },
+        search: null,
+        straatbeeld: null
       };
 
     case 'SHOW_DETAIL':
