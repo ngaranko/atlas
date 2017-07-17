@@ -5,9 +5,9 @@
             definition="MAATSCHAPPELIJKEACTIVITEIT">
         </dp-glossary-header>
         <dl class="c-key-value-list">
-            <dt class="c-key-value-list--border-top">Handelsnamen</dt>
+            <dt class="c-key-value-list__border-top">Handelsnamen</dt>
             <dd ng-if="!vm.apiData.results.onderneming.handelsnamen[0]"></dd>
-            <dd class="c-key-value-list--multiple-values" ng-repeat="object in vm.apiData.results.onderneming.handelsnamen" ng-class="{'c-key-value-list--border-top': $first}">
+            <dd class="c-key-value-list__multiple-values" ng-repeat="object in vm.apiData.results.onderneming.handelsnamen" ng-class="{'c-key-value-list__border-top': $first}">
                     {{ object.handelsnaam }}
             </dd>
             <dt>KvK-nummer</dt>
