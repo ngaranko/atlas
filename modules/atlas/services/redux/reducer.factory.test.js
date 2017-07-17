@@ -1,5 +1,6 @@
 describe('The reducer factory', function () {
     var reducer,
+        $window,
         urlReducers,
         homeReducers,
         layerSelectionReducers,
@@ -18,6 +19,11 @@ describe('The reducer factory', function () {
         angular.mock.module(
             'atlas',
             {
+                $window: {
+                    reducers: {
+                        detailReducer: angular.noop
+                    }
+                },
                 freeze: jasmine.createSpyObj('freeze', ['deepFreeze']),
                 environment: jasmine.createSpyObj('environment', ['isDevelopment']),
                 urlReducers: {
@@ -55,6 +61,7 @@ describe('The reducer factory', function () {
 
         // eslint-disable-next-line max-params
         angular.mock.inject(function (
+            _$window_,
             _urlReducers_,
             _homeReducers_,
             _layerSelectionReducers_,
@@ -68,6 +75,7 @@ describe('The reducer factory', function () {
             _freeze_,
             _environment_
         ) {
+            $window = _$window_;
             urlReducers = _urlReducers_;
             homeReducers = _homeReducers_;
             layerSelectionReducers = _layerSelectionReducers_;
@@ -166,5 +174,21 @@ describe('The reducer factory', function () {
         reducer(inputState, {type: {id: 'ACTION_A'}});
 
         expect(freeze.deepFreeze).toHaveBeenCalledWith(state);
+    });
+
+    it('should map vanilla reducers for cross-compatibility', function () {
+        const payload = { foo: 'bar' };
+        spyOn($window.reducers, 'detailReducer');
+        environment.isDevelopment.and.returnValue(true);
+
+        reducer(inputState, {
+            payload,
+            type: {
+                id: 'FETCH_DETAIL'
+            }
+        });
+
+        expect($window.reducers.detailReducer.calls.mostRecent().args[1])
+            .toEqual(jasmine.objectContaining({ payload, type: 'FETCH_DETAIL' }));
     });
 });
