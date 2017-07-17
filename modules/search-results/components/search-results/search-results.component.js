@@ -17,10 +17,11 @@
         });
 
     DpSearchResultsController.$inject = [
-        '$rootScope', '$scope', 'search', 'geosearch', 'TabHeader', 'user', 'store', 'ACTIONS'
+        '$rootScope', '$scope', 'search', 'geosearch', 'TabHeader', 'user', 'store', 'ACTIONS', 'OVERLAYS'
     ];
 
-    function DpSearchResultsController ($rootScope, $scope, search, geosearch, TabHeader, user, store, ACTIONS) {
+    function DpSearchResultsController ($rootScope, $scope, search, geosearch, TabHeader, user, store, ACTIONS,
+                                        OVERLAYS) {
         const vm = this;
 
         /**
@@ -90,11 +91,49 @@
         }
 
         function searchByLocation (location) {
-            const isLocation = angular.isArray(location);
+            const isLocation = angular.isArray(location),
+                state = store.getState(),
+                visibleOverlays = state.map.overlays && state.map.overlays.length > 0
+                    ? state.map.overlays
+                        .filter(source => source.isVisible)
+                        .map(source => OVERLAYS.SOURCES[source.id])
+                        .filter(source => source.detail_item && source.detail_radius)
+                    : [];
+
+            // todo fix flow : only do geosearch wen no items are found
             if (isLocation) {
-                geosearch.search(location).then(setSearchResults).then(updateWarningMessage);
+                if (visibleOverlays.length > 0) {
+                    // do geosearch for nearest item in overlays
+                    // if it exists go to detail of that item
+                    geosearch.searchDetail(location, visibleOverlays).then(checkForDetailResults);
+                }
+
+                searchFeatures(location);
             }
             return isLocation;
+        }
+
+        function searchFeatures (location) {
+            geosearch.searchFeatures(location).then(setSearchResults).then(updateWarningMessage);
+        }
+
+        function checkForDetailResults (detailResults) {
+            let foundItem = false;
+            const results = detailResults[0];
+
+            if (results.features && results.features.length > 0) {
+                // found detail item
+                if (results.features[0].properties) {
+                    foundItem = results.features[0].properties;
+                    store.dispatch({
+                        type: ACTIONS.FETCH_DETAIL,
+                        payload: {
+                            uri: foundItem.uri,
+                            noZoomAndPan: true
+                        }
+                    });
+                }
+            }
         }
 
         function updateWarningMessage () {

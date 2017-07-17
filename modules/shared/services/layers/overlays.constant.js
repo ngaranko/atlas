@@ -330,7 +330,9 @@
                     minZoom: 10,
                     maxZoom: 16,
                     legend: 'maps/nap?version=1.3.0&service=WMS&request=GetLegendG' +
-                    'raphic&sld_version=1.1.0&layer=NAP&format=image/png&STYLE=default'
+                    'raphic&sld_version=1.1.0&layer=NAP&format=image/png&STYLE=default',
+                    detail_item: 'peilmerk',
+                    detail_radius: 300
                 },
                 mbs: {
                     url: 'maps/meetbouten?service=wms',
@@ -705,7 +707,9 @@
                     maxZoom: 16,
                     legend: 'maps/monumenten?version=1.3.0&service' +
                     '=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=monument_coordinaten&format=' +
-                    'image/png&STYLE=default'
+                    'image/png&STYLE=default',
+                    detail_item: 'monument',
+                    detail_radius: 100
                 },
 
                 // Verkeer

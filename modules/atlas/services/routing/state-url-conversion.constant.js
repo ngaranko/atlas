@@ -72,6 +72,7 @@
                     if (angular.isObject(oldState)) {
                         // Do not keep the state of the drawing mode
 
+                        newState.noZoomAndPan = oldState.noZoomAndPan;
                         newState.isLoading = oldState.isLoading;
                     }
                     return newState;
@@ -144,7 +145,8 @@
                     isFullscreen: false,
                     isLoading: false,
                     showActiveOverlays: false,
-                    drawingMode: 'none'
+                    drawingMode: 'none',
+                    noZoomAndPan: false
                 },
                 page: {
                     name: null  // eg: 'home'

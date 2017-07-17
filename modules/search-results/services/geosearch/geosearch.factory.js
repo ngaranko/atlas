@@ -7,7 +7,8 @@
 
     function geosearchFactory ($q, SEARCH_CONFIG, api, geosearchFormatter, searchFormatter, user) {
         return {
-            search: searchFeatures
+            searchFeatures,
+            searchDetail
         };
 
         function searchFeatures (location) {
@@ -154,6 +155,32 @@
                 plaatsEndpoint = plaatsCategory ? plaatsCategory.results[0].endpoint : null;
 
             return [plaatsCategoryIndex, plaatsEndpoint];
+        }
+
+        function searchDetail (location, overlays) {
+            var allRequests = [];
+
+            overlays.forEach(function (overlay) {
+                var request,
+                    searchParams = {
+                        item: overlay.detail_item,
+                        lat: location[0],
+                        lon: location[1]
+                    };
+
+                if (angular.isNumber(overlay.detail_radius)) {
+                    searchParams.radius = overlay.detail_radius;
+                }
+
+                request = api.getByUri('geosearch/search/', searchParams).then(
+                    data => data,
+                    () => { return { features: [] }; });    // empty features on failure op api call
+
+                allRequests.push(request);
+            });
+
+            return $q.all(allRequests);
+                // .then(getRelatedObjects);
         }
     }
 })();
