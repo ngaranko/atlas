@@ -100,16 +100,17 @@
                         .filter(source => source.detail_item && source.detail_radius)
                     : [];
 
-            // todo fix flow : only do geosearch wen no items are found
             if (isLocation) {
                 if (visibleOverlays.length > 0) {
                     // do geosearch for nearest item in overlays
                     // if it exists go to detail of that item
                     geosearch.searchDetail(location, visibleOverlays).then(checkForDetailResults);
+                } else {
+                    // no visible overlays: do original geosearch
+                    searchFeatures(location);
                 }
-
-                searchFeatures(location);
             }
+
             return isLocation;
         }
 
@@ -133,6 +134,9 @@
                         }
                     });
                 }
+            } else {
+                // not found item: do original geosearch
+                searchFeatures(vm.location);
             }
         }
 
