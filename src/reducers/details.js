@@ -1,7 +1,8 @@
 /* eslint-disable */
 // export default function detailReducer(state = {}, action) {
 /* istanbul ignore next */
-window.detailReducer = (state = {}, action) => {
+window.reducers = window.reducers || {};
+window.reducers.detailReducer = (state = {}, action) => {
   switch (action.type) {
     case 'FETCH_DETAIL':
       return {

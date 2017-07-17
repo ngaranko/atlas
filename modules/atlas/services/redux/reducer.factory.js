@@ -43,8 +43,8 @@
             // -- https://docs.angularjs.org/api/ng/function/angular.merge
 
             const detailReducers = {
-                FETCH_DETAIL: $window.detailReducer,
-                SHOW_DETAIL: $window.detailReducer
+                FETCH_DETAIL: $window.reducers.detailReducer,
+                SHOW_DETAIL: $window.reducers.detailReducer
             };
 
             var actions = angular.merge(
