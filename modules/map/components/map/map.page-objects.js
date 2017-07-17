@@ -4,6 +4,7 @@ const toggleLayerSelectionPO =
     dp.require('modules/map/components/toggle-layer-selection/toggle-layer-selection.page-objects');
 const toggleFullscreenPO = dp.require('modules/map/components/toggle-fullscreen/toggle-fullscreen.page-objects');
 const drawToolPO = dp.require('modules/map/components/draw-tool/draw-tool.page-objects');
+const embedButtonPO = dp.require('modules/map/components/embed-button/embed-button.page-objects.js');
 
 module.exports = function (mapElement) {
     return {
@@ -14,6 +15,12 @@ module.exports = function (mapElement) {
                 .mouseMove(mapElement, {x: x, y: y})
                 .click()
                 .perform();
+        },
+        zoomIn: function () {
+            mapElement.element(by.css('.leaflet-control-zoom-in')).click();
+        },
+        zoomOut: function () {
+            mapElement.element(by.css('.leaflet-control-zoom-out')).click();
         },
         get visible () {
             return dp.visible(mapElement);
@@ -35,6 +42,9 @@ module.exports = function (mapElement) {
         },
         get hasPuntenwolk () {
             return mapElement.all(by.css('.o-highlight-cluster')).count().then(numberOfMarkers => numberOfMarkers > 0);
+        },
+        get embedButton () {
+            return embedButtonPO(mapElement.element(by.css('dp-embed-button')));
         }
     };
 };

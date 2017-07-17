@@ -1,8 +1,4 @@
 .c-print-button {
-  @extend %link;
-  @include icon-label-left("print");
-
-  &::before {
-    margin-left: $base-whitespace;
-  }
+  @extend %icon--border-hover;
+  @include icon-label-left("print", "", "red");
 }

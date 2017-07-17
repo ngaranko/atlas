@@ -33,10 +33,11 @@ describe('The dp-data-selection-header', () => {
             {
                 store: {
                     dispatch: angular.noop
-                },
-                dataSelectionConfig: config
+                }
             },
             function ($provide) {
+                $provide.constant('DATA_SELECTION_CONFIG', config);
+
                 $provide.factory('dpDataSelectionToggleViewButtonDirective', () => {
                     return {};
                 });
@@ -331,7 +332,7 @@ describe('The dp-data-selection-header', () => {
     });
 
     describe('the tabs in LIST view', () => {
-        it('use the TITLE values from dataSelectionConfig', () => {
+        it('use the TITLE values from DATA_SELECTION_CONFIG', () => {
             component = getComponent(mockedInputList);
 
             expect(component.find('.qa-tabs li:nth-child(1)').text().trim()).toBe('BAG Adressen');

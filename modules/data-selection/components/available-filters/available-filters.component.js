@@ -14,9 +14,9 @@
             controllerAs: 'vm'
         });
 
-    DpDataSelectionAvailableFiltersController.$inject = ['$scope', 'store', 'ACTIONS', 'dataSelectionConfig'];
+    DpDataSelectionAvailableFiltersController.$inject = ['$scope', 'store', 'ACTIONS', 'DATA_SELECTION_CONFIG'];
 
-    function DpDataSelectionAvailableFiltersController ($scope, store, ACTIONS, dataSelectionConfig) {
+    function DpDataSelectionAvailableFiltersController ($scope, store, ACTIONS, DATA_SELECTION_CONFIG) {
         var vm = this,
             expandedFilters = [];
 
@@ -76,7 +76,7 @@
         }
 
         function updateConfig () {
-            vm.showOptionCounts = dataSelectionConfig.datasets[vm.dataset].SHOW_FILTER_OPTION_COUNTS;
+            vm.showOptionCounts = DATA_SELECTION_CONFIG.datasets[vm.dataset].SHOW_FILTER_OPTION_COUNTS;
         }
 
         function applyFilters (filters) {

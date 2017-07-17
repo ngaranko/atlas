@@ -10,8 +10,10 @@ describe('The dp-data-selection-download-button component', function () {
             {
                 sharedConfig: {
                     API_ROOT: 'http://www.example.com/'
-                },
-                dataSelectionConfig: {
+                }
+            },
+            function ($provide) {
+                $provide.constant('DATA_SELECTION_CONFIG', {
                     datasets: {
                         dataset_a: {
                             ENDPOINT: 'datasets/a/',
@@ -36,7 +38,7 @@ describe('The dp-data-selection-download-button component', function () {
                             ]
                         }
                     }
-                }
+                });
             }
         );
 
