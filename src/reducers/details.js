@@ -25,8 +25,8 @@ window.reducers.detailReducer = (state = {}, action) => {
         },
         page: {
           ...state.page,
-          name: '',
-          type: ''
+          name: null,
+          type: null
         },
         search: null,
         straatbeeld: null
