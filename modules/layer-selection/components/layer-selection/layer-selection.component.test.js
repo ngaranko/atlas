@@ -428,7 +428,7 @@ describe('The dp-layer-selection component', function () {
                     ' en risicozones\'.');
 
                 expect(component.find('.qa-category-warning').text())
-                    .toContain('Help > Bediening > Inloggen.');
+                    .toContain('Help > Bediening > Inloggen');
             });
             it('is shown for a non-employee', () => {
                 user.meetsRequiredLevel.and.returnValue(false);
