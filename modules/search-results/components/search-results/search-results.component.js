@@ -127,11 +127,13 @@
                 if (results.features[0].properties) {
                     foundItem = results.features[0].properties;
                     store.dispatch({
+                        type: ACTIONS.MAP_HIGHLIGHT,
+                        payload: false
+                    });
+
+                    store.dispatch({
                         type: ACTIONS.FETCH_DETAIL,
-                        payload: {
-                            uri: foundItem.uri,
-                            noZoomAndPan: true
-                        }
+                        payload: foundItem.uri
                     });
                 }
             } else {

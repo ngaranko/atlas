@@ -22,25 +22,17 @@
          * @returns {Object} newState
          */
         function fetchDetailReducer (oldState, payload) {
-            var newState = angular.copy(oldState),
-                uri = payload,
-                noZoomAndPan = false;
-
-            if (angular.isObject(payload)) {
-                uri = payload.uri;
-                noZoomAndPan = payload.noZoomAndPan;
-            }
+            var newState = angular.copy(oldState);
 
             newState.detail = {
-                endpoint: uri,
+                endpoint: payload,
                 reload: Boolean(oldState.detail && oldState.detail.endpoint === payload),
                 isLoading: true,
-                isFullscreen: uri && uri.includes('catalogus/api')
+                isFullscreen: payload && payload.includes('catalogus/api')
             };
 
             newState.map.isLoading = true;
             newState.map.isFullscreen = false;
-            newState.map.noZoomAndPan = noZoomAndPan;
 
             newState.layerSelection.isEnabled = false;
             newState.search = null;
