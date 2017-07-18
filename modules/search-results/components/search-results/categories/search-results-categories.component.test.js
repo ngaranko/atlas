@@ -1,4 +1,4 @@
-describe('The dp-search-results component', function () {
+describe('The dp-search-results-categories component', function () {
     let $compile,
         $rootScope,
         $q,
@@ -13,6 +13,7 @@ describe('The dp-search-results component', function () {
         mockedSearchResultsNextPage,
         mockedGeosearchResults,
         mockedNoResults,
+        linkSelector,
         i;
 
     beforeEach(function () {
@@ -178,7 +179,7 @@ describe('The dp-search-results component', function () {
                     }
                 ],
                 count: 1,
-                subCategories: [
+                subResults: [
                     {
                         label_singular: 'Adres',
                         label_plural: 'Adressen',
@@ -312,34 +313,18 @@ describe('The dp-search-results component', function () {
         ];
         mockedNoResults = [];
 
+        linkSelector = '.qa-search-result dp-link:not(dp-link-to-page dp-link)';
+
         spyOn(store, 'dispatch');
         spyOn(user, 'meetsRequiredLevel');
     });
 
-    function getComponent (numberOfResults, query, location, category) {
-        element = document.createElement('dp-search-results');
+    function getComponent (categories) {
+        element = document.createElement('dp-search-results-categories');
         scope = $rootScope.$new();
 
-        if (angular.isString(query)) {
-            element.setAttribute('query', query);
-        }
-
-        if (angular.isArray(location)) {
-            element.setAttribute('location', 'location');
-            scope.location = location;
-        }
-
-        if (angular.isString(category)) {
-            element.setAttribute('category', category);
-        }
-
-        if (angular.isNumber(numberOfResults)) {
-            element.setAttribute('number-of-results', 'numberOfResults');
-            scope.numberOfResults = numberOfResults;
-        }
-
-        element.setAttribute('is-loading', 'isLoading');
-        scope.isLoading = true;
+        element.setAttribute('categories', 'categories');
+        scope.categories = categories;
 
         const component = $compile(element)(scope);
         scope.$apply();
@@ -347,72 +332,31 @@ describe('The dp-search-results component', function () {
         return component;
     }
 
-    describe('search by query', function () {
+    fdescribe('search by query', function () {
         it('should have access to UserService for autorization', function () {
-            var comp = getComponent(12, 'Weesperstraat');
+            var comp = getComponent(mockedSearchResults);
             expect(typeof comp.isolateScope().vm.meetsRequiredLevel).toBe('function');
         });
 
         it('shows search results', function () {
-            const component = getComponent(12, 'Weesperstraat');
+            const component = getComponent(mockedSearchResults);
+            const links = component.find('.qa-list-item-link');
 
             // It shows 10 results from the first category and 1 results from the second category
-            expect(component.find('.qa-search-result ul dp-link').length).toBe(11);
+            expect(links.length).toBe(11);
 
             // The first result
-            expect(component.find('.qa-search-result ul dp-link').eq(0).text().trim()).toBe('Weesperstraat 101');
-            component.find('.qa-search-result ul dp-link').eq(0).find('button').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://some-domain/bag/verblijfsobject/03630000864309/'
-            });
+            expect(links.eq(0).text().trim()).toBe('Weesperstraat 101');
 
             // The last results from the first category
-            expect(component.find('.qa-search-result ul dp-link').eq(9).text().trim()).toBe('Weesperstraat 116');
-            component.find('.qa-search-result ul dp-link').eq(9).find('button').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://some-domain/bag/verblijfsobject/03630000919584/'
-            });
+            expect(links.eq(9).text().trim()).toBe('Weesperstraat 116');
 
             // The last (and only) result from the second category
-            expect(component.find('.qa-search-result ul dp-link').eq(10).text().trim()).toBe('Weesperstraat');
-            component.find('.qa-search-result ul dp-link').eq(10).find('button').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://some-domain/bag/openbareruimte/03630000004835/'
-            });
-        });
-
-        it('search on change of query', function () {
-            getComponent(5, 'query');
-            spyOn(search, 'search').and.callThrough();
-            expect(search.search).not.toHaveBeenCalled();
-
-            element.setAttribute('query', 'aap');
-            $compile(element)(scope);
-            scope.$apply();
-
-            expect(search.search).toHaveBeenCalled();
-        });
-
-        it('does nothing when no query and no location are specified', function () {
-            const component = getComponent(12);
-
-            expect(component.find('.qa-search-result ul dp-link').length).toBe(0);
-        });
-
-        it('calls dispatch with the number of search results', function () {
-            getComponent(12, 'Weesperstraat');
-
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SHOW_SEARCH_RESULTS,
-                payload: 12
-            });
+            expect(links.eq(10).text().trim()).toBe('Weesperstraat');
         });
 
         it('doesn\'t show the dp-straatbeeld-thumbnail component', function () {
-            const component = getComponent(12, 'Weesperstraat');
+            const component = getComponent(mockedSearchResults);
 
             expect(component.find('dp-straatbeeld-thumbnail').length).toBe(0);
         });
@@ -422,110 +366,48 @@ describe('The dp-search-results component', function () {
                 let component;
 
                 // A category with 11 search results uses the plural form and it shows the number of results in brackets
-                component = getComponent(12, 'Weesperstraat');
+                component = getComponent(mockedSearchResults);
                 expect(component.find('.qa-search-header').eq(0).text().trim()).toBe('Adressen (11)');
 
                 // A category with 1 search result uses the singular form and doesn't show the number or results
                 mockedSearchResults[0].count = 1;
                 mockedSearchResults[0].results.length = 1;
-                component = getComponent(12, 'Weesperstraat');
+                component = getComponent(mockedSearchResults);
                 expect(component.find('.qa-search-header').eq(0).text().trim()).toBe('Adres');
             });
 
             it('has a plural heading in case only a warning is shown', function () {
                 user.meetsRequiredLevel.and.returnValue(false);
-                const component = getComponent(22, null, [51.123, 4.789]);
+                const component = getComponent(mockedGeosearchResults);
                 const isolateScope = component.isolateScope();
 
-                isolateScope.vm.searchResults[2].results = [];
-                isolateScope.vm.searchResults[2].count = 0;
+                isolateScope.vm.categories[3].results = [];
+                isolateScope.vm.categories[3].count = 0;
                 isolateScope.$digest();
 
-                const categoryNode = component.find('[ng-repeat="category in vm.categories"]').eq(2);
-                expect(categoryNode.find('.qa-category-warning').length).toBe(1);
+                const categoryNode = component.find('.qa-search-results-category').eq(3);
+                expect(categoryNode.find('dp-panel').length).toBe(1);
                 expect(categoryNode.find('.qa-search-header').text().trim()).toBe('Kadastrale objecten');
             });
 
             it('categories with more than 10 results show a link to the category', function () {
-                // A category with 11 search results uses the plural form and it shows the number of results in brackets
-                const component = getComponent(12, 'Weesperstraat');
-                const categoryNode = component.find('dp-search-results-categories').eq(0);
-                const showMoreNode = categoryNode.find('.qa-show-more');
-                expect(showMoreNode.text().trim()).toBe('Toon alle 11');
-            });
-
-            it('categories with more than 1000 results use a thousand separator in the show more button', function () {
-                // This link shows numbers with a thousand separator
-                mockedSearchResults[0].count = 1234;
-                const component = getComponent(12, 'Weesperstraat');
-                const categoryNode = component.find('dp-search-results-categories').eq(0);
-                const showMoreNode = categoryNode.find('.qa-show-more');
-                expect(showMoreNode.text().trim()).toBe('Toon alle 1.234');
-            });
-
-            describe('the category page', function () {
                 let component;
 
-                beforeEach(function () {
-                    mockedSearchResults.length = 1;
-
-                    component = getComponent(22, 'Weesperstraat', null, 'adres');
+                // A category with 11 search results uses the plural form and it shows the number of results in brackets
+                component = getComponent(mockedSearchResults);
+                expect(removeWhitespace(component.find(linkSelector).eq(10).text()))
+                    .toBe('Toon alle 11');
+                component.find(`${linkSelector} button`).click();
+                expect(store.dispatch).toHaveBeenCalledWith({
+                    type: ACTIONS.FETCH_SEARCH_RESULTS_CATEGORY,
+                    payload: 'adres'
                 });
 
-                it('shows all links from the search API (instead of just the first 10)', function () {
-                    expect(component.find('.qa-list-item-link').length).toBe(11);
-
-                    // The first link
-                    expect(removeWhitespace(component.find('.qa-list-item-link').eq(0).text()))
-                        .toBe('Weesperstraat 101');
-                    component.find('.qa-list-item-link').eq(0).find('qa-dp-link').click();
-                    expect(store.dispatch).toHaveBeenCalledWith({
-                        type: ACTIONS.FETCH_DETAIL,
-                        payload: 'https://some-domain/bag/verblijfsobject/03630000864309/'
-                    });
-
-                    // The last link
-                    expect(removeWhitespace(component.find('.qa-list-item-link').eq(10).text()))
-                        .toBe('Weesperstraat 117');
-                    component.find('.qa-list-item-link button').click();
-                    expect(store.dispatch).toHaveBeenCalledWith({
-                        type: ACTIONS.FETCH_DETAIL,
-                        payload: 'https://some-domain/bag/verblijfsobject/03630000864316/'
-                    });
-                });
-
-                it('can have a show more link inside the category', function () {
-                    mockedSearchResults[0].count = 30;
-
-                    // Making sure the mockedSearchResults have 25 results for the first page
-                    while (mockedSearchResults[0].results.length < 25) {
-                        mockedSearchResults[0].results.push(angular.copy(mockedSearchResults[0].results[0]));
-                    }
-
-                    mockedSearchResultsNextPage = angular.copy(mockedSearchResults[0]);
-
-                    // Add 5 extra search results
-                    for (i = 0; i < 5; i++) {
-                        mockedSearchResultsNextPage.results.push(angular.copy(mockedSearchResults[0].results[0]));
-                    }
-
-                    component = getComponent(22, 'Weesperstraat', null, 'adres');
-
-                    // It only shows the first 25 results
-                    expect(component.find('.qa-list-item-link').length).toBe(25);
-                    expect(component.find('.qa-show-more').text().trim()).toBe('Toon meer');
-
-                    // Click the 'Toon meer' link
-                    component.find('.qa-show-more').click();
-                    $rootScope.$apply();
-
-                    // Now it shows all 30 search results
-                    expect(component.find('.qa-list-item-link').length).toBe(30);
-
-                    // And it no longer shows a 'Toon meer' link
-                    expect(component.find('.qa-list-item-link').length)
-                        .toBe(30); // Instead of 31 (30 dp-link + 1 'Toon meer')
-                });
+                // This link shows numbers with a thousand separator
+                mockedSearchResults[0].count = 1234;
+                component = getComponent(mockedSearchResults);
+                expect(removeWhitespace(component.find(linkSelector).eq(10).text()))
+                    .toBe('Toon alle 1.234');
             });
         });
     });
@@ -534,156 +416,64 @@ describe('The dp-search-results component', function () {
         let component;
 
         beforeEach(function () {
-            component = getComponent(22, null, [51.123, 4.789]);
+            component = getComponent(mockedGeosearchResults);
         });
 
         it('shows search results from the geosearch API on the scope', function () {
-            expect(component.find('.qa-search-header').length).toBe(4);
+            expect(component.find('.qa-search-header').length).toBe(5);
 
-            // 21 Links include an additional 'show more' link to Pand and it includes only 10 adressen instead of 12
-            expect(component.find('.qa-list-item-link').length).toBe(21);
+            // 20 list items which includes only 10 adressen instead of 12
+            expect(component.find('.qa-list-item-link').length).toBe(20);
+            // an additional 'show more' link to Pand
+            expect(component.find('.qa-show-more').length).toBe(1);
+
+            const categories = component.find('.qa-search-results-category');
+            expect(categories.length).toBe(5);
 
             // First category
-            expect(component.find('.qa-search-header')
-                .eq(0).text().trim()).toBe('Pand'); // Singular, no number of results shown
+            const first = categories.eq(0);
+            // Singular, no number of results shown
+            expect(first.find('.qa-search-header').eq(0).text().trim()).toBe('Pand');
+            // One item, plus (the first) ten of the sub category Adressen
+            expect(first.find('.qa-list-item-link').length).toBe(11);
+            // The sub category Adressen has a show more link
+            expect(first.find('.qa-show-more').length).toBe(1);
 
-            expect(removeWhitespace(component.find('.qa-list-item-link').eq(0).text())).toBe('03630013054429');
-            component.find('.qa-list-item-link').eq(0).find('button').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://api.data.amsterdam.nl/bag/pand/03630013054429/'
-            });
+            // Sub categories
+            const subCategories = categories.eq(0).find('.qa-search-results-category');
+            expect(subCategories.length).toBe(1);
 
-            // Second category
-            expect(component.find('.qa-search-header')
-                .eq(1).text().trim()).toBe('Adressen (12)'); // Plural, with number of results
+            // First sub category would be the same as `const second = categories.eq(1);`
+            const sub = subCategories.eq(0);
+            // Plural, with number of results
+            expect(sub.find('.qa-search-header').text().trim()).toBe('Adressen (12)');
+            expect(sub.find('.qa-list-item-link').length).toBe(10);
 
-            expect(removeWhitespace(component.find('.qa-list-item-link').eq(1).text()))
-                .toBe('Lumièrestraat 6');
-            component.find('.qa-list-item-link').eq(1).find('button').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023953/'
-            });
+            // an additional 'show more' link to Pand
+            expect(sub.find('.qa-show-more').length).toBe(1);
+            expect(sub.find('.qa-show-more').text().trim()).toBe('Bekijk alle 12 adressen binnen dit pand');
 
-            expect(removeWhitespace(component.find('.qa-list-item-link').eq(10).text()))
-                .toBe('Lumièrestraat 24');
-            component.find('.qa-list-item-link').eq(10).find('button').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023962/'
-            });
+            // Second category (skipping index one, that's the sub category
+            // above)
+            const second = categories.eq(2);
+            // Plural
+            expect(second.find('.qa-search-header').text().trim()).toBe('Openbare ruimtes (3)');
+            expect(second.find('.qa-list-item-link').length).toBe(3);
+            expect(second.find('.qa-show-more').length).toBe(0);
 
             // Third category
-            expect(component.find('.qa-search-header').eq(2).text().trim()).toBe('Openbare ruimtes (3)'); // Plural
-
-            expect(removeWhitespace(component.find('.qa-list-item-link').eq(12).text())).toBe('Test OR #1');
-            component.find('.qa-list-item-link').eq(12).find('button').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://api.data.amsterdam.nl/bag/openbareruimte/123/'
-            });
-
-            expect(removeWhitespace(component.find('.qa-list-item-link').eq(14).text())).toBe('Test OR #3');
-            component.find('.qa-list-item-link').eq(14).find('button').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://api.data.amsterdam.nl/bag/openbareruimte/789/'
-            });
+            const third = categories.eq(3);
+            // Singular
+            expect(third.find('.qa-search-header').text().trim()).toBe('Kadastraal object');
+            expect(third.find('.qa-list-item-link').length).toBe(1);
+            expect(third.find('.qa-show-more').length).toBe(0);
 
             // Fourth category
-            expect(component.find('.qa-search-header').eq(3).text().trim()).toBe('Kadastraal object'); // Singular
-
-            expect(removeWhitespace(component.find('.qa-list-item-link').eq(15).text()))
-                .toBe('ASD41AU00154G0000');
-            component.find('.qa-list-item-link').eq(15).find('button').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://api.data.amsterdam.nl/brk/object/NL.KAD.OnroerendeZaak.11820015470000/'
-            });
-
-            // Fifth category
-            expect(component.find('.qa-search-header').eq(4).text().trim()).toBe('Gebieden (5)'); // Plural
-
-            expect(removeWhitespace(component.find('.qa-list-item-link').eq(16).text()))
-                .toBe('Haveneiland Noordoost');
-            component.find('.qa-list-item-link').eq(16).find('button').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://api.data.amsterdam.nl/gebieden/buurt/03630023754004/'
-            });
-
-            expect(removeWhitespace(component.find('.qa-list-item-link').eq(20).text())).toBe('Oost');
-            component.find('.qa-list-item-link').eq(20).find('button').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://api.data.amsterdam.nl/gebieden/stadsdeel/03630011872039/'
-            });
-        });
-
-        it('search on change of location', function () {
-            expect(scope.isLoading).toBe(false);
-            spyOn(geosearch, 'search').and.callThrough();
-            expect(geosearch.search).not.toHaveBeenCalled();
-            scope.location = [9, 10];
-            $rootScope.$digest();
-            expect(geosearch.search).toHaveBeenCalled();
-        });
-
-        it('has indenting for certain \'related\' categories', function () {
-            // Without indenting
-            [1, 2, 3].forEach(function (categoryIndex) {
-                expect(
-                    component
-                        .find('[ng-repeat="category in vm.categories"]')
-                        .eq(categoryIndex)
-                        .find('[ng-repeat="category in vm.categories"]')
-                        .length)
-                    .toBe(0);
-            });
-
-            // With indenting
-            expect(
-                component
-                    .find('[ng-repeat="category in vm.categories"]')
-                    .eq(0)
-                    .find('[ng-repeat="category in vm.categories"]')
-                    .length)
-                .toBe(1);
-        });
-
-        it('has more link support', function () {
-            // When there are more than 10 adressen
-            expect(component.find('.qa-list-item-link').eq(12).find('button').text().trim())
-                .toBe('Bekijk alle 12 adressen binnen dit pand');
-
-            component.find('.qa-list-item-link').eq(11).find('button').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://api.data.amsterdam.nl/bag/pand/03630013054429/'
-            });
-
-            const numberOfDpLinks = component.find('.qa-list-item-link').length;
-
-            // When there are 10 or less adressen
-            mockedGeosearchResults[1].count = 10;
-            mockedGeosearchResults[1].results.length = 10;
-
-            component = getComponent(22, null, [51.123, 4.789]);
-            expect(component.find('.qa-list-item-link').eq(11).find('button').text().trim())
-                .not.toBe('Bekijk alle 12 adressen binnen dit pand');
-            expect(component.find('.qa-list-item-link').length).toBe(numberOfDpLinks - 1);
-        });
-
-        it('calls dispatch with the number of search results', function () {
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SHOW_SEARCH_RESULTS,
-                payload: 22
-            });
-        });
-
-        it('shows the dp-straatbeeld-thumbnail component', function () {
-            expect(component.find('dp-straatbeeld-thumbnail').length).toBe(1);
+            const fourth = categories.eq(4);
+            // Plural
+            expect(fourth.find('.qa-search-header').text().trim()).toBe('Gebieden (5)');
+            expect(fourth.find('.qa-list-item-link').length).toBe(5);
+            expect(fourth.find('.qa-show-more').length).toBe(0);
         });
     });
 
@@ -693,9 +483,9 @@ describe('The dp-search-results component', function () {
                 required => required === user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS
             );
 
-            const component = getComponent(22, null, [51.123, 4.789]);
+            const component = getComponent(mockedGeosearchResults);
 
-            const categoryNode = component.find('[ng-repeat="category in vm.categories"]').eq(3);
+            const categoryNode = component.find('.qa-search-results-category').eq(3);
             expect(categoryNode.find('.qa-search-header').text().trim()).toBe('Kadastraal object');
 
             expect(categoryNode.find('.qa-category-warning').length).toBe(0);
@@ -705,9 +495,9 @@ describe('The dp-search-results component', function () {
             user.meetsRequiredLevel.and.callFake(
                 required => required === user.AUTHORIZATION_LEVEL.EMPLOYEE
             );
-            const component = getComponent(22, null, [51.123, 4.789]);
+            const component = getComponent(mockedGeosearchResults);
 
-            const categoryNode = component.find('[ng-repeat="category in vm.categories"]').eq(3);
+            const categoryNode = component.find('.qa-search-results-category').eq(3);
             expect(categoryNode.find('.qa-search-header').text().trim()).toBe('Kadastraal object');
 
             expect(categoryNode.find('.qa-category-warning').text()).toContain(
@@ -719,9 +509,9 @@ describe('The dp-search-results component', function () {
 
         it('should show a general message for all other users', function () {
             user.meetsRequiredLevel.and.returnValue(false);
-            const component = getComponent(22, null, [51.123, 4.789]);
+            const component = getComponent(mockedGeosearchResults);
 
-            const categoryNode = component.find('[ng-repeat="category in vm.categories"]').eq(3);
+            const categoryNode = component.find('.qa-search-results-category').eq(3);
             expect(categoryNode.find('.qa-search-header').text().trim()).toBe('Kadastraal object');
 
             expect(categoryNode.find('.qa-category-warning').text()).toContain(
@@ -737,8 +527,8 @@ describe('The dp-search-results component', function () {
             user.meetsRequiredLevel.and.callFake(
                 required => required === user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS
             );
-            const component = getComponent(22, null, [51.123, 4.789]);
-            const categoryNode = component.find('[ng-repeat="category in vm.categories"]').eq(3);
+            const component = getComponent(mockedGeosearchResults);
+            const categoryNode = component.find('.qa-search-results-category').eq(3);
             expect(categoryNode.find('.qa-search-header').text().trim()).toBe('Kadastraal object');
             expect(categoryNode.find('.qa-category-warning').length).toBe(0);
 

@@ -2,6 +2,7 @@
     <li ng-repeat="link in vm.category.results | limitTo: (vm.limitResults ? 10 : null)">
         <dp-link type="FETCH_DETAIL"
                  payload="link.endpoint"
+                 class-name="qa-list-item-link"
             >{{link.label | longNameShortener}}</dp-link>
 
         <span class="qa-search-results__link-extra-info">
