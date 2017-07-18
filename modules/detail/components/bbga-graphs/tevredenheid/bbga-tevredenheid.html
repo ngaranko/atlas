@@ -8,7 +8,9 @@
                 <tbody>
                     <tr class="c-table__content-row"
                         ng-repeat="row in vm.tableData">
-                        <th class="c-table__field c-table__content-field" scope="row">{{row.label}}</th>
+                        <th class="c-table__field
+                                   c-table__content-field
+                                   c-table__content-field--header" scope="row">{{row.label}}</th>
                         <td class="c-table__field c-table__content-field">
                             <span class="bbga-tevredenheid__value u-background-color__thema--9">
                                 {{row.data[0].waarde | number : 1}}

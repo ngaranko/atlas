@@ -10,15 +10,15 @@
   </thead>
   <tbody>
     <tr class="c-table__content-row">
-      <th class="c-table__field c-table__content-field" scope="row">Naam 24-posities (NEN)</th>
+      <th class="c-table__field c-table__content-field c-table__content-field--header" scope="row">Naam 24-posities (NEN)</th>
       <td class="c-table__field c-table__content-field">Agatha Dekenstraat</td>
     </tr>
     <tr>
-      <th class="c-table__field c-table__content-field" scope="row">Naam 17-posities (post)</th>
+      <th class="c-table__field c-table__content-field c-table__content-field--header" scope="row">Naam 17-posities (post)</th>
       <td class="c-table__field c-table__content-field">A DEKENSTR</td>
     </tr>
     <tr>
-      <th class="c-table__field c-table__content-field" scope="row">Woonplaats</th>
+      <th class="c-table__field c-table__content-field c-table__content-field--header" scope="row">Woonplaats</th>
       <td class="c-table__field c-table__content-field">Amsterdam</td>
     </tr>
   </tbody>
@@ -84,4 +84,8 @@
   .c-table--click &:hover {
     cursor: pointer;
   }
+}
+
+.c-table__content-field--header {
+  @include font-weight($medium-weight);
 }
