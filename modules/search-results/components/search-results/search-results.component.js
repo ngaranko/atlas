@@ -17,11 +17,12 @@
         });
 
     DpSearchResultsController.$inject = [
-        '$rootScope', '$scope', 'search', 'geosearch', 'TabHeader', 'user', 'store', 'ACTIONS', 'OVERLAYS'
+        '$rootScope', '$scope', 'search', 'geosearch', 'TabHeader', 'user', 'store', 'ACTIONS',
+        'OVERLAYS', 'activeOverlays'
     ];
 
     function DpSearchResultsController ($rootScope, $scope, search, geosearch, TabHeader, user, store, ACTIONS,
-                                        OVERLAYS) {
+                                        OVERLAYS, activeOverlays) {
         const vm = this;
 
         /**
@@ -93,12 +94,7 @@
         function searchByLocation (location) {
             const isLocation = angular.isArray(location),
                 state = store.getState(),
-                visibleOverlays = state.map.overlays && state.map.overlays.length > 0
-                    ? state.map.overlays
-                        .filter(source => source.isVisible)
-                        .map(source => OVERLAYS.SOURCES[source.id])
-                        .filter(source => source.detail_item && source.detail_radius)
-                    : [];
+                visibleOverlays = activeOverlays.getVisibleOverlays(state.map.zoom);
 
             if (isLocation) {
                 if (visibleOverlays.length > 0) {
