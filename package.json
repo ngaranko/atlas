@@ -57,7 +57,7 @@
   },
   "scripts": {
     "preinstall": "npm cache verify",
-    "postinstall": "./node_modules/protractor/node_modules/webdriver-manager/bin/webdriver-manager update && bower cache clean && bower install",
+    "postinstall": "./node_modules/protractor/node_modules/webdriver-manager/bin/webdriver-manager update",
     "test": "grunt test",
     "start": "grunt",
     "clean-dirs": "rimraf ./bower_components ./node_modules ./reports ./build",
