@@ -94,7 +94,7 @@
         function searchByLocation (location) {
             const isLocation = angular.isArray(location),
                 state = store.getState(),
-                visibleOverlays = activeOverlays.getVisibleOverlays(state.map.zoom);
+                visibleOverlays = activeOverlays.getDetailOverlays(state.map.zoom);
 
             if (isLocation) {
                 if (visibleOverlays.length > 0) {
@@ -116,6 +116,8 @@
 
         function checkForDetailResults (detailResults) {
             let foundItem = false;
+
+            // TODO merge all details and find closest item by distance
             const results = detailResults[0];
 
             if (results.features && results.features.length > 0) {

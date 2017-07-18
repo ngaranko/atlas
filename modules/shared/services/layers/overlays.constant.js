@@ -332,7 +332,7 @@
                     legend: 'maps/nap?version=1.3.0&service=WMS&request=GetLegendG' +
                     'raphic&sld_version=1.1.0&layer=NAP&format=image/png&STYLE=default',
                     detail_item: 'peilmerk',
-                    detail_radius: 300
+                    detail_radius: 100
                 },
                 mbs: {
                     url: 'maps/meetbouten?service=wms',
@@ -342,7 +342,9 @@
                     minZoom: 12,
                     maxZoom: 16,
                     legend: 'maps/meetbouten?version=1.3.0&service=WMS&request=Get' +
-                    'LegendGraphic&sld_version=1.1.0&layer=meetbouten_status&format=image/png&STYLE=default'
+                    'LegendGraphic&sld_version=1.1.0&layer=meetbouten_status&format=image/png&STYLE=default',
+                    detail_item: 'meetbout',
+                    detail_radius: 50
                 },
                 mbz: {
                     url: 'maps/meetbouten?service=wms',
@@ -352,7 +354,9 @@
                     minZoom: 12,
                     maxZoom: 16,
                     legend: 'maps/meetbouten?version=1.3.0&service=WMS&request=Get' +
-                    'LegendGraphic&sld_version=1.1.0&layer=meetbouten_zaksnelheid&format=image/png&STYLE=default'
+                    'LegendGraphic&sld_version=1.1.0&layer=meetbouten_zaksnelheid&format=image/png&STYLE=default',
+                    detail_item: 'meetbout',
+                    detail_radius: 50
                 },
                 mbr: {
                     url: 'maps/meetbouten',
@@ -404,7 +408,9 @@
                     minZoom: 8,
                     maxZoom: 16,
                     legend: 'maps/bommenkaart?version=1.3.0&service=WMS&request=GetLegendGraphic&sld_version=1.1.0&la' +
-                    'yer=inslagen&format=image/png&STYLE=default'
+                    'yer=inslagen&format=image/png&STYLE=default',
+                    detail_item: 'bominslag',
+                    detail_radius: 300
                 },
                 exvg: {
                     url: 'maps/bommenkaart',

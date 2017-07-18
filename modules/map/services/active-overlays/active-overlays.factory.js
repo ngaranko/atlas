@@ -13,7 +13,7 @@
         return {
             setOverlays,
             getOverlays,
-            getVisibleOverlays,
+            getDetailOverlays,
             isVisibleAtCurrentZoom
         };
 
@@ -25,10 +25,13 @@
             return allOverlays;
         }
 
-        function getVisibleOverlays (zoom) {
+        function getDetailOverlays (zoom) {
             return allOverlays.filter(source => source.isVisible && isVisibleAtCurrentZoom(source.id, zoom))
                 .map(source => overlays.SOURCES[source.id])
-                .filter(source => source.detail_item && source.detail_radius);
+                .filter(source => source.detail_item && source.detail_radius)
+                .filter((a, index, self) => self.findIndex((b) => {
+                    return b.detail_radius === a.detail_radius;
+                }) === index);
         }
 
         function isVisibleAtCurrentZoom (overlay, zoom) {
