@@ -30,7 +30,7 @@
                 .map(source => overlays.SOURCES[source.id])
                 .filter(source => source.detail_item && source.detail_radius)
                 .filter((a, index, self) => self.findIndex((b) => {
-                    return b.detail_radius === a.detail_radius;
+                    return b.detail_item === a.detail_item;
                 }) === index);
         }
 
