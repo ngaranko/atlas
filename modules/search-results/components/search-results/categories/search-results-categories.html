@@ -24,13 +24,15 @@
 
             <div ng-if="category.count > 10">
                 <dp-link ng-if="category.more"
-                         class-name="c-show-more o-list__separate-item qa-show-more"
+                         class="qa-show-more"
+                         class-name="c-show-more o-list__separate-item"
                          type="FETCH_DETAIL"
                          payload="category.more.endpoint"
                     >{{category.more.label}}</dp-link>
 
                 <dp-link ng-if="!category.more"
-                         class-name="c-show-more o-list__separate-item qa-show-more"
+                         class="qa-show-more"
+                         class-name="c-show-more o-list__separate-item"
                          type="FETCH_SEARCH_RESULTS_CATEGORY"
                          payload="category.slug"
                     >Toon alle {{category.count | number}}</dp-link>

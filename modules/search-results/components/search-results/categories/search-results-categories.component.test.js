@@ -1,89 +1,23 @@
 describe('The dp-search-results-categories component', function () {
     let $compile,
         $rootScope,
-        $q,
-        store,
-        scope,
-        element,
-        search,
-        geosearch,
         user,
-        ACTIONS,
-        mockedSearchResults,
-        mockedSearchResultsNextPage,
-        mockedGeosearchResults,
-        mockedNoResults,
-        linkSelector,
-        i;
+        mockedSearchResults;
 
     beforeEach(function () {
         angular.mock.module(
             'dpSearchResults',
             {
-                search: {
-                    search: function (query) {
-                        const q = $q.defer();
-
-                        if (query === 'QUERY_WITHOUT_RESULTS') {
-                            q.resolve(mockedNoResults);
-                        } else {
-                            q.resolve(mockedSearchResults);
-                        }
-                        scope.isLoading = false;
-                        return q.promise;
-                    },
-                    loadMore: function () {
-                        const q = $q.defer();
-
-                        q.resolve(mockedSearchResultsNextPage);
-
-                        return q.promise;
-                    }
-                },
-                geosearch: {
-                    search: function (location) {
-                        const q = $q.defer();
-
-                        if (location[0] === 52.999 && location[1] === 4.999) {
-                            q.resolve(mockedNoResults);
-                        } else {
-                            q.resolve(mockedGeosearchResults);
-                        }
-                        scope.isLoading = false;
-                        return q.promise;
-                    }
-                },
-                // Store is used in the non-mocked child directive dp-link
                 store: {
-                    dispatch: function () {}
+                    dispatch: angular.noop
                 }
-            },
-            function ($provide) {
-                $provide.factory('dpStraatbeeldThumbnailDirective', function () {
-                    return {};
-                });
-
-                $provide.factory('dpSearchResultsHeaderDirective', function () {
-                    return {};
-                });
-
-                $provide.value('coordinatesFilter', function (input) {
-                    return input.join(', ') + ' (X, Y)';
-                });
             }
         );
 
-        angular.mock.inject(function (
-            _$compile_, _$rootScope_, _$q_, _store_, _search_, _geosearch_, _user_, _ACTIONS_
-        ) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _user_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
-            $q = _$q_;
-            store = _store_;
-            search = _search_;
-            geosearch = _geosearch_;
             user = _user_;
-            ACTIONS = _ACTIONS_;
         });
 
         mockedSearchResults = [
@@ -91,237 +25,72 @@ describe('The dp-search-results-categories component', function () {
                 label_singular: 'Adres',
                 label_plural: 'Adressen',
                 slug: 'adres',
-                count: 11,
-                results: [
-                    {
-                        label: 'Weesperstraat 101',
-                        endpoint: 'https://some-domain/bag/verblijfsobject/03630000864309/',
-                        subtype: 'verblijfsobject'
-                    },
-                    {
-                        label: 'Weesperstraat 102',
-                        endpoint: 'https://some-domain/bag/verblijfsobject/03630000918914/',
-                        subtype: 'verblijfsobject'
-                    },
-                    {
-                        label: 'Weesperstraat 104',
-                        endpoint: 'https://some-domain/bag/verblijfsobject/03630000918974/',
-                        subtype: 'verblijfsobject'
-                    },
-                    {
-                        label: 'Weesperstraat 105',
-                        endpoint: 'https://some-domain/bag/verblijfsobject/03630023754253/',
-                        subtype: 'verblijfsobject'
-                    },
-                    {
-                        label: 'Weesperstraat 105',
-                        endpoint: 'https://some-domain/bag/verblijfsobject/03630000864311/',
-                        subtype: 'verblijfsobject'
-                    },
-                    {
-                        label: 'Weesperstraat 106',
-                        endpoint: 'https://some-domain/bag/verblijfsobject/03630000918975/',
-                        subtype: 'verblijfsobject'
-                    },
-                    {
-                        label: 'Weesperstraat 111',
-                        endpoint: 'https://some-domain/bag/verblijfsobject/03630000864313/',
-                        subtype: 'verblijfsobject'
-                    },
-                    {
-                        label: 'Weesperstraat 112',
-                        endpoint: 'https://some-domain/bag/verblijfsobject/03630000919001/',
-                        subtype: 'verblijfsobject'
-                    },
-                    {
-                        label: 'Weesperstraat 115',
-                        endpoint: 'https://some-domain/bag/verblijfsobject/03630000864315/',
-                        subtype: 'verblijfsobject'
-                    },
-                    {
-                        label: 'Weesperstraat 116',
-                        endpoint: 'https://some-domain/bag/verblijfsobject/03630000919584/',
-                        subtype: 'verblijfsobject'
-                    },
-                    {
-                        label: 'Weesperstraat 117',
-                        endpoint: 'https://some-domain/bag/verblijfsobject/03630000864316/',
-                        subtype: 'verblijfsobject'
-                    }
-                ],
-                next: null
+                count: 10
+            },
+            {
+                label_singular: 'Object',
+                label_plural: 'Objecten',
+                slug: 'object',
+                count: 1
+            },
+            {
+                label_singular: 'Item',
+                label_plural: 'Items',
+                slug: 'item',
+                count: 0
+            },
+            {
+                label_singular: 'Gebied',
+                label_plural: 'Gebieden',
+                slug: 'gebied',
+                count: 11
             },
             {
                 label_singular: 'Openbare ruimte',
                 label_plural: 'Openbare ruimtes',
                 slug: 'openbare_ruimte',
-                count: 1,
-                results: [
-                    {
-                        label: 'Weesperstraat',
-                        endpoint: 'https://some-domain/bag/openbareruimte/03630000004835/',
-                        subtype: 'weg'
-                    }
-                ],
-                next: null
-            }
-        ];
-        mockedGeosearchResults = [
+                count: 11,
+                more: {
+                    label: 'More',
+                    endpoint: 'Endpoint'
+                }
+            },
             {
-                slug: 'pand',
                 label_singular: 'Pand',
                 label_plural: 'Panden',
-                results: [
-                    {
-                        label: '03630013054429',
-                        subtype: null,
-                        endpoint: 'https://api.data.amsterdam.nl/bag/pand/03630013054429/'
-                    }
-                ],
-                count: 1,
+                slug: 'pand',
+                count: 0,
+                warning: 'Warning'
+            },
+            {
+                label_singular: 'Kadastraal object',
+                label_plural: 'Kadastrale objecten',
+                slug: 'kadastraal_object',
+                count: 8,
+                authLevel: 'EMPLOYEE'
+            },
+            {
+                label_singular: 'Kadastraal subject',
+                label_plural: 'Kadastrale subjecten',
+                slug: 'kadastraal_subject',
+                count: 2,
                 subResults: [
                     {
                         label_singular: 'Adres',
                         label_plural: 'Adressen',
                         slug: 'adres',
-                        count: 12,
-                        results: [
-                            {
-                                label: 'Lumièrestraat 6',
-                                endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023953/'
-                            },
-                            {
-                                label: 'Lumièrestraat 8',
-                                endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023954/'
-                            },
-                            {
-                                label: 'Lumièrestraat 10',
-                                endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023955/'
-                            },
-                            {
-                                label: 'Lumièrestraat 12',
-                                endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023956/'
-                            },
-                            {
-                                label: 'Lumièrestraat 14',
-                                endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023957/'
-                            },
-                            {
-                                label: 'Lumièrestraat 16',
-                                endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023958/'
-                            },
-                            {
-                                label: 'Lumièrestraat 18',
-                                endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023959/'
-                            },
-                            {
-                                label: 'Lumièrestraat 20',
-                                endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023960/'
-                            },
-                            {
-                                label: 'Lumièrestraat 22',
-                                endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023961/'
-                            },
-                            {
-                                label: 'Lumièrestraat 24',
-                                endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023962/'
-                            },
-                            {
-                                label: 'Lumièrestraat 26',
-                                endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023963/'
-                            },
-                            {
-                                label: 'Lumièrestraat 28',
-                                endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023964/'
-                            }
-                        ],
-                        next: 'https://api.data.amsterdam.nl/bag/verblijfsobject/?page=2&panden__id=03630013054429',
-                        more: {
-                            label: 'Bekijk alle 12 adressen binnen dit pand',
-                            endpoint: 'https://api.data.amsterdam.nl/bag/pand/03630013054429/'
-                        }
+                        count: 10
                     }
                 ]
-            },
-            {
-                label_singular: 'Openbare ruimte',
-                label_plural: 'Openbare ruimtes',
-                results: [
-                    {
-                        label: 'Test OR #1',
-                        subtype: 'landschappelijk gebied',
-                        endpoint: 'https://api.data.amsterdam.nl/bag/openbareruimte/123/'
-                    },
-                    {
-                        label: 'Test OR #2',
-                        subtype: 'weg',
-                        endpoint: 'https://api.data.amsterdam.nl/bag/openbareruimte/456/'
-                    },
-                    {
-                        label: 'Test OR #3',
-                        subtype: 'water',
-                        endpoint: 'https://api.data.amsterdam.nl/bag/openbareruimte/789/'
-                    }
-                ],
-                count: 3
-            },
-            {
-                label_singular: 'Kadastraal object',
-                label_plural: 'Kadastrale objecten',
-                slug: 'subject',
-                results: [
-                    {
-                        label: 'ASD41AU00154G0000',
-                        subtype: null,
-                        endpoint: 'https://api.data.amsterdam.nl/brk/object/NL.KAD.OnroerendeZaak.11820015470000/'
-                    }
-                ],
-                count: 1
-            },
-            {
-                label_singular: 'Gebied',
-                label_plural: 'Gebieden',
-                results: [
-                    {
-                        label: 'Haveneiland Noordoost',
-                        subtype: 'buurt',
-                        endpoint: 'https://api.data.amsterdam.nl/gebieden/buurt/03630023754004/'
-                    },
-                    {
-                        label: 'IJburg West',
-                        subtype: 'buurtcombinatie',
-                        endpoint: 'https://api.data.amsterdam.nl/gebieden/buurtcombinatie/3630012052079/'
-                    },
-                    {
-                        label: 'Ijburg / Eiland Zeeburg',
-                        subtype: 'gebiedsgerichtwerken',
-                        endpoint: 'https://api.data.amsterdam.nl/gebieden/gebiedsgerichtwerken/DX16/'
-                    },
-                    {
-                        label: 'AW33',
-                        subtype: 'bouwblok',
-                        endpoint: 'https://api.data.amsterdam.nl/gebieden/bouwblok/03630012096424/'
-                    },
-                    {
-                        label: 'Oost',
-                        subtype: 'stadsdeel',
-                        endpoint: 'https://api.data.amsterdam.nl/gebieden/stadsdeel/03630011872039/'
-                    }
-                ],
-                count: 5
             }
         ];
-        mockedNoResults = [];
 
-        linkSelector = '.qa-search-result dp-link:not(dp-link-to-page dp-link)';
-
-        spyOn(store, 'dispatch');
         spyOn(user, 'meetsRequiredLevel');
     });
 
     function getComponent (categories) {
-        element = document.createElement('dp-search-results-categories');
-        scope = $rootScope.$new();
+        const element = document.createElement('dp-search-results-categories');
+        const scope = $rootScope.$new();
 
         element.setAttribute('categories', 'categories');
         scope.categories = categories;
@@ -332,220 +101,202 @@ describe('The dp-search-results-categories component', function () {
         return component;
     }
 
-    fdescribe('search by query', function () {
-        it('should have access to UserService for autorization', function () {
-            var comp = getComponent(mockedSearchResults);
-            expect(typeof comp.isolateScope().vm.meetsRequiredLevel).toBe('function');
-        });
-
-        it('shows search results', function () {
-            const component = getComponent(mockedSearchResults);
-            const links = component.find('.qa-list-item-link');
-
-            // It shows 10 results from the first category and 1 results from the second category
-            expect(links.length).toBe(11);
-
-            // The first result
-            expect(links.eq(0).text().trim()).toBe('Weesperstraat 101');
-
-            // The last results from the first category
-            expect(links.eq(9).text().trim()).toBe('Weesperstraat 116');
-
-            // The last (and only) result from the second category
-            expect(links.eq(10).text().trim()).toBe('Weesperstraat');
-        });
-
-        it('doesn\'t show the dp-straatbeeld-thumbnail component', function () {
-            const component = getComponent(mockedSearchResults);
-
-            expect(component.find('dp-straatbeeld-thumbnail').length).toBe(0);
-        });
-
-        describe('has category support', function () {
-            it('has both singular and plural variations for the headings of categories', function () {
-                let component;
-
-                // A category with 11 search results uses the plural form and it shows the number of results in brackets
-                component = getComponent(mockedSearchResults);
-                expect(component.find('.qa-search-header').eq(0).text().trim()).toBe('Adressen (11)');
-
-                // A category with 1 search result uses the singular form and doesn't show the number or results
-                mockedSearchResults[0].count = 1;
-                mockedSearchResults[0].results.length = 1;
-                component = getComponent(mockedSearchResults);
-                expect(component.find('.qa-search-header').eq(0).text().trim()).toBe('Adres');
-            });
-
-            it('has a plural heading in case only a warning is shown', function () {
-                user.meetsRequiredLevel.and.returnValue(false);
-                const component = getComponent(mockedGeosearchResults);
-                const isolateScope = component.isolateScope();
-
-                isolateScope.vm.categories[3].results = [];
-                isolateScope.vm.categories[3].count = 0;
-                isolateScope.$digest();
-
-                const categoryNode = component.find('.qa-search-results-category').eq(3);
-                expect(categoryNode.find('dp-panel').length).toBe(1);
-                expect(categoryNode.find('.qa-search-header').text().trim()).toBe('Kadastrale objecten');
-            });
-
-            it('categories with more than 10 results show a link to the category', function () {
-                let component;
-
-                // A category with 11 search results uses the plural form and it shows the number of results in brackets
-                component = getComponent(mockedSearchResults);
-                expect(removeWhitespace(component.find(linkSelector).eq(10).text()))
-                    .toBe('Toon alle 11');
-                component.find(`${linkSelector} button`).click();
-                expect(store.dispatch).toHaveBeenCalledWith({
-                    type: ACTIONS.FETCH_SEARCH_RESULTS_CATEGORY,
-                    payload: 'adres'
-                });
-
-                // This link shows numbers with a thousand separator
-                mockedSearchResults[0].count = 1234;
-                component = getComponent(mockedSearchResults);
-                expect(removeWhitespace(component.find(linkSelector).eq(10).text()))
-                    .toBe('Toon alle 1.234');
-            });
-        });
-    });
-
-    describe('search by location', function () {
+    describe('with normal search results', () => {
         let component;
+        let isolateScope;
+        let categories;
+        let categoryNode;
 
-        beforeEach(function () {
-            component = getComponent(mockedGeosearchResults);
+        beforeEach(() => {
+            component = getComponent(mockedSearchResults);
+            isolateScope = component.isolateScope();
+            categories = component.find('.qa-search-results-category');
+            categoryNode = component.find('.qa-search-results-category').eq(0);
         });
 
-        it('shows search results from the geosearch API on the scope', function () {
-            expect(component.find('.qa-search-header').length).toBe(5);
+        it('iterates over the categories', () => {
+            expect(isolateScope.vm.categories).toBe(mockedSearchResults);
+            expect(categories.attr('ng-repeat')).toBe('category in vm.categories');
+        });
 
-            // 20 list items which includes only 10 adressen instead of 12
-            expect(component.find('.qa-list-item-link').length).toBe(20);
-            // an additional 'show more' link to Pand
-            expect(component.find('.qa-show-more').length).toBe(1);
+        it('shows each category', () => {
+            expect(categories.length).toBe(7);
+        });
 
-            const categories = component.find('.qa-search-results-category');
-            expect(categories.length).toBe(5);
+        it('displays a plural header label', () => {
+            const header = categoryNode.find('.qa-search-header');
+            expect(header.text().trim()).toBe('Adressen (10)');
+        });
 
-            // First category
-            const first = categories.eq(0);
-            // Singular, no number of results shown
-            expect(first.find('.qa-search-header').eq(0).text().trim()).toBe('Pand');
-            // One item, plus (the first) ten of the sub category Adressen
-            expect(first.find('.qa-list-item-link').length).toBe(11);
-            // The sub category Adressen has a show more link
-            expect(first.find('.qa-show-more').length).toBe(1);
+        it('does not show a warning panel', () => {
+            const panel = categoryNode.find('.qa-category-warning');
+            expect(panel.length).toBe(0);
+        });
 
-            // Sub categories
-            const subCategories = categories.eq(0).find('.qa-search-results-category');
+        it('does not show a show more link', () => {
+            const link = categoryNode.find('.qa-show-more');
+            expect(link.length).toBe(0);
+        });
+
+        it('passes the category results to the results list', () => {
+            const lists = component.find('.qa-search-results-list');
+
+            expect(lists.length).toBe(7);
+            expect(lists.attr('category')).toBe('category');
+        });
+    });
+
+    describe('category with exactly one result', () => {
+        it('displays a singular header label', () => {
+            const component = getComponent(mockedSearchResults);
+            const categoryNode = component.find('.qa-search-results-category').eq(1);
+            const header = categoryNode.find('.qa-search-header');
+
+            expect(header.text().trim()).toBe('Object');
+        });
+    });
+
+    describe('category with empty results', () => {
+        it('is hidden when the category has no count', () => {
+            const component = getComponent(mockedSearchResults);
+            const categoryNode = component.find('.qa-search-results-category').eq(2);
+            const header = categoryNode.find('.qa-search-header');
+
+            expect(header.text().trim()).not.toContain('Item');
+            expect(header.text().trim()).toContain('Gebied');
+        });
+    });
+
+    describe('category with more than ten results', () => {
+        let component;
+        let categoryNode;
+        let link;
+
+        beforeEach(() => {
+            component = getComponent(mockedSearchResults);
+            categoryNode = component.find('.qa-search-results-category').eq(2);
+            link = categoryNode.find('.qa-show-more');
+        });
+
+        it('shows a show more link', () => {
+            expect(link.text().trim()).toBe('Toon alle 11');
+        });
+
+        it('uses the slug as payload for the show more link', () => {
+            expect(link.attr('type')).toBe('FETCH_SEARCH_RESULTS_CATEGORY');
+            expect(link.attr('payload')).toBe('category.slug');
+        });
+    });
+
+    describe('category with a separate page for more results', () => {
+        let component;
+        let categoryNode;
+        let link;
+
+        beforeEach(() => {
+            component = getComponent(mockedSearchResults);
+            categoryNode = component.find('.qa-search-results-category').eq(3);
+            link = categoryNode.find('.qa-show-more');
+        });
+
+        it('shows a more link with a custom label', () => {
+            expect(link.text().trim()).toBe('More');
+        });
+
+        it('uses the custom endpoint as payload for the more link', () => {
+            expect(link.attr('type')).toBe('FETCH_DETAIL');
+            expect(link.attr('payload')).toBe('category.more.endpoint');
+        });
+    });
+
+    describe('category with a warning message', () => {
+        let component;
+        let categoryNode;
+
+        beforeEach(() => {
+            component = getComponent(mockedSearchResults);
+            categoryNode = component.find('.qa-search-results-category').eq(4);
+        });
+
+        it('displays a plural header label', () => {
+            const header = categoryNode.find('.qa-search-header');
+            expect(header.text().trim()).toBe('Panden');
+        });
+
+        it('shows a warning panel', () => {
+            const panel = categoryNode.find('.qa-category-warning');
+            expect(panel.text()).toContain('Warning');
+        });
+    });
+
+    describe('category with a required auth level', () => {
+        let component;
+        let categories;
+        let categoryNode;
+        let header;
+
+        function before () {
+            component = getComponent(mockedSearchResults);
+            categories = component.find('.qa-search-results-category');
+            categoryNode = categories.eq(5);
+            header = categoryNode.find('.qa-search-header');
+        }
+
+        it('is hidden when the user doesn\'t have the required auth level', () => {
+            user.meetsRequiredLevel.and.returnValue(false);
+            before();
+            expect(categories.length).toBe(7);
+            expect(header.text().trim()).not.toContain('Kadastrale objecten');
+            expect(header.text().trim()).not.toContain('Kadastraal object');
+            expect(header.text().trim()).toContain('Kadastrale subjecten');
+        });
+
+        it('is shown when the user has the required auth level ', () => {
+            user.meetsRequiredLevel.and.returnValue(true);
+            before();
+            expect(categories.length).toBe(8);
+            expect(header.text().trim()).toBe('Kadastrale objecten (8)');
+        });
+    });
+
+    describe('sub results', () => {
+        let component;
+        let categories;
+        let normalCategory;
+        let parentCategory;
+        let lastCategory;
+        let nestedComponent;
+        let subCategories;
+        let noneSubCategories;
+
+        beforeEach(() => {
+            component = getComponent(mockedSearchResults);
+            categories = component.find('.qa-search-results-category');
+            // Category with no sub results
+            normalCategory = categories.eq(0);
+            // Category with sub results
+            parentCategory = categories.eq(5);
+            // Index 6 of the categories will also be the sub results, because
+            // these will also be found by the find method
+            lastCategory = categories.eq(6);
+            // The nested dp-search-results-categories component for the sub
+            // results
+            nestedComponent = parentCategory.find('dp-search-results-categories');
+            // The categories of the sub results
+            subCategories = parentCategory.find('.qa-search-results-category');
+            // The (none existing) categories of the (none existing) sub
+            // results of the normal category
+            noneSubCategories = normalCategory.find('.qa-search-results-category');
+        });
+
+        it('are shown when available', () => {
+            expect(lastCategory[0]).toBe(subCategories[0]);
             expect(subCategories.length).toBe(1);
+            expect(nestedComponent.attr('categories')).toBe('category.subResults');
+        });
 
-            // First sub category would be the same as `const second = categories.eq(1);`
-            const sub = subCategories.eq(0);
-            // Plural, with number of results
-            expect(sub.find('.qa-search-header').text().trim()).toBe('Adressen (12)');
-            expect(sub.find('.qa-list-item-link').length).toBe(10);
-
-            // an additional 'show more' link to Pand
-            expect(sub.find('.qa-show-more').length).toBe(1);
-            expect(sub.find('.qa-show-more').text().trim()).toBe('Bekijk alle 12 adressen binnen dit pand');
-
-            // Second category (skipping index one, that's the sub category
-            // above)
-            const second = categories.eq(2);
-            // Plural
-            expect(second.find('.qa-search-header').text().trim()).toBe('Openbare ruimtes (3)');
-            expect(second.find('.qa-list-item-link').length).toBe(3);
-            expect(second.find('.qa-show-more').length).toBe(0);
-
-            // Third category
-            const third = categories.eq(3);
-            // Singular
-            expect(third.find('.qa-search-header').text().trim()).toBe('Kadastraal object');
-            expect(third.find('.qa-list-item-link').length).toBe(1);
-            expect(third.find('.qa-show-more').length).toBe(0);
-
-            // Fourth category
-            const fourth = categories.eq(4);
-            // Plural
-            expect(fourth.find('.qa-search-header').text().trim()).toBe('Gebieden (5)');
-            expect(fourth.find('.qa-list-item-link').length).toBe(5);
-            expect(fourth.find('.qa-show-more').length).toBe(0);
+        it('are hidden when not available', () => {
+            expect(noneSubCategories.length).toBe(0);
         });
     });
-
-    describe('the Kadastraal subject warning messages', function () {
-        it('should not be shown for an employee plus', function () {
-            user.meetsRequiredLevel.and.callFake(
-                required => required === user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS
-            );
-
-            const component = getComponent(mockedGeosearchResults);
-
-            const categoryNode = component.find('.qa-search-results-category').eq(3);
-            expect(categoryNode.find('.qa-search-header').text().trim()).toBe('Kadastraal object');
-
-            expect(categoryNode.find('.qa-category-warning').length).toBe(0);
-        });
-
-        it('should show a specific message for an employee users', function () {
-            user.meetsRequiredLevel.and.callFake(
-                required => required === user.AUTHORIZATION_LEVEL.EMPLOYEE
-            );
-            const component = getComponent(mockedGeosearchResults);
-
-            const categoryNode = component.find('.qa-search-results-category').eq(3);
-            expect(categoryNode.find('.qa-search-header').text().trim()).toBe('Kadastraal object');
-
-            expect(categoryNode.find('.qa-category-warning').text()).toContain(
-                'Medewerkers met speciale bevoegdheden' +
-                ' kunnen alle gegevens vinden (ook natuurlijke personen).'
-            );
-            expect(categoryNode.find('.qa-category-warning').text()).toContain('Help > Bediening > Inloggen');
-        });
-
-        it('should show a general message for all other users', function () {
-            user.meetsRequiredLevel.and.returnValue(false);
-            const component = getComponent(mockedGeosearchResults);
-
-            const categoryNode = component.find('.qa-search-results-category').eq(3);
-            expect(categoryNode.find('.qa-search-header').text().trim()).toBe('Kadastraal object');
-
-            expect(categoryNode.find('.qa-category-warning').text()).toContain(
-                'Om kadastraal subjecten te kunnen vinden,' +
-                ' moet je als medewerker/ketenpartner van Gemeente Amsterdam inloggen.' +
-                ' Om ook natuurlijke personen te vinden, moet je als medewerker bovendien' +
-                ' speciale bevoegdheden hebben.'
-            );
-            expect(categoryNode.find('.qa-category-warning').text()).toContain('Help > Bediening > Inloggen');
-        });
-
-        it('should update the message on authorization change', function () {
-            user.meetsRequiredLevel.and.callFake(
-                required => required === user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS
-            );
-            const component = getComponent(mockedGeosearchResults);
-            const categoryNode = component.find('.qa-search-results-category').eq(3);
-            expect(categoryNode.find('.qa-search-header').text().trim()).toBe('Kadastraal object');
-            expect(categoryNode.find('.qa-category-warning').length).toBe(0);
-
-            spyOn(user, 'getAuthorizationLevel').and.returnValue('foo'); // changed so $watch fires
-            user.meetsRequiredLevel.and.returnValue(false);
-            $rootScope.$apply();
-
-            expect(categoryNode.find('.qa-category-warning').length).toBe(1);
-        });
-    });
-
-    function removeWhitespace (input) {
-        return input
-            .trim()
-            // Remove new line characters
-            .replace(/\n/g, '')
-            // Replace 2 or more spaces with a single space
-            .replace(/\s{2,}/g, ' ');
-    }
 });
