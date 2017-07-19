@@ -115,25 +115,24 @@
         }
 
         function checkForDetailResults (detailResults) {
-            let foundItem = false;
+            const results = detailResults
+                .map(i => i.features)
+                .reduce((a, b) => a.concat(b))
+                .map(i => i.properties)
+                .sort((a, b) => a.distance > b.distance);
 
-            // TODO merge all details and find closest item by distance
-            const results = detailResults[0];
 
-            if (results.features && results.features.length > 0) {
+            if (results && results.length > 0) {
                 // found detail item
-                if (results.features[0].properties) {
-                    foundItem = results.features[0].properties;
-                    store.dispatch({
-                        type: ACTIONS.MAP_HIGHLIGHT,
-                        payload: false
-                    });
+                store.dispatch({
+                    type: ACTIONS.MAP_HIGHLIGHT,
+                    payload: false
+                });
 
-                    store.dispatch({
-                        type: ACTIONS.FETCH_DETAIL,
-                        payload: foundItem.uri
-                    });
-                }
+                store.dispatch({
+                    type: ACTIONS.FETCH_DETAIL,
+                    payload: results[0].uri
+                });
             } else {
                 // not found item: do original geosearch
                 searchFeatures(vm.location);
