@@ -1,3 +1,5 @@
+// import detailReducer from '../../../src/reducers/details';
+
 (function () {
     'use strict';
 
@@ -6,8 +8,8 @@
         .factory('reducer', reducerFactory);
 
     reducerFactory.$inject = [
+        '$window',
         'urlReducers',
-        'detailReducers',
         'freeze',
         'homeReducers',
         'layerSelectionReducers',
@@ -22,8 +24,8 @@
     ];
 
     // eslint-disable-next-line max-params
-    function reducerFactory (urlReducers,
-                             detailReducers,
+    function reducerFactory ($window,
+                             urlReducers,
                              freeze,
                              homeReducers,
                              layerSelectionReducers,
@@ -39,6 +41,12 @@
             // TODO: Redux: replace
             // Warning: angular.merge is deprecated
             // -- https://docs.angularjs.org/api/ng/function/angular.merge
+
+            const detailReducers = {
+                FETCH_DETAIL: $window.reducers.detailReducer,
+                SHOW_DETAIL: $window.reducers.detailReducer
+            };
+
             var actions = angular.merge(
                 urlReducers,
                 detailReducers,
@@ -53,6 +61,13 @@
                 embedReducers,
                 environment
             );
+
+            if (detailReducers.hasOwnProperty(action.type.id)) {
+                action.payload = {
+                    payload: action.payload,
+                    type: action.type.id
+                };
+            }
 
             if (angular.isObject(action) &&
                 angular.isObject(action.type) &&
