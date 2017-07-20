@@ -68,6 +68,7 @@
         vm.showTabHeader = () => !angular.isArray(vm.location) && !vm.category;
 
         vm.meetsRequiredLevel = user.meetsRequiredLevel;
+        vm.layerWarning = false;
 
         vm.tabHeader = new TabHeader('data-datasets');
         vm.tabHeader.activeTab = vm.tabHeader.getTab('data');
@@ -93,8 +94,7 @@
 
         function searchByLocation (location) {
             const isLocation = angular.isArray(location),
-                state = store.getState(),
-                visibleOverlays = activeOverlays.getDetailOverlays(state.map.zoom);
+                visibleOverlays = activeOverlays.getDetailOverlays();
 
             if (isLocation) {
                 if (visibleOverlays.length > 0) {
@@ -116,11 +116,10 @@
 
         function checkForDetailResults (detailResults) {
             const results = detailResults
-                .map(i => i.features)
-                .reduce((a, b) => a.concat(b))
-                .map(i => i.properties)
-                .sort((a, b) => a.distance > b.distance);
-
+                    .map(i => i.features)
+                    .reduce((a, b) => a.concat(b))
+                    .map(i => i.properties)
+                    .sort((a, b) => a.distance > b.distance);
 
             if (results && results.length > 0) {
                 // found detail item
@@ -133,9 +132,12 @@
                     type: ACTIONS.FETCH_DETAIL,
                     payload: results[0].uri
                 });
+
+                vm.layerWarning = false;
             } else {
                 // not found item: do original geosearch
                 searchFeatures(vm.location);
+                vm.layerWarning = activeOverlays.getDetailOverlaysNames();
             }
         }
 

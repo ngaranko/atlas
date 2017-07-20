@@ -13,6 +13,10 @@
                     location="vm.location">
                 </dp-search-results-header>
 
+                <dp-panel ng-if="vm.layerWarning" is-panel-visible="vm.layerWarning" type="warning" class="qa-highlight-warning">
+                    Geen details beschikbaar voor resultaten uit: {{ vm.layerWarning }}
+                </dp-panel>
+
                 <div class="u-padding__top-2 u-padding__bottom--2" ng-class="{
                         'u-col-sm--12': !vm.location,
                         'u-col-sm--8': vm.location
