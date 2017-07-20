@@ -18,11 +18,11 @@
 
     DpSearchResultsController.$inject = [
         '$rootScope', '$scope', 'search', 'geosearch', 'TabHeader', 'user', 'store', 'ACTIONS',
-        'OVERLAYS', 'activeOverlays'
+        'OVERLAYS', 'activeOverlays', 'zoom'
     ];
 
     function DpSearchResultsController ($rootScope, $scope, search, geosearch, TabHeader, user, store, ACTIONS,
-                                        OVERLAYS, activeOverlays) {
+                                        OVERLAYS, activeOverlays, zoom) {
         const vm = this;
 
         /**
@@ -46,8 +46,7 @@
         });
 
         $scope.$watchCollection('vm.location', updateLocation);
-
-        $scope.$watch(activeOverlays.getOverlays, updateLocation);
+        $scope.$watchGroup([activeOverlays.getOverlays, zoom.getZoom], updateLocation);
 
         // Show warning depending on authorization
         const unwatchAuthorizationLevel = $rootScope.$watch(() => user.getAuthorizationLevel(), updateWarningMessage);

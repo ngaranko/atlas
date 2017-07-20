@@ -6,14 +6,19 @@
     zoomFactory.$inject = ['$rootScope', 'L', 'store', 'ACTIONS', 'mapConfig', 'panning'];
 
     function zoomFactory ($rootScope, L, store, ACTIONS, mapConfig, panning) {
+        let zoom;
+
         return {
-            initialize: initialize,
-            setZoom: setZoom
+            initialize,
+            setZoom,
+            getZoom
         };
 
         function initialize (leafletMap) {
             L.control.scale(mapConfig.SCALE_OPTIONS).addTo(leafletMap);
             L.control.zoom(mapConfig.ZOOM_OPTIONS).addTo(leafletMap);
+
+            zoom = 11;
 
             setDoubleClickZoom(leafletMap);
 
@@ -28,14 +33,22 @@
                             zoom: leafletMap.getZoom()
                         }
                     });
+
+                    zoom = leafletMap.getZoom();
                 });
             });
+        }
+
+        function getZoom () {
+            return zoom;
         }
 
         function setZoom (leafletMap, zoomLevel) {
             leafletMap.setZoom(zoomLevel, {
                 animate: false
             });
+
+            zoom = zoomLevel;
         }
 
         function setDoubleClickZoom (leafletMap) {
