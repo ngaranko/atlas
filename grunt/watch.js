@@ -95,6 +95,18 @@ files.modules
             ]
         };
 
+        targets.module_new = {
+            files: [
+                'src/**/*.js'
+            ],
+            tasks: [
+                'clean:js',
+                `build-js-module-${module.slug}`,
+                'update-build-js',
+                `test-js-module-${module.slug}`
+            ]
+        };
+
         // Module test has changed
         targets[`test_${module.slug}`] = {
             files: [
