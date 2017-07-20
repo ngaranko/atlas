@@ -17,7 +17,7 @@ module.exports = function (searchResultsElement) {
         },
         categories: function (index) {
             return categoryPageObject(
-                searchResultsElement.element(by.repeater('category in vm.searchResults').row(index))
+                searchResultsElement.element(by.repeater('category in vm.categories').row(index))
             );
         }
     };
