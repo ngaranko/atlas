@@ -22,6 +22,9 @@ describe('The dataSelectionApiCkan factory', function () {
 
                         return q.promise;
                     }
+                },
+                sharedConfig: {
+                    CATALOGUS_ROOT: 'https://catalogus.data.amsterdam.nl/'
                 }
             }
         );
@@ -35,7 +38,6 @@ describe('The dataSelectionApiCkan factory', function () {
 
         config = {
             MAX_ITEMS_PER_PAGE: 2,
-            ENDPOINT_ROOT: 'https://catalogus.data.amsterdam.nl/',
             ENDPOINT_PREVIEW: 'catalogus/',
             ENDPOINT_DETAIL: 'api_endpoint/catalogus/',
             PRIMARY_KEY: 'id',

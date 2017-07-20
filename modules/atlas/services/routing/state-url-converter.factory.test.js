@@ -109,6 +109,10 @@ describe('The state url conversion factory', function () {
                     dte: {
                         name: 'detail.endpoint',
                         type: 'string'
+                    },
+                    dtr: {
+                        name: 'detail.root',
+                        type: 'string'
                     }
                 }
             };
@@ -116,6 +120,12 @@ describe('The state url conversion factory', function () {
             angular.mock.module('atlas',
                 function ($provide) {
                     $provide.constant('STATE_URL_CONVERSION', mockedStateUrlConversion);
+                    $provide.factory('sharedConfig', () => {
+                        return {
+                            API_ROOT: 'https://api.data.amsterdam.nl/',
+                            CATALOGUS_ROOT: 'https://catalogus.data.amsterdam.nl/'
+                        };
+                    });
                 }
             );
 
@@ -222,11 +232,21 @@ describe('The state url conversion factory', function () {
             it('removes the API_ROOT from the detail endpoint URL', () => {
                 const mockedState = {
                     detail: {
-                        endpoint: 'https://acc.api.data.amsterdam.nl/foo/bar'
+                        endpoint: 'https://api.data.amsterdam.nl/foo/bar'
                     }
                 };
                 const link = stateUrlConverter.state2url(mockedState);
-                expect(link).toEqual('#?dte=foo/bar');
+                expect(link).toEqual('#?dte=foo/bar&dtr=API_ROOT');
+            });
+
+            it('removes the CATALOGUS_ROOT from the detail endpoint URL', () => {
+                const mockedState = {
+                    detail: {
+                        endpoint: 'https://api.data.amsterdam.nl/foo/bar'
+                    }
+                };
+                const link = stateUrlConverter.state2url(mockedState);
+                expect(link).toEqual('#?dte=foo/bar&dtr=CATALOGUS_ROOT');
             });
         });
 
@@ -272,14 +292,51 @@ describe('The state url conversion factory', function () {
                 });
             });
 
-            it('prepends the API_ROOT to the detail endpoint', () => {
-                const state = stateUrlConverter.params2state({}, {
+            it('prepends the specified root to the detail endpoint', () => {
+                // API_ROOT
+                const apiState = stateUrlConverter.params2state({}, {
+                    dte: 'foo/bar',
+                    dtr: 'API_ROOT'
+                });
+
+                expect(apiState).toEqual({
+                    detail: {
+                        endpoint: 'https://api.data.amsterdam.nl/foo/bar'
+                    }
+                });
+
+                // CATALOGUS_ROOT
+                const catalogusState = stateUrlConverter.params2state({}, {
+                    dte: 'foo/bar',
+                    dtr: 'CATALOGUS_ROOT'
+                });
+
+                expect(catalogusState).toEqual({
+                    detail: {
+                        endpoint: 'https://catalogus.data.amsterdam.nl/foo/bar'
+                    }
+                });
+
+                // Non existing root
+                const faultState = stateUrlConverter.params2state({}, {
+                    dte: 'foo/bar',
+                    dtr: 'FAULT_ROOT'
+                });
+
+                expect(faultState).toEqual({
+                    detail: {
+                        endpoint: 'foo/bar'
+                    }
+                });
+
+                // No root specified
+                const noState = stateUrlConverter.params2state({}, {
                     dte: 'foo/bar'
                 });
 
-                expect(state).toEqual({
+                expect(noState).toEqual({
                     detail: {
-                        endpoint: 'https://acc.api.data.amsterdam.nl/foo/bar'
+                        endpoint: 'foo/bar'
                     }
                 });
             });
