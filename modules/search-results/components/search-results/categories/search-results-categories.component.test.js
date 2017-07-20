@@ -8,6 +8,7 @@ describe('The dp-search-results-categories component', function () {
         angular.mock.module(
             'dpSearchResults',
             {
+                // Store is used in the child directive dp-link
                 store: {
                     dispatch: angular.noop
                 }
@@ -185,6 +186,18 @@ describe('The dp-search-results-categories component', function () {
         it('uses the slug as payload for the show more link', () => {
             expect(link.attr('type')).toBe('FETCH_SEARCH_RESULTS_CATEGORY');
             expect(link.attr('payload')).toBe('category.slug');
+        });
+    });
+
+    describe('category with more than 1000 results', () => {
+        it('uses a thousand separator in the show more link', function () {
+            mockedSearchResults[2].count = 1234;
+
+            const component = getComponent(mockedSearchResults);
+            const categoryNode = component.find('.qa-search-results-category').eq(2);
+            const link = categoryNode.find('.qa-show-more');
+
+            expect(link.text().trim()).toBe('Toon alle 1.234');
         });
     });
 
