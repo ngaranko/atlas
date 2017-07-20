@@ -27,6 +27,8 @@
             );
 
             store = Redux.createStore(reducer, defaultState, enhancer);
+
+            $window.reduxStore = store;
         }
     }
 })();

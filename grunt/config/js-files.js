@@ -20,6 +20,8 @@ var jsFiles = modules
     .map(module => jsModuleFiles(module))
     .reduce((result, files) => result.concat(files), []);
 
+jsFiles.unshift('src/**/*.js');
+
 var cssFiles = modules
     .map(module => cssModuleFiles(module))
     .reduce((result, files) => result.concat(files), ['build/temp/bower_components/bower_components.css']);
