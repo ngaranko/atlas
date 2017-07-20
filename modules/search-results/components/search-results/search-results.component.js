@@ -45,11 +45,9 @@
             }
         });
 
-        $scope.$watchCollection('vm.location', () => {
-            if (!vm.isLoading) {
-                searchByLocation(vm.location);
-            }
-        });
+        $scope.$watchCollection('vm.location', updateLocation);
+
+        $scope.$watch(activeOverlays.getOverlays, updateLocation);
 
         // Show warning depending on authorization
         const unwatchAuthorizationLevel = $rootScope.$watch(() => user.getAuthorizationLevel(), updateWarningMessage);
@@ -72,6 +70,12 @@
 
         vm.tabHeader = new TabHeader('data-datasets');
         vm.tabHeader.activeTab = vm.tabHeader.getTab('data');
+
+        function updateLocation () {
+            if (!vm.isLoading) {
+                searchByLocation(vm.location);
+            }
+        }
 
         function updateTabHeader (query, count) {
             if (vm.showTabHeader()) {

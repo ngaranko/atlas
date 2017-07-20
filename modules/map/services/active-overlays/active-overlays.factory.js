@@ -19,7 +19,9 @@
         };
 
         function setOverlays (newOverlays) {
-            allOverlays = newOverlays;
+            if (!angular.equals(newOverlays, allOverlays)) {
+                allOverlays = newOverlays;
+            }
         }
 
         function getOverlays () {
