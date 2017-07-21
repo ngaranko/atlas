@@ -36,7 +36,8 @@ describe('The state url conversion definition', function () {
                     isFullscreen: false,
                     isLoading: false,
                     showActiveOverlays: false,
-                    drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE
+                    drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
+                    highlight: true
                 }
             });
 
@@ -82,9 +83,10 @@ describe('The state url conversion definition', function () {
         });
 
         describe('The post processing for map', function () {
-            it('copies isLoading from the previous state, but not the drawing mode ', function () {
-                // isLoading and drawingMode
+            it('copies highlight and isLoading from the previous state, but not the drawing mode ', function () {
+                // highlight and isLoading and drawingMode
                 let oldState = {
+                    highlight: false,
                     isLoading: true,
                     drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW
                 };
@@ -92,6 +94,7 @@ describe('The state url conversion definition', function () {
 
                 STATE_URL_CONVERSION.post.map(oldState, newState);
                 expect(newState).toEqual({
+                    highlight: false,
                     isLoading: true
                 });
 
@@ -103,18 +106,32 @@ describe('The state url conversion definition', function () {
 
                 STATE_URL_CONVERSION.post.map(oldState, newState);
                 expect(newState).toEqual({
+                    highlight: undefined,
                     isLoading: undefined
                 });
 
                 // only isLoading
                 oldState = {
-                    isLoading: false
+                    isLoading: true
                 };
                 newState = {};
 
                 STATE_URL_CONVERSION.post.map(oldState, newState);
                 expect(newState).toEqual({
-                    isLoading: false
+                    highlight: undefined,
+                    isLoading: true
+                });
+
+                // only highlight
+                oldState = {
+                    highlight: true
+                };
+                newState = {};
+
+                STATE_URL_CONVERSION.post.map(oldState, newState);
+                expect(newState).toEqual({
+                    highlight: true,
+                    isLoading: undefined
                 });
 
                 // no map state at all

@@ -493,6 +493,21 @@ describe('The map reducers', function () {
         });
     });
 
+    describe('MAP_HIGHLIGHT', function () {
+        it('can toggle the fullscreen mode', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            let output;
+
+            // Enable fullscreen
+            output = mapReducers[ACTIONS.MAP_HIGHLIGHT.id](inputState, true);
+            expect(output.map.highlight).toBe(true);
+
+            // Disable fullscreen
+            output = mapReducers[ACTIONS.MAP_HIGHLIGHT.id](inputState, false);
+            expect(output.map.highlight).toBe(false);
+        });
+    });
+
     describe('MAP_FULLSCREEN', function () {
         it('can toggle the fullscreen mode', function () {
             const inputState = angular.copy(DEFAULT_STATE);
