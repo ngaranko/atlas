@@ -115,9 +115,14 @@ fdescribe('The active overlays factory', () => {
         expect(activeOverlays.getOverlays()).toEqual([mockOverlays.mbs, mockOverlays.mbz, mockOverlays.nap]);
     });
 
+    it('should return if overlay is visible or not with zoom level from state', function () {
+        expect(activeOverlays.isVisibleAtCurrentZoom('mbs')).toBeTruthy();
+        expect(activeOverlays.isVisibleAtCurrentZoom('mbz')).toBeFalsy();
+    });
+
     it('should return if overlay is visible or not with current zoom level', function () {
-        expect(activeOverlays.isVisibleAtCurrentZoom('mbs', 9)).toBeFalsy();
-        expect(activeOverlays.isVisibleAtCurrentZoom('mbs', 10)).toBeTruthy();
+        expect(activeOverlays.isVisibleAtCurrentZoom('mbz', 11)).toBeFalsy();
+        expect(activeOverlays.isVisibleAtCurrentZoom('mbz', 12)).toBeTruthy();
 
         expect(activeOverlays.isVisibleAtCurrentZoom('tcmnmt', 16)).toBeFalsy();
         expect(activeOverlays.isVisibleAtCurrentZoom('tcmnmt', 15)).toBeTruthy();
