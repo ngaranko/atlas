@@ -1,10 +1,11 @@
-describe('The dp-active-overlays component', function () {
-    var $compile,
+fdescribe('The dp-active-overlays component', function () {
+    let $compile,
         $rootScope,
         store,
         ACTIONS,
         allOverlays,
-        user;
+        user,
+        activeOverlays;
 
     beforeEach(function () {
         angular.mock.module(
@@ -27,6 +28,9 @@ describe('The dp-active-overlays component', function () {
                 },
                 user: {
                     getAuthorizationLevel: angular.noop
+                },
+                activeOverlays: {
+                    setOverlays: angular.noop
                 }
             },
             function ($provide) {
@@ -36,49 +40,52 @@ describe('The dp-active-overlays component', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _ACTIONS_, _overlays_, _user_) {
+        angular.mock.inject((_$compile_, _$rootScope_, _store_, _ACTIONS_, _overlays_, _user_, _activeOverlays_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
             ACTIONS = _ACTIONS_;
             allOverlays = _overlays_;
             user = _user_;
+            activeOverlays = _activeOverlays_;
         });
 
         spyOn(store, 'dispatch');
+        spyOn(activeOverlays, 'setOverlays');
     });
 
     function getComponent (overlays, zoom, showActiveOverlays) {
-        var component,
-            element,
-            scope;
-
-        element = document.createElement('dp-active-overlays');
+        const element = document.createElement('dp-active-overlays');
         element.setAttribute('overlays', 'overlays');
         element.setAttribute('zoom', 'zoom');
         element.setAttribute('show-active-overlays', 'showActiveOverlays');
 
-        scope = $rootScope.$new();
+        const scope = $rootScope.$new();
         scope.overlays = overlays;
         scope.zoom = zoom;
         scope.showActiveOverlays = showActiveOverlays;
 
-        component = $compile(element)(scope);
+        const component = $compile(element)(scope);
         scope.$apply();
 
         return component;
     }
 
     it('doesn\'t show anything if there are no active overlays', function () {
-        var component;
+        let component,
+            scope;
 
         // Without any overlays
         component = getComponent([], 8, true);
+        scope = component.isolateScope();
         expect(component.find('.c-active-overlays').length).toBe(0);
+        expect(activeOverlays.setOverlays).toHaveBeenCalledWith(scope.vm.validOverlays);
 
         // With overlays
         component = getComponent([{id: 'overlay_a', isVisible: true}], 8, true);
+        scope = component.isolateScope();
         expect(component.find('.c-active-overlays').length).toBe(1);
+        expect(activeOverlays.setOverlays).toHaveBeenCalledWith(scope.vm.validOverlays);
     });
 
     it('re-computes the overlays when the user authorization level changes', function () {

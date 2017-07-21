@@ -2,7 +2,8 @@ describe('The dp-active-overlays-item component', function () {
     var $compile,
         $rootScope,
         $q,
-        api;
+        api,
+        activeOverlays;
 
     beforeEach(function () {
         angular.mock.module(
@@ -32,6 +33,9 @@ describe('The dp-active-overlays-item component', function () {
                             external: true
                         }
                     }
+                },
+                activeOverlays: {
+                    isVisibleAtCurrentZoom: angular.noop
                 }
             },
             function ($provide) {
@@ -41,12 +45,15 @@ describe('The dp-active-overlays-item component', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _$q_, _api_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _$q_, _api_, _activeOverlays_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             $q = _$q_;
             api = _api_;
+            activeOverlays = _activeOverlays_;
         });
+
+        spyOn(activeOverlays, 'isVisibleAtCurrentZoom');
     });
 
     function getComponent (overlay, isVisible, zoom) {
@@ -70,6 +77,8 @@ describe('The dp-active-overlays-item component', function () {
     }
 
     it('shows uses the short label from the OVERLAYS config', function () {
+        // activeOverlays.isVisibleAtCurrentZoom.and.returnValue(true);
+
         var component = getComponent('overlay_without_legend', true, 8);
 
         expect(component.find('.qa-active-overlay-header').eq(0).text()).toContain('Overlay A');
@@ -77,6 +86,7 @@ describe('The dp-active-overlays-item component', function () {
 
     describe('the legend image', () => {
         beforeEach(() => {
+            activeOverlays.isVisibleAtCurrentZoom.and.returnValue(true);
             const tokenized = $q.resolve('http://atlas.example.com/overlays/blabla.png?token=abc');
             spyOn(api, 'createUrlWithToken').and.returnValue(tokenized);
         });
@@ -109,14 +119,17 @@ describe('The dp-active-overlays-item component', function () {
             expectedMessage = '(geen legenda)';
 
         // Invisible manually: don't show the message
+        activeOverlays.isVisibleAtCurrentZoom.and.returnValue(true);
         component = getComponent('overlay_without_legend', false, 8);
         expect(component.text()).not.toContain(expectedMessage);
 
         // Invisible through zoom: don't show the message
+        activeOverlays.isVisibleAtCurrentZoom.and.returnValue(false);
         component = getComponent('overlay_without_legend', true, 11);
         expect(component.text()).not.toContain(expectedMessage);
 
         // Visible overlay; show the message
+        activeOverlays.isVisibleAtCurrentZoom.and.returnValue(true);
         component = getComponent('overlay_without_legend', true, 8);
         expect(component.text()).toContain(expectedMessage);
     });
@@ -127,12 +140,14 @@ describe('The dp-active-overlays-item component', function () {
 
         // When visible
         for (i = 8; i <= 10; i++) {
+            activeOverlays.isVisibleAtCurrentZoom.and.returnValue(true);
             component = getComponent('overlay_without_legend', true, i);
             expect(component.text()).not.toContain('Zichtbaar bij verder zoomen');
         }
 
         // When invisible
         for (i = 11; i <= 16; i++) {
+            activeOverlays.isVisibleAtCurrentZoom.and.returnValue(false);
             component = getComponent('overlay_without_legend', true, i);
             expect(component.text()).toContain('Zichtbaar bij verder zoomen');
         }
@@ -144,6 +159,7 @@ describe('The dp-active-overlays-item component', function () {
 
         // When invisible
         for (i = 8; i <= 16; i++) {
+            activeOverlays.isVisibleAtCurrentZoom.and.returnValue(false);
             component = getComponent('overlay_with_internal_legend', false, i);
             expect(component.text()).not.toContain('Zichtbaar bij verder zoomen');
         }
@@ -153,11 +169,13 @@ describe('The dp-active-overlays-item component', function () {
         var component;
 
         // With a supported zoom level
+        activeOverlays.isVisibleAtCurrentZoom.and.returnValue(true);
         component = getComponent('overlay_without_legend', true, 10);
         expect(component.find('dp-link').length).toBe(1);
         expect(component.find('dp-link').text()).toContain('Verbergen');
 
         // With an unsupported zoom level
+        activeOverlays.isVisibleAtCurrentZoom.and.returnValue(false);
         component = getComponent('overlay_without_legend', true, 9);
         expect(component.find('dp-link').length).toBe(1);
         expect(component.find('dp-link').text()).toContain('Verbergen');
@@ -167,11 +185,13 @@ describe('The dp-active-overlays-item component', function () {
         var component;
 
         // With a supported zoom level
+        activeOverlays.isVisibleAtCurrentZoom.and.returnValue(true);
         component = getComponent('overlay_without_legend', true, 10);
         expect(component.find('dp-link').length).toBe(1);
         expect(component.find('dp-link').text()).toContain('Verbergen');
 
         // With an unsupported zoom level
+        activeOverlays.isVisibleAtCurrentZoom.and.returnValue(false);
         component = getComponent('overlay_without_legend', true, 9);
         expect(component.find('dp-link').length).toBe(1);
         expect(component.find('dp-link').text()).toContain('Verbergen');

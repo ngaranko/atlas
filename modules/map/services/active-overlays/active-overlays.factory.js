@@ -13,10 +13,15 @@
         return {
             setOverlays,
             getOverlays,
-            getDetailOverlays,
             isVisibleAtCurrentZoom,
+            getDetailOverlays,
             getDetailOverlaysNames
         };
+
+        // public methods
+        function getOverlays () {
+            return allOverlays;
+        }
 
         function setOverlays (newOverlays) {
             if (!angular.equals(newOverlays, allOverlays)) {
@@ -24,8 +29,9 @@
             }
         }
 
-        function getOverlays () {
-            return allOverlays;
+        function isVisibleAtCurrentZoom (overlay, zoom) {
+            zoom = zoom || store.getState().map.zoom;
+            return zoom >= overlays.SOURCES[overlay].minZoom && zoom <= overlays.SOURCES[overlay].maxZoom;
         }
 
         function getDetailOverlays (zoom) {
@@ -36,17 +42,13 @@
                 }) === index);
         }
 
-        function isVisibleAtCurrentZoom (overlay, zoom) {
-            zoom = zoom || store.getState().map.zoom;
-            return zoom >= overlays.SOURCES[overlay].minZoom && zoom <= overlays.SOURCES[overlay].maxZoom;
-        }
-
         function getDetailOverlaysNames (zoom) {
             return getVisibleOverlays(zoom)
                 .map(a => a.label_short)
                 .join(', ');
         }
 
+        // non public methods
         function getVisibleOverlays (zoom) {
             return allOverlays.filter(source => source.isVisible && isVisibleAtCurrentZoom(source.id, zoom))
                 .map(source => overlays.SOURCES[source.id]);
