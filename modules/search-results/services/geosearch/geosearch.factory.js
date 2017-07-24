@@ -157,7 +157,7 @@
             return [plaatsCategoryIndex, plaatsEndpoint];
         }
 
-        function searchDetail (location, overlays) {
+        function searchDetail (location, overlays, zoom) {
             var allRequests = [];
 
             overlays.forEach(function (overlay) {
@@ -169,7 +169,9 @@
                     };
 
                 if (angular.isNumber(overlay.detail_radius)) {
-                    searchParams.radius = overlay.detail_radius;
+                    const radius = Math.round(-zoom * (29 / 6) + 78.3333333);
+                    console.log('searchDetail', overlay.detail_radius, zoom, radius);
+                    searchParams.radius = radius;
                 }
 
                 request = api.getByUri('geosearch/search/', searchParams).then(

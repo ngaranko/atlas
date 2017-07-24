@@ -97,13 +97,14 @@
 
         function searchByLocation (location) {
             const isLocation = angular.isArray(location),
+                state = store.getState(),
                 visibleOverlays = activeOverlays.getDetailOverlays();
 
             if (isLocation) {
                 if (visibleOverlays.length > 0) {
                     // do geosearch for nearest item in overlays
                     // if it exists go to detail of that item
-                    geosearch.searchDetail(location, visibleOverlays).then(checkForDetailResults);
+                    geosearch.searchDetail(location, visibleOverlays, state.map.zoom).then(checkForDetailResults);
                 } else {
                     // no visible overlays: do original geosearch
                     searchFeatures(location);
