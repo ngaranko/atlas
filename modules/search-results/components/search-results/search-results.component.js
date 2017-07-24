@@ -46,7 +46,7 @@
         });
 
         $scope.$watchCollection('vm.location', updateLocation);
-        $scope.$watchGroup([activeOverlays.getOverlays, zoom.getZoom], updateLocation);
+        // $scope.$watchGroup([activeOverlays.getOverlays, zoom.getZoom], updateLocation);
 
         // Show warning depending on authorization
         const unwatchAuthorizationLevel = $rootScope.$watch(() => user.getAuthorizationLevel(), updateWarningMessage);
