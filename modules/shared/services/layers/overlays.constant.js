@@ -296,9 +296,7 @@
                     minZoom: 12,
                     maxZoom: 16,
                     legend: 'maps/gebieden?version=1.3.0&service=WMS&request=GetLegend' +
-                    'Graphic&sld_version=1.1.0&layer=bouwblok&format=image/png&STYLE=default',
-                    detail_item: 'bouwblok',
-                    detail_radius: 50
+                    'Graphic&sld_version=1.1.0&layer=bouwblok&format=image/png&STYLE=default'
                 },
 
                 // geografie: hoogte
@@ -334,7 +332,7 @@
                     legend: 'maps/nap?version=1.3.0&service=WMS&request=GetLegendG' +
                     'raphic&sld_version=1.1.0&layer=NAP&format=image/png&STYLE=default',
                     detail_item: 'peilmerk',
-                    detail_radius: 50
+                    detail_radius: 1
                 },
                 mbs: {
                     url: 'maps/meetbouten?service=wms',
@@ -346,7 +344,7 @@
                     legend: 'maps/meetbouten?version=1.3.0&service=WMS&request=Get' +
                     'LegendGraphic&sld_version=1.1.0&layer=meetbouten_status&format=image/png&STYLE=default',
                     detail_item: 'meetbout',
-                    detail_radius: 50
+                    detail_radius: 10
                 },
                 mbz: {
                     url: 'maps/meetbouten?service=wms',
@@ -358,7 +356,7 @@
                     legend: 'maps/meetbouten?version=1.3.0&service=WMS&request=Get' +
                     'LegendGraphic&sld_version=1.1.0&layer=meetbouten_zaksnelheid&format=image/png&STYLE=default',
                     detail_item: 'meetbout',
-                    detail_radius: 50
+                    detail_radius: 10
                 },
                 mbr: {
                     url: 'maps/meetbouten',
@@ -412,7 +410,7 @@
                     legend: 'maps/bommenkaart?version=1.3.0&service=WMS&request=GetLegendGraphic&sld_version=1.1.0&la' +
                     'yer=inslagen&format=image/png&STYLE=default',
                     detail_item: 'bominslag',
-                    detail_radius: 50
+                    detail_radius: 10
                 },
                 exvg: {
                     url: 'maps/bommenkaart',
@@ -717,7 +715,7 @@
                     '=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=monument_coordinaten&format=' +
                     'image/png&STYLE=default',
                     detail_item: 'monument',
-                    detail_radius: 50
+                    detail_radius: 10
                 },
 
                 // Verkeer

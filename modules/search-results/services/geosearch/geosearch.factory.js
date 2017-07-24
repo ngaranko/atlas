@@ -169,7 +169,8 @@
                     };
 
                 if (angular.isNumber(overlay.detail_radius)) {
-                    const radius = Math.round(-zoom * (29 / 6) + 78.3333333);
+                    const radius = Math.round(Math.pow(16 - zoom + 1, 2) * 0.7); // Math.round(-zoom * (29 / 6) + 78.3333333);
+
                     console.log('searchDetail', overlay.detail_radius, zoom, radius);
                     searchParams.radius = radius;
                 }
