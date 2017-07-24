@@ -96,19 +96,19 @@
         }
 
         function searchByLocation (location) {
-            const isLocation = angular.isArray(location),
-                state = store.getState(),
-                visibleOverlays = activeOverlays.getDetailOverlays();
+            const isLocation = angular.isArray(location);
+                // state = store.getState(),
+                // visibleOverlays = activeOverlays.getDetailOverlays();
 
             if (isLocation) {
-                if (visibleOverlays.length > 0) {
-                    // do geosearch for nearest item in overlays
-                    // if it exists go to detail of that item
-                    geosearch.searchDetail(location, visibleOverlays, state.map.zoom).then(checkForDetailResults);
-                } else {
+            //     if (visibleOverlays.length > 0) {
+            //         // do geosearch for nearest item in overlays
+            //         // if it exists go to detail of that item
+            //         geosearch.searchDetail(location, visibleOverlays, state.map.zoom).then(checkForDetailResults);
+            //     } else {
                     // no visible overlays: do original geosearch
                     searchFeatures(location);
-                }
+                // }
             }
 
             return isLocation;
@@ -118,32 +118,32 @@
             geosearch.searchFeatures(location).then(setSearchResults).then(updateWarningMessage);
         }
 
-        function checkForDetailResults (detailResults) {
-            const results = detailResults
-                    .map(i => i.features)
-                    .reduce((a, b) => a.concat(b))
-                    .map(i => i.properties)
-                    .sort((a, b) => a.distance > b.distance);
-
-            if (results && results.length > 0) {
-                // found detail item
-                store.dispatch({
-                    type: ACTIONS.MAP_HIGHLIGHT,
-                    payload: false
-                });
-
-                store.dispatch({
-                    type: ACTIONS.FETCH_DETAIL,
-                    payload: results[0].uri
-                });
-
-                vm.layerWarning = false;
-            } else {
-                // not found item: do original geosearch
-                searchFeatures(vm.location);
-                vm.layerWarning = activeOverlays.getDetailOverlaysNames();
-            }
-        }
+        // function checkForDetailResults (detailResults) {
+        //     const results = detailResults
+        //             .map(i => i.features)
+        //             .reduce((a, b) => a.concat(b))
+        //             .map(i => i.properties)
+        //             .sort((a, b) => a.distance > b.distance);
+        //
+        //     if (results && results.length > 0) {
+        //         // found detail item
+        //         store.dispatch({
+        //             type: ACTIONS.MAP_HIGHLIGHT,
+        //             payload: false
+        //         });
+        //
+        //         store.dispatch({
+        //             type: ACTIONS.FETCH_DETAIL,
+        //             payload: results[0].uri
+        //         });
+        //
+        //         vm.layerWarning = false;
+        //     } else {
+        //         // not found item: do original geosearch
+        //         searchFeatures(vm.location);
+        //         vm.layerWarning = activeOverlays.getDetailOverlaysNames();
+        //     }
+        // }
 
         function updateWarningMessage () {
             const kadastraleSubject = vm.searchResults &&
