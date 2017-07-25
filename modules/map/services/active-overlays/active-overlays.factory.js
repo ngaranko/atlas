@@ -8,14 +8,17 @@
     activeOverlaysFactory.$inject = ['overlays', 'store'];
 
     function activeOverlaysFactory (overlays, store) {
-        let allOverlays = [];
+        let allOverlays = [],
+            resultCount = 0;
 
         return {
-            setOverlays,
             getOverlays,
+            setOverlays,
+            getResultCount,
+            setResultCount,
             isVisibleAtCurrentZoom,
             getDetailOverlays,
-            getDetailOverlaysNames
+            getOverlaysWarning
         };
 
         // public methods
@@ -29,6 +32,14 @@
             }
         }
 
+        function getResultCount () {
+            return resultCount;
+        }
+
+        function setResultCount (count) {
+            resultCount = count;
+        }
+
         function isVisibleAtCurrentZoom (overlay, zoom) {
             zoom = zoom || store.getState().map.zoom;
             return zoom >= overlays.SOURCES[overlay].minZoom && zoom <= overlays.SOURCES[overlay].maxZoom;
@@ -36,14 +47,15 @@
 
         function getDetailOverlays (zoom) {
             return getVisibleOverlays(zoom)
-                .filter(source => source.detail_item && source.detail_size)
+                .filter(source => source.detailItem && source.detailSize)
                 .filter((a, index, self) => self.findIndex((b) => {
-                    return b.detail_item === a.detail_item;
+                    return b.detailItem === a.detailItem;
                 }) === index);
         }
 
-        function getDetailOverlaysNames (zoom) {
+        function getOverlaysWarning (zoom) {
             return getVisibleOverlays(zoom)
+                .filter(source => source.noDetail)
                 .map(a => a.label_short)
                 .join(', ');
         }

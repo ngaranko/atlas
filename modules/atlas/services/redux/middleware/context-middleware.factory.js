@@ -17,16 +17,6 @@
                     // These events are thus context sensitive and therefore handled by this middleware
                     const { map, straatbeeld, detail, page } = store.getState();
 
-                    // if (action.type.id === ACTIONS.MAP_CLICK.id) {
-                    //     if (angular.isObject(straatbeeld)) {
-                    //         // a MAP CLICK when straatbeeld is active fetches the most nearby straatbeeld
-                    //         action.type = ACTIONS.FETCH_STRAATBEELD_BY_LOCATION;
-                    //     } else {
-                    //         // the default action for a MAP CLICK is to show the search results for that location
-                    //         action.type = ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION;
-                    //     }
-                    // }
-
                     if (action.type.id === ACTIONS.HIDE_STRAATBEELD.id) {
                         if (angular.isObject(detail)) {
                             // Close of straatbeeld reopens the original detail page if available

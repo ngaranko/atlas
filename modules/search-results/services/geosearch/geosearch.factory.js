@@ -163,13 +163,13 @@
             overlays.forEach(function (overlay) {
                 var request,
                     searchParams = {
-                        item: overlay.detail_item,
+                        item: overlay.detailItem,
                         lat: location[0],
                         lon: location[1]
                     };
 
-                if (angular.isNumber(overlay.detail_size)) {
-                    const radius = Math.round(Math.pow(2, 16 - zoom) / 2) * overlay.detail_size;
+                if (angular.isNumber(overlay.detailSize)) {
+                    const radius = Math.round(Math.pow(2, 16 - zoom) / 2) * overlay.detailSize;
                     searchParams.radius = radius;
                 }
 

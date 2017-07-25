@@ -5,7 +5,8 @@
         .module('dpMap')
         .factory('onMapClick', onMapClickFactory);
 
-    onMapClickFactory.$inject = ['$rootScope', 'store', 'ACTIONS', 'drawTool', 'suppress', 'activeOverlays', 'geosearch'];
+    onMapClickFactory.$inject = ['$rootScope', 'store', 'ACTIONS', 'drawTool', 'suppress', 'activeOverlays',
+        'geosearch'];
 
     function onMapClickFactory ($rootScope, store, ACTIONS, drawTool, suppress, activeOverlays, geosearch) {
         let location = [],
@@ -20,13 +21,11 @@
         }
 
         function onMapClick (event) {
-            const visibleOverlays = activeOverlays.getDetailOverlays();
-            const state = store.getState();
+            const visibleOverlays = activeOverlays.getDetailOverlays(),
+                state = store.getState();
 
             type = ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION;
             location = [event.latlng.lat, event.latlng.lng];
-
-            console.log('onMapClick', visibleOverlays);
 
             if (angular.isObject(state.straatbeeld)) {
                 type = ACTIONS.FETCH_STRAATBEELD_BY_LOCATION;
@@ -41,21 +40,18 @@
             if (!(suppress.isBusy() || state.atlas.isEmbedPreview || state.atlas.isEmbed || drawTool.isEnabled())) {
                 $rootScope.$applyAsync(function () {
                     dispatchAction();
-                    // store.dispatch({
-                        // type: type,
-                        // payload: location
-                    // });
                 });
             }
         }
 
         function checkForDetailResults (detailResults) {
-            console.log('checkForDetailResults');
             const results = detailResults
                     .map(i => i.features)
                     .reduce((a, b) => a.concat(b))
                     .map(i => i.properties)
                     .sort((a, b) => a.distance > b.distance);
+
+            activeOverlays.setResultCount(results.length);
 
             if (results && results.length > 0) {
                 // found detail item
@@ -68,13 +64,9 @@
                     type: ACTIONS.FETCH_DETAIL,
                     payload: results[0].uri
                 });
-
-                // vm.layerWarning = false;
             } else {
                 // not found item: do original geosearch
                 dispatchAction();
-                // searchFeatures(vm.location);
-                // vm.layerWarning = activeOverlays.getDetailOverlaysNames();
             }
         }
 
