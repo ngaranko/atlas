@@ -109,10 +109,6 @@ describe('The state url conversion factory', function () {
                     dte: {
                         name: 'detail.endpoint',
                         type: 'string'
-                    },
-                    dtr: {
-                        name: 'detail.root',
-                        type: 'string'
                     }
                 }
             };

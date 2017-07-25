@@ -232,10 +232,6 @@
                     getValue: uriStripper.stripDomain,
                     setValue: uriStripper.restoreDomain
                 },
-                dtr: {
-                    name: 'detail.root',
-                    type: 'string'
-                },
                 dtfs: {
                     name: 'detail.isFullscreen',
                     type: 'boolean'
