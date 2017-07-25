@@ -51,7 +51,8 @@
                     .map(i => i.properties)
                     .sort((a, b) => a.distance > b.distance);
 
-            activeOverlays.setResultCount(results.length);
+            activeOverlays.setResults(results);
+            activeOverlays.setLocation(location);
 
             if (results && results.length > 0) {
                 // found detail item

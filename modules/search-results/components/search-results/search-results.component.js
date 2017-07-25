@@ -92,10 +92,11 @@
         }
 
         function searchByLocation (location) {
-            const isLocation = angular.isArray(location);
+            const isLocation = angular.isArray(location),
+                results = activeOverlays.getResults();
 
             if (isLocation) {
-                vm.layerWarning = activeOverlays.getResultCount() === 0 ? activeOverlays.getOverlaysWarning() : false;
+                vm.layerWarning = results.length === 0 ? activeOverlays.getOverlaysWarning() : false;
                 geosearch.searchFeatures(location).then(setSearchResults).then(updateWarningMessage);
             }
 

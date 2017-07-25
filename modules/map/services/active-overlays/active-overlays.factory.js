@@ -9,13 +9,16 @@
 
     function activeOverlaysFactory (overlays, store) {
         let allOverlays = [],
-            resultCount = 0;
+            allResults = [],
+            location = [];
 
         return {
             getOverlays,
             setOverlays,
-            getResultCount,
-            setResultCount,
+            getResults,
+            setResults,
+            getLocation,
+            setLocation,
             isVisibleAtCurrentZoom,
             getDetailOverlays,
             getOverlaysWarning
@@ -32,12 +35,20 @@
             }
         }
 
-        function getResultCount () {
-            return resultCount;
+        function getResults () {
+            return allResults;
         }
 
-        function setResultCount (count) {
-            resultCount = count;
+        function setResults (results) {
+            allResults = results;
+        }
+
+        function getLocation () {
+            return location;
+        }
+
+        function setLocation (newLocation) {
+            location = newLocation;
         }
 
         function isVisibleAtCurrentZoom (overlay, zoom) {

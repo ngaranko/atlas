@@ -10,3 +10,10 @@
 .c-kadastraal-subject__login-link {
   color: $primary-light !important;
 }
+
+.c-detail__geosearch {
+  display: block;
+  margin: 0;
+  padding: $base-whitespace (4 * $base-whitespace);
+  border-bottom: 1px solid $secondary-gray20;
+}
