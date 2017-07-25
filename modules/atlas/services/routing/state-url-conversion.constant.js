@@ -34,7 +34,12 @@
     //
     angular
         .module('atlas')
-        .constant('STATE_URL_CONVERSION', {
+        .factory('STATE_URL_CONVERSION', stateUrlConversionFactory);
+
+    stateUrlConversionFactory.$inject = ['uriStripper'];
+
+    function stateUrlConversionFactory (uriStripper) {
+        return {
             onCreate: {
                 // Initialisation methods for the url2state conversion
                 // These methods are executed after a state object has been initialized with the initialValues
@@ -223,7 +228,9 @@
                 // detail (dt)
                 dte: {
                     name: 'detail.endpoint',
-                    type: 'string'
+                    type: 'string[]',
+                    getValue: uriStripper.stripDomain,
+                    setValue: uriStripper.restoreDomain
                 },
                 dtr: {
                     name: 'detail.root',
@@ -336,5 +343,6 @@
                     precision: 1
                 }
             }
-        });
+        };
+    }
 })();
