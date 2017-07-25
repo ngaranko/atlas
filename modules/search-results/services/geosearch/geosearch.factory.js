@@ -3,9 +3,9 @@
         .module('dpSearchResults')
         .factory('geosearch', geosearchFactory);
 
-    geosearchFactory.$inject = ['$q', 'SEARCH_CONFIG', 'api', 'geosearchFormatter', 'searchFormatter', 'user'];
+    geosearchFactory.$inject = ['$q', 'SEARCH_CONFIG', 'api', 'geosearchFormatter', 'searchFormatter', 'user', 'store'];
 
-    function geosearchFactory ($q, SEARCH_CONFIG, api, geosearchFormatter, searchFormatter, user) {
+    function geosearchFactory ($q, SEARCH_CONFIG, api, geosearchFormatter, searchFormatter, user, store) {
         return {
             searchFeatures,
             searchDetail
@@ -157,7 +157,9 @@
             return [plaatsCategoryIndex, plaatsEndpoint];
         }
 
-        function searchDetail (location, overlays, zoom) {
+        function searchDetail (location, overlays) {
+            const state = store.getState();
+
             var allRequests = [];
 
             overlays.forEach(function (overlay) {
@@ -169,7 +171,7 @@
                     };
 
                 if (angular.isNumber(overlay.detailSize)) {
-                    const radius = Math.round(Math.pow(2, 16 - zoom) / 2) * overlay.detailSize;
+                    const radius = Math.round(Math.pow(2, 16 - state.map.zoom) / 2) * overlay.detailSize;
                     searchParams.radius = radius;
                 }
 
