@@ -17,12 +17,11 @@
         });
 
     DpSearchResultsController.$inject = [
-        '$rootScope', '$scope', 'search', 'geosearch', 'TabHeader', 'user', 'store', 'ACTIONS',
-        'OVERLAYS', 'activeOverlays', 'zoom'
+        '$rootScope', '$scope', 'search', 'geosearch', 'TabHeader', 'user', 'store', 'ACTIONS', 'activeOverlays'
     ];
 
     function DpSearchResultsController ($rootScope, $scope, search, geosearch, TabHeader, user, store, ACTIONS,
-                                        OVERLAYS, activeOverlays, zoom) {
+                                        activeOverlays) {
         const vm = this;
 
         /**
