@@ -3,12 +3,7 @@
 }
 
 .c-detail__block {
-  margin-right: -$detail-padding;
-  margin-bottom: 4 * $base-whitespace;
-  margin-left: -$detail-padding;
-  padding: 0 (2 * $base-whitespace);
-  padding-bottom: .1 * $base-whitespace;
-  border-bottom: 1px solid $secondary-gray20;
+  @extend %list-block;
 
   .c-detail__block {
     margin: 0;
@@ -17,15 +12,7 @@
   }
 
   .s-indented-list & {
-    margin-right: -$detail-padding;
-    margin-bottom: $base-whitespace;
-    margin-left: -$base-font-size;
-    padding-top: 1.4 * $base-whitespace;
-    padding-right: $detail-padding;
-    padding-bottom: .8 * $base-whitespace;
-    padding-left: $base-font-size;
-    border-bottom: 1px solid $secondary-gray20;
-    border-left: 1px solid $secondary-gray20;
+    @extend %list-block-indented;
 
     .c-detail__block {
       margin: 0;
