@@ -1,5 +1,5 @@
 <div>
-    <div class="u-row">
+    <div class="c-detail__block">
         <dp-glossary-header
             heading="{{ vm.apiData.results.inschrijfnummer }}"
             definition="BEPERKING"
@@ -12,10 +12,9 @@
             <dt>Omschrijving</dt>
             <dd>{{ vm.apiData.results.beperkingcode.omschrijving }}</dd>
         </dl>
-
     </div>
 
-    <div class="u-row qa-brondocument" ng-if="vm.apiData.results.documenten.count === 1">
+    <div class="c-detail__block qa-brondocument" ng-if="vm.apiData.results.documenten.count === 1">
         <dp-glossary-header definition="BRONDOCUMENT"></dp-glossary-header>
 
         <dp-panel is-panel-visible="vm.showMoreInfoWarning" type="warning" can-close="true">
@@ -27,13 +26,13 @@
         <dp-api-call endpoint="{{vm.apiData.results.documenten.href}}" partial="wkpb/brondocument"></dp-api-call>
     </div>
 
-    <div class="u-row" ng-if="vm.apiData.results.documenten.count > 1">
+    <div class="c-detail__block" ng-if="vm.apiData.results.documenten.count > 1">
         <dp-glossary-header definition="BRONDOCUMENT" use-plural="true"></dp-glossary-header>
 
         <dp-api-call endpoint="{{vm.apiData.results.documenten.href}}" partial="lijst"></dp-api-call>
     </div>
 
-    <div class="u-row" ng-if=" vm.apiData.results.kadastrale_objecten.count">
+    <div class="c-detail__block" ng-if=" vm.apiData.results.kadastrale_objecten.count">
         <dp-glossary-header definition="OBJECT" use-plural="true"></dp-glossary-header>
 
         <dp-api-call endpoint="{{vm.apiData.results.kadastrale_objecten.href}}" partial="lijst"></dp-api-call>
