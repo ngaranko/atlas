@@ -8,17 +8,11 @@
     activeOverlaysFactory.$inject = ['overlays', 'store'];
 
     function activeOverlaysFactory (overlays, store) {
-        let allOverlays = [],
-            allResults = [],
-            location = [];
+        let allOverlays = [];
 
         return {
             getOverlays,
             setOverlays,
-            getResults,
-            setResults,
-            getLocation,
-            setLocation,
             isVisibleAtCurrentZoom,
             getDetailOverlays,
             getOverlaysWarning
@@ -33,22 +27,6 @@
             if (!angular.equals(newOverlays, allOverlays)) {
                 allOverlays = newOverlays;
             }
-        }
-
-        function getResults () {
-            return allResults;
-        }
-
-        function setResults (results) {
-            allResults = results;
-        }
-
-        function getLocation () {
-            return location;
-        }
-
-        function setLocation (newLocation) {
-            location = newLocation;
         }
 
         function isVisibleAtCurrentZoom (overlay, zoom) {

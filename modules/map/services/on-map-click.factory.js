@@ -6,9 +6,10 @@
         .factory('onMapClick', onMapClickFactory);
 
     onMapClickFactory.$inject = ['$rootScope', 'store', 'ACTIONS', 'drawTool', 'suppress', 'activeOverlays',
-        'geosearch'];
+        'nearsestDetail'];
 
-    function onMapClickFactory ($rootScope, store, ACTIONS, drawTool, suppress, activeOverlays, geosearch) {
+    function onMapClickFactory ($rootScope, store, ACTIONS, drawTool, suppress, activeOverlays,
+                                nearsestDetail) {
         let location = [],
             type;
 
@@ -29,45 +30,18 @@
 
             if (angular.isObject(state.straatbeeld)) {
                 type = ACTIONS.FETCH_STRAATBEELD_BY_LOCATION;
-            } else {
-                if (visibleOverlays.length > 0) {
-                    // do geosearch for nearest item in overlays
-                    // if it exists go to detail of that item
-                    geosearch.searchDetail(location, visibleOverlays).then(checkForDetailResults);
-                }
             }
 
             if (!(suppress.isBusy() || state.atlas.isEmbedPreview || state.atlas.isEmbed || drawTool.isEnabled())) {
                 $rootScope.$applyAsync(function () {
-                    dispatchAction();
+                    if (visibleOverlays.length > 0) {
+                        // do geosearch for nearest item in overlays
+                        // if it exists go to detail of that item
+                        nearsestDetail.search(location, visibleOverlays, dispatchAction);
+                    } else {
+                        dispatchAction();
+                    }
                 });
-            }
-        }
-
-        function checkForDetailResults (detailResults) {
-            const results = detailResults
-                    .map(i => i.features)
-                    .reduce((a, b) => a.concat(b))
-                    .map(i => i.properties)
-                    .sort((a, b) => a.distance > b.distance);
-
-            activeOverlays.setResults(results);
-            activeOverlays.setLocation(location);
-
-            if (results && results.length > 0) {
-                // found detail item
-                store.dispatch({
-                    type: ACTIONS.MAP_HIGHLIGHT,
-                    payload: false
-                });
-
-                store.dispatch({
-                    type: ACTIONS.FETCH_DETAIL,
-                    payload: results[0].uri
-                });
-            } else {
-                // not found item: do original geosearch
-                dispatchAction();
             }
         }
 

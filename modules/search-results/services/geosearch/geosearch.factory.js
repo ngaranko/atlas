@@ -3,15 +3,14 @@
         .module('dpSearchResults')
         .factory('geosearch', geosearchFactory);
 
-    geosearchFactory.$inject = ['$q', 'SEARCH_CONFIG', 'api', 'geosearchFormatter', 'searchFormatter', 'user', 'store'];
+    geosearchFactory.$inject = ['$q', 'SEARCH_CONFIG', 'api', 'geosearchFormatter', 'searchFormatter', 'user'];
 
-    function geosearchFactory ($q, SEARCH_CONFIG, api, geosearchFormatter, searchFormatter, user, store) {
+    function geosearchFactory ($q, SEARCH_CONFIG, api, geosearchFormatter, searchFormatter, user) {
         return {
-            searchFeatures,
-            searchDetail
+            search
         };
 
-        function searchFeatures (location) {
+        function search (location) {
             const allRequests = [];
 
             SEARCH_CONFIG.COORDINATES_ENDPOINTS.forEach(function (endpoint) {
@@ -154,32 +153,6 @@
                 plaatsEndpoint = plaatsCategory ? plaatsCategory.results[0].endpoint : null;
 
             return [plaatsCategoryIndex, plaatsEndpoint];
-        }
-
-        function searchDetail (location, overlays) {
-            const state = store.getState(),
-                allRequests = [];
-
-            overlays.forEach(function (overlay) {
-                const searchParams = {
-                    item: overlay.detailItem,
-                    lat: location[0],
-                    lon: location[1]
-                };
-
-                if (angular.isNumber(overlay.detailSize)) {
-                    const radius = Math.round(Math.pow(2, 16 - state.map.zoom) / 2) * overlay.detailSize;
-                    searchParams.radius = radius;
-                }
-
-                const request = api.getByUri('geosearch/search/', searchParams).then(
-                    data => data,
-                    () => { return { features: [] }; });    // empty features on failure op api call
-
-                allRequests.push(request);
-            });
-
-            return $q.all(allRequests);
         }
     }
 })();

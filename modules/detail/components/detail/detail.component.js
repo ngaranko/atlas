@@ -23,7 +23,7 @@
         'geojson',
         'crsConverter',
         'dataFormatter',
-        'activeOverlays'
+        'nearsestDetail'
     ];
 
     function DpDetailController (
@@ -37,7 +37,7 @@
             geojson,
             crsConverter,
             dataFormatter,
-            activeOverlays) {
+            nearsestDetail) {
         var vm = this;
 
         // Reload the data when the reload flag has been set (endpoint has not
@@ -69,7 +69,7 @@
             // Derive whether more info is available if the user would be authenticated
             // stored as separate variable to prevent vm manipulation to change the controller logic
             vm.showMoreInfoWarning = !vm.isEmployee;
-            vm.geosearchButton = state.map.highlight ? false : activeOverlays.getLocation();
+            vm.geosearchButton = state.map.highlight ? false : nearsestDetail.getLocation();
 
             const [category, subject] = endpointParser.getParts(endpoint);
             if (!vm.isEmployee && category === 'brk' && subject === 'subject') {

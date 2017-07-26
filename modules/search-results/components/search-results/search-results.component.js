@@ -17,11 +17,12 @@
         });
 
     DpSearchResultsController.$inject = [
-        '$rootScope', '$scope', 'search', 'geosearch', 'TabHeader', 'user', 'store', 'ACTIONS', 'activeOverlays'
+        '$rootScope', '$scope', 'search', 'geosearch', 'TabHeader', 'user', 'store', 'ACTIONS', 'activeOverlays',
+        'nearsestDetail'
     ];
-
+1
     function DpSearchResultsController ($rootScope, $scope, search, geosearch, TabHeader, user, store, ACTIONS,
-                                        activeOverlays) {
+                                        activeOverlays, nearsestDetail) {
         const vm = this;
 
         /**
@@ -93,11 +94,11 @@
 
         function searchByLocation (location) {
             const isLocation = angular.isArray(location),
-                results = activeOverlays.getResults();
+                results = nearsestDetail.getResults();
 
             if (isLocation) {
                 vm.layerWarning = results.length === 0 ? activeOverlays.getOverlaysWarning() : false;
-                geosearch.searchFeatures(location).then(setSearchResults).then(updateWarningMessage);
+                geosearch.search(location).then(setSearchResults).then(updateWarningMessage);
             }
 
             return isLocation;
