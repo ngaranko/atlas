@@ -128,39 +128,39 @@ describe('The dp-bbga-tevredenheid component', function () {
     it('shows a table with a row for each grade from the BBGA API', function () {
         var component = getComponent();
 
-        expect(component.find('.o-table tr:nth-child(1) th').text()).toBe('Variabele A');
-        expect(component.find('.o-table tr:nth-child(2) th').text()).toBe('Variabele B');
+        expect(component.find('.c-table tr:nth-child(1) th').text()).toBe('Variabele A');
+        expect(component.find('.c-table tr:nth-child(2) th').text()).toBe('Variabele B');
     });
 
     it('doesn\'t show a row for missing data', function () {
         var component = getComponent();
 
-        expect(component.find('.o-table').text()).not.toContain('Variabele C');
+        expect(component.find('.c-table').text()).not.toContain('Variabele C');
     });
 
     it('formats the grades in the Dutch locale with one decimal', function () {
         var component = getComponent();
 
         // Variabele A
-        expect(component.find('.o-table tr:nth-child(1) td:nth-of-type(1)').text().trim()).toBe('7,0');
-        expect(component.find('.o-table tr:nth-child(1) td:nth-of-type(2)').text().trim()).toBe('7,4');
+        expect(component.find('.c-table tr:nth-child(1) td:nth-of-type(1)').text().trim()).toBe('7,0');
+        expect(component.find('.c-table tr:nth-child(1) td:nth-of-type(2)').text().trim()).toBe('7,4');
 
         // Variabele B
-        expect(component.find('.o-table tr:nth-child(2) td:nth-of-type(1)').text().trim()).toBe('6,5');
-        expect(component.find('.o-table tr:nth-child(2) td:nth-of-type(2)').text().trim()).toBe('6,3');
+        expect(component.find('.c-table tr:nth-child(2) td:nth-of-type(1)').text().trim()).toBe('6,5');
+        expect(component.find('.c-table tr:nth-child(2) td:nth-of-type(2)').text().trim()).toBe('6,3');
     });
 
     it('adds colored badges to the cells with values', function () {
         var component = getComponent();
 
-        expect(component.find('.o-table tr:nth-child(1) td:nth-of-type(1) .bbga-tevredenheid__value.u-background-colo' +
+        expect(component.find('.c-table tr:nth-child(1) td:nth-of-type(1) .bbga-tevredenheid__value.u-background-colo' +
             'r__thema--9').length).toBe(1);
-        expect(component.find('.o-table tr:nth-child(1) td:nth-of-type(2) .bbga-tevredenheid__value.u-background-colo' +
+        expect(component.find('.c-table tr:nth-child(1) td:nth-of-type(2) .bbga-tevredenheid__value.u-background-colo' +
             'r__primary--contrast').length).toBe(1);
 
-        expect(component.find('.o-table tr:nth-child(2) td:nth-of-type(1) .bbga-tevredenheid__value.u-background-colo' +
+        expect(component.find('.c-table tr:nth-child(2) td:nth-of-type(1) .bbga-tevredenheid__value.u-background-colo' +
             'r__thema--9').length).toBe(1);
-        expect(component.find('.o-table tr:nth-child(2) td:nth-of-type(2) .bbga-tevredenheid__value.u-background-colo' +
+        expect(component.find('.c-table tr:nth-child(2) td:nth-of-type(2) .bbga-tevredenheid__value.u-background-colo' +
             'r__primary--contrast').length).toBe(1);
     });
 
@@ -182,7 +182,7 @@ describe('The dp-bbga-tevredenheid component', function () {
         component = getComponent('Naam van de buurt');
         expect(component.find('.o-header__subtitle').length).toBe(1);
         expect(component.find('p').length).toBe(1);
-        expect(component.find('.o-table').length).toBe(1);
+        expect(component.find('.c-table').length).toBe(1);
         expect(component.find('.o-list .bbga-tevredenheid__legend').length).toBe(2);
 
         hasBbgaData = false;
@@ -190,7 +190,7 @@ describe('The dp-bbga-tevredenheid component', function () {
 
         expect(component.find('.o-header__subtitle').length).toBe(0);
         expect(component.find('p').length).toBe(0);
-        expect(component.find('.o-table').length).toBe(0);
+        expect(component.find('.c-table').length).toBe(0);
         expect(component.find('.o-list .bbga-tevredenheid__legend').length).toBe(0);
     });
 });

@@ -1,5 +1,5 @@
 <div>
-    <div class="default-box">
+    <div>
         <dp-glossary-header
             heading="{{vm.apiData.results.code}}"
             definition="BOUWBLOK"
@@ -16,13 +16,15 @@
         </div>
     </div>
 
-    <div class="list-box" ng-if="vm.apiData.results.panden.count">
+    <div ng-if="vm.apiData.results.panden.count"
+         class="c-detail__block">
         <dp-glossary-header definition="PAND" use-plural="true"></dp-glossary-header>
 
         <dp-api-call endpoint="{{vm.apiData.results.panden.href}}" partial="lijst"></dp-api-call>
     </div>
 
-    <div ng-if="vm.apiData.results.meetbouten">
+    <div ng-if="vm.apiData.results.meetbouten"
+         class="c-detail__block">
         <dp-glossary-header definition="MEETBOUT" use-plural="true"></dp-glossary-header>
 
         <dp-api-call endpoint="{{vm.apiData.results.meetbouten}}" partial="lijst"></dp-api-call>

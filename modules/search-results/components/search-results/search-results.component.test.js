@@ -6,14 +6,12 @@ describe('The dp-search-results component', function () {
         scope,
         element,
         search,
-        geosearch,
         user,
         ACTIONS,
         mockedSearchResults,
         mockedSearchResultsNextPage,
         mockedGeosearchResults,
         mockedNoResults,
-        linkSelector,
         i;
 
     beforeEach(function () {
@@ -53,7 +51,7 @@ describe('The dp-search-results component', function () {
                         return q.promise;
                     }
                 },
-                // Store is used in the non-mocked child directive dp-link
+                // Store is used in the child directive dp-link
                 store: {
                     dispatch: function () {}
                 }
@@ -81,7 +79,6 @@ describe('The dp-search-results component', function () {
             $q = _$q_;
             store = _store_;
             search = _search_;
-            geosearch = _geosearch_;
             user = _user_;
             ACTIONS = _ACTIONS_;
         });
@@ -149,8 +146,7 @@ describe('The dp-search-results component', function () {
                         subtype: 'verblijfsobject'
                     }
                 ],
-                next: null,
-                useIndenting: false
+                next: null
             },
             {
                 label_singular: 'Openbare ruimte',
@@ -164,8 +160,7 @@ describe('The dp-search-results component', function () {
                         subtype: 'weg'
                     }
                 ],
-                next: null,
-                useIndenting: false
+                next: null
             }
         ];
         mockedGeosearchResults = [
@@ -181,69 +176,69 @@ describe('The dp-search-results component', function () {
                     }
                 ],
                 count: 1,
-                useIndenting: false
-            },
-            {
-                label_singular: 'Adres',
-                label_plural: 'Adressen',
-                slug: 'adres',
-                count: 12,
-                results: [
+                subResults: [
                     {
-                        label: 'Lumièrestraat 6',
-                        endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023953/'
-                    },
-                    {
-                        label: 'Lumièrestraat 8',
-                        endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023954/'
-                    },
-                    {
-                        label: 'Lumièrestraat 10',
-                        endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023955/'
-                    },
-                    {
-                        label: 'Lumièrestraat 12',
-                        endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023956/'
-                    },
-                    {
-                        label: 'Lumièrestraat 14',
-                        endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023957/'
-                    },
-                    {
-                        label: 'Lumièrestraat 16',
-                        endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023958/'
-                    },
-                    {
-                        label: 'Lumièrestraat 18',
-                        endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023959/'
-                    },
-                    {
-                        label: 'Lumièrestraat 20',
-                        endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023960/'
-                    },
-                    {
-                        label: 'Lumièrestraat 22',
-                        endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023961/'
-                    },
-                    {
-                        label: 'Lumièrestraat 24',
-                        endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023962/'
-                    },
-                    {
-                        label: 'Lumièrestraat 26',
-                        endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023963/'
-                    },
-                    {
-                        label: 'Lumièrestraat 28',
-                        endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023964/'
+                        label_singular: 'Adres',
+                        label_plural: 'Adressen',
+                        slug: 'adres',
+                        count: 12,
+                        results: [
+                            {
+                                label: 'Lumièrestraat 6',
+                                endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023953/'
+                            },
+                            {
+                                label: 'Lumièrestraat 8',
+                                endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023954/'
+                            },
+                            {
+                                label: 'Lumièrestraat 10',
+                                endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023955/'
+                            },
+                            {
+                                label: 'Lumièrestraat 12',
+                                endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023956/'
+                            },
+                            {
+                                label: 'Lumièrestraat 14',
+                                endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023957/'
+                            },
+                            {
+                                label: 'Lumièrestraat 16',
+                                endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023958/'
+                            },
+                            {
+                                label: 'Lumièrestraat 18',
+                                endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023959/'
+                            },
+                            {
+                                label: 'Lumièrestraat 20',
+                                endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023960/'
+                            },
+                            {
+                                label: 'Lumièrestraat 22',
+                                endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023961/'
+                            },
+                            {
+                                label: 'Lumièrestraat 24',
+                                endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023962/'
+                            },
+                            {
+                                label: 'Lumièrestraat 26',
+                                endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023963/'
+                            },
+                            {
+                                label: 'Lumièrestraat 28',
+                                endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023964/'
+                            }
+                        ],
+                        next: 'https://api.data.amsterdam.nl/bag/verblijfsobject/?page=2&panden__id=03630013054429',
+                        more: {
+                            label: 'Bekijk alle 12 adressen binnen dit pand',
+                            endpoint: 'https://api.data.amsterdam.nl/bag/pand/03630013054429/'
+                        }
                     }
-                ],
-                next: 'https://api.data.amsterdam.nl/bag/verblijfsobject/?page=2&panden__id=03630013054429',
-                more: {
-                    label: 'Bekijk alle 12 adressen binnen dit pand',
-                    endpoint: 'https://api.data.amsterdam.nl/bag/pand/03630013054429/'
-                },
-                useIndenting: true
+                ]
             },
             {
                 label_singular: 'Openbare ruimte',
@@ -265,8 +260,7 @@ describe('The dp-search-results component', function () {
                         endpoint: 'https://api.data.amsterdam.nl/bag/openbareruimte/789/'
                     }
                 ],
-                count: 3,
-                useIndenting: false
+                count: 3
             },
             {
                 label_singular: 'Kadastraal object',
@@ -279,8 +273,7 @@ describe('The dp-search-results component', function () {
                         endpoint: 'https://api.data.amsterdam.nl/brk/object/NL.KAD.OnroerendeZaak.11820015470000/'
                     }
                 ],
-                count: 1,
-                useIndenting: false
+                count: 1
             },
             {
                 label_singular: 'Gebied',
@@ -312,13 +305,10 @@ describe('The dp-search-results component', function () {
                         endpoint: 'https://api.data.amsterdam.nl/gebieden/stadsdeel/03630011872039/'
                     }
                 ],
-                count: 5,
-                useIndenting: false
+                count: 5
             }
         ];
         mockedNoResults = [];
-
-        linkSelector = '.qa-search-result dp-link:not(dp-link-to-page dp-link)';
 
         spyOn(store, 'dispatch');
         spyOn(user, 'meetsRequiredLevel');
@@ -426,52 +416,13 @@ describe('The dp-search-results component', function () {
         });
 
         describe('has category support', function () {
-            it('has both singular and plural variations for the headings of categories', function () {
-                let component;
-
-                // A category with 11 search results uses the plural form and it shows the number of results in brackets
-                component = getComponent(12, 'Weesperstraat');
-                expect(component.find('.qa-search-header').eq(0).text().trim()).toBe('Adressen (11)');
-
-                // A category with 1 search result uses the singular form and doesn't show the number or results
-                mockedSearchResults[0].count = 1;
-                mockedSearchResults[0].results.length = 1;
-                component = getComponent(12, 'Weesperstraat');
-                expect(component.find('.qa-search-header').eq(0).text().trim()).toBe('Adres');
-            });
-
-            it('has a plural heading in case only a warning is shown', function () {
-                user.meetsRequiredLevel.and.returnValue(false);
-                const component = getComponent(22, null, [51.123, 4.789]);
-                const isolateScope = component.isolateScope();
-
-                isolateScope.vm.searchResults[3].results = [];
-                isolateScope.vm.searchResults[3].count = 0;
-                isolateScope.$digest();
-
-                const categoryNode = component.find('[ng-repeat="category in vm.searchResults"]').eq(3);
-                expect(categoryNode.find('.qa-category-warning').length).toBe(1);
-                expect(categoryNode.find('.qa-search-header').text().trim()).toBe('Kadastrale objecten');
-            });
-
-            it('categories with more than 10 results show a link to the category', function () {
-                let component;
-
-                // A category with 11 search results uses the plural form and it shows the number of results in brackets
-                component = getComponent(12, 'Weesperstraat');
-                expect(removeWhitespace(component.find(linkSelector).eq(10).text()))
-                    .toBe('Toon alle 11');
-                component.find(`${linkSelector} button`).click();
-                expect(store.dispatch).toHaveBeenCalledWith({
-                    type: ACTIONS.FETCH_SEARCH_RESULTS_CATEGORY,
-                    payload: 'adres'
-                });
-
+            it('categories with more than 1000 results use a thousand separator in the show more button', function () {
                 // This link shows numbers with a thousand separator
                 mockedSearchResults[0].count = 1234;
-                component = getComponent(12, 'Weesperstraat');
-                expect(removeWhitespace(component.find(linkSelector).eq(10).text()))
-                    .toBe('Toon alle 1.234');
+                const component = getComponent(12, 'Weesperstraat');
+                const categoryNode = component.find('dp-search-results-categories').eq(0);
+                const showMoreNode = categoryNode.find('.qa-show-more');
+                expect(showMoreNode.text().trim()).toBe('Toon alle 1.234');
             });
 
             describe('the category page', function () {
@@ -484,25 +435,15 @@ describe('The dp-search-results component', function () {
                 });
 
                 it('shows all links from the search API (instead of just the first 10)', function () {
-                    expect(component.find(linkSelector).length).toBe(11);
+                    expect(component.find('.qa-list-item-link').length).toBe(11);
 
                     // The first link
-                    expect(removeWhitespace(component.find(linkSelector).eq(0).text()))
+                    expect(removeWhitespace(component.find('.qa-list-item-link').eq(0).text()))
                         .toBe('Weesperstraat 101');
-                    component.find(`${linkSelector} button`).click();
-                    expect(store.dispatch).toHaveBeenCalledWith({
-                        type: ACTIONS.FETCH_DETAIL,
-                        payload: 'https://some-domain/bag/verblijfsobject/03630000864309/'
-                    });
 
                     // The last link
-                    expect(removeWhitespace(component.find(linkSelector).eq(10).text()))
+                    expect(removeWhitespace(component.find('.qa-list-item-link').eq(10).text()))
                         .toBe('Weesperstraat 117');
-                    component.find(`${linkSelector} button`).click();
-                    expect(store.dispatch).toHaveBeenCalledWith({
-                        type: ACTIONS.FETCH_DETAIL,
-                        payload: 'https://some-domain/bag/verblijfsobject/03630000864316/'
-                    });
                 });
 
                 it('can have a show more link inside the category', function () {
@@ -523,7 +464,7 @@ describe('The dp-search-results component', function () {
                     component = getComponent(22, 'Weesperstraat', null, 'adres');
 
                     // It only shows the first 25 results
-                    expect(component.find(linkSelector).length).toBe(25);
+                    expect(component.find('.qa-list-item-link').length).toBe(25);
                     expect(component.find('.qa-show-more').text().trim()).toBe('Toon meer');
 
                     // Click the 'Toon meer' link
@@ -531,10 +472,10 @@ describe('The dp-search-results component', function () {
                     $rootScope.$apply();
 
                     // Now it shows all 30 search results
-                    expect(component.find(linkSelector).length).toBe(30);
+                    expect(component.find('.qa-list-item-link').length).toBe(30);
 
                     // And it no longer shows a 'Toon meer' link
-                    expect(component.find(linkSelector).length)
+                    expect(component.find('.qa-list-item-link').length)
                         .toBe(30); // Instead of 31 (30 dp-link + 1 'Toon meer')
                 });
             });
@@ -546,134 +487,6 @@ describe('The dp-search-results component', function () {
 
         beforeEach(function () {
             component = getComponent(22, null, [51.123, 4.789]);
-        });
-
-        it('shows search results from the geosearch API on the scope', function () {
-            expect(component.find('.qa-search-header').length).toBe(5);
-
-            // 21 Links include an additional 'show more' link to Pand and it includes only 10 adressen instead of 12
-            expect(component.find(linkSelector).length).toBe(21);
-
-            // First category
-            expect(component.find('.qa-search-header')
-                .eq(0).text().trim()).toBe('Pand'); // Singular, no number of results shown
-
-            expect(removeWhitespace(component.find(linkSelector).eq(0).text())).toBe('03630013054429');
-            component.find(linkSelector).eq(0).find('button').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://api.data.amsterdam.nl/bag/pand/03630013054429/'
-            });
-
-            // Second category
-            expect(component.find('.qa-search-header')
-                .eq(1).text().trim()).toBe('Adressen (12)'); // Plural, with number of results
-
-            expect(removeWhitespace(component.find(linkSelector).eq(1).text()))
-                .toBe('Lumièrestraat 6');
-            component.find(linkSelector).eq(1).find('button').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023953/'
-            });
-
-            expect(removeWhitespace(component.find(linkSelector).eq(10).text()))
-                .toBe('Lumièrestraat 24');
-            component.find(linkSelector).eq(10).find('button').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630001023962/'
-            });
-
-            // Third category
-            expect(component.find('.qa-search-header').eq(2).text().trim()).toBe('Openbare ruimtes (3)'); // Plural
-
-            expect(removeWhitespace(component.find(linkSelector).eq(12).text())).toBe('Test OR #1');
-            component.find(linkSelector).eq(12).find('button').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://api.data.amsterdam.nl/bag/openbareruimte/123/'
-            });
-
-            expect(removeWhitespace(component.find(linkSelector).eq(14).text())).toBe('Test OR #3');
-            component.find(linkSelector).eq(14).find('button').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://api.data.amsterdam.nl/bag/openbareruimte/789/'
-            });
-
-            // Fourth category
-            expect(component.find('.qa-search-header').eq(3).text().trim()).toBe('Kadastraal object'); // Singular
-
-            expect(removeWhitespace(component.find(linkSelector).eq(15).text()))
-                .toBe('ASD41AU00154G0000');
-            component.find(linkSelector).eq(15).find('button').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://api.data.amsterdam.nl/brk/object/NL.KAD.OnroerendeZaak.11820015470000/'
-            });
-
-            // Fifth category
-            expect(component.find('.qa-search-header').eq(4).text().trim()).toBe('Gebieden (5)'); // Plural
-
-            expect(removeWhitespace(component.find(linkSelector).eq(16).text()))
-                .toBe('Haveneiland Noordoost');
-            component.find(linkSelector).eq(16).find('button').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://api.data.amsterdam.nl/gebieden/buurt/03630023754004/'
-            });
-
-            expect(removeWhitespace(component.find(linkSelector).eq(20).text())).toBe('Oost');
-            component.find(linkSelector).eq(20).find('button').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://api.data.amsterdam.nl/gebieden/stadsdeel/03630011872039/'
-            });
-        });
-
-        it('search on change of location', function () {
-            expect(scope.isLoading).toBe(false);
-            spyOn(geosearch, 'search').and.callThrough();
-            expect(geosearch.search).not.toHaveBeenCalled();
-            scope.location = [9, 10];
-            $rootScope.$digest();
-            expect(geosearch.search).toHaveBeenCalled();
-        });
-
-        it('has indenting for certain \'related\' categories', function () {
-            // Without indenting
-            [0, 2, 3, 4].forEach(function (categoryIndex) {
-                expect(component.find('[ng-repeat="category in vm.searchResults"]').eq(categoryIndex).attr('class'))
-                    .not.toContain('s-indented-result');
-            });
-
-            // With indenting
-            expect(component.find('[ng-repeat="category in vm.searchResults"]').eq(1).attr('class'))
-                .toContain('s-indented-result');
-        });
-
-        it('has more link support', function () {
-            // When there are more than 10 adressen
-            expect(component.find(linkSelector).eq(11).find('button').text().trim())
-                .toBe('Bekijk alle 12 adressen binnen dit pand');
-
-            component.find(linkSelector).eq(11).find('button').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://api.data.amsterdam.nl/bag/pand/03630013054429/'
-            });
-
-            const numberOfDpLinks = component.find(linkSelector).length;
-
-            // When there are 10 or less adressen
-            mockedGeosearchResults[1].count = 10;
-            mockedGeosearchResults[1].results.length = 10;
-
-            component = getComponent(22, null, [51.123, 4.789]);
-            expect(component.find(linkSelector).eq(11).find('button').text().trim())
-                .not.toBe('Bekijk alle 12 adressen binnen dit pand');
-            expect(component.find(linkSelector).length).toBe(numberOfDpLinks - 1);
         });
 
         it('calls dispatch with the number of search results', function () {
@@ -696,7 +509,7 @@ describe('The dp-search-results component', function () {
 
             const component = getComponent(22, null, [51.123, 4.789]);
 
-            const categoryNode = component.find('[ng-repeat="category in vm.searchResults"]').eq(3);
+            const categoryNode = component.find('[ng-repeat="category in vm.categories"]').eq(3);
             expect(categoryNode.find('.qa-search-header').text().trim()).toBe('Kadastraal object');
 
             expect(categoryNode.find('.qa-category-warning').length).toBe(0);
@@ -708,7 +521,7 @@ describe('The dp-search-results component', function () {
             );
             const component = getComponent(22, null, [51.123, 4.789]);
 
-            const categoryNode = component.find('[ng-repeat="category in vm.searchResults"]').eq(3);
+            const categoryNode = component.find('[ng-repeat="category in vm.categories"]').eq(3);
             expect(categoryNode.find('.qa-search-header').text().trim()).toBe('Kadastraal object');
 
             expect(categoryNode.find('.qa-category-warning').text()).toContain(
@@ -722,7 +535,7 @@ describe('The dp-search-results component', function () {
             user.meetsRequiredLevel.and.returnValue(false);
             const component = getComponent(22, null, [51.123, 4.789]);
 
-            const categoryNode = component.find('[ng-repeat="category in vm.searchResults"]').eq(3);
+            const categoryNode = component.find('[ng-repeat="category in vm.categories"]').eq(3);
             expect(categoryNode.find('.qa-search-header').text().trim()).toBe('Kadastraal object');
 
             expect(categoryNode.find('.qa-category-warning').text()).toContain(
@@ -739,7 +552,7 @@ describe('The dp-search-results component', function () {
                 required => required === user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS
             );
             const component = getComponent(22, null, [51.123, 4.789]);
-            const categoryNode = component.find('[ng-repeat="category in vm.searchResults"]').eq(3);
+            const categoryNode = component.find('[ng-repeat="category in vm.categories"]').eq(3);
             expect(categoryNode.find('.qa-search-header').text().trim()).toBe('Kadastraal object');
             expect(categoryNode.find('.qa-category-warning').length).toBe(0);
 

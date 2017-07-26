@@ -13,8 +13,7 @@
   margin-bottom: $base-whitespace;
   color: $primary-contrast;
 
-  .s-indented-list &,
-  .s-indented-result & {
+  .s-indented-list & {
     @include font-size-responsive($m-header-font);
     margin-bottom: $base-whitespace;
     color: $secondary-gray60;
@@ -28,14 +27,6 @@
 }
 
 .o-header__button {
-  width: $button-size;
-  height: $button-size;
-  margin-left: $base-whitespace;
+  margin-left: .5 * $base-whitespace;
   float: right;
-}
-
-.o-header__button--image {
-  display: none;
-  width: $button-size;
-  height: $button-size;
 }

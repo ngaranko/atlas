@@ -1,8 +1,11 @@
-<div class="u-padding__top--2">
-    <img class="u-pull--left u-margin__bottom--4" width="160" height="72" src="assets/images/gemeente-amsterdam.png" alt="Gemeente Amsterdam" title="Gemeente Amsterdam">
+<div class="u-padding__top--2 u-padding__bottom--4">
+    <img
+         width="160" height="72"
+         src="assets/images/gemeente-amsterdam.png"
+         alt="Gemeente Amsterdam" title="Gemeente Amsterdam">
+</div>
 
-    <div class="u-clearfix"></div>
-
+<div class="c-detail__block">
     <h3 class="o-header__subtitle">Opgegeven zoekcriteria</h3>
     <dl class="c-key-value-list">
         <dt>Datum rapport</dt>
@@ -18,7 +21,9 @@
         <dt>Kadaster</dt>
         <dd>{{vm.apiData.results._display}}</dd>
     </dl>
+</div>
 
+<div class="c-detail__block">
     <h3 class="o-header__subtitle">Kadastraal object</h3>
     <dl class="c-key-value-list">
         <dt>Gemeentecode</dt>
@@ -42,31 +47,32 @@
         <dt>Coordinaten</dt>
         <dd>{{vm.apiData.results.geometrie.coordinates[0][0][0].join(', ')}}</dd>
     </dl>
+</div>
 
-    <div ng-if="vm.apiData.results.beperkingen">
-        <div ng-repeat="beperking in vm.apiData.results.beperkingen">
-            <h3 class="o-header__subtitle">Gemeentelijke publiekrechtelijke beperking<sup>*</sup></h3>
-            <dl class="c-key-value-list">
-                <dt>Inschrijfnummer</dt>
-                <dd>{{beperking.inschrijfnummer}}</dd>
-                <dt>Beperkingcode</dt>
-                <dd>{{beperking.beperkingcode.code}}</dd>
-                <dt>Korte omschrijving</dt>
-                <dd>{{beperking.beperkingcode.omschrijving}}</dd>
-                <dt>Datum in werking</dt>
-                <dd>{{beperking.datum_in_werking | date:'dd-MM-yyyy'}}</dd>
-            </dl>
-        </div>
-
-        <p>
-            * Alleen de gemeentelijke beperkingen worden getoond. Er kunnen vier dagen zitten tussen het kenbaar maken van een beperkingenbesluit en inschrijving daarvan in het register. Voor een volledig overzicht van alle publiek- en privaatrechtelijke beperkingen bij dit kadastraal object wordt u verzocht de website van het Kadaster, www.kadaster.nl, te raadplegen.
-        </p>
+<div ng-if="vm.apiData.results.beperkingen">
+    <div ng-repeat="beperking in vm.apiData.results.beperkingen"
+         class="c-detail__block">
+        <h3 class="o-header__subtitle">Gemeentelijke publiekrechtelijke beperking<sup>*</sup></h3>
+        <dl class="c-key-value-list">
+            <dt>Inschrijfnummer</dt>
+            <dd>{{beperking.inschrijfnummer}}</dd>
+            <dt>Beperkingcode</dt>
+            <dd>{{beperking.beperkingcode.code}}</dd>
+            <dt>Korte omschrijving</dt>
+            <dd>{{beperking.beperkingcode.omschrijving}}</dd>
+            <dt>Datum in werking</dt>
+            <dd>{{beperking.datum_in_werking | date:'dd-MM-yyyy'}}</dd>
+        </dl>
     </div>
 
-    <div class="c-panel u-margin__top--1">
-        <section>
-            <h3 class="c-panel__title">Disclaimer</h3>
-            <p class="c-panel__paragraph">Let op: de Wet kenbaarheid publiekrechtelijke beperkingen onroerende zaken schrijft voor dat beperkingen op kadastraal object worden geregistreerd. Om zeker te weten waar een beperking op rust, raadpleeg het brondocument via het Stadsloket.</p>
-        </section>
-    </div>
+    <p class="u-margin__bottom--4">
+        * Alleen de gemeentelijke beperkingen worden getoond. Er kunnen vier dagen zitten tussen het kenbaar maken van een beperkingenbesluit en inschrijving daarvan in het register. Voor een volledig overzicht van alle publiek- en privaatrechtelijke beperkingen bij dit kadastraal object wordt u verzocht de website van het Kadaster, www.kadaster.nl, te raadplegen.
+    </p>
+</div>
+
+<div class="c-panel">
+    <section>
+        <h3 class="c-panel__title">Disclaimer</h3>
+        <p class="c-panel__paragraph">Let op: de Wet kenbaarheid publiekrechtelijke beperkingen onroerende zaken schrijft voor dat beperkingen op kadastraal object worden geregistreerd. Om zeker te weten waar een beperking op rust, raadpleeg het brondocument via het Stadsloket.</p>
+    </section>
 </div>

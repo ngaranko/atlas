@@ -296,7 +296,6 @@ describe('The geosearch factory', function () {
                     subtype: null
                 }
             ],
-            useIndenting: false,
             next: null
         };
 
@@ -332,7 +331,6 @@ describe('The geosearch factory', function () {
                     subtype: null
                 }
             ],
-            useIndenting: false,
             next: null
         };
 
@@ -406,7 +404,7 @@ describe('The geosearch factory', function () {
             mockedFormattedSearchResults.splice(1, 0, mockedFormattedPandSearchResult);
 
             expectedSearchResults = angular.copy(mockedFormattedSearchResults);
-            expectedSearchResults.splice(2, 0, mockedFormattedNummeraanduidingenApiResults);
+            expectedSearchResults[1].subResults = [mockedFormattedNummeraanduidingenApiResults];
 
             geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
                 searchResults = _searchResults_;
@@ -414,8 +412,7 @@ describe('The geosearch factory', function () {
 
             $rootScope.$apply();
 
-            expectedSearchResults[2].useIndenting = true;
-            expectedSearchResults[2].more = {
+            expectedSearchResults[1].subResults[0].more = {
                 label: 'Bekijk alle 2 adressen binnen dit pand',
                 endpoint: 'https://api.data.amsterdam.nl/bag/pand/0456789/'
             };
@@ -444,7 +441,7 @@ describe('The geosearch factory', function () {
             mockedFormattedSearchResults.splice(1, 0, mockedFormattedPandSearchResult);
 
             expectedSearchResults = angular.copy(mockedFormattedSearchResults);
-            expectedSearchResults.splice(2, 0, mockedFormattedVestigingenApiResults);
+            expectedSearchResults[1].subResults = [mockedFormattedVestigingenApiResults];
 
             geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
                 searchResults = _searchResults_;
@@ -452,8 +449,7 @@ describe('The geosearch factory', function () {
 
             $rootScope.$apply();
 
-            expectedSearchResults[2].useIndenting = true;
-            expectedSearchResults[2].more = {
+            expectedSearchResults[1].subResults[0].more = {
                 label: 'Bekijk alle 2 vestigingen binnen dit pand',
                 endpoint: 'https://api.data.amsterdam.nl/bag/pand/0456789/'
             };
@@ -477,8 +473,10 @@ describe('The geosearch factory', function () {
             mockedFormattedSearchResults.splice(1, 0, mockedFormattedPandSearchResult);
 
             expectedSearchResults = angular.copy(mockedFormattedSearchResults);
-            expectedSearchResults.splice(2, 0, mockedFormattedVestigingenApiResults);
-            expectedSearchResults.splice(2, 0, mockedFormattedNummeraanduidingenApiResults);
+            expectedSearchResults[1].subResults = [
+                mockedFormattedNummeraanduidingenApiResults,
+                mockedFormattedVestigingenApiResults
+            ];
 
             geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
                 searchResults = _searchResults_;
@@ -486,14 +484,13 @@ describe('The geosearch factory', function () {
 
             $rootScope.$apply();
 
-            expectedSearchResults[2].useIndenting = true;
-            expectedSearchResults[2].more = {
+            expectedSearchResults[1].subResults[0].authLevel = 'EMPLOYEE';
+            expectedSearchResults[1].subResults[0].more = {
                 label: 'Bekijk alle 2 adressen binnen dit pand',
                 endpoint: 'https://api.data.amsterdam.nl/bag/pand/0456789/'
             };
 
-            expectedSearchResults[3].useIndenting = true;
-            expectedSearchResults[3].more = {
+            expectedSearchResults[1].subResults[1].more = {
                 label: 'Bekijk alle 2 vestigingen binnen dit pand',
                 endpoint: 'https://api.data.amsterdam.nl/bag/pand/0456789/'
             };
@@ -522,8 +519,7 @@ describe('The geosearch factory', function () {
             mockedFormattedSearchResults.splice(1, 0, mockedFormattedPandSearchResult);
 
             expectedSearchResults = angular.copy(mockedFormattedSearchResults);
-            // expectedSearchResults.splice(2, 0, mockedFormattedVestigingenApiResults);
-            expectedSearchResults.splice(2, 0, mockedFormattedNummeraanduidingenApiResults);
+            expectedSearchResults[1].subResults = [mockedFormattedNummeraanduidingenApiResults];
 
             geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
                 searchResults = _searchResults_;
@@ -531,8 +527,7 @@ describe('The geosearch factory', function () {
 
             $rootScope.$apply();
 
-            expectedSearchResults[2].useIndenting = true;
-            expectedSearchResults[2].more = {
+            expectedSearchResults[1].subResults[0].more = {
                 label: 'Bekijk alle 2 adressen binnen dit pand',
                 endpoint: 'https://api.data.amsterdam.nl/bag/pand/0456789/'
             };

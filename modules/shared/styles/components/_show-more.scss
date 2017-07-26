@@ -10,17 +10,6 @@
   }
 }
 
-.s-indented-result {
-  .c-show-more {
-    color: $primary-contrast;
-    line-height: $list-item-height;
-  }
-
-  &:hover {
-    color: $secondary-gray60;
-  }
-}
-
 .c-show-more--less {
   @extend %link--min;
 }
