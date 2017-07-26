@@ -20,7 +20,7 @@
         '$rootScope', '$scope', 'search', 'geosearch', 'TabHeader', 'user', 'store', 'ACTIONS', 'activeOverlays',
         'nearsestDetail'
     ];
-1
+
     function DpSearchResultsController ($rootScope, $scope, search, geosearch, TabHeader, user, store, ACTIONS,
                                         activeOverlays, nearsestDetail) {
         const vm = this;

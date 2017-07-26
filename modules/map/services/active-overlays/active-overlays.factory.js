@@ -14,7 +14,7 @@
             getOverlays,
             setOverlays,
             isVisibleAtCurrentZoom,
-            getDetailOverlays,
+            getVisibleOverlays,
             getOverlaysWarning
         };
 
@@ -34,8 +34,8 @@
             return zoom >= overlays.SOURCES[overlay].minZoom && zoom <= overlays.SOURCES[overlay].maxZoom;
         }
 
-        function getDetailOverlays (zoom) {
-            return getVisibleOverlays(zoom)
+        function getVisibleOverlays (zoom) {
+            return getVisibleSources(zoom)
                 .filter(source => source.detailItem && source.detailSize)
                 .filter((a, index, self) => self.findIndex((b) => {
                     return b.detailItem === a.detailItem;
@@ -43,14 +43,14 @@
         }
 
         function getOverlaysWarning (zoom) {
-            return getVisibleOverlays(zoom)
+            return getVisibleSources(zoom)
                 .filter(source => source.noDetail)
                 .map(a => a.label_short)
                 .join(', ');
         }
 
         // non public methods
-        function getVisibleOverlays (zoom) {
+        function getVisibleSources (zoom) {
             return allOverlays.filter(source => source.isVisible && isVisibleAtCurrentZoom(source.id, zoom))
                 .map(source => overlays.SOURCES[source.id]);
         }

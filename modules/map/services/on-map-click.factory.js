@@ -22,7 +22,7 @@
         }
 
         function onMapClick (event) {
-            const visibleOverlays = activeOverlays.getDetailOverlays(),
+            const visibleOverlays = activeOverlays.getVisibleOverlays(),
                 state = store.getState();
 
             type = ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION;
