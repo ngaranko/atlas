@@ -1,4 +1,4 @@
-(function () {
+(() => {
     angular
         .module('dpSearchResults')
         .factory('geosearch', geosearchFactory);
@@ -12,20 +12,19 @@
         };
 
         function searchFeatures (location) {
-            var allRequests = [];
+            const allRequests = [];
 
             SEARCH_CONFIG.COORDINATES_ENDPOINTS.forEach(function (endpoint) {
-                var request,
-                    searchParams = {
-                        lat: location[0],
-                        lon: location[1]
-                    };
+                const searchParams = {
+                    lat: location[0],
+                    lon: location[1]
+                };
 
                 if (angular.isNumber(endpoint.radius)) {
                     searchParams.radius = endpoint.radius;
                 }
 
-                request = api.getByUri(endpoint.uri, searchParams).then(
+                const request = api.getByUri(endpoint.uri, searchParams).then(
                     data => data,
                     () => { return { features: [] }; });    // empty features on failure op api call
 
@@ -158,24 +157,22 @@
         }
 
         function searchDetail (location, overlays) {
-            const state = store.getState();
-
-            var allRequests = [];
+            const state = store.getState(),
+                allRequests = [];
 
             overlays.forEach(function (overlay) {
-                var request,
-                    searchParams = {
-                        item: overlay.detailItem,
-                        lat: location[0],
-                        lon: location[1]
-                    };
+                const searchParams = {
+                    item: overlay.detailItem,
+                    lat: location[0],
+                    lon: location[1]
+                };
 
                 if (angular.isNumber(overlay.detailSize)) {
                     const radius = Math.round(Math.pow(2, 16 - state.map.zoom) / 2) * overlay.detailSize;
                     searchParams.radius = radius;
                 }
 
-                request = api.getByUri('geosearch/search/', searchParams).then(
+                const request = api.getByUri('geosearch/search/', searchParams).then(
                     data => data,
                     () => { return { features: [] }; });    // empty features on failure op api call
 
@@ -183,7 +180,6 @@
             });
 
             return $q.all(allRequests);
-                // .then(getRelatedObjects);
         }
     }
 })();
