@@ -3,9 +3,9 @@
         .module('dpShared')
         .factory('nearsestDetail', nearsestDetailFactory);
 
-    nearsestDetailFactory.$inject = ['$q', 'api', 'store', 'ACTIONS'];
+    nearsestDetailFactory.$inject = ['$q', 'api', 'store', 'ACTIONS', 'mapConfig'];
 
-    function nearsestDetailFactory ($q, api, store, ACTIONS) {
+    function nearsestDetailFactory ($q, api, store, ACTIONS, mapConfig) {
         let detailResults = [],
             detailLocation = [],
             dispatcher;
@@ -41,8 +41,7 @@
                 };
 
                 if (angular.isNumber(overlay.detailSize)) {
-                    const radius = Math.round(Math.pow(2, 16 - state.map.zoom) / 2) * overlay.detailSize;
-                    searchParams.radius = radius;
+                    searchParams.radius = Math.round(Math.pow(2, mapConfig.BASE_LAYER_OPTIONS.maxZoom - state.map.zoom) / 2) * (overlay.detailSize || 1);
                 }
 
                 const request = api.getByUri('geosearch/search/', searchParams).then(
