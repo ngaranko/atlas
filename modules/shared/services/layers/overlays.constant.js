@@ -299,7 +299,6 @@
                     'Graphic&sld_version=1.1.0&layer=bouwblok&format=image/png&STYLE=default'
                 },
 
-
                 // geografie: hoogte
                 dsm: {
                     label_short: 'Oppervlaktemodel (DSM AHN)',
