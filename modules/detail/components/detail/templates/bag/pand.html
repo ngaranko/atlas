@@ -1,5 +1,5 @@
 <div>
-    <div class="u-row">
+    <div class="c-detail__block">
         <div class="o-header">
             <dp-glossary-header
                 heading="{{vm.apiData.results._display}}"
@@ -34,7 +34,8 @@
         </div>
     </div>
 
-    <div ng-if="vm.apiData.results.verblijfsobjecten.count">
+    <div ng-if="vm.apiData.results.verblijfsobjecten.count"
+         class="c-detail__block">
         <!--
         There is no _adressen.count variable. But this check is still valid, because:
 
@@ -50,7 +51,7 @@
         <dp-api-call endpoint="{{vm.apiData.results._adressen.href}}" partial="adressen_lijst"></dp-api-call>
     </div>
 
-    <div>
+    <div class="c-detail__block">
         <dp-glossary-header definition="VESTIGING" use-plural="true"></dp-glossary-header>
 
         <dp-panel is-panel-visible="vm.showMoreInfoWarning" can-close="true" type="warning">

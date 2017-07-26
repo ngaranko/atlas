@@ -70,7 +70,6 @@
                     const formatted = (objecten && objecten.count)
                             ? searchFormatter.formatCategory('adres', objecten) : null,
                         extended = formatted ? angular.extend(formatted, {
-                            useIndenting: true,
                             more: {
                                 label: `Bekijk alle ${formatted.count} adressen binnen dit pand`,
                                 endpoint: pand._links.self.href
@@ -85,7 +84,6 @@
                             ? searchFormatter.formatCategory('vestiging', vestigingen) : null,
                         extended = formatted ? angular.extend(formatted, {
                             authLevel: 'EMPLOYEE',
-                            useIndenting: true,
                             more: {
                                 label: `Bekijk alle ${formatted.count} vestigingen binnen dit pand`,
                                 endpoint: pand._links.self.href
@@ -99,8 +97,7 @@
                         filteredResults = results.filter(angular.identity);
 
                     if (filteredResults.length) {
-                        // Splice modifies the existing Array, we don't want our input to change hence the copy
-                        geosearchResultsCopy.splice(pandCategoryIndex + 1, 0, ...filteredResults);
+                        geosearchResultsCopy[pandCategoryIndex].subResults = filteredResults;
                     }
 
                     q.resolve(geosearchResultsCopy);

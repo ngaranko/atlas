@@ -1,5 +1,5 @@
 <div>
-    <div class="u-row qa-kadastraal-subject">
+    <div class="c-detail__block qa-kadastraal-subject">
         <dp-glossary-header
             heading="{{vm.apiData.results._display}}"
             definition="SUBJECT"
@@ -86,10 +86,12 @@
             </dl>
         </div>
     </div>
-    <div ng-if="vm.apiData" class="u-row qa-kadastraal-subject-recht">
+
+    <div ng-if="vm.apiData"
+         class="c-detail__block qa-kadastraal-subject-recht">
         <dp-glossary-header definition="ZAKELIJK_RECHT" use-plural="true"></dp-glossary-header>
 
-        <dp-panel is-panel-visible="vm.showInsufficientRightsMessage" type="warning" can-close="true" class-name="c-kadastraal-subject__warning">
+        <dp-panel is-panel-visible="vm.showInsufficientRightsMessage" type="warning" can-close="true" class-name="c-detail-kadastraal-subject__warning">
             Medewerkers met speciale bevoegdheden kunnen alle gegevens zien (ook zakelijke rechten).
             Zie <dp-link-to-page item="item9" class-name="c-link--light"></dp-link-to-page>.
         </dp-panel>

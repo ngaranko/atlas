@@ -1,5 +1,6 @@
 <div>
-    <div ng-if="apiData.results._display" class="qa-nummeraanduiding">
+    <div ng-if="apiData.results._display"
+         class="c-detail__block qa-nummeraanduiding">
 
         <dp-nummeraanduiding-header ng-if="apiData.results.verblijfsobject"
             heading="{{apiData.results._display}}"
@@ -14,7 +15,7 @@
             meta-data="apiData">
         </dp-glossary-header>
 
-        <dl class="c-key-value-list u-margin__bottom--4">
+        <dl class="c-key-value-list">
             <dt>Naam openbare ruimte</dt>
             <dd ng-if="apiData.results.openbare_ruimte">
                 <dp-link type="FETCH_DETAIL"

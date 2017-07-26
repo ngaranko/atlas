@@ -126,8 +126,13 @@
          * For both SEARCH BY QUERY (with and without category) and GEOSEARCH
          */
         function setSearchResults (searchResults) {
-            const numberOfResults = searchResults.reduce(function (previous, current) {
-                return previous + current.count;
+            const numberOfResults = searchResults.reduce((previous, current) => {
+                return previous + current.count +
+                    (current.subResults
+                        ? current.subResults.reduce((subPrevious, subCurrent) => {
+                            return subPrevious + subCurrent.count;
+                        }, 0)
+                        : 0);
             }, 0);
 
             updateTabHeader(vm.query, numberOfResults);

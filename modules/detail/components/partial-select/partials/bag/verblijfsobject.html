@@ -1,7 +1,7 @@
 <div>
-    <div class="u-row qa-verblijfsobject">
+    <div class="c-detail__block qa-verblijfsobject">
         <dp-glossary-header definition="VERBLIJFSOBJECT" meta-data="apiData"></dp-glossary-header>
-        <dl class="c-key-value-list u-margin__bottom--4">
+        <dl class="c-key-value-list">
             <dt>Gebruiksdoel</dt>
             <dd>{{ apiData.results.gebruiksdoel.omschrijving }}</dd>
             <dt>Feitelijk gebruik</dt>
@@ -41,21 +41,24 @@
     </div>
 
     <!-- Adres -->
-    <div ng-if="apiData.results.adressen.count > 1">
+    <div ng-if="apiData.results.adressen.count > 1"
+         class="c-detail__block">
         <dp-glossary-header definition="NUMMERAANDUIDING" use-plural="true"></dp-glossary-header>
 
         <dp-api-call endpoint="{{apiData.results.adressen.href}}" partial="adressen_lijst"></dp-api-call>
     </div>
 
     <!-- Pand -->
-    <div ng-if="apiData.results.panden.count">
+    <div ng-if="apiData.results.panden.count"
+         class="c-detail__block">
         <dp-glossary-header definition="PAND" use-plural="true"></dp-glossary-header>
 
         <dp-api-call endpoint="{{apiData.results.panden.href}}" partial="lijst"></dp-api-call>
     </div>
 
     <!-- Vestiging -->
-    <div ng-if="apiData.results.hoofdadres.landelijk_id">
+    <div ng-if="apiData.results.hoofdadres.landelijk_id"
+         class="c-detail__block">
         <dp-glossary-header definition="VESTIGING" use-plural="true"></dp-glossary-header>
 
         <dp-panel is-panel-visible="showMoreInfoWarning" can-close="true" type="warning">
@@ -67,7 +70,8 @@
     </div>
 
     <!-- Kadastraal apiData -->
-    <div ng-if="apiData.results.kadastrale_objecten.count" class="qa-kadastraal-object-list">
+    <div ng-if="apiData.results.kadastrale_objecten.count"
+         class="c-detail__block qa-kadastraal-object-list">
         <dp-glossary-header definition="OBJECT" use-plural="true"></dp-glossary-header>
 
         <dp-panel is-panel-visible="showMoreInfoWarning" type="warning" can-close="true">

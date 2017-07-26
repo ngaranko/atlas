@@ -1,5 +1,5 @@
 <div class="detail-page__content--main">
-    <div class="u-row">
+    <div class="c-detail__block">
       <dp-glossary-header
         heading="{{vm.apiData.results.naam}}"
         definition="WOONPLAATS"
@@ -14,7 +14,8 @@
       </dl>
     </div>
 
-    <div ng-if="vm.apiData.results.openbare_ruimtes.count">
+    <div ng-if="vm.apiData.results.openbare_ruimtes.count"
+         class="c-detail__block">
       <dp-glossary-header definition="OPENBARERUIMTE" use-plural="true"></dp-glossary-header>
 
       <dp-api-call endpoint="{{vm.apiData.results.openbare_ruimtes.href}}" partial="adressen_lijst"></dp-api-call>
