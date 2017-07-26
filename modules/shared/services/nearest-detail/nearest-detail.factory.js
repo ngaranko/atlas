@@ -41,7 +41,9 @@
                 };
 
                 if (angular.isNumber(overlay.detailSize)) {
-                    searchParams.radius = Math.round(Math.pow(2, mapConfig.BASE_LAYER_OPTIONS.maxZoom - state.map.zoom) / 2) * (overlay.detailSize || 1);
+                    searchParams.radius = Math.round(
+                        Math.pow(2, mapConfig.BASE_LAYER_OPTIONS.maxZoom - state.map.zoom) / 2) *
+                        (overlay.detailSize || 1);
                 }
 
                 const request = api.getByUri('geosearch/search/', searchParams).then(
