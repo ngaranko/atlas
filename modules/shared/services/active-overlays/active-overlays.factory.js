@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('dpMap')
+        .module('dpShared')
         .factory('activeOverlays', activeOverlaysFactory);
 
     activeOverlaysFactory.$inject = ['overlays', 'store'];
