@@ -12,21 +12,27 @@
             RADIUS: 50,
             THUMBNAIL_WIDTH: 240,
             STRAATBEELD_THUMB_URL: 'panorama/thumbnail/',
-            AUTH_HEADER_PREFIX: 'Bearer '
+            AUTH_HEADER_PREFIX: 'Bearer ',
+            // Allows sanity checking input of root keys based on white listing
+            ROOT_KEYS: ['API_ROOT', 'CATALOGUS_ROOT']
         };
 
         const environmentConfig = {
             PRODUCTION: {
-                API_ROOT: 'https://api.data.amsterdam.nl/'
+                API_ROOT: 'https://api.data.amsterdam.nl/',
+                CATALOGUS_ROOT: 'https://catalogus.data.amsterdam.nl/'
             },
             PRE_PRODUCTION: {
-                API_ROOT: 'https://api.data.amsterdam.nl/'
+                API_ROOT: 'https://api.data.amsterdam.nl/',
+                CATALOGUS_ROOT: 'https://catalogus.data.amsterdam.nl/'
             },
             ACCEPTATION: {
-                API_ROOT: 'https://acc.api.data.amsterdam.nl/'
+                API_ROOT: 'https://acc.api.data.amsterdam.nl/',
+                CATALOGUS_ROOT: 'https://acc.catalogus.data.amsterdam.nl/'
             },
             DEVELOPMENT: {
-                API_ROOT: 'https://acc.api.data.amsterdam.nl/'
+                API_ROOT: 'https://acc.api.data.amsterdam.nl/',
+                CATALOGUS_ROOT: 'https://acc.catalogus.data.amsterdam.nl/'
             }
         };
 

@@ -1,7 +1,7 @@
-<div class="c-search-results">
+<div class="c-search-results u-grid">
     <dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>
 
-    <div ng-if="!vm.isLoading" class="u-row">
+    <div ng-if="!vm.isLoading">
         <dp-tab-header ng-if="vm.showTabHeader()" search-text="{{vm.query}}" tab-header="vm.tabHeader"></dp-tab-header>
 
         <div ng-if="vm.numberOfResults" class="qa-search-result">
@@ -13,64 +13,23 @@
                     location="vm.location">
                 </dp-search-results-header>
 
-                <div class="u-padding__top-2 u-padding__bottom--2" ng-class="{
-                        'u-col-sm--12': !vm.location,
-                        'u-col-sm--8': vm.location
-                    }">
-
-                    <div ng-repeat="category in vm.searchResults"
-                         class="u-margin__bottom--4"
-                         ng-class="{
-                            's-indented-result': category.useIndenting,
-                         }"
-                         ng-if="category.count >= 1 || category.warning">
-
-                        <div ng-if="!category.authLevel || vm.meetsRequiredLevel(category.authLevel)">
-
-                            <h2 class="o-header__subtitle qa-search-header">
-                                <span ng-if="category.count > 1">{{category.label_plural}} (<span class="qa-search-header-count">{{category.count | number}}</span>)</span>
-                                <span ng-if="category.count === 1">{{category.label_singular}}</span>
-                                <span ng-if="category.count === 0">{{category.label_plural}}</span>
-                            </h2>
-
-                            <dp-panel ng-if="category.warning" is-panel-visible="category.warning" type="warning" can-close="true" class="qa-category-warning">
-                                {{ category.warning }}
-                                Zie <dp-link-to-page item="item9" class-name="c-link--light"></dp-link-to-page>.
-                            </dp-panel>
-
-                            <dp-search-results-list category="category" limit-results="true"></dp-search-results-list>
-
-                            <div ng-if="category.count > 10" class="qa-show-more">
-                                <dp-link ng-if="category.more"
-                                         class-name="c-show-more u-margin__top-05
-                                             {{category.useIndenting ? '' : 'c-show-more--gray'}}"
-                                         type="FETCH_DETAIL"
-                                         payload="category.more.endpoint"
-                                    >{{category.more.label}}</dp-link>
-
-                                <dp-link ng-if="!category.more"
-                                         class-name="c-show-more u-margin__top-05
-                                             {{category.useIndenting ? '' : 'c-show-more--gray'}}"
-                                         type="FETCH_SEARCH_RESULTS_CATEGORY"
-                                         payload="category.slug"
-                                    >Toon alle {{category.count | number}}</dp-link>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <dp-panel ng-if="!vm.meetsRequiredLevel('EMPLOYEE')" is-panel-visible="!vm.meetsRequiredLevel('EMPLOYEE')" type="warning" can-close="true" class="qa-category-warning">
-                        <h3 class="c-panel__title">Meer resultaten na inloggen</h3>
-                        <p class="c-panel__paragraph">Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer te vinden: kadastrale subjecten, vestigingen en maatschappelijke activiteiten.
-                        Zie <dp-link-to-page item="item9" class-name="c-link--light"></dp-link-to-page>.
-                    </dp-panel>
-                </div>
-
-                <div ng-if="vm.location" class="u-col-sm--4">
+                <div ng-if="vm.location" class="c-search-results__thumbnail">
                     <dp-straatbeeld-thumbnail location="vm.location"></dp-straatbeeld-thumbnail>
                 </div>
+
+                <dp-search-results-categories categories="vm.searchResults"></dp-search-results-categories>
+
+                <dp-panel ng-if="!vm.meetsRequiredLevel('EMPLOYEE')"
+                          is-panel-visible="true"
+                          type="warning"
+                          can-close="true"
+                          class="qa-category-warning">
+                    <h3 class="c-panel__title">Meer resultaten na inloggen</h3>
+                    <p class="c-panel__paragraph">Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer te vinden: kadastrale subjecten, vestigingen en maatschappelijke activiteiten.
+                    Zie <dp-link-to-page item="item9" class-name="c-link--light"></dp-link-to-page>.
+                </dp-panel>
             </div>
-            <div ng-if="vm.category">
+            <div ng-if="vm.category" class="u-row">
                 <dp-search-results-header
                     number-of-results="vm.numberOfResults"
                     query="{{vm.query}}"
@@ -79,7 +38,7 @@
                     search-results="vm.searchResults">
                 </dp-search-results-header>
 
-                <div class="u-padding__top-2 u-padding__bottom--2" ng-class="{
+                <div class="u-padding__bottom--2" ng-class="{
                         'u-col-sm--12': !vm.location,
                         'u-col-sm--8': vm.location
                     }">
@@ -101,14 +60,14 @@
             </div>
         </div>
 
-        <div ng-if="vm.location && !vm.numberOfResults">
+        <div ng-if="vm.location && !vm.numberOfResults" class="u-row">
             <dp-search-results-header
                 number-of-results="vm.numberOfResults"
                 query="{{vm.query}}"
                 location="vm.location">
             </dp-search-results-header>
 
-            <div class="u-padding__top-2 u-padding__bottom--2" ng-class="{
+            <div class="u-padding__bottom--2" ng-class="{
                     'u-col-sm--12': !vm.location,
                     'u-col-sm--8': vm.location
                 }">
