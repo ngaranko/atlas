@@ -1,9 +1,18 @@
 describe('The state url conversion definition', function () {
     let STATE_URL_CONVERSION,
-        DRAW_TOOL_CONFIG;
+        DRAW_TOOL_CONFIG,
+        uriStripper;
 
     beforeEach(function () {
-        angular.mock.module('atlas', {});
+        uriStripper = {
+            stripDomain: angular.noop,
+            restoreDomain: angular.noop
+        };
+
+        angular.mock.module('atlas', { uriStripper });
+
+        spyOn(uriStripper, 'stripDomain');
+        spyOn(uriStripper, 'restoreDomain');
 
         angular.mock.inject(function (_STATE_URL_CONVERSION_, _DRAW_TOOL_CONFIG_) {
             STATE_URL_CONVERSION = _STATE_URL_CONVERSION_;
@@ -292,6 +301,32 @@ describe('The state url conversion definition', function () {
                 expect(newState).toEqual({
                     id: 2
                 });
+            });
+        });
+    });
+
+    describe('The registered value getters and setters', function () {
+        describe('detail endpoint', () => {
+            it('gets the value by separating the domain from the endpoint', () => {
+                const value = 'https://root.amsterdam.nl/endpoint';
+                const expected = ['ROOT', 'endpoint'];
+
+                uriStripper.stripDomain.and.returnValue(expected);
+                const actual = STATE_URL_CONVERSION.stateVariables.dte.getValue(value);
+
+                expect(actual).toBe(expected);
+                expect(uriStripper.stripDomain).toHaveBeenCalledWith(value);
+            });
+
+            it('sets the value by joining the domain to the endpoint', () => {
+                const value = ['ROOT', 'endpoint'];
+                const expected = 'https://root.amsterdam.nl/endpoint';
+
+                uriStripper.restoreDomain.and.returnValue(expected);
+                const actual = STATE_URL_CONVERSION.stateVariables.dte.setValue(value);
+
+                expect(actual).toBe(expected);
+                expect(uriStripper.restoreDomain).toHaveBeenCalledWith(value);
             });
         });
     });

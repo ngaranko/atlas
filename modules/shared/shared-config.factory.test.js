@@ -29,6 +29,7 @@ describe('The sharedConfig factory', function () {
 
             // Environment config
             expect(sharedConfig.API_ROOT).toBe('https://api.data.amsterdam.nl/');
+            expect(sharedConfig.CATALOGUS_ROOT).toBe('https://catalogus.data.amsterdam.nl/');
         });
 
         it('PRE_PRODUCTION', function () {
@@ -41,6 +42,7 @@ describe('The sharedConfig factory', function () {
 
             // Environment config
             expect(sharedConfig.API_ROOT).toBe('https://api.data.amsterdam.nl/');
+            expect(sharedConfig.CATALOGUS_ROOT).toBe('https://catalogus.data.amsterdam.nl/');
         });
 
         it('ACCEPTATION', function () {
@@ -53,6 +55,7 @@ describe('The sharedConfig factory', function () {
 
             // Environment config
             expect(sharedConfig.API_ROOT).toBe('https://acc.api.data.amsterdam.nl/');
+            expect(sharedConfig.CATALOGUS_ROOT).toBe('https://acc.catalogus.data.amsterdam.nl/');
         });
 
         it('DEVELOPMENT', function () {
@@ -65,6 +68,7 @@ describe('The sharedConfig factory', function () {
 
             // Environment config
             expect(sharedConfig.API_ROOT).toBe('https://acc.api.data.amsterdam.nl/');
+            expect(sharedConfig.CATALOGUS_ROOT).toBe('https://acc.catalogus.data.amsterdam.nl/');
         });
     });
 });

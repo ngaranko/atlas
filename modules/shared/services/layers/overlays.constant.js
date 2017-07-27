@@ -304,8 +304,8 @@
 
                 // geografie: hoogte
                 dsm: {
-                    label_short: 'Terreinmodel (DSM AHN)',
-                    label_long: 'Terreinmodel (DSM AHN)',
+                    label_short: 'Oppervlaktemodel (DSM AHN)',
+                    label_long: 'Oppervlaktemodel (DSM AHN)',
                     url: 'https://geodata.nationaalgeoregister.nl/ahn3/wms?',
                     layers: ['ahn3_05m_dsm'],
                     minZoom: 10,
@@ -316,8 +316,8 @@
                     noDetail: true
                 },
                 dtm: {
-                    label_short: 'Oppervlaktemodel (DTM AHN)',
-                    label_long: 'Oppervlaktemodel (DTM AHN)',
+                    label_short: 'Terreinmodel (DTM AHN)',
+                    label_long: 'Terreinmodel (DTM AHN)',
                     url: 'https://geodata.nationaalgeoregister.nl/ahn3/wms?',
                     layers: ['ahn3_05m_dtm'],
                     minZoom: 10,
