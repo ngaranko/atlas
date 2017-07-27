@@ -7,8 +7,7 @@
 
     function nearestDetailFactory ($q, api, store, ACTIONS, mapConfig) {
         let detailResults = [],
-            detailLocation = [],
-            dispatcher;
+            detailLocation = [];
 
         return {
             getResults,
@@ -25,13 +24,11 @@
             return detailLocation;
         }
 
-        function search (location, overlays, callback) {
-            const state = store.getState(),
-                allRequests = [];
+        function search (location, overlays, zoom) {
+            const allRequests = [];
 
             detailLocation = location;
             detailResults = [];
-            dispatcher = callback;
 
             overlays.forEach(function (overlay) {
                 const searchParams = {
@@ -42,7 +39,7 @@
 
                 if (angular.isNumber(overlay.detailSize)) {
                     searchParams.radius = Math.round(
-                        Math.pow(2, mapConfig.BASE_LAYER_OPTIONS.maxZoom - state.map.zoom) / 2) *
+                        Math.pow(2, mapConfig.BASE_LAYER_OPTIONS.maxZoom - zoom) / 2) *
                         (overlay.detailSize || 1);
                 }
 
@@ -77,9 +74,12 @@
                     type: ACTIONS.FETCH_DETAIL,
                     payload: results[0].uri
                 });
-            } else if (angular.isFunction(dispatcher)) {
+            } else {
                 // not found item: do original geosearch
-                dispatcher.call();
+                store.dispatch({
+                    type: ACTIONS.MAP_CLICK,
+                    payload: detailLocation
+                });
             }
         }
     }
