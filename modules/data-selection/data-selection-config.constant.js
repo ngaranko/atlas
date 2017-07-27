@@ -128,8 +128,8 @@
                 catalogus: {
                     MAX_ITEMS_PER_PAGE: 100,
                     CUSTOM_API: 'dataSelectionApiCkan',
-                    ENDPOINT_PREVIEW: 'catalogus/api/3/action/package_search',
-                    ENDPOINT_DETAIL: 'catalogus/api/3/action/package_show',
+                    ENDPOINT_PREVIEW: 'api/3/action/package_search',
+                    ENDPOINT_DETAIL: 'api/3/action/package_show',
                     PRIMARY_KEY: 'id',
                     TITLE: 'Catalogus',
                     SHOW_FILTER_OPTION_COUNTS: false,
