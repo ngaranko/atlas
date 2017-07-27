@@ -11,20 +11,6 @@
             restoreDomain
         };
 
-        /**
-         * Strips a domain, as specified in `sharedConfig`, from the given
-         * uri.
-         *
-         * The possible domains are specified in `sharedConfig` by key. This
-         * key will be used as the return value for the domain being stripped.
-         * All possible domain keys are white listed in
-         * `sharedConfig.ROOT_KEYS`.
-         *
-         * @param {string} uri The uri to strip the domain from.
-         * @return {string[]} Containing one or two items. The config key of
-         * the domain stripped and the uri without the domain. Or, in case the
-         * uri has an unknown or no domain, the unmodified uri only.
-         */
         function stripDomain (uri) {
             let result = [uri];
 
@@ -40,19 +26,6 @@
             return result;
         }
 
-        /**
-         * Restores a domain to a uri that has had its domain stripped from it.
-         *
-         * This is the reverse of the `stripDomain` function.
-         *
-         * The domain key specified will be checked for existance in the white
-         * list `sharedConfig.ROOT_KEYS`.
-         *
-         * @param {string[]} Containing one or two items. The config key of
-         * the domain and the uri without the domain. Or only a uri. This is
-         * the value as returned by `stripDomain`.
-         * @return {string} The uri with its domain attached to it.
-         */
         function restoreDomain (parts) {
             let result;
 
