@@ -7,12 +7,16 @@
 
     stateUrlConverterFactory.$inject = [
         'STATE_URL_CONVERSION',
-        'dpBaseCoder'
+        'dpBaseCoder',
+        'sharedConfig',
+        'uriStripper'
     ];
 
     function stateUrlConverterFactory (
         STATE_URL_CONVERSION,
-        dpBaseCoder
+        dpBaseCoder,
+        sharedConfig,
+        uriStripper
     ) {
         const URL_ARRAY_SEPARATOR = ':';    // Choose any of -._~:[]@!$'()*+,;`.
         const ARRAY_DENOTATOR = '[]';
@@ -244,10 +248,18 @@
         }
 
         function state2params (state) {
+            // Remove the domain from the endpoint so only the relative URI is
+            // encoded in the URL.
+            const strippedDomainState = (state.detail && state.detail.endpoint)
+                ? Object.assign({}, state, {
+                    detail: Object.assign({}, state.detail, uriStripper.stripDomain(state.detail.endpoint))
+                })
+                : state;
+
             // Converts a state to a params object that is stored in the url
             return Object.keys(STATE_URL_CONVERSION.stateVariables).reduce((result, key) => {
                 const attribute = STATE_URL_CONVERSION.stateVariables[key];
-                let value = getValueForKey(state, attribute.name);
+                let value = getValueForKey(strippedDomainState, attribute.name);
                 if (value !== null) {
                     // store value in url
                     if (angular.isFunction(attribute.getValue)) {
@@ -263,8 +275,17 @@
         }
 
         function params2state (oldState, params) {
+            // Prepend domain before endpoint full URL ends up in the state.
+            if (params.dte &&
+                params.dtr &&
+                // Check root based on white listing for security reasons
+                sharedConfig.ROOT_KEYS.indexOf(params.dtr) !== -1
+            ) {
+                params.dte = sharedConfig[params.dtr] + params.dte;
+            }
+
             // Converts a params object (payload or url value) to a new state object
-            let newState = createObject(oldState, MAIN_STATE, params);
+            let newState = createObject (oldState, MAIN_STATE, params);
 
             newState = Object.keys(STATE_URL_CONVERSION.stateVariables).reduce((result, key) => {
                 const attribute = STATE_URL_CONVERSION.stateVariables[key];

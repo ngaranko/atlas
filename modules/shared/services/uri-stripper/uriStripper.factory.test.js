@@ -6,7 +6,6 @@ describe('The uri stripper factory', function () {
             function ($provide) {
                 $provide.factory('sharedConfig', () => {
                     return {
-                        ROOT_KEYS: ['API_ROOT', 'CATALOGUS_ROOT'],
                         API_ROOT: 'https://api.data.amsterdam.nl/',
                         CATALOGUS_ROOT: 'https://catalogus.data.amsterdam.nl/'
                     };
@@ -22,135 +21,63 @@ describe('The uri stripper factory', function () {
     it('strips the API root from the URI', () => {
         expect(uriStripper.stripDomain(
             'https://api.data.amsterdam.nl/foo'
-        )).toEqual([
-            'API_ROOT',
-            'foo'
-        ]);
+        )).toEqual({
+            root: 'API_ROOT',
+            endpoint: 'foo'
+        });
         expect(uriStripper.stripDomain(
             'https://api.data.amsterdam.nl/meetbouten/meetbout/1234/'
-        )).toEqual([
-            'API_ROOT',
-            'meetbouten/meetbout/1234/'
-        ]);
+        )).toEqual({
+            root: 'API_ROOT',
+            endpoint: 'meetbouten/meetbout/1234/'
+        });
         expect(uriStripper.stripDomain(
             'https://api.data.amsterdam.nl/panorama/thumbnail/TMX1234-000030_pano_0001_000010/?width=140&heading=26'
-        )).toEqual([
-            'API_ROOT',
-            'panorama/thumbnail/TMX1234-000030_pano_0001_000010/?width=140&heading=26'
-        ]);
+        )).toEqual({
+            root: 'API_ROOT',
+            endpoint: 'panorama/thumbnail/TMX1234-000030_pano_0001_000010/?width=140&heading=26'
+        });
     });
 
     it('strips the Catalogus root from the URI', () => {
         expect(uriStripper.stripDomain(
             'https://catalogus.data.amsterdam.nl/foo'
-        )).toEqual([
-            'CATALOGUS_ROOT',
-            'foo'
-        ]);
+        )).toEqual({
+            root: 'CATALOGUS_ROOT',
+            endpoint: 'foo'
+        });
         expect(uriStripper.stripDomain(
             'https://catalogus.data.amsterdam.nl/meetbouten/meetbout/1234/'
-        )).toEqual([
-            'CATALOGUS_ROOT',
-            'meetbouten/meetbout/1234/'
-        ]);
+        )).toEqual({
+            root: 'CATALOGUS_ROOT',
+            endpoint: 'meetbouten/meetbout/1234/'
+        });
         expect(uriStripper.stripDomain(
             'https://catalogus.data.amsterdam.nl/panorama/thumbnail/TMX1234-000030_pano_0001_000010/' +
                 '?width=140&heading=26'
-        )).toEqual([
-            'CATALOGUS_ROOT',
-            'panorama/thumbnail/TMX1234-000030_pano_0001_000010/?width=140&heading=26'
-        ]);
+        )).toEqual({
+            root: 'CATALOGUS_ROOT',
+            endpoint: 'panorama/thumbnail/TMX1234-000030_pano_0001_000010/?width=140&heading=26'
+        });
     });
 
     it('does not strip none API roots from the URI', () => {
         expect(uriStripper.stripDomain(
             'https://foo.amsterdam.nl/foo'
-        )).toEqual([
-            'https://foo.amsterdam.nl/foo'
-        ]);
+        )).toEqual({
+            endpoint: 'https://foo.amsterdam.nl/foo'
+        });
 
         expect(uriStripper.stripDomain(
             'https://data.amsterdam.nl/foo'
-        )).toEqual([
-            'https://data.amsterdam.nl/foo'
-        ]);
+        )).toEqual({
+            endpoint: 'https://data.amsterdam.nl/foo'
+        });
 
         expect(uriStripper.stripDomain(
             'https://foo.data.amsterdam.nl/foo'
-        )).toEqual([
-            'https://foo.data.amsterdam.nl/foo'
-        ]);
-    });
-
-    it('restores the API root to the URI', () => {
-        expect(uriStripper.restoreDomain([
-            'API_ROOT',
-            'foo'
-        ])).toEqual(
-            'https://api.data.amsterdam.nl/foo'
-        );
-        expect(uriStripper.restoreDomain([
-            'API_ROOT',
-            'meetbouten/meetbout/1234/'
-        ])).toEqual(
-            'https://api.data.amsterdam.nl/meetbouten/meetbout/1234/'
-        );
-        expect(uriStripper.restoreDomain([
-            'API_ROOT',
-            'panorama/thumbnail/TMX1234-000030_pano_0001_000010/?width=140&heading=26'
-        ])).toEqual(
-            'https://api.data.amsterdam.nl/panorama/thumbnail/TMX1234-000030_pano_0001_000010/?width=140&heading=26'
-        );
-    });
-
-    it('restores the Catalogus root to the URI', () => {
-        expect(uriStripper.restoreDomain([
-            'CATALOGUS_ROOT',
-            'foo'
-        ])).toEqual(
-            'https://catalogus.data.amsterdam.nl/foo'
-        );
-        expect(uriStripper.restoreDomain([
-            'CATALOGUS_ROOT',
-            'meetbouten/meetbout/1234/'
-        ])).toEqual(
-            'https://catalogus.data.amsterdam.nl/meetbouten/meetbout/1234/'
-        );
-        expect(uriStripper.restoreDomain([
-            'CATALOGUS_ROOT',
-            'panorama/thumbnail/TMX1234-000030_pano_0001_000010/?width=140&heading=26'
-        ])).toEqual(
-            'https://catalogus.data.amsterdam.nl/panorama/thumbnail/TMX1234-000030_pano_0001_000010/' +
-                '?width=140&heading=26'
-        );
-    });
-
-    it('does not restore faulty API roots to the URI', () => {
-        expect(uriStripper.restoreDomain([
-            'FAULTY_ROOT',
-            'foo'
-        ])).toEqual(
-            'foo'
-        );
-    });
-
-    it('does not restore none API roots to the URI', () => {
-        expect(uriStripper.restoreDomain([
-            'https://foo.amsterdam.nl/foo'
-        ])).toEqual(
-            'https://foo.amsterdam.nl/foo'
-        );
-
-        expect(uriStripper.restoreDomain([
-            'https://data.amsterdam.nl/foo'
-        ])).toEqual(
-            'https://data.amsterdam.nl/foo'
-        );
-
-        expect(uriStripper.restoreDomain([
-            'https://foo.data.amsterdam.nl/foo'
-        ])).toEqual(
-            'https://foo.data.amsterdam.nl/foo'
-        );
+        )).toEqual({
+            endpoint: 'https://foo.data.amsterdam.nl/foo'
+        });
     });
 });

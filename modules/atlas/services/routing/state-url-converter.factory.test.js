@@ -120,15 +120,25 @@ describe('The state url conversion factory', function () {
             angular.mock.module('atlas',
                 function ($provide) {
                     $provide.constant('STATE_URL_CONVERSION', mockedStateUrlConversion);
+                    $provide.factory('sharedConfig', () => {
+                        return {
+                            API_ROOT: 'https://api.data.amsterdam.nl/',
+                            CATALOGUS_ROOT: 'https://catalogus.data.amsterdam.nl/'
+                        };
+                    });
                 }
             );
 
-            angular.mock.inject(function (_stateUrlConverter_) {
+            angular.mock.inject(function (_STATE_URL_CONVERSION_, _stateUrlConverter_) {
                 stateUrlConverter = _stateUrlConverter_;
             });
         });
 
         describe('The state to params translation', function () {
+            beforeEach(function () {
+
+            });
+
             it('translates an empty state to empty params', function () {
                 const params = stateUrlConverter.state2params({});
                 expect(params).toEqual({});
@@ -218,6 +228,26 @@ describe('The state url conversion factory', function () {
                 const link = stateUrlConverter.state2url(mockedState);
                 expect(link).toEqual('#?b=T');
             });
+
+            it('removes the API_ROOT from the detail endpoint URL', () => {
+                const mockedState = {
+                    detail: {
+                        endpoint: 'https://api.data.amsterdam.nl/foo/bar'
+                    }
+                };
+                const link = stateUrlConverter.state2url(mockedState);
+                expect(link).toEqual('#?dte=foo/bar&dtr=API_ROOT');
+            });
+
+            it('removes the CATALOGUS_ROOT from the detail endpoint URL', () => {
+                const mockedState = {
+                    detail: {
+                        endpoint: 'https://api.data.amsterdam.nl/foo/bar'
+                    }
+                };
+                const link = stateUrlConverter.state2url(mockedState);
+                expect(link).toEqual('#?dte=foo/bar&dtr=CATALOGUS_ROOT');
+            });
         });
 
         describe('The params to state translation', function () {
@@ -259,6 +289,55 @@ describe('The state url conversion factory', function () {
                     kv: { aap: 'noot', mies: 'teun' },
                     osb: { id: 'aap', isVisible: true },
                     v: 'setValue.v'
+                });
+            });
+
+            it('prepends the specified root to the detail endpoint', () => {
+                // API_ROOT
+                const apiState = stateUrlConverter.params2state({}, {
+                    dte: 'foo/bar',
+                    dtr: 'API_ROOT'
+                });
+
+                expect(apiState).toEqual({
+                    detail: {
+                        endpoint: 'https://api.data.amsterdam.nl/foo/bar'
+                    }
+                });
+
+                // CATALOGUS_ROOT
+                const catalogusState = stateUrlConverter.params2state({}, {
+                    dte: 'foo/bar',
+                    dtr: 'CATALOGUS_ROOT'
+                });
+
+                expect(catalogusState).toEqual({
+                    detail: {
+                        endpoint: 'https://catalogus.data.amsterdam.nl/foo/bar'
+                    }
+                });
+
+                // Non existing root
+                const faultState = stateUrlConverter.params2state({}, {
+                    dte: 'foo/bar',
+                    dtr: 'FAULT_ROOT'
+                });
+
+                expect(faultState).toEqual({
+                    detail: {
+                        endpoint: 'foo/bar'
+                    }
+                });
+
+                // No root specified
+                const noState = stateUrlConverter.params2state({}, {
+                    dte: 'foo/bar'
+                });
+
+                expect(noState).toEqual({
+                    detail: {
+                        endpoint: 'foo/bar'
+                    }
                 });
             });
 
