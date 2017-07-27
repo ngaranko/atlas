@@ -18,11 +18,11 @@
 
     DpSearchResultsController.$inject = [
         '$rootScope', '$scope', 'search', 'geosearch', 'TabHeader', 'user', 'store', 'ACTIONS', 'activeOverlays',
-        'nearsestDetail'
+        'nearestDetail'
     ];
 
     function DpSearchResultsController ($rootScope, $scope, search, geosearch, TabHeader, user, store, ACTIONS,
-                                        activeOverlays, nearsestDetail) {
+                                        activeOverlays, nearestDetail) {
         const vm = this;
 
         /**
@@ -94,7 +94,7 @@
 
         function searchByLocation (location) {
             const isLocation = angular.isArray(location),
-                results = nearsestDetail.getResults();
+                results = nearestDetail.getResults();
 
             if (isLocation) {
                 vm.layerWarning = results.length === 0 ? activeOverlays.getOverlaysWarning() : false;

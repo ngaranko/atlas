@@ -6,10 +6,10 @@
         .factory('onMapClick', onMapClickFactory);
 
     onMapClickFactory.$inject = ['$rootScope', 'store', 'ACTIONS', 'drawTool', 'suppress', 'activeOverlays',
-        'nearsestDetail'];
+        'nearestDetail'];
 
     function onMapClickFactory ($rootScope, store, ACTIONS, drawTool, suppress, activeOverlays,
-                                nearsestDetail) {
+                                nearestDetail) {
         let location = [],
             type;
 
@@ -37,7 +37,7 @@
                     if (visibleOverlays.length > 0) {
                         // do geosearch for nearest item in overlays
                         // if it exists go to detail of that item
-                        nearsestDetail.search(location, visibleOverlays, dispatchAction);
+                        nearestDetail.search(location, visibleOverlays, dispatchAction);
                     } else {
                         dispatchAction();
                     }

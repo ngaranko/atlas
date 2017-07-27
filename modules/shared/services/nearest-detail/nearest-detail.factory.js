@@ -1,11 +1,11 @@
 (() => {
     angular
         .module('dpShared')
-        .factory('nearsestDetail', nearsestDetailFactory);
+        .factory('nearestDetail', nearestDetailFactory);
 
-    nearsestDetailFactory.$inject = ['$q', 'api', 'store', 'ACTIONS', 'mapConfig'];
+    nearestDetailFactory.$inject = ['$q', 'api', 'store', 'ACTIONS', 'mapConfig'];
 
-    function nearsestDetailFactory ($q, api, store, ACTIONS, mapConfig) {
+    function nearestDetailFactory ($q, api, store, ACTIONS, mapConfig) {
         let detailResults = [],
             detailLocation = [],
             dispatcher;
