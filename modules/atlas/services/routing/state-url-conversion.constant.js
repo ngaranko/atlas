@@ -225,10 +225,6 @@
                     name: 'detail.endpoint',
                     type: 'string'
                 },
-                dtr: {
-                    name: 'detail.root',
-                    type: 'string'
-                },
                 dtfs: {
                     name: 'detail.isFullscreen',
                     type: 'boolean'

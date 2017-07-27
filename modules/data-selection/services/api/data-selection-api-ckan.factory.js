@@ -25,7 +25,7 @@
                 searchParams.q = searchText;
             }
 
-            const endpoint = sharedConfig.CATALOGUS_ROOT + config.ENDPOINT_PREVIEW;
+            const endpoint = config.ENDPOINT_ROOT + config.ENDPOINT_PREVIEW;
             api.getByUrl(endpoint, searchParams).then(data => {
                 if (data.success) {
                     deferred.resolve({
@@ -88,7 +88,7 @@
         }
 
         function getDetailEndpoint (config, rawDataRow) {
-            return sharedConfig.CATALOGUS_ROOT + config.ENDPOINT_DETAIL +
+            return config.ENDPOINT_ROOT + config.ENDPOINT_DETAIL +
                 '?id=' + rawDataRow[config.PRIMARY_KEY];
         }
     }

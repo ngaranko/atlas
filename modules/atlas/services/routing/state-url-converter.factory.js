@@ -252,7 +252,9 @@
             // encoded in the URL.
             const strippedDomainState = (state.detail && state.detail.endpoint)
                 ? Object.assign({}, state, {
-                    detail: Object.assign({}, state.detail, uriStripper.stripDomain(state.detail.endpoint))
+                    detail: Object.assign({}, state.detail, {
+                        endpoint: uriStripper.stripDomain(state.detail.endpoint)
+                    })
                 })
                 : state;
 
@@ -276,12 +278,8 @@
 
         function params2state (oldState, params) {
             // Prepend domain before endpoint full URL ends up in the state.
-            if (params.dte &&
-                params.dtr &&
-                // Check root based on white listing for security reasons
-                sharedConfig.ROOT_KEYS.indexOf(params.dtr) !== -1
-            ) {
-                params.dte = sharedConfig[params.dtr] + params.dte;
+            if (params.dte) {
+                params.dte = sharedConfig.API_ROOT + params.dte;
             }
 
             // Converts a params object (payload or url value) to a new state object
