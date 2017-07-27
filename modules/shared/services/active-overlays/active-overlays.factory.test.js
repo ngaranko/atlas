@@ -1,4 +1,4 @@
-// fdescribe('The active overlays factory', () => {
+// describe('The active overlays factory', () => {
 //     let activeOverlays,
 //         store,
 //         overlays,

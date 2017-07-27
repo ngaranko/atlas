@@ -1,4 +1,4 @@
-fdescribe('The dp-active-overlays component', function () {
+describe('The dp-active-overlays component', function () {
     let $compile,
         $rootScope,
         store,
