@@ -25,7 +25,7 @@
 
                 const request = api.getByUri(endpoint.uri, searchParams).then(
                     data => data,
-                    () => { return { features: [] }; });    // empty features on failure op api call
+                    () => { return { features: [] }; });    // empty features on failure of api call
 
                 allRequests.push(request);
             });

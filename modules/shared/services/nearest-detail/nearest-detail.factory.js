@@ -45,7 +45,7 @@
 
                 const request = api.getByUri('geosearch/search/', searchParams).then(
                     data => data,
-                    () => { return { features: [] }; });    // empty features on failure op api call
+                    () => { return { features: [] }; });    // empty features on failure of api call
 
                 allRequests.push(request);
             });
@@ -56,10 +56,10 @@
         // non public methods
         function checkForDetailResults (newDetailResults) {
             const results = newDetailResults
-                    .map(i => i.features)
-                    .reduce((a, b) => a.concat(b))
-                    .map(i => i.properties)
-                    .sort((a, b) => a.distance > b.distance);
+                .map(i => i.features)
+                .reduce((a, b) => a.concat(b))
+                .map(i => i.properties)
+                .sort((a, b) => a.distance > b.distance);
 
             detailResults = results;
 

@@ -77,8 +77,6 @@ describe('The dp-active-overlays-item component', function () {
     }
 
     it('shows uses the short label from the OVERLAYS config', function () {
-        // activeOverlays.isVisibleAtCurrentZoom.and.returnValue(true);
-
         var component = getComponent('overlay_without_legend', true, 8);
 
         expect(component.find('.qa-active-overlay-header').eq(0).text()).toContain('Overlay A');
