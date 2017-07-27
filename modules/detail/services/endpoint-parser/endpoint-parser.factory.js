@@ -51,7 +51,7 @@
             }
 
             function isCatalogus (someUriParts) {
-                return someUriParts[0] === 'api' && someUriParts[1] === '3' && someUriParts[2] === 'action';
+                return someUriParts[0] === 'catalogus' && someUriParts[1] === 'api';
             }
         }
     }

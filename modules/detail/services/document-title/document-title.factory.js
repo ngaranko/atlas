@@ -15,10 +15,8 @@
 
         function getTitle (detailState) {
             const glossaryKey = endpointParser.getGlossaryKey(detailState.endpoint);
-            const glossaryDefinition = GLOSSARY.DEFINITIONS[glossaryKey];
-            const label = glossaryDefinition ? glossaryDefinition.label_singular : glossaryKey;
 
-            return `${label}: ${detailState.display}`;
+            return `${GLOSSARY.DEFINITIONS[glossaryKey].label_singular}: ${detailState.display}`;
         }
     }
 })();
