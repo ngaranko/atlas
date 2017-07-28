@@ -53,7 +53,7 @@ describe('The dp-active-overlays-item component', function () {
             activeOverlays = _activeOverlays_;
         });
 
-        spyOn(activeOverlays, 'isVisibleAtCurrentZoom');
+        spyOn(activeOverlays, 'isVisibleAtCurrentZoom').and.returnValue(true);
     });
 
     function getComponent (overlay, isVisible, zoom) {
@@ -84,7 +84,6 @@ describe('The dp-active-overlays-item component', function () {
 
     describe('the legend image', () => {
         beforeEach(() => {
-            activeOverlays.isVisibleAtCurrentZoom.and.returnValue(true);
             const tokenized = $q.resolve('http://atlas.example.com/overlays/blabla.png?token=abc');
             spyOn(api, 'createUrlWithToken').and.returnValue(tokenized);
         });
@@ -117,7 +116,6 @@ describe('The dp-active-overlays-item component', function () {
             expectedMessage = '(geen legenda)';
 
         // Invisible manually: don't show the message
-        activeOverlays.isVisibleAtCurrentZoom.and.returnValue(true);
         component = getComponent('overlay_without_legend', false, 8);
         expect(component.text()).not.toContain(expectedMessage);
 
@@ -138,7 +136,6 @@ describe('The dp-active-overlays-item component', function () {
 
         // When visible
         for (i = 8; i <= 10; i++) {
-            activeOverlays.isVisibleAtCurrentZoom.and.returnValue(true);
             component = getComponent('overlay_without_legend', true, i);
             expect(component.text()).not.toContain('Zichtbaar bij verder zoomen');
         }
@@ -167,7 +164,6 @@ describe('The dp-active-overlays-item component', function () {
         var component;
 
         // With a supported zoom level
-        activeOverlays.isVisibleAtCurrentZoom.and.returnValue(true);
         component = getComponent('overlay_without_legend', true, 10);
         expect(component.find('dp-link').length).toBe(1);
         expect(component.find('dp-link').text()).toContain('Verbergen');
@@ -183,7 +179,6 @@ describe('The dp-active-overlays-item component', function () {
         var component;
 
         // With a supported zoom level
-        activeOverlays.isVisibleAtCurrentZoom.and.returnValue(true);
         component = getComponent('overlay_without_legend', true, 10);
         expect(component.find('dp-link').length).toBe(1);
         expect(component.find('dp-link').text()).toContain('Verbergen');

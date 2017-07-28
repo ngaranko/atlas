@@ -101,6 +101,7 @@ describe('The dp-active-overlays component', function () {
         $rootScope.$digest();
 
         expect(scope.vm.validOverlays.length).toBe(0);
+        expect(activeOverlays.setOverlays).toHaveBeenCalled();
     });
 
     it('loads the dp-active-overlays-item components in reversed order', function () {
