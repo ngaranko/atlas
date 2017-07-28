@@ -8,6 +8,8 @@ describe('The dp-search-results component', function () {
         search,
         user,
         ACTIONS,
+        activeOverlays,
+        nearestDetail,
         mockedSearchResults,
         mockedSearchResultsNextPage,
         mockedGeosearchResults,
@@ -54,6 +56,12 @@ describe('The dp-search-results component', function () {
                 // Store is used in the child directive dp-link
                 store: {
                     dispatch: function () {}
+                },
+                activeOverlays: {
+                    getOverlaysWarning: angular.noop
+                },
+                nearestDetail: {
+                    getResults: angular.noop
                 }
             },
             function ($provide) {
@@ -72,7 +80,8 @@ describe('The dp-search-results component', function () {
         );
 
         angular.mock.inject(function (
-            _$compile_, _$rootScope_, _$q_, _store_, _search_, _geosearch_, _user_, _ACTIONS_
+            _$compile_, _$rootScope_, _$q_, _store_, _search_, _geosearch_, _user_, _ACTIONS_, _activeOverlays_,
+            _nearestDetail_
         ) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
@@ -81,6 +90,8 @@ describe('The dp-search-results component', function () {
             search = _search_;
             user = _user_;
             ACTIONS = _ACTIONS_;
+            activeOverlays = _activeOverlays_;
+            nearestDetail = _nearestDetail_;
         });
 
         mockedSearchResults = [
@@ -312,6 +323,8 @@ describe('The dp-search-results component', function () {
 
         spyOn(store, 'dispatch');
         spyOn(user, 'meetsRequiredLevel');
+        spyOn(activeOverlays, 'getOverlaysWarning').and.returnValue('foo, bar');
+        spyOn(nearestDetail, 'getResults').and.returnValue([]);
     });
 
     function getComponent (numberOfResults, query, location, category) {
@@ -498,6 +511,23 @@ describe('The dp-search-results component', function () {
 
         it('shows the dp-straatbeeld-thumbnail component', function () {
             expect(component.find('dp-straatbeeld-thumbnail').length).toBe(1);
+        });
+
+        it('shows layer warning when results are empty', () => {
+            component = getComponent(22, null, [51.123, 4.789]);
+            const isolated = component.isolateScope();
+
+            expect(isolated.vm.layerWarning).toBe('foo, bar');
+        });
+
+        it('shows no layer warning when results are not empty', () => {
+            // spyOn(activeOverlays, 'getOverlaysWarning').and.returnValue('foo, bar');
+            nearestDetail.getResults.and.returnValue([1, 2]);
+
+            component = getComponent(22, null, [51.123, 4.789]);
+            const isolated = component.isolateScope();
+
+            expect(isolated.vm.layerWarning).toBe(false);
         });
     });
 

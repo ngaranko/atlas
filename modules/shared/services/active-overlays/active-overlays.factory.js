@@ -5,9 +5,9 @@
         .module('dpShared')
         .factory('activeOverlays', activeOverlaysFactory);
 
-    activeOverlaysFactory.$inject = ['overlays', 'store'];
+    activeOverlaysFactory.$inject = ['OVERLAYS', 'store'];
 
-    function activeOverlaysFactory (overlays, store) {
+    function activeOverlaysFactory (OVERLAYS, store) {
         let allOverlays = [];
 
         return {
@@ -31,7 +31,7 @@
 
         function isVisibleAtCurrentZoom (overlay, zoom) {
             zoom = zoom || store.getState().map.zoom;
-            return zoom >= overlays.SOURCES[overlay].minZoom && zoom <= overlays.SOURCES[overlay].maxZoom;
+            return zoom >= OVERLAYS.SOURCES[overlay].minZoom && zoom <= OVERLAYS.SOURCES[overlay].maxZoom;
         }
 
         function getVisibleOverlays (zoom) {
@@ -52,7 +52,7 @@
         // non public methods
         function getVisibleSources (zoom) {
             return allOverlays.filter(source => source.isVisible && isVisibleAtCurrentZoom(source.id, zoom))
-                .map(source => overlays.SOURCES[source.id]);
+                .map(source => OVERLAYS.SOURCES[source.id]);
         }
     }
 })();
