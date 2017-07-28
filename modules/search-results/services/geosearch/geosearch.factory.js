@@ -40,7 +40,9 @@
                 [pandCategoryIndex, pandEndpoint] = getPandData(geosearchResults),
                 [plaatsCategoryIndex, plaatsEndpoint] = getPlaatsData(geosearchResults);
 
-            if (plaatsEndpoint) {
+            if (plaatsEndpoint && user.meetsRequiredLevel('EMPLOYEE')) {
+                // Only fetching 'vestigingen' for a standplaats/ligplaats, so
+                // we check for employee status here already
                 api.getByUrl(plaatsEndpoint).then(processPlaatsData);
             } else if (pandEndpoint) {
                 api.getByUrl(pandEndpoint).then(processPandData);

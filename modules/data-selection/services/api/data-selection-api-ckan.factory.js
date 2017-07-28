@@ -25,8 +25,7 @@
                 searchParams.q = searchText;
             }
 
-            const endpoint = sharedConfig.CATALOGUS_ROOT + config.ENDPOINT_PREVIEW;
-            api.getByUrl(endpoint, searchParams).then(data => {
+            api.getByUri(config.ENDPOINT_PREVIEW, searchParams).then(data => {
                 if (data.success) {
                     deferred.resolve({
                         numberOfPages: Math.ceil(data.result.count / config.MAX_ITEMS_PER_PAGE),
@@ -88,7 +87,7 @@
         }
 
         function getDetailEndpoint (config, rawDataRow) {
-            return sharedConfig.CATALOGUS_ROOT + config.ENDPOINT_DETAIL +
+            return sharedConfig.API_ROOT + config.ENDPOINT_DETAIL +
                 '?id=' + rawDataRow[config.PRIMARY_KEY];
         }
     }

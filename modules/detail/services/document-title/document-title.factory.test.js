@@ -1,38 +1,43 @@
-describe('The dpDetailDocumentTitle factory', () => {
-    let documentTitle;
+describe('The dpDetailDocumentTitle factory', function () {
+    var documentTitle;
 
-    beforeEach(() => {
+    beforeEach(function () {
         angular.mock.module(
             'dpDetail',
-            ($provide) => {
+            function ($provide) {
                 $provide.constant('GLOSSARY', {
                     DEFINITIONS: {
                         BEPERKING: {
                             label_singular: 'Gemeentelijke beperking'
+                        },
+                        VESTIGING: {
+                            label_singular: 'Vestiging'
                         }
                     }
                 });
             }
         );
 
-        angular.mock.inject((dpDetailDocumentTitle) => {
+        angular.mock.inject(function (dpDetailDocumentTitle) {
             documentTitle = dpDetailDocumentTitle;
         });
     });
 
-    it('combines a GLOSSARY label with a specific display variable', () => {
-        const mockedDetailState = {
+    it('combines a GLOSSARY label with a specific display variable', function () {
+        var mockedDetailState;
+
+        mockedDetailState = {
             endpoint: 'http://api.example.com/wkpb/beperking/123/',
             display: 'Een beperking'
         };
         expect(documentTitle.getTitle(mockedDetailState)).toBe('Gemeentelijke beperking: Een beperking');
-    });
 
-    it('falls back to glossary key when no definition can be found', () => {
-        const mockedDetailState = {
-            endpoint: 'http://api.example.com/wkpb/unknown/123/',
-            display: 'display'
-        };
-        expect(documentTitle.getTitle(mockedDetailState)).toBe('UNKNOWN: display');
+        mockedDetailState.endpoint = 'http://api.example.com/wkpb/beperking/456/';
+        mockedDetailState.display = 'Een andere beperking';
+        expect(documentTitle.getTitle(mockedDetailState)).toBe('Gemeentelijke beperking: Een andere beperking');
+
+        mockedDetailState.endpoint = 'http://api.example.com/handelsregister/vestiging/789/';
+        mockedDetailState.display = 'Vestigingsnaam';
+        expect(documentTitle.getTitle(mockedDetailState)).toBe('Vestiging: Vestigingsnaam');
     });
 });
