@@ -5,7 +5,7 @@
         .module('dpShared')
         .factory('activeOverlays', activeOverlaysFactory);
 
-    activeOverlaysFactory.$inject = ['OVERLAYS', 'store'];
+    activeOverlaysFactory.$inject = ['overlays', 'store'];
 
     function activeOverlaysFactory (OVERLAYS, store) {
         let allOverlays = [];
