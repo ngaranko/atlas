@@ -39,11 +39,8 @@
                     lon: location[1]
                 };
 
-                if (angular.isNumber(overlay.detailSize)) {
-                    searchParams.radius = Math.round(
-                        Math.pow(2, mapConfig.BASE_LAYER_OPTIONS.maxZoom - zoom) / 2) *
-                        (overlay.detailSize || 1);
-                }
+                searchParams.radius = Math.round(
+                    Math.pow(2, mapConfig.BASE_LAYER_OPTIONS.maxZoom - zoom) / 2) * (overlay.detailFactor || 1);
 
                 const request = api.getByUri('geosearch/search/', searchParams).then(
                     data => data,
@@ -61,7 +58,7 @@
                 .map(i => i.features)
                 .reduce((a, b) => a.concat(b))
                 .map(i => i.properties)
-                .sort((a, b) => a.distance > b.distance);
+                .sort((a, b) => a.distance - b.distance);
 
             detailResults = results;
 
@@ -80,6 +77,7 @@
                 // not found item: do original geosearch
                 dispatcher.call();
             }
+            return results;
         }
     }
 })();
