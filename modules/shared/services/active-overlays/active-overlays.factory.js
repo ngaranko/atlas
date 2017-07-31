@@ -36,7 +36,7 @@
 
         function getVisibleOverlays (zoom) {
             return getVisibleSources(zoom)
-                .filter(source => source.detailItem && source.detailSize)
+                .filter(source => source.detailItem && source.detailFactor)
                 .filter((a, index, self) => self.findIndex((b) => {
                     return b.detailItem === a.detailItem;
                 }) === index);

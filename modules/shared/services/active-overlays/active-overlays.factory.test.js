@@ -17,7 +17,7 @@ describe('The active overlays factory', () => {
                 legend: 'maps/nap?version=1.3.0&service=WMS&request=GetLegendG' +
                 'raphic&sld_version=1.1.0&layer=NAP&format=image/png&STYLE=default',
                 detailItem: 'peilmerk',
-                detailSize: 50
+                detailFactor: 1
             },
             mbs: {
                 url: 'maps/meetbouten?service=wms',
@@ -29,7 +29,7 @@ describe('The active overlays factory', () => {
                 legend: 'maps/meetbouten?version=1.3.0&service=WMS&request=Get' +
                 'LegendGraphic&sld_version=1.1.0&layer=meetbouten_status&format=image/png&STYLE=default',
                 detailItem: 'meetbout',
-                detailSize: 50
+                detailFactor: 1
             },
             mbz: {
                 url: 'maps/meetbouten?service=wms',
@@ -41,7 +41,7 @@ describe('The active overlays factory', () => {
                 legend: 'maps/meetbouten?version=1.3.0&service=WMS&request=Get' +
                 'LegendGraphic&sld_version=1.1.0&layer=meetbouten_zaksnelheid&format=image/png&STYLE=default',
                 detailItem: 'meetbout',
-                detailSize: 50
+                detailFactor: 1
             },
             tcmnmt: {
                 url: 'maps/monumenten',

@@ -337,7 +337,7 @@
                     legend: 'maps/nap?version=1.3.0&service=WMS&request=GetLegendG' +
                     'raphic&sld_version=1.1.0&layer=NAP&format=image/png&STYLE=default',
                     detailItem: 'peilmerk',
-                    detailSize: 1
+                    detailFactor: 1
                 },
                 mbs: {
                     url: 'maps/meetbouten?service=wms',
@@ -349,7 +349,7 @@
                     legend: 'maps/meetbouten?version=1.3.0&service=WMS&request=Get' +
                     'LegendGraphic&sld_version=1.1.0&layer=meetbouten_status&format=image/png&STYLE=default',
                     detailItem: 'meetbout',
-                    detailSize: 1
+                    detailFactor: 1
                 },
                 mbz: {
                     url: 'maps/meetbouten?service=wms',
@@ -361,7 +361,7 @@
                     legend: 'maps/meetbouten?version=1.3.0&service=WMS&request=Get' +
                     'LegendGraphic&sld_version=1.1.0&layer=meetbouten_zaksnelheid&format=image/png&STYLE=default',
                     detailItem: 'meetbout',
-                    detailSize: 1
+                    detailFactor: 1
                 },
                 mbr: {
                     url: 'maps/meetbouten',
@@ -419,7 +419,7 @@
                     legend: 'maps/bommenkaart?version=1.3.0&service=WMS&request=GetLegendGraphic&sld_version=1.1.0&la' +
                     'yer=inslagen&format=image/png&STYLE=default',
                     detailItem: 'bominslag',
-                    detailSize: 1
+                    detailFactor: 1
                 },
                 exvg: {
                     url: 'maps/bommenkaart',
@@ -747,7 +747,7 @@
                     '=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=monument_coordinaten&format=' +
                     'image/png&STYLE=default',
                     detailItem: 'monument',
-                    detailSize: 1
+                    detailFactor: 1
                 },
 
                 // Verkeer
