@@ -12,6 +12,8 @@ describe('The nearestDetail factory', () => {
         mockedEmptySearchResults,
         mockedSearchResults;
 
+    const FAIL_ON_URI = 'FAIL_ON_URI';
+
     beforeEach(function () {
         angular.mock.module(
             'dpShared',
@@ -25,6 +27,8 @@ describe('The nearestDetail factory', () => {
                             q.resolve(mockedSearchResultsPeilmerken);
                         } else if (params.item === 'meetbout') {
                             q.resolve(mockedSearchResultsMeetbouten);
+                        } else if (params.item === FAIL_ON_URI) {
+                            q.reject(FAIL_ON_URI);
                         } else {
                             q.resolve(mockedEmptySearchResults);
                         }
@@ -163,6 +167,9 @@ describe('The nearestDetail factory', () => {
                 '=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=monument_coordinaten&format=' +
                 'image/png&STYLE=default',
                 noDetail: true
+            },
+            reject: {
+                detailItem: FAIL_ON_URI
             }
         };
 
@@ -216,6 +223,13 @@ describe('The nearestDetail factory', () => {
 
     it('handles not existance of callback gracefully', () => {
         nearestDetail.search([52.961, 4.735], [mockLayers.tcmnmt], 11);
+
+        $rootScope.$apply();
+        expect(callback).not.toHaveBeenCalled();
+    });
+
+    it('handles not rejected call gracefully', () => {
+        nearestDetail.search([52.961, 4.735], [mockLayers.reject], 11);
 
         $rootScope.$apply();
         expect(callback).not.toHaveBeenCalled();

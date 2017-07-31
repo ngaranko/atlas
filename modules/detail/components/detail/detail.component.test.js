@@ -530,5 +530,4 @@ describe('the dp-detail component', function () {
             expect(scope.vm.geosearchButton).toEqual([52.654, 4.987]);
         });
     });
-
 });
