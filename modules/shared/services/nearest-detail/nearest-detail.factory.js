@@ -77,7 +77,6 @@
                 // not found item: do original geosearch
                 dispatcher.call();
             }
-            return results;
         }
     }
 })();

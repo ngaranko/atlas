@@ -1,83 +1,41 @@
-fdescribe('The nearestDetail factory', function () {
-    var $q,
+describe('The nearestDetail factory', () => {
+    let $q,
         $rootScope,
         nearestDetail,
         api,
         store,
+        ACTIONS,
+        callback,
         mockLayers,
-        coordinateEndpoints,
-        mockedSearchResultsWithRadius,
-        mockedSearchResultsWithoutRadius,
+        mockedSearchResultsPeilmerken,
+        mockedSearchResultsMeetbouten,
         mockedEmptySearchResults,
-        mockedPandSearchResult,
-        mockedStandplaatsSearchResult,
-        mockedFormattedSearchResults,
-        mockedFormattedPandSearchResult,
-        mockedFormattedStandplaatsSearchResult,
-        mockedPandApiResults,
-        mockedStandplaatsApiResults,
-        mockedNummeraanduidingApiResults,
-        mockedFormattedNummeraanduidingenApiResults,
-        mockedVestigingenApiResults,
-        mockedFormattedVestigingenApiResults;
-
-    const FAIL_ON_URI = 'FAIL_ON_URI';
+        mockedSearchResults;
 
     beforeEach(function () {
-        coordinateEndpoints = [
-            {
-                uri: 'endpoint/with-radius/',
-                radius: 50
-            }, {
-                uri: 'other/endpoint/',
-                radius: null
-            }, {
-                uri: 'endpoint-with-no-results/',
-                radius: null
-            }
-        ];
-
         angular.mock.module(
             'dpShared',
             {
                 api: {
-                    getByUri: function (endpoint) {
+                    getByUri: function (endpoint, params) {
+                        // console.log('endpoint', endpoint, params);
                         var q = $q.defer();
 
-                        if (endpoint === 'endpoint/with-radius/') {
-                            q.resolve(mockedSearchResultsWithRadius);
-                        } else if (endpoint === 'other/endpoint/') {
-                            q.resolve(mockedSearchResultsWithoutRadius);
-                        } else if (endpoint === 'handelsregister/vestiging/?pand=0456789' ||
-                                endpoint === 'handelsregister/vestiging/?nummeraanduiding=0123456789') {
-                            q.resolve(mockedVestigingenApiResults);
-                        } else if (endpoint === FAIL_ON_URI) {
-                            q.reject(FAIL_ON_URI);
+                        if (params.item === 'peilmerk') {
+                            q.resolve(mockedSearchResultsPeilmerken);
+                        } else if (params.item === 'meetbout') {
+                            q.resolve(mockedSearchResultsMeetbouten);
                         } else {
                             q.resolve(mockedEmptySearchResults);
                         }
 
                         return q.promise;
-                    // },
-                    // getByUrl: function (endpoint) {
-                    //     // Used to retrieve the pand data and related verblijfsobjecten
-                    //     var q = $q.defer();
-                    //
-                    //     if (endpoint === 'https://api.data.amsterdam.nl/bag/pand/0456789/') {
-                    //         q.resolve(mockedPandApiResults);
-                    //     } else if (endpoint === 'https://api.data.amsterdam.nl/bag/standplaats/0456789/') {
-                    //         q.resolve(mockedStandplaatsApiResults);
-                    //     } else if (endpoint === 'https://api.data.amsterdam.nl/bag/nummeraanduiding/?pand=0456789') {
-                    //         q.resolve(mockedNummeraanduidingApiResults);
-                    //     }
-                    //
-                    //     return q.promise;
                     }
                 },
                 store: {
                     dispatch: angular.noop
                 },
-                mapConfig:  {
+                mapConfig: {
                     BASE_LAYER_OPTIONS: {
                         maxZoom: 16
                     }
@@ -85,12 +43,13 @@ fdescribe('The nearestDetail factory', function () {
             }
         );
 
-        angular.mock.inject(function (_$q_, _$rootScope_, _store_, _nearestDetail_, _api_) {
+        angular.mock.inject(function (_$q_, _$rootScope_, _store_, _nearestDetail_, _api_, _ACTIONS_) {
             $q = _$q_;
             $rootScope = _$rootScope_;
             store = _store_;
             nearestDetail = _nearestDetail_;
             api = _api_;
+            ACTIONS = _ACTIONS_;
         });
 
         mockedEmptySearchResults = {
@@ -98,227 +57,75 @@ fdescribe('The nearestDetail factory', function () {
             features: []
         };
 
-        mockedSearchResultsWithRadius = {
-            type: 'FeatureCollection',
-            features: [
-                {
-                    properties: {
-                        display: '12981535',
-                        id: '12981535',
-                        type: 'meetbouten/meetbout',
-                        uri: 'https://api.data.amsterdam.nl/meetbouten/meetbout/12981535/'
-                    }
+        mockedSearchResultsPeilmerken = {
+            features: [{
+                properties: {
+                    display: '26080006',
+                    distance: 6.66634767290042,
+                    id: '26080006',
+                    type: 'nap/peilmerk',
+                    uri: 'https://acc.api.data.amsterdam.nl/nap/peilmerk/26080006/'
                 }
-            ]
+            }],
+            type: 'FeatureCollection'
         };
 
-        mockedSearchResultsWithoutRadius = {
-            type: 'FeatureCollection',
-            features: [
-                {
-                    properties: {
-                        display: 'De Pijp / Rivierenbuurt',
-                        id: 'DX12',
-                        type: 'gebieden/gebiedsgerichtwerken',
-                        uri: 'https://api.data.amsterdam.nl/gebieden/gebiedsgerichtwerken/DX12/'
-                    }
-                }, {
-                    properties: {
-                        display: 'Nieuwe Pijp',
-                        id: '3630012052060',
-                        type: 'gebieden/buurtcombinatie',
-                        uri: 'https://api.data.amsterdam.nl/gebieden/buurtcombinatie/3630012052060/'
-                    }
-                }, {
-                    properties: {
-                        display: 'Zuid',
-                        id: '03630011872038',
-                        type: 'gebieden/stadsdeel',
-                        uri: 'https://api.data.amsterdam.nl/gebieden/stadsdeel/03630011872038/'
-                    }
-                }, {
-                    properties: {
-                        display: 'Willibrordusbuurt',
-                        id: '03630000000788',
-                        type: 'gebieden/buurt',
-                        uri: 'https://api.data.amsterdam.nl/gebieden/buurt/03630000000788/'
-                    }
-                }, {
-                    properties: {
-                        display: 'Amstel',
-                        id: '03630011950509',
-                        opr_type: 'Water',
-                        type: 'bag/openbareruimte',
-                        uri: 'https://api.data.amsterdam.nl/bag/openbareruimte/03630011950509/'
-                    }
-                }, {
-                    properties: {
-                        display: 'ASD14R06669G0000',
-                        id: 'NL.KAD.OnroerendeZaak.11550666970000',
-                        type: 'kadaster/kadastraal_object',
-                        uri: 'https://api.data.amsterdam.nl/brk/object/NL.KAD.OnroerendeZaak.11550666970000/'
-                    }
+        mockedSearchResultsMeetbouten = {
+            features: [{
+                properties: {
+                    display: '10481357',
+                    distance: 2.8680990168263,
+                    id: '10481357',
+                    type: 'meetbouten/meetbout',
+                    uri: 'https://acc.api.data.amsterdam.nl/meetbouten/meetbout/10481357/'
                 }
-            ]
-        };
-
-        mockedFormattedSearchResults = [
+            },
             {
-                slug: null,
-                count: 2,
-                results: [
-                    {
-                        endpoint: 'http://www.some-domain.com/path/to/1/',
-                        label: 'Some label #1'
-                    }, {
-                        endpoint: 'http://www.some-domain.com/path/to/2/',
-                        label: 'Some label #2'
-                    }
-                ]
-            }, {
-                slug: null,
-                count: 1,
-                results: [
-                    {
-                        endpoint: 'http://www.some-domain.com/path/to/3/',
-                        label: 'Some label #3'
-                    }
-                ]
-            }
-        ];
-
-        mockedPandSearchResult = {
-            properties: {
-                display: '0456789',
-                id: '0456789',
-                type: 'bag/pand',
-                uri: 'https://api.data.amsterdam.nl/bag/pand/456789/'
-            }
-        };
-
-        mockedFormattedPandSearchResult = {
-            slug: 'pand',
-            count: 1,
-            results: [
-                {
-                    endpoint: 'https://api.data.amsterdam.nl/bag/pand/0456789/',
-                    label: '0456789'
-                }
-            ]
-        };
-
-        mockedPandApiResults = {
-            _links: {
-                self: {
-                    href: 'https://api.data.amsterdam.nl/bag/pand/0456789/'
+                properties: {
+                    display: '10481358',
+                    distance: 3.40987232417753,
+                    id: '10481358',
+                    type: 'meetbouten/meetbout',
+                    uri: 'https://acc.api.data.amsterdam.nl/meetbouten/meetbout/10481358/'
                 }
             },
-            pandidentificatie: '0456789',
-            _adressen: {
-                href: 'https://api.data.amsterdam.nl/bag/nummeraanduiding/?pand=0456789'
-            }
-        };
-
-        mockedStandplaatsSearchResult = {
-            properties: {
-                display: '0456789',
-                type: 'bag/standplaats',
-                uri: 'https://api.data.amsterdam.nl/bag/standplaats/456789/'
-            }
-        };
-
-        mockedFormattedStandplaatsSearchResult = {
-            slug: 'standplaats',
-            count: 1,
-            results: [
-                {
-                    endpoint: 'https://api.data.amsterdam.nl/bag/standplaats/0456789/',
-                    label: '0456789'
+            {
+                properties: {
+                    display: '10481356',
+                    distance: 1.9544566,
+                    id: '10481356',
+                    type: 'meetbouten/meetbout',
+                    uri: 'https://acc.api.data.amsterdam.nl/meetbouten/meetbout/10481356/'
                 }
-            ]
+            }],
+            type: 'FeatureCollection'
         };
 
-        mockedStandplaatsApiResults = {
-            _links: {
-                self: {
-                    href: 'https://api.data.amsterdam.nl/bag/standplaats/0456789/'
-                }
-            },
-            standplaatsidentificatie: '123456',
-            hoofdadres: {
-                landelijk_id: '0123456789'
-            }
-        };
-
-        mockedNummeraanduidingApiResults = {
-            count: 2,
-            results: [{xyz: 'FAKE_VBO_RESULT_1'}, {xyz: 'FAKE_VBO_RESULT_2'}]
-        };
-
-        mockedFormattedNummeraanduidingenApiResults = {
-            label_singular: 'Adres',
-            label_plural: 'Adressen',
-            slug: 'adres',
-            count: 4,
-            results: [
-                {
-                    label: 'Amsteldijk 32-1',
-                    endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630000567203/',
-                    subtype: null
-                },
-                {
-                    label: 'Amsteldijk 32-2',
-                    endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630000567204/',
-                    subtype: null
-                },
-                {
-                    label: 'Amsteldijk 32-3',
-                    endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630000567205/',
-                    subtype: null
-                },
-                {
-                    label: 'Ceintuurbaan 263',
-                    endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/03630000602864/',
-                    subtype: null
-                }
-            ],
-            next: null
-        };
-
-        mockedVestigingenApiResults = {
-            count: 2,
-            results: ['FAKE_VESTIGING_RESULT_1', 'FAKE_VESTIGING_RESULT_2']
-        };
-
-        mockedFormattedVestigingenApiResults = {
-            label_singular: 'Vestiging',
-            label_plural: 'Vestigingen',
-            slug: 'vestiging',
-            count: 4,
-            results: [
-                {
-                    label: 'Vestiging 1',
-                    endpoint: 'https://api.data.amsterdam.nl/handelsregister/vestiging/03630000567203/',
-                    subtype: null
-                },
-                {
-                    label: 'Vestiging 2',
-                    endpoint: 'https://api.data.amsterdam.nl/handelsregister/vestiging/03630000567204/',
-                    subtype: null
-                },
-                {
-                    label: 'Vestiging 3',
-                    endpoint: 'https://api.data.amsterdam.nl/handelsregister/vestiging/03630000567205/',
-                    subtype: null
-                },
-                {
-                    label: 'Vestiging 4',
-                    endpoint: 'https://api.data.amsterdam.nl/handelsregister/vestiging/03630000602864/',
-                    subtype: null
-                }
-            ],
-            next: null
-        };
+        mockedSearchResults = [{
+            display: '10481356',
+            distance: 1.9544566,
+            id: '10481356',
+            type: 'meetbouten/meetbout',
+            uri: 'https://acc.api.data.amsterdam.nl/meetbouten/meetbout/10481356/'
+        }, {
+            display: '10481357',
+            distance: 2.8680990168263,
+            id: '10481357',
+            type: 'meetbouten/meetbout',
+            uri: 'https://acc.api.data.amsterdam.nl/meetbouten/meetbout/10481357/'
+        }, {
+            display: '10481358',
+            distance: 3.40987232417753,
+            id: '10481358',
+            type: 'meetbouten/meetbout',
+            uri: 'https://acc.api.data.amsterdam.nl/meetbouten/meetbout/10481358/'
+        }, {
+            display: '26080006',
+            distance: 6.66634767290042,
+            id: '26080006',
+            type: 'nap/peilmerk',
+            uri: 'https://acc.api.data.amsterdam.nl/nap/peilmerk/26080006/'
+        }];
 
         mockLayers = {
             nap: {
@@ -331,7 +138,7 @@ fdescribe('The nearestDetail factory', function () {
                 legend: 'maps/nap?version=1.3.0&service=WMS&request=GetLegendG' +
                 'raphic&sld_version=1.1.0&layer=NAP&format=image/png&STYLE=default',
                 detailItem: 'peilmerk',
-                detailSize: 1
+                detailFactor: 1
             },
             mbs: {
                 url: 'maps/meetbouten?service=wms',
@@ -343,356 +150,74 @@ fdescribe('The nearestDetail factory', function () {
                 legend: 'maps/meetbouten?version=1.3.0&service=WMS&request=Get' +
                 'LegendGraphic&sld_version=1.1.0&layer=meetbouten_status&format=image/png&STYLE=default',
                 detailItem: 'meetbout',
-                detailSize: 0.8
+                detailFactor: 0.8
+            },
+            tcmnmt: {
+                url: 'maps/monumenten',
+                label_short: 'Monumenten',
+                label_long: 'Monumenten',
+                layers: ['monument_coordinaten'],
+                minZoom: 13,
+                maxZoom: 15,
+                legend: 'maps/monumenten?version=1.3.0&service' +
+                '=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=monument_coordinaten&format=' +
+                'image/png&STYLE=default',
+                noDetail: true
             }
         };
 
         spyOn(api, 'getByUri').and.callThrough();
         spyOn(store, 'dispatch');
+
+        callback = jasmine.createSpy();
     });
 
-    it('retrieves formatted data based on a location', function () {
-        var callback = jasmine.createSpy();
-            // searchResults;
-
-        nearestDetail.search([52.789, 4.987], [mockLayers.nap, mockLayers.mbs], 11, callback); //.then(function (_searchResults_) {
-            // searchResults = _searchResults_;
-        // });
+    it('gets geosearch data for multiple layers in a location', () => {
+        nearestDetail.search([52.789, 4.987], [mockLayers.nap, mockLayers.mbs], 11, callback);
 
         $rootScope.$apply();
 
         expect(api.getByUri).toHaveBeenCalledTimes(2);
-        expect(callback).toHaveBeenCalledTimes(1);
+        expect(callback).not.toHaveBeenCalled();
 
-        // expect(api.getByUri).toHaveBeenCalledWith('geosearch/search/', {item: 'peilmerk', lat: 52.789, lon: 4.987,
-            // radius: 800});
-//
         expect(api.getByUri).toHaveBeenCalledWith('geosearch/search/', {item: 'peilmerk', lat: 52.789, lon: 4.987,
             radius: 16 });
         expect(api.getByUri).toHaveBeenCalledWith('geosearch/search/', {item: 'meetbout', lat: 52.789, lon: 4.987,
             radius: 12.8 });
 
-        // expect(searchResults).toEqual(mockedFormattedSearchResults);
+        expect(store.dispatch).toHaveBeenCalledTimes(2);
+        expect(store.dispatch).toHaveBeenCalledWith({
+            type: ACTIONS.MAP_HIGHLIGHT,
+            payload: false
+        });
+        expect(store.dispatch).toHaveBeenCalledWith({
+            type: ACTIONS.FETCH_DETAIL,
+            payload: nearestDetail.getResults()[0].uri
+        });
+
+        expect(nearestDetail.getResults()).toEqual(mockedSearchResults);
+        expect(nearestDetail.getLocation()).toEqual([52.789, 4.987]);
     });
-    //
-    // it('retrieves formatted data based on a location, even if one or more queries fail', function () {
-    //     coordinateEndpoints.push({
-    //         uri: FAIL_ON_URI
-    //     });
-    //
-    //     var searchResults;
-    //
-    //     geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
-    //         searchResults = _searchResults_;
-    //     });
-    //
-    //     $rootScope.$apply();
-    //
-    //     expect(api.getByUri).toHaveBeenCalledTimes(4);
-    //
-    //     expect(geosearchFormatter.format).toHaveBeenCalledWith([
-    //         mockedSearchResultsWithRadius,
-    //         mockedSearchResultsWithoutRadius,
-    //         mockedEmptySearchResults,
-    //         { features: [] }
-    //     ]);
-    //
-    //     expect(searchResults).toEqual(mockedFormattedSearchResults);
-    // });
-    //
-    // describe('when a pand has been found', () => {
-    //     it('loads related verblijfsobjecten', function () {
-    //         var searchResults,
-    //             expectedSearchResults;
-    //
-    //         mockedVestigingenApiResults = {
-    //             count: 0,
-    //             results: []
-    //         };
-    //
-    //         // Insert a pand into the mocked result set
-    //         mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedPandSearchResult);
-    //         mockedFormattedSearchResults.splice(1, 0, mockedFormattedPandSearchResult);
-    //
-    //         expectedSearchResults = angular.copy(mockedFormattedSearchResults);
-    //         expectedSearchResults[1].subResults = [mockedFormattedNummeraanduidingenApiResults];
-    //
-    //         geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
-    //             searchResults = _searchResults_;
-    //         });
-    //
-    //         $rootScope.$apply();
-    //
-    //         expectedSearchResults[1].subResults[0].more = {
-    //             label: 'Bekijk alle 2 adressen binnen dit pand',
-    //             endpoint: 'https://api.data.amsterdam.nl/bag/pand/0456789/'
-    //         };
-    //
-    //         expect(api.getByUrl).toHaveBeenCalledTimes(2);
-    //         expect(api.getByUrl)
-    //             .toHaveBeenCalledWith('https://api.data.amsterdam.nl/bag/pand/0456789/');
-    //         expect(api.getByUrl)
-    //             .toHaveBeenCalledWith('https://api.data.amsterdam.nl/bag/nummeraanduiding/?pand=0456789');
-    //
-    //         expect(searchFormatter.formatCategory).toHaveBeenCalledWith('adres', mockedNummeraanduidingApiResults);
-    //         expect(searchResults).toEqual(expectedSearchResults);
-    //     });
-    //
-    //     it('loads related vestigingen', function () {
-    //         var searchResults,
-    //             expectedSearchResults;
-    //
-    //         mockedNummeraanduidingApiResults = {
-    //             count: 0,
-    //             results: []
-    //         };
-    //
-    //         // Insert a pand into the mocked result set
-    //         mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedPandSearchResult);
-    //         mockedFormattedSearchResults.splice(1, 0, mockedFormattedPandSearchResult);
-    //
-    //         expectedSearchResults = angular.copy(mockedFormattedSearchResults);
-    //         expectedSearchResults[1].subResults = [mockedFormattedVestigingenApiResults];
-    //
-    //         geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
-    //             searchResults = _searchResults_;
-    //         });
-    //
-    //         $rootScope.$apply();
-    //
-    //         expectedSearchResults[1].subResults[0].more = {
-    //             label: 'Bekijk alle 2 vestigingen binnen dit pand',
-    //             endpoint: 'https://api.data.amsterdam.nl/bag/pand/0456789/'
-    //         };
-    //
-    //         expect(api.getByUrl)
-    //             .toHaveBeenCalledWith('https://api.data.amsterdam.nl/bag/pand/0456789/');
-    //
-    //         expect(api.getByUri)
-    //             .toHaveBeenCalledWith('handelsregister/vestiging/?pand=0456789');
-    //
-    //         expect(searchFormatter.formatCategory).toHaveBeenCalledWith('vestiging', mockedVestigingenApiResults);
-    //         expect(searchResults).toEqual(expectedSearchResults);
-    //     });
-    //
-    //     it('loads both related verblijfsobjecten and vestigingen', function () {
-    //         var searchResults,
-    //             expectedSearchResults;
-    //
-    //         // Insert a pand into the mocked result set
-    //         mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedPandSearchResult);
-    //         mockedFormattedSearchResults.splice(1, 0, mockedFormattedPandSearchResult);
-    //
-    //         expectedSearchResults = angular.copy(mockedFormattedSearchResults);
-    //         expectedSearchResults[1].subResults = [
-    //             mockedFormattedNummeraanduidingenApiResults,
-    //             mockedFormattedVestigingenApiResults
-    //         ];
-    //
-    //         geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
-    //             searchResults = _searchResults_;
-    //         });
-    //
-    //         $rootScope.$apply();
-    //
-    //         expectedSearchResults[1].subResults[0].authLevel = 'EMPLOYEE';
-    //         expectedSearchResults[1].subResults[0].more = {
-    //             label: 'Bekijk alle 2 adressen binnen dit pand',
-    //             endpoint: 'https://api.data.amsterdam.nl/bag/pand/0456789/'
-    //         };
-    //
-    //         expectedSearchResults[1].subResults[1].more = {
-    //             label: 'Bekijk alle 2 vestigingen binnen dit pand',
-    //             endpoint: 'https://api.data.amsterdam.nl/bag/pand/0456789/'
-    //         };
-    //
-    //         expect(api.getByUrl).toHaveBeenCalledTimes(2);
-    //         expect(api.getByUrl)
-    //             .toHaveBeenCalledWith('https://api.data.amsterdam.nl/bag/pand/0456789/');
-    //         expect(api.getByUrl)
-    //             .toHaveBeenCalledWith('https://api.data.amsterdam.nl/bag/nummeraanduiding/?pand=0456789');
-    //
-    //         expect(api.getByUri)
-    //             .toHaveBeenCalledWith('handelsregister/vestiging/?pand=0456789');
-    //
-    //         expect(searchFormatter.formatCategory).toHaveBeenCalledWith('vestiging', mockedVestigingenApiResults);
-    //         expect(searchResults).toEqual(expectedSearchResults);
-    //     });
-    //
-    //     it('loads just related verblijfsobjecten if unauthorized', function () {
-    //         var searchResults,
-    //             expectedSearchResults;
-    //
-    //         user.meetsRequiredLevel = () => false;
-    //
-    //         // Insert a pand into the mocked result set
-    //         mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedPandSearchResult);
-    //         mockedFormattedSearchResults.splice(1, 0, mockedFormattedPandSearchResult);
-    //
-    //         expectedSearchResults = angular.copy(mockedFormattedSearchResults);
-    //         expectedSearchResults[1].subResults = [mockedFormattedNummeraanduidingenApiResults];
-    //
-    //         geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
-    //             searchResults = _searchResults_;
-    //         });
-    //
-    //         $rootScope.$apply();
-    //
-    //         expectedSearchResults[1].subResults[0].more = {
-    //             label: 'Bekijk alle 2 adressen binnen dit pand',
-    //             endpoint: 'https://api.data.amsterdam.nl/bag/pand/0456789/'
-    //         };
-    //
-    //         expect(api.getByUri)
-    //             .not.toHaveBeenCalledWith('handelsregister/vestiging/?pand=0456789');
-    //         expect(searchResults).toEqual(expectedSearchResults);
-    //     });
-    //
-    //     it('sometimes has no related verblijfsobjecten nor vestigingen', function () {
-    //         var searchResults;
-    //
-    //         mockedNummeraanduidingApiResults = {
-    //             count: 0,
-    //             results: []
-    //         };
-    //
-    //         mockedVestigingenApiResults = {
-    //             count: 0,
-    //             results: []
-    //         };
-    //
-    //         // Insert a pand into the mocked result set
-    //         mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedPandSearchResult);
-    //         mockedFormattedSearchResults.splice(1, 0, mockedFormattedPandSearchResult);
-    //
-    //         geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
-    //             searchResults = _searchResults_;
-    //         });
-    //
-    //         $rootScope.$apply();
-    //
-    //         expect(searchResults).toEqual(mockedFormattedSearchResults);
-    //     });
-    // });
-    //
-    // describe('when a ligplaats/standplaats has been found', () => {
-    //     it('loads related vestigingen', function () {
-    //         var searchResults,
-    //             expectedSearchResults;
-    //
-    //         // Insert a standplaats into the mocked result set
-    //         mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedStandplaatsSearchResult);
-    //         mockedFormattedSearchResults.splice(1, 0, mockedFormattedStandplaatsSearchResult);
-    //
-    //         expectedSearchResults = angular.copy(mockedFormattedSearchResults);
-    //         expectedSearchResults.splice(2, 0, mockedFormattedVestigingenApiResults);
-    //
-    //         geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
-    //             searchResults = _searchResults_;
-    //         });
-    //
-    //         $rootScope.$apply();
-    //
-    //         expectedSearchResults[2].more = {
-    //             label: 'Bekijk alle 2 vestigingen binnen deze standplaats',
-    //             endpoint: 'https://api.data.amsterdam.nl/bag/standplaats/0456789/'
-    //         };
-    //
-    //         expect(api.getByUrl).toHaveBeenCalledTimes(1);
-    //         expect(api.getByUrl)
-    //             .toHaveBeenCalledWith('https://api.data.amsterdam.nl/bag/standplaats/0456789/');
-    //
-    //         expect(api.getByUri)
-    //             .toHaveBeenCalledWith('handelsregister/vestiging/?nummeraanduiding=0123456789');
-    //
-    //         expect(searchFormatter.formatCategory).toHaveBeenCalledWith('vestiging', mockedVestigingenApiResults);
-    //         expect(searchResults).toEqual(expectedSearchResults);
-    //     });
-    //
-    //     it('does not load related vestigingen without required user level', () => {
-    //         var searchResults,
-    //             expectedSearchResults;
-    //
-    //         user.meetsRequiredLevel = () => false;
-    //
-    //         // Insert a standplaats into the mocked result set
-    //         mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedStandplaatsSearchResult);
-    //         mockedFormattedSearchResults.splice(1, 0, mockedFormattedStandplaatsSearchResult);
-    //
-    //         expectedSearchResults = mockedFormattedSearchResults;
-    //
-    //         geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
-    //             searchResults = _searchResults_;
-    //         });
-    //
-    //         $rootScope.$apply();
-    //
-    //         expect(api.getByUrl).not.toHaveBeenCalled();
-    //
-    //         expect(api.getByUri)
-    //             .not.toHaveBeenCalledWith('handelsregister/vestiging/?nummeraanduiding=0123456789');
-    //
-    //         expect(searchFormatter.formatCategory).not.toHaveBeenCalledWith('vestiging', mockedVestigingenApiResults);
-    //         expect(searchResults).toEqual(expectedSearchResults);
-    //     });
-    //
-    //     it('shows a different \'show more\' link based on type (standplaats, ligplaats)', function () {
-    //         var searchResults,
-    //             expectedSearchResults;
-    //
-    //         mockedStandplaatsApiResults.ligplaatsidentificatie = mockedStandplaatsApiResults.standplaatsidentificatie;
-    //         delete mockedStandplaatsApiResults.standplaatsidentificatie;
-    //
-    //         // Insert a standplaats into the mocked result set
-    //         mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedStandplaatsSearchResult);
-    //         mockedFormattedSearchResults.splice(1, 0, mockedFormattedStandplaatsSearchResult);
-    //
-    //         expectedSearchResults = angular.copy(mockedFormattedSearchResults);
-    //         expectedSearchResults.splice(2, 0, mockedFormattedVestigingenApiResults);
-    //
-    //         geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
-    //             searchResults = _searchResults_;
-    //         });
-    //
-    //         $rootScope.$apply();
-    //
-    //         expectedSearchResults[2].more = {
-    //             label: 'Bekijk alle 2 vestigingen binnen deze ligplaats',
-    //             endpoint: 'https://api.data.amsterdam.nl/bag/standplaats/0456789/'
-    //         };
-    //
-    //         expect(searchResults).toEqual(expectedSearchResults);
-    //     });
-    //
-    //     it('returns no vestigingen when api returns 0 vestigingen', function () {
-    //         var searchResults;
-    //
-    //         mockedVestigingenApiResults = {
-    //             count: 0,
-    //             results: []
-    //         };
-    //
-    //         // clear any lig/standplaats identificatie
-    //         delete mockedStandplaatsApiResults.ligplaatsidentificatie;
-    //         delete mockedStandplaatsApiResults.standplaatsidentificatie;
-    //
-    //         // Insert a standplaats into the mocked result set
-    //         mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedStandplaatsSearchResult);
-    //         mockedFormattedSearchResults.splice(1, 0, mockedFormattedStandplaatsSearchResult);
-    //
-    //         geosearch.search([52.789, 4.987]).then(function (_searchResults_) {
-    //             searchResults = _searchResults_;
-    //         });
-    //
-    //         $rootScope.$apply();
-    //
-    //         expect(searchResults.length).toBe(3);
-    //         expect(searchResults[0].slug).toBe(null);
-    //         expect(searchResults[1].slug).toBe('standplaats');
-    //         expect(searchResults[2].slug).toBe(null);
-    //         expect(searchResults[0].label_singular).toBe(undefined);
-    //         expect(searchResults[1].label_singular).toBe(undefined);
-    //         expect(searchResults[2].label_singular).toBe(undefined);
-    //     });
-    // });
+
+    it('gets empty result list in geosearch data for layers without detailItem', () => {
+        nearestDetail.search([52.961, 4.735], [mockLayers.tcmnmt], 11, callback);
+
+        $rootScope.$apply();
+
+        expect(api.getByUri).toHaveBeenCalledTimes(1);
+        expect(callback).toHaveBeenCalledTimes(1);
+
+        expect(api.getByUri).toHaveBeenCalledWith('geosearch/search/', {item: undefined, lat: 52.961, lon: 4.735,
+            radius: 16 });
+
+        expect(nearestDetail.getResults()).toEqual([]);
+        expect(nearestDetail.getLocation()).toEqual([52.961, 4.735]);
+    });
+
+    it('handles not existance of callback gracefully', () => {
+        nearestDetail.search([52.961, 4.735], [mockLayers.tcmnmt], 11);
+
+        $rootScope.$apply();
+        expect(callback).not.toHaveBeenCalled();
+    });
 });
