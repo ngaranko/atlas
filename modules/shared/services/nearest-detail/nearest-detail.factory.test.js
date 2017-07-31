@@ -20,7 +20,6 @@ describe('The nearestDetail factory', () => {
             {
                 api: {
                     getByUri: function (endpoint, params) {
-                        // console.log('endpoint', endpoint, params);
                         var q = $q.defer();
 
                         if (params.item === 'peilmerk') {

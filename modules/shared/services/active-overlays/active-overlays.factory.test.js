@@ -1,7 +1,6 @@
 describe('The active overlays factory', () => {
     let activeOverlays,
         store,
-        OVERLAYS,
         mockOverlays,
         mockLayers;
 
@@ -69,10 +68,9 @@ describe('The active overlays factory', () => {
             }
         );
 
-        angular.mock.inject((_activeOverlays_, _store_, _overlays_) => {
+        angular.mock.inject((_activeOverlays_, _store_) => {
             activeOverlays = _activeOverlays_;
             store = _store_;
-            OVERLAYS = _overlays_;
         });
 
         mockOverlays = {
