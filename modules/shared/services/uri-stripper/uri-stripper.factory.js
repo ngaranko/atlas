@@ -21,20 +21,23 @@
          * `sharedConfig.ROOT_KEYS`.
          *
          * @param {string} uri The uri to strip the domain from.
-         * @return {string[]} Containing one or two items. The config key of
-         * the domain stripped and the uri without the domain. Or, in case the
-         * uri has an unknown or no domain, the unmodified uri only.
+         * @return {string[]} Containing only the uri without the domain, or,
+         * in case the uri has an unknown or no domain, the unmodified uri
+         * only.
+         *
+         * This is an array for forwards compatibility to be able to
+         * store the domain key in case multiple domains are configured. This
+         * param should then containing one or two items. The config key of the
+         * domain stripped and the uri without the domain. Or, in case the uri
+         * has an unknown or no domain, the unmodified uri only.
          */
         function stripDomain (uri) {
             let result = [uri];
 
             const strippedApi = uri.replace(sharedConfig.API_ROOT, '');
-            const strippedCatalogus = uri.replace(sharedConfig.CATALOGUS_ROOT, '');
 
             if (strippedApi !== uri) {
-                result = ['API_ROOT', strippedApi];
-            } else if (strippedCatalogus !== uri) {
-                result = ['CATALOGUS_ROOT', strippedCatalogus];
+                result = [strippedApi];
             }
 
             return result;
@@ -48,6 +51,9 @@
          * The domain key specified will be checked for existance in the white
          * list `sharedConfig.ROOT_KEYS`.
          *
+         * For backwards compatibility, in case no domain key is specified, the
+         * uri will pre prepended with the ROOT_API domain.
+         *
          * @param {string[]} Containing one or two items. The config key of
          * the domain and the uri without the domain. Or only a uri. This is
          * the value as returned by `stripDomain`.
@@ -57,7 +63,8 @@
             let result;
 
             if (parts.length === 1) {
-                result = parts[0];
+                // Restore the API_ROOT by default
+                result = sharedConfig.API_ROOT + parts[0];
             } else {
                 // Check root based on white listing for security reasons
                 if (sharedConfig.ROOT_KEYS.indexOf(parts[0]) !== -1) {
