@@ -15,7 +15,7 @@ for (var VARIABLE of ENV_VARIABLES) {
 exports.config = {
     baseUrl: 'http://localhost:8000/',
     framework: 'jasmine',
-    specs: 'e2e/**/*.disabled.js',
+    specs: 'e2e/**/*.test.js',
     capabilities: {
         browserName: 'phantomjs',
         shardTestFiles: true,
