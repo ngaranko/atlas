@@ -7,6 +7,11 @@
   border-bottom: 1px solid $secondary-gray20;
 }
 
+%list-block-container {
+  margin-bottom: 2 * $base-whitespace;
+  border-bottom: none;
+}
+
 %list-block-indented {
   margin-right: -2 * $base-whitespace;
   margin-bottom: $base-whitespace;
@@ -16,6 +21,5 @@
   padding-bottom: .8 * $base-whitespace;
   padding-left: $base-font-size;
   border-bottom: 1px solid $secondary-gray20;
-  border-left: 1px solid $secondary-gray20;
+  border-left: 2px solid $secondary-gray20;
 }
-
