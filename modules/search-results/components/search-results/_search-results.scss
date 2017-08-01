@@ -8,9 +8,17 @@ dp-search-results {
   padding: 2 * $base-whitespace;
 }
 
-.c-search-results__thumbnail {
+.c-search-results__thumbnail-container {
   width: $thumbnail-width;
   float: right;
+}
+
+.c-search-results__thumbnail {
+  display: block;
+  margin: 0 (-2 * $base-whitespace);
+  border-right: (2 * $base-whitespace) solid $primary-light;
+  border-left: (2 * $base-whitespace) solid $primary-light;
+  background-color: $primary-light;
 }
 
 .c-search-results__block-content {
@@ -23,6 +31,10 @@ dp-search-results {
 
 .c-search-results__block {
   @extend %list-block;
+
+  &.c-search-results__block--container {
+    @extend %list-block-container;
+  }
 
   .s-indented-list & {
     @extend %list-block-indented;

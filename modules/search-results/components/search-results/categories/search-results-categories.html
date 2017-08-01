@@ -1,6 +1,7 @@
 <div>
     <div ng-repeat="category in vm.categories"
          class="c-search-results__block qa-search-results-category"
+         ng-class="{'c-search-results__block--container': category.subResults}"
          ng-if="(category.count >= 1 || category.warning) &&
                 (!category.authLevel || vm.meetsRequiredLevel(category.authLevel))">
 
