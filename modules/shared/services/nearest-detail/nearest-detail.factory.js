@@ -39,8 +39,8 @@
                     lon: location[1]
                 };
 
-                searchParams.radius = Math.round(
-                    Math.pow(2, mapConfig.BASE_LAYER_OPTIONS.maxZoom - zoom) / 2) * (overlay.detailFactor || 1);
+                searchParams.radius = overlay.detailFactor ? Math.round(
+                    Math.pow(2, mapConfig.BASE_LAYER_OPTIONS.maxZoom - zoom) / 2) * (overlay.detailFactor || 1) : 0;
 
                 const request = api.getByUri('geosearch/search/', searchParams).then(
                     data => data,

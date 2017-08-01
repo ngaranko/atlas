@@ -299,7 +299,8 @@
                     minZoom: 12,
                     maxZoom: 16,
                     legend: 'maps/gebieden?version=1.3.0&service=WMS&request=GetLegend' +
-                    'Graphic&sld_version=1.1.0&layer=bouwblok&format=image/png&STYLE=default'
+                    'Graphic&sld_version=1.1.0&layer=bouwblok&format=image/png&STYLE=default',
+                    detailItem: 'bouwblok'
                 },
 
                 // geografie: hoogte
