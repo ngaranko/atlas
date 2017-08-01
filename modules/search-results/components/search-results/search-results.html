@@ -17,8 +17,9 @@
                     Geen details beschikbaar van: {{ vm.layerWarning }}
                 </dp-panel>
 
-                <div ng-if="vm.location" class="c-search-results__thumbnail">
-                    <dp-straatbeeld-thumbnail location="vm.location"></dp-straatbeeld-thumbnail>
+                <div ng-if="vm.location" class="c-search-results__thumbnail-container">
+                    <dp-straatbeeld-thumbnail class="c-search-results__thumbnail"
+                                              location="vm.location"></dp-straatbeeld-thumbnail>
                 </div>
 
                 <dp-search-results-categories categories="vm.searchResults"></dp-search-results-categories>

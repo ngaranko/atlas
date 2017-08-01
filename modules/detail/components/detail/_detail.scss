@@ -11,13 +11,19 @@
     border: none;
   }
 
-  .s-indented-list & {
-    @extend %list-block-indented;
+  &.c-detail__block--container {
+    @extend %list-block-container;
+  }
 
+  .s-indented-list {
     .c-detail__block {
-      margin: 0;
-      padding: 0;
-      border: none;
+      @extend %list-block-indented;
+
+      .c-detail__block {
+        margin: 0;
+        padding: 0;
+        border: none;
+      }
     }
   }
 }
