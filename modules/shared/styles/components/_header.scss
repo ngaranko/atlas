@@ -10,7 +10,7 @@
   @include font-size-responsive($l-header-font);
 
   display: block;
-  margin-bottom: $base-whitespace;
+  margin-bottom: .4 * $base-whitespace;
   color: $primary-contrast;
 
   .s-indented-list & {
