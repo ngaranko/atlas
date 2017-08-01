@@ -521,7 +521,6 @@ describe('The dp-search-results component', function () {
         });
 
         it('shows no layer warning when results are not empty', () => {
-            // spyOn(activeOverlays, 'getOverlaysWarning').and.returnValue('foo, bar');
             nearestDetail.getResults.and.returnValue([1, 2]);
 
             component = getComponent(22, null, [51.123, 4.789]);

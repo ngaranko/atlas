@@ -8,6 +8,11 @@ dp-search-results {
   padding: 2 * $base-whitespace;
 }
 
+.c-search-results__layer-warning .c-panel {
+  margin-top: -(2 * $base-whitespace);
+  margin-bottom: 4 * $base-whitespace;
+}
+
 .c-search-results__thumbnail {
   width: $thumbnail-width;
   float: right;
