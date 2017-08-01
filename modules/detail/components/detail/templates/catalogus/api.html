@@ -22,10 +22,7 @@
     </div>
 
     <div class="u-row u-margin__bottom--4">
-        <div class="u-col-sm--6"></div>
-        <div class="u-col-sm--6">
-            <span class="s-detail-catalogus-notes" ng-bind-html="vm.apiData.results.notes"> </span>
-        </div>
+        <span class="s-detail-catalogus-notes" ng-bind-html="vm.apiData.results.notes"> </span>
     </div>
 
     <div class="c-detail__block">
@@ -44,10 +41,8 @@
                             <div class="c-data-selection-file-type
                                         c-data-selection-file-type__name
                                         c-data-selection-file-type__format-{{resource.format | lowercase }}">
-                                <span class="c-detail-catalogus-table__text"
-                                      ng-if="resource.format">{{resource.format}}</span>
-                                <span class="c-detail-catalogus-table__text"
-                                      ng-if="!resource.format"> ? </span>
+                                <span ng-if="resource.format">{{resource.format}}</span>
+                                <span ng-if="!resource.format"> ? </span>
                             </div>
                         </td>
                         <td class="c-table__field
