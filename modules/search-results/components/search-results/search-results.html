@@ -13,6 +13,10 @@
                     location="vm.location">
                 </dp-search-results-header>
 
+                <dp-panel ng-if="vm.layerWarning" is-panel-visible="vm.layerWarning" can-close="true" type="warning" class="qa-highlight-warning c-search-results__layer-warning">
+                    Geen details beschikbaar van: {{ vm.layerWarning }}
+                </dp-panel>
+
                 <div ng-if="vm.location" class="c-search-results__thumbnail-container">
                     <dp-straatbeeld-thumbnail class="c-search-results__thumbnail"
                                               location="vm.location"></dp-straatbeeld-thumbnail>

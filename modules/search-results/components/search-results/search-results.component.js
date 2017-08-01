@@ -1,4 +1,4 @@
-(function () {
+(() => {
     'use strict';
 
     angular
@@ -17,10 +17,12 @@
         });
 
     DpSearchResultsController.$inject = [
-        '$rootScope', '$scope', 'search', 'geosearch', 'TabHeader', 'user', 'store', 'ACTIONS'
+        '$rootScope', '$scope', 'search', 'geosearch', 'TabHeader', 'user', 'store', 'ACTIONS', 'activeOverlays',
+        'nearestDetail'
     ];
 
-    function DpSearchResultsController ($rootScope, $scope, search, geosearch, TabHeader, user, store, ACTIONS) {
+    function DpSearchResultsController ($rootScope, $scope, search, geosearch, TabHeader, user, store, ACTIONS,
+                                        activeOverlays, nearestDetail) {
         const vm = this;
 
         /**
@@ -66,6 +68,7 @@
         vm.showTabHeader = () => !angular.isArray(vm.location) && !vm.category;
 
         vm.meetsRequiredLevel = user.meetsRequiredLevel;
+        vm.layerWarning = false;
 
         vm.tabHeader = new TabHeader('data-datasets');
         vm.tabHeader.activeTab = vm.tabHeader.getTab('data');
@@ -90,10 +93,14 @@
         }
 
         function searchByLocation (location) {
-            const isLocation = angular.isArray(location);
+            const isLocation = angular.isArray(location),
+                results = nearestDetail.getResults();
+
             if (isLocation) {
+                vm.layerWarning = results.length === 0 ? activeOverlays.getOverlaysWarning() : false;
                 geosearch.search(location).then(setSearchResults).then(updateWarningMessage);
             }
+
             return isLocation;
         }
 

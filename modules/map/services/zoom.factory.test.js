@@ -103,20 +103,27 @@ describe('The zoom factory', function () {
     });
 
     it('can zoom in and out', function () {
+        // default
+        zoom.initialize(mockedLeafletMap);
+        expect(zoom.getZoom()).toBe(11);
+
         // Set a initial zoom
         mockedLeafletMap.setZoom.calls.reset();
         zoom.setZoom(mockedLeafletMap, 12);
         expect(mockedLeafletMap.setZoom).toHaveBeenCalledWith(12, jasmine.anything());
+        expect(zoom.getZoom()).toBe(12);
 
         // Zoom in
         mockedLeafletMap.setZoom.calls.reset();
         zoom.setZoom(mockedLeafletMap, 16);
         expect(mockedLeafletMap.setZoom).toHaveBeenCalledWith(16, jasmine.anything());
+        expect(zoom.getZoom()).toBe(16);
 
         // Zoom out
         mockedLeafletMap.setZoom.calls.reset();
         zoom.setZoom(mockedLeafletMap, 8);
         expect(mockedLeafletMap.setZoom).toHaveBeenCalledWith(8, jasmine.anything());
+        expect(zoom.getZoom()).toBe(8);
     });
 
     it('doesn\'t use animations when the zoom is triggered by a state change', () => {

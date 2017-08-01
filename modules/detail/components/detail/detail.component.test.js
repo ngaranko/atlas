@@ -16,7 +16,8 @@ describe('the dp-detail component', function () {
             'dpDetail',
             {
                 store: {
-                    dispatch: function () {}
+                    dispatch: function () {},
+                    getState: angular.noop
                 },
                 api: {
                     getByUrl: function (endpoint) {
@@ -128,6 +129,9 @@ describe('the dp-detail component', function () {
                             --rdLocation[1]
                         ];
                     }
+                },
+                nearestDetail: {
+                    getLocation: () => [52.654, 4.987]
                 }
             },
             function ($provide) {
@@ -156,6 +160,11 @@ describe('the dp-detail component', function () {
         });
 
         spyOn(store, 'dispatch');
+        spyOn(store, 'getState').and.returnValue({
+            map: {
+                highlight: true
+            }
+        });
         spyOn(user, 'getUserType').and.returnValue(null);
         spyOn(user, 'getAuthorizationLevel').and.returnValue(null);
         spyOn(user, 'meetsRequiredLevel').and.returnValue(false);
@@ -497,6 +506,28 @@ describe('the dp-detail component', function () {
             expect(scope.vm.isLoading).toBe(false);
             expect(scope.vm.apiData).toBeUndefined();
             expect(store.dispatch).not.toHaveBeenCalled(); // data removed
+        });
+    });
+
+    describe('the geosearch button', () => {
+        it('is not shown by default', () => {
+            const component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false);
+
+            const scope = component.isolateScope();
+            expect(scope.vm.geosearchButton).toBe(false);
+        });
+
+        it('is shown when highlight is false', () => {
+            store.getState.and.returnValue({
+                map: {
+                    highlight: false
+                }
+            });
+
+            const component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false);
+
+            const scope = component.isolateScope();
+            expect(scope.vm.geosearchButton).toEqual([52.654, 4.987]);
         });
     });
 });

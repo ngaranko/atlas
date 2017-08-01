@@ -108,7 +108,8 @@ describe('The highlight factory', function () {
                     }
                 },
                 store: {
-                    dispatch: angular.noop
+                    dispatch: angular.noop,
+                    getState: angular.noop
                 },
                 clusteredMarkersConfig: {
                     looksGoodToMe: true,
@@ -198,6 +199,11 @@ describe('The highlight factory', function () {
         spyOn(geojson, 'getCenter').and.callThrough();
 
         spyOn(store, 'dispatch');
+        spyOn(store, 'getState').and.returnValue({
+            map: {
+                highlight: true
+            }
+        });
 
         spyOn(mockedLatLngBounds, 'contains').and.callThrough();
     });
@@ -502,5 +508,17 @@ describe('The highlight factory', function () {
                 }
             });
         });
+    });
+
+    it('doesn\'t pan and zoom to the marker if highight is off', () => {
+        store.getState.and.returnValue({
+            map: {
+                highlight: false
+            }
+        });
+
+        highlight.addMarker(mockedLeafletMap, mockedItems.item_point);
+
+        expect(store.dispatch).toHaveBeenCalledWith(jasmine.objectContaining({type: ACTIONS.MAP_HIGHLIGHT}));
     });
 });
