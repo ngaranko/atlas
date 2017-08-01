@@ -217,7 +217,8 @@
                     minZoom: 13,
                     maxZoom: 16,
                     legend: 'maps/brk?version=1.3.0&service=WMS&request=GetLegend' +
-                    'Graphic&sld_version=1.1.0&layer=kadastraal_object&format=image/png&STYLE=default'
+                    'Graphic&sld_version=1.1.0&layer=kadastraal_object&format=image/png&STYLE=default',
+                    detailItem: 'kadastraal_object'
                 },
                 gbep: {
                     url: 'maps/wkpb',
@@ -227,7 +228,8 @@
                     minZoom: 13,
                     maxZoom: 16,
                     legend: 'maps/wkpb?version=1.3.0&service=WMS&request=GetLegend' +
-                    'Graphic&sld_version=1.1.0&layer=wkpb&format=image/png&STYLE=default'
+                    'Graphic&sld_version=1.1.0&layer=wkpb&format=image/png&STYLE=default',
+                    detailItem: 'beperking'
                 },
 
                 // geografie: gebieden

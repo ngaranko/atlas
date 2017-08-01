@@ -58,7 +58,6 @@
                 .map(i => i.features)
                 .reduce((a, b) => a.concat(b))
                 .map(i => i.properties);
-//                .sort((a, b) => a.distance - b.distance);
 
             detailResults = results;
 
