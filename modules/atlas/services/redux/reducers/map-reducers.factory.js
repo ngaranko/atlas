@@ -19,6 +19,7 @@
         reducers[ACTIONS.MAP_TOGGLE_VISIBILITY_OVERLAY.id] = mapToggleVisibilityOverlay;
         reducers[ACTIONS.MAP_PAN.id] = mapPanReducer;
         reducers[ACTIONS.MAP_ZOOM.id] = mapZoomReducer;
+        reducers[ACTIONS.MAP_HIGHLIGHT.id] = mapHighlightReducer;
         reducers[ACTIONS.MAP_FULLSCREEN.id] = mapFullscreenReducer;
         reducers[ACTIONS.MAP_START_DRAWING.id] = mapStartDrawingReducer;
         reducers[ACTIONS.MAP_CLEAR_DRAWING.id] = mapClearDrawingReducer;
@@ -205,6 +206,20 @@
             if (angular.isArray(payload.viewCenter)) {
                 newState.map.viewCenter = payload.viewCenter;
             }
+
+            return newState;
+        }
+
+        /**
+         * @param {Object} oldState
+         * @param {Number} payload - Set hightlighting on or off
+         *
+         * @returns {Object} newState
+         */
+        function mapHighlightReducer (oldState, payload) {
+            var newState = angular.copy(oldState);
+
+            newState.map.highlight = payload;
 
             return newState;
         }

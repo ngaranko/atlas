@@ -14,9 +14,9 @@
             controllerAs: 'vm'
         });
 
-    DpActiveOverlaysController.$inject = ['$scope', 'overlays', 'user'];
+    DpActiveOverlaysController.$inject = ['$scope', 'overlays', 'user', 'activeOverlays'];
 
-    function DpActiveOverlaysController ($scope, overlays, user) {
+    function DpActiveOverlaysController ($scope, overlays, user, activeOverlays) {
         var vm = this;
 
         $scope.$watch(user.getAuthorizationLevel, setOverlays);
@@ -26,6 +26,8 @@
         function setOverlays () {
             vm.validOverlays = vm.overlays.filter(overlay => overlays.SOURCES[overlay.id]);
             vm.visible = vm.showActiveOverlays && vm.overlays.length > 0;
+
+            activeOverlays.setOverlays(vm.validOverlays);
         }
     }
 })();

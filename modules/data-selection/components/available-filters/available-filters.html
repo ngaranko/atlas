@@ -8,7 +8,7 @@
                 ng-repeat="option in filter.options | limitTo : vm.isExpandedFilter(filter.slug) ? undefined : vm.showMoreThreshold">
                 <button class="o-btn o-btn--link o-btn--inline-block"
                         ng-click="vm.addFilter(filter.slug, option.id)"
-                    ><span class="c-data-selection-available-filters__item-label--empty-value"
+                    ><span class="c-data-selection-available-filters__item-label"
                           ng-class="{'c-data-selection-available-filters__item-label--empty-value': !option.label}"
                         ><span class="qa-option-label">{{option.label}}</span>
                         <span ng-if="vm.showOptionCounts">({{option.count}})</span>

@@ -14,9 +14,9 @@
             controllerAs: 'vm'
         });
 
-    DpActiveOverlaysItemController.$inject = ['$scope', '$q', 'api', 'mapConfig', 'overlays'];
+    DpActiveOverlaysItemController.$inject = ['$scope', '$q', 'api', 'mapConfig', 'overlays', 'activeOverlays'];
 
-    function DpActiveOverlaysItemController ($scope, $q, api, mapConfig, overlays) {
+    function DpActiveOverlaysItemController ($scope, $q, api, mapConfig, overlays, activeOverlays) {
         var vm = this;
 
         vm.overlayLabel = overlays.SOURCES[vm.overlay].label_short;
@@ -27,7 +27,7 @@
         }, updateVisibility);
 
         function updateVisibility () {
-            vm.isOverlayVisible = vm.isVisible && isVisibleAtCurrentZoom(vm.overlay, vm.zoom);
+            vm.isOverlayVisible = vm.isVisible && activeOverlays.isVisibleAtCurrentZoom(vm.overlay, vm.zoom);
 
             if (vm.hasLegend) {
                 getLegendImageSrc(vm.overlay).then(src => {
@@ -35,7 +35,7 @@
                 });
             }
 
-            if (vm.isVisible && !isVisibleAtCurrentZoom(vm.overlay, vm.zoom)) {
+            if (vm.isVisible && !activeOverlays.isVisibleAtCurrentZoom(vm.overlay, vm.zoom)) {
                 vm.overlayMessage = 'Zichtbaar bij verder zoomen';
             } else if (vm.isOverlayVisible && !vm.hasLegend) {
                 vm.overlayMessage = '(geen legenda)';
@@ -57,10 +57,6 @@
                 url = root + overlayData.legend;
 
             return overlayData.external ? $q.resolve(url) : api.createUrlWithToken(url);
-        }
-
-        function isVisibleAtCurrentZoom (overlay, zoom) {
-            return zoom >= overlays.SOURCES[overlay].minZoom && zoom <= overlays.SOURCES[overlay].maxZoom;
         }
     }
 })();

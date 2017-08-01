@@ -74,6 +74,10 @@
                 id: 'MAP_ZOOM',
                 replace: true
             },
+            MAP_HIGHLIGHT: {
+                id: 'MAP_HIGHLIGHT',
+                ignore: true
+            },
             MAP_FULLSCREEN: {
                 id: 'MAP_FULLSCREEN',
                 isButton: true

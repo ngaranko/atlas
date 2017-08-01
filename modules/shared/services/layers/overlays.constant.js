@@ -184,7 +184,8 @@
                     minZoom: 8,
                     maxZoom: 16,
                     legend: 'maps/brk?version=1.3.0&service=WMS&request=GetLegend' +
-                    'Graphic&sld_version=1.1.0&layer=burgerlijke_gemeente&format=image/png&STYLE=default'
+                    'Graphic&sld_version=1.1.0&layer=burgerlijke_gemeente&format=image/png&STYLE=default',
+                    noDetail: true
                 },
                 kgem: {
                     url: 'maps/brk?service=wms',
@@ -194,7 +195,8 @@
                     minZoom: 8,
                     maxZoom: 16,
                     legend: 'maps/brk?version=1.3.0&service=WMS&request=GetLegend' +
-                    'Graphic&sld_version=1.1.0&layer=kadastrale_gemeente&format=image/png&STYLE=default'
+                    'Graphic&sld_version=1.1.0&layer=kadastrale_gemeente&format=image/png&STYLE=default',
+                    noDetail: true
                 },
                 ksec: {
                     url: 'maps/brk?service=wms',
@@ -204,7 +206,8 @@
                     minZoom: 10,
                     maxZoom: 16,
                     legend: 'maps/brk?version=1.3.0&service=WMS&request=GetLegend' +
-                    'Graphic&sld_version=1.1.0&layer=kadastrale_sectie&format=image/png&STYLE=default'
+                    'Graphic&sld_version=1.1.0&layer=kadastrale_sectie&format=image/png&STYLE=default',
+                    noDetail: true
                 },
                 kot: {
                     url: 'maps/brk?service=wms',
@@ -309,7 +312,8 @@
                     maxZoom: 16,
                     legend: 'https://geodata.nationaalgeoregister.nl/ahn3/ows?service=WMS&request=GetLegendGraphic&fo' +
                     'rmat=image%2Fpng&width=20&height=20&layer=ahn3_05m_dsm&style=ahn3_05m',
-                    external: true
+                    external: true,
+                    noDetail: true
                 },
                 dtm: {
                     label_short: 'Terreinmodel (DTM AHN)',
@@ -320,7 +324,8 @@
                     maxZoom: 16,
                     legend: 'https://geodata.nationaalgeoregister.nl/ahn3/ows?service=WMS&request=GetLegendGraphic&fo' +
                     'rmat=image%2Fpng&width=20&height=20&layer=ahn3_05m_dtm&style=ahn3_05m',
-                    external: true
+                    external: true,
+                    noDetail: true
                 },
                 nap: {
                     url: 'maps/nap',
@@ -330,7 +335,9 @@
                     minZoom: 10,
                     maxZoom: 16,
                     legend: 'maps/nap?version=1.3.0&service=WMS&request=GetLegendG' +
-                    'raphic&sld_version=1.1.0&layer=NAP&format=image/png&STYLE=default'
+                    'raphic&sld_version=1.1.0&layer=NAP&format=image/png&STYLE=default',
+                    detailItem: 'peilmerk',
+                    detailFactor: 1
                 },
                 mbs: {
                     url: 'maps/meetbouten?service=wms',
@@ -340,7 +347,9 @@
                     minZoom: 12,
                     maxZoom: 16,
                     legend: 'maps/meetbouten?version=1.3.0&service=WMS&request=Get' +
-                    'LegendGraphic&sld_version=1.1.0&layer=meetbouten_status&format=image/png&STYLE=default'
+                    'LegendGraphic&sld_version=1.1.0&layer=meetbouten_status&format=image/png&STYLE=default',
+                    detailItem: 'meetbout',
+                    detailFactor: 1
                 },
                 mbz: {
                     url: 'maps/meetbouten?service=wms',
@@ -350,7 +359,9 @@
                     minZoom: 12,
                     maxZoom: 16,
                     legend: 'maps/meetbouten?version=1.3.0&service=WMS&request=Get' +
-                    'LegendGraphic&sld_version=1.1.0&layer=meetbouten_zaksnelheid&format=image/png&STYLE=default'
+                    'LegendGraphic&sld_version=1.1.0&layer=meetbouten_zaksnelheid&format=image/png&STYLE=default',
+                    detailItem: 'meetbout',
+                    detailFactor: 1
                 },
                 mbr: {
                     url: 'maps/meetbouten',
@@ -360,7 +371,8 @@
                     minZoom: 12,
                     maxZoom: 16,
                     legend: 'maps/meetbouten?version=1.3.0&service=WMS&request=Get' +
-                    'LegendGraphic&sld_version=1.1.0&layer=referentiepunten&format=image/png&STYLE=default'
+                    'LegendGraphic&sld_version=1.1.0&layer=referentiepunten&format=image/png&STYLE=default',
+                    noDetail: true
                 },
 
                 // milieu bodem
@@ -372,7 +384,8 @@
                     minZoom: 11,
                     maxZoom: 16,
                     legend: 'maps/bodem?version=1.3.0&service=WMS&request=GetLegen' +
-                    'dGraphic&sld_version=1.1.0&layer=grondmonsters&format=image/png&STYLE=default'
+                    'dGraphic&sld_version=1.1.0&layer=grondmonsters&format=image/png&STYLE=default',
+                    noDetail: true
                 },
                 mbgwm: {
                     url: 'maps/bodem',
@@ -382,7 +395,8 @@
                     minZoom: 8,
                     maxZoom: 16,
                     legend: 'maps/bodem?version=1.3.0&service=WMS&request=GetLegen' +
-                    'dGraphic&sld_version=1.1.0&layer=grondwatermonsters&format=image/png&STYLE=default'
+                    'dGraphic&sld_version=1.1.0&layer=grondwatermonsters&format=image/png&STYLE=default',
+                    noDetail: true
                 },
                 mbaig: {
                     url: 'maps/bodem',
@@ -392,7 +406,8 @@
                     minZoom: 11,
                     maxZoom: 16,
                     legend: 'maps/bodem?version=1.3.0&service=WMS&request=GetLegen' +
-                    'dGraphic&sld_version=1.1.0&layer=asbest&format=image/png&STYLE=default'
+                    'dGraphic&sld_version=1.1.0&layer=asbest&format=image/png&STYLE=default',
+                    noDetail: true
                 },
                 exin: {
                     url: 'maps/bommenkaart',
@@ -402,7 +417,9 @@
                     minZoom: 8,
                     maxZoom: 16,
                     legend: 'maps/bommenkaart?version=1.3.0&service=WMS&request=GetLegendGraphic&sld_version=1.1.0&la' +
-                    'yer=inslagen&format=image/png&STYLE=default'
+                    'yer=inslagen&format=image/png&STYLE=default',
+                    detailItem: 'bominslag',
+                    detailFactor: 1
                 },
                 exvg: {
                     url: 'maps/bommenkaart',
@@ -450,7 +467,8 @@
                     maxZoom: 16,
                     legend: 'maps/externeveiligheid?version=1.3.0&service=WMS&requ' +
                     'est=GetLegendGraphic&sld_version=1.1.0&layer=milieu_veiligheid_lpg_vulpunt&format=image/png&' +
-                    'STYLE=default'
+                    'STYLE=default',
+                    noDetail: true
                 },
                 mvlpga: {
                     url: 'maps/externeveiligheid',
@@ -461,7 +479,8 @@
                     maxZoom: 16,
                     legend: 'maps/externeveiligheid?version=1.3.0&service=WMS&requ' +
                     'est=GetLegendGraphic&sld_version=1.1.0&layer=milieu_veiligheid_lpg_afleverzuil&format=image/' +
-                    'png&STYLE=default'
+                    'png&STYLE=default',
+                    noDetail: true
                 },
                 mvlpgt: {
                     url: 'maps/externeveiligheid',
@@ -472,7 +491,8 @@
                     maxZoom: 16,
                     legend: 'maps/externeveiligheid?version=1.3.0&service=WMS&requ' +
                     'est=GetLegendGraphic&sld_version=1.1.0&layer=milieu_veiligheid_lpg_tank&format=image/png&STY' +
-                    'LE=default'
+                    'LE=default',
+                    noDetail: true
                 },
                 mvlpgs: {
                     url: 'maps/externeveiligheid',
@@ -483,7 +503,8 @@
                     maxZoom: 16,
                     legend: 'maps/externeveiligheid?version=1.3.0&service=WMS&requ' +
                     'est=GetLegendGraphic&sld_version=1.1.0&layer=milieu_veiligheid_lpg_station&format=image/png&' +
-                    'STYLE=default'
+                    'STYLE=default',
+                    noDetail: true
                 },
                 mvbr: {
                     authorizationLevel: 'EMPLOYEE',
@@ -495,7 +516,8 @@
                     maxZoom: 16,
                     legend: 'maps/externeveiligheid?version=1.3.0&service=WMS&requ' +
                     'est=GetLegendGraphic&sld_version=1.1.0&layer=overigerisicobedrijven&format=image/png&STYLE=d' +
-                    'efault'
+                    'efault',
+                    noDetail: true
                 },
                 mvbd: {
                     url: 'maps/externeveiligheid',
@@ -506,7 +528,8 @@
                     maxZoom: 16,
                     legend: 'maps/externeveiligheid?version=1.3.0&service=WMS&requ' +
                     'est=GetLegendGraphic&sld_version=1.1.0&layer=milieu_veiligheid_bedrijf&format=image/png&STYL' +
-                    'E=default'
+                    'E=default',
+                    noDetail: true
                 },
                 mvabl: {
                     url: 'maps/externeveiligheid',
@@ -517,7 +540,8 @@
                     maxZoom: 16,
                     legend: 'maps/externeveiligheid?version=1.3.0&service=WMS&requ' +
                     'est=GetLegendGraphic&sld_version=1.1.0&layer=milieu_veiligheid_aardgasbuisleidingen&format=i' +
-                    'mage/png&STYLE=default'
+                    'mage/png&STYLE=default',
+                    noDetail: true
                 },
                 mvsw: {
                     url: 'maps/externeveiligheid',
@@ -528,7 +552,8 @@
                     maxZoom: 16,
                     legend: 'maps/externeveiligheid?version=1.3.0&service=WMS&requ' +
                     'est=GetLegendGraphic&sld_version=1.1.0&layer=risicozonesspoorweg&format=image/png&STYLE=defa' +
-                    'ult'
+                    'ult',
+                    noDetail: true
                 },
                 mvvw: {
                     url: 'maps/externeveiligheid',
@@ -538,7 +563,8 @@
                     minZoom: 8,
                     maxZoom: 16,
                     legend: 'maps/externeveiligheid?version=1.3.0&service=WMS&requ' +
-                    'est=GetLegendGraphic&sld_version=1.1.0&layer=risicozonesvaarweg&format=image/png&STYLE=default'
+                    'est=GetLegendGraphic&sld_version=1.1.0&layer=risicozonesvaarweg&format=image/png&STYLE=default',
+                    noDetail: true
                 },
                 mvw: {
                     url: 'maps/externeveiligheid',
@@ -548,7 +574,8 @@
                     minZoom: 8,
                     maxZoom: 16,
                     legend: 'maps/externeveiligheid?version=1.3.0&service=WMS&requ' +
-                    'est=GetLegendGraphic&sld_version=1.1.0&layer=risicozonesweg&format=image/png&STYLE=default'
+                    'est=GetLegendGraphic&sld_version=1.1.0&layer=risicozonesweg&format=image/png&STYLE=default',
+                    noDetail: true
                 },
                 mvvo: {
                     url: 'maps/externeveiligheid',
@@ -559,7 +586,8 @@
                     maxZoom: 16,
                     legend: 'maps/externeveiligheid?version=1.3.0&service=WMS&requ' +
                     'est=GetLegendGraphic&sld_version=1.1.0&layer=milieu_veiligheid_vuurwerk&format=image/png&STY' +
-                    'LE=default'
+                    'LE=default',
+                    noDetail: true
                 },
                 mvmo: {
                     url: 'maps/externeveiligheid',
@@ -570,7 +598,8 @@
                     maxZoom: 16,
                     legend: 'maps/externeveiligheid?version=1.3.0&service=WMS&requ' +
                     'est=GetLegendGraphic&sld_version=1.1.0&layer=milieu_veiligheid_munitie&format=image/png&STYL' +
-                    'E=default'
+                    'E=default',
+                    noDetail: true
                 },
                 mvgms: {
                     url: 'maps/externeveiligheid',
@@ -581,7 +610,8 @@
                     maxZoom: 16,
                     legend: 'maps/externeveiligheid?version=1.3.0&service=WMS&requ' +
                     'est=GetLegendGraphic&sld_version=1.1.0&layer=milieu_veiligheid_gasdrukregel_meetstation&form' +
-                    'at=image/png&STYLE=default'
+                    'at=image/png&STYLE=default',
+                    noDetail: true
                 },
                 mvsls: {
                     url: 'maps/externeveiligheid',
@@ -592,7 +622,8 @@
                     maxZoom: 16,
                     legend: 'maps/externeveiligheid?version=1.3.0&service=WMS&requ' +
                     'est=GetLegendGraphic&sld_version=1.1.0&layer=milieu_veiligheid_sluis&format=image/png&STYLE=' +
-                    'default'
+                    'default',
+                    noDetail: true
                 },
                 mvwp: {
                     url: 'maps/externeveiligheid',
@@ -603,7 +634,8 @@
                     maxZoom: 16,
                     legend: 'maps/externeveiligheid?version=1.3.0&service=WMS&requ' +
                     'est=GetLegendGraphic&sld_version=1.1.0&layer=milieu_veiligheid_wachtplaats&format=image/png&' +
-                    'STYLE=default'
+                    'STYLE=default',
+                    noDetail: true
                 },
                 mvbs: {
                     url: 'maps/externeveiligheid',
@@ -614,7 +646,8 @@
                     maxZoom: 16,
                     legend: 'maps/externeveiligheid?version=1.3.0&service=WMS&requ' +
                     'est=GetLegendGraphic&sld_version=1.1.0&layer=milieu_veiligheid_bunkerschepen&format=image/pn' +
-                    'g&STYLE=default'
+                    'g&STYLE=default',
+                    noDetail: true
                 },
 
                 // milieu zones
@@ -630,7 +663,8 @@
                     maxZoom: 16,
                     legend: 'maps/planologischegeluidszones?version=1.3.0&service=' +
                     'WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=milieu_geluid_planologisch_industrie&fo' +
-                    'rmat=image/png&STYLE=default'
+                    'rmat=image/png&STYLE=default',
+                    noDetail: true
                 },
                 mgsw: {
                     url: 'maps/planologischegeluidszones',
@@ -640,7 +674,8 @@
                     minZoom: 8,
                     maxZoom: 16,
                     legend: 'maps/planologischegeluidszones?version=1.3.0&service=' +
-                    'WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=spoorwegen&format=image/png&STYLE=default'
+                    'WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=spoorwegen&format=image/png&STYLE=default',
+                    noDetail: true
                 },
                 mgpm: {
                     url: 'maps/planologischegeluidszones',
@@ -650,7 +685,8 @@
                     minZoom: 8,
                     maxZoom: 16,
                     legend: 'maps/planologischegeluidszones?version=1.3.0&service=' +
-                    'WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=metro&format=image/png&STYLE=default'
+                    'WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=metro&format=image/png&STYLE=default',
+                    noDetail: true
                 },
                 mgpsh: {
                     url: 'maps/planologischezonesschiphol',
@@ -661,7 +697,8 @@
                     maxZoom: 16,
                     legend: 'maps/planologischezonesschiphol?version=1.3.0&service' +
                     '=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=geluidszoneschiphol&format=image/png&S' +
-                    'TYLE=default'
+                    'TYLE=default',
+                    noDetail: true
                 },
                 mgth: {
                     url: 'maps/planologischezonesschiphol',
@@ -671,7 +708,8 @@
                     minZoom: 8,
                     maxZoom: 16,
                     legend: 'maps/planologischezonesschiphol?version=1.3.0&service=WMS&request=GetLegendGraphic&' +
-                    'sld_version=1.1.0&layer=maatgevendetoetshoogteschiphol&format=image/png&STYLE=default'
+                    'sld_version=1.1.0&layer=maatgevendetoetshoogteschiphol&format=image/png&STYLE=default',
+                    noDetail: true
                 },
                 mthr: {
                     url: 'maps/planologischezonesschiphol',
@@ -681,7 +719,8 @@
                     minZoom: 8,
                     maxZoom: 16,
                     legend: 'maps/planologischezonesschiphol?version=1.3.0&service=WMS&request=GetLegendGraphic&' +
-                    'sld_version=1.1.0&layer=toetshoogteradarschiphol&format=image/png&STYLE=default'
+                    'sld_version=1.1.0&layer=toetshoogteradarschiphol&format=image/png&STYLE=default',
+                    noDetail: true
                 },
                 mgvvgsh: {
                     url: 'maps/planologischezonesschiphol',
@@ -692,7 +731,8 @@
                     maxZoom: 16,
                     legend: 'maps/planologischezonesschiphol?version=1.3.0&service' +
                     '=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=vogelvrijwaringsgebiedschiphol&format=' +
-                    'image/png&STYLE=default'
+                    'image/png&STYLE=default',
+                    noDetail: true
                 },
 
                 // Toerisme en cultuur
@@ -705,7 +745,9 @@
                     maxZoom: 16,
                     legend: 'maps/monumenten?version=1.3.0&service' +
                     '=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=monument_coordinaten&format=' +
-                    'image/png&STYLE=default'
+                    'image/png&STYLE=default',
+                    detailItem: 'monument',
+                    detailFactor: 1
                 },
 
                 // Verkeer
@@ -718,7 +760,8 @@
                     maxZoom: 16,
                     legend: 'maps/parkeervakken?version=1.3.0&service=WMS&request=' +
                     'GetLegendGraphic&sld_version=1.1.0&layer=alle_parkeervakken&format=image/png&STYLE=de' +
-                    'fault'
+                    'fault',
+                    noDetail: true
                 },
                 pvb: {
                     url: 'maps/parkeervakken',
@@ -729,7 +772,8 @@
                     maxZoom: 16,
                     legend: 'maps/parkeervakken?version=1.3.0&service=WMS&request=' +
                     'GetLegendGraphic&sld_version=1.1.0&layer=parkeervakken_bord&format=image/png&STYLE=de' +
-                    'fault'
+                    'fault',
+                    noDetail: true
                 },
                 pvr: {
                     url: 'maps/parkeervakken',
@@ -740,7 +784,8 @@
                     maxZoom: 16,
                     legend: 'maps/parkeervakken?version=1.3.0&service=WMS&request=' +
                     'GetLegendGraphic&sld_version=1.1.0&layer=parkeervakken_reservering&format=image/png&STYLE=de' +
-                    'fault'
+                    'fault',
+                    noDetail: true
                 },
 
                 // Panoramabeelden

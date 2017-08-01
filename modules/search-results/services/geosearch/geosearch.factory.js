@@ -1,4 +1,4 @@
-(function () {
+(() => {
     angular
         .module('dpSearchResults')
         .factory('geosearch', geosearchFactory);
@@ -7,26 +7,25 @@
 
     function geosearchFactory ($q, SEARCH_CONFIG, api, geosearchFormatter, searchFormatter, user) {
         return {
-            search: searchFeatures
+            search
         };
 
-        function searchFeatures (location) {
-            var allRequests = [];
+        function search (location) {
+            const allRequests = [];
 
             SEARCH_CONFIG.COORDINATES_ENDPOINTS.forEach(function (endpoint) {
-                var request,
-                    searchParams = {
-                        lat: location[0],
-                        lon: location[1]
-                    };
+                const searchParams = {
+                    lat: location[0],
+                    lon: location[1]
+                };
 
                 if (angular.isNumber(endpoint.radius)) {
                     searchParams.radius = endpoint.radius;
                 }
 
-                request = api.getByUri(endpoint.uri, searchParams).then(
+                const request = api.getByUri(endpoint.uri, searchParams).then(
                     data => data,
-                    () => { return { features: [] }; });    // empty features on failure op api call
+                    () => { return { features: [] }; });    // empty features on failure of api call
 
                 allRequests.push(request);
             });
@@ -41,7 +40,9 @@
                 [pandCategoryIndex, pandEndpoint] = getPandData(geosearchResults),
                 [plaatsCategoryIndex, plaatsEndpoint] = getPlaatsData(geosearchResults);
 
-            if (plaatsEndpoint) {
+            if (plaatsEndpoint && user.meetsRequiredLevel('EMPLOYEE')) {
+                // Only fetching 'vestigingen' for a standplaats/ligplaats, so
+                // we check for employee status here already
                 api.getByUrl(plaatsEndpoint).then(processPlaatsData);
             } else if (pandEndpoint) {
                 api.getByUrl(pandEndpoint).then(processPandData);

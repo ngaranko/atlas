@@ -111,6 +111,14 @@
         }
 
         function zoomToLayer (leafletMap, layer, geometry) {
+            if (!store.getState().map.highlight) {
+                store.dispatch({
+                    type: ACTIONS.MAP_HIGHLIGHT,
+                    payload: true
+                });
+                return;
+            }
+
             let location,
                 zoomLevel;
 

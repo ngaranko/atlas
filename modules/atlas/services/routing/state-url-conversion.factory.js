@@ -34,7 +34,12 @@
     //
     angular
         .module('atlas')
-        .constant('STATE_URL_CONVERSION', {
+        .factory('stateUrlConversion', stateUrlConversionFactory);
+
+    stateUrlConversionFactory.$inject = ['uriStripper'];
+
+    function stateUrlConversionFactory (uriStripper) {
+        return {
             onCreate: {
                 // Initialisation methods for the url2state conversion
                 // These methods are executed after a state object has been initialized with the initialValues
@@ -72,6 +77,7 @@
                     if (angular.isObject(oldState)) {
                         // Do not keep the state of the drawing mode
 
+                        newState.highlight = oldState.highlight;
                         newState.isLoading = oldState.isLoading;
                     }
                     return newState;
@@ -144,7 +150,8 @@
                     isFullscreen: false,
                     isLoading: false,
                     showActiveOverlays: false,
-                    drawingMode: 'none'
+                    drawingMode: 'none',
+                    highlight: true
                 },
                 page: {
                     name: null  // eg: 'home'
@@ -223,7 +230,9 @@
                 // detail (dt)
                 dte: {
                     name: 'detail.endpoint',
-                    type: 'string'
+                    type: 'string[]',
+                    getValue: uriStripper.stripDomain,
+                    setValue: uriStripper.restoreDomain
                 },
                 dtfs: {
                     name: 'detail.isFullscreen',
@@ -332,5 +341,6 @@
                     precision: 1
                 }
             }
-        });
+        };
+    }
 })();
