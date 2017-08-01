@@ -32,7 +32,7 @@
             detailResults = [];
             dispatcher = callback;
 
-            overlays.forEach(function (overlay) {
+            overlays.reverse().forEach(function (overlay) {
                 const searchParams = {
                     item: overlay.detailItem,
                     lat: location[0],
@@ -57,8 +57,8 @@
             const results = newDetailResults
                 .map(i => i.features)
                 .reduce((a, b) => a.concat(b))
-                .map(i => i.properties)
-                .sort((a, b) => a.distance - b.distance);
+                .map(i => i.properties);
+//                .sort((a, b) => a.distance - b.distance);
 
             detailResults = results;
 
