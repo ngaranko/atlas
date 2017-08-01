@@ -115,7 +115,7 @@ describe('The state url conversion factory', function () {
 
             angular.mock.module('atlas',
                 function ($provide) {
-                    $provide.constant('STATE_URL_CONVERSION', mockedStateUrlConversion);
+                    $provide.constant('stateUrlConversion', mockedStateUrlConversion);
                 }
             );
 

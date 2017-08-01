@@ -34,7 +34,7 @@
     //
     angular
         .module('atlas')
-        .factory('STATE_URL_CONVERSION', stateUrlConversionFactory);
+        .factory('stateUrlConversion', stateUrlConversionFactory);
 
     stateUrlConversionFactory.$inject = ['uriStripper'];
 

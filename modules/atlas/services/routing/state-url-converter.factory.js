@@ -6,12 +6,12 @@
         .factory('stateUrlConverter', stateUrlConverterFactory);
 
     stateUrlConverterFactory.$inject = [
-        'STATE_URL_CONVERSION',
+        'stateUrlConversion',
         'dpBaseCoder'
     ];
 
     function stateUrlConverterFactory (
-        STATE_URL_CONVERSION,
+        stateUrlConversion,
         dpBaseCoder
     ) {
         const URL_ARRAY_SEPARATOR = ':';    // Choose any of -._~:[]@!$'()*+,;`.
@@ -146,9 +146,9 @@
 
         function createObject (oldObj, key, params) {
             // create a state object by using its initial value (default {}) and onCreate method if defined
-            const initialValues = STATE_URL_CONVERSION.initialValues,
+            const initialValues = stateUrlConversion.initialValues,
                 initialValue = initialValues[key] || {},
-                onCreate = STATE_URL_CONVERSION.onCreate[key];
+                onCreate = stateUrlConversion.onCreate[key];
 
             let newObj = angular.copy(initialValue);
             if (angular.isFunction(onCreate)) {
@@ -245,8 +245,8 @@
 
         function state2params (state) {
             // Converts a state to a params object that is stored in the url
-            return Object.keys(STATE_URL_CONVERSION.stateVariables).reduce((result, key) => {
-                const attribute = STATE_URL_CONVERSION.stateVariables[key];
+            return Object.keys(stateUrlConversion.stateVariables).reduce((result, key) => {
+                const attribute = stateUrlConversion.stateVariables[key];
                 let value = getValueForKey(state, attribute.name);
                 if (value !== null) {
                     // store value in url
@@ -266,8 +266,8 @@
             // Converts a params object (payload or url value) to a new state object
             let newState = createObject(oldState, MAIN_STATE, params);
 
-            newState = Object.keys(STATE_URL_CONVERSION.stateVariables).reduce((result, key) => {
-                const attribute = STATE_URL_CONVERSION.stateVariables[key];
+            newState = Object.keys(stateUrlConversion.stateVariables).reduce((result, key) => {
+                const attribute = stateUrlConversion.stateVariables[key];
                 let value = params[key];
                 if (angular.isDefined(value)) {
                     // store value in state
@@ -283,16 +283,16 @@
             }, newState);
 
             // Set any missing state objects to null
-            Object.keys(STATE_URL_CONVERSION.initialValues).forEach(key => {
+            Object.keys(stateUrlConversion.initialValues).forEach(key => {
                 if (key !== MAIN_STATE && !angular.isObject(newState[key])) {
                     newState[key] = null;
                 }
             });
 
             // Execute the post processing methods
-            Object.keys(STATE_URL_CONVERSION.post).forEach(key => {
+            Object.keys(stateUrlConversion.post).forEach(key => {
                 if (angular.isObject(newState[key])) {
-                    STATE_URL_CONVERSION.post[key](oldState[key], newState[key]);
+                    stateUrlConversion.post[key](oldState[key], newState[key]);
                 }
             });
 

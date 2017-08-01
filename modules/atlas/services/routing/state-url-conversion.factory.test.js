@@ -1,5 +1,5 @@
 describe('The state url conversion definition', function () {
-    let STATE_URL_CONVERSION,
+    let stateUrlConversion,
         DRAW_TOOL_CONFIG,
         uriStripper;
 
@@ -14,8 +14,8 @@ describe('The state url conversion definition', function () {
         spyOn(uriStripper, 'stripDomain');
         spyOn(uriStripper, 'restoreDomain');
 
-        angular.mock.inject(function (_STATE_URL_CONVERSION_, _DRAW_TOOL_CONFIG_) {
-            STATE_URL_CONVERSION = _STATE_URL_CONVERSION_;
+        angular.mock.inject(function (_stateUrlConversion_, _DRAW_TOOL_CONFIG_) {
+            stateUrlConversion = _stateUrlConversion_;
             DRAW_TOOL_CONFIG = _DRAW_TOOL_CONFIG_;
         });
     });
@@ -24,7 +24,7 @@ describe('The state url conversion definition', function () {
         it('initialize a state to the home page and it sets a default map, (only) on an empty payload', function () {
             let state;
 
-            state = STATE_URL_CONVERSION.onCreate.DEFAULT({}, {}, {}, STATE_URL_CONVERSION.initialValues);
+            state = stateUrlConversion.onCreate.DEFAULT({}, {}, {}, stateUrlConversion.initialValues);
             expect(state).toEqual({
                 atlas: {
                     isPrintMode: false,
@@ -49,7 +49,7 @@ describe('The state url conversion definition', function () {
                 }
             });
 
-            state = STATE_URL_CONVERSION.onCreate.DEFAULT({}, {}, {aap: 'noot'}, {});
+            state = stateUrlConversion.onCreate.DEFAULT({}, {}, {aap: 'noot'}, {});
             expect(state).toEqual({atlas: undefined, page: undefined, layerSelection: undefined});
         });
     });
@@ -69,7 +69,7 @@ describe('The state url conversion definition', function () {
                     view: 'LIST'
                 };
 
-                STATE_URL_CONVERSION.post.dataSelection(oldState, newState);
+                stateUrlConversion.post.dataSelection(oldState, newState);
                 expect(newState).toEqual({
                     markers: 'aap',
                     isLoading: 'noot',
@@ -82,7 +82,7 @@ describe('The state url conversion definition', function () {
                     view: 'TABLE'
                 };
 
-                STATE_URL_CONVERSION.post.dataSelection(oldState, newState);
+                stateUrlConversion.post.dataSelection(oldState, newState);
                 expect(newState).toEqual({
                     view: 'TABLE',
                     isFullscreen: true
@@ -99,7 +99,7 @@ describe('The state url conversion definition', function () {
                 };
                 let newState = {};
 
-                STATE_URL_CONVERSION.post.map(oldState, newState);
+                stateUrlConversion.post.map(oldState, newState);
                 expect(newState).toEqual({
                     isLoading: true
                 });
@@ -110,7 +110,7 @@ describe('The state url conversion definition', function () {
                 };
                 newState = {};
 
-                STATE_URL_CONVERSION.post.map(oldState, newState);
+                stateUrlConversion.post.map(oldState, newState);
                 expect(newState).toEqual({
                     isLoading: undefined
                 });
@@ -121,7 +121,7 @@ describe('The state url conversion definition', function () {
                 };
                 newState = {};
 
-                STATE_URL_CONVERSION.post.map(oldState, newState);
+                stateUrlConversion.post.map(oldState, newState);
                 expect(newState).toEqual({
                     isLoading: false
                 });
@@ -130,7 +130,7 @@ describe('The state url conversion definition', function () {
                 oldState = null;
                 newState = {};
 
-                STATE_URL_CONVERSION.post.map(oldState, newState);
+                stateUrlConversion.post.map(oldState, newState);
                 expect(newState).toEqual({});
             });
         });
@@ -151,7 +151,7 @@ describe('The state url conversion definition', function () {
                     endpoint: 1
                 };
 
-                STATE_URL_CONVERSION.post.detail(oldState, newState);
+                stateUrlConversion.post.detail(oldState, newState);
                 expect(newState).toEqual({
                     endpoint: 1,
                     display: 'aap',
@@ -164,7 +164,7 @@ describe('The state url conversion definition', function () {
                     endpoint: 2
                 };
 
-                STATE_URL_CONVERSION.post.detail(oldState, newState);
+                stateUrlConversion.post.detail(oldState, newState);
                 expect(newState).toEqual({
                     endpoint: 2
                 });
@@ -198,7 +198,7 @@ describe('The state url conversion definition', function () {
             it('does nothing if there is no old search state', () => {
                 const newState = angular.copy(oldStateWithQuery);
 
-                STATE_URL_CONVERSION.post.search(undefined, newState);
+                stateUrlConversion.post.search(undefined, newState);
 
                 expect(newState).toEqual(oldStateWithQuery);
             });
@@ -208,17 +208,17 @@ describe('The state url conversion definition', function () {
 
                 // With query
                 newState = angular.copy(oldStateWithQuery);
-                STATE_URL_CONVERSION.post.search(oldStateWithQuery, newState);
+                stateUrlConversion.post.search(oldStateWithQuery, newState);
                 expect(newState).toEqual(oldStateWithQuery);
 
                 // With query and category
                 newState = angular.copy(oldStateWithQueryAndCategory);
-                STATE_URL_CONVERSION.post.search(oldStateWithQueryAndCategory, newState);
+                stateUrlConversion.post.search(oldStateWithQueryAndCategory, newState);
                 expect(newState).toEqual(oldStateWithQueryAndCategory);
 
                 // With location
                 newState = angular.copy(oldStateWithLocation);
-                STATE_URL_CONVERSION.post.search(oldStateWithLocation, newState);
+                stateUrlConversion.post.search(oldStateWithLocation, newState);
                 expect(newState).toEqual(oldStateWithLocation);
             });
 
@@ -228,21 +228,21 @@ describe('The state url conversion definition', function () {
                 // When the query changes
                 newState = angular.copy(oldStateWithQuery);
                 newState.query = 'damrak'; // Instead of 'dam'
-                STATE_URL_CONVERSION.post.search(oldStateWithQuery, newState);
+                stateUrlConversion.post.search(oldStateWithQuery, newState);
                 expect(newState.numberOfResults).toBeNull();
                 expect(newState.isLoading).toBe(true);
 
                 // When the category changes
                 newState = angular.copy(oldStateWithQueryAndCategory);
                 newState.category = null;
-                STATE_URL_CONVERSION.post.search(oldStateWithQueryAndCategory, newState);
+                stateUrlConversion.post.search(oldStateWithQueryAndCategory, newState);
                 expect(newState.numberOfResults).toBeNull();
                 expect(newState.isLoading).toBe(true);
 
                 // When the location changes
                 newState = angular.copy(oldStateWithLocation);
                 newState.location = [52.999, 4.111];
-                STATE_URL_CONVERSION.post.search(oldStateWithLocation, newState);
+                stateUrlConversion.post.search(oldStateWithLocation, newState);
                 expect(newState.numberOfResults).toBeNull();
                 expect(newState.isLoading).toBe(true);
             });
@@ -265,7 +265,7 @@ describe('The state url conversion definition', function () {
                     id: 1
                 };
 
-                STATE_URL_CONVERSION.post.straatbeeld(oldState, newState);
+                stateUrlConversion.post.straatbeeld(oldState, newState);
                 expect(newState).toEqual({
                     id: 1,
                     image: 'aap',
@@ -280,7 +280,7 @@ describe('The state url conversion definition', function () {
                     id: 2
                 };
 
-                STATE_URL_CONVERSION.post.straatbeeld(oldState, newState);
+                stateUrlConversion.post.straatbeeld(oldState, newState);
                 expect(newState).toEqual({
                     id: 2
                 });
@@ -295,7 +295,7 @@ describe('The state url conversion definition', function () {
                 const expected = ['ROOT', 'endpoint'];
 
                 uriStripper.stripDomain.and.returnValue(expected);
-                const actual = STATE_URL_CONVERSION.stateVariables.dte.getValue(value);
+                const actual = stateUrlConversion.stateVariables.dte.getValue(value);
 
                 expect(actual).toBe(expected);
                 expect(uriStripper.stripDomain).toHaveBeenCalledWith(value);
@@ -306,7 +306,7 @@ describe('The state url conversion definition', function () {
                 const expected = 'https://root.amsterdam.nl/endpoint';
 
                 uriStripper.restoreDomain.and.returnValue(expected);
-                const actual = STATE_URL_CONVERSION.stateVariables.dte.setValue(value);
+                const actual = stateUrlConversion.stateVariables.dte.setValue(value);
 
                 expect(actual).toBe(expected);
                 expect(uriStripper.restoreDomain).toHaveBeenCalledWith(value);
