@@ -125,7 +125,7 @@ describe('The state url conversion definition', function () {
                 };
                 newState = {};
 
-                STATE_URL_CONVERSION.post.map(oldState, newState);
+                stateUrlConversion.post.map(oldState, newState);
                 expect(newState).toEqual({
                     highlight: undefined,
                     isLoading: true
