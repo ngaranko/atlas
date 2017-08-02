@@ -735,6 +735,52 @@
                     noDetail: true
                 },
 
+                // Openbare orde en veiligheid
+                oovoalg: {
+                    url: 'maps/overlastgebieden',
+                    label_short: 'Overlastgebieden - Algemeen',
+                    label_long: 'Overlastgebieden - Algemeen',
+                    layers: ['algemeen_overlastgebied', 'algemeen_overlastgebied_label'],
+                    minZoom: 10,
+                    maxZoom: 16,
+                    legend: 'maps/overlastgebieden?version=1.3.0&service' +
+                    '=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=algemeen_overlastgebied&format=' +
+                    'image/png&STYLE=default'
+                },
+                oovodlrs: {
+                    url: 'maps/overlastgebieden',
+                    label_short: 'Overlastgebieden - Dealers',
+                    label_long: 'Overlastgebieden - Dealers',
+                    layers: ['dealeroverlastgebied', 'dealeroverlastgebied_label'],
+                    minZoom: 10,
+                    maxZoom: 16,
+                    legend: 'maps/overlastgebieden?version=1.3.0&service' +
+                    '=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=dealeroverlastgebied&format=' +
+                    'image/png&STYLE=default'
+                },
+                oovouitg: {
+                    url: 'maps/overlastgebieden',
+                    label_short: 'Overlastgebieden - Uitgaan',
+                    label_long: 'Overlastgebieden - Uitgaan',
+                    layers: ['uitgaansoverlastgebied', 'uitgaansoverlastgebied_label'],
+                    minZoom: 10,
+                    maxZoom: 16,
+                    legend: 'maps/overlastgebieden?version=1.3.0&service' +
+                    '=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=uitgaansoverlastgebied&format=' +
+                    'image/png&STYLE=default'
+                },
+                oovctg: {
+                    url: 'maps/overlastgebieden',
+                    label_short: 'Cameratoezichtgebieden',
+                    label_long: 'Cameratoezichtgebieden',
+                    layers: ['cameratoezichtgebied', 'cameratoezichtgebied_label'],
+                    minZoom: 10,
+                    maxZoom: 16,
+                    legend: 'maps/overlastgebieden?version=1.3.0&service' +
+                    '=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=cameratoezichtgebied&format=' +
+                    'image/png&STYLE=default'
+                },
+
                 // Toerisme en cultuur
                 tcmnmt: {
                     url: 'maps/monumenten',
@@ -944,6 +990,14 @@
                         'mgth',
                         'mthr',
                         'mgvvgsh'
+                    ]
+                }, {
+                    heading: 'Openbare orde en veiligheid',
+                    overlays: [
+                        'oovoalg',
+                        'oovodlrs',
+                        'oovouitg',
+                        'oovctg'
                     ]
                 }, {
                     heading: 'Toerisme en cultuur',
