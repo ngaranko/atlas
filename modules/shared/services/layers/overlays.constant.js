@@ -37,7 +37,10 @@
                     minZoom: 11,
                     maxZoom: 16,
                     legend: 'maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
-                    'gendGraphic&sld_version=1.1.0&layer=handel_vervoer_opslag&format=image/png&STYLE=default'
+                    'gendGraphic&sld_version=1.1.0&layer=handel_vervoer_opslag&format=image/png&STYLE=default',
+                    detailUrl: 'handelsregister/geosearch/',
+                    detailItem: 'handel_vervoer_opslag',
+                    detailFactor: 1
                 },
                 pir: {
                     authorizationLevel: 'EMPLOYEE',
@@ -49,7 +52,10 @@
                     maxZoom: 16,
                     legend: 'maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
                     'gendGraphic&sld_version=1.1.0&' +
-                    'layer=productie_installatie_reparatie&format=image/png&STYLE=default'
+                    'layer=productie_installatie_reparatie&format=image/png&STYLE=default',
+                    detailUrl: 'handelsregister/geosearch/',
+                    detailItem: 'productie_installatie_reparatie',
+                    detailFactor: 1
                 },
                 bouw: {
                     authorizationLevel: 'EMPLOYEE',
@@ -60,7 +66,10 @@
                     minZoom: 11,
                     maxZoom: 16,
                     legend: 'maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
-                    'gendGraphic&sld_version=1.1.0&layer=bouw&format=image/png&STYLE=default'
+                    'gendGraphic&sld_version=1.1.0&layer=bouw&format=image/png&STYLE=default',
+                    detailUrl: 'handelsregister/geosearch/',
+                    detailItem: 'bouw',
+                    detailFactor: 1
                 },
                 lb: {
                     authorizationLevel: 'EMPLOYEE',
@@ -71,7 +80,10 @@
                     minZoom: 11,
                     maxZoom: 16,
                     legend: 'maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
-                    'gendGraphic&sld_version=1.1.0&layer=landbouw&format=image/png&STYLE=default'
+                    'gendGraphic&sld_version=1.1.0&layer=landbouw&format=image/png&STYLE=default',
+                    detailUrl: 'handelsregister/geosearch/',
+                    detailItem: 'landbouw',
+                    detailFactor: 1
                 },
                 hrc: {
                     authorizationLevel: 'EMPLOYEE',
@@ -82,7 +94,10 @@
                     minZoom: 11,
                     maxZoom: 16,
                     legend: 'maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
-                    'gendGraphic&sld_version=1.1.0&layer=horeca&format=image/png&STYLE=default'
+                    'gendGraphic&sld_version=1.1.0&layer=horeca&format=image/png&STYLE=default',
+                    detailUrl: 'handelsregister/geosearch/',
+                    detailItem: 'horeca',
+                    detailFactor: 1
                 },
                 itc: {
                     authorizationLevel: 'EMPLOYEE',
@@ -93,7 +108,10 @@
                     minZoom: 11,
                     maxZoom: 16,
                     legend: 'maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
-                    'gendGraphic&sld_version=1.1.0&layer=telecommunicatie&format=image/png&STYLE=default'
+                    'gendGraphic&sld_version=1.1.0&layer=telecommunicatie&format=image/png&STYLE=default',
+                    detailUrl: 'handelsregister/geosearch/',
+                    detailItem: 'informatie_telecommunicatie',
+                    detailFactor: 1
                 },
                 fdvrog: {
                     authorizationLevel: 'EMPLOYEE',
@@ -106,7 +124,10 @@
                     legend: 'maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
                     'gendGraphic&sld_version=1.1.0&' +
                     'layer=financiele_dienstverlening_verhuur' +
-                    '&format=image/png&STYLE=default'
+                    '&format=image/png&STYLE=default',
+                    detailUrl: 'handelsregister/geosearch/',
+                    detailItem: 'financiele_dienstverlening_verhuur',
+                    detailFactor: 1
                 },
                 zd: {
                     authorizationLevel: 'EMPLOYEE',
@@ -117,7 +138,10 @@
                     minZoom: 11,
                     maxZoom: 16,
                     legend: 'maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
-                    'gendGraphic&sld_version=1.1.0&layer=zakelijke_dienstverlening&format=image/png&STYLE=default'
+                    'gendGraphic&sld_version=1.1.0&layer=zakelijke_dienstverlening&format=image/png&STYLE=default',
+                    detailUrl: 'handelsregister/geosearch/',
+                    detailItem: 'zakelijke_dienstverlening',
+                    detailFactor: 1
                 },
                 ooz: {
                     authorizationLevel: 'EMPLOYEE',
@@ -128,7 +152,10 @@
                     minZoom: 11,
                     maxZoom: 16,
                     legend: 'maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
-                    'gendGraphic&sld_version=1.1.0&layer=overheid_onderwijs_zorg&format=image/png&STYLE=default'
+                    'gendGraphic&sld_version=1.1.0&layer=overheid_onderwijs_zorg&format=image/png&STYLE=default',
+                    detailUrl: 'handelsregister/geosearch/',
+                    detailItem: 'overheid_onderwijs_zorg',
+                    detailFactor: 1
                 },
                 csr: {
                     authorizationLevel: 'EMPLOYEE',
@@ -139,7 +166,10 @@
                     minZoom: 11,
                     maxZoom: 16,
                     legend: 'maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
-                    'gendGraphic&sld_version=1.1.0&layer=cultuur_sport_recreatie&format=image/png&STYLE=default'
+                    'gendGraphic&sld_version=1.1.0&layer=cultuur_sport_recreatie&format=image/png&STYLE=default',
+                    detailUrl: 'handelsregister/geosearch/',
+                    detailItem: 'cultuur_sport_recreatie',
+                    detailFactor: 1
                 },
                 pd: {
                     authorizationLevel: 'EMPLOYEE',
@@ -151,7 +181,10 @@
                     maxZoom: 16,
                     legend: 'maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
                     'gendGraphic&sld_version=1.1.0&' +
-                    'layer=persoonlijke_dienstverlening&format=image/png&STYLE=default'
+                    'layer=persoonlijke_dienstverlening&format=image/png&STYLE=default',
+                    detailUrl: 'handelsregister/geosearch/',
+                    detailItem: 'persoonlijke_dienstverlening',
+                    detailFactor: 1
                 },
                 ovrg: {
                     authorizationLevel: 'EMPLOYEE',
@@ -162,7 +195,10 @@
                     minZoom: 11,
                     maxZoom: 16,
                     legend: 'maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
-                    'gendGraphic&sld_version=1.1.0&layer=overige&format=image/png&STYLE=default'
+                    'gendGraphic&sld_version=1.1.0&layer=overige&format=image/png&STYLE=default',
+                    detailUrl: 'handelsregister/geosearch/',
+                    detailItem: 'overige',
+                    detailFactor: 1
                 },
 
                 // onroerende zaken
