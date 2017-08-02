@@ -25,7 +25,7 @@
             detailLocation = location;
             dispatcher = callback;
 
-            overlays.reverse().forEach(function (overlay) {
+            overlays.reverse().forEach((overlay) => {
                 const searchParams = {
                     item: overlay.detailItem,
                     lat: location[0],
@@ -33,7 +33,7 @@
                 };
 
                 searchParams.radius = angular.isNumber(overlay.detailFactor) ? Math.round(
-                    Math.pow(2, mapConfig.BASE_LAYER_OPTIONS.maxZoom - zoom) / 2) * (overlay.detailFactor || 1) : 0;
+                    Math.pow(2, mapConfig.BASE_LAYER_OPTIONS.maxZoom - zoom) / 2) * overlay.detailFactor : 0;
 
                 const request = api.getByUri(overlay.detailUrl || 'geosearch/search/', searchParams).then(
                     data => data,

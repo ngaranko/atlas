@@ -67,7 +67,7 @@
         vm.showTabHeader = () => !angular.isArray(vm.location) && !vm.category;
 
         vm.meetsRequiredLevel = user.meetsRequiredLevel;
-        vm.layerWarning = false;
+        vm.layerWarning = '';
 
         vm.tabHeader = new TabHeader('data-datasets');
         vm.tabHeader.activeTab = vm.tabHeader.getTab('data');
@@ -103,8 +103,8 @@
 
         function updateWarningMessage () {
             const kadastraleSubject = vm.searchResults &&
-                vm.searchResults.find(category => category.slug === 'subject'),
-                layerWarning = activeOverlays.getOverlaysWarning();
+                vm.searchResults.find(category => category.slug === 'subject');
+
             if (kadastraleSubject) {
                 if (user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS)) {
                     delete kadastraleSubject.warning;
