@@ -254,7 +254,8 @@
                     maxZoom: 16,
                     legend: 'maps/brk?version=1.3.0&service=WMS&request=GetLegend' +
                     'Graphic&sld_version=1.1.0&layer=kadastraal_object&format=image/png&STYLE=default',
-                    detailItem: 'kadastraal_object'
+                    detailItem: 'kadastraal_object',
+                    detailIsShape: true
                 },
                 gbep: {
                     url: 'maps/wkpb',
@@ -337,7 +338,8 @@
                     maxZoom: 16,
                     legend: 'maps/gebieden?version=1.3.0&service=WMS&request=GetLegend' +
                     'Graphic&sld_version=1.1.0&layer=bouwblok&format=image/png&STYLE=default',
-                    detailItem: 'bouwblok'
+                    detailItem: 'bouwblok',
+                    detailIsShape: true
                 },
 
                 // geografie: hoogte

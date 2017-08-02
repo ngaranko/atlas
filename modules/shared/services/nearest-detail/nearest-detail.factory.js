@@ -7,6 +7,7 @@
 
     function nearestDetailFactory ($q, api, store, ACTIONS, mapConfig) {
         let detailLocation = [],
+            numberOfPoints = 0,
             dispatcher;
 
         return {
@@ -20,10 +21,12 @@
         }
 
         function search (location, overlays, zoom, callback) {
-            const allRequests = [];
+            const pointRequests = [],
+                shapeRequests = [];
 
             detailLocation = location;
             dispatcher = callback;
+            numberOfPoints = 0;
 
             overlays.reverse().forEach((overlay) => {
                 const searchParams = {
@@ -32,27 +35,32 @@
                     lon: location[1]
                 };
 
-                searchParams.radius = angular.isNumber(overlay.detailFactor) ? Math.round(
-                    Math.pow(2, mapConfig.BASE_LAYER_OPTIONS.maxZoom - zoom) / 2) * overlay.detailFactor : 0;
+                searchParams.radius = !overlay.detailIsShape ? Math.round(
+                    Math.pow(2, mapConfig.BASE_LAYER_OPTIONS.maxZoom - zoom) / 2) * (overlay.detailFactor || 1) : 0;
 
                 const request = api.getByUri(overlay.detailUrl || 'geosearch/search/', searchParams).then(
                     data => data,
                     () => { return { features: [] }; });    // empty features on failure of api call
 
-                allRequests.push(request);
+                if (overlay.detailIsShape) {
+                    shapeRequests.push(request);
+                } else {
+                    pointRequests.push(request);
+                }
             });
 
-            return $q.all(allRequests).then(checkForDetailResults);
+            numberOfPoints = pointRequests.length;
+            return $q.all(pointRequests.concat(shapeRequests)).then(checkForDetailResults);
         }
 
         // non public methods
-        function checkForDetailResults (newDetailResults) {
-            const results = newDetailResults
-                .map(i => i.features)
-                .reduce((a, b) => a.concat(b))
-                .map(i => i.properties);
+        function checkForDetailResults (response) {
+            const shapesArray = response.slice(numberOfPoints),
+                foundShapes = flattenResponse(shapesArray),
+                foundPoints = flattenResponse(response).sort((a, b) => a.distance - b.distance),
+                found = foundPoints[0] || foundShapes[0];
 
-            if (results && results.length > 0) {
+            if (found) {
                 // found detail item
                 store.dispatch({
                     type: ACTIONS.MAP_HIGHLIGHT,
@@ -61,14 +69,20 @@
 
                 store.dispatch({
                     type: ACTIONS.FETCH_DETAIL,
-                    payload: results[0].uri
+                    payload: found.uri
                 });
             } else if (angular.isFunction(dispatcher)) {
                 // not found item: do original geosearch
                 dispatcher.call();
             }
 
-            return results;
+            return found;
+        }
+
+        function flattenResponse (array) {
+            return array.map(i => i.features)
+                .reduce((a, b) => a.concat(b))
+                .map(i => i.properties);
         }
     }
 })();
