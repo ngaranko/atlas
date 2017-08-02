@@ -6,21 +6,15 @@
     nearestDetailFactory.$inject = ['$q', 'api', 'store', 'ACTIONS', 'mapConfig'];
 
     function nearestDetailFactory ($q, api, store, ACTIONS, mapConfig) {
-        let detailResults = [],
-            detailLocation = [],
+        let detailLocation = [],
             dispatcher;
 
         return {
-            getResults,
             getLocation,
             search
         };
 
         // public methods
-        function getResults () {
-            return detailResults;
-        }
-
         function getLocation () {
             return detailLocation;
         }
@@ -29,7 +23,6 @@
             const allRequests = [];
 
             detailLocation = location;
-            detailResults = [];
             dispatcher = callback;
 
             overlays.reverse().forEach(function (overlay) {
@@ -59,8 +52,6 @@
                 .reduce((a, b) => a.concat(b))
                 .map(i => i.properties);
 
-            detailResults = results;
-
             if (results && results.length > 0) {
                 // found detail item
                 store.dispatch({
@@ -76,6 +67,8 @@
                 // not found item: do original geosearch
                 dispatcher.call();
             }
+
+            return results;
         }
     }
 })();

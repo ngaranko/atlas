@@ -17,12 +17,11 @@
         });
 
     DpSearchResultsController.$inject = [
-        '$rootScope', '$scope', 'search', 'geosearch', 'TabHeader', 'user', 'store', 'ACTIONS', 'activeOverlays',
-        'nearestDetail'
+        '$rootScope', '$scope', 'search', 'geosearch', 'TabHeader', 'user', 'store', 'ACTIONS', 'activeOverlays'
     ];
 
     function DpSearchResultsController ($rootScope, $scope, search, geosearch, TabHeader, user, store, ACTIONS,
-                                        activeOverlays, nearestDetail) {
+                                        activeOverlays) {
         const vm = this;
 
         /**
@@ -93,11 +92,9 @@
         }
 
         function searchByLocation (location) {
-            const isLocation = angular.isArray(location),
-                results = nearestDetail.getResults();
+            const isLocation = angular.isArray(location);
 
             if (isLocation) {
-                vm.layerWarning = results.length === 0 ? activeOverlays.getOverlaysWarning() : false;
                 geosearch.search(location).then(setSearchResults).then(updateWarningMessage);
             }
 
@@ -106,7 +103,8 @@
 
         function updateWarningMessage () {
             const kadastraleSubject = vm.searchResults &&
-                vm.searchResults.find(category => category.slug === 'subject');
+                vm.searchResults.find(category => category.slug === 'subject'),
+                layerWarning = activeOverlays.getOverlaysWarning();
             if (kadastraleSubject) {
                 if (user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS)) {
                     delete kadastraleSubject.warning;
@@ -120,6 +118,8 @@
                         ' speciale bevoegdheden hebben.';
                 }
             }
+
+            vm.layerWarning = activeOverlays.getOverlaysWarning();
         }
 
         /**
