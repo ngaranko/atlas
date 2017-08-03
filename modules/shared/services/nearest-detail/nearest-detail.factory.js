@@ -36,7 +36,7 @@
                 };
 
                 searchParams.radius = overlay.detailIsShape ? 0 : Math.round(
-                    Math.pow(2, mapConfig.BASE_LAYER_OPTIONS.maxZoom - zoom) / 2) * (overlay.detailFactor || 1);
+                    Math.pow(2, mapConfig.BASE_LAYER_OPTIONS.maxZoom - zoom) / 2);
 
                 const request = api.getByUri(overlay.detailUrl || 'geosearch/search/', searchParams).then(
                     data => data,

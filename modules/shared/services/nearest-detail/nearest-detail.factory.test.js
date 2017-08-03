@@ -180,8 +180,7 @@ describe('The nearestDetail factory', () => {
                 maxZoom: 16,
                 legend: 'maps/nap?version=1.3.0&service=WMS&request=GetLegendG' +
                 'raphic&sld_version=1.1.0&layer=NAP&format=image/png&STYLE=default',
-                detailItem: 'peilmerk',
-                detailFactor: 1
+                detailItem: 'peilmerk'
             },
             mbs: {
                 url: 'maps/meetbouten?service=wms',
@@ -192,8 +191,7 @@ describe('The nearestDetail factory', () => {
                 maxZoom: 16,
                 legend: 'maps/meetbouten?version=1.3.0&service=WMS&request=Get' +
                 'LegendGraphic&sld_version=1.1.0&layer=meetbouten_status&format=image/png&STYLE=default',
-                detailItem: 'meetbout',
-                detailFactor: 0.8
+                detailItem: 'meetbout'
             },
             tcmnmt: {
                 url: 'maps/monumenten',
@@ -242,8 +240,7 @@ describe('The nearestDetail factory', () => {
                 legend: 'maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
                 'gendGraphic&sld_version=1.1.0&layer=horeca&format=image/png&STYLE=default',
                 detailUrl: 'handelsregister/geosearch/',
-                detailItem: 'horeca',
-                detailFactor: 1
+                detailItem: 'horeca'
             },
             empty: {
                 detailUrl: 'empty/resultset/',
@@ -281,7 +278,7 @@ describe('The nearestDetail factory', () => {
         expect(api.getByUri).toHaveBeenCalledWith('geosearch/search/', {item: 'peilmerk', lat: 52.789, lon: 4.987,
             radius: 16 });
         expect(api.getByUri).toHaveBeenCalledWith('geosearch/search/', {item: 'meetbout', lat: 52.789, lon: 4.987,
-            radius: 12.8 });
+            radius: 16 });
         expect(api.getByUri).toHaveBeenCalledWith('geosearch/search/', {item: 'bouwblok', lat: 52.789, lon: 4.987,
             radius: 0 });
         expect(api.getByUri).toHaveBeenCalledWith('geosearch/search/', {item: 'kadastraal_object', lat: 52.789,
