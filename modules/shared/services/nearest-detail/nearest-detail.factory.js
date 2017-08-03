@@ -55,7 +55,7 @@
 
         // non public methods
         function checkForDetailResults (response) {
-            const shapesArray = response.slice(numberOfPoints),
+            const shapesArray = response.splice(numberOfPoints),
                 foundShapes = flattenResponse(shapesArray),
                 foundPoints = flattenResponse(response).sort((a, b) => a.distance - b.distance),
                 found = foundPoints[0] || foundShapes[0];
