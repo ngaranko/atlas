@@ -29,12 +29,12 @@
         <dp-api-call endpoint="{{vm.apiData.results.eigenaar}}" partial="handelsregister/functievervullingen"></dp-api-call>
     </div>
 
-    <dp-hr-disclaimer></dp-hr-disclaimer>
-
     <div ng-if="vm.apiData.results.vestigingen.count >= 1"
          class="c-detail__block">
         <dp-glossary-header definition="VESTIGING" use-plural="true"></dp-glossary-header>
 
         <dp-api-call endpoint="{{vm.apiData.results.vestigingen.href}}" partial="lijst"></dp-api-call>
     </div>
+
+    <div ng-include="'modules/detail/components/detail/templates/hr-disclaimer.html'"></div>
 </div>
