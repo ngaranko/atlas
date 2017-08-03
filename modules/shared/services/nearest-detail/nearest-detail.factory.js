@@ -38,7 +38,7 @@
                 searchParams.radius = overlay.detailIsShape ? 0 : Math.round(
                     Math.pow(2, mapConfig.BASE_LAYER_OPTIONS.maxZoom - zoom) / 2);
 
-                const request = api.getByUri(overlay.detailUrl || 'geosearch/search/', searchParams).then(
+                const request = api.getByUri(overlay.detailUrl, searchParams).then(
                     data => data,
                     () => { return { features: [] }; });    // empty features on failure of api call
 

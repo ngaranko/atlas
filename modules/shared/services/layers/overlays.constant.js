@@ -242,6 +242,7 @@
                     maxZoom: 16,
                     legend: 'maps/brk?version=1.3.0&service=WMS&request=GetLegend' +
                     'Graphic&sld_version=1.1.0&layer=kadastraal_object&format=image/png&STYLE=default',
+                    detailUrl: 'geosearch/search/',
                     detailItem: 'kadastraal_object',
                     detailIsShape: true
                 },
@@ -326,6 +327,7 @@
                     maxZoom: 16,
                     legend: 'maps/gebieden?version=1.3.0&service=WMS&request=GetLegend' +
                     'Graphic&sld_version=1.1.0&layer=bouwblok&format=image/png&STYLE=default',
+                    detailUrl: 'geosearch/search/',
                     detailItem: 'bouwblok',
                     detailIsShape: true
                 },
@@ -364,6 +366,7 @@
                     maxZoom: 16,
                     legend: 'maps/nap?version=1.3.0&service=WMS&request=GetLegendG' +
                     'raphic&sld_version=1.1.0&layer=NAP&format=image/png&STYLE=default',
+                    detailUrl: 'geosearch/search/',
                     detailItem: 'peilmerk'
                 },
                 mbs: {
@@ -375,6 +378,7 @@
                     maxZoom: 16,
                     legend: 'maps/meetbouten?version=1.3.0&service=WMS&request=Get' +
                     'LegendGraphic&sld_version=1.1.0&layer=meetbouten_status&format=image/png&STYLE=default',
+                    detailUrl: 'geosearch/search/',
                     detailItem: 'meetbout'
                 },
                 mbz: {
@@ -386,6 +390,7 @@
                     maxZoom: 16,
                     legend: 'maps/meetbouten?version=1.3.0&service=WMS&request=Get' +
                     'LegendGraphic&sld_version=1.1.0&layer=meetbouten_zaksnelheid&format=image/png&STYLE=default',
+                    detailUrl: 'geosearch/search/',
                     detailItem: 'meetbout'
                 },
                 mbr: {
@@ -443,6 +448,7 @@
                     maxZoom: 16,
                     legend: 'maps/bommenkaart?version=1.3.0&service=WMS&request=GetLegendGraphic&sld_version=1.1.0&la' +
                     'yer=inslagen&format=image/png&STYLE=default',
+                    detailUrl: 'geosearch/search/',
                     detailItem: 'bominslag'
                 },
                 exvg: {
@@ -816,6 +822,7 @@
                     legend: 'maps/monumenten?version=1.3.0&service' +
                     '=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=monument_coordinaten&format=' +
                     'image/png&STYLE=default',
+                    detailUrl: 'geosearch/search/',
                     detailItem: 'monument'
                 },
 

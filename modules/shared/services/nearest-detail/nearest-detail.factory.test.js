@@ -180,6 +180,7 @@ describe('The nearestDetail factory', () => {
                 maxZoom: 16,
                 legend: 'maps/nap?version=1.3.0&service=WMS&request=GetLegendG' +
                 'raphic&sld_version=1.1.0&layer=NAP&format=image/png&STYLE=default',
+                detailUrl: 'geosearch/search/',
                 detailItem: 'peilmerk'
             },
             mbs: {
@@ -191,6 +192,7 @@ describe('The nearestDetail factory', () => {
                 maxZoom: 16,
                 legend: 'maps/meetbouten?version=1.3.0&service=WMS&request=Get' +
                 'LegendGraphic&sld_version=1.1.0&layer=meetbouten_status&format=image/png&STYLE=default',
+                detailUrl: 'geosearch/search/',
                 detailItem: 'meetbout'
             },
             tcmnmt: {
@@ -214,6 +216,7 @@ describe('The nearestDetail factory', () => {
                 maxZoom: 16,
                 legend: 'maps/gebieden?version=1.3.0&service=WMS&request=GetLegend' +
                 'Graphic&sld_version=1.1.0&layer=bouwblok&format=image/png&STYLE=default',
+                detailUrl: 'geosearch/search/',
                 detailItem: 'bouwblok',
                 detailIsShape: true
             },
@@ -226,6 +229,7 @@ describe('The nearestDetail factory', () => {
                 maxZoom: 16,
                 legend: 'maps/brk?version=1.3.0&service=WMS&request=GetLegend' +
                 'Graphic&sld_version=1.1.0&layer=kadastraal_object&format=image/png&STYLE=default',
+                detailUrl: 'geosearch/search/',
                 detailItem: 'kadastraal_object',
                 detailIsShape: true
             },
