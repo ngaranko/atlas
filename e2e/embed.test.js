@@ -5,7 +5,7 @@ describe('Embed preview', () => {
 
     beforeEach(() => {
         page = dp.navigate('PAGE--HOME');
-        header = page.dashboard.siteHeader,
+        header = page.dashboard.siteHeader;
         map = page.dashboard.middleColumn.map;
     });
 
