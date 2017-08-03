@@ -35,8 +35,8 @@
                     lon: location[1]
                 };
 
-                searchParams.radius = !overlay.detailIsShape ? Math.round(
-                    Math.pow(2, mapConfig.BASE_LAYER_OPTIONS.maxZoom - zoom) / 2) * (overlay.detailFactor || 1) : 0;
+                searchParams.radius = overlay.detailIsShape ? 0 : Math.round(
+                    Math.pow(2, mapConfig.BASE_LAYER_OPTIONS.maxZoom - zoom) / 2) * (overlay.detailFactor || 1);
 
                 const request = api.getByUri(overlay.detailUrl || 'geosearch/search/', searchParams).then(
                     data => data,
@@ -80,6 +80,9 @@
         }
 
         function flattenResponse (array) {
+            if (array.length === 0) {
+                return array;
+            }
             return array.map(i => i.features)
                 .reduce((a, b) => a.concat(b))
                 .map(i => i.properties);
