@@ -59,9 +59,9 @@
             vm.isLoadMoreLoading = true;
 
             search.loadMore(vm.searchResults[0]).then(function (searchResults) {
-                vm.isLoadMoreLoading = false;
-
                 vm.searchResults[0] = searchResults;
+            }).finally(() => {
+                vm.isLoadMoreLoading = false;
             });
         };
 
