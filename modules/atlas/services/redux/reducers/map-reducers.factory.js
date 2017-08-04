@@ -29,13 +29,18 @@
 
         return reducers;
 
-        function showMapReducer (oldState) {
-            const newState = angular.copy(oldState);
-
-            newState.map.isFullscreen = true;
-            newState.layerSelection.isEnabled = true;
-
-            return newState;
+        function showMapReducer (state) {
+            return {
+                ...state,
+                map: {
+                    ...state.map,
+                    isFullscreen: true
+                },
+                layerSelection: {
+                    ...state.layerSelection,
+                    isEnabled: true
+                }
+            };
         }
 
         /**
@@ -44,55 +49,54 @@
          *
          * @returns {Object} newState
          */
-        function mapSetBaselayerReducer (oldState, payload) {
-            var newState = angular.copy(oldState);
-
-            newState.map.baseLayer = payload;
-
-            return newState;
-        }
-
-        /**
-         * @param {Object} oldState
-         * @param {String} payload - The name of the overlay, it should match a key from overlays.constant.js
-         *
-         * @returns {Object} newState
-         */
-        function mapAddOverlayReducer (oldState, payload) {
-            var newState = angular.copy(oldState);
-
-            if (!oldState.map.overlays
-                .filter((overlay) => overlay.id.indexOf('pano') !== 0)
-                .length
-            ) {
-                // Show active overlays only if there were no active overlays
-                // yet (disregarding 'pano' layers)
-                newState.map.showActiveOverlays = true;
-            }
-
-            newState.map.overlays.push({id: payload, isVisible: true});
-
-            return newState;
-        }
-
-        /**
-         * @param {Object} oldState
-         * @param {String} payload - The name of the overlay, it should match a key from overlays.constant.js
-         *
-         * @returns {Object} newState
-         */
-        function mapRemoveOverlayReducer (oldState, payload) {
-            var newState = angular.copy(oldState),
-                i;
-            // finding the id of the payload
-            for (i = 0; i < newState.map.overlays.length; i++) {
-                if (newState.map.overlays[i].id === payload) {
-                    break;
+        function mapSetBaselayerReducer (state, payload) {
+            return {
+                ...state,
+                map: {
+                    ...state.map,
+                    baseLayer: payload
                 }
-            }
-            newState.map.overlays.splice(i, 1);
+            };
+        }
 
-            return newState;
+        /**
+         * @param {Object} oldState
+         * @param {String} payload - The name of the overlay, it should match a key from overlays.constant.js
+         *
+         * @returns {Object} newState
+         */
+        function mapAddOverlayReducer (state, payload) {
+            const showActiveOverlays = !state.map.overlays
+                .filter((overlay) => overlay.id.indexOf('pano') !== 0)
+                .length;
+
+            return {
+                ...state,
+                map: {
+                    ...state.map,
+                    showActiveOverlays: showActiveOverlays ? true : state.map.showActiveOverlays,
+                    overlays: [
+                        ...state.map.overlays,
+                        {id: payload, isVisible: true}
+                    ]
+                }
+            };
+        }
+
+        /**
+         * @param {Object} oldState
+         * @param {String} payload - The name of the overlay, it should match a key from overlays.constant.js
+         *
+         * @returns {Object} newState
+         */
+        function mapRemoveOverlayReducer (state, payload) {
+            return {
+                ...state,
+                map: {
+                    ...state.map,
+                    overlays: state.map.overlays.filter((a) => a.id !== payload)
+                }
+            };
         }
 
         /**
@@ -107,31 +111,30 @@
          *
          * @returns {Object} newState
          */
-        function mapAddPanoOverlayReducer (oldState) {
-            const newLayer = (oldState.straatbeeld && oldState.straatbeeld.history)
-                ? `pano${oldState.straatbeeld.history}`
+        function mapAddPanoOverlayReducer (state) {
+            const newLayer = (state.straatbeeld && state.straatbeeld.history)
+                ? `pano${state.straatbeeld.history}`
                 : 'pano';
 
-            if (oldState.map.overlays.filter((overlay) => overlay.id === newLayer).length === 1) {
+            if (state.map.overlays.filter((overlay) => overlay.id === newLayer).length === 1) {
                 // Ovelay already exists
-                return oldState;
+                return state;
             }
 
             // Remove any active 'pano' layers
-            const newOverlays = oldState.map.overlays
-                .filter((overlay) => overlay.id.indexOf('pano') !== 0);
+            const overlays = state.map.overlays
+                .filter((overlay) => !overlay.id.startsWith('pano'));
 
-            const newState = angular.copy(oldState);
-
-            // Add the new 'pano' layer
-            newOverlays.push({
-                id: newLayer,
-                isVisible: true
-            });
-
-            newState.map.overlays = newOverlays;
-
-            return newState;
+            return {
+                ...state,
+                map: {
+                    ...state.map,
+                    overlays: [
+                        ...overlays,
+                        {id: newLayer, isVisible: true}
+                    ]
+                }
+            };
         }
 
         /**
@@ -141,21 +144,23 @@
          *
          * @returns {Object} newState
          */
-        function mapRemovePanoOverlayReducer (oldState) {
+        function mapRemovePanoOverlayReducer (state) {
             // Remove all active 'pano' layers
-            const newOverlays = oldState.map.overlays
-                .filter((overlay) => overlay.id.indexOf('pano') !== 0);
+            const overlays = state.map.overlays
+                .filter((overlay) => !overlay.id.startsWith('pano'));
 
-            if (newOverlays.length === oldState.map.overlays.length) {
+            if (overlays.length === state.map.overlays.length) {
                 // No 'pano' layers were active
-                return oldState;
+                return state;
             }
 
-            const newState = angular.copy(oldState);
-
-            newState.map.overlays = newOverlays;
-
-            return newState;
+            return {
+                ...state,
+                map: {
+                    ...state.map,
+                    overlays: overlays
+                }
+            };
         }
 
         /**
@@ -164,16 +169,21 @@
          *
          * @returns {Object} newState
          */
-        function mapToggleVisibilityOverlay (oldState, payload) {
-            var newState = angular.copy(oldState);
-            // Looking for the overlay to switch its isVisible
-            for (var i = 0; i < newState.map.overlays.length; i++) {
-                if (newState.map.overlays[i].id === payload) {
-                    newState.map.overlays[i].isVisible = !newState.map.overlays[i].isVisible;
-                    break;
+        function mapToggleVisibilityOverlay (state, payload) {
+            const overlays = [...state.map.overlays].map((overlay) => {
+                return {
+                    ...overlay,
+                    isVisible: overlay.id === payload ? !overlay.isVisible : overlay.isVisible
+                };
+            });
+
+            return {
+                ...state,
+                map: {
+                    ...state.map,
+                    overlays: overlays
                 }
-            }
-            return newState;
+            };
         }
 
         /**
@@ -182,12 +192,14 @@
          *
          * @returns {Object} newState
          */
-        function mapPanReducer (oldState, payload) {
-            var newState = angular.copy(oldState);
-
-            newState.map.viewCenter = payload;
-
-            return newState;
+        function mapPanReducer (state, payload) {
+            return {
+                ...state,
+                map: {
+                    ...state.map,
+                    viewCenter: payload
+                }
+            };
         }
 
         /**
@@ -197,17 +209,14 @@
          * @returns {Object} newState
          */
         function mapZoomReducer (state, payload) {
-            const newState = Object.assign({}, state, {
-                map: Object.assign({}, state.map, {
-                    zoom: payload.zoom
-                })
-            });
-
-            if (angular.isArray(payload.viewCenter)) {
-                newState.map.viewCenter = payload.viewCenter;
-            }
-
-            return newState;
+            return {
+                ...state,
+                map: {
+                    ...state.map,
+                    zoom: payload.zoom,
+                    viewCenter: angular.isArray(payload.viewCenter) ? payload.viewCenter : state.map.viewCenter
+                }
+            };
         }
 
         /**
@@ -216,12 +225,14 @@
          *
          * @returns {Object} newState
          */
-        function mapHighlightReducer (oldState, payload) {
-            var newState = angular.copy(oldState);
-
-            newState.map.highlight = payload;
-
-            return newState;
+        function mapHighlightReducer (state, payload) {
+            return {
+                ...state,
+                map: {
+                    ...state.map,
+                    highlight: payload
+                }
+            };
         }
 
         /**
@@ -230,13 +241,18 @@
          *
          * @returns {Object} newState
          */
-        function mapFullscreenReducer (oldState, payload) {
-            var newState = angular.copy(oldState);
-
-            newState.layerSelection.isEnabled = false;
-            newState.map.isFullscreen = payload;
-
-            return newState;
+        function mapFullscreenReducer (state, payload) {
+            return {
+                ...state,
+                map: {
+                    ...state.map,
+                    isFullscreen: payload
+                },
+                layerSelection: {
+                    ...state.layerSelection,
+                    isEnabled: false
+                }
+            };
         }
 
         function mapStartDrawingReducer (oldState, payload) {
@@ -254,12 +270,14 @@
             return newState;
         }
 
-        function mapClearDrawingReducer (oldState) {
-            var newState = angular.copy(oldState);
-
-            newState.map.geometry = [];
-
-            return newState;
+        function mapClearDrawingReducer (state) {
+            return {
+                ...state,
+                map: {
+                    ...state.map,
+                    geometry: []
+                }
+            };
         }
 
         function mapEndDrawingReducer (oldState, payload) {
@@ -288,20 +306,24 @@
             return newState;
         }
 
-        function showActiveOverlaysReducer (oldState) {
-            var newState = angular.copy(oldState);
-
-            newState.map.showActiveOverlays = true;
-
-            return newState;
+        function showActiveOverlaysReducer (state) {
+            return {
+                ...state,
+                map: {
+                    ...state.map,
+                    showActiveOverlays: true
+                }
+            };
         }
 
-        function hideActiveOverlaysReducer (oldState) {
-            var newState = angular.copy(oldState);
-
-            newState.map.showActiveOverlays = false;
-
-            return newState;
+        function hideActiveOverlaysReducer (state) {
+            return {
+                ...state,
+                map: {
+                    ...state.map,
+                    showActiveOverlays: false
+                }
+            };
         }
 
         function resetDataSelection (state, payload = {markers: []}) {
