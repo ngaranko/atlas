@@ -255,19 +255,22 @@
             };
         }
 
-        function mapStartDrawingReducer (oldState, payload) {
-            var newState = angular.copy(oldState);
-            newState.map.drawingMode = payload;
-
+        function mapStartDrawingReducer (state, payload) {
             if (payload !== DRAW_TOOL_CONFIG.DRAWING_MODE.EDIT &&
-                newState.dataSelection &&
-                newState.dataSelection.geometryFilter &&
-                newState.dataSelection.geometryFilter.markers &&
-                newState.dataSelection.geometryFilter.markers.length > 0) {
-                newState = resetDataSelection(newState);
+                state.dataSelection &&
+                state.dataSelection.geometryFilter &&
+                state.dataSelection.geometryFilter.markers &&
+                state.dataSelection.geometryFilter.markers.length > 0) {
+                state = resetDataSelection(state);
             }
 
-            return newState;
+            return {
+                ...state,
+                map: {
+                    ...state.map,
+                    drawingMode: payload
+                }
+            };
         }
 
         function mapClearDrawingReducer (state) {
@@ -280,30 +283,37 @@
             };
         }
 
-        function mapEndDrawingReducer (oldState, payload) {
-            var newState = angular.copy(oldState);
+        function mapEndDrawingReducer (state, payload) {
+            const map = {...state.map},
+                page = {...state.page},
+                layerSelection = {...state.layerSelection};
 
-            newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
-
-            if (payload) {
+            if (payload && payload.markers) {
+                if (payload.markers.length === 2) {
+                    map.geometry = payload.markers;
+                }
                 if (payload.markers.length > 2) {
-                    newState.page.name = null;
+                    state = resetDataSelection(state, payload);
 
-                    // Polygon
-                    newState = resetDataSelection(newState, angular.copy(payload));
+                    page.name = null;
 
-                    newState.map.geometry = [];
-                    newState.map.isLoading = true;
-                    newState.map.isFullscreen = false;
+                    layerSelection.isEnabled = false;
 
-                    newState.layerSelection.isEnabled = false;
-                } else if (payload.markers.length === 2) {
-                    // Line
-                    newState.map.geometry = payload.markers;
+                    map.geometry = [];
+                    map.isLoading = true;
+                    map.isFullscreen = false;
                 }
             }
 
-            return newState;
+            return {
+                ...state,
+                map: {
+                    ...map,
+                    drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE
+                },
+                layerSelection: layerSelection,
+                page: page
+            };
         }
 
         function showActiveOverlaysReducer (state) {
@@ -327,28 +337,31 @@
         }
 
         function resetDataSelection (state, payload = {markers: []}) {
-            const newState = angular.copy(state);
+            let dataSelection = {};
 
-            if (!newState.dataSelection) {
-                newState.dataSelection = {};
-                newState.dataSelection.dataset = 'bag';
-                newState.dataSelection.filters = {};
-            }
-            newState.dataSelection.geometryFilter = payload;
-            newState.dataSelection.page = 1;
-            newState.dataSelection.isFullscreen = false;
-            newState.dataSelection.isLoading = true;
-            newState.dataSelection.view = 'LIST';
-            newState.dataSelection.markers = [];
-
-            // No markers, the data selection goes back to its default state of
-            // showing all data => make sure it will not trigger a url state
-            // change
-            if (payload.markers.length === 0) {
-                newState.dataSelection.reset = true;
+            if (!state.dataSelection) {
+                dataSelection.dataset = 'bag';
+                dataSelection.filters = {};
+            } else {
+                dataSelection = {...state.dataSelection};
             }
 
-            return newState;
+            return {
+                ...state,
+                dataSelection: {
+                    ...dataSelection,
+                    geometryFilter: payload,
+                    page: 1,
+                    isFullscreen: false,
+                    isLoading: true,
+                    view: 'LIST',
+                    markers: [],
+                    // No markers, the data selection goes back to its default state of
+                    // showing all data => make sure it will not trigger a url state
+                    // change
+                    reset: payload.markers.length === 0
+                }
+            };
         }
     }
 })();
