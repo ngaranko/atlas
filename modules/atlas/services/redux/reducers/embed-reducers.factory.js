@@ -16,30 +16,33 @@
         return reducers;
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          *
          * @returns {Object} newState
          */
-        function showEmbedPreviewReducer (oldState) {
-            var newState = angular.copy(oldState);
-
-            newState.atlas.isEmbedPreview = true;
-
-            return newState;
+        function showEmbedPreviewReducer (state) {
+            return {
+                ...state,
+                atlas: {
+                    ...state.atlas,
+                    isEmbedPreview: true
+                }
+            };
         }
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          *
          * @returns {Object} newState
          */
-        function hideEmbedPreviewReducer (oldState) {
-            var newState = angular.copy(oldState);
-
-            newState.atlas.isEmbedPreview = false;
-
-            return newState;
+        function hideEmbedPreviewReducer (state) {
+            return {
+                ...state,
+                atlas: {
+                    ...state.atlas,
+                    isEmbedPreview: false
+                }
+            };
         }
     }
 })();
-

@@ -15,28 +15,34 @@
         return reducers;
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {String} payload - The name of the page, it should match the name of an HTML template from the page
          * module
          *
          * @returns {Object} newState
          */
-        function showPageReducer (oldState, payload) {
-            var newState = angular.copy(oldState);
-
-            newState.page.name = payload.name;
-            newState.page.type = payload.type;
-            newState.page.item = payload.item;
-
-            newState.map.isFullscreen = false;
-
-            newState.layerSelection.isEnabled = false;
-            newState.search = null;
-            newState.detail = null;
-            newState.straatbeeld = null;
-            newState.dataSelection = null;
-
-            return newState;
+        function showPageReducer (state, payload) {
+            return {
+                ...state,
+                page: {
+                    ...state.page,
+                    name: payload.name,
+                    type: payload.type,
+                    item: payload.item
+                },
+                map: {
+                    ...state.map,
+                    isFullscreen: false
+                },
+                layerSelection: {
+                    ...state.layerSelection,
+                    isEnabled: false
+                },
+                search: null,
+                detail: null,
+                straatbeeld: null,
+                dataSelection: null
+            };
         }
     }
 })();
