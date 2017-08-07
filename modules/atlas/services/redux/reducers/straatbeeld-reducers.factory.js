@@ -30,10 +30,10 @@
          * @returns {Object} newState
          */
         function fetchStraatbeeldByIdReducer (oldState, payload) {
-            const newState = angular.copy(oldState);
+            let newState = angular.copy(oldState);
 
-            newState.straatbeeld = newState.straatbeeld || {};
-            initializeStraatbeeld(newState.straatbeeld);
+            // newState.straatbeeld = newState.straatbeeld || {};
+            newState = initializeStraatbeeld(newState);
 
             newState.straatbeeld.id = payload.id;
             newState.straatbeeld.heading = payload.heading ||
@@ -65,8 +65,7 @@
         function fetchStraatbeeldByLocationReducer (oldState, payload) {
             var newState = angular.copy(oldState);
 
-            newState.straatbeeld = newState.straatbeeld || {};
-            initializeStraatbeeld(newState.straatbeeld);
+            newState = initializeStraatbeeld(newState);
 
             newState.straatbeeld.location = payload;
             newState.straatbeeld.targetLocation = payload;
@@ -96,24 +95,22 @@
             return newState;
         }
 
-        function initializeStraatbeeld (straatbeeld) {
+        function initializeStraatbeeld (state) {
             // Resets straatbeeld properties
-            // Leave any other properties of straatbeeld untouched
-            straatbeeld.id = null;
-            straatbeeld.location = null;
-
-            straatbeeld.isInitial = true;
-
-            straatbeeld.date = null;
-            straatbeeld.hotspots = [];
-
-            straatbeeld.heading = null;
-            straatbeeld.pitch = null;
-            straatbeeld.fov = null;
-
-            straatbeeld.image = null;
-
-            straatbeeld.isLoading = true;
+            return {...state,
+                straatbeeld: {
+                    id: null,
+                    location: null,
+                    isInitial: true,
+                    date: null,
+                    hotspots: [],
+                    heading: null,
+                    pitch: null,
+                    fov: null,
+                    image: null,
+                    isLoading: true
+                }
+            };
         }
 
         function straatbeeldFullscreenReducer (oldState, payload) {

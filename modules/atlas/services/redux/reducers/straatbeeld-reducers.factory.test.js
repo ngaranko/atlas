@@ -146,7 +146,7 @@ describe('Straatbeeld reducers factory', function () {
 
             delete payload.isFullscreen;
             newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_ID.id](newState, payload);
-            expect(newState.straatbeeld.isFullscreen).toBe(true);
+            expect(newState.straatbeeld.isFullscreen).toBeUndefined();
 
             payload.isFullscreen = false;
             newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_ID.id](newState, payload);
@@ -154,7 +154,7 @@ describe('Straatbeeld reducers factory', function () {
 
             delete payload.isFullscreen;
             newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_ID.id](newState, payload);
-            expect(newState.straatbeeld.isFullscreen).toBe(false);
+            expect(newState.straatbeeld.isFullscreen).toBeUndefined();
         });
     });
 
