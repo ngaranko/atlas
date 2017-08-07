@@ -24,7 +24,6 @@
          * @returns {Object} newState
          */
         function fetchSearchResultsByQueryReducer (state, payload) {
-            console.log('FETCH QUERY');
             return {
                 ...state,
                 search: {
@@ -62,7 +61,6 @@
          * @returns {Object} newState
          */
         function fetchSearchResultsByLocationReducer (state, payload) {
-            console.log('FETCH LOCATION');
             const map = state.map ? {...state.map} : state.map;
 
             if (state.layerSelection.isEnabled || (map && state.map.isFullscreen)) {
@@ -128,7 +126,6 @@
          * @returns {Object} newState
          */
         function showSearchResultsReducer (state, payload) {
-            console.log('SHOW');
             const search = state.search || {},
                 map = state.map ? {...state.map} : state.map;
 
