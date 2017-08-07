@@ -18,87 +18,105 @@
         return reducers;
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {String} payload - A search query
          *
          * @returns {Object} newState
          */
-        function fetchSearchResultsByQueryReducer (oldState, payload) {
-            var newState = angular.copy(oldState);
-
-            newState.search = {
-                isLoading: true,
-                isFullscreen: true,
-                query: payload || null,
-                location: null,
-                category: null,
-                numberOfResults: null
+        function fetchSearchResultsByQueryReducer (state, payload) {
+            return {
+                ...state,
+                search: {
+                    ...state.search,
+                    isLoading: true,
+                    isFullscreen: true,
+                    query: payload || null,
+                    location: null,
+                    category: null,
+                    numberOfResults: null
+                },
+                map: {
+                    ...state.map,
+                    isFullscreen: false
+                },
+                layerSelection: {
+                    ...state.layerSelection,
+                    isEnabled: false
+                },
+                page: {
+                    ...state.page,
+                    name: null,
+                    type: null
+                },
+                detail: null,
+                straatbeeld: null,
+                dataSelection: null
             };
-
-            newState.map.isFullscreen = false;
-
-            newState.layerSelection.isEnabled = false;
-            newState.page.name = null;
-            newState.page.type = null;
-            newState.detail = null;
-            newState.straatbeeld = null;
-            newState.dataSelection = null;
-
-            return newState;
         }
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {Array} payload - A location, e.g. [52.123, 4.789]
          *
          * @returns {Object} newState
          */
-        function fetchSearchResultsByLocationReducer (oldState, payload) {
-            const newState = angular.copy(oldState);
+        function fetchSearchResultsByLocationReducer (state, payload) {
+            const map = state.map ? {...state.map} : state.map;
 
-            newState.search = {
-                isLoading: true,
-                isFullscreen: false,
-                query: null,
-                location: dpBaseCoder.toPrecision(payload, 7),
-                category: null,
-                numberOfResults: null
+            if (state.layerSelection.isEnabled || (map && state.map.isFullscreen)) {
+                map.viewCenter = payload;
+            }
+
+            if (map) {
+                map.showActiveOverlays = false;
+                map.isFullscreen = false;
+                map.geometry = [];
+            }
+
+            return {
+                ...state,
+                search: {
+                    ...state.search,
+                    isLoading: true,
+                    isFullscreen: false,
+                    query: null,
+                    location: dpBaseCoder.toPrecision(payload, 7),
+                    category: null,
+                    numberOfResults: null
+                },
+                map: map,
+                layerSelection: {
+                    ...state.layerSelection,
+                    isEnabled: false
+                },
+                page: {
+                    ...state.page,
+                    name: null
+                },
+                detail: null,
+                straatbeeld: null,
+                dataSelection: null
             };
-
-            if (oldState.layerSelection.isEnabled || (oldState.map && oldState.map.isFullscreen)) {
-                newState.map.viewCenter = payload;
-            }
-
-            newState.layerSelection.isEnabled = false;
-            if (newState.map) {
-                newState.map.showActiveOverlays = false;
-                newState.map.isFullscreen = false;
-                newState.map.geometry = [];
-            }
-            newState.page.name = null;
-            newState.detail = null;
-            newState.straatbeeld = null;
-            newState.dataSelection = null;
-
-            return newState;
         }
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {String} payload - A reference to the slug of a SEARCH_CONFIG endpoint
          *
          * @returns {Object} newState
          */
-        function fetchSearchResultsCategoryReducer (oldState, payload) {
-            var newState = angular.copy(oldState);
+        function fetchSearchResultsCategoryReducer (state, payload) {
+            const search = state.search ? {...state.search} : {};
 
-            if (angular.isObject(newState.search)) {
-                newState.search.isLoading = true;
-                newState.search.category = payload;
-                newState.search.numberOfResults = null;
-            }
-
-            return newState;
+            return {
+                ...state,
+                search: {
+                    ...search,
+                    isLoading: true,
+                    category: payload,
+                    numberOfResults: null
+                }
+            };
         }
 
         /**
