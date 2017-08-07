@@ -24,6 +24,7 @@
          * @returns {Object} newState
          */
         function fetchSearchResultsByQueryReducer (state, payload) {
+            console.log('FETCH QUERY');
             return {
                 ...state,
                 search: {
@@ -61,6 +62,7 @@
          * @returns {Object} newState
          */
         function fetchSearchResultsByLocationReducer (state, payload) {
+            console.log('FETCH LOCATION');
             const map = state.map ? {...state.map} : state.map;
 
             if (state.layerSelection.isEnabled || (map && state.map.isFullscreen)) {
@@ -106,7 +108,7 @@
          * @returns {Object} newState
          */
         function fetchSearchResultsCategoryReducer (state, payload) {
-            const search = state.search ? {...state.search} : {};
+            const search = state.search || {};
 
             return {
                 ...state,
@@ -125,19 +127,25 @@
          *
          * @returns {Object} newState
          */
-        function showSearchResultsReducer (oldState, payload) {
-            var newState = angular.copy(oldState);
+        function showSearchResultsReducer (state, payload) {
+            console.log('SHOW');
+            const search = state.search || {},
+                map = state.map ? {...state.map} : state.map;
 
-            if (angular.isObject(newState.search)) {
-                newState.search.isLoading = false;
-                newState.search.numberOfResults = payload;
+            if (map) {
+                map.isLoading = false;
             }
 
-            if (angular.isObject(newState.map)) {
-                newState.map.isLoading = false;
-            }
-
-            return newState;
+            // var newState = angular.copy(oldState);
+            return {
+                ...state,
+                search: {
+                    ...search,
+                    isLoading: false,
+                    numberOfResults: payload
+                },
+                map: map
+            };
         }
     }
 })();
