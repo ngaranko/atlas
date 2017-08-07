@@ -85,86 +85,102 @@
         }
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {Array} payload - Markers for the leaflet.markercluster plugin
          *
          * @returns {Object} newState
          */
-        function showDataSelectionReducer (oldState, payload) {
-            const newState = angular.copy(oldState);
+        function showDataSelectionReducer (state, payload) {
+            const dataSelection = angular.isObject(state.dataSelection) ? {...state.dataSelection}
+                : state.dataSelection === null ? null : {};
 
-            if (newState.dataSelection) {
-                newState.dataSelection.markers = payload;
-                newState.dataSelection.isLoading = false;
-
-                newState.dataSelection.isFullscreen = newState.dataSelection.view !== 'LIST';
+            if (dataSelection) {
+                dataSelection.markers = payload;
+                dataSelection.isLoading = false;
+                dataSelection.isFullscreen = dataSelection.view !== 'LIST';
             }
 
-            newState.map.isLoading = false;
-
-            return newState;
+            return {
+                ...state,
+                dataSelection: dataSelection,
+                map: {
+                    ...state.map,
+                    isLoading: false
+                }
+            };
         }
 
         /**
          * Does the same as `showDataSelectionReducer`, but will not trigger a
          * url state change.
          *
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {Array} payload - Markers for the leaflet.markercluster plugin
          *
          * @returns {Object} newState
          */
-        function resetDataSelectionReducer (oldState, payload) {
-            const newState = angular.copy(oldState);
+        function resetDataSelectionReducer (state, payload) {
+            const dataSelection = angular.isObject(state.dataSelection) ? {...state.dataSelection}
+                : state.dataSelection === null ? null : {};
 
-            if (newState.dataSelection) {
-                newState.dataSelection.markers = payload;
-                newState.dataSelection.isLoading = false;
-
-                newState.dataSelection.isFullscreen = newState.dataSelection.view !== 'LIST';
-
-                newState.dataSelection.reset = false;
+            if (dataSelection) {
+                dataSelection.markers = payload;
+                dataSelection.isLoading = false;
+                dataSelection.isFullscreen = dataSelection.view !== 'LIST';
+                dataSelection.reset = false;
             }
 
-            newState.map.isLoading = false;
-
-            return newState;
+            return {
+                ...state,
+                dataSelection: dataSelection,
+                map: {
+                    ...state.map,
+                    isLoading: false
+                }
+            };
         }
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {Number} payload - The destination page
          *
          * @returns {Object} newState
          */
-        function navigateDataSelectionReducer (oldState, payload) {
-            const newState = angular.copy(oldState);
-
-            newState.dataSelection.page = payload;
-
-            return newState;
+        function navigateDataSelectionReducer (state, payload) {
+            return {
+                ...state,
+                dataSelection: {
+                    ...state.dataSelection,
+                    page: payload
+                }
+            };
         }
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {String} payload
          *
          * @returns {Object} newState
          */
-        function setDataSelectionViewReducer (oldState, payload) {
-            const newState = angular.copy(oldState);
+        function setDataSelectionViewReducer (state, payload) {
+            const dataSelection = angular.isObject(state.dataSelection) ? {...state.dataSelection}
+                : state.dataSelection === null ? null : {};
 
             ['LIST', 'TABLE', 'CARDS'].forEach(legalValue => {
                 if (payload === legalValue) {
-                    newState.dataSelection.view = payload;
-                    newState.dataSelection.isLoading = true;
+                    dataSelection.view = payload;
+                    dataSelection.isLoading = true;
                 }
             });
 
-            // LIST loading might include markers => set map loading accordingly
-            newState.map.isLoading = newState.dataSelection.view === 'LIST';
-
-            return newState;
+            return {
+                ...state,
+                dataSelection: dataSelection,
+                map: {
+                    ...state.map,
+                    isLoading: dataSelection.view === 'LIST'
+                }
+            };
         }
     }
 })();
