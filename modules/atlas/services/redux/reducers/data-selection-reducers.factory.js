@@ -34,16 +34,8 @@
          *
          * @returns {Object} newState
          */
-        function fetchDataSelectionReducer (oldState, payload) {
-            const newState = angular.copy(oldState);
-
-            newState.map.isFullscreen = false;
-
-            newState.layerSelection.isEnabled = null;
-            newState.search = null;
-            newState.page.name = null;
-            newState.detail = null;
-            newState.straatbeeld = null;
+        function fetchDataSelectionReducer (state, payload) {
+            var dataSelection;
 
             const mergeInto = angular.isString(payload) ? {
                 query: payload,
@@ -53,35 +45,52 @@
             } : payload;
             mergeInto.filters = mergeInto.filters || {};
 
-            newState.dataSelection = Object.keys(mergeInto).reduce((result, key) => {
+            dataSelection = Object.keys(mergeInto).reduce((result, key) => {
                 result[key] = mergeInto[key];
                 return result;
-            }, newState.dataSelection || {});
+            }, dataSelection || {});
 
-            if (!newState.dataSelection.view) {
+            if (!dataSelection.view) {
                 // Default view is table view
-                newState.dataSelection.view = 'TABLE';
+                dataSelection.view = 'TABLE';
             }
 
-            // LIST loading might include markers => set map loading accordingly
-            newState.map.isLoading = newState.dataSelection.view === 'LIST';
-
-            newState.dataSelection.geometryFilter = newState.dataSelection.geometryFilter ||
+            dataSelection.geometryFilter = dataSelection.geometryFilter ||
                 {
                     markers: [],
                     description: ''
                 };
 
-            newState.dataSelection.markers = [];
-            newState.dataSelection.isLoading = true;
-            newState.dataSelection.isFullscreen = newState.dataSelection.view !== 'LIST';
-
             if (angular.isString(payload)) {
                 // text search: reset filter
-                newState.dataSelection.filters = {};
+                dataSelection.filters = {};
             }
 
-            return newState;
+            return {
+                ...state,
+                dataSelection: {
+                    ...dataSelection,
+                    markers: [],
+                    isLoading: true,
+                    isFullscreen: dataSelection.view !== 'LIST'
+                },
+                map: {
+                    ...state.map,
+                    isLoading: dataSelection.view === 'LIST',
+                    isFullscreen: false
+                },
+                layerSelection: {
+                    ...state.layerSelection,
+                    isEnabled: null
+                },
+                page: {
+                    ...state.page,
+                    name: null
+                },
+                search: null,
+                detail: null,
+                straatbeeld: null
+            };
         }
 
         /**
