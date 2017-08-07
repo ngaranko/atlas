@@ -250,7 +250,7 @@ describe('Straatbeeld reducers factory', function () {
         });
 
         it('can set the straatbeeld to the new location', function () {
-            var state = { straatbeeld: {} },
+            var state = { straatbeeld: null },
                 output;
 
             const location = [52.001, 4.002];

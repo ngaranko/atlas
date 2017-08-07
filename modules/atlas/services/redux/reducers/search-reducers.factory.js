@@ -133,7 +133,6 @@
                 map.isLoading = false;
             }
 
-            // var newState = angular.copy(oldState);
             return {
                 ...state,
                 search: {
