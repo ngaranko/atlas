@@ -194,7 +194,7 @@
                     url: 'https://www.amsterdam.nl/stelselpedia/meetbouten-index/catalogus-amsterdams/meting/',
                     meta: []
                 },
-                MONUMENTEN: {
+                MONUMENT: {
                     label_singular: 'Monument',
                     label_plural: 'Monumenten',
                     description: 'Een monument is een onroerende zaak (fysiek bouwwerk of historische structuur) die ' +
