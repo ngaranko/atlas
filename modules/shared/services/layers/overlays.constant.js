@@ -37,7 +37,9 @@
                     minZoom: 11,
                     maxZoom: 16,
                     legend: 'maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
-                    'gendGraphic&sld_version=1.1.0&layer=handel_vervoer_opslag&format=image/png&STYLE=default'
+                    'gendGraphic&sld_version=1.1.0&layer=handel_vervoer_opslag&format=image/png&STYLE=default',
+                    detailUrl: 'handelsregister/geosearch/',
+                    detailItem: 'handel_vervoer_opslag'
                 },
                 pir: {
                     authorizationLevel: 'EMPLOYEE',
@@ -49,7 +51,9 @@
                     maxZoom: 16,
                     legend: 'maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
                     'gendGraphic&sld_version=1.1.0&' +
-                    'layer=productie_installatie_reparatie&format=image/png&STYLE=default'
+                    'layer=productie_installatie_reparatie&format=image/png&STYLE=default',
+                    detailUrl: 'handelsregister/geosearch/',
+                    detailItem: 'productie_installatie_reparatie'
                 },
                 bouw: {
                     authorizationLevel: 'EMPLOYEE',
@@ -60,7 +64,9 @@
                     minZoom: 11,
                     maxZoom: 16,
                     legend: 'maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
-                    'gendGraphic&sld_version=1.1.0&layer=bouw&format=image/png&STYLE=default'
+                    'gendGraphic&sld_version=1.1.0&layer=bouw&format=image/png&STYLE=default',
+                    detailUrl: 'handelsregister/geosearch/',
+                    detailItem: 'bouw'
                 },
                 lb: {
                     authorizationLevel: 'EMPLOYEE',
@@ -71,7 +77,9 @@
                     minZoom: 11,
                     maxZoom: 16,
                     legend: 'maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
-                    'gendGraphic&sld_version=1.1.0&layer=landbouw&format=image/png&STYLE=default'
+                    'gendGraphic&sld_version=1.1.0&layer=landbouw&format=image/png&STYLE=default',
+                    detailUrl: 'handelsregister/geosearch/',
+                    detailItem: 'landbouw'
                 },
                 hrc: {
                     authorizationLevel: 'EMPLOYEE',
@@ -82,7 +90,9 @@
                     minZoom: 11,
                     maxZoom: 16,
                     legend: 'maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
-                    'gendGraphic&sld_version=1.1.0&layer=horeca&format=image/png&STYLE=default'
+                    'gendGraphic&sld_version=1.1.0&layer=horeca&format=image/png&STYLE=default',
+                    detailUrl: 'handelsregister/geosearch/',
+                    detailItem: 'horeca'
                 },
                 itc: {
                     authorizationLevel: 'EMPLOYEE',
@@ -93,7 +103,9 @@
                     minZoom: 11,
                     maxZoom: 16,
                     legend: 'maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
-                    'gendGraphic&sld_version=1.1.0&layer=telecommunicatie&format=image/png&STYLE=default'
+                    'gendGraphic&sld_version=1.1.0&layer=telecommunicatie&format=image/png&STYLE=default',
+                    detailUrl: 'handelsregister/geosearch/',
+                    detailItem: 'informatie_telecommunicatie'
                 },
                 fdvrog: {
                     authorizationLevel: 'EMPLOYEE',
@@ -106,7 +118,9 @@
                     legend: 'maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
                     'gendGraphic&sld_version=1.1.0&' +
                     'layer=financiele_dienstverlening_verhuur' +
-                    '&format=image/png&STYLE=default'
+                    '&format=image/png&STYLE=default',
+                    detailUrl: 'handelsregister/geosearch/',
+                    detailItem: 'financiele_dienstverlening_verhuur'
                 },
                 zd: {
                     authorizationLevel: 'EMPLOYEE',
@@ -117,7 +131,9 @@
                     minZoom: 11,
                     maxZoom: 16,
                     legend: 'maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
-                    'gendGraphic&sld_version=1.1.0&layer=zakelijke_dienstverlening&format=image/png&STYLE=default'
+                    'gendGraphic&sld_version=1.1.0&layer=zakelijke_dienstverlening&format=image/png&STYLE=default',
+                    detailUrl: 'handelsregister/geosearch/',
+                    detailItem: 'zakelijke_dienstverlening'
                 },
                 ooz: {
                     authorizationLevel: 'EMPLOYEE',
@@ -128,7 +144,9 @@
                     minZoom: 11,
                     maxZoom: 16,
                     legend: 'maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
-                    'gendGraphic&sld_version=1.1.0&layer=overheid_onderwijs_zorg&format=image/png&STYLE=default'
+                    'gendGraphic&sld_version=1.1.0&layer=overheid_onderwijs_zorg&format=image/png&STYLE=default',
+                    detailUrl: 'handelsregister/geosearch/',
+                    detailItem: 'overheid_onderwijs_zorg'
                 },
                 csr: {
                     authorizationLevel: 'EMPLOYEE',
@@ -139,7 +157,9 @@
                     minZoom: 11,
                     maxZoom: 16,
                     legend: 'maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
-                    'gendGraphic&sld_version=1.1.0&layer=cultuur_sport_recreatie&format=image/png&STYLE=default'
+                    'gendGraphic&sld_version=1.1.0&layer=cultuur_sport_recreatie&format=image/png&STYLE=default',
+                    detailUrl: 'handelsregister/geosearch/',
+                    detailItem: 'cultuur_sport_recreatie'
                 },
                 pd: {
                     authorizationLevel: 'EMPLOYEE',
@@ -151,7 +171,9 @@
                     maxZoom: 16,
                     legend: 'maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
                     'gendGraphic&sld_version=1.1.0&' +
-                    'layer=persoonlijke_dienstverlening&format=image/png&STYLE=default'
+                    'layer=persoonlijke_dienstverlening&format=image/png&STYLE=default',
+                    detailUrl: 'handelsregister/geosearch/',
+                    detailItem: 'persoonlijke_dienstverlening'
                 },
                 ovrg: {
                     authorizationLevel: 'EMPLOYEE',
@@ -162,7 +184,9 @@
                     minZoom: 11,
                     maxZoom: 16,
                     legend: 'maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
-                    'gendGraphic&sld_version=1.1.0&layer=overige&format=image/png&STYLE=default'
+                    'gendGraphic&sld_version=1.1.0&layer=overige&format=image/png&STYLE=default',
+                    detailUrl: 'handelsregister/geosearch/',
+                    detailItem: 'overige'
                 },
 
                 // onroerende zaken
@@ -217,7 +241,10 @@
                     minZoom: 13,
                     maxZoom: 16,
                     legend: 'maps/brk?version=1.3.0&service=WMS&request=GetLegend' +
-                    'Graphic&sld_version=1.1.0&layer=kadastraal_object&format=image/png&STYLE=default'
+                    'Graphic&sld_version=1.1.0&layer=kadastraal_object&format=image/png&STYLE=default',
+                    detailUrl: 'geosearch/search/',
+                    detailItem: 'kadastraal_object',
+                    detailIsShape: true
                 },
                 gbep: {
                     url: 'maps/wkpb',
@@ -299,7 +326,10 @@
                     minZoom: 12,
                     maxZoom: 16,
                     legend: 'maps/gebieden?version=1.3.0&service=WMS&request=GetLegend' +
-                    'Graphic&sld_version=1.1.0&layer=bouwblok&format=image/png&STYLE=default'
+                    'Graphic&sld_version=1.1.0&layer=bouwblok&format=image/png&STYLE=default',
+                    detailUrl: 'geosearch/search/',
+                    detailItem: 'bouwblok',
+                    detailIsShape: true
                 },
 
                 // geografie: hoogte
@@ -336,8 +366,8 @@
                     maxZoom: 16,
                     legend: 'maps/nap?version=1.3.0&service=WMS&request=GetLegendG' +
                     'raphic&sld_version=1.1.0&layer=NAP&format=image/png&STYLE=default',
-                    detailItem: 'peilmerk',
-                    detailFactor: 1
+                    detailUrl: 'geosearch/search/',
+                    detailItem: 'peilmerk'
                 },
                 mbs: {
                     url: 'maps/meetbouten?service=wms',
@@ -348,8 +378,8 @@
                     maxZoom: 16,
                     legend: 'maps/meetbouten?version=1.3.0&service=WMS&request=Get' +
                     'LegendGraphic&sld_version=1.1.0&layer=meetbouten_status&format=image/png&STYLE=default',
-                    detailItem: 'meetbout',
-                    detailFactor: 1
+                    detailUrl: 'geosearch/search/',
+                    detailItem: 'meetbout'
                 },
                 mbz: {
                     url: 'maps/meetbouten?service=wms',
@@ -360,8 +390,8 @@
                     maxZoom: 16,
                     legend: 'maps/meetbouten?version=1.3.0&service=WMS&request=Get' +
                     'LegendGraphic&sld_version=1.1.0&layer=meetbouten_zaksnelheid&format=image/png&STYLE=default',
-                    detailItem: 'meetbout',
-                    detailFactor: 1
+                    detailUrl: 'geosearch/search/',
+                    detailItem: 'meetbout'
                 },
                 mbr: {
                     url: 'maps/meetbouten',
@@ -418,8 +448,8 @@
                     maxZoom: 16,
                     legend: 'maps/bommenkaart?version=1.3.0&service=WMS&request=GetLegendGraphic&sld_version=1.1.0&la' +
                     'yer=inslagen&format=image/png&STYLE=default',
-                    detailItem: 'bominslag',
-                    detailFactor: 1
+                    detailUrl: 'geosearch/search/',
+                    detailItem: 'bominslag'
                 },
                 exvg: {
                     url: 'maps/bommenkaart',
@@ -792,8 +822,8 @@
                     legend: 'maps/monumenten?version=1.3.0&service' +
                     '=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=monument_coordinaten&format=' +
                     'image/png&STYLE=default',
-                    detailItem: 'monument',
-                    detailFactor: 1
+                    detailUrl: 'geosearch/search/',
+                    detailItem: 'monument'
                 },
 
                 // Verkeer

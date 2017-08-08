@@ -102,4 +102,13 @@ describe('The onMapClick factory', () => {
         expect(nearestDetail.search).toHaveBeenCalled();
         expect(store.dispatch).not.toHaveBeenCalled();
     });
+
+    it('when there are active overlays and straatbeeld is active a search to nearest detail will not be called', () => {
+        mockState.atlas.isEmbed = false;
+        mockState.straatbeeld = {};
+        activeOverlays.getVisibleOverlays.and.returnValue([1, 2]);
+        click();
+        expect(nearestDetail.search).not.toHaveBeenCalled();
+        expect(store.dispatch).toHaveBeenCalled();
+    });
 });
