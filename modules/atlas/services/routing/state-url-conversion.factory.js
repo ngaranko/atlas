@@ -104,13 +104,17 @@
                     return newState;
                 },
                 straatbeeld: (oldState, newState) => {
-                    if (angular.isObject(oldState) && oldState.id === newState.id) {
-                        newState.image = oldState.image;
-                        newState.hotspots = oldState.hotspots;
-                        newState.date = oldState.date;
-                        newState.location = oldState.location;
-                        newState.isInitial = false;
-                        newState.isLoading = oldState.isLoading;
+                    if (angular.isObject(oldState)) {
+                        newState.targetLocation = oldState.targetLocation;
+
+                        if (oldState.id === newState.id) {
+                            newState.image = oldState.image;
+                            newState.hotspots = oldState.hotspots;
+                            newState.date = oldState.date;
+                            newState.location = oldState.location;
+                            newState.isInitial = false;
+                            newState.isLoading = oldState.isLoading;
+                        }
                     }
                     return newState;
                 }
