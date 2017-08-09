@@ -24,96 +24,94 @@
         /**
          * @description If the oldState had an active straatbeeld it will remember the heading.
          *
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {Object} payload - {id: 'abc123', heading: 90}
          *
          * @returns {Object} newState
          */
-        function fetchStraatbeeldByIdReducer (oldState, payload) {
-            const newState = angular.copy(oldState);
-
-            newState.straatbeeld = newState.straatbeeld || {};
-            initializeStraatbeeld(newState.straatbeeld);
-
-            newState.straatbeeld.id = payload.id;
-            newState.straatbeeld.heading = payload.heading ||
-                (oldState.straatbeeld && oldState.straatbeeld.heading) ||
-                0;
-            newState.straatbeeld.isInitial = payload.isInitial;
+        function fetchStraatbeeldByIdReducer (state, payload) {
+            const straatbeeld = initializeStraatbeeld(state.straatbeeld || {});
 
             if (angular.isDefined(payload.isFullscreen)) {
-                newState.straatbeeld.isFullscreen = payload.isFullscreen;
+                straatbeeld.isFullscreen = payload.isFullscreen;
             }
 
-            newState.map.highlight = null;
-
-            newState.search = null;
-
-            newState.dataSelection = null;
-
-            newState.map.isLoading = true;
-
-            return newState;
+            return {
+                ...state,
+                straatbeeld: {
+                    ...straatbeeld,
+                    id: payload.id,
+                    heading: payload.heading || state.straatbeeld.heading || 0,
+                    isInitial: payload.isInitial
+                },
+                map: {
+                    ...state.map,
+                    highlight: false,
+                    isLoading: true
+                },
+                search: null,
+                dataSelection: null
+            };
         }
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {Array} payload - A location, e.g. [52.123, 4.789]
          *
          * @returns {Object} newState
          */
-        function fetchStraatbeeldByLocationReducer (oldState, payload) {
-            var newState = angular.copy(oldState);
+        function fetchStraatbeeldByLocationReducer (state, payload) {
+            const straatbeeld = initializeStraatbeeld(state.straatbeeld || {}),
+                map = state.map ? {...state.map} : state.map;
 
-            newState.straatbeeld = newState.straatbeeld || {};
-            initializeStraatbeeld(newState.straatbeeld);
-
-            newState.straatbeeld.location = payload;
-            newState.straatbeeld.targetLocation = payload;
-
-            if ((oldState.layerSelection && oldState.layerSelection.isEnabled) ||
-                (oldState.map && oldState.map.isFullscreen)) {
-                newState.map.viewCenter = payload;
+            if ((state.layerSelection && state.layerSelection.isEnabled) ||
+                (map && map.isFullscreen)) {
+                map.viewCenter = payload;
             }
 
-            if (newState.layerSelection) {
-                newState.layerSelection.isEnabled = false;
-            }
-            if (newState.map) {
-                newState.map.showActiveOverlays = false;
-                newState.map.isFullscreen = false;
-                newState.map.geometry = [];
-            }
-            newState.search = null;
-            if (newState.page) {
-                newState.page.name = null;
-            }
-            // If a straatbeeld is loaded by it's location
-            // then clear any active detail
-            newState.detail = null;
-            newState.dataSelection = null;
-
-            return newState;
+            return {
+                ...state,
+                straatbeeld: {
+                    ...straatbeeld,
+                    location: payload,
+                    targetLocation: payload
+                },
+                map: {
+                    ...map,
+                    showActiveOverlays: false,
+                    isFullscreen: false,
+                    geometry: []
+                },
+                layerSelection: {
+                    ...state.layerSelection,
+                    isEnabled: false
+                },
+                page: {
+                    ...state.page,
+                    name: null
+                },
+                search: null,
+                dataSelection: null,
+                detail: null
+            };
         }
 
         function initializeStraatbeeld (straatbeeld) {
             // Resets straatbeeld properties
             // Leave any other properties of straatbeeld untouched
-            straatbeeld.id = null;
-            straatbeeld.location = null;
-
-            straatbeeld.isInitial = true;
-
-            straatbeeld.date = null;
-            straatbeeld.hotspots = [];
-
-            straatbeeld.heading = null;
-            straatbeeld.pitch = null;
-            straatbeeld.fov = null;
-
-            straatbeeld.image = null;
-
-            straatbeeld.isLoading = true;
+            return {
+                ...straatbeeld,
+                id: null,
+                location: null,
+                isInitial: true,
+                date: null,
+                hotspots: [],
+                heading: null,
+                pitch: null,
+                fov: null,
+                image: null,
+                isLoading: true
+            };
         }
 
         function straatbeeldFullscreenReducer (oldState, payload) {
@@ -127,44 +125,54 @@
         }
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {Object} payload -  data from straatbeeld-api
          *
          * @returns {Object} newState
          */
-        function showStraatbeeldReducer (oldState, payload) {
-            var newState = angular.copy(oldState);
+        function showStraatbeeldReducer (state, payload) {
+            const straatbeeld = state.straatbeeld ? {...state.straatbeeld} : state.straatbeeld,
+                map = state.map ? {...state.map} : state.map;
 
             // Straatbeeld can be null if another action gets triggered between FETCH_STRAATBEELD and SHOW_STRAATBEELD
-            if (angular.isObject(newState.straatbeeld)) {
-                newState.straatbeeld.id = payload.id || newState.straatbeeld.id;
-                newState.straatbeeld.date = payload.date;
+            if (angular.isObject(straatbeeld)) {
+                straatbeeld.id = payload.id || state.straatbeeld.id;
+                straatbeeld.date = payload.date;
 
-                newState.straatbeeld.pitch = oldState.straatbeeld.pitch || 0;
-                newState.straatbeeld.fov = oldState.straatbeeld.fov || STRAATBEELD_CONFIG.DEFAULT_FOV;
+                straatbeeld.pitch = state.straatbeeld.pitch || 0;
+                straatbeeld.fov = state.straatbeeld.fov || STRAATBEELD_CONFIG.DEFAULT_FOV;
 
-                if (angular.isArray(newState.straatbeeld.location)) {
+                if (angular.isArray(straatbeeld.location)) {
                     // straatbeeld is loaded by location
-                    if (angular.isArray(newState.straatbeeld.targetLocation)) {
+                    if (angular.isArray(straatbeeld.targetLocation)) {
                         // Point at the target location
-                        newState.straatbeeld.heading = getHeadingDegrees(
+                        straatbeeld.heading = getHeadingDegrees(
                             payload.location,
-                            newState.straatbeeld.targetLocation
+                            straatbeeld.targetLocation
                         );
                     }
                 } else {
                     // straatbeeld is loaded by id, center map on location
-                    newState.map.viewCenter = payload.location;
+                    map.viewCenter = payload.location;
                 }
 
-                newState.straatbeeld.hotspots = payload.hotspots;
-                newState.straatbeeld.isLoading = false;
-                newState.straatbeeld.location = payload.location;
-                newState.straatbeeld.image = payload.image;
-                newState.map.isLoading = false;
+                straatbeeld.hotspots = payload.hotspots;
+                straatbeeld.isLoading = false;
+                straatbeeld.location = payload.location;
+                straatbeeld.image = payload.image;
+                map.isLoading = false;
             }
 
-            return newState;
+            // return newState;
+            return {
+                ...state,
+                straatbeeld: {
+                    ...straatbeeld
+                },
+                map: {
+                    ...map
+                }
+            };
         }
 
         /**
@@ -175,7 +183,7 @@
          */
         function showStraatbeeldSubsequentReducer (oldState, payload) {
             const state = showStraatbeeldReducer(oldState, payload),
-                map = state.map ? {...state.map} : {};
+                map = state.map ? {...state.map} : state.map;
 
             if (angular.isObject(state.straatbeeld)) {
                 // Keep map centered on last selected hotspot
