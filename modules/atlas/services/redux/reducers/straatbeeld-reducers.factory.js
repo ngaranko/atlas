@@ -30,17 +30,18 @@
          * @returns {Object} newState
          */
         function fetchStraatbeeldByIdReducer (state, payload) {
-            const straatbeeld = initializeStraatbeeld(state.straatbeeld || {});
+            const straatbeeld = angular.isObject(state.straatbeeld) ? {...state.straatbeeld} : {};
 
             return {
                 ...state,
                 straatbeeld: {
                     ...straatbeeld,
+                    ...resetStraatbeeld(),
                     id: payload.id,
                     heading: payload.heading || state.straatbeeld && state.straatbeeld.heading || 0,
                     isInitial: payload.isInitial,
                     isFullscreen: angular.isDefined(payload.isFullscreen) ? payload.isFullscreen
-                        : straatbeeld.isFullscreen
+                        : state.straatbeeld ? state.straatbeeld.isFullscreen : undefined
                 },
                 map: angular.isObject(state.map) ? {
                     ...state.map,
@@ -59,27 +60,24 @@
          * @returns {Object} newState
          */
         function fetchStraatbeeldByLocationReducer (state, payload) {
-            const straatbeeld = initializeStraatbeeld(state.straatbeeld || {}),
-                map = angular.isObject(state.map) ? {...state.map} : state.map;
-
-            if ((state.layerSelection && state.layerSelection.isEnabled) ||
-                (map && map.isFullscreen)) {
-                map.viewCenter = payload;
-            }
+            const straatbeeld = angular.isObject(state.straatbeeld) ? {...state.straatbeeld} : {};
 
             return {
                 ...state,
                 straatbeeld: {
                     ...straatbeeld,
+                    ...resetStraatbeeld(),
                     location: payload,
                     targetLocation: payload
                 },
-                map: {
-                    ...map,
+                map: angular.isObject(state.map) ? {
+                    ...state.map,
                     showActiveOverlays: false,
                     isFullscreen: false,
-                    geometry: []
-                },
+                    geometry: [],
+                    viewCenter: (state.layerSelection && state.layerSelection.isEnabled) ||
+                        (state.map && state.map.isFullscreen) ? payload : undefined
+                } : state.map,
                 layerSelection: angular.isObject(state.layerSelection) ? {
                     ...state.layerSelection,
                     isEnabled: false
@@ -94,11 +92,10 @@
             };
         }
 
-        function initializeStraatbeeld (straatbeeld) {
+        function resetStraatbeeld () {
             // Resets straatbeeld properties
             // Leave any other properties of straatbeeld untouched
             return {
-                ...straatbeeld,
                 id: null,
                 location: null,
                 isInitial: true,

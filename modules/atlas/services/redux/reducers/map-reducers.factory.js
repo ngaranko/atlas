@@ -66,15 +66,13 @@
          * @returns {Object} newState
          */
         function mapAddOverlayReducer (state, payload) {
-            const showActiveOverlays = !state.map.overlays
-                .filter((overlay) => overlay.id.indexOf('pano') !== 0)
-                .length;
-
             return {
                 ...state,
                 map: angular.isObject(state.map) ? {
                     ...state.map,
-                    showActiveOverlays: showActiveOverlays ? true : state.map.showActiveOverlays,
+                    showActiveOverlays: !state.map.overlays
+                        .filter((overlay) => overlay.id.indexOf('pano') !== 0)
+                        .length ? true : state.map.showActiveOverlays,
                     overlays: [
                         ...state.map.overlays,
                         {id: payload, isVisible: true}
@@ -170,18 +168,16 @@
          * @returns {Object} newState
          */
         function mapToggleVisibilityOverlay (state, payload) {
-            const overlays = [...state.map.overlays].map((overlay) => {
-                return {
-                    ...overlay,
-                    isVisible: overlay.id === payload ? !overlay.isVisible : overlay.isVisible
-                };
-            });
-
             return {
                 ...state,
                 map: angular.isObject(state.map) ? {
                     ...state.map,
-                    overlays: overlays
+                    overlays: [...state.map.overlays].map((overlay) => {
+                        return {
+                            ...overlay,
+                            isVisible: overlay.id === payload ? !overlay.isVisible : overlay.isVisible
+                        };
+                    })
                 } : state.map
             };
         }
@@ -284,35 +280,30 @@
         }
 
         function mapEndDrawingReducer (state, payload) {
-            const map = {...state.map},
-                page = {...state.page},
-                layerSelection = {...state.layerSelection};
+            const has2Markers = payload && payload.markers && payload.markers.length === 2,
+                moreThan2Markers = payload && payload.markers && payload.markers.length > 2;
 
-            if (payload && payload.markers) {
-                if (payload.markers.length === 2) {
-                    map.geometry = payload.markers;
-                }
-                if (payload.markers.length > 2) {
-                    state = resetDataSelection(state, payload);
-
-                    page.name = null;
-
-                    layerSelection.isEnabled = false;
-
-                    map.geometry = [];
-                    map.isLoading = true;
-                    map.isFullscreen = false;
-                }
+            if (moreThan2Markers) {
+                state = resetDataSelection(state, payload);
             }
 
             return {
                 ...state,
-                map: {
-                    ...map,
-                    drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE
-                },
-                layerSelection: layerSelection,
-                page: page
+                map: angular.isObject(state.map) ? {
+                    ...state.map,
+                    drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
+                    geometry: has2Markers ? payload.markers : moreThan2Markers ? [] : state.map.geometry,
+                    isLoading: moreThan2Markers ? true : state.map.isLoading,
+                    isFullscreen: moreThan2Markers ? false : state.map.isFullscreen
+                } : state.map,
+                layerSelection: angular.isObject(state.layerSelection) ? {
+                    ...state.layerSelection,
+                    isEnabled: moreThan2Markers ? false : state.layerSelection.isEnabled
+                } : state.layerSelection,
+                page: angular.isObject(state.page) ? {
+                    ...state.page,
+                    name: moreThan2Markers ? null : state.page.name
+                } : state.page
             };
         }
 
