@@ -23,5 +23,6 @@
 .is-print-mode,
 .is-embed-preview,
 .is-embed {
+  @import "components/detail/detail-print";
   @import "components/detail/detail-catalogus-table-print";
 }
