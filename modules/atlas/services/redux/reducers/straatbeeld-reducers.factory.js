@@ -174,30 +174,40 @@
          * @returns {Object} newState
          */
         function showStraatbeeldSubsequentReducer (oldState, payload) {
-            var newState = showStraatbeeldReducer(oldState, payload);
+            const state = showStraatbeeldReducer(oldState, payload),
+                map = state.map ? {...state.map} : {};
 
-            if (angular.isObject(newState.straatbeeld)) {
+            if (angular.isObject(state.straatbeeld)) {
                 // Keep map centered on last selected hotspot
-                newState.map.viewCenter = payload.location;
+                map.viewCenter = payload.location;
             }
 
-            return newState;
+            return {
+                ...state,
+                map: map
+            };
         }
 
-        function setOrientationReducer (oldState, payload) {
-            var newState = angular.copy(oldState);
-
-            newState.straatbeeld.heading = payload.heading;
-            newState.straatbeeld.pitch = payload.pitch;
-            newState.straatbeeld.fov = payload.fov;
-
-            return newState;
+        function setOrientationReducer (state, payload) {
+            return {
+                ...state,
+                straatbeeld: {
+                    ...state.straatbeeld,
+                    heading: payload.heading,
+                    pitch: payload.pitch,
+                    fov: payload.fov
+                }
+            };
         }
 
-        function setStraatbeeldHistoryReducer (oldState, payload) {
-            const newState = angular.copy(oldState);
-            newState.straatbeeld.history = payload;
-            return newState;
+        function setStraatbeeldHistoryReducer (state, payload) {
+            return {
+                ...state,
+                straatbeeld: {
+                    ...state.straatbeeld,
+                    history: payload
+                }
+            };
         }
 
         function getHeadingDegrees ([x1, y1], [x2, y2]) {
