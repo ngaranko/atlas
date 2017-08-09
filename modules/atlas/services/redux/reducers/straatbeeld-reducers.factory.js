@@ -114,14 +114,17 @@
             };
         }
 
-        function straatbeeldFullscreenReducer (oldState, payload) {
-            var newState = angular.copy(oldState);
+        function straatbeeldFullscreenReducer (state, payload) {
+            const straatbeeld = state.straatbeeld ? {...state.straatbeeld} : state.straatbeeld;
 
             if (angular.isDefined(payload)) {
-                newState.straatbeeld.isFullscreen = payload;
+                straatbeeld.isFullscreen = payload;
             }
 
-            return newState;
+            return {
+                ...state,
+                straatbeeld
+            };
         }
 
         /**
@@ -163,7 +166,6 @@
                 map.isLoading = false;
             }
 
-            // return newState;
             return {
                 ...state,
                 straatbeeld: {
