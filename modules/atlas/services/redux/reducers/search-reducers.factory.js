@@ -27,7 +27,6 @@
             return {
                 ...state,
                 search: {
-                    ...state.search,
                     isLoading: true,
                     isFullscreen: true,
                     query: payload || null,
@@ -35,19 +34,19 @@
                     category: null,
                     numberOfResults: null
                 },
-                map: {
+                map: angular.isObject(state.map) ? {
                     ...state.map,
                     isFullscreen: false
-                },
-                layerSelection: {
+                } : state.map,
+                layerSelection: angular.isObject(state.layerSelection) ? {
                     ...state.layerSelection,
                     isEnabled: false
-                },
-                page: {
+                } : state.layerSelection,
+                page: angular.isObject(state.page) ? {
                     ...state.page,
                     name: null,
                     type: null
-                },
+                } : state.page,
                 detail: null,
                 straatbeeld: null,
                 dataSelection: null
@@ -61,22 +60,9 @@
          * @returns {Object} newState
          */
         function fetchSearchResultsByLocationReducer (state, payload) {
-            const map = state.map ? {...state.map} : state.map;
-
-            if (state.layerSelection.isEnabled || (map && state.map.isFullscreen)) {
-                map.viewCenter = payload;
-            }
-
-            if (map) {
-                map.showActiveOverlays = false;
-                map.isFullscreen = false;
-                map.geometry = [];
-            }
-
             return {
                 ...state,
                 search: {
-                    ...state.search,
                     isLoading: true,
                     isFullscreen: false,
                     query: null,
@@ -84,15 +70,22 @@
                     category: null,
                     numberOfResults: null
                 },
-                map: map,
-                layerSelection: {
+                map: angular.isObject(state.map) ? {
+                    ...state.map,
+                    showActiveOverlays: false,
+                    isFullscreen: false,
+                    geometry: [],
+                    viewCenter: state.layerSelection.isEnabled || (state.map && state.map.isFullscreen)
+                        ? payload : state.map.viewCenter
+                } : state.map,
+                layerSelection: angular.isObject(state.layerSelection) ? {
                     ...state.layerSelection,
                     isEnabled: false
-                },
-                page: {
+                } : state.layerSelection,
+                page: angular.isObject(state.page) ? {
                     ...state.page,
                     name: null
-                },
+                } : state.page,
                 detail: null,
                 straatbeeld: null,
                 dataSelection: null
@@ -106,16 +99,14 @@
          * @returns {Object} newState
          */
         function fetchSearchResultsCategoryReducer (state, payload) {
-            const search = state.search || {};
-
             return {
                 ...state,
-                search: {
-                    ...search,
+                search: angular.isObject(state.search) ? {
+                    ...state.search,
                     isLoading: true,
                     category: payload,
                     numberOfResults: null
-                }
+                } : state.search
             };
         }
 
@@ -126,21 +117,17 @@
          * @returns {Object} newState
          */
         function showSearchResultsReducer (state, payload) {
-            const search = state.search || {},
-                map = state.map ? {...state.map} : state.map;
-
-            if (map) {
-                map.isLoading = false;
-            }
-
             return {
                 ...state,
-                search: {
-                    ...search,
+                search: angular.isObject(state.search) ? {
+                    ...state.search,
                     isLoading: false,
                     numberOfResults: payload
-                },
-                map: map
+                } : state.search,
+                map: angular.isObject(state.map) ? {
+                    ...state.map,
+                    isLoading: false
+                } : state.map
             };
         }
     }

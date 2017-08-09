@@ -18,20 +18,20 @@
         function showLayerSelectionReducer (state) {
             return {
                 ...state,
-                layerSelection: {
+                layerSelection: angular.isObject(state.layerSelection) ? {
                     ...state.layerSelection,
                     isEnabled: true
-                }
+                } : state.layerSelection
             };
         }
 
         function hideLayerSelectionReducer (state) {
             return {
                 ...state,
-                layerSelection: {
+                layerSelection: angular.isObject(state.layerSelection) ? {
                     ...state.layerSelection,
                     isEnabled: false
-                }
+                } : state.layerSelection
             };
         }
     }

@@ -23,10 +23,10 @@
         function showEmbedPreviewReducer (state) {
             return {
                 ...state,
-                atlas: {
+                atlas: angular.isObject(state.atlas) ? {
                     ...state.atlas,
                     isEmbedPreview: true
-                }
+                } : state.atlas
             };
         }
 
@@ -38,10 +38,10 @@
         function hideEmbedPreviewReducer (state) {
             return {
                 ...state,
-                atlas: {
+                atlas: angular.isObject(state.atlas) ? {
                     ...state.atlas,
                     isEmbedPreview: false
-                }
+                } : state.atlas
             };
         }
     }

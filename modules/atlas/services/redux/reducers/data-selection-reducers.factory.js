@@ -22,7 +22,7 @@
         return reducers;
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {string|Object} payload A string with the search query or
          *                                an object with the following keys:
          *                                - query (String): The search query
@@ -71,20 +71,20 @@
                             description: ''
                         }
                 },
-                map: {
+                map: angular.isObject(state.map) ? {
                     ...state.map,
                     isFullscreen: false,
                     // LIST loading might include markers => set map loading accordingly
                     isLoading: dataSelection.view === 'LIST'
-                },
-                page: {
+                } : state.map,
+                page: angular.isObject(state.page) ? {
                     ...state.page,
                     name: null
-                },
-                layerSelection: {
+                } : state.page,
+                layerSelection: angular.isObject(state.layerSelection) ? {
                     ...state.layerSelection,
-                    isEnabled: null
-                },
+                    isEnabled: false
+                } : state.layerSelection,
                 search: null,
                 detail: null,
                 straatbeeld: null
@@ -98,22 +98,18 @@
          * @returns {Object} newState
          */
         function showDataSelectionReducer (state, payload) {
-            const dataSelection = angular.isObject(state.dataSelection) ? {...state.dataSelection}
-                : state.dataSelection === null ? null : {};
-
-            if (dataSelection) {
-                dataSelection.markers = payload;
-                dataSelection.isLoading = false;
-                dataSelection.isFullscreen = dataSelection.view !== 'LIST';
-            }
-
             return {
                 ...state,
-                dataSelection: dataSelection,
-                map: {
+                dataSelection: angular.isObject(state.dataSelection) ? {
+                    ...state.dataSelection,
+                    markers: payload,
+                    isLoading: false,
+                    isFullscreen: state.dataSelection.view !== 'LIST'
+                } : state.dataSelection,
+                map: angular.isObject(state.map) ? {
                     ...state.map,
                     isLoading: false
-                }
+                } : state.map
             };
         }
 
@@ -127,23 +123,19 @@
          * @returns {Object} newState
          */
         function resetDataSelectionReducer (state, payload) {
-            const dataSelection = angular.isObject(state.dataSelection) ? {...state.dataSelection}
-                : state.dataSelection === null ? null : {};
-
-            if (dataSelection) {
-                dataSelection.markers = payload;
-                dataSelection.isLoading = false;
-                dataSelection.isFullscreen = dataSelection.view !== 'LIST';
-                dataSelection.reset = false;
-            }
-
             return {
                 ...state,
-                dataSelection: dataSelection,
-                map: {
+                dataSelection: angular.isObject(state.dataSelection) ? {
+                    ...state.dataSelection,
+                    markers: payload,
+                    isLoading: false,
+                    isFullscreen: state.dataSelection.view !== 'LIST',
+                    reset: false
+                } : state.dataSelection,
+                map: angular.isObject(state.map) ? {
                     ...state.map,
                     isLoading: false
-                }
+                } : state.map
             };
         }
 
@@ -156,10 +148,10 @@
         function navigateDataSelectionReducer (state, payload) {
             return {
                 ...state,
-                dataSelection: {
+                dataSelection: angular.isObject(state.dataSelection) ? {
                     ...state.dataSelection,
                     page: payload
-                }
+                } : state.dataSelection
             };
         }
 
@@ -170,23 +162,27 @@
          * @returns {Object} newState
          */
         function setDataSelectionViewReducer (state, payload) {
-            const dataSelection = angular.isObject(state.dataSelection) ? {...state.dataSelection}
-                : state.dataSelection === null ? null : {};
+            let view,
+                isLoading = false;
 
             ['LIST', 'TABLE', 'CARDS'].forEach(legalValue => {
                 if (payload === legalValue) {
-                    dataSelection.view = payload;
-                    dataSelection.isLoading = true;
+                    view = payload;
+                    isLoading = true;
                 }
             });
 
             return {
                 ...state,
-                dataSelection: dataSelection,
-                map: {
+                dataSelection: angular.isObject(state.dataSelection) ? {
+                    ...state.dataSelection,
+                    view: view,
+                    isLoading: isLoading
+                } : state.dataSelection,
+                map: angular.isObject(state.map) ? {
                     ...state.map,
-                    isLoading: dataSelection.view === 'LIST'
-                }
+                    isLoading: view === 'LIST'
+                } : state.map
             };
         }
     }

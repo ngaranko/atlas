@@ -24,20 +24,20 @@
         function showPageReducer (state, payload) {
             return {
                 ...state,
-                page: {
+                page: angular.isObject(state.page) ? {
                     ...state.page,
                     name: payload.name,
                     type: payload.type,
                     item: payload.item
-                },
-                map: {
+                } : state.page,
+                map: angular.isObject(state.map) ? {
                     ...state.map,
                     isFullscreen: false
-                },
-                layerSelection: {
+                } : state.map,
+                layerSelection: angular.isObject(state.layerSelection) ? {
                     ...state.layerSelection,
                     isEnabled: false
-                },
+                } : state.layerSelection,
                 search: null,
                 detail: null,
                 straatbeeld: null,

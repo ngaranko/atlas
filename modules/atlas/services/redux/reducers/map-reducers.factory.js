@@ -32,19 +32,19 @@
         function showMapReducer (state) {
             return {
                 ...state,
-                map: {
+                map: angular.isObject(state.map) ? {
                     ...state.map,
                     isFullscreen: true
-                },
-                layerSelection: {
+                } : state.map,
+                layerSelection: angular.isObject(state.layerSelection) ? {
                     ...state.layerSelection,
                     isEnabled: true
-                }
+                } : state.layerSelection
             };
         }
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {String} payload - The name of the baseLayer, it should match a key from base-layers.constant.js
          *
          * @returns {Object} newState
@@ -52,15 +52,15 @@
         function mapSetBaselayerReducer (state, payload) {
             return {
                 ...state,
-                map: {
+                map: angular.isObject(state.map) ? {
                     ...state.map,
                     baseLayer: payload
-                }
+                } : state.map
             };
         }
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {String} payload - The name of the overlay, it should match a key from overlays.constant.js
          *
          * @returns {Object} newState
@@ -72,19 +72,19 @@
 
             return {
                 ...state,
-                map: {
+                map: angular.isObject(state.map) ? {
                     ...state.map,
                     showActiveOverlays: showActiveOverlays ? true : state.map.showActiveOverlays,
                     overlays: [
                         ...state.map.overlays,
                         {id: payload, isVisible: true}
                     ]
-                }
+                } : state.map
             };
         }
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {String} payload - The name of the overlay, it should match a key from overlays.constant.js
          *
          * @returns {Object} newState
@@ -92,10 +92,10 @@
         function mapRemoveOverlayReducer (state, payload) {
             return {
                 ...state,
-                map: {
+                map: angular.isObject(state.map) ? {
                     ...state.map,
                     overlays: state.map.overlays.filter((a) => a.id !== payload)
-                }
+                } : state.map
             };
         }
 
@@ -107,7 +107,7 @@
          * Removes any active 'pano' (street view) layer before adding the new
          * one.
          *
-         * @param {Object} oldState
+         * @param {Object} state
          *
          * @returns {Object} newState
          */
@@ -127,20 +127,20 @@
 
             return {
                 ...state,
-                map: {
+                map: angular.isObject(state.map) ? {
                     ...state.map,
                     overlays: [
                         ...overlays,
                         {id: newLayer, isVisible: true}
                     ]
-                }
+                } : state.map
             };
         }
 
         /**
          * Removes any active 'pano' (street view) layer.
          *
-         * @param {Object} oldState
+         * @param {Object} state
          *
          * @returns {Object} newState
          */
@@ -156,15 +156,15 @@
 
             return {
                 ...state,
-                map: {
+                map: angular.isObject(state.map) ? {
                     ...state.map,
                     overlays: overlays
-                }
+                } : state.map
             };
         }
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {String} payload - The name of the overlay, it should match a key from overlays.constant.js
          *
          * @returns {Object} newState
@@ -179,15 +179,15 @@
 
             return {
                 ...state,
-                map: {
+                map: angular.isObject(state.map) ? {
                     ...state.map,
                     overlays: overlays
-                }
+                } : state.map
             };
         }
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {Array} payload - The new position in Array format, e.g. [52.123, 4.789]
          *
          * @returns {Object} newState
@@ -195,15 +195,15 @@
         function mapPanReducer (state, payload) {
             return {
                 ...state,
-                map: {
+                map: angular.isObject(state.map) ? {
                     ...state.map,
                     viewCenter: payload
-                }
+                } : state.map
             };
         }
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {Number} payload - The zoom level
          *
          * @returns {Object} newState
@@ -211,16 +211,16 @@
         function mapZoomReducer (state, payload) {
             return {
                 ...state,
-                map: {
+                map: angular.isObject(state.map) ? {
                     ...state.map,
                     zoom: payload.zoom,
                     viewCenter: angular.isArray(payload.viewCenter) ? payload.viewCenter : state.map.viewCenter
-                }
+                } : state.map
             };
         }
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {Number} payload - Set hightlighting on or off
          *
          * @returns {Object} newState
@@ -228,15 +228,15 @@
         function mapHighlightReducer (state, payload) {
             return {
                 ...state,
-                map: {
+                map: angular.isObject(state.map) ? {
                     ...state.map,
                     highlight: payload
-                }
+                } : state.map
             };
         }
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {Number} payload - Boolean that defines whether or not fullscreen mode is enabled
          *
          * @returns {Object} newState
@@ -244,14 +244,14 @@
         function mapFullscreenReducer (state, payload) {
             return {
                 ...state,
-                map: {
+                map: angular.isObject(state.map) ? {
                     ...state.map,
                     isFullscreen: payload
-                },
-                layerSelection: {
+                } : state.map,
+                layerSelection: angular.isObject(state.layerSelection) ? {
                     ...state.layerSelection,
                     isEnabled: false
-                }
+                } : state.layerSelection
             };
         }
 
@@ -266,20 +266,20 @@
 
             return {
                 ...state,
-                map: {
+                map: angular.isObject(state.map) ? {
                     ...state.map,
                     drawingMode: payload
-                }
+                } : state.map
             };
         }
 
         function mapClearDrawingReducer (state) {
             return {
                 ...state,
-                map: {
+                map: angular.isObject(state.map) ? {
                     ...state.map,
                     geometry: []
-                }
+                } : state.map
             };
         }
 
@@ -319,37 +319,32 @@
         function showActiveOverlaysReducer (state) {
             return {
                 ...state,
-                map: {
+                map: angular.isObject(state.map) ? {
                     ...state.map,
                     showActiveOverlays: true
-                }
+                } : state.map
             };
         }
 
         function hideActiveOverlaysReducer (state) {
             return {
                 ...state,
-                map: {
+                map: angular.isObject(state.map) ? {
                     ...state.map,
                     showActiveOverlays: false
-                }
+                } : state.map
             };
         }
 
         function resetDataSelection (state, payload = {markers: []}) {
-            let dataSelection = {};
-
-            if (!state.dataSelection) {
-                dataSelection.dataset = 'bag';
-                dataSelection.filters = {};
-            } else {
-                dataSelection = {...state.dataSelection};
-            }
-
             return {
                 ...state,
                 dataSelection: {
-                    ...dataSelection,
+                    ...{
+                        dataset: 'bag',
+                        filters: {}
+                    },
+                    ...state.dataSelection,
                     geometryFilter: payload,
                     page: 1,
                     isFullscreen: false,

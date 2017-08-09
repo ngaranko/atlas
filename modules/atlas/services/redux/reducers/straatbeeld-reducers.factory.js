@@ -41,14 +41,14 @@
                 straatbeeld: {
                     ...straatbeeld,
                     id: payload.id,
-                    heading: payload.heading || state.straatbeeld.heading || 0,
+                    heading: payload.heading || state.straatbeeld && state.straatbeeld.heading || 0,
                     isInitial: payload.isInitial
                 },
-                map: {
+                map: angular.isObject(state.map) ? {
                     ...state.map,
                     highlight: false,
                     isLoading: true
-                },
+                } : state.map,
                 search: null,
                 dataSelection: null
             };
@@ -62,7 +62,7 @@
          */
         function fetchStraatbeeldByLocationReducer (state, payload) {
             const straatbeeld = initializeStraatbeeld(state.straatbeeld || {}),
-                map = state.map ? {...state.map} : state.map;
+                map = angular.isObject(state.map) ? {...state.map} : state.map;
 
             if ((state.layerSelection && state.layerSelection.isEnabled) ||
                 (map && map.isFullscreen)) {
@@ -82,14 +82,14 @@
                     isFullscreen: false,
                     geometry: []
                 },
-                layerSelection: {
+                layerSelection: angular.isObject(state.layerSelection) ? {
                     ...state.layerSelection,
                     isEnabled: false
-                },
-                page: {
+                } : state.layerSelection,
+                page: angular.isObject(state.page) ? {
                     ...state.page,
                     name: null
-                },
+                } : state.page,
                 search: null,
                 dataSelection: null,
                 detail: null
@@ -115,15 +115,12 @@
         }
 
         function straatbeeldFullscreenReducer (state, payload) {
-            const straatbeeld = state.straatbeeld ? {...state.straatbeeld} : state.straatbeeld;
-
-            if (angular.isDefined(payload)) {
-                straatbeeld.isFullscreen = payload;
-            }
-
             return {
                 ...state,
-                straatbeeld
+                straatbeeld: angular.isObject(state.straatbeeld) ? {
+                    ...state.straatbeeld,
+                    isFullscreen: angular.isDefined(payload) ? payload : state.straatbeeld.isFullscreen
+                } : state.straatbeeld
             };
         }
 
@@ -134,46 +131,29 @@
          * @returns {Object} newState
          */
         function showStraatbeeldReducer (state, payload) {
-            const straatbeeld = state.straatbeeld ? {...state.straatbeeld} : state.straatbeeld,
-                map = state.map ? {...state.map} : state.map;
-
-            // Straatbeeld can be null if another action gets triggered between FETCH_STRAATBEELD and SHOW_STRAATBEELD
-            if (angular.isObject(straatbeeld)) {
-                straatbeeld.id = payload.id || state.straatbeeld.id;
-                straatbeeld.date = payload.date;
-
-                straatbeeld.pitch = state.straatbeeld.pitch || 0;
-                straatbeeld.fov = state.straatbeeld.fov || STRAATBEELD_CONFIG.DEFAULT_FOV;
-
-                if (angular.isArray(straatbeeld.location)) {
-                    // straatbeeld is loaded by location
-                    if (angular.isArray(straatbeeld.targetLocation)) {
-                        // Point at the target location
-                        straatbeeld.heading = getHeadingDegrees(
-                            payload.location,
-                            straatbeeld.targetLocation
-                        );
-                    }
-                } else {
-                    // straatbeeld is loaded by id, center map on location
-                    map.viewCenter = payload.location;
-                }
-
-                straatbeeld.hotspots = payload.hotspots;
-                straatbeeld.isLoading = false;
-                straatbeeld.location = payload.location;
-                straatbeeld.image = payload.image;
-                map.isLoading = false;
-            }
-
             return {
                 ...state,
-                straatbeeld: {
-                    ...straatbeeld
-                },
-                map: {
-                    ...map
-                }
+                straatbeeld: angular.isObject(state.straatbeeld) ? {
+                    ...state.straatbeeld,
+                    id: payload.id || state.straatbeeld.id,
+                    date: payload.date,
+                    pitch: state.straatbeeld.pitch || 0,
+                    fov: state.straatbeeld.fov || STRAATBEELD_CONFIG.DEFAULT_FOV,
+                    heading: angular.isArray(state.straatbeeld.location) &&
+                        angular.isArray(state.straatbeeld.targetLocation)
+                        ? getHeadingDegrees(payload.location, state.straatbeeld.targetLocation)
+                        : state.straatbeeld.heading,
+                    hotspots: payload.hotspots,
+                    isLoading: false,
+                    location: payload.location,
+                    image: payload.image
+                } : state.straatbeeld,
+                map: angular.isObject(state.map) ? {
+                    ...state.map,
+                    isLoading: false,
+                    viewCenter: angular.isObject(state.straatbeeld) && angular.isArray(state.straatbeeld.location)
+                        ? state.map.viewCenter : payload.location
+                } : state.map
             };
         }
 
@@ -184,39 +164,36 @@
          * @returns {Object} newState
          */
         function showStraatbeeldSubsequentReducer (oldState, payload) {
-            const state = showStraatbeeldReducer(oldState, payload),
-                map = state.map ? {...state.map} : state.map;
-
-            if (angular.isObject(state.straatbeeld)) {
-                // Keep map centered on last selected hotspot
-                map.viewCenter = payload.location;
-            }
+            const state = showStraatbeeldReducer(oldState, payload);
 
             return {
                 ...state,
-                map: map
+                map: angular.isObject(state.map) ? {
+                    ...state.map,
+                    viewCenter: angular.isObject(state.straatbeeld) ? payload.location : state.map.viewCenter
+                } : state.map
             };
         }
 
         function setOrientationReducer (state, payload) {
             return {
                 ...state,
-                straatbeeld: {
+                straatbeeld: angular.isObject(state.straatbeeld) ? {
                     ...state.straatbeeld,
                     heading: payload.heading,
                     pitch: payload.pitch,
                     fov: payload.fov
-                }
+                } : state.straatbeeld
             };
         }
 
         function setStraatbeeldHistoryReducer (state, payload) {
             return {
                 ...state,
-                straatbeeld: {
+                straatbeeld: angular.isObject(state.straatbeeld) ? {
                     ...state.straatbeeld,
                     history: payload
-                }
+                } : state.straatbeeld
             };
         }
 

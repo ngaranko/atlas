@@ -23,10 +23,10 @@
         function showPrintReducer (state) {
             return {
                 ...state,
-                atlas: {
+                atlas: angular.isObject(state.atlas) ? {
                     ...state.atlas,
                     isPrintMode: true
-                }
+                } : state.atlas
             };
         }
 
@@ -38,10 +38,10 @@
         function hidePrintReducer (state) {
             return {
                 ...state,
-                atlas: {
+                atlas: angular.isObject(state.atlas) ? {
                     ...state.atlas,
                     isPrintMode: false
-                }
+                } : state.atlas
             };
         }
     }
