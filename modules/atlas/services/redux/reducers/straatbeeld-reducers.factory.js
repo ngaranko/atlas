@@ -32,17 +32,15 @@
         function fetchStraatbeeldByIdReducer (state, payload) {
             const straatbeeld = initializeStraatbeeld(state.straatbeeld || {});
 
-            if (angular.isDefined(payload.isFullscreen)) {
-                straatbeeld.isFullscreen = payload.isFullscreen;
-            }
-
             return {
                 ...state,
                 straatbeeld: {
                     ...straatbeeld,
                     id: payload.id,
                     heading: payload.heading || state.straatbeeld && state.straatbeeld.heading || 0,
-                    isInitial: payload.isInitial
+                    isInitial: payload.isInitial,
+                    isFullscreen: angular.isDefined(payload.isFullscreen) ? payload.isFullscreen
+                        : straatbeeld.isFullscreen
                 },
                 map: angular.isObject(state.map) ? {
                     ...state.map,
