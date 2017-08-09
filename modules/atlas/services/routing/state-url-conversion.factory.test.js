@@ -276,7 +276,8 @@ describe('The state url conversion definition', function () {
                     date: 'mies',
                     location: 'wim',
                     isLoading: 'teun',
-                    something: 'else'
+                    something: 'else',
+                    targetLocation: 'foo'
                 };
                 newState = {
                     id: 1
@@ -290,16 +291,19 @@ describe('The state url conversion definition', function () {
                     date: 'mies',
                     location: 'wim',
                     isInitial: false,
-                    isLoading: 'teun'
+                    isLoading: 'teun',
+                    targetLocation: 'foo'
                 });
 
                 newState = {
                     id: 2
                 };
 
+                // target location is always saved
                 stateUrlConversion.post.straatbeeld(oldState, newState);
                 expect(newState).toEqual({
-                    id: 2
+                    id: 2,
+                    targetLocation: 'foo'
                 });
             });
         });

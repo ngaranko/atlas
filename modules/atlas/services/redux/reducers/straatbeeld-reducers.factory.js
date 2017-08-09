@@ -151,8 +151,8 @@
                 map: angular.isObject(state.map) ? {
                     ...state.map,
                     isLoading: false,
-                    viewCenter: angular.isObject(state.straatbeeld) && angular.isArray(state.straatbeeld.location)
-                        ? state.map.viewCenter : payload.location
+                    viewCenter: angular.isObject(state.straatbeeld) && !angular.isArray(state.straatbeeld.location)
+                        ? payload.location : state.map.viewCenter
                 } : state.map
             };
         }

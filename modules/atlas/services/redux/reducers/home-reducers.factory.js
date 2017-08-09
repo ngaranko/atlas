@@ -20,10 +20,11 @@
          * @returns {Object} newState
          */
         function showHomeReducer (state) {
+            const defaultState = stateUrlConverter.getDefaultState();
             return {
-                ...stateUrlConverter.getDefaultState(),
+                ...defaultState,
                 atlas: {
-                    ...state.atlas,
+                    ...defaultState.atlas,
                     isPrintMode: state.atlas.isPrintMode,
                     isEmbedPreview: state.atlas.isEmbedPreview,
                     isEmbed: state.atlas.isEmbed
