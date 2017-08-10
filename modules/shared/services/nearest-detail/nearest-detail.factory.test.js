@@ -9,27 +9,50 @@ describe('The nearestDetail factory', () => {
         mockLayers,
         mockedSearchResultsPeilmerken,
         mockedSearchResultsMeetbouten,
-        mockedEmptySearchResults,
-        mockedSearchResults;
+        mockedSearchResultsBouwblokken,
+        mockedSearchResultsKot,
+        mockedSearchResultsHoreca,
+        mockedEmptySearchResults;
 
     const FAIL_ON_URI = 'FAIL_ON_URI';
 
-    beforeEach(function () {
+    beforeEach(() => {
         angular.mock.module(
             'dpShared',
             {
                 api: {
-                    getByUri: function (endpoint, params) {
+                    /* eslint-disable complexity */
+                    getByUri: (endpoint, params) => {
+                        /* eslint-enable complexity */
                         var q = $q.defer();
 
-                        if (params.item === 'peilmerk') {
-                            q.resolve(mockedSearchResultsPeilmerken);
-                        } else if (params.item === 'meetbout') {
-                            q.resolve(mockedSearchResultsMeetbouten);
-                        } else if (params.item === FAIL_ON_URI) {
-                            q.reject(FAIL_ON_URI);
-                        } else {
-                            q.resolve(mockedEmptySearchResults);
+                        switch (endpoint) {
+                            case 'empty/resultset/':
+                                q.resolve(mockedEmptySearchResults);
+                                break;
+
+                            case 'geosearch/search/':
+                                switch (params.item) {
+                                    case 'peilmerk':
+                                        q.resolve(mockedSearchResultsPeilmerken);
+                                        break;
+                                    case 'meetbout':
+                                        q.resolve(mockedSearchResultsMeetbouten);
+                                        break;
+                                    case 'bouwblok':
+                                        q.resolve(mockedSearchResultsBouwblokken);
+                                        break;
+                                    case 'kadastraal_object':
+                                        q.resolve(mockedSearchResultsKot);
+                                        break;
+                                }
+                                break;
+                            case 'handelsregister/geosearch/':
+                                q.resolve(mockedSearchResultsHoreca);
+                                break;
+                            case 'FAIL_ON_URI':
+                                q.reject(FAIL_ON_URI);
+                                break;
                         }
 
                         return q.promise;
@@ -76,11 +99,11 @@ describe('The nearestDetail factory', () => {
         mockedSearchResultsMeetbouten = {
             features: [{
                 properties: {
-                    display: '10481357',
-                    distance: 2.8680990168263,
-                    id: '10481357',
+                    display: '10481356',
+                    distance: 8.9544566,
+                    id: '10481356',
                     type: 'meetbouten/meetbout',
-                    uri: 'https://acc.api.data.amsterdam.nl/meetbouten/meetbout/10481357/'
+                    uri: 'https://acc.api.data.amsterdam.nl/meetbouten/meetbout/10481356/'
                 }
             },
             {
@@ -94,41 +117,58 @@ describe('The nearestDetail factory', () => {
             },
             {
                 properties: {
-                    display: '10481356',
-                    distance: 1.9544566,
-                    id: '10481356',
+                    display: '10481357',
+                    distance: 1.8680990168263,
+                    id: '10481357',
                     type: 'meetbouten/meetbout',
-                    uri: 'https://acc.api.data.amsterdam.nl/meetbouten/meetbout/10481356/'
+                    uri: 'https://acc.api.data.amsterdam.nl/meetbouten/meetbout/10481357/'
                 }
             }],
             type: 'FeatureCollection'
         };
 
-        mockedSearchResults = [{
-            display: '10481356',
-            distance: 1.9544566,
-            id: '10481356',
-            type: 'meetbouten/meetbout',
-            uri: 'https://acc.api.data.amsterdam.nl/meetbouten/meetbout/10481356/'
-        }, {
-            display: '10481357',
-            distance: 2.8680990168263,
-            id: '10481357',
-            type: 'meetbouten/meetbout',
-            uri: 'https://acc.api.data.amsterdam.nl/meetbouten/meetbout/10481357/'
-        }, {
-            display: '10481358',
-            distance: 3.40987232417753,
-            id: '10481358',
-            type: 'meetbouten/meetbout',
-            uri: 'https://acc.api.data.amsterdam.nl/meetbouten/meetbout/10481358/'
-        }, {
-            display: '26080006',
-            distance: 6.66634767290042,
-            id: '26080006',
-            type: 'nap/peilmerk',
-            uri: 'https://acc.api.data.amsterdam.nl/nap/peilmerk/26080006/'
-        }];
+        mockedSearchResultsBouwblokken = {
+            features: [{
+                properties: {
+                    display: 'YA05',
+                    distance: 0,
+                    id: '03630012100362',
+                    type: 'gebieden/bouwblok',
+                    uri: 'https://acc.api.data.amsterdam.nl/gebieden/bouwblok/03630012100362/'
+                }
+            }],
+            type: 'FeatureCollection'
+        };
+
+        mockedSearchResultsKot = {
+            features: [{
+                properties: {
+                    display: 'ASD06 I 09882 G 0000',
+                    distance: 0.0,
+                    id: 'NL.KAD.OnroerendeZaak.11470988270000',
+                    type: 'kadaster/kadastraal_object',
+                    uri: 'https://acc.api.data.amsterdam.nl/brk/object/NL.KAD.OnroerendeZaak.11470988270000/'
+                }
+            }],
+            type: 'FeatureCollection'
+        };
+        mockedSearchResultsHoreca = {
+            'features': [{
+                'properties': {
+                    'display': 'Eet Smaakversterker',
+                    'uri': 'https://acc.api.data.amsterdam.nl/handelsregister/vestiging/000033166897/',
+                    'type': 'handelsregister/vestiging',
+                    'distance': 3.93865800505318
+                }
+            }, {
+                'properties': {
+                    'display': 'BnB Downtown',
+                    'uri': 'https://acc.api.data.amsterdam.nl/handelsregister/vestiging/000033689806/',
+                    'type': 'handelsregister/vestiging',
+                    'distance': 5.16247728242652
+                }
+            }]
+        };
 
         mockLayers = {
             nap: {
@@ -140,8 +180,8 @@ describe('The nearestDetail factory', () => {
                 maxZoom: 16,
                 legend: 'maps/nap?version=1.3.0&service=WMS&request=GetLegendG' +
                 'raphic&sld_version=1.1.0&layer=NAP&format=image/png&STYLE=default',
-                detailItem: 'peilmerk',
-                detailFactor: 1
+                detailUrl: 'geosearch/search/',
+                detailItem: 'peilmerk'
             },
             mbs: {
                 url: 'maps/meetbouten?service=wms',
@@ -152,23 +192,67 @@ describe('The nearestDetail factory', () => {
                 maxZoom: 16,
                 legend: 'maps/meetbouten?version=1.3.0&service=WMS&request=Get' +
                 'LegendGraphic&sld_version=1.1.0&layer=meetbouten_status&format=image/png&STYLE=default',
-                detailItem: 'meetbout',
-                detailFactor: 0.8
+                detailUrl: 'geosearch/search/',
+                detailItem: 'meetbout'
             },
             tcmnmt: {
                 url: 'maps/monumenten',
                 label_short: 'Monumenten',
                 label_long: 'Monumenten',
                 layers: ['monument_coordinaten'],
-                minZoom: 13,
+                minZoom: 8,
                 maxZoom: 15,
                 legend: 'maps/monumenten?version=1.3.0&service' +
                 '=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=monument_coordinaten&format=' +
                 'image/png&STYLE=default',
                 noDetail: true
             },
+            bbn: {
+                url: 'maps/gebieden?service=wms',
+                label_short: 'Bouwblokken',
+                label_long: 'Bouwblokken',
+                layers: ['bouwblok', 'bouwblok_label'],
+                minZoom: 11,
+                maxZoom: 16,
+                legend: 'maps/gebieden?version=1.3.0&service=WMS&request=GetLegend' +
+                'Graphic&sld_version=1.1.0&layer=bouwblok&format=image/png&STYLE=default',
+                detailUrl: 'geosearch/search/',
+                detailItem: 'bouwblok',
+                detailIsShape: true
+            },
+            kot: {
+                url: 'maps/brk?service=wms',
+                label_short: 'Kadastrale objecten',
+                label_long: 'Kadastrale objecten',
+                layers: ['kadastraal_object', 'kadastraal_object_label'],
+                minZoom: 9,
+                maxZoom: 16,
+                legend: 'maps/brk?version=1.3.0&service=WMS&request=GetLegend' +
+                'Graphic&sld_version=1.1.0&layer=kadastraal_object&format=image/png&STYLE=default',
+                detailUrl: 'geosearch/search/',
+                detailItem: 'kadastraal_object',
+                detailIsShape: true
+            },
+            hrc: {
+                authorizationLevel: 'EMPLOYEE',
+                url: 'maps/handelsregister',
+                label_short: 'Horeca',
+                label_long: 'Horeca',
+                layers: ['horeca', 'horeca_label'],
+                minZoom: 11,
+                maxZoom: 16,
+                legend: 'maps/handelsregister?version=1.3.0&service=WMS&request=GetLe' +
+                'gendGraphic&sld_version=1.1.0&layer=horeca&format=image/png&STYLE=default',
+                detailUrl: 'handelsregister/geosearch/',
+                detailItem: 'horeca'
+            },
+            empty: {
+                detailUrl: 'empty/resultset/',
+                detailItem: ''
+            },
             reject: {
-                detailItem: FAIL_ON_URI
+                detailUrl: FAIL_ON_URI,
+                detailItem: ''
             }
         };
 
@@ -178,18 +262,31 @@ describe('The nearestDetail factory', () => {
         callback = jasmine.createSpy();
     });
 
-    it('gets geosearch data for multiple layers in a location', () => {
-        nearestDetail.search([52.789, 4.987], [mockLayers.nap, mockLayers.mbs], 11, callback);
+    it('gets closest point with multiple point and shape layers in a location', () => {
+        let found;
+
+        nearestDetail
+            .search([52.789, 4.987],
+                [mockLayers.nap, mockLayers.mbs, mockLayers.hrc, mockLayers.bbn, mockLayers.kot], 11, callback)
+            .then((results) => {
+                found = results;
+            });
 
         $rootScope.$apply();
 
-        expect(api.getByUri).toHaveBeenCalledTimes(2);
+        expect(api.getByUri).toHaveBeenCalledTimes(5);
         expect(callback).not.toHaveBeenCalled();
 
+        expect(api.getByUri).toHaveBeenCalledWith('handelsregister/geosearch/', {item: 'horeca', lat: 52.789,
+            lon: 4.987, radius: 16 });
         expect(api.getByUri).toHaveBeenCalledWith('geosearch/search/', {item: 'peilmerk', lat: 52.789, lon: 4.987,
             radius: 16 });
         expect(api.getByUri).toHaveBeenCalledWith('geosearch/search/', {item: 'meetbout', lat: 52.789, lon: 4.987,
-            radius: 12.8 });
+            radius: 16 });
+        expect(api.getByUri).toHaveBeenCalledWith('geosearch/search/', {item: 'bouwblok', lat: 52.789, lon: 4.987,
+            radius: 0 });
+        expect(api.getByUri).toHaveBeenCalledWith('geosearch/search/', {item: 'kadastraal_object', lat: 52.789,
+            lon: 4.987, radius: 0 });
 
         expect(store.dispatch).toHaveBeenCalledTimes(2);
         expect(store.dispatch).toHaveBeenCalledWith({
@@ -198,25 +295,66 @@ describe('The nearestDetail factory', () => {
         });
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.FETCH_DETAIL,
-            payload: nearestDetail.getResults()[0].uri
+            payload: found.uri
         });
 
-        expect(nearestDetail.getResults()).toEqual(mockedSearchResults);
+        expect(found).toEqual(mockedSearchResultsMeetbouten.features[2].properties);
         expect(nearestDetail.getLocation()).toEqual([52.789, 4.987]);
     });
 
-    it('gets empty result list in geosearch data for layers without detailItem', () => {
-        nearestDetail.search([52.961, 4.735], [mockLayers.tcmnmt], 11, callback);
+    it('gets kadrastraal object shape when it is above bouwblokken layer in a location', () => {
+        let found;
 
+        nearestDetail
+            .search([52.789, 4.987],
+                [mockLayers.bbn, mockLayers.kot], 11, callback)
+            .then((results) => {
+                found = results;
+            });
+
+        $rootScope.$apply();
+
+        expect(api.getByUri).toHaveBeenCalledTimes(2);
+        expect(callback).not.toHaveBeenCalled();
+        expect(store.dispatch).toHaveBeenCalledTimes(2);
+
+        expect(found).toEqual(mockedSearchResultsKot.features[0].properties);
+    });
+
+    it('gets bouwblokken shape when it is above kadrastraal object layer in a location', () => {
+        let found;
+
+        nearestDetail
+            .search([52.789, 4.987],
+                [mockLayers.kot, mockLayers.bbn], 11, callback)
+            .then((results) => {
+                found = results;
+            });
+
+        $rootScope.$apply();
+
+        expect(api.getByUri).toHaveBeenCalledTimes(2);
+        expect(callback).not.toHaveBeenCalled();
+        expect(store.dispatch).toHaveBeenCalledTimes(2);
+
+        expect(found).toEqual(mockedSearchResultsBouwblokken.features[0].properties);
+    });
+
+    it('gets empty result list in geosearch data for layers without detailItem', () => {
+        let found;
+
+        nearestDetail.search([52.961, 4.735], [mockLayers.empty], 11, callback).then((results) => {
+            found = results;
+        });
         $rootScope.$apply();
 
         expect(api.getByUri).toHaveBeenCalledTimes(1);
         expect(callback).toHaveBeenCalledTimes(1);
 
-        expect(api.getByUri).toHaveBeenCalledWith('geosearch/search/', {item: undefined, lat: 52.961, lon: 4.735,
+        expect(api.getByUri).toHaveBeenCalledWith('empty/resultset/', {item: '', lat: 52.961, lon: 4.735,
             radius: 16 });
 
-        expect(nearestDetail.getResults()).toEqual([]);
+        expect(found).toBeUndefined();
         expect(nearestDetail.getLocation()).toEqual([52.961, 4.735]);
     });
 
@@ -227,7 +365,7 @@ describe('The nearestDetail factory', () => {
         expect(callback).not.toHaveBeenCalled();
     });
 
-    it('handles not rejected call gracefully', () => {
+    it('handles rejected call gracefully', () => {
         nearestDetail.search([52.961, 4.735], [mockLayers.reject], 11);
 
         $rootScope.$apply();

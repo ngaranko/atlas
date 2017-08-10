@@ -26,6 +26,7 @@
         'nearestDetail'
     ];
 
+    /* eslint-disable max-params */
     function DpDetailController (
             $scope,
             store,
@@ -38,6 +39,7 @@
             crsConverter,
             dataFormatter,
             nearestDetail) {
+        /* eslint-enable max-params */
         var vm = this;
 
         // Reload the data when the reload flag has been set (endpoint has not
