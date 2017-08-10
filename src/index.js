@@ -15,6 +15,10 @@ import '../modules/page/page.scss';
 import '../modules/search-results/search-results.scss';
 import '../modules/straatbeeld/straatbeeld.scss';
 
+// Import this here, because `modules/atlas/services/redux%reducer.factory.js`
+// cannoct do, because that would break the grunt build...
+import detailReducer from './reducers/details';
+
 // All our modules' javascript
 import '../modules/atlas/atlas.module.js';
 import '../modules/atlas/atlas.version.js';

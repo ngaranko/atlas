@@ -1,4 +1,4 @@
-import detailReducer from '../../../../src/reducers/details';
+// import detailReducer from '../../../../src/reducers/details';
 
 (function () {
     'use strict';
@@ -43,8 +43,8 @@ import detailReducer from '../../../../src/reducers/details';
             // -- https://docs.angularjs.org/api/ng/function/angular.merge
 
             const detailReducers = {
-                FETCH_DETAIL: detailReducer,
-                SHOW_DETAIL: detailReducer
+                FETCH_DETAIL: $window.reducers.detailReducer,
+                SHOW_DETAIL: $window.reducers.detailReducer
             };
 
             var actions = angular.merge(
