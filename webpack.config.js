@@ -111,7 +111,14 @@ module.exports = {
       inject: false,
       template: './index.ejs',
       links: [
-        {href: 'leaflet.css', rel: 'stylesheet'},
+        {
+          href: 'leaflet.css',
+          rel: 'stylesheet'
+        },
+        {
+          href: 'https://fast.fonts.net/cssapi/3680cf49-2b05-4b8a-af28-fa9e27d2bed0.css',
+          rel: 'stylesheet'
+        },
       ],
       scripts: [
         'leaflet.js',
