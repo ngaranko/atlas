@@ -111,7 +111,12 @@ module.exports = {
       {
         from: './build/assets',
         to: 'assets'
-      }
+      },
+      { from: './bower_components/bbga_visualisatie_d3/liberation-sans.eot' },
+      { from: './bower_components/bbga_visualisatie_d3/liberation-sans.woff2' },
+      { from: './bower_components/bbga_visualisatie_d3/liberation-sans.woff' },
+      { from: './bower_components/bbga_visualisatie_d3/liberation-sans.ttf' },
+      { from: './bower_components/bbga_visualisatie_d3/liberation-sans.svg' },
     ]),
     new HtmlWebpackPlugin({
       inject: false,
