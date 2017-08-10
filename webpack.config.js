@@ -94,6 +94,8 @@ module.exports = {
       // Simply copy the leaflet styling for now
       { from: './node_modules/leaflet/dist/leaflet.css' },
       { from: './node_modules/leaflet-draw/dist/leaflet.draw.css' },
+      { from: './bower_components/bbga_visualisatie_d3/bbga.css' },
+
       // proj4 is giving troubles when included by webpack, resulting in syntax
       // errors. For now it is dumbly being copied to the output directory.
       // This means also proj4leaflet is copied this way (otherwise it will
@@ -104,6 +106,7 @@ module.exports = {
       { from: './node_modules/leaflet.wms/dist/leaflet.wms.js' },
       { from: './node_modules/proj4/dist/proj4.js' },
       { from: './node_modules/proj4leaflet/src/proj4leaflet.js' },
+
       // Dumb copy of all assets for now
       {
         from: './build/assets',
@@ -115,6 +118,10 @@ module.exports = {
       template: './index.ejs',
       links: [
         {
+          href: 'https://fast.fonts.net/cssapi/3680cf49-2b05-4b8a-af28-fa9e27d2bed0.css',
+          rel: 'stylesheet'
+        },
+        {
           href: 'leaflet.css',
           rel: 'stylesheet'
         },
@@ -123,7 +130,7 @@ module.exports = {
           rel: 'stylesheet'
         },
         {
-          href: 'https://fast.fonts.net/cssapi/3680cf49-2b05-4b8a-af28-fa9e27d2bed0.css',
+          href: 'bbga.css',
           rel: 'stylesheet'
         },
       ],
@@ -131,7 +138,7 @@ module.exports = {
         'leaflet.js',
         'leaflet.wms.js',
         'proj4.js',
-        'proj4leaflet.js'
+        'proj4leaflet.js',
       ]
     }),
     new ExtractTextPlugin('main.css')
