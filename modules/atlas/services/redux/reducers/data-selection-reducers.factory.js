@@ -158,6 +158,23 @@
          * @returns {Object} newState
          */
         function setDataSelectionViewReducer (state, payload) {
+            const {view, isLoading} = getView(payload);
+
+            return {
+                ...state,
+                dataSelection: angular.isObject(state.dataSelection) ? {
+                    ...state.dataSelection,
+                    view,
+                    isLoading
+                } : state.dataSelection,
+                map: angular.isObject(state.map) ? {
+                    ...state.map,
+                    isLoading: view === 'LIST'
+                } : state.map
+            };
+        }
+
+        function getView (payload) {
             let view,
                 isLoading = false;
 
@@ -169,16 +186,8 @@
             });
 
             return {
-                ...state,
-                dataSelection: angular.isObject(state.dataSelection) ? {
-                    ...state.dataSelection,
-                    view: view,
-                    isLoading: isLoading
-                } : state.dataSelection,
-                map: angular.isObject(state.map) ? {
-                    ...state.map,
-                    isLoading: view === 'LIST'
-                } : state.map
+                view,
+                isLoading
             };
         }
     }

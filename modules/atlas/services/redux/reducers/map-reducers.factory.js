@@ -156,7 +156,7 @@
                 ...state,
                 map: angular.isObject(state.map) ? {
                     ...state.map,
-                    overlays: overlays
+                    overlays
                 } : state.map
             };
         }
