@@ -61,7 +61,7 @@
                             description: ''
                         })
                 },
-                map: typeof state.map === 'object' ? {
+                map: angular.isObject(state.map) ? {
                     ...state.map,
                     isFullscreen: false,
                     // LIST loading might include markers => set map loading accordingly
