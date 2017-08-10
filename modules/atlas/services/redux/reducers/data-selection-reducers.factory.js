@@ -35,18 +35,27 @@
          * @returns {Object} newState
          */
         function fetchDataSelectionReducer (state, payload) {
-            const dataSelection = getDataSelection(state, payload);
+            const mergeInto = angular.isString(payload) ? {
+                query: payload,
+                page: 1,
+                view: 'CARDS',
+                dataset: 'catalogus'
+            } : payload;
+            mergeInto.filters = mergeInto.filters || {};
+
+            const view = mergeInto.view || state.dataSelection && state.dataSelection.view || 'TABLE';
 
             return {
                 ...state,
                 dataSelection: {
-                    ...dataSelection,
+                    ...(angular.isObject(state.dataSelection) ? state.dataSelection : ''),
+                    ...mergeInto,
                     markers: [],
-                    view: dataSelection.view || 'TABLE',
+                    view: view,
                     isLoading: true,
-                    isFullscreen: dataSelection.view !== 'LIST',
-                    filters: angular.isString(payload) ? {} : dataSelection.filters,
-                    geometryFilter: dataSelection.geometryFilter ||
+                    isFullscreen: view !== 'LIST',
+                    filters: angular.isString(payload) ? {} : mergeInto.filters,
+                    geometryFilter: state.dataSelection && state.dataSelection.geometryFilter ||
                         {
                             markers: [],
                             description: ''
@@ -56,7 +65,7 @@
                     ...state.map,
                     isFullscreen: false,
                     // LIST loading might include markers => set map loading accordingly
-                    isLoading: dataSelection.view === 'LIST'
+                    isLoading: view === 'LIST'
                 } : state.map,
                 page: angular.isObject(state.page) ? {
                     ...state.page,
@@ -70,21 +79,6 @@
                 detail: null,
                 straatbeeld: null
             };
-        }
-
-        function getDataSelection (state, payload) {
-            const mergeInto = angular.isString(payload) ? {
-                query: payload,
-                page: 1,
-                view: 'CARDS',
-                dataset: 'catalogus'
-            } : payload;
-            mergeInto.filters = mergeInto.filters || {};
-
-            return Object.keys(mergeInto).reduce((result, key) => {
-                result[key] = mergeInto[key];
-                return result;
-            }, {...state.dataSelection} || {});
         }
 
         /**
@@ -158,36 +152,21 @@
          * @returns {Object} newState
          */
         function setDataSelectionViewReducer (state, payload) {
-            const {view, isLoading} = getView(payload);
+            const views = ['LIST', 'TABLE', 'CARDS'],
+                viewFound = views.indexOf(payload) !== -1,
+                view = viewFound ? payload : undefined;
 
             return {
                 ...state,
                 dataSelection: angular.isObject(state.dataSelection) ? {
                     ...state.dataSelection,
-                    view,
-                    isLoading
+                    view: view,
+                    isLoading: viewFound
                 } : state.dataSelection,
                 map: angular.isObject(state.map) ? {
                     ...state.map,
                     isLoading: view === 'LIST'
                 } : state.map
-            };
-        }
-
-        function getView (payload) {
-            let view,
-                isLoading = false;
-
-            ['LIST', 'TABLE', 'CARDS'].forEach(legalValue => {
-                if (payload === legalValue) {
-                    view = payload;
-                    isLoading = true;
-                }
-            });
-
-            return {
-                view,
-                isLoading
             };
         }
     }

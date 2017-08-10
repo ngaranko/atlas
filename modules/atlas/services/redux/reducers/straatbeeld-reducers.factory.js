@@ -143,7 +143,7 @@
                     location: payload.location,
                     image: payload.image
                 } : state.straatbeeld,
-                map: angular.isObject(state.map) ? {
+                map: angular.isObject(state.map) && angular.isObject(state.straatbeeld) ? {
                     ...state.map,
                     isLoading: false,
                     viewCenter: angular.isObject(state.straatbeeld) && !angular.isArray(state.straatbeeld.location)
