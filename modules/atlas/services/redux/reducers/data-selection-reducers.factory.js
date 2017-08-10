@@ -55,13 +55,13 @@
                     isLoading: true,
                     isFullscreen: view !== 'LIST',
                     filters: angular.isString(payload) ? {} : mergeInto.filters,
-                    geometryFilter: state.dataSelection && state.dataSelection.geometryFilter ||
+                    ...(state.dataSelection && state.dataSelection.geometryFilter ||
                         {
                             markers: [],
                             description: ''
-                        }
+                        })
                 },
-                map: angular.isObject(state.map) ? {
+                map: typeof state.map === 'object' ? {
                     ...state.map,
                     isFullscreen: false,
                     // LIST loading might include markers => set map loading accordingly

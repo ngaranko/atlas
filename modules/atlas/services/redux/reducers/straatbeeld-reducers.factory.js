@@ -30,12 +30,10 @@
          * @returns {Object} newState
          */
         function fetchStraatbeeldByIdReducer (state, payload) {
-            const straatbeeld = angular.isObject(state.straatbeeld) ? {...state.straatbeeld} : {};
-
             return {
                 ...state,
                 straatbeeld: {
-                    ...straatbeeld,
+                    ...(angular.isObject(state.straatbeeld) ? {...state.straatbeeld} : {}),
                     ...resetStraatbeeld(),
                     id: payload.id,
                     heading: payload.heading || state.straatbeeld && state.straatbeeld.heading || 0,
@@ -60,12 +58,10 @@
          * @returns {Object} newState
          */
         function fetchStraatbeeldByLocationReducer (state, payload) {
-            const straatbeeld = angular.isObject(state.straatbeeld) ? {...state.straatbeeld} : {};
-
             return {
                 ...state,
                 straatbeeld: {
-                    ...straatbeeld,
+                    ...(angular.isObject(state.straatbeeld) ? {...state.straatbeeld} : {}),
                     ...resetStraatbeeld(),
                     location: payload,
                     targetLocation: payload
