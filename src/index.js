@@ -100,7 +100,6 @@ import '../modules/detail/components/filename/filename.filter.js';
 import '../modules/detail/components/glossary/glossary.constant.js';
 import '../modules/detail/components/glossary/header/glossary-header.directive.js';
 import '../modules/detail/components/glossary/meta/glossary-meta.directive.js';
-import '../modules/detail/components/hr-disclaimer/hr-disclaimer.component.js';
 import '../modules/detail/components/meetbouten-graph/meetbouten-graph.directive.js';
 import '../modules/detail/components/nummeraanduiding-header/nummeraanduiding-header.component.js';
 import '../modules/detail/components/parent-relations/parent-relations.constant.js';
