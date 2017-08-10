@@ -91,14 +91,17 @@ module.exports = {
       name: 'commons'
     }),
     new CopyWebpackPlugin([
-      { from: './node_modules/leaflet/dist/leaflet.js' },
       // Simply copy the leaflet styling for now
       { from: './node_modules/leaflet/dist/leaflet.css' },
+      { from: './node_modules/leaflet-draw/dist/leaflet.draw.css' },
       // proj4 is giving troubles when included by webpack, resulting in syntax
       // errors. For now it is dumbly being copied to the output directory.
       // This means also proj4leaflet is copied this way (otherwise it will
       // require proj4 itself resulting in syntax errors again) and leaflet as
-      // well because it needs to be loaded before proj4.
+      // well because it needs to be loaded before proj4. And therefor also
+      // leaflet.wms, because it will include leaflet otherwise.
+      { from: './node_modules/leaflet/dist/leaflet.js' },
+      { from: './node_modules/leaflet.wms/dist/leaflet.wms.js' },
       { from: './node_modules/proj4/dist/proj4.js' },
       { from: './node_modules/proj4leaflet/src/proj4leaflet.js' },
       // Dumb copy of all assets for now
@@ -116,12 +119,17 @@ module.exports = {
           rel: 'stylesheet'
         },
         {
+          href: 'leaflet.draw.css',
+          rel: 'stylesheet'
+        },
+        {
           href: 'https://fast.fonts.net/cssapi/3680cf49-2b05-4b8a-af28-fa9e27d2bed0.css',
           rel: 'stylesheet'
         },
       ],
       scripts: [
         'leaflet.js',
+        'leaflet.wms.js',
         'proj4.js',
         'proj4leaflet.js'
       ]

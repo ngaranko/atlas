@@ -88,6 +88,7 @@
     "d3": "^3.5.17",
     "leaflet": "1.0.3",
     "leaflet-draw": "^0.4.10",
+    "leaflet.wms": "^0.2.0",
     "proj4": "^2.4.3",
     "proj4leaflet": "^1.0.1",
     "redux": "^3.7.2"
