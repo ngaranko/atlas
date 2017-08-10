@@ -280,8 +280,7 @@
         }
 
         function mapEndDrawingReducer (state, payload) {
-            const has2Markers = payload && payload.markers && payload.markers.length === 2,
-                moreThan2Markers = payload && payload.markers && payload.markers.length > 2;
+            const moreThan2Markers = payload && payload.markers && payload.markers.length > 2;
 
             if (moreThan2Markers) {
                 state = resetDataSelection(state, payload);
@@ -291,10 +290,7 @@
                 ...state,
                 map: angular.isObject(state.map) ? {
                     ...state.map,
-                    drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
-                    geometry: has2Markers ? payload.markers : moreThan2Markers ? [] : state.map.geometry,
-                    isLoading: moreThan2Markers ? true : state.map.isLoading,
-                    isFullscreen: moreThan2Markers ? false : state.map.isFullscreen
+                    ...getMap(state, payload)
                 } : state.map,
                 layerSelection: angular.isObject(state.layerSelection) ? {
                     ...state.layerSelection,
@@ -304,6 +300,18 @@
                     ...state.page,
                     name: moreThan2Markers ? null : state.page.name
                 } : state.page
+            };
+        }
+
+        function getMap (state, payload) {
+            const has2Markers = payload && payload.markers && payload.markers.length === 2,
+                moreThan2Markers = payload && payload.markers && payload.markers.length > 2;
+
+            return {
+                drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
+                geometry: has2Markers ? payload.markers : moreThan2Markers ? [] : state.map.geometry,
+                isLoading: moreThan2Markers ? true : state.map.isLoading,
+                isFullscreen: moreThan2Markers ? false : state.map.isFullscreen
             };
         }
 

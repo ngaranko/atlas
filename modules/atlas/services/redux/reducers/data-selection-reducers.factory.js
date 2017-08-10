@@ -35,36 +35,17 @@
          * @returns {Object} newState
          */
         function fetchDataSelectionReducer (state, payload) {
-            const mergeInto = angular.isString(payload) ? {
-                query: payload,
-                page: 1,
-                view: 'CARDS',
-                dataset: 'catalogus'
-            } : payload;
-            mergeInto.filters = mergeInto.filters || {};
-
-            const dataSelection = Object.keys(mergeInto).reduce((result, key) => {
-                result[key] = mergeInto[key];
-                return result;
-            }, {...state.dataSelection} || {});
-
-            if (!dataSelection.view) {
-                // Default view is table view
-                dataSelection.view = 'TABLE';
-            }
-
-            if (angular.isString(payload)) {
-                // text search: reset filter
-                dataSelection.filters = {};
-            }
+            const dataSelection = getDataSelection(state, payload);
 
             return {
                 ...state,
                 dataSelection: {
                     ...dataSelection,
                     markers: [],
+                    view: dataSelection.view || 'TABLE',
                     isLoading: true,
                     isFullscreen: dataSelection.view !== 'LIST',
+                    filters: angular.isString(payload) ? {} : dataSelection.filters,
                     geometryFilter: dataSelection.geometryFilter ||
                         {
                             markers: [],
@@ -89,6 +70,21 @@
                 detail: null,
                 straatbeeld: null
             };
+        }
+
+        function getDataSelection (state, payload) {
+            const mergeInto = angular.isString(payload) ? {
+                query: payload,
+                page: 1,
+                view: 'CARDS',
+                dataset: 'catalogus'
+            } : payload;
+            mergeInto.filters = mergeInto.filters || {};
+
+            return Object.keys(mergeInto).reduce((result, key) => {
+                result[key] = mergeInto[key];
+                return result;
+            }, {...state.dataSelection} || {});
         }
 
         /**
