@@ -1,5 +1,8 @@
 /* globals L, proj4, Redux, marked */
 
+import * as Redux from 'redux/dist/redux';
+import marked from 'marked';
+
 (function () {
     'use strict';
 

@@ -1,5 +1,10 @@
 /* globals d3, BBGA */
 
+import 'imports-loader?d3!bbga_visualisatie_d3/bbga';
+import * as d3 from 'd3';
+
+const BBGA = window.BBGA;
+
 (function () {
     'use strict';
 
