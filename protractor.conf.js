@@ -24,7 +24,7 @@ exports.config = {
     },
     seleniumServerJar: 'node_modules/protractor/node_modules/webdriver-manager/selenium/' +
         'selenium-server-standalone-3.4.0.jar',
-    chromeDriver: './node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_2.29',
+    chromeDriver: './node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_2.31',
     onPrepare: function () {
         browser.driver.manage().window().setSize(1024, 768);
 
