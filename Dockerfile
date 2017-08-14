@@ -62,8 +62,6 @@ RUN /var/lib/dpkg/info/ca-certificates-java.postinst configure
 COPY . /app
 WORKDIR /app
 
-RUN ls -la /app/node_modules/protractor/node_modules/webdriver-manager/selenium/
-
 ENV PATH=./node_modules/.bin/:~/node_modules/.bin/:$PATH
 RUN git config --global url.https://github.com/.insteadOf git://github.com/ \
   && git config --global url."https://github.com/".insteadOf git@github.com: \
@@ -85,3 +83,5 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 	&& ln -sf /dev/stderr /var/log/nginx/error.log
 
 CMD ["nginx", "-g", "daemon off;"]
+
+RUN ls -la /app/node_modules/protractor/node_modules/webdriver-manager/selenium/
