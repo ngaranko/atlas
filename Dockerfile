@@ -62,7 +62,6 @@ RUN /var/lib/dpkg/info/ca-certificates-java.postinst configure
 COPY . /app
 WORKDIR /app
 
-RUN echo "LIST /app/node_modules/protractor/node_modules/webdriver-manager/selenium/"
 RUN ls -la /app/node_modules/protractor/node_modules/webdriver-manager/selenium/
 
 ENV PATH=./node_modules/.bin/:~/node_modules/.bin/:$PATH
