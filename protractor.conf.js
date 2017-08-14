@@ -23,7 +23,7 @@ exports.config = {
         'phantomjs.binary.path': './node_modules/phantomjs-prebuilt/bin/phantomjs'
     },
     seleniumServerJar: 'node_modules/protractor/node_modules/webdriver-manager/selenium/' +
-        'selenium-server-standalone-3.4.0.jar',
+        'selenium-server-standalone-3.5.0.jar',
     chromeDriver: './node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_2.31',
     onPrepare: function () {
         browser.driver.manage().window().setSize(1024, 768);
