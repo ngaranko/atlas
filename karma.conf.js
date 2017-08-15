@@ -20,23 +20,11 @@ module.exports = function (config) {
         // possible values: OFF, ERROR, WARN, INFO, DEBUG
         logLevel: 'ERROR',
         preprocessors: {
-            'modules/**/!(*.test).js': ['coverage', 'babel'],
+            'modules/**/!(*.test).js': ['babel'],
             'build/temp/babel/es5tests/*.js': ['sourcemap']
         },
         mochaReporter: {
             output: 'minimal'
-        },
-        coverageReporter: {
-            type: 'html',
-            dir: 'reports/coverage/',
-            check: {
-                global: {
-                    statements: 95,
-                    branches: 95,
-                    functions: 95,
-                    lines: 95
-                }
-            }
         },
         browsers: ['PhantomJS'],
         singleRun: true

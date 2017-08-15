@@ -15,21 +15,24 @@
 
         return reducers;
 
-        function showLayerSelectionReducer (oldState) {
-            var newState = angular.copy(oldState);
-
-            newState.layerSelection.isEnabled = true;
-
-            return newState;
+        function showLayerSelectionReducer (state) {
+            return {
+                ...state,
+                layerSelection: angular.isObject(state.layerSelection) ? {
+                    ...state.layerSelection,
+                    isEnabled: true
+                } : state.layerSelection
+            };
         }
 
-        function hideLayerSelectionReducer (oldState) {
-            var newState = angular.copy(oldState);
-
-            newState.layerSelection.isEnabled = false;
-
-            return newState;
+        function hideLayerSelectionReducer (state) {
+            return {
+                ...state,
+                layerSelection: angular.isObject(state.layerSelection) ? {
+                    ...state.layerSelection,
+                    isEnabled: false
+                } : state.layerSelection
+            };
         }
     }
 })();
-
