@@ -45,8 +45,6 @@
                 newState.straatbeeld.isFullscreen = payload.isFullscreen;
             }
 
-            newState.map.highlight = null;
-
             newState.search = null;
 
             newState.dataSelection = null;
