@@ -519,6 +519,15 @@ describe('The dp-search-results component', function () {
             expect(isolated.vm.layerWarning).toBe('foo, bar');
         });
 
+        it('shows no layer warning when tehre is a query present', () => {
+            activeOverlays.getOverlaysWarning.and.returnValue('foo, bar');
+
+            component = getComponent(22, 'water', [51.123, 4.789]);
+            const isolated = component.isolateScope();
+
+            expect(isolated.vm.layerWarning).toBe('');
+        });
+
         it('shows no layer warning when there are no overlays to be warned about', () => {
             activeOverlays.getOverlaysWarning.and.returnValue('');
 
