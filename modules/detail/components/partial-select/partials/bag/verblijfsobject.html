@@ -2,9 +2,9 @@
     <div class="c-detail__block qa-verblijfsobject">
         <dp-glossary-header definition="VERBLIJFSOBJECT" meta-data="apiData"></dp-glossary-header>
         <dl class="c-key-value-list">
-            <dt class="c-key-value-list__border-top">Gebruiksdoelen</dt>
+            <dt>Gebruiksdoel</dt>
             <dd ng-if="!apiData.results.gebruiksdoelen[0]"></dd>
-            <dd class="c-key-value-list__multiple-values" ng-repeat="object in apiData.results.gebruiksdoelen" ng-class="{'c-key-value-list__border-top': $first}">
+            <dd class="c-key-value-list__multiple-values" ng-repeat="object in apiData.results.gebruiksdoelen">
                     {{ object.omschrijving }}
             </dd>
             <dt>Feitelijk gebruik</dt>
