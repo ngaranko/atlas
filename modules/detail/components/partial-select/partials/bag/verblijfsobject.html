@@ -36,6 +36,10 @@
             <dd>{{ apiData.results.reden_opvoer.omschrijving }}</dd>
             <dt>Status</dt>
             <dd>{{ apiData.results.status.omschrijving }}</dd>
+            <dt>Indicatie in onderzoek</dt>
+            <dd>{{ apiData.results.indicatie_in_onderzoek | yesNo }}</dd>
+            <dt>Indicatie geconstateerd</dt>
+            <dd>{{ apiData.results.indicatie_geconstateerd | yesNo }}</dd>
             <dt>Coördinaten</dt>
             <dd>{{ apiData.results.geometrie.coordinates | coordinates: 'RD' }}</dd>
             <dt>Status coördinaten</dt>
