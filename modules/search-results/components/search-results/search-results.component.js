@@ -89,14 +89,13 @@
                         } else {
                             search.search(query).then(setSearchResults).then(updateWarningMessage);
                         }
-                    })
+                    });
                 }
             }
             return isQuery;
         }
 
         function searchByLocation (location) {
-            console.log('searchByLocation', location);
             const isLocation = angular.isArray(location);
 
             if (isLocation) {
