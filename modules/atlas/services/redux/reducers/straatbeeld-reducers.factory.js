@@ -46,7 +46,6 @@
                 },
                 map: angular.isObject(state.map) ? {
                     ...state.map,
-                    highlight: null,
                     isLoading: true
                 } : state.map,
                 search: null,
