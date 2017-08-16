@@ -123,7 +123,7 @@
                 }
             }
 
-            vm.layerWarning = activeOverlays.getOverlaysWarning();
+            vm.layerWarning = !vm.query ? activeOverlays.getOverlaysWarning() : '';
         }
 
         /**
