@@ -161,7 +161,7 @@
         }
 
         function getAddedOverlays (newOverlays, oldOverlays, isInit) {
-            return getDiffFromOverlays(newOverlays, oldOverlays, isInit ? (item) => item.isVisible : '');
+            return getDiffFromOverlays(newOverlays, oldOverlays, isInit ? (item) => item.isVisible : '').reverse();
         }
 
         function getRemovedOverlays (newOverlays, oldOverlays, isInit) {
