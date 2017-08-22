@@ -31,7 +31,7 @@
 
         function linkFunction (scope, element) {
             let leafletMap,
-                oldOverlays = [];
+                oldOverlays = null;
 
             const container = element[0].querySelector('.js-leaflet-map');
             const options = angular.merge(mapConfig.MAP_OPTIONS, {
@@ -108,17 +108,21 @@
             });
 
             function setOverlays () {
-                const newOverlays = scope.mapState.overlays.filter(overlay => overlays.SOURCES[overlay.id]),
-                    // checking for init state when both are the same
-                    isInit = angular.equals(newOverlays, oldOverlays);
+                const newOverlays = scope.mapState.overlays.filter(overlay => overlays.SOURCES[overlay.id]);
+                oldOverlays = oldOverlays || [];
 
                 scope.hasActiveOverlays = newOverlays.length > 0;
 
-                getRemovedOverlays(newOverlays, oldOverlays, isInit).forEach(function (overlay) {
+                if (angular.equals(newOverlays, oldOverlays)) {
+                    return;
+                }
+
+                getRemovedOverlays(newOverlays, oldOverlays).forEach(function (overlay) {
+                    // console.log('remove', overlay);
                     layers.removeOverlay(leafletMap, overlay);
                 });
 
-                getAddedOverlays(newOverlays, oldOverlays, isInit).forEach(function (overlay) {
+                getAddedOverlays(newOverlays, oldOverlays).forEach(function (overlay) {
                     layers.addOverlay(leafletMap, overlay);
                 });
 
@@ -126,46 +130,16 @@
             }
         }
 
-        function getDiffFromOverlays (over1, over2, callback) {
-            // Finds all the keys for items in over1 that
-            // are not in over2
-            // Or if visibility was changed.
-            // or use callback to decide which to show and hide
-            var keys = [],
-                add;
-
-            for (var i = 0; i < over1.length; i++) {
-                add = true;
-                for (var j = 0; j < over2.length; j++) {
-                    if (over2[j].id === over1[i].id) {
-                        // Checking visibility change
-                        if (angular.isFunction(callback)) {
-                            add = callback.call(this, over1[i]);
-                        } else if (over2[j].isVisible !== over1[i].isVisible) {
-                            // Making sure visibility was changed to what we expect
-                            if (over2[j].isVisible) {
-                                add = false;
-                            }
-                        } else {
-                            // No change was made
-                            add = false; // Exists in both overlays
-                        }
-                        break;
-                    }
-                }
-                if (add) {
-                    keys.push(over1[i].id);
-                }
-            }
-            return keys;
+        function getAddedOverlays (newOverlays, oldOverlays) {
+            return newOverlays.filter(el => {
+                return !oldOverlays.find(item => item.id === el.id);
+            }).map(layer => layer.id);
         }
 
-        function getAddedOverlays (newOverlays, oldOverlays, isInit) {
-            return getDiffFromOverlays(newOverlays, oldOverlays, isInit ? (item) => item.isVisible : '').reverse();
-        }
-
-        function getRemovedOverlays (newOverlays, oldOverlays, isInit) {
-            return getDiffFromOverlays(oldOverlays, newOverlays, isInit ? (item) => !item.isVisible : '');
+        function getRemovedOverlays (newOverlays, oldOverlays) {
+            return oldOverlays.filter(el => {
+                return !newOverlays.find(item => item.id === el.id);
+            }).map(layer => layer.id);
         }
 
         function getAddedGeojson (newCollection, oldCollection) {
