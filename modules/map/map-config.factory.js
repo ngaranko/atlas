@@ -32,6 +32,7 @@
                 zoomControl: false
             },
             OVERLAY_OPTIONS: {
+                tileSize: 1024,
                 identify: false,
                 format: 'image/png',
                 transparent: true
