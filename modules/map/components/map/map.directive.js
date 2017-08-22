@@ -108,9 +108,10 @@
             });
 
             function setOverlays () {
-                const newOverlays = scope.mapState.overlays.filter(overlay => overlays.SOURCES[overlay.id]);
-                oldOverlays = oldOverlays || [];
+                const newOverlays = scope.mapState.overlays.filter(overlay => overlays.SOURCES[overlay.id]),
+                    isInit = oldOverlays === null;
 
+                oldOverlays = oldOverlays || [];
                 scope.hasActiveOverlays = newOverlays.length > 0;
 
                 if (angular.equals(newOverlays, oldOverlays)) {
@@ -118,12 +119,19 @@
                 }
 
                 getRemovedOverlays(newOverlays, oldOverlays).forEach(function (overlay) {
-                    // console.log('remove', overlay);
                     layers.removeOverlay(leafletMap, overlay);
                 });
 
                 getAddedOverlays(newOverlays, oldOverlays).forEach(function (overlay) {
                     layers.addOverlay(leafletMap, overlay);
+                });
+
+                getLayersToHide(newOverlays, oldOverlays, isInit).forEach(overlay => {
+                    layers.hideOverlay(leafletMap, overlay);
+                });
+
+                getLayersToShow(newOverlays, oldOverlays, isInit).forEach(overlay => {
+                    layers.showOverlay(leafletMap, overlay);
                 });
 
                 oldOverlays = newOverlays;
@@ -141,6 +149,30 @@
         function diffOverlays (over1, over2) {
             return over1.filter(el => {
                 return !over2.find(item => item.id === el.id);
+            }).map(layer => layer.id);
+        }
+
+        function getLayersToHide (newOverlays, oldOverlays, isInit) {
+            return newOverlays.filter((layer, index) => {
+                const old = oldOverlays[index];
+
+                if (isInit) {
+                    return layer.isVisible === false;
+                }
+
+                if (old && old.id === layer.id) {
+                    return old.isVisible !== layer.isVisible && layer.isVisible === false;
+                }
+            }).map(layer => layer.id);
+        }
+
+        function getLayersToShow (newOverlays, oldOverlays, isInit) {
+            return newOverlays.filter((layer, index) => {
+                const old = oldOverlays[index];
+
+                if (old && old.id === layer.id) {
+                    return old.isVisible !== layer.isVisible && layer.isVisible === true;
+                }
             }).map(layer => layer.id);
         }
 
