@@ -131,14 +131,16 @@
         }
 
         function getAddedOverlays (newOverlays, oldOverlays) {
-            return newOverlays.filter(el => {
-                return !oldOverlays.find(item => item.id === el.id);
-            }).map(layer => layer.id);
+            return diffOverlays(newOverlays, oldOverlays);
         }
 
         function getRemovedOverlays (newOverlays, oldOverlays) {
-            return oldOverlays.filter(el => {
-                return !newOverlays.find(item => item.id === el.id);
+            return diffOverlays(oldOverlays, newOverlays);
+        }
+
+        function diffOverlays (over1, over2) {
+            return over1.filter(el => {
+                return !over2.find(item => item.id === el.id);
             }).map(layer => layer.id);
         }
 
