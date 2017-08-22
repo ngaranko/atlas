@@ -77,7 +77,7 @@
         function hideOverlay (leafletMap, layerName) {
             getSubLayers(leafletMap, layerName).then(subLayers => {
                 subLayers.forEach(layer => {
-                    layer.setOpacity(0);
+                    layer.setOpacity(0.01);     // opacity 0 is ignored!
                 });
             });
         }

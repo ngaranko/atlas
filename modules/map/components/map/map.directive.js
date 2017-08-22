@@ -130,7 +130,7 @@
                     layers.hideOverlay(leafletMap, overlay);
                 });
 
-                getLayersToShow(newOverlays, oldOverlays, isInit).forEach(overlay => {
+                getLayersToShow(newOverlays, oldOverlays).forEach(overlay => {
                     layers.showOverlay(leafletMap, overlay);
                 });
 
@@ -153,25 +153,23 @@
         }
 
         function getLayersToHide (newOverlays, oldOverlays, isInit) {
-            return newOverlays.filter((layer, index) => {
-                const old = oldOverlays[index];
-
-                if (isInit) {
-                    return layer.isVisible === false;
-                }
-
-                if (old && old.id === layer.id) {
-                    return old.isVisible !== layer.isVisible && layer.isVisible === false;
-                }
-            }).map(layer => layer.id);
+            return diffOverlayVisibility(newOverlays, oldOverlays, false, isInit);
         }
 
-        function getLayersToShow (newOverlays, oldOverlays, isInit) {
-            return newOverlays.filter((layer, index) => {
-                const old = oldOverlays[index];
+        function getLayersToShow (newOverlays, oldOverlays) {
+            return diffOverlayVisibility(newOverlays, oldOverlays, true);
+        }
+
+        function diffOverlayVisibility (over1, over2, checkFor, isInit) {
+            return over1.filter((layer, index) => {
+                const old = over2[index];
+
+                if (isInit) {
+                    return layer.isVisible === checkFor;
+                }
 
                 if (old && old.id === layer.id) {
-                    return old.isVisible !== layer.isVisible && layer.isVisible === true;
+                    return old.isVisible !== layer.isVisible && layer.isVisible === checkFor;
                 }
             }).map(layer => layer.id);
         }
