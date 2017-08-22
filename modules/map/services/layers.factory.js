@@ -81,7 +81,8 @@
                 wmsLayers[wmsLayerId] = getWmsUrl(overlayName).then(wmsUrl => {
                     return L.tileLayer.wms(wmsUrl, {
                         ...mapConfig.OVERLAY_OPTIONS,
-                        layers: overlays.SOURCES[overlayName].layers
+                        layers: overlays.SOURCES[overlayName].layers,
+                        className: 'overlay-' + overlayName
                     });
                 });
             } else if (!wmsLayers[wmsLayerId]) {

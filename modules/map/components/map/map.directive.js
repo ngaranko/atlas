@@ -118,19 +118,23 @@
                     return;
                 }
 
-                getRemovedOverlays(newOverlays, oldOverlays).forEach(function (overlay) {
+                // get removed overlays
+                diffOverlays(oldOverlays, newOverlays).forEach(function (overlay) {
                     layers.removeOverlay(leafletMap, overlay);
                 });
 
-                getAddedOverlays(newOverlays, oldOverlays).forEach(function (overlay) {
+                // get added overlays
+                diffOverlays(newOverlays, oldOverlays).forEach(function (overlay) {
                     layers.addOverlay(leafletMap, overlay);
                 });
 
-                getLayersToHide(newOverlays, oldOverlays, isInit).forEach(overlay => {
+                // get layers to hide
+                diffOverlayVisibility(newOverlays, oldOverlays, false, isInit).forEach(overlay => {
                     layers.hideOverlay(leafletMap, overlay);
                 });
 
-                getLayersToShow(newOverlays, oldOverlays).forEach(overlay => {
+                // get layers to show
+                diffOverlayVisibility(newOverlays, oldOverlays, true).forEach(overlay => {
                     layers.showOverlay(leafletMap, overlay);
                 });
 
@@ -138,26 +142,10 @@
             }
         }
 
-        function getAddedOverlays (newOverlays, oldOverlays) {
-            return diffOverlays(newOverlays, oldOverlays);
-        }
-
-        function getRemovedOverlays (newOverlays, oldOverlays) {
-            return diffOverlays(oldOverlays, newOverlays);
-        }
-
         function diffOverlays (over1, over2) {
             return over1.filter(el => {
                 return !over2.find(item => item.id === el.id);
             }).map(layer => layer.id);
-        }
-
-        function getLayersToHide (newOverlays, oldOverlays, isInit) {
-            return diffOverlayVisibility(newOverlays, oldOverlays, false, isInit);
-        }
-
-        function getLayersToShow (newOverlays, oldOverlays) {
-            return diffOverlayVisibility(newOverlays, oldOverlays, true);
         }
 
         function diffOverlayVisibility (over1, over2, checkFor, isInit) {
