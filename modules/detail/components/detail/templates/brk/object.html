@@ -1,5 +1,5 @@
 <div>
-    <div class="u-row qa-kadastraal-object">
+    <div class="c-detail__block qa-kadastraal-object">
         <dp-glossary-header
             heading="{{vm.apiData.results._display}}"
             definition="OBJECT"
@@ -9,7 +9,7 @@
         <dp-panel is-panel-visible="vm.showMoreInfoWarning" type="warning" can-close="true">
             Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer gegevens te zien:
             koopsom, koopjaar en cultuur (on)bebouwd; zakelijke rechten en aantekeningen.
-            Zie <dp-link-to-page item="item9"></dp-link-to-page>.
+            Zie <dp-link-to-page item="item9" class-name="c-link--light"></dp-link-to-page>.
         </dp-panel>
 
         <dl class="c-key-value-list">
@@ -52,7 +52,8 @@
         use-brk-object-expanded="true">
     </dp-api-call>
 
-    <div ng-if="vm.apiData.results.verblijfsobjecten.count">
+    <div ng-if="vm.apiData.results.verblijfsobjecten.count"
+         class="c-detail__block">
         <!--
         There is no _adressen.count variable. But this check is still valid, because:
 

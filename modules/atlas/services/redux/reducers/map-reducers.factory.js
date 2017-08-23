@@ -19,6 +19,7 @@
         reducers[ACTIONS.MAP_TOGGLE_VISIBILITY_OVERLAY.id] = mapToggleVisibilityOverlay;
         reducers[ACTIONS.MAP_PAN.id] = mapPanReducer;
         reducers[ACTIONS.MAP_ZOOM.id] = mapZoomReducer;
+        reducers[ACTIONS.MAP_HIGHLIGHT.id] = mapHighlightReducer;
         reducers[ACTIONS.MAP_FULLSCREEN.id] = mapFullscreenReducer;
         reducers[ACTIONS.MAP_START_DRAWING.id] = mapStartDrawingReducer;
         reducers[ACTIONS.MAP_CLEAR_DRAWING.id] = mapClearDrawingReducer;
@@ -28,71 +29,72 @@
 
         return reducers;
 
-        function showMapReducer (oldState) {
-            const newState = angular.copy(oldState);
-
-            newState.map.isFullscreen = true;
-            newState.layerSelection.isEnabled = true;
-            newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
-
-            return newState;
+        function showMapReducer (state) {
+            return {
+                ...state,
+                map: angular.isObject(state.map) ? {
+                    ...state.map,
+                    isFullscreen: true
+                } : state.map,
+                layerSelection: angular.isObject(state.layerSelection) ? {
+                    ...state.layerSelection,
+                    isEnabled: true
+                } : state.layerSelection
+            };
         }
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {String} payload - The name of the baseLayer, it should match a key from base-layers.constant.js
          *
          * @returns {Object} newState
          */
-        function mapSetBaselayerReducer (oldState, payload) {
-            var newState = angular.copy(oldState);
-
-            newState.map.baseLayer = payload;
-
-            return newState;
+        function mapSetBaselayerReducer (state, payload) {
+            return {
+                ...state,
+                map: angular.isObject(state.map) ? {
+                    ...state.map,
+                    baseLayer: payload
+                } : state.map
+            };
         }
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {String} payload - The name of the overlay, it should match a key from overlays.constant.js
          *
          * @returns {Object} newState
          */
-        function mapAddOverlayReducer (oldState, payload) {
-            var newState = angular.copy(oldState);
-
-            if (!oldState.map.overlays
-                .filter((overlay) => overlay.id.indexOf('pano') !== 0)
-                .length
-            ) {
-                // Show active overlays only if there were no active overlays
-                // yet (disregarding 'pano' layers)
-                newState.map.showActiveOverlays = true;
-            }
-
-            newState.map.overlays.push({id: payload, isVisible: true});
-
-            return newState;
+        function mapAddOverlayReducer (state, payload) {
+            return {
+                ...state,
+                map: angular.isObject(state.map) ? {
+                    ...state.map,
+                    showActiveOverlays: !state.map.overlays
+                        .filter((overlay) => overlay.id.indexOf('pano') !== 0)
+                        .length ? true : state.map.showActiveOverlays,
+                    overlays: [
+                        ...state.map.overlays,
+                        {id: payload, isVisible: true}
+                    ]
+                } : state.map
+            };
         }
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {String} payload - The name of the overlay, it should match a key from overlays.constant.js
          *
          * @returns {Object} newState
          */
-        function mapRemoveOverlayReducer (oldState, payload) {
-            var newState = angular.copy(oldState),
-                i;
-            // finding the id of the payload
-            for (i = 0; i < newState.map.overlays.length; i++) {
-                if (newState.map.overlays[i].id === payload) {
-                    break;
-                }
-            }
-            newState.map.overlays.splice(i, 1);
-
-            return newState;
+        function mapRemoveOverlayReducer (state, payload) {
+            return {
+                ...state,
+                map: angular.isObject(state.map) ? {
+                    ...state.map,
+                    overlays: state.map.overlays.filter((a) => a.id !== payload)
+                } : state.map
+            };
         }
 
         /**
@@ -103,214 +105,257 @@
          * Removes any active 'pano' (street view) layer before adding the new
          * one.
          *
-         * @param {Object} oldState
+         * @param {Object} state
          *
          * @returns {Object} newState
          */
-        function mapAddPanoOverlayReducer (oldState) {
-            const newLayer = (oldState.straatbeeld && oldState.straatbeeld.history)
-                ? `pano${oldState.straatbeeld.history}`
+        function mapAddPanoOverlayReducer (state) {
+            const newLayer = (state.straatbeeld && state.straatbeeld.history)
+                ? `pano${state.straatbeeld.history}`
                 : 'pano';
 
-            if (oldState.map.overlays.filter((overlay) => overlay.id === newLayer).length === 1) {
+            if (state.map.overlays.filter((overlay) => overlay.id === newLayer).length === 1) {
                 // Ovelay already exists
-                return oldState;
+                return state;
             }
 
             // Remove any active 'pano' layers
-            const newOverlays = oldState.map.overlays
-                .filter((overlay) => overlay.id.indexOf('pano') !== 0);
+            const overlays = state.map.overlays
+                .filter((overlay) => !overlay.id.startsWith('pano'));
 
-            const newState = angular.copy(oldState);
-
-            // Add the new 'pano' layer
-            newOverlays.push({
-                id: newLayer,
-                isVisible: true
-            });
-
-            newState.map.overlays = newOverlays;
-
-            return newState;
+            return {
+                ...state,
+                map: angular.isObject(state.map) ? {
+                    ...state.map,
+                    overlays: [
+                        ...overlays,
+                        {id: newLayer, isVisible: true}
+                    ]
+                } : state.map
+            };
         }
 
         /**
          * Removes any active 'pano' (street view) layer.
          *
-         * @param {Object} oldState
+         * @param {Object} state
          *
          * @returns {Object} newState
          */
-        function mapRemovePanoOverlayReducer (oldState) {
+        function mapRemovePanoOverlayReducer (state) {
             // Remove all active 'pano' layers
-            const newOverlays = oldState.map.overlays
-                .filter((overlay) => overlay.id.indexOf('pano') !== 0);
+            const overlays = state.map.overlays
+                .filter((overlay) => !overlay.id.startsWith('pano'));
 
-            if (newOverlays.length === oldState.map.overlays.length) {
+            if (overlays.length === state.map.overlays.length) {
                 // No 'pano' layers were active
-                return oldState;
+                return state;
             }
 
-            const newState = angular.copy(oldState);
-
-            newState.map.overlays = newOverlays;
-
-            return newState;
+            return {
+                ...state,
+                map: angular.isObject(state.map) ? {
+                    ...state.map,
+                    overlays
+                } : state.map
+            };
         }
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {String} payload - The name of the overlay, it should match a key from overlays.constant.js
          *
          * @returns {Object} newState
          */
-        function mapToggleVisibilityOverlay (oldState, payload) {
-            var newState = angular.copy(oldState);
-            // Looking for the overlay to switch its isVisible
-            for (var i = 0; i < newState.map.overlays.length; i++) {
-                if (newState.map.overlays[i].id === payload) {
-                    newState.map.overlays[i].isVisible = !newState.map.overlays[i].isVisible;
-                    break;
-                }
-            }
-            return newState;
+        function mapToggleVisibilityOverlay (state, payload) {
+            return {
+                ...state,
+                map: angular.isObject(state.map) ? {
+                    ...state.map,
+                    overlays: [...state.map.overlays].map((overlay) => {
+                        return {
+                            ...overlay,
+                            isVisible: overlay.id === payload ? !overlay.isVisible : overlay.isVisible
+                        };
+                    })
+                } : state.map
+            };
         }
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {Array} payload - The new position in Array format, e.g. [52.123, 4.789]
          *
          * @returns {Object} newState
          */
-        function mapPanReducer (oldState, payload) {
-            var newState = angular.copy(oldState);
-
-            newState.map.viewCenter = payload;
-
-            return newState;
+        function mapPanReducer (state, payload) {
+            return {
+                ...state,
+                map: angular.isObject(state.map) ? {
+                    ...state.map,
+                    viewCenter: payload
+                } : state.map
+            };
         }
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {Number} payload - The zoom level
          *
          * @returns {Object} newState
          */
-        function mapZoomReducer (oldState, payload) {
-            var newState = angular.copy(oldState);
-
-            if (angular.isArray(payload.viewCenter)) {
-                newState.map.viewCenter = payload.viewCenter;
-            }
-
-            newState.map.zoom = payload.zoom;
-
-            return newState;
+        function mapZoomReducer (state, payload) {
+            return {
+                ...state,
+                map: angular.isObject(state.map) ? {
+                    ...state.map,
+                    zoom: payload.zoom,
+                    viewCenter: angular.isArray(payload.viewCenter) ? payload.viewCenter : state.map.viewCenter
+                } : state.map
+            };
         }
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
+         * @param {Number} payload - Set hightlighting on or off
+         *
+         * @returns {Object} newState
+         */
+        function mapHighlightReducer (state, payload) {
+            return {
+                ...state,
+                map: angular.isObject(state.map) ? {
+                    ...state.map,
+                    highlight: payload
+                } : state.map
+            };
+        }
+
+        /**
+         * @param {Object} state
          * @param {Number} payload - Boolean that defines whether or not fullscreen mode is enabled
          *
          * @returns {Object} newState
          */
-        function mapFullscreenReducer (oldState, payload) {
-            var newState = angular.copy(oldState);
-
-            newState.layerSelection.isEnabled = false;
-            newState.map.isFullscreen = payload;
-
-            return newState;
+        function mapFullscreenReducer (state, payload) {
+            return {
+                ...state,
+                map: angular.isObject(state.map) ? {
+                    ...state.map,
+                    isFullscreen: payload
+                } : state.map,
+                layerSelection: angular.isObject(state.layerSelection) ? {
+                    ...state.layerSelection,
+                    isEnabled: false
+                } : state.layerSelection
+            };
         }
 
-        function mapStartDrawingReducer (oldState, payload) {
-            var newState = angular.copy(oldState);
-            newState.map.drawingMode = payload;
-
+        function mapStartDrawingReducer (state, payload) {
             if (payload !== DRAW_TOOL_CONFIG.DRAWING_MODE.EDIT &&
-                newState.dataSelection &&
-                newState.dataSelection.geometryFilter &&
-                newState.dataSelection.geometryFilter.markers &&
-                newState.dataSelection.geometryFilter.markers.length > 0) {
-                newState = resetDataSelection(newState);
+                state.dataSelection &&
+                state.dataSelection.geometryFilter &&
+                state.dataSelection.geometryFilter.markers &&
+                state.dataSelection.geometryFilter.markers.length > 0) {
+                state = resetDataSelection(state);
             }
 
-            return newState;
+            return {
+                ...state,
+                map: angular.isObject(state.map) ? {
+                    ...state.map,
+                    drawingMode: payload
+                } : state.map
+            };
         }
 
-        function mapClearDrawingReducer (oldState) {
-            var newState = angular.copy(oldState);
-
-            newState.map.geometry = [];
-
-            return newState;
+        function mapClearDrawingReducer (state) {
+            return {
+                ...state,
+                map: angular.isObject(state.map) ? {
+                    ...state.map,
+                    geometry: []
+                } : state.map
+            };
         }
 
-        function mapEndDrawingReducer (oldState, payload) {
-            var newState = angular.copy(oldState);
+        function mapEndDrawingReducer (state, payload) {
+            const moreThan2Markers = payload && payload.markers && payload.markers.length > 2;
 
-            newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
-
-            if (payload) {
-                if (payload.markers.length > 2) {
-                    newState.page.name = null;
-
-                    // Polygon
-                    newState = resetDataSelection(newState, angular.copy(payload));
-
-                    newState.map.geometry = [];
-                    newState.map.isLoading = true;
-                    newState.map.isFullscreen = false;
-
-                    newState.layerSelection.isEnabled = false;
-                } else if (payload.markers.length === 2) {
-                    // Line
-                    newState.map.geometry = payload.markers;
-                }
+            if (moreThan2Markers) {
+                state = resetDataSelection(state, payload);
             }
 
-            return newState;
+            return {
+                ...state,
+                map: angular.isObject(state.map) ? {
+                    ...state.map,
+                    ...getMap(state, payload)
+                } : state.map,
+                layerSelection: angular.isObject(state.layerSelection) ? {
+                    ...state.layerSelection,
+                    isEnabled: moreThan2Markers ? false : state.layerSelection.isEnabled
+                } : state.layerSelection,
+                page: angular.isObject(state.page) ? {
+                    ...state.page,
+                    name: moreThan2Markers ? null : state.page.name
+                } : state.page
+            };
         }
 
-        function showActiveOverlaysReducer (oldState) {
-            var newState = angular.copy(oldState);
+        function getMap (state, payload) {
+            const has2Markers = payload && payload.markers && payload.markers.length === 2,
+                moreThan2Markers = payload && payload.markers && payload.markers.length > 2;
 
-            newState.map.showActiveOverlays = true;
-
-            return newState;
+            return {
+                drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
+                geometry: has2Markers ? payload.markers : moreThan2Markers ? [] : state.map.geometry,
+                isLoading: moreThan2Markers ? true : state.map.isLoading,
+                isFullscreen: moreThan2Markers ? false : state.map.isFullscreen
+            };
         }
 
-        function hideActiveOverlaysReducer (oldState) {
-            var newState = angular.copy(oldState);
+        function showActiveOverlaysReducer (state) {
+            return {
+                ...state,
+                map: angular.isObject(state.map) ? {
+                    ...state.map,
+                    showActiveOverlays: true
+                } : state.map
+            };
+        }
 
-            newState.map.showActiveOverlays = false;
-
-            return newState;
+        function hideActiveOverlaysReducer (state) {
+            return {
+                ...state,
+                map: angular.isObject(state.map) ? {
+                    ...state.map,
+                    showActiveOverlays: false
+                } : state.map
+            };
         }
 
         function resetDataSelection (state, payload = {markers: []}) {
-            const newState = angular.copy(state);
-
-            if (!newState.dataSelection) {
-                newState.dataSelection = {};
-                newState.dataSelection.dataset = 'bag';
-                newState.dataSelection.filters = {};
-            }
-            newState.dataSelection.geometryFilter = payload;
-            newState.dataSelection.page = 1;
-            newState.dataSelection.isFullscreen = false;
-            newState.dataSelection.isLoading = true;
-            newState.dataSelection.view = 'LIST';
-            newState.dataSelection.markers = [];
-
-            // No markers, the data selection goes back to its default state of
-            // showing all data => make sure it will not trigger a url state
-            // change
-            if (payload.markers.length === 0) {
-                newState.dataSelection.reset = true;
-            }
-
-            return newState;
+            return {
+                ...state,
+                dataSelection: {
+                    ...{
+                        dataset: 'bag',
+                        filters: {}
+                    },
+                    ...state.dataSelection,
+                    geometryFilter: payload,
+                    page: 1,
+                    isFullscreen: false,
+                    isLoading: true,
+                    view: 'LIST',
+                    markers: [],
+                    // No markers, the data selection goes back to its default state of
+                    // showing all data => make sure it will not trigger a url state
+                    // change
+                    reset: payload.markers.length === 0
+                }
+            };
         }
     }
 })();

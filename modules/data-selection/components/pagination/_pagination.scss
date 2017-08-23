@@ -1,72 +1,40 @@
-$pagination-line-color: #e4e4e4;
-
-@mixin data-selection-pagination-button($icon) {
-  @include icon-button-text-right($icon);
-}
-
-@mixin data-selection-pagination-button-left($icon) {
-  @include icon-button-text-left($icon);
-}
-
-@mixin data-selection-pagination-button-flip($icon) {
-  transform: scaleX(-1);
-  content: url($icon);
-  filter: FlipH;
-}
-
-@mixin data-selection-pagination-font {
-  @include font-size($s-font);
-  @include font-weight($normal-weight);
-}
-
 .c-data-selection-pagination {
-  margin-top: $base-whitespace * 2;
+  margin: 0 (-2 * $base-whitespace);
+  padding: 2 * $base-whitespace;
+  padding-bottom: 0;
+  border-top: 2px solid $secondary-gray40;
+  background-color: $primary-light;
 }
 
 .c-data-selection-pagination__controls {
-  @include data-selection-pagination-font;
+  @include font-size($s-font);
+  @include font-weight($normal-weight);
 
   position: relative;
   height: $button-size;
-  margin-top: $base-whitespace * 2;
-  margin-bottom: $base-whitespace * 2;
   text-align: center;
-
-  .c-data-selection-pagination__input {
-    @include font-weight($normal-weight);
-    width: 3rem;
-    height: $button-size;
-    border: 1px solid $secondary-gray20;
-    text-align: center;
-    vertical-align: middle;
-  }
-
-  .c-data-selection-pagination__button {
-    @include data-selection-pagination-font;
-    width: 29px;
-    height: $button-size;
-    background-color: $secondary-gray60;
-    color: $primary-light;
-    line-height: 1;
-    vertical-align: middle;
-
-    &:hover {
-      background-color: $primary-contrast;
-    }
-  }
 }
 
-.c-data-selection-pagination__separator {
-  width: auto;
-  height: 1px;
-  margin: {
-    top: 2 * $base-whitespace;
-    right: - 2 * $base-whitespace;
-    bottom: 2 * $base-whitespace;
-    left: - 2 * $base-whitespace;
+.c-data-selection-pagination__input {
+  @include font-weight($normal-weight);
+  width: 3rem;
+  height: $button-size;
+  border: 1px solid $secondary-gray20;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.c-data-selection-pagination__button {
+  @extend %icon--border-hover;
+  @include icon-label-left("forward");
+
+  padding-right: $base-whitespace;
+  vertical-align: middle;
+
+  /* Display button without icon */
+  &::before {
+    display: none;
   }
-  border: none;
-  background: $pagination-line-color;
 }
 
 .c-data-selection-pagination__backward {
@@ -89,39 +57,24 @@ $pagination-line-color: #e4e4e4;
   z-index: 2;
 }
 
-.c-data-selection-pagination-link {
-  margin-left: .2rem;
-}
-
-.c-data-selection-pagination-link-text {
-  display: inline-block;
-  height: $base-whitespace * 2;
-  vertical-align: middle;
-}
-
-.c-data-selection-pagination-link-label {
-  @include data-selection-pagination-font;
-
-  &:hover {
-    color: $primary-contrast;
-    text-decoration: underline;
-  }
-}
-
 .c-data-selection-pagination-link--first {
-  @include data-selection-pagination-button("first");
+  @extend %icon--border-hover;
+  @include icon-label-right("first", "", "white");
   margin-right: $base-whitespace * 2;
 }
 
 .c-data-selection-pagination-link--last {
-  @include data-selection-pagination-button-left("last");
+  @extend %icon--border-hover;
+  @include icon-label-left("last", "", "white");
   margin-left: $base-whitespace * 2;
 }
 
 .c-data-selection-pagination-link--previous {
-  @include data-selection-pagination-button("previous");
+  @extend %icon--border-hover;
+  @include icon-label-right("previous", "", "white");
 }
 
 .c-data-selection-pagination-link--next {
-  @include data-selection-pagination-button-left("next");
+  @extend %icon--border-hover;
+  @include icon-label-left("next", "", "white");
 }

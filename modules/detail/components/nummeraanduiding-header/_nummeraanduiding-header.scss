@@ -2,6 +2,6 @@
   position: absolute;
   top: 0;
   right: $button-size * 2 + $base-whitespace; //afstand berekend mbt metadata en stelselpedia buttons
-  padding: 0 $base-whitespace;
+  padding-left: .5 * $base-whitespace;
   color: $primary-light;
 }

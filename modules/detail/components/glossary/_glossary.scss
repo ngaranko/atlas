@@ -1,14 +1,9 @@
 .c-stelselpedia__button {
-  @include icon-button("stelselpedia");
+  @extend %icon--border-hover;
+  @include icon("stelselpedia", "", "white");
 }
 
 .c-metadata__button {
-  @include icon-button("metadata");
-}
-
-// Negate negative margins for glossary meta inside a panel
-._c-glossary-meta--in-panel {
-  margin-right: -$base-whitespace * .6;
-  margin-bottom: $base-whitespace * -4;
-  padding: $base-whitespace 0 $base-whitespace $base-whitespace;
+  @extend %icon--border-hover;
+  @include icon("metadata", "", "white");
 }

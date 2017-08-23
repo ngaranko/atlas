@@ -5,9 +5,9 @@
         .module('atlas')
         .factory('printReducers', printReducersFactory);
 
-    printReducersFactory.$inject = ['ACTIONS', 'DRAW_TOOL_CONFIG'];
+    printReducersFactory.$inject = ['ACTIONS'];
 
-    function printReducersFactory (ACTIONS, DRAW_TOOL_CONFIG) {
+    function printReducersFactory (ACTIONS) {
         var reducers = {};
 
         reducers[ACTIONS.SHOW_PRINT.id] = showPrintReducer;
@@ -16,32 +16,33 @@
         return reducers;
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          *
          * @returns {Object} newState
          */
-        function showPrintReducer (oldState) {
-            var newState = angular.copy(oldState);
-
-            newState.atlas.isPrintMode = true;
-            newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
-
-            return newState;
+        function showPrintReducer (state) {
+            return {
+                ...state,
+                atlas: angular.isObject(state.atlas) ? {
+                    ...state.atlas,
+                    isPrintMode: true
+                } : state.atlas
+            };
         }
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          *
          * @returns {Object} newState
          */
-        function hidePrintReducer (oldState) {
-            var newState = angular.copy(oldState);
-
-            newState.atlas.isPrintMode = false;
-            newState.map.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
-
-            return newState;
+        function hidePrintReducer (state) {
+            return {
+                ...state,
+                atlas: angular.isObject(state.atlas) ? {
+                    ...state.atlas,
+                    isPrintMode: false
+                } : state.atlas
+            };
         }
     }
 })();
-

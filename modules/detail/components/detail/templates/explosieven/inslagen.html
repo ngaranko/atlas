@@ -1,4 +1,4 @@
-<div class="u-row">
+<div class="c-detail__block">
     <dp-glossary-header
         heading="{{vm.apiData.results.kenmerk}}"
         definition="INSLAGEN">
@@ -31,7 +31,7 @@
 
         <dt>Oorlogsincidentrapport</dt>
         <dd ng-if="vm.apiData.results.pdf">
-            <a ng-href="{{vm.apiData.results.pdf}}" class="o-btn o-btn--link" target="_blank">{{vm.apiData.results.pdf | filename}}</a>
+            <a ng-href="{{vm.apiData.results.pdf}}" class="o-btn o-btn--link" target="_blank" rel="noopener">{{vm.apiData.results.pdf | filename}}</a>
         </dd>
     </dl>
 </div>

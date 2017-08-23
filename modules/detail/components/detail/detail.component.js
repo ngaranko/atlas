@@ -22,9 +22,11 @@
         'geometry',
         'geojson',
         'crsConverter',
-        'dataFormatter'
+        'dataFormatter',
+        'nearestDetail'
     ];
 
+    /* eslint-disable max-params */
     function DpDetailController (
             $scope,
             store,
@@ -35,7 +37,9 @@
             geometry,
             geojson,
             crsConverter,
-            dataFormatter) {
+            dataFormatter,
+            nearestDetail) {
+        /* eslint-enable max-params */
         var vm = this;
 
         // Reload the data when the reload flag has been set (endpoint has not
@@ -57,6 +61,8 @@
         });
 
         function getData (endpoint) {
+            const state = store.getState();
+
             vm.location = null;
 
             vm.includeSrc = endpointParser.getTemplateUrl(endpoint);
@@ -65,6 +71,7 @@
             // Derive whether more info is available if the user would be authenticated
             // stored as separate variable to prevent vm manipulation to change the controller logic
             vm.showMoreInfoWarning = !vm.isEmployee;
+            vm.geosearchButton = state.map.highlight ? false : nearestDetail.getLocation();
 
             const [category, subject] = endpointParser.getParts(endpoint);
             if (!vm.isEmployee && category === 'brk' && subject === 'subject') {

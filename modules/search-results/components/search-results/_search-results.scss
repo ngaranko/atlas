@@ -1,3 +1,5 @@
+$thumbnail-width: 100% / 3;
+
 dp-search-results {
   display: block;
 }
@@ -6,8 +8,44 @@ dp-search-results {
   padding: 2 * $base-whitespace;
 }
 
-.s-indented-result {
-  margin-top: -$base-whitespace;
-  padding-left: $base-font-size;
-  border-left: 1px solid $secondary-gray20;
+.c-search-results__layer-warning {
+  .c-panel {
+    margin-top: -(2 * $base-whitespace);
+    margin-bottom: 4 * $base-whitespace;
+  }
+}
+
+.c-search-results__thumbnail-container {
+  width: $thumbnail-width;
+  float: right;
+}
+
+.c-search-results__thumbnail {
+  display: block;
+  margin: 0 (-2 * $base-whitespace);
+  border-right: (2 * $base-whitespace) solid $primary-light;
+  border-left: (2 * $base-whitespace) solid $primary-light;
+  background-color: $primary-light;
+}
+
+.c-search-results__block-content {
+  padding-right: calc(#{$thumbnail-width} + #{2 * $base-whitespace});
+
+  .s-indented-list & {
+    padding-left: $base-font-size;
+  }
+}
+
+.c-search-results__block {
+  @extend %list-block;
+
+  &.c-search-results__block--container {
+    @extend %list-block-container;
+  }
+
+  .s-indented-list & {
+    @extend %list-block-indented;
+
+    padding-left: 0;
+  }
 }

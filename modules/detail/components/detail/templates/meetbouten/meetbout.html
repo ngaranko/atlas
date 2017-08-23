@@ -1,5 +1,5 @@
 <div class="detail-page__content--main">
-    <div class="u-row">
+    <div class="c-detail__block">
         <dp-glossary-header heading="{{vm.apiData.results.meetboutidentificatie}}" definition="MEETBOUT">
         </dp-glossary-header>
 
@@ -39,7 +39,7 @@
         </div>
     </div>
 
-    <div>
+    <div class="c-detail__block">
         <dp-glossary-header definition="METING" use-plural="true"></dp-glossary-header>
 
         <p ng-if="!vm.apiData.results.metingen.href"><dp-message>Geen metingen beschikbaar</dp-message></p>
@@ -55,10 +55,10 @@
         </dp-meetbout-graph>
     </div>
 
-    <div>
+    <div class="c-detail__block">
         <dp-glossary-header definition="ROLLAAG" use-plural="true"></dp-glossary-header>
 
-        <p ng-if="!vm.apiData.results.rollaag"><dp-message>Geen rollaagtekening beschikbaar</dp-message></p>
+        <p ng-if="!vm.apiData.results.rollaag" class="c-detail__block"><dp-message>Geen rollaagtekening beschikbaar</dp-message></p>
 
         <dp-api-call ng-if="vm.apiData.results.rollaag"
             endpoint="{{vm.apiData.results.rollaag}}"

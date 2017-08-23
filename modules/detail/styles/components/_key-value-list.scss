@@ -5,11 +5,11 @@
     @extend %clearfix;
   }
 
-  .c-key-value-list--border-top {
+  .c-key-value-list__border-top {
     border-top: 1px solid $secondary-gray20 !important;
   }
 
-  .c-key-value-list--multiple-values {
+  .c-key-value-list__multiple-values {
     padding-top: 4.375px; //(2 * $base-font-size - $base-line-height) / 2
     padding-bottom: 4.375px;
     border: none;
@@ -49,4 +49,9 @@
     overflow: hidden;
     box-sizing: content-box;
   }
+}
+
+.c-key-value-list--in-panel {
+  margin-right: -$button-size;
+  margin-left: -$base-whitespace;
 }

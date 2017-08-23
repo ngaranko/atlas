@@ -49,7 +49,8 @@
                 vm.state.filters,
                 vm.state.geometryFilter,
                 vm.state.page,
-                vm.state.query
+                vm.state.query,
+                user.getAuthorizationLevel()
             ];
         }, fetchData, true);
 
@@ -96,8 +97,8 @@
                 vm.state.filters,
                 vm.currentPage,
                 vm.state.query,
-                vm.state.geometryFilter.markers).then(data => {
-                    vm.isLoading = false;
+                vm.state.geometryFilter.markers)
+                .then(data => {
                     vm.availableFilters = data.filters;
 
                     vm.data = data.data;
@@ -152,6 +153,8 @@
                             payload: []
                         });
                     }
+                }).finally(() => {
+                    vm.isLoading = false;
                 });
         }
     }

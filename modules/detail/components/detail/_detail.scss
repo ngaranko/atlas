@@ -1,12 +1,36 @@
 .c-detail {
-  padding: 2 * $base-whitespace;
+  padding: $detail-padding;
 }
 
-.c-kadastraal-subject__warning {
-  padding: 0 $base-whitespace;
-  line-height: $button-size;
+.c-detail__block {
+  @extend %list-block;
+
+  .c-detail__block {
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+
+  &.c-detail__block--container {
+    @extend %list-block-container;
+  }
+
+  .s-indented-list {
+    .c-detail__block {
+      @extend %list-block-indented;
+
+      .c-detail__block {
+        margin: 0;
+        padding: 0;
+        border: none;
+      }
+    }
+  }
 }
 
-.c-kadastraal-subject__login-link {
-  color: $primary-light !important;
+.c-detail__geosearch {
+  display: block;
+  margin: 0;
+  padding: $base-whitespace (4 * $base-whitespace);
+  border-bottom: 1px solid $secondary-gray20;
 }

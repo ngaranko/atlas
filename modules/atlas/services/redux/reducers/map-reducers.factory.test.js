@@ -53,13 +53,6 @@ describe('The map reducers', function () {
 
             expect(output.layerSelection.isEnabled).toBe(true);
         });
-
-        it('should reset drawing mode', function () {
-            const inputState = angular.copy(DEFAULT_STATE);
-            const output = mapReducers[ACTIONS.SHOW_MAP.id](inputState);
-
-            expect(output.map.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
-        });
     });
 
     describe('MAP_SET_BASELAYER', function () {
@@ -497,6 +490,21 @@ describe('The map reducers', function () {
             });
             expect(output.map.viewCenter).toEqual([52.3719, 4.9012]);
             expect(output.map.zoom).toBe(8);
+        });
+    });
+
+    describe('MAP_HIGHLIGHT', function () {
+        it('can toggle the fullscreen mode', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            let output;
+
+            // Enable fullscreen
+            output = mapReducers[ACTIONS.MAP_HIGHLIGHT.id](inputState, true);
+            expect(output.map.highlight).toBe(true);
+
+            // Disable fullscreen
+            output = mapReducers[ACTIONS.MAP_HIGHLIGHT.id](inputState, false);
+            expect(output.map.highlight).toBe(false);
         });
     });
 

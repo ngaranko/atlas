@@ -74,6 +74,10 @@
                 id: 'MAP_ZOOM',
                 replace: true
             },
+            MAP_HIGHLIGHT: {
+                id: 'MAP_HIGHLIGHT',
+                ignore: true
+            },
             MAP_FULLSCREEN: {
                 id: 'MAP_FULLSCREEN',
                 isButton: true
@@ -186,6 +190,14 @@
             },
             HIDE_PRINT: {
                 id: 'HIDE_PRINT',
+                isButton: true
+            },
+
+            SHOW_EMBED_PREVIEW: {
+                id: 'SHOW_EMBED_PREVIEW'
+            },
+            HIDE_EMBED_PREVIEW: {
+                id: 'HIDE_EMBED_PREVIEW',
                 isButton: true
             }
         });

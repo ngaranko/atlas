@@ -10,18 +10,14 @@
         <button ng-if="vm.hasHelp" ng-click="vm.toggle('help')"
             class="o-header__button c-stelselpedia__button"
             title="{{ vm.helpTitle }}">
-            <span class="o-header__button--image ">
-                <span class="u-sr-only">{{ vm.helpTitle  }}</span>
-            </span>
+            <span class="u-sr-only">{{ vm.helpTitle  }}</span>
         </button>
 
         <button ng-if="vm.hasMetaData"
             ng-click="vm.toggle('meta')"
             class="o-header__button c-metadata__button"
             title="{{ vm.metaDataTitle  }}">
-            <span class="o-header__button--image ">
-                <span class="u-sr-only">{{ vm.metaDataTitle  }}</span>
-            </span>
+            <span class="u-sr-only">{{ vm.metaDataTitle  }}</span>
         </button>
 
         <dp-wkpb-link ng-if="vm.brk" brk-id="{{vm.brk.id}}"></dp-wkpb-link>
@@ -35,13 +31,12 @@
                class="c-link c-link--arrow"
                ng-href="{{vm.stelselpediaUrl}}"
                target="_blank"
+               rel="noopener"
                 >Lees verder op stelselpedia</a>
         </p>
     </dp-panel>
     <dp-panel ng-if="vm.hasMetaData" is-panel-visible="vm.isVisible.meta" can-close="true" class-name="qa-metadata">
-        <div class="_c-glossary-meta--in-panel">
-            <h3 class="c-panel__title">Metadata van {{vm.glossaryLabel | lowercase}}</h3>
-            <dp-glossary-meta definition="{{vm.definition}}" api-data="vm.metaData"></dp-glossary-meta>
-        </div>
+        <h3 class="c-panel__title">Metadata van {{vm.glossaryLabel | lowercase}}</h3>
+        <dp-glossary-meta definition="{{vm.definition}}" api-data="vm.metaData"></dp-glossary-meta>
     </dp-panel>
 </div>

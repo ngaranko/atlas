@@ -1,0 +1,47 @@
+.c-detail-catalogus-table {
+  margin: 0 (-$detail-padding);
+}
+
+.c-detail-catalogus-table__table {
+  margin: 0;
+}
+
+.c-detail-catalogus-table__field {
+  vertical-align: middle;
+
+  &:first-child {
+    padding-left: $detail-padding;
+  }
+
+  &:last-child {
+    padding-right: $detail-padding;
+  }
+}
+
+.c-detail-catalogus-table__field--type {
+  width: 45px;
+  padding-top: $base-whitespace / 2;
+}
+
+.c-detail-catalogus-table__field--name {
+  width: 250px;
+}
+
+.c-detail-catalogus-table__field--size {
+  min-width: 110px;
+}
+
+.c-detail-catalogus-table__field--description {
+  max-width: 430px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.c-detail-catalogus-table__text {
+  vertical-align: middle;
+}
+
+.c-detail-catalogus-table__text--light {
+  color: $secondary-gray60;
+}

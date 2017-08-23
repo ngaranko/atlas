@@ -53,14 +53,13 @@
                 } else {
                     vm.hasThumbnail = false;
                 }
-
-                vm.isLoading = false;
             }, (rejection) => {
                 if (rejection.status === 404) {
                     rejection.errorHandled = true;
                 }
 
                 vm.hasThumbnail = false;
+            }).finally(() => {
                 vm.isLoading = false;
             });
         }

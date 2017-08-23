@@ -1,8 +1,11 @@
-<div class="u-padding__top--2">
-    <img class="u-pull--left u-margin__bottom--4" width="160" height="72" src="assets/images/gemeente-amsterdam.png" alt="Gemeente Amsterdam" title="Gemeente Amsterdam">
+<div class="u-padding__top--2 u-padding__bottom--4">
+    <img
+         width="160" height="72"
+         src="assets/images/gemeente-amsterdam.png"
+         alt="Gemeente Amsterdam" title="Gemeente Amsterdam">
+</div>
 
-    <div class="u-clearfix"></div>
-
+<div class="c-detail__block">
     <h3 class="o-header__subtitle">Opgegeven zoekcriteria</h3>
     <dl class="c-key-value-list">
         <dt>Datum rapport</dt>
@@ -18,7 +21,9 @@
         <dt>Kadaster</dt>
         <dd>{{vm.apiData.results._display}}</dd>
     </dl>
+</div>
 
+<div class="c-detail__block">
     <h3 class="o-header__subtitle">Kadastraal object</h3>
     <dl class="c-key-value-list">
         <dt>Gemeentecode</dt>
@@ -37,30 +42,28 @@
                 {{vm.apiData.results.grootte}} m<sup>2</sup>
             </span>
         </dd>
-        <dt>Vestigingsdatum</dt>
+        <dt>Toestandsdatum</dt>
         <dd>{{vm.apiData.results.toestandsdatum | date:'dd-MM-yyyy'}}</dd>
         <dt>Coordinaten</dt>
         <dd>{{vm.apiData.results.geometrie.coordinates[0][0][0].join(', ')}}</dd>
     </dl>
+</div>
 
-    <div ng-if="vm.apiData.results.beperkingen">
-        <div ng-repeat="beperking in vm.apiData.results.beperkingen">
-            <h3 class="o-header__subtitle">Gemeentelijke publiekrechtelijke beperking<sup>*</sup></h3>
-            <dl class="c-key-value-list">
-                <dt>Inschrijfnummer</dt>
-                <dd>{{beperking.inschrijfnummer}}</dd>
-                <dt>Beperkingcode</dt>
-                <dd>{{beperking.beperkingcode.code}}</dd>
-                <dt>Korte omschrijving</dt>
-                <dd>{{beperking.beperkingcode.omschrijving}}</dd>
-                <dt>Datum in werking</dt>
-                <dd>{{beperking.datum_in_werking | date:'dd-MM-yyyy'}}</dd>
-            </dl>
-        </div>
-
-        <p class="u-padding__top--2">
-            * Alleen de gemeentelijke publiekrechtelijke beperkingen worden getoond. Voor een volledig overzicht van alle
-            publiekrechtelijke beperkingen bij dit kadastraal object wordt u verzocht Kadaster Online te raadplegen.
-        </p>
+<div ng-if="vm.apiData.results.beperkingen">
+    <div ng-repeat="beperking in vm.apiData.results.beperkingen"
+         class="c-detail__block">
+        <h3 class="o-header__subtitle">Gemeentelijke publiekrechtelijke beperking</h3>
+        <dl class="c-key-value-list">
+            <dt>Inschrijfnummer</dt>
+            <dd>{{beperking.inschrijfnummer}}</dd>
+            <dt>Beperkingcode</dt>
+            <dd>{{beperking.beperkingcode.code}}</dd>
+            <dt>Korte omschrijving</dt>
+            <dd>{{beperking.beperkingcode.omschrijving}}</dd>
+            <dt>Datum in werking</dt>
+            <dd>{{beperking.datum_in_werking | date:'dd-MM-yyyy'}}</dd>
+        </dl>
     </div>
 </div>
+
+<div ng-include="'modules/detail/components/detail/templates/wkpb-disclaimer.html'"></div>

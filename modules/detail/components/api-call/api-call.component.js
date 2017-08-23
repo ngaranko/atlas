@@ -60,7 +60,7 @@
                 } else {
                     vm.apiData.results = response;
                 }
-
+            }).finally(() => {
                 vm.isLoading = false;
                 vm.useLoadingIndicatorDelay = true;
             });

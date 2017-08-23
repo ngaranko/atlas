@@ -11,11 +11,8 @@
   padding: 0 $base-whitespace * .5;
   background-color: $secondary-gray40;
   color: $primary-dark;
+  line-height: 1;
   text-transform: lowercase;
-}
-
-.c-data-selection-file__name {
-  color: $secondary-gray60;
 }
 
 .c-data-selection-file-type__format-xls {

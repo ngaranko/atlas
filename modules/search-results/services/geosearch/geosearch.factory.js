@@ -1,4 +1,4 @@
-(function () {
+(() => {
     angular
         .module('dpSearchResults')
         .factory('geosearch', geosearchFactory);
@@ -7,26 +7,25 @@
 
     function geosearchFactory ($q, SEARCH_CONFIG, api, geosearchFormatter, searchFormatter, user) {
         return {
-            search: searchFeatures
+            search
         };
 
-        function searchFeatures (location) {
-            var allRequests = [];
+        function search (location) {
+            const allRequests = [];
 
             SEARCH_CONFIG.COORDINATES_ENDPOINTS.forEach(function (endpoint) {
-                var request,
-                    searchParams = {
-                        lat: location[0],
-                        lon: location[1]
-                    };
+                const searchParams = {
+                    lat: location[0],
+                    lon: location[1]
+                };
 
                 if (angular.isNumber(endpoint.radius)) {
                     searchParams.radius = endpoint.radius;
                 }
 
-                request = api.getByUri(endpoint.uri, searchParams).then(
+                const request = api.getByUri(endpoint.uri, searchParams).then(
                     data => data,
-                    () => { return { features: [] }; });    // empty features on failure op api call
+                    () => { return { features: [] }; });    // empty features on failure of api call
 
                 allRequests.push(request);
             });
@@ -41,7 +40,9 @@
                 [pandCategoryIndex, pandEndpoint] = getPandData(geosearchResults),
                 [plaatsCategoryIndex, plaatsEndpoint] = getPlaatsData(geosearchResults);
 
-            if (plaatsEndpoint) {
+            if (plaatsEndpoint && user.meetsRequiredLevel('EMPLOYEE')) {
+                // Only fetching 'vestigingen' for a standplaats/ligplaats, so
+                // we check for employee status here already
                 api.getByUrl(plaatsEndpoint).then(processPlaatsData);
             } else if (pandEndpoint) {
                 api.getByUrl(pandEndpoint).then(processPandData);
@@ -71,7 +72,6 @@
                     const formatted = (objecten && objecten.count)
                             ? searchFormatter.formatCategory('adres', objecten) : null,
                         extended = formatted ? angular.extend(formatted, {
-                            useIndenting: true,
                             more: {
                                 label: `Bekijk alle ${formatted.count} adressen binnen dit pand`,
                                 endpoint: pand._links.self.href
@@ -86,7 +86,6 @@
                             ? searchFormatter.formatCategory('vestiging', vestigingen) : null,
                         extended = formatted ? angular.extend(formatted, {
                             authLevel: 'EMPLOYEE',
-                            useIndenting: true,
                             more: {
                                 label: `Bekijk alle ${formatted.count} vestigingen binnen dit pand`,
                                 endpoint: pand._links.self.href
@@ -100,8 +99,7 @@
                         filteredResults = results.filter(angular.identity);
 
                     if (filteredResults.length) {
-                        // Splice modifies the existing Array, we don't want our input to change hence the copy
-                        geosearchResultsCopy.splice(pandCategoryIndex + 1, 0, ...filteredResults);
+                        geosearchResultsCopy[pandCategoryIndex].subResults = filteredResults;
                     }
 
                     q.resolve(geosearchResultsCopy);

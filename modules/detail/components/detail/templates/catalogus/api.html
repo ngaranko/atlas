@@ -1,59 +1,82 @@
 <div class="u-grid">
-    <div class="o-header">
-        <h3 class="o-header__subtitle">Dataset</h3>
-        <h2 class="o-header__title u-margin__bottom--3">{{vm.apiData.results.title}}</h2>
+    <div class="c-detail__block">
+        <div class="o-header">
+            <h3 class="o-header__subtitle">Dataset</h3>
+            <h2 class="o-header__title u-margin__bottom--3">{{vm.apiData.results.title}}</h2>
+        </div>
+        <dl class="c-key-value-list">
+            <dt>Aangemaakt</dt>
+            <dd>{{ { metadata_created: vm.apiData.results.metadata_created, metadata_compact: true } | modificationDate }} ({{vm.apiData.results.metadata_created | date:'dd MMMM yyyy'}})</dd>
+
+            <dt>Gepubliceerd door</dt>
+            <dd><a href="mailto:{{vm.apiData.results.publisher_email}}" class="o-btn o-btn--link">{{vm.apiData.results.publisher}} ({{vm.apiData.results.publisher_email}})</a></dd>
+            <dt>Contactpersoon</dt>
+            <dd><a href="mailto:{{vm.apiData.results.contact_email}}" class="o-btn o-btn--link">{{vm.apiData.results.contact_name}} ({{vm.apiData.results.contact_email}})</a></dd>
+            <dt>Thema</dt>
+            <dd>
+                <ul ng-repeat="group in vm.apiData.results.groups">
+                    <li> {{ group.title }}</li>
+                </ul>
+            </dd>
+        </dl>
     </div>
-    <dl class="c-key-value-list">
-        <dt>Aangemaakt</dt>
-        <dd>{{ { metadata_created: vm.apiData.results.metadata_created, metadata_compact: true } | modificationDate }} ({{vm.apiData.results.metadata_created | date:'dd MMMM yyyy'}})</dd>
 
-        <dt>Gepubliceerd door</dt>
-        <dd><a href="mailto:{{vm.apiData.results.publisher_email}}" class="o-btn o-btn--link">{{vm.apiData.results.publisher}} ({{vm.apiData.results.publisher_email}})</a></dd>
-        <dt>Contactpersoon</dt>
-        <dd><a href="mailto:{{vm.apiData.results.contact_email}}" class="o-btn o-btn--link">{{vm.apiData.results.contact_name}} ({{vm.apiData.results.contact_email}})</a></dd>
-        <dt>Thema</dt>
-        <dd>
-            <ul ng-repeat="group in vm.apiData.results.groups">
-                <li> {{ group.title }}</li>
-            </ul>
-        </dd>
-    </dl>
-
-    <div class="u-row u-margin__bottom--2">
-
-      <span class="s-data-selection-notes" ng-bind-html="vm.apiData.results.notes"> </span>
-
+    <div class="u-row u-margin__bottom--4">
+        <span class="s-detail-catalogus-notes" ng-bind-html="vm.apiData.results.notes"> </span>
     </div>
-    <div class="u-margin__bottom--2">
-        <div>
-            <h3 class="o-header__subtitle">Data</h3>
 
-            <table class="o-table c-data-selection-table c-data-selection-table--full">
-                <tbody class="c-data-selection-table__content">
-                    <tr dp-follow-link="{{ resource.url }}" class="c-data-selection-table__content-row u-align--top" ng-repeat="resource in vm.apiData.results.resources">
-                        <td class="c-data-selection-table__column--type">
-                            <div class="c-data-selection-file-type c-data-selection-file-type__name c-data-selection-file-type__format-{{resource.format | lowercase }}"><span ng-if="resource.format">{{resource.format}}</span>
-                            <span ng-if="!resource.format"> ? </span></div>
+    <div class="c-detail__block">
+        <h3 class="o-header__subtitle">Data</h3>
+
+        <div class="c-detail-catalogus-table">
+            <table class="c-table c-table--click c-detail-catalogus-table__table">
+                <tbody>
+                    <tr dp-follow-link="{{ resource.url }}"
+                        class="c-table__content-row u-align--top"
+                        ng-repeat="resource in vm.apiData.results.resources">
+                        <td class="c-table__field
+                                   c-table__content-field
+                                   c-detail-catalogus-table__field
+                                   c-detail-catalogus-table__field--type">
+                            <div class="c-data-selection-file-type
+                                        c-data-selection-file-type__name
+                                        c-data-selection-file-type__format-{{resource.format | lowercase }}">
+                                <span ng-if="resource.format">{{resource.format}}</span>
+                                <span ng-if="!resource.format"> ? </span>
+                            </div>
                         </td>
-                        <td class="c-data-selection-table__column--name">
-                            <span class="c-data-selection-file__name">{{resource.name}}</span>
+                        <td class="c-table__field
+                                   c-table__content-field
+                                   c-detail-catalogus-table__field
+                                   c-detail-catalogus-table__field--name">
+                            <span class="c-detail-catalogus-table__text
+                                         c-detail-catalogus-table__text--light">{{resource.name}}</span>
                         </td>
-                        <td class="c-data-selection-table__column--description">
-                            <span ng-if="resource.description">{{resource.description}}</span>
-                            <span ng-if="!resource.description">{{resource.url}}</span>
+                        <td class="c-table__field
+                                   c-table__content-field
+                                   c-detail-catalogus-table__field
+                                   c-detail-catalogus-table__field--description">
+                            <span class="c-detail-catalogus-table__text"
+                                  ng-if="resource.description">{{resource.description}}</span>
+                            <span class="c-detail-catalogus-table__text"
+                                  ng-if="!resource.description">{{resource.url}}</span>
                         </td>
-                        <td class="c-data-selection-table__column--size u-align--right">
-                            <span ng-if="resource.size > 0" >{{resource.size | filesize}}</span>
-                            <a ng-href="{{resource.url}}" class="o-btn o-btn--inverted-block"></a>
+                        <td class="c-table__field
+                                   c-table__content-field
+                                   c-detail-catalogus-table__field
+                                   c-detail-catalogus-table__field--size
+                                   u-align--right">
+                            <span class="c-detail-catalogus-table__text"
+                                  ng-if="resource.size > 0" >{{resource.size | filesize}}</span>
+                            <a ng-href="{{resource.url}}" target="_blank" rel="noopener" class="o-btn o-btn--inverted-block"></a>
                         </td>
                     </tr>
                 </tbody>
-
             </table>
         </div>
     </div>
 
-    <div class="u-row u-margin__bottom--2">
+    <div class="u-row u-margin__bottom--4">
         <div class="u-col-md--12">
 
             <h3 class="o-header__subtitle">Tags</h3>
@@ -63,11 +86,11 @@
         </div>
     </div>
 
-    <div class="u-row u-margin__bottom--2">
+    <div class="u-row u-margin__bottom--4">
 
       <h3 class="o-header__subtitle">Licentie</h3>
       <p ng-if="!vm.apiData.results.license_url">{{vm.apiData.results.license_title}}</p>
-      <a ng-if="vm.apiData.results.license_url" class="o-btn o-btn--link" ng-href="{{ vm.apiData.results.license_url }}" target="_blank">{{vm.apiData.results.license_title}}</a>
+      <a ng-if="vm.apiData.results.license_url" class="o-btn o-btn--link" ng-href="{{ vm.apiData.results.license_url }}" target="_blank" rel="noopener">{{vm.apiData.results.license_title}}</a>
 
     </div>
 </div>

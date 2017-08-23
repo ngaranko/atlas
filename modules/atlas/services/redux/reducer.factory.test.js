@@ -1,8 +1,8 @@
 describe('The reducer factory', function () {
     var reducer,
+        $window,
         urlReducers,
         homeReducers,
-        detailReducers,
         layerSelectionReducers,
         mapReducers,
         pageReducers,
@@ -10,17 +10,24 @@ describe('The reducer factory', function () {
         straatbeeldReducers,
         dataSelectionReducers,
         printReducers,
-        inputState;
+        embedReducers,
+        inputState,
+        freeze,
+        environment;
 
     beforeEach(function () {
         angular.mock.module(
             'atlas',
             {
+                $window: {
+                    reducers: {
+                        detailReducer: angular.noop
+                    }
+                },
+                freeze: jasmine.createSpyObj('freeze', ['deepFreeze']),
+                environment: jasmine.createSpyObj('environment', ['isDevelopment']),
                 urlReducers: {
                     ACTION_A: function () {}
-                },
-                detailReducers: {
-                    ACTION_B: function () {}
                 },
                 homeReducers: {
                     ACTION_C: function () {}
@@ -45,13 +52,17 @@ describe('The reducer factory', function () {
                 },
                 printReducers: {
                     ACTION_J: function () {}
+                },
+                embedReducers: {
+                    ACTION_K: function () {}
                 }
             }
         );
 
+        // eslint-disable-next-line max-params
         angular.mock.inject(function (
+            _$window_,
             _urlReducers_,
-            _detailReducers_,
             _homeReducers_,
             _layerSelectionReducers_,
             _mapReducers_,
@@ -59,9 +70,13 @@ describe('The reducer factory', function () {
             _searchReducers_,
             _straatbeeldReducers_,
             _dataSelectionReducers_,
-            _printReducers_) {
+            _printReducers_,
+            _embedReducers_,
+            _freeze_,
+            _environment_
+        ) {
+            $window = _$window_;
             urlReducers = _urlReducers_;
-            detailReducers = _detailReducers_;
             homeReducers = _homeReducers_;
             layerSelectionReducers = _layerSelectionReducers_;
             mapReducers = _mapReducers_;
@@ -70,6 +85,9 @@ describe('The reducer factory', function () {
             straatbeeldReducers = _straatbeeldReducers_;
             dataSelectionReducers = _dataSelectionReducers_;
             printReducers = _printReducers_;
+            embedReducers = _embedReducers_;
+            freeze = _freeze_;
+            environment = _environment_;
         });
 
         const DEFAULT_STATE = {
@@ -101,11 +119,12 @@ describe('The reducer factory', function () {
             reducer = _reducer_;
             inputState = DEFAULT_STATE;
         });
+
+        environment.isDevelopment.and.returnValue(false);
     });
 
     it('groups all separate reducers and calls the appropriate one depening on the action type', function () {
         spyOn(urlReducers, 'ACTION_A').and.callThrough();
-        spyOn(detailReducers, 'ACTION_B').and.callThrough();
         spyOn(homeReducers, 'ACTION_C').and.callThrough();
         spyOn(layerSelectionReducers, 'ACTION_D').and.callThrough();
         spyOn(mapReducers, 'ACTION_E').and.callThrough();
@@ -114,6 +133,7 @@ describe('The reducer factory', function () {
         spyOn(straatbeeldReducers, 'ACTION_H').and.callThrough();
         spyOn(dataSelectionReducers, 'ACTION_I').and.callThrough();
         spyOn(printReducers, 'ACTION_J').and.callThrough();
+        spyOn(embedReducers, 'ACTION_K').and.callThrough();
 
         reducer(inputState, {type: {id: 'ACTION_A'}});
         reducer(inputState, {type: {id: 'ACTION_B'}});
@@ -125,9 +145,9 @@ describe('The reducer factory', function () {
         reducer(inputState, {type: {id: 'ACTION_H'}});
         reducer(inputState, {type: {id: 'ACTION_I'}});
         reducer(inputState, {type: {id: 'ACTION_J'}});
+        reducer(inputState, {type: {id: 'ACTION_K'}});
 
         expect(urlReducers.ACTION_A).toHaveBeenCalled();
-        expect(detailReducers.ACTION_B).toHaveBeenCalled();
         expect(homeReducers.ACTION_C).toHaveBeenCalled();
         expect(layerSelectionReducers.ACTION_D).toHaveBeenCalled();
         expect(mapReducers.ACTION_E).toHaveBeenCalled();
@@ -136,12 +156,39 @@ describe('The reducer factory', function () {
         expect(straatbeeldReducers.ACTION_H).toHaveBeenCalled();
         expect(dataSelectionReducers.ACTION_I).toHaveBeenCalled();
         expect(printReducers.ACTION_J).toHaveBeenCalled();
+        expect(embedReducers.ACTION_K).toHaveBeenCalled();
     });
 
     it('returns the oldState if the specified action type has no separate reducer', function () {
         // Note redux has some built-in action types that we can safely ignore.
-        var output = reducer(inputState, {type: 'ACTION_K'});
+        var output = reducer(inputState, {type: {id: 'ACTION_NO_REDUCER'}});
 
         expect(output).toBe(inputState);
+    });
+
+    it('deep freezes the state in development', () => {
+        const state = { foo: 'bar' };
+        spyOn(urlReducers, 'ACTION_A').and.returnValue(state);
+        environment.isDevelopment.and.returnValue(true);
+
+        reducer(inputState, {type: {id: 'ACTION_A'}});
+
+        expect(freeze.deepFreeze).toHaveBeenCalledWith(state);
+    });
+
+    it('should map vanilla reducers for cross-compatibility', function () {
+        const payload = { foo: 'bar' };
+        spyOn($window.reducers, 'detailReducer');
+        environment.isDevelopment.and.returnValue(true);
+
+        reducer(inputState, {
+            payload,
+            type: {
+                id: 'FETCH_DETAIL'
+            }
+        });
+
+        expect($window.reducers.detailReducer.calls.mostRecent().args[1])
+            .toEqual(jasmine.objectContaining({ payload, type: 'FETCH_DETAIL' }));
     });
 });

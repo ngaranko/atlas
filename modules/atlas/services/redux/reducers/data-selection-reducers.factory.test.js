@@ -1,7 +1,6 @@
 describe('The dataSelectionReducers factory', function () {
     let dataSelectionReducers,
-        ACTIONS,
-        DRAW_TOOL_CONFIG;
+        ACTIONS;
 
     const DEFAULT_STATE = {
         map: {
@@ -31,10 +30,9 @@ describe('The dataSelectionReducers factory', function () {
     beforeEach(function () {
         angular.mock.module('atlas');
 
-        angular.mock.inject(function (_dataSelectionReducers_, _ACTIONS_, _DRAW_TOOL_CONFIG_) {
+        angular.mock.inject(function (_dataSelectionReducers_, _ACTIONS_) {
             dataSelectionReducers = _dataSelectionReducers_;
             ACTIONS = _ACTIONS_;
-            DRAW_TOOL_CONFIG = _DRAW_TOOL_CONFIG_;
         });
     });
 
@@ -229,20 +227,6 @@ describe('The dataSelectionReducers factory', function () {
 
             expect(output.dataSelection).toBeNull();
         });
-
-        it('should reset drawing mode when full screen', function () {
-            mockedState.dataSelection.view = 'TABLE';
-            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
-
-            expect(output.map.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
-        });
-
-        it('should reset drawing mode when not full screen', function () {
-            mockedState.dataSelection.view = 'LIST';
-            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
-
-            expect(output.map.drawingMode).toBeUndefined();
-        });
     });
 
     describe('RESET_DATA_SELECTION', function () {
@@ -292,20 +276,6 @@ describe('The dataSelectionReducers factory', function () {
             output = dataSelectionReducers[ACTIONS.RESET_DATA_SELECTION.id](mockedState, payload);
 
             expect(output.dataSelection).toBeNull();
-        });
-
-        it('should reset drawing mode when full screen', function () {
-            mockedState.dataSelection.view = 'TABLE';
-            output = dataSelectionReducers[ACTIONS.RESET_DATA_SELECTION.id](mockedState, payload);
-
-            expect(output.map.drawingMode).toEqual(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
-        });
-
-        it('should reset drawing mode when not full screen', function () {
-            mockedState.dataSelection.view = 'LIST';
-            output = dataSelectionReducers[ACTIONS.RESET_DATA_SELECTION.id](mockedState, payload);
-
-            expect(output.map.drawingMode).toBeUndefined();
         });
 
         it('sets the reset flag to false', function () {

@@ -1,4 +1,4 @@
-(function () {
+(() => {
     'use strict';
 
     angular
@@ -17,10 +17,11 @@
         });
 
     DpSearchResultsController.$inject = [
-        '$rootScope', '$scope', 'search', 'geosearch', 'TabHeader', 'user', 'store', 'ACTIONS'
+        '$rootScope', '$scope', 'search', 'geosearch', 'TabHeader', 'user', 'store', 'ACTIONS', 'activeOverlays'
     ];
 
-    function DpSearchResultsController ($rootScope, $scope, search, geosearch, TabHeader, user, store, ACTIONS) {
+    function DpSearchResultsController ($rootScope, $scope, search, geosearch, TabHeader, user, store, ACTIONS,
+                                        activeOverlays) {
         const vm = this;
 
         /**
@@ -57,15 +58,16 @@
             vm.isLoadMoreLoading = true;
 
             search.loadMore(vm.searchResults[0]).then(function (searchResults) {
-                vm.isLoadMoreLoading = false;
-
                 vm.searchResults[0] = searchResults;
+            }).finally(() => {
+                vm.isLoadMoreLoading = false;
             });
         };
 
         vm.showTabHeader = () => !angular.isArray(vm.location) && !vm.category;
 
         vm.meetsRequiredLevel = user.meetsRequiredLevel;
+        vm.layerWarning = '';
 
         vm.tabHeader = new TabHeader('data-datasets');
         vm.tabHeader.activeTab = vm.tabHeader.getTab('data');
@@ -80,10 +82,14 @@
         function searchByQuery (query, category) {
             const isQuery = angular.isString(query);
             if (isQuery) {
-                if (angular.isString(category) && category.length) {
-                    search.search(query, category).then(setSearchResults).then(updateWarningMessage);
-                } else {
-                    search.search(query).then(setSearchResults).then(updateWarningMessage);
+                if (user) {
+                    user.waitForAccessToken().then(() => {
+                        if (angular.isString(category) && category.length) {
+                            search.search(query, category).then(setSearchResults).then(updateWarningMessage);
+                        } else {
+                            search.search(query).then(setSearchResults).then(updateWarningMessage);
+                        }
+                    });
                 }
             }
             return isQuery;
@@ -91,15 +97,18 @@
 
         function searchByLocation (location) {
             const isLocation = angular.isArray(location);
+
             if (isLocation) {
                 geosearch.search(location).then(setSearchResults).then(updateWarningMessage);
             }
+
             return isLocation;
         }
 
         function updateWarningMessage () {
             const kadastraleSubject = vm.searchResults &&
                 vm.searchResults.find(category => category.slug === 'subject');
+
             if (kadastraleSubject) {
                 if (user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS)) {
                     delete kadastraleSubject.warning;
@@ -113,14 +122,21 @@
                         ' speciale bevoegdheden hebben.';
                 }
             }
+
+            vm.layerWarning = !vm.query ? activeOverlays.getOverlaysWarning() : '';
         }
 
         /**
          * For both SEARCH BY QUERY (with and without category) and GEOSEARCH
          */
         function setSearchResults (searchResults) {
-            const numberOfResults = searchResults.reduce(function (previous, current) {
-                return previous + current.count;
+            const numberOfResults = searchResults.reduce((previous, current) => {
+                return previous + current.count +
+                    (current.subResults
+                        ? current.subResults.reduce((subPrevious, subCurrent) => {
+                            return subPrevious + subCurrent.count;
+                        }, 0)
+                        : 0);
             }, 0);
 
             updateTabHeader(vm.query, numberOfResults);

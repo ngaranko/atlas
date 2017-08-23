@@ -1,3 +1,5 @@
+// import detailReducer from '../../../src/reducers/details';
+
 (function () {
     'use strict';
 
@@ -6,8 +8,9 @@
         .factory('reducer', reducerFactory);
 
     reducerFactory.$inject = [
+        '$window',
         'urlReducers',
-        'detailReducers',
+        'freeze',
         'homeReducers',
         'layerSelectionReducers',
         'mapReducers',
@@ -15,11 +18,15 @@
         'searchReducers',
         'straatbeeldReducers',
         'dataSelectionReducers',
-        'printReducers'
+        'printReducers',
+        'embedReducers',
+        'environment'
     ];
 
-    function reducerFactory (urlReducers,
-                             detailReducers,
+    // eslint-disable-next-line max-params
+    function reducerFactory ($window,
+                             urlReducers,
+                             freeze,
                              homeReducers,
                              layerSelectionReducers,
                              mapReducers,
@@ -27,11 +34,19 @@
                              searchReducers,
                              straatbeeldReducers,
                              dataSelectionReducers,
-                             printReducers) {
+                             printReducers,
+                             embedReducers,
+                             environment) {
         return function (oldState, action) {
             // TODO: Redux: replace
             // Warning: angular.merge is deprecated
             // -- https://docs.angularjs.org/api/ng/function/angular.merge
+
+            const detailReducers = {
+                FETCH_DETAIL: $window.reducers.detailReducer,
+                SHOW_DETAIL: $window.reducers.detailReducer
+            };
+
             var actions = angular.merge(
                 urlReducers,
                 detailReducers,
@@ -42,13 +57,26 @@
                 searchReducers,
                 straatbeeldReducers,
                 dataSelectionReducers,
-                printReducers
+                printReducers,
+                embedReducers,
+                environment
             );
+
+            if (detailReducers.hasOwnProperty(action.type.id)) {
+                action.payload = {
+                    payload: action.payload,
+                    type: action.type.id
+                };
+            }
 
             if (angular.isObject(action) &&
                 angular.isObject(action.type) &&
                 angular.isFunction(actions[action.type.id])) {
-                return actions[action.type.id](oldState, action.payload);
+                const result = actions[action.type.id](oldState, action.payload);
+                if (environment.isDevelopment()) {
+                    freeze.deepFreeze(result);
+                }
+                return result;
             } else {
                 // TODO: Redux: throw error
                 return oldState;

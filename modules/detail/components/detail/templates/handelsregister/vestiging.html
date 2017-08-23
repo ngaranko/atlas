@@ -1,5 +1,5 @@
-<div class="u-row">
-    <div class="o-header">
+<div>
+    <div class="c-detail__block">
         <dp-glossary-header
             heading="{{vm.apiData.results._display}}"
             definition="VESTIGING">
@@ -12,65 +12,66 @@
             type="danger">
             Datum einde: {{ vm.apiData.results.datum_einde | date:'dd-MM-yyyy' }}
         </dp-panel>
+
+        <dl class="c-key-value-list">
+            <dt>Eerste handelsnaam</dt>
+            <dd>{{ vm.apiData.results.naam }}</dd>
+            <dt>KvK-nummer</dt>
+            <dp-api-call endpoint="{{vm.apiData.results.maatschappelijke_activiteit}}" partial="handelsregister/kvk-nummer"></dp-api-call>
+            <dt>Postadres</dt>
+            <dd>
+                {{ vm.apiData.results.postadres.volledig_adres }}
+                <dp-message ng-if="vm.apiData.results.postadres.correctie">
+                    <span>Officieel BAG-adres niet bekend, schatting: {{ ::vm.apiData.results.postadres.query_string }}</span>
+                </dp-message>
+            </dd>
+            <dt>Bezoekadres</dt>
+            <dd>
+                {{ vm.apiData.results.bezoekadres.volledig_adres }}
+                <dp-message ng-if="vm.apiData.results.bezoekadres.correctie">
+                    <span>Officieel BAG-adres niet bekend, schatting: {{ ::vm.apiData.results.bezoekadres.query_string }}</span>
+                </dp-message>
+            </dd>
+            <dt>Indicatie non-mailing</dt>
+            <dp-api-call endpoint="{{vm.apiData.results.maatschappelijke_activiteit}}" partial="handelsregister/non-mailing"></dp-api-call>
+            <dt>Afgeschermd</dt>
+            <dd>{{ vm.apiData.results.bezoekadres.afgeschermd?'Ja':'Nee' }}</dd>
+            <dt>Type vestiging</dt>
+            <dd>
+                {{ vm.apiData.results.hoofdvestiging ? "Hoofdvestiging" : vm.apiData.results.hoofdvestiging === false ? "Nevenvestiging" : "" }}
+            </dd>
+            <dt>SBI-activiteiten</dt>
+            <dd>
+                <div ng-repeat="object in vm.apiData.results.activiteiten">
+                    {{ object.sbi_code }}: {{ object.sbi_omschrijving }}
+                </div>
+            </dd>
+            <dt>Vestigingsnummer</dt>
+            <dd> {{  vm.apiData.results.vestigingsnummer }} </dd>
+            <dt>Datum aanvang</dt>
+            <dd> {{ vm.apiData.results.datum_aanvang | date:'dd-MM-yyyy' }} </dd>
+            <dt>Datum einde</dt>
+            <dd> {{ vm.apiData.results.datum_einde | date:'dd-MM-yyyy' }} </dd>
+            <dt>Coördinaten</dt>
+            <dd ng-if="vm.apiData.results.bezoekadres.geometrie.coordinates[0]">
+                {{ vm.apiData.results.bezoekadres.geometrie.coordinates | coordinates: 'RD' }}
+                <dp-message ng-if="vm.apiData.results.bezoekadres.correctie">
+                    <span>Officiële BAG-locatie niet bekend, schatting: {{ ::vm.apiData.results.bezoekadres.query_string }}</span>
+                </dp-message>
+            </dd>
+        </dl>
     </div>
 
-    <dl class="c-key-value-list">
-        <dt>Eerste handelsnaam</dt>
-        <dd>{{ vm.apiData.results.naam }}</dd>
-        <dt>KvK-nummer</dt>
-        <dp-api-call endpoint="{{vm.apiData.results.maatschappelijke_activiteit}}" partial="handelsregister/kvk-nummer"></dp-api-call>
-        <dt>Postadres</dt>
-        <dd>
-            {{ vm.apiData.results.postadres.volledig_adres }}
-            <dp-message ng-if="vm.apiData.results.postadres.correctie">
-                <span>Officieel BAG-adres niet bekend, schatting: {{ ::vm.apiData.results.postadres.query_string }}</span>
-            </dp-message>
-        </dd>
-        <dt>Bezoekadres</dt>
-        <dd>
-            {{ vm.apiData.results.bezoekadres.volledig_adres }}
-            <dp-message ng-if="vm.apiData.results.bezoekadres.correctie">
-                <span>Officieel BAG-adres niet bekend, schatting: {{ ::vm.apiData.results.bezoekadres.query_string }}</span>
-            </dp-message>
-        </dd>
-        <dt>Indicatie non-mailing</dt>
-        <dp-api-call endpoint="{{vm.apiData.results.maatschappelijke_activiteit}}" partial="handelsregister/non-mailing"></dp-api-call>
-        <dt>Afgeschermd</dt>
-        <dd>{{ vm.apiData.results.bezoekadres.afgeschermd?'Ja':'Nee' }}</dd>
-        <dt>Type vestiging</dt>
-        <dd>
-            {{ vm.apiData.results.hoofdvestiging ? "Hoofdvestiging" : vm.apiData.results.hoofdvestiging === false ? "Nevenvestiging" : "" }}
-        </dd>
-        <dt>SBI-activiteiten</dt>
-        <dd>
-            <div ng-repeat="object in vm.apiData.results.activiteiten">
-                {{ object.sbi_code }}: {{ object.sbi_omschrijving }}
-            </div>
-        </dd>
-        <dt>Vestigingsnummer</dt>
-        <dd> {{  vm.apiData.results.vestigingsnummer }} </dd>
-        <dt>Datum aanvang</dt>
-        <dd> {{ vm.apiData.results.datum_aanvang | date:'dd-MM-yyyy' }} </dd>
-        <dt>Datum einde</dt>
-        <dd> {{ vm.apiData.results.datum_einde | date:'dd-MM-yyyy' }} </dd>
-        <dt>Coördinaten</dt>
-        <dd ng-if="vm.apiData.results.bezoekadres.geometrie.coordinates[0]">
-            {{ vm.apiData.results.bezoekadres.geometrie.coordinates | coordinates: 'RD' }}
-            <dp-message ng-if="vm.apiData.results.bezoekadres.correctie">
-                <span>Officiële BAG-locatie niet bekend, schatting: {{ ::vm.apiData.results.bezoekadres.query_string }}</span>
-            </dp-message>
-        </dd>
-    </dl>
+    <div class="c-detail__block">
+        <dp-glossary-header
+            definition="MAATSCHAPPELIJKEACTIVITEIT">
+        </dp-glossary-header>
 
-    <dp-glossary-header
-        definition="MAATSCHAPPELIJKEACTIVITEIT">
-    </dp-glossary-header>
-
-    <div class="u-margin__bottom--4">
         <dp-link type="FETCH_DETAIL"
                  payload="vm.apiData.results.maatschappelijke_activiteit"
+                 class-name="c-link c-link--arrow o-list__separate-item"
             >{{ vm.apiData.results.naam }}</dp-link>
     </div>
 
-    <dp-hr-disclaimer></dp-hr-disclaimer>
+    <div ng-include="'modules/detail/components/detail/templates/hr-disclaimer.html'"></div>
 </div>

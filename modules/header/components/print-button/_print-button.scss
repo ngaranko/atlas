@@ -1,3 +1,4 @@
 .c-print-button {
-  @include icon-button-text-left("print");
+  @extend %icon--border-hover;
+  @include icon-label-left("print", "", "red");
 }

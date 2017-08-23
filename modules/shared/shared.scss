@@ -35,6 +35,7 @@
 
 @import "components/anchor-link/anchor-link";
 @import "components/api-error/api-error";
+@import "components/link-to-page/link-to-page";
 @import "components/loading-indicator/loading-indicator";
 @import "components/message/message";
 @import "components/panel/panel";
@@ -44,5 +45,18 @@
 
 .is-print-mode {
   @import "styles/base/reset-print";
+}
+
+.is-embed-preview {
+  @import "styles/base/reset-embed-preview";
+}
+
+.is-embed {
+  @import "styles/base/reset-embed";
+}
+
+.is-print-mode,
+.is-embed-preview,
+.is-embed {
   @import "components/loading-indicator/loading-indicator-print";
 }

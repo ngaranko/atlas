@@ -4,20 +4,25 @@
             <h3 class="o-header__subtitle">Tevredenheid cijfers {{vm.year}}</h3>
             <p>Gemiddeld rapportcijfer dat bewoners geven aan hun woonomgeving</p>
 
-            <table class="o-table">
-                <tr ng-repeat="row in vm.tableData">
-                    <th scope="row">{{row.label}}</th>
-                    <td>
-                        <span class="bbga-tevredenheid__value u-background-color__thema--9">
-                            {{row.data[0].waarde | number : 1}}
-                        </span>
-                    </td>
-                    <td>
-                        <span class="bbga-tevredenheid__value u-background-color__primary--contrast">
-                            {{row.data[1].waarde | number : 1}}
-                        </span>
-                    </td>
-                </tr>
+            <table class="c-table">
+                <tbody>
+                    <tr class="c-table__content-row"
+                        ng-repeat="row in vm.tableData">
+                        <th class="c-table__field
+                                   c-table__content-field
+                                   c-table__content-field--header" scope="row">{{row.label}}</th>
+                        <td class="c-table__field c-table__content-field">
+                            <span class="bbga-tevredenheid__value u-background-color__thema--9">
+                                {{row.data[0].waarde | number : 1}}
+                            </span>
+                        </td>
+                        <td class="c-table__field c-table__content-field">
+                            <span class="bbga-tevredenheid__value u-background-color__primary--contrast">
+                                {{row.data[1].waarde | number : 1}}
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
 
             <ul class="o-list">
