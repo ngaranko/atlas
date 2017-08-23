@@ -3,7 +3,10 @@
         <dp-glossary-header definition="VERBLIJFSOBJECT" meta-data="apiData"></dp-glossary-header>
         <dl class="c-key-value-list">
             <dt>Gebruiksdoel</dt>
-            <dd>{{ apiData.results.gebruiksdoel.omschrijving }}</dd>
+            <dd ng-if="!apiData.results.gebruiksdoelen[0]"></dd>
+            <dd class="c-key-value-list__multiple-values" ng-repeat="object in apiData.results.gebruiksdoelen">
+                {{ object.omschrijving }}<span ng-if="object.omschrijving_plus">: {{ object.omschrijving_plus }}</span>
+            </dd>
             <dt>Feitelijk gebruik</dt>
             <dd>{{ apiData.results.gebruik.omschrijving }}</dd>
             <dt>Oppervlakte</dt>
