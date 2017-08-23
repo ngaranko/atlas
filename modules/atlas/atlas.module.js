@@ -1,35 +1,42 @@
 (function () {
     'use strict';
 
-    /* eslint-disable angular/window-service */
-    const Raven = window.Raven;
-    /* eslint-enable angular/window-service */
+    const moduleDependencies = [
+        // Main modules
+        'dpHeader',
+        'dpPage',
+        'dpDetail',
+        'dpSearchResults',
+        'dpLayerSelection',
+        'dpMap',
+        'dpStraatbeeld',
+        'dpDataSelection',
 
-    // Configure Raven (client library for Sentry) and register the ngRaven
-    // angular plugin with it. This needs to be done here first, so the atlas
-    // module can include ngRaven
-    Raven
-        .config('https://c2a0fef4816844efac43c156559d6fdc@sentry.io/185574')
-        .addPlugin(Raven.Plugins.Angular)
-        .install();
+        // Shared module
+        'dpShared',
+
+        // Third party modules
+        'angulartics.piwik'
+    ];
+
+    /* eslint-disable angular/window-service */
+    if (window.location.hostname === 'data.amsterdam.nl') {
+        const Raven = window.Raven;
+        /* eslint-enable angular/window-service */
+
+        // Configure Raven (client library for Sentry) and register the ngRaven
+        // angular plugin with it. This needs to be done here first, so the atlas
+        // module can include ngRaven
+        Raven
+            .config('https://e787d53c011243b59ae368a912ee6d3f@sentry.datapunt.amsterdam.nl/2')
+            .addPlugin(Raven.Plugins.Angular)
+            .install();
+
+        moduleDependencies.push('ngRaven');
+    } else {
+        angular.module('ngRaven', []).service('Raven', angular.noop);
+    }
 
     angular
-        .module('atlas', [
-            // Main modules
-            'dpHeader',
-            'dpPage',
-            'dpDetail',
-            'dpSearchResults',
-            'dpLayerSelection',
-            'dpMap',
-            'dpStraatbeeld',
-            'dpDataSelection',
-
-            // Shared module
-            'dpShared',
-
-            // Third party modules
-            'angulartics.piwik',
-            'ngRaven'
-        ]);
+        .module('atlas', moduleDependencies);
 })();
