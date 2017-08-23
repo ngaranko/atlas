@@ -771,7 +771,7 @@
                     label_short: 'Overlastgebieden - Algemeen',
                     label_long: 'Overlastgebieden - Algemeen',
                     layers: ['algemeen_overlastgebied', 'algemeen_overlastgebied_label'],
-                    minZoom: 10,
+                    minZoom: 8,
                     maxZoom: 16,
                     legend: 'maps/overlastgebieden?version=1.3.0&service' +
                     '=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=algemeen_overlastgebied&format=' +
@@ -782,7 +782,7 @@
                     label_short: 'Overlastgebieden - Dealers',
                     label_long: 'Overlastgebieden - Dealers',
                     layers: ['dealeroverlastgebied', 'dealeroverlastgebied_label'],
-                    minZoom: 10,
+                    minZoom: 8,
                     maxZoom: 16,
                     legend: 'maps/overlastgebieden?version=1.3.0&service' +
                     '=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=dealeroverlastgebied&format=' +
@@ -793,7 +793,7 @@
                     label_short: 'Overlastgebieden - Uitgaan',
                     label_long: 'Overlastgebieden - Uitgaan',
                     layers: ['uitgaansoverlastgebied', 'uitgaansoverlastgebied_label'],
-                    minZoom: 10,
+                    minZoom: 8,
                     maxZoom: 16,
                     legend: 'maps/overlastgebieden?version=1.3.0&service' +
                     '=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=uitgaansoverlastgebied&format=' +
@@ -804,7 +804,7 @@
                     label_short: 'Cameratoezichtgebieden',
                     label_long: 'Cameratoezichtgebieden',
                     layers: ['cameratoezichtgebied', 'cameratoezichtgebied_label'],
-                    minZoom: 10,
+                    minZoom: 8,
                     maxZoom: 16,
                     legend: 'maps/overlastgebieden?version=1.3.0&service' +
                     '=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=cameratoezichtgebied&format=' +
