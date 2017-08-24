@@ -57,12 +57,7 @@
                     markers: [],
                     view: view,
                     isLoading: true,
-                    isFullscreen: view !== 'LIST',
-                    geometryFilter: state.dataSelection && state.dataSelection.geometryFilter ||
-                        {
-                            markers: [],
-                            description: ''
-                        }
+                    isFullscreen: view !== 'LIST'
                 },
                 filters: {...mergeInto.filters},
                 map: angular.isObject(state.map) ? {
