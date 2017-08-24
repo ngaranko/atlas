@@ -42,6 +42,10 @@
                 dataset: 'catalogus'
             } : payload;
             mergeInto.filters = mergeInto.filters || {};
+            mergeInto.geometryFilter = mergeInto.geometryFilter || {
+                markers: [],
+                description: ''
+            };
 
             const view = mergeInto.view || state.dataSelection && state.dataSelection.view || 'TABLE';
 
