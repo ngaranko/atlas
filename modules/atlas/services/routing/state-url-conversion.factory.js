@@ -216,10 +216,6 @@
                     name: 'dataSelection.dataset',
                     type: 'string'
                 },
-                dsf: {
-                    name: 'dataSelection.filters',
-                    type: 'keyvalues'
-                },
                 dsgf: {
                     name: 'dataSelection.geometryFilter.markers',
                     type: 'base62[][]',

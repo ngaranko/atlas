@@ -340,8 +340,7 @@
                 ...state,
                 dataSelection: {
                     ...{
-                        dataset: 'bag',
-                        filters: {}
+                        dataset: 'bag'
                     },
                     ...state.dataSelection,
                     geometryFilter: payload,
@@ -354,7 +353,8 @@
                     // showing all data => make sure it will not trigger a url state
                     // change
                     reset: payload.markers.length === 0
-                }
+                },
+                filters: {}
             };
         }
     }
