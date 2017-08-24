@@ -34,6 +34,7 @@
          *
          * @returns {Object} newState
          */
+        // eslint-disable-next-line complexity
         function fetchDataSelectionReducer (state, payload) {
             const mergeInto = angular.isString(payload) ? {
                 query: payload,
