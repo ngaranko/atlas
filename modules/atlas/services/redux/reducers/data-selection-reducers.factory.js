@@ -54,13 +54,13 @@
                     view: view,
                     isLoading: true,
                     isFullscreen: view !== 'LIST',
-                    filters: angular.isString(payload) ? {} : mergeInto.filters,
                     geometryFilter: state.dataSelection && state.dataSelection.geometryFilter ||
                         {
                             markers: [],
                             description: ''
                         }
                 },
+                filters: {...mergeInto.filters},
                 map: angular.isObject(state.map) ? {
                     ...state.map,
                     isFullscreen: false,

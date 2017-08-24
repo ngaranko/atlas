@@ -44,7 +44,7 @@
                 // Initialisation methods for the url2state conversion
                 // These methods are executed after a state object has been initialized with the initialValues
                 DEFAULT: (oldState, newState, params, initialValues) => {
-                    ['atlas', 'page', 'layerSelection'].forEach(s => {
+                    ['atlas', 'page', 'layerSelection', 'filters'].forEach(s => {
                         const value = initialValues[s];
                         newState[s] = value ? {...value} : value;
                     });
@@ -103,6 +103,12 @@
 
                     return newState;
                 },
+                filters: (oldState, newState) => {
+                    if (angular.isObject(oldState)) {
+                        newState = oldState;
+                    }
+                    return newState;
+                },
                 straatbeeld: (oldState, newState) => {
                     if (angular.isObject(oldState)) {
                         newState.targetLocation = oldState.targetLocation;
@@ -128,7 +134,7 @@
                 },
                 dataSelection: {
                     markers: [],    // eg: [[52.1, 4.1], [52.2, 4.0]],
-                    filters: {},    // eg: {buurtcombinatie: 'Geuzenbuurt', buurt: 'Trompbuurt'}
+                    // filters: {},    // eg: {buurtcombinatie: 'Geuzenbuurt', buurt: 'Trompbuurt'}
                     geometryFilter: {
                         markers: []
                     },
@@ -146,6 +152,7 @@
                     // display: 'This is the _display variable as available in each endpoint',
                     // geometry: null,
                 },
+                filters: {},
                 layerSelection: {
                     isEnabled: false
                 },
@@ -244,6 +251,11 @@
                 dtfs: {
                     name: 'detail.isFullscreen',
                     type: 'boolean'
+                },
+                // filters (f)
+                f: {
+                    name: 'filters',
+                    type: 'keyvalues'
                 },
                 // header (hd, not used)
                 // layerSelection (ls)

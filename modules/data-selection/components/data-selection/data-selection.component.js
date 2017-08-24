@@ -6,7 +6,8 @@
         .component('dpDataSelection', {
             templateUrl: 'modules/data-selection/components/data-selection/data-selection.html',
             bindings: {
-                state: '<'
+                state: '<',
+                filters: '<'
             },
             controller: DpDataSelectionController,
             controllerAs: 'vm'
@@ -46,7 +47,7 @@
             return [
                 vm.state.dataset,
                 vm.state.view,
-                vm.state.filters,
+                vm.filters,
                 vm.state.geometryFilter,
                 vm.state.page,
                 vm.state.query,
@@ -57,8 +58,9 @@
         vm.tabHeader = new TabHeader('data-datasets');
         vm.tabHeader.activeTab = vm.tabHeader.getTab('datasets');
 
-        function updateTabHeader (query, count) {
+        function updateTabHeader (query, count, filters) {
             if (vm.showTabHeader()) {
+                vm.tabHeader.filters = filters;
                 vm.tabHeader.query = query;
                 vm.tabHeader.getTab('datasets').count = count;
             }
@@ -94,7 +96,7 @@
 
             dataSelectionApi.query(vm.state.dataset,
                 vm.state.view,
-                vm.state.filters,
+                vm.filters,
                 vm.currentPage,
                 vm.state.query,
                 vm.state.geometryFilter.markers)
@@ -114,7 +116,7 @@
                     vm.maxNumberOfClusteredMarkers = DATA_SELECTION_CONFIG.options.MAX_NUMBER_OF_CLUSTERED_MARKERS;
                     vm.showMessageClusteredMarkers = isListView && vm.numberOfRecords > vm.maxNumberOfClusteredMarkers;
 
-                    updateTabHeader(vm.state.query, vm.numberOfRecords);
+                    updateTabHeader(vm.state.query, vm.numberOfRecords, vm.filters);
 
                     vm.showContent =
                         vm.numberOfRecords &&
@@ -125,7 +127,7 @@
 
                     const activeFilters = angular.extend({
                         shape: angular.toJson(vm.state.geometryFilter.markers.map(([lat, lng]) => [lng, lat]))
-                    }, vm.state.filters);
+                    }, vm.filters);
 
                     if (
                         isListView &&

@@ -52,7 +52,7 @@
 
             set query (query) {
                 this._query = query;
-                this._payload = this._getPayload(query);
+                this._payload = this._getPayload(this._query, this._filters);
             }
 
             get query () {
@@ -65,6 +65,10 @@
 
             set count (value) {
                 this._count = value;
+            }
+
+            set filters (filters) {
+                this._filters = filters;
             }
         }
 
@@ -108,6 +112,10 @@
                         }
                     }
                 });
+            }
+
+            set filters (filters) {
+                this._tabs.forEach(tab => tab.filters = filters);
             }
 
             static provideCounter (action, getCount) {
