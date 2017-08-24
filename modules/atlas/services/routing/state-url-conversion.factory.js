@@ -44,7 +44,10 @@
                 // Initialisation methods for the url2state conversion
                 // These methods are executed after a state object has been initialized with the initialValues
                 DEFAULT: (oldState, newState, params, initialValues) => {
-                    ['atlas', 'page', 'layerSelection'].forEach(s => newState[s] = angular.copy(initialValues[s]));
+                    ['atlas', 'page', 'layerSelection'].forEach(s => {
+                        const value = initialValues[s];
+                        newState[s] = value ? {...value} : value;
+                    });
                     if (angular.equals(params, {})) {
                         // When no params, go to home page and show initial map
                         newState.page.name = 'home';
@@ -101,13 +104,17 @@
                     return newState;
                 },
                 straatbeeld: (oldState, newState) => {
-                    if (angular.isObject(oldState) && oldState.id === newState.id) {
-                        newState.image = oldState.image;
-                        newState.hotspots = oldState.hotspots;
-                        newState.date = oldState.date;
-                        newState.location = oldState.location;
-                        newState.isInitial = false;
-                        newState.isLoading = oldState.isLoading;
+                    if (angular.isObject(oldState)) {
+                        newState.targetLocation = oldState.targetLocation;
+
+                        if (oldState.id === newState.id) {
+                            newState.image = oldState.image;
+                            newState.hotspots = oldState.hotspots;
+                            newState.date = oldState.date;
+                            newState.location = oldState.location;
+                            newState.isInitial = false;
+                            newState.isLoading = oldState.isLoading;
+                        }
                     }
                     return newState;
                 }

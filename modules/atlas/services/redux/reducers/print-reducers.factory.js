@@ -16,29 +16,33 @@
         return reducers;
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          *
          * @returns {Object} newState
          */
-        function showPrintReducer (oldState) {
-            var newState = angular.copy(oldState);
-
-            newState.atlas.isPrintMode = true;
-
-            return newState;
+        function showPrintReducer (state) {
+            return {
+                ...state,
+                atlas: angular.isObject(state.atlas) ? {
+                    ...state.atlas,
+                    isPrintMode: true
+                } : state.atlas
+            };
         }
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          *
          * @returns {Object} newState
          */
-        function hidePrintReducer (oldState) {
-            var newState = angular.copy(oldState);
-
-            newState.atlas.isPrintMode = false;
-
-            return newState;
+        function hidePrintReducer (state) {
+            return {
+                ...state,
+                atlas: angular.isObject(state.atlas) ? {
+                    ...state.atlas,
+                    isPrintMode: false
+                } : state.atlas
+            };
         }
     }
 })();

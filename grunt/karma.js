@@ -9,24 +9,10 @@ module.exports = function (grunt) {
             reporters: ['mocha']
         },
         coverage: {
-            reporters: ['mocha', 'coverage']
+            reporters: ['mocha']
         },
         fullcoverage: {
-            reporters: ['mocha', 'coverage'],
-            options: {
-                coverageReporter: {
-                    type: 'html',
-                    dir: 'reports/coverage/',
-                    check: {
-                        global: {
-                            statements: 100,
-                            branches: 100,
-                            functions: 100,
-                            lines: 100
-                        }
-                    }
-                }
-            }
+            reporters: ['mocha']
         }
         //
         // The code below generates targets as follows:
@@ -113,7 +99,6 @@ module.exports = function (grunt) {
                                 files: allFiles,
                                 exclude: allExclude,
                                 preprocessors: {
-                                    ['modules/' + module.slug + '/**/!(*.test|*.page-objects).js']: ['coverage'],
                                     'modules/**/*.js': ['babel'],
                                     'build/temp/babel/es5tests/*.js': ['sourcemap']
                                 }

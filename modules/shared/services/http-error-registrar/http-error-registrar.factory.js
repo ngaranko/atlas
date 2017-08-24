@@ -6,9 +6,9 @@
         .factory('httpErrorRegistrar', httpErrorRegistrarFactory)
         .config($httpProvider => $httpProvider.interceptors.push('httpErrorRegistrar'));
 
-    httpErrorRegistrarFactory.inject = ['$log', '$rootScope', '$window', '$q', '$interval', 'httpStatus'];
+    httpErrorRegistrarFactory.inject = ['$log', '$rootScope', '$window', '$q', '$interval', 'httpStatus', 'Raven'];
 
-    function httpErrorRegistrarFactory ($log, $rootScope, $window, $q, $interval, httpStatus) {
+    function httpErrorRegistrarFactory ($log, $rootScope, $window, $q, $interval, httpStatus, Raven) {
         $window.addEventListener('error', function (e) {
             if (e.target && e.target.src) {
                 // URL load error
@@ -18,13 +18,20 @@
                     return;
                 }
 
-                $rootScope.$applyAsync(registerServerError);
+                $rootScope.$applyAsync(() => {
+                    registerServerError();
+                    logResponse('HTTP external request error');
+                });
             }
         }, true);
 
         return {
             responseError
         };
+
+        function logResponse (message, statusCode) {
+            Raven.captureMessage(new Error(message), { tags: { statusCode } });
+        }
 
         function registerServerError () {
             httpStatus.registerError(httpStatus.SERVER_ERROR);
@@ -52,7 +59,10 @@
                     if (response.config.timeout && angular.isFunction(response.config.timeout.then)) {
                         response.config.timeout.then(
                             angular.noop,   // request has been cancelled by resolving the timeout
-                            registerServerError // Abnormal end of request
+                            () => { // Abnormal end of request
+                                registerServerError();
+                                logResponse('HTTP request ended abnormally', response.status);
+                            }
                         );
                     } else {
                         isServerError = true;
@@ -61,11 +71,14 @@
 
                 if (isServerError) {
                     registerServerError();
+                    logResponse('HTTP 5xx response', response.status);
                 } else if (isClientError) {
                     if (response && response.data && response.data.detail === 'Not found.') {
                         registerNotFoundError();
+                        logResponse('HTTP response body: Not found.', response.status);
                     } else {
                         registerServerError();
+                        logResponse('HTTP 4xx response', response.status);
                     }
                 }
             }, 0, 1);

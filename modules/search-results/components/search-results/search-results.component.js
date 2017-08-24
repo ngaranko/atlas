@@ -82,10 +82,14 @@
         function searchByQuery (query, category) {
             const isQuery = angular.isString(query);
             if (isQuery) {
-                if (angular.isString(category) && category.length) {
-                    search.search(query, category).then(setSearchResults).then(updateWarningMessage);
-                } else {
-                    search.search(query).then(setSearchResults).then(updateWarningMessage);
+                if (user) {
+                    user.waitForAccessToken().then(() => {
+                        if (angular.isString(category) && category.length) {
+                            search.search(query, category).then(setSearchResults).then(updateWarningMessage);
+                        } else {
+                            search.search(query).then(setSearchResults).then(updateWarningMessage);
+                        }
+                    });
                 }
             }
             return isQuery;
@@ -119,7 +123,7 @@
                 }
             }
 
-            vm.layerWarning = activeOverlays.getOverlaysWarning();
+            vm.layerWarning = !vm.query ? activeOverlays.getOverlaysWarning() : '';
         }
 
         /**
