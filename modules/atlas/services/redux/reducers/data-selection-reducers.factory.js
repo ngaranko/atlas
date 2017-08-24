@@ -45,6 +45,10 @@
 
             const view = mergeInto.view || state.dataSelection && state.dataSelection.view || 'TABLE';
 
+            if (mergeInto.resetFiltersFromState) {
+                mergeInto.filters = state.filters;
+            }
+
             return {
                 ...state,
                 dataSelection: {
