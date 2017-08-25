@@ -25,10 +25,10 @@
         $scope.$watchGroup(['vm.dataset', 'vm.textFilters'], updateFilters, true);
 
         vm.removeFilter = function (filterSlug) {
+            const filters = angular.copy(vm.textFilters);
             if (filterSlug === GEOMETRY_FILTER) {
-                removeGeometryFilter();
+                removeGeometryFilter(filters);
             } else {
-                const filters = angular.copy(vm.textFilters);
 
                 delete filters[filterSlug];
 
@@ -73,11 +73,12 @@
             }
         }
 
-        function removeGeometryFilter () {
+        function removeGeometryFilter (filters) {
             store.dispatch({
                 type: ACTIONS.FETCH_DATA_SELECTION,
                 payload: {
                     dataset: vm.dataset,
+                    filters,
                     resetGeometryFilter: true,
                     page: 1
                 }
@@ -89,7 +90,7 @@
                 type: ACTIONS.FETCH_DATA_SELECTION,
                 payload: {
                     dataset: vm.dataset,
-                    filters: filters,
+                    filters,
                     page: 1
                 }
             });
