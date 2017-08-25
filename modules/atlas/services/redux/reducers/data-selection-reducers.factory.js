@@ -43,15 +43,24 @@
                 dataset: 'catalogus'
             } : payload;
             mergeInto.filters = mergeInto.filters || {};
-            mergeInto.geometryFilter = mergeInto.geometryFilter || {
-                markers: [],
-                description: ''
-            };
 
             const view = mergeInto.view || state.dataSelection && state.dataSelection.view || 'TABLE';
 
             if (mergeInto.resetFiltersFromState) {
                 mergeInto.filters = state.filters;
+            }
+
+            let geometryFilter = state.dataSelection && state.dataSelection.geometryFilter ||
+                {
+                    markers: [],
+                    description: ''
+                };
+
+            if (mergeInto.resetGeometryFilter) {
+                geometryFilter = {
+                    markers: [],
+                    description: ''
+                };
             }
 
             return {
@@ -62,7 +71,13 @@
                     markers: [],
                     view: view,
                     isLoading: true,
-                    isFullscreen: view !== 'LIST'
+                    isFullscreen: view !== 'LIST',
+                    geometryFilter: {...geometryFilter}
+                    // geometryFilter: state.dataSelection && state.dataSelection.geometryFilter ||
+                        // {
+                            // markers: [],
+                            // description: ''
+                        // }
                 },
                 filters: {...mergeInto.filters},
                 map: angular.isObject(state.map) ? {
