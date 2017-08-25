@@ -58,9 +58,8 @@
         vm.tabHeader = new TabHeader('data-datasets');
         vm.tabHeader.activeTab = vm.tabHeader.getTab('datasets');
 
-        function updateTabHeader (query, count, filters) {
+        function updateTabHeader (query, count) {
             if (vm.showTabHeader()) {
-                vm.tabHeader.filters = filters;
                 vm.tabHeader.query = query;
                 vm.tabHeader.getTab('datasets').count = count;
             }
@@ -116,7 +115,7 @@
                     vm.maxNumberOfClusteredMarkers = DATA_SELECTION_CONFIG.options.MAX_NUMBER_OF_CLUSTERED_MARKERS;
                     vm.showMessageClusteredMarkers = isListView && vm.numberOfRecords > vm.maxNumberOfClusteredMarkers;
 
-                    updateTabHeader(vm.state.query, vm.numberOfRecords, vm.filters);
+                    updateTabHeader(vm.state.query, vm.numberOfRecords);
 
                     vm.showContent =
                         vm.numberOfRecords &&
