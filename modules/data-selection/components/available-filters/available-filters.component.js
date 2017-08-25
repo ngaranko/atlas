@@ -25,11 +25,11 @@
         vm.showMoreThreshold = 10;
 
         vm.hasInactiveFilterOptions = function (filter) {
-            return filter.options.some(option => !vm.isFilterOptionActive(filter.slug, option.label));
+            return !filter.options.some(option => vm.isFilterOptionActive(filter.slug, option.id, option.label));
         };
 
-        vm.isFilterOptionActive = function (filterSlug, optionId) {
-            return vm.activeFilters[filterSlug] === optionId;
+        vm.isFilterOptionActive = function (filterSlug, id, label) {
+            return vm.activeFilters[filterSlug] === label || vm.activeFilters[filterSlug] === id;
         };
 
         vm.addFilter = function (filterSlug, optionId) {
