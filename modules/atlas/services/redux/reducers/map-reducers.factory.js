@@ -353,8 +353,7 @@
                     // showing all data => make sure it will not trigger a url state
                     // change
                     reset: payload.markers.length === 0
-                },
-                filters: {}
+                }
             };
         }
     }
