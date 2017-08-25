@@ -29,7 +29,6 @@
             if (filterSlug === GEOMETRY_FILTER) {
                 removeGeometryFilter(filters);
             } else {
-
                 delete filters[filterSlug];
 
                 applyFilters(filters);
