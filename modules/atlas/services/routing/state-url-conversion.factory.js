@@ -134,7 +134,6 @@
                 },
                 dataSelection: {
                     markers: [],    // eg: [[52.1, 4.1], [52.2, 4.0]],
-                    // filters: {},    // eg: {buurtcombinatie: 'Geuzenbuurt', buurt: 'Trompbuurt'}
                     geometryFilter: {
                         markers: []
                     },

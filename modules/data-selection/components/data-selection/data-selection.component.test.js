@@ -8,6 +8,7 @@ describe('The dp-data-selection component', function () {
         config,
         user,
         mockedState,
+        mockedFilters,
         mockedApiPreviewData,
         mockedApiMarkersData;
 
@@ -93,14 +94,15 @@ describe('The dp-data-selection component', function () {
         mockedState = {
             view: 'TABLE',
             dataset: 'zwembaden',
-            filters: {
-                type: 'Buitenbad'
-            },
             geometryFilter: {
                 markers: [[1, 2]]
             },
             page: 2,
             isLoading: false
+        };
+
+        mockedFilters = {
+            type: 'Buitenbad'
         };
 
         mockedApiPreviewData = {
@@ -125,12 +127,14 @@ describe('The dp-data-selection component', function () {
         spyOn(user, 'meetsRequiredLevel').and.returnValue(true);
     });
 
-    function getComponent (state) {
+    function getComponent (state, filters) {
         const element = document.createElement('dp-data-selection');
         element.setAttribute('state', 'state');
+        element.setAttribute('filters', 'filters');
 
         const scope = $rootScope.$new();
         scope.state = state;
+        scope.filters = filters;
 
         const component = $compile(element)(scope);
         scope.$apply();
@@ -139,16 +143,16 @@ describe('The dp-data-selection component', function () {
     }
 
     it('retrieves the available-filters and table data and passes it to it\'s child directives', function () {
-        const component = getComponent(mockedState);
+        const component = getComponent(mockedState, mockedFilters);
         const scope = component.isolateScope();
 
         expect(component.find('dp-data-selection-available-filters').length).toBe(1);
         expect(component.find('dp-data-selection-available-filters').attr('dataset')).toBe('zwembaden');
         expect(component.find('dp-data-selection-available-filters').attr('available-filters'))
             .toBe('vm.availableFilters');
-        expect(component.find('dp-data-selection-available-filters').attr('active-filters')).toBe('vm.state.filters');
+        expect(component.find('dp-data-selection-available-filters').attr('active-filters')).toBe('vm.filters');
         expect(scope.vm.availableFilters).toBe(mockedApiPreviewData.filters);
-        expect(scope.vm.state.filters).toEqual({
+        expect(scope.vm.filters).toEqual({
             type: 'Buitenbad'
         });
 
@@ -167,14 +171,14 @@ describe('The dp-data-selection component', function () {
 
     it('hides the available-filters when no results are found', () => {
         mockedApiPreviewData.numberOfRecords = 0;
-        const component = getComponent(mockedState);
+        const component = getComponent(mockedState, mockedFilters);
         expect(component.find('dp-data-selection-available-filters').length).toBe(0);
     });
 
     it('hides the tab header in CARDS view when no search query is provided', function () {
         mockedState.view = 'CARDS';
         mockedState.query = '';
-        const component = getComponent(mockedState);
+        const component = getComponent(mockedState, mockedFilters);
         const scope = component.isolateScope();
         expect(scope.vm.showTabHeader()).toBe(false);
         expect(component.find('dp-tab-header').length).toBe(0);
@@ -183,7 +187,7 @@ describe('The dp-data-selection component', function () {
     it('shows the tab header in CARDS view when a search query is provided', function () {
         mockedState.view = 'CARDS';
         mockedState.query = 'foo';
-        const component = getComponent(mockedState);
+        const component = getComponent(mockedState, mockedFilters);
         const scope = component.isolateScope();
         expect(scope.vm.showTabHeader()).toBe(true);
         expect(component.find('dp-tab-header').length).toBe(1);
@@ -194,7 +198,7 @@ describe('The dp-data-selection component', function () {
             [{}, {filter: 'any filter'}].forEach(filters => {
                 mockedState.view = view;
                 mockedState.filters = filters;
-                const component = getComponent(mockedState);
+                const component = getComponent(mockedState, mockedFilters);
                 const scope = component.isolateScope();
                 expect(scope.vm.showTabHeader()).toBe(false);
                 expect(component.find('dp-tab-header').length).toBe(0);
@@ -206,21 +210,21 @@ describe('The dp-data-selection component', function () {
         let component;
 
         mockedState.view = 'TABLE';
-        component = getComponent(mockedState);
+        component = getComponent(mockedState, mockedFilters);
         expect(component.find('dp-data-selection-table').length).toBe(1);
         expect(component.find('dp-data-selection-table').attr('content')).toBe('vm.data');
         expect(component.find('dp-data-selection-list').length).toBe(0);
         expect(component.find('dp-data-selection-cards').length).toBe(0);
 
         mockedState.view = 'LIST';
-        component = getComponent(mockedState);
+        component = getComponent(mockedState, mockedFilters);
         expect(component.find('dp-data-selection-list').length).toBe(1);
         expect(component.find('dp-data-selection-list').attr('content')).toBe('vm.data');
         expect(component.find('dp-data-selection-table').length).toBe(0);
         expect(component.find('dp-data-selection-cards').length).toBe(0);
 
         mockedState.view = 'CARDS';
-        component = getComponent(mockedState);
+        component = getComponent(mockedState, mockedFilters);
         expect(component.find('dp-data-selection-cards').length).toBe(1);
         expect(component.find('dp-data-selection-cards').attr('content')).toBe('vm.data');
         expect(component.find('dp-data-selection-list').length).toBe(0);
@@ -228,7 +232,7 @@ describe('The dp-data-selection component', function () {
     });
 
     it('retrieves new data when the state changes', function () {
-        const component = getComponent(mockedState);
+        const component = getComponent(mockedState, mockedFilters);
         const scope = component.isolateScope();
 
         expect(dataSelectionApi.query).toHaveBeenCalledTimes(1);
@@ -246,7 +250,7 @@ describe('The dp-data-selection component', function () {
         it('dispatches the RESET_DATA_SELECTION action when state.reset is set', () => {
             mockedState.view = 'TABLE';
             mockedState.reset = true;
-            getComponent(mockedState);
+            getComponent(mockedState, mockedFilters);
 
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.RESET_DATA_SELECTION,
@@ -265,7 +269,7 @@ describe('The dp-data-selection component', function () {
 
         it('sends an empty Array if the TABLE or CARDS view is active', function () {
             mockedState.view = 'TABLE';
-            getComponent(mockedState);
+            getComponent(mockedState, mockedFilters);
 
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.SHOW_DATA_SELECTION,
@@ -288,7 +292,7 @@ describe('The dp-data-selection component', function () {
             // It should still send data with less than MAX_NUMBER_OF_CLUSTERED_MARKERS
             mockedApiPreviewData.numberOfRecords = 1000;
 
-            getComponent(mockedState);
+            getComponent(mockedState, mockedFilters);
 
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.SHOW_DATA_SELECTION,
@@ -302,7 +306,7 @@ describe('The dp-data-selection component', function () {
             // It should send an empty Array with more than MAX_NUMBER_OF_CLUSTERED_MARKERS
             mockedApiPreviewData.numberOfRecords = 1001;
 
-            getComponent(mockedState);
+            getComponent(mockedState, mockedFilters);
 
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.SHOW_DATA_SELECTION,
@@ -313,7 +317,7 @@ describe('The dp-data-selection component', function () {
         it('sends locations (LIST view) when there are less than MAX_NUMBER_OF_CLUSTERED_MARKERS', function () {
             mockedState.view = 'LIST';
 
-            getComponent(mockedState);
+            getComponent(mockedState, mockedFilters);
 
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.SHOW_DATA_SELECTION,
@@ -329,14 +333,14 @@ describe('The dp-data-selection component', function () {
     describe('it has a technical limit for the MAX_AVAILABLE_PAGES', function () {
         it('shows the content on pages up to this limit', function () {
             mockedState.page = 5;
-            const component = getComponent(mockedState);
+            const component = getComponent(mockedState, mockedFilters);
 
             expect(component.find('dp-data-selection-table').length).toBe(1);
         });
 
         it('doesn\'t show the content for pages above this limit', function () {
             mockedState.page = 6;
-            const component = getComponent(mockedState);
+            const component = getComponent(mockedState, mockedFilters);
 
             expect(component.find('dp-data-selection-table').length).toBe(0);
         });
@@ -346,12 +350,12 @@ describe('The dp-data-selection component', function () {
 
             // Don't show the message
             mockedState.page = 5;
-            component = getComponent(mockedState);
+            component = getComponent(mockedState, mockedFilters);
             expect(component.find('.qa-message-max-pages').length).toBe(0);
 
             // Show the message
             mockedState.page = 6;
-            component = getComponent(mockedState);
+            component = getComponent(mockedState, mockedFilters);
             expect(component.find('.qa-message-max-pages').length).toBe(1);
         });
     });
@@ -363,26 +367,26 @@ describe('The dp-data-selection component', function () {
 
             // Don't show the message
             mockedApiPreviewData.numberOfRecords = 1000;
-            component = getComponent(mockedState);
+            component = getComponent(mockedState, mockedFilters);
             expect(component.find('.qa-message-clustered-markers').length).toBe(0);
 
             // Show the message
             mockedApiPreviewData.numberOfRecords = 1001;
-            component = getComponent(mockedState);
+            component = getComponent(mockedState, mockedFilters);
             expect(component.find('.qa-message-clustered-markers').length).toBe(1);
         });
 
         it('is not shown on the CARDS view', () => {
             mockedState.view = 'CARDS';
             mockedApiPreviewData.numberOfRecords = 1001;
-            const component = getComponent(mockedState);
+            const component = getComponent(mockedState, mockedFilters);
             expect(component.find('.qa-message-clustered-markers').length).toBe(0);
         });
 
         it('is not shown on the TABLE view', () => {
             mockedState.view = 'TABLE';
             mockedApiPreviewData.numberOfRecords = 1001;
-            const component = getComponent(mockedState);
+            const component = getComponent(mockedState, mockedFilters);
             expect(component.find('.qa-message-clustered-markers').length).toBe(0);
         });
     });
@@ -392,7 +396,7 @@ describe('The dp-data-selection component', function () {
         mockedApiPreviewData.numberOfRecords = 1001;
         mockedState.view = 'LIST'; // required to even show cluster message
 
-        const component = getComponent(mockedState);
+        const component = getComponent(mockedState, mockedFilters);
 
         expect(component.find('.qa-message-max-pages').text()).toContain('de eerste 5 pagina\'s');
         expect(component.find('.qa-message-clustered-markers').text()).toContain('niet meer dan 1.000 resultaten');
@@ -400,7 +404,7 @@ describe('The dp-data-selection component', function () {
 
     it('does not show data when not allowed', () => {
         // Normally it's there
-        const component = getComponent(mockedState);
+        const component = getComponent(mockedState, mockedFilters);
         expect(component.find('.qa-data-grid').length).toBe(1);
 
         // With required authentication level
@@ -408,7 +412,7 @@ describe('The dp-data-selection component', function () {
         // which the user does not have
         user.meetsRequiredLevel.and.returnValue(false);
 
-        const disabledComponent = getComponent(mockedState);
+        const disabledComponent = getComponent(mockedState, mockedFilters);
 
         // It is not shown
         expect(user.meetsRequiredLevel).toHaveBeenCalledWith('EMPLOYEE');
