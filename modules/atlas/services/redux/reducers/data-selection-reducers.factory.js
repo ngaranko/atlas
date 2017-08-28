@@ -48,6 +48,7 @@
 
             if (mergeInto.resetFiltersFromState) {
                 mergeInto.filters = state.filters;
+                delete mergeInto.resetFiltersFromState;
             }
 
             let geometryFilter = state.dataSelection && state.dataSelection.geometryFilter ||
@@ -61,6 +62,7 @@
                     markers: [],
                     description: ''
                 };
+                delete mergeInto.resetGeometryFilter;
             }
 
             return {
@@ -73,11 +75,6 @@
                     isLoading: true,
                     isFullscreen: view !== 'LIST',
                     geometryFilter: {...geometryFilter}
-                    // geometryFilter: state.dataSelection && state.dataSelection.geometryFilter ||
-                        // {
-                            // markers: [],
-                            // description: ''
-                        // }
                 },
                 filters: {...mergeInto.filters},
                 map: angular.isObject(state.map) ? {
