@@ -78,6 +78,7 @@
                 payload: {
                     dataset: vm.dataset,
                     filters,
+                    updateFilters: true,
                     resetGeometryFilter: true,
                     page: 1
                 }
@@ -90,6 +91,7 @@
                 payload: {
                     dataset: vm.dataset,
                     filters,
+                    updateFilters: true,
                     page: 1
                 }
             });

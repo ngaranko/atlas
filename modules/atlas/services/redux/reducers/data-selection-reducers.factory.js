@@ -45,10 +45,16 @@
             mergeInto.filters = mergeInto.filters || {};
 
             const view = mergeInto.view || state.dataSelection && state.dataSelection.view || 'TABLE';
+            let filters;
 
-            if (mergeInto.resetFiltersFromState) {
-                mergeInto.filters = state.filters;
-                delete mergeInto.resetFiltersFromState;
+            if (mergeInto.updateFilters) {
+                filters = {...mergeInto.filters};
+                delete mergeInto.updateFilters;
+            } else {
+                filters = {
+                    ...state.filters,
+                    ...mergeInto.filters
+                };
             }
 
             let geometryFilter = state.dataSelection && state.dataSelection.geometryFilter ||
@@ -76,7 +82,7 @@
                     isFullscreen: view !== 'LIST',
                     geometryFilter: {...geometryFilter}
                 },
-                filters: {...mergeInto.filters},
+                filters: filters,
                 map: angular.isObject(state.map) ? {
                     ...state.map,
                     isFullscreen: false,
