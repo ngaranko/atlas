@@ -247,8 +247,8 @@
                     name: 'detail.isFullscreen',
                     type: 'boolean'
                 },
-                // filters (f)
-                f: {
+                // filters (f) for back compatibility using dsf
+                dsf: {
                     name: 'filters',
                     type: 'keyvalues'
                 },
