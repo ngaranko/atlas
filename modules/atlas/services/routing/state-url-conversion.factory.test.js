@@ -266,6 +266,34 @@ describe('The state url conversion definition', function () {
             });
         });
 
+        describe('The post processing for filters', function () {
+            it('copies all filters from old state', function () {
+                let oldState,
+                    newState;
+
+                oldState = {
+                    foo: 'bar'
+                };
+                newState = {
+                    foo: 'bar'
+                };
+
+                stateUrlConversion.post.filters(oldState, newState);
+                expect(newState).toEqual({
+                    foo: 'bar'
+                });
+
+                oldState = null;
+                newState = {
+                    foo: 'bar'
+                };
+
+                stateUrlConversion.post.filters(oldState, newState);
+                expect(newState).toEqual({
+                    foo: 'bar'
+                });
+            });
+        });
         describe('The post processing for straatbeeld', function () {
             it('copies image, hotspots, data, location, isInitial, isLoading from old state if equal id', function () {
                 let newState;

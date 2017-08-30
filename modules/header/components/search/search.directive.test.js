@@ -147,7 +147,7 @@ describe('The dp-search directive', () => {
         expect(store.dispatch).not.toHaveBeenCalledWith();
     });
 
-    it('can search (without using a suggestion from autocomplete)', () => {
+    it('can search (without using a suggestion from autocomplete) and will empty filters as well', () => {
         const directive = getDirective('', 'Any action');
 
         spyOn(store, 'dispatch');
@@ -162,6 +162,10 @@ describe('The dp-search directive', () => {
         expect(store.dispatch).toHaveBeenCalledWith({
             type: 'Any action',
             payload: 'query without suggestions'
+        });
+
+        expect(store.dispatch).toHaveBeenCalledWith({
+            type: ACTIONS.EMPTY_FILTERS
         });
     });
 

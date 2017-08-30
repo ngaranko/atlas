@@ -189,13 +189,9 @@ describe('The dp-data-selection-filters component', () => {
         component.find('.qa-active-filters li').eq(1).find('button').click();
 
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.FETCH_DATA_SELECTION,
+            type: ACTIONS.APPLY_FILTERS,
             payload: {
-                dataset: 'my_special_dataset',
-                filters: {
-                    filter_a_new: 'optie-a-2'
-                },
-                page: 1
+                filter_a_new: 'optie-a-2'
             }
         });
     });
@@ -216,7 +212,6 @@ describe('The dp-data-selection-filters component', () => {
             type: ACTIONS.FETCH_DATA_SELECTION,
             payload: {
                 dataset: 'my_special_dataset',
-                filters: activeFilters,
                 resetGeometryFilter: true,
                 page: 1
             }

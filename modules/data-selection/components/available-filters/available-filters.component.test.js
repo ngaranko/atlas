@@ -167,13 +167,9 @@ describe('The dp-data-selection-available-filters component', function () {
             component.find('ul').eq(0).find('li').eq(1).find('button').click();
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DATA_SELECTION,
+                type: ACTIONS.APPLY_FILTERS,
                 payload: {
-                    dataset: 'my_special_dataset',
-                    filters: {
-                        filter_a_new: 'optie-a-2'
-                    },
-                    page: 1
+                    filter_a_new: 'optie-a-2'
                 }
             });
         });
@@ -188,14 +184,10 @@ describe('The dp-data-selection-available-filters component', function () {
             component.find('.qa-available-filters ul').eq(1).find('li').eq(0).find('button').click();
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DATA_SELECTION,
+                type: ACTIONS.APPLY_FILTERS,
                 payload: {
-                    dataset: 'my_special_dataset',
-                    filters: {
-                        filter_a_new: 'optie-a-2',
-                        filterb: 'optie-b-1'
-                    },
-                    page: 1
+                    filter_a_new: 'optie-a-2',
+                    filterb: 'optie-b-1'
                 }
             });
         });
@@ -211,15 +203,11 @@ describe('The dp-data-selection-available-filters component', function () {
             component.find('.qa-available-filters ul').eq(1).find('li').eq(1).find('button').click();
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DATA_SELECTION,
+                type: ACTIONS.APPLY_FILTERS,
                 payload: {
-                    dataset: 'my_special_dataset',
-                    filters: {
-                        filter_a_new: 'optie-a-2',
-                        // filterb: 'Optie B-1' is no longer active now
-                        filterb: 'optie-b-2'
-                    },
-                    page: 1
+                    filter_a_new: 'optie-a-2',
+                    // filterb: 'Optie B-1' is no longer active now
+                    filterb: 'optie-b-2'
                 }
             });
         });
