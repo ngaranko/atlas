@@ -42,20 +42,8 @@
                 view: 'CARDS',
                 dataset: 'catalogus'
             } : payload;
-            mergeInto.filters = mergeInto.filters || {};
 
             const view = mergeInto.view || state.dataSelection && state.dataSelection.view || 'TABLE';
-            let filters;
-
-            if (mergeInto.updateFilters) {
-                filters = {...mergeInto.filters};
-                delete mergeInto.updateFilters;
-            } else {
-                filters = {
-                    ...state.filters,
-                    ...mergeInto.filters
-                };
-            }
 
             let geometryFilter = state.dataSelection && state.dataSelection.geometryFilter ||
                 {
@@ -82,7 +70,6 @@
                     isFullscreen: view !== 'LIST',
                     geometryFilter: {...geometryFilter}
                 },
-                filters: filters,
                 map: angular.isObject(state.map) ? {
                     ...state.map,
                     isFullscreen: false,

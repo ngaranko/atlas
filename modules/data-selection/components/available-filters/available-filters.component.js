@@ -81,12 +81,8 @@
 
         function applyFilters (filters) {
             store.dispatch({
-                type: ACTIONS.FETCH_DATA_SELECTION,
-                payload: {
-                    dataset: vm.dataset,
-                    filters: filters,
-                    page: 1
-                }
+                type: ACTIONS.APPLY_FILTERS,
+                payload: filters
             });
         }
     }

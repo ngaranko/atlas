@@ -10,9 +10,23 @@
     function filtersReducersFactory (ACTIONS) {
         var reducers = {};
 
+        reducers[ACTIONS.APPLY_FILTERS.id] = applyFiltersReducer;
         reducers[ACTIONS.EMPTY_FILTERS.id] = emptyFiltersReducer;
 
         return reducers;
+
+        /**
+         * @param {Object} state
+         * @param {Object} payload
+         *
+         * @returns {Object} newState
+         */
+        function applyFiltersReducer (state, payload) {
+            return {
+                ...state,
+                filters: {...payload}
+            };
+        }
 
         /**
          * @param {Object} state
@@ -20,7 +34,6 @@
          * @returns {Object} newState
          */
         function emptyFiltersReducer (state) {
-            console.log('EMPTY_FILTERS');
             return {
                 ...state,
                 filters: {}

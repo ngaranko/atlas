@@ -27,7 +27,7 @@
         vm.removeFilter = function (filterSlug) {
             const filters = angular.copy(vm.textFilters);
             if (filterSlug === GEOMETRY_FILTER) {
-                removeGeometryFilter(filters);
+                removeGeometryFilter();
             } else {
                 delete filters[filterSlug];
 
@@ -77,8 +77,6 @@
                 type: ACTIONS.FETCH_DATA_SELECTION,
                 payload: {
                     dataset: vm.dataset,
-                    filters,
-                    updateFilters: true,
                     resetGeometryFilter: true,
                     page: 1
                 }
@@ -87,13 +85,8 @@
 
         function applyFilters (filters) {
             store.dispatch({
-                type: ACTIONS.FETCH_DATA_SELECTION,
-                payload: {
-                    dataset: vm.dataset,
-                    filters,
-                    updateFilters: true,
-                    page: 1
-                }
+                type: ACTIONS.APPLY_FILTERS,
+                payload: filters
             });
         }
     }
