@@ -59,6 +59,12 @@
                 delete mergeInto.resetGeometryFilter;
             }
 
+            let filters = {...state.filters};
+            if (mergeInto.emptyFilters) {
+                filters = {};
+                delete mergeInto.emptyFilters;
+            }
+
             return {
                 ...state,
                 dataSelection: {
@@ -76,6 +82,7 @@
                     // LIST loading might include markers => set map loading accordingly
                     isLoading: view === 'LIST'
                 } : state.map,
+                filters,
                 page: angular.isObject(state.page) ? {
                     ...state.page,
                     name: null
