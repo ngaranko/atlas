@@ -98,12 +98,12 @@ describe('The search title factory', function () {
 
         // When searching by query
         titleData = searchTitle.getTitleData(0, 'westerpark', null, null);
-        expect(titleData.title).toBe('Geen resultaten gevonden');
+        expect(titleData.title).toBe('Geen resultaten');
         expect(titleData.subTitle).toContain('\'westerpark\'');
 
         // When searching by location
         titleData = searchTitle.getTitleData(0, null, [52.123, 4.789], null);
-        expect(titleData.title).toBe('Geen resultaten gevonden');
+        expect(titleData.title).toBe('Geen resultaten');
         expect(titleData.subTitle).toContain('X, Y (52.123, 4.789)');
     });
 });
