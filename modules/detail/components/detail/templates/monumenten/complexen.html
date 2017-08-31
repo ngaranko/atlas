@@ -6,6 +6,14 @@
             meta-data="vm.apiData">
         </dp-glossary-header>
 
+        <dp-panel
+          can-close="true"
+          is-panel-visible="vm.showMoreInfoWarning"
+          type="warning">
+            Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer gegevens te zien: beschrijving.
+            Zie <dp-link-to-page item="item9" class-name="c-link--light"></dp-link-to-page>.
+        </dp-panel>
+
         <dl class="c-key-value-list">
             <dt>Nummer</dt>
             <dd>{{ vm.apiData.results.monumentnummer_complex }}</dd>
