@@ -85,12 +85,16 @@
   },
   "dependencies": {
     "angulartics-piwik": "^1.0.6",
+    "babel-preset-react-app": "^3.0.2",
     "d3": "^3.5.17",
     "leaflet": "1.0.3",
     "leaflet-draw": "^0.4.10",
     "leaflet.wms": "^0.2.0",
     "proj4": "^2.4.3",
     "proj4leaflet": "^1.0.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.6",
     "redux": "^3.7.2"
   }
 }
