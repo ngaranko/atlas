@@ -17,6 +17,7 @@
             var state = store.getState();
 
             vm.dataSelectionState = state.dataSelection;
+            vm.filters = state.filters;
         }
     }
 })();

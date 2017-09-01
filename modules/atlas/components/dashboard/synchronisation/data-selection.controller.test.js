@@ -6,6 +6,9 @@ describe('The DataSelectionController', function () {
             dataSelection: {
                 mocked: 'things',
                 some: 'setting'
+            },
+            filters: {
+                foo: 'bar'
             }
         };
 
@@ -60,6 +63,16 @@ describe('The DataSelectionController', function () {
         expect(controller.dataSelectionState).toEqual({
             mocked: 'things',
             some: 'setting'
+        });
+    });
+
+    it('sets the filters based on the state', function () {
+        var controller;
+
+        controller = getController();
+
+        expect(controller.filters).toEqual({
+            foo: 'bar'
         });
     });
 });

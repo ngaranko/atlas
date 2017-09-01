@@ -115,6 +115,10 @@
                 if (scope.activeSuggestionIndex === -1) {
                     // Load the search results
                     store.dispatch({
+                        type: ACTIONS.EMPTY_FILTERS
+                    });
+
+                    store.dispatch({
                         type: scope.searchAction,
                         payload: scope.query
                     });
