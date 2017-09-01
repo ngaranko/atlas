@@ -26,6 +26,7 @@
                 }
 
                 scope.collapsed = true;
+                setClass();
 
                 const showMoreButton = $compile([
                     '<button class="c-show-more{{ collapsed ? \'\' : \'--less\' }}">',
@@ -39,8 +40,19 @@
                     } else {
                         element.css('max-height', initialHeight + 'px');
                     }
+
                     scope.collapsed = !scope.collapsed;
+                    setClass();
                 });
+
+                function setClass () {
+                    console.log('setClass', scope.collapsed);
+                    if (scope.collapsed) {
+                        angular.element(element).addClass('c-show-more__container--collapsed');
+                    } else {
+                        angular.element(element).removeClass('c-show-more__container--collapsed');
+                    }
+                }
 
                 element.after(showMoreButton);
             }, 0, 1);
