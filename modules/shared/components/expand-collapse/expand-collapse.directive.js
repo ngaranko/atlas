@@ -46,7 +46,8 @@
                 });
 
                 function setClass () {
-                    console.log('setClass', scope.collapsed);
+                    angular.element(element).addClass('c-show-more__container');
+
                     if (scope.collapsed) {
                         angular.element(element).addClass('c-show-more__container--collapsed');
                     } else {

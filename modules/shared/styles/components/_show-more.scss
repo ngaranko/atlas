@@ -18,9 +18,12 @@
   color: $secondary-gray60;
 }
 
-.c-show-more__container--collapsed {
+.c-show-more__container {
+  display: block !important;
   position: relative;
+}
 
+.c-show-more__container--collapsed {
   &::before {
     position: absolute;
     bottom: 0;
