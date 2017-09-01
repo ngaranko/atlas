@@ -28,7 +28,7 @@
                 scope.collapsed = true;
 
                 const showMoreButton = $compile([
-                    '<button class="c-show-more">',
+                    '<button class="c-show-more{{ collapsed ? \'\' : \'--less\' }}">',
                     '{{ collapsed ? "Toon meer" : "Toon minder" }}',
                     '</button>'
                 ].join(''))(scope);
