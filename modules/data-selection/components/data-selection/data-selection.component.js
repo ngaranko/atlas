@@ -6,7 +6,8 @@
         .component('dpDataSelection', {
             templateUrl: 'modules/data-selection/components/data-selection/data-selection.html',
             bindings: {
-                state: '<'
+                state: '<',
+                filters: '<'
             },
             controller: DpDataSelectionController,
             controllerAs: 'vm'
@@ -46,7 +47,7 @@
             return [
                 vm.state.dataset,
                 vm.state.view,
-                vm.state.filters,
+                vm.filters,
                 vm.state.geometryFilter,
                 vm.state.page,
                 vm.state.query,
@@ -94,7 +95,7 @@
 
             dataSelectionApi.query(vm.state.dataset,
                 vm.state.view,
-                vm.state.filters,
+                vm.filters,
                 vm.currentPage,
                 vm.state.query,
                 vm.state.geometryFilter.markers)
@@ -125,7 +126,7 @@
 
                     const activeFilters = angular.extend({
                         shape: angular.toJson(vm.state.geometryFilter.markers.map(([lat, lng]) => [lng, lat]))
-                    }, vm.state.filters);
+                    }, vm.filters);
 
                     if (
                         isListView &&

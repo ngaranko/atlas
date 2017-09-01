@@ -15,7 +15,7 @@
 
         // TODO: Might be worth replacing with more advanced templating that allows conditions like Mustache (#3335)
         // eslint-disable-next-line complexity
-        function getTitle (dataSelectionState) {
+        function getTitle (dataSelectionState, filtersState) {
             let output,
                 view,
                 variant,
@@ -28,7 +28,7 @@
                 CARDS: 'Datasets'
             };
 
-            if (dataSelectionState.view === 'CARDS' && Object.keys(dataSelectionState.filters).length === 0) {
+            if (dataSelectionState.view === 'CARDS' && Object.keys(filtersState).length === 0) {
                 if (dataSelectionState.query) {
                     return `Datasets met '${dataSelectionState.query}'`;
                 } else {
@@ -40,9 +40,9 @@
                 markers = dataSelectionState.geometryFilter.markers || [];
                 criteria = DATA_SELECTION_CONFIG.datasets[dataSelectionState.dataset].FILTERS
                 // Retrieve all the active filters
-                    .filter(availableFilter => angular.isDefined(dataSelectionState.filters[availableFilter.slug]))
+                    .filter(availableFilter => angular.isDefined(filtersState[availableFilter.slug]))
                     // Show the value of each active filter
-                    .map(activeFilter => dataSelectionState.filters[activeFilter.slug])
+                    .map(activeFilter => filtersState[activeFilter.slug])
                     .join(', ');
 
                 output = view;

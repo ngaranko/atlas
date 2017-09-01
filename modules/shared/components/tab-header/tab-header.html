@@ -7,7 +7,7 @@
                  class-name="c-tab-header__reset qa-go-to-catalogus"
                  payload="{
                      dataset: 'catalogus',
-                     filters: {},
+                     emptyFilters: true,
                      query: '',
                      view: 'CARDS',
                      page: 1
@@ -41,7 +41,7 @@
         </div>
     </div>
 
-    <div ng-if="vm.totalCount() === 0">       
+    <div ng-if="vm.totalCount() === 0">
         Tip: maak de zoekcriteria minder specifiek. Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer gegevens te zien, zie <dp-link-to-page item="item9"></dp-link-to-page>.
     </div>
 </div>

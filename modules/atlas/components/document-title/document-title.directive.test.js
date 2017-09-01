@@ -117,14 +117,15 @@ describe('The dp-document-title directive', function () {
             expect(moduleDocumentTitle.getTitle).not.toHaveBeenCalled();
         });
 
-        it('gets called with the item\'s state', function () {
-            const itemState = { key: 'value' };
-            spyOn(store, 'getState').and.returnValue({ page: itemState });
+        it('gets called with the item\'s state and filters', function () {
+            const itemState = { key: 'value' },
+                filterState = { foo: 'bar' };
+            spyOn(store, 'getState').and.returnValue({ page: itemState, filters: filterState });
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ page: true });
 
             getComponent();
 
-            expect(moduleDocumentTitle.getTitle).toHaveBeenCalledWith(itemState);
+            expect(moduleDocumentTitle.getTitle).toHaveBeenCalledWith(itemState, filterState);
         });
     });
 
