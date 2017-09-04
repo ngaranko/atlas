@@ -51,26 +51,34 @@
         }
 
         function addOverlay (leafletMap, layerName) {
-            getSubLayers(leafletMap, layerName).then(layer => {
-                layer.addTo(leafletMap);
+            getSubLayers(leafletMap, layerName).then(subLayers => {
+                subLayers.forEach(layer => {
+                    leafletMap.addLayer(layer);
+                });
             });
         }
 
         function removeOverlay (leafletMap, layerName) {
-            getSubLayers(leafletMap, layerName).then(layer => {
-                layer.removeFrom(leafletMap);
+            getSubLayers(leafletMap, layerName).then(subLayers => {
+                subLayers.forEach(layer => {
+                    leafletMap.removeLayer(layer);
+                });
             });
         }
 
         function showOverlay (leafletMap, layerName) {
-            getSubLayers(leafletMap, layerName).then(layer => {
-                layer.setOpacity(1);
+            getSubLayers(leafletMap, layerName).then(subLayers => {
+                subLayers.forEach(layer => {
+                    layer.setOpacity(1);
+                });
             });
         }
 
         function hideOverlay (leafletMap, layerName) {
-            getSubLayers(leafletMap, layerName).then(layer => {
-                layer.setOpacity(0);
+            getSubLayers(leafletMap, layerName).then(subLayers => {
+                subLayers.forEach(layer => {
+                    layer.setOpacity(0.01);     // opacity 0 is ignored!
+                });
             });
         }
 
@@ -79,9 +87,9 @@
 
             if (!wmsLayers[wmsLayerId] && overlays.SOURCES[overlayName]) {
                 wmsLayers[wmsLayerId] = getWmsUrl(overlayName).then(wmsUrl => {
-                    return L.tileLayer.wms(wmsUrl, {
-                        ...mapConfig.OVERLAY_OPTIONS,
-                        layers: overlays.SOURCES[overlayName].layers
+                    const wmsSource = L.WMS.source(wmsUrl, mapConfig.OVERLAY_OPTIONS);
+                    return overlays.SOURCES[overlayName].layers.map(layerName => {
+                        return wmsSource.getLayer(layerName);
                     });
                 });
             } else if (!wmsLayers[wmsLayerId]) {
