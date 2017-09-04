@@ -45,6 +45,7 @@ import '../modules/atlas/services/redux/middleware/state-to-url-middleware.facto
 import '../modules/atlas/services/redux/reducer.factory.js';
 import '../modules/atlas/services/redux/reducers/data-selection-reducers.factory.js';
 import '../modules/atlas/services/redux/reducers/embed-reducers.factory.js';
+import '../modules/atlas/services/redux/reducers/filters-reducers.factory.js';
 import '../modules/atlas/services/redux/reducers/home-reducers.factory.js';
 import '../modules/atlas/services/redux/reducers/layer-selection-reducers.factory.js';
 import '../modules/atlas/services/redux/reducers/map-reducers.factory.js';
