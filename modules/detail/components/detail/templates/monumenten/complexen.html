@@ -24,9 +24,7 @@
                 <p
                   class="c-key-value-list__content"
                   dp-expand-collapse
-                  ng-if="vm.apiData.results.beschrijving_complex">
-                    {{ vm.apiData.results.beschrijving_complex }}
-                </p>
+                  ng-if="vm.apiData.results.beschrijving_complex">{{ vm.apiData.results.beschrijving_complex.trim() }}</p>
             </dd>
         </dl>
     </div>
