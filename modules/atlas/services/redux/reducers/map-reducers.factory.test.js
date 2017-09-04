@@ -14,6 +14,7 @@ describe('The map reducers', function () {
             isFullscreen: false,
             isLoading: false
         },
+        filters: {},
         layerSelection: {
             isEnabled: false
         },
@@ -688,31 +689,18 @@ describe('The map reducers', function () {
                 output;
 
             inputState.dataSelection = {
-                dataset: 'aap',
-                filters: 'noot'
+                dataset: 'aap'
             };
+            inputState.filters = {
+                foo: 'noot'
+            };
+
             output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
                 markers: ['noot', 'mies', 'teun']
             });
-            ['dataset', 'filters'].forEach(key =>
-                expect(output.dataSelection[key]).toEqual(inputState.dataSelection[key])
-            );
-        });
 
-        it('Sets  dataset and filters of an existing dataSelection state untouched', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
-                output;
-
-            inputState.dataSelection = {
-                dataset: 'aap',
-                filters: 'noot'
-            };
-            output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
-                markers: ['noot', 'mies', 'teun']
-            });
-            ['dataset', 'filters'].forEach(key =>
-                expect(output.dataSelection[key]).toEqual(inputState.dataSelection[key])
-            );
+            expect(output.dataSelection.dataset).toEqual('aap');
+            expect(output.filters.foo).toEqual('noot');
         });
 
         it('Sets page, fullscreen, loading, view and markers of the dataSelection state', function () {

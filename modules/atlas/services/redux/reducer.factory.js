@@ -20,6 +20,7 @@
         'dataSelectionReducers',
         'printReducers',
         'embedReducers',
+        'filtersReducers',
         'environment'
     ];
 
@@ -36,6 +37,7 @@
                              dataSelectionReducers,
                              printReducers,
                              embedReducers,
+                             filtersReducers,
                              environment) {
         return function (oldState, action) {
             // TODO: Redux: replace
@@ -59,6 +61,7 @@
                 dataSelectionReducers,
                 printReducers,
                 embedReducers,
+                filtersReducers,
                 environment
             );
 
