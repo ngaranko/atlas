@@ -11,7 +11,7 @@ const src = path.resolve(root, 'src');
 const legacy = path.resolve(root, 'modules');
 const dist = path.resolve(root, 'dist');
 
-module.exports = {
+const common = {
   context: root,
   entry: {
     app: './src/index.js',
@@ -24,10 +24,6 @@ module.exports = {
   output: {
     filename: '[name].bundle.js',
     path: dist
-  },
-  devtool: 'inline-source-map',
-  devServer: {
-    contentBase: dist
   },
   resolve: {
     modules: [
@@ -149,4 +145,12 @@ module.exports = {
     }),
     new ExtractTextPlugin('main.css')
   ]
+};
+
+module.exports = {
+  common,
+  root,
+  src,
+  legacy,
+  dist
 };
