@@ -105,6 +105,8 @@ const common = {
       { from: './node_modules/proj4leaflet/src/proj4leaflet.js' },
 
       // Dumb copy of all assets for now
+      { from: './403-geen-toegang.html' },
+      { from: './favicon.png' },
       {
         from: './build/assets',
         to: 'assets'
