@@ -115,12 +115,12 @@ describe('The geometry factory', function () {
                     }
                 }
             }, {
-                // vestiging hoofddorp (een van de waardes x/y buiten range)
+                // vestiging ten westen van hoofddorp (een van de waardes x/y buiten range)
                 url: 'https://www.api-root.nl/handelsregister/vestiging/789/',
                 response: {
                     bezoekadres: {
                         geometrie: {
-                            coordinates: [108173.02, 478466.281]
+                            coordinates: [103465.60, 478466.281]
                         }
                     }
                 }
