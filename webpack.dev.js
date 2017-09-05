@@ -1,8 +1,9 @@
 const merge = require('webpack-merge');
-const {common, dist} = require('./webpack.common.js');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const {common, dist, legacy} = require('./webpack.common.js');
 
 module.exports = merge(common, {
-  devtool: 'inline-source-map',
+  devtool: 'eval-source-map',
   devServer: {
     contentBase: dist
   }
