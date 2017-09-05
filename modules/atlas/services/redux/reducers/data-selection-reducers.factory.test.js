@@ -12,6 +12,7 @@ describe('The dataSelectionReducers factory', function () {
             isFullscreen: false,
             isLoading: false
         },
+        filters: {},
         layerSelection: {
             isEnabled: false
         },
@@ -42,10 +43,10 @@ describe('The dataSelectionReducers factory', function () {
         beforeEach(function () {
             payload = {
                 dataset: 'bag',
-                filters: {
-                    buurtcombinatie: 'Geuzenbuurt',
-                    buurt: 'Trompbuurt'
-                },
+                // filters: {
+                //     buurtcombinatie: 'Geuzenbuurt',
+                //     buurt: 'Trompbuurt'
+                // },
                 page: 1
             };
         });
@@ -84,24 +85,27 @@ describe('The dataSelectionReducers factory', function () {
 
         it('sets the dataSelection dataset, filters and page', function () {
             const mockedState = angular.copy(DEFAULT_STATE);
+            mockedState.filters = {
+                buurtcombinatie: 'Geuzenbuurt',
+                buurt: 'Trompbuurt'
+            };
 
             const output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
 
             expect(output.dataSelection).toEqual(jasmine.objectContaining({
                 dataset: 'bag',
-                filters: {
-                    buurtcombinatie: 'Geuzenbuurt',
-                    buurt: 'Trompbuurt'
-                },
                 page: 1
+            }));
+
+            expect(output.filters).toEqual(jasmine.objectContaining({
+                buurtcombinatie: 'Geuzenbuurt',
+                buurt: 'Trompbuurt'
             }));
         });
 
         it('sets the dataSelection query, page, view, dataset and empties filters', function () {
             const mockedState = angular.copy(DEFAULT_STATE);
-            mockedState.filters = {
-                a: 'a'
-            };
+            mockedState.emptyFilters = true;
 
             payload = 'zoek';
 
@@ -113,21 +117,7 @@ describe('The dataSelectionReducers factory', function () {
                 view: 'CARDS',
                 dataset: 'catalogus'
             }));
-            expect(output.dataSelection.filters).toEqual({});
-        });
-
-        it('defaults the filters to an empty object', function () {
-            const mockedState = angular.copy(DEFAULT_STATE);
-
-            // Object as payload
-            delete payload.filters;
-            const fromObjectOutput = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
-            expect(fromObjectOutput.dataSelection.filters).toEqual({});
-
-            // String as payload
-            payload = 'zoek';
-            const fromStringOutput = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
-            expect(fromStringOutput.dataSelection.filters).toEqual({});
+            expect(output.filters).toEqual({});
         });
 
         it('makes the Array of markers empty', function () {
@@ -188,12 +178,12 @@ describe('The dataSelectionReducers factory', function () {
             mockedState = {
                 dataSelection: {
                     dataset: 'bag',
-                    filters: {
-                        buurtcombinatie: 'Geuzenbuurt',
-                        buurt: 'Trompbuurt'
-                    },
                     page: 1,
                     isLoading: true
+                },
+                filters: {
+                    buurtcombinatie: 'Geuzenbuurt',
+                    buurt: 'Trompbuurt'
                 },
                 map: {
                     isLoading: true
@@ -238,12 +228,12 @@ describe('The dataSelectionReducers factory', function () {
             mockedState = {
                 dataSelection: {
                     dataset: 'bag',
-                    filters: {
-                        buurtcombinatie: 'Geuzenbuurt',
-                        buurt: 'Trompbuurt'
-                    },
                     page: 1,
                     isLoading: true
+                },
+                filters: {
+                    buurtcombinatie: 'Geuzenbuurt',
+                    buurt: 'Trompbuurt'
                 },
                 map: {
                     isLoading: true
@@ -295,12 +285,12 @@ describe('The dataSelectionReducers factory', function () {
             mockedState = {
                 dataSelection: {
                     dataset: 'bag',
-                    filters: {
-                        buurtcombinatie: 'Geuzenbuurt',
-                        buurt: 'Trompbuurt'
-                    },
                     page: 1,
                     isLoading: true
+                },
+                filters: {
+                    buurtcombinatie: 'Geuzenbuurt',
+                    buurt: 'Trompbuurt'
                 },
                 map: {}
             };
@@ -348,10 +338,6 @@ describe('The dataSelectionReducers factory', function () {
 
             mockedState.dataSelection = {
                 dataset: 'bag',
-                filters: {
-                    buurtcombinatie: 'Geuzenbuurt',
-                    buurt: 'Trompbuurt'
-                },
                 page: 1
             };
 
@@ -359,10 +345,6 @@ describe('The dataSelectionReducers factory', function () {
 
             expect(output.dataSelection).toEqual({
                 dataset: 'bag',
-                filters: {
-                    buurtcombinatie: 'Geuzenbuurt',
-                    buurt: 'Trompbuurt'
-                },
                 page: 4
             });
         });

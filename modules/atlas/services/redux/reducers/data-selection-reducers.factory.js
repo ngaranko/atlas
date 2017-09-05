@@ -34,6 +34,7 @@
          *
          * @returns {Object} newState
          */
+        // eslint-disable-next-line complexity
         function fetchDataSelectionReducer (state, payload) {
             const mergeInto = angular.isString(payload) ? {
                 query: payload,
@@ -41,9 +42,28 @@
                 view: 'CARDS',
                 dataset: 'catalogus'
             } : payload;
-            mergeInto.filters = mergeInto.filters || {};
 
             const view = mergeInto.view || state.dataSelection && state.dataSelection.view || 'TABLE';
+
+            let geometryFilter = state.dataSelection && state.dataSelection.geometryFilter ||
+                {
+                    markers: [],
+                    description: ''
+                };
+
+            if (mergeInto.resetGeometryFilter) {
+                geometryFilter = {
+                    markers: [],
+                    description: ''
+                };
+                delete mergeInto.resetGeometryFilter;
+            }
+
+            let filters = {...state.filters};
+            if (mergeInto.emptyFilters) {
+                filters = {};
+                delete mergeInto.emptyFilters;
+            }
 
             return {
                 ...state,
@@ -54,12 +74,7 @@
                     view: view,
                     isLoading: true,
                     isFullscreen: view !== 'LIST',
-                    filters: angular.isString(payload) ? {} : mergeInto.filters,
-                    geometryFilter: state.dataSelection && state.dataSelection.geometryFilter ||
-                        {
-                            markers: [],
-                            description: ''
-                        }
+                    geometryFilter: {...geometryFilter}
                 },
                 map: angular.isObject(state.map) ? {
                     ...state.map,
@@ -67,6 +82,7 @@
                     // LIST loading might include markers => set map loading accordingly
                     isLoading: view === 'LIST'
                 } : state.map,
+                filters,
                 page: angular.isObject(state.page) ? {
                     ...state.page,
                     name: null

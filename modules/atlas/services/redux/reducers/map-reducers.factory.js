@@ -340,8 +340,7 @@
                 ...state,
                 dataSelection: {
                     ...{
-                        dataset: 'bag',
-                        filters: {}
+                        dataset: 'bag'
                     },
                     ...state.dataSelection,
                     geometryFilter: payload,

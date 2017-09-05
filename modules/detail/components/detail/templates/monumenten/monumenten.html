@@ -1,7 +1,7 @@
 <div>
     <div class="c-detail__block">
         <dp-glossary-header
-          definition="MONUMENT"
+          definition="MONUMENTEN"
           heading="{{ vm.apiData.results._display }}"
           meta-data="vm.apiData">
         </dp-glossary-header>
@@ -39,18 +39,14 @@
                 <p
                   class="c-key-value-list__content"
                   dp-expand-collapse
-                  ng-if="vm.apiData.results.beschrijving_monument">
-                    {{ vm.apiData.results.beschrijving_monument }}
-                </p>
+                  ng-if="vm.apiData.results.beschrijving_monument">{{ vm.apiData.results.beschrijving_monument }}</p>
             </dd>
             <dt class="c-key-value-list__key--full-width">Redengevende omschrijving</dt>
             <dd class="c-key-value-list__value--full-width">
                 <p
                   class="c-key-value-list__content"
                   dp-expand-collapse
-                  ng-if="vm.apiData.results.redengevende_omschrijving_monument">
-                    {{ vm.apiData.results.redengevende_omschrijving_monument }}
-                </p>
+                  ng-if="vm.apiData.results.redengevende_omschrijving_monument">{{ vm.apiData.results.redengevende_omschrijving_monument }}</p>
         </dl>
     </div>
 
