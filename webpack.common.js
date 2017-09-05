@@ -144,8 +144,7 @@ const common = {
         'proj4.js',
         'proj4leaflet.js',
       ]
-    }),
-    new ExtractTextPlugin('main.css')
+    })
   ]
 };
 
