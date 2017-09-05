@@ -1,4 +1,4 @@
-(function () {
+(() => {
     angular
         .module('dpMap')
         .directive('dpMap', dpMapDirective);
@@ -43,7 +43,7 @@
              * [tg-937] Wait for the next digest cycle to ensure this directive is appended to the DOM. Without being
              * added to the DOM it will have a width of 0 (zero) and that causes issues with centering the map.
              */
-            scope.$applyAsync(function () {
+            scope.$applyAsync(() => {
                 leafletMap = L.map(container, options);
 
                 panning.initialize(leafletMap);
@@ -95,9 +95,9 @@
                     }
                 }, true);
 
-                scope.$watchCollection('resize', function () {
+                scope.$watchCollection('resize', () => {
                     // Waiting for next digest cycle.
-                    scope.$applyAsync(function () {
+                    scope.$applyAsync(() => {
                         leafletMap.invalidateSize();
                     });
                 });
