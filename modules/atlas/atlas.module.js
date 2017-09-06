@@ -1,5 +1,3 @@
-const templates = require.context('..', true, /\.html$/);
-
 (function () {
     'use strict';
 
@@ -39,14 +37,5 @@ const templates = require.context('..', true, /\.html$/);
         angular.module('ngRaven', []).service('Raven', angular.noop);
     }
 
-    angular
-        .module('atlas', moduleDependencies)
-        .run(($templateCache) => {
-            templates.keys().forEach((key) => {
-                // Remove the dot from './dir/template.html' and prepend with
-                // 'modules' to get 'modules/dir/template.html'.
-                const templateId = 'modules' + key.substr(1);
-                $templateCache.put(templateId, templates(key));
-            });
-        });
+    angular.module('atlas', moduleDependencies);
 })();

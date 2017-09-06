@@ -1,7 +1,5 @@
 /* globals Marzipano */
 
-import Marzipano from 'marzipano/marzipano';
-
 (function () {
     'use strict';
 

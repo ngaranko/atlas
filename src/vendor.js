@@ -13,3 +13,8 @@ import 'imports-loader?d3!bbga_visualisatie_d3/bbga';
 import * as d3 from 'd3';
 import * as Redux from 'redux';
 import marked from 'marked';
+
+window.Marzipano = Marzipano;
+window.d3 = d3;
+window.Redux = Redux;
+window.marked = marked;

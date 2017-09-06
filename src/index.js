@@ -21,6 +21,7 @@ import detailReducer from './reducers/details';
 
 // All our modules' javascript
 import '../modules/atlas/atlas.module.js';
+import '../modules/atlas/atlas.run.js';
 import '../modules/atlas/atlas.version.js';
 import '../modules/atlas/components/dashboard/dashboard-columns.factory.js';
 import '../modules/atlas/components/dashboard/dashboard.component.js';
