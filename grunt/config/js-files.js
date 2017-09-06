@@ -2,13 +2,13 @@ var modules = require('./modules');
 
 var jsModuleFiles = module => [
     `modules/${module.slug}/${module.slug}.module.js`,
-    `modules/${module.slug}/**/!(*.test|*.page-objects|atlas.run).js`,
+    `modules/${module.slug}/**/!(*.test|*.page-objects|*.webpack|atlas.run).js`,
     `build/temp/${module.slug}.ngtemplates.js`
 ];
 
 var jsTestModuleFiles = module => [
     `modules/${module.slug}/${module.slug}.module.js`,
-    `modules/${module.slug}/**/!(*.test|*.page-objects|*.run).js`,
+    `modules/${module.slug}/**/!(*.test|*.page-objects|*.webpack|*.run).js`,
     `build/temp/${module.slug}.ngtemplates.js`
 ];
 
