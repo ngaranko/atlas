@@ -11,15 +11,18 @@ const src = path.resolve(root, 'src');
 const legacy = path.resolve(root, 'modules');
 const dist = path.resolve(root, 'dist');
 
+function isExternal(module) {
+  const context = module.context;
+  if (typeof context !== 'string') {
+    return false;
+  }
+  return context.indexOf('node_modules') !== -1 || context.indexOf('bower_components') !== -1;
+}
+
 const common = {
   context: root,
   entry: {
-    app: './src/index.js',
-    // Both the app and the vendor bundle include all third party dependencies.
-    // This makes the commons plugin extract all these dependencies and put
-    // them in the commons bundle, which leaves the vendor plugin empty. There
-    // must be a cleaner way to do this.
-    vendor: './src/vendor.js',
+    app: './src/index.js'
   },
   output: {
     filename: '[name].bundle.js',
@@ -85,7 +88,8 @@ const common = {
   plugins: [
     new CleanWebpackPlugin([dist]),
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'commons'
+      name: 'vendor',
+      minChunks: module => isExternal(module) // see https://stackoverflow.com/a/38733864
     }),
     new CopyWebpackPlugin([
       // Simply copy the leaflet styling for now

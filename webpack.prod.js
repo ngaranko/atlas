@@ -14,8 +14,6 @@ module.exports = function(env) {
     devtool: 'source-map',
     plugins: [
       new webpack.DefinePlugin({
-      }),
-      new webpack.DefinePlugin({
         '__BUILD_ID__': JSON.stringify(buildId),
         'process.env': {
           'NODE_ENV': JSON.stringify('production')
