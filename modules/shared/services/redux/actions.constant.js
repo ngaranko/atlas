@@ -199,6 +199,15 @@
             HIDE_EMBED_PREVIEW: {
                 id: 'HIDE_EMBED_PREVIEW',
                 isButton: true
+            },
+
+            APPLY_FILTERS: {
+                id: 'APPLY_FILTERS',
+                ignore: true
+            },
+            EMPTY_FILTERS: {
+                id: 'EMPTY_FILTERS',
+                ignore: true
             }
         });
 })();

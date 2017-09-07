@@ -11,6 +11,7 @@ describe('The reducer factory', function () {
         dataSelectionReducers,
         printReducers,
         embedReducers,
+        filtersReducers,
         inputState,
         freeze,
         environment;
@@ -55,6 +56,9 @@ describe('The reducer factory', function () {
                 },
                 embedReducers: {
                     ACTION_K: function () {}
+                },
+                filtersReducers: {
+                    ACTION_L: function () {}
                 }
             }
         );
@@ -72,6 +76,7 @@ describe('The reducer factory', function () {
             _dataSelectionReducers_,
             _printReducers_,
             _embedReducers_,
+            _filtersReducers_,
             _freeze_,
             _environment_
         ) {
@@ -86,6 +91,7 @@ describe('The reducer factory', function () {
             dataSelectionReducers = _dataSelectionReducers_;
             printReducers = _printReducers_;
             embedReducers = _embedReducers_;
+            filtersReducers = _filtersReducers_;
             freeze = _freeze_;
             environment = _environment_;
         });
@@ -100,6 +106,7 @@ describe('The reducer factory', function () {
                 isFullscreen: false,
                 isLoading: false
             },
+            filters: {},
             layerSelection: {
                 isEnabled: false
             },
@@ -134,6 +141,7 @@ describe('The reducer factory', function () {
         spyOn(dataSelectionReducers, 'ACTION_I').and.callThrough();
         spyOn(printReducers, 'ACTION_J').and.callThrough();
         spyOn(embedReducers, 'ACTION_K').and.callThrough();
+        spyOn(filtersReducers, 'ACTION_L').and.callThrough();
 
         reducer(inputState, {type: {id: 'ACTION_A'}});
         reducer(inputState, {type: {id: 'ACTION_B'}});
@@ -146,6 +154,7 @@ describe('The reducer factory', function () {
         reducer(inputState, {type: {id: 'ACTION_I'}});
         reducer(inputState, {type: {id: 'ACTION_J'}});
         reducer(inputState, {type: {id: 'ACTION_K'}});
+        reducer(inputState, {type: {id: 'ACTION_L'}});
 
         expect(urlReducers.ACTION_A).toHaveBeenCalled();
         expect(homeReducers.ACTION_C).toHaveBeenCalled();
@@ -157,6 +166,7 @@ describe('The reducer factory', function () {
         expect(dataSelectionReducers.ACTION_I).toHaveBeenCalled();
         expect(printReducers.ACTION_J).toHaveBeenCalled();
         expect(embedReducers.ACTION_K).toHaveBeenCalled();
+        expect(filtersReducers.ACTION_L).toHaveBeenCalled();
     });
 
     it('returns the oldState if the specified action type has no separate reducer', function () {

@@ -79,7 +79,8 @@
                     url: 'https://www.amsterdam.nl/stelselpedia/gebieden-index/catalogus/buurt/',
                     meta: ['begin_geldigheid', 'brondocument_datum', 'brondocument_naam', 'buurtidentificatie']
                 },
-                COMPLEX: {
+                // plural because service call
+                COMPLEXEN: {
                     label_singular: 'Complex',
                     label_plural: 'Complexen',
                     description: 'Een Complex is een verzameling monumenten waarvan de onderlinge samenhang een ' +
@@ -194,7 +195,8 @@
                     url: 'https://www.amsterdam.nl/stelselpedia/meetbouten-index/catalogus-amsterdams/meting/',
                     meta: []
                 },
-                MONUMENT: {
+                // plural because service call
+                MONUMENTEN: {
                     label_singular: 'Monument',
                     label_plural: 'Monumenten',
                     description: 'Een monument is een onroerende zaak (fysiek bouwwerk of historische structuur) die ' +

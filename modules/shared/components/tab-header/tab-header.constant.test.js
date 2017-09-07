@@ -19,7 +19,6 @@ describe('The TAB_HEADER_CONFIG', function () {
             dataset: 'catalogus',
             view: 'CARDS',
             query: 'payload',
-            filters: {},
             page: 1
         });
     });

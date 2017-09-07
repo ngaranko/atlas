@@ -81,7 +81,7 @@
                     stateData = current ? state[current.state] : null,
                     displayNewTitle = current && stateData && !stateData.isLoading,
                     getTitle = displayNewTitle ? current.documentTitle.getTitle : null,
-                    titleData = getTitle ? getTitle(stateData) : null,
+                    titleData = getTitle ? getTitle(stateData, state.filters) : null,
                     title = (titleData ? titleData + ' - ' : '') + baseTitle;
 
                 if (displayNewTitle) {
