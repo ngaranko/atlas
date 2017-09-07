@@ -148,7 +148,7 @@
 
         function diffOverlays (over1, over2) {
             return over1.filter(el => {
-                return !over2.find(item => item.id === el.id);
+                return !over2.some(item => item.id === el.id);
             }).map(layer => layer.id);
         }
 
