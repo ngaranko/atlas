@@ -832,7 +832,7 @@
                     label_short: 'Parkeervakken - Fiscale indeling',
                     label_long: 'Parkeervakken - Fiscale indeling',
                     layers: ['alle_parkeervakken', 'parkeervakken_label'],
-                    minZoom: 10,
+                    minZoom: 8,
                     maxZoom: 16,
                     legend: 'maps/parkeervakken?version=1.3.0&service=WMS&request=' +
                     'GetLegendGraphic&sld_version=1.1.0&layer=alle_parkeervakken&format=image/png&STYLE=de' +
@@ -844,7 +844,7 @@
                     label_short: 'Parkeervakken - Spec. bestemmingen',
                     label_long: 'Parkeervakken - Speciale bestemmingen',
                     layers: ['alle_parkeervakken', 'parkeervakken_bord'],
-                    minZoom: 10,
+                    minZoom: 8,
                     maxZoom: 16,
                     legend: 'maps/parkeervakken?version=1.3.0&service=WMS&request=' +
                     'GetLegendGraphic&sld_version=1.1.0&layer=parkeervakken_bord&format=image/png&STYLE=de' +
