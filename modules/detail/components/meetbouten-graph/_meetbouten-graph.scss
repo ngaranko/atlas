@@ -22,6 +22,12 @@
   }
 }
 
+.c-meetbout__axis-y {
+  .domain {
+    stroke: transparent;
+  }
+}
+
 .c-meetbout__line {
   background-color: $secondary-gray4;
   stroke-width: 2px;
@@ -36,4 +42,8 @@
 .c-meetbout__line--zakking-cum,
 .c-meetbout__axis--y-zakking-c {
   stroke: $thema-10;
+}
+
+.c-meetbout__background rect {
+  fill: $secondary-gray4;
 }

@@ -77,6 +77,13 @@
                     .append('g')
                     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
+                // background
+                svg.append('g')
+                    .attr('class', 'c-meetbout__background')
+                    .append('rect')
+                    .attr('width', width)
+                    .attr('height', height);
+
                 // intekenen x as
                 svg.append('g')
                     .attr('class', 'c-meetbout__axis c-meetbout__axis-x')
@@ -92,13 +99,7 @@
                 // intekenen y as zakking
                 svg.append('g')
                     .attr('class', 'c-meetbout__axis c-meetbout__axis-y')
-                    .call(yZakkingCumAxis)
-                    .append('text')
-                    .attr('transform', d3.transform('rotate(-90) translate(-185, -60)'))
-                    .attr('y', 6)
-                    .attr('dy', '.71em')
-                    .style('text-anchor', 'middle')
-                    .text('Zakking cumulatief (mm)');
+                    .call(yZakkingCumAxis);
 
                 // set y axis lines to full width of chart
                 svg.selectAll('.c-meetbout__axis-y .tick line')
