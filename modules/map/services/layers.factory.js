@@ -1,4 +1,4 @@
-(function () {
+(() => {
     'use strict';
 
     angular
@@ -12,9 +12,11 @@
             wmsLayers = {};
 
         return {
-            setBaseLayer: setBaseLayer,
-            addOverlay: addOverlay,
-            removeOverlay: removeOverlay
+            setBaseLayer,
+            addOverlay,
+            removeOverlay,
+            hideOverlay,
+            showOverlay
         };
 
         function getBaseLayerTemplate (layerName) {
@@ -60,6 +62,22 @@
             getSubLayers(leafletMap, layerName).then(subLayers => {
                 subLayers.forEach(layer => {
                     leafletMap.removeLayer(layer);
+                });
+            });
+        }
+
+        function showOverlay (leafletMap, layerName) {
+            getSubLayers(leafletMap, layerName).then(subLayers => {
+                subLayers.forEach(layer => {
+                    layer.setOpacity(1);
+                });
+            });
+        }
+
+        function hideOverlay (leafletMap, layerName) {
+            getSubLayers(leafletMap, layerName).then(subLayers => {
+                subLayers.forEach(layer => {
+                    layer.setOpacity(0.001);     // opacity 0 is ignored!
                 });
             });
         }

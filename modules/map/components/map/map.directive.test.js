@@ -1,4 +1,4 @@
-describe('The dp-map directive', function () {
+describe('The dp-map directive', () => {
     let $compile,
         $rootScope,
         L,
@@ -13,7 +13,7 @@ describe('The dp-map directive', function () {
         mockedMarkers,
         DRAW_TOOL_CONFIG;
 
-    beforeEach(function () {
+    beforeEach(() => {
         angular.mock.module(
             'dpMap',
             {
@@ -61,27 +61,27 @@ describe('The dp-map directive', function () {
             },
 
             function ($provide) {
-                $provide.factory('dpLinkDirective', function () {
+                $provide.factory('dpLinkDirective', () => {
                     return {};
                 });
 
-                $provide.factory('dpToggleLayerSelectionDirective', function () {
+                $provide.factory('dpToggleLayerSelectionDirective', () => {
                     return {};
                 });
 
-                $provide.factory('dpDrawToolDirective' + '', function () {
+                $provide.factory('dpDrawToolDirective' + '', () => {
                     return {};
                 });
 
-                $provide.factory('dpActiveOverlaysDirective', function () {
+                $provide.factory('dpActiveOverlaysDirective', () => {
                     return {};
                 });
 
-                $provide.factory('dpToggleFullscreenDirective', function () {
+                $provide.factory('dpToggleFullscreenDirective', () => {
                     return {};
                 });
 
-                $provide.factory('dpEmbedButtonDirective', function () {
+                $provide.factory('dpEmbedButtonDirective', () => {
                     return {};
                 });
             }
@@ -118,6 +118,8 @@ describe('The dp-map directive', function () {
         spyOn(layers, 'setBaseLayer');
         spyOn(layers, 'addOverlay');
         spyOn(layers, 'removeOverlay');
+        spyOn(layers, 'showOverlay');
+        spyOn(layers, 'hideOverlay');
         spyOn(highlight, 'initialize');
         spyOn(highlight, 'addMarker');
         spyOn(highlight, 'removeMarker');
@@ -172,7 +174,7 @@ describe('The dp-map directive', function () {
         return directive;
     }
 
-    it('doesn\'t initialize until the next digest cycle', function () {
+    it('doesn\'t initialize until the next digest cycle', () => {
         /**
          * This is needed to ensure that the map has a width. To have a width it needs to be appended to the DOM. And
          * adding to the DOM happens the next digest cycle.
@@ -184,7 +186,7 @@ describe('The dp-map directive', function () {
         expect(L.map).toHaveBeenCalled();
     });
 
-    it('creates a Leaflet map with options based on both the map state and mapConfig', function () {
+    it('creates a Leaflet map with options based on both the map state and mapConfig', () => {
         const directive = getDirective(mockedMapState, false, mockedMarkers);
         const element = directive.find('.qa-leaflet-map');
 
@@ -196,14 +198,14 @@ describe('The dp-map directive', function () {
         });
     });
 
-    describe('has a base layer which', function () {
-        it('is set on initialization', function () {
+    describe('has a base layer which', () => {
+        it('is set on initialization', () => {
             getDirective(mockedMapState, false, mockedMarkers);
 
             expect(layers.setBaseLayer).toHaveBeenCalledWith(mockedLeafletMap, 'topografie');
         });
 
-        it('changes when the mapState changes', function () {
+        it('changes when the mapState changes', () => {
             getDirective(mockedMapState, false, mockedMarkers);
             expect(layers.setBaseLayer).toHaveBeenCalledTimes(1);
 
@@ -215,32 +217,33 @@ describe('The dp-map directive', function () {
         });
     });
 
-    describe('has overlays which', function () {
+    describe('has overlays which', () => {
         let user,
             overlays;
 
-        beforeEach(function () {
+        beforeEach(() => {
             angular.mock.inject(function (_overlays_, _user_) {
                 overlays = _overlays_;
                 user = _user_;
             });
         });
 
-        it('can be added on initialization', function () {
+        it('can be added on initialization', () => {
             mockedMapState.overlays = [{id: 'some_overlay', isVisible: true}];
             getDirective(mockedMapState, false, mockedMarkers);
 
             expect(layers.addOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_overlay');
         });
 
-        it('can be removed on initialization', function () {
+        it('can be hidden on initialization', () => {
             mockedMapState.overlays = [{id: 'some_overlay', isVisible: false}];
             getDirective(mockedMapState, false, mockedMarkers);
 
-            expect(layers.removeOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_overlay');
+            expect(layers.addOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_overlay');
+            expect(layers.hideOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_overlay');
         });
 
-        it('can be added when the mapState changes', function () {
+        it('can be added when the mapState changes', () => {
             getDirective(mockedMapState, false, mockedMarkers);
             expect(layers.addOverlay).not.toHaveBeenCalled();
 
@@ -254,12 +257,15 @@ describe('The dp-map directive', function () {
             expect(layers.addOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_other_overlay');
         });
 
-        it('can be removed when the mapState changes', function () {
+        it('can be removed when the mapState changes', () => {
             mockedMapState.overlays = [
                 {id: 'some_overlay', isVisible: true},
                 {id: 'some_other_overlay', isVisible: true}
             ];
             getDirective(mockedMapState, false, mockedMarkers);
+
+            expect(layers.addOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_overlay');
+            expect(layers.addOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_other_overlay');
 
             expect(layers.removeOverlay).not.toHaveBeenCalled();
 
@@ -270,7 +276,7 @@ describe('The dp-map directive', function () {
             expect(layers.removeOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_other_overlay');
         });
 
-        it('is updated when the user authorization level changes', function () {
+        it('is updated when the user authorization level changes', () => {
             mockedMapState.overlays = [
                 {id: 'some_overlay', isVisible: true},
                 {id: 'some_other_overlay', isVisible: true}
@@ -291,7 +297,7 @@ describe('The dp-map directive', function () {
             expect(layers.removeOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_other_overlay');
         });
 
-        it('can be removed when isVisible changes', function () {
+        it('can be hidden when isVisible changes', () => {
             mockedMapState.overlays = [
                 {id: 'some_overlay', isVisible: true},
                 {id: 'some_other_overlay', isVisible: true}
@@ -304,21 +310,38 @@ describe('The dp-map directive', function () {
             ];
             $rootScope.$apply();
 
-            expect(layers.removeOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_overlay');
-            expect(layers.removeOverlay).not.toHaveBeenCalledWith(mockedLeafletMap, 'some_other_overlay');
+            expect(layers.hideOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_overlay');
+            expect(layers.hideOverlay).not.toHaveBeenCalledWith(mockedLeafletMap, 'some_other_overlay');
+        });
+
+        it('can be shown when isVisible changes', () => {
+            mockedMapState.overlays = [
+                {id: 'some_overlay', isVisible: false},
+                {id: 'some_other_overlay', isVisible: false}
+            ];
+            getDirective(mockedMapState, false, mockedMarkers);
+
+            mockedMapState.overlays = [
+                {id: 'some_overlay', isVisible: false},
+                {id: 'some_other_overlay', isVisible: true}
+            ];
+            $rootScope.$apply();
+
+            expect(layers.showOverlay).not.toHaveBeenCalledWith(mockedLeafletMap, 'some_overlay');
+            expect(layers.showOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_other_overlay');
         });
     });
 
-    describe('has highlight options', function () {
-        it('that gets a call to .initialize() so it can configure Leaflet variables', function () {
+    describe('has highlight options', () => {
+        it('that gets a call to .initialize() so it can configure Leaflet variables', () => {
             expect(highlight.initialize).not.toHaveBeenCalled();
 
             getDirective(mockedMapState, false, mockedMarkers);
             expect(highlight.initialize).toHaveBeenCalled();
         });
 
-        describe('that manage individual markers', function () {
-            it('can be added on initialisation', function () {
+        describe('that manage individual markers', () => {
+            it('can be added on initialisation', () => {
                 getDirective(mockedMapState, false, {
                     regular: [{id: 'FAKE_HIGHLIGHT_ITEM_A'}, {id: 'FAKE_HIGHLIGHT_ITEM_B'}],
                     clustered: []
@@ -330,7 +353,7 @@ describe('The dp-map directive', function () {
                     .toHaveBeenCalledWith(mockedLeafletMap, {id: 'FAKE_HIGHLIGHT_ITEM_B'});
             });
 
-            it('can be added by changing the input', function () {
+            it('can be added by changing the input', () => {
                 const highlightItems = {
                     regular: [
                         {id: 'FAKE_HIGHLIGHT_ITEM_A'},
@@ -348,7 +371,7 @@ describe('The dp-map directive', function () {
                     .toHaveBeenCalledWith(mockedLeafletMap, {id: 'FAKE_HIGHLIGHT_ITEM_C'});
             });
 
-            it('can be removed from the map', function () {
+            it('can be removed from the map', () => {
                 const highlightItems = {
                     regular: [
                         {id: 'FAKE_HIGHLIGHT_ITEM_A'},
@@ -370,7 +393,7 @@ describe('The dp-map directive', function () {
                 );
             });
 
-            it('deletes and re-adds changed icons', function () {
+            it('deletes and re-adds changed icons', () => {
                 const highlightItems = {
                     regular: [
                         {id: 'FAKE_HIGHLIGHT_ITEM_A', geometry: 'FAKE_GEOMETRY_A'}
@@ -407,8 +430,8 @@ describe('The dp-map directive', function () {
             });
         });
 
-        describe('that manages clustered markers', function () {
-            it('can add a group of clustered markers', function () {
+        describe('that manages clustered markers', () => {
+            it('can add a group of clustered markers', () => {
                 // Start without any clustered markers
                 const highlightItems = {
                     regular: [],
@@ -431,7 +454,7 @@ describe('The dp-map directive', function () {
                 );
             });
 
-            it('can remove a group of clustered markers', function () {
+            it('can remove a group of clustered markers', () => {
                 const highlightItems = {
                     regular: [],
                     clustered: [
@@ -452,16 +475,16 @@ describe('The dp-map directive', function () {
         });
     });
 
-    describe('panning factory', function () {
-        beforeEach(function () {
+    describe('panning factory', () => {
+        beforeEach(() => {
             getDirective(mockedMapState, false, mockedMarkers);
         });
 
-        it('is initialized', function () {
+        it('is initialized', () => {
             expect(panning.initialize).toHaveBeenCalledWith(mockedLeafletMap);
         });
 
-        it('is called whenever mapState.viewCenter changes', function () {
+        it('is called whenever mapState.viewCenter changes', () => {
             expect(panning.panTo).toHaveBeenCalledTimes(1);
             expect(panning.panTo).toHaveBeenCalledWith(mockedLeafletMap, [52.789, 4.123]);
 
@@ -473,16 +496,16 @@ describe('The dp-map directive', function () {
         });
     });
 
-    describe('zoom factory', function () {
-        beforeEach(function () {
+    describe('zoom factory', () => {
+        beforeEach(() => {
             getDirective(mockedMapState, false, mockedMarkers);
         });
 
-        it('is initialized', function () {
+        it('is initialized', () => {
             expect(zoom.initialize).toHaveBeenCalledWith(mockedLeafletMap);
         });
 
-        it('is called whenever mapState.zoom changes', function () {
+        it('is called whenever mapState.zoom changes', () => {
             expect(zoom.setZoom).toHaveBeenCalledTimes(1);
             expect(zoom.setZoom).toHaveBeenCalledWith(mockedLeafletMap, 12);
 
@@ -494,14 +517,14 @@ describe('The dp-map directive', function () {
         });
     });
 
-    it('initializes the onMapClick factory', function () {
+    it('initializes the onMapClick factory', () => {
         getDirective(mockedMapState, false, mockedMarkers);
 
         expect(onMapClick.initialize).toHaveBeenCalledWith(mockedLeafletMap);
     });
 
-    describe('resize state', function () {
-        it('invalidateSize when resize state changes', function () {
+    describe('resize state', () => {
+        it('invalidateSize when resize state changes', () => {
             const mockedResizeArray = ['1', '2'];
 
             getDirective(mockedMapState, true, mockedMarkers, true, mockedResizeArray);
