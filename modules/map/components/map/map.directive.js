@@ -160,16 +160,16 @@
             return diffOverlayVisibility(newOverlays, oldOverlays, true);
         }
 
-        function diffOverlayVisibility (over1, over2, checkFor, isInit) {
+        function diffOverlayVisibility (over1, over2, visibilityState, isInit) {
             return over1.filter((layer, index) => {
                 const old = over2[index];
 
                 if (isInit) {
-                    return layer.isVisible === checkFor;
+                    return layer.isVisible === visibilityState;
                 }
 
                 if (old && old.id === layer.id) {
-                    return old.isVisible !== layer.isVisible && layer.isVisible === checkFor;
+                    return old.isVisible !== layer.isVisible && layer.isVisible === visibilityState;
                 }
             }).map(layer => layer.id);
         }
