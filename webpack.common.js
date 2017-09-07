@@ -110,7 +110,6 @@ const common = {
 
       // Dumb copy of all assets for now
       { from: './403-geen-toegang.html' },
-      { from: './favicon.png' },
       {
         from: './build/assets',
         to: 'assets'
@@ -124,6 +123,12 @@ const common = {
     new HtmlWebpackPlugin({
       inject: false,
       template: './index.ejs',
+      minify: {
+        collapseWhitespace: true
+      },
+      lang: 'nl',
+      title: 'Dataportaal',
+      favicon: './favicon.png',
       links: [
         {
           href: 'https://fast.fonts.net/cssapi/3680cf49-2b05-4b8a-af28-fa9e27d2bed0.css',
