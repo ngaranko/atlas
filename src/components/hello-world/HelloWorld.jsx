@@ -1,11 +1,11 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 
-import DemoContainer from '../../containers/demo/DemoContainer.jsx';
+import DemoContainer from '../../containers/demo/DemoContainer';
 
 const HelloWorld = () => (
   <Provider store={window.reduxStore}>
-    <DemoContainer></DemoContainer>
+    <DemoContainer />
   </Provider>
 );
 

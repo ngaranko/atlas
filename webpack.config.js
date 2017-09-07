@@ -30,6 +30,7 @@ module.exports = {
     contentBase: dist
   },
   resolve: {
+    extensions: ['.js', '.jsx'],
     modules: [
       './node_modules',
       './bower_components',

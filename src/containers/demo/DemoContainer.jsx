@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = state => ({
   atlas: state.atlas
 });
 
