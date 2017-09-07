@@ -5,9 +5,9 @@
         .module('dpDetail')
         .directive('dpMeetboutGraph', dpMeetboutGraphDirective);
 
-    dpMeetboutGraphDirective.$inject = ['api', 'd3', 'dateConverter'];
+    dpMeetboutGraphDirective.$inject = ['api', 'd3', 'dateConverter', 'dateFormatter'];
 
-    function dpMeetboutGraphDirective (api, d3, dateConverter) {
+    function dpMeetboutGraphDirective (api, d3, dateConverter, dateFormatter) {
         return {
             restrict: 'E',
             scope: {
@@ -44,7 +44,8 @@
 
                 var xAxis = d3.svg.axis()
                     .scale(xAs)
-                    .orient('bottom');
+                    .orient('bottom')
+                    .tickFormat(dateFormatter.tickFormatter);
 
                 // Y as 1, zakking cumulatief
                 var yZakkingCum = d3.scale.linear()
@@ -78,13 +79,19 @@
 
                 // intekenen x as
                 svg.append('g')
-                    .attr('class', 'c-meetbout__axis')
+                    .attr('class', 'c-meetbout__axis c-meetbout__axis-x')
                     .attr('transform', 'translate(0,' + height + ')')
                     .call(xAxis);
 
+                // set class in whole years only
+                svg.selectAll('.c-meetbout__axis-x .tick')
+                    .attr('class', (d) => {
+                        return d.getMonth() === 0 ? 'c-meetbout__axis-x-year' : '';
+                    });
+
                 // intekenen y as zakking
                 svg.append('g')
-                    .attr('class', 'c-meetbout__axis')
+                    .attr('class', 'c-meetbout__axis c-meetbout__axis-y')
                     .call(yZakkingCumAxis)
                     .append('text')
                     .attr('transform', d3.transform('rotate(-90) translate(-185, -60)'))
@@ -92,6 +99,10 @@
                     .attr('dy', '.71em')
                     .style('text-anchor', 'middle')
                     .text('Zakking cumulatief (mm)');
+
+                // set y axis lines to full width of chart
+                svg.selectAll('.c-meetbout__axis-y .tick line')
+                    .attr('x2', width);
 
                 // tekenen grafiek zakking cumulatief
                 svg.append('path')
