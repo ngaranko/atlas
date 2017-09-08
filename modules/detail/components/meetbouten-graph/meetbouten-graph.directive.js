@@ -40,7 +40,8 @@
                     .domain(d3.extent(scope.objects, function (d) {
                         return dateConverter.ymdToDate(d.datum);
                     }))
-                    .range([0, width]);
+                    .range([0, width])
+                    .nice();
 
                 var xAxis = d3.svg.axis()
                     .scale(xAs)
