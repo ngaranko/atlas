@@ -133,7 +133,7 @@ describe('The dp-meetbout-graph directive', () => {
                     gContainer = directive.find('svg > g');
 
                 expect(gContainer).toExist();
-                expect(gContainer.attr('transform')).toBe('translate(30,15)');
+                expect(gContainer.attr('transform')).toBe('translate(35,15)');
             });
         });
 
@@ -144,7 +144,7 @@ describe('The dp-meetbout-graph directive', () => {
                     background = directive.find('svg > g > g.c-meetbout__background rect');
 
                 expect(background).toExist();
-                expect(background.attr('width')).toBe('660');
+                expect(background.attr('width')).toBe('655');
                 expect(background.attr('height')).toBe('355');
             });
         });
