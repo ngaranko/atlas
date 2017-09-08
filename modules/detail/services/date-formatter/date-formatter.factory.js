@@ -14,12 +14,12 @@
             'grouping': [3],
             'currency': ['€', ''],
             'dateTime': '%a %b %e %X %Y',
-            'date': '%d.%m.%Y',
+            'date': '%d-%m-%Y',
             'time': '%H:%M:%S',
             'periods': ['AM', 'PM'],
             'days': ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'],
             'shortDays': ['zo', 'ma', 'di', 'wo', 'do', 'vr', 'za'],
-            'months': ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'auguastus', 'september',
+            'months': ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september',
                 'oktober', 'november', 'december'],
             'shortMonths': ['jan', 'feb', 'mrt', 'apr', 'mei', 'jun', 'jul', 'agu', 'sep', 'okt', 'nov', 'dec']
         });
