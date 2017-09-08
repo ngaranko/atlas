@@ -31,7 +31,7 @@
 
                 // variabelen
                 // global
-                var margin = {top: 10, right: 60, bottom: 30, left: 30},
+                var margin = {top: 15, right: 60, bottom: 30, left: 30},
                     width = 750 - margin.left - margin.right,
                     height = 400 - margin.top - margin.bottom;
 
