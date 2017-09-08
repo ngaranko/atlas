@@ -103,9 +103,9 @@ describe('The dp-meetbout-graph directive', function () {
     describe('Dom manipulation', function () {
         describe('append Svg and g element to create the space for the graph', function () {
             it('should have added a svg to the page', function () {
-                var directive = getGraphDirective('https://api.data.amsterdam.nl' +
-                    '/meetbouten/meting/?meetbout=10581097', 3);
-                var svgContainer = directive.find('svg');
+                const directive = getGraphDirective('https://api.data.amsterdam.nl' +
+                        '/meetbouten/meting/?meetbout=10581097', 3),
+                    svgContainer = directive.find('svg');
 
                 expect(svgContainer).toExist();
                 expect(svgContainer.attr('class')).toBe('c-meetbout');
@@ -114,24 +114,36 @@ describe('The dp-meetbout-graph directive', function () {
             });
 
             it('should have added a g element for whitespace to the svg', function () {
-                var directive = getGraphDirective('https://api.data.amsterdam.nl' +
-                    '/meetbouten/meting/?meetbout=10581097', 3);
-                var gContainer = directive.find('svg > g');
+                const directive = getGraphDirective('https://api.data.amsterdam.nl' +
+                        '/meetbouten/meting/?meetbout=10581097', 3),
+                    gContainer = directive.find('svg > g');
 
                 expect(gContainer).toExist();
-                expect(gContainer.attr('transform')).toBe('translate(60,10)');
+                expect(gContainer.attr('transform')).toBe('translate(30,15)');
+            });
+        });
+
+        describe('background as', function () {
+            it('should have appended a background to the svg g:transform element ', function () {
+                const directive = getGraphDirective('https://api.data.amsterdam.nl' +
+                        '/meetbouten/meting/?meetbout=10581097', 3),
+                    background = directive.find('svg > g > g.c-meetbout__background rect');
+
+                expect(background).toExist();
+                expect(background.attr('width')).toBe('660');
+                expect(background.attr('height')).toBe('355');
             });
         });
 
         describe('x as', function () {
             it('should have appended a x axis to the svg g:transform element ', function () {
-                var directive = getGraphDirective('https://api.data.amsterdam.nl' +
-                    '/meetbouten/meting/?meetbout=10581097', 3);
-                var xAs = directive.find('svg > g > g:nth-of-type(1)');
+                const directive = getGraphDirective('https://api.data.amsterdam.nl' +
+                        '/meetbouten/meting/?meetbout=10581097', 3),
+                    xAs = directive.find('svg > g > g.c-meetbout__axis-x');
 
                 expect(xAs).toExist();
-                expect(xAs.attr('class')).toBe('c-meetbout__axis');
-                expect(xAs.attr('transform')).toBe('translate(0,360)');
+                expect(xAs.attr('class')).toBe('c-meetbout__axis c-meetbout__axis-x');
+                expect(xAs.attr('transform')).toBe('translate(0,355)');
             });
         });
 
@@ -139,23 +151,11 @@ describe('The dp-meetbout-graph directive', function () {
             it('should have appended a y axis for zakking cumulatief to the svg g:transform element ', function () {
                 var directive = getGraphDirective('https://api.data.amsterdam.nl' +
                     '/meetbouten/meting/?meetbout=10581097', 3);
-                var yZakkingCum = directive.find('svg > g > g:nth-of-type(2)');
+                var yZakkingCum = directive.find('svg > g > g.c-meetbout__axis-y');
 
                 expect(yZakkingCum).toExist();
-                expect(yZakkingCum.attr('class')).toBe('c-meetbout__axis');
-            });
-
-            it('should append a text to the yZakking axis', function () {
-                var directive = getGraphDirective('https://api.data.amsterdam.nl' +
-                    '/meetbouten/meting/?meetbout=10581097', 3);
-                var text = directive.find('svg > g > g:nth-of-type(2) > text');
-
-                expect(text).toExist();
-                // transform werkt niet, d3 bakt er uit eigen beweging dingen bij
-                expect(text.attr('y')).toBe('6');
-                expect(text.attr('dy')).toBe('.71em');
-                expect(text.attr('style')).toContain('text-anchor: middle;');
-                expect(text.text()).toBe('Zakking cumulatief (mm)');
+                expect(yZakkingCum.attr('class')).toBe('c-meetbout__axis c-meetbout__axis-y');
+                expect(yZakkingCum.attr('transform')).toBeUndefined();
             });
         });
 
@@ -163,10 +163,11 @@ describe('The dp-meetbout-graph directive', function () {
             it('should plot a line to represent the zakking cumulatief of the meetbout', function () {
                 var directive = getGraphDirective('https://api.data.amsterdam.nl' +
                     '/meetbouten/meting/?meetbout=10581097', 3);
-                var line = directive.find('svg > g > path:nth-of-type(1)');
+                var line = directive.find('svg > g > path.c-meetbout__line');
 
                 expect(line).toExist();
                 expect(line.attr('class')).toBe('c-meetbout__line c-meetbout__line--zakking-cum');
+                expect(line.attr('transform')).toBeUndefined();
             });
         });
     });

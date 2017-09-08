@@ -95,7 +95,7 @@
                 // set class in whole years only
                 svg.selectAll('.c-meetbout__axis-x .tick')
                     .attr('class', (d) => {
-                        return d.getMonth() === 0 ? 'c-meetbout__axis-x-year' : '';
+                        return d.getMonth() === 0 ? 'tick c-meetbout__axis-x-year' : 'tick';
                     });
 
                 // intekenen y as zakking
