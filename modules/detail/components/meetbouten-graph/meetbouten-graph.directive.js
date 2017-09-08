@@ -31,7 +31,7 @@
 
                 // variabelen
                 // global
-                var margin = {top: 10, right: 60, bottom: 30, left: 60},
+                var margin = {top: 10, right: 60, bottom: 30, left: 30},
                     width = 750 - margin.left - margin.right,
                     height = 400 - margin.top - margin.bottom;
 
@@ -52,7 +52,8 @@
                     .domain(d3.extent(scope.objects, function (d) {
                         return d.zakking_cumulatief;
                     }))
-                    .range([0, height]);
+                    .range([0, height])
+                    .nice();
 
                 var yZakkingCumAxis = d3.svg.axis()
                     .scale(yZakkingCum)
