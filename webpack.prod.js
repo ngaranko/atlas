@@ -2,12 +2,13 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const {common} = require('./webpack.common.js');
+const {commonConfig} = require('./webpack.common.js');
 
 module.exports = function(env) {
   const buildId = env && env.buildId ? env.buildId : 'production';
+  const nodeEnv = 'production';
 
-  return merge(common, {
+  return merge(commonConfig(nodeEnv), {
     output: {
       filename: '[name].[chunkhash].js',
     },
@@ -16,7 +17,7 @@ module.exports = function(env) {
       new webpack.DefinePlugin({
         '__BUILD_ID__': JSON.stringify(buildId),
         'process.env': {
-          'NODE_ENV': JSON.stringify('production')
+          'NODE_ENV': JSON.stringify(nodeEnv)
         }
       }),
       new UglifyJSPlugin({

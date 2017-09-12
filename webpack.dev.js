@@ -1,10 +1,10 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const {common, dist, legacy} = require('./webpack.common.js');
+const {commonConfig, dist, legacy} = require('./webpack.common.js');
 const nodeEnv = 'development';
 
-module.exports = merge(common, {
+module.exports = merge(commonConfig(nodeEnv), {
   devtool: 'eval-source-map',
   devServer: {
     contentBase: dist
