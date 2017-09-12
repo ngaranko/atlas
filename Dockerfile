@@ -4,6 +4,7 @@ MAINTAINER datapunt.ois@amsterdam.nl
 
 EXPOSE 80
 
+ENV NODE_ENV=production
 ENV USERNAME_EMPLOYEE=atlas.employee@amsterdam.nl
 ENV USERNAME_EMPLOYEE_PLUS=atlas.employee.plus@amsterdam.nl
 ARG PASSWORD_EMPLOYEE
