@@ -10,18 +10,17 @@
     function userFactory ($window, $q, $interval, $cacheFactory, userSettings) {
         const USER_TYPE = { // the possible types of a user
             NONE: 'NONE',
-            ANONYMOUS: 'ANONYMOUS',
             AUTHENTICATED: 'AUTHENTICATED'
         };
 
-        const AUTHORIZATION_LEVEL = {   // The possible user authorization levels
-            NONE: 'NONE',       // unkown authorization level or authorization level not set
+        const AUTHORIZATION_LEVEL = { // The possible user authorization levels
+            NONE: 'NONE', // unkown authorization level or authorization level not set
             DEFAULT: 'DEFAULT',
             EMPLOYEE: 'EMPLOYEE',
             EMPLOYEE_PLUS: 'EMPLOYEE_PLUS'
         };
 
-        const AUTHORIZATION_LEVEL_MAPPING = {   // maps the backend level codes upon a valid authorization level
+        const AUTHORIZATION_LEVEL_MAPPING = { // maps the backend level codes upon a valid authorization level
             0: AUTHORIZATION_LEVEL.DEFAULT,
             1: AUTHORIZATION_LEVEL.EMPLOYEE,
             3: AUTHORIZATION_LEVEL.EMPLOYEE_PLUS
@@ -29,7 +28,7 @@
 
         class User {
             constructor () {
-                this.init = function () {   // initialize private properties
+                this.init = function () { // initialize private properties
                     this._accessToken = null;
                     this._authorizationLevel = AUTHORIZATION_LEVEL.NONE;
                     this.name = '';
@@ -48,10 +47,10 @@
                     }
                 };
 
-                this.parseToken = function (token) {   // private method to parse a refresh or access token
+                this.parseToken = function (token) { // private method to parse a refresh or access token
                     const content = this.decodeToken(token);
 
-                    if (angular.isDefined(content.sub)) {   // contained in refresh token
+                    if (angular.isDefined(content.sub)) { // contained in refresh token
                         this.name = content.sub || '';
                     }
 
@@ -62,25 +61,15 @@
 
                 this.init();
 
-                if (this.refreshToken) {                // get any existing refresh token
-                    this.parseToken(this.refreshToken); // and parse its contents
+                if (this.accessToken) { // get any existing refresh token
+                    this.parseToken(this.accessToken); // and parse its contents
                 }
             }
 
             clear () {
-                userSettings.refreshToken.remove();
                 userSettings.userType.remove();
 
                 this.init();
-            }
-
-            get refreshToken () {
-                return userSettings.refreshToken.value; // the refresh token in stored in the session
-            }
-
-            set refreshToken (value) {
-                userSettings.refreshToken.value = value;
-                this.parseToken(value);
             }
 
             get accessToken () {
@@ -120,8 +109,6 @@
         const user = new User();
 
         return {
-            getRefreshToken,
-            setRefreshToken,
             getAccessToken,
             setAccessToken,
             waitForAccessToken,
@@ -134,17 +121,6 @@
             AUTHORIZATION_LEVEL
         };
 
-        function getRefreshToken () {
-            return user.refreshToken;
-        }
-
-        function setRefreshToken (token, userType) {
-            user.type = userType;
-            user.refreshToken = token;
-            // Clearing cache on refresh token change
-            clearHttpCache();
-        }
-
         function getAccessToken () {
             return user.accessToken;
         }
@@ -152,6 +128,7 @@
         function setAccessToken (token) {
             const currentAuthorizationLevel = user.authorizationLevel;
 
+            user.type = USER_TYPE.AUTHENTICATED;
             user.accessToken = token;
             clearHttpCache();
             if (!meetsRequiredLevel(currentAuthorizationLevel)) {
@@ -161,8 +138,8 @@
 
         /**
          * Returns a promise that will resolve to an access token if available.
-         * When the user is in the process of loggin in, the promise will not
-         * be resolved until after the loggin process has finished (or after a
+         * When the user is in the process of logging in, the promise will not
+         * be resolved until after the log in process has finished (or after a
          * maximum of 5 seconds).
          *
          * @return {Promise} The user access token or null.
@@ -173,19 +150,6 @@
 
             if (token) {
                 defer.resolve(token);
-            } else if (getRefreshToken()) {
-                // user is logging in, refresh token is available, access token not yet
-                const interval = $interval(() => {
-                    const newToken = getAccessToken();
-                    if (!getRefreshToken() || newToken) {
-                        // Refresh token was invalid or access token has been received
-                        $interval.cancel(interval);
-                        defer.resolve(newToken);
-                    }
-                }, 250, 20);    // try every 1/4 second, for max 20 * 250 = 5 seconds
-
-                // On interval ends resolve without a token
-                interval.then(() => defer.resolve(null));
             } else {
                 defer.resolve(null);
             }

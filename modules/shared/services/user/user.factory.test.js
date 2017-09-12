@@ -1,6 +1,5 @@
 describe('The user factory', function () {
-    const FORCE_REFRESH_TIMEOUT = 350,
-        FORCE_END_TIMEOUT = 5500;
+    const FORCE_REFRESH_TIMEOUT = 350;
 
     let $rootScope,
         $interval,
@@ -9,7 +8,6 @@ describe('The user factory', function () {
         $cacheFactory,
         api,
         userSettings,
-        refreshToken,
         userType,
         user;
 
@@ -20,9 +18,7 @@ describe('The user factory', function () {
 
     /* eslint-disable max-len */
     const
-        testRefreshToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0ODc4NDMyNDMsImV4cCI6MTQ4Nzg0ODk4Miwic3ViIjoiSSBhbSB0aGUgc3ViIGZpZWxkIiwianRpIjoiZWE3ZjViMzMtYjA0Ni00ZDAxLWJmZTUtY2NiODYwYjFmZTVmIn0.2QAsGMbyRk5g5SOgRBlTqFh2MCMQE4ELaU2JuHVCkBg',
-        testAnonymousRefreshToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0ODc4NDM0ODAsImV4cCI6MTQ5MDQzNTQ4MCwic3ViIjpudWxsfQ.tT81eOuAFns6EU2kowjrL-4Wxo34mQPBVY8hK4wFGo4',
-        testAccessTokenAuthz0 = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0ODc4NDMwMjgsImV4cCI6MTQ4Nzg0MzMyOCwiYXV0aHoiOjB9.dFYWAzKl_-eoWlnwhnXW7L0bf5y1dy-ECTzbQtZN3gk',
+        testAccessTokenAuthz0 = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0ODc4NDMwMjgsImV4cCI6MTQ4Nzg0MzMyOCwiYXV0aHoiOjAsInN1YiI6IkkgYW0gdGhlIHN1YiBmaWVsZCJ9.dFYWAzKl_-eoWlnwhnXW7L0bf5y1dy-ECTzbQtZN3gk',
         testAccessTokenAuthz1 = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0ODc4NDMwMjgsImV4cCI6MTQ4Nzg0OTA1NCwiYXV0aHoiOjEsImp0aSI6Ijk1M2U3Y2NlLWEwYzQtNDAyZi1iZTc0LTg3MjY2ZDE3NThjMSJ9.QMu_x1Iys0GX0-zkb3NpZmEPX2rSU9-G7Q59_hlbpFg',
         testAccessTokenAuthz3 = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0ODc4NDMwMjgsImV4cCI6MTQ4Nzg0OTExMCwiYXV0aHoiOjMsImp0aSI6ImY4ZDJiNzQ4LTg2MzAtNDFmOC05Y2M4LWE1Njg4OTUzNTFjOCJ9.TlqGvT5HX979p0IcYm2DgGIIqb45Is6_hAS9F3YOnlU',
         testAccessTokenAuthz99 = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0ODc4NDMwMjgsImV4cCI6MTQ4Nzg0ODc3NiwiYXV0aHoiOjk5LCJqdGkiOiI4Y2VjYTk1My03YzEzLTQwMmMtODIyMS1jM2RjYWE0ZWY1Y2MifQ.LahevkWI06bVCY66khV1z5WKoAByNC_kMSwjKsABkwY';
@@ -33,11 +29,6 @@ describe('The user factory', function () {
             'dpShared',
             {
                 userSettings: {
-                    refreshToken: {
-                        get value () { return refreshToken; },
-                        set value (value) { refreshToken = value; },
-                        remove: () => refreshToken = null
-                    },
                     userType: {
                         get value () { return userType; },
                         set value (value) { userType = value; },
@@ -47,9 +38,16 @@ describe('The user factory', function () {
             }
         );
 
-        angular.mock.inject(function (_$rootScope_, _$interval_, _$window_,
-                                      _$httpBackend_, _$cacheFactory_, _api_,
-                                      _userSettings_, _user_) {
+        angular.mock.inject(function (
+            _$rootScope_,
+            _$interval_,
+            _$window_,
+            _$httpBackend_,
+            _$cacheFactory_,
+            _api_,
+            _userSettings_,
+            _user_
+        ) {
             $rootScope = _$rootScope_;
             $interval = _$interval_;
             $window = _$window_;
@@ -66,24 +64,14 @@ describe('The user factory', function () {
     });
 
     describe('The regular behaviour', function () {
-        it('can store and tell the refresh token for the user', function () {
-            user.setRefreshToken(testToken);
-            expect(user.getRefreshToken()).toBe(testToken);
-        });
-
         it('can store and tell the access token for the user', function () {
             user.setAccessToken(testToken);
             expect(user.getAccessToken()).toBe(testToken);
         });
 
         it('can tell the name of the user', function () {
-            user.setRefreshToken(testRefreshToken);
+            user.setAccessToken(testAccessTokenAuthz0);
             expect(user.getName()).toBe('I am the sub field');
-        });
-
-        it('tells "" as the name of an anonymous user', function () {
-            user.setRefreshToken(testAnonymousRefreshToken);
-            expect(user.getName()).toBe('');
         });
 
         it('can tell the authorization level of the user', function () {
@@ -100,15 +88,9 @@ describe('The user factory', function () {
             expect(user.getAuthorizationLevel()).toBe(user.AUTHORIZATION_LEVEL.NONE);
         });
 
-        it('can store and tell the type of the user', function () {
-            user.setRefreshToken(testToken, user.USER_TYPE.ANONYMOUS);
-            expect(user.getUserType()).toBe(user.USER_TYPE.ANONYMOUS);
-        });
-
-        it('stores the refresh token and user type in the userSettings', function () {
-            user.setRefreshToken(testToken, user.USER_TYPE.ANONYMOUS);
-            expect(userSettings.refreshToken.value).toBe(testToken);
-            expect(userSettings.userType.value).toBe(user.USER_TYPE.ANONYMOUS);
+        it('stores the user type in the userSettings', function () {
+            user.setAccessToken(testToken);
+            expect(userSettings.userType.value).toBe(user.USER_TYPE.AUTHENTICATED);
         });
 
         it('returns a default access token null', function () {
@@ -118,7 +100,6 @@ describe('The user factory', function () {
         it('can clear all tokens for the user', function () {
             user.clearToken();
             expect(user.getAccessToken()).toBe(null);
-            expect(user.getRefreshToken()).toBe(null);
             expect(user.getUserType()).toBe(user.USER_TYPE.NONE);
         });
 
@@ -202,36 +183,33 @@ describe('The user factory', function () {
             user.setAccessToken(testAccessTokenAuthz1);
             expect($window.location.reload).not.toHaveBeenCalled();
         });
+
         it('clears cache on refresh token change', function () {
             api.getByUrl('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/');
             $httpBackend.flush();
             const $httpCache = $cacheFactory.get('$http');
             expect($httpCache.info().size).toBe(1);
-            user.setRefreshToken(testToken, user.USER_TYPE.ANONYMOUS);
+            user.setAccessToken(testAccessTokenAuthz0);
             expect($httpCache.info().size).toBe(0);
         });
     });
 
-    describe('The behaviour when a refreshToken and userType is available from the session storage', function () {
+    describe('The behaviour when userType is available from the session storage', function () {
         beforeEach(function () {
-            refreshToken = 'refreshToken';
             userType = 'NONE';
         });
 
-        it('returns a default refresh token and user type as are stored in the userSettings', function () {
-            expect(user.getRefreshToken()).toBe(userSettings.refreshToken.value);
+        it('returns a default user type as is stored in the userSettings', function () {
             expect(user.getUserType()).toBe(userSettings.userType.value);
         });
     });
 
-    describe('The behaviour when no refreshToken and/or userType is available from the session storage', function () {
+    describe('The behaviour when no userType is available from the session storage', function () {
         beforeEach(function () {
-            refreshToken = null;
             userType = null;
         });
 
-        it('returns refresh token and user type as are stored in the userSettings', function () {
-            expect(user.getRefreshToken()).toBe(null);
+        it('returns user type as is stored in the userSettings', function () {
             expect(user.getUserType()).toBe(user.USER_TYPE.NONE);
         });
 
@@ -244,7 +222,6 @@ describe('The user factory', function () {
         it('continues if an access token is already available', function () {
             var accessToken;
 
-            refreshToken = 'refreshToken';
             user.setAccessToken(testAccessTokenAuthz1);
 
             user.waitForAccessToken().then(function (token) {
@@ -256,10 +233,8 @@ describe('The user factory', function () {
             expect(accessToken).toEqual(testAccessTokenAuthz1);
         });
 
-        it('continues if login succeeds', function () {
+        it('continues if access token is not yet available', function () {
             var accessToken;
-
-            refreshToken = 'refreshToken';
 
             user.waitForAccessToken().then(function (token) {
                 accessToken = token;
@@ -268,42 +243,7 @@ describe('The user factory', function () {
             $rootScope.$digest();
 
             user.setAccessToken(testAccessTokenAuthz1);
-            $interval.flush(FORCE_REFRESH_TIMEOUT);   // force refresh of access token
-            $rootScope.$digest();
-
-            expect(accessToken).toEqual(testAccessTokenAuthz1);
-        });
-
-        it('continues if login fails', function () {
-            var accessToken;
-
-            refreshToken = 'refreshToken';
-
-            user.waitForAccessToken().then(function (token) {
-                accessToken = token;
-            });
-
-            $rootScope.$digest();
-
-            refreshToken = null;
-            $interval.flush(FORCE_REFRESH_TIMEOUT);   // force refresh of access token
-            $rootScope.$digest();
-
-            expect(accessToken).toEqual(null);
-        });
-
-        it('waits for max 5 seconds', function () {
-            var accessToken;
-
-            refreshToken = 'refreshToken';
-
-            user.waitForAccessToken().then(function (token) {
-                accessToken = token;
-            });
-
-            $rootScope.$digest();
-
-            $interval.flush(FORCE_END_TIMEOUT);   // force end of interval
+            $interval.flush(FORCE_REFRESH_TIMEOUT); // force refresh of access token
             $rootScope.$digest();
 
             expect(accessToken).toEqual(null);

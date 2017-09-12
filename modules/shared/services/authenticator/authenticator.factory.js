@@ -8,7 +8,6 @@
     authenticatorFactory.$inject = [
         '$http',
         '$interval',
-        '$q',
         'sharedConfig',
         'user',
         '$window',
@@ -20,7 +19,6 @@
     function authenticatorFactory (
         $http,
         $interval,
-        $q,
         sharedConfig,
         user,
         $window,
