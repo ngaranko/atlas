@@ -22,7 +22,7 @@
         return reducers;
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {string|Object} payload A string with the search query or
          *                                an object with the following keys:
          *                                - query (String): The search query
@@ -34,137 +34,156 @@
          *
          * @returns {Object} newState
          */
-        function fetchDataSelectionReducer (oldState, payload) {
-            const newState = angular.copy(oldState);
-
-            newState.map.isFullscreen = false;
-
-            newState.layerSelection.isEnabled = null;
-            newState.search = null;
-            newState.page.name = null;
-            newState.detail = null;
-            newState.straatbeeld = null;
-
+        // eslint-disable-next-line complexity
+        function fetchDataSelectionReducer (state, payload) {
             const mergeInto = angular.isString(payload) ? {
                 query: payload,
                 page: 1,
                 view: 'CARDS',
                 dataset: 'catalogus'
             } : payload;
-            mergeInto.filters = mergeInto.filters || {};
 
-            newState.dataSelection = Object.keys(mergeInto).reduce((result, key) => {
-                result[key] = mergeInto[key];
-                return result;
-            }, newState.dataSelection || {});
+            const view = mergeInto.view || state.dataSelection && state.dataSelection.view || 'TABLE';
 
-            if (!newState.dataSelection.view) {
-                // Default view is table view
-                newState.dataSelection.view = 'TABLE';
-            }
-
-            // LIST loading might include markers => set map loading accordingly
-            newState.map.isLoading = newState.dataSelection.view === 'LIST';
-
-            newState.dataSelection.geometryFilter = newState.dataSelection.geometryFilter ||
+            let geometryFilter = state.dataSelection && state.dataSelection.geometryFilter ||
                 {
                     markers: [],
                     description: ''
                 };
 
-            newState.dataSelection.markers = [];
-            newState.dataSelection.isLoading = true;
-            newState.dataSelection.isFullscreen = newState.dataSelection.view !== 'LIST';
-
-            if (angular.isString(payload)) {
-                // text search: reset filter
-                newState.dataSelection.filters = {};
+            if (mergeInto.resetGeometryFilter) {
+                geometryFilter = {
+                    markers: [],
+                    description: ''
+                };
+                delete mergeInto.resetGeometryFilter;
             }
 
-            return newState;
+            let filters = {...state.filters};
+            if (mergeInto.emptyFilters) {
+                filters = {};
+                delete mergeInto.emptyFilters;
+            }
+
+            return {
+                ...state,
+                dataSelection: {
+                    ...(angular.isObject(state.dataSelection) ? state.dataSelection : ''),
+                    ...mergeInto,
+                    markers: [],
+                    view: view,
+                    isLoading: true,
+                    isFullscreen: view !== 'LIST',
+                    geometryFilter: {...geometryFilter}
+                },
+                map: angular.isObject(state.map) ? {
+                    ...state.map,
+                    isFullscreen: false,
+                    // LIST loading might include markers => set map loading accordingly
+                    isLoading: view === 'LIST'
+                } : state.map,
+                filters,
+                page: angular.isObject(state.page) ? {
+                    ...state.page,
+                    name: null
+                } : state.page,
+                layerSelection: angular.isObject(state.layerSelection) ? {
+                    ...state.layerSelection,
+                    isEnabled: false
+                } : state.layerSelection,
+                search: null,
+                detail: null,
+                straatbeeld: null
+            };
         }
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {Array} payload - Markers for the leaflet.markercluster plugin
          *
          * @returns {Object} newState
          */
-        function showDataSelectionReducer (oldState, payload) {
-            const newState = angular.copy(oldState);
-
-            if (newState.dataSelection) {
-                newState.dataSelection.markers = payload;
-                newState.dataSelection.isLoading = false;
-
-                newState.dataSelection.isFullscreen = newState.dataSelection.view !== 'LIST';
-            }
-
-            newState.map.isLoading = false;
-
-            return newState;
+        function showDataSelectionReducer (state, payload) {
+            return {
+                ...state,
+                dataSelection: angular.isObject(state.dataSelection) ? {
+                    ...state.dataSelection,
+                    markers: payload,
+                    isLoading: false,
+                    isFullscreen: state.dataSelection.view !== 'LIST'
+                } : state.dataSelection,
+                map: angular.isObject(state.map) ? {
+                    ...state.map,
+                    isLoading: false
+                } : state.map
+            };
         }
 
         /**
          * Does the same as `showDataSelectionReducer`, but will not trigger a
          * url state change.
          *
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {Array} payload - Markers for the leaflet.markercluster plugin
          *
          * @returns {Object} newState
          */
-        function resetDataSelectionReducer (oldState, payload) {
-            const newState = angular.copy(oldState);
-
-            if (newState.dataSelection) {
-                newState.dataSelection.markers = payload;
-                newState.dataSelection.isLoading = false;
-
-                newState.dataSelection.isFullscreen = newState.dataSelection.view !== 'LIST';
-
-                newState.dataSelection.reset = false;
-            }
-
-            newState.map.isLoading = false;
-
-            return newState;
+        function resetDataSelectionReducer (state, payload) {
+            return {
+                ...state,
+                dataSelection: angular.isObject(state.dataSelection) ? {
+                    ...state.dataSelection,
+                    markers: payload,
+                    isLoading: false,
+                    isFullscreen: state.dataSelection.view !== 'LIST',
+                    reset: false
+                } : state.dataSelection,
+                map: angular.isObject(state.map) ? {
+                    ...state.map,
+                    isLoading: false
+                } : state.map
+            };
         }
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {Number} payload - The destination page
          *
          * @returns {Object} newState
          */
-        function navigateDataSelectionReducer (oldState, payload) {
-            const newState = angular.copy(oldState);
-
-            newState.dataSelection.page = payload;
-
-            return newState;
+        function navigateDataSelectionReducer (state, payload) {
+            return {
+                ...state,
+                dataSelection: angular.isObject(state.dataSelection) ? {
+                    ...state.dataSelection,
+                    page: payload
+                } : state.dataSelection
+            };
         }
 
         /**
-         * @param {Object} oldState
+         * @param {Object} state
          * @param {String} payload
          *
          * @returns {Object} newState
          */
-        function setDataSelectionViewReducer (oldState, payload) {
-            const newState = angular.copy(oldState);
+        function setDataSelectionViewReducer (state, payload) {
+            const views = ['LIST', 'TABLE', 'CARDS'],
+                viewFound = views.indexOf(payload) !== -1,
+                view = viewFound ? payload : undefined;
 
-            ['LIST', 'TABLE', 'CARDS'].forEach(legalValue => {
-                if (payload === legalValue) {
-                    newState.dataSelection.view = payload;
-                    newState.dataSelection.isLoading = true;
-                }
-            });
-
-            // LIST loading might include markers => set map loading accordingly
-            newState.map.isLoading = newState.dataSelection.view === 'LIST';
-
-            return newState;
+            return {
+                ...state,
+                dataSelection: angular.isObject(state.dataSelection) ? {
+                    ...state.dataSelection,
+                    view: view,
+                    isLoading: viewFound
+                } : state.dataSelection,
+                map: angular.isObject(state.map) ? {
+                    ...state.map,
+                    isLoading: view === 'LIST'
+                } : state.map
+            };
         }
     }
 })();

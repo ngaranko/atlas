@@ -21,6 +21,7 @@ import MapLayersReducer from '../../../../src/map/ducks/layers/map-layers';
         'dataSelectionReducers',
         'printReducers',
         'embedReducers',
+        'filtersReducers',
         'environment'
     ];
 
@@ -37,6 +38,7 @@ import MapLayersReducer from '../../../../src/map/ducks/layers/map-layers';
                              dataSelectionReducers,
                              printReducers,
                              embedReducers,
+                             filtersReducers,
                              environment) {
         return function (oldState, action) {
             // TODO: Redux: replace
@@ -67,6 +69,7 @@ import MapLayersReducer from '../../../../src/map/ducks/layers/map-layers';
                 dataSelectionReducers,
                 printReducers,
                 embedReducers,
+                filtersReducers,
                 environment
             );
 

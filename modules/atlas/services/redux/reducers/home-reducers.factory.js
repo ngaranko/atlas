@@ -19,15 +19,17 @@
          *
          * @returns {Object} newState
          */
-        function showHomeReducer (oldState) {
-            var newState = angular.copy(stateUrlConverter.getDefaultState());
-
-            newState.atlas.isPrintMode = oldState.atlas.isPrintMode;
-            newState.atlas.isEmbedPreview = oldState.atlas.isEmbedPreview;
-            newState.atlas.isEmbed = oldState.atlas.isEmbed;
-
-            return newState;
+        function showHomeReducer (state) {
+            const defaultState = stateUrlConverter.getDefaultState();
+            return {
+                ...defaultState,
+                atlas: {
+                    ...defaultState.atlas,
+                    isPrintMode: state.atlas.isPrintMode,
+                    isEmbedPreview: state.atlas.isEmbedPreview,
+                    isEmbed: state.atlas.isEmbed
+                }
+            };
         }
     }
 })();
-

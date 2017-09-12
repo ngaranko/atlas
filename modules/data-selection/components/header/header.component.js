@@ -7,6 +7,7 @@
             bindings: {
                 state: '<',
                 availableFilters: '<',
+                filters: '<',
                 numberOfRecords: '<',
                 showHeader: '<'
             },
@@ -37,7 +38,7 @@
                 (!exportAuthLevel || user.meetsRequiredLevel(exportAuthLevel));
             vm.showTabs = isListView;
             vm.showNoResultsFound = vm.numberOfRecords === 0;
-            vm.showActiveFilters = Object.keys(vm.state.filters).length || vm.state.geometryFilter.markers.length;
+            vm.showActiveFilters = Object.keys(vm.filters).length || vm.state.geometryFilter.markers.length;
 
             vm.datasetTitle = DATA_SELECTION_CONFIG.datasets[vm.state.dataset].TITLE;
 
