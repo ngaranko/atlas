@@ -8,6 +8,7 @@
     authenticatorFactory.$inject = [
         '$http',
         '$interval',
+        '$q',
         'sharedConfig',
         'user',
         '$window',
@@ -19,12 +20,14 @@
     function authenticatorFactory (
         $http,
         $interval,
+        $q,
         sharedConfig,
         user,
         $window,
         $location,
         storage,
-        uriStripper) {
+        uriStripper
+    ) {
         const ERROR_MESSAGES = {
             400: 'Verplichte parameter is niet aanwezig.',
             404: 'Er is iets mis met de inlog server, probeer het later nog eens.',
@@ -32,41 +35,18 @@
             504: 'Inlog server timeout, probeer het later nog eens.'
         };
 
-        const AUTH_PARAMS = ['a-select-server', 'aselect_credentials', 'rid'];
+        const AUTH_PARAMS = ['access_token', 'token_type', 'expires_in', 'state'];
 
-        const AUTH_PATH = 'auth/';
-        const LOGIN_PATH = 'idp/login';
-        const REFRESH_TOKEN_PATH = 'idp/token';
-        const ACCESS_TOKEN_PATH = 'accesstoken';
+        const AUTH_PATH = 'oauth2/';
+        const LOGIN_PATH = 'authorize?idp_id=datapunt&response_type=token&client_id=citydata-data.amsterdam.nl';
 
-        const CALLBACK_PARAMS = 'callbackParams';   // save callback params in session storage
-
-        const REFRESH_INTERVAL = 1000 * 60 * 4.5;   // every 4.5 minutes
-
-        const STATE = {     // State transitions used in tokenLoop
-            INIT: () =>
-                STATE.RESTORE_REFRESH_TOKEN,
-            RESTORE_REFRESH_TOKEN: () =>
-                user.getRefreshToken() ? STATE.REQUEST_ACCESS_TOKEN : STATE.WAIT,
-            ON_REFRESH_TOKEN: () =>
-                STATE.REQUEST_ACCESS_TOKEN,
-            ON_REFRESH_TOKEN_ERROR: () =>
-                STATE.WAIT,
-            REQUEST_ACCESS_TOKEN: () =>
-                requestAccessToken(user.getRefreshToken()),
-            ON_ACCESS_TOKEN: () =>
-                tokenLoop(STATE.REQUEST_ACCESS_TOKEN, REFRESH_INTERVAL),
-            ON_ACCESS_TOKEN_ERROR: () =>
-                STATE.WAIT,
-            ON_LOGOUT: () =>
-                STATE.WAIT,
-            WAITING: () =>
-                null // Wait for re-invocation of the tokenLoop...
-        };
-
-        let interval;   // refresh access token or retry after error interval
+        const CALLBACK_PARAMS = 'callbackParams'; // save callback params in session storage
+        const STATE_TOKEN = 'stateToken'; // save state token in session storage
+        const ACCESS_TOKEN = 'accessToken'; // save access token in session storage
 
         const error = {}; // message, status and statusText
+
+        let initialized = false;
 
         return {
             initialize,
@@ -77,48 +57,74 @@
             error
         };
 
-        function tokenLoop (state, delay) {
-            if (delay) {    // invoke tokenLoop after delay has passed
-                interval = $interval(() => tokenLoop(state), delay, 1); // $timeout will fail with protractor tests
-                return STATE.WAITING;
-            } else if (interval) {  // cancel any existing delayed execution, eg when logout is called
-                $interval.cancel(interval);
-            }
-
-            while (state) {
-                state = state();    // simple keep executing state transitions
-            }
-        }
-
         function initialize () {
-            setError();
-            tokenLoop(STATE.INIT);
+            if (!initialized) {
+                initialized = true;
+                setError();
+                restoreAccessToken();
+            }
         }
 
-        function onRefreshToken (token, userType) {
-            setError();
-            user.setRefreshToken(token, userType);
-            tokenLoop(STATE.ON_REFRESH_TOKEN);
-        }
+        function login () { // redirect to external authentication provider
+            const callback = $location.absUrl().replace(/#.*$/, ''); // Remove all parameters
+            const stateToken = generateStateToken(); // Get a random string to prevent XSS
 
-        function onAccessToken (token) {
-            setError();
-            user.setAccessToken(token);
-            restorePath();  // Restore path from session
-            tokenLoop(STATE.ON_ACCESS_TOKEN);
-        }
+            savePath(); // Save current path in session
+            saveStateToken(stateToken); // Save the state token in session
 
-        function onRefreshTokenError (response) {
-            onError(response, STATE.ON_REFRESH_TOKEN_ERROR);
-        }
-
-        function onAccessTokenError (response) {
-            onError(response, STATE.ON_ACCESS_TOKEN_ERROR);
+            $window.location.href =
+                sharedConfig.API_ROOT + AUTH_PATH + LOGIN_PATH +
+                `&state=${stateToken}&redirect_uri=${encodeURIComponent(callback)}`;
         }
 
         function logout () {
             user.clearToken();
-            tokenLoop(STATE.ON_LOGOUT);
+            removeAccessToken();
+        }
+
+        function isCallback (params) {
+            // The state param must be exactly the same as the state token we
+            // have saved in the session (to prevent XSS)
+            const stateTokenValid = params.state && params.state === getStateToken();
+
+            // it is a callback when all authorization parameters are defined in the params
+            // the fastest check is not to check if all parameters are defined but
+            // to check that no undefined parameter can be found
+            const paramsValid = AUTH_PARAMS.reduce((acc, param) => {
+                return acc && angular.isDefined(params[param]);
+            }, true);
+
+            return Boolean(stateTokenValid && paramsValid);
+        }
+
+        function hasError (params) {
+            return angular.isDefined(params.error_code);
+        }
+
+        function handleCallback (params) { // request user token with returned authorization parameters from callback
+            if (isCallback(params)) {
+                if (!hasError(params)) {
+                    useAccessToken(params.access_token);
+                    return true;
+                }
+                onError(params);
+            }
+            return false;
+        }
+
+        function restoreAccessToken () {
+            const accessToken = getAccessToken();
+            if (accessToken) {
+                user.setAccessToken(accessToken);
+            }
+        }
+
+        function useAccessToken (token) {
+            setError();
+            user.setAccessToken(token);
+            saveAccessToken(token);
+            removeStateToken(); // Remove state token from session
+            restorePath(); // Restore path from session
         }
 
         function onError (response, state) {
@@ -129,8 +135,8 @@
                 'code: ${response.status}, status: ${response.statusText}.',
                 response.status,
                 response.statusText);
-            restorePath();  // Restore path from session
-            tokenLoop(state);
+            removeStateToken(); // Remove state token from session
+            restorePath(); // Restore path from session
         }
 
         function setError (message, status, statusText) {
@@ -150,60 +156,44 @@
                 // HTML5 location mode is activated. https://github.com/angular/angular.js/issues/1521
                 params.dte = uriStripper.stripDomain(params.dte);
             }
-            storage.session.setItem(CALLBACK_PARAMS, angular.toJson(params));   // encode params
+            storage.session.setItem(CALLBACK_PARAMS, angular.toJson(params)); // encode params
         }
 
         function restorePath () {
-            let params = storage.session.getItem(CALLBACK_PARAMS);
+            const params = storage.session.getItem(CALLBACK_PARAMS);
             storage.session.removeItem(CALLBACK_PARAMS);
             if (params) {
-                params = params && angular.fromJson(params);    // decode params
-                $location.replace();    // overwrite the existing location (prevent back button to re-login)
-                $location.search(params);
+                $location.replace(); // overwrite the existing location (prevent back button to re-login)
+                $location.search(angular.fromJson(params));
             }
         }
 
-        function login () {     // redirect to external authentication provider
-            savePath(); // Save current path in session
-            const callback = $location.absUrl().replace(/\#.*$/, '').concat('#');   // Remove all parameters
-            $window.location.href =
-                sharedConfig.API_ROOT + AUTH_PATH +
-                LOGIN_PATH + '?callback=' + encodeURIComponent(callback);
+        function generateStateToken () {
+            return 'randomString';
         }
 
-        function handleCallback (params) {  // request user token with returned authorization parameters from callback
-            RequestRefreshToken(params);
+        function saveStateToken (stateToken) {
+            storage.session.setItem(STATE_TOKEN, stateToken);
         }
 
-        function isCallback (params) {
-            // it is a callback when all authorization parameters are defined in the params
-            // the fastest check is not to check if all parameters are defined but
-            // to check that no undefined parameter can be found
-            return !AUTH_PARAMS.find(key => angular.isUndefined(params[key]));
+        function getStateToken () {
+            return storage.session.getItem(STATE_TOKEN);
         }
 
-        function RequestRefreshToken (params) {    // initiated externally, called by handleCallback
-            const httpParams = AUTH_PARAMS.reduce((result, key) => {
-                result[key] = params[key];
-                return result;
-            }, {});
-            return authRequest(REFRESH_TOKEN_PATH, {}, httpParams)
-                .then(response => onRefreshToken(response.data, user.USER_TYPE.AUTHENTICATED), onRefreshTokenError);
+        function removeStateToken () {
+            storage.session.removeItem(STATE_TOKEN);
         }
 
-        function requestAccessToken (token) {   // initiated by tokenLoop, return WAITING
-            authRequest(ACCESS_TOKEN_PATH, {'Authorization': sharedConfig.AUTH_HEADER_PREFIX + token})
-                .then(response => onAccessToken(response.data), onAccessTokenError);
-            return STATE.WAITING;
+        function saveAccessToken (accessToken) {
+            storage.session.setItem(ACCESS_TOKEN, accessToken);
         }
 
-        function authRequest (url, headers, params) {
-            return $http({
-                method: 'GET',
-                url: sharedConfig.API_ROOT + AUTH_PATH + url,
-                headers: angular.merge({'Content-Type': 'text/plain'}, headers),
-                params: params
-            });
+        function getAccessToken () {
+            return storage.session.getItem(ACCESS_TOKEN);
+        }
+
+        function removeAccessToken (accessToken) {
+            storage.session.removeItem(ACCESS_TOKEN);
         }
     }
 })();
