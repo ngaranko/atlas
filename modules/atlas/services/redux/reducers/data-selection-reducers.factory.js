@@ -45,25 +45,26 @@
 
             const view = mergeInto.view || state.dataSelection && state.dataSelection.view || 'TABLE';
 
-            let geometryFilter = state.dataSelection && state.dataSelection.geometryFilter ||
-                {
+            const geometryFilter = mergeInto.resetGeometryFilter
+                ? {
                     markers: [],
                     description: ''
-                };
+                }
+                : state.dataSelection && state.dataSelection.geometryFilter ||
+                    {
+                        markers: [],
+                        description: ''
+                    };
 
-            if (mergeInto.resetGeometryFilter) {
-                geometryFilter = {
-                    markers: [],
-                    description: ''
-                };
-                delete mergeInto.resetGeometryFilter;
-            }
+            const filters = mergeInto.filters
+                ? mergeInto.filters
+                : (mergeInto.emptyFilters
+                    ? {}
+                    : {...state.filters});
 
-            let filters = {...state.filters};
-            if (mergeInto.emptyFilters) {
-                filters = {};
-                delete mergeInto.emptyFilters;
-            }
+            delete mergeInto.resetGeometryFilter;
+            delete mergeInto.emptyFilters;
+            delete mergeInto.filters;
 
             return {
                 ...state,
