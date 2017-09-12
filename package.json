@@ -65,6 +65,7 @@
     "phantomjs-prebuilt": "^2.1.7",
     "protractor": "^5.1.1",
     "protractor-flake": "^2.5.1",
+    "redux-saga": "^0.15.6",
     "rimraf": "^2.5.4",
     "sass-loader": "^6.0.6",
     "shortid": "^2.2.6",

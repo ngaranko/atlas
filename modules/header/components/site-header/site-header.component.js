@@ -1,8 +1,3 @@
-import React from 'react';
-import { render } from 'react-dom';
-
-import HelloWorld from '../../../../src/components/hello-world/HelloWorld.jsx';
-
 (function () {
     'use strict';
 
@@ -33,7 +28,5 @@ import HelloWorld from '../../../../src/components/hello-world/HelloWorld.jsx';
             vm.isTall = vm.size === HEADER.SIZE.TALL;
             vm.isShort = vm.size === HEADER.SIZE.SHORT;
         }
-
-        render(React.createElement(HelloWorld, null), document.getElementById('react-wrapper'));
     }
 })();

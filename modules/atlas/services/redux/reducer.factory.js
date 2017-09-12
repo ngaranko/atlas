@@ -1,4 +1,5 @@
 // import detailReducer from '../../../../src/reducers/details';
+import MapLayersReducer from '../../../../src/map/ducks/layers/map-layers';
 
 (function () {
     'use strict';
@@ -47,9 +48,16 @@
                 SHOW_DETAIL: $window.reducers.detailReducer
             };
 
+            const mapLayersReducer = {
+                FETCH_MAP_LAYERS_FAILURE: MapLayersReducer,
+                FETCH_MAP_LAYERS_REQUEST: MapLayersReducer,
+                FETCH_MAP_LAYERS_SUCCESS: MapLayersReducer
+            };
+
             var actions = angular.merge(
                 urlReducers,
                 detailReducers,
+                mapLayersReducer,
                 homeReducers,
                 layerSelectionReducers,
                 mapReducers,
@@ -67,6 +75,10 @@
                     payload: action.payload,
                     type: action.type.id
                 };
+            }
+
+            if (mapLayersReducer.hasOwnProperty(action.type)) {
+                return MapLayersReducer(oldState, action);
             }
 
             if (angular.isObject(action) &&

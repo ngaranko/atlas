@@ -1,3 +1,7 @@
+import createSagaMiddleware from 'redux-saga';
+
+import rootSaga from '../../../../src/map/sagas';
+
 (function () {
     angular
         .module('dpShared')
@@ -22,13 +26,16 @@
             stateUrlConverter = _stateUrlConverter_;
 
             const composeEnhancers = $window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Redux.compose;
+            const sagaMiddleware = createSagaMiddleware();
             const enhancer = composeEnhancers(
-                Redux.applyMiddleware(...middleware)
+                Redux.applyMiddleware(...middleware, sagaMiddleware)
             );
 
             store = Redux.createStore(reducer, defaultState, enhancer);
 
             $window.reduxStore = store;
+
+            sagaMiddleware.run(rootSaga);
         }
     }
 })();

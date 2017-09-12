@@ -1,3 +1,8 @@
+import React from 'react';
+import { render } from 'react-dom';
+
+import MapPanelWrapper from '../../../../src/map/wrappers/panel/MapPanelWrapper';
+
 (function () {
     'use strict';
 
@@ -27,6 +32,10 @@
                 store.dispatch({ type: ACTIONS.MAP_REMOVE_PANO_OVERLAY });
             }
         });
+
+        this.$postLink = () => {
+            render(React.createElement(MapPanelWrapper, null), document.getElementById('map-panel-react'));
+        };
 
         function setLayout () {
             const state = store.getState();
