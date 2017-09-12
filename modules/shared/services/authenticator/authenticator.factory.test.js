@@ -9,7 +9,8 @@ describe(' The authenticator factory', function () {
         mockedUser,
         uriStripper,
         callbackParams,
-        stateToken;
+        stateToken,
+        accessToken;
 
     const AUTH_PATH = 'oauth2/';
     const LOGIN_PATH = 'authorize?idp_id=datapunt&response_type=token&client_id=citydata-data.amsterdam.nl';
@@ -71,6 +72,8 @@ describe(' The authenticator factory', function () {
                                     return callbackParams;
                                 case 'stateToken':
                                     return stateToken;
+                                case 'accessToken':
+                                    return accessToken;
                             }
                         },
                         removeItem: angular.noop
@@ -103,6 +106,100 @@ describe(' The authenticator factory', function () {
         });
 
         spyOn($location, 'search').and.returnValue({});
+        spyOn($location, 'replace');
+    });
+
+    describe('initialization', () => {
+        describe('access token', () => {
+            it('restores when saved in session storage', () => {
+                accessToken = 'myToken';
+                spyOn(user, 'setAccessToken');
+
+                authenticator.initialize();
+
+                expect(user.setAccessToken).toHaveBeenCalledWith('myToken');
+            });
+
+            it('does not restore when not in session storage', () => {
+                accessToken = null;
+                spyOn(user, 'setAccessToken');
+
+                authenticator.initialize();
+
+                expect(user.setAccessToken).not.toHaveBeenCalledWith();
+            });
+        });
+
+        describe('errored', () => {
+            it('picks up error parameters in the query string', () => {
+                spyOn(storage.session, 'removeItem');
+                $window.location.search = '?error=invalid_request&error_description=invalid%20request';
+
+                authenticator.initialize();
+
+                expect(authenticator.error).toEqual({
+                    message: 'The request is missing a required parameter, includes an invalid parameter value, ' +
+                        'includes a parameter more than once, or is otherwise malformed.',
+                    code: 'invalid_request',
+                    description: 'invalid request'
+                });
+                expect(storage.session.removeItem).toHaveBeenCalledWith('stateToken');
+                expect(storage.session.removeItem).toHaveBeenCalledWith('callbackParams');
+                expect($location.replace).toHaveBeenCalled();
+                expect($location.search).toHaveBeenCalledWith({ one: 1, error: 'T' });
+            });
+
+            it('works without callback', () => {
+                spyOn(storage.session, 'removeItem');
+                callbackParams = '';
+                $window.location.search = '?error=invalid_request&error_description=invalid%20request';
+
+                authenticator.initialize();
+
+                expect(authenticator.error).toEqual({
+                    message: 'The request is missing a required parameter, includes an invalid parameter value, ' +
+                        'includes a parameter more than once, or is otherwise malformed.',
+                    code: 'invalid_request',
+                    description: 'invalid request'
+                });
+                expect(storage.session.removeItem).toHaveBeenCalledWith('stateToken');
+                expect(storage.session.removeItem).toHaveBeenCalledWith('callbackParams');
+                expect($location.replace).toHaveBeenCalled();
+                expect($location.search).toHaveBeenCalledWith({ error: 'T' });
+            });
+
+            it('does not catch an error when not in query string', () => {
+                spyOn(storage.session, 'removeItem');
+                $window.location.search = '?something=else';
+
+                authenticator.initialize();
+
+                expect(authenticator.error).toEqual({
+                    message: '',
+                    code: '',
+                    description: ''
+                });
+                expect(storage.session.removeItem).not.toHaveBeenCalled();
+                expect($location.replace).not.toHaveBeenCalled();
+                expect($location.search).not.toHaveBeenCalled();
+            });
+
+            it('does not catch an error without query string', () => {
+                spyOn(storage.session, 'removeItem');
+                $window.location.search = '';
+
+                authenticator.initialize();
+
+                expect(authenticator.error).toEqual({
+                    message: '',
+                    code: '',
+                    description: ''
+                });
+                expect(storage.session.removeItem).not.toHaveBeenCalled();
+                expect($location.replace).not.toHaveBeenCalled();
+                expect($location.search).not.toHaveBeenCalled();
+            });
+        });
     });
 
     describe('login', () => {
@@ -237,7 +334,6 @@ describe(' The authenticator factory', function () {
 
     it('is able to intercept callback messages from external security provider, clears browser history', function () {
         spyOn(user, 'setAccessToken');
-        spyOn($location, 'replace');
 
         authenticator.login();
         $location.search.calls.reset();
@@ -255,7 +351,6 @@ describe(' The authenticator factory', function () {
     });
 
     xit('returns to the saved callback path on a refresh token error', function () {
-        spyOn($location, 'replace');
         spyOn(storage.session, 'getItem').and.returnValue(angular.toJson({one: 1}));
 
         $httpBackend.whenGET(AUTH_PATH + REFRESH_TOKEN_PATH + '?a-select-server=1&aselect_credentials=2&rid=3')
@@ -270,7 +365,6 @@ describe(' The authenticator factory', function () {
     });
 
     xit('returns to the saved callback path on an access token error', function () {
-        spyOn($location, 'replace');
         spyOn(storage.session, 'getItem').and.returnValue(angular.toJson({one: 1}));
 
         $httpBackend.whenGET(AUTH_PATH + REFRESH_TOKEN_PATH + '?a-select-server=1&aselect_credentials=2&rid=3')

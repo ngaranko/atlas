@@ -27,10 +27,13 @@
         uriStripper
     ) {
         const ERROR_MESSAGES = {
-            400: 'Verplichte parameter is niet aanwezig.',
-            404: 'Er is iets mis met de inlog server, probeer het later nog eens.',
-            502: 'Probleem in de communicatie met de inlog server.',
-            504: 'Inlog server timeout, probeer het later nog eens.'
+            invalid_request: 'The request is missing a required parameter, includes an invalid parameter value, includes a parameter more than once, or is otherwise malformed.',
+            unauthorized_client: 'The client is not authorized to request an access token using this method.',
+            access_denied: 'The resource owner or authorization server denied the request.',
+            unsupported_response_type: 'The authorization server does not support obtaining an access token using this method.',
+            invalid_scope: 'The requested scope is invalid, unknown, or malformed.',
+            server_error: 'The authorization server encountered an unexpected condition that prevented it from fulfilling the request.',
+            temporarily_unavailable: 'The authorization server is currently unable to handle the request due to a temporary overloading or maintenance of the server.'
         };
 
         const AUTH_PARAMS = ['access_token', 'token_type', 'expires_in', 'state'];
@@ -42,7 +45,7 @@
         const STATE_TOKEN = 'stateToken'; // save state token in session storage
         const ACCESS_TOKEN = 'accessToken'; // save access token in session storage
 
-        const error = {}; // message, status and statusText
+        const error = {}; // message, code and description
 
         let initialized = false;
 
@@ -60,6 +63,7 @@
                 initialized = true;
                 setError();
                 restoreAccessToken();
+                catchError();
             }
         }
 
@@ -95,17 +99,10 @@
             return Boolean(stateTokenValid && paramsValid);
         }
 
-        function hasError (params) {
-            return angular.isDefined(params.error_code);
-        }
-
         function handleCallback (params) { // request user token with returned authorization parameters from callback
             if (isCallback(params)) {
-                if (!hasError(params)) {
-                    useAccessToken(params.access_token);
-                    return true;
-                }
-                onError(params);
+                useAccessToken(params.access_token);
+                return true;
             }
             return false;
         }
@@ -125,22 +122,28 @@
             restorePath(); // Restore path from session
         }
 
-        function onError (response, state) {
-            user.clearToken();
-            setError(
-                ERROR_MESSAGES[response.status] ||
-                'Er is een fout opgetreden. Neem contact op met de beheerder en vermeld ' +
-                'code: ${response.status}, status: ${response.statusText}.',
-                response.status,
-                response.statusText);
-            removeStateToken(); // Remove state token from session
-            restorePath(); // Restore path from session
+        function catchError () {
+            const params = parseQueryString($window.location.search);
+            if (params && params.error) {
+                handleError(params.error, params.error_description);
+            }
         }
 
-        function setError (message, status, statusText) {
+        function handleError (code, description) {
+            setError(
+                ERROR_MESSAGES[code] ||
+                'Er is een fout opgetreden. Neem contact op met de beheerder en vermeld ' +
+                'code: ${code}, omschrijving: ${description}.',
+                code,
+                description);
+            removeStateToken(); // Remove state token from session
+            restorePath(true); // Restore path from session
+        }
+
+        function setError (message, code, description) {
             error.message = message || '';
-            error.status = status || null;
-            error.statusText = statusText || '';
+            error.code = code || '';
+            error.description = description || '';
         }
 
         function savePath () {
@@ -148,7 +151,7 @@
             if (params.dte) {
                 // $location.search may return old parameters even though URL does not list them.
                 // This mean the dte parameter may incorrectly contain the domain:
-                //  e.g.: https:data.amsterdam.nl/foo/bar instead of foo/bar.
+                // e.g.: https:data.amsterdam.nl/foo/bar instead of foo/bar.
                 // This step ensures no domain and protocol are stored, so the correct path is restored after login.
                 // Seems like an Angular bug when not using HTML5 $location provider. Consider removing when/if
                 // HTML5 location mode is activated. https://github.com/angular/angular.js/issues/1521
@@ -157,12 +160,26 @@
             storage.session.setItem(CALLBACK_PARAMS, angular.toJson(params)); // encode params
         }
 
-        function restorePath () {
-            const params = storage.session.getItem(CALLBACK_PARAMS);
+        function restorePath (errored = false) {
+            const paramString = storage.session.getItem(CALLBACK_PARAMS);
             storage.session.removeItem(CALLBACK_PARAMS);
-            if (params) {
+            const params = paramString ? angular.fromJson(paramString) : {};
+
+            if (errored) {
+                params.error = 'T';
+            }
+
+            if (paramString || errored) {
                 $location.replace(); // overwrite the existing location (prevent back button to re-login)
-                $location.search(angular.fromJson(params));
+                $location.search(params);
+            }
+
+            if (errored) {
+                $interval(
+                    () => $window.location.href = $window.location.protocol + '//' +
+                        $window.location.host + $window.location.pathname +
+                        '#' + $location.url(),
+                    0, 1);
             }
         }
 
@@ -192,6 +209,19 @@
 
         function removeAccessToken (accessToken) {
             storage.session.removeItem(ACCESS_TOKEN);
+        }
+
+        function parseQueryString (queryString) {
+            return queryString
+                ? queryString
+                    .substring(1)
+                    .split('&')
+                    .reduce((params, query) => {
+                        const keyValue = query.split('=');
+                        params[decodeURIComponent(keyValue[0])] = decodeURIComponent(keyValue[1]);
+                        return params;
+                    }, {})
+                : null;
         }
     }
 })();
