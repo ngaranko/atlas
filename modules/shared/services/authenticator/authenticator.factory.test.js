@@ -1,6 +1,5 @@
 describe(' The authenticator factory', function () {
-    let $httpBackend,
-        $window,
+    let $window,
         $location,
         storage,
         user,
@@ -52,6 +51,7 @@ describe(' The authenticator factory', function () {
                 },
                 $location: {
                     absUrl: () => absUrl,
+                    url: angular.noop,
                     replace: angular.noop,
                     search: angular.noop
                 },
@@ -83,11 +83,10 @@ describe(' The authenticator factory', function () {
             }
         );
 
-        callbackParams = {one: 1};
+        callbackParams = '{"one": 1}';
         stateToken = 'randomString';
 
         angular.mock.inject(function (
-            _$httpBackend_,
             _$window_,
             _$location_,
             _$interval_,
@@ -96,7 +95,6 @@ describe(' The authenticator factory', function () {
             _authenticator_,
             _uriStripper_
         ) {
-            $httpBackend = _$httpBackend_;
             $window = _$window_;
             $location = _$location_;
             storage = _storage_;
@@ -127,6 +125,117 @@ describe(' The authenticator factory', function () {
                 authenticator.initialize();
 
                 expect(user.setAccessToken).not.toHaveBeenCalledWith();
+            });
+        });
+
+        describe('success', () => {
+            it('is able to intercept callback messages from external security provider, clears browser history', () => {
+                spyOn(user, 'setAccessToken');
+                spyOn($location, 'url').and.returnValue(
+                    `?state=${stateToken}&access_token=accesstoken&token_type=bearer&expires_in=36000`);
+
+                authenticator.initialize();
+
+                expect($location.replace).toHaveBeenCalled();
+                expect($location.url).toHaveBeenCalledWith('');
+                expect($location.search).toHaveBeenCalledWith({one: 1});
+                expect(user.setAccessToken).toHaveBeenCalledWith('accesstoken');
+            });
+
+            it('stays at home page when no saved callback path can be found', function () {
+                callbackParams = null;
+
+                spyOn(user, 'setAccessToken');
+                spyOn($location, 'url').and.returnValue(
+                    `?state=${stateToken}&access_token=accesstoken&token_type=bearer&expires_in=36000`);
+
+                authenticator.initialize();
+
+                expect($location.replace).not.toHaveBeenCalled();
+                expect($location.url).not.toHaveBeenCalledWith('');
+                expect($location.search).not.toHaveBeenCalled();
+                expect(user.setAccessToken).toHaveBeenCalledWith('accesstoken');
+            });
+
+            describe('validating callback urls', function () {
+                let url;
+
+                beforeEach(() => {
+                    spyOn(user, 'setAccessToken');
+                    spyOn($location, 'url').and.callFake(() => url);
+                });
+
+                describe('with the correct state token', () => {
+                    it('rejects state token only', () => {
+                        url = `?state=${stateToken}`;
+                        authenticator.initialize();
+                        expect(user.setAccessToken).not.toHaveBeenCalled();
+                    });
+                    it('rejects state token only, with other params', () => {
+                        url = `?state=${stateToken}&one=1&two=2`;
+                        authenticator.initialize();
+                        expect(user.setAccessToken).not.toHaveBeenCalled();
+                    });
+                    it('accepts with all params', () => {
+                        url = `?state=${stateToken}&access_token=accesstoken&token_type=bearer&expires_in=36000`;
+                        authenticator.initialize();
+                        expect(user.setAccessToken).toHaveBeenCalledWith('accesstoken');
+                    });
+                    it('accepts with all params, and other params', () => {
+                        url = `?state=${stateToken}&access_token=accesstoken&token_type=bearer&expires_in=36000` +
+                            '&one=1&two=2';
+                        authenticator.initialize();
+                        expect(user.setAccessToken).toHaveBeenCalledWith('accesstoken');
+                    });
+                });
+
+                describe('with an incorrect state token', () => {
+                    it('rejects state token only', () => {
+                        url = '?state=invalid';
+                        authenticator.initialize();
+                        expect(user.setAccessToken).not.toHaveBeenCalled();
+                    });
+                    it('rejects state token only, with other params', () => {
+                        url = '?state=invalid&one=1&two=2';
+                        authenticator.initialize();
+                        expect(user.setAccessToken).not.toHaveBeenCalled();
+                    });
+                    it('rejects with all params', () => {
+                        url = '?state=invalid&access_token=accesstoken&token_type=bearer&expires_in=36000';
+                        authenticator.initialize();
+                        expect(user.setAccessToken).not.toHaveBeenCalled();
+                    });
+                    it('rejects with all params, and other params', () => {
+                        url = '?state=invalid&access_token=accesstoken&token_type=bearer&expires_in=36000' +
+                            '&one=1&two=2';
+                        authenticator.initialize();
+                        expect(user.setAccessToken).not.toHaveBeenCalled();
+                    });
+                });
+
+                describe('without a state token', () => {
+                    it('rejects without any params', () => {
+                        url = '';
+                        authenticator.initialize();
+                        expect(user.setAccessToken).not.toHaveBeenCalled();
+                    });
+                    it('rejects with only other params', () => {
+                        url = '?one=1&two=2';
+                        authenticator.initialize();
+                        expect(user.setAccessToken).not.toHaveBeenCalled();
+                    });
+                    it('rejects with all params', () => {
+                        url = '?access_token=accesstoken&token_type=bearer&expires_in=36000';
+                        authenticator.initialize();
+                        expect(user.setAccessToken).not.toHaveBeenCalled();
+                    });
+                    it('rejects with all params, and other params', () => {
+                        url = '?access_token=accesstoken&token_type=bearer&expires_in=36000' +
+                            '&one=1&two=2';
+                        authenticator.initialize();
+                        expect(user.setAccessToken).not.toHaveBeenCalled();
+                    });
+                });
             });
         });
 
@@ -235,6 +344,13 @@ describe(' The authenticator factory', function () {
             expect(storage.session.setItem).toHaveBeenCalledWith('callbackParams', angular.toJson({dte: path}));
         });
 
+        it('saves the state token in the session when redirecting to an external security provider', function () {
+            spyOn(storage.session, 'setItem');
+            absUrl = 'absUrl/#?arg';
+            authenticator.login();
+            expect(storage.session.setItem).toHaveBeenCalledWith('stateToken', 'randomString');
+        });
+
         it('removes everything after # if present', function () {
             absUrl = 'absUrl/#/?arg';
             authenticator.login();
@@ -303,95 +419,5 @@ describe(' The authenticator factory', function () {
 
         authenticator.logout();
         expect(user.clearToken).toHaveBeenCalled();
-    });
-
-    it('is able to tell whether a url is a callback message from an external security provider', function () {
-        authenticator.login();
-
-        // With the correct state token
-        expect(authenticator.isCallback({state: stateToken})).toBe(false);
-        expect(authenticator.isCallback({state: stateToken, one: 1, two: 2})).toBe(false);
-        expect(authenticator.isCallback({state: stateToken, access_token: 1, token_type: 2, expires_in: 3})).toBe(true);
-        expect(authenticator.isCallback({state: stateToken, access_token: 2, rid: 3})).toBe(false);
-        expect(authenticator.isCallback({state: stateToken, zero: 0, access_token: 1, token_type: 2, expires_in: 3}))
-            .toBe(true);
-
-        // With an incorrect state token
-        expect(authenticator.isCallback({state: 'invalid'})).toBe(false);
-        expect(authenticator.isCallback({state: 'invalid', one: 1, two: 2})).toBe(false);
-        expect(authenticator.isCallback({state: 'invalid', access_token: 1, token_type: 2, expires_in: 3})).toBe(false);
-        expect(authenticator.isCallback({state: 'invalid', access_token: 2, rid: 3})).toBe(false);
-        expect(authenticator.isCallback({state: 'invalid', zero: 0, access_token: 1, token_type: 2, expires_in: 3}))
-            .toBe(false);
-
-        // Without a state token
-        expect(authenticator.isCallback({})).toBe(false);
-        expect(authenticator.isCallback({one: 1, two: 2})).toBe(false);
-        expect(authenticator.isCallback({access_token: 1, token_type: 2, expires_in: 3})).toBe(false);
-        expect(authenticator.isCallback({access_token: 2, rid: 3})).toBe(false);
-        expect(authenticator.isCallback({zero: 0, access_token: 1, token_type: 2, expires_in: 3})).toBe(false);
-    });
-
-    it('is able to intercept callback messages from external security provider, clears browser history', function () {
-        spyOn(user, 'setAccessToken');
-
-        authenticator.login();
-        $location.search.calls.reset();
-
-        authenticator.handleCallback({
-            state: stateToken,
-            access_token: 'accesstoken',
-            token_type: 'bearer',
-            expires_in: 36000
-        });
-
-        expect($location.replace).toHaveBeenCalled();
-        expect($location.search).toHaveBeenCalledWith({one: 1});
-        expect(user.setAccessToken).toHaveBeenCalledWith('accesstoken');
-    });
-
-    xit('returns to the saved callback path on a refresh token error', function () {
-        spyOn(storage.session, 'getItem').and.returnValue(angular.toJson({one: 1}));
-
-        $httpBackend.whenGET(AUTH_PATH + REFRESH_TOKEN_PATH + '?a-select-server=1&aselect_credentials=2&rid=3')
-            .respond(400, 'refresh token error');
-
-        authenticator.handleCallback({one: 1, 'a-select-server': 1, 'aselect_credentials': 2, 'rid': 3});
-        $httpBackend.flush();
-
-        expect($location.replace).toHaveBeenCalled();
-        expect($location.search).toHaveBeenCalledWith({one: 1});
-        $httpBackend.verifyNoOutstandingRequest();
-    });
-
-    xit('returns to the saved callback path on an access token error', function () {
-        spyOn(storage.session, 'getItem').and.returnValue(angular.toJson({one: 1}));
-
-        $httpBackend.whenGET(AUTH_PATH + REFRESH_TOKEN_PATH + '?a-select-server=1&aselect_credentials=2&rid=3')
-            .respond('token');
-        $httpBackend.whenGET(AUTH_PATH + ACCESS_TOKEN_PATH).respond(400, 'accesstoken error');
-
-        authenticator.handleCallback({one: 1, 'a-select-server': 1, 'aselect_credentials': 2, 'rid': 3});
-        $httpBackend.flush();
-
-        expect($location.replace).toHaveBeenCalled();
-        expect($location.search).toHaveBeenCalledWith({one: 1});
-        $httpBackend.verifyNoOutstandingRequest();
-    });
-
-    it('stays at home page when no saved callback path can be found', function () {
-        callbackParams = null;
-
-        authenticator.login();
-        $location.search.calls.reset();
-
-        authenticator.handleCallback({
-            state: stateToken,
-            access_token: 'accesstoken',
-            token_type: 'bearer',
-            expires_in: 36000
-        });
-
-        expect($location.search).not.toHaveBeenCalled();
     });
 });
