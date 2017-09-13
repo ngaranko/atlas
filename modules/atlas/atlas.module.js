@@ -37,6 +37,5 @@
         angular.module('ngRaven', []).service('Raven', angular.noop);
     }
 
-    angular
-        .module('atlas', moduleDependencies);
+    angular.module('atlas', moduleDependencies);
 })();
