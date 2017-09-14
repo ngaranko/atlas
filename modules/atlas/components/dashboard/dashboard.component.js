@@ -14,9 +14,9 @@ import MapPanelWrapper from '../../../../src/map/wrappers/panel/MapPanelWrapper'
             controllerAs: 'vm'
         });
 
-    DpDashboardController.$inject = ['$scope', 'store', 'ACTIONS', 'dashboardColumns', 'HEADER'];
+    DpDashboardController.$inject = ['$scope', '$timeout', 'store', 'ACTIONS', 'dashboardColumns', 'HEADER'];
 
-    function DpDashboardController ($scope, store, ACTIONS, dashboardColumns, HEADER) {
+    function DpDashboardController ($scope, $timeout, store, ACTIONS, dashboardColumns, HEADER) {
         const vm = this;
 
         vm.store = store;
@@ -33,9 +33,16 @@ import MapPanelWrapper from '../../../../src/map/wrappers/panel/MapPanelWrapper'
             }
         });
 
-        this.$postLink = () => {
-            render(React.createElement(MapPanelWrapper, null), document.getElementById('map-panel-react'));
-        };
+        // (Re)render React `MapPanel` app when map is visible
+        $scope.$watch('vm.visibility.map', (newValue, oldValue) => {
+            if (!newValue) {
+                return;
+            }
+            // Render component in next digest to ensure DOM rendering has completed
+            $timeout(() => {
+                render(React.createElement(MapPanelWrapper, null), document.getElementById('map-panel-react'));
+            });
+        });
 
         function setLayout () {
             const state = store.getState();

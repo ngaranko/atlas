@@ -282,11 +282,6 @@
                 return result;
             }, newState);
 
-            // TODO: Fix workaround
-            if (oldState.mapLayers) {
-                newState.mapLayers = [...oldState.mapLayers];
-            }
-
             // Set any missing state objects to null
             Object.keys(stateUrlConversion.initialValues).forEach(key => {
                 if (key !== MAIN_STATE && !angular.isObject(newState[key])) {
@@ -297,7 +292,7 @@
             // Execute the post processing methods
             Object.keys(stateUrlConversion.post).forEach(key => {
                 if (angular.isObject(newState[key])) {
-                    stateUrlConversion.post[key](oldState[key], newState[key]);
+                    newState[key] = stateUrlConversion.post[key](oldState[key], newState[key]);
                 }
             });
 
