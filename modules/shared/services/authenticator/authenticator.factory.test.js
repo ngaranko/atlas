@@ -47,7 +47,29 @@ describe(' The authenticator factory', function () {
                     addEventListener: angular.noop,
                     location: {
                         href: ''
-                    }
+                    },
+                    crypto: {
+                        getRandomValues: (list) => {
+                            list[0] = 48; // 0
+                            list[1] = 52; // 4
+                            list[2] = 56; // 8
+                            list[3] = 62; // >
+                            list[4] = 73; // I
+                            list[5] = 89; // Y
+                            list[6] = 99; // c
+                            list[7] = 101; // e
+                            list[8] = 105; // i
+                            list[9] = 118; // v
+                            list[10] = 123; // {
+                            list[11] = 200; // È
+                            list[12] = 204; // Ì
+                            list[13] = 208; // Ð
+                            list[14] = 224; // à
+                            list[15] = 240; // ð
+                        }
+                    },
+                    btoa: angular.noop,
+                    encodeURIComponent: angular.noop
                 },
                 $location: {
                     absUrl: () => absUrl,
@@ -312,12 +334,24 @@ describe(' The authenticator factory', function () {
     });
 
     describe('login', () => {
+        const randomString = 'abcd%2Befgh%3D%3D';
+        beforeEach(() => {
+            spyOn($window, 'btoa').and.returnValue('abcd+efgh==');
+            spyOn($window, 'encodeURIComponent').and.returnValue(randomString);
+        });
+
+        it('it generates a random string of characters and url encodes it', () => {
+            authenticator.login();
+            expect($window.btoa).toHaveBeenCalledWith('048>IYceiv{ÈÌÐàð');
+            expect($window.encodeURIComponent).toHaveBeenCalledWith('abcd+efgh==');
+        });
+
         it('can login a user by redirecting to an external security provider', function () {
             absUrl = 'absUrl/#?arg';
             authenticator.login();
             expect($window.location.href)
                 .toBe(AUTH_PATH + LOGIN_PATH +
-                    `&state=randomString&redirect_uri=${encodeURIComponent('absUrl/')}`);
+                    `&state=${randomString}&redirect_uri=${encodeURIComponent('absUrl/')}`);
         });
 
         it('saves the current path in the session when redirecting to an external security provider', function () {
@@ -327,7 +361,7 @@ describe(' The authenticator factory', function () {
             authenticator.login();
             expect($window.location.href)
                 .toBe(AUTH_PATH + LOGIN_PATH +
-                    `&state=randomString&redirect_uri=${encodeURIComponent('absUrl/')}`);
+                    `&state=${randomString}&redirect_uri=${encodeURIComponent('absUrl/')}`);
             expect(storage.session.setItem).toHaveBeenCalledWith('callbackParams', angular.toJson({one: 1}));
         });
 
@@ -348,7 +382,7 @@ describe(' The authenticator factory', function () {
             spyOn(storage.session, 'setItem');
             absUrl = 'absUrl/#?arg';
             authenticator.login();
-            expect(storage.session.setItem).toHaveBeenCalledWith('stateToken', 'randomString');
+            expect(storage.session.setItem).toHaveBeenCalledWith('stateToken', randomString);
         });
 
         it('removes everything after # if present', function () {
@@ -356,61 +390,61 @@ describe(' The authenticator factory', function () {
             authenticator.login();
             expect($window.location.href)
                 .toBe(AUTH_PATH + LOGIN_PATH +
-                    `&state=randomString&redirect_uri=${encodeURIComponent('absUrl/')}`);
+                    `&state=${randomString}&redirect_uri=${encodeURIComponent('absUrl/')}`);
 
             absUrl = 'absUrl/#/arg';
             authenticator.login();
             expect($window.location.href)
                 .toBe(AUTH_PATH + LOGIN_PATH +
-                    `&state=randomString&redirect_uri=${encodeURIComponent('absUrl/')}`);
+                    `&state=${randomString}&redirect_uri=${encodeURIComponent('absUrl/')}`);
 
             absUrl = 'absUrl/#arg';
             authenticator.login();
             expect($window.location.href)
                 .toBe(AUTH_PATH + LOGIN_PATH +
-                    `&state=randomString&redirect_uri=${encodeURIComponent('absUrl/')}`);
+                    `&state=${randomString}&redirect_uri=${encodeURIComponent('absUrl/')}`);
 
             absUrl = 'absUrl/#?arg';
             authenticator.login();
             expect($window.location.href)
                 .toBe(AUTH_PATH + LOGIN_PATH +
-                    `&state=randomString&redirect_uri=${encodeURIComponent('absUrl/')}`);
+                    `&state=${randomString}&redirect_uri=${encodeURIComponent('absUrl/')}`);
 
             absUrl = 'absUrl#/?arg';
             authenticator.login();
             expect($window.location.href)
                 .toBe(AUTH_PATH + LOGIN_PATH +
-                    `&state=randomString&redirect_uri=${encodeURIComponent('absUrl')}`);
+                    `&state=${randomString}&redirect_uri=${encodeURIComponent('absUrl')}`);
 
             absUrl = 'absUrl#/arg';
             authenticator.login();
             expect($window.location.href)
                 .toBe(AUTH_PATH + LOGIN_PATH +
-                    `&state=randomString&redirect_uri=${encodeURIComponent('absUrl')}`);
+                    `&state=${randomString}&redirect_uri=${encodeURIComponent('absUrl')}`);
 
             absUrl = 'absUrl#?arg';
             authenticator.login();
             expect($window.location.href)
                 .toBe(AUTH_PATH + LOGIN_PATH +
-                    `&state=randomString&redirect_uri=${encodeURIComponent('absUrl')}`);
+                    `&state=${randomString}&redirect_uri=${encodeURIComponent('absUrl')}`);
 
             absUrl = 'absUrl#arg';
             authenticator.login();
             expect($window.location.href)
                 .toBe(AUTH_PATH + LOGIN_PATH +
-                    `&state=randomString&redirect_uri=${encodeURIComponent('absUrl')}`);
+                    `&state=${randomString}&redirect_uri=${encodeURIComponent('absUrl')}`);
 
             absUrl = 'absUrl#';
             authenticator.login();
             expect($window.location.href)
                 .toBe(AUTH_PATH + LOGIN_PATH +
-                    `&state=randomString&redirect_uri=${encodeURIComponent('absUrl')}`);
+                    `&state=${randomString}&redirect_uri=${encodeURIComponent('absUrl')}`);
 
             absUrl = 'absUrl';
             authenticator.login();
             expect($window.location.href)
                 .toBe(AUTH_PATH + LOGIN_PATH +
-                    `&state=randomString&redirect_uri=${encodeURIComponent('absUrl')}`);
+                    `&state=${randomString}&redirect_uri=${encodeURIComponent('absUrl')}`);
         });
     });
 
