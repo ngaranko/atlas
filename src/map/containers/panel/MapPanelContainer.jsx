@@ -3,36 +3,57 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { addMapLayer, getMapLayers } from '../../ducks/layers/map-layers';
+import MapLayers from '../../components/layers/MapLayers';
+import MapLegend from '../../components/legend/MapLegend';
+import MapType from '../../components/type/MapType';
+
 const mapStateToProps = state => ({
   atlas: state.atlas,
   layerSelection: state.layerSelection,
-  map: state.map
+  map: state.map,
+  mapLayers: state.mapLayers
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch);
+// TODO: Add method that checks whether layer is active and toggles accordingly
+const mapDispatchToProps = dispatch => bindActionCreators({
+  onLayerToggle: addMapLayer
+}, dispatch);
 
-const MapPanelContainer = props => (
-  props.layerSelection.isEnabled &&
-    <section style={{ position: 'fixed', left: '20px', bottom: '20px', width: '300px', height: '800px', zIndex: '100', backgroundColor: '#FFF' }}>
-      <pre>
-        {JSON.stringify(props.map, null, 2)}
-      </pre>
-    </section>
-);
+class MapPanelContainer extends React.Component {
+  componentDidMount() {
+    this.context.store.dispatch(getMapLayers());
+  }
+
+  render() {
+    return this.props.layerSelection.isEnabled && (
+      <section className="map-panel">
+        <h1>Kaartlagen</h1>
+        <MapLegend />
+        <MapType />
+        <MapLayers layers={this.props.mapLayers} onLayerToggle={this.props.onLayerToggle} />
+      </section>
+    );
+  }
+}
+
+MapPanelContainer.contextTypes = {
+  store: PropTypes.object.isRequired
+};
 
 MapPanelContainer.defaultProps = {
   atlas: {},
   layerSelection: {},
-  map: {}
+  map: {},
+  mapLayers: []
 };
 
 MapPanelContainer.propTypes = {
   atlas: PropTypes.object, // eslint-disable-line
   layerSelection: PropTypes.object, // eslint-disable-line
-  map: PropTypes.object // eslint-disable-line
+  map: PropTypes.object, // eslint-disable-line
+  mapLayers: PropTypes.array, // eslint-disable-line
+  onLayerToggle: PropTypes.func // eslint-disable-line
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MapPanelContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(MapPanelContainer);

@@ -24,4 +24,14 @@ export default function MapLayersReducer(state = initialState, action) {
   }
 }
 
+export function addMapLayer() {
+  return {
+    type: {
+      id: 'MAP_ADD_OVERLAY',
+      replace: true
+    },
+    payload: 'ksec'
+  };
+}
+
 export const getMapLayers = () => ({ type: FETCH_MAP_LAYERS_REQUEST });

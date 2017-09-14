@@ -15,7 +15,7 @@ ENV PASSWORD_EMPLOYEE_PLUS=$PASSWORD_EMPLOYEE_PLUS
 RUN apt-get update && apt-get upgrade -y --no-install-recommends \
   && apt-get install -y bzip2 git nginx unzip xz-utils \
   && rm -rf /var/lib/apt/lists/* \
-  && npm install -g bower grunt-cli
+  && npm install -g bower
 
 RUN echo 'deb http://deb.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/jessie-backports.list
 
@@ -66,15 +66,13 @@ WORKDIR /app
 ENV PATH=./node_modules/.bin/:~/node_modules/.bin/:$PATH
 RUN git config --global url.https://github.com/.insteadOf git://github.com/ \
   && git config --global url."https://github.com/".insteadOf git@github.com: \
-  && npm install && bower install --allow-root \
-  && ./node_modules/protractor/node_modules/webdriver-manager/bin/webdriver-manager update
+  && npm install \
+  && bower install --allow-root
 
 ARG BUILD_ID
 ENV BUILD_ID=$BUILD_ID
 
-RUN grunt set-build-id --buildid=${BUILD_ID} \
-  && grunt build-release \
-  && npm run build -- --env.buildId=${BUILD_ID} \
+RUN npm run build -- --env.buildId=${BUILD_ID} \
   && cp -r /app/build/. /var/www/html/
 
 COPY default.conf /etc/nginx/conf.d/

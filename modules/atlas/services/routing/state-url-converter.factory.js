@@ -282,6 +282,11 @@
                 return result;
             }, newState);
 
+            // TODO: Fix workaround
+            if (oldState.mapLayers) {
+                newState.mapLayers = [...oldState.mapLayers];
+            }
+
             // Set any missing state objects to null
             Object.keys(stateUrlConversion.initialValues).forEach(key => {
                 if (key !== MAIN_STATE && !angular.isObject(newState[key])) {

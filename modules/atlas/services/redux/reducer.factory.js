@@ -9,6 +9,8 @@ import MapLayersReducer from '../../../../src/map/ducks/layers/map-layers';
         .factory('reducer', reducerFactory);
 
     reducerFactory.$inject = [
+        '$rootScope',
+        '$timeout',
         '$window',
         'urlReducers',
         'freeze',
@@ -26,7 +28,9 @@ import MapLayersReducer from '../../../../src/map/ducks/layers/map-layers';
     ];
 
     // eslint-disable-next-line max-params
-    function reducerFactory ($window,
+    function reducerFactory ($rootScope,
+                             $timeout,
+                             $window,
                              urlReducers,
                              freeze,
                              homeReducers,
@@ -91,6 +95,9 @@ import MapLayersReducer from '../../../../src/map/ducks/layers/map-layers';
                 if (environment.isDevelopment()) {
                     freeze.deepFreeze(result);
                 }
+                $timeout(function () {
+                    $rootScope.$apply();
+                });
                 return result;
             } else {
                 // TODO: Redux: throw error

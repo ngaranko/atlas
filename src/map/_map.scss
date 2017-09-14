@@ -1,0 +1,25 @@
+.map-panel {
+  background-color: #FFF;
+  border: solid 1px #cccccc;
+  bottom: 20px;
+  box-shadow: 2px 2px 0 0 #999999;
+  height: 800px;
+  left: 20px;
+  max-width: 435px;
+  position: fixed;
+  width: 435px;
+  z-index: 100;
+
+  &__layer-category {
+    font-family: "Avenir LT W01 85 Heavy";
+
+    & ~ &__layer-category {
+      margin-top: 20px;
+    }
+  }
+
+  &__layer-title {
+    font-family: "Avenir LT W01 55 Roman";
+    text-align: left;
+  }
+}
