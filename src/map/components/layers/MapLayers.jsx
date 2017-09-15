@@ -12,7 +12,7 @@ const MapLayers = ({ layers, onLayerToggle }) => (
               className="map-panel__layer-title"
               key={layer.title}
             >
-              <button onClick={onLayerToggle}>{layer.title}</button>
+              <button onClick={() => onLayerToggle(layer.id)}>{layer.title}</button>
             </li>
           ))}
         </ul>

@@ -1,5 +1,6 @@
 // import detailReducer from '../../../../src/reducers/details';
 import MapLayersReducer from '../../../../src/map/ducks/layers/map-layers';
+import MapOverlaysReducer from '../../../../src/map/ducks/overlays/overlays';
 
 (function () {
     'use strict';
@@ -9,6 +10,8 @@ import MapLayersReducer from '../../../../src/map/ducks/layers/map-layers';
         .factory('reducer', reducerFactory);
 
     reducerFactory.$inject = [
+        '$rootScope',
+        '$timeout',
         '$window',
         'urlReducers',
         'freeze',
@@ -26,7 +29,9 @@ import MapLayersReducer from '../../../../src/map/ducks/layers/map-layers';
     ];
 
     // eslint-disable-next-line max-params
-    function reducerFactory ($window,
+    function reducerFactory ($rootScope,
+                             $timeout,
+                             $window,
                              urlReducers,
                              freeze,
                              homeReducers,
@@ -56,6 +61,10 @@ import MapLayersReducer from '../../../../src/map/ducks/layers/map-layers';
                 FETCH_MAP_LAYERS_SUCCESS: MapLayersReducer
             };
 
+            const mapOverlaysReducer = {
+                TOGGLE_MAP_OVERLAY: MapOverlaysReducer
+            };
+
             var actions = angular.merge(
                 urlReducers,
                 detailReducers,
@@ -82,6 +91,12 @@ import MapLayersReducer from '../../../../src/map/ducks/layers/map-layers';
 
             if (mapLayersReducer.hasOwnProperty(action.type)) {
                 return MapLayersReducer(oldState, action);
+            }
+
+            if (mapOverlaysReducer.hasOwnProperty(action.type)) {
+                const newState = MapOverlaysReducer(oldState, action);
+                $timeout(() => $rootScope.$digest());
+                return newState;
             }
 
             if (angular.isObject(action) &&

@@ -169,7 +169,7 @@ export default [
   },
   {
     category: 'Geografie: onroerende zaken',
-    id: '',
+    id: 'bgem',
     legendItems: [
       {
         imageUrl: '',
@@ -183,7 +183,7 @@ export default [
   },
   {
     category: 'Geografie: onroerende zaken',
-    id: '',
+    id: 'kgem',
     legendItems: [
       {
         imageUrl: '',
@@ -197,7 +197,7 @@ export default [
   },
   {
     category: 'Geografie: onroerende zaken',
-    id: '',
+    id: 'ksec',
     legendItems: [
       {
         imageUrl: '',
@@ -211,7 +211,7 @@ export default [
   },
   {
     category: 'Geografie: onroerende zaken',
-    id: '',
+    id: 'kot',
     legendItems: [
       {
         imageUrl: '',
