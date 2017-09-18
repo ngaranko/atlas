@@ -75,7 +75,7 @@
                     // Check if the error is due to a cancelled http request
                     if (response.config.timeout && angular.isFunction(response.config.timeout.then)) {
                         response.config.timeout.then(
-                            angular.noop,   // request has been cancelled by resolving the timeout
+                            angular.noop, // request has been cancelled by resolving the timeout
                             () => { // Abnormal end of request
                                 registerServerError();
                                 logResponse('HTTP request ended abnormally', response.status);
