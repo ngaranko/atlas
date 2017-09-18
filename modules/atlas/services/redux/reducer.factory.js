@@ -1,4 +1,4 @@
-// import detailReducer from '../../../src/reducers/details';
+// import detailReducer from '../../../../src/reducers/details';
 
 (function () {
     'use strict';
