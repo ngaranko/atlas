@@ -6,7 +6,6 @@
         .factory('authenticator', authenticatorFactory);
 
     authenticatorFactory.$inject = [
-        '$http',
         '$interval',
         'sharedConfig',
         'user',
@@ -17,7 +16,6 @@
     ];
 
     function authenticatorFactory (
-        $http,
         $interval,
         sharedConfig,
         user,

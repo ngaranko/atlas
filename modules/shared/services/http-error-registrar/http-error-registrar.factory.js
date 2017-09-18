@@ -6,9 +6,26 @@
         .factory('httpErrorRegistrar', httpErrorRegistrarFactory)
         .config($httpProvider => $httpProvider.interceptors.push('httpErrorRegistrar'));
 
-    httpErrorRegistrarFactory.inject = ['$log', '$rootScope', '$window', '$q', '$interval', 'httpStatus', 'Raven'];
+    httpErrorRegistrarFactory.inject = [
+        '$log',
+        '$rootScope',
+        '$window',
+        '$q',
+        '$interval',
+        'httpStatus',
+        'authenticator',
+        'Raven'];
 
-    function httpErrorRegistrarFactory ($log, $rootScope, $window, $q, $interval, httpStatus, Raven) {
+    function httpErrorRegistrarFactory (
+        $log,
+        $rootScope,
+        $window,
+        $q,
+        $interval,
+        httpStatus,
+        authenticator,
+        Raven
+    ) {
         $window.addEventListener('error', function (e) {
             if (e.target && e.target.src) {
                 // URL load error
@@ -73,7 +90,9 @@
                     registerServerError();
                     logResponse('HTTP 5xx response', response.status);
                 } else if (isClientError) {
-                    if (response && response.data && response.data.detail === 'Not found.') {
+                    if (response.status === 401) {
+                        authenticator.logout();
+                    } else if (response && response.data && response.data.detail === 'Not found.') {
                         registerNotFoundError();
                         logResponse('HTTP response body: Not found.', response.status);
                     } else {
