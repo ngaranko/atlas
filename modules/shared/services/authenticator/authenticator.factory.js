@@ -12,7 +12,8 @@
         '$window',
         '$location',
         'storage',
-        'uriStripper'
+        'uriStripper',
+        'httpStatus'
     ];
 
     function authenticatorFactory (
@@ -22,7 +23,8 @@
         $window,
         $location,
         storage,
-        uriStripper
+        uriStripper,
+        httpStatus
     ) {
         const ERROR_MESSAGES = {
             invalid_request: 'The request is missing a required parameter, includes an invalid parameter value, ' +
@@ -71,6 +73,11 @@
         function login () { // redirect to external authentication provider
             const callback = $location.absUrl().replace(/#.*$/, ''); // Remove all parameters
             const stateToken = $window.encodeURIComponent(generateStateToken()); // Get a random string to prevent XSS
+
+            if (!stateToken) {
+                httpStatus.registerError(httpStatus.LOGIN_ERROR);
+                return;
+            }
 
             savePath(); // Save current path in session
             saveStateToken(stateToken); // Save the state token in session
@@ -193,6 +200,10 @@
         function generateStateToken () {
             // Backwards compatible with msCrypto in IE11
             const crypto = $window.crypto || $window.msCrypto;
+
+            if (!crypto) {
+                return '';
+            }
 
             // Create an array of 16 8-bit unsigned integers
             const list = new Uint8Array(16);

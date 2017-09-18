@@ -4,6 +4,7 @@ describe(' The authenticator factory', function () {
         storage,
         user,
         authenticator,
+        httpStatus,
         absUrl,
         mockedUser,
         uriStripper,
@@ -101,7 +102,11 @@ describe(' The authenticator factory', function () {
                         removeItem: angular.noop
                     }
                 },
-                uriStripper: jasmine.createSpyObj('uriStripper', ['stripDomain'])
+                uriStripper: jasmine.createSpyObj('uriStripper', ['stripDomain']),
+                httpStatus: {
+                    registerError: angular.noop,
+                    LOGIN_ERROR: 'LOGIN_ERROR'
+                }
             }
         );
 
@@ -115,7 +120,8 @@ describe(' The authenticator factory', function () {
             _storage_,
             _user_,
             _authenticator_,
-            _uriStripper_
+            _uriStripper_,
+            _httpStatus_
         ) {
             $window = _$window_;
             $location = _$location_;
@@ -123,6 +129,7 @@ describe(' The authenticator factory', function () {
             user = _user_;
             authenticator = _authenticator_;
             uriStripper = _uriStripper_;
+            httpStatus = _httpStatus_;
         });
 
         spyOn($location, 'search').and.returnValue({});
@@ -340,10 +347,40 @@ describe(' The authenticator factory', function () {
             spyOn($window, 'encodeURIComponent').and.returnValue(randomString);
         });
 
+        it('uses the msCrypto library when crypto is not available (IE11)', () => {
+            spyOn(httpStatus, 'registerError');
+            spyOn(storage.session, 'setItem');
+
+            $window.msCrypto = $window.crypto;
+            delete $window.crypto;
+            authenticator.login();
+
+            expect($window.btoa).toHaveBeenCalledWith('048>IYceiv{ÈÌÐàð');
+            expect($window.encodeURIComponent).toHaveBeenCalledWith('abcd+efgh==');
+            expect(httpStatus.registerError).not.toHaveBeenCalled();
+        });
+
+        it('registers an http error when the crypto library is not available', () => {
+            spyOn(httpStatus, 'registerError');
+            spyOn(storage.session, 'setItem');
+            $window.encodeURIComponent.and.returnValue('');
+
+            delete $window.crypto;
+            authenticator.login();
+
+            expect($window.encodeURIComponent).toHaveBeenCalledWith('');
+            expect(httpStatus.registerError).toHaveBeenCalledWith('LOGIN_ERROR');
+            expect($window.location.href).toBe('');
+            expect(storage.session.setItem).not.toHaveBeenCalledWith();
+            expect(storage.session.setItem).not.toHaveBeenCalledWith();
+        });
+
         it('it generates a random string of characters and url encodes it', () => {
+            spyOn(httpStatus, 'registerError');
             authenticator.login();
             expect($window.btoa).toHaveBeenCalledWith('048>IYceiv{ÈÌÐàð');
             expect($window.encodeURIComponent).toHaveBeenCalledWith('abcd+efgh==');
+            expect(httpStatus.registerError).not.toHaveBeenCalled();
         });
 
         it('can login a user by redirecting to an external security provider', function () {
