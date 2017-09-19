@@ -47,21 +47,22 @@
                     }
                 };
 
-                this.parseToken = function (token) { // private method to parse an access token
+                // private method to parse an access token
+                this.parseToken = function (token) {
                     const content = this.decodeToken(token);
 
-                    if (angular.isDefined(content.sub)) { // contained in refresh token
+                    if (angular.isDefined(content.sub)) {
                         this.name = content.sub || '';
                     }
 
-                    if (angular.isDefined(content.authz)) { // contained in access token
+                    if (angular.isDefined(content.authz)) {
                         this.authorizationLevel = content.authz;
                     }
                 };
 
                 this.init();
 
-                if (this.accessToken) { // get any existing refresh token
+                if (this.accessToken) { // get any existing access token
                     this.parseToken(this.accessToken); // and parse its contents
                 }
             }
