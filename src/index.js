@@ -117,6 +117,7 @@ import '../modules/detail/components/yes-no/yes-no.filter.js';
 import '../modules/detail/detail.vendor.js';
 import '../modules/detail/services/data-formatter/data-formatter.factory.js';
 import '../modules/detail/services/date-converter/date-converter.factory.js';
+import '../modules/detail/services/date-formatter/date-formatter.factory.js';
 import '../modules/detail/services/document-title/document-title.factory.js';
 import '../modules/detail/services/endpoint-parser/endpoint-parser.factory.js';
 import '../modules/detail/services/geometry/geometry.factory.js';
