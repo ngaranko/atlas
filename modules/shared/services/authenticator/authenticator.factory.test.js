@@ -350,6 +350,7 @@ describe(' The authenticator factory', function () {
 
                 $window.location.search = queryString;
                 queryStringParser.and.callFake(() => queryObject);
+                spyOn(Raven, 'captureMessage');
             });
 
             it('picks up error parameters in the query string', () => {
@@ -357,12 +358,10 @@ describe(' The authenticator factory', function () {
 
                 authenticator.initialize();
 
-                expect(authenticator.error).toEqual({
-                    message: 'The request is missing a required parameter, includes an invalid parameter value, ' +
-                        'includes a parameter more than once, or is otherwise malformed.',
-                    code: 'invalid_request',
-                    description: 'invalid request'
-                });
+                expect(Raven.captureMessage).toHaveBeenCalledWith(new Error(
+                    'Authorization service responded with error invalid_request [invalid request] (The request is ' +
+                    'missing a required parameter, includes an invalid parameter value, includes a parameter more ' +
+                    'than once, or is otherwise malformed.)'));
                 expect(storage.session.removeItem).toHaveBeenCalledWith('stateToken');
                 expect(storage.session.removeItem).toHaveBeenCalledWith('callbackParams');
                 expect($location.replace).toHaveBeenCalled();
@@ -375,12 +374,10 @@ describe(' The authenticator factory', function () {
 
                 authenticator.initialize();
 
-                expect(authenticator.error).toEqual({
-                    message: 'The request is missing a required parameter, includes an invalid parameter value, ' +
-                        'includes a parameter more than once, or is otherwise malformed.',
-                    code: 'invalid_request',
-                    description: 'invalid request'
-                });
+                expect(Raven.captureMessage).toHaveBeenCalledWith(new Error(
+                    'Authorization service responded with error invalid_request [invalid request] (The request is ' +
+                    'missing a required parameter, includes an invalid parameter value, includes a parameter more ' +
+                    'than once, or is otherwise malformed.)'));
                 expect(storage.session.removeItem).toHaveBeenCalledWith('stateToken');
                 expect(storage.session.removeItem).toHaveBeenCalledWith('callbackParams');
                 expect($location.replace).toHaveBeenCalled();
@@ -395,11 +392,7 @@ describe(' The authenticator factory', function () {
 
                 authenticator.initialize();
 
-                expect(authenticator.error).toEqual({
-                    message: '',
-                    code: '',
-                    description: ''
-                });
+                expect(Raven.captureMessage).not.toHaveBeenCalled();
                 expect(storage.session.removeItem).not.toHaveBeenCalled();
                 expect($location.replace).not.toHaveBeenCalled();
                 expect($location.search).not.toHaveBeenCalled();
@@ -413,11 +406,7 @@ describe(' The authenticator factory', function () {
 
                 authenticator.initialize();
 
-                expect(authenticator.error).toEqual({
-                    message: '',
-                    code: '',
-                    description: ''
-                });
+                expect(Raven.captureMessage).not.toHaveBeenCalled();
                 expect(storage.session.removeItem).not.toHaveBeenCalled();
                 expect($location.replace).not.toHaveBeenCalled();
                 expect($location.search).not.toHaveBeenCalled();

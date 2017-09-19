@@ -56,21 +56,17 @@
         const STATE_TOKEN = 'stateToken'; // save state token in session storage
         const ACCESS_TOKEN = 'accessToken'; // save access token in session storage
 
-        const error = {}; // message, code and description
-
         let initialized = false;
 
         return {
             initialize,
             login,
-            logout,
-            error
+            logout
         };
 
         function initialize () {
             if (!initialized) {
                 initialized = true;
-                setError();
                 restoreAccessToken();
                 catchError();
                 handleCallback();
@@ -140,7 +136,6 @@
         }
 
         function useAccessToken (token) {
-            setError();
             user.setAccessToken(token);
             saveAccessToken(token);
             removeStateToken(); // Remove state token from session
@@ -158,21 +153,11 @@
         }
 
         function handleError (code, description) {
-            setError(
-                ERROR_MESSAGES[code] ||
-                'Er is een fout opgetreden. Neem contact op met de beheerder en vermeld ' +
-                'code: ${code}, omschrijving: ${description}.',
-                code,
-                description);
+            Raven.captureMessage(new Error(
+                `Authorization service responded with error ${code} [${description}] (${ERROR_MESSAGES[code]})`));
             removeStateToken(); // Remove state token from session
             restorePath(storage.session.getItem(CALLBACK_PARAMS)); // Restore path from session
             removeErrorParamsFromPath();
-        }
-
-        function setError (message, code, description) {
-            error.message = message || '';
-            error.code = code || '';
-            error.description = description || '';
         }
 
         function savePath () {
@@ -192,14 +177,6 @@
         function restorePath (paramString) {
             storage.session.removeItem(CALLBACK_PARAMS);
             const params = paramString ? angular.fromJson(paramString) : {};
-
-            /* TODO tg-4478 inform user when something went wrong
-             * Flag in the URL something went wrong, pick up somewhere else and
-             * display a message to the user.
-             * if (errored) {
-             *     params.error = 'T';
-             * }
-             */
 
             $location.replace(); // overwrite the existing location (prevent back button to re-login)
             $location.url(''); // remove the parameters from the authorization service
