@@ -74,7 +74,7 @@ ENV BUILD_ID=$BUILD_ID
 RUN grunt set-build-id --buildid=${BUILD_ID} \
   && grunt build-release \
   && npm run build -- --env.buildId=${BUILD_ID} \
-  && cp -r /app/build/. /var/www/html/
+  && cp -r /app/dist/. /var/www/html/
 
 COPY default.conf /etc/nginx/conf.d/
 RUN rm /etc/nginx/sites-enabled/default
