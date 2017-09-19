@@ -47,7 +47,7 @@
                     }
                 };
 
-                this.parseToken = function (token) { // private method to parse a refresh or access token
+                this.parseToken = function (token) { // private method to parse an access token
                     const content = this.decodeToken(token);
 
                     if (angular.isDefined(content.sub)) { // contained in refresh token

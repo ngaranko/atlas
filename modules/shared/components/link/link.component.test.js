@@ -8,7 +8,6 @@ describe('The dp-link component', function () {
         mockedState,
         mockedStateUrlConverter,
         mockedTargetState,
-        mockedHost,
         mockedTargetPath;
 
     beforeEach(function () {
@@ -31,7 +30,7 @@ describe('The dp-link component', function () {
             {
                 $location: {
                     host: function () {
-                        return mockedHost;
+                        return 'localhost';
                     }
                 },
                 store: {
@@ -79,7 +78,6 @@ describe('The dp-link component', function () {
             }
         };
 
-        mockedHost = 'localhost';
         mockedTargetPath = '#this=something-else';
 
         spyOn(store, 'dispatch');

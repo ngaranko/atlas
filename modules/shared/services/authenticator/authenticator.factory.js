@@ -13,9 +13,13 @@
         '$location',
         'storage',
         'uriStripper',
-        'httpStatus'
+        'httpStatus',
+        'stateTokenGenerator',
+        'queryStringParser',
+        'Raven'
     ];
 
+    // eslint-disable-next-line max-params
     function authenticatorFactory (
         $interval,
         sharedConfig,
@@ -24,7 +28,10 @@
         $location,
         storage,
         uriStripper,
-        httpStatus
+        httpStatus,
+        stateTokenGenerator,
+        queryStringParser,
+        Raven
     ) {
         const ERROR_MESSAGES = {
             invalid_request: 'The request is missing a required parameter, includes an invalid parameter value, ' +
@@ -72,9 +79,10 @@
 
         function login () { // redirect to external authentication provider
             const callback = $location.absUrl().replace(/#.*$/, ''); // Remove all parameters
-            const stateToken = $window.encodeURIComponent(generateStateToken()); // Get a random string to prevent XSS
+            const stateToken = $window.encodeURIComponent(stateTokenGenerator()); // Get a random string to prevent CSRF
 
             if (!stateToken) {
+                // crypto library is not available on the current browser
                 httpStatus.registerError(httpStatus.LOGIN_ERROR);
                 return;
             }
@@ -98,21 +106,25 @@
             }
 
             // The state param must be exactly the same as the state token we
-            // have saved in the session (to prevent XSS)
+            // have saved in the session (to prevent CSRF)
             const stateTokenValid = params.state && params.state === getStateToken();
 
             // it is a callback when all authorization parameters are defined in the params
             // the fastest check is not to check if all parameters are defined but
             // to check that no undefined parameter can be found
-            const paramsValid = AUTH_PARAMS.reduce((acc, param) => {
-                return acc && angular.isDefined(params[param]);
-            }, true);
+            const paramsValid = !AUTH_PARAMS.some((param) => {
+                return angular.isUndefined(params[param]);
+            });
+
+            if (paramsValid && !stateTokenValid) {
+                Raven.captureMessage(new Error(`Authenticator encountered an invalid state token (${params.state})`));
+            }
 
             return Boolean(stateTokenValid && paramsValid);
         }
 
         function handleCallback () { // request user token with returned authorization parameters from callback
-            const params = parseQueryString($location.url());
+            const params = queryStringParser($location.url());
             if (isCallback(params)) {
                 useAccessToken(params.access_token);
                 return true;
@@ -132,11 +144,14 @@
             user.setAccessToken(token);
             saveAccessToken(token);
             removeStateToken(); // Remove state token from session
-            restorePath(); // Restore path from session
+            const pathParams = storage.session.getItem(CALLBACK_PARAMS);
+            if (pathParams) {
+                restorePath(pathParams); // Restore path from session
+            }
         }
 
         function catchError () {
-            const params = parseQueryString($window.location.search);
+            const params = queryStringParser($window.location.search);
             if (params && params.error) {
                 handleError(params.error, params.error_description);
             }
@@ -150,7 +165,8 @@
                 code,
                 description);
             removeStateToken(); // Remove state token from session
-            restorePath(true); // Restore path from session
+            restorePath(storage.session.getItem(CALLBACK_PARAMS)); // Restore path from session
+            removeErrorParamsFromPath();
         }
 
         function setError (message, code, description) {
@@ -173,49 +189,29 @@
             storage.session.setItem(CALLBACK_PARAMS, angular.toJson(params)); // encode params
         }
 
-        function restorePath (errored = false) {
-            const paramString = storage.session.getItem(CALLBACK_PARAMS);
+        function restorePath (paramString) {
             storage.session.removeItem(CALLBACK_PARAMS);
             const params = paramString ? angular.fromJson(paramString) : {};
 
-            if (errored) {
-                params.error = 'T';
-            }
+            /* TODO tg-4478 inform user when something went wrong
+             * Flag in the URL something went wrong, pick up somewhere else and
+             * display a message to the user.
+             * if (errored) {
+             *     params.error = 'T';
+             * }
+             */
 
-            if (paramString || errored) {
-                $location.replace(); // overwrite the existing location (prevent back button to re-login)
-                $location.url(''); // remove the parameters from the authorization service
-                $location.search(params);
-            }
-
-            if (errored) {
-                $interval(
-                    () => $window.location.href = $window.location.protocol + '//' +
-                        $window.location.host + $window.location.pathname +
-                        '#' + $location.url(),
-                    0, 1);
-            }
+            $location.replace(); // overwrite the existing location (prevent back button to re-login)
+            $location.url(''); // remove the parameters from the authorization service
+            $location.search(params);
         }
 
-        function generateStateToken () {
-            // Backwards compatible with msCrypto in IE11
-            const crypto = $window.crypto || $window.msCrypto;
-
-            if (!crypto) {
-                return '';
-            }
-
-            // Create an array of 16 8-bit unsigned integers
-            const list = new Uint8Array(16);
-            // Populate the array with random values
-            crypto.getRandomValues(list);
-
-            // Binary to Ascii (btoa) converts our (character representation
-            // of) our binary data to an Ascii string
-            return $window.btoa(Array
-                .from(list) // convert to normal array
-                .map((n) => String.fromCharCode(n)) // convert each integer to a character
-                .join('')); // convert to a string of characters
+        function removeErrorParamsFromPath () {
+            $interval(
+                () => $window.location.href = $window.location.protocol + '//' +
+                    $window.location.host + $window.location.pathname +
+                    '#' + $location.url(),
+                0, 1);
         }
 
         function saveStateToken (stateToken) {
@@ -240,19 +236,6 @@
 
         function removeAccessToken (accessToken) {
             storage.session.removeItem(ACCESS_TOKEN);
-        }
-
-        function parseQueryString (queryString) {
-            return queryString
-                ? queryString
-                    .substring(1)
-                    .split('&')
-                    .reduce((params, query) => {
-                        const keyValue = query.split('=');
-                        params[decodeURIComponent(keyValue[0])] = decodeURIComponent(keyValue[1]);
-                        return params;
-                    }, {})
-                : null;
         }
     }
 })();

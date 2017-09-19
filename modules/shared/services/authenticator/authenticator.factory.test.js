@@ -5,12 +5,15 @@ describe(' The authenticator factory', function () {
         user,
         authenticator,
         httpStatus,
+        Raven,
         absUrl,
         mockedUser,
         uriStripper,
         callbackParams,
         stateToken,
-        accessToken;
+        accessToken,
+        stateTokenGenerator,
+        queryStringParser;
 
     const AUTH_PATH = 'oauth2/';
     const LOGIN_PATH = 'authorize?idp_id=datapunt&response_type=token&client_id=citydata-data.amsterdam.nl';
@@ -25,10 +28,14 @@ describe(' The authenticator factory', function () {
         };
 
         mockedUser = initUser;
+        stateTokenGenerator = jasmine.createSpy();
+        queryStringParser = jasmine.createSpy();
 
         angular.mock.module(
             'dpShared',
             {
+                stateTokenGenerator,
+                queryStringParser,
                 user: {
                     setRefreshToken: (token, type) => {
                         mockedUser.refreshToken = token;
@@ -121,7 +128,8 @@ describe(' The authenticator factory', function () {
             _user_,
             _authenticator_,
             _uriStripper_,
-            _httpStatus_
+            _httpStatus_,
+            _Raven_
         ) {
             $window = _$window_;
             $location = _$location_;
@@ -130,6 +138,7 @@ describe(' The authenticator factory', function () {
             authenticator = _authenticator_;
             uriStripper = _uriStripper_;
             httpStatus = _httpStatus_;
+            Raven = _Raven_;
         });
 
         spyOn($location, 'search').and.returnValue({});
@@ -158,13 +167,27 @@ describe(' The authenticator factory', function () {
         });
 
         describe('success', () => {
-            it('is able to intercept callback messages from external security provider, clears browser history', () => {
-                spyOn(user, 'setAccessToken');
-                spyOn($location, 'url').and.returnValue(
-                    `?state=${stateToken}&access_token=accesstoken&token_type=bearer&expires_in=36000`);
+            let queryString;
+            let queryObject;
 
+            beforeEach(() => {
+                queryString = `?state=${stateToken}&access_token=accesstoken&token_type=bearer&expires_in=36000`;
+                queryObject = {
+                    state: stateToken,
+                    access_token: 'accesstoken',
+                    token_type: 'bearer',
+                    expires_in: '36000'
+                };
+
+                spyOn(user, 'setAccessToken');
+                spyOn($location, 'url').and.callFake(() => queryString);
+                queryStringParser.and.callFake(() => queryObject);
+            });
+
+            it('is able to intercept callback messages from external security provider, clears browser history', () => {
                 authenticator.initialize();
 
+                expect(queryStringParser).toHaveBeenCalledWith(queryString);
                 expect($location.replace).toHaveBeenCalled();
                 expect($location.url).toHaveBeenCalledWith('');
                 expect($location.search).toHaveBeenCalledWith({one: 1});
@@ -173,10 +196,6 @@ describe(' The authenticator factory', function () {
 
             it('stays at home page when no saved callback path can be found', function () {
                 callbackParams = null;
-
-                spyOn(user, 'setAccessToken');
-                spyOn($location, 'url').and.returnValue(
-                    `?state=${stateToken}&access_token=accesstoken&token_type=bearer&expires_in=36000`);
 
                 authenticator.initialize();
 
@@ -187,80 +206,129 @@ describe(' The authenticator factory', function () {
             });
 
             describe('validating callback urls', function () {
-                let url;
-
-                beforeEach(() => {
-                    spyOn(user, 'setAccessToken');
-                    spyOn($location, 'url').and.callFake(() => url);
-                });
-
                 describe('with the correct state token', () => {
                     it('rejects state token only', () => {
-                        url = `?state=${stateToken}`;
+                        queryString = `?state=${stateToken}`;
+                        queryObject = { state: stateToken };
                         authenticator.initialize();
                         expect(user.setAccessToken).not.toHaveBeenCalled();
                     });
                     it('rejects state token only, with other params', () => {
-                        url = `?state=${stateToken}&one=1&two=2`;
+                        queryString = `?state=${stateToken}&one=1&two=2`;
+                        queryObject = { state: stateToken, one: 1, two: 2 };
                         authenticator.initialize();
                         expect(user.setAccessToken).not.toHaveBeenCalled();
                     });
                     it('accepts with all params', () => {
-                        url = `?state=${stateToken}&access_token=accesstoken&token_type=bearer&expires_in=36000`;
+                        queryString = `?state=${stateToken}&access_token=accesstoken&token_type=bearer` +
+                            '&expires_in=36000';
                         authenticator.initialize();
                         expect(user.setAccessToken).toHaveBeenCalledWith('accesstoken');
                     });
                     it('accepts with all params, and other params', () => {
-                        url = `?state=${stateToken}&access_token=accesstoken&token_type=bearer&expires_in=36000` +
-                            '&one=1&two=2';
+                        queryString = `?state=${stateToken}&access_token=accesstoken&token_type=bearer` +
+                            '&expires_in=36000&one=1&two=2';
+                        queryObject = {
+                            state: stateToken,
+                            access_token: 'accesstoken',
+                            token_type: 'bearer',
+                            expires_in: '36000',
+                            one: 1,
+                            two: 2
+                        };
                         authenticator.initialize();
                         expect(user.setAccessToken).toHaveBeenCalledWith('accesstoken');
                     });
                 });
 
                 describe('with an incorrect state token', () => {
+                    beforeEach(() => {
+                        spyOn(Raven, 'captureMessage');
+                    });
+
                     it('rejects state token only', () => {
-                        url = '?state=invalid';
+                        queryString = '?state=invalid';
+                        queryObject = { state: 'invalid' };
                         authenticator.initialize();
                         expect(user.setAccessToken).not.toHaveBeenCalled();
                     });
                     it('rejects state token only, with other params', () => {
-                        url = '?state=invalid&one=1&two=2';
+                        queryString = '?state=invalid&one=1&two=2';
+                        queryObject = { state: 'invalid', one: 1, two: 2 };
                         authenticator.initialize();
                         expect(user.setAccessToken).not.toHaveBeenCalled();
                     });
                     it('rejects with all params', () => {
-                        url = '?state=invalid&access_token=accesstoken&token_type=bearer&expires_in=36000';
+                        queryString = '?state=invalid&access_token=accesstoken&token_type=bearer&expires_in=36000';
+                        queryObject = {
+                            state: 'invalid',
+                            access_token: 'accesstoken',
+                            token_type: 'bearer',
+                            expires_in: '36000'
+                        };
                         authenticator.initialize();
                         expect(user.setAccessToken).not.toHaveBeenCalled();
                     });
                     it('rejects with all params, and other params', () => {
-                        url = '?state=invalid&access_token=accesstoken&token_type=bearer&expires_in=36000' +
+                        queryString = '?state=invalid&access_token=accesstoken&token_type=bearer&expires_in=36000' +
                             '&one=1&two=2';
+                        queryObject = {
+                            state: 'invalid',
+                            access_token: 'accesstoken',
+                            token_type: 'bearer',
+                            expires_in: '36000',
+                            one: 1,
+                            two: 2
+                        };
                         authenticator.initialize();
                         expect(user.setAccessToken).not.toHaveBeenCalled();
+                    });
+                    it('Logs to sentry', () => {
+                        queryString = '?state=invalid&access_token=accesstoken&token_type=bearer&expires_in=36000';
+                        queryObject = {
+                            state: 'invalid',
+                            access_token: 'accesstoken',
+                            token_type: 'bearer',
+                            expires_in: '36000'
+                        };
+                        authenticator.initialize();
+                        expect(Raven.captureMessage).toHaveBeenCalledWith(
+                            new Error('Authenticator encountered an invalid state token (invalid)'));
                     });
                 });
 
                 describe('without a state token', () => {
                     it('rejects without any params', () => {
-                        url = '';
+                        queryString = '';
+                        queryObject = {};
                         authenticator.initialize();
                         expect(user.setAccessToken).not.toHaveBeenCalled();
                     });
                     it('rejects with only other params', () => {
-                        url = '?one=1&two=2';
+                        queryString = '?one=1&two=2';
+                        queryObject = { one: 1, two: 2 };
                         authenticator.initialize();
                         expect(user.setAccessToken).not.toHaveBeenCalled();
                     });
                     it('rejects with all params', () => {
-                        url = '?access_token=accesstoken&token_type=bearer&expires_in=36000';
+                        queryString = '?access_token=accesstoken&token_type=bearer&expires_in=36000';
+                        queryObject = {
+                            access_token: 'accesstoken',
+                            token_type: 'bearer',
+                            expires_in: '36000'
+                        };
                         authenticator.initialize();
                         expect(user.setAccessToken).not.toHaveBeenCalled();
                     });
                     it('rejects with all params, and other params', () => {
-                        url = '?access_token=accesstoken&token_type=bearer&expires_in=36000' +
-                            '&one=1&two=2';
+                        queryString = '?access_token=accesstoken&token_type=bearer&expires_in=36000&one=1&two=2';
+                        queryObject = {
+                            access_token: 'accesstoken',
+                            token_type: 'bearer',
+                            expires_in: '36000',
+                            one: 1,
+                            two: 2
+                        };
                         authenticator.initialize();
                         expect(user.setAccessToken).not.toHaveBeenCalled();
                     });
@@ -269,9 +337,23 @@ describe(' The authenticator factory', function () {
         });
 
         describe('errored', () => {
+            let queryString;
+            let queryObject;
+
+            beforeEach(() => {
+                queryString = '?error=invalid_request&error_description=invalid%20request';
+                queryObject = {
+                    error: 'invalid_request',
+                    error_description: 'invalid request'
+                };
+                queryStringParser.and.returnValue(queryObject);
+
+                $window.location.search = queryString;
+                queryStringParser.and.callFake(() => queryObject);
+            });
+
             it('picks up error parameters in the query string', () => {
                 spyOn(storage.session, 'removeItem');
-                $window.location.search = '?error=invalid_request&error_description=invalid%20request';
 
                 authenticator.initialize();
 
@@ -284,13 +366,12 @@ describe(' The authenticator factory', function () {
                 expect(storage.session.removeItem).toHaveBeenCalledWith('stateToken');
                 expect(storage.session.removeItem).toHaveBeenCalledWith('callbackParams');
                 expect($location.replace).toHaveBeenCalled();
-                expect($location.search).toHaveBeenCalledWith({ one: 1, error: 'T' });
+                expect($location.search).toHaveBeenCalledWith({ one: 1 });
             });
 
             it('works without callback', () => {
                 spyOn(storage.session, 'removeItem');
                 callbackParams = '';
-                $window.location.search = '?error=invalid_request&error_description=invalid%20request';
 
                 authenticator.initialize();
 
@@ -303,12 +384,14 @@ describe(' The authenticator factory', function () {
                 expect(storage.session.removeItem).toHaveBeenCalledWith('stateToken');
                 expect(storage.session.removeItem).toHaveBeenCalledWith('callbackParams');
                 expect($location.replace).toHaveBeenCalled();
-                expect($location.search).toHaveBeenCalledWith({ error: 'T' });
+                expect($location.search).toHaveBeenCalledWith({});
             });
 
             it('does not catch an error when not in query string', () => {
                 spyOn(storage.session, 'removeItem');
-                $window.location.search = '?something=else';
+                queryString = '?something=else';
+                queryObject = { something: 'else' };
+                $window.location.search = queryString;
 
                 authenticator.initialize();
 
@@ -324,7 +407,9 @@ describe(' The authenticator factory', function () {
 
             it('does not catch an error without query string', () => {
                 spyOn(storage.session, 'removeItem');
-                $window.location.search = '';
+                queryString = '';
+                queryObject = {};
+                $window.location.search = queryString;
 
                 authenticator.initialize();
 
@@ -343,42 +428,27 @@ describe(' The authenticator factory', function () {
     describe('login', () => {
         const randomString = 'abcd%2Befgh%3D%3D';
         beforeEach(() => {
-            spyOn($window, 'btoa').and.returnValue('abcd+efgh==');
+            stateTokenGenerator.and.returnValue('abcd+efgh==');
             spyOn($window, 'encodeURIComponent').and.returnValue(randomString);
-        });
-
-        it('uses the msCrypto library when crypto is not available (IE11)', () => {
-            spyOn(httpStatus, 'registerError');
-            spyOn(storage.session, 'setItem');
-
-            $window.msCrypto = $window.crypto;
-            delete $window.crypto;
-            authenticator.login();
-
-            expect($window.btoa).toHaveBeenCalledWith('048>IYceiv{ÈÌÐàð');
-            expect($window.encodeURIComponent).toHaveBeenCalledWith('abcd+efgh==');
-            expect(httpStatus.registerError).not.toHaveBeenCalled();
         });
 
         it('registers an http error when the crypto library is not available', () => {
             spyOn(httpStatus, 'registerError');
             spyOn(storage.session, 'setItem');
+            stateTokenGenerator.and.returnValue('');
             $window.encodeURIComponent.and.returnValue('');
 
-            delete $window.crypto;
             authenticator.login();
 
             expect($window.encodeURIComponent).toHaveBeenCalledWith('');
             expect(httpStatus.registerError).toHaveBeenCalledWith('LOGIN_ERROR');
             expect($window.location.href).toBe('');
-            expect(storage.session.setItem).not.toHaveBeenCalledWith();
-            expect(storage.session.setItem).not.toHaveBeenCalledWith();
+            expect(storage.session.setItem).not.toHaveBeenCalled();
         });
 
         it('it generates a random string of characters and url encodes it', () => {
             spyOn(httpStatus, 'registerError');
             authenticator.login();
-            expect($window.btoa).toHaveBeenCalledWith('048>IYceiv{ÈÌÐàð');
             expect($window.encodeURIComponent).toHaveBeenCalledWith('abcd+efgh==');
             expect(httpStatus.registerError).not.toHaveBeenCalled();
         });
