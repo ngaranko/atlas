@@ -8,6 +8,17 @@
     stateTokenGeneratorFactory.$inject = ['$window'];
 
     function stateTokenGeneratorFactory ($window) {
+        /**
+         * Generates a string of 16 random Ascii characters using the native
+         * `crypto` library and `window.btoa`.
+         *
+         * For IE11 it uses the prefixed `msCrypto` library. In case no crypto
+         * library exists in the current environment an empty string will be
+         * returned.
+         *
+         * @returns {string} 16 random Ascii characters, empty in case the
+         * `crypto` library is not available.
+         */
         return () => {
             // Backwards compatible with msCrypto in IE11
             const crypto = $window.crypto || $window.msCrypto;
