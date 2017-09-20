@@ -19,8 +19,7 @@
     "proj4leaflet": "1.0.1",
     "redux": "https://unpkg.com/redux/dist/redux.js",
     "marked": "^0.3.6",
-    "objectFitPolyfill": "^2.0.4",
-    "raven-js": "^3.16.0"
+    "objectFitPolyfill": "^2.0.4"
   },
   "devDependencies": {
     "angular-mocks": "~1.5.7"
