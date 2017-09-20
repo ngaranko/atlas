@@ -90,4 +90,26 @@ describe('The link-to-page component', function () {
         const component = getComponent('infoitem4', 'info', 'Some label');
         expect(component.find('.qa-link-to-page-button').text()).toBe('Some label');
     });
+
+    it('clicking the button will trigger a call to store.dispatch with default type and no item', function () {
+        store.dispatch.calls.reset();
+        const component = getComponent();
+
+        component.find('.qa-link-to-page-button').click();
+        expect(store.dispatch).toHaveBeenCalledWith({
+            type: { id: 'SHOW_PAGE' },
+            payload: { name: 'content-overzicht', type: 'snelwegwijs' }
+        });
+    });
+
+    it('clicking the button will trigger a call to store.dispatch with type info and infoitem4 item', function () {
+        store.dispatch.calls.reset();
+        const component = getComponent('infoitem4', 'info');
+
+        component.find('.qa-link-to-page-button').click();
+        expect(store.dispatch).toHaveBeenCalledWith({
+            type: { id: 'SHOW_PAGE' },
+            payload: { name: 'content-overzicht', type: 'info', item: 'infoitem4' }
+        });
+    });
 });
