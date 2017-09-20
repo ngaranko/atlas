@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import 'angular';
 import 'angular-aria';
 import 'angular-i18n/nl-nl';
