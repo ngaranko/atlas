@@ -48,8 +48,12 @@
                 return BUTTON;
             } else {
                 vm.href = getHref(type, payload);
-                // Do not catch a click event and handle the state change
-                // internally, this prevents users from CTRL/CMD clicking!
+                vm.followLink = function (event) {
+                    // The href attribute is ignored when left-clicking
+                    // It's only a fallback for middle and right mouse button
+                    event.preventDefault();
+                    vm.dispatch();
+                };
                 return LINK;
             }
         }
