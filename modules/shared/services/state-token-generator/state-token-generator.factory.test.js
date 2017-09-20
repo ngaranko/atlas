@@ -4,6 +4,7 @@ describe('The state token generator factory', function () {
 
     let $window;
     let stateTokenGenerator;
+    let originalCrypto;
 
     beforeEach(function () {
         angular.mock.module(
@@ -41,6 +42,11 @@ describe('The state token generator factory', function () {
         });
 
         spyOn($window, 'btoa').and.returnValue(asciiString);
+        originalCrypto = $window.crypto;
+    });
+
+    afterEach(() => {
+        $window.crypto = originalCrypto;
     });
 
     it('uses the msCrypto library when crypto is not available (IE11)', () => {
