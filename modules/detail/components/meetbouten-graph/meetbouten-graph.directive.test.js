@@ -1,4 +1,4 @@
-describe('The dp-meetbout-graph directive', function () {
+describe('The dp-meetbout-graph directive', () => {
     'use strict';
 
     var api,
@@ -7,27 +7,41 @@ describe('The dp-meetbout-graph directive', function () {
         $q,
         mockedResponse = {
             'results': [{
-                'datum': '1977-12-22',
+                '_display': '41278',
+                'id': '41278',
+                'datum': '2001-12-04',
                 'zakking': 0.0,
-                'zakkingssnelheid': 0.0
+                'hoogte_nap': 2.7125,
+                'zakkingssnelheid': 0.0,
+                'zakking_cumulatief': 0.0,
+                'dataset': 'meetbouten'
             }, {
-                'datum': '1978-07-05',
-                'zakking': -2.0000000000002,
-                'zakkingssnelheid': -3.7435897435902
+                '_display': '52380',
+                'id': '52380',
+                'datum': '2003-12-01',
+                'zakking': 4.7999999999999,
+                'hoogte_nap': 2.7077,
+                'zakkingssnelheid': 2.4099037138927,
+                'zakking_cumulatief': 4.7999999999999,
+                'dataset': 'meetbouten'
             }, {
-                'datum': '1981-01-23',
-                'zakking': 0.0,
-                'zakkingssnelheid': 5.5008865248227
-
+                '_display': '55039',
+                'id': '55039',
+                'datum': '2005-04-11',
+                'zakking': 2.1999999999998,
+                'hoogte_nap': 2.7055,
+                'zakkingssnelheid': 2.0874183006535,
+                'zakking_cumulatief': 6.9999999999997,
+                'dataset': 'meetbouten'
             }]
         };
 
-    beforeEach(function () {
+    beforeEach(() => {
         angular.mock.module(
             'dpDetail',
             {
                 api: {
-                    getByUrl: function () {
+                    getByUrl: () => {
                         var deferred = $q.defer();
 
                         deferred.resolve(mockedResponse);
@@ -66,8 +80,8 @@ describe('The dp-meetbout-graph directive', function () {
         return directive;
     }
 
-    describe('Alleen een grafiek tonen met 2 of meer metingen', function () {
-        it('should not display an svg on the screen when the pageSize is less then 2', function () {
+    describe('Alleen een grafiek tonen met 2 of meer metingen', () => {
+        it('should not display an svg on the screen when the pageSize is less then 2', () => {
             var directive = getGraphDirective(
                 'https://api.data.amsterdam.nl/meetbouten/meting/?meetbout=10581097',
                 1
@@ -77,7 +91,7 @@ describe('The dp-meetbout-graph directive', function () {
             expect(svgContainer).not.toExist();
         });
 
-        it('should display an svg on the screen when the pageSize is 2 or more ', function () {
+        it('should display an svg on the screen when the pageSize is 2 or more ', () => {
             var directive = getGraphDirective(
                 'https://api.data.amsterdam.nl/meetbouten/meting/?meetbout=10581097',
                 3
@@ -88,8 +102,8 @@ describe('The dp-meetbout-graph directive', function () {
         });
     });
 
-    describe('Load Data', function () {
-        it('should load data through the api', function () {
+    describe('Load Data', () => {
+        it('should load data through the api', () => {
             spyOn(api, 'getByUrl').and.callThrough();
 
             getGraphDirective('apiHrefA', 2);
@@ -100,12 +114,12 @@ describe('The dp-meetbout-graph directive', function () {
         });
     });
 
-    describe('Dom manipulation', function () {
-        describe('append Svg and g element to create the space for the graph', function () {
-            it('should have added a svg to the page', function () {
-                var directive = getGraphDirective('https://api.data.amsterdam.nl' +
-                    '/meetbouten/meting/?meetbout=10581097', 3);
-                var svgContainer = directive.find('svg');
+    describe('Dom manipulation', () => {
+        describe('append Svg and g element to create the space for the graph', () => {
+            it('should have added a svg to the page', () => {
+                const directive = getGraphDirective('https://api.data.amsterdam.nl' +
+                        '/meetbouten/meting/?meetbout=10581097', 3),
+                    svgContainer = directive.find('svg');
 
                 expect(svgContainer).toExist();
                 expect(svgContainer.attr('class')).toBe('c-meetbout');
@@ -113,60 +127,69 @@ describe('The dp-meetbout-graph directive', function () {
                 expect(svgContainer.attr('height')).toBe('400');
             });
 
-            it('should have added a g element for whitespace to the svg', function () {
-                var directive = getGraphDirective('https://api.data.amsterdam.nl' +
-                    '/meetbouten/meting/?meetbout=10581097', 3);
-                var gContainer = directive.find('svg > g');
+            it('should have added a g element for whitespace to the svg', () => {
+                const directive = getGraphDirective('https://api.data.amsterdam.nl' +
+                        '/meetbouten/meting/?meetbout=10581097', 3),
+                    gContainer = directive.find('svg > g');
 
                 expect(gContainer).toExist();
-                expect(gContainer.attr('transform')).toBe('translate(60,10)');
+                expect(gContainer.attr('transform')).toBe('translate(35,15)');
             });
         });
 
-        describe('x as', function () {
-            it('should have appended a x axis to the svg g:transform element ', function () {
-                var directive = getGraphDirective('https://api.data.amsterdam.nl' +
-                    '/meetbouten/meting/?meetbout=10581097', 3);
-                var xAs = directive.find('svg > g > g:nth-of-type(1)');
+        describe('background as', () => {
+            it('should have appended a background to the svg g:transform element ', () => {
+                const directive = getGraphDirective('https://api.data.amsterdam.nl' +
+                        '/meetbouten/meting/?meetbout=10581097', 3),
+                    background = directive.find('svg > g > g.c-meetbout__background rect');
+
+                expect(background).toExist();
+                expect(background.attr('width')).toBe('655');
+                expect(background.attr('height')).toBe('355');
+            });
+        });
+
+        describe('x as', () => {
+            it('should have appended a x axis to the svg g:transform element ', () => {
+                const directive = getGraphDirective('https://api.data.amsterdam.nl' +
+                        '/meetbouten/meting/?meetbout=10581097', 3),
+                    xAs = directive.find('svg > g > g.c-meetbout__axis-x');
 
                 expect(xAs).toExist();
-                expect(xAs.attr('class')).toBe('c-meetbout__axis');
-                expect(xAs.attr('transform')).toBe('translate(0,360)');
+                expect(xAs.attr('class')).toBe('c-meetbout__axis c-meetbout__axis-x');
+                expect(xAs.attr('transform')).toBe('translate(0,355)');
+
+                expect(xAs.find('.tick line').length).toBe(16);
+                expect(xAs.find('.tick.c-meetbout__axis-x-year line').length).toBe(4);
+                expect(xAs.find('.tick text').length).toBe(16);
+                expect(xAs.find('.tick.c-meetbout__axis-x-year text').length).toBe(4);
             });
         });
 
-        describe('y as links zakking cumulatief', function () {
-            it('should have appended a y axis for zakking cumulatief to the svg g:transform element ', function () {
-                var directive = getGraphDirective('https://api.data.amsterdam.nl' +
-                    '/meetbouten/meting/?meetbout=10581097', 3);
-                var yZakkingCum = directive.find('svg > g > g:nth-of-type(2)');
+        describe('y as links zakking cumulatief', () => {
+            it('should have appended a y axis for zakking cumulatief to the svg g:transform element ', () => {
+                const directive = getGraphDirective('https://api.data.amsterdam.nl' +
+                        '/meetbouten/meting/?meetbout=10581097', 3),
+                    yZakkingCum = directive.find('svg > g > g.c-meetbout__axis-y');
 
                 expect(yZakkingCum).toExist();
-                expect(yZakkingCum.attr('class')).toBe('c-meetbout__axis');
-            });
+                expect(yZakkingCum.attr('class')).toBe('c-meetbout__axis c-meetbout__axis-y');
+                expect(yZakkingCum.attr('transform')).toBeUndefined();
 
-            it('should append a text to the yZakking axis', function () {
-                var directive = getGraphDirective('https://api.data.amsterdam.nl' +
-                    '/meetbouten/meting/?meetbout=10581097', 3);
-                var text = directive.find('svg > g > g:nth-of-type(2) > text');
-
-                expect(text).toExist();
-                // transform werkt niet, d3 bakt er uit eigen beweging dingen bij
-                expect(text.attr('y')).toBe('6');
-                expect(text.attr('dy')).toBe('.71em');
-                expect(text.attr('style')).toContain('text-anchor: middle;');
-                expect(text.text()).toBe('Zakking cumulatief (mm)');
+                expect(yZakkingCum.find('.tick line').length).toBe(8);
+                expect(yZakkingCum.find('.tick text').length).toBe(8);
             });
         });
 
-        describe('lijn voor grafiek zakking cumulatief', function () {
-            it('should plot a line to represent the zakking cumulatief of the meetbout', function () {
-                var directive = getGraphDirective('https://api.data.amsterdam.nl' +
-                    '/meetbouten/meting/?meetbout=10581097', 3);
-                var line = directive.find('svg > g > path:nth-of-type(1)');
+        describe('lijn voor grafiek zakking cumulatief', () => {
+            it('should plot a line to represent the zakking cumulatief of the meetbout', () => {
+                const directive = getGraphDirective('https://api.data.amsterdam.nl' +
+                        '/meetbouten/meting/?meetbout=10581097', 3),
+                    line = directive.find('svg > g > path.c-meetbout__line');
 
                 expect(line).toExist();
                 expect(line.attr('class')).toBe('c-meetbout__line c-meetbout__line--zakking-cum');
+                expect(line.attr('transform')).toBeUndefined();
             });
         });
     });

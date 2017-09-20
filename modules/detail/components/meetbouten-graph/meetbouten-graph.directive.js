@@ -5,9 +5,9 @@
         .module('dpDetail')
         .directive('dpMeetboutGraph', dpMeetboutGraphDirective);
 
-    dpMeetboutGraphDirective.$inject = ['api', 'd3', 'dateConverter'];
+    dpMeetboutGraphDirective.$inject = ['api', 'd3', 'dateConverter', 'dateFormatter'];
 
-    function dpMeetboutGraphDirective (api, d3, dateConverter) {
+    function dpMeetboutGraphDirective (api, d3, dateConverter, dateFormatter) {
         return {
             restrict: 'E',
             scope: {
@@ -31,7 +31,7 @@
 
                 // variabelen
                 // global
-                var margin = {top: 10, right: 60, bottom: 30, left: 60},
+                var margin = {top: 15, right: 60, bottom: 30, left: 35},
                     width = 750 - margin.left - margin.right,
                     height = 400 - margin.top - margin.bottom;
 
@@ -40,18 +40,21 @@
                     .domain(d3.extent(scope.objects, function (d) {
                         return dateConverter.ymdToDate(d.datum);
                     }))
-                    .range([0, width]);
+                    .range([0, width])
+                    .nice();
 
                 var xAxis = d3.svg.axis()
                     .scale(xAs)
-                    .orient('bottom');
+                    .orient('bottom')
+                    .tickFormat(dateFormatter.tickFormatter);
 
                 // Y as 1, zakking cumulatief
                 var yZakkingCum = d3.scale.linear()
                     .domain(d3.extent(scope.objects, function (d) {
                         return d.zakking_cumulatief;
                     }))
-                    .range([0, height]);
+                    .range([0, height])
+                    .nice();
 
                 var yZakkingCumAxis = d3.svg.axis()
                     .scale(yZakkingCum)
@@ -76,22 +79,33 @@
                     .append('g')
                     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
+                // background
+                svg.append('g')
+                    .attr('class', 'c-meetbout__background')
+                    .append('rect')
+                    .attr('width', width)
+                    .attr('height', height);
+
                 // intekenen x as
                 svg.append('g')
-                    .attr('class', 'c-meetbout__axis')
+                    .attr('class', 'c-meetbout__axis c-meetbout__axis-x')
                     .attr('transform', 'translate(0,' + height + ')')
                     .call(xAxis);
 
+                // set class in whole years only
+                svg.selectAll('.c-meetbout__axis-x .tick')
+                    .attr('class', (d) => {
+                        return d.getMonth() === 0 ? 'tick c-meetbout__axis-x-year' : 'tick';
+                    });
+
                 // intekenen y as zakking
                 svg.append('g')
-                    .attr('class', 'c-meetbout__axis')
-                    .call(yZakkingCumAxis)
-                    .append('text')
-                    .attr('transform', d3.transform('rotate(-90) translate(-185, -60)'))
-                    .attr('y', 6)
-                    .attr('dy', '.71em')
-                    .style('text-anchor', 'middle')
-                    .text('Zakking cumulatief (mm)');
+                    .attr('class', 'c-meetbout__axis c-meetbout__axis-y')
+                    .call(yZakkingCumAxis);
+
+                // set y axis lines to full width of chart
+                svg.selectAll('.c-meetbout__axis-y .tick line')
+                    .attr('x2', width);
 
                 // tekenen grafiek zakking cumulatief
                 svg.append('path')
