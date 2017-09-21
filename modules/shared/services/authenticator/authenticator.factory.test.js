@@ -16,7 +16,7 @@ describe(' The authenticator factory', function () {
         queryStringParser;
 
     const AUTH_PATH = 'oauth2/';
-    const LOGIN_PATH = 'authorize?idp_id=datapunt&response_type=token&client_id=citydata-data.amsterdam.nl';
+    const LOGIN_PATH = 'authorize?idp_id=datapunt&response_type=token&client_id=citydata';
 
     beforeEach(function () {
         absUrl = 'absUrl';
