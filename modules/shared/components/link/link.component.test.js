@@ -207,27 +207,6 @@ describe('The dp-link component', function () {
         expect(mockedStateUrlConverter.state2url).toHaveBeenCalledWith(mockedTargetState);
     });
 
-    it('left clicking the link will NOT follow the href, it will trigger a regular store.dispatch', function () {
-        const mockedClickEvent = jasmine.createSpyObj('e', ['preventDefault']);
-
-        const component = getComponent(null, null, 'ACTION_WITH_LINK', mockedPayload);
-
-        // Testing $event.preventDefault
-        component.isolateScope().vm.followLink(mockedClickEvent);
-        expect(mockedClickEvent.preventDefault).toHaveBeenCalled();
-
-        // Testing the dispatch
-        component.find('a').click();
-        $rootScope.$apply();
-
-        expect(mockedClickEvent.preventDefault).toHaveBeenCalled();
-
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: mockedActions.ACTION_WITH_LINK,
-            payload: mockedPayload
-        });
-    });
-
     it('transcludes content without adding whitespace', function () {
         let component;
 
