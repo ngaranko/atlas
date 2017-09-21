@@ -56,7 +56,7 @@
         // The URI we need to redirect to for communication with the OAuth2
         // authorization service
         const AUTH_PATH = 'oauth2/';
-        const LOGIN_PATH = 'authorize?idp_id=datapunt&response_type=token&client_id=citydata-data.amsterdam.nl';
+        const LOGIN_PATH = 'authorize?idp_id=datapunt&response_type=token&client_id=citydata';
 
         // The keys of values we need to store in the session storage
         //
