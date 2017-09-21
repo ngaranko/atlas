@@ -34,7 +34,14 @@
 
         moduleDependencies.push('ngRaven');
     } else {
-        angular.module('ngRaven', []).service('Raven', angular.noop);
+        angular.module('ngRaven', []).factory('Raven', () => {
+            return {
+                captureMessage: (message, tags) => {
+                    // eslint-disable-next-line
+                    console.info('Raven.captureMessage has been called with the following info: ', message, tags);
+                }
+            };
+        });
     }
 
     angular.module('atlas', moduleDependencies);

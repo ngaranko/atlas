@@ -7,12 +7,11 @@
 
     function httpStatusFactory () {
         // The sole reponsability is to register if there have been any http errors
-        const errorTypes = ['SERVER_ERROR', 'NOT_FOUND_ERROR'],
-            exportObject = exportErrorTypes({
-                getStatus,
-                registerError
-            });
-
+        const errorTypes = ['SERVER_ERROR', 'NOT_FOUND_ERROR', 'LOGIN_ERROR'];
+        const exportObject = exportErrorTypes({
+            getStatus,
+            registerError
+        });
         const currentStatus = {
             hasErrors: false
         };

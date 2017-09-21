@@ -8,7 +8,6 @@ describe('The dp-link component', function () {
         mockedState,
         mockedStateUrlConverter,
         mockedTargetState,
-        mockedCurrentPath,
         mockedTargetPath;
 
     beforeEach(function () {
@@ -30,8 +29,8 @@ describe('The dp-link component', function () {
             'dpShared',
             {
                 $location: {
-                    url: function () {
-                        return mockedCurrentPath;
+                    host: function () {
+                        return 'localhost';
                     }
                 },
                 store: {
@@ -58,7 +57,7 @@ describe('The dp-link component', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _$location_, _store_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _store_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
@@ -79,7 +78,6 @@ describe('The dp-link component', function () {
             }
         };
 
-        mockedCurrentPath = 'this=that'; // Angular's $location.url() returns everything after the hash
         mockedTargetPath = '#this=something-else';
 
         spyOn(store, 'dispatch');
