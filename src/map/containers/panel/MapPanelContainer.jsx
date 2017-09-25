@@ -13,7 +13,8 @@ const mapStateToProps = state => ({
   atlas: state.atlas,
   layerSelection: state.layerSelection,
   map: state.map,
-  mapLayers: state.mapLayers
+  mapLayers: state.mapLayers,
+  mapOverlays: state.map.overlays
 });
 
 // TODO: Add method that checks whether layer is active and toggles accordingly
@@ -29,10 +30,14 @@ class MapPanelContainer extends React.Component {
   render() {
     return this.props.layerSelection.isEnabled && (
       <section className="map-panel">
-        <h1>Kaartlagen</h1>
+        <h1 className="map-panel__heading">Kaartlagen</h1>
         <MapLegend />
         <MapType />
-        <MapLayers layers={this.props.mapLayers} onLayerToggle={this.props.onLayerToggle} />
+        <MapLayers
+          layers={this.props.mapLayers}
+          onLayerToggle={this.props.onLayerToggle}
+          overlays={this.props.mapOverlays}
+        />
       </section>
     );
   }
@@ -54,6 +59,7 @@ MapPanelContainer.propTypes = {
   layerSelection: PropTypes.object, // eslint-disable-line
   map: PropTypes.object, // eslint-disable-line
   mapLayers: PropTypes.array, // eslint-disable-line
+  mapOverlays: PropTypes.array, // eslint-disable-line
   onLayerToggle: PropTypes.func // eslint-disable-line
 };
 
