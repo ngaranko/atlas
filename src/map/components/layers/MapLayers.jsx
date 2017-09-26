@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import AddIcon from '../../../../public/images/icon-plus.svg';
+import RemoveIcon from '../../../../public/images/icon-cross.svg';
+
 const MapLayers = ({ layers, onLayerToggle, overlays }) => (
   <ul>
     {[...new Set(layers.map(layer => layer.category))].map(category => (
@@ -20,10 +23,10 @@ const MapLayers = ({ layers, onLayerToggle, overlays }) => (
                   {layer.title}
                 </span>
                 <span className="map-panel__layer-toggle map-panel__layer-toggle--remove">
-                  Remove
+                  <RemoveIcon />
                 </span>
                 <span className="map-panel__layer-toggle map-panel__layer-toggle--add">
-                  Add
+                  <AddIcon />
                 </span>
               </button>
             </li>

@@ -74,14 +74,16 @@
   }
 
   &__layer-toggle {
+    align-items: center;
     background-color: #FFFFFF;
     border: 1px solid #CCCCCC;
     border-radius: 50%;
     content: 'X';
-    display: block;
+    display: flex;
     flex-shrink: 0;
     font-size: 0;
     height: 26px;
+    justify-content: center;
     margin-right: 12px;
     width: 26px;
 

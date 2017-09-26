@@ -78,12 +78,21 @@ function commonConfig(env) {
           include: [
             legacy
           ],
+          exclude: /src/,
           use: [{
             loader: 'file-loader',
             options: {
               outputPath: 'assets/'
             }
           }]
+        },
+        {
+          test: /\.svg$/,
+          exclude: [
+            /node_modules/,
+            /modules/
+          ],
+          loader: 'svg-react-loader'
         }
       ]
     },
