@@ -17,17 +17,20 @@
             controllerAs: 'vm'
         });
 
-    DpLinkController.$inject = ['$location', 'store', 'ACTIONS', 'applicationState'];
+    DpLinkController.$inject = ['$scope', '$location', 'store', 'ACTIONS', 'applicationState'];
 
-    function DpLinkController ($location, store, ACTIONS, applicationState) {
+    function DpLinkController ($scope, $location, store, ACTIONS, applicationState) {
         const vm = this;
 
         const BUTTON = 'button',
             LINK = 'a';
 
         vm.className = vm.className || 'o-btn o-btn--link';
-        vm.tagName = getTagName(vm.type, vm.payload);
         vm.inline = vm.inline || false;
+
+        $scope.$watch('vm.payload', function () {
+            vm.tagName = getTagName(vm.type, vm.payload);
+        });
 
         vm.dispatch = function () {
             store.dispatch(getAction(vm.type, vm.payload));
