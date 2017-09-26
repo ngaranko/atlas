@@ -26,7 +26,6 @@
             LINK = 'a';
 
         vm.className = vm.className || 'o-btn o-btn--link';
-        vm.tagName = getTagName(vm.type, vm.payload);
         vm.inline = vm.inline || false;
 
         $scope.$watch('vm.payload', function () {
