@@ -32,30 +32,30 @@ window.reducers.detailReducer = (state = {}, action) => {
         straatbeeld: null
       };
 
-      case 'SHOW_DETAIL':
-        return {
-          ...state,
-          detail: {
-            ...state.detail,
-            display: action.payload.display,
-            geometry: action.payload.geometry,
-            isLoading: false,
-            reload: false
-          },
-          map: {
-            ...state.map,
-            isLoading: false
-          }
-        };
+    case 'SHOW_DETAIL':
+      return {
+        ...state,
+        detail: {
+          ...state.detail,
+          display: action.payload.display,
+          geometry: action.payload.geometry,
+          isLoading: false,
+          reload: false
+        },
+        map: {
+          ...state.map,
+          isLoading: false
+        }
+      };
 
-      case 'DETAIL_FULLSCREEN':
-        return {
-          ...state,
-          detail: {
-            ...state.detail,
-            isFullscreen: action.payload
-          }
-        };
+    case 'DETAIL_FULLSCREEN':
+      return {
+        ...state,
+        detail: {
+          ...state.detail,
+          isFullscreen: action.payload
+        }
+      };
 
     default:
       return state;
