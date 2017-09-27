@@ -48,14 +48,14 @@ window.reducers.detailReducer = (state = {}, action) => {
           }
         };
 
-    case 'DETAIL_FULLSCREEN':
-      return {
-        ...state,
-        detail: {
-          ...state.detail,
-          isFullscreen: action.payload
-        }
-      };
+      case 'DETAIL_FULLSCREEN':
+        return {
+          ...state,
+          detail: {
+            ...state.detail,
+            isFullscreen: action.payload
+          }
+        };
 
     default:
       return state;
