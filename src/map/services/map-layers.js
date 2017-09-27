@@ -169,73 +169,36 @@ export default [
   },
   {
     category: 'Geografie: onroerende zaken',
-    id: 'bgem',
+    id: 'kpg',
     legendItems: [
       {
+        id: 'bgem',
         imageUrl: '',
         selectable: true,
-        title: ''
+        title: 'Burgerlijke gemeenten'
+      },
+      {
+        id: 'kgem',
+        imageUrl: '',
+        selectable: true,
+        title: 'Kadastrale gemeenten'
+      },
+      {
+        id: 'ksec',
+        imageUrl: '',
+        selectable: true,
+        title: 'Kadastrale secties'
+      },
+      {
+        id: 'kot',
+        imageUrl: '',
+        selectable: true,
+        title: 'Kadastrale objecten'
       }
     ],
     maxZoom: 100,
     minZoom: 0,
-    title: 'Burgerlijke gemeenten'
-  },
-  {
-    category: 'Geografie: onroerende zaken',
-    id: 'kgem',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: true,
-        title: ''
-      }
-    ],
-    maxZoom: 100,
-    minZoom: 0,
-    title: 'Kadastrale gemeenten'
-  },
-  {
-    category: 'Geografie: onroerende zaken',
-    id: 'ksec',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: true,
-        title: ''
-      }
-    ],
-    maxZoom: 100,
-    minZoom: 0,
-    title: 'Kadastrale secties'
-  },
-  {
-    category: 'Geografie: onroerende zaken',
-    id: 'kot',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: true,
-        title: ''
-      }
-    ],
-    maxZoom: 100,
-    minZoom: 0,
-    title: 'Kadastrale objecten'
-  },
-  {
-    category: 'Geografie: onroerende zaken',
-    id: '',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: true,
-        title: ''
-      }
-    ],
-    maxZoom: 100,
-    minZoom: 0,
-    title: 'Zakelijk rechten'
+    title: 'Kadastrale perceelsgrenzen'
   },
   {
     category: 'Geografie: onroerende zaken',
@@ -253,16 +216,59 @@ export default [
   },
   {
     category: 'Geografie: gebieden',
-    id: 'gsg',
+    id: 'bsg',
     legendItems: [
       {
+        id: 'sd',
         imageUrl: '',
         selectable: true,
-        title: ''
+        title: 'Stadsdelen'
+      },
+      {
+        id: 'ggw',
+        imageUrl: '',
+        selectable: true,
+        title: 'Gebiedsgerichtwerken-gebieden'
+      },
+      {
+        id: 'bc',
+        imageUrl: '',
+        selectable: true,
+        title: 'Wijken'
+      },
+      {
+        id: 'buurt',
+        imageUrl: '',
+        selectable: true,
+        title: 'Buurten'
       }
     ],
     maxZoom: 100,
     minZoom: 0,
+    title: 'Bestuurlijke gebieden'
+  },
+  {
+    category: 'Geografie: gebieden',
+    id: 'bbn',
+    legendItems: [
+      {
+        imageUrl: '',
+        selectable: false,
+        title: ''
+      }
+    ],
+    title: 'Bouwblokken'
+  },
+  {
+    category: 'Geografie: gebieden',
+    id: 'ggs',
+    legendItems: [
+      {
+        imageUrl: '',
+        selectable: false,
+        title: ''
+      }
+    ],
     title: 'Grootstedelijke gebieden'
   },
   {
@@ -280,66 +286,6 @@ export default [
     title: 'Unesco werelderfgoedzones'
   },
   {
-    category: 'Geografie: gebieden',
-    id: 'sd',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: false,
-        title: ''
-      }
-    ],
-    title: 'Stadsdelen'
-  },
-  {
-    category: 'Geografie: gebieden',
-    id: 'ggw',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: false,
-        title: ''
-      }
-    ],
-    title: 'Gebiedsgerichtwerken-gebieden'
-  },
-  {
-    category: 'Geografie: gebieden',
-    id: 'bc',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: false,
-        title: ''
-      }
-    ],
-    title: 'Buurtcombinaties'
-  },
-  {
-    category: 'Geografie: gebieden',
-    id: 'buurt',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: false,
-        title: ''
-      }
-    ],
-    title: 'Buurten'
-  },
-  {
-    category: 'Geografie: gebieden',
-    id: 'bbn',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: false,
-        title: ''
-      }
-    ],
-    title: 'Bouwblokken'
-  },
-  {
     category: 'Geografie: hoogte',
     id: 'dsm',
     legendItems: [
@@ -349,7 +295,7 @@ export default [
         title: ''
       }
     ],
-    title: 'Terreinmodel (DSM AHN)'
+    title: 'Terreinmodel (DTM AHN)'
   },
   {
     category: 'Geografie: hoogte',
@@ -361,7 +307,7 @@ export default [
         title: ''
       }
     ],
-    title: 'Oppervlaktemodel (DTM AHN)'
+    title: 'Oppervlaktemodel (DSM AHN)'
   },
   {
     category: 'Geografie: hoogte',
@@ -565,7 +511,7 @@ export default [
         title: ''
       }
     ],
-    title: 'Bedrijven - Terreingrens'
+    title: 'Bedrijven - Terreingrenzen'
   },
   {
     category: 'Milieu: externe veiligheid',
@@ -617,75 +563,46 @@ export default [
   },
   {
     category: 'Milieu: externe veiligheid',
-    id: 'mvvo',
+    id: 'vlgha',
     legendItems: [
       {
+        id: 'mvvo',
         imageUrl: '',
         selectable: false,
-        title: ''
-      }
-    ],
-    title: 'Vuurwerkopslag - Veiligheidsafstanden'
-  },
-  {
-    category: 'Milieu: externe veiligheid',
-    id: 'mvmo',
-    legendItems: [
+        title: 'Vuurwerkopslag'
+      },
       {
+        id: 'mvmo',
         imageUrl: '',
         selectable: false,
-        title: ''
-      }
-    ],
-    title: 'Munitieopslag - Veiligheidsafstanden'
-  },
-  {
-    category: 'Milieu: externe veiligheid',
-    id: 'mvgms',
-    legendItems: [
+        title: 'Munitieopslag'
+      },
       {
+        id: 'mvgms',
         imageUrl: '',
         selectable: false,
-        title: ''
-      }
-    ],
-    title: 'Gasdrukregel- en meetstations - Veiligheidsafstanden'
-  },
-  {
-    category: 'Milieu: externe veiligheid',
-    id: 'mvsls',
-    legendItems: [
+        title: 'Gasdrukregel- en meetstations'
+      },
       {
+        id: 'mvsls',
         imageUrl: '',
         selectable: false,
-        title: ''
-      }
-    ],
-    title: 'Sluizen - Veiligheidsafstanden'
-  },
-  {
-    category: 'Milieu: externe veiligheid',
-    id: 'mvwp',
-    legendItems: [
+        title: 'Sluizen'
+      },
       {
+        id: 'mvwp',
         imageUrl: '',
         selectable: false,
-        title: ''
-      }
-    ],
-    title: 'Wachtplaatsen - Veiligheidsafstanden'
-  },
-  {
-    category: 'Milieu: externe veiligheid',
-    id: 'mvbs',
-    legendItems: [
+        title: 'Wachtplaatsen'
+      },
       {
+        id: 'mvbs',
         imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'Bunkerschepen'
       }
     ],
-    title: 'Bunkerschepen - Veiligheidsafstanden'
+    title: 'Veiligheidsafstanden'
   },
   {
     category: 'Milieu: zones',
@@ -757,7 +674,7 @@ export default [
         title: ''
       }
     ],
-    title: 'Schiphol - Toetshoogtes i.v.m. radar'
+    title: 'Schiphol - Toetshoogte i.v.m. radar'
   },
   {
     category: 'Milieu: zones',
@@ -772,8 +689,33 @@ export default [
     title: 'Schiphol - Vogelvrijwaringsgebied'
   },
   {
-    category: '',
-    id: '',
+    category: 'Openbare orde en veiligheid',
+    id: 'ovlg',
+    legendItems: [
+      {
+        id: 'oovoalg',
+        imageUrl: '',
+        selectable: false,
+        title: 'Algemeen'
+      },
+      {
+        id: 'oovodlrs',
+        imageUrl: '',
+        selectable: false,
+        title: 'Dealers'
+      },
+      {
+        id: 'oovouitg',
+        imageUrl: '',
+        selectable: false,
+        title: 'Uitgaan'
+      }
+    ],
+    title: 'Overlastgebieden'
+  },
+  {
+    category: 'Openbare orde en veiligheid',
+    id: 'oovctg',
     legendItems: [
       {
         imageUrl: '',
@@ -781,7 +723,7 @@ export default [
         title: ''
       }
     ],
-    title: ''
+    title: 'Cameratoezichtgebieden'
   },
   {
     category: '',
@@ -796,8 +738,8 @@ export default [
     title: ''
   },
   {
-    category: '',
-    id: '',
+    category: 'Verkeer en infrastructuur',
+    id: 'pv',
     legendItems: [
       {
         imageUrl: '',
@@ -805,11 +747,11 @@ export default [
         title: ''
       }
     ],
-    title: ''
+    title: 'Parkeervakken - Fiscale indeling'
   },
   {
-    category: '',
-    id: '',
+    category: 'Verkeer en infrastructuur',
+    id: 'pvb',
     legendItems: [
       {
         imageUrl: '',
@@ -817,11 +759,11 @@ export default [
         title: ''
       }
     ],
-    title: ''
+    title: 'Parkeervakken - Speciale bestemmingen'
   },
   {
-    category: '',
-    id: '',
+    category: 'Verkeer en infrastructuur',
+    id: 'pvr',
     legendItems: [
       {
         imageUrl: '',
@@ -829,11 +771,11 @@ export default [
         title: ''
       }
     ],
-    title: ''
+    title: 'Parkeervakken - Gereserveerd'
   },
   {
-    category: '',
-    id: '',
+    category: 'Toerisme en cultuur',
+    id: 'tcmnmt',
     legendItems: [
       {
         imageUrl: '',
@@ -841,234 +783,6 @@ export default [
         title: ''
       }
     ],
-    title: ''
-  },
-  {
-    category: '',
-    id: '',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: false,
-        title: ''
-      }
-    ],
-    title: ''
-  },
-  {
-    category: '',
-    id: '',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: false,
-        title: ''
-      }
-    ],
-    title: ''
-  },
-  {
-    category: '',
-    id: '',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: false,
-        title: ''
-      }
-    ],
-    title: ''
-  },
-  {
-    category: '',
-    id: '',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: false,
-        title: ''
-      }
-    ],
-    title: ''
-  },
-  {
-    category: '',
-    id: '',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: false,
-        title: ''
-      }
-    ],
-    title: ''
-  },
-  {
-    category: '',
-    id: '',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: false,
-        title: ''
-      }
-    ],
-    title: ''
-  },
-  {
-    category: '',
-    id: '',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: false,
-        title: ''
-      }
-    ],
-    title: ''
-  },
-  {
-    category: '',
-    id: '',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: false,
-        title: ''
-      }
-    ],
-    title: ''
-  },
-  {
-    category: '',
-    id: '',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: false,
-        title: ''
-      }
-    ],
-    title: ''
-  },
-  {
-    category: '',
-    id: '',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: false,
-        title: ''
-      }
-    ],
-    title: ''
-  },
-  {
-    category: '',
-    id: '',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: false,
-        title: ''
-      }
-    ],
-    title: ''
-  },
-  {
-    category: '',
-    id: '',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: false,
-        title: ''
-      }
-    ],
-    title: ''
-  },
-  {
-    category: '',
-    id: '',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: false,
-        title: ''
-      }
-    ],
-    title: ''
-  },
-  {
-    category: '',
-    id: '',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: false,
-        title: ''
-      }
-    ],
-    title: ''
-  },
-  {
-    category: '',
-    id: '',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: false,
-        title: ''
-      }
-    ],
-    title: ''
-  },
-  {
-    category: '',
-    id: '',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: false,
-        title: ''
-      }
-    ],
-    title: ''
-  },
-  {
-    category: '',
-    id: '',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: false,
-        title: ''
-      }
-    ],
-    title: ''
-  },
-  {
-    category: '',
-    id: '',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: false,
-        title: ''
-      }
-    ],
-    title: ''
-  },
-  {
-    category: '',
-    id: '',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: false,
-        title: ''
-      }
-    ],
-    title: ''
+    title: 'Monumenten'
   }
 ];

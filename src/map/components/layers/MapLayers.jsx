@@ -10,7 +10,7 @@ const MapLayers = ({ layers, onLayerToggle, overlays }) => (
       <li className="map-panel__layer-category" key={category}>
         {category}
         <ul>
-          {layers.filter(layer => layer.category === category && !!layer.category).map(layer => (
+          {layers.filter(layer => layer.category === category).map(layer => (
             <li
               className={`
                 map-panel__layer-title
