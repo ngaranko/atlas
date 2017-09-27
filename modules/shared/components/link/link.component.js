@@ -17,17 +17,20 @@
             controllerAs: 'vm'
         });
 
-    DpLinkController.$inject = ['$location', 'store', 'ACTIONS', 'applicationState'];
+    DpLinkController.$inject = ['$scope', '$location', 'store', 'ACTIONS', 'applicationState'];
 
-    function DpLinkController ($location, store, ACTIONS, applicationState) {
+    function DpLinkController ($scope, $location, store, ACTIONS, applicationState) {
         const vm = this;
 
         const BUTTON = 'button',
             LINK = 'a';
 
         vm.className = vm.className || 'o-btn o-btn--link';
-        vm.tagName = getTagName(vm.type, vm.payload);
         vm.inline = vm.inline || false;
+
+        $scope.$watch('vm.payload', function () {
+            vm.tagName = getTagName(vm.type, vm.payload);
+        });
 
         vm.dispatch = function () {
             store.dispatch(getAction(vm.type, vm.payload));
@@ -48,12 +51,8 @@
                 return BUTTON;
             } else {
                 vm.href = getHref(type, payload);
-                vm.followLink = function (event) {
-                    // The href attribute is ignored when left-clicking
-                    // It's only a fallback for middle and right mouse button
-                    event.preventDefault();
-                    vm.dispatch();
-                };
+                // Do not catch a click event and handle the state change
+                // internally, this prevents users from CTRL/CMD clicking!
                 return LINK;
             }
         }

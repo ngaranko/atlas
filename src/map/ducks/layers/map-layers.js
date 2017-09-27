@@ -25,3 +25,5 @@ export default function MapLayersReducer(state = initialState, action) {
 }
 
 export const getMapLayers = () => ({ type: FETCH_MAP_LAYERS_REQUEST });
+
+window.MapLayersReducer = MapLayersReducer;

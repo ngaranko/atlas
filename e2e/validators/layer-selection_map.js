@@ -10,7 +10,7 @@ module.exports = function (page) {
 
     expect(layerSelection.baselayers.header).toBe('Achtergrond');
     expect(layerSelection.baselayers.options(0).label).toBe('Topografie');
-    expect(layerSelection.baselayers.options(1).label).toBe('Luchtfoto 2016');
+    expect(layerSelection.baselayers.options(1).label).toBe('Luchtfoto 2017');
 
     expect(layerSelection.overlays.categories(0).header).toBe('Geografie: onroerende zaken');
     expect(layerSelection.overlays.categories(0).options(0).label).toBe('Burgerlijke gemeenten');

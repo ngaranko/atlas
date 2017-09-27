@@ -21,3 +21,5 @@ export default function MapOverlaysReducer(state = initialState, action) {
 }
 
 export const toggleMapOverlay = mapLayerId => ({ type: TOGGLE_MAP_OVERLAY, mapLayerId });
+
+window.MapOverlaysReducer = MapOverlaysReducer;

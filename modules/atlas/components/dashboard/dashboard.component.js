@@ -1,8 +1,3 @@
-import React from 'react';
-import { render } from 'react-dom';
-
-import MapPanelWrapper from '../../../../src/map/wrappers/panel/MapPanelWrapper';
-
 (function () {
     'use strict';
 
@@ -14,9 +9,13 @@ import MapPanelWrapper from '../../../../src/map/wrappers/panel/MapPanelWrapper'
             controllerAs: 'vm'
         });
 
-    DpDashboardController.$inject = ['$scope', '$timeout', 'store', 'ACTIONS', 'dashboardColumns', 'HEADER'];
+    DpDashboardController.$inject = ['$scope', '$timeout', '$window', 'store', 'ACTIONS', 'dashboardColumns', 'HEADER'];
 
-    function DpDashboardController ($scope, $timeout, store, ACTIONS, dashboardColumns, HEADER) {
+    function DpDashboardController ($scope, $timeout, $window, store, ACTIONS, dashboardColumns, HEADER) {
+        const React = $window.react;
+        const render = $window.render;
+        const MapPanelWrapper = $window.MapPanelWrapper;
+
         const vm = this;
 
         vm.store = store;
