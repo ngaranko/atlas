@@ -3,14 +3,14 @@
 ## Requirements
 - NPM
 - Bower
-- Grunt
+- Webpack
 - Java JRE (needed to run protractor)
 
-## Installation
+## Installations
 - npm install
 - bower install
-- grunt
-- Open the server at http://localhost:8000/
+- npm start
+- Open the server at http://localhost:8080/
 
 ## Other useful commands
 - npm test
