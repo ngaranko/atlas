@@ -9,7 +9,7 @@
 ## Installation
 - npm install
 - bower install
-- grunt
+- npm start
 - Open the server at http://localhost:8000/
 
 ## Other useful commands
