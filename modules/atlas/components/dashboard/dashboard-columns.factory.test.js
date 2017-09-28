@@ -460,9 +460,9 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.dataSelection).toBe(false);
             });
 
-            it('left column: 1/3, middle column: 2/3, right column 0/3', function () {
-                expect(columnSizes.left).toBe(4);
-                expect(columnSizes.middle).toBe(8);
+            it('left column: 0/3, middle column: 3/3, right column 0/3', function () {
+                expect(columnSizes.left).toBe(0);
+                expect(columnSizes.middle).toBe(12);
                 expect(columnSizes.right).toBe(0);
             });
         });
@@ -615,9 +615,9 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.dataSelection).toBe(false);
             });
 
-            it('left column: 1/3, middle column: 2/3, right column 0/3', function () {
-                expect(columnSizes.left).toBe(4);
-                expect(columnSizes.middle).toBe(8);
+            it('left column: 0/3, middle column: 3/3, right column 0/3', function () {
+                expect(columnSizes.left).toBe(0);
+                expect(columnSizes.middle).toBe(12);
                 expect(columnSizes.right).toBe(0);
             });
         });

@@ -89,6 +89,9 @@ describe('The dataSelectionReducers factory', function () {
                 buurtcombinatie: 'Geuzenbuurt',
                 buurt: 'Trompbuurt'
             };
+            payload.filters = {
+                filter: 'filterValue'
+            };
 
             const output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
 
@@ -97,10 +100,29 @@ describe('The dataSelectionReducers factory', function () {
                 page: 1
             }));
 
-            expect(output.filters).toEqual(jasmine.objectContaining({
+            expect(output.filters).toEqual({
+                filter: 'filterValue'
+            });
+        });
+
+        it('sets the dataSelection dataset and page', function () {
+            const mockedState = angular.copy(DEFAULT_STATE);
+            mockedState.filters = {
                 buurtcombinatie: 'Geuzenbuurt',
                 buurt: 'Trompbuurt'
+            };
+
+            const output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
+
+            expect(output.dataSelection).toEqual(jasmine.objectContaining({
+                dataset: 'bag',
+                page: 1
             }));
+
+            expect(output.filters).toEqual({
+                buurtcombinatie: 'Geuzenbuurt',
+                buurt: 'Trompbuurt'
+            });
         });
 
         it('sets the dataSelection query, page, view, dataset and empties filters', function () {

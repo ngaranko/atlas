@@ -7,6 +7,6 @@
   "root": true,
   "rules": {
     "comma-dangle": ["error", "never"],
-    "no-underscore-dangle": ["error", { "allow": ["_embedded", "_links"] }]
+    "no-underscore-dangle": ["error", { "allow": ["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__", "_embedded", "_links"] }]
   }
 }

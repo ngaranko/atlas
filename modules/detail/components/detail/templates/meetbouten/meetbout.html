@@ -49,6 +49,8 @@
             partial="meetbouten/metingen-tabel">
         </dp-api-call>
 
+        <h3 ng-if="vm.apiData.results.metingen.count > 1">Zakking cumulatief (mm)</h3>
+
         <dp-meetbout-graph
             page-size="vm.apiData.results.metingen.count"
             href="{{vm.apiData.results.metingen.href}}">

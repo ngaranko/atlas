@@ -1,0 +1,33 @@
+<div>
+    <div class="c-detail__block">
+        <dp-glossary-header
+            definition="COMPLEXEN"
+            heading="{{ vm.apiData.results.complexnaam }}"
+            meta-data="vm.apiData">
+        </dp-glossary-header>
+
+        <dp-panel
+          can-close="true"
+          is-panel-visible="vm.showMoreInfoWarning"
+          type="warning">
+            Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer gegevens te zien: beschrijving.
+            Zie <dp-link-to-page item="item9" class-name="c-link--light"></dp-link-to-page>.
+        </dp-panel>
+
+        <dl class="c-key-value-list">
+            <dt>Nummer</dt>
+            <dd>{{ vm.apiData.results.monumentnummer_complex }}</dd>
+            <dt>Naam</dt>
+            <dd>{{ vm.apiData.results.complexnaam }}</dd>
+            <dt class="c-key-value-list__key--full-width">Beschrijving</dt>
+            <dd class="c-key-value-list__value--full-width">
+                <p
+                  class="c-key-value-list__content"
+                  dp-expand-collapse
+                  ng-if="vm.apiData.results.beschrijving_complex">{{ vm.apiData.results.beschrijving_complex.trim() }}</p>
+            </dd>
+        </dl>
+    </div>
+
+    <dp-api-call endpoint="{{vm.apiData.results.monumenten.href}}" partial="monumenten_lijst"></dp-api-call>
+</div>

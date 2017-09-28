@@ -1,7 +1,3 @@
-// import detailReducer from '../../../../src/reducers/details';
-import MapLayersReducer from '../../../../src/map/ducks/layers/map-layers';
-import MapOverlaysReducer from '../../../../src/map/ducks/overlays/overlays';
-
 (function () {
     'use strict';
 
@@ -46,6 +42,9 @@ import MapOverlaysReducer from '../../../../src/map/ducks/overlays/overlays';
                              filtersReducers,
                              environment) {
         return function (oldState, action) {
+            const MapLayersReducer = $window.MapLayersReducer;
+            const MapOverlaysReducer = $window.MapOverlaysReducer;
+
             // TODO: Redux: replace
             // Warning: angular.merge is deprecated
             // -- https://docs.angularjs.org/api/ng/function/angular.merge

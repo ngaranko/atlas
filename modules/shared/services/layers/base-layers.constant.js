@@ -9,6 +9,10 @@
                 label: 'Topografie',
                 urlTemplate: 'https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png'
             }, {
+                slug: 'lf2017',
+                label: 'Luchtfoto 2017',
+                urlTemplate: 'https://{s}.data.amsterdam.nl/lufo2017_RD/{z}/{x}/{y}.jpeg'
+            }, {
                 slug: 'lf2016',
                 label: 'Luchtfoto 2016',
                 urlTemplate: 'https://{s}.data.amsterdam.nl/lufo2016_RD/{z}/{x}/{y}.jpeg'
