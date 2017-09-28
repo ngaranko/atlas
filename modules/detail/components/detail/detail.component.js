@@ -102,11 +102,15 @@
                         }
 
                         store.dispatch({
+                            type: ACTIONS.DETAIL_FULLSCREEN,
+                            payload: subject === 'api' || !geoJSON
+                        });
+
+                        store.dispatch({
                             type: ACTIONS.SHOW_DETAIL,
                             payload: {
                                 display: data._display,
-                                geometry: geoJSON,
-                                isFullscreen: subject === 'api' || !geoJSON
+                                geometry: geoJSON
                             }
                         });
                     }, errorHandler);

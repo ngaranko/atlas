@@ -1,4 +1,4 @@
-describe('the dp-detail component', function () {
+describe('the dp-detail component', () => {
     var $compile,
         $rootScope,
         $q,
@@ -11,12 +11,12 @@ describe('the dp-detail component', function () {
     const naturalPersonEndPoint = 'http://www.fake-endpoint.com/brk/subject/123/';
     const noneNaturalPersonEndPoint = 'http://www.fake-endpoint.com/brk/subject/456/';
 
-    beforeEach(function () {
+    beforeEach(() => {
         angular.mock.module(
             'dpDetail',
             {
                 store: {
-                    dispatch: function () {},
+                    dispatch: () => {},
                     getState: angular.noop
                 },
                 api: {
@@ -118,7 +118,7 @@ describe('the dp-detail component', function () {
                     }
                 },
                 geojson: {
-                    getCenter: function () {
+                    getCenter: () => {
                         return [52.123, 4.123];
                     }
                 },
@@ -135,7 +135,7 @@ describe('the dp-detail component', function () {
                 }
             },
             function ($provide) {
-                $provide.factory('ngIncludeDirective', function () {
+                $provide.factory('ngIncludeDirective', () => {
                     return {};
                 });
             }
@@ -191,7 +191,7 @@ describe('the dp-detail component', function () {
         return component;
     }
 
-    it('puts data on the scope based on the endpoint', function () {
+    it('puts data on the scope based on the endpoint', () => {
         var component,
             scope;
 
@@ -208,7 +208,7 @@ describe('the dp-detail component', function () {
         });
     });
 
-    it('puts a template URL on the scope based on the endpoint', function () {
+    it('puts a template URL on the scope based on the endpoint', () => {
         var component,
             scope;
 
@@ -218,7 +218,7 @@ describe('the dp-detail component', function () {
         expect(scope.vm.includeSrc).toBe('modules/detail/components/detail/templates/bag/nummeraanduiding.html');
     });
 
-    it('puts a filter selection on the scope based on the endpoint', function () {
+    it('puts a filter selection on the scope based on the endpoint', () => {
         var component,
             scope;
 
@@ -230,20 +230,25 @@ describe('the dp-detail component', function () {
         });
     });
 
-    it('triggers the SHOW_DETAIL action with the display and geometry as its payload', function () {
+    it('triggers the SHOW_DETAIL and DETAIL_FULLSCREEN action with the display and geometry as its payload', () => {
         getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false);
 
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.SHOW_DETAIL,
             payload: {
                 display: 'Adresstraat 1A',
-                geometry: mockedGeometryPoint,
-                isFullscreen: false
+                geometry: mockedGeometryPoint
             }
+        });
+
+        expect(store.dispatch).toHaveBeenCalledWith({
+            type: ACTIONS.DETAIL_FULLSCREEN,
+            payload: false
         });
     });
 
-    it('loads new API data and triggers a new SHOW_DETAIL action when the endpoint changes', function () {
+    it('loads new API data and triggers a new SHOW_DETAIL and DETAIL_FULLSCREEN action when the endpoint ' +
+        'changes', () => {
         var component,
             scope,
             endpoint;
@@ -263,14 +268,17 @@ describe('the dp-detail component', function () {
                 naam: 'naam'
             }
         });
-        expect(store.dispatch).toHaveBeenCalledTimes(1);
+        expect(store.dispatch).toHaveBeenCalledTimes(2);
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.SHOW_DETAIL,
             payload: {
                 display: 'Adresstraat 1A',
-                geometry: mockedGeometryPoint,
-                isFullscreen: false
+                geometry: mockedGeometryPoint
             }
+        });
+        expect(store.dispatch).toHaveBeenCalledWith({
+            type: ACTIONS.DETAIL_FULLSCREEN,
+            payload: false
         });
 
         // Change the endpoint
@@ -284,18 +292,22 @@ describe('the dp-detail component', function () {
                 something: -90
             }
         });
-        expect(store.dispatch).toHaveBeenCalledTimes(2);
+        expect(store.dispatch).toHaveBeenCalledTimes(4);
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.SHOW_DETAIL,
             payload: {
                 display: 'Een of ander kadastraal object',
-                geometry: mockedGeometryMultiPolygon,
-                isFullscreen: false
+                geometry: mockedGeometryMultiPolygon
             }
+        });
+        expect(store.dispatch).toHaveBeenCalledWith({
+            type: ACTIONS.DETAIL_FULLSCREEN,
+            payload: false
         });
     });
 
-    it('loads new API data and triggers a new SHOW_DETAIL action when the reload flag has been set', function () {
+    it('loads new API data and triggers a new SHOW_DETAIL and DETAIL_FULLSCREEN action when the reload flag has been ' +
+        'set', () => {
         var component,
             scope,
             endpoint;
@@ -319,18 +331,21 @@ describe('the dp-detail component', function () {
                 naam: 'naam'
             }
         });
-        expect(store.dispatch).toHaveBeenCalledTimes(2);
+        expect(store.dispatch).toHaveBeenCalledTimes(4);
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.SHOW_DETAIL,
             payload: {
                 display: 'Adresstraat 1A',
-                geometry: mockedGeometryPoint,
-                isFullscreen: false
+                geometry: mockedGeometryPoint
             }
+        });
+        expect(store.dispatch).toHaveBeenCalledWith({
+            type: ACTIONS.DETAIL_FULLSCREEN,
+            payload: false
         });
     });
 
-    it('sets the SHOW_DETAIL geometry payload to null if there is no geometry', function () {
+    it('sets the SHOW_DETAIL geometry payload to null if there is no geometry', () => {
         user.meetsRequiredLevel.and.returnValue(true);
 
         getComponent(naturalPersonEndPoint);
@@ -343,44 +358,38 @@ describe('the dp-detail component', function () {
         });
     });
 
-    describe('the SHOW_DETAIL isFullscreen payload', function () {
-        it('sets it to true when the subject is \'api\'', function () {
+    describe('the DETAIL_FULLSCREEN payload', () => {
+        it('sets it to true when the subject is \'api\'', () => {
             getComponent('http://fake-endpoint.amsterdam.nl/api/subject/123/');
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SHOW_DETAIL,
-                payload: jasmine.objectContaining({
-                    isFullscreen: true
-                })
+                type: ACTIONS.DETAIL_FULLSCREEN,
+                payload: true
             });
         });
 
-        it('sets it to true when there is no geometry', function () {
+        it('sets it to true when there is no geometry', () => {
             user.meetsRequiredLevel.and.returnValue(true);
 
             getComponent('http://www.fake-endpoint.com/brk/subject/123/');
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SHOW_DETAIL,
-                payload: jasmine.objectContaining({
-                    isFullscreen: true
-                })
+                type: ACTIONS.DETAIL_FULLSCREEN,
+                payload: true
             });
         });
 
-        it('sets it to false otherwise', function () {
+        it('sets it to false otherwise', () => {
             getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/');
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SHOW_DETAIL,
-                payload: jasmine.objectContaining({
-                    isFullscreen: false
-                })
+                type: ACTIONS.DETAIL_FULLSCREEN,
+                payload: false
             });
         });
     });
 
-    it('sets the center location of the geometry on the scope (for the straatbeeld thumbnail)', function () {
+    it('sets the center location of the geometry on the scope (for the straatbeeld thumbnail)', () => {
         var component,
             scope;
 
@@ -406,14 +415,14 @@ describe('the dp-detail component', function () {
                 user.getAuthorizationLevel.and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE);
             });
 
-            it('shows a message that more info is available for "natuurlijke personen"', function () {
+            it('shows a message that more info is available for "natuurlijke personen"', () => {
                 const component = getComponent(naturalPersonEndPoint);
 
                 const scope = component.isolateScope();
                 expect(scope.vm.showInsufficientRightsMessage).toBe(true);
             });
 
-            it('does not show a message that more info is available for none "natuurlijke personen"', function () {
+            it('does not show a message that more info is available for none "natuurlijke personen"', () => {
                 const component = getComponent(noneNaturalPersonEndPoint);
 
                 const scope = component.isolateScope();
@@ -421,7 +430,7 @@ describe('the dp-detail component', function () {
             });
         });
 
-        it('does not show a message that more info is available for employee plus users', function () {
+        it('does not show a message that more info is available for employee plus users', () => {
             user.getAuthorizationLevel.and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS);
 
             const component = getComponent(naturalPersonEndPoint);
@@ -449,7 +458,7 @@ describe('the dp-detail component', function () {
         });
     });
 
-    it('gracefully handles a 404 with no data', function () {
+    it('gracefully handles a 404 with no data', () => {
         getComponent('http://www.fake-endpoint.amsterdam.nl/brk/subject/404/');
 
         expect(store.dispatch).toHaveBeenCalledWith({
@@ -458,7 +467,7 @@ describe('the dp-detail component', function () {
         });
     });
 
-    it('gracefully handles a 404 from geo json', function () {
+    it('gracefully handles a 404 from geo json', () => {
         getComponent('http://www.fake-endpoint.amsterdam.nl/brk/geo/404/');
 
         expect(store.dispatch).toHaveBeenCalledWith({
