@@ -55,6 +55,7 @@ import '../modules/atlas/services/redux/reducers/print-reducers.factory.js';
 import '../modules/atlas/services/redux/reducers/search-reducers.factory.js';
 import '../modules/atlas/services/redux/reducers/straatbeeld-reducers.factory.js';
 import '../modules/atlas/services/redux/reducers/url-reducers.factory.js';
+import '../modules/atlas/services/redux/reducers/user-reducers.factory.js';
 import '../modules/atlas/services/redux/store.run.js';
 import '../modules/atlas/services/routing/state-to-url.factory.js';
 import '../modules/atlas/services/routing/state-url-conversion.factory.js';

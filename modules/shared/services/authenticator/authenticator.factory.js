@@ -55,8 +55,9 @@
 
         // The URI we need to redirect to for communication with the OAuth2
         // authorization service
-        const AUTH_PATH = 'oauth2/';
-        const LOGIN_PATH = 'authorize?idp_id=datapunt&response_type=token&client_id=citydata';
+        const scopes = 'HR/R';
+        const AUTH_PATH = 'oauth2/authorize?idp_id=datapunt&response_type=token&client_id=citydata' +
+            `&scope=${encodeURIComponent(scopes)}`;
 
         // The keys of values we need to store in the session storage
         //
@@ -75,7 +76,9 @@
         return {
             initialize,
             login,
-            logout
+            logout,
+            isAuthenticated,
+            getScopes
         };
 
         function initialize () {
@@ -94,7 +97,8 @@
             // Get the URI the OAuth2 authorization service needs to use as
             // callback
             const callback = $location.absUrl().replace(/#.*$/, ''); // Remove all parameters
-            const stateToken = $window.encodeURIComponent(stateTokenGenerator()); // Get a random string to prevent CSRF
+            const stateToken = stateTokenGenerator(); // Get a random string to prevent CSRF
+            const encodedStateToken = $window.encodeURIComponent(stateToken);
 
             if (!stateToken) {
                 // crypto library is not available on the current browser
@@ -106,8 +110,8 @@
             saveStateToken(stateToken); // Save the state token in session
 
             $window.location.href =
-                sharedConfig.API_ROOT + AUTH_PATH + LOGIN_PATH +
-                `&state=${stateToken}&redirect_uri=${encodeURIComponent(callback)}`;
+                sharedConfig.API_ROOT + AUTH_PATH +
+                `&state=${encodedStateToken}&redirect_uri=${encodeURIComponent(callback)}`;
         }
 
         /**
@@ -285,6 +289,14 @@
 
         function removeAccessToken (accessToken) {
             storage.session.removeItem(ACCESS_TOKEN);
+        }
+
+        function isAuthenticated () {
+            return Boolean(getAccessToken());
+        }
+
+        function getScopes () {
+            return user.getScopes();
         }
     }
 })();

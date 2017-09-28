@@ -7,7 +7,8 @@
             templateUrl: 'modules/data-selection/components/data-selection/data-selection.html',
             bindings: {
                 state: '<',
-                filters: '<'
+                filters: '<',
+                user: '<'
             },
             controller: DpDataSelectionController,
             controllerAs: 'vm'
@@ -81,7 +82,7 @@
             vm.showContent = false;
             vm.disabled = false;
 
-            if (config.AUTH_LEVEL && !user.meetsRequiredLevel(config.AUTH_LEVEL)) {
+            if (config.AUTH_SCOPE && !vm.user.scopes[config.AUTH_SCOPE]) {
                 vm.disabled = true;
                 vm.availableFilters = [];
                 store.dispatch({

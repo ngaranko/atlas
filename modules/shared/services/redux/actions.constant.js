@@ -16,6 +16,14 @@
                 id: 'URL_CHANGE',
                 ignore: true
             },
+            USER_AUTHENTICATED: {
+                id: 'USER_AUTHENTICATED',
+                ignore: true
+            },
+            USER_SCOPES: {
+                id: 'USER_SCOPES',
+                ignore: true
+            },
 
             FETCH_SEARCH_RESULTS_BY_QUERY: {
                 id: 'FETCH_SEARCH_RESULTS_BY_QUERY',

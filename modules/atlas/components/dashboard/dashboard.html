@@ -180,7 +180,7 @@
 
                     <!-- Data selection -->
                     <div ng-if="vm.activity.dataSelection" ng-show="vm.visibility.dataSelection" ng-controller="DataSelectionController as dataSelection" class="qa-data-selection">
-                        <dp-data-selection state="dataSelection.dataSelectionState" filters="dataSelection.filters"></dp-data-selection>
+                        <dp-data-selection state="dataSelection.dataSelectionState" filters="dataSelection.filters" user="dataSelection.user"></dp-data-selection>
                     </div>
                 </div>
             </div>

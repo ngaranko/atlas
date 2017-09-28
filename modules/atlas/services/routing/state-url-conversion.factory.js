@@ -44,7 +44,7 @@
                 // Initialisation methods for the url2state conversion
                 // These methods are executed after a state object has been initialized with the initialValues
                 DEFAULT: (oldState, newState, params, initialValues) => {
-                    ['atlas', 'page', 'layerSelection', 'filters'].forEach(s => {
+                    ['atlas', 'page', 'layerSelection', 'filters', 'user'].forEach(s => {
                         const value = initialValues[s];
                         newState[s] = value ? {...value} : value;
                     });
@@ -59,6 +59,13 @@
             post: {
                 // Post processing methods
                 // These methods are exectuted when the url2state conversion has finished
+                user: (oldState, newState) => {
+                    if (angular.isObject(oldState)) {
+                        newState.authenticated = oldState.authenticated;
+                        newState.scopes = oldState.scopes;
+                    }
+                    return newState;
+                },
                 dataSelection: (oldState, newState) => {
                     if (angular.isObject(oldState)) {
                         newState.markers = oldState.markers;
@@ -131,6 +138,10 @@
                     isPrintMode: false,
                     isEmbedPreview: false,
                     isEmbed: false
+                },
+                user: {
+                    authenticated: false,
+                    scopes: {}
                 },
                 dataSelection: {
                     markers: [],    // eg: [[52.1, 4.1], [52.2, 4.0]],
