@@ -12,7 +12,7 @@
     DpDashboardController.$inject = ['$scope', '$timeout', '$window', 'store', 'ACTIONS', 'dashboardColumns', 'HEADER'];
 
     function DpDashboardController ($scope, $timeout, $window, store, ACTIONS, dashboardColumns, HEADER) {
-        const React = $window.react;
+        const React = $window.React;
         const render = $window.render;
         const MapPanelWrapper = $window.MapPanelWrapper;
 
@@ -39,6 +39,7 @@
             }
             // Render component in next digest to ensure DOM rendering has completed
             $timeout(() => {
+                console.log(render, React);
                 render(React.createElement(MapPanelWrapper, null), document.getElementById('map-panel-react'));
             });
         });

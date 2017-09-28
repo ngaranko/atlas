@@ -1,5 +1,6 @@
 // For now simply import everything we need, from here
 import './state';
+import './map/wrappers/panel/MapPanelWrapper';
 
 // All third party dependencies
 import './vendor';
