@@ -21,8 +21,7 @@
         'DATA_SELECTION_CONFIG',
         'TabHeader',
         'store',
-        'ACTIONS',
-        'user'
+        'ACTIONS'
     ];
 
     function DpDataSelectionController (
@@ -32,8 +31,8 @@
         DATA_SELECTION_CONFIG,
         TabHeader,
         store,
-        ACTIONS,
-        user) {
+        ACTIONS
+    ) {
         const vm = this;
 
         vm.showCatalogusIntroduction = vm.state.view === 'CARDS' &&
@@ -52,7 +51,7 @@
                 vm.state.geometryFilter,
                 vm.state.page,
                 vm.state.query,
-                user.getAuthorizationLevel()
+                vm.user.scopes
             ];
         }, fetchData, true);
 
