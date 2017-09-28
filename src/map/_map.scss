@@ -99,6 +99,15 @@
     .map-panel__layer-title:hover & {
       background-color: #EC0000;
       border-color: #EC0000;
+
+      svg {
+        fill: #FFFFFF;
+      }
+    }
+
+    svg {
+      height: 12px;
+      width: 12px;
     }
   }
 }
