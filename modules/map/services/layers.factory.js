@@ -76,8 +76,11 @@
 
         function getSubLayers (leafletMap, overlayName) {
             const wmsLayerId = leafletMap._leaflet_id + '_' + overlayName;
+            if (!overlays.SOURCES[overlayName]) {
+                return $q.reject();
+            }
 
-            if (!wmsLayers[wmsLayerId] && overlays.SOURCES[overlayName]) {
+            if (!wmsLayers[wmsLayerId]) {
                 wmsLayers[wmsLayerId] = getWmsUrl(overlayName).then(wmsUrl => {
                     return L.nonTiledLayer.wms(wmsUrl, {
                         ...mapConfig.OVERLAY_OPTIONS,
