@@ -103,7 +103,7 @@ function commonConfig(env) {
         // This means also proj4leaflet is copied this way (otherwise it will
         // require proj4 itself resulting in syntax errors again) and leaflet as
         // well because it needs to be loaded before proj4. And therefor also
-        // leaflet.wms, because it will include leaflet otherwise.
+        // leaflet.nontiledlayer, because it will include leaflet otherwise.
         { from: './node_modules/leaflet/dist/leaflet.js' },
         { from: './node_modules/leaflet.nontiledlayer/dist/NonTiledLayer.js' },
         { from: './node_modules/proj4/dist/proj4.js' },
