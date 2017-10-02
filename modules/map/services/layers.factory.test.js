@@ -120,21 +120,28 @@ describe('The layers factory', () => {
 
     describe('overlays', () => {
         let fakeWmsSource,
-            setOpacity;
+            setOpacity,
+            addTo,
+            removeFrom;
 
         beforeEach(() => {
             setOpacity = jasmine.createSpy();
+            addTo = jasmine.createSpy();
+            removeFrom = jasmine.createSpy();
 
-            fakeWmsSource = {
-                getLayer: function (layerName) {
-                    return {
-                        _name: 'FAKE_' + layerName.toUpperCase(),
-                        setOpacity
-                    };
-                }
+            L.nonTiledLayer = {
+                wms: angular.noop
             };
 
-            spyOn(L.WMS, 'source').and.returnValue(fakeWmsSource);
+            fakeWmsSource = function (wmsUrl, options) {
+                return {
+                    _name: 'FAKE_LAYERS_' + options.layers.concat('-'),
+                    setOpacity,
+                    addTo,
+                    removeFrom
+                };
+            };
+            spyOn(L.nonTiledLayer, 'wms').and.callFake(fakeWmsSource);
         });
 
         describe('adding overlays', () => {
@@ -142,40 +149,39 @@ describe('The layers factory', () => {
                 layers.addOverlay(mockedLeafletMap, 'overlay_a');
                 $rootScope.$digest();
 
-                expect(L.WMS.source).toHaveBeenCalledWith(
+                expect(L.nonTiledLayer.wms).toHaveBeenCalledWith(
                     'http://www.example.com/overlay-root/overlay_a_url', {
                         numberOfThings: 4,
-                        shouldThisWork: true
+                        shouldThisWork: true,
+                        layers: ['sublayer_1']
                     }
                 );
 
-                expect(mockedLeafletMap.addLayer).toHaveBeenCalledTimes(1);
-                expect(mockedLeafletMap.addLayer).toHaveBeenCalledWith({ _name: 'FAKE_SUBLAYER_1', setOpacity });
+                expect(addTo).toHaveBeenCalledWith(mockedLeafletMap);
             });
 
             it('adds only overlays that exist', () => {
                 layers.addOverlay(mockedLeafletMap, 'overlay_does_not_exist');
                 $rootScope.$digest();
 
-                expect(L.WMS.source).not.toHaveBeenCalled();
+                expect(L.nonTiledLayer.wms).not.toHaveBeenCalled();
 
-                expect(mockedLeafletMap.addLayer).not.toHaveBeenCalled();
+                expect(addTo).not.toHaveBeenCalled();
             });
 
             it('can add multiples sublayers per overlay', () => {
                 layers.addOverlay(mockedLeafletMap, 'overlay_b');
                 $rootScope.$digest();
 
-                expect(L.WMS.source).toHaveBeenCalledWith(
+                expect(L.nonTiledLayer.wms).toHaveBeenCalledWith(
                     'http://www.example.com/overlay-root/overlay_b_url', {
                         numberOfThings: 4,
-                        shouldThisWork: true
+                        shouldThisWork: true,
+                        layers: ['sublayer_1', 'sublayer_2']
                     }
                 );
 
-                expect(mockedLeafletMap.addLayer).toHaveBeenCalledTimes(2);
-                expect(mockedLeafletMap.addLayer).toHaveBeenCalledWith({ _name: 'FAKE_SUBLAYER_1', setOpacity });
-                expect(mockedLeafletMap.addLayer).toHaveBeenCalledWith({ _name: 'FAKE_SUBLAYER_2', setOpacity });
+                expect(addTo).toHaveBeenCalledWith(mockedLeafletMap);
             });
 
             it('adds the access token to internal overlay sources', () => {
@@ -185,10 +191,11 @@ describe('The layers factory', () => {
                 layers.addOverlay(mockedLeafletMap, 'overlay_b');
                 $rootScope.$digest();
 
-                expect(L.WMS.source).toHaveBeenCalledWith(
+                expect(L.nonTiledLayer.wms).toHaveBeenCalledWith(
                     'http://www.example.com/overlay-root/overlay_b_url?token=abc', {
                         numberOfThings: 4,
-                        shouldThisWork: true
+                        shouldThisWork: true,
+                        layers: ['sublayer_1', 'sublayer_2']
                     }
                 );
             });
@@ -197,15 +204,15 @@ describe('The layers factory', () => {
                 layers.addOverlay(mockedLeafletMap, 'overlay_c');
                 $rootScope.$digest();
 
-                expect(L.WMS.source).toHaveBeenCalledWith(
+                expect(L.nonTiledLayer.wms).toHaveBeenCalledWith(
                     'http://www.external-url.com/overlay_c_url', {
                         numberOfThings: 4,
-                        shouldThisWork: true
+                        shouldThisWork: true,
+                        layers: ['sublayer_1']
                     }
                 );
 
-                expect(mockedLeafletMap.addLayer).toHaveBeenCalledTimes(1);
-                expect(mockedLeafletMap.addLayer).toHaveBeenCalledWith({ _name: 'FAKE_SUBLAYER_1', setOpacity });
+                expect(addTo).toHaveBeenCalledWith(mockedLeafletMap);
             });
         });
 
@@ -214,30 +221,43 @@ describe('The layers factory', () => {
                 layers.removeOverlay(mockedLeafletMap, 'overlay_a');
                 $rootScope.$digest();
 
-                expect(mockedLeafletMap.removeLayer).toHaveBeenCalledTimes(1);
-                expect(mockedLeafletMap.removeLayer).toHaveBeenCalledWith({ _name: 'FAKE_SUBLAYER_1', setOpacity });
+                expect(L.nonTiledLayer.wms).toHaveBeenCalledWith(
+                    'http://www.example.com/overlay-root/overlay_a_url', {
+                        numberOfThings: 4,
+                        shouldThisWork: true,
+                        layers: ['sublayer_1']
+                    }
+                );
+
+                expect(removeFrom).toHaveBeenCalledWith(mockedLeafletMap);
             });
 
             it('can remove an overlay with multiple sublayers', () => {
                 layers.removeOverlay(mockedLeafletMap, 'overlay_b');
                 $rootScope.$digest();
 
-                expect(mockedLeafletMap.removeLayer).toHaveBeenCalledTimes(2);
-                expect(mockedLeafletMap.removeLayer).toHaveBeenCalledWith({ _name: 'FAKE_SUBLAYER_1', setOpacity });
-                expect(mockedLeafletMap.removeLayer).toHaveBeenCalledWith({ _name: 'FAKE_SUBLAYER_2', setOpacity });
+                expect(L.nonTiledLayer.wms).toHaveBeenCalledWith(
+                    'http://www.example.com/overlay-root/overlay_b_url', {
+                        numberOfThings: 4,
+                        shouldThisWork: true,
+                        layers: ['sublayer_1', 'sublayer_2']
+                    }
+                );
+
+                expect(removeFrom).toHaveBeenCalledWith(mockedLeafletMap);
             });
 
             it('caches the result of L.WMS.source per L.map instance', () => {
-                expect(L.WMS.source).not.toHaveBeenCalled();
+                expect(L.nonTiledLayer.wms).not.toHaveBeenCalled();
 
                 layers.addOverlay(mockedLeafletMap, 'overlay_a');
                 $rootScope.$digest();
-                expect(L.WMS.source).toHaveBeenCalledTimes(1);
+                expect(L.nonTiledLayer.wms).toHaveBeenCalledTimes(1);
 
                 layers.removeOverlay(mockedLeafletMap, 'overlay_a');
                 layers.addOverlay(mockedLeafletMap, 'overlay_a');
                 $rootScope.$digest();
-                expect(L.WMS.source).toHaveBeenCalledTimes(1);
+                expect(L.nonTiledLayer.wms).toHaveBeenCalledTimes(1);
 
                 // Change the L.map instance
                 mockedLeafletMap._leaflet_id = 2;
@@ -245,12 +265,12 @@ describe('The layers factory', () => {
                 // Add the same layer again, expect a new call
                 layers.addOverlay(mockedLeafletMap, 'overlay_a');
                 $rootScope.$digest();
-                expect(L.WMS.source).toHaveBeenCalledTimes(2);
+                expect(L.nonTiledLayer.wms).toHaveBeenCalledTimes(2);
 
                 layers.removeOverlay(mockedLeafletMap, 'overlay_a');
                 layers.addOverlay(mockedLeafletMap, 'overlay_a');
                 $rootScope.$digest();
-                expect(L.WMS.source).toHaveBeenCalledTimes(2);
+                expect(L.nonTiledLayer.wms).toHaveBeenCalledTimes(2);
             });
         });
 
@@ -267,8 +287,8 @@ describe('The layers factory', () => {
                 layers.hideOverlay(mockedLeafletMap, 'overlay_b');
                 $rootScope.$digest();
 
-                expect(setOpacity).toHaveBeenCalledTimes(2);
-                expect(setOpacity).toHaveBeenCalledWith(0.001);
+                expect(setOpacity).toHaveBeenCalledTimes(1);
+                expect(setOpacity).toHaveBeenCalledWith(0);
             });
         });
     });
