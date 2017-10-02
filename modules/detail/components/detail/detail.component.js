@@ -19,7 +19,6 @@
         'ACTIONS',
         'api',
         'endpointParser',
-        'user',
         'geometry',
         'geojson',
         'crsConverter',
@@ -34,7 +33,6 @@
             ACTIONS,
             api,
             endpointParser,
-            user,
             geometry,
             geojson,
             crsConverter,
@@ -55,7 +53,7 @@
         $scope.$watch('vm.endpoint', getData);
 
         // (Re)load the data when the user logs in or out or on a change of authorization level
-        $scope.$watch(() => user.getUserType() + user.getAuthorizationLevel(), (newValue, oldValue) => {
+        $scope.$watch('vm.user.scopes', (newValue, oldValue) => {
             if (newValue !== oldValue) {
                 getData(vm.endpoint);
             }
@@ -71,7 +69,7 @@
             vm.geosearchButton = state.map.highlight ? false : nearestDetail.getLocation();
 
             const [category, subject] = endpointParser.getParts(endpoint);
-            if (category === 'brk' && subject === 'subject' && !user.scopes['BRK/RS']) {
+            if (category === 'brk' && subject === 'subject' && !vm.user.scopes['BRK/RS']) {
                 // User is not authorized to view BRK Kadastrale Subjecten so do not fetch data
                 vm.isLoading = false;
                 delete vm.apiData;
