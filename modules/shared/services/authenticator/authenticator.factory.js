@@ -53,11 +53,30 @@
         // success
         const AUTH_PARAMS = ['access_token', 'token_type', 'expires_in', 'state'];
 
+        // All the scopes this City Daty frontend needs for communication with
+        // the backend APIs
+        const scopes = [
+            // Kadaster
+            'BRK/RS', // Bevragen niet-natuurlijke Kadastrale Subjecten
+            'BRK/RZR', // Zakelijke Rechten
+            'BRK/RAT', // Aantekeningen
+            'BRK/RW', // Lezen alle WKPB details van Kadastrale Objecten
+
+            // Wet Kenbaarheid Beperkingen
+            'WKPB/RBDU', // Lezen URL Brondocument
+
+            // Monumenten
+            'MON/RBC', // Lezen beschrijvingen van Complexen
+            'MON/RDM', // Lezen details van Monumenten
+
+            // Handelsregister
+            'HR/R' // Leesrechten
+        ];
+        const encodedScopes = encodeURIComponent(scopes.join(' '));
         // The URI we need to redirect to for communication with the OAuth2
         // authorization service
-        const scopes = 'HR/R';
         const AUTH_PATH = 'oauth2/authorize?idp_id=datapunt&response_type=token&client_id=citydata' +
-            `&scope=${encodeURIComponent(scopes)}`;
+            `&scope=${encodedScopes}`;
 
         // The keys of values we need to store in the session storage
         //
