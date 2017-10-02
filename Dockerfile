@@ -63,9 +63,9 @@ COPY . /app
 WORKDIR /app
 
 ENV PATH=./node_modules/.bin/:~/node_modules/.bin/:$PATH
-RUN rm -r ./node_modules \
-  git config --global url.https://github.com/.insteadOf git://github.com/ \
+RUN git config --global url.https://github.com/.insteadOf git://github.com/ \
   && git config --global url."https://github.com/".insteadOf git@github.com: \
+  && rm -r ./node_modules \
   && npm install && bower install --allow-root \
   && ./node_modules/protractor/node_modules/webdriver-manager/bin/webdriver-manager update \
   && ls ./node_modules
