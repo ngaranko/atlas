@@ -13,7 +13,8 @@ module.exports = {
             'angular-mocks': 'angular',
             'angular-sanitize': 'angular',
             'leaflet-rotatedmarker': 'leaflet',
-            'bbga_visualisatie_d3': 'd3'
+            'bbga_visualisatie_d3': 'd3',
+            'proj4leaflet': ['leaflet', 'proj4']
         }
     },
     css: {
