@@ -63,8 +63,6 @@ COPY . /app
 WORKDIR /app
 
 ENV PATH=./node_modules/.bin/:~/node_modules/.bin/:$PATH
-RUN rm -r ./node_modules
-
 RUN git config --global url.https://github.com/.insteadOf git://github.com/ \
   && git config --global url."https://github.com/".insteadOf git@github.com: \
   && npm install && bower install --allow-root \
