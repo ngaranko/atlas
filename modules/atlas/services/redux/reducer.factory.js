@@ -12,7 +12,6 @@
         'urlReducers',
         'freeze',
         'homeReducers',
-        'userReducers',
         'layerSelectionReducers',
         'mapReducers',
         'pageReducers',
@@ -30,7 +29,6 @@
                              urlReducers,
                              freeze,
                              homeReducers,
-                             userReducers,
                              layerSelectionReducers,
                              mapReducers,
                              pageReducers,
@@ -42,6 +40,8 @@
                              filtersReducers,
                              environment) {
         return function (oldState, action) {
+            const UserReducer = $window.UserReducer;
+
             // TODO: Redux: replace
             // Warning: angular.merge is deprecated
             // -- https://docs.angularjs.org/api/ng/function/angular.merge
@@ -51,11 +51,16 @@
                 SHOW_DETAIL: $window.reducers.detailReducer
             };
 
+            const userReducer = {
+                USER_AUTHENTICATED: UserReducer,
+                USER_SCOPES: UserReducer
+            };
+
             var actions = angular.merge(
                 urlReducers,
                 detailReducers,
                 homeReducers,
-                userReducers,
+                userReducer,
                 layerSelectionReducers,
                 mapReducers,
                 pageReducers,
@@ -68,9 +73,11 @@
                 environment
             );
 
-            if (detailReducers.hasOwnProperty(action.type.id)) {
+            if (detailReducers.hasOwnProperty(action.type.id) ||
+                userReducer.hasOwnProperty(action.type.id)
+            ) {
                 action.payload = {
-                    payload: action.payload,
+                    ...action,
                     type: action.type.id
                 };
             }

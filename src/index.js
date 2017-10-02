@@ -18,6 +18,7 @@ import '../modules/straatbeeld/straatbeeld.scss';
 // Import this here, because `modules/atlas/services/redux%reducer.factory.js`
 // cannoct do, because that would break the grunt build...
 import detailReducer from './reducers/details';
+import userReducer from './reducers/user';
 
 // All our modules' javascript
 import '../modules/atlas/atlas.module.js';
@@ -55,7 +56,6 @@ import '../modules/atlas/services/redux/reducers/print-reducers.factory.js';
 import '../modules/atlas/services/redux/reducers/search-reducers.factory.js';
 import '../modules/atlas/services/redux/reducers/straatbeeld-reducers.factory.js';
 import '../modules/atlas/services/redux/reducers/url-reducers.factory.js';
-import '../modules/atlas/services/redux/reducers/user-reducers.factory.js';
 import '../modules/atlas/services/redux/store.run.js';
 import '../modules/atlas/services/routing/state-to-url.factory.js';
 import '../modules/atlas/services/routing/state-url-conversion.factory.js';

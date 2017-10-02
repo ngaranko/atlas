@@ -17,11 +17,11 @@
             if (authenticator.isAuthenticated()) {
                 store.dispatch({
                     type: ACTIONS.USER_AUTHENTICATED,
-                    payload: true
+                    authenticated: true
                 });
                 store.dispatch({
                     type: ACTIONS.USER_SCOPES,
-                    payload: authenticator.getScopes()
+                    scopes: authenticator.getScopes()
                 });
             }
             $location.path(''); // Make sure the default `/` is always used. Resulting in `/#/?etc`
