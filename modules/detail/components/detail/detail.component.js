@@ -5,7 +5,8 @@
             bindings: {
                 endpoint: '@',
                 reload: '=',
-                isLoading: '='
+                isLoading: '=',
+                user: '<'
             },
             templateUrl: 'modules/detail/components/detail/detail.html',
             controller: DpDetailController,
@@ -67,15 +68,11 @@
 
             vm.includeSrc = endpointParser.getTemplateUrl(endpoint);
 
-            vm.isEmployee = user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL.EMPLOYEE);
-            // Derive whether more info is available if the user would be authenticated
-            // stored as separate variable to prevent vm manipulation to change the controller logic
-            vm.showMoreInfoWarning = !vm.isEmployee;
             vm.geosearchButton = state.map.highlight ? false : nearestDetail.getLocation();
 
             const [category, subject] = endpointParser.getParts(endpoint);
-            if (!vm.isEmployee && category === 'brk' && subject === 'subject') {
-                // User is not authenticated / authorized to view detail so do not fetch data
+            if (category === 'brk' && subject === 'subject' && !user.scopes['BRK/RS']) {
+                // User is not authorized to view BRK Kadastrale Subjecten so do not fetch data
                 vm.isLoading = false;
                 delete vm.apiData;
             } else {
@@ -85,12 +82,6 @@
                     vm.apiData = {
                         results: data
                     };
-
-                    // In the case of a "natuurlijk" kadastraal subject, derive whether more info is available if
-                    // the user would have special privileges
-                    vm.showInsufficientRightsMessage = vm.apiData.results.is_natuurlijk_persoon &&
-                        user.getUserType() === user.USER_TYPE.AUTHENTICATED &&
-                        user.getAuthorizationLevel() !== user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS;
 
                     vm.filterSelection = {
                         [subject]: vm.apiData.results.naam

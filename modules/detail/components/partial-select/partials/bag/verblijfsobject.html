@@ -68,12 +68,12 @@
          class="c-detail__block">
         <dp-glossary-header definition="VESTIGING" use-plural="true"></dp-glossary-header>
 
-        <dp-panel is-panel-visible="showMoreInfoWarning" can-close="true" type="warning">
+        <dp-panel is-panel-visible="!vm.user.scopes['HR/R']" can-close="true" type="warning">
             Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om vestigingen te bekijken.
             Zie <dp-link-to-page item="item9" class-name="c-link--light"></dp-link-to-page>.
         </dp-panel>
 
-        <dp-api-call ng-if="isEmployee" endpoint="handelsregister/vestiging/?nummeraanduiding={{ apiData.results.hoofdadres.landelijk_id }}" add-api-root="true" partial="lijst"></dp-api-call>
+        <dp-api-call ng-if="vm.user.scopes['HR/R']" endpoint="handelsregister/vestiging/?nummeraanduiding={{ apiData.results.hoofdadres.landelijk_id }}" add-api-root="true" partial="lijst"></dp-api-call>
     </div>
 
     <!-- Kadastraal apiData -->
@@ -81,7 +81,7 @@
          class="c-detail__block c-detail__block--container qa-kadastraal-object-list">
         <dp-glossary-header definition="OBJECT" use-plural="true"></dp-glossary-header>
 
-        <dp-panel is-panel-visible="showMoreInfoWarning" type="warning" can-close="true">
+        <dp-panel is-panel-visible="!vm.user.scopes['BRK/RZR'] || !vm.user.scopes['BRK/RAT']" type="warning" can-close="true">
             Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer gegevens te zien:
             zakelijke rechten en aantekeningen.
             Zie <dp-link-to-page item="item9" class-name="c-link--light"></dp-link-to-page>.
