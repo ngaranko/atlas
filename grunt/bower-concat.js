@@ -12,9 +12,8 @@ module.exports = {
             'angular-i18n': 'angular',
             'angular-mocks': 'angular',
             'angular-sanitize': 'angular',
-            'bbga_visualisatie_d3': 'd3',
             'leaflet-rotatedmarker': 'leaflet',
-            'proj4leaflet': ['leaflet', 'proj4']
+            'bbga_visualisatie_d3': 'd3'
         }
     },
     css: {
