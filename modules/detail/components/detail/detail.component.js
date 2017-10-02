@@ -5,7 +5,8 @@
             bindings: {
                 endpoint: '@',
                 reload: '=',
-                isLoading: '='
+                isLoading: '=',
+                isMapHighlight: '='
             },
             templateUrl: 'modules/detail/components/detail/detail.html',
             controller: DpDetailController,
@@ -101,10 +102,12 @@
                             vm.location = crsConverter.rdToWgs84(geojson.getCenter(geoJSON));
                         }
 
-                        store.dispatch({
-                            type: ACTIONS.DETAIL_FULLSCREEN,
-                            payload: subject === 'api' || !geoJSON
-                        });
+                        if (vm.isMapHighlight) {
+                            store.dispatch({
+                                type: ACTIONS.DETAIL_FULLSCREEN,
+                                payload: subject === 'api' || !geoJSON
+                            });
+                        }
 
                         store.dispatch({
                             type: ACTIONS.SHOW_DETAIL,
