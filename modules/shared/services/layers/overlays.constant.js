@@ -340,7 +340,7 @@
                     layers: ['ahn3_05m_dsm'],
                     minZoom: 10,
                     maxZoom: 16,
-                    legend: 'https://geodata.nationaalgeoregister.nl/ahn3/ows?service=WMS&request=GetLegendGraphic&fo' +
+                    legend: 'https://geodata.nationaalgeoregister.nl/ahn3/wfs?service=WMS&request=GetLegendGraphic&fo' +
                     'rmat=image%2Fpng&width=20&height=20&layer=ahn3_05m_dsm&style=ahn3_05m',
                     external: true,
                     noDetail: true
@@ -352,7 +352,7 @@
                     layers: ['ahn3_05m_dtm'],
                     minZoom: 10,
                     maxZoom: 16,
-                    legend: 'https://geodata.nationaalgeoregister.nl/ahn3/ows?service=WMS&request=GetLegendGraphic&fo' +
+                    legend: 'https://geodata.nationaalgeoregister.nl/ahn3/wfs?service=WMS&request=GetLegendGraphic&fo' +
                     'rmat=image%2Fpng&width=20&height=20&layer=ahn3_05m_dtm&style=ahn3_05m',
                     external: true,
                     noDetail: true
