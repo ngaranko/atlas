@@ -26,4 +26,11 @@ export default function MapLayersReducer(state = initialState, action) {
 
 export const getMapLayers = () => ({ type: FETCH_MAP_LAYERS_REQUEST });
 
+export const selectActiveMapLayers = state => (
+  state.mapLayers
+    .filter(mapLayer => state.map.overlays
+      .map(overlay => overlay.id)
+      .includes(mapLayer.id))
+);
+
 window.MapLayersReducer = MapLayersReducer;

@@ -14,16 +14,90 @@
   z-index: 100;
 
   &__heading {
+    align-items: center;
     background-color: #EEEEEE;
     border-bottom: 1px solid #999999;
-    font-family: "Avenir LT W01 85 Heavy";
-    font-size: 16px;
+    display: flex;
     padding: 8px 12px;
   }
 
-  ul {
+  &__heading-icon {
+    fill: #000000;
+    height: 24px;
+    width: 24px;
+  }
+
+  &__heading-title {
+    font-family: "Avenir LT W01 85 Heavy";
+    font-size: 16px;
+    margin-left: 5px;
+  }
+
+  .scroll-wrapper {
     height: calc(100% - 44px);
     overflow-y: auto;
+  }
+
+  .legend {
+    background-color: #FFFFFF;
+    border: 1px solid #999999;
+    border-top: none;
+    margin: 10px;
+  }
+
+  .legend__category {
+    align-items: center;
+    border-top: 1px solid #999999;
+    display: flex;
+    padding: 10px;
+    position: relative;
+
+    &:after {
+      background-color: #999999;
+      bottom: 0;
+      content: '';
+      display: block;
+      height: 1px;
+      left: 0;
+      position: absolute;
+      width: 34px;
+    }
+
+    .checkbox {
+      margin-right: 10px;
+    }
+  }
+
+  .legend__items {
+    padding: 10px;
+  }
+
+  .legend__item {
+    align-items: center;
+    display: flex;
+
+    & + .legend__item {
+      margin-top: 12px;
+    }
+  }
+
+  .legend__image {
+    box-sizing: content-box;
+    display: inline-block;
+    height: 16px;
+    line-height: 16px;
+    margin-left: 10px;
+    overflow: hidden;
+    width: 16px;
+
+    & + * {
+      margin-left: 10px;
+    }
+
+    & > img {
+      height: auto;
+      width: inherit;
+    }
   }
 
   &__layer-category {
@@ -112,4 +186,15 @@
       width: 12px;
     }
   }
+}
+
+.checkbox {
+  -ms-appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  border: 1px solid #000000;
+  height: 24px;
+  outline: none;
+  width: 24px;
 }

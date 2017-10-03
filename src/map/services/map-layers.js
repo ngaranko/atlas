@@ -173,13 +173,13 @@ export default [
     legendItems: [
       {
         id: 'bgem',
-        imageUrl: '',
+        imageUrl: 'https://acc.map.data.amsterdam.nl/maps/brk?version=1.3.0&service=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=burgerlijke_gemeente&format=image/svg%2Bxml&STYLE=default&rule=Burgerlijke%20gemeente',
         selectable: true,
         title: 'Burgerlijke gemeenten'
       },
       {
         id: 'kgem',
-        imageUrl: '',
+        imageUrl: 'https://acc.map.data.amsterdam.nl/maps/brk?version=1.3.0&service=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=kadastrale_gemeente&format=image/svg%2Bxml&STYLE=default&rule=Kadastrale%20gemeente',
         selectable: true,
         title: 'Kadastrale gemeenten'
       },
