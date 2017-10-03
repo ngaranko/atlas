@@ -1,3 +1,7 @@
 import React from 'react';
 
-export default () => <div />;
+const MapType = () => (
+  <section />
+);
+
+export default MapType;
