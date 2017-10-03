@@ -170,7 +170,7 @@ describe('the dp-detail component', () => {
         spyOn(user, 'meetsRequiredLevel').and.returnValue(false);
     });
 
-    function getComponent (endpoint, isLoading) {
+    function getComponent (endpoint, isLoading, isMapHighlight = true) {
         var component,
             element,
             scope;
@@ -179,11 +179,13 @@ describe('the dp-detail component', () => {
         element.setAttribute('endpoint', '{{endpoint}}');
         element.setAttribute('is-loading', 'isLoading');
         element.setAttribute('reload', 'reload');
+        element.setAttribute('is-map-highlight', 'isMapHighlight');
 
         scope = $rootScope.$new();
         scope.endpoint = endpoint;
         scope.isLoading = isLoading;
         scope.reload = false;
+        scope.isMapHighlight = isMapHighlight;
 
         component = $compile(element)(scope);
         scope.$apply();
@@ -242,6 +244,23 @@ describe('the dp-detail component', () => {
         });
 
         expect(store.dispatch).toHaveBeenCalledWith({
+            type: ACTIONS.DETAIL_FULLSCREEN,
+            payload: false
+        });
+    });
+
+    it('triggers the SHOW_DETAIL and not DETAIL_FULLSCREEN action when highlight is off', () => {
+        getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false, false);
+
+        expect(store.dispatch).toHaveBeenCalledWith({
+            type: ACTIONS.SHOW_DETAIL,
+            payload: {
+                display: 'Adresstraat 1A',
+                geometry: mockedGeometryPoint
+            }
+        });
+
+        expect(store.dispatch).not.toHaveBeenCalledWith({
             type: ACTIONS.DETAIL_FULLSCREEN,
             payload: false
         });
@@ -527,13 +546,7 @@ describe('the dp-detail component', () => {
         });
 
         it('is shown when highlight is false', () => {
-            store.getState.and.returnValue({
-                map: {
-                    highlight: false
-                }
-            });
-
-            const component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false);
+            const component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false, false);
 
             const scope = component.isolateScope();
             expect(scope.vm.geosearchButton).toEqual([52.654, 4.987]);
