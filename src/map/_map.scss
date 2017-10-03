@@ -3,14 +3,14 @@
   border: solid 1px #CCCCCC;
   bottom: 20px;
   box-shadow: 2px 2px 0 0 #999999;
-  height: calc(100vh - 40px - 50px);
+  height: calc(100vh - 40px - 50px - 130px);
   left: 20px;
   min-width: 285px;
   max-height: 800px;
   max-width: 435px;
   overflow: hidden;
   position: fixed;
-  width: calc(100vw - 40px);
+  width: 28%;
   z-index: 100;
 
   &__heading {
