@@ -5,7 +5,8 @@
             bindings: {
                 endpoint: '@',
                 reload: '=',
-                isLoading: '='
+                isLoading: '=',
+                isMapHighlight: '='
             },
             templateUrl: 'modules/detail/components/detail/detail.html',
             controller: DpDetailController,
@@ -61,8 +62,6 @@
         });
 
         function getData (endpoint) {
-            const state = store.getState();
-
             vm.location = null;
 
             vm.includeSrc = endpointParser.getTemplateUrl(endpoint);
@@ -71,7 +70,7 @@
             // Derive whether more info is available if the user would be authenticated
             // stored as separate variable to prevent vm manipulation to change the controller logic
             vm.showMoreInfoWarning = !vm.isEmployee;
-            vm.geosearchButton = state.map.highlight ? false : nearestDetail.getLocation();
+            vm.geosearchButton = vm.isMapHighlight ? false : nearestDetail.getLocation();
 
             const [category, subject] = endpointParser.getParts(endpoint);
             if (!vm.isEmployee && category === 'brk' && subject === 'subject') {
@@ -101,10 +100,12 @@
                             vm.location = crsConverter.rdToWgs84(geojson.getCenter(geoJSON));
                         }
 
-                        store.dispatch({
-                            type: ACTIONS.DETAIL_FULLSCREEN,
-                            payload: subject === 'api' || !geoJSON
-                        });
+                        if (vm.isMapHighlight) {
+                            store.dispatch({
+                                type: ACTIONS.DETAIL_FULLSCREEN,
+                                payload: subject === 'api' || !geoJSON
+                            });
+                        }
 
                         store.dispatch({
                             type: ACTIONS.SHOW_DETAIL,
