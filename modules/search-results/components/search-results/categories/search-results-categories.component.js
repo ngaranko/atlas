@@ -8,6 +8,7 @@
                 categories: '=',
                 user: '<'
             },
-            templateUrl: 'modules/search-results/components/search-results/categories/search-results-categories.html'
+            templateUrl: 'modules/search-results/components/search-results/categories/search-results-categories.html',
+            controllerAs: 'vm'
         });
 })();

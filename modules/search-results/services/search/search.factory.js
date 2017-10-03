@@ -5,9 +5,11 @@
         .module('dpSearchResults')
         .factory('search', searchFactory);
 
-    searchFactory.$inject = ['$q', 'SEARCH_CONFIG', 'api', 'searchFormatter', 'TabHeader', 'store'];
+    searchFactory.$inject = ['$injector', '$q', 'SEARCH_CONFIG', 'api', 'searchFormatter', 'TabHeader'];
 
-    function searchFactory ($q, SEARCH_CONFIG, api, searchFormatter, TabHeader, store) {
+    function searchFactory ($injector, $q, SEARCH_CONFIG, api, searchFormatter, TabHeader) {
+        let store;
+
         return {
             search,
             loadMore,
@@ -18,20 +20,26 @@
             TabHeader.provideCounter('FETCH_SEARCH_RESULTS_BY_QUERY', searchCount);
         }
 
+        function getStore () {
+            store = store || $injector.get('store');
+        }
+
         function searchCount (payload) {
             return search(payload).then(results => results.reduce((count, current) => count + current.count, 0));
         }
 
         function search (query, categorySlug) {
-            var queries = [],
-                params = {
-                    q: query
-                },
-                user = store.getState().user;
+            getStore();
+
+            const queries = [];
+            const params = { q: query };
+            const user = store.getState().user;
 
             SEARCH_CONFIG.QUERY_ENDPOINTS.forEach(function (endpoint) {
                 if ((!angular.isString(categorySlug) || categorySlug === endpoint.slug) &&
-                        endpoint.uri && user.scopes[endpoint.authScope]) {
+                    endpoint.uri &&
+                    (!endpoint.authScope || user.scopes[endpoint.authScope])
+                ) {
                     queries.push(
                         api.getByUri(endpoint.uri, params).then(data => data, () => [])
                     );
@@ -50,6 +58,7 @@
         }
 
         function loadMore (category) {
+            getStore();
             return api.getByUrl(category.next)
                 .then(function (nextPageData) {
                     // Don't change the input, create a new variable

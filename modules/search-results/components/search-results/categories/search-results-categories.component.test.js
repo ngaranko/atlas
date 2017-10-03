@@ -1,7 +1,7 @@
 describe('The dp-search-results-categories component', function () {
     let $compile,
         $rootScope,
-        user,
+        mockedUser,
         mockedSearchResults;
 
     beforeEach(function () {
@@ -15,10 +15,9 @@ describe('The dp-search-results-categories component', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _user_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
-            user = _user_;
         });
 
         mockedSearchResults = [
@@ -68,7 +67,7 @@ describe('The dp-search-results-categories component', function () {
                 label_plural: 'Kadastrale objecten',
                 slug: 'kadastraal_object',
                 count: 8,
-                authLevel: 'EMPLOYEE'
+                authScope: 'HR/R'
             },
             {
                 label_singular: 'Kadastraal subject',
@@ -86,7 +85,10 @@ describe('The dp-search-results-categories component', function () {
             }
         ];
 
-        spyOn(user, 'meetsRequiredLevel');
+        mockedUser = {
+            authenticated: false,
+            scopes: {}
+        };
     });
 
     function getComponent (categories) {
@@ -95,6 +97,9 @@ describe('The dp-search-results-categories component', function () {
 
         element.setAttribute('categories', 'categories');
         scope.categories = categories;
+
+        element.setAttribute('user', 'user');
+        scope.user = mockedUser;
 
         const component = $compile(element)(scope);
         scope.$apply();
@@ -256,7 +261,6 @@ describe('The dp-search-results-categories component', function () {
         }
 
         it('is hidden when the user doesn\'t have the required auth level', () => {
-            user.meetsRequiredLevel.and.returnValue(false);
             before();
             expect(categories.length).toBe(7);
             expect(header.text().trim()).not.toContain('Kadastrale objecten');
@@ -265,7 +269,7 @@ describe('The dp-search-results-categories component', function () {
         });
 
         it('is shown when the user has the required auth level ', () => {
-            user.meetsRequiredLevel.and.returnValue(true);
+            mockedUser.scopes = { 'HR/R': true };
             before();
             expect(categories.length).toBe(8);
             expect(header.text().trim()).toBe('Kadastrale objecten (8)');

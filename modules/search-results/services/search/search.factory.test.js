@@ -5,7 +5,9 @@ describe('The search factory', function () {
         api,
         searchFormatter,
         queryEndpoints,
-        TabHeader;
+        TabHeader,
+        store,
+        mockedUser;
 
     const FAIL_ON_URI = 'FAIL_ON_URI';
 
@@ -93,6 +95,9 @@ describe('The search factory', function () {
                             return ['FAKE_FORMATTED_LINK_K'];
                         }
                     }
+                },
+                store: {
+                    getState: angular.noop
                 }
             },
             function ($provide) {
@@ -102,16 +107,23 @@ describe('The search factory', function () {
             }
         );
 
-        angular.mock.inject(function (_$q_, _$rootScope_, _search_, _api_, _searchFormatter_, _TabHeader_) {
+        angular.mock.inject(function (_$q_, _$rootScope_, _search_, _api_, _searchFormatter_, _TabHeader_, _store_) {
             $q = _$q_;
             $rootScope = _$rootScope_;
             search = _search_;
             api = _api_;
             searchFormatter = _searchFormatter_;
             TabHeader = _TabHeader_;
+            store = _store_;
         });
 
+        mockedUser = {
+            authenticated: false,
+            scopes: {}
+        };
+
         spyOn(api, 'getByUri').and.callThrough();
+        spyOn(store, 'getState').and.returnValue({ user: mockedUser });
         spyOn(searchFormatter, 'formatCategories').and.callThrough();
         spyOn(searchFormatter, 'formatCategory').and.callThrough();
         spyOn(searchFormatter, 'formatLinks').and.callThrough();

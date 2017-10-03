@@ -52,8 +52,7 @@
         });
 
         // Show warning depending on authorization
-        const unwatchAuthorizationLevel = $rootScope.$watch('vm.user.scopes', updateWarningMessage);
-        $rootScope.$on('$destroy', unwatchAuthorizationLevel);
+        $scope.$watch('vm.user.scopes', updateWarningMessage);
 
         vm.loadMore = function () {
             vm.isLoadMoreLoading = true;

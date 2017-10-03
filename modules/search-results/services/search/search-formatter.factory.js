@@ -5,26 +5,36 @@
         .module('dpSearchResults')
         .factory('searchFormatter', searchFormatterFactory);
 
-    searchFormatterFactory.$inject = ['SEARCH_CONFIG', 'store'];
+    searchFormatterFactory.$inject = ['$injector', 'SEARCH_CONFIG'];
 
-    function searchFormatterFactory (SEARCH_CONFIG, store) {
+    function searchFormatterFactory ($injector, SEARCH_CONFIG) {
+        let store;
+
         return {
             formatCategories: formatCategories,
             formatCategory: formatCategory,
             formatLinks: formatLinks
         };
 
+        function getStore () {
+            store = store || $injector.get('store');
+        }
+
         function formatCategories (allSearchResults) {
+            getStore();
+
             const user = store.getState().user;
             return allSearchResults
                 .map(function (endpointSearchResults, index) {
                     return formatCategory(SEARCH_CONFIG.QUERY_ENDPOINTS.filter((endpoint) => {
-                        return user.scopes[endpoint.authScope];
+                        return !endpoint.authScope || user.scopes[endpoint.authScope];
                     })[index].slug, endpointSearchResults);
                 });
         }
 
         function formatCategory (slug, endpointSearchResults) {
+            getStore();
+
             const endpointConfig = SEARCH_CONFIG.QUERY_ENDPOINTS.filter(endpoint => endpoint.slug === slug)[0],
                 links = angular.isObject(endpointSearchResults) && endpointSearchResults.results || [];
 
@@ -43,6 +53,8 @@
         }
 
         function formatLinks (slug, links) {
+            getStore();
+
             const endpointConfig = SEARCH_CONFIG.QUERY_ENDPOINTS.filter(endpoint => endpoint.slug === slug)[0];
 
             return links.map(function (item) {
