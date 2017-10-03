@@ -9,7 +9,8 @@
                 query: '@',
                 location: '=',
                 category: '@',
-                numberOfResults: '='
+                numberOfResults: '=',
+                user: '<'
             },
             templateUrl: 'modules/search-results/components/search-results/search-results.html',
             controller: DpSearchResultsController,
@@ -17,10 +18,10 @@
         });
 
     DpSearchResultsController.$inject = [
-        '$rootScope', '$scope', 'search', 'geosearch', 'TabHeader', 'user', 'store', 'ACTIONS', 'activeOverlays'
+        '$rootScope', '$scope', 'search', 'geosearch', 'TabHeader', 'store', 'ACTIONS', 'activeOverlays'
     ];
 
-    function DpSearchResultsController ($rootScope, $scope, search, geosearch, TabHeader, user, store, ACTIONS,
+    function DpSearchResultsController ($rootScope, $scope, search, geosearch, TabHeader, store, ACTIONS,
                                         activeOverlays) {
         const vm = this;
 
@@ -51,7 +52,7 @@
         });
 
         // Show warning depending on authorization
-        const unwatchAuthorizationLevel = $rootScope.$watch(() => user.getAuthorizationLevel(), updateWarningMessage);
+        const unwatchAuthorizationLevel = $rootScope.$watch('vm.user.scopes', updateWarningMessage);
         $rootScope.$on('$destroy', unwatchAuthorizationLevel);
 
         vm.loadMore = function () {
@@ -66,7 +67,6 @@
 
         vm.showTabHeader = () => !angular.isArray(vm.location) && !vm.category;
 
-        vm.meetsRequiredLevel = user.meetsRequiredLevel;
         vm.layerWarning = '';
 
         vm.tabHeader = new TabHeader('data-datasets');
@@ -82,14 +82,10 @@
         function searchByQuery (query, category) {
             const isQuery = angular.isString(query);
             if (isQuery) {
-                if (user) {
-                    user.waitForAccessToken().then(() => {
-                        if (angular.isString(category) && category.length) {
-                            search.search(query, category).then(setSearchResults).then(updateWarningMessage);
-                        } else {
-                            search.search(query).then(setSearchResults).then(updateWarningMessage);
-                        }
-                    });
+                if (angular.isString(category) && category.length) {
+                    search.search(query, category).then(setSearchResults).then(updateWarningMessage);
+                } else {
+                    search.search(query).then(setSearchResults).then(updateWarningMessage);
                 }
             }
             return isQuery;
@@ -110,16 +106,11 @@
                 vm.searchResults.find(category => category.slug === 'subject');
 
             if (kadastraleSubject) {
-                if (user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS)) {
-                    delete kadastraleSubject.warning;
-                } else if (user.meetsRequiredLevel(user.AUTHORIZATION_LEVEL.EMPLOYEE)) {
+                if (!vm.user.scopes['BRK/RSN']) {
                     kadastraleSubject.warning = 'Medewerkers met speciale bevoegdheden' +
                         ' kunnen alle gegevens vinden (ook natuurlijke personen).';
                 } else {
-                    kadastraleSubject.warning = 'Om kadastraal subjecten te kunnen vinden,' +
-                        ' moet je als medewerker/ketenpartner van Gemeente Amsterdam inloggen.' +
-                        ' Om ook natuurlijke personen te vinden, moet je als medewerker bovendien' +
-                        ' speciale bevoegdheden hebben.';
+                    delete kadastraleSubject.warning;
                 }
             }
 

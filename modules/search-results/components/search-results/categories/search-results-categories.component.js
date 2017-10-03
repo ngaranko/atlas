@@ -5,20 +5,9 @@
         .module('dpSearchResults')
         .component('dpSearchResultsCategories', {
             bindings: {
-                categories: '='
+                categories: '=',
+                user: '<'
             },
-            templateUrl: 'modules/search-results/components/search-results/categories/search-results-categories.html',
-            controller: DpSearchResultsCategoriesController,
-            controllerAs: 'vm'
+            templateUrl: 'modules/search-results/components/search-results/categories/search-results-categories.html'
         });
-
-    DpSearchResultsCategoriesController.$inject = [
-        'user'
-    ];
-
-    function DpSearchResultsCategoriesController (user) {
-        const vm = this;
-
-        vm.meetsRequiredLevel = user.meetsRequiredLevel;
-    }
 })();

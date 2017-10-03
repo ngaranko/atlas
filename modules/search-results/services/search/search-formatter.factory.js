@@ -5,9 +5,9 @@
         .module('dpSearchResults')
         .factory('searchFormatter', searchFormatterFactory);
 
-    searchFormatterFactory.$inject = ['SEARCH_CONFIG', 'user'];
+    searchFormatterFactory.$inject = ['SEARCH_CONFIG', 'store'];
 
-    function searchFormatterFactory (SEARCH_CONFIG, user) {
+    function searchFormatterFactory (SEARCH_CONFIG, store) {
         return {
             formatCategories: formatCategories,
             formatCategory: formatCategory,
@@ -15,10 +15,11 @@
         };
 
         function formatCategories (allSearchResults) {
+            const user = store.getState().user;
             return allSearchResults
                 .map(function (endpointSearchResults, index) {
                     return formatCategory(SEARCH_CONFIG.QUERY_ENDPOINTS.filter((endpoint) => {
-                        return user.meetsRequiredLevel(endpoint.authLevel);
+                        return user.scopes[endpoint.authScope];
                     })[index].slug, endpointSearchResults);
                 });
         }
@@ -34,7 +35,7 @@
                 count: angular.isObject(endpointSearchResults) && endpointSearchResults.count || 0,
                 results: formatLinks(slug, links),
                 useIndenting: false,
-                authLevel: endpointConfig.authLevel || null,
+                authScope: endpointConfig.authScope || null,
                 next: angular.isObject(endpointSearchResults) &&
                 endpointSearchResults._links &&
                 endpointSearchResults._links.next.href || null

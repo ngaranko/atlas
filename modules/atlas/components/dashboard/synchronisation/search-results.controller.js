@@ -22,6 +22,7 @@
                 vm.location = state.search.location;
                 vm.category = state.search.category;
                 vm.numberOfResults = state.search.numberOfResults;
+                vm.user = state.user;
             }
         }
     }

@@ -3,9 +3,9 @@
         .module('dpSearchResults')
         .factory('geosearch', geosearchFactory);
 
-    geosearchFactory.$inject = ['$q', 'SEARCH_CONFIG', 'api', 'geosearchFormatter', 'searchFormatter', 'user'];
+    geosearchFactory.$inject = ['$q', 'SEARCH_CONFIG', 'api', 'geosearchFormatter', 'searchFormatter', 'store'];
 
-    function geosearchFactory ($q, SEARCH_CONFIG, api, geosearchFormatter, searchFormatter, user) {
+    function geosearchFactory ($q, SEARCH_CONFIG, api, geosearchFormatter, searchFormatter, store) {
         return {
             search
         };
@@ -25,7 +25,7 @@
 
                 const request = api.getByUri(endpoint.uri, searchParams).then(
                     data => data,
-                    () => { return { features: [] }; });    // empty features on failure of api call
+                    () => { return { features: [] }; }); // empty features on failure of api call
 
                 allRequests.push(request);
             });
@@ -38,9 +38,10 @@
         function getRelatedObjects (geosearchResults) {
             const q = $q.defer(),
                 [pandCategoryIndex, pandEndpoint] = getPandData(geosearchResults),
-                [plaatsCategoryIndex, plaatsEndpoint] = getPlaatsData(geosearchResults);
+                [plaatsCategoryIndex, plaatsEndpoint] = getPlaatsData(geosearchResults),
+                user = store.getState().user;
 
-            if (plaatsEndpoint && user.meetsRequiredLevel('EMPLOYEE')) {
+            if (plaatsEndpoint && user.scopes['HR/R']) {
                 // Only fetching 'vestigingen' for a standplaats/ligplaats, so
                 // we check for employee status here already
                 api.getByUrl(plaatsEndpoint).then(processPlaatsData);
@@ -59,7 +60,7 @@
                     api.getByUrl(pand._adressen.href).then(formatVerblijfsobjecten)
                 ];
 
-                if (user.meetsRequiredLevel('EMPLOYEE')) {
+                if (user.scopes['HR/R']) {
                     requests.push(api.getByUri(vestigingenUri).then(formatVestigingen));
                 }
 
@@ -85,7 +86,7 @@
                     const formatted = (vestigingen && vestigingen.count)
                             ? searchFormatter.formatCategory('vestiging', vestigingen) : null,
                         extended = formatted ? angular.extend(formatted, {
-                            authLevel: 'EMPLOYEE',
+                            authScope: formatted.authScope,
                             more: {
                                 label: `Bekijk alle ${formatted.count} vestigingen binnen dit pand`,
                                 endpoint: pand._links.self.href
