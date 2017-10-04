@@ -27,7 +27,6 @@
                     this._accessToken = null;
                     this._authorizationLevel = AUTHORIZATION_LEVEL.NONE;
                     this.name = '';
-                    this.scopes = [];
                 };
 
                 this.decodeToken = function (token) {
@@ -53,10 +52,6 @@
 
                     if (angular.isDefined(content.authz)) {
                         this.authorizationLevel = content.authz;
-                    }
-
-                    if (angular.isDefined(content.scopes)) {
-                        this.scopes = content.scopes;
                     }
                 };
 
@@ -88,14 +83,6 @@
                 this._name = value;
             }
 
-            get scopes () {
-                return this._scopes;
-            }
-
-            set scopes (value) {
-                this._scopes = value;
-            }
-
             get authorizationLevel () {
                 return AUTHORIZATION_LEVEL[this._authorizationLevel];
             }
@@ -110,7 +97,6 @@
         return {
             setAccessToken,
             getName,
-            getScopes,
             getAuthorizationLevel, // deprecated
             clearToken, // deprecated
             meetsRequiredLevel, // deprecated
@@ -123,10 +109,6 @@
 
         function getName () {
             return user.name;
-        }
-
-        function getScopes () {
-            return user.scopes;
         }
 
         function getAuthorizationLevel () {
