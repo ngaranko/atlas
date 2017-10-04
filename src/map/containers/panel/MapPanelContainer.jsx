@@ -56,7 +56,7 @@ MapPanelContainer.defaultProps = {
   atlas: {},
   layerSelection: {},
   map: {},
-  baseLayers: [],
+  baseLayers: {},
   mapLayers: []
 };
 
@@ -64,7 +64,7 @@ MapPanelContainer.propTypes = {
   atlas: PropTypes.object, // eslint-disable-line
   layerSelection: PropTypes.object, // eslint-disable-line
   map: PropTypes.object, // eslint-disable-line
-  baseLayers: PropTypes.array, // eslint-disable-line
+  baseLayers: PropTypes.object, // eslint-disable-line
   mapLayers: PropTypes.array, // eslint-disable-line
   mapOverlays: PropTypes.array, // eslint-disable-line
   onLayerToggle: PropTypes.func // eslint-disable-line

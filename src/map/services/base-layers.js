@@ -1,5 +1,5 @@
-export default [
-  [
+export default {
+  topography: [
     {
       id: 'topo_rd',
       label: 'Topografie',
@@ -13,7 +13,8 @@ export default [
       label: 'Topografie grijs',
       urlTemplate: 'https://{s}.data.amsterdam.nl/topo_rd_zw/{z}/{x}/{y}.png'
     }
-  ], [
+  ],
+  aerial: [
     {
       id: 'lf2017',
       label: 'Luchtfoto 2017',
@@ -76,4 +77,4 @@ export default [
       urlTemplate: 'https://{s}.data.amsterdam.nl/lufo2003_RD/{z}/{x}/{y}.jpeg'
     }
   ]
-];
+};

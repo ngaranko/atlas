@@ -86,6 +86,12 @@
                     }
                     return newState;
                 },
+                baseLayers: (oldState, newState) => {
+                    if (angular.isArray(oldState)) {
+                        newState = oldState;
+                    }
+                    return newState;
+                },
                 mapLayers: (oldState, newState) => {
                     if (angular.isArray(oldState)) {
                         newState = oldState;
