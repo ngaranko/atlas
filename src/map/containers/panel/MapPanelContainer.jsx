@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { getBaseLayers } from '../../ducks/layers/base-layers';
 import { getMapLayers } from '../../ducks/layers/map-layers';
 import { toggleMapOverlay } from '../../ducks/overlays/overlays';
 import MapLayers from '../../components/layers/MapLayers';
@@ -13,6 +14,7 @@ const mapStateToProps = state => ({
   atlas: state.atlas,
   layerSelection: state.layerSelection,
   map: state.map,
+  baseLayers: state.baseLayers,
   mapLayers: state.mapLayers,
   mapOverlays: state.map.overlays
 });
@@ -24,6 +26,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 
 class MapPanelContainer extends React.Component {
   componentDidMount() {
+    this.context.store.dispatch(getBaseLayers());
     this.context.store.dispatch(getMapLayers());
   }
 
@@ -32,7 +35,9 @@ class MapPanelContainer extends React.Component {
       <section className="map-panel">
         <h1 className="map-panel__heading">Kaartlagen</h1>
         <MapLegend />
-        <MapType />
+        <MapType
+          layers={this.props.baseLayers}
+        />
         <MapLayers
           layers={this.props.mapLayers}
           onLayerToggle={this.props.onLayerToggle}
@@ -51,6 +56,7 @@ MapPanelContainer.defaultProps = {
   atlas: {},
   layerSelection: {},
   map: {},
+  baseLayers: [],
   mapLayers: []
 };
 
@@ -58,6 +64,7 @@ MapPanelContainer.propTypes = {
   atlas: PropTypes.object, // eslint-disable-line
   layerSelection: PropTypes.object, // eslint-disable-line
   map: PropTypes.object, // eslint-disable-line
+  baseLayers: PropTypes.array, // eslint-disable-line
   mapLayers: PropTypes.array, // eslint-disable-line
   mapOverlays: PropTypes.array, // eslint-disable-line
   onLayerToggle: PropTypes.func // eslint-disable-line

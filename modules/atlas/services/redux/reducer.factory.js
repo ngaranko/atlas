@@ -44,6 +44,7 @@
         return function (oldState, action) {
             const MapLayersReducer = $window.MapLayersReducer;
             const MapOverlaysReducer = $window.MapOverlaysReducer;
+            const BaseLayersReducer = $window.BaseLayersReducer;
 
             // TODO: Redux: replace
             // Warning: angular.merge is deprecated
@@ -60,6 +61,12 @@
                 FETCH_MAP_LAYERS_SUCCESS: MapLayersReducer
             };
 
+            const baseLayersReducer = {
+                FETCH_BASE_LAYERS_FAILURE: BaseLayersReducer,
+                FETCH_BASE_LAYERS_REQUEST: BaseLayersReducer,
+                FETCH_BASE_LAYERS_SUCCESS: BaseLayersReducer
+            };
+
             const mapOverlaysReducer = {
                 TOGGLE_MAP_OVERLAY: MapOverlaysReducer
             };
@@ -67,6 +74,7 @@
             var actions = angular.merge(
                 urlReducers,
                 detailReducers,
+                baseLayersReducer,
                 mapLayersReducer,
                 homeReducers,
                 layerSelectionReducers,
