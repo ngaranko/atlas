@@ -87,7 +87,7 @@
                     return newState;
                 },
                 baseLayers: (oldState, newState) => {
-                    if (angular.isArray(oldState)) {
+                    if (angular.isObject(oldState)) {
                         newState = oldState;
                     }
                     return newState;
@@ -179,7 +179,7 @@
                     drawingMode: 'none',
                     highlight: true
                 },
-                baseLayers: [],
+                baseLayers: {},
                 mapLayers: [],
                 page: {
                     name: null  // eg: 'home'
