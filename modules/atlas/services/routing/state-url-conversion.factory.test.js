@@ -40,7 +40,8 @@ describe('The state url conversion definition', function () {
                 filters: {},
                 user: {
                     authenticated: false,
-                    scopes: {}
+                    scopes: {},
+                    name: ''
                 },
                 map: {
                     viewCenter: [52.3731081, 4.8932945],

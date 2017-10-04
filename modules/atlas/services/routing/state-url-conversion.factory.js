@@ -63,6 +63,7 @@
                     if (angular.isObject(oldState)) {
                         newState.authenticated = oldState.authenticated;
                         newState.scopes = oldState.scopes;
+                        newState.name = oldState.name;
                     }
                     return newState;
                 },
@@ -141,10 +142,11 @@
                 },
                 user: {
                     authenticated: false,
-                    scopes: {}
+                    scopes: {},
+                    name: ''
                 },
                 dataSelection: {
-                    markers: [],    // eg: [[52.1, 4.1], [52.2, 4.0]],
+                    markers: [], // eg: [[52.1, 4.1], [52.2, 4.0]],
                     geometryFilter: {
                         markers: []
                     },

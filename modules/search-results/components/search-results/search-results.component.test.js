@@ -316,7 +316,8 @@ describe('The dp-search-results component', function () {
 
         mockedUser = {
             authenticated: false,
-            scopes: {}
+            scopes: {},
+            name: ''
         };
 
         spyOn(store, 'dispatch');

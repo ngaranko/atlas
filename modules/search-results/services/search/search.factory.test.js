@@ -119,7 +119,8 @@ describe('The search factory', function () {
 
         mockedUser = {
             authenticated: false,
-            scopes: {}
+            scopes: {},
+            name: ''
         };
 
         spyOn(api, 'getByUri').and.callThrough();

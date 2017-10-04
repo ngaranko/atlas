@@ -157,7 +157,8 @@ describe('the dp-detail component', function () {
 
         mockedUser = {
             authenticated: false,
-            scopes: {}
+            scopes: {},
+            name: ''
         };
 
         spyOn(store, 'dispatch');

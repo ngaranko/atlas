@@ -19,7 +19,6 @@
             vm.endpoint = state.detail && state.detail.endpoint;
             vm.reload = state.detail && state.detail.reload;
             vm.isLoading = state.detail && state.detail.isLoading;
-            vm.user = state.user;
         }
     }
 })();

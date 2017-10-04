@@ -87,7 +87,8 @@ describe('The dp-search-results-categories component', function () {
 
         mockedUser = {
             authenticated: false,
-            scopes: {}
+            scopes: {},
+            name: ''
         };
     });
 

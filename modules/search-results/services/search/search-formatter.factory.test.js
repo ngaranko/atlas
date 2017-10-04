@@ -179,7 +179,8 @@ describe('The searchFormatter factory', function () {
 
         mockedUser = {
             authenticated: false,
-            scopes: {}
+            scopes: {},
+            name: ''
         };
 
         spyOn(store, 'getState').and.returnValue({ user: mockedUser });

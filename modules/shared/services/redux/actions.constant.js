@@ -24,6 +24,10 @@
                 id: 'USER_SCOPES',
                 ignore: true
             },
+            USER_NAME: {
+                id: 'USER_NAME',
+                ignore: true
+            },
 
             FETCH_SEARCH_RESULTS_BY_QUERY: {
                 id: 'FETCH_SEARCH_RESULTS_BY_QUERY',

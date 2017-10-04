@@ -97,7 +97,8 @@
             login,
             logout,
             isAuthenticated,
-            getScopes
+            getScopes,
+            getName
         };
 
         function initialize () {
@@ -316,6 +317,10 @@
 
         function getScopes () {
             return user.getScopes();
+        }
+
+        function getName () {
+            return user.getName();
         }
     }
 })();

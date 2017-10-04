@@ -13,6 +13,7 @@
             <div ng-class="{ 'o-max-width__inner': vm.hasMaxWidth }">
                 <div ng-if="!vm.isPrintOrEmbedOrPreview" class="qa-dashboard__header">
                     <dp-site-header size="vm.headerSize"
+                                    user="vm.user"
                                     has-print-button="header.hasPrintButton"
                                     has-embed-button="header.hasEmbedButton"
                                     search-action="header.searchAction"
@@ -93,7 +94,7 @@
                             endpoint="{{detail.endpoint}}"
                             reload="detail.reload"
                             is-loading="detail.isLoading"
-                            user="detail.user">
+                            user="vm.user">
                         </dp-detail>
                     </div>
 
@@ -164,7 +165,7 @@
                             location="searchResults.location"
                             category="{{searchResults.category}}"
                             number-of-results="searchResults.numberOfResults"
-                            user="searchResults.user">
+                            user="vm.user">
                         </dp-search-results>
                     </div>
 
@@ -182,7 +183,7 @@
 
                     <!-- Data selection -->
                     <div ng-if="vm.activity.dataSelection" ng-show="vm.visibility.dataSelection" ng-controller="DataSelectionController as dataSelection" class="qa-data-selection">
-                        <dp-data-selection state="dataSelection.dataSelectionState" filters="dataSelection.filters" user="dataSelection.user"></dp-data-selection>
+                        <dp-data-selection state="dataSelection.dataSelectionState" filters="dataSelection.filters" user="vm.user"></dp-data-selection>
                     </div>
                 </div>
             </div>

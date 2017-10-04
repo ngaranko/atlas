@@ -53,7 +53,8 @@
 
             const userReducer = {
                 USER_AUTHENTICATED: UserReducer,
-                USER_SCOPES: UserReducer
+                USER_SCOPES: UserReducer,
+                USER_NAME: UserReducer
             };
 
             var actions = angular.merge(

@@ -18,7 +18,6 @@
 
             vm.dataSelectionState = state.dataSelection;
             vm.filters = state.filters;
-            vm.user = state.user;
         }
     }
 })();

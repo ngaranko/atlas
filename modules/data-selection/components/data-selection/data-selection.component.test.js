@@ -108,7 +108,8 @@ describe('The dp-data-selection component', function () {
             authenticated: true,
             scopes: {
                 'HR/R': true
-            }
+            },
+            name: ''
         };
 
         mockedApiPreviewData = {

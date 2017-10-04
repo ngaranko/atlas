@@ -336,7 +336,8 @@ describe('The geosearch factory', function () {
 
         mockedUser = {
             authenticated: true,
-            scopes: { 'HR/R': true }
+            scopes: { 'HR/R': true },
+            name: ''
         };
 
         spyOn(store, 'getState').and.returnValue({ user: mockedUser });

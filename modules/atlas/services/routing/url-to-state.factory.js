@@ -23,6 +23,10 @@
                     type: ACTIONS.USER_SCOPES,
                     scopes: authenticator.getScopes()
                 });
+                store.dispatch({
+                    type: ACTIONS.USER_NAME,
+                    name: authenticator.getName()
+                });
             }
             $location.path(''); // Make sure the default `/` is always used. Resulting in `/#/?etc`
 
