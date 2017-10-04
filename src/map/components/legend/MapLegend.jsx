@@ -31,7 +31,7 @@ const MapLegend = ({ activeMapLayers }) => (
                   src={legendItem.imageUrl}
                 />
               </div>
-              <span>{legendItem.title}</span>
+              <span className="map-legend__title">{legendItem.title}</span>
             </li>
           ))}
         </ul>
