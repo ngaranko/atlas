@@ -6,6 +6,7 @@
                 endpoint: '@',
                 reload: '=',
                 isLoading: '=',
+                isMapHighlight: '=',
                 user: '<'
             },
             templateUrl: 'modules/detail/components/detail/detail.html',
@@ -60,13 +61,11 @@
         });
 
         function getData (endpoint) {
-            const state = store.getState();
-
             vm.location = null;
 
             vm.includeSrc = endpointParser.getTemplateUrl(endpoint);
 
-            vm.geosearchButton = state.map.highlight ? false : nearestDetail.getLocation();
+            vm.geosearchButton = vm.isMapHighlight ? false : nearestDetail.getLocation();
 
             const [category, subject] = endpointParser.getParts(endpoint);
             if (category === 'brk' && subject === 'subject' && !vm.user.scopes['BRK/RS']) {
@@ -90,12 +89,18 @@
                             vm.location = crsConverter.rdToWgs84(geojson.getCenter(geoJSON));
                         }
 
+                        if (vm.isMapHighlight) {
+                            store.dispatch({
+                                type: ACTIONS.DETAIL_FULLSCREEN,
+                                payload: subject === 'api' || !geoJSON
+                            });
+                        }
+
                         store.dispatch({
                             type: ACTIONS.SHOW_DETAIL,
                             payload: {
                                 display: data._display,
-                                geometry: geoJSON,
-                                isFullscreen: subject === 'api' || !geoJSON
+                                geometry: geoJSON
                             }
                         });
                     }, errorHandler);

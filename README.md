@@ -3,14 +3,14 @@
 ## Requirements
 - NPM
 - Bower
-- Grunt
+- Webpack
 - Java JRE (needed to run protractor)
 
-## Installation
+## Installations
 - npm install
 - bower install
-- grunt
-- Open the server at http://localhost:8000/
+- npm start
+- Open the server at http://localhost:8080/
 
 ## Other useful commands
 - npm test
@@ -39,3 +39,5 @@ prefix to the desired command, e.g. `PASSWORD_EMPLOYEE=password grunt test`.
 - BEMIT (http://csswizardry.com/2015/08/bemit-taking-the-bem-naming-convention-a-step-further/)
 - BEM namespaces (http://csswizardry.com/2015/03/more-transparent-ui-code-with-namespaces/)
 - [GitFlow](https://datasift.github.io/gitflow/IntroducingGitFlow.html) without tags and a release branch
+
+Test

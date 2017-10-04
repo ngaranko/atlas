@@ -48,7 +48,8 @@
 
             const detailReducers = {
                 FETCH_DETAIL: $window.reducers.detailReducer,
-                SHOW_DETAIL: $window.reducers.detailReducer
+                SHOW_DETAIL: $window.reducers.detailReducer,
+                DETAIL_FULLSCREEN: $window.reducers.detailReducer
             };
 
             const userReducer = {
