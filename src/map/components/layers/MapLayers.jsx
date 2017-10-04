@@ -5,16 +5,16 @@ import AddIcon from '../../../../public/images/icon-plus.svg';
 import RemoveIcon from '../../../../public/images/icon-cross.svg';
 
 const MapLayers = ({ layers, onLayerToggle, overlays }) => (
-  <ul>
+  <ul className="map-layers">
     {[...new Set(layers.map(layer => layer.category))].map(category => (
-      <li className="map-panel__layer-category" key={category}>
+      <li className="map-layers__category" key={category}>
         {category}
         <ul>
           {layers.filter(layer => layer.category === category).map(layer => (
             <li
               className={`
-                map-panel__layer-title
-                map-panel__layer-title--${overlays.some(overlay => layer.id === overlay.id) ? 'active' : 'inactive'}
+                map-layers__title
+                map-layers__title--${overlays.some(overlay => layer.id === overlay.id) ? 'active' : 'inactive'}
               `}
               key={layer.title}
             >
@@ -22,10 +22,10 @@ const MapLayers = ({ layers, onLayerToggle, overlays }) => (
                 <span>
                   {layer.title}
                 </span>
-                <span className="map-panel__layer-toggle map-panel__layer-toggle--remove">
+                <span className="map-layers__toggle map-layers__toggle--remove">
                   <RemoveIcon />
                 </span>
-                <span className="map-panel__layer-toggle map-panel__layer-toggle--add">
+                <span className="map-layers__toggle map-layers__toggle--add">
                   <AddIcon />
                 </span>
               </button>

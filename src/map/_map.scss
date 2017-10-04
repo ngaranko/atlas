@@ -1,115 +1,43 @@
+@import "components/legend/map-legend";
+@import "components/layers/map-layers";
+
 .map-panel {
   background-color: #FAFAFA;
   border: solid 1px #CCCCCC;
   bottom: 20px;
   box-shadow: 2px 2px 0 0 #999999;
-  height: calc(100vh - 40px - 50px);
+  height: calc(100vh - 40px - 50px - 130px);
   left: 20px;
   min-width: 285px;
   max-height: 800px;
   max-width: 435px;
   overflow: hidden;
   position: fixed;
-  width: calc(100vw - 40px);
+  width: 28%;
   z-index: 100;
 
   &__heading {
+    align-items: center;
     background-color: #EEEEEE;
     border-bottom: 1px solid #999999;
-    font-family: "Avenir LT W01 85 Heavy";
-    font-size: 16px;
+    display: flex;
     padding: 8px 12px;
   }
 
-  ul {
+  &__heading-icon {
+    fill: #000000;
+    height: 24px;
+    width: 24px;
+  }
+
+  &__heading-title {
+    font-family: "Avenir LT W01 85 Heavy";
+    font-size: 16px;
+    margin-left: 5px;
+  }
+
+  .scroll-wrapper {
     height: calc(100% - 44px);
     overflow-y: auto;
-  }
-
-  &__layer-category {
-    font-family: "Avenir LT W01 85 Heavy";
-    margin-top: 8px;
-    text-indent: 12px;
-
-    & + & {
-      margin-top: 40px;
-    }
-
-    ul {
-      margin-top: 8px;
-    }
-  }
-
-  &__layer-title {
-    border: 1px solid transparent;
-    display: flex;
-    font-family: "Avenir LT W01 55 Roman";
-    text-align: left;
-
-    &--active {
-      background-color: #FFFFFF;
-      border-bottom-color: #666666;
-      border-top-color: #666666;
-
-      & + & {
-        border-top-color: transparent;
-      }
-    }
-
-    button {
-      align-items: center;
-      display: flex;
-      justify-content: space-between;
-      outline: none;
-      overflow: hidden;
-      width: 100%;
-
-      & > span:first-child {
-        overflow: hidden;
-        padding: 8px 12px;
-        text-align: left;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        width: 100%;
-      }
-    }
-  }
-
-  &__layer-toggle {
-    align-items: center;
-    background-color: #FFFFFF;
-    border: 1px solid #CCCCCC;
-    border-radius: 50%;
-    content: 'X';
-    display: flex;
-    flex-shrink: 0;
-    font-size: 0;
-    height: 26px;
-    justify-content: center;
-    margin-right: 12px;
-    width: 26px;
-
-    .map-panel__layer-title--active &--add,
-    .map-panel__layer-title--inactive &--remove {
-      display: none;
-    }
-
-    .map-panel__layer-title--active & {
-      border-color: #666666;
-    }
-
-    .map-panel__layer-title:hover & {
-      background-color: #EC0000;
-      border-color: #EC0000;
-
-      svg {
-        fill: #FFFFFF;
-      }
-    }
-
-    svg {
-      height: 12px;
-      width: 12px;
-    }
   }
 }
