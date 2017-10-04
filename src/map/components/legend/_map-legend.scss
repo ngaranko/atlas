@@ -59,6 +59,7 @@
     }
   }
 
+  &__category > span:last-child,
   &__title {
     overflow: hidden;
     text-overflow: ellipsis;

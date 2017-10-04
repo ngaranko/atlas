@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Checkbox } from '../../../shared/components/checkbox';
 
-const MapLegend = ({ activeMapLayers }) => (
+const MapLegend = ({ activeMapLayers, onLayerToggle }) => (
   <ul className="map-legend">
     {activeMapLayers.map(mapLayer => (
       <li key={mapLayer.id}>
@@ -11,6 +11,7 @@ const MapLegend = ({ activeMapLayers }) => (
           <Checkbox
             checked="true"
             name={mapLayer.id}
+            onChange={() => onLayerToggle(mapLayer.id)}
           />
           <span>{mapLayer.title}</span>
         </div>
@@ -28,6 +29,7 @@ const MapLegend = ({ activeMapLayers }) => (
                 />
               )}
               <div className="map-legend__image">
+                {/* TODO: Remove condition as soon as data is complete */}
                 {legendItem.imageUrl && (
                   <img
                     alt=""
@@ -46,6 +48,7 @@ const MapLegend = ({ activeMapLayers }) => (
 
 MapLegend.propTypes = {
   activeMapLayers: PropTypes.array, // eslint-disable-line
+  onLayerToggle: PropTypes.func // eslint-disable-line
 };
 
 export default MapLegend;

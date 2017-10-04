@@ -37,9 +37,12 @@ class MapPanelContainer extends React.Component {
           <h1 className="map-panel__heading-title">Kaartlagen</h1>
         </div>
         <div className="scroll-wrapper">
-          <MapLegend
-            activeMapLayers={this.props.activeMapLayers}
-          />
+          {this.props.activeMapLayers.length > 0 && (
+            <MapLegend
+              activeMapLayers={this.props.activeMapLayers}
+              onLayerToggle={this.props.onLayerToggle}
+            />
+          )}
           <MapType />
           <MapLayers
             layers={this.props.mapLayers}
