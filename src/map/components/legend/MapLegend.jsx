@@ -1,12 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Checkbox } from '../../../shared/components/checkbox';
+
 const MapLegend = ({ activeMapLayers }) => (
   <ul className="map-legend">
     {activeMapLayers.map(mapLayer => (
       <li key={mapLayer.id}>
         <div className="map-legend__category">
-          <input className="checkbox" type="checkbox" />
+          <Checkbox
+            checked="true"
+            name={mapLayer.id}
+          />
           <span>{mapLayer.title}</span>
         </div>
         <ul className="map-legend__items">
@@ -16,7 +21,10 @@ const MapLegend = ({ activeMapLayers }) => (
               className="map-legend__item"
               key={legendItem.id}
             >
-              <input className="checkbox" type="checkbox" />
+              <Checkbox
+                checked="true"
+                name={legendItem.id}
+              />
               <div className="map-legend__image">
                 <img
                   alt=""
