@@ -140,6 +140,9 @@
         function logout () {
             user.clearToken();
             removeAccessToken();
+            // Brute fix to reload the application when the user authorization
+            // changes
+            $window.location.reload(true);
         }
 
         /**

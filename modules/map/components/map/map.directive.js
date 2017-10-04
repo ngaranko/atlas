@@ -23,7 +23,8 @@
                 markers: '=',
                 drawGeometry: '=',
                 showLayerSelection: '=',
-                resize: '<'
+                resize: '<',
+                user: '<'
             },
             templateUrl: 'modules/map/components/map/map.html',
             link: linkFunction
@@ -65,9 +66,7 @@
                     layers.setBaseLayer(leafletMap, baseLayer);
                 });
 
-                scope.$watch(user.getAuthorizationLevel, setOverlays);
-
-                scope.$watch('mapState.overlays', setOverlays, true);
+                scope.$watchGroup(['user.scopes', 'mapState.overlays'], setOverlays);
 
                 scope.$watch('markers.regular', function (newCollection, oldCollection) {
                     if (angular.equals(newCollection, oldCollection)) {

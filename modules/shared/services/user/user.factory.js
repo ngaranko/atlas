@@ -8,11 +8,6 @@
     userFactory.$inject = ['$window', '$q', '$interval', '$cacheFactory', 'userSettings'];
 
     function userFactory ($window, $q, $interval, $cacheFactory, userSettings) {
-        const USER_TYPE = { // the possible types of a user
-            NONE: 'NONE',
-            AUTHENTICATED: 'AUTHENTICATED'
-        };
-
         const AUTHORIZATION_LEVEL = { // The possible user authorization levels
             NONE: 'NONE', // unkown authorization level or authorization level not set
             DEFAULT: 'DEFAULT',
@@ -87,14 +82,6 @@
                 this.parseToken(value);
             }
 
-            get type () {
-                return USER_TYPE[userSettings.userType.value] || USER_TYPE.NONE;
-            }
-
-            set type (value) {
-                userSettings.userType.value = USER_TYPE[value];
-            }
-
             get name () {
                 return this._name;
             }
@@ -123,57 +110,18 @@
         const user = new User();
 
         return {
-            getAccessToken,
             setAccessToken,
-            waitForAccessToken,
             getName,
             getScopes,
-            getAuthorizationLevel,
-            getUserType,
-            clearToken,
-            meetsRequiredLevel,
-            USER_TYPE,
-            AUTHORIZATION_LEVEL
+            getAuthorizationLevel, // deprecated
+            clearToken, // deprecated
+            meetsRequiredLevel, // deprecated
+            AUTHORIZATION_LEVEL // deprecated
         };
 
-        function getAccessToken () {
-            return user.accessToken;
-        }
-
         function setAccessToken (token) {
-            const currentAuthorizationLevel = user.authorizationLevel;
-
-            user.type = USER_TYPE.AUTHENTICATED;
             user.accessToken = token;
             clearHttpCache();
-            if (!meetsRequiredLevel(currentAuthorizationLevel)) {
-                onLowerAuthorizationLevel();
-            }
-        }
-
-        /**
-         * Returns a promise that will resolve to an access token if available.
-         * When the user is in the process of logging in, the promise will not
-         * be resolved until after the log in process has finished (or after a
-         * maximum of 5 seconds).
-         *
-         * @return {Promise} The user access token or null.
-         */
-        function waitForAccessToken () {
-            const defer = $q.defer(),
-                token = getAccessToken();
-
-            if (token) {
-                defer.resolve(token);
-            } else {
-                defer.resolve(null);
-            }
-
-            return defer.promise;
-        }
-
-        function getUserType () {
-            return user.type;
         }
 
         function getName () {
@@ -208,14 +156,8 @@
             }
         }
 
-        function onLowerAuthorizationLevel () {
-            // Brute fix to reload the application when the user authorization decreases
-            $window.location.reload(true);
-        }
-
         function clearToken () {
             user.clear();
-            onLowerAuthorizationLevel();
         }
     }
 })();
