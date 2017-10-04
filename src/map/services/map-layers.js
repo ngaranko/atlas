@@ -113,20 +113,6 @@ export default [
   },
   {
     category: 'Economie en haven',
-    id: 'ovrg',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: true,
-        title: ''
-      }
-    ],
-    maxZoom: 100,
-    minZoom: 0,
-    title: 'Overige'
-  },
-  {
-    category: 'Economie en haven',
     id: 'pd',
     legendItems: [
       {
@@ -166,6 +152,20 @@ export default [
     maxZoom: 100,
     minZoom: 0,
     title: 'Zakelijke dienstverlening'
+  },
+  {
+    category: 'Economie en haven',
+    id: 'ovrg',
+    legendItems: [
+      {
+        imageUrl: '',
+        selectable: true,
+        title: ''
+      }
+    ],
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Overige'
   },
   {
     category: 'Geografie: onroerende zaken',
