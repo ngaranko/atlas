@@ -11,15 +11,12 @@ const initialState = {
 export default function BaseLayersReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_BASE_LAYERS_REQUEST:
-      console.log('FETCH_BASE_LAYERS_REQUEST', action);
       return { ...state, isLoading: true, error: null };
 
     case FETCH_BASE_LAYERS_SUCCESS:
-      console.log('FETCH_BASE_LAYERS_SUCCESS', action);
       return { ...state, isLoading: false, baseLayers: action.baseLayers };
 
     case FETCH_BASE_LAYERS_FAILURE:
-      console.log('FETCH_BASE_LAYERS_FAILURE', action);
       return { ...state, isLoading: false, error: action.error };
 
     default:
