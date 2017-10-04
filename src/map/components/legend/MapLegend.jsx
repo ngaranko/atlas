@@ -21,15 +21,19 @@ const MapLegend = ({ activeMapLayers }) => (
               className="map-legend__item"
               key={legendItem.id}
             >
-              <Checkbox
-                checked="true"
-                name={legendItem.id}
-              />
-              <div className="map-legend__image">
-                <img
-                  alt=""
-                  src={legendItem.imageUrl}
+              {legendItem.selectable && (
+                <Checkbox
+                  checked="true"
+                  name={legendItem.id}
                 />
+              )}
+              <div className="map-legend__image">
+                {legendItem.imageUrl && (
+                  <img
+                    alt=""
+                    src={legendItem.imageUrl}
+                  />
+                )}
               </div>
               <span className="map-legend__title">{legendItem.title}</span>
             </li>
