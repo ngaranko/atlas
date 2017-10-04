@@ -196,8 +196,8 @@ export default [
         title: 'Kadastrale objecten'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 15,
+    minZoom: 10,
     title: 'Kadastrale perceelsgrenzen'
   },
   {

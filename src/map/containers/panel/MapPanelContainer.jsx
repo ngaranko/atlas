@@ -14,9 +14,9 @@ const mapStateToProps = state => ({
   activeMapLayers: selectActiveMapLayers(state),
   atlas: state.atlas,
   layerSelection: state.layerSelection,
-  map: state.map,
   mapLayers: state.mapLayers,
-  mapOverlays: state.map.overlays
+  mapOverlays: state.map.overlays,
+  zoomLevel: state.map.zoom
 });
 
 // TODO: Add method that checks whether layer is active and toggles accordingly
@@ -41,6 +41,7 @@ class MapPanelContainer extends React.Component {
             <MapLegend
               activeMapLayers={this.props.activeMapLayers}
               onLayerToggle={this.props.onLayerToggle}
+              zoomLevel={this.props.zoomLevel}
             />
           )}
           <MapType />
@@ -64,7 +65,8 @@ MapPanelContainer.defaultProps = {
   atlas: {},
   layerSelection: {},
   map: {},
-  mapLayers: []
+  mapLayers: [],
+  zoomLevel: 0
 };
 
 MapPanelContainer.propTypes = {
@@ -74,7 +76,8 @@ MapPanelContainer.propTypes = {
   map: PropTypes.object, // eslint-disable-line
   mapLayers: PropTypes.array, // eslint-disable-line
   mapOverlays: PropTypes.array, // eslint-disable-line
-  onLayerToggle: PropTypes.func // eslint-disable-line
+  onLayerToggle: PropTypes.func, // eslint-disable-line
+  zoomLevel: PropTypes.number
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapPanelContainer);
