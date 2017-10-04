@@ -5,7 +5,7 @@
         .module('dpPage')
         .constant('PAGE_NAMES', {
             home: 'Home',
-            metadata: 'Metadata',
+            metadata: 'Actualiteit',
             news: 'Nieuws',
             beleid: 'Beleid',
             help: 'Help',

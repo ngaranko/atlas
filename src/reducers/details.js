@@ -39,13 +39,21 @@ window.reducers.detailReducer = (state = {}, action) => {
           ...state.detail,
           display: action.payload.display,
           geometry: action.payload.geometry,
-          isFullscreen: action.payload.isFullscreen,
           isLoading: false,
           reload: false
         },
         map: {
           ...state.map,
           isLoading: false
+        }
+      };
+
+    case 'DETAIL_FULLSCREEN':
+      return {
+        ...state,
+        detail: {
+          ...state.detail,
+          isFullscreen: action.payload
         }
       };
 

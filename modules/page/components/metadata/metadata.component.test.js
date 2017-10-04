@@ -115,14 +115,4 @@ describe('The dp-metadata component', function () {
         expect(component.find('tbody tr:nth-child(1) td:nth-child(1)').text().trim()).toBe('FAKE_TITLE_2');
     });
 
-    it('optionally adds the group in front of the title', function () {
-        var component;
-
-        mockedApiData[0].group = 'FAKE_GROUP_1';
-
-        component = getComponent();
-        finishApiCall(mockedApiData);
-
-        expect(component.find('tbody tr:nth-child(1) td:nth-child(1)').text()).toContain('FAKE_GROUP_1');
-    });
-});
+ });
