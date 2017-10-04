@@ -5,9 +5,9 @@
         .module('dpShared')
         .factory('user', userFactory);
 
-    userFactory.$inject = ['$window', '$q', '$interval', '$cacheFactory', 'userSettings'];
+    userFactory.$inject = ['$window'];
 
-    function userFactory ($window, $q, $interval, $cacheFactory, userSettings) {
+    function userFactory ($window) {
         const AUTHORIZATION_LEVEL = { // The possible user authorization levels
             NONE: 'NONE', // unkown authorization level or authorization level not set
             DEFAULT: 'DEFAULT',
@@ -68,8 +68,6 @@
             }
 
             clear () {
-                userSettings.userType.remove();
-
                 this.init();
             }
 
@@ -121,7 +119,6 @@
 
         function setAccessToken (token) {
             user.accessToken = token;
-            clearHttpCache();
         }
 
         function getName () {
@@ -134,11 +131,6 @@
 
         function getAuthorizationLevel () {
             return user.authorizationLevel;
-        }
-
-        function clearHttpCache () {
-            // Clearing the cache whenever authorization level is lowered
-            $cacheFactory.get('$http').removeAll();
         }
 
         function meetsRequiredLevel (requiredLevel) {

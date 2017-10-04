@@ -55,7 +55,8 @@ describe(' The authenticator factory', function () {
                 $window: {
                     addEventListener: angular.noop,
                     location: {
-                        href: ''
+                        href: '',
+                        reload: angular.noop
                     },
                     crypto: {
                         getRandomValues: (list) => {
@@ -142,6 +143,7 @@ describe(' The authenticator factory', function () {
             Raven = _Raven_;
         });
 
+        spyOn($window.location, 'reload').and.returnValue(null);
         spyOn($location, 'search').and.returnValue({});
         spyOn($location, 'replace');
     });
@@ -551,5 +553,6 @@ describe(' The authenticator factory', function () {
 
         authenticator.logout();
         expect(user.clearToken).toHaveBeenCalled();
+        expect($window.location.reload).toHaveBeenCalledWith(true);
     });
 });

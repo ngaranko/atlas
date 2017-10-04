@@ -16,6 +16,7 @@
         'httpStatus',
         'stateTokenGenerator',
         'queryStringParser',
+        'accessTokenParser',
         'Raven'
     ];
 
@@ -31,6 +32,7 @@
         httpStatus,
         stateTokenGenerator,
         queryStringParser,
+        accessTokenParser,
         Raven
     ) {
         // A map of the error keys, that the OAuth2 authorization service can
@@ -91,12 +93,14 @@
         const ACCESS_TOKEN = 'accessToken';
 
         let initialized = false;
+        let tokenData = {};
 
         return {
             initialize,
             login,
             logout,
             isAuthenticated,
+            getAccessToken,
             getScopes,
             getName
         };
@@ -138,7 +142,7 @@
          * Removes the access token from the user and the session storage.
          */
         function logout () {
-            user.clearToken();
+            user.clearToken(); // deprecated
             removeAccessToken();
             // Brute fix to reload the application when the user authorization
             // changes
@@ -201,7 +205,8 @@
         function restoreAccessToken () {
             const accessToken = getAccessToken();
             if (accessToken) {
-                user.setAccessToken(accessToken);
+                user.setAccessToken(accessToken); // deprecated
+                tokenData = accessTokenParser(accessToken);
             }
         }
 
@@ -209,7 +214,8 @@
          * Finishes the callback from the OAuth2 authorization service.
          */
         function useAccessToken (token) {
-            user.setAccessToken(token);
+            user.setAccessToken(token); // deprecated
+            tokenData = accessTokenParser(token);
             saveAccessToken(token);
             removeStateToken(); // Remove state token from session
             const pathParams = storage.session.getItem(CALLBACK_PARAMS);
@@ -319,11 +325,11 @@
         }
 
         function getScopes () {
-            return user.getScopes();
+            return tokenData.scopes || {};
         }
 
         function getName () {
-            return user.getName();
+            return tokenData.name || '';
         }
     }
 })();
