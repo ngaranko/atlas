@@ -4,7 +4,7 @@ describe('The dp-active-overlays component', function () {
         store,
         ACTIONS,
         allOverlays,
-        user,
+        mockedUser,
         activeOverlays;
 
     beforeEach(function () {
@@ -26,9 +26,6 @@ describe('The dp-active-overlays component', function () {
                         }
                     }
                 },
-                user: {
-                    getAuthorizationLevel: angular.noop
-                },
                 activeOverlays: {
                     setOverlays: angular.noop
                 }
@@ -40,15 +37,20 @@ describe('The dp-active-overlays component', function () {
             }
         );
 
-        angular.mock.inject((_$compile_, _$rootScope_, _store_, _ACTIONS_, _overlays_, _user_, _activeOverlays_) => {
+        angular.mock.inject((_$compile_, _$rootScope_, _store_, _ACTIONS_, _overlays_, _activeOverlays_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
             ACTIONS = _ACTIONS_;
             allOverlays = _overlays_;
-            user = _user_;
             activeOverlays = _activeOverlays_;
         });
+
+        mockedUser = {
+            authenticated: true,
+            scopes: { 'HR/R': true },
+            name: ''
+        };
 
         spyOn(store, 'dispatch');
         spyOn(activeOverlays, 'setOverlays');
@@ -59,11 +61,13 @@ describe('The dp-active-overlays component', function () {
         element.setAttribute('overlays', 'overlays');
         element.setAttribute('zoom', 'zoom');
         element.setAttribute('show-active-overlays', 'showActiveOverlays');
+        element.setAttribute('user', 'user');
 
         const scope = $rootScope.$new();
         scope.overlays = overlays;
         scope.zoom = zoom;
         scope.showActiveOverlays = showActiveOverlays;
+        scope.user = mockedUser;
 
         const component = $compile(element)(scope);
         scope.$apply();
@@ -89,14 +93,12 @@ describe('The dp-active-overlays component', function () {
     });
 
     it('re-computes the overlays when the user authorization level changes', function () {
-        spyOn(user, 'getAuthorizationLevel').and.returnValue(1);
-
         const component = getComponent([{id: 'overlay_a', isVisible: true}], 8, true);
         const scope = component.isolateScope();
 
         expect(scope.vm.validOverlays.length).toBe(1);
 
-        user.getAuthorizationLevel.and.returnValue(2);
+        mockedUser.scopes = {};
         allOverlays.SOURCES = {};
         $rootScope.$digest();
 

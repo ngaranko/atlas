@@ -8,6 +8,7 @@ describe('The dp-map directive', () => {
         zoom,
         drawTool,
         onMapClick,
+        mockedUser,
         mockedMapState,
         mockedLeafletMap,
         mockedMarkers,
@@ -48,9 +49,6 @@ describe('The dp-map directive', () => {
                 },
                 onMapClick: {
                     initialize: angular.noop
-                },
-                user: {
-                    getAuthorizationLevel: angular.noop
                 },
                 overlays: {
                     SOURCES: {
@@ -148,6 +146,12 @@ describe('The dp-map directive', () => {
             regular: [],
             clustered: []
         };
+
+        mockedUser = {
+            authenticated: true,
+            scopes: { 'HR/R': true },
+            name: ''
+        };
     });
 
     function getDirective (mapState, showLayerSelection, markers, useRootScopeApply, resize) {
@@ -156,11 +160,13 @@ describe('The dp-map directive', () => {
         element.setAttribute('markers', 'markers');
         element.setAttribute('show-layer-selection', 'showLayerSelection');
         element.setAttribute('resize', 'resize');
+        element.setAttribute('user', 'user');
 
         const scope = $rootScope.$new();
         scope.mapState = mapState;
         scope.markers = markers;
         scope.resize = resize;
+        scope.user = mockedUser;
         scope.showLayerSelection = showLayerSelection;
 
         const directive = $compile(element)(scope);
@@ -218,13 +224,11 @@ describe('The dp-map directive', () => {
     });
 
     describe('has overlays which', () => {
-        let user,
-            overlays;
+        let overlays;
 
         beforeEach(() => {
-            angular.mock.inject(function (_overlays_, _user_) {
+            angular.mock.inject(function (_overlays_) {
                 overlays = _overlays_;
-                user = _user_;
             });
         });
 
@@ -281,15 +285,14 @@ describe('The dp-map directive', () => {
                 {id: 'some_overlay', isVisible: true},
                 {id: 'some_other_overlay', isVisible: true}
             ];
-            spyOn(user, 'getAuthorizationLevel').and.returnValue(1);
 
             getDirective(mockedMapState, false, mockedMarkers);
 
             expect(layers.removeOverlay).not.toHaveBeenCalled();
 
-            user.getAuthorizationLevel.and.returnValue(2);
+            mockedUser.scopes = {};
             overlays.SOURCES = {
-                'some_overlay': 'some_overlay'  // the other overlay is removed for  this auth level
+                'some_overlay': 'some_overlay' // the other overlay is removed for  this auth level
             };
 
             $rootScope.$digest();
