@@ -6,7 +6,7 @@
             meta-data="vm.apiData">
         </dp-glossary-header>
 
-        <dp-panel is-panel-visible="!vm.user.scopes['BRK/RS']" type="warning" can-close="true">
+        <dp-panel is-panel-visible="!vm.user.scopes.includes('BRK/RS')" type="warning" can-close="true">
             Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om kadastrale subjecten te bekijken. Om ook zakelijke rechten van natuurlijke personen te bekijken, moet je als medewerker bovendien speciale bevoegdheden hebben.
             Zie <dp-link-to-page item="item9" class-name="c-link--light"></dp-link-to-page>.
         </dp-panel>
@@ -92,7 +92,7 @@
         <dp-glossary-header definition="ZAKELIJK_RECHT" use-plural="true"></dp-glossary-header>
 
         <dp-panel
-            is-panel-visible="vm.apiData.results.is_natuurlijk_persoon && !vm.user.scopes['BRK/RZR']"
+            is-panel-visible="vm.apiData.results.is_natuurlijk_persoon && !vm.user.scopes.includes('BRK/RZR')"
             type="warning"
             can-close="true"
             class-name="c-detail-kadastraal-subject__warning">

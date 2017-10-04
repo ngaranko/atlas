@@ -36,7 +36,7 @@
             vm.showButtons = vm.state.dataset !== 'catalogus';
             vm.showDownloadButton = vm.state.view !== 'LIST' &&
                 vm.numberOfRecords > 0 &&
-                (!exportAuthScope || vm.user.scopes[exportAuthScope]);
+                (!exportAuthScope || vm.user.scopes.includes(exportAuthScope));
             vm.showTabs = isListView;
             vm.showNoResultsFound = vm.numberOfRecords === 0;
             vm.showActiveFilters = Object.keys(vm.filters).length || vm.state.geometryFilter.markers.length;

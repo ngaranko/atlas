@@ -20,7 +20,7 @@ describe('The dp-site-header component', () => {
 
         mockedUser = {
             authenticated: false,
-            scopes: {},
+            scopes: [],
             name: ''
         };
     });

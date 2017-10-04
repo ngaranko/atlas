@@ -38,7 +38,7 @@
             SEARCH_CONFIG.QUERY_ENDPOINTS.forEach(function (endpoint) {
                 if ((!angular.isString(categorySlug) || categorySlug === endpoint.slug) &&
                     endpoint.uri &&
-                    (!endpoint.authScope || user.scopes[endpoint.authScope])
+                    (!endpoint.authScope || user.scopes.includes(endpoint.authScope))
                 ) {
                     queries.push(
                         api.getByUri(endpoint.uri, params).then(data => data, () => [])

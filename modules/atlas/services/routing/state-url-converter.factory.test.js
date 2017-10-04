@@ -29,7 +29,7 @@ describe('The state url conversion factory', function () {
                 },
                 user: {
                     authenticated: false,
-                    scopes: {},
+                    scopes: [],
                     name: ''
                 },
                 filters: {},

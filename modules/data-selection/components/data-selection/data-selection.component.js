@@ -81,7 +81,7 @@
             vm.showContent = false;
             vm.disabled = false;
 
-            if (config.AUTH_SCOPE && !vm.user.scopes[config.AUTH_SCOPE]) {
+            if (config.AUTH_SCOPE && !vm.user.scopes.includes(config.AUTH_SCOPE)) {
                 vm.disabled = true;
                 vm.availableFilters = [];
                 store.dispatch({

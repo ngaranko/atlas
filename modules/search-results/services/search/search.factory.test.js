@@ -119,7 +119,7 @@ describe('The search factory', function () {
 
         mockedUser = {
             authenticated: false,
-            scopes: {},
+            scopes: [],
             name: ''
         };
 

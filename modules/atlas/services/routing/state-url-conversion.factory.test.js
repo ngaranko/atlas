@@ -40,7 +40,7 @@ describe('The state url conversion definition', function () {
                 filters: {},
                 user: {
                     authenticated: false,
-                    scopes: {},
+                    scopes: [],
                     name: ''
                 },
                 map: {

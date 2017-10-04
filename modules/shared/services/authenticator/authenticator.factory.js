@@ -325,7 +325,7 @@
         }
 
         function getScopes () {
-            return tokenData.scopes || {};
+            return tokenData.scopes || [];
         }
 
         function getName () {

@@ -105,7 +105,7 @@
                 vm.searchResults.find(category => category.slug === 'subject');
 
             if (kadastraleSubject) {
-                if (!vm.user.scopes['BRK/RSN']) {
+                if (!vm.user.scopes.includes('BRK/RSN')) {
                     kadastraleSubject.warning = 'Medewerkers met speciale bevoegdheden' +
                         ' kunnen alle gegevens vinden (ook natuurlijke personen).';
                 } else {

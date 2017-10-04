@@ -24,7 +24,7 @@
 
                 <dp-search-results-categories categories="vm.searchResults" user="vm.user"></dp-search-results-categories>
 
-                <dp-panel ng-if="!vm.user.scopes['HR/R'] || !vm.user.scopes['BRK/RS']"
+                <dp-panel ng-if="!vm.user.scopes.includes('HR/R') || !vm.user.scopes.includes('BRK/RS')"
                           is-panel-visible="true"
                           type="warning"
                           can-close="true"

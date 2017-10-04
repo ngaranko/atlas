@@ -316,7 +316,7 @@ describe('The dp-search-results component', function () {
 
         mockedUser = {
             authenticated: false,
-            scopes: {},
+            scopes: [],
             name: ''
         };
 
@@ -542,7 +542,7 @@ describe('The dp-search-results component', function () {
 
     describe('the Kadastraal subject warning messages', function () {
         it('should not be shown with scope BRK/RSN', function () {
-            mockedUser.scopes = { 'BRK/RSN': true };
+            mockedUser.scopes = ['BRK/RSN'];
 
             const component = getComponent(22, null, [51.123, 4.789]);
 
@@ -566,14 +566,14 @@ describe('The dp-search-results component', function () {
         });
 
         it('should update the message on authorization change', function () {
-            mockedUser.scopes = { 'BRK/RSN': true };
+            mockedUser.scopes = ['BRK/RSN'];
 
             const component = getComponent(22, null, [51.123, 4.789]);
             const categoryNode = component.find('[ng-repeat="category in vm.categories"]').eq(3);
             expect(categoryNode.find('.qa-search-header').text().trim()).toBe('Kadastraal object');
             expect(categoryNode.find('.qa-category-warning').length).toBe(0);
 
-            mockedUser.scopes = {};
+            mockedUser.scopes = [];
             $rootScope.$digest();
 
             expect(categoryNode.find('.qa-category-warning').length).toBe(1);

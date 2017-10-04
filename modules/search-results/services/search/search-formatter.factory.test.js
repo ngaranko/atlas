@@ -179,7 +179,7 @@ describe('The searchFormatter factory', function () {
 
         mockedUser = {
             authenticated: false,
-            scopes: {},
+            scopes: [],
             name: ''
         };
 

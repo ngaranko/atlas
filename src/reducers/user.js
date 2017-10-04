@@ -4,7 +4,7 @@ export const USER_NAME = 'USER_NAME';
 
 const initialState = {
   authenticated: false,
-  scopes: {},
+  scopes: [],
   name: ''
 };
 
@@ -24,10 +24,7 @@ export default function UserReducer(state = initialState, action) {
         ...state,
         user: {
           ...state.user,
-          scopes: action.scopes.reduce((acc, scope) => {
-            acc[scope] = true;
-            return acc;
-          }, {})
+          scopes: action.scopes
         }
       };
 

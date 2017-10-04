@@ -1,7 +1,7 @@
 describe('The dp-data-selection-header', () => {
     const anonymousUser = {
         authenticated: false,
-        scopes: {}
+        scopes: []
     };
 
     let $compile,
@@ -84,9 +84,7 @@ describe('The dp-data-selection-header', () => {
             ...mockedInputTable,
             user: {
                 authenticated: true,
-                scopes: {
-                    'HR/R': true
-                }
+                scopes: ['HR/R']
             }
         };
 

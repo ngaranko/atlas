@@ -106,9 +106,7 @@ describe('The dp-data-selection component', function () {
 
         mockedUser = {
             authenticated: true,
-            scopes: {
-                'HR/R': true
-            },
+            scopes: ['HR/R'],
             name: ''
         };
 
@@ -418,7 +416,7 @@ describe('The dp-data-selection component', function () {
         // With required auth scope
         config.datasets.zwembaden.AUTH_SCOPE = 'HR/R';
         // which the user does not have
-        delete mockedUser.scopes['HR/R'];
+        mockedUser.scopes = [];
 
         const disabledComponent = getComponent(mockedState, mockedFilters);
 

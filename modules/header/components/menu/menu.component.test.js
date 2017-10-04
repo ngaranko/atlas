@@ -37,7 +37,7 @@ describe('The dp-menu component', () => {
 
         mockedUser = {
             authenticated: false,
-            scopes: {},
+            scopes: [],
             name: ''
         };
 

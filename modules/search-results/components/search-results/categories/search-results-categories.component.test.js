@@ -87,7 +87,7 @@ describe('The dp-search-results-categories component', function () {
 
         mockedUser = {
             authenticated: false,
-            scopes: {},
+            scopes: [],
             name: ''
         };
     });
@@ -270,7 +270,7 @@ describe('The dp-search-results-categories component', function () {
         });
 
         it('is shown when the user has the required auth level ', () => {
-            mockedUser.scopes = { 'HR/R': true };
+            mockedUser.scopes = ['HR/R'];
             before();
             expect(categories.length).toBe(8);
             expect(header.text().trim()).toBe('Kadastrale objecten (8)');

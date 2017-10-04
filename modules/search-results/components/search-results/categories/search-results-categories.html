@@ -3,7 +3,7 @@
          class="c-search-results__block qa-search-results-category"
          ng-class="{'c-search-results__block--container': category.subResults}"
          ng-if="(category.count >= 1 || category.warning) &&
-                (!category.authScope || vm.user.scopes[category.authScope])">
+                (!category.authScope || vm.user.scopes.includes(category.authScope))">
 
         <div class="c-search-results__block-content">
             <h2 class="o-header__subtitle qa-search-header">

@@ -142,7 +142,7 @@
                 },
                 user: {
                     authenticated: false,
-                    scopes: {},
+                    scopes: [],
                     name: ''
                 },
                 dataSelection: {

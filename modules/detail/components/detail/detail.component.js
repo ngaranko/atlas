@@ -68,7 +68,7 @@
             vm.geosearchButton = vm.isMapHighlight ? false : nearestDetail.getLocation();
 
             const [category, subject] = endpointParser.getParts(endpoint);
-            if (category === 'brk' && subject === 'subject' && !vm.user.scopes['BRK/RS']) {
+            if (category === 'brk' && subject === 'subject' && !vm.user.scopes.includes('BRK/RS')) {
                 // User is not authorized to view BRK Kadastrale Subjecten so do not fetch data
                 vm.isLoading = false;
                 delete vm.apiData;

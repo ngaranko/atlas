@@ -149,7 +149,7 @@ describe('The dp-map directive', () => {
 
         mockedUser = {
             authenticated: true,
-            scopes: { 'HR/R': true },
+            scopes: ['HR/R'],
             name: ''
         };
     });
@@ -290,7 +290,7 @@ describe('The dp-map directive', () => {
 
             expect(layers.removeOverlay).not.toHaveBeenCalled();
 
-            mockedUser.scopes = {};
+            mockedUser.scopes = [];
             overlays.SOURCES = {
                 'some_overlay': 'some_overlay' // the other overlay is removed for  this auth level
             };

@@ -48,7 +48,7 @@ describe('The dp-active-overlays component', function () {
 
         mockedUser = {
             authenticated: true,
-            scopes: { 'HR/R': true },
+            scopes: ['HR/R'],
             name: ''
         };
 
@@ -98,7 +98,7 @@ describe('The dp-active-overlays component', function () {
 
         expect(scope.vm.validOverlays.length).toBe(1);
 
-        mockedUser.scopes = {};
+        mockedUser.scopes = [];
         allOverlays.SOURCES = {};
         $rootScope.$digest();
 

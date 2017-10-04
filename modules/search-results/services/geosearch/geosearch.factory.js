@@ -41,7 +41,7 @@
                 [plaatsCategoryIndex, plaatsEndpoint] = getPlaatsData(geosearchResults),
                 user = store.getState().user;
 
-            if (plaatsEndpoint && user.scopes['HR/R']) {
+            if (plaatsEndpoint && user.scopes.includes('HR/R')) {
                 // Only fetching 'vestigingen' for a standplaats/ligplaats, so
                 // we check for employee status here already
                 api.getByUrl(plaatsEndpoint).then(processPlaatsData);
@@ -60,7 +60,7 @@
                     api.getByUrl(pand._adressen.href).then(formatVerblijfsobjecten)
                 ];
 
-                if (user.scopes['HR/R']) {
+                if (user.scopes.includes('HR/R')) {
                     requests.push(api.getByUri(vestigingenUri).then(formatVestigingen));
                 }
 

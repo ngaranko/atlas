@@ -27,7 +27,7 @@
                     this._accessToken = null;
                     this._authorizationLevel = AUTHORIZATION_LEVEL.NONE;
                     this.name = '';
-                    this.scopes = '';
+                    this.scopes = [];
                 };
 
                 this.decodeToken = function (token) {

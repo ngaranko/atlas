@@ -27,7 +27,7 @@
             return allSearchResults
                 .map(function (endpointSearchResults, index) {
                     return formatCategory(SEARCH_CONFIG.QUERY_ENDPOINTS.filter((endpoint) => {
-                        return !endpoint.authScope || user.scopes[endpoint.authScope];
+                        return !endpoint.authScope || user.scopes.includes(endpoint.authScope);
                     })[index].slug, endpointSearchResults);
                 });
         }

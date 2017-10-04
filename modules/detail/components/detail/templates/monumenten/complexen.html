@@ -8,7 +8,7 @@
 
         <dp-panel
           can-close="true"
-          is-panel-visible="!vm.user.scopes['MON/RBC']"
+          is-panel-visible="!vm.user.scopes.includes('MON/RBC')"
           type="warning">
             Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer gegevens te zien: beschrijving.
             Zie <dp-link-to-page item="item9" class-name="c-link--light"></dp-link-to-page>.

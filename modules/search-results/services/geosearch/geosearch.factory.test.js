@@ -336,7 +336,7 @@ describe('The geosearch factory', function () {
 
         mockedUser = {
             authenticated: true,
-            scopes: { 'HR/R': true },
+            scopes: ['HR/R'],
             name: ''
         };
 
@@ -519,7 +519,7 @@ describe('The geosearch factory', function () {
             var searchResults,
                 expectedSearchResults;
 
-            mockedUser.scopes = {};
+            mockedUser.scopes = [];
 
             // Insert a pand into the mocked result set
             mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedPandSearchResult);
@@ -609,7 +609,7 @@ describe('The geosearch factory', function () {
             var searchResults,
                 expectedSearchResults;
 
-            mockedUser.scopes = {};
+            mockedUser.scopes = [];
 
             // Insert a standplaats into the mocked result set
             mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedStandplaatsSearchResult);

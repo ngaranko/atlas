@@ -157,7 +157,7 @@ describe('the dp-detail component', () => {
 
         mockedUser = {
             authenticated: false,
-            scopes: {},
+            scopes: [],
             name: ''
         };
 
@@ -366,7 +366,7 @@ describe('the dp-detail component', () => {
     });
 
     it('sets the SHOW_DETAIL geometry payload to null if there is no geometry', () => {
-        mockedUser.scopes['BRK/RS'] = true;
+        mockedUser.scopes = ['BRK/RS'];
 
         getComponent(naturalPersonEndPoint);
 
@@ -389,7 +389,7 @@ describe('the dp-detail component', () => {
         });
 
         it('sets it to true when there is no geometry', () => {
-            mockedUser.scopes['BRK/RS'] = true;
+            mockedUser.scopes = ['BRK/RS'];
 
             getComponent('http://www.fake-endpoint.com/brk/subject/123/');
 
@@ -444,7 +444,7 @@ describe('the dp-detail component', () => {
 
     describe('"kadastraal subject" data', () => {
         it('should be fetched if is authenticated as EMPLOYEE', () => {
-            mockedUser.scopes['BRK/RS'] = true;
+            mockedUser.scopes = ['BRK/RS'];
 
             getComponent(naturalPersonEndPoint);
 
@@ -466,13 +466,13 @@ describe('the dp-detail component', () => {
         });
         it('should remove apiData if not authorized', () => {
             // Special case where user is logged out while on detail page and the user loses access to content
-            mockedUser.scopes['BRK/RS'] = true;
+            mockedUser.scopes = ['BRK/RS'];
             const component = getComponent(naturalPersonEndPoint);
             const scope = component.isolateScope();
             store.dispatch.calls.reset();
             expect(scope.vm.apiData).toBeDefined(); // data shown
 
-            mockedUser.scopes = {}; // triggers $watch
+            mockedUser.scopes = []; // triggers $watch
             scope.$digest();
 
             expect(scope.vm.isLoading).toBe(false);
