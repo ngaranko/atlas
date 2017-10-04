@@ -8,6 +8,7 @@
     align-items: center;
     border-top: 1px solid #999999;
     display: flex;
+    justify-content: space-between;
     padding: 10px;
     position: relative;
 
@@ -59,10 +60,24 @@
     }
   }
 
-  &__category > span:last-child,
+  &__category-title,
   &__title {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  &__toggle {
+    @extend %__toggle;
+    margin-left: 10px;
+
+    &:hover {
+      background-color: #EC0000;
+      border-color: #EC0000;
+
+      svg {
+        fill: #FFFFFF;
+      }
+    }
   }
 }

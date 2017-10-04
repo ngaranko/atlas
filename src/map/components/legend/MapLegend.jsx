@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Checkbox } from '../../../shared/components/checkbox';
+import RemoveIcon from '../../../../public/images/icon-cross.svg';
 
 const MapLegend = ({ activeMapLayers, onLayerToggle }) => (
   <ul className="map-legend">
@@ -13,7 +14,12 @@ const MapLegend = ({ activeMapLayers, onLayerToggle }) => (
             name={mapLayer.id}
             onChange={() => onLayerToggle(mapLayer.id)}
           />
-          <span>{mapLayer.title}</span>
+          <span className="map-legend__category-title">{mapLayer.title}</span>
+          <button onClick={() => onLayerToggle(mapLayer.id)}>
+            <span className="map-legend__toggle map-legend__toggle--remove">
+              <RemoveIcon />
+            </span>
+          </button>
         </div>
         <ul className="map-legend__items">
           {/* TODO: Remove `.filter()` as soon data is complete */}
