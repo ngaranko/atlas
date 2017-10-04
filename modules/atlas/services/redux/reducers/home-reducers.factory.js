@@ -23,6 +23,7 @@
             const defaultState = stateUrlConverter.getDefaultState();
             return {
                 ...defaultState,
+                baseLayers: state.baseLayers,
                 mapLayers: state.mapLayers,
                 atlas: {
                     ...defaultState.atlas,

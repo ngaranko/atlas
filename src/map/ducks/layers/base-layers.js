@@ -3,7 +3,7 @@ export const FETCH_BASE_LAYERS_SUCCESS = 'FETCH_BASE_LAYERS_SUCCESS';
 export const FETCH_BASE_LAYERS_FAILURE = 'FETCH_BASE_LAYERS_FAILURE';
 
 const initialState = {
-  baseLayers: [],
+  baseLayers: null,
   isLoading: false,
   error: null
 };

@@ -100,6 +100,10 @@
                 return MapLayersReducer(oldState, action);
             }
 
+            if (baseLayersReducer.hasOwnProperty(action.type)) {
+                return BaseLayersReducer(oldState, action);
+            }
+
             if (mapOverlaysReducer.hasOwnProperty(action.type)) {
                 const newState = MapOverlaysReducer(oldState, action);
                 $timeout(() => $rootScope.$digest());
