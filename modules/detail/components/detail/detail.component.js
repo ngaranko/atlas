@@ -29,16 +29,17 @@
 
     /* eslint-disable max-params */
     function DpDetailController (
-            $scope,
-            store,
-            ACTIONS,
-            api,
-            endpointParser,
-            geometry,
-            geojson,
-            crsConverter,
-            dataFormatter,
-            nearestDetail) {
+        $scope,
+        store,
+        ACTIONS,
+        api,
+        endpointParser,
+        geometry,
+        geojson,
+        crsConverter,
+        dataFormatter,
+        nearestDetail
+    ) {
         /* eslint-enable max-params */
         var vm = this;
 

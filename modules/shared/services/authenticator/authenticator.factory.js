@@ -59,10 +59,17 @@
         // the backend APIs
         const scopes = [
             // Kadaster
-            'BRK/RS', // Bevragen niet-natuurlijke Kadastrale Subjecten
-            'BRK/RZR', // Zakelijke Rechten
-            'BRK/RAT', // Aantekeningen
-            'BRK/RW', // Lezen alle WKPB details van Kadastrale Objecten
+            // Alle attributen van een kadastraal niet-natuurlijk subject,
+            // inclusief alle rechten op kadastrale objecten
+            'BRK/RS',
+            // Alle atrributen van een kadastraal subject (natuurlijk en
+            // niet-natuurlijk), inclusief alle rechten op kadastrale objecten
+            'BRK/RSN',
+            // Alle attributen van een kadastraal object, inclusief koopsom,
+            // koopsom_valuta_code, koopjaar, cultuurcode_onbebouwd,
+            // cultuurcode_bebouwd en zakelijke rechten van de bijbehorende
+            // kadastrale subjecten
+            'BRK/RO',
 
             // Wet Kenbaarheid Beperkingen
             'WKPB/RBDU', // Lezen URL Brondocument

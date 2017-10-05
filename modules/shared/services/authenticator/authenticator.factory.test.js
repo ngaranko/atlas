@@ -15,7 +15,7 @@ describe(' The authenticator factory', function () {
         stateTokenGenerator,
         queryStringParser;
 
-    const SCOPES = 'BRK%2FRS%20BRK%2FRZR%20BRK%2FRAT%20BRK%2FRW%20WKPB%2FRBDU%20MON%2FRBC%20MON%2FRDM%20HR%2FR';
+    const SCOPES = 'BRK%2FRS%20BRK%2FRSN%20BRK%2FRO%20WKPB%2FRBDU%20MON%2FRBC%20MON%2FRDM%20HR%2FR';
     const AUTH_PATH = 'oauth2/authorize?idp_id=datapunt&response_type=token&client_id=citydata' +
         `&scope=${SCOPES}`;
 
