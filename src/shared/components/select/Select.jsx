@@ -53,7 +53,7 @@ class Select extends React.Component {
           value={this.state.value}
         />
         <ul className={`select__drop-down ${this.state.expanded ? 'select__drop-down--expanded' : ''}`}>
-          {this.props.children.length > 0 ? this.props.children.map(item => (
+          {this.props.children && this.props.children.length > 0 ? this.props.children.map(item => (
             <li
               className={`select__drop-down-item ${item.props.value === this.state.value ? 'select__drop-down-item--selected' : ''}`}
               key={item.props.value}
