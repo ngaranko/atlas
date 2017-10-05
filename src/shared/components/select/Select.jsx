@@ -18,21 +18,21 @@ class Select extends React.Component {
     this.handleClickChild = this.handleClickChild.bind(this);
   }
 
-  handleClick(e) {
-    console.log('handleClick', this.state.expanded);
+  handleClick() {
     this.setState({
       expanded: !this.state.expanded
     });
   }
 
   handleClickChild(e) {
-    console.log('handleClickChild');
     if (e.target.value !== this.state.value) {
       this.setState({
         label: e.currentTarget.innerText,
         value: e.currentTarget.value,
         expanded: !this.state.expanded
       });
+
+      this.props.handleChange(e, this.state);
     }
   }
 
@@ -52,11 +52,12 @@ class Select extends React.Component {
           name={this.props.name}
           value={this.state.value}
         />
-      <ul className={`select__drop-down ${this.state.expanded ? 'select__drop-down--expanded' : ''}`}>
+        <ul className={`select__drop-down ${this.state.expanded ? 'select__drop-down--expanded' : ''}`}>
           {this.props.children.length > 0 ? this.props.children.map(item => (
             <li
-              className={item.props.value === this.state.value ? 'select__drop-down-item--selected' : ''}
-              key={item.props.value}>
+              className={`select__drop-down-item ${item.props.value === this.state.value ? 'select__drop-down-item--selected' : ''}`}
+              key={item.props.value}
+            >
               <button
                 className="select__drop-down-button"
                 value={item.props.value}
@@ -75,14 +76,16 @@ class Select extends React.Component {
 Select.defaultProps = {
   label: '',
   value: '',
-  expanded: false
+  expanded: false,
+  handleChange: () => {}
 };
 
 Select.propTypes = {
   label: PropTypes.string,
   value: PropTypes.string,
   name: PropTypes.string.isRequired,
-  expanded: PropTypes.bool
+  expanded: PropTypes.bool,
+  handleChange: PropTypes.func
 };
 
 export default Select;

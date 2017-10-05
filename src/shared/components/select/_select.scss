@@ -1,17 +1,24 @@
 
 .select {
   position: relative;
+  margin-bottom: 20px;
+  width: 100%;
 
   .select__drop-down {
     position: absolute;
-    left: 0;
-    background-color: yellow;
+    width: inherit;
+    border: 1px solid #000;
+    background-color: #fff;
     display: none;
     z-index: 700;
   }
 
+  .select__drop-down-item {
+    width: inherit;
+  }
+
   .select__drop-down-item--selected {
-    background-color: red;
+    background-color: #eeeeee;
   }
 
   .select__drop-down--expanded {
@@ -20,6 +27,14 @@
 
   .select__label,
   .select__drop-down-button {
-    padding: 5px 10px;
+    width: inherit;
+    padding: 7px 10px;
+    text-align: left;
+  }
+
+  .select__drop-down-button {
+    &:hover {
+      background-color: #f6f6f6;
+    }
   }
 }
