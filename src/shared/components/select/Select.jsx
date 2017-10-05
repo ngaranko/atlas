@@ -11,7 +11,8 @@ class Select extends React.Component {
     this.state = {
       label: props.label,
       value: props.value,
-      expanded: props.expanded
+      expanded: props.expanded,
+      options: props.options
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -53,17 +54,17 @@ class Select extends React.Component {
           value={this.state.value}
         />
         <ul className={`select__drop-down ${this.state.expanded ? 'select__drop-down--expanded' : ''}`}>
-          {this.props.children && this.props.children.length > 0 ? this.props.children.map(item => (
+          {this.props.options.length > 0 ? this.props.options.map(option => (
             <li
-              className={`select__drop-down-item ${item.props.value === this.state.value ? 'select__drop-down-item--selected' : ''}`}
-              key={item.props.value}
+              className={`select__drop-down-item ${option.value === this.state.value ? 'select__drop-down-item--selected' : ''}`}
+              key={option.value}
             >
               <button
                 className="select__drop-down-button"
-                value={item.props.value}
+                value={option.value}
                 onClick={this.handleClickChild}
               >
-                {item.props.children}
+                {option.label}
               </button>
             </li>
           )) : ''}
@@ -77,6 +78,7 @@ Select.defaultProps = {
   label: '',
   value: '',
   expanded: false,
+  options: [],
   handleChange: () => {}
 };
 
@@ -85,6 +87,7 @@ Select.propTypes = {
   value: PropTypes.string,
   name: PropTypes.string.isRequired,
   expanded: PropTypes.bool,
+  options: PropTypes.arrayOf(PropTypes.object),
   handleChange: PropTypes.func
 };
 
