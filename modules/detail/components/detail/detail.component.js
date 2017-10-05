@@ -68,8 +68,11 @@
             vm.geosearchButton = vm.isMapHighlight ? false : nearestDetail.getLocation();
 
             const [category, subject] = endpointParser.getParts(endpoint);
-            if (category === 'brk' && subject === 'subject' && !vm.user.scopes.includes('BRK/RS')) {
-                // User is not authorized to view BRK Kadastrale Subjecten so do not fetch data
+            if ((category === 'brk' && subject === 'subject' && !vm.user.scopes.includes('BRK/RS')) ||
+                (category === 'handelsregister' && !vm.user.scopes.includes('HR/R'))
+            ) {
+                // User is not authorized to view BRK Kadastrale Subjecten, nor
+                // handelsregister, so do not fetch data
                 vm.isLoading = false;
                 delete vm.apiData;
             } else {
