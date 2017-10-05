@@ -11,12 +11,11 @@ const MapType = ({ layers }) => (
       )) : ''}
     </Select>
 
-    {layers.aerial ? layers.aerial.map(layer => (
-      <div key={layer.id}>
-        <div>{layer.label}</div>
-      </div>
-    )) : ''}
-
+    <Select name="aerial" value="lf2017">
+      {layers.aerial ? layers.aerial.map(layer => (
+        <option value={layer.id} key={layer.id}>{layer.label}</option>
+      )) : ''}
+    </Select>
   </section>
 );
 
