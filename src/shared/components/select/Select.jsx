@@ -10,7 +10,8 @@ class Select extends React.Component {
 
     this.state = {
       label: props.label,
-      value: props.value
+      value: props.value,
+      expanded: props.expanded
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -18,7 +19,10 @@ class Select extends React.Component {
   }
 
   handleClick(e) {
-    console.log('handleClick');
+    console.log('handleClick', this.state.expanded);
+    this.setState({
+      expanded: !this.state.expanded
+    });
   }
 
   handleClickChild(e) {
@@ -26,33 +30,35 @@ class Select extends React.Component {
     if (e.target.value !== this.state.value) {
       this.setState({
         label: e.currentTarget.innerText,
-        value: e.currentTarget.value
+        value: e.currentTarget.value,
+        expanded: !this.state.expanded
       });
     }
   }
 
   render() {
     return (
-      <span className="select">
+      <section className="select">
         <input
           type="text"
+          className="select__label"
           readOnly
           value={this.state.label}
           onClick={this.handleClick}
         />
         <input
-          type="text"
+          type="hidden"
           readOnly
           name={this.props.name}
           value={this.state.value}
-          onClick={this.handleClick}
         />
-        <ul>
+      <ul className={`select__drop-down ${this.state.expanded ? 'select__drop-down--expanded' : ''}`}>
           {this.props.children.length > 0 ? this.props.children.map(item => (
             <li
-              className={item.props.value === this.state.value ? 'selected' : ''}
+              className={item.props.value === this.state.value ? 'select__drop-down-item--selected' : ''}
               key={item.props.value}>
               <button
+                className="select__drop-down-button"
                 value={item.props.value}
                 onClick={this.handleClickChild}
               >
@@ -60,22 +66,23 @@ class Select extends React.Component {
               </button>
             </li>
           )) : ''}
-          <li>boe</li>
         </ul>
-      </span>
+      </section>
     );
   }
 }
 
 Select.defaultProps = {
   label: '',
-  value: ''
+  value: '',
+  expanded: false
 };
 
 Select.propTypes = {
   label: PropTypes.string,
   value: PropTypes.string,
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
+  expanded: PropTypes.bool
 };
 
 export default Select;

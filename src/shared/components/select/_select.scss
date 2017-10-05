@@ -1,4 +1,24 @@
 
-.select .selected {
-  background-color: red;
+.select {
+  position: relative;
+
+  .select__drop-down {
+    position: absolute;
+    left: 0;
+    background-color: yellow;
+    display: none;
+  }
+
+  .select__drop-down-item--selected {
+    background-color: red;
+  }
+
+  .select__drop-down--expanded {
+    display: block;
+  }
+
+  .select__label,
+  .select__drop-down-button {
+    padding: 5px 10px;
+  }
 }
