@@ -114,6 +114,10 @@
             SHOW_DETAIL: {
                 id: 'SHOW_DETAIL'
             },
+            DETAIL_FULLSCREEN: {
+                id: 'DETAIL_FULLSCREEN',
+                replace: true
+            },
 
             FETCH_STRAATBEELD_BY_ID: {
                 id: 'FETCH_STRAATBEELD_BY_ID'

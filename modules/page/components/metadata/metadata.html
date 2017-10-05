@@ -8,7 +8,7 @@
             <th class="c-table__field c-table__header-field"
                 scope="col">Actualisatie (aanmaak producten)</th>
             <th class="c-table__field c-table__header-field"
-                scope="col">Versie datum gegevens (peildatum verwerkt product)</th>
+                scope="col">Peildatum gegevens</th>
         </tr>
     </thead>
     <tbody>
@@ -16,7 +16,6 @@
             ng-repeat="source in vm.sources"
             ng-if="source.title">
             <td class="c-table__field c-table__content-field">
-                <span ng-if="source.group">{{source.group}} -</span>
                 {{source.title}}
             </td>
             <td class="c-table__field c-table__content-field">{{source.update_frequency}}</td>
