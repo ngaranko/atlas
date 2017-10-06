@@ -17,9 +17,11 @@
     }
   }
 
+  .select__label {
+    border-right: 1px solid #7e7e7e;
+  }
+
   .select__icon {
-    border-left: 1px solid #7e7e7e;
-    position: absolute;
     right: 0;
     padding: 0 10px;
   }

@@ -45,11 +45,11 @@ class Select extends React.Component {
   render() {
     return (
       <section className={`${this.props.className} select ${this.state.expanded ? 'select--expanded' : ''}`}>
-        <div className="select__wrapper">
-          <div
-            className="select__label"
-            onClick={this.handleClick}
+        <div
+          className="select__wrapper"
+          onClick={this.handleClick}
           >
+          <div className="select__label">
             {this.state.label}
           </div>
           <input
