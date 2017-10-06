@@ -2,11 +2,53 @@
 .select {
   position: relative;
   margin-bottom: 20px;
-  width: 100%;
+
+  .select__wrapper {
+    border: 1px solid #7e7e7e;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    outline: none;
+    width: 100%;
+
+    &:hover {
+      color: white;
+      background-color: #f00;
+    }
+  }
+
+  .select__icon {
+    border-left: 1px solid #7e7e7e;
+    position: absolute;
+    right: 0;
+    padding: 0 10px;
+  }
+
+  .select__icon--expand {
+    display: inline;
+  }
+
+  .select__icon--contract {
+    display: none;
+  }
+
+  &.select--expanded {
+    .select__drop-down {
+      display: block;
+    }
+
+    .select__icon--expand {
+      display: none;
+    }
+
+    .select__icon--contract {
+      display: inline;
+    }
+  }
 
   .select__drop-down {
     position: absolute;
-    width: inherit;
+    width: 100%;
     border: 1px solid #000;
     background-color: #fff;
     display: none;
@@ -21,40 +63,16 @@
     background-color: #eeeeee;
   }
 
-  .select__toggle {
-    position: absolute;
-    right: 0;
-  }
-
-  .select__toggle--expand {
-    display: inline;
-  }
-
-  .select__toggle--contract {
-    display: none;
-  }
-
-  &.select--expanded {
-    .select__drop-down {
-      display: block;
-    }
-
-    .select__toggle--expand {
-      display: none;
-    }
-
-    .select__toggle--contract {
-      display: inline;
-    }
-  }
-
-  .select__label,
   .select__drop-down-button {
     -ms-appearance: none;
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
     outline: none;
+  }
+
+  .select__label,
+  .select__drop-down-button {
     width: inherit;
     padding: 7px 10px;
     text-align: left;

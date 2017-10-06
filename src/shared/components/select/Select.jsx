@@ -13,6 +13,7 @@ class Select extends React.Component {
     this.state = {
       label: props.label,
       value: props.value,
+      className: props.className,
       expanded: props.expanded,
       options: props.options
     };
@@ -43,26 +44,26 @@ class Select extends React.Component {
 
   render() {
     return (
-      <section className={`select ${this.state.expanded ? 'select--expanded' : ''}`}>
-        <input
-          type="text"
-          className="select__label"
-          readOnly
-          value={this.state.label}
-          onClick={this.handleClick}
-        />
-        <input
-          type="hidden"
-          readOnly
-          name={this.props.name}
-          value={this.state.value}
-        />
-      <span className="select__toggle select__toggle--expand">
-          <ExpandIcon />
-        </span>
-        <span className="select__toggle select__toggle--contract">
-          <ContractIcon />
-        </span>
+      <section className={`${this.props.className} select ${this.state.expanded ? 'select--expanded' : ''}`}>
+        <div className="select__wrapper">
+          <div
+            className="select__label"
+            onClick={this.handleClick}
+          >
+            {this.state.label}
+          </div>
+          <input
+            type="hidden"
+            name={this.props.name}
+            value={this.state.value}
+          />
+          <span className="select__icon select__icon--expand">
+            <ExpandIcon />
+          </span>
+          <span className="select__icon select__icon--contract">
+            <ContractIcon />
+          </span>
+        </div>
         <ul className="select__drop-down">
           {this.props.options && this.props.options.length > 0 ? this.props.options.map(option => (
             <li
@@ -87,6 +88,7 @@ class Select extends React.Component {
 Select.defaultProps = {
   label: '',
   value: '',
+  className: '',
   expanded: false,
   options: [],
   handleChange: () => {}
@@ -95,6 +97,7 @@ Select.defaultProps = {
 Select.propTypes = {
   label: PropTypes.string,
   value: PropTypes.string,
+  className: PropTypes.string,
   name: PropTypes.string.isRequired,
   expanded: PropTypes.bool,
   options: PropTypes.arrayOf(PropTypes.object),
