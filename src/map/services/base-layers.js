@@ -3,6 +3,7 @@ export default {
     {
       value: 'topo_rd',
       label: 'Topografie',
+      selected: true,
       urlTemplate: 'https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png'
     }, {
       value: 'topo_rd_light',
@@ -18,6 +19,7 @@ export default {
     {
       value: 'lf2017',
       label: 'Luchtfoto 2017',
+      selected: true,
       urlTemplate: 'https://{s}.data.amsterdam.nl/lufo2017_RD/{z}/{x}/{y}.jpeg'
     }, {
       value: 'lf2016',

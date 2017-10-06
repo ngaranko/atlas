@@ -19,6 +19,8 @@ class Select extends React.Component {
     this.handleClickChild = this.handleClickChild.bind(this);
   }
 
+  // @TODO have to fix default selected value and label
+
   handleClick() {
     this.setState({
       expanded: !this.state.expanded
@@ -54,7 +56,7 @@ class Select extends React.Component {
           value={this.state.value}
         />
         <ul className={`select__drop-down ${this.state.expanded ? 'select__drop-down--expanded' : ''}`}>
-          {this.props.options.length > 0 ? this.props.options.map(option => (
+          {this.props.options && this.props.options.length > 0 ? this.props.options.map(option => (
             <li
               className={`select__drop-down-item ${option.value === this.state.value ? 'select__drop-down-item--selected' : ''}`}
               key={option.value}

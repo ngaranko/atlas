@@ -5,9 +5,9 @@ import { Select } from '../../../shared/components/select';
 
 const MapType = ({ layers }) => (
   <section className="map-panel__map-type">maptype
-    <Select name="topography" value="topo_rd" options={layers.topography} />
+    <Select name="topography" options={layers.topography} value="topo_rd" label="Topografie" />
 
-    <Select name="aerial" value="lf2017" options={layers.aerial} />
+    <Select name="aerial" options={layers.aerial} value="lf2017" label="Luchtfoto 2017" />
   </section>
 );
 
