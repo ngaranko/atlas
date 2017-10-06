@@ -37,12 +37,15 @@ class Select extends React.Component {
     if (e.target.value !== this.state.value) {
       this.setState({
         label: e.currentTarget.innerText,
-        value: e.currentTarget.value,
-        expanded: !this.state.expanded
+        value: e.currentTarget.value
       });
 
       this.props.handleChange(e, this.state);
     }
+
+    this.setState({
+      expanded: !this.state.expanded
+    });
   }
 
   render() {
