@@ -10,6 +10,7 @@
     justify-content: space-between;
     outline: none;
     width: 100%;
+    cursor: pointer;
 
     &:hover {
       color: white;
@@ -48,6 +49,14 @@
     }
   }
 
+  .select__custom-icon {
+    margin-left: 10px;
+
+    svg {
+      width: 10px;
+      height: 10px;
+    }
+  }
   .select__drop-down {
     position: absolute;
     width: 100%;

@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import ExpandIcon from '../../../../public/images/icon-arrow-down.svg';
 import ContractIcon from '../../../../public/images/icon-arrow-up.svg';
 
+import CustomIcon from '../../../../public/images/icon-map-layers.svg';
+
 import './_select.scss';
 
 class Select extends React.Component {
@@ -23,6 +25,7 @@ class Select extends React.Component {
   }
 
   // @TODO have to fix default selected value and label
+  // @TODO custom icon should be loaded in prop
 
   handleClick() {
     this.setState({
@@ -49,6 +52,9 @@ class Select extends React.Component {
           className="select__wrapper"
           onClick={this.handleClick}
           >
+          <span className="select__custom-icon">
+            <CustomIcon />
+          </span>
           <div className="select__label">
             {this.state.label}
           </div>
