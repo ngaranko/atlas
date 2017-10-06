@@ -51,7 +51,9 @@
   .select__drop-down {
     position: absolute;
     width: 100%;
-    border: 1px solid #000;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
     background-color: #fff;
     display: none;
     z-index: 700;
