@@ -21,8 +21,31 @@
     background-color: #eeeeee;
   }
 
-  .select__drop-down--expanded {
-    display: block;
+  .select__toggle {
+    position: absolute;
+    right: 0;
+  }
+
+  .select__toggle--expand {
+    display: inline;
+  }
+
+  .select__toggle--contract {
+    display: none;
+  }
+
+  &.select--expanded {
+    .select__drop-down {
+      display: block;
+    }
+
+    .select__toggle--expand {
+      display: none;
+    }
+
+    .select__toggle--contract {
+      display: inline;
+    }
   }
 
   .select__label,

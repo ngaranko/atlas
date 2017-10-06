@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// import TickIcon from '../../../../public/images/icon-tick.svg';
+import ExpandIcon from '../../../../public/images/icon-arrow-down.svg';
+import ContractIcon from '../../../../public/images/icon-arrow-up.svg';
+
 import './_select.scss';
 
 class Select extends React.Component {
@@ -41,7 +43,7 @@ class Select extends React.Component {
 
   render() {
     return (
-      <section className="select">
+      <section className={`select ${this.state.expanded ? 'select--expanded' : ''}`}>
         <input
           type="text"
           className="select__label"
@@ -55,7 +57,13 @@ class Select extends React.Component {
           name={this.props.name}
           value={this.state.value}
         />
-        <ul className={`select__drop-down ${this.state.expanded ? 'select__drop-down--expanded' : ''}`}>
+      <span className="select__toggle select__toggle--expand">
+          <ExpandIcon />
+        </span>
+        <span className="select__toggle select__toggle--contract">
+          <ContractIcon />
+        </span>
+        <ul className="select__drop-down">
           {this.props.options && this.props.options.length > 0 ? this.props.options.map(option => (
             <li
               className={`select__drop-down-item ${option.value === this.state.value ? 'select__drop-down-item--selected' : ''}`}
