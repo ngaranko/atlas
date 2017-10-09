@@ -463,7 +463,7 @@ export default [
       },
       {
         selectable: false,
-        title: 'Idieële organisaties'
+        title: 'Ideële organisaties'
       },
       {
         selectable: false,
