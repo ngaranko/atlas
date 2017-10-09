@@ -45,6 +45,7 @@
             const MapLayersReducer = $window.MapLayersReducer;
             const MapOverlaysReducer = $window.MapOverlaysReducer;
             const BaseLayersReducer = $window.BaseLayersReducer;
+            const MapBaseLayerReducer = $window.MapBaseLayerReducer;
 
             // TODO: Redux: replace
             // Warning: angular.merge is deprecated
@@ -69,6 +70,10 @@
 
             const mapOverlaysReducer = {
                 TOGGLE_MAP_OVERLAY: MapOverlaysReducer
+            };
+
+            const mapSetBaselayerReducer = {
+                MAP_SET_BASELAYER: MapBaseLayerReducer
             };
 
             var actions = angular.merge(
@@ -106,6 +111,18 @@
 
             if (mapOverlaysReducer.hasOwnProperty(action.type)) {
                 const newState = MapOverlaysReducer(oldState, action);
+                $timeout(() => $rootScope.$digest());
+                return newState;
+            }
+
+            if (mapOverlaysReducer.hasOwnProperty(action.type)) {
+                const newState = MapOverlaysReducer(oldState, action);
+                $timeout(() => $rootScope.$digest());
+                return newState;
+            }
+
+            if (mapSetBaselayerReducer.hasOwnProperty(action.type)) {
+                const newState = MapBaseLayerReducer(oldState, action);
                 $timeout(() => $rootScope.$digest());
                 return newState;
             }

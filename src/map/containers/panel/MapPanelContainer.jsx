@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { getBaseLayers } from '../../ducks/layers/base-layers';
+import { setBaseLayer } from '../../ducks/base-layer/base-layer';
 import { getMapLayers, selectActiveMapLayers } from '../../ducks/layers/map-layers';
 import { toggleMapOverlay } from '../../ducks/overlays/overlays';
 import MapLayers from '../../components/layers/MapLayers';
@@ -23,7 +24,8 @@ const mapStateToProps = state => ({
 
 // TODO: Add method that checks whether layer is active and toggles accordingly
 const mapDispatchToProps = dispatch => bindActionCreators({
-  onLayerToggle: toggleMapOverlay
+  onLayerToggle: toggleMapOverlay,
+  onBaseLayerToggle: setBaseLayer
 }, dispatch);
 
 class MapPanelContainer extends React.Component {
@@ -45,6 +47,7 @@ class MapPanelContainer extends React.Component {
           />
           <MapType
             layers={this.props.baseLayers}
+            onBaseLayerToggle={this.props.onBaseLayerToggle}
           />
           <MapLayers
             layers={this.props.mapLayers}
@@ -78,7 +81,8 @@ MapPanelContainer.propTypes = {
   baseLayers: PropTypes.object, // eslint-disable-line
   mapLayers: PropTypes.array, // eslint-disable-line
   mapOverlays: PropTypes.array, // eslint-disable-line
-  onLayerToggle: PropTypes.func // eslint-disable-line
+  onLayerToggle: PropTypes.func, // eslint-disable-line
+  onBaseLayerToggle: PropTypes.func // eslint-disable-line
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapPanelContainer);
