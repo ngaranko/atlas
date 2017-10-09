@@ -32,22 +32,26 @@ const MapLegend = ({ activeMapLayers, onLayerToggle, onLayerVisibilityToggle, zo
             {mapLayer.legendItems.filter(legendItem => !!legendItem.title).map(legendItem => (
               <li
                 className="map-legend__item"
-                key={legendItem.id}
+                key={legendItem.title}
               >
                 {legendItem.selectable && (
                   <Checkbox
                     checked="true"
-                    name={legendItem.id}
+                    name={legendItem.title}
                   />
                 )}
                 <div className="map-legend__image">
-                  {/* TODO: Remove condition as soon as data is complete */}
-                  {legendItem.imageUrl && (
-                    <img
-                      alt=""
-                      src={legendItem.imageUrl}
-                    />
-                  )}
+                  <img
+                    alt=""
+                    src={[
+                      `https://acc.map.data.amsterdam.nl${mapLayer.url}&`,
+                      'request=GetLegendGraphic&',
+                      'sld_version=1.1.0&',
+                      `layer=${legendItem.layer || mapLayer.layers[0]}&`,
+                      'format=image/svg%2Bxml&',
+                      `rule=${encodeURIComponent(legendItem.title)}`
+                    ].join('')}
+                  />
                 </div>
                 <span className="map-legend__title">{legendItem.title}</span>
               </li>

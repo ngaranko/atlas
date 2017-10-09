@@ -2,170 +2,486 @@ export default [
   {
     category: 'Economie en haven',
     id: 'bouw',
+    layers: ['bouw'],
     legendItems: [
       {
-        imageUrl: '',
-        selectable: true,
-        title: ''
+        selectable: false,
+        title: 'Afwerking van gebouwen'
+      },
+      {
+        selectable: false,
+        title: 'Bouwinstallatie'
+      },
+      {
+        selectable: false,
+        title: 'Bouw/utiliteitsbouw algemeen / klusbedrijf'
+      },
+      {
+        selectable: false,
+        title: 'Dak- en overige gespecialiseerde bouw'
+      },
+      {
+        selectable: false,
+        title: 'Grond, water, wegenbouw'
+      },
+      {
+        selectable: false,
+        title: 'Overige bouw'
+      },
+      {
+        selectable: false,
+        title: 'Onbekend'
+      },
+      {
+        selectable: false,
+        title: '(Locatie geschat)'
       }
     ],
     maxZoom: 100,
     minZoom: 0,
-    title: 'Bouw'
+    title: 'Bouw',
+    url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
     category: 'Economie en haven',
     id: 'csr',
+    layers: ['cultuur_sport_recreatie'],
     legendItems: [
       {
-        imageUrl: '',
-        selectable: true,
-        title: ''
+        selectable: false,
+        title: 'Kunst'
+      },
+      {
+        selectable: false,
+        title: 'Musea, Bibliotheken, Kunstuitleen'
+      },
+      {
+        selectable: false,
+        title: 'Recreatie'
+      },
+      {
+        selectable: false,
+        title: 'Sport'
+      },
+      {
+        selectable: false,
+        title: 'Onbekend'
+      },
+      {
+        selectable: false,
+        title: '(Locatie geschat)'
       }
     ],
     maxZoom: 100,
     minZoom: 0,
-    title: 'Cultuur, sport, recreatie'
+    title: 'Cultuur, sport, recreatie',
+    url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
     category: 'Economie en haven',
     id: 'fdvrog',
+    layers: ['financiele_dienstverlening_verhuur'],
     legendItems: [
       {
-        imageUrl: '',
-        selectable: true,
-        title: ''
+        selectable: false,
+        title: 'Financiële dienstverlening en verzekeringen'
+      },
+      {
+        selectable: false,
+        title: 'Holdings'
+      },
+      {
+        selectable: false,
+        title: 'Verhuur van- en beheer/handel in onroerend goed'
+      },
+      {
+        selectable: false,
+        title: 'Verhuur van roerende goederen'
+      },
+      {
+        selectable: false,
+        title: 'Onbekend'
+      },
+      {
+        selectable: false,
+        title: '(Locatie geschat)'
       }
     ],
     maxZoom: 100,
     minZoom: 0,
-    title: 'Financiële dienstverlening, verhuur van roerend en onroerend goed'
+    title: 'Financiële dienstverlening, verhuur van roerend en onroerend goed',
+    url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
     category: 'Economie en haven',
     id: 'hvo',
+    layers: ['handel_vervoer_opslag'],
     legendItems: [
       {
-        imageUrl: '',
-        selectable: true,
-        title: ''
+        selectable: false,
+        title: 'Detailhandel (verkoop aan consumenten, niet zelf vervaardigd)'
+      },
+      {
+        selectable: false,
+        title: 'Dienstverlening vervoer'
+      },
+      {
+        selectable: false,
+        title: 'Groothandel (verkoop aan andere ondernemingen, niet zelf vervaardigd)'
+      },
+      {
+        selectable: false,
+        title: 'Handel en reparatie van auto\'s'
+      },
+      {
+        selectable: false,
+        title: 'Handelsbemiddeling (tussenpersoon, verkoopt niet zelf)'
+      },
+      {
+        selectable: false,
+        title: 'Opslag'
+      },
+      {
+        selectable: false,
+        title: 'Vervoer'
+      },
+      {
+        selectable: false,
+        title: 'Onbekend'
+      },
+      {
+        selectable: false,
+        title: '(Locatie geschat)'
       }
     ],
     maxZoom: 100,
     minZoom: 0,
-    title: 'Handel, vervoer, opslag'
+    title: 'Handel, vervoer, opslag',
+    url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
     category: 'Economie en haven',
     id: 'hrc',
+    layers: ['horeca'],
     legendItems: [
       {
-        imageUrl: '',
-        selectable: true,
-        title: ''
+        selectable: false,
+        title: 'Café'
+      },
+      {
+        selectable: false,
+        title: 'Cafetaria, Snackbar, IJssalon'
+      },
+      {
+        selectable: false,
+        title: 'Hotel, Pension'
+      },
+      {
+        selectable: false,
+        title: 'Hotel-restaurant'
+      },
+      {
+        selectable: false,
+        title: 'Kantine, Catering'
+      },
+      {
+        selectable: false,
+        title: 'Restaurant, Café-restaurant'
+      },
+      {
+        selectable: false,
+        title: 'Overige horeca'
+      },
+      {
+        selectable: false,
+        title: 'Onbekend'
+      },
+      {
+        selectable: false,
+        title: '(Locatie geschat)'
       }
     ],
     maxZoom: 100,
     minZoom: 0,
-    title: 'Horeca'
+    title: 'Horeca',
+    url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
     category: 'Economie en haven',
     id: 'itc',
+    layers: ['telecommunicatie'],
     legendItems: [
       {
-        imageUrl: '',
-        selectable: true,
-        title: ''
+        selectable: false,
+        title: 'Activiteiten  op gebied van film, tv, radio, audio'
+      },
+      {
+        selectable: false,
+        title: 'Activiteiten op het gebied van ict'
+      },
+      {
+        selectable: false,
+        title: 'Telecommunicatie'
+      },
+      {
+        selectable: false,
+        title: 'Uitgeverijen'
+      },
+      {
+        selectable: false,
+        title: 'Onbekend'
+      },
+      {
+        selectable: false,
+        title: '(Locatie geschat)'
       }
     ],
     maxZoom: 100,
     minZoom: 0,
-    title: 'Informatie, telecommunicatie'
+    title: 'Informatie, telecommunicatie',
+    url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
     category: 'Economie en haven',
     id: 'lb',
+    layers: ['landbouw'],
     legendItems: [
       {
-        imageUrl: '',
-        selectable: true,
-        title: ''
+        selectable: false,
+        title: 'Dienstverlening voor de land/tuinbouw'
+      },
+      {
+        selectable: false,
+        title: 'Fokken, houden dieren'
+      },
+      {
+        selectable: false,
+        title: 'Gemengd bedrijf'
+      },
+      {
+        selectable: false,
+        title: 'Teelt eenjarige gewassen'
+      },
+      {
+        selectable: false,
+        title: 'Teelt meerjarige gewassen'
+      },
+      {
+        selectable: false,
+        title: 'Teelt sierplanten'
+      },
+      {
+        selectable: false,
+        title: 'Onbekend'
+      },
+      {
+        selectable: false,
+        title: '(Locatie geschat)'
       }
     ],
     maxZoom: 100,
     minZoom: 0,
-    title: 'Landbouw'
+    title: 'Landbouw',
+    url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
     category: 'Economie en haven',
     id: 'ooz',
+    layers: ['overheid_onderwijs_zorg'],
     legendItems: [
       {
-        imageUrl: '',
-        selectable: true,
-        title: ''
+        selectable: false,
+        title: 'Gezondheids- en welzijnszorg'
+      },
+      {
+        selectable: false,
+        title: 'Onderwijs'
+      },
+      {
+        selectable: false,
+        title: 'Overheid'
+      },
+      {
+        selectable: false,
+        title: 'Onbekend'
+      },
+      {
+        selectable: false,
+        title: '(Locatie geschat)'
       }
     ],
     maxZoom: 100,
     minZoom: 0,
-    title: 'Overheid, onderwijs, zorg'
+    title: 'Overheid, onderwijs, zorg',
+    url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
     category: 'Economie en haven',
     id: 'pd',
+    layers: ['persoonlijke_dienstverlening'],
     legendItems: [
       {
-        imageUrl: '',
-        selectable: true,
-        title: ''
+        selectable: false,
+        title: 'Kappers'
+      },
+      {
+        selectable: false,
+        title: 'Sauna, solaria'
+      },
+      {
+        selectable: false,
+        title: 'Schoonheidsverzorging'
+      },
+      {
+        selectable: false,
+        title: 'Uitvaart, crematoria'
+      },
+      {
+        selectable: false,
+        title: 'Overige dienstverlening'
+      },
+      {
+        selectable: false,
+        title: 'Onbekend'
+      },
+      {
+        selectable: false,
+        title: '(Locatie geschat)'
       }
     ],
     maxZoom: 100,
     minZoom: 0,
-    title: 'Persoonlijke dienstverlening'
+    title: 'Persoonlijke dienstverlening',
+    url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
     category: 'Economie en haven',
     id: 'pir',
+    layers: ['productie_installatie_reparatie'],
     legendItems: [
       {
-        imageUrl: '',
-        selectable: true,
-        title: ''
+        selectable: false,
+        title: 'Installatie (geen bouw)'
+      },
+      {
+        selectable: false,
+        title: 'Productie'
+      },
+      {
+        selectable: false,
+        title: 'Reparatie (geen bouw)'
+      },
+      {
+        selectable: false,
+        title: 'Onbekend'
+      },
+      {
+        selectable: false,
+        title: '(Locatie geschat)'
       }
     ],
     maxZoom: 100,
     minZoom: 0,
-    title: 'Productie, installatie, reparatie'
+    title: 'Productie, installatie, reparatie',
+    url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
     category: 'Economie en haven',
     id: 'zd',
+    layers: ['zakelijke_dienstverlening'],
     legendItems: [
       {
-        imageUrl: '',
-        selectable: true,
-        title: ''
+        selectable: false,
+        title: 'Accountancy, administratie'
+      },
+      {
+        selectable: false,
+        title: 'Advocaten rechtskundige diensten, notarissen'
+      },
+      {
+        selectable: false,
+        title: 'Arbeidsbemiddeling, Uitzendbureaus, Uitleenbureaus'
+      },
+      {
+        selectable: false,
+        title: 'Architecten'
+      },
+      {
+        selectable: false,
+        title: 'Design'
+      },
+      {
+        selectable: false,
+        title: 'Interieurarchitecten'
+      },
+      {
+        selectable: false,
+        title: 'Managementadvies, economisch advies'
+      },
+      {
+        selectable: false,
+        title: 'Public relationsbureaus'
+      },
+      {
+        selectable: false,
+        title: 'Reclame en Marktonderzoek'
+      },
+      {
+        selectable: false,
+        title: 'Technisch ontwerp, advies, keuring/research'
+      },
+      {
+        selectable: false,
+        title: 'Overige zakelijke dienstverlening'
+      },
+      {
+        selectable: false,
+        title: 'Onbekend'
+      },
+      {
+        selectable: false,
+        title: '(Locatie geschat)'
       }
     ],
     maxZoom: 100,
     minZoom: 0,
-    title: 'Zakelijke dienstverlening'
+    title: 'Zakelijke dienstverlening',
+    url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
     category: 'Economie en haven',
     id: 'ovrg',
+    layers: ['overige'],
     legendItems: [
       {
-        imageUrl: '',
-        selectable: true,
-        title: ''
+        selectable: false,
+        title: 'Belangenorganisaties'
+      },
+      {
+        selectable: false,
+        title: 'Hobbyclubs'
+      },
+      {
+        selectable: false,
+        title: 'Idieële organisaties'
+      },
+      {
+        selectable: false,
+        title: 'Overige'
+      },
+      {
+        selectable: false,
+        title: 'Onbekend'
+      },
+      {
+        selectable: false,
+        title: '(Locatie geschat)'
       }
     ],
     maxZoom: 100,
     minZoom: 0,
-    title: 'Overige'
+    title: 'Overige',
+    url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
     category: 'Geografie: onroerende zaken',
