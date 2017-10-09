@@ -1,3 +1,11 @@
+@mixin svg-highlight-color($color) {
+  svg {
+    path,
+    polygon {
+      fill: $color;
+    }
+  }
+}
 
 .select {
   position: relative;
@@ -15,6 +23,8 @@
     &:hover {
       color: white;
       background-color: #f00;
+
+      @include svg-highlight-color(white);
     }
   }
 
@@ -24,7 +34,7 @@
 
   .select__icon {
     right: 0;
-    padding: 7px 10px;
+    padding: 7px 12px;
   }
 
   .select__icon--expand {
@@ -50,7 +60,19 @@
 
     .select__icon {
       background-color: red;
+
+      @include svg-highlight-color(white);
     }
+  }
+
+  &.select--disabled {
+    .select__wrapper,
+    .select__label {
+      border-color: #d2d2d2;
+      color: #ccc;
+    }
+
+    @include svg-highlight-color(#ccc);
   }
 
   .select__custom-icon {

@@ -17,6 +17,7 @@ class Select extends React.Component {
       value: props.value,
       className: props.className,
       expanded: props.expanded,
+      disabled: props.disabled,
       options: props.options
     };
 
@@ -40,7 +41,7 @@ class Select extends React.Component {
         value: e.currentTarget.value
       });
 
-      this.props.handleChange(e, this.state);
+      this.props.handleChange(e, this.state.value);
     }
 
     this.setState({
@@ -50,11 +51,11 @@ class Select extends React.Component {
 
   render() {
     return (
-      <section className={`${this.props.className} select ${this.state.expanded ? 'select--expanded' : ''}`}>
+      <section className={`${this.state.className} select ${this.state.expanded ? 'select--expanded' : ''} ${this.state.disabled ? 'select--disabled' : ''}`}>
         <div
           className="select__wrapper"
           onClick={this.handleClick}
-          >
+        >
           <span className="select__custom-icon">
             <CustomIcon />
           </span>
@@ -63,7 +64,7 @@ class Select extends React.Component {
           </div>
           <input
             type="hidden"
-            name={this.props.name}
+            name={this.state.name}
             value={this.state.value}
           />
           <span className="select__icon select__icon--expand">
@@ -99,6 +100,7 @@ Select.defaultProps = {
   value: '',
   className: '',
   expanded: false,
+  disabled: false,
   options: [],
   handleChange: () => {}
 };
@@ -109,6 +111,7 @@ Select.propTypes = {
   className: PropTypes.string,
   name: PropTypes.string.isRequired,
   expanded: PropTypes.bool,
+  disabled: PropTypes.bool,
   options: PropTypes.arrayOf(PropTypes.object),
   handleChange: PropTypes.func
 };
