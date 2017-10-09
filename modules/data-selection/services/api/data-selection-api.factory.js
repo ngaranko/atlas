@@ -1,4 +1,6 @@
-(function () {
+(() => {
+    'use strict';
+
     angular
         .module('dpDataSelection')
         .factory('dataSelectionApi', dataSelectionApiFactory);
@@ -54,10 +56,7 @@
 
         function formatData (dataset, view, rawData) {
             // Filter on fields allowed by current authorization level
-            const config = DATA_SELECTION_CONFIG.datasets[dataset].CONTENT[view];
-            const fields = config.filter((column) => {
-                return !column.authLevel || user.meetsRequiredLevel(column.authLevel);
-            });
+            const fields = DATA_SELECTION_CONFIG.datasets[dataset].CONTENT[view];
 
             return {
                 head: fields.map(item => item.label),
@@ -76,8 +75,7 @@
                     };
                 }),
                 formatters: fields.map(item => item.formatter),
-                templates: fields.map(item => item.template),
-                sensored: config.length !== fields.length
+                templates: fields.map(item => item.template)
             };
         }
 

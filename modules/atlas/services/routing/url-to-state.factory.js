@@ -14,6 +14,13 @@
 
         function initialize () {
             authenticator.initialize();
+            if (authenticator.isAuthenticated()) {
+                store.dispatch({
+                    type: ACTIONS.AUTHENTICATE_USER,
+                    name: authenticator.getName(),
+                    scopes: authenticator.getScopes()
+                });
+            }
             $location.path(''); // Make sure the default `/` is always used. Resulting in `/#/?etc`
 
             var unwatch = $rootScope.$watch(function () {

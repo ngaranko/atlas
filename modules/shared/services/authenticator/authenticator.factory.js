@@ -16,6 +16,7 @@
         'httpStatus',
         'stateTokenGenerator',
         'queryStringParser',
+        'accessTokenParser',
         'Raven'
     ];
 
@@ -31,6 +32,7 @@
         httpStatus,
         stateTokenGenerator,
         queryStringParser,
+        accessTokenParser,
         Raven
     ) {
         // A map of the error keys, that the OAuth2 authorization service can
@@ -53,10 +55,37 @@
         // success
         const AUTH_PARAMS = ['access_token', 'token_type', 'expires_in', 'state'];
 
+        // All the scopes this City Daty frontend needs for communication with
+        // the backend APIs
+        const scopes = [
+            // Kadaster
+            // Alle attributen van een kadastraal niet-natuurlijk subject,
+            // inclusief alle rechten op kadastrale objecten
+            'BRK/RS',
+            // Alle atrributen van een kadastraal subject (natuurlijk en
+            // niet-natuurlijk), inclusief alle rechten op kadastrale objecten
+            'BRK/RSN',
+            // Alle attributen van een kadastraal object, inclusief koopsom,
+            // koopsom_valuta_code, koopjaar, cultuurcode_onbebouwd,
+            // cultuurcode_bebouwd en zakelijke rechten van de bijbehorende
+            // kadastrale subjecten
+            'BRK/RO',
+
+            // Wet Kenbaarheid Beperkingen
+            'WKPB/RBDU', // Lezen URL Brondocument
+
+            // Monumenten
+            'MON/RBC', // Lezen beschrijvingen van Complexen
+            'MON/RDM', // Lezen details van Monumenten
+
+            // Handelsregister
+            'HR/R' // Leesrechten
+        ];
+        const encodedScopes = encodeURIComponent(scopes.join(' '));
         // The URI we need to redirect to for communication with the OAuth2
         // authorization service
-        const AUTH_PATH = 'oauth2/';
-        const LOGIN_PATH = 'authorize?idp_id=datapunt&response_type=token&client_id=citydata';
+        const AUTH_PATH = 'oauth2/authorize?idp_id=datapunt&response_type=token&client_id=citydata' +
+            `&scope=${encodedScopes}`;
 
         // The keys of values we need to store in the session storage
         //
@@ -71,11 +100,16 @@
         const ACCESS_TOKEN = 'accessToken';
 
         let initialized = false;
+        let tokenData = {};
 
         return {
             initialize,
             login,
-            logout
+            logout,
+            isAuthenticated,
+            getAccessToken,
+            getScopes,
+            getName
         };
 
         function initialize () {
@@ -94,7 +128,8 @@
             // Get the URI the OAuth2 authorization service needs to use as
             // callback
             const callback = $location.absUrl().replace(/#.*$/, ''); // Remove all parameters
-            const stateToken = $window.encodeURIComponent(stateTokenGenerator()); // Get a random string to prevent CSRF
+            const stateToken = stateTokenGenerator(); // Get a random string to prevent CSRF
+            const encodedStateToken = $window.encodeURIComponent(stateToken);
 
             if (!stateToken) {
                 // crypto library is not available on the current browser
@@ -106,16 +141,19 @@
             saveStateToken(stateToken); // Save the state token in session
 
             $window.location.href =
-                sharedConfig.API_ROOT + AUTH_PATH + LOGIN_PATH +
-                `&state=${stateToken}&redirect_uri=${encodeURIComponent(callback)}`;
+                sharedConfig.API_ROOT + AUTH_PATH +
+                `&state=${encodedStateToken}&redirect_uri=${encodeURIComponent(callback)}`;
         }
 
         /**
          * Removes the access token from the user and the session storage.
          */
         function logout () {
-            user.clearToken();
+            user.clearToken(); // deprecated
             removeAccessToken();
+            // Brute fix to reload the application when the user authorization
+            // changes
+            $window.location.reload(true);
         }
 
         /**
@@ -174,7 +212,8 @@
         function restoreAccessToken () {
             const accessToken = getAccessToken();
             if (accessToken) {
-                user.setAccessToken(accessToken);
+                user.setAccessToken(accessToken); // deprecated
+                tokenData = accessTokenParser(accessToken);
             }
         }
 
@@ -182,7 +221,8 @@
          * Finishes the callback from the OAuth2 authorization service.
          */
         function useAccessToken (token) {
-            user.setAccessToken(token);
+            user.setAccessToken(token); // deprecated
+            tokenData = accessTokenParser(token);
             saveAccessToken(token);
             removeStateToken(); // Remove state token from session
             const pathParams = storage.session.getItem(CALLBACK_PARAMS);
@@ -285,6 +325,18 @@
 
         function removeAccessToken (accessToken) {
             storage.session.removeItem(ACCESS_TOKEN);
+        }
+
+        function isAuthenticated () {
+            return Boolean(getAccessToken());
+        }
+
+        function getScopes () {
+            return tokenData.scopes || [];
+        }
+
+        function getName () {
+            return tokenData.name || '';
         }
     }
 })();

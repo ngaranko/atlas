@@ -1,6 +1,7 @@
 describe('The dp-site-header component', () => {
     let $compile,
-        $rootScope;
+        $rootScope,
+        mockedUser;
 
     beforeEach(() => {
         angular.mock.module(
@@ -16,6 +17,12 @@ describe('The dp-site-header component', () => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
         });
+
+        mockedUser = {
+            authenticated: false,
+            scopes: [],
+            name: ''
+        };
     });
 
     function getComponent (query, size) {
@@ -24,9 +31,11 @@ describe('The dp-site-header component', () => {
         element.setAttribute('has-print-button', true);
         element.setAttribute('has-embed-button', true);
         element.setAttribute('size', 'size');
+        element.setAttribute('user', 'user');
 
         const scope = $rootScope.$new();
         scope.size = size;
+        scope.user = mockedUser;
 
         const component = $compile(element)(scope);
         scope.$apply();

@@ -38,6 +38,11 @@ describe('The state url conversion definition', function () {
                     isEnabled: false
                 },
                 filters: {},
+                user: {
+                    authenticated: false,
+                    scopes: [],
+                    name: ''
+                },
                 map: {
                     viewCenter: [52.3731081, 4.8932945],
                     baseLayer: 'topografie',
@@ -52,7 +57,13 @@ describe('The state url conversion definition', function () {
             });
 
             state = stateUrlConversion.onCreate.DEFAULT({}, {}, {aap: 'noot'}, {});
-            expect(state).toEqual({atlas: undefined, page: undefined, layerSelection: undefined, filters: undefined});
+            expect(state).toEqual({
+                atlas: undefined,
+                page: undefined,
+                layerSelection: undefined,
+                filters: undefined,
+                user: undefined
+            });
         });
     });
 

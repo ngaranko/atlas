@@ -25,7 +25,10 @@
                     .split('&')
                     .reduce((params, query) => {
                         const keyValue = query.split('=');
-                        params[decodeURIComponent(keyValue[0])] = decodeURIComponent(keyValue[1]);
+                        const key = keyValue[0];
+                        keyValue.shift();
+                        const value = keyValue.join('=');
+                        params[decodeURIComponent(key)] = decodeURIComponent(value);
                         return params;
                     }, {})
                 : null;

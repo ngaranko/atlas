@@ -20,7 +20,8 @@ describe('The geosearch factory', function () {
         mockedFormattedNummeraanduidingenApiResults,
         mockedVestigingenApiResults,
         mockedFormattedVestigingenApiResults,
-        user;
+        store,
+        mockedUser;
 
     const FAIL_ON_URI = 'FAIL_ON_URI';
 
@@ -84,8 +85,8 @@ describe('The geosearch factory', function () {
                         }
                     }
                 },
-                user: {
-                    meetsRequiredLevel: () => true
+                store: {
+                    getState: angular.noop
                 }
             },
             function ($provide) {
@@ -96,14 +97,14 @@ describe('The geosearch factory', function () {
         );
 
         angular.mock.inject(function (_$q_, _$rootScope_, _geosearch_, _api_, _geosearchFormatter_, _searchFormatter_,
-                                      _user_) {
+                                      _store_) {
             $q = _$q_;
             $rootScope = _$rootScope_;
             geosearch = _geosearch_;
             api = _api_;
             geosearchFormatter = _geosearchFormatter_;
             searchFormatter = _searchFormatter_;
-            user = _user_;
+            store = _store_;
         });
 
         mockedEmptySearchResults = {
@@ -333,6 +334,13 @@ describe('The geosearch factory', function () {
             next: null
         };
 
+        mockedUser = {
+            authenticated: true,
+            scopes: ['HR/R'],
+            name: ''
+        };
+
+        spyOn(store, 'getState').and.returnValue({ user: mockedUser });
         spyOn(api, 'getByUri').and.callThrough();
         spyOn(api, 'getByUrl').and.callThrough();
         spyOn(geosearchFormatter, 'format').and.returnValue(mockedFormattedSearchResults);
@@ -511,7 +519,7 @@ describe('The geosearch factory', function () {
             var searchResults,
                 expectedSearchResults;
 
-            user.meetsRequiredLevel = () => false;
+            mockedUser.scopes = [];
 
             // Insert a pand into the mocked result set
             mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedPandSearchResult);
@@ -597,11 +605,11 @@ describe('The geosearch factory', function () {
             expect(searchResults).toEqual(expectedSearchResults);
         });
 
-        it('does not load related vestigingen without required user level', () => {
+        it('does not load related vestigingen without required user scope', () => {
             var searchResults,
                 expectedSearchResults;
 
-            user.meetsRequiredLevel = () => false;
+            mockedUser.scopes = [];
 
             // Insert a standplaats into the mocked result set
             mockedSearchResultsWithoutRadius.features.splice(4, 0, mockedStandplaatsSearchResult);

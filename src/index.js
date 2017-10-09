@@ -18,6 +18,7 @@ import '../modules/straatbeeld/straatbeeld.scss';
 // Import this here, because `modules/atlas/services/redux%reducer.factory.js`
 // cannoct do, because that would break the grunt build...
 import detailReducer from './reducers/details';
+import userReducer from './reducers/user';
 
 // All our modules' javascript
 import '../modules/atlas/atlas.module.js';
@@ -213,6 +214,7 @@ import '../modules/shared/components/tab-header/tab-header.factory.js';
 import '../modules/shared/components/uppercase-first-letter/uppercase-first-letter.filter.js';
 import '../modules/shared/components/video/video.component.js';
 import '../modules/shared/filters/filesize.filter.js';
+import '../modules/shared/services/access-token-parser/access-token-parser.factory.js';
 import '../modules/shared/services/active-overlays/active-overlays.factory.js';
 import '../modules/shared/services/angle-conversion/angle-conversion.factory.js';
 import '../modules/shared/services/api/api.factory.js';

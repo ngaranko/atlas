@@ -16,8 +16,7 @@ describe('The urlToState factory', function () {
                 },
                 authenticator: {
                     initialize: angular.noop,
-                    isCallback: () => false,
-                    handleCallback: angular.noop
+                    isAuthenticated: () => false
                 }
             }
         );
@@ -46,8 +45,7 @@ describe('The urlToState factory', function () {
     });
 
     it('routes responses via dispatch action', function () {
-        spyOn(authenticator, 'isCallback').and.returnValue(false);
-        spyOn(authenticator, 'handleCallback');
+        spyOn(authenticator, 'isAuthenticated').and.returnValue(false);
 
         urlToState.initialize();
         $rootScope.$apply();

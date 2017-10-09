@@ -40,6 +40,8 @@
                              filtersReducers,
                              environment) {
         return function (oldState, action) {
+            const UserReducer = $window.UserReducer;
+
             // TODO: Redux: replace
             // Warning: angular.merge is deprecated
             // -- https://docs.angularjs.org/api/ng/function/angular.merge
@@ -50,10 +52,15 @@
                 DETAIL_FULLSCREEN: $window.reducers.detailReducer
             };
 
+            const userReducer = {
+                AUTHENTICATE_USER: UserReducer
+            };
+
             var actions = angular.merge(
                 urlReducers,
                 detailReducers,
                 homeReducers,
+                userReducer,
                 layerSelectionReducers,
                 mapReducers,
                 pageReducers,
@@ -66,9 +73,11 @@
                 environment
             );
 
-            if (detailReducers.hasOwnProperty(action.type.id)) {
+            if (detailReducers.hasOwnProperty(action.type.id) ||
+                userReducer.hasOwnProperty(action.type.id)
+            ) {
                 action.payload = {
-                    payload: action.payload,
+                    ...action,
                     type: action.type.id
                 };
             }

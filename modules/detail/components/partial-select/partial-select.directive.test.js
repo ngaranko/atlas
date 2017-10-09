@@ -87,21 +87,4 @@ describe('The dp-partial-select directive', function () {
         scope.loadMore();
         expect(hasMockedLoadMoreFunctionBeenCalled).toBe(true);
     });
-
-    describe('the warning message', () => {
-        it('is shown if not an employee', () => {
-            const directive = getDirective({foo: 'FAKE_API_DATA_A'}, 'my-template');
-
-            const scope = directive.isolateScope();
-            expect(scope.showMoreInfoWarning).toBe(true);
-        });
-        it('is not shown for an employee', () => {
-            user.meetsRequiredLevel.and.returnValue(true);
-
-            const directive = getDirective({foo: 'FAKE_API_DATA_A'}, 'my-template');
-
-            const scope = directive.isolateScope();
-            expect(scope.showMoreInfoWarning).toBe(false);
-        });
-    });
 });

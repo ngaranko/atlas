@@ -17,7 +17,7 @@
     <div class="c-detail__block qa-brondocument" ng-if="vm.apiData.results.documenten.count === 1">
         <dp-glossary-header definition="BRONDOCUMENT"></dp-glossary-header>
 
-        <dp-panel is-panel-visible="vm.showMoreInfoWarning" type="warning" can-close="true">
+        <dp-panel is-panel-visible="!vm.user.scopes.includes('WKPB/RBDU')" type="warning" can-close="true">
             Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer gegevens te zien:
             documentnaam en link naar bestand.
             Zie <dp-link-to-page item="item9" class-name="c-link--light"></dp-link-to-page>.
