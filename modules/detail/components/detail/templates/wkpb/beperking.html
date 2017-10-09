@@ -23,19 +23,19 @@
             Zie <dp-link-to-page item="item9" class-name="c-link--light"></dp-link-to-page>.
         </dp-panel>
 
-        <dp-api-call endpoint="{{vm.apiData.results.documenten.href}}" partial="wkpb/brondocument"></dp-api-call>
+        <dp-api-call endpoint="{{vm.apiData.results.documenten.href}}" partial="wkpb/brondocument" user="vm.user"></dp-api-call>
     </div>
 
     <div class="c-detail__block" ng-if="vm.apiData.results.documenten.count > 1">
         <dp-glossary-header definition="BRONDOCUMENT" use-plural="true"></dp-glossary-header>
 
-        <dp-api-call endpoint="{{vm.apiData.results.documenten.href}}" partial="lijst"></dp-api-call>
+        <dp-api-call endpoint="{{vm.apiData.results.documenten.href}}" partial="lijst" user="vm.user"></dp-api-call>
     </div>
 
     <div class="c-detail__block" ng-if=" vm.apiData.results.kadastrale_objecten.count">
         <dp-glossary-header definition="OBJECT" use-plural="true"></dp-glossary-header>
 
-        <dp-api-call endpoint="{{vm.apiData.results.kadastrale_objecten.href}}" partial="lijst"></dp-api-call>
+        <dp-api-call endpoint="{{vm.apiData.results.kadastrale_objecten.href}}" partial="lijst" user="vm.user"></dp-api-call>
     </div>
 
     <div ng-include="'modules/detail/components/detail/templates/wkpb-disclaimer.html'"></div>

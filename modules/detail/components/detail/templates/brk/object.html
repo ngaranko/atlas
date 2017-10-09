@@ -49,7 +49,8 @@
     <dp-api-call
         endpoint="{{vm.apiData.results._links.self.href}}"
         partial="brk"
-        use-brk-object-expanded="true">
+        use-brk-object-expanded="true"
+        user="vm.user">
     </dp-api-call>
 
     <div ng-if="vm.apiData.results.verblijfsobjecten.count"
@@ -66,7 +67,7 @@
         -->
         <dp-glossary-header definition="NUMMERAANDUIDING" use-plural="true"></dp-glossary-header>
 
-        <dp-api-call endpoint="{{vm.apiData.results._adressen.href}}" partial="adressen_lijst">
+        <dp-api-call endpoint="{{vm.apiData.results._adressen.href}}" partial="adressen_lijst" user="vm.user">
         </dp-api-call>
     </div>
 </div>

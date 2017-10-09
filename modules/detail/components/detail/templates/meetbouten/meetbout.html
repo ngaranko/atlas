@@ -46,7 +46,8 @@
 
         <dp-api-call ng-if="vm.apiData.results.metingen.href"
             endpoint="{{vm.apiData.results.metingen.href}}"
-            partial="meetbouten/metingen-tabel">
+            partial="meetbouten/metingen-tabel"
+            user="vm.user">
         </dp-api-call>
 
         <h3 ng-if="vm.apiData.results.metingen.count > 1">Zakking cumulatief (mm)</h3>
@@ -64,7 +65,8 @@
 
         <dp-api-call ng-if="vm.apiData.results.rollaag"
             endpoint="{{vm.apiData.results.rollaag}}"
-            partial="meetbouten/rollaag">
+            partial="meetbouten/rollaag"
+            user="vm.user">
         </dp-api-call>
     </div>
 </div>

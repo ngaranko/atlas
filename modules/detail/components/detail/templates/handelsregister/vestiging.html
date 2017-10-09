@@ -20,7 +20,7 @@
             <dt>Eerste handelsnaam</dt>
             <dd>{{ vm.apiData.results.naam }}</dd>
             <dt>KvK-nummer</dt>
-            <dp-api-call endpoint="{{vm.apiData.results.maatschappelijke_activiteit}}" partial="handelsregister/kvk-nummer"></dp-api-call>
+            <dp-api-call endpoint="{{vm.apiData.results.maatschappelijke_activiteit}}" partial="handelsregister/kvk-nummer" user="vm.user"></dp-api-call>
             <dt>Postadres</dt>
             <dd>
                 {{ vm.apiData.results.postadres.volledig_adres }}
@@ -36,7 +36,7 @@
                 </dp-message>
             </dd>
             <dt>Indicatie non-mailing</dt>
-            <dp-api-call endpoint="{{vm.apiData.results.maatschappelijke_activiteit}}" partial="handelsregister/non-mailing"></dp-api-call>
+            <dp-api-call endpoint="{{vm.apiData.results.maatschappelijke_activiteit}}" partial="handelsregister/non-mailing" user="vm.user"></dp-api-call>
             <dt>Afgeschermd</dt>
             <dd>{{ vm.apiData.results.bezoekadres.afgeschermd?'Ja':'Nee' }}</dd>
             <dt>Type vestiging</dt>

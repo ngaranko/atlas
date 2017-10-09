@@ -30,14 +30,14 @@
     <div ng-if="vm.apiData" class="c-detail__block">
         <dp-glossary-header definition="FUNCTIEVERVULLING" use-plural="true"></dp-glossary-header>
 
-        <dp-api-call endpoint="{{vm.apiData.results.eigenaar}}" partial="handelsregister/functievervullingen"></dp-api-call>
+        <dp-api-call endpoint="{{vm.apiData.results.eigenaar}}" partial="handelsregister/functievervullingen" user="vm.user"></dp-api-call>
     </div>
 
     <div ng-if="vm.apiData.results.vestigingen.count >= 1"
          class="c-detail__block">
         <dp-glossary-header definition="VESTIGING" use-plural="true"></dp-glossary-header>
 
-        <dp-api-call endpoint="{{vm.apiData.results.vestigingen.href}}" partial="lijst"></dp-api-call>
+        <dp-api-call endpoint="{{vm.apiData.results.vestigingen.href}}" partial="lijst" user="vm.user"></dp-api-call>
     </div>
 
     <div ng-if="vm.apiData" ng-include="'modules/detail/components/detail/templates/hr-disclaimer.html'"></div>
