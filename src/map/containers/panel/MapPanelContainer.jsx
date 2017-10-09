@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { getMapLayers, selectActiveMapLayers } from '../../ducks/layers/map-layers';
-import { toggleMapOverlay } from '../../ducks/overlays/overlays';
+import { toggleMapOverlay, toggleMapOverlayVisibility } from '../../ducks/overlays/overlays';
 import MapLayers from '../../components/layers/MapLayers';
 import MapLegend from '../../components/legend/MapLegend';
 import MapType from '../../components/type/MapType';
@@ -21,7 +21,8 @@ const mapStateToProps = state => ({
 
 // TODO: Add method that checks whether layer is active and toggles accordingly
 const mapDispatchToProps = dispatch => bindActionCreators({
-  onLayerToggle: toggleMapOverlay
+  onLayerToggle: toggleMapOverlay,
+  onLayerVisibilityToggle: toggleMapOverlayVisibility
 }, dispatch);
 
 class MapPanelContainer extends React.Component {
@@ -41,6 +42,7 @@ class MapPanelContainer extends React.Component {
             <MapLegend
               activeMapLayers={this.props.activeMapLayers}
               onLayerToggle={this.props.onLayerToggle}
+              onLayerVisibilityToggle={this.props.onLayerVisibilityToggle}
               zoomLevel={this.props.zoomLevel}
             />
           )}
@@ -77,6 +79,7 @@ MapPanelContainer.propTypes = {
   mapLayers: PropTypes.array, // eslint-disable-line
   mapOverlays: PropTypes.array, // eslint-disable-line
   onLayerToggle: PropTypes.func, // eslint-disable-line
+  onLayerVisibilityToggle: PropTypes.func, // eslint-disable-line
   zoomLevel: PropTypes.number
 };
 

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Checkbox } from '../../../shared/components/checkbox';
 import RemoveIcon from '../../../../public/images/icon-cross.svg';
 
-const MapLegend = ({ activeMapLayers, onLayerToggle, zoomLevel }) => (
+const MapLegend = ({ activeMapLayers, onLayerToggle, onLayerVisibilityToggle, zoomLevel }) => (
   <ul className="map-legend">
     {activeMapLayers.map(mapLayer => (
       <li key={mapLayer.id}>
@@ -12,7 +12,7 @@ const MapLegend = ({ activeMapLayers, onLayerToggle, zoomLevel }) => (
           <Checkbox
             checked="true"
             name={mapLayer.id}
-            onChange={() => onLayerToggle(mapLayer.id)}
+            onChange={() => onLayerVisibilityToggle(mapLayer.id)}
           />
           <span className="map-legend__category-title">{mapLayer.title}</span>
           <button onClick={() => onLayerToggle(mapLayer.id)}>
@@ -61,8 +61,9 @@ const MapLegend = ({ activeMapLayers, onLayerToggle, zoomLevel }) => (
 
 MapLegend.propTypes = {
   activeMapLayers: PropTypes.array, // eslint-disable-line
-  onLayerToggle: PropTypes.func, // eslint-disable-line,
-  zoomLevel: PropTypes.number
+  onLayerToggle: PropTypes.func, // eslint-disable-line
+  onLayerVisibilityToggle: PropTypes.func, // eslint-disable-line
+  zoomLevel: PropTypes.number.isRequired
 };
 
 export default MapLegend;

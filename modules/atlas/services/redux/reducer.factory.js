@@ -61,7 +61,8 @@
             };
 
             const mapOverlaysReducer = {
-                TOGGLE_MAP_OVERLAY: MapOverlaysReducer
+                TOGGLE_MAP_OVERLAY: MapOverlaysReducer,
+                TOGGLE_MAP_OVERLAY_VISIBILITY: MapOverlaysReducer
             };
 
             var actions = angular.merge(
