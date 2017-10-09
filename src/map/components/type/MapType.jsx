@@ -11,7 +11,7 @@ function handleChange(e, value) {
   }
 }
 
-const MapType = ({ layers }) => (
+const MapType = ({ layers, onBaseLayerToggle }) => (
   <section className="map-panel__map-type">
     <Select
       className="map-panel__map-type-select map-panel__map-type-select--topography"
@@ -35,7 +35,8 @@ const MapType = ({ layers }) => (
 );
 
 MapType.propTypes = {
-  layers: PropTypes.object // eslint-disable-line
+  layers: PropTypes.object, // eslint-disable-line
+  onBaseLayerToggle: PropTypes.func // eslint-disable-line
 };
 
 export default MapType;

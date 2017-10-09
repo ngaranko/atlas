@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import ExpandIcon from '../../../../public/images/icon-arrow-down.svg';
 import ContractIcon from '../../../../public/images/icon-arrow-up.svg';
 
-import CustomIcon from '../../../../public/images/icon-map-layers.svg';
+import CustomIcon from '../../../../public/images/icon-topography.svg';
 
 import './_select.scss';
 

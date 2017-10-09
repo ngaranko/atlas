@@ -34,7 +34,13 @@
 
   .select__icon {
     right: 0;
-    padding: 7px 12px;
+    width: 22px;
+    height: 22px;
+
+    svg {
+      width: 22px;
+      height: 22px;
+    }
   }
 
   .select__icon--expand {
@@ -77,10 +83,12 @@
 
   .select__custom-icon {
     margin-left: 10px;
+    width: 20px;
+    height: 20px;
 
     svg {
-      width: 10px;
-      height: 10px;
+      width: 20px;
+      height: 20px;
     }
   }
 
