@@ -23,6 +23,7 @@
             const defaultState = stateUrlConverter.getDefaultState();
             return {
                 ...defaultState,
+                mapLayers: state.mapLayers,
                 atlas: {
                     ...defaultState.atlas,
                     isPrintMode: state.atlas.isPrintMode,

@@ -292,7 +292,7 @@
             // Execute the post processing methods
             Object.keys(stateUrlConversion.post).forEach(key => {
                 if (angular.isObject(newState[key])) {
-                    stateUrlConversion.post[key](oldState[key], newState[key]);
+                    newState[key] = stateUrlConversion.post[key](oldState[key], newState[key]);
                 }
             });
 

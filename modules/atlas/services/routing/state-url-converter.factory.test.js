@@ -32,6 +32,7 @@ describe('The state url conversion factory', function () {
                     scopes: [],
                     name: ''
                 },
+                mapLayers: [],
                 filters: {},
                 layerSelection: {
                     isEnabled: false

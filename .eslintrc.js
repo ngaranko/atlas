@@ -1,7 +1,7 @@
 module.exports = {
     "parserOptions": {
         "ecmaVersion": 6,       // specify the version of ECMAScript syntax you want to use
-        "sourceType": "script", // set to "script" (default) or "module" if your code is in ECMAScript modules
+        "sourceType": "module", // set to "script" (default) or "module" if your code is in ECMAScript modules
     },
     "env": {
         "browser": true,        // browser global variables

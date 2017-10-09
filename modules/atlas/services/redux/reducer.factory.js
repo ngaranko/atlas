@@ -1,5 +1,3 @@
-// import detailReducer from '../../../../src/reducers/details';
-
 (function () {
     'use strict';
 
@@ -8,6 +6,8 @@
         .factory('reducer', reducerFactory);
 
     reducerFactory.$inject = [
+        '$rootScope',
+        '$timeout',
         '$window',
         'urlReducers',
         'freeze',
@@ -25,7 +25,9 @@
     ];
 
     // eslint-disable-next-line max-params
-    function reducerFactory ($window,
+    function reducerFactory ($rootScope,
+                             $timeout,
+                             $window,
                              urlReducers,
                              freeze,
                              homeReducers,
@@ -41,6 +43,8 @@
                              environment) {
         return function (oldState, action) {
             const UserReducer = $window.UserReducer;
+            const MapLayersReducer = $window.MapLayersReducer;
+            const MapOverlaysReducer = $window.MapOverlaysReducer;
 
             // TODO: Redux: replace
             // Warning: angular.merge is deprecated
@@ -56,9 +60,21 @@
                 AUTHENTICATE_USER: UserReducer
             };
 
+            const mapLayersReducer = {
+                FETCH_MAP_LAYERS_FAILURE: MapLayersReducer,
+                FETCH_MAP_LAYERS_REQUEST: MapLayersReducer,
+                FETCH_MAP_LAYERS_SUCCESS: MapLayersReducer
+            };
+
+            const mapOverlaysReducer = {
+                TOGGLE_MAP_OVERLAY: MapOverlaysReducer,
+                TOGGLE_MAP_OVERLAY_VISIBILITY: MapOverlaysReducer
+            };
+
             var actions = angular.merge(
                 urlReducers,
                 detailReducers,
+                mapLayersReducer,
                 homeReducers,
                 userReducer,
                 layerSelectionReducers,
@@ -80,6 +96,16 @@
                     ...action,
                     type: action.type.id
                 };
+            }
+
+            if (mapLayersReducer.hasOwnProperty(action.type)) {
+                return MapLayersReducer(oldState, action);
+            }
+
+            if (mapOverlaysReducer.hasOwnProperty(action.type)) {
+                const newState = MapOverlaysReducer(oldState, action);
+                $timeout(() => $rootScope.$digest());
+                return newState;
             }
 
             if (angular.isObject(action) &&

@@ -136,8 +136,8 @@
             const columnSizes = {};
 
             if (visibility.layerSelection) {
-                columnSizes.left = 4;
-                columnSizes.middle = 8;
+                columnSizes.left = 0;
+                columnSizes.middle = 12;
                 columnSizes.right = 0;
             } else if (hasFullscreenElement) {
                 columnSizes.left = 0;

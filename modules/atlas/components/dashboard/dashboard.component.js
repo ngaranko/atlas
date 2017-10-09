@@ -9,9 +9,13 @@
             controllerAs: 'vm'
         });
 
-    DpDashboardController.$inject = ['$scope', 'store', 'ACTIONS', 'dashboardColumns', 'HEADER'];
+    DpDashboardController.$inject = ['$scope', '$timeout', '$window', 'store', 'ACTIONS', 'dashboardColumns', 'HEADER'];
 
-    function DpDashboardController ($scope, store, ACTIONS, dashboardColumns, HEADER) {
+    function DpDashboardController ($scope, $timeout, $window, store, ACTIONS, dashboardColumns, HEADER) {
+        const React = $window.React;
+        const render = $window.render;
+        const MapPanelWrapper = $window.MapPanelWrapper;
+
         const vm = this;
 
         vm.store = store;
@@ -26,6 +30,17 @@
             } else {
                 store.dispatch({ type: ACTIONS.MAP_REMOVE_PANO_OVERLAY });
             }
+        });
+
+        // (Re)render React `MapPanel` app when map is visible
+        $scope.$watch('vm.visibility.map', (newValue, oldValue) => {
+            if (!newValue) {
+                return;
+            }
+            // Render component in next digest to ensure DOM rendering has completed
+            $timeout(() => {
+                render(React.createElement(MapPanelWrapper, null), document.getElementById('map-panel-react'));
+            });
         });
 
         function setLayout () {
