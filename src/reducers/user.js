@@ -1,6 +1,4 @@
-export const USER_AUTHENTICATED = 'USER_AUTHENTICATED';
-export const USER_SCOPES = 'USER_SCOPES';
-export const USER_NAME = 'USER_NAME';
+export const AUTHENTICATE_USER = 'AUTHENTICATE_USER';
 
 const initialState = {
   authenticated: false,
@@ -10,29 +8,13 @@ const initialState = {
 
 export default function UserReducer(state = initialState, action) {
   switch (action.type) {
-    case 'USER_AUTHENTICATED':
+    case 'AUTHENTICATE_USER':
       return {
         ...state,
         user: {
           ...state.user,
-          authenticated: action.authenticated
-        }
-      };
-
-    case 'USER_SCOPES':
-      return {
-        ...state,
-        user: {
-          ...state.user,
-          scopes: action.scopes
-        }
-      };
-
-    case 'USER_NAME':
-      return {
-        ...state,
-        user: {
-          ...state.user,
+          authenticated: true,
+          scopes: action.scopes,
           name: action.name
         }
       };
@@ -41,5 +23,7 @@ export default function UserReducer(state = initialState, action) {
       return state;
   }
 };
+
+export const authenticateUser = (name, scopes) => ({ type: AUTHENTICATE_USER, name, scopes });
 
 window.UserReducer = UserReducer;

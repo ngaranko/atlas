@@ -16,16 +16,8 @@
                 id: 'URL_CHANGE',
                 ignore: true
             },
-            USER_AUTHENTICATED: {
-                id: 'USER_AUTHENTICATED',
-                ignore: true
-            },
-            USER_SCOPES: {
-                id: 'USER_SCOPES',
-                ignore: true
-            },
-            USER_NAME: {
-                id: 'USER_NAME',
+            AUTHENTICATE_USER: {
+                id: 'AUTHENTICATE_USER',
                 ignore: true
             },
 

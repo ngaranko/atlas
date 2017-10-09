@@ -16,16 +16,9 @@
             authenticator.initialize();
             if (authenticator.isAuthenticated()) {
                 store.dispatch({
-                    type: ACTIONS.USER_AUTHENTICATED,
-                    authenticated: true
-                });
-                store.dispatch({
-                    type: ACTIONS.USER_SCOPES,
+                    type: ACTIONS.AUTHENTICATE_USER,
+                    name: authenticator.getName(),
                     scopes: authenticator.getScopes()
-                });
-                store.dispatch({
-                    type: ACTIONS.USER_NAME,
-                    name: authenticator.getName()
                 });
             }
             $location.path(''); // Make sure the default `/` is always used. Resulting in `/#/?etc`
