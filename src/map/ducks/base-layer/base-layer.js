@@ -10,7 +10,7 @@ export default function MapBaseLayerReducer(state = initialState, action) {
         ...state,
         map: {
           ...state.map,
-          baseLayer: 'lf2017'
+          baseLayer: action.baseLayerId
         }
       };
 

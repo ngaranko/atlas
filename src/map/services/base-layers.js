@@ -1,7 +1,7 @@
 export default {
   topography: [
     {
-      value: 'topo_rd',
+      value: 'topografie',
       label: 'Topografie',
       selected: true,
       urlTemplate: 'https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png'

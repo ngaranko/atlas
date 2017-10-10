@@ -29,8 +29,10 @@ class Select extends React.Component {
   componentWillReceiveProps() {
     if (this.props.options.length > 0) {
       const selected = this.props.options.find(option => option.selected);
-      this.state.value = selected.value;
-      this.state.label = selected.label;
+      this.setState({
+        label: selected.label,
+        value: selected.value
+      });
     }
   }
 
@@ -41,20 +43,24 @@ class Select extends React.Component {
   }
 
   handleClick(e) {
+    e.preventDefault();
+
     this.toggleCollapse(false);
 
     console.log('handleClick', this.state.value);
-    return this.state.value;
+    this.props.handleChange(this.state.value);
   }
 
   handleClickChild(e) {
+    e.preventDefault();
+
     if (e.target.value !== this.state.value) {
       this.setState({
-        label: e.currentTarget.innerText,
-        value: e.currentTarget.value
+        label: e.target.innerText,
+        value: e.target.value
       });
 
-      this.props.handleChange(e, this.state.value);
+      this.props.handleChange(this.state.value);
     }
 
     this.toggleCollapse();
