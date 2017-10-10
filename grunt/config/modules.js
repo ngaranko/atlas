@@ -15,10 +15,6 @@ module.exports = [
         slug: 'header'
     },
     {
-        name: 'dpLayerSelection',
-        slug: 'layer-selection'
-    },
-    {
         name: 'dpMap',
         slug: 'map'
     },

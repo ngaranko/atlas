@@ -25,7 +25,6 @@ describe('The dashboard component', function () {
                     'dpPageDirective',
                     'dpDetailDirective',
                     'dpSearchResultsDirective',
-                    'dpLayerSelectionDirective',
                     'dpMapDirective',
                     'dpStraatbeeldDirective',
                     'dpDataSelectionDirective'

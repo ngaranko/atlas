@@ -15,9 +15,9 @@
             controllerAs: 'vm'
         });
 
-    DpActiveOverlaysController.$inject = ['$scope', 'overlays', 'user', 'activeOverlays'];
+    DpActiveOverlaysController.$inject = ['$scope', 'overlays', 'activeOverlays'];
 
-    function DpActiveOverlaysController ($scope, overlays, user, activeOverlays) {
+    function DpActiveOverlaysController ($scope, overlays, activeOverlays) {
         var vm = this;
 
         $scope.$watchGroup(['vm.user.scopes', 'vm.overlays', 'vm.showActiveOverlays'], setOverlays, true);

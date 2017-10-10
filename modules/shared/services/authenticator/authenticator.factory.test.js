@@ -2,16 +2,17 @@ describe(' The authenticator factory', function () {
     let $window,
         $location,
         storage,
-        user,
         authenticator,
         httpStatus,
         Raven,
         absUrl,
-        mockedUser,
         uriStripper,
         callbackParams,
         stateToken,
         accessToken,
+        name,
+        scopes,
+        accessTokenParser,
         stateTokenGenerator,
         queryStringParser;
 
@@ -22,36 +23,16 @@ describe(' The authenticator factory', function () {
     beforeEach(function () {
         absUrl = 'absUrl';
 
-        const initUser = {
-            refreshToken: null,
-            accessToken: null,
-            userType: 'NONE'
-        };
-
-        mockedUser = initUser;
+        accessTokenParser = jasmine.createSpy().and.callFake(() => ({ name, scopes }));
         stateTokenGenerator = jasmine.createSpy();
         queryStringParser = jasmine.createSpy();
 
         angular.mock.module(
             'dpShared',
             {
+                accessTokenParser,
                 stateTokenGenerator,
                 queryStringParser,
-                user: {
-                    setRefreshToken: (token, type) => {
-                        mockedUser.refreshToken = token;
-                        mockedUser.userType = type;
-                    },
-                    setAccessToken: (token) => mockedUser.accessToken = token,
-                    getRefreshToken: () => mockedUser.refreshToken,
-                    clearToken: () => mockedUser = initUser,
-                    getUserType: () => mockedUser.userType,
-                    USER_TYPE: {
-                        NONE: 'NONE',
-                        ANONYMOUS: 'ANONYMOUS',
-                        AUTHENTICATED: 'AUTHENTICATED'
-                    }
-                },
                 $window: {
                     addEventListener: angular.noop,
                     location: {
@@ -127,7 +108,6 @@ describe(' The authenticator factory', function () {
             _$location_,
             _$interval_,
             _storage_,
-            _user_,
             _authenticator_,
             _uriStripper_,
             _httpStatus_,
@@ -136,7 +116,6 @@ describe(' The authenticator factory', function () {
             $window = _$window_;
             $location = _$location_;
             storage = _storage_;
-            user = _user_;
             authenticator = _authenticator_;
             uriStripper = _uriStripper_;
             httpStatus = _httpStatus_;
@@ -151,21 +130,25 @@ describe(' The authenticator factory', function () {
     describe('initialization', () => {
         describe('access token', () => {
             it('restores when saved in session storage', () => {
+                name = 'testUser';
+                scopes = ['SCOPE/1', 'SCOPE/2'];
                 accessToken = 'myToken';
-                spyOn(user, 'setAccessToken');
 
                 authenticator.initialize();
 
-                expect(user.setAccessToken).toHaveBeenCalledWith('myToken');
+                expect(accessTokenParser).toHaveBeenCalledWith(accessToken);
+                expect(authenticator.getName()).toBe(name);
+                expect(authenticator.getScopes()).toEqual(scopes);
             });
 
             it('does not restore when not in session storage', () => {
-                accessToken = null;
-                spyOn(user, 'setAccessToken');
+                accessToken = undefined;
 
                 authenticator.initialize();
 
-                expect(user.setAccessToken).not.toHaveBeenCalledWith();
+                expect(accessTokenParser).not.toHaveBeenCalled();
+                expect(authenticator.getName()).toBe('');
+                expect(authenticator.getScopes()).toEqual([]);
             });
         });
 
@@ -174,6 +157,9 @@ describe(' The authenticator factory', function () {
             let queryObject;
 
             beforeEach(() => {
+                spyOn(storage.session, 'setItem');
+                spyOn(storage.session, 'removeItem');
+
                 queryString = `?state=${stateToken}&access_token=accesstoken&token_type=bearer&expires_in=36000`;
                 queryObject = {
                     state: stateToken,
@@ -182,7 +168,6 @@ describe(' The authenticator factory', function () {
                     expires_in: '36000'
                 };
 
-                spyOn(user, 'setAccessToken');
                 spyOn($location, 'url').and.callFake(() => queryString);
                 queryStringParser.and.callFake(() => queryObject);
             });
@@ -191,10 +176,13 @@ describe(' The authenticator factory', function () {
                 authenticator.initialize();
 
                 expect(queryStringParser).toHaveBeenCalledWith(queryString);
+                expect(accessTokenParser).toHaveBeenCalledWith(queryObject.access_token);
                 expect($location.replace).toHaveBeenCalled();
                 expect($location.url).toHaveBeenCalledWith('');
                 expect($location.search).toHaveBeenCalledWith({one: 1});
-                expect(user.setAccessToken).toHaveBeenCalledWith('accesstoken');
+                expect(storage.session.setItem).toHaveBeenCalledWith('accessToken', queryObject.access_token);
+                expect(storage.session.removeItem).toHaveBeenCalledWith('stateToken');
+                expect(storage.session.removeItem).toHaveBeenCalledWith('callbackParams');
             });
 
             it('stays at home page when no saved callback path can be found', function () {
@@ -205,7 +193,8 @@ describe(' The authenticator factory', function () {
                 expect($location.replace).not.toHaveBeenCalled();
                 expect($location.url).not.toHaveBeenCalledWith('');
                 expect($location.search).not.toHaveBeenCalled();
-                expect(user.setAccessToken).toHaveBeenCalledWith('accesstoken');
+                expect(storage.session.setItem).toHaveBeenCalledWith('accessToken', queryObject.access_token);
+                expect(storage.session.removeItem).toHaveBeenCalledWith('stateToken');
             });
 
             describe('validating callback urls', function () {
@@ -214,19 +203,19 @@ describe(' The authenticator factory', function () {
                         queryString = `?state=${stateToken}`;
                         queryObject = { state: stateToken };
                         authenticator.initialize();
-                        expect(user.setAccessToken).not.toHaveBeenCalled();
+                        expect(storage.session.setItem).not.toHaveBeenCalled();
                     });
                     it('rejects state token only, with other params', () => {
                         queryString = `?state=${stateToken}&one=1&two=2`;
                         queryObject = { state: stateToken, one: 1, two: 2 };
                         authenticator.initialize();
-                        expect(user.setAccessToken).not.toHaveBeenCalled();
+                        expect(storage.session.setItem).not.toHaveBeenCalled();
                     });
                     it('accepts with all params', () => {
                         queryString = `?state=${stateToken}&access_token=accesstoken&token_type=bearer` +
                             '&expires_in=36000';
                         authenticator.initialize();
-                        expect(user.setAccessToken).toHaveBeenCalledWith('accesstoken');
+                        expect(storage.session.setItem).toHaveBeenCalledWith('accessToken', queryObject.access_token);
                     });
                     it('accepts with all params, and other params', () => {
                         queryString = `?state=${stateToken}&access_token=accesstoken&token_type=bearer` +
@@ -240,7 +229,7 @@ describe(' The authenticator factory', function () {
                             two: 2
                         };
                         authenticator.initialize();
-                        expect(user.setAccessToken).toHaveBeenCalledWith('accesstoken');
+                        expect(storage.session.setItem).toHaveBeenCalledWith('accessToken', queryObject.access_token);
                     });
                 });
 
@@ -253,13 +242,13 @@ describe(' The authenticator factory', function () {
                         queryString = '?state=invalid';
                         queryObject = { state: 'invalid' };
                         authenticator.initialize();
-                        expect(user.setAccessToken).not.toHaveBeenCalled();
+                        expect(storage.session.setItem).not.toHaveBeenCalled();
                     });
                     it('rejects state token only, with other params', () => {
                         queryString = '?state=invalid&one=1&two=2';
                         queryObject = { state: 'invalid', one: 1, two: 2 };
                         authenticator.initialize();
-                        expect(user.setAccessToken).not.toHaveBeenCalled();
+                        expect(storage.session.setItem).not.toHaveBeenCalled();
                     });
                     it('rejects with all params', () => {
                         queryString = '?state=invalid&access_token=accesstoken&token_type=bearer&expires_in=36000';
@@ -270,7 +259,7 @@ describe(' The authenticator factory', function () {
                             expires_in: '36000'
                         };
                         authenticator.initialize();
-                        expect(user.setAccessToken).not.toHaveBeenCalled();
+                        expect(storage.session.setItem).not.toHaveBeenCalled();
                     });
                     it('rejects with all params, and other params', () => {
                         queryString = '?state=invalid&access_token=accesstoken&token_type=bearer&expires_in=36000' +
@@ -284,7 +273,7 @@ describe(' The authenticator factory', function () {
                             two: 2
                         };
                         authenticator.initialize();
-                        expect(user.setAccessToken).not.toHaveBeenCalled();
+                        expect(storage.session.setItem).not.toHaveBeenCalled();
                     });
                     it('Logs to sentry', () => {
                         queryString = '?state=invalid&access_token=accesstoken&token_type=bearer&expires_in=36000';
@@ -305,13 +294,13 @@ describe(' The authenticator factory', function () {
                         queryString = '';
                         queryObject = {};
                         authenticator.initialize();
-                        expect(user.setAccessToken).not.toHaveBeenCalled();
+                        expect(storage.session.setItem).not.toHaveBeenCalled();
                     });
                     it('rejects with only other params', () => {
                         queryString = '?one=1&two=2';
                         queryObject = { one: 1, two: 2 };
                         authenticator.initialize();
-                        expect(user.setAccessToken).not.toHaveBeenCalled();
+                        expect(storage.session.setItem).not.toHaveBeenCalled();
                     });
                     it('rejects with all params', () => {
                         queryString = '?access_token=accesstoken&token_type=bearer&expires_in=36000';
@@ -321,7 +310,7 @@ describe(' The authenticator factory', function () {
                             expires_in: '36000'
                         };
                         authenticator.initialize();
-                        expect(user.setAccessToken).not.toHaveBeenCalled();
+                        expect(storage.session.setItem).not.toHaveBeenCalled();
                     });
                     it('rejects with all params, and other params', () => {
                         queryString = '?access_token=accesstoken&token_type=bearer&expires_in=36000&one=1&two=2';
@@ -333,7 +322,7 @@ describe(' The authenticator factory', function () {
                             two: 2
                         };
                         authenticator.initialize();
-                        expect(user.setAccessToken).not.toHaveBeenCalled();
+                        expect(storage.session.setItem).not.toHaveBeenCalled();
                     });
                 });
             });
@@ -353,12 +342,12 @@ describe(' The authenticator factory', function () {
 
                 $window.location.search = queryString;
                 queryStringParser.and.callFake(() => queryObject);
+                spyOn($location, 'url').and.callFake(() => queryString);
+                spyOn(storage.session, 'removeItem');
                 spyOn(Raven, 'captureMessage');
             });
 
             it('picks up error parameters in the query string', () => {
-                spyOn(storage.session, 'removeItem');
-
                 authenticator.initialize();
 
                 expect(Raven.captureMessage).toHaveBeenCalledWith(new Error(
@@ -367,12 +356,13 @@ describe(' The authenticator factory', function () {
                     'than once, or is otherwise malformed.)'));
                 expect(storage.session.removeItem).toHaveBeenCalledWith('stateToken');
                 expect(storage.session.removeItem).toHaveBeenCalledWith('callbackParams');
+                expect(queryStringParser).toHaveBeenCalledWith(queryString);
                 expect($location.replace).toHaveBeenCalled();
+                expect($location.url).toHaveBeenCalledWith('');
                 expect($location.search).toHaveBeenCalledWith({ one: 1 });
             });
 
             it('works without callback', () => {
-                spyOn(storage.session, 'removeItem');
                 callbackParams = '';
 
                 authenticator.initialize();
@@ -383,12 +373,10 @@ describe(' The authenticator factory', function () {
                     'than once, or is otherwise malformed.)'));
                 expect(storage.session.removeItem).toHaveBeenCalledWith('stateToken');
                 expect(storage.session.removeItem).toHaveBeenCalledWith('callbackParams');
-                expect($location.replace).toHaveBeenCalled();
                 expect($location.search).toHaveBeenCalledWith({});
             });
 
             it('does not catch an error when not in query string', () => {
-                spyOn(storage.session, 'removeItem');
                 queryString = '?something=else';
                 queryObject = { something: 'else' };
                 $window.location.search = queryString;
@@ -402,7 +390,6 @@ describe(' The authenticator factory', function () {
             });
 
             it('does not catch an error without query string', () => {
-                spyOn(storage.session, 'removeItem');
                 queryString = '';
                 queryObject = {};
                 $window.location.search = queryString;
@@ -548,11 +535,11 @@ describe(' The authenticator factory', function () {
         });
     });
 
-    it('can logout a user by clearing its tokens', function () {
-        spyOn(user, 'clearToken');
+    it('can logout a user by clearing the access token and reload', function () {
+        spyOn(storage.session, 'removeItem');
 
         authenticator.logout();
-        expect(user.clearToken).toHaveBeenCalled();
+        expect(storage.session.removeItem).toHaveBeenCalledWith('accessToken');
         expect($window.location.reload).toHaveBeenCalledWith(true);
     });
 });

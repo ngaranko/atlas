@@ -7,7 +7,6 @@
         'dpPage',
         'dpDetail',
         'dpSearchResults',
-        'dpLayerSelection',
         'dpMap',
         'dpStraatbeeld',
         'dpDataSelection',

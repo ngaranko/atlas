@@ -8,7 +8,6 @@
     authenticatorFactory.$inject = [
         '$interval',
         'sharedConfig',
-        'user',
         '$window',
         '$location',
         'storage',
@@ -24,7 +23,6 @@
     function authenticatorFactory (
         $interval,
         sharedConfig,
-        user,
         $window,
         $location,
         storage,
@@ -149,7 +147,6 @@
          * Removes the access token from the user and the session storage.
          */
         function logout () {
-            user.clearToken(); // deprecated
             removeAccessToken();
             // Brute fix to reload the application when the user authorization
             // changes
@@ -212,7 +209,6 @@
         function restoreAccessToken () {
             const accessToken = getAccessToken();
             if (accessToken) {
-                user.setAccessToken(accessToken); // deprecated
                 tokenData = accessTokenParser(accessToken);
             }
         }
@@ -221,7 +217,6 @@
          * Finishes the callback from the OAuth2 authorization service.
          */
         function useAccessToken (token) {
-            user.setAccessToken(token); // deprecated
             tokenData = accessTokenParser(token);
             saveAccessToken(token);
             removeStateToken(); // Remove state token from session
