@@ -31,7 +31,7 @@ class Select extends React.Component {
 
   componentWillReceiveProps() {
     if (this.props.options.length > 0) {
-      const selected = this.props.options.find(option => option.value === this.state.value)
+      const selected = this.props.options.find(option => option.value === this.props.value)
         || this.props.options.find(option => option.selected);
 
       if (selected) {

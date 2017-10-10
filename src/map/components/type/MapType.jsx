@@ -13,7 +13,7 @@ const MapType = ({ layers, activeLayer, onBaseLayerToggle }) => (
       className="map-panel__map-type-select map-panel__map-type-select--topography"
       name="topography"
       options={layers.topography}
-      value={hasLayer(activeLayer, layers.topography) ? activeLayer : ''}
+      value={activeLayer}
       disabled={!hasLayer(activeLayer, layers.topography)}
       handleChange={onBaseLayerToggle}
     />
@@ -22,7 +22,7 @@ const MapType = ({ layers, activeLayer, onBaseLayerToggle }) => (
       className="map-panel__map-type-select map-panel__map-type-select--aerial"
       name="aerial"
       options={layers.aerial}
-      value={hasLayer(activeLayer, layers.aerial) ? activeLayer : ''}
+      value={activeLayer}
       disabled={!hasLayer(activeLayer, layers.aerial)}
       handleChange={onBaseLayerToggle}
     />
