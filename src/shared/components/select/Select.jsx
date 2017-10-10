@@ -30,12 +30,12 @@ class Select extends React.Component {
   // @TODO custom icon should be loaded in prop
 
   handleToggle() {
-    this.setState({
-      expanded: !this.state.expanded
-    });
+    this.toggleCollapse();
   }
 
   handleClick(e) {
+    this.toggleCollapse();
+
     console.log('handleClick', this.state.value);
     return this.state.value;
   }
@@ -50,6 +50,10 @@ class Select extends React.Component {
       this.props.handleChange(e, this.state.value);
     }
 
+    this.toggleCollapse();
+  }
+
+  toggleCollapse() {
     this.setState({
       expanded: !this.state.expanded
     });

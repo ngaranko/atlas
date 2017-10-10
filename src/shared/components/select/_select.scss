@@ -92,6 +92,14 @@
     .select__label {
       border-color: #d2d2d2;
       color: #666;
+
+      &:hover {
+        color: white;
+        background-color: #f00;
+        border-color: #f00;
+
+        @include svg-highlight-color(white);
+      }
     }
 
     @include svg-highlight-color(#666);
@@ -143,7 +151,7 @@
   }
 
   .select__drop-down-button {
-    padding: 7px 10px 7px 40px;
+    padding: 7px 10px 7px 42px;
   }
 
   .select__drop-down-button {
