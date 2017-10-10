@@ -41,7 +41,7 @@ class Select extends React.Component {
   }
 
   handleClick(e) {
-    this.toggleCollapse();
+    this.toggleCollapse(false);
 
     console.log('handleClick', this.state.value);
     return this.state.value;
@@ -60,9 +60,9 @@ class Select extends React.Component {
     this.toggleCollapse();
   }
 
-  toggleCollapse() {
+  toggleCollapse(state = !this.state.expanded) {
     this.setState({
-      expanded: !this.state.expanded
+      expanded: state
     });
   }
 
