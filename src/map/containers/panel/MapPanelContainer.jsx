@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import { getBaseLayers } from '../../ducks/layers/base-layers';
 import { setBaseLayer } from '../../ducks/base-layer/base-layer';
 import { getMapLayers, selectActiveMapLayers } from '../../ducks/layers/map-layers';
-import { toggleMapOverlay } from '../../ducks/overlays/overlays';
+import { toggleMapOverlay, toggleMapOverlayVisibility } from '../../ducks/overlays/overlays';
 import MapLayers from '../../components/layers/MapLayers';
 import MapLegend from '../../components/legend/MapLegend';
 import MapType from '../../components/type/MapType';
@@ -16,16 +16,17 @@ const mapStateToProps = state => ({
   activeMapLayers: selectActiveMapLayers(state),
   atlas: state.atlas,
   layerSelection: state.layerSelection,
-  map: state.map,
   baseLayers: state.baseLayers,
   mapLayers: state.mapLayers,
-  mapOverlays: state.map.overlays
+  mapOverlays: state.map.overlays,
+  zoomLevel: state.map.zoom
 });
 
 // TODO: Add method that checks whether layer is active and toggles accordingly
 const mapDispatchToProps = dispatch => bindActionCreators({
   onLayerToggle: toggleMapOverlay,
-  onBaseLayerToggle: setBaseLayer
+  onBaseLayerToggle: setBaseLayer,
+  onLayerVisibilityToggle: toggleMapOverlayVisibility
 }, dispatch);
 
 class MapPanelContainer extends React.Component {
@@ -42,9 +43,14 @@ class MapPanelContainer extends React.Component {
           <h1 className="map-panel__heading-title">Kaartlagen</h1>
         </div>
         <div className="scroll-wrapper">
-          <MapLegend
-            activeMapLayers={this.props.activeMapLayers}
-          />
+          {this.props.activeMapLayers.length > 0 && (
+            <MapLegend
+              activeMapLayers={this.props.activeMapLayers}
+              onLayerToggle={this.props.onLayerToggle}
+              onLayerVisibilityToggle={this.props.onLayerVisibilityToggle}
+              zoomLevel={this.props.zoomLevel}
+            />
+          )}
           <MapType
             layers={this.props.baseLayers}
             onBaseLayerToggle={this.props.onBaseLayerToggle}
@@ -70,7 +76,8 @@ MapPanelContainer.defaultProps = {
   layerSelection: {},
   map: {},
   baseLayers: {},
-  mapLayers: []
+  mapLayers: [],
+  zoomLevel: 0
 };
 
 MapPanelContainer.propTypes = {
@@ -82,7 +89,9 @@ MapPanelContainer.propTypes = {
   mapLayers: PropTypes.array, // eslint-disable-line
   mapOverlays: PropTypes.array, // eslint-disable-line
   onLayerToggle: PropTypes.func, // eslint-disable-line
-  onBaseLayerToggle: PropTypes.func // eslint-disable-line
+  onBaseLayerToggle: PropTypes.func, // eslint-disable-line
+  onLayerVisibilityToggle: PropTypes.func, // eslint-disable-line
+  zoomLevel: PropTypes.number
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapPanelContainer);

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import TickIcon from '../../../../public/images/icon-tick.svg';
 import './_checkbox.scss';
+import TickIcon from '../../../../public/images/icon-tick.svg';
 
 class Checkbox extends React.Component {
   constructor(props) {

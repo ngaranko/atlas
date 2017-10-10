@@ -69,7 +69,8 @@
             };
 
             const mapOverlaysReducer = {
-                TOGGLE_MAP_OVERLAY: MapOverlaysReducer
+                TOGGLE_MAP_OVERLAY: MapOverlaysReducer,
+                TOGGLE_MAP_OVERLAY_VISIBILITY: MapOverlaysReducer
             };
 
             const mapSetBaselayerReducer = {

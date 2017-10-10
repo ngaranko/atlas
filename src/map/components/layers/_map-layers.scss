@@ -49,18 +49,8 @@
   }
 
   &__toggle {
-    align-items: center;
-    background-color: #FFFFFF;
-    border: 1px solid #CCCCCC;
-    border-radius: 50%;
-    content: 'X';
-    display: flex;
-    flex-shrink: 0;
-    font-size: 0;
-    height: 26px;
-    justify-content: center;
+    @extend %__toggle;
     margin-right: 12px;
-    width: 26px;
 
     .map-layers__title--active &--add,
     .map-layers__title--inactive &--remove {
@@ -71,18 +61,13 @@
       border-color: #666666;
     }
 
-    .map-layers__title--:hover & {
+    .map-layers__title:hover & {
       background-color: #EC0000;
       border-color: #EC0000;
 
       svg {
         fill: #FFFFFF;
       }
-    }
-
-    svg {
-      height: 12px;
-      width: 12px;
     }
   }
 }

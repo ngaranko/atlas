@@ -8,6 +8,7 @@
     align-items: center;
     border-top: 1px solid #999999;
     display: flex;
+    justify-content: space-between;
     padding: 10px;
     position: relative;
 
@@ -25,6 +26,15 @@
     .checkbox {
       margin-right: 10px;
     }
+  }
+
+  &__zoom-level-notification {
+    background-color: #004699;
+    color: #FFFFFF;
+    display: block;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
   }
 
   &__items {
@@ -45,8 +55,6 @@
     display: inline-block;
     height: 16px;
     line-height: 16px;
-    margin-left: 10px;
-    overflow: hidden;
     width: 16px;
 
     & + * {
@@ -59,9 +67,25 @@
     }
   }
 
+  &__category-title,
   &__title {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    width: 100%;
+  }
+
+  &__toggle {
+    @extend %__toggle;
+    margin-left: 10px;
+
+    &:hover {
+      background-color: #EC0000;
+      border-color: #EC0000;
+
+      svg {
+        fill: #FFFFFF;
+      }
+    }
   }
 }
