@@ -50,20 +50,19 @@ class Select extends React.Component {
 
     this.toggleCollapse(false);
 
-    console.log('handleClick', this.state.value);
     this.props.handleChange(this.state.value);
   }
 
   handleClickChild(e) {
     e.preventDefault();
 
-    if (e.target.value !== this.state.value) {
+    if (e.currentTarget.value !== this.state.value) {
       this.setState({
-        label: e.target.innerText,
-        value: e.target.value
+        label: e.currentTarget.innerText,
+        value: e.currentTarget.value
       });
 
-      this.props.handleChange(this.state.value);
+      this.props.handleChange(e.currentTarget.value);
     }
 
     this.toggleCollapse();
