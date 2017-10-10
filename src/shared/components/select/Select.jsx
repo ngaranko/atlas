@@ -26,17 +26,20 @@ class Select extends React.Component {
     this.handleClickChild = this.handleClickChild.bind(this);
   }
 
+  // @TODO custom icon should be loaded in prop
+
   componentWillReceiveProps() {
-    if (this.props.options.length > 0) {
+    if (this.props.options.length > 0 && !this.state.label && !this.state.value) {
       const selected = this.props.options.find(option => option.selected);
-      this.setState({
-        label: selected.label,
-        value: selected.value
-      });
+
+      if (selected) {
+        this.setState({
+          label: selected.label,
+          value: selected.value
+        });
+      }
     }
   }
-
-  // @TODO custom icon should be loaded in prop
 
   handleToggle() {
     this.toggleCollapse();

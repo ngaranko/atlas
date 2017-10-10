@@ -9,6 +9,14 @@
                 label: 'Topografie',
                 urlTemplate: 'https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png'
             }, {
+                slug: 'topo_rd_light',
+                label: 'Topografie licht',
+                urlTemplate: 'https://{s}.data.amsterdam.nl/topo_rd_light/{z}/{x}/{y}.png'
+            }, {
+                slug: 'topo_rd_zw',
+                label: 'Topografie grijs',
+                urlTemplate: 'https://{s}.data.amsterdam.nl/topo_rd_zw/{z}/{x}/{y}.png'
+            }, {
                 slug: 'lf2017',
                 label: 'Luchtfoto 2017',
                 urlTemplate: 'https://{s}.data.amsterdam.nl/lufo2017_RD/{z}/{x}/{y}.jpeg'
