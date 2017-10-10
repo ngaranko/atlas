@@ -100,6 +100,6 @@
             Zie <dp-link-to-page item="item9" class-name="c-link--light"></dp-link-to-page>.
         </dp-panel>
 
-        <dp-api-call ng-if="vm.apiData.results.rechten.count" endpoint="{{vm.apiData.results.rechten.href}}" partial="brk/subject-rechten"></dp-api-call>
+        <dp-api-call ng-if="vm.apiData.results.rechten.count" endpoint="{{vm.apiData.results.rechten.href}}" partial="brk/subject-rechten" user="vm.user"></dp-api-call>
     </div>
 </div>
