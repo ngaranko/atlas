@@ -30,8 +30,9 @@ class Select extends React.Component {
   // @TODO custom icon should be loaded in prop
 
   componentWillReceiveProps() {
-    if (this.props.options.length > 0 && !this.state.label && !this.state.value) {
-      const selected = this.props.options.find(option => option.selected);
+    if (this.props.options.length > 0) {
+      const selected = this.props.options.find(option => option.value === this.state.value)
+        || this.props.options.find(option => option.selected);
 
       if (selected) {
         this.setState({
@@ -39,6 +40,10 @@ class Select extends React.Component {
           value: selected.value
         });
       }
+
+      this.setState({
+        disabled: this.props.disabled
+      });
     }
   }
 

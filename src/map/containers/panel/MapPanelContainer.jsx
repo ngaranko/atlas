@@ -17,6 +17,7 @@ const mapStateToProps = state => ({
   atlas: state.atlas,
   layerSelection: state.layerSelection,
   baseLayers: state.baseLayers,
+  baseLayer: state.map.baseLayer,
   mapLayers: state.mapLayers,
   mapOverlays: state.map.overlays,
   zoomLevel: state.map.zoom
@@ -53,6 +54,7 @@ class MapPanelContainer extends React.Component {
           )}
           <MapType
             layers={this.props.baseLayers}
+            activeLayer={this.props.baseLayer}
             onBaseLayerToggle={this.props.onBaseLayerToggle}
           />
           <MapLayers
