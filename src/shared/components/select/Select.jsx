@@ -82,7 +82,7 @@ class Select extends React.Component {
       this.props.handleChange(e.currentTarget.value);
     }
 
-    this.toggleCollapse();
+    this.handleToggle();
   }
 
   toggleCollapse(state = !this.state.expanded) {
