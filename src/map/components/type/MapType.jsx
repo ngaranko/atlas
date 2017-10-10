@@ -17,8 +17,6 @@ const MapType = ({ layers, onBaseLayerToggle }) => (
       className="map-panel__map-type-select map-panel__map-type-select--topography"
       name="topography"
       options={layers.topography}
-      value="topo_rd"
-      label="Topografie"
       handleChange={handleChange}
     />
 
@@ -27,8 +25,6 @@ const MapType = ({ layers, onBaseLayerToggle }) => (
       name="aerial"
       options={layers.aerial}
       disabled={true}
-      value="lf2017"
-      label="Luchtfoto 2017"
       handleChange={handleChange}
     />
   </section>

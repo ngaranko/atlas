@@ -26,7 +26,14 @@ class Select extends React.Component {
     this.handleClickChild = this.handleClickChild.bind(this);
   }
 
-  // @TODO have to fix default selected value and label
+  componentWillReceiveProps() {
+    if (this.props.options.length > 0) {
+      const selected = this.props.options.find(option => option.selected);
+      this.state.value = selected.value;
+      this.state.label = selected.label;
+    }
+  }
+
   // @TODO custom icon should be loaded in prop
 
   handleToggle() {
@@ -60,6 +67,7 @@ class Select extends React.Component {
   }
 
   render() {
+    const { options = [] } = this.props;
     return (
       <section className={`${this.state.className} select ${this.state.expanded ? 'select--expanded' : ''} ${this.state.disabled ? 'select--disabled' : ''}`}>
         <div
@@ -81,15 +89,15 @@ class Select extends React.Component {
 
         <span className="select__icon-wrapper" onClick={this.handleToggle}>
           <span className="select__icon select__icon--expand">
-              <ExpandIcon />
+            <ExpandIcon />
           </span>
           <span className="select__icon select__icon--contract">
-              <ContractIcon />
+            <ContractIcon />
           </span>
         </span>
 
         <ul className="select__drop-down">
-          {this.props.options && this.props.options.length > 0 ? this.props.options.map(option => (
+          {options.map(option => (
             <li
               className={`select__drop-down-item ${option.value === this.state.value ? 'select__drop-down-item--selected' : ''}`}
               key={option.value}
@@ -102,7 +110,7 @@ class Select extends React.Component {
                 {option.label}
               </button>
             </li>
-          )) : ''}
+          ))}
         </ul>
       </section>
     );
