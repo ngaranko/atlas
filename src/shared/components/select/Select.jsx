@@ -21,6 +21,7 @@ class Select extends React.Component {
       options: props.options
     };
 
+    this.handleToggle = this.handleToggle.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleClickChild = this.handleClickChild.bind(this);
   }
@@ -28,10 +29,15 @@ class Select extends React.Component {
   // @TODO have to fix default selected value and label
   // @TODO custom icon should be loaded in prop
 
-  handleClick() {
+  handleToggle() {
     this.setState({
       expanded: !this.state.expanded
     });
+  }
+
+  handleClick(e) {
+    console.log('handleClick', this.state.value);
+    return this.state.value;
   }
 
   handleClickChild(e) {
@@ -67,13 +73,17 @@ class Select extends React.Component {
             name={this.state.name}
             value={this.state.value}
           />
+        </div>
+
+        <span className="select__icon-wrapper" onClick={this.handleToggle}>
           <span className="select__icon select__icon--expand">
-            <ExpandIcon />
+              <ExpandIcon />
           </span>
           <span className="select__icon select__icon--contract">
-            <ContractIcon />
+              <ContractIcon />
           </span>
-        </div>
+        </span>
+
         <ul className="select__drop-down">
           {this.props.options && this.props.options.length > 0 ? this.props.options.map(option => (
             <li

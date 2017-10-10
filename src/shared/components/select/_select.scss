@@ -10,33 +10,48 @@
 .select {
   position: relative;
   margin-bottom: 20px;
+  background-color: white;
 
   .select__wrapper {
-    border: 1px solid #7e7e7e;
+    border-top: 1px solid #7e7e7e;
+    border-left: 1px solid #7e7e7e;
+    border-bottom: 1px solid #7e7e7e;
     align-items: center;
     display: flex;
     justify-content: space-between;
     outline: none;
-    width: 100%;
+    overflow: hidden;
+    width: calc(100% - 32px);
     cursor: pointer;
 
     &:hover {
       color: white;
       background-color: #f00;
+      border-color: #f00;
 
       @include svg-highlight-color(white);
     }
   }
 
-  .select__label {
-    border-right: 1px solid #7e7e7e;
+  .select__icon-wrapper {
+    width: 32px;
+    height: 36px;
+    padding: 6px 3px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    border: 1px solid #7e7e7e;
+
+    &:hover {
+      color: white;
+      background-color: #f00;
+      border-color: #f00;
+
+      @include svg-highlight-color(white);
+    }
   }
 
   .select__icon {
-    right: 0;
-    width: 22px;
-    height: 22px;
-
     svg {
       width: 22px;
       height: 22px;
@@ -64,7 +79,7 @@
       display: inline;
     }
 
-    .select__icon {
+    .select__icon-wrapper {
       background-color: red;
 
       @include svg-highlight-color(white);
@@ -73,12 +88,13 @@
 
   &.select--disabled {
     .select__wrapper,
+    .select__icon-wrapper,
     .select__label {
       border-color: #d2d2d2;
-      color: #ccc;
+      color: #666;
     }
 
-    @include svg-highlight-color(#ccc);
+    @include svg-highlight-color(#666);
   }
 
   .select__custom-icon {
@@ -124,6 +140,10 @@
     width: inherit;
     padding: 7px 10px;
     text-align: left;
+  }
+
+  .select__drop-down-button {
+    padding: 7px 10px 7px 40px;
   }
 
   .select__drop-down-button {
