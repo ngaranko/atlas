@@ -24,6 +24,7 @@ class Select extends React.Component {
     this.handleToggle = this.handleToggle.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleClickChild = this.handleClickChild.bind(this);
+    this.handleOutsideClick = this.handleOutsideClick.bind(this);
   }
 
   // @TODO custom icon should be loaded in prop
@@ -42,7 +43,23 @@ class Select extends React.Component {
   }
 
   handleToggle() {
+    if (!this.state.expanded) {
+      // attach/remove event handler
+      document.addEventListener('click', this.handleOutsideClick, false);
+    } else {
+      document.removeEventListener('click', this.handleOutsideClick, false);
+    }
+
     this.toggleCollapse();
+  }
+
+  handleOutsideClick(e) {
+    // ignore clicks on the component itself
+    if (this.node.contains(e.target)) {
+      return;
+    }
+
+    this.handleToggle();
   }
 
   handleClick(e) {
@@ -77,7 +94,9 @@ class Select extends React.Component {
   render() {
     const { options = [] } = this.props;
     return (
-      <section className={`${this.state.className} select ${this.state.expanded ? 'select--expanded' : ''} ${this.state.disabled ? 'select--disabled' : ''}`}>
+      <section className={`${this.state.className} select ${this.state.expanded ? 'select--expanded' : ''} ${this.state.disabled ? 'select--disabled' : ''}`}
+        ref={node => { this.node = node; }}
+      >
         <div
           className="select__wrapper"
           onClick={this.handleClick}
