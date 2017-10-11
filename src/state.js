@@ -16,7 +16,11 @@ export default function initialize(Redux, reducer, stateUrlConverter, defaultSta
 
   sagaMiddleware.run(rootSaga);
 
-  auth.initAuth();
+  try {
+    auth.initAuth();
+  } catch (error) {
+    window.Raven.captureMessage(error);
+  }
 
   const returnPath = auth.getReturnPath();
   if (returnPath) {

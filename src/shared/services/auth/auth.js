@@ -2,10 +2,6 @@ import queryStringParser from '../query-string-parser/query-string-parser';
 import stateTokenGenerator from '../state-token-generator/state-token-generator';
 import accessTokenParser from '../access-token-parser/access-token-parser';
 
-const Raven = {
-  captureMessage: () => {}
-};
-
 // A map of the error keys, that the OAuth2 authorization service can
 // return, to a full description
 const ERROR_MESSAGES = {
@@ -82,8 +78,6 @@ let tokenData = {};
  * service.
  */
 function handleError(code, description) {
-  Raven.captureMessage(new Error(
-    `Authorization service responded with error ${code} [${description}] (${ERROR_MESSAGES[code]})`));
   sessionStorage.removeItem(STATE_TOKEN);
 
   // Remove parameters from the URL, as set by the error callback from the
@@ -136,7 +130,6 @@ function getAccessTokenFromParams(params) {
   if (paramsValid && !stateTokenValid) {
     // This is a callback, but the state token does not equal the
     // one we have saved; report to Sentry
-    Raven.captureMessage(new Error(`Authenticator encountered an invalid state token (${params.state})`));
     throw new Error(`Authenticator encountered an invalid state token (${params.state})`);
   }
 
