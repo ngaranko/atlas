@@ -53,6 +53,10 @@
     line-height: 16px;
     width: 16px;
 
+    &--not-selectable {
+      margin-left: 34px;
+    }
+
     & + * {
       margin-left: 10px;
     }

@@ -89,7 +89,11 @@ class MapLegend extends React.Component {
                         onChange={() => onLayerVisibilityToggle(legendItem.id)}
                       />
                     )}
-                    <div className="map-legend__image">
+                    <div className={`
+                      map-legend__image
+                      map-legend__image--${legendItem.selectable ? 'selectable' : 'not-selectable'}
+                    `}
+                    >
                       <img
                         alt=""
                         src={MapLegend.constructLegendIconUrl(mapLayer, legendItem)}
