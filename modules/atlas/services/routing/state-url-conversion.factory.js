@@ -63,6 +63,7 @@
                 user: (oldState, newState) => {
                     if (angular.isObject(oldState)) {
                         newState.authenticated = oldState.authenticated;
+                        newState.accessToken = oldState.accessToken;
                         newState.scopes = oldState.scopes;
                         newState.name = oldState.name;
                     }
@@ -149,6 +150,7 @@
                 },
                 user: {
                     authenticated: false,
+                    accessToken: '',
                     scopes: [],
                     name: ''
                 },

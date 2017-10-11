@@ -2,6 +2,7 @@ export const AUTHENTICATE_USER = 'AUTHENTICATE_USER';
 
 const initialState = {
   authenticated: false,
+  accessToken: '',
   scopes: [],
   name: ''
 };
@@ -14,8 +15,9 @@ export default function UserReducer(state = initialState, action) {
         user: {
           ...state.user,
           authenticated: true,
-          scopes: action.scopes,
-          name: action.name
+          accessToken: action.accessToken,
+          name: action.name,
+          scopes: action.scopes
         }
       };
 
@@ -24,6 +26,7 @@ export default function UserReducer(state = initialState, action) {
   }
 };
 
-export const authenticateUser = (name, scopes) => ({ type: AUTHENTICATE_USER, name, scopes });
+export const authenticateUser = (accessToken, name, scopes) =>
+  ({ type: AUTHENTICATE_USER, accessToken, name, scopes });
 
 window.UserReducer = UserReducer;
