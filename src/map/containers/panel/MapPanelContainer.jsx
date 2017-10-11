@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { getMapLayers, selectActiveMapLayers } from '../../ducks/layers/map-layers';
-import { toggleMapOverlay, toggleMapOverlayVisibility } from '../../ducks/overlays/overlays';
+import { toggleMapOverlay, toggleMapOverlays, toggleMapOverlayVisibility } from '../../ducks/overlays/overlays';
 import MapLayers from '../../components/layers/MapLayers';
 import MapLegend from '../../components/legend/MapLegend';
 import MapType from '../../components/type/MapType';
@@ -15,13 +15,14 @@ const mapStateToProps = state => ({
   atlas: state.atlas,
   layerSelection: state.layerSelection,
   mapLayers: state.mapLayers,
-  mapOverlays: state.map.overlays,
+  overlays: state.map.overlays,
   zoomLevel: state.map.zoom
 });
 
 // TODO: Add method that checks whether layer is active and toggles accordingly
 const mapDispatchToProps = dispatch => bindActionCreators({
   onLayerToggle: toggleMapOverlay,
+  onLayersToggle: toggleMapOverlays,
   onLayerVisibilityToggle: toggleMapOverlayVisibility
 }, dispatch);
 
@@ -43,14 +44,16 @@ class MapPanelContainer extends React.Component {
               activeMapLayers={this.props.activeMapLayers}
               onLayerToggle={this.props.onLayerToggle}
               onLayerVisibilityToggle={this.props.onLayerVisibilityToggle}
+              overlays={this.props.overlays}
               zoomLevel={this.props.zoomLevel}
             />
           )}
           <MapType />
           <MapLayers
+            activeMapLayers={this.props.activeMapLayers}
             layers={this.props.mapLayers}
             onLayerToggle={this.props.onLayerToggle}
-            overlays={this.props.mapOverlays}
+            onLayersToggle={this.props.onLayersToggle}
           />
         </div>
       </section>
@@ -77,9 +80,10 @@ MapPanelContainer.propTypes = {
   layerSelection: PropTypes.object, // eslint-disable-line
   map: PropTypes.object, // eslint-disable-line
   mapLayers: PropTypes.array, // eslint-disable-line
-  mapOverlays: PropTypes.array, // eslint-disable-line
   onLayerToggle: PropTypes.func, // eslint-disable-line
+  onLayersToggle: PropTypes.func, // eslint-disable-line
   onLayerVisibilityToggle: PropTypes.func, // eslint-disable-line
+  overlays: PropTypes.array, // eslint-disable-line
   zoomLevel: PropTypes.number
 };
 

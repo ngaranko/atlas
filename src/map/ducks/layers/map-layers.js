@@ -26,11 +26,21 @@ export default function MapLayersReducer(state = initialState, action) {
 
 export const getMapLayers = () => ({ type: FETCH_MAP_LAYERS_REQUEST });
 
-export const selectActiveMapLayers = state => (
-  state.mapLayers
-    .filter(mapLayer => state.map.overlays
+export const selectActiveMapLayers = (state) => { // eslint-disable-line
+  return state.mapLayers.filter((mapLayer) => { // eslint-disable-line
+    return [
+      mapLayer.id,
+      ...mapLayer.legendItems.map(legendItem => legendItem.id)
+    ]
+    .reduce((prev, curr) => ([
+      ...prev,
+      curr
+    ]), [])
+    .filter(mapLayerId => !!mapLayerId)
+    .some(mapLayerId => state.map.overlays
       .map(overlay => overlay.id)
-      .includes(mapLayer.id))
-);
+      .includes(mapLayerId));
+  });
+};
 
 window.MapLayersReducer = MapLayersReducer;

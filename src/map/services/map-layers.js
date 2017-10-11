@@ -30,10 +30,6 @@ export default [
       },
       {
         selectable: false,
-        title: 'Onbekend'
-      },
-      {
-        selectable: false,
         title: '(Locatie geschat)'
       }
     ],
@@ -65,10 +61,6 @@ export default [
       },
       {
         selectable: false,
-        title: 'Onbekend'
-      },
-      {
-        selectable: false,
         title: '(Locatie geschat)'
       }
     ],
@@ -97,10 +89,6 @@ export default [
       {
         selectable: false,
         title: 'Verhuur van roerende goederen'
-      },
-      {
-        selectable: false,
-        title: 'Onbekend'
       },
       {
         selectable: false,
@@ -147,10 +135,6 @@ export default [
       },
       {
         selectable: false,
-        title: 'Onbekend'
-      },
-      {
-        selectable: false,
         title: '(Locatie geschat)'
       }
     ],
@@ -194,10 +178,6 @@ export default [
       },
       {
         selectable: false,
-        title: 'Onbekend'
-      },
-      {
-        selectable: false,
         title: '(Locatie geschat)'
       }
     ],
@@ -226,10 +206,6 @@ export default [
       {
         selectable: false,
         title: 'Uitgeverijen'
-      },
-      {
-        selectable: false,
-        title: 'Onbekend'
       },
       {
         selectable: false,
@@ -272,10 +248,6 @@ export default [
       },
       {
         selectable: false,
-        title: 'Onbekend'
-      },
-      {
-        selectable: false,
         title: '(Locatie geschat)'
       }
     ],
@@ -300,10 +272,6 @@ export default [
       {
         selectable: false,
         title: 'Overheid'
-      },
-      {
-        selectable: false,
-        title: 'Onbekend'
       },
       {
         selectable: false,
@@ -342,10 +310,6 @@ export default [
       },
       {
         selectable: false,
-        title: 'Onbekend'
-      },
-      {
-        selectable: false,
         title: '(Locatie geschat)'
       }
     ],
@@ -370,10 +334,6 @@ export default [
       {
         selectable: false,
         title: 'Reparatie (geen bouw)'
-      },
-      {
-        selectable: false,
-        title: 'Onbekend'
       },
       {
         selectable: false,
@@ -436,10 +396,6 @@ export default [
       },
       {
         selectable: false,
-        title: 'Onbekend'
-      },
-      {
-        selectable: false,
         title: '(Locatie geschat)'
       }
     ],
@@ -471,10 +427,6 @@ export default [
       },
       {
         selectable: false,
-        title: 'Onbekend'
-      },
-      {
-        selectable: false,
         title: '(Locatie geschat)'
       }
     ],
@@ -485,36 +437,36 @@ export default [
   },
   {
     category: 'Geografie: onroerende zaken',
-    id: 'kpg',
     legendItems: [
       {
         id: 'bgem',
-        imageUrl: 'https://acc.map.data.amsterdam.nl/maps/brk?version=1.3.0&service=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=burgerlijke_gemeente&format=image/svg%2Bxml&STYLE=default&rule=Burgerlijke%20gemeente',
+        layer: 'burgerlijke_gemeente',
         selectable: true,
-        title: 'Burgerlijke gemeenten'
+        title: 'Burgerlijke gemeente'
       },
       {
         id: 'kgem',
-        imageUrl: 'https://acc.map.data.amsterdam.nl/maps/brk?version=1.3.0&service=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=kadastrale_gemeente&format=image/svg%2Bxml&STYLE=default&rule=Kadastrale%20gemeente',
+        layer: 'kadastrale_gemeente',
         selectable: true,
-        title: 'Kadastrale gemeenten'
+        title: 'Kadastrale gemeente'
       },
       {
         id: 'ksec',
-        imageUrl: '',
+        layer: 'kadastrale_sectie',
         selectable: true,
-        title: 'Kadastrale secties'
+        title: 'Kadastrale sectie'
       },
       {
         id: 'kot',
-        imageUrl: '',
+        layer: 'kadastraal_object',
         selectable: true,
-        title: 'Kadastrale objecten'
+        title: 'Kadastraal object'
       }
     ],
     maxZoom: 15,
     minZoom: 10,
-    title: 'Kadastrale perceelsgrenzen'
+    title: 'Kadastrale perceelsgrenzen',
+    url: '/maps/brk?version=1.3.0&service=WMS'
   },
   {
     category: 'Geografie: onroerende zaken',
