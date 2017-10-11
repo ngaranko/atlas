@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import MapLegend from '../legend';
 import AddIcon from '../../../../public/images/icon-plus.svg';
 import RemoveIcon from '../../../../public/images/icon-cross.svg';
 
-const MapLayers = ({ activeMapLayers, layers, onLayerToggle, onLayersToggle }) => (
+const MapLayers = ({ activeMapLayers, layers, onLayerToggle }) => (
   <ul className="map-layers">
     {[...new Set(layers.map(layer => layer.category))].map(category => (
       <li className="map-layers__category" key={category}>
@@ -18,11 +19,10 @@ const MapLayers = ({ activeMapLayers, layers, onLayerToggle, onLayersToggle }) =
               `}
               key={layer.title}
             >
-              <button onClick={() => (
-                layer.id ?
-                  onLayerToggle(layer.id) :
-                  onLayersToggle(layer.legendItems.map(legendItem => legendItem.id))
-              )}
+              <button onClick={() => {
+                MapLegend.mapLayersLegendItemsToIds(layer).forEach(mapLayerId =>
+                  onLayerToggle(mapLayerId));
+              }}
               >
                 <span>
                   {layer.title}
@@ -45,8 +45,7 @@ const MapLayers = ({ activeMapLayers, layers, onLayerToggle, onLayersToggle }) =
 MapLayers.propTypes = {
   activeMapLayers: PropTypes.array, // eslint-disable-line
   layers: PropTypes.array, // eslint-disable-line
-  onLayerToggle: PropTypes.func.isRequired,
-  onLayersToggle: PropTypes.func.isRequired
+  onLayerToggle: PropTypes.func.isRequired
 };
 
 export default MapLayers;

@@ -16,7 +16,7 @@ class Checkbox extends React.Component {
     super(props);
 
     this.state = {
-      checked: this.evaluateChecked(this.props.checked)
+      checked: Checkbox.evaluateChecked(this.props.checked)
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -24,7 +24,7 @@ class Checkbox extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      checked: this.evaluateChecked(nextProps.checked)
+      checked: Checkbox.evaluateChecked(nextProps.checked)
     });
   }
 
