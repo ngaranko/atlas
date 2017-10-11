@@ -57,7 +57,8 @@
             };
 
             const userReducer = {
-                AUTHENTICATE_USER: UserReducer
+                AUTHENTICATE_USER: UserReducer,
+                AUTHENTICATE_ERROR: UserReducer
             };
 
             const mapLayersReducer = {

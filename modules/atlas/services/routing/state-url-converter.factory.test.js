@@ -31,7 +31,8 @@ describe('The state url conversion factory', function () {
                     authenticated: false,
                     accessToken: '',
                     scopes: [],
-                    name: ''
+                    name: '',
+                    error: false
                 },
                 mapLayers: [],
                 filters: {},

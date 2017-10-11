@@ -192,7 +192,6 @@ export function login() {
   const encodedStateToken = encodeURIComponent(stateToken);
 
   if (!stateToken) {
-    httpStatus.registerError(httpStatus.LOGIN_ERROR);
     throw new Error('crypto library is not available on the current browser');
   }
 

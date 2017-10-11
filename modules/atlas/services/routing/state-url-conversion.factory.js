@@ -66,6 +66,7 @@
                         newState.accessToken = oldState.accessToken;
                         newState.scopes = oldState.scopes;
                         newState.name = oldState.name;
+                        newState.error = oldState.error;
                     }
                     return newState;
                 },
@@ -152,7 +153,8 @@
                     authenticated: false,
                     accessToken: '',
                     scopes: [],
-                    name: ''
+                    name: '',
+                    error: false
                 },
                 dataSelection: {
                     markers: [], // eg: [[52.1, 4.1], [52.2, 4.0]],
