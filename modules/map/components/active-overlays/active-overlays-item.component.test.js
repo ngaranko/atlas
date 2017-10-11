@@ -2,6 +2,8 @@ describe('The dp-active-overlays-item component', function () {
     var $compile,
         $rootScope,
         $q,
+        $window,
+        origAuth,
         api,
         activeOverlays;
 
@@ -45,15 +47,25 @@ describe('The dp-active-overlays-item component', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _$q_, _api_, _activeOverlays_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _$q_, _api_, _activeOverlays_, _$window_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             $q = _$q_;
             api = _api_;
             activeOverlays = _activeOverlays_;
+            $window = _$window_;
         });
 
+        origAuth = $window.auth;
+        $window.auth = {
+            getAccessToken: angular.noop
+        };
+
         spyOn(activeOverlays, 'isVisibleAtCurrentZoom').and.returnValue(true);
+    });
+
+    afterEach(() => {
+        $window.auth = origAuth;
     });
 
     function getComponent (overlay, isVisible, zoom) {

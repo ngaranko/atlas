@@ -3,6 +3,7 @@ describe('The google sheet factory', function () {
     let $rootScope,
         $window,
         $httpBackend,
+        origAuth,
         googleSheet,
         feed;
 
@@ -80,6 +81,11 @@ describe('The google sheet factory', function () {
             googleSheet = _googleSheet_;
         });
 
+        origAuth = $window.auth;
+        $window.auth = {
+            getAccessToken: angular.noop
+        };
+
         angular.extend(config, {
             getStatic: {
                 PRODUCTION: true,
@@ -91,6 +97,10 @@ describe('The google sheet factory', function () {
                 type: 99
             }
         });
+    });
+
+    afterEach(() => {
+        $window.auth = origAuth;
     });
 
     describe('The static variant', function () {

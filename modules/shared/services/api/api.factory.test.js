@@ -4,6 +4,8 @@ describe('The api factory', function () {
         $httpBackend,
         $cacheFactory,
         $q,
+        $window,
+        origAuth,
         api,
         mockedApiData,
         isLoggedIn,
@@ -13,9 +15,6 @@ describe('The api factory', function () {
         angular.mock.module(
             'dpShared',
             {
-                authenticator: {
-                    getAccessToken: () => isLoggedIn ? 'MY_FAKE_ACCESS_TOKEN' : null
-                },
                 sharedConfig: {
                     API_ROOT: 'https://www.i-am-the-api-root.com/path/',
                     AUTH_HEADER_PREFIX: 'Bearer '
@@ -23,14 +22,20 @@ describe('The api factory', function () {
             }
         );
 
-        angular.mock.inject(function (_$rootScope_, _$http_, _$httpBackend_, _$cacheFactory_, _$q_, _api_) {
+        angular.mock.inject(function (_$rootScope_, _$http_, _$httpBackend_, _$cacheFactory_, _$q_, _$window_, _api_) {
             $rootScope = _$rootScope_;
             $http = _$http_;
             $httpBackend = _$httpBackend_;
             $cacheFactory = _$cacheFactory_;
             $q = _$q_;
+            $window = _$window_;
             api = _api_;
         });
+
+        origAuth = $window.auth;
+        $window.auth = {
+            getAccessToken: () => isLoggedIn ? 'MY_FAKE_ACCESS_TOKEN' : null
+        };
 
         mockedApiData = {
             id: 1,
@@ -45,6 +50,10 @@ describe('The api factory', function () {
             // Clearing the cache whenever authorization level is lowered
             $cacheFactory.get('$http').removeAll();
         };
+    });
+
+    afterEach(() => {
+        $window.auth = origAuth;
     });
 
     afterEach(function () {
@@ -70,7 +79,7 @@ describe('The api factory', function () {
 
         api.getByUrl('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/', undefined, cancel)
             .then(function () {
-                fail();   // Should never be resolved
+                fail(); // Should never be resolved
             });
 
         cancel.resolve();

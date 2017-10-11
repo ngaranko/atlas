@@ -15,12 +15,12 @@
             controllerAs: 'vm'
         });
 
-    DpMenuController.$inject = ['$scope', 'authenticator'];
+    DpMenuController.$inject = ['$scope', '$window'];
 
-    function DpMenuController ($scope, authenticator) {
+    function DpMenuController ($scope, $window) {
         const vm = this;
 
-        vm.login = authenticator.login;
+        vm.login = $window.auth.login;
 
         $scope.$watch('vm.user.name', setUserMenuLabel);
 

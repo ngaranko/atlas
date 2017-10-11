@@ -1,6 +1,8 @@
 describe('The layers factory', () => {
     let $rootScope,
         $q,
+        $window,
+        origAuth,
         api,
         L,
         layers,
@@ -56,13 +58,19 @@ describe('The layers factory', () => {
             }
         );
 
-        angular.mock.inject(function (_$rootScope_, _$q_, _api_, _L_, _layers_) {
+        angular.mock.inject(function (_$rootScope_, _$q_, _api_, _L_, _layers_, _$window_) {
             $rootScope = _$rootScope_;
             $q = _$q_;
             api = _api_;
             L = _L_;
             layers = _layers_;
+            $window = _$window_;
         });
+
+        origAuth = $window.auth;
+        $window.auth = {
+            getAccessToken: angular.noop
+        };
 
         mockedLeafletMap = {
             _leaflet_id: 1,
@@ -74,6 +82,10 @@ describe('The layers factory', () => {
         spyOn(mockedLeafletMap, 'hasLayer');
         spyOn(mockedLeafletMap, 'addLayer');
         spyOn(mockedLeafletMap, 'removeLayer');
+    });
+
+    afterEach(() => {
+        $window.auth = origAuth;
     });
 
     describe('baseLayer', () => {

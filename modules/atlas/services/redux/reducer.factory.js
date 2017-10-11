@@ -89,13 +89,15 @@
                 environment
             );
 
-            if (detailReducers.hasOwnProperty(action.type.id) ||
-                userReducer.hasOwnProperty(action.type.id)
-            ) {
+            if (detailReducers.hasOwnProperty(action.type.id)) {
                 action.payload = {
-                    ...action,
+                    payload: action.payload,
                     type: action.type.id
                 };
+            }
+
+            if (userReducer.hasOwnProperty(action.type)) {
+                return UserReducer(oldState, action);
             }
 
             if (mapLayersReducer.hasOwnProperty(action.type)) {

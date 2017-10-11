@@ -5,9 +5,9 @@
         .module('dpShared')
         .factory('api', apiFactory);
 
-    apiFactory.$inject = ['$interval', '$q', '$http', 'authenticator', 'sharedConfig'];
+    apiFactory.$inject = ['$interval', '$q', '$http', '$window', 'sharedConfig'];
 
-    function apiFactory ($interval, $q, $http, authenticator, sharedConfig) {
+    function apiFactory ($interval, $q, $http, $window, sharedConfig) {
         return {
             getByUrl,
             getByUri,
@@ -59,7 +59,7 @@
          * string.
          */
         function createUrlWithToken (url, params) {
-            const token = authenticator.getAccessToken();
+            const token = $window.auth.getAccessToken();
 
             params = params || {};
             if (token) {
@@ -81,7 +81,7 @@
          * @returns {Promise}
          */
         function getByUrl (url, params, cancel) {
-            const token = authenticator.getAccessToken();
+            const token = $window.auth.getAccessToken();
             return $q.resolve(getWithToken(url, params, cancel, token));
         }
 
