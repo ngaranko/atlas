@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import MapLegend from '../legend';
+import MapLegend from '../legend/MapLegend';
 import AddIcon from '../../../../public/images/icon-plus.svg';
 import RemoveIcon from '../../../../public/images/icon-cross.svg';
 

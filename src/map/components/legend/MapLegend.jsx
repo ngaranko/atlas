@@ -36,13 +36,13 @@ class MapLegend extends React.Component {
     return this.props.overlays.some(overlay => overlay.id === legendItem.id && overlay.isVisible);
   }
 
-  toggleLayer() {
-    MapLegend.mapLayersLegendItemsToIds.forEach(mapLayerId =>
+  toggleLayer(mapLayer) {
+    MapLegend.mapLayersLegendItemsToIds(mapLayer).forEach(mapLayerId =>
       this.props.onLayerToggle(mapLayerId));
   }
 
-  toggleLayerVisibility() {
-    MapLegend.mapLayersLegendItemsToIds.forEach(mapLayerId =>
+  toggleLayerVisibility(mapLayer) {
+    MapLegend.mapLayersLegendItemsToIds(mapLayer).forEach(mapLayerId =>
       this.props.onLayerVisibilityToggle(mapLayerId));
   }
 
