@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import ExpandIcon from '../../../../public/images/icon-arrow-down.svg';
 import ContractIcon from '../../../../public/images/icon-arrow-up.svg';
 
-import CustomIcon from '../../../../public/images/icon-topography.svg';
-
 import './_select.scss';
 
 class Select extends React.Component {
@@ -18,6 +16,7 @@ class Select extends React.Component {
       className: props.className,
       expanded: props.expanded,
       disabled: props.disabled,
+      icon: props.icon,
       options: props.options,
       isLoading: true
     };
@@ -114,7 +113,7 @@ class Select extends React.Component {
           onClick={this.handleClick}
         >
           <span className="select__custom-icon">
-            <CustomIcon />
+            <this.props.icon />
           </span>
           <div className="select__label">
             {this.state.label}
@@ -170,6 +169,7 @@ Select.propTypes = {
   label: PropTypes.string,
   value: PropTypes.string,
   className: PropTypes.string,
+  icon: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   expanded: PropTypes.bool,
   disabled: PropTypes.bool,
