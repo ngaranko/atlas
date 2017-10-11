@@ -18,7 +18,8 @@ class Select extends React.Component {
       className: props.className,
       expanded: props.expanded,
       disabled: props.disabled,
-      options: props.options
+      options: props.options,
+      isLoading: true
     };
 
     this.handleToggle = this.handleToggle.bind(this);
@@ -29,10 +30,14 @@ class Select extends React.Component {
 
   // @TODO custom icon should be loaded in prop
 
-  componentWillReceiveProps() {
-    if (this.props.options.length > 0) {
-      const selected = this.props.options.find(option => option.value === this.props.value)
-        || this.props.options.find(option => option.selected);
+  componentWillReceiveProps(props) {
+    this.setState({
+      disabled: props.disabled
+    });
+
+    if ((this.state.isLoading || !this.state.isLoading && !props.disabled) && props.options.length > 0) {
+      const selected = props.options.find(option => option.value === props.value)
+        || props.options.find(option => option.selected);
 
       if (selected) {
         this.setState({
@@ -41,9 +46,11 @@ class Select extends React.Component {
         });
       }
 
-      this.setState({
-        disabled: this.props.disabled
-      });
+      if (this.state.isLoading) {
+        this.setState({
+          isLoading: false
+        });
+      }
     }
   }
 
@@ -100,7 +107,7 @@ class Select extends React.Component {
     const { options = [] } = this.props;
     return (
       <section className={`${this.state.className} select ${this.state.expanded ? 'select--expanded' : ''} ${this.state.disabled ? 'select--disabled' : ''}`}
-        ref={node => { this.node = node; }}
+        ref={(node) => { this.node = node; }}
       >
         <div
           className="select__wrapper"
