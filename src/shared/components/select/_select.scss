@@ -9,7 +9,7 @@
 
 .select {
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   background-color: white;
 
   .select__wrapper {
@@ -106,7 +106,7 @@
   }
 
   .select__custom-icon {
-    margin-left: 10px;
+    margin-left: 7px;
     width: 20px;
     height: 20px;
 
@@ -146,12 +146,13 @@
   .select__label,
   .select__drop-down-button {
     width: inherit;
-    padding: 7px 10px;
+    padding: 7px 10px 7px 0;
+    font-family: "Avenir LT W01 85 Heavy";
     text-align: left;
   }
 
   .select__drop-down-button {
-    padding: 7px 10px 7px 42px;
+    padding: 7px 10px 7px 33px;
   }
 
   .select__drop-down-button {

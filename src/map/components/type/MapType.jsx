@@ -12,6 +12,8 @@ function hasLayer(activeLayer, layers) {
 
 const MapType = ({ layers, activeLayer, onBaseLayerToggle }) => (
   <section className="map-panel__map-type">
+    <div className="map-panel__map-type-title">Achtergrond</div>
+
     <Select
       className="map-panel__map-type-select map-panel__map-type-select--topography"
       name="topography"

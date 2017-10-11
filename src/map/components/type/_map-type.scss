@@ -1,16 +1,22 @@
 .map-panel__map-type {
-  padding: 0 10px;
+  padding: 10px 10px 20px 10px;
+
+  .map-panel__map-type-title {
+    font-family: "Avenir LT W01 85 Heavy";
+    margin: 8px 0 8px;
+  }
 
   .map-panel__map-type-select {
     display: inline-block;
+    margin-bottom: 10px;
   }
 
   .map-panel__map-type-select--topography {
     width: 200px;
-    margin-right: 30px;
+    margin-right: 10px;
   }
 
   .map-panel__map-type-select--aerial {
-    width: 200px;
+    width: 190px;
   }
 }
