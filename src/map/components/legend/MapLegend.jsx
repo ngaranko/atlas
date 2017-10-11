@@ -18,6 +18,13 @@ class MapLegend extends React.Component {
     ].join('');
   }
 
+  static mapLayersLegendItemsToIds(mapLayer) {
+    return [
+      mapLayer.id,
+      ...mapLayer.legendItems.map(legendItem => legendItem.id)
+    ].filter(mapLayerId => !!mapLayerId);
+  }
+
   determineLayerVisibility(mapLayer) {
     return this.props.overlays.some(overlay => [
       { id: mapLayer.id },
@@ -29,24 +36,14 @@ class MapLegend extends React.Component {
     return this.props.overlays.some(overlay => overlay.id === legendItem.id && overlay.isVisible);
   }
 
-  toggleLayer(mapLayer) {
-    const layers = [
-      mapLayer.id,
-      ...mapLayer.legendItems.map(legendItem => legendItem.id)
-    ];
-    layers
-      .filter(mapLayerId => !!mapLayerId)
-      .forEach(mapLayerId => this.props.onLayerToggle(mapLayerId));
+  toggleLayer() {
+    MapLegend.mapLayersLegendItemsToIds.forEach(mapLayerId =>
+      this.props.onLayerToggle(mapLayerId));
   }
 
-  toggleLayerVisibility(mapLayer) {
-    const layers = [
-      mapLayer.id,
-      ...mapLayer.legendItems.map(legendItem => legendItem.id)
-    ];
-    layers
-      .filter(mapLayerId => !!mapLayerId)
-      .forEach(mapLayerId => this.props.onLayerVisibilityToggle(mapLayerId));
+  toggleLayerVisibility() {
+    MapLegend.mapLayersLegendItemsToIds.forEach(mapLayerId =>
+      this.props.onLayerVisibilityToggle(mapLayerId));
   }
 
   render() {
