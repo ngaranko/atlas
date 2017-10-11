@@ -90,7 +90,7 @@ class MapLegend extends React.Component {
                     <div className="map-legend__image">
                       <img
                         alt=""
-                        src={this.constructLegendIconUrl(mapLayer, legendItem)}
+                        src={MapLegend.constructLegendIconUrl(mapLayer, legendItem)}
                       />
                     </div>
                     <span className="map-legend__title">{legendItem.title}</span>
