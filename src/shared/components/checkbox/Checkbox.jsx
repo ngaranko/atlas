@@ -9,7 +9,7 @@ class Checkbox extends React.Component {
     super(props);
 
     this.state = {
-      checked: !!props.checked
+      checked: !!props.checked && props.checked()
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -17,7 +17,7 @@ class Checkbox extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      checked: !!nextProps.checked
+      checked: !!nextProps.checked && nextProps.checked()
     });
   }
 
@@ -49,7 +49,7 @@ Checkbox.defaultProps = {
 };
 
 Checkbox.propTypes = {
-  checked: PropTypes.bool,
+  checked: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func
 };
