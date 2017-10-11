@@ -4,18 +4,40 @@ import PropTypes from 'prop-types';
 import { Checkbox } from '../../../shared/components/checkbox';
 import RemoveIcon from '../../../../public/images/icon-cross.svg';
 
-const MapLegend = ({ activeMapLayers, onLayerToggle, onLayerVisibilityToggle, zoomLevel }) => (
+const MapLegend = ({ activeMapLayers, onLayerToggle, onLayerVisibilityToggle, overlays, zoomLevel }) => (
   <ul className="map-legend">
     {activeMapLayers.map(mapLayer => (
-      <li key={mapLayer.id}>
+      <li key={mapLayer.title}>
         <div className="map-legend__category">
           <Checkbox
-            checked="true"
-            name={mapLayer.id}
-            onChange={() => onLayerVisibilityToggle(mapLayer.id)}
+            checked={
+              overlays.some(overlay => [
+                { id: mapLayer.id },
+                ...mapLayer.legendItems
+              ].some(legendItem => overlay.id === legendItem.id && overlay.isVisible))
+            }
+            name={mapLayer.title}
+            onChange={() => {
+              const layers = [
+                mapLayer.id,
+                ...mapLayer.legendItems.map(legendItem => legendItem.id)
+              ];
+              layers
+                .filter(mapLayerId => !!mapLayerId)
+                .forEach(mapLayerId => onLayerVisibilityToggle(mapLayerId));
+            }}
           />
           <span className="map-legend__category-title">{mapLayer.title}</span>
-          <button onClick={() => onLayerToggle(mapLayer.id)}>
+          <button onClick={() => {
+            const layers = [
+              mapLayer.id,
+              ...mapLayer.legendItems.map(legendItem => legendItem.id)
+            ];
+            layers
+              .filter(mapLayerId => !!mapLayerId)
+              .forEach(mapLayerId => onLayerToggle(mapLayerId));
+          }}
+          >
             <span className="map-legend__toggle map-legend__toggle--remove">
               <RemoveIcon />
             </span>
@@ -36,8 +58,10 @@ const MapLegend = ({ activeMapLayers, onLayerToggle, onLayerVisibilityToggle, zo
               >
                 {legendItem.selectable && (
                   <Checkbox
-                    checked="true"
+                    checked={overlays.some(overlay => overlay.id === legendItem.id &&
+                      overlay.isVisible)}
                     name={legendItem.title}
+                    onChange={() => onLayerVisibilityToggle(legendItem.id)}
                   />
                 )}
                 <div className="map-legend__image">
@@ -66,7 +90,9 @@ const MapLegend = ({ activeMapLayers, onLayerToggle, onLayerVisibilityToggle, zo
 MapLegend.propTypes = {
   activeMapLayers: PropTypes.array, // eslint-disable-line
   onLayerToggle: PropTypes.func, // eslint-disable-line
+  onLayersToggle: PropTypes.func, // eslint-disable-line
   onLayerVisibilityToggle: PropTypes.func, // eslint-disable-line
+  overlays: PropTypes.array, // eslint-disable-line
   zoomLevel: PropTypes.number.isRequired
 };
 

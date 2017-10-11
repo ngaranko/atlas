@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import { getBaseLayers } from '../../ducks/layers/base-layers';
 import { setBaseLayer } from '../../ducks/base-layer/base-layer';
 import { getMapLayers, selectActiveMapLayers } from '../../ducks/layers/map-layers';
-import { toggleMapOverlay, toggleMapOverlayVisibility } from '../../ducks/overlays/overlays';
+import { toggleMapOverlay, toggleMapOverlays, toggleMapOverlayVisibility } from '../../ducks/overlays/overlays';
 import MapLayers from '../../components/layers/MapLayers';
 import MapLegend from '../../components/legend/MapLegend';
 import MapType from '../../components/type/MapType';
@@ -19,7 +19,7 @@ const mapStateToProps = state => ({
   baseLayers: state.baseLayers,
   baseLayer: state.map.baseLayer,
   mapLayers: state.mapLayers,
-  mapOverlays: state.map.overlays,
+  overlays: state.map.overlays,
   zoomLevel: state.map.zoom
 });
 
@@ -27,6 +27,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => bindActionCreators({
   onLayerToggle: toggleMapOverlay,
   onBaseLayerToggle: setBaseLayer,
+  onLayersToggle: toggleMapOverlays,
   onLayerVisibilityToggle: toggleMapOverlayVisibility
 }, dispatch);
 
@@ -49,6 +50,7 @@ class MapPanelContainer extends React.Component {
               activeMapLayers={this.props.activeMapLayers}
               onLayerToggle={this.props.onLayerToggle}
               onLayerVisibilityToggle={this.props.onLayerVisibilityToggle}
+              overlays={this.props.overlays}
               zoomLevel={this.props.zoomLevel}
             />
           )}
@@ -58,9 +60,10 @@ class MapPanelContainer extends React.Component {
             onBaseLayerToggle={this.props.onBaseLayerToggle}
           />
           <MapLayers
+            activeMapLayers={this.props.activeMapLayers}
             layers={this.props.mapLayers}
             onLayerToggle={this.props.onLayerToggle}
-            overlays={this.props.mapOverlays}
+            onLayersToggle={this.props.onLayersToggle}
           />
         </div>
       </section>
@@ -89,10 +92,11 @@ MapPanelContainer.propTypes = {
   map: PropTypes.object, // eslint-disable-line
   baseLayers: PropTypes.object, // eslint-disable-line
   mapLayers: PropTypes.array, // eslint-disable-line
-  mapOverlays: PropTypes.array, // eslint-disable-line
   onLayerToggle: PropTypes.func, // eslint-disable-line
   onBaseLayerToggle: PropTypes.func, // eslint-disable-line
+  onLayersToggle: PropTypes.func, // eslint-disable-line
   onLayerVisibilityToggle: PropTypes.func, // eslint-disable-line
+  overlays: PropTypes.array, // eslint-disable-line
   zoomLevel: PropTypes.number
 };
 

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import AddIcon from '../../../../public/images/icon-plus.svg';
 import RemoveIcon from '../../../../public/images/icon-cross.svg';
 
-const MapLayers = ({ layers, onLayerToggle, overlays }) => (
+const MapLayers = ({ activeMapLayers, layers, onLayerToggle, onLayersToggle }) => (
   <ul className="map-layers">
     {[...new Set(layers.map(layer => layer.category))].map(category => (
       <li className="map-layers__category" key={category}>
@@ -14,11 +14,16 @@ const MapLayers = ({ layers, onLayerToggle, overlays }) => (
             <li
               className={`
                 map-layers__title
-                map-layers__title--${overlays.some(overlay => layer.id === overlay.id) ? 'active' : 'inactive'}
+                map-layers__title--${activeMapLayers.some(mapLayer => layer.title === mapLayer.title) ? 'active' : 'inactive'}
               `}
               key={layer.title}
             >
-              <button onClick={() => onLayerToggle(layer.id)}>
+              <button onClick={() => (
+                layer.id ?
+                  onLayerToggle(layer.id) :
+                  onLayersToggle(layer.legendItems.map(legendItem => legendItem.id))
+              )}
+              >
                 <span>
                   {layer.title}
                 </span>
@@ -38,9 +43,10 @@ const MapLayers = ({ layers, onLayerToggle, overlays }) => (
 );
 
 MapLayers.propTypes = {
+  activeMapLayers: PropTypes.array, // eslint-disable-line
   layers: PropTypes.array, // eslint-disable-line
   onLayerToggle: PropTypes.func.isRequired,
-  overlays: PropTypes.array // eslint-disable-line
+  onLayersToggle: PropTypes.func.isRequired
 };
 
 export default MapLayers;
