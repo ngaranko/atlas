@@ -5,11 +5,12 @@ import './_checkbox.scss';
 import TickIcon from '../../../../public/images/icon-tick.svg';
 
 class Checkbox extends React.Component {
+
   constructor(props) {
     super(props);
 
     this.state = {
-      checked: !!props.checked
+      checked: this.evaluateChecked(this.props.checked)
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -17,8 +18,15 @@ class Checkbox extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      checked: !!nextProps.checked
+      checked: this.evaluateChecked(nextProps.checked)
     });
+  }
+
+  evaluateChecked(checked) { // eslint-disable-line
+    if (typeof checked === 'function') {
+      return !!checked();
+    }
+    return !!checked;
   }
 
   handleChange(event) {
@@ -49,7 +57,7 @@ Checkbox.defaultProps = {
 };
 
 Checkbox.propTypes = {
-  checked: PropTypes.bool,
+  checked: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func
 };
