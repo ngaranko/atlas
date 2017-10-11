@@ -22,7 +22,9 @@ const ERROR_MESSAGES = {
 // success
 const AUTH_PARAMS = ['access_token', 'token_type', 'expires_in', 'state'];
 
-const API_ROOT = 'https://acc.api.data.amsterdam.nl/';
+const API_ROOT = process.env.NODE_ENV === 'production'
+  ? 'https://api.data.amsterdam.nl/'
+  : 'https://acc.api.data.amsterdam.nl/';
 
 // All the scopes this City Daty frontend needs for communication with
 // the backend APIs
