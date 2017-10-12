@@ -8,7 +8,7 @@ class MapLegend extends React.Component {
   static constructLegendIconUrl(mapLayer, legendItem) {
     return [
       '//',
-      process.env.NODE_ENV !== 'production' ? 'acc.map.data.amsterdam.nl' : `map.${window.location.hostname}`,
+      process.env.NODE_ENV !== 'production' ? 'acc.map.data.amsterdam.nl' : 'map.data.amsterdam.nl',
       `${mapLayer.url}&`,
       'request=GetLegendGraphic&',
       'sld_version=1.1.0&',
