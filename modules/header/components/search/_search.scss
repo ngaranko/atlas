@@ -27,17 +27,11 @@ $clear-button-margin: ($site-header-search-form-height - $button-size) / 2;
   color: $primary-dark;
   appearance: none;
 
-  &::placeholder {
+  &::placeholder,
+  &:-ms-input-placeholder,    /* IE10–11 */
+  &::-ms-input-placeholder {  /* Edge */
     @include font-weight($normal-weight);
     color: $secondary-gray60;
-  }
-
-  &:-ms-input-placeholder { /* IE10–11 */
-      color: yellow;
-  }
-
-  &::-ms-input-placeholder { /* Edge */
-      color: orange;
   }
 
   &:focus {
