@@ -154,6 +154,54 @@ describe('The state url conversion definition', function () {
             });
         });
 
+        describe('The post processing for baseLayers', function () {
+            it('copies all baseLayers from old state', function () {
+                let oldState,
+                    newState;
+
+                oldState = {
+                    foo: 'bar'
+                };
+                newState = {
+                    foo: 'bar'
+                };
+
+                stateUrlConversion.post.baseLayers(oldState, newState);
+                expect(newState).toEqual({
+                    foo: 'bar'
+                });
+
+                oldState = null;
+                newState = {
+                    foo: 'bar'
+                };
+
+                stateUrlConversion.post.baseLayers(oldState, newState);
+                expect(newState).toEqual({
+                    foo: 'bar'
+                });
+            });
+        });
+
+        describe('The post processing for mapLayers', function () {
+            it('copies all baseLayers from old state', function () {
+                let oldState,
+                    newState;
+
+                oldState = [1, 2];
+                newState = [1, 2];
+
+                stateUrlConversion.post.mapLayers(oldState, newState);
+                expect(newState).toEqual([1, 2]);
+
+                oldState = null;
+                newState = [1, 2];
+
+                stateUrlConversion.post.mapLayers(oldState, newState);
+                expect(newState).toEqual([1, 2]);
+            });
+        });
+
         describe('The post processing for detail', function () {
             it('copies display, geometry, isLoading and isFullscreen from old state if equal endpoint', function () {
                 let newState;
