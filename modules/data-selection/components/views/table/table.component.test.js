@@ -82,23 +82,6 @@ describe('The dp-data-selection-table component', function () {
         return component;
     }
 
-    it('shows a panel when content has been sensored', () => {
-        const normalComponent = getComponent();
-        expect(normalComponent.find('dp-panel').length).toBe(0);
-
-        // Explicitly set to false
-        mockedContent.sensored = false;
-        const explicitComponent = getComponent();
-        expect(explicitComponent.find('dp-panel').length).toBe(0);
-
-        // Sensored
-        mockedContent.sensored = true;
-        const sensoredComponent = getComponent();
-        const panel = sensoredComponent.find('dp-panel');
-        expect(panel.length).toBe(1);
-        expect(panel.text()).toContain('MESSAGE');
-    });
-
     it('renders a <thead> with all the column names', function () {
         const component = getComponent();
 

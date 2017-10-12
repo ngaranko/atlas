@@ -3,7 +3,7 @@ describe('The dp-menu component', () => {
         $rootScope,
         store,
         authenticator,
-        user,
+        mockedUser,
         mockedActions;
 
     beforeEach(() => {
@@ -28,24 +28,31 @@ describe('The dp-menu component', () => {
             }
         );
 
-        angular.mock.inject((_$compile_, _$rootScope_, _store_, _authenticator_, _user_) => {
+        angular.mock.inject((_$compile_, _$rootScope_, _store_, _authenticator_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
             authenticator = _authenticator_;
-            user = _user_;
         });
+
+        mockedUser = {
+            authenticated: false,
+            scopes: [],
+            name: ''
+        };
 
         spyOn(store, 'dispatch');
     });
 
     function getComponent (size) {
         const element = document.createElement('dp-menu');
+        element.setAttribute('user', 'user');
         element.setAttribute('size', 'size');
         element.setAttribute('has-print-button', true);
         element.setAttribute('has-embed-button', true);
 
         const scope = $rootScope.$new();
+        scope.user = mockedUser;
         scope.size = size;
 
         const component = $compile(element)(scope);
@@ -58,7 +65,6 @@ describe('The dp-menu component', () => {
         let component;
 
         beforeEach(() => {
-            spyOn(user, 'getUserType').and.returnValue('ANONYMOUS');
             component = getComponent('tall');
         });
 
@@ -73,11 +79,11 @@ describe('The dp-menu component', () => {
 
     describe('logged in', () => {
         beforeEach(() => {
-            spyOn(user, 'getUserType').and.returnValue('AUTHENTICATED');
+            mockedUser.authenticated = true;
+            mockedUser.name = 'user';
         });
 
         it('doesn\'t show the login button', () => {
-            spyOn(user, 'getName').and.returnValue('My username');
             const component = getComponent('tall');
             expect(component.find('.qa-menu__login').length).toBe(0);
         });
@@ -88,8 +94,7 @@ describe('The dp-menu component', () => {
         });
 
         it('removes the domain name for a logged-in user', function () {
-            spyOn(user, 'getName').and.returnValue('user@xyz.com');
-            spyOn(user, 'getAuthorizationLevel').and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE);
+            mockedUser.name = 'user@xyz.com';
 
             const component = getComponent('tall');
 
@@ -97,26 +102,13 @@ describe('The dp-menu component', () => {
         });
 
         it('can show that a user is a normal employee', function () {
-            spyOn(user, 'getName').and.returnValue('user');
-            spyOn(user, 'getAuthorizationLevel').and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE);
-
             const component = getComponent('tall');
 
             expect(component.find('dp-menu-dropdown').eq(0).attr('title')).toBe('user');
         });
 
-        it('can show that a user is a bevoegd employee', function () {
-            spyOn(user, 'getName').and.returnValue('user');
-            spyOn(user, 'getAuthorizationLevel').and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS);
-
-            const component = getComponent('tall');
-
-            expect(component.find('dp-menu-dropdown').eq(0).attr('title')).toBe('user (bevoegd)');
-        });
-
         it('shortens the name in every possible way', () => {
-            spyOn(user, 'getName').and.returnValue('longusername');
-            spyOn(user, 'getAuthorizationLevel').and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE);
+            mockedUser.name = 'longusername';
 
             const component = getComponent('tall');
 
@@ -124,22 +116,9 @@ describe('The dp-menu component', () => {
             expect(component.find('dp-menu-dropdown').eq(0).attr('title')).toBe('longusern...');
 
             // Name only one character too long; no ellipsis
-            user.getName.and.returnValue('longuserna');
+            mockedUser.name = 'longuserna';
             $rootScope.$digest();
             expect(component.find('dp-menu-dropdown').eq(0).attr('title')).toBe('longuserna');
-
-            // User bevoegd
-            user.getAuthorizationLevel.and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS);
-
-            // Name too long; ellipsis
-            $rootScope.$digest();
-            expect(component.find('dp-menu-dropdown').eq(0).attr('title')).toBe('long...(bevoegd)');
-
-            // Name only one character too long; no ellipsis
-            user.getName.and.returnValue('longu');
-            user.getAuthorizationLevel.and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS);
-            $rootScope.$digest();
-            expect(component.find('dp-menu-dropdown').eq(0).attr('title')).toBe('longu (bevoegd)');
         });
     });
 
@@ -147,7 +126,6 @@ describe('The dp-menu component', () => {
         let component;
 
         beforeEach(() => {
-            spyOn(user, 'getUserType').and.returnValue('ANONYMOUS');
             spyOn(authenticator, 'login').and.returnValue(null);
             component = getComponent('tall');
         });

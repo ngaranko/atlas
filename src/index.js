@@ -18,6 +18,7 @@ import '../modules/straatbeeld/straatbeeld.scss';
 // Import this here, because `modules/atlas/services/redux%reducer.factory.js`
 // cannoct do, because that would break the grunt build...
 import detailReducer from './reducers/details';
+import userReducer from './reducers/user';
 
 // All our modules' javascript
 import '../modules/atlas/atlas.module.js';
@@ -213,6 +214,7 @@ import '../modules/shared/components/tab-header/tab-header.factory.js';
 import '../modules/shared/components/uppercase-first-letter/uppercase-first-letter.filter.js';
 import '../modules/shared/components/video/video.component.js';
 import '../modules/shared/filters/filesize.filter.js';
+import '../modules/shared/services/access-token-parser/access-token-parser.factory.js';
 import '../modules/shared/services/active-overlays/active-overlays.factory.js';
 import '../modules/shared/services/angle-conversion/angle-conversion.factory.js';
 import '../modules/shared/services/api/api.factory.js';
@@ -235,9 +237,11 @@ import '../modules/shared/services/layers/overlays.factory.js';
 import '../modules/shared/services/localization/localization.factory.js';
 import '../modules/shared/services/markdown-parser/markdown-parser.factory.js';
 import '../modules/shared/services/nearest-detail/nearest-detail.factory.js';
+import '../modules/shared/services/query-string-parser/query-string-parser.factory.js';
 import '../modules/shared/services/redux/actions.constant.js';
 import '../modules/shared/services/redux/application-state.factory.js';
 import '../modules/shared/services/redux/store.factory.js';
+import '../modules/shared/services/state-token-generator/state-token-generator.factory.js';
 import '../modules/shared/services/storage/instance-storage.factory.js';
 import '../modules/shared/services/storage/storage.factory.js';
 import '../modules/shared/services/uri-stripper/uri-stripper.factory.js';

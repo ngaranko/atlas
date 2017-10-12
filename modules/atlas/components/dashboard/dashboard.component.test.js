@@ -36,6 +36,11 @@ describe('The dashboard component', function () {
         );
 
         const DEFAULT_STATE = {
+            user: {
+                authenticated: false,
+                scopes: [],
+                name: ''
+            },
             map: {
                 baseLayer: 'topografie',
                 overlays: [],

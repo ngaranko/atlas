@@ -34,7 +34,17 @@
 
         moduleDependencies.push('ngRaven');
     } else {
-        angular.module('ngRaven', []).service('Raven', angular.noop);
+        const ravenFactory = ($log) => {
+            return {
+                captureMessage: (message, tags) => {
+                    $log.info('Raven.captureMessage has been called with the following info: ', message, tags);
+                }
+            };
+        };
+
+        ravenFactory.$inject = ['$log'];
+
+        angular.module('ngRaven', []).factory('Raven', ravenFactory);
     }
 
     angular.module('atlas', moduleDependencies);

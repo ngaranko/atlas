@@ -7,7 +7,8 @@
             bindings: {
                 overlays: '=',
                 zoom: '=',
-                showActiveOverlays: '='
+                showActiveOverlays: '=',
+                user: '<'
             },
             templateUrl: 'modules/map/components/active-overlays/active-overlays.html',
             controller: DpActiveOverlaysController,
@@ -19,9 +20,7 @@
     function DpActiveOverlaysController ($scope, overlays, user, activeOverlays) {
         var vm = this;
 
-        $scope.$watch(user.getAuthorizationLevel, setOverlays);
-
-        $scope.$watchGroup(['vm.overlays', 'vm.showActiveOverlays'], setOverlays, true);
+        $scope.$watchGroup(['vm.user.scopes', 'vm.overlays', 'vm.showActiveOverlays'], setOverlays, true);
 
         function setOverlays () {
             vm.validOverlays = vm.overlays.filter(overlay => overlays.SOURCES[overlay.id]);

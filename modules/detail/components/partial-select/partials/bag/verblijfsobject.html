@@ -52,7 +52,7 @@
          class="c-detail__block">
         <dp-glossary-header definition="NUMMERAANDUIDING" use-plural="true"></dp-glossary-header>
 
-        <dp-api-call endpoint="{{apiData.results.adressen.href}}" partial="adressen_lijst"></dp-api-call>
+        <dp-api-call endpoint="{{apiData.results.adressen.href}}" partial="adressen_lijst" user="user"></dp-api-call>
     </div>
 
     <!-- Pand -->
@@ -60,7 +60,7 @@
          class="c-detail__block">
         <dp-glossary-header definition="PAND" use-plural="true"></dp-glossary-header>
 
-        <dp-api-call endpoint="{{apiData.results.panden.href}}" partial="lijst"></dp-api-call>
+        <dp-api-call endpoint="{{apiData.results.panden.href}}" partial="lijst" user="user"></dp-api-call>
     </div>
 
     <!-- Vestiging -->
@@ -68,12 +68,12 @@
          class="c-detail__block">
         <dp-glossary-header definition="VESTIGING" use-plural="true"></dp-glossary-header>
 
-        <dp-panel is-panel-visible="showMoreInfoWarning" can-close="true" type="warning">
+        <dp-panel ng-if="!user.scopes.includes('HR/R')" is-panel-visible="true" can-close="true" type="warning">
             Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om vestigingen te bekijken.
             Zie <dp-link-to-page item="item9" class-name="c-link--light"></dp-link-to-page>.
         </dp-panel>
 
-        <dp-api-call ng-if="isEmployee" endpoint="handelsregister/vestiging/?nummeraanduiding={{ apiData.results.hoofdadres.landelijk_id }}" add-api-root="true" partial="lijst"></dp-api-call>
+        <dp-api-call ng-if="user.scopes.includes('HR/R')" endpoint="handelsregister/vestiging/?nummeraanduiding={{ apiData.results.hoofdadres.landelijk_id }}" add-api-root="true" partial="lijst" user="user"></dp-api-call>
     </div>
 
     <!-- Kadastraal apiData -->
@@ -81,7 +81,7 @@
          class="c-detail__block c-detail__block--container qa-kadastraal-object-list">
         <dp-glossary-header definition="OBJECT" use-plural="true"></dp-glossary-header>
 
-        <dp-panel is-panel-visible="showMoreInfoWarning" type="warning" can-close="true">
+        <dp-panel is-panel-visible="!user.scopes.includes('BRK/RO')" type="warning" can-close="true">
             Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer gegevens te zien:
             zakelijke rechten en aantekeningen.
             Zie <dp-link-to-page item="item9" class-name="c-link--light"></dp-link-to-page>.
@@ -90,7 +90,8 @@
         <dp-api-call
             endpoint="{{apiData.results.kadastrale_objecten.href}}"
             partial="bag/brk-vbo"
-            use-brk-object-expanded="true">
+            use-brk-object-expanded="true"
+            user="user">
         </dp-api-call>
     </div>
 
@@ -99,7 +100,8 @@
         <dp-api-call
             endpoint="monumenten/situeringen/?betreft_nummeraanduiding={{apiData.results.hoofdadres.landelijk_id}}"
             add-api-root="true"
-            partial="monumenten/situering">
+            partial="monumenten/situering"
+            user="user">
         </dp-api-call>
     </div>
 </div>
