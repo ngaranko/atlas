@@ -103,6 +103,12 @@
       }
     }
 
+    &.select--expanded {
+      .select__icon-wrapper {
+        border-color: #f00;
+      }
+    }
+
     @include svg-highlight-color(#666);
   }
 
