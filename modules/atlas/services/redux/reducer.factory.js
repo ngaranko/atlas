@@ -117,12 +117,6 @@
                 return newState;
             }
 
-            if (mapOverlaysReducer.hasOwnProperty(action.type)) {
-                const newState = MapOverlaysReducer(oldState, action);
-                $timeout(() => $rootScope.$digest());
-                return newState;
-            }
-
             if (mapSetBaselayerReducer.hasOwnProperty(action.type)) {
                 const newState = MapBaseLayerReducer(oldState, action);
                 $timeout(() => $rootScope.$digest());
