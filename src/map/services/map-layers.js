@@ -947,14 +947,17 @@ export default [
     layers: ['milieu_veiligheid_lpg_vulpunt'],
     legendItems: [
       {
+        layer: 'lpgvulpuntplaatsgebondenrisico105',
         selectable: false,
         title: 'Plaatsgebonden risico 10-5'
       },
       {
+        layer: 'lpgvulpuntplaatsgebondenrisico106',
         selectable: false,
         title: 'Plaatsgebonden risico 10-6'
       },
       {
+        layer: 'lpgvulpuntinvloedsgebied',
         selectable: false,
         title: 'Invloedsgebied groepsrisico'
       }
@@ -970,10 +973,12 @@ export default [
     layers: ['milieu_veiligheid_lpg_afleverzuil'],
     legendItems: [
       {
+        layer: 'lpgafleverzuillocaties',
         selectable: false,
         title: 'Locatie LPG-afleverzuil'
       },
       {
+        layer: 'lpgafleverzuilplaatsgebondenrisico',
         selectable: false,
         title: 'Plaatsgebonden risico (15 m)'
       }
@@ -989,14 +994,17 @@ export default [
     layers: ['milieu_veiligheid_lpg_tank'],
     legendItems: [
       {
+        layer: 'lpgtankligging',
         selectable: false,
         title: 'Ligging LPG-tank'
       },
       {
+        layer: 'lpgtankplaatsgebondenrisico',
         selectable: false,
         title: 'Plaatsgebondenrisico (25/120 m)'
       },
       {
+        layer: 'lpgtankinvloedsgebied',
         selectable: false,
         title: 'Invloedsgebied groepsrisico'
       }
@@ -1012,10 +1020,12 @@ export default [
     layers: ['milieu_veiligheid_lpg_station'],
     legendItems: [
       {
+        layer: 'lpgstationslocaties',
         selectable: false,
         title: 'Locatie LPG-station'
       },
       {
+        layer: 'lpgstationcontouren',
         selectable: false,
         title: 'Contouren LPG-station'
       }
@@ -1031,14 +1041,17 @@ export default [
     layers: ['milieu_veiligheid_bedrijf'],
     legendItems: [
       {
+        layer: 'overigerisicobedrijfplaatsgebondenrisico106',
         selectable: false,
         title: 'Plaatsgebonden risico 10-6'
       },
       {
+        layer: 'overigerisicobedrijfinvloedsgebied',
         selectable: false,
         title: 'Invloedsgebied'
       },
       {
+        layer: 'overigerisicobedrijfsbronnen',
         selectable: false,
         title: 'Bron'
       }
@@ -1054,10 +1067,12 @@ export default [
     layers: ['milieu_veiligheid_bedrijf'],
     legendItems: [
       {
+        layer: 'overigerisicobedrijfslocaties',
         selectable: false,
         title: 'Bedrijf'
       },
       {
+        layer: 'overigerisicobedrijfscontouren',
         selectable: false,
         title: 'Terrein'
       }
@@ -1073,22 +1088,27 @@ export default [
     layers: ['milieu_veiligheid_aardgasbuisleidingen'],
     legendItems: [
       {
+        layer: 'milieu_veiligheid_aardgasbuisleidingen',
         selectable: false,
         title: 'Aardgasleiding'
       },
       {
+        layer: 'risicozonesaardgaspr106',
         selectable: false,
         title: 'Plaatsgebonden risico 10-6'
       },
       {
+        layer: 'risicozonesaardgas100let',
         selectable: false,
         title: '100% Letaliteitsafstand'
       },
       {
+        layer: 'risicozonesaardgas1let',
         selectable: false,
         title: '1% Letaliteitsafstand'
       },
       {
+        layer: 'risicozonesbelemmeringenstrook',
         selectable: false,
         title: 'Belemmeringenstrook'
       }
