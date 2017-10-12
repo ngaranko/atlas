@@ -23,6 +23,8 @@
             if (currentStatus.hasErrors) {
                 if (currentStatus[httpStatus.NOT_FOUND_ERROR]) {
                     vm.showNotFoundError = true;
+                } else if (currentStatus[httpStatus.LOGIN_ERROR]) {
+                    vm.showLoginError = true;
                 } else {
                     vm.showServerError = true;
                 }

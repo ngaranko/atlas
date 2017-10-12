@@ -14,18 +14,22 @@
 
         function initialize () {
             authenticator.initialize();
+            if (authenticator.isAuthenticated()) {
+                store.dispatch({
+                    type: ACTIONS.AUTHENTICATE_USER,
+                    name: authenticator.getName(),
+                    scopes: authenticator.getScopes()
+                });
+            }
+            $location.path(''); // Make sure the default `/` is always used. Resulting in `/#/?etc`
 
             var unwatch = $rootScope.$watch(function () {
                 return $location.search();
             }, function (params) {
-                if (authenticator.isCallback(params)) {
-                    authenticator.handleCallback(params);
-                } else {
-                    store.dispatch({
-                        type: ACTIONS.URL_CHANGE,
-                        payload: params
-                    });
-                }
+                store.dispatch({
+                    type: ACTIONS.URL_CHANGE,
+                    payload: params
+                });
             });
 
             $rootScope.$on('$destroy', unwatch);

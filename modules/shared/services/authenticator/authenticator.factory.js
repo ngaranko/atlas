@@ -6,204 +6,337 @@
         .factory('authenticator', authenticatorFactory);
 
     authenticatorFactory.$inject = [
-        '$http',
         '$interval',
         'sharedConfig',
         'user',
         '$window',
         '$location',
         'storage',
-        'uriStripper'
+        'uriStripper',
+        'httpStatus',
+        'stateTokenGenerator',
+        'queryStringParser',
+        'accessTokenParser',
+        'Raven'
     ];
 
+    // eslint-disable-next-line max-params
     function authenticatorFactory (
-        $http,
         $interval,
         sharedConfig,
         user,
         $window,
         $location,
         storage,
-        uriStripper) {
+        uriStripper,
+        httpStatus,
+        stateTokenGenerator,
+        queryStringParser,
+        accessTokenParser,
+        Raven
+    ) {
+        // A map of the error keys, that the OAuth2 authorization service can
+        // return, to a full description
         const ERROR_MESSAGES = {
-            400: 'Verplichte parameter is niet aanwezig.',
-            404: 'Er is iets mis met de inlog server, probeer het later nog eens.',
-            502: 'Probleem in de communicatie met de inlog server.',
-            504: 'Inlog server timeout, probeer het later nog eens.'
+            invalid_request: 'The request is missing a required parameter, includes an invalid parameter value, ' +
+                'includes a parameter more than once, or is otherwise malformed.',
+            unauthorized_client: 'The client is not authorized to request an access token using this method.',
+            access_denied: 'The resource owner or authorization server denied the request.',
+            unsupported_response_type: 'The authorization server does not support obtaining an access token using ' +
+                'this method.',
+            invalid_scope: 'The requested scope is invalid, unknown, or malformed.',
+            server_error: 'The authorization server encountered an unexpected condition that prevented it from ' +
+                'fulfilling the request.',
+            temporarily_unavailable: 'The authorization server is currently unable to handle the request due to a ' +
+                'temporary overloading or maintenance of the server.'
         };
 
-        const AUTH_PARAMS = ['a-select-server', 'aselect_credentials', 'rid'];
+        // The parameters the OAuth2 authorization service will return on
+        // success
+        const AUTH_PARAMS = ['access_token', 'token_type', 'expires_in', 'state'];
 
-        const AUTH_PATH = 'auth/';
-        const LOGIN_PATH = 'idp/login';
-        const REFRESH_TOKEN_PATH = 'idp/token';
-        const ACCESS_TOKEN_PATH = 'accesstoken';
+        // All the scopes this City Daty frontend needs for communication with
+        // the backend APIs
+        const scopes = [
+            // Kadaster
+            // Alle attributen van een kadastraal niet-natuurlijk subject,
+            // inclusief alle rechten op kadastrale objecten
+            'BRK/RS',
+            // Alle atrributen van een kadastraal subject (natuurlijk en
+            // niet-natuurlijk), inclusief alle rechten op kadastrale objecten
+            'BRK/RSN',
+            // Alle attributen van een kadastraal object, inclusief koopsom,
+            // koopsom_valuta_code, koopjaar, cultuurcode_onbebouwd,
+            // cultuurcode_bebouwd en zakelijke rechten van de bijbehorende
+            // kadastrale subjecten
+            'BRK/RO',
 
-        const CALLBACK_PARAMS = 'callbackParams';   // save callback params in session storage
+            // Wet Kenbaarheid Beperkingen
+            'WKPB/RBDU', // Lezen URL Brondocument
 
-        const REFRESH_INTERVAL = 1000 * 60 * 4.5;   // every 4.5 minutes
+            // Monumenten
+            'MON/RBC', // Lezen beschrijvingen van Complexen
+            'MON/RDM', // Lezen details van Monumenten
 
-        const STATE = {     // State transitions used in tokenLoop
-            INIT: () =>
-                STATE.RESTORE_REFRESH_TOKEN,
-            RESTORE_REFRESH_TOKEN: () =>
-                user.getRefreshToken() ? STATE.REQUEST_ACCESS_TOKEN : STATE.WAIT,
-            ON_REFRESH_TOKEN: () =>
-                STATE.REQUEST_ACCESS_TOKEN,
-            ON_REFRESH_TOKEN_ERROR: () =>
-                STATE.WAIT,
-            REQUEST_ACCESS_TOKEN: () =>
-                requestAccessToken(user.getRefreshToken()),
-            ON_ACCESS_TOKEN: () =>
-                tokenLoop(STATE.REQUEST_ACCESS_TOKEN, REFRESH_INTERVAL),
-            ON_ACCESS_TOKEN_ERROR: () =>
-                STATE.WAIT,
-            ON_LOGOUT: () =>
-                STATE.WAIT,
-            WAITING: () =>
-                null // Wait for re-invocation of the tokenLoop...
-        };
+            // Handelsregister
+            'HR/R' // Leesrechten
+        ];
+        const encodedScopes = encodeURIComponent(scopes.join(' '));
+        // The URI we need to redirect to for communication with the OAuth2
+        // authorization service
+        const AUTH_PATH = 'oauth2/authorize?idp_id=datapunt&response_type=token&client_id=citydata' +
+            `&scope=${encodedScopes}`;
 
-        let interval;   // refresh access token or retry after error interval
+        // The keys of values we need to store in the session storage
+        //
+        // Query string of the state at the moment we redirect to the OAuth2
+        // authorization service, and need to get back to afterwards
+        const CALLBACK_PARAMS = 'callbackParams';
+        // The OAuth2 state(token) (OAuth terminology, has nothing to do with
+        // our app state), which is a random string
+        const STATE_TOKEN = 'stateToken';
+        // The access token returned by the OAuth2 authorization service
+        // containing user scopes and name
+        const ACCESS_TOKEN = 'accessToken';
 
-        const error = {}; // message, status and statusText
+        let initialized = false;
+        let tokenData = {};
 
         return {
             initialize,
             login,
             logout,
-            isCallback,
-            handleCallback,
-            error
+            isAuthenticated,
+            getAccessToken,
+            getScopes,
+            getName
         };
 
-        function tokenLoop (state, delay) {
-            if (delay) {    // invoke tokenLoop after delay has passed
-                interval = $interval(() => tokenLoop(state), delay, 1); // $timeout will fail with protractor tests
-                return STATE.WAITING;
-            } else if (interval) {  // cancel any existing delayed execution, eg when logout is called
-                $interval.cancel(interval);
-            }
-
-            while (state) {
-                state = state();    // simple keep executing state transitions
-            }
-        }
-
         function initialize () {
-            setError();
-            tokenLoop(STATE.INIT);
+            if (!initialized) {
+                initialized = true;
+                restoreAccessToken(); // Restore acces token from session storage
+                catchError(); // Catch any error from the OAuth2 authorization service
+                handleCallback(); // Handle a callback from the OAuth2 authorization service
+            }
         }
 
-        function onRefreshToken (token, userType) {
-            setError();
-            user.setRefreshToken(token, userType);
-            tokenLoop(STATE.ON_REFRESH_TOKEN);
+        /**
+         * Redirects to the OAuth2 authorization service.
+         */
+        function login () {
+            // Get the URI the OAuth2 authorization service needs to use as
+            // callback
+            const callback = $location.absUrl().replace(/#.*$/, ''); // Remove all parameters
+            const stateToken = stateTokenGenerator(); // Get a random string to prevent CSRF
+            const encodedStateToken = $window.encodeURIComponent(stateToken);
+
+            if (!stateToken) {
+                // crypto library is not available on the current browser
+                httpStatus.registerError(httpStatus.LOGIN_ERROR);
+                return;
+            }
+
+            savePath(); // Save current path in session
+            saveStateToken(stateToken); // Save the state token in session
+
+            $window.location.href =
+                sharedConfig.API_ROOT + AUTH_PATH +
+                `&state=${encodedStateToken}&redirect_uri=${encodeURIComponent(callback)}`;
         }
 
-        function onAccessToken (token) {
-            setError();
-            user.setAccessToken(token);
-            restorePath();  // Restore path from session
-            tokenLoop(STATE.ON_ACCESS_TOKEN);
-        }
-
-        function onRefreshTokenError (response) {
-            onError(response, STATE.ON_REFRESH_TOKEN_ERROR);
-        }
-
-        function onAccessTokenError (response) {
-            onError(response, STATE.ON_ACCESS_TOKEN_ERROR);
-        }
-
+        /**
+         * Removes the access token from the user and the session storage.
+         */
         function logout () {
-            user.clearToken();
-            tokenLoop(STATE.ON_LOGOUT);
+            user.clearToken(); // deprecated
+            removeAccessToken();
+            // Brute fix to reload the application when the user authorization
+            // changes
+            $window.location.reload(true);
         }
 
-        function onError (response, state) {
-            user.clearToken();
-            setError(
-                ERROR_MESSAGES[response.status] ||
-                'Er is een fout opgetreden. Neem contact op met de beheerder en vermeld ' +
-                'code: ${response.status}, status: ${response.statusText}.',
-                response.status,
-                response.statusText);
-            restorePath();  // Restore path from session
-            tokenLoop(state);
+        /**
+         * Do the given params form a callback from the OAuth2 authorization
+         * service?
+         *
+         * @param {Object.<string, string>} params The parameters returned.
+         * @return boolean True when all `AUTH_PARAMS` are available and the
+         * `state` param equals to the value set in the session storage,
+         * otherwise false.
+         */
+        function isCallback (params) {
+            if (!params) {
+                return false;
+            }
+
+            // The state param must be exactly the same as the state token we
+            // have saved in the session (to prevent CSRF)
+            const stateTokenValid = params.state && params.state === getStateToken();
+
+            // It is a callback when all authorization parameters are defined
+            // in the params the fastest check is not to check if all
+            // parameters are defined but to check that no undefined parameter
+            // can be found
+            const paramsValid = !AUTH_PARAMS.some((param) => {
+                return angular.isUndefined(params[param]);
+            });
+
+            if (paramsValid && !stateTokenValid) {
+                // This is a callback, but the state token does not equal the
+                // one we have saved; report to Sentry
+                Raven.captureMessage(new Error(`Authenticator encountered an invalid state token (${params.state})`));
+            }
+
+            return Boolean(stateTokenValid && paramsValid);
         }
 
-        function setError (message, status, statusText) {
-            error.message = message || '';
-            error.status = status || null;
-            error.statusText = statusText || '';
+        /**
+         * Gets the access token in case we have a valid callback. Uses the
+         * authorization parameters from the access token.
+         *
+         * @returns boolean True when this is a callback, otherwise false.
+         */
+        function handleCallback () {
+            const params = queryStringParser($location.url());
+            if (isCallback(params)) {
+                useAccessToken(params.access_token);
+                return true;
+            }
+            return false;
         }
 
+        /**
+         * Restores the access token from session storage when available.
+         */
+        function restoreAccessToken () {
+            const accessToken = getAccessToken();
+            if (accessToken) {
+                user.setAccessToken(accessToken); // deprecated
+                tokenData = accessTokenParser(accessToken);
+            }
+        }
+
+        /**
+         * Finishes the callback from the OAuth2 authorization service.
+         */
+        function useAccessToken (token) {
+            user.setAccessToken(token); // deprecated
+            tokenData = accessTokenParser(token);
+            saveAccessToken(token);
+            removeStateToken(); // Remove state token from session
+            const pathParams = storage.session.getItem(CALLBACK_PARAMS);
+            if (pathParams) {
+                restorePath(pathParams); // Restore path from session
+            }
+        }
+
+        /**
+         * Handles errors in case they were returned by the OAuth2
+         * authorization service.
+         */
+        function catchError () {
+            const params = queryStringParser($window.location.search);
+            if (params && params.error) {
+                handleError(params.error, params.error_description);
+            }
+        }
+
+        /**
+         * Finishes an error from the OAuth2 authorization service.
+         *
+         * @param code {string} Error code as returned from the service.
+         * @param description {string} Error description as returned from the
+         * service.
+         */
+        function handleError (code, description) {
+            Raven.captureMessage(new Error(
+                `Authorization service responded with error ${code} [${description}] (${ERROR_MESSAGES[code]})`));
+            removeStateToken(); // Remove state token from session
+            restorePath(storage.session.getItem(CALLBACK_PARAMS)); // Restore path from session
+            removeErrorParamsFromPath();
+        }
+
+        /**
+         * Saves the current search parameters (our state in the URL) to the
+         * session storage.
+         */
         function savePath () {
             const params = $location.search();
             if (params.dte) {
                 // $location.search may return old parameters even though URL does not list them.
                 // This mean the dte parameter may incorrectly contain the domain:
-                //  e.g.: https:data.amsterdam.nl/foo/bar instead of foo/bar.
+                // e.g.: https://data.amsterdam.nl/foo/bar instead of foo/bar.
                 // This step ensures no domain and protocol are stored, so the correct path is restored after login.
                 // Seems like an Angular bug when not using HTML5 $location provider. Consider removing when/if
                 // HTML5 location mode is activated. https://github.com/angular/angular.js/issues/1521
                 params.dte = uriStripper.stripDomain(params.dte);
             }
-            storage.session.setItem(CALLBACK_PARAMS, angular.toJson(params));   // encode params
+            storage.session.setItem(CALLBACK_PARAMS, angular.toJson(params)); // encode params
         }
 
-        function restorePath () {
-            let params = storage.session.getItem(CALLBACK_PARAMS);
+        /**
+         * Restores saved search parameters from the session storage (by
+         * `savePath`) to the URL.
+         *
+         * @param {string} paramString The parameter string as saved in the
+         * session storage.
+         */
+        function restorePath (paramString) {
             storage.session.removeItem(CALLBACK_PARAMS);
-            if (params) {
-                params = params && angular.fromJson(params);    // decode params
-                $location.replace();    // overwrite the existing location (prevent back button to re-login)
-                $location.search(params);
-            }
+            const params = paramString ? angular.fromJson(paramString) : {};
+
+            $location.replace(); // overwrite the existing location (prevent back button to re-login)
+            $location.url(''); // remove the parameters from the authorization service
+            $location.search(params);
         }
 
-        function login () {     // redirect to external authentication provider
-            savePath(); // Save current path in session
-            const callback = $location.absUrl().replace(/\#.*$/, '').concat('#');   // Remove all parameters
-            $window.location.href =
-                sharedConfig.API_ROOT + AUTH_PATH +
-                LOGIN_PATH + '?callback=' + encodeURIComponent(callback);
+        /**
+         * Removes parameters from the URL, as set by an error callback from
+         * the OAuth2 authorization service, to clean up the URL.
+         */
+        function removeErrorParamsFromPath () {
+            $interval(
+                () => $window.location.href = $window.location.protocol + '//' +
+                    $window.location.host + $window.location.pathname +
+                    '#' + $location.url(),
+                0, 1);
         }
 
-        function handleCallback (params) {  // request user token with returned authorization parameters from callback
-            RequestRefreshToken(params);
+        function saveStateToken (stateToken) {
+            storage.session.setItem(STATE_TOKEN, stateToken);
         }
 
-        function isCallback (params) {
-            // it is a callback when all authorization parameters are defined in the params
-            // the fastest check is not to check if all parameters are defined but
-            // to check that no undefined parameter can be found
-            return !AUTH_PARAMS.find(key => angular.isUndefined(params[key]));
+        function getStateToken () {
+            return storage.session.getItem(STATE_TOKEN);
         }
 
-        function RequestRefreshToken (params) {    // initiated externally, called by handleCallback
-            const httpParams = AUTH_PARAMS.reduce((result, key) => {
-                result[key] = params[key];
-                return result;
-            }, {});
-            return authRequest(REFRESH_TOKEN_PATH, {}, httpParams)
-                .then(response => onRefreshToken(response.data, user.USER_TYPE.AUTHENTICATED), onRefreshTokenError);
+        function removeStateToken () {
+            storage.session.removeItem(STATE_TOKEN);
         }
 
-        function requestAccessToken (token) {   // initiated by tokenLoop, return WAITING
-            authRequest(ACCESS_TOKEN_PATH, {'Authorization': sharedConfig.AUTH_HEADER_PREFIX + token})
-                .then(response => onAccessToken(response.data), onAccessTokenError);
-            return STATE.WAITING;
+        function saveAccessToken (accessToken) {
+            storage.session.setItem(ACCESS_TOKEN, accessToken);
         }
 
-        function authRequest (url, headers, params) {
-            return $http({
-                method: 'GET',
-                url: sharedConfig.API_ROOT + AUTH_PATH + url,
-                headers: angular.merge({'Content-Type': 'text/plain'}, headers),
-                params: params
-            });
+        function getAccessToken () {
+            return storage.session.getItem(ACCESS_TOKEN);
+        }
+
+        function removeAccessToken (accessToken) {
+            storage.session.removeItem(ACCESS_TOKEN);
+        }
+
+        function isAuthenticated () {
+            return Boolean(getAccessToken());
+        }
+
+        function getScopes () {
+            return tokenData.scopes || [];
+        }
+
+        function getName () {
+            return tokenData.name || '';
         }
     }
 })();

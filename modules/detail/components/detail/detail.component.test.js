@@ -3,8 +3,8 @@ describe('the dp-detail component', () => {
         $rootScope,
         $q,
         store,
-        user,
         ACTIONS,
+        mockedUser,
         mockedGeometryPoint = {type: 'Point', coordinates: 'FAKE_NUMMERAANDUIDING_POINT'},
         mockedGeometryMultiPolygon = {type: 'MultiPolygon', coordinates: 'FAKE_KADASTRAAL_OBJECT_MULTIPOLYGON'};
 
@@ -146,18 +146,20 @@ describe('the dp-detail component', () => {
             _$rootScope_,
             _$q_,
             _store_,
-            _ACTIONS_,
-            _user_,
-            _api_,
-            _endpointParser_,
-            _geometry_) {
+            _ACTIONS_
+        ) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             $q = _$q_;
             store = _store_;
             ACTIONS = _ACTIONS_;
-            user = _user_;
         });
+
+        mockedUser = {
+            authenticated: false,
+            scopes: [],
+            name: ''
+        };
 
         spyOn(store, 'dispatch');
         spyOn(store, 'getState').and.returnValue({
@@ -165,9 +167,6 @@ describe('the dp-detail component', () => {
                 highlight: true
             }
         });
-        spyOn(user, 'getUserType').and.returnValue(null);
-        spyOn(user, 'getAuthorizationLevel').and.returnValue(null);
-        spyOn(user, 'meetsRequiredLevel').and.returnValue(false);
     });
 
     function getComponent (endpoint, isLoading, isMapHighlight = true) {
@@ -179,12 +178,14 @@ describe('the dp-detail component', () => {
         element.setAttribute('endpoint', '{{endpoint}}');
         element.setAttribute('is-loading', 'isLoading');
         element.setAttribute('reload', 'reload');
+        element.setAttribute('user', 'user');
         element.setAttribute('is-map-highlight', 'isMapHighlight');
 
         scope = $rootScope.$new();
         scope.endpoint = endpoint;
         scope.isLoading = isLoading;
         scope.reload = false;
+        scope.user = mockedUser;
         scope.isMapHighlight = isMapHighlight;
 
         component = $compile(element)(scope);
@@ -365,7 +366,7 @@ describe('the dp-detail component', () => {
     });
 
     it('sets the SHOW_DETAIL geometry payload to null if there is no geometry', () => {
-        user.meetsRequiredLevel.and.returnValue(true);
+        mockedUser.scopes = ['BRK/RS'];
 
         getComponent(naturalPersonEndPoint);
 
@@ -388,7 +389,7 @@ describe('the dp-detail component', () => {
         });
 
         it('sets it to true when there is no geometry', () => {
-            user.meetsRequiredLevel.and.returnValue(true);
+            mockedUser.scopes = ['BRK/RS'];
 
             getComponent('http://www.fake-endpoint.com/brk/subject/123/');
 
@@ -423,60 +424,6 @@ describe('the dp-detail component', () => {
         expect(scope.vm.location).toBeNull();
     });
 
-    describe('the "natural kadastraal subject" warning message', () => {
-        beforeEach(() => {
-            user.getUserType.and.returnValue(user.USER_TYPE.AUTHENTICATED);
-            user.meetsRequiredLevel.and.returnValue(true);
-        });
-
-        describe('a normal employee user', () => {
-            beforeEach(() => {
-                user.getAuthorizationLevel.and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE);
-            });
-
-            it('shows a message that more info is available for "natuurlijke personen"', () => {
-                const component = getComponent(naturalPersonEndPoint);
-
-                const scope = component.isolateScope();
-                expect(scope.vm.showInsufficientRightsMessage).toBe(true);
-            });
-
-            it('does not show a message that more info is available for none "natuurlijke personen"', () => {
-                const component = getComponent(noneNaturalPersonEndPoint);
-
-                const scope = component.isolateScope();
-                expect(scope.vm.showInsufficientRightsMessage).toBe(false);
-            });
-        });
-
-        it('does not show a message that more info is available for employee plus users', () => {
-            user.getAuthorizationLevel.and.returnValue(user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS);
-
-            const component = getComponent(naturalPersonEndPoint);
-
-            const scope = component.isolateScope();
-            expect(scope.vm.showInsufficientRightsMessage).toBe(false);
-        });
-    });
-
-    describe('the warning message', () => {
-        it('is shown if not an employee', () => {
-            user.meetsRequiredLevel.and.returnValue(false);
-
-            const component = getComponent(naturalPersonEndPoint);
-
-            const scope = component.isolateScope();
-            expect(scope.vm.showMoreInfoWarning).toBe(true);
-        });
-        it('is not shown for an employee', () => {
-            user.meetsRequiredLevel.and.returnValue(true);
-
-            const component = getComponent(naturalPersonEndPoint);
-            const scope = component.isolateScope();
-            expect(scope.vm.showMoreInfoWarning).toBe(false);
-        });
-    });
-
     it('gracefully handles a 404 with no data', () => {
         getComponent('http://www.fake-endpoint.amsterdam.nl/brk/subject/404/');
 
@@ -497,7 +444,7 @@ describe('the dp-detail component', () => {
 
     describe('"kadastraal subject" data', () => {
         it('should be fetched if is authenticated as EMPLOYEE', () => {
-            user.meetsRequiredLevel.and.returnValue(true);
+            mockedUser.scopes = ['BRK/RS'];
 
             getComponent(naturalPersonEndPoint);
 
@@ -509,8 +456,6 @@ describe('the dp-detail component', () => {
             });
         });
         it('should not fetch data if not authorized', () => {
-            user.meetsRequiredLevel.and.returnValue(false);
-
             const component = getComponent(naturalPersonEndPoint);
 
             const scope = component.isolateScope();
@@ -521,14 +466,13 @@ describe('the dp-detail component', () => {
         });
         it('should remove apiData if not authorized', () => {
             // Special case where user is logged out while on detail page and the user loses access to content
-            user.meetsRequiredLevel.and.returnValue(true);
+            mockedUser.scopes = ['BRK/RS'];
             const component = getComponent(naturalPersonEndPoint);
             const scope = component.isolateScope();
             store.dispatch.calls.reset();
             expect(scope.vm.apiData).toBeDefined(); // data shown
 
-            user.getUserType.and.returnValue(user.USER_TYPE.NONE); // triggers $watch
-            user.meetsRequiredLevel.and.returnValue(false);
+            mockedUser.scopes = []; // triggers $watch
             scope.$digest();
 
             expect(scope.vm.isLoading).toBe(false);

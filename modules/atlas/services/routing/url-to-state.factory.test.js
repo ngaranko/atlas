@@ -16,8 +16,7 @@ describe('The urlToState factory', function () {
                 },
                 authenticator: {
                     initialize: angular.noop,
-                    isCallback: () => false,
-                    handleCallback: angular.noop
+                    isAuthenticated: () => false
                 }
             }
         );
@@ -45,27 +44,8 @@ describe('The urlToState factory', function () {
         expect(authenticator.initialize).toHaveBeenCalled();
     });
 
-    it('routes authentication responses via the authenticator', function () {
-        spyOn(authenticator, 'isCallback').and.returnValue(true);
-        spyOn(authenticator, 'handleCallback');
-
-        urlToState.initialize();
-        $rootScope.$apply();
-
-        authenticator.handleCallback.calls.reset();
-
-        const params = {one: 1, two: 2};
-        $location.search(params);
-
-        $rootScope.$apply();
-
-        expect(authenticator.handleCallback).toHaveBeenCalledWith(params);
-        expect(store.dispatch).not.toHaveBeenCalled();
-    });
-
-    it('routes all other responses via dispatch action', function () {
-        spyOn(authenticator, 'isCallback').and.returnValue(false);
-        spyOn(authenticator, 'handleCallback');
+    it('routes responses via dispatch action', function () {
+        spyOn(authenticator, 'isAuthenticated').and.returnValue(false);
 
         urlToState.initialize();
         $rootScope.$apply();
@@ -75,7 +55,6 @@ describe('The urlToState factory', function () {
 
         $rootScope.$apply();
 
-        expect(authenticator.handleCallback).not.toHaveBeenCalledWith();
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.URL_CHANGE,
             payload: params

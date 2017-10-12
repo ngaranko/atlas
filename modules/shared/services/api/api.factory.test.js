@@ -6,7 +6,6 @@ describe('The api factory', function () {
         $q,
         api,
         mockedApiData,
-        user,
         isLoggedIn,
         clearHttpCache;
 
@@ -14,10 +13,8 @@ describe('The api factory', function () {
         angular.mock.module(
             'dpShared',
             {
-                user: {
-                    getAccessToken: () => isLoggedIn ? 'MY_FAKE_ACCESS_TOKEN' : null,
-                    waitForAccessToken: () => $q.resolve(user.getAccessToken()),
-                    getRefreshToken: angular.noop
+                authenticator: {
+                    getAccessToken: () => isLoggedIn ? 'MY_FAKE_ACCESS_TOKEN' : null
                 },
                 sharedConfig: {
                     API_ROOT: 'https://www.i-am-the-api-root.com/path/',
@@ -26,14 +23,13 @@ describe('The api factory', function () {
             }
         );
 
-        angular.mock.inject(function (_$rootScope_, _$http_, _$httpBackend_, _$cacheFactory_, _$q_, _api_, _user_) {
+        angular.mock.inject(function (_$rootScope_, _$http_, _$httpBackend_, _$cacheFactory_, _$q_, _api_) {
             $rootScope = _$rootScope_;
             $http = _$http_;
             $httpBackend = _$httpBackend_;
             $cacheFactory = _$cacheFactory_;
             $q = _$q_;
             api = _api_;
-            user = _user_;
         });
 
         mockedApiData = {

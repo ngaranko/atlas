@@ -24,13 +24,13 @@
     <div class="c-detail__block">
         <dp-glossary-header definition="FUNCTIEVERVULLING" use-plural="true"></dp-glossary-header>
 
-        <dp-api-call endpoint="{{apiData.results.eigenaar}}" partial="handelsregister/functievervullingen"></dp-api-call>
+        <dp-api-call endpoint="{{apiData.results.eigenaar}}" partial="handelsregister/functievervullingen" user="user"></dp-api-call>
     </div>
 
     <div ng-if="apiData.results.vestigingen.count > 1"
          class="c-detail__block">
         <dp-glossary-header definition="VESTIGING" use-plural="true"></dp-glossary-header>
 
-        <dp-api-call endpoint="{{apiData.results.vestigingen.href}}" partial="lijst"></dp-api-call>
+        <dp-api-call endpoint="{{apiData.results.vestigingen.href}}" partial="lijst" user="user"></dp-api-call>
     </div>
 </div>

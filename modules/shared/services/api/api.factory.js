@@ -5,9 +5,9 @@
         .module('dpShared')
         .factory('api', apiFactory);
 
-    apiFactory.$inject = ['$interval', '$q', '$http', 'user', 'sharedConfig'];
+    apiFactory.$inject = ['$interval', '$q', '$http', 'authenticator', 'sharedConfig'];
 
-    function apiFactory ($interval, $q, $http, user, sharedConfig) {
+    function apiFactory ($interval, $q, $http, authenticator, sharedConfig) {
         return {
             getByUrl,
             getByUri,
@@ -59,18 +59,18 @@
          * string.
          */
         function createUrlWithToken (url, params) {
-            return user.waitForAccessToken().then(token => {
-                params = params || {};
-                if (token) {
-                    params.access_token = token;
-                }
+            const token = authenticator.getAccessToken();
 
-                const queryStart = url.indexOf('?') !== -1 ? '&' : '?',
-                    paramString = encodeQueryParams(params),
-                    queryString = paramString ? queryStart + paramString : '';
+            params = params || {};
+            if (token) {
+                params.access_token = token;
+            }
 
-                return url + queryString;
-            });
+            const queryStart = url.indexOf('?') !== -1 ? '&' : '?',
+                paramString = encodeQueryParams(params),
+                queryString = paramString ? queryStart + paramString : '';
+
+            return $q.resolve(url + queryString);
         }
 
         /**
@@ -81,9 +81,8 @@
          * @returns {Promise}
          */
         function getByUrl (url, params, cancel) {
-            return user.waitForAccessToken().then(token => {
-                return getWithToken(url, params, cancel, token);
-            });
+            const token = authenticator.getAccessToken();
+            return $q.resolve(getWithToken(url, params, cancel, token));
         }
 
         function getByUri (uri, params) {
