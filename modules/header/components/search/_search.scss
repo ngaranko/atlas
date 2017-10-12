@@ -32,6 +32,14 @@ $clear-button-margin: ($site-header-search-form-height - $button-size) / 2;
     color: $secondary-gray60;
   }
 
+  &:-ms-input-placeholder { /* IE10–11 */
+      color: yellow;
+  }
+
+  &::-ms-input-placeholder { /* Edge */
+      color: arange;
+  }
+
   &:focus {
     border-color: $primary-dark;
   }
