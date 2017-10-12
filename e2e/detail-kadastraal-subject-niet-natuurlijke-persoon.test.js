@@ -16,7 +16,7 @@ describe('Detail kadastraal subject - niet natuurlijke persoon', () => {
         });
     });
 
-    describe('ingelogd', () => {
+    xdescribe('ingelogd', () => {
         afterEach(() => {
             dp.authenticate.logout();
         });
