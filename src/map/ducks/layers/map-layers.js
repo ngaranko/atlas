@@ -32,11 +32,7 @@ export const selectActiveMapLayers = (state) => { // eslint-disable-line
       mapLayer.id,
       ...mapLayer.legendItems.map(legendItem => legendItem.id)
     ]
-    .reduce((prev, curr) => ([
-      ...prev,
-      curr
-    ]), [])
-    .filter(mapLayerId => !!mapLayerId)
+    .filter(mapLayerId => Boolean(mapLayerId))
     .some(mapLayerId => state.map.overlays
       .map(overlay => overlay.id)
       .includes(mapLayerId));
