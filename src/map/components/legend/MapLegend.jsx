@@ -73,8 +73,7 @@ class MapLegend extends React.Component {
             )}
             {(zoomLevel >= mapLayer.minZoom && zoomLevel <= mapLayer.maxZoom) && (
               <ul className="map-legend__items">
-                {/* TODO: Remove `.filter()` as soon data is complete */}
-                {mapLayer.legendItems.filter(legendItem => !!legendItem.title).map(legendItem => (
+                {mapLayer.legendItems.map(legendItem => (
                   <li
                     className="map-legend__item"
                     key={legendItem.title}

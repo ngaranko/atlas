@@ -631,7 +631,7 @@ export default [
   {
     category: 'Geografie: hoogte',
     id: 'nap',
-    layers: ['NAP'],
+    layers: ['peilmerk_hoogte'],
     legendItems: [
       {
         selectable: false,
@@ -740,12 +740,8 @@ export default [
   {
     category: 'Geografie: hoogte',
     id: 'mbr',
-    layers: ['referentiepunten'],
+    layers: ['referentiepunt'],
     legendItems: [
-      {
-        selectable: false,
-        title: 'Referentie label'
-      },
       {
         selectable: false,
         title: 'Referentiepunt'
@@ -905,7 +901,7 @@ export default [
     maxZoom: 100,
     minZoom: 0,
     title: 'Explosieven - Verdachte gebieden',
-    url: '/maps/bodem?version=1.3.0&service=WMS'
+    url: '/maps/bommenkaart?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: bodem',
@@ -920,7 +916,7 @@ export default [
     maxZoom: 100,
     minZoom: 0,
     title: 'Explosieven - Gevrijwaarde gebieden',
-    url: '/maps/bodem?version=1.3.0&service=WMS'
+    url: '/maps/bommenkaart?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: bodem',
@@ -943,7 +939,7 @@ export default [
     maxZoom: 100,
     minZoom: 0,
     title: 'Explosieven - Uitgevoerde CE-onderzoeken',
-    url: '/maps/bodem?version=1.3.0&service=WMS'
+    url: '/maps/bommenkaart?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: externe veiligheid',
@@ -1063,7 +1059,7 @@ export default [
       },
       {
         selectable: false,
-        title: 'Bedrijf'
+        title: 'Terrein'
       }
     ],
     maxZoom: 100,
