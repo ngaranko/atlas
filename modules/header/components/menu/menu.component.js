@@ -7,41 +7,37 @@
             bindings: {
                 hasPrintButton: '<',
                 hasEmbedButton: '<',
-                size: '='
+                size: '=',
+                user: '<'
             },
             templateUrl: 'modules/header/components/menu/menu.html',
             controller: DpMenuController,
             controllerAs: 'vm'
         });
 
-    DpMenuController.$inject = ['$scope', 'authenticator', 'user'];
+    DpMenuController.$inject = ['$scope', '$window', 'store', 'ACTIONS'];
 
-    function DpMenuController ($scope, authenticator, user) {
+    function DpMenuController ($scope, $window, store, ACTIONS) {
         const vm = this;
 
-        vm.login = authenticator.login;
+        vm.login = () => {
+            try {
+                $window.auth.login();
+            } catch (error) {
+                store.dispatch({ type: ACTIONS.AUTHENTICATE_ERROR.id });
+            }
+        };
 
-        vm.isAuthenticated = () => user.getUserType() === user.USER_TYPE.AUTHENTICATED;
+        $scope.$watch('vm.user.name', setUserMenuLabel);
 
-        $scope.$watchGroup([getUsername, getUserIsBevoegd], setUserMenuLabel);
+        function setUserMenuLabel (username) {
+            const maxLength = 9;
+            const name = username.replace(/@.*$/, '');
+            const truncatedName = name.length > maxLength + 1
+                ? name.substr(0, maxLength) : name;
+            const ellipsis = truncatedName !== name ? '...' : '';
 
-        function getUsername () {
-            return user.getName().replace(/@.*$/, '');
-        }
-
-        function getUserIsBevoegd () {
-            return user.getAuthorizationLevel() === user.AUTHORIZATION_LEVEL.EMPLOYEE_PLUS;
-        }
-
-        function setUserMenuLabel ([username, isBevoegd]) {
-            const maxLength = isBevoegd ? 4 : 9,
-                name = username.length > maxLength + 1
-                    ? username.substr(0, maxLength) : username,
-                ellipsis = name !== username ? '...' : '',
-                space = ellipsis ? '' : ' ',
-                bevoegd = isBevoegd ? space + '(bevoegd)' : '';
-
-            vm.userMenuLabel = name + ellipsis + bevoegd;
+            vm.userMenuLabel = truncatedName + ellipsis;
         }
     }
 })();

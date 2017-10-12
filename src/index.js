@@ -11,7 +11,6 @@ import '../modules/atlas/atlas.scss';
 import '../modules/data-selection/data-selection.scss';
 import '../modules/detail/detail.scss';
 import '../modules/header/header.scss';
-import '../modules/layer-selection/layer-selection.scss';
 import '../modules/map/map.scss';
 import '../modules/page/page.scss';
 import '../modules/search-results/search-results.scss';
@@ -20,6 +19,7 @@ import '../modules/straatbeeld/straatbeeld.scss';
 // Import this here, because `modules/atlas/services/redux%reducer.factory`
 // cannoct do, because that would break the grunt build...
 import detailReducer from './reducers/details'; // eslint-disable-line
+import userReducer from './reducers/user'; // eslint-disable-line
 
 // All our modules' javascript
 import '../modules/atlas/atlas.module';
@@ -30,7 +30,6 @@ import '../modules/atlas/components/dashboard/dashboard.component';
 import '../modules/atlas/components/dashboard/synchronisation/data-selection.controller';
 import '../modules/atlas/components/dashboard/synchronisation/detail.controller';
 import '../modules/atlas/components/dashboard/synchronisation/header.controller';
-import '../modules/atlas/components/dashboard/synchronisation/layer-selection.controller';
 import '../modules/atlas/components/dashboard/synchronisation/map.controller';
 import '../modules/atlas/components/dashboard/synchronisation/page.controller';
 import '../modules/atlas/components/dashboard/synchronisation/search-results.controller';
@@ -138,9 +137,6 @@ import '../modules/header/components/site-header/site-header.component';
 import '../modules/header/components/terugmelden-button/terugmelden-button.component';
 import '../modules/header/header-config.constant';
 import '../modules/header/header.constant';
-import '../modules/layer-selection/layer-selection.module';
-import '../modules/layer-selection/components/layer-selection/layer-selection.component';
-import '../modules/layer-selection/services/document-title/document-title.factory';
 import '../modules/map/map.module';
 import '../modules/map/components/active-overlays/active-overlays-item.component';
 import '../modules/map/components/active-overlays/active-overlays.component';
@@ -218,7 +214,6 @@ import '../modules/shared/filters/filesize.filter';
 import '../modules/shared/services/active-overlays/active-overlays.factory';
 import '../modules/shared/services/angle-conversion/angle-conversion.factory';
 import '../modules/shared/services/api/api.factory';
-import '../modules/shared/services/authenticator/authenticator.factory';
 import '../modules/shared/services/base-coder/base-coder.factory';
 import '../modules/shared/services/bounding-box/boundig-box.constant';
 import '../modules/shared/services/crs/crs-config.constant';
@@ -246,7 +241,6 @@ import '../modules/shared/services/uri-stripper/uri-stripper.factory';
 import '../modules/shared/services/user-settings/setting.factory';
 import '../modules/shared/services/user-settings/user-settings.constant';
 import '../modules/shared/services/user-settings/user-settings.factory';
-import '../modules/shared/services/user/user.factory';
 import '../modules/shared/shared-config.factory';
 import '../modules/shared/shared.vendor';
 import '../modules/straatbeeld/straatbeeld.module';

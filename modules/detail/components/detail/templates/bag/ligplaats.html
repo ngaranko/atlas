@@ -2,7 +2,8 @@
     <!-- nummeraanduiding -->
     <dp-api-call
       endpoint="{{vm.apiData.results.hoofdadres._links.self.href}}"
-      partial="bag/nummeraanduiding">
+      partial="bag/nummeraanduiding"
+      user="vm.user">
     </dp-api-call>
 
     <div ng-if="vm.apiData.results" class="u-row">
@@ -15,12 +16,13 @@
     </div>
 
     <!-- ligplaats -->
-    <dp-partial-select partial="bag/ligplaats" api-data="vm.apiData"></dp-partial-select>
+    <dp-partial-select partial="bag/ligplaats" api-data="vm.apiData" user="vm.user"></dp-partial-select>
 
     <!-- monumenten -->
     <dp-api-call
         endpoint="monumenten/situeringen/?betreft_nummeraanduiding={{vm.apiData.results.ligplaatsidentificatie}}"
         add-api-root="true"
-        partial="monumenten/situering">
+        partial="monumenten/situering"
+        user="vm.user">
     </dp-api-call>
 </div>

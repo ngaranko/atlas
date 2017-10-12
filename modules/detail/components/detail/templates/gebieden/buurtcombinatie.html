@@ -22,7 +22,7 @@
          class="c-detail__block">
         <dp-glossary-header definition="BUURT" use-plural="true"></dp-glossary-header>
 
-        <dp-api-call endpoint="{{vm.apiData.results.buurten.href}}" partial="lijst"></dp-api-call>
+        <dp-api-call endpoint="{{vm.apiData.results.buurten.href}}" partial="lijst" user="vm.user"></dp-api-call>
     </div>
 
     <dp-data-selection-links active-filters="{'buurtcombinatie_naam': vm.filterSelection.buurtcombinatie}"></dp-data-selection-links>

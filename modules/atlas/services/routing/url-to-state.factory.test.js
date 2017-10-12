@@ -2,7 +2,6 @@ describe('The urlToState factory', function () {
     var $location,
         $rootScope,
         urlToState,
-        authenticator,
         store,
         ACTIONS,
         mockedSearchParams;
@@ -13,19 +12,13 @@ describe('The urlToState factory', function () {
             {
                 store: {
                     dispatch: function () {}
-                },
-                authenticator: {
-                    initialize: angular.noop,
-                    isCallback: () => false,
-                    handleCallback: angular.noop
                 }
             }
         );
 
-        angular.mock.inject(function (_$location_, _$rootScope_, _urlToState_, _authenticator_, _store_, _ACTIONS_) {
+        angular.mock.inject(function (_$location_, _$rootScope_, _urlToState_, _store_, _ACTIONS_) {
             $location = _$location_;
             $rootScope = _$rootScope_;
-            authenticator = _authenticator_;
             urlToState = _urlToState_;
             store = _store_;
             ACTIONS = _ACTIONS_;
@@ -39,34 +32,7 @@ describe('The urlToState factory', function () {
         spyOn(store, 'dispatch');
     });
 
-    it('initializes the authenticator on startup', function () {
-        spyOn(authenticator, 'initialize');
-        urlToState.initialize();
-        expect(authenticator.initialize).toHaveBeenCalled();
-    });
-
-    it('routes authentication responses via the authenticator', function () {
-        spyOn(authenticator, 'isCallback').and.returnValue(true);
-        spyOn(authenticator, 'handleCallback');
-
-        urlToState.initialize();
-        $rootScope.$apply();
-
-        authenticator.handleCallback.calls.reset();
-
-        const params = {one: 1, two: 2};
-        $location.search(params);
-
-        $rootScope.$apply();
-
-        expect(authenticator.handleCallback).toHaveBeenCalledWith(params);
-        expect(store.dispatch).not.toHaveBeenCalled();
-    });
-
-    it('routes all other responses via dispatch action', function () {
-        spyOn(authenticator, 'isCallback').and.returnValue(false);
-        spyOn(authenticator, 'handleCallback');
-
+    it('routes responses via dispatch action', function () {
         urlToState.initialize();
         $rootScope.$apply();
 
@@ -75,7 +41,6 @@ describe('The urlToState factory', function () {
 
         $rootScope.$apply();
 
-        expect(authenticator.handleCallback).not.toHaveBeenCalledWith();
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.URL_CHANGE,
             payload: params

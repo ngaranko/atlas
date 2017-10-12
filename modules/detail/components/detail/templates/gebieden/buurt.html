@@ -19,7 +19,7 @@
          class="c-detail__block">
       <dp-glossary-header definition="BOUWBLOK" use-plural="true"></dp-glossary-header>
 
-      <dp-api-call endpoint="{{vm.apiData.results.bouwblokken.href}}" partial="lijst"></dp-api-call>
+      <dp-api-call endpoint="{{vm.apiData.results.bouwblokken.href}}" partial="lijst" user="vm.user"></dp-api-call>
     </div>
 
     <dp-data-selection-links active-filters="{'buurt_naam': vm.filterSelection.buurt}"></dp-data-selection-links>

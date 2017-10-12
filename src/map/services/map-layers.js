@@ -1,5 +1,6 @@
 export default [
   {
+    authScope: 'HR/R',
     category: 'Economie en haven',
     id: 'bouw',
     layers: ['bouw'],
@@ -39,6 +40,7 @@ export default [
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
+    authScope: 'HR/R',
     category: 'Economie en haven',
     id: 'csr',
     layers: ['cultuur_sport_recreatie'],
@@ -70,6 +72,7 @@ export default [
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
+    authScope: 'HR/R',
     category: 'Economie en haven',
     id: 'fdvrog',
     layers: ['financiele_dienstverlening_verhuur'],
@@ -101,6 +104,7 @@ export default [
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
+    authScope: 'HR/R',
     category: 'Economie en haven',
     id: 'hvo',
     layers: ['handel_vervoer_opslag'],
@@ -144,6 +148,7 @@ export default [
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
+    authScope: 'HR/R',
     category: 'Economie en haven',
     id: 'hrc',
     layers: ['horeca'],
@@ -187,6 +192,7 @@ export default [
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
+    authScope: 'HR/R',
     category: 'Economie en haven',
     id: 'itc',
     layers: ['telecommunicatie'],
@@ -218,6 +224,7 @@ export default [
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
+    authScope: 'HR/R',
     category: 'Economie en haven',
     id: 'lb',
     layers: ['landbouw'],
@@ -257,6 +264,7 @@ export default [
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
+    authScope: 'HR/R',
     category: 'Economie en haven',
     id: 'ooz',
     layers: ['overheid_onderwijs_zorg'],
@@ -284,6 +292,7 @@ export default [
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
+    authScope: 'HR/R',
     category: 'Economie en haven',
     id: 'pd',
     layers: ['persoonlijke_dienstverlening'],
@@ -319,6 +328,7 @@ export default [
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
+    authScope: 'HR/R',
     category: 'Economie en haven',
     id: 'pir',
     layers: ['productie_installatie_reparatie'],
@@ -346,6 +356,7 @@ export default [
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
+    authScope: 'HR/R',
     category: 'Economie en haven',
     id: 'zd',
     layers: ['zakelijke_dienstverlening'],
@@ -405,6 +416,7 @@ export default [
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
+    authScope: 'HR/R',
     category: 'Economie en haven',
     id: 'ovrg',
     layers: ['overige'],
@@ -1036,6 +1048,7 @@ export default [
     url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
   },
   {
+    authScope: 'HR/R',
     category: 'Milieu: externe veiligheid',
     id: 'mvbr',
     layers: ['milieu_veiligheid_bedrijf'],

@@ -9,7 +9,6 @@
         'dashboardColumns',
         'dpDataSelectionDocumentTitle',
         'dpDetailDocumentTitle',
-        'dpLayerSelectionDocumentTitle',
         'dpMapDocumentTitle',
         'dpPageDocumentTitle',
         'dpSearchResultsDocumentTitle',
@@ -17,16 +16,16 @@
     ];
 
     function DpDocumentTitleDirective (
-            $document,
-            store,
-            dashboardColumns,
-            dpDataSelectionDocumentTitle,
-            dpDetailDocumentTitle,
-            dpLayerSelectionDocumentTitle,
-            dpMapDocumentTitle,
-            dpPageDocumentTitle,
-            dpSearchResultsDocumentTitle,
-            dpStraatbeeldDocumentTitle) {
+        $document,
+        store,
+        dashboardColumns,
+        dpDataSelectionDocumentTitle,
+        dpDetailDocumentTitle,
+        dpMapDocumentTitle,
+        dpPageDocumentTitle,
+        dpSearchResultsDocumentTitle,
+        dpStraatbeeldDocumentTitle
+    ) {
         var mapping = [
             {
                 visibility: 'dataSelection',
@@ -36,10 +35,6 @@
                 visibility: 'detail',
                 documentTitle: dpDetailDocumentTitle,
                 state: 'detail'
-            }, {
-                visibility: 'layerSelection',
-                documentTitle: dpLayerSelectionDocumentTitle,
-                state: 'layerSelection'
             }, {
                 visibility: 'page',
                 documentTitle: dpPageDocumentTitle,

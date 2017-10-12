@@ -40,7 +40,7 @@ describe('The http-status component', function () {
     it('is able to register multiple http errors of different types', function () {
         [
             httpStatus.SERVER_ERROR,
-            httpStatus.SERVER_ERROR,
+            httpStatus.LOGIN_ERROR,
             httpStatus.NOT_FOUND_ERROR,
             httpStatus.SERVER_ERROR
         ].forEach(
@@ -48,6 +48,7 @@ describe('The http-status component', function () {
 
         expect(httpStatus.getStatus()[httpStatus.SERVER_ERROR]).toBe(true);
         expect(httpStatus.getStatus()[httpStatus.NOT_FOUND_ERROR]).toBe(true);
+        expect(httpStatus.getStatus()[httpStatus.LOGIN_ERROR]).toBe(true);
     });
 
     it('shows nothing when nothing has happened', function () {

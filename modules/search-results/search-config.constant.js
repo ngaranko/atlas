@@ -22,13 +22,13 @@
                     label_singular: 'Vestiging',
                     label_plural: 'Vestigingen',
                     uri: 'handelsregister/search/vestiging/',
-                    authLevel: 'EMPLOYEE'
+                    authScope: 'HR/R'
                 }, {
                     slug: 'mac',
                     label_singular: 'Maatschappelijke activiteit',
                     label_plural: 'Maatschappelijke activiteiten',
                     uri: 'handelsregister/search/maatschappelijkeactiviteit/',
-                    authLevel: 'EMPLOYEE'
+                    authScope: 'HR/R'
                 }, {
                     slug: 'object',
                     label_singular: 'Kadastraal object',
@@ -39,7 +39,7 @@
                     label_singular: 'Kadastraal subject',
                     label_plural: 'Kadastrale subjecten',
                     uri: 'atlas/search/kadastraalsubject/',
-                    authLevel: 'EMPLOYEE'
+                    authScope: 'BRK/RS'
                 }, {
                     // The slug variable is used to indentify this category in list.component.js
                     slug: 'gebied',

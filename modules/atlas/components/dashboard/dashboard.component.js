@@ -46,6 +46,8 @@
         function setLayout () {
             const state = store.getState();
 
+            vm.user = state.user;
+
             vm.activity = dashboardColumns.determineActivity(state);
             vm.visibility = dashboardColumns.determineVisibility(state);
 

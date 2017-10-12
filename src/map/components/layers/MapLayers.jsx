@@ -5,9 +5,13 @@ import MapLegend from '../legend/MapLegend';
 import AddIcon from '../../../../public/images/icon-plus.svg';
 import RemoveIcon from '../../../../public/images/icon-cross.svg';
 
-const MapLayers = ({ activeMapLayers, layers, onLayerToggle }) => (
+const checkAccess = (layers, scopes) => (
+  layers.filter(layer => !layer.authScope || (scopes.length && scopes.includes(layer.authScope)))
+);
+
+const MapLayers = ({ activeMapLayers, layers, onLayerToggle, user }) => (
   <ul className="map-layers">
-    {[...new Set(layers.map(layer => layer.category))].map(category => (
+    {[...new Set(checkAccess(layers, user.scopes).map(layer => layer.category))].map(category => (
       <li className="map-layers__category" key={category}>
         {category}
         <ul>
@@ -45,7 +49,8 @@ const MapLayers = ({ activeMapLayers, layers, onLayerToggle }) => (
 MapLayers.propTypes = {
   activeMapLayers: PropTypes.array, // eslint-disable-line
   layers: PropTypes.array, // eslint-disable-line
-  onLayerToggle: PropTypes.func.isRequired
+  onLayerToggle: PropTypes.func.isRequired,
+  user: PropTypes.object // eslint-disable-line
 };
 
 export default MapLayers;

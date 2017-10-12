@@ -6,9 +6,9 @@ describe('The dp-data-selection component', function () {
         store,
         ACTIONS,
         config,
-        user,
         mockedState,
         mockedFilters,
+        mockedUser,
         mockedApiPreviewData,
         mockedApiMarkersData;
 
@@ -81,14 +81,13 @@ describe('The dp-data-selection component', function () {
             }
         );
 
-        angular.mock.inject(function (_$rootScope_, _$compile_, _$q_, _dataSelectionApi_, _store_, _ACTIONS_, _user_) {
+        angular.mock.inject(function (_$rootScope_, _$compile_, _$q_, _dataSelectionApi_, _store_, _ACTIONS_) {
             $rootScope = _$rootScope_;
             $compile = _$compile_;
             $q = _$q_;
             dataSelectionApi = _dataSelectionApi_;
             store = _store_;
             ACTIONS = _ACTIONS_;
-            user = _user_;
         });
 
         mockedState = {
@@ -103,6 +102,12 @@ describe('The dp-data-selection component', function () {
 
         mockedFilters = {
             type: 'Buitenbad'
+        };
+
+        mockedUser = {
+            authenticated: true,
+            scopes: ['HR/R'],
+            name: ''
         };
 
         mockedApiPreviewData = {
@@ -124,17 +129,18 @@ describe('The dp-data-selection component', function () {
         spyOn(dataSelectionApi, 'query').and.callThrough();
         spyOn(dataSelectionApi, 'getMarkers').and.callThrough();
         spyOn(store, 'dispatch');
-        spyOn(user, 'meetsRequiredLevel').and.returnValue(true);
     });
 
-    function getComponent (state, filters) {
+    function getComponent (state, filters, user) {
         const element = document.createElement('dp-data-selection');
         element.setAttribute('state', 'state');
         element.setAttribute('filters', 'filters');
+        element.setAttribute('user', 'user');
 
         const scope = $rootScope.$new();
         scope.state = state;
         scope.filters = filters;
+        scope.user = user || mockedUser;
 
         const component = $compile(element)(scope);
         scope.$apply();
@@ -407,15 +413,14 @@ describe('The dp-data-selection component', function () {
         const component = getComponent(mockedState, mockedFilters);
         expect(component.find('.qa-data-grid').length).toBe(1);
 
-        // With required authentication level
-        config.datasets.zwembaden.AUTH_LEVEL = 'EMPLOYEE';
+        // With required auth scope
+        config.datasets.zwembaden.AUTH_SCOPE = 'HR/R';
         // which the user does not have
-        user.meetsRequiredLevel.and.returnValue(false);
+        mockedUser.scopes = [];
 
         const disabledComponent = getComponent(mockedState, mockedFilters);
 
         // It is not shown
-        expect(user.meetsRequiredLevel).toHaveBeenCalledWith('EMPLOYEE');
         expect(disabledComponent.find('.qa-data-grid').length).toBe(0);
 
         // and a message is displayed

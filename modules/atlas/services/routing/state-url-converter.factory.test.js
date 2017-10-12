@@ -27,6 +27,13 @@ describe('The state url conversion factory', function () {
                     drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
                     highlight: true
                 },
+                user: {
+                    authenticated: false,
+                    accessToken: '',
+                    scopes: [],
+                    name: '',
+                    error: false
+                },
                 mapLayers: [],
                 filters: {},
                 layerSelection: {

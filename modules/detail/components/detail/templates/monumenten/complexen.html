@@ -8,7 +8,7 @@
 
         <dp-panel
           can-close="true"
-          is-panel-visible="vm.showMoreInfoWarning"
+          is-panel-visible="!vm.user.scopes.includes('MON/RBC')"
           type="warning">
             Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer gegevens te zien: beschrijving.
             Zie <dp-link-to-page item="item9" class-name="c-link--light"></dp-link-to-page>.
@@ -29,5 +29,5 @@
         </dl>
     </div>
 
-    <dp-api-call endpoint="{{vm.apiData.results.monumenten.href}}" partial="monumenten_lijst"></dp-api-call>
+    <dp-api-call endpoint="{{vm.apiData.results.monumenten.href}}" partial="monumenten_lijst" user="vm.user"></dp-api-call>
 </div>
