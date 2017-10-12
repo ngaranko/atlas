@@ -80,7 +80,9 @@
     }
 
     .select__icon-wrapper {
-      background-color: red;
+      color: white;
+      background-color: #f00;
+      border-color: #f00;
 
       @include svg-highlight-color(white);
     }
@@ -88,8 +90,7 @@
 
   &.select--disabled {
     .select__wrapper,
-    .select__icon-wrapper,
-    .select__label {
+    .select__icon-wrapper {
       border-color: #d2d2d2;
       color: #666;
 
@@ -135,20 +136,21 @@
     background-color: #eeeeee;
   }
 
-  .select__drop-down-button {
-    -ms-appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    appearance: none;
-    outline: none;
-  }
-
   .select__label,
   .select__drop-down-button {
     width: inherit;
     padding: 7px 10px 7px 0;
     font-family: "Avenir LT W01 85 Heavy";
     text-align: left;
+  }
+
+  .select__drop-down-button {
+    -ms-appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    outline: none;
+    font-family: "Avenir LT W01 55 Roman";
   }
 
   .select__drop-down-button {
