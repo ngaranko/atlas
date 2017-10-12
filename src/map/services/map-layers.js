@@ -470,17 +470,50 @@ export default [
   },
   {
     category: 'Geografie: onroerende zaken',
-    id: '',
+    id: 'gbep',
+    layers: ['wkpb'],
     legendItems: [
       {
-        imageUrl: '',
-        selectable: true,
-        title: ''
+        selectable: false,
+        title: 'Sluiting v. woning etc.'
+      },
+      {
+        selectable: false,
+        title: 'Exploitatieplan'
+      },
+      {
+        selectable: false,
+        title: 'Woningwet'
+      },
+      {
+        selectable: false,
+        title: 'Wet bodembescherming'
+      },
+      {
+        selectable: false,
+        title: 'WABO bestuursdwang / dwangsom'
+      },
+      {
+        selectable: false,
+        title: 'Vordering tot woonruimte'
+      },
+      {
+        selectable: false,
+        title: 'Gemeentelijk monument'
+      },
+      {
+        selectable: false,
+        title: 'Sluiting obv opiumwet'
+      },
+      {
+        selectable: false,
+        title: '(voorlopige) aanwijzing WVG'
       }
     ],
     maxZoom: 100,
     minZoom: 0,
-    title: 'Gemeentelijke beperkingen (WKPB)'
+    title: 'Gemeentelijke beperkingen (WKPB)',
+    url: '/maps/wkpb?version=1.3.0&service=WMS'
   },
   {
     category: 'Geografie: gebieden',
@@ -488,569 +521,1022 @@ export default [
     legendItems: [
       {
         id: 'sd',
-        imageUrl: '',
+        layer: 'stadsdeel',
         selectable: true,
-        title: 'Stadsdelen'
+        title: 'Stadsdeel'
       },
       {
         id: 'ggw',
-        imageUrl: '',
+        layer: 'gebiedsgerichtwerken',
         selectable: true,
-        title: 'Gebiedsgerichtwerken-gebieden'
+        title: 'Gebiedsgerichtwerken'
       },
       {
         id: 'bc',
-        imageUrl: '',
+        layer: 'buurtcombinatie',
         selectable: true,
-        title: 'Wijken'
+        title: 'Wijk'
       },
       {
         id: 'buurt',
-        imageUrl: '',
+        layer: 'buurt',
         selectable: true,
-        title: 'Buurten'
+        title: 'Buurt'
       }
     ],
     maxZoom: 100,
     minZoom: 0,
-    title: 'Bestuurlijke gebieden'
+    title: 'Bestuurlijke gebieden',
+    url: '/maps/gebieden?version=1.3.0&service=WMS'
   },
   {
     category: 'Geografie: gebieden',
     id: 'bbn',
+    layers: ['bouwblok'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
-      }
-    ],
-    title: 'Bouwblokken'
-  },
-  {
-    category: 'Geografie: gebieden',
-    id: 'ggs',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: false,
-        title: ''
-      }
-    ],
-    title: 'Grootstedelijke gebieden'
-  },
-  {
-    category: 'Geografie: gebieden',
-    id: 'unesco',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: true,
-        title: ''
+        title: 'Bouwblok'
       }
     ],
     maxZoom: 100,
     minZoom: 0,
-    title: 'Unesco werelderfgoedzones'
+    title: 'Bouwblokken',
+    url: '/maps/gebieden?version=1.3.0&service=WMS'
+  },
+  {
+    category: 'Geografie: gebieden',
+    id: 'ggs',
+    layers: ['grootstedelijkgebied'],
+    legendItems: [
+      {
+        selectable: false,
+        title: 'Grootstedelijk'
+      }
+    ],
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Grootstedelijke gebieden',
+    url: '/maps/gebieden?version=1.3.0&service=WMS'
+  },
+  {
+    category: 'Geografie: gebieden',
+    id: 'unesco',
+    layers: ['unesco'],
+    legendItems: [
+      {
+        selectable: false,
+        title: 'Kernzone'
+      },
+      {
+        selectable: false,
+        title: 'Bufferzone'
+      }
+    ],
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Unesco werelderfgoedzones',
+    url: '/maps/gebieden?version=1.3.0&service=WMS'
   },
   {
     category: 'Geografie: hoogte',
     id: 'dsm',
+    layers: ['ahn3_05m_dtm'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'TODO'
       }
     ],
-    title: 'Terreinmodel (DTM AHN)'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Terreinmodel (DTM AHN)',
+    url: 'https://geodata.nationaalgeoregister.nl/ahn3/ows?version=1.3.0&service=WMS'
   },
   {
     category: 'Geografie: hoogte',
     id: 'dtm',
+    layers: ['ahn3_05m_dsm'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'TODO'
       }
     ],
-    title: 'Oppervlaktemodel (DSM AHN)'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Oppervlaktemodel (DSM AHN)',
+    url: '/maps/gebieden?version=1.3.0&service=WMS'
   },
   {
     category: 'Geografie: hoogte',
     id: 'nap',
+    layers: ['NAP'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'lager dan -1,5 m'
+      },
+      {
+        selectable: false,
+        title: '-1,5 m tot -0,5 m'
+      },
+      {
+        selectable: false,
+        title: '-0,5 m tot 0 m'
+      },
+      {
+        selectable: false,
+        title: '0 m tot 1 m'
+      },
+      {
+        selectable: false,
+        title: '1 m tot 1,5 m'
+      },
+      {
+        selectable: false,
+        title: '1,5 m tot 2 m'
+      },
+      {
+        selectable: false,
+        title: '2 m tot 3,5 m'
+      },
+      {
+        selectable: false,
+        title: 'hoger dan 3,5 m'
       }
     ],
-    title: 'Normaal Amsterdams Peil (NAP)'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Normaal Amsterdams Peil (NAP)',
+    url: '/maps/nap?version=1.3.0&service=WMS'
   },
   {
     category: 'Geografie: hoogte',
     id: 'mbs',
+    layers: ['meetbouten_status'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'Actueel'
+      },
+      {
+        selectable: false,
+        title: 'Vervallen'
       }
     ],
-    title: 'Meetbouten - Status'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Meetbouten - Status',
+    url: '/maps/meetbouten?version=1.3.0&service=WMS'
   },
   {
     category: 'Geografie: hoogte',
     id: 'mbz',
+    layers: ['meetbouten_zaksnelheid'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'minder dan -1 mm/jaar'
+      },
+      {
+        selectable: false,
+        title: '-1 tot 0 mm/jaar'
+      },
+      {
+        selectable: false,
+        title: '0 tot 1 mm/jaar'
+      },
+      {
+        selectable: false,
+        title: '1 tot 1,5 mm/jaar'
+      },
+      {
+        selectable: false,
+        title: '1,5 tot 2 mm/jaar'
+      },
+      {
+        selectable: false,
+        title: '2 tot 2,5 mm/jaar'
+      },
+      {
+        selectable: false,
+        title: '2,5 tot 3 mm/jaar'
+      },
+      {
+        selectable: false,
+        title: '3 tot 4 mm/jaar'
+      },
+      {
+        selectable: false,
+        title: 'meer dan 4 mm/jaar'
       }
     ],
-    title: 'Meetbouten - Zaksnelheid'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Meetbouten - Zaksnelheid',
+    url: '/maps/meetbouten?version=1.3.0&service=WMS'
   },
   {
     category: 'Geografie: hoogte',
     id: 'mbr',
+    layers: ['referentiepunten'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'Referentie label'
+      },
+      {
+        selectable: false,
+        title: 'Referentiepunt'
       }
     ],
-    title: 'Meetbouten - Referentiepunten'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Meetbouten - Referentiepunten',
+    url: '/maps/meetbouten?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: bodem',
     id: 'mbgm',
+    layers: ['grondmonsters'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'Niet verontreinigd'
+      },
+      {
+        selectable: false,
+        title: 'Licht verontreinigd'
+      },
+      {
+        selectable: false,
+        title: 'Matig verontreinigd'
+      },
+      {
+        selectable: false,
+        title: 'Sterk verontreinigd'
       }
     ],
-    title: 'Grondmonsters'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Grondmonsters',
+    url: '/maps/bodem?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: bodem',
     id: 'mbaig',
+    layers: ['asbest'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: '-10 - 0 mg/kg'
+      },
+      {
+        selectable: false,
+        title: '0,1 - 10 mg/kg'
+      },
+      {
+        selectable: false,
+        title: '10,1 - 100 mg/kg'
+      },
+      {
+        selectable: false,
+        title: '> 100,1 mg/kg'
       }
     ],
-    title: 'Grondmonsters asbest'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Grondmonsters asbest',
+    url: '/maps/bodem?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: bodem',
     id: 'mbgwm',
+    layers: ['grondwatermonsters'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'Niet verontreinigd'
+      },
+      {
+        selectable: false,
+        title: 'Licht verontreinigd'
+      },
+      {
+        selectable: false,
+        title: 'Matig verontreinigd'
+      },
+      {
+        selectable: false,
+        title: 'Sterk verontreinigd'
       }
     ],
-    title: 'Grondwatermonsters'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Grondwatermonsters',
+    url: '/maps/bodem?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: bodem',
     id: 'exin',
+    layers: ['inslagen'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'blindganger'
+      },
+      {
+        selectable: false,
+        title: 'bominslag'
+      },
+      {
+        selectable: false,
+        title: 'crashlocatie'
+      },
+      {
+        selectable: false,
+        title: 'gedetoneerde vernielingslading'
+      },
+      {
+        selectable: false,
+        title: 'geruimd explosief'
+      },
+      {
+        selectable: false,
+        title: 'krater'
+      },
+      {
+        selectable: false,
+        title: 'niet gedetoneerde vernielingslading'
+      },
+      {
+        selectable: false,
+        title: 'vermoedelijke bominslag(en)'
       }
     ],
-    title: 'Explosieven - Inslagen'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Explosieven - Inslagen',
+    url: '/maps/bommenkaart?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: bodem',
     id: 'exvg',
+    layers: ['verdachte_gebieden'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'Munities en granaten'
+      },
+      {
+        selectable: false,
+        title: 'Landmijnen'
+      },
+      {
+        selectable: false,
+        title: 'Vernielingsladingen'
+      },
+      {
+        selectable: false,
+        title: 'Afwerpmunitie'
       }
     ],
-    title: 'Explosieven - Verdachte gebieden'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Explosieven - Verdachte gebieden',
+    url: '/maps/bodem?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: bodem',
     id: 'exgg',
+    layers: ['gevrijwaarde_gebieden'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'gevrijwaarde gebieden'
       }
     ],
-    title: 'Explosieven - Gevrijwaarde gebieden'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Explosieven - Gevrijwaarde gebieden',
+    url: '/maps/bodem?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: bodem',
     id: 'exuo',
+    layers: ['uitgevoerde_CE_onderzoeken'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'Detectieonderzoek'
+      },
+      {
+        selectable: false,
+        title: 'Projectgebonden risicoanalyse'
+      },
+      {
+        selectable: false,
+        title: 'Vooronderzoek'
       }
     ],
-    title: 'Explosieven - Uitgevoerde CE-onderzoeken'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Explosieven - Uitgevoerde CE-onderzoeken',
+    url: '/maps/bodem?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: externe veiligheid',
     id: 'mvlpgv',
+    layers: ['milieu_veiligheid_lpg_vulpunt'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'Plaatsgebonden risico 10-5'
+      },
+      {
+        selectable: false,
+        title: 'Plaatsgebonden risico 10-6'
+      },
+      {
+        selectable: false,
+        title: 'Invloedsgebied groepsrisico'
       }
     ],
-    title: 'LPG-vulpunten - Risicozones'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'LPG-vulpunten - Risicozones',
+    url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: externe veiligheid',
     id: 'mvlpga',
+    layers: ['milieu_veiligheid_lpg_afleverzuil'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'Locatie LPG-afleverzuil'
+      },
+      {
+        selectable: false,
+        title: 'Plaatsgebonden risico (15 m)'
       }
     ],
-    title: 'LPG-afleverzuilen - Risicozones'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'LPG-afleverzuilen - Risicozones',
+    url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: externe veiligheid',
     id: 'mvlpgt',
+    layers: ['milieu_veiligheid_lpg_tank'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'Ligging LPG-tank'
+      },
+      {
+        selectable: false,
+        title: 'Plaatsgebondenrisico (25/120 m)'
+      },
+      {
+        selectable: false,
+        title: 'Invloedsgebied groepsrisico'
       }
     ],
-    title: 'LPG-tanks - Risicozones'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'LPG-tanks - Risicozones',
+    url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: externe veiligheid',
     id: 'mvlpgs',
+    layers: ['milieu_veiligheid_lpg_station'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'Locatie LPG-station'
+      },
+      {
+        selectable: false,
+        title: 'Contouren LPG-station'
       }
     ],
-    title: 'LPG-stations - Risicozones'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'LPG-stations - Risicozones',
+    url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: externe veiligheid',
     id: 'mvbr',
+    layers: ['milieu_veiligheid_bedrijf'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'Plaatsgebonden risico 10-6'
+      },
+      {
+        selectable: false,
+        title: 'Invloedsgebied'
+      },
+      {
+        selectable: false,
+        title: 'Bron'
       }
     ],
-    title: 'Bedrijven - Bronnen en risicozones'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Bedrijven - Bronnen en risicozones',
+    url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: externe veiligheid',
     id: 'mvbd',
+    layers: ['milieu_veiligheid_bedrijf'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'Bedrijf'
+      },
+      {
+        selectable: false,
+        title: 'Bedrijf'
       }
     ],
-    title: 'Bedrijven - Terreingrenzen'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Bedrijven - Terreingrenzen',
+    url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: externe veiligheid',
     id: 'mvabl',
+    layers: ['milieu_veiligheid_aardgasbuisleidingen'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'Aardgasleiding'
+      },
+      {
+        selectable: false,
+        title: 'Plaatsgebonden risico 10-6'
+      },
+      {
+        selectable: false,
+        title: '100% Letaliteitsafstand'
+      },
+      {
+        selectable: false,
+        title: '1% Letaliteitsafstand'
+      },
+      {
+        selectable: false,
+        title: 'Belemmeringenstrook'
       }
     ],
-    title: 'Aardgasbuisleidingen - Risicozones'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Aardgasbuisleidingen - Risicozones',
+    url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: externe veiligheid',
     id: 'mvsw',
+    layers: ['risicozonesspoorweg'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'Invloedsgebied spoorwegen'
       }
     ],
-    title: 'Spoorwegen - Risicozones'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Spoorwegen - Risicozones',
+    url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: externe veiligheid',
     id: 'mvvw',
+    layers: ['risicozonesvaarweg'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'Invloedsgebied vaarwegen'
       }
     ],
-    title: 'Vaarwegen - Risicozones'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Vaarwegen - Risicozones',
+    url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: externe veiligheid',
     id: 'mvw',
+    layers: ['risicozonesweg'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'Invloedsgebied wegen'
       }
     ],
-    title: 'Wegen - Risicozones'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Wegen - Risicozones',
+    url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: externe veiligheid',
-    id: 'vlgha',
     legendItems: [
       {
         id: 'mvvo',
-        imageUrl: '',
-        selectable: false,
+        layer: 'milieu_veiligheid_vuurwerk',
+        selectable: true,
         title: 'Vuurwerkopslag'
       },
       {
         id: 'mvmo',
-        imageUrl: '',
-        selectable: false,
+        layer: 'milieu_veiligheid_munitie',
+        selectable: true,
         title: 'Munitieopslag'
       },
       {
         id: 'mvgms',
-        imageUrl: '',
-        selectable: false,
-        title: 'Gasdrukregel- en meetstations'
+        layer: 'milieu_veiligheid_gasdrukregel_meetstation',
+        selectable: true,
+        title: 'Gasdrukregel- en meetstation'
       },
       {
         id: 'mvsls',
-        imageUrl: '',
-        selectable: false,
-        title: 'Sluizen'
+        layer: 'milieu_veiligheid_sluis',
+        selectable: true,
+        title: 'Sluis'
       },
       {
         id: 'mvwp',
-        imageUrl: '',
-        selectable: false,
-        title: 'Wachtplaatsen'
+        layer: 'milieu_veiligheid_wachtplaats',
+        selectable: true,
+        title: 'Wachtplaats'
       },
       {
         id: 'mvbs',
-        imageUrl: '',
-        selectable: false,
-        title: 'Bunkerschepen'
+        layer: 'milieu_veiligheid_bunkerschepen',
+        selectable: true,
+        title: 'Bunkerschip'
       }
     ],
-    title: 'Veiligheidsafstanden'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Veiligheidsafstanden',
+    url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: zones',
     id: 'mgpind',
+    layers: ['milieu_geluid_planologisch_industrie'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'Gezoneerd industrieterrein'
+      },
+      {
+        selectable: false,
+        title: 'Geluidzone industrieterrein'
       }
     ],
-    title: 'Industrie - Geluidszones'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Industrie - Geluidszones',
+    url: '/maps/planologischegeluidszones?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: zones',
     id: 'mgsw',
+    layers: ['spoorwegen'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'Geluidszone spoorwegen'
       }
     ],
-    title: 'Spoorwegen - Geluidszones'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Spoorwegen - Geluidszones',
+    url: '/maps/planologischegeluidszones?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: zones',
     id: 'mgpm',
+    layers: ['metro'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'Geluidszone metro'
       }
     ],
-    title: 'Metro - Geluidszones'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Metro - Geluidszones',
+    url: '/maps/planologischegeluidszones?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: zones',
     id: 'mgpsh',
+    layers: ['geluidszoneschiphol'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'Geluidzone Schiphol (nr. 4 \'beperking gebouwen\')'
+      },
+      {
+        selectable: false,
+        title: '20 Ke contour'
       }
     ],
-    title: 'Schiphol - Ruimtelijke beperkingen'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Schiphol - Ruimtelijke beperkingen',
+    url: '/maps/planologischezonesschiphol?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: zones',
     id: 'mgth',
+    layers: ['maatgevendetoetshoogteschiphol'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: '-10 - 0m NAP'
+      },
+      {
+        selectable: false,
+        title: '0 - 20m NAP'
+      },
+      {
+        selectable: false,
+        title: '20 - 40m NAP'
+      },
+      {
+        selectable: false,
+        title: '40 - 60m NAP'
+      },
+      {
+        selectable: false,
+        title: '60 - 80m NAP'
+      },
+      {
+        selectable: false,
+        title: '80 - 100m NAP'
+      },
+      {
+        selectable: false,
+        title: '100 - 140m NAP'
+      },
+      {
+        selectable: false,
+        title: '140m NAP'
+      },
+      {
+        selectable: false,
+        title: 'Hoger dan 140m NAP'
       }
     ],
-    title: 'Schiphol - Maatgevende toetshoogte'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Schiphol - Maatgevende toetshoogte',
+    url: '/maps/planologischezonesschiphol?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: zones',
     id: 'mthr',
+    layers: ['toetshoogteradarschiphol'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: '-10 - 0m NAP'
+      },
+      {
+        selectable: false,
+        title: '0 - 20m NAP'
+      },
+      {
+        selectable: false,
+        title: '20 - 40m NAP'
+      },
+      {
+        selectable: false,
+        title: '40 - 60m NAP'
+      },
+      {
+        selectable: false,
+        title: '60 - 80m NAP'
+      },
+      {
+        selectable: false,
+        title: '80 - 100m NAP'
+      },
+      {
+        selectable: false,
+        title: '100 - 140m NAP'
+      },
+      {
+        selectable: false,
+        title: '140m NAP'
+      },
+      {
+        selectable: false,
+        title: 'Hoger dan 140m NAP'
       }
     ],
-    title: 'Schiphol - Toetshoogte i.v.m. radar'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Schiphol - Toetshoogte i.v.m. radar',
+    url: '/maps/planologischezonesschiphol?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: zones',
     id: 'mgvvgsh',
+    layers: ['vogelvrijwaringsgebiedschiphol'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'Vogelvrijwaringsgebied'
       }
     ],
-    title: 'Schiphol - Vogelvrijwaringsgebied'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Schiphol - Vogelvrijwaringsgebied',
+    url: '/maps/planologischezonesschiphol?version=1.3.0&service=WMS'
   },
   {
     category: 'Openbare orde en veiligheid',
-    id: 'ovlg',
     legendItems: [
       {
         id: 'oovoalg',
-        imageUrl: '',
-        selectable: false,
-        title: 'Algemeen'
+        layer: 'algemeen_overlastgebied',
+        selectable: true,
+        title: 'Algemeen overlastgebied'
       },
       {
         id: 'oovodlrs',
-        imageUrl: '',
-        selectable: false,
-        title: 'Dealers'
+        layer: 'dealeroverlastgebied',
+        selectable: true,
+        title: 'Dealeroverlastgebied'
       },
       {
         id: 'oovouitg',
-        imageUrl: '',
-        selectable: false,
-        title: 'Uitgaan'
+        layer: 'uitgaansoverlastgebied',
+        selectable: true,
+        title: 'Uitgaansoverlastgebied'
       }
     ],
-    title: 'Overlastgebieden'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Overlastgebieden',
+    url: '/maps/overlastgebieden?version=1.3.0&service=WMS'
   },
   {
     category: 'Openbare orde en veiligheid',
     id: 'oovctg',
+    layers: ['cameratoezichtgebied'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'Cameratoezichtgebied'
       }
     ],
-    title: 'Cameratoezichtgebieden'
-  },
-  {
-    category: '',
-    id: '',
-    legendItems: [
-      {
-        imageUrl: '',
-        selectable: false,
-        title: ''
-      }
-    ],
-    title: ''
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Cameratoezichtgebieden',
+    url: '/maps/overlastgebieden?version=1.3.0&service=WMS'
   },
   {
     category: 'Verkeer en infrastructuur',
     id: 'pv',
+    layers: ['alle_parkeervakken'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'FISCAAL'
+      },
+      {
+        selectable: false,
+        title: 'Parkeervak'
       }
     ],
-    title: 'Parkeervakken - Fiscale indeling'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Parkeervakken - Fiscale indeling',
+    url: '/maps/parkeervakken?version=1.3.0&service=WMS'
   },
   {
     category: 'Verkeer en infrastructuur',
     id: 'pvb',
+    layers: ['parkeervakken_bord'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'Bord'
       }
     ],
-    title: 'Parkeervakken - Speciale bestemmingen'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Parkeervakken - Speciale bestemmingen',
+    url: '/maps/parkeervakken?version=1.3.0&service=WMS'
   },
   {
     category: 'Verkeer en infrastructuur',
     id: 'pvr',
+    layers: ['parkeervakken_reservering'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'FISCAAL'
+      },
+      {
+        selectable: false,
+        title: 'Parkeerverbod'
+      },
+      {
+        selectable: false,
+        title: 'Verbod stil te staan'
+      },
+      {
+        selectable: false,
+        title: 'Verbod (brom)fietsen plaatsen'
+      },
+      {
+        selectable: false,
+        title: 'Parkeergelegenheid'
+      },
+      {
+        selectable: false,
+        title: 'Taxistandplaats'
+      },
+      {
+        selectable: false,
+        title: 'Gehandicaptenplaats'
+      },
+      {
+        selectable: false,
+        title: 'Gehandicaptenplaats algemeen'
+      },
+      {
+        selectable: false,
+        title: 'Gehandicaptenplaats kenteken'
+      },
+      {
+        selectable: false,
+        title: 'Laden lossen'
+      },
+      {
+        selectable: false,
+        title: 'Specifieke voertuigcategorie'
+      },
+      {
+        selectable: false,
+        title: 'Vergunninghouders'
+      },
+      {
+        selectable: false,
+        title: 'Blauwe zone'
+      },
+      {
+        selectable: false,
+        title: 'Einde blauwe zone'
+      },
+      {
+        selectable: false,
+        title: 'Park & Ride'
+      },
+      {
+        selectable: false,
+        title: 'Carpool'
+      },
+      {
+        selectable: false,
+        title: 'MULDER'
       }
     ],
-    title: 'Parkeervakken - Gereserveerd'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Parkeervakken - Gereserveerd',
+    url: '/maps/parkeervakken?version=1.3.0&service=WMS'
   },
   {
     category: 'Toerisme en cultuur',
     id: 'tcmnmt',
+    layers: ['monument_coordinaten'],
     legendItems: [
       {
-        imageUrl: '',
         selectable: false,
-        title: ''
+        title: 'Monument'
       }
     ],
-    title: 'Monumenten'
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Monumenten',
+    url: '/maps/monumenten?version=1.3.0&service=WMS'
   }
 ];
