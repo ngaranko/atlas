@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import { getBaseLayers } from '../../ducks/layers/base-layers';
 import { setBaseLayer } from '../../ducks/base-layer/base-layer';
 import { getMapLayers, selectActiveMapLayers } from '../../ducks/layers/map-layers';
-import { toggleMapOverlay, toggleMapOverlays, toggleMapOverlayVisibility } from '../../ducks/overlays/overlays';
+import { toggleMapOverlay, toggleMapOverlayVisibility } from '../../ducks/overlays/overlays';
 import MapLayers from '../../components/layers/MapLayers';
 import MapLegend from '../../components/legend/MapLegend';
 import MapType from '../../components/type/MapType';
@@ -27,7 +27,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => bindActionCreators({
   onLayerToggle: toggleMapOverlay,
   onBaseLayerToggle: setBaseLayer,
-  onLayersToggle: toggleMapOverlays,
+  onLayersToggle: toggleMapOverlay,
   onLayerVisibilityToggle: toggleMapOverlayVisibility
 }, dispatch);
 
@@ -63,7 +63,6 @@ class MapPanelContainer extends React.Component {
             activeMapLayers={this.props.activeMapLayers}
             layers={this.props.mapLayers}
             onLayerToggle={this.props.onLayerToggle}
-            onLayersToggle={this.props.onLayersToggle}
           />
         </div>
       </section>

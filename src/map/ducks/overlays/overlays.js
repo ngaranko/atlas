@@ -17,21 +17,6 @@ export default function MapOverlaysReducer(state = initialState, action) {
         }
       };
 
-    case TOGGLE_MAP_OVERLAYS:
-      return {
-        ...state,
-        map: {
-          ...state.map,
-          overlays: [
-            ...state.map.overlays.filter(overlay => !action.mapLayerIds.includes(overlay.id)),
-            ...action.mapLayerIds.map(mapLayerId => ({
-              id: mapLayerId,
-              isVisible: true
-            }))
-          ]
-        }
-      };
-
     case TOGGLE_MAP_OVERLAY_VISIBILITY:
       return {
         ...state,
@@ -50,7 +35,6 @@ export default function MapOverlaysReducer(state = initialState, action) {
 }
 
 export const toggleMapOverlay = mapLayerId => ({ type: TOGGLE_MAP_OVERLAY, mapLayerId });
-export const toggleMapOverlays = mapLayerIds => ({ type: TOGGLE_MAP_OVERLAYS, mapLayerIds });
 export const toggleMapOverlayVisibility = mapLayerId => ({ type: TOGGLE_MAP_OVERLAY_VISIBILITY,
   mapLayerId });
 

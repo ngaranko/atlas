@@ -7,13 +7,22 @@ import RemoveIcon from '../../../../public/images/icon-cross.svg';
 class MapLegend extends React.Component {
   static constructLegendIconUrl(mapLayer, legendItem) {
     return [
-      `https://acc.map.data.amsterdam.nl${mapLayer.url}&`,
+      '//',
+      process.env.NODE_ENV !== 'production' ? 'acc.map.data.amsterdam.nl' : `map.${window.location.hostname}`,
+      `${mapLayer.url}&`,
       'request=GetLegendGraphic&',
       'sld_version=1.1.0&',
       `layer=${legendItem.layer || mapLayer.layers[0]}&`,
       'format=image/svg%2Bxml&',
       `rule=${encodeURIComponent(legendItem.title)}`
     ].join('');
+  }
+
+  static mapLayersLegendItemsToIds(mapLayer) {
+    return [
+      mapLayer.id,
+      ...mapLayer.legendItems.map(legendItem => legendItem.id)
+    ].filter(mapLayerId => !!mapLayerId);
   }
 
   determineLayerVisibility(mapLayer) {
@@ -28,23 +37,13 @@ class MapLegend extends React.Component {
   }
 
   toggleLayer(mapLayer) {
-    const layers = [
-      mapLayer.id,
-      ...mapLayer.legendItems.map(legendItem => legendItem.id)
-    ];
-    layers
-      .filter(mapLayerId => !!mapLayerId)
-      .forEach(mapLayerId => this.props.onLayerToggle(mapLayerId));
+    MapLegend.mapLayersLegendItemsToIds(mapLayer).forEach(mapLayerId =>
+      this.props.onLayerToggle(mapLayerId));
   }
 
   toggleLayerVisibility(mapLayer) {
-    const layers = [
-      mapLayer.id,
-      ...mapLayer.legendItems.map(legendItem => legendItem.id)
-    ];
-    layers
-      .filter(mapLayerId => !!mapLayerId)
-      .forEach(mapLayerId => this.props.onLayerVisibilityToggle(mapLayerId));
+    MapLegend.mapLayersLegendItemsToIds(mapLayer).forEach(mapLayerId =>
+      this.props.onLayerVisibilityToggle(mapLayerId));
   }
 
   render() {
@@ -87,7 +86,11 @@ class MapLegend extends React.Component {
                         onChange={() => onLayerVisibilityToggle(legendItem.id)}
                       />
                     )}
-                    <div className="map-legend__image">
+                    <div className={`
+                      map-legend__image
+                      map-legend__image--${legendItem.selectable ? 'selectable' : 'not-selectable'}
+                    `}
+                    >
                       <img
                         alt=""
                         src={MapLegend.constructLegendIconUrl(mapLayer, legendItem)}
@@ -108,7 +111,6 @@ class MapLegend extends React.Component {
 MapLegend.propTypes = {
   activeMapLayers: PropTypes.array, // eslint-disable-line
   onLayerToggle: PropTypes.func, // eslint-disable-line
-  onLayersToggle: PropTypes.func, // eslint-disable-line
   onLayerVisibilityToggle: PropTypes.func, // eslint-disable-line
   overlays: PropTypes.array, // eslint-disable-line
   zoomLevel: PropTypes.number.isRequired
