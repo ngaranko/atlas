@@ -38,8 +38,12 @@ $clear-button-margin: ($site-header-search-form-height - $button-size) / 2;
   }
 
   &::-ms-input-placeholder { /* Edge */
-    @include font-weight($normal-weight);
-    color: $secondary-gray60;
+    // cannot change font attributes in edge here, so we have a lighter text color
+    color: $secondary-gray40;
+  }
+
+  &::-ms-clear {
+    display: none;
   }
 
   &:focus {
