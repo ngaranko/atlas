@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Select } from '../../../shared/components/select';
+import { SelectButton } from '../../../shared/components/selectbutton';
 
 import AerialIcon from '../../../../public/images/icon-aerial.svg';
 import TopographyIcon from '../../../../public/images/icon-topography.svg';
@@ -14,7 +14,7 @@ const MapType = ({ layers, activeLayer, onBaseLayerToggle }) => (
   <section className="map-panel__map-type">
     <div className="map-panel__map-type-title">Achtergrond</div>
 
-    <Select
+    <SelectButton
       className="map-panel__map-type-select map-panel__map-type-select--topography"
       name="topography"
       icon={TopographyIcon}
@@ -24,7 +24,7 @@ const MapType = ({ layers, activeLayer, onBaseLayerToggle }) => (
       handleChange={onBaseLayerToggle}
     />
 
-    <Select
+    <SelectButton
       className="map-panel__map-type-select map-panel__map-type-select--aerial"
       name="aerial"
       icon={AerialIcon}
