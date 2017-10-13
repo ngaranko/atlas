@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { getBaseLayers } from '../../ducks/layers/base-layers';
+import { getBaseLayers } from '../../ducks/base-layers/base-layers';
 import { setBaseLayer } from '../../ducks/base-layer/base-layer';
 import { getMapLayers, selectActiveMapLayers } from '../../ducks/layers/map-layers';
 import { toggleMapOverlay, toggleMapOverlayVisibility } from '../../ducks/overlays/overlays';
