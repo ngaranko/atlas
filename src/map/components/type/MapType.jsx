@@ -7,7 +7,7 @@ import AerialIcon from '../../../../public/images/icon-aerial.svg';
 import TopographyIcon from '../../../../public/images/icon-topography.svg';
 
 function hasLayer(activeLayer, layers) {
-  return layers && layers.length > 0 && layers.some(l => l.value === activeLayer);
+  return layers && layers.length > 0 && layers.some(layer => layer.value === activeLayer);
 }
 
 const MapType = ({ layers, activeLayer, onBaseLayerToggle }) => (
