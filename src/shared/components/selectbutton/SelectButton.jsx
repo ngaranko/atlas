@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import ExpandIcon from '../../../../public/images/icon-arrow-down.svg';
 import ContractIcon from '../../../../public/images/icon-arrow-up.svg';
 
-import './_select.scss';
+import './_select-button.scss';
 
-class Select extends React.Component {
+class SelectButton extends React.Component {
   constructor(props) {
     super(props);
 
@@ -105,17 +105,17 @@ class Select extends React.Component {
   render() {
     const { options = [] } = this.props;
     return (
-      <section className={`${this.state.className} select ${this.state.expanded ? 'select--expanded' : ''} ${this.state.disabled ? 'select--disabled' : ''}`}
+      <section className={`${this.state.className} select-button ${this.state.expanded ? 'select-button--expanded' : ''} ${this.state.disabled ? 'select-button--disabled' : ''}`}
         ref={(node) => { this.node = node; }}
       >
         <div
-          className="select__wrapper"
+          className="select-button__wrapper"
           onClick={this.handleClick}
         >
-          <span className="select__custom-icon">
+          <span className="select-button__custom-icon">
             <this.props.icon />
           </span>
-          <div className="select__label">
+          <div className="select-button__label">
             {this.state.label}
           </div>
           <input
@@ -125,23 +125,23 @@ class Select extends React.Component {
           />
         </div>
 
-        <span className="select__icon-wrapper" onClick={this.handleToggle}>
-          <span className="select__icon select__icon--expand">
+        <span className="select-button__icon-wrapper" onClick={this.handleToggle}>
+          <span className="select-button__icon select-button__icon--expand">
             <ExpandIcon />
           </span>
-          <span className="select__icon select__icon--contract">
+          <span className="select-button__icon select-button__icon--contract">
             <ContractIcon />
           </span>
         </span>
 
-        <ul className="select__drop-down">
+        <ul className="select-button__drop-down">
           {options.map(option => (
             <li
-              className={`select__drop-down-item ${option.value === this.state.value ? 'select__drop-down-item--selected' : ''}`}
+              className={`select-button__drop-down-item ${option.value === this.state.value ? 'select-button__drop-down-item--selected' : ''}`}
               key={option.value}
             >
               <button
-                className="select__drop-down-button"
+                className="select-button__drop-down-button"
                 value={option.value}
                 onClick={this.handleClickChild}
               >
@@ -155,7 +155,7 @@ class Select extends React.Component {
   }
 }
 
-Select.defaultProps = {
+SelectButton.defaultProps = {
   label: '',
   value: '',
   className: '',
@@ -165,7 +165,7 @@ Select.defaultProps = {
   handleChange: () => {}
 };
 
-Select.propTypes = {
+SelectButton.propTypes = {
   label: PropTypes.string,
   value: PropTypes.string,
   className: PropTypes.string,
@@ -177,4 +177,4 @@ Select.propTypes = {
   handleChange: PropTypes.func
 };
 
-export default Select;
+export default SelectButton;

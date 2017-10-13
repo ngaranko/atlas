@@ -7,12 +7,12 @@
   }
 }
 
-.select {
+.select-button {
   position: relative;
   margin-bottom: 10px;
   background-color: white;
 
-  .select__wrapper {
+  .select-button__wrapper {
     border-top: 1px solid #7e7e7e;
     border-left: 1px solid #7e7e7e;
     border-bottom: 1px solid #7e7e7e;
@@ -33,7 +33,7 @@
     }
   }
 
-  .select__icon-wrapper {
+  .select-button__icon-wrapper {
     width: 32px;
     height: 36px;
     padding: 6px 3px;
@@ -51,35 +51,35 @@
     }
   }
 
-  .select__icon {
+  .select-button__icon {
     svg {
       width: 22px;
       height: 22px;
     }
   }
 
-  .select__icon--expand {
+  .select-button__icon--expand {
     display: inline;
   }
 
-  .select__icon--contract {
+  .select-button__icon--contract {
     display: none;
   }
 
-  &.select--expanded {
-    .select__drop-down {
+  &.select-button--expanded {
+    .select-button__drop-down {
       display: block;
     }
 
-    .select__icon--expand {
+    .select-button__icon--expand {
       display: none;
     }
 
-    .select__icon--contract {
+    .select-button__icon--contract {
       display: inline;
     }
 
-    .select__icon-wrapper {
+    .select-button__icon-wrapper {
       color: white;
       background-color: #f00;
       border-color: #f00;
@@ -88,9 +88,9 @@
     }
   }
 
-  &.select--disabled {
-    .select__wrapper,
-    .select__icon-wrapper {
+  &.select-button--disabled {
+    .select-button__wrapper,
+    .select-button__icon-wrapper {
       border-color: #d2d2d2;
       color: #666;
 
@@ -103,8 +103,8 @@
       }
     }
 
-    &.select--expanded {
-      .select__icon-wrapper {
+    &.select-button--expanded {
+      .select-button__icon-wrapper {
         border-color: #f00;
       }
     }
@@ -112,7 +112,7 @@
     @include svg-highlight-color(#666);
   }
 
-  .select__custom-icon {
+  .select-button__custom-icon {
     margin-left: 7px;
     width: 20px;
     height: 20px;
@@ -123,7 +123,7 @@
     }
   }
 
-  .select__drop-down {
+  .select-button__drop-down {
     position: absolute;
     width: 100%;
     border-left: 1px solid #000;
@@ -134,23 +134,23 @@
     z-index: 700;
   }
 
-  .select__drop-down-item {
+  .select-button__drop-down-item {
     width: inherit;
   }
 
-  .select__drop-down-item--selected {
+  .select-button__drop-down-item--selected {
     background-color: #eeeeee;
   }
 
-  .select__label,
-  .select__drop-down-button {
+  .select-button__label,
+  .select-button__drop-down-button {
     width: inherit;
     padding: 7px 10px 7px 0;
     font-family: "Avenir LT W01 85 Heavy";
     text-align: left;
   }
 
-  .select__drop-down-button {
+  .select-button__drop-down-button {
     -ms-appearance: none;
     -moz-appearance: none;
     -webkit-appearance: none;
@@ -159,11 +159,11 @@
     font-family: "Avenir LT W01 55 Roman";
   }
 
-  .select__drop-down-button {
+  .select-button__drop-down-button {
     padding: 7px 10px 7px 33px;
   }
 
-  .select__drop-down-button {
+  .select-button__drop-down-button {
     &:hover {
       background-color: #f6f6f6;
     }
