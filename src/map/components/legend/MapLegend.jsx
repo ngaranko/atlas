@@ -8,7 +8,7 @@ class MapLegend extends React.Component {
   static constructLegendIconUrl(mapLayer, legendItem) {
     return [
       '//',
-      process.env.NODE_ENV !== 'production' ? 'acc.map.data.amsterdam.nl' : `map.${window.location.hostname}`,
+      process.env.NODE_ENV !== 'production' ? 'acc.map.data.amsterdam.nl' : 'map.data.amsterdam.nl',
       `${mapLayer.url}&`,
       'request=GetLegendGraphic&',
       'sld_version=1.1.0&',
@@ -73,8 +73,7 @@ class MapLegend extends React.Component {
             )}
             {(zoomLevel >= mapLayer.minZoom && zoomLevel <= mapLayer.maxZoom) && (
               <ul className="map-legend__items">
-                {/* TODO: Remove `.filter()` as soon data is complete */}
-                {mapLayer.legendItems.filter(legendItem => !!legendItem.title).map(legendItem => (
+                {mapLayer.legendItems.map(legendItem => (
                   <li
                     className="map-legend__item"
                     key={legendItem.title}

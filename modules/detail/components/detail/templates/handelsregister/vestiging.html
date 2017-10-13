@@ -5,6 +5,9 @@
             definition="VESTIGING">
         </dp-glossary-header>
 
+        <div ng-if="!vm.user.scopes.includes('HR/R')"
+            ng-include="'modules/detail/components/detail/templates/handelsregister/unauthorized.html'"></div>
+
         <dp-panel
             is-panel-visible="true"
             ng-if="vm.apiData.results.datum_einde"
@@ -13,11 +16,11 @@
             Datum einde: {{ vm.apiData.results.datum_einde | date:'dd-MM-yyyy' }}
         </dp-panel>
 
-        <dl class="c-key-value-list">
+        <dl ng-if="vm.apiData" class="c-key-value-list">
             <dt>Eerste handelsnaam</dt>
             <dd>{{ vm.apiData.results.naam }}</dd>
             <dt>KvK-nummer</dt>
-            <dp-api-call endpoint="{{vm.apiData.results.maatschappelijke_activiteit}}" partial="handelsregister/kvk-nummer"></dp-api-call>
+            <dp-api-call endpoint="{{vm.apiData.results.maatschappelijke_activiteit}}" partial="handelsregister/kvk-nummer" user="vm.user"></dp-api-call>
             <dt>Postadres</dt>
             <dd>
                 {{ vm.apiData.results.postadres.volledig_adres }}
@@ -33,7 +36,7 @@
                 </dp-message>
             </dd>
             <dt>Indicatie non-mailing</dt>
-            <dp-api-call endpoint="{{vm.apiData.results.maatschappelijke_activiteit}}" partial="handelsregister/non-mailing"></dp-api-call>
+            <dp-api-call endpoint="{{vm.apiData.results.maatschappelijke_activiteit}}" partial="handelsregister/non-mailing" user="vm.user"></dp-api-call>
             <dt>Afgeschermd</dt>
             <dd>{{ vm.apiData.results.bezoekadres.afgeschermd?'Ja':'Nee' }}</dd>
             <dt>Type vestiging</dt>
@@ -62,7 +65,7 @@
         </dl>
     </div>
 
-    <div class="c-detail__block">
+    <div ng-if="vm.apiData" class="c-detail__block">
         <dp-glossary-header
             definition="MAATSCHAPPELIJKEACTIVITEIT">
         </dp-glossary-header>
@@ -73,5 +76,5 @@
             >{{ vm.apiData.results.naam }}</dp-link>
     </div>
 
-    <div ng-include="'modules/detail/components/detail/templates/hr-disclaimer.html'"></div>
+    <div ng-if="vm.apiData" ng-include="'modules/detail/components/detail/templates/hr-disclaimer.html'"></div>
 </div>

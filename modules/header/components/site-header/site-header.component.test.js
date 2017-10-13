@@ -1,6 +1,9 @@
 describe('The dp-site-header component', () => {
     let $compile,
-        $rootScope;
+        $rootScope,
+        $window,
+        origAuth,
+        mockedUser;
 
     beforeEach(() => {
         angular.mock.module(
@@ -12,10 +15,26 @@ describe('The dp-site-header component', () => {
             }
         );
 
-        angular.mock.inject((_$compile_, _$rootScope_) => {
+        angular.mock.inject((_$compile_, _$rootScope_, _$window_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
+            $window = _$window_;
         });
+
+        origAuth = $window.auth;
+        $window.auth = {
+            login: angular.noop
+        };
+
+        mockedUser = {
+            authenticated: false,
+            scopes: [],
+            name: ''
+        };
+    });
+
+    afterEach(() => {
+        $window.auth = origAuth;
     });
 
     function getComponent (query, size) {
@@ -24,9 +43,11 @@ describe('The dp-site-header component', () => {
         element.setAttribute('has-print-button', true);
         element.setAttribute('has-embed-button', true);
         element.setAttribute('size', 'size');
+        element.setAttribute('user', 'user');
 
         const scope = $rootScope.$new();
         scope.size = size;
+        scope.user = mockedUser;
 
         const component = $compile(element)(scope);
         scope.$apply();

@@ -9,7 +9,8 @@
                 searchAction: '<',
                 hasPrintButton: '<',
                 hasEmbedButton: '<',
-                size: '='
+                size: '=',
+                user: '<'
             },
             templateUrl: 'modules/header/components/site-header/site-header.html',
             controller: DpSiteHeaderController,

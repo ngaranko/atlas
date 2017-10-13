@@ -8,7 +8,8 @@
                 endpoint: '@',
                 partial: '@',
                 addApiRoot: '=',
-                useBrkObjectExpanded: '='
+                useBrkObjectExpanded: '=',
+                user: '<'
             },
             templateUrl: 'modules/detail/components/api-call/api-call.html',
             controller: DpApiCallController,

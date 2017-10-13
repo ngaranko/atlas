@@ -5,14 +5,21 @@
         .module('dpShared')
         .factory('api', apiFactory);
 
-    apiFactory.$inject = ['$interval', '$q', '$http', 'user', 'sharedConfig'];
+    apiFactory.$inject = ['$injector', '$interval', '$q', '$http', '$window', 'sharedConfig'];
 
-    function apiFactory ($interval, $q, $http, user, sharedConfig) {
+    function apiFactory ($injector, $interval, $q, $http, $window, sharedConfig) {
+        let store;
+
         return {
             getByUrl,
             getByUri,
             createUrlWithToken
         };
+
+        function getAccessToken () {
+            store = store || $injector.get('store');
+            return store.getState().user.accessToken;
+        }
 
         function getWithToken (url, params, cancel, token) {
             const headers = {};
@@ -59,18 +66,18 @@
          * string.
          */
         function createUrlWithToken (url, params) {
-            return user.waitForAccessToken().then(token => {
-                params = params || {};
-                if (token) {
-                    params.access_token = token;
-                }
+            const token = getAccessToken();
 
-                const queryStart = url.indexOf('?') !== -1 ? '&' : '?',
-                    paramString = encodeQueryParams(params),
-                    queryString = paramString ? queryStart + paramString : '';
+            params = params || {};
+            if (token) {
+                params.access_token = token;
+            }
 
-                return url + queryString;
-            });
+            const queryStart = url.indexOf('?') !== -1 ? '&' : '?',
+                paramString = encodeQueryParams(params),
+                queryString = paramString ? queryStart + paramString : '';
+
+            return $q.resolve(url + queryString);
         }
 
         /**
@@ -81,9 +88,8 @@
          * @returns {Promise}
          */
         function getByUrl (url, params, cancel) {
-            return user.waitForAccessToken().then(token => {
-                return getWithToken(url, params, cancel, token);
-            });
+            const token = getAccessToken();
+            return $q.resolve(getWithToken(url, params, cancel, token));
         }
 
         function getByUri (uri, params) {
@@ -91,8 +97,8 @@
         }
 
         function encodeQueryParams (params) {
-            return Object.keys(params).map(param =>
-                    encodeURIComponent(param) + '=' + encodeURIComponent(params[param]))
+            return Object.keys(params)
+                .map(param => encodeURIComponent(param) + '=' + encodeURIComponent(params[param]))
                 .join('&');
         }
     }

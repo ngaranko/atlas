@@ -20,14 +20,14 @@
          class="c-detail__block">
         <dp-glossary-header definition="BUURTCOMBINATIE" use-plural="true"></dp-glossary-header>
 
-        <dp-api-call endpoint="{{vm.apiData.results.buurtcombinaties.href}}" partial="lijst"></dp-api-call>
+        <dp-api-call endpoint="{{vm.apiData.results.buurtcombinaties.href}}" partial="lijst" user="vm.user"></dp-api-call>
     </div>
 
     <div ng-if="vm.apiData.results.gebiedsgerichtwerken.count"
          class="c-detail__block">
         <dp-glossary-header definition="GEBIEDSGERICHTWERKEN" use-plural="true"></dp-glossary-header>
 
-        <dp-api-call endpoint="{{vm.apiData.results.gebiedsgerichtwerken.href}}" partial="lijst"></dp-api-call>
+        <dp-api-call endpoint="{{vm.apiData.results.gebiedsgerichtwerken.href}}" partial="lijst" user="vm.user"></dp-api-call>
     </div>
 
     <dp-data-selection-links active-filters="{'stadsdeel_naam': vm.filterSelection.stadsdeel}"></dp-data-selection-links>

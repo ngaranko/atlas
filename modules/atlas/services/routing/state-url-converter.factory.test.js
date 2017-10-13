@@ -28,6 +28,13 @@ describe('The state url conversion factory', function () {
                     highlight: true
                 },
                 baseLayers: {},
+                user: {
+                    authenticated: false,
+                    accessToken: '',
+                    scopes: [],
+                    name: '',
+                    error: false
+                },
                 mapLayers: [],
                 filters: {},
                 layerSelection: {

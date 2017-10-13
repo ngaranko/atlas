@@ -7,9 +7,9 @@ describe('the user settings factory', function () {
     beforeEach(function () {
         var storageMethods = {
             value: null,
-            setItem: () => this.value = GET_ITEM_VALUE,
-            getItem: () => this.value,
-            removeItem: () => this.value = null
+            setItem: () => storageMethods.value = GET_ITEM_VALUE,
+            getItem: () => storageMethods.value,
+            removeItem: () => storageMethods.value = null
         };
 
         angular.mock.module(
@@ -30,13 +30,13 @@ describe('the user settings factory', function () {
 
         [storage.instance, storage.session, storage.local]
             .forEach(s => ['setItem', 'getItem', 'removeItem']
-                .forEach(m => spyOn(s, m).and.callThrough()
-            ));
+                .forEach(m => spyOn(s, m).and.callThrough())
+            );
     });
 
     it('stores settings in the corresponding storage', function () {
         [
-            {key: 'refreshToken', type: 'session', whenNoValue: undefined},
+            {key: 'showCatalogusIntroduction', type: 'session', whenNoValue: true.toString()},
             {key: 'fullscreenStraatbeeld', type: 'local', whenNoValue: true.toString()}
         ].forEach(({key, type, whenNoValue}) => {
             let value;

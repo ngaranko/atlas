@@ -20,7 +20,11 @@
             </div>
             <div ng-if="vm.isShort" class="u-col-sm--3 u-padding__right--2 qa-site-header__menu-col">
                 <div class="c-site-header__menu _extra-space-for-the-menu qa-site-header__menu">
-                    <dp-menu size="vm.menuSize" has-print-button="vm.hasPrintButton" has-embed-button="vm.hasEmbedButton"></dp-menu>
+                    <dp-menu
+                        user="vm.user"
+                        size="vm.menuSize"
+                        has-print-button="vm.hasPrintButton"
+                        has-embed-button="vm.hasEmbedButton"></dp-menu>
                 </div>
             </div>
         </div>
@@ -33,7 +37,11 @@
                 </div>
                 <div class="u-col-sm--6 u-padding__right--2 qa-site-header__menu-col">
                     <div class="c-site-header__menu qa-site-header__menu">
-                        <dp-menu size="vm.menuSize" has-print-button="vm.hasPrintButton" has-embed-button="vm.hasEmbedButton"></dp-menu>
+                        <dp-menu
+                            user="vm.user"
+                            size="vm.menuSize"
+                            has-print-button="vm.hasPrintButton"
+                            has-embed-button="vm.hasEmbedButton"></dp-menu>
                     </div>
                 </div>
             </div>

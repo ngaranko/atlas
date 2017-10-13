@@ -17,6 +17,15 @@
                 ignore: true
             },
 
+            AUTHENTICATE_USER: {
+                id: 'AUTHENTICATE_USER',
+                ignore: true
+            },
+            AUTHENTICATE_ERROR: {
+                id: 'AUTHENTICATE_ERROR',
+                ignore: true
+            },
+
             FETCH_SEARCH_RESULTS_BY_QUERY: {
                 id: 'FETCH_SEARCH_RESULTS_BY_QUERY',
                 ignore: true
@@ -113,6 +122,10 @@
             },
             SHOW_DETAIL: {
                 id: 'SHOW_DETAIL'
+            },
+            DETAIL_FULLSCREEN: {
+                id: 'DETAIL_FULLSCREEN',
+                replace: true
             },
 
             FETCH_STRAATBEELD_BY_ID: {

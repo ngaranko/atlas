@@ -8,7 +8,7 @@
 
         <dp-panel
           can-close="true"
-          is-panel-visible="vm.showMoreInfoWarning"
+          is-panel-visible="!vm.user.scopes.includes('MON/RDM')"
           type="warning">
             Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer gegevens te zien: architect en opdrachtgever,
             bouwjaar, oorspronkelijke functie, beschrijving en redengevende omschrijving.
@@ -54,7 +54,8 @@
          class="c-detail__block">
         <dp-api-call
           endpoint="{{ vm.apiData.results.ligt_in_complex._links.self.href }}"
-          partial="monumenten/complex">
+          partial="monumenten/complex"
+          user="vm.user">
         </dp-api-call>
     </div>
 
@@ -66,7 +67,8 @@
         </dp-glossary-header>
         <dp-api-call
           endpoint="{{ vm.apiData.results.heeft_als_grondslag_beperking._links.self.href }}"
-          partial="berperking">
+          partial="berperking"
+          user="vm.user">
         </dp-api-call>
     </div>
 
@@ -78,7 +80,8 @@
         </dp-glossary-header>
         <dp-api-call
           endpoint="{{ vm.apiData.results.betreft_pand._links.self.href }}"
-          partial="monumenten/pand">
+          partial="monumenten/pand"
+          user="vm.user">
         </dp-api-call>
     </div>
 
@@ -90,7 +93,8 @@
         </dp-glossary-header>
         <dp-api-call
           endpoint="{{ vm.apiData.results.heeft_situeringen.href }}"
-          partial="monumenten/adressen_lijst">
+          partial="monumenten/adressen_lijst"
+          user="vm.user">
         </dp-api-call>
     </div>
 </div>

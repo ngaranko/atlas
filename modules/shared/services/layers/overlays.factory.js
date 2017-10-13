@@ -5,19 +5,15 @@
         .module('dpShared')
         .factory('overlays', overlaysFactory);
 
-    overlaysFactory.$inject = ['$rootScope', 'OVERLAYS', 'user'];
+    overlaysFactory.$inject = ['$rootScope', 'OVERLAYS'];
 
-    function overlaysFactory ($rootScope, OVERLAYS, user) {
+    function overlaysFactory ($rootScope, OVERLAYS) {
         const overlays = {
             SOURCES: {},
             HIERARCHY: []
         };
 
-        setOverlays();  // Initialize overlays
-
-        // Update overlays on any change in the authorization level of the user
-        const unwatchAuthorizationLevel = $rootScope.$watch(() => user.getAuthorizationLevel(), setOverlays);
-        $rootScope.$on('$destroy', unwatchAuthorizationLevel);  // for the weak of heart...
+        setOverlays(); // Initialize overlays
 
         return {
             get SOURCES () {return overlays.SOURCES;},
@@ -27,7 +23,6 @@
         function setOverlays () {
             overlays.SOURCES = {};
             Object.keys(OVERLAYS.SOURCES)
-                .filter(source => user.meetsRequiredLevel(OVERLAYS.SOURCES[source].authorizationLevel))
                 .forEach(source => overlays.SOURCES[source] = OVERLAYS.SOURCES[source]);
 
             overlays.HIERARCHY = angular.copy(OVERLAYS.HIERARCHY)

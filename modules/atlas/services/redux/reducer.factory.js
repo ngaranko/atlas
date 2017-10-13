@@ -42,6 +42,7 @@
                              filtersReducers,
                              environment) {
         return function (oldState, action) {
+            const UserReducer = $window.UserReducer;
             const MapLayersReducer = $window.MapLayersReducer;
             const MapOverlaysReducer = $window.MapOverlaysReducer;
             const BaseLayersReducer = $window.BaseLayersReducer;
@@ -53,7 +54,13 @@
 
             const detailReducers = {
                 FETCH_DETAIL: $window.reducers.detailReducer,
-                SHOW_DETAIL: $window.reducers.detailReducer
+                SHOW_DETAIL: $window.reducers.detailReducer,
+                DETAIL_FULLSCREEN: $window.reducers.detailReducer
+            };
+
+            const userReducer = {
+                AUTHENTICATE_USER: UserReducer,
+                AUTHENTICATE_ERROR: UserReducer
             };
 
             const mapLayersReducer = {
@@ -84,6 +91,7 @@
                 baseLayersReducer,
                 mapLayersReducer,
                 homeReducers,
+                userReducer,
                 layerSelectionReducers,
                 mapReducers,
                 pageReducers,
@@ -101,6 +109,10 @@
                     payload: action.payload,
                     type: action.type.id
                 };
+            }
+
+            if (userReducer.hasOwnProperty(action.type)) {
+                return UserReducer(oldState, action);
             }
 
             if (mapLayersReducer.hasOwnProperty(action.type)) {
