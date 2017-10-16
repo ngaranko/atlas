@@ -44,6 +44,7 @@
         return function (oldState, action) {
             const UserReducer = $window.UserReducer;
             const MapLayersReducer = $window.MapLayersReducer;
+            const MapPanelReducer = $window.MapPanelReducer;
             const MapOverlaysReducer = $window.MapOverlaysReducer;
 
             // TODO: Redux: replace
@@ -70,7 +71,12 @@
             const mapOverlaysReducer = {
                 TOGGLE_MAP_OVERLAY: MapOverlaysReducer,
                 TOGGLE_MAP_OVERLAYS: MapOverlaysReducer,
-                TOGGLE_MAP_OVERLAY_VISIBILITY: MapOverlaysReducer,
+                TOGGLE_MAP_OVERLAY_VISIBILITY: MapOverlaysReducer
+            };
+
+            const mapPanelReducers = {
+                HIDE_MAP_PANEL: MapOverlaysReducer,
+                SHOW_MAP_PANEL: MapOverlaysReducer,
                 TOGGLE_MAP_PANEL: MapOverlaysReducer
             };
 
@@ -105,6 +111,10 @@
 
             if (mapLayersReducer.hasOwnProperty(action.type)) {
                 return MapLayersReducer(oldState, action);
+            }
+
+            if (mapPanelReducers.hasOwnProperty(action.type)) {
+                return MapPanelReducer(oldState, action);
             }
 
             if (mapOverlaysReducer.hasOwnProperty(action.type)) {

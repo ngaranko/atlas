@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { toggleMapOverlay, toggleMapOverlayVisibility } from '../../ducks/overlays/overlays';
 import { getMapLayers, selectActiveMapLayers } from '../../ducks/layers/map-layers';
-import { toggleMapOverlay, toggleMapOverlayVisibility,
-  toggleMapPanel } from '../../ducks/overlays/overlays';
+import { toggleMapPanel } from '../../ducks/panel/map-panel';
 import MapLayers from '../../components/layers/MapLayers';
 import MapLegend from '../../components/legend/MapLegend';
 import MapType from '../../components/type/MapType';

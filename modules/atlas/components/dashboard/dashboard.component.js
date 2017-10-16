@@ -9,13 +9,9 @@
             controllerAs: 'vm'
         });
 
-    DpDashboardController.$inject = ['$scope', '$timeout', '$window', 'store', 'ACTIONS', 'dashboardColumns', 'HEADER'];
+    DpDashboardController.$inject = ['$scope', 'store', 'ACTIONS', 'dashboardColumns', 'HEADER'];
 
-    function DpDashboardController ($scope, $timeout, $window, store, ACTIONS, dashboardColumns, HEADER) {
-        const React = $window.React;
-        const render = $window.render;
-        const MapPanelWrapper = $window.MapPanelWrapper;
-
+    function DpDashboardController ($scope, store, ACTIONS, dashboardColumns, HEADER) {
         const vm = this;
 
         vm.store = store;
@@ -34,11 +30,14 @@
 
         // (Re)render React `MapPanel` app when map is visible
         $scope.$watch('vm.visibility.map', (newValue, oldValue) => {
-            if (!newValue) {
+            if (newValue === oldValue) {
                 return;
             }
             if (vm.visibility.map && !vm.isStraatbeeldActive) {
-                store.dispatch({ type: 'TOGGLE_MAP_PANEL' });
+                store.dispatch({ type: 'SHOW_MAP_PANEL' });
+            }
+            if (!vm.visibility.map) {
+                store.dispatch({ type: 'HIDE_MAP_PANEL' });
             }
         });
 
