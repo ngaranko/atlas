@@ -6,6 +6,7 @@
 - Webpack
 - Java JRE (needed to run protractor)
 
+
 ## Installations
 - npm install
 - bower install
