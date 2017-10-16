@@ -5,13 +5,14 @@ import MapLegend from '../legend/MapLegend';
 import AddIcon from '../../../../public/images/icon-plus.svg';
 import RemoveIcon from '../../../../public/images/icon-cross.svg';
 
-const checkAccess = (layers, scopes) => (
-  layers.filter(layer => !layer.authScope || (scopes.length && scopes.includes(layer.authScope)))
+const showCategory = (layers, scopes) => (
+  layers.filter(layer => layer.category &&
+    (!layer.authScope || (scopes.length && scopes.includes(layer.authScope))))
 );
 
 const MapLayers = ({ activeMapLayers, layers, onLayerToggle, user }) => (
   <ul className="map-layers">
-    {[...new Set(checkAccess(layers, user.scopes).map(layer => layer.category))].map(category => (
+    {[...new Set(showCategory(layers, user.scopes).map(layer => layer.category))].map(category => (
       <li className="map-layers__category" key={category}>
         {category}
         <ul>

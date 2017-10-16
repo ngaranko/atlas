@@ -1,5 +1,23 @@
 export default [
   {
+    id: 'pano',
+    layers: ['panorama_recent'],
+    legendItems: [
+      {
+        selectable: false,
+        title: '2017'
+      },
+      {
+        selectable: false,
+        title: '2016'
+      }
+    ],
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Panoramabeelden',
+    url: '/maps/panorama?version=1.3.0&service=WMS'
+  },
+  {
     authScope: 'HR/R',
     category: 'Economie en haven',
     id: 'bouw',
