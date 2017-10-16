@@ -10,6 +10,29 @@
   page-break-inside: avoid;
 }
 
+.map-panel {
+  position: absolute;
+  height: auto;
+}
+
+.map-layers {
+  display: none;
+}
+
+.map-legend__category {
+  &::after,
+  button,
+  .checkbox {
+    display: none;
+  }
+}
+
+.map-legend__items {
+  .map-legend__image {
+    margin-left: 0;
+  }
+}
+
 @media print {
   .leaflet-control-zoom {
     display: none;
