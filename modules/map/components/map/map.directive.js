@@ -4,6 +4,7 @@
         .directive('dpMap', dpMapDirective);
 
     dpMapDirective.$inject = [
+        '$timeout',
         '$window',
         'L',
         'mapConfig',
@@ -15,7 +16,7 @@
         'overlays'
     ];
 
-    function dpMapDirective ($window, L, mapConfig, layers, highlight, panning, zoom, onMapClick, overlays) {
+    function dpMapDirective ($timeout, $window, L, mapConfig, layers, highlight, panning, zoom, onMapClick, overlays) {
         return {
             restrict: 'E',
             scope: {
@@ -44,7 +45,9 @@
             const render = $window.render;
             const MapPanelWrapper = $window.MapPanelWrapper;
 
-            render(React.createElement(MapPanelWrapper, null), document.getElementById('map-panel-react'));
+            $timeout(() => {
+                render(React.createElement(MapPanelWrapper, null), document.getElementById('map-panel-react'));
+            });
 
             /**
              * [tg-937] Wait for the next digest cycle to ensure this directive is appended to the DOM. Without being
