@@ -39,7 +39,7 @@
             }
             // Render component in next digest to ensure DOM rendering has completed
             $timeout(() => {
-                render(React.createElement(MapPanelWrapper, null), document.getElementById('map-panel-react'));
+                // render(React.createElement(MapPanelWrapper, null), document.getElementById('map-panel-react'));
             });
         });
 

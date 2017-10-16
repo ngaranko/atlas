@@ -32,8 +32,12 @@ class MapPanelContainer extends React.Component {
   }
 
   render() {
-    return this.props.layerSelection.isEnabled && (
-      <section className="map-panel">
+    return (
+      <section className={`
+        map-panel
+        map-panel--${this.props.layerSelection.isEnabled ? 'expanded' : 'collapsed'}
+      `}
+      >
         <div className="map-panel__heading">
           <MapLayersIcon className="map-panel__heading-icon" />
           <h1 className="map-panel__heading-title">Kaartlagen</h1>
