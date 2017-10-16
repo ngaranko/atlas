@@ -37,10 +37,9 @@
             if (!newValue) {
                 return;
             }
-            // Render component in next digest to ensure DOM rendering has completed
-            $timeout(() => {
-                // render(React.createElement(MapPanelWrapper, null), document.getElementById('map-panel-react'));
-            });
+            if (vm.visibility.map && !vm.isStraatbeeldActive) {
+                store.dispatch({ type: 'TOGGLE_MAP_PANEL' });
+            }
         });
 
         function setLayout () {

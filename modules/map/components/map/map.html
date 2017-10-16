@@ -3,25 +3,7 @@
 <div class="c-map c-map--drawing-mode-{{drawingMode}} qa-map-container">
     <div class="s-leaflet-draw c-map__leaflet js-leaflet-map qa-leaflet-map"></div>
 
-    <div class="c-map__overlay-buttons">
-        <dp-toggle-layer-selection
-            overlays="mapState.overlays"
-            show-layer-selection="showLayerSelection">
-        </dp-toggle-layer-selection>
-
-        <dp-toggle-active-overlays
-            overlays="mapState.overlays"
-            show-active-overlays="mapState.showActiveOverlays">
-        </dp-toggle-active-overlays>
-    </div>
-
     <div id="map-panel-react"></div>
-
-    <dp-active-overlays
-        overlays="mapState.overlays"
-        zoom="mapState.zoom"
-        show-active-overlays="mapState.showActiveOverlays">
-    </dp-active-overlays>
 
     <dp-toggle-fullscreen is-fullscreen="mapState.isFullscreen"></dp-toggle-fullscreen>
 

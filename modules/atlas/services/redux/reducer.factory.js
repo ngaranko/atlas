@@ -70,7 +70,8 @@
             const mapOverlaysReducer = {
                 TOGGLE_MAP_OVERLAY: MapOverlaysReducer,
                 TOGGLE_MAP_OVERLAYS: MapOverlaysReducer,
-                TOGGLE_MAP_OVERLAY_VISIBILITY: MapOverlaysReducer
+                TOGGLE_MAP_OVERLAY_VISIBILITY: MapOverlaysReducer,
+                TOGGLE_MAP_PANEL: MapOverlaysReducer
             };
 
             var actions = angular.merge(

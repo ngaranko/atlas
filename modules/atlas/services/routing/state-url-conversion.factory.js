@@ -44,7 +44,7 @@
                 // Initialisation methods for the url2state conversion
                 // These methods are executed after a state object has been initialized with the initialValues
                 DEFAULT: (oldState, newState, params, initialValues) => {
-                    ['atlas', 'page', 'layerSelection', 'filters', 'user', 'mapLayers'].forEach(s => {
+                    ['atlas', 'page', 'layerSelection', 'filters', 'user', 'mapLayers', 'isMapPanelVisible'].forEach(s => {
                         const value = initialValues[s];
                         newState[s] = value ? (angular.isArray(value) ? [...value] : angular.isObject(value)
                             ? {...value} : value) : value;
@@ -98,6 +98,12 @@
                 },
                 mapLayers: (oldState, newState) => {
                     if (angular.isArray(oldState)) {
+                        newState = oldState;
+                    }
+                    return newState;
+                },
+                isMapPanelVisible: (oldState, newState) => {
+                    if (oldState === true || oldState === false) {
                         newState = oldState;
                     }
                     return newState;
@@ -191,6 +197,7 @@
                     highlight: true
                 },
                 mapLayers: [],
+                isMapPanelVisible: false,
                 page: {
                     name: null  // eg: 'home'
                 },
