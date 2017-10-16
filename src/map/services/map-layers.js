@@ -475,8 +475,8 @@ export default [
         title: 'Kadastraal object'
       }
     ],
-    maxZoom: 15,
-    minZoom: 10,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'Kadastrale perceelsgrenzen',
     url: '/maps/brk?version=1.3.0&service=WMS'
   },
@@ -557,7 +557,7 @@ export default [
       }
     ],
     maxZoom: 16,
-    minZoom: 10,
+    minZoom: 8,
     title: 'Bestuurlijke gebieden',
     url: '/maps/gebieden?version=1.3.0&service=WMS'
   },
