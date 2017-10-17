@@ -61,6 +61,14 @@ function commonConfig(env) {
                 }
               },
               {
+                loader: 'postcss-loader',
+                options: {
+                  plugins: (loader) => [
+                    require('autoprefixer')({browsers: ['last 3 versions']}),
+                  ]
+                }
+              },
+              {
                 loader: 'sass-loader'
               }
             ]
