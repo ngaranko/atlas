@@ -20,7 +20,7 @@ const MapType = ({ layers, activeLayer, onBaseLayerToggle }) => (
       icon={TopographyIcon}
       options={layers.topography}
       value={activeLayer}
-      disabled={!hasLayer(activeLayer, layers.topography)}
+      isDisabled={!hasLayer(activeLayer, layers.topography)}
       handleChange={onBaseLayerToggle}
     />
 
@@ -30,7 +30,7 @@ const MapType = ({ layers, activeLayer, onBaseLayerToggle }) => (
       icon={AerialIcon}
       options={layers.aerial}
       value={activeLayer}
-      disabled={!hasLayer(activeLayer, layers.aerial)}
+      isDisabled={!hasLayer(activeLayer, layers.aerial)}
       handleChange={onBaseLayerToggle}
     />
   </section>

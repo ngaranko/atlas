@@ -106,10 +106,11 @@ MapPanelContainer.defaultProps = {
 MapPanelContainer.propTypes = {
   activeMapLayers: PropTypes.array, // eslint-disable-line
   atlas: PropTypes.object, // eslint-disable-line
-  isLegendVisible: PropTypes.bool.isRequired,
-  isMapLayersVisible: PropTypes.bool.isRequired,
+  isLegendVisible: PropTypes.bool.isRequired, // eslint-disable-line
+  isMapLayersVisible: PropTypes.bool.isRequired, // eslint-disable-line
   isMapPanelVisible: PropTypes.bool,
   map: PropTypes.object, // eslint-disable-line
+  baseLayer: PropTypes.string, // eslint-disable-line
   baseLayers: PropTypes.object, // eslint-disable-line
   mapLayers: PropTypes.array, // eslint-disable-line
   onLayerToggle: PropTypes.func, // eslint-disable-line

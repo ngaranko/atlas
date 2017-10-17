@@ -14,8 +14,8 @@ class SelectButton extends React.Component {
       label: props.label,
       value: props.value,
       className: props.className,
-      expanded: props.expanded,
-      disabled: props.disabled,
+      isExpanded: props.isExpanded,
+      isDisabled: props.isDisabled,
       icon: props.icon,
       options: props.options,
       isLoading: true
@@ -29,10 +29,10 @@ class SelectButton extends React.Component {
 
   componentWillReceiveProps(props) {
     this.setState({
-      disabled: props.disabled
+      isDisabled: props.isDisabled
     });
 
-    if ((this.state.isLoading || !this.state.isLoading && !props.disabled) && props.options.length > 0) {
+    if ((this.state.isLoading || !this.state.isLoading && !props.isDisabled) && props.options.length > 0) {
       const selected = props.options.find(option => option.value === props.value)
         || props.options.find(option => option.selected)
         || props.options[0];
@@ -53,7 +53,7 @@ class SelectButton extends React.Component {
   }
 
   handleToggle() {
-    if (!this.state.expanded) {
+    if (!this.state.isExpanded) {
       // attach/remove event handler
       document.addEventListener('click', this.handleOutsideClick, false);
     } else {
@@ -95,9 +95,9 @@ class SelectButton extends React.Component {
     this.handleToggle();
   }
 
-  toggleCollapse(state = !this.state.expanded) {
+  toggleCollapse(state = !this.state.isExpanded) {
     this.setState({
-      expanded: state
+      isExpanded: state
     });
   }
 
@@ -107,8 +107,8 @@ class SelectButton extends React.Component {
       <section className={`
           ${this.state.className}
           select-button
-          ${this.state.expanded ? 'select-button--expanded' : ''}
-          ${this.state.disabled ? 'select-button--disabled' : ''}
+          ${this.state.isExpanded ? 'select-button--expanded' : ''}
+          ${this.state.isDisabled ? 'select-button--disabled' : ''}
         `}
         ref={(node) => { this.node = node; }}
       >
@@ -166,8 +166,8 @@ SelectButton.defaultProps = {
   label: '',
   value: '',
   className: '',
-  expanded: false,
-  disabled: false,
+  isExpanded: false,
+  isDisabled: false,
   options: [],
   handleChange: () => {}
 };
@@ -178,8 +178,8 @@ SelectButton.propTypes = {
   className: PropTypes.string,
   icon: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
-  expanded: PropTypes.bool,
-  disabled: PropTypes.bool,
+  isExpanded: PropTypes.bool,
+  isDisabled: PropTypes.bool,
   options: PropTypes.arrayOf(PropTypes.object),
   handleChange: PropTypes.func
 };
