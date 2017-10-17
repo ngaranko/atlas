@@ -1,5 +1,23 @@
 export default [
   {
+    id: 'pano',
+    layers: ['panorama_recent'],
+    legendItems: [
+      {
+        selectable: false,
+        title: '2017'
+      },
+      {
+        selectable: false,
+        title: '2016'
+      }
+    ],
+    maxZoom: 100,
+    minZoom: 0,
+    title: 'Panoramabeelden',
+    url: '/maps/panorama?version=1.3.0&service=WMS'
+  },
+  {
     authScope: 'HR/R',
     category: 'Economie en haven',
     id: 'bouw',
@@ -34,8 +52,8 @@ export default [
         title: '(Locatie geschat)'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 11,
     title: 'Bouw',
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
@@ -66,8 +84,8 @@ export default [
         title: '(Locatie geschat)'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 11,
     title: 'Cultuur, sport, recreatie',
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
@@ -98,8 +116,8 @@ export default [
         title: '(Locatie geschat)'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 11,
     title: 'Financiële dienstverlening, verhuur van roerend en onroerend goed',
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
@@ -142,8 +160,8 @@ export default [
         title: '(Locatie geschat)'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 11,
     title: 'Handel, vervoer, opslag',
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
@@ -186,8 +204,8 @@ export default [
         title: '(Locatie geschat)'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 11,
     title: 'Horeca',
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
@@ -218,8 +236,8 @@ export default [
         title: '(Locatie geschat)'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 11,
     title: 'Informatie, telecommunicatie',
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
@@ -258,8 +276,8 @@ export default [
         title: '(Locatie geschat)'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 11,
     title: 'Landbouw',
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
@@ -286,8 +304,8 @@ export default [
         title: '(Locatie geschat)'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 11,
     title: 'Overheid, onderwijs, zorg',
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
@@ -322,8 +340,8 @@ export default [
         title: '(Locatie geschat)'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 11,
     title: 'Persoonlijke dienstverlening',
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
@@ -350,8 +368,8 @@ export default [
         title: '(Locatie geschat)'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 11,
     title: 'Productie, installatie, reparatie',
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
@@ -410,8 +428,8 @@ export default [
         title: '(Locatie geschat)'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 11,
     title: 'Zakelijke dienstverlening',
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
@@ -442,8 +460,8 @@ export default [
         title: '(Locatie geschat)'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 11,
     title: 'Overige',
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
@@ -475,8 +493,8 @@ export default [
         title: 'Kadastraal object'
       }
     ],
-    maxZoom: 15,
-    minZoom: 10,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'Kadastrale perceelsgrenzen',
     url: '/maps/brk?version=1.3.0&service=WMS'
   },
@@ -522,8 +540,8 @@ export default [
         title: '(voorlopige) aanwijzing WVG'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 13,
     title: 'Gemeentelijke beperkingen (WKPB)',
     url: '/maps/wkpb?version=1.3.0&service=WMS'
   },
@@ -556,8 +574,8 @@ export default [
         title: 'Buurt'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'Bestuurlijke gebieden',
     url: '/maps/gebieden?version=1.3.0&service=WMS'
   },
@@ -571,14 +589,14 @@ export default [
         title: 'Bouwblok'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 12,
     title: 'Bouwblokken',
     url: '/maps/gebieden?version=1.3.0&service=WMS'
   },
   {
     category: 'Geografie: gebieden',
-    id: 'ggs',
+    id: 'gsg',
     layers: ['grootstedelijkgebied'],
     legendItems: [
       {
@@ -586,8 +604,8 @@ export default [
         title: 'Grootstedelijk'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'Grootstedelijke gebieden',
     url: '/maps/gebieden?version=1.3.0&service=WMS'
   },
@@ -605,8 +623,8 @@ export default [
         title: 'Bufferzone'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 10,
     title: 'Unesco werelderfgoedzones',
     url: '/maps/gebieden?version=1.3.0&service=WMS'
   },
@@ -620,8 +638,8 @@ export default [
         title: 'TODO'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 10,
     title: 'Terreinmodel (DTM AHN)',
     url: 'https://geodata.nationaalgeoregister.nl/ahn3/ows?version=1.3.0&service=WMS'
   },
@@ -635,8 +653,8 @@ export default [
         title: 'TODO'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 10,
     title: 'Oppervlaktemodel (DSM AHN)',
     url: '/maps/gebieden?version=1.3.0&service=WMS'
   },
@@ -678,8 +696,8 @@ export default [
         title: 'hoger dan 3,5 m'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 10,
     title: 'Normaal Amsterdams Peil (NAP)',
     url: '/maps/nap?version=1.3.0&service=WMS'
   },
@@ -697,8 +715,8 @@ export default [
         title: 'Vervallen'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 12,
     title: 'Meetbouten - Status',
     url: '/maps/meetbouten?version=1.3.0&service=WMS'
   },
@@ -744,8 +762,8 @@ export default [
         title: 'meer dan 4 mm/jaar'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 12,
     title: 'Meetbouten - Zaksnelheid',
     url: '/maps/meetbouten?version=1.3.0&service=WMS'
   },
@@ -759,8 +777,8 @@ export default [
         title: 'Referentiepunt'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 12,
     title: 'Meetbouten - Referentiepunten',
     url: '/maps/meetbouten?version=1.3.0&service=WMS'
   },
@@ -786,8 +804,8 @@ export default [
         title: 'Sterk verontreinigd'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 11,
     title: 'Grondmonsters',
     url: '/maps/bodem?version=1.3.0&service=WMS'
   },
@@ -813,8 +831,8 @@ export default [
         title: '> 100,1 mg/kg'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 11,
     title: 'Grondmonsters asbest',
     url: '/maps/bodem?version=1.3.0&service=WMS'
   },
@@ -840,8 +858,8 @@ export default [
         title: 'Sterk verontreinigd'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'Grondwatermonsters',
     url: '/maps/bodem?version=1.3.0&service=WMS'
   },
@@ -883,8 +901,8 @@ export default [
         title: 'vermoedelijke bominslag(en)'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'Explosieven - Inslagen',
     url: '/maps/bommenkaart?version=1.3.0&service=WMS'
   },
@@ -910,8 +928,8 @@ export default [
         title: 'Afwerpmunitie'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'Explosieven - Verdachte gebieden',
     url: '/maps/bommenkaart?version=1.3.0&service=WMS'
   },
@@ -925,8 +943,8 @@ export default [
         title: 'gevrijwaarde gebieden'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'Explosieven - Gevrijwaarde gebieden',
     url: '/maps/bommenkaart?version=1.3.0&service=WMS'
   },
@@ -948,8 +966,8 @@ export default [
         title: 'Vooronderzoek'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'Explosieven - Uitgevoerde CE-onderzoeken',
     url: '/maps/bommenkaart?version=1.3.0&service=WMS'
   },
@@ -974,8 +992,8 @@ export default [
         title: 'Invloedsgebied groepsrisico'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'LPG-vulpunten - Risicozones',
     url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
   },
@@ -995,8 +1013,8 @@ export default [
         title: 'Plaatsgebonden risico (15 m)'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'LPG-afleverzuilen - Risicozones',
     url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
   },
@@ -1021,8 +1039,8 @@ export default [
         title: 'Invloedsgebied groepsrisico'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'LPG-tanks - Risicozones',
     url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
   },
@@ -1042,8 +1060,8 @@ export default [
         title: 'Contouren LPG-station'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'LPG-stations - Risicozones',
     url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
   },
@@ -1069,8 +1087,8 @@ export default [
         title: 'Bron'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'Bedrijven - Bronnen en risicozones',
     url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
   },
@@ -1090,8 +1108,8 @@ export default [
         title: 'Terrein'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'Bedrijven - Terreingrenzen',
     url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
   },
@@ -1126,8 +1144,8 @@ export default [
         title: 'Belemmeringenstrook'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'Aardgasbuisleidingen - Risicozones',
     url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
   },
@@ -1141,8 +1159,8 @@ export default [
         title: 'Invloedsgebied spoorwegen'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'Spoorwegen - Risicozones',
     url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
   },
@@ -1156,8 +1174,8 @@ export default [
         title: 'Invloedsgebied vaarwegen'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'Vaarwegen - Risicozones',
     url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
   },
@@ -1171,8 +1189,8 @@ export default [
         title: 'Invloedsgebied wegen'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'Wegen - Risicozones',
     url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
   },
@@ -1216,8 +1234,8 @@ export default [
         title: 'Bunkerschip'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'Veiligheidsafstanden',
     url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
   },
@@ -1235,8 +1253,8 @@ export default [
         title: 'Geluidzone industrieterrein'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'Industrie - Geluidszones',
     url: '/maps/planologischegeluidszones?version=1.3.0&service=WMS'
   },
@@ -1250,8 +1268,8 @@ export default [
         title: 'Geluidszone spoorwegen'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'Spoorwegen - Geluidszones',
     url: '/maps/planologischegeluidszones?version=1.3.0&service=WMS'
   },
@@ -1265,8 +1283,8 @@ export default [
         title: 'Geluidszone metro'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'Metro - Geluidszones',
     url: '/maps/planologischegeluidszones?version=1.3.0&service=WMS'
   },
@@ -1284,8 +1302,8 @@ export default [
         title: '20 Ke contour'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'Schiphol - Ruimtelijke beperkingen',
     url: '/maps/planologischezonesschiphol?version=1.3.0&service=WMS'
   },
@@ -1331,8 +1349,8 @@ export default [
         title: 'Hoger dan 140m NAP'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'Schiphol - Maatgevende toetshoogte',
     url: '/maps/planologischezonesschiphol?version=1.3.0&service=WMS'
   },
@@ -1378,8 +1396,8 @@ export default [
         title: 'Hoger dan 140m NAP'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'Schiphol - Toetshoogte i.v.m. radar',
     url: '/maps/planologischezonesschiphol?version=1.3.0&service=WMS'
   },
@@ -1393,8 +1411,8 @@ export default [
         title: 'Vogelvrijwaringsgebied'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'Schiphol - Vogelvrijwaringsgebied',
     url: '/maps/planologischezonesschiphol?version=1.3.0&service=WMS'
   },
@@ -1420,8 +1438,8 @@ export default [
         title: 'Uitgaansoverlastgebied'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'Overlastgebieden',
     url: '/maps/overlastgebieden?version=1.3.0&service=WMS'
   },
@@ -1435,8 +1453,8 @@ export default [
         title: 'Cameratoezichtgebied'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'Cameratoezichtgebieden',
     url: '/maps/overlastgebieden?version=1.3.0&service=WMS'
   },
@@ -1454,8 +1472,8 @@ export default [
         title: 'Parkeervak'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'Parkeervakken - Fiscale indeling',
     url: '/maps/parkeervakken?version=1.3.0&service=WMS'
   },
@@ -1469,8 +1487,8 @@ export default [
         title: 'Bord'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'Parkeervakken - Speciale bestemmingen',
     url: '/maps/parkeervakken?version=1.3.0&service=WMS'
   },
@@ -1548,8 +1566,8 @@ export default [
         title: 'MULDER'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 11,
     title: 'Parkeervakken - Gereserveerd',
     url: '/maps/parkeervakken?version=1.3.0&service=WMS'
   },
@@ -1563,8 +1581,8 @@ export default [
         title: 'Monument'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 12,
     title: 'Monumenten',
     url: '/maps/monumenten?version=1.3.0&service=WMS'
   }

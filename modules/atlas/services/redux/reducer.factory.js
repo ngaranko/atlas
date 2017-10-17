@@ -44,6 +44,7 @@
         return function (oldState, action) {
             const UserReducer = $window.UserReducer;
             const MapLayersReducer = $window.MapLayersReducer;
+            const MapPanelReducer = $window.MapPanelReducer;
             const MapOverlaysReducer = $window.MapOverlaysReducer;
             const BaseLayersReducer = $window.BaseLayersReducer;
             const MapBaseLayerReducer = $window.MapBaseLayerReducer;
@@ -85,9 +86,18 @@
                 MAP_SET_BASELAYER: MapBaseLayerReducer
             };
 
+            const mapPanelReducers = {
+                HIDE_MAP_PANEL: MapOverlaysReducer,
+                SHOW_MAP_PANEL: MapOverlaysReducer,
+                TOGGLE_MAP_PANEL: MapOverlaysReducer
+            };
+
             var actions = angular.merge(
                 urlReducers,
                 detailReducers,
+                mapPanelReducers,
+                mapSetBaselayerReducer,
+                mapOverlaysReducer,
                 baseLayersReducer,
                 mapLayersReducer,
                 homeReducers,
@@ -121,6 +131,10 @@
 
             if (baseLayersReducer.hasOwnProperty(action.type)) {
                 return BaseLayersReducer(oldState, action);
+            }
+
+            if (mapPanelReducers.hasOwnProperty(action.type)) {
+                return MapPanelReducer(oldState, action);
             }
 
             if (mapOverlaysReducer.hasOwnProperty(action.type)) {
