@@ -87,3 +87,31 @@
     width: 12px;
   }
 }
+
+
+.is-print-mode,
+.is-embed-preview,
+.is-embed {
+  .map-panel {
+    position: absolute;
+    height: auto;
+
+    .map-layers {
+      display: none;
+    }
+
+    .map-legend__category {
+      &::after,
+      button,
+      .checkbox {
+        display: none;
+      }
+    }
+
+    .map-legend__items {
+      .map-legend__image {
+        margin-left: 0;
+      }
+    }
+  }
+}
