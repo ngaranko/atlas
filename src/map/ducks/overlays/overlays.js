@@ -1,6 +1,7 @@
 export const TOGGLE_MAP_OVERLAY = 'TOGGLE_MAP_OVERLAY';
 export const TOGGLE_MAP_OVERLAYS = 'TOGGLE_MAP_OVERLAYS';
 export const TOGGLE_MAP_OVERLAY_VISIBILITY = 'TOGGLE_MAP_OVERLAY_VISIBILITY';
+export const TOGGLE_MAP_PANEL = 'TOGGLE_MAP_PANEL';
 
 const initialState = {};
 
@@ -29,6 +30,12 @@ export default function MapOverlaysReducer(state = initialState, action) {
         }
       };
 
+    case TOGGLE_MAP_PANEL:
+      return {
+        ...state,
+        isMapPanelVisible: !state.isMapPanelVisible
+      };
+
     default:
       return state;
   }
@@ -37,5 +44,6 @@ export default function MapOverlaysReducer(state = initialState, action) {
 export const toggleMapOverlay = mapLayerId => ({ type: TOGGLE_MAP_OVERLAY, mapLayerId });
 export const toggleMapOverlayVisibility = mapLayerId => ({ type: TOGGLE_MAP_OVERLAY_VISIBILITY,
   mapLayerId });
+export const toggleMapPanel = () => ({ type: 'TOGGLE_MAP_PANEL' });
 
 window.MapOverlaysReducer = MapOverlaysReducer;

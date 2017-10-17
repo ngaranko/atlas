@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { getMapLayers, selectActiveMapLayers } from '../../ducks/layers/map-layers';
 import { toggleMapOverlay, toggleMapOverlayVisibility } from '../../ducks/overlays/overlays';
+import { getMapLayers, selectActiveMapLayers } from '../../ducks/layers/map-layers';
+import { toggleMapPanel } from '../../ducks/panel/map-panel';
 import MapLayers from '../../components/layers/MapLayers';
 import MapLegend from '../../components/legend/MapLegend';
 import MapType from '../../components/type/MapType';
@@ -13,7 +14,9 @@ import MapLayersIcon from '../../../../public/images/icon-map-layers.svg';
 const mapStateToProps = state => ({
   activeMapLayers: selectActiveMapLayers(state),
   atlas: state.atlas,
-  layerSelection: state.layerSelection,
+  isLegendVisible: state.map.showActiveOverlays,
+  isMapLayersVisible: state.layerSelection.isEnabled,
+  isMapPanelVisible: state.isMapPanelVisible,
   mapLayers: state.mapLayers,
   overlays: state.map.overlays,
   zoomLevel: state.map.zoom,
@@ -23,7 +26,8 @@ const mapStateToProps = state => ({
 // TODO: Add method that checks whether layer is active and toggles accordingly
 const mapDispatchToProps = dispatch => bindActionCreators({
   onLayerToggle: toggleMapOverlay,
-  onLayerVisibilityToggle: toggleMapOverlayVisibility
+  onLayerVisibilityToggle: toggleMapOverlayVisibility,
+  onMapPanelToggle: toggleMapPanel
 }, dispatch);
 
 class MapPanelContainer extends React.Component {
@@ -35,12 +39,18 @@ class MapPanelContainer extends React.Component {
     return (
       <section className={`
         map-panel
-        map-panel--${this.props.layerSelection.isEnabled ? 'expanded' : 'collapsed'}
+        map-panel--${this.props.isMapPanelVisible ? 'expanded' : 'collapsed'}
       `}
       >
         <div className="map-panel__heading">
           <MapLayersIcon className="map-panel__heading-icon" />
           <h1 className="map-panel__heading-title">Kaartlagen</h1>
+          <button
+            className="map-panel__toggle"
+            onClick={this.props.onMapPanelToggle}
+          >
+            Toggle
+          </button>
         </div>
         <div className="scroll-wrapper">
           {this.props.activeMapLayers.length > 0 && (
@@ -72,6 +82,7 @@ MapPanelContainer.contextTypes = {
 MapPanelContainer.defaultProps = {
   activeMapLayers: [],
   atlas: {},
+  isMapPanelVisible: false,
   layerSelection: {},
   map: {},
   mapLayers: [],
@@ -82,11 +93,14 @@ MapPanelContainer.defaultProps = {
 MapPanelContainer.propTypes = {
   activeMapLayers: PropTypes.array, // eslint-disable-line
   atlas: PropTypes.object, // eslint-disable-line
-  layerSelection: PropTypes.object, // eslint-disable-line
+  isLegendVisible: PropTypes.bool.isRequired,
+  isMapLayersVisible: PropTypes.bool.isRequired,
+  isMapPanelVisible: PropTypes.bool,
   map: PropTypes.object, // eslint-disable-line
   mapLayers: PropTypes.array, // eslint-disable-line
   onLayerToggle: PropTypes.func, // eslint-disable-line
   onLayerVisibilityToggle: PropTypes.func, // eslint-disable-line
+  onMapPanelToggle: PropTypes.func.isRequired,
   overlays: PropTypes.array, // eslint-disable-line
   user: PropTypes.object, // eslint-disable-line
   zoomLevel: PropTypes.number
