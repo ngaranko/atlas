@@ -634,57 +634,57 @@ export default [
     layers: ['ahn3_05m_dtm'],
     legendItems: [
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-minus-10.svg',
+        iconUrl: 'assets/images/map-legend/icon-ahn-minus-10.svg',
         selectable: false,
         title: '-10 m tot -5 m'
       },
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-minus-5.svg',
+        iconUrl: 'assets/images/map-legend/icon-ahn-minus-5.svg',
         selectable: false,
         title: '-5 m tot -2 m'
       },
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-minus-2.svg',
+        iconUrl: 'assets/images/map-legend/icon-ahn-minus-2.svg',
         selectable: false,
         title: '-2 m tot -1 m'
       },
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-minus-1.svg',
+        iconUrl: 'assets/images/map-legend/icon-ahn-minus-1.svg',
         selectable: false,
         title: '-1 m tot 0 m'
       },
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-plus-0.svg',
+        iconUrl: 'assets/images/map-legend/icon-ahn-plus-0.svg',
         selectable: false,
         title: '0 m tot 1 m'
       },
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-plus-1.svg',
+        iconUrl: 'assets/images/map-legend/icon-ahn-plus-1.svg',
         selectable: false,
         title: '1 m tot 2 m'
       },
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-plus-2.svg',
+        iconUrl: 'assets/images/map-legend/icon-ahn-plus-2.svg',
         selectable: false,
         title: '2 m tot 5 m'
       },
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-plus-5.svg',
+        iconUrl: 'assets/images/map-legend/icon-ahn-plus-5.svg',
         selectable: false,
         title: '5 m tot 10 m'
       },
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-plus-10.svg',
+        iconUrl: 'assets/images/map-legend/icon-ahn-plus-10.svg',
         selectable: false,
         title: '10 m tot 20 m'
       },
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-plus-20.svg',
+        iconUrl: 'assets/images/map-legend/icon-ahn-plus-20.svg',
         selectable: false,
         title: '20 m tot 30 m'
       },
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-plus-30.svg',
+        iconUrl: 'assets/images/map-legend/icon-ahn-plus-30.svg',
         selectable: false,
         title: 'hoger dan 30 m'
       }
@@ -700,57 +700,57 @@ export default [
     layers: ['ahn3_05m_dsm'],
     legendItems: [
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-minus-10.svg',
+        iconUrl: 'assets/images/map-legend/icon-ahn-minus-10.svg',
         selectable: false,
         title: '-10 m tot -5 m'
       },
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-minus-5.svg',
+        iconUrl: 'assets/images/map-legend/icon-ahn-minus-5.svg',
         selectable: false,
         title: '-5 m tot -2 m'
       },
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-minus-2.svg',
+        iconUrl: 'assets/images/map-legend/icon-ahn-minus-2.svg',
         selectable: false,
         title: '-2 m tot -1 m'
       },
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-minus-1.svg',
+        iconUrl: 'assets/images/map-legend/icon-ahn-minus-1.svg',
         selectable: false,
         title: '-1 m tot 0 m'
       },
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-plus-0.svg',
+        iconUrl: 'assets/images/map-legend/icon-ahn-plus-0.svg',
         selectable: false,
         title: '0 m tot 1 m'
       },
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-plus-1.svg',
+        iconUrl: 'assets/images/map-legend/icon-ahn-plus-1.svg',
         selectable: false,
         title: '1 m tot 2 m'
       },
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-plus-2.svg',
+        iconUrl: 'assets/images/map-legend/icon-ahn-plus-2.svg',
         selectable: false,
         title: '2 m tot 5 m'
       },
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-plus-5.svg',
+        iconUrl: 'assets/images/map-legend/icon-ahn-plus-5.svg',
         selectable: false,
         title: '5 m tot 10 m'
       },
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-plus-10.svg',
+        iconUrl: 'assets/images/map-legend/icon-ahn-plus-10.svg',
         selectable: false,
         title: '10 m tot 20 m'
       },
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-plus-20.svg',
+        iconUrl: 'assets/images/map-legend/icon-ahn-plus-20.svg',
         selectable: false,
         title: '20 m tot 30 m'
       },
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-plus-30.svg',
+        iconUrl: 'assets/images/map-legend/icon-ahn-plus-30.svg',
         selectable: false,
         title: 'hoger dan 30 m'
       }
