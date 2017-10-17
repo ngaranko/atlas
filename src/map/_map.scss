@@ -164,3 +164,9 @@
     }
   }
 }
+
+.is-print-mode {
+  .leaflet-control-zoom {
+    display: none;
+  }
+}
