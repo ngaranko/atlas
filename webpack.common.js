@@ -61,6 +61,14 @@ function commonConfig(env) {
                 }
               },
               {
+                loader: 'postcss-loader',
+                options: {
+                  plugins: (loader) => [
+                    require('autoprefixer')({browsers: ['last 3 versions']}),
+                  ]
+                }
+              },
+              {
                 loader: 'sass-loader'
               }
             ]
@@ -103,6 +111,7 @@ function commonConfig(env) {
         minChunks: module => isExternal(module) // see https://stackoverflow.com/a/38733864
       }),
       new CopyWebpackPlugin([
+        { from: './public/', to: 'assets' },
         // Simply copy the leaflet styling for now
         { from: './node_modules/leaflet/dist/leaflet.css' },
         { from: './node_modules/leaflet-draw/dist/leaflet.draw.css' },
