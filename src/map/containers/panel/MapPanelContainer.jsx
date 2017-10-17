@@ -36,6 +36,12 @@ class MapPanelContainer extends React.Component {
     this.context.store.dispatch(getMapLayers());
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.overlays.length < this.props.overlays.length) {
+      document.querySelector('.map-panel .map-legend').scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
   render() {
     return (
       <section className={`
