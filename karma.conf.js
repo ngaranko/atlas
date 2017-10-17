@@ -60,41 +60,37 @@ const webpackConfig = {
 };
 
 module.exports = function (config) {
-    var jsFiles = ['build/temp/atlas.libs.js'];
-    jsFiles = jsFiles.concat(require('./grunt/config/js-files').jsFiles);
-    jsFiles.push('bower_components/angular-mocks/angular-mocks.js');
-    jsFiles.push('build/temp/babel/es5tests/*.js');
-
     config.set({
         frameworks: ['jasmine-jquery', 'jasmine'],
         files: [
-            { pattern: 'dist/leaflet.js', watched: false },
-            { pattern: 'dist/NonTiledLayer.js', watched: false },
-            { pattern: 'dist/proj4.js', watched: false },
-            { pattern: 'dist/proj4leaflet.js', watched: false },
+            { pattern: './node_modules/leaflet/dist/leaflet.js', watched: false },
+            { pattern: './node_modules/leaflet.nontiledlayer/dist/NonTiledLayer.js', watched: false },
+            { pattern: './node_modules/proj4/dist/proj4.js', watched: false },
+            { pattern: './node_modules/proj4leaflet/src/proj4leaflet.js', watched: false },
             { pattern: 'src/test-index.js', watched: false }
         ],
-        //exclude: ['modules/**/*.run.js'],
         plugins: [
             'karma-webpack',
             'karma-jasmine-jquery',
             'karma-jasmine',
-            //'karma-mocha-reporter',
-            //'karma-coverage',
+            'karma-mocha-reporter',
+            'karma-coverage-istanbul-reporter',
             'karma-phantomjs-launcher',
-            //'karma-babel-preprocessor',
             'karma-sourcemap-loader'
         ],
         // possible values: OFF, ERROR, WARN, INFO, DEBUG
         logLevel: 'ERROR',
+        reporters: ['progress', 'mocha', 'coverage-istanbul'],
         preprocessors: {
-            'src/test-index.js': ['webpack', 'sourcemap'],
-            //'modules/**/!(*.test).js': ['babel'],
-            //'build/temp/babel/es5tests/*.js': ['sourcemap']
+            'src/test-index.js': ['webpack', 'sourcemap']
         },
         webpack: webpackConfig,
         mochaReporter: {
             output: 'minimal'
+        },
+        coverageIstanbulReporter: {
+            reports: ['html'],
+            dir: path.join(__dirname, 'coverage')
         },
         browsers: ['PhantomJS'],
         singleRun: true
