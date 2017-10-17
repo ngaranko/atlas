@@ -78,11 +78,12 @@
     "preinstall": "npm cache verify",
     "postinstall": "./node_modules/protractor/node_modules/webdriver-manager/bin/webdriver-manager update",
     "test": "karma start",
+    "test-ci": "karma start --no-single-run",
     "start": "webpack-dev-server --config webpack.dev.js",
     "clean-dirs": "rimraf ./bower_components ./node_modules ./reports ./build",
     "clean-cache": "npm cache verify && bower cache clean",
     "clean": "npm run clean-cache && npm run clean-dirs",
-    "build": "webpack --config webpack.prod.js",
+    "build": "npm test && webpack --config webpack.prod.js",
     "watch": "webpack --watch --config webpack.dev.js"
   },
   "repository": {

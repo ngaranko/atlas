@@ -1,3 +1,6 @@
+// For now simply import everything we need, from here
+
+// Import the templates and inject them into angular
 const templates = require.context('../modules', true, /\.html$/);
 const origInject = angular.mock.inject;
 angular.mock.inject = (callback) => {
@@ -12,14 +15,8 @@ angular.mock.inject = (callback) => {
     origInject(callback);
 };
 
-// For now simply import everything we need, from here
-
 // All third party dependencies
 import './vendor';
-
-// Import this here, because `modules/atlas/services/redux%reducer.factory.js`
-// cannoct do, because that would break the grunt build...
-import detailReducer from './reducers/details';
 
 // All our modules' javascript
 import '../modules/atlas/atlas.module.js';
