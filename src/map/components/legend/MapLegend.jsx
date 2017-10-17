@@ -6,6 +6,9 @@ import RemoveIcon from '../../../../public/images/icon-cross.svg';
 
 class MapLegend extends React.Component {
   static constructLegendIconUrl(mapLayer, legendItem) {
+    if (legendItem.iconUrl) {
+      return legendItem.iconUrl;
+    }
     return [
       '//',
       process.env.NODE_ENV !== 'production' ? 'acc.map.data.amsterdam.nl' : 'map.data.amsterdam.nl',
