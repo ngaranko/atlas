@@ -63,10 +63,11 @@ class MapLegend extends React.Component {
                 onChange={() => this.toggleLayerVisibility(mapLayer)}
               />
               <span className="map-legend__category-title">{mapLayer.title}</span>
-              <button onClick={() => this.toggleLayer(mapLayer)}>
-                <span className="map-legend__toggle map-legend__toggle--remove">
-                  <RemoveIcon />
-                </span>
+              <button
+                className="map-legend__toggle map-legend__toggle--remove"
+                onClick={() => this.toggleLayer(mapLayer)}
+              >
+                <RemoveIcon />
               </button>
             </div>
             {(zoomLevel < mapLayer.minZoom || zoomLevel > mapLayer.maxZoom) && (
