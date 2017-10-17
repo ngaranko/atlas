@@ -158,6 +158,7 @@ describe('The layers factory', () => {
                 );
 
                 expect(addTo).toHaveBeenCalledWith(mockedLeafletMap);
+                expect(setOpacity).toHaveBeenCalled();
             });
 
             it('adds only overlays that exist', () => {
@@ -167,6 +168,7 @@ describe('The layers factory', () => {
                 expect(L.nonTiledLayer.wms).not.toHaveBeenCalled();
 
                 expect(addTo).not.toHaveBeenCalled();
+                expect(setOpacity).not.toHaveBeenCalled();
             });
 
             it('can add multiples sublayers per overlay', () => {
@@ -230,6 +232,7 @@ describe('The layers factory', () => {
                 );
 
                 expect(removeFrom).toHaveBeenCalledWith(mockedLeafletMap);
+                expect(setOpacity).not.toHaveBeenCalled();
             });
 
             it('can remove an overlay with multiple sublayers', () => {
