@@ -7,14 +7,12 @@ const initialState = {};
 export default function MapPanelReducer(state = initialState, action) {
   switch (action.type) {
     case HIDE_MAP_PANEL:
-      console.log({isMapPanelVisible: false});
       return {
         ...state,
         isMapPanelVisible: false
       };
 
     case SHOW_MAP_PANEL:
-      console.log({isMapPanelVisible: true});
       return {
         ...state,
         isMapPanelVisible: true

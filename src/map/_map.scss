@@ -42,9 +42,14 @@
     fill: #000000;
     height: 24px;
     width: 24px;
+
+    .map-panel--collapsed & {
+      fill: #666666;
+    }
   }
 
   &__heading-title {
+    flex-grow: 1;
     font-family: "Avenir LT W01 85 Heavy";
     font-size: 16px;
     margin-left: 5px;
@@ -55,9 +60,38 @@
   }
 
   &__toggle {
+    height: 26px;
+    outline: none;
+    width: 26px;
 
-    .map-panel--expanded & {
-      // display: none;
+    &:hover {
+      background-color: #EC0000;
+    }
+
+    .map-panel--collapsed & {
+      margin-left: 10px;
+    }
+  }
+
+  &__toggle-icon {
+    fill: #000000;
+    height: 26px;
+    width: 26px;
+
+    .map-panel--collapsed & {
+      fill: #666666;
+    }
+
+    .map-panel--collapsed &--expanded {
+      display: none;
+    }
+
+    .map-panel--expanded &--collapsed {
+      display: none;
+    }
+
+    *:hover > & {
+      fill: #FFFFFF;
     }
   }
 
