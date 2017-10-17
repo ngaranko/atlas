@@ -5,7 +5,7 @@ describe('`dpExpandCollapse` directive', () => {
     let $interval;
     let content = 'Lorem ipsum dolor sit amet.\n';
 
-    beforeEach(module('dpShared'));
+    beforeEach(angular.mock.module('dpShared'));
 
     beforeEach(angular.mock.inject((_$compile_, _$rootScope_, _$interval_) => {
         $compile = _$compile_;

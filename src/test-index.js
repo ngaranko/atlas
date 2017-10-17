@@ -281,7 +281,6 @@ import '../modules/detail/detail.module.test';
 import '../modules/atlas/atlas.module.test';
 
 import '../modules/search-results/components/search-results/search-results.component.test';
-/*
 import '../modules/search-results/components/search-results/header/search-results-header.component.test';
 import '../modules/search-results/components/search-results/categories/search-results-categories.component.test';
 import '../modules/search-results/components/search-results/list/search-results-list.component.test';
@@ -402,7 +401,7 @@ import '../modules/shared/components/api-error/api-error.component.test';
 import '../modules/shared/components/link-to-page/link-to-page.component.test';
 import '../modules/shared/components/expand-collapse/expand-collapse.directive.test';
 import '../modules/shared/components/anchor-link/anchor-link.component.test';
-import '../modules/shared/components/link/link.component.test';
+//import '../modules/shared/components/link/link.component.test';
 import '../modules/shared/components/straatbeeld-thumbnail/dp-alt.component.test';
 import '../modules/shared/components/straatbeeld-thumbnail/straatbeeld-thumbnail.component.test';
 import '../modules/shared/components/panel/panel.component.test';
@@ -473,4 +472,3 @@ import '../modules/atlas/services/routing/state-url-conversion.factory.test';
 import '../modules/atlas/services/routing/state-url-converter.factory.test';
 import '../modules/atlas/services/routing/state-to-url.factory.test';
 import '../modules/atlas/services/freeze/freeze.factory.test';
-*/

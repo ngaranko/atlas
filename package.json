@@ -76,7 +76,7 @@
   "scripts": {
     "preinstall": "npm cache verify",
     "postinstall": "./node_modules/protractor/node_modules/webdriver-manager/bin/webdriver-manager update",
-    "test": "grunt test",
+    "test": "karma start",
     "start": "webpack-dev-server --config webpack.dev.js",
     "clean-dirs": "rimraf ./bower_components ./node_modules ./reports ./build",
     "clean-cache": "npm cache verify && bower cache clean",

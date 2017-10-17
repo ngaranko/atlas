@@ -7,10 +7,16 @@ describe('The applicationState factory', function () {
         fakeDefaultState = 'THIS_IS_THE_DEFAULT_STATE',
         fakeMiddleware = 'I_AM_MIDDLEWARE',
         fakeEnhancer = 'I_AM_A_FAKE_ENHANCER',
+        fakeComposedEnhancer = 'I_AM_A_FAKE_COMPOSED_ENHANCER',
         fakeStore = 'THIS_IS_THE_FAKE_STORE';
 
     beforeEach(function () {
         angular.mock.module('dpShared', function ($provide) {
+            $provide.constant('Redux', {
+                compose: angular.noop,
+                applyMiddleware: angular.noop,
+                createStore: angular.noop
+            });
             $provide.value('$window', $window);
         });
 
@@ -19,7 +25,7 @@ describe('The applicationState factory', function () {
             applicationState = _applicationState_;
         });
 
-        spyOn(Redux, 'compose').and.callThrough();
+        spyOn(Redux, 'compose').and.returnValue(fakeComposedEnhancer);
         spyOn(Redux, 'applyMiddleware').and.returnValue(fakeEnhancer);
         spyOn(Redux, 'createStore').and.returnValue(fakeStore);
     });
@@ -28,7 +34,8 @@ describe('The applicationState factory', function () {
         applicationState.initialize(fakeReducer, fakeStateUrlConverter, fakeDefaultState, fakeMiddleware);
 
         expect(Redux.applyMiddleware).toHaveBeenCalledWith(fakeMiddleware);
-        expect(Redux.createStore).toHaveBeenCalledWith(fakeReducer, fakeDefaultState, fakeEnhancer);
+        expect(Redux.compose).toHaveBeenCalledWith(fakeEnhancer);
+        expect(Redux.createStore).toHaveBeenCalledWith(fakeReducer, fakeDefaultState, fakeComposedEnhancer);
     });
 
     it('excepts an arbitrary amount of middleware', function () {
