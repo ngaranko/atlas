@@ -10,8 +10,6 @@
   page-break-inside: avoid;
 }
 
-@media print {
-  .leaflet-control-zoom {
-    display: none;
-  }
+.leaflet-control-zoom {
+  display: none;
 }
