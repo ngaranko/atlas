@@ -19,8 +19,8 @@ const mapStateToProps = state => ({
   activeMapLayers: selectActiveMapLayers(state),
   atlas: state.atlas,
   layerSelection: state.layerSelection,
-  baseLayers: state.mapBaseLayers,
   isMapPanelVisible: state.isMapPanelVisible,
+  mapBaseLayers: state.mapBaseLayers,
   mapLayers: state.mapLayers,
   overlays: state.map.overlays,
   zoomLevel: state.map.zoom,
@@ -29,9 +29,8 @@ const mapStateToProps = state => ({
 
 // TODO: Add method that checks whether layer is active and toggles accordingly
 const mapDispatchToProps = dispatch => bindActionCreators({
-  onLayerToggle: toggleMapOverlay,
   onBaseLayerToggle: setMapBaseLayer,
-  onLayersToggle: toggleMapOverlay,
+  onLayerToggle: toggleMapOverlay,
   onLayerVisibilityToggle: toggleMapOverlayVisibility,
   onMapPanelToggle: toggleMapPanel
 }, dispatch);
@@ -78,7 +77,7 @@ class MapPanelContainer extends React.Component {
           )}
           <MapType
             activeBaseLayer={this.props.activeBaseLayer}
-            baseLayers={this.props.baseLayers}
+            baseLayers={this.props.mapBaseLayers}
             onBaseLayerToggle={this.props.onBaseLayerToggle}
           />
           <MapLayers
@@ -100,25 +99,24 @@ MapPanelContainer.contextTypes = {
 MapPanelContainer.defaultProps = {
   activeMapLayers: [],
   atlas: {},
-  baseLayers: {},
   isMapPanelVisible: false,
   layerSelection: {},
   map: {},
+  mapBaseLayers: {},
   mapLayers: [],
   user: {},
   zoomLevel: 0
 };
 
 MapPanelContainer.propTypes = {
-activeBaseLayer: PropTypes.string, // eslint-disable-line
+  activeBaseLayer: PropTypes.string.isRequired,
   activeMapLayers: PropTypes.array, // eslint-disable-line
   atlas: PropTypes.object, // eslint-disable-line
-  baseLayers: PropTypes.object, // eslint-disable-line
   isMapPanelVisible: PropTypes.bool,
   map: PropTypes.object, // eslint-disable-line
+  mapBaseLayers: PropTypes.object, // eslint-disable-line
   mapLayers: PropTypes.array, // eslint-disable-line
   onBaseLayerToggle: PropTypes.func, // eslint-disable-line
-  onLayersToggle: PropTypes.func, // eslint-disable-line
   onLayerToggle: PropTypes.func, // eslint-disable-line
   onLayerVisibilityToggle: PropTypes.func, // eslint-disable-line
   onMapPanelToggle: PropTypes.func.isRequired,

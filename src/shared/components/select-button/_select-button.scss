@@ -1,14 +1,6 @@
-@mixin svg-highlight-color($color) {
-  svg {
-    path,
-    polygon {
-      fill: $color;
-    }
-  }
-}
-
 .select-button {
   background-color: #FFFFFF;
+  cursor: pointer;
   margin-bottom: 10px;
   position: relative;
 
@@ -16,7 +8,6 @@
     align-items: center;
     border: 1px solid #7E7E7E;
     border-right: none;
-    cursor: pointer;
     display: flex;
     justify-content: space-between;
     outline: none;
@@ -24,8 +15,8 @@
     width: calc(100% - 32px);
 
     &:hover {
-      background-color: #F00F00;
-      border-color: #F00F00;
+      background-color: #FF0000;
+      border-color: #FF0000;
       color: white;
 
       svg {
@@ -45,8 +36,8 @@
     width: 32px;
 
     &:hover {
-      background-color: #F00F00;
-      border-color: #F00F00;
+      background-color: #FF0000;
+      border-color: #FF0000;
       color: #FFFFFF;
 
       svg {
@@ -82,8 +73,8 @@
     }
 
     .select-button__icon-wrapper {
-      background-color: #F00F00;
-      border-color: #F00F00;
+      background-color: #FF0000;
+      border-color: #FF0000;
       color: #FFFFFF;
 
       svg {
@@ -100,8 +91,8 @@
 
       &:hover {
         color: #FFFFFF;
-        background-color: #F00F00;
-        border-color: #F00F00;
+        background-color: #FF0000;
+        border-color: #FF0000;
 
         svg {
           fill: #FFFFFF;
@@ -111,7 +102,7 @@
 
     &.select-button--expanded {
       .select-button__icon-wrapper {
-        border-color: #F00F00;
+        border-color: #FF0000;
       }
     }
 
@@ -132,10 +123,9 @@
   }
 
   &__drop-down {
-    background-color: #fff;
-    border-bottom: 1px solid #000;
-    border-left: 1px solid #000;
-    border-right: 1px solid #000;
+    background-color: #FFFFFF;
+    border: 1px solid #000000;
+    border-top: none;
     display: none;
     position: absolute;
     width: 100%;
