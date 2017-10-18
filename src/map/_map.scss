@@ -114,9 +114,13 @@
     height: calc(100% - 40px - 50px - 130px);
   }
 
+  .is-embed &,
+  .is-embed-preview &,
   .is-print-mode & {
     height: auto;
+  }
 
+  .is-print-mode & {
     &--collapsed,
     &--has-no-active-layers,
     &__heading,
