@@ -18,7 +18,7 @@ export default [
     url: '/maps/panorama?version=1.3.0&service=WMS'
   },
   {
-    id: 'pano',
+    id: 'pano2016',
     layers: ['panorama_recent_2016'],
     legendItems: [
       {
@@ -32,7 +32,7 @@ export default [
     url: '/maps/panorama?version=1.3.0&service=WMS'
   },
   {
-    id: 'pano',
+    id: 'pano2017',
     layers: ['panorama_recent_2017'],
     legendItems: [
       {
