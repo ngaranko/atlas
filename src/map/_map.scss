@@ -106,8 +106,16 @@
   .is-embed &,
   .is-embed-preview &,
   .is-print-mode & {
-    height: auto;
     position: absolute;
+  }
+
+  .is-embed &--expanded,
+  .is-embed-preview &--expanded {
+    height: calc(100% - 40px - 50px - 130px);
+  }
+
+  .is-print-mode & {
+    height: auto;
 
     &--collapsed,
     &--has-no-active-layers,
