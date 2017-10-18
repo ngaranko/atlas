@@ -71,9 +71,7 @@ RUN git config --global url.https://github.com/.insteadOf git://github.com/ \
 ARG BUILD_ID
 ENV BUILD_ID=$BUILD_ID
 
-RUN grunt set-build-id --buildid=${BUILD_ID} \
-  && grunt build-release \
-  && npm run build -- --env.buildId=${BUILD_ID} \
+RUN npm run build-release -- --env.buildId=${BUILD_ID} \
   && cp -r /app/dist/. /var/www/html/
 
 COPY default.conf /etc/nginx/conf.d/
