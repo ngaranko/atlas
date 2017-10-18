@@ -18,6 +18,34 @@ export default [
     url: '/maps/panorama?version=1.3.0&service=WMS'
   },
   {
+    id: 'pano',
+    layers: ['panorama_recent_2016'],
+    legendItems: [
+      {
+        selectable: false,
+        title: '2016'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 11,
+    title: 'Panoramabeelden',
+    url: '/maps/panorama?version=1.3.0&service=WMS'
+  },
+  {
+    id: 'pano',
+    layers: ['panorama_recent_2017'],
+    legendItems: [
+      {
+        selectable: false,
+        title: '2017'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 11,
+    title: 'Panoramabeelden',
+    url: '/maps/panorama?version=1.3.0&service=WMS'
+  },
+  {
     authScope: 'HR/R',
     category: 'Economie en haven',
     id: 'bouw',
