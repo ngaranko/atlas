@@ -138,15 +138,12 @@ import '../modules/header/components/terugmelden-button/terugmelden-button.compo
 import '../modules/header/header-config.constant';
 import '../modules/header/header.constant';
 import '../modules/map/map.module';
-import '../modules/map/components/active-overlays/active-overlays-item.component';
-import '../modules/map/components/active-overlays/active-overlays.component';
 import '../modules/map/components/draw-tool/draw-tool.component';
 import '../modules/map/components/draw-tool/points-available/points-available.component';
 import '../modules/map/components/draw-tool/shape-summary/shape-summary.component';
 import '../modules/map/components/draw-tool/toggle-drawing-tool/toggle-drawing-tool.component';
 import '../modules/map/components/embed-button/embed-button.component';
 import '../modules/map/components/map/map.directive';
-import '../modules/map/components/toggle-active-overlays/toggle-active-overlays.component';
 import '../modules/map/components/toggle-fullscreen/toggle-fullscreen.component';
 import '../modules/map/components/toggle-layer-selection/toggle-layer-selection.component';
 import '../modules/map/map-config.factory';

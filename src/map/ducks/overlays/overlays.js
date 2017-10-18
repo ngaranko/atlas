@@ -30,12 +30,6 @@ export default function MapOverlaysReducer(state = initialState, action) {
         }
       };
 
-    case TOGGLE_MAP_PANEL:
-      return {
-        ...state,
-        isMapPanelVisible: !state.isMapPanelVisible
-      };
-
     default:
       return state;
   }
