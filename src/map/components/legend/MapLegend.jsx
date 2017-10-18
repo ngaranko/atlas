@@ -6,6 +6,9 @@ import RemoveIcon from '../../../../public/images/icon-cross.svg';
 
 class MapLegend extends React.Component {
   static constructLegendIconUrl(mapLayer, legendItem) {
+    if (legendItem.iconUrl) {
+      return legendItem.iconUrl;
+    }
     return [
       '//',
       process.env.NODE_ENV !== 'production' ? 'acc.map.data.amsterdam.nl' : 'map.data.amsterdam.nl',
@@ -60,10 +63,11 @@ class MapLegend extends React.Component {
                 onChange={() => this.toggleLayerVisibility(mapLayer)}
               />
               <span className="map-legend__category-title">{mapLayer.title}</span>
-              <button onClick={() => this.toggleLayer(mapLayer)}>
-                <span className="map-legend__toggle map-legend__toggle--remove">
-                  <RemoveIcon />
-                </span>
+              <button
+                className="map-legend__toggle map-legend__toggle--remove"
+                onClick={() => this.toggleLayer(mapLayer)}
+              >
+                <RemoveIcon />
               </button>
             </div>
             {(zoomLevel < mapLayer.minZoom || zoomLevel > mapLayer.maxZoom) && (

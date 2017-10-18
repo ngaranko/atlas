@@ -8,6 +8,8 @@ import { setBaseLayer } from '../../ducks/base-layer/base-layer';
 import { toggleMapOverlay, toggleMapOverlayVisibility } from '../../ducks/overlays/overlays';
 import { getMapLayers, selectActiveMapLayers } from '../../ducks/layers/map-layers';
 import { toggleMapPanel } from '../../ducks/panel/map-panel';
+import CollapseIcon from '../../../../public/images/icon-arrow-down.svg';
+import ExpandIcon from '../../../../public/images/icon-arrow-up.svg';
 import MapLayers from '../../components/layers/MapLayers';
 import MapLegend from '../../components/legend/MapLegend';
 import MapType from '../../components/type/MapType';
@@ -19,8 +21,6 @@ const mapStateToProps = state => ({
   layerSelection: state.layerSelection,
   baseLayers: state.baseLayers,
   baseLayer: state.map.baseLayer,
-  isLegendVisible: state.map.showActiveOverlays,
-  isMapLayersVisible: state.layerSelection.isEnabled,
   isMapPanelVisible: state.isMapPanelVisible,
   mapLayers: state.mapLayers,
   overlays: state.map.overlays,
@@ -43,6 +43,12 @@ class MapPanelContainer extends React.Component {
     this.context.store.dispatch(getMapLayers());
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.overlays.length < this.props.overlays.length) {
+      document.querySelector('.map-panel .map-legend').scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
   render() {
     return (
       <section className={`
@@ -57,7 +63,8 @@ class MapPanelContainer extends React.Component {
             className="map-panel__toggle"
             onClick={this.props.onMapPanelToggle}
           >
-            Toggle
+            <CollapseIcon className="map-panel__toggle-icon map-panel__toggle-icon--expanded" />
+            <ExpandIcon className="map-panel__toggle-icon map-panel__toggle-icon--collapsed" />
           </button>
         </div>
         <div className="scroll-wrapper">
@@ -106,8 +113,6 @@ MapPanelContainer.defaultProps = {
 MapPanelContainer.propTypes = {
   activeMapLayers: PropTypes.array, // eslint-disable-line
   atlas: PropTypes.object, // eslint-disable-line
-  isLegendVisible: PropTypes.bool.isRequired, // eslint-disable-line
-  isMapLayersVisible: PropTypes.bool.isRequired, // eslint-disable-line
   isMapPanelVisible: PropTypes.bool,
   map: PropTypes.object, // eslint-disable-line
   baseLayer: PropTypes.string, // eslint-disable-line

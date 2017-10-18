@@ -78,6 +78,7 @@
   &__toggle {
     @extend %__toggle;
     margin-left: 10px;
+    outline: none;
 
     &:hover {
       background-color: #EC0000;
