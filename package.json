@@ -83,7 +83,8 @@
     "clean-dirs": "rimraf ./bower_components ./node_modules ./reports ./build",
     "clean-cache": "npm cache verify && bower cache clean",
     "clean": "npm run clean-cache && npm run clean-dirs",
-    "build": "npm test && webpack --config webpack.prod.js",
+    "build": "grunt svg_sprite && webpack --config webpack.prod.js",
+    "build-release": "grunt svg_sprite && npm test && webpack --config webpack.prod.js",
     "watch": "webpack --watch --config webpack.dev.js"
   },
   "repository": {
