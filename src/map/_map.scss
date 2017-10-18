@@ -102,6 +102,20 @@
     /* NB: Workaround to force smooth scrolling on Chrome */
     will-change: transform;
   }
+
+  .is-embed &,
+  .is-embed-preview &,
+  .is-print-mode & {
+    height: auto;
+    position: absolute;
+
+    &--collapsed,
+    &--has-no-active-layers,
+    &__heading,
+    &__toggle {
+      display: none;
+    }
+  }
 }
 
 %__toggle {
@@ -120,54 +134,5 @@
   svg {
     height: 12px;
     width: 12px;
-  }
-}
-
-
-.is-print-mode,
-.is-embed-preview,
-.is-embed {
-  .map-panel--collapsed,
-  .map-panel--has-no-active-layers {
-    display: none;
-  }
-
-  .map-panel {
-    height: auto;
-    position: absolute;
-
-    .map-panel__heading {
-      .map-panel__toggle {
-        display: none;
-      }
-    }
-
-    .map-legend__category {
-      &::after,
-      button,
-      .checkbox {
-        display: none;
-      }
-    }
-
-    .map-legend__items {
-      .checkbox {
-        display: none;
-      }
-
-      .map-legend__image {
-        margin-left: 0;
-      }
-    }
-
-    .map-layers {
-      display: none;
-    }
-  }
-}
-
-.is-print-mode {
-  .leaflet-control-zoom {
-    display: none;
   }
 }

@@ -16,4 +16,10 @@
       margin-right: 10px;
     }
   }
+
+  .is-embed &,
+  .is-embed-preview &,
+  .is-print-mode & {
+    display: none;
+  }
 }
