@@ -12,8 +12,36 @@ export default [
         title: '2016'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 11,
+    title: 'Panoramabeelden',
+    url: '/maps/panorama?version=1.3.0&service=WMS'
+  },
+  {
+    id: 'pano2016',
+    layers: ['panorama_recent_2016'],
+    legendItems: [
+      {
+        selectable: false,
+        title: '2016'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 11,
+    title: 'Panoramabeelden',
+    url: '/maps/panorama?version=1.3.0&service=WMS'
+  },
+  {
+    id: 'pano2017',
+    layers: ['panorama_recent_2017'],
+    legendItems: [
+      {
+        selectable: false,
+        title: '2017'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 11,
     title: 'Panoramabeelden',
     url: '/maps/panorama?version=1.3.0&service=WMS'
   },
