@@ -43,6 +43,14 @@ describe('The printReducers factory', function () {
 
             expect(output.atlas.isPrintMode).toBe(true);
         });
+
+        it('when atlas is not an object', function () {
+            const inputState = angular.copy(defaultState);
+            inputState.atlas = null;
+
+            const output = printReducers[ACTIONS.SHOW_PRINT.id](inputState);
+            expect(output.atlas).toBeNull();
+        });
     });
 
     describe('HIDE_PRINT', function () {
@@ -56,6 +64,14 @@ describe('The printReducers factory', function () {
             output = printReducers[ACTIONS.HIDE_PRINT.id](inputState);
 
             expect(output.atlas.isPrintMode).toBe(false);
+        });
+
+        it('when atlas is not an object', function () {
+            const inputState = angular.copy(defaultState);
+            inputState.atlas = null;
+
+            const output = printReducers[ACTIONS.HIDE_PRINT.id](inputState);
+            expect(output.atlas).toBeNull();
         });
     });
 });

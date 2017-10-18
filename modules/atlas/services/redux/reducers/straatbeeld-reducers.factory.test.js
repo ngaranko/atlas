@@ -156,6 +156,13 @@ describe('Straatbeeld reducers factory', function () {
             newState = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_ID.id](newState, payload);
             expect(newState.straatbeeld.isFullscreen).toBeUndefined();
         });
+
+        it('when map is not an object', function () {
+            inputState.map = null;
+
+            const output = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_ID.id](inputState, payload);
+            expect(output.map).toBeNull();
+        });
     });
 
     describe('STRAATBEELD_FULLSCREEN', () => {
@@ -180,6 +187,13 @@ describe('Straatbeeld reducers factory', function () {
             expect(newState.straatbeeld.isFullscreen).toBe(false);
             newState = straatbeeldReducers[ACTIONS.STRAATBEELD_FULLSCREEN.id](newState);
             expect(newState.straatbeeld.isFullscreen).toBe(false);
+        });
+
+        it('when straatbeeld is not an object', function () {
+            inputState.straatbeeld = null;
+
+            const output = straatbeeldReducers[ACTIONS.STRAATBEELD_FULLSCREEN.id](inputState, payload);
+            expect(output.straatbeeld).toBeNull();
         });
     });
 
@@ -395,6 +409,15 @@ describe('Straatbeeld reducers factory', function () {
             var newState = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT.id](inputState, payload);
             expect(newState.map.viewCenter).toEqual(location);  // location is not changed; equal to old location
         });
+
+        it('when map and straatbeeld are not an object', function () {
+            inputState.map = null;
+            inputState.straatbeeld = null;
+
+            const output = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT.id](inputState);
+            expect(output.map).toBeNull();
+            expect(output.straatbeeld).toBeNull();
+        });
     });
 
     describe('setOrientationReducer', function () {
@@ -415,6 +438,13 @@ describe('Straatbeeld reducers factory', function () {
 
             expect(output.straatbeeld.pitch).toEqual(payload.pitch);
             expect(output.straatbeeld.fov).toEqual(payload.fov);
+        });
+
+        it('when straatbeeld is not an object', function () {
+            inputState.straatbeeld = null;
+
+            const output = straatbeeldReducers.SET_STRAATBEELD_ORIENTATION(inputState);
+            expect(output.straatbeeld).toBeNull();
         });
     });
 
@@ -448,6 +478,14 @@ describe('Straatbeeld reducers factory', function () {
             const output = straatbeeldReducers.SET_STRAATBEELD_HISTORY(inputState, payload);
 
             expect(output.straatbeeld.history).toEqual(payload);
+        });
+
+        it('when straatbeeld is not an object', function () {
+            inputState.straatbeeld = null;
+
+            const payload = 2020;
+            const output = straatbeeldReducers.SET_STRAATBEELD_HISTORY(inputState, payload);
+            expect(output.straatbeeld).toBeNull();
         });
     });
 });

@@ -85,5 +85,26 @@ describe('The pageReducers factory', function () {
             output = pageReducers.SHOW_PAGE(mockedState, {name: 'goodbye'});
             expect(output.map.isFullscreen).toBe(false);
         });
+
+        it('when page is not an object', function () {
+            mockedState.page = null;
+
+            output = pageReducers.SHOW_PAGE(mockedState, {name: 'goodbye'});
+            expect(output.page).toBeNull();
+        });
+
+        it('when map is not an object', function () {
+            mockedState.map = null;
+
+            output = pageReducers.SHOW_PAGE(mockedState, {name: 'goodbye'});
+            expect(output.map).toBeNull();
+        });
+
+        it('when layerSelection is not an object', function () {
+            mockedState.layerSelection = null;
+
+            output = pageReducers.SHOW_PAGE(mockedState, {name: 'goodbye'});
+            expect(output.layerSelection).toBeNull();
+        });
     });
 });

@@ -80,7 +80,7 @@ module.exports = function (config) {
             output: 'minimal'
         },
         coverageIstanbulReporter: {
-            reports: ['html'],
+            reports: ['html', 'text-summary'],
             dir: path.join(__dirname, 'coverage'),
             thresholds: {
                 emitWarning: false,

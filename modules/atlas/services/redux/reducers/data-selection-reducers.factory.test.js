@@ -43,10 +43,6 @@ describe('The dataSelectionReducers factory', function () {
         beforeEach(function () {
             payload = {
                 dataset: 'bag',
-                // filters: {
-                //     buurtcombinatie: 'Geuzenbuurt',
-                //     buurt: 'Trompbuurt'
-                // },
                 page: 1
             };
         });
@@ -74,6 +70,20 @@ describe('The dataSelectionReducers factory', function () {
         it('can display in list view and set map to be loading', function () {
             const mockedState = angular.copy(DEFAULT_STATE);
             payload.view = 'LIST';
+
+            const output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
+
+            expect(output.dataSelection).toEqual(jasmine.objectContaining({
+                view: 'LIST'
+            }));
+            expect(output.map.isLoading).toEqual(true);
+        });
+
+        it('can display in list view from state', function () {
+            const mockedState = angular.copy(DEFAULT_STATE);
+            mockedState.dataSelection = {
+                view: 'LIST'
+            };
 
             const output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
 
@@ -127,19 +137,33 @@ describe('The dataSelectionReducers factory', function () {
 
         it('sets the dataSelection query, page, view, dataset and empties filters', function () {
             const mockedState = angular.copy(DEFAULT_STATE);
-            mockedState.emptyFilters = true;
+            mockedState.filters = {
+                buurtcombinatie: 'Geuzenbuurt',
+                buurt: 'Trompbuurt'
+            };
 
-            payload = 'zoek';
+            payload.emptyFilters = true;
 
             const output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
 
             expect(output.dataSelection).toEqual(jasmine.objectContaining({
-                query: 'zoek',
                 page: 1,
-                view: 'CARDS',
-                dataset: 'catalogus'
+                view: 'TABLE',
+                dataset: 'bag'
             }));
             expect(output.filters).toEqual({});
+        });
+
+        it('can reset geometry filter', function () {
+            const mockedState = angular.copy(DEFAULT_STATE);
+            payload.resetGeometryFilter = true;
+
+            const output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
+
+            expect(output.dataSelection.geometryFilter).toEqual({
+                markers: [],
+                description: ''
+            });
         });
 
         it('makes the Array of markers empty', function () {
@@ -188,6 +212,18 @@ describe('The dataSelectionReducers factory', function () {
             mockedState.atlas.isPrintMode = false;
             output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
             expect(output.atlas.isPrintMode).toBe(false);
+        });
+
+        it('when payload is empty and map and layerSelection and page are not an object', function () {
+            const mockedState = angular.copy(DEFAULT_STATE);
+            mockedState.map = null;
+            mockedState.layerSelection = null;
+            mockedState.page = null;
+
+            const output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, '');
+            expect(output.map).toBeNull();
+            expect(output.layerSelection).toBeNull();
+            expect(output.page).toBeNull();
         });
     });
 
@@ -238,6 +274,13 @@ describe('The dataSelectionReducers factory', function () {
             output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
 
             expect(output.dataSelection).toBeNull();
+        });
+
+        it('when map is not an object', function () {
+            mockedState.map = null;
+
+            output = dataSelectionReducers[ACTIONS.SHOW_DATA_SELECTION.id](mockedState, payload);
+            expect(output.map).toBeNull();
         });
     });
 
@@ -296,6 +339,13 @@ describe('The dataSelectionReducers factory', function () {
 
             expect(output.dataSelection.reset).toBe(false);
         });
+
+        it('when map is not an object', function () {
+            mockedState.map = null;
+
+            output = dataSelectionReducers[ACTIONS.RESET_DATA_SELECTION.id](mockedState, payload);
+            expect(output.map).toBeNull();
+        });
     });
 
     describe('SET_DATA_SELECTION_VIEW', function () {
@@ -352,6 +402,15 @@ describe('The dataSelectionReducers factory', function () {
 
             expect(output.dataSelection.isLoading).toBe(true);
         });
+
+        it('when dataSelection and map are not an object', function () {
+            mockedState.dataSelection = null;
+            mockedState.map = null;
+
+            output = dataSelectionReducers[ACTIONS.SET_DATA_SELECTION_VIEW.id](mockedState, 'LIST');
+            expect(output.dataSelection).toBeNull();
+            expect(output.map).toBeNull();
+        });
     });
 
     describe('NAVIGATE_DATA_SELECTION', function () {
@@ -369,6 +428,15 @@ describe('The dataSelectionReducers factory', function () {
                 dataset: 'bag',
                 page: 4
             });
+        });
+
+        it('when dataSelection is not an object', function () {
+            const mockedState = angular.copy(DEFAULT_STATE);
+
+            mockedState.dataSelection = null;
+
+            const output = dataSelectionReducers[ACTIONS.NAVIGATE_DATA_SELECTION.id](mockedState, 4);
+            expect(output.dataSelection).toBeNull();
         });
     });
 });
