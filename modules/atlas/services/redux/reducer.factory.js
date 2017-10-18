@@ -46,8 +46,7 @@
             const MapLayersReducer = $window.MapLayersReducer;
             const MapPanelReducer = $window.MapPanelReducer;
             const MapOverlaysReducer = $window.MapOverlaysReducer;
-            const BaseLayersReducer = $window.BaseLayersReducer;
-            const MapBaseLayerReducer = $window.MapBaseLayerReducer;
+            const MapBaseLayersReducer = $window.MapBaseLayersReducer;
 
             // TODO: Redux: replace
             // Warning: angular.merge is deprecated
@@ -70,20 +69,17 @@
                 FETCH_MAP_LAYERS_SUCCESS: MapLayersReducer
             };
 
-            const baseLayersReducer = {
-                FETCH_BASE_LAYERS_FAILURE: BaseLayersReducer,
-                FETCH_BASE_LAYERS_REQUEST: BaseLayersReducer,
-                FETCH_BASE_LAYERS_SUCCESS: BaseLayersReducer
+            const mapBaseLayersReducer = {
+                FETCH_MAP_BASE_LAYERS_FAILURE: MapBaseLayersReducer,
+                FETCH_MAP_BASE_LAYERS_REQUEST: MapBaseLayersReducer,
+                FETCH_MAP_BASE_LAYERS_SUCCESS: MapBaseLayersReducer,
+                SET_MAP_BASE_LAYER: MapBaseLayersReducer
             };
 
             const mapOverlaysReducer = {
                 TOGGLE_MAP_OVERLAY: MapOverlaysReducer,
                 TOGGLE_MAP_OVERLAYS: MapOverlaysReducer,
                 TOGGLE_MAP_OVERLAY_VISIBILITY: MapOverlaysReducer
-            };
-
-            const mapSetBaselayerReducer = {
-                MAP_SET_BASELAYER: MapBaseLayerReducer
             };
 
             const mapPanelReducers = {
@@ -96,9 +92,8 @@
                 urlReducers,
                 detailReducers,
                 mapPanelReducers,
-                mapSetBaselayerReducer,
                 mapOverlaysReducer,
-                baseLayersReducer,
+                mapBaseLayersReducer,
                 mapLayersReducer,
                 homeReducers,
                 userReducer,
@@ -129,8 +124,10 @@
                 return MapLayersReducer(oldState, action);
             }
 
-            if (baseLayersReducer.hasOwnProperty(action.type)) {
-                return BaseLayersReducer(oldState, action);
+            if (mapBaseLayersReducer.hasOwnProperty(action.type)) {
+                const newState = MapBaseLayersReducer(oldState, action);
+                $timeout(() => $rootScope.$digest());
+                return newState;
             }
 
             if (mapPanelReducers.hasOwnProperty(action.type)) {
@@ -139,12 +136,6 @@
 
             if (mapOverlaysReducer.hasOwnProperty(action.type)) {
                 const newState = MapOverlaysReducer(oldState, action);
-                $timeout(() => $rootScope.$digest());
-                return newState;
-            }
-
-            if (mapSetBaselayerReducer.hasOwnProperty(action.type)) {
-                const newState = MapBaseLayerReducer(oldState, action);
                 $timeout(() => $rootScope.$digest());
                 return newState;
             }

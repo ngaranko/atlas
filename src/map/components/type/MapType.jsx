@@ -1,44 +1,45 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { SelectButton } from '../../../shared/components/selectbutton';
+import { SelectButton } from '../../../shared/components/select-button';
 
 import AerialIcon from '../../../../public/images/icon-aerial.svg';
 import TopographyIcon from '../../../../public/images/icon-topography.svg';
 
-function hasLayer(activeLayer, layers) {
-  return layers && layers.length > 0 && layers.some(layer => layer.value === activeLayer);
+function hasLayer(activeBaseLayer, baseLayers) {
+  return baseLayers && baseLayers.length > 0 &&
+    baseLayers.some(layer => layer.value === activeBaseLayer);
 }
 
-const MapType = ({ layers, activeLayer, onBaseLayerToggle }) => (
-  <section className="map-panel__map-type">
-    <div className="map-panel__map-type-title">Achtergrond</div>
+const MapType = ({ activeBaseLayer, baseLayers, onBaseLayerToggle }) => (
+  <section className="map-type">
+    <div className="map-type__title">Achtergrond</div>
 
     <SelectButton
-      className="map-panel__map-type-select map-panel__map-type-select--topography"
-      name="topography"
-      icon={TopographyIcon}
-      options={layers.topography}
-      value={activeLayer}
-      isDisabled={!hasLayer(activeLayer, layers.topography)}
+      className="map-type__select map-type__select--topography"
       handleChange={onBaseLayerToggle}
+      icon={TopographyIcon}
+      isDisabled={!hasLayer(activeBaseLayer, baseLayers.topography)}
+      name="topography"
+      options={baseLayers.topography}
+      value={activeBaseLayer}
     />
 
     <SelectButton
-      className="map-panel__map-type-select map-panel__map-type-select--aerial"
-      name="aerial"
-      icon={AerialIcon}
-      options={layers.aerial}
-      value={activeLayer}
-      isDisabled={!hasLayer(activeLayer, layers.aerial)}
+      className="map-type__select map-type__select--aerial"
       handleChange={onBaseLayerToggle}
+      icon={AerialIcon}
+      isDisabled={!hasLayer(activeBaseLayer, baseLayers.aerial)}
+      name="aerial"
+      options={baseLayers.aerial}
+      value={activeBaseLayer}
     />
   </section>
 );
 
 MapType.propTypes = {
-  layers: PropTypes.object, // eslint-disable-line
-  activeLayer: PropTypes.string, // eslint-disable-line
+  activeBaseLayer: PropTypes.string, // eslint-disable-line
+  baseLayers: PropTypes.object, // eslint-disable-line
   onBaseLayerToggle: PropTypes.func // eslint-disable-line
 };
 

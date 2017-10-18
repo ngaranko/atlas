@@ -177,7 +177,7 @@ describe('The state url conversion definition', function () {
                     foo: 'bar'
                 };
 
-                stateUrlConversion.post.baseLayers(oldState, newState);
+                stateUrlConversion.post.mapBaseLayers(oldState, newState);
                 expect(newState).toEqual({
                     foo: 'bar'
                 });
@@ -187,7 +187,7 @@ describe('The state url conversion definition', function () {
                     foo: 'bar'
                 };
 
-                stateUrlConversion.post.baseLayers(oldState, newState);
+                stateUrlConversion.post.mapBaseLayers(oldState, newState);
                 expect(newState).toEqual({
                     foo: 'bar'
                 });

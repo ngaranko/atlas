@@ -103,10 +103,10 @@ describe('The homeReducers factory', function () {
             });
         });
 
-        it('keeps the baseLayers setting', function () {
+        it('keeps the mapBaseLayers setting', function () {
             mockedStates.forEach(function (inputState) {
-                inputState.baseLayers = [1, 2, 3];
-                expect(homeReducers.SHOW_HOME(inputState).baseLayers).toEqual([1, 2, 3]);
+                inputState.mapBaseLayers = [1, 2, 3];
+                expect(homeReducers.SHOW_HOME(inputState).mapBaseLayers).toEqual([1, 2, 3]);
             });
         });
     });

@@ -32,7 +32,7 @@ class SelectButton extends React.Component {
       isDisabled: props.isDisabled
     });
 
-    if ((this.state.isLoading || !this.state.isLoading && !props.isDisabled) && props.options.length > 0) {
+    if ((this.state.isLoading || !props.isDisabled) && props.options.length > 0) {
       const selected = props.options.find(option => option.value === props.value)
         || props.options.find(option => option.selected)
         || props.options[0];
@@ -53,8 +53,8 @@ class SelectButton extends React.Component {
   }
 
   handleToggle() {
+    // Attach/remove event handler
     if (!this.state.isExpanded) {
-      // attach/remove event handler
       document.addEventListener('click', this.handleOutsideClick, false);
     } else {
       document.removeEventListener('click', this.handleOutsideClick, false);
@@ -64,7 +64,7 @@ class SelectButton extends React.Component {
   }
 
   handleOutsideClick(event) {
-    // ignore clicks on the component itself
+    // Ignore clicks on the component itself
     if (this.node.contains(event.target)) {
       return;
     }
@@ -104,15 +104,16 @@ class SelectButton extends React.Component {
   render() {
     const { options = [] } = this.props;
     return (
-      <section className={`
+      <section
+        className={`
           ${this.state.className}
           select-button
-          ${this.state.isExpanded ? 'select-button--expanded' : ''}
-          ${this.state.isDisabled ? 'select-button--disabled' : ''}
+          ${this.state.isExpanded && 'select-button--expanded'}
+          ${this.state.isDisabled && 'select-button--disabled'}
         `}
         ref={(node) => { this.node = node; }}
       >
-        <div
+        <button
           className="select-button__wrapper"
           onClick={this.handleClick}
         >
@@ -122,28 +123,26 @@ class SelectButton extends React.Component {
           <div className="select-button__label">
             {this.state.label}
           </div>
-          <input
-            type="hidden"
-            name={this.state.name}
-            value={this.state.value}
-          />
-        </div>
+        </button>
 
-        <span className="select-button__icon-wrapper" onClick={this.handleToggle}>
+        <button
+          className="select-button__icon-wrapper"
+          onClick={this.handleToggle}
+        >
           <span className="select-button__icon select-button__icon--expand">
             <ExpandIcon />
           </span>
-          <span className="select-button__icon select-button__icon--contract">
+          <span className="select-button__icon select-button__icon--collapse">
             <CollapseIcon />
           </span>
-        </span>
+        </button>
 
         <ul className="select-button__drop-down">
           {options.map(option => (
             <li
               className={`
                 select-button__drop-down-item
-                ${option.value === this.state.value ? 'select-button__drop-down-item--selected' : ''}
+                ${option.value === this.state.value && 'select-button__drop-down-item--selected'}
               `}
               key={option.value}
             >
@@ -177,7 +176,6 @@ SelectButton.propTypes = {
   value: PropTypes.string,
   className: PropTypes.string,
   icon: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired,
   isExpanded: PropTypes.bool,
   isDisabled: PropTypes.bool,
   options: PropTypes.arrayOf(PropTypes.object),

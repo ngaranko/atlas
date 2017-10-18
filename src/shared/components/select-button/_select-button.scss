@@ -8,15 +8,14 @@
 }
 
 .select-button {
-  background-color: white;
+  background-color: #FFFFFF;
   margin-bottom: 10px;
   position: relative;
 
-  .select-button__wrapper {
+  &__wrapper {
     align-items: center;
-    border-bottom: 1px solid #7e7e7e;
-    border-left: 1px solid #7e7e7e;
-    border-top: 1px solid #7e7e7e;
+    border: 1px solid #7E7E7E;
+    border-right: none;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
@@ -25,48 +24,51 @@
     width: calc(100% - 32px);
 
     &:hover {
-      background-color: #f00;
-      border-color: #f00;
+      background-color: #F00F00;
+      border-color: #F00F00;
       color: white;
 
-      @include svg-highlight-color(white);
+      svg {
+        fill: #FFFFFF;
+      }
     }
   }
 
-  .select-button__icon-wrapper {
-    border: 1px solid #7e7e7e;
+  &__icon-wrapper {
+    border: 1px solid #7E7E7E;
     bottom: 0;
     height: 36px;
+    outline: none;
     padding: 6px 3px;
     position: absolute;
     right: 0;
     width: 32px;
 
     &:hover {
-      background-color: #f00;
-      border-color: #f00;
-      color: white;
+      background-color: #F00F00;
+      border-color: #F00F00;
+      color: #FFFFFF;
 
-      @include svg-highlight-color(white);
+      svg {
+        fill: #FFFFFF;
+      }
     }
   }
 
-  .select-button__icon {
-    svg {
-      height: 22px;
-      width: 22px;
-    }
+  &__icon svg {
+    height: 22px;
+    width: 22px;
   }
 
-  .select-button__icon--expand {
+  &__icon--expand {
     display: inline;
   }
 
-  .select-button__icon--contract {
+  &__icon--collapse {
     display: none;
   }
 
-  &.select-button--expanded {
+  &--expanded {
     .select-button__drop-down {
       display: block;
     }
@@ -75,44 +77,50 @@
       display: none;
     }
 
-    .select-button__icon--contract {
+    .select-button__icon--collapse {
       display: inline;
     }
 
     .select-button__icon-wrapper {
-      background-color: #f00;
-      border-color: #f00;
-      color: white;
+      background-color: #F00F00;
+      border-color: #F00F00;
+      color: #FFFFFF;
 
-      @include svg-highlight-color(white);
+      svg {
+        fill: #FFFFFF;
+      }
     }
   }
 
-  &.select-button--disabled {
+  &--disabled {
     .select-button__wrapper,
     .select-button__icon-wrapper {
-      border-color: #d2d2d2;
-      color: #666;
+      border-color: #D2D2D2;
+      color: #666666;
 
       &:hover {
-        color: white;
-        background-color: #f00;
-        border-color: #f00;
+        color: #FFFFFF;
+        background-color: #F00F00;
+        border-color: #F00F00;
 
-        @include svg-highlight-color(white);
+        svg {
+          fill: #FFFFFF;
+        }
       }
     }
 
     &.select-button--expanded {
       .select-button__icon-wrapper {
-        border-color: #f00;
+        border-color: #F00F00;
       }
     }
 
-    @include svg-highlight-color(#666);
+    svg {
+      fill: #666666;
+    }
   }
 
-  .select-button__custom-icon {
+  &__custom-icon {
     height: 20px;
     margin-left: 7px;
     width: 20px;
@@ -123,7 +131,7 @@
     }
   }
 
-  .select-button__drop-down {
+  &__drop-down {
     background-color: #fff;
     border-bottom: 1px solid #000;
     border-left: 1px solid #000;
@@ -134,33 +142,30 @@
     z-index: 700;
   }
 
-  .select-button__drop-down-item {
+  &__drop-down-item {
     width: inherit;
+
+    &--selected {
+      background-color: #EEEEEE;
+    }
   }
 
-  .select-button__drop-down-item--selected {
-    background-color: #eeeeee;
-  }
-
-  .select-button__label,
-  .select-button__drop-down-button {
+  &__label,
+  &__drop-down-button {
     font-family: "Avenir LT W01 85 Heavy";
     padding: 7px 10px 7px 0;
     text-align: left;
     width: inherit;
   }
 
-  .select-button__drop-down-button {
-    -moz-appearance: none;
-    -ms-appearance: none;
-    -webkit-appearance: none;
+  &__drop-down-button {
     appearance: none;
     font-family: "Avenir LT W01 55 Roman";
     outline: none;
     padding: 7px 10px 7px 33px;
 
     &:hover {
-      background-color: #f6f6f6;
+      background-color: #F6F6F6;
     }
   }
 }
