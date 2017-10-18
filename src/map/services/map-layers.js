@@ -12,8 +12,8 @@ export default [
         title: '2016'
       }
     ],
-    maxZoom: 100,
-    minZoom: 0,
+    maxZoom: 16,
+    minZoom: 11,
     title: 'Panoramabeelden',
     url: '/maps/panorama?version=1.3.0&service=WMS'
   },
