@@ -39,7 +39,11 @@ export const selectActiveMapLayers = (state) => {
         .map(overlay => overlay.id)
         .includes(mapLayerId))
     ))
-    .sort((a, b) => mapLayerIds.indexOf(a.id) < mapLayerIds.indexOf(b.id));
+    .sort((a, b) => {
+      const aId = a.id || a.legendItems[0].id;
+      const bId = b.id || b.legendItems[0].id;
+      return mapLayerIds.indexOf(aId) < mapLayerIds.indexOf(bId);
+    });
 };
 
 window.MapLayersReducer = MapLayersReducer;
