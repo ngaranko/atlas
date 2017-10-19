@@ -8,17 +8,9 @@
                     }">
                     <ul>
                         <li ng-repeat="theme in vm.themes | limitTo : vm.themesPerColumn : (column * vm.themesPerColumn)">
-                            <dp-link
-                                type="FETCH_DATA_SELECTION"
-                                class-name="c-catalogus-theme__icon c-catalogus-theme__icon--{{theme.icon}} qa-theme-link"
-                                payload="{
-                                    dataset: 'catalogus',
-                                    filters: {
-                                        groups: theme.slug
-                                    },
-                                    view: 'CARDS',
-                                    page: 1
-                                }"><div class="c-catalogus-theme__link"><div class="c-catalogus-theme__link__text">{{theme.name}}</div></div></dp-link>
+                            <div ng-click="vm.onClick(theme.slug)"
+                                class="c-catalogus-theme__icon c-catalogus-theme__icon--{{theme.icon}} qa-theme-link"
+                                ><div class="c-catalogus-theme__link"><div class="c-catalogus-theme__link__text">{{theme.name}}</div></div></div>
                         </li>
                     </ul>
                 </div>
