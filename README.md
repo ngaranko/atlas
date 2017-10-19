@@ -18,13 +18,16 @@
 - npm run clean
 
 ## E2E testing
+Make sure the app is running locally by running `grunt`.
+Then, in a second terminal, run `grunt test-e2e`.
+
 In order to run the E2E tests, the following environment variables should be set:
 - `PASSWORD_EMPLOYEE`
 - `PASSWORD_EMPLOYEE_PLUS`
 - `USERNAME_EMPLOYEE`
 - `USERNAME_EMPLOYEE_PLUS`
 They can simply be added by using the `export` command from the command line, or by providing the variables as a
-prefix to the desired command, e.g. `PASSWORD_EMPLOYEE=password grunt test`.
+prefix to the desired command, e.g. `PASSWORD_EMPLOYEE=password grunt test-e2e`.
 
 ## Techniques used
 - AngularJS

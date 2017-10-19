@@ -114,5 +114,4 @@ describe('The dp-metadata component', function () {
         expect(component.find('tbody tr').length).toBe(1);
         expect(component.find('tbody tr:nth-child(1) td:nth-child(1)').text().trim()).toBe('FAKE_TITLE_2');
     });
-
- });
+});

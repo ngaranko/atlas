@@ -1,4 +1,4 @@
-describe('Kaartlagen', () => {
+xdescribe('Kaartlagen', () => {
     let page,
         layerSelection;
 

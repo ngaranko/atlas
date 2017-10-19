@@ -44,6 +44,8 @@
   stroke: $thema-10;
 }
 
-.c-meetbout__background rect {
-  fill: $secondary-gray4;
+.c-meetbout__background {
+  rect {
+    fill: $secondary-gray4;
+  }
 }
