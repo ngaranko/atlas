@@ -52,6 +52,7 @@ class MapPanelContainer extends React.Component {
       <section className={`
         map-panel
         map-panel--${this.props.isMapPanelVisible ? 'expanded' : 'collapsed'}
+        map-panel--has-${this.props.activeMapLayers.length > 0 ? '' : 'no'}-active-layers
       `}
       >
         <div className="map-panel__heading">

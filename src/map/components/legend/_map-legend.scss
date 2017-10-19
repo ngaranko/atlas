@@ -89,4 +89,23 @@
       }
     }
   }
+
+  .is-embed &,
+  .is-embed-preview &,
+  .is-print-mode & {
+    &__category {
+      button,
+      .checkbox {
+        display: none;
+      }
+    }
+
+    &__items .checkbox {
+      display: none;
+    }
+
+    &__image {
+      margin-left: 0;
+    }
+  }
 }
