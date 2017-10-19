@@ -11,8 +11,8 @@
  */
 export default function () {
   // Backwards compatible with msCrypto in IE11
-  const cryptoLib = crypto ||
-    msCrypto; // eslint-disable-line no-undef
+  const cryptoLib = window.crypto ||
+    window.msCrypto; // eslint-disable-line no-undef
 
   if (!cryptoLib) {
     return '';
