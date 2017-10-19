@@ -5,7 +5,7 @@ const {commonConfig, dist, legacy} = require('./webpack.common.js');
 const nodeEnv = 'development';
 
 module.exports = merge(commonConfig(nodeEnv), {
-  devtool: 'eval-source-map',
+  devtool: 'source-map',
   devServer: {
     disableHostCheck: true,
     contentBase: dist

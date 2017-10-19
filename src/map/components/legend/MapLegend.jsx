@@ -45,8 +45,9 @@ class MapLegend extends React.Component {
   }
 
   toggleLayerVisibility(mapLayer) {
+    const isVisible = this.determineLayerVisibility(mapLayer);
     MapLegend.mapLayersLegendItemsToIds(mapLayer).forEach(mapLayerId =>
-      this.props.onLayerVisibilityToggle(mapLayerId));
+      this.props.onLayerVisibilityToggle(mapLayerId, !isVisible));
   }
 
   render() {
