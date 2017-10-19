@@ -9,10 +9,28 @@
             controllerAs: 'vm'
         });
 
-    DpCatalogusThemes.$inject = ['CATALOGUS_THEMES_CONFIG'];
+    DpCatalogusThemes.$inject = ['CATALOGUS_THEMES_CONFIG', 'store', 'ACTIONS'];
 
-    function DpCatalogusThemes (CATALOGUS_THEMES_CONFIG) {
+    function DpCatalogusThemes (CATALOGUS_THEMES_CONFIG, store, ACTIONS) {
         const vm = this;
+
+        vm.onClick = (theme) => {
+            store.dispatch({
+                type: ACTIONS.APPLY_FILTERS,
+                payload: {
+                    groups: theme
+                }
+            });
+
+            store.dispatch({
+                type: ACTIONS.FETCH_DATA_SELECTION,
+                payload: {
+                    dataset: 'catalogus',
+                    view: 'CARDS',
+                    page: 1
+                }
+            });
+        }
 
         vm.themes = angular.copy(CATALOGUS_THEMES_CONFIG);
         vm.themesPerColumn = Math.ceil(vm.themes.length / 3);

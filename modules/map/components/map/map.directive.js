@@ -13,10 +13,12 @@
         'panning',
         'zoom',
         'onMapClick',
-        'overlays'
+        'overlays',
+        'activeOverlays'
     ];
 
-    function dpMapDirective ($timeout, $window, L, mapConfig, layers, highlight, panning, zoom, onMapClick, overlays) {
+    function dpMapDirective ($timeout, $window, L, mapConfig, layers, highlight, panning, zoom, onMapClick, overlays,
+        activeOverlays) {
         return {
             restrict: 'E',
             scope: {
@@ -121,6 +123,8 @@
 
                 oldOverlays = oldOverlays || [];
                 scope.hasActiveOverlays = newOverlays.length > 0;
+
+                activeOverlays.setOverlays(scope.mapState.overlays);
 
                 if (angular.equals(newOverlays, oldOverlays)) {
                     return;
