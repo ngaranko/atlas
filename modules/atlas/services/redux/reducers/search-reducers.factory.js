@@ -75,7 +75,8 @@
                     showActiveOverlays: false,
                     isFullscreen: false,
                     geometry: [],
-                    viewCenter: state.layerSelection.isEnabled || (state.map && state.map.isFullscreen)
+                    viewCenter:
+                        state.layerSelection && state.layerSelection.isEnabled || (state.map && state.map.isFullscreen)
                         ? payload : state.map.viewCenter
                 } : state.map,
                 layerSelection: angular.isObject(state.layerSelection) ? {

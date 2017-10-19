@@ -154,6 +154,18 @@ describe('The search-reducers factory', function () {
 
             expect(output.map.isFullscreen).toBe(false);
         });
+
+        it('when map and layerSelection and page are not an object', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map = null;
+            inputState.layerSelection = null;
+            inputState.page = null;
+
+            const output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY.id](inputState, '');
+            expect(output.map).toBeNull();
+            expect(output.layerSelection).toBeNull();
+            expect(output.page).toBeNull();
+        });
     });
 
     describe('FETCH_SEARCH_RESULTS_BY_LOCATION', function () {
@@ -311,6 +323,16 @@ describe('The search-reducers factory', function () {
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, [52.001, 4.002]);
 
             expect(output.map).toBeNull();
+        });
+
+        it('when map and layerSelection and page are not an object', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.layerSelection = null;
+            inputState.page = null;
+
+            const output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, [52.001, 4.002]);
+            expect(output.layerSelection).toBeNull();
+            expect(output.page).toBeNull();
         });
     });
 
