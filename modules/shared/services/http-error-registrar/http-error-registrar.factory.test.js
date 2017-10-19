@@ -13,7 +13,9 @@ describe('The http error registrar', function () {
         $interval,
         mockedData,
         onError,
-        callbackCalled;
+        callbackCalled,
+        $window,
+        origAuth;
 
     beforeEach(function () {
         onError = null;
@@ -31,12 +33,19 @@ describe('The http error registrar', function () {
             $provide.value('$window', window);
         });
 
-        angular.mock.inject(function (_$httpBackend_, _$http_, _$rootScope_, _$interval_) {
+        angular.mock.inject(function (_$httpBackend_, _$http_, _$rootScope_, _$interval_, _$window_) {
             $httpBackend = _$httpBackend_;
             $http = _$http_;
             $rootScope = _$rootScope_;
             $interval = _$interval_;
+            $window = _$window_;
         });
+
+        origAuth = $window.auth;
+        $window.auth = {
+            logout: angular.noop,
+            initialize: angular.noop
+        };
 
         mockedData = {
             Key: 'Value'
@@ -56,6 +65,10 @@ describe('The http error registrar', function () {
             .respond(400, mockedData);
 
         $httpBackend
+            .whenGET('http://api-domain.amsterdam.nl/401')
+            .respond(401, mockedData);
+
+        $httpBackend
             .whenGET('http://api-domain.amsterdam.nl/500')
             .respond(500, mockedData);
 
@@ -65,6 +78,12 @@ describe('The http error registrar', function () {
 
         spyOn(httpStatus, 'registerError');
         spyOn(Raven, 'captureMessage');
+        spyOn($window.auth, 'logout');
+        spyOn($window.auth, 'initialize');
+    });
+
+    afterEach(() => {
+        $window.auth = origAuth;
     });
 
     it('does not handle normal responses and requests', function () {
@@ -117,6 +136,24 @@ describe('The http error registrar', function () {
         expect(Raven.captureMessage).toHaveBeenCalledWith(
             jasmine.stringMatching('HTTP 4xx response'),
             { tags: { statusCode: 400 } });
+        expect(callbackCalled).toBe(true);
+    });
+
+    it('does handle 401 errors', function () {
+        $http
+            .get('http://api-domain.amsterdam.nl/401')
+            .catch(data => {
+                expect(data.data).toEqual(mockedData);
+                expect(data.status).toBe(401);
+                callbackCalled = true;
+            });
+
+        $httpBackend.flush();
+        $interval.flush(FLUSH_PERIOD);
+
+        expect(httpStatus.registerError).not.toHaveBeenCalled();
+        expect(Raven.captureMessage).not.toHaveBeenCalled();
+        expect($window.auth.logout).toHaveBeenCalled();
         expect(callbackCalled).toBe(true);
     });
 
@@ -195,7 +232,7 @@ describe('The http error registrar', function () {
         // onError is the window error event listener (see mock of $window)
         // If called with an event that contains a target src url it will issue a server error
 
-        onError({});    // without target src url
+        onError({}); // without target src url
         expect(httpStatus.registerError).not.toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
 
         onError({

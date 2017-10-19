@@ -37,7 +37,7 @@
             const activity = determineActivity(state);
             const visibility = {};
 
-            visibility.httpStatus = httpStatus.getStatus().hasErrors;
+            visibility.httpStatus = httpStatus.getStatus().hasErrors || state.user.error;
             visibility.map = activity.map;
 
             if (angular.isObject(state.dataSelection) && !state.map.isFullscreen) {
@@ -101,7 +101,7 @@
                 return true;
             }
 
-            if (state.map.isFullscreen && !state.layerSelection.isEnabled) {
+            if (state.map.isFullscreen) {
                 return true;
             } else if (state.straatbeeld) {
                 return !state.straatbeeld.isFullscreen;
@@ -136,8 +136,8 @@
             const columnSizes = {};
 
             if (visibility.layerSelection) {
-                columnSizes.left = 4;
-                columnSizes.middle = 8;
+                columnSizes.left = 0;
+                columnSizes.middle = 12;
                 columnSizes.right = 0;
             } else if (hasFullscreenElement) {
                 columnSizes.left = 0;
@@ -156,8 +156,8 @@
             const columnSizes = {};
 
             if (visibility.layerSelection) {
-                columnSizes.left = 12;
-                columnSizes.middle = 0;
+                columnSizes.left = 0;
+                columnSizes.middle = 12;
                 columnSizes.right = 0;
             } else if (hasFullscreenElement) {
                 columnSizes.left = 0;

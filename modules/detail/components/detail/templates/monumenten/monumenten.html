@@ -8,10 +8,9 @@
 
         <dp-panel
           can-close="true"
-          is-panel-visible="vm.showMoreInfoWarning"
+          is-panel-visible="!vm.user.scopes.includes('MON/RDM')"
           type="warning">
-            Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer gegevens te zien: architect en opdrachtgever,
-            bouwjaar, oorspronkelijke functie, beschrijving en redengevende omschrijving.
+            Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer gegevens te zien: type, architect en opdrachtgever, bouwjaar, oorspronkelijke functie, in onderzoek, beschrijving en redengevende omschrijving.
             Zie <dp-link-to-page item="item9" class-name="c-link--light"></dp-link-to-page>.
         </dp-panel>
 
@@ -33,7 +32,7 @@
             <dt>Oorspronkelijke functie</dt>
             <dd>{{ vm.apiData.results.oorspronkelijke_functie_monument }}</dd>
             <dt>In onderzoek</dt>
-            <dd>{{ vm.apiData.results.in_onderzoek === 'J' ? 'Ja' : 'Nee' }}</dd>
+            <dd>{{ vm.apiData.results.in_onderzoek === 'J' ? 'Ja' : '' }}{{ vm.apiData.results.in_onderzoek === 'N' ? 'Nee' : '' }}</dd>
             <dt class="c-key-value-list__key--full-width">Beschrijving</dt>
             <dd class="c-key-value-list__value--full-width">
                 <p
@@ -54,7 +53,8 @@
          class="c-detail__block">
         <dp-api-call
           endpoint="{{ vm.apiData.results.ligt_in_complex._links.self.href }}"
-          partial="monumenten/complex">
+          partial="monumenten/complex"
+          user="vm.user">
         </dp-api-call>
     </div>
 
@@ -66,7 +66,8 @@
         </dp-glossary-header>
         <dp-api-call
           endpoint="{{ vm.apiData.results.heeft_als_grondslag_beperking._links.self.href }}"
-          partial="berperking">
+          partial="berperking"
+          user="vm.user">
         </dp-api-call>
     </div>
 
@@ -78,7 +79,8 @@
         </dp-glossary-header>
         <dp-api-call
           endpoint="{{ vm.apiData.results.betreft_pand._links.self.href }}"
-          partial="monumenten/pand">
+          partial="monumenten/pand"
+          user="vm.user">
         </dp-api-call>
     </div>
 
@@ -90,7 +92,8 @@
         </dp-glossary-header>
         <dp-api-call
           endpoint="{{ vm.apiData.results.heeft_situeringen.href }}"
-          partial="monumenten/adressen_lijst">
+          partial="monumenten/adressen_lijst"
+          user="vm.user">
         </dp-api-call>
     </div>
 </div>

@@ -21,7 +21,7 @@ describe('The state url conversion definition', function () {
     });
 
     describe('The registered state initialisation methods', function () {
-        it('initialize a state to the home page and it sets a default map, (only) on an empty payload', function () {
+        xit('initialize a state to the home page and it sets a default map, (only) on an empty payload', function () { // eslint-disable-line
             let state;
 
             state = stateUrlConversion.onCreate.DEFAULT({}, {}, {}, stateUrlConversion.initialValues);
@@ -38,6 +38,12 @@ describe('The state url conversion definition', function () {
                     isEnabled: false
                 },
                 filters: {},
+                user: {
+                    authenticated: false,
+                    scopes: [],
+                    name: '',
+                    error: false
+                },
                 map: {
                     viewCenter: [52.3731081, 4.8932945],
                     baseLayer: 'topografie',
@@ -52,7 +58,13 @@ describe('The state url conversion definition', function () {
             });
 
             state = stateUrlConversion.onCreate.DEFAULT({}, {}, {aap: 'noot'}, {});
-            expect(state).toEqual({atlas: undefined, page: undefined, layerSelection: undefined, filters: undefined});
+            expect(state).toEqual({
+                atlas: undefined,
+                page: undefined,
+                layerSelection: undefined,
+                filters: undefined,
+                user: undefined
+            });
         });
     });
 
@@ -150,6 +162,54 @@ describe('The state url conversion definition', function () {
 
                 stateUrlConversion.post.map(oldState, newState);
                 expect(newState).toEqual({});
+            });
+        });
+
+        describe('The post processing for baseLayers', function () {
+            it('copies all baseLayers from old state', function () {
+                let oldState,
+                    newState;
+
+                oldState = {
+                    foo: 'bar'
+                };
+                newState = {
+                    foo: 'bar'
+                };
+
+                stateUrlConversion.post.mapBaseLayers(oldState, newState);
+                expect(newState).toEqual({
+                    foo: 'bar'
+                });
+
+                oldState = null;
+                newState = {
+                    foo: 'bar'
+                };
+
+                stateUrlConversion.post.mapBaseLayers(oldState, newState);
+                expect(newState).toEqual({
+                    foo: 'bar'
+                });
+            });
+        });
+
+        describe('The post processing for mapLayers', function () {
+            it('copies all baseLayers from old state', function () {
+                let oldState,
+                    newState;
+
+                oldState = [1, 2];
+                newState = [1, 2];
+
+                stateUrlConversion.post.mapLayers(oldState, newState);
+                expect(newState).toEqual([1, 2]);
+
+                oldState = null;
+                newState = [1, 2];
+
+                stateUrlConversion.post.mapLayers(oldState, newState);
+                expect(newState).toEqual([1, 2]);
             });
         });
 

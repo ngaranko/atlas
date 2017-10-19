@@ -10,7 +10,6 @@ describe('The dp-document-title directive', function () {
         dashboardColumns = { determineVisibility: angular.noop },
         dataSelectionDocumentTitle = { getTitle: angular.noop },
         detailDocumentTitle = { getTitle: angular.noop },
-        layerSelectionDocumentTitle = { getTitle: angular.noop },
         mapDocumentTitle = { getTitle: angular.noop },
         pageDocumentTitle = { getTitle: angular.noop },
         searchResultsDocumentTitle = { getTitle: angular.noop },
@@ -24,7 +23,6 @@ describe('The dp-document-title directive', function () {
                 $provide.value('dashboardColumns', dashboardColumns);
                 $provide.value('dpDataSelectionDocumentTitle', dataSelectionDocumentTitle);
                 $provide.value('dpDetailDocumentTitle', detailDocumentTitle);
-                $provide.value('dpLayerSelectionDocumentTitle', layerSelectionDocumentTitle);
                 $provide.value('dpMapDocumentTitle', mapDocumentTitle);
                 $provide.value('dpPageDocumentTitle', pageDocumentTitle);
                 $provide.value('dpSearchResultsDocumentTitle', searchResultsDocumentTitle);
@@ -41,7 +39,6 @@ describe('The dp-document-title directive', function () {
         spyOn(moduleDocumentTitle, 'getTitle');
         spyOn(dataSelectionDocumentTitle, 'getTitle').and.callFake(moduleDocumentTitle.getTitle);
         spyOn(detailDocumentTitle, 'getTitle').and.callFake(moduleDocumentTitle.getTitle);
-        spyOn(layerSelectionDocumentTitle, 'getTitle').and.callFake(moduleDocumentTitle.getTitle);
         spyOn(mapDocumentTitle, 'getTitle').and.callFake(moduleDocumentTitle.getTitle);
         spyOn(pageDocumentTitle, 'getTitle').and.callFake(moduleDocumentTitle.getTitle);
         spyOn(searchResultsDocumentTitle, 'getTitle').and.callFake(moduleDocumentTitle.getTitle);
@@ -190,28 +187,6 @@ describe('The dp-document-title directive', function () {
             var component = getComponent();
 
             expect(component.text()).toBe('Detail title - Atlas');
-        });
-    });
-
-    describe('layer selection', function () {
-        it('maps the right names and services', function () {
-            spyOn(store, 'getState').and.returnValue({ layerSelection: {} });
-            spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ layerSelection: true });
-            layerSelectionDocumentTitle.getTitle.and.returnValue('Layer selection title');
-
-            var component = getComponent();
-
-            expect(component.text()).toBe('Layer selection title - Atlas');
-        });
-
-        it('has precedence over the map module', function () {
-            spyOn(store, 'getState').and.returnValue({ layerSelection: {} });
-            spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ map: true, layerSelection: true });
-            layerSelectionDocumentTitle.getTitle.and.returnValue('Layer selection title');
-
-            var component = getComponent();
-
-            expect(component.text()).toBe('Layer selection title - Atlas');
         });
     });
 

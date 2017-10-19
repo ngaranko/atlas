@@ -1,5 +1,7 @@
 describe('The searchFormatter factory', function () {
     var searchFormatter,
+        store,
+        mockedUser,
         mockedInputCategories = [
             {
                 count: 2,
@@ -133,6 +135,11 @@ describe('The searchFormatter factory', function () {
     beforeEach(function () {
         angular.mock.module(
             'dpSearchResults',
+            {
+                store: {
+                    getState: angular.noop
+                }
+            },
             function ($provide) {
                 $provide.constant('SEARCH_CONFIG', {
                     QUERY_ENDPOINTS: [
@@ -165,9 +172,18 @@ describe('The searchFormatter factory', function () {
             }
         );
 
-        angular.mock.inject(function (_searchFormatter_) {
+        angular.mock.inject(function (_searchFormatter_, _store_) {
             searchFormatter = _searchFormatter_;
+            store = _store_;
         });
+
+        mockedUser = {
+            authenticated: false,
+            scopes: [],
+            name: ''
+        };
+
+        spyOn(store, 'getState').and.returnValue({ user: mockedUser });
     });
 
     it('has a formatCategories function', function () {
@@ -202,13 +218,13 @@ describe('The searchFormatter factory', function () {
                     }
                 ],
                 useIndenting: false,
-                authLevel: null,
+                authScope: null,
                 next: null
             }, {
                 label_singular: 'Meetbout',
                 label_plural: 'Meetbouten',
                 slug: 'meetbouten',
-                authLevel: null,
+                authScope: null,
                 count: 6,
                 results: [
                     {
@@ -257,7 +273,7 @@ describe('The searchFormatter factory', function () {
                 count: 0,
                 results: [],
                 useIndenting: false,
-                authLevel: null,
+                authScope: null,
                 next: null
             }, {
                 label_singular: 'Kadastraal object',
@@ -266,7 +282,7 @@ describe('The searchFormatter factory', function () {
                 count: 0,
                 results: [],
                 useIndenting: false,
-                authLevel: null,
+                authScope: null,
                 next: null
             }
         ]);
@@ -303,7 +319,7 @@ describe('The searchFormatter factory', function () {
                 }
             ],
             useIndenting: false,
-            authLevel: null,
+            authScope: null,
             next: null
         });
     });

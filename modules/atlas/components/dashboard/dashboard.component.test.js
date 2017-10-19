@@ -1,6 +1,8 @@
 describe('The dashboard component', function () {
     var $compile,
         $rootScope,
+        $window,
+        origAuth,
         store,
         ACTIONS,
         dashboardColumns,
@@ -25,7 +27,6 @@ describe('The dashboard component', function () {
                     'dpPageDirective',
                     'dpDetailDirective',
                     'dpSearchResultsDirective',
-                    'dpLayerSelectionDirective',
                     'dpMapDirective',
                     'dpStraatbeeldDirective',
                     'dpDataSelectionDirective'
@@ -36,6 +37,11 @@ describe('The dashboard component', function () {
         );
 
         const DEFAULT_STATE = {
+            user: {
+                authenticated: false,
+                scopes: [],
+                name: ''
+            },
             map: {
                 baseLayer: 'topografie',
                 overlays: [],
@@ -61,15 +67,25 @@ describe('The dashboard component', function () {
             }
         };
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _ACTIONS_, _dashboardColumns_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _$window_, _store_, _ACTIONS_, _dashboardColumns_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
+            $window = _$window_;
             store = _store_;
             ACTIONS = _ACTIONS_;
             dashboardColumns = _dashboardColumns_;
         });
 
+        origAuth = $window.auth;
+        $window.auth = {
+            login: angular.noop
+        };
+
         mockedState = angular.copy(angular.copy(DEFAULT_STATE));
+    });
+
+    afterEach(() => {
+        $window.auth = origAuth;
     });
 
     function getComponent () {
@@ -245,7 +261,6 @@ describe('The dashboard component', function () {
             mockedColumnSizes.left = 0;
             component = getComponent();
 
-            expect(component.find('.qa-dashboard__column--left').hasClass('ng-hide')).toBe(true);
             expect(component.find('.qa-dashboard__column--middle').hasClass('ng-hide')).toBe(false);
             expect(component.find('.qa-dashboard__column--right').hasClass('ng-hide')).toBe(false);
         });
@@ -256,7 +271,6 @@ describe('The dashboard component', function () {
             delete mockedColumnSizes.right;
             component = getComponent();
 
-            expect(component.find('.qa-dashboard__column--left').hasClass('ng-hide')).toBe(true);
             expect(component.find('.qa-dashboard__column--middle').hasClass('ng-hide')).toBe(true);
             expect(component.find('.qa-dashboard__column--right').hasClass('ng-hide')).toBe(true);
         });
@@ -264,7 +278,6 @@ describe('The dashboard component', function () {
         it('adds the correct class according to the column size', function () {
             component = getComponent();
 
-            expect(component.find('.qa-dashboard__column--left').attr('class')).toContain('u-col-sm--1');
             expect(component.find('.qa-dashboard__column--middle').attr('class')).toContain('u-col-sm--2');
             expect(component.find('.qa-dashboard__column--right').attr('class')).toContain('u-col-sm--3');
         });

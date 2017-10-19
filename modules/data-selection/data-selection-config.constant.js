@@ -175,13 +175,12 @@
                 },
                 hr: {
                     CUSTOM_API: 'dataSelectionApiDataSelection',
-                    AUTH_LEVEL: 'EMPLOYEE',
+                    AUTH_SCOPE: 'HR/R',
                     MAX_AVAILABLE_PAGES: 100,
                     ENDPOINT_PREVIEW: 'dataselectie/hr/',
                     ENDPOINT_MARKERS: 'dataselectie/hr/geolocation/',
                     ENDPOINT_EXPORT: 'dataselectie/hr/export/',
                     ENDPOINT_DETAIL: 'handelsregister/vestiging/',
-                    AUTH_LEVEL_EXPORT: 'EMPLOYEE',
                     PRIMARY_KEY: 'vestiging_id',
                     TITLE: 'Vestigingen',
                     FILTERS: [
@@ -215,8 +214,7 @@
                         TABLE: [
                             {
                                 label: 'KvK-num.',
-                                variables: ['kvk_nummer'],
-                                authLevel: 'EMPLOYEE'
+                                variables: ['kvk_nummer']
                             },
                             {
                                 label: 'Handelsnaam',
@@ -226,8 +224,7 @@
                                 label: 'Bezoekadres',
                                 variables: ['bezoekadres_volledig_adres', 'non_mailing'],
                                 formatter: 'hrBezoekadres',
-                                template: 'bezoekadres',
-                                authLevel: 'EMPLOYEE'
+                                template: 'bezoekadres'
                             },
                             {
                                 label: 'Hoofdcategorie',
@@ -239,13 +236,11 @@
                             },
                             {
                                 label: 'SBI-omschrijving',
-                                variables: ['sbi_omschrijving'],
-                                authLevel: 'EMPLOYEE'
+                                variables: ['sbi_omschrijving']
                             },
                             {
                                 label: 'SBI-code',
-                                variables: ['sbi_code'],
-                                authLevel: 'EMPLOYEE'
+                                variables: ['sbi_code']
                             }
                         ],
                         LIST: [

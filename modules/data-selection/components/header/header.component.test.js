@@ -1,13 +1,18 @@
 describe('The dp-data-selection-header', () => {
+    const anonymousUser = {
+        authenticated: false,
+        scopes: []
+    };
+
     let $compile,
         $rootScope,
         store,
         ACTIONS,
         component,
         config,
-        user,
         mockedViewInput,
         mockedInputTable,
+        mockedInputTableAuth,
         mockedInputList,
         mockedInputCards;
 
@@ -52,12 +57,11 @@ describe('The dp-data-selection-header', () => {
             }
         );
 
-        angular.mock.inject((_$compile_, _$rootScope_, _store_, _ACTIONS_, _user_) => {
+        angular.mock.inject((_$compile_, _$rootScope_, _store_, _ACTIONS_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
             ACTIONS = _ACTIONS_;
-            user = _user_;
         });
 
         mockedInputTable = {
@@ -74,6 +78,14 @@ describe('The dp-data-selection-header', () => {
             },
             numberOfRecords: null,
             showHeader: true
+        };
+
+        mockedInputTableAuth = {
+            ...mockedInputTable,
+            user: {
+                authenticated: true,
+                scopes: ['HR/R']
+            }
         };
 
         mockedInputList = {
@@ -110,11 +122,11 @@ describe('The dp-data-selection-header', () => {
         };
 
         spyOn(store, 'dispatch');
-        spyOn(user, 'meetsRequiredLevel').and.returnValue(false);
     });
 
     function getComponent (mockedInput) {
         const element = document.createElement('dp-data-selection-header');
+        element.setAttribute('user', 'user');
         element.setAttribute('state', 'state');
         element.setAttribute('filters', 'filters');
         element.setAttribute('available-filters', 'availableFilters');
@@ -122,6 +134,7 @@ describe('The dp-data-selection-header', () => {
         element.setAttribute('show-header', 'showHeader');
 
         const scope = $rootScope.$new();
+        scope.user = mockedInput.user || anonymousUser;
         scope.state = mockedInput.state;
         scope.filters = mockedInput.filters;
         scope.availableFilters = {};
@@ -178,22 +191,16 @@ describe('The dp-data-selection-header', () => {
         });
 
         it('is hidden when the authentication level is not met', () => {
-            mockedInputTable.numberOfRecords = 1;
             // An authentication level is set
-            config.datasets.bag.AUTH_LEVEL_EXPORT = 'EMPLOYEE';
+            config.datasets.bag.AUTH_SCOPE = 'HR/R';
 
-            // But it is not met
-            component = getComponent(mockedInputTable);
-            expect(component.find('.qa-download-button').length).toBe(0);
-
-            // Now the authentication is met
-            user.meetsRequiredLevel.and.returnValue(true);
-            component = getComponent(mockedInputTable);
+            mockedInputTableAuth.numberOfRecords = 1;
+            component = getComponent(mockedInputTableAuth);
             expect(component.find('.qa-download-button').length).toBe(1);
 
-            // This time there are now records however
-            mockedInputTable.numberOfRecords = 0;
-            component = getComponent(mockedInputTable);
+            // This time there are no records however
+            mockedInputTableAuth.numberOfRecords = 0;
+            component = getComponent(mockedInputTableAuth);
             expect(component.find('.qa-download-button').length).toBe(0);
         });
     });

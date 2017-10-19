@@ -28,8 +28,20 @@
             }
         });
 
+        // (Re)render React `MapPanel` app when map is visible
+        $scope.$watch('vm.visibility.map', (newValue, oldValue) => {
+            if (vm.visibility.map && !vm.activity.detail && !vm.isStraatbeeldActive) {
+                store.dispatch({ type: 'SHOW_MAP_PANEL' });
+            }
+            if (!vm.visibility.map) {
+                store.dispatch({ type: 'HIDE_MAP_PANEL' });
+            }
+        });
+
         function setLayout () {
             const state = store.getState();
+
+            vm.user = state.user;
 
             vm.activity = dashboardColumns.determineActivity(state);
             vm.visibility = dashboardColumns.determineVisibility(state);
