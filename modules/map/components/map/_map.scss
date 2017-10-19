@@ -32,3 +32,9 @@
   float: left;
   z-index: $on-top-z-index;
 }
+
+.is-print-mode {
+  .leaflet-control-zoom {
+    display: none;
+  }
+}

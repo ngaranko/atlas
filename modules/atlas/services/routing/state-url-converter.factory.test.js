@@ -27,11 +27,16 @@ describe('The state url conversion factory', function () {
                     drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
                     highlight: true
                 },
+                mapBaseLayers: {},
                 user: {
                     authenticated: false,
+                    accessToken: '',
                     scopes: [],
-                    name: ''
+                    name: '',
+                    error: false
                 },
+                mapLayers: [],
+                isMapPanelVisible: false,
                 filters: {},
                 layerSelection: {
                     isEnabled: false

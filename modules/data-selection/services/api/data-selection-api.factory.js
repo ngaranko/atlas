@@ -5,9 +5,9 @@
         .module('dpDataSelection')
         .factory('dataSelectionApi', dataSelectionApiFactory);
 
-    dataSelectionApiFactory.$inject = ['$injector', 'DATA_SELECTION_CONFIG', 'api', 'user', 'TabHeader'];
+    dataSelectionApiFactory.$inject = ['$injector', 'DATA_SELECTION_CONFIG', 'api', 'TabHeader'];
 
-    function dataSelectionApiFactory ($injector, DATA_SELECTION_CONFIG, api, user, TabHeader) {
+    function dataSelectionApiFactory ($injector, DATA_SELECTION_CONFIG, api, TabHeader) {
         return {
             query,
             getMarkers,

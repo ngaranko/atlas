@@ -5,9 +5,9 @@
         .module('dpDetail')
         .directive('dpPartialSelect', dpPartialSelectDirective);
 
-    dpPartialSelectDirective.$inject = ['partialCompiler', 'user'];
+    dpPartialSelectDirective.$inject = ['partialCompiler'];
 
-    function dpPartialSelectDirective (partialCompiler, user) {
+    function dpPartialSelectDirective (partialCompiler) {
         return {
             restrict: 'E',
             scope: {

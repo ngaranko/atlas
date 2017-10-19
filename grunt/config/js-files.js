@@ -20,6 +20,7 @@ var jsFiles = modules
     .map(module => jsModuleFiles(module))
     .reduce((result, files) => result.concat(files), []);
 
+jsFiles.unshift('src/state.js');
 jsFiles.unshift('src/**/*.js!vendor.js');
 
 var cssFiles = modules

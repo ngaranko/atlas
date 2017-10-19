@@ -6,3 +6,6 @@ insert_final_newline = true
 
 [{*.scss,*.json}]
 indent_size = 2
+
+[src/*]
+indent_size = 2

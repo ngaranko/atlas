@@ -38,7 +38,7 @@
                      'o-max-width__inner': vm.hasMaxWidth,
                      'u-gutter': vm.isHomePage
                  }">
-                <dp-api-error></dp-api-error>
+                <dp-api-error user="vm.user"></dp-api-error>
             </div>
         </div>
     </div>
@@ -49,23 +49,6 @@
         <div class="u-grid u-full-height">
             <!-- Columns -->
             <div class="u-row u-full-height">
-                <!-- Left column -->
-                <div ng-show="vm.columnSizes.left"
-                    class="qa-dashboard__column--left c-dashboard__column"
-                    ng-class="'u-col-sm--' + vm.columnSizes.left">
-
-                    <!-- Layer selection -->
-                    <div ng-if="vm.activity.layerSelection"
-                        ng-show="vm.visibility.layerSelection"
-                        ng-controller="LayerSelectionController as layerSelection"
-                        class="u-full-height qa-layer-selection">
-                        <dp-layer-selection
-                            base-layer="{{layerSelection.baseLayer}}"
-                            overlays="layerSelection.overlays"
-                            zoom="layerSelection.zoom">
-                        </dp-layer-selection>
-                    </div>
-                </div>
 
                 <!-- Middle column -->
                 <div ng-show="vm.columnSizes.middle"
