@@ -83,14 +83,12 @@ class SelectButton extends React.Component {
   handleClickChild(event) {
     event.preventDefault();
 
-    if (event.currentTarget.value !== this.state.value) {
-      this.setState({
-        label: event.currentTarget.innerText,
-        value: event.currentTarget.value
-      });
+    this.setState({
+      label: event.currentTarget.innerText,
+      value: event.currentTarget.value
+    });
 
-      this.props.handleChange(event.currentTarget.value);
-    }
+    this.props.handleChange(event.currentTarget.value);
 
     this.handleToggle();
   }
