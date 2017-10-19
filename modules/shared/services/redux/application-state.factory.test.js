@@ -10,6 +10,16 @@ describe('The applicationState factory', function () {
         fakeComposedEnhancer = 'I_AM_A_FAKE_COMPOSED_ENHANCER',
         fakeStore = 'THIS_IS_THE_FAKE_STORE';
 
+    // `initializeState` mock
+    $window.initializeState = (Redux_, reducer, stateUrlConverter, defaultState, ...middleware) => {
+        const composeEnhancers = $window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Redux_.compose;
+        const enhancer = composeEnhancers(
+            Redux_.applyMiddleware(...middleware)
+        );
+
+        $window.reduxStore = Redux_.createStore(reducer, defaultState, enhancer);
+    };
+
     beforeEach(function () {
         angular.mock.module('dpShared', function ($provide) {
             $provide.constant('Redux', {

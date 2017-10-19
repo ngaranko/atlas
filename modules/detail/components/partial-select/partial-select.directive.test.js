@@ -3,8 +3,7 @@ describe('The dp-partial-select directive', function () {
         $rootScope,
         $q,
         partialCompiler,
-        api,
-        user;
+        api;
 
     beforeEach(function () {
         angular.mock.module(
@@ -26,18 +25,16 @@ describe('The dp-partial-select directive', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _$q_, _partialCompiler_, _api_, _user_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _$q_, _partialCompiler_, _api_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             $q = _$q_;
             partialCompiler = _partialCompiler_;
             api = _api_;
-            user = _user_;
         });
 
         spyOn(partialCompiler, 'getHtml').and.callThrough();
         spyOn(api, 'getByUrl').and.callThrough();
-        spyOn(user, 'meetsRequiredLevel').and.returnValue(false);
     });
 
     function getDirective (apiData, partial, loadMoreFn) {
@@ -86,22 +83,5 @@ describe('The dp-partial-select directive', function () {
         expect(hasMockedLoadMoreFunctionBeenCalled).toBe(false);
         scope.loadMore();
         expect(hasMockedLoadMoreFunctionBeenCalled).toBe(true);
-    });
-
-    describe('the warning message', () => {
-        it('is shown if not an employee', () => {
-            const directive = getDirective({foo: 'FAKE_API_DATA_A'}, 'my-template');
-
-            const scope = directive.isolateScope();
-            expect(scope.showMoreInfoWarning).toBe(true);
-        });
-        it('is not shown for an employee', () => {
-            user.meetsRequiredLevel.and.returnValue(true);
-
-            const directive = getDirective({foo: 'FAKE_API_DATA_A'}, 'my-template');
-
-            const scope = directive.isolateScope();
-            expect(scope.showMoreInfoWarning).toBe(false);
-        });
     });
 });

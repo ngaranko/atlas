@@ -2,7 +2,6 @@ describe('The dataSelectionApi factory', function () {
     let $rootScope,
         $q,
         dataSelectionApi,
-        user,
         mockedApiPreviewResponse,
         mockedApiMarkersResponse,
         mockedConfig,
@@ -55,8 +54,7 @@ describe('The dataSelectionApi factory', function () {
                             },
                             {
                                 label: 'KvK-nummer',
-                                variables: ['kvk_nummer'],
-                                authLevel: 'EMPLOYEE'
+                                variables: ['kvk_nummer']
                             }
                         ],
                         LIST: [
@@ -91,20 +89,18 @@ describe('The dataSelectionApi factory', function () {
             }
         );
 
-        angular.mock.inject(function (_$rootScope_, _$q_, _dataSelectionApi_, _user_, _TabHeader_) {
+        angular.mock.inject(function (_$rootScope_, _$q_, _dataSelectionApi_, _TabHeader_) {
             $rootScope = _$rootScope_;
             $q = _$q_;
             dataSelectionApi = _dataSelectionApi_;
-            user = _user_;
             TabHeader = _TabHeader_;
         });
 
         spyOn(mockedApiService, 'query').and.callThrough();
         spyOn(api, 'getByUri').and.callThrough();
-        spyOn(user, 'meetsRequiredLevel').and.returnValue(false);
     });
 
-    describe('the query function', function () {
+    describe('query function', function () {
         beforeEach(function () {
             mockedApiPreviewResponse = {
                 filters: {
@@ -150,6 +146,7 @@ describe('The dataSelectionApi factory', function () {
                         huisnummer_toevoeging: '2',
                         ligplaats_id: '',
                         standplaats_id: '0123456',
+                        kvk_nummer: '123',
                         openingstijden: 'Alleen op dinsdag',
                         adres: 'Sneeuwbalweg 24',
                         id: '1'
@@ -167,6 +164,7 @@ describe('The dataSelectionApi factory', function () {
                         standplaats_id: '',
                         hoofdadres: 'False',
                         status_id: '18',
+                        kvk_nummer: '234',
                         adres: 'Marnixstraat 1',
                         openingstijden: 'Ligt er een beetje aan',
                         id: '2'
@@ -184,8 +182,9 @@ describe('The dataSelectionApi factory', function () {
                         standplaats_id: '0123456',
                         hoofdadres: 'True',
                         status_id: '16',
-                        openingstijden: 'Alleen op dinsdag',
-                        adres: 'Sneeuwbalweg 24',
+                        kvk_nummer: '345',
+                        openingstijden: 'Hooguit op zondag',
+                        adres: 'Snelle vaartstraat 42',
                         id: '1'
                     }
                 ],
@@ -376,7 +375,7 @@ describe('The dataSelectionApi factory', function () {
                 });
                 $rootScope.$apply();
 
-                expect(output.data.head).toEqual(['Adres', 'Openingstijden']);
+                expect(output.data.head).toEqual(['Adres', 'Openingstijden', 'KvK-nummer']);
             });
 
             it('reorders the results per row from the API to match the order of the configuration', function () {
@@ -387,81 +386,6 @@ describe('The dataSelectionApi factory', function () {
                 });
                 $rootScope.$apply();
 
-                expect(output.data.body.length).toBe(3);
-                expect(output.data.body[0]).toEqual({
-                    detailEndpoint: 'https://amsterdam.nl/api_endpoint/zwembaden/1/',
-                    content: [
-                        [{
-                            key: 'adres',
-                            value: 'Sneeuwbalweg 24'
-                        }], [{
-                            key: 'openingstijden',
-                            value: 'Alleen op dinsdag'
-                        }]
-                    ]
-                });
-                expect(output.data.body[1]).toEqual({
-                    detailEndpoint: 'https://amsterdam.nl/api_endpoint/zwembaden/2/',
-                    content: [
-                        [{
-                            key: 'adres',
-                            value: 'Marnixstraat 1'
-                        }], [{
-                            key: 'openingstijden',
-                            value: 'Ligt er een beetje aan'
-                        }]
-                    ]
-                });
-            });
-
-            it('returns the formatters for each group of variables', function () {
-                let output;
-
-                dataSelectionApi.query('zwembaden', 'TABLE', {}, 1).then(function (_output_) {
-                    output = _output_;
-                });
-                $rootScope.$apply();
-
-                expect(output.data.formatters).toEqual([undefined, 'openingstijdenFormatter']);
-            });
-
-            it('uses different dataset configuration depending on the view', function () {
-                let outputTable,
-                    outputList;
-
-                dataSelectionApi.query('zwembaden', 'TABLE', {}, 1).then(function (_output_) {
-                    outputTable = _output_;
-                });
-
-                dataSelectionApi.query('zwembaden', 'LIST', {}, 1).then(function (_output_) {
-                    outputList = _output_;
-                });
-                $rootScope.$apply();
-
-                expect(outputTable).not.toEqual(outputList);
-            });
-
-            it('Shows columns with an authentication level only when that level is met by the current user', () => {
-                let output;
-
-                user.meetsRequiredLevel.and.returnValue(true);
-
-                mockedApiPreviewResponse.data[0].kvk_nummer = '123';
-                mockedApiPreviewResponse.data[1].kvk_nummer = '234';
-                mockedApiPreviewResponse.data[2].kvk_nummer = '345';
-
-                dataSelectionApi.query('zwembaden', 'TABLE', {}, 1).then(function (_output_) {
-                    output = _output_;
-                });
-                $rootScope.$apply();
-
-                // Formatters
-                expect(output.data.formatters).toEqual([undefined, 'openingstijdenFormatter', undefined]);
-
-                // Head
-                expect(output.data.head).toEqual(['Adres', 'Openingstijden', 'KvK-nummer']);
-
-                // Body
                 expect(output.data.body.length).toBe(3);
                 expect(output.data.body[0]).toEqual({
                     detailEndpoint: 'https://amsterdam.nl/api_endpoint/zwembaden/1/',
@@ -495,7 +419,7 @@ describe('The dataSelectionApi factory', function () {
                 });
             });
 
-            it('flags if columns have been omitted due to authentication level', () => {
+            it('returns the formatters for each group of variables', function () {
                 let output;
 
                 dataSelectionApi.query('zwembaden', 'TABLE', {}, 1).then(function (_output_) {
@@ -503,20 +427,23 @@ describe('The dataSelectionApi factory', function () {
                 });
                 $rootScope.$apply();
 
-                expect(output.data.sensored).toBe(true);
+                expect(output.data.formatters).toEqual([undefined, 'openingstijdenFormatter', undefined]);
+            });
 
-                user.meetsRequiredLevel.and.returnValue(true);
-
-                mockedApiPreviewResponse.data[0].kvk_nummer = '123';
-                mockedApiPreviewResponse.data[1].kvk_nummer = '234';
-                mockedApiPreviewResponse.data[2].kvk_nummer = '345';
+            it('uses different dataset configuration depending on the view', function () {
+                let outputTable,
+                    outputList;
 
                 dataSelectionApi.query('zwembaden', 'TABLE', {}, 1).then(function (_output_) {
-                    output = _output_;
+                    outputTable = _output_;
+                });
+
+                dataSelectionApi.query('zwembaden', 'LIST', {}, 1).then(function (_output_) {
+                    outputList = _output_;
                 });
                 $rootScope.$apply();
 
-                expect(output.data.sensored).toBe(false);
+                expect(outputTable).not.toEqual(outputList);
             });
         });
     });

@@ -4,6 +4,7 @@ MAINTAINER datapunt.ois@amsterdam.nl
 
 EXPOSE 80
 
+ENV NODE_ENV=production
 ENV USERNAME_EMPLOYEE=atlas.employee@amsterdam.nl
 ENV USERNAME_EMPLOYEE_PLUS=atlas.employee.plus@amsterdam.nl
 ARG PASSWORD_EMPLOYEE
@@ -65,8 +66,8 @@ WORKDIR /app
 ENV PATH=./node_modules/.bin/:~/node_modules/.bin/:$PATH
 RUN git config --global url.https://github.com/.insteadOf git://github.com/ \
   && git config --global url."https://github.com/".insteadOf git@github.com: \
-  && npm install && bower install --allow-root \
-  && ./node_modules/protractor/node_modules/webdriver-manager/bin/webdriver-manager update
+  && npm --production=false install \
+  && bower install --allow-root
 
 ARG BUILD_ID
 ENV BUILD_ID=$BUILD_ID

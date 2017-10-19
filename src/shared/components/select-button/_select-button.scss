@@ -1,0 +1,161 @@
+.select-button {
+  background-color: #FFFFFF;
+  cursor: pointer;
+  margin-bottom: 10px;
+  position: relative;
+
+  &__wrapper {
+    align-items: center;
+    border: 1px solid #7E7E7E;
+    border-right: none;
+    display: flex;
+    justify-content: space-between;
+    outline: none;
+    overflow: hidden;
+    width: calc(100% - 32px);
+
+    &:hover {
+      background-color: #FF0000;
+      border-color: #FF0000;
+      color: white;
+
+      svg {
+        fill: #FFFFFF;
+      }
+    }
+  }
+
+  &__icon-wrapper {
+    border: 1px solid #7E7E7E;
+    bottom: 0;
+    height: 36px;
+    outline: none;
+    padding: 6px 3px;
+    position: absolute;
+    right: 0;
+    width: 32px;
+
+    &:hover {
+      background-color: #FF0000;
+      border-color: #FF0000;
+      color: #FFFFFF;
+
+      svg {
+        fill: #FFFFFF;
+      }
+    }
+  }
+
+  &__icon svg {
+    height: 22px;
+    width: 22px;
+  }
+
+  &__icon--expand {
+    display: inline;
+  }
+
+  &__icon--collapse {
+    display: none;
+  }
+
+  &--expanded {
+    .select-button__drop-down {
+      display: block;
+    }
+
+    .select-button__icon--expand {
+      display: none;
+    }
+
+    .select-button__icon--collapse {
+      display: inline;
+    }
+
+    .select-button__icon-wrapper {
+      background-color: #FF0000;
+      border-color: #FF0000;
+      color: #FFFFFF;
+
+      svg {
+        fill: #FFFFFF;
+      }
+    }
+  }
+
+  &--disabled {
+    .select-button__wrapper,
+    .select-button__icon-wrapper {
+      border-color: #D2D2D2;
+      color: #666666;
+
+      &:hover {
+        color: #FFFFFF;
+        background-color: #FF0000;
+        border-color: #FF0000;
+
+        svg {
+          fill: #FFFFFF;
+        }
+      }
+    }
+
+    &.select-button--expanded {
+      .select-button__icon-wrapper {
+        border-color: #FF0000;
+      }
+    }
+
+    svg {
+      fill: #666666;
+    }
+  }
+
+  &__custom-icon {
+    height: 20px;
+    margin-left: 7px;
+    width: 20px;
+
+    svg {
+      height: 20px;
+      width: 20px;
+    }
+  }
+
+  &__drop-down {
+    background-color: #FFFFFF;
+    border: 1px solid #000000;
+    border-top: none;
+    display: none;
+    position: absolute;
+    width: 100%;
+    z-index: 700;
+  }
+
+  &__drop-down-item {
+    width: inherit;
+
+    &--selected {
+      background-color: #EEEEEE;
+    }
+  }
+
+  &__label,
+  &__drop-down-button {
+    font-family: "Avenir LT W01 85 Heavy";
+    padding: 7px 10px 7px 0;
+    text-align: left;
+    width: inherit;
+  }
+
+  &__drop-down-button {
+    appearance: none;
+    font-family: "Avenir LT W01 55 Roman";
+    outline: none;
+    padding: 7px 10px 7px 33px;
+
+    &:hover {
+      background-color: #F6F6F6;
+    }
+  }
+}

@@ -13,6 +13,7 @@
             <div ng-class="{ 'o-max-width__inner': vm.hasMaxWidth }">
                 <div ng-if="!vm.isPrintOrEmbedOrPreview" class="qa-dashboard__header">
                     <dp-site-header size="vm.headerSize"
+                                    user="vm.user"
                                     has-print-button="header.hasPrintButton"
                                     has-embed-button="header.hasEmbedButton"
                                     search-action="header.searchAction"
@@ -37,7 +38,7 @@
                      'o-max-width__inner': vm.hasMaxWidth,
                      'u-gutter': vm.isHomePage
                  }">
-                <dp-api-error></dp-api-error>
+                <dp-api-error user="vm.user"></dp-api-error>
             </div>
         </div>
     </div>
@@ -48,23 +49,6 @@
         <div class="u-grid u-full-height">
             <!-- Columns -->
             <div class="u-row u-full-height">
-                <!-- Left column -->
-                <div ng-show="vm.columnSizes.left"
-                    class="qa-dashboard__column--left c-dashboard__column"
-                    ng-class="'u-col-sm--' + vm.columnSizes.left">
-
-                    <!-- Layer selection -->
-                    <div ng-if="vm.activity.layerSelection"
-                        ng-show="vm.visibility.layerSelection"
-                        ng-controller="LayerSelectionController as layerSelection"
-                        class="u-full-height qa-layer-selection">
-                        <dp-layer-selection
-                            base-layer="{{layerSelection.baseLayer}}"
-                            overlays="layerSelection.overlays"
-                            zoom="layerSelection.zoom">
-                        </dp-layer-selection>
-                    </div>
-                </div>
 
                 <!-- Middle column -->
                 <div ng-show="vm.columnSizes.middle"
@@ -93,7 +77,8 @@
                             endpoint="{{detail.endpoint}}"
                             reload="detail.reload"
                             is-loading="detail.isLoading"
-                            is-map-highlight="detail.isMapHighlight">
+                            is-map-highlight="detail.isMapHighlight"
+                            user="vm.user">
                         </dp-detail>
                     </div>
 
@@ -163,7 +148,8 @@
                             query="{{searchResults.query}}"
                             location="searchResults.location"
                             category="{{searchResults.category}}"
-                            number-of-results="searchResults.numberOfResults">
+                            number-of-results="searchResults.numberOfResults"
+                            user="vm.user">
                         </dp-search-results>
                     </div>
 
@@ -181,7 +167,7 @@
 
                     <!-- Data selection -->
                     <div ng-if="vm.activity.dataSelection" ng-show="vm.visibility.dataSelection" ng-controller="DataSelectionController as dataSelection" class="qa-data-selection">
-                        <dp-data-selection state="dataSelection.dataSelectionState" filters="dataSelection.filters"></dp-data-selection>
+                        <dp-data-selection state="dataSelection.dataSelectionState" filters="dataSelection.filters" user="vm.user"></dp-data-selection>
                     </div>
                 </div>
             </div>

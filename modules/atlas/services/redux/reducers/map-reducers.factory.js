@@ -5,9 +5,9 @@
         .module('atlas')
         .factory('mapReducers', mapReducersFactory);
 
-    mapReducersFactory.$inject = ['ACTIONS', 'DRAW_TOOL_CONFIG'];
+    mapReducersFactory.$inject = ['$rootScope', '$timeout', 'ACTIONS', 'DRAW_TOOL_CONFIG'];
 
-    function mapReducersFactory (ACTIONS, DRAW_TOOL_CONFIG) {
+    function mapReducersFactory ($rootScope, $timeout, ACTIONS, DRAW_TOOL_CONFIG) {
         var reducers = {};
 
         reducers[ACTIONS.SHOW_MAP.id] = showMapReducer;
@@ -66,6 +66,8 @@
          * @returns {Object} newState
          */
         function mapAddOverlayReducer (state, payload) {
+            // Start digest manually to draw overlay
+            $timeout(() => $rootScope.$digest());
             return {
                 ...state,
                 map: angular.isObject(state.map) ? {

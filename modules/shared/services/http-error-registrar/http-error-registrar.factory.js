@@ -6,9 +6,24 @@
         .factory('httpErrorRegistrar', httpErrorRegistrarFactory)
         .config($httpProvider => $httpProvider.interceptors.push('httpErrorRegistrar'));
 
-    httpErrorRegistrarFactory.inject = ['$log', '$rootScope', '$window', '$q', '$interval', 'httpStatus', 'Raven'];
+    httpErrorRegistrarFactory.inject = [
+        '$log',
+        '$rootScope',
+        '$window',
+        '$q',
+        '$interval',
+        'httpStatus',
+        'Raven'];
 
-    function httpErrorRegistrarFactory ($log, $rootScope, $window, $q, $interval, httpStatus, Raven) {
+    function httpErrorRegistrarFactory (
+        $log,
+        $rootScope,
+        $window,
+        $q,
+        $interval,
+        httpStatus,
+        Raven
+    ) {
         $window.addEventListener('error', function (e) {
             if (e.target && e.target.src) {
                 // URL load error
@@ -58,7 +73,7 @@
                     // Check if the error is due to a cancelled http request
                     if (response.config.timeout && angular.isFunction(response.config.timeout.then)) {
                         response.config.timeout.then(
-                            angular.noop,   // request has been cancelled by resolving the timeout
+                            angular.noop, // request has been cancelled by resolving the timeout
                             () => { // Abnormal end of request
                                 registerServerError();
                                 logResponse('HTTP request ended abnormally', response.status);
@@ -73,7 +88,9 @@
                     registerServerError();
                     logResponse('HTTP 5xx response', response.status);
                 } else if (isClientError) {
-                    if (response && response.data && response.data.detail === 'Not found.') {
+                    if (response.status === 401) {
+                        $window.auth.logout();
+                    } else if (response && response.data && response.data.detail === 'Not found.') {
                         registerNotFoundError();
                         logResponse('HTTP response body: Not found.', response.status);
                     } else {

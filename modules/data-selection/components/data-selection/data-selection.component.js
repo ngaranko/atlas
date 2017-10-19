@@ -7,7 +7,8 @@
             templateUrl: 'modules/data-selection/components/data-selection/data-selection.html',
             bindings: {
                 state: '<',
-                filters: '<'
+                filters: '<',
+                user: '<'
             },
             controller: DpDataSelectionController,
             controllerAs: 'vm'
@@ -20,8 +21,7 @@
         'DATA_SELECTION_CONFIG',
         'TabHeader',
         'store',
-        'ACTIONS',
-        'user'
+        'ACTIONS'
     ];
 
     function DpDataSelectionController (
@@ -31,8 +31,8 @@
         DATA_SELECTION_CONFIG,
         TabHeader,
         store,
-        ACTIONS,
-        user) {
+        ACTIONS
+    ) {
         const vm = this;
 
         vm.showCatalogusIntroduction = vm.state.view === 'CARDS' &&
@@ -51,7 +51,7 @@
                 vm.state.geometryFilter,
                 vm.state.page,
                 vm.state.query,
-                user.getAuthorizationLevel()
+                vm.user.scopes
             ];
         }, fetchData, true);
 
@@ -81,7 +81,7 @@
             vm.showContent = false;
             vm.disabled = false;
 
-            if (config.AUTH_LEVEL && !user.meetsRequiredLevel(config.AUTH_LEVEL)) {
+            if (config.AUTH_SCOPE && !vm.user.scopes.includes(config.AUTH_SCOPE)) {
                 vm.disabled = true;
                 vm.availableFilters = [];
                 store.dispatch({

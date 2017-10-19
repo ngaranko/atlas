@@ -7,6 +7,7 @@ const nodeEnv = 'development';
 module.exports = merge(commonConfig(nodeEnv), {
   devtool: 'eval-source-map',
   devServer: {
+    disableHostCheck: true,
     contentBase: dist
   },
   plugins: [

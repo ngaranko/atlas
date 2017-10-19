@@ -284,15 +284,15 @@
 
             // Set any missing state objects to null
             Object.keys(stateUrlConversion.initialValues).forEach(key => {
-                if (key !== MAIN_STATE && !angular.isObject(newState[key])) {
+                if (key !== MAIN_STATE && (typeof newState[key] !== 'boolean' && !angular.isObject(newState[key]))) {
                     newState[key] = null;
                 }
             });
 
             // Execute the post processing methods
             Object.keys(stateUrlConversion.post).forEach(key => {
-                if (angular.isObject(newState[key])) {
-                    stateUrlConversion.post[key](oldState[key], newState[key]);
+                if (typeof newState[key] === 'boolean' || angular.isObject(newState[key])) {
+                    newState[key] = stateUrlConversion.post[key](oldState[key], newState[key]);
                 }
             });
 

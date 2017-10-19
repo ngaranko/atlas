@@ -44,10 +44,12 @@
                 // Initialisation methods for the url2state conversion
                 // These methods are executed after a state object has been initialized with the initialValues
                 DEFAULT: (oldState, newState, params, initialValues) => {
-                    ['atlas', 'page', 'layerSelection', 'filters'].forEach(s => {
-                        const value = initialValues[s];
-                        newState[s] = value ? {...value} : value;
-                    });
+                    ['atlas', 'page', 'layerSelection', 'filters', 'user', 'mapLayers', 'mapBaseLayers',
+                        'isMapPanelVisible'].forEach(s => {
+                            const value = initialValues[s];
+                            newState[s] = value ? (angular.isArray(value) ? [...value] : angular.isObject(value)
+                                ? {...value} : value) : value;
+                        });
                     if (angular.equals(params, {})) {
                         // When no params, go to home page and show initial map
                         newState.page.name = 'home';
@@ -59,6 +61,16 @@
             post: {
                 // Post processing methods
                 // These methods are exectuted when the url2state conversion has finished
+                user: (oldState, newState) => {
+                    if (angular.isObject(oldState)) {
+                        newState.authenticated = oldState.authenticated;
+                        newState.accessToken = oldState.accessToken;
+                        newState.scopes = oldState.scopes;
+                        newState.name = oldState.name;
+                        newState.error = oldState.error;
+                    }
+                    return newState;
+                },
                 dataSelection: (oldState, newState) => {
                     if (angular.isObject(oldState)) {
                         newState.markers = oldState.markers;
@@ -82,6 +94,24 @@
 
                         newState.highlight = oldState.highlight;
                         newState.isLoading = oldState.isLoading;
+                    }
+                    return newState;
+                },
+                mapBaseLayers: (oldState, newState) => {
+                    if (angular.isObject(oldState)) {
+                        newState = oldState;
+                    }
+                    return newState;
+                },
+                mapLayers: (oldState, newState) => {
+                    if (angular.isArray(oldState)) {
+                        newState = oldState;
+                    }
+                    return newState;
+                },
+                isMapPanelVisible: (oldState, newState) => {
+                    if (oldState === true || oldState === false) {
+                        newState = oldState;
                     }
                     return newState;
                 },
@@ -132,8 +162,15 @@
                     isEmbedPreview: false,
                     isEmbed: false
                 },
+                user: {
+                    authenticated: false,
+                    accessToken: '',
+                    scopes: [],
+                    name: '',
+                    error: false
+                },
                 dataSelection: {
-                    markers: [],    // eg: [[52.1, 4.1], [52.2, 4.0]],
+                    markers: [], // eg: [[52.1, 4.1], [52.2, 4.0]],
                     geometryFilter: {
                         markers: []
                     },
@@ -166,6 +203,9 @@
                     drawingMode: 'none',
                     highlight: true
                 },
+                mapBaseLayers: {},
+                mapLayers: [],
+                isMapPanelVisible: false,
                 page: {
                     name: null  // eg: 'home'
                 },
