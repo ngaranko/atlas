@@ -10,8 +10,7 @@
           can-close="true"
           is-panel-visible="!vm.user.scopes.includes('MON/RDM')"
           type="warning">
-            Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer gegevens te zien: architect en opdrachtgever,
-            bouwjaar, oorspronkelijke functie, beschrijving en redengevende omschrijving.
+            Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer gegevens te zien: type, architect en opdrachtgever, bouwjaar, oorspronkelijke functie, in onderzoek, beschrijving en redengevende omschrijving.
             Zie <dp-link-to-page item="item9" class-name="c-link--light"></dp-link-to-page>.
         </dp-panel>
 
@@ -33,7 +32,7 @@
             <dt>Oorspronkelijke functie</dt>
             <dd>{{ vm.apiData.results.oorspronkelijke_functie_monument }}</dd>
             <dt>In onderzoek</dt>
-            <dd>{{ vm.apiData.results.in_onderzoek === 'J' ? 'Ja' : 'Nee' }}</dd>
+            <dd>{{ vm.apiData.results.in_onderzoek === 'J' ? 'Ja' : '' }}{{ vm.apiData.results.in_onderzoek === 'N' ? 'Nee' : '' }}</dd>
             <dt class="c-key-value-list__key--full-width">Beschrijving</dt>
             <dd class="c-key-value-list__value--full-width">
                 <p

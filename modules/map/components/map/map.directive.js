@@ -4,6 +4,8 @@
         .directive('dpMap', dpMapDirective);
 
     dpMapDirective.$inject = [
+        '$timeout',
+        '$window',
         'L',
         'mapConfig',
         'layers',
@@ -14,7 +16,7 @@
         'overlays'
     ];
 
-    function dpMapDirective (L, mapConfig, layers, highlight, panning, zoom, onMapClick, overlays) {
+    function dpMapDirective ($timeout, $window, L, mapConfig, layers, highlight, panning, zoom, onMapClick, overlays) {
         return {
             restrict: 'E',
             scope: {
@@ -37,6 +39,14 @@
             const options = angular.merge(mapConfig.MAP_OPTIONS, {
                 center: scope.mapState.viewCenter,
                 zoom: scope.mapState.zoom
+            });
+
+            const React = $window.React;
+            const render = $window.render;
+            const MapPanelWrapper = $window.MapPanelWrapper;
+
+            $timeout(() => {
+                render(React.createElement(MapPanelWrapper, null), document.getElementById('map-panel-react'));
             });
 
             /**

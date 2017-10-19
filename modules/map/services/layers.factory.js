@@ -53,6 +53,7 @@
         function addOverlay (leafletMap, layerName) {
             getSubLayers(leafletMap, layerName).then(layer => {
                 layer.addTo(leafletMap);
+                layer.setOpacity(1);
             });
         }
 

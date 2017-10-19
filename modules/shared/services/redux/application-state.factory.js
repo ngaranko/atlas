@@ -6,13 +6,12 @@
     applicationStateFactory.$inject = ['$window', 'Redux'];
 
     function applicationStateFactory ($window, Redux) {
-        let store,
-            reducer,
+        let reducer,
             stateUrlConverter;
 
         return {
             initialize,
-            getStore: () => store,
+            getStore: () => $window.reduxStore,
             getReducer: () => reducer,
             getStateUrlConverter: () => stateUrlConverter
         };
@@ -21,14 +20,7 @@
             reducer = _reducer_;
             stateUrlConverter = _stateUrlConverter_;
 
-            const composeEnhancers = $window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Redux.compose;
-            const enhancer = composeEnhancers(
-                Redux.applyMiddleware(...middleware)
-            );
-
-            store = Redux.createStore(reducer, defaultState, enhancer);
-
-            $window.reduxStore = store;
+            $window.initializeState(Redux, _reducer_, _stateUrlConverter_, defaultState, ...middleware);
         }
     }
 })();

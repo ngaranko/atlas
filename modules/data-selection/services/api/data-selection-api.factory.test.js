@@ -2,7 +2,6 @@ describe('The dataSelectionApi factory', function () {
     let $rootScope,
         $q,
         dataSelectionApi,
-        user,
         mockedApiPreviewResponse,
         mockedApiMarkersResponse,
         mockedConfig,
@@ -90,17 +89,15 @@ describe('The dataSelectionApi factory', function () {
             }
         );
 
-        angular.mock.inject(function (_$rootScope_, _$q_, _dataSelectionApi_, _user_, _TabHeader_) {
+        angular.mock.inject(function (_$rootScope_, _$q_, _dataSelectionApi_, _TabHeader_) {
             $rootScope = _$rootScope_;
             $q = _$q_;
             dataSelectionApi = _dataSelectionApi_;
-            user = _user_;
             TabHeader = _TabHeader_;
         });
 
         spyOn(mockedApiService, 'query').and.callThrough();
         spyOn(api, 'getByUri').and.callThrough();
-        spyOn(user, 'meetsRequiredLevel').and.returnValue(false);
     });
 
     describe('query function', function () {

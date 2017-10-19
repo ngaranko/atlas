@@ -1,0 +1,150 @@
+@import "components/legend/map-legend";
+@import "components/layers/map-layers";
+@import "components/type/map-type";
+
+.map-panel {
+  background-color: #FAFAFA;
+  border: solid 1px #CCCCCC;
+  bottom: 10px;
+  box-shadow: 2px 2px 0 0 #999999;
+  height: calc(100vh - 40px - 50px - 130px);
+  left: 10px;
+  min-width: 285px;
+  max-height: 800px;
+  max-width: 435px;
+  overflow: hidden;
+  position: fixed;
+  width: 28%;
+  z-index: 100;
+
+  &--collapsed {
+    height: auto;
+    min-width: auto;
+    width: auto;
+
+    .scroll-wrapper {
+      display: none;
+    }
+  }
+
+  &__heading {
+    align-items: center;
+    background-color: #EEEEEE;
+    border-bottom: 1px solid #999999;
+    display: flex;
+    padding: 8px 10px;
+
+    .map-panel--collapsed & {
+      border-bottom: none;
+    }
+  }
+
+  &__heading-icon {
+    fill: #000000;
+    height: 24px;
+    width: 24px;
+
+    .map-panel--collapsed & {
+      fill: #666666;
+    }
+  }
+
+  &__heading-title {
+    flex-grow: 1;
+    font-family: "Avenir LT W01 85 Heavy";
+    font-size: 16px;
+    margin-left: 5px;
+
+    .map-panel--collapsed & {
+      display: none;
+    }
+  }
+
+  &__toggle {
+    height: 26px;
+    outline: none;
+    width: 26px;
+
+    &:hover {
+      background-color: #EC0000;
+    }
+
+    .map-panel--collapsed & {
+      margin-left: 10px;
+    }
+  }
+
+  &__toggle-icon {
+    fill: #000000;
+    height: 26px;
+    width: 26px;
+
+    .map-panel--collapsed & {
+      fill: #666666;
+    }
+
+    .map-panel--collapsed &--expanded {
+      display: none;
+    }
+
+    .map-panel--expanded &--collapsed {
+      display: none;
+    }
+
+    *:hover > & {
+      fill: #FFFFFF;
+    }
+  }
+
+  .scroll-wrapper {
+    height: calc(100% - 44px);
+    overflow-y: auto;
+    /* NB: Workaround to force smooth scrolling on Chrome */
+    will-change: transform;
+  }
+
+  .is-embed &,
+  .is-embed-preview &,
+  .is-print-mode & {
+    position: absolute;
+  }
+
+  .is-embed &--expanded,
+  .is-embed-preview &--expanded {
+    height: calc(100% - 40px - 50px - 130px);
+  }
+
+  .is-embed &,
+  .is-embed-preview &,
+  .is-print-mode & {
+    height: auto;
+  }
+
+  .is-print-mode & {
+    &--collapsed,
+    &--has-no-active-layers,
+    &__heading,
+    &__toggle {
+      display: none;
+    }
+  }
+}
+
+%__toggle {
+  align-items: center;
+  background-color: #FFFFFF;
+  border: 1px solid #CCCCCC;
+  border-radius: 50%;
+  content: 'X';
+  display: flex;
+  flex-shrink: 0;
+  font-size: 0;
+  height: 26px;
+  justify-content: center;
+  width: 26px;
+
+  svg {
+    height: 12px;
+    width: 12px;
+  }
+}
