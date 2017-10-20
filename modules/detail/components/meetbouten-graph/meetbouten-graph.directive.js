@@ -51,7 +51,13 @@
                 // Y as 1, zakking cumulatief
                 var yZakkingCum = d3.scale.linear()
                     .domain(d3.extent(scope.objects, function (d) {
-                        return d.zakking_cumulatief;
+                        return d.zakking_cumulatief > 0
+                            // d3 does not seem to handle rounding errors well
+                            // values like -4.9999999999998 leaves us with a y
+                            // axis ranging from 0 to -1 strange enough.
+                            // Ceiling and flooring solves this problem
+                            ? Math.ceil(d.zakking_cumulatief)
+                            : Math.floor(d.zakking_cumulatief);
                     }))
                     .range([0, height])
                     .nice();

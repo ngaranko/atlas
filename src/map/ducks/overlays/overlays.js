@@ -25,7 +25,7 @@ export default function MapOverlaysReducer(state = initialState, action) {
           ...state.map,
           overlays: state.map.overlays.map(overlay => ({
             ...overlay,
-            isVisible: overlay.id === action.mapLayerId ? !overlay.isVisible : overlay.isVisible
+            isVisible: (overlay.id === action.mapLayerId) && typeof action.show === 'boolean' ? action.show : (overlay.id === action.mapLayerId ? !overlay.isVisible : overlay.isVisible) // eslint-disable-line
           }))
         }
       };
@@ -36,8 +36,11 @@ export default function MapOverlaysReducer(state = initialState, action) {
 }
 
 export const toggleMapOverlay = mapLayerId => ({ type: TOGGLE_MAP_OVERLAY, mapLayerId });
-export const toggleMapOverlayVisibility = mapLayerId => ({ type: TOGGLE_MAP_OVERLAY_VISIBILITY,
-  mapLayerId });
+export const toggleMapOverlayVisibility = (mapLayerId, show) => ({
+  type: TOGGLE_MAP_OVERLAY_VISIBILITY,
+  mapLayerId,
+  show
+});
 export const toggleMapPanel = () => ({ type: 'TOGGLE_MAP_PANEL' });
 
 window.MapOverlaysReducer = MapOverlaysReducer;

@@ -26,17 +26,24 @@ export default function MapLayersReducer(state = initialState, action) {
 
 export const getMapLayers = () => ({ type: FETCH_MAP_LAYERS_REQUEST });
 
-export const selectActiveMapLayers = (state) => { // eslint-disable-line
-  return state.mapLayers.filter((mapLayer) => { // eslint-disable-line
-    return [
-      mapLayer.id,
-      ...mapLayer.legendItems.map(legendItem => legendItem.id)
-    ]
-    .filter(mapLayerId => Boolean(mapLayerId))
-    .some(mapLayerId => state.map.overlays
-      .map(overlay => overlay.id)
-      .includes(mapLayerId));
-  });
+export const selectActiveMapLayers = (state) => {
+  const mapLayerIds = state.map.overlays.map(mapLayer => mapLayer.id);
+  return state.mapLayers
+    .filter(mapLayer => (
+      [
+        mapLayer.id,
+        ...mapLayer.legendItems.map(legendItem => legendItem.id)
+      ]
+      .filter(mapLayerId => Boolean(mapLayerId))
+      .some(mapLayerId => state.map.overlays
+        .map(overlay => overlay.id)
+        .includes(mapLayerId))
+    ))
+    .sort((a, b) => {
+      const aId = a.id || a.legendItems[0].id;
+      const bId = b.id || b.legendItems[0].id;
+      return mapLayerIds.indexOf(aId) < mapLayerIds.indexOf(bId);
+    });
 };
 
 window.MapLayersReducer = MapLayersReducer;
