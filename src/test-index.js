@@ -413,6 +413,7 @@ import '../modules/shared/services/uri-stripper/uri-stripper.factory.test';
 import '../modules/shared/services/crs/crs-converter.factory.test';
 import '../modules/shared/services/crs/crs.factory.test';
 import '../modules/shared/services/angle-conversion/angle-conversion.factory.test';
+import '../modules/shared/services/active-overlays/active-overlays.factory.test';
 import '../modules/shared/services/geojson/geojson.factory.test';
 import '../modules/shared/services/environment/environment.factory.test';
 import '../modules/shared/services/nearest-detail/nearest-detail.factory.test';
