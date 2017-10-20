@@ -1,0 +1,126 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MapPanelContainer should render MapLegend if store contains active map layers 1`] = `
+<section
+  className="
+        map-panel
+        map-panel--collapsed
+        map-panel--has--active-layers
+      "
+>
+  <div
+    className="map-panel__heading"
+  >
+    <test-file-stub
+      className="map-panel__heading-icon"
+    />
+    <h1
+      className="map-panel__heading-title"
+    >
+      Kaartlagen
+    </h1>
+    <button
+      className="map-panel__toggle"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-panel__toggle-icon map-panel__toggle-icon--expanded"
+      />
+      <test-file-stub
+        className="map-panel__toggle-icon map-panel__toggle-icon--collapsed"
+      />
+    </button>
+  </div>
+  <div
+    className="scroll-wrapper"
+  >
+    <MapLegend
+      activeMapLayers={
+        Array [
+          Object {},
+        ]
+      }
+      onLayerToggle={[Function]}
+      onLayerVisibilityToggle={[Function]}
+      overlays={Array []}
+      zoomLevel={0}
+    />
+    <MapType
+      activeBaseLayer=""
+      baseLayers={Object {}}
+      onBaseLayerToggle={[Function]}
+    />
+    <MapLayers
+      activeMapLayers={
+        Array [
+          Object {},
+        ]
+      }
+      layers={
+        Array [
+          Object {
+            "fiets": "hoi",
+          },
+        ]
+      }
+      onLayerToggle={[Function]}
+      user={Object {}}
+    />
+  </div>
+</section>
+`;
+
+exports[`MapPanelContainer should render MapType and MapLayers 1`] = `
+<section
+  className="
+        map-panel
+        map-panel--collapsed
+        map-panel--has-no-active-layers
+      "
+>
+  <div
+    className="map-panel__heading"
+  >
+    <test-file-stub
+      className="map-panel__heading-icon"
+    />
+    <h1
+      className="map-panel__heading-title"
+    >
+      Kaartlagen
+    </h1>
+    <button
+      className="map-panel__toggle"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-panel__toggle-icon map-panel__toggle-icon--expanded"
+      />
+      <test-file-stub
+        className="map-panel__toggle-icon map-panel__toggle-icon--collapsed"
+      />
+    </button>
+  </div>
+  <div
+    className="scroll-wrapper"
+  >
+    <MapType
+      activeBaseLayer=""
+      baseLayers={Object {}}
+      onBaseLayerToggle={[Function]}
+    />
+    <MapLayers
+      activeMapLayers={Array []}
+      layers={
+        Array [
+          Object {
+            "fiets": "hoi",
+          },
+        ]
+      }
+      onLayerToggle={[Function]}
+      user={Object {}}
+    />
+  </div>
+</section>
+`;
