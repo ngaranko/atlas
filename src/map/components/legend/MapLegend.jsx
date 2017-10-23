@@ -88,7 +88,7 @@ class MapLegend extends React.Component {
                   <li
                     className={`
                       map-legend__item
-                      map-legend__item--${legendItem.selectable && this.determineLegendItemVisibility(legendItem) ? 'visible' : 'hidden'}
+                      map-legend__item--${!legendItem.selectable || this.determineLegendItemVisibility(legendItem) ? 'visible' : 'hidden'}
                     `}
                     key={legendItem.title}
                   >
