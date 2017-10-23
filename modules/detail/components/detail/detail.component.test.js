@@ -157,7 +157,7 @@ describe('the dp-detail component', () => {
 
         mockedUser = {
             authenticated: false,
-            scopes: [],
+            scopes: ['HR/R'],
             name: ''
         };
 

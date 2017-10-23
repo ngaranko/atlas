@@ -438,6 +438,7 @@ import '../modules/atlas/services/redux/reducers/url-reducers.factory.test';
 import '../modules/atlas/services/redux/reducers/search-reducers.factory.test';
 import '../modules/atlas/services/redux/reducers/map-reducers.factory.test';
 import '../modules/atlas/services/redux/reducers/page-reducers.factory.test';
+import '../modules/atlas/services/redux/reducers/layer-selection-reducers.factory.test';
 import '../modules/atlas/services/redux/reducers/home-reducers.factory.test';
 import '../modules/atlas/services/redux/reducers/data-selection-reducers.factory.test';
 import '../modules/atlas/services/redux/reducers/straatbeeld-reducers.factory.test';
