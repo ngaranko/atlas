@@ -57,6 +57,11 @@ if (BRANCH == "master") {
         }
     }
 
+    stage('Waiting for approval') {
+        slackSend channel: '#ci-channel', color: 'warning', message: 'Atlas is waiting for Production Release - please confirm'
+        input "Deploy to Production?"
+    }
+
     node {
         stage('Push production image') {
             tryStep "image tagging", {
@@ -66,23 +71,6 @@ if (BRANCH == "master") {
                 image.push("latest")
             }
         }
-    }
-
-    node {
-        stage("Deploy to PRE") {
-            tryStep "deployment", {
-                build job: 'Subtask_Openstack_Playbook',
-                parameters: [
-                    [$class: 'StringParameterValue', name: 'INVENTORY', value: 'acceptance'],
-                    [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-client-pre.yml'],
-                ]
-            }
-        }
-    }
-
-    stage('Waiting for approval') {
-        slackSend channel: '#ci-channel', color: 'warning', message: 'Atlas is waiting for Production Release - please confirm'
-        input "Deploy to Production?"
     }
 
     node {
