@@ -9,12 +9,12 @@
     border-top: 1px solid #999999;
     display: flex;
     justify-content: space-between;
-    padding: 10px;
+    padding: 9px 10px;
     position: relative;
 
     &:after {
       background-color: #999999;
-      bottom: 0;
+      bottom: -1px;
       content: '';
       display: block;
       height: 1px;
@@ -31,6 +31,10 @@
     margin: 10px;
     padding: 10px;
     text-align: center;
+
+    .map-legend__map-layer--hidden & {
+      display: none;
+    }
   }
 
   &__items {
@@ -100,7 +104,9 @@
       }
     }
 
-    &__items .checkbox {
+    &__items .checkbox,
+    &__item--hidden,
+    &__map-layer--hidden {
       display: none;
     }
 

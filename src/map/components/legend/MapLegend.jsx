@@ -56,7 +56,13 @@ class MapLegend extends React.Component {
     return (
       <ul className="map-legend">
         {activeMapLayers.map(mapLayer => (
-          <li key={mapLayer.title}>
+          <li
+            className={`
+              map-legend__map-layer
+              map-legend__map-layer--${this.determineLayerVisibility(mapLayer) ? 'visible' : 'hidden'}
+            `}
+            key={mapLayer.title}
+          >
             <div className="map-legend__category">
               <Checkbox
                 checked={() => this.determineLayerVisibility(mapLayer)}
@@ -80,7 +86,10 @@ class MapLegend extends React.Component {
               <ul className="map-legend__items">
                 {mapLayer.legendItems.map(legendItem => (
                   <li
-                    className="map-legend__item"
+                    className={`
+                      map-legend__item
+                      map-legend__item--${legendItem.selectable && this.determineLegendItemVisibility(legendItem) ? 'visible' : 'hidden'}
+                    `}
                     key={legendItem.title}
                   >
                     {legendItem.selectable && (
