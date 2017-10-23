@@ -108,7 +108,7 @@ module.exports = function (grunt) {
 
                 return `karma:${name}`;
             })
-    ));
+        ));
 
     return targets;
 };
