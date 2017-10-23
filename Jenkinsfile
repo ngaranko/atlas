@@ -24,8 +24,7 @@ node {
 
     stage("Build image") {
         tryStep "build", {
-            withCredentials([[$class: 'StringBinding', credentialsId: 'PASSWORD_EMPLOYEE', variable: 'PASSWORD_EMPLOYEE'],
-                             [$class: 'StringBinding', credentialsId: 'PASSWORD_EMPLOYEE_PLUS', variable: 'PASSWORD_EMPLOYEE_PLUS']]) {
+            withEnv(['BUILD_ENV=acc']) {
                 def image = docker.build("build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}")
                 // The following line...
                 sh "docker run --rm --env PASSWORD_EMPLOYEE='$PASSWORD_EMPLOYEE' --env PASSWORD_EMPLOYEE_PLUS='$PASSWORD_EMPLOYEE_PLUS' --entrypoint grunt 'build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}' test-e2e"
@@ -73,10 +72,12 @@ if (BRANCH == "master") {
     node {
         stage('Push production image') {
             tryStep "image tagging", {
-                def image = docker.image("build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}")
-                image.pull()
-                image.push("production")
-                image.push("latest")
+                withEnv(['BUILD_ENV=prod']) {
+                    def image = docker.build("build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}")
+                    image.pull()
+                    image.push("production")
+                    image.push("latest")
+                }
             }
         }
     }
