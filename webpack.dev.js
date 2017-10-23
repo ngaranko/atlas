@@ -1,11 +1,10 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const { commonConfig, dist } = require('./webpack.common.js');
+const {commonConfig, dist, legacy} = require('./webpack.common.js');
 const nodeEnv = 'development';
-const buildId = nodeEnv;
 
-module.exports = merge(commonConfig({ nodeEnv, buildId }), {
+module.exports = merge(commonConfig(nodeEnv), {
   devtool: 'source-map',
   devServer: {
     disableHostCheck: true,
@@ -13,7 +12,7 @@ module.exports = merge(commonConfig({ nodeEnv, buildId }), {
   },
   plugins: [
     new webpack.DefinePlugin({
-      '__BUILD_ID__': JSON.stringify(buildId),
+      '__BUILD_ID__': JSON.stringify(nodeEnv),
       'process.env': {
         'NODE_ENV': JSON.stringify(nodeEnv)
       }
