@@ -69,7 +69,7 @@ RUN git config --global url.https://github.com/.insteadOf git://github.com/ \
   && npm --production=false install \
   && bower install --allow-root
 
-ARG BUILD_ENV=acc
+ARG BUILD_ENV=prod
 ARG BUILD_ID
 
 RUN npm run build-${BUILD_ENV} -- --env.buildId=${BUILD_ID} \

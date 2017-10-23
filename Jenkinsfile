@@ -65,7 +65,7 @@ if (BRANCH == "master") {
     node {
         stage('Push production image') {
             tryStep "image tagging", {
-                def image = docker.build("build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}", "--build-arg BUILD_ENV=prod")
+                def image = docker.image("build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}")
                 image.pull()
                 image.push("production")
                 image.push("latest")
