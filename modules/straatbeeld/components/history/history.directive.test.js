@@ -159,7 +159,6 @@ describe('The dp-straatbeeld-history component', function () {
 
         beforeEach(() => {
             clock = jasmine.clock();
-            clock.install();
         });
 
         afterEach(() => {

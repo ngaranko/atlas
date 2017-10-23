@@ -53,6 +53,14 @@ describe('The layerSelectionReducers factory', function () {
 
             expect(output.map.isFullscreen).toBe(true);
         });
+
+        it('when layerSelection is not an object', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.layerSelection = null;
+
+            const output = layerSelectionReducers[ACTIONS.SHOW_LAYER_SELECTION.id](inputState);
+            expect(output.layerSelection).toBeNull();
+        });
     });
 
     describe('HIDE_LAYER_SELECTION', function () {
@@ -66,6 +74,14 @@ describe('The layerSelectionReducers factory', function () {
             output = layerSelectionReducers[ACTIONS.HIDE_LAYER_SELECTION.id](inputState);
 
             expect(output.layerSelection.isEnabled).toBe(false);
+        });
+
+        it('when layerSelection is not an object', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.layerSelection = null;
+
+            const output = layerSelectionReducers[ACTIONS.HIDE_LAYER_SELECTION.id](inputState);
+            expect(output.layerSelection).toBeNull();
         });
     });
 });

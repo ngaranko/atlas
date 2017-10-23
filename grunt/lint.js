@@ -9,7 +9,7 @@ module.exports = function () {
             src: ['modules/**/!(*.test|*.page-objects).js']
         },
         tests: {
-            src: ['e2e/**/*.js', 'modules/**/*.test.js', 'modules/**/*.page-objects.js']
+            src: ['modules/**/*.test.js', 'modules/**/*.page-objects.js']
         }
     };
 

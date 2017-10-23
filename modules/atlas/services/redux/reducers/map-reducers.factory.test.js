@@ -54,6 +54,16 @@ describe('The map reducers', function () {
 
             expect(output.layerSelection.isEnabled).toBe(true);
         });
+
+        it('when map and layerSelection are not an object', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map = null;
+            inputState.layerSelection = null;
+
+            const output = mapReducers[ACTIONS.SHOW_MAP.id](inputState);
+            expect(output.map).toBeNull();
+            expect(output.layerSelection).toBeNull();
+        });
     });
 
     describe('MAP_SET_BASELAYER', function () {
@@ -66,6 +76,14 @@ describe('The map reducers', function () {
 
             output = mapReducers[ACTIONS.MAP_SET_BASELAYER.id](inputState, 'topografie');
             expect(output.map.baseLayer).toBe('topografie');
+        });
+
+        it('when map is not an object', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map = null;
+
+            const output = mapReducers[ACTIONS.MAP_SET_BASELAYER.id](inputState, 'topografie');
+            expect(output.map).toBeNull();
         });
     });
 
@@ -137,6 +155,14 @@ describe('The map reducers', function () {
             output = mapReducers[ACTIONS.MAP_ADD_OVERLAY.id](inputState, 'meetbouten');
             expect(output.map.showActiveOverlays).toBe(false);
         });
+
+        it('when map is not an object', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map = null;
+
+            const output = mapReducers[ACTIONS.MAP_ADD_OVERLAY.id](inputState, 'meetbouten');
+            expect(output.map).toBeNull();
+        });
     });
 
     describe('MAP_REMOVE_OVERLAY', function () {
@@ -171,6 +197,14 @@ describe('The map reducers', function () {
 
             output = mapReducers[ACTIONS.MAP_REMOVE_OVERLAY.id](inputState, 'parkeren');
             expect(output.map.overlays).toEqual([]);
+        });
+
+        it('when map is not an object', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map = null;
+
+            const output = mapReducers[ACTIONS.MAP_REMOVE_OVERLAY.id](inputState, 'parkeren');
+            expect(output.map).toBeNull();
         });
     });
 
@@ -294,6 +328,14 @@ describe('The map reducers', function () {
                 isVisible: true
             }]);
         });
+
+        it('when map is not an object', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map = null;
+
+            const output = mapReducers[ACTIONS.MAP_ADD_PANO_OVERLAY.id](inputState);
+            expect(output.map).toBeNull();
+        });
     });
 
     describe('MAP_REMOVE_PANO_OVERLAY', function () {
@@ -390,6 +432,14 @@ describe('The map reducers', function () {
                 isVisible: false
             }]);
         });
+
+        it('when map is not an object', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map = null;
+
+            const output = mapReducers[ACTIONS.MAP_REMOVE_PANO_OVERLAY.id](inputState);
+            expect(output.map).toBeNull();
+        });
     });
 
     describe('MAP_TOGGLE_VISIBILITY_OVERLAY', function () {
@@ -440,6 +490,14 @@ describe('The map reducers', function () {
                 {id: 'overlay_3', isVisible: true}
             ]);
         });
+
+        it('when map is not an object', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map = null;
+
+            const output = mapReducers[ACTIONS.MAP_TOGGLE_VISIBILITY_OVERLAY.id](inputState);
+            expect(output.map).toBeNull();
+        });
     });
 
     describe('MAP_PAN', function () {
@@ -452,6 +510,14 @@ describe('The map reducers', function () {
 
             output = mapReducers[ACTIONS.MAP_PAN.id](inputState, [51.2, 4.2]);
             expect(output.map.viewCenter).toEqual([51.2, 4.2]);
+        });
+
+        it('when map is not an object', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map = null;
+
+            const output = mapReducers[ACTIONS.MAP_PAN.id](inputState);
+            expect(output.map).toBeNull();
         });
     });
 
@@ -492,6 +558,14 @@ describe('The map reducers', function () {
             expect(output.map.viewCenter).toEqual([52.3719, 4.9012]);
             expect(output.map.zoom).toBe(8);
         });
+
+        it('when map is not an object', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map = null;
+
+            const output = mapReducers[ACTIONS.MAP_ZOOM.id](inputState);
+            expect(output.map).toBeNull();
+        });
     });
 
     describe('MAP_HIGHLIGHT', function () {
@@ -506,6 +580,14 @@ describe('The map reducers', function () {
             // Disable fullscreen
             output = mapReducers[ACTIONS.MAP_HIGHLIGHT.id](inputState, false);
             expect(output.map.highlight).toBe(false);
+        });
+
+        it('when map is not an object', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map = null;
+
+            const output = mapReducers[ACTIONS.MAP_HIGHLIGHT.id](inputState);
+            expect(output.map).toBeNull();
         });
     });
 
@@ -538,6 +620,16 @@ describe('The map reducers', function () {
             inputState.layerSelection.isEnabled = true;
             output = mapReducers[ACTIONS.MAP_FULLSCREEN.id](inputState, false);
             expect(output.layerSelection.isEnabled).toBe(false);
+        });
+
+        it('when map and layerSelection are not an object', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map = null;
+            inputState.layerSelection = null;
+
+            const output = mapReducers[ACTIONS.MAP_FULLSCREEN.id](inputState);
+            expect(output.map).toBeNull();
+            expect(output.layerSelection).toBeNull();
         });
     });
 
@@ -600,6 +692,14 @@ describe('The map reducers', function () {
             expect(output.dataSelection.page).toBeUndefined();
             expect(output.dataSelection.reset).toBeFalsy();
         });
+
+        it('when map is not an object', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map = null;
+
+            const output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState);
+            expect(output.map).toBeNull();
+        });
     });
 
     describe('MAP_CLEAR_DRAWING', function () {
@@ -610,6 +710,14 @@ describe('The map reducers', function () {
             inputState.map.geometry = 'aap';
             output = mapReducers[ACTIONS.MAP_CLEAR_DRAWING.id](inputState);
             expect(output.map.geometry).toEqual([]);
+        });
+
+        it('when map is not an object', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map = null;
+
+            const output = mapReducers[ACTIONS.MAP_CLEAR_DRAWING.id](inputState);
+            expect(output.map).toBeNull();
         });
     });
 
@@ -749,6 +857,18 @@ describe('The map reducers', function () {
             expect(output.map.isLoading).toBe(false);
             expect(output.layerSelection.isEnabled).toBe(true);
         });
+
+        it('when map and layerSelection and page are not an object', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map = null;
+            inputState.layerSelection = null;
+            inputState.page = null;
+
+            const output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState);
+            expect(output.map).toBeNull();
+            expect(output.layerSelection).toBeNull();
+            expect(output.page).toBeNull();
+        });
     });
 
     describe('SHOW_MAP_ACTIVE_OVERLAYS', function () {
@@ -757,6 +877,14 @@ describe('The map reducers', function () {
 
             output = mapReducers[ACTIONS.SHOW_MAP_ACTIVE_OVERLAYS.id](DEFAULT_STATE);
             expect(output.map.showActiveOverlays).toBe(true);
+        });
+
+        it('when map is not an object', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map = null;
+
+            const output = mapReducers[ACTIONS.SHOW_MAP_ACTIVE_OVERLAYS.id](inputState);
+            expect(output.map).toBeNull();
         });
     });
 
@@ -768,6 +896,14 @@ describe('The map reducers', function () {
             inputState.map.showActiveOverlays = true;
             output = mapReducers[ACTIONS.HIDE_MAP_ACTIVE_OVERLAYS.id](DEFAULT_STATE);
             expect(output.map.showActiveOverlays).toBe(false);
+        });
+
+        it('when map is not an object', function () {
+            const inputState = angular.copy(DEFAULT_STATE);
+            inputState.map = null;
+
+            const output = mapReducers[ACTIONS.HIDE_MAP_ACTIVE_OVERLAYS.id](inputState);
+            expect(output.map).toBeNull();
         });
     });
 });
