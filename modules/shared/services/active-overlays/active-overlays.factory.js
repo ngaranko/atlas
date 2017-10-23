@@ -30,6 +30,9 @@
         }
 
         function isVisibleAtCurrentZoom (overlay, zoom) {
+            if (!OVERLAYS.SOURCES[overlay]) {
+                return false;
+            }
             zoom = zoom || store.getState().map.zoom;
             return zoom >= OVERLAYS.SOURCES[overlay].minZoom && zoom <= OVERLAYS.SOURCES[overlay].maxZoom;
         }
