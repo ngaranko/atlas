@@ -98,20 +98,32 @@
   .is-embed-preview &,
   .is-print-mode & {
     &__category {
+      font-size: 14px;
+      padding-bottom: 0;
+
+      &:after,
       button,
       .checkbox {
         display: none;
       }
     }
 
-    &__items .checkbox,
-    &__item--hidden,
-    &__map-layer--hidden {
-      display: none;
-    }
-
     &__image {
       margin-left: 0;
+    }
+
+    &__item {
+      font-size: 14px;
+
+      & + .map-legend__item {
+        margin-top: 6px;
+      }
+    }
+
+    &__item--hidden,
+    &__items .checkbox,
+    &__map-layer--hidden {
+      display: none;
     }
   }
 }

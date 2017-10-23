@@ -106,18 +106,15 @@
   .is-embed &,
   .is-embed-preview &,
   .is-print-mode & {
+    height: auto;
+    max-height: none;
     position: absolute;
+    width: auto;
   }
 
   .is-embed &--expanded,
   .is-embed-preview &--expanded {
     height: calc(100% - 40px - 50px - 130px);
-  }
-
-  .is-embed &,
-  .is-embed-preview &,
-  .is-print-mode & {
-    height: auto;
   }
 
   .is-print-mode & {
@@ -126,6 +123,10 @@
     &__heading,
     &__toggle {
       display: none;
+    }
+
+    .scroll-wrapper {
+      height: auto;
     }
   }
 }
