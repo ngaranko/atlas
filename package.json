@@ -81,16 +81,19 @@
     "webpack-merge": "^4.1.0"
   },
   "scripts": {
-    "preinstall": "npm cache verify",
+    "build": "npm run build-prod",
+    "build-acc": "grunt svg_sprite && npm test && webpack --config webpack.acc.js",
+    "build-dev": "grunt svg_sprite && webpack --config webpack.dev.js",
+    "build-prod": "grunt svg_sprite && npm test && webpack --config webpack.prod.js",
+    "build-test": "grunt svg_sprite && webpack --config webpack.acc.js",
+    "clean": "npm run clean-cache && npm run clean-dirs",
+    "clean-cache": "npm cache verify && bower cache clean",
+    "clean-dirs": "rimraf ./bower_components ./node_modules ./reports ./build",
     "postinstall": "./node_modules/protractor/node_modules/webdriver-manager/bin/webdriver-manager update",
+    "preinstall": "npm cache verify",
+    "start": "webpack-dev-server --config webpack.dev.js",
     "test": "karma start",
     "test-ci": "karma start --no-single-run",
-    "start": "webpack-dev-server --config webpack.dev.js",
-    "clean-dirs": "rimraf ./bower_components ./node_modules ./reports ./build",
-    "clean-cache": "npm cache verify && bower cache clean",
-    "clean": "npm run clean-cache && npm run clean-dirs",
-    "build": "grunt svg_sprite && webpack --config webpack.prod.js",
-    "build-release": "grunt svg_sprite && npm test && webpack --config webpack.prod.js",
     "watch": "webpack --watch --config webpack.dev.js"
   },
   "repository": {
