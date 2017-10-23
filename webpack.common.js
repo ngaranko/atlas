@@ -19,7 +19,7 @@ function isExternal(module) {
   return context.indexOf('node_modules') !== -1 || context.indexOf('bower_components') !== -1;
 }
 
-function commonConfig(env) {
+function commonConfig({ nodeEnv }) {
   return {
     context: root,
     entry: {
@@ -33,7 +33,7 @@ function commonConfig(env) {
       extensions: ['.js', '.jsx'],
       modules: [
         './node_modules',
-        './bower_components',
+        './bower_components'
       ]
     },
     module: {
@@ -44,7 +44,7 @@ function commonConfig(env) {
             src,
             legacy
           ],
-          use: 'babel-loader',
+          use: 'babel-loader'
         },
         {
           test: /\.scss$/,
@@ -57,14 +57,14 @@ function commonConfig(env) {
               {
                 loader: 'css-loader',
                 options: {
-                  url: false, // Disable URL parsing in css for now
+                  url: false // Disable URL parsing in css for now
                 }
               },
               {
                 loader: 'postcss-loader',
                 options: {
                   plugins: (loader) => [
-                    require('autoprefixer')({browsers: ['last 3 versions']}),
+                    require('autoprefixer')({browsers: ['last 3 versions']})
                   ]
                 }
               },
@@ -79,7 +79,7 @@ function commonConfig(env) {
           include: [
             legacy
           ],
-          use: 'html-loader',
+          use: 'html-loader'
         },
         {
           test: /\.(png|svg|cur)$/,
@@ -138,13 +138,13 @@ function commonConfig(env) {
         { from: './bower_components/bbga_visualisatie_d3/liberation-sans.woff2' },
         { from: './bower_components/bbga_visualisatie_d3/liberation-sans.woff' },
         { from: './bower_components/bbga_visualisatie_d3/liberation-sans.ttf' },
-        { from: './bower_components/bbga_visualisatie_d3/liberation-sans.svg' },
+        { from: './bower_components/bbga_visualisatie_d3/liberation-sans.svg' }
       ]),
       new HtmlWebpackPlugin({
         inject: false,
         template: './index.ejs',
         minify: {
-          collapseWhitespace: env === 'production'
+          collapseWhitespace: nodeEnv === 'production' || nodeEnv === 'acceptance'
         },
         lang: 'nl',
         title: 'Dataportaal',
@@ -165,7 +165,7 @@ function commonConfig(env) {
           {
             href: 'bbga.css',
             rel: 'stylesheet'
-          },
+          }
         ],
         scripts: [
           'leaflet.js',
