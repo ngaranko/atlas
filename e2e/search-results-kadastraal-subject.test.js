@@ -18,7 +18,7 @@ describe('Zoekresultaten kadastraal subjecten', () => {
         });
     });
 
-    describe('ingelogd', () => {
+    xdescribe('ingelogd', () => {
         let headerCountEmployee,
             headerCountEmployeePlus;
 

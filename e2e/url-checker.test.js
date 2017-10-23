@@ -47,7 +47,7 @@ describe('each URL should load the corresponding view', function () {
         dp.validate('MAP', page);
     });
 
-    it('MAP_DATA-SELECTION', () => {
+    xit('MAP_DATA-SELECTION', () => {
         dp.authenticate.login('EMPLOYEE');
 
         page = dp.navigate('MAP_DATA-SELECTION');
@@ -88,7 +88,7 @@ describe('each URL should load the corresponding view', function () {
 
         expect(detail.verblijfsobject.glossaryHeader.subtitle).toBe('Verblijfsobject');
         expect(detail.verblijfsobject.descriptionList.term(0)).toBe('Gebruiksdoel');
-        expect(detail.verblijfsobject.descriptionList.definition(0)).toBe('BEST-woning');
+        expect(detail.verblijfsobject.descriptionList.definition(0)).toBe('woonfunctie: BEST-woning');
         expect(detail.verblijfsobject.descriptionList.term(1)).toBe('Feitelijk gebruik');
         expect(detail.verblijfsobject.descriptionList.definition(1)).toBe('woning');
     });
@@ -100,7 +100,7 @@ describe('each URL should load the corresponding view', function () {
         dp.validate('MAP_SEARCH-RESULTS--LOCATION', page);
 
         expect(page.title)
-            .toBe('Resultaten (7) met locatie 121356\.94, 487341\.61 \(52\.3729183, 4\.8931775\) - Dataportaal');
+            .toBe('Resultaten (7) met locatie 121356.94, 487341.61 (52.3729183, 4.8931775) - Dataportaal');
 
         expect(searchResults.categories(0).header).toBe('Openbare ruimte');
         expect(searchResults.categories(0).list(0).link.label).toBe('Dam');

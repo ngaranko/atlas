@@ -116,13 +116,13 @@
                 ? `pano${state.straatbeeld.history}`
                 : 'pano';
 
-            if (state.map.overlays.filter((overlay) => overlay.id === newLayer).length === 1) {
+            if (state.map && state.map.overlays.filter((overlay) => overlay.id === newLayer).length === 1) {
                 // Ovelay already exists
                 return state;
             }
 
             // Remove any active 'pano' layers
-            const overlays = state.map.overlays
+            const overlays = state.map && state.map.overlays
                 .filter((overlay) => !overlay.id.startsWith('pano'));
 
             return {
@@ -146,10 +146,10 @@
          */
         function mapRemovePanoOverlayReducer (state) {
             // Remove all active 'pano' layers
-            const overlays = state.map.overlays
+            const overlays = state.map && state.map.overlays
                 .filter((overlay) => !overlay.id.startsWith('pano'));
 
-            if (overlays.length === state.map.overlays.length) {
+            if (state.map && overlays.length === state.map.overlays.length) {
                 // No 'pano' layers were active
                 return state;
             }

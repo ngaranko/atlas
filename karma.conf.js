@@ -1,30 +1,102 @@
-module.exports = function (config) {
-    var jsFiles = ['build/temp/atlas.libs.js'];
-    jsFiles = jsFiles.concat(require('./grunt/config/js-files').jsFiles);
-    jsFiles.push('bower_components/angular-mocks/angular-mocks.js');
-    jsFiles.push('build/temp/babel/es5tests/*.js');
+const path = require('path');
+const webpack = require('webpack');
+const { root, dist, src, legacy } = require('./webpack.common.js');
+const nodeEnv = 'development';
 
+const webpackConfig = {
+  context: root,
+  output: {
+    filename: 'test.bundle.js',
+    path: dist
+  },
+  resolve: {
+    modules: [
+      './node_modules',
+      './bower_components'
+    ]
+  },
+  devtool: 'inline-source-map',
+  module: {
+    rules: [
+      {
+        test: /\.html$/,
+        include: [
+          legacy
+        ],
+        use: 'html-loader'
+      },
+      {
+        test: /\.(run\.js|scss|png|svg|cur)$/,
+        include: [
+          src,
+          legacy
+        ],
+        use: [{
+          loader: 'file-loader',
+          options: {
+            emitFile: false
+          }
+        }]
+      },
+      {
+        test: /\.jsx?$/,
+        include: [
+          src,
+          legacy,
+          /atlas\.run\.js$/
+        ],
+        use: 'babel-loader'
+      }
+    ]
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      '__BUILD_ID__': JSON.stringify(nodeEnv),
+      'process.env': {
+        'NODE_ENV': JSON.stringify(nodeEnv)
+      }
+    })
+  ]
+};
+
+module.exports = function (config) {
     config.set({
         frameworks: ['jasmine-jquery', 'jasmine'],
-        files: jsFiles,
-        exclude: ['modules/**/*.run.js'],
-        plugins: [
-            'karma-jasmine-jquery',
-            'karma-jasmine',
-            'karma-mocha-reporter',
-            'karma-coverage',
-            'karma-phantomjs-launcher',
-            'karma-babel-preprocessor',
-            'karma-sourcemap-loader'
+        files: [
+            { pattern: './node_modules/leaflet/dist/leaflet.js', watched: false },
+            { pattern: './node_modules/leaflet.nontiledlayer/dist/NonTiledLayer.js', watched: false },
+            { pattern: './node_modules/proj4/dist/proj4.js', watched: false },
+            { pattern: './node_modules/proj4leaflet/src/proj4leaflet.js', watched: false },
+            'src/test-index.js'
         ],
         // possible values: OFF, ERROR, WARN, INFO, DEBUG
         logLevel: 'ERROR',
+        reporters: ['progress', 'mocha', 'coverage-istanbul'],
         preprocessors: {
-            'modules/**/!(*.test).js': ['babel'],
-            'build/temp/babel/es5tests/*.js': ['sourcemap']
+            'src/test-index.js': ['webpack', 'sourcemap']
         },
+        webpack: webpackConfig,
         mochaReporter: {
             output: 'minimal'
+        },
+        coverageIstanbulReporter: {
+            reports: ['html', 'text-summary'],
+            dir: path.join(__dirname, 'coverage'),
+            thresholds: {
+                emitWarning: false,
+                global: {
+                    statements: 99,
+                    lines: 99,
+                    branches: 95,
+                    functions: 99
+                /* },
+                each: {
+                    statements: 100,
+                    lines: 100,
+                    branches: 100,
+                    functions: 100 */
+                }
+            }
         },
         browsers: ['PhantomJS'],
         singleRun: true

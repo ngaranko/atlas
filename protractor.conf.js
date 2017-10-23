@@ -13,18 +13,15 @@ for (var VARIABLE of ENV_VARIABLES) {
 }
 
 exports.config = {
-    baseUrl: 'http://localhost:8000/',
+    baseUrl: 'http://localhost:8080/',
     framework: 'jasmine',
-    specs: 'e2e/**/*.disabled.js',
+    specs: 'e2e/**/*.test.js',
     capabilities: {
-        browserName: 'phantomjs',
+        browserName: 'chrome',
         shardTestFiles: true,
-        maxInstances: 4,
-        'phantomjs.binary.path': './node_modules/phantomjs-prebuilt/bin/phantomjs'
+        maxInstances: 4
     },
-    seleniumServerJar: 'node_modules/protractor/node_modules/webdriver-manager/selenium/' +
-        'selenium-server-standalone-3.5.0.jar',
-    chromeDriver: './node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_2.31',
+    chromeDriver: './node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_2.33',
     onPrepare: function () {
         browser.driver.manage().window().setSize(1024, 768);
 

@@ -1,6 +1,6 @@
 'use strict';
 
-describe('The fullscreen map (or map w/ layerSelection) remembers how you got there', () => {
+xdescribe('The fullscreen map (or map w/ layerSelection) remembers how you got there', () => {
     let page;
 
     it('navigates to a new straatbeeld if straatbeeld is active but invisible', () => {
