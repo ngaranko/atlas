@@ -6,7 +6,7 @@ build
 dist
 docs
 node_modules
-reports
+coverage
 *.iml
 modules/shared/styles/config/mixins/_icons.scss
 phantomjsdriver.log

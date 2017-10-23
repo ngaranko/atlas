@@ -44,6 +44,14 @@ describe('The embedReducers factory', function () {
 
             expect(output.atlas.isEmbedPreview).toBe(true);
         });
+
+        it('when atlas is not an object', function () {
+            const inputState = angular.copy(defaultState);
+            inputState.atlas = null;
+
+            const output = embedReducers[ACTIONS.SHOW_EMBED_PREVIEW.id](inputState);
+            expect(output.atlas).toBeNull();
+        });
     });
 
     describe('HIDE_EMBED_PREVIEW', function () {
@@ -57,6 +65,14 @@ describe('The embedReducers factory', function () {
             output = embedReducers[ACTIONS.HIDE_EMBED_PREVIEW.id](inputState);
 
             expect(output.atlas.isEmbedPreview).toBe(false);
+        });
+
+        it('when atlas is not an object', function () {
+            const inputState = angular.copy(defaultState);
+            inputState.atlas = null;
+
+            const output = embedReducers[ACTIONS.HIDE_EMBED_PREVIEW.id](inputState);
+            expect(output.atlas).toBeNull();
         });
     });
 });

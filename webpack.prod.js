@@ -5,12 +5,12 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const {commonConfig} = require('./webpack.common.js');
 
 module.exports = function(env) {
-  const buildId = env && env.buildId ? env.buildId : 'production';
-  const nodeEnv = 'production';
+  const nodeEnv = env && env.nodeEnv ? env.nodeEnv : 'production';
+  const buildId = env && env.buildId ? env.buildId : nodeEnv;
 
-  return merge(commonConfig(nodeEnv), {
+  return merge(commonConfig({ nodeEnv, buildId }), {
     output: {
-      filename: '[name].[chunkhash].js',
+      filename: '[name].[chunkhash].js'
     },
     devtool: 'source-map',
     plugins: [
