@@ -133,12 +133,6 @@
 
                     return newState;
                 },
-                filters: (oldState, newState) => {
-                    if (angular.isObject(oldState)) {
-                        newState = oldState;
-                    }
-                    return newState;
-                },
                 straatbeeld: (oldState, newState) => {
                     if (angular.isObject(oldState)) {
                         newState.targetLocation = oldState.targetLocation;
