@@ -69,10 +69,10 @@ RUN git config --global url.https://github.com/.insteadOf git://github.com/ \
   && npm --production=false install \
   && bower install --allow-root
 
+ARG BUILD_ENV=acc
 ARG BUILD_ID
-ENV BUILD_ID=$BUILD_ID
 
-RUN npm run build-release -- --env.buildId=${BUILD_ID} \
+RUN npm run build-${BUILD_ENV} -- --env.buildId=${BUILD_ID} \
   && cp -r /app/dist/. /var/www/html/
 
 COPY default.conf /etc/nginx/conf.d/
