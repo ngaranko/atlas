@@ -60,7 +60,7 @@ if (BRANCH == "master") {
     node {
         stage('Build and Push production image') {
             tryStep "image tagging", {
-                def image = docker.build("build.datapunt.amsterdam.nl:5000/atlas/app")
+                def image = docker.build("build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}")
                 image.push("production")
                 image.push("latest")
             }
