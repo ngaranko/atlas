@@ -181,7 +181,7 @@ function restoreAccessToken () {
  */
 export function login() {
   // Get the URI the OAuth2 authorization service needs to use as callback
-  const callback = encodeURIComponent(`${location.protocol}//${location.host}/`);
+  const callback = encodeURIComponent(`${location.protocol}//${location.host}${location.pathname}`);
   // Get a random string to prevent CSRF
   const stateToken = stateTokenGenerator();
   const encodedStateToken = encodeURIComponent(stateToken);
