@@ -112,11 +112,6 @@
     width: auto;
   }
 
-  .is-embed &--expanded,
-  .is-embed-preview &--expanded {
-    height: calc(100% - 40px - 50px - 130px);
-  }
-
   .is-print-mode & {
     &--collapsed,
     &--has-no-active-layers,
