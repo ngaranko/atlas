@@ -61,6 +61,7 @@ if (BRANCH == "master") {
         stage('Build and Push preproduction image') {
             tryStep "image tagging", {
                 def image = docker.build("build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}-preprodcution")
+                image.push("preproduction")
                 image.push()
             }
         }
