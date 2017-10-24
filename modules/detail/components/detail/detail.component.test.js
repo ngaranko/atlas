@@ -288,7 +288,7 @@ describe('the dp-detail component', () => {
                 naam: 'naam'
             }
         });
-        expect(store.dispatch).toHaveBeenCalledTimes(2);
+        expect(store.dispatch).toHaveBeenCalledTimes(3);
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.SHOW_DETAIL,
             payload: {
@@ -312,7 +312,7 @@ describe('the dp-detail component', () => {
                 something: -90
             }
         });
-        expect(store.dispatch).toHaveBeenCalledTimes(4);
+        expect(store.dispatch).toHaveBeenCalledTimes(5);
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.SHOW_DETAIL,
             payload: {
@@ -351,7 +351,7 @@ describe('the dp-detail component', () => {
                 naam: 'naam'
             }
         });
-        expect(store.dispatch).toHaveBeenCalledTimes(4);
+        expect(store.dispatch).toHaveBeenCalledTimes(5);
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.SHOW_DETAIL,
             payload: {
@@ -462,7 +462,7 @@ describe('the dp-detail component', () => {
 
             expect(scope.vm.isLoading).toBe(false);
             expect(scope.vm.apiData).toBeUndefined();
-            expect(store.dispatch).not.toHaveBeenCalled();
+            expect(store.dispatch).toHaveBeenCalledTimes(1);
         });
         it('should remove apiData if not authorized', () => {
             // Special case where user is logged out while on detail page and the user loses access to content
