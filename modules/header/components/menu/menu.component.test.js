@@ -11,6 +11,9 @@ describe('The dp-menu component', () => {
         mockedActions = {
             SHOW_PAGE: {
                 id: 'SHOW_PAGE'
+            },
+            AUTHENTICATE_ERROR: {
+                id: 'AUTHENTICATE_ERROR'
             }
         };
 
@@ -143,6 +146,20 @@ describe('The dp-menu component', () => {
         it('calls the auth login method', () => {
             component.find('.qa-menu__login').click();
             expect($window.auth.login).toHaveBeenCalledWith();
+        });
+    });
+
+    describe('the login button with failing auth', () => {
+        let component;
+
+        beforeEach(() => {
+            spyOn($window.auth, 'login').and.throwError();
+            component = getComponent('tall');
+        });
+
+        it('calls the auth login method', () => {
+            component.find('.qa-menu__login').click();
+            expect(store.dispatch).toHaveBeenCalledWith({ type: { id: 'AUTHENTICATE_ERROR' } });
         });
     });
 

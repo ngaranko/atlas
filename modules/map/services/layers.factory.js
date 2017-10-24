@@ -88,8 +88,6 @@
                         layers: overlays.SOURCES[overlayName].layers
                     });
                 });
-            } else if (!wmsLayers[wmsLayerId]) {
-                wmsLayers[wmsLayerId] = $q.resolve([]);
             }
 
             return wmsLayers[wmsLayerId];

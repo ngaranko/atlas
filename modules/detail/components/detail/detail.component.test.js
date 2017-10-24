@@ -38,6 +38,12 @@ describe('the dp-detail component', () => {
                                 dummy: 'B',
                                 something: -90
                             });
+                        } else if (endpoint === 'http://www.fake-endpoint.com/handelsregister/vestiging/987/') {
+                            q.resolve({
+                                _display: 'Een of andere vestiging',
+                                dummy: 'D',
+                                something: 666
+                            });
                         } else if (endpoint === naturalPersonEndPoint) {
                             q.resolve({
                                 _display: 'Ferdinand de Vries',
@@ -70,6 +76,9 @@ describe('the dp-detail component', () => {
                         } else if (endpoint === 'http://www.fake-endpoint.com/brk/object/789/') {
                             category = 'brk';
                             subject = 'object';
+                        } else if (endpoint === 'http://www.fake-endpoint.com/handelsregister/vestiging/987/') {
+                            category = 'handelsregister';
+                            subject = 'vestiging';
                         } else if (endpoint === naturalPersonEndPoint) {
                             category = 'brk';
                             subject = 'subject';
@@ -157,7 +166,7 @@ describe('the dp-detail component', () => {
 
         mockedUser = {
             authenticated: false,
-            scopes: [],
+            scopes: ['HR/R'],
             name: ''
         };
 
@@ -207,6 +216,22 @@ describe('the dp-detail component', () => {
                 dummy: 'A',
                 something: 3,
                 naam: 'naam'
+            }
+        });
+    });
+
+    it('puts data on the scope based on the hr endpoint', () => {
+        var component,
+            scope;
+
+        component = getComponent('http://www.fake-endpoint.com/handelsregister/vestiging/987/', false);
+        scope = component.isolateScope();
+
+        expect(scope.vm.apiData).toEqual({
+            results: {
+                _display: 'Een of andere vestiging',
+                dummy: 'D',
+                something: 666
             }
         });
     });

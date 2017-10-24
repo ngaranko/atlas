@@ -42,4 +42,5 @@ export const authenticateUser = (accessToken, name, scopes) =>
 
 export const authenticateError = () => ({ type: AUTHENTICATE_ERROR });
 
-window.UserReducer = UserReducer;
+window.reducers = window.reducers || {};
+window.reducers.UserReducer = UserReducer;
