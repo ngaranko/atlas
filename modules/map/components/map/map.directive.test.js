@@ -1,6 +1,8 @@
 describe('The dp-map directive', () => {
     let $compile,
         $rootScope,
+        $timeout,
+        $window,
         L,
         layers,
         highlight,
@@ -91,6 +93,8 @@ describe('The dp-map directive', () => {
         angular.mock.inject(function (
             _$compile_,
             _$rootScope_,
+            _$timeout_,
+            _$window_,
             _L_,
             _layers_,
             _highlight_,
@@ -101,6 +105,8 @@ describe('The dp-map directive', () => {
             _DRAW_TOOL_CONFIG_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
+            $timeout = _$timeout_;
+            $window = _$window_;
             L = _L_;
             layers = _layers_;
             highlight = _highlight_;
@@ -152,6 +158,11 @@ describe('The dp-map directive', () => {
             scopes: ['HR/R'],
             name: ''
         };
+
+        $window.render = angular.noop;
+        $window.React = {
+            createElement: angular.noop
+        };
     });
 
     function getDirective (mapState, showLayerSelection, markers, useRootScopeApply, resize) {
@@ -190,6 +201,11 @@ describe('The dp-map directive', () => {
 
         $rootScope.$apply();
         expect(L.map).toHaveBeenCalled();
+
+        const spy = spyOn($window.React, 'createElement');
+        $timeout.flush();
+
+        expect(spy).toHaveBeenCalled();
     });
 
     it('creates a Leaflet map with options based on both the map state and mapConfig', () => {
