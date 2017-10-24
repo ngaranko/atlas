@@ -1,3 +1,4 @@
+ /* eslint-disable */
 // For now simply import everything we need, from here
 
 // Import the templates and inject them into angular

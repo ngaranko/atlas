@@ -90,9 +90,9 @@
   },
   "scripts": {
     "build": "npm run build-prod",
-    "build-acc": "grunt svg_sprite && npm test && webpack --config webpack.acc.js",
+    "build-acc": "grunt svg_sprite && npm run lint && npm test && webpack --config webpack.acc.js",
     "build-dev": "grunt svg_sprite && webpack --config webpack.dev.js",
-    "build-prod": "grunt svg_sprite && npm test && webpack --config webpack.prod.js",
+    "build-prod": "grunt svg_sprite && npm run lint && npm test && webpack --config webpack.prod.js",
     "build-test": "grunt svg_sprite && webpack --config webpack.acc.js",
     "clean": "npm run clean-cache && npm run clean-dirs",
     "clean-cache": "npm cache verify && bower cache clean",
@@ -100,13 +100,16 @@
     "postinstall": "./node_modules/protractor/node_modules/webdriver-manager/bin/webdriver-manager update",
     "preinstall": "npm cache verify",
     "start": "webpack-dev-server --config webpack.dev.js",
-    "test": "karma start",
-    "test-ci": "karma start --no-single-run",
+    "test": "karma start && jest",
+    "test-karma": "karma start",
+    "test-jest": "jest",
+    "test-watch": "karma start --no-single-run & jest --watch",
+    "lint": "eslint --config ./.eslintrc.js ./modules/ && eslint --config ./src/.eslintrc ./src/",
     "watch": "webpack --watch --config webpack.dev.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DatapuntAmsterdam/atlas.git"
+    "url": "git+https://github.com/Amsterdam/atlas.git"
   },
   "dependencies": {
     "angulartics-piwik": "^1.0.6",
@@ -128,21 +131,5 @@
     "redux": "^3.7.2",
     "redux-saga": "^0.15.6",
     "webpack-merge": "^4.1.0"
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx}"
-    ],
-    "moduleNameMapper": {
-      "^.+\\.(css|scss)$": "identity-obj-proxy",
-      "\\.(jpg|jpeg|png|gif|svg|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/test/file-mock.js"
-    },
-    "setupFiles": [
-      "raf/polyfill",
-      "./test/setup.js"
-    ],
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
-    ]
   }
 }

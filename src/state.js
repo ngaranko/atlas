@@ -34,7 +34,8 @@ export default function initialize(Redux, reducer, stateUrlConverter, defaultSta
 
   const accessToken = auth.getAccessToken();
   if (accessToken) {
-    reduxStore.dispatch(authenticateUser(auth.getAccessToken(), auth.getName(), auth.getScopes()));
+    window.reduxStore.dispatch(authenticateUser(auth.getAccessToken(), auth.getName(),
+      auth.getScopes()));
   }
 }
 

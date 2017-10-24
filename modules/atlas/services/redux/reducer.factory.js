@@ -41,7 +41,7 @@
                              embedReducers,
                              filtersReducers,
                              environment) {
-        return function (oldState, action) {
+        return function (oldState, action) { // eslint-disable-line complexity
             const UserReducer = $window.UserReducer;
             const MapLayersReducer = $window.MapLayersReducer;
             const MapPanelReducer = $window.MapPanelReducer;
