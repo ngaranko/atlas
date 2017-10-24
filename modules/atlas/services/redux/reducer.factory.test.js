@@ -186,19 +186,26 @@ describe('The reducer factory', function () {
         expect(freeze.deepFreeze).toHaveBeenCalledWith(state);
     });
 
-    it('should map vanilla reducers for cross-compatibility', function () {
-        const payload = { foo: 'bar' };
-        spyOn($window.reducers, 'detailReducer');
-        environment.isDevelopment.and.returnValue(true);
+    describe('should map vanilla reducers for cross-compatibility', function () {
+        let payload;
 
-        reducer(inputState, {
-            payload,
-            type: {
-                id: 'FETCH_DETAIL'
-            }
+        beforeEach(() => {
+            payload = { foo: 'bar' };
+            environment.isDevelopment.and.returnValue(true);
         });
 
-        expect($window.reducers.detailReducer.calls.mostRecent().args[1])
-            .toEqual(jasmine.objectContaining({ payload, type: 'FETCH_DETAIL' }));
+        it('detail', function () {
+            spyOn($window.reducers, 'detailReducer');
+
+            reducer(inputState, {
+                payload,
+                type: {
+                    id: 'FETCH_DETAIL'
+                }
+            });
+
+            expect($window.reducers.detailReducer.calls.mostRecent().args[1])
+                .toEqual(jasmine.objectContaining({ payload, type: 'FETCH_DETAIL' }));
+        });
     });
 });
