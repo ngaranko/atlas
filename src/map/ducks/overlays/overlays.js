@@ -43,4 +43,5 @@ export const toggleMapOverlayVisibility = (mapLayerId, show) => ({
 });
 export const toggleMapPanel = () => ({ type: 'TOGGLE_MAP_PANEL' });
 
-window.MapOverlaysReducer = MapOverlaysReducer;
+window.reducers = window.reducers || {};
+window.reducers.MapOverlaysReducer = MapOverlaysReducer;

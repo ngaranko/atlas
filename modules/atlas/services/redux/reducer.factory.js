@@ -42,11 +42,11 @@
                              filtersReducers,
                              environment) {
         return function (oldState, action) {
-            const UserReducer = $window.UserReducer;
-            const MapLayersReducer = $window.MapLayersReducer;
-            const MapPanelReducer = $window.MapPanelReducer;
-            const MapOverlaysReducer = $window.MapOverlaysReducer;
-            const MapBaseLayersReducer = $window.MapBaseLayersReducer;
+            const UserReducer = $window.reducers.UserReducer;
+            const MapLayersReducer = $window.reducers.MapLayersReducer;
+            const MapPanelReducer = $window.reducers.MapPanelReducer;
+            const MapOverlaysReducer = $window.reducers.MapOverlaysReducer;
+            const MapBaseLayersReducer = $window.reducers.MapBaseLayersReducer;
 
             // TODO: Redux: replace
             // Warning: angular.merge is deprecated
