@@ -2,6 +2,8 @@
 
 $block-tall-height: 288px;
 $block-short-height: 134px;
+$button-height: 100px;
+$button-tall-height: 134px;
 $show-more-height: 70px;
 
 .c-homepage__block {
@@ -36,6 +38,18 @@ $show-more-height: 70px;
     z-index: 20;
     pointer-events: none;
   }
+
+  &:hover {
+    .c-homepage__block-button {
+      height: $button-height;
+      transform: translateY(0);
+      background-color: $primary-light;
+    }
+
+    .c-homepage__block-button--tall {
+      height: $button-tall-height;
+    }
+  }
 }
 
 .c-homepage__block--shadow {
@@ -52,28 +66,10 @@ $show-more-height: 70px;
 
 .c-homepage__block--tall {
   height: $block-tall-height;
-
-  &:not(.c-homepage__block--datasets) {
-    &:hover {
-      .c-homepage__block-button { // sass-lint:disable-line nesting-depth
-        transform: translateY(0);
-        background-color: $primary-light;
-      }
-    }
-  }
 }
 
 .c-homepage__block--short {
   height: $block-short-height;
-
-  &:not(.c-homepage__block--datasets) {
-    &:hover {
-      .c-homepage__block-button { // sass-lint:disable-line nesting-depth
-        transform: translateY(0);
-        background-color: $primary-light;
-      }
-    }
-  }
 }
 
 .c-homepage__text {
