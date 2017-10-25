@@ -5,7 +5,7 @@ exports[`MapPanelContainer should render MapLegend if store contains active map 
   className="
         map-panel
         map-panel--collapsed
-        map-panel--has--active-layers
+        map-panel--has-active-layers
       "
 >
   <div
