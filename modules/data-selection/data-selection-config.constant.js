@@ -185,6 +185,9 @@
                     TITLE: 'Vestigingen',
                     FILTERS: [
                         {
+                            slug: 'bijzondere_rechtstoestand',
+                            label: 'Bijzondere rechtstoestand'
+                        }, {
                             slug: 'hoofdcategorie',
                             label: 'Hoofdcategorie'
                         }, {
