@@ -25,6 +25,57 @@
                 </div>
             </div>
             <div class="u-col-sm--3">
+                <div>
+                    <!-- Link to maps.amsterdam.nl -->
+                    <dp-link type="FETCH_DATA_SELECTION" class-name="c-homepage__block c-homepage__block--right c-homepage__block--tall c-homepage__block--adressen" payload="{dataset: 'bag', filters: {}, page: 1}">
+                        <div class="c-homepage__block-button">
+                            <div class="o-btn--transparent">Themakaarten</div>
+                            <div class="c-homepage__block-details">Bekijk kaarten met ruimtelijke thema's</div>
+                        </div>
+                    </dp-link>
+                </div>
+            </div>
+        </div>
+        <div class="u-row">
+            <div class="u-col-sm--6 c-homepage__block--data-selection">
+                <!-- Links to data selection themes -->
+                <div class="c-homepage__block c-homepage__block--left c-homepage__block--tall c-homepage__block--datasets" ng-class="{ 'c-homepage__block--shadow': datasetsHover }">
+                    <dp-link class-name="c-homepage__block-button" type="FETCH_DATA_SELECTION" payload="{
+                             dataset: 'catalogus',
+                             filters: {},
+                             view: 'CARDS',
+                             page: 1
+                         }" ng-mouseover="datasetsHover = true" ng-mouseout="datasetsHover = false">
+                        <div class-name="c-homepage__block-button" ng-mouseover="datasetsHover = true" ng-mouseout="datasetsHover = false">
+                            <div class="o-btn--transparent">Datasetcatalogus</div>
+                            <div class="c-homepage__block-details">Blader door datasets (verzamelingen gegevens)</div>
+                        </div>
+                    </dp-link>
+                    <dp-catalogus-themes></dp-catalogus-themes>
+                </div>
+            </div>
+            <div class="u-col-sm--3 c-homepage__block--adressen-vestigingen">
+                <div>
+                    <!-- Link to data selection BAG -->
+                    <dp-link type="FETCH_DATA_SELECTION" class-name="c-homepage__block c-homepage__block--middle c-homepage__block--short c-homepage__block--adressen" payload="{dataset: 'bag', filters: {}, page: 1}">
+                        <div class="c-homepage__block-button">
+                            <div class="o-btn--transparent">Adressentabel</div>
+                            <div class="c-homepage__block-details">Selecteer adressen en download als spreadsheet</div>
+                        </div>
+                    </dp-link>
+                </div>
+
+                <div>
+                    <!-- Link to data selection HR -->
+                    <dp-link type="FETCH_DATA_SELECTION" class-name="c-homepage__block c-homepage__block--middle c-homepage__block--short c-homepage__block--vestigingen" payload="{dataset: 'hr', filters: {}, page: 1}">
+                        <div class="c-homepage__block-button">
+                            <div class="o-btn--transparent">Vestigingentabel</div>
+                            <div class="c-homepage__block-details">Selecteer vestigingen en download als spreadsheet</div>
+                        </div>
+                    </dp-link>
+                </div>
+            </div>
+            <div class="u-col-sm--3">
                 <!-- Link to straatbeeld -->
                 <div class="qa-straatbeeld-link">
                     <dp-link
@@ -48,49 +99,9 @@
             </div>
         </div>
         <div class="u-row">
-            <div class="u-col-sm--9">
-                <!-- Links to data selection themes -->
-                <div class="c-homepage__block c-homepage__block--left c-homepage__block--tall c-homepage__block--datasets" ng-class="{ 'c-homepage__block--shadow': datasetsHover }">
-                    <dp-link class-name="c-homepage__block-button" type="FETCH_DATA_SELECTION" payload="{
-                             dataset: 'catalogus',
-                             filters: {},
-                             view: 'CARDS',
-                             page: 1
-                         }" ng-mouseover="datasetsHover = true" ng-mouseout="datasetsHover = false">
-                        <div class-name="c-homepage__block-button" ng-mouseover="datasetsHover = true" ng-mouseout="datasetsHover = false">
-                            <div class="o-btn--transparent">Datasetcatalogus</div>
-                            <div class="c-homepage__block-details">Blader door datasets (verzamelingen gegevens)</div>
-                        </div>
-                    </dp-link>
-                    <dp-catalogus-themes></dp-catalogus-themes>
-                </div>
-            </div>
-            <div class="u-col-sm--3">
-                <div>
-                    <!-- Link to data selection BAG -->
-                    <dp-link type="FETCH_DATA_SELECTION" class-name="c-homepage__block c-homepage__block--right c-homepage__block--short c-homepage__block--adressen" payload="{dataset: 'bag', filters: {}, page: 1}">
-                        <div class="c-homepage__block-button">
-                            <div class="o-btn--transparent">Adressentabel</div>
-                            <div class="c-homepage__block-details">Selecteer adressen en download als spreadsheet</div>
-                        </div>
-                    </dp-link>
-                </div>
-
-                <div>
-                    <!-- Link to data selection HR -->
-                    <dp-link type="FETCH_DATA_SELECTION" class-name="c-homepage__block c-homepage__block--right c-homepage__block--short c-homepage__block--vestigingen" payload="{dataset: 'hr', filters: {}, page: 1}">
-                        <div class="c-homepage__block-button">
-                            <div class="o-btn--transparent">Vestigingentabel</div>
-                            <div class="c-homepage__block-details">Selecteer vestigingen en download als spreadsheet</div>
-                        </div>
-                    </dp-link>
-                </div>
-            </div>
-        </div>
-        <div class="u-row">
             <div class="c-homepage__news">
                 <div class="u-col-sm--9">
-                    <div class="u-padding__left--2 u-padding__right--2 u-margin__right--2">
+                    <div class="u-padding__left--2 u-padding__right--2">
                         <h1 class="c-homepage__news-header">Nieuws</h1>
                         <div class="">
                             <dp-user-content-widget type="news" limit-to="3"></dp-user-content-widget>

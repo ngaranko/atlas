@@ -131,12 +131,24 @@ $show-more-height: 70px;
   padding-top: 0;
 }
 
+.c-homepage__block--data-selection {
+  width: 48.5% !important;
+}
+
+.c-homepage__block--adressen-vestigingen {
+  width: 26.5% !important;
+}
+
 .c-homepage__block--vestigingen {
   background-image: url("assets/images/homepage-vestigingen.png");
 }
 
 .c-homepage__block--adressen {
   background-image: url("assets/images/homepage-adressen.png");
+}
+
+.c-homepage__block--amsterdam-maps {
+  background-image: url("assets/images/amsterdam-maps.png");
 }
 
 .c-homepage__block--datasets {
