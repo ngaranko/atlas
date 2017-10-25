@@ -131,6 +131,8 @@ describe('The active overlays factory', () => {
 
             expect(activeOverlays.isVisibleAtCurrentZoom('tcmnmt', 16)).toBeFalsy();
             expect(activeOverlays.isVisibleAtCurrentZoom('tcmnmt', 15)).toBeTruthy();
+
+            expect(activeOverlays.isVisibleAtCurrentZoom('not_existing')).toBeFalsy();
         });
     });
 

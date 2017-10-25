@@ -24,7 +24,7 @@ node {
 
     stage("Build image") {
         tryStep "build", {
-            def image = docker.build("build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}")
+            def image = docker.build("build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}", "--build-arg BUILD_ENV=acc .")
             image.push()
         }
     }
@@ -57,15 +57,37 @@ if (BRANCH == "master") {
         }
     }
 
+    node {
+        stage('Build and Push preproduction image') {
+            tryStep "image tagging", {
+                def image = docker.build("build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}-preproduction")
+                image.push("preproduction")
+                image.push()
+            }
+        }
+    }
+
+    node {
+        stage("Deploy to PRE-Production") {
+            tryStep "deployment", {
+                build job: 'Subtask_Openstack_Playbook',
+                parameters: [
+                    [$class: 'StringParameterValue', name: 'INVENTORY', value: 'acceptance'],
+                    [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-client-pre.yml'],
+                ]
+            }
+        }
+    }
+
     stage('Waiting for approval') {
-        slackSend channel: '#ci-channel', color: 'warning', message: 'Atlas is waiting for Production Release - please confirm'
+        slackSend channel: '#ci-channel', color: 'warning', message: 'City Data is waiting for Production Release - please confirm'
         input "Deploy to Production?"
     }
 
     node {
         stage('Push production image') {
             tryStep "image tagging", {
-                def image = docker.build("build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}", "--build-arg BUILD_ENV=prod")
+                def image = docker.image("build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}-preproduction")
                 image.pull()
                 image.push("production")
                 image.push("latest")

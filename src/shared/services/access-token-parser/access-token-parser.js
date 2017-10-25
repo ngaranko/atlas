@@ -1,6 +1,6 @@
 function decodeToken(token) {
   try {
-    return angular.fromJson(
+    return window.angular.fromJson(
       window.atob(token
         .split('.')[1]
         .replace('-', '+')

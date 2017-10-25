@@ -21,7 +21,7 @@ describe('The state url conversion definition', function () {
     });
 
     describe('The registered state initialisation methods', function () {
-        xit('initialize a state to the home page and it sets a default map, (only) on an empty payload', function () { // eslint-disable-line
+        it('initialize a state to the home page and it sets a default map, (only) on an empty payload', function () { // eslint-disable-line
             let state;
 
             state = stateUrlConversion.onCreate.DEFAULT({}, {}, {}, stateUrlConversion.initialValues);
@@ -39,11 +39,15 @@ describe('The state url conversion definition', function () {
                 },
                 filters: {},
                 user: {
+                    accessToken: '',
                     authenticated: false,
                     scopes: [],
                     name: '',
                     error: false
                 },
+                mapLayers: [],
+                mapBaseLayers: {},
+                isMapPanelVisible: false,
                 map: {
                     viewCenter: [52.3731081, 4.8932945],
                     baseLayer: 'topografie',
@@ -63,12 +67,40 @@ describe('The state url conversion definition', function () {
                 page: undefined,
                 layerSelection: undefined,
                 filters: undefined,
-                user: undefined
+                user: undefined,
+                mapLayers: undefined,
+                mapBaseLayers: undefined,
+                isMapPanelVisible: undefined
             });
         });
     });
 
     describe('The registered post processing methods', function () {
+        describe('The post processing for user', function () {
+            it('copies authenticated, accessToken, scopes, name and error from old state', function () {
+                const oldState = {
+                    authenticated: true,
+                    accessToken: 'foo',
+                    scopes: ['bar', 'baz'],
+                    name: 'unit',
+                    error: 'test'
+                };
+                const newState = {
+                    foo: 'bar'
+                };
+
+                stateUrlConversion.post.user(oldState, newState);
+                expect(newState).toEqual({
+                    authenticated: true,
+                    accessToken: 'foo',
+                    scopes: ['bar', 'baz'],
+                    name: 'unit',
+                    error: 'test',
+                    foo: 'bar'
+                });
+            });
+        });
+
         describe('The post processing for dataSelection', function () {
             it('copies markers and isLoading from old state and determines fullscreen mode', function () {
                 let oldState,
@@ -213,6 +245,28 @@ describe('The state url conversion definition', function () {
             });
         });
 
+        describe('The post processing for isMapPanelVisible', function () {
+            it('copies booelan value from old state', function () {
+                let oldState = true;
+                let newState = false;
+
+                stateUrlConversion.post.isMapPanelVisible(oldState, newState);
+                expect(newState).toEqual(false);
+
+                oldState = false;
+                newState = true;
+
+                stateUrlConversion.post.isMapPanelVisible(oldState, newState);
+                expect(newState).toEqual(true);
+
+                oldState = [1];
+                newState = true;
+
+                stateUrlConversion.post.isMapPanelVisible(oldState, newState);
+                expect(newState).toEqual(true);
+            });
+        });
+
         describe('The post processing for detail', function () {
             it('copies display, geometry, isLoading and isFullscreen from old state if equal endpoint', function () {
                 let newState;
@@ -326,34 +380,6 @@ describe('The state url conversion definition', function () {
             });
         });
 
-        describe('The post processing for filters', function () {
-            it('copies all filters from old state', function () {
-                let oldState,
-                    newState;
-
-                oldState = {
-                    foo: 'bar'
-                };
-                newState = {
-                    foo: 'bar'
-                };
-
-                stateUrlConversion.post.filters(oldState, newState);
-                expect(newState).toEqual({
-                    foo: 'bar'
-                });
-
-                oldState = null;
-                newState = {
-                    foo: 'bar'
-                };
-
-                stateUrlConversion.post.filters(oldState, newState);
-                expect(newState).toEqual({
-                    foo: 'bar'
-                });
-            });
-        });
         describe('The post processing for straatbeeld', function () {
             it('copies image, hotspots, data, location, isInitial, isLoading from old state if equal id', function () {
                 let newState;
@@ -393,6 +419,15 @@ describe('The state url conversion definition', function () {
                 expect(newState).toEqual({
                     id: 2,
                     targetLocation: 'foo'
+                });
+
+                newState = {
+                    id: 3
+                };
+
+                stateUrlConversion.post.straatbeeld('yoyo', newState);
+                expect(newState).toEqual({
+                    id: 3
                 });
             });
         });
