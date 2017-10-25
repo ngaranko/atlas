@@ -90,6 +90,7 @@ describe('The dp-map directive', () => {
             invalidateSize: angular.noop
         };
 
+        // eslint-disable-next-line max-params
         angular.mock.inject(function (
             _$compile_,
             _$rootScope_,

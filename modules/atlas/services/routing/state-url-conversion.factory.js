@@ -47,8 +47,8 @@
                     ['atlas', 'page', 'layerSelection', 'filters', 'user', 'mapLayers', 'mapBaseLayers',
                         'isMapPanelVisible'].forEach(s => {
                             const value = initialValues[s];
-                            newState[s] = angular.isDefined(value) ?
-                                (angular.isArray(value) ? [...value]
+                            newState[s] = angular.isDefined(value)
+                                ? (angular.isArray(value) ? [...value]
                                 : angular.isObject(value) ? {...value} : value) : value;
                         });
                     if (angular.equals(params, {})) {

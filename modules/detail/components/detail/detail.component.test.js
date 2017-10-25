@@ -20,7 +20,7 @@ describe('the dp-detail component', () => {
                     getState: angular.noop
                 },
                 api: {
-                    getByUrl: function (endpoint) {
+                    getByUrl: function (endpoint) { // eslint-disable-line complexity
                         var q = $q.defer();
 
                         if (endpoint === 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/' ||
