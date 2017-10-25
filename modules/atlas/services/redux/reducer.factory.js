@@ -41,21 +41,22 @@
                              embedReducers,
                              filtersReducers,
                              environment) {
-        return function (oldState, action) {
-            const UserReducer = $window.UserReducer;
-            const MapLayersReducer = $window.MapLayersReducer;
-            const MapPanelReducer = $window.MapPanelReducer;
-            const MapOverlaysReducer = $window.MapOverlaysReducer;
-            const MapBaseLayersReducer = $window.MapBaseLayersReducer;
+        return function (oldState, action) { // eslint-disable-line complexity
+            const DetailsReducers = $window.reducers.detailReducer;
+            const UserReducer = $window.reducers.UserReducer;
+            const MapLayersReducer = $window.reducers.MapLayersReducer;
+            const MapPanelReducer = $window.reducers.MapPanelReducer;
+            const MapOverlaysReducer = $window.reducers.MapOverlaysReducer;
+            const MapBaseLayersReducer = $window.reducers.MapBaseLayersReducer;
 
             // TODO: Redux: replace
             // Warning: angular.merge is deprecated
             // -- https://docs.angularjs.org/api/ng/function/angular.merge
 
             const detailReducers = {
-                FETCH_DETAIL: $window.reducers.detailReducer,
-                SHOW_DETAIL: $window.reducers.detailReducer,
-                DETAIL_FULLSCREEN: $window.reducers.detailReducer
+                FETCH_DETAIL: DetailsReducers,
+                SHOW_DETAIL: DetailsReducers,
+                DETAIL_FULLSCREEN: DetailsReducers
             };
 
             const userReducer = {

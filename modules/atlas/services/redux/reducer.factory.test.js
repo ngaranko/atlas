@@ -1,6 +1,7 @@
 describe('The reducer factory', function () {
     var reducer,
         $window,
+        $timeout,
         urlReducers,
         homeReducers,
         layerSelectionReducers,
@@ -22,7 +23,12 @@ describe('The reducer factory', function () {
             {
                 $window: {
                     reducers: {
-                        detailReducer: angular.noop
+                        detailReducer: angular.noop,
+                        UserReducer: angular.noop,
+                        MapLayersReducer: angular.noop,
+                        MapPanelReducer: angular.noop,
+                        MapOverlaysReducer: angular.noop,
+                        MapBaseLayersReducer: angular.noop
                     }
                 },
                 freeze: jasmine.createSpyObj('freeze', ['deepFreeze']),
@@ -66,6 +72,7 @@ describe('The reducer factory', function () {
         // eslint-disable-next-line max-params
         angular.mock.inject(function (
             _$window_,
+            _$timeout_,
             _urlReducers_,
             _homeReducers_,
             _layerSelectionReducers_,
@@ -81,6 +88,7 @@ describe('The reducer factory', function () {
             _environment_
         ) {
             $window = _$window_;
+            $timeout = _$timeout_;
             urlReducers = _urlReducers_;
             homeReducers = _homeReducers_;
             layerSelectionReducers = _layerSelectionReducers_;
@@ -186,19 +194,85 @@ describe('The reducer factory', function () {
         expect(freeze.deepFreeze).toHaveBeenCalledWith(state);
     });
 
-    it('should map vanilla reducers for cross-compatibility', function () {
-        const payload = { foo: 'bar' };
-        spyOn($window.reducers, 'detailReducer');
-        environment.isDevelopment.and.returnValue(true);
+    describe('should map vanilla reducers for cross-compatibility', function () {
+        let payload;
 
-        reducer(inputState, {
-            payload,
-            type: {
-                id: 'FETCH_DETAIL'
-            }
+        beforeEach(() => {
+            payload = { foo: 'bar' };
+            environment.isDevelopment.and.returnValue(true);
         });
 
-        expect($window.reducers.detailReducer.calls.mostRecent().args[1])
-            .toEqual(jasmine.objectContaining({ payload, type: 'FETCH_DETAIL' }));
+        it('detail reducers', function () {
+            spyOn($window.reducers, 'detailReducer');
+
+            reducer(inputState, {
+                payload,
+                type: {
+                    id: 'FETCH_DETAIL'
+                }
+            });
+
+            expect($window.reducers.detailReducer.calls.mostRecent().args[1])
+                .toEqual(jasmine.objectContaining({ payload, type: 'FETCH_DETAIL' }));
+        });
+
+        it('user reducers', function () {
+            spyOn($window.reducers, 'UserReducer');
+
+            reducer(inputState, {
+                type: 'AUTHENTICATE_USER'
+            });
+
+            expect($window.reducers.UserReducer.calls.mostRecent().args[1])
+                .toEqual(jasmine.objectContaining({ type: 'AUTHENTICATE_USER' }));
+        });
+
+        it('map layers reducers', function () {
+            spyOn($window.reducers, 'MapLayersReducer');
+
+            reducer(inputState, {
+                type: 'FETCH_MAP_LAYERS_REQUEST'
+            });
+
+            expect($window.reducers.MapLayersReducer.calls.mostRecent().args[1])
+                .toEqual(jasmine.objectContaining({ type: 'FETCH_MAP_LAYERS_REQUEST' }));
+        });
+
+        it('map panel reducers', function () {
+            spyOn($window.reducers, 'MapPanelReducer');
+
+            reducer(inputState, {
+                type: 'SHOW_MAP_PANEL'
+            });
+
+            expect($window.reducers.MapPanelReducer.calls.mostRecent().args[1])
+                .toEqual(jasmine.objectContaining({ type: 'SHOW_MAP_PANEL' }));
+        });
+
+        it('map overlays reducers', function () {
+            spyOn($window.reducers, 'MapOverlaysReducer');
+
+            reducer(inputState, {
+                type: 'TOGGLE_MAP_OVERLAY'
+            });
+
+            $timeout.flush();
+
+            expect($window.reducers.MapOverlaysReducer.calls.mostRecent().args[1])
+                .toEqual(jasmine.objectContaining({ type: 'TOGGLE_MAP_OVERLAY' }));
+        });
+
+        it('map base layers reducers', function () {
+            spyOn($window.reducers, 'MapBaseLayersReducer');
+
+            reducer(inputState, {
+                type: 'FETCH_MAP_BASE_LAYERS_REQUEST'
+            });
+
+            $timeout.flush();
+
+            expect($window.reducers.MapBaseLayersReducer.calls.mostRecent().args[1])
+                .toEqual(jasmine.objectContaining({ type: 'FETCH_MAP_BASE_LAYERS_REQUEST' }));
+        });
     });
 });

@@ -17,6 +17,7 @@ class MapLegend extends React.Component {
       'sld_version=1.1.0&',
       `layer=${legendItem.layer || mapLayer.layers[0]}&`,
       'format=image/svg%2Bxml&',
+      'height=24&',
       `rule=${encodeURIComponent(legendItem.title)}`
     ].join('');
   }

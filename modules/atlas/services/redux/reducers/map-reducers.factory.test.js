@@ -2,7 +2,8 @@ describe('The map reducers', function () {
     var mapReducers,
         ACTIONS,
         DEFAULT_STATE,
-        DRAW_TOOL_CONFIG;
+        DRAW_TOOL_CONFIG,
+        $timeout;
 
     DEFAULT_STATE = {
         map: {
@@ -33,10 +34,11 @@ describe('The map reducers', function () {
     beforeEach(function () {
         angular.mock.module('atlas');
 
-        angular.mock.inject(function (_mapReducers_, _ACTIONS_, _DRAW_TOOL_CONFIG_) {
+        angular.mock.inject(function (_mapReducers_, _ACTIONS_, _DRAW_TOOL_CONFIG_, _$timeout_) {
             mapReducers = _mapReducers_;
             ACTIONS = _ACTIONS_;
             DRAW_TOOL_CONFIG = _DRAW_TOOL_CONFIG_;
+            $timeout = _$timeout_;
         });
     });
 
@@ -93,6 +95,9 @@ describe('The map reducers', function () {
                 output;
 
             output = mapReducers[ACTIONS.MAP_ADD_OVERLAY.id](inputState, 'meetbouten');
+
+            $timeout.flush();
+
             expect(output.map.overlays.length).toBe(1);
             expect(output.map.overlays[0].isVisible).toBe(true);
             expect(output.map.overlays[0].id).toBe('meetbouten');

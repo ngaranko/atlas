@@ -67,6 +67,7 @@ module.exports = function (config) {
             { pattern: './node_modules/leaflet.nontiledlayer/dist/NonTiledLayer.js', watched: false },
             { pattern: './node_modules/proj4/dist/proj4.js', watched: false },
             { pattern: './node_modules/proj4leaflet/src/proj4leaflet.js', watched: false },
+            '!src/index.js',
             'src/test-index.js'
         ],
         // possible values: OFF, ERROR, WARN, INFO, DEBUG
@@ -85,16 +86,16 @@ module.exports = function (config) {
             thresholds: {
                 emitWarning: false,
                 global: {
-                    statements: 99,
-                    lines: 99,
-                    branches: 95,
-                    functions: 99
-                /* },
+                    statements: 100,
+                    lines: 100,
+                    branches: 100,
+                    functions: 100
+                },
                 each: {
                     statements: 100,
                     lines: 100,
                     branches: 100,
-                    functions: 100 */
+                    functions: 100
                 }
             }
         },

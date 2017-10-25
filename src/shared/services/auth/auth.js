@@ -153,7 +153,7 @@ function handleCallback() {
 
     // Clean up URL; remove query and hash
     // https://stackoverflow.com/questions/4508574/remove-hash-from-url
-    history.replaceState("", document.title, window.location.pathname);
+    history.replaceState('', document.title, window.location.pathname);
   }
 }
 
@@ -169,7 +169,7 @@ export function getAccessToken() {
 /**
  * Restores the access token from session storage when available.
  */
-function restoreAccessToken () {
+function restoreAccessToken() {
   const accessToken = getAccessToken();
   if (accessToken) {
     tokenData = accessTokenParser(accessToken);
@@ -239,4 +239,13 @@ export function getName() {
   return tokenData.name || '';
 }
 
-window.auth = { getAccessToken, login, logout, initAuth, getReturnPath, isAuthenticated, getScopes, getName };
+window.auth = {
+  getAccessToken,
+  login,
+  logout,
+  initAuth,
+  getReturnPath,
+  isAuthenticated,
+  getScopes,
+  getName
+};
