@@ -37,4 +37,5 @@ export default function MapBaseLayersReducer(state = initialState, action) {
 export const getMapBaseLayers = () => ({ type: FETCH_MAP_BASE_LAYERS_REQUEST });
 export const setMapBaseLayer = mapBaseLayerId => ({ type: SET_MAP_BASE_LAYER, mapBaseLayerId });
 
-window.MapBaseLayersReducer = MapBaseLayersReducer;
+window.reducers = window.reducers || {};
+window.reducers.MapBaseLayersReducer = MapBaseLayersReducer;

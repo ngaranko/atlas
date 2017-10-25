@@ -3,10 +3,17 @@ describe('The api-error component', function () {
         $rootScope,
         currentStatus;
     const httpStatus = {
-        SERVER_ERROR: 'SERVER_ERROR',
-        NOT_FOUND_ERROR: 'NOT_FOUND_ERROR',
-        getStatus: () => currentStatus
-    };
+            NOT_FOUND_ERROR: 'NOT_FOUND_ERROR',
+            LOGIN_ERROR: 'LOGIN_ERROR',
+            getStatus: () => currentStatus,
+            registerError: angular.noop
+        },
+        mockedUser = {
+            authenticated: true,
+            scopes: [],
+            name: '',
+            error: false
+        };
 
     beforeEach(function () {
         angular.mock.module('dpShared', {
@@ -20,15 +27,18 @@ describe('The api-error component', function () {
         });
     });
 
-    function getComponent () {
+    function getComponent (user = mockedUser) {
         var component,
             element,
             scope;
 
         element = document.createElement('dp-api-error');
+        element.setAttribute('user', 'user');
+
         scope = $rootScope.$new();
         component = $compile(element)(scope);
         scope.$apply();
+        scope.user = user;
 
         return component;
     }
@@ -39,16 +49,17 @@ describe('The api-error component', function () {
         expect(component.find('.qa-api-error').attr('is-panel-visible')).toBe('vm.httpStatus.hasErrors');
     });
 
-    it('shows a server error message when SERVER_ERROR is set', function () {
+    it('shows a server error message when LOGIN_ERROR is set', function () {
         currentStatus = {
             hasErrors: true,
-            SERVER_ERROR: true,
+            LOGIN_ERROR: true,
             NOT_FOUND_ERROR: false
         };
 
         const component = getComponent();
-        expect(component.find('.qa-api-server-error').length).toBe(1);
         expect(component.find('.qa-api-not-found-error').length).toBe(0);
+        expect(component.find('.qa-api-login-error').length).toBe(1);
+        expect(component.find('.qa-api-server-error').length).toBe(0);
     });
 
     it('shows a not-found error message when NOT_FOUND_ERROR is set', function () {
@@ -58,8 +69,9 @@ describe('The api-error component', function () {
         };
 
         const component = getComponent();
-        expect(component.find('.qa-api-server-error').length).toBe(0);
         expect(component.find('.qa-api-not-found-error').length).toBe(1);
+        expect(component.find('.qa-api-login-error').length).toBe(0);
+        expect(component.find('.qa-api-server-error').length).toBe(0);
     });
 
     it('defaults to a server error message without any error flags set', function () {
@@ -68,8 +80,9 @@ describe('The api-error component', function () {
         };
 
         const component = getComponent();
-        expect(component.find('.qa-api-server-error').length).toBe(1);
         expect(component.find('.qa-api-not-found-error').length).toBe(0);
+        expect(component.find('.qa-api-login-error').length).toBe(0);
+        expect(component.find('.qa-api-server-error').length).toBe(1);
     });
 
     it('defaults to a server error message with an erroneous error flag set', function () {
@@ -79,7 +92,20 @@ describe('The api-error component', function () {
         };
 
         const component = getComponent();
-        expect(component.find('.qa-api-server-error').length).toBe(1);
         expect(component.find('.qa-api-not-found-error').length).toBe(0);
+        expect(component.find('.qa-api-login-error').length).toBe(0);
+        expect(component.find('.qa-api-server-error').length).toBe(1);
+    });
+
+    it('triggers registerError when user error is detected', function () {
+        const spy = spyOn(httpStatus, 'registerError');
+
+        const user = {...mockedUser};
+        getComponent(user);
+
+        user.error = true;
+        $rootScope.$digest();
+
+        expect(spy).toHaveBeenCalledWith(httpStatus.LOGIN_ERROR);
     });
 });

@@ -1,6 +1,6 @@
 import queryStringParser from './query-string-parser';
 
-describe('The query string parser service', function () {
+xdescribe('The query string parser service', () => {
   it('turns a query string into an object', () => {
     expect(
       queryStringParser('?a=b&one=1&bool=false')

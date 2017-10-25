@@ -33,4 +33,5 @@ export const hideMapPanel = () => ({ type: HIDE_MAP_PANEL });
 export const showMapPanel = () => ({ type: SHOW_MAP_PANEL });
 export const toggleMapPanel = () => ({ type: TOGGLE_MAP_PANEL });
 
-window.MapPanelReducer = MapPanelReducer;
+window.reducers = window.reducers || {};
+window.reducers.MapPanelReducer = MapPanelReducer;

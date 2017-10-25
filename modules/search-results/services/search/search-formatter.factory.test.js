@@ -165,7 +165,8 @@ describe('The searchFormatter factory', function () {
                             slug: 'brk-object',
                             label_singular: 'Kadastraal object',
                             label_plural: 'Kadastrale objecten',
-                            uri: 'path-to/brk-object/'
+                            uri: 'path-to/brk-object/',
+                            authScope: 'authenticated'
                         }
                     ]
                 });
@@ -179,7 +180,7 @@ describe('The searchFormatter factory', function () {
 
         mockedUser = {
             authenticated: false,
-            scopes: [],
+            scopes: ['authenticated'],
             name: ''
         };
 
@@ -282,13 +283,13 @@ describe('The searchFormatter factory', function () {
                 count: 0,
                 results: [],
                 useIndenting: false,
-                authScope: null,
+                authScope: 'authenticated',
                 next: null
             }
         ]);
     });
 
-    it('has a formatCategory function (one single category)', function () {
+    it('has a formatCategory function (one single category) when auth scope is valid', function () {
         var output;
 
         output = searchFormatter.formatCategory('adres', mockedInputCategories[0]);

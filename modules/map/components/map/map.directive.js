@@ -17,8 +17,9 @@
         'activeOverlays'
     ];
 
+    // eslint-disable-next-line max-params
     function dpMapDirective ($timeout, $window, L, mapConfig, layers, highlight, panning, zoom, onMapClick, overlays,
-        activeOverlays) {
+                             activeOverlays) {
         return {
             restrict: 'E',
             scope: {

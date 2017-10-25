@@ -24,7 +24,7 @@
             try {
                 $window.auth.login();
             } catch (error) {
-                store.dispatch({ type: ACTIONS.AUTHENTICATE_ERROR.id });
+                store.dispatch({ type: ACTIONS.AUTHENTICATE_ERROR });
             }
         };
 
