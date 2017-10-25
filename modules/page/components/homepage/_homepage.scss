@@ -19,12 +19,6 @@ $show-more-height: 70px;
   box-sizing: border-box;
   background-origin: border-box;
 
-  &:not(.c-homepage__block--datasets) {
-    &:hover {
-      box-shadow: $primary-dark 2px 2px, $primary-dark 2px 0;
-    }
-  }
-
   &::before {
     display: none;
   }
@@ -40,6 +34,8 @@ $show-more-height: 70px;
   }
 
   &:hover {
+    box-shadow: $primary-dark 2px 2px, $primary-dark 2px 0;
+
     .c-homepage__block-button {
       height: $button-height;
       transform: translateY(0);
@@ -147,21 +143,6 @@ $show-more-height: 70px;
   background-image: url("assets/images/amsterdam-maps.png");
 }
 
-.c-homepage__block--datasets {
-  .c-homepage__block-button {
-    &:hover {
-      transform: translateY(0);
-      background-color: $primary-light;
-    }
-  }
-
-  &:not(.c-homepage__block--shadow) {
-    &::after {
-      @include icon-button("link-arrow", "light-gray", "light-gray");
-    }
-  }
-}
-
 .c-homepage__block-button {
   position: absolute;
   right: 0;
@@ -188,6 +169,7 @@ $show-more-height: 70px;
 .c-homepage__block-details {
   @include font-weight($normal-weight);
   width: 100%;
+  max-width: 300px;
   color: $primary-dark;
   line-height: 3.5 * $base-whitespace;
 }

@@ -8,7 +8,7 @@ $base-padding: calc(#{$base-whitespace} * 2);
 }
 
 .c-catalogus-themes__column {
-  margin: 7px 0 17px;  // to position the button links under the themes
+  margin: 4px 0 17px;  // to position the button links under the themes
   font-size: 0;
 }
 
@@ -18,7 +18,7 @@ $base-padding: calc(#{$base-whitespace} * 2);
 
 .c-catalogus-theme__icon {
   width: 100%;
-  height: 45px;
+  height: 40px;
   margin-bottom: ($base-whitespace / 2);
 
   &::before {
