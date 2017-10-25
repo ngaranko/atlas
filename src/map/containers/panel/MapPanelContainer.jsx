@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { getMapBaseLayers, setMapBaseLayer } from '../../ducks/base-layers/map-base-layers';
-import { toggleMapOverlay, toggleMapOverlayVisibility } from '../../ducks/overlays/overlays';
+import { toggleMapOverlay, toggleMapOverlayVisibility } from '../../ducks/overlays/map-overlays';
 import { getMapLayers, selectActiveMapLayers } from '../../ducks/layers/map-layers';
 import { toggleMapPanel } from '../../ducks/panel/map-panel';
 import CollapseIcon from '../../../../public/images/icon-arrow-down.svg';
@@ -52,7 +52,7 @@ class MapPanelContainer extends React.Component {
       <section className={`
         map-panel
         map-panel--${this.props.isMapPanelVisible ? 'expanded' : 'collapsed'}
-        map-panel--has-${this.props.activeMapLayers.length > 0 ? '' : 'no'}-active-layers
+        map-panel--has${this.props.activeMapLayers.length > 0 ? '' : '-no'}-active-layers
       `}
       >
         <div className="map-panel__heading">

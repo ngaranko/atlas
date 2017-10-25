@@ -9,12 +9,12 @@
     border-top: 1px solid #999999;
     display: flex;
     justify-content: space-between;
-    padding: 10px;
+    padding: 9px 10px;
     position: relative;
 
     &:after {
       background-color: #999999;
-      bottom: 0;
+      bottom: -1px;
       content: '';
       display: block;
       height: 1px;
@@ -31,6 +31,10 @@
     margin: 10px;
     padding: 10px;
     text-align: center;
+
+    .map-legend__map-layer--hidden & {
+      display: none;
+    }
   }
 
   &__items {
@@ -94,18 +98,32 @@
   .is-embed-preview &,
   .is-print-mode & {
     &__category {
+      font-size: 14px;
+      padding-bottom: 0;
+
+      &:after,
       button,
       .checkbox {
         display: none;
       }
     }
 
-    &__items .checkbox {
-      display: none;
-    }
-
     &__image {
       margin-left: 0;
+    }
+
+    &__item {
+      font-size: 14px;
+
+      & + .map-legend__item {
+        margin-top: 6px;
+      }
+    }
+
+    &__item--hidden,
+    &__items .checkbox,
+    &__map-layer--hidden {
+      display: none;
     }
   }
 }
