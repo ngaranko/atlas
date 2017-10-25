@@ -68,7 +68,7 @@ if (BRANCH == "master") {
     }
 
     node {
-        stage("Deploy to PRE") {
+        stage("Deploy to PRE-Production") {
             tryStep "deployment", {
                 build job: 'Subtask_Openstack_Playbook',
                 parameters: [
