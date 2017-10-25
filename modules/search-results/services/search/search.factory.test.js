@@ -22,7 +22,8 @@ describe('The search factory', function () {
                 slug: 'openbare_ruimte',
                 label_singular: 'Openbare ruimte',
                 label_plural: 'Openbare ruimtes',
-                uri: 'path/to/openbare_ruimte/'
+                uri: 'path/to/openbare_ruimte/',
+                authScope: 'authenticated'
             }
         ];
 
@@ -119,7 +120,7 @@ describe('The search factory', function () {
 
         mockedUser = {
             authenticated: false,
-            scopes: [],
+            scopes: ['authenticated'],
             name: ''
         };
 
@@ -147,7 +148,8 @@ describe('The search factory', function () {
         expect(count).toBe(1);
     });
 
-    it('can retrieve formatted search results for all categories based on a query', function () {
+    it('can retrieve formatted search results for all categories based on a query when auth scope is ' +
+        'valid', function () {
         var searchResults;
 
         search.search('Waterlooplein').then(function (_searchResults_) {

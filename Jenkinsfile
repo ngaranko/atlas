@@ -60,7 +60,7 @@ if (BRANCH == "master") {
     node {
         stage('Build and Push preproduction image') {
             tryStep "image tagging", {
-                def image = docker.build("build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}-preprodcution")
+                def image = docker.build("build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}-preproduction")
                 image.push("preproduction")
                 image.push()
             }
@@ -68,7 +68,7 @@ if (BRANCH == "master") {
     }
 
     node {
-        stage("Deploy to PRE") {
+        stage("Deploy to PRE-Production") {
             tryStep "deployment", {
                 build job: 'Subtask_Openstack_Playbook',
                 parameters: [

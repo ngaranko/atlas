@@ -35,11 +35,12 @@ export default function UserReducer(state = initialState, action) {
     default:
       return state;
   }
-};
+}
 
 export const authenticateUser = (accessToken, name, scopes) =>
   ({ type: AUTHENTICATE_USER, accessToken, name, scopes });
 
 export const authenticateError = () => ({ type: AUTHENTICATE_ERROR });
 
-window.UserReducer = UserReducer;
+window.reducers = window.reducers || {};
+window.reducers.UserReducer = UserReducer;

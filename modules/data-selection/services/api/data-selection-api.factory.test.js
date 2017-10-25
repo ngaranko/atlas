@@ -211,9 +211,9 @@ describe('The dataSelectionApi factory', function () {
             expect(count).toBe(3);
         });
 
-        it('calls the api factory with the configuration, active filters and page', function () {
+        it('calls the api factory with the configuration, (optional) active filters and page', function () {
             // Without active filters
-            dataSelectionApi.query('zwembaden', 'TABLE', {}, 1, []);
+            dataSelectionApi.query('zwembaden', 'TABLE', undefined, 1, []);
             expect(mockedApiService.query).toHaveBeenCalledWith(mockedConfig.datasets.zwembaden, {}, 1, [], undefined);
 
             // With active filters

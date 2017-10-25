@@ -46,4 +46,5 @@ export const selectActiveMapLayers = (state) => {
     });
 };
 
-window.MapLayersReducer = MapLayersReducer;
+window.reducers = window.reducers || {};
+window.reducers.MapLayersReducer = MapLayersReducer;

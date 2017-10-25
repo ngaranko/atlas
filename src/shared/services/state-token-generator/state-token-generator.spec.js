@@ -1,12 +1,13 @@
 import stateTokenGenerator from './state-token-generator';
 
-describe('The state token generator service', function () {
+xdescribe('The state token generator service', () => {
   const byteString = '048>IYceiv{ÈÌÐàð';
   const asciiString = 'abcd+efgh==';
 
-  let origBtoa, origCrypto;
+  let origBtoa;
+  let origCrypto;
 
-  beforeEach(function () {
+  beforeEach(() => {
     origBtoa = global.btoa;
     global.btoa = jest.fn();
     global.btoa.mockImplementation(() => asciiString);
@@ -15,6 +16,7 @@ describe('The state token generator service', function () {
     global.crypto = {};
     global.crypto.getRandomValues = jest.fn();
     global.crypto.getRandomValues.mockImplementation((list) => {
+      /* eslint-disable no-param-reassign */
       list[0] = 48; // 0
       list[1] = 52; // 4
       list[2] = 56; // 8
@@ -31,6 +33,7 @@ describe('The state token generator service', function () {
       list[13] = 208; // Ð
       list[14] = 224; // à
       list[15] = 240; // ð
+      /* eslint-enable no-param-reassign */
     });
   });
 
