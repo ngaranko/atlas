@@ -166,6 +166,13 @@ $show-more-height: 70px;
   }
 }
 
+.c-homepage__block-details-title {
+  padding-right: 3 * $base-whitespace;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .c-homepage__block-details {
   @include font-weight($normal-weight);
   width: 100%;
