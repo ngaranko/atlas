@@ -70,7 +70,7 @@
   },
   "scripts": {
     "build": "npm run build-prod",
-    "build-acc": "grunt && npm run lint && npm test && webpack --config webpack.acc.js",
+    "build-acc": "grunt && webpack --config webpack.acc.js",
     "build-dev": "grunt && webpack --config webpack.dev.js",
     "build-prod": "grunt && npm run lint && npm test && webpack --config webpack.prod.js",
     "build-test": "grunt && webpack --config webpack.acc.js",
