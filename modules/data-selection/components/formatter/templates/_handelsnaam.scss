@@ -1,0 +1,10 @@
+.c-handelsnaam__failliet {
+  display: inline-block;
+  font-style: italic;
+
+  &::after {
+    // TODO put in the right icon
+    @include icon-button-text-left("energie", "red");
+    margin-left: 5px;
+  }
+}
