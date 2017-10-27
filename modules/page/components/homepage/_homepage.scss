@@ -6,12 +6,18 @@ $button-height: 100px;
 $button-tall-height: 134px;
 $show-more-height: 70px;
 
+.c-homepage {
+  margin-right: -$base-whitespace;
+  margin-left: -$base-whitespace;
+}
+
 .c-homepage__block {
   @extend %link--arrow;
   display: block;
   position: relative;
+  margin-right: $base-whitespace;
   margin-bottom: 2 * $base-whitespace;
-  margin-left: 0;
+  margin-left: $base-whitespace;
   background-color: $secondary-gray4;
   background-position: center center;
   background-size: cover;
@@ -50,14 +56,6 @@ $show-more-height: 70px;
 
 .c-homepage__block--shadow {
   box-shadow: $primary-dark 2px 2px, $primary-dark 2px 0;
-}
-
-.c-homepage__block--left {
-  margin-right: 2 * $base-whitespace;
-}
-
-.c-homepage__block--middle {
-  margin-right: 2 * $base-whitespace;
 }
 
 .c-homepage__block--tall {
@@ -121,14 +119,6 @@ $show-more-height: 70px;
 .c-homepage__beleid {
   padding: 2 * $base-whitespace;
   padding-top: 0;
-}
-
-.c-homepage__block--data-selection {
-  width: 48.5% !important;
-}
-
-.c-homepage__block--adressen-vestigingen {
-  width: 26.5% !important;
 }
 
 .c-homepage__block--vestigingen {
