@@ -188,12 +188,6 @@
                             slug: 'bijzondere_rechtstoestand',
                             label: 'Bijzondere rechtstoestand'
                         }, {
-                            slug: 'hoofdcategorie',
-                            label: 'Hoofdcategorie'
-                        }, {
-                            slug: 'subcategorie',
-                            label: 'Subcategorie'
-                        }, {
                             slug: 'stadsdeel_naam',
                             label: 'Stadsdeel'
                         }, {
