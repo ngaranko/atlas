@@ -17,10 +17,6 @@
   width: 28%;
   z-index: 100;
 
-  @media screen and (min-width: 1200px) {
-    height: calc(100vh - 40px - 50px - 130px);
-  }
-
   &--collapsed {
     height: auto;
     min-width: auto;
@@ -41,10 +37,6 @@
     border-bottom: 1px solid #999999;
     display: flex;
     padding: 4px;
-
-    @media screen and (min-width: 1200px) {
-      padding: 8px;
-    }
 
     .map-panel--collapsed & {
       border-bottom: none;
@@ -93,10 +85,6 @@
 
     .map-panel--collapsed & {
       margin-left: 4px;
-
-      @media screen and (min-width: 1200px) {
-        margin-left: 8px;
-      }
     }
   }
 
@@ -127,10 +115,6 @@
     overflow-y: auto;
     /* NB: Workaround to force smooth scrolling on Chrome */
     will-change: transform;
-
-    @media screen and (min-width: 1200px) {
-      height: calc(100% - 45px);
-    }
   }
 
   .is-embed &,

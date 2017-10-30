@@ -12,10 +12,12 @@
             controllerAs: 'vm'
         });
 
-    DpToggleFullscreenController.$inject = ['$scope'];
+    DpToggleFullscreenController.$inject = ['$scope', 'store'];
 
-    function DpToggleFullscreenController ($scope) {
+    function DpToggleFullscreenController ($scope, store) {
         const vm = this;
+
+        vm.toggle = () => store.dispatch({ type: { id: 'MAP_FULLSCREEN' }, payload: !vm.isFullscreen });
 
         $scope.$watch('vm.isFullscreen', function () {
             vm.buttonText = `Kaart ${vm.isFullscreen ? 'verkleinen' : 'vergroten'}`;
