@@ -26,6 +26,10 @@
     min-width: auto;
     width: auto;
 
+    &:hover {
+      border-color: #EC0000;
+    }
+
     .scroll-wrapper {
       display: none;
     }
@@ -44,6 +48,16 @@
 
     .map-panel--collapsed & {
       border-bottom: none;
+
+      &:hover {
+        background-color: #EC0000;
+        cursor: pointer;
+
+        .map-panel__heading-icon,
+        .map-panel__toggle-icon {
+          fill: #FFFFFF;
+        }
+      }
     }
   }
 
