@@ -13,18 +13,22 @@
     border-top: 1px solid #999999;
     display: flex;
     justify-content: space-between;
-    padding: 9px 10px;
+    padding: 9px 10px 0 10px;
     position: relative;
 
-    &:after {
-      background-color: #999999;
-      bottom: -1px;
-      content: '';
-      display: block;
-      height: 1px;
-      left: 0;
-      position: absolute;
-      width: 34px;
+    &--selectable-legend {
+      padding-bottom: 9px;
+
+      &:after {
+        background-color: #999999;
+        bottom: -1px;
+        content: '';
+        display: block;
+        height: 1px;
+        left: 0;
+        position: absolute;
+        width: 36px;
+      }
     }
   }
 
@@ -62,7 +66,7 @@
     width: 16px;
 
     &--not-selectable {
-      margin-left: 34px;
+      margin-left: 36px;
     }
 
     & + * {
@@ -81,6 +85,10 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 100%;
+  }
+
+  &__title {
+    font-family: "Avenir LT W01 45 Book";
   }
 
   &__toggle {

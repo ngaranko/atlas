@@ -63,7 +63,12 @@ class MapLegend extends React.Component {
             `}
             key={mapLayer.title}
           >
-            <div className="map-legend__category">
+            <div
+              className={`
+                map-legend__category
+                map-legend__category--${mapLayer.legendItems.some(legendItem => legendItem.selectable) ? '' : 'un'}selectable-legend
+              `}
+            >
               <Checkbox
                 checked={() => this.determineLayerVisibility(mapLayer)}
                 name={mapLayer.title}
