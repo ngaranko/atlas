@@ -13,22 +13,22 @@
     border-top: 1px solid #999999;
     display: flex;
     justify-content: space-between;
-    padding: 9px 10px 0 10px;
+    padding: 9px 10px;
     position: relative;
 
-    &--selectable-legend {
-      padding-bottom: 9px;
+    &--selectable-legend:after {
+      background-color: #999999;
+      bottom: -1px;
+      content: '';
+      display: block;
+      height: 1px;
+      left: 0;
+      position: absolute;
+      width: 36px;
+    }
 
-      &:after {
-        background-color: #999999;
-        bottom: -1px;
-        content: '';
-        display: block;
-        height: 1px;
-        left: 0;
-        position: absolute;
-        width: 36px;
-      }
+    &--unselectable-legend + .map-legend__items {
+      padding-top: 0;
     }
   }
 
@@ -47,6 +47,10 @@
 
   &__items {
     padding: 10px;
+
+    .map-legend__map-layer--hidden & {
+      display: none;
+    }
   }
 
   &__item {
@@ -132,7 +136,6 @@
       }
     }
 
-    &__item--hidden,
     &__items .checkbox,
     &__map-layer--hidden {
       display: none;
