@@ -16,7 +16,7 @@ function isExternal(module) {
   if (typeof context !== 'string') {
     return false;
   }
-  return context.indexOf('node_modules') !== -1 || context.indexOf('bower_components') !== -1;
+  return context.indexOf('node_modules') !== -1;
 }
 
 function commonConfig({ nodeEnv }) {
@@ -31,10 +31,7 @@ function commonConfig({ nodeEnv }) {
     },
     resolve: {
       extensions: ['.js', '.jsx'],
-      modules: [
-        './node_modules',
-        './bower_components'
-      ]
+      modules: ['./node_modules']
     },
     module: {
       rules: [
@@ -115,7 +112,7 @@ function commonConfig({ nodeEnv }) {
         // Simply copy the leaflet styling for now
         { from: './node_modules/leaflet/dist/leaflet.css' },
         { from: './node_modules/leaflet-draw/dist/leaflet.draw.css' },
-        { from: './bower_components/bbga_visualisatie_d3/bbga.css' },
+        { from: './node_modules/bbga_visualisatie_d3/bbga.css' },
 
         // proj4 is giving troubles when included by webpack, resulting in syntax
         // errors. For now it is dumbly being copied to the output directory.
@@ -149,11 +146,11 @@ function commonConfig({ nodeEnv }) {
           from: 'images/icons-*.svg',
           to: 'assets'
         },
-        { from: './bower_components/bbga_visualisatie_d3/liberation-sans.eot' },
-        { from: './bower_components/bbga_visualisatie_d3/liberation-sans.woff2' },
-        { from: './bower_components/bbga_visualisatie_d3/liberation-sans.woff' },
-        { from: './bower_components/bbga_visualisatie_d3/liberation-sans.ttf' },
-        { from: './bower_components/bbga_visualisatie_d3/liberation-sans.svg' }
+        { from: './node_modules/bbga_visualisatie_d3/liberation-sans.eot' },
+        { from: './node_modules/bbga_visualisatie_d3/liberation-sans.woff2' },
+        { from: './node_modules/bbga_visualisatie_d3/liberation-sans.woff' },
+        { from: './node_modules/bbga_visualisatie_d3/liberation-sans.ttf' },
+        { from: './node_modules/bbga_visualisatie_d3/liberation-sans.svg' }
       ]),
       new HtmlWebpackPlugin({
         inject: false,

@@ -8,7 +8,6 @@
 
 ## Installations
 - npm install
-- bower install
 - npm start
 - Open the server at http://localhost:8080/
 
