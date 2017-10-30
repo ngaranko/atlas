@@ -9,9 +9,9 @@
             controllerAs: 'vm'
         });
 
-    DpDashboardController.$inject = ['$scope', 'store', 'ACTIONS', 'dashboardColumns', 'HEADER'];
+    DpDashboardController.$inject = ['$scope', '$timeout', 'store', 'ACTIONS', 'dashboardColumns', 'HEADER'];
 
-    function DpDashboardController ($scope, store, ACTIONS, dashboardColumns, HEADER) {
+    function DpDashboardController ($scope, $timeout, store, ACTIONS, dashboardColumns, HEADER) {
         const vm = this;
 
         vm.store = store;
@@ -24,7 +24,7 @@
             if (vm.isStraatbeeldActive) {
                 store.dispatch({ type: ACTIONS.MAP_ADD_PANO_OVERLAY });
             } else {
-                store.dispatch({ type: ACTIONS.MAP_REMOVE_PANO_OVERLAY });
+                $timeout(() => store.dispatch({ type: ACTIONS.MAP_REMOVE_PANO_OVERLAY }));
             }
         });
 
