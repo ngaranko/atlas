@@ -254,7 +254,7 @@ import '../modules/straatbeeld/straatbeeld-config.constant';
 import '../modules/straatbeeld/straatbeeld.vendor';
 
 // The mocks
-import '../bower_components/angular-mocks/angular-mocks.js';
+import 'angular-mocks';
 import '../modules/shared-mocks/shared-mocks.module.js';
 
 // All our modules' javascript tests
