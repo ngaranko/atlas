@@ -1,5 +1,9 @@
 .map-type {
-  padding: 10px 10px 20px;
+  margin: 16px 8px;
+
+  @media screen and (min-width: 1200px) {
+    margin: 24px 12px;
+  }
 
   &__title {
     font-family: "Avenir LT W01 85 Heavy";
@@ -10,7 +14,11 @@
     display: inline-block;
     margin-bottom: 10px;
     min-width: 195px;
-    width: calc(50% - 5px);
+    width: 100%;
+
+    @media screen and (min-width: 1200px) {
+      width: calc(50% - 5px);
+    }
 
     &--topography {
       margin-right: 10px;
