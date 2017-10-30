@@ -378,9 +378,9 @@
                     meta: []
                 },
                 VESTIGING: {
-                    label_singular: 'Vestiging',
-                    label_plural: 'Vestigingen',
-                    description: 'Een Vestiging is gebouw of een complex van gebouwen waar duurzame uitoefening ' +
+                    label_singular: 'Inschrijving',
+                    label_plural: 'Inschrijvingen',
+                    description: 'Een Inschrijving is gebouw of een complex van gebouwen waar duurzame uitoefening ' +
                         'van activiteiten van een Onderneming of Rechtspersoon plaatsvindt.',
                     url: 'https://www.amsterdam.nl/stelselpedia/hr-index/catalogus/vestiging/',
                     meta: [],
