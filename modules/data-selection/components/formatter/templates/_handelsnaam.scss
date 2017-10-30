@@ -3,8 +3,12 @@
   font-style: italic;
 
   &::after {
-    // TODO put in the right icon
-    @include icon-button-text-left("energie", "red");
-    margin-left: 5px;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-left: .5 * $base-whitespace;
+    border-radius: 50%;
+    background-color: $primary-contrast;
+    content: "";
   }
 }
