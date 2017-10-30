@@ -32,6 +32,15 @@
     }
   }
 
+  &--preview {
+    bottom: 109px;
+    left: auto;
+    right: 10px;
+    top: 99px;
+    height: auto;
+    max-height: none;
+  }
+
   &__heading {
     align-items: center;
     background-color: #FFFFFF;
@@ -69,6 +78,10 @@
     font-weight: normal;
     margin-left: 4px;
     text-align: left;
+
+    &--hidden {
+      visibility: hidden;
+    }
 
     .map-panel--collapsed & {
       display: none;
