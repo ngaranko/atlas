@@ -188,20 +188,8 @@
                             slug: 'bijzondere_rechtstoestand',
                             label: 'Bijzondere rechtstoestand'
                         }, {
-                            slug: 'sbi_l1',
-                            label: 'SBI'
-                        }, {
-                            slug: 'sbi_l2',
-                            label: 'SBI'
-                        }, {
-                            slug: 'sbi_l3',
-                            label: 'SBI'
-                        }, {
-                            slug: 'sbi_l4',
-                            label: 'SBI'
-                        }, {
-                            slug: 'sbi_l5',
-                            label: 'SBI'
+                            slug: 'sbi_code',
+                            label: 'SBI-code'
                         }, {
                             slug: 'stadsdeel_naam',
                             label: 'Stadsdeel'

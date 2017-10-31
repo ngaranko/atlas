@@ -39,7 +39,13 @@ console.log('=================================', vm);
 
             filters[filterSlug] = optionId;
 
+            console.log('sbi apply ', filterSlug, optionId);
             applyFilters(filters);
+        };
+
+        vm.onChange = () => {
+            console.log('CHANGE', vm.sbiCode);
+             vm.addFilter('sbi_code', 6420);
         };
 
         vm.showExpandButton = function (filterSlug) {

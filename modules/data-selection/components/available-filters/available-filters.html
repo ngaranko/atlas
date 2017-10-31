@@ -3,13 +3,13 @@
          ng-show="vm.hasInactiveFilterOptions(filter)"
          ng-repeat="filter in vm.availableFilters">
 
-        <div ng-if="filter.slug === 'sbi_l1'" />
+        <div ng-if="filter.slug === 'sbi_code'" />
             <dp-sbi-filter
                 available-filters="vm.availableFilters"
                 active-filters="vm.activeFilters" />
         </div>
 
-        <div ng-if="!filter.slug.startsWith('sbi')">
+        <div ng-if="filter.slug !== 'sbi_code'">
             <h2 class="c-data-selection-available-filters__category-label qa-category-header">{{filter.label}}</h2>
 
             <ul>
