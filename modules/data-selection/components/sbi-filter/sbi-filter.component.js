@@ -3,24 +3,26 @@
 
     angular
         .module('dpDataSelection')
-        .component('dpDataSelectionAvailableFilters', {
+        .component('dpSbiFilter', {
             bindings: {
-                dataset: '@',
                 availableFilters: '=',
                 activeFilters: '='
             },
-            templateUrl: 'modules/data-selection/components/available-filters/available-filters.html',
-            controller: DpDataSelectionAvailableFiltersController,
+            templateUrl: 'modules/data-selection/components/sbi-filter/sbi-filter.html',
+            controller: DpSbiFilterController,
             controllerAs: 'vm'
         });
 
-    DpDataSelectionAvailableFiltersController.$inject = ['$scope', 'store', 'ACTIONS', 'DATA_SELECTION_CONFIG'];
+    DpSbiFilterController.$inject = ['$scope', 'store', 'ACTIONS', 'DATA_SELECTION_CONFIG'];
 
-    function DpDataSelectionAvailableFiltersController ($scope, store, ACTIONS, DATA_SELECTION_CONFIG) {
+    function DpSbiFilterController ($scope, store, ACTIONS, DATA_SELECTION_CONFIG) {
         var vm = this,
             expandedFilters = [];
 
-        $scope.$watch('vm.dataset', updateConfig, true);
+            vm.showOptionCounts = false;
+
+console.log('=================================', vm);
+        // $scope.$watch('vm.dataset', updateConfig, true);
 
         vm.showMoreThreshold = 10;
 
@@ -75,9 +77,9 @@
             return vm.availableFilters.filter(filter => filter.slug === filterSlug);
         }
 
-        function updateConfig () {
-            vm.showOptionCounts = DATA_SELECTION_CONFIG.datasets[vm.dataset].SHOW_FILTER_OPTION_COUNTS;
-        }
+        // function updateConfig () {
+            // vm.showOptionCounts = DATA_SELECTION_CONFIG.datasets[vm.dataset].SHOW_FILTER_OPTION_COUNTS;
+        // }
 
         function applyFilters (filters) {
             store.dispatch({
