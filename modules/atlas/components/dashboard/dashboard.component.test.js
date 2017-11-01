@@ -1,6 +1,7 @@
 describe('The dashboard component', function () {
     var $compile,
         $rootScope,
+        $timeout,
         $window,
         origAuth,
         store,
@@ -67,9 +68,11 @@ describe('The dashboard component', function () {
             }
         };
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _$window_, _store_, _ACTIONS_, _dashboardColumns_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _$timeout_, _$window_, _store_, _ACTIONS_,
+                                      _dashboardColumns_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
+            $timeout = _$timeout_;
             $window = _$window_;
             store = _store_;
             ACTIONS = _ACTIONS_;
@@ -322,9 +325,14 @@ describe('The dashboard component', function () {
             handler();
             $rootScope.$digest();
 
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: 'HIDE_MAP_PANEL'
-            });
+            $timeout.flush();
+
+            $rootScope.$digest();
+
+            expect(store.dispatch.calls.mostRecent()).toEqual(jasmine.objectContaining({ args: [{ type: {
+                id: 'MAP_REMOVE_PANO_OVERLAY',
+                ignore: true
+            } }] }));
         });
 
         it('are changed when the straatbeeld history selection changes', () => {
