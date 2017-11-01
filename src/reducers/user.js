@@ -2,11 +2,13 @@ export const AUTHENTICATE_USER = 'AUTHENTICATE_USER';
 export const AUTHENTICATE_ERROR = 'AUTHENTICATE_ERROR';
 
 const initialState = {
-  authenticated: false,
-  accessToken: '',
-  scopes: [],
-  name: '',
-  error: false
+  user: {
+    authenticated: false,
+    accessToken: '',
+    scopes: [],
+    name: '',
+    error: false
+  }
 };
 
 export default function UserReducer(state = initialState, action) {

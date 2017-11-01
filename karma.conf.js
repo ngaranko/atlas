@@ -10,10 +10,7 @@ const webpackConfig = {
     path: dist
   },
   resolve: {
-    modules: [
-      './node_modules',
-      './bower_components'
-    ]
+    modules: ['./node_modules']
   },
   devtool: 'inline-source-map',
   module: {
