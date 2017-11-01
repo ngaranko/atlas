@@ -8,6 +8,7 @@
     align-items: center;
     border: 1px solid #7E7E7E;
     border-right: none;
+    border-radius: 0;
     display: flex;
     height: 36px;
     justify-content: space-between;
@@ -28,6 +29,7 @@
 
   &__icon-wrapper {
     border: 1px solid #7E7E7E;
+    border-radius: 0;
     bottom: 0;
     height: 36px;
     outline: none;
@@ -139,6 +141,7 @@
   &__label,
   &__drop-down-button {
     font-family: "Avenir LT W01 85 Heavy";
+    font-size: 16px;
     padding-right: 10px;
     text-align: left;
     width: inherit;
@@ -147,6 +150,7 @@
   &__drop-down-button {
     appearance: none;
     font-family: "Avenir LT W01 55 Roman";
+    font-size: 16px;
     outline: none;
     padding: 7px 10px 7px 33px;
 

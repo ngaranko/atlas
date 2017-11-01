@@ -7,6 +7,7 @@
   border: solid 1px #CCCCCC;
   bottom: 8px;
   box-shadow: 2px 2px 0 0 #999999;
+  font-family: "Avenir LT W01 55 Roman";
   height: calc(100vh - 32px - 50px - 130px);
   left: 8px;
   min-width: 285px;
@@ -75,6 +76,7 @@
   }
 
   &__toggle {
+    border-radius: 0;
     height: 24px;
     outline: none;
     width: 24px;

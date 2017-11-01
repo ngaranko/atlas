@@ -113,6 +113,8 @@
   .is-embed &,
   .is-embed-preview &,
   .is-print-mode & {
+    margin-bottom: 12px;
+
     &__category {
       font-size: 14px;
       padding-bottom: 0;
