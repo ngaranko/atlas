@@ -2,14 +2,13 @@
     <div class="c-sbi-filter__category">
         <h2 class="c-sbi-filter__category-label qa-category-header">SBI-code</h2>
 
-        <form>
+        <form class="c-sbi-filter__form">
             <input
                 class="c-sbi-filter__input"
                 ng-model="vm.sbiCode"
                 ng-model-options="{ updateOn: 'change' }"
                 ng-change="vm.onSubmit()"
-                />
-            <button
+            /><button
                 class="c-sbi-filter__submit"
                 type="submit"
                 ng-click="vm.onSubmit()">Selecteer</button>

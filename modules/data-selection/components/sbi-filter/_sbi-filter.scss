@@ -51,15 +51,22 @@ $sbi-filter-item-height: 32px;
   color: $secondary-gray40;
 }
 
+.c-sbi-filter__form {
+  display: flex;
+}
+
 .c-sbi-filter__input {
-  padding: 2px 7px;
+  flex-grow: 1;
+  padding: 3px 7px;
+  width: 50px;
   background-color: #fff;
   border: 1px solid #ccc;
 }
 
 .c-sbi-filter__submit {
   color: #666;
-  padding: 2px 7px;
+  margin-left: 10px;
+  padding: 3px 7px;
   background-color: #fcfcfc;
   border: 1px solid #ccc;
 }
