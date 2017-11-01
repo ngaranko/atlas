@@ -16,15 +16,16 @@
     DpSbiFilterController.$inject = ['$scope', 'store', 'ACTIONS', 'DATA_SELECTION_CONFIG'];
 
     function DpSbiFilterController ($scope, store, ACTIONS, DATA_SELECTION_CONFIG) {
-        var vm = this,
-            expandedFilters = [];
+        var vm = this;
 
-            vm.showOptionCounts = false;
+        vm.sbiCode = vm.activeFilters.sbi_code && vm.activeFilters.sbi_code.replace(/[\[\]]/g, '');
+
+            // vm.showOptionCounts = false;
 
         // $scope.$watch('vm.dataset', updateConfig, true);
 
-        vm.showMoreThreshold = 10;
-console.log('SBi filter', vm);
+        // vm.showMoreThreshold = 10;
+
         // vm.hasInactiveFilterOptions = function (filter) {
             // return !filter.options.some(option => vm.isFilterOptionActive(filter.slug, option.id, option.label));
         // };
@@ -42,7 +43,6 @@ console.log('SBi filter', vm);
         };
 
         vm.onSubmit = () => {
-            console.log('SUBMIT', `[${vm.sbiCode}]`);
              vm.addFilter('sbi_code', `[${vm.sbiCode}]`);
         };
 
