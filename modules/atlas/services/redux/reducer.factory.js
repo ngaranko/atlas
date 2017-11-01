@@ -46,6 +46,7 @@
             const UserReducer = $window.reducers.UserReducer;
             const MapLayersReducer = $window.reducers.MapLayersReducer;
             const MapPanelReducer = $window.reducers.MapPanelReducer;
+            const MapPreviewPanelReducer = $window.reducers.MapPreviewPanelReducer;
             const MapOverlaysReducer = $window.reducers.MapOverlaysReducer;
             const MapBaseLayersReducer = $window.reducers.MapBaseLayersReducer;
 
@@ -84,15 +85,22 @@
             };
 
             const mapPanelReducers = {
-                HIDE_MAP_PANEL: MapOverlaysReducer,
-                SHOW_MAP_PANEL: MapOverlaysReducer,
-                TOGGLE_MAP_PANEL: MapOverlaysReducer
+                HIDE_MAP_PANEL: MapPanelReducer,
+                SHOW_MAP_PANEL: MapPanelReducer,
+                TOGGLE_MAP_PANEL: MapPanelReducer
+            };
+
+            const mapPreviewPanelReducers = {
+                OPEN_MAP_PREVIEW_PANEL: MapPreviewPanelReducer,
+                CLOSE_MAP_PREVIEW_PANEL: MapPreviewPanelReducer,
+                MAXIMIZE_MAP_PREVIEW_PANEL: MapPreviewPanelReducer
             };
 
             var actions = angular.merge(
                 urlReducers,
                 detailReducers,
                 mapPanelReducers,
+                mapPreviewPanelReducers,
                 mapOverlaysReducer,
                 mapBaseLayersReducer,
                 mapLayersReducer,
@@ -133,6 +141,12 @@
 
             if (mapPanelReducers.hasOwnProperty(action.type)) {
                 return MapPanelReducer(oldState, action);
+            }
+
+            if (mapPreviewPanelReducers.hasOwnProperty(action.type)) {
+                const newState = MapPreviewPanelReducer(oldState, action);
+                $timeout(() => $rootScope.$digest());
+                return newState;
             }
 
             if (mapOverlaysReducer.hasOwnProperty(action.type)) {

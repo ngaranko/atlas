@@ -18,6 +18,10 @@
   width: 28%;
   z-index: 100;
 
+  &--hidden {
+    display: none;
+  }
+
   &--collapsed {
     height: auto;
     min-width: auto;

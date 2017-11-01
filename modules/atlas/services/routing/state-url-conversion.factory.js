@@ -44,13 +44,26 @@
                 // Initialisation methods for the url2state conversion
                 // These methods are executed after a state object has been initialized with the initialValues
                 DEFAULT: (oldState, newState, params, initialValues) => {
-                    ['atlas', 'page', 'layerSelection', 'filters', 'user', 'mapLayers', 'mapBaseLayers',
-                        'isMapPanelVisible'].forEach(s => {
-                            const value = initialValues[s];
-                            newState[s] = angular.isDefined(value)
-                                ? (angular.isArray(value) ? [...value]
-                                : angular.isObject(value) ? {...value} : value) : value;
-                        });
+                    [
+                        'atlas',
+                        'page',
+                        'layerSelection',
+                        'filters',
+                        'user',
+                        'mapLayers',
+                        'mapBaseLayers',
+                        'isMapPanelVisible',
+                        'isMapPreviewPanelVisible'
+                    ].forEach(s => {
+                        const value = initialValues[s];
+                        newState[s] = angular.isDefined(value)
+                            ? (angular.isArray(value)
+                                ? [...value]
+                                : angular.isObject(value)
+                                    ? {...value}
+                                    : value)
+                            : value;
+                    });
                     if (angular.equals(params, {})) {
                         // When no params, go to home page and show initial map
                         newState.page.name = 'home';
@@ -116,13 +129,19 @@
                     }
                     return newState;
                 },
+                isMapPreviewPanelVisible: (oldState, newState) => {
+                    if (oldState === true || oldState === false) {
+                        newState = oldState;
+                    }
+                    return newState;
+                },
                 search: (oldState, newState) => {
                     const hasOldState = angular.isObject(oldState);
                     const hasInputChanged = hasOldState && (
-                            oldState.query !== newState.query ||
-                            !angular.equals(oldState.location, newState.location) ||
-                            oldState.category !== newState.category
-                        );
+                        oldState.query !== newState.query ||
+                        !angular.equals(oldState.location, newState.location) ||
+                        oldState.category !== newState.category
+                    );
 
                     if (hasInputChanged) {
                         newState.numberOfResults = null;
@@ -201,6 +220,7 @@
                 mapBaseLayers: {},
                 mapLayers: [],
                 isMapPanelVisible: false,
+                isMapPreviewPanelVisible: false,
                 page: {
                     name: null  // eg: 'home'
                 },
