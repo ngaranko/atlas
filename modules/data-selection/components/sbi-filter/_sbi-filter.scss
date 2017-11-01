@@ -1,0 +1,65 @@
+$sbi-filter-gutter: 2 * $base-whitespace;
+$sbi-filter-item-height: 32px;
+
+.c-sbi-filter {
+  padding: $sbi-filter-gutter;
+  background-color: $secondary-gray4;
+}
+
+.c-sbi-filter__category {
+  padding-bottom: 2.5 * $base-whitespace;
+
+  &:last-child {
+    padding: 0;
+  }
+}
+
+.c-sbi-filter__category-label {
+  margin-bottom: $base-whitespace;
+  color: $primary-contrast;
+}
+
+.c-sbi-filter__item {
+  line-height: $sbi-filter-item-height;
+  overflow: hidden;
+}
+
+.c-sbi-filter__item-label {
+  &.c-sbi-filter__item-label--empty-value {
+    font-style: italic;
+
+    &::before {
+      display: inline-block;
+      content: "(geen)";
+    }
+  }
+}
+
+.c-sbi-filter__show-more {
+  margin: 0 (-$sbi-filter-gutter);
+  padding: 0 $sbi-filter-gutter 6px;
+  border-bottom: 1px solid $secondary-gray20;
+}
+
+.c-sbi-filter__show-more-button {
+  height: $sbi-filter-item-height;
+  line-height: $sbi-filter-item-height;
+}
+
+.c-sbi-filter__hidden-options {
+  margin-bottom: $base-whitespace / 2;
+  color: $secondary-gray40;
+}
+
+.c-sbi-filter__input {
+  padding: 2px 7px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+
+.c-sbi-filter__submit {
+  color: #666;
+  padding: 2px 7px;
+  background-color: #fcfcfc;
+  border: 1px solid #ccc;
+}

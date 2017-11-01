@@ -43,9 +43,9 @@ console.log('=================================', vm);
             applyFilters(filters);
         };
 
-        vm.onChange = () => {
-            console.log('CHANGE', vm.sbiCode);
-             vm.addFilter('sbi_code', 6420);
+        vm.onSubmit = () => {
+            console.log('SUBMIT', vm.sbiCode);
+             vm.addFilter('sbi_code', vm.sbiCode);
         };
 
         vm.showExpandButton = function (filterSlug) {
