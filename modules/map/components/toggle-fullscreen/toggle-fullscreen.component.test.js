@@ -2,7 +2,6 @@ describe('The dp-toggle-fullscreen component', function () {
     var $compile,
         $rootScope,
         store,
-        ACTIONS,
         component;
 
     beforeEach(function () {
@@ -15,11 +14,10 @@ describe('The dp-toggle-fullscreen component', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _ACTIONS_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _store_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
-            ACTIONS = _ACTIONS_;
         });
 
         spyOn(store, 'dispatch');
