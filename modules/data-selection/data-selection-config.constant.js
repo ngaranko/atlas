@@ -185,11 +185,11 @@
                     TITLE: 'Inschrijvingen',
                     FILTERS: [
                         {
-                            slug: 'bijzondere_rechtstoestand',
-                            label: 'Bijzondere rechtstoestand'
-                        }, {
                             slug: 'sbi_code',
                             label: 'SBI-code'
+                        }, {
+                            slug: 'bijzondere_rechtstoestand',
+                            label: 'Bijzondere rechtstoestand'
                         }, {
                             slug: 'stadsdeel_naam',
                             label: 'Stadsdeel'

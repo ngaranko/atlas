@@ -62,10 +62,13 @@
                                 count: 0
                             }];
                         }
+
+                        const option = filter.options.find(opt => opt.id === vm.textFilters[filter.slug]);
+
                         return {
                             slug: filter.slug,
                             label: filter.label,
-                            option: filter.options.find(opt => opt.id === vm.textFilters[filter.slug])
+                            option: option && option.label || vm.textFilters[filter.slug]
                         };
                     });
                 vm.formattedActiveFilters = vm.formattedActiveFilters.concat(textFilters);
