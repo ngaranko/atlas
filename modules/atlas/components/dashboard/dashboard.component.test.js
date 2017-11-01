@@ -323,7 +323,7 @@ describe('The dashboard component', function () {
             $rootScope.$digest();
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.MAP_REMOVE_PANO_OVERLAY
+                type: 'HIDE_MAP_PANEL'
             });
         });
 
