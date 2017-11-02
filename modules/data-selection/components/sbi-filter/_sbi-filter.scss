@@ -24,8 +24,6 @@ $sbi-filter-item-height: 32px;
 }
 
 .c-sbi-filter__input {
-  @include font-size($s-font);
-  @include font-weight($bold-weight);
   flex-grow: 1;
   width: 50%;
   padding-right: $base-whitespace;
@@ -43,7 +41,6 @@ $sbi-filter-item-height: 32px;
   }
 
   &:-ms-input-placeholder { /* IE11 */
-    @include font-weight($normal-weight);
     color: $secondary-gray60;
   }
 

@@ -63,12 +63,14 @@
                             }];
                         }
 
-                        const option = filter.options.find(opt => opt.id === vm.textFilters[filter.slug]);
+                        const value = vm.textFilters[filter.slug],
+                            option = filter.options.find(opt => opt.id === value),
+                            multipleValue = value.match(/^\[.*\]$/) ? value.replace(/['\[\]]/g, '') : value;
 
                         return {
                             slug: filter.slug,
                             label: filter.label,
-                            option: option && option.label || vm.textFilters[filter.slug]
+                            option: option && option.label || multipleValue
                         };
                     });
                 vm.formattedActiveFilters = vm.formattedActiveFilters.concat(textFilters);
