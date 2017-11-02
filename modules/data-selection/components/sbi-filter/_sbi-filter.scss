@@ -62,6 +62,8 @@ $sbi-filter-item-height: 32px;
 }
 
 .c-sbi-filter__submit {
+  @include font-size($s-font);
+  @include font-weight($bold-weight);
   margin-left: 10px;
   padding: 3px 7px;
   border: 1px solid $secondary-gray20;
