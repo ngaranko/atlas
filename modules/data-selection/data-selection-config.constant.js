@@ -242,7 +242,8 @@
                             },
                             {
                                 label: 'SBI-omschrijving',
-                                variables: ['sbi_omschrijving']
+                                variables: ['sbi_omschrijving'],
+                                template: 'sbi-omschrijving'
                             },
                             {
                                 label: 'Bezoekadres',
