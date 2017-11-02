@@ -10,7 +10,7 @@ button {
   font-weight: normal;
 }
 
-h1 {
+h1:not(.map-panel__heading-title) {
   @include font-size-responsive($xl-header-font);
   @include font-weight($bold-weight);
   font-weight: normal;

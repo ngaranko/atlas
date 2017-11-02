@@ -2,25 +2,33 @@
   background-color: #FFFFFF;
   border: 1px solid #999999;
   border-top: none;
-  margin: 10px;
+  margin: 8px 8px 16px 8px;
+
+  @media screen and (min-width: 1200px) {
+    margin: 12px 12px 32px 12px;
+  }
 
   &__category {
     align-items: center;
     border-top: 1px solid #999999;
     display: flex;
     justify-content: space-between;
-    padding: 10px;
+    padding: 9px 10px;
     position: relative;
 
-    &:after {
+    &--selectable-legend:after {
       background-color: #999999;
-      bottom: 0;
+      bottom: -1px;
       content: '';
       display: block;
       height: 1px;
       left: 0;
       position: absolute;
-      width: 34px;
+      width: 36px;
+    }
+
+    &--unselectable-legend + .map-legend__items {
+      padding-top: 0;
     }
   }
 
@@ -31,10 +39,18 @@
     margin: 10px;
     padding: 10px;
     text-align: center;
+
+    .map-legend__map-layer--hidden & {
+      display: none;
+    }
   }
 
   &__items {
     padding: 10px;
+
+    .map-legend__map-layer--hidden & {
+      display: none;
+    }
   }
 
   &__item {
@@ -54,7 +70,7 @@
     width: 16px;
 
     &--not-selectable {
-      margin-left: 34px;
+      margin-left: 36px;
     }
 
     & + * {
@@ -75,6 +91,10 @@
     width: 100%;
   }
 
+  &__title {
+    font-family: "Avenir LT W01 45 Book";
+  }
+
   &__toggle {
     @extend %__toggle;
     margin-left: 10px;
@@ -93,19 +113,34 @@
   .is-embed &,
   .is-embed-preview &,
   .is-print-mode & {
+    margin-bottom: 12px;
+
     &__category {
+      font-size: 14px;
+      padding-bottom: 0;
+
+      &:after,
       button,
       .checkbox {
         display: none;
       }
     }
 
-    &__items .checkbox {
-      display: none;
-    }
-
     &__image {
       margin-left: 0;
+    }
+
+    &__item {
+      font-size: 14px;
+
+      & + .map-legend__item {
+        margin-top: 6px;
+      }
+    }
+
+    &__items .checkbox,
+    &__map-layer--hidden {
+      display: none;
     }
   }
 }
