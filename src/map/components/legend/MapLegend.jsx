@@ -17,7 +17,6 @@ class MapLegend extends React.Component {
       'sld_version=1.1.0&',
       `layer=${legendItem.layer || mapLayer.layers[0]}&`,
       'format=image/svg%2Bxml&',
-      'height=24&',
       `rule=${encodeURIComponent(legendItem.title)}`
     ].join('');
   }
@@ -64,7 +63,12 @@ class MapLegend extends React.Component {
             `}
             key={mapLayer.title}
           >
-            <div className="map-legend__category">
+            <div
+              className={`
+                map-legend__category
+                map-legend__category--${mapLayer.legendItems.some(legendItem => legendItem.selectable) ? '' : 'un'}selectable-legend
+              `}
+            >
               <Checkbox
                 checked={() => this.determineLayerVisibility(mapLayer)}
                 name={mapLayer.title}
@@ -87,10 +91,7 @@ class MapLegend extends React.Component {
               <ul className="map-legend__items">
                 {mapLayer.legendItems.map(legendItem => (
                   <li
-                    className={`
-                      map-legend__item
-                      map-legend__item--${!legendItem.selectable || this.determineLegendItemVisibility(legendItem) ? 'visible' : 'hidden'}
-                    `}
+                    className="map-legend__item"
                     key={legendItem.title}
                   >
                     {legendItem.selectable && (

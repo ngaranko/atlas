@@ -25,8 +25,8 @@ export default function MapOverlaysReducer(state = initialState, action) {
           ...state.map,
           overlays: state.map.overlays.map(overlay => ({
             ...overlay,
-            // TODO: Create cleaner solution
-            isVisible: (overlay.id === action.mapLayerId) && typeof action.show === 'boolean' ? action.show : (overlay.id === action.mapLayerId ? !overlay.isVisible : overlay.isVisible) // eslint-disable-line
+            isVisible: overlay.id !== action.mapLayerId ? overlay.isVisible :
+              (action.show !== undefined ? action.show : !overlay.isVisible)
           }))
         }
       };

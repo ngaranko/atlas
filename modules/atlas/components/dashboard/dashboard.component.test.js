@@ -1,6 +1,7 @@
 describe('The dashboard component', function () {
     var $compile,
         $rootScope,
+        $timeout,
         $window,
         origAuth,
         store,
@@ -67,9 +68,11 @@ describe('The dashboard component', function () {
             }
         };
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _$window_, _store_, _ACTIONS_, _dashboardColumns_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _$timeout_, _$window_, _store_, _ACTIONS_,
+                                      _dashboardColumns_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
+            $timeout = _$timeout_;
             $window = _$window_;
             store = _store_;
             ACTIONS = _ACTIONS_;
@@ -179,6 +182,39 @@ describe('The dashboard component', function () {
         expect(component.find('.c-dashboard--page-type-help').length).toBe(0);
         expect(component.find('.c-dashboard--page-type-snelwegwijs').length).toBe(0);
         expect(component.find('.c-dashboard--page-type-apis').length).toBe(0);
+    });
+
+    describe('Embed mode', () => {
+        let handler;
+
+        beforeEach(() => {
+            spyOn(store, 'dispatch');
+            spyOn(store, 'subscribe').and.callFake((fn) => {
+                // This function will be called later on by other components as
+                // well
+                handler = handler || fn;
+            });
+
+            getComponent();
+        });
+
+        afterEach(() => handler = null);
+
+        it('should hide the map panel if no overlays are selected', () => {
+            store.dispatch.calls.reset();
+
+            mockedState.map.overlays = [{}];
+            mockedState.atlas.isEmbed = true;
+
+            $rootScope.$digest();
+
+            handler();
+            $rootScope.$digest();
+
+            expect(store.dispatch).not.toHaveBeenCalledWith({
+                type: 'HIDE_MAP_PANEL'
+            });
+        });
     });
 
     describe('error message', function () {
@@ -322,9 +358,14 @@ describe('The dashboard component', function () {
             handler();
             $rootScope.$digest();
 
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.MAP_REMOVE_PANO_OVERLAY
-            });
+            $timeout.flush();
+
+            $rootScope.$digest();
+
+            expect(store.dispatch.calls.mostRecent()).toEqual(jasmine.objectContaining({ args: [{ type: {
+                id: 'MAP_REMOVE_PANO_OVERLAY',
+                ignore: true
+            } }] }));
         });
 
         it('are changed when the straatbeeld history selection changes', () => {

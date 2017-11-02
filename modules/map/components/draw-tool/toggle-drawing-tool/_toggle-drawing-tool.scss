@@ -1,21 +1,36 @@
 .c-toggle-drawing-tool {
-  @extend %draw-tool-element;
+  background-color: #FFFFFF;
+  border: 1px solid #CCCCCC;
+  box-shadow: 2px 2px 0 0 #999999;
+  box-sizing: content-box;
+  display: flex;
+  height: 24px;
+  margin: -2px 0 0 -2px;
+  outline: none;
+  padding: 4px;
 
-  &.c-toggle-drawing-tool--inactive {
-    @extend %icon--border-hover;
-    @extend %icon--shadow;
-    @include icon("polygon-measure", "transparent", "red");
+  &:hover {
+    background-color: #EC0000;
+    border-color: #EC0000;
+
+    svg {
+      fill: #FFFFFF;
+    }
+
+    span {
+      color: #FFFFFF;
+    }
   }
 
-  &.c-toggle-drawing-tool--again {
-    @extend %icon--border-hover;
-    @extend %icon--shadow;
-    @include icon-label-right("polygon-measure", "transparent", "red");
+  svg {
+    fill: #666666;
+    height: 24px;
+    width: 24px;
   }
 
-  &.c-toggle-drawing-tool--active {
-    @extend %icon--border-inverted;
-    @extend %icon--shadow;
-    @include icon-label-right("polygon-measure", "red", "transparent");
+  div {
+    font-family: "Avenir LT W01 85 Heavy";
+    line-height: 24px;
+    margin-left: 4px;
   }
 }

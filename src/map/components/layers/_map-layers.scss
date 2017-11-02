@@ -1,11 +1,21 @@
 .map-layers {
+  margin-bottom: 8px;
+
+  @media screen and (min-width: 1200px) {
+    margin-bottom: 12px;
+  }
+
   &__category {
     font-family: "Avenir LT W01 85 Heavy";
     margin-top: 8px;
     text-indent: 12px;
 
     & + & {
-      margin-top: 40px;
+      margin-top: 16px;
+
+      @media screen and (min-width: 1200px) {
+        margin-top: 24px;
+      }
     }
 
     ul {
@@ -17,6 +27,7 @@
     border: 1px solid transparent;
     display: flex;
     font-family: "Avenir LT W01 55 Roman";
+    font-size: 16px;
     text-align: left;
     text-indent: 0;
 
@@ -33,6 +44,8 @@
     button {
       align-items: center;
       display: flex;
+      font-family: "Avenir LT W01 55 Roman";
+      font-size: 16px;
       justify-content: space-between;
       outline: none;
       overflow: hidden;
