@@ -184,6 +184,39 @@ describe('The dashboard component', function () {
         expect(component.find('.c-dashboard--page-type-apis').length).toBe(0);
     });
 
+    describe('Embed mode', () => {
+        let handler;
+
+        beforeEach(() => {
+            spyOn(store, 'dispatch');
+            spyOn(store, 'subscribe').and.callFake((fn) => {
+                // This function will be called later on by other components as
+                // well
+                handler = handler || fn;
+            });
+
+            getComponent();
+        });
+
+        afterEach(() => handler = null);
+
+        it('should hide the map panel if no overlays are selected', () => {
+            store.dispatch.calls.reset();
+
+            mockedState.map.overlays = [{}];
+            mockedState.atlas.isEmbed = true;
+
+            $rootScope.$digest();
+
+            handler();
+            $rootScope.$digest();
+
+            expect(store.dispatch).not.toHaveBeenCalledWith({
+                type: 'HIDE_MAP_PANEL'
+            });
+        });
+    });
+
     describe('error message', function () {
         var component,
             mockedVisibility = {

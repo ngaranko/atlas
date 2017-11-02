@@ -140,6 +140,11 @@
       height: auto;
     }
   }
+
+  .is-embed &--has-no-active-layers,
+  .is-embed-preview &--has-no-active-layers {
+    display: none;
+  }
 }
 
 .leaflet-control-container {

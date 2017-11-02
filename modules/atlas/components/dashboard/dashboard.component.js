@@ -28,7 +28,6 @@
             }
         });
 
-        /* istanbul ignore next */
         $scope.$watchGroup(['vm.isEmbed', 'vm.isEmbedPreview'], () => {
             if (vm.store.getState().map.overlays.length) {
                 return;
