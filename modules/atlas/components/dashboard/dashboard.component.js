@@ -29,6 +29,9 @@
         });
 
         $scope.$watchGroup(['vm.isEmbed', 'vm.isEmbedPreview'], () => {
+            if (vm.store.getState().map.overlays.length) {
+                return;
+            }
             store.dispatch({ type: 'HIDE_MAP_PANEL' });
         });
 
