@@ -7,11 +7,15 @@ import {
   maximizeMapPreviewPanel,
   closeMapPreviewPanel
 } from '../../ducks/preview-panel/map-preview-panel';
+import { getMapGeoSearch } from '../../ducks/geo-search/map-geo-search';
 import MaximizeIcon from '../../../../public/images/icon-arrow-down.svg';
 import CloseIcon from '../../../../public/images/icon-cross.svg';
+import MapResults from '../../components/results/MapResults';
 
 const mapStateToProps = state => ({
   isMapPreviewPanelVisible: state.isMapPreviewPanelVisible,
+  search: state.search,
+  results: state.mapResults
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -20,6 +24,25 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 }, dispatch);
 
 class MapPreviewPanelContainer extends React.Component {
+  componentDidMount() {
+    if (this.props.search && this.props.search.location) {
+      this.context.store.dispatch(getMapGeoSearch(this.props.search.location));
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.search &&
+      this.props.search.location && (
+        !prevProps.search ||
+        !prevProps.search.location ||
+        prevProps.search.location[0] !== this.props.search.location[0] ||
+        prevProps.search.location[1] !== this.props.search.location[1]
+      )
+    ) {
+      this.context.store.dispatch(getMapGeoSearch(this.props.search.location));
+    }
+  }
+
   render() {
     return (
       <section className={`
@@ -44,6 +67,10 @@ class MapPreviewPanelContainer extends React.Component {
           </button>
         </div>
         <div>
+          <MapResults
+            count={this.props.search.numberOfResults}
+            location={this.props.search.location}
+            results={this.props.results} />
           Map Preview Panel Container
         </div>
       </section>
@@ -56,11 +83,15 @@ MapPreviewPanelContainer.contextTypes = {
 };
 
 MapPreviewPanelContainer.defaultProps = {
-  isMapPreviewPanelVisible: false
+  isMapPreviewPanelVisible: false,
+  search: {},
+  results: []
 };
 
 MapPreviewPanelContainer.propTypes = {
   isMapPreviewPanelVisible: PropTypes.bool,
+  search: PropTypes.object,
+  results: PropTypes.array,
   onMapPreviewPanelMaximize: PropTypes.func.isRequired
 };
 

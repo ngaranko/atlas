@@ -52,6 +52,7 @@
                         'user',
                         'mapLayers',
                         'mapBaseLayers',
+                        'mapResults',
                         'isMapPanelVisible',
                         'isMapPreviewPanelVisible'
                     ].forEach(s => {
@@ -118,6 +119,12 @@
                     return newState;
                 },
                 mapLayers: (oldState, newState) => {
+                    if (angular.isArray(oldState)) {
+                        newState = oldState;
+                    }
+                    return newState;
+                },
+                mapResults: (oldState, newState) => {
                     if (angular.isArray(oldState)) {
                         newState = oldState;
                     }
@@ -219,6 +226,7 @@
                 },
                 mapBaseLayers: {},
                 mapLayers: [],
+                mapResults: [],
                 isMapPanelVisible: false,
                 isMapPreviewPanelVisible: false,
                 page: {

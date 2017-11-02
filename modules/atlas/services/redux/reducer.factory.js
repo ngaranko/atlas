@@ -49,6 +49,7 @@
             const MapPreviewPanelReducer = $window.reducers.MapPreviewPanelReducer;
             const MapOverlaysReducer = $window.reducers.MapOverlaysReducer;
             const MapBaseLayersReducer = $window.reducers.MapBaseLayersReducer;
+            const MapGeoSearchReducer = $window.reducers.MapGeoSearchReducer;
 
             // TODO: Redux: replace
             // Warning: angular.merge is deprecated
@@ -84,6 +85,12 @@
                 TOGGLE_MAP_OVERLAY_VISIBILITY: MapOverlaysReducer
             };
 
+            const mapGeoSearchReducer = {
+                FETCH_MAP_GEO_SEARCH_FAILURE: MapGeoSearchReducer,
+                FETCH_MAP_GEO_SEARCH_REQUEST: MapGeoSearchReducer,
+                FETCH_MAP_GEO_SEARCH_SUCCESS: MapGeoSearchReducer
+            };
+
             const mapPanelReducers = {
                 HIDE_MAP_PANEL: MapPanelReducer,
                 SHOW_MAP_PANEL: MapPanelReducer,
@@ -104,6 +111,7 @@
                 mapOverlaysReducer,
                 mapBaseLayersReducer,
                 mapLayersReducer,
+                mapGeoSearchReducer,
                 homeReducers,
                 userReducer,
                 layerSelectionReducers,
@@ -139,6 +147,10 @@
                 return newState;
             }
 
+            if (mapGeoSearchReducer.hasOwnProperty(action.type)) {
+                return MapGeoSearchReducer(oldState, action);
+            }
+
             if (mapPanelReducers.hasOwnProperty(action.type)) {
                 return MapPanelReducer(oldState, action);
             }
@@ -157,7 +169,8 @@
 
             if (angular.isObject(action) &&
                 angular.isObject(action.type) &&
-                angular.isFunction(actions[action.type.id])) {
+                angular.isFunction(actions[action.type.id])
+            ) {
                 const result = actions[action.type.id](oldState, action.payload);
                 if (environment.isDevelopment()) {
                     freeze.deepFreeze(result);
