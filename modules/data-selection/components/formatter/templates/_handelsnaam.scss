@@ -1,0 +1,14 @@
+.c-handelsnaam__failliet {
+  display: inline-block;
+  font-style: italic;
+
+  &::after {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-left: .5 * $base-whitespace;
+    border-radius: 50%;
+    background-color: $primary-contrast;
+    content: "";
+  }
+}

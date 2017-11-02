@@ -229,7 +229,8 @@
                         TABLE: [
                             {
                                 label: 'Handelsnaam',
-                                variables: ['handelsnaam']
+                                variables: ['handelsnaam', 'bijzondere_rechtstoestand'],
+                                template: 'handelsnaam'
                             },
                             {
                                 label: 'KvK-num.',
