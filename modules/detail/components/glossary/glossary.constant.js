@@ -380,8 +380,8 @@
                 VESTIGING: {
                     label_singular: 'Inschrijving',
                     label_plural: 'Inschrijvingen',
-                    description: 'Een Inschrijving is gebouw of een complex van gebouwen waar duurzame uitoefening ' +
-                        'van activiteiten van een Onderneming of Rechtspersoon plaatsvindt.',
+                    description: 'Een inschrijving is een duurzame \'maatschappelijke activiteit\' van een ' +
+                        'Onderneming of Rechtspersoon in het Handelsregister van de Kamer van Koophandel.',
                     url: 'https://www.amsterdam.nl/stelselpedia/hr-index/catalogus/vestiging/',
                     meta: [],
                     authLevel: 'EMPLOYEE'
