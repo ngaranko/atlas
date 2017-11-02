@@ -1,4 +1,4 @@
-import geoSearchConfig from './map-geo-search-config.js';
+import geoSearchConfig from './map-geo-search-config';
 
 const apiUrl = 'https://api.data.amsterdam.nl/';
 

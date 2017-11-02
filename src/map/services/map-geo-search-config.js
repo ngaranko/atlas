@@ -1,4 +1,4 @@
-export default {
+const config = {
   endpoints: [
     {
       uri: 'geosearch/nap/',
@@ -19,7 +19,6 @@ export default {
   ],
   hierarchy: [
     {
-      // The slug variable is used to indentify this category in list.component.js
       slug: 'openbareruimte',
       label_singular: 'Openbare ruimte',
       label_plural: 'Openbare ruimtes',
@@ -96,9 +95,16 @@ export default {
       slug: 'monument',
       label_singular: 'Monument',
       label_plural: 'Monumenten',
-      features: [
-        'monumenten/monument'
-      ]
+      features: ['monumenten/monument']
     }
-  ]
-}
+  ],
+  categoriesByFeature: {}
+};
+
+config.hierarchy.forEach((category) => {
+  category.features.forEach((feature) => {
+    config.categoriesByFeature[feature] = category;
+  });
+});
+
+export default config;

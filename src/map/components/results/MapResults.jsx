@@ -1,10 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import geoSearchConfig from '../../services/map-geo-search-config';
 import { wgs84ToRd } from '../../../shared/services/coordinate-reference-system';
 
-const MapResultsItem = ({ item }) => (
-  <div>{item.display}</div>
-);
+const MapResultsItem = ({ item }) => {
+  const label = geoSearchConfig.categoriesByFeature[item.type].label_singular;
+
+  return (
+    <section>
+      <div>{label}</div>
+      <div>{item.display}</div>
+    </section>
+  );
+};
 
 const MapResults = ({ count, location, results, panoUrl }) => {
   const rdCoordinates = wgs84ToRd(location)
