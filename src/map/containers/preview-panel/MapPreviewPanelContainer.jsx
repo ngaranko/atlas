@@ -8,6 +8,7 @@ import {
   closeMapPreviewPanel
 } from '../../ducks/preview-panel/map-preview-panel';
 import { getMapGeoSearch } from '../../ducks/geo-search/map-geo-search';
+import { getMapPano } from '../../ducks/pano/map-pano';
 import MaximizeIcon from '../../../../public/images/icon-arrow-down.svg';
 import CloseIcon from '../../../../public/images/icon-cross.svg';
 import MapResults from '../../components/results/MapResults';
@@ -15,7 +16,8 @@ import MapResults from '../../components/results/MapResults';
 const mapStateToProps = state => ({
   isMapPreviewPanelVisible: state.isMapPreviewPanelVisible,
   search: state.search,
-  results: state.mapResults
+  results: state.mapResults,
+  pano: state.mapPano
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -27,6 +29,7 @@ class MapPreviewPanelContainer extends React.Component {
   componentDidMount() {
     if (this.props.search && this.props.search.location) {
       this.context.store.dispatch(getMapGeoSearch(this.props.search.location));
+      this.context.store.dispatch(getMapPano(this.props.search.location));
     }
   }
 
@@ -40,6 +43,7 @@ class MapPreviewPanelContainer extends React.Component {
       )
     ) {
       this.context.store.dispatch(getMapGeoSearch(this.props.search.location));
+      this.context.store.dispatch(getMapPano(this.props.search.location));
     }
   }
 
@@ -70,6 +74,7 @@ class MapPreviewPanelContainer extends React.Component {
           <MapResults
             count={this.props.search.numberOfResults}
             location={this.props.search.location}
+            panoUrl={this.props.pano.url}
             results={this.props.results} />
           Map Preview Panel Container
         </div>
@@ -85,13 +90,15 @@ MapPreviewPanelContainer.contextTypes = {
 MapPreviewPanelContainer.defaultProps = {
   isMapPreviewPanelVisible: false,
   search: {},
-  results: []
+  results: [],
+  pano: {}
 };
 
 MapPreviewPanelContainer.propTypes = {
   isMapPreviewPanelVisible: PropTypes.bool,
   search: PropTypes.object,
   results: PropTypes.array,
+  pano: PropTypes.object,
   onMapPreviewPanelMaximize: PropTypes.func.isRequired
 };
 

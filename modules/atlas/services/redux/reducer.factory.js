@@ -41,7 +41,7 @@
                              embedReducers,
                              filtersReducers,
                              environment) {
-        return function (oldState, action) { // eslint-disable-line complexity
+        return function (oldState, action) { // eslint-disable-line complexity max-statements
             const DetailsReducers = $window.reducers.detailReducer;
             const UserReducer = $window.reducers.UserReducer;
             const MapLayersReducer = $window.reducers.MapLayersReducer;
@@ -50,6 +50,7 @@
             const MapOverlaysReducer = $window.reducers.MapOverlaysReducer;
             const MapBaseLayersReducer = $window.reducers.MapBaseLayersReducer;
             const MapGeoSearchReducer = $window.reducers.MapGeoSearchReducer;
+            const MapPanoReducer = $window.reducers.MapPanoReducer;
 
             // TODO: Redux: replace
             // Warning: angular.merge is deprecated
@@ -91,6 +92,12 @@
                 FETCH_MAP_GEO_SEARCH_SUCCESS: MapGeoSearchReducer
             };
 
+            const mapPanoReducer = {
+                FETCH_MAP_PANO_FAILURE: MapPanoReducer,
+                FETCH_MAP_PANO_REQUEST: MapPanoReducer,
+                FETCH_MAP_PANO_SUCCESS: MapPanoReducer
+            };
+
             const mapPanelReducers = {
                 HIDE_MAP_PANEL: MapPanelReducer,
                 SHOW_MAP_PANEL: MapPanelReducer,
@@ -112,6 +119,7 @@
                 mapBaseLayersReducer,
                 mapLayersReducer,
                 mapGeoSearchReducer,
+                mapPanoReducer,
                 homeReducers,
                 userReducer,
                 layerSelectionReducers,
@@ -149,6 +157,10 @@
 
             if (mapGeoSearchReducer.hasOwnProperty(action.type)) {
                 return MapGeoSearchReducer(oldState, action);
+            }
+
+            if (mapPanoReducer.hasOwnProperty(action.type)) {
+                return MapPanoReducer(oldState, action);
             }
 
             if (mapPanelReducers.hasOwnProperty(action.type)) {
