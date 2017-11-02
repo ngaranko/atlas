@@ -19,6 +19,62 @@ $sbi-filter-item-height: 32px;
   color: $primary-contrast;
 }
 
+.c-sbi-filter__form {
+  display: flex;
+}
+
+.c-sbi-filter__input {
+  @include font-size($s-font);
+  @include font-weight($bold-weight);
+  flex-grow: 1;
+  width: 50%;
+  padding-right: $base-whitespace;
+  padding-left: $base-whitespace;
+  border: 1px solid $secondary-gray20;
+  border-radius: 0;
+  outline: none;
+  background-color: $primary-light;
+  color: $primary-dark;
+  appearance: none;
+
+  &::placeholder {
+    @include font-weight($normal-weight);
+    color: $secondary-gray60;
+  }
+
+  &:-ms-input-placeholder { /* IE11 */
+    @include font-weight($normal-weight);
+    color: $secondary-gray60;
+  }
+
+  &::-ms-input-placeholder { /* Edge */
+    // cannot change font attributes in edge here, so we have a lighter text color
+    color: $secondary-gray40;
+  }
+
+  &::-ms-clear {
+    display: none;
+  }
+
+  &:focus {
+    border-color: $primary-dark;
+  }
+}
+
+.c-sbi-filter__submit {
+  margin-left: 10px;
+  padding: 3px 7px;
+  border: 1px solid $secondary-gray20;
+  background-color: $secondary-gray4;
+  color: $secondary-gray60;
+
+  &:hover {
+    border-color: $primary-contrast;
+    background-color: $primary-contrast;
+    color: $primary-light;
+  }
+}
+
 .c-sbi-filter__item {
   line-height: $sbi-filter-item-height;
   overflow: hidden;
@@ -49,24 +105,4 @@ $sbi-filter-item-height: 32px;
 .c-sbi-filter__hidden-options {
   margin-bottom: $base-whitespace / 2;
   color: $secondary-gray40;
-}
-
-.c-sbi-filter__form {
-  display: flex;
-}
-
-.c-sbi-filter__input {
-  flex-grow: 1;
-  padding: 3px 7px;
-  width: 50px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-}
-
-.c-sbi-filter__submit {
-  color: #666;
-  margin-left: 10px;
-  padding: 3px 7px;
-  background-color: #fcfcfc;
-  border: 1px solid #ccc;
 }

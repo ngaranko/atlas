@@ -22,9 +22,7 @@
 
         vm.sbiCode = vm.activeFilters.sbi_code && vm.activeFilters.sbi_code.replace(/[\[\]]/g, '');
 
-            vm.showOptionCounts = false;
-
-        // $scope.$watch('vm.dataset', updateConfig, true);
+        vm.showOptionCounts = false;
 
         vm.showMoreThreshold = 10;
 
@@ -39,13 +37,13 @@
         vm.addFilter = function (filterSlug, optionId) {
             var filters = {...vm.activeFilters};
 
-            filters[filterSlug] = optionId;
+            filters[filterSlug] = `[${optionId}]`;
 
             applyFilters(filters);
         };
 
         vm.onSubmit = () => {
-            vm.addFilter('sbi_code', `[${vm.sbiCode}]`);
+            vm.addFilter('sbi_code', vm.sbiCode);
         };
 
         vm.showExpandButton = function (filterSlug) {
@@ -80,13 +78,8 @@
         }
 
         function getAvailableFilters (filterSlug) {
-            console.log('getAvailableFilters', filterSlug, vm.availableFilters);
             return vm.availableFilters.filter(filter => filter.slug === filterSlug);
         }
-
-        // function updateConfig () {
-            // vm.showOptionCounts = DATA_SELECTION_CONFIG.datasets[vm.dataset].SHOW_FILTER_OPTION_COUNTS;
-        // }
 
         function applyFilters (filters) {
             store.dispatch({

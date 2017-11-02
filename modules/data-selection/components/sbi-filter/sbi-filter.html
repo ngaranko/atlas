@@ -8,6 +8,7 @@
                 ng-model="vm.sbiCode"
                 ng-model-options="{ updateOn: 'change' }"
                 ng-change="vm.onSubmit()"
+                placeholder="Codes bijv.: 0001, 0221, 3821"
             /><button
                 class="c-sbi-filter__submit"
                 type="submit"
@@ -16,7 +17,7 @@
 
 
 
-        <div ng-if="filter.slug.startsWith('sbi_l')"
+        <div ng-if="filter.slug.startsWith('sbi_code')"
             ng-repeat="filter in vm.availableFilters">
             <ul>
                 <li class="c-sbi-filter__item"
