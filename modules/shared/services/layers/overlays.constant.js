@@ -537,16 +537,28 @@
                     noDetail: true
                 },
                 mvbr: {
-                    authorizationLevel: 'EMPLOYEE',
                     url: 'maps/externeveiligheid',
                     label_short: 'Bedrijven - Bronnen en risicozones',
                     label_long: 'Bedrijven - Bronnen en risicozones',
-                    layers: ['overigerisicobedrijven'],
+                    layers: ['overigerisicobedrijfsbronnen', 'overigerisicobedrijfplaatsgebondenrisico106'],
                     minZoom: 8,
                     maxZoom: 16,
                     legend: 'maps/externeveiligheid?version=1.3.0&service=WMS&requ' +
                     'est=GetLegendGraphic&sld_version=1.1.0&layer=overigerisicobedrijven&format=image/png&STYLE=d' +
                     'efault',
+                    noDetail: true
+                },
+                mvi: {
+                    authorizationLevel: 'EMPLOYEE',
+                    url: 'maps/externeveiligheid',
+                    label_short: 'Bedrijven - invloedsgebieden',
+                    label_long: 'Bedrijven - invloedsgebieden',
+                    layers: ['overigerisicobedrijfinvloedsgebied'],
+                    minZoom: 8,
+                    maxZoom: 16,
+                    legend: 'maps/externeveiligheid?version=1.3.0&service=WMS&requ' +
+                    'est=GetLegendGraphic&sld_version=1.1.0&layer=overigerisicobedrijfinvloedsgebied&format=image/pn' +
+                    'g&ST' + 'YLE=default',
                     noDetail: true
                 },
                 mvbd: {
