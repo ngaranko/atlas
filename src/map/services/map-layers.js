@@ -1196,20 +1196,17 @@ export default [
     url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
   },
   {
-    authScope: 'HR/R',
     category: 'Milieu: externe veiligheid',
     id: 'mvbr',
-    layers: ['milieu_veiligheid_bedrijf'],
+    layers: [
+      'overigerisicobedrijfplaatsgebondenrisico106',
+      'overigerisicobedrijfsbronnen'
+    ],
     legendItems: [
       {
         layer: 'overigerisicobedrijfplaatsgebondenrisico106',
         selectable: false,
         title: 'Plaatsgebonden risico 10-6'
-      },
-      {
-        layer: 'overigerisicobedrijfinvloedsgebied',
-        selectable: false,
-        title: 'Invloedsgebied'
       },
       {
         layer: 'overigerisicobedrijfsbronnen',
@@ -1220,6 +1217,23 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Bedrijven - Bronnen en risicozones',
+    url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
+  },
+  {
+    authScope: 'HR/R',
+    category: 'Milieu: externe veiligheid',
+    id: 'mvi',
+    layers: ['overigerisicobedrijfinvloedsgebied'],
+    legendItems: [
+      {
+        layer: 'overigerisicobedrijfinvloedsgebied',
+        selectable: false,
+        title: 'Invloedsgebied'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: 'Bedrijven - Invloedsgebieden',
     url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
   },
   {
