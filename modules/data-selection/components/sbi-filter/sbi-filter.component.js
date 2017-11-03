@@ -23,17 +23,20 @@
         vm.showOptionCounts = false;
         vm.showMoreThreshold = 10;
 
-        vm.addFilter = function (filterSlug, options) {
-            var filters = {...vm.activeFilters};
-
-            filters[filterSlug] =
-                '[' + options.split(',').map(data => '\'' + data.trim() + '\'').join(', ') + ']';
-
-            applyFilters(filters);
-        };
-
         vm.onSubmit = () => {
             vm.addFilter('sbi_code', vm.sbiCode);
+        };
+
+        vm.addFilter = function (filterSlug, string) {
+            const filters = {...vm.activeFilters};
+
+            if (string === '') {
+                delete filters[filterSlug];
+            } else {
+                filters[filterSlug] = '[' + string.split(',').map(data => '\'' + data.trim() + '\'').join(', ') + ']';
+            }
+
+            applyFilters(filters);
         };
 
         vm.showExpandButton = function (filterSlug) {
