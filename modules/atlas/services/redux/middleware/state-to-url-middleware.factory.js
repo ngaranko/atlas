@@ -17,7 +17,7 @@
                     returnValue = next(action);
 
                     // Then update the URL
-                    if (!action.type.ignore) {
+                    if (!action.type.ignore && action.type !== 'AUTHENTICATE_USER') {
                         stateToUrl.update(
                             store.getState(),
                             Boolean(action.type.replace)

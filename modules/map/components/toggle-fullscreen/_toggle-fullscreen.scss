@@ -1,14 +1,44 @@
-.c-toggle-fullscreen {
+dp-toggle-fullscreen {
   position: absolute;
-  top: $base-whitespace;
-  right: $base-whitespace;
-  z-index: $fixed-position-z-index;
+  right: 8px;
+  top: 8px;
+  z-index: 1000;
 }
 
-.c-toggle-fullscreen__icon--fullscreen {
-  @include icon-button-box("maximize");
-}
+.c-toggle-fullscreen {
+  background-color: #FFFFFF;
+  border: 1px solid #CCCCCC;
+  box-shadow: 2px 2px 0 0 #999999;
+  box-sizing: content-box;
+  display: flex;
+  height: 24px;
+  margin: -2px 0 0 -2px;
+  outline: none;
+  padding: 4px;
+  width: 24px;
 
-.c-toggle-fullscreen__icon--minimize {
-  @include icon-button-box("minimize");
+  &:hover {
+    background-color: #EC0000;
+    border-color: #EC0000;
+
+    svg {
+      fill: #FFFFFF;
+    }
+
+    span {
+      color: #FFFFFF;
+    }
+  }
+
+  svg {
+    fill: #666666;
+    height: 24px;
+    width: 24px;
+  }
+
+  div {
+    font-family: "Avenir LT W01 85 Heavy";
+    line-height: 24px;
+    margin-left: 4px;
+  }
 }
