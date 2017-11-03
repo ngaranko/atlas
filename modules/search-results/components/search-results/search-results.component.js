@@ -25,6 +25,8 @@
                                         activeOverlays) {
         const vm = this;
 
+        store.dispatch({ type: 'HIDE_MAP_PANEL' });
+
         /**
          * watch isLoading and the query and location parameters of the state
          * if isLoading becomes true then find out what has te be loaded and get it
