@@ -1,14 +1,13 @@
 # City Data
 
 ## Requirements
-- NPM
-- Bower
+- npm
 - Webpack
 - Java JRE (needed to run protractor)
 
 ## Installations
 - npm install
-- npm start
+- NODE_ENV=development npm start
 - Open the server at http://localhost:8080/
 
 ## Other useful commands
