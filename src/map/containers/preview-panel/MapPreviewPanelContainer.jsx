@@ -70,13 +70,12 @@ class MapPreviewPanelContainer extends React.Component {
             <CloseIcon className="map-panel__toggle-icon" />
           </button>
         </div>
-        <div>
+        <div className="map-panel__body">
           <MapResults
             count={this.props.search.numberOfResults}
             location={this.props.search.location}
             panoUrl={this.props.pano.url}
             results={this.props.results} />
-          Map Preview Panel Container
         </div>
       </section>
     );

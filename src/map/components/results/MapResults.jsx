@@ -25,7 +25,7 @@ const MapResults = ({ count, location, results, panoUrl }) => {
         <h1 className="map-results__header-title">Resultaten ({count})</h1>
         <h2 className="map-results__header-subtitle">locatie {rdCoordinates[0]}, {rdCoordinates[1]}</h2>
       </header>
-      <ul>
+      <ul className="map-results__list">
         {results.map((result) => (
           <li key={result.uri}>
             <MapResultsItem item={result} />
