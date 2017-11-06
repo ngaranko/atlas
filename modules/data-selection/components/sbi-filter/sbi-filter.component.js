@@ -16,18 +16,36 @@
     DpSbiFilterController.$inject = ['$scope', 'store', 'ACTIONS', 'DATA_SELECTION_CONFIG'];
 
     function DpSbiFilterController ($scope, store, ACTIONS, DATA_SELECTION_CONFIG) {
+        let numberOfOptions = 0;
         const vm = this,
-            expandedFilters = [];
+            expandedFilters = [],
+            options = vm.availableFilters
+                .filter(filter => filter.slug.startsWith('sbi_l'))
+                .map(filter => {
+                    numberOfOptions += filter.numberOfOptions;
+                    return filter.options.map(sub => {
+                        sub.slug = filter.slug;
+                        return sub;
+                    });
+                })
+                .reduce((a, b) => a.concat(b))
+                .slice(0, 100);
 
         vm.sbiCode = vm.activeFilters.sbi_code && vm.activeFilters.sbi_code.replace(/['\[\]]/g, '');
         vm.showOptionCounts = false;
         vm.showMoreThreshold = 10;
 
+        vm.filter = {
+            ...vm.availableFilters.find(filter => filter.slug === 'sbi_code'),
+            options,
+            numberOfOptions
+        };
+
         vm.onSubmit = () => {
             vm.addFilter('sbi_code', vm.sbiCode);
         };
 
-        vm.addFilter = function (filterSlug, string) {
+        vm.addFilter = (filterSlug, string) => {
             const filters = {...vm.activeFilters};
 
             if (string === '') {

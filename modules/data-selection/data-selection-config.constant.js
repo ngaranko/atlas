@@ -188,9 +188,6 @@
                             slug: 'sbi_code',
                             label: 'SBI-code'
                         }, {
-                            slug: 'sbi_l1',
-                            label: 'SBI-L1'
-                        }, {
                             slug: 'sbi_l2',
                             label: 'SBI-L2'
                         }, {

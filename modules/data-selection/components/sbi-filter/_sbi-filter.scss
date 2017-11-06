@@ -79,6 +79,14 @@ $sbi-filter-item-height: 32px;
   overflow: hidden;
 }
 
+.c-sbi-filter__item--sbi_l2 + .c-sbi-filter__item--sbi_l3,
+.c-sbi-filter__item--sbi_l3 + .c-sbi-filter__item--sbi_l4,
+.c-sbi-filter__item--sbi_l4 + .c-sbi-filter__item--sbi_l5 {
+  margin: 0 -20px;
+  padding: 0 20px;
+  border-top: 1px solid $secondary-gray20;
+}
+
 .c-sbi-filter__item-label {
   &.c-sbi-filter__item-label--empty-value {
     font-style: italic;
