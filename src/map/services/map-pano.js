@@ -4,8 +4,8 @@ export default function fetchPano(location) {
   const searchParams = {
     lat: location[0],
     lon: location[1],
-    width: 240,
-    radius: 50
+    width: 438,
+    radius: 180
   };
 
   const queryString = Object.keys(searchParams)
