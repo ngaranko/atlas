@@ -39,6 +39,10 @@
             applyFilters(filters);
         };
 
+        vm.clickFilter = (filterSlug, string) => {
+            vm.addFilter('sbi_code', string.replace(/-.*$/g, ''));
+        };
+
         vm.showExpandButton = function (filterSlug) {
             return !vm.isExpandedFilter(filterSlug) && getAvailableOptions(filterSlug).length > vm.showMoreThreshold;
         };

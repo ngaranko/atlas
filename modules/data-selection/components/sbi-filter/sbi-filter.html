@@ -15,13 +15,13 @@
                 ng-click="vm.onSubmit()">Selecteer</button>
         </form>
 
-        <div ng-if="filter.slug.startsWith('sbi_l')"
+        <div ng-if="filter.slug.startsWith('sbi_l') && !filter.slug.startsWith('sbi_l1')"
             ng-repeat="filter in vm.availableFilters">
             <ul>
                 <li class="c-sbi-filter__item"
                     ng-repeat="option in filter.options | limitTo : vm.isExpandedFilter(filter.slug) ? undefined : vm.showMoreThreshold">
                     <button class="o-btn o-btn--link o-btn--inline-block"
-                            ng-click="vm.addFilter(filter.slug, option.id)"
+                            ng-click="vm.clickFilter(filter.slug, option.id)"
                         ><span class="c-sbi-filter__item-label"
                               ng-class="{'c-sbi-filter__item-label--empty-value': !option.label}"
                             ><span class="qa-option-label">{{option.label}}</span>
