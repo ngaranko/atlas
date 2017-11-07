@@ -56,12 +56,12 @@ class MapPanelContainer extends React.Component {
       `}
       >
         <div className="map-panel__heading">
-          <MapLayersIcon className="map-panel__heading-icon" />
-          <h1 className="map-panel__heading-title">Kaartlagen</h1>
           <button
             className="map-panel__toggle"
             onClick={this.props.onMapPanelToggle}
           >
+            <MapLayersIcon className="map-panel__heading-icon" />
+            <h1 className="map-panel__heading-title">Kaartlagen</h1>
             <CollapseIcon className="map-panel__toggle-icon map-panel__toggle-icon--expanded" />
             <ExpandIcon className="map-panel__toggle-icon map-panel__toggle-icon--collapsed" />
           </button>
