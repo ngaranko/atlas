@@ -25,22 +25,24 @@
     ];
 
     // eslint-disable-next-line max-params
-    function reducerFactory ($rootScope,
-                             $timeout,
-                             $window,
-                             urlReducers,
-                             freeze,
-                             homeReducers,
-                             layerSelectionReducers,
-                             mapReducers,
-                             pageReducers,
-                             searchReducers,
-                             straatbeeldReducers,
-                             dataSelectionReducers,
-                             printReducers,
-                             embedReducers,
-                             filtersReducers,
-                             environment) {
+    function reducerFactory (
+        $rootScope,
+        $timeout,
+        $window,
+        urlReducers,
+        freeze,
+        homeReducers,
+        layerSelectionReducers,
+        mapReducers,
+        pageReducers,
+        searchReducers,
+        straatbeeldReducers,
+        dataSelectionReducers,
+        printReducers,
+        embedReducers,
+        filtersReducers,
+        environment
+    ) {
         return function (oldState, action) { // eslint-disable-line complexity, max-statements
             const DetailsReducers = $window.reducers.detailReducer;
             const UserReducer = $window.reducers.UserReducer;
@@ -51,10 +53,6 @@
             const MapBaseLayersReducer = $window.reducers.MapBaseLayersReducer;
             const MapGeoSearchReducer = $window.reducers.MapGeoSearchReducer;
             const MapPanoReducer = $window.reducers.MapPanoReducer;
-
-            // TODO: Redux: replace
-            // Warning: angular.merge is deprecated
-            // -- https://docs.angularjs.org/api/ng/function/angular.merge
 
             const detailReducers = {
                 FETCH_DETAIL: DetailsReducers,
@@ -110,6 +108,9 @@
                 MAXIMIZE_MAP_PREVIEW_PANEL: MapPreviewPanelReducer
             };
 
+            // TODO: Redux: replace
+            // Warning: angular.merge is deprecated
+            // -- https://docs.angularjs.org/api/ng/function/angular.merge
             var actions = angular.merge(
                 urlReducers,
                 detailReducers,
@@ -134,55 +135,29 @@
                 environment
             );
 
-            if (detailReducers.hasOwnProperty(action.type.id)) {
-                action.payload = {
-                    payload: action.payload,
-                    type: action.type.id
-                };
-            }
+            // Are we dealing with vanilla js reducers here (type is a
+            // string instead of an object with an ID and other
+            // optional attributes)?
+            const vanilla = angular.isObject(action) &&
+                angular.isString(action.type) &&
+                angular.isFunction(actions[action.type]);
 
-            if (userReducer.hasOwnProperty(action.type)) {
-                return UserReducer(oldState, action);
-            }
-
-            if (mapLayersReducer.hasOwnProperty(action.type)) {
-                return MapLayersReducer(oldState, action);
-            }
-
-            if (mapBaseLayersReducer.hasOwnProperty(action.type)) {
-                const newState = MapBaseLayersReducer(oldState, action);
-                $timeout(() => $rootScope.$digest());
-                return newState;
-            }
-
-            if (mapGeoSearchReducer.hasOwnProperty(action.type)) {
-                return MapGeoSearchReducer(oldState, action);
-            }
-
-            if (mapPanoReducer.hasOwnProperty(action.type)) {
-                return MapPanoReducer(oldState, action);
-            }
-
-            if (mapPanelReducers.hasOwnProperty(action.type)) {
-                return MapPanelReducer(oldState, action);
-            }
-
-            if (mapPreviewPanelReducers.hasOwnProperty(action.type)) {
-                const newState = MapPreviewPanelReducer(oldState, action);
-                $timeout(() => $rootScope.$digest());
-                return newState;
-            }
-
-            if (mapOverlaysReducer.hasOwnProperty(action.type)) {
-                const newState = MapOverlaysReducer(oldState, action);
-                $timeout(() => $rootScope.$digest());
-                return newState;
-            }
-
-            if (angular.isObject(action) &&
+            const legacy = angular.isObject(action) &&
                 angular.isObject(action.type) &&
-                angular.isFunction(actions[action.type.id])
-            ) {
+                angular.isFunction(actions[action.type.id]);
+
+            if (vanilla) {
+                const newState = actions[action.type](oldState, action);
+                $timeout(() => $rootScope.$digest());
+                return newState;
+            } else if (legacy) {
+                if (detailReducers.hasOwnProperty(action.type.id)) {
+                    action.payload = {
+                        payload: action.payload,
+                        type: action.type.id
+                    };
+                }
+
                 const result = actions[action.type.id](oldState, action.payload);
                 if (environment.isDevelopment()) {
                     freeze.deepFreeze(result);
