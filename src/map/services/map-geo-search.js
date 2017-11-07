@@ -18,19 +18,11 @@ export default function geoSearch(location) {
       .join('&');
 
     return fetch(`${apiUrl}${endpoint.uri}?${queryString}`)
-      .then(response => response.json())
-      .then(response => response.features.map((feature) => feature.properties))
+      .then((response) => response.json())
+      .then((response) => response.features.map((feature) => feature.properties))
       .catch((error) => { throw error; });
   });
 
   return Promise.all(allRequests)
-    .then((results) => results.reduce((acc, subResults) => acc.concat(subResults)))
-    .then((results) => {
-      console.log('results', results);
-      return results;
-    })
-    .catch((error) => {
-      console.log('error', error);
-      throw error;
-    });
+    .then((results) => results.reduce((acc, subResults) => acc.concat(subResults)));
 }

@@ -1,5 +1,6 @@
-import config from './crs-config';
 import proj4 from 'proj4';
+
+import config from './crs-config';
 
 /**
  * Converts the given WGS84 coordinates (lat, lon) to RD coordinates.
@@ -10,8 +11,8 @@ import proj4 from 'proj4';
  *
  * @returns {Array} RD coordinates of the form [x, y]
  */
-export function wgs84ToRd (wgs84Coordinates) {
-    return proj4(config.rd.projection, angular.copy(wgs84Coordinates).reverse());
+export function wgs84ToRd(wgs84Coordinates) {
+  return proj4(config.rd.projection, [...wgs84Coordinates].reverse());
 }
 
 /**
@@ -23,6 +24,6 @@ export function wgs84ToRd (wgs84Coordinates) {
  *
  * @returns {Array} WGS84 coordinates of the form [lat, lon]
  */
-export function rdToWgs84 (rdCoordinates) {
-    return proj4(config.rd.projection, config.wgs84.projection, rdCoordinates).reverse();
+export function rdToWgs84(rdCoordinates) {
+  return proj4(config.rd.projection, config.wgs84.projection, rdCoordinates).reverse();
 }

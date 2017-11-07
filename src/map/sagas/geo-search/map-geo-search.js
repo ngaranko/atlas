@@ -7,7 +7,6 @@ function* fetchMapGeoSearch(action) {
     const mapResults = yield call(geoSearch, action.location);
     yield put({ type: 'FETCH_MAP_GEO_SEARCH_SUCCESS', mapResults });
   } catch (error) {
-    console.log('catch error', error);
     yield put({ type: 'FETCH_MAP_GEO_SEARCH_FAILURE', error });
   }
 }

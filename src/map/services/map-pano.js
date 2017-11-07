@@ -13,10 +13,9 @@ export default function fetchPano(location) {
     .join('&');
 
   return fetch(`${apiUrl}panorama/thumbnail/?${queryString}`)
-    .then(response => response.json())
-    .then(response => ({
+    .then((response) => response.json())
+    .then((response) => ({
       id: response.pano_id,
       url: response.url
-    }))
-    .catch((error) => { throw error; });
+    }));
 }

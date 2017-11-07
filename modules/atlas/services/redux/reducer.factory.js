@@ -41,7 +41,7 @@
                              embedReducers,
                              filtersReducers,
                              environment) {
-        return function (oldState, action) { // eslint-disable-line complexity max-statements
+        return function (oldState, action) { // eslint-disable-line complexity, max-statements
             const DetailsReducers = $window.reducers.detailReducer;
             const UserReducer = $window.reducers.UserReducer;
             const MapLayersReducer = $window.reducers.MapLayersReducer;
