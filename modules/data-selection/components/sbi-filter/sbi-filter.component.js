@@ -13,9 +13,9 @@
             controllerAs: 'vm'
         });
 
-    DpSbiFilterController.$inject = ['$scope', 'store', 'ACTIONS', 'DATA_SELECTION_CONFIG'];
+    DpSbiFilterController.$inject = ['$scope', 'store', 'ACTIONS'];
 
-    function DpSbiFilterController ($scope, store, ACTIONS, DATA_SELECTION_CONFIG) {
+    function DpSbiFilterController ($scope, store, ACTIONS) {
         let numberOfOptions = 0;
         const vm = this,
             expandedFilters = [],

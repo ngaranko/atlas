@@ -19,7 +19,7 @@
             <ul>
                 <li class="c-sbi-filter__item c-sbi-filter__item--{{option.slug}}"
                     ng-repeat="option in vm.filter.options | limitTo : vm.isExpandedFilter('sbi_code') ? undefined : vm.showMoreThreshold">
-                    <button class="o-btn o-btn--link o-btn--inline-block"
+                    <button class="c-sbi-filter__button o-btn o-btn--link o-btn--inline-block"
                             ng-click="vm.clickFilter('sbi_code', option.id)"
                         ><span class="c-sbi-filter__item-label"
                               ng-class="{'c-sbi-filter__item-label--empty-value': !option.label}"

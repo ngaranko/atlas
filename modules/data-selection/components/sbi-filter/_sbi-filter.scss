@@ -21,6 +21,7 @@ $sbi-filter-item-height: 32px;
 
 .c-sbi-filter__form {
   display: flex;
+  margin-bottom: 10px;
 }
 
 .c-sbi-filter__input {
@@ -61,7 +62,7 @@ $sbi-filter-item-height: 32px;
 .c-sbi-filter__submit {
   @include font-size($s-font);
   @include font-weight($bold-weight);
-  margin-left: 10px;
+  margin-left: $base-whitespace;
   padding: 3px 7px;
   border: 1px solid $secondary-gray20;
   background-color: $secondary-gray4;
@@ -75,8 +76,23 @@ $sbi-filter-item-height: 32px;
 }
 
 .c-sbi-filter__item {
-  line-height: $sbi-filter-item-height;
+  height: $sbi-filter-item-height;
   overflow: hidden;
+}
+
+.c-sbi-filter__button {
+  display: flex;
+  align-items: center;
+
+  width: calc(100% - 5px);
+}
+
+.c-sbi-filter__item-label {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: inherit;
 }
 
 .c-sbi-filter__item--sbi_l2 + .c-sbi-filter__item--sbi_l3,
