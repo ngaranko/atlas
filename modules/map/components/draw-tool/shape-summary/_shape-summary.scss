@@ -1,5 +1,6 @@
 .c-shape-summary {
   @extend %draw-tool-element;
+  margin-left: $base-whitespace;
   padding-right: $button-size + $base-whitespace;
   border: 1px solid $secondary-gray20;
 }

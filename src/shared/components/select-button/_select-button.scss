@@ -147,6 +147,10 @@
     width: inherit;
   }
 
+  &__label {
+    white-space: nowrap;
+  }
+
   &__drop-down-button {
     appearance: none;
     font-family: "Avenir LT W01 55 Roman";
