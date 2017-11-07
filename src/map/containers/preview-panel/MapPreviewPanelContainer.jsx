@@ -50,32 +50,31 @@ class MapPreviewPanelContainer extends React.Component {
   render() {
     return (
       <section className={`
-        map-panel
-        map-panel--preview
-        ${this.props.isMapPreviewPanelVisible ? '' : 'map-panel--hidden'}
+        map-preview
+        ${this.props.isMapPreviewPanelVisible ? '' : 'map-preview--hidden'}
       `}
       >
-        <div className="map-panel__heading">
-          <h1 className="map-panel__heading-title map-panel__heading-title--hidden">Preview</h1>
+        <div className="map-preview__heading">
           <button
-            className="map-panel__toggle"
+            className="map-preview__button"
             onClick={this.props.onMapPreviewPanelMaximize}
           >
-            <MaximizeIcon className="map-panel__toggle-icon" />
+            <MaximizeIcon className="map-preview__button-icon" />
           </button>
           <button
-            className="map-panel__toggle"
+            className="map-preview__button"
             onClick={this.props.onMapPreviewPanelClose}
           >
-            <CloseIcon className="map-panel__toggle-icon" />
+            <CloseIcon className="map-preview__button-icon" />
           </button>
         </div>
-        <div className="map-panel__body">
+        <div className="map-preview__body">
           <MapResults
             count={this.props.search.numberOfResults}
             location={this.props.search.location}
             panoUrl={this.props.pano.url}
-            results={this.props.results} />
+            results={this.props.results}
+          />
         </div>
       </section>
     );
@@ -95,10 +94,11 @@ MapPreviewPanelContainer.defaultProps = {
 
 MapPreviewPanelContainer.propTypes = {
   isMapPreviewPanelVisible: PropTypes.bool,
-  search: PropTypes.object,
-  results: PropTypes.array,
-  pano: PropTypes.object,
-  onMapPreviewPanelMaximize: PropTypes.func.isRequired
+  search: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  results: PropTypes.array, // eslint-disable-line react/forbid-prop-types
+  pano: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  onMapPreviewPanelMaximize: PropTypes.func.isRequired,
+  onMapPreviewPanelClose: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapPreviewPanelContainer);
