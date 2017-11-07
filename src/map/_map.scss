@@ -18,10 +18,6 @@
   width: 28%;
   z-index: 100;
 
-  &--hidden {
-    display: none;
-  }
-
   &--collapsed {
     height: auto;
     min-width: auto;
@@ -34,15 +30,6 @@
     .scroll-wrapper {
       display: none;
     }
-  }
-
-  &--preview {
-    bottom: 125px;
-    height: auto;
-    left: auto;
-    max-height: none;
-    right: 9px;
-    top: 110px;
   }
 
   &__heading {
@@ -134,10 +121,6 @@
     }
   }
 
-  &__body {
-    height: calc(100% - 33px);
-  }
-
   .scroll-wrapper {
     height: calc(100% - 33px);
     overflow-x: hidden;
@@ -214,17 +197,22 @@
 .map-preview {
   background-color: #FAFAFA;
   border: solid 1px #CCCCCC;
-  bottom: 125px;
   box-shadow: 2px 2px 0 0 #999999;
   font-family: "Avenir LT W01 55 Roman";
+  max-height: calc(100vh - #{52px + 6px + 36px + 16px + 2px + 16px + 36px + 2px + 36px + 8px + 17px + 8px});
   max-width: 440px;
   min-width: 285px;
   overflow: hidden;
   position: fixed;
   right: 9px;
-  top: 110px;
+  top: #{52px + 6px + 36px + 16px};
   width: 28%;
   z-index: 100;
+
+  .c-dashboard__body--error & {
+    max-height: calc(100vh - #{52px + 26px + 6px + 36px + 16px + 2px + 16px + 36px + 2px + 36px + 8px + 17px + 8px});
+    top: #{52px + 26px + 6px + 36px + 16px};
+  }
 
   &--hidden {
     display: none;
@@ -252,20 +240,17 @@
   &__button {
     border-radius: 0;
     height: 24px;
+    margin-left: 4px;
     outline: none;
     width: 24px;
 
     &:hover {
       background-color: #EC0000;
     }
-
-    .map-panel--collapsed & {
-      margin-left: 4px;
-    }
   }
 
   &__button-icon {
-    fill: #000000;
+    fill: #666666;
     height: inherit;
     width: inherit;
 
@@ -275,7 +260,6 @@
   }
 
   &__body {
-    height: calc(100% - 33px);
   }
 
   .is-embed &,
@@ -355,7 +339,12 @@
   }
 
   &__list {
+    max-height: calc(100vh - #{52px + 6px + 36px + 16px + 1px + 33px + 116px + 1px + 2px + 16px + 36px + 2px + 36px + 8px + 17px + 8px});
     overflow-y: auto;
+
+    .c-dashboard__body--error & {
+      max-height: calc(100vh - #{52px + 26px + 6px + 36px + 16px + 1px + 33px + 116px + 1px + 2px + 16px + 36px + 2px + 36px + 8px + 17px + 8px});
+    }
   }
 
   &__item {
