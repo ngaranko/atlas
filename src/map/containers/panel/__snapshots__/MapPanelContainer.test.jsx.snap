@@ -11,18 +11,18 @@ exports[`MapPanelContainer should render MapLegend if store contains active map 
   <div
     className="map-panel__heading"
   >
-    <test-file-stub
-      className="map-panel__heading-icon"
-    />
-    <h1
-      className="map-panel__heading-title"
-    >
-      Kaartlagen
-    </h1>
     <button
       className="map-panel__toggle"
       onClick={[Function]}
     >
+      <test-file-stub
+        className="map-panel__heading-icon"
+      />
+      <h1
+        className="map-panel__heading-title"
+      >
+        Kaartlagen
+      </h1>
       <test-file-stub
         className="map-panel__toggle-icon map-panel__toggle-icon--expanded"
       />
@@ -75,18 +75,18 @@ exports[`MapPanelContainer should render MapType and MapLayers 1`] = `
   <div
     className="map-panel__heading"
   >
-    <test-file-stub
-      className="map-panel__heading-icon"
-    />
-    <h1
-      className="map-panel__heading-title"
-    >
-      Kaartlagen
-    </h1>
     <button
       className="map-panel__toggle"
       onClick={[Function]}
     >
+      <test-file-stub
+        className="map-panel__heading-icon"
+      />
+      <h1
+        className="map-panel__heading-title"
+      >
+        Kaartlagen
+      </h1>
       <test-file-stub
         className="map-panel__toggle-icon map-panel__toggle-icon--expanded"
       />
