@@ -24,7 +24,7 @@
                 break;
 
             default:
-                config.NAME = 'PRODUCTION';
+                config.NAME = 'DEVELOPMENT';
         }
 
         config.isDevelopment = () => config.NAME === 'DEVELOPMENT';
