@@ -1,4 +1,4 @@
-(function () {
+(() => {
     'use strict';
 
     angular
@@ -32,8 +32,8 @@
                 .slice(0, 100);
 
         vm.sbiCode = vm.activeFilters.sbi_code && vm.activeFilters.sbi_code.replace(/['\[\]]/g, '');
-        vm.showOptionCounts = false;
         vm.showMoreThreshold = 10;
+        vm.filterSlug = 'sbi_code';
 
         vm.filter = {
             ...vm.availableFilters.find(filter => filter.slug === 'sbi_code'),
@@ -42,59 +42,52 @@
         };
 
         vm.onSubmit = () => {
-            vm.addFilter('sbi_code', vm.sbiCode);
+            vm.addFilter(vm.sbiCode);
         };
 
-        vm.addFilter = (filterSlug, string) => {
+        vm.addFilter = (string) => {
             const filters = {...vm.activeFilters};
 
             if (string === '') {
-                delete filters[filterSlug];
+                delete filters[vm.filterSlug];
             } else {
-                filters[filterSlug] = '[' + string.split(',').map(data => '\'' + data.trim() + '\'').join(', ') + ']';
+                filters[vm.filterSlug] =
+                    '[' + string.split(',').map(data => '\'' + data.trim() + '\'').join(', ') + ']';
             }
 
             applyFilters(filters);
         };
 
-        vm.clickFilter = (filterSlug, string) => {
-            vm.addFilter('sbi_code', string.replace(/-.*$/g, ''));
+        vm.clickFilter = (string) => {
+            vm.addFilter(string.replace(/-.*$/g, ''));
         };
 
-        vm.showExpandButton = function (filterSlug) {
-            return !vm.isExpandedFilter(filterSlug) && getAvailableOptions(filterSlug).length > vm.showMoreThreshold;
+        vm.showExpandButton = function () {
+            return !vm.isExpandedFilter() && vm.canExpandImplode();
         };
 
         vm.nrHiddenOptions = function (filter) {
             return filter.numberOfOptions - filter.options.length;
         };
 
-        vm.expandFilter = function (filterSlug) {
-            expandedFilters.push(filterSlug);
+        vm.expandFilter = function () {
+            expandedFilters.push(vm.filterSlug);
         };
 
-        vm.implodeFilter = function (filterSlug) {
-            var index = expandedFilters.indexOf(filterSlug);
+        vm.implodeFilter = function () {
+            var index = expandedFilters.indexOf(vm.filterSlug);
             if (index >= 0) {
                 expandedFilters.splice(index, 1);
             }
         };
 
-        vm.isExpandedFilter = function (filterSlug) {
-            return expandedFilters.indexOf(filterSlug) !== -1;
+        vm.isExpandedFilter = function () {
+            return expandedFilters.indexOf(vm.filterSlug) !== -1 && vm.canExpandImplode();
         };
 
-        vm.canExpandImplode = function (filterSlug) {
-            return getAvailableOptions(filterSlug).length > vm.showMoreThreshold;
+        vm.canExpandImplode = function () {
+            return vm.filter.options.length > vm.showMoreThreshold;
         };
-
-        function getAvailableOptions (filterSlug) {
-            return getAvailableFilters(filterSlug)[0].options;
-        }
-
-        function getAvailableFilters (filterSlug) {
-            return vm.availableFilters.filter(filter => filter.slug === filterSlug);
-        }
 
         function applyFilters (filters) {
             store.dispatch({
