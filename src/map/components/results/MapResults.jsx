@@ -20,10 +20,15 @@ const MapResults = ({ count, location, results, panoUrl }) => {
 
   return (
     <section className="map-results">
-      <img className="map-results__pano" src={panoUrl} />
-      <header className="map-results__header">
-        <h1 className="map-results__header-title">Resultaten ({count})</h1>
-        <h2 className="map-results__header-subtitle">locatie {rdCoordinates[0]}, {rdCoordinates[1]}</h2>
+      <header className={`
+          map-results__header
+          ${!panoUrl && 'map-results__header--no-pano'}
+        `}>
+        { panoUrl && <img className="map-results__header-pano" src={panoUrl} /> }
+        <div className="map-results__header-container">
+          <h1 className="map-results__header-title">Resultaten ({count})</h1>
+          <h2 className="map-results__header-subtitle">locatie {rdCoordinates[0]}, {rdCoordinates[1]}</h2>
+        </div>
       </header>
       <ul className="map-results__list">
         {results.map((result) => (
