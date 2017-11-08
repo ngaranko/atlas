@@ -70,7 +70,7 @@
                         return {
                             slug: filter.slug,
                             label: filter.label,
-                            option: option && option.label || multipleValue
+                            option: multipleValue || option && option.label
                         };
                     });
                 vm.formattedActiveFilters = vm.formattedActiveFilters.concat(textFilters);
