@@ -18,7 +18,6 @@
     function DpSbiFilterController ($scope, store, ACTIONS) {
         let numberOfOptions = 0;
         const vm = this,
-            expandedFilters = [],
             options = vm.availableFilters
                 .filter(filter => filter.slug.startsWith('sbi_l'))
                 .map(filter => {
@@ -33,6 +32,7 @@
 
         vm.sbiCode = vm.activeFilters.sbi_code && vm.activeFilters.sbi_code.replace(/['\[\]]/g, '');
         vm.showMoreThreshold = 10;
+        vm.isExpanded = false;
         vm.filterSlug = 'sbi_code';
 
         vm.filter = {
@@ -63,7 +63,7 @@
         };
 
         vm.showExpandButton = function () {
-            return !vm.isExpandedFilter() && vm.canExpandImplode();
+            return !vm.isExpanded && vm.canExpandImplode();
         };
 
         vm.nrHiddenOptions = function (filter) {
@@ -71,18 +71,11 @@
         };
 
         vm.expandFilter = function () {
-            expandedFilters.push(vm.filterSlug);
+            vm.isExpanded = true;
         };
 
         vm.implodeFilter = function () {
-            var index = expandedFilters.indexOf(vm.filterSlug);
-            if (index >= 0) {
-                expandedFilters.splice(index, 1);
-            }
-        };
-
-        vm.isExpandedFilter = function () {
-            return expandedFilters.indexOf(vm.filterSlug) !== -1 && vm.canExpandImplode();
+            vm.isExpanded = false;
         };
 
         vm.canExpandImplode = function () {
