@@ -1,16 +1,16 @@
-describe('The dp-sbi-filter component', () =>  {
+describe('The dp-sbi-filter component', () => {
     var $compile,
         $rootScope,
         store,
         ACTIONS,
         availableFilters;
 
-    beforeEach(() =>  {
+    beforeEach(() => {
         angular.mock.module(
             'dpDataSelection',
             {
                 store: {
-                    dispatch: () =>  {}
+                    dispatch: () => {}
                 }
             },
             function ($provide) {
@@ -58,9 +58,24 @@ describe('The dp-sbi-filter component', () =>  {
                     }, {
                         label: 'de derde van level 1',
                         id: 'optie-b-3'
+                    }, {
+                        label: 'de vierde van level 1',
+                        id: 'optie-b-1'
+                    }, {
+                        label: 'de vijfde van level 1',
+                        id: 'optie-b-2'
+                    }, {
+                        label: 'de zesde van level 1',
+                        id: 'optie-b-3'
+                    }, {
+                        label: 'de zevende van level 1',
+                        id: 'optie-b-1'
+                    }, {
+                        label: 'de achtste van level 1',
+                        id: 'optie-b-2'
                     }
                 ],
-                numberOfOptions: 3
+                numberOfOptions: 8
             }, {
                 slug: 'sbi_l2',
                 label: 'SBI-code',
@@ -97,7 +112,7 @@ describe('The dp-sbi-filter component', () =>  {
         return component;
     }
 
-    fit('shows the sbi filter form', () =>  {
+    fit('shows the sbi filter form', () => {
         const component = getComponent();
 
         expect(component.find('.qa-sbi-filter-form-input').length).toBe(1);
@@ -107,7 +122,7 @@ describe('The dp-sbi-filter component', () =>  {
         expect(component.find('.qa-sbi-filter-form-sumbit').text()).toBe('Selecteer');
     });
 
-    fit('shows the sbi filter list', () =>  {
+    fit('shows the sbi filter list', () => {
         const component = getComponent();
 
         expect(component.find('.qa-sbi-filter').length).toBe(1);
@@ -115,45 +130,21 @@ describe('The dp-sbi-filter component', () =>  {
 
         // sbi filter
         expect(component.find('.qa-sbi-filter h2').eq(0).text()).toBe('SBI-code');
-        expect(component.find('.qa-sbi-filter ul').eq(0).find('li').length).toBe(4);
+        expect(component.find('.qa-sbi-filter ul').eq(0).find('li').length).toBe(9);
 
         expect(component.find('.qa-sbi-filter ul').eq(0).find('li button').eq(0).text())
             .toContain('de eerste van level 1');
 
-        expect(component.find('.qa-sbi-filter ul').eq(0).find('li button').eq(3).text())
+        expect(component.find('.qa-sbi-filter ul').eq(0).find('li button').eq(8).text())
             .toContain('Optie van het Beest');
     });
 
-    fit('shows the sbi filter list with maximum of 10 items', () =>  {
+    fit('shows the sbi filter list with limit of 10 items then click show more', () => {
         availableFilters[1].options.push({
-            label: 'de xxx van level 1'
+            label: 'de negende van level 1'
         });
         availableFilters[1].options.push({
-            label: 'de xxx van level 1'
-        });
-        availableFilters[1].options.push({
-            label: 'de xxx van level 1'
-        });
-        availableFilters[1].options.push({
-            label: 'de xxx van level 1'
-        });
-        availableFilters[1].options.push({
-            label: 'de xxx van level 1'
-        });
-        availableFilters[1].options.push({
-            label: 'de xxx van level 1'
-        });
-        availableFilters[1].options.push({
-            label: 'de xxx van level 1'
-        });
-        availableFilters[1].options.push({
-            label: 'de xxx van level 1'
-        });
-        availableFilters[1].options.push({
-            label: 'de xxx van level 1'
-        });
-        availableFilters[1].options.push({
-            label: 'de xxx van level 1'
+            label: 'de tiende van level 1'
         });
         availableFilters[1].numberOfOptions = availableFilters[1].options.length;
 
@@ -163,10 +154,22 @@ describe('The dp-sbi-filter component', () =>  {
         expect(component.find('.qa-sbi-filter ul').eq(0).find('li').length).toBe(10);
 
         expect(component.find('.qa-show-more-button').length).toBe(1);
+
+        // Click the show more button
+        component.find('.qa-show-more-button').click();
+        $rootScope.$apply();
+
+        expect(component.find('.qa-sbi-filter ul').eq(0).find('li').length).toBe(11);
+
+        // Click the show less button
+        component.find('.qa-show-more-button').click();
+        $rootScope.$apply();
+
+        expect(component.find('.qa-sbi-filter ul').eq(0).find('li').length).toBe(10);
     });
 
-    describe('it dispatches an action when a filter has been added', () =>  {
-        it('when adding the first filter; one filter is communicated', () =>  {
+    describe('it dispatches an action when a filter has been added', () => {
+        it('when adding the first filter; one filter is communicated', () => {
             var component,
                 activeFilters = {};
 
@@ -181,7 +184,7 @@ describe('The dp-sbi-filter component', () =>  {
             });
         });
 
-        it('when adding another filter; all filters are communicated', () =>  {
+        it('when adding another filter; all filters are communicated', () => {
             var component,
                 activeFilters = {
                     filter_a_new: 'optie-a-2'
@@ -199,7 +202,7 @@ describe('The dp-sbi-filter component', () =>  {
             });
         });
 
-        it('can only have one option per filter', () =>  {
+        it('can only have one option per filter', () => {
             var component,
                 activeFilters = {
                     filter_a_new: 'optie-a-2',
@@ -220,7 +223,7 @@ describe('The dp-sbi-filter component', () =>  {
         });
     });
 
-    it('updates its active filters when available filters are changed', () =>  {
+    it('updates its active filters when available filters are changed', () => {
         var component,
             activeFilters;
 
@@ -233,7 +236,7 @@ describe('The dp-sbi-filter component', () =>  {
         expect(component.scope().formattedActiveFilters).toBeUndefined();
     });
 
-    it('can implode both known and unknown filters', () =>  {
+    it('can implode both known and unknown filters', () => {
         var component = getComponent({}, false);
         var scope = component.isolateScope();
 
@@ -245,7 +248,7 @@ describe('The dp-sbi-filter component', () =>  {
         expect(scope.vm.isExpandedFilter('abc')).toBe(false);
     });
 
-    it('shows maximum of 10 options per filter, it can expand/implode when it has more than 10 results', () =>  {
+    it('shows maximum of 10 options per filter, it can expand/implode when it has more than 10 results', () => {
         var component;
 
         // When there are 10 or less available options
@@ -297,7 +300,7 @@ describe('The dp-sbi-filter component', () =>  {
         expect(component.find('.qa-sbi-filter > div').eq(0).text()).toContain('Toon meer');
     });
 
-    it('expanded filters have a message when there are more options that 100', () =>  {
+    it('expanded filters have a message when there are more options that 100', () => {
         // When there are less than 100 options
         var component;
 
