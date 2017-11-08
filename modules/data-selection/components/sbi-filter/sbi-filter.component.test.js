@@ -177,10 +177,7 @@ describe('The dp-sbi-filter component', () => {
             component.find('.qa-sbi-filter ul').eq(0).find('li button').eq(0).click();
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: {
-                    id: 'APPLY_FILTERS',
-                    ignore: true
-                },
+                type: ACTIONS.APPLY_FILTERS,
                 payload: {
                     sbi_code: '[\'01\']'
                 }
@@ -196,10 +193,7 @@ describe('The dp-sbi-filter component', () => {
             component.find('.qa-sbi-filter ul').eq(0).find('li button').eq(4).click();
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: {
-                    id: 'APPLY_FILTERS',
-                    ignore: true
-                },
+                type: ACTIONS.APPLY_FILTERS,
                 payload: {
                     sbi_code: '[\'42\']'
                 }
@@ -213,10 +207,7 @@ describe('The dp-sbi-filter component', () => {
 
             component.find('.qa-sbi-filter-form-input').val('888').triggerHandler('change');
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: {
-                    id: 'APPLY_FILTERS',
-                    ignore: true
-                },
+                type: ACTIONS.APPLY_FILTERS,
                 payload: {
                     sbi_code: '[\'888\']'
                 }
@@ -228,10 +219,7 @@ describe('The dp-sbi-filter component', () => {
 
             component.find('.qa-sbi-filter-form-input').val('   9999   ,  44,3').triggerHandler('change');
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: {
-                    id: 'APPLY_FILTERS',
-                    ignore: true
-                },
+                type: ACTIONS.APPLY_FILTERS,
                 payload: {
                     sbi_code: '[\'9999\', \'44\', \'3\']'
                 }
@@ -246,10 +234,7 @@ describe('The dp-sbi-filter component', () => {
 
             component.find('.qa-sbi-filter-form-input').val('').triggerHandler('change');
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: {
-                    id: 'APPLY_FILTERS',
-                    ignore: true
-                },
+                type: ACTIONS.APPLY_FILTERS,
                 payload: {}
             });
         });
