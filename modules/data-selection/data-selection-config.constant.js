@@ -225,13 +225,13 @@
                     CONTENT: {
                         TABLE: [
                             {
+                                label: 'KvK-num.',
+                                variables: ['kvk_nummer']
+                            },
+                            {
                                 label: 'Handelsnaam',
                                 variables: ['handelsnaam', 'bijzondere_rechtstoestand'],
                                 template: 'handelsnaam'
-                            },
-                            {
-                                label: 'KvK-num.',
-                                variables: ['kvk_nummer']
                             },
                             {
                                 label: 'SBI-code',
