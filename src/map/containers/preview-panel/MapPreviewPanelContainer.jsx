@@ -12,6 +12,7 @@ import { getMapPano } from '../../ducks/pano/map-pano';
 import MaximizeIcon from '../../../../public/images/icon-maximize.svg';
 import CloseIcon from '../../../../public/images/icon-cross-big.svg';
 import MapResults from '../../components/results/MapResults';
+import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator';
 
 const mapStateToProps = (state) => ({
   isMapPreviewPanelVisible: state.isMapPreviewPanelVisible,
@@ -71,8 +72,16 @@ class MapPreviewPanelContainer extends React.Component {
             <CloseIcon className="map-preview__button-icon" />
           </button>
         </div>
-        <div className="map-preview__body">
-          { this.props.search && this.props.pano &&
+        <div
+          className={`
+            map-preview__body
+            ${this.props.search && this.props.search.isLoading ? 'map-preview__body--loading' : ''}
+          `}
+        >
+          { this.props.search && this.props.search.isLoading &&
+            <LoadingIndicator />
+          }
+          { this.props.search && !this.props.search.isLoading && this.props.pano &&
             <MapResults
               count={this.props.search.numberOfResults}
               location={this.props.search.location}

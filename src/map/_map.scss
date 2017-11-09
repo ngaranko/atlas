@@ -260,6 +260,9 @@
   }
 
   &__body {
+    &--loading {
+      padding: 36px;
+    }
   }
 
   .is-embed &,
@@ -350,6 +353,7 @@
   &__item {
     border-bottom: 1px solid #eeeeee;
     padding: 8px;
+    background-color: #FFFFFF;
 
     &:hover {
       background-color: #EEEEEE;
