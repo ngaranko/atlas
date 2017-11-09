@@ -89,10 +89,19 @@ $sbi-filter-item-height: 32px;
 
 .c-sbi-filter__item-label {
   display: inline-block;
-  overflow: hidden;
+  width: inherit;
   text-overflow: ellipsis;
   white-space: nowrap;
-  width: inherit;
+  overflow: hidden;
+
+  &.c-sbi-filter__item-label--empty-value {
+    font-style: italic;
+
+    &::before {
+      display: inline-block;
+      content: "(geen)";
+    }
+  }
 }
 
 .c-sbi-filter__item--sbi_l2 + .c-sbi-filter__item--sbi_l3,
@@ -102,17 +111,6 @@ $sbi-filter-item-height: 32px;
   margin: 0 -20px;
   padding: 15px 20px 0;
   border-top: 1px solid $secondary-gray20;
-}
-
-.c-sbi-filter__item-label {
-  &.c-sbi-filter__item-label--empty-value {
-    font-style: italic;
-
-    &::before {
-      display: inline-block;
-      content: "(geen)";
-    }
-  }
 }
 
 .c-sbi-filter__show-more {

@@ -16,12 +16,12 @@
     DpSbiFilterController.$inject = ['$scope', 'store', 'ACTIONS'];
 
     function DpSbiFilterController ($scope, store, ACTIONS) {
-        let numberOfOptions = 0;
         const vm = this,
-            options = vm.availableFilters
-                .filter(filter => filter.slug.startsWith('sbi_l'))
+            sbiLevelFilters = vm.availableFilters.filter(filter => filter.slug.startsWith('sbi_l')),
+            numberOfOptions = sbiLevelFilters
+                .reduce((total, amount) => (angular.isNumber(total) ? total : 0) + amount.numberOfOptions),
+            options = sbiLevelFilters
                 .map(filter => {
-                    numberOfOptions += filter.numberOfOptions;
                     return filter.options.map(sub => {
                         sub.slug = filter.slug;
                         return sub;
@@ -45,14 +45,14 @@
             vm.addFilter(vm.sbiCode);
         };
 
-        vm.addFilter = (string) => {
-            const filters = {...vm.activeFilters};
+        vm.addFilter = (value) => {
+            const filters = {...vm.activeFilters},
+                formattedValue = value.split(',').map(data => '\'' + data.trim() + '\'').join(', ');
 
-            if (string === '') {
+            if (value === '') {
                 delete filters[vm.filterSlug];
             } else {
-                filters[vm.filterSlug] =
-                    '[' + string.split(',').map(data => '\'' + data.trim() + '\'').join(', ') + ']';
+                filters[vm.filterSlug] = `[${formattedValue}]`;
             }
 
             applyFilters(filters);
