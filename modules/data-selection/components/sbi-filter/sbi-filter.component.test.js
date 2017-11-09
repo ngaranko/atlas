@@ -46,7 +46,7 @@ describe('The dp-sbi-filter component', () => {
                 options: [],
                 numberOfOptions: 0
             }, {
-                slug: 'sbi_l1',
+                slug: 'sbi_l2',
                 label: 'SBI-code',
                 options: [
                     {
@@ -70,19 +70,26 @@ describe('The dp-sbi-filter component', () => {
                     }, {
                         label: 'de zevende van level 1',
                         id: '69-lekker'
-                    }, {
-                        label: 'de achtste van level 1',
-                        id: '77-beter'
                     }
                 ],
                 numberOfOptions: 8
             }, {
-                slug: 'sbi_l2',
+                slug: 'sbi_l3',
                 label: 'SBI-code',
                 options: [
                     {
                         label: 'Optie van het Beest',
                         id: '666-optievanhetbeest'
+                    }
+                ],
+                numberOfOptions: 1
+            }, {
+                slug: 'sbi_l4',
+                label: 'SBI-code',
+                options: [
+                    {
+                        label: 'Optie van de drieeenheid',
+                        id: '333-drieeenheid'
                     }
                 ],
                 numberOfOptions: 1
@@ -137,7 +144,7 @@ describe('The dp-sbi-filter component', () => {
                 .toContain('de eerste van level 1');
 
             expect(component.find('.qa-sbi-filter ul').eq(0).find('li button').eq(8).text())
-                .toContain('Optie van het Beest');
+                .toContain('Optie van de drieeenheid');
         });
 
         it('filter list with limit of 10 items then click show more and click show less', () => {
