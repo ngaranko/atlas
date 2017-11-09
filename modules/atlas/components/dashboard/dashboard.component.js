@@ -87,7 +87,7 @@
             vm.isStraatbeeldActive = Boolean(state.straatbeeld);
             vm.straatbeeldHistory = vm.isStraatbeeldActive ? state.straatbeeld.history : null;
             vm.searchLocation = vm.activity.searchResults
-                ? state.search.location.reduce((acc, coordinate) => acc + coordinate, '')
+                ? state.search.location.reduce((accumulator, coordinate) => accumulator + coordinate, '')
                 : null;
         }
     }

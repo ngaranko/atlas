@@ -81,5 +81,5 @@ export default function geoSearch(location) {
   });
 
   return Promise.all(allRequests)
-    .then((results) => results.reduce((acc, subResults) => acc.concat(subResults)));
+    .then((results) => results.reduce((accumulator, subResults) => accumulator.concat(subResults)));
 }
