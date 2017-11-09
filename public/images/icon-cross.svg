@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-  <g id="icon-cross" transform="translate(-4.000000, -4.000000)">
-    <g id="plus" transform="translate(10.000000, 10.000000) rotate(45.000000) translate(-10.000000, -10.000000) translate(3.000000, 3.000000)">
-      <path d="M6,7.845 L3.981,7.845 L0,7.845 L0,5.98 L5.981,5.98 L5.981,8.8817842e-16 L7.846,8.8817842e-16 L7.846,3.98 L7.846,6 L9.86442915,6 L13.8400002,6 L13.8400002,7.866 L7.86442915,7.866 L7.86442915,13.845 L6,13.845 L6,9.866 L6,7.845 Z" id="Combined-Shape"></path>
-    </g>
-  </g>
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <polygon id="path-1" points="512 564.325902 678.170094 730.495995 730.495995 678.170094 564.325902 512 730.495995 345.829906 678.170094 293.504005 511.632304 460.041794 345.829906 293.504005 293.504005 345.829906 459.689221 511.984877 293.504005 678.170094 345.829906 730.495995"></polygon>
 </svg>

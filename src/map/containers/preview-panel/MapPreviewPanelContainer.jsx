@@ -9,8 +9,8 @@ import {
 } from '../../ducks/preview-panel/map-preview-panel';
 import { getMapGeoSearch } from '../../ducks/geo-search/map-geo-search';
 import { getMapPano } from '../../ducks/pano/map-pano';
-import MaximizeIcon from '../../../../public/images/icon-arrow-down.svg';
-import CloseIcon from '../../../../public/images/icon-cross.svg';
+import MaximizeIcon from '../../../../public/images/icon-maximize.svg';
+import CloseIcon from '../../../../public/images/icon-cross-big.svg';
 import MapResults from '../../components/results/MapResults';
 
 const mapStateToProps = (state) => ({
