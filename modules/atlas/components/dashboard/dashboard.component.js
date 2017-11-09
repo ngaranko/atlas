@@ -45,15 +45,15 @@
             }
         });
 
-        $scope.$watchGroup(['vm.activity.searchResults', 'vm.isMapFullscreen'], () => {
-            if (vm.activity.searchResults && vm.isMapFullscreen) {
+        $scope.$watchGroup(['vm.searchLocation', 'vm.isMapFullscreen'], () => {
+            if (vm.searchLocation && vm.isMapFullscreen) {
                 store.dispatch({ type: 'OPEN_MAP_PREVIEW_PANEL' });
             } else {
                 store.dispatch({ type: 'CLOSE_MAP_PREVIEW_PANEL' });
             }
         });
 
-        function setLayout () {
+        function setLayout () { // eslint-disable-line complexity
             const state = store.getState();
 
             vm.user = state.user;
@@ -86,6 +86,9 @@
             vm.isMapFullscreen = Boolean(vm.visibility.map && state.map.isFullscreen);
             vm.isStraatbeeldActive = Boolean(state.straatbeeld);
             vm.straatbeeldHistory = vm.isStraatbeeldActive ? state.straatbeeld.history : null;
+            vm.searchLocation = vm.activity.searchResults
+                ? state.search.location.reduce((acc, coordinate) => acc + coordinate, '')
+                : null;
         }
     }
 })();
