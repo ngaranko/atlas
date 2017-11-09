@@ -1,17 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import geoSearchConfig from '../../services/map-geo-search-config';
 import { wgs84ToRd } from '../../../shared/services/coordinate-reference-system';
 
-const MapResultsItem = ({ item }) => {
-  const category = geoSearchConfig.categoriesByFeature[item.type].label_singular;
+const MapResultsItem = ({ item }) => (
+  <section className="map-results__item">
+    <div className="map-results__item-category">{item.categoryLabel}</div>
+    <div className="map-results__item-name">{item.label}</div>
+  </section>
+);
 
-  return (
-    <section className="map-results__item">
-      <div className="map-results__item-category">{category}</div>
-      <div className="map-results__item-name">{item.display}</div>
-    </section>
-  );
+MapResultsItem.propTypes = {
+  item: PropTypes.object // eslint-disable-line
 };
 
 const MapResults = ({ count, location, results, panoUrl }) => {
@@ -20,14 +19,25 @@ const MapResults = ({ count, location, results, panoUrl }) => {
 
   return (
     <section className="map-results">
-      <header className={`
+      <header
+        className={`
           map-results__header
           ${!panoUrl && 'map-results__header--no-pano'}
-        `}>
-        { panoUrl && <img className="map-results__header-pano" src={panoUrl} /> }
+        `}
+      >
+        {
+          panoUrl &&
+          <img
+            className="map-results__header-pano"
+            src={panoUrl}
+            alt="Panoramabeeld"
+          />
+        }
         <div className="map-results__header-container">
           <h1 className="map-results__header-title">Resultaten ({count})</h1>
-          <h2 className="map-results__header-subtitle">locatie {rdCoordinates[0]}, {rdCoordinates[1]}</h2>
+          <h2 className="map-results__header-subtitle">
+            locatie {rdCoordinates[0]}, {rdCoordinates[1]}
+          </h2>
         </div>
       </header>
       <ul className="map-results__list">

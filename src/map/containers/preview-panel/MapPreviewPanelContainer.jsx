@@ -13,23 +13,27 @@ import MaximizeIcon from '../../../../public/images/icon-arrow-down.svg';
 import CloseIcon from '../../../../public/images/icon-cross.svg';
 import MapResults from '../../components/results/MapResults';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isMapPreviewPanelVisible: state.isMapPreviewPanelVisible,
   search: state.search,
   results: state.mapResults,
   pano: state.mapPano
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({
+const mapDispatchToProps = (dispatch) => bindActionCreators({
   onMapPreviewPanelMaximize: maximizeMapPreviewPanel,
   onMapPreviewPanelClose: closeMapPreviewPanel
 }, dispatch);
 
+const fetchData = (props, context) => {
+  context.store.dispatch(getMapGeoSearch(props.search.location));
+  context.store.dispatch(getMapPano(props.search.location));
+};
+
 class MapPreviewPanelContainer extends React.Component {
   componentDidMount() {
     if (this.props.search && this.props.search.location) {
-      this.context.store.dispatch(getMapGeoSearch(this.props.search.location));
-      this.context.store.dispatch(getMapPano(this.props.search.location));
+      fetchData(this.props, this.context);
     }
   }
 
@@ -42,8 +46,7 @@ class MapPreviewPanelContainer extends React.Component {
         prevProps.search.location[1] !== this.props.search.location[1]
       )
     ) {
-      this.context.store.dispatch(getMapGeoSearch(this.props.search.location));
-      this.context.store.dispatch(getMapPano(this.props.search.location));
+      fetchData(this.props, this.context);
     }
   }
 
@@ -69,12 +72,14 @@ class MapPreviewPanelContainer extends React.Component {
           </button>
         </div>
         <div className="map-preview__body">
-          <MapResults
-            count={this.props.search.numberOfResults}
-            location={this.props.search.location}
-            panoUrl={this.props.pano.url}
-            results={this.props.results}
-          />
+          { this.props.search && this.props.pano &&
+            <MapResults
+              count={this.props.search.numberOfResults}
+              location={this.props.search.location}
+              panoUrl={this.props.pano.url}
+              results={this.props.results}
+            />
+          }
         </div>
       </section>
     );
