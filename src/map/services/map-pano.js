@@ -13,7 +13,14 @@ export default function fetchPano(location) {
     .join('&');
 
   return fetch(`${apiUrl}panorama/thumbnail/?${queryString}`)
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else if (response.status === 404) {
+        return {};
+      }
+      throw new Error('Error requesting a panoramic view');
+    })
     .then((response) => ({
       id: response.pano_id,
       url: response.url
