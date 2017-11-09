@@ -144,6 +144,15 @@
                     url: 'https://www.amsterdam.nl/stelselpedia/gebieden-index/catalogus/grootstedelijk/',
                     meta: []
                 },
+                INSCHRIJVING: {
+                    label_singular: 'Inschrijving',
+                    label_plural: 'Inschrijvingen',
+                    description: 'Een inschrijving is een duurzame \'maatschappelijke activiteit\' van een ' +
+                        'Onderneming of Rechtspersoon in het Handelsregister van de Kamer van Koophandel.',
+                    url: 'https://www.amsterdam.nl/stelselpedia/hr-index/catalogus/vestiging/',
+                    meta: [],
+                    authLevel: 'EMPLOYEE'
+                },
                 INSLAGEN: {
                     label_singular: 'Inslag',
                     label_plural: 'Inslagen',
@@ -378,10 +387,10 @@
                     meta: []
                 },
                 VESTIGING: {
-                    label_singular: 'Inschrijving',
-                    label_plural: 'Inschrijvingen',
-                    description: 'Een inschrijving is een duurzame \'maatschappelijke activiteit\' van een ' +
-                        'Onderneming of Rechtspersoon in het Handelsregister van de Kamer van Koophandel.',
+                    label_singular: 'Vestiging',
+                    label_plural: 'Vestigingen',
+                    description: 'Een Vestiging is gebouw of een complex van gebouwen waar duurzame uitoefening ' +
+                        'van activiteiten van een Onderneming of Rechtspersoon plaatsvindt.',
                     url: 'https://www.amsterdam.nl/stelselpedia/hr-index/catalogus/vestiging/',
                     meta: [],
                     authLevel: 'EMPLOYEE'
