@@ -59,7 +59,7 @@
         };
 
         vm.clickFilter = (string) => {
-            vm.addFilter(string.replace(/-.*$/g, ''));
+            vm.addFilter(string.replace(/: .*$/g, ''));
         };
 
         vm.showExpandButton = function () {
