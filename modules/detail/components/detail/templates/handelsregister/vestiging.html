@@ -66,7 +66,7 @@
             <dt>Datum einde</dt>
             <dd> {{ vm.apiData.results.datum_einde | date:'dd-MM-yyyy' }} </dd>
             <dt>Soort bijzondere rechtstoestand</dt>
-            <dd class="{{vm.apiData.results._bijzondere_rechts_toestand.faillissement || vm.apiData.results._bijzondere_rechts_toestand.status === 'Voorlopig' ? 'u-failliet' : ''}}">
+            <dd class="{{vm.apiData.results._bijzondere_rechts_toestand.faillissement || vm.apiData.results._bijzondere_rechts_toestand.status === 'Voorlopig' || vm.apiData.results._bijzondere_rechts_toestand.status === 'Definitief' ? 'u-failliet' : ''}}">
                 {{ vm.apiData.results._bijzondere_rechts_toestand.faillissement ? 'Faillissement' :
                 (vm.apiData.results._bijzondere_rechts_toestand.status === 'Voorlopig' || vm.apiData.results._bijzondere_rechts_toestand.status === 'Definitief') ? 'Surseance van betaling' : '' }}</dd>
             <dt>Coördinaten</dt>
