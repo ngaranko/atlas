@@ -9,6 +9,16 @@
             ng-include="'modules/detail/components/detail/templates/handelsregister/unauthorized.html'"></div>
 
         <dp-panel
+            ng-if="vm.user.scopes.includes('HR/R')"
+            is-panel-visible="vm.apiData.results._bijzondere_rechts_toestand.faillissement"
+            type="danger">Bijzondere rechtstoestand: Faillissement</dp-panel>
+
+        <dp-panel
+            ng-if="vm.user.scopes.includes('HR/R')"
+            is-panel-visible="!vm.apiData.results._bijzondere_rechts_toestand.faillissement || vm.apiData.results._bijzondere_rechts_toestand.status === 'Voorlopig'"
+            type="danger">Bijzondere rechtstoestand: Surseance van betaling</dp-panel>
+
+        <dp-panel
             is-panel-visible="true"
             ng-if="vm.apiData.results.datum_einde"
             size="tiny"
