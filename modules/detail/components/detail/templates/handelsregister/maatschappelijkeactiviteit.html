@@ -23,7 +23,9 @@
             <dt>Datum aanvang</dt>
             <dd> {{ vm.apiData.results.datum_aanvang | date:'dd-MM-yyyy' }} </dd>
             <dt>Soort bijzondere rechtstoestand</dt>
-            <dd><dp-message>Op dit moment geen gegevens beschikbaar</dp-message></dd>
+            <dd class="{{vm.apiData.results._bijzondere_rechts_toestand.faillissement || vm.apiData.results._bijzondere_rechts_toestand.status === 'Voorlopig' ? 'u-failliet' : ''}}">
+                {{ vm.apiData.results._bijzondere_rechts_toestand.faillissement ? 'Faillissement' :
+                (vm.apiData.results._bijzondere_rechts_toestand.status === 'Voorlopig') ? 'Surseance van betaling' : '' }}</dd>
         </dl>
     </div>
 

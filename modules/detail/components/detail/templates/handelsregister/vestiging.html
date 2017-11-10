@@ -55,6 +55,10 @@
             <dd> {{ vm.apiData.results.datum_aanvang | date:'dd-MM-yyyy' }} </dd>
             <dt>Datum einde</dt>
             <dd> {{ vm.apiData.results.datum_einde | date:'dd-MM-yyyy' }} </dd>
+            <dt>Soort bijzondere rechtstoestand</dt>
+            <dd class="{{vm.apiData.results._bijzondere_rechts_toestand.faillissement || vm.apiData.results._bijzondere_rechts_toestand.status === 'Voorlopig' ? 'u-failliet' : ''}}">
+                {{ vm.apiData.results._bijzondere_rechts_toestand.faillissement ? 'Faillissement' :
+                (vm.apiData.results._bijzondere_rechts_toestand.status === 'Voorlopig') ? 'Surseance van betaling' : '' }}</dd>
             <dt>Coördinaten</dt>
             <dd ng-if="vm.apiData.results.bezoekadres.geometrie.coordinates[0]">
                 {{ vm.apiData.results.bezoekadres.geometrie.coordinates | coordinates: 'RD' }}
