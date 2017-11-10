@@ -35,7 +35,7 @@
             <dt>Soort bijzondere rechtstoestand</dt>
             <dd class="{{vm.apiData.results._bijzondere_rechts_toestand.faillissement || vm.apiData.results._bijzondere_rechts_toestand.status === 'Voorlopig' ? 'u-failliet' : ''}}">
                 {{ vm.apiData.results._bijzondere_rechts_toestand.faillissement ? 'Faillissement' :
-                (vm.apiData.results._bijzondere_rechts_toestand.status === 'Voorlopig') ? 'Surseance van betaling' : '' }}</dd>
+                (vm.apiData.results._bijzondere_rechts_toestand.status === 'Voorlopig' || vm.apiData.results._bijzondere_rechts_toestand.status === 'Definitief') ? 'Surseance van betaling' : '' }}</dd>
         </dl>
     </div>
 
