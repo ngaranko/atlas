@@ -98,7 +98,7 @@ export default [
       },
       {
         selectable: false,
-        title: 'Musea, Bibliotheken, Kunstuitleen'
+        title: 'Musea, bibliotheken, kunstuitleen'
       },
       {
         selectable: false,
@@ -206,11 +206,11 @@ export default [
       },
       {
         selectable: false,
-        title: 'Cafetaria, Snackbar, IJssalon'
+        title: 'Cafetaria, snackbar, ijssalon'
       },
       {
         selectable: false,
-        title: 'Hotel, Pension'
+        title: 'Hotel, pension'
       },
       {
         selectable: false,
@@ -218,11 +218,11 @@ export default [
       },
       {
         selectable: false,
-        title: 'Kantine, Catering'
+        title: 'Kantine, catering'
       },
       {
         selectable: false,
-        title: 'Restaurant, Café-restaurant'
+        title: 'Restaurant, café-restaurant'
       },
       {
         selectable: false,
@@ -246,7 +246,7 @@ export default [
     legendItems: [
       {
         selectable: false,
-        title: 'Activiteiten  op gebied van film, tv, radio, audio'
+        title: 'Activiteiten op gebied van film, tv, radio, audio'
       },
       {
         selectable: false,
@@ -418,7 +418,7 @@ export default [
       },
       {
         selectable: false,
-        title: 'Arbeidsbemiddeling, Uitzendbureaus, Uitleenbureaus'
+        title: 'Arbeidsbemiddeling, uitzendbureaus, uitleenbureaus'
       },
       {
         selectable: false,
