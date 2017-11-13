@@ -75,6 +75,10 @@
         }
 
         function getDetailEndpoint (config, rawDataRow) {
+            if (rawDataRow.dataset === 'mac') {
+                return sharedConfig.API_ROOT + 'handelsregister/maatschappelijkeactiviteit/' +
+                    rawDataRow.kvk_nummer + '/';
+            }
             return sharedConfig.API_ROOT + config.ENDPOINT_DETAIL +
                 rawDataRow[config.PRIMARY_KEY] + '/';
         }
