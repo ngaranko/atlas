@@ -83,7 +83,7 @@ export default [
     ],
     maxZoom: 16,
     minZoom: 11,
-    title: 'Bouw',
+    title: 'Vestigingen - Bouw',
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
@@ -115,7 +115,7 @@ export default [
     ],
     maxZoom: 16,
     minZoom: 11,
-    title: 'Cultuur, sport, recreatie',
+    title: 'Vestigingen - Cultuur, sport, recreatie',
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
@@ -147,7 +147,7 @@ export default [
     ],
     maxZoom: 16,
     minZoom: 11,
-    title: 'Financiële dienstverlening, verhuur van roerend en onroerend goed',
+    title: 'Vestigingen - Financiële dienstv., verhuur van (on)roerend goed',
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
@@ -191,7 +191,7 @@ export default [
     ],
     maxZoom: 16,
     minZoom: 11,
-    title: 'Handel, vervoer, opslag',
+    title: 'Vestigingen - Handel, vervoer, opslag',
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
@@ -235,7 +235,7 @@ export default [
     ],
     maxZoom: 16,
     minZoom: 11,
-    title: 'Horeca',
+    title: 'Vestigingen - Horeca',
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
@@ -267,7 +267,7 @@ export default [
     ],
     maxZoom: 16,
     minZoom: 11,
-    title: 'Informatie, telecommunicatie',
+    title: 'Vestigingen - Informatie, telecommunicatie',
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
@@ -307,7 +307,7 @@ export default [
     ],
     maxZoom: 16,
     minZoom: 11,
-    title: 'Landbouw',
+    title: 'Vestigingen - Landbouw',
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
@@ -335,7 +335,7 @@ export default [
     ],
     maxZoom: 16,
     minZoom: 11,
-    title: 'Overheid, onderwijs, zorg',
+    title: 'Vestigingen - Overheid, onderwijs, zorg',
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
@@ -371,7 +371,7 @@ export default [
     ],
     maxZoom: 16,
     minZoom: 11,
-    title: 'Persoonlijke dienstverlening',
+    title: 'Vestigingen - Persoonlijke dienstverlening',
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
@@ -399,7 +399,7 @@ export default [
     ],
     maxZoom: 16,
     minZoom: 11,
-    title: 'Productie, installatie, reparatie',
+    title: 'Vestigingen - Productie, installatie, reparatie',
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
@@ -459,7 +459,7 @@ export default [
     ],
     maxZoom: 16,
     minZoom: 11,
-    title: 'Zakelijke dienstverlening',
+    title: 'Vestigingen - Zakelijke dienstverlening',
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
@@ -491,7 +491,7 @@ export default [
     ],
     maxZoom: 16,
     minZoom: 11,
-    title: 'Overige',
+    title: 'Vestigingen - Overige',
     url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
