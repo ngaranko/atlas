@@ -48,6 +48,7 @@
             const MapPanelReducer = $window.reducers.MapPanelReducer;
             const MapOverlaysReducer = $window.reducers.MapOverlaysReducer;
             const MapBaseLayersReducer = $window.reducers.MapBaseLayersReducer;
+            const UiReducer = $window.reducers.UiReducer;
 
             // TODO: Redux: replace
             // Warning: angular.merge is deprecated
@@ -88,6 +89,10 @@
                 SHOW_MAP_PANEL: MapOverlaysReducer,
                 TOGGLE_MAP_PANEL: MapOverlaysReducer
             };
+
+            const uiReducers = {
+                TOGGLE_MAP_LAYERS: UiReducer
+            }
 
             var actions = angular.merge(
                 urlReducers,
@@ -139,6 +144,10 @@
                 const newState = MapOverlaysReducer(oldState, action);
                 $timeout(() => $rootScope.$digest());
                 return newState;
+            }
+
+            if (uiReducers.hasOwnProperty(action.type)) {
+                return UiReducer(oldState, action);
             }
 
             if (angular.isObject(action) &&

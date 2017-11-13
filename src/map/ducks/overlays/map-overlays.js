@@ -12,8 +12,8 @@ export default function MapOverlaysReducer(state = initialState, action) {
         ...state,
         map: {
           ...state.map,
-          overlays: state.map.overlays.some(overlay => overlay.id === action.mapLayerId) ?
-            [...state.map.overlays.filter(overlay => overlay.id !== action.mapLayerId)] :
+          overlays: state.map.overlays.some((overlay) => overlay.id === action.mapLayerId) ?
+            [...state.map.overlays.filter((overlay) => overlay.id !== action.mapLayerId)] :
             [...state.map.overlays, { id: action.mapLayerId, isVisible: true }]
         }
       };
@@ -23,7 +23,7 @@ export default function MapOverlaysReducer(state = initialState, action) {
         ...state,
         map: {
           ...state.map,
-          overlays: state.map.overlays.map(overlay => ({
+          overlays: state.map.overlays.map((overlay) => ({
             ...overlay,
             isVisible: overlay.id !== action.mapLayerId ? overlay.isVisible :
               (action.show !== undefined ? action.show : !overlay.isVisible)
@@ -36,7 +36,7 @@ export default function MapOverlaysReducer(state = initialState, action) {
   }
 }
 
-export const toggleMapOverlay = mapLayerId => ({ type: TOGGLE_MAP_OVERLAY, mapLayerId });
+export const toggleMapOverlay = (mapLayerId) => ({ type: TOGGLE_MAP_OVERLAY, mapLayerId });
 export const toggleMapOverlayVisibility = (mapLayerId, show) => ({
   type: TOGGLE_MAP_OVERLAY_VISIBILITY,
   mapLayerId,

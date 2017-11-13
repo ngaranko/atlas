@@ -3,6 +3,7 @@
   border: 1px solid #999999;
   border-top: none;
   margin: 8px 8px 16px 8px;
+  user-select: none;
 
   @media screen and (min-width: 1200px) {
     margin: 12px 12px 32px 12px;

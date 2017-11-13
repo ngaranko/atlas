@@ -27,16 +27,16 @@ export default function MapLayersReducer(state = initialState, action) {
 export const getMapLayers = () => ({ type: FETCH_MAP_LAYERS_REQUEST });
 
 export const selectActiveMapLayers = (state) => {
-  const mapLayerIds = state.map.overlays.map(mapLayer => mapLayer.id);
+  const mapLayerIds = state.map.overlays.map((mapLayer) => mapLayer.id);
   return state.mapLayers
-    .filter(mapLayer => (
+    .filter((mapLayer) => (
       [
         mapLayer.id,
-        ...mapLayer.legendItems.map(legendItem => legendItem.id)
+        ...mapLayer.legendItems.map((legendItem) => legendItem.id)
       ]
-      .filter(mapLayerId => Boolean(mapLayerId))
-      .some(mapLayerId => state.map.overlays
-        .map(overlay => overlay.id)
+      .filter((mapLayerId) => Boolean(mapLayerId))
+      .some((mapLayerId) => state.map.overlays
+        .map((overlay) => overlay.id)
         .includes(mapLayerId))
     ))
     .sort((a, b) => {

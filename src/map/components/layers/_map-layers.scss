@@ -1,8 +1,32 @@
 .map-layers {
+  background-color: #FAFAFA;
+  border-top: 2px solid #999999;
   margin-bottom: 8px;
+  position: relative;
+  user-select: none;
 
   @media screen and (min-width: 1200px) {
     margin-bottom: 12px;
+  }
+
+  &__handle {
+    $handle-height: 24px;
+
+    background-color: #FAFAFA;
+    border: 2px solid #999999;
+    border-bottom: none;
+    height: $handle-height;
+    left: 50%;
+    outline: none;
+    position: absolute;
+    top: -$handle-height;
+    transform: translateX(-50%);
+    width: 40px;
+
+    svg {
+      height: $handle-height;
+      width: $handle-height;
+    }
   }
 
   &__category {
