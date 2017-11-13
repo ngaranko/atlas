@@ -114,6 +114,11 @@ describe('The dataSelectionApiDataSelection factory', function () {
                     openingstijden: 'Alleen op dinsdag',
                     adres: 'Sneeuwbalweg 24',
                     id: '3'
+                }, {
+                    handelsnaam: 'De Appel',
+                    dataset: 'mac',
+                    kvk_nummer: '34392003',
+                    id: '4'
                 }
             ],
             page_count: 2
@@ -243,7 +248,7 @@ describe('The dataSelectionApiDataSelection factory', function () {
         });
         $rootScope.$apply();
 
-        expect(output.data.length).toEqual(3);
+        expect(output.data.length).toEqual(4);
         expect(output.data[0]).toEqual({
             _links: {
                 self: {
@@ -295,6 +300,17 @@ describe('The dataSelectionApiDataSelection factory', function () {
             openingstijden: 'Alleen op dinsdag',
             adres: 'Sneeuwbalweg 24',
             id: '3'
+        });
+        expect(output.data[3]).toEqual({
+            _links: {
+                self: {
+                    href: 'https://api.amsterdam.nl/handelsregister/maatschappelijkeactiviteit/34392003/'
+                }
+            },
+            handelsnaam: 'De Appel',
+            dataset: 'mac',
+            kvk_nummer: '34392003',
+            id: '4'
         });
     });
 });
