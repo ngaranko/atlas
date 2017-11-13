@@ -19,13 +19,13 @@
         const vm = this,
             sbiLevelFilters = vm.availableFilters.filter(filter => filter.slug.startsWith('sbi_l')),
             numberOfOptions = sbiLevelFilters
-                .reduce((total, amount) => (angular.isNumber(total) ? total : 0) + amount.numberOfOptions),
+                .reduce((total, amount) => total + amount.numberOfOptions, 0),
             options = sbiLevelFilters
                 .map(filter => {
-                    return filter.options.map(sub => {
-                        sub.slug = filter.slug;
-                        return sub;
-                    });
+                    return filter.options.map(sub => ({
+                        ...sub,
+                        slug: filter.slug
+                    }));
                 })
                 .reduce((a, b) => a.concat(b))
                 .slice(0, 100);
@@ -47,7 +47,7 @@
 
         vm.addFilter = (value) => {
             const filters = {...vm.activeFilters},
-                formattedValue = value.split(',').map(data => '\'' + data.trim() + '\'').join(', ');
+                formattedValue = value.split(',').map(data => `'${data.trim()}'`).join(', ');
 
             if (value === '') {
                 delete filters[vm.filterSlug];
