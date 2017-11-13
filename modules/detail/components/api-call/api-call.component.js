@@ -9,6 +9,7 @@
                 partial: '@',
                 addApiRoot: '=',
                 useBrkObjectExpanded: '=',
+                merge: '<',
                 user: '<'
             },
             templateUrl: 'modules/detail/components/api-call/api-call.html',
@@ -61,10 +62,32 @@
                 } else {
                     vm.apiData.results = response;
                 }
+
+                if (vm.merge) {
+                    vm.apiData = mergeDeep(vm.apiData, vm.merge);
+                }
             }).finally(() => {
                 vm.isLoading = false;
                 vm.useLoadingIndicatorDelay = true;
             });
+        }
+
+        function mergeDeep (target, source) {
+            let output = {...target};
+            if (angular.isObject(target) && angular.isObject(source)) {
+                Object.keys(source).forEach(key => {
+                    if (angular.isObject(source[key])) {
+                        if (!(key in target)) {
+                            output = {...output, [key]: source[key]};
+                        } else {
+                            output[key] = mergeDeep(target[key], source[key]);
+                        }
+                    } else {
+                        output = {...output, [key]: source[key]};
+                    }
+                });
+            }
+            return output;
         }
     }
 })();

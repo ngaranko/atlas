@@ -108,7 +108,6 @@ import '../modules/detail/components/glossary/glossary.constant';
 import '../modules/detail/components/glossary/header/glossary-header.directive';
 import '../modules/detail/components/glossary/meta/glossary-meta.directive';
 import '../modules/detail/components/meetbouten-graph/meetbouten-graph.directive';
-import '../modules/detail/components/nummeraanduiding-header/nummeraanduiding-header.component';
 import '../modules/detail/components/parent-relations/parent-relations.constant';
 import '../modules/detail/components/parent-relations/parent-relations.directive';
 import '../modules/detail/components/partial-select/partial-compiler.factory';

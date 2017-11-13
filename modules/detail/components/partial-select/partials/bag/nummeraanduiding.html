@@ -2,18 +2,22 @@
     <div ng-if="apiData.results._display"
          class="c-detail__block qa-nummeraanduiding">
 
-        <dp-nummeraanduiding-header ng-if="apiData.results.verblijfsobject"
-            heading="{{apiData.results._display}}"
-            hoofdadres="apiData.results.hoofdadres"
-            verblijfsobject-endpoint="{{apiData.results.verblijfsobject}}"
-            meta-data="apiData">
-        </dp-nummeraanduiding-header>
+        <!-- the apiData.results.status object is filled with data from the parent verbijfsbject -->
 
-        <dp-glossary-header ng-if="!apiData.results.verblijfsobject"
+        <dp-glossary-header
             heading="{{apiData.results._display}}"
             definition="NUMMERAANDUIDING"
+            is-emphasized="apiData.results.status.code === '18'"
             meta-data="apiData">
         </dp-glossary-header>
+
+        <dp-panel ng-if="apiData.results.status.code === '18'" is-panel-visible="true" type="danger">
+            Status: {{apiData.results.status.omschrijving}}
+        </dp-panel>
+
+        <dp-panel ng-if="!apiData.results.hoofdadres" is-panel-visible="true" type="warning">
+            Dit is een nevenadres
+        </dp-panel>
 
         <dl class="c-key-value-list">
             <dt>Naam openbare ruimte</dt>
