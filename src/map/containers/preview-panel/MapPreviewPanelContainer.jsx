@@ -55,7 +55,7 @@ class MapPreviewPanelContainer extends React.Component {
     return (
       <section className={`
         map-preview
-        ${this.props.isMapPreviewPanelVisible ? '' : 'map-preview--hidden'}
+        map-preview--${this.props.isMapPreviewPanelVisible ? 'visible' : 'hidden'}
       `}
       >
         <div className="map-preview__heading">
