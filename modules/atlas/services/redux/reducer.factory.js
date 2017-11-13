@@ -92,7 +92,7 @@
 
             const uiReducers = {
                 TOGGLE_MAP_LAYERS: UiReducer
-            }
+            };
 
             var actions = angular.merge(
                 urlReducers,
