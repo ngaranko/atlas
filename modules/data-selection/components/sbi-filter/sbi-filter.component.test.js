@@ -51,25 +51,25 @@ describe('The dp-sbi-filter component', () => {
                 options: [
                     {
                         label: 'de eerste van level 1',
-                        id: '01-landbouw'
+                        id: '01: landbouw'
                     }, {
                         label: 'de tweede van level 1',
-                        id: '03-visserij'
+                        id: '03: visserij'
                     }, {
                         label: 'de derde van level 1',
-                        id: '07-vastgoed'
+                        id: '07: vastgoed'
                     }, {
                         label: 'de vierde van level 1',
-                        id: '31-disco'
+                        id: '31: disco'
                     }, {
                         label: 'de vijfde van level 1',
-                        id: '42-zinvanhetleven'
+                        id: '42: zinvanhetleven'
                     }, {
                         label: 'de zesde van level 1',
-                        id: '54-grondverzet'
+                        id: '54: grondverzet'
                     }, {
                         label: 'de zevende van level 1',
-                        id: '69-lekker'
+                        id: '69: lekker'
                     }
                 ],
                 numberOfOptions: 8
