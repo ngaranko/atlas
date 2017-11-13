@@ -11,6 +11,7 @@
             scope: {
                 heading: '@',
                 definition: '@',
+                isEmphasized: '<',
                 usePlural: '=',
                 metaData: '=',
                 brk: '='

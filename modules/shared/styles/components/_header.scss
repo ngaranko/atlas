@@ -6,6 +6,10 @@
   @include font-size-responsive($xl-header-font);
 }
 
+.o-header__title--emphasized {
+  font-style: italic;
+}
+
 .o-header__subtitle {
   @include font-size-responsive($l-header-font);
 
