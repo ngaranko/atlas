@@ -149,7 +149,7 @@
                     label_plural: 'Inschrijvingen',
                     description: 'Een inschrijving is een duurzame \'maatschappelijke activiteit\' van een ' +
                         'Onderneming of Rechtspersoon in het Handelsregister van de Kamer van Koophandel.',
-                    url: 'https://www.amsterdam.nl/stelselpedia/hr-index/catalogus/vestiging/',
+                    url: 'https://www.amsterdam.nl/stelselpedia/hr-index/catalogus/maatschappelijke/',
                     meta: [],
                     authLevel: 'EMPLOYEE'
                 },
