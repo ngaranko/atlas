@@ -146,6 +146,7 @@
                 return newState;
             }
 
+            /* istanbul ignore if */
             if (uiReducers.hasOwnProperty(action.type)) {
                 return UiReducer(oldState, action);
             }

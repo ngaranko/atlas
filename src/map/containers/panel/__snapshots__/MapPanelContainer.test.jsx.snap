@@ -56,8 +56,10 @@ exports[`MapPanelContainer should render MapLegend if store contains active map 
           Object {},
         ]
       }
+      isMapLayersVisible={true}
       layers={Array []}
       onLayerToggle={[Function]}
+      onMapLayersToggle={[Function]}
       user={Object {}}
     />
   </div>
@@ -105,8 +107,10 @@ exports[`MapPanelContainer should render MapType and MapLayers 1`] = `
     />
     <MapLayers
       activeMapLayers={Array []}
+      isMapLayersVisible={true}
       layers={Array []}
       onLayerToggle={[Function]}
+      onMapLayersToggle={[Function]}
       user={Object {}}
     />
   </div>

@@ -15,7 +15,7 @@ import MapLegend from '../../components/legend/MapLegend';
 import MapType from '../../components/type/MapType';
 import MapLayersIcon from '../../../../public/images/icon-map-layers.svg';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   activeBaseLayer: state.map.baseLayer,
   activeMapLayers: selectActiveMapLayers(state),
   atlas: state.atlas,
@@ -30,7 +30,7 @@ const mapStateToProps = state => ({
 });
 
 // TODO: Add method that checks whether layer is active and toggles accordingly
-const mapDispatchToProps = dispatch => bindActionCreators({
+const mapDispatchToProps = (dispatch) => bindActionCreators({
   onBaseLayerToggle: setMapBaseLayer,
   onLayerToggle: toggleMapOverlay,
   onLayerVisibilityToggle: toggleMapOverlayVisibility,

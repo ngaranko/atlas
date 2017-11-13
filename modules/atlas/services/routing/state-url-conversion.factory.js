@@ -117,6 +117,7 @@
                     return newState;
                 },
                 ui: (oldState, newState) => {
+                    /* istanbul ignore if */
                     if (angular.isObject(oldState)) {
                         newState = oldState;
                     }
