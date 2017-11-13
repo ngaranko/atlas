@@ -8,7 +8,7 @@ import {
   closeMapPreviewPanel
 } from '../../ducks/preview-panel/map-preview-panel';
 import { getMapGeoSearch } from '../../ducks/geo-search/map-geo-search';
-import { getMapPano } from '../../ducks/pano/map-pano';
+import { getPanoPreview } from '../../../pano/ducks/preview/pano-preview';
 import MaximizeIcon from '../../../../public/images/icon-maximize.svg';
 import CloseIcon from '../../../../public/images/icon-cross-big.svg';
 import MapResults from '../../components/results/MapResults';
@@ -18,7 +18,7 @@ const mapStateToProps = (state) => ({
   isMapPreviewPanelVisible: state.isMapPreviewPanelVisible,
   search: state.search,
   results: state.mapResults,
-  pano: state.mapPano
+  pano: state.pano
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
 
 const fetchData = (props, context) => {
   context.store.dispatch(getMapGeoSearch(props.search.location));
-  context.store.dispatch(getMapPano(props.search.location));
+  context.store.dispatch(getPanoPreview(props.search.location));
 };
 
 class MapPreviewPanelContainer extends React.Component {
@@ -85,7 +85,8 @@ class MapPreviewPanelContainer extends React.Component {
             <MapResults
               count={this.props.search.numberOfResults}
               location={this.props.search.location}
-              panoUrl={this.props.pano.url}
+              panoUrl={this.props.pano.previews[this.props.search.location] &&
+                  this.props.pano.previews[this.props.search.location].url}
               results={this.props.results}
             />
           }

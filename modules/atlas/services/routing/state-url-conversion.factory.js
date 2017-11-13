@@ -53,7 +53,7 @@
                         'mapLayers',
                         'mapBaseLayers',
                         'mapResults',
-                        'mapPano',
+                        'pano',
                         'isMapPanelVisible',
                         'isMapPreviewPanelVisible'
                     ].forEach(s => {
@@ -131,7 +131,7 @@
                     }
                     return newState;
                 },
-                mapPano: (oldState, newState) => {
+                pano: (oldState, newState) => {
                     if (angular.isObject(oldState)) {
                         newState = oldState;
                     }
@@ -234,7 +234,10 @@
                 mapBaseLayers: {},
                 mapLayers: [],
                 mapResults: [],
-                mapPano: {},
+                pano: {
+                    location: [],
+                    previews: {}
+                },
                 isMapPanelVisible: false,
                 isMapPreviewPanelVisible: false,
                 page: {

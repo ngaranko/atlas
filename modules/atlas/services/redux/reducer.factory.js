@@ -52,7 +52,7 @@
             const MapOverlaysReducer = $window.reducers.MapOverlaysReducer;
             const MapBaseLayersReducer = $window.reducers.MapBaseLayersReducer;
             const MapGeoSearchReducer = $window.reducers.MapGeoSearchReducer;
-            const MapPanoReducer = $window.reducers.MapPanoReducer;
+            const PanoPreviewReducer = $window.reducers.PanoPreviewReducer;
 
             const detailReducers = {
                 FETCH_DETAIL: DetailsReducers,
@@ -90,10 +90,10 @@
                 FETCH_MAP_GEO_SEARCH_SUCCESS: MapGeoSearchReducer
             };
 
-            const mapPanoReducer = {
-                FETCH_MAP_PANO_FAILURE: MapPanoReducer,
-                FETCH_MAP_PANO_REQUEST: MapPanoReducer,
-                FETCH_MAP_PANO_SUCCESS: MapPanoReducer
+            const panoPreviewReducer = {
+                FETCH_PANO_PREVIEW_FAILURE: PanoPreviewReducer,
+                FETCH_PANO_PREVIEW_REQUEST: PanoPreviewReducer,
+                FETCH_PANO_PREVIEW_SUCCESS: PanoPreviewReducer
             };
 
             const mapPanelReducers = {
@@ -120,7 +120,7 @@
                 mapBaseLayersReducer,
                 mapLayersReducer,
                 mapGeoSearchReducer,
-                mapPanoReducer,
+                panoPreviewReducer,
                 homeReducers,
                 userReducer,
                 layerSelectionReducers,
