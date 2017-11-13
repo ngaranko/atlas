@@ -1,20 +1,11 @@
 const apiUrl = 'https://api.data.amsterdam.nl/';
 
 const endpoints = [
-  {
-    uri: 'geosearch/nap/',
-    radius: 25
-  }, {
-    uri: 'geosearch/atlas/'
-  }, {
-    uri: 'geosearch/munitie/'
-  }, {
-    uri: 'geosearch/bominslag/',
-    radius: 25
-  }, {
-    uri: 'geosearch/monumenten/',
-    radius: 25
-  }
+  { uri: 'geosearch/nap/', radius: 25 },
+  { uri: 'geosearch/atlas/' },
+  { uri: 'geosearch/munitie/' },
+  { uri: 'geosearch/bominslag/', radius: 25 },
+  { uri: 'geosearch/monumenten/', radius: 25 }
 ];
 
 const categoryLabels = {
@@ -58,12 +49,9 @@ export default function geoSearch(location) {
   const allRequests = endpoints.map((endpoint) => {
     const searchParams = {
       lat: location[0],
-      lon: location[1]
+      lon: location[1],
+      radius: endpoint.radius || 0
     };
-
-    if (endpoint.radius) {
-      searchParams.radius = endpoint.radius;
-    }
 
     const queryString = Object.keys(searchParams)
       .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
