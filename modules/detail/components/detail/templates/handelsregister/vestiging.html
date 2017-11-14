@@ -3,7 +3,9 @@
         <dp-glossary-header
             heading="{{vm.apiData.results._display}}"
             definition="VESTIGING"
-            is-emphasized="vm.apiData.results._bijzondere_rechts_toestand.faillissement || vm.apiData.results._bijzondere_rechts_toestand.status === 'Voorlopig' || vm.apiData.results._bijzondere_rechts_toestand.status === 'Definitief'">
+            is-emphasized="vm.apiData.results._bijzondere_rechts_toestand.faillissement
+                || vm.apiData.results._bijzondere_rechts_toestand.status === 'Voorlopig'
+                || vm.apiData.results._bijzondere_rechts_toestand.status === 'Definitief'">
         </dp-glossary-header>
 
         <div ng-if="!vm.user.scopes.includes('HR/R')"
@@ -16,7 +18,8 @@
 
         <dp-panel
             ng-if="vm.user.scopes.includes('HR/R')"
-            is-panel-visible="vm.apiData.results._bijzondere_rechts_toestand.status === 'Voorlopig' || vm.apiData.results._bijzondere_rechts_toestand.status === 'Definitief'"
+            is-panel-visible="vm.apiData.results._bijzondere_rechts_toestand.status === 'Voorlopig'
+                || vm.apiData.results._bijzondere_rechts_toestand.status === 'Definitief'"
         type="danger">Bijzondere rechtstoestand: Surseance van betaling</dp-panel>
 
         <dp-panel
@@ -67,9 +70,12 @@
             <dt>Datum einde</dt>
             <dd> {{ vm.apiData.results.datum_einde | date:'dd-MM-yyyy' }} </dd>
             <dt>Soort bijzondere rechtstoestand</dt>
-            <dd class="{{vm.apiData.results._bijzondere_rechts_toestand.faillissement || vm.apiData.results._bijzondere_rechts_toestand.status === 'Voorlopig' || vm.apiData.results._bijzondere_rechts_toestand.status === 'Definitief' ? 'u-failliet' : ''}}">
+            <dd class="{{vm.apiData.results._bijzondere_rechts_toestand.faillissement
+                || vm.apiData.results._bijzondere_rechts_toestand.status === 'Voorlopig'
+                || vm.apiData.results._bijzondere_rechts_toestand.status === 'Definitief' ? 'u-failliet' : ''}}">
                 {{ vm.apiData.results._bijzondere_rechts_toestand.faillissement ? 'Faillissement' :
-                (vm.apiData.results._bijzondere_rechts_toestand.status === 'Voorlopig' || vm.apiData.results._bijzondere_rechts_toestand.status === 'Definitief') ? 'Surseance van betaling' : '' }}</dd>
+                (vm.apiData.results._bijzondere_rechts_toestand.status === 'Voorlopig'
+                    || vm.apiData.results._bijzondere_rechts_toestand.status === 'Definitief') ? 'Surseance van betaling' : '' }}</dd>
             <dt>Coördinaten</dt>
             <dd ng-if="vm.apiData.results.bezoekadres.geometrie.coordinates[0]">
                 {{ vm.apiData.results.bezoekadres.geometrie.coordinates | coordinates: 'RD' }}
