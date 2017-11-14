@@ -9,6 +9,7 @@
                 partial: '@',
                 addApiRoot: '=',
                 useBrkObjectExpanded: '=',
+                merge: '<',
                 user: '<'
             },
             templateUrl: 'modules/detail/components/api-call/api-call.html',
@@ -60,6 +61,10 @@
                     vm.apiData.next = response._links.next && response._links.next.href;
                 } else {
                     vm.apiData.results = response;
+                }
+
+                if (vm.merge) {
+                    vm.apiData = angular.merge(vm.apiData, vm.merge);
                 }
             }).finally(() => {
                 vm.isLoading = false;
