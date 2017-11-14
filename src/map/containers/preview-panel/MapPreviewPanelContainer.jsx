@@ -52,6 +52,12 @@ class MapPreviewPanelContainer extends React.Component {
   }
 
   render() {
+    const search = this.props.search;
+    const pano = this.props.pano;
+    const panoPreview = (pano && pano.previews[search.location]) || {};
+    const isLoading = search && this.props.search.isLoading;
+    const isLoaded = search && !this.props.search.isLoading;
+
     return (
       <section className={`
         map-preview
@@ -75,21 +81,20 @@ class MapPreviewPanelContainer extends React.Component {
         <div
           className={`
             map-preview__body
-            ${this.props.search && this.props.search.isLoading ? 'map-preview__body--loading' : ''}
+            map-preview__body--${isLoading ? 'loading' : 'loaded'}
           `}
         >
-          { this.props.search && this.props.search.isLoading &&
+          {isLoading && (
             <LoadingIndicator />
-          }
-          { this.props.search && !this.props.search.isLoading && this.props.pano &&
+          )}
+          {(isLoaded && pano) && (
             <MapResults
-              count={this.props.search.numberOfResults}
-              location={this.props.search.location}
-              panoUrl={this.props.pano.previews[this.props.search.location] &&
-                  this.props.pano.previews[this.props.search.location].url}
+              count={search.numberOfResults}
+              location={search.location}
+              panoUrl={panoPreview.url}
               results={this.props.results}
             />
-          }
+          )}
         </div>
       </section>
     );

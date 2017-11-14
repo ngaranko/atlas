@@ -13,17 +13,16 @@ const MapResults = ({ count, location, results, panoUrl }) => {
       <header
         className={`
           map-results__header
-          ${!panoUrl && 'map-results__header--no-pano'}
+          map-results__header--${panoUrl ? 'pano' : 'no-pano'}
         `}
       >
-        {
-          panoUrl &&
+        {panoUrl && (
           <img
             className="map-results__header-pano"
             src={panoUrl}
             alt="Panoramabeeld"
           />
-        }
+        )}
         <div className="map-results__header-container">
           <h1 className="map-results__header-title">Resultaten ({count})</h1>
           <h2 className="map-results__header-subtitle">
