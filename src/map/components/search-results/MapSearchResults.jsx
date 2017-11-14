@@ -9,7 +9,7 @@ const MapSearchResults = ({ count, location, results, panoUrl }) => {
     .map((coordinate) => coordinate.toFixed(2));
 
   return (
-    <section className="map-results">
+    <section className="map-search-results">
       <header
         className={`
           map-search-results__header
@@ -30,7 +30,7 @@ const MapSearchResults = ({ count, location, results, panoUrl }) => {
           </h2>
         </div>
       </header>
-      <ul className="map-results__list">
+      <ul className="map-search-results__list">
         {results.map((result) => (
           <li key={result.uri}>
             <MapSearchResultsItem item={result} />
