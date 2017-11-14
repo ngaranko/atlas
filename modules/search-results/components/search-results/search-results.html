@@ -22,15 +22,6 @@
                     Geen details beschikbaar van: {{ vm.layerWarning }}
                 </dp-panel>
 
-                <dp-panel ng-if="vm.layerWarning"
-                    is-panel-visible="vm.layerWarning"
-                    can-close="true"
-                    type="warning"
-                    class-name="c-panel--offsets-below-page-title"
-                    class="qa-highlight-warning">
-                    Geen details beschikbaar van: {{ vm.layerWarning }}
-                </dp-panel>
-
                 <div ng-if="vm.location" class="c-search-results__thumbnail-container">
                     <dp-straatbeeld-thumbnail class="c-search-results__thumbnail"
                                               location="vm.location"></dp-straatbeeld-thumbnail>
