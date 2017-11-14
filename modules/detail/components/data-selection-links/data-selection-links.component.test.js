@@ -43,7 +43,7 @@ describe('The dp-data-selection-link component', () => {
         expect(component.find('.qa-bag dp-glossary-header').attr('definition')).toBe('NUMMERAANDUIDING');
         expect(component.find('.qa-bag dp-glossary-header').attr('use-plural')).toBe('true');
 
-        expect(component.find('.qa-hr dp-glossary-header').attr('definition')).toBe('INSCHRIJVING');
+        expect(component.find('.qa-hr dp-glossary-header').attr('definition')).toBe('VESTIGING');
         expect(component.find('.qa-hr dp-glossary-header').attr('use-plural')).toBe('true');
     });
 

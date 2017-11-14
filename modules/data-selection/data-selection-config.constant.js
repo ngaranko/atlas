@@ -182,7 +182,7 @@
                     ENDPOINT_EXPORT: 'dataselectie/hr/export/',
                     ENDPOINT_DETAIL: 'handelsregister/vestiging/',
                     PRIMARY_KEY: 'vestiging_id',
-                    TITLE: 'Inschrijvingen',
+                    TITLE: 'Vestigingen',
                     FILTERS: [
                         {
                             slug: 'bijzondere_rechtstoestand',
