@@ -180,6 +180,7 @@
                     ENDPOINT_PREVIEW: 'dataselectie/hr/',
                     ENDPOINT_MARKERS: 'dataselectie/hr/geolocation/',
                     ENDPOINT_EXPORT: 'dataselectie/hr/export/',
+                    ENDPOINT_EXPORT_PARAM: 'dataset=ves',
                     ENDPOINT_DETAIL: 'handelsregister/vestiging/',
                     PRIMARY_KEY: 'vestiging_id',
                     TITLE: 'Vestigingen',
