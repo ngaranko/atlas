@@ -373,6 +373,7 @@ $dashboard-error-height: 26px;
 
     &-content {
       flex-grow: 1;
+      overflow: hidden;
     }
 
     &-category {
@@ -389,6 +390,7 @@ $dashboard-error-height: 26px;
 
     &-arrow {
       fill: #666666;
+      flex-shrink: 0;
       height: 24px;
       width: 24px;
     }
