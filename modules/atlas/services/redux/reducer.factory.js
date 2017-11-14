@@ -51,7 +51,7 @@
             const MapPreviewPanelReducer = $window.reducers.MapPreviewPanelReducer;
             const MapOverlaysReducer = $window.reducers.MapOverlaysReducer;
             const MapBaseLayersReducer = $window.reducers.MapBaseLayersReducer;
-            const MapGeoSearchReducer = $window.reducers.MapGeoSearchReducer;
+            const MapSearchResultsReducer = $window.reducers.MapSearchResultsReducer;
             const PanoPreviewReducer = $window.reducers.PanoPreviewReducer;
 
             const detailReducers = {
@@ -84,10 +84,10 @@
                 TOGGLE_MAP_OVERLAY_VISIBILITY: MapOverlaysReducer
             };
 
-            const mapGeoSearchReducer = {
-                FETCH_MAP_GEO_SEARCH_FAILURE: MapGeoSearchReducer,
-                FETCH_MAP_GEO_SEARCH_REQUEST: MapGeoSearchReducer,
-                FETCH_MAP_GEO_SEARCH_SUCCESS: MapGeoSearchReducer
+            const mapSearchResultsReducer = {
+                FETCH_MAP_SEARCH_RESULTS_FAILURE: MapSearchResultsReducer,
+                FETCH_MAP_SEARCH_RESULTS_REQUEST: MapSearchResultsReducer,
+                FETCH_MAP_SEARCH_RESULTS_SUCCESS: MapSearchResultsReducer
             };
 
             const panoPreviewReducer = {
@@ -119,7 +119,7 @@
                 mapOverlaysReducer,
                 mapBaseLayersReducer,
                 mapLayersReducer,
-                mapGeoSearchReducer,
+                mapSearchResultsReducer,
                 panoPreviewReducer,
                 homeReducers,
                 userReducer,

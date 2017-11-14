@@ -7,17 +7,17 @@ import {
   maximizeMapPreviewPanel,
   closeMapPreviewPanel
 } from '../../ducks/preview-panel/map-preview-panel';
-import { getMapGeoSearch } from '../../ducks/geo-search/map-geo-search';
+import { getMapSearchResults } from '../../ducks/search-results/map-search-results';
 import { getPanoPreview } from '../../../pano/ducks/preview/pano-preview';
 import MaximizeIcon from '../../../../public/images/icon-maximize.svg';
 import CloseIcon from '../../../../public/images/icon-cross-big.svg';
-import MapResults from '../../components/results/MapResults';
+import MapSearchResults from '../../components/search-results/MapSearchResults';
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator';
 
 const mapStateToProps = (state) => ({
   isMapPreviewPanelVisible: state.isMapPreviewPanelVisible,
   search: state.search,
-  results: state.mapResults,
+  results: state.mapSearchResults,
   pano: state.pano
 });
 
@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
 }, dispatch);
 
 const fetchData = (props, context) => {
-  context.store.dispatch(getMapGeoSearch(props.search.location));
+  context.store.dispatch(getMapSearchResults(props.search.location));
   context.store.dispatch(getPanoPreview(props.search.location));
 };
 
@@ -54,7 +54,7 @@ class MapPreviewPanelContainer extends React.Component {
   render() {
     const search = this.props.search;
     const pano = this.props.pano;
-    const panoPreview = (pano && pano.previews[search.location]) || {};
+    const panoPreview = (search && pano && pano.previews[search.location]) || {};
     const isLoading = search && this.props.search.isLoading;
     const isLoaded = search && !this.props.search.isLoading;
 
@@ -88,7 +88,7 @@ class MapPreviewPanelContainer extends React.Component {
             <LoadingIndicator />
           )}
           {(isLoaded && pano) && (
-            <MapResults
+            <MapSearchResults
               count={search.numberOfResults}
               location={search.location}
               panoUrl={panoPreview.url}

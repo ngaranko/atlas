@@ -52,7 +52,7 @@
                         'user',
                         'mapLayers',
                         'mapBaseLayers',
-                        'mapResults',
+                        'mapSearchResults',
                         'pano',
                         'isMapPanelVisible',
                         'isMapPreviewPanelVisible'
@@ -125,7 +125,7 @@
                     }
                     return newState;
                 },
-                mapResults: (oldState, newState) => {
+                mapSearchResults: (oldState, newState) => {
                     if (angular.isArray(oldState)) {
                         newState = oldState;
                     }
@@ -233,7 +233,7 @@
                 },
                 mapBaseLayers: {},
                 mapLayers: [],
-                mapResults: [],
+                mapSearchResults: [],
                 pano: {
                     location: [],
                     previews: {}

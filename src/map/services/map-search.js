@@ -45,7 +45,7 @@ const categoryLabelsByType = {
   'monumenten/monument': categoryLabels.monument
 };
 
-export default function geoSearch(location) {
+export default function search(location) {
   const allRequests = endpoints.map((endpoint) => {
     const searchParams = {
       lat: location[0],
