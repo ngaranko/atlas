@@ -130,13 +130,14 @@ describe('The dataSelectionApiDataSelection factory', function () {
     it('calls the api factory with the active filters, page and shape as searchParams', function () {
         // Without active filters
         dataSelectionApiDataSelection.query(config, {}, 1, 'search', [[12, 3]]);
-        expect(api.getByUri).toHaveBeenCalledWith('zwembaden/', { page: 1, shape: '[[3,12]]' });
+        expect(api.getByUri).toHaveBeenCalledWith('zwembaden/', { page: 1, dataset: 'ves', shape: '[[3,12]]' });
 
         // With active filters
         dataSelectionApiDataSelection.query(config, {water: 'Verwarmd'}, 2);
         expect(api.getByUri).toHaveBeenCalledWith('zwembaden/', {
             water: 'Verwarmd',
             page: 2,
+            dataset: 'ves',
             shape: '[]'
         });
 

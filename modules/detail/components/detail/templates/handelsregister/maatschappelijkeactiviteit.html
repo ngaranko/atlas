@@ -14,6 +14,7 @@
         <dp-panel
             ng-if="vm.user.scopes.includes('HR/R')"
             is-panel-visible="vm.apiData.results._bijzondere_rechts_toestand.faillissement"
+            class-name="c-panel--offsets-below-page-title"
             type="danger">Bijzondere rechtstoestand: Faillissement</dp-panel>
 
         <dp-panel
@@ -21,6 +22,7 @@
             is-panel-visible="!vm.apiData.results._bijzondere_rechts_toestand.faillissement
                 && vm.apiData.results._bijzondere_rechts_toestand.status === 'Voorlopig'
                 || vm.apiData.results._bijzondere_rechts_toestand.status === 'Definitief'"
+            class-name="c-panel--offsets-below-page-title"
             type="danger">Bijzondere rechtstoestand: Surseance van betaling</dp-panel>
 
         <dl ng-if="vm.apiData" class="c-key-value-list">

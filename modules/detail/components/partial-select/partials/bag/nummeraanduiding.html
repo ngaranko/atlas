@@ -11,11 +11,18 @@
             meta-data="apiData">
         </dp-glossary-header>
 
-        <dp-panel ng-if="apiData.results.status.code === '18'" is-panel-visible="true" type="danger">
+        <dp-panel
+            ng-if="apiData.results.status.code === '18'"
+            is-panel-visible="true"
+            class-name="c-panel--offsets-below-page-title"
+            type="danger">
             Status: {{apiData.results.status.omschrijving}}
         </dp-panel>
 
-        <dp-panel ng-if="!apiData.results.hoofdadres" is-panel-visible="true" type="warning">
+        <dp-panel ng-if="!apiData.results.hoofdadres"
+            is-panel-visible="true"
+            class-name="c-panel--offsets-below-page-title"
+            type="warning">
             Dit is een nevenadres
         </dp-panel>
 

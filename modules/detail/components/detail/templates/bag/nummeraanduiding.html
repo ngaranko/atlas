@@ -1,6 +1,10 @@
 <div>
     <!-- nummeraanduiding -->
-    <dp-partial-select partial="bag/nummeraanduiding" api-data="vm.apiData" user="vm.user"></dp-partial-select>
+    <dp-api-call
+        endpoint="{{vm.apiData.results.verblijfsobject}}"
+        partial="bag/nummeraanduiding"
+        user="vm.user">
+    </dp-api-call>
 
     <div ng-if="vm.apiData.results" class="u-row">
         <div class="u-col-sm--6 u-padding__right--2">

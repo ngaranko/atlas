@@ -25,6 +25,7 @@
             const searchParams = angular.merge(
                 {
                     page: searchPage,
+                    dataset: 'ves',
                     shape: angular.toJson(shape.map(([lat, lng]) => [lng, lat]))
                 },
                 activeFilters

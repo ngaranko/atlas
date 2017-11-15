@@ -14,18 +14,21 @@
         <dp-panel
             ng-if="vm.user.scopes.includes('HR/R')"
             is-panel-visible="vm.apiData.results._bijzondere_rechts_toestand.faillissement"
+            class-name="c-panel--offsets-below-page-title"
             type="danger">Bijzondere rechtstoestand: Faillissement</dp-panel>
 
         <dp-panel
             ng-if="vm.user.scopes.includes('HR/R')"
             is-panel-visible="vm.apiData.results._bijzondere_rechts_toestand.status === 'Voorlopig'
                 || vm.apiData.results._bijzondere_rechts_toestand.status === 'Definitief'"
-        type="danger">Bijzondere rechtstoestand: Surseance van betaling</dp-panel>
+            class-name="c-panel--offsets-below-page-title"
+            type="danger">Bijzondere rechtstoestand: Surseance van betaling</dp-panel>
 
         <dp-panel
             is-panel-visible="true"
             ng-if="vm.apiData.results.datum_einde"
             size="tiny"
+            class-name="c-panel--offsets-below-page-title"
             type="danger">
             Datum einde: {{ vm.apiData.results.datum_einde | date:'dd-MM-yyyy' }}
         </dp-panel>
