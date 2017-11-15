@@ -20,6 +20,12 @@
         <div class="u-grid qa-data-grid" ng-if="!vm.disabled">
             <div class="u-row">
                 <div ng-if="vm.showFilters" class="u-col-sm--3 c-data-selection__available-filters">
+                    <dp-sbi-filter
+                        ng-if="vm.state.dataset === 'hr'"
+                        available-filters="vm.availableFilters"
+                        active-filters="vm.filters">
+                    </dp-sbi-filter>
+
                     <dp-data-selection-available-filters
                         dataset="{{vm.state.dataset}}"
                         available-filters="vm.availableFilters"

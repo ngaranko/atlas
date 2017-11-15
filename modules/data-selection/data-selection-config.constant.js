@@ -186,6 +186,21 @@
                     TITLE: 'Vestigingen',
                     FILTERS: [
                         {
+                            slug: 'sbi_code',
+                            label: 'SBI-code'
+                        }, {
+                            slug: 'sbi_l2',
+                            label: 'SBI-L2'
+                        }, {
+                            slug: 'sbi_l3',
+                            label: 'SBI-L3'
+                        }, {
+                            slug: 'sbi_l4',
+                            label: 'SBI-L4'
+                        }, {
+                            slug: 'sbi_l5',
+                            label: 'SBI-L5'
+                        }, {
                             slug: 'bijzondere_rechtstoestand',
                             label: 'Bijzondere rechtstoestand'
                         }, {
