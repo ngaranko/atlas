@@ -18,7 +18,8 @@ const mapStateToProps = (state) => ({
   isMapPreviewPanelVisible: state.isMapPreviewPanelVisible,
   search: state.search,
   results: state.mapSearchResults,
-  pano: state.pano
+  pano: state.pano,
+  user: state.user
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
@@ -27,7 +28,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
 }, dispatch);
 
 const fetchData = (props, context) => {
-  context.store.dispatch(getMapSearchResults(props.search.location));
+  context.store.dispatch(getMapSearchResults(props.search.location, props.user));
   context.store.dispatch(getPanoPreview(props.search.location));
 };
 
@@ -109,7 +110,8 @@ MapPreviewPanelContainer.defaultProps = {
   isMapPreviewPanelVisible: false,
   search: {},
   results: [],
-  pano: {}
+  pano: {},
+  user: {}
 };
 
 MapPreviewPanelContainer.propTypes = {
@@ -117,6 +119,7 @@ MapPreviewPanelContainer.propTypes = {
   search: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   results: PropTypes.array, // eslint-disable-line react/forbid-prop-types
   pano: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  user: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   onMapPreviewPanelMaximize: PropTypes.func.isRequired,
   onMapPreviewPanelClose: PropTypes.func.isRequired
 };

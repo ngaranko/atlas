@@ -24,9 +24,10 @@ export default function MapSearchResultsReducer(state = initialState, action) {
   }
 }
 
-export const getMapSearchResults = (location) => ({
+export const getMapSearchResults = (location, user) => ({
   type: FETCH_MAP_SEARCH_RESULTS_REQUEST,
-  location
+  location,
+  user
 });
 
 window.reducers = window.reducers || {};

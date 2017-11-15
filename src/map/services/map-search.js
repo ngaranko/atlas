@@ -1,4 +1,7 @@
-const apiUrl = 'https://api.data.amsterdam.nl/';
+import * as address from '../../shared/services/address/address';
+import * as vestiging from '../../shared/services/vestiging/vestiging';
+
+const apiUrl = 'https://acc.api.data.amsterdam.nl/';
 
 const endpoints = [
   { uri: 'geosearch/nap/', radius: 25 },
@@ -9,43 +12,133 @@ const endpoints = [
 ];
 
 const categoryLabels = {
+  address: 'Adres',
+  explosief: 'Explosief',
+  gebied: 'Gebied',
+  gemeentelijkeBeperking: 'Gemeentelijke beperking',
+  kadastraalObject: 'Kadastraal object',
+  ligplaats: 'Ligplaats',
+  meetbout: 'Meetbout',
+  monument: 'Monument',
+  napPijlmerk: 'NAP Peilmerk',
   openbareRuimte: 'Openbare ruimte',
   pand: 'Pand',
   standplaats: 'Standplaats',
-  ligplaats: 'Ligplaats',
-  kadastraalObject: 'Kadastraal object',
-  gemeentelijkeBeperking: 'Gemeentelijke beperking',
-  gebied: 'Gebied',
-  meetbout: 'Meetbout',
-  napPijlmerk: 'NAP Peilmerk',
-  explosief: 'Explosief',
-  monument: 'Monument'
+  vestiging: 'Vestiging'
 };
 
 const categoryLabelsByType = {
+  address: categoryLabels.address,
+  'bag/ligplaats': categoryLabels.ligplaats,
   'bag/openbareruimte': categoryLabels.openbareRuimte,
   'bag/pand': categoryLabels.pand,
   'bag/standplaats': categoryLabels.standplaats,
-  'bag/ligplaats': categoryLabels.ligplaats,
-  'kadaster/kadastraal_object': categoryLabels.kadastraalObject,
-  'wkpb/beperking': categoryLabels.gemeentelijkeBeperking,
-  'gebieden/grootstedelijkgebied': categoryLabels.gebied,
-  'gebieden/unesco': categoryLabels.gebied,
-  'gebieden/stadsdeel': categoryLabels.gebied,
-  'gebieden/gebiedsgerichtwerken': categoryLabels.gebied,
-  'gebieden/buurtcombinatie': categoryLabels.gebied,
-  'gebieden/buurt': categoryLabels.gebied,
-  'gebieden/bouwblok': categoryLabels.gebied,
-  'meetbouten/meetbout': categoryLabels.meetbout,
-  'nap/peilmerk': categoryLabels.napPijlmerk,
-  'bommenkaart/verdachtgebied': categoryLabels.explosief,
   'bommenkaart/bominslag': categoryLabels.explosief,
-  'bommenkaart/uitgevoerdonderzoek': categoryLabels.explosief,
   'bommenkaart/gevrijwaardgebied': categoryLabels.explosief,
-  'monumenten/monument': categoryLabels.monument
+  'bommenkaart/uitgevoerdonderzoek': categoryLabels.explosief,
+  'bommenkaart/verdachtgebied': categoryLabels.explosief,
+  'gebieden/bouwblok': categoryLabels.gebied,
+  'gebieden/buurt': categoryLabels.gebied,
+  'gebieden/buurtcombinatie': categoryLabels.gebied,
+  'gebieden/gebiedsgerichtwerken': categoryLabels.gebied,
+  'gebieden/grootstedelijkgebied': categoryLabels.gebied,
+  'gebieden/stadsdeel': categoryLabels.gebied,
+  'gebieden/unesco': categoryLabels.gebied,
+  'kadaster/kadastraal_object': categoryLabels.kadastraalObject,
+  'meetbouten/meetbout': categoryLabels.meetbout,
+  'monumenten/monument': categoryLabels.monument,
+  'nap/peilmerk': categoryLabels.napPijlmerk,
+  vestiging: categoryLabels.vestiging,
+  'wkpb/beperking': categoryLabels.gemeentelijkeBeperking
 };
 
-export default function search(location) {
+const categoryTypeOrder = [
+  'bag/openbareruimte',
+  'bag/ligplaats',
+  'bag/pand',
+  'bag/standplaats',
+  'address',
+  'vestiging',
+  'kadaster/kadastraal_object',
+  'wkpb/beperking',
+  'gebieden/bouwblok',
+  'gebieden/buurt',
+  'gebieden/buurtcombinatie',
+  'gebieden/gebiedsgerichtwerken',
+  'gebieden/grootstedelijkgebied',
+  'gebieden/stadsdeel',
+  'gebieden/unesco',
+  'meetbouten/meetbout',
+  'nap/peilmerk',
+  'bommenkaart/bominslag',
+  'bommenkaart/gevrijwaardgebied',
+  'bommenkaart/uitgevoerdonderzoek',
+  'bommenkaart/verdachtgebied',
+  'monumenten/monument'
+];
+
+const relatedResourcesByType = {
+  'bag/ligplaats': [
+    {
+      fetch: (ligplaatsId) => address
+        .fetchHoofdadresByLigplaatsId(ligplaatsId)
+        .then((result) => vestiging.fetchByAddressId(result.id)),
+      type: 'vestiging',
+      authScope: 'HR/R'
+    }
+  ],
+  'bag/pand': [
+    {
+      fetch: address.fetchByPandId,
+      type: 'address'
+    }, {
+      fetch: vestiging.fetchByPandId,
+      type: 'vestiging',
+      authScope: 'HR/R'
+    }
+  ],
+  'bag/standplaats': [
+    {
+      fetch: (standplaatsId) => address
+        .fetchHoofdadresByStandplaatsId(standplaatsId)
+        .then((result) => vestiging.fetchByAddressId(result.id)),
+      type: 'vestiging',
+      authScope: 'HR/R'
+    }
+  ]
+};
+
+const fetchRelatedForUser = (user) => (data) => {
+  const item = data.features.find((feature) => relatedResourcesByType[feature.properties.type]);
+
+  if (!item) {
+    return data.features;
+  }
+
+  const resources = relatedResourcesByType[item.properties.type];
+  const requests = resources.map((resource) => (
+    (resource.authScope &&
+      (!user.authenticated || !user.scopes.includes(resource.authScope))
+    ) ? [] :
+      resource.fetch(item.properties.id)
+        .then((results) => results
+          .map((result) => ({
+            properties: {
+              uri: result._links.self.href,
+              display: result._display,
+              type: resource.type
+            }
+          }))
+        )
+  ));
+
+  return Promise.all(requests)
+    .then((results) => results
+      .reduce((accumulator, subResults) => accumulator.concat(subResults),
+        data.features));
+};
+
+export default function search(location, user) {
   const allRequests = endpoints.map((endpoint) => {
     const searchParams = {
       lat: location[0],
@@ -59,13 +152,22 @@ export default function search(location) {
 
     return fetch(`${apiUrl}${endpoint.uri}?${queryString}`)
       .then((response) => response.json())
-      .then((response) => response.features
+      .then(fetchRelatedForUser(user))
+      .then((features) => features
+        .sort((a, b) => {
+          const indexA = categoryTypeOrder.indexOf(a.properties.type);
+          const indexB = categoryTypeOrder.indexOf(b.properties.type);
+          return indexA < indexB ? -1 :
+            (indexA > indexB ? 1 : 0);
+        })
+      )
+      .then((features) => features
         .map((feature) => ({
           uri: feature.properties.uri,
           label: feature.properties.display,
           categoryLabel: categoryLabelsByType[feature.properties.type]
-        })))
-      .catch((error) => { throw error; });
+        }))
+      );
   });
 
   return Promise.all(allRequests)

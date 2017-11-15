@@ -86,7 +86,7 @@
             vm.isMapFullscreen = Boolean(vm.visibility.map && state.map.isFullscreen);
             vm.isStraatbeeldActive = Boolean(state.straatbeeld);
             vm.straatbeeldHistory = vm.isStraatbeeldActive ? state.straatbeeld.history : null;
-            vm.searchLocation = vm.activity.searchResults
+            vm.searchLocation = vm.activity.searchResults && state.search.location
                 ? state.search.location.reduce((accumulator, coordinate) => accumulator + coordinate, '')
                 : null;
         }
