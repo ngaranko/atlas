@@ -26,6 +26,15 @@
       position: absolute;
       width: 36px;
     }
+
+    &--unselectable-legend + .map-legend__items {
+      padding-top: 0;
+
+      .is-embed &,
+      .is-embed-preview & {
+        padding-top: 10px;
+      }
+    }
   }
 
   &__zoom-level-notification {
