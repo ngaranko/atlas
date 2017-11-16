@@ -30,6 +30,7 @@
     &--unselectable-legend + .map-legend__items {
       padding-top: 0;
 
+      .is-print-mode &,
       .is-embed &,
       .is-embed-preview & {
         padding-top: 10px;
