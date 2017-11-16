@@ -154,22 +154,24 @@ export default function search(location, user) {
       .then((response) => response.json())
       .then(fetchRelatedForUser(user))
       .then((features) => features
-        .sort((a, b) => {
-          const indexA = categoryTypeOrder.indexOf(a.properties.type);
-          const indexB = categoryTypeOrder.indexOf(b.properties.type);
-          return indexA < indexB ? -1 :
-            (indexA > indexB ? 1 : 0);
-        })
-      )
-      .then((features) => features
         .map((feature) => ({
           uri: feature.properties.uri,
           label: feature.properties.display,
-          categoryLabel: categoryLabelsByType[feature.properties.type]
+          categoryLabel: categoryLabelsByType[feature.properties.type],
+          type: feature.properties.type
         }))
       );
   });
 
   return Promise.all(allRequests)
-    .then((results) => results.reduce((accumulator, subResults) => accumulator.concat(subResults)));
+    .then((results) => results
+      .reduce((accumulator, subResults) => accumulator.concat(subResults)))
+    .then((results) => [...results]
+      .sort((a, b) => {
+        const indexA = categoryTypeOrder.indexOf(a.type);
+        const indexB = categoryTypeOrder.indexOf(b.type);
+        return indexA < indexB ? -1 :
+          (indexA > indexB ? 1 : 0);
+      })
+    );
 }
