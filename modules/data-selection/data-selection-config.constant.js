@@ -180,16 +180,29 @@
                     ENDPOINT_PREVIEW: 'dataselectie/hr/',
                     ENDPOINT_MARKERS: 'dataselectie/hr/geolocation/',
                     ENDPOINT_EXPORT: 'dataselectie/hr/export/',
+                    ENDPOINT_EXPORT_PARAM: 'dataset=ves',
                     ENDPOINT_DETAIL: 'handelsregister/vestiging/',
                     PRIMARY_KEY: 'vestiging_id',
                     TITLE: 'Vestigingen',
                     FILTERS: [
                         {
-                            slug: 'hoofdcategorie',
-                            label: 'Hoofdcategorie'
+                            slug: 'sbi_code',
+                            label: 'SBI-code'
                         }, {
-                            slug: 'subcategorie',
-                            label: 'Subcategorie'
+                            slug: 'sbi_l2',
+                            label: 'SBI-L2'
+                        }, {
+                            slug: 'sbi_l3',
+                            label: 'SBI-L3'
+                        }, {
+                            slug: 'sbi_l4',
+                            label: 'SBI-L4'
+                        }, {
+                            slug: 'sbi_l5',
+                            label: 'SBI-L5'
+                        }, {
+                            slug: 'bijzondere_rechtstoestand',
+                            label: 'Bijzondere rechtstoestand'
                         }, {
                             slug: 'stadsdeel_naam',
                             label: 'Stadsdeel'
@@ -218,29 +231,23 @@
                             },
                             {
                                 label: 'Handelsnaam',
-                                variables: ['handelsnaam']
+                                variables: ['handelsnaam', 'bijzondere_rechtstoestand'],
+                                template: 'handelsnaam'
+                            },
+                            {
+                                label: 'SBI-code',
+                                variables: ['sbi_code']
+                            },
+                            {
+                                label: 'SBI-omschrijving',
+                                variables: ['sbi_omschrijving'],
+                                template: 'sbi-omschrijving'
                             },
                             {
                                 label: 'Bezoekadres',
                                 variables: ['bezoekadres_volledig_adres', 'non_mailing'],
                                 formatter: 'hrBezoekadres',
                                 template: 'bezoekadres'
-                            },
-                            {
-                                label: 'Hoofdcategorie',
-                                variables: ['hoofdcategorie']
-                            },
-                            {
-                                label: 'Subcategorie',
-                                variables: ['subcategorie']
-                            },
-                            {
-                                label: 'SBI-omschrijving',
-                                variables: ['sbi_omschrijving']
-                            },
-                            {
-                                label: 'SBI-code',
-                                variables: ['sbi_code']
                             }
                         ],
                         LIST: [

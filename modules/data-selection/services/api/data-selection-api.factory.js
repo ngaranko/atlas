@@ -128,7 +128,10 @@
                 }
             });
 
-            return activeAndAvailableFilters;
+            return {
+                ...activeAndAvailableFilters,
+                dataset: 'ves'
+            };
         }
     }
 })();

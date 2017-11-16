@@ -1,8 +1,11 @@
 <div class="qa-available-filters c-data-selection-available-filters">
     <div class="c-data-selection-available-filters__category"
          ng-show="vm.hasInactiveFilterOptions(filter)"
+         ng-if="!filter.slug.startsWith('sbi')"
          ng-repeat="filter in vm.availableFilters">
+
         <h2 class="c-data-selection-available-filters__category-label qa-category-header">{{filter.label}}</h2>
+
         <ul>
             <li class="c-data-selection-available-filters__item"
                 ng-repeat="option in filter.options | limitTo : vm.isExpandedFilter(filter.slug) ? undefined : vm.showMoreThreshold">

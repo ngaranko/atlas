@@ -20,6 +20,11 @@
   }
 }
 
+.c-panel--offsets-below-page-title {
+  margin-top: -(2 * $base-whitespace);
+  margin-bottom: 3 * $base-whitespace;
+}
+
 .c-panel--warning {
   padding: $base-whitespace * .3 $base-whitespace;
   background-color: $thema-10;
