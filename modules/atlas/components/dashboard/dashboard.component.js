@@ -35,16 +35,18 @@
             store.dispatch({ type: 'HIDE_MAP_PANEL' });
         });
 
-        // (Re)render React `MapPanel` app when map is visible
-        $scope.$watch('vm.visibility.map', (newValue, oldValue) => {
-            if (vm.visibility.map && !vm.visibility.dataSelection && !vm.activity.detail && !vm.isStraatbeeldActive) {
-                store.dispatch({ type: 'SHOW_MAP_PANEL' });
-            }
-            if (!vm.visibility.map || vm.visibility.dataSelection || vm.visibility.searchResults) {
+        // Show or hide React `MapPanel` app according to map fullscreen state
+        $scope.$watch('vm.isMapFullscreen', () => {
+            if (!vm.isMapFullscreen) {
+                // Always hide when map exits fullscreen mode
                 store.dispatch({ type: 'HIDE_MAP_PANEL' });
+            } else if (vm.isHomePageActive) {
+                // Only show when coming from the home page
+                store.dispatch({ type: 'SHOW_MAP_PANEL' });
             }
         });
 
+        // Open or close React `MapPreviewPanel` app
         $scope.$watch('vm.visibility.mapPreviewPanel', () => {
             if (vm.visibility.mapPreviewPanel) {
                 store.dispatch({ type: 'OPEN_MAP_PREVIEW_PANEL' });
@@ -62,7 +64,8 @@
             vm.visibility = dashboardColumns.determineVisibility(state);
 
             vm.hasMaxWidth = vm.visibility.page;
-            vm.isHomePage = vm.visibility.page && state.page && state.page.name === 'home';
+            vm.isHomePageActive = state.page && state.page.name === 'home';
+            vm.isHomePage = vm.visibility.page && vm.isHomePageActive;
             vm.headerSize = vm.isHomePage ? HEADER.SIZE.TALL : HEADER.SIZE.SHORT;
             vm.pageType = state.page && state.page.type ? state.page.type : '';
 
