@@ -125,7 +125,7 @@
             },
             DETAIL_FULLSCREEN: {
                 id: 'DETAIL_FULLSCREEN',
-                ignore: true
+                replace: true
             },
 
             FETCH_STRAATBEELD_BY_ID: {

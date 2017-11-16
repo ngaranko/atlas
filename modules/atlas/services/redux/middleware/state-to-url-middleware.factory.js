@@ -20,7 +20,7 @@
                     if (!action.type.ignore && action.type !== 'AUTHENTICATE_USER') {
                         stateToUrl.update(
                             store.getState(),
-                            Boolean(action.type.replace)
+                            angular.isObject(action.type) && Boolean(action.type.replace)
                         );
                     }
                     return returnValue;
