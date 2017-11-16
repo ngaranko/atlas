@@ -5,7 +5,7 @@
         .module('dpShared')
         .component('dpPanel', {
             bindings: {
-                isPanelVisible: '=',
+                isPanelVisible: '<',
                 size: '@',
                 type: '@',
                 canClose: '=',
