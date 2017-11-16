@@ -146,5 +146,12 @@ describe('The stateToUrlMiddleware factory', function () {
 
             expect(stateToUrl.update).toHaveBeenCalledWith('FAKE_STATE', false);
         });
+
+        stateToUrlMiddleware(mockedStore)(mockedNext)({
+            type: 'STRING_TYPE',
+            payload: {}
+        });
+
+        expect(stateToUrl.update).toHaveBeenCalledWith('FAKE_STATE', false);
     });
 });
