@@ -70,6 +70,12 @@
                 visibility.dataSelection = false;
             }
 
+            visibility.mapPreviewPanel =
+                state.map.isFullscreen &&
+                activity.searchResults &&
+                angular.isArray(state.search.location) &&
+                !angular.isObject(state.dataSelection);
+
             if (isEmbedOrPreviewWithFullscreenMap(state)) {
                 visibility.layerSelection = false;
             }

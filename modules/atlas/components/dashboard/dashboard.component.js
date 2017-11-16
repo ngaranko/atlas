@@ -45,8 +45,8 @@
             }
         });
 
-        $scope.$watchGroup(['vm.searchLocation', 'vm.isMapFullscreen'], () => {
-            if (vm.searchLocation && vm.isMapFullscreen) {
+        $scope.$watch('vm.visibility.mapPreviewPanel', () => {
+            if (vm.visibility.mapPreviewPanel) {
                 store.dispatch({ type: 'OPEN_MAP_PREVIEW_PANEL' });
             } else {
                 store.dispatch({ type: 'CLOSE_MAP_PREVIEW_PANEL' });
@@ -86,9 +86,7 @@
             vm.isMapFullscreen = Boolean(vm.visibility.map && state.map.isFullscreen);
             vm.isStraatbeeldActive = Boolean(state.straatbeeld);
             vm.straatbeeldHistory = vm.isStraatbeeldActive ? state.straatbeeld.history : null;
-            vm.searchLocation = vm.activity.searchResults && state.search.location
-                ? state.search.location.reduce((accumulator, coordinate) => accumulator + coordinate, '')
-                : null;
+            vm.isMapPreviewPanelVisible = vm.visibility.mapPreviewPanel;
         }
     }
 })();
