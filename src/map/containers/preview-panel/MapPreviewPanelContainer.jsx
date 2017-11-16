@@ -7,7 +7,8 @@ import {
   maximizeMapPreviewPanel,
   closeMapPreviewPanel
 } from '../../ducks/preview-panel/map-preview-panel';
-import { getMapSearchResults } from '../../ducks/search-results/map-search-results';
+import { selectLatestMapSearchResults, getMapSearchResults }
+  from '../../ducks/search-results/map-search-results';
 import { getPanoPreview } from '../../../pano/ducks/preview/pano-preview';
 import MaximizeIcon from '../../../../public/images/icon-maximize.svg';
 import CloseIcon from '../../../../public/images/icon-cross-big.svg';
@@ -17,7 +18,7 @@ import LoadingIndicator from '../../../shared/components/loading-indicator/Loadi
 const mapStateToProps = (state) => ({
   isMapPreviewPanelVisible: state.isMapPreviewPanelVisible,
   search: state.search,
-  results: state.mapSearchResults,
+  results: selectLatestMapSearchResults(state),
   pano: state.pano,
   user: state.user
 });
@@ -27,15 +28,15 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   onMapPreviewPanelClose: closeMapPreviewPanel
 }, dispatch);
 
-const fetchData = (props, context) => {
-  context.store.dispatch(getMapSearchResults(props.search.location, props.user));
-  context.store.dispatch(getPanoPreview(props.search.location));
+const fetchData = (context, location, user) => {
+  context.store.dispatch(getMapSearchResults(location, user));
+  context.store.dispatch(getPanoPreview(location));
 };
 
 class MapPreviewPanelContainer extends React.Component {
   componentDidMount() {
     if (this.props.search && this.props.search.location) {
-      fetchData(this.props, this.context);
+      fetchData(this.context, this.props.search.location, this.props.user);
     }
   }
 
@@ -48,7 +49,7 @@ class MapPreviewPanelContainer extends React.Component {
         prevProps.search.location[1] !== this.props.search.location[1]
       )
     ) {
-      fetchData(this.props, this.context);
+      fetchData(this.context, this.props.search.location, this.props.user);
     }
   }
 

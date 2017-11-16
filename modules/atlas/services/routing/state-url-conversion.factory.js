@@ -53,9 +53,12 @@
                         'mapLayers',
                         'mapBaseLayers',
                         'mapSearchResults',
+                        'mapSearchResultsByLocation',
                         'pano',
                         'isMapPanelVisible',
-                        'isMapPreviewPanelVisible'
+                        'isMapPreviewPanelVisible',
+                        'isLoading',
+                        'error'
                     ].forEach(s => {
                         const value = initialValues[s];
                         newState[s] = angular.isDefined(value)
@@ -131,6 +134,12 @@
                     }
                     return newState;
                 },
+                mapSearchResultsByLocation: (oldState, newState) => {
+                    if (angular.isObject(oldState)) {
+                        newState = oldState;
+                    }
+                    return newState;
+                },
                 pano: (oldState, newState) => {
                     if (angular.isObject(oldState)) {
                         newState = oldState;
@@ -179,6 +188,18 @@
                             newState.isInitial = false;
                             newState.isLoading = oldState.isLoading;
                         }
+                    }
+                    return newState;
+                },
+                isLoading: (oldState, newState) => {
+                    if (oldState === true || oldState === false) {
+                        newState = oldState;
+                    }
+                    return newState;
+                },
+                error: (oldState, newState) => {
+                    if (angular.isObject(oldState)) {
+                        newState = oldState;
                     }
                     return newState;
                 }
@@ -234,6 +255,7 @@
                 mapBaseLayers: {},
                 mapLayers: [],
                 mapSearchResults: [],
+                mapSearchResultsByLocation: {},
                 pano: {
                     location: [],
                     previews: {}
@@ -266,7 +288,9 @@
                     isInitial: true,
                     isLoading: true
                     // id: 'ABC123',
-                }
+                },
+                isLoading: false,
+                error: null
             },
             stateVariables: {
                 // Property names are keys so that the compiler guarantees the uniqness
