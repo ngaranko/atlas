@@ -39,6 +39,13 @@
     stateUrlConversionFactory.$inject = ['uriStripper'];
 
     function stateUrlConversionFactory (uriStripper) {
+        const ofTypeArray = (oldState, newState) =>
+            angular.isArray(oldState) ? oldState : newState;
+        const ofTypeObject = (oldState, newState) =>
+            angular.isObject(oldState) ? oldState : newState;
+        const ofTypeBoolean = (oldState, newState) =>
+            oldState === true || oldState === false ? oldState : newState;
+
         return {
             onCreate: {
                 // Initialisation methods for the url2state conversion
@@ -80,16 +87,6 @@
             post: {
                 // Post processing methods
                 // These methods are exectuted when the url2state conversion has finished
-                user: (oldState, newState) => {
-                    if (angular.isObject(oldState)) {
-                        newState.authenticated = oldState.authenticated;
-                        newState.accessToken = oldState.accessToken;
-                        newState.scopes = oldState.scopes;
-                        newState.name = oldState.name;
-                        newState.error = oldState.error;
-                    }
-                    return newState;
-                },
                 dataSelection: (oldState, newState) => {
                     if (angular.isObject(oldState)) {
                         newState.markers = oldState.markers;
@@ -113,48 +110,6 @@
 
                         newState.highlight = oldState.highlight;
                         newState.isLoading = oldState.isLoading;
-                    }
-                    return newState;
-                },
-                mapBaseLayers: (oldState, newState) => {
-                    if (angular.isObject(oldState)) {
-                        newState = oldState;
-                    }
-                    return newState;
-                },
-                mapLayers: (oldState, newState) => {
-                    if (angular.isArray(oldState)) {
-                        newState = oldState;
-                    }
-                    return newState;
-                },
-                mapSearchResults: (oldState, newState) => {
-                    if (angular.isArray(oldState)) {
-                        newState = oldState;
-                    }
-                    return newState;
-                },
-                mapSearchResultsByLocation: (oldState, newState) => {
-                    if (angular.isObject(oldState)) {
-                        newState = oldState;
-                    }
-                    return newState;
-                },
-                pano: (oldState, newState) => {
-                    if (angular.isObject(oldState)) {
-                        newState = oldState;
-                    }
-                    return newState;
-                },
-                isMapPanelVisible: (oldState, newState) => {
-                    if (oldState === true || oldState === false) {
-                        newState = oldState;
-                    }
-                    return newState;
-                },
-                isMapPreviewPanelVisible: (oldState, newState) => {
-                    if (oldState === true || oldState === false) {
-                        newState = oldState;
                     }
                     return newState;
                 },
@@ -191,18 +146,16 @@
                     }
                     return newState;
                 },
-                isLoading: (oldState, newState) => {
-                    if (oldState === true || oldState === false) {
-                        newState = oldState;
-                    }
-                    return newState;
-                },
-                error: (oldState, newState) => {
-                    if (angular.isObject(oldState)) {
-                        newState = oldState;
-                    }
-                    return newState;
-                }
+                user: ofTypeObject,
+                mapBaseLayers: ofTypeObject,
+                mapLayers: ofTypeArray,
+                mapSearchResults: ofTypeArray,
+                mapSearchResultsByLocation: ofTypeObject,
+                pano: ofTypeObject,
+                isMapPanelVisible: ofTypeBoolean,
+                isMapPreviewPanelVisible: ofTypeBoolean,
+                isLoading: ofTypeBoolean,
+                error: ofTypeObject
             },
             initialValues: {
                 // When creating a state object it will be initialized with these values
