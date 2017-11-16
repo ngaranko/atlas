@@ -17,7 +17,7 @@ export default function MapSearchResultsReducer(state = initialState, action) {
       return { ...state, isLoading: false, mapSearchResults: action.mapSearchResults };
 
     case FETCH_MAP_SEARCH_RESULTS_FAILURE:
-      return { ...state, isLoading: false, error: action.error };
+      return { ...state, isLoading: false };
 
     default:
       return state;

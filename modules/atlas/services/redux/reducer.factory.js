@@ -53,6 +53,7 @@
             const MapBaseLayersReducer = $window.reducers.MapBaseLayersReducer;
             const MapSearchResultsReducer = $window.reducers.MapSearchResultsReducer;
             const PanoPreviewReducer = $window.reducers.PanoPreviewReducer;
+            const ErrorMessageReducer = $window.reducers.ErrorMessageReducer;
 
             const detailReducers = {
                 FETCH_DETAIL: DetailsReducers,
@@ -147,7 +148,10 @@
                 angular.isFunction(actions[action.type.id]);
 
             if (vanilla) {
-                const newState = actions[action.type](oldState, action);
+                const newState = ErrorMessageReducer(
+                    actions[action.type](oldState, action),
+                    action
+                );
                 $timeout(() => $rootScope.$digest());
                 return newState;
             } else if (legacy) {
@@ -165,7 +169,7 @@
                 return result;
             } else {
                 // TODO: Redux: throw error
-                return oldState;
+                return ErrorMessageReducer(oldState, action);
             }
         };
     }

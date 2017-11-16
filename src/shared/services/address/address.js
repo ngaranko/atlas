@@ -1,6 +1,6 @@
 const apiUrl = 'https://acc.api.data.amsterdam.nl/';
 
-export default function fetchByPandId(pandId) {
+export function fetchByPandId(pandId) {
   const searchParams = {
     pand: pandId
   };
