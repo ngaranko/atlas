@@ -36,7 +36,14 @@ describe('The state url conversion factory', function () {
                     error: false
                 },
                 mapLayers: [],
+                mapSearchResults: [],
+                mapSearchResultsByLocation: {},
+                pano: {
+                    location: [],
+                    previews: {}
+                },
                 isMapPanelVisible: false,
+                isMapPreviewPanelVisible: false,
                 filters: {},
                 layerSelection: {
                     isEnabled: false
@@ -52,7 +59,9 @@ describe('The state url conversion factory', function () {
                     isPrintMode: false,
                     isEmbedPreview: false,
                     isEmbed: false
-                }
+                },
+                isLoading: false,
+                error: null
             });
         });
     });

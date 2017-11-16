@@ -47,7 +47,14 @@ describe('The state url conversion definition', function () {
                 },
                 mapLayers: [],
                 mapBaseLayers: {},
+                mapSearchResults: [],
+                mapSearchResultsByLocation: {},
+                pano: {
+                    location: [],
+                    previews: {}
+                },
                 isMapPanelVisible: false,
+                isMapPreviewPanelVisible: false,
                 map: {
                     viewCenter: [52.3731081, 4.8932945],
                     baseLayer: 'topografie',
@@ -58,7 +65,9 @@ describe('The state url conversion definition', function () {
                     showActiveOverlays: false,
                     drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
                     highlight: true
-                }
+                },
+                isLoading: false,
+                error: null
             });
 
             state = stateUrlConversion.onCreate.DEFAULT({}, {}, {aap: 'noot'}, {});
@@ -70,7 +79,13 @@ describe('The state url conversion definition', function () {
                 user: undefined,
                 mapLayers: undefined,
                 mapBaseLayers: undefined,
-                isMapPanelVisible: undefined
+                isMapPanelVisible: undefined,
+                mapSearchResults: undefined,
+                mapSearchResultsByLocation: undefined,
+                pano: undefined,
+                isMapPreviewPanelVisible: undefined,
+                isLoading: undefined,
+                error: undefined
             });
         });
     });
@@ -89,14 +104,13 @@ describe('The state url conversion definition', function () {
                     foo: 'bar'
                 };
 
-                stateUrlConversion.post.user(oldState, newState);
-                expect(newState).toEqual({
+                const result = stateUrlConversion.post.user(oldState, newState);
+                expect(result).toEqual({
                     authenticated: true,
                     accessToken: 'foo',
                     scopes: ['bar', 'baz'],
                     name: 'unit',
-                    error: 'test',
-                    foo: 'bar'
+                    error: 'test'
                 });
             });
         });
