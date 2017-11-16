@@ -114,6 +114,11 @@ describe('The dataSelectionApiDataSelection factory', function () {
                     openingstijden: 'Alleen op dinsdag',
                     adres: 'Sneeuwbalweg 24',
                     id: '3'
+                }, {
+                    handelsnaam: 'De Appel',
+                    dataset: 'mac',
+                    kvk_nummer: '34392003',
+                    id: '4'
                 }
             ],
             page_count: 2
@@ -125,13 +130,14 @@ describe('The dataSelectionApiDataSelection factory', function () {
     it('calls the api factory with the active filters, page and shape as searchParams', function () {
         // Without active filters
         dataSelectionApiDataSelection.query(config, {}, 1, 'search', [[12, 3]]);
-        expect(api.getByUri).toHaveBeenCalledWith('zwembaden/', { page: 1, shape: '[[3,12]]' });
+        expect(api.getByUri).toHaveBeenCalledWith('zwembaden/', { page: 1, dataset: 'ves', shape: '[[3,12]]' });
 
         // With active filters
         dataSelectionApiDataSelection.query(config, {water: 'Verwarmd'}, 2);
         expect(api.getByUri).toHaveBeenCalledWith('zwembaden/', {
             water: 'Verwarmd',
             page: 2,
+            dataset: 'ves',
             shape: '[]'
         });
 
@@ -243,7 +249,7 @@ describe('The dataSelectionApiDataSelection factory', function () {
         });
         $rootScope.$apply();
 
-        expect(output.data.length).toEqual(3);
+        expect(output.data.length).toEqual(4);
         expect(output.data[0]).toEqual({
             _links: {
                 self: {
@@ -295,6 +301,17 @@ describe('The dataSelectionApiDataSelection factory', function () {
             openingstijden: 'Alleen op dinsdag',
             adres: 'Sneeuwbalweg 24',
             id: '3'
+        });
+        expect(output.data[3]).toEqual({
+            _links: {
+                self: {
+                    href: 'https://api.amsterdam.nl/handelsregister/maatschappelijkeactiviteit/34392003/'
+                }
+            },
+            handelsnaam: 'De Appel',
+            dataset: 'mac',
+            kvk_nummer: '34392003',
+            id: '4'
         });
     });
 });

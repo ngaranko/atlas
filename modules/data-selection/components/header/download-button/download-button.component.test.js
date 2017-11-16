@@ -29,6 +29,7 @@ describe('The dp-data-selection-download-button component', function () {
                         dataset_b: {
                             ENDPOINT: 'datasets/b/',
                             ENDPOINT_EXPORT: 'datasets/b/download/',
+                            ENDPOINT_EXPORT_PARAM: 'dataset=ves',
                             FILTERS: [
                                 {
                                     slug: 'filter_a'
@@ -136,7 +137,7 @@ describe('The dp-data-selection-download-button component', function () {
         component.isolateScope().$digest();
 
         expect(component.find('a').attr('href'))
-            .toBe('http://www.example.com/datasets/b/download/?filter_b=hallo');
+            .toBe('http://www.example.com/datasets/b/download/?filter_b=hallo&dataset=ves');
 
         component = getComponent(dataset, activeFilters, markers);
 

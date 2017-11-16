@@ -20,6 +20,12 @@
         <div class="u-grid qa-data-grid" ng-if="!vm.disabled">
             <div class="u-row">
                 <div ng-if="vm.showFilters" class="u-col-sm--3 c-data-selection__available-filters">
+                    <dp-sbi-filter
+                        ng-if="vm.state.dataset === 'hr'"
+                        available-filters="vm.availableFilters"
+                        active-filters="vm.filters">
+                    </dp-sbi-filter>
+
                     <dp-data-selection-available-filters
                         dataset="{{vm.state.dataset}}"
                         available-filters="vm.availableFilters"
@@ -72,7 +78,7 @@
 
         <dp-panel ng-if="vm.disabled" is-panel-visible="true" can-close="true" type="warning" class="qa-disabled-message">
             <h2 class="c-panel__title">Vestigingen zichtbaar na inloggen</h2>
-            <p class="c-panel__paragraph">Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om vestigingen te bekijken.</p>
+            <p class="c-panel__paragraph">Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om vestigingen (vestigingen en maatschappelijke activiteiten) te bekijken.</p>
             <p class="c-panel__paragraph">
                 Zie <dp-link-to-page item="item9" class-name="c-link--light"></dp-link-to-page>.
             </p>

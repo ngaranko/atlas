@@ -33,7 +33,7 @@
         };
 
         vm.addFilter = function (filterSlug, optionId) {
-            var filters = angular.copy(vm.activeFilters);
+            var filters = {...vm.activeFilters};
 
             filters[filterSlug] = optionId;
 

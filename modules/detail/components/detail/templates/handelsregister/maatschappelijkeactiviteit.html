@@ -2,17 +2,34 @@
     <div class="c-detail__block">
         <dp-glossary-header
             heading="{{vm.apiData.results._display}}"
-            definition="MAATSCHAPPELIJKEACTIVITEIT">
+            definition="MAATSCHAPPELIJKEACTIVITEIT"
+            is-emphasized="vm.apiData.results._bijzondere_rechts_toestand.faillissement
+                || vm.apiData.results._bijzondere_rechts_toestand.status === 'Voorlopig'
+                || vm.apiData.results._bijzondere_rechts_toestand.status === 'Definitief'">
         </dp-glossary-header>
 
         <div ng-if="!vm.user.scopes.includes('HR/R')"
             ng-include="'modules/detail/components/detail/templates/handelsregister/unauthorized.html'"></div>
 
+        <dp-panel
+            ng-if="vm.user.scopes.includes('HR/R')"
+            is-panel-visible="vm.apiData.results._bijzondere_rechts_toestand.faillissement"
+            class-name="c-panel--offsets-below-page-title"
+            type="danger">Bijzondere rechtstoestand: Faillissement</dp-panel>
+
+        <dp-panel
+            ng-if="vm.user.scopes.includes('HR/R')"
+            is-panel-visible="!vm.apiData.results._bijzondere_rechts_toestand.faillissement
+                && vm.apiData.results._bijzondere_rechts_toestand.status === 'Voorlopig'
+                || vm.apiData.results._bijzondere_rechts_toestand.status === 'Definitief'"
+            class-name="c-panel--offsets-below-page-title"
+            type="danger">Bijzondere rechtstoestand: Surseance van betaling</dp-panel>
+
         <dl ng-if="vm.apiData" class="c-key-value-list">
             <dt>Handelsnaam</dt>
             <dd ng-if="!vm.apiData.results.onderneming.handelsnamen[0]"></dd>
             <dd class="c-key-value-list__multiple-values" ng-repeat="object in vm.apiData.results.onderneming.handelsnamen">
-                    {{ object.handelsnaam }}
+                {{ object.handelsnaam }}
             </dd>
             <dt>KvK-nummer</dt>
             <dd> {{ vm.apiData.results.kvk_nummer }} </dd>
@@ -23,7 +40,12 @@
             <dt>Datum aanvang</dt>
             <dd> {{ vm.apiData.results.datum_aanvang | date:'dd-MM-yyyy' }} </dd>
             <dt>Soort bijzondere rechtstoestand</dt>
-            <dd><dp-message>Op dit moment geen gegevens beschikbaar</dp-message></dd>
+            <dd class="{{vm.apiData.results._bijzondere_rechts_toestand.faillissement
+                || vm.apiData.results._bijzondere_rechts_toestand.status === 'Voorlopig'
+                || vm.apiData.results._bijzondere_rechts_toestand.status === 'Definitief' ? 'u-failliet' : ''}}">
+                {{ vm.apiData.results._bijzondere_rechts_toestand.faillissement ? 'Faillissement' :
+                (vm.apiData.results._bijzondere_rechts_toestand.status === 'Voorlopig'
+                    || vm.apiData.results._bijzondere_rechts_toestand.status === 'Definitief') ? 'Surseance van betaling' : '' }}</dd>
         </dl>
     </div>
 

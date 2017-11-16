@@ -53,6 +53,10 @@
                 filterParams.push('shape=' + angular.toJson(vm.geometryFilter.markers.map(([lat, lng]) => [lng, lat])));
             }
 
+            if (DATA_SELECTION_CONFIG.datasets[vm.dataset].ENDPOINT_EXPORT_PARAM) {
+                filterParams.push(DATA_SELECTION_CONFIG.datasets[vm.dataset].ENDPOINT_EXPORT_PARAM);
+            }
+
             if (filterParams.length) {
                 url += '?' + filterParams.join('&');
             }
