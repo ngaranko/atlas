@@ -26,10 +26,6 @@
       position: absolute;
       width: 36px;
     }
-
-    &--unselectable-legend + .map-legend__items {
-      padding-top: 0;
-    }
   }
 
   &__zoom-level-notification {
