@@ -47,7 +47,6 @@ import '../modules/atlas/services/redux/reducers/data-selection-reducers.factory
 import '../modules/atlas/services/redux/reducers/embed-reducers.factory';
 import '../modules/atlas/services/redux/reducers/filters-reducers.factory';
 import '../modules/atlas/services/redux/reducers/home-reducers.factory';
-import '../modules/atlas/services/redux/reducers/layer-selection-reducers.factory';
 import '../modules/atlas/services/redux/reducers/map-reducers.factory';
 import '../modules/atlas/services/redux/reducers/page-reducers.factory';
 import '../modules/atlas/services/redux/reducers/print-reducers.factory';
@@ -143,7 +142,6 @@ import '../modules/map/components/draw-tool/toggle-drawing-tool/toggle-drawing-t
 import '../modules/map/components/embed-button/embed-button.component';
 import '../modules/map/components/map/map.directive';
 import '../modules/map/components/toggle-fullscreen/toggle-fullscreen.component';
-import '../modules/map/components/toggle-layer-selection/toggle-layer-selection.component';
 import '../modules/map/map-config.factory';
 import '../modules/map/map.vendor';
 import '../modules/map/services/document-title/document-title.factory';
@@ -305,7 +303,6 @@ import '../modules/data-selection/services/api/data-selection-api-ckan.factory.t
 import '../modules/data-selection/services/api/data-selection-api-data-selection.factory.test';
 import '../modules/data-selection/services/document-title/document-title.factory.test';
 import '../modules/map/map-config.factory.test';
-import '../modules/map/components/toggle-layer-selection/toggle-layer-selection.component.test';
 import '../modules/map/components/toggle-fullscreen/toggle-fullscreen.component.test';
 import '../modules/map/components/embed-button/embed-button.component.test';
 import '../modules/map/components/map/map.directive.test';
@@ -439,7 +436,6 @@ import '../modules/atlas/services/redux/reducers/url-reducers.factory.test';
 import '../modules/atlas/services/redux/reducers/search-reducers.factory.test';
 import '../modules/atlas/services/redux/reducers/map-reducers.factory.test';
 import '../modules/atlas/services/redux/reducers/page-reducers.factory.test';
-import '../modules/atlas/services/redux/reducers/layer-selection-reducers.factory.test';
 import '../modules/atlas/services/redux/reducers/home-reducers.factory.test';
 import '../modules/atlas/services/redux/reducers/data-selection-reducers.factory.test';
 import '../modules/atlas/services/redux/reducers/straatbeeld-reducers.factory.test';

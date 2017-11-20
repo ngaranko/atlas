@@ -182,15 +182,6 @@
                 isButton: true
             },
 
-            SHOW_LAYER_SELECTION: {
-                id: 'SHOW_LAYER_SELECTION',
-                isButton: true
-            },
-            HIDE_LAYER_SELECTION: {
-                id: 'HIDE_LAYER_SELECTION',
-                isButton: true
-            },
-
             SHOW_HOME: {
                 id: 'SHOW_HOME'
             },

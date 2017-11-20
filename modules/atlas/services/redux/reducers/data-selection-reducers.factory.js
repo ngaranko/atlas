@@ -88,10 +88,7 @@
                     ...state.page,
                     name: null
                 } : state.page,
-                layerSelection: angular.isObject(state.layerSelection) ? {
-                    ...state.layerSelection,
-                    isEnabled: false
-                } : state.layerSelection,
+                isMapPanelVisible: false,
                 search: null,
                 detail: null,
                 straatbeeld: null

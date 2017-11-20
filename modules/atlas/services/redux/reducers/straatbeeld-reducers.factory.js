@@ -62,8 +62,7 @@
         function fetchStraatbeeldByLocationReducer (state, payload) {
             const map = angular.isObject(state.map) ? {...state.map} : state.map;
 
-            if ((state.layerSelection && state.layerSelection.isEnabled) ||
-                (map && map.isFullscreen)) {
+            if (state.isMapPanelVisible || (map && map.isFullscreen)) {
                 map.viewCenter = payload;
             }
 
@@ -81,10 +80,7 @@
                     isFullscreen: false,
                     geometry: []
                 },
-                layerSelection: angular.isObject(state.layerSelection) ? {
-                    ...state.layerSelection,
-                    isEnabled: false
-                } : state.layerSelection,
+                isMapPanelVisible: false,
                 page: angular.isObject(state.page) ? {
                     ...state.page,
                     name: null

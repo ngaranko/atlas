@@ -44,7 +44,7 @@
                 // Initialisation methods for the url2state conversion
                 // These methods are executed after a state object has been initialized with the initialValues
                 DEFAULT: (oldState, newState, params, initialValues) => {
-                    ['atlas', 'page', 'layerSelection', 'filters', 'user', 'mapLayers', 'mapBaseLayers',
+                    ['atlas', 'page', 'filters', 'user', 'mapLayers', 'mapBaseLayers',
                         'isMapPanelVisible', 'ui'].forEach(s => {
                             const value = initialValues[s];
                             newState[s] = angular.isDefined(value)
@@ -191,9 +191,6 @@
                     // geometry: null,
                 },
                 filters: {},
-                layerSelection: {
-                    isEnabled: false
-                },
                 map: {
                     viewCenter: [52.3731081, 4.8932945],
                     baseLayer: 'topografie',
@@ -298,11 +295,6 @@
                     type: 'keyvalues'
                 },
                 // header (hd, not used)
-                // layerSelection (ls)
-                lse: {
-                    name: 'layerSelection.isEnabled',
-                    type: 'boolean'
-                },
                 // map (mp)
                 mpb: {
                     name: 'map.baseLayer',
@@ -398,6 +390,11 @@
                     name: 'straatbeeld.history',
                     type: 'base62',
                     precision: 1
+                },
+                // UI visibility (uv)
+                uvm: {
+                    name: 'isMapPanelVisible',
+                    type: 'boolean'
                 }
             }
         };

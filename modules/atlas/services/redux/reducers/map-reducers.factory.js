@@ -30,16 +30,14 @@
         return reducers;
 
         function showMapReducer (state) {
+            console.log('SHOW_MAP');
             return {
                 ...state,
                 map: angular.isObject(state.map) ? {
                     ...state.map,
                     isFullscreen: true
                 } : state.map,
-                layerSelection: angular.isObject(state.layerSelection) ? {
-                    ...state.layerSelection,
-                    isEnabled: true
-                } : state.layerSelection
+                isMapPanelVisible: true
             };
         }
 
@@ -246,10 +244,7 @@
                     ...state.map,
                     isFullscreen: payload
                 } : state.map,
-                layerSelection: angular.isObject(state.layerSelection) ? {
-                    ...state.layerSelection,
-                    isEnabled: false
-                } : state.layerSelection
+                isMapPanelVisible: false
             };
         }
 
@@ -294,10 +289,7 @@
                     ...state.map,
                     ...getMap(state, payload)
                 } : state.map,
-                layerSelection: angular.isObject(state.layerSelection) ? {
-                    ...state.layerSelection,
-                    isEnabled: moreThan2Markers ? false : state.layerSelection.isEnabled
-                } : state.layerSelection,
+                isMapPanelVisible: moreThan2Markers ? false : state.isMapPanelVisible,
                 page: angular.isObject(state.page) ? {
                     ...state.page,
                     name: moreThan2Markers ? null : state.page.name
