@@ -49,7 +49,7 @@ describe('The state url conversion definition', function () {
                 mapBaseLayers: {},
                 isMapPanelVisible: false,
                 ui: {
-                    isMapLayersVisible: true
+                    isMapPanelHandleVisible: true
                 },
                 map: {
                     viewCenter: [52.3731081, 4.8932945],

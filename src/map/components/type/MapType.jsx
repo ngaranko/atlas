@@ -8,7 +8,7 @@ import TopographyIcon from '../../../../public/images/icon-topography.svg';
 
 function hasLayer(activeBaseLayer, baseLayers) {
   return baseLayers && baseLayers.length > 0 &&
-    baseLayers.some(layer => layer.value === activeBaseLayer);
+    baseLayers.some((layer) => layer.value === activeBaseLayer);
 }
 
 const MapType = ({ activeBaseLayer, baseLayers, onBaseLayerToggle }) => (

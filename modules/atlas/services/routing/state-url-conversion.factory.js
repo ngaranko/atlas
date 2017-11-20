@@ -236,7 +236,7 @@
                     // id: 'ABC123',
                 },
                 ui: {
-                    isMapLayersVisible: true
+                    isMapPanelHandleVisible: true
                 }
             },
             stateVariables: {

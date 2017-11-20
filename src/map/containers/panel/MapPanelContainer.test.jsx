@@ -19,7 +19,7 @@ describe('MapPanelContainer', () => {
       },
       mapLayers: [],
       overlays: [{}],
-      ui: { isMapLayersVisible: true }
+      ui: { isMapPanelHandleVisible: true }
     });
     wrapper = shallow(<MapPanelContainer />, { context: { store } }).dive();
   });

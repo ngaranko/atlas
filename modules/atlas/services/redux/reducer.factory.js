@@ -91,7 +91,7 @@
             };
 
             const uiReducers = {
-                TOGGLE_MAP_LAYERS: UiReducer
+                TOGGLE_MAP_PANEL_HANDLE: UiReducer
             };
 
             var actions = angular.merge(

@@ -32,9 +32,9 @@ class SelectButton extends React.Component {
       isDisabled: props.isDisabled
     });
 
-    if ((this.state.isLoading || !props.isDisabled) && props.options.length > 0) {
-      const selected = props.options.find(option => option.value === props.value)
-        || props.options.find(option => option.selected)
+    // if ((this.state.isLoading || !props.isDisabled) && props.options.length > 0) {
+      const selected = props.options.find((option) => option.value === props.value)
+        || props.options.find((option) => option.selected)
         || props.options[0];
 
       if (selected) {
@@ -49,7 +49,7 @@ class SelectButton extends React.Component {
           isLoading: false
         });
       }
-    }
+    // }
   }
 
   handleToggle() {
@@ -134,7 +134,7 @@ class SelectButton extends React.Component {
         </button>
 
         <ul className="select-button__drop-down">
-          {options.map(option => (
+          {options.map((option) => (
             <li
               className={`
                 select-button__drop-down-item
