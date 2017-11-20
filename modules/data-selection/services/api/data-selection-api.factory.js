@@ -128,7 +128,9 @@
                 }
             });
 
-            return activeAndAvailableFilters;
+            return {
+                ...activeAndAvailableFilters
+            };
         }
     }
 })();

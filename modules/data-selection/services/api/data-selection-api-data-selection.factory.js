@@ -25,6 +25,7 @@
             const searchParams = angular.merge(
                 {
                     page: searchPage,
+                    dataset: 'ves',
                     shape: angular.toJson(shape.map(([lat, lng]) => [lng, lat]))
                 },
                 activeFilters
@@ -75,6 +76,10 @@
         }
 
         function getDetailEndpoint (config, rawDataRow) {
+            if (rawDataRow.dataset === 'mac') {
+                return sharedConfig.API_ROOT + 'handelsregister/maatschappelijkeactiviteit/' +
+                    rawDataRow.kvk_nummer + '/';
+            }
             return sharedConfig.API_ROOT + config.ENDPOINT_DETAIL +
                 rawDataRow[config.PRIMARY_KEY] + '/';
         }

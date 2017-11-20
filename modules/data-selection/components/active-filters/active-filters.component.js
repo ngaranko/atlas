@@ -42,9 +42,7 @@
                 vm.formattedActiveFilters.push({
                     slug: GEOMETRY_FILTER,
                     label: 'Locatie',
-                    option: {
-                        label: 'ingetekend (' + vm.geometryFilter.description + ')'
-                    }
+                    option: 'ingetekend (' + vm.geometryFilter.description + ')'
                 });
             }
 
@@ -62,14 +60,22 @@
                                 count: 0
                             }];
                         }
+
                         return {
                             slug: filter.slug,
                             label: filter.label,
-                            option: filter.options.find(opt => opt.id === vm.textFilters[filter.slug])
+                            option: getValue(filter)
                         };
                     });
                 vm.formattedActiveFilters = vm.formattedActiveFilters.concat(textFilters);
             }
+        }
+
+        function getValue (filter) {
+            const value = vm.textFilters[filter.slug],
+                option = filter.options.find(opt => opt.id === value);
+
+            return value.match(/^\[.*\]$/) ? value.replace(/['\[\]]/g, '') : option && option.label;
         }
 
         function removeGeometryFilter (filters) {
