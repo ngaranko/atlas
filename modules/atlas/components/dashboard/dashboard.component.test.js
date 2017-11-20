@@ -407,4 +407,48 @@ describe('The dashboard component', function () {
             });
         });
     });
+
+    describe('MapPreviewPanel', () => {
+        let handler;
+        let mockedVisibility;
+
+        beforeEach(function () {
+            mockedVisibility = {
+                mapPreviewPanel: false
+            };
+
+            spyOn(dashboardColumns, 'determineVisibility').and.returnValue(mockedVisibility);
+            spyOn(store, 'dispatch');
+            spyOn(store, 'subscribe').and.callFake((fn) => {
+                // This function will be called later on by other components as
+                // well
+                handler = handler || fn;
+            });
+
+            getComponent();
+        });
+
+        it('Opens and closes the map preview panel according to the state', () => {
+            handler();
+            $rootScope.$digest();
+
+            mockedVisibility.mapPreviewPanel = true;
+            handler();
+            $rootScope.$digest();
+
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: 'OPEN_MAP_PREVIEW_PANEL'
+            });
+
+            store.dispatch.calls.reset();
+
+            mockedVisibility.mapPreviewPanel = false;
+            handler();
+            $rootScope.$digest();
+
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: 'CLOSE_MAP_PREVIEW_PANEL'
+            });
+        });
+    });
 });
