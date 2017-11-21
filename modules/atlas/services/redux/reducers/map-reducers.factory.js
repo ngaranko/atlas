@@ -30,14 +30,12 @@
         return reducers;
 
         function showMapReducer (state) {
-            console.log('SHOW_MAP');
             return {
                 ...state,
                 map: angular.isObject(state.map) ? {
                     ...state.map,
                     isFullscreen: true
-                } : state.map,
-                isMapPanelVisible: true
+                } : state.map
             };
         }
 
