@@ -38,9 +38,9 @@ const MapType = ({ activeBaseLayer, baseLayers, onBaseLayerToggle }) => (
 );
 
 MapType.propTypes = {
-  activeBaseLayer: PropTypes.string, // eslint-disable-line
+  activeBaseLayer: PropTypes.string.isRequired,
   baseLayers: PropTypes.object, // eslint-disable-line
-  onBaseLayerToggle: PropTypes.func // eslint-disable-line
+  onBaseLayerToggle: PropTypes.func.isRequired
 };
 
 export default MapType;

@@ -2,7 +2,7 @@
   $handle-height: 24px;
 
   background-color: #FAFAFA;
-  border-top: 2px solid #999999;
+  border-top: 2px solid #CCCCCC;
   margin-top: -2px;
   position: relative;
 
@@ -12,7 +12,7 @@
 
   &__toggle {
     background-color: #FAFAFA;
-    border: 2px solid #999999;
+    border: 2px solid #CCCCCC;
     border-bottom: none;
     height: $handle-height;
     left: 50%;
@@ -24,8 +24,13 @@
     z-index: 10000;
 
     svg {
+      fill: #666666;
       height: $handle-height;
       width: $handle-height;
+    }
+
+    &:hover svg {
+      fill: #000000;
     }
   }
 }

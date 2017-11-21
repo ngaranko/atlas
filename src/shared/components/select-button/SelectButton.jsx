@@ -10,15 +10,24 @@ class SelectButton extends React.Component {
   constructor(props) {
     super(props);
 
+    let selected = {};
+
+    console.log(props.isDisabled, props.options, props.value);
+
+    if (!props.isDisabled && props.options.length > 0) {
+      selected = props.options.find((option) => option.value === props.value)
+        || props.options.find((option) => option.selected)
+        || props.options[0];
+    }
+
     this.state = {
-      label: props.label,
+      label: selected.label || props.label,
       value: props.value,
       className: props.className,
       isExpanded: props.isExpanded,
       isDisabled: props.isDisabled,
       icon: props.icon,
-      options: props.options,
-      isLoading: true
+      options: props.options
     };
 
     this.handleToggle = this.handleToggle.bind(this);
@@ -32,7 +41,7 @@ class SelectButton extends React.Component {
       isDisabled: props.isDisabled
     });
 
-    // if ((this.state.isLoading || !props.isDisabled) && props.options.length > 0) {
+    if (!props.isDisabled && props.options.length > 0) {
       const selected = props.options.find((option) => option.value === props.value)
         || props.options.find((option) => option.selected)
         || props.options[0];
@@ -43,13 +52,7 @@ class SelectButton extends React.Component {
           value: selected.value
         });
       }
-
-      if (this.state.isLoading) {
-        this.setState({
-          isLoading: false
-        });
-      }
-    // }
+    }
   }
 
   handleToggle() {
