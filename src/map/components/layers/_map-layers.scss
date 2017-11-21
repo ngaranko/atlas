@@ -85,6 +85,10 @@
     }
   }
 
+  &__authorization-notification {
+    margin: 0 8px 8px 8px;
+  }
+
   .is-embed &,
   .is-embed-preview &,
   .is-print-mode & {

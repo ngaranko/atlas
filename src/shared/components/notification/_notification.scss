@@ -1,0 +1,27 @@
+.notification {
+  color: #FFFFFF;
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+
+  &--info {
+    background-color: #004699;
+  }
+
+  &__button {
+    cursor: pointer;
+  }
+
+  a {
+    color: #FFFFFF;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  svg {
+    fill: #FFFFFF;
+  }
+}
