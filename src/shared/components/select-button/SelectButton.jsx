@@ -7,22 +7,24 @@ import CollapseIcon from '../../../../public/images/icon-arrow-up.svg';
 import './_select-button.scss';
 
 class SelectButton extends React.Component {
+  static getSelected(props) {
+    return props.options.find((option) => option.value === props.value) ||
+      props.options.find((option) => option.selected) ||
+      props.options[0] ||
+      {
+        label: props.label,
+        value: props.value
+      };
+  }
+
   constructor(props) {
     super(props);
 
-    let selected = {};
-
-    console.log(props.isDisabled, props.options, props.value);
-
-    if (!props.isDisabled && props.options.length > 0) {
-      selected = props.options.find((option) => option.value === props.value)
-        || props.options.find((option) => option.selected)
-        || props.options[0];
-    }
+    const selected = SelectButton.getSelected(props);
 
     this.state = {
-      label: selected.label || props.label,
-      value: props.value,
+      label: selected.label,
+      value: selected.value,
       className: props.className,
       isExpanded: props.isExpanded,
       isDisabled: props.isDisabled,
@@ -41,18 +43,12 @@ class SelectButton extends React.Component {
       isDisabled: props.isDisabled
     });
 
-    if (!props.isDisabled && props.options.length > 0) {
-      const selected = props.options.find((option) => option.value === props.value)
-        || props.options.find((option) => option.selected)
-        || props.options[0];
+    const selected = SelectButton.getSelected(props);
 
-      if (selected) {
-        this.setState({
-          label: selected.label,
-          value: selected.value
-        });
-      }
-    }
+    this.setState({
+      label: selected.label,
+      value: selected.value
+    });
   }
 
   handleToggle() {
@@ -147,8 +143,8 @@ class SelectButton extends React.Component {
             >
               <button
                 className="select-button__drop-down-button"
-                value={option.value}
                 onClick={this.handleClickChild}
+                value={option.value}
               >
                 {option.label}
               </button>
@@ -161,24 +157,24 @@ class SelectButton extends React.Component {
 }
 
 SelectButton.defaultProps = {
-  label: '',
-  value: '',
   className: '',
-  isExpanded: false,
+  handleChange: () => {},
   isDisabled: false,
+  isExpanded: false,
+  label: '',
   options: [],
-  handleChange: () => {}
+  value: ''
 };
 
 SelectButton.propTypes = {
-  label: PropTypes.string,
-  value: PropTypes.string,
   className: PropTypes.string,
+  handleChange: PropTypes.func,
   icon: PropTypes.func.isRequired,
-  isExpanded: PropTypes.bool,
   isDisabled: PropTypes.bool,
+  isExpanded: PropTypes.bool,
+  label: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
   options: PropTypes.arrayOf(PropTypes.object),
-  handleChange: PropTypes.func
+  value: PropTypes.string // eslint-disable-line react/no-unused-prop-types
 };
 
 export default SelectButton;
