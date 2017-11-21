@@ -9,19 +9,28 @@ export default function MapPanelReducer(state = initialState, action) {
     case HIDE_MAP_PANEL:
       return {
         ...state,
-        isMapPanelVisible: false
+        ui: {
+          ...state.ui,
+          isMapPanelVisible: false
+        }
       };
 
     case SHOW_MAP_PANEL:
       return {
         ...state,
-        isMapPanelVisible: true
+        ui: {
+          ...state.ui,
+          isMapPanelVisible: true
+        }
       };
 
     case TOGGLE_MAP_PANEL:
       return {
         ...state,
-        isMapPanelVisible: !state.isMapPanelVisible
+        ui: {
+          ...state.ui,
+          isMapPanelVisible: !state.ui.isMapPanelVisible
+        }
       };
 
     default:

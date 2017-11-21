@@ -88,7 +88,10 @@
                     ...state.page,
                     name: null
                 } : state.page,
-                isMapPanelVisible: false,
+                ui: angular.isObject(state.ui) ? {
+                    ...state.ui,
+                    isMapPanelVisible: false
+                } : state.ui,
                 search: null,
                 detail: null,
                 straatbeeld: null

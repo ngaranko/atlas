@@ -32,7 +32,7 @@
             if (vm.store.getState().map.overlays.length) {
                 return;
             }
-            store.dispatch({ type: 'HIDE_MAP_PANEL' });
+            (vm.isEmbed || vm.isEmbedPreview) && store.dispatch({ type: 'HIDE_MAP_PANEL' });
         });
 
         // (Re)render React `MapPanel` app when map is visible

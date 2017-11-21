@@ -242,7 +242,10 @@
                     ...state.map,
                     isFullscreen: payload
                 } : state.map,
-                isMapPanelVisible: false
+                ui: angular.isObject(state.ui) ? {
+                    ...state.ui,
+                    isMapPanelVisible: false
+                } : state.ui
             };
         }
 
@@ -287,7 +290,10 @@
                     ...state.map,
                     ...getMap(state, payload)
                 } : state.map,
-                isMapPanelVisible: moreThan2Markers ? false : state.isMapPanelVisible,
+                ui: angular.isObject(state.ui) ? {
+                    ...state.ui,
+                    isMapPanelVisible: moreThan2Markers ? false : state.ui.isMapPanelVisible
+                } : state.ui,
                 page: angular.isObject(state.page) ? {
                     ...state.page,
                     name: moreThan2Markers ? null : state.page.name
