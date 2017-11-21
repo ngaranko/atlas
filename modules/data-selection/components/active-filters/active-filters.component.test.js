@@ -1,4 +1,4 @@
-describe('The dp-data-selection-filters component', () => {
+describe('The dp-data-selection-active-filters component', () => {
     let $compile,
         $rootScope,
         store,
@@ -95,6 +95,25 @@ describe('The dp-data-selection-filters component', () => {
                     }
                 ],
                 numberOfOptions: 3
+            }, {
+                slug: 'sbi_code',
+                label: 'SBI-code',
+                options: [
+                    {
+                        count: 4,
+                        label: 'Optie B-1',
+                        id: 'optie-b-1'
+                    }, {
+                        count: 5,
+                        label: 'Optie B-2',
+                        id: 'optie-b-2'
+                    }, {
+                        count: 6,
+                        label: 'Optie B-3',
+                        id: 'optie-b-3'
+                    }
+                ],
+                numberOfOptions: 3
             }
         ];
 
@@ -131,16 +150,20 @@ describe('The dp-data-selection-filters component', () => {
         // With active filters
         activeFilters = {
             filterb: 'optie-b-3',
-            filter_a_new: 'optie-a-7'
+            filter_a_new: 'optie-a-7',
+            sbi_code: '[\'10\']'
         };
 
         component = getComponent(activeFilters);
         expect(component.find('.qa-active-filters').length).toBe(1);
 
         // The configured order is respected here
-        expect(component.find('.qa-active-filters li').length).toBe(2);
+        expect(component.find('.qa-active-filters li').length).toBe(3);
         expect(component.find('.qa-active-filters li').eq(0).text()).toContain('Optie A-7');
         expect(component.find('.qa-active-filters li').eq(1).text()).toContain('Optie B-3');
+        expect(component.find('.qa-active-filters li').eq(2).text()).toContain('10');
+        expect(component.find('.qa-active-filters li').eq(2).text()).not.toContain('\'10\'');
+        expect(component.find('.qa-active-filters li').eq(2).text()).not.toContain('[\'10\']');
     });
 
     it('shows the geometry filter when one is defined', () => {
@@ -152,7 +175,8 @@ describe('The dp-data-selection-filters component', () => {
         };
 
         const component = getComponent(activeFilters);
-        expect(component.find('.qa-active-filters').length).toBe(1);
+        expect(component.find('.qa-active-filters').text()).toContain('Locatie:');
+        expect(component.find('.qa-active-filters').text()).toContain('ingetekend (description)');
     });
 
     it('shows an empty list with no available filters', () => {
@@ -169,7 +193,8 @@ describe('The dp-data-selection-filters component', () => {
         // With active filters
         activeFilters = {
             filterb: 'optie-b-3',
-            filter_a_new: 'optie-a-7'
+            filter_a_new: 'optie-a-7',
+            sbi_code: '[\'10\']'
         };
 
         component = getComponent(activeFilters);

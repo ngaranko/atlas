@@ -96,7 +96,7 @@ describe('The dp-api-call component', function () {
         return q.promise;
     }
 
-    function getComponent (endpoint, partial, useBrkObjectExpanded, addApiRoot) {
+    function getComponent (endpoint, partial, useBrkObjectExpanded, addApiRoot, merge) {
         var component,
             element,
             scope;
@@ -106,10 +106,12 @@ describe('The dp-api-call component', function () {
         element.setAttribute('partial', partial);
         element.setAttribute('use-brk-object-expanded', 'useBrkObjectExpanded');
         element.setAttribute('add-api-root', 'addApiRoot');
+        element.setAttribute('merge', 'merge');
 
         scope = $rootScope.$new();
         scope.useBrkObjectExpanded = useBrkObjectExpanded;
         scope.addApiRoot = addApiRoot;
+        scope.merge = merge;
 
         component = $compile(element)(scope);
         scope.$apply();
@@ -226,6 +228,34 @@ describe('The dp-api-call component', function () {
             getComponent('something/123/', 'some-partial', false, true);
             expect(api.getByUrl.calls.any()).toEqual(false);
             expect(api.getByUri).toHaveBeenCalledWith('something/123/');
+        });
+    });
+
+    describe('the merge attribute', function () {
+        it('calls the url method of the api module as usual, when set to false', function () {
+            var component,
+                scope;
+
+            component = getComponent('http://www.some-domain.com/without-pagination/123/', 'some-partial', false, false,
+                {
+                    results: {
+                        var_b: 'overwritten',
+                        var_c: 'baz'
+                    }
+                });
+
+            scope = component.isolateScope();
+
+            finishApiRequest();
+            scope.$apply();
+
+            expect(scope.vm.apiData).toEqual({
+                results: {
+                    var_a: 'foo',
+                    var_b: 'overwritten',
+                    var_c: 'baz'
+                }
+            });
         });
     });
 

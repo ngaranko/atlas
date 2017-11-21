@@ -3,6 +3,7 @@
     <dp-api-call
         endpoint="{{vm.apiData.results.hoofdadres._links.self.href}}"
         partial="bag/nummeraanduiding"
+        merge="{results: {status: vm.apiData.results.status}}"
         user="vm.user">
     </dp-api-call>
 
