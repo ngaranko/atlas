@@ -10,7 +10,7 @@
   box-shadow: 2px 2px 0 0 #999999;
   font-family: "Avenir LT W01 55 Roman";
   left: 8px;
-  max-height: calc(100vh - 50px - 16px - 130px);
+  max-height: calc(100vh - 130px);
   min-width: 285px;
   max-width: 440px;
   overflow: hidden;
@@ -118,7 +118,7 @@
   }
 
   .scroll-wrapper {
-    max-height: calc(100vh - 50px - 16px - 33px);
+    max-height: calc(100vh - 130px - 34px);
     overflow-x: hidden;
     overflow-y: auto;
     /* NB: Workaround to force smooth scrolling on Chrome */
