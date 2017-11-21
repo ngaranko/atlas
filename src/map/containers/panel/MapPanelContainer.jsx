@@ -21,7 +21,7 @@ const mapStateToProps = (state) => ({
   activeMapLayers: selectActiveMapLayers(state),
   atlas: state.atlas,
   layerSelection: state.layerSelection,
-  isMapPanelHandleVisible: state.ui.isMapPanelHandleVisible,
+  isMapPanelHandleVisible: !state.map.overlays.length || state.ui.isMapPanelHandleVisible,
   isMapPanelVisible: state.isMapPanelVisible,
   mapBaseLayers: state.mapBaseLayers,
   mapLayers: state.mapLayers,

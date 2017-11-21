@@ -11,16 +11,20 @@
   }
 
   &__toggle {
+    $border-size: 2px;
+
     background-color: #FAFAFA;
-    border: 2px solid #CCCCCC;
+    border: $border-size solid #CCCCCC;
     border-bottom: none;
+    box-sizing: content-box;
     height: $handle-height;
     left: 50%;
     outline: none;
+    padding: 0 8px;
     position: absolute;
-    top: -$handle-height;
+    top: -$handle-height - $border-size;
     transform: translateX(-50%);
-    width: 40px;
+    width: $handle-height;
     z-index: 10000;
 
     svg {
@@ -32,5 +36,11 @@
     &:hover svg {
       fill: #000000;
     }
+  }
+
+  .is-embed &,
+  .is-embed-preview &,
+  .is-print-mode & {
+    display: none;
   }
 }
