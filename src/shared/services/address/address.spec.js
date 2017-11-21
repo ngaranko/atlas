@@ -1,7 +1,7 @@
 import * as address from './address';
 
 describe('The address resource', () => {
-  beforeEach(() => {
+  afterEach(() => {
     fetch.mockReset();
   });
 
