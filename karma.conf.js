@@ -79,7 +79,7 @@ module.exports = function (config) {
         },
         coverageIstanbulReporter: {
             reports: ['html', 'text-summary'],
-            dir: path.join(__dirname, 'coverage'),
+            dir: path.join(__dirname, 'coverage-legacy'),
             thresholds: {
                 emitWarning: false,
                 global: {
