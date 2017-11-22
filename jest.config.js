@@ -4,9 +4,6 @@ module.exports = {
     'src/**/*.{js,jsx}'
   ],
   coverageDirectory: 'coverage',
-  coveragePathIgnorePatterns: [
-      'test'
-  ],
   coverageReporters: [
     'html',
     'text'
