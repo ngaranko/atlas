@@ -49,7 +49,7 @@ Notification.propTypes = {
     PropTypes.node
   ]).isRequired,
   className: PropTypes.string,
-  level: PropTypes.oneOf(['alert', 'info'])
+  level: PropTypes.oneOf(['error', 'info'])
 };
 
 export default Notification;
