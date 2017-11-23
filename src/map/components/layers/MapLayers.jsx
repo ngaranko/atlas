@@ -54,7 +54,9 @@ const MapLayers = ({ activeMapLayers, layers, onLayerToggle, user }) => (
     </ul>
     {!user.authenticated && (
       <Notification className="map-layers__authorization-notification">
-        <a href="">Meer kaartlagen</a> na inloggen
+        <a
+          href="#?mpb=topografie&pgn=content-overzicht&pgi=item1&pgt=inloggen"
+        >Meer kaartlagen</a> na inloggen
       </Notification>
     )}
   </div>
