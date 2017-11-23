@@ -30,7 +30,7 @@ describe('MapPanelHandle', () => {
     );
 
     mapPanelHandle.find('.map-panel-handle__toggle').simulate('click');
-    expect(onButtonClickSpy.mock.calls.length).toBe(1);
+    expect(onButtonClickSpy).toHaveBeenCalledTimes(1);
     expect(mapPanelHandle.find('.children-test').length).toBe(0);
   });
 });
