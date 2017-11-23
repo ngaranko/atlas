@@ -42,13 +42,7 @@ const webpackConfig = {
           legacy,
           /atlas\.run\.js$/
         ],
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['react-app', 'env'],
-            plugins: ['transform-object-rest-spread', 'istanbul']
-          }
-        }
+        use: 'babel-loader'
       }
     ]
   },
@@ -63,46 +57,46 @@ const webpackConfig = {
 };
 
 module.exports = function (config) {
-    config.set({
-        frameworks: ['jasmine-jquery', 'jasmine'],
-        files: [
-            { pattern: './node_modules/leaflet/dist/leaflet.js', watched: false },
-            { pattern: './node_modules/leaflet.nontiledlayer/dist/NonTiledLayer.js', watched: false },
-            { pattern: './node_modules/proj4/dist/proj4.js', watched: false },
-            { pattern: './node_modules/proj4leaflet/src/proj4leaflet.js', watched: false },
-            '!src/index.js',
-            'src/test-index.js'
-        ],
-        // possible values: OFF, ERROR, WARN, INFO, DEBUG
-        logLevel: 'ERROR',
-        reporters: ['progress', 'mocha', 'coverage-istanbul'],
-        preprocessors: {
-            'src/test-index.js': ['webpack', 'sourcemap']
+  config.set({
+    frameworks: ['jasmine-jquery', 'jasmine'],
+    files: [
+      { pattern: './node_modules/leaflet/dist/leaflet.js', watched: false },
+      { pattern: './node_modules/leaflet.nontiledlayer/dist/NonTiledLayer.js', watched: false },
+      { pattern: './node_modules/proj4/dist/proj4.js', watched: false },
+      { pattern: './node_modules/proj4leaflet/src/proj4leaflet.js', watched: false },
+      '!src/index.js',
+      'src/test-index.js'
+    ],
+    // possible values: OFF, ERROR, WARN, INFO, DEBUG
+    logLevel: 'ERROR',
+    reporters: ['progress', 'mocha', 'coverage-istanbul'],
+    preprocessors: {
+      'src/test-index.js': ['webpack', 'sourcemap']
+    },
+    webpack: webpackConfig,
+    mochaReporter: {
+      output: 'minimal'
+    },
+    coverageIstanbulReporter: {
+      reports: ['html', 'text-summary'],
+      dir: path.join(__dirname, 'coverage'),
+      thresholds: {
+        emitWarning: false,
+        global: {
+          statements: 100,
+          lines: 100,
+          branches: 100,
+          functions: 100
         },
-        webpack: webpackConfig,
-        mochaReporter: {
-            output: 'minimal'
-        },
-        coverageIstanbulReporter: {
-            reports: ['html', 'text-summary'],
-            dir: path.join(__dirname, 'coverage-legacy'),
-            thresholds: {
-                emitWarning: false,
-                global: {
-                    statements: 100,
-                    lines: 100,
-                    branches: 100,
-                    functions: 100
-                },
-                each: {
-                    statements: 100,
-                    lines: 100,
-                    branches: 100,
-                    functions: 100
-                }
-            }
-        },
-        browsers: ['PhantomJS'],
-        singleRun: true
-    });
+        each: {
+          statements: 100,
+          lines: 100,
+          branches: 100,
+          functions: 100
+        }
+      }
+    },
+    browsers: ['PhantomJS'],
+    singleRun: true
+  });
 };
