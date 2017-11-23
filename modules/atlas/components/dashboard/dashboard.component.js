@@ -47,8 +47,8 @@
         });
 
         // Open or close React `MapPreviewPanel` app
-        $scope.$watch('vm.visibility.mapPreviewPanel', () => {
-            if (vm.visibility.mapPreviewPanel) {
+        $scope.$watchGroup(['vm.visibility.mapPreviewPanel', 'vm.geosearchLocation'], () => {
+            if (vm.visibility.mapPreviewPanel && vm.geosearchLocation) {
                 store.dispatch({ type: 'OPEN_MAP_PREVIEW_PANEL' });
             } else {
                 store.dispatch({ type: 'CLOSE_MAP_PREVIEW_PANEL' });
@@ -90,6 +90,7 @@
             vm.isStraatbeeldActive = Boolean(state.straatbeeld);
             vm.straatbeeldHistory = vm.isStraatbeeldActive ? state.straatbeeld.history : null;
             vm.isMapPreviewPanelVisible = vm.visibility.mapPreviewPanel;
+            vm.geosearchLocation = state.search && state.search.location && state.search.location.toString();
         }
     }
 })();
