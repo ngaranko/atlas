@@ -54,11 +54,11 @@ class MapPreviewPanelContainer extends React.Component {
   }
 
   render() {
-    const search = this.props.search;
-    const pano = this.props.pano;
+    const search = this.props.search || {};
+    const pano = this.props.pano || {};
     const panoPreview = (search.location && pano.previews && pano.previews[search.location]) || {};
-    const isLoading = this.props.search.isLoading;
-    const isLoaded = !this.props.search.isLoading;
+    const isLoading = this.props.search && this.props.search.isLoading;
+    const isLoaded = this.props.search && !this.props.search.isLoading;
 
     return (
       <section className={`
