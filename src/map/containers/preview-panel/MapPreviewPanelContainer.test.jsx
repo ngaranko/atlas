@@ -246,4 +246,22 @@ describe('MapPreviewPanelContainer', () => {
       expect(wrapper).toMatchSnapshot();
     });
   });
+
+  it('should maximize the preview panel', () => {
+    store = configureMockStore()(defaultMockState);
+    jest.spyOn(store, 'dispatch');
+    wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
+    wrapper.find('.map-preview__button').at(0).simulate('click');
+
+    expect(store.dispatch).toHaveBeenCalledWith({ type: 'MAXIMIZE_MAP_PREVIEW_PANEL' });
+  });
+
+  it('should close the preview panel', () => {
+    store = configureMockStore()(defaultMockState);
+    jest.spyOn(store, 'dispatch');
+    wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
+    wrapper.find('.map-preview__button').at(1).simulate('click');
+
+    expect(store.dispatch).toHaveBeenCalledWith({ type: 'CLOSE_MAP_PREVIEW_PANEL' });
+  });
 });
