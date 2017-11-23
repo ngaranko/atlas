@@ -62,10 +62,10 @@
                         'mapSearchResults',
                         'mapSearchResultsByLocation',
                         'pano',
-                        'isMapPanelVisible',
                         'isMapPreviewPanelVisible',
                         'isLoading',
-                        'error'
+                        'error',
+                        'ui'
                     ].forEach(s => {
                         const value = initialValues[s];
                         newState[s] = angular.isDefined(value)
@@ -125,13 +125,6 @@
                     }
                     return newState;
                 },
-                ui: (oldState, newState) => {
-                    /* istanbul ignore if */
-                    if (angular.isObject(oldState)) {
-                        newState = oldState;
-                    }
-                    return newState;
-                },
                 search: (oldState, newState) => {
                     const hasOldState = angular.isObject(oldState);
                     const hasInputChanged = hasOldState && (
@@ -166,12 +159,9 @@
                     return newState;
                 },
                 user: ofTypeObject,
-                mapBaseLayers: ofTypeObject,
-                mapLayers: ofTypeArray,
                 mapSearchResults: ofTypeArray,
                 mapSearchResultsByLocation: ofTypeObject,
                 pano: ofTypeObject,
-                isMapPanelVisible: ofTypeBoolean,
                 isMapPreviewPanelVisible: ofTypeBoolean,
                 isLoading: ofTypeBoolean,
                 error: ofTypeObject
@@ -229,7 +219,6 @@
                     location: [],
                     previews: {}
                 },
-                isMapPanelVisible: false,
                 isMapPreviewPanelVisible: false,
                 page: {
                     name: null  // eg: 'home'
