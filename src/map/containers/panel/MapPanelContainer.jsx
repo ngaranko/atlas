@@ -21,6 +21,7 @@ const mapStateToProps = (state) => ({
   activeMapLayers: selectActiveMapLayers(state),
   atlas: state.atlas,
   layerSelection: state.layerSelection,
+  isEachOverlayInvisible: state.map.overlays.every((overlay) => overlay.isVisible),
   isMapPanelHandleVisible: !state.map.overlays.length || state.ui.isMapPanelHandleVisible,
   isMapPanelVisible: state.isMapPanelVisible,
   mapBaseLayers: state.mapBaseLayers,
@@ -57,6 +58,7 @@ class MapPanelContainer extends React.Component {
         map-panel
         map-panel--${this.props.isMapPanelVisible ? 'expanded' : 'collapsed'}
         map-panel--has${this.props.activeMapLayers.length > 0 ? '' : '-no'}-active-layers
+        map-panel--has${this.props.isEachOverlayInvisible ? '-not' : ''}-just-invisible-layers
       `}
       >
         <div className="map-panel__heading">
@@ -122,6 +124,7 @@ MapPanelContainer.propTypes = {
   activeBaseLayer: PropTypes.string.isRequired,
   activeMapLayers: PropTypes.array, // eslint-disable-line
   atlas: PropTypes.object, // eslint-disable-line
+  isEachOverlayInvisible: PropTypes.bool.isRequired,
   isMapPanelHandleVisible: PropTypes.bool.isRequired,
   isMapPanelVisible: PropTypes.bool,
   map: PropTypes.object, // eslint-disable-line

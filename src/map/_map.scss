@@ -12,7 +12,7 @@
   left: 8px;
   max-height: calc(100vh - 50px - 130px);
   min-width: 285px;
-  max-width: 440px;
+  max-width: 444px;
   overflow: hidden;
   position: fixed;
   width: 28%;
@@ -137,6 +137,7 @@
   .is-print-mode & {
     &--collapsed,
     &--has-no-active-layers,
+    &--has-just-invisible-layers,
     &__heading,
     &__toggle {
       display: none;
@@ -147,9 +148,12 @@
     }
   }
 
-  .is-embed &--has-no-active-layers,
-  .is-embed-preview &--has-no-active-layers {
-    display: none;
+  .is-embed &,
+  .is-embed-preview & {
+    &--has-no-active-layers,
+    &--has-just-invisible-layers {
+      display: none;
+    }
   }
 }
 
