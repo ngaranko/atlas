@@ -45,7 +45,7 @@
                 // These methods are executed after a state object has been initialized with the initialValues
                 DEFAULT: (oldState, newState, params, initialValues) => {
                     ['atlas', 'page', 'layerSelection', 'filters', 'user', 'mapLayers', 'mapBaseLayers',
-                        'isMapPanelVisible'].forEach(s => {
+                        'isMapPanelVisible', 'ui'].forEach(s => {
                             const value = initialValues[s];
                             newState[s] = angular.isDefined(value)
                                 ? (angular.isArray(value) ? [...value]
@@ -112,6 +112,13 @@
                 },
                 isMapPanelVisible: (oldState, newState) => {
                     if (oldState === true || oldState === false) {
+                        newState = oldState;
+                    }
+                    return newState;
+                },
+                ui: (oldState, newState) => {
+                    /* istanbul ignore if */
+                    if (angular.isObject(oldState)) {
                         newState = oldState;
                     }
                     return newState;
@@ -227,6 +234,9 @@
                     isInitial: true,
                     isLoading: true
                     // id: 'ABC123',
+                },
+                ui: {
+                    isMapPanelHandleVisible: true
                 }
             },
             stateVariables: {

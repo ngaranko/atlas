@@ -24,29 +24,29 @@ class MapLegend extends React.Component {
   static mapLayersLegendItemsToIds(mapLayer) {
     return [
       mapLayer.id,
-      ...mapLayer.legendItems.map(legendItem => legendItem.id)
-    ].filter(mapLayerId => !!mapLayerId);
+      ...mapLayer.legendItems.map((legendItem) => legendItem.id)
+    ].filter((mapLayerId) => !!mapLayerId);
   }
 
   determineLayerVisibility(mapLayer) {
-    return this.props.overlays.some(overlay => [
+    return this.props.overlays.some((overlay) => [
       { id: mapLayer.id },
       ...mapLayer.legendItems
-    ].some(legendItem => overlay.id === legendItem.id && overlay.isVisible));
+    ].some((legendItem) => overlay.id === legendItem.id && overlay.isVisible));
   }
 
   determineLegendItemVisibility(legendItem) {
-    return this.props.overlays.some(overlay => overlay.id === legendItem.id && overlay.isVisible);
+    return this.props.overlays.some((overlay) => overlay.id === legendItem.id && overlay.isVisible);
   }
 
   toggleLayer(mapLayer) {
-    MapLegend.mapLayersLegendItemsToIds(mapLayer).forEach(mapLayerId =>
+    MapLegend.mapLayersLegendItemsToIds(mapLayer).forEach((mapLayerId) =>
       this.props.onLayerToggle(mapLayerId));
   }
 
   toggleLayerVisibility(mapLayer) {
     const isVisible = this.determineLayerVisibility(mapLayer);
-    MapLegend.mapLayersLegendItemsToIds(mapLayer).forEach(mapLayerId =>
+    MapLegend.mapLayersLegendItemsToIds(mapLayer).forEach((mapLayerId) =>
       this.props.onLayerVisibilityToggle(mapLayerId, !isVisible));
   }
 
@@ -55,7 +55,7 @@ class MapLegend extends React.Component {
 
     return (
       <ul className="map-legend">
-        {activeMapLayers.map(mapLayer => (
+        {activeMapLayers.map((mapLayer) => (
           <li
             className={`
               map-legend__map-layer
@@ -66,7 +66,7 @@ class MapLegend extends React.Component {
             <div
               className={`
                 map-legend__category
-                map-legend__category--${mapLayer.legendItems.some(legendItem => legendItem.selectable) ? '' : 'un'}selectable-legend
+                map-legend__category--${mapLayer.legendItems.some((legendItem) => legendItem.selectable) ? '' : 'un'}selectable-legend
               `}
             >
               <Checkbox
@@ -89,7 +89,7 @@ class MapLegend extends React.Component {
             )}
             {(zoomLevel >= mapLayer.minZoom && zoomLevel <= mapLayer.maxZoom) && (
               <ul className="map-legend__items">
-                {mapLayer.legendItems.map(legendItem => (
+                {mapLayer.legendItems.map((legendItem) => (
                   <li
                     className="map-legend__item"
                     key={legendItem.title}

@@ -1,6 +1,12 @@
 module.exports = {
+  collectCoverage: true,
   collectCoverageFrom: [
     'src/**/*.{js,jsx}'
+  ],
+  coverageDirectory: 'coverage',
+  coverageReporters: [
+    'html',
+    'text'
   ],
   moduleNameMapper: {
     '^.+\\.(css|scss)$': 'identity-obj-proxy',
