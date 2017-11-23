@@ -31,7 +31,6 @@
         urlReducers,
         freeze,
         homeReducers,
-        layerSelectionReducers,
         mapReducers,
         pageReducers,
         searchReducers,
