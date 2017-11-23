@@ -48,6 +48,7 @@
             const MapPanelReducer = $window.reducers.MapPanelReducer;
             const MapOverlaysReducer = $window.reducers.MapOverlaysReducer;
             const MapBaseLayersReducer = $window.reducers.MapBaseLayersReducer;
+            const UiReducer = $window.reducers.UiReducer;
 
             // TODO: Redux: replace
             // Warning: angular.merge is deprecated
@@ -87,6 +88,10 @@
                 HIDE_MAP_PANEL: MapOverlaysReducer,
                 SHOW_MAP_PANEL: MapOverlaysReducer,
                 TOGGLE_MAP_PANEL: MapOverlaysReducer
+            };
+
+            const uiReducers = {
+                TOGGLE_MAP_PANEL_HANDLE: UiReducer
             };
 
             var actions = angular.merge(
@@ -139,6 +144,11 @@
                 const newState = MapOverlaysReducer(oldState, action);
                 $timeout(() => $rootScope.$digest());
                 return newState;
+            }
+
+            /* istanbul ignore if */
+            if (uiReducers.hasOwnProperty(action.type)) {
+                return UiReducer(oldState, action);
             }
 
             if (angular.isObject(action) &&

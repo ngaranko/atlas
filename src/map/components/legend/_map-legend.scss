@@ -2,7 +2,8 @@
   background-color: #FFFFFF;
   border: 1px solid #999999;
   border-top: none;
-  margin: 8px 8px 16px 8px;
+  margin: 8px 8px 32px 8px;
+  user-select: none;
 
   @media screen and (min-width: 1200px) {
     margin: 12px 12px 32px 12px;
@@ -29,6 +30,12 @@
 
     &--unselectable-legend + .map-legend__items {
       padding-top: 0;
+
+      .is-print-mode &,
+      .is-embed &,
+      .is-embed-preview & {
+        padding-top: 10px;
+      }
     }
   }
 

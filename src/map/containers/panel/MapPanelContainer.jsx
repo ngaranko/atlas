@@ -7,18 +7,22 @@ import { getMapBaseLayers, setMapBaseLayer } from '../../ducks/base-layers/map-b
 import { toggleMapOverlay, toggleMapOverlayVisibility } from '../../ducks/overlays/map-overlays';
 import { getMapLayers, selectActiveMapLayers } from '../../ducks/layers/map-layers';
 import { toggleMapPanel } from '../../ducks/panel/map-panel';
-import CollapseIcon from '../../../../public/images/icon-arrow-down.svg';
-import ExpandIcon from '../../../../public/images/icon-arrow-up.svg';
+import { toggleMapPanelHandle } from '../../../shared/ducks/ui/ui';
 import MapLayers from '../../components/layers/MapLayers';
 import MapLegend from '../../components/legend/MapLegend';
+import MapPanelHandle from '../../components/panel-handle/MapPanelHandle';
 import MapType from '../../components/type/MapType';
+import CollapseIcon from '../../../../public/images/icon-arrow-down.svg';
+import ExpandIcon from '../../../../public/images/icon-arrow-up.svg';
 import MapLayersIcon from '../../../../public/images/icon-map-layers.svg';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   activeBaseLayer: state.map.baseLayer,
   activeMapLayers: selectActiveMapLayers(state),
   atlas: state.atlas,
   layerSelection: state.layerSelection,
+  isEachOverlayInvisible: state.map.overlays.every((overlay) => overlay.isVisible),
+  isMapPanelHandleVisible: !state.map.overlays.length || state.ui.isMapPanelHandleVisible,
   isMapPanelVisible: state.isMapPanelVisible,
   mapBaseLayers: state.mapBaseLayers,
   mapLayers: state.mapLayers,
@@ -28,10 +32,11 @@ const mapStateToProps = state => ({
 });
 
 // TODO: Add method that checks whether layer is active and toggles accordingly
-const mapDispatchToProps = dispatch => bindActionCreators({
+const mapDispatchToProps = (dispatch) => bindActionCreators({
   onBaseLayerToggle: setMapBaseLayer,
   onLayerToggle: toggleMapOverlay,
   onLayerVisibilityToggle: toggleMapOverlayVisibility,
+  onMapPanelHandleToggle: toggleMapPanelHandle,
   onMapPanelToggle: toggleMapPanel
 }, dispatch);
 
@@ -53,6 +58,7 @@ class MapPanelContainer extends React.Component {
         map-panel
         map-panel--${this.props.isMapPanelVisible ? 'expanded' : 'collapsed'}
         map-panel--has${this.props.activeMapLayers.length > 0 ? '' : '-no'}-active-layers
+        map-panel--has${this.props.isEachOverlayInvisible ? '-not' : ''}-just-invisible-layers
       `}
       >
         <div className="map-panel__heading">
@@ -76,17 +82,22 @@ class MapPanelContainer extends React.Component {
               zoomLevel={this.props.zoomLevel}
             />
           )}
-          <MapType
-            activeBaseLayer={this.props.activeBaseLayer}
-            baseLayers={this.props.mapBaseLayers}
-            onBaseLayerToggle={this.props.onBaseLayerToggle}
-          />
-          <MapLayers
-            activeMapLayers={this.props.activeMapLayers}
-            layers={this.props.mapLayers}
-            onLayerToggle={this.props.onLayerToggle}
-            user={this.props.user}
-          />
+          <MapPanelHandle
+            isMapPanelHandleVisible={this.props.isMapPanelHandleVisible}
+            onMapPanelHandleToggle={this.props.onMapPanelHandleToggle}
+          >
+            <MapType
+              activeBaseLayer={this.props.activeBaseLayer}
+              baseLayers={this.props.mapBaseLayers}
+              onBaseLayerToggle={this.props.onBaseLayerToggle}
+            />
+            <MapLayers
+              activeMapLayers={this.props.activeMapLayers}
+              layers={this.props.mapLayers}
+              onLayerToggle={this.props.onLayerToggle}
+              user={this.props.user}
+            />
+          </MapPanelHandle>
         </div>
       </section>
     );
@@ -113,6 +124,8 @@ MapPanelContainer.propTypes = {
   activeBaseLayer: PropTypes.string.isRequired,
   activeMapLayers: PropTypes.array, // eslint-disable-line
   atlas: PropTypes.object, // eslint-disable-line
+  isEachOverlayInvisible: PropTypes.bool.isRequired,
+  isMapPanelHandleVisible: PropTypes.bool.isRequired,
   isMapPanelVisible: PropTypes.bool,
   map: PropTypes.object, // eslint-disable-line
   mapBaseLayers: PropTypes.object, // eslint-disable-line
@@ -120,6 +133,7 @@ MapPanelContainer.propTypes = {
   onBaseLayerToggle: PropTypes.func, // eslint-disable-line
   onLayerToggle: PropTypes.func, // eslint-disable-line
   onLayerVisibilityToggle: PropTypes.func, // eslint-disable-line
+  onMapPanelHandleToggle: PropTypes.func, // eslint-disable-line
   onMapPanelToggle: PropTypes.func.isRequired,
   overlays: PropTypes.array, // eslint-disable-line
   user: PropTypes.object, // eslint-disable-line
