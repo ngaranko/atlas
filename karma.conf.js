@@ -42,7 +42,13 @@ const webpackConfig = {
           legacy,
           /atlas\.run\.js$/
         ],
-        use: 'babel-loader'
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['react-app', 'env'],
+            plugins: ['transform-object-rest-spread', 'istanbul']
+          }
+        }
       }
     ]
   },
