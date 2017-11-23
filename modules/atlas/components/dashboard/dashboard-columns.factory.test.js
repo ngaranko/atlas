@@ -22,9 +22,6 @@ describe('The dashboardColumns factory', function () {
                 isFullscreen: false,
                 isLoading: false
             },
-            layerSelection: {
-                isEnabled: false
-            },
             search: null,
             page: {
                 name: 'home'
@@ -35,6 +32,9 @@ describe('The dashboardColumns factory', function () {
             atlas: {
                 isPrintMode: false,
                 isEmbedPreview: false
+            },
+            ui: {
+                isMapPanelVisible: false
             }
         };
 
@@ -52,14 +52,14 @@ describe('The dashboardColumns factory', function () {
          * Note; test-cases for map activity are listed below, map activity equals map visibility, all available
          * scenarios are only listed once (at the visibility describe block)
          */
-        it('checks if map.layerSelection is true in the state', function () {
-            mockedState.layerSelection.isEnabled = true;
+        it('checks if mapPanel is true in the state', function () {
+            mockedState.ui.isMapPanelVisible = true;
             activity = dashboardColumns.determineActivity(mockedState);
-            expect(activity.layerSelection).toBe(true);
+            expect(activity.mapPanel).toBe(true);
 
-            mockedState.layerSelection.isEnabled = false;
+            mockedState.ui.isMapPanelVisible = false;
             activity = dashboardColumns.determineActivity(mockedState);
-            expect(activity.layerSelection).toBe(false);
+            expect(activity.mapPanel).toBe(false);
         });
 
         it('checks if page is a string', function () {
@@ -119,7 +119,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.page).toBe(true);
 
                 expect(visibility.detail).toBe(false);
-                expect(visibility.layerSelection).toBe(false);
+                expect(visibility.mapPanel).toBe(false);
                 expect(activity.map).toBe(false);
                 expect(visibility.map).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
@@ -152,7 +152,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.page).toBe(true);
 
                 expect(visibility.detail).toBe(false);
-                expect(visibility.layerSelection).toBe(false);
+                expect(visibility.mapPanel).toBe(false);
                 expect(activity.map).toBe(false);
                 expect(visibility.map).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
@@ -201,7 +201,7 @@ describe('The dashboardColumns factory', function () {
                     expect(visibility.map).toBe(searchInput === 'location');
                     expect(visibility.searchResults).toBe(true);
 
-                    expect(visibility.layerSelection).toBe(false);
+                    expect(visibility.mapPanel).toBe(false);
                     expect(visibility.detail).toBe(false);
                     expect(visibility.page).toBe(false);
                     expect(visibility.straatbeeld).toBe(false);
@@ -228,7 +228,7 @@ describe('The dashboardColumns factory', function () {
                 it('makes the searchResults visibile', function () {
                     expect(visibility.searchResults).toBe(true);
 
-                    expect(visibility.layerSelection).toBe(false);
+                    expect(visibility.mapPanel).toBe(false);
                     expect(visibility.detail).toBe(false);
                     expect(activity.map).toBe(false);
                     expect(visibility.map).toBe(false);
@@ -268,7 +268,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.map).toBe(true);
                 expect(visibility.detail).toBe(true);
 
-                expect(visibility.layerSelection).toBe(false);
+                expect(visibility.mapPanel).toBe(false);
                 expect(visibility.page).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
@@ -312,7 +312,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.map).toBe(true);
                 expect(visibility.detail).toBe(true);
 
-                expect(visibility.layerSelection).toBe(false);
+                expect(visibility.mapPanel).toBe(false);
                 expect(visibility.page).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
@@ -358,7 +358,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.straatbeeld).toBe(true);
 
                 expect(visibility.detail).toBe(false);
-                expect(visibility.layerSelection).toBe(false);
+                expect(visibility.mapPanel).toBe(false);
                 expect(visibility.page).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
@@ -431,7 +431,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.straatbeeld).toBe(true);
 
                 expect(visibility.detail).toBe(false);
-                expect(visibility.layerSelection).toBe(false);
+                expect(visibility.mapPanel).toBe(false);
                 expect(visibility.page).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
@@ -453,7 +453,7 @@ describe('The dashboardColumns factory', function () {
                 endpoint: 'http://api.example.com/blah/blah/123',
                 isLoading: false
             };
-            mockedState.layerSelection.isEnabled = true;
+            mockedState.ui.isMapPanelVisible = true;
         });
 
         describe('the default non-print version', function () {
@@ -463,8 +463,8 @@ describe('The dashboardColumns factory', function () {
                 columnSizes = dashboardColumns.determineColumnSizes(mockedState);
             });
 
-            it('makes the layerSelection and map visibile', function () {
-                expect(visibility.layerSelection).toBe(true);
+            it('makes the mapPanel and map visibile', function () {
+                expect(visibility.mapPanel).toBe(true);
                 expect(activity.map).toBe(true);
                 expect(visibility.map).toBe(true);
 
@@ -491,8 +491,8 @@ describe('The dashboardColumns factory', function () {
                 columnSizes = dashboardColumns.determineColumnSizes(mockedState);
             });
 
-            it('makes the layerSelection visibile', function () {
-                expect(visibility.layerSelection).toBe(true);
+            it('makes the mapPanel visibile', function () {
+                expect(visibility.mapPanel).toBe(true);
 
                 expect(visibility.detail).toBe(false);
                 expect(activity.map).toBe(false);
@@ -529,7 +529,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.map).toBe(true);
 
                 expect(visibility.detail).toBe(false);
-                expect(visibility.layerSelection).toBe(false);
+                expect(visibility.mapPanel).toBe(false);
                 expect(visibility.page).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
@@ -558,7 +558,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.map).toBe(true);
 
                 expect(visibility.detail).toBe(false);
-                expect(visibility.layerSelection).toBe(false);
+                expect(visibility.mapPanel).toBe(false);
                 expect(visibility.page).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
@@ -576,7 +576,7 @@ describe('The dashboardColumns factory', function () {
         describe('the embed preview version', function () {
             beforeEach(function () {
                 mockedState.atlas.isEmbedPreview = true;
-                mockedState.layerSelection.isEnabled = true;
+                mockedState.ui.isMapPanelVisible = true;
 
                 activity = dashboardColumns.determineActivity(mockedState);
                 visibility = dashboardColumns.determineVisibility(mockedState);
@@ -588,7 +588,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.map).toBe(true);
 
                 expect(visibility.detail).toBe(false);
-                expect(visibility.layerSelection).toBe(false);
+                expect(visibility.mapPanel).toBe(false);
                 expect(visibility.page).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
@@ -610,7 +610,7 @@ describe('The dashboardColumns factory', function () {
                 uri: 'blah/blah/123',
                 isLoading: false
             };
-            mockedState.layerSelection.isEnabled = true;
+            mockedState.ui.isMapPanelVisible = true;
             mockedState.map.isFullscreen = true;
         });
 
@@ -621,8 +621,8 @@ describe('The dashboardColumns factory', function () {
                 columnSizes = dashboardColumns.determineColumnSizes(mockedState);
             });
 
-            it('makes the layerSelection and map visibile', function () {
-                expect(visibility.layerSelection).toBe(true);
+            it('makes the mapPanel and map visibile', function () {
+                expect(visibility.mapPanel).toBe(true);
                 expect(activity.map).toBe(true);
                 expect(visibility.map).toBe(true);
 
@@ -649,8 +649,8 @@ describe('The dashboardColumns factory', function () {
                 columnSizes = dashboardColumns.determineColumnSizes(mockedState);
             });
 
-            it('makes the layerSelection visibile', function () {
-                expect(visibility.layerSelection).toBe(true);
+            it('makes the mapPanel visibile', function () {
+                expect(visibility.mapPanel).toBe(true);
 
                 expect(visibility.detail).toBe(false);
                 expect(activity.map).toBe(true);
@@ -697,7 +697,7 @@ describe('The dashboardColumns factory', function () {
                 expect(activity.map).toBe(false);
                 expect(visibility.map).toBe(false);
                 expect(visibility.detail).toBe(false);
-                expect(visibility.layerSelection).toBe(false);
+                expect(visibility.mapPanel).toBe(false);
                 expect(visibility.page).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
@@ -727,7 +727,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.map).toBe(true);
 
                 expect(visibility.detail).toBe(false);
-                expect(visibility.layerSelection).toBe(false);
+                expect(visibility.mapPanel).toBe(false);
                 expect(visibility.page).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
@@ -756,7 +756,7 @@ describe('The dashboardColumns factory', function () {
                 expect(activity.map).toBe(false);
                 expect(visibility.map).toBe(false);
                 expect(visibility.detail).toBe(false);
-                expect(visibility.layerSelection).toBe(false);
+                expect(visibility.mapPanel).toBe(false);
                 expect(visibility.page).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
@@ -787,7 +787,7 @@ describe('The dashboardColumns factory', function () {
                 expect(activity.map).toBe(true);
                 expect(visibility.map).toBe(true);
                 expect(visibility.detail).toBe(false);
-                expect(visibility.layerSelection).toBe(false);
+                expect(visibility.mapPanel).toBe(false);
                 expect(visibility.page).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
@@ -824,7 +824,7 @@ describe('The dashboardColumns factory', function () {
                 expect(activity.searchResults).toBe(true);
 
                 expect(visibility.detail).toBe(false);
-                expect(visibility.layerSelection).toBe(false);
+                expect(visibility.mapPanel).toBe(false);
                 expect(visibility.page).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
@@ -854,7 +854,7 @@ describe('The dashboardColumns factory', function () {
                 expect(activity.searchResults).toBe(true);
 
                 expect(visibility.detail).toBe(false);
-                expect(visibility.layerSelection).toBe(false);
+                expect(visibility.mapPanel).toBe(false);
                 expect(visibility.page).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
@@ -883,7 +883,7 @@ describe('The dashboardColumns factory', function () {
                 expect(activity.dataSelection).toBe(true);
 
                 expect(visibility.detail).toBe(false);
-                expect(visibility.layerSelection).toBe(false);
+                expect(visibility.mapPanel).toBe(false);
                 expect(visibility.page).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
@@ -914,7 +914,7 @@ describe('The dashboardColumns factory', function () {
                 expect(activity.dataSelection).toBe(true);
 
                 expect(visibility.detail).toBe(false);
-                expect(visibility.layerSelection).toBe(false);
+                expect(visibility.mapPanel).toBe(false);
                 expect(visibility.page).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
