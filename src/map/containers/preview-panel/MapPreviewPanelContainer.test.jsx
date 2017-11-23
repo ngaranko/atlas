@@ -6,14 +6,32 @@ import MapPreviewPanelContainer from './MapPreviewPanelContainer';
 import { selectLatestMapSearchResults, getMapSearchResults }
   from '../../ducks/search-results/map-search-results';
 import { getPanoPreview } from '../../../pano/ducks/preview/pano-preview';
-import MapLayers from '../../components/layers/MapLayers';
-import MapLegend from '../../components/legend/MapLegend';
-import MapType from '../../components/type/MapType';
 
 jest.mock('../../ducks/search-results/map-search-results');
 jest.mock('../../../pano/ducks/preview/pano-preview');
 
 describe('MapPreviewPanelContainer', () => {
+  const defaultMockState = {
+    isMapPreviewPanelVisible: true,
+    search: {
+      location: [1, 0],
+      isLoading: false
+    },
+    pano: {
+      previews: {
+        '1,0': { url: 'pano-url' }
+      }
+    },
+    user: { name: 'User name' }
+  };
+  const defaultMockStateNoSearch = {
+    isMapPreviewPanelVisible: true,
+    pano: {
+      previews: {}
+    },
+    user: { name: 'User name' }
+  };
+
   let store;
   let wrapper;
 
@@ -25,20 +43,12 @@ describe('MapPreviewPanelContainer', () => {
   afterEach(() => {
     getMapSearchResults.mockReset();
     getPanoPreview.mockReset();
+    selectLatestMapSearchResults.mockReset();
   });
 
   describe('fetching initial data', () => {
     it('should dispatch actions to fetch search results and pano preview', () => {
-      store = configureMockStore()({
-        search: {
-          location: [1, 0],
-          isLoading: false
-        },
-        pano: {
-          previews: {}
-        },
-        user: { name: 'User name' }
-      });
+      store = configureMockStore()({ ...defaultMockState });
       jest.spyOn(store, 'dispatch');
       wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
 
@@ -50,13 +60,10 @@ describe('MapPreviewPanelContainer', () => {
 
     it('does not fetch data without search location', () => {
       store = configureMockStore()({
+        ...defaultMockState,
         search: {
           isLoading: false
-        },
-        pano: {
-          previews: {}
-        },
-        user: { name: 'User name' }
+        }
       });
       jest.spyOn(store, 'dispatch');
       wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
@@ -66,12 +73,7 @@ describe('MapPreviewPanelContainer', () => {
       expect(store.dispatch).not.toHaveBeenCalled();
 
       // Again without a search object
-      store = configureMockStore()({
-        pano: {
-          previews: {}
-        },
-        user: { name: 'User name' }
-      });
+      store = configureMockStore()({ ...defaultMockStateNoSearch });
       jest.spyOn(store, 'dispatch');
       wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
 
@@ -81,16 +83,167 @@ describe('MapPreviewPanelContainer', () => {
     });
   });
 
-  xit('should render MapType and MapLayers', () => {
-    expect(wrapper.find(MapType).length).toBe(1);
-    expect(wrapper.find(MapLayers).length).toBe(1);
-    expect(wrapper).toMatchSnapshot();
+  describe('updating data', () => {
+    it('should be triggered when there was no search state', () => {
+      store = configureMockStore()({ ...defaultMockStateNoSearch });
+      jest.spyOn(store, 'dispatch');
+      wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
+
+      getMapSearchResults.mockClear();
+      getPanoPreview.mockClear();
+      store.dispatch.mockClear();
+
+      wrapper.setProps({ search: { location: [1, 0] } });
+
+      expect(getMapSearchResults).toHaveBeenCalledWith([1, 0], { name: 'User name' });
+      expect(getPanoPreview).toHaveBeenCalledWith([1, 0]);
+      expect(store.dispatch).toHaveBeenCalledWith({ type: 'GET_MAP_SEARCH_RESULTS' });
+      expect(store.dispatch).toHaveBeenCalledWith({ type: 'GET_PANO_PREVIEW' });
+    });
+
+    it('should be triggered when there was no search location', () => {
+      store = configureMockStore()({
+        ...defaultMockState,
+        search: { isLoading: false }
+      });
+      jest.spyOn(store, 'dispatch');
+      wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
+
+      getMapSearchResults.mockClear();
+      getPanoPreview.mockClear();
+      store.dispatch.mockClear();
+
+      wrapper.setProps({ search: { location: [0, 1] } });
+
+      expect(getMapSearchResults).toHaveBeenCalledWith([0, 1], { name: 'User name' });
+      expect(getPanoPreview).toHaveBeenCalledWith([0, 1]);
+      expect(store.dispatch).toHaveBeenCalledWith({ type: 'GET_MAP_SEARCH_RESULTS' });
+      expect(store.dispatch).toHaveBeenCalledWith({ type: 'GET_PANO_PREVIEW' });
+    });
+
+    it('should be triggered when the search location changes', () => {
+      store = configureMockStore()({ ...defaultMockState });
+      jest.spyOn(store, 'dispatch');
+      wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
+
+      getMapSearchResults.mockClear();
+      getPanoPreview.mockClear();
+      store.dispatch.mockClear();
+
+      wrapper.setProps({ search: { location: [0, 1] } });
+
+      expect(getMapSearchResults).toHaveBeenCalledWith([0, 1], { name: 'User name' });
+      expect(getPanoPreview).toHaveBeenCalledWith([0, 1]);
+      expect(store.dispatch).toHaveBeenCalledWith({ type: 'GET_MAP_SEARCH_RESULTS' });
+      expect(store.dispatch).toHaveBeenCalledWith({ type: 'GET_PANO_PREVIEW' });
+    });
   });
 
-  xit('should render MapLegend if store contains active map layers', () => {
-    expect(wrapper.find(MapLegend).length).toBe(0);
-    wrapper.setProps({ activeMapLayers: [{}] });
-    expect(wrapper.find(MapLegend).length).toBe(1);
-    expect(wrapper).toMatchSnapshot();
+  describe('rendering', () => {
+    it('should render results', () => {
+      store = configureMockStore()({
+        isMapPreviewPanelVisible: true,
+        search: {
+          location: [1, 0],
+          isLoading: false
+        },
+        pano: {
+          previews: {
+            '1,0': { url: 'pano-url' }
+          }
+        },
+        user: { name: 'User name' }
+      });
+      selectLatestMapSearchResults.mockImplementation(() => [{ item: 1 }, { item: 2 }]);
+
+      wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
+      expect(wrapper).toMatchSnapshot();
+
+      // Update results
+      wrapper.setProps({ results: [{ item: 3 }] });
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should render results without pano', () => {
+      store = configureMockStore()({
+        isMapPreviewPanelVisible: true,
+        search: {
+          location: [1, 0],
+          isLoading: false
+        },
+        pano: {
+          previews: {}
+        },
+        user: { name: 'User name' }
+      });
+      selectLatestMapSearchResults.mockImplementation(() => [{ item: 1 }, { item: 2 }]);
+
+      wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
+      expect(wrapper).toMatchSnapshot();
+
+      // Set pano
+      wrapper.setProps({
+        pano: {
+          previews: {
+            '1,0': { url: 'pano-url' }
+          }
+        }
+      });
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should render empty results', () => {
+      store = configureMockStore()({
+        isMapPreviewPanelVisible: true,
+        search: {
+          location: [1, 0],
+          isLoading: false
+        },
+        pano: {
+          previews: {
+            '1,0': { url: 'pano-url' }
+          }
+        },
+        user: { name: 'User name' }
+      });
+      selectLatestMapSearchResults.mockImplementation(() => []);
+
+      wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
+      expect(wrapper).toMatchSnapshot();
+
+      // Update results
+      wrapper.setProps({ results: [{ item: 3 }] });
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should render visibility', () => {
+      store = configureMockStore()({
+        isMapPreviewPanelVisible: true,
+        search: {
+          location: [1, 0],
+          isLoading: false
+        },
+        pano: {
+          previews: {
+            '1,0': { url: 'pano-url' }
+          }
+        },
+        user: { name: 'User name' }
+      });
+
+      wrapper.setProps({ isMapPreviewPanelVisible: false });
+      expect(wrapper).toMatchSnapshot();
+
+      wrapper.setProps({ isMapPreviewPanelVisible: true });
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should render loading', () => {
+      store = configureMockStore()({ ...defaultMockState });
+      wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
+
+      wrapper.setProps({ search: { isLoading: true } });
+      expect(wrapper).toMatchSnapshot();
+    });
   });
 });
