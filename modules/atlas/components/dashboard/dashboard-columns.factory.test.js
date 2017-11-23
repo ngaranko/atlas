@@ -125,6 +125,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
+                expect(visibility.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 0/3, right column 3/3', function () {
@@ -157,6 +158,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
+                expect(visibility.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 0/3, right column 3/3', function () {
@@ -204,6 +206,7 @@ describe('The dashboardColumns factory', function () {
                     expect(visibility.page).toBe(false);
                     expect(visibility.straatbeeld).toBe(false);
                     expect(visibility.dataSelection).toBe(false);
+                    expect(visibility.mapPreviewPanel).toBe(false);
                 });
 
                 it('left column: 0/3, middle column: 1/3, right column 2/3', function () {
@@ -232,6 +235,7 @@ describe('The dashboardColumns factory', function () {
                     expect(visibility.page).toBe(false);
                     expect(visibility.straatbeeld).toBe(false);
                     expect(visibility.dataSelection).toBe(false);
+                    expect(visibility.mapPreviewPanel).toBe(false);
                 });
 
                 it('left column: 0/3, middle column: 0/3, right column 3/3', function () {
@@ -269,6 +273,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
+                expect(visibility.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 1/3, right column 2/3', function () {
@@ -312,6 +317,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
+                expect(visibility.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 3/3, right column 3/3', function () {
@@ -356,6 +362,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.page).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
+                expect(visibility.mapPreviewPanel).toBe(false);
             });
 
             it('detail and straatbeeld can\'t be visible at the same time', function () {
@@ -428,6 +435,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.page).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
+                expect(visibility.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 3/3, right column 3/3', function () {
@@ -526,6 +534,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
+                expect(visibility.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 3/3, right column 0/3', function () {
@@ -554,6 +563,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
+                expect(visibility.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 3/3, right column 0/3', function () {
@@ -583,6 +593,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
+                expect(visibility.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 3/3, right column 0/3', function () {
@@ -690,6 +701,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.page).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
+                expect(visibility.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 0/3, right column 3/3', function () {
@@ -719,6 +731,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.page).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
+                expect(visibility.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 1/3, right column 2/3', function () {
@@ -747,6 +760,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.page).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
+                expect(visibility.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 0/3, right column 3/3', function () {
@@ -777,9 +791,137 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.page).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
+                expect(visibility.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 3/3, right column 0/3', function () {
+                expect(columnSizes.left).toBe(0);
+                expect(columnSizes.middle).toBe(12);
+                expect(columnSizes.right).toBe(0);
+            });
+        });
+    });
+
+    describe('when using geosearch results while using a fullscreen map', function () {
+        beforeEach(function () {
+            mockedState.search = {
+                location: [1.2, 3.4]
+            };
+            mockedState.map.isFullscreen = true;
+        });
+
+        describe('the default non-print version', function () {
+            beforeEach(function () {
+                activity = dashboardColumns.determineActivity(mockedState);
+                visibility = dashboardColumns.determineVisibility(mockedState);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState);
+            });
+
+            it('makes the map preview panel and map visibile', function () {
+                expect(visibility.mapPreviewPanel).toBe(true);
+                expect(activity.map).toBe(true);
+                expect(visibility.map).toBe(true);
+                expect(activity.searchResults).toBe(true);
+
+                expect(visibility.detail).toBe(false);
+                expect(visibility.layerSelection).toBe(false);
+                expect(visibility.page).toBe(false);
+                expect(visibility.straatbeeld).toBe(false);
+                expect(visibility.searchResults).toBe(false);
+                expect(visibility.dataSelection).toBe(false);
+            });
+
+            it('left column: 0/3, middle column: 3/3, right column 0/3', function () {
+                expect(columnSizes.left).toBe(0);
+                expect(columnSizes.middle).toBe(12);
+                expect(columnSizes.right).toBe(0);
+            });
+        });
+
+        describe('the print version', function () {
+            beforeEach(function () {
+                mockedState.atlas.isPrintMode = true;
+
+                activity = dashboardColumns.determineActivity(mockedState);
+                visibility = dashboardColumns.determineVisibility(mockedState);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState);
+            });
+
+            it('makes the map preview panel and map visibile', function () {
+                expect(visibility.mapPreviewPanel).toBe(true);
+                expect(activity.map).toBe(true);
+                expect(visibility.map).toBe(true);
+                expect(activity.searchResults).toBe(true);
+
+                expect(visibility.detail).toBe(false);
+                expect(visibility.layerSelection).toBe(false);
+                expect(visibility.page).toBe(false);
+                expect(visibility.straatbeeld).toBe(false);
+                expect(visibility.searchResults).toBe(false);
+                expect(visibility.dataSelection).toBe(false);
+            });
+
+            it('left column: 2/3, middle column: 1/3, right column 0/3', function () {
+                expect(columnSizes.left).toBe(0);
+                expect(columnSizes.middle).toBe(12);
+                expect(columnSizes.right).toBe(0);
+            });
+        });
+
+        describe('non-print version with data selection active', function () {
+            beforeEach(function () {
+                mockedState.dataSelection = {};
+                activity = dashboardColumns.determineActivity(mockedState);
+                visibility = dashboardColumns.determineVisibility(mockedState);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState);
+            });
+
+            it('makes the map visibile', function () {
+                expect(activity.map).toBe(true);
+                expect(visibility.map).toBe(true);
+                expect(activity.searchResults).toBe(true);
+                expect(activity.dataSelection).toBe(true);
+
+                expect(visibility.detail).toBe(false);
+                expect(visibility.layerSelection).toBe(false);
+                expect(visibility.page).toBe(false);
+                expect(visibility.straatbeeld).toBe(false);
+                expect(visibility.searchResults).toBe(false);
+                expect(visibility.mapPreviewPanel).toBe(false);
+            });
+
+            it('left column: 0/3, middle column: 3/3, right column 0/3', function () {
+                expect(columnSizes.left).toBe(0);
+                expect(columnSizes.middle).toBe(12);
+                expect(columnSizes.right).toBe(0);
+            });
+        });
+
+        describe('the print version with data selection active', function () {
+            beforeEach(function () {
+                mockedState.dataSelection = {};
+                mockedState.atlas.isPrintMode = true;
+
+                activity = dashboardColumns.determineActivity(mockedState);
+                visibility = dashboardColumns.determineVisibility(mockedState);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState);
+            });
+
+            it('makes the map preview panel and map visibile', function () {
+                expect(activity.map).toBe(true);
+                expect(visibility.map).toBe(true);
+                expect(activity.searchResults).toBe(true);
+                expect(activity.dataSelection).toBe(true);
+
+                expect(visibility.detail).toBe(false);
+                expect(visibility.layerSelection).toBe(false);
+                expect(visibility.page).toBe(false);
+                expect(visibility.straatbeeld).toBe(false);
+                expect(visibility.searchResults).toBe(false);
+                expect(visibility.mapPreviewPanel).toBe(false);
+            });
+
+            it('left column: 2/3, middle column: 1/3, right column 0/3', function () {
                 expect(columnSizes.left).toBe(0);
                 expect(columnSizes.middle).toBe(12);
                 expect(columnSizes.right).toBe(0);

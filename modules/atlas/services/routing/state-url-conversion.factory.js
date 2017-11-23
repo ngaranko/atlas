@@ -39,18 +39,43 @@
     stateUrlConversionFactory.$inject = ['uriStripper'];
 
     function stateUrlConversionFactory (uriStripper) {
+        const ofTypeArray = (oldState, newState) =>
+            angular.isArray(oldState) ? oldState : newState;
+        const ofTypeObject = (oldState, newState) =>
+            angular.isObject(oldState) ? oldState : newState;
+        const ofTypeBoolean = (oldState, newState) =>
+            oldState === true || oldState === false ? oldState : newState;
+
         return {
             onCreate: {
                 // Initialisation methods for the url2state conversion
                 // These methods are executed after a state object has been initialized with the initialValues
                 DEFAULT: (oldState, newState, params, initialValues) => {
-                    ['atlas', 'page', 'filters', 'user', 'mapLayers', 'mapBaseLayers',
-                        'ui'].forEach(s => {
-                            const value = initialValues[s];
-                            newState[s] = angular.isDefined(value)
-                                ? (angular.isArray(value) ? [...value]
-                                : angular.isObject(value) ? {...value} : value) : value;
-                        });
+                    [
+                        'atlas',
+                        'page',
+                        'layerSelection',
+                        'filters',
+                        'user',
+                        'mapLayers',
+                        'mapBaseLayers',
+                        'mapSearchResults',
+                        'mapSearchResultsByLocation',
+                        'pano',
+                        'isMapPanelVisible',
+                        'isMapPreviewPanelVisible',
+                        'isLoading',
+                        'error'
+                    ].forEach(s => {
+                        const value = initialValues[s];
+                        newState[s] = angular.isDefined(value)
+                            ? (angular.isArray(value)
+                                ? [...value]
+                                : angular.isObject(value)
+                                    ? {...value}
+                                    : value)
+                            : value;
+                    });
                     if (angular.equals(params, {})) {
                         // When no params, go to home page and show initial map
                         newState.page.name = 'home';
@@ -62,16 +87,6 @@
             post: {
                 // Post processing methods
                 // These methods are exectuted when the url2state conversion has finished
-                user: (oldState, newState) => {
-                    if (angular.isObject(oldState)) {
-                        newState.authenticated = oldState.authenticated;
-                        newState.accessToken = oldState.accessToken;
-                        newState.scopes = oldState.scopes;
-                        newState.name = oldState.name;
-                        newState.error = oldState.error;
-                    }
-                    return newState;
-                },
                 dataSelection: (oldState, newState) => {
                     if (angular.isObject(oldState)) {
                         newState.markers = oldState.markers;
@@ -120,10 +135,10 @@
                 search: (oldState, newState) => {
                     const hasOldState = angular.isObject(oldState);
                     const hasInputChanged = hasOldState && (
-                            oldState.query !== newState.query ||
-                            !angular.equals(oldState.location, newState.location) ||
-                            oldState.category !== newState.category
-                        );
+                        oldState.query !== newState.query ||
+                        !angular.equals(oldState.location, newState.location) ||
+                        oldState.category !== newState.category
+                    );
 
                     if (hasInputChanged) {
                         newState.numberOfResults = null;
@@ -149,7 +164,17 @@
                         }
                     }
                     return newState;
-                }
+                },
+                user: ofTypeObject,
+                mapBaseLayers: ofTypeObject,
+                mapLayers: ofTypeArray,
+                mapSearchResults: ofTypeArray,
+                mapSearchResultsByLocation: ofTypeObject,
+                pano: ofTypeObject,
+                isMapPanelVisible: ofTypeBoolean,
+                isMapPreviewPanelVisible: ofTypeBoolean,
+                isLoading: ofTypeBoolean,
+                error: ofTypeObject
             },
             initialValues: {
                 // When creating a state object it will be initialized with these values
@@ -198,6 +223,14 @@
                 },
                 mapBaseLayers: {},
                 mapLayers: [],
+                mapSearchResults: [],
+                mapSearchResultsByLocation: {},
+                pano: {
+                    location: [],
+                    previews: {}
+                },
+                isMapPanelVisible: false,
+                isMapPreviewPanelVisible: false,
                 page: {
                     name: null  // eg: 'home'
                 },

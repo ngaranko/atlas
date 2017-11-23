@@ -1,6 +1,6 @@
 import stateTokenGenerator from './state-token-generator';
 
-xdescribe('The state token generator service', () => {
+describe('The state token generator service', () => {
   const byteString = '048>IYceiv{ÈÌÐàð';
   const asciiString = 'abcd+efgh==';
 

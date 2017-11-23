@@ -13,3 +13,6 @@ global.mount = mount;
 console.error = message => { // eslint-disable-line
   throw new Error(message); // eslint-disable-line
 };
+
+// Mock the window.fetch function
+global.fetch = require('jest-fetch-mock');

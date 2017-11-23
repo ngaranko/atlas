@@ -1,0 +1,465 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MapPreviewPanelContainer rendering should render empty results 1`] = `
+<section
+  className="
+        map-preview
+        map-preview--visible
+      "
+>
+  <div
+    className="map-preview__heading"
+  >
+    <button
+      className="map-preview__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview__button-icon"
+      />
+    </button>
+    <button
+      className="map-preview__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview__button-icon"
+      />
+    </button>
+  </div>
+  <div
+    className="
+            map-preview__body
+            map-preview__body--loaded
+          "
+  >
+    <MapSearchResults
+      location={
+        Array [
+          1,
+          0,
+        ]
+      }
+      panoUrl="pano-url"
+      results={Array []}
+    />
+  </div>
+</section>
+`;
+
+exports[`MapPreviewPanelContainer rendering should render empty results 2`] = `
+<section
+  className="
+        map-preview
+        map-preview--visible
+      "
+>
+  <div
+    className="map-preview__heading"
+  >
+    <button
+      className="map-preview__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview__button-icon"
+      />
+    </button>
+    <button
+      className="map-preview__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview__button-icon"
+      />
+    </button>
+  </div>
+  <div
+    className="
+            map-preview__body
+            map-preview__body--loaded
+          "
+  >
+    <MapSearchResults
+      location={
+        Array [
+          1,
+          0,
+        ]
+      }
+      panoUrl="pano-url"
+      results={
+        Array [
+          Object {
+            "item": 3,
+          },
+        ]
+      }
+    />
+  </div>
+</section>
+`;
+
+exports[`MapPreviewPanelContainer rendering should render loading 1`] = `
+<section
+  className="
+        map-preview
+        map-preview--visible
+      "
+>
+  <div
+    className="map-preview__heading"
+  >
+    <button
+      className="map-preview__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview__button-icon"
+      />
+    </button>
+    <button
+      className="map-preview__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview__button-icon"
+      />
+    </button>
+  </div>
+  <div
+    className="
+            map-preview__body
+            map-preview__body--loading
+          "
+  >
+    <LoadingIndicator />
+  </div>
+</section>
+`;
+
+exports[`MapPreviewPanelContainer rendering should render results 1`] = `
+<section
+  className="
+        map-preview
+        map-preview--visible
+      "
+>
+  <div
+    className="map-preview__heading"
+  >
+    <button
+      className="map-preview__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview__button-icon"
+      />
+    </button>
+    <button
+      className="map-preview__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview__button-icon"
+      />
+    </button>
+  </div>
+  <div
+    className="
+            map-preview__body
+            map-preview__body--loaded
+          "
+  >
+    <MapSearchResults
+      location={
+        Array [
+          1,
+          0,
+        ]
+      }
+      panoUrl="pano-url"
+      results={
+        Array [
+          Object {
+            "item": 1,
+          },
+          Object {
+            "item": 2,
+          },
+        ]
+      }
+    />
+  </div>
+</section>
+`;
+
+exports[`MapPreviewPanelContainer rendering should render results 2`] = `
+<section
+  className="
+        map-preview
+        map-preview--visible
+      "
+>
+  <div
+    className="map-preview__heading"
+  >
+    <button
+      className="map-preview__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview__button-icon"
+      />
+    </button>
+    <button
+      className="map-preview__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview__button-icon"
+      />
+    </button>
+  </div>
+  <div
+    className="
+            map-preview__body
+            map-preview__body--loaded
+          "
+  >
+    <MapSearchResults
+      location={
+        Array [
+          1,
+          0,
+        ]
+      }
+      panoUrl="pano-url"
+      results={
+        Array [
+          Object {
+            "item": 3,
+          },
+        ]
+      }
+    />
+  </div>
+</section>
+`;
+
+exports[`MapPreviewPanelContainer rendering should render results without pano 1`] = `
+<section
+  className="
+        map-preview
+        map-preview--visible
+      "
+>
+  <div
+    className="map-preview__heading"
+  >
+    <button
+      className="map-preview__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview__button-icon"
+      />
+    </button>
+    <button
+      className="map-preview__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview__button-icon"
+      />
+    </button>
+  </div>
+  <div
+    className="
+            map-preview__body
+            map-preview__body--loaded
+          "
+  >
+    <MapSearchResults
+      location={
+        Array [
+          1,
+          0,
+        ]
+      }
+      results={
+        Array [
+          Object {
+            "item": 1,
+          },
+          Object {
+            "item": 2,
+          },
+        ]
+      }
+    />
+  </div>
+</section>
+`;
+
+exports[`MapPreviewPanelContainer rendering should render results without pano 2`] = `
+<section
+  className="
+        map-preview
+        map-preview--visible
+      "
+>
+  <div
+    className="map-preview__heading"
+  >
+    <button
+      className="map-preview__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview__button-icon"
+      />
+    </button>
+    <button
+      className="map-preview__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview__button-icon"
+      />
+    </button>
+  </div>
+  <div
+    className="
+            map-preview__body
+            map-preview__body--loaded
+          "
+  >
+    <MapSearchResults
+      location={
+        Array [
+          1,
+          0,
+        ]
+      }
+      panoUrl="pano-url"
+      results={
+        Array [
+          Object {
+            "item": 1,
+          },
+          Object {
+            "item": 2,
+          },
+        ]
+      }
+    />
+  </div>
+</section>
+`;
+
+exports[`MapPreviewPanelContainer rendering should render visibility 1`] = `
+<section
+  className="
+        map-preview
+        map-preview--hidden
+      "
+>
+  <div
+    className="map-preview__heading"
+  >
+    <button
+      className="map-preview__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview__button-icon"
+      />
+    </button>
+    <button
+      className="map-preview__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview__button-icon"
+      />
+    </button>
+  </div>
+  <div
+    className="
+            map-preview__body
+            map-preview__body--loaded
+          "
+  >
+    <MapSearchResults
+      location={
+        Array [
+          1,
+          0,
+        ]
+      }
+      panoUrl="pano-url"
+      results={
+        Array [
+          Object {
+            "item": 3,
+          },
+        ]
+      }
+    />
+  </div>
+</section>
+`;
+
+exports[`MapPreviewPanelContainer rendering should render visibility 2`] = `
+<section
+  className="
+        map-preview
+        map-preview--visible
+      "
+>
+  <div
+    className="map-preview__heading"
+  >
+    <button
+      className="map-preview__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview__button-icon"
+      />
+    </button>
+    <button
+      className="map-preview__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview__button-icon"
+      />
+    </button>
+  </div>
+  <div
+    className="
+            map-preview__body
+            map-preview__body--loaded
+          "
+  >
+    <MapSearchResults
+      location={
+        Array [
+          1,
+          0,
+        ]
+      }
+      panoUrl="pano-url"
+      results={
+        Array [
+          Object {
+            "item": 3,
+          },
+        ]
+      }
+    />
+  </div>
+</section>
+`;
