@@ -46,18 +46,6 @@
                 id: 'SHOW_MAP',
                 isButton: false
             },
-            MAP_SET_BASELAYER: {
-                id: 'MAP_SET_BASELAYER',
-                replace: true
-            },
-            MAP_ADD_OVERLAY: {
-                id: 'MAP_ADD_OVERLAY',
-                replace: true
-            },
-            MAP_REMOVE_OVERLAY: {
-                id: 'MAP_REMOVE_OVERLAY',
-                replace: true
-            },
             MAP_ADD_PANO_OVERLAY: {
                 id: 'MAP_ADD_PANO_OVERLAY',
                 ignore: true
@@ -65,11 +53,6 @@
             MAP_REMOVE_PANO_OVERLAY: {
                 id: 'MAP_REMOVE_PANO_OVERLAY',
                 ignore: true
-            },
-            MAP_TOGGLE_VISIBILITY_OVERLAY: {
-                id: 'MAP_TOGGLE_VISIBILITY_OVERLAY',
-                replace: true,
-                isButton: true
             },
             MAP_CLICK: {
                 id: 'MAP_CLICK',

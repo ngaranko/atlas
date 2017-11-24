@@ -11,12 +11,8 @@
         var reducers = {};
 
         reducers[ACTIONS.SHOW_MAP.id] = showMapReducer;
-        reducers[ACTIONS.MAP_SET_BASELAYER.id] = mapSetBaselayerReducer;
-        reducers[ACTIONS.MAP_ADD_OVERLAY.id] = mapAddOverlayReducer;
-        reducers[ACTIONS.MAP_REMOVE_OVERLAY.id] = mapRemoveOverlayReducer;
         reducers[ACTIONS.MAP_ADD_PANO_OVERLAY.id] = mapAddPanoOverlayReducer;
         reducers[ACTIONS.MAP_REMOVE_PANO_OVERLAY.id] = mapRemovePanoOverlayReducer;
-        reducers[ACTIONS.MAP_TOGGLE_VISIBILITY_OVERLAY.id] = mapToggleVisibilityOverlay;
         reducers[ACTIONS.MAP_PAN.id] = mapPanReducer;
         reducers[ACTIONS.MAP_ZOOM.id] = mapZoomReducer;
         reducers[ACTIONS.MAP_HIGHLIGHT.id] = mapHighlightReducer;
@@ -35,62 +31,6 @@
                 map: angular.isObject(state.map) ? {
                     ...state.map,
                     isFullscreen: true
-                } : state.map
-            };
-        }
-
-        /**
-         * @param {Object} state
-         * @param {String} payload - The name of the baseLayer, it should match a key from base-layers.constant.js
-         *
-         * @returns {Object} newState
-         */
-        function mapSetBaselayerReducer (state, payload) {
-            return {
-                ...state,
-                map: angular.isObject(state.map) ? {
-                    ...state.map,
-                    baseLayer: payload
-                } : state.map
-            };
-        }
-
-        /**
-         * @param {Object} state
-         * @param {String} payload - The name of the overlay, it should match a key from overlays.constant.js
-         *
-         * @returns {Object} newState
-         */
-        function mapAddOverlayReducer (state, payload) {
-            // Start digest manually to draw overlay
-            $timeout(() => $rootScope.$digest());
-            return {
-                ...state,
-                map: angular.isObject(state.map) ? {
-                    ...state.map,
-                    showActiveOverlays: !state.map.overlays
-                        .filter((overlay) => overlay.id.indexOf('pano') !== 0)
-                        .length ? true : state.map.showActiveOverlays,
-                    overlays: [
-                        ...state.map.overlays,
-                        {id: payload, isVisible: true}
-                    ]
-                } : state.map
-            };
-        }
-
-        /**
-         * @param {Object} state
-         * @param {String} payload - The name of the overlay, it should match a key from overlays.constant.js
-         *
-         * @returns {Object} newState
-         */
-        function mapRemoveOverlayReducer (state, payload) {
-            return {
-                ...state,
-                map: angular.isObject(state.map) ? {
-                    ...state.map,
-                    overlays: state.map.overlays.filter((a) => a.id !== payload)
                 } : state.map
             };
         }
@@ -155,27 +95,6 @@
                 map: angular.isObject(state.map) ? {
                     ...state.map,
                     overlays
-                } : state.map
-            };
-        }
-
-        /**
-         * @param {Object} state
-         * @param {String} payload - The name of the overlay, it should match a key from overlays.constant.js
-         *
-         * @returns {Object} newState
-         */
-        function mapToggleVisibilityOverlay (state, payload) {
-            return {
-                ...state,
-                map: angular.isObject(state.map) ? {
-                    ...state.map,
-                    overlays: [...state.map.overlays].map((overlay) => {
-                        return {
-                            ...overlay,
-                            isVisible: overlay.id === payload ? !overlay.isVisible : overlay.isVisible
-                        };
-                    })
                 } : state.map
             };
         }
