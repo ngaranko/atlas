@@ -63,7 +63,8 @@ describe('The state url conversion definition', function () {
                 },
                 ui: {
                     isMapLayersVisible: true,
-                    isMapPanelVisible: false
+                    isMapPanelVisible: false,
+                    isMapPanelHandleVisible: true
                 }
             });
 

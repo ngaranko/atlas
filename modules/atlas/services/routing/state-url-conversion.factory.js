@@ -245,7 +245,8 @@
                 },
                 ui: {
                     isMapLayersVisible: true,
-                    isMapPanelVisible: false
+                    isMapPanelVisible: false,
+                    isMapPanelHandleVisible: true
                 }
             },
             stateVariables: {

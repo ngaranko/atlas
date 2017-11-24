@@ -1,5 +1,6 @@
 @import "components/legend/map-legend";
 @import "components/layers/map-layers";
+@import "components/panel-handle/map-panel-handle";
 @import "components/type/map-type";
 
 $map-preview-top: 52px + 6px + 36px + 16px;
@@ -7,16 +8,15 @@ $map-preview-bottom: 2px + 16px + 36px + 2px + 36px + 8px + 17px + 8px;
 $dashboard-error-height: 26px;
 
 .map-panel {
-  background-color: #FAFAFA;
+  background-color: #FFFFFF;
   border: solid 1px #CCCCCC;
   bottom: 8px;
   box-shadow: 2px 2px 0 0 #999999;
   font-family: "Avenir LT W01 55 Roman";
   left: 8px;
-  max-height: 800px;
+  max-height: calc(100vh - 50px - 130px);
   min-width: 285px;
-  max-width: 440px;
-  min-width: 285px;
+  max-width: 444px;
   overflow: hidden;
   position: fixed;
   width: 28%;
@@ -57,7 +57,7 @@ $dashboard-error-height: 26px;
   }
 
   &__heading-icon {
-    fill: #000000;
+    fill: #666666;
     height: 24px;
     width: 24px;
 
@@ -108,7 +108,7 @@ $dashboard-error-height: 26px;
   }
 
   &__toggle-icon {
-    fill: #000000;
+    fill: #666666;
     height: 24px;
     width: 24px;
 
@@ -126,7 +126,7 @@ $dashboard-error-height: 26px;
   }
 
   .scroll-wrapper {
-    max-height: calc(800px - 33px);
+    max-height: calc(100vh - 50px - 130px - 34px);
     overflow-x: hidden;
     overflow-y: auto;
     /* NB: Workaround to force smooth scrolling on Chrome */
@@ -145,6 +145,7 @@ $dashboard-error-height: 26px;
   .is-print-mode & {
     &--collapsed,
     &--has-no-active-layers,
+    &--has-just-invisible-layers,
     &__heading,
     &__toggle {
       display: none;
@@ -155,9 +156,12 @@ $dashboard-error-height: 26px;
     }
   }
 
-  .is-embed &--has-no-active-layers,
-  .is-embed-preview &--has-no-active-layers {
-    display: none;
+  .is-embed &,
+  .is-embed-preview & {
+    &--has-no-active-layers,
+    &--has-just-invisible-layers {
+      display: none;
+    }
   }
 }
 
