@@ -3,8 +3,12 @@
 @import "components/panel-handle/map-panel-handle";
 @import "components/type/map-type";
 
-$map-preview-top: 52px + 6px + 36px + 16px;
-$map-preview-bottom: 2px + 16px + 36px + 2px + 36px + 8px + 17px + 8px;
+$map-preview-top: 50px + 8px + 34px + 16px;
+$map-preview-bottom: 16px + 34px + 2px + 33px + 10px + 17px + 8px;
+$map-preview-top-print: 8px;
+$map-preview-bottom-print: 2px + 10px + 17px + 8px;
+$map-preview-top-embed: 8px + 34px + 16px;
+$map-preview-bottom-embed: 2px + $map-preview-bottom;
 $dashboard-error-height: 26px;
 
 .map-panel {
@@ -205,9 +209,9 @@ $dashboard-error-height: 26px;
 .map-preview {
   background-color: #FAFAFA;
   border: solid 1px #CCCCCC;
+  bottom: $map-preview-bottom;
   box-shadow: 2px 2px 0 0 #999999;
   font-family: "Avenir LT W01 55 Roman";
-  max-height: calc(100vh - #{$map-preview-top + $map-preview-bottom});
   max-width: 440px;
   min-width: 285px;
   overflow: hidden;
@@ -218,7 +222,6 @@ $dashboard-error-height: 26px;
   z-index: 100;
 
   .c-dashboard__body--error & {
-    max-height: calc(100vh - #{$map-preview-top + $map-preview-bottom + $dashboard-error-height});
     top: #{$map-preview-top + $dashboard-error-height};
   }
 
@@ -268,18 +271,29 @@ $dashboard-error-height: 26px;
   }
 
   &__body {
+    height: calc(100% - 33px);
+
     &--loading {
       padding: 36px;
+    }
+
+    .is-print-mode & {
+      height: 100%;
     }
   }
 
   .is-embed &,
   .is-embed-preview &,
   .is-print-mode & {
-    height: auto;
-    max-height: none;
+    bottom: $map-preview-bottom-print;
     position: absolute;
-    width: auto;
+    top: $map-preview-top-print;
+  }
+
+  .is-embed &,
+  .is-embed-preview & {
+    bottom: $map-preview-bottom-embed;
+    top: $map-preview-top-embed;
   }
 
   .is-print-mode & {
@@ -302,16 +316,12 @@ $dashboard-error-height: 26px;
 }
 
 .map-search-results {
-  $header-height: 116px;
-  $above-list-height: $map-preview-top + 1px + 33px + $header-height;
-  $below-list-height: 1px + $map-preview-bottom;
-
   display: flex;
   flex-direction: column;
   height: 100%;
 
   &__header {
-    height: $header-height;
+    height: 116px;
     position: relative;
 
     &--no-pano {
@@ -354,12 +364,8 @@ $dashboard-error-height: 26px;
   }
 
   &__list {
-    max-height: calc(100vh - #{$above-list-height + $below-list-height});
+    height: 100%;
     overflow-y: auto;
-
-    .c-dashboard__body--error & {
-      max-height: calc(100vh - #{$above-list-height + $below-list-height + $dashboard-error-height});
-    }
   }
 
   &__item {
