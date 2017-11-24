@@ -87,16 +87,6 @@
                 id: 'MAP_END_DRAWING',
                 isButton: true
             },
-            SHOW_MAP_ACTIVE_OVERLAYS: {
-                id: 'SHOW_MAP_ACTIVE_OVERLAYS',
-                replace: true,
-                isButton: true
-            },
-            HIDE_MAP_ACTIVE_OVERLAYS: {
-                id: 'HIDE_MAP_ACTIVE_OVERLAYS',
-                replace: true,
-                isButton: true
-            },
 
             FETCH_DETAIL: {
                 id: 'FETCH_DETAIL',

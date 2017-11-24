@@ -72,7 +72,6 @@
                 },
                 map: angular.isObject(state.map) ? {
                     ...state.map,
-                    showActiveOverlays: false,
                     geometry: [],
                     viewCenter:
                         state.ui.isMapPanelVisible || (state.map && state.map.isFullscreen)

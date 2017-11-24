@@ -8,7 +8,6 @@ describe('The dataSelectionReducers factory', function () {
             overlays: [],
             viewCenter: [52.3719, 4.9012],
             zoom: 9,
-            showActiveOverlays: false,
             isFullscreen: false,
             isLoading: false
         },

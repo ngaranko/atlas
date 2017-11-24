@@ -76,7 +76,6 @@
                 },
                 map: {
                     ...map,
-                    showActiveOverlays: false,
                     isFullscreen: false,
                     geometry: []
                 },

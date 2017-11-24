@@ -10,7 +10,6 @@ describe('The map reducers', function () {
             overlays: [],
             viewCenter: [52.3719, 4.9012],
             zoom: 9,
-            showActiveOverlays: false,
             isFullscreen: false,
             isLoading: false
         },
@@ -661,42 +660,6 @@ describe('The map reducers', function () {
             expect(output.map).toBeNull();
             expect(output.ui).toBeNull();
             expect(output.page).toBeNull();
-        });
-    });
-
-    describe('SHOW_MAP_ACTIVE_OVERLAYS', function () {
-        it('sets the variable to true', function () {
-            var output;
-
-            output = mapReducers[ACTIONS.SHOW_MAP_ACTIVE_OVERLAYS.id](DEFAULT_STATE);
-            expect(output.map.showActiveOverlays).toBe(true);
-        });
-
-        it('when map is not an object', function () {
-            const inputState = angular.copy(DEFAULT_STATE);
-            inputState.map = null;
-
-            const output = mapReducers[ACTIONS.SHOW_MAP_ACTIVE_OVERLAYS.id](inputState);
-            expect(output.map).toBeNull();
-        });
-    });
-
-    describe('HIDE_MAP_ACTIVE_OVERLAYS', function () {
-        it('sets the variable to false', function () {
-            var output,
-                inputState = angular.copy(DEFAULT_STATE);
-
-            inputState.map.showActiveOverlays = true;
-            output = mapReducers[ACTIONS.HIDE_MAP_ACTIVE_OVERLAYS.id](DEFAULT_STATE);
-            expect(output.map.showActiveOverlays).toBe(false);
-        });
-
-        it('when map is not an object', function () {
-            const inputState = angular.copy(DEFAULT_STATE);
-            inputState.map = null;
-
-            const output = mapReducers[ACTIONS.HIDE_MAP_ACTIVE_OVERLAYS.id](inputState);
-            expect(output.map).toBeNull();
         });
     });
 });

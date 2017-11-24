@@ -20,8 +20,6 @@
         reducers[ACTIONS.MAP_START_DRAWING.id] = mapStartDrawingReducer;
         reducers[ACTIONS.MAP_CLEAR_DRAWING.id] = mapClearDrawingReducer;
         reducers[ACTIONS.MAP_END_DRAWING.id] = mapEndDrawingReducer;
-        reducers[ACTIONS.SHOW_MAP_ACTIVE_OVERLAYS.id] = showActiveOverlaysReducer;
-        reducers[ACTIONS.HIDE_MAP_ACTIVE_OVERLAYS.id] = hideActiveOverlaysReducer;
 
         return reducers;
 
@@ -229,26 +227,6 @@
                 geometry: has2Markers ? payload.markers : moreThan2Markers ? [] : state.map.geometry,
                 isLoading: moreThan2Markers ? true : state.map.isLoading,
                 isFullscreen: moreThan2Markers ? false : state.map.isFullscreen
-            };
-        }
-
-        function showActiveOverlaysReducer (state) {
-            return {
-                ...state,
-                map: angular.isObject(state.map) ? {
-                    ...state.map,
-                    showActiveOverlays: true
-                } : state.map
-            };
-        }
-
-        function hideActiveOverlaysReducer (state) {
-            return {
-                ...state,
-                map: angular.isObject(state.map) ? {
-                    ...state.map,
-                    showActiveOverlays: false
-                } : state.map
             };
         }
 

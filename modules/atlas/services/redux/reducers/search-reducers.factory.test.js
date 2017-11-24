@@ -9,7 +9,6 @@ describe('The search-reducers factory', function () {
             overlays: [],
             viewCenter: [52.3719, 4.9012],
             zoom: 9,
-            showActiveOverlays: false,
             isFullscreen: false,
             isLoading: false
         },
@@ -224,7 +223,6 @@ describe('The search-reducers factory', function () {
                 output;
 
             inputState.layerSelection.isEnabled = true;
-            inputState.map.showActiveOverlays = true;
             inputState.page.name = 'somePage';
             inputState.detail = {some: 'object'};
             inputState.staatbeeld = {some: 'object'};
@@ -233,7 +231,6 @@ describe('The search-reducers factory', function () {
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, [52.001, 4.002]);
 
             expect(output.layerSelection.isEnabled).toBe(false);
-            expect(output.map.showActiveOverlays).toBe(false);
             expect(output.page.name).toBeNull();
             expect(output.detail).toBeNull();
             expect(output.straatbeeld).toBeNull();

@@ -207,7 +207,6 @@
                     overlays: [],
                     isFullscreen: false,
                     isLoading: false,
-                    showActiveOverlays: false,
                     drawingMode: 'none',
                     highlight: true
                 },
@@ -332,10 +331,6 @@
                 mpo: {
                     name: 'map.overlays',
                     type: 'object(id:string,isVisible:boolean)[]'
-                },
-                mps: {
-                    name: 'map.showActiveOverlays',
-                    type: 'boolean'
                 },
                 mpv: {
                     name: 'map.viewCenter',
