@@ -52,10 +52,9 @@ describe('The dashboard component', function () {
                 isFullscreen: false,
                 isLoading: false
             },
-            layerSelection: {
-                isEnabled: false
+            search: {
+                location: [52, 4]
             },
-            search: null,
             page: {
                 name: 'home'
             },
@@ -65,6 +64,9 @@ describe('The dashboard component', function () {
             atlas: {
                 isPrintMode: false,
                 isEmbedPreview: false
+            },
+            ui: {
+                isMapPanelVisible: false
             }
         };
 
@@ -146,7 +148,7 @@ describe('The dashboard component', function () {
         // On other pages with the homepage 'behind' it
         mockedState.page.name = 'home';
         mockedState.map.isFullscreen = true;
-        mockedState.layerSelection.isEnabled = true;
+        mockedState.ui.isMapPanelVisible = true;
         component = getComponent();
         expect(component.find('.c-dashboard__footer').length).toBe(0);
 
