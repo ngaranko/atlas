@@ -20,7 +20,7 @@
                     const returnValue = next(action);
 
                     // Then update the URL
-                    if (!action.type.ignore || proceedWithType(action.type)) {
+                    if (!action.type.ignore && action.type !== 'AUTHENTICATE_USER') {
                         stateToUrl.update(
                             store.getState(),
                             !vanilla && Boolean(action.type.replace)
@@ -28,13 +28,6 @@
                     }
                     return returnValue;
                 };
-
-                function proceedWithType (type) {
-                    if (!angular.isString(type)) {
-                        return false;
-                    }
-                    return type !== 'AUTHENTICATE_USER' || type.endsWith('_MAP_PANEL');
-                }
             };
         };
     }
