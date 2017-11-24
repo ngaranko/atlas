@@ -2,8 +2,7 @@ describe('The map reducers', function () {
     var mapReducers,
         ACTIONS,
         DEFAULT_STATE,
-        DRAW_TOOL_CONFIG,
-        $timeout;
+        DRAW_TOOL_CONFIG;
 
     DEFAULT_STATE = {
         map: {
@@ -16,9 +15,6 @@ describe('The map reducers', function () {
             isLoading: false
         },
         filters: {},
-        layerSelection: {
-            isEnabled: false
-        },
         search: null,
         page: {
             name: 'home'
@@ -28,17 +24,19 @@ describe('The map reducers', function () {
         dataSelection: null,
         atlas: {
             isPrintMode: false
+        },
+        ui: {
+            isMapPanelVisible: false
         }
     };
 
     beforeEach(function () {
         angular.mock.module('atlas');
 
-        angular.mock.inject(function (_mapReducers_, _ACTIONS_, _DRAW_TOOL_CONFIG_, _$timeout_) {
+        angular.mock.inject(function (_mapReducers_, _ACTIONS_, _DRAW_TOOL_CONFIG_) {
             mapReducers = _mapReducers_;
             ACTIONS = _ACTIONS_;
             DRAW_TOOL_CONFIG = _DRAW_TOOL_CONFIG_;
-            $timeout = _$timeout_;
         });
     });
 
@@ -50,21 +48,14 @@ describe('The map reducers', function () {
             expect(output.map.isFullscreen).toBe(true);
         });
 
-        it('opens layerSelection', () => {
-            const inputState = angular.copy(DEFAULT_STATE);
-            const output = mapReducers[ACTIONS.SHOW_MAP.id](inputState);
-
-            expect(output.layerSelection.isEnabled).toBe(true);
-        });
-
-        it('when map and layerSelection are not an object', function () {
+        it('when map and map panel are not an object', function () {
             const inputState = angular.copy(DEFAULT_STATE);
             inputState.map = null;
-            inputState.layerSelection = null;
+            inputState.ui = null;
 
             const output = mapReducers[ACTIONS.SHOW_MAP.id](inputState);
             expect(output.map).toBeNull();
-            expect(output.layerSelection).toBeNull();
+            expect(output.ui).toBeNull();
         });
     });
 
@@ -413,25 +404,25 @@ describe('The map reducers', function () {
 
             // Enable fullscreen
             inputState.map.isFullscreen = false;
-            inputState.layerSelection.isEnabled = true;
+            inputState.ui.isMapPanelVisible = true;
             output = mapReducers[ACTIONS.MAP_FULLSCREEN.id](inputState, true);
-            expect(output.layerSelection.isEnabled).toBe(false);
+            expect(output.ui.isMapPanelVisible).toBe(false);
 
             // Disable fullscreen
             inputState.map.isFullscreen = true;
-            inputState.layerSelection.isEnabled = true;
+            inputState.ui.isMapPanelVisible = true;
             output = mapReducers[ACTIONS.MAP_FULLSCREEN.id](inputState, false);
-            expect(output.layerSelection.isEnabled).toBe(false);
+            expect(output.ui.isMapPanelVisible).toBe(false);
         });
 
-        it('when map and layerSelection are not an object', function () {
+        it('when map and map panel are not an object', function () {
             const inputState = angular.copy(DEFAULT_STATE);
             inputState.map = null;
-            inputState.layerSelection = null;
+            inputState.ui = null;
 
             const output = mapReducers[ACTIONS.MAP_FULLSCREEN.id](inputState);
             expect(output.map).toBeNull();
-            expect(output.layerSelection).toBeNull();
+            expect(output.ui).toBeFalsy();
         });
     });
 
@@ -634,7 +625,7 @@ describe('The map reducers', function () {
             const inputState = angular.copy(DEFAULT_STATE);
             inputState.map.isLoading = false;
             inputState.map.isFullscreen = true;
-            inputState.layerSelection.isEnabled = true;
+            inputState.ui.isMapPanelVisible = true;
 
             const output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
                 markers: ['p1', 'p2', 'p3']
@@ -642,14 +633,14 @@ describe('The map reducers', function () {
 
             expect(output.map.isFullscreen).toBe(false);
             expect(output.map.isLoading).toBe(true);
-            expect(output.layerSelection.isEnabled).toBe(false);
+            expect(output.ui.isMapPanelVisible).toBe(false);
         });
 
         it('Does not close full screen map and layer selection on line and does not set map to be loading', () => {
             const inputState = angular.copy(DEFAULT_STATE);
             inputState.map.isLoading = false;
             inputState.map.isFullscreen = true;
-            inputState.layerSelection.isEnabled = true;
+            inputState.ui.isMapPanelVisible = true;
 
             const output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
                 markers: ['p1', 'p2']
@@ -657,18 +648,18 @@ describe('The map reducers', function () {
 
             expect(output.map.isFullscreen).toBe(true);
             expect(output.map.isLoading).toBe(false);
-            expect(output.layerSelection.isEnabled).toBe(true);
+            expect(output.ui.isMapPanelVisible).toBe(true);
         });
 
-        it('when map and layerSelection and page are not an object', function () {
+        it('when map and map panel and page are not an object', function () {
             const inputState = angular.copy(DEFAULT_STATE);
             inputState.map = null;
-            inputState.layerSelection = null;
+            inputState.ui = null;
             inputState.page = null;
 
             const output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState);
             expect(output.map).toBeNull();
-            expect(output.layerSelection).toBeNull();
+            expect(output.ui).toBeNull();
             expect(output.page).toBeNull();
         });
     });
