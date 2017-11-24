@@ -12,9 +12,6 @@ describe('The dataSelectionReducers factory', function () {
             isLoading: false
         },
         filters: {},
-        layerSelection: {
-            isEnabled: false
-        },
         search: null,
         page: {
             name: 'home'
@@ -24,6 +21,9 @@ describe('The dataSelectionReducers factory', function () {
         dataSelection: null,
         atlas: {
             isPrintMode: false
+        },
+        ui: {
+            isMapPanelVisible: false
         }
     };
 

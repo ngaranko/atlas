@@ -54,7 +54,6 @@
                     [
                         'atlas',
                         'page',
-                        'layerSelection',
                         'filters',
                         'user',
                         'mapLayers',
@@ -63,8 +62,6 @@
                         'mapSearchResultsByLocation',
                         'pano',
                         'isMapPreviewPanelVisible',
-                        'isLoading',
-                        'error',
                         'ui'
                     ].forEach(s => {
                         const value = initialValues[s];

@@ -41,15 +41,12 @@ describe('The state url conversion factory', function () {
                     location: [],
                     previews: {}
                 },
-                isMapPanelVisible: false,
                 ui: {
+                    isMapPanelVisible: false,
                     isMapLayersVisible: true
                 },
                 isMapPreviewPanelVisible: false,
                 filters: {},
-                layerSelection: {
-                    isEnabled: false
-                },
                 search: null,
                 page: {
                     name: 'home'
@@ -61,9 +58,7 @@ describe('The state url conversion factory', function () {
                     isPrintMode: false,
                     isEmbedPreview: false,
                     isEmbed: false
-                },
-                isLoading: false,
-                error: null
+                }
             });
         });
     });

@@ -12,9 +12,6 @@ describe('The pageReducers factory', function () {
                 isFullscreen: false,
                 isLoading: false
             },
-            layerSelection: {
-                isEnabled: false
-            },
             search: null,
             page: {
                 name: 'home'
@@ -24,6 +21,9 @@ describe('The pageReducers factory', function () {
             dataSelection: null,
             atlas: {
                 isPrintMode: false
+            },
+            ui: {
+                isMapPanelVisible: false
             }
         };
 
@@ -52,7 +52,7 @@ describe('The pageReducers factory', function () {
                 location: null
             };
 
-            mockedState.layerSelection.isEnabled = true;
+            mockedState.ui.isMapPanelVisible = true;
 
             mockedState.detail = {
                 endpoint: 'http://some-endpoint/path/123',
@@ -72,7 +72,7 @@ describe('The pageReducers factory', function () {
             output = pageReducers.SHOW_PAGE(mockedState, {name: 'goodbye'});
 
             expect(output.search).toBeNull();
-            expect(output.layerSelection.isEnabled).toBe(false);
+            expect(output.ui.isMapPanelVisible).toBe(false);
             expect(output.detail).toBeNull();
             expect(output.straatbeeld).toBeNull();
             expect(output.dataSelection).toBeNull();
