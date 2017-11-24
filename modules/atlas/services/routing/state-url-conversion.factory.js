@@ -39,10 +39,13 @@
     stateUrlConversionFactory.$inject = ['uriStripper'];
 
     function stateUrlConversionFactory (uriStripper) {
+        /* istanbul ignore next */
         const ofTypeArray = (oldState, newState) =>
             angular.isArray(oldState) ? oldState : newState;
+        /* istanbul ignore next */
         const ofTypeObject = (oldState, newState) =>
             angular.isObject(oldState) ? oldState : newState;
+        /* istanbul ignore next */
         const ofTypeBoolean = (oldState, newState) =>
             oldState === true || oldState === false ? oldState : newState;
 
@@ -160,8 +163,7 @@
                 mapSearchResultsByLocation: ofTypeObject,
                 pano: ofTypeObject,
                 isMapPreviewPanelVisible: ofTypeBoolean,
-                isLoading: ofTypeBoolean,
-                error: ofTypeObject
+                ui: ofTypeObject
             },
             initialValues: {
                 // When creating a state object it will be initialized with these values
