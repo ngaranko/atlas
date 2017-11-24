@@ -317,12 +317,14 @@ describe('The search-reducers factory', function () {
             expect(output.map).toBeNull();
         });
 
-        it('when map and page are not an object', function () {
+        it('when map panel and page are not an object', function () {
             const inputState = angular.copy(DEFAULT_STATE);
+            inputState.ui = null;
             inputState.page = null;
 
             const output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, [52.001, 4.002]);
             expect(output.page).toBeNull();
+            expect(output.ui).toBeNull();
         });
     });
 

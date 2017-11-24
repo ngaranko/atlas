@@ -275,7 +275,7 @@ describe('Straatbeeld reducers factory', function () {
             expect(output.straatbeeld.targetLocation).toEqual(location);
         });
 
-        it('centers the map when layerselection or fullscreen map is active', function () {
+        it('centers the map when fullscreen map is active', function () {
             const state = {
                 'map': {
                     isFullscreen: true
@@ -292,7 +292,7 @@ describe('Straatbeeld reducers factory', function () {
         });
 
         it('can set the straatbeeld to the new location from scratch', function () {
-            var state = { ui: {} },
+            var state = { ui: null },
                 output;
 
             const location = [52.001, 4.002];

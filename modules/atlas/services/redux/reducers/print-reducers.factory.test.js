@@ -12,9 +12,6 @@ describe('The printReducers factory', function () {
             isFullscreen: false,
             isLoading: false
         },
-        layerSelection: {
-            isEnabled: false
-        },
         search: null,
         page: {
             name: 'home'
@@ -24,6 +21,9 @@ describe('The printReducers factory', function () {
         dataSelection: null,
         atlas: {
             isPrintMode: false
+        },
+        ui: {
+            isMapPanelVisible: false
         }
     };
 

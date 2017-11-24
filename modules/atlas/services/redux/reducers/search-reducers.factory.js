@@ -74,7 +74,7 @@
                     ...state.map,
                     geometry: [],
                     viewCenter:
-                        state.ui.isMapPanelVisible || (state.map && state.map.isFullscreen)
+                        state.ui && state.ui.isMapPanelVisible || (state.map && state.map.isFullscreen)
                         ? payload : state.map.viewCenter
                 } : state.map,
                 ui: angular.isObject(state.ui) ? {

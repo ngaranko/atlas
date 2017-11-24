@@ -12,9 +12,6 @@ describe('The embedReducers factory', function () {
             isFullscreen: false,
             isLoading: false
         },
-        layerSelection: {
-            isEnabled: false
-        },
         search: null,
         page: {
             name: 'home'
@@ -25,6 +22,9 @@ describe('The embedReducers factory', function () {
         atlas: {
             isPrintMode: false,
             isEmbedPreview: false
+        },
+        ui: {
+            isMapPanelVisible: false
         }
     };
 

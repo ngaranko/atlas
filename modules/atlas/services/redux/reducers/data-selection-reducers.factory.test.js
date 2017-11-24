@@ -213,15 +213,15 @@ describe('The dataSelectionReducers factory', function () {
             expect(output.atlas.isPrintMode).toBe(false);
         });
 
-        it('when payload is empty and map and layerSelection and page are not an object', function () {
+        it('when payload is empty and map and ui and page are not an object', function () {
             const mockedState = angular.copy(DEFAULT_STATE);
             mockedState.map = null;
-            mockedState.layerSelection = null;
+            mockedState.ui = null;
             mockedState.page = null;
 
             const output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, '');
             expect(output.map).toBeNull();
-            expect(output.layerSelection).toBeNull();
+            expect(output.ui).toBeNull();
             expect(output.page).toBeNull();
         });
     });

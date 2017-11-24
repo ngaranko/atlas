@@ -253,28 +253,6 @@ describe('The state url conversion definition', function () {
             });
         });
 
-        // describe('The post processing for isMapPanelVisible', function () {
-            // it('copies booelan value from old state', function () {
-                // let oldState = true;
-                // let newState = false;
-//
-                // stateUrlConversion.post.isMapPanelVisible(oldState, newState);
-                // expect(newState).toEqual(false);
-//
-                // oldState = false;
-                // newState = true;
-//
-                // stateUrlConversion.post.isMapPanelVisible(oldState, newState);
-                // expect(newState).toEqual(true);
-//
-                // oldState = [1];
-                // newState = true;
-//
-                // stateUrlConversion.post.isMapPanelVisible(oldState, newState);
-                // expect(newState).toEqual(true);
-            // });
-        // });
-
         describe('The post processing for detail', function () {
             it('copies display, geometry, isLoading and isFullscreen from old state if equal endpoint', function () {
                 let newState;

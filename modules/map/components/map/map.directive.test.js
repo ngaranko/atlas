@@ -65,10 +65,6 @@ describe('The dp-map directive', () => {
                     return {};
                 });
 
-                $provide.factory('dpToggleLayerSelectionDirective', () => {
-                    return {};
-                });
-
                 $provide.factory('dpDrawToolDirective' + '', () => {
                     return {};
                 });
@@ -166,11 +162,11 @@ describe('The dp-map directive', () => {
         };
     });
 
-    function getDirective (mapState, showLayerSelection, markers, useRootScopeApply, resize) {
+    function getDirective (mapState, isMapPanelVisible, markers, useRootScopeApply, resize) {
         const element = document.createElement('dp-map');
         element.setAttribute('map-state', 'mapState');
         element.setAttribute('markers', 'markers');
-        element.setAttribute('show-layer-selection', 'showLayerSelection');
+        element.setAttribute('is-map-panel-visible', 'isMapPanelVisible');
         element.setAttribute('resize', 'resize');
         element.setAttribute('user', 'user');
 
@@ -179,7 +175,7 @@ describe('The dp-map directive', () => {
         scope.markers = markers;
         scope.resize = resize;
         scope.user = mockedUser;
-        scope.showLayerSelection = showLayerSelection;
+        scope.isMapPanelVisible = isMapPanelVisible;
 
         const directive = $compile(element)(scope);
 

@@ -99,11 +99,11 @@ describe('The pageReducers factory', function () {
             expect(output.map).toBeNull();
         });
 
-        it('when layerSelection is not an object', function () {
-            mockedState.layerSelection = null;
+        it('when ui is not an object', function () {
+            mockedState.ui = null;
 
             output = pageReducers.SHOW_PAGE(mockedState, {name: 'goodbye'});
-            expect(output.layerSelection).toBeNull();
+            expect(output.ui).toBeNull();
         });
     });
 });

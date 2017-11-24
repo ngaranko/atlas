@@ -22,9 +22,6 @@ describe('The filtersReducers factory', function () {
                 isLoading: false
             },
             filters: {},
-            layerSelection: {
-                isEnabled: false
-            },
             search: null,
             page: {
                 name: 'home'
@@ -35,6 +32,9 @@ describe('The filtersReducers factory', function () {
             atlas: {
                 isPrintMode: false,
                 isEmbedPreview: false
+            },
+            ui: {
+                isMapPanelVisible: false
             }
         };
 
