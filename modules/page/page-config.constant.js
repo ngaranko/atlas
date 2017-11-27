@@ -12,6 +12,6 @@
             snelwegwijs: 'Bediening portaal',
             apis: 'API\'s gebruiken',
             proclaimer: 'Proclaimer',
-            inloggen: 'Inloggen'
+            inloggen: 'Na inloggen'
         });
 })();
