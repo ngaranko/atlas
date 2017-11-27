@@ -114,7 +114,7 @@ MapPreviewPanelContainer.defaultProps = {
   pano: {},
   results: [],
   search: {},
-  searchLocation: {},
+  searchLocation: null,
   searchLocationId: '',
   user: {}
 };

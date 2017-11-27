@@ -52,8 +52,8 @@ describe('MapPreviewPanelContainer', () => {
       jest.spyOn(store, 'dispatch');
       wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
 
-      expect(getMapSearchResults).toHaveBeenCalledWith([1, 0], { name: 'User name' });
-      expect(getPanoPreview).toHaveBeenCalledWith([1, 0]);
+      expect(getMapSearchResults).toHaveBeenCalledWith({ latitude: 1, longitude: 0 }, { name: 'User name' });
+      expect(getPanoPreview).toHaveBeenCalledWith({ latitude: 1, longitude: 0 });
       expect(store.dispatch).toHaveBeenCalledWith({ type: 'GET_MAP_SEARCH_RESULTS' });
       expect(store.dispatch).toHaveBeenCalledWith({ type: 'GET_PANO_PREVIEW' });
     });
@@ -93,10 +93,10 @@ describe('MapPreviewPanelContainer', () => {
       getPanoPreview.mockClear();
       store.dispatch.mockClear();
 
-      wrapper.setProps({ search: { location: [1, 0] } });
+      wrapper.setProps({ searchLocation: { latitude: 1, longitude: 0 } });
 
-      expect(getMapSearchResults).toHaveBeenCalledWith([1, 0], { name: 'User name' });
-      expect(getPanoPreview).toHaveBeenCalledWith([1, 0]);
+      expect(getMapSearchResults).toHaveBeenCalledWith({ latitude: 1, longitude: 0 }, { name: 'User name' });
+      expect(getPanoPreview).toHaveBeenCalledWith({ latitude: 1, longitude: 0 });
       expect(store.dispatch).toHaveBeenCalledWith({ type: 'GET_MAP_SEARCH_RESULTS' });
       expect(store.dispatch).toHaveBeenCalledWith({ type: 'GET_PANO_PREVIEW' });
     });
@@ -113,10 +113,10 @@ describe('MapPreviewPanelContainer', () => {
       getPanoPreview.mockClear();
       store.dispatch.mockClear();
 
-      wrapper.setProps({ search: { location: [0, 1] } });
+      wrapper.setProps({ searchLocation: { latitude: 0, longitude: 1 } });
 
-      expect(getMapSearchResults).toHaveBeenCalledWith([0, 1], { name: 'User name' });
-      expect(getPanoPreview).toHaveBeenCalledWith([0, 1]);
+      expect(getMapSearchResults).toHaveBeenCalledWith({ latitude: 0, longitude: 1 }, { name: 'User name' });
+      expect(getPanoPreview).toHaveBeenCalledWith({ latitude: 0, longitude: 1 });
       expect(store.dispatch).toHaveBeenCalledWith({ type: 'GET_MAP_SEARCH_RESULTS' });
       expect(store.dispatch).toHaveBeenCalledWith({ type: 'GET_PANO_PREVIEW' });
     });
@@ -130,10 +130,10 @@ describe('MapPreviewPanelContainer', () => {
       getPanoPreview.mockClear();
       store.dispatch.mockClear();
 
-      wrapper.setProps({ search: { location: [0, 1] } });
+      wrapper.setProps({ searchLocation: { latitude: 0, longitude: 1 } });
 
-      expect(getMapSearchResults).toHaveBeenCalledWith([0, 1], { name: 'User name' });
-      expect(getPanoPreview).toHaveBeenCalledWith([0, 1]);
+      expect(getMapSearchResults).toHaveBeenCalledWith({ latitude: 0, longitude: 1 }, { name: 'User name' });
+      expect(getPanoPreview).toHaveBeenCalledWith({ latitude: 0, longitude: 1 });
       expect(store.dispatch).toHaveBeenCalledWith({ type: 'GET_MAP_SEARCH_RESULTS' });
       expect(store.dispatch).toHaveBeenCalledWith({ type: 'GET_PANO_PREVIEW' });
     });
@@ -251,7 +251,7 @@ describe('MapPreviewPanelContainer', () => {
     store = configureMockStore()(defaultMockState);
     jest.spyOn(store, 'dispatch');
     wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
-    wrapper.find('.map-preview__button').at(0).simulate('click');
+    wrapper.find('.map-preview-panel__button').at(0).simulate('click');
 
     expect(store.dispatch).toHaveBeenCalledWith({ type: 'MAXIMIZE_MAP_PREVIEW_PANEL' });
   });
@@ -260,7 +260,7 @@ describe('MapPreviewPanelContainer', () => {
     store = configureMockStore()(defaultMockState);
     jest.spyOn(store, 'dispatch');
     wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
-    wrapper.find('.map-preview__button').at(1).simulate('click');
+    wrapper.find('.map-preview-panel__button').at(1).simulate('click');
 
     expect(store.dispatch).toHaveBeenCalledWith({ type: 'CLOSE_MAP_PREVIEW_PANEL' });
   });
