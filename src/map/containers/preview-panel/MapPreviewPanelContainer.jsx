@@ -7,6 +7,7 @@ import { maximizeMapPreviewPanel, closeMapPreviewPanel }
   from '../../ducks/preview-panel/map-preview-panel';
 import { selectLatestMapSearchResults, getMapSearchResults }
   from '../../ducks/search-results/map-search-results';
+import { fetchDetail } from '../../../reducers/details';
 import { getPanoPreview } from '../../../pano/ducks/preview/pano-preview';
 import MaximizeIcon from '../../../../public/images/icon-maximize.svg';
 import CloseIcon from '../../../../public/images/icon-cross-big.svg';
@@ -28,7 +29,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   onMapPreviewPanelClose: closeMapPreviewPanel,
-  onMapPreviewPanelMaximize: maximizeMapPreviewPanel
+  onMapPreviewPanelMaximize: maximizeMapPreviewPanel,
+  onMapSearchResultsItemClick: fetchDetail
 }, dispatch);
 
 const fetchData = (context, location, user) => {
@@ -97,6 +99,7 @@ class MapPreviewPanelContainer extends React.Component {
               location={this.props.searchLocation}
               panoUrl={panoPreview.url}
               results={this.props.results}
+              onItemClick={this.props.onMapSearchResultsItemClick}
             />
           )}
         </div>
@@ -123,6 +126,7 @@ MapPreviewPanelContainer.propTypes = {
   isMapPreviewPanelVisible: PropTypes.bool,
   onMapPreviewPanelClose: PropTypes.func.isRequired,
   onMapPreviewPanelMaximize: PropTypes.func.isRequired,
+  onMapSearchResultsItemClick: PropTypes.func.isRequired,
   pano: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   results: PropTypes.array, // eslint-disable-line react/forbid-prop-types
   search: PropTypes.object, // eslint-disable-line react/forbid-prop-types

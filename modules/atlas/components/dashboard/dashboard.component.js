@@ -2,7 +2,7 @@
     'use strict';
 
     // Temporarily only show the preview panel for detail endpoints which are
-    // also selecable on the map.
+    // also selectable on the map.
     const previewPanelDetailEndpoints = [
         'brk/object', // Kadastraal object
         'gebieden/bouwblok', // Bouwblok
@@ -58,7 +58,7 @@
         ], () => {
             const detailActive = vm.detailEndpoint &&
                 previewPanelDetailEndpoints.some((endpoint) =>
-                        vm.detailEndpoint.indexOf(endpoint) !== -1);
+                    vm.detailEndpoint.includes(endpoint));
 
             if (vm.visibility.mapPreviewPanel && (vm.geosearchLocation || detailActive)) {
                 store.dispatch({ type: 'OPEN_MAP_PREVIEW_PANEL' });

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { wgs84ToRd } from '../../../shared/services/coordinate-reference-system';
 import MapSearchResultsItem from './MapSearchResultsItem';
 
-const MapSearchResults = ({ count, location, results, panoUrl }) => {
+const MapSearchResults = ({ count, location, results, panoUrl, onItemClick }) => {
   const rdCoordinates = wgs84ToRd(location);
 
   return (
@@ -32,7 +32,12 @@ const MapSearchResults = ({ count, location, results, panoUrl }) => {
       <ul className="map-search-results__list">
         {results.map((result) => (
           <li key={result.uri}>
-            <MapSearchResultsItem item={result} />
+            <MapSearchResultsItem
+              item={result}
+              onClick={() => {
+                onItemClick(result.uri);
+              }}
+            />
           </li>
         ))}
       </ul>
@@ -43,6 +48,7 @@ const MapSearchResults = ({ count, location, results, panoUrl }) => {
 MapSearchResults.propTypes = {
   count: PropTypes.number, // eslint-disable-line
   location: PropTypes.object, // eslint-disable-line
+  onItemClick: PropTypes.func.isRequired,
   panoUrl: PropTypes.string, // eslint-disable-line
   results: PropTypes.array // eslint-disable-line
 };
