@@ -1,6 +1,18 @@
 (function () {
     'use strict';
 
+    // Temporarily only show the preview panel for detail endpoints which are
+    // also selecable on the map.
+    const previewPanelDetailEndpoints = [
+        'brk/object', // Kadastraal object
+        'gebieden/bouwblok', // Bouwblok
+        'handelsregister/vestiging', // Vestiging
+        'meetbouten/meetbout', // Meetbout
+        'milieuthemas/explosieven/inslagen', // Inslag
+        'monumenten/monumenten', // Monument
+        'nap/peilmerk' // NAP Peilmerk
+    ];
+
     angular
         .module('atlas')
         .component('dpDashboard', {
@@ -39,8 +51,16 @@
         });
 
         // Open or close React `MapPreviewPanel` app
-        $scope.$watchGroup(['vm.visibility.mapPreviewPanel', 'vm.geosearchLocation'], () => {
-            if (vm.visibility.mapPreviewPanel && vm.geosearchLocation) {
+        $scope.$watchGroup([
+            'vm.visibility.mapPreviewPanel',
+            'vm.geosearchLocation',
+            'vm.detailEndpoint'
+        ], () => {
+            const detailActive = vm.detailEndpoint &&
+                previewPanelDetailEndpoints.some((endpoint) =>
+                        vm.detailEndpoint.indexOf(endpoint) !== -1);
+
+            if (vm.visibility.mapPreviewPanel && (vm.geosearchLocation || detailActive)) {
                 store.dispatch({ type: 'OPEN_MAP_PREVIEW_PANEL' });
             } else {
                 store.dispatch({ type: 'CLOSE_MAP_PREVIEW_PANEL' });
@@ -83,6 +103,7 @@
             vm.straatbeeldHistory = vm.isStraatbeeldActive ? state.straatbeeld.history : null;
             vm.isMapPreviewPanelVisible = vm.visibility.mapPreviewPanel;
             vm.geosearchLocation = state.search && state.search.location && state.search.location.toString();
+            vm.detailEndpoint = state.detail && state.detail.endpoint;
         }
     }
 })();
