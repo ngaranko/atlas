@@ -33,10 +33,8 @@ export default function MapSearchResultsReducer(state = initialState, action) {
   }
 }
 
-export const selectLatestMapSearchResults = (state) => {
-  return state.search && state.search.location &&
-    state.mapSearchResultsByLocation[state.search.location];
-};
+export const selectLatestMapSearchResults = (state) =>
+  state.search && state.search.location && state.mapSearchResultsByLocation[state.search.location];
 
 export const getMapSearchResults = (location, user) => ({
   type: FETCH_MAP_SEARCH_RESULTS_REQUEST,
