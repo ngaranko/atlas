@@ -1,7 +1,7 @@
 import * as address from '../../shared/services/address/address';
 import * as vestiging from '../../shared/services/vestiging/vestiging';
 
-const apiUrl = 'https://acc.api.data.amsterdam.nl/';
+const apiUrl = `https://${process.env.NODE_ENV !== 'production' ? 'acc.' : ''}api.data.amsterdam.nl/`;
 
 const endpoints = [
   { uri: 'geosearch/nap/', radius: 25 },
