@@ -77,10 +77,6 @@
                         state.ui && state.ui.isMapPanelVisible || (state.map && state.map.isFullscreen)
                         ? payload : state.map.viewCenter
                 } : state.map,
-                ui: angular.isObject(state.ui) ? {
-                    ...state.ui,
-                    isMapPanelVisible: false
-                } : state.ui,
                 page: angular.isObject(state.page) ? {
                     ...state.page,
                     name: null
