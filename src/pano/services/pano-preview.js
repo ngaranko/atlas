@@ -2,8 +2,8 @@ const apiUrl = 'https://api.data.amsterdam.nl/';
 
 export default function fetchPano(location) {
   const searchParams = {
-    lat: location[0],
-    lon: location[1],
+    lat: location.latitude,
+    lon: location.longitude,
     width: 438,
     radius: 180
   };
