@@ -2,26 +2,36 @@
   color: #FFFFFF;
   display: flex;
   justify-content: space-between;
-  padding: 8px;
+  padding: 4px;
 
   &--info {
     background-color: #004699;
   }
 
+  &__content {
+    line-height: 24px;
+    vertical-align: middle;
+  }
+
   &__button {
     cursor: pointer;
+    height: 24px;
+    line-height: 0;
+    width: 24px;
+
+    &:hover {
+      background-color: #666666;
+    }
   }
 
   a {
     color: #FFFFFF;
     text-decoration: underline;
-
-    &:hover {
-      text-decoration: none;
-    }
   }
 
   svg {
     fill: #FFFFFF;
+    height: 16px;
+    width: 16px;
   }
 }
