@@ -53,19 +53,20 @@
                 DEFAULT: (oldState, newState, params, initialValues) => {
                     [
                         'atlas',
-                        'page',
-                        'layerSelection',
+                        'error',
                         'filters',
-                        'user',
-                        'mapLayers',
-                        'mapBaseLayers',
-                        'mapSearchResults',
-                        'mapSearchResultsByLocation',
-                        'pano',
+                        'isLoading',
                         'isMapPanelVisible',
                         'isMapPreviewPanelVisible',
-                        'isLoading',
-                        'error'
+                        'layerSelection',
+                        'mapBaseLayers',
+                        'mapLayers',
+                        'mapSearchResults',
+                        'mapSearchResultsByLocation',
+                        'page',
+                        'pano',
+                        'ui',
+                        'user'
                     ].forEach(s => {
                         const value = initialValues[s];
                         newState[s] = angular.isDefined(value)
@@ -155,6 +156,7 @@
                 isMapPanelVisible: ofTypeBoolean,
                 isMapPreviewPanelVisible: ofTypeBoolean,
                 isLoading: ofTypeBoolean,
+                ui: ofTypeObject,
                 error: ofTypeObject
             },
             initialValues: {
@@ -243,7 +245,10 @@
                     // id: 'ABC123',
                 },
                 isLoading: false,
-                error: null
+                error: null,
+                ui: {
+                    isMapPanelHandleVisible: true
+                }
             },
             stateVariables: {
                 // Property names are keys so that the compiler guarantees the uniqness

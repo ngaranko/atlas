@@ -8,7 +8,7 @@ import TopographyIcon from '../../../../public/images/icon-topography.svg';
 
 function hasLayer(activeBaseLayer, baseLayers) {
   return baseLayers && baseLayers.length > 0 &&
-    baseLayers.some(layer => layer.value === activeBaseLayer);
+    baseLayers.some((layer) => layer.value === activeBaseLayer);
 }
 
 const MapType = ({ activeBaseLayer, baseLayers, onBaseLayerToggle }) => (
@@ -38,9 +38,9 @@ const MapType = ({ activeBaseLayer, baseLayers, onBaseLayerToggle }) => (
 );
 
 MapType.propTypes = {
-  activeBaseLayer: PropTypes.string, // eslint-disable-line
+  activeBaseLayer: PropTypes.string.isRequired,
   baseLayers: PropTypes.object, // eslint-disable-line
-  onBaseLayerToggle: PropTypes.func // eslint-disable-line
+  onBaseLayerToggle: PropTypes.func.isRequired
 };
 
 export default MapType;

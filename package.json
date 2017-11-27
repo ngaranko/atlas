@@ -76,7 +76,7 @@
     "build-prod": "grunt && npm run lint && npm test && webpack --config webpack.prod.js",
     "build-test": "grunt && webpack --config webpack.acc.js",
     "clean-cache": "npm cache verify",
-    "clean-dirs": "rimraf ./node_modules ./coverage ./dist ./build",
+    "clean-dirs": "rimraf ./node_modules ./coverage ./coverage-legacy ./dist ./build",
     "clean": "npm run clean-cache && npm run clean-dirs",
     "lint": "eslint ./modules/ ./src/",
     "eslint": "eslint",

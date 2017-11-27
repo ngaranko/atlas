@@ -4,7 +4,9 @@ $map-preview-panel-bottom: 16px + 34px + 2px + 33px + 10px + 17px + 8px;
 
 @import "components/layers/map-layers";
 @import "components/legend/map-legend";
+@import "components/panel-handle/map-panel-handle";
 @import "components/search-results/map-search-results";
 @import "components/type/map-type";
 @import "containers/panel/map-panel";
 @import "containers/preview-panel/map-preview-panel";
+
