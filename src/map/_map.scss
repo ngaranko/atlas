@@ -205,9 +205,9 @@ $dashboard-error-height: 26px;
 .map-preview {
   background-color: #FAFAFA;
   border: solid 1px #CCCCCC;
-  bottom: $map-preview-bottom;
   box-shadow: 2px 2px 0 0 #999999;
   font-family: "Avenir LT W01 55 Roman";
+  max-height: calc(100vh - #{$map-preview-top + $map-preview-bottom});
   max-width: 440px;
   min-width: 285px;
   overflow: hidden;
@@ -218,7 +218,7 @@ $dashboard-error-height: 26px;
   z-index: 100;
 
   .c-dashboard__body--error & {
-    top: #{$map-preview-top + $dashboard-error-height};
+    max-height: calc(100vh - #{$map-preview-top + $map-preview-bottom + $dashboard-error-height});
   }
 
   &--hidden {
@@ -282,6 +282,7 @@ $dashboard-error-height: 26px;
   .is-embed-preview &,
   .is-print-mode & {
     bottom: $map-preview-bottom-print;
+    max-height: none;
     position: absolute;
     top: $map-preview-top-print;
   }
@@ -312,12 +313,16 @@ $dashboard-error-height: 26px;
 }
 
 .map-search-results {
+  $header-height: 116px;
+  $above-list-height: $map-preview-top + 1px + 33px + $header-height;
+  $below-list-height: 1px + $map-preview-bottom;
+
   display: flex;
   flex-direction: column;
   height: 100%;
 
   &__header {
-    height: 116px;
+    height: $header-height;
     position: relative;
 
     &--no-pano {
@@ -360,8 +365,19 @@ $dashboard-error-height: 26px;
   }
 
   &__list {
-    height: 100%;
+    max-height: calc(100vh - #{$above-list-height + $below-list-height});
     overflow-y: auto;
+
+    .c-dashboard__body--error & {
+      max-height: calc(100vh - #{$above-list-height + $below-list-height + $dashboard-error-height});
+    }
+
+    .is-embed &,
+    .is-embed-preview &,
+    .is-print-mode & {
+      max-height: none;
+      height: 100%;
+    }
   }
 
   &__item {
