@@ -588,7 +588,7 @@ export default [
         id: 'ggw',
         layer: 'gebiedsgerichtwerken',
         selectable: true,
-        title: 'Gebiedsgerichtwerken'
+        title: 'Gebiedsgerichtwerken-gebied'
       },
       {
         id: 'bc',
@@ -630,7 +630,7 @@ export default [
     legendItems: [
       {
         selectable: false,
-        title: 'Grootstedelijk'
+        title: 'Grootstedelijk gebied'
       }
     ],
     maxZoom: 16,
@@ -1001,35 +1001,35 @@ export default [
     legendItems: [
       {
         selectable: false,
-        title: 'blindganger'
+        title: 'Blindganger'
       },
       {
         selectable: false,
-        title: 'bominslag'
+        title: 'Bominslag'
       },
       {
         selectable: false,
-        title: 'crashlocatie'
+        title: 'Crashlocatie'
       },
       {
         selectable: false,
-        title: 'gedetoneerde vernielingslading'
+        title: 'Gedetoneerde vernielingslading'
       },
       {
         selectable: false,
-        title: 'geruimd explosief'
+        title: 'Geruimd explosief'
       },
       {
         selectable: false,
-        title: 'krater'
+        title: 'Krater'
       },
       {
         selectable: false,
-        title: 'niet gedetoneerde vernielingslading'
+        title: 'Niet gedetoneerde vernielingslading'
       },
       {
         selectable: false,
-        title: 'vermoedelijke bominslag(en)'
+        title: 'Vermoedelijke bominslag(en)'
       }
     ],
     maxZoom: 16,
@@ -1071,7 +1071,7 @@ export default [
     legendItems: [
       {
         selectable: false,
-        title: 'gevrijwaarde gebieden'
+        title: 'Gevrijwaarde gebieden'
       }
     ],
     maxZoom: 16,
