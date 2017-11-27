@@ -53,7 +53,6 @@ describe('The state url conversion definition', function () {
                     location: [],
                     previews: {}
                 },
-                isMapPanelVisible: false,
                 isMapPreviewPanelVisible: false,
                 map: {
                     viewCenter: [52.3731081, 4.8932945],
@@ -65,8 +64,11 @@ describe('The state url conversion definition', function () {
                     drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
                     highlight: true
                 },
-                isLoading: false,
-                error: null
+                ui: {
+                    isMapLayersVisible: true,
+                    isMapPanelVisible: false,
+                    isMapPanelHandleVisible: true
+                }
             });
 
             state = stateUrlConversion.onCreate.DEFAULT({}, {}, {aap: 'noot'}, {});

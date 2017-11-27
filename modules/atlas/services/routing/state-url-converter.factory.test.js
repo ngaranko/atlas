@@ -43,7 +43,7 @@ describe('The state url conversion factory', function () {
                 },
                 isMapPanelVisible: false,
                 ui: {
-                    isMapLayersVisible: true
+                    isMapPanelHandleVisible: true
                 },
                 isMapPreviewPanelVisible: false,
                 filters: {},
