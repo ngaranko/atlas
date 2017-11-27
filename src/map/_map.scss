@@ -219,7 +219,6 @@ $dashboard-error-height: 26px;
 
   .c-dashboard__body--error & {
     max-height: calc(100vh - #{$map-preview-top + $map-preview-bottom + $dashboard-error-height});
-    top: #{$map-preview-top + $dashboard-error-height};
   }
 
   &--hidden {
@@ -359,6 +358,13 @@ $dashboard-error-height: 26px;
 
     .c-dashboard__body--error & {
       max-height: calc(100vh - #{$above-list-height + $below-list-height + $dashboard-error-height});
+    }
+
+    .is-embed &,
+    .is-embed-preview &,
+    .is-print-mode & {
+      max-height: none;
+      height: 100%;
     }
   }
 
