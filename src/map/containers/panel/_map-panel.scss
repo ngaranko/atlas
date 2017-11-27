@@ -1,0 +1,211 @@
+.map-panel {
+  background-color: #FAFAFA;
+  border: solid 1px #CCCCCC;
+  bottom: 8px;
+  box-shadow: 2px 2px 0 0 #999999;
+  font-family: "Avenir LT W01 55 Roman";
+  height: calc(100vh - 32px - 50px - 130px);
+  left: 8px;
+  max-height: 800px;
+  max-width: 440px;
+  min-width: 285px;
+  overflow: hidden;
+  position: fixed;
+  width: 28%;
+  z-index: 100;
+
+  &--collapsed {
+    height: auto;
+    min-width: auto;
+    width: auto;
+
+    &:hover {
+      border-color: #EC0000;
+    }
+
+    .scroll-wrapper {
+      display: none;
+    }
+  }
+
+  &__heading {
+    align-items: center;
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #999999;
+
+    .map-panel--collapsed & {
+      border-bottom: none;
+
+      &:hover {
+        background-color: #EC0000;
+        cursor: pointer;
+
+        .map-panel__heading-icon,
+        .map-panel__toggle-icon {
+          fill: #FFFFFF;
+        }
+      }
+    }
+  }
+
+  &__heading-icon {
+    fill: #000000;
+    height: 24px;
+    width: 24px;
+
+    .map-panel--collapsed & {
+      fill: #666666;
+    }
+  }
+
+  &__heading-title {
+    flex-grow: 1;
+    font-family: "Avenir LT W01 85 Heavy";
+    font-size: 16px;
+    font-weight: normal;
+    margin-left: 4px;
+    text-align: left;
+
+    &--hidden {
+      visibility: hidden;
+    }
+
+    .map-panel--collapsed & {
+      display: none;
+    }
+  }
+
+  &__toggle {
+    align-items: center;
+    border-radius: 0;
+    display: flex;
+    padding: 4px;
+    height: 100%;
+    outline: none;
+    width: 100%;
+
+    &:hover {
+      background-color: #EC0000;
+      color: #FFFFFF;
+
+      .map-panel__heading-icon,
+      .map-panel__toggle-icon {
+        fill: #FFFFFF;
+      }
+    }
+
+    .map-panel--collapsed & {
+      margin-left: 4px;
+    }
+  }
+
+  &__toggle-icon {
+    fill: #000000;
+    height: 24px;
+    width: 24px;
+
+    .map-panel--collapsed & {
+      fill: #666666;
+    }
+
+    .map-panel--collapsed &--expanded {
+      display: none;
+    }
+
+    .map-panel--expanded &--collapsed {
+      display: none;
+    }
+  }
+
+  .scroll-wrapper {
+    height: calc(100% - 33px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    /* NB: Workaround to force smooth scrolling on Chrome */
+    will-change: transform;
+  }
+
+  .is-embed &,
+  .is-embed-preview &,
+  .is-print-mode & {
+    height: auto;
+    max-height: none;
+    position: absolute;
+    width: auto;
+  }
+
+  .is-print-mode & {
+    &--collapsed,
+    &--has-no-active-layers,
+    &__heading,
+    &__toggle {
+      display: none;
+    }
+
+    .scroll-wrapper {
+      height: auto;
+    }
+  }
+
+  .is-embed &--has-no-active-layers,
+  .is-embed-preview &--has-no-active-layers {
+    display: none;
+  }
+}
+
+.leaflet-control-container {
+  .leaflet-control-zoom {
+    border: none;
+    box-shadow: none;
+    margin-right: 8px;
+  }
+
+  .leaflet-control-zoom-in,
+  .leaflet-control-zoom-out {
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 0 !important;
+    box-shadow: 2px 2px 0 0 #999999;
+    box-sizing: content-box;
+    color: #666666;
+    height: 24px !important;
+    line-height: 22px !important;
+    outline: none;
+    padding: 4px;
+    width: 24px !important;
+
+    &:hover {
+      background-color: #EC0000;
+      border-color: #EC0000;
+      color: #FFFFFF;
+    }
+  }
+
+  .leaflet-control-zoom-in {
+    margin-bottom: 2px;
+  }
+
+  .leaflet-control-scale {
+    margin: 0 8px 8px 0 !important;
+  }
+}
+
+%__toggle {
+  align-items: center;
+  align-self: center;
+  background-color: #FFFFFF;
+  border: 1px solid #CCCCCC;
+  border-radius: 50%;
+  content: 'X';
+  display: flex;
+  flex-shrink: 0;
+  font-size: 0;
+  height: 26px;
+  justify-content: center;
+  width: 26px;
+
+  svg {
+    height: 24px;
+    width: 24px;
+  }
+}

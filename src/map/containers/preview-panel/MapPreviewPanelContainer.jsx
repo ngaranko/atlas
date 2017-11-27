@@ -62,28 +62,28 @@ class MapPreviewPanelContainer extends React.Component {
 
     return (
       <section className={`
-        map-preview
-        map-preview--${this.props.isMapPreviewPanelVisible ? 'visible' : 'hidden'}
+        map-preview-panel
+        map-preview-panel--${this.props.isMapPreviewPanelVisible ? 'visible' : 'hidden'}
       `}
       >
-        <div className="map-preview__heading">
+        <div className="map-preview-panel__heading">
           <button
-            className="map-preview__button"
+            className="map-preview-panel__button"
             onClick={this.props.onMapPreviewPanelMaximize}
           >
-            <MaximizeIcon className="map-preview__button-icon" />
+            <MaximizeIcon className="map-preview-panel__button-icon" />
           </button>
           <button
-            className="map-preview__button"
+            className="map-preview-panel__button"
             onClick={this.props.onMapPreviewPanelClose}
           >
-            <CloseIcon className="map-preview__button-icon" />
+            <CloseIcon className="map-preview-panel__button-icon" />
           </button>
         </div>
         <div
           className={`
-            map-preview__body
-            map-preview__body--${isLoading ? 'loading' : 'loaded'}
+            map-preview-panel__body
+            map-preview-panel__body--${isLoading ? 'loading' : 'loaded'}
           `}
         >
           {isLoading && (
