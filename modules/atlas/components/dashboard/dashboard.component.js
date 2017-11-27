@@ -32,7 +32,10 @@
             if (vm.store.getState().map.overlays.length) {
                 return;
             }
-            (vm.isEmbed || vm.isEmbedPreview) && store.dispatch({ type: 'HIDE_MAP_PANEL' });
+
+            if (vm.isEmbed || vm.isEmbedPreview) {
+                store.dispatch({ type: 'HIDE_MAP_PANEL' });
+            }
         });
 
         // Show or hide React `MapPanel` app according to map fullscreen state
