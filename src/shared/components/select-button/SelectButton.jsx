@@ -9,7 +9,6 @@ import './_select-button.scss';
 class SelectButton extends React.Component {
   static getSelected(props) {
     return props.options.find((option) => option.value === props.value) ||
-      props.options.find((option) => option.selected) ||
       props.options[0] ||
       {
         label: props.label,
@@ -23,13 +22,13 @@ class SelectButton extends React.Component {
     const selected = SelectButton.getSelected(props);
 
     this.state = {
-      label: selected.label,
-      value: selected.value,
       className: props.className,
-      isExpanded: props.isExpanded,
-      isDisabled: props.isDisabled,
       icon: props.icon,
-      options: props.options
+      isDisabled: props.isDisabled,
+      isExpanded: props.isExpanded,
+      label: selected.label,
+      options: props.options,
+      value: selected.value
     };
 
     this.handleToggle = this.handleToggle.bind(this);
@@ -38,17 +37,19 @@ class SelectButton extends React.Component {
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
   }
 
-  componentWillReceiveProps(props) {
-    this.setState({
-      isDisabled: props.isDisabled
-    });
+  componentWillReceiveProps(nextProps) {
+    const state = { isDisabled: nextProps.isDisabled };
 
-    const selected = SelectButton.getSelected(props);
+    if (!(this.state.value && !nextProps.value)) {
+      const selected = SelectButton.getSelected(nextProps);
 
-    this.setState({
-      label: selected.label,
-      value: selected.value
-    });
+      Object.assign(state, {
+        label: selected.label,
+        value: selected.value
+      });
+    }
+
+    this.setState(state);
   }
 
   handleToggle() {

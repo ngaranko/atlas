@@ -22,7 +22,7 @@ const MapType = ({ activeBaseLayer, baseLayers, onBaseLayerToggle }) => (
       isDisabled={!hasLayer(activeBaseLayer, baseLayers.topography)}
       name="topography"
       options={baseLayers.topography}
-      value={activeBaseLayer}
+      value={hasLayer(activeBaseLayer, baseLayers.topography) ? activeBaseLayer : null}
     />
 
     <SelectButton
@@ -32,7 +32,7 @@ const MapType = ({ activeBaseLayer, baseLayers, onBaseLayerToggle }) => (
       isDisabled={!hasLayer(activeBaseLayer, baseLayers.aerial)}
       name="aerial"
       options={baseLayers.aerial}
-      value={activeBaseLayer}
+      value={hasLayer(activeBaseLayer, baseLayers.aerial) ? activeBaseLayer : null}
     />
   </section>
 );
