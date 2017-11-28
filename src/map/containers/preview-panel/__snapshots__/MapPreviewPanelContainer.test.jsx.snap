@@ -3,42 +3,42 @@
 exports[`MapPreviewPanelContainer rendering should render empty results 1`] = `
 <section
   className="
-        map-preview
-        map-preview--visible
+        map-preview-panel
+        map-preview-panel--visible
       "
 >
   <div
-    className="map-preview__heading"
+    className="map-preview-panel__heading"
   >
     <button
-      className="map-preview__button"
+      className="map-preview-panel__button"
       onClick={[Function]}
     >
       <test-file-stub
-        className="map-preview__button-icon"
+        className="map-preview-panel__button-icon"
       />
     </button>
     <button
-      className="map-preview__button"
+      className="map-preview-panel__button"
       onClick={[Function]}
     >
       <test-file-stub
-        className="map-preview__button-icon"
+        className="map-preview-panel__button-icon"
       />
     </button>
   </div>
   <div
     className="
-            map-preview__body
-            map-preview__body--loaded
+            map-preview-panel__body
+            map-preview-panel__body--loaded
           "
   >
     <MapSearchResults
       location={
-        Array [
-          1,
-          0,
-        ]
+        Object {
+          "latitude": 1,
+          "longitude": 0,
+        }
       }
       panoUrl="pano-url"
       results={Array []}
@@ -50,42 +50,42 @@ exports[`MapPreviewPanelContainer rendering should render empty results 1`] = `
 exports[`MapPreviewPanelContainer rendering should render empty results 2`] = `
 <section
   className="
-        map-preview
-        map-preview--visible
+        map-preview-panel
+        map-preview-panel--visible
       "
 >
   <div
-    className="map-preview__heading"
+    className="map-preview-panel__heading"
   >
     <button
-      className="map-preview__button"
+      className="map-preview-panel__button"
       onClick={[Function]}
     >
       <test-file-stub
-        className="map-preview__button-icon"
+        className="map-preview-panel__button-icon"
       />
     </button>
     <button
-      className="map-preview__button"
+      className="map-preview-panel__button"
       onClick={[Function]}
     >
       <test-file-stub
-        className="map-preview__button-icon"
+        className="map-preview-panel__button-icon"
       />
     </button>
   </div>
   <div
     className="
-            map-preview__body
-            map-preview__body--loaded
+            map-preview-panel__body
+            map-preview-panel__body--loaded
           "
   >
     <MapSearchResults
       location={
-        Array [
-          1,
-          0,
-        ]
+        Object {
+          "latitude": 1,
+          "longitude": 0,
+        }
       }
       panoUrl="pano-url"
       results={
@@ -103,34 +103,34 @@ exports[`MapPreviewPanelContainer rendering should render empty results 2`] = `
 exports[`MapPreviewPanelContainer rendering should render loading 1`] = `
 <section
   className="
-        map-preview
-        map-preview--visible
+        map-preview-panel
+        map-preview-panel--visible
       "
 >
   <div
-    className="map-preview__heading"
+    className="map-preview-panel__heading"
   >
     <button
-      className="map-preview__button"
+      className="map-preview-panel__button"
       onClick={[Function]}
     >
       <test-file-stub
-        className="map-preview__button-icon"
+        className="map-preview-panel__button-icon"
       />
     </button>
     <button
-      className="map-preview__button"
+      className="map-preview-panel__button"
       onClick={[Function]}
     >
       <test-file-stub
-        className="map-preview__button-icon"
+        className="map-preview-panel__button-icon"
       />
     </button>
   </div>
   <div
     className="
-            map-preview__body
-            map-preview__body--loading
+            map-preview-panel__body
+            map-preview-panel__body--loading
           "
   >
     <LoadingIndicator />
@@ -141,42 +141,42 @@ exports[`MapPreviewPanelContainer rendering should render loading 1`] = `
 exports[`MapPreviewPanelContainer rendering should render results 1`] = `
 <section
   className="
-        map-preview
-        map-preview--visible
+        map-preview-panel
+        map-preview-panel--visible
       "
 >
   <div
-    className="map-preview__heading"
+    className="map-preview-panel__heading"
   >
     <button
-      className="map-preview__button"
+      className="map-preview-panel__button"
       onClick={[Function]}
     >
       <test-file-stub
-        className="map-preview__button-icon"
+        className="map-preview-panel__button-icon"
       />
     </button>
     <button
-      className="map-preview__button"
+      className="map-preview-panel__button"
       onClick={[Function]}
     >
       <test-file-stub
-        className="map-preview__button-icon"
+        className="map-preview-panel__button-icon"
       />
     </button>
   </div>
   <div
     className="
-            map-preview__body
-            map-preview__body--loaded
+            map-preview-panel__body
+            map-preview-panel__body--loaded
           "
   >
     <MapSearchResults
       location={
-        Array [
-          1,
-          0,
-        ]
+        Object {
+          "latitude": 1,
+          "longitude": 0,
+        }
       }
       panoUrl="pano-url"
       results={
@@ -197,42 +197,42 @@ exports[`MapPreviewPanelContainer rendering should render results 1`] = `
 exports[`MapPreviewPanelContainer rendering should render results 2`] = `
 <section
   className="
-        map-preview
-        map-preview--visible
+        map-preview-panel
+        map-preview-panel--visible
       "
 >
   <div
-    className="map-preview__heading"
+    className="map-preview-panel__heading"
   >
     <button
-      className="map-preview__button"
+      className="map-preview-panel__button"
       onClick={[Function]}
     >
       <test-file-stub
-        className="map-preview__button-icon"
+        className="map-preview-panel__button-icon"
       />
     </button>
     <button
-      className="map-preview__button"
+      className="map-preview-panel__button"
       onClick={[Function]}
     >
       <test-file-stub
-        className="map-preview__button-icon"
+        className="map-preview-panel__button-icon"
       />
     </button>
   </div>
   <div
     className="
-            map-preview__body
-            map-preview__body--loaded
+            map-preview-panel__body
+            map-preview-panel__body--loaded
           "
   >
     <MapSearchResults
       location={
-        Array [
-          1,
-          0,
-        ]
+        Object {
+          "latitude": 1,
+          "longitude": 0,
+        }
       }
       panoUrl="pano-url"
       results={
@@ -250,42 +250,42 @@ exports[`MapPreviewPanelContainer rendering should render results 2`] = `
 exports[`MapPreviewPanelContainer rendering should render results without pano 1`] = `
 <section
   className="
-        map-preview
-        map-preview--visible
+        map-preview-panel
+        map-preview-panel--visible
       "
 >
   <div
-    className="map-preview__heading"
+    className="map-preview-panel__heading"
   >
     <button
-      className="map-preview__button"
+      className="map-preview-panel__button"
       onClick={[Function]}
     >
       <test-file-stub
-        className="map-preview__button-icon"
+        className="map-preview-panel__button-icon"
       />
     </button>
     <button
-      className="map-preview__button"
+      className="map-preview-panel__button"
       onClick={[Function]}
     >
       <test-file-stub
-        className="map-preview__button-icon"
+        className="map-preview-panel__button-icon"
       />
     </button>
   </div>
   <div
     className="
-            map-preview__body
-            map-preview__body--loaded
+            map-preview-panel__body
+            map-preview-panel__body--loaded
           "
   >
     <MapSearchResults
       location={
-        Array [
-          1,
-          0,
-        ]
+        Object {
+          "latitude": 1,
+          "longitude": 0,
+        }
       }
       results={
         Array [
@@ -305,42 +305,42 @@ exports[`MapPreviewPanelContainer rendering should render results without pano 1
 exports[`MapPreviewPanelContainer rendering should render results without pano 2`] = `
 <section
   className="
-        map-preview
-        map-preview--visible
+        map-preview-panel
+        map-preview-panel--visible
       "
 >
   <div
-    className="map-preview__heading"
+    className="map-preview-panel__heading"
   >
     <button
-      className="map-preview__button"
+      className="map-preview-panel__button"
       onClick={[Function]}
     >
       <test-file-stub
-        className="map-preview__button-icon"
+        className="map-preview-panel__button-icon"
       />
     </button>
     <button
-      className="map-preview__button"
+      className="map-preview-panel__button"
       onClick={[Function]}
     >
       <test-file-stub
-        className="map-preview__button-icon"
+        className="map-preview-panel__button-icon"
       />
     </button>
   </div>
   <div
     className="
-            map-preview__body
-            map-preview__body--loaded
+            map-preview-panel__body
+            map-preview-panel__body--loaded
           "
   >
     <MapSearchResults
       location={
-        Array [
-          1,
-          0,
-        ]
+        Object {
+          "latitude": 1,
+          "longitude": 0,
+        }
       }
       panoUrl="pano-url"
       results={
@@ -361,42 +361,42 @@ exports[`MapPreviewPanelContainer rendering should render results without pano 2
 exports[`MapPreviewPanelContainer rendering should render visibility 1`] = `
 <section
   className="
-        map-preview
-        map-preview--hidden
+        map-preview-panel
+        map-preview-panel--hidden
       "
 >
   <div
-    className="map-preview__heading"
+    className="map-preview-panel__heading"
   >
     <button
-      className="map-preview__button"
+      className="map-preview-panel__button"
       onClick={[Function]}
     >
       <test-file-stub
-        className="map-preview__button-icon"
+        className="map-preview-panel__button-icon"
       />
     </button>
     <button
-      className="map-preview__button"
+      className="map-preview-panel__button"
       onClick={[Function]}
     >
       <test-file-stub
-        className="map-preview__button-icon"
+        className="map-preview-panel__button-icon"
       />
     </button>
   </div>
   <div
     className="
-            map-preview__body
-            map-preview__body--loaded
+            map-preview-panel__body
+            map-preview-panel__body--loaded
           "
   >
     <MapSearchResults
       location={
-        Array [
-          1,
-          0,
-        ]
+        Object {
+          "latitude": 1,
+          "longitude": 0,
+        }
       }
       panoUrl="pano-url"
       results={
@@ -414,42 +414,42 @@ exports[`MapPreviewPanelContainer rendering should render visibility 1`] = `
 exports[`MapPreviewPanelContainer rendering should render visibility 2`] = `
 <section
   className="
-        map-preview
-        map-preview--visible
+        map-preview-panel
+        map-preview-panel--visible
       "
 >
   <div
-    className="map-preview__heading"
+    className="map-preview-panel__heading"
   >
     <button
-      className="map-preview__button"
+      className="map-preview-panel__button"
       onClick={[Function]}
     >
       <test-file-stub
-        className="map-preview__button-icon"
+        className="map-preview-panel__button-icon"
       />
     </button>
     <button
-      className="map-preview__button"
+      className="map-preview-panel__button"
       onClick={[Function]}
     >
       <test-file-stub
-        className="map-preview__button-icon"
+        className="map-preview-panel__button-icon"
       />
     </button>
   </div>
   <div
     className="
-            map-preview__body
-            map-preview__body--loaded
+            map-preview-panel__body
+            map-preview-panel__body--loaded
           "
   >
     <MapSearchResults
       location={
-        Array [
-          1,
-          0,
-        ]
+        Object {
+          "latitude": 1,
+          "longitude": 0,
+        }
       }
       panoUrl="pano-url"
       results={

@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import {
-  maximizeMapPreviewPanel,
-  closeMapPreviewPanel
-} from '../../ducks/preview-panel/map-preview-panel';
+import { maximizeMapPreviewPanel, closeMapPreviewPanel }
+  from '../../ducks/preview-panel/map-preview-panel';
 import { selectLatestMapSearchResults, getMapSearchResults }
   from '../../ducks/search-results/map-search-results';
 import { getPanoPreview } from '../../../pano/ducks/preview/pano-preview';
@@ -17,15 +15,20 @@ import LoadingIndicator from '../../../shared/components/loading-indicator/Loadi
 
 const mapStateToProps = (state) => ({
   isMapPreviewPanelVisible: state.isMapPreviewPanelVisible,
-  search: state.search,
-  results: selectLatestMapSearchResults(state),
   pano: state.pano,
+  results: selectLatestMapSearchResults(state),
+  search: state.search,
+  searchLocation: state.search && state.search.location && {
+    latitude: state.search.location[0],
+    longitude: state.search.location[1]
+  },
+  searchLocationId: state.search && state.search.location && state.search.location.toString(),
   user: state.user
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  onMapPreviewPanelMaximize: maximizeMapPreviewPanel,
-  onMapPreviewPanelClose: closeMapPreviewPanel
+  onMapPreviewPanelClose: closeMapPreviewPanel,
+  onMapPreviewPanelMaximize: maximizeMapPreviewPanel
 }, dispatch);
 
 const fetchData = (context, location, user) => {
@@ -35,55 +38,54 @@ const fetchData = (context, location, user) => {
 
 class MapPreviewPanelContainer extends React.Component {
   componentDidMount() {
-    if (this.props.search && this.props.search.location) {
-      fetchData(this.context, this.props.search.location, this.props.user);
+    if (this.props.searchLocation) {
+      fetchData(this.context, this.props.searchLocation, this.props.user);
     }
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.search &&
-      this.props.search.location && (
-        !prevProps.search ||
-        !prevProps.search.location ||
-        prevProps.search.location[0] !== this.props.search.location[0] ||
-        prevProps.search.location[1] !== this.props.search.location[1]
+    if (this.props.searchLocation && (
+        !prevProps.searchLocation ||
+        prevProps.searchLocation.latitude !== this.props.searchLocation.latitude ||
+        prevProps.searchLocation.longitude !== this.props.searchLocation.longitude
       )
     ) {
-      fetchData(this.context, this.props.search.location, this.props.user);
+      fetchData(this.context, this.props.searchLocation, this.props.user);
     }
   }
 
   render() {
     const search = this.props.search || {};
     const pano = this.props.pano || {};
-    const panoPreview = (search.location && pano.previews && pano.previews[search.location]) || {};
-    const isLoading = this.props.search && this.props.search.isLoading;
-    const isLoaded = this.props.search && !search.isLoading && search.location;
+    const panoPreview = (this.props.searchLocation && pano.previews &&
+      pano.previews[this.props.searchLocationId]) || {};
+    const isLoaded = this.props.search && !search.isLoading && this.props.searchLocation;
+    const isLoading = this.props.search && search.isLoading;
 
     return (
       <section className={`
-        map-preview
-        map-preview--${this.props.isMapPreviewPanelVisible ? 'visible' : 'hidden'}
+        map-preview-panel
+        map-preview-panel--${this.props.isMapPreviewPanelVisible ? 'visible' : 'hidden'}
       `}
       >
-        <div className="map-preview__heading">
+        <div className="map-preview-panel__heading">
           <button
-            className="map-preview__button"
+            className="map-preview-panel__button"
             onClick={this.props.onMapPreviewPanelMaximize}
           >
-            <MaximizeIcon className="map-preview__button-icon" />
+            <MaximizeIcon className="map-preview-panel__button-icon" />
           </button>
           <button
-            className="map-preview__button"
+            className="map-preview-panel__button"
             onClick={this.props.onMapPreviewPanelClose}
           >
-            <CloseIcon className="map-preview__button-icon" />
+            <CloseIcon className="map-preview-panel__button-icon" />
           </button>
         </div>
         <div
           className={`
-            map-preview__body
-            map-preview__body--${isLoading ? 'loading' : 'loaded'}
+            map-preview-panel__body
+            map-preview-panel__body--${isLoading ? 'loading' : 'loaded'}
           `}
         >
           {isLoading && (
@@ -92,7 +94,7 @@ class MapPreviewPanelContainer extends React.Component {
           {isLoaded && (
             <MapSearchResults
               count={search.numberOfResults}
-              location={search.location}
+              location={this.props.searchLocation}
               panoUrl={panoPreview.url}
               results={this.props.results}
             />
@@ -109,20 +111,24 @@ MapPreviewPanelContainer.contextTypes = {
 
 MapPreviewPanelContainer.defaultProps = {
   isMapPreviewPanelVisible: false,
-  search: {},
-  results: [],
   pano: {},
+  results: [],
+  search: {},
+  searchLocation: null,
+  searchLocationId: '',
   user: {}
 };
 
 MapPreviewPanelContainer.propTypes = {
   isMapPreviewPanelVisible: PropTypes.bool,
-  search: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  results: PropTypes.array, // eslint-disable-line react/forbid-prop-types
-  pano: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  user: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  onMapPreviewPanelClose: PropTypes.func.isRequired,
   onMapPreviewPanelMaximize: PropTypes.func.isRequired,
-  onMapPreviewPanelClose: PropTypes.func.isRequired
+  pano: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  results: PropTypes.array, // eslint-disable-line react/forbid-prop-types
+  search: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  searchLocation: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  searchLocationId: PropTypes.string, // eslint-disable-line react/forbid-prop-types
+  user: PropTypes.object // eslint-disable-line react/forbid-prop-types
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapPreviewPanelContainer);

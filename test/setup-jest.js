@@ -9,10 +9,10 @@ global.shallow = shallow;
 global.render = render;
 global.mount = mount;
 
+// Mock the window.fetch function
+global.fetch = require('jest-fetch-mock');
+
 // Fail tests on any warning
 console.error = message => { // eslint-disable-line
   throw new Error(message); // eslint-disable-line
 };
-
-// Mock the window.fetch function
-global.fetch = require('jest-fetch-mock');

@@ -434,6 +434,9 @@ describe('The dashboard component', function () {
             $rootScope.$digest();
 
             mockedVisibility.mapPreviewPanel = true;
+            mockedState.search = {
+                location: [1, 0]
+            };
             handler();
             $rootScope.$digest();
 
@@ -443,13 +446,40 @@ describe('The dashboard component', function () {
 
             store.dispatch.calls.reset();
 
+            // No search location
             mockedVisibility.mapPreviewPanel = false;
+            delete mockedState.search.location;
             handler();
             $rootScope.$digest();
 
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: 'CLOSE_MAP_PREVIEW_PANEL'
             });
+
+            store.dispatch.calls.reset();
+
+            // Panel not visible
+            mockedVisibility.mapPreviewPanel = false;
+            mockedState.search = {
+                location: [1, 0]
+            };
+            handler();
+            $rootScope.$digest();
+
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: 'CLOSE_MAP_PREVIEW_PANEL'
+            });
+
+            // Neither
+            delete mockedState.search.location;
+            handler();
+            $rootScope.$digest();
+
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: 'CLOSE_MAP_PREVIEW_PANEL'
+            });
+
+            store.dispatch.calls.reset();
         });
     });
 });

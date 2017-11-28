@@ -5,12 +5,17 @@ export const FETCH_PANO_PREVIEW_FAILURE = 'FETCH_PANO_PREVIEW_FAILURE';
 const initialState = {
   error: null,
   pano: {
-    location: [],
+    location: {},
     previews: {}
   }
 };
 
 export default function PanoPreviewReducer(state = initialState, action) {
+  const locationId = Object
+    .keys(state.pano.location)
+    .map((key) => state.pano.location[key])
+    .toString();
+
   switch (action.type) {
     case FETCH_PANO_PREVIEW_REQUEST:
       return {
@@ -27,10 +32,9 @@ export default function PanoPreviewReducer(state = initialState, action) {
         ...state,
         pano: {
           ...state.pano,
-          location: [],
           previews: {
             ...state.pano.previews,
-            [state.pano.location]: action.panoResult
+            [locationId]: action.panoResult
           }
         }
       };

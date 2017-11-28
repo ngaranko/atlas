@@ -30,12 +30,18 @@ const config = {
  *
  * Please mind: x is lon (4.xxx) and y is lat (52.xxx).
  *
- * @params {Array} wgs84Coordinates of the form [lat, lon]
+ * @params {Object.<string, number>} wgs84Coordinates with keys `latitude` and
+ * `longitude`.
  *
- * @returns {Array} RD coordinates of the form [x, y]
+ * @returns {Object.<string, number>} RD coordinates with keys `x` and `y`.
  */
 export function wgs84ToRd(wgs84Coordinates) {
-  return proj4(config.rd.projection, [...wgs84Coordinates].reverse());
+  const rdCoordinates = proj4(config.rd.projection,
+    [wgs84Coordinates.longitude, wgs84Coordinates.latitude]);
+  return {
+    x: rdCoordinates[0],
+    y: rdCoordinates[1]
+  };
 }
 
 /**
@@ -43,10 +49,16 @@ export function wgs84ToRd(wgs84Coordinates) {
  *
  * Please mind: x is lon (4.xxx) and y is lat (52.xxx).
  *
- * @params {Array} rdCoordinates of the form [x, y]
+ * @params {Object.<string, number>} rdCoordinates with keys `x` and `y`.
  *
- * @returns {Array} WGS84 coordinates of the form [lat, lon]
+ * @returns {Object.<string, number>} WGS84 coordinates with keys `latitude`
+ * and `longitude`.
  */
 export function rdToWgs84(rdCoordinates) {
-  return proj4(config.rd.projection, config.wgs84.projection, rdCoordinates).reverse();
+  const wgs84Coordinates = proj4(config.rd.projection, config.wgs84.projection,
+    [rdCoordinates.x, rdCoordinates.y]);
+  return {
+    latitude: wgs84Coordinates[1],
+    longitude: wgs84Coordinates[0]
+  };
 }

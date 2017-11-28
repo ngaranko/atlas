@@ -3,13 +3,17 @@ export const FETCH_MAP_SEARCH_RESULTS_SUCCESS = 'FETCH_MAP_SEARCH_RESULTS_SUCCES
 export const FETCH_MAP_SEARCH_RESULTS_FAILURE = 'FETCH_MAP_SEARCH_RESULTS_FAILURE';
 
 const initialState = {
-  mapSearchResults: null,
   mapSearchResultsByLocation: {},
   isLoading: false,
   error: null
 };
 
 export default function MapSearchResultsReducer(state = initialState, action) {
+  const locationId = Object
+    .keys(action.location)
+    .map((key) => action.location[key])
+    .toString();
+
   switch (action.type) {
     case FETCH_MAP_SEARCH_RESULTS_REQUEST:
       return { ...state, isLoading: true, error: null };
@@ -18,10 +22,9 @@ export default function MapSearchResultsReducer(state = initialState, action) {
       return {
         ...state,
         isLoading: false,
-        mapSearchResults: action.mapSearchResults,
         mapSearchResultsByLocation: {
           ...state.mapSearchResultsByLocation,
-          [action.location]: action.mapSearchResults
+          [locationId]: action.mapSearchResults
         }
       };
 
@@ -34,7 +37,8 @@ export default function MapSearchResultsReducer(state = initialState, action) {
 }
 
 export const selectLatestMapSearchResults = (state) =>
-  state.search && state.search.location && state.mapSearchResultsByLocation[state.search.location];
+  state.search && state.search.location &&
+  state.mapSearchResultsByLocation[state.search.location];
 
 export const getMapSearchResults = (location, user) => ({
   type: FETCH_MAP_SEARCH_RESULTS_REQUEST,

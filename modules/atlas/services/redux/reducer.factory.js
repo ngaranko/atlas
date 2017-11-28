@@ -42,59 +42,55 @@
         environment
     ) {
         return function (oldState, action) { // eslint-disable-line complexity, max-statements
-            const DetailsReducers = $window.reducers.detailReducer;
+            const DetailsReducer = $window.reducers.detailReducer;
             const UserReducer = $window.reducers.UserReducer;
             const MapLayersReducer = $window.reducers.MapLayersReducer;
             const MapPanelReducer = $window.reducers.MapPanelReducer;
             const MapPreviewPanelReducer = $window.reducers.MapPreviewPanelReducer;
             const MapOverlaysReducer = $window.reducers.MapOverlaysReducer;
             const MapBaseLayersReducer = $window.reducers.MapBaseLayersReducer;
-            const UiReducer = $window.reducers.UiReducer;
-
-            // TODO: Redux: replace
-            // Warning: angular.merge is deprecated
-            // -- https://docs.angularjs.org/api/ng/function/angular.merge
             const MapSearchResultsReducer = $window.reducers.MapSearchResultsReducer;
             const PanoPreviewReducer = $window.reducers.PanoPreviewReducer;
             const ErrorMessageReducer = $window.reducers.ErrorMessageReducer;
+            const UiReducer = $window.reducers.UiReducer;
 
             const detailReducers = {
-                FETCH_DETAIL: DetailsReducers,
-                SHOW_DETAIL: DetailsReducers,
-                DETAIL_FULLSCREEN: DetailsReducers
+                FETCH_DETAIL: DetailsReducer,
+                SHOW_DETAIL: DetailsReducer,
+                DETAIL_FULLSCREEN: DetailsReducer
             };
 
-            const userReducer = {
+            const userReducers = {
                 AUTHENTICATE_USER: UserReducer,
                 AUTHENTICATE_ERROR: UserReducer
             };
 
-            const mapLayersReducer = {
+            const mapLayersReducers = {
                 FETCH_MAP_LAYERS_FAILURE: MapLayersReducer,
                 FETCH_MAP_LAYERS_REQUEST: MapLayersReducer,
                 FETCH_MAP_LAYERS_SUCCESS: MapLayersReducer
             };
 
-            const mapBaseLayersReducer = {
+            const mapBaseLayersReducers = {
                 FETCH_MAP_BASE_LAYERS_FAILURE: MapBaseLayersReducer,
                 FETCH_MAP_BASE_LAYERS_REQUEST: MapBaseLayersReducer,
                 FETCH_MAP_BASE_LAYERS_SUCCESS: MapBaseLayersReducer,
                 SET_MAP_BASE_LAYER: MapBaseLayersReducer
             };
 
-            const mapOverlaysReducer = {
+            const mapOverlaysReducers = {
                 TOGGLE_MAP_OVERLAY: MapOverlaysReducer,
                 TOGGLE_MAP_OVERLAYS: MapOverlaysReducer,
                 TOGGLE_MAP_OVERLAY_VISIBILITY: MapOverlaysReducer
             };
 
-            const mapSearchResultsReducer = {
+            const mapSearchResultsReducers = {
                 FETCH_MAP_SEARCH_RESULTS_FAILURE: MapSearchResultsReducer,
                 FETCH_MAP_SEARCH_RESULTS_REQUEST: MapSearchResultsReducer,
                 FETCH_MAP_SEARCH_RESULTS_SUCCESS: MapSearchResultsReducer
             };
 
-            const panoPreviewReducer = {
+            const panoPreviewReducers = {
                 FETCH_PANO_PREVIEW_FAILURE: PanoPreviewReducer,
                 FETCH_PANO_PREVIEW_REQUEST: PanoPreviewReducer,
                 FETCH_PANO_PREVIEW_SUCCESS: PanoPreviewReducer
@@ -120,26 +116,26 @@
             // Warning: angular.merge is deprecated
             // -- https://docs.angularjs.org/api/ng/function/angular.merge
             var actions = angular.merge(
-                urlReducers,
-                detailReducers,
-                mapPanelReducers,
-                mapPreviewPanelReducers,
-                mapOverlaysReducer,
-                mapBaseLayersReducer,
-                mapLayersReducer,
-                mapSearchResultsReducer,
-                panoPreviewReducer,
-                homeReducers,
-                userReducer,
-                mapReducers,
-                pageReducers,
-                searchReducers,
-                straatbeeldReducers,
                 dataSelectionReducers,
-                printReducers,
+                detailReducers,
                 embedReducers,
                 filtersReducers,
+                homeReducers,
+                mapBaseLayersReducers,
+                mapLayersReducers,
+                mapOverlaysReducers,
+                mapPanelReducers,
+                mapPreviewPanelReducers,
+                mapReducers,
+                mapSearchResultsReducers,
+                pageReducers,
+                panoPreviewReducers,
+                printReducers,
+                searchReducers,
+                straatbeeldReducers,
                 uiReducers,
+                urlReducers,
+                userReducers,
                 environment
             );
 

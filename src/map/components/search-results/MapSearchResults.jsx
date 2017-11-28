@@ -5,8 +5,7 @@ import { wgs84ToRd } from '../../../shared/services/coordinate-reference-system'
 import MapSearchResultsItem from './MapSearchResultsItem';
 
 const MapSearchResults = ({ count, location, results, panoUrl }) => {
-  const rdCoordinates = wgs84ToRd(location)
-    .map((coordinate) => coordinate.toFixed(2));
+  const rdCoordinates = wgs84ToRd(location);
 
   return (
     <section className="map-search-results">
@@ -18,15 +17,15 @@ const MapSearchResults = ({ count, location, results, panoUrl }) => {
       >
         {panoUrl && (
           <img
+            alt="Panoramabeeld"
             className="map-search-results__header-pano"
             src={panoUrl}
-            alt="Panoramabeeld"
           />
         )}
         <div className="map-search-results__header-container">
           <h1 className="map-search-results__header-title">Resultaten ({count})</h1>
           <h2 className="map-search-results__header-subtitle">
-            locatie {rdCoordinates[0]}, {rdCoordinates[1]}
+            locatie {rdCoordinates.x.toFixed(2)}, {rdCoordinates.y.toFixed(2)}
           </h2>
         </div>
       </header>
@@ -43,9 +42,9 @@ const MapSearchResults = ({ count, location, results, panoUrl }) => {
 
 MapSearchResults.propTypes = {
   count: PropTypes.number, // eslint-disable-line
-  location: PropTypes.array, // eslint-disable-line
-  results: PropTypes.array, // eslint-disable-line
-  panoUrl: PropTypes.string // eslint-disable-line
+  location: PropTypes.object, // eslint-disable-line
+  panoUrl: PropTypes.string, // eslint-disable-line
+  results: PropTypes.array // eslint-disable-line
 };
 
 export default MapSearchResults;

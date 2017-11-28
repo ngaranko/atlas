@@ -56,16 +56,18 @@
                 DEFAULT: (oldState, newState, params, initialValues) => {
                     [
                         'atlas',
-                        'page',
                         'filters',
-                        'user',
-                        'mapLayers',
+                        'isLoading',
+                        'isMapPanelVisible',
+                        'isMapPreviewPanelVisible',
                         'mapBaseLayers',
+                        'mapLayers',
                         'mapSearchResults',
                         'mapSearchResultsByLocation',
+                        'page',
                         'pano',
-                        'isMapPreviewPanelVisible',
-                        'ui'
+                        'ui',
+                        'user'
                     ].forEach(s => {
                         const value = initialValues[s];
                         newState[s] = angular.isDefined(value)
