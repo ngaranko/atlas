@@ -38,15 +38,16 @@ class SelectButton extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const state = { isDisabled: nextProps.isDisabled };
+    let state = { isDisabled: nextProps.isDisabled };
 
-    if (!(this.state.value && !nextProps.value)) {
+    if (!this.state.value || nextProps.value) {
       const selected = SelectButton.getSelected(nextProps);
 
-      Object.assign(state, {
+      state = {
+        ...state,
         label: selected.label,
         value: selected.value
-      });
+      };
     }
 
     this.setState(state);
