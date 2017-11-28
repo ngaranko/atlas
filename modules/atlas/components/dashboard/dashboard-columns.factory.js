@@ -56,15 +56,16 @@
                     visibility.detail = false;
                     visibility.page = false;
                     visibility.searchResults = false;
-                } else if (state.ui.isMapPanelVisible || state.map.isFullscreen) {
-                    visibility.detail = false;
-                    visibility.page = false;
-                    visibility.searchResults = false;
-                    visibility.straatbeeld = false;
+                // } else if (visibility.map) {
+                    // visibility.page = false;
                 } else {
                     visibility.detail = activity.detail && !activity.straatbeeld;
                     visibility.page = angular.isString(state.page.name) && !activity.straatbeeld;
                     visibility.searchResults = activity.searchResults;
+                }
+
+                if (visibility.map) {
+                    visibility.page = false;
                 }
 
                 visibility.dataSelection = false;
@@ -140,12 +141,11 @@
 
         function determineColumnSizesDefault (state, visibility, hasFullscreenElement) {
             const columnSizes = {};
-
-            if (visibility.mapPanel) {
-                columnSizes.left = 0;
-                columnSizes.middle = 12;
-                columnSizes.right = 0;
-            } else if (hasFullscreenElement) {
+            // if (visibility.mapPanel) {
+                // columnSizes.left = 0;
+                // columnSizes.middle = 12;
+                // columnSizes.right = 0;
+            if (hasFullscreenElement) {
                 columnSizes.left = 0;
                 columnSizes.middle = state.map.isFullscreen ? 12 : 0;
                 columnSizes.right = !state.map.isFullscreen ? 12 : 0;
