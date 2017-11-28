@@ -44,7 +44,9 @@
             }
 
             if (vm.visibility.map) {
-                store.dispatch({ type: 'SHOW_MAP_PANEL' });
+                if (vm.isMapFullscreen) {
+                    store.dispatch({ type: 'SHOW_MAP_PANEL' });
+                }
             } else {
                 store.dispatch({ type: 'HIDE_MAP_PANEL' });
             }
