@@ -35,17 +35,27 @@
             store.dispatch({ type: 'HIDE_MAP_PANEL' });
         });
 
-        // (Re)render React `MapPanel` app when map is visible
-        $scope.$watch('vm.visibility.map', (newValue, oldValue) => {
-            if (vm.visibility.map && !vm.visibility.dataSelection && !vm.activity.detail && !vm.isStraatbeeldActive) {
-                store.dispatch({ type: 'SHOW_MAP_PANEL' });
-            }
-            if (!vm.visibility.map || vm.visibility.dataSelection || vm.visibility.searchResults) {
+        // Show or hide React `MapPanel` app according to map fullscreen state
+        $scope.$watch('vm.isMapFullscreen', () => {
+            if (!vm.isMapFullscreen) {
+                // Always hide when map exits fullscreen mode
                 store.dispatch({ type: 'HIDE_MAP_PANEL' });
+            } else if (vm.isHomePageActive) {
+                // Only show when coming from the home page
+                store.dispatch({ type: 'SHOW_MAP_PANEL' });
             }
         });
 
-        function setLayout () {
+        // Open or close React `MapPreviewPanel` app
+        $scope.$watchGroup(['vm.visibility.mapPreviewPanel', 'vm.geosearchLocation'], () => {
+            if (vm.visibility.mapPreviewPanel && vm.geosearchLocation) {
+                store.dispatch({ type: 'OPEN_MAP_PREVIEW_PANEL' });
+            } else {
+                store.dispatch({ type: 'CLOSE_MAP_PREVIEW_PANEL' });
+            }
+        });
+
+        function setLayout () { // eslint-disable-line complexity
             const state = store.getState();
 
             vm.user = state.user;
@@ -54,7 +64,8 @@
             vm.visibility = dashboardColumns.determineVisibility(state);
 
             vm.hasMaxWidth = vm.visibility.page;
-            vm.isHomePage = vm.visibility.page && state.page && state.page.name === 'home';
+            vm.isHomePageActive = state.page && state.page.name === 'home';
+            vm.isHomePage = vm.visibility.page && vm.isHomePageActive;
             vm.headerSize = vm.isHomePage ? HEADER.SIZE.TALL : HEADER.SIZE.SHORT;
             vm.pageType = state.page && state.page.type ? state.page.type : '';
 
@@ -75,8 +86,11 @@
 
             vm.isFullHeight = !vm.isRightColumnScrollable || vm.columnSizes.right < 12;
 
+            vm.isMapFullscreen = Boolean(vm.visibility.map && state.map.isFullscreen);
             vm.isStraatbeeldActive = Boolean(state.straatbeeld);
             vm.straatbeeldHistory = vm.isStraatbeeldActive ? state.straatbeeld.history : null;
+            vm.isMapPreviewPanelVisible = vm.visibility.mapPreviewPanel;
+            vm.geosearchLocation = state.search && state.search.location && state.search.location.toString();
         }
     }
 })();
