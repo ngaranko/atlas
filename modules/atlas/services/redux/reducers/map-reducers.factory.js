@@ -29,7 +29,11 @@
                 map: angular.isObject(state.map) ? {
                     ...state.map,
                     isFullscreen: true
-                } : state.map
+                } : state.map,
+                ui: angular.isObject(state.ui) ? {
+                    ...state.ui,
+                    isMapPanelVisible: true
+                } : state.ui
             };
         }
 
