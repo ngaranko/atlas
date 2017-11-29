@@ -1,6 +1,25 @@
 <div>
     <!-- nummeraanduiding -->
-    <dp-partial-select partial="bag/nummeraanduiding" api-data="vm.apiData" user="vm.user"></dp-partial-select>
+
+    <dp-api-call
+        partial="bag/nummeraanduiding"
+        endpoint="{{vm.apiData.results.verblijfsobject}}"
+        merge="{
+            results: {
+                begin_geldigheid: vm.apiData.results.begin_geldigheid,
+                document_mutatie: vm.apiData.results.document_mutatie,
+                document_nummer: vm.apiData.results.document_nummer,
+                nummeraanduidingidentificatie: vm.apiData.results.nummeraanduidingidentificatie,
+                sleutelverzendend: vm.apiData.results.sleutelverzendend,
+                huisnummer: vm.apiData.results.huisnummer,
+                huisletter: vm.apiData.results.huisletter,
+                huisnummer_toevoeging: vm.apiData.results.huisnummer_toevoeging,
+                postcode: vm.apiData.results.postcode,
+                woonplaats: vm.apiData.results.woonplaats,
+                openbare_ruimte: vm.apiData.results.openbare_ruimte
+            }
+        }"
+        user="vm.user"></dp-api-call>
 
     <div ng-if="vm.apiData.results" class="u-row">
         <div class="u-col-sm--6 u-padding__right--2">
