@@ -15,7 +15,8 @@
         'dpShared',
 
         // Third party modules
-        'angulartics.piwik'
+        'angulartics.piwik',
+        'ngRaven'
     ];
 
     /* eslint-disable angular/window-service */
@@ -26,12 +27,13 @@
     };
 
     /* istanbul ignore next */
-    if (window.location.hostname !== 'data.amsterdam.nl') {
-        ravenConfig.debug = true;
-        /* istanbul ignore next */
-        ravenConfig.transport = (options) => {
-            window.console.info('Raven has been called with the following data: ', options.data);
-        };
+    if (ravenConfig.environment === 'data.amsterdam.nl') {
+        ravenConfig.sentryEndpoint = 'https://e787d53c011243b59ae368a912ee6d3f@sentry.datapunt.amsterdam.nl/2';
+    } else if (ravenConfig.environment === 'acc.amsterdam.nl') {
+        ravenConfig.sentryEndpoint = 'https://f52176a24eae4ad9acb7acc3fd5f7cdc@sentry.datapunt.amsterdam.nl/4';
+    } else {
+        Raven.setShouldSendCallback(() => false);
+        Raven.isSetup = () => true;
     }
     /* eslint-enable angular/window-service */
 
@@ -42,10 +44,9 @@
     /* istanbul ignore next */
     if (Raven) {
         Raven
-            .config('https://e787d53c011243b59ae368a912ee6d3f@sentry.datapunt.amsterdam.nl/2', ravenConfig)
+            .config(ravenConfig.sentryEndpoint, ravenConfig)
             .addPlugin(Raven.Plugins.Angular)
             .install();
-        moduleDependencies.push('ngRaven');
     }
 
     angular.module('atlas', moduleDependencies);
