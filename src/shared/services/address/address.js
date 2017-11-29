@@ -1,4 +1,4 @@
-const apiUrl = 'https://acc.api.data.amsterdam.nl/';
+const apiUrl = `https://${process.env.NODE_ENV !== 'production' ? 'acc.' : ''}api.data.amsterdam.nl/`;
 
 export function fetchByPandId(pandId) {
   const searchParams = {

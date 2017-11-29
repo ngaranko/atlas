@@ -62,6 +62,7 @@
                         'mapLayers',
                         'mapSearchResults',
                         'mapSearchResultsByLocation',
+                        'mapDetailsByEndpoint',
                         'page',
                         'pano',
                         'ui',
@@ -151,6 +152,7 @@
                 user: ofTypeObject,
                 mapSearchResults: ofTypeArray,
                 mapSearchResultsByLocation: ofTypeObject,
+                mapDetailsByEndpoint: ofTypeObject,
                 pano: ofTypeObject,
                 isMapPreviewPanelVisible: ofTypeBoolean
             },
@@ -202,6 +204,7 @@
                 mapLayers: [],
                 mapSearchResults: [],
                 mapSearchResultsByLocation: {},
+                mapDetailsByEndpoint: {},
                 pano: {
                     location: [],
                     previews: {}

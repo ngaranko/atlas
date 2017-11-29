@@ -50,6 +50,7 @@
             const MapOverlaysReducer = $window.reducers.MapOverlaysReducer;
             const MapBaseLayersReducer = $window.reducers.MapBaseLayersReducer;
             const MapSearchResultsReducer = $window.reducers.MapSearchResultsReducer;
+            const MapDetailReducer = $window.reducers.MapDetailReducer;
             const PanoPreviewReducer = $window.reducers.PanoPreviewReducer;
             const ErrorMessageReducer = $window.reducers.ErrorMessageReducer;
             const UiReducer = $window.reducers.UiReducer;
@@ -90,6 +91,12 @@
                 FETCH_MAP_SEARCH_RESULTS_SUCCESS: MapSearchResultsReducer
             };
 
+            const mapDetailReducers = {
+                FETCH_MAP_DETAIL_FAILURE: MapDetailReducer,
+                FETCH_MAP_DETAIL_REQUEST: MapDetailReducer,
+                FETCH_MAP_DETAIL_SUCCESS: MapDetailReducer
+            };
+
             const panoPreviewReducers = {
                 FETCH_PANO_PREVIEW_FAILURE: PanoPreviewReducer,
                 FETCH_PANO_PREVIEW_REQUEST: PanoPreviewReducer,
@@ -128,6 +135,7 @@
                 mapPreviewPanelReducers,
                 mapReducers,
                 mapSearchResultsReducers,
+                mapDetailReducers,
                 pageReducers,
                 panoPreviewReducers,
                 printReducers,
