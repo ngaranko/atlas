@@ -1,6 +1,7 @@
 .notification {
   color: #FFFFFF;
   display: flex;
+  font-family: "AvenirNextLTW01-Medium";
   justify-content: space-between;
   padding: 4px;
 
@@ -14,6 +15,10 @@
   }
 
   &__button {
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
     cursor: pointer;
     height: 24px;
     line-height: 0;
