@@ -1,9 +1,9 @@
-$map-preview-panel-top-print: 8px;
-$map-preview-panel-bottom-print: 2px + 10px + 17px + 8px;
-$map-preview-panel-top-embed: 8px + 34px + 16px;
-$map-preview-panel-bottom-embed: 2px + $map-preview-panel-bottom;
-
 .map-preview-panel {
+  $map-preview-panel-top-print: 8px;
+  $map-preview-panel-bottom-print: 2px + 10px + 17px + 8px;
+  $map-preview-panel-top-embed: 8px + 34px + 16px;
+  $map-preview-panel-bottom-embed: 2px + $map-preview-panel-bottom;
+
   background-color: #FAFAFA;
   border: solid 1px #CCCCCC;
   box-shadow: 2px 2px 0 0 #999999;

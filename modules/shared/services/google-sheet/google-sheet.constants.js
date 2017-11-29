@@ -19,7 +19,8 @@
                 snelwegwijs: 4,
                 apis: 5,
                 proclaimer: 6,
-                info: 7
+                info: 7,
+                inloggen: 8
             }
         });
 })();

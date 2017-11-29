@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import MapLegend from '../legend/MapLegend';
+import Notification from '../../../shared/components/notification/Notification';
 import AddIcon from '../../../../public/images/icon-plus.svg';
 import RemoveIcon from '../../../../public/images/icon-cross.svg';
 
@@ -52,6 +53,13 @@ const MapLayers = (props) => (
           </li>
       ))}
     </ul>
+    {!props.user.authenticated && (
+      <Notification className="map-layers__authorization-notification">
+        <a
+          href="#?mpb=topografie&pgn=content-overzicht&pgi=item1&pgt=inloggen"
+        >Meer kaartlagen</a> na inloggen
+      </Notification>
+    )}
   </div>
 );
 
