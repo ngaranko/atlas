@@ -37,28 +37,13 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   onMapSearchResultsItemClick: legacyFetchDetail
 }, dispatch);
 
-const fetchDetail = (context, endpoint, result, user) => {
-  context.store.dispatch(getMapDetail(endpoint, user));
-  if (result && result.location) {
-    context.store.dispatch(getPanoPreview(result.location));
-  }
-};
-
-const fetchResults = (context, location, user) => {
-  context.store.dispatch(getMapSearchResults(location, user));
-  context.store.dispatch(getPanoPreview(location));
-};
-
 class MapPreviewPanelContainer extends React.Component {
   componentDidMount() {
     if (this.props.detail && this.props.detail.endpoint) {
-      fetchDetail(
-        this.context,
-        this.props.detail.endpoint,
-        this.props.detailResult,
-        this.props.user);
+      this.context.store.dispatch(getMapDetail(this.props.detail.endpoint, this.props.user));
     } else if (this.props.searchLocation) {
-      fetchResults(this.context, this.props.searchLocation, this.props.user);
+      this.context.store.dispatch(getMapSearchResults(this.props.searchLocation, this.props.user));
+      this.context.store.dispatch(getPanoPreview(this.props.searchLocation));
     }
   }
 
@@ -68,28 +53,36 @@ class MapPreviewPanelContainer extends React.Component {
       !prevProps.detail.endpoint ||
       prevProps.detail.endpoint !== this.props.detail.endpoint)
     ) {
-      fetchDetail(
-        this.context,
-        this.props.detail.endpoint,
-        this.props.detailResult,
-        this.props.user);
+      this.context.store.dispatch(getMapDetail(this.props.detail.endpoint, this.props.user));
+    } else if (this.props.detailResult && this.props.detailResult.location && (
+      !prevProps.detailResult ||
+      !prevProps.detailResult.location ||
+      prevProps.detailResult.location !== this.props.detailResult.location)
+    ) {
+      this.context.store.dispatch(getPanoPreview(this.props.detailResult.location));
     } else if (this.props.searchLocation && (
       !prevProps.searchLocation ||
       prevProps.searchLocation.latitude !== this.props.searchLocation.latitude ||
       prevProps.searchLocation.longitude !== this.props.searchLocation.longitude)
     ) {
-      fetchResults(this.context, this.props.searchLocation, this.props.user);
+      this.context.store.dispatch(getMapSearchResults(this.props.searchLocation, this.props.user));
+      this.context.store.dispatch(getPanoPreview(this.props.searchLocation));
     }
   }
 
   render() {
     const search = this.props.search || {};
     const detail = this.props.detail || {};
+    const detailResult = this.props.detailResult || {};
+    const detailLocationId = detailResult.location && Object
+      .keys(detailResult.location)
+      .map((key) => detailResult.location[key])
+      .toString();
     const pano = this.props.pano || {};
     const panoSearchPreview = (this.props.searchLocation && pano.previews &&
       pano.previews[this.props.searchLocationId]) || {};
-    const panoDetailPreview = (this.props.detail && detail.location && pano.previews &&
-      pano.previews[detail.location]) || {};
+    const panoDetailPreview = (detailLocationId && pano.previews &&
+      pano.previews[detailLocationId]) || {};
     const isSearchLoaded = this.props.search && !search.isLoading && this.props.searchLocation;
     const isDetailLoaded = this.props.detail && !detail.isLoading && this.props.detailResult;
     const isLoading = (this.props.search && search.isLoading) ||

@@ -49,7 +49,7 @@ export function getCenter(geoJson) {
   const yMax = yValues.reduce(maxFn);
 
   return {
-    latitude: xMin + ((xMax - xMin) / 2),
-    longitude: yMin + ((yMax - yMin) / 2)
+    x: xMin + ((xMax - xMin) / 2),
+    y: yMin + ((yMax - yMin) / 2)
   };
 }
