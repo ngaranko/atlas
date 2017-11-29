@@ -164,8 +164,7 @@
                 mapSearchResults: ofTypeArray,
                 mapSearchResultsByLocation: ofTypeObject,
                 pano: ofTypeObject,
-                isMapPreviewPanelVisible: ofTypeBoolean,
-                ui: ofTypeObject
+                isMapPreviewPanelVisible: ofTypeBoolean
             },
             initialValues: {
                 // When creating a state object it will be initialized with these values

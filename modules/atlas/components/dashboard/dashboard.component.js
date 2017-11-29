@@ -38,20 +38,6 @@
             }
         });
 
-        $scope.$watch('vm.visibility.map', () => {
-            if (vm.isStraatbeeldActive) {
-                return;
-            }
-
-            if (vm.visibility.map) {
-                if (vm.isMapFullscreen) {
-                    store.dispatch({ type: 'SHOW_MAP_PANEL' });
-                }
-            } else {
-                store.dispatch({ type: 'HIDE_MAP_PANEL' });
-            }
-        });
-
         // Open or close React `MapPreviewPanel` app
         $scope.$watchGroup(['vm.visibility.mapPreviewPanel', 'vm.geosearchLocation'], () => {
             if (vm.visibility.mapPreviewPanel && vm.geosearchLocation) {
