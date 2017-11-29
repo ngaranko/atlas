@@ -80,7 +80,7 @@
     "clean-cache": "npm cache verify",
     "clean-dirs": "rimraf ./node_modules ./coverage ./coverage-legacy ./dist ./build",
     "clean": "npm run clean-cache && npm run clean-dirs",
-    "lint": "eslint --config ./.eslintrc.js ./modules/ && eslint --config ./src/.eslintrc ./src/",
+    "lint": "eslint --config ./modules/.eslintrc.js ./modules/ && eslint --config ./.eslintrc ./src/",
     "postinstall": "./node_modules/protractor/node_modules/webdriver-manager/bin/webdriver-manager update",
     "preinstall": "npm cache verify",
     "start": "grunt && webpack-dev-server --config webpack.dev.js",
