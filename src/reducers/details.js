@@ -19,6 +19,9 @@ window.reducers = window.reducers || {};
 window.reducers.detailReducer = (state = {}, action) => {
   switch (action.type) {
     case FETCH_DETAIL:
+      const leaveMapFullscreen = action.payload && previewPanelDetailEndpoints
+        .some((previewPanelEndpoint) => action.payload.includes(previewPanelEndpoint));
+
       return {
         ...state,
         dataSelection: null,
@@ -30,7 +33,7 @@ window.reducers.detailReducer = (state = {}, action) => {
         },
         map: {
           ...state.map,
-          isFullscreen: action.leaveMapFullscreen ? state.map.isFullscreen : false,
+          isFullscreen: leaveMapFullscreen ? state.map.isFullscreen : false,
           isLoading: true
         },
         page: {
@@ -74,7 +77,5 @@ window.reducers.detailReducer = (state = {}, action) => {
 
 export const fetchDetail = (endpoint) => ({
   type: FETCH_DETAIL,
-  payload: endpoint,
-  leaveMapFullscreen: previewPanelDetailEndpoints.some((previewPanelEndpoint) =>
-    endpoint.includes(previewPanelEndpoint))
+  payload: endpoint
 });
