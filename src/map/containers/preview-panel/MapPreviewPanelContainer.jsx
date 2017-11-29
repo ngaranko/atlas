@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import get from 'lodash.get';
 
 import { maximizeMapPreviewPanel, closeMapPreviewPanel }
   from '../../ducks/preview-panel/map-preview-panel';
@@ -37,73 +38,67 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   onMapSearchResultsItemClick: legacyFetchDetail
 }, dispatch);
 
+const isUpdated = (props, prevProps, paths) => {
+  if (typeof paths === 'string') {
+    const newValue = get(props, paths);
+    const oldValue = get(prevProps, paths);
+    return newValue && oldValue !== newValue;
+  }
+
+  // Every path must exist in props
+  return paths.every((path) => get(props, path)) &&
+    // Some paths must have been updated
+    paths.some((path) => isUpdated(props, prevProps, path));
+};
+
+const update = (dispatch, props, prevProps = {}) => {
+  if (isUpdated(props, prevProps, 'detail.endpoint')) {
+    dispatch(getMapDetail(props.detail.endpoint, props.user));
+  } else if (isUpdated(props, prevProps, 'detailResult.location')) {
+    dispatch(getPanoPreview(props.detailResult.location));
+  } else if (isUpdated(props, prevProps, ['searchLocation.latitude', 'searchLocation.longitude'])) {
+    dispatch(getMapSearchResults(props.searchLocation, props.user));
+    dispatch(getPanoPreview(props.searchLocation));
+  }
+};
+
 class MapPreviewPanelContainer extends React.Component {
   componentDidMount() {
-    if (this.props.detail && this.props.detail.endpoint) {
-      this.context.store.dispatch(getMapDetail(this.props.detail.endpoint, this.props.user));
-    } else if (this.props.searchLocation) {
-      this.context.store.dispatch(getMapSearchResults(this.props.searchLocation, this.props.user));
-      this.context.store.dispatch(getPanoPreview(this.props.searchLocation));
-    }
+    update(this.context.store.dispatch, this.props);
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.detail && this.props.detail.endpoint && (
-      !prevProps.detail ||
-      !prevProps.detail.endpoint ||
-      prevProps.detail.endpoint !== this.props.detail.endpoint)
-    ) {
-      this.context.store.dispatch(getMapDetail(this.props.detail.endpoint, this.props.user));
-    } else if (this.props.detailResult && this.props.detailResult.location && (
-      !prevProps.detailResult ||
-      !prevProps.detailResult.location ||
-      prevProps.detailResult.location !== this.props.detailResult.location)
-    ) {
-      this.context.store.dispatch(getPanoPreview(this.props.detailResult.location));
-    } else if (this.props.searchLocation && (
-      !prevProps.searchLocation ||
-      prevProps.searchLocation.latitude !== this.props.searchLocation.latitude ||
-      prevProps.searchLocation.longitude !== this.props.searchLocation.longitude)
-    ) {
-      this.context.store.dispatch(getMapSearchResults(this.props.searchLocation, this.props.user));
-      this.context.store.dispatch(getPanoPreview(this.props.searchLocation));
-    }
+    update(this.context.store.dispatch, this.props, prevProps);
   }
 
   render() {
-    const search = this.props.search || {};
-    const detail = this.props.detail || {};
-    const detailResult = this.props.detailResult || {};
-    const detailLocationId = detailResult.location && Object
-      .keys(detailResult.location)
-      .map((key) => detailResult.location[key])
+    const props = this.props;
+    const detailLocationId = get(props, 'detailResult.location') && Object
+      .keys(props.detailResult.location)
+      .map((key) => props.detailResult.location[key])
       .toString();
-    const pano = this.props.pano || {};
-    const panoSearchPreview = (this.props.searchLocation && pano.previews &&
-      pano.previews[this.props.searchLocationId]) || {};
-    const panoDetailPreview = (detailLocationId && pano.previews &&
-      pano.previews[detailLocationId]) || {};
-    const isSearchLoaded = this.props.search && !search.isLoading && this.props.searchLocation;
-    const isDetailLoaded = this.props.detail && !detail.isLoading && this.props.detailResult;
-    const isLoading = (this.props.search && search.isLoading) ||
-      (this.props.detail && detail.isLoading);
+    const panoSearchPreview = get(props, `pano.previews['${props.searchLocationId}']`, {});
+    const panoDetailPreview = get(props, `pano.previews['${detailLocationId}']`, {});
+    const isSearchLoaded = props.search && !props.search.isLoading && props.searchLocation;
+    const isDetailLoaded = props.detail && !props.detail.isLoading && props.detailResult;
+    const isLoading = get(props, 'search.isLoading') || get(props, 'detail.isLoading');
 
     return (
       <section className={`
         map-preview-panel
-        map-preview-panel--${this.props.isMapPreviewPanelVisible ? 'visible' : 'hidden'}
+        map-preview-panel--${props.isMapPreviewPanelVisible ? 'visible' : 'hidden'}
       `}
       >
         <div className="map-preview-panel__heading">
           <button
             className="map-preview-panel__button"
-            onClick={this.props.onMapPreviewPanelMaximize}
+            onClick={props.onMapPreviewPanelMaximize}
           >
             <MaximizeIcon className="map-preview-panel__button-icon" />
           </button>
           <button
             className="map-preview-panel__button"
-            onClick={this.props.onMapPreviewPanelClose}
+            onClick={props.onMapPreviewPanelClose}
           >
             <CloseIcon className="map-preview-panel__button-icon" />
           </button>
@@ -119,18 +114,18 @@ class MapPreviewPanelContainer extends React.Component {
           )}
           {isDetailLoaded && (
             <MapDetailResult
-              endpoint={this.props.detail.endpoint}
+              endpoint={props.detail.endpoint}
               panoUrl={panoDetailPreview.url}
-              result={this.props.detailResult}
+              result={props.detailResult}
             />
           )}
           {!isDetailLoaded && isSearchLoaded && (
             <MapSearchResults
-              count={search.numberOfResults}
-              location={this.props.searchLocation}
+              count={props.search.numberOfResults}
+              location={props.searchLocation}
               panoUrl={panoSearchPreview.url}
-              results={this.props.results}
-              onItemClick={this.props.onMapSearchResultsItemClick}
+              results={props.results}
+              onItemClick={props.onMapSearchResultsItemClick}
             />
           )}
         </div>
