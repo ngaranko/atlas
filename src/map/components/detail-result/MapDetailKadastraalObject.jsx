@@ -5,26 +5,26 @@ import MapDetailResultItem from './MapDetailResultItem';
 
 const MapDetailKadastraalObject = ({ panoUrl, result }) => {
   return (
-    <section className="map-search-results">
+    <section className="map-detail-result">
       <header
         className={`
-          map-search-results__header
-          map-search-results__header--${panoUrl ? 'pano' : 'no-pano'}
+          map-detail-result__header
+          map-detail-result__header--${panoUrl ? 'pano' : 'no-pano'}
         `}
       >
         {panoUrl && (
           <img
             alt="Panoramabeeld"
-            className="map-search-results__header-pano"
+            className="map-detail-result__header-pano"
             src={panoUrl}
           />
         )}
-        <div className="map-search-results__header-container">
-          <h1 className="map-search-results__header-title">Kadastraal object</h1>
-          <h2 className="map-search-results__header-subtitle">{result._display}</h2>
+        <div className="map-detail-result__header-container">
+          <h1 className="map-detail-result__header-title">Kadastraal object</h1>
+          <h2 className="map-detail-result__header-subtitle">{result._display}</h2>
         </div>
       </header>
-      <ul className="map-search-results__list">
+      <ul className="map-detail-result__list">
         <MapDetailResultItem
           label="Objectnummer"
           value={result.objectnummer}
