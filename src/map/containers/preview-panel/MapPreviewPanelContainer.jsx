@@ -9,6 +9,7 @@ import { maximizeMapPreviewPanel, closeMapPreviewPanel }
 import { selectLatestMapSearchResults, getMapSearchResults }
   from '../../ducks/search-results/map-search-results';
 import { selectLatestMapDetail, getMapDetail } from '../../ducks/detail/map-detail';
+import { fetchSearchResults } from '../../../reducers/search';
 import { fetchDetail as legacyFetchDetail } from '../../../reducers/details';
 import { getPanoPreview } from '../../../pano/ducks/preview/pano-preview';
 import MaximizeIcon from '../../../../public/images/icon-maximize.svg';
@@ -19,6 +20,7 @@ import LoadingIndicator from '../../../shared/components/loading-indicator/Loadi
 
 const mapStateToProps = (state) => ({
   isMapPreviewPanelVisible: state.isMapPreviewPanelVisible,
+  mapClickLocation: state.mapClickLocation,
   pano: state.pano,
   results: selectLatestMapSearchResults(state),
   search: state.search,
@@ -33,6 +35,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
+  onSearch: fetchSearchResults,
   onMapPreviewPanelClose: closeMapPreviewPanel,
   onMapPreviewPanelMaximize: maximizeMapPreviewPanel,
   onMapSearchResultsItemClick: legacyFetchDetail
@@ -94,7 +97,7 @@ class MapPreviewPanelContainer extends React.Component {
           {showDisplayAllResultsButton && (
             <button
               className="map-preview-panel__button"
-              onClick={props.onMapPreviewPanelClose}
+              onClick={() => props.onSearch(props.mapClickLocation)}
             >
               <CloseIcon className="map-preview-panel__button-icon" />
             </button>
