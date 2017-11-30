@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import MapDetailKadastraalObject from './MapDetailKadastraalObject';
+import MapDetailBouwblok from './MapDetailBouwblok';
 
-const componentsByEndpointType = [
-  'brk/object'
-  // 'gebieden/bouwblok', // Bouwblok
+const endpointTypes = [
+  'brk/object', // Kadastraal object
+  'gebieden/bouwblok' // Bouwblok
   // 'handelsregister/vestiging', // Vestiging
   // 'meetbouten/meetbout', // Meetbout
   // 'milieuthemas/explosieven/inslagen', // Inslag
@@ -14,12 +15,19 @@ const componentsByEndpointType = [
 ];
 
 const MapDetailResult = ({ endpoint, panoUrl, result }) => {
-  const endpointType = componentsByEndpointType.find((type) => endpoint.includes(type));
+  const endpointType = endpointTypes.find((type) => endpoint.includes(type));
 
   switch (endpointType) {
     case 'brk/object':
       return (
         <MapDetailKadastraalObject
+          panoUrl={panoUrl}
+          result={result}
+        />
+      );
+    case 'gebieden/bouwblok':
+      return (
+        <MapDetailBouwblok
           panoUrl={panoUrl}
           result={result}
         />
