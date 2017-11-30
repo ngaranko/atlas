@@ -14,6 +14,7 @@ import { fetchDetail as legacyFetchDetail } from '../../../reducers/details';
 import { getPanoPreview } from '../../../pano/ducks/preview/pano-preview';
 import MaximizeIcon from '../../../../public/images/icon-maximize.svg';
 import CloseIcon from '../../../../public/images/icon-cross-big.svg';
+import PlusIcon from '../../../../public/images/icon-plus.svg';
 import MapSearchResults from '../../components/search-results/MapSearchResults';
 import MapDetailResult from '../../components/detail-result/MapDetailResult';
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator';
@@ -96,10 +97,11 @@ class MapPreviewPanelContainer extends React.Component {
         <div className="map-preview-panel__heading">
           {showDisplayAllResultsButton && (
             <button
-              className="map-preview-panel__button"
+              className="map-preview-panel__button map-preview-panel__button--show-all"
               onClick={() => props.onSearch(props.mapClickLocation)}
             >
-              <CloseIcon className="map-preview-panel__button-icon" />
+              <PlusIcon className="map-preview-panel__button-icon" />
+              <span className="map-preview-panel__button-label">Toon alle resultaten</span>
             </button>
           )}
           <button

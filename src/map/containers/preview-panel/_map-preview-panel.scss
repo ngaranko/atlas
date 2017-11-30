@@ -54,16 +54,37 @@
 
     &:hover {
       background-color: #EC0000;
+
+      .map-preview-panel__button-label {
+        color: #FFFFFF;
+      }
     }
-  }
 
-  &__button-icon {
-    fill: #666666;
-    height: inherit;
-    width: inherit;
+    &--show-all {
+      align-items: center;
+      display: flex;
+      flex-grow: 1;
 
-    *:hover > & {
-      fill: #FFFFFF;
+      .map-preview-panel__button-icon {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    &-label {
+      color: #666666;
+      font-family: "Avenir LT W01 85 Heavy";
+      font-size: 14px;
+    }
+
+    &-icon {
+      fill: #666666;
+      height: inherit;
+      width: inherit;
+
+      *:hover > & {
+        fill: #FFFFFF;
+      }
     }
   }
 
