@@ -79,6 +79,7 @@ class MapPreviewPanelContainer extends React.Component {
       .toString();
     const panoSearchPreview = get(props, `pano.previews['${props.searchLocationId}']`, {});
     const panoDetailPreview = get(props, `pano.previews['${detailLocationId}']`, {});
+    const showDisplayAllResultsButton = get(props, 'detail.skippedSearchResults');
     const isSearchLoaded = props.search && !props.search.isLoading && props.searchLocation;
     const isDetailLoaded = props.detail && !props.detail.isLoading && props.detailResult;
     const isLoading = get(props, 'search.isLoading') || get(props, 'detail.isLoading');
@@ -90,6 +91,14 @@ class MapPreviewPanelContainer extends React.Component {
       `}
       >
         <div className="map-preview-panel__heading">
+          {showDisplayAllResultsButton && (
+            <button
+              className="map-preview-panel__button"
+              onClick={props.onMapPreviewPanelClose}
+            >
+              <CloseIcon className="map-preview-panel__button-icon" />
+            </button>
+          )}
           <button
             className="map-preview-panel__button"
             onClick={props.onMapPreviewPanelMaximize}
@@ -150,6 +159,7 @@ MapPreviewPanelContainer.defaultProps = {
   user: {}
 };
 
+/* eslint-disable react/no-unused-prop-types */
 MapPreviewPanelContainer.propTypes = {
   isMapPreviewPanelVisible: PropTypes.bool,
   onMapPreviewPanelClose: PropTypes.func.isRequired,
@@ -164,5 +174,6 @@ MapPreviewPanelContainer.propTypes = {
   detailResult: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   user: PropTypes.object // eslint-disable-line react/forbid-prop-types
 };
+/* eslint-enable react/no-unused-prop-types */
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapPreviewPanelContainer);

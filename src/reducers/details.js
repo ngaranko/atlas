@@ -29,7 +29,8 @@ window.reducers.detailReducer = (state = {}, action) => {
           endpoint: action.payload,
           reload: Boolean(state.detail && state.detail.endpoint === action.payload),
           isLoading: true,
-          isFullscreen: action.payload && action.payload.includes('catalogus/api')
+          isFullscreen: action.payload && action.payload.includes('catalogus/api'),
+          skippedSearchResults: Boolean(action.skippedSearchResults)
         },
         map: {
           ...state.map,

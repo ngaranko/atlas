@@ -58,6 +58,10 @@
                 id: 'MAP_CLICK',
                 ignore: true
             },
+            SET_MAP_CLICK_LOCATION: {
+                id: 'SET_MAP_CLICK_LOCATION',
+                ignore: true
+            },
             MAP_PAN: {
                 id: 'MAP_PAN',
                 replace: true

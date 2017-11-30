@@ -51,6 +51,7 @@
             const MapBaseLayersReducer = $window.reducers.MapBaseLayersReducer;
             const MapSearchResultsReducer = $window.reducers.MapSearchResultsReducer;
             const MapDetailReducer = $window.reducers.MapDetailReducer;
+            const MapClickLocationReducer = $window.reducers.MapClickLocationReducer;
             const PanoPreviewReducer = $window.reducers.PanoPreviewReducer;
             const ErrorMessageReducer = $window.reducers.ErrorMessageReducer;
             const UiReducer = $window.reducers.UiReducer;
@@ -97,6 +98,10 @@
                 FETCH_MAP_DETAIL_SUCCESS: MapDetailReducer
             };
 
+            const mapClickLocationReducers = {
+                SET_MAP_CLICK_LOCATION: MapClickLocationReducer
+            };
+
             const panoPreviewReducers = {
                 FETCH_PANO_PREVIEW_FAILURE: PanoPreviewReducer,
                 FETCH_PANO_PREVIEW_REQUEST: PanoPreviewReducer,
@@ -136,6 +141,7 @@
                 mapReducers,
                 mapSearchResultsReducers,
                 mapDetailReducers,
+                mapClickLocationReducers,
                 pageReducers,
                 panoPreviewReducers,
                 printReducers,
@@ -168,7 +174,7 @@
             } else if (legacy) {
                 if (detailReducers.hasOwnProperty(action.type.id)) {
                     action.payload = {
-                        payload: action.payload,
+                        ...action,
                         type: action.type.id
                     };
                 }

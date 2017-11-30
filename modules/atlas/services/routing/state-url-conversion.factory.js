@@ -63,6 +63,7 @@
                         'mapSearchResults',
                         'mapSearchResultsByLocation',
                         'mapDetailsByEndpoint',
+                        'mapClickLocation',
                         'page',
                         'pano',
                         'ui',
@@ -102,6 +103,7 @@
                         newState.geometry = oldState.geometry;
                         newState.isLoading = oldState.isLoading;
                         newState.isFullscreen = oldState.isFullscreen;
+                        newState.skippedSearchResults = oldState.skippedSearchResults;
                     }
                     return newState;
                 },
@@ -153,6 +155,7 @@
                 mapSearchResults: ofTypeArray,
                 mapSearchResultsByLocation: ofTypeObject,
                 mapDetailsByEndpoint: ofTypeObject,
+                mapClickLocation: ofTypeObject,
                 pano: ofTypeObject,
                 isMapPreviewPanelVisible: ofTypeBoolean
             },
@@ -184,7 +187,8 @@
                 },
                 detail: {
                     isFullscreen: false,
-                    isLoading: true
+                    isLoading: true,
+                    skippedSearchResults: false
                     // endpoint: 'http://api.example.com/bag/verblijfsobject/123/',
                     // display: 'This is the _display variable as available in each endpoint',
                     // geometry: null,
@@ -205,6 +209,7 @@
                 mapSearchResults: [],
                 mapSearchResultsByLocation: {},
                 mapDetailsByEndpoint: {},
+                mapClickLocation: {},
                 pano: {
                     location: [],
                     previews: {}
