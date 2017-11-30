@@ -61,6 +61,7 @@
 
                 if (visibility.map) {
                     visibility.page = false;
+                    visibility.searchResults = state.map.isFullscreen ? false : activity.searchResults;
                 }
 
                 visibility.dataSelection = false;

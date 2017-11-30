@@ -57,8 +57,6 @@
                     [
                         'atlas',
                         'filters',
-                        'isLoading',
-                        'isMapPanelVisible',
                         'isMapPreviewPanelVisible',
                         'mapBaseLayers',
                         'mapLayers',

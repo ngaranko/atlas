@@ -230,7 +230,6 @@ describe('The search-reducers factory', function () {
 
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, [52.001, 4.002]);
 
-            expect(output.ui.isMapPanelVisible).toBe(false);
             expect(output.page.name).toBeNull();
             expect(output.detail).toBeNull();
             expect(output.straatbeeld).toBeNull();
