@@ -51,9 +51,6 @@ describe('The dashboard component', function () {
                 isFullscreen: false,
                 isLoading: false
             },
-            search: {
-                location: [52, 4]
-            },
             page: {
                 name: 'home'
             },

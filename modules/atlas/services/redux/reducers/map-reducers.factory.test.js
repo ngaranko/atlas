@@ -45,6 +45,7 @@ describe('The map reducers', function () {
             const output = mapReducers[ACTIONS.SHOW_MAP.id](inputState);
 
             expect(output.map.isFullscreen).toBe(true);
+            expect(output.ui.isMapPanelVisible).toBe(true);
         });
 
         it('when map and map panel are not an object', function () {

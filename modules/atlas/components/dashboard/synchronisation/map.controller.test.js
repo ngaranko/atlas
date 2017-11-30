@@ -31,9 +31,6 @@ describe('The map controller', function () {
             map: {
                 var_1: 'a',
                 var_2: 'b'
-            },
-            ui: {
-                isMapPanelVisible: false
             }
         };
 
@@ -68,17 +65,6 @@ describe('The map controller', function () {
             var_1: 'a',
             var_2: 'b'
         });
-    });
-
-    it('sets the isMapPanelVisible based on the Redux state', function () {
-        let controller;
-
-        controller = getController();
-        expect(controller.isMapPanelVisible).not.toEqual(true);
-
-        mockedState.ui.isMapPanelVisible = true;
-        controller = getController();
-        expect(controller.isMapPanelVisible).toEqual(true);
     });
 
     describe('optionally adds marker data for search by location, detail and straatbeeld', function () {

@@ -68,7 +68,6 @@
             }
 
             vm.mapState = state.map;
-            vm.isMapPanelVisible = state.ui.isMapPanelVisible;
         }
 
         function convertLocationToGeoJSON (location) {

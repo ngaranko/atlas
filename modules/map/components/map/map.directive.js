@@ -26,7 +26,6 @@
                 mapState: '=',
                 markers: '=',
                 drawGeometry: '=',
-                isMapPanelVisible: '=',
                 resize: '<',
                 user: '<'
             },
