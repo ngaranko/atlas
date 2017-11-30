@@ -147,7 +147,6 @@ describe('The dashboard component', function () {
         // On other pages with the homepage 'behind' it
         mockedState.page.name = 'home';
         mockedState.map.isFullscreen = true;
-        mockedState.ui.isMapPanelVisible = true;
         component = getComponent();
         expect(component.find('.c-dashboard__footer').length).toBe(0);
 

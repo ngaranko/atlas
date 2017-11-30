@@ -31,9 +31,6 @@ describe('The dashboardColumns factory', function () {
             atlas: {
                 isPrintMode: false,
                 isEmbedPreview: false
-            },
-            ui: {
-                isMapPanelVisible: false
             }
         };
 
@@ -490,7 +487,6 @@ describe('The dashboardColumns factory', function () {
         describe('the embed preview version', function () {
             beforeEach(function () {
                 mockedState.atlas.isEmbedPreview = true;
-                mockedState.ui.isMapPanelVisible = true;
 
                 activity = dashboardColumns.determineActivity(mockedState);
                 visibility = dashboardColumns.determineVisibility(mockedState);
