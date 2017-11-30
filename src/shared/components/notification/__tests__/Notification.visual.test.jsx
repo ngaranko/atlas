@@ -12,7 +12,7 @@ describe('Notification', () => {
   );
 
   beforeAll(async () => {
-    browser = await puppeteer.launch();
+    browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
   });
 
   afterAll(async () => {
