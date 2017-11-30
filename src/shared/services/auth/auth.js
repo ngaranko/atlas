@@ -127,7 +127,7 @@ function getAccessTokenFromParams(params) {
   // in the params the fastest check is not to check if all
   // parameters are defined but to check that no undefined parameter
   // can be found
-  const paramsValid = !AUTH_PARAMS.some(param => params[param] === undefined);
+  const paramsValid = !AUTH_PARAMS.some((param) => params[param] === undefined);
 
   if (paramsValid && !stateTokenValid) {
     // This is a callback, but the state token does not equal the

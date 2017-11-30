@@ -48,6 +48,9 @@ describe('The state url conversion definition', function () {
                 mapLayers: [],
                 mapBaseLayers: {},
                 isMapPanelVisible: false,
+                ui: {
+                    isMapPanelHandleVisible: true
+                },
                 map: {
                     viewCenter: [52.3731081, 4.8932945],
                     baseLayer: 'topografie',
@@ -70,7 +73,8 @@ describe('The state url conversion definition', function () {
                 user: undefined,
                 mapLayers: undefined,
                 mapBaseLayers: undefined,
-                isMapPanelVisible: undefined
+                isMapPanelVisible: undefined,
+                ui: undefined
             });
         });
     });

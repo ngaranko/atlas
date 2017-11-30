@@ -1,8 +1,11 @@
 .map-layers {
-  margin-bottom: 8px;
+  background-color: #FAFAFA;
+  padding-bottom: 8px;
+  position: relative;
+  user-select: none;
 
   @media screen and (min-width: 1200px) {
-    margin-bottom: 12px;
+    padding-bottom: 12px;
   }
 
   &__category {
@@ -83,6 +86,10 @@
         fill: #FFFFFF;
       }
     }
+  }
+
+  &__authorization-notification {
+    margin: 8px 8px 0 8px;
   }
 
   .is-embed &,

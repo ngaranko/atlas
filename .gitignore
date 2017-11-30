@@ -6,6 +6,7 @@ dist
 docs
 node_modules
 coverage
+coverage-legacy
 *.iml
 modules/shared/styles/config/mixins/_icons.scss
 phantomjsdriver.log

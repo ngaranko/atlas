@@ -7,18 +7,28 @@ import CollapseIcon from '../../../../public/images/icon-arrow-up.svg';
 import './_select-button.scss';
 
 class SelectButton extends React.Component {
+  static getSelected(props) {
+    return props.options.find((option) => option.value === props.value) ||
+      props.options[0] ||
+      {
+        label: props.label,
+        value: props.value
+      };
+  }
+
   constructor(props) {
     super(props);
 
+    const selected = SelectButton.getSelected(props);
+
     this.state = {
-      label: props.label,
-      value: props.value,
       className: props.className,
-      isExpanded: props.isExpanded,
-      isDisabled: props.isDisabled,
       icon: props.icon,
+      isDisabled: props.isDisabled,
+      isExpanded: props.isExpanded,
+      label: selected.label,
       options: props.options,
-      isLoading: true
+      value: selected.value
     };
 
     this.handleToggle = this.handleToggle.bind(this);
@@ -27,29 +37,20 @@ class SelectButton extends React.Component {
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
   }
 
-  componentWillReceiveProps(props) {
-    this.setState({
-      isDisabled: props.isDisabled
-    });
+  componentWillReceiveProps(nextProps) {
+    let state = { isDisabled: nextProps.isDisabled };
 
-    if ((this.state.isLoading || !props.isDisabled) && props.options.length > 0) {
-      const selected = props.options.find(option => option.value === props.value)
-        || props.options.find(option => option.selected)
-        || props.options[0];
+    if (!this.state.value || nextProps.value) {
+      const selected = SelectButton.getSelected(nextProps);
 
-      if (selected) {
-        this.setState({
-          label: selected.label,
-          value: selected.value
-        });
-      }
-
-      if (this.state.isLoading) {
-        this.setState({
-          isLoading: false
-        });
-      }
+      state = {
+        ...state,
+        label: selected.label,
+        value: selected.value
+      };
     }
+
+    this.setState(state);
   }
 
   handleToggle() {
@@ -134,7 +135,7 @@ class SelectButton extends React.Component {
         </button>
 
         <ul className="select-button__drop-down">
-          {options.map(option => (
+          {options.map((option) => (
             <li
               className={`
                 select-button__drop-down-item
@@ -144,8 +145,8 @@ class SelectButton extends React.Component {
             >
               <button
                 className="select-button__drop-down-button"
-                value={option.value}
                 onClick={this.handleClickChild}
+                value={option.value}
               >
                 {option.label}
               </button>
@@ -158,24 +159,24 @@ class SelectButton extends React.Component {
 }
 
 SelectButton.defaultProps = {
-  label: '',
-  value: '',
   className: '',
-  isExpanded: false,
+  handleChange: () => {},
   isDisabled: false,
+  isExpanded: false,
+  label: '',
   options: [],
-  handleChange: () => {}
+  value: ''
 };
 
 SelectButton.propTypes = {
-  label: PropTypes.string,
-  value: PropTypes.string,
   className: PropTypes.string,
+  handleChange: PropTypes.func,
   icon: PropTypes.func.isRequired,
-  isExpanded: PropTypes.bool,
   isDisabled: PropTypes.bool,
+  isExpanded: PropTypes.bool,
+  label: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
   options: PropTypes.arrayOf(PropTypes.object),
-  handleChange: PropTypes.func
+  value: PropTypes.string // eslint-disable-line react/no-unused-prop-types
 };
 
 export default SelectButton;
