@@ -1718,6 +1718,77 @@ export default [
     url: '/maps/parkeervakken?version=1.3.0&service=WMS'
   },
   {
+    category: 'Verkeer en infrastructuur',
+    id: 'pr',
+    layers: ['reistijdenauto'],
+    legendItems: [
+      {
+        selectable: false,
+        title: '0 tot 20 km/h - snelweg'
+      },
+      {
+        selectable: false,
+        title: '20 tot 40 km/h - snelweg'
+      },
+      {
+        selectable: false,
+        title: '40 tot 60 km/h - snelweg'
+      },
+      {
+        selectable: false,
+        title: '60 tot 80 km/h - snelweg'
+      },
+      {
+        selectable: false,
+        title: '80 tot 100 km/h - snelweg'
+      },
+      {
+        selectable: false,
+        title: '100 tot 120 km/h - snelweg'
+      },
+      {
+        selectable: false,
+        title: '120 tot 140 km/h - snelweg'
+      },
+      {
+        selectable: false,
+        title: 'meer dan 140 km/h - snelweg'
+      },
+      {
+        selectable: false,
+        title: '0 tot 10 km/h - weg'
+      },
+      {
+        selectable: false,
+        title: '10 tot 20 km/h - weg'
+      },
+      {
+        selectable: false,
+        title: '20 tot 30 km/h - weg'
+      },
+      {
+        selectable: false,
+        title: '30 tot 40 km/h - weg'
+      },
+      {
+        selectable: false,
+        title: '40 tot 50 km/h - weg'
+      },
+      {
+        selectable: false,
+        title: '50 tot 60 km/h - weg'
+      },
+      {
+        selectable: false,
+        title: 'meer dan 60 km/h - weg'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: 'Verkeersstromen - Snelheden',
+    url: '/maps/reistijdenauto?version=1.3.0&service=WMS'
+  },
+  {
     category: 'Toerisme en cultuur',
     id: 'tcmnmt',
     layers: ['monument_coordinaten'],
