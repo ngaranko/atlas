@@ -30,8 +30,8 @@ function getCoordinates(coordinates) {
 export function getCenter(geoJson) {
   if (geoJson.type === 'Point') {
     return {
-      latitude: geoJson.coordinates[0],
-      longitude: geoJson.coordinates[1]
+      x: geoJson.coordinates[0],
+      y: geoJson.coordinates[1]
     };
   }
 
