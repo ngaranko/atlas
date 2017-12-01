@@ -875,6 +875,15 @@
                     'fault',
                     noDetail: true
                 },
+                pr: {
+                    url: 'maps/reistijdenauto',
+                    label_short: 'Verkeersstromen - Snelheden',
+                    label_long: 'Verkeersstromen - Snelheden',
+                    layers: ['reistijdenauto'],
+                    minZoom: 8,
+                    maxZoom: 16,
+                    noDetail: true
+                },
 
                 // Panoramabeelden
                 pano: {
@@ -1051,7 +1060,8 @@
                     overlays: [
                         'pv',
                         'pvb',
-                        'pvr'
+                        'pvr',
+                        'pr'
                     ]
                 }
             ]
