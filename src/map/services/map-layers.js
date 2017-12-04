@@ -1785,7 +1785,7 @@ export default [
     ],
     maxZoom: 16,
     minZoom: 8,
-    title: 'Verkeersstromen - Snelheden',
+    title: 'Verkeersstromen - Snelheden (±5 min. geleden)',
     url: '/maps/reistijdenauto?version=1.3.0&service=WMS'
   },
   {
