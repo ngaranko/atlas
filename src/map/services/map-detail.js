@@ -4,11 +4,12 @@ import * as meetbout from '../../shared/services/meetbout/meetbout';
 import * as napPeilmerk from '../../shared/services/nap-peilmerk/nap-peilmerk';
 import * as inslag from '../../shared/services/inslag/inslag';
 import * as monument from '../../shared/services/monument/monument';
+import * as vestiging from '../../shared/services/vestiging/vestiging';
 
 const servicesByEndpointType = {
   'brk/object': kadastraalObject.fetchByUri,
   'gebieden/bouwblok': bouwblok.fetchByUri,
-  // 'handelsregister/vestiging', // Vestiging
+  'handelsregister/vestiging': vestiging.fetchByUri,
   'meetbouten/meetbout': meetbout.fetchByUri,
   'milieuthemas/explosieven/inslagen': inslag.fetchByUri,
   'monumenten/monumenten': monument.fetchByUri,

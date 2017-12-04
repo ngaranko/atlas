@@ -90,6 +90,25 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+
+      &--alert {
+        &::after {
+          display: inline-block;
+          width: 10px;
+          height: 10px;
+          margin-left: 5px;
+          border-radius: 50%;
+          background-color: #ec0000;
+          content: "";
+        }
+      }
+    }
+
+    &-list {
+      &-item {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
   }
 }

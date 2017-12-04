@@ -7,11 +7,12 @@ import MapDetailMeetbout from './MapDetailMeetbout';
 import MapDetailNapPeilmerk from './MapDetailNapPeilmerk';
 import MapDetailInslag from './MapDetailInslag';
 import MapDetailMonument from './MapDetailMonument';
+import MapDetailVestiging from './MapDetailVestiging';
 
 const endpointTypes = [
   'brk/object', // Kadastraal object
   'gebieden/bouwblok', // Bouwblok
-  // 'handelsregister/vestiging', // Vestiging
+  'handelsregister/vestiging', // Vestiging
   'meetbouten/meetbout', // Meetbout
   'milieuthemas/explosieven/inslagen', // Inslag
   'monumenten/monumenten', // Monument
@@ -60,6 +61,13 @@ const MapDetailResult = ({ endpoint, panoUrl, result }) => {
     case 'monumenten/monumenten':
       return (
         <MapDetailMonument
+          panoUrl={panoUrl}
+          result={result}
+        />
+      );
+    case 'handelsregister/vestiging':
+      return (
+        <MapDetailVestiging
           panoUrl={panoUrl}
           result={result}
         />
