@@ -5,13 +5,14 @@ import MapDetailKadastraalObject from './MapDetailKadastraalObject';
 import MapDetailBouwblok from './MapDetailBouwblok';
 import MapDetailMeetbout from './MapDetailMeetbout';
 import MapDetailNapPeilmerk from './MapDetailNapPeilmerk';
+import MapDetailInslag from './MapDetailInslag';
 
 const endpointTypes = [
   'brk/object', // Kadastraal object
   'gebieden/bouwblok', // Bouwblok
   // 'handelsregister/vestiging', // Vestiging
   'meetbouten/meetbout', // Meetbout
-  // 'milieuthemas/explosieven/inslagen', // Inslag
+  'milieuthemas/explosieven/inslagen', // Inslag
   // 'monumenten/monumenten', // Monument
   'nap/peilmerk' // NAP Peilmerk
 ];
@@ -44,6 +45,13 @@ const MapDetailResult = ({ endpoint, panoUrl, result }) => {
     case 'nap/peilmerk':
       return (
         <MapDetailNapPeilmerk
+          panoUrl={panoUrl}
+          result={result}
+        />
+      );
+    case 'milieuthemas/explosieven/inslagen':
+      return (
+        <MapDetailInslag
           panoUrl={panoUrl}
           result={result}
         />

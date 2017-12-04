@@ -2,13 +2,14 @@ import * as kadastraalObject from '../../shared/services/kadastraal-object/kadas
 import * as bouwblok from '../../shared/services/bouwblok/bouwblok';
 import * as meetbout from '../../shared/services/meetbout/meetbout';
 import * as napPeilmerk from '../../shared/services/nap-peilmerk/nap-peilmerk';
+import * as inslag from '../../shared/services/inslag/inslag';
 
 const servicesByEndpointType = {
   'brk/object': kadastraalObject.fetchByUri,
   'gebieden/bouwblok': bouwblok.fetchByUri,
   // 'handelsregister/vestiging', // Vestiging
   'meetbouten/meetbout': meetbout.fetchByUri,
-  // 'milieuthemas/explosieven/inslagen', // Inslag
+  'milieuthemas/explosieven/inslagen': inslag.fetchByUri,
   // 'monumenten/monumenten', // Monument
   'nap/peilmerk': napPeilmerk.fetchByUri
 };
