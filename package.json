@@ -69,7 +69,7 @@
     "webpack-merge": "^4.1.0"
   },
   "scripts": {
-    "aria": "./node_modules/pa11y-ci/bin/pa11y-ci.js",
+    "aria": "npm start & sleep 20; ./node_modules/pa11y-ci/bin/pa11y-ci.js",
     "build": "npm run build-prod",
     "build-acc": "grunt && webpack --config webpack.acc.js",
     "build-dev": "grunt && webpack --config webpack.dev.js",
