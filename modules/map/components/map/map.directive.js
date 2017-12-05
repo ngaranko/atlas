@@ -26,7 +26,6 @@
                 mapState: '=',
                 markers: '=',
                 drawGeometry: '=',
-                showLayerSelection: '=',
                 resize: '<',
                 user: '<'
             },

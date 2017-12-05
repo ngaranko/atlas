@@ -9,12 +9,8 @@ describe('The search-reducers factory', function () {
             overlays: [],
             viewCenter: [52.3719, 4.9012],
             zoom: 9,
-            showActiveOverlays: false,
             isFullscreen: false,
             isLoading: false
-        },
-        layerSelection: {
-            isEnabled: false
         },
         search: null,
         page: {
@@ -25,6 +21,9 @@ describe('The search-reducers factory', function () {
         dataSelection: null,
         atlas: {
             isPrintMode: false
+        },
+        ui: {
+            isMapPanelVisible: false
         }
     };
 
@@ -94,7 +93,7 @@ describe('The search-reducers factory', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
-            inputState.layerSelection.isEnabled = true;
+            inputState.ui.isMapPanelVisible = true;
             inputState.page.name = 'somePage';
             inputState.page.type = 'someType';
             inputState.detail = {some: 'object'};
@@ -103,7 +102,7 @@ describe('The search-reducers factory', function () {
 
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY.id](inputState, 'linnaeus');
 
-            expect(output.layerSelection.isEnabled).toBe(false);
+            expect(output.ui.isMapPanelVisible).toBe(false);
             expect(output.page.name).toBeNull();
             expect(output.page.type).toBeNull();
             expect(output.detail).toBeNull();
@@ -155,15 +154,15 @@ describe('The search-reducers factory', function () {
             expect(output.map.isFullscreen).toBe(false);
         });
 
-        it('when map and layerSelection and page are not an object', function () {
+        it('when map and map panel and page are not an object', function () {
             const inputState = angular.copy(DEFAULT_STATE);
             inputState.map = null;
-            inputState.layerSelection = null;
+            inputState.ui = null;
             inputState.page = null;
 
             const output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY.id](inputState, '');
             expect(output.map).toBeNull();
-            expect(output.layerSelection).toBeNull();
+            expect(output.ui).toBeNull();
             expect(output.page).toBeNull();
         });
     });
@@ -223,8 +222,7 @@ describe('The search-reducers factory', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
-            inputState.layerSelection.isEnabled = true;
-            inputState.map.showActiveOverlays = true;
+            inputState.ui.isMapPanelVisible = true;
             inputState.page.name = 'somePage';
             inputState.detail = {some: 'object'};
             inputState.staatbeeld = {some: 'object'};
@@ -232,8 +230,6 @@ describe('The search-reducers factory', function () {
 
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, [52.001, 4.002]);
 
-            expect(output.layerSelection.isEnabled).toBe(false);
-            expect(output.map.showActiveOverlays).toBe(false);
             expect(output.page.name).toBeNull();
             expect(output.detail).toBeNull();
             expect(output.straatbeeld).toBeNull();
@@ -255,7 +251,7 @@ describe('The search-reducers factory', function () {
             inputState.map.isFullscreen = true;
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, [52.001, 4.002]);
 
-            expect(output.map.viewCenter).toEqual([52.123, 4.789]);
+            expect(output.map.viewCenter).toEqual([52.001, 4.002]);
         });
 
         it('clears the straatbeeld', function () {
@@ -320,14 +316,14 @@ describe('The search-reducers factory', function () {
             expect(output.map).toBeNull();
         });
 
-        it('when map and layerSelection and page are not an object', function () {
+        it('when map panel and page are not an object', function () {
             const inputState = angular.copy(DEFAULT_STATE);
-            inputState.layerSelection = null;
+            inputState.ui = null;
             inputState.page = null;
 
             const output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, [52.001, 4.002]);
-            expect(output.layerSelection).toBeNull();
             expect(output.page).toBeNull();
+            expect(output.ui).toBeNull();
         });
     });
 

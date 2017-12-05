@@ -39,10 +39,13 @@
     stateUrlConversionFactory.$inject = ['uriStripper'];
 
     function stateUrlConversionFactory (uriStripper) {
+        /* istanbul ignore next */
         const ofTypeArray = (oldState, newState) =>
             angular.isArray(oldState) ? oldState : newState;
+        /* istanbul ignore next */
         const ofTypeObject = (oldState, newState) =>
             angular.isObject(oldState) ? oldState : newState;
+        /* istanbul ignore next */
         const ofTypeBoolean = (oldState, newState) =>
             oldState === true || oldState === false ? oldState : newState;
 
@@ -53,12 +56,8 @@
                 DEFAULT: (oldState, newState, params, initialValues) => {
                     [
                         'atlas',
-                        'error',
                         'filters',
-                        'isLoading',
-                        'isMapPanelVisible',
                         'isMapPreviewPanelVisible',
-                        'layerSelection',
                         'mapBaseLayers',
                         'mapLayers',
                         'mapSearchResults',
@@ -147,17 +146,13 @@
                     }
                     return newState;
                 },
-                user: ofTypeObject,
                 mapBaseLayers: ofTypeObject,
                 mapLayers: ofTypeArray,
+                user: ofTypeObject,
                 mapSearchResults: ofTypeArray,
                 mapSearchResultsByLocation: ofTypeObject,
                 pano: ofTypeObject,
-                isMapPanelVisible: ofTypeBoolean,
-                isMapPreviewPanelVisible: ofTypeBoolean,
-                isLoading: ofTypeBoolean,
-                ui: ofTypeObject,
-                error: ofTypeObject
+                isMapPreviewPanelVisible: ofTypeBoolean
             },
             initialValues: {
                 // When creating a state object it will be initialized with these values
@@ -193,9 +188,6 @@
                     // geometry: null,
                 },
                 filters: {},
-                layerSelection: {
-                    isEnabled: false
-                },
                 map: {
                     viewCenter: [52.3731081, 4.8932945],
                     baseLayer: 'topografie',
@@ -203,7 +195,6 @@
                     overlays: [],
                     isFullscreen: false,
                     isLoading: false,
-                    showActiveOverlays: false,
                     drawingMode: 'none',
                     highlight: true
                 },
@@ -215,7 +206,6 @@
                     location: [],
                     previews: {}
                 },
-                isMapPanelVisible: false,
                 isMapPreviewPanelVisible: false,
                 page: {
                     name: null  // eg: 'home'
@@ -244,9 +234,9 @@
                     isLoading: true
                     // id: 'ABC123',
                 },
-                isLoading: false,
-                error: null,
                 ui: {
+                    isMapLayersVisible: true,
+                    isMapPanelVisible: false,
                     isMapPanelHandleVisible: true
                 }
             },
@@ -309,11 +299,6 @@
                     type: 'keyvalues'
                 },
                 // header (hd, not used)
-                // layerSelection (ls)
-                lse: {
-                    name: 'layerSelection.isEnabled',
-                    type: 'boolean'
-                },
                 // map (mp)
                 mpb: {
                     name: 'map.baseLayer',
@@ -335,10 +320,6 @@
                 mpo: {
                     name: 'map.overlays',
                     type: 'object(id:string,isVisible:boolean)[]'
-                },
-                mps: {
-                    name: 'map.showActiveOverlays',
-                    type: 'boolean'
                 },
                 mpv: {
                     name: 'map.viewCenter',
@@ -409,6 +390,11 @@
                     name: 'straatbeeld.history',
                     type: 'base62',
                     precision: 1
+                },
+                // UI visibility (uv)
+                uvm: {
+                    name: 'ui.isMapPanelVisible',
+                    type: 'boolean'
                 }
             }
         };

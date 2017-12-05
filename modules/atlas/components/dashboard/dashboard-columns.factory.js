@@ -24,7 +24,6 @@
         function determineActivity (state) {
             return {
                 map: determineMapActivity(state),
-                layerSelection: state.layerSelection.isEnabled,
                 searchResults: angular.isObject(state.search),
                 page: angular.isString(state.page.name),
                 detail: angular.isObject(state.detail),
@@ -43,20 +42,18 @@
             if (angular.isObject(state.dataSelection) && !state.map.isFullscreen) {
                 visibility.dataSelection = true;
 
-                visibility.layerSelection = !state.dataSelection.isFullscreen && state.layerSelection.isEnabled;
                 visibility.detail = false;
                 visibility.page = false;
                 visibility.searchResults = false;
                 visibility.straatbeeld = false;
             } else {
-                visibility.layerSelection = state.layerSelection.isEnabled;
                 visibility.straatbeeld = activity.straatbeeld;
 
                 if (visibility.straatbeeld && state.straatbeeld.isFullscreen) {
                     visibility.detail = false;
                     visibility.page = false;
                     visibility.searchResults = false;
-                } else if (state.layerSelection.isEnabled || state.map.isFullscreen) {
+                } else if (state.map.isFullscreen) {
                     visibility.detail = false;
                     visibility.page = false;
                     visibility.searchResults = false;
@@ -75,10 +72,6 @@
                 activity.searchResults &&
                 angular.isArray(state.search.location) &&
                 !angular.isObject(state.dataSelection);
-
-            if (isEmbedOrPreviewWithFullscreenMap(state)) {
-                visibility.layerSelection = false;
-            }
 
             return visibility;
         }
@@ -141,11 +134,7 @@
         function determineColumnSizesDefault (state, visibility, hasFullscreenElement) {
             const columnSizes = {};
 
-            if (visibility.layerSelection) {
-                columnSizes.left = 0;
-                columnSizes.middle = 12;
-                columnSizes.right = 0;
-            } else if (hasFullscreenElement) {
+            if (hasFullscreenElement) {
                 columnSizes.left = 0;
                 columnSizes.middle = state.map.isFullscreen ? 12 : 0;
                 columnSizes.right = !state.map.isFullscreen ? 12 : 0;
@@ -161,11 +150,7 @@
         function determineColumnSizesPrint (state, visibility, hasFullscreenElement) {
             const columnSizes = {};
 
-            if (visibility.layerSelection) {
-                columnSizes.left = 0;
-                columnSizes.middle = 12;
-                columnSizes.right = 0;
-            } else if (hasFullscreenElement) {
+            if (hasFullscreenElement) {
                 columnSizes.left = 0;
                 columnSizes.middle = state.map.isFullscreen ? 12 : 0;
                 columnSizes.right = !state.map.isFullscreen ? 12 : 0;

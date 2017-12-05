@@ -4,7 +4,6 @@ describe('The reducer factory', function () {
         $timeout,
         urlReducers,
         homeReducers,
-        layerSelectionReducers,
         mapReducers,
         pageReducers,
         searchReducers,
@@ -40,9 +39,6 @@ describe('The reducer factory', function () {
                 homeReducers: {
                     ACTION_C: function () {}
                 },
-                layerSelectionReducers: {
-                    ACTION_D: function () {}
-                },
                 mapReducers: {
                     ACTION_E: function () {}
                 },
@@ -76,7 +72,6 @@ describe('The reducer factory', function () {
             _$timeout_,
             _urlReducers_,
             _homeReducers_,
-            _layerSelectionReducers_,
             _mapReducers_,
             _pageReducers_,
             _searchReducers_,
@@ -92,7 +87,6 @@ describe('The reducer factory', function () {
             $timeout = _$timeout_;
             urlReducers = _urlReducers_;
             homeReducers = _homeReducers_;
-            layerSelectionReducers = _layerSelectionReducers_;
             mapReducers = _mapReducers_;
             pageReducers = _pageReducers_;
             searchReducers = _searchReducers_;
@@ -111,14 +105,10 @@ describe('The reducer factory', function () {
                 overlays: [],
                 viewCenter: [52.3719, 4.9012],
                 zoom: 9,
-                showActiveOverlays: false,
                 isFullscreen: false,
                 isLoading: false
             },
             filters: {},
-            layerSelection: {
-                isEnabled: false
-            },
             search: null,
             page: {
                 name: 'home'
@@ -128,6 +118,9 @@ describe('The reducer factory', function () {
             dataSelection: null,
             atlas: {
                 isPrintMode: false
+            },
+            ui: {
+                isMapPanelVisible: false
             }
         };
 
@@ -142,7 +135,6 @@ describe('The reducer factory', function () {
     it('groups all separate reducers and calls the appropriate one depening on the action type', function () {
         spyOn(urlReducers, 'ACTION_A').and.callThrough();
         spyOn(homeReducers, 'ACTION_C').and.callThrough();
-        spyOn(layerSelectionReducers, 'ACTION_D').and.callThrough();
         spyOn(mapReducers, 'ACTION_E').and.callThrough();
         spyOn(pageReducers, 'ACTION_F').and.callThrough();
         spyOn(searchReducers, 'ACTION_G').and.callThrough();
@@ -155,7 +147,6 @@ describe('The reducer factory', function () {
         reducer(inputState, {type: {id: 'ACTION_A'}});
         reducer(inputState, {type: {id: 'ACTION_B'}});
         reducer(inputState, {type: {id: 'ACTION_C'}});
-        reducer(inputState, {type: {id: 'ACTION_D'}});
         reducer(inputState, {type: {id: 'ACTION_E'}});
         reducer(inputState, {type: {id: 'ACTION_F'}});
         reducer(inputState, {type: {id: 'ACTION_G'}});
@@ -167,7 +158,6 @@ describe('The reducer factory', function () {
 
         expect(urlReducers.ACTION_A).toHaveBeenCalled();
         expect(homeReducers.ACTION_C).toHaveBeenCalled();
-        expect(layerSelectionReducers.ACTION_D).toHaveBeenCalled();
         expect(mapReducers.ACTION_E).toHaveBeenCalled();
         expect(pageReducers.ACTION_F).toHaveBeenCalled();
         expect(searchReducers.ACTION_G).toHaveBeenCalled();

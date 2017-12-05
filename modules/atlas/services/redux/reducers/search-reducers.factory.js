@@ -38,10 +38,10 @@
                     ...state.map,
                     isFullscreen: false
                 } : state.map,
-                layerSelection: angular.isObject(state.layerSelection) ? {
-                    ...state.layerSelection,
-                    isEnabled: false
-                } : state.layerSelection,
+                ui: angular.isObject(state.ui) ? {
+                    ...state.ui,
+                    isMapPanelVisible: false
+                } : state.ui,
                 page: angular.isObject(state.page) ? {
                     ...state.page,
                     name: null,
@@ -72,15 +72,11 @@
                 },
                 map: angular.isObject(state.map) ? {
                     ...state.map,
-                    showActiveOverlays: false,
                     geometry: [],
-                    viewCenter: state.layerSelection && state.layerSelection.isEnabled
+                    viewCenter:
+                        state.ui && state.ui.isMapPanelVisible || (state.map && state.map.isFullscreen)
                         ? payload : state.map.viewCenter
                 } : state.map,
-                layerSelection: angular.isObject(state.layerSelection) ? {
-                    ...state.layerSelection,
-                    isEnabled: false
-                } : state.layerSelection,
                 page: angular.isObject(state.page) ? {
                     ...state.page,
                     name: null

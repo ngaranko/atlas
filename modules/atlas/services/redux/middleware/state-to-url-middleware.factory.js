@@ -20,9 +20,7 @@
                     const returnValue = next(action);
 
                     // Then update the URL
-                    if ((vanilla || !action.type.ignore) &&
-                        action.type !== 'AUTHENTICATE_USER'
-                    ) {
+                    if ((vanilla || !action.type.ignore) && action.type !== 'AUTHENTICATE_USER') {
                         stateToUrl.update(
                             store.getState(),
                             !vanilla && Boolean(action.type.replace)

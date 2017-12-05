@@ -34,9 +34,6 @@ describe('The state url conversion definition', function () {
                 page: {
                     name: 'home'
                 },
-                layerSelection: {
-                    isEnabled: false
-                },
                 filters: {},
                 user: {
                     accessToken: '',
@@ -53,11 +50,7 @@ describe('The state url conversion definition', function () {
                     location: [],
                     previews: {}
                 },
-                isMapPanelVisible: false,
                 isMapPreviewPanelVisible: false,
-                ui: {
-                    isMapPanelHandleVisible: true
-                },
                 map: {
                     viewCenter: [52.3731081, 4.8932945],
                     baseLayer: 'topografie',
@@ -65,30 +58,28 @@ describe('The state url conversion definition', function () {
                     overlays: [],
                     isFullscreen: false,
                     isLoading: false,
-                    showActiveOverlays: false,
                     drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
                     highlight: true
                 },
-                isLoading: false,
-                error: null
+                ui: {
+                    isMapLayersVisible: true,
+                    isMapPanelVisible: false,
+                    isMapPanelHandleVisible: true
+                }
             });
 
             state = stateUrlConversion.onCreate.DEFAULT({}, {}, {aap: 'noot'}, {});
             expect(state).toEqual({
                 atlas: undefined,
                 page: undefined,
-                layerSelection: undefined,
                 filters: undefined,
                 user: undefined,
                 mapLayers: undefined,
                 mapBaseLayers: undefined,
-                isMapPanelVisible: undefined,
                 mapSearchResults: undefined,
                 mapSearchResultsByLocation: undefined,
                 pano: undefined,
                 isMapPreviewPanelVisible: undefined,
-                isLoading: undefined,
-                error: undefined,
                 ui: undefined
             });
         });
@@ -260,28 +251,6 @@ describe('The state url conversion definition', function () {
 
                 stateUrlConversion.post.mapLayers(oldState, newState);
                 expect(newState).toEqual([1, 2]);
-            });
-        });
-
-        describe('The post processing for isMapPanelVisible', function () {
-            it('copies booelan value from old state', function () {
-                let oldState = true;
-                let newState = false;
-
-                stateUrlConversion.post.isMapPanelVisible(oldState, newState);
-                expect(newState).toEqual(false);
-
-                oldState = false;
-                newState = true;
-
-                stateUrlConversion.post.isMapPanelVisible(oldState, newState);
-                expect(newState).toEqual(true);
-
-                oldState = [1];
-                newState = true;
-
-                stateUrlConversion.post.isMapPanelVisible(oldState, newState);
-                expect(newState).toEqual(true);
             });
         });
 

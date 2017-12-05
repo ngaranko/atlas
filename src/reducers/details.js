@@ -14,10 +14,6 @@ window.reducers.detailReducer = (state = {}, action) => {
           isLoading: true,
           isFullscreen: action.payload && action.payload.includes('catalogus/api')
         },
-        layerSelection: {
-          ...state.layerSelection,
-          isEnabled: false
-        },
         map: {
           ...state.map,
           isFullscreen: false,
