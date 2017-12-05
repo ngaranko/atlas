@@ -31,6 +31,7 @@ const mapStateToProps = (state) => ({
   },
   searchLocationId: state.search && state.search.location && state.search.location.toString(),
   detail: state.detail,
+  mapDetail: state.mapDetail,
   detailResult: selectLatestMapDetail(state),
   user: state.user
 });
@@ -85,8 +86,9 @@ class MapPreviewPanelContainer extends React.Component {
     const panoDetailPreview = get(props, `pano.previews['${detailLocationId}']`, {});
     const showDisplayAllResultsButton = get(props, 'detail.skippedSearchResults');
     const isSearchLoaded = props.search && !props.search.isLoading && props.searchLocation;
-    const isDetailLoaded = props.detail && !props.detail.isLoading && props.detailResult;
-    const isLoading = get(props, 'search.isLoading') || get(props, 'detail.isLoading');
+    const isDetailLoaded = props.detail && !props.detail.isLoading &&
+      props.mapDetail && !props.mapDetail.isLoading && props.detailResult;
+    const isLoading = get(props, 'search.isLoading') || get(props, 'mapDetail.isLoading');
 
     return (
       <section className={`
@@ -128,7 +130,7 @@ class MapPreviewPanelContainer extends React.Component {
           )}
           {isDetailLoaded && (
             <MapDetailResult
-              endpoint={props.detail.endpoint}
+              endpoint={props.mapDetail.currentEndpoint}
               panoUrl={panoDetailPreview.url}
               result={props.detailResult}
             />
@@ -160,6 +162,7 @@ MapPreviewPanelContainer.defaultProps = {
   searchLocation: null,
   searchLocationId: '',
   detail: {},
+  mapDetail: {},
   detailResult: {},
   user: {}
 };
@@ -176,6 +179,7 @@ MapPreviewPanelContainer.propTypes = {
   searchLocation: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   searchLocationId: PropTypes.string,
   detail: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  mapDetail: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   detailResult: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   user: PropTypes.object // eslint-disable-line react/forbid-prop-types
 };

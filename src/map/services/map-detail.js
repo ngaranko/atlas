@@ -7,17 +7,35 @@ import * as monument from '../../shared/services/monument/monument';
 import * as vestiging from '../../shared/services/vestiging/vestiging';
 
 const servicesByEndpointType = {
-  'brk/object': kadastraalObject.fetchByUri,
-  'gebieden/bouwblok': bouwblok.fetchByUri,
-  'handelsregister/vestiging': vestiging.fetchByUri,
-  'meetbouten/meetbout': meetbout.fetchByUri,
-  'milieuthemas/explosieven/inslagen': inslag.fetchByUri,
-  'monumenten/monumenten': monument.fetchByUri,
-  'nap/peilmerk': napPeilmerk.fetchByUri
+  'brk/object': {
+    fetch: kadastraalObject.fetchByUri
+  },
+  'gebieden/bouwblok': {
+    fetch: bouwblok.fetchByUri
+  },
+  'handelsregister/vestiging': {
+    fetch: vestiging.fetchByUri,
+    authScope: 'HR/R'
+  },
+  'meetbouten/meetbout': {
+    fetch: meetbout.fetchByUri
+  },
+  'milieuthemas/explosieven/inslagen': {
+    fetch: inslag.fetchByUri
+  },
+  'monumenten/monumenten': {
+    fetch: monument.fetchByUri
+  },
+  'nap/peilmerk': {
+    fetch: napPeilmerk.fetchByUri
+  }
 };
 
 export default function detail(endpoint, user) {
   const endpointType = Object.keys(servicesByEndpointType).find((type) => endpoint.includes(type));
-  const fetchFn = endpointType ? servicesByEndpointType[endpointType] : null;
-  return fetchFn ? fetchFn(endpoint) : null;
+  const endpointConfig = endpointType && servicesByEndpointType[endpointType];
+  const fetchFn = endpointConfig && endpointConfig.fetch;
+  const authScope = endpointConfig && endpointConfig.authScope;
+  return fetchFn && (!authScope || user.scopes.includes(authScope)) &&
+    fetchFn(endpoint);
 }

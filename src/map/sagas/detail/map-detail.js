@@ -8,7 +8,7 @@ function* fetchMapDetail(action) {
     yield put({
       type: 'FETCH_MAP_DETAIL_SUCCESS',
       endpoint: action.endpoint,
-      mapDetail
+      mapDetail: mapDetail || {}
     });
   } catch (error) {
     yield put({ type: 'FETCH_MAP_DETAIL_FAILURE', error });

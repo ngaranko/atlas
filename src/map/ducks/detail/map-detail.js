@@ -3,28 +3,45 @@ export const FETCH_MAP_DETAIL_SUCCESS = 'FETCH_MAP_DETAIL_SUCCESS';
 export const FETCH_MAP_DETAIL_FAILURE = 'FETCH_MAP_DETAIL_FAILURE';
 
 const initialState = {
-  mapDetailsByEndpoint: {},
-  isLoading: false,
-  error: null
+  mapDetail: {
+    byEndpoint: {},
+    isLoading: false
+  }
 };
 
 export default function MapDetailReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_MAP_DETAIL_REQUEST:
-      return { ...state, isLoading: true, error: null };
+      return {
+        ...state,
+        mapDetail: {
+          ...state.mapDetail,
+          currentEndpoint: action.endpoint,
+          isLoading: true
+        }
+      };
 
     case FETCH_MAP_DETAIL_SUCCESS:
       return {
         ...state,
-        isLoading: false,
-        mapDetailsByEndpoint: {
-          ...state.mapDetailsByEndpoint,
-          [action.endpoint]: action.mapDetail
+        mapDetail: {
+          ...state.mapDetail,
+          isLoading: false,
+          byEndpoint: {
+            ...state.mapDetail.byEndpoint,
+            [action.endpoint]: action.mapDetail
+          }
         }
       };
 
     case FETCH_MAP_DETAIL_FAILURE:
-      return { ...state, isLoading: false };
+      return {
+        ...state,
+        mapDetail: {
+          ...state.mapDetail,
+          isLoading: false
+        }
+      };
 
     default:
       return state;
@@ -32,8 +49,8 @@ export default function MapDetailReducer(state = initialState, action) {
 }
 
 export const selectLatestMapDetail = (state) =>
-  state.detail && state.detail.endpoint &&
-  state.mapDetailsByEndpoint[state.detail.endpoint];
+  state.mapDetail && state.mapDetail.currentEndpoint &&
+  state.mapDetail.byEndpoint[state.mapDetail.currentEndpoint];
 
 export const getMapDetail = (endpoint, user) => ({
   type: FETCH_MAP_DETAIL_REQUEST,

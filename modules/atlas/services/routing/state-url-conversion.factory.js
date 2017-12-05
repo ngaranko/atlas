@@ -62,7 +62,7 @@
                         'mapLayers',
                         'mapSearchResults',
                         'mapSearchResultsByLocation',
-                        'mapDetailsByEndpoint',
+                        'mapDetail',
                         'mapClickLocation',
                         'page',
                         'pano',
@@ -154,7 +154,7 @@
                 user: ofTypeObject,
                 mapSearchResults: ofTypeArray,
                 mapSearchResultsByLocation: ofTypeObject,
-                mapDetailsByEndpoint: ofTypeObject,
+                mapDetail: ofTypeObject,
                 mapClickLocation: ofTypeObject,
                 pano: ofTypeObject,
                 isMapPreviewPanelVisible: ofTypeBoolean
@@ -208,7 +208,11 @@
                 mapLayers: [],
                 mapSearchResults: [],
                 mapSearchResultsByLocation: {},
-                mapDetailsByEndpoint: {},
+                mapDetail: {
+                    isLoading: false,
+                    currentEndpoint: '',
+                    byEndpoint: {}
+                },
                 mapClickLocation: {},
                 pano: {
                     location: [],
