@@ -23,23 +23,33 @@ const MapDetailVestiging = ({ panoUrl, result }) => (
       )}
       <div className="map-detail-result__header-container">
         <h1 className="map-detail-result__header-title">Vestiging</h1>
-        <h2 className="map-detail-result__header-subtitle">{result._display}</h2>
+        {result._display && (
+          <h2 className="map-detail-result__header-subtitle">{result._display}</h2>
+        )}
       </div>
     </header>
-    <ul className="map-detail-result__list">
-      <MapDetailResultItem
-        label="KvK-nummer"
-        value={result.kvkNummer}
-      />
-      <MapDetailAddressItem
-        label="Bezoekadres"
-        values={result.bezoekadres}
-      />
-      <MapDetailVestigingActiviteitenItem activiteiten={result.activiteiten} />
-      <MapDetailVestigingBijzondereRechtstoestand
-        values={result._bijzondere_rechts_toestand}
-      />
-    </ul>
+    {!result._display && (
+      <div className="map-detail-result__info">
+        Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om
+        vestigingen te bekijken
+      </div>
+    )}
+    {result._display && (
+      <ul className="map-detail-result__list">
+        <MapDetailResultItem
+          label="KvK-nummer"
+          value={result.kvkNummer}
+        />
+        <MapDetailAddressItem
+          label="Bezoekadres"
+          values={result.bezoekadres}
+        />
+        <MapDetailVestigingActiviteitenItem activiteiten={result.activiteiten} />
+        <MapDetailVestigingBijzondereRechtstoestand
+          values={result._bijzondere_rechts_toestand}
+        />
+      </ul>
+    )}
   </section>
 );
 
