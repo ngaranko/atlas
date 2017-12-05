@@ -99,6 +99,7 @@
                     return extended;
                 }
 
+                /* istanbul ignore next */
                 function formatMonumenten (objecten) {
                     return (objecten && objecten.count) ? searchFormatter.formatCategory('monument', objecten) : null;
                 }
