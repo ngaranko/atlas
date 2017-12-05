@@ -113,18 +113,6 @@
                     }
                     return newState;
                 },
-                mapBaseLayers: (oldState, newState) => {
-                    if (angular.isObject(oldState)) {
-                        newState = oldState;
-                    }
-                    return newState;
-                },
-                mapLayers: (oldState, newState) => {
-                    if (angular.isArray(oldState)) {
-                        newState = oldState;
-                    }
-                    return newState;
-                },
                 search: (oldState, newState) => {
                     const hasOldState = angular.isObject(oldState);
                     const hasInputChanged = hasOldState && (
@@ -158,6 +146,8 @@
                     }
                     return newState;
                 },
+                mapBaseLayers: ofTypeObject,
+                mapLayers: ofTypeArray,
                 user: ofTypeObject,
                 mapSearchResults: ofTypeArray,
                 mapSearchResultsByLocation: ofTypeObject,

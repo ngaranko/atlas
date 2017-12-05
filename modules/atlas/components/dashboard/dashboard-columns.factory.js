@@ -53,15 +53,15 @@
                     visibility.detail = false;
                     visibility.page = false;
                     visibility.searchResults = false;
+                } else if (state.map.isFullscreen) {
+                    visibility.detail = false;
+                    visibility.page = false;
+                    visibility.searchResults = false;
+                    visibility.straatbeeld = false;
                 } else {
                     visibility.detail = activity.detail && !activity.straatbeeld;
                     visibility.page = angular.isString(state.page.name) && !activity.straatbeeld;
                     visibility.searchResults = activity.searchResults;
-                }
-
-                if (visibility.map) {
-                    visibility.page = false;
-                    visibility.searchResults = state.map.isFullscreen ? false : activity.searchResults;
                 }
 
                 visibility.dataSelection = false;
