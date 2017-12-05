@@ -1,3 +1,4 @@
+/* eslint-disable */
 describe('the home page', () => {
   describe('can navigate to the map w/ layer selection opened', () => {
     it('close layer selection, then close the map and then it returns to the homepage', () => {
