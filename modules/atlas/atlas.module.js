@@ -16,7 +16,9 @@
 
         // Third party modules
         'angulartics.piwik',
-        'ngRaven'
+        'ngRaven',
+
+        'ngAria'
     ];
 
     /* eslint-disable angular/window-service */
