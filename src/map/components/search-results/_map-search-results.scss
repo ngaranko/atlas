@@ -50,6 +50,13 @@
     }
   }
 
+  &__info {
+    background-color: #004699;
+    color: #FFFFFF;
+    font-family: "Avenir LT W01 65 Medium";
+    padding: 8px;
+  }
+
   &__list {
     max-height: calc(100vh - #{$above-list-height + $below-list-height});
     overflow-y: auto;

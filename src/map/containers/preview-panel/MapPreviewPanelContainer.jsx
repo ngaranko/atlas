@@ -8,6 +8,7 @@ import { maximizeMapPreviewPanel, closeMapPreviewPanel }
   from '../../ducks/preview-panel/map-preview-panel';
 import { selectLatestMapSearchResults, getMapSearchResults }
   from '../../ducks/search-results/map-search-results';
+import { selectNotClickableVisibleMapLayers } from '../../ducks/layers/map-layers';
 import { selectLatestMapDetail, getMapDetail } from '../../ducks/detail/map-detail';
 import { fetchSearchResults } from '../../../reducers/search';
 import { fetchDetail as legacyFetchDetail } from '../../../reducers/details';
@@ -30,9 +31,12 @@ const mapStateToProps = (state) => ({
     longitude: state.search.location[1]
   },
   searchLocationId: state.search && state.search.location && state.search.location.toString(),
+  missingLayers: selectNotClickableVisibleMapLayers(state)
+    .map((mapLayer) => mapLayer.title)
+    .join(', '),
   detail: state.detail,
   mapDetail: state.mapDetail,
-  detailResult: selectLatestMapDetail(state),
+  detailResult: selectLatestMapDetail(state) || {},
   user: state.user
 });
 
@@ -141,6 +145,7 @@ class MapPreviewPanelContainer extends React.Component {
               location={props.searchLocation}
               panoUrl={panoSearchPreview.url}
               results={props.results}
+              missingLayers={props.missingLayers}
               onItemClick={props.onMapSearchResultsItemClick}
             />
           )}
@@ -161,6 +166,7 @@ MapPreviewPanelContainer.defaultProps = {
   search: {},
   searchLocation: null,
   searchLocationId: '',
+  missingLayers: '',
   detail: {},
   mapDetail: {},
   detailResult: {},
@@ -178,6 +184,7 @@ MapPreviewPanelContainer.propTypes = {
   search: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   searchLocation: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   searchLocationId: PropTypes.string,
+  missingLayers: PropTypes.string,
   detail: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   mapDetail: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   detailResult: PropTypes.object, // eslint-disable-line react/forbid-prop-types
