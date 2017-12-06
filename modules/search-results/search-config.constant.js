@@ -77,7 +77,10 @@
                     radius: 25
                 }, {
                     uri: 'geosearch/monumenten/',
-                    radius: 25
+                    radius: 25,
+                    extra_params: {
+                        monumenttype: 'isnot_pand_bouwblok'
+                    }
                 }
             ],
             COORDINATES_HIERARCHY: [

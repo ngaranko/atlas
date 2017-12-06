@@ -15,6 +15,7 @@
 
             SEARCH_CONFIG.COORDINATES_ENDPOINTS.forEach(function (endpoint) {
                 const searchParams = {
+                    ...endpoint.extra_params,
                     lat: location[0],
                     lon: location[1]
                 };
@@ -46,6 +47,8 @@
                 // we check for employee status here already
                 api.getByUrl(plaatsEndpoint).then(processPlaatsData);
             } else if (pandEndpoint) {
+                // pand matched, remove monumenten from top results
+                geosearchResults = geosearchResults.filter(item => item.slug !== 'monument');
                 api.getByUrl(pandEndpoint).then(processPandData);
             } else {
                 q.resolve(geosearchResults);
