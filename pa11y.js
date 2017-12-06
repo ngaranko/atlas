@@ -24,29 +24,38 @@ const urls = [
     }
 ];
 
+let count = 0;
+
 /* eslint-disable no-console, angular/log */
 console.log('Testing pa11y...');
 /* eslint-enable no-console, angular/log */
 
 npmStart.stdout.on('data', (buffer) => {
-    if (!buffer.toString('utf8').includes('Child html-webpack-plugin for "index.html":')) {
+    const test = buffer.toString('utf8').includes('Child html-webpack-plugin for "index.html"');
+
+    if (test) {
+        count++;
+    }
+
+    if (count < 2 || !test) {
         return;
     }
 
     urls.forEach((item, index) => {
-        /* eslint-disable no-console, angular/log */
-        console.log(`Testing pa11y item: ${item.name}`);
-        /* eslint-enable no-console, angular/log */
-
         pa11y(item.url, {
             allowedStandards: ['WCAG2AA'],
             rootElement: item.rootElement
         }).then((results) => {
             /* eslint-disable no-console, angular/log */
+            console.log(`Testing pa11y item: ${item.name}`);
+            /* eslint-enable no-console, angular/log */
+
+            /* eslint-disable no-console, angular/log */
             console.log(reporter.results(results));
             /* eslint-enable no-console, angular/log */
 
             if (urls.length === index + 1) {
+                npmStart.kill();
                 process.exit();
             }
         });
