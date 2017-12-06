@@ -41,7 +41,9 @@ npmStart.stdout.on('data', (buffer) => {
         return;
     }
 
-    urls.forEach((item, index) => {
+    let index = 0;
+
+    urls.forEach((item) => {
         pa11y(item.url, {
             allowedStandards: ['WCAG2AA'],
             rootElement: item.rootElement
@@ -56,8 +58,13 @@ npmStart.stdout.on('data', (buffer) => {
 
             if (urls.length === index + 1) {
                 npmStart.kill();
-                process.exit();
             }
+
+            index++;
         });
     });
+});
+
+npmStart.on('exit', () => {
+    process.exit();
 });
