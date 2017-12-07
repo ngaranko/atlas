@@ -3,8 +3,8 @@
 const pa11y = require('pa11y');
 const reporter = require('pa11y-reporter-cli');
 
-const { exec } = require('child_process');
-const npmStart = exec('npm start');
+const { spawn } = require('child_process');
+const npmStart = spawn('npm', ['start'], { detached: true });
 
 const urls = require('./pa11y-urls');
 
@@ -39,16 +39,12 @@ npmStart.stdout.on('data', (buffer) => {
             /* eslint-disable no-console, angular/log */
             console.log(reporter.results(results));
             /* eslint-enable no-console, angular/log */
-
             if (urls.length === index + 1) {
-                npmStart.kill();
+                process.kill(-npmStart.pid, 'SIGKILL');
+                process.exit();
             }
 
             index++;
         });
     });
-});
-
-npmStart.on('exit', () => {
-    exec('killall node');
 });
