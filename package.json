@@ -79,7 +79,7 @@
     "clean-cache": "npm cache verify",
     "clean-dirs": "rimraf ./node_modules ./coverage ./coverage-legacy ./dist ./build",
     "clean": "npm run clean-cache && npm run clean-dirs",
-    "lint": "./node_modules/eslint/bin/eslint.js --config ./.eslintrc.js ./modules/ && ./node_modules/eslint/bin/eslint.js --ext .js --ext .jsx --config ./src/.eslintrc.js ./src/",
+    "lint": "./node_modules/eslint/bin/eslint.js --config ./.eslintrc.js ./modules/ && ./node_modules/eslint/bin/eslint.js --ext .js --ext .jsx -c ./src/.eslintrc.js --ignore-path ./src/.eslintignore ./src/",
     "postinstall": "./node_modules/protractor/node_modules/webdriver-manager/bin/webdriver-manager update",
     "preinstall": "npm cache verify",
     "start": "grunt && webpack-dev-server --config webpack.dev.js",
