@@ -1729,7 +1729,7 @@ export default [
       {
         layer: 'monument_coordinaten_nopand',
         selectable: false,
-        title: 'Monument (niet pandgerelateerd)'
+        title: 'Monument (overige)'
       }
     ],
     maxZoom: 16,
