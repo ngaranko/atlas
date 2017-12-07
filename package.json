@@ -86,6 +86,7 @@
     "test": "karma start && NODE_ENV=development jest",
     "test-aria": "./pa11y.js",
     "test-jest": "NODE_ENV=development jest",
+    "test-jest-update": "NODE_ENV=development jest --updateSnapshot",
     "test-karma": "karma start",
     "test-watch": "karma start --no-single-run & jest --watch",
     "watch": "grunt && webpack --watch --config webpack.dev.js"
