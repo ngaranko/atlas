@@ -107,7 +107,7 @@
     "leaflet.nontiledlayer": "^1.0.7",
     "marked": "^0.3.6",
     "marzipano": "https://github.com/Amsterdam/marzipano.git#master",
-    "objectFitPolyfill": "^2.0.5",
+    "objectFitPolyfill": "^2.1.0",
     "proj4": "^2.4.4",
     "proj4leaflet": "^1.0.2",
     "prop-types": "^15.6.0",
