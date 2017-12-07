@@ -1720,11 +1720,16 @@ export default [
   {
     category: 'Toerisme en cultuur',
     id: 'tcmnmt',
-    layers: ['monumenten'],
     legendItems: [
       {
-        selectable: false,
-        title: 'Monument'
+        layer: ['monument_coordinaten'],
+        selectable: true,
+        title: 'Monument (pandgerelateerd)'
+      }
+      {
+        layer: 'monument_coordinaten_nopand',
+        selectable: true,
+        title: 'Monument (niet pandgerelateerd)'
       }
     ],
     maxZoom: 16,
@@ -1732,4 +1737,5 @@ export default [
     title: 'Monumenten',
     url: '/maps/monumenten?version=1.3.0&service=WMS'
   }
+
 ];
