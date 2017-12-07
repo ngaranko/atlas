@@ -25,7 +25,6 @@
     VideoController.$inject = ['$element', '$window'];
 
     function VideoController ($element, $window) {
-        console.log('1 VIDEO');
         const vm = this,
             videoElement = $element.find('video')[0];
 
@@ -43,15 +42,12 @@
         };
 
         vm.$postLink = () => {
-            console.log('2 VIDEO postLink');
             if ($window.objectFitPolyfill) {
-                console.log('3 VIDEO postLink objectFitPolyfill is found');
                 // window.objectFitPolyfill mimics object-fit CSS property for
                 // IE & Edge. The function is stubbed (fast) for browsers
                 // supporting the CSS property. The function is added to the
                 // window by a polyfill script.
                 $window.objectFitPolyfill();
-                console.log('4 VIDEO postLink objectFitPolyfill has been executed');
             }
 
             // set poster after loading
