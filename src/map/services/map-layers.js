@@ -1723,12 +1723,12 @@ export default [
     legendItems: [
       {
         layer: ['monument_coordinaten'],
-        selectable: true,
+        selectable: false,
         title: 'Monument (pandgerelateerd)'
       },
       {
         layer: 'monument_coordinaten_nopand',
-        selectable: true,
+        selectable: false,
         title: 'Monument (niet pandgerelateerd)'
       }
     ],
