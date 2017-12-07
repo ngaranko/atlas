@@ -1725,7 +1725,7 @@ export default [
         layer: ['monument_coordinaten'],
         selectable: true,
         title: 'Monument (pandgerelateerd)'
-      }
+      },
       {
         layer: 'monument_coordinaten_nopand',
         selectable: true,
