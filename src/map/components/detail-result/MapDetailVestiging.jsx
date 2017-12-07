@@ -30,7 +30,7 @@ const MapDetailVestiging = ({ panoUrl, result }) => (
       </div>
     </header>
     {!result._display && (
-      <Notification className="map-detail-result__info">
+      <Notification>
         Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om
         vestigingen te bekijken
       </Notification>

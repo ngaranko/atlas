@@ -33,9 +33,7 @@ const MapSearchResults = ({ count, location, results, panoUrl, missingLayers, on
       <ul className="map-search-results__list">
         {missingLayers && (
           <li>
-            <Notification className="map-search-results__info">
-              Geen details beschikbaar van: {missingLayers}
-            </Notification>
+            <Notification>Geen details beschikbaar van: {missingLayers}</Notification>
           </li>
         )}
         {results.map((result) => (

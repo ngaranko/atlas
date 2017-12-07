@@ -1,23 +1,30 @@
 .map-layers {
   background-color: #FAFAFA;
-  padding-bottom: 8px;
   position: relative;
   user-select: none;
-
-  @media screen and (min-width: 1200px) {
-    padding-bottom: 12px;
-  }
 
   &__category {
     font-family: "Avenir LT W01 85 Heavy";
     margin-top: 8px;
-    text-indent: 12px;
+    text-indent: 8px;
+
+    @media screen and (min-width: 1200px) {
+      text-indent: 12px;
+    }
 
     & + & {
       margin-top: 16px;
 
       @media screen and (min-width: 1200px) {
         margin-top: 24px;
+      }
+    }
+
+    &:last-child {
+      margin-bottom: 8px;
+
+      @media screen and (min-width: 1200px) {
+        margin-bottom: 12px;
       }
     }
 
@@ -56,18 +63,26 @@
 
       & > span:first-child {
         overflow: hidden;
-        padding: 8px 12px;
+        padding: 8px;
         text-align: left;
         text-overflow: ellipsis;
         white-space: nowrap;
         width: 100%;
+
+        @media screen and (min-width: 1200px) {
+          padding: 8px 12px;
+        }
       }
     }
   }
 
   &__toggle {
     @extend %__toggle;
-    margin-right: 12px;
+    margin-right: 8px;
+
+    @media screen and (min-width: 1200px) {
+      margin-right: 12px;
+    }
 
     .map-layers__title--active &--add,
     .map-layers__title--inactive &--remove {
@@ -86,10 +101,6 @@
         fill: #FFFFFF;
       }
     }
-  }
-
-  &__authorization-notification {
-    margin: 8px 8px 0 8px;
   }
 
   .is-embed &,

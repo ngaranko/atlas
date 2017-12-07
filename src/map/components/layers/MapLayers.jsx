@@ -54,7 +54,7 @@ const MapLayers = (props) => (
       ))}
     </ul>
     {!props.user.authenticated && (
-      <Notification className="map-layers__authorization-notification">
+      <Notification>
         <a
           href="#?mpb=topografie&pgn=content-overzicht&pgi=item1&pgt=inloggen"
         >Meer kaartlagen</a> na inloggen
