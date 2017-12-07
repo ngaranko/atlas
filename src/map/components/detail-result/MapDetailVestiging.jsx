@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Notification from '../../../shared/components/notification/Notification';
 import MapDetailResultItem from './MapDetailResultItem';
 import MapDetailAddressItem from './MapDetailAddressItem';
 import MapDetailVestigingActiviteitenItem from './MapDetailVestigingActiviteitenItem';
@@ -29,10 +30,10 @@ const MapDetailVestiging = ({ panoUrl, result }) => (
       </div>
     </header>
     {!result._display && (
-      <div className="map-detail-result__info">
+      <Notification className="map-detail-result__info">
         Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om
         vestigingen te bekijken
-      </div>
+      </Notification>
     )}
     {result._display && (
       <ul className="map-detail-result__list">

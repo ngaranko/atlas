@@ -1,8 +1,10 @@
 .notification {
   color: #FFFFFF;
   display: flex;
+  font-family: "Avenir LT W01 65 Medium";
   justify-content: space-between;
   padding: 4px;
+  margin: 0;
 
   &--info {
     background-color: #004699;

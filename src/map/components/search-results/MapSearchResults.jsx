@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { wgs84ToRd } from '../../../shared/services/coordinate-reference-system';
 import MapSearchResultsItem from './MapSearchResultsItem';
+import Notification from '../../../shared/components/notification/Notification';
 
 const MapSearchResults = ({ count, location, results, panoUrl, missingLayers, onItemClick }) => {
   const rdCoordinates = wgs84ToRd(location);
@@ -31,8 +32,10 @@ const MapSearchResults = ({ count, location, results, panoUrl, missingLayers, on
       </header>
       <ul className="map-search-results__list">
         {missingLayers && (
-          <li className="map-search-results__info">
-            Geen details beschikbaar van: {missingLayers}
+          <li>
+            <Notification className="map-search-results__info">
+              Geen details beschikbaar van: {missingLayers}
+            </Notification>
           </li>
         )}
         {results.map((result) => (
