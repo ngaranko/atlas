@@ -75,7 +75,8 @@
                 (category === 'handelsregister' && !vm.user.scopes.includes('HR/R'))
             ) {
                 // User is not authorized to view BRK Kadastrale Subjecten, nor
-                // handelsregister
+                // handelsregister, so do not fetch data
+                delete vm.apiData;
                 errorHandler();
             } else {
                 api.getByUrl(endpoint).then(function (data) {

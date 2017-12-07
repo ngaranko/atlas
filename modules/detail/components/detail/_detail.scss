@@ -34,3 +34,7 @@
   padding: $base-whitespace (4 * $base-whitespace);
   border-bottom: 1px solid $secondary-gray20;
 }
+
+.c-disabled-message {
+  margin-top: 2 * $base-whitespace;
+}
