@@ -8,14 +8,14 @@ ENV NODE_ENV=production
 
 RUN apt-get update \
   && apt-get upgrade -y --no-install-recommends \
-  && apt-get install -y git nginx \
+  && apt-get install -y git nginx xvfb libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 \
   && rm -rf /var/lib/apt/lists/*
 
 COPY . /app
 WORKDIR /app
 
 ENV PATH=./node_modules/.bin/:~/node_modules/.bin/:$PATH
-RUN git config --global url.https://github.com/.insteadOf git://github.com/ \
+RUN git config --global url.https://.insteadOf git:// \
   && git config --global url."https://github.com/".insteadOf git@github.com: \
   && npm --production=false --unsafe-perm install
 
@@ -24,6 +24,8 @@ ARG BUILD_ID
 
 RUN npm run build-${BUILD_ENV} -- --env.buildId=${BUILD_ID} \
   && cp -r /app/dist/. /var/www/html/
+
+RUN npm run test-e2e
 
 COPY default.conf /etc/nginx/conf.d/
 RUN rm /etc/nginx/sites-enabled/default
