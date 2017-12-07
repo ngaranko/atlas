@@ -1720,7 +1720,7 @@ export default [
   {
     category: 'Toerisme en cultuur',
     id: 'tcmnmt',
-    layers: ['monument_coordinaten'],
+    layers: ['monumenten'],
     legendItems: [
       {
         selectable: false,
