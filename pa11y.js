@@ -3,8 +3,8 @@
 const pa11y = require('pa11y');
 const reporter = require('pa11y-reporter-cli');
 
-const { spawn } = require('child_process');
-const npmStart = spawn('npm', ['start']);
+const { exec } = require('child_process');
+const npmStart = exec('npm start');
 
 const urls = [
     {
@@ -66,5 +66,5 @@ npmStart.stdout.on('data', (buffer) => {
 });
 
 npmStart.on('exit', () => {
-    process.exit();
+    exec('killall node');
 });
