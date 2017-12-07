@@ -71,7 +71,6 @@
     "webpack-merge": "^4.1.0"
   },
   "scripts": {
-    "aria": "./pa11y.js",
     "build": "npm run build-prod",
     "build-acc": "grunt && webpack --config webpack.acc.js",
     "build-dev": "grunt && webpack --config webpack.dev.js",
@@ -85,6 +84,7 @@
     "preinstall": "npm cache verify",
     "start": "grunt && webpack-dev-server --config webpack.dev.js",
     "test": "karma start && NODE_ENV=development jest",
+    "test-aria": "./pa11y.js",
     "test-jest": "NODE_ENV=development jest",
     "test-karma": "karma start",
     "test-watch": "karma start --no-single-run & jest --watch",
