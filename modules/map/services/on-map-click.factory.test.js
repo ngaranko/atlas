@@ -90,6 +90,13 @@ describe('The onMapClick factory', () => {
         drawTool.isEnabled.and.returnValue(false);
         click();
         expect(store.dispatch).toHaveBeenCalledWith({
+            type: ACTIONS.SET_MAP_CLICK_LOCATION.id,
+            location: {
+                latitude: 52.124,
+                longitude: 4.788
+            }
+        });
+        expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.MAP_CLICK,
             payload: [52.124, 4.788]
         });
@@ -100,7 +107,17 @@ describe('The onMapClick factory', () => {
         activeOverlays.getVisibleOverlays.and.returnValue([1, 2]);
         click();
         expect(nearestDetail.search).toHaveBeenCalled();
-        expect(store.dispatch).not.toHaveBeenCalled();
+        expect(store.dispatch).toHaveBeenCalledWith({
+            type: ACTIONS.SET_MAP_CLICK_LOCATION.id,
+            location: {
+                latitude: 52.124,
+                longitude: 4.788
+            }
+        });
+        expect(store.dispatch).not.toHaveBeenCalledWith({
+            type: ACTIONS.MAP_CLICK,
+            payload: [52.124, 4.788]
+        });
     });
 
     it('when there are active overlays and straatbeeld is active a search to nearest detail will not be called', () => {
@@ -109,6 +126,16 @@ describe('The onMapClick factory', () => {
         activeOverlays.getVisibleOverlays.and.returnValue([1, 2]);
         click();
         expect(nearestDetail.search).not.toHaveBeenCalled();
-        expect(store.dispatch).toHaveBeenCalled();
+        expect(store.dispatch).toHaveBeenCalledWith({
+            type: ACTIONS.SET_MAP_CLICK_LOCATION.id,
+            location: {
+                latitude: 52.124,
+                longitude: 4.788
+            }
+        });
+        expect(store.dispatch).toHaveBeenCalledWith({
+            type: ACTIONS.MAP_CLICK,
+            payload: [52.124, 4.788]
+        });
     });
 });
