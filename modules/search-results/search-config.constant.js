@@ -6,13 +6,13 @@
         .constant('SEARCH_CONFIG', {
             QUERY_ENDPOINTS: [
                 {
-                    // The slug variable is used to indentify this category in list.component.js
+                    // The slug variable is used to identify this category in list.component.js
                     slug: 'openbareruimte',
                     label_singular: 'Openbare ruimte',
                     label_plural: 'Openbare ruimtes',
                     uri: 'atlas/search/openbareruimte/'
                 }, {
-                    // The slug variable is used to indentify this category in list.component.js
+                    // The slug variable is used to identify this category in list.component.js
                     slug: 'adres',
                     label_singular: 'Adres',
                     label_plural: 'Adressen',
@@ -30,6 +30,11 @@
                     uri: 'handelsregister/search/maatschappelijkeactiviteit/',
                     authScope: 'HR/R'
                 }, {
+                    slug: 'monument',
+                    label_singular: 'Monument',
+                    label_plural: 'Monumenten',
+                    uri: 'monumenten/search/'
+                }, {
                     slug: 'object',
                     label_singular: 'Kadastraal object',
                     label_plural: 'Kadastrale objecten',
@@ -41,7 +46,7 @@
                     uri: 'atlas/search/kadastraalsubject/',
                     authScope: 'BRK/RS'
                 }, {
-                    // The slug variable is used to indentify this category in list.component.js
+                    // The slug variable is used to identify this category in list.component.js
                     slug: 'gebied',
                     label_singular: 'Gebied',
                     label_plural: 'Gebieden',
@@ -72,12 +77,15 @@
                     radius: 25
                 }, {
                     uri: 'geosearch/monumenten/',
-                    radius: 25
+                    radius: 25,
+                    extra_params: {
+                        monumenttype: 'isnot_pand_bouwblok'
+                    }
                 }
             ],
             COORDINATES_HIERARCHY: [
                 {
-                    // The slug variable is used to indentify this category in list.component.js
+                    // The slug variable is used to identify this category in list.component.js
                     slug: 'openbareruimte',
                     label_singular: 'Openbare ruimte',
                     label_plural: 'Openbare ruimtes',
