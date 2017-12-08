@@ -24,7 +24,7 @@ node {
 
     stage("Build image") {
         tryStep "build", {
-            def image = docker.build("build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}", "--build-arg BUILD_ENV=acc --build-arg PASSWORD_EMPLOYEE=$PASSWORD_EMPLOYEE --build-arg PASSWORD_EMPLOYEE_PLUS=$PASSWORD_EMPLOYEE_PLUS .")
+            def image = docker.build("build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}", "--build-arg BUILD_ENV=acc --build-arg PASSWORD_EMPLOYEE=${PASSWORD_EMPLOYEE} --build-arg PASSWORD_EMPLOYEE_PLUS=${PASSWORD_EMPLOYEE_PLUS} .")
             image.push()
         }
     }
