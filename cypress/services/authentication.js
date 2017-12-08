@@ -2,10 +2,7 @@
 // import { API_ROOT, AUTH_PATH } from '../../src/shared/services/auth/auth';
 import stateTokenGenerator from '../../src/shared/services/state-token-generator/state-token-generator';
 
-const emailAddress = '';
-const password = '';
-
-export function login() {
+export function login(type = 'EMPLOYEE_PLUS') {
   const stateToken = stateTokenGenerator();
 
   cy.window().its('sessionStorage').invoke('setItem', 'returnPath', '#');
@@ -36,8 +33,8 @@ export function login() {
         url: `https://acc.api.data.amsterdam.nl/auth/idp/${response.body.match(/action="(.*?)"/).pop()}`,
         form: true,
         body: {
-          email: emailAddress,
-          password: password,
+          email: Cypress.env(`USERNAME_${type}`),
+          password: Cypress.env(`PASSWORD_${type}`),
           type: 'employee_plus'
         },
         followRedirect: false
