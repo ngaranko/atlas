@@ -14,9 +14,9 @@ httpServer.stdout.on('data', (buffer) => {
   ].join(',')], { env: { ...process.env, FORCE_COLOR: true } });
   cypress.stdout.on('data', (buffer) => console.log(buffer.toString('utf8')));
   cypress.stderr.on('data', (buffer) => console.log(buffer.toString('utf8')));
-  cypress.on('close', () => {
+  cypress.on('close', (code) => {
     httpServer.kill();
     // TODO: Add appropriate exit-code
-    process.exit();
+    process.exit(code);
   });
 });
