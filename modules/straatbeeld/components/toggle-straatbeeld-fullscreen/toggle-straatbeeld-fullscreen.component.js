@@ -19,10 +19,10 @@
     function DpStraatbeeldFullscreenController ($rootScope, store, ACTIONS) {
         const vm = this;
 
-        const deregistrationFn = $rootScope.$watch('vm.isFullscreen', setScreenReaderText);
+        const deregistrationFn = $rootScope.$watch('vm.isFullscreen', setButtonText);
 
-        function setScreenReaderText () {
-            vm.screenReaderText = 'Kaart ' + (vm.isFullscreen ? 'verkleinen' : 'vergroten');
+        function setButtonText () {
+            vm.buttonText = 'Straatbeeld ' + (vm.isFullscreen ? 'verkleinen' : 'vergroten');
         }
 
         vm.toggleFullscreen = function () {
