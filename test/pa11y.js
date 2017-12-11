@@ -1,13 +1,17 @@
-#!/usr/bin/env node
+/*
+    pa11y.js will start a dev server with npm start. When everything builds fine. It will start an aria test
+    the config file contains all urls needed for testing to be successful.
+    After running tests it will kill all processes involved.
+*/
 
-const pa11y = require('pa11y');
-const reporter = require('pa11y-reporter-cli');
-const chalk = require('chalk');
+import pa11y from 'pa11y';
+import reporter from 'pa11y-reporter-cli';
+import chalk from 'chalk';
 
-const { spawn } = require('child_process');
+import { spawn } from 'child_process';
+import config from './pa11y-config';
+
 const npmStart = spawn('npm', ['start'], { detached: true });
-
-const config = require('./pa11y-config');
 const defaults = config.defaults || {};
 
 let count = 0;
@@ -16,7 +20,7 @@ const allTests = [];
 
 /* eslint-disable no-console, angular/log */
 console.log('Pa11y testing...');
-console.log('Pa11y: starting npm...');
+console.log('Pa11y: starting dev server...');
 /* eslint-enable no-console, angular/log */
 
 npmStart.stdout.on('data', (buffer) => {
@@ -32,9 +36,8 @@ npmStart.stdout.on('data', (buffer) => {
 
     config.urls.forEach((item) => {
         allTests.push(pa11y(item.url, {
-            allowedStandards: ['WCAG2AA'],
-            rootElement: item.rootElement || defaults.rootElement,
-            actions: item.actions || defaults.actions
+            ...defaults,
+            ...item
         }));
     });
 
@@ -66,7 +69,7 @@ npmStart.stdout.on('data', (buffer) => {
         });
 
         /* eslint-disable no-console, angular/log */
-        console.log('Pa11y: TOTALS');
+        console.log('Pa11y: TOTALS found ', (total.errors + total.warnings + total.notices));
         /* eslint-enable no-console, angular/log */
 
         if (total.errors) {
