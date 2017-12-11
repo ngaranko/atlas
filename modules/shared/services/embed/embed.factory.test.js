@@ -32,4 +32,14 @@ describe('The embed factory', function () {
         expect(embed.getHtml({})).toBe('<iframe width="500" height="400" ' +
             'src="https://data.amsterdam.nl/#foo=1&bar=x" frameborder="0"></iframe>');
     });
+
+    it('creates a link without port 80', () => {
+        $location.port.and.returnValue('80');
+        expect(embed.getLink({})).toBe('https://data.amsterdam.nl/#foo=1&bar=x');
+    });
+
+    it('adds the port if not standard', () => {
+        $location.port.and.returnValue('8080');
+        expect(embed.getLink({})).toBe('https://data.amsterdam.nl:8080/#foo=1&bar=x');
+    });
 });
