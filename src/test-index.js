@@ -42,6 +42,7 @@ import '../modules/atlas/services/piwik/piwik.factory';
 import '../modules/atlas/services/piwik/piwik.run';
 import '../modules/atlas/services/redux/middleware/context-middleware.factory';
 import '../modules/atlas/services/redux/middleware/state-to-url-middleware.factory';
+import '../modules/atlas/services/redux/deprecated-reducer.factory';
 import '../modules/atlas/services/redux/reducer.factory';
 import '../modules/atlas/services/redux/reducers/data-selection-reducers.factory';
 import '../modules/atlas/services/redux/reducers/embed-reducers.factory';
@@ -434,7 +435,7 @@ import '../modules/atlas/components/max-width-class/max-width-class.directive.te
 import '../modules/atlas/components/scrollable-content/scrollable-content.directive.test';
 import '../modules/atlas/services/redux/middleware/context-middleware.factory.test';
 import '../modules/atlas/services/redux/middleware/state-to-url-middleware.factory.test';
-import '../modules/atlas/services/redux/reducer.factory.test';
+import '../modules/atlas/services/redux/deprecated-reducer.factory.test';
 import '../modules/atlas/services/redux/reducers/url-reducers.factory.test';
 import '../modules/atlas/services/redux/reducers/search-reducers.factory.test';
 import '../modules/atlas/services/redux/reducers/map-reducers.factory.test';
