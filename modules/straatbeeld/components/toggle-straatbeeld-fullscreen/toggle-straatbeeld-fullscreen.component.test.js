@@ -89,11 +89,11 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
 
             // When the map is small
             component = getDirective(false);
-            expect(component.find('.u-sr-only').text()).toBe('Straatbeeld vergroten');
+            expect(component.find('.u-sr-only').text()).toBe('Panoramabeeld vergroten');
 
             // When the map is large
             component = getDirective(true);
-            expect(component.find('.u-sr-only').text()).toBe('Straatbeeld verkleinen');
+            expect(component.find('.u-sr-only').text()).toBe('Panoramabeeld verkleinen');
         });
     });
 });

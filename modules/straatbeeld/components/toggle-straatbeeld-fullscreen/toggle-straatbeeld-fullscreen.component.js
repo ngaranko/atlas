@@ -14,15 +14,15 @@
             controllerAs: 'vm'
         });
 
-    DpStraatbeeldFullscreenController.$inject = ['$rootScope', 'store', 'ACTIONS'];
+    DpStraatbeeldFullscreenController.$inject = ['$scope', 'store', 'ACTIONS'];
 
-    function DpStraatbeeldFullscreenController ($rootScope, store, ACTIONS) {
+    function DpStraatbeeldFullscreenController ($scope, store, ACTIONS) {
         const vm = this;
 
-        const deregistrationFn = $rootScope.$watch('vm.isFullscreen', setButtonText);
+        const deregistrationFn = $scope.$watch('vm.isFullscreen', setButtonText);
 
         function setButtonText () {
-            vm.buttonText = 'Straatbeeld ' + (vm.isFullscreen ? 'verkleinen' : 'vergroten');
+            vm.buttonText = 'Panoramabeeld ' + (vm.isFullscreen ? 'verkleinen' : 'vergroten');
         }
 
         vm.toggleFullscreen = function () {
@@ -32,7 +32,6 @@
             });
         };
 
-        $rootScope.$on('$destroy', deregistrationFn);
+        $scope.$on('$destroy', deregistrationFn);
     }
 })();
-
