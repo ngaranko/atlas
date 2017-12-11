@@ -1,5 +1,6 @@
 describe('The embed factory', function () {
     let embed,
+        portSpy,
         $location;
 
     beforeEach(function () {
@@ -17,7 +18,7 @@ describe('The embed factory', function () {
 
         spyOn($location, 'protocol').and.returnValue('https');
         spyOn($location, 'host').and.returnValue('data.amsterdam.nl');
-        spyOn($location, 'port').and.returnValue('443');
+        portSpy = spyOn($location, 'port').and.returnValue('443');
 
         angular.mock.inject(function (_embed_) {
             embed = _embed_;
@@ -34,12 +35,12 @@ describe('The embed factory', function () {
     });
 
     it('creates a link without port 80', () => {
-        $location.port.and.returnValue('80');
+        portSpy.and.returnValue('80');
         expect(embed.getLink({})).toBe('https://data.amsterdam.nl/#foo=1&bar=x');
     });
 
     it('adds the port if not standard', () => {
-        $location.port.and.returnValue('8080');
+        portSpy.and.returnValue('8080');
         expect(embed.getLink({})).toBe('https://data.amsterdam.nl:8080/#foo=1&bar=x');
     });
 });
