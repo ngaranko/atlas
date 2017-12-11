@@ -8,17 +8,16 @@
     EmbedFactory.$inject = ['stateUrlConverter', '$location'];
 
     function EmbedFactory (stateUrlConverter, $location) {
-        const port = Number($location.port());
-        const baseUrl = port === 80 || port === 443
-            ? `${$location.protocol()}://${$location.host()}`
-            : `${$location.protocol()}://${$location.host()}:${port}`;
-
         return {
             getLink: getLink,
             getHtml: getHtml
         };
 
         function getLink (state) {
+            const port = Number($location.port());
+            const baseUrl = port === 80 || port === 443
+                ? `${$location.protocol()}://${$location.host()}`
+                : `${$location.protocol()}://${$location.host()}:${port}`;
             return `${baseUrl}/${stateUrlConverter.state2url(state)}`;
         }
 
