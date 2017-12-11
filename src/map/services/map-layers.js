@@ -1737,5 +1737,4 @@ export default [
     title: 'Monumenten',
     url: '/maps/monumenten?version=1.3.0&service=WMS'
   }
-
 ];
