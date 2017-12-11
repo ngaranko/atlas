@@ -86,7 +86,7 @@
     "preinstall": "npm cache verify",
     "start": "grunt && webpack-dev-server --config webpack.dev.js",
     "test": "karma start && NODE_ENV=development jest && npm run test-aria",
-    "test-aria": "NODE_ENV=development node ./test/pa11y.js",
+    "test-aria": "NODE_ENV=development babel-node ./test/pa11y.js",
     "test-e2e": "babel-node ./test/e2e.js",
     "test-jest": "NODE_ENV=development jest",
     "test-jest-update": "NODE_ENV=development jest --updateSnapshot",
