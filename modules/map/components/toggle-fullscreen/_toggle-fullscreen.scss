@@ -3,4 +3,11 @@ dp-toggle-fullscreen {
   right: 8px;
   top: 8px;
   z-index: 1000;
+
+
+  .is-embed &,
+  .is-embed-preview &,
+  .is-print-mode & {
+    display: none;
+  }
 }
