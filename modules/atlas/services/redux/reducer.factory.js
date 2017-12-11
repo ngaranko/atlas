@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 
+/* istanbul ignore next */
 (function () {
     'use strict';
 
