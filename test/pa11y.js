@@ -7,7 +7,8 @@ const chalk = require('chalk');
 const { spawn } = require('child_process');
 const npmStart = spawn('npm', ['start'], { detached: true });
 
-const urls = require('./pa11y-urls');
+const config = require('./pa11y-config');
+const defaults = config.defaults || {};
 
 let count = 0;
 
@@ -29,10 +30,11 @@ npmStart.stdout.on('data', (buffer) => {
         return;
     }
 
-    urls.forEach((item) => {
+    config.urls.forEach((item) => {
         allTests.push(pa11y(item.url, {
             allowedStandards: ['WCAG2AA'],
-            rootElement: item.rootElement
+            rootElement: item.rootElement || defaults.rootElement,
+            actions: item.actions || defaults.actions
         }));
     });
 
