@@ -35,7 +35,7 @@ export function login(type = 'EMPLOYEE_PLUS') {
         body: {
           email: Cypress.env(`USERNAME_${type}`),
           password: Cypress.env(`PASSWORD_${type}`),
-          type: 'employee_plus'
+          type: type.toLowerCase()
         },
         followRedirect: false
       })
