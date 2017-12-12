@@ -16,8 +16,6 @@ const defaults = config.defaults || {};
 
 let count = 0;
 
-const allTests = [];
-
 /* eslint-disable no-console, angular/log */
 console.log('Pa11y testing...');
 console.log('Pa11y: starting dev server...');
@@ -34,12 +32,10 @@ npmStart.stdout.on('data', (buffer) => {
         return;
     }
 
-    config.urls.forEach((item) => {
-        allTests.push(pa11y(item.url, {
-            ...defaults,
-            ...item
-        }));
-    });
+    const allTests = config.urls.map(item => pa11y(item.url, {
+        ...defaults,
+        ...item
+    }));
 
     /* eslint-disable no-console, angular/log */
     console.log('Pa11y: running tests...');
@@ -59,12 +55,15 @@ npmStart.stdout.on('data', (buffer) => {
                 /* eslint-enable no-console, angular/log */
 
                 /* eslint-disable no-console, angular/log */
-                console.log(reporter.results(result));
+                // console.log(reporter.results(result));
                 /* eslint-enable no-console, angular/log */
 
-                total.errors += result.issues.reduce((acc, issue) => (issue.type === 'error') * 1 + acc, 0);
-                total.warnings += result.issues.reduce((acc, issue) => (issue.type === 'warning') * 1 + acc, 0);
-                total.notices += result.issues.reduce((acc, issue) => (issue.type === 'notice') * 1 + acc, 0);
+                total.errors += result.issues.reduce((accumulator, issue) =>
+                    issue.type === 'error' ? accumulator + 1 : accumulator, 0);
+                total.warnings += result.issues.reduce((accumulator, issue) =>
+                    issue.type === 'warning' ? accumulator + 1 : accumulator, 0);
+                total.notices += result.issues.reduce((accumulator, issue) =>
+                    issue.type === 'notice' ? accumulator + 1 : accumulator, 0);
             }
         });
 
