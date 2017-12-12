@@ -23,11 +23,14 @@ import { combineReducers } from 'redux';
             const deprecatedState = deprecatedReducer(oldState, action);
 
             // Use combine reducer for new reducers
+            const UiReducer = $window.reducers.UiReducer;
             const UserReducer = $window.reducers.UserReducer;
             const newRootReducer = combineReducers({
+                ui: UiReducer,
                 user: UserReducer
             });
             const filteredState = {
+                ui: oldState.ui,
                 user: oldState.user
             };
 
