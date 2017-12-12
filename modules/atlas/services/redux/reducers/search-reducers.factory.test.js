@@ -247,11 +247,11 @@ describe('The search-reducers factory', function () {
 
             expect(output.map.viewCenter).toEqual([52.123, 4.789]);
 
-            // With fullscreen enabled, it changes the viewCenter
+            // With fullscreen enabled, it still doesn't the viewCenter
             inputState.map.isFullscreen = true;
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, [52.001, 4.002]);
 
-            expect(output.map.viewCenter).toEqual([52.001, 4.002]);
+            expect(output.map.viewCenter).toEqual([52.123, 4.789]);
         });
 
         it('clears the straatbeeld', function () {

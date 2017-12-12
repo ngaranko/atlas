@@ -72,10 +72,7 @@
                 },
                 map: angular.isObject(state.map) ? {
                     ...state.map,
-                    geometry: [],
-                    viewCenter:
-                        state.ui && state.ui.isMapPanelVisible || (state.map && state.map.isFullscreen)
-                        ? payload : state.map.viewCenter
+                    geometry: []
                 } : state.map,
                 page: angular.isObject(state.page) ? {
                     ...state.page,
