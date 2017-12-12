@@ -40,6 +40,8 @@ exports[`MapPreviewPanelContainer rendering should render empty results 1`] = `
           "longitude": 0,
         }
       }
+      missingLayers=""
+      onItemClick={[Function]}
       panoUrl="pano-url"
       results={Array []}
     />
@@ -87,6 +89,8 @@ exports[`MapPreviewPanelContainer rendering should render empty results 2`] = `
           "longitude": 0,
         }
       }
+      missingLayers=""
+      onItemClick={[Function]}
       panoUrl="pano-url"
       results={
         Array [
@@ -178,6 +182,8 @@ exports[`MapPreviewPanelContainer rendering should render results 1`] = `
           "longitude": 0,
         }
       }
+      missingLayers=""
+      onItemClick={[Function]}
       panoUrl="pano-url"
       results={
         Array [
@@ -234,6 +240,8 @@ exports[`MapPreviewPanelContainer rendering should render results 2`] = `
           "longitude": 0,
         }
       }
+      missingLayers=""
+      onItemClick={[Function]}
       panoUrl="pano-url"
       results={
         Array [
@@ -287,6 +295,8 @@ exports[`MapPreviewPanelContainer rendering should render results without pano 1
           "longitude": 0,
         }
       }
+      missingLayers=""
+      onItemClick={[Function]}
       results={
         Array [
           Object {
@@ -342,6 +352,8 @@ exports[`MapPreviewPanelContainer rendering should render results without pano 2
           "longitude": 0,
         }
       }
+      missingLayers=""
+      onItemClick={[Function]}
       panoUrl="pano-url"
       results={
         Array [
@@ -398,6 +410,8 @@ exports[`MapPreviewPanelContainer rendering should render visibility 1`] = `
           "longitude": 0,
         }
       }
+      missingLayers=""
+      onItemClick={[Function]}
       panoUrl="pano-url"
       results={
         Array [
@@ -451,6 +465,8 @@ exports[`MapPreviewPanelContainer rendering should render visibility 2`] = `
           "longitude": 0,
         }
       }
+      missingLayers=""
+      onItemClick={[Function]}
       panoUrl="pano-url"
       results={
         Array [

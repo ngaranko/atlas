@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import get from 'lodash.get';
+import has from 'lodash.has';
 
 import { maximizeMapPreviewPanel, closeMapPreviewPanel }
   from '../../ducks/preview-panel/map-preview-panel';
@@ -55,7 +56,7 @@ const isUpdated = (props, prevProps, paths) => {
   }
 
   // Every path must exist in props
-  return paths.every((path) => get(props, path)) &&
+  return paths.every((path) => has(props, path)) &&
     // Some paths must have been updated
     paths.some((path) => isUpdated(props, prevProps, path));
 };

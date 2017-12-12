@@ -449,7 +449,7 @@ describe('The dashboard component', function () {
             it('Opens when visible and there is clickable detail', () => {
                 mockedVisibility.mapPreviewPanel = true;
                 mockedState.detail = {
-                    endpoint: 'https://api.acc.amsterdam.nl/fake/brk/object/endpoint'
+                    endpoint: 'https://acc.api.amsterdam.nl/fake/brk/object/endpoint'
                 };
                 handler();
                 $rootScope.$digest();
@@ -462,7 +462,7 @@ describe('The dashboard component', function () {
             it('Closes when visible and there is detail, but not clickable', () => {
                 mockedVisibility.mapPreviewPanel = true;
                 mockedState.detail = {
-                    endpoint: 'https://api.acc.amsterdam.nl/fake/not/clickable/endpoint'
+                    endpoint: 'https://acc.api.amsterdam.nl/fake/not/clickable/endpoint'
                 };
                 handler();
                 $rootScope.$digest();
@@ -519,7 +519,7 @@ describe('The dashboard component', function () {
                     location: [1, 0]
                 };
                 mockedState.detail = {
-                    endpoint: 'https://api.acc.amsterdam.nl/fake/brk/object/endpoint'
+                    endpoint: 'https://acc.api.amsterdam.nl/fake/brk/object/endpoint'
                 };
                 handler();
                 $rootScope.$digest();
