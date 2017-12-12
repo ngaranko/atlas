@@ -5,9 +5,13 @@ import { shallow } from 'enzyme';
 import MapPreviewPanelContainer from './MapPreviewPanelContainer';
 import { selectLatestMapSearchResults, getMapSearchResults }
   from '../../ducks/search-results/map-search-results';
+import { selectNotClickableVisibleMapLayers } from '../../ducks/layers/map-layers';
+import { selectLatestMapDetail, getMapDetail } from '../../ducks/detail/map-detail';
 import { getPanoPreview } from '../../../pano/ducks/preview/pano-preview';
 
 jest.mock('../../ducks/search-results/map-search-results');
+jest.mock('../../ducks/layers/map-layers');
+jest.mock('../../ducks/detail/map-detail');
 jest.mock('../../../pano/ducks/preview/pano-preview');
 
 describe('MapPreviewPanelContainer', () => {
@@ -69,14 +73,19 @@ describe('MapPreviewPanelContainer', () => {
   };
 
   beforeEach(() => {
-    getMapSearchResults.mockImplementation(() => ({ type: 'GET_MAP_SEARCH_RESULTS' }));
-    getPanoPreview.mockImplementation(() => ({ type: 'GET_PANO_PREVIEW' }));
+    getMapSearchResults.mockImplementation(() => ({ type: 'FETCH_MAP_SEARCH_RESULTS_REQUEST' }));
+    getMapDetail.mockImplementation(() => ({ type: 'FETCH_MAP_DETAIL_REQUEST' }));
+    getPanoPreview.mockImplementation(() => ({ type: 'FETCH_PANO_PREVIEW_REQUEST' }));
+    selectNotClickableVisibleMapLayers.mockImplementation(() => ([]));
   });
 
   afterEach(() => {
     getMapSearchResults.mockReset();
+    getMapDetail.mockReset();
     getPanoPreview.mockReset();
     selectLatestMapSearchResults.mockReset();
+    selectLatestMapDetail.mockReset();
+    selectNotClickableVisibleMapLayers.mockReset();
   });
 
   describe('fetching initial data', () => {
@@ -86,6 +95,7 @@ describe('MapPreviewPanelContainer', () => {
       shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
 
       expect(getMapSearchResults).not.toHaveBeenCalled();
+      expect(getMapDetail).not.toHaveBeenCalled();
       expect(getPanoPreview).not.toHaveBeenCalled();
       expect(store.dispatch).not.toHaveBeenCalled();
     });
@@ -101,6 +111,7 @@ describe('MapPreviewPanelContainer', () => {
       shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
 
       expect(getMapSearchResults).not.toHaveBeenCalled();
+      expect(getMapDetail).not.toHaveBeenCalled();
       expect(getPanoPreview).not.toHaveBeenCalled();
       expect(store.dispatch).not.toHaveBeenCalled();
     });
@@ -111,31 +122,49 @@ describe('MapPreviewPanelContainer', () => {
       shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
 
       expect(getMapSearchResults).toHaveBeenCalledWith({ latitude: 1, longitude: 0 }, { name: 'User name' });
+      expect(getMapDetail).not.toHaveBeenCalled();
       expect(getPanoPreview).toHaveBeenCalledWith({ latitude: 1, longitude: 0 });
-      expect(store.dispatch).toHaveBeenCalledWith({ type: 'GET_MAP_SEARCH_RESULTS' });
-      expect(store.dispatch).toHaveBeenCalledWith({ type: 'GET_PANO_PREVIEW' });
+      expect(store.dispatch).toHaveBeenCalledWith({ type: 'FETCH_MAP_SEARCH_RESULTS_REQUEST' });
+      expect(store.dispatch).not.toHaveBeenCalledWith({ type: 'FETCH_MAP_DETAIL_REQUEST' });
+      expect(store.dispatch).toHaveBeenCalledWith({ type: 'FETCH_PANO_PREVIEW_REQUEST' });
+    });
+
+    it('should dispatch action to fetch detail', () => {
+      const store = configureMockStore()({ ...getDetailState });
+      jest.spyOn(store, 'dispatch');
+      shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
+
+      expect(getMapSearchResults).not.toHaveBeenCalledWith();
+      expect(getMapDetail).toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/fake/endpoint', { name: 'User name' });
+      expect(getPanoPreview).not.toHaveBeenCalled();
+      expect(store.dispatch).not.toHaveBeenCalledWith({ type: 'FETCH_MAP_SEARCH_RESULTS_REQUEST' });
+      expect(store.dispatch).toHaveBeenCalledWith({ type: 'FETCH_MAP_DETAIL_REQUEST' });
+      expect(store.dispatch).not.toHaveBeenCalledWith({ type: 'FETCH_PANO_PREVIEW_REQUEST' });
     });
   });
 
   describe('updating data', () => {
-    it('should be triggered when there was no search state', () => {
+    it('should fetch search results with new search state', () => {
       const store = configureMockStore()({ ...initialState });
       jest.spyOn(store, 'dispatch');
       const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
 
       getMapSearchResults.mockClear();
+      getMapDetail.mockClear();
       getPanoPreview.mockClear();
       store.dispatch.mockClear();
 
       wrapper.setProps({ searchLocation: { latitude: 1, longitude: 0 } });
 
       expect(getMapSearchResults).toHaveBeenCalledWith({ latitude: 1, longitude: 0 }, { name: 'User name' });
+      expect(getMapDetail).not.toHaveBeenCalled();
       expect(getPanoPreview).toHaveBeenCalledWith({ latitude: 1, longitude: 0 });
-      expect(store.dispatch).toHaveBeenCalledWith({ type: 'GET_MAP_SEARCH_RESULTS' });
-      expect(store.dispatch).toHaveBeenCalledWith({ type: 'GET_PANO_PREVIEW' });
+      expect(store.dispatch).toHaveBeenCalledWith({ type: 'FETCH_MAP_SEARCH_RESULTS_REQUEST' });
+      expect(store.dispatch).not.toHaveBeenCalledWith({ type: 'FETCH_MAP_DETAIL_REQUEST' });
+      expect(store.dispatch).toHaveBeenCalledWith({ type: 'FETCH_PANO_PREVIEW_REQUEST' });
     });
 
-    it('should be triggered when there was no search location', () => {
+    it('should fetch search results with new search location', () => {
       const store = configureMockStore()({
         ...searchState,
         search: { isLoading: false }
@@ -144,37 +173,144 @@ describe('MapPreviewPanelContainer', () => {
       const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
 
       getMapSearchResults.mockClear();
+      getMapDetail.mockClear();
       getPanoPreview.mockClear();
       store.dispatch.mockClear();
 
       wrapper.setProps({ searchLocation: { latitude: 0, longitude: 1 } });
 
       expect(getMapSearchResults).toHaveBeenCalledWith({ latitude: 0, longitude: 1 }, { name: 'User name' });
+      expect(getMapDetail).not.toHaveBeenCalled();
       expect(getPanoPreview).toHaveBeenCalledWith({ latitude: 0, longitude: 1 });
-      expect(store.dispatch).toHaveBeenCalledWith({ type: 'GET_MAP_SEARCH_RESULTS' });
-      expect(store.dispatch).toHaveBeenCalledWith({ type: 'GET_PANO_PREVIEW' });
+      expect(store.dispatch).toHaveBeenCalledWith({ type: 'FETCH_MAP_SEARCH_RESULTS_REQUEST' });
+      expect(store.dispatch).not.toHaveBeenCalledWith({ type: 'FETCH_MAP_DETAIL_REQUEST' });
+      expect(store.dispatch).toHaveBeenCalledWith({ type: 'FETCH_PANO_PREVIEW_REQUEST' });
     });
 
-    it('should be triggered when the search location changes', () => {
+    it('should fetch search results when search location changes', () => {
       const store = configureMockStore()({ ...searchState });
       jest.spyOn(store, 'dispatch');
       const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
 
       getMapSearchResults.mockClear();
+      getMapDetail.mockClear();
       getPanoPreview.mockClear();
       store.dispatch.mockClear();
 
       wrapper.setProps({ searchLocation: { latitude: 0, longitude: 1 } });
 
       expect(getMapSearchResults).toHaveBeenCalledWith({ latitude: 0, longitude: 1 }, { name: 'User name' });
+      expect(getMapDetail).not.toHaveBeenCalled();
       expect(getPanoPreview).toHaveBeenCalledWith({ latitude: 0, longitude: 1 });
-      expect(store.dispatch).toHaveBeenCalledWith({ type: 'GET_MAP_SEARCH_RESULTS' });
-      expect(store.dispatch).toHaveBeenCalledWith({ type: 'GET_PANO_PREVIEW' });
+      expect(store.dispatch).toHaveBeenCalledWith({ type: 'FETCH_MAP_SEARCH_RESULTS_REQUEST' });
+      expect(store.dispatch).not.toHaveBeenCalledWith({ type: 'FETCH_MAP_DETAIL_REQUEST' });
+      expect(store.dispatch).toHaveBeenCalledWith({ type: 'FETCH_PANO_PREVIEW_REQUEST' });
+    });
+
+    it('should fetch detail with new detail state', () => {
+      const store = configureMockStore()({ ...searchState });
+      jest.spyOn(store, 'dispatch');
+      const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
+
+      getMapSearchResults.mockClear();
+      getMapDetail.mockClear();
+      getPanoPreview.mockClear();
+      store.dispatch.mockClear();
+
+      wrapper.setProps({ detail: { endpoint: 'https://acc.api.data.amsterdam.nl/fake/endpoint' } });
+
+      expect(getMapSearchResults).not.toHaveBeenCalled();
+      expect(getMapDetail).toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/fake/endpoint', { name: 'User name' });
+      expect(getPanoPreview).not.toHaveBeenCalled();
+      expect(store.dispatch).not.toHaveBeenCalledWith({ type: 'FETCH_MAP_SEARCH_RESULTS_REQUEST' });
+      expect(store.dispatch).toHaveBeenCalledWith({ type: 'FETCH_MAP_DETAIL_REQUEST' });
+      expect(store.dispatch).not.toHaveBeenCalledWith({ type: 'FETCH_PANO_PREVIEW_REQUEST' });
+    });
+
+    it('should fetch detail with new detail endpoint', () => {
+      const store = configureMockStore()({ ...searchState, detail: {} });
+      jest.spyOn(store, 'dispatch');
+      const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
+
+      getMapSearchResults.mockClear();
+      getMapDetail.mockClear();
+      getPanoPreview.mockClear();
+      store.dispatch.mockClear();
+
+      wrapper.setProps({ detail: { endpoint: 'https://acc.api.data.amsterdam.nl/fake/endpoint' } });
+
+      expect(getMapSearchResults).not.toHaveBeenCalled();
+      expect(getMapDetail).toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/fake/endpoint', { name: 'User name' });
+      expect(getPanoPreview).not.toHaveBeenCalled();
+      expect(store.dispatch).not.toHaveBeenCalledWith({ type: 'FETCH_MAP_SEARCH_RESULTS_REQUEST' });
+      expect(store.dispatch).toHaveBeenCalledWith({ type: 'FETCH_MAP_DETAIL_REQUEST' });
+      expect(store.dispatch).not.toHaveBeenCalledWith({ type: 'FETCH_PANO_PREVIEW_REQUEST' });
+    });
+
+    it('should fetch detail when detail endpoint changes', () => {
+      const store = configureMockStore()({ ...getDetailState });
+      jest.spyOn(store, 'dispatch');
+      const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
+
+      getMapSearchResults.mockClear();
+      getMapDetail.mockClear();
+      getPanoPreview.mockClear();
+      store.dispatch.mockClear();
+
+      wrapper.setProps({ detail: { endpoint: 'https://acc.api.data.amsterdam.nl/fake/other-endpoint' } });
+
+      expect(getMapSearchResults).not.toHaveBeenCalled();
+      expect(getMapDetail).toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/fake/other-endpoint', { name: 'User name' });
+      expect(getPanoPreview).not.toHaveBeenCalled();
+      expect(store.dispatch).not.toHaveBeenCalledWith({ type: 'FETCH_MAP_SEARCH_RESULTS_REQUEST' });
+      expect(store.dispatch).toHaveBeenCalledWith({ type: 'FETCH_MAP_DETAIL_REQUEST' });
+      expect(store.dispatch).not.toHaveBeenCalledWith({ type: 'FETCH_PANO_PREVIEW_REQUEST' });
+    });
+
+    it('should fetch pano preview with new detail result', () => {
+      const store = configureMockStore()({ ...searchState });
+      jest.spyOn(store, 'dispatch');
+      const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
+
+      getMapSearchResults.mockClear();
+      getMapDetail.mockClear();
+      getPanoPreview.mockClear();
+      store.dispatch.mockClear();
+
+      wrapper.setProps({ detailResult: { location: { latitude: 1, longitude: 2 } } });
+
+      expect(getMapSearchResults).not.toHaveBeenCalled();
+      expect(getMapDetail).not.toHaveBeenCalled();
+      expect(getPanoPreview).toHaveBeenCalledWith({ latitude: 1, longitude: 2 });
+      expect(store.dispatch).not.toHaveBeenCalledWith({ type: 'FETCH_MAP_SEARCH_RESULTS_REQUEST' });
+      expect(store.dispatch).not.toHaveBeenCalledWith({ type: 'FETCH_MAP_DETAIL_REQUEST' });
+      expect(store.dispatch).toHaveBeenCalledWith({ type: 'FETCH_PANO_PREVIEW_REQUEST' });
+    });
+
+    it('should fetch pano preview when detail result changes', () => {
+      const store = configureMockStore()({ ...searchState });
+      jest.spyOn(store, 'dispatch');
+      selectLatestMapDetail.mockImplementation(() => ({ location: { latitude: 1, longitude: 2 } }));
+      const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
+
+      getMapSearchResults.mockClear();
+      getMapDetail.mockClear();
+      getPanoPreview.mockClear();
+      store.dispatch.mockClear();
+
+      wrapper.setProps({ detailResult: { location: { latitude: 2, longitude: 1 } } });
+
+      expect(getMapSearchResults).not.toHaveBeenCalled();
+      expect(getMapDetail).not.toHaveBeenCalled();
+      expect(getPanoPreview).toHaveBeenCalledWith({ latitude: 2, longitude: 1 });
+      expect(store.dispatch).not.toHaveBeenCalledWith({ type: 'FETCH_MAP_SEARCH_RESULTS_REQUEST' });
+      expect(store.dispatch).not.toHaveBeenCalledWith({ type: 'FETCH_MAP_DETAIL_REQUEST' });
+      expect(store.dispatch).toHaveBeenCalledWith({ type: 'FETCH_PANO_PREVIEW_REQUEST' });
     });
   });
 
   describe('rendering', () => {
-    it('should render results', () => {
+    it('should render search results', () => {
       const store = configureMockStore()({ ...searchState });
       selectLatestMapSearchResults.mockImplementation(() => [{ item: 1 }, { item: 2 }]);
 
@@ -186,7 +322,7 @@ describe('MapPreviewPanelContainer', () => {
       expect(wrapper).toMatchSnapshot();
     });
 
-    it('should render results without pano', () => {
+    it('should render search results without pano', () => {
       const store = configureMockStore()({
         ...searchState,
         pano: {
@@ -204,7 +340,7 @@ describe('MapPreviewPanelContainer', () => {
       expect(wrapper).toMatchSnapshot();
     });
 
-    it('should render empty results', () => {
+    it('should render empty search results', () => {
       const store = configureMockStore()({ ...searchState });
       selectLatestMapSearchResults.mockImplementation(() => []);
 
@@ -213,6 +349,93 @@ describe('MapPreviewPanelContainer', () => {
 
       // Update results
       wrapper.setProps({ results: [{ item: 3 }] });
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should render loading of search results', () => {
+      const store = configureMockStore()({ ...searchState });
+      const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
+
+      wrapper.setProps({ search: { isLoading: true } });
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should render detail', () => {
+      const store = configureMockStore()({ ...detailState });
+      selectLatestMapSearchResults.mockImplementation(() => [{ item: 1 }, { item: 2 }]);
+      selectLatestMapDetail.mockImplementation(() => ({ location: { latitude: 1, longitude: 0 } }));
+
+      const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
+      expect(wrapper).toMatchSnapshot();
+
+      // Update detail
+      wrapper.setProps({ detailResult: { location: { latitude: 2, longitude: 1 } } });
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should render detail without pano', () => {
+      const store = configureMockStore()({ ...detailState });
+      selectLatestMapDetail.mockImplementation(() => ({ location: { latitude: 1, longitude: 2 } }));
+
+      const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
+      expect(wrapper).toMatchSnapshot();
+
+      // Set pano
+      wrapper.setProps({
+        pano: {
+          previews: {
+            '1,2': { url: 'different-pano-url' }
+          }
+        }
+      });
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should render detail with a button to show all results', () => {
+      const store = configureMockStore()({ ...detailState });
+      selectLatestMapSearchResults.mockImplementation(() => [{ item: 1 }, { item: 2 }]);
+      selectLatestMapDetail.mockImplementation(() => ({ location: { latitude: 1, longitude: 0 } }));
+
+      const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
+
+      // Flag it skipped search results
+      wrapper.setProps({
+        detail: {
+          ...detailState.detail,
+          skippedSearchResults: true
+        }
+      });
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should render one missing layer', () => {
+      const store = configureMockStore()({ ...searchState });
+      selectLatestMapSearchResults.mockImplementation(() => [{ item: 1 }, { item: 2 }]);
+      selectNotClickableVisibleMapLayers.mockImplementation(() => [{ title: 'Layer 1', something: 'else' }]);
+
+      const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
+
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should render multiple missing layers', () => {
+      const store = configureMockStore()({ ...searchState });
+      selectLatestMapSearchResults.mockImplementation(() => [{ item: 1 }, { item: 2 }]);
+      selectNotClickableVisibleMapLayers.mockImplementation(() => ([
+        { title: 'Layer 1', something: 'else' },
+        { title: 'Layer 2', something: 1 }
+      ]));
+
+      const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
+
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should render loading of detail', () => {
+      const store = configureMockStore()({ ...detailState });
+      const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
+
+      wrapper.setProps({ mapDetail: { isLoading: true } });
       expect(wrapper).toMatchSnapshot();
     });
 
@@ -225,14 +448,6 @@ describe('MapPreviewPanelContainer', () => {
       expect(wrapper).toMatchSnapshot();
 
       wrapper.setProps({ isMapPreviewPanelVisible: true });
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('should render loading', () => {
-      const store = configureMockStore()({ ...searchState });
-      const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
-
-      wrapper.setProps({ search: { isLoading: true } });
       expect(wrapper).toMatchSnapshot();
     });
   });
@@ -253,5 +468,34 @@ describe('MapPreviewPanelContainer', () => {
     wrapper.find('.map-preview-panel__button').at(1).simulate('click');
 
     expect(store.dispatch).toHaveBeenCalledWith({ type: 'CLOSE_MAP_PREVIEW_PANEL' });
+  });
+
+  it('should go from detail to all results', () => {
+    const store = configureMockStore()({ ...initialState });
+    jest.spyOn(store, 'dispatch');
+    const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
+
+    selectLatestMapDetail.mockImplementation(() => ({ location: { latitude: 1, longitude: 0 } }));
+    // Mock detail result and flag it skipped search results
+    wrapper.setProps({
+      mapClickLocation: {
+        latitude: 15,
+        longitude: 39
+      },
+      detail: {
+        ...detailState.detail,
+        skippedSearchResults: true
+      }
+    });
+
+    wrapper.find('.map-preview-panel__button--show-all').at(0).simulate('click');
+
+    expect(store.dispatch).toHaveBeenCalledWith({
+      type: {
+        id: 'FETCH_SEARCH_RESULTS_BY_LOCATION',
+        ignore: true
+      },
+      payload: [15, 39]
+    });
   });
 });

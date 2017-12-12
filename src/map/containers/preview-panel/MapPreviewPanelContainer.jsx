@@ -90,10 +90,9 @@ class MapPreviewPanelContainer extends React.Component {
     const panoSearchPreview = get(props, `pano.previews['${props.searchLocationId}']`, {});
     const panoDetailPreview = get(props, `pano.previews['${detailLocationId}']`, {});
     const showDisplayAllResultsButton = get(props, 'detail.skippedSearchResults');
-    const isSearchLoaded = props.search && !props.search.isLoading && props.searchLocation;
-    const isDetailLoaded = props.detail && props.mapDetail &&
-      !props.mapDetail.isLoading && props.detailResult;
     const isLoading = get(props, 'search.isLoading') || get(props, 'mapDetail.isLoading');
+    const isSearchLoaded = !isLoading && props.search && props.searchLocation;
+    const isDetailLoaded = !isLoading && props.detail && props.mapDetail && props.detailResult;
 
     return (
       <section className={`
