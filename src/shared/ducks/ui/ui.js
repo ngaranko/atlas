@@ -1,9 +1,7 @@
 export const TOGGLE_MAP_PANEL_HANDLE = 'TOGGLE_MAP_PANEL_HANDLE';
 
 const initialState = {
-  ui: {
-    isMapPanelHandleVisible: true
-  }
+  isMapPanelHandleVisible: true
 };
 
 export default function UiReducer(state = initialState, action) {
@@ -11,12 +9,8 @@ export default function UiReducer(state = initialState, action) {
     case TOGGLE_MAP_PANEL_HANDLE:
       return {
         ...state,
-        ui: {
-          ...state.ui,
-          isMapPanelHandleVisible: !state.ui.isMapPanelHandleVisible
-        }
+        isMapPanelHandleVisible: !state.isMapPanelHandleVisible
       };
-
     default:
       return state;
   }
