@@ -1,7 +1,7 @@
 .c-toggle-button {
-  background-color: #FFFFFF;
-  border: 1px solid #CCCCCC;
-  box-shadow: 2px 2px 0 0 #999999;
+  background-color: $primary-light;
+  border: 1px solid $secondary-gray20;
+  box-shadow: 2px 2px 0 0 $secondary-gray40;
   box-sizing: content-box;
   display: flex;
   height: 24px;
@@ -11,27 +11,17 @@
   width: 24px;
 
   &:hover {
-    background-color: #EC0000;
-    border-color: #EC0000;
+    background-color: $primary-contrast;
+    border-color: $primary-contrast;
 
     svg {
-      fill: #FFFFFF;
-    }
-
-    span {
-      color: #FFFFFF;
+      fill: $primary-light;
     }
   }
 
   svg {
-    fill: #666666;
+    fill: $secondary-gray60;
     height: 24px;
     width: 24px;
-  }
-
-  div {
-    font-family: "Avenir LT W01 85 Heavy";
-    line-height: 24px;
-    margin-left: 4px;
   }
 }
