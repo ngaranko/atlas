@@ -2,7 +2,7 @@ import MapPanelReducer, {
   hideMapPanel,
   showMapPanel,
   toggleMapPanel
-} from './map-panel.js';
+} from './map-panel';
 
 describe('MapPanelReducer', () => {
   let state;
