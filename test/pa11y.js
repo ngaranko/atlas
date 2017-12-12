@@ -55,7 +55,7 @@ npmStart.stdout.on('data', (buffer) => {
                 /* eslint-enable no-console, angular/log */
 
                 /* eslint-disable no-console, angular/log */
-                // console.log(reporter.results(result));
+                console.log(reporter.results(result));
                 /* eslint-enable no-console, angular/log */
 
                 total.errors += result.issues.reduce((accumulator, issue) =>
