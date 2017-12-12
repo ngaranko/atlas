@@ -35,7 +35,8 @@
 
                 $rootScope.$applyAsync(() => {
                     registerServerError();
-                    logResponse('HTTP external request error');
+                    const message = `HTTP external request error, src: ${e.target.src}`;
+                    logResponse(message);
                 });
             }
         }, true);
