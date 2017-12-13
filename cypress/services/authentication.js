@@ -8,6 +8,7 @@ export function login(type = 'EMPLOYEE_PLUS') {
   cy.window().its('sessionStorage').invoke('setItem', 'returnPath', '#');
   cy.window().its('sessionStorage').invoke('setItem', 'stateToken', stateToken);
 
+  // Open IDP (SSO)
   // TODO: Replace URL with `${API_ROOT}${AUTH_PATH}...` as soon as Cypress supports the spread operator
   return cy.request({
     url: [
@@ -21,12 +22,14 @@ export function login(type = 'EMPLOYEE_PLUS') {
     ].join(''),
     followRedirect: false
   })
+    // Follow redirect to login page manually
     .then((response) => (
       cy.request({
         url: response.headers.location,
         followRedirect: false
       })
     ))
+    // Post credentials and account type
     .then((response) => (
       cy.request({
         method: 'POST',
@@ -40,12 +43,14 @@ export function login(type = 'EMPLOYEE_PLUS') {
         followRedirect: false
       })
     ))
+    // Follow redirect manually
     .then((response) => (
       cy.request({
         url: response.headers.location,
         followRedirect: false
       })
     ))
+    // Return to the application
     .then((response) => (
       cy.visit(response.headers.location)
     ));
