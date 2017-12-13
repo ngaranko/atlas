@@ -66,6 +66,8 @@
                 // Check if the error has already been handled locally
                 const errorHandled = response.errorHandled;
 
+                const url = response.config && response.config.url;
+
                 // register server errors (5xx) and client errors (4xx)
                 let isServerError = !errorHandled && 500 <= response.status && response.status <= 599;
                 const isClientError = !errorHandled && 400 <= response.status && response.status <= 499;
@@ -77,7 +79,7 @@
                             angular.noop, // request has been cancelled by resolving the timeout
                             () => { // Abnormal end of request
                                 registerServerError();
-                                logResponse('HTTP request ended abnormally', response.status);
+                                logResponse(`HTTP request ended abnormally, ${url}`, response.status);
                             }
                         );
                     } else {
@@ -87,13 +89,13 @@
 
                 if (isServerError) {
                     registerServerError();
-                    logResponse('HTTP 5xx response', response.status);
+                    logResponse(`HTTP 5xx response, URL: ${url}`, response.status);
                 } else if (isClientError) {
                     if (response.status === 401) {
                         $window.auth.logout();
                     } else if (response && response.data && response.data.detail === 'Not found.') {
                         registerNotFoundError();
-                        logResponse('HTTP response body: Not found.', response.status);
+                        logResponse(`HTTP response body: Not found, URL: ${url}`, response.status);
                     } else {
                         registerServerError();
                         logResponse('HTTP 4xx response', response.status);
