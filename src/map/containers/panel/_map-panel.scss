@@ -153,6 +153,14 @@
 }
 
 .leaflet-control-container {
+
+  .leaflet-bottom {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-direction: row-reverse;
+  }
+
   .leaflet-control-zoom {
     border: none;
     box-shadow: none;

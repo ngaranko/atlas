@@ -199,11 +199,11 @@ describe('The nearestDetail factory', () => {
                 url: 'maps/monumenten',
                 label_short: 'Monumenten',
                 label_long: 'Monumenten',
-                layers: ['monument_coordinaten'],
+                layers: ['monumenten'],
                 minZoom: 8,
                 maxZoom: 15,
                 legend: 'maps/monumenten?version=1.3.0&service' +
-                '=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=monument_coordinaten&format=' +
+                '=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=monument&format=' +
                 'image/png&STYLE=default',
                 noDetail: true
             },

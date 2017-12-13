@@ -271,6 +271,31 @@ describe('The dp-search-results-list component', function () {
         expect(component.find('li').eq(2).text()).toContain('(ligplaats)');
     });
 
+    it('shows the type of monument', function () {
+        const category = {
+            slug: 'monument',
+            count: 2,
+            results: [
+                {
+                    label: 'Link #1',
+                    endpoint: 'http://www.example.com/monument/1/',
+                    subtype: 'monument',
+                    subtypeLabel: 'monument'
+                }, {
+                    label: 'Link #2',
+                    endpoint: 'http://www.example.com/monument/2/',
+                    subtype: 'complex',
+                    subtypeLabel: 'complex'
+                }
+            ]
+        };
+
+        const component = getComponent(category);
+
+        expect(component.find('li').eq(0).text()).not.toContain('(monument)');
+        expect(component.find('li').eq(1).text()).toContain('(complex)');
+    });
+
     it('doesn\'t show the type when the value is null', function () {
         var component,
             mockedGebiedenCategory = {

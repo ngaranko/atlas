@@ -35,11 +35,12 @@
         function determineVisibility (state) {
             const activity = determineActivity(state);
             const visibility = {};
+            const { map = {} } = state;
 
             visibility.httpStatus = httpStatus.getStatus().hasErrors || state.user.error;
             visibility.map = activity.map;
 
-            if (angular.isObject(state.dataSelection) && !state.map.isFullscreen) {
+            if (angular.isObject(state.dataSelection) && !map.isFullscreen) {
                 visibility.dataSelection = true;
 
                 visibility.detail = false;
@@ -53,7 +54,7 @@
                     visibility.detail = false;
                     visibility.page = false;
                     visibility.searchResults = false;
-                } else if (state.map.isFullscreen) {
+                } else if (map.isFullscreen) {
                     visibility.detail = false;
                     visibility.page = false;
                     visibility.searchResults = false;
@@ -71,7 +72,7 @@
                 angular.isArray(state.search.location);
 
             visibility.mapPreviewPanel =
-                state.map.isFullscreen &&
+                map.isFullscreen &&
                 (geoSearchActive || activity.detail) &&
                 !angular.isObject(state.dataSelection);
 
@@ -87,9 +88,10 @@
         }
 
         function determineMapActivityDefault (state) {
-            return state.map.isFullscreen ||
+            const { map = {} } = state;
+            return map.isFullscreen ||
                 (
-                    !(state.page.name && !state.map.isFullscreen && !state.straatbeeld) &&
+                    !(state.page.name && !map.isFullscreen && !state.straatbeeld) &&
                     !(state.detail && state.detail.isFullscreen) &&
                     !(state.dataSelection && state.dataSelection.view !== 'LIST') &&
                     !(state.search && state.search.isFullscreen) &&
