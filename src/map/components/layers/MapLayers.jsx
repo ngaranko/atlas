@@ -57,7 +57,7 @@ const MapLayers = (props) => (
       <Notification>
         <a
           href="#?mpb=topografie&pgn=content-overzicht&pgi=item1&pgt=inloggen"
-        >Meer kaartlagen</a> na inloggen
+        >Meer kaartlagen</a> na inloggen.
       </Notification>
     )}
   </div>

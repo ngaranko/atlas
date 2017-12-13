@@ -32,7 +32,7 @@ const MapDetailVestiging = ({ panoUrl, result }) => (
     {!result._display && (
       <Notification>
         Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om
-        maatschappelijke activiteiten en vestigingen te bekijken
+        maatschappelijke activiteiten en vestigingen te bekijken.
       </Notification>
     )}
     {result._display && (
