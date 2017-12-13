@@ -65,6 +65,13 @@ npmStart.stdout.on('data', (buffer) => {
                 total.notices += result.issues.reduce((accumulator, issue) =>
                     issue.type === 'notice' ? accumulator + 1 : accumulator, 0);
             }
+        }, reason => {
+            /* eslint-disable no-console, angular/log */
+            console.log(chalk.red('Pa11y: promise rejection:', reason));
+            /* eslint-enable no-console, angular/log */
+
+            process.kill(-npmStart.pid, 'SIGKILL');
+            process.exit();
         });
 
         /* eslint-disable no-console, angular/log */
