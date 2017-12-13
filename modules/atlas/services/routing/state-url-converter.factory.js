@@ -255,6 +255,9 @@
                     }
                     value = asUrlValue(value, attribute.type, attribute.precision);
                     if (value) {
+                        if (key === 'mpfs') {
+                            console.log('State to params', value);
+                        }
                         result[key] = value;
                     }
                 }
@@ -263,8 +266,13 @@
         }
 
         function params2state (oldState, params) {
+            console.log('old state', oldState);
+            console.log('params', params);
+
             // Converts a params object (payload or url value) to a new state object
             let newState = createObject(oldState, MAIN_STATE, params);
+
+            console.log('new state', newState);
 
             newState = Object.keys(stateUrlConversion.stateVariables).reduce((result, key) => {
                 const attribute = stateUrlConversion.stateVariables[key];
@@ -282,6 +290,8 @@
                 return result;
             }, newState);
 
+            console.log('new state', newState);
+
             // Set any missing state objects to null
             Object.keys(stateUrlConversion.initialValues).forEach(key => {
                 if (key !== MAIN_STATE && (typeof newState[key] !== 'boolean' && !angular.isObject(newState[key]))) {
@@ -289,12 +299,16 @@
                 }
             });
 
+            console.log('new state', newState);
+
             // Execute the post processing methods
             Object.keys(stateUrlConversion.post).forEach(key => {
                 if (typeof newState[key] === 'boolean' || angular.isObject(newState[key])) {
                     newState[key] = stateUrlConversion.post[key](oldState[key], newState[key]);
                 }
             });
+
+            console.log('new state', newState);
 
             return newState;
         }

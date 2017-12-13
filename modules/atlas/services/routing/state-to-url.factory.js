@@ -16,7 +16,9 @@
             if (useReplace) {
                 $location.replace();
             }
-            $location.search(stateUrlConverter.state2params(state));
+            const newUrl = stateUrlConverter.state2params(state);
+            console.log('update location.search', newUrl);
+            $location.search(newUrl);
         }
     }
 })();

@@ -16,6 +16,7 @@
             var unwatch = $rootScope.$watch(function () {
                 return $location.search();
             }, function (params) {
+                console.log('$location.search', $location.search());
                 store.dispatch({
                     type: ACTIONS.URL_CHANGE,
                     payload: params
