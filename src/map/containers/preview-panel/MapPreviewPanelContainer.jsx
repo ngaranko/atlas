@@ -38,7 +38,8 @@ const mapStateToProps = (state) => ({
   detail: state.detail,
   mapDetail: state.mapDetail,
   detailResult: selectLatestMapDetail(state) || {},
-  user: state.user
+  user: state.user,
+  isEmbed: state.atlas && (state.atlas.isEmbed || state.atlas.isEmbedPreview)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
@@ -94,7 +95,7 @@ class MapPreviewPanelContainer extends React.Component {
     const isSearchLoaded = !isLoading && props.search && props.searchLocation;
     const isDetailLoaded = !isLoading && props.detail && props.mapDetail && props.detailResult;
 
-    return (
+    return !props.isEmbed && (
       <section className={`
         map-preview-panel
         map-preview-panel--${props.isMapPreviewPanelVisible ? 'visible' : 'hidden'}
@@ -170,7 +171,8 @@ MapPreviewPanelContainer.defaultProps = {
   detail: {},
   mapDetail: {},
   detailResult: {},
-  user: {}
+  user: {},
+  isEmbed: false
 };
 
 /* eslint-disable react/no-unused-prop-types */
@@ -188,7 +190,8 @@ MapPreviewPanelContainer.propTypes = {
   detail: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   mapDetail: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   detailResult: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  user: PropTypes.object // eslint-disable-line react/forbid-prop-types
+  user: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  isEmbed: PropTypes.bool
 };
 /* eslint-enable react/no-unused-prop-types */
 
