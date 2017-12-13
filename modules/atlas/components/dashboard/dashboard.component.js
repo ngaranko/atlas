@@ -50,6 +50,17 @@
             }
         });
 
+        // Show or hide React `MapPanel` app according to map fullscreen state
+        $scope.$watch('vm.isMapFullscreen', () => {
+            if (!vm.isMapFullscreen) {
+                // Always hide when map exits fullscreen mode
+                store.dispatch({ type: 'HIDE_MAP_PANEL' });
+            } else if (vm.isHomePageActive) {
+                // Only show when coming from the home page
+                store.dispatch({ type: 'SHOW_MAP_PANEL' });
+            }
+        });
+
         // Open or close React `MapPreviewPanel` app
         $scope.$watchGroup([
             'vm.visibility.mapPreviewPanel',

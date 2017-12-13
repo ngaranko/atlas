@@ -398,23 +398,6 @@ describe('The map reducers', function () {
             expect(output.map.isFullscreen).toBe(false);
         });
 
-        it('disables layer selection when changing fullscreen', function () {
-            const inputState = angular.copy(DEFAULT_STATE);
-            let output;
-
-            // Enable fullscreen
-            inputState.map.isFullscreen = false;
-            inputState.ui.isMapPanelVisible = true;
-            output = mapReducers[ACTIONS.MAP_FULLSCREEN.id](inputState, true);
-            expect(output.ui.isMapPanelVisible).toBe(false);
-
-            // Disable fullscreen
-            inputState.map.isFullscreen = true;
-            inputState.ui.isMapPanelVisible = true;
-            output = mapReducers[ACTIONS.MAP_FULLSCREEN.id](inputState, false);
-            expect(output.ui.isMapPanelVisible).toBe(false);
-        });
-
         it('when map and map panel are not an object', function () {
             const inputState = angular.copy(DEFAULT_STATE);
             inputState.map = null;

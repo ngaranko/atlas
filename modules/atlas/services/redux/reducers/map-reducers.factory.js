@@ -162,11 +162,7 @@
                 map: angular.isObject(state.map) ? {
                     ...state.map,
                     isFullscreen: payload
-                } : state.map,
-                ui: angular.isObject(state.ui) ? {
-                    ...state.ui,
-                    isMapPanelVisible: false
-                } : state.ui
+                } : state.map
             };
         }
 
