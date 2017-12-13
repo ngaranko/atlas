@@ -44,7 +44,6 @@
         return function (oldState, action) { // eslint-disable-line complexity
             const DetailsReducers = $window.reducers.detailReducer;
             const MapLayersReducer = $window.reducers.MapLayersReducer;
-            const MapPanelReducer = $window.reducers.MapPanelReducer;
             const MapOverlaysReducer = $window.reducers.MapOverlaysReducer;
             const MapBaseLayersReducer = $window.reducers.MapBaseLayersReducer;
 
@@ -118,10 +117,6 @@
                 const newState = MapBaseLayersReducer(oldState, action);
                 $timeout(() => $rootScope.$digest());
                 return newState;
-            }
-
-            if (mapPanelReducers.hasOwnProperty(action.type)) {
-                return MapPanelReducer(oldState, action);
             }
 
             if (mapOverlaysReducer.hasOwnProperty(action.type)) {

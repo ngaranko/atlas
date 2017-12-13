@@ -226,17 +226,6 @@ describe('The deprecated reducer factory', function () {
                 .toEqual(jasmine.objectContaining({ type: 'FETCH_MAP_LAYERS_REQUEST' }));
         });
 
-        it('map panel reducers', function () {
-            spyOn($window.reducers, 'MapPanelReducer');
-
-            reducer(inputState, {
-                type: 'SHOW_MAP_PANEL'
-            });
-
-            expect($window.reducers.MapPanelReducer.calls.mostRecent().args[1])
-                .toEqual(jasmine.objectContaining({ type: 'SHOW_MAP_PANEL' }));
-        });
-
         it('map overlays reducers', function () {
             spyOn($window.reducers, 'MapOverlaysReducer');
 

@@ -2,27 +2,18 @@ const HIDE_MAP_PANEL = 'HIDE_MAP_PANEL';
 const SHOW_MAP_PANEL = 'SHOW_MAP_PANEL';
 const TOGGLE_MAP_PANEL = 'TOGGLE_MAP_PANEL';
 
-const initialState = {};
+const initialState = false;
 
 export default function MapPanelReducer(state = initialState, action) {
   switch (action.type) {
     case HIDE_MAP_PANEL:
-      return {
-        ...state,
-        isMapPanelVisible: false
-      };
+      return false;
 
     case SHOW_MAP_PANEL:
-      return {
-        ...state,
-        isMapPanelVisible: true
-      };
+      return true;
 
     case TOGGLE_MAP_PANEL:
-      return {
-        ...state,
-        isMapPanelVisible: !state.isMapPanelVisible
-      };
+      return !state;
 
     default:
       return state;
