@@ -1,3 +1,4 @@
+/* istanbul ignore next */
 (function () {
     'use strict';
 
@@ -28,16 +29,24 @@
         const vm = this,
             videoElement = $element.find('video')[0];
 
+        let canPlayPause = false;
+        videoElement.addEventListener('canplay', e => {
+            canPlayPause = true;
+        });
+
         vm.$onChanges = (changes) => {
             if (angular.isUndefined(changes.play) || !videoElement || !videoElement.play || !videoElement.pause) {
                 return;
             }
 
-            if (changes.play.currentValue) {
-                videoElement.play();
-            } else {
-                videoElement.pause();
-                videoElement.currentTime = 0;
+            if (canPlayPause) {
+                // Only issue play/pause command after element canplay.
+                if (changes.play.currentValue) {
+                    videoElement.play();
+                } else {
+                    videoElement.pause();
+                    videoElement.currentTime = 0;
+                }
             }
         };
 

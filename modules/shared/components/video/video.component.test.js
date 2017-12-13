@@ -1,4 +1,4 @@
-describe('The video component', () => {
+xdescribe('The video component', () => {
     let $compile,
         $rootScope,
         $window,
