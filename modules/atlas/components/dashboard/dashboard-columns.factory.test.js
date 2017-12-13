@@ -259,6 +259,21 @@ describe('The dashboardColumns factory', function () {
                 hasLimitedWidth = dashboardColumns.hasLimitedWidth(mockedState);
             });
 
+            it('deals with incomplete state', function () {
+                delete mockedState.map;
+                activity = dashboardColumns.determineActivity(mockedState);
+                visibility = dashboardColumns.determineVisibility(mockedState);
+                expect(activity.map).toBe(true);
+                expect(visibility.map).toBe(true);
+                expect(visibility.detail).toBe(true);
+
+                expect(visibility.layerSelection).toBe(false);
+                expect(visibility.page).toBe(false);
+                expect(visibility.straatbeeld).toBe(false);
+                expect(visibility.searchResults).toBe(false);
+                expect(visibility.dataSelection).toBe(false);
+            });
+
             it('makes the map and detail page visibile', function () {
                 expect(activity.map).toBe(true);
                 expect(visibility.map).toBe(true);
