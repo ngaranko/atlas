@@ -5,6 +5,12 @@ export default {
         // the level of issue to fail on (exit with code 2): error, warning, notice, none
         level: 'none',
         rootElement: '.c-dashboard__body',
+        chromeLaunchConfig: {
+            args: [
+                '--no-sandbox',
+                '--disable-setuid-sandbox'
+            ]
+        },
         timeout: 30000
     },
     urls: [
