@@ -30,11 +30,6 @@
                     uri: 'handelsregister/search/maatschappelijkeactiviteit/',
                     authScope: 'HR/R'
                 }, {
-                    slug: 'monument',
-                    label_singular: 'Monument',
-                    label_plural: 'Monumenten',
-                    uri: 'monumenten/search/'
-                }, {
                     slug: 'object',
                     label_singular: 'Kadastraal object',
                     label_plural: 'Kadastrale objecten',
@@ -60,6 +55,11 @@
                     label_singular: 'Meetbout',
                     label_plural: 'Meetbouten',
                     uri: 'meetbouten/search/'
+                }, {
+                    slug: 'monument',
+                    label_singular: 'Monument',
+                    label_plural: 'Monumenten',
+                    uri: 'monumenten/search/'
                 }
             ],
             COORDINATES_ENDPOINTS: [
