@@ -77,6 +77,12 @@ export default {
             actions: [
                 'wait for element .qa-data-selection-content to be visible'
             ]
+        },
+        {
+            // login page
+            url: 'https://acc.api.data.amsterdam.nl/auth/idp/login?callback=https%3A%2F%2Facc.api.data.amsterdam.nl%2' +
+                'Foauth2%2Fcallback',
+            rootElement: ''
         }
     ]
 };
