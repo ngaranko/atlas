@@ -1,7 +1,7 @@
 <div class="c-search-results u-grid">
     <dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>
 
-    <div ng-if="!vm.isLoading">
+    <div ng-if="!vm.isLoading && vm.show">
         <dp-tab-header ng-if="vm.showTabHeader()" search-text="{{vm.query}}" tab-header="vm.tabHeader"></dp-tab-header>
 
         <div ng-if="vm.numberOfResults" class="qa-search-result">
