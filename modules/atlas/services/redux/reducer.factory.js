@@ -27,16 +27,13 @@ import { combineReducers } from 'redux';
             const deprecatedState = deprecatedReducer(oldState, action);
 
             // Use combine reducer for new reducers
-            const MapPanelReducer = $window.reducers.MapPanelReducer;
             const UiReducer = $window.reducers.UiReducer;
             const UserReducer = $window.reducers.UserReducer;
             const newRootReducer = combineReducers({
-                isMapPanelVisible: MapPanelReducer,
                 ui: UiReducer,
                 user: UserReducer
             });
             const filteredState = {
-                isMapPanelVisible: oldState.isMapPanelVisible,
                 ui: oldState.ui,
                 user: oldState.user
             };
