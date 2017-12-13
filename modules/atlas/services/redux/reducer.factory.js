@@ -10,12 +10,16 @@ import { combineReducers } from 'redux';
 
     reducerFactory.$inject = [
         '$window',
+        '$rootScope',
+        '$timeout',
         'deprecatedReducer'
     ];
 
     // eslint-disable-next-line max-params
     function reducerFactory (
              $window,
+             $rootScope,
+             $timeout,
              deprecatedReducer
         ) {
         return function (oldState, action) { // eslint-disable-line complexity
@@ -42,6 +46,8 @@ import { combineReducers } from 'redux';
                 ...deprecatedState,
                 ...newRootReducer(filteredState, action)
             };
+
+            $timeout(() => $rootScope.$digest());
 
             return newState;
         };
