@@ -16,7 +16,7 @@ $dashboard-heading-padding-embed-version: 46px;
 }
 
 .c-dashboard__body {
-  top: initial;
+  top: 0;
   height: calc(100% - #{$dashboard-heading-height-embed-version});
   padding: $base-whitespace * 2;
   border: 2px solid $secondary-gray40;
