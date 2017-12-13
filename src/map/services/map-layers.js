@@ -1791,11 +1791,16 @@ export default [
   {
     category: 'Toerisme en cultuur',
     id: 'tcmnmt',
-    layers: ['monument_coordinaten'],
     legendItems: [
       {
+        layer: ['monument_coordinaten'],
         selectable: false,
-        title: 'Monument'
+        title: 'Monument (pandgerelateerd)'
+      },
+      {
+        layer: 'monument_coordinaten_nopand',
+        selectable: false,
+        title: 'Monument (overige)'
       }
     ],
     maxZoom: 16,

@@ -5,8 +5,7 @@ module.exports = {
   ],
   coverageDirectory: 'coverage',
   coverageReporters: [
-    'html',
-    'text'
+    'html'
   ],
   moduleNameMapper: {
     '^.+\\.(css|scss)$': 'identity-obj-proxy',

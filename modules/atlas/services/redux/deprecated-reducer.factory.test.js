@@ -1,4 +1,4 @@
-describe('The reducer factory', function () {
+describe('The deprecated reducer factory', function () {
     var reducer,
         $window,
         $timeout,
@@ -23,7 +23,6 @@ describe('The reducer factory', function () {
                 $window: {
                     reducers: {
                         detailReducer: angular.noop,
-                        UserReducer: angular.noop,
                         MapLayersReducer: angular.noop,
                         MapPanelReducer: angular.noop,
                         MapOverlaysReducer: angular.noop,
@@ -124,8 +123,8 @@ describe('The reducer factory', function () {
             }
         };
 
-        angular.mock.inject(function (_reducer_) {
-            reducer = _reducer_;
+        angular.mock.inject(function (_deprecatedReducer_) {
+            reducer = _deprecatedReducer_;
             inputState = DEFAULT_STATE;
         });
 
@@ -218,17 +217,6 @@ describe('The reducer factory', function () {
                 .toEqual(jasmine.objectContaining({ payload, type: 'FETCH_DETAIL' }));
         });
 
-        it('user reducers', function () {
-            spyOn($window.reducers, 'UserReducer');
-
-            reducer(inputState, {
-                type: 'AUTHENTICATE_USER'
-            });
-
-            expect($window.reducers.UserReducer.calls.mostRecent().args[1])
-                .toEqual(jasmine.objectContaining({ type: 'AUTHENTICATE_USER' }));
-        });
-
         it('map layers reducers', function () {
             spyOn($window.reducers, 'MapLayersReducer');
 
@@ -238,17 +226,6 @@ describe('The reducer factory', function () {
 
             expect($window.reducers.MapLayersReducer.calls.mostRecent().args[1])
                 .toEqual(jasmine.objectContaining({ type: 'FETCH_MAP_LAYERS_REQUEST' }));
-        });
-
-        it('map panel reducers', function () {
-            spyOn($window.reducers, 'MapPanelReducer');
-
-            reducer(inputState, {
-                type: 'SHOW_MAP_PANEL'
-            });
-
-            expect($window.reducers.MapPanelReducer.calls.mostRecent().args[1])
-                .toEqual(jasmine.objectContaining({ type: 'SHOW_MAP_PANEL' }));
         });
 
         it('map overlays reducers', function () {

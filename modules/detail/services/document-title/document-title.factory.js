@@ -18,7 +18,7 @@
             const glossaryDefinition = GLOSSARY.DEFINITIONS[glossaryKey];
             const label = glossaryDefinition ? glossaryDefinition.label_singular : glossaryKey;
 
-            return `${label}: ${detailState.display}`;
+            return detailState.display ? `${label}: ${detailState.display}` : label;
         }
     }
 })();

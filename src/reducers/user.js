@@ -2,13 +2,11 @@ export const AUTHENTICATE_USER = 'AUTHENTICATE_USER';
 export const AUTHENTICATE_ERROR = 'AUTHENTICATE_ERROR';
 
 const initialState = {
-  user: {
-    authenticated: false,
-    accessToken: '',
-    scopes: [],
-    name: '',
-    error: false
-  }
+  authenticated: false,
+  accessToken: '',
+  scopes: [],
+  name: '',
+  error: false
 };
 
 export default function UserReducer(state = initialState, action) {
@@ -16,22 +14,16 @@ export default function UserReducer(state = initialState, action) {
     case 'AUTHENTICATE_USER':
       return {
         ...state,
-        user: {
-          ...state.user,
-          authenticated: true,
-          accessToken: action.accessToken,
-          name: action.name,
-          scopes: action.scopes
-        }
+        authenticated: true,
+        accessToken: action.accessToken,
+        name: action.name,
+        scopes: action.scopes
       };
 
     case 'AUTHENTICATE_ERROR':
       return {
         ...state,
-        user: {
-          ...state.user,
-          error: true
-        }
+        error: true
       };
 
     default:
