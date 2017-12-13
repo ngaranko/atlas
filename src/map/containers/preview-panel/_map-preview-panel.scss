@@ -20,6 +20,7 @@
 
   .c-dashboard__body--error & {
     max-height: calc(100vh - #{$map-preview-panel-top + $map-preview-panel-bottom + $dashboard-error-height});
+    top: #{$map-preview-panel-top + $dashboard-error-height};
   }
 
   &--hidden {
