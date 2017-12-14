@@ -105,6 +105,7 @@
     "babel-preset-react-app": "^3.1.0",
     "bbga_visualisatie_d3": "https://github.com/Amsterdam/bbga_visualisatie_d3.git#master",
     "d3": "^3.5.17",
+    "isomorphic-fetch": "2.2.1",
     "leaflet": "1.0.3",
     "leaflet-draw": "^0.4.12",
     "leaflet-rotatedmarker": "^0.2.0",
