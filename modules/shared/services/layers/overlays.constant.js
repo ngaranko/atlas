@@ -29,7 +29,7 @@
 
                 // economie
                 hvo: {
-                    authorizationLevel: 'EMPLOYEE',
+                    authScope: 'HR/R',
                     url: 'maps/handelsregister',
                     label_short: 'Handel, vervoer, opslag',
                     label_long: 'Handel, vervoer, opslag',
@@ -42,7 +42,7 @@
                     detailItem: 'handel_vervoer_opslag'
                 },
                 pir: {
-                    authorizationLevel: 'EMPLOYEE',
+                    authScope: 'HR/R',
                     url: 'maps/handelsregister',
                     label_short: 'Productie, installatie, reparatie',
                     label_long: 'Productie, installatie, reparatie',
@@ -56,7 +56,7 @@
                     detailItem: 'productie_installatie_reparatie'
                 },
                 bouw: {
-                    authorizationLevel: 'EMPLOYEE',
+                    authScope: 'HR/R',
                     url: 'maps/handelsregister',
                     label_short: 'Bouw',
                     label_long: 'Bouw',
@@ -69,7 +69,7 @@
                     detailItem: 'bouw'
                 },
                 lb: {
-                    authorizationLevel: 'EMPLOYEE',
+                    authScope: 'HR/R',
                     url: 'maps/handelsregister',
                     label_short: 'Landbouw',
                     label_long: 'Landbouw',
@@ -82,7 +82,7 @@
                     detailItem: 'landbouw'
                 },
                 hrc: {
-                    authorizationLevel: 'EMPLOYEE',
+                    authScope: 'HR/R',
                     url: 'maps/handelsregister',
                     label_short: 'Horeca',
                     label_long: 'Horeca',
@@ -95,7 +95,7 @@
                     detailItem: 'horeca'
                 },
                 itc: {
-                    authorizationLevel: 'EMPLOYEE',
+                    authScope: 'HR/R',
                     url: 'maps/handelsregister',
                     label_short: 'Informatie, telecommunicatie',
                     label_long: 'Informatie, telecommunicatie',
@@ -108,7 +108,7 @@
                     detailItem: 'informatie_telecommunicatie'
                 },
                 fdvrog: {
-                    authorizationLevel: 'EMPLOYEE',
+                    authScope: 'HR/R',
                     url: 'maps/handelsregister',
                     label_short: 'Financiële dienstverl., verhuur',
                     label_long: 'Financiële dienstverlening, verhuur van roerend en onroerend goed',
@@ -123,7 +123,7 @@
                     detailItem: 'financiele_dienstverlening_verhuur'
                 },
                 zd: {
-                    authorizationLevel: 'EMPLOYEE',
+                    authScope: 'HR/R',
                     url: 'maps/handelsregister',
                     label_short: 'Zakelijke dienstverlening',
                     label_long: 'Zakelijke dienstverlening',
@@ -136,7 +136,7 @@
                     detailItem: 'zakelijke_dienstverlening'
                 },
                 ooz: {
-                    authorizationLevel: 'EMPLOYEE',
+                    authScope: 'HR/R',
                     url: 'maps/handelsregister',
                     label_short: 'Overheid, onderwijs, zorg',
                     label_long: 'Overheid, onderwijs, zorg',
@@ -149,7 +149,7 @@
                     detailItem: 'overheid_onderwijs_zorg'
                 },
                 csr: {
-                    authorizationLevel: 'EMPLOYEE',
+                    authScope: 'HR/R',
                     url: 'maps/handelsregister',
                     label_short: 'Cultuur, sport, recreatie',
                     label_long: 'Cultuur, sport, recreatie',
@@ -162,7 +162,7 @@
                     detailItem: 'cultuur_sport_recreatie'
                 },
                 pd: {
-                    authorizationLevel: 'EMPLOYEE',
+                    authScope: 'HR/R',
                     url: 'maps/handelsregister',
                     label_short: 'Persoonlijke dienstverlening',
                     label_long: 'Persoonlijke dienstverlening',
@@ -176,7 +176,7 @@
                     detailItem: 'persoonlijke_dienstverlening'
                 },
                 ovrg: {
-                    authorizationLevel: 'EMPLOYEE',
+
                     url: 'maps/handelsregister',
                     label_short: 'Overige',
                     label_long: 'Overige',
@@ -549,7 +549,7 @@
                     noDetail: true
                 },
                 mvi: {
-                    authorizationLevel: 'EMPLOYEE',
+                    authScope: 'HR/R',
                     url: 'maps/externeveiligheid',
                     label_short: 'Bedrijven - invloedsgebieden',
                     label_long: 'Bedrijven - invloedsgebieden',
