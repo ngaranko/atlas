@@ -3,6 +3,7 @@
         .module('dpDetail')
         .component('dpDetail', {
             bindings: {
+                show: '=',
                 endpoint: '@',
                 reload: '=',
                 isLoading: '=',
@@ -42,8 +43,6 @@
     ) {
         /* eslint-enable max-params */
         var vm = this;
-
-        store.dispatch({ type: 'HIDE_MAP_PANEL' });
 
         // Reload the data when the reload flag has been set (endpoint has not
         // changed)

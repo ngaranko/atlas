@@ -5,10 +5,9 @@ import stateTokenGenerator from '../state-token-generator/state-token-generator'
 jest.mock('../query-string-parser/query-string-parser');
 jest.mock('../state-token-generator/state-token-generator');
 
-xdescribe('The auth service', () => {
-  let origHeaders;
-  let origLocation;
+describe('The auth service', () => {
   let origSessionStorage;
+  let origLocation;
   let queryObject;
   let savedAccessToken;
   let savedReturnPath;
@@ -17,29 +16,40 @@ xdescribe('The auth service', () => {
 
   beforeEach(() => {
     origSessionStorage = global.sessionStorage;
-    global.sessionStorage = {};
-    global.sessionStorage.getItem = jest.fn();
-    global.sessionStorage.getItem.mockImplementation((key) => {
-      switch (key) {
-        case 'accessToken':
-          return savedAccessToken;
-        case 'stateToken':
-          return savedStateToken;
-        case 'returnPath':
-          return savedReturnPath;
-        default:
-          return '';
-      }
-    });
-    global.sessionStorage.setItem = jest.fn();
-    global.sessionStorage.removeItem = jest.fn();
+    global.sessionStorage = {
+      getItem: (key) => {
+        switch (key) {
+          case 'accessToken':
+            return savedAccessToken;
+          case 'stateToken':
+            return savedStateToken;
+          case 'returnPath':
+            return savedReturnPath;
+          default:
+            return '';
+        }
+      },
+      setItem: () => {},
+      removeItem: () => {}
+    };
 
     origLocation = global.location;
     global.location = {};
-    global.location.reload = jest.fn();
 
-    origHeaders = global.Headers;
-    global.Headers = jest.fn();
+    ['hash', 'pathname', 'protocol', 'host', 'search', 'href'].forEach((property) => {
+      Object.defineProperty(global.location, property, {
+        value: '',
+        writable: true
+      });
+    });
+
+    global.location.reload = () => {};
+
+    jest.spyOn(global.sessionStorage, 'getItem');
+    jest.spyOn(global.sessionStorage, 'setItem');
+    jest.spyOn(global.sessionStorage, 'removeItem');
+    jest.spyOn(global.location, 'reload');
+    jest.spyOn(global.history, 'replaceState').mockImplementation(() => {});
 
     queryStringParser.mockImplementation(() => queryObject);
     stateTokenGenerator.mockImplementation(() => stateToken);
@@ -54,7 +64,7 @@ xdescribe('The auth service', () => {
   afterEach(() => {
     global.sessionStorage = origSessionStorage;
     global.location = origLocation;
-    global.Headers = origHeaders;
+    global.history.replaceState.mockRestore();
   });
 
   describe('init funtion', () => {
@@ -122,7 +132,7 @@ xdescribe('The auth service', () => {
     describe('receiving a successful callback from the auth service', () => {
       it('throws an error when the state token received does not match the one saved', () => {
         const queryString = '?access_token=123AccessToken&token_type=token&expires_in=36000&state=invalidStateToken';
-        global.location.hash = queryString;
+        global.location.hash = `#${queryString}`;
         queryObject = {
           access_token: '123AccessToken',
           token_type: 'token',
@@ -189,22 +199,6 @@ xdescribe('The auth service', () => {
         expect(global.sessionStorage.removeItem).not.toHaveBeenCalledWith('stateToken');
       });
     });
-
-    describe('The login process', () => {
-      it('Starts when there is no access token', () => {
-        initAuth();
-        expect(global.sessionStorage.removeItem).toHaveBeenCalledWith('accessToken');
-      });
-
-      it('Does not start when there is an access token', () => {
-        savedStateToken = '123StateToken';
-        savedReturnPath = '/path/leading/back';
-        savedAccessToken = '123AccessToken';
-
-        initAuth();
-        expect(global.sessionStorage.removeItem).not.toHaveBeenCalledWith('accessToken');
-      });
-    });
   });
 
   describe('Login process', () => {
@@ -216,13 +210,13 @@ xdescribe('The auth service', () => {
     });
 
     it('Updates the session storage', () => {
-      const pathname = '/the/current/path';
-      global.location.pathname = pathname;
+      const hash = '#?the=current-hash';
+      global.location.hash = hash;
 
       login();
 
       expect(global.sessionStorage.removeItem).toHaveBeenCalledWith('accessToken');
-      expect(global.sessionStorage.setItem).toHaveBeenCalledWith('returnPath', pathname);
+      expect(global.sessionStorage.setItem).toHaveBeenCalledWith('returnPath', hash);
       expect(global.sessionStorage.setItem).toHaveBeenCalledWith('stateToken', stateToken);
     });
 
@@ -235,8 +229,9 @@ xdescribe('The auth service', () => {
       login();
 
       expect(global.location.href).toBe('https://acc.api.data.amsterdam.nl/' +
-        'oauth2/authorize?idp_id=datapunt&response_type=token&client_id=authz_admin&scope=AUR%2FR%20AUR%2FW' +
-        '&state=123StateToken&redirect_uri=https%3A%2F%2Fdata.amsterdam.nl%2F');
+        'oauth2/authorize?idp_id=datapunt&response_type=token&client_id=citydata' +
+        '&scope=BRK%2FRS%20BRK%2FRSN%20BRK%2FRO%20WKPB%2FRBDU%20MON%2FRBC%20MON%2FRDM%20HR%2FR' +
+        '&state=123StateToken&redirect_uri=https%3A%2F%2Fdata.amsterdam.nl%2Fthe%2Fcurrent%2Fpath');
     });
   });
 
@@ -289,13 +284,12 @@ xdescribe('The auth service', () => {
   });
 
   describe('Retrieving the auth headers', () => {
-    it('Creates a new instance of the Headers class with the right headers set', () => {
+    it('Creates an object defining the headers', () => {
       savedAccessToken = '123AccessToken';
       initAuth();
       const authHeaders = getAuthHeaders();
 
-      expect(authHeaders instanceof global.Headers).toBe(true);
-      expect(global.Headers).toHaveBeenCalledWith({
+      expect(authHeaders).toEqual({
         Authorization: 'Bearer 123AccessToken'
       });
     });

@@ -78,7 +78,6 @@
                 };
             }
             store.dispatch(action);
-            store.dispatch({ type: 'HIDE_MAP_PANEL' });
         }
 
         /**

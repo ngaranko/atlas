@@ -48,14 +48,9 @@ describe('The dashboard component', function () {
                 overlays: [],
                 viewCenter: [52.3719, 4.9012],
                 zoom: 9,
-                showActiveOverlays: false,
                 isFullscreen: false,
                 isLoading: false
             },
-            layerSelection: {
-                isEnabled: false
-            },
-            search: null,
             page: {
                 name: 'home'
             },
@@ -65,6 +60,9 @@ describe('The dashboard component', function () {
             atlas: {
                 isPrintMode: false,
                 isEmbedPreview: false
+            },
+            ui: {
+                isMapPanelVisible: false
             }
         };
 
@@ -146,7 +144,6 @@ describe('The dashboard component', function () {
         // On other pages with the homepage 'behind' it
         mockedState.page.name = 'home';
         mockedState.map.isFullscreen = true;
-        mockedState.layerSelection.isEnabled = true;
         component = getComponent();
         expect(component.find('.c-dashboard__footer').length).toBe(0);
 
@@ -404,6 +401,132 @@ describe('The dashboard component', function () {
 
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.MAP_ADD_PANO_OVERLAY
+            });
+        });
+    });
+
+    describe('MapPreviewPanel', () => {
+        let handler;
+        let mockedVisibility;
+
+        beforeEach(function () {
+            handler = null;
+            mockedVisibility = {
+                mapPreviewPanel: false
+            };
+
+            spyOn(dashboardColumns, 'determineVisibility').and.returnValue(mockedVisibility);
+            spyOn(store, 'dispatch');
+            spyOn(store, 'subscribe').and.callFake((fn) => {
+                // This function will be called later on by other components as
+                // well
+                handler = handler || fn;
+            });
+
+            getComponent();
+        });
+
+        describe('Opening and closing', () => {
+            beforeEach(function () {
+                handler();
+                $rootScope.$digest();
+                store.dispatch.calls.reset();
+            });
+
+            it('Opens when visible and there is geolocation', () => {
+                mockedVisibility.mapPreviewPanel = true;
+                mockedState.search = {
+                    location: [1, 0]
+                };
+                handler();
+                $rootScope.$digest();
+
+                expect(store.dispatch).toHaveBeenCalledWith({
+                    type: 'OPEN_MAP_PREVIEW_PANEL'
+                });
+            });
+
+            it('Opens when visible and there is clickable detail', () => {
+                mockedVisibility.mapPreviewPanel = true;
+                mockedState.detail = {
+                    endpoint: 'https://acc.api.amsterdam.nl/fake/brk/object/endpoint'
+                };
+                handler();
+                $rootScope.$digest();
+
+                expect(store.dispatch).toHaveBeenCalledWith({
+                    type: 'OPEN_MAP_PREVIEW_PANEL'
+                });
+            });
+
+            it('Closes when visible and there is detail, but not clickable', () => {
+                mockedVisibility.mapPreviewPanel = true;
+                mockedState.detail = {
+                    endpoint: 'https://acc.api.amsterdam.nl/fake/not/clickable/endpoint'
+                };
+                handler();
+                $rootScope.$digest();
+
+                expect(store.dispatch).toHaveBeenCalledWith({
+                    type: 'CLOSE_MAP_PREVIEW_PANEL'
+                });
+            });
+
+            it('Closes when visible and there is detail, but not endpoint', () => {
+                mockedVisibility.mapPreviewPanel = true;
+                mockedState.detail = {};
+                handler();
+                $rootScope.$digest();
+
+                expect(store.dispatch).toHaveBeenCalledWith({
+                    type: 'CLOSE_MAP_PREVIEW_PANEL'
+                });
+            });
+
+            it('Closes when visible but there is no geolocation nor detail', () => {
+                mockedVisibility.mapPreviewPanel = true;
+                handler();
+                $rootScope.$digest();
+
+                expect(store.dispatch).toHaveBeenCalledWith({
+                    type: 'CLOSE_MAP_PREVIEW_PANEL'
+                });
+            });
+
+            it('Closes when not visible', () => {
+                mockedVisibility.mapPreviewPanel = true;
+                handler();
+                $rootScope.$digest();
+                store.dispatch.calls.reset();
+
+                mockedVisibility.mapPreviewPanel = false;
+                handler();
+                $rootScope.$digest();
+
+                expect(store.dispatch).toHaveBeenCalledWith({
+                    type: 'CLOSE_MAP_PREVIEW_PANEL'
+                });
+            });
+
+            it('Closes when not visible, even though there is geolocation or detail', () => {
+                mockedVisibility.mapPreviewPanel = true;
+                handler();
+                $rootScope.$digest();
+                store.dispatch.calls.reset();
+
+                mockedVisibility.mapPreviewPanel = false;
+                mockedState.search = {
+                    location: [1, 0]
+                };
+                mockedState.detail = {
+                    endpoint: 'https://acc.api.amsterdam.nl/fake/brk/object/endpoint'
+                };
+                handler();
+                $rootScope.$digest();
+
+                expect(store.dispatch).toHaveBeenCalledWith({
+                    type: 'CLOSE_MAP_PREVIEW_PANEL'
+                });
             });
         });
     });

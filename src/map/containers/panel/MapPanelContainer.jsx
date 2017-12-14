@@ -6,8 +6,7 @@ import { bindActionCreators } from 'redux';
 import { getMapBaseLayers, setMapBaseLayer } from '../../ducks/base-layers/map-base-layers';
 import { toggleMapOverlay, toggleMapOverlayVisibility } from '../../ducks/overlays/map-overlays';
 import { getMapLayers, selectActiveMapLayers } from '../../ducks/layers/map-layers';
-import { toggleMapPanel } from '../../ducks/panel/map-panel';
-import { toggleMapPanelHandle } from '../../../shared/ducks/ui/ui';
+import { toggleMapPanel, toggleMapPanelHandle } from '../../../shared/ducks/ui/ui';
 import MapLayers from '../../components/layers/MapLayers';
 import MapLegend from '../../components/legend/MapLegend';
 import MapPanelHandle from '../../components/panel-handle/MapPanelHandle';
@@ -20,10 +19,10 @@ const mapStateToProps = (state) => ({
   activeBaseLayer: state.map.baseLayer,
   activeMapLayers: selectActiveMapLayers(state),
   atlas: state.atlas,
-  layerSelection: state.layerSelection,
+  isMapPanelVisible: state.ui.isMapPanelVisible,
+  isMapLayersVisible: state.ui.isMapLayersVisible,
   isEachOverlayInvisible: state.map.overlays.every((overlay) => overlay.isVisible),
   isMapPanelHandleVisible: !state.map.overlays.length || state.ui.isMapPanelHandleVisible,
-  isMapPanelVisible: state.isMapPanelVisible,
   mapBaseLayers: state.mapBaseLayers,
   mapLayers: state.mapLayers,
   overlays: state.map.overlays,
@@ -112,7 +111,6 @@ MapPanelContainer.defaultProps = {
   activeMapLayers: [],
   atlas: {},
   isMapPanelVisible: false,
-  layerSelection: {},
   map: {},
   mapBaseLayers: {},
   mapLayers: [],
