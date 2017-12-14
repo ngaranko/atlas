@@ -69,7 +69,8 @@
 
                 store.dispatch({
                     type: ACTIONS.FETCH_DETAIL,
-                    payload: found.uri
+                    payload: found.uri,
+                    skippedSearchResults: true
                 });
             } else if (angular.isFunction(dispatcher)) {
                 // not found item: do original geosearch

@@ -295,7 +295,8 @@ describe('The nearestDetail factory', () => {
         });
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.FETCH_DETAIL,
-            payload: found.uri
+            payload: found.uri,
+            skippedSearchResults: true
         });
 
         expect(found).toEqual(mockedSearchResultsMeetbouten.features[2].properties);

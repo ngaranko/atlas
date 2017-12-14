@@ -34,10 +34,10 @@
                     ...state.map,
                     isFullscreen: false
                 } : state.map,
-                layerSelection: angular.isObject(state.layerSelection) ? {
-                    ...state.layerSelection,
-                    isEnabled: false
-                } : state.layerSelection,
+                ui: angular.isObject(state.ui) ? {
+                    ...state.ui,
+                    isMapPanelVisible: false
+                } : state.ui,
                 search: null,
                 detail: null,
                 straatbeeld: null,

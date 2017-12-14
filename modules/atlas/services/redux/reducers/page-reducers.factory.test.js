@@ -9,12 +9,8 @@ describe('The pageReducers factory', function () {
                 overlays: [],
                 viewCenter: [52.3719, 4.9012],
                 zoom: 9,
-                showActiveOverlays: false,
                 isFullscreen: false,
                 isLoading: false
-            },
-            layerSelection: {
-                isEnabled: false
             },
             search: null,
             page: {
@@ -25,6 +21,9 @@ describe('The pageReducers factory', function () {
             dataSelection: null,
             atlas: {
                 isPrintMode: false
+            },
+            ui: {
+                isMapPanelVisible: false
             }
         };
 
@@ -53,7 +52,7 @@ describe('The pageReducers factory', function () {
                 location: null
             };
 
-            mockedState.layerSelection.isEnabled = true;
+            mockedState.ui.isMapPanelVisible = true;
 
             mockedState.detail = {
                 endpoint: 'http://some-endpoint/path/123',
@@ -73,7 +72,7 @@ describe('The pageReducers factory', function () {
             output = pageReducers.SHOW_PAGE(mockedState, {name: 'goodbye'});
 
             expect(output.search).toBeNull();
-            expect(output.layerSelection.isEnabled).toBe(false);
+            expect(output.ui.isMapPanelVisible).toBe(false);
             expect(output.detail).toBeNull();
             expect(output.straatbeeld).toBeNull();
             expect(output.dataSelection).toBeNull();
@@ -100,11 +99,11 @@ describe('The pageReducers factory', function () {
             expect(output.map).toBeNull();
         });
 
-        it('when layerSelection is not an object', function () {
-            mockedState.layerSelection = null;
+        it('when ui is not an object', function () {
+            mockedState.ui = null;
 
             output = pageReducers.SHOW_PAGE(mockedState, {name: 'goodbye'});
-            expect(output.layerSelection).toBeNull();
+            expect(output.ui).toBeNull();
         });
     });
 });

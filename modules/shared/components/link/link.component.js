@@ -17,9 +17,9 @@
             controllerAs: 'vm'
         });
 
-    DpLinkController.$inject = ['$scope', '$location', 'store', 'ACTIONS', 'applicationState'];
+    DpLinkController.$inject = ['$scope', 'store', 'ACTIONS', 'applicationState'];
 
-    function DpLinkController ($scope, $location, store, ACTIONS, applicationState) {
+    function DpLinkController ($scope, store, ACTIONS, applicationState) {
         const vm = this;
 
         const BUTTON = 'button',

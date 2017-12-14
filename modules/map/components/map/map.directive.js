@@ -26,7 +26,6 @@
                 mapState: '=',
                 markers: '=',
                 drawGeometry: '=',
-                showLayerSelection: '=',
                 resize: '<',
                 user: '<'
             },
@@ -47,9 +46,12 @@
             const React = $window.React;
             const render = $window.render;
             const MapPanelWrapper = $window.MapPanelWrapper;
+            const MapPreviewPanelWrapper = $window.MapPreviewPanelWrapper;
 
             $timeout(() => {
                 render(React.createElement(MapPanelWrapper, null), document.getElementById('map-panel-react'));
+                render(React.createElement(MapPreviewPanelWrapper, null),
+                    document.getElementById('map-preview-panel-react'));
             });
 
             /**

@@ -27,6 +27,14 @@
             location = [event.latlng.lat, event.latlng.lng];
 
             if (!(suppress.isBusy() || state.atlas.isEmbedPreview || state.atlas.isEmbed || drawTool.isEnabled())) {
+                store.dispatch({
+                    type: ACTIONS.SET_MAP_CLICK_LOCATION.id,
+                    location: {
+                        latitude: location[0],
+                        longitude: location[1]
+                    }
+                });
+
                 if (!state.straatbeeld && visibleOverlays.length > 0) {
                     // do geosearch for nearest item in overlays
                     // if it exists go to detail of that item

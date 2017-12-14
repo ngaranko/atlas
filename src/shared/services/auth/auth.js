@@ -239,6 +239,17 @@ export function getName() {
   return tokenData.name || '';
 }
 
+/**
+ * Creates an instance of the native JS `Headers` class containing the
+ * authorization headers needed for an API call.
+ *
+ * @returns {Object<string, string>} The headers needed for an API call.
+ */
+export function getAuthHeaders() {
+  const accessToken = getAccessToken();
+  return accessToken ? { Authorization: `Bearer ${getAccessToken()}` } : {};
+}
+
 window.auth = {
   getAccessToken,
   login,
