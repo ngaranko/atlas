@@ -73,6 +73,7 @@
                     <!-- Detail -->
                     <div ng-if="vm.activity.detail" ng-show="vm.visibility.detail" ng-controller="DetailController as detail" class="qa-detail">
                         <dp-detail
+                            show="vm.visibility.detail"
                             endpoint="{{detail.endpoint}}"
                             reload="detail.reload"
                             is-loading="detail.isLoading"
@@ -143,6 +144,7 @@
                     <!-- Search results -->
                     <div ng-if="vm.activity.searchResults" ng-show="vm.visibility.searchResults" ng-controller="SearchResultsController as searchResults" class="qa-search-results">
                         <dp-search-results
+                            show="vm.visibility.searchResults"
                             is-loading="searchResults.isLoading"
                             query="{{searchResults.query}}"
                             location="searchResults.location"

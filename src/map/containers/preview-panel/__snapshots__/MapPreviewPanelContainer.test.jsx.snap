@@ -1,6 +1,264 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MapPreviewPanelContainer rendering should render empty results 1`] = `
+exports[`MapPreviewPanelContainer rendering should render detail 1`] = `
+<section
+  className="
+        map-preview-panel
+        map-preview-panel--visible
+      "
+>
+  <div
+    className="map-preview-panel__heading"
+  >
+    <button
+      className="map-preview-panel__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview-panel__button-icon"
+      />
+    </button>
+    <button
+      className="map-preview-panel__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview-panel__button-icon"
+      />
+    </button>
+  </div>
+  <div
+    className="
+            map-preview-panel__body
+            map-preview-panel__body--loaded
+          "
+  >
+    <MapDetailResult
+      endpoint="https://acc.api.data.amsterdam.nl/fake/endpoint"
+      panoUrl="pano-url"
+      result={
+        Object {
+          "location": Object {
+            "latitude": 1,
+            "longitude": 0,
+          },
+        }
+      }
+    />
+  </div>
+</section>
+`;
+
+exports[`MapPreviewPanelContainer rendering should render detail 2`] = `
+<section
+  className="
+        map-preview-panel
+        map-preview-panel--visible
+      "
+>
+  <div
+    className="map-preview-panel__heading"
+  >
+    <button
+      className="map-preview-panel__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview-panel__button-icon"
+      />
+    </button>
+    <button
+      className="map-preview-panel__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview-panel__button-icon"
+      />
+    </button>
+  </div>
+  <div
+    className="
+            map-preview-panel__body
+            map-preview-panel__body--loaded
+          "
+  >
+    <MapDetailResult
+      endpoint="https://acc.api.data.amsterdam.nl/fake/endpoint"
+      panoUrl=""
+      result={
+        Object {
+          "location": Object {
+            "latitude": 2,
+            "longitude": 1,
+          },
+        }
+      }
+    />
+  </div>
+</section>
+`;
+
+exports[`MapPreviewPanelContainer rendering should render detail with a button to show all results 1`] = `
+<section
+  className="
+        map-preview-panel
+        map-preview-panel--visible
+      "
+>
+  <div
+    className="map-preview-panel__heading"
+  >
+    <button
+      className="map-preview-panel__button map-preview-panel__button--show-all"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview-panel__button-icon"
+      />
+      <span
+        className="map-preview-panel__button-label"
+      >
+        Toon alle resultaten
+      </span>
+    </button>
+    <button
+      className="map-preview-panel__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview-panel__button-icon"
+      />
+    </button>
+    <button
+      className="map-preview-panel__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview-panel__button-icon"
+      />
+    </button>
+  </div>
+  <div
+    className="
+            map-preview-panel__body
+            map-preview-panel__body--loaded
+          "
+  >
+    <MapDetailResult
+      endpoint="https://acc.api.data.amsterdam.nl/fake/endpoint"
+      panoUrl="pano-url"
+      result={
+        Object {
+          "location": Object {
+            "latitude": 1,
+            "longitude": 0,
+          },
+        }
+      }
+    />
+  </div>
+</section>
+`;
+
+exports[`MapPreviewPanelContainer rendering should render detail without pano 1`] = `
+<section
+  className="
+        map-preview-panel
+        map-preview-panel--visible
+      "
+>
+  <div
+    className="map-preview-panel__heading"
+  >
+    <button
+      className="map-preview-panel__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview-panel__button-icon"
+      />
+    </button>
+    <button
+      className="map-preview-panel__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview-panel__button-icon"
+      />
+    </button>
+  </div>
+  <div
+    className="
+            map-preview-panel__body
+            map-preview-panel__body--loaded
+          "
+  >
+    <MapDetailResult
+      endpoint="https://acc.api.data.amsterdam.nl/fake/endpoint"
+      panoUrl=""
+      result={
+        Object {
+          "location": Object {
+            "latitude": 1,
+            "longitude": 2,
+          },
+        }
+      }
+    />
+  </div>
+</section>
+`;
+
+exports[`MapPreviewPanelContainer rendering should render detail without pano 2`] = `
+<section
+  className="
+        map-preview-panel
+        map-preview-panel--visible
+      "
+>
+  <div
+    className="map-preview-panel__heading"
+  >
+    <button
+      className="map-preview-panel__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview-panel__button-icon"
+      />
+    </button>
+    <button
+      className="map-preview-panel__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview-panel__button-icon"
+      />
+    </button>
+  </div>
+  <div
+    className="
+            map-preview-panel__body
+            map-preview-panel__body--loaded
+          "
+  >
+    <MapDetailResult
+      endpoint="https://acc.api.data.amsterdam.nl/fake/endpoint"
+      panoUrl="different-pano-url"
+      result={
+        Object {
+          "location": Object {
+            "latitude": 1,
+            "longitude": 2,
+          },
+        }
+      }
+    />
+  </div>
+</section>
+`;
+
+exports[`MapPreviewPanelContainer rendering should render empty search results 1`] = `
 <section
   className="
         map-preview-panel
@@ -40,6 +298,8 @@ exports[`MapPreviewPanelContainer rendering should render empty results 1`] = `
           "longitude": 0,
         }
       }
+      missingLayers=""
+      onItemClick={[Function]}
       panoUrl="pano-url"
       results={Array []}
     />
@@ -47,7 +307,7 @@ exports[`MapPreviewPanelContainer rendering should render empty results 1`] = `
 </section>
 `;
 
-exports[`MapPreviewPanelContainer rendering should render empty results 2`] = `
+exports[`MapPreviewPanelContainer rendering should render empty search results 2`] = `
 <section
   className="
         map-preview-panel
@@ -87,6 +347,8 @@ exports[`MapPreviewPanelContainer rendering should render empty results 2`] = `
           "longitude": 0,
         }
       }
+      missingLayers=""
+      onItemClick={[Function]}
       panoUrl="pano-url"
       results={
         Array [
@@ -100,7 +362,7 @@ exports[`MapPreviewPanelContainer rendering should render empty results 2`] = `
 </section>
 `;
 
-exports[`MapPreviewPanelContainer rendering should render loading 1`] = `
+exports[`MapPreviewPanelContainer rendering should render loading of detail 1`] = `
 <section
   className="
         map-preview-panel
@@ -138,7 +400,45 @@ exports[`MapPreviewPanelContainer rendering should render loading 1`] = `
 </section>
 `;
 
-exports[`MapPreviewPanelContainer rendering should render results 1`] = `
+exports[`MapPreviewPanelContainer rendering should render loading of search results 1`] = `
+<section
+  className="
+        map-preview-panel
+        map-preview-panel--visible
+      "
+>
+  <div
+    className="map-preview-panel__heading"
+  >
+    <button
+      className="map-preview-panel__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview-panel__button-icon"
+      />
+    </button>
+    <button
+      className="map-preview-panel__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview-panel__button-icon"
+      />
+    </button>
+  </div>
+  <div
+    className="
+            map-preview-panel__body
+            map-preview-panel__body--loading
+          "
+  >
+    <LoadingIndicator />
+  </div>
+</section>
+`;
+
+exports[`MapPreviewPanelContainer rendering should render multiple missing layers 1`] = `
 <section
   className="
         map-preview-panel
@@ -178,6 +478,8 @@ exports[`MapPreviewPanelContainer rendering should render results 1`] = `
           "longitude": 0,
         }
       }
+      missingLayers="Layer 1, Layer 2"
+      onItemClick={[Function]}
       panoUrl="pano-url"
       results={
         Array [
@@ -194,7 +496,7 @@ exports[`MapPreviewPanelContainer rendering should render results 1`] = `
 </section>
 `;
 
-exports[`MapPreviewPanelContainer rendering should render results 2`] = `
+exports[`MapPreviewPanelContainer rendering should render one missing layer 1`] = `
 <section
   className="
         map-preview-panel
@@ -234,6 +536,124 @@ exports[`MapPreviewPanelContainer rendering should render results 2`] = `
           "longitude": 0,
         }
       }
+      missingLayers="Layer 1"
+      onItemClick={[Function]}
+      panoUrl="pano-url"
+      results={
+        Array [
+          Object {
+            "item": 1,
+          },
+          Object {
+            "item": 2,
+          },
+        ]
+      }
+    />
+  </div>
+</section>
+`;
+
+exports[`MapPreviewPanelContainer rendering should render search results 1`] = `
+<section
+  className="
+        map-preview-panel
+        map-preview-panel--visible
+      "
+>
+  <div
+    className="map-preview-panel__heading"
+  >
+    <button
+      className="map-preview-panel__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview-panel__button-icon"
+      />
+    </button>
+    <button
+      className="map-preview-panel__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview-panel__button-icon"
+      />
+    </button>
+  </div>
+  <div
+    className="
+            map-preview-panel__body
+            map-preview-panel__body--loaded
+          "
+  >
+    <MapSearchResults
+      location={
+        Object {
+          "latitude": 1,
+          "longitude": 0,
+        }
+      }
+      missingLayers=""
+      onItemClick={[Function]}
+      panoUrl="pano-url"
+      results={
+        Array [
+          Object {
+            "item": 1,
+          },
+          Object {
+            "item": 2,
+          },
+        ]
+      }
+    />
+  </div>
+</section>
+`;
+
+exports[`MapPreviewPanelContainer rendering should render search results 2`] = `
+<section
+  className="
+        map-preview-panel
+        map-preview-panel--visible
+      "
+>
+  <div
+    className="map-preview-panel__heading"
+  >
+    <button
+      className="map-preview-panel__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview-panel__button-icon"
+      />
+    </button>
+    <button
+      className="map-preview-panel__button"
+      onClick={[Function]}
+    >
+      <test-file-stub
+        className="map-preview-panel__button-icon"
+      />
+    </button>
+  </div>
+  <div
+    className="
+            map-preview-panel__body
+            map-preview-panel__body--loaded
+          "
+  >
+    <MapSearchResults
+      location={
+        Object {
+          "latitude": 1,
+          "longitude": 0,
+        }
+      }
+      missingLayers=""
+      onItemClick={[Function]}
       panoUrl="pano-url"
       results={
         Array [
@@ -247,7 +667,7 @@ exports[`MapPreviewPanelContainer rendering should render results 2`] = `
 </section>
 `;
 
-exports[`MapPreviewPanelContainer rendering should render results without pano 1`] = `
+exports[`MapPreviewPanelContainer rendering should render search results without pano 1`] = `
 <section
   className="
         map-preview-panel
@@ -287,6 +707,8 @@ exports[`MapPreviewPanelContainer rendering should render results without pano 1
           "longitude": 0,
         }
       }
+      missingLayers=""
+      onItemClick={[Function]}
       results={
         Array [
           Object {
@@ -302,7 +724,7 @@ exports[`MapPreviewPanelContainer rendering should render results without pano 1
 </section>
 `;
 
-exports[`MapPreviewPanelContainer rendering should render results without pano 2`] = `
+exports[`MapPreviewPanelContainer rendering should render search results without pano 2`] = `
 <section
   className="
         map-preview-panel
@@ -342,6 +764,8 @@ exports[`MapPreviewPanelContainer rendering should render results without pano 2
           "longitude": 0,
         }
       }
+      missingLayers=""
+      onItemClick={[Function]}
       panoUrl="pano-url"
       results={
         Array [
@@ -398,6 +822,8 @@ exports[`MapPreviewPanelContainer rendering should render visibility 1`] = `
           "longitude": 0,
         }
       }
+      missingLayers=""
+      onItemClick={[Function]}
       panoUrl="pano-url"
       results={
         Array [
@@ -451,6 +877,8 @@ exports[`MapPreviewPanelContainer rendering should render visibility 2`] = `
           "longitude": 0,
         }
       }
+      missingLayers=""
+      onItemClick={[Function]}
       panoUrl="pano-url"
       results={
         Array [

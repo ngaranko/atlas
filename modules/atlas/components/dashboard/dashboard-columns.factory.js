@@ -68,10 +68,12 @@
                 visibility.dataSelection = false;
             }
 
+            const geoSearchActive = activity.searchResults &&
+                angular.isArray(state.search.location);
+
             visibility.mapPreviewPanel =
                 map.isFullscreen &&
-                activity.searchResults &&
-                angular.isArray(state.search.location) &&
+                (geoSearchActive || activity.detail) &&
                 !angular.isObject(state.dataSelection);
 
             return visibility;

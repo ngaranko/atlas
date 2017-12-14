@@ -246,7 +246,8 @@ export function getName() {
  * @returns {Object<string, string>} The headers needed for an API call.
  */
 export function getAuthHeaders() {
-  return { Authorization: `Bearer ${getAccessToken()}` };
+  const accessToken = getAccessToken();
+  return accessToken ? { Authorization: `Bearer ${getAccessToken()}` } : {};
 }
 
 window.auth = {

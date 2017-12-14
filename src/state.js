@@ -3,6 +3,7 @@ import createSagaMiddleware from 'redux-saga';
 
 import rootSaga from './map/sagas';
 import './shared/ducks/error-message';
+import './map/ducks/click-location/map-click-location';
 import * as auth from './shared/services/auth/auth';
 import { authenticateUser } from './reducers/user';
 

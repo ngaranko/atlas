@@ -3,6 +3,7 @@
         .module('dpDetail')
         .component('dpDetail', {
             bindings: {
+                show: '=',
                 endpoint: '@',
                 reload: '=',
                 isLoading: '=',

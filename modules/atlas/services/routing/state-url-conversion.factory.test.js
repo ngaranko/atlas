@@ -46,6 +46,12 @@ describe('The state url conversion definition', function () {
                 mapBaseLayers: {},
                 mapSearchResults: [],
                 mapSearchResultsByLocation: {},
+                mapDetail: {
+                    isLoading: false,
+                    currentEndpoint: '',
+                    byEndpoint: {}
+                },
+                mapClickLocation: {},
                 pano: {
                     location: [],
                     previews: {}
@@ -78,6 +84,8 @@ describe('The state url conversion definition', function () {
                 mapBaseLayers: undefined,
                 mapSearchResults: undefined,
                 mapSearchResultsByLocation: undefined,
+                mapDetail: undefined,
+                mapClickLocation: undefined,
                 pano: undefined,
                 isMapPreviewPanelVisible: undefined,
                 ui: undefined
@@ -264,6 +272,7 @@ describe('The state url conversion definition', function () {
                     geometry: 'noot',
                     isLoading: 'mies',
                     isFullscreen: 'wim',
+                    skippedSearchResults: true,
                     something: 'else'
                 };
                 newState = {
@@ -276,7 +285,8 @@ describe('The state url conversion definition', function () {
                     display: 'aap',
                     geometry: 'noot',
                     isLoading: 'mies',
-                    isFullscreen: 'wim'
+                    isFullscreen: 'wim',
+                    skippedSearchResults: true
                 });
 
                 newState = {

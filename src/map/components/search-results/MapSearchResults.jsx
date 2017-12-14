@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 
 import { wgs84ToRd } from '../../../shared/services/coordinate-reference-system';
 import MapSearchResultsItem from './MapSearchResultsItem';
+import Notification from '../../../shared/components/notification/Notification';
 
-const MapSearchResults = ({ count, location, results, panoUrl }) => {
+const MapSearchResults = ({ count, location, results, panoUrl, missingLayers, onItemClick }) => {
   const rdCoordinates = wgs84ToRd(location);
 
   return (
@@ -30,9 +31,19 @@ const MapSearchResults = ({ count, location, results, panoUrl }) => {
         </div>
       </header>
       <ul className="map-search-results__list">
+        {missingLayers && (
+          <li>
+            <Notification>Geen details beschikbaar van: {missingLayers}</Notification>
+          </li>
+        )}
         {results.map((result) => (
           <li key={result.uri}>
-            <MapSearchResultsItem item={result} />
+            <MapSearchResultsItem
+              item={result}
+              onClick={() => {
+                onItemClick(result.uri);
+              }}
+            />
           </li>
         ))}
       </ul>
@@ -43,7 +54,9 @@ const MapSearchResults = ({ count, location, results, panoUrl }) => {
 MapSearchResults.propTypes = {
   count: PropTypes.number, // eslint-disable-line
   location: PropTypes.object, // eslint-disable-line
+  onItemClick: PropTypes.func.isRequired,
   panoUrl: PropTypes.string, // eslint-disable-line
+  missingLayers: PropTypes.string, // eslint-disable-line
   results: PropTypes.array // eslint-disable-line
 };
 

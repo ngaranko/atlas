@@ -1,6 +1,18 @@
 (function () {
     'use strict';
 
+    // Temporarily only show the preview panel for detail endpoints which are
+    // also selectable on the map.
+    const previewPanelDetailEndpoints = [
+        'brk/object', // Kadastraal object
+        'gebieden/bouwblok', // Bouwblok
+        'handelsregister/vestiging', // Vestiging
+        'meetbouten/meetbout', // Meetbout
+        'milieuthemas/explosieven/inslagen', // Inslag
+        'monumenten/monumenten', // Monument
+        'nap/peilmerk' // NAP Peilmerk
+    ];
+
     angular
         .module('atlas')
         .component('dpDashboard', {
@@ -38,9 +50,28 @@
             }
         });
 
+        // Show or hide React `MapPanel` app according to map fullscreen state
+        $scope.$watch('vm.isMapFullscreen', () => {
+            if (!vm.isMapFullscreen) {
+                // Always hide when map exits fullscreen mode
+                store.dispatch({ type: 'HIDE_MAP_PANEL' });
+            } else if (vm.isHomePageActive) {
+                // Only show when coming from the home page
+                store.dispatch({ type: 'SHOW_MAP_PANEL' });
+            }
+        });
+
         // Open or close React `MapPreviewPanel` app
-        $scope.$watchGroup(['vm.visibility.mapPreviewPanel', 'vm.geosearchLocation'], () => {
-            if (vm.visibility.mapPreviewPanel && vm.geosearchLocation) {
+        $scope.$watchGroup([
+            'vm.visibility.mapPreviewPanel',
+            'vm.geosearchLocation',
+            'vm.detailEndpoint'
+        ], () => {
+            const detailActive = vm.detailEndpoint &&
+                previewPanelDetailEndpoints.some((endpoint) =>
+                    vm.detailEndpoint.includes(endpoint));
+
+            if (vm.visibility.mapPreviewPanel && (vm.geosearchLocation || detailActive)) {
                 store.dispatch({ type: 'OPEN_MAP_PREVIEW_PANEL' });
             } else {
                 store.dispatch({ type: 'CLOSE_MAP_PREVIEW_PANEL' });
@@ -83,6 +114,7 @@
             vm.straatbeeldHistory = vm.isStraatbeeldActive ? state.straatbeeld.history : null;
             vm.isMapPreviewPanelVisible = vm.visibility.mapPreviewPanel;
             vm.geosearchLocation = state.search && state.search.location && state.search.location.toString();
+            vm.detailEndpoint = state.detail && state.detail.endpoint;
         }
     }
 })();

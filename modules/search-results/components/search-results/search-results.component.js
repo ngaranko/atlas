@@ -5,6 +5,7 @@
         .module('dpSearchResults')
         .component('dpSearchResults', {
             bindings: {
+                show: '=',
                 isLoading: '=',
                 query: '@',
                 location: '=',

@@ -1,8 +1,6 @@
 .map-preview-panel {
   $map-preview-panel-top-print: 8px;
   $map-preview-panel-bottom-print: 2px + 10px + 17px + 8px;
-  $map-preview-panel-top-embed: 8px + 34px + 16px;
-  $map-preview-panel-bottom-embed: 2px + $map-preview-panel-bottom;
 
   background-color: #FAFAFA;
   border: solid 1px #CCCCCC;
@@ -20,6 +18,7 @@
 
   .c-dashboard__body--error & {
     max-height: calc(100vh - #{$map-preview-panel-top + $map-preview-panel-bottom + $dashboard-error-height});
+    top: #{$map-preview-panel-top + $dashboard-error-height};
   }
 
   &--hidden {
@@ -55,15 +54,45 @@
     &:hover {
       background-color: #EC0000;
     }
-  }
 
-  &__button-icon {
-    fill: #666666;
-    height: inherit;
-    width: inherit;
+    &--show-all {
+      align-items: center;
+      display: flex;
+      flex-grow: 1;
 
-    *:hover > & {
-      fill: #FFFFFF;
+      &:hover {
+        background-color: initial;
+
+        .map-preview-panel__button-label {
+          color: #EC0000;
+          text-decoration: underline;
+        }
+
+        .map-preview-panel__button-icon {
+          fill: #EC0000;
+        }
+      }
+
+      .map-preview-panel__button-label {
+        color: #666666;
+        font-family: "Avenir LT W01 85 Heavy";
+        font-size: 14px;
+      }
+
+      .map-preview-panel__button-icon {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    &-icon {
+      fill: #666666;
+      height: inherit;
+      width: inherit;
+
+      *:hover > & {
+        fill: #FFFFFF;
+      }
     }
   }
 
@@ -79,8 +108,6 @@
     }
   }
 
-  .is-embed &,
-  .is-embed-preview &,
   .is-print-mode & {
     bottom: $map-preview-panel-bottom-print;
     max-height: none;
@@ -88,20 +115,9 @@
     top: $map-preview-panel-top-print;
   }
 
-  .is-embed &,
-  .is-embed-preview & {
-    bottom: $map-preview-panel-bottom-embed;
-    top: $map-preview-panel-top-embed;
-  }
-
   .is-print-mode & {
     &__heading {
       display: none;
     }
-  }
-
-  .is-embed &--has-no-active-layers,
-  .is-embed-preview &--has-no-active-layers {
-    display: none;
   }
 }

@@ -6,8 +6,6 @@
         .factory('deprecatedReducer', deprecatedReducerFactory);
 
     deprecatedReducerFactory.$inject = [
-        '$rootScope',
-        '$timeout',
         '$window',
         'urlReducers',
         'freeze',
@@ -25,8 +23,6 @@
 
     // eslint-disable-next-line max-params
     function deprecatedReducerFactory (
-        $rootScope,
-        $timeout,
         $window,
         urlReducers,
         freeze,
@@ -148,7 +144,6 @@
                     actions[action.type](oldState, action),
                     action
                 );
-                $timeout(() => $rootScope.$digest());
                 return newState;
             } else if (legacy) {
                 if (detailReducers.hasOwnProperty(action.type.id)) {

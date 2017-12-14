@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import RemoveIcon from '../../../../public/images/icon-cross.svg';
+import CloseIcon from '../../../../public/images/icon-cross-big.svg';
 
 import './_notification.scss';
 
@@ -31,7 +31,7 @@ class Notification extends React.Component {
           className="notification__button"
           onClick={this.hideNotification}
         >
-          <RemoveIcon />
+          <CloseIcon />
         </button>
       </p>
     );

@@ -37,6 +37,12 @@ describe('The state url conversion factory', function () {
                 mapLayers: [],
                 mapSearchResults: [],
                 mapSearchResultsByLocation: {},
+                mapDetail: {
+                    isLoading: false,
+                    currentEndpoint: '',
+                    byEndpoint: {}
+                },
+                mapClickLocation: {},
                 pano: {
                     location: [],
                     previews: {}
