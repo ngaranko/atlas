@@ -261,7 +261,7 @@ describe('The nearestDetail factory', () => {
             authenticated: false,
             scopes: [],
             name: ''
-        }
+        };
 
         spyOn(api, 'getByUri').and.callThrough();
         spyOn(store, 'dispatch');
