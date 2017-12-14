@@ -176,7 +176,7 @@
                     detailItem: 'persoonlijke_dienstverlening'
                 },
                 ovrg: {
-
+                    authScope: 'HR/R',
                     url: 'maps/handelsregister',
                     label_short: 'Overige',
                     label_long: 'Overige',

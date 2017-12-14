@@ -20,10 +20,9 @@
             return detailLocation;
         }
 
-        function search (location, overlays, zoom, callback) {
+        function search (location, overlays, zoom, callback, user) {
             const pointRequests = [],
-                shapeRequests = [],
-                user = store.getState().user;
+                shapeRequests = [];
 
             detailLocation = location;
             dispatcher = callback;

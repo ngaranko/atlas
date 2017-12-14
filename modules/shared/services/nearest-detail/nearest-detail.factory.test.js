@@ -1,4 +1,4 @@
-describe('The nearestDetail factory', () => {
+fdescribe('The nearestDetail factory', () => {
     let $q,
         $rootScope,
         nearestDetail,
@@ -234,7 +234,7 @@ describe('The nearestDetail factory', () => {
                 detailIsShape: true
             },
             hrc: {
-                authorizationLevel: 'EMPLOYEE',
+                authScope: 'HR/R',
                 url: 'maps/handelsregister',
                 label_short: 'Horeca',
                 label_long: 'Horeca',
