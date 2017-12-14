@@ -34,18 +34,20 @@
         });
 
         vm.$onChanges = (changes) => {
-            if (angular.isUndefined(changes.play) || !videoElement || !videoElement.play || !videoElement.pause) {
+            if (angular.isUndefined(changes.play) ||
+                !videoElement ||
+                !videoElement.play ||
+                !videoElement.pause ||
+                !canPlayPause) {
                 return;
             }
 
-            if (canPlayPause) {
-                // Only issue play/pause command after element canplay.
-                if (changes.play.currentValue) {
-                    videoElement.play();
-                } else {
-                    videoElement.pause();
-                    videoElement.currentTime = 0;
-                }
+            // Only issue play/pause command after element canplay.
+            if (changes.play.currentValue) {
+                videoElement.play();
+            } else {
+                videoElement.pause();
+                videoElement.currentTime = 0;
             }
         };
 
