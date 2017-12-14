@@ -38,7 +38,7 @@
                 if (!state.straatbeeld && visibleOverlays.length > 0) {
                     // do geosearch for nearest item in overlays
                     // if it exists go to detail of that item
-                    nearestDetail.search(location, visibleOverlays, state.map.zoom, dispatchClick);
+                    nearestDetail.search(location, visibleOverlays, state.map.zoom, dispatchClick, state.user);
                 } else {
                     $rootScope.$applyAsync(function () {
                         // old geosearch
