@@ -22,13 +22,18 @@
 
         function search (location, overlays, zoom, callback) {
             const pointRequests = [],
-                shapeRequests = [];
+                shapeRequests = [],
+                user = store.getState().user;
 
             detailLocation = location;
             dispatcher = callback;
             numberOfPoints = 0;
 
             overlays.reverse().forEach((overlay) => {
+                if (overlay.authScope && !user.scopes.includes(overlay.authScope)) {
+                    return;
+                }
+
                 const searchParams = {
                     item: overlay.detailItem,
                     lat: location[0],
