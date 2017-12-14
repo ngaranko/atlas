@@ -27,7 +27,7 @@ function getCoordinates(coordinates) {
  *
  * @returns {Object.<string, number>} A location in latitude and longitude
  */
-export function getCenter(geoJson) {
+export default function getCenter(geoJson) {
   if (geoJson.type === 'Point') {
     return {
       x: geoJson.coordinates[0],

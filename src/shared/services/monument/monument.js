@@ -1,8 +1,8 @@
 import { getAuthHeaders } from '../auth/auth';
-import { getCenter } from '../geo-json/geo-json';
+import getCenter from '../geo-json/geo-json';
 import { rdToWgs84 } from '../coordinate-reference-system/crs-converter';
 
-export function fetchByUri(uri) {
+export default function fetchByUri(uri) {
   return fetch(uri, { headers: getAuthHeaders() })
     .then((response) => response.json())
     .then((result) => {

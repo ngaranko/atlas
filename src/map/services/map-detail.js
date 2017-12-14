@@ -1,33 +1,33 @@
-import * as kadastraalObject from '../../shared/services/kadastraal-object/kadastraal-object';
-import * as bouwblok from '../../shared/services/bouwblok/bouwblok';
-import * as meetbout from '../../shared/services/meetbout/meetbout';
-import * as napPeilmerk from '../../shared/services/nap-peilmerk/nap-peilmerk';
-import * as inslag from '../../shared/services/inslag/inslag';
-import * as monument from '../../shared/services/monument/monument';
-import * as vestiging from '../../shared/services/vestiging/vestiging';
+import kadastraalObject from '../../shared/services/kadastraal-object/kadastraal-object';
+import bouwblok from '../../shared/services/bouwblok/bouwblok';
+import meetbout from '../../shared/services/meetbout/meetbout';
+import napPeilmerk from '../../shared/services/nap-peilmerk/nap-peilmerk';
+import inslag from '../../shared/services/inslag/inslag';
+import monument from '../../shared/services/monument/monument';
+import vestiging from '../../shared/services/vestiging/vestiging';
 
 const servicesByEndpointType = {
   'brk/object': {
-    fetch: kadastraalObject.fetchByUri
+    fetch: kadastraalObject
   },
   'gebieden/bouwblok': {
-    fetch: bouwblok.fetchByUri
+    fetch: bouwblok
   },
   'handelsregister/vestiging': {
-    fetch: vestiging.fetchByUri,
+    fetch: vestiging,
     authScope: 'HR/R'
   },
   'meetbouten/meetbout': {
-    fetch: meetbout.fetchByUri
+    fetch: meetbout
   },
   'milieuthemas/explosieven/inslagen': {
-    fetch: inslag.fetchByUri
+    fetch: inslag
   },
   'monumenten/monumenten': {
-    fetch: monument.fetchByUri
+    fetch: monument
   },
   'nap/peilmerk': {
-    fetch: napPeilmerk.fetchByUri
+    fetch: napPeilmerk
   }
 };
 

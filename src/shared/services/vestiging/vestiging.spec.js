@@ -1,4 +1,4 @@
-import * as vestiging from './vestiging';
+import { fetchByPandId, fetchByAddressId } from './vestiging';
 import { getAuthHeaders } from '../auth/auth';
 
 jest.mock('../auth/auth');
@@ -25,7 +25,7 @@ describe('The vestiging resource', () => {
       }
     ] }));
 
-    vestiging.fetchByPandId(1).then((response) => {
+    fetchByPandId(1).then((response) => {
       expect(response
       ).toEqual([
         {
@@ -52,7 +52,7 @@ describe('The vestiging resource', () => {
       }
     ] }));
 
-    vestiging.fetchByAddressId(0).then((response) => {
+    fetchByAddressId(0).then((response) => {
       expect(response
       ).toEqual([
         {

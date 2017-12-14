@@ -11,7 +11,7 @@ import { selectLatestMapSearchResults, getMapSearchResults }
   from '../../ducks/search-results/map-search-results';
 import { selectNotClickableVisibleMapLayers } from '../../ducks/layers/map-layers';
 import { selectLatestMapDetail, getMapDetail } from '../../ducks/detail/map-detail';
-import { fetchSearchResults } from '../../../reducers/search';
+import fetchSearchResults from '../../../reducers/search';
 import { fetchDetail as legacyFetchDetail } from '../../../reducers/details';
 import { getPanoPreview } from '../../../pano/ducks/preview/pano-preview';
 import MaximizeIcon from '../../../../public/images/icon-maximize.svg';
