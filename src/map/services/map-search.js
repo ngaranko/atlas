@@ -1,14 +1,20 @@
 import * as address from '../../shared/services/address/address';
+import * as monument from '../../shared/services/monument/monument';
 import * as vestiging from '../../shared/services/vestiging/vestiging';
 
-const apiUrl = `https://${process.env.NODE_ENV !== 'production' ? 'acc.' : ''}api.data.amsterdam.nl/`;
+import apiUrl from '../../shared/services/api';
 
 const endpoints = [
   { uri: 'geosearch/nap/', radius: 25 },
   { uri: 'geosearch/atlas/' },
   { uri: 'geosearch/munitie/' },
   { uri: 'geosearch/bominslag/', radius: 25 },
-  { uri: 'geosearch/monumenten/', radius: 25 }
+  { uri: 'geosearch/monumenten/',
+    radius: 25,
+    extra_params: {
+      monumenttype: 'isnot_pand_bouwblok'
+    }
+  }
 ];
 
 const categoryLabels = {
@@ -47,6 +53,7 @@ const categoryLabelsByType = {
   'kadaster/kadastraal_object': categoryLabels.kadastraalObject,
   'meetbouten/meetbout': categoryLabels.meetbout,
   'monumenten/monument': categoryLabels.monument,
+  monument: categoryLabels.monument,
   'nap/peilmerk': categoryLabels.napPijlmerk,
   vestiging: categoryLabels.vestiging,
   'wkpb/beperking': categoryLabels.gemeentelijkeBeperking
@@ -59,6 +66,7 @@ const categoryTypeOrder = [
   'bag/standplaats',
   'address',
   'vestiging',
+  'monument',
   'kadaster/kadastraal_object',
   'wkpb/beperking',
   'gebieden/bouwblok',
@@ -95,6 +103,9 @@ const relatedResourcesByType = {
       fetch: vestiging.fetchByPandId,
       type: 'vestiging',
       authScope: 'HR/R'
+    }, {
+      fetch: monument.fetchByPandId,
+      type: 'monument'
     }
   ],
   'bag/standplaats': [
@@ -141,6 +152,7 @@ const fetchRelatedForUser = (user) => (data) => {
 export default function search(location, user) {
   const allRequests = endpoints.map((endpoint) => {
     const searchParams = {
+      ...endpoint.extra_params,
       lat: location.latitude,
       lon: location.longitude,
       radius: endpoint.radius || 0
@@ -153,6 +165,7 @@ export default function search(location, user) {
     return fetch(`${apiUrl}${endpoint.uri}?${queryString}`)
       .then((response) => response.json())
       .then(fetchRelatedForUser(user))
+      .then(data => { console.log('data: ', data); return data})
       .then((features) => features
         .map((feature) => ({
           uri: feature.properties.uri,
