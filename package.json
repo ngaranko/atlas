@@ -89,6 +89,7 @@
     "test-e2e": "babel-node ./test/e2e.js",
     "test-jest": "NODE_ENV=development jest",
     "test-karma": "karma start",
+    "test-karma-watch": "karma start --no-single-run",
     "test-watch": "karma start --no-single-run & jest --watch",
     "watch": "grunt && webpack --watch --config webpack.dev.js"
   },
