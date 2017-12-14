@@ -10,16 +10,13 @@ button {
   font-weight: normal;
 }
 
-h1:not(.map-panel__heading-title)
-  :not(.map-search-results__header-title)
-  :not(.map-detail-result__header-title) {
+h1 {
   @include font-size-responsive($xl-header-font);
   @include font-weight($bold-weight);
   font-weight: normal;
 }
 
-h2:not(.map-search-results__header-subtitle)
-  :not(.map-detail-result__header-subtitle) {
+h2 {
   @include font-size-responsive($l-header-font);
   @include font-weight($bold-weight);
   font-weight: normal;
