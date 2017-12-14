@@ -227,7 +227,7 @@
                     label_short: 'Kadastrale secties',
                     label_long: 'Kadastrale secties',
                     layers: ['kadastrale_sectie', 'kadastrale_sectie_label'],
-                    minZoom: 10,
+                    minZoom: 8,
                     maxZoom: 16,
                     legend: 'maps/brk?version=1.3.0&service=WMS&request=GetLegend' +
                     'Graphic&sld_version=1.1.0&layer=kadastrale_sectie&format=image/png&STYLE=default',
@@ -238,7 +238,7 @@
                     label_short: 'Kadastrale objecten',
                     label_long: 'Kadastrale objecten',
                     layers: ['kadastraal_object', 'kadastraal_object_label'],
-                    minZoom: 13,
+                    minZoom: 8,
                     maxZoom: 16,
                     legend: 'maps/brk?version=1.3.0&service=WMS&request=GetLegend' +
                     'Graphic&sld_version=1.1.0&layer=kadastraal_object&format=image/png&STYLE=default',
@@ -313,7 +313,7 @@
                     label_short: 'Buurten',
                     label_long: 'Buurten',
                     layers: ['buurt', 'buurt_label'],
-                    minZoom: 10,
+                    minZoom: 8,
                     maxZoom: 16,
                     legend: 'maps/gebieden?version=1.3.0&service=WMS&request=GetLegend' +
                     'Graphic&sld_version=1.1.0&layer=buurt&format=image/png&STYLE=default'
