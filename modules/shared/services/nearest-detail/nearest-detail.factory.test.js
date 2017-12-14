@@ -284,8 +284,6 @@ describe('The nearestDetail factory', () => {
         expect(api.getByUri).toHaveBeenCalledTimes(4);
         expect(callback).not.toHaveBeenCalled();
 
-        // expect(api.getByUri).toHaveBeenCalledWith('handelsregister/geosearch/', {item: 'horeca', lat: 52.789,
-            // lon: 4.987, radius: 16 });
         expect(api.getByUri).toHaveBeenCalledWith('geosearch/search/', {item: 'peilmerk', lat: 52.789, lon: 4.987,
             radius: 16 });
         expect(api.getByUri).toHaveBeenCalledWith('geosearch/search/', {item: 'meetbout', lat: 52.789, lon: 4.987,
