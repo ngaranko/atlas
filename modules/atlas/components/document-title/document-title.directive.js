@@ -80,7 +80,11 @@
                     title = (titleData ? titleData + ' - ' : '') + baseTitle;
 
                 if (displayNewTitle) {
-                    scope.title = title;
+                    if (titleData && angular.isFunction(titleData.then)) {
+                        titleData.then(result => scope.title = result);
+                    } else {
+                        scope.title = title;
+                    }
                 }
             }
         }
