@@ -4,6 +4,7 @@ describe('The nearestDetail factory', () => {
         nearestDetail,
         api,
         store,
+        user,
         ACTIONS,
         callback,
         mockLayers,
@@ -234,7 +235,7 @@ describe('The nearestDetail factory', () => {
                 detailIsShape: true
             },
             hrc: {
-                authorizationLevel: 'EMPLOYEE',
+                authScope: 'HR/R',
                 url: 'maps/handelsregister',
                 label_short: 'Horeca',
                 label_long: 'Horeca',
@@ -256,6 +257,12 @@ describe('The nearestDetail factory', () => {
             }
         };
 
+        user = {
+            authenticated: false,
+            scopes: [],
+            name: ''
+        };
+
         spyOn(api, 'getByUri').and.callThrough();
         spyOn(store, 'dispatch');
 
@@ -267,18 +274,16 @@ describe('The nearestDetail factory', () => {
 
         nearestDetail
             .search([52.789, 4.987],
-                [mockLayers.nap, mockLayers.mbs, mockLayers.hrc, mockLayers.bbn, mockLayers.kot], 11, callback)
+                [mockLayers.nap, mockLayers.mbs, mockLayers.hrc, mockLayers.bbn, mockLayers.kot], 11, callback, user)
             .then((results) => {
                 found = results;
             });
 
         $rootScope.$apply();
 
-        expect(api.getByUri).toHaveBeenCalledTimes(5);
+        expect(api.getByUri).toHaveBeenCalledTimes(4);
         expect(callback).not.toHaveBeenCalled();
 
-        expect(api.getByUri).toHaveBeenCalledWith('handelsregister/geosearch/', {item: 'horeca', lat: 52.789,
-            lon: 4.987, radius: 16 });
         expect(api.getByUri).toHaveBeenCalledWith('geosearch/search/', {item: 'peilmerk', lat: 52.789, lon: 4.987,
             radius: 16 });
         expect(api.getByUri).toHaveBeenCalledWith('geosearch/search/', {item: 'meetbout', lat: 52.789, lon: 4.987,
@@ -303,12 +308,36 @@ describe('The nearestDetail factory', () => {
         expect(nearestDetail.getLocation()).toEqual([52.789, 4.987]);
     });
 
+    it('gets called with authorized hr item in a location', () => {
+        user.scopes = ['HR/R'];
+
+        nearestDetail.search([52.789, 4.987], [mockLayers.hrc], 11, callback, user);
+
+        $rootScope.$apply();
+
+        expect(api.getByUri).toHaveBeenCalledTimes(1);
+
+        expect(api.getByUri).toHaveBeenCalledWith('handelsregister/geosearch/', {item: 'horeca', lat: 52.789,
+            lon: 4.987, radius: 16 });
+    });
+
+    it('gets not called with unauthorized hr item in a location', () => {
+        nearestDetail.search([52.789, 4.987], [mockLayers.hrc], 11, callback, user);
+
+        $rootScope.$apply();
+
+        expect(api.getByUri).toHaveBeenCalledTimes(0);
+
+        expect(api.getByUri).not.toHaveBeenCalledWith('handelsregister/geosearch/', {item: 'horeca', lat: 52.789,
+            lon: 4.987, radius: 16 });
+    });
+
     it('gets kadrastraal object shape when it is above bouwblokken layer in a location', () => {
         let found;
 
         nearestDetail
             .search([52.789, 4.987],
-                [mockLayers.bbn, mockLayers.kot], 11, callback)
+                [mockLayers.bbn, mockLayers.kot], 11, callback, user)
             .then((results) => {
                 found = results;
             });
@@ -327,7 +356,7 @@ describe('The nearestDetail factory', () => {
 
         nearestDetail
             .search([52.789, 4.987],
-                [mockLayers.kot, mockLayers.bbn], 11, callback)
+                [mockLayers.kot, mockLayers.bbn], 11, callback, user)
             .then((results) => {
                 found = results;
             });
@@ -344,7 +373,7 @@ describe('The nearestDetail factory', () => {
     it('gets empty result list in geosearch data for layers without detailItem', () => {
         let found;
 
-        nearestDetail.search([52.961, 4.735], [mockLayers.empty], 11, callback).then((results) => {
+        nearestDetail.search([52.961, 4.735], [mockLayers.empty], 11, callback, user).then((results) => {
             found = results;
         });
         $rootScope.$apply();
@@ -360,14 +389,14 @@ describe('The nearestDetail factory', () => {
     });
 
     it('handles not existance of callback gracefully', () => {
-        nearestDetail.search([52.961, 4.735], [mockLayers.tcmnmt], 11);
+        nearestDetail.search([52.961, 4.735], [mockLayers.tcmnmt], 11, user);
 
         $rootScope.$apply();
         expect(callback).not.toHaveBeenCalled();
     });
 
     it('handles rejected call gracefully', () => {
-        nearestDetail.search([52.961, 4.735], [mockLayers.reject], 11);
+        nearestDetail.search([52.961, 4.735], [mockLayers.reject], 11, user);
 
         $rootScope.$apply();
         expect(callback).not.toHaveBeenCalled();

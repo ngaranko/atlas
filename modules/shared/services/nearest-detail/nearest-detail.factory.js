@@ -20,7 +20,7 @@
             return detailLocation;
         }
 
-        function search (location, overlays, zoom, callback) {
+        function search (location, overlays, zoom, callback, user) {
             const pointRequests = [],
                 shapeRequests = [];
 
@@ -29,6 +29,10 @@
             numberOfPoints = 0;
 
             overlays.reverse().forEach((overlay) => {
+                if (overlay.authScope && !user.scopes.includes(overlay.authScope)) {
+                    return;
+                }
+
                 const searchParams = {
                     item: overlay.detailItem,
                     lat: location[0],
