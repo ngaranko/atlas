@@ -15,12 +15,17 @@ describe('The dpMapDocumentTitle factory', function () {
         });
     });
 
+    afterEach(() => {
+        $rootScope.$apply();
+    });
+
     it('returns a default title with promise', function () {
         const promise = documentTitle.getTitle();
 
         $rootScope.$apply();
-        expect(promise.$$state.status).toBe(1);
-        expect(promise.$$state.value).toBe('Grote kaart');
+        promise.then(value => {
+            expect(value).toBe('Grote kaart');
+        });
     });
 
     it('adds selected map layers in title with promise', function () {
@@ -29,7 +34,8 @@ describe('The dpMapDocumentTitle factory', function () {
         const promise = documentTitle.getTitle();
 
         $rootScope.$apply();
-        expect(promise.$$state.status).toBe(1);
-        expect(promise.$$state.value).toBe('Meetbouten, Monumenten op Grote kaart');
+        promise.then(value => {
+            expect(value).toBe('Meetbouten, Monumenten op Grote kaart');
+        });
     });
 });
