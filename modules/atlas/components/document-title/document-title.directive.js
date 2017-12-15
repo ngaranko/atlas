@@ -76,14 +76,13 @@
                     stateData = current ? state[current.state] : null,
                     displayNewTitle = current && stateData && !stateData.isLoading,
                     getTitle = displayNewTitle ? current.documentTitle.getTitle : null,
-                    titleData = getTitle ? getTitle(stateData, state.filters) : null,
-                    title = (titleData ? titleData + ' - ' : '') + baseTitle;
+                    titleData = getTitle ? getTitle(stateData, state.filters) : null;
 
                 if (displayNewTitle) {
                     if (titleData && angular.isFunction(titleData.then)) {
-                        titleData.then(result => scope.title = result);
+                        titleData.then(result => scope.title = (result ? result + ' - ' : '') + baseTitle);
                     } else {
-                        scope.title = title;
+                        scope.title = (titleData ? titleData + ' - ' : '') + baseTitle;
                     }
                 }
             }

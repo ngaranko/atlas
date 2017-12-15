@@ -1,6 +1,7 @@
 describe('The dp-document-title directive', function () {
     var $compile,
         $rootScope,
+        $q,
         storeHandler,
         store = {
             subscribe: angular.noop,
@@ -30,9 +31,10 @@ describe('The dp-document-title directive', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _$q_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
+            $q = _$q_;
         });
 
         spyOn(store, 'subscribe');
@@ -134,6 +136,30 @@ describe('The dp-document-title directive', function () {
         var component = getComponent();
 
         expect(component.text()).toBe('Item title - Atlas');
+    });
+
+    it('prepends the base title with the item title from promise', function () {
+        const q = $q.defer();
+        q.resolve('Promise title');
+        spyOn(store, 'getState').and.returnValue({ page: {} });
+        spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ page: true });
+        moduleDocumentTitle.getTitle.and.returnValue(q.promise);
+
+        var component = getComponent();
+
+        expect(component.text()).toBe('Promise title - Atlas');
+    });
+
+    it('does not prepend the base title with empty item title from promise', function () {
+        const q = $q.defer();
+        q.resolve('');
+        spyOn(store, 'getState').and.returnValue({ page: {} });
+        spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ page: true });
+        moduleDocumentTitle.getTitle.and.returnValue(q.promise);
+
+        var component = getComponent();
+
+        expect(component.text()).toBe('Atlas');
     });
 
     it('simply displays the base title when the item title is empty', function () {

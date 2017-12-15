@@ -47,11 +47,10 @@
         }
 
         function getOverlaysWarning (zoom) {
-            const labels = getVisibleSources(zoom)
+            return getVisibleSources(zoom)
                 .filter(source => source.noDetail)
-                .map(a => a.parent_label || a.label_short);
-
-            return [...new Set(labels)].join(', ');
+                .map(a => a.label_short)
+                .join(', ');
         }
 
         function getOverlaysLabels (zoom) {
