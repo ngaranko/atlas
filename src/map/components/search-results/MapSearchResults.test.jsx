@@ -100,6 +100,29 @@ describe('MapSearchResults', () => {
       expect(wrapper).toMatchSnapshot();
     });
 
+    it('should filter external monumenten on pand results', () => {
+      const count = 3;
+      const location = {
+        latitude: 15.999,
+        longitude: 329.123
+      };
+      const clickHandler = jest.fn();
+      const results = [
+        { uri: 'result-uri-1', type: 'bag/pand' },
+        { uri: 'result-uri-2', type: 'foo' },
+        { uri: 'result-uri-3', type: 'monumenten/monument' }
+      ];
+      const wrapper = shallow(
+        <MapSearchResults
+          count={count}
+          location={location}
+          onItemClick={clickHandler}
+          results={results}
+        />
+      );
+      expect(wrapper).toMatchSnapshot();
+    });
+
     it('should update results', () => {
       const count = 2;
       const location = {

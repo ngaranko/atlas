@@ -2,8 +2,8 @@ import { getAuthHeaders } from '../auth/auth';
 import getCenter from '../geo-json/geo-json';
 import { rdToWgs84 } from '../coordinate-reference-system/crs-converter';
 import maatschappelijkeActiviteit from '../maatschappelijke-activiteit/maatschappelijke-activiteit';
+import apiUrl from '../api';
 
-const apiUrl = `https://${process.env.NODE_ENV !== 'production' ? 'acc.' : ''}api.data.amsterdam.nl/`;
 
 export default function fetchByUri(uri) {
   return fetch(uri, { headers: getAuthHeaders() })

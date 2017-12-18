@@ -8,6 +8,13 @@ import Notification from '../../../shared/components/notification/Notification';
 const MapSearchResults = ({ count, location, results, panoUrl, missingLayers, onItemClick }) => {
   const rdCoordinates = wgs84ToRd(location);
 
+  // Filter non pand monumenten if search result is pand
+  const pandFeature = results.find((feature) => feature.type === 'bag/pand');
+  const isPand = pandFeature !== undefined;
+  const filteredResults = isPand
+    ? results.filter((feature) => feature.type !== 'monumenten/monument')
+    : results;
+
   return (
     <section className="map-search-results">
       <header
@@ -36,7 +43,7 @@ const MapSearchResults = ({ count, location, results, panoUrl, missingLayers, on
             <Notification>Geen details beschikbaar van: {missingLayers}</Notification>
           </li>
         )}
-        {results.map((result) => (
+        {filteredResults.map((result) => (
           <li key={result.uri}>
             <MapSearchResultsItem
               item={result}
