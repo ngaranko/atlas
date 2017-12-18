@@ -53,7 +53,7 @@ const categoryLabelsByType = {
   'kadaster/kadastraal_object': categoryLabels.kadastraalObject,
   'meetbouten/meetbout': categoryLabels.meetbout,
   'monumenten/monument': categoryLabels.monument,
-  monument: categoryLabels.monument,
+  'pand/monument': categoryLabels.monument,
   'nap/peilmerk': categoryLabels.napPijlmerk,
   vestiging: categoryLabels.vestiging,
   'wkpb/beperking': categoryLabels.gemeentelijkeBeperking
@@ -66,7 +66,7 @@ const categoryTypeOrder = [
   'bag/standplaats',
   'address',
   'vestiging',
-  'monument',
+  'pand/monument',
   'kadaster/kadastraal_object',
   'wkpb/beperking',
   'gebieden/bouwblok',
@@ -105,7 +105,7 @@ const relatedResourcesByType = {
       authScope: 'HR/R'
     }, {
       fetch: monument.fetchByPandId,
-      type: 'monument'
+      type: 'pand/monument'
     }
   ],
   'bag/standplaats': [
@@ -165,7 +165,6 @@ export default function search(location, user) {
     return fetch(`${apiUrl}${endpoint.uri}?${queryString}`)
       .then((response) => response.json())
       .then(fetchRelatedForUser(user))
-      .then(data => { console.log('data: ', data); return data})
       .then((features) => features
         .map((feature) => ({
           uri: feature.properties.uri,
