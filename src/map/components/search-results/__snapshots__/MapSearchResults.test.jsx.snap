@@ -1,5 +1,68 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`MapSearchResults rendering should filter external monumenten on pand results 1`] = `
+<section
+  className="map-search-results"
+>
+  <header
+    className="
+          map-search-results__header
+          map-search-results__header--no-pano
+        "
+  >
+    <div
+      className="map-search-results__header-container"
+    >
+      <h1
+        className="map-search-results__header-title"
+      >
+        Resultaten (
+        3
+        )
+      </h1>
+      <h2
+        className="map-search-results__header-subtitle"
+      >
+        locatie 
+        1.12
+        , 
+        654.32
+      </h2>
+    </div>
+  </header>
+  <ul
+    className="map-search-results__list"
+  >
+    <li
+      key="result-uri-1"
+    >
+      <MapSearchResultsItem
+        item={
+          Object {
+            "type": "bag/pand",
+            "uri": "result-uri-1",
+          }
+        }
+        onClick={[Function]}
+      />
+    </li>
+    <li
+      key="result-uri-2"
+    >
+      <MapSearchResultsItem
+        item={
+          Object {
+            "type": "foo",
+            "uri": "result-uri-2",
+          }
+        }
+        onClick={[Function]}
+      />
+    </li>
+  </ul>
+</section>
+`;
+
 exports[`MapSearchResults rendering should render empty results 1`] = `
 <section
   className="map-search-results"
