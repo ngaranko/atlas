@@ -5,6 +5,7 @@
 
     DpDocumentTitleDirective.$inject = [
         '$document',
+        '$q',
         'store',
         'dashboardColumns',
         'dpDataSelectionDocumentTitle',
@@ -17,6 +18,7 @@
 
     function DpDocumentTitleDirective (
         $document,
+        $q,
         store,
         dashboardColumns,
         dpDataSelectionDocumentTitle,
@@ -75,15 +77,17 @@
                     current = filtered[0],
                     stateData = current ? state[current.state] : null,
                     displayNewTitle = current && stateData && !stateData.isLoading,
-                    getTitle = displayNewTitle ? current.documentTitle.getTitle : null,
-                    titleData = getTitle ? getTitle(stateData, state.filters) : null;
+                    getTitle = displayNewTitle ? current.documentTitle.getTitle : null;
 
-                if (displayNewTitle) {
-                    if (titleData && angular.isFunction(titleData.then)) {
-                        titleData.then(result => scope.title = (result ? result + ' - ' : '') + baseTitle);
-                    } else {
-                        scope.title = (titleData ? titleData + ' - ' : '') + baseTitle;
-                    }
+                let titleData = getTitle ? getTitle(stateData, state.filters) : null;
+
+                if (angular.isString(titleData)) {
+                    const q = $q.defer();
+                    q.resolve(titleData);
+                    titleData = q.promise;
+                }
+                if (displayNewTitle && titleData) {
+                    titleData.then(result => scope.title = (result ? result + ' - ' : '') + baseTitle);
                 }
             }
         }
