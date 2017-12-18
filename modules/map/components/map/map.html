@@ -1,7 +1,9 @@
 <dp-loading-indicator is-loading="mapState.isLoading" use-delay="true" show-inline="false"></dp-loading-indicator>
 
 <div class="c-map c-map--drawing-mode-{{drawingMode}} qa-map-container">
-    <div class="s-leaflet-draw c-map__leaflet js-leaflet-map qa-leaflet-map"></div>
+    <div class="s-leaflet-draw c-map__leaflet js-leaflet-map qa-leaflet-map">
+        <div class="c-map__focus-layer"></div>
+    </div>
 
     <div id="map-panel-react"></div>
 
