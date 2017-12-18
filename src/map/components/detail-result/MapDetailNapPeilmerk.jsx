@@ -26,7 +26,7 @@ const MapDetailNapPeilmerk = ({ panoUrl, result }) => (
     <ul className="map-detail-result__list">
       <MapDetailResultItem
         label="Hoogte NAP"
-        value={`${result.hoogte_nap} m`}
+        value={(result.hoogte_nap || result.hoogte_nap === 0) && `${result.hoogte_nap} m`}
       />
       <MapDetailResultItem
         label="Jaar"

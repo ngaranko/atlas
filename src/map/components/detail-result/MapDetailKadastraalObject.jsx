@@ -36,7 +36,7 @@ const MapDetailKadastraalObject = ({ panoUrl, result }) => (
       )}
       <MapDetailResultItem
         label="Grootte"
-        value={`${result.grootte} m²`}
+        value={(result.grootte || result.grootte === 0) && `${result.grootte} m²`}
       />
     </ul>
   </section>
@@ -48,7 +48,15 @@ MapDetailKadastraalObject.defaultProps = {
 
 MapDetailKadastraalObject.propTypes = {
   panoUrl: PropTypes.string,
-  result: PropTypes.object // eslint-disable-line
+  result: PropTypes.shape({
+    _display: PropTypes.string,
+    grootte: PropTypes.number,
+    kadastrale_gemeente: PropTypes.shape({
+      _display: PropTypes.string,
+      naam: PropTypes.string
+    }),
+    objectnummer: PropTypes.string
+  }).isRequired
 };
 
 export default MapDetailKadastraalObject;
