@@ -1,4 +1,4 @@
-const apiUrl = `https://${process.env.NODE_ENV !== 'production' ? 'acc.' : ''}api.data.amsterdam.nl/`;
+import apiUrl from '../../shared/services/api';
 
 export default function fetchPano(location) {
   const searchParams = {
