@@ -182,7 +182,8 @@
     left: -1px; // Compensate for the border
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     // extend icon-button-box-[$state | $hover-state] defaults to 'white'
     @extend %#{"icon-button-text-box" + if(str-length($hover-state) > 0, "-", "-white") + $hover-state};
 
