@@ -34,7 +34,6 @@ const categoryLabels = {
 };
 
 const categoryLabelsByType = {
-  address: categoryLabels.address,
   'bag/ligplaats': categoryLabels.ligplaats,
   'bag/openbareruimte': categoryLabels.openbareRuimte,
   'bag/pand': categoryLabels.pand,
@@ -53,6 +52,7 @@ const categoryLabelsByType = {
   'kadaster/kadastraal_object': categoryLabels.kadastraalObject,
   'meetbouten/meetbout': categoryLabels.meetbout,
   'monumenten/monument': categoryLabels.monument,
+  'pand/address': categoryLabels.address,
   'pand/monument': categoryLabels.monument,
   'nap/peilmerk': categoryLabels.napPijlmerk,
   vestiging: categoryLabels.vestiging,
@@ -64,7 +64,7 @@ const categoryTypeOrder = [
   'bag/ligplaats',
   'bag/pand',
   'bag/standplaats',
-  'address',
+  'pand/address',
   'vestiging',
   'pand/monument',
   'kadaster/kadastraal_object',
@@ -98,7 +98,7 @@ const relatedResourcesByType = {
   'bag/pand': [
     {
       fetch: address.fetchByPandId,
-      type: 'address'
+      type: 'pand/address'
     }, {
       fetch: vestiging.fetchByPandId,
       type: 'vestiging',
