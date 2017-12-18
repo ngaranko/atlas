@@ -1,14 +1,20 @@
 import * as address from '../../shared/services/address/address';
+import * as monument from '../../shared/services/monument/monument';
 import * as vestiging from '../../shared/services/vestiging/vestiging';
 
-const apiUrl = `https://${process.env.NODE_ENV !== 'production' ? 'acc.' : ''}api.data.amsterdam.nl/`;
+import apiUrl from '../../shared/services/api';
 
 const endpoints = [
   { uri: 'geosearch/nap/', radius: 25 },
   { uri: 'geosearch/atlas/' },
   { uri: 'geosearch/munitie/' },
   { uri: 'geosearch/bominslag/', radius: 25 },
-  { uri: 'geosearch/monumenten/', radius: 25 }
+  { uri: 'geosearch/monumenten/',
+    radius: 25,
+    extra_params: {
+      monumenttype: 'isnot_pand_bouwblok'
+    }
+  }
 ];
 
 const categoryLabels = {
@@ -28,7 +34,6 @@ const categoryLabels = {
 };
 
 const categoryLabelsByType = {
-  address: categoryLabels.address,
   'bag/ligplaats': categoryLabels.ligplaats,
   'bag/openbareruimte': categoryLabels.openbareRuimte,
   'bag/pand': categoryLabels.pand,
@@ -47,6 +52,8 @@ const categoryLabelsByType = {
   'kadaster/kadastraal_object': categoryLabels.kadastraalObject,
   'meetbouten/meetbout': categoryLabels.meetbout,
   'monumenten/monument': categoryLabels.monument,
+  'pand/address': categoryLabels.address,
+  'pand/monument': categoryLabels.monument,
   'nap/peilmerk': categoryLabels.napPijlmerk,
   vestiging: categoryLabels.vestiging,
   'wkpb/beperking': categoryLabels.gemeentelijkeBeperking
@@ -57,8 +64,9 @@ const categoryTypeOrder = [
   'bag/ligplaats',
   'bag/pand',
   'bag/standplaats',
-  'address',
+  'pand/address',
   'vestiging',
+  'pand/monument',
   'kadaster/kadastraal_object',
   'wkpb/beperking',
   'gebieden/bouwblok',
@@ -90,11 +98,14 @@ const relatedResourcesByType = {
   'bag/pand': [
     {
       fetch: address.fetchByPandId,
-      type: 'address'
+      type: 'pand/address'
     }, {
       fetch: vestiging.fetchByPandId,
       type: 'vestiging',
       authScope: 'HR/R'
+    }, {
+      fetch: monument.fetchByPandId,
+      type: 'pand/monument'
     }
   ],
   'bag/standplaats': [
@@ -141,6 +152,7 @@ const fetchRelatedForUser = (user) => (data) => {
 export default function search(location, user) {
   const allRequests = endpoints.map((endpoint) => {
     const searchParams = {
+      ...endpoint.extra_params,
       lat: location.latitude,
       lon: location.longitude,
       radius: endpoint.radius || 0
