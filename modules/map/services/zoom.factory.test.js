@@ -54,7 +54,8 @@ describe('The zoom factory', function () {
             doubleClickZoom: {
                 enable: angular.noop,
                 disable: angular.noop
-            }
+            },
+            invalidateSize: angular.noop
         };
 
         mockedScaleControl = {
@@ -76,6 +77,7 @@ describe('The zoom factory', function () {
 
         spyOn(mockedLeafletMap, 'on').and.callThrough();
         spyOn(mockedLeafletMap, 'setZoom');
+        spyOn(mockedLeafletMap, 'invalidateSize');
         spyOn(store, 'dispatch');
 
         spyOn(panning, 'getCurrentLocation').and.returnValue(mockedLocation);
@@ -112,18 +114,21 @@ describe('The zoom factory', function () {
         zoom.setZoom(mockedLeafletMap, 12);
         expect(mockedLeafletMap.setZoom).toHaveBeenCalledWith(12, jasmine.anything());
         expect(zoom.getZoom()).toBe(12);
+        expect(mockedLeafletMap.invalidateSize).toHaveBeenCalled();
 
         // Zoom in
         mockedLeafletMap.setZoom.calls.reset();
         zoom.setZoom(mockedLeafletMap, 16);
         expect(mockedLeafletMap.setZoom).toHaveBeenCalledWith(16, jasmine.anything());
         expect(zoom.getZoom()).toBe(16);
+        expect(mockedLeafletMap.invalidateSize).toHaveBeenCalled();
 
         // Zoom out
         mockedLeafletMap.setZoom.calls.reset();
         zoom.setZoom(mockedLeafletMap, 8);
         expect(mockedLeafletMap.setZoom).toHaveBeenCalledWith(8, jasmine.anything());
         expect(zoom.getZoom()).toBe(8);
+        expect(mockedLeafletMap.invalidateSize).toHaveBeenCalled();
     });
 
     it('doesn\'t use animations when the zoom is triggered by a state change', () => {
