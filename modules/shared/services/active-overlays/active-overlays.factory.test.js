@@ -22,6 +22,7 @@ describe('The active overlays factory', () => {
                 url: 'maps/meetbouten?service=wms',
                 label_short: 'Meetbouten - Status',
                 label_long: 'Meetbouten - Status',
+                parent_label: 'MEETBOUTEN',
                 layers: ['meetbouten_status', 'meetbouten_labels'],
                 minZoom: 10,
                 maxZoom: 16,
@@ -150,7 +151,7 @@ describe('The active overlays factory', () => {
         });
     });
 
-    describe('getOverlaysWarning', () => {
+    describe('getOverlaysWarning and getOverlaysLabels', () => {
         it('after setting overlays it should only return visible layers with zoom level from state', function () {
             store.getState.and.returnValue({
                 map: {
@@ -161,12 +162,14 @@ describe('The active overlays factory', () => {
             activeOverlays.setOverlays([mockOverlays.mbs, mockOverlays.tcmnmt]);
 
             expect(activeOverlays.getOverlaysWarning()).toBe('Monumenten');
+            expect(activeOverlays.getOverlaysLabels()).toBe('MEETBOUTEN, Monumenten');
         });
 
         it('after setting overlays it should only return visible layers with current zoom level', function () {
             activeOverlays.setOverlays([mockOverlays.mbs, mockOverlays.tcmnmt]);
 
             expect(activeOverlays.getOverlaysWarning(11)).toBe('');
+            expect(activeOverlays.getOverlaysLabels()).toBe('MEETBOUTEN');
         });
     });
 });

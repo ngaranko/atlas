@@ -21,9 +21,11 @@
             if (vm.view === 'TABLE') {
                 vm.targetView = 'LIST';
                 vm.targetLabel = 'Kaart weergeven';
+                vm.targetHover = 'Resultaten op de kaart weergeven';
             } else {
                 vm.targetView = 'TABLE';
                 vm.targetLabel = 'Tabel weergeven';
+                vm.targetHover = 'Resultaten in tabel weergeven';
             }
         });
     }

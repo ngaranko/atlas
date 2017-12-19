@@ -1,8 +1,12 @@
-@mixin icon($icon, $state: "", $hover-state: "red") {
+@mixin icon($icon, $state: "", $hover-state: "red", $tall: "") {
   display: inline-block;
   position: relative;
   width: $button-size;
-  height: $button-size;
+  @if $tall == "tall" {
+    height: $button-tall-size;
+  } @else {
+    height: $button-size;
+  }
   padding: 0;
   line-height: $button-size;
 
@@ -27,24 +31,34 @@
   @include font-weight($bold-weight);
 }
 
-@mixin icon-label-left($icon, $state: "", $hover-state: "red") {
+@mixin icon-label-left($icon, $state: "", $hover-state: "red", $tall: "") {
   @extend %icon-label;
-  @include icon($icon, $state, $hover-state);
+  @include icon($icon, $state, $hover-state, $tall);
 
   width: auto;
   padding-left: $base-whitespace;
+
+  @if $tall == "tall" {
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
 
   &::before {
     float: right;
   }
 }
 
-@mixin icon-label-right($icon, $state: "", $hover-state: "red") {
+@mixin icon-label-right($icon, $state: "", $hover-state: "red", $tall: "") {
   @extend %icon-label;
-  @include icon($icon, $state, $hover-state);
+  @include icon($icon, $state, $hover-state, $tall);
 
   width: auto;
   padding-right: $base-whitespace;
+
+  @if $tall == "tall" {
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
 
   &::before {
     float: left;

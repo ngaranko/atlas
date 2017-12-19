@@ -59,6 +59,7 @@ describe('The video component', () => {
     it('plays the video', () => {
         const component = getComponent(),
             videoElement = component.find('video')[0];
+        videoElement.dispatchEvent(new Event('canplay'));
 
         scope.playVideo = true;
         scope.$digest();
@@ -66,9 +67,21 @@ describe('The video component', () => {
         expect(videoElement.play).toHaveBeenCalled();
     });
 
+    it('does not play/pause the video if not yet loaded', () => {
+        const component = getComponent(),
+            videoElement = component.find('video')[0];
+        // no canplay event fired!
+
+        scope.playVideo = true;
+        scope.$digest();
+
+        expect(videoElement.play).not.toHaveBeenCalled();
+    });
+
     it('stops and resets the video', () => {
         const component = getComponent(),
             videoElement = component.find('video')[0];
+        videoElement.dispatchEvent(new Event('canplay'));
 
         scope.playVideo = true;
         scope.$digest();
