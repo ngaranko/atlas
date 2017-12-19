@@ -138,6 +138,9 @@
                 zoomLevel = Math.max(leafletMap.getZoom(), mapConfig.DEFAULT_ZOOM_HIGHLIGHT);
             }
 
+            // this will trigger a re rendering after zooming for firefox
+            leafletMap.invalidateSize();
+
             store.dispatch({
                 type: ACTIONS.MAP_ZOOM,
                 payload: {
