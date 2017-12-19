@@ -26,12 +26,12 @@
   }
 
   &__heading {
+    align-items: center;
     background-color: #FFFFFF;
     border-bottom: 1px solid #CCCCCC;
     display: flex;
-    padding: 4px;
-    align-items: center;
     justify-content: flex-end;
+    padding: 4px;
   }
 
   &__heading-icon {
@@ -80,8 +80,8 @@
       }
 
       .map-preview-panel__button-icon {
-        width: 20px;
         height: 20px;
+        width: 20px;
       }
     }
 
