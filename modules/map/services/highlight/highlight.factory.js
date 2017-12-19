@@ -19,7 +19,9 @@
         'clusteredMarkersConfig'
     ];
 
+    /* eslint-disable max-params */
     function highlightFactory (
+    /* eslint-enable max-params */
         L,
         $rootScope,
         crsService,
@@ -144,7 +146,7 @@
             $rootScope.$applyAsync(() => {
                 leafletMap.eachLayer(wmsLayer => {
                     if (wmsLayer.options.layers) {
-                        const currentOpacity = wmsLayer.getElement().style.opacity;
+                        const currentOpacity = L.DomUtil.getStyle(wmsLayer.getElement(), 'opacity');
                         wmsLayer.removeFrom(leafletMap);
                         wmsLayer.addTo(leafletMap);
                         wmsLayer.setOpacity(currentOpacity);
