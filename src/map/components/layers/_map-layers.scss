@@ -4,7 +4,6 @@
   user-select: none;
 
   &__category {
-    font-family: "Avenir LT W01 85 Heavy";
     margin-top: 8px;
     text-indent: 8px;
 
@@ -31,6 +30,12 @@
     ul {
       margin-top: 8px;
     }
+  }
+
+  &__category-text {
+    color: #000;
+    font-family: "Avenir LT W01 85 Heavy";
+    font-size: 16px;
   }
 
   &__title {
