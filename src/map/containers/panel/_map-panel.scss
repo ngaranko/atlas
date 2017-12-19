@@ -35,7 +35,8 @@
     .map-panel--collapsed & {
       border-bottom: none;
 
-      &:focus {
+      &:focus,
+      &:hover {
         background-color: #EC0000;
         cursor: pointer;
 
@@ -182,8 +183,8 @@
     padding: 4px;
     width: 24px !important;
 
-    &:hover,
-    &:focus {
+    &:focus,
+    &:hover {
       border-color: #EC0000;
       background-color: #EC0000;
       color: #FFFFFF;
