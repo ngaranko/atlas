@@ -145,7 +145,7 @@
             // this will trigger a re rendering of map layers after zooming for firefox
             $rootScope.$applyAsync(() => {
                 leafletMap.eachLayer(wmsLayer => {
-                    if (wmsLayer.options.layers) {
+                    if (wmsLayer.options && wmsLayer.options.layers) {
                         const currentOpacity = L.DomUtil.getStyle(wmsLayer.getElement(), 'opacity');
                         wmsLayer.removeFrom(leafletMap);
                         wmsLayer.addTo(leafletMap);

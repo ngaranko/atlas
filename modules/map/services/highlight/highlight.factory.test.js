@@ -1,12 +1,15 @@
 describe('The highlight factory', function () {
     var highlight,
         L,
+        $rootScope,
         crsService,
         crsConverter,
         geojson,
         store,
         ACTIONS,
         mockedLeafletMap,
+        mockedWmsLayer,
+        mockedWmsLayers,
         mockedLatLngBounds,
         mockedItems = {
             item_multipolygon: {
@@ -140,9 +143,11 @@ describe('The highlight factory', function () {
             }
         );
 
-        angular.mock.inject(function (_highlight_, _L_, _crsService_, _crsConverter_, _geojson_, _store_, _ACTIONS_) {
+        angular.mock.inject(function (_highlight_, _L_, _$rootScope_, _crsService_, _crsConverter_, _geojson_, _store_,
+                                      _ACTIONS_) {
             highlight = _highlight_;
             L = _L_;
+            $rootScope = _$rootScope_;
             crsService = _crsService_;
             crsConverter = _crsConverter_;
             geojson = _geojson_;
@@ -150,9 +155,41 @@ describe('The highlight factory', function () {
             ACTIONS = _ACTIONS_;
         });
 
+        mockedWmsLayer = {
+            addTo: angular.noop,
+            removeFrom: angular.noop,
+            getElement: angular.noop,
+            setOpacity: angular.noop
+        };
+
+        spyOn(mockedWmsLayer, 'addTo');
+        spyOn(mockedWmsLayer, 'removeFrom');
+        spyOn(mockedWmsLayer, 'setOpacity');
+
+        mockedWmsLayers = [
+            {
+                // layer without options object
+            }, {
+                ...mockedWmsLayer,
+                options: {
+                    layers: ['meetbouten']
+                }
+            }, {
+                ...mockedWmsLayer,
+                options: {
+                    layers: ['monumenten']
+                }
+            }
+        ];
+
         mockedLeafletMap = {
             addLayer: angular.noop,
             removeLayer: angular.noop,
+            eachLayer: callback => {
+                mockedWmsLayers.forEach(wmsLayer => {
+                    callback.call({}, wmsLayer);
+                });
+            },
             fitBounds: angular.noop,
             getBounds: function () {
                 return mockedLatLngBounds;
@@ -179,6 +216,7 @@ describe('The highlight factory', function () {
 
         spyOn(mockedLeafletMap, 'addLayer');
         spyOn(mockedLeafletMap, 'removeLayer');
+        spyOn(mockedLeafletMap, 'eachLayer').and.callThrough();
         spyOn(mockedLeafletMap, 'fitBounds').and.callThrough();
 
         L.Proj.geoJson = function () {
@@ -190,6 +228,8 @@ describe('The highlight factory', function () {
         spyOn(L.Proj, 'geoJson').and.callThrough();
         spyOn(L, 'icon').and.returnValue('FAKE_ICON');
         spyOn(L, 'marker').and.returnValue('FAKE_MARKER');
+
+        spyOn(L.DomUtil, 'getStyle');
 
         spyOn(L, 'markerClusterGroup').and.returnValue(mockedClusteredLayer);
         spyOn(mockedClusteredLayer, 'addLayer');
@@ -460,6 +500,14 @@ describe('The highlight factory', function () {
                     zoom: 14
                 }
             });
+
+            $rootScope.$apply();
+            expect(mockedLeafletMap.eachLayer).toHaveBeenCalledTimes(1);
+
+            expect(L.DomUtil.getStyle).toHaveBeenCalledTimes(2);
+            expect(mockedWmsLayer.addTo).toHaveBeenCalledTimes(2);
+            expect(mockedWmsLayer.removeFrom).toHaveBeenCalledTimes(2);
+            expect(mockedWmsLayer.setOpacity).toHaveBeenCalledTimes(2);
         });
 
         it('Points will not zoom out when viewing with a zoom level larger than 14', function () {
