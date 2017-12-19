@@ -144,9 +144,10 @@
             $rootScope.$applyAsync(() => {
                 leafletMap.eachLayer(wmsLayer => {
                     if (wmsLayer.options.layers) {
+                        const currentOpacity = wmsLayer.getElement().style.opacity;
                         wmsLayer.removeFrom(leafletMap);
                         wmsLayer.addTo(leafletMap);
-                        wmsLayer.setOpacity(1);
+                        wmsLayer.setOpacity(currentOpacity);
                     }
                 });
             });
