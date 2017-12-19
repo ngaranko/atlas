@@ -14,9 +14,9 @@ const MapPanelHandle = (props) => (
       className="map-panel-handle__toggle"
       onClick={props.onMapPanelHandleToggle}
     >
-      {props.isMapPanelHandleVisible ?
-        <CollapseIcon /> :
-        <ExpandIcon />
+      {props.isMapPanelHandleVisible
+        ? <span><CollapseIcon /><span className="u-sr-only">Kaartlagen verbergen</span></span>
+        : <span><ExpandIcon /><span className="u-sr-only">Kaartlagen tonen</span></span>
       }
     </button>
     {props.isMapPanelHandleVisible && props.children}
