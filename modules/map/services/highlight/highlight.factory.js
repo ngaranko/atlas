@@ -138,7 +138,6 @@
                 zoomLevel = Math.max(leafletMap.getZoom(), mapConfig.DEFAULT_ZOOM_HIGHLIGHT);
             }
 
-
             store.dispatch({
                 type: ACTIONS.MAP_ZOOM,
                 payload: {
