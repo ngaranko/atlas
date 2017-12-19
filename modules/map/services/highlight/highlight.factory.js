@@ -7,6 +7,7 @@
 
     highlightFactory.$inject = [
         'L',
+        '$rootScope',
         'crsService',
         'ICON_CONFIG',
         'geojson',
@@ -20,6 +21,7 @@
 
     function highlightFactory (
         L,
+        $rootScope,
         crsService,
         ICON_CONFIG,
         geojson,
@@ -137,6 +139,17 @@
                 location = crsConverter.rdToWgs84(geojson.getCenter(geometry));
                 zoomLevel = Math.max(leafletMap.getZoom(), mapConfig.DEFAULT_ZOOM_HIGHLIGHT);
             }
+
+            // this will trigger a re rendering of map layers after zooming for firefox
+            $rootScope.$applyAsync(() => {
+                leafletMap.eachLayer(wmsLayer => {
+                    if (wmsLayer.options.layers) {
+                        wmsLayer.removeFrom(leafletMap);
+                        wmsLayer.addTo(leafletMap);
+                        wmsLayer.setOpacity(1);
+                    }
+                });
+            });
 
             store.dispatch({
                 type: ACTIONS.MAP_ZOOM,

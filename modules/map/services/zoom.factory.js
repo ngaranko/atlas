@@ -48,8 +48,6 @@
                 animate: false
             });
 
-            // this will trigger a re rendering after zooming for firefox
-            leafletMap.invalidateSize();
             zoom = zoomLevel;
         }
 
