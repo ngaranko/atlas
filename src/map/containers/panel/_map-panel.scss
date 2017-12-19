@@ -6,8 +6,8 @@
   font-family: "Avenir LT W01 55 Roman";
   left: 8px;
   max-height: calc(100vh - 50px - 130px);
-  min-width: 285px;
   max-width: 444px;
+  min-width: 285px;
   overflow: hidden;
   position: fixed;
   width: 28%;
@@ -75,9 +75,9 @@
     align-items: center;
     border-radius: 0;
     display: flex;
-    padding: 4px;
     height: 100%;
     outline: none;
+    padding: 4px;
     width: 100%;
 
     &:focus,
@@ -157,10 +157,10 @@
 .leaflet-control-container {
 
   .leaflet-bottom {
-    display: flex;
-    justify-content: flex-end;
     align-items: flex-end;
+    display: flex;
     flex-direction: row-reverse;
+    justify-content: flex-end;
   }
 
   .leaflet-control-zoom {
