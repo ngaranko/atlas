@@ -57,8 +57,12 @@ describe('The zoom factory', function () {
             }
         };
 
+        const scaleContainer = document.createElement('DIV');
+        scaleContainer.prepend = jasmine.createSpy('prepend');
+
         mockedScaleControl = {
-            addTo: function () {}
+            addTo: function () {},
+            getContainer: () => scaleContainer
         };
 
         mockedZoomControl = {

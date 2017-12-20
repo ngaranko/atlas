@@ -54,71 +54,74 @@ class MapLegend extends React.Component {
     const { activeMapLayers, onLayerVisibilityToggle, zoomLevel } = this.props;
 
     return (
-      <ul className="map-legend">
-        {activeMapLayers.map((mapLayer) => (
-          <li
-            className={`
-              map-legend__map-layer
-              map-legend__map-layer--${this.determineLayerVisibility(mapLayer) ? 'visible' : 'hidden'}
-            `}
-            key={mapLayer.title}
-          >
-            <div
+      <div>
+        <h3 className="u-sr-only">Actieve kaartlagen</h3>
+        <ul className="map-legend">
+          {activeMapLayers.map((mapLayer) => (
+            <li
               className={`
-                map-legend__category
-                map-legend__category--${mapLayer.legendItems.some((legendItem) => legendItem.selectable) ? '' : 'un'}selectable-legend
+                map-legend__map-layer
+                map-legend__map-layer--${this.determineLayerVisibility(mapLayer) ? 'visible' : 'hidden'}
               `}
+              key={mapLayer.title}
             >
-              <Checkbox
-                checked={() => this.determineLayerVisibility(mapLayer)}
-                name={mapLayer.title}
-                onChange={() => this.toggleLayerVisibility(mapLayer)}
-              />
-              <span className="map-legend__category-title">{mapLayer.title}</span>
-              <button
-                className="map-legend__toggle map-legend__toggle--remove"
-                onClick={() => this.toggleLayer(mapLayer)}
+              <div
+                className={`
+                  map-legend__category
+                  map-legend__category--${mapLayer.legendItems.some((legendItem) => legendItem.selectable) ? '' : 'un'}selectable-legend
+                `}
               >
-                <RemoveIcon />
-              </button>
-            </div>
-            {(zoomLevel < mapLayer.minZoom || zoomLevel > mapLayer.maxZoom) && (
-              <div className="map-legend__zoom-level-notification">
-                <span>Zichtbaar bij verder {zoomLevel < mapLayer.minZoom ? 'inzoomen' : 'uitzoomen'}</span>
+                <Checkbox
+                  checked={() => this.determineLayerVisibility(mapLayer)}
+                  name={mapLayer.title}
+                  onChange={() => this.toggleLayerVisibility(mapLayer)}
+                />
+                <h4 className="map-legend__category-title">{mapLayer.title}</h4>
+                <button
+                  className="map-legend__toggle map-legend__toggle--remove"
+                  onClick={() => this.toggleLayer(mapLayer)}
+                >
+                  <RemoveIcon />
+                </button>
               </div>
-            )}
-            {(zoomLevel >= mapLayer.minZoom && zoomLevel <= mapLayer.maxZoom) && (
-              <ul className="map-legend__items">
-                {mapLayer.legendItems.map((legendItem) => (
-                  <li
-                    className="map-legend__item"
-                    key={legendItem.title}
-                  >
-                    {legendItem.selectable && (
-                      <Checkbox
-                        checked={() => this.determineLegendItemVisibility(legendItem)}
-                        name={legendItem.title}
-                        onChange={() => onLayerVisibilityToggle(legendItem.id)}
-                      />
-                    )}
-                    <div className={`
-                      map-legend__image
-                      map-legend__image--${legendItem.selectable ? 'selectable' : 'not-selectable'}
-                    `}
+              {(zoomLevel < mapLayer.minZoom || zoomLevel > mapLayer.maxZoom) && (
+                <div className="map-legend__zoom-level-notification">
+                  <span>Zichtbaar bij verder {zoomLevel < mapLayer.minZoom ? 'inzoomen' : 'uitzoomen'}</span>
+                </div>
+              )}
+              {(zoomLevel >= mapLayer.minZoom && zoomLevel <= mapLayer.maxZoom) && (
+                <ul className="map-legend__items">
+                  {mapLayer.legendItems.map((legendItem) => (
+                    <li
+                      className="map-legend__item"
+                      key={legendItem.title}
                     >
-                      <img
-                        alt=""
-                        src={MapLegend.constructLegendIconUrl(mapLayer, legendItem)}
-                      />
-                    </div>
-                    <span className="map-legend__title">{legendItem.title}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </li>
-        ))}
-      </ul>
+                      {legendItem.selectable && (
+                        <Checkbox
+                          checked={() => this.determineLegendItemVisibility(legendItem)}
+                          name={legendItem.title}
+                          onChange={() => onLayerVisibilityToggle(legendItem.id)}
+                        />
+                      )}
+                      <div className={`
+                        map-legend__image
+                        map-legend__image--${legendItem.selectable ? 'selectable' : 'not-selectable'}
+                      `}
+                      >
+                        <img
+                          alt=""
+                          src={MapLegend.constructLegendIconUrl(mapLayer, legendItem)}
+                        />
+                      </div>
+                      <span className="map-legend__title">{legendItem.title}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
     );
   }
 }
