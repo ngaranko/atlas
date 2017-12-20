@@ -3,9 +3,11 @@
   border: solid 1px #CCCCCC;
   bottom: 8px;
   box-shadow: 2px 2px 0 0 #999999;
+  display: flex;
+  flex-direction: column;
   font-family: "Avenir LT W01 55 Roman";
   left: 8px;
-  max-height: calc(100vh - 50px - 130px);
+  max-height: calc(100vh - #{$dashboard-heading-height} - 130px);
   max-width: 444px;
   min-width: 285px;
   overflow: hidden;
@@ -115,10 +117,9 @@
   }
 
   .scroll-wrapper {
-    max-height: calc(100vh - 50px - 130px - 34px);
     overflow-x: hidden;
     overflow-y: auto;
-    /* NB: Workaround to force smooth scrolling on Chrome */
+    // NB: Workaround to force smooth scrolling on Chrome
     will-change: transform;
   }
 
