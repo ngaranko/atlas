@@ -5,8 +5,6 @@ MAINTAINER datapunt.ois@amsterdam.nl
 EXPOSE 80
 
 ENV NODE_ENV=production
-ARG BUILD_ENV=prod
-ARG BUILD_ID
 
 RUN apt-get update \
   && apt-get upgrade -y --no-install-recommends \
@@ -27,6 +25,8 @@ RUN git config --global url.https://.insteadOf git:// && \
 
 COPY . /app
 
+ARG BUILD_ENV=prod
+ARG BUILD_ID
 RUN npm run build-${BUILD_ENV} -- --env.buildId=${BUILD_ID} \
   && cp -r /app/dist/. /var/www/html/
 
