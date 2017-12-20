@@ -16,9 +16,13 @@ module.exports = {
     "arrow-parens": ["error", "always"],
     "comma-dangle": ["error", "never"],
     "no-nested-ternary": "off",
-    "no-multiple-empty-lines": "error",
-    "no-underscore-dangle": ["error", { "allow": ["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__", "_embedded", "_links"] }],
-
-    "jsx-a11y/alt-text": "error"
+    "no-underscore-dangle": ["error", {
+      "allow": [
+        "__REDUX_DEVTOOLS_EXTENSION_COMPOSE__",
+        "_embedded",
+        "_links",
+        "_display"
+      ]
+    }]
   }
 }

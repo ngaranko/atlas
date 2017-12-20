@@ -9,12 +9,8 @@ describe('The printReducers factory', function () {
             overlays: [],
             viewCenter: [52.3719, 4.9012],
             zoom: 9,
-            showActiveOverlays: false,
             isFullscreen: false,
             isLoading: false
-        },
-        layerSelection: {
-            isEnabled: false
         },
         search: null,
         page: {
@@ -25,6 +21,9 @@ describe('The printReducers factory', function () {
         dataSelection: null,
         atlas: {
             isPrintMode: false
+        },
+        ui: {
+            isMapPanelVisible: false
         }
     };
 

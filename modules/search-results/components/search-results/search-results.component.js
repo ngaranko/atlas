@@ -5,6 +5,7 @@
         .module('dpSearchResults')
         .component('dpSearchResults', {
             bindings: {
+                show: '=',
                 isLoading: '=',
                 query: '@',
                 location: '=',
@@ -24,8 +25,6 @@
     function DpSearchResultsController ($rootScope, $scope, search, geosearch, TabHeader, store, ACTIONS,
                                         activeOverlays) {
         const vm = this;
-
-        store.dispatch({ type: 'HIDE_MAP_PANEL' });
 
         /**
          * watch isLoading and the query and location parameters of the state

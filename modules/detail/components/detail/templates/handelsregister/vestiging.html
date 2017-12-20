@@ -60,7 +60,7 @@
             <dd>
                 {{ vm.apiData.results.hoofdvestiging ? "Hoofdvestiging" : vm.apiData.results.hoofdvestiging === false ? "Nevenvestiging" : "" }}
             </dd>
-            <dt>SBI-activiteiten</dt>
+            <dt>SBI-code en -omschrijving</dt>
             <dd>
                 <div ng-repeat="object in vm.apiData.results.activiteiten">
                     {{ object.sbi_code }}: {{ object.sbi_omschrijving }}

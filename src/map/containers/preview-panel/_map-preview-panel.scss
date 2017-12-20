@@ -1,0 +1,123 @@
+.map-preview-panel {
+  $map-preview-panel-top-print: 8px;
+  $map-preview-panel-bottom-print: 2px + 10px + 17px + 8px;
+
+  background-color: #FAFAFA;
+  border: solid 1px #CCCCCC;
+  box-shadow: 2px 2px 0 0 #999999;
+  font-family: "Avenir LT W01 55 Roman";
+  max-height: calc(100vh - #{$map-preview-panel-top + $map-preview-panel-bottom});
+  max-width: 440px;
+  min-width: 285px;
+  overflow: hidden;
+  position: fixed;
+  right: 9px;
+  top: $map-preview-panel-top;
+  width: 28%;
+  z-index: 100;
+
+  .c-dashboard__body--error & {
+    max-height: calc(100vh - #{$map-preview-panel-top + $map-preview-panel-bottom + $dashboard-error-height});
+    top: #{$map-preview-panel-top + $dashboard-error-height};
+  }
+
+  &--hidden {
+    display: none;
+  }
+
+  &__heading {
+    align-items: center;
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #CCCCCC;
+    display: flex;
+    justify-content: flex-end;
+    padding: 4px;
+  }
+
+  &__heading-icon {
+    fill: #000000;
+    height: 24px;
+    width: 24px;
+
+    .map-panel--collapsed & {
+      fill: #666666;
+    }
+  }
+
+  &__button {
+    border-radius: 0;
+    height: 24px;
+    margin-left: 4px;
+    outline: none;
+    width: 24px;
+
+    &:hover {
+      background-color: #EC0000;
+    }
+
+    &--show-all {
+      align-items: center;
+      display: flex;
+      flex-grow: 1;
+
+      &:hover {
+        background-color: transparent;
+
+        .map-preview-panel__button-label {
+          color: #EC0000;
+          text-decoration: underline;
+        }
+
+        .map-preview-panel__button-icon {
+          fill: #EC0000;
+        }
+      }
+
+      .map-preview-panel__button-label {
+        color: #666666;
+        font-family: "Avenir LT W01 85 Heavy";
+        font-size: 14px;
+      }
+
+      .map-preview-panel__button-icon {
+        height: 20px;
+        width: 20px;
+      }
+    }
+
+    &-icon {
+      fill: #666666;
+      height: inherit;
+      width: inherit;
+
+      *:hover > & {
+        fill: #FFFFFF;
+      }
+    }
+  }
+
+  &__body {
+    height: calc(100% - 33px);
+
+    &--loading {
+      padding: 36px;
+    }
+
+    .is-print-mode & {
+      height: 100%;
+    }
+  }
+
+  .is-print-mode & {
+    bottom: $map-preview-panel-bottom-print;
+    max-height: none;
+    position: absolute;
+    top: $map-preview-panel-top-print;
+  }
+
+  .is-print-mode & {
+    &__heading {
+      display: none;
+    }
+  }
+}

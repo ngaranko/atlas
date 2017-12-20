@@ -3,6 +3,7 @@
         .module('dpDetail')
         .component('dpDetail', {
             bindings: {
+                show: '=',
                 endpoint: '@',
                 reload: '=',
                 isLoading: '=',
@@ -43,8 +44,6 @@
         /* eslint-enable max-params */
         var vm = this;
 
-        store.dispatch({ type: 'HIDE_MAP_PANEL' });
-
         // Reload the data when the reload flag has been set (endpoint has not
         // changed)
         $scope.$watch('vm.reload', reload => {
@@ -76,8 +75,8 @@
             ) {
                 // User is not authorized to view BRK Kadastrale Subjecten, nor
                 // handelsregister, so do not fetch data
-                vm.isLoading = false;
                 delete vm.apiData;
+                errorHandler();
             } else {
                 api.getByUrl(endpoint).then(function (data) {
                     data = dataFormatter.formatData(data, subject);

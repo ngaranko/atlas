@@ -46,5 +46,17 @@ export const selectActiveMapLayers = (state) => {
     });
 };
 
+export const selectNotClickableVisibleMapLayers = (state) => {
+  const zoomLevel = state.map.zoom;
+
+  return selectActiveMapLayers(state)
+    .filter((mapLayer) => (zoomLevel >= mapLayer.minZoom && zoomLevel <= mapLayer.maxZoom))
+    .map((mapLayer) => [mapLayer, ...mapLayer.legendItems])
+    .reduce((accumulator, legendItems) => accumulator.concat(legendItems), [])
+    .filter((legendItem) => legendItem.notClickable)
+    .filter((legendItem) => state.map.overlays
+      .some((overlay) => overlay.id === legendItem.id && overlay.isVisible));
+};
+
 window.reducers = window.reducers || {};
 window.reducers.MapLayersReducer = MapLayersReducer;

@@ -19,11 +19,16 @@ exports[`MapPanelContainer should render MapLegend if store contains active map 
       <test-file-stub
         className="map-panel__heading-icon"
       />
-      <h1
+      <h2
         className="map-panel__heading-title"
       >
-        Kaartlagen
-      </h1>
+        Kaartlagen 
+        <span
+          className="u-sr-only"
+        >
+          legenda
+        </span>
+      </h2>
       <test-file-stub
         className="map-panel__toggle-icon map-panel__toggle-icon--expanded"
       />
@@ -89,11 +94,16 @@ exports[`MapPanelContainer should render MapType and MapLayers 1`] = `
       <test-file-stub
         className="map-panel__heading-icon"
       />
-      <h1
+      <h2
         className="map-panel__heading-title"
       >
-        Kaartlagen
-      </h1>
+        Kaartlagen 
+        <span
+          className="u-sr-only"
+        >
+          legenda
+        </span>
+      </h2>
       <test-file-stub
         className="map-panel__toggle-icon map-panel__toggle-icon--expanded"
       />

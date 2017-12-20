@@ -1,4 +1,4 @@
-(function () {
+(() => {
     'use strict';
 
     angular
@@ -8,19 +8,22 @@
     stateToUrlMiddlewareFactory.$inject = ['stateToUrl', 'ACTIONS'];
 
     function stateToUrlMiddlewareFactory (stateToUrl, ACTIONS) {
-        return function (store) {
-            return function (next) {
-                return function (action) {
-                    var returnValue;
+        return (store) => {
+            return (next) => {
+                return (action) => {
+                    // Are we dealing with vanilla js reducers here (type is a
+                    // string instead of an object with an ID and other
+                    // optional attributes)?
+                    const vanilla = angular.isString(action.type);
 
                     // Update the state first
-                    returnValue = next(action);
+                    const returnValue = next(action);
 
                     // Then update the URL
-                    if (!action.type.ignore && action.type !== 'AUTHENTICATE_USER') {
+                    if ((vanilla || !action.type.ignore) && action.type !== 'AUTHENTICATE_USER') {
                         stateToUrl.update(
                             store.getState(),
-                            angular.isObject(action.type) && Boolean(action.type.replace)
+                            !vanilla && Boolean(action.type.replace)
                         );
                     }
                     return returnValue;

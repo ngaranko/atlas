@@ -1,6 +1,7 @@
 // For now simply import everything we need, from here
 import './state';
 import './map/wrappers/panel/MapPanelWrapper';
+import './map/wrappers/preview-panel/MapPreviewPanelWrapper';
 
 // All third party dependencies
 import './vendor';
@@ -44,12 +45,12 @@ import '../modules/atlas/services/piwik/piwik.factory';
 import '../modules/atlas/services/piwik/piwik.run';
 import '../modules/atlas/services/redux/middleware/context-middleware.factory';
 import '../modules/atlas/services/redux/middleware/state-to-url-middleware.factory';
+import '../modules/atlas/services/redux/deprecated-reducer.factory';
 import '../modules/atlas/services/redux/reducer.factory';
 import '../modules/atlas/services/redux/reducers/data-selection-reducers.factory';
 import '../modules/atlas/services/redux/reducers/embed-reducers.factory';
 import '../modules/atlas/services/redux/reducers/filters-reducers.factory';
 import '../modules/atlas/services/redux/reducers/home-reducers.factory';
-import '../modules/atlas/services/redux/reducers/layer-selection-reducers.factory';
 import '../modules/atlas/services/redux/reducers/map-reducers.factory';
 import '../modules/atlas/services/redux/reducers/page-reducers.factory';
 import '../modules/atlas/services/redux/reducers/print-reducers.factory';
@@ -145,7 +146,6 @@ import '../modules/map/components/draw-tool/toggle-drawing-tool/toggle-drawing-t
 import '../modules/map/components/embed-button/embed-button.component';
 import '../modules/map/components/map/map.directive';
 import '../modules/map/components/toggle-fullscreen/toggle-fullscreen.component';
-import '../modules/map/components/toggle-layer-selection/toggle-layer-selection.component';
 import '../modules/map/map-config.factory';
 import '../modules/map/map.vendor';
 import '../modules/map/services/document-title/document-title.factory';
