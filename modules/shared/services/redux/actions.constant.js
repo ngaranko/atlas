@@ -46,18 +46,6 @@
                 id: 'SHOW_MAP',
                 isButton: false
             },
-            MAP_SET_BASELAYER: {
-                id: 'MAP_SET_BASELAYER',
-                replace: true
-            },
-            MAP_ADD_OVERLAY: {
-                id: 'MAP_ADD_OVERLAY',
-                replace: true
-            },
-            MAP_REMOVE_OVERLAY: {
-                id: 'MAP_REMOVE_OVERLAY',
-                replace: true
-            },
             MAP_ADD_PANO_OVERLAY: {
                 id: 'MAP_ADD_PANO_OVERLAY',
                 ignore: true
@@ -66,13 +54,12 @@
                 id: 'MAP_REMOVE_PANO_OVERLAY',
                 ignore: true
             },
-            MAP_TOGGLE_VISIBILITY_OVERLAY: {
-                id: 'MAP_TOGGLE_VISIBILITY_OVERLAY',
-                replace: true,
-                isButton: true
-            },
             MAP_CLICK: {
                 id: 'MAP_CLICK',
+                ignore: true
+            },
+            SET_MAP_CLICK_LOCATION: {
+                id: 'SET_MAP_CLICK_LOCATION',
                 ignore: true
             },
             MAP_PAN: {
@@ -102,16 +89,6 @@
             },
             MAP_END_DRAWING: {
                 id: 'MAP_END_DRAWING',
-                isButton: true
-            },
-            SHOW_MAP_ACTIVE_OVERLAYS: {
-                id: 'SHOW_MAP_ACTIVE_OVERLAYS',
-                replace: true,
-                isButton: true
-            },
-            HIDE_MAP_ACTIVE_OVERLAYS: {
-                id: 'HIDE_MAP_ACTIVE_OVERLAYS',
-                replace: true,
                 isButton: true
             },
 
@@ -179,15 +156,6 @@
             },
             SET_DATA_SELECTION_VIEW: {
                 id: 'SET_DATA_SELECTION_VIEW',
-                isButton: true
-            },
-
-            SHOW_LAYER_SELECTION: {
-                id: 'SHOW_LAYER_SELECTION',
-                isButton: true
-            },
-            HIDE_LAYER_SELECTION: {
-                id: 'HIDE_LAYER_SELECTION',
                 isButton: true
             },
 

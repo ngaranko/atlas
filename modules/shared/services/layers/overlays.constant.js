@@ -29,7 +29,7 @@
 
                 // economie
                 hvo: {
-                    authorizationLevel: 'EMPLOYEE',
+                    authScope: 'HR/R',
                     url: 'maps/handelsregister',
                     label_short: 'Handel, vervoer, opslag',
                     label_long: 'Handel, vervoer, opslag',
@@ -42,7 +42,7 @@
                     detailItem: 'handel_vervoer_opslag'
                 },
                 pir: {
-                    authorizationLevel: 'EMPLOYEE',
+                    authScope: 'HR/R',
                     url: 'maps/handelsregister',
                     label_short: 'Productie, installatie, reparatie',
                     label_long: 'Productie, installatie, reparatie',
@@ -56,7 +56,7 @@
                     detailItem: 'productie_installatie_reparatie'
                 },
                 bouw: {
-                    authorizationLevel: 'EMPLOYEE',
+                    authScope: 'HR/R',
                     url: 'maps/handelsregister',
                     label_short: 'Bouw',
                     label_long: 'Bouw',
@@ -69,7 +69,7 @@
                     detailItem: 'bouw'
                 },
                 lb: {
-                    authorizationLevel: 'EMPLOYEE',
+                    authScope: 'HR/R',
                     url: 'maps/handelsregister',
                     label_short: 'Landbouw',
                     label_long: 'Landbouw',
@@ -82,7 +82,7 @@
                     detailItem: 'landbouw'
                 },
                 hrc: {
-                    authorizationLevel: 'EMPLOYEE',
+                    authScope: 'HR/R',
                     url: 'maps/handelsregister',
                     label_short: 'Horeca',
                     label_long: 'Horeca',
@@ -95,7 +95,7 @@
                     detailItem: 'horeca'
                 },
                 itc: {
-                    authorizationLevel: 'EMPLOYEE',
+                    authScope: 'HR/R',
                     url: 'maps/handelsregister',
                     label_short: 'Informatie, telecommunicatie',
                     label_long: 'Informatie, telecommunicatie',
@@ -108,7 +108,7 @@
                     detailItem: 'informatie_telecommunicatie'
                 },
                 fdvrog: {
-                    authorizationLevel: 'EMPLOYEE',
+                    authScope: 'HR/R',
                     url: 'maps/handelsregister',
                     label_short: 'Financiële dienstverl., verhuur',
                     label_long: 'Financiële dienstverlening, verhuur van roerend en onroerend goed',
@@ -123,7 +123,7 @@
                     detailItem: 'financiele_dienstverlening_verhuur'
                 },
                 zd: {
-                    authorizationLevel: 'EMPLOYEE',
+                    authScope: 'HR/R',
                     url: 'maps/handelsregister',
                     label_short: 'Zakelijke dienstverlening',
                     label_long: 'Zakelijke dienstverlening',
@@ -136,7 +136,7 @@
                     detailItem: 'zakelijke_dienstverlening'
                 },
                 ooz: {
-                    authorizationLevel: 'EMPLOYEE',
+                    authScope: 'HR/R',
                     url: 'maps/handelsregister',
                     label_short: 'Overheid, onderwijs, zorg',
                     label_long: 'Overheid, onderwijs, zorg',
@@ -149,7 +149,7 @@
                     detailItem: 'overheid_onderwijs_zorg'
                 },
                 csr: {
-                    authorizationLevel: 'EMPLOYEE',
+                    authScope: 'HR/R',
                     url: 'maps/handelsregister',
                     label_short: 'Cultuur, sport, recreatie',
                     label_long: 'Cultuur, sport, recreatie',
@@ -162,7 +162,7 @@
                     detailItem: 'cultuur_sport_recreatie'
                 },
                 pd: {
-                    authorizationLevel: 'EMPLOYEE',
+                    authScope: 'HR/R',
                     url: 'maps/handelsregister',
                     label_short: 'Persoonlijke dienstverlening',
                     label_long: 'Persoonlijke dienstverlening',
@@ -176,7 +176,7 @@
                     detailItem: 'persoonlijke_dienstverlening'
                 },
                 ovrg: {
-                    authorizationLevel: 'EMPLOYEE',
+                    authScope: 'HR/R',
                     url: 'maps/handelsregister',
                     label_short: 'Overige',
                     label_long: 'Overige',
@@ -204,6 +204,7 @@
                     url: 'maps/brk?service=wms',
                     label_short: 'Burgerlijke gemeenten',
                     label_long: 'Burgerlijke gemeenten',
+                    parent_label: 'Kadastrale perceelsgrenzen',
                     layers: ['burgerlijke_gemeente', 'burgerlijke_gemeente_label'],
                     minZoom: 8,
                     maxZoom: 16,
@@ -215,6 +216,7 @@
                     url: 'maps/brk?service=wms',
                     label_short: 'Kadastrale gemeenten',
                     label_long: 'Kadastrale gemeenten',
+                    parent_label: 'Kadastrale perceelsgrenzen',
                     layers: ['kadastrale_gemeente', 'kadastrale_gemeente_label'],
                     minZoom: 8,
                     maxZoom: 16,
@@ -226,8 +228,9 @@
                     url: 'maps/brk?service=wms',
                     label_short: 'Kadastrale secties',
                     label_long: 'Kadastrale secties',
+                    parent_label: 'Kadastrale perceelsgrenzen',
                     layers: ['kadastrale_sectie', 'kadastrale_sectie_label'],
-                    minZoom: 10,
+                    minZoom: 8,
                     maxZoom: 16,
                     legend: 'maps/brk?version=1.3.0&service=WMS&request=GetLegend' +
                     'Graphic&sld_version=1.1.0&layer=kadastrale_sectie&format=image/png&STYLE=default',
@@ -237,8 +240,9 @@
                     url: 'maps/brk?service=wms',
                     label_short: 'Kadastrale objecten',
                     label_long: 'Kadastrale objecten',
+                    parent_label: 'Kadastrale perceelsgrenzen',
                     layers: ['kadastraal_object', 'kadastraal_object_label'],
-                    minZoom: 13,
+                    minZoom: 8,
                     maxZoom: 16,
                     legend: 'maps/brk?version=1.3.0&service=WMS&request=GetLegend' +
                     'Graphic&sld_version=1.1.0&layer=kadastraal_object&format=image/png&STYLE=default',
@@ -282,6 +286,7 @@
                     url: 'maps/gebieden?service=wms',
                     label_short: 'Stadsdelen',
                     label_long: 'Stadsdelen',
+                    parent_label: 'Bestuurlijke gebieden',
                     layers: ['stadsdeel', 'stadsdeel_label'],
                     minZoom: 8,
                     maxZoom: 16,
@@ -292,6 +297,7 @@
                     url: 'maps/gebieden?service=wms',
                     label_short: 'Gebiedsgerichtwerken-gebieden',
                     label_long: 'Gebiedsgerichtwerken-gebieden',
+                    parent_label: 'Bestuurlijke gebieden',
                     layers: ['gebiedsgerichtwerken', 'gebiedsgerichtwerken_label'],
                     minZoom: 8,
                     maxZoom: 16,
@@ -302,6 +308,7 @@
                     url: 'maps/gebieden?service=wms',
                     label_short: 'Wijken',
                     label_long: 'Wijken',
+                    parent_label: 'Bestuurlijke gebieden',
                     layers: ['buurtcombinatie', 'buurtcombinatie_label'],
                     minZoom: 8,
                     maxZoom: 16,
@@ -312,8 +319,9 @@
                     url: 'maps/gebieden?service=wms',
                     label_short: 'Buurten',
                     label_long: 'Buurten',
+                    parent_label: 'Bestuurlijke gebieden',
                     layers: ['buurt', 'buurt_label'],
-                    minZoom: 10,
+                    minZoom: 8,
                     maxZoom: 16,
                     legend: 'maps/gebieden?version=1.3.0&service=WMS&request=GetLegend' +
                     'Graphic&sld_version=1.1.0&layer=buurt&format=image/png&STYLE=default'
@@ -549,7 +557,7 @@
                     noDetail: true
                 },
                 mvi: {
-                    authorizationLevel: 'EMPLOYEE',
+                    authScope: 'HR/R',
                     url: 'maps/externeveiligheid',
                     label_short: 'Bedrijven - invloedsgebieden',
                     label_long: 'Bedrijven - invloedsgebieden',
@@ -623,6 +631,7 @@
                     url: 'maps/externeveiligheid',
                     label_short: 'Vuurwerkopslag - Veilig.afst.',
                     label_long: 'Vuurwerkopslag - Veiligheidsafstanden',
+                    parent_label: 'Veiligheidsafstanden',
                     layers: ['milieu_veiligheid_vuurwerk'],
                     minZoom: 8,
                     maxZoom: 16,
@@ -635,6 +644,7 @@
                     url: 'maps/externeveiligheid',
                     label_short: 'Munitieopslag - Veilig.afst.',
                     label_long: 'Munitieopslag - Veiligheidsafstanden',
+                    parent_label: 'Veiligheidsafstanden',
                     layers: ['milieu_veiligheid_munitie'],
                     minZoom: 8,
                     maxZoom: 16,
@@ -647,6 +657,7 @@
                     url: 'maps/externeveiligheid',
                     label_short: 'Gasdruk...stations - Veilig.afst.',
                     label_long: 'Gasdrukregel- en meetstation - Veiligheidsafstanden',
+                    parent_label: 'Veiligheidsafstanden',
                     layers: ['milieu_veiligheid_gasdrukregel_meetstation'],
                     minZoom: 8,
                     maxZoom: 16,
@@ -659,6 +670,7 @@
                     url: 'maps/externeveiligheid',
                     label_short: 'Sluizen - Veilig.afst.',
                     label_long: 'Sluizen - Veiligheidsafstanden',
+                    parent_label: 'Veiligheidsafstanden',
                     layers: ['milieu_veiligheid_sluis'],
                     minZoom: 8,
                     maxZoom: 16,
@@ -671,6 +683,7 @@
                     url: 'maps/externeveiligheid',
                     label_short: 'Wachtplaatsen - Veilig.afst.',
                     label_long: 'Wachtplaatsen - Veiligheidsafstanden',
+                    parent_label: 'Veiligheidsafstanden',
                     layers: ['milieu_veiligheid_wachtplaats'],
                     minZoom: 8,
                     maxZoom: 16,
@@ -683,6 +696,7 @@
                     url: 'maps/externeveiligheid',
                     label_short: 'Bunkerschepen - Veilig.afst.',
                     label_long: 'Bunkerschepen - Veiligheidsafstanden',
+                    parent_label: 'Veiligheidsafstanden',
                     layers: ['milieu_veiligheid_bunkerschepen'],
                     minZoom: 8,
                     maxZoom: 16,
@@ -782,6 +796,7 @@
                     url: 'maps/overlastgebieden',
                     label_short: 'Overlastgebieden - Algemeen',
                     label_long: 'Overlastgebieden - Algemeen',
+                    parent_label: 'Overlastgebieden',
                     layers: ['algemeen_overlastgebied', 'algemeen_overlastgebied_label'],
                     minZoom: 8,
                     maxZoom: 16,
@@ -793,6 +808,7 @@
                     url: 'maps/overlastgebieden',
                     label_short: 'Overlastgebieden - Dealers',
                     label_long: 'Overlastgebieden - Dealers',
+                    parent_label: 'Overlastgebieden',
                     layers: ['dealeroverlastgebied', 'dealeroverlastgebied_label'],
                     minZoom: 8,
                     maxZoom: 16,
@@ -804,6 +820,7 @@
                     url: 'maps/overlastgebieden',
                     label_short: 'Overlastgebieden - Uitgaan',
                     label_long: 'Overlastgebieden - Uitgaan',
+                    parent_label: 'Overlastgebieden',
                     layers: ['uitgaansoverlastgebied', 'uitgaansoverlastgebied_label'],
                     minZoom: 8,
                     maxZoom: 16,
@@ -828,11 +845,11 @@
                     url: 'maps/monumenten',
                     label_short: 'Monumenten',
                     label_long: 'Monumenten',
-                    layers: ['monument_coordinaten'],
+                    layers: ['monumenten'],
                     minZoom: 12,
                     maxZoom: 16,
                     legend: 'maps/monumenten?version=1.3.0&service' +
-                    '=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=monument_coordinaten&format=' +
+                    '=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=monumenten&format=' +
                     'image/png&STYLE=default',
                     detailUrl: 'geosearch/search/',
                     detailItem: 'monument'
@@ -873,6 +890,15 @@
                     legend: 'maps/parkeervakken?version=1.3.0&service=WMS&request=' +
                     'GetLegendGraphic&sld_version=1.1.0&layer=parkeervakken_reservering&format=image/png&STYLE=de' +
                     'fault',
+                    noDetail: true
+                },
+                pr: {
+                    url: 'maps/reistijdenauto',
+                    label_short: 'Verkeersstromen - Snelheden',
+                    label_long: 'Verkeersstromen - Snelheden',
+                    layers: ['reistijdenauto'],
+                    minZoom: 8,
+                    maxZoom: 16,
                     noDetail: true
                 },
 
@@ -1051,7 +1077,8 @@
                     overlays: [
                         'pv',
                         'pvb',
-                        'pvr'
+                        'pvr',
+                        'pr'
                     ]
                 }
             ]

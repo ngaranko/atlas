@@ -7,13 +7,19 @@
 
 ## Installations
 - npm install
+
+## Development
 - NODE_ENV=development npm start
 - Open the server at http://localhost:8080/
 
+## Testing
+- NODE_ENV=development npm test
+
 ## Other useful commands
-- npm test
-- grunt build-release
-- npm run clean
+
+- `grunt build-release`
+- `npm run clean`
+- `npm run test-lint`
 
 ## E2E testing
 Make sure the app is running locally by running `grunt`.

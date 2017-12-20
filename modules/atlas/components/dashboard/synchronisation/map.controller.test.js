@@ -31,8 +31,7 @@ describe('The map controller', function () {
             map: {
                 var_1: 'a',
                 var_2: 'b'
-            },
-            layerSelection: {}
+            }
         };
 
         spyOn(store, 'getState').and.callThrough();
@@ -68,22 +67,13 @@ describe('The map controller', function () {
         });
     });
 
-    it('sets the showLayerSelection based on the Redux state', function () {
-        let controller;
-
-        controller = getController();
-        expect(controller.showLayerSelection).not.toEqual(true);
-
-        mockedState.layerSelection.isEnabled = true;
-        controller = getController();
-        expect(controller.showLayerSelection).toEqual(true);
-    });
-
     describe('optionally adds marker data for search by location, detail and straatbeeld', function () {
         let controller;
 
         it('can work without any markers', function () {
-            mockedState = {};
+            mockedState = {
+                ui: {}
+            };
 
             controller = getController();
 
@@ -95,7 +85,8 @@ describe('The map controller', function () {
             mockedState = {
                 search: {
                     location: [52.1, 4.1]
-                }
+                },
+                ui: {}
             };
 
             controller = getController();
@@ -109,7 +100,8 @@ describe('The map controller', function () {
             mockedState = {
                 detail: {
                     geometry: 'FAKE_GEOMETRY'
-                }
+                },
+                ui: {}
             };
 
             controller = getController();
@@ -124,7 +116,8 @@ describe('The map controller', function () {
                 straatbeeld: {
                     location: [52.2, 4.2],
                     heading: 179
-                }
+                },
+                ui: {}
             };
 
             controller = getController();
@@ -150,7 +143,8 @@ describe('The map controller', function () {
                 straatbeeld: {
                     location: [52.2, 4.2],
                     heading: 179
-                }
+                },
+                ui: {}
             };
 
             controller = getController();
@@ -194,7 +188,8 @@ describe('The map controller', function () {
                 straatbeeld: {
                     location: [52.2, 4.2],
                     heading: 179
-                }
+                },
+                ui: {}
             };
 
             expect(controller.markers.regular).toContain(jasmine.objectContaining({
@@ -215,7 +210,7 @@ describe('The map controller', function () {
                     location: [52.2, 4.2],
                     heading: 179
                 },
-                layerSelection: {}
+                ui: {}
             };
 
             controller = getController();

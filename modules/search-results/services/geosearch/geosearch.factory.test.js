@@ -16,6 +16,7 @@ describe('The geosearch factory', function () {
         mockedFormattedStandplaatsSearchResult,
         mockedPandApiResults,
         mockedStandplaatsApiResults,
+        mockedMonumentenApiResults,
         mockedNummeraanduidingApiResults,
         mockedFormattedNummeraanduidingenApiResults,
         mockedVestigingenApiResults,
@@ -71,6 +72,8 @@ describe('The geosearch factory', function () {
                             q.resolve(mockedStandplaatsApiResults);
                         } else if (endpoint === 'https://api.data.amsterdam.nl/bag/nummeraanduiding/?pand=0456789') {
                             q.resolve(mockedNummeraanduidingApiResults);
+                        } else if (endpoint === 'https://api.data.amsterdam.nl/foo/monumenten') {
+                            q.resolve(mockedMonumentenApiResults);
                         }
 
                         return q.promise;
@@ -230,6 +233,9 @@ describe('The geosearch factory', function () {
             pandidentificatie: '0456789',
             _adressen: {
                 href: 'https://api.data.amsterdam.nl/bag/nummeraanduiding/?pand=0456789'
+            },
+            _monumenten: {
+                href: 'https://api.data.amsterdam.nl/foo/monumenten'
             }
         };
 
@@ -267,6 +273,11 @@ describe('The geosearch factory', function () {
         mockedNummeraanduidingApiResults = {
             count: 2,
             results: [{xyz: 'FAKE_VBO_RESULT_1'}, {xyz: 'FAKE_VBO_RESULT_2'}]
+        };
+
+        mockedMonumentenApiResults = {
+            count: 0,
+            results: []
         };
 
         mockedFormattedNummeraanduidingenApiResults = {
@@ -424,11 +435,13 @@ describe('The geosearch factory', function () {
                 endpoint: 'https://api.data.amsterdam.nl/bag/pand/0456789/'
             };
 
-            expect(api.getByUrl).toHaveBeenCalledTimes(2);
+            expect(api.getByUrl).toHaveBeenCalledTimes(3);
             expect(api.getByUrl)
                 .toHaveBeenCalledWith('https://api.data.amsterdam.nl/bag/pand/0456789/');
             expect(api.getByUrl)
                 .toHaveBeenCalledWith('https://api.data.amsterdam.nl/bag/nummeraanduiding/?pand=0456789');
+            expect(api.getByUrl)
+                .toHaveBeenCalledWith('https://api.data.amsterdam.nl/foo/monumenten');
 
             expect(searchFormatter.formatCategory).toHaveBeenCalledWith('adres', mockedNummeraanduidingApiResults);
             expect(searchResults).toEqual(expectedSearchResults);
@@ -463,7 +476,8 @@ describe('The geosearch factory', function () {
 
             expect(api.getByUrl)
                 .toHaveBeenCalledWith('https://api.data.amsterdam.nl/bag/pand/0456789/');
-
+            expect(api.getByUrl)
+                .toHaveBeenCalledWith('https://api.data.amsterdam.nl/foo/monumenten');
             expect(api.getByUri)
                 .toHaveBeenCalledWith('handelsregister/vestiging/?pand=0456789');
 
@@ -502,11 +516,13 @@ describe('The geosearch factory', function () {
                 endpoint: 'https://api.data.amsterdam.nl/bag/pand/0456789/'
             };
 
-            expect(api.getByUrl).toHaveBeenCalledTimes(2);
+            expect(api.getByUrl).toHaveBeenCalledTimes(3);
             expect(api.getByUrl)
                 .toHaveBeenCalledWith('https://api.data.amsterdam.nl/bag/pand/0456789/');
             expect(api.getByUrl)
                 .toHaveBeenCalledWith('https://api.data.amsterdam.nl/bag/nummeraanduiding/?pand=0456789');
+            expect(api.getByUrl)
+                .toHaveBeenCalledWith('https://api.data.amsterdam.nl/foo/monumenten');
 
             expect(api.getByUri)
                 .toHaveBeenCalledWith('handelsregister/vestiging/?pand=0456789');

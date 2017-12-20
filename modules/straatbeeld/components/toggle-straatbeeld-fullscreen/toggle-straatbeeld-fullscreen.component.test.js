@@ -49,9 +49,6 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
             // When straatbeeld is small
             directive = getDirective(false);
 
-            expect(directive.find('.qa-toggle-straatbeeld-fullscreen').attr('class'))
-                .toContain('toggle-straatbeeld-fullscreen--maximize');
-
             directive.find('.qa-toggle-straatbeeld-fullscreen').click();
             $rootScope.$apply();
 
@@ -64,9 +61,6 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
 
             // When straatbeeld is large
             directive = getDirective(true);
-
-            expect(directive.find('.qa-toggle-straatbeeld-fullscreen').attr('class'))
-                .toContain('toggle-straatbeeld-fullscreen--minimize');
 
             directive.find('.qa-toggle-straatbeeld-fullscreen').click();
             $rootScope.$apply();
@@ -95,11 +89,11 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
 
             // When the map is small
             component = getDirective(false);
-            expect(component.find('.u-sr-only').text()).toBe('Kaart vergroten');
+            expect(component.find('.u-sr-only').text()).toBe('Panoramabeeld vergroten');
 
             // When the map is large
             component = getDirective(true);
-            expect(component.find('.u-sr-only').text()).toBe('Kaart verkleinen');
+            expect(component.find('.u-sr-only').text()).toBe('Panoramabeeld verkleinen');
         });
     });
 });
