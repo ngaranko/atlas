@@ -16,8 +16,10 @@
 - NODE_ENV=development npm test
 
 ## Other useful commands
-- grunt build-release
-- npm run clean
+
+- `grunt build-release`
+- `npm run clean`
+- `npm run test-lint`
 
 ## E2E testing
 Make sure the app is running locally by running `grunt`.

@@ -15,6 +15,7 @@
             setOverlays,
             isVisibleAtCurrentZoom,
             getVisibleOverlays,
+            getOverlaysLabels,
             getOverlaysWarning
         };
 
@@ -50,6 +51,13 @@
                 .filter(source => source.noDetail)
                 .map(a => a.label_short)
                 .join(', ');
+        }
+
+        function getOverlaysLabels (zoom) {
+            const labels = getVisibleSources(zoom)
+                .map(a => a.parent_label || a.label_short);
+
+            return [...new Set(labels)].join(', ');
         }
 
         // non public methods

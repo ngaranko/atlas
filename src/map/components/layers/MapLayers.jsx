@@ -16,11 +16,12 @@ const showCategory = (layers, user) => (
 
 const MapLayers = (props) => (
   <div className="map-layers">
+    <h3 className="u-sr-only">Beschikbare kaartlagen</h3>
     <ul>
       {[...new Set(showCategory(props.layers, props.user).map((layer) => layer.category))]
         .map((category) => (
           <li className="map-layers__category" key={category}>
-            {category}
+            <h4 className="map-layers__category-text">{category}</h4>
             <ul>
               {props.layers
                 .filter((layer) => layer.category === category && showLayer(layer, props.user))
