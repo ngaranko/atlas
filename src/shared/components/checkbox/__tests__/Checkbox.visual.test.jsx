@@ -7,9 +7,9 @@ const toMatchImageSnapshot = configureToMatchImageSnapshot({
 });
 expect.extend({ toMatchImageSnapshot });
 
-describe('Notification', () => {
+describe('Checkbox', () => {
   const moduleName = 'Shared';
-  const componentName = 'Notification';
+  const componentName = 'Checkbox';
 
   let browser = null;
   let page = null;
@@ -37,15 +37,15 @@ describe('Notification', () => {
     await page.close();
   });
 
-  it('should render the default notification', async () => {
-    await page.click(linkSelector([moduleName, componentName, 'with text']));
+  it('should render the unchecked checkbox', async () => {
+    await page.click(linkSelector([moduleName, componentName, 'unchecked']));
     const iframe = await page.$('#storybook-preview-iframe');
     const screenshot = await iframe.screenshot();
     expect(screenshot).toMatchImageSnapshot();
   });
 
-  it('should render a notification containing a link', async () => {
-    await page.click(linkSelector([moduleName, componentName, 'with link']));
+  it('should render the checked checkbox', async () => {
+    await page.click(linkSelector([moduleName, componentName, 'checked']));
     const iframe = await page.$('#storybook-preview-iframe');
     const screenshot = await iframe.screenshot();
     expect(screenshot).toMatchImageSnapshot();

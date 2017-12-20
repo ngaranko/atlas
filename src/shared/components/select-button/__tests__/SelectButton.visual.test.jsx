@@ -7,9 +7,9 @@ const toMatchImageSnapshot = configureToMatchImageSnapshot({
 });
 expect.extend({ toMatchImageSnapshot });
 
-describe('Notification', () => {
+describe('SelectButton', () => {
   const moduleName = 'Shared';
-  const componentName = 'Notification';
+  const componentName = 'SelectButton';
 
   let browser = null;
   let page = null;
@@ -37,15 +37,22 @@ describe('Notification', () => {
     await page.close();
   });
 
-  it('should render the default notification', async () => {
-    await page.click(linkSelector([moduleName, componentName, 'with text']));
+  it('should render the active select button', async () => {
+    await page.click(linkSelector([moduleName, componentName, 'active']));
     const iframe = await page.$('#storybook-preview-iframe');
     const screenshot = await iframe.screenshot();
     expect(screenshot).toMatchImageSnapshot();
   });
 
-  it('should render a notification containing a link', async () => {
-    await page.click(linkSelector([moduleName, componentName, 'with link']));
+  it('should render the disabled select button', async () => {
+    await page.click(linkSelector([moduleName, componentName, 'disabled']));
+    const iframe = await page.$('#storybook-preview-iframe');
+    const screenshot = await iframe.screenshot();
+    expect(screenshot).toMatchImageSnapshot();
+  });
+
+  it('should render the expanded select button', async () => {
+    await page.click(linkSelector([moduleName, componentName, 'expanded']));
     const iframe = await page.$('#storybook-preview-iframe');
     const screenshot = await iframe.screenshot();
     expect(screenshot).toMatchImageSnapshot();

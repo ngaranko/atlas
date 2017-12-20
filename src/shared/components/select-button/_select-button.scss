@@ -124,7 +124,11 @@
     background-color: #FFFFFF;
     border: 1px solid #000000;
     border-top: none;
+    box-sizing: border-box;
     display: none;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
     position: absolute;
     width: 100%;
     z-index: 700;
@@ -153,10 +157,14 @@
 
   &__drop-down-button {
     appearance: none;
+    // TODO: Configure `autoprefixer` in Storybook build to prevent prefixing
+    -webkit-appearance: none;
+    border: none;
     font-family: "Avenir LT W01 55 Roman";
     font-size: 16px;
     outline: none;
-    padding: 7px 10px 7px 33px;
+    margin: 0;
+    padding: 7px 10px 7px 40px;
 
     &:hover {
       background-color: #F6F6F6;
