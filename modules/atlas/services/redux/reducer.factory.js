@@ -34,8 +34,8 @@ import { combineReducers } from 'redux';
                 user: UserReducer
             });
             const filteredState = {
-                ui: oldState.ui,
-                user: oldState.user
+                ui: deprecatedState.ui,
+                user: deprecatedState.user
             };
 
             // Combine old and new reducer states
