@@ -27,16 +27,16 @@
             <dd>{{ vm.apiData.results.kadastrale_gemeente.naam }}</dd>
             <dt>Gemeente</dt>
             <dd>{{ vm.apiData.results.kadastrale_gemeente.gemeente._display }}</dd>
-            <dt>Koopsom</dt>
+            <dt ng-if-start="vm.user.scopes.includes('BRK/RO')">Koopsom</dt>
             <dd>{{ vm.apiData.results.koopsom }}</dd>
             <dt>Koopjaar</dt>
-            <dd>{{ vm.apiData.results.koopjaar }}</dd>
+            <dd ng-if-end>{{ vm.apiData.results.koopjaar }}</dd>
             <dt>Grootte</dt>
             <dd>{{ vm.apiData.results.grootte }} <span ng-if="vm.apiData.results.grootte">m<sup>2</sup></span></dd>
-            <dt>Cultuur bebouwd</dt>
+            <dt ng-if-start="vm.user.scopes.includes('BRK/RO')">Cultuur bebouwd</dt>
             <dd>{{ vm.apiData.results.cultuurcode_bebouwd.omschrijving }}</dd>
             <dt>Cultuur onbebouwd</dt>
-            <dd>{{ vm.apiData.results.cultuurcode_onbebouwd.omschrijving }}</dd>
+            <dd ng-if-end>{{ vm.apiData.results.cultuurcode_onbebouwd.omschrijving }}</dd>
         </dl>
     </div>
 
