@@ -1,11 +1,15 @@
 .c-embed-button {
-  @include icon-button-text-box-right("logo", "", "red");
+  @include icon-button-text-box-right("maximize", "", "red");
 
   display: none;
   position: absolute;
   top: $base-whitespace;
   right: $base-whitespace;
   z-index: $fixed-position-z-index;
+
+  &::before {
+    width: $button-size - 2px;
+  }
 
   .is-embed-preview &,
   .is-embed & {

@@ -71,4 +71,11 @@ describe('The dp-embed-button component', () => {
             }
         });
     });
+
+    it('has title attribute', () => {
+        const component = getComponent();
+
+        expect(component.find('.qa-embed-button').attr('title')).toBe('Naar volledige interactieve kaart op ' +
+            'Amsterdam City Data');
+    });
 });
