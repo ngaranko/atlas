@@ -25,9 +25,6 @@
 Make sure the app is running locally by running `grunt`.
 Then, in a second terminal, run `grunt test-e2e`.
 
-## Aria testing
-Make sure that NODE_ENV=development.
-Then run `npm run test-aria`.
 
 In order to run the E2E tests, the following environment variables should be set:
 - `PASSWORD_EMPLOYEE`
@@ -36,6 +33,10 @@ In order to run the E2E tests, the following environment variables should be set
 - `USERNAME_EMPLOYEE_PLUS`
 They can simply be added by using the `export` command from the command line, or by providing the variables as a
 prefix to the desired command, e.g. `PASSWORD_EMPLOYEE=password grunt test-e2e`.
+
+## Aria testing
+Make sure that NODE_ENV=development.
+Then run `npm run test-aria`.
 
 ## Techniques used
 - AngularJS
