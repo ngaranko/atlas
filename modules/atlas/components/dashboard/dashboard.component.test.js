@@ -214,6 +214,68 @@ describe('The dashboard component', function () {
         });
     });
 
+    describe('the full screen watch functionality', () => {
+        let handler;
+        const mockedVisibility = {
+            map: true
+        };
+
+        beforeEach(() => {
+            spyOn(dashboardColumns, 'determineVisibility').and.callFake(() => mockedVisibility);
+            spyOn(store, 'dispatch');
+            spyOn(store, 'subscribe').and.callFake((fn) => {
+                // This function will be called later on by other components as
+                // well
+                handler = handler || fn;
+            });
+        });
+
+        afterEach(() => handler = null);
+
+        it('should show the map panel if isHomePageActive', () => {
+            mockedState.map.isFullscreen = false;
+            getComponent();
+
+            mockedState.map.isFullscreen = true;
+            handler();
+            $rootScope.$digest();
+
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: 'SHOW_MAP_PANEL'
+            });
+        });
+
+        it('should hide the map panel map is no longer full screen', () => {
+            mockedState.map.isFullscreen = true;
+            getComponent();
+
+            mockedState.map.isFullscreen = false;
+            handler();
+            $rootScope.$digest();
+
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: 'HIDE_MAP_PANEL'
+            });
+        });
+
+        it('should do nothing if outside homepage', () => {
+            mockedState.map.isFullscreen = false;
+            mockedState.page.name = 'other';
+            getComponent();
+
+            mockedState.map.isFullscreen = true;
+            handler();
+            $rootScope.$digest();
+
+            expect(store.dispatch).not.toHaveBeenCalledWith({
+                type: 'SHOW_MAP_PANEL'
+            });
+            expect(store.dispatch).not.toHaveBeenCalledWith({
+                type: 'HIDE_MAP_PANEL'
+            });
+        });
+    });
+
     describe('error message', function () {
         var component,
             mockedVisibility = {
