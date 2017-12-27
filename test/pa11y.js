@@ -96,5 +96,9 @@ npmStart.stdout.on('data', (buffer) => {
 
         process.kill(-npmStart.pid, 'SIGKILL');
         process.exit();
+    }).catch(error => {
+        console.error('error: ', error);
+        process.kill(-npmStart.pid, 'SIGKILL');
+        process.exit();
     });
 });
