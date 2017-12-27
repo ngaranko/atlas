@@ -6,7 +6,7 @@ import './map/wrappers/preview-panel/MapPreviewPanelWrapper';
 // All third party dependencies
 import './vendor';
 
-// All our sass
+// Legacy sass
 import '../modules/shared/shared.scss';
 import '../modules/atlas/atlas.scss';
 import '../modules/data-selection/data-selection.scss';
@@ -16,6 +16,9 @@ import '../modules/map/map.scss';
 import '../modules/page/page.scss';
 import '../modules/search-results/search-results.scss';
 import '../modules/straatbeeld/straatbeeld.scss';
+
+// New style sass
+import './_styles.scss';
 
 // Import this here, because `modules/atlas/services/redux%reducer.factory`
 // cannoct do, because that would break the grunt build...
