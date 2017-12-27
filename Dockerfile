@@ -34,6 +34,7 @@ ENV PATH=./node_modules/.bin/:~/node_modules/.bin/:$PATH
 RUN git config --global url."https://".insteadOf git:// \
   && git config --global url."https://github.com/".insteadOf git@github.com: \
   && npm --production=false --unsafe-perm install
+COPY . /app
 
 ARG BUILD_ENV=prod
 ARG BUILD_ID

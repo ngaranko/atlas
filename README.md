@@ -15,28 +15,32 @@
 ## Testing
 - NODE_ENV=development npm test
 
+
+### Authentication
+
+In order to test authentication in the E2E and aria test the following environment variables should be set:
+
+- `PASSWORD_EMPLOYEE`
+- `PASSWORD_EMPLOYEE_PLUS`
+- `USERNAME_EMPLOYEE`
+- `USERNAME_EMPLOYEE_PLUS`
+
+They can simply be added by using the `export` command from the command line, or by providing the variables as a
+prefix to the desired command, e.g. `PASSWORD_EMPLOYEE=password grunt test-e2e`.
+
+### E2E testing
+Make sure the app is running locally by running `grunt`.
+Then, in a second terminal, run `grunt test-e2e`.
+
+### Aria testing
+Make sure that NODE_ENV=development.
+Then run `npm run test-aria`.
+
 ## Other useful commands
 
 - `grunt build-release`
 - `npm run clean`
 - `npm run test-lint`
-
-## E2E testing
-Make sure the app is running locally by running `grunt`.
-Then, in a second terminal, run `grunt test-e2e`.
-
-
-In order to run the E2E tests, the following environment variables should be set:
-- `PASSWORD_EMPLOYEE`
-- `PASSWORD_EMPLOYEE_PLUS`
-- `USERNAME_EMPLOYEE`
-- `USERNAME_EMPLOYEE_PLUS`
-They can simply be added by using the `export` command from the command line, or by providing the variables as a
-prefix to the desired command, e.g. `PASSWORD_EMPLOYEE=password grunt test-e2e`.
-
-## Aria testing
-Make sure that NODE_ENV=development.
-Then run `npm run test-aria`.
 
 ## Techniques used
 - AngularJS
