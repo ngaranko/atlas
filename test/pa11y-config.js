@@ -26,19 +26,19 @@ export default {
                 'wait for element .qa-data-selection-content to be visible'
             ]
         },
-        {
-            // vestigingenlijst
-            url: 'http://localhost:8080/#?dsd=hr&dsp=1&dsv=TABLE&mpb=topografie&mpz=11&mpv=52.3731081:4.8932945',
-            actions: [
-                'wait for element .qa-disabled-message to be visible',
-                'click element .qa-menu__login',
-                'wait for element .c-form to be visible',
-                `set field #email to ${process.env.USERNAME_EMPLOYEE}`,
-                `set field #password to ${process.env.PASSWORD_EMPLOYEE}`,
-                'click element .c-form-buttons__button[value=employee_plus]',
-                'wait for element .qa-data-selection-content to be visible'
-            ]
-        },
+        // {
+        //     // vestigingenlijst
+        //     url: 'http://localhost:8080/#?dsd=hr&dsp=1&dsv=TABLE&mpb=topografie&mpz=11&mpv=52.3731081:4.8932945',
+        //     actions: [
+        //         'wait for element .qa-disabled-message to be visible',
+        //         'click element .qa-menu__login',
+        //         'wait for element .c-form to be visible',
+        //         `set field #email to ${process.env.USERNAME_EMPLOYEE}`,
+        //         `set field #password to ${process.env.PASSWORD_EMPLOYEE}`,
+        //         'click element .c-form-buttons__button[value=employee_plus]',
+        //         'wait for element .qa-data-selection-content to be visible'
+        //     ]
+        // },
         {
             // straatbeeld
             url: 'http://localhost:8080/#?mpb=topografie&mpz=11&mpo=pano::T&mpv=52.3730353:4.8932471&pgn=home&sbf=Cu&' +
