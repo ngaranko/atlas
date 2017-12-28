@@ -127,9 +127,11 @@ class SelectButton extends React.Component {
           onClick={this.handleToggle}
         >
           <span className="select-button__icon select-button__icon--expand">
+            <span className="u-sr-only">Uitklappen</span>
             <ExpandIcon />
           </span>
           <span className="select-button__icon select-button__icon--collapse">
+            <span className="u-sr-only">Inklappen</span>
             <CollapseIcon />
           </span>
         </button>
