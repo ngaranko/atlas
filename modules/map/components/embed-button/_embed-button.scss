@@ -8,6 +8,8 @@
   z-index: $fixed-position-z-index;
 
   &::before {
+    // this will hide the left and right border in the icon
+    // can be removed when we move to inline svg
     width: $button-size - 2px;
   }
 
