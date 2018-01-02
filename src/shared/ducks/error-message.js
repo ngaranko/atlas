@@ -5,19 +5,12 @@ const initialState = {};
 export default function ErrorMessageReducer(state = initialState, action) {
   switch (action.type) {
     case RESET_ERROR_MESSAGE:
-      return { ...state, error: null };
+      return {};
 
     default:
-      if (action.error) {
-        window.Raven.captureMessage(action.error);
-      }
-
       return !action.error ? state : {
-        ...state,
-        error: {
-          name: action.error.name,
-          message: action.error.message
-        }
+        name: action.error.name,
+        message: action.error.message
       };
   }
 }

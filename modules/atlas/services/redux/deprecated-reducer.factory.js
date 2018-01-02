@@ -47,7 +47,6 @@
             const MapDetailReducer = $window.reducers.MapDetailReducer;
             const MapClickLocationReducer = $window.reducers.MapClickLocationReducer;
             const PanoPreviewReducer = $window.reducers.PanoPreviewReducer;
-            const ErrorMessageReducer = $window.reducers.ErrorMessageReducer;
 
             const detailReducers = {
                 FETCH_DETAIL: DetailsReducer,
@@ -130,7 +129,10 @@
 
             // Are we dealing with vanilla js reducers here (type is a
             // string instead of an object with an ID and other
-            // optional attributes)?
+            // optional attributes)? e.g.:
+            // {
+            //      type: 'SHOW_DETAIL'
+            // }
             const vanilla = angular.isObject(action) &&
                 angular.isString(action.type) &&
                 angular.isFunction(actions[action.type]);
@@ -140,11 +142,7 @@
                 angular.isFunction(actions[action.type.id]);
 
             if (vanilla) {
-                const newState = ErrorMessageReducer(
-                    actions[action.type](oldState, action),
-                    action
-                );
-                return newState;
+                return actions[action.type](oldState, action);
             } else if (legacy) {
                 if (detailReducers.hasOwnProperty(action.type.id)) {
                     action.payload = {
@@ -158,10 +156,10 @@
                     freeze.deepFreeze(result);
                 }
                 return result;
-            } else {
-                // TODO: Redux: throw error
-                return ErrorMessageReducer(oldState, action);
+            } else if (!action.type === '@@INIT') {
+                throw new Error(`unrecognized Redux action ${action.type}`);
             }
+            return oldState;
         };
     }
 })();
