@@ -1,3 +1,5 @@
+import { ERROR_TYPES } from '../../../../src/shared/ducks/error-message.js';
+
 describe('The api-error component', function () {
     let $compile,
         $rootScope,
@@ -106,6 +108,6 @@ describe('The api-error component', function () {
         user.error = true;
         $rootScope.$digest();
 
-        expect(spy).toHaveBeenCalledWith(httpStatus.LOGIN_ERROR);
+        expect(spy).toHaveBeenCalledWith(ERROR_TYPES.LOGIN_ERROR);
     });
 });

@@ -36,7 +36,7 @@ import { combineReducers } from 'redux';
                 user: UserReducer
             });
             const filteredState = {
-                error: deprecatedState.error,
+                error: oldState.error, // not using deprecated state because error state is lossed by URL resolver
                 ui: deprecatedState.ui,
                 user: deprecatedState.user
             };

@@ -1,3 +1,5 @@
+import { ERROR_TYPES } from '../../../../src/shared/ducks/error-message.js';
+
 (function () {
     'use strict';
 
@@ -67,12 +69,16 @@
             Raven.captureMessage(new Error(message), { tags: { statusCode } });
         }
 
+        function registerNetworkError () {
+            httpStatus.registerError(ERROR_TYPES.SERVER_ERROR);
+        }
+
         function registerServerError () {
-            httpStatus.registerError(httpStatus.SERVER_ERROR);
+            httpStatus.registerError(ERROR_TYPES.SERVER_ERROR);
         }
 
         function registerNotFoundError () {
-            httpStatus.registerError(httpStatus.NOT_FOUND_ERROR);
+            httpStatus.registerError(ERROR_TYPES.NOT_FOUND_ERROR);
         }
 
         function responseError (response) {

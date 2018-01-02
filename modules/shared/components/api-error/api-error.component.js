@@ -1,3 +1,7 @@
+import {
+    ERROR_TYPES
+} from '../../../../src/shared/ducks/error-message.js';
+
 (function () {
     angular
         .module('dpShared')
@@ -10,23 +14,21 @@
             controllerAs: 'vm'
         });
 
-    DpApiErrorController.$inject = ['$scope', 'httpStatus'];
+    DpApiErrorController.$inject = ['$scope', '$timeout', 'httpStatus', 'store'];
 
-    function DpApiErrorController ($scope, httpStatus) {
+    function DpApiErrorController ($scope, $timeout, httpStatus, store) {
         const vm = this;
-
-        // Simply expose the http status as well
-        vm.httpStatus = httpStatus.getStatus();
 
         reset();
 
-        $scope.$watch('vm.httpStatus.hasErrors', (hasErrors) => {
+        $scope.$watch('vm.hasErrors', (hasErrors) => {
             reset();
 
             if (hasErrors) {
-                if (vm.httpStatus[httpStatus.NOT_FOUND_ERROR]) {
+                const { error } = store.getState();
+                if (error.types.hasOwnProperty(ERROR_TYPES.NOT_FOUND_ERROR)) {
                     vm.showNotFoundError = true;
-                } else if (vm.httpStatus[httpStatus.LOGIN_ERROR]) {
+                } else if (error.types.hasOwnProperty(ERROR_TYPES.LOGIN_ERROR)) {
                     vm.showLoginError = true;
                 } else {
                     vm.showServerError = true;
@@ -34,9 +36,10 @@
             }
         });
 
+        // TODO: get this logic away from view
         $scope.$watch('vm.user.error', (error) => {
             if (error) {
-                httpStatus.registerError(httpStatus.LOGIN_ERROR);
+                httpStatus.registerError(ERROR_TYPES.LOGIN_ERROR);
             }
         });
 
@@ -44,5 +47,14 @@
             vm.showServerError = false;
             vm.showNotFoundError = false;
         }
+
+        store.subscribe(() => {
+            $timeout(() => {
+                const { error } = store.getState();
+                if (error.hasErrors) {
+                    vm.hasErrors = true;
+                }
+            });
+        });
     }
 })();

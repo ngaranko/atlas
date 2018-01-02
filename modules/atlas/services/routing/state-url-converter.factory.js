@@ -262,8 +262,13 @@
             }, {});
         }
 
+        /**
+         * Converts a params object (payload or url value) to a new state object
+         * @param  {object} oldState current state
+         * @param  {object} params   list of get parameters
+         * @return {object}          new state
+         */
         function params2state (oldState, params) {
-            // Converts a params object (payload or url value) to a new state object
             let newState = createObject(oldState, MAIN_STATE, params);
 
             newState = Object.keys(stateUrlConversion.stateVariables).reduce((result, key) => {

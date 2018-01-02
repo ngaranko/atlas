@@ -37,7 +37,7 @@
             const visibility = {};
             const { map = {} } = state;
 
-            visibility.httpStatus = httpStatus.getStatus().hasErrors || state.user.error;
+            visibility.error = state.error.hasErrors || state.user.error;
             visibility.map = activity.map;
 
             if (angular.isObject(state.dataSelection) && !map.isFullscreen) {
