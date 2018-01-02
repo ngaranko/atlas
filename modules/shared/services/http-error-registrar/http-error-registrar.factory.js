@@ -24,25 +24,43 @@
         httpStatus,
         Raven
     ) {
-        $window.addEventListener('error', function (e) {
-            if (e.target && e.target.src) {
+        // TODO Move general error handling out of Angular!
+        $window.addEventListener('error', function (event) {
+            // Initiated by browser without Raven/Sentry intervening.
+            // Fired when asset load from HTML fails.
+            // e.g. Piwik fails to load, or a tile is not loaded.
+            // The cause of the error may be that the connection is dropped.
+
+            // not fired on exceptions
+            // not fired on syntax error inside Angular
+            // not fired on 403, 404 or 500
+            let message = event.message || 'window error event';
+            if (event.target && event.target.src) {
                 // URL load error
-                if (e.target.src === 'https://piwik.data.amsterdam.nl/piwik.js') {
-                    // Don't show UI error
-                    $log.error('piwik load error', e);
-                    return;
+                if (event.target.src === 'https://piwik.data.amsterdam.nl/piwik.js') {
+                    $log.error('piwik load error', event);
+                    return; // Don't log error in Sentry and don't set error state
                 }
 
+                // Notify our application of error
+                message += `, HTTP external request error, src: ${event.target.src}`;
                 $rootScope.$applyAsync(() => {
-                    registerServerError();
-                    const message = `HTTP external request error, src: ${e.target.src}`;
-                    logResponse(message);
+                    registerNetworkError();
                 });
+            }
+
+            // Log exception in Sentry, use error object if available
+            if (event.error) {
+                Raven.captureException(event.error, {
+                    extra: { message }
+                });
+            } else {
+                logResponse(message);
             }
         }, true);
 
         return {
-            responseError
+            responseError // name is used by Angular, see: https://docs.angularjs.org/api/ng/service/$http#interceptors
         };
 
         function logResponse (message, statusCode) {
