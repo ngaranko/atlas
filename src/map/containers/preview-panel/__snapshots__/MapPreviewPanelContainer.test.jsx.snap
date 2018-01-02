@@ -14,7 +14,7 @@ exports[`MapPreviewPanelContainer rendering should render detail 1`] = `
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -22,7 +22,7 @@ exports[`MapPreviewPanelContainer rendering should render detail 1`] = `
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -63,7 +63,7 @@ exports[`MapPreviewPanelContainer rendering should render detail 2`] = `
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -71,7 +71,7 @@ exports[`MapPreviewPanelContainer rendering should render detail 2`] = `
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -112,7 +112,7 @@ exports[`MapPreviewPanelContainer rendering should render detail with a button t
       className="map-preview-panel__button map-preview-panel__button--show-all"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
       <span
@@ -125,7 +125,7 @@ exports[`MapPreviewPanelContainer rendering should render detail with a button t
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -133,7 +133,7 @@ exports[`MapPreviewPanelContainer rendering should render detail with a button t
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -174,7 +174,7 @@ exports[`MapPreviewPanelContainer rendering should render detail without pano 1`
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -182,7 +182,7 @@ exports[`MapPreviewPanelContainer rendering should render detail without pano 1`
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -223,7 +223,7 @@ exports[`MapPreviewPanelContainer rendering should render detail without pano 2`
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -231,7 +231,7 @@ exports[`MapPreviewPanelContainer rendering should render detail without pano 2`
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -272,7 +272,7 @@ exports[`MapPreviewPanelContainer rendering should render empty search results 1
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -280,7 +280,7 @@ exports[`MapPreviewPanelContainer rendering should render empty search results 1
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -321,7 +321,7 @@ exports[`MapPreviewPanelContainer rendering should render empty search results 2
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -329,7 +329,7 @@ exports[`MapPreviewPanelContainer rendering should render empty search results 2
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -376,7 +376,7 @@ exports[`MapPreviewPanelContainer rendering should render loading of detail 1`] 
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -384,7 +384,7 @@ exports[`MapPreviewPanelContainer rendering should render loading of detail 1`] 
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -414,7 +414,7 @@ exports[`MapPreviewPanelContainer rendering should render loading of search resu
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -422,7 +422,7 @@ exports[`MapPreviewPanelContainer rendering should render loading of search resu
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -452,7 +452,7 @@ exports[`MapPreviewPanelContainer rendering should render multiple missing layer
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -460,7 +460,7 @@ exports[`MapPreviewPanelContainer rendering should render multiple missing layer
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -510,7 +510,7 @@ exports[`MapPreviewPanelContainer rendering should render one missing layer 1`] 
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -518,7 +518,7 @@ exports[`MapPreviewPanelContainer rendering should render one missing layer 1`] 
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -568,7 +568,7 @@ exports[`MapPreviewPanelContainer rendering should render search results 1`] = `
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -576,7 +576,7 @@ exports[`MapPreviewPanelContainer rendering should render search results 1`] = `
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -626,7 +626,7 @@ exports[`MapPreviewPanelContainer rendering should render search results 2`] = `
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -634,7 +634,7 @@ exports[`MapPreviewPanelContainer rendering should render search results 2`] = `
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -681,7 +681,7 @@ exports[`MapPreviewPanelContainer rendering should render search results without
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -689,7 +689,7 @@ exports[`MapPreviewPanelContainer rendering should render search results without
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -738,7 +738,7 @@ exports[`MapPreviewPanelContainer rendering should render search results without
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -746,7 +746,7 @@ exports[`MapPreviewPanelContainer rendering should render search results without
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -796,7 +796,7 @@ exports[`MapPreviewPanelContainer rendering should render visibility 1`] = `
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -804,7 +804,7 @@ exports[`MapPreviewPanelContainer rendering should render visibility 1`] = `
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -851,7 +851,7 @@ exports[`MapPreviewPanelContainer rendering should render visibility 2`] = `
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
@@ -859,7 +859,7 @@ exports[`MapPreviewPanelContainer rendering should render visibility 2`] = `
       className="map-preview-panel__button"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-preview-panel__button-icon"
       />
     </button>
