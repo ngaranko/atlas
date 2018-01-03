@@ -90,6 +90,7 @@
     "test-sass": "sass-lint -c src/.sass-lint.yml 'src/**/*.scss' --verbose --no-exit && sass-lint -c modules/.sass-lint.yml 'modules/**/*.scss' --verbose --no-exit" ,
     "test-e2e": "babel-node ./test/e2e.js",
     "test-jest": "NODE_ENV=development jest",
+    "test-jest-watch": "NODE_ENV=development jest --watch",
     "test-karma": "karma start",
     "test-karma-watch": "karma start --no-single-run",
     "test-watch": "karma start --no-single-run & jest --watch",
