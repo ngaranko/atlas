@@ -10,13 +10,19 @@ import {
         .factory('httpStatus', httpStatusFactory);
 
     httpStatusFactory.inject = [
-        '$window'
+        '$window',
+        'Raven'
     ];
 
-    function httpStatusFactory ($window) {
+    function httpStatusFactory ($window, Raven) {
         return {
+            logResponse,
             registerError
         };
+
+        function logResponse (message, statusCode) {
+            Raven.captureMessage(new Error(message), { tags: { statusCode } });
+        }
 
         function registerError (errorType) {
             $window.reduxStore.dispatch(setGlobalError(errorType));
