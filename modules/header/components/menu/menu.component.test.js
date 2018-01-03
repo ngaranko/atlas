@@ -8,15 +8,6 @@ describe('The dp-menu component', () => {
         mockedActions;
 
     beforeEach(() => {
-        mockedActions = {
-            SHOW_PAGE: {
-                id: 'SHOW_PAGE'
-            },
-            AUTHENTICATE_ERROR: {
-                id: 'AUTHENTICATE_ERROR'
-            }
-        };
-
         angular.mock.module(
             'dpHeader',
             {
@@ -25,7 +16,6 @@ describe('The dp-menu component', () => {
                 }
             },
             $provide => {
-                $provide.constant('ACTIONS', mockedActions);
                 $provide.factory('dpMenuDropdownDirective', function () {
                     return {};
                 });

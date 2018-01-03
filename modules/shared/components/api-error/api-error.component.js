@@ -14,9 +14,9 @@ import {
             controllerAs: 'vm'
         });
 
-    DpApiErrorController.$inject = ['$scope', '$timeout', 'httpStatus', 'store'];
+    DpApiErrorController.$inject = ['$scope', '$timeout', 'store'];
 
-    function DpApiErrorController ($scope, $timeout, httpStatus, store) {
+    function DpApiErrorController ($scope, $timeout, store) {
         const vm = this;
 
         reset();
@@ -36,16 +36,18 @@ import {
             }
         });
 
-        // TODO: get this logic away from view
         $scope.$watch('vm.user.error', (error) => {
+            reset();
+
             if (error) {
-                httpStatus.registerError(ERROR_TYPES.LOGIN_ERROR);
+                vm.showLoginError = true;
             }
         });
 
         function reset () {
             vm.showServerError = false;
             vm.showNotFoundError = false;
+            vm.showLoginError = false;
         }
 
         store.subscribe(() => {

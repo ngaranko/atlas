@@ -5,9 +5,7 @@
         .module('atlas')
         .factory('dashboardColumns', dashboardColumnsFactory);
 
-    dashboardColumnsFactory.$inject = ['httpStatus'];
-
-    function dashboardColumnsFactory (httpStatus) {
+    function dashboardColumnsFactory () {
         /*
         - activity means the component is loaded (ng-if)
         - visibility means the component is shown, inactive components are never shown (ng-show)
