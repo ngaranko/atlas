@@ -1,6 +1,7 @@
 <div class="c-api-error__panel">
-    <dp-panel is-panel-visible="vm.hasErrors"
-              size="small" type="danger" can-close="true" class="qa-api-error">
+    <dp-panel is-panel-visible="vm.showNotFoundError || vm.showLoginError || vm.showServerError"
+              size="small" type="danger" can-close="true" class="qa-api-error"
+              close-action="vm.hide()">
         <div class="c-api-error__panel-text">
             <span ng-if="vm.showNotFoundError" class="qa-api-not-found-error">
                 Deze informatie is niet beschikbaar. Dit is reeds teruggemeld.

@@ -9,7 +9,8 @@
                 size: '@',
                 type: '@',
                 canClose: '=',
-                className: '@'
+                className: '@',
+                closeAction: '&'
             },
             transclude: true,
             templateUrl: 'modules/shared/components/panel/panel.html',
@@ -34,6 +35,9 @@
 
         vm.close = function () {
             vm.isPanelVisible = false;
+            if (vm.closeAction) {
+                vm.closeAction();
+            }
         };
     }
 })();

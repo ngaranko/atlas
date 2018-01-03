@@ -30,6 +30,13 @@ describe('The api-error component', function () {
             $rootScope = _$rootScope_;
             $timeout = _$timeout_;
         });
+
+        mockedState = {
+            error: {
+                hasErrors: false,
+                types: {}
+            }
+        };
     });
 
     function getComponent (user = mockedUser) {
@@ -48,9 +55,10 @@ describe('The api-error component', function () {
         return component;
     }
 
-    it('is shown based on the vm.hasErrors flag', function () {
+    it('is shown based on the error variables', function () {
         const component = getComponent();
-        expect(component.find('.qa-api-error').attr('is-panel-visible')).toBe('vm.hasErrors');
+        expect(component.find('.qa-api-error').attr('is-panel-visible'))
+            .toBe('vm.showNotFoundError || vm.showLoginError || vm.showServerError');
     });
 
     it('shows login error message when LOGIN_ERROR is set', function () {
@@ -67,7 +75,6 @@ describe('The api-error component', function () {
         $rootScope.$digest();
         subcribeListener();
         $timeout.flush();
-        $rootScope.$digest();
         $rootScope.$digest();
 
         expect(component.find('.qa-api-not-found-error').length).toBe(0);
@@ -90,41 +97,13 @@ describe('The api-error component', function () {
         subcribeListener();
         $timeout.flush();
         $rootScope.$digest();
-        $rootScope.$digest();
 
         expect(component.find('.qa-api-not-found-error').length).toBe(1);
         expect(component.find('.qa-api-login-error').length).toBe(0);
         expect(component.find('.qa-api-server-error').length).toBe(0);
     });
 
-    it('defaults to a server error message without any error flags set', function () {
-        mockedState = {
-            error: {
-                hasErrors: true,
-                types: {}
-            }
-        };
-
-        const component = getComponent();
-        $rootScope.$digest();
-        subcribeListener();
-        $timeout.flush();
-        $rootScope.$digest();
-        $rootScope.$digest();
-
-        expect(component.find('.qa-api-not-found-error').length).toBe(0);
-        expect(component.find('.qa-api-login-error').length).toBe(0);
-        expect(component.find('.qa-api-server-error').length).toBe(1);
-    });
-
     it('shows user login error', function () {
-        mockedState = {
-            error: {
-                hasErrors: false,
-                types: {}
-            }
-        };
-
         const user = {...mockedUser};
         const component = getComponent(user);
         $rootScope.$digest();

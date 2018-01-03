@@ -1,5 +1,6 @@
 import {
-    ERROR_TYPES
+    ERROR_TYPES,
+    resetGlobalError
 } from '../../../../src/shared/ducks/error-message.js';
 
 (function () {
@@ -19,41 +20,40 @@ import {
     function DpApiErrorController ($scope, $timeout, store) {
         const vm = this;
 
-        reset();
-        $scope.$watch('vm.hasErrors', (hasErrors) => {
-            reset();
+        vm.showServerError = false;
+        vm.showNotFoundError = false;
+        vm.showLoginError = false;
 
+        vm.hide = () => {
+            store.dispatch(resetGlobalError());
+        };
+
+        const checkErrors = (errorState) => {
+            const { hasErrors, types } = errorState;
             if (hasErrors) {
-                const { error } = store.getState();
-                if (error.types.hasOwnProperty(ERROR_TYPES.NOT_FOUND_ERROR)) {
+                if (types.hasOwnProperty(ERROR_TYPES.NOT_FOUND_ERROR)) {
                     vm.showNotFoundError = true;
-                } else if (error.types.hasOwnProperty(ERROR_TYPES.LOGIN_ERROR)) {
+                } else if (types.hasOwnProperty(ERROR_TYPES.LOGIN_ERROR)) {
                     vm.showLoginError = true;
                 } else {
                     vm.showServerError = true;
                 }
             }
-        });
+        };
+
+        checkErrors(store.getState().error);
 
         $scope.$watch('vm.user.error', (error) => {
-            reset();
-
             if (error) {
                 vm.showLoginError = true;
             }
         });
 
-        function reset () {
-            vm.showServerError = false;
-            vm.showNotFoundError = false;
-            vm.showLoginError = false;
-        }
-
         store.subscribe(() => {
             const { error } = store.getState();
             if (error.hasErrors) {
                 $timeout(() => {
-                    vm.hasErrors = true;
+                    checkErrors(error);
                 });
             }
         });

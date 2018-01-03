@@ -1,4 +1,4 @@
-const RESET_ERROR_MESSAGE = 'RESET_ERROR_MESSAGE';
+const RESET_GLOBAL_ERROR = 'RESET_GLOBAL_ERROR';
 const SET_GLOBAL_ERROR = 'SET_GLOBAL_ERROR';
 
 export const ERROR_TYPES = {
@@ -9,12 +9,13 @@ export const ERROR_TYPES = {
 
 const initialState = {
   hasErrors: false,
-  types: {}
+  types: {},
+  suppressed: {}
 };
 
 export default function ErrorMessageReducer(state = initialState, action) {
   switch (action.type) {
-    case RESET_ERROR_MESSAGE:
+    case RESET_GLOBAL_ERROR:
       return initialState;
 
     case SET_GLOBAL_ERROR:
@@ -31,7 +32,7 @@ export default function ErrorMessageReducer(state = initialState, action) {
   }
 }
 
-export const resetErrorMessage = () => ({ type: RESET_ERROR_MESSAGE });
+export const resetGlobalError = () => ({ type: RESET_GLOBAL_ERROR });
 export const setGlobalError = (errorType) => ({ type: SET_GLOBAL_ERROR, payload: errorType });
 
 window.reducers = window.reducers || {};
