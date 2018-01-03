@@ -97,7 +97,7 @@ describe('The http error registrar', function () {
         $interval.flush(FLUSH_PERIOD);
 
         expect(httpStatus.registerError).not.toHaveBeenCalled();
-        //expect(Raven.captureMessage).not.toHaveBeenCalled();
+        // expect(Raven.captureMessage).not.toHaveBeenCalled();
         expect(callbackCalled).toBe(true);
     });
 
@@ -114,9 +114,9 @@ describe('The http error registrar', function () {
         $interval.flush(FLUSH_PERIOD);
 
         expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
-        //expect(Raven.captureMessage).toHaveBeenCalledWith(
-            jasmine.stringMatching('HTTP 4xx response'),
-            { tags: { statusCode: 400 } });
+        // expect(Raven.captureMessage).toHaveBeenCalledWith(
+        // jasmine.stringMatching('HTTP 4xx response'),
+        // { tags: { statusCode: 400 } });
         expect(callbackCalled).toBe(true);
     });
 
@@ -133,7 +133,7 @@ describe('The http error registrar', function () {
         $interval.flush(FLUSH_PERIOD);
 
         expect(httpStatus.registerError).not.toHaveBeenCalled();
-        //expect(Raven.captureMessage).not.toHaveBeenCalled();
+        // expect(Raven.captureMessage).not.toHaveBeenCalled();
         expect($window.auth.logout).toHaveBeenCalled();
         expect(callbackCalled).toBe(true);
     });
@@ -159,9 +159,9 @@ describe('The http error registrar', function () {
         $interval.flush(FLUSH_PERIOD);
 
         expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.NOT_FOUND_ERROR);
-        //expect(Raven.captureMessage).toHaveBeenCalledWith(
-            jasmine.stringMatching('HTTP response body: Not found.'),
-            { tags: { statusCode: 404 } });
+        // expect(Raven.captureMessage).toHaveBeenCalledWith(
+        // jasmine.stringMatching('HTTP response body: Not found.'),
+        // { tags: { statusCode: 404 } });
         expect(callbackCalled).toBe(true);
     });
 
@@ -184,9 +184,9 @@ describe('The http error registrar', function () {
         $interval.flush(FLUSH_PERIOD);
 
         expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
-        //expect(Raven.captureMessage).toHaveBeenCalledWith(
-            jasmine.stringMatching('HTTP 4xx response'),
-            { tags: { statusCode: 404 } });
+        // expect(Raven.captureMessage).toHaveBeenCalledWith(
+        // jasmine.stringMatching('HTTP 4xx response'),
+        // { tags: { statusCode: 404 } });
         expect(callbackCalled).toBe(true);
     });
 
@@ -203,9 +203,9 @@ describe('The http error registrar', function () {
         $interval.flush(FLUSH_PERIOD);
 
         expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
-        //expect(Raven.captureMessage).toHaveBeenCalledWith(
-            jasmine.stringMatching('HTTP 5xx response'),
-            { tags: { statusCode: 500 } });
+        // expect(Raven.captureMessage).toHaveBeenCalledWith(
+        // jasmine.stringMatching('HTTP 5xx response'),
+        // { tags: { statusCode: 500 } });
         expect(callbackCalled).toBe(true);
     });
 
@@ -223,9 +223,9 @@ describe('The http error registrar', function () {
         $interval.flush(FLUSH_PERIOD);
 
         expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
-        //expect(Raven.captureMessage).toHaveBeenCalledWith(
-            jasmine.stringMatching('HTTP 5xx response'),
-            { tags: { statusCode: -1 } });
+        // expect(Raven.captureMessage).toHaveBeenCalledWith(
+        // jasmine.stringMatching('HTTP 5xx response'),
+        // { tags: { statusCode: -1 } });
         expect(callbackCalled).toBe(true);
     });
 
@@ -250,9 +250,9 @@ describe('The http error registrar', function () {
         $interval.flush(FLUSH_PERIOD);
 
         expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
-        //expect(Raven.captureMessage).toHaveBeenCalledWith(
-            jasmine.stringMatching('HTTP request ended abnormally'),
-            { tags: { statusCode: -1 } });
+        // expect(Raven.captureMessage).toHaveBeenCalledWith(
+        // jasmine.stringMatching('HTTP request ended abnormally'),
+        // { tags: { statusCode: -1 } });
         expect(callbackCalled).toBe(true);
     });
 
@@ -273,7 +273,7 @@ describe('The http error registrar', function () {
         $interval.flush(FLUSH_PERIOD);
 
         expect(httpStatus.registerError).not.toHaveBeenCalled();
-        //expect(Raven.captureMessage).not.toHaveBeenCalled();
+        // expect(Raven.captureMessage).not.toHaveBeenCalled();
         expect(callbackCalled).toBe(true);
     });
 
@@ -295,15 +295,15 @@ describe('The http error registrar', function () {
         $httpBackend.flush();
 
         expect(httpStatus.registerError).not.toHaveBeenCalled();
-        //expect(Raven.captureMessage).not.toHaveBeenCalled();
+        // expect(Raven.captureMessage).not.toHaveBeenCalled();
         expect(callbackCalled).toBe(true);
 
         $interval.flush(FLUSH_PERIOD);
 
         expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
-        //expect(Raven.captureMessage).toHaveBeenCalledWith(
-            jasmine.stringMatching('HTTP 4xx response'),
-            { tags: { statusCode: 404 } });
+        // expect(Raven.captureMessage).toHaveBeenCalledWith(
+        // jasmine.stringMatching('HTTP 4xx response'),
+        // { tags: { statusCode: 404 } });
     });
 
     it('does not handle an error that has already been handled locally', function () {
@@ -325,7 +325,7 @@ describe('The http error registrar', function () {
         $interval.flush(FLUSH_PERIOD);
 
         expect(httpStatus.registerError).not.toHaveBeenCalled();
-        //expect(Raven.captureMessage).not.toHaveBeenCalled();
+        // expect(Raven.captureMessage).not.toHaveBeenCalled();
         expect(callbackCalled).toBe(true);
     });
 });
