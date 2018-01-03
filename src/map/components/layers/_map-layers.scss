@@ -1,3 +1,5 @@
+@import "../../../shared/components/toggle/toggle";
+
 .map-layers {
   background-color: #FAFAFA;
   padding-bottom: 8px;
@@ -6,6 +8,12 @@
 
   @media screen and (min-width: 1200px) {
     padding-bottom: 12px;
+  }
+
+  & > ul {
+    list-style-type: none;
+    margin-left: 0;
+    padding-left: 0;
   }
 
   &__category {
@@ -23,6 +31,7 @@
 
     ul {
       margin-top: 8px;
+      padding-left: 0;
     }
   }
 
@@ -46,12 +55,16 @@
 
     button {
       align-items: center;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
       display: flex;
       font-family: "Avenir LT W01 55 Roman";
       font-size: 16px;
       justify-content: space-between;
       outline: none;
       overflow: hidden;
+      padding: 0;
       width: 100%;
 
       & > span:first-child {

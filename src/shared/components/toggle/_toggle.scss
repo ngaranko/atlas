@@ -1,0 +1,19 @@
+%__toggle {
+  align-items: center;
+  align-self: center;
+  background-color: #FFFFFF;
+  border: 1px solid #CCCCCC;
+  border-radius: 50%;
+  content: 'X';
+  display: flex;
+  flex-shrink: 0;
+  font-size: 0;
+  height: 26px;
+  justify-content: center;
+  width: 26px;
+
+  svg {
+    height: 12px;
+    width: 12px;
+  }
+}
