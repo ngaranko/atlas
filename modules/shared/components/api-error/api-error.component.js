@@ -20,7 +20,6 @@ import {
         const vm = this;
 
         reset();
-
         $scope.$watch('vm.hasErrors', (hasErrors) => {
             reset();
 
@@ -51,12 +50,12 @@ import {
         }
 
         store.subscribe(() => {
-            $timeout(() => {
-                const { error } = store.getState();
-                if (error.hasErrors) {
+            const { error } = store.getState();
+            if (error.hasErrors) {
+                $timeout(() => {
                     vm.hasErrors = true;
-                }
-            });
+                });
+            }
         });
     }
 })();
