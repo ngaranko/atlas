@@ -6,9 +6,9 @@ const toMatchImageSnapshot = configureToMatchImageSnapshot({
 });
 expect.extend({ toMatchImageSnapshot });
 
-describe('Checkbox', () => {
-  const moduleName = 'Shared';
-  const componentName = 'Checkbox';
+describe('MapType', () => {
+  const moduleName = 'Map';
+  const componentName = 'MapType';
 
   let page = null;
 
@@ -18,7 +18,7 @@ describe('Checkbox', () => {
 
   beforeEach(async () => {
     page = await global.__BROWSER__.newPage();
-    await page.goto('http://localhost:9001/?selectedKind=Shared%2FCheckbox&selectedStory=unchecked&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel');
+    await page.goto('http://localhost:9001/?selectedKind=Map%2FMapType&selectedStory=default&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel');
     await page.waitFor(linkSelector([moduleName]));
     await page.click(linkSelector([moduleName]));
     await page.waitFor(linkSelector([moduleName, componentName]));
@@ -29,17 +29,9 @@ describe('Checkbox', () => {
     await page.close();
   });
 
-  it('should render the unchecked checkbox', async () => {
-    await page.waitFor(linkSelector([moduleName, componentName, 'unchecked']));
-    await page.click(linkSelector([moduleName, componentName, 'unchecked']));
-    const iframe = await page.$('#storybook-preview-iframe');
-    const screenshot = await iframe.screenshot();
-    expect(screenshot).toMatchImageSnapshot();
-  });
-
-  it('should render the checked checkbox', async () => {
-    await page.waitFor(linkSelector([moduleName, componentName, 'checked']));
-    await page.click(linkSelector([moduleName, componentName, 'checked']));
+  it('should render the map type', async () => {
+    await page.waitFor(linkSelector([moduleName, componentName, 'default']));
+    await page.click(linkSelector([moduleName, componentName, 'default']));
     const iframe = await page.$('#storybook-preview-iframe');
     const screenshot = await iframe.screenshot();
     expect(screenshot).toMatchImageSnapshot();

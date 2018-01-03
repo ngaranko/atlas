@@ -5,7 +5,7 @@ import { action } from '@storybook/addon-actions'; // eslint-disable-line import
 import MapType from './MapType';
 import baseLayers from '../../services/map-base-layers';
 
-storiesOf('Map/Type', module)
+storiesOf('Map/MapType', module)
   .add('default', () => (
     <MapType
       activeBaseLayer={'hoi'}

@@ -5,7 +5,7 @@ import { action } from '@storybook/addon-actions'; // eslint-disable-line import
 import MapLayers from './MapLayers';
 import layers from '../../services/map-layers';
 
-storiesOf('Map/Layers', module)
+storiesOf('Map/MapLayers', module)
   .add('authenticated', () => (
     <MapLayers
       activeMapLayers={[]}

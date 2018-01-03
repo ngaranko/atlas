@@ -5,7 +5,7 @@ import { action } from '@storybook/addon-actions'; // eslint-disable-line import
 import MapLegend from './MapLegend';
 import layers from '../../services/map-layers';
 
-storiesOf('Map/Legend', module)
+storiesOf('Map/MapLegend', module)
   .add('default', () => (
     <MapLegend
       activeMapLayers={layers.filter((layer) => layer.title === 'Kadastrale perceelsgrenzen')}
