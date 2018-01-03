@@ -4,8 +4,7 @@ describe('The dp-menu component', () => {
         store,
         $window,
         origAuth,
-        mockedUser,
-        mockedActions;
+        mockedUser;
 
     beforeEach(() => {
         angular.mock.module(
@@ -149,7 +148,7 @@ describe('The dp-menu component', () => {
 
         it('calls the auth login method', () => {
             component.find('.qa-menu__login').click();
-            expect(store.dispatch).toHaveBeenCalledWith({ type: { id: 'AUTHENTICATE_ERROR' } });
+            expect(store.dispatch).toHaveBeenCalledWith({ type: 'AUTHENTICATE_ERROR' });
         });
     });
 
