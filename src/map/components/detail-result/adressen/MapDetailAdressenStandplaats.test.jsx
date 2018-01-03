@@ -10,23 +10,9 @@ describe('MapDetailAdressenStandplaats', () => {
         label: 'Standplaats label',
         status: 'Standplaats status'
       };
-      const panoUrl = 'panoUrl';
       const wrapper = shallow(
         <MapDetailAdressenStandplaats
-          panoUrl={panoUrl}
-          standplaats={standplaats}
-        />
-      );
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('should render without pano url', () => {
-      const standplaats = {
-        label: 'Standplaats label',
-        status: 'Standplaats status'
-      };
-      const wrapper = shallow(
-        <MapDetailAdressenStandplaats
+          panoUrl="panoUrl"
           standplaats={standplaats}
         />
       );

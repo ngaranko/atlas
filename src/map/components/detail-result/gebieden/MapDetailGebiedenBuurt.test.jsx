@@ -9,22 +9,9 @@ describe('MapDetailGebiedenBuurt', () => {
       const buurt = {
         label: 'Buurt label'
       };
-      const panoUrl = 'panoUrl';
       const wrapper = shallow(
         <MapDetailGebiedenBuurt
-          panoUrl={panoUrl}
-          buurt={buurt}
-        />
-      );
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('should render without pano url', () => {
-      const buurt = {
-        label: 'Buurt label'
-      };
-      const wrapper = shallow(
-        <MapDetailGebiedenBuurt
+          panoUrl="panoUrl"
           buurt={buurt}
         />
       );

@@ -11,24 +11,9 @@ describe('MapDetailAdressenOpenbareRuimte', () => {
         status: 'Openbare ruimte status',
         type: 'Openbare ruimte type'
       };
-      const panoUrl = 'panoUrl';
       const wrapper = shallow(
         <MapDetailAdressenOpenbareRuimte
-          panoUrl={panoUrl}
-          openbareRuimte={openbareRuimte}
-        />
-      );
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('should render without pano url', () => {
-      const openbareRuimte = {
-        label: 'Openbare ruimte label',
-        status: 'Openbare ruimte status',
-        type: 'Openbare ruimte type'
-      };
-      const wrapper = shallow(
-        <MapDetailAdressenOpenbareRuimte
+          panoUrl="panoUrl"
           openbareRuimte={openbareRuimte}
         />
       );

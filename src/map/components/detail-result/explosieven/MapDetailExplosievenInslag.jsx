@@ -3,27 +3,14 @@ import PropTypes from 'prop-types';
 
 import MapDetailResultDateItem from '../MapDetailResultDateItem';
 import MapDetailResultItem from '../MapDetailResultItem';
+import MapDetailResultWrapper from '../MapDetailResultWrapper';
 
 const MapDetailExplosievenInslag = ({ panoUrl, inslag }) => (
-  <section className="map-detail-result">
-    <header
-      className={`
-        map-detail-result__header
-        map-detail-result__header--${panoUrl ? 'pano' : 'no-pano'}
-      `}
-    >
-      {panoUrl && (
-        <img
-          alt="Panoramabeeld"
-          className="map-detail-result__header-pano"
-          src={panoUrl}
-        />
-      )}
-      <div className="map-detail-result__header-container">
-        <h1 className="map-detail-result__header-title">Inslag</h1>
-        <h2 className="map-detail-result__header-subtitle">{inslag.label}</h2>
-      </div>
-    </header>
+  <MapDetailResultWrapper
+    panoUrl={panoUrl}
+    subTitle={inslag.label}
+    title="Inslag"
+  >
     <ul className="map-detail-result__list">
       <MapDetailResultDateItem
         label="Datum van inslag"
@@ -42,12 +29,8 @@ const MapDetailExplosievenInslag = ({ panoUrl, inslag }) => (
         value={inslag.remarks}
       />
     </ul>
-  </section>
+  </MapDetailResultWrapper>
 );
-
-MapDetailExplosievenInslag.defaultProps = {
-  panoUrl: ''
-};
 
 MapDetailExplosievenInslag.propTypes = {
   inslag: PropTypes.shape({
@@ -57,7 +40,7 @@ MapDetailExplosievenInslag.propTypes = {
     source: PropTypes.string,
     type: PropTypes.string
   }).isRequired,
-  panoUrl: PropTypes.string
+  panoUrl: PropTypes.string.isRequired
 };
 
 export default MapDetailExplosievenInslag;

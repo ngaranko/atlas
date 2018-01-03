@@ -9,22 +9,9 @@ describe('MapDetailGebiedenWijk', () => {
       const wijk = {
         label: 'Wijk label'
       };
-      const panoUrl = 'panoUrl';
       const wrapper = shallow(
         <MapDetailGebiedenWijk
-          panoUrl={panoUrl}
-          wijk={wijk}
-        />
-      );
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('should render without pano url', () => {
-      const wijk = {
-        label: 'Wijk label'
-      };
-      const wrapper = shallow(
-        <MapDetailGebiedenWijk
+          panoUrl="panoUrl"
           wijk={wijk}
         />
       );

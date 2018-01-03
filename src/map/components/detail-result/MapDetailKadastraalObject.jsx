@@ -2,27 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import MapDetailResultItem from './MapDetailResultItem';
+import MapDetailResultWrapper from './MapDetailResultWrapper';
 
 const MapDetailKadastraalObject = ({ panoUrl, kadastraalObject }) => (
-  <section className="map-detail-result">
-    <header
-      className={`
-        map-detail-result__header
-        map-detail-result__header--${panoUrl ? 'pano' : 'no-pano'}
-      `}
-    >
-      {panoUrl && (
-        <img
-          alt="Panoramabeeld"
-          className="map-detail-result__header-pano"
-          src={panoUrl}
-        />
-      )}
-      <div className="map-detail-result__header-container">
-        <h1 className="map-detail-result__header-title">Kadastraal object</h1>
-        <h2 className="map-detail-result__header-subtitle">{kadastraalObject.label}</h2>
-      </div>
-    </header>
+  <MapDetailResultWrapper
+    panoUrl={panoUrl}
+    subTitle={kadastraalObject.label}
+    title="Kadastraal object"
+  >
     <ul className="map-detail-result__list">
       <MapDetailResultItem
         label="Objectnummer"
@@ -39,12 +26,8 @@ const MapDetailKadastraalObject = ({ panoUrl, kadastraalObject }) => (
         value={(kadastraalObject.size || kadastraalObject.size === 0) ? `${kadastraalObject.size} m²` : ''}
       />
     </ul>
-  </section>
+  </MapDetailResultWrapper>
 );
-
-MapDetailKadastraalObject.defaultProps = {
-  panoUrl: ''
-};
 
 MapDetailKadastraalObject.propTypes = {
   kadastraalObject: PropTypes.shape({
@@ -56,7 +39,7 @@ MapDetailKadastraalObject.propTypes = {
     objectNumber: PropTypes.string,
     size: PropTypes.number
   }).isRequired,
-  panoUrl: PropTypes.string
+  panoUrl: PropTypes.string.isRequired
 };
 
 export default MapDetailKadastraalObject;

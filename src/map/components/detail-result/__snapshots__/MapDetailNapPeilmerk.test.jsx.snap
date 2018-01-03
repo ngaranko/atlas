@@ -1,30 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MapDetailNapPeilmerk rendering should not render empty height 1`] = `
-<section
-  className="map-detail-result"
+<MapDetailResultWrapper
+  panoUrl="panoUrl"
+  subTitle="Peilmerk label"
+  title="NAP Peilmerk"
 >
-  <header
-    className="
-        map-detail-result__header
-        map-detail-result__header--no-pano
-      "
-  >
-    <div
-      className="map-detail-result__header-container"
-    >
-      <h1
-        className="map-detail-result__header-title"
-      >
-        NAP Peilmerk
-      </h1>
-      <h2
-        className="map-detail-result__header-subtitle"
-      >
-        Peilmerk label
-      </h2>
-    </div>
-  </header>
   <ul
     className="map-detail-result__list"
   >
@@ -41,34 +22,15 @@ exports[`MapDetailNapPeilmerk rendering should not render empty height 1`] = `
       value="Peilmerk description"
     />
   </ul>
-</section>
+</MapDetailResultWrapper>
 `;
 
 exports[`MapDetailNapPeilmerk rendering should not render without height 1`] = `
-<section
-  className="map-detail-result"
+<MapDetailResultWrapper
+  panoUrl="panoUrl"
+  subTitle="Peilmerk label"
+  title="NAP Peilmerk"
 >
-  <header
-    className="
-        map-detail-result__header
-        map-detail-result__header--no-pano
-      "
-  >
-    <div
-      className="map-detail-result__header-container"
-    >
-      <h1
-        className="map-detail-result__header-title"
-      >
-        NAP Peilmerk
-      </h1>
-      <h2
-        className="map-detail-result__header-subtitle"
-      >
-        Peilmerk label
-      </h2>
-    </div>
-  </header>
   <ul
     className="map-detail-result__list"
   >
@@ -85,39 +47,15 @@ exports[`MapDetailNapPeilmerk rendering should not render without height 1`] = `
       value="Peilmerk description"
     />
   </ul>
-</section>
+</MapDetailResultWrapper>
 `;
 
 exports[`MapDetailNapPeilmerk rendering should render everything 1`] = `
-<section
-  className="map-detail-result"
+<MapDetailResultWrapper
+  panoUrl="panoUrl"
+  subTitle="Peilmerk label"
+  title="NAP Peilmerk"
 >
-  <header
-    className="
-        map-detail-result__header
-        map-detail-result__header--pano
-      "
-  >
-    <img
-      alt="Panoramabeeld"
-      className="map-detail-result__header-pano"
-      src="panoUrl"
-    />
-    <div
-      className="map-detail-result__header-container"
-    >
-      <h1
-        className="map-detail-result__header-title"
-      >
-        NAP Peilmerk
-      </h1>
-      <h2
-        className="map-detail-result__header-subtitle"
-      >
-        Peilmerk label
-      </h2>
-    </div>
-  </header>
   <ul
     className="map-detail-result__list"
   >
@@ -134,49 +72,5 @@ exports[`MapDetailNapPeilmerk rendering should render everything 1`] = `
       value="Peilmerk description"
     />
   </ul>
-</section>
-`;
-
-exports[`MapDetailNapPeilmerk rendering should render without pano url 1`] = `
-<section
-  className="map-detail-result"
->
-  <header
-    className="
-        map-detail-result__header
-        map-detail-result__header--no-pano
-      "
-  >
-    <div
-      className="map-detail-result__header-container"
-    >
-      <h1
-        className="map-detail-result__header-title"
-      >
-        NAP Peilmerk
-      </h1>
-      <h2
-        className="map-detail-result__header-subtitle"
-      >
-        Peilmerk label
-      </h2>
-    </div>
-  </header>
-  <ul
-    className="map-detail-result__list"
-  >
-    <MapDetailResultItem
-      label="Hoogte NAP"
-      value="0 m"
-    />
-    <MapDetailResultItem
-      label="Jaar"
-      value="1919"
-    />
-    <MapDetailResultItem
-      label="Omschrijving"
-      value="Peilmerk description"
-    />
-  </ul>
-</section>
+</MapDetailResultWrapper>
 `;

@@ -9,22 +9,9 @@ describe('MapDetailGebiedenGrootstedelijk', () => {
       const grootstedelijk = {
         label: 'Grootstedelijk label'
       };
-      const panoUrl = 'panoUrl';
       const wrapper = shallow(
         <MapDetailGebiedenGrootstedelijk
-          panoUrl={panoUrl}
-          grootstedelijk={grootstedelijk}
-        />
-      );
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('should render without pano url', () => {
-      const grootstedelijk = {
-        label: 'Grootstedelijk label'
-      };
-      const wrapper = shallow(
-        <MapDetailGebiedenGrootstedelijk
+          panoUrl="panoUrl"
           grootstedelijk={grootstedelijk}
         />
       );

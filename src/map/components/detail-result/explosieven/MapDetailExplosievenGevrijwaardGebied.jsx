@@ -3,27 +3,14 @@ import PropTypes from 'prop-types';
 
 import MapDetailResultDateItem from '../MapDetailResultDateItem';
 import MapDetailResultItem from '../MapDetailResultItem';
+import MapDetailResultWrapper from '../MapDetailResultWrapper';
 
 const MapDetailExplosievenGevrijwaardGebied = ({ panoUrl, gevrijwaardGebied }) => (
-  <section className="map-detail-result">
-    <header
-      className={`
-        map-detail-result__header
-        map-detail-result__header--${panoUrl ? 'pano' : 'no-pano'}
-      `}
-    >
-      {panoUrl && (
-        <img
-          alt="Panoramabeeld"
-          className="map-detail-result__header-pano"
-          src={panoUrl}
-        />
-      )}
-      <div className="map-detail-result__header-container">
-        <h1 className="map-detail-result__header-title">Gevrijwaard gebied</h1>
-        <h2 className="map-detail-result__header-subtitle">{gevrijwaardGebied.label}</h2>
-      </div>
-    </header>
+  <MapDetailResultWrapper
+    panoUrl={panoUrl}
+    subTitle={gevrijwaardGebied.label}
+    title="Gevrijwaard gebied"
+  >
     <ul className="map-detail-result__list">
       <MapDetailResultDateItem
         label="Datum rapport"
@@ -42,12 +29,8 @@ const MapDetailExplosievenGevrijwaardGebied = ({ panoUrl, gevrijwaardGebied }) =
         value={gevrijwaardGebied.remarks}
       />
     </ul>
-  </section>
+  </MapDetailResultWrapper>
 );
-
-MapDetailExplosievenGevrijwaardGebied.defaultProps = {
-  panoUrl: ''
-};
 
 MapDetailExplosievenGevrijwaardGebied.propTypes = {
   gevrijwaardGebied: PropTypes.shape({
@@ -57,7 +40,7 @@ MapDetailExplosievenGevrijwaardGebied.propTypes = {
     source: PropTypes.string,
     type: PropTypes.string
   }).isRequired,
-  panoUrl: PropTypes.string
+  panoUrl: PropTypes.string.isRequired
 };
 
 export default MapDetailExplosievenGevrijwaardGebied;

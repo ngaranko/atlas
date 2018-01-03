@@ -2,27 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import MapDetailResultItem from '../MapDetailResultItem';
+import MapDetailResultWrapper from '../MapDetailResultWrapper';
 
 const MapDetailExplosievenVerdachtGebied = ({ panoUrl, verdachtGebied }) => (
-  <section className="map-detail-result">
-    <header
-      className={`
-        map-detail-result__header
-        map-detail-result__header--${panoUrl ? 'pano' : 'no-pano'}
-      `}
-    >
-      {panoUrl && (
-        <img
-          alt="Panoramabeeld"
-          className="map-detail-result__header-pano"
-          src={panoUrl}
-        />
-      )}
-      <div className="map-detail-result__header-container">
-        <h1 className="map-detail-result__header-title">Verdacht gebied</h1>
-        <h2 className="map-detail-result__header-subtitle">{verdachtGebied.label}</h2>
-      </div>
-    </header>
+  <MapDetailResultWrapper
+    panoUrl={panoUrl}
+    subTitle={verdachtGebied.label}
+    title="Verdacht gebied"
+  >
     <ul className="map-detail-result__list">
       <MapDetailResultItem
         label="Hoofdgroep"
@@ -37,12 +24,8 @@ const MapDetailExplosievenVerdachtGebied = ({ panoUrl, verdachtGebied }) => (
         value={verdachtGebied.remarks}
       />
     </ul>
-  </section>
+  </MapDetailResultWrapper>
 );
-
-MapDetailExplosievenVerdachtGebied.defaultProps = {
-  panoUrl: ''
-};
 
 MapDetailExplosievenVerdachtGebied.propTypes = {
   verdachtGebied: PropTypes.shape({
@@ -51,7 +34,7 @@ MapDetailExplosievenVerdachtGebied.propTypes = {
     subType: PropTypes.string,
     type: PropTypes.string
   }).isRequired,
-  panoUrl: PropTypes.string
+  panoUrl: PropTypes.string.isRequired
 };
 
 export default MapDetailExplosievenVerdachtGebied;

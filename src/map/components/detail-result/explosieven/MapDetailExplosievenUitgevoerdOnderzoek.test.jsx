@@ -13,26 +13,9 @@ describe('MapDetailExplosievenUitgevoerdOnderzoek', () => {
         type: 'Uitgevoerd onderzoek type',
         verdachtGebied: 'Uitgevoerd onderzoek verdacht gebied'
       };
-      const panoUrl = 'panoUrl';
       const wrapper = shallow(
         <MapDetailExplosievenUitgevoerdOnderzoek
-          panoUrl={panoUrl}
-          uitgevoerdOnderzoek={uitgevoerdOnderzoek}
-        />
-      );
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('should render without pano url', () => {
-      const uitgevoerdOnderzoek = {
-        date: new Date('1919-12-31'),
-        label: 'Uitgevoerd onderzoek label',
-        onderzoeksgebied: 'Uitgevoerd onderzoek onderzoeksgebied',
-        type: 'Uitgevoerd onderzoek type',
-        verdachtGebied: 'Uitgevoerd onderzoek verdacht gebied'
-      };
-      const wrapper = shallow(
-        <MapDetailExplosievenUitgevoerdOnderzoek
+          panoUrl="panoUrl"
           uitgevoerdOnderzoek={uitgevoerdOnderzoek}
         />
       );

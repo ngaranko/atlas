@@ -12,25 +12,9 @@ describe('MapDetailNapPeilmerk', () => {
         label: 'Peilmerk label',
         year: 1919
       };
-      const panoUrl = 'panoUrl';
       const wrapper = shallow(
         <MapDetailNapPeilmerk
-          panoUrl={panoUrl}
-          peilmerk={peilmerk}
-        />
-      );
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('should render without pano url', () => {
-      const peilmerk = {
-        description: 'Peilmerk description',
-        height: '0',
-        label: 'Peilmerk label',
-        year: 1919
-      };
-      const wrapper = shallow(
-        <MapDetailNapPeilmerk
+          panoUrl="panoUrl"
           peilmerk={peilmerk}
         />
       );
@@ -46,6 +30,7 @@ describe('MapDetailNapPeilmerk', () => {
       };
       const wrapper = shallow(
         <MapDetailNapPeilmerk
+          panoUrl="panoUrl"
           peilmerk={peilmerk}
         />
       );
@@ -61,6 +46,7 @@ describe('MapDetailNapPeilmerk', () => {
       };
       const wrapper = shallow(
         <MapDetailNapPeilmerk
+          panoUrl="panoUrl"
           peilmerk={peilmerk}
         />
       );

@@ -1,41 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Notification from '../../../shared/components/notification/Notification';
-import MapDetailResultItem from './MapDetailResultItem';
 import MapDetailAddressItem from './MapDetailAddressItem';
+import MapDetailResultItem from './MapDetailResultItem';
+import MapDetailResultWrapper from './MapDetailResultWrapper';
 import MapDetailVestigingActiviteitenItem from './MapDetailVestigingActiviteitenItem';
 import MapDetailVestigingBijzondereRechtstoestand from './MapDetailVestigingBijzondereRechtstoestand';
+import Notification from '../../../shared/components/notification/Notification';
 
 const MapDetailVestiging = ({ panoUrl, vestiging }) => (
-  <section className="map-detail-result">
-    <header
-      className={`
-        map-detail-result__header
-        map-detail-result__header--${panoUrl ? 'pano' : 'no-pano'}
-      `}
-    >
-      {panoUrl && (
-        <img
-          alt="Panoramabeeld"
-          className="map-detail-result__header-pano"
-          src={panoUrl}
-        />
-      )}
-      <div className="map-detail-result__header-container">
-        <h1 className="map-detail-result__header-title">Vestiging</h1>
-        {vestiging.label && (
-          <h2 className="map-detail-result__header-subtitle">{vestiging.label}</h2>
-        )}
-      </div>
-    </header>
-    {!vestiging.label && (
-      <Notification>
-        Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om
-        maatschappelijke activiteiten en vestigingen te bekijken.
-      </Notification>
-    )}
-    {vestiging.label && (
+  <MapDetailResultWrapper
+    panoUrl={panoUrl}
+    subTitle={vestiging.label}
+    title="Vestiging"
+  >
+    {vestiging.label ? (
       <ul className="map-detail-result__list">
         <MapDetailResultItem
           label="KvK-nummer"
@@ -50,16 +29,17 @@ const MapDetailVestiging = ({ panoUrl, vestiging }) => (
           values={vestiging.bijzondereRechtstoestand}
         />
       </ul>
+    ) : (
+      <Notification>
+        Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om
+        maatschappelijke activiteiten en vestigingen te bekijken.
+      </Notification>
     )}
-  </section>
+  </MapDetailResultWrapper>
 );
 
-MapDetailVestiging.defaultProps = {
-  panoUrl: ''
-};
-
 MapDetailVestiging.propTypes = {
-  panoUrl: PropTypes.string,
+  panoUrl: PropTypes.string.isRequired,
   vestiging: PropTypes.shape({
     activities: PropTypes.array,
     bijzondereRechtstoestand: PropTypes.object,

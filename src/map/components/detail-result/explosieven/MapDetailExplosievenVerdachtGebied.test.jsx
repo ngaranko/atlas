@@ -12,25 +12,9 @@ describe('MapDetailExplosievenVerdachtGebied', () => {
         subType: 'Verdacht gebied sub type',
         type: 'Verdacht gebied type'
       };
-      const panoUrl = 'panoUrl';
       const wrapper = shallow(
         <MapDetailExplosievenVerdachtGebied
-          panoUrl={panoUrl}
-          verdachtGebied={verdachtGebied}
-        />
-      );
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('should render without pano url', () => {
-      const verdachtGebied = {
-        label: 'Verdacht gebied label',
-        remarks: 'Verdacht gebied remarks',
-        subType: 'Verdacht gebied sub type',
-        type: 'Verdacht gebied type'
-      };
-      const wrapper = shallow(
-        <MapDetailExplosievenVerdachtGebied
+          panoUrl="panoUrl"
           verdachtGebied={verdachtGebied}
         />
       );

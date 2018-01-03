@@ -11,24 +11,9 @@ describe('MapDetailMeetbout', () => {
         label: 'Meetbout label',
         status: 'Meetbout status'
       };
-      const panoUrl = 'panoUrl';
       const wrapper = shallow(
         <MapDetailMeetbout
-          panoUrl={panoUrl}
-          meetbout={meetbout}
-        />
-      );
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('should render without pano url', () => {
-      const meetbout = {
-        address: 'Meetbout address',
-        label: 'Meetbout label',
-        status: 'Meetbout status'
-      };
-      const wrapper = shallow(
-        <MapDetailMeetbout
+          panoUrl="panoUrl"
           meetbout={meetbout}
         />
       );

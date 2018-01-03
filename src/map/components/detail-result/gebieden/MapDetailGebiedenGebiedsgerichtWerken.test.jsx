@@ -9,22 +9,9 @@ describe('MapDetailGebiedenGebiedsgerichtWerken', () => {
       const gebiedsgerichtWerken = {
         label: 'Gebiedsgericht werken label'
       };
-      const panoUrl = 'panoUrl';
       const wrapper = shallow(
         <MapDetailGebiedenGebiedsgerichtWerken
-          panoUrl={panoUrl}
-          gebiedsgerichtWerken={gebiedsgerichtWerken}
-        />
-      );
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('should render without pano url', () => {
-      const gebiedsgerichtWerken = {
-        label: 'Gebiedsgericht werken label'
-      };
-      const wrapper = shallow(
-        <MapDetailGebiedenGebiedsgerichtWerken
+          panoUrl="panoUrl"
           gebiedsgerichtWerken={gebiedsgerichtWerken}
         />
       );

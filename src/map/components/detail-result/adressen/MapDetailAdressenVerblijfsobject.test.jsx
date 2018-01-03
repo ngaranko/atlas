@@ -20,33 +20,9 @@ describe('MapDetailAdressenVerblijfsobject', () => {
         size: 15,
         type: 'Verblijfsobject type'
       };
-      const panoUrl = 'panoUrl';
       const wrapper = shallow(
         <MapDetailAdressenVerblijfsobject
-          panoUrl={panoUrl}
-          verblijfsobject={verblijfsobject}
-        />
-      );
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('should render without pano url', () => {
-      const verblijfsobject = {
-        eigendomsverhouding: 'Verblijfsobject eigendomsverhouding',
-        gebruiksdoelen: [{
-          code: '01',
-          description: 'Gebruiksdoel description 1'
-        }, {
-          code: '0400',
-          description: 'Gebruiksdoel description 2',
-          descriptionPlus: 'Gebruiksdoel description plus'
-        }],
-        label: 'Verblijfsobject label',
-        size: 15,
-        type: 'Verblijfsobject type'
-      };
-      const wrapper = shallow(
-        <MapDetailAdressenVerblijfsobject
+          panoUrl="panoUrl"
           verblijfsobject={verblijfsobject}
         />
       );
@@ -70,6 +46,7 @@ describe('MapDetailAdressenVerblijfsobject', () => {
       };
       const wrapper = shallow(
         <MapDetailAdressenVerblijfsobject
+          panoUrl="panoUrl"
           verblijfsobject={verblijfsobject}
         />
       );
@@ -92,6 +69,7 @@ describe('MapDetailAdressenVerblijfsobject', () => {
       };
       const wrapper = shallow(
         <MapDetailAdressenVerblijfsobject
+          panoUrl="panoUrl"
           verblijfsobject={verblijfsobject}
         />
       );

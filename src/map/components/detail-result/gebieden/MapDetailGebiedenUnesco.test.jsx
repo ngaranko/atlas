@@ -9,22 +9,9 @@ describe('MapDetailGebiedenUnesco', () => {
       const unesco = {
         label: 'Unesco label'
       };
-      const panoUrl = 'panoUrl';
       const wrapper = shallow(
         <MapDetailGebiedenUnesco
-          panoUrl={panoUrl}
-          unesco={unesco}
-        />
-      );
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('should render without pano url', () => {
-      const unesco = {
-        label: 'Unesco label'
-      };
-      const wrapper = shallow(
-        <MapDetailGebiedenUnesco
+          panoUrl="panoUrl"
           unesco={unesco}
         />
       );

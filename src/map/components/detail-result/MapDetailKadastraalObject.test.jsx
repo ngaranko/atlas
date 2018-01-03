@@ -15,10 +15,9 @@ describe('MapDetailKadastraalObject', () => {
         objectNumber: '123ABC',
         size: 115
       };
-      const panoUrl = 'panoUrl';
       const wrapper = shallow(
         <MapDetailKadastraalObject
-          panoUrl={panoUrl}
+          panoUrl="panoUrl"
           kadastraalObject={kadastraalObject}
         />
       );
@@ -31,24 +30,9 @@ describe('MapDetailKadastraalObject', () => {
         objectNumber: '123ABC',
         size: 115
       };
-      const panoUrl = 'panoUrl';
       const wrapper = shallow(
         <MapDetailKadastraalObject
-          panoUrl={panoUrl}
-          kadastraalObject={kadastraalObject}
-        />
-      );
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('should render without pano url', () => {
-      const kadastraalObject = {
-        label: 'Kadastraal object label',
-        objectNumber: '123ABC',
-        size: 115
-      };
-      const wrapper = shallow(
-        <MapDetailKadastraalObject
+          panoUrl="panoUrl"
           kadastraalObject={kadastraalObject}
         />
       );
@@ -63,6 +47,7 @@ describe('MapDetailKadastraalObject', () => {
       };
       const wrapper = shallow(
         <MapDetailKadastraalObject
+          panoUrl="panoUrl"
           kadastraalObject={kadastraalObject}
         />
       );
@@ -72,10 +57,11 @@ describe('MapDetailKadastraalObject', () => {
     it('should not render size', () => {
       const kadastraalObject = {
         label: 'Kadastraal object label',
-        objectNumber: '123ABC',
+        objectNumber: '123ABC'
       };
       const wrapper = shallow(
         <MapDetailKadastraalObject
+          panoUrl="panoUrl"
           kadastraalObject={kadastraalObject}
         />
       );
