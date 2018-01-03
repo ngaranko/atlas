@@ -63,6 +63,10 @@ describe('The dashboard component', function () {
             },
             ui: {
                 isMapPanelVisible: false
+            },
+            error: {
+                hasErrors: false,
+                types: {}
             }
         };
 
@@ -277,14 +281,22 @@ describe('The dashboard component', function () {
     });
 
     describe('error message', function () {
-        var component,
+        let component,
             mockedVisibility = {
                 error: false
-            };
+            },
+            handler;
 
         beforeEach(function () {
             spyOn(dashboardColumns, 'determineVisibility').and.callFake(() => mockedVisibility);
+            spyOn(store, 'subscribe').and.callFake((fn) => {
+                // This function will be called later on by other components as
+                // well
+                handler = handler || fn;
+            });
         });
+
+        afterEach(() => handler = null);
 
         it('when not shown, does not flags the dashboard body', function () {
             component = getComponent();
@@ -305,21 +317,24 @@ describe('The dashboard component', function () {
             mockedVisibility = {
                 error: false
             };
-            $rootScope.$apply();
+            handler();
+            $rootScope.$digest();
             expect(component.find('dp-api-error').length).toBe(0);
 
             // Set the error message
             mockedVisibility = {
                 error: true
             };
-            $rootScope.$apply();
+            handler();
+            $rootScope.$digest();
             expect(component.find('dp-api-error').length).toBe(1);
 
             // Remove the message again
             mockedVisibility = {
                 error: false
             };
-            $rootScope.$apply();
+            handler();
+            $rootScope.$digest();
             expect(component.find('dp-api-error').length).toBe(0);
         });
     });
