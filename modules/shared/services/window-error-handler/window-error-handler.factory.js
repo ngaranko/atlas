@@ -42,7 +42,7 @@ import { ERROR_TYPES } from '../../../../src/shared/ducks/error-message.js';
                     // Notify our application of error
                     message += `, HTTP external request error, src: ${event.target.src}`;
                     $rootScope.$applyAsync(() => {
-                        httpStatus.registerError(ERROR_TYPES.SERVER_ERROR);
+                        httpStatus.registerError(ERROR_TYPES.GENERAL_ERROR);
                     });
                 }
 
