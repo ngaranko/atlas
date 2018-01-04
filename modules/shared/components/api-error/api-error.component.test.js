@@ -1,11 +1,15 @@
-import { ERROR_TYPES } from '../../../../src/shared/ducks/error-message.js';
+import {
+    ERROR_TYPES,
+    resetGlobalError
+} from '../../../../src/shared/ducks/error-message.js';
 
 describe('The api-error component', function () {
     let $compile,
         $timeout,
         $rootScope,
         mockedState,
-        subcribeListener;
+        subcribeListener,
+        dispatch;
 
     const mockedUser = {
         authenticated: true,
@@ -15,8 +19,10 @@ describe('The api-error component', function () {
     };
 
     beforeEach(function () {
+        dispatch = jasmine.createSpy('dispatch');
         angular.mock.module('dpShared', {
             store: {
+                dispatch,
                 subscribe: (listener) => subcribeListener = listener,
                 getState: function () {
                     return angular.copy(mockedState);
@@ -79,7 +85,7 @@ describe('The api-error component', function () {
 
         expect(component.find('.qa-api-not-found-error').length).toBe(0);
         expect(component.find('.qa-api-login-error').length).toBe(1);
-        expect(component.find('.qa-api-server-error').length).toBe(0);
+        expect(component.find('.qa-api-general-error').length).toBe(0);
     });
 
     it('shows a not-found error message when NOT_FOUND_ERROR is set', function () {
@@ -100,7 +106,46 @@ describe('The api-error component', function () {
 
         expect(component.find('.qa-api-not-found-error').length).toBe(1);
         expect(component.find('.qa-api-login-error').length).toBe(0);
-        expect(component.find('.qa-api-server-error').length).toBe(0);
+        expect(component.find('.qa-api-general-error').length).toBe(0);
+    });
+
+    it('does nothing on normal store change', function () {
+        mockedState = {
+            error: {
+                hasErrors: false
+            }
+        };
+
+        const component = getComponent();
+        $rootScope.$digest();
+        subcribeListener();
+        $timeout.flush();
+        $rootScope.$digest();
+
+        expect(component.find('.qa-api-not-found-error').length).toBe(0);
+        expect(component.find('.qa-api-login-error').length).toBe(0);
+        expect(component.find('.qa-api-general-error').length).toBe(0);
+    });
+
+    it('shows the general error message', function () {
+        mockedState = {
+            error: {
+                hasErrors: true,
+                types: {
+                    [ERROR_TYPES.GENERAL_ERROR]: true
+                }
+            }
+        };
+
+        const component = getComponent();
+        $rootScope.$digest();
+        subcribeListener();
+        $timeout.flush();
+        $rootScope.$digest();
+
+        expect(component.find('.qa-api-not-found-error').length).toBe(0);
+        expect(component.find('.qa-api-login-error').length).toBe(0);
+        expect(component.find('.qa-api-general-error').length).toBe(1);
     });
 
     it('shows user login error', function () {
@@ -112,6 +157,16 @@ describe('The api-error component', function () {
 
         expect(component.find('.qa-api-not-found-error').length).toBe(0);
         expect(component.find('.qa-api-login-error').length).toBe(1);
-        expect(component.find('.qa-api-server-error').length).toBe(0);
+        expect(component.find('.qa-api-general-error').length).toBe(0);
+    });
+
+    it('resets errors on hide panel', () => {
+        const component = getComponent();
+        const controller = component.controller('dpApiError');
+
+        controller.hide();
+
+        expect(component.find('.qa-api-error').attr('close-action')).toBe('vm.hide()');
+        expect(dispatch).toHaveBeenCalledWith(resetGlobalError());
     });
 });

@@ -35,9 +35,7 @@
 
         vm.close = function () {
             vm.isPanelVisible = false;
-            if (vm.closeAction) {
-                vm.closeAction();
-            }
+            vm.closeAction && vm.closeAction(); // eslint-disable-line no-unused-expressions
         };
     }
 })();
