@@ -2,12 +2,14 @@
 
 exports[`MapPanelContainer should render MapLegend if store contains active map layers 1`] = `
 <section
+  aria-expanded={false}
+  aria-label="Kaartlagen tonen"
   className="
-        map-panel
-        map-panel--collapsed
-        map-panel--has-active-layers
-        map-panel--has-not-just-invisible-layers
-      "
+          map-panel
+          map-panel--collapsed
+          map-panel--has-active-layers
+          map-panel--has-not-just-invisible-layers
+        "
 >
   <div
     className="map-panel__heading"
@@ -22,12 +24,7 @@ exports[`MapPanelContainer should render MapLegend if store contains active map 
       <h2
         className="map-panel__heading-title"
       >
-        Kaartlagen 
-        <span
-          className="u-sr-only"
-        >
-          legenda
-        </span>
+        Kaartlagen
       </h2>
       <test-file-stub
         className="map-panel__toggle-icon map-panel__toggle-icon--expanded"
@@ -77,12 +74,14 @@ exports[`MapPanelContainer should render MapLegend if store contains active map 
 
 exports[`MapPanelContainer should render MapType and MapLayers 1`] = `
 <section
+  aria-expanded={false}
+  aria-label="Kaartlagen tonen"
   className="
-        map-panel
-        map-panel--collapsed
-        map-panel--has-no-active-layers
-        map-panel--has-not-just-invisible-layers
-      "
+          map-panel
+          map-panel--collapsed
+          map-panel--has-no-active-layers
+          map-panel--has-not-just-invisible-layers
+        "
 >
   <div
     className="map-panel__heading"
@@ -97,12 +96,7 @@ exports[`MapPanelContainer should render MapType and MapLayers 1`] = `
       <h2
         className="map-panel__heading-title"
       >
-        Kaartlagen 
-        <span
-          className="u-sr-only"
-        >
-          legenda
-        </span>
+        Kaartlagen
       </h2>
       <test-file-stub
         className="map-panel__toggle-icon map-panel__toggle-icon--expanded"
