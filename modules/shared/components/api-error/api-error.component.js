@@ -20,7 +20,7 @@ import {
     function DpApiErrorController ($scope, $timeout, store) {
         const vm = this;
 
-        vm.showServerError = false;
+        vm.showGeneralError = false;
         vm.showNotFoundError = false;
         vm.showLoginError = false;
 
@@ -36,7 +36,7 @@ import {
                 } else if (types.hasOwnProperty(ERROR_TYPES.LOGIN_ERROR)) {
                     vm.showLoginError = true;
                 } else {
-                    vm.showServerError = true;
+                    vm.showGeneralError = true;
                 }
             }
         };

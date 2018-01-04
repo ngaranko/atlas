@@ -58,7 +58,7 @@ describe('The api-error component', function () {
     it('is shown based on the error variables', function () {
         const component = getComponent();
         expect(component.find('.qa-api-error').attr('is-panel-visible'))
-            .toBe('vm.showNotFoundError || vm.showLoginError || vm.showServerError');
+            .toBe('vm.showNotFoundError || vm.showLoginError || vm.showGeneralError');
     });
 
     it('shows login error message when LOGIN_ERROR is set', function () {
