@@ -53,12 +53,15 @@ class MapPanelContainer extends React.Component {
 
   render() {
     return (
-      <section className={`
-        map-panel
-        map-panel--${this.props.isMapPanelVisible ? 'expanded' : 'collapsed'}
-        map-panel--has${this.props.activeMapLayers.length > 0 ? '' : '-no'}-active-layers
-        map-panel--has${this.props.isEachOverlayInvisible ? '-not' : ''}-just-invisible-layers
-      `}
+      <section
+        aria-label={this.props.isMapPanelVisible ? 'Kaartlagen verbergen' : 'Kaartlagen tonen'}
+        aria-expanded={this.props.isMapPanelVisible}
+        className={`
+          map-panel
+          map-panel--${this.props.isMapPanelVisible ? 'expanded' : 'collapsed'}
+          map-panel--has${this.props.activeMapLayers.length > 0 ? '' : '-no'}-active-layers
+          map-panel--has${this.props.isEachOverlayInvisible ? '-not' : ''}-just-invisible-layers
+        `}
       >
         <div className="map-panel__heading">
           <button
@@ -66,7 +69,7 @@ class MapPanelContainer extends React.Component {
             onClick={this.props.onMapPanelToggle}
           >
             <MapLayersIcon className="map-panel__heading-icon" />
-            <h2 className="map-panel__heading-title">Kaartlagen <span className="u-sr-only">legenda</span></h2>
+            <h2 className="map-panel__heading-title">Kaartlagen</h2>
             <CollapseIcon className="map-panel__toggle-icon map-panel__toggle-icon--expanded" />
             <ExpandIcon className="map-panel__toggle-icon map-panel__toggle-icon--collapsed" />
           </button>
