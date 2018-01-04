@@ -9,10 +9,11 @@
             controllerAs: 'vm'
         });
 
-    DpDashboardController.$inject = ['$scope', '$timeout', 'store', 'ACTIONS', 'dashboardColumns', 'HEADER'];
+    DpDashboardController.$inject = ['$window', '$scope', '$timeout', 'store', 'ACTIONS', 'dashboardColumns', 'HEADER'];
 
-    function DpDashboardController ($scope, $timeout, store, ACTIONS, dashboardColumns, HEADER) {
+    function DpDashboardController ($window, $scope, $timeout, store, ACTIONS, dashboardColumns, HEADER) {
         const vm = this;
+        const endpointTypes = $window.mapPreviewPanelDetailEndpointTypes || {};
 
         vm.store = store;
 
@@ -57,7 +58,11 @@
             'vm.geosearchLocation',
             'vm.detailEndpoint'
         ], () => {
-            if (vm.visibility.mapPreviewPanel && (vm.geosearchLocation || vm.detailEndpoint)) {
+            const detailActive = vm.detailEndpoint && Object
+                .keys(endpointTypes)
+                .some((typeKey) => vm.detailEndpoint.includes(endpointTypes[typeKey]));
+
+            if (vm.visibility.mapPreviewPanel && (vm.geosearchLocation || detailActive)) {
                 store.dispatch({ type: 'OPEN_MAP_PREVIEW_PANEL' });
             } else {
                 store.dispatch({ type: 'CLOSE_MAP_PREVIEW_PANEL' });

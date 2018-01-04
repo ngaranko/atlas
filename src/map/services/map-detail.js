@@ -79,3 +79,5 @@ export default function detail(endpoint, user) {
   return fetchFn && (!authScope || user.scopes.includes(authScope)) &&
     fetchFn(endpoint);
 }
+
+window.mapPreviewPanelDetailEndpointTypes = endpointTypes;

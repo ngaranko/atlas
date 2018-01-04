@@ -1,3 +1,5 @@
+import { endpointTypes } from '../map/services/map-detail';
+
 export const FETCH_DETAIL = 'FETCH_DETAIL';
 
 /* eslint-disable */
@@ -7,6 +9,10 @@ window.reducers = window.reducers || {};
 window.reducers.detailReducer = (state = {}, action) => {
   switch (action.type) {
     case FETCH_DETAIL:
+      const leaveMapFullscreen = action.payload && Object
+        .keys(endpointTypes)
+        .some((typeKey) => action.payload.includes(endpointTypes[typeKey]));
+
       return {
         ...state,
         dataSelection: null,
@@ -19,6 +25,7 @@ window.reducers.detailReducer = (state = {}, action) => {
         },
         map: {
           ...state.map,
+          isFullscreen: leaveMapFullscreen ? state.map.isFullscreen : false,
           isLoading: true
         },
         page: {
