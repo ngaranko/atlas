@@ -137,6 +137,11 @@
                 angular.isString(action.type) &&
                 angular.isFunction(actions[action.type]);
 
+            // {
+            //      type: {
+            //          id: 'FOO'
+            //      }
+            // }
             const legacy = angular.isObject(action) &&
                 angular.isObject(action.type) &&
                 angular.isFunction(actions[action.type.id]);
@@ -156,8 +161,6 @@
                     freeze.deepFreeze(result);
                 }
                 return result;
-            } else if (!action.type === '@@INIT') {
-                throw new Error(`unrecognized Redux action ${action.type}`);
             }
             return oldState;
         };
