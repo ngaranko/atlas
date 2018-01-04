@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import formatDate from '../../../shared/services/date-formatter/date-formatter';
+
 const MapDetailResultDateItem = ({ label, date }) => {
-  const dateString = date && date.toLocaleDateString('nl-NL', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  });
+  const dateString = date && formatDate(date);
 
   return dateString && (
     <div className="map-detail-result__item">
