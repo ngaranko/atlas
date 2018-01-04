@@ -46,7 +46,15 @@ const webpackConfig = {
           loader: 'babel-loader',
           options: {
             presets: ['react-app', 'env'],
-            plugins: ['transform-object-rest-spread', 'istanbul']
+            plugins: ['transform-object-rest-spread',
+                ['istanbul', {
+                  'exclude': [
+                    '**/*.spec.js',
+                    '**/*.test.js',
+                    'src/*'
+                  ]
+                }]
+            ]
           }
         }
       }
