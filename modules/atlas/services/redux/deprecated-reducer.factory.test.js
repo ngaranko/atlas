@@ -26,7 +26,7 @@ describe('The deprecated reducer factory', function () {
                         MapLayersReducer: angular.noop,
                         MapPanelReducer: angular.noop,
                         MapOverlaysReducer: angular.noop,
-                        MapBaseLayersReducer: angular.noop,
+                        MapBaseLayersReducer: angular.noop
                     }
                 },
                 freeze: jasmine.createSpyObj('freeze', ['deepFreeze']),

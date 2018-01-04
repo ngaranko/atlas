@@ -11,7 +11,6 @@ import { ERROR_TYPES } from '../../../../src/shared/ducks/error-message.js';
     httpErrorRegistrarFactory.inject = [
         '$interval',
         '$q',
-        '$rootScope',
         '$window',
         'httpStatus'
     ];
@@ -19,7 +18,6 @@ import { ERROR_TYPES } from '../../../../src/shared/ducks/error-message.js';
     function httpErrorRegistrarFactory (
         $interval,
         $q,
-        $rootScope,
         $window,
         httpStatus
     ) {

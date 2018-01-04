@@ -58,5 +58,4 @@ describe('The http-status component', function () {
             setGlobalError(errorType)
         );
     });
-
 });

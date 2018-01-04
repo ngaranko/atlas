@@ -6,7 +6,6 @@ describe('The http error registrar', () => {
 
     let $httpBackend,
         $http,
-        $rootScope,
         $interval,
         mockedData,
         callbackCalled,
@@ -21,10 +20,9 @@ describe('The http error registrar', () => {
 
         angular.mock.module('dpShared', { httpStatus });
 
-        angular.mock.inject(function (_$httpBackend_, _$http_, _$rootScope_, _$interval_, _$window_) {
+        angular.mock.inject(function (_$httpBackend_, _$http_, _$interval_, _$window_) {
             $httpBackend = _$httpBackend_;
             $http = _$http_;
-            $rootScope = _$rootScope_;
             $interval = _$interval_;
             $window = _$window_;
         });
@@ -128,7 +126,7 @@ describe('The http error registrar', () => {
         $interval.flush(FLUSH_PERIOD);
 
         expect(httpStatus.registerError).not.toHaveBeenCalled();
-        expect(httpStatus.logResponse).toHaveBeenCalledWith(`Unkown HTTP response error, ${url}`, 300)
+        expect(httpStatus.logResponse).toHaveBeenCalledWith(`Unkown HTTP response error, ${url}`, 300);
     });
 
     it('handles client error responses and requests', () => {
