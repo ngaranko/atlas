@@ -499,18 +499,21 @@ export default [
     legendItems: [
       {
         id: 'bgem',
+        notClickable: true,
         layer: 'burgerlijke_gemeente',
         selectable: true,
         title: 'Burgerlijke gemeente'
       },
       {
         id: 'kgem',
+        notClickable: true,
         layer: 'kadastrale_gemeente',
         selectable: true,
         title: 'Kadastrale gemeente'
       },
       {
         id: 'ksec',
+        notClickable: true,
         layer: 'kadastrale_sectie',
         selectable: true,
         title: 'Kadastrale sectie'
@@ -588,7 +591,7 @@ export default [
         id: 'ggw',
         layer: 'gebiedsgerichtwerken',
         selectable: true,
-        title: 'Gebiedsgerichtwerken'
+        title: 'Gebiedsgerichtwerken-gebied'
       },
       {
         id: 'bc',
@@ -630,7 +633,7 @@ export default [
     legendItems: [
       {
         selectable: false,
-        title: 'Grootstedelijk'
+        title: 'Grootstedelijk gebied'
       }
     ],
     maxZoom: 16,
@@ -660,6 +663,7 @@ export default [
   {
     category: 'Geografie: hoogte',
     id: 'dsm',
+    notClickable: true,
     layers: ['ahn3_05m_dtm'],
     legendItems: [
       {
@@ -726,6 +730,7 @@ export default [
   {
     category: 'Geografie: hoogte',
     id: 'dtm',
+    notClickable: true,
     layers: ['ahn3_05m_dsm'],
     legendItems: [
       {
@@ -901,6 +906,7 @@ export default [
   {
     category: 'Geografie: hoogte',
     id: 'mbr',
+    notClickable: true,
     layers: ['referentiepunt'],
     legendItems: [
       {
@@ -916,6 +922,7 @@ export default [
   {
     category: 'Milieu: bodem',
     id: 'mbgm',
+    notClickable: true,
     layers: ['grondmonsters'],
     legendItems: [
       {
@@ -943,6 +950,7 @@ export default [
   {
     category: 'Milieu: bodem',
     id: 'mbaig',
+    notClickable: true,
     layers: ['asbest'],
     legendItems: [
       {
@@ -970,6 +978,7 @@ export default [
   {
     category: 'Milieu: bodem',
     id: 'mbgwm',
+    notClickable: true,
     layers: ['grondwatermonsters'],
     legendItems: [
       {
@@ -1001,35 +1010,35 @@ export default [
     legendItems: [
       {
         selectable: false,
-        title: 'blindganger'
+        title: 'Blindganger'
       },
       {
         selectable: false,
-        title: 'bominslag'
+        title: 'Bominslag'
       },
       {
         selectable: false,
-        title: 'crashlocatie'
+        title: 'Crashlocatie'
       },
       {
         selectable: false,
-        title: 'gedetoneerde vernielingslading'
+        title: 'Gedetoneerde vernielingslading'
       },
       {
         selectable: false,
-        title: 'geruimd explosief'
+        title: 'Geruimd explosief'
       },
       {
         selectable: false,
-        title: 'krater'
+        title: 'Krater'
       },
       {
         selectable: false,
-        title: 'niet gedetoneerde vernielingslading'
+        title: 'Niet gedetoneerde vernielingslading'
       },
       {
         selectable: false,
-        title: 'vermoedelijke bominslag(en)'
+        title: 'Vermoedelijke bominslag(en)'
       }
     ],
     maxZoom: 16,
@@ -1071,7 +1080,7 @@ export default [
     legendItems: [
       {
         selectable: false,
-        title: 'gevrijwaarde gebieden'
+        title: 'Gevrijwaarde gebieden'
       }
     ],
     maxZoom: 16,
@@ -1105,6 +1114,7 @@ export default [
   {
     category: 'Milieu: externe veiligheid',
     id: 'mvlpgv',
+    notClickable: true,
     layers: ['milieu_veiligheid_lpg_vulpunt'],
     legendItems: [
       {
@@ -1131,6 +1141,7 @@ export default [
   {
     category: 'Milieu: externe veiligheid',
     id: 'mvlpga',
+    notClickable: true,
     layers: ['milieu_veiligheid_lpg_afleverzuil'],
     legendItems: [
       {
@@ -1152,6 +1163,7 @@ export default [
   {
     category: 'Milieu: externe veiligheid',
     id: 'mvlpgt',
+    notClickable: true,
     layers: ['milieu_veiligheid_lpg_tank'],
     legendItems: [
       {
@@ -1178,6 +1190,7 @@ export default [
   {
     category: 'Milieu: externe veiligheid',
     id: 'mvlpgs',
+    notClickable: true,
     layers: ['milieu_veiligheid_lpg_station'],
     legendItems: [
       {
@@ -1199,6 +1212,7 @@ export default [
   {
     category: 'Milieu: externe veiligheid',
     id: 'mvbr',
+    notClickable: true,
     layers: [
       'overigerisicobedrijfplaatsgebondenrisico106',
       'overigerisicobedrijfsbronnen'
@@ -1224,6 +1238,7 @@ export default [
     authScope: 'HR/R',
     category: 'Milieu: externe veiligheid',
     id: 'mvi',
+    notClickable: true,
     layers: ['overigerisicobedrijfinvloedsgebied'],
     legendItems: [
       {
@@ -1240,6 +1255,7 @@ export default [
   {
     category: 'Milieu: externe veiligheid',
     id: 'mvbd',
+    notClickable: true,
     layers: ['milieu_veiligheid_bedrijf'],
     legendItems: [
       {
@@ -1261,6 +1277,7 @@ export default [
   {
     category: 'Milieu: externe veiligheid',
     id: 'mvabl',
+    notClickable: true,
     layers: ['milieu_veiligheid_aardgasbuisleidingen'],
     legendItems: [
       {
@@ -1297,6 +1314,7 @@ export default [
   {
     category: 'Milieu: externe veiligheid',
     id: 'mvsw',
+    notClickable: true,
     layers: ['risicozonesspoorweg'],
     legendItems: [
       {
@@ -1312,6 +1330,7 @@ export default [
   {
     category: 'Milieu: externe veiligheid',
     id: 'mvvw',
+    notClickable: true,
     layers: ['risicozonesvaarweg'],
     legendItems: [
       {
@@ -1327,6 +1346,7 @@ export default [
   {
     category: 'Milieu: externe veiligheid',
     id: 'mvw',
+    notClickable: true,
     layers: ['risicozonesweg'],
     legendItems: [
       {
@@ -1344,36 +1364,42 @@ export default [
     legendItems: [
       {
         id: 'mvvo',
+        notClickable: true,
         layer: 'milieu_veiligheid_vuurwerk',
         selectable: true,
         title: 'Vuurwerkopslag'
       },
       {
         id: 'mvmo',
+        notClickable: true,
         layer: 'milieu_veiligheid_munitie',
         selectable: true,
         title: 'Munitieopslag'
       },
       {
         id: 'mvgms',
+        notClickable: true,
         layer: 'milieu_veiligheid_gasdrukregel_meetstation',
         selectable: true,
         title: 'Gasdrukregel- en meetstation'
       },
       {
         id: 'mvsls',
+        notClickable: true,
         layer: 'milieu_veiligheid_sluis',
         selectable: true,
         title: 'Sluis'
       },
       {
         id: 'mvwp',
+        notClickable: true,
         layer: 'milieu_veiligheid_wachtplaats',
         selectable: true,
         title: 'Wachtplaats'
       },
       {
         id: 'mvbs',
+        notClickable: true,
         layer: 'milieu_veiligheid_bunkerschepen',
         selectable: true,
         title: 'Bunkerschip'
@@ -1387,6 +1413,7 @@ export default [
   {
     category: 'Milieu: zones',
     id: 'mgpind',
+    notClickable: true,
     layers: ['geluidzoneindustrieterrein'],
     legendItems: [
       {
@@ -1407,6 +1434,7 @@ export default [
   {
     category: 'Milieu: zones',
     id: 'mgsw',
+    notClickable: true,
     layers: ['spoorwegen'],
     legendItems: [
       {
@@ -1422,6 +1450,7 @@ export default [
   {
     category: 'Milieu: zones',
     id: 'mgpm',
+    notClickable: true,
     layers: ['metro'],
     legendItems: [
       {
@@ -1437,6 +1466,7 @@ export default [
   {
     category: 'Milieu: zones',
     id: 'mgpsh',
+    notClickable: true,
     layers: ['geluidszoneschiphol'],
     legendItems: [
       {
@@ -1456,6 +1486,7 @@ export default [
   {
     category: 'Milieu: zones',
     id: 'mgth',
+    notClickable: true,
     layers: ['maatgevendetoetshoogteschiphol'],
     legendItems: [
       {
@@ -1503,6 +1534,7 @@ export default [
   {
     category: 'Milieu: zones',
     id: 'mthr',
+    notClickable: true,
     layers: ['toetshoogteradarschiphol'],
     legendItems: [
       {
@@ -1550,6 +1582,7 @@ export default [
   {
     category: 'Milieu: zones',
     id: 'mgvvgsh',
+    notClickable: true,
     layers: ['vogelvrijwaringsgebiedschiphol'],
     legendItems: [
       {
@@ -1607,6 +1640,7 @@ export default [
   {
     category: 'Verkeer en infrastructuur',
     id: 'pv',
+    notClickable: true,
     layers: ['alle_parkeervakken'],
     legendItems: [
       {
@@ -1626,6 +1660,7 @@ export default [
   {
     category: 'Verkeer en infrastructuur',
     id: 'pvb',
+    notClickable: true,
     layers: ['parkeervakken_bord'],
     legendItems: [
       {
@@ -1641,6 +1676,7 @@ export default [
   {
     category: 'Verkeer en infrastructuur',
     id: 'pvr',
+    notClickable: true,
     layers: ['parkeervakken_reservering'],
     legendItems: [
       {
@@ -1718,13 +1754,90 @@ export default [
     url: '/maps/parkeervakken?version=1.3.0&service=WMS'
   },
   {
-    category: 'Toerisme en cultuur',
-    id: 'tcmnmt',
-    layers: ['monument_coordinaten'],
+    category: 'Verkeer en infrastructuur',
+    id: 'pr',
+    notClickable: true,
+    layers: ['reistijdenauto'],
     legendItems: [
       {
         selectable: false,
-        title: 'Monument'
+        title: '0 tot 20 km/h - snelweg'
+      },
+      {
+        selectable: false,
+        title: '20 tot 40 km/h - snelweg'
+      },
+      {
+        selectable: false,
+        title: '40 tot 60 km/h - snelweg'
+      },
+      {
+        selectable: false,
+        title: '60 tot 80 km/h - snelweg'
+      },
+      {
+        selectable: false,
+        title: '80 tot 100 km/h - snelweg'
+      },
+      {
+        selectable: false,
+        title: '100 tot 120 km/h - snelweg'
+      },
+      {
+        selectable: false,
+        title: '120 tot 140 km/h - snelweg'
+      },
+      {
+        selectable: false,
+        title: 'meer dan 140 km/h - snelweg'
+      },
+      {
+        selectable: false,
+        title: '0 tot 10 km/h - weg'
+      },
+      {
+        selectable: false,
+        title: '10 tot 20 km/h - weg'
+      },
+      {
+        selectable: false,
+        title: '20 tot 30 km/h - weg'
+      },
+      {
+        selectable: false,
+        title: '30 tot 40 km/h - weg'
+      },
+      {
+        selectable: false,
+        title: '40 tot 50 km/h - weg'
+      },
+      {
+        selectable: false,
+        title: '50 tot 60 km/h - weg'
+      },
+      {
+        selectable: false,
+        title: 'meer dan 60 km/h - weg'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: 'Verkeersstromen - Snelheden (±5 min. geleden)',
+    url: '/maps/reistijdenauto?version=1.3.0&service=WMS'
+  },
+  {
+    category: 'Toerisme en cultuur',
+    id: 'tcmnmt',
+    legendItems: [
+      {
+        layer: ['monument_coordinaten'],
+        selectable: false,
+        title: 'Monument (pandgerelateerd)'
+      },
+      {
+        layer: 'monument_coordinaten_nopand',
+        selectable: false,
+        title: 'Monument (overige)'
       }
     ],
     maxZoom: 16,

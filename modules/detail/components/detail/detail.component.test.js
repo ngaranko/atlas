@@ -178,12 +178,13 @@ describe('the dp-detail component', () => {
         });
     });
 
-    function getComponent (endpoint, isLoading, isMapHighlight = true) {
+    function getComponent (endpoint, isLoading, isMapHighlight = true, show = true) {
         var component,
             element,
             scope;
 
         element = document.createElement('dp-detail');
+        element.setAttribute('show', 'show');
         element.setAttribute('endpoint', '{{endpoint}}');
         element.setAttribute('is-loading', 'isLoading');
         element.setAttribute('reload', 'reload');
@@ -191,6 +192,7 @@ describe('the dp-detail component', () => {
         element.setAttribute('is-map-highlight', 'isMapHighlight');
 
         scope = $rootScope.$new();
+        scope.show = show;
         scope.endpoint = endpoint;
         scope.isLoading = isLoading;
         scope.reload = false;
@@ -202,6 +204,29 @@ describe('the dp-detail component', () => {
 
         return component;
     }
+
+    describe('visibility', () => {
+        it('is not visible when `show` is false while loading', () => {
+            const component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', true, true, false);
+            expect(component.find('.qa-detail-content').length).toBe(0);
+        });
+
+        it('is not visible when `show` is false while not loading', () => {
+            const component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/',
+                false, true, false);
+            expect(component.find('.qa-detail-content').length).toBe(0);
+        });
+
+        it('is not visible when `show` is true while loading', () => {
+            const component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', true);
+            expect(component.find('.qa-detail-content').length).toBe(0);
+        });
+
+        it('is visible when `show` is true while not loading', () => {
+            const component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false);
+            expect(component.find('.qa-detail-content').length).toBe(1);
+        });
+    });
 
     it('puts data on the scope based on the endpoint', () => {
         var component,
@@ -313,7 +338,7 @@ describe('the dp-detail component', () => {
                 naam: 'naam'
             }
         });
-        expect(store.dispatch).toHaveBeenCalledTimes(3);
+        expect(store.dispatch).toHaveBeenCalledTimes(2);
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.SHOW_DETAIL,
             payload: {
@@ -337,7 +362,7 @@ describe('the dp-detail component', () => {
                 something: -90
             }
         });
-        expect(store.dispatch).toHaveBeenCalledTimes(5);
+        expect(store.dispatch).toHaveBeenCalledTimes(4);
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.SHOW_DETAIL,
             payload: {
@@ -376,7 +401,7 @@ describe('the dp-detail component', () => {
                 naam: 'naam'
             }
         });
-        expect(store.dispatch).toHaveBeenCalledTimes(5);
+        expect(store.dispatch).toHaveBeenCalledTimes(4);
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.SHOW_DETAIL,
             payload: {
@@ -485,7 +510,11 @@ describe('the dp-detail component', () => {
 
             const scope = component.isolateScope();
 
-            expect(scope.vm.isLoading).toBe(false);
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.SHOW_DETAIL,
+                payload: {}
+            });
+
             expect(scope.vm.apiData).toBeUndefined();
             expect(store.dispatch).toHaveBeenCalledTimes(1);
         });
@@ -500,9 +529,11 @@ describe('the dp-detail component', () => {
             mockedUser.scopes = []; // triggers $watch
             scope.$digest();
 
-            expect(scope.vm.isLoading).toBe(false);
             expect(scope.vm.apiData).toBeUndefined();
-            expect(store.dispatch).not.toHaveBeenCalled(); // data removed
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.SHOW_DETAIL,
+                payload: {}
+            });
         });
     });
 

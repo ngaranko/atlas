@@ -1,4 +1,5 @@
 @import "../../../shared/components/toggle/toggle";
+@import "../../../../modules/shared/styles/utilities/screen-reader";
 
 .map-legend {
   background-color: #FFFFFF;
@@ -96,6 +97,14 @@
       height: auto;
       width: inherit;
     }
+  }
+
+  &__category-title {
+    color: #000;
+    font-family: "Avenir LT W01 55 Roman";
+    font-size: 16px;
+    line-height: 20px;
+    margin: 0;
   }
 
   &__category-title,

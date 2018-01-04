@@ -2,7 +2,12 @@ import { spawn } from 'child_process';
 
 const storybook = spawn('npm', ['run', 'storybook']);
 
+storybook.stdout.on('data', (buffer) => {
+  // console.log(buffer.toString('utf8'));
+});
+
 storybook.stderr.on('data', (buffer) => {
+  // console.log(buffer.toString('utf8'));
   if (!buffer.toString('utf8').includes('Storybook started')) {
     return;
   }

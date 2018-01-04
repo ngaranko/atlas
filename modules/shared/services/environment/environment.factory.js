@@ -1,3 +1,5 @@
+import { getEnvironment, ENVIRONMENT } from '../../../../src/shared/environment';
+
 (function () {
     'use strict';
 
@@ -8,27 +10,10 @@
     environmentFactory.$inject = ['$location'];
 
     function environmentFactory ($location) {
-        const config = {};
-
-        switch ($location.host()) {
-            case 'data.amsterdam.nl':
-                config.NAME = 'PRODUCTION';
-                break;
-
-            case 'pre.data.amsterdam.nl':
-                config.NAME = 'PRE_PRODUCTION';
-                break;
-
-            case 'acc.data.amsterdam.nl':
-                config.NAME = 'ACCEPTATION';
-                break;
-
-            default:
-                config.NAME = 'DEVELOPMENT';
-        }
-
-        config.isDevelopment = () => config.NAME === 'DEVELOPMENT';
-
+        const config = {
+            NAME: getEnvironment($location.host())
+        };
+        config.isDevelopment = () => config.NAME === ENVIRONMENT.DEVELOPMENT;
         return config;
     }
 })();

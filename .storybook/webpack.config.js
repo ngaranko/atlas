@@ -15,6 +15,7 @@ module.exports = (baseConfig, configType) => {
     },
     {
       test: /\.(png|jpg|gif)$/,
+      exclude: /__diff_output__/,
       use: [
         {
           loader: 'file-loader',

@@ -1,19 +1,31 @@
+@import "../../../../modules/atlas/styles/config";
+
 %__toggle {
   align-items: center;
   align-self: center;
-  background-color: #FFFFFF;
-  border: 1px solid #CCCCCC;
+  background-color: $primary-light;
+  border: 1px solid $secondary-gray20;
   border-radius: 50%;
   content: 'X';
   display: flex;
   flex-shrink: 0;
   font-size: 0;
-  height: 26px;
+  height: 24px;
   justify-content: center;
-  width: 26px;
+  width: 24px;
+
+  &:hover {
+    background-color: $primary-contrast;
+    border-color: $primary-contrast;
+
+    svg {
+      fill: $primary-light;
+    }
+  }
 
   svg {
-    height: 12px;
-    width: 12px;
+    fill: $secondary-gray60;
+    height: 24px;
+    width: 24px;
   }
 }

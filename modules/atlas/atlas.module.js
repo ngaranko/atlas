@@ -1,3 +1,5 @@
+import { getEnvironment, ENVIRONMENT } from '../../src/shared/environment';
+
 (function () {
     'use strict';
 
@@ -15,23 +17,24 @@
         'dpShared',
 
         // Third party modules
-        'angulartics.piwik'
+        'angulartics.piwik',
+        'ngRaven'
     ];
 
     /* eslint-disable angular/window-service */
     const Raven = window.Raven;
 
+    const environment = getEnvironment(window.location.hostname);
+
     const ravenConfig = {
-        environment: window.location.hostname
+        environment,
+        sentryEndpoint: 'https://e787d53c011243b59ae368a912ee6d3f@sentry.datapunt.amsterdam.nl/2'
     };
 
     /* istanbul ignore next */
-    if (window.location.hostname !== 'data.amsterdam.nl') {
-        ravenConfig.debug = true;
-        /* istanbul ignore next */
-        ravenConfig.transport = (options) => {
-            window.console.info('Raven has been called with the following data: ', options.data);
-        };
+    if (environment === ENVIRONMENT.DEVELOPMENT) {
+        Raven.setShouldSendCallback(() => false);
+        Raven.isSetup = () => true;
     }
     /* eslint-enable angular/window-service */
 
@@ -42,10 +45,9 @@
     /* istanbul ignore next */
     if (Raven) {
         Raven
-            .config('https://e787d53c011243b59ae368a912ee6d3f@sentry.datapunt.amsterdam.nl/2', ravenConfig)
+            .config(ravenConfig.sentryEndpoint, ravenConfig)
             .addPlugin(Raven.Plugins.Angular)
             .install();
-        moduleDependencies.push('ngRaven');
     }
 
     angular.module('atlas', moduleDependencies);

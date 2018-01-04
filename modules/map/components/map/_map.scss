@@ -1,3 +1,5 @@
+$on-top-of-leaflet: 999;
+
 .c-map {
   position: absolute;
   top: 0;
@@ -6,6 +8,10 @@
   left: 0;
   border: 1px solid $secondary-gray20;
   overflow: hidden;
+}
+
+.c-map__focus-layer {
+  display: none;
 }
 
 .c-map__leaflet {
@@ -19,6 +25,17 @@
   transform: translateZ(0);
   cursor: default;
   z-index: $body-z-index;
+
+  &:focus {
+    .c-map__focus-layer {
+      display: block;
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border: 1px solid #000;
+      z-index: $on-top-of-leaflet;
+    }
+  }
 }
 
 .c-map__overlay-buttons {

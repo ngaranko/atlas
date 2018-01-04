@@ -1,0 +1,327 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MapSearchResults rendering should filter external monumenten on pand results 1`] = `
+<section
+  className="map-search-results"
+>
+  <header
+    className="
+          map-search-results__header
+          map-search-results__header--no-pano
+        "
+  >
+    <div
+      className="map-search-results__header-container"
+    >
+      <h1
+        className="map-search-results__header-title"
+      >
+        Resultaten (
+        3
+        )
+      </h1>
+      <h2
+        className="map-search-results__header-subtitle"
+      >
+        locatie 
+        1.12
+        , 
+        654.32
+      </h2>
+    </div>
+  </header>
+  <ul
+    className="map-search-results__list"
+  >
+    <li
+      key="result-uri-1"
+    >
+      <MapSearchResultsItem
+        item={
+          Object {
+            "type": "bag/pand",
+            "uri": "result-uri-1",
+          }
+        }
+        onClick={[Function]}
+      />
+    </li>
+    <li
+      key="result-uri-2"
+    >
+      <MapSearchResultsItem
+        item={
+          Object {
+            "type": "foo",
+            "uri": "result-uri-2",
+          }
+        }
+        onClick={[Function]}
+      />
+    </li>
+  </ul>
+</section>
+`;
+
+exports[`MapSearchResults rendering should render empty results 1`] = `
+<section
+  className="map-search-results"
+>
+  <header
+    className="
+          map-search-results__header
+          map-search-results__header--no-pano
+        "
+  >
+    <div
+      className="map-search-results__header-container"
+    >
+      <h1
+        className="map-search-results__header-title"
+      >
+        Resultaten (
+        )
+      </h1>
+      <h2
+        className="map-search-results__header-subtitle"
+      >
+        locatie 
+        1.12
+        , 
+        654.32
+      </h2>
+    </div>
+  </header>
+  <ul
+    className="map-search-results__list"
+  />
+</section>
+`;
+
+exports[`MapSearchResults rendering should render results 1`] = `
+<section
+  className="map-search-results"
+>
+  <header
+    className="
+          map-search-results__header
+          map-search-results__header--pano
+        "
+  >
+    <img
+      alt="Panoramabeeld"
+      className="map-search-results__header-pano"
+      src="pano-url"
+    />
+    <div
+      className="map-search-results__header-container"
+    >
+      <h1
+        className="map-search-results__header-title"
+      >
+        Resultaten (
+        2
+        )
+      </h1>
+      <h2
+        className="map-search-results__header-subtitle"
+      >
+        locatie 
+        1.12
+        , 
+        654.32
+      </h2>
+    </div>
+  </header>
+  <ul
+    className="map-search-results__list"
+  >
+    <li>
+      <Notification
+        className=""
+        level="info"
+      >
+        Geen details beschikbaar van: 
+        Layer 1, Layer 2
+      </Notification>
+    </li>
+    <li
+      key="result-uri-1"
+    >
+      <MapSearchResultsItem
+        item={
+          Object {
+            "uri": "result-uri-1",
+          }
+        }
+        onClick={[Function]}
+      />
+    </li>
+    <li
+      key="result-uri-2"
+    >
+      <MapSearchResultsItem
+        item={
+          Object {
+            "uri": "result-uri-2",
+          }
+        }
+        onClick={[Function]}
+      />
+    </li>
+  </ul>
+</section>
+`;
+
+exports[`MapSearchResults rendering should update results 1`] = `
+<section
+  className="map-search-results"
+>
+  <header
+    className="
+          map-search-results__header
+          map-search-results__header--pano
+        "
+  >
+    <img
+      alt="Panoramabeeld"
+      className="map-search-results__header-pano"
+      src="pano-url"
+    />
+    <div
+      className="map-search-results__header-container"
+    >
+      <h1
+        className="map-search-results__header-title"
+      >
+        Resultaten (
+        2
+        )
+      </h1>
+      <h2
+        className="map-search-results__header-subtitle"
+      >
+        locatie 
+        1.12
+        , 
+        654.32
+      </h2>
+    </div>
+  </header>
+  <ul
+    className="map-search-results__list"
+  >
+    <li
+      key="result-uri-1"
+    >
+      <MapSearchResultsItem
+        item={
+          Object {
+            "uri": "result-uri-1",
+          }
+        }
+        onClick={[Function]}
+      />
+    </li>
+    <li
+      key="result-uri-2"
+    >
+      <MapSearchResultsItem
+        item={
+          Object {
+            "uri": "result-uri-2",
+          }
+        }
+        onClick={[Function]}
+      />
+    </li>
+  </ul>
+</section>
+`;
+
+exports[`MapSearchResults rendering should update results 2`] = `
+<section
+  className="map-search-results"
+>
+  <header
+    className="
+          map-search-results__header
+          map-search-results__header--pano
+        "
+  >
+    <img
+      alt="Panoramabeeld"
+      className="map-search-results__header-pano"
+      src="other-pano-url"
+    />
+    <div
+      className="map-search-results__header-container"
+    >
+      <h1
+        className="map-search-results__header-title"
+      >
+        Resultaten (
+        3
+        )
+      </h1>
+      <h2
+        className="map-search-results__header-subtitle"
+      >
+        locatie 
+        1.12
+        , 
+        654.32
+      </h2>
+    </div>
+  </header>
+  <ul
+    className="map-search-results__list"
+  >
+    <li>
+      <Notification
+        className=""
+        level="info"
+      >
+        Geen details beschikbaar van: 
+        Layer 3
+      </Notification>
+    </li>
+    <li
+      key="result-uri-1"
+    >
+      <MapSearchResultsItem
+        item={
+          Object {
+            "uri": "result-uri-1",
+          }
+        }
+        onClick={[Function]}
+      />
+    </li>
+    <li
+      key="result-uri-2"
+    >
+      <MapSearchResultsItem
+        item={
+          Object {
+            "uri": "result-uri-2",
+          }
+        }
+        onClick={[Function]}
+      />
+    </li>
+    <li
+      key="result-uri-3"
+    >
+      <MapSearchResultsItem
+        item={
+          Object {
+            "uri": "result-uri-3",
+          }
+        }
+        onClick={[Function]}
+      />
+    </li>
+  </ul>
+</section>
+`;

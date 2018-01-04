@@ -8,7 +8,7 @@
     searchFormatterFactory.$inject = ['$injector', 'SEARCH_CONFIG'];
 
     function searchFormatterFactory ($injector, SEARCH_CONFIG) {
-        let store;
+        let injectedStore;
 
         return {
             formatCategories: formatCategories,
@@ -17,13 +17,13 @@
         };
 
         function getStore () {
-            store = store || $injector.get('store');
+            injectedStore = injectedStore || $injector.get('store');
+            return injectedStore;
         }
 
         function formatCategories (allSearchResults) {
-            getStore();
+            const { user } = getStore().getState();
 
-            const user = store.getState().user;
             return allSearchResults
                 .map(function (endpointSearchResults, index) {
                     return formatCategory(SEARCH_CONFIG.QUERY_ENDPOINTS.filter((endpoint) => {
@@ -33,8 +33,6 @@
         }
 
         function formatCategory (slug, endpointSearchResults) {
-            getStore();
-
             const endpointConfig = SEARCH_CONFIG.QUERY_ENDPOINTS.filter(endpoint => endpoint.slug === slug)[0],
                 links = angular.isObject(endpointSearchResults) && endpointSearchResults.results || [];
 
@@ -53,8 +51,6 @@
         }
 
         function formatLinks (slug, links) {
-            getStore();
-
             const endpointConfig = SEARCH_CONFIG.QUERY_ENDPOINTS.filter(endpoint => endpoint.slug === slug)[0];
 
             return links.map(function (item) {

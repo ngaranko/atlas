@@ -15,6 +15,7 @@
 
             SEARCH_CONFIG.COORDINATES_ENDPOINTS.forEach(function (endpoint) {
                 const searchParams = {
+                    ...endpoint.extra_params,
                     lat: location[0],
                     lon: location[1]
                 };
@@ -46,6 +47,8 @@
                 // we check for employee status here already
                 api.getByUrl(plaatsEndpoint).then(processPlaatsData);
             } else if (pandEndpoint) {
+                // pand matched, remove monumenten from top results
+                geosearchResults = geosearchResults.filter(item => item.slug !== 'monument');
                 api.getByUrl(pandEndpoint).then(processPandData);
             } else {
                 q.resolve(geosearchResults);
@@ -57,7 +60,8 @@
                 const vestigingenUri = `handelsregister/vestiging/?pand=${pand.pandidentificatie}`;
 
                 const requests = [
-                    api.getByUrl(pand._adressen.href).then(formatVerblijfsobjecten)
+                    api.getByUrl(pand._adressen.href).then(formatVerblijfsobjecten),
+                    api.getByUrl(pand._monumenten.href).then(formatMonumenten)
                 ];
 
                 if (user.scopes.includes('HR/R')) {
@@ -66,6 +70,23 @@
 
                 $q.all(requests).then(combineResults);
 
+                /**
+                 * Given data returned by API return an object structured for display
+                 * @param  {object} objecten end point data
+                 * @return {object}          object structured to display linked list with
+                 * singular/plural and count heading, e.g.:
+                 *   {
+                 *     "label_singular": "Adres",
+                 *     "label_plural": "Adressen",
+                 *     "count": 2,
+                 *     "results": [
+                 *       {
+                 *         "label": "Prinsengracht 444",
+                 *         "endpoint": "https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/0363200000244194/",
+                 *       }
+                 *     ],
+                 *   }
+                 */
                 function formatVerblijfsobjecten (objecten) {
                     // In verblijfsobjecten the status field is really a vbo_status field
                     // Rename this field to allow for tranparant processing of the search results
@@ -78,8 +99,12 @@
                                 endpoint: pand._links.self.href
                             }
                         }) : null;
-
                     return extended;
+                }
+
+                /* istanbul ignore next */
+                function formatMonumenten (objecten) {
+                    return (objecten && objecten.count) ? searchFormatter.formatCategory('monument', objecten) : null;
                 }
 
                 function formatVestigingen (vestigingen) {

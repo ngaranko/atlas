@@ -7,8 +7,8 @@
   &__wrapper {
     align-items: center;
     border: 1px solid #7E7E7E;
-    border-right: none;
     border-radius: 0;
+    border-right: none;
     display: flex;
     height: 36px;
     justify-content: space-between;
@@ -93,9 +93,9 @@
       color: #666666;
 
       &:hover {
-        color: #FFFFFF;
         background-color: #FF0000;
         border-color: #FF0000;
+        color: #FFFFFF;
 
         svg {
           fill: #FFFFFF;
