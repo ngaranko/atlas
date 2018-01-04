@@ -10,7 +10,7 @@ module.exports = {
     './test/setup-jest.js'
   ],
   testMatch: ['**/?(*.)visual.(spec|test).js?(x)'],
-  testEnvironment: './test/jest-puppeteer-environment.js',
+  testEnvironment: './test/jest-visual-environment.js',
   testPathIgnorePatterns: [
     '/e2e/',
     '/modules/',

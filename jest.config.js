@@ -19,6 +19,11 @@ module.exports = {
   snapshotSerializers: [
     'enzyme-to-json/serializer'
   ],
+  testEnvironment: './test/jest-environment.js',
+  testMatch: [
+    '**/__tests__/**/!(*visual.test).js?(x)',
+    '**/*.spec.js'
+  ],
   testPathIgnorePatterns: [
     '/e2e/',
     '/modules/',
