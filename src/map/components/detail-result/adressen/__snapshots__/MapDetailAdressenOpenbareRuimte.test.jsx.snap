@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MapDetailAdressenOpenbareRuimte rendering should render everything 1`] = `
+exports[`MapDetailAdressenOpenbareRuimte should render everything 1`] = `
 <MapDetailResultWrapper
   panoUrl="panoUrl"
   subTitle="Openbare ruimte label"

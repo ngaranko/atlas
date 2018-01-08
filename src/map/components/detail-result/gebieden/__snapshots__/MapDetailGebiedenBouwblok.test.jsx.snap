@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MapDetailGebiedenBouwblok rendering should render everything 1`] = `
+exports[`MapDetailGebiedenBouwblok should render everything 1`] = `
 <MapDetailResultWrapper
   panoUrl="panoUrl"
   subTitle="Bouwblok label"

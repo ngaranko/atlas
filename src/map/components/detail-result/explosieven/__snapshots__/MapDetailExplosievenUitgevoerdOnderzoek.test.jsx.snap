@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MapDetailExplosievenUitgevoerdOnderzoek rendering should render everything 1`] = `
+exports[`MapDetailExplosievenUitgevoerdOnderzoek should render everything 1`] = `
 <MapDetailResultWrapper
   panoUrl="panoUrl"
   subTitle="Uitgevoerd onderzoek label"

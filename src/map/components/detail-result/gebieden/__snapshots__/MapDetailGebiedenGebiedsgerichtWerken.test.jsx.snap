@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MapDetailGebiedenGebiedsgerichtWerken rendering should render everything 1`] = `
+exports[`MapDetailGebiedenGebiedsgerichtWerken should render everything 1`] = `
 <MapDetailResultWrapper
   panoUrl="panoUrl"
   subTitle="Gebiedsgericht werken label"

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MapDetailNapPeilmerk rendering should not render empty height 1`] = `
+exports[`MapDetailNapPeilmerk should not render empty height 1`] = `
 <MapDetailResultWrapper
   panoUrl="panoUrl"
   subTitle="Peilmerk label"
@@ -25,7 +25,7 @@ exports[`MapDetailNapPeilmerk rendering should not render empty height 1`] = `
 </MapDetailResultWrapper>
 `;
 
-exports[`MapDetailNapPeilmerk rendering should not render without height 1`] = `
+exports[`MapDetailNapPeilmerk should not render without height 1`] = `
 <MapDetailResultWrapper
   panoUrl="panoUrl"
   subTitle="Peilmerk label"
@@ -50,7 +50,7 @@ exports[`MapDetailNapPeilmerk rendering should not render without height 1`] = `
 </MapDetailResultWrapper>
 `;
 
-exports[`MapDetailNapPeilmerk rendering should render everything 1`] = `
+exports[`MapDetailNapPeilmerk should render everything 1`] = `
 <MapDetailResultWrapper
   panoUrl="panoUrl"
   subTitle="Peilmerk label"

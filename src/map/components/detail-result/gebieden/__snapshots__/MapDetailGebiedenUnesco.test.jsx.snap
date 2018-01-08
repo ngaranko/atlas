@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MapDetailGebiedenUnesco rendering should render everything 1`] = `
+exports[`MapDetailGebiedenUnesco should render everything 1`] = `
 <MapDetailResultWrapper
   panoUrl="panoUrl"
   subTitle="Unesco label"

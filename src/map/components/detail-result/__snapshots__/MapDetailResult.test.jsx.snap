@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MapDetailResult rendering should not render a non existent component 1`] = `""`;
+exports[`MapDetailResult should not render a non existent component 1`] = `""`;
 
-exports[`MapDetailResult rendering should render adressen ligplaats 1`] = `
+exports[`MapDetailResult should render adressen ligplaats 1`] = `
 <MapDetailAdressenLigplaats
   ligplaats={
     Object {
@@ -13,7 +13,7 @@ exports[`MapDetailResult rendering should render adressen ligplaats 1`] = `
 />
 `;
 
-exports[`MapDetailResult rendering should render adressen nummeraanduiding 1`] = `
+exports[`MapDetailResult should render adressen nummeraanduiding 1`] = `
 <MapDetailAdressenVerblijfsobject
   panoUrl="panoUrl"
   verblijfsobject={
@@ -24,7 +24,7 @@ exports[`MapDetailResult rendering should render adressen nummeraanduiding 1`] =
 />
 `;
 
-exports[`MapDetailResult rendering should render adressen openbareruimte 1`] = `
+exports[`MapDetailResult should render adressen openbareruimte 1`] = `
 <MapDetailAdressenOpenbareRuimte
   openbareRuimte={
     Object {
@@ -35,7 +35,7 @@ exports[`MapDetailResult rendering should render adressen openbareruimte 1`] = `
 />
 `;
 
-exports[`MapDetailResult rendering should render adressen pand 1`] = `
+exports[`MapDetailResult should render adressen pand 1`] = `
 <MapDetailAdressenPand
   pand={
     Object {
@@ -46,7 +46,7 @@ exports[`MapDetailResult rendering should render adressen pand 1`] = `
 />
 `;
 
-exports[`MapDetailResult rendering should render adressen standplaats 1`] = `
+exports[`MapDetailResult should render adressen standplaats 1`] = `
 <MapDetailAdressenStandplaats
   panoUrl="panoUrl"
   standplaats={
@@ -57,7 +57,7 @@ exports[`MapDetailResult rendering should render adressen standplaats 1`] = `
 />
 `;
 
-exports[`MapDetailResult rendering should render adressen verblijfsobject 1`] = `
+exports[`MapDetailResult should render adressen verblijfsobject 1`] = `
 <MapDetailAdressenVerblijfsobject
   panoUrl="panoUrl"
   verblijfsobject={
@@ -68,7 +68,7 @@ exports[`MapDetailResult rendering should render adressen verblijfsobject 1`] = 
 />
 `;
 
-exports[`MapDetailResult rendering should render explosieven gevrijwaard gebied 1`] = `
+exports[`MapDetailResult should render explosieven gevrijwaard gebied 1`] = `
 <MapDetailExplosievenGevrijwaardGebied
   gevrijwaardGebied={
     Object {
@@ -79,7 +79,7 @@ exports[`MapDetailResult rendering should render explosieven gevrijwaard gebied 
 />
 `;
 
-exports[`MapDetailResult rendering should render explosieven inslag 1`] = `
+exports[`MapDetailResult should render explosieven inslag 1`] = `
 <MapDetailExplosievenInslag
   inslag={
     Object {
@@ -90,7 +90,7 @@ exports[`MapDetailResult rendering should render explosieven inslag 1`] = `
 />
 `;
 
-exports[`MapDetailResult rendering should render explosieven uitgevoerd onderzoek 1`] = `
+exports[`MapDetailResult should render explosieven uitgevoerd onderzoek 1`] = `
 <MapDetailExplosievenUitgevoerdOnderzoek
   panoUrl="panoUrl"
   uitgevoerdOnderzoek={
@@ -101,7 +101,7 @@ exports[`MapDetailResult rendering should render explosieven uitgevoerd onderzoe
 />
 `;
 
-exports[`MapDetailResult rendering should render explosieven verdacht gebied 1`] = `
+exports[`MapDetailResult should render explosieven verdacht gebied 1`] = `
 <MapDetailExplosievenVerdachtGebied
   panoUrl="panoUrl"
   verdachtGebied={
@@ -112,7 +112,7 @@ exports[`MapDetailResult rendering should render explosieven verdacht gebied 1`]
 />
 `;
 
-exports[`MapDetailResult rendering should render gebieden bouwblok 1`] = `
+exports[`MapDetailResult should render gebieden bouwblok 1`] = `
 <MapDetailGebiedenBouwblok
   bouwblok={
     Object {
@@ -123,7 +123,7 @@ exports[`MapDetailResult rendering should render gebieden bouwblok 1`] = `
 />
 `;
 
-exports[`MapDetailResult rendering should render gebieden buurt 1`] = `
+exports[`MapDetailResult should render gebieden buurt 1`] = `
 <MapDetailGebiedenBuurt
   buurt={
     Object {
@@ -134,7 +134,7 @@ exports[`MapDetailResult rendering should render gebieden buurt 1`] = `
 />
 `;
 
-exports[`MapDetailResult rendering should render gebieden gebiedsgericht-werken 1`] = `
+exports[`MapDetailResult should render gebieden gebiedsgericht-werken 1`] = `
 <MapDetailGebiedenGebiedsgerichtWerken
   gebiedsgerichtWerken={
     Object {
@@ -145,7 +145,7 @@ exports[`MapDetailResult rendering should render gebieden gebiedsgericht-werken 
 />
 `;
 
-exports[`MapDetailResult rendering should render gebieden grootstedelijk 1`] = `
+exports[`MapDetailResult should render gebieden grootstedelijk 1`] = `
 <MapDetailGebiedenGrootstedelijk
   grootstedelijk={
     Object {
@@ -156,7 +156,7 @@ exports[`MapDetailResult rendering should render gebieden grootstedelijk 1`] = `
 />
 `;
 
-exports[`MapDetailResult rendering should render gebieden stadsdeel 1`] = `
+exports[`MapDetailResult should render gebieden stadsdeel 1`] = `
 <MapDetailGebiedenStadsdeel
   panoUrl="panoUrl"
   stadsdeel={
@@ -167,7 +167,7 @@ exports[`MapDetailResult rendering should render gebieden stadsdeel 1`] = `
 />
 `;
 
-exports[`MapDetailResult rendering should render gebieden unesco 1`] = `
+exports[`MapDetailResult should render gebieden unesco 1`] = `
 <MapDetailGebiedenUnesco
   panoUrl="panoUrl"
   unesco={
@@ -178,7 +178,7 @@ exports[`MapDetailResult rendering should render gebieden unesco 1`] = `
 />
 `;
 
-exports[`MapDetailResult rendering should render gebieden wijk 1`] = `
+exports[`MapDetailResult should render gebieden wijk 1`] = `
 <MapDetailGebiedenWijk
   panoUrl="panoUrl"
   wijk={
@@ -189,7 +189,7 @@ exports[`MapDetailResult rendering should render gebieden wijk 1`] = `
 />
 `;
 
-exports[`MapDetailResult rendering should render kadastraal object 1`] = `
+exports[`MapDetailResult should render kadastraal object 1`] = `
 <MapDetailKadastraalObject
   kadastraalObject={
     Object {
@@ -200,7 +200,7 @@ exports[`MapDetailResult rendering should render kadastraal object 1`] = `
 />
 `;
 
-exports[`MapDetailResult rendering should render meetbout 1`] = `
+exports[`MapDetailResult should render meetbout 1`] = `
 <MapDetailMeetbout
   meetbout={
     Object {
@@ -211,7 +211,7 @@ exports[`MapDetailResult rendering should render meetbout 1`] = `
 />
 `;
 
-exports[`MapDetailResult rendering should render monument 1`] = `
+exports[`MapDetailResult should render monument 1`] = `
 <MapDetailMonument
   monument={
     Object {
@@ -222,7 +222,7 @@ exports[`MapDetailResult rendering should render monument 1`] = `
 />
 `;
 
-exports[`MapDetailResult rendering should render nap peilmerk 1`] = `
+exports[`MapDetailResult should render nap peilmerk 1`] = `
 <MapDetailNapPeilmerk
   panoUrl="panoUrl"
   peilmerk={
@@ -233,7 +233,7 @@ exports[`MapDetailResult rendering should render nap peilmerk 1`] = `
 />
 `;
 
-exports[`MapDetailResult rendering should render vestiging 1`] = `
+exports[`MapDetailResult should render vestiging 1`] = `
 <MapDetailVestiging
   panoUrl="panoUrl"
   vestiging={

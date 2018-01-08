@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MapDetailResultWrapper rendering should not render empty panoUrl 1`] = `
+exports[`MapDetailResultWrapper should not render empty panoUrl 1`] = `
 <section
   className="map-detail-result"
 >
@@ -38,7 +38,7 @@ exports[`MapDetailResultWrapper rendering should not render empty panoUrl 1`] = 
 </section>
 `;
 
-exports[`MapDetailResultWrapper rendering should not render empty sub title 1`] = `
+exports[`MapDetailResultWrapper should not render empty sub title 1`] = `
 <section
   className="map-detail-result"
 >
@@ -71,7 +71,7 @@ exports[`MapDetailResultWrapper rendering should not render empty sub title 1`] 
 </section>
 `;
 
-exports[`MapDetailResultWrapper rendering should not render missing children 1`] = `
+exports[`MapDetailResultWrapper should not render missing children 1`] = `
 <section
   className="map-detail-result"
 >
@@ -94,7 +94,7 @@ exports[`MapDetailResultWrapper rendering should not render missing children 1`]
 </section>
 `;
 
-exports[`MapDetailResultWrapper rendering should not render missing sub title 1`] = `
+exports[`MapDetailResultWrapper should not render missing sub title 1`] = `
 <section
   className="map-detail-result"
 >
@@ -127,7 +127,7 @@ exports[`MapDetailResultWrapper rendering should not render missing sub title 1`
 </section>
 `;
 
-exports[`MapDetailResultWrapper rendering should render everything 1`] = `
+exports[`MapDetailResultWrapper should render everything 1`] = `
 <section
   className="map-detail-result"
 >

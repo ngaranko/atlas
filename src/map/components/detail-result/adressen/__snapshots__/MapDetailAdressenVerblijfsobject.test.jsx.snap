@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MapDetailAdressenVerblijfsobject rendering should not render size 1`] = `
+exports[`MapDetailAdressenVerblijfsobject should not render size 1`] = `
 <MapDetailResultWrapper
   panoUrl="panoUrl"
   subTitle="Verblijfsobject label"
@@ -40,7 +40,7 @@ exports[`MapDetailAdressenVerblijfsobject rendering should not render size 1`] =
 </MapDetailResultWrapper>
 `;
 
-exports[`MapDetailAdressenVerblijfsobject rendering should render everything 1`] = `
+exports[`MapDetailAdressenVerblijfsobject should render everything 1`] = `
 <MapDetailResultWrapper
   panoUrl="panoUrl"
   subTitle="Verblijfsobject label"
@@ -80,7 +80,7 @@ exports[`MapDetailAdressenVerblijfsobject rendering should render everything 1`]
 </MapDetailResultWrapper>
 `;
 
-exports[`MapDetailAdressenVerblijfsobject rendering should render with zero value for size 1`] = `
+exports[`MapDetailAdressenVerblijfsobject should render with zero value for size 1`] = `
 <MapDetailResultWrapper
   panoUrl="panoUrl"
   subTitle="Verblijfsobject label"

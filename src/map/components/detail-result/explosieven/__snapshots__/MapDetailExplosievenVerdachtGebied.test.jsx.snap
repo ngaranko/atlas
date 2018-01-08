@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MapDetailExplosievenVerdachtGebied rendering should render everything 1`] = `
+exports[`MapDetailExplosievenVerdachtGebied should render everything 1`] = `
 <MapDetailResultWrapper
   panoUrl="panoUrl"
   subTitle="Verdacht gebied label"

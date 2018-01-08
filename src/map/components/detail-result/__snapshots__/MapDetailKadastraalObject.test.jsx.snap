@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MapDetailKadastraalObject rendering should not render size 1`] = `
+exports[`MapDetailKadastraalObject should not render size 1`] = `
 <MapDetailResultWrapper
   panoUrl="panoUrl"
   subTitle="Kadastraal object label"
@@ -21,7 +21,7 @@ exports[`MapDetailKadastraalObject rendering should not render size 1`] = `
 </MapDetailResultWrapper>
 `;
 
-exports[`MapDetailKadastraalObject rendering should render everything 1`] = `
+exports[`MapDetailKadastraalObject should render everything 1`] = `
 <MapDetailResultWrapper
   panoUrl="panoUrl"
   subTitle="Kadastraal object label"
@@ -46,7 +46,7 @@ exports[`MapDetailKadastraalObject rendering should render everything 1`] = `
 </MapDetailResultWrapper>
 `;
 
-exports[`MapDetailKadastraalObject rendering should render with zero value for size 1`] = `
+exports[`MapDetailKadastraalObject should render with zero value for size 1`] = `
 <MapDetailResultWrapper
   panoUrl="panoUrl"
   subTitle="Kadastraal object label"
@@ -67,7 +67,7 @@ exports[`MapDetailKadastraalObject rendering should render with zero value for s
 </MapDetailResultWrapper>
 `;
 
-exports[`MapDetailKadastraalObject rendering should render without kadastrale gemeente 1`] = `
+exports[`MapDetailKadastraalObject should render without kadastrale gemeente 1`] = `
 <MapDetailResultWrapper
   panoUrl="panoUrl"
   subTitle="Kadastraal object label"

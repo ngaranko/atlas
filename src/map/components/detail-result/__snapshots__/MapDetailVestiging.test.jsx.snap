@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MapDetailVestiging rendering should render everything 1`] = `
+exports[`MapDetailVestiging should render everything 1`] = `
 <MapDetailResultWrapper
   panoUrl="panoUrl"
   subTitle="Vestiging label"
@@ -46,7 +46,7 @@ exports[`MapDetailVestiging rendering should render everything 1`] = `
 </MapDetailResultWrapper>
 `;
 
-exports[`MapDetailVestiging rendering should render without label 1`] = `
+exports[`MapDetailVestiging should render without label 1`] = `
 <MapDetailResultWrapper
   panoUrl="panoUrl"
   subTitle=""

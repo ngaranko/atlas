@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MapDetailExplosievenInslag rendering should render everything 1`] = `
+exports[`MapDetailExplosievenInslag should render everything 1`] = `
 <MapDetailResultWrapper
   panoUrl="panoUrl"
   subTitle="Inslag label"

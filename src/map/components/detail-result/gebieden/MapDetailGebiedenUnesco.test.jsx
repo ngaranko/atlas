@@ -4,18 +4,16 @@ import { shallow } from 'enzyme';
 import MapDetailGebiedenUnesco from './MapDetailGebiedenUnesco';
 
 describe('MapDetailGebiedenUnesco', () => {
-  describe('rendering', () => {
-    it('should render everything', () => {
-      const unesco = {
-        label: 'Unesco label'
-      };
-      const wrapper = shallow(
-        <MapDetailGebiedenUnesco
-          panoUrl="panoUrl"
-          unesco={unesco}
-        />
-      );
-      expect(wrapper).toMatchSnapshot();
-    });
+  it('should render everything', () => {
+    const unesco = {
+      label: 'Unesco label'
+    };
+    const wrapper = shallow(
+      <MapDetailGebiedenUnesco
+        panoUrl="panoUrl"
+        unesco={unesco}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
   });
 });

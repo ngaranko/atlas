@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MapDetailAdressenVerblijfsobjectGebruiksdoelenItem rendering should render exactly five gebruiksdoelen 1`] = `
+exports[`MapDetailAdressenVerblijfsobjectGebruiksdoelenItem should render exactly five gebruiksdoelen 1`] = `
 <div
   className="map-detail-result__item"
 >
@@ -58,9 +58,9 @@ exports[`MapDetailAdressenVerblijfsobjectGebruiksdoelenItem rendering should ren
 </div>
 `;
 
-exports[`MapDetailAdressenVerblijfsobjectGebruiksdoelenItem rendering should render no gebruiksdoelen 1`] = `""`;
+exports[`MapDetailAdressenVerblijfsobjectGebruiksdoelenItem should render no gebruiksdoelen 1`] = `""`;
 
-exports[`MapDetailAdressenVerblijfsobjectGebruiksdoelenItem rendering should render no more than five gebruiksdoelen 1`] = `
+exports[`MapDetailAdressenVerblijfsobjectGebruiksdoelenItem should render no more than five gebruiksdoelen 1`] = `
 <div
   className="map-detail-result__item"
 >
@@ -118,7 +118,7 @@ exports[`MapDetailAdressenVerblijfsobjectGebruiksdoelenItem rendering should ren
 </div>
 `;
 
-exports[`MapDetailAdressenVerblijfsobjectGebruiksdoelenItem rendering should render one gebruiksdoel 1`] = `
+exports[`MapDetailAdressenVerblijfsobjectGebruiksdoelenItem should render one gebruiksdoel 1`] = `
 <div
   className="map-detail-result__item"
 >
@@ -144,7 +144,7 @@ exports[`MapDetailAdressenVerblijfsobjectGebruiksdoelenItem rendering should ren
 </div>
 `;
 
-exports[`MapDetailAdressenVerblijfsobjectGebruiksdoelenItem rendering should render two gebruiksdoelen 1`] = `
+exports[`MapDetailAdressenVerblijfsobjectGebruiksdoelenItem should render two gebruiksdoelen 1`] = `
 <div
   className="map-detail-result__item"
 >
