@@ -1,14 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { render } from 'react-dom';
-import { Provider } from 'react-redux';
 
 import MapEmbedButton from '../../components/map-embed-button/MapEmbedButton';
 
-const MapEmbedButtonWrapper = () => (
-  <Provider store={window.reduxStore}>
-    <MapEmbedButton />
-  </Provider>
-);
+const MapEmbedButtonWrapper = (props) => <MapEmbedButton link={props.embedLink} />;
+
+MapEmbedButtonWrapper.propTypes = {
+  embedLink: PropTypes.string.isRequired
+};
 
 export default MapEmbedButtonWrapper;
 
