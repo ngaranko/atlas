@@ -2,6 +2,7 @@
 import './state';
 import './map/wrappers/panel/MapPanelWrapper';
 import './map/wrappers/preview-panel/MapPreviewPanelWrapper';
+import './map/wrappers/map/MapWrapper';
 
 // All third party dependencies
 import './vendor';

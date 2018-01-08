@@ -1,0 +1,22 @@
+.toggle-fullscreen {
+  background-color: #ffffff;
+  position: absolute;
+  right: 40px;
+  top: 10px;
+  border: 10px solid yellow;
+  z-index: 3000;
+
+  svg {
+    fill: #666666;
+    height: 26px;
+    width: 26px;
+  }
+
+  &:hover svg {
+    fill: #ffffff;
+  }
+
+  &:hover {
+    background-color: #fd0000;
+  }
+}
