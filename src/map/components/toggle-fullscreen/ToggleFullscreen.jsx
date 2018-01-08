@@ -9,8 +9,7 @@ const ToggleFullscreen = ({ isFullscreen, onToggleFullscreen }) => (
     className="toggle-fullscreen"
     onClick={() => onToggleFullscreen(!isFullscreen)}
   >
-    {isFullscreen ? <MinimizeIcon /> : ''}
-    {!isFullscreen ? <MaximizeIcon /> : ''}
+    {isFullscreen ? <MinimizeIcon /> : <MaximizeIcon />}
   </button>
 );
 

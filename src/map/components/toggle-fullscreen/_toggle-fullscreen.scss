@@ -1,15 +1,18 @@
 .toggle-fullscreen {
   background-color: #ffffff;
   position: absolute;
-  right: 40px;
+  right: 10px;
   top: 10px;
-  border: 10px solid yellow;
-  z-index: 3000;
+  border: solid 1px #CCCCCC;
+  box-shadow: 2px 2px 0 0 #999999;
+  padding: 2px;
+  z-index: 150;
 
   svg {
+    display: block;
     fill: #666666;
-    height: 26px;
-    width: 26px;
+    height: 24px;
+    width: 24px;
   }
 
   &:hover svg {
