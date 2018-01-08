@@ -21,6 +21,8 @@ import monument from '../../shared/services/monument/monument';
 import napPeilmerk from '../../shared/services/nap-peilmerk/nap-peilmerk';
 import vestiging from '../../shared/services/vestiging/vestiging';
 
+export const maxDisplayValuesPerProperty = 5;
+
 export const endpointTypes = {
   adressenLigplaats: 'bag/ligplaats/',
   adressenNummeraanduiding: 'bag/nummeraanduiding/',

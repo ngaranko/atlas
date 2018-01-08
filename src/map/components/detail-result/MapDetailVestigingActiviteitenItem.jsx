@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { maxDisplayValuesPerProperty } from '../../services/map-detail';
+
 const MapDetailVestigingActiviteitenItem = ({ activities }) =>
   activities && activities.length > 0 && (
     <div className="map-detail-result__item">
       <section className="map-detail-result__item-content">
         <div className="map-detail-result__item-label">SBI-activiteiten</div>
         <ul className="map-detail-result__item-value map-detail-result__item-list">
-          {activities.slice(0, 5).map((activity) => (
+          {activities.slice(0, maxDisplayValuesPerProperty).map((activity) => (
             <li
               key={activity.sbiCode}
               className="map-detail-result__item-list-item"
