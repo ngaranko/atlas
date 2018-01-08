@@ -54,6 +54,7 @@
 
             const mountReactComponents = () => {
                 const mapEmbedButtonNode = document.getElementById('map-embed-button');
+                /* istanbul ignore next */
                 if (mapEmbedButtonNode) {
                     render(React.createElement(MapEmbedButtonWrapper, { embedLink }), mapEmbedButtonNode);
                 }
