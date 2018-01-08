@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const MapDetailResultWrapper = ({ panoUrl, title, subTitle, children }) => (
+const MapDetailResultWrapper = ({ children, panoUrl, subTitle, title }) => (
   <section className="map-detail-result">
     <header
       className={`

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { maxDisplayValuesPerProperty } from '../../services/map-detail';
 
 const MapDetailVestigingActiviteitenItem = ({ activities }) =>
-  activities && activities.length > 0 && (
+  activities.length > 0 && (
     <div className="map-detail-result__item">
       <section className="map-detail-result__item-content">
         <div className="map-detail-result__item-label">SBI-activiteiten</div>
@@ -22,15 +22,11 @@ const MapDetailVestigingActiviteitenItem = ({ activities }) =>
     </div>
   );
 
-MapDetailVestigingActiviteitenItem.defaultProps = {
-  activities: []
-};
-
 MapDetailVestigingActiviteitenItem.propTypes = {
   activities: PropTypes.arrayOf(PropTypes.shape({
-    sbiCode: PropTypes.string,
-    sbiDescription: PropTypes.string
-  }))
+    sbiCode: PropTypes.string.isRequired,
+    sbiDescription: PropTypes.string.isRequired
+  })).isRequired
 };
 
 export default MapDetailVestigingActiviteitenItem;

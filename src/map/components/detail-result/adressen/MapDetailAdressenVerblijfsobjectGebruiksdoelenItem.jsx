@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import { maxDisplayValuesPerProperty } from '../../../services/map-detail';
 
-const MapDetailAdressenVerblijfsobjectGebruiksdoelenItem =
-  ({ gebruiksdoelen }) => gebruiksdoelen.length > 0 && (
+const MapDetailAdressenVerblijfsobjectGebruiksdoelenItem = ({ gebruiksdoelen }) =>
+  gebruiksdoelen.length > 0 && (
     <div className="map-detail-result__item">
       <section className="map-detail-result__item-content">
         <div className="map-detail-result__item-label">Gebruiksdoel</div>
@@ -25,16 +25,12 @@ const MapDetailAdressenVerblijfsobjectGebruiksdoelenItem =
     </div>
   );
 
-MapDetailAdressenVerblijfsobjectGebruiksdoelenItem.defaultProps = {
-  gebruiksdoelen: []
-};
-
 MapDetailAdressenVerblijfsobjectGebruiksdoelenItem.propTypes = {
   gebruiksdoelen: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.string,
-    description: PropTypes.string,
+    code: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
     descriptionPlus: PropTypes.string
-  }))
+  })).isRequired
 };
 
 export default MapDetailAdressenVerblijfsobjectGebruiksdoelenItem;
