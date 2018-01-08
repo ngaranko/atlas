@@ -5,7 +5,6 @@
 @import "components/map/leaflet-draw";
 @import "components/map/cursor";
 @import "components/draw-tool/toggle-drawing-tool/toggle-drawing-tool";
-@import "components/toggle-fullscreen/toggle-fullscreen";
 @import "components/embed-button/embed-button";
 @import "components/draw-tool/points-available/points-available";
 @import "components/draw-tool/shape-summary/shape-summary";
@@ -17,7 +16,6 @@
 .is-embed {
   @import "components/map/map-print";
   @import "components/draw-tool/draw-tool-print";
-  @import "components/toggle-fullscreen/toggle-fullscreen-print";
 }
 
 .is-embed {
