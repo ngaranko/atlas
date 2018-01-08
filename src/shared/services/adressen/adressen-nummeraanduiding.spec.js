@@ -23,10 +23,20 @@ describe('The adressen nummeraanduiding resource', () => {
         landelijk_id: 'abc123',
         verblijfsobject: 'https://acc.api.data.amsterdam.nl/bag/verblijfsobject/345678'
       }));
-      verblijfsobject.mockImplementation(() => ({ label: 'Verblijfsobject' }));
+      verblijfsobject.mockImplementation(() => (
+        new Promise((resolve) => {
+          resolve({
+            label: 'Verblijfsobject',
+            oppervlakte: '119'
+          });
+        })
+      ));
 
       const promise = fetchByUri(uri).then((response) => {
-        expect(response).toEqual({ label: 'Verblijfsobject' });
+        expect(response).toEqual({
+          label: 'Address display name 1',
+          oppervlakte: '119'
+        });
         expect(verblijfsobject).toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/bag/verblijfsobject/345678');
       });
 

@@ -7,7 +7,7 @@ describe('MapDetailAddressItem', () => {
   it('should render without huisnummertoevoeging', () => {
     const label = 'Address label';
     const values = {
-      huisnummer: 1515,
+      huisnummer: '1515',
       plaats: 'Amsterdam',
       postcode: '1012MT',
       straatnaam: 'Nieuwendijk'
@@ -24,7 +24,7 @@ describe('MapDetailAddressItem', () => {
   it('should render with huisnummertoevoeging', () => {
     const label = 'Address label';
     const values = {
-      huisnummer: 1515,
+      huisnummer: '1515',
       huisnummertoevoeging: 'bis',
       plaats: 'Amsterdam',
       postcode: '1012MT',

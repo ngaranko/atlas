@@ -4,11 +4,18 @@ import verblijfsobject from './adressen-verblijfsobject';
 export default function fetchByUri(uri) {
   return fetch(uri)
     .then((response) => response.json())
+    .then((result) => ({
+      ...result,
+      label: result._display
+    }))
     .then((result) => (
-      result.verblijfsobject ? verblijfsobject(result.verblijfsobject) : {
-        ...result,
-        label: result._display
-      }
+      result.verblijfsobject ?
+        verblijfsobject(result.verblijfsobject)
+          .then((vboResult) => ({
+            ...vboResult,
+            label: result._display
+          })) :
+        result
     ));
 }
 

@@ -16,7 +16,7 @@ const MapDetailAddressItem = ({ label, values }) => (
 MapDetailAddressItem.propTypes = {
   label: PropTypes.string.isRequired,
   values: PropTypes.shape({
-    huisnummer: PropTypes.number,
+    huisnummer: PropTypes.string,
     huisnummertoevoeging: PropTypes.string,
     plaats: PropTypes.string,
     postcode: PropTypes.string,
