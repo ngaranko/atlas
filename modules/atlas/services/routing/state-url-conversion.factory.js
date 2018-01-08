@@ -199,7 +199,6 @@
                     baseLayer: 'topografie',
                     zoom: 11,
                     overlays: [],
-                    isFullscreen: false,
                     isLoading: false,
                     drawingMode: 'none',
                     highlight: true
@@ -249,7 +248,8 @@
                 ui: {
                     isMapLayersVisible: true,
                     isMapPanelVisible: false,
-                    isMapPanelHandleVisible: true
+                    isMapPanelHandleVisible: true,
+                    isMapFullscreen: false
                 }
             },
             stateVariables: {
@@ -321,7 +321,7 @@
                     type: 'number'
                 },
                 mpfs: {
-                    name: 'map.isFullscreen',
+                    name: 'ui.isMapFullscreen',
                     type: 'boolean'
                 },
                 mpg: {

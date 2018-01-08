@@ -7,9 +7,9 @@ export default function MapToggleFullscreenReducer(state = initialState, action)
     case MAP_TOGGLE_FULLSCREEN:
       return {
         ...state,
-        map: {
-          ...state.map,
-          isFullscreen: action.isMapFullscreen
+        ui: {
+          ...state.ui,
+          isMapFullscreen: action.isMapFullscreen
         }
       };
 

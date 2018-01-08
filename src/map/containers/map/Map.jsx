@@ -8,7 +8,7 @@ import { toggleFullscreen } from '../../ducks/toggle-fullscreen/map-toggle-fulls
 import ToggleFullscreen from '../../components/toggle-fullscreen/ToggleFullscreen';
 
 const mapStateToProps = (state) => ({
-  isFullscreen: state.map.isFullscreen
+  isFullscreen: state.ui.isMapFullscreen
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

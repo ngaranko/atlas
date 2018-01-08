@@ -111,7 +111,7 @@
 
             vm.isFullHeight = !vm.isRightColumnScrollable || vm.columnSizes.right < 12;
 
-            vm.isMapFullscreen = Boolean(vm.visibility.map && state.map.isFullscreen);
+            vm.isMapFullscreen = Boolean(vm.visibility.map && state.ui.isMapFullscreen);
             vm.isStraatbeeldActive = Boolean(state.straatbeeld);
             vm.straatbeeldHistory = vm.isStraatbeeldActive ? state.straatbeeld.history : null;
             vm.isMapPreviewPanelVisible = vm.visibility.mapPreviewPanel;

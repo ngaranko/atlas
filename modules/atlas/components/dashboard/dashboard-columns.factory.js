@@ -35,12 +35,12 @@
         function determineVisibility (state) {
             const activity = determineActivity(state);
             const visibility = {};
-            const { map = {} } = state;
+            const { map = {}, ui = {} } = state;
 
             visibility.httpStatus = httpStatus.getStatus().hasErrors || state.user.error;
             visibility.map = activity.map;
 
-            if (angular.isObject(state.dataSelection) && !map.isFullscreen) {
+            if (angular.isObject(state.dataSelection) && !ui.isMapFullscreen) {
                 visibility.dataSelection = true;
 
                 visibility.detail = false;
@@ -54,7 +54,7 @@
                     visibility.detail = false;
                     visibility.page = false;
                     visibility.searchResults = false;
-                } else if (map.isFullscreen) {
+                } else if (ui.isMapFullscreen) {
                     visibility.detail = false;
                     visibility.page = false;
                     visibility.searchResults = false;
@@ -72,7 +72,7 @@
                 angular.isArray(state.search.location);
 
             visibility.mapPreviewPanel =
-                map.isFullscreen &&
+                ui.isMapFullscreen &&
                 (geoSearchActive || activity.detail) &&
                 !angular.isObject(state.dataSelection);
 
@@ -88,10 +88,10 @@
         }
 
         function determineMapActivityDefault (state) {
-            const { map = {} } = state;
-            return map.isFullscreen ||
+            const { map = {}, ui = {} } = state;
+            return ui.isMapFullscreen ||
                 (
-                    !(state.page.name && !map.isFullscreen && !state.straatbeeld) &&
+                    !(state.page.name && !ui.isMapFullscreen && !state.straatbeeld) &&
                     !(state.detail && state.detail.isFullscreen) &&
                     !(state.dataSelection && state.dataSelection.view !== 'LIST') &&
                     !(state.search && state.search.isFullscreen) &&
@@ -104,7 +104,7 @@
                 return true;
             }
 
-            if (state.map.isFullscreen) {
+            if (state.ui.isMapFullscreen) {
                 return true;
             } else if (state.straatbeeld) {
                 return !state.straatbeeld.isFullscreen;
@@ -122,7 +122,7 @@
         function determineColumnSizes (state) {
             const visibility = determineVisibility(state);
             const hasFullscreenElement = visibility.page ||
-                (visibility.map && state.map.isFullscreen) ||
+                (visibility.map && state.ui.isMapFullscreen) ||
                 (visibility.straatbeeld && state.straatbeeld.isFullscreen) ||
                 (visibility.detail && state.detail.isFullscreen) ||
                 (visibility.searchResults && state.search.isFullscreen) ||
@@ -140,8 +140,8 @@
 
             if (hasFullscreenElement) {
                 columnSizes.left = 0;
-                columnSizes.middle = state.map.isFullscreen ? 12 : 0;
-                columnSizes.right = !state.map.isFullscreen ? 12 : 0;
+                columnSizes.middle = state.ui.isMapFullscreen ? 12 : 0;
+                columnSizes.right = !state.ui.isMapFullscreen ? 12 : 0;
             } else {
                 columnSizes.left = 0;
                 columnSizes.middle = 4;
@@ -156,8 +156,8 @@
 
             if (hasFullscreenElement) {
                 columnSizes.left = 0;
-                columnSizes.middle = state.map.isFullscreen ? 12 : 0;
-                columnSizes.right = !state.map.isFullscreen ? 12 : 0;
+                columnSizes.middle = state.ui.isMapFullscreen ? 12 : 0;
+                columnSizes.right = !state.ui.isMapFullscreen ? 12 : 0;
             } else {
                 columnSizes.left = 0;
                 columnSizes.middle = visibility.page || visibility.searchResults ? 0 : 12;
@@ -173,7 +173,8 @@
         }
 
         function isEmbedOrPreviewWithFullscreenMap (state) {
-            return (state.atlas.isEmbed || state.atlas.isEmbedPreview) && state.map.isFullscreen && !state.straatbeeld;
+            return (state.atlas.isEmbed || state.atlas.isEmbedPreview) &&
+              state.ui.isMapFullscreen && !state.straatbeeld;
         }
 
         function isPrintOrEmbedOrPreview (state) {

@@ -226,7 +226,7 @@
                 drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
                 geometry: has2Markers ? payload.markers : moreThan2Markers ? [] : state.map.geometry,
                 isLoading: moreThan2Markers ? true : state.map.isLoading,
-                isFullscreen: moreThan2Markers ? false : state.map.isFullscreen
+                isFullscreen: moreThan2Markers ? false : state.ui.isMapFullscreen
             };
         }
 
