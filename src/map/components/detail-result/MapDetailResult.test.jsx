@@ -3,7 +3,6 @@ import { shallow } from 'enzyme';
 
 import MapDetailResult
   from './MapDetailResult';
-import * as mapDetail from '../../services/map-detail';
 
 jest.mock('../../services/map-detail');
 

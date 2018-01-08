@@ -25,7 +25,9 @@ import MapDetailNapPeilmerk from './MapDetailNapPeilmerk';
 import MapDetailVestiging from './MapDetailVestiging';
 
 const MapDetailResult = ({ endpoint, panoUrl, result }) => {
-  const endpointTypeKey = Object.keys(endpointTypes).find((typeKey) => endpoint.includes(endpointTypes[typeKey]));
+  const endpointTypeKey = Object
+    .keys(endpointTypes)
+    .find((typeKey) => endpoint.includes(endpointTypes[typeKey]));
   const endpointType = endpointTypes[endpointTypeKey];
 
   switch (endpointType) {
