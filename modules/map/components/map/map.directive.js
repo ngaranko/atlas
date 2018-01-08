@@ -47,11 +47,14 @@
             const render = $window.render;
             const MapPanelWrapper = $window.MapPanelWrapper;
             const MapPreviewPanelWrapper = $window.MapPreviewPanelWrapper;
+            const MapEmbedButtonWrapper = $window.MapEmbedButtonWrapper;
 
             $timeout(() => {
                 render(React.createElement(MapPanelWrapper, null), document.getElementById('map-panel-react'));
                 render(React.createElement(MapPreviewPanelWrapper, null),
                     document.getElementById('map-preview-panel-react'));
+                render(React.createElement(MapEmbedButtonWrapper, null),
+                    document.getElementById('map-embed-button'));
             });
 
             /**

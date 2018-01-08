@@ -1,20 +1,21 @@
-.c-embed-button {
-  @include icon-button-text-box-right("maximize", "", "red");
+// .c-embed-button {
+//   // @include icon-button-text-box-right("maximize-no-border", "", "red");
 
-  display: none;
-  position: absolute;
-  top: $base-whitespace;
-  right: $base-whitespace;
-  z-index: $fixed-position-z-index;
+//   display: none;
+//   position: absolute;
+//   top: $base-whitespace;
+//   right: $base-whitespace;
+//   padding: 4px;
+//   z-index: $fixed-position-z-index;
 
-  &::before {
-    // this will hide the left and right border in the icon
-    // can be removed when we move to inline svg
-    width: $button-size - 2px;
-  }
+//   &::before {
+//     // this will hide the left and right border in the icon
+//     // can be removed when we move to inline svg
+//     // width: $button-size - 2px;
+//   }
 
-  .is-embed-preview &,
-  .is-embed & {
-    display: inline-block;
-  }
-}
+//   .is-embed-preview &,
+//   .is-embed & {
+//     display: inline-block;
+//   }
+// }
