@@ -5,6 +5,9 @@
     "jest": true,
     "node": true
   },
+  "globals": {
+    "jsdom": true // Used in Jest unit test, made available by jest-environment-jsdom-global
+  },
   "root": true,
   "rules": {
     "arrow-parens": ["error", "always"],
