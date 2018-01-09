@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { toggleFullscreen } from '../../ducks/toggle-fullscreen/map-toggle-fullscreen';
+import { toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
 
 import ToggleFullscreen from '../../components/toggle-fullscreen/ToggleFullscreen';
 
@@ -12,7 +12,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  onToggleFullscreen: toggleFullscreen
+  onToggleFullscreen: toggleMapFullscreen
 }, dispatch);
 
 const MapContainer = (props) => (

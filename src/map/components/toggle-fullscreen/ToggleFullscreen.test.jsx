@@ -14,7 +14,7 @@ describe('ToggleFullscreen', () => {
         />
       );
       wrapper.find('button').at(0).simulate('click');
-      expect(onToggleFullscreen).toHaveBeenCalledWith(false);
+      expect(onToggleFullscreen).toHaveBeenCalled();
     });
 
     it('should trigger toggle on when clicked', () => {
@@ -26,7 +26,7 @@ describe('ToggleFullscreen', () => {
         />
       );
       wrapper.find('button').at(0).simulate('click');
-      expect(onToggleFullscreen).toHaveBeenCalledWith(true);
+      expect(onToggleFullscreen).toHaveBeenCalled();
     });
 
     describe('rendering', () => {

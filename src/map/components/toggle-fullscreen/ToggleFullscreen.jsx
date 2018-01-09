@@ -7,7 +7,7 @@ import MaximizeIcon from '../../../../public/images/icon-maximize.svg';
 const ToggleFullscreen = ({ isFullscreen, onToggleFullscreen }) => (
   <button
     className="toggle-fullscreen"
-    onClick={() => onToggleFullscreen(!isFullscreen)}
+    onClick={() => onToggleFullscreen()}
   >
     {isFullscreen ? <MinimizeIcon /> : <MaximizeIcon />}
   </button>
