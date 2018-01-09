@@ -12,7 +12,7 @@ exports[`MapType rendering should render select buttons with aerial value 1`] = 
   <SelectButton
     className="map-type__select map-type__select--topography"
     handleChange={[Function]}
-    icon="test-file-stub"
+    icon={[Function]}
     isDisabled={true}
     isExpanded={false}
     label=""
@@ -42,7 +42,7 @@ exports[`MapType rendering should render select buttons with aerial value 1`] = 
   <SelectButton
     className="map-type__select map-type__select--aerial"
     handleChange={[Function]}
-    icon="test-file-stub"
+    icon={[Function]}
     isDisabled={false}
     isExpanded={false}
     label=""

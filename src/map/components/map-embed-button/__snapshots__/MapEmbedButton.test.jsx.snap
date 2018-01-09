@@ -7,7 +7,7 @@ exports[`MapEmbedButton should render the link 1`] = `
   target="_blank"
   title="Naar interactieve kaart (Amsterdam City Data)"
 >
-  <test-file-stub
+  <Component
     className="c-embed-button__icon"
   />
   <span
