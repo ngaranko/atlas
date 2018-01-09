@@ -35,7 +35,7 @@
         function determineVisibility (state) {
             const activity = determineActivity(state);
             const visibility = {};
-            const { map = {}, ui = {} } = state;
+            const { ui = {} } = state;
 
             visibility.httpStatus = httpStatus.getStatus().hasErrors || state.user.error;
             visibility.map = activity.map;
@@ -88,7 +88,7 @@
         }
 
         function determineMapActivityDefault (state) {
-            const { map = {}, ui = {} } = state;
+            const { ui = {} } = state;
             return ui.isMapFullscreen ||
                 (
                     !(state.page.name && !ui.isMapFullscreen && !state.straatbeeld) &&

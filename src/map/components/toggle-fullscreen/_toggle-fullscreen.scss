@@ -8,15 +8,15 @@
   padding: 2px;
   z-index: 150;
 
-  svg {
+  .toggle-fullscreen__icon {
     display: block;
     fill: #666666;
     height: 24px;
     width: 24px;
-  }
 
-  &:hover svg {
-    fill: #ffffff;
+    &:hover {
+      fill: #ffffff;
+    }
   }
 
   &:hover {
