@@ -9,7 +9,6 @@ describe('The printReducers factory', function () {
             overlays: [],
             viewCenter: [52.3719, 4.9012],
             zoom: 9,
-            isFullscreen: false,
             isLoading: false
         },
         search: null,
@@ -23,7 +22,8 @@ describe('The printReducers factory', function () {
             isPrintMode: false
         },
         ui: {
-            isMapPanelVisible: false
+            isMapPanelVisible: false,
+            isMapFullscreen: false
         }
     };
 

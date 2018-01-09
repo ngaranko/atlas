@@ -79,7 +79,6 @@
                 },
                 map: angular.isObject(state.map) ? {
                     ...state.map,
-                    isFullscreen: false,
                     // LIST loading might include markers => set map loading accordingly
                     isLoading: view === 'LIST'
                 } : state.map,
@@ -90,7 +89,8 @@
                 } : state.page,
                 ui: angular.isObject(state.ui) ? {
                     ...state.ui,
-                    isMapPanelVisible: false
+                    isMapPanelVisible: false,
+                    isMapFullscreen: false
                 } : state.ui,
                 search: null,
                 detail: null,

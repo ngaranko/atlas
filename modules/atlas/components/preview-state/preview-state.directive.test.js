@@ -66,8 +66,8 @@ describe('The dp-preview-state directive', function () {
                 atlas: {
                     isPrintMode: true
                 },
-                map: {
-                    isFullscreen: false
+                ui: {
+                    isMapFullscreen: false
                 }
             };
         });
@@ -79,7 +79,7 @@ describe('The dp-preview-state directive', function () {
         });
 
         it('adds the class when at the map', () => {
-            mockedState.map.isFullscreen = true;
+            mockedState.ui.isMapFullscreen = true;
             const directive = getDirective();
             expect(directive.hasClass('is-print-mode--landscape')).toBe(true);
         });

@@ -74,10 +74,6 @@
                 id: 'MAP_HIGHLIGHT',
                 ignore: true
             },
-            MAP_FULLSCREEN: {
-                id: 'MAP_FULLSCREEN',
-                isButton: true
-            },
             MAP_START_DRAWING: {
                 id: 'MAP_START_DRAWING',
                 ignore: true,

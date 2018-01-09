@@ -76,12 +76,12 @@
                 },
                 map: {
                     ...map,
-                    isFullscreen: false,
                     geometry: []
                 },
                 ui: angular.isObject(state.ui) ? {
                     ...state.ui,
-                    isMapPanelVisible: false
+                    isMapPanelVisible: false,
+                    isMapFullscreen: false
                 } : state.ui,
                 page: angular.isObject(state.page) ? {
                     ...state.page,

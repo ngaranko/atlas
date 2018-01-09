@@ -46,7 +46,6 @@
             const MapSearchResultsReducer = $window.reducers.MapSearchResultsReducer;
             const MapDetailReducer = $window.reducers.MapDetailReducer;
             const MapClickLocationReducer = $window.reducers.MapClickLocationReducer;
-            const MapToggleFullscreenReducer = $window.reducers.MapToggleFullscreenReducer;
             const PanoPreviewReducer = $window.reducers.PanoPreviewReducer;
             const ErrorMessageReducer = $window.reducers.ErrorMessageReducer;
 
@@ -91,10 +90,6 @@
                 SET_MAP_CLICK_LOCATION: MapClickLocationReducer
             };
 
-            const mapToggleFullscreenReducers = {
-                MAP_TOGGLE_FULLSCREEN: MapToggleFullscreenReducer
-            };
-
             const panoPreviewReducers = {
                 FETCH_PANO_PREVIEW_FAILURE: PanoPreviewReducer,
                 FETCH_PANO_PREVIEW_REQUEST: PanoPreviewReducer,
@@ -124,7 +119,6 @@
                 mapSearchResultsReducers,
                 mapDetailReducers,
                 mapClickLocationReducers,
-                mapToggleFullscreenReducers,
                 pageReducers,
                 panoPreviewReducers,
                 printReducers,

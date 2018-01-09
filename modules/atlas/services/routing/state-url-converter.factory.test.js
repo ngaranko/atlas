@@ -21,7 +21,6 @@ describe('The state url conversion factory', function () {
                     overlays: [],
                     viewCenter: [52.3731081, 4.8932945],
                     zoom: 11,
-                    isFullscreen: false,
                     isLoading: false,
                     drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
                     highlight: true
@@ -50,7 +49,8 @@ describe('The state url conversion factory', function () {
                 ui: {
                     isMapPanelVisible: false,
                     isMapLayersVisible: true,
-                    isMapPanelHandleVisible: true
+                    isMapPanelHandleVisible: true,
+                    isMapFullscreen: false
                 },
                 isMapPreviewPanelVisible: false,
                 filters: {},

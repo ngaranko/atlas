@@ -8,7 +8,6 @@ describe('The dataSelectionReducers factory', function () {
             overlays: [],
             viewCenter: [52.3719, 4.9012],
             zoom: 9,
-            isFullscreen: false,
             isLoading: false
         },
         filters: {},
@@ -23,7 +22,8 @@ describe('The dataSelectionReducers factory', function () {
             isPrintMode: false
         },
         ui: {
-            isMapPanelVisible: false
+            isMapPanelVisible: false,
+            isMapFullscreen: false
         }
     };
 
@@ -48,11 +48,11 @@ describe('The dataSelectionReducers factory', function () {
 
         it('makes the map small (!isFullscreen), relevant when navigating via dp-dropdown-menu', () => {
             const mockedState = angular.copy(DEFAULT_STATE);
-            mockedState.map.isFullscreen = true;
+            mockedState.ui.isMapFullscreen = true;
 
             const output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
 
-            expect(output.map.isFullscreen).toBe(false);
+            expect(output.ui.isMapFullscreen).toBe(false);
         });
 
         it('has a default table view and set map not to be loading', function () {

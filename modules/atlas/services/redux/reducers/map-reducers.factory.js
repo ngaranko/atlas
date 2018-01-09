@@ -16,7 +16,6 @@
         reducers[ACTIONS.MAP_PAN.id] = mapPanReducer;
         reducers[ACTIONS.MAP_ZOOM.id] = mapZoomReducer;
         reducers[ACTIONS.MAP_HIGHLIGHT.id] = mapHighlightReducer;
-        reducers[ACTIONS.MAP_FULLSCREEN.id] = mapFullscreenReducer;
         reducers[ACTIONS.MAP_START_DRAWING.id] = mapStartDrawingReducer;
         reducers[ACTIONS.MAP_CLEAR_DRAWING.id] = mapClearDrawingReducer;
         reducers[ACTIONS.MAP_END_DRAWING.id] = mapEndDrawingReducer;
@@ -26,13 +25,10 @@
         function showMapReducer (state) {
             return {
                 ...state,
-                map: angular.isObject(state.map) ? {
-                    ...state.map,
-                    isFullscreen: true
-                } : state.map,
                 ui: angular.isObject(state.ui) ? {
                     ...state.ui,
-                    isMapPanelVisible: true
+                    isMapPanelVisible: true,
+                    isMapFullscreen: false
                 } : state.ui
             };
         }
@@ -146,22 +142,6 @@
                 map: angular.isObject(state.map) ? {
                     ...state.map,
                     highlight: payload
-                } : state.map
-            };
-        }
-
-        /**
-         * @param {Object} state
-         * @param {Number} payload - Boolean that defines whether or not fullscreen mode is enabled
-         *
-         * @returns {Object} newState
-         */
-        function mapFullscreenReducer (state, payload) {
-            return {
-                ...state,
-                map: angular.isObject(state.map) ? {
-                    ...state.map,
-                    isFullscreen: payload
                 } : state.map
             };
         }

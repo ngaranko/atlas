@@ -18,8 +18,10 @@ describe('The dashboardColumns factory', function () {
                 overlays: [],
                 viewCenter: [52.3719, 4.9012],
                 zoom: 9,
-                isFullscreen: false,
                 isLoading: false
+            },
+            ui: {
+                isMapFullscreen: false
             },
             search: null,
             page: {
@@ -441,7 +443,7 @@ describe('The dashboardColumns factory', function () {
     describe('when using a fullscreen map', function () {
         beforeEach(function () {
             mockedState.dataSelection = {};
-            mockedState.map.isFullscreen = true;
+            mockedState.ui.isMapFullscreen = true;
         });
 
         describe('the default non-print version', function () {
@@ -661,7 +663,7 @@ describe('The dashboardColumns factory', function () {
             mockedState.search = {
                 location: [1.2, 3.4]
             };
-            mockedState.map.isFullscreen = true;
+            mockedState.ui.isMapFullscreen = true;
         });
 
         describe('the default non-print version', function () {

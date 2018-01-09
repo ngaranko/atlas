@@ -85,7 +85,6 @@ describe('The stateToUrlMiddleware factory', function () {
             ACTIONS.SHOW_MAP,
             ACTIONS.MAP_PAN,
             ACTIONS.MAP_ZOOM,
-            ACTIONS.MAP_FULLSCREEN,
             ACTIONS.MAP_CLEAR_DRAWING,
             ACTIONS.MAP_END_DRAWING,
             ACTIONS.SHOW_DETAIL,
@@ -128,7 +127,6 @@ describe('The stateToUrlMiddleware factory', function () {
             shouldNotUseReplace = [
                 ACTIONS.SHOW_SEARCH_RESULTS,
                 ACTIONS.SHOW_MAP,
-                ACTIONS.MAP_FULLSCREEN,
                 ACTIONS.MAP_CLEAR_DRAWING,
                 ACTIONS.MAP_END_DRAWING,
                 ACTIONS.SHOW_DETAIL,
