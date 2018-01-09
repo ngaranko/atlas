@@ -29,12 +29,6 @@ $on-top-of-leaflet: 999;
   transform: translateZ(0);
   cursor: default;
   z-index: $body-z-index;
-
-  &:focus {
-    .c-map__focus-layer {
-      border: 1px solid #000;
-    }
-  }
 }
 
 .c-map__overlay-buttons {
@@ -52,5 +46,14 @@ $on-top-of-leaflet: 999;
 .is-print-mode {
   .leaflet-control-zoom {
     display: none;
+  }
+}
+
+.is-embed,
+.is-embed-preview {
+  .c-map__leaflet:focus {
+    .c-map__focus-layer {
+      border: 1px solid #000;
+    }
   }
 }
