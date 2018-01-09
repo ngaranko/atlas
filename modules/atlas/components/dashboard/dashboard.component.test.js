@@ -4,6 +4,7 @@ describe('The dashboard component', function () {
         $timeout,
         $window,
         origAuth,
+        origEndpointTypes,
         store,
         ACTIONS,
         dashboardColumns,
@@ -86,17 +87,26 @@ describe('The dashboard component', function () {
             login: angular.noop
         };
 
+        origEndpointTypes = $window.mapPreviewPanelDetailEndpointTypes;
+
         mockedState = angular.copy(angular.copy(DEFAULT_STATE));
     });
 
     afterEach(() => {
         $window.auth = origAuth;
+        $window.mapPreviewPanelDetailEndpointTypes = origEndpointTypes;
     });
 
-    function getComponent () {
+    function getComponent (endpointTypes) {
         var component,
             element,
             scope;
+
+        if (endpointTypes) {
+            $window.mapPreviewPanelDetailEndpointTypes = endpointTypes;
+        } else {
+            delete $window.mapPreviewPanelDetailEndpointTypes;
+        }
 
         element = document.createElement('dp-dashboard');
         scope = $rootScope.$new();
@@ -499,18 +509,15 @@ describe('The dashboard component', function () {
                 // well
                 handler = handler || fn;
             });
-
-            getComponent();
         });
 
         describe('Opening and closing', () => {
-            beforeEach(function () {
+            it('Opens when visible and there is geolocation', () => {
+                getComponent();
                 handler();
                 $rootScope.$digest();
                 store.dispatch.calls.reset();
-            });
 
-            it('Opens when visible and there is geolocation', () => {
                 mockedVisibility.mapPreviewPanel = true;
                 mockedState.search = {
                     location: [1, 0]
@@ -523,7 +530,12 @@ describe('The dashboard component', function () {
                 });
             });
 
-            it('Opens when visible and there is clickable detail', () => {
+            it('Opens when visible and there is a map preview panel implementation for the endpoint', () => {
+                getComponent({ brkObject: 'brk/object/' });
+                handler();
+                $rootScope.$digest();
+                store.dispatch.calls.reset();
+
                 mockedVisibility.mapPreviewPanel = true;
                 mockedState.detail = {
                     endpoint: 'https://acc.api.amsterdam.nl/fake/brk/object/endpoint'
@@ -536,10 +548,15 @@ describe('The dashboard component', function () {
                 });
             });
 
-            it('Closes when visible and there is detail, but not clickable', () => {
+            it('Closes when visible, but there is no map preview panel implementation for the endpoint', () => {
+                getComponent();
+                handler();
+                $rootScope.$digest();
+                store.dispatch.calls.reset();
+
                 mockedVisibility.mapPreviewPanel = true;
                 mockedState.detail = {
-                    endpoint: 'https://acc.api.amsterdam.nl/fake/not/clickable/endpoint'
+                    endpoint: 'https://acc.api.amsterdam.nl/fake/non/existent/endpoint'
                 };
                 handler();
                 $rootScope.$digest();
@@ -550,6 +567,11 @@ describe('The dashboard component', function () {
             });
 
             it('Closes when visible and there is detail, but not endpoint', () => {
+                getComponent();
+                handler();
+                $rootScope.$digest();
+                store.dispatch.calls.reset();
+
                 mockedVisibility.mapPreviewPanel = true;
                 mockedState.detail = {};
                 handler();
@@ -561,6 +583,11 @@ describe('The dashboard component', function () {
             });
 
             it('Closes when visible but there is no geolocation nor detail', () => {
+                getComponent();
+                handler();
+                $rootScope.$digest();
+                store.dispatch.calls.reset();
+
                 mockedVisibility.mapPreviewPanel = true;
                 handler();
                 $rootScope.$digest();
@@ -571,6 +598,11 @@ describe('The dashboard component', function () {
             });
 
             it('Closes when not visible', () => {
+                getComponent();
+                handler();
+                $rootScope.$digest();
+                store.dispatch.calls.reset();
+
                 mockedVisibility.mapPreviewPanel = true;
                 handler();
                 $rootScope.$digest();
@@ -586,6 +618,11 @@ describe('The dashboard component', function () {
             });
 
             it('Closes when not visible, even though there is geolocation or detail', () => {
+                getComponent();
+                handler();
+                $rootScope.$digest();
+                store.dispatch.calls.reset();
+
                 mockedVisibility.mapPreviewPanel = true;
                 handler();
                 $rootScope.$digest();

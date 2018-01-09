@@ -1,3 +1,5 @@
+import escapeStringRegexp from 'escape-string-regexp';
+
 (function () {
     'use strict';
 
@@ -7,7 +9,8 @@
 
     function suggestionHighlightFilter () {
         return function (suggestion, query) {
-            return suggestion.replace(new RegExp('(' + query + ')', 'gi'), '<strong>$1</strong>');
+            const escapedString = escapeStringRegexp(query);
+            return suggestion.replace(new RegExp('(' + escapedString + ')', 'gi'), '<strong>$1</strong>');
         };
     }
 })();
