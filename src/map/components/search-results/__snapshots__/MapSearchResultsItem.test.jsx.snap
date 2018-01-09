@@ -19,7 +19,7 @@ exports[`MapSearchResultsItem rendering should render an item 1`] = `
       Dam 1
     </div>
   </section>
-  <test-file-stub
+  <Component
     className="map-search-results__item-arrow"
   />
 </button>
@@ -44,7 +44,7 @@ exports[`MapSearchResultsItem rendering should update an item 1`] = `
       ABC123
     </div>
   </section>
-  <test-file-stub
+  <Component
     className="map-search-results__item-arrow"
   />
 </button>
