@@ -12,7 +12,7 @@ exports[`MapPanelHandle should render children by default 1`] = `
     onClick={[Function]}
   >
     <span>
-      <Component />
+      <test-file-stub />
       <span
         className="u-sr-only"
       >

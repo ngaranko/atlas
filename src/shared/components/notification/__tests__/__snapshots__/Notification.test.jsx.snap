@@ -17,7 +17,7 @@ exports[`Notification should add the notification level as class name 1`] = `
     className="notification__button"
     onClick={[Function]}
   >
-    <Component />
+    <test-file-stub />
   </button>
 </p>
 `;
@@ -43,7 +43,7 @@ exports[`Notification should be able to render \`a\` elements 1`] = `
     className="notification__button"
     onClick={[Function]}
   >
-    <Component />
+    <test-file-stub />
   </button>
 </p>
 `;
@@ -65,7 +65,7 @@ exports[`Notification should render the provided message 1`] = `
     className="notification__button"
     onClick={[Function]}
   >
-    <Component />
+    <test-file-stub />
   </button>
 </p>
 `;
