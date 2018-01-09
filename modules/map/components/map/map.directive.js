@@ -6,6 +6,7 @@
     dpMapDirective.$inject = [
         '$timeout',
         '$window',
+        'embed',
         'L',
         'mapConfig',
         'layers',
@@ -14,12 +15,26 @@
         'zoom',
         'onMapClick',
         'overlays',
-        'activeOverlays'
+        'activeOverlays',
+        'store'
     ];
 
     // eslint-disable-next-line max-params
-    function dpMapDirective ($timeout, $window, L, mapConfig, layers, highlight, panning, zoom, onMapClick, overlays,
-                             activeOverlays) {
+    function dpMapDirective (
+        $timeout,
+        $window,
+        embed,
+        L,
+        mapConfig,
+        layers,
+        highlight,
+        panning,
+        zoom,
+        onMapClick,
+        overlays,
+        activeOverlays,
+        store
+        ) {
         return {
             restrict: 'E',
             scope: {
@@ -35,7 +50,8 @@
 
         function linkFunction (scope, element) {
             let leafletMap,
-                oldOverlays = null;
+                oldOverlays = null,
+                embedLink;
 
             const container = element[0].querySelector('.js-leaflet-map');
             const options = angular.merge(mapConfig.MAP_OPTIONS, {
@@ -48,6 +64,32 @@
             const MapPanelWrapper = $window.MapPanelWrapper;
             const MapPreviewPanelWrapper = $window.MapPreviewPanelWrapper;
             const MapWrapper = $window.MapWrapper;
+            const MapEmbedButtonWrapper = $window.MapEmbedButtonWrapper;
+
+            const mountReactComponents = () => {
+                const mapEmbedButtonNode = document.getElementById('map-embed-button');
+                /* istanbul ignore next */
+                if (mapEmbedButtonNode) {
+                    render(React.createElement(MapEmbedButtonWrapper, { embedLink }), mapEmbedButtonNode);
+                }
+            };
+
+            store.subscribe(update);
+            update();
+
+            function update () {
+                const state = store.getState();
+                const nonEmbedState = {
+                    ...state,
+                    atlas: {
+                        ...state.atlas,
+                        isEmbed: false,
+                        isEmbedPreview: false
+                    }
+                };
+                embedLink = embed.getLink(nonEmbedState);
+                mountReactComponents();
+            }
 
             $timeout(() => {
                 render(React.createElement(MapPanelWrapper, null), document.getElementById('map-panel-react'));

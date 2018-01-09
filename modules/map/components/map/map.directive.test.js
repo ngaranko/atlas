@@ -14,14 +14,20 @@ describe('The dp-map directive', () => {
         mockedMapState,
         mockedLeafletMap,
         mockedMarkers,
+        mockedState,
         DRAW_TOOL_CONFIG;
 
     beforeEach(() => {
+        mockedState = {};
+
         angular.mock.module(
             'dpMap',
             {
+                embed: {
+                    getLink: jasmine.createSpy('getLink')
+                },
                 store: {
-                    dispatch: angular.noop,
+                    getState: () => mockedState,
                     subscribe: angular.noop
                 },
                 leafletMap: {

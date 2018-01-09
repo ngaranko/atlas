@@ -3,6 +3,7 @@ import './state';
 import './map/wrappers/panel/MapPanelWrapper';
 import './map/wrappers/preview-panel/MapPreviewPanelWrapper';
 import './map/wrappers/map/MapWrapper';
+import './map/wrappers/map-embed-button/MapEmbedButtonWrapper';
 
 // All third party dependencies
 import './vendor';
@@ -147,7 +148,6 @@ import '../modules/map/components/draw-tool/draw-tool.component';
 import '../modules/map/components/draw-tool/points-available/points-available.component';
 import '../modules/map/components/draw-tool/shape-summary/shape-summary.component';
 import '../modules/map/components/draw-tool/toggle-drawing-tool/toggle-drawing-tool.component';
-import '../modules/map/components/embed-button/embed-button.component';
 import '../modules/map/components/map/map.directive';
 import '../modules/map/map-config.factory';
 import '../modules/map/map.vendor';
