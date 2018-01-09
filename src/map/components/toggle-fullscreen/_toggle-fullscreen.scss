@@ -1,11 +1,11 @@
 .toggle-fullscreen {
   background-color: #ffffff;
-  position: absolute;
-  right: 10px;
-  top: 10px;
   border: solid 1px #CCCCCC;
   box-shadow: 2px 2px 0 0 #999999;
   padding: 2px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
   z-index: 150;
 
   .toggle-fullscreen__icon {
@@ -14,11 +14,13 @@
     height: 24px;
     width: 24px;
 
+    &:focus,
     &:hover {
       fill: #ffffff;
     }
   }
 
+  &:focus,
   &:hover {
     background-color: #fd0000;
   }

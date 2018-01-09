@@ -1,7 +1,9 @@
 import UiReducer, {
   hideMapPanel,
   showMapPanel,
-  toggleMapPanel
+  toggleMapPanel,
+  toggleMapPanelHandle,
+  toggleMapFullscreen
 } from './ui';
 
 describe('UiReducer', () => {
@@ -19,33 +21,53 @@ describe('UiReducer', () => {
     });
   });
 
-  it('should show the panel', () => {
+  it('should show the map panel', () => {
     expect(UiReducer(state, showMapPanel())).toEqual({
-      isMapPanelVisible: true,
-      isMapPanelHandleVisible: true,
-      isMapFullscreen: false
+      ...state,
+      isMapPanelVisible: true
     });
   });
 
-  it('should hide the panel', () => {
+  it('should hide the map panel', () => {
     const newState = UiReducer(state, showMapPanel());
     expect(UiReducer(newState, hideMapPanel())).toEqual({
-      isMapPanelVisible: false,
-      isMapPanelHandleVisible: true,
-      isMapFullscreen: false
+      ...state,
+      isMapPanelVisible: false
     });
   });
 
-  it('should toggle the panel', () => {
+  it('should toggle the map panel', () => {
     const newState = UiReducer(state, toggleMapPanel());
     expect(newState).toEqual({
-      isMapPanelVisible: true,
-      isMapPanelHandleVisible: true,
-      isMapFullscreen: false
+      ...state,
+      isMapPanelVisible: true
     });
     expect(UiReducer(newState, toggleMapPanel())).toEqual({
-      isMapPanelVisible: false,
-      isMapPanelHandleVisible: true,
+      ...state,
+      isMapPanelVisible: false
+    });
+  });
+
+  it('should toggle the map panel handle', () => {
+    const newState = UiReducer(state, toggleMapPanelHandle());
+    expect(newState).toEqual({
+      ...state,
+      isMapPanelHandleVisible: false
+    });
+    expect(UiReducer(newState, toggleMapPanelHandle())).toEqual({
+      ...state,
+      isMapPanelHandleVisible: true
+    });
+  });
+
+  it('should toggle the map fullscreen', () => {
+    const newState = UiReducer(state, toggleMapFullscreen());
+    expect(newState).toEqual({
+      ...state,
+      isMapFullscreen: true
+    });
+    expect(UiReducer(newState, toggleMapFullscreen())).toEqual({
+      ...state,
       isMapFullscreen: false
     });
   });
