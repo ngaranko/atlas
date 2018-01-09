@@ -15,27 +15,18 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   onToggleFullscreen: toggleFullscreen
 }, dispatch);
 
-class MapContainer extends React.Component {
-  componentDidMount() {
-  }
+const MapContainer = (props) => (
+  <section className="map">
+    <ToggleFullscreen
+      isFullscreen={props.isFullscreen}
+      onToggleFullscreen={props.onToggleFullscreen}
+    />
+  </section>
+);
 
-  render() {
-    return (
-      <section className="map">
-        <ToggleFullscreen
-          isFullscreen={this.props.isFullscreen}
-          onToggleFullscreen={this.props.onToggleFullscreen}
-        />
-      </section>
-    );
-  }
-}
 
 MapContainer.contextTypes = {
   store: PropTypes.object.isRequired
-};
-
-MapContainer.defaultProps = {
 };
 
 MapContainer.propTypes = {

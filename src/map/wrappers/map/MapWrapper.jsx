@@ -2,11 +2,11 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 
-import Map from '../../containers/map/map';
+import MapContainer from '../../containers/map/MapContainer';
 
 const MapWrapper = () => (
   <Provider store={window.reduxStore}>
-    <Map />
+    <MapContainer />
   </Provider>
 );
 
