@@ -36,7 +36,10 @@ import { combineReducers } from 'redux';
                 user: UserReducer
             });
             const filteredState = {
-                error: oldState.error, // not using deprecated state because error state is lossed by URL resolver
+                // using oldState instead of chaining deprecatedState from other reducer
+                // for error field. This is because the URL resolution step in the deprecatedReducer resets
+                // resets the error portion of the state.
+                error: oldState.error,
                 ui: deprecatedState.ui,
                 user: deprecatedState.user
             };
