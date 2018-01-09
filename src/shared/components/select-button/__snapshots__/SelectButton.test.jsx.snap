@@ -29,11 +29,21 @@ exports[`rendering should render with default value 1`] = `
     <span
       className="select-button__icon select-button__icon--expand"
     >
+      <span
+        className="u-sr-only"
+      >
+        Uitklappen
+      </span>
       <Component />
     </span>
     <span
       className="select-button__icon select-button__icon--collapse"
     >
+      <span
+        className="u-sr-only"
+      >
+        Inklappen
+      </span>
       <Component />
     </span>
   </button>
@@ -116,11 +126,21 @@ exports[`rendering should render with no options 1`] = `
     <span
       className="select-button__icon select-button__icon--expand"
     >
+      <span
+        className="u-sr-only"
+      >
+        Uitklappen
+      </span>
       <Component />
     </span>
     <span
       className="select-button__icon select-button__icon--collapse"
     >
+      <span
+        className="u-sr-only"
+      >
+        Inklappen
+      </span>
       <Component />
     </span>
   </button>
