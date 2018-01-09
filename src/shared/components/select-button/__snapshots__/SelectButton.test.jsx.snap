@@ -1,304 +1,131 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`rendering should render with default value 1`] = `
-<SelectButton
-  className="someclass"
-  handleChange={[Function]}
-  icon={[Function]}
-  isDisabled={false}
-  isExpanded={false}
-  label=""
-  name="topography"
-  options={
-    Array [
-      Object {
-        "label": "Topografie",
-        "value": "topografie",
-      },
-      Object {
-        "label": "Topografie licht",
-        "value": "topo_rd_light",
-      },
-      Object {
-        "label": "Topografie grijs",
-        "value": "topo_rd_zw",
-      },
-    ]
-  }
-  value=""
->
-  <section
-    className="
+<section
+  className="
           someclass
           select-button
           
           
         "
+>
+  <button
+    className="select-button__wrapper"
+    onClick={[Function]}
   >
-    <button
-      className="select-button__wrapper"
-      onClick={[Function]}
+    <Component
+      className="select-button__custom-icon"
+    />
+    <div
+      className="select-button__label"
     >
-      <Component
-        className="select-button__custom-icon"
-      >
-        mock-svg
-      </Component>
-      <div
-        className="select-button__label"
-      >
-        Topografie
-      </div>
-    </button>
-    <button
-      className="select-button__icon-wrapper"
-      onClick={[Function]}
+      Topografie
+    </div>
+  </button>
+  <button
+    className="select-button__icon-wrapper"
+    onClick={[Function]}
+  >
+    <span
+      className="select-button__icon select-button__icon--expand"
     >
-      <span
-        className="select-button__icon select-button__icon--expand"
-      >
-        <Component>
-          mock-svg
-        </Component>
-      </span>
-      <span
-        className="select-button__icon select-button__icon--collapse"
-      >
-        <Component>
-          mock-svg
-        </Component>
-      </span>
-    </button>
-    <ul
-      className="select-button__drop-down"
+      <Component />
+    </span>
+    <span
+      className="select-button__icon select-button__icon--collapse"
     >
-      <li
-        className="
+      <Component />
+    </span>
+  </button>
+  <ul
+    className="select-button__drop-down"
+  >
+    <li
+      className="
                 select-button__drop-down-item
                 select-button__drop-down-item--selected
               "
-        key="topografie"
+      key="topografie"
+    >
+      <button
+        className="select-button__drop-down-button"
+        onClick={[Function]}
+        value="topografie"
       >
-        <button
-          className="select-button__drop-down-button"
-          onClick={[Function]}
-          value="topografie"
-        >
-          Topografie
-        </button>
-      </li>
-      <li
-        className="
+        Topografie
+      </button>
+    </li>
+    <li
+      className="
                 select-button__drop-down-item
                 false
               "
-        key="topo_rd_light"
+      key="topo_rd_light"
+    >
+      <button
+        className="select-button__drop-down-button"
+        onClick={[Function]}
+        value="topo_rd_light"
       >
-        <button
-          className="select-button__drop-down-button"
-          onClick={[Function]}
-          value="topo_rd_light"
-        >
-          Topografie licht
-        </button>
-      </li>
-      <li
-        className="
+        Topografie licht
+      </button>
+    </li>
+    <li
+      className="
                 select-button__drop-down-item
                 false
               "
-        key="topo_rd_zw"
+      key="topo_rd_zw"
+    >
+      <button
+        className="select-button__drop-down-button"
+        onClick={[Function]}
+        value="topo_rd_zw"
       >
-        <button
-          className="select-button__drop-down-button"
-          onClick={[Function]}
-          value="topo_rd_zw"
-        >
-          Topografie grijs
-        </button>
-      </li>
-    </ul>
-  </section>
-</SelectButton>
+        Topografie grijs
+      </button>
+    </li>
+  </ul>
+</section>
 `;
 
 exports[`rendering should render with no options 1`] = `
-<SelectButton
-  className=""
-  handleChange={[Function]}
-  icon={[Function]}
-  isDisabled={false}
-  isExpanded={false}
-  label=""
-  name="topography"
-  options={Array []}
-  value=""
->
-  <section
-    className="
+<section
+  className="
           
           select-button
           
           
         "
+>
+  <button
+    className="select-button__wrapper"
+    onClick={[Function]}
   >
-    <button
-      className="select-button__wrapper"
-      onClick={[Function]}
-    >
-      <Component
-        className="select-button__custom-icon"
-      >
-        mock-svg
-      </Component>
-      <div
-        className="select-button__label"
-      />
-    </button>
-    <button
-      className="select-button__icon-wrapper"
-      onClick={[Function]}
-    >
-      <span
-        className="select-button__icon select-button__icon--expand"
-      >
-        <Component>
-          mock-svg
-        </Component>
-      </span>
-      <span
-        className="select-button__icon select-button__icon--collapse"
-      >
-        <Component>
-          mock-svg
-        </Component>
-      </span>
-    </button>
-    <ul
-      className="select-button__drop-down"
+    <Component
+      className="select-button__custom-icon"
     />
-  </section>
-</SelectButton>
-`;
-
-exports[`rendering should render with preselected value then make the select button disabled 1`] = `
-<SelectButton
-  className="someclass"
-  handleChange={[Function]}
-  icon={[Function]}
-  isDisabled={false}
-  isExpanded={false}
-  label=""
-  name="topography"
-  options={
-    Array [
-      Object {
-        "label": "Topografie",
-        "value": "topografie",
-      },
-      Object {
-        "label": "Topografie licht",
-        "value": "topo_rd_light",
-      },
-      Object {
-        "label": "Topografie grijs",
-        "value": "topo_rd_zw",
-      },
-    ]
-  }
-  value="topo_rd_light"
->
-  <section
-    className="
-          someclass
-          select-button
-          
-          
-        "
+    <div
+      className="select-button__label"
+    />
+  </button>
+  <button
+    className="select-button__icon-wrapper"
+    onClick={[Function]}
   >
-    <button
-      className="select-button__wrapper"
-      onClick={[Function]}
+    <span
+      className="select-button__icon select-button__icon--expand"
     >
-      <Component
-        className="select-button__custom-icon"
-      >
-        mock-svg
-      </Component>
-      <div
-        className="select-button__label"
-      >
-        Topografie licht
-      </div>
-    </button>
-    <button
-      className="select-button__icon-wrapper"
-      onClick={[Function]}
+      <Component />
+    </span>
+    <span
+      className="select-button__icon select-button__icon--collapse"
     >
-      <span
-        className="select-button__icon select-button__icon--expand"
-      >
-        <Component>
-          mock-svg
-        </Component>
-      </span>
-      <span
-        className="select-button__icon select-button__icon--collapse"
-      >
-        <Component>
-          mock-svg
-        </Component>
-      </span>
-    </button>
-    <ul
-      className="select-button__drop-down"
-    >
-      <li
-        className="
-                select-button__drop-down-item
-                false
-              "
-        key="topografie"
-      >
-        <button
-          className="select-button__drop-down-button"
-          onClick={[Function]}
-          value="topografie"
-        >
-          Topografie
-        </button>
-      </li>
-      <li
-        className="
-                select-button__drop-down-item
-                select-button__drop-down-item--selected
-              "
-        key="topo_rd_light"
-      >
-        <button
-          className="select-button__drop-down-button"
-          onClick={[Function]}
-          value="topo_rd_light"
-        >
-          Topografie licht
-        </button>
-      </li>
-      <li
-        className="
-                select-button__drop-down-item
-                false
-              "
-        key="topo_rd_zw"
-      >
-        <button
-          className="select-button__drop-down-button"
-          onClick={[Function]}
-          value="topo_rd_zw"
-        >
-          Topografie grijs
-        </button>
-      </li>
-    </ul>
-  </section>
-</SelectButton>
+      <Component />
+    </span>
+  </button>
+  <ul
+    className="select-button__drop-down"
+  />
+</section>
 `;
