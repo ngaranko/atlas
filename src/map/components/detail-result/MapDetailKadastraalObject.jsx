@@ -2,61 +2,44 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import MapDetailResultItem from './MapDetailResultItem';
+import MapDetailResultWrapper from './MapDetailResultWrapper';
 
-const MapDetailKadastraalObject = ({ panoUrl, result }) => (
-  <section className="map-detail-result">
-    <header
-      className={`
-        map-detail-result__header
-        map-detail-result__header--${panoUrl ? 'pano' : 'no-pano'}
-      `}
-    >
-      {panoUrl && (
-        <img
-          alt="Panoramabeeld"
-          className="map-detail-result__header-pano"
-          src={panoUrl}
-        />
-      )}
-      <div className="map-detail-result__header-container">
-        <h1 className="map-detail-result__header-title">Kadastraal object</h1>
-        <h2 className="map-detail-result__header-subtitle">{result._display}</h2>
-      </div>
-    </header>
+const MapDetailKadastraalObject = ({ panoUrl, kadastraalObject }) => (
+  <MapDetailResultWrapper
+    panoUrl={panoUrl}
+    subTitle={kadastraalObject.label}
+    title="Kadastraal object"
+  >
     <ul className="map-detail-result__list">
       <MapDetailResultItem
         label="Objectnummer"
-        value={result.objectnummer}
+        value={kadastraalObject.objectNumber}
       />
-      {result.kadastrale_gemeente && (
+      {kadastraalObject.kadastraleGemeente && (
         <MapDetailResultItem
           label="Kadastrale gemeente"
-          value={`${result.kadastrale_gemeente._display}: ${result.kadastrale_gemeente.naam}`}
+          value={`${kadastraalObject.kadastraleGemeente.label}: ${kadastraalObject.kadastraleGemeente.name}`}
         />
       )}
       <MapDetailResultItem
         label="Grootte"
-        value={(result.grootte || result.grootte === 0) && `${result.grootte} m²`}
+        value={(kadastraalObject.size || kadastraalObject.size === 0) ? `${kadastraalObject.size} m²` : ''}
       />
     </ul>
-  </section>
+  </MapDetailResultWrapper>
 );
 
-MapDetailKadastraalObject.defaultProps = {
-  panoUrl: ''
-};
-
 MapDetailKadastraalObject.propTypes = {
-  panoUrl: PropTypes.string,
-  result: PropTypes.shape({
-    _display: PropTypes.string,
-    grootte: PropTypes.number,
-    kadastrale_gemeente: PropTypes.shape({
-      _display: PropTypes.string,
-      naam: PropTypes.string
+  kadastraalObject: PropTypes.shape({
+    kadastraleGemeente: PropTypes.shape({
+      label: PropTypes.string,
+      name: PropTypes.string
     }),
-    objectnummer: PropTypes.string
-  }).isRequired
+    label: PropTypes.string,
+    objectNumber: PropTypes.string,
+    size: PropTypes.number
+  }).isRequired,
+  panoUrl: PropTypes.string.isRequired
 };
 
 export default MapDetailKadastraalObject;

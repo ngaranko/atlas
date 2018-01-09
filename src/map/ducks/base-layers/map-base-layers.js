@@ -6,19 +6,19 @@ export const SET_MAP_BASE_LAYER = 'SET_MAP_BASE_LAYER';
 const initialState = {
   baseLayers: null,
   isLoading: false,
-  error: null
+  mapBaseLayersError: null
 };
 
 export default function MapBaseLayersReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_MAP_BASE_LAYERS_REQUEST:
-      return { ...state, isLoading: true, error: null };
+      return { ...state, isLoading: true, mapBaseLayersError: null };
 
     case FETCH_MAP_BASE_LAYERS_SUCCESS:
       return { ...state, isLoading: false, mapBaseLayers: action.mapBaseLayers };
 
     case FETCH_MAP_BASE_LAYERS_FAILURE:
-      return { ...state, isLoading: false, error: action.error };
+      return { ...state, isLoading: false, mapBaseLayersError: action.error };
 
     case SET_MAP_BASE_LAYER:
       return {

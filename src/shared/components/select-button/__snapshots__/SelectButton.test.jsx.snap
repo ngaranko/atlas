@@ -1,0 +1,131 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rendering should render with default value 1`] = `
+<section
+  className="
+          someclass
+          select-button
+          select-button--collapsed
+          select-button--enabled
+        "
+>
+  <button
+    className="select-button__wrapper"
+    onClick={[Function]}
+  >
+    <Component
+      className="select-button__custom-icon"
+    />
+    <div
+      className="select-button__label"
+    >
+      Topografie
+    </div>
+  </button>
+  <button
+    className="select-button__icon-wrapper"
+    onClick={[Function]}
+  >
+    <span
+      className="select-button__icon select-button__icon--expand"
+    >
+      <Component />
+    </span>
+    <span
+      className="select-button__icon select-button__icon--collapse"
+    >
+      <Component />
+    </span>
+  </button>
+  <ul
+    className="select-button__drop-down"
+  >
+    <li
+      className="
+                select-button__drop-down-item
+                select-button__drop-down-item--selected
+              "
+      key="topografie"
+    >
+      <button
+        className="select-button__drop-down-button"
+        onClick={[Function]}
+        value="topografie"
+      >
+        Topografie
+      </button>
+    </li>
+    <li
+      className="
+                select-button__drop-down-item
+                false
+              "
+      key="topo_rd_light"
+    >
+      <button
+        className="select-button__drop-down-button"
+        onClick={[Function]}
+        value="topo_rd_light"
+      >
+        Topografie licht
+      </button>
+    </li>
+    <li
+      className="
+                select-button__drop-down-item
+                false
+              "
+      key="topo_rd_zw"
+    >
+      <button
+        className="select-button__drop-down-button"
+        onClick={[Function]}
+        value="topo_rd_zw"
+      >
+        Topografie grijs
+      </button>
+    </li>
+  </ul>
+</section>
+`;
+
+exports[`rendering should render with no options 1`] = `
+<section
+  className="
+          
+          select-button
+          select-button--collapsed
+          select-button--enabled
+        "
+>
+  <button
+    className="select-button__wrapper"
+    onClick={[Function]}
+  >
+    <Component
+      className="select-button__custom-icon"
+    />
+    <div
+      className="select-button__label"
+    />
+  </button>
+  <button
+    className="select-button__icon-wrapper"
+    onClick={[Function]}
+  >
+    <span
+      className="select-button__icon select-button__icon--expand"
+    >
+      <Component />
+    </span>
+    <span
+      className="select-button__icon select-button__icon--collapse"
+    >
+      <Component />
+    </span>
+  </button>
+  <ul
+    className="select-button__drop-down"
+  />
+</section>
+`;

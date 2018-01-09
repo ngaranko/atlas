@@ -2,51 +2,39 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import MapDetailResultItem from './MapDetailResultItem';
+import MapDetailResultWrapper from './MapDetailResultWrapper';
 
-const MapDetailNapPeilmerk = ({ panoUrl, result }) => (
-  <section className="map-detail-result">
-    <header
-      className={`
-        map-detail-result__header
-        map-detail-result__header--${panoUrl ? 'pano' : 'no-pano'}
-      `}
-    >
-      {panoUrl && (
-        <img
-          alt="Panoramabeeld"
-          className="map-detail-result__header-pano"
-          src={panoUrl}
-        />
-      )}
-      <div className="map-detail-result__header-container">
-        <h1 className="map-detail-result__header-title">NAP Peilmerk</h1>
-        <h2 className="map-detail-result__header-subtitle">{result.peilmerkidentificatie}</h2>
-      </div>
-    </header>
+const MapDetailNapPeilmerk = ({ panoUrl, peilmerk }) => (
+  <MapDetailResultWrapper
+    panoUrl={panoUrl}
+    subTitle={peilmerk.label}
+    title="NAP Peilmerk"
+  >
     <ul className="map-detail-result__list">
       <MapDetailResultItem
         label="Hoogte NAP"
-        value={(result.hoogte_nap || result.hoogte_nap === 0) && `${result.hoogte_nap} m`}
+        value={peilmerk.height && `${peilmerk.height} m`}
       />
       <MapDetailResultItem
         label="Jaar"
-        value={result.jaar && result.jaar.toString()}
+        value={peilmerk.year && peilmerk.year.toString()}
       />
       <MapDetailResultItem
         label="Omschrijving"
-        value={result.omschrijving}
+        value={peilmerk.description}
       />
     </ul>
-  </section>
+  </MapDetailResultWrapper>
 );
 
-MapDetailNapPeilmerk.defaultProps = {
-  panoUrl: ''
-};
-
 MapDetailNapPeilmerk.propTypes = {
-  panoUrl: PropTypes.string,
-  result: PropTypes.object // eslint-disable-line
+  panoUrl: PropTypes.string.isRequired,
+  peilmerk: PropTypes.shape({
+    description: PropTypes.string,
+    height: PropTypes.string,
+    label: PropTypes.string,
+    year: PropTypes.number
+  }).isRequired
 };
 
 export default MapDetailNapPeilmerk;
