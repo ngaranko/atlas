@@ -35,7 +35,8 @@
       }
 
       .map-detail-result__header--no-pano & {
-        position: initial;
+        margin-right: 0;
+        position: static;
       }
     }
 
