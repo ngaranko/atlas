@@ -23,12 +23,20 @@
         return reducers;
 
         function showMapReducer (state) {
+          console.log('SHOW_MAP', {
+              ...state,
+              ui: angular.isObject(state.ui) ? {
+                  ...state.ui,
+                  isMapPanelVisible: true,
+                  isMapFullscreen: false
+              } : state.ui
+          });
             return {
                 ...state,
                 ui: angular.isObject(state.ui) ? {
                     ...state.ui,
                     isMapPanelVisible: true,
-                    isMapFullscreen: false
+                    isMapFullscreen: true
                 } : state.ui
             };
         }

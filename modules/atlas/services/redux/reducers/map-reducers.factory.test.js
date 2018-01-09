@@ -44,7 +44,7 @@ describe('The map reducers', function () {
             const inputState = angular.copy(DEFAULT_STATE);
             const output = mapReducers[ACTIONS.SHOW_MAP.id](inputState);
 
-            expect(output.ui.isMapFullscreen).toBe(false);
+            expect(output.ui.isMapFullscreen).toBe(true);
             expect(output.ui.isMapPanelVisible).toBe(true);
         });
 

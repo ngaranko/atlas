@@ -248,7 +248,7 @@ describe('The dashboardColumns factory', function () {
             });
 
             it('deals with incomplete state', function () {
-                delete mockedState.map;
+                delete mockedState.ui;
                 activity = dashboardColumns.determineActivity(mockedState);
                 visibility = dashboardColumns.determineVisibility(mockedState);
                 expect(activity.map).toBe(true);
