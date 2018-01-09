@@ -3,7 +3,7 @@
 exports[`MapSearchResultsItem rendering should render an item 1`] = `
 <button
   className="map-search-results__item"
-  onClick={[Function]}
+  onClick={[MockFunction]}
 >
   <section
     className="map-search-results__item-content"
@@ -28,7 +28,7 @@ exports[`MapSearchResultsItem rendering should render an item 1`] = `
 exports[`MapSearchResultsItem rendering should update an item 1`] = `
 <button
   className="map-search-results__item"
-  onClick={[Function]}
+  onClick={[MockFunction]}
 >
   <section
     className="map-search-results__item-content"
