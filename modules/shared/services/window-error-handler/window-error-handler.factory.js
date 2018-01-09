@@ -26,7 +26,7 @@ import { ERROR_TYPES } from '../../../../src/shared/ducks/error-message.js';
                 // Initiated by browser without Raven/Sentry intervening.
                 // Fired when asset load from HTML fails.
                 // e.g. Piwik fails to load, or a tile is not loaded.
-                // One one the causes for this may be that the connection is dropped.
+                // One of the causes for this may be that the connection is dropped.
 
                 // not fired on exceptions
                 // not fired on syntax error inside Angular

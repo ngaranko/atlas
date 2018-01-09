@@ -32,7 +32,7 @@ describe('The window error handler', function () {
             $provide.value('$window', window);
         });
 
-        angular.mock.inject(function (_$rootScope_, _$window_, _windowErrorHandler_) {
+        angular.mock.inject(function (_$rootScope_, _windowErrorHandler_) {
             windowErrorHandler = _windowErrorHandler_;
             $rootScope = _$rootScope_;
         });

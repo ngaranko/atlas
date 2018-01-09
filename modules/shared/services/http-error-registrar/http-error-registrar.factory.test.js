@@ -199,7 +199,7 @@ describe('The http error registrar', () => {
         expect(callbackCalled).toBe(true);
     });
 
-    it('skips handles http server error -1 for cancelled responses', () => {
+    it('skips error handler for cancelled responses', () => {
         const url = 'http://api-domain.amsterdam.nl/-1';
         $http({
             method: 'GET',
