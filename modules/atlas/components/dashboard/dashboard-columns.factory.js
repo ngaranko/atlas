@@ -5,9 +5,7 @@
         .module('atlas')
         .factory('dashboardColumns', dashboardColumnsFactory);
 
-    dashboardColumnsFactory.$inject = ['httpStatus'];
-
-    function dashboardColumnsFactory (httpStatus) {
+    function dashboardColumnsFactory () {
         /*
         - activity means the component is loaded (ng-if)
         - visibility means the component is shown, inactive components are never shown (ng-show)
@@ -37,7 +35,7 @@
             const visibility = {};
             const { map = {} } = state;
 
-            visibility.httpStatus = httpStatus.getStatus().hasErrors || state.user.error;
+            visibility.error = state.error.hasErrors || state.user.error;
             visibility.map = activity.map;
 
             if (angular.isObject(state.dataSelection) && !map.isFullscreen) {

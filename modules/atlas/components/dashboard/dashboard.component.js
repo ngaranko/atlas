@@ -20,7 +20,6 @@
         store.subscribe(setLayout);
         setLayout();
 
-        $scope.$watch(() => dashboardColumns.determineVisibility(store.getState()).httpStatus, setLayout);
         $scope.$watchGroup(['vm.isStraatbeeldActive', 'vm.straatbeeldHistory'], () => {
             if (vm.isStraatbeeldActive) {
                 store.dispatch({ type: ACTIONS.MAP_ADD_PANO_OVERLAY });
