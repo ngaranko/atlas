@@ -278,6 +278,7 @@ describe('Straatbeeld reducers factory', function () {
         it('centers the map when fullscreen map is active', function () {
             const state = {
                 page: {},
+                map: {},
                 ui: {
                     isMapPanelVisible: false,
                     isMapFullscreen: true

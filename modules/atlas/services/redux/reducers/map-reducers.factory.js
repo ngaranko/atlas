@@ -189,7 +189,8 @@
                 } : state.map,
                 ui: angular.isObject(state.ui) ? {
                     ...state.ui,
-                    isMapPanelVisible: moreThan2Markers ? false : state.ui.isMapPanelVisible
+                    isMapPanelVisible: moreThan2Markers ? false : state.ui.isMapPanelVisible,
+                    isMapFullscreen: moreThan2Markers ? false : state.ui.isMapFullscreen
                 } : state.ui,
                 page: angular.isObject(state.page) ? {
                     ...state.page,
@@ -205,8 +206,7 @@
             return {
                 drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
                 geometry: has2Markers ? payload.markers : moreThan2Markers ? [] : state.map.geometry,
-                isLoading: moreThan2Markers ? true : state.map.isLoading,
-                isFullscreen: moreThan2Markers ? false : state.ui.isMapFullscreen
+                isLoading: moreThan2Markers ? true : state.map.isLoading
             };
         }
 

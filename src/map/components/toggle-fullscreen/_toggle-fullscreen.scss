@@ -22,4 +22,10 @@
   &:hover {
     background-color: #fd0000;
   }
+
+  .is-embed &,
+  .is-embed-preview &,
+  .is-print-mode & {
+    display: none;
+  }
 }
