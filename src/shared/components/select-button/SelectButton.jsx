@@ -107,8 +107,8 @@ class SelectButton extends React.Component {
         className={`
           ${this.state.className}
           select-button
-          ${this.state.isExpanded ? 'select-button--expanded' : ''}
-          ${this.state.isDisabled ? 'select-button--disabled' : ''}
+          select-button--${this.state.isExpanded ? 'expanded' : 'collapsed'}
+          select-button--${this.state.isDisabled ? 'disabled' : 'enabled'}
         `}
         ref={(node) => { this.node = node; }}
       >

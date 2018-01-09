@@ -5,8 +5,8 @@ exports[`rendering should render with default value 1`] = `
   className="
           someclass
           select-button
-          
-          
+          select-button--collapsed
+          select-button--enabled
         "
 >
   <button
@@ -94,8 +94,8 @@ exports[`rendering should render with no options 1`] = `
   className="
           
           select-button
-          
-          
+          select-button--collapsed
+          select-button--enabled
         "
 >
   <button
