@@ -20,15 +20,18 @@ import {
     function DpApiErrorController ($scope, $timeout, store) {
         const vm = this;
 
-        vm.showGeneralError = false;
-        vm.showNotFoundError = false;
-        vm.showLoginError = false;
-
         vm.hide = () => {
             store.dispatch(resetGlobalError());
         };
 
+        const reset = () => {
+            vm.showGeneralError = false;
+            vm.showNotFoundError = false;
+            vm.showLoginError = false;
+        };
+
         const checkErrors = (errorState) => {
+            reset();
             const { hasErrors, types } = errorState;
             if (hasErrors) {
                 if (types.hasOwnProperty(ERROR_TYPES.NOT_FOUND_ERROR)) {
@@ -41,6 +44,7 @@ import {
             }
         };
 
+        reset();
         checkErrors(store.getState().error);
 
         $scope.$watch('vm.user.error', (error) => {

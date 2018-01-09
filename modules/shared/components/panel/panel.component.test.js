@@ -12,7 +12,7 @@ describe('The dp-panel component', function () {
         });
     });
 
-    function getComponent (isPanelVisible, canClose, size, type, className, addCloseAction) {
+    function getComponent (isPanelVisible, canClose, size, type, className) {
         var component,
             element,
             scope;
