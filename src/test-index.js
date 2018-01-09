@@ -140,7 +140,6 @@ import '../modules/map/components/draw-tool/draw-tool.component';
 import '../modules/map/components/draw-tool/points-available/points-available.component';
 import '../modules/map/components/draw-tool/shape-summary/shape-summary.component';
 import '../modules/map/components/draw-tool/toggle-drawing-tool/toggle-drawing-tool.component';
-import '../modules/map/components/embed-button/embed-button.component';
 import '../modules/map/components/map/map.directive';
 import '../modules/map/components/toggle-fullscreen/toggle-fullscreen.component';
 import '../modules/map/map-config.factory';
@@ -306,7 +305,6 @@ import '../modules/data-selection/services/api/data-selection-api-data-selection
 import '../modules/data-selection/services/document-title/document-title.factory.test';
 import '../modules/map/map-config.factory.test';
 import '../modules/map/components/toggle-fullscreen/toggle-fullscreen.component.test';
-import '../modules/map/components/embed-button/embed-button.component.test';
 import '../modules/map/components/map/map.directive.test';
 import '../modules/map/components/draw-tool/points-available/points-available.component.test';
 import '../modules/map/components/draw-tool/draw-tool.component.test';
