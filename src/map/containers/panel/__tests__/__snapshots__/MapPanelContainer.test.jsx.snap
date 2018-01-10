@@ -24,7 +24,12 @@ exports[`MapPanelContainer should render MapLegend if store contains active map 
       <h2
         className="map-panel__heading-title"
       >
-        Kaartlagen
+        Kaartlagen 
+        <span
+          className="u-sr-only"
+        >
+          legenda
+        </span>
       </h2>
       <Component
         className="map-panel__toggle-icon map-panel__toggle-icon--expanded"
@@ -96,7 +101,12 @@ exports[`MapPanelContainer should render MapType and MapLayers 1`] = `
       <h2
         className="map-panel__heading-title"
       >
-        Kaartlagen
+        Kaartlagen 
+        <span
+          className="u-sr-only"
+        >
+          legenda
+        </span>
       </h2>
       <Component
         className="map-panel__toggle-icon map-panel__toggle-icon--expanded"
