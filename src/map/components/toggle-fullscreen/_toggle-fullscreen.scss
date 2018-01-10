@@ -2,7 +2,7 @@
   background-color: #ffffff;
   border: solid 1px #CCCCCC;
   box-shadow: 2px 2px 0 0 #999999;
-  padding: 3px;
+  padding: 4px;
   position: absolute;
   right: 10px;
   top: 10px;
@@ -17,7 +17,8 @@
 
   &:focus,
   &:hover {
-    background-color: #fd0000;
+    background-color: #ec0000;
+    border-color: #ec0000;
 
     .toggle-fullscreen__icon {
       fill: #ffffff;
