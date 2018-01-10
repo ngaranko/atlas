@@ -72,7 +72,8 @@
 
                     return L.marker(latLng, {
                         icon: icon,
-                        rotationAngle: rotationAngle
+                        rotationAngle: rotationAngle,
+                        alt: 'Marker op de kaart'
                     });
                 }
             });
