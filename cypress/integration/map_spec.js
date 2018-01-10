@@ -1,6 +1,5 @@
 /* eslint-disable */
 describe('map module', () => {
-  
   describe('user should be able to navigate to the map from the homepage', () => {
     it('should open the map', () => {
       // go to the homepage
@@ -19,7 +18,6 @@ describe('map module', () => {
   });
 
   describe('user should be able to use the map', () => {
-
     it('should render the leaflet map', () => {
       // route to the map by url
       cy.visit('http://localhost:8080/#?mpb=topografie');
@@ -41,7 +39,6 @@ describe('map module', () => {
       // check if there is a canvas element inside the first overlay pane
       cy.get('.leaflet-overlay-pane').find('canvas').should('exist');
     });
-
   });
 
   describe('user should be able to open the map panel when collapsed', () => {

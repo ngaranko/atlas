@@ -1,7 +1,6 @@
 /* eslint-disable */
 import { login, logout } from '../services/authentication';
 describe('datasets search module', () => {
-
   before(() => {
     login();
   });

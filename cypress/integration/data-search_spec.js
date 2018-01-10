@@ -1,7 +1,6 @@
 /* eslint-disable */
 import { login, logout } from '../services/authentication';
 describe('data search module', () => {
-
   before(() => {
     login();
   });
@@ -28,7 +27,6 @@ describe('data search module', () => {
   });
 
   describe('user should be to type and submit', () => {
-
     beforeEach(() => {
       cy.server()
       cy.route('https://acc.api.data.amsterdam.nl/catalogus/api/3/action/*').as('getResults')
@@ -49,6 +47,5 @@ describe('data search module', () => {
       cy.wait('@getResults');
       cy.get('.o-list').should('have.length', 0);
     });
-    
   });
 });

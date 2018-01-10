@@ -1,6 +1,5 @@
 /* eslint-disable */
 describe('addresses module', () => {
-
   beforeEach(() => {
     // go to the homepage
     cy.visit('http://localhost:8080/');
@@ -80,5 +79,4 @@ describe('addresses module', () => {
       cy.get('.leaflet-marker-icon').should('exist').and('be.visible');
     });
   });
-
 });

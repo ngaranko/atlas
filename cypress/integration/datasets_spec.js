@@ -1,8 +1,6 @@
 /* eslint-disable */
 describe('datasets module', () => {
-
   describe('user should be able to navigate to the datasets catalogus from the homepage', () => {
-
     beforeEach(() => {
       // go to the homepage
       cy.visit('http://localhost:8080/');
@@ -41,7 +39,5 @@ describe('datasets module', () => {
       // at least one results should exist
       cy.get('.c-data-selection-card').should('exist').and('be.visible');
     });
-
   });
-
 });

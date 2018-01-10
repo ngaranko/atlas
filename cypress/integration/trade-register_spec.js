@@ -2,7 +2,6 @@
 import { login, logout } from '../services/authentication';
 
 describe('trade-register module', () => {
-
   describe('user should be able to navigate to the trade-register from the homepage', () => {
     it('should open the trade register', () => {
       // go to the homepage
@@ -73,7 +72,6 @@ describe('trade-register module', () => {
 
     describe('user should be able to navigate to the trade register detail view', () => {
       it('should open the correct detail view', () => {
-
         cy.get('tr.c-table__content-row').first().find('td').first()
         .then((firstValue) => {
           // remove whitespace and line breaks that are created by cypress
