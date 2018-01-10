@@ -41,6 +41,7 @@ class Checkbox extends React.Component {
         <input
           checked={this.state.checked}
           name={this.props.name}
+          aria-label={this.props.name}
           onChange={this.handleChange}
           type="checkbox"
         />

@@ -5,7 +5,7 @@ exports[`ToggleFullscreen actions rendering should render with fullscreen is tur
   className="toggle-fullscreen"
   onClick={[Function]}
 >
-  <test-file-stub
+  <Component
     className="toggle-fullscreen__icon"
   />
 </button>
@@ -16,7 +16,7 @@ exports[`ToggleFullscreen actions rendering should render with fullscreen is tur
   className="toggle-fullscreen"
   onClick={[Function]}
 >
-  <test-file-stub
+  <Component
     className="toggle-fullscreen__icon"
   />
 </button>

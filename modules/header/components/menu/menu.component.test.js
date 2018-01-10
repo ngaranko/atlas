@@ -4,19 +4,9 @@ describe('The dp-menu component', () => {
         store,
         $window,
         origAuth,
-        mockedUser,
-        mockedActions;
+        mockedUser;
 
     beforeEach(() => {
-        mockedActions = {
-            SHOW_PAGE: {
-                id: 'SHOW_PAGE'
-            },
-            AUTHENTICATE_ERROR: {
-                id: 'AUTHENTICATE_ERROR'
-            }
-        };
-
         angular.mock.module(
             'dpHeader',
             {
@@ -25,7 +15,6 @@ describe('The dp-menu component', () => {
                 }
             },
             $provide => {
-                $provide.constant('ACTIONS', mockedActions);
                 $provide.factory('dpMenuDropdownDirective', function () {
                     return {};
                 });
@@ -159,7 +148,7 @@ describe('The dp-menu component', () => {
 
         it('calls the auth login method', () => {
             component.find('.qa-menu__login').click();
-            expect(store.dispatch).toHaveBeenCalledWith({ type: { id: 'AUTHENTICATE_ERROR' } });
+            expect(store.dispatch).toHaveBeenCalledWith({ type: 'AUTHENTICATE_ERROR' });
         });
     });
 

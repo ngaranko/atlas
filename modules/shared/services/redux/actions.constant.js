@@ -21,10 +21,6 @@
                 id: 'AUTHENTICATE_USER',
                 ignore: true
             },
-            AUTHENTICATE_ERROR: {
-                id: 'AUTHENTICATE_ERROR',
-                ignore: true
-            },
 
             FETCH_SEARCH_RESULTS_BY_QUERY: {
                 id: 'FETCH_SEARCH_RESULTS_BY_QUERY',

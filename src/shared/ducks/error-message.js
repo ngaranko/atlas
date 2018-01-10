@@ -1,28 +1,39 @@
-const RESET_ERROR_MESSAGE = 'RESET_ERROR_MESSAGE';
+const RESET_GLOBAL_ERROR = 'RESET_GLOBAL_ERROR';
+const SET_GLOBAL_ERROR = 'SET_GLOBAL_ERROR';
 
-const initialState = {};
+export const ERROR_TYPES = {
+  GENERAL_ERROR: 'GENERAL_ERROR',
+  NOT_FOUND_ERROR: 'NOT_FOUND_ERROR',
+  LOGIN_ERROR: 'LOGIN_ERROR'
+};
+
+const initialState = {
+  hasErrors: false,
+  types: {},
+  suppressed: {}
+};
 
 export default function ErrorMessageReducer(state = initialState, action) {
   switch (action.type) {
-    case RESET_ERROR_MESSAGE:
-      return { ...state, error: null };
+    case RESET_GLOBAL_ERROR:
+      return initialState;
 
-    default:
-      if (action.error) {
-        window.Raven.captureMessage(action.error);
-      }
-
-      return !action.error ? state : {
+    case SET_GLOBAL_ERROR:
+      return {
         ...state,
-        error: {
-          name: action.error.name,
-          message: action.error.message
+        hasErrors: true,
+        types: {
+          ...state.types,
+          [action.payload]: true
         }
       };
+    default:
+      return state;
   }
 }
 
-export const resetErrorMessage = () => ({ type: RESET_ERROR_MESSAGE });
+export const resetGlobalError = () => ({ type: RESET_GLOBAL_ERROR });
+export const setGlobalError = (errorType) => ({ type: SET_GLOBAL_ERROR, payload: errorType });
 
 window.reducers = window.reducers || {};
 window.reducers.ErrorMessageReducer = ErrorMessageReducer;

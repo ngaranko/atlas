@@ -1,0 +1,145 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MapType rendering should render select buttons with aerial value 1`] = `
+<section
+  className="map-type"
+>
+  <h3
+    className="map-type__title"
+  >
+    Achtergrond
+  </h3>
+  <SelectButton
+    className="map-type__select map-type__select--topography"
+    handleChange={[MockFunction]}
+    icon={[Function]}
+    isDisabled={true}
+    isExpanded={false}
+    label=""
+    name="topography"
+    options={
+      Array [
+        Object {
+          "label": "Topografie",
+          "selected": true,
+          "urlTemplate": "https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png",
+          "value": "topografie",
+        },
+        Object {
+          "label": "Topografie licht",
+          "urlTemplate": "https://{s}.data.amsterdam.nl/topo_rd_light/{z}/{x}/{y}.png",
+          "value": "topo_rd_light",
+        },
+        Object {
+          "label": "Topografie grijs",
+          "urlTemplate": "https://{s}.data.amsterdam.nl/topo_rd_zw/{z}/{x}/{y}.png",
+          "value": "topo_rd_zw",
+        },
+      ]
+    }
+    value={null}
+  />
+  <SelectButton
+    className="map-type__select map-type__select--aerial"
+    handleChange={[MockFunction]}
+    icon={[Function]}
+    isDisabled={false}
+    isExpanded={false}
+    label=""
+    name="aerial"
+    options={
+      Array [
+        Object {
+          "label": "Luchtfoto 2017",
+          "selected": true,
+          "urlTemplate": "https://{s}.data.amsterdam.nl/lufo2017_RD/{z}/{x}/{y}.jpeg",
+          "value": "lf2017",
+        },
+        Object {
+          "label": "Luchtfoto 2016",
+          "urlTemplate": "https://{s}.data.amsterdam.nl/lufo2016_RD/{z}/{x}/{y}.jpeg",
+          "value": "lf2016",
+        },
+        Object {
+          "label": "Luchtfoto 2015",
+          "urlTemplate": "https://{s}.data.amsterdam.nl/lufo2015_RD/{z}/{x}/{y}.jpeg",
+          "value": "lf2015",
+        },
+      ]
+    }
+    value="lf2015"
+  />
+</section>
+`;
+
+exports[`MapType rendering should render select buttons with topography value 1`] = `
+<section
+  className="map-type"
+>
+  <h3
+    className="map-type__title"
+  >
+    Achtergrond
+  </h3>
+  <SelectButton
+    className="map-type__select map-type__select--topography"
+    handleChange={[MockFunction]}
+    icon={[Function]}
+    isDisabled={false}
+    isExpanded={false}
+    label=""
+    name="topography"
+    options={
+      Array [
+        Object {
+          "label": "Topografie",
+          "selected": true,
+          "urlTemplate": "https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png",
+          "value": "topografie",
+        },
+        Object {
+          "label": "Topografie licht",
+          "urlTemplate": "https://{s}.data.amsterdam.nl/topo_rd_light/{z}/{x}/{y}.png",
+          "value": "topo_rd_light",
+        },
+        Object {
+          "label": "Topografie grijs",
+          "urlTemplate": "https://{s}.data.amsterdam.nl/topo_rd_zw/{z}/{x}/{y}.png",
+          "value": "topo_rd_zw",
+        },
+      ]
+    }
+    value="topo_rd_light"
+  />
+  <SelectButton
+    className="map-type__select map-type__select--aerial"
+    handleChange={[MockFunction]}
+    icon={[Function]}
+    isDisabled={true}
+    isExpanded={false}
+    label=""
+    name="aerial"
+    options={
+      Array [
+        Object {
+          "label": "Luchtfoto 2017",
+          "selected": true,
+          "urlTemplate": "https://{s}.data.amsterdam.nl/lufo2017_RD/{z}/{x}/{y}.jpeg",
+          "value": "lf2017",
+        },
+        Object {
+          "label": "Luchtfoto 2016",
+          "urlTemplate": "https://{s}.data.amsterdam.nl/lufo2016_RD/{z}/{x}/{y}.jpeg",
+          "value": "lf2016",
+        },
+        Object {
+          "label": "Luchtfoto 2015",
+          "urlTemplate": "https://{s}.data.amsterdam.nl/lufo2015_RD/{z}/{x}/{y}.jpeg",
+          "value": "lf2015",
+        },
+      ]
+    }
+    value={null}
+  />
+</section>
+`;

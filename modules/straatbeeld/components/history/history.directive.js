@@ -22,7 +22,7 @@
         function linkFunction (scope, element) {
             const firstYear = 2016;
             // Update the lastYear manually if there are straatbeelden available for that year
-            const lastYear = new Date().getFullYear();
+            const lastYear = 2017;
             const total = lastYear - firstYear + 1;
             const everywhere = angular.element(window.document);
 
