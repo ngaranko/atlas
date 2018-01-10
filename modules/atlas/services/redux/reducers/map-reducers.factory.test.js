@@ -20,12 +20,10 @@ describe('The map reducers', function () {
         detail: null,
         straatbeeld: null,
         dataSelection: null,
-        atlas: {
-            isPrintMode: false
-        },
         ui: {
+            isMapFullscreen: false,
             isMapPanelVisible: false,
-            isMapFullscreen: false
+            isPrintMode: false
         }
     };
 

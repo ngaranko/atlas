@@ -171,12 +171,12 @@
         }
 
         function isEmbedOrPreviewWithFullscreenMap (state) {
-            return (state.atlas.isEmbed || state.atlas.isEmbedPreview) &&
-              state.ui.isMapFullscreen && !state.straatbeeld;
+            return (state.ui.isEmbed || state.ui.isEmbedPreview) &&
+                state.ui.isMapFullscreen && !state.straatbeeld;
         }
 
         function isPrintOrEmbedOrPreview (state) {
-            return state.atlas.isPrintMode || state.atlas.isEmbedPreview || state.atlas.isEmbed;
+            return state.ui && (state.ui.isPrintMode || state.ui.isEmbedPreview || state.ui.isEmbed);
         }
     }
 })();

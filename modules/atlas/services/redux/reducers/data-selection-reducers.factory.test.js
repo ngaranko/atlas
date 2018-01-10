@@ -18,12 +18,10 @@ describe('The dataSelectionReducers factory', function () {
         detail: null,
         straatbeeld: null,
         dataSelection: null,
-        atlas: {
-            isPrintMode: false
-        },
         ui: {
+            isMapFullscreen: false,
             isMapPanelVisible: false,
-            isMapFullscreen: false
+            isPrintMode: false
         }
     };
 
@@ -203,14 +201,14 @@ describe('The dataSelectionReducers factory', function () {
             const mockedState = angular.copy(DEFAULT_STATE);
 
             // With print mode enabled
-            mockedState.atlas.isPrintMode = true;
+            mockedState.ui.isPrintMode = true;
             output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
-            expect(output.atlas.isPrintMode).toBe(true);
+            expect(output.ui.isPrintMode).toBe(true);
 
             // With print mode disabled
-            mockedState.atlas.isPrintMode = false;
+            mockedState.ui.isPrintMode = false;
             output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
-            expect(output.atlas.isPrintMode).toBe(false);
+            expect(output.ui.isPrintMode).toBe(false);
         });
 
         it('when payload is empty and map and ui and page are not an object', function () {

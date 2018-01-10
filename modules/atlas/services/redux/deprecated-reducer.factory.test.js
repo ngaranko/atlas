@@ -9,8 +9,6 @@ describe('The deprecated reducer factory', function () {
         searchReducers,
         straatbeeldReducers,
         dataSelectionReducers,
-        printReducers,
-        embedReducers,
         filtersReducers,
         inputState,
         freeze,
@@ -52,12 +50,6 @@ describe('The deprecated reducer factory', function () {
                 dataSelectionReducers: {
                     ACTION_I: function () {}
                 },
-                printReducers: {
-                    ACTION_J: function () {}
-                },
-                embedReducers: {
-                    ACTION_K: function () {}
-                },
                 filtersReducers: {
                     ACTION_L: function () {}
                 }
@@ -75,8 +67,6 @@ describe('The deprecated reducer factory', function () {
             _searchReducers_,
             _straatbeeldReducers_,
             _dataSelectionReducers_,
-            _printReducers_,
-            _embedReducers_,
             _filtersReducers_,
             _freeze_,
             _environment_
@@ -90,8 +80,6 @@ describe('The deprecated reducer factory', function () {
             searchReducers = _searchReducers_;
             straatbeeldReducers = _straatbeeldReducers_;
             dataSelectionReducers = _dataSelectionReducers_;
-            printReducers = _printReducers_;
-            embedReducers = _embedReducers_;
             filtersReducers = _filtersReducers_;
             freeze = _freeze_;
             environment = _environment_;
@@ -113,12 +101,10 @@ describe('The deprecated reducer factory', function () {
             detail: null,
             straatbeeld: null,
             dataSelection: null,
-            atlas: {
-                isPrintMode: false
-            },
             ui: {
+                isMapFullscreen: false,
                 isMapPanelVisible: false,
-                isMapFullscreen: false
+                isPrintMode: false
             }
         };
 
@@ -138,8 +124,6 @@ describe('The deprecated reducer factory', function () {
         spyOn(searchReducers, 'ACTION_G').and.callThrough();
         spyOn(straatbeeldReducers, 'ACTION_H').and.callThrough();
         spyOn(dataSelectionReducers, 'ACTION_I').and.callThrough();
-        spyOn(printReducers, 'ACTION_J').and.callThrough();
-        spyOn(embedReducers, 'ACTION_K').and.callThrough();
         spyOn(filtersReducers, 'ACTION_L').and.callThrough();
 
         reducer(inputState, {type: {id: 'ACTION_A'}});
@@ -150,8 +134,6 @@ describe('The deprecated reducer factory', function () {
         reducer(inputState, {type: {id: 'ACTION_G'}});
         reducer(inputState, {type: {id: 'ACTION_H'}});
         reducer(inputState, {type: {id: 'ACTION_I'}});
-        reducer(inputState, {type: {id: 'ACTION_J'}});
-        reducer(inputState, {type: {id: 'ACTION_K'}});
         reducer(inputState, {type: {id: 'ACTION_L'}});
 
         expect(urlReducers.ACTION_A).toHaveBeenCalled();
@@ -161,8 +143,6 @@ describe('The deprecated reducer factory', function () {
         expect(searchReducers.ACTION_G).toHaveBeenCalled();
         expect(straatbeeldReducers.ACTION_H).toHaveBeenCalled();
         expect(dataSelectionReducers.ACTION_I).toHaveBeenCalled();
-        expect(printReducers.ACTION_J).toHaveBeenCalled();
-        expect(embedReducers.ACTION_K).toHaveBeenCalled();
         expect(filtersReducers.ACTION_L).toHaveBeenCalled();
     });
 

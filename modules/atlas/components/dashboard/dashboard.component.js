@@ -82,9 +82,9 @@
             vm.headerSize = vm.isHomePage ? HEADER.SIZE.TALL : HEADER.SIZE.SHORT;
             vm.pageType = state.page && state.page.type ? state.page.type : '';
 
-            vm.isPrintMode = state.atlas.isPrintMode;
-            vm.isEmbedPreview = state.atlas.isEmbedPreview;
-            vm.isEmbed = state.atlas.isEmbed;
+            vm.isPrintMode = state.ui.isPrintMode;
+            vm.isEmbedPreview = state.ui.isEmbedPreview;
+            vm.isEmbed = state.ui.isEmbed;
             vm.isPrintOrEmbedOrPreview = dashboardColumns.isPrintOrEmbedOrPreview(state);
 
             vm.dataSelectionState = state.dataSelection;

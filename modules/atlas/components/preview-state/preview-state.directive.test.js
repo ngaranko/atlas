@@ -43,7 +43,7 @@ describe('The dp-preview-state directive', function () {
     it('adds a printmode class to the element when isPrintMode is true', function () {
         var directive;
 
-        mockedState = {atlas: {isPrintMode: true}};
+        mockedState = {ui: {isPrintMode: true}};
 
         directive = getDirective();
 
@@ -53,7 +53,7 @@ describe('The dp-preview-state directive', function () {
     it('does not add a class to the element when isPrintMode is false', function () {
         var directive;
 
-        mockedState = {atlas: {isPrintMode: false}};
+        mockedState = {ui: {isPrintMode: false}};
 
         directive = getDirective();
 
@@ -63,11 +63,9 @@ describe('The dp-preview-state directive', function () {
     describe('landscape', () => {
         beforeEach(() => {
             mockedState = {
-                atlas: {
-                    isPrintMode: true
-                },
                 ui: {
-                    isMapFullscreen: false
+                    isMapFullscreen: false,
+                    isPrintMode: true
                 }
             };
         });
@@ -109,7 +107,7 @@ describe('The dp-preview-state directive', function () {
     it('adds an embed preview class to the element when isEmbedPreview is true', function () {
         var directive;
 
-        mockedState = {atlas: {isEmbedPreview: true}};
+        mockedState = {ui: {isEmbedPreview: true}};
 
         directive = getDirective();
 
@@ -119,7 +117,7 @@ describe('The dp-preview-state directive', function () {
     it('does not add an embed preview to the element when isEmbedPreview is false', function () {
         var directive;
 
-        mockedState = {atlas: {isEmbedPreview: false}};
+        mockedState = {ui: {isEmbedPreview: false}};
 
         directive = getDirective();
 
@@ -129,7 +127,7 @@ describe('The dp-preview-state directive', function () {
     it('adds a embed class to the element when isEmbed is true', function () {
         var directive;
 
-        mockedState = {atlas: {isEmbed: true}};
+        mockedState = {ui: {isEmbed: true}};
 
         directive = getDirective();
 
@@ -139,7 +137,7 @@ describe('The dp-preview-state directive', function () {
     it('does not add a embed to the element when isEmbed is false', function () {
         var directive;
 
-        mockedState = {atlas: {isEmbed: false}};
+        mockedState = {ui: {isEmbed: false}};
 
         directive = getDirective();
 

@@ -99,11 +99,7 @@ describe('The stateToUrlMiddleware factory', function () {
             ACTIONS.NAVIGATE_DATA_SELECTION,
             ACTIONS.SET_DATA_SELECTION_VIEW,
             ACTIONS.SHOW_HOME,
-            ACTIONS.SHOW_PAGE,
-            ACTIONS.SHOW_PRINT,
-            ACTIONS.HIDE_PRINT,
-            ACTIONS.SHOW_EMBED_PREVIEW,
-            ACTIONS.HIDE_EMBED_PREVIEW
+            ACTIONS.SHOW_PAGE
         ];
 
         actionsWithUrlUpdate.forEach(function (action) {
@@ -138,11 +134,7 @@ describe('The stateToUrlMiddleware factory', function () {
                 ACTIONS.NAVIGATE_DATA_SELECTION,
                 ACTIONS.SET_DATA_SELECTION_VIEW,
                 ACTIONS.SHOW_HOME,
-                ACTIONS.SHOW_PAGE,
-                ACTIONS.SHOW_PRINT,
-                ACTIONS.HIDE_PRINT,
-                ACTIONS.SHOW_EMBED_PREVIEW,
-                ACTIONS.HIDE_EMBED_PREVIEW
+                ACTIONS.SHOW_PAGE
             ];
 
         shouldUseReplace.forEach(function (action) {

@@ -47,10 +47,13 @@ describe('The state url conversion factory', function () {
                     previews: {}
                 },
                 ui: {
+                    isEmbed: false,
+                    isEmbedPreview: false,
+                    isMapFullscreen: false,
                     isMapPanelVisible: false,
                     isMapLayersVisible: true,
                     isMapPanelHandleVisible: true,
-                    isMapFullscreen: false
+                    isPrintMode: false
                 },
                 isMapPreviewPanelVisible: false,
                 filters: {},
@@ -60,12 +63,7 @@ describe('The state url conversion factory', function () {
                 },
                 detail: null,
                 straatbeeld: null,
-                dataSelection: null,
-                atlas: {
-                    isPrintMode: false,
-                    isEmbedPreview: false,
-                    isEmbed: false
-                }
+                dataSelection: null
             });
         });
     });
