@@ -54,7 +54,8 @@ class MapPanelContainer extends React.Component {
   render() {
     return (
       <section
-        aria-label={this.props.isMapPanelVisible ? 'Kaartlagen verbergen' : 'Kaartlagen tonen'}
+        aria-label={this.props.isMapPanelVisible ? 'Kaartlagen legenda, Kaartlagen verbergen' :
+          'Kaartlagen legenda, Kaartlagen tonen'}
         aria-expanded={this.props.isMapPanelVisible}
         className={`
           map-panel
@@ -69,9 +70,7 @@ class MapPanelContainer extends React.Component {
             onClick={this.props.onMapPanelToggle}
           >
             <MapLayersIcon className="map-panel__heading-icon" />
-            <h2 className="map-panel__heading-title">
-              Kaartlagen
-            </h2>
+            <h2 className="map-panel__heading-title" aria-hidden="true">Kaartlagen</h2>
             <CollapseIcon className="map-panel__toggle-icon map-panel__toggle-icon--expanded" />
             <ExpandIcon className="map-panel__toggle-icon map-panel__toggle-icon--collapsed" />
           </button>
