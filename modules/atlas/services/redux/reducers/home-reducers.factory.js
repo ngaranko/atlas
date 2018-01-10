@@ -25,11 +25,11 @@
                 ...defaultState,
                 mapBaseLayers: state.mapBaseLayers,
                 mapLayers: state.mapLayers,
-                atlas: {
-                    ...defaultState.atlas,
-                    isPrintMode: state.atlas.isPrintMode,
-                    isEmbedPreview: state.atlas.isEmbedPreview,
-                    isEmbed: state.atlas.isEmbed
+                ui: {
+                    ...defaultState.ui,
+                    isEmbed: state.ui.isEmbed,
+                    isEmbedPreview: state.ui.isEmbedPreview,
+                    isPrintMode: state.ui.isPrintMode
                 }
             };
         }

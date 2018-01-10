@@ -82,9 +82,9 @@
             vm.headerSize = vm.isHomePage ? HEADER.SIZE.TALL : HEADER.SIZE.SHORT;
             vm.pageType = state.page && state.page.type ? state.page.type : '';
 
-            vm.isPrintMode = state.atlas.isPrintMode;
-            vm.isEmbedPreview = state.atlas.isEmbedPreview;
-            vm.isEmbed = state.atlas.isEmbed;
+            vm.isPrintMode = state.ui.isPrintMode;
+            vm.isEmbedPreview = state.ui.isEmbedPreview;
+            vm.isEmbed = state.ui.isEmbed;
             vm.isPrintOrEmbedOrPreview = dashboardColumns.isPrintOrEmbedOrPreview(state);
 
             vm.dataSelectionState = state.dataSelection;
@@ -99,7 +99,7 @@
 
             vm.isFullHeight = !vm.isRightColumnScrollable || vm.columnSizes.right < 12;
 
-            vm.isMapFullscreen = Boolean(vm.visibility.map && state.map.isFullscreen);
+            vm.isMapFullscreen = Boolean(vm.visibility.map && state.ui.isMapFullscreen);
             vm.isStraatbeeldActive = Boolean(state.straatbeeld);
             vm.straatbeeldHistory = vm.isStraatbeeldActive ? state.straatbeeld.history : null;
             vm.geosearchLocation = state.search && state.search.location && state.search.location.toString();

@@ -49,7 +49,6 @@ describe('The dashboard component', function () {
                 overlays: [],
                 viewCenter: [52.3719, 4.9012],
                 zoom: 9,
-                isFullscreen: false,
                 isLoading: false
             },
             page: {
@@ -58,12 +57,11 @@ describe('The dashboard component', function () {
             detail: null,
             straatbeeld: null,
             dataSelection: null,
-            atlas: {
-                isPrintMode: false,
-                isEmbedPreview: false
-            },
             ui: {
-                isMapPanelVisible: false
+                isEmbedPreview: false,
+                isMapFullscreen: false,
+                isMapPanelVisible: false,
+                isPrintMode: false
             },
             error: {
                 hasErrors: false,
@@ -130,7 +128,7 @@ describe('The dashboard component', function () {
         expect(component.find('.qa-dashboard__header').length).toBe(1);
         expect(component.find('.qa-dashboard__print-header').length).toBe(0);
 
-        mockedState.atlas.isPrintMode = true;
+        mockedState.ui.isPrintMode = true;
         component = getComponent();
         expect(component.find('.qa-dashboard__header').length).toBe(0);
         expect(component.find('.qa-dashboard__print-header').length).toBe(1);
@@ -141,7 +139,7 @@ describe('The dashboard component', function () {
         expect(component.find('.qa-dashboard__header').length).toBe(1);
         expect(component.find('.qa-dashboard__embed-header').length).toBe(0);
 
-        mockedState.atlas.isEmbedPreview = true;
+        mockedState.ui.isEmbedPreview = true;
         component = getComponent();
         expect(component.find('.qa-dashboard__header').length).toBe(0);
         expect(component.find('.qa-dashboard__embed-header').length).toBe(1);
@@ -157,7 +155,7 @@ describe('The dashboard component', function () {
 
         // On other pages with the homepage 'behind' it
         mockedState.page.name = 'home';
-        mockedState.map.isFullscreen = true;
+        mockedState.ui.isMapFullscreen = true;
         component = getComponent();
         expect(component.find('.c-dashboard__footer').length).toBe(0);
 
@@ -215,7 +213,7 @@ describe('The dashboard component', function () {
             store.dispatch.calls.reset();
 
             mockedState.map.overlays = [{}];
-            mockedState.atlas.isEmbed = true;
+            mockedState.ui.isEmbed = true;
 
             $rootScope.$digest();
 
@@ -247,10 +245,10 @@ describe('The dashboard component', function () {
         afterEach(() => handler = null);
 
         it('should show the map panel if isHomePageActive', () => {
-            mockedState.map.isFullscreen = false;
+            mockedState.ui.isMapFullscreen = false;
             getComponent();
 
-            mockedState.map.isFullscreen = true;
+            mockedState.ui.isMapFullscreen = true;
             handler();
             $rootScope.$digest();
 
@@ -260,10 +258,10 @@ describe('The dashboard component', function () {
         });
 
         it('should hide the map panel map is no longer full screen', () => {
-            mockedState.map.isFullscreen = true;
+            mockedState.ui.isMapFullscreen = true;
             getComponent();
 
-            mockedState.map.isFullscreen = false;
+            mockedState.ui.isMapFullscreen = false;
             handler();
             $rootScope.$digest();
 
@@ -273,11 +271,11 @@ describe('The dashboard component', function () {
         });
 
         it('should do nothing if outside homepage', () => {
-            mockedState.map.isFullscreen = false;
+            mockedState.ui.isMapFullscreen = false;
             mockedState.page.name = 'other';
             getComponent();
 
-            mockedState.map.isFullscreen = true;
+            mockedState.ui.isMapFullscreen = true;
             handler();
             $rootScope.$digest();
 

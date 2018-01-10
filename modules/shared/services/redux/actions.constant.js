@@ -70,10 +70,6 @@
                 id: 'MAP_HIGHLIGHT',
                 ignore: true
             },
-            MAP_FULLSCREEN: {
-                id: 'MAP_FULLSCREEN',
-                isButton: true
-            },
             MAP_START_DRAWING: {
                 id: 'MAP_START_DRAWING',
                 ignore: true,
@@ -160,22 +156,6 @@
             },
             SHOW_PAGE: {
                 id: 'SHOW_PAGE'
-            },
-
-            SHOW_PRINT: {
-                id: 'SHOW_PRINT'
-            },
-            HIDE_PRINT: {
-                id: 'HIDE_PRINT',
-                isButton: true
-            },
-
-            SHOW_EMBED_PREVIEW: {
-                id: 'SHOW_EMBED_PREVIEW'
-            },
-            HIDE_EMBED_PREVIEW: {
-                id: 'HIDE_EMBED_PREVIEW',
-                isButton: true
             },
 
             APPLY_FILTERS: {

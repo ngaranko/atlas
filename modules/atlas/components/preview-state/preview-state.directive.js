@@ -38,13 +38,13 @@
             function setPrintMode () {
                 var state = store.getState();
 
-                if (state.atlas.isPrintMode) {
+                if (state.ui.isPrintMode) {
                     element.addClass('is-print-mode');
 
                     // Add the landscape modifier when we are at straatbeeld,
                     // fullscreen map, or data selection in list view
                     if (state.straatbeeld ||
-                            (state.map && state.map.isFullscreen) ||
+                            (state.ui && state.ui.isMapFullscreen) ||
                             (state.dataSelection && state.dataSelection.view === 'LIST')) {
                         element.addClass('is-print-mode--landscape');
                     } else {
@@ -54,13 +54,13 @@
                     element.removeClass('is-print-mode is-print-mode--landscape');
                 }
 
-                if (state.atlas.isEmbedPreview) {
+                if (state.ui.isEmbedPreview) {
                     element.addClass('is-embed-preview');
                 } else {
                     element.removeClass('is-embed-preview');
                 }
 
-                if (state.atlas.isEmbed) {
+                if (state.ui.isEmbed) {
                     element.addClass('is-embed');
                 } else {
                     element.removeClass('is-embed');

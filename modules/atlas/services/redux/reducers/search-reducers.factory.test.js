@@ -9,7 +9,6 @@ describe('The search-reducers factory', function () {
             overlays: [],
             viewCenter: [52.3719, 4.9012],
             zoom: 9,
-            isFullscreen: false,
             isLoading: false
         },
         search: null,
@@ -19,11 +18,10 @@ describe('The search-reducers factory', function () {
         detail: null,
         straatbeeld: null,
         dataSelection: null,
-        atlas: {
-            isPrintMode: false
-        },
         ui: {
-            isMapPanelVisible: false
+            isMapFullscreen: false,
+            isMapPanelVisible: false,
+            isPrintMode: false
         }
     };
 
@@ -147,11 +145,11 @@ describe('The search-reducers factory', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
-            inputState.map.isFullscreen = true;
+            inputState.ui.isMapFullscreen = true;
 
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY.id](inputState, 'linnaeus');
 
-            expect(output.map.isFullscreen).toBe(false);
+            expect(output.ui.isMapFullscreen).toBe(false);
         });
 
         it('when map and map panel and page are not an object', function () {
@@ -242,13 +240,13 @@ describe('The search-reducers factory', function () {
 
             // With fullscreen disabled, it doesn't change the viewCenter
             inputState.map.viewCenter = [52.123, 4.789];
-            inputState.map.isFullscreen = false;
+            inputState.ui.isMapFullscreen = false;
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, [52.001, 4.002]);
 
             expect(output.map.viewCenter).toEqual([52.123, 4.789]);
 
             // With fullscreen enabled, it still doesn't the viewCenter
-            inputState.map.isFullscreen = true;
+            inputState.ui.isMapFullscreen = true;
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, [52.001, 4.002]);
 
             expect(output.map.viewCenter).toEqual([52.123, 4.789]);
@@ -291,11 +289,11 @@ describe('The search-reducers factory', function () {
             var inputState = angular.copy(DEFAULT_STATE),
                 output;
 
-            inputState.map.isFullscreen = true;
+            inputState.ui.isMapFullscreen = true;
 
             output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, [52.001, 4.002]);
 
-            expect(output.map.isFullscreen).toBe(true);
+            expect(output.ui.isMapFullscreen).toBe(true);
         });
 
         it('removes a drawn line from the map', function () {

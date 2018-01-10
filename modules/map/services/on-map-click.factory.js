@@ -26,7 +26,7 @@
 
             location = [event.latlng.lat, event.latlng.lng];
 
-            if (!(suppress.isBusy() || state.atlas.isEmbedPreview || state.atlas.isEmbed || drawTool.isEnabled())) {
+            if (!(suppress.isBusy() || state.ui.isEmbedPreview || state.ui.isEmbed || drawTool.isEnabled())) {
                 store.dispatch({
                     type: ACTIONS.SET_MAP_CLICK_LOCATION.id,
                     location: {

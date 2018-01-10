@@ -25,7 +25,8 @@ describe('The clusteredMarkersConfig factory', function () {
 
         expect(icon).toBe('MOCKED_DIV_ICON');
         expect(L.divIcon).toHaveBeenCalledWith(jasmine.objectContaining({
-            html: '<div class="o-highlight-cluster__text">123</div>',
+            html: '<div aria-label="Cluster met 123 onderdelen" class="o-highlight-cluster__text' +
+              '">123</div>',
             className: 'o-highlight-cluster'
         }));
     });

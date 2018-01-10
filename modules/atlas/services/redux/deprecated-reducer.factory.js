@@ -15,8 +15,6 @@
         'searchReducers',
         'straatbeeldReducers',
         'dataSelectionReducers',
-        'printReducers',
-        'embedReducers',
         'filtersReducers',
         'environment'
     ];
@@ -32,8 +30,6 @@
         searchReducers,
         straatbeeldReducers,
         dataSelectionReducers,
-        printReducers,
-        embedReducers,
         filtersReducers,
         environment
     ) {
@@ -107,7 +103,6 @@
             var actions = angular.merge(
                 dataSelectionReducers,
                 detailReducers,
-                embedReducers,
                 filtersReducers,
                 homeReducers,
                 mapBaseLayersReducers,
@@ -120,7 +115,6 @@
                 mapClickLocationReducers,
                 pageReducers,
                 panoPreviewReducers,
-                printReducers,
                 searchReducers,
                 straatbeeldReducers,
                 urlReducers,

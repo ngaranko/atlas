@@ -15,8 +15,10 @@
             spiderfyOnMaxZoom: false,
             showCoverageOnHover: false,
             iconCreateFunction: function (cluster) {
+                const count = cluster.getChildCount();
                 return L.divIcon({
-                    html: '<div class="o-highlight-cluster__text">' + cluster.getChildCount() + '</div>',
+                    html: `<div aria-label="Cluster met ${count} onderdelen" class="o-highlight-` +
+                      `cluster__text">${count}</div>`,
                     className: 'o-highlight-cluster',
                     iconSize: L.point(39, 39),
                     iconAnchor: L.point(19, 19)

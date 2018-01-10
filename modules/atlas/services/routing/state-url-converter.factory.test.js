@@ -21,7 +21,6 @@ describe('The state url conversion factory', function () {
                     overlays: [],
                     viewCenter: [52.3731081, 4.8932945],
                     zoom: 11,
-                    isFullscreen: false,
                     isLoading: false,
                     drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
                     highlight: true
@@ -48,9 +47,13 @@ describe('The state url conversion factory', function () {
                     previews: {}
                 },
                 ui: {
+                    isEmbed: false,
+                    isEmbedPreview: false,
+                    isMapFullscreen: false,
                     isMapPanelVisible: false,
                     isMapLayersVisible: true,
-                    isMapPanelHandleVisible: true
+                    isMapPanelHandleVisible: true,
+                    isPrintMode: false
                 },
                 isMapPreviewPanelVisible: false,
                 filters: {},
@@ -60,12 +63,7 @@ describe('The state url conversion factory', function () {
                 },
                 detail: null,
                 straatbeeld: null,
-                dataSelection: null,
-                atlas: {
-                    isPrintMode: false,
-                    isEmbedPreview: false,
-                    isEmbed: false
-                }
+                dataSelection: null
             });
         });
     });

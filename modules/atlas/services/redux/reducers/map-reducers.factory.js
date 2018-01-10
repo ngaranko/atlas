@@ -16,7 +16,6 @@
         reducers[ACTIONS.MAP_PAN.id] = mapPanReducer;
         reducers[ACTIONS.MAP_ZOOM.id] = mapZoomReducer;
         reducers[ACTIONS.MAP_HIGHLIGHT.id] = mapHighlightReducer;
-        reducers[ACTIONS.MAP_FULLSCREEN.id] = mapFullscreenReducer;
         reducers[ACTIONS.MAP_START_DRAWING.id] = mapStartDrawingReducer;
         reducers[ACTIONS.MAP_CLEAR_DRAWING.id] = mapClearDrawingReducer;
         reducers[ACTIONS.MAP_END_DRAWING.id] = mapEndDrawingReducer;
@@ -26,13 +25,10 @@
         function showMapReducer (state) {
             return {
                 ...state,
-                map: angular.isObject(state.map) ? {
-                    ...state.map,
-                    isFullscreen: true
-                } : state.map,
                 ui: angular.isObject(state.ui) ? {
                     ...state.ui,
-                    isMapPanelVisible: true
+                    isMapPanelVisible: true,
+                    isMapFullscreen: true
                 } : state.ui
             };
         }
@@ -150,22 +146,6 @@
             };
         }
 
-        /**
-         * @param {Object} state
-         * @param {Number} payload - Boolean that defines whether or not fullscreen mode is enabled
-         *
-         * @returns {Object} newState
-         */
-        function mapFullscreenReducer (state, payload) {
-            return {
-                ...state,
-                map: angular.isObject(state.map) ? {
-                    ...state.map,
-                    isFullscreen: payload
-                } : state.map
-            };
-        }
-
         function mapStartDrawingReducer (state, payload) {
             if (payload !== DRAW_TOOL_CONFIG.DRAWING_MODE.EDIT &&
                 state.dataSelection &&
@@ -209,7 +189,8 @@
                 } : state.map,
                 ui: angular.isObject(state.ui) ? {
                     ...state.ui,
-                    isMapPanelVisible: moreThan2Markers ? false : state.ui.isMapPanelVisible
+                    isMapPanelVisible: moreThan2Markers ? false : state.ui.isMapPanelVisible,
+                    isMapFullscreen: moreThan2Markers ? false : state.ui.isMapFullscreen
                 } : state.ui,
                 page: angular.isObject(state.page) ? {
                     ...state.page,
@@ -225,8 +206,7 @@
             return {
                 drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
                 geometry: has2Markers ? payload.markers : moreThan2Markers ? [] : state.map.geometry,
-                isLoading: moreThan2Markers ? true : state.map.isLoading,
-                isFullscreen: moreThan2Markers ? false : state.map.isFullscreen
+                isLoading: moreThan2Markers ? true : state.map.isLoading
             };
         }
 

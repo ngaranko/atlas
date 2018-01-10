@@ -63,6 +63,7 @@
             const render = $window.render;
             const MapPanelWrapper = $window.MapPanelWrapper;
             const MapPreviewPanelWrapper = $window.MapPreviewPanelWrapper;
+            const MapWrapper = $window.MapWrapper;
             const MapEmbedButtonWrapper = $window.MapEmbedButtonWrapper;
 
             const mountReactComponents = () => {
@@ -80,8 +81,8 @@
                 const state = store.getState();
                 const nonEmbedState = {
                     ...state,
-                    atlas: {
-                        ...state.atlas,
+                    ui: {
+                        ...state.ui,
                         isEmbed: false,
                         isEmbedPreview: false
                     }
@@ -94,6 +95,8 @@
                 render(React.createElement(MapPanelWrapper, null), document.getElementById('map-panel-react'));
                 render(React.createElement(MapPreviewPanelWrapper, null),
                     document.getElementById('map-preview-panel-react'));
+                render(React.createElement(MapWrapper, null),
+                    document.getElementById('map-react'));
             });
 
             /**

@@ -45,12 +45,10 @@ import '../modules/atlas/services/redux/middleware/state-to-url-middleware.facto
 import '../modules/atlas/services/redux/deprecated-reducer.factory';
 import '../modules/atlas/services/redux/reducer.factory';
 import '../modules/atlas/services/redux/reducers/data-selection-reducers.factory';
-import '../modules/atlas/services/redux/reducers/embed-reducers.factory';
 import '../modules/atlas/services/redux/reducers/filters-reducers.factory';
 import '../modules/atlas/services/redux/reducers/home-reducers.factory';
 import '../modules/atlas/services/redux/reducers/map-reducers.factory';
 import '../modules/atlas/services/redux/reducers/page-reducers.factory';
-import '../modules/atlas/services/redux/reducers/print-reducers.factory';
 import '../modules/atlas/services/redux/reducers/search-reducers.factory';
 import '../modules/atlas/services/redux/reducers/straatbeeld-reducers.factory';
 import '../modules/atlas/services/redux/reducers/url-reducers.factory';
@@ -141,7 +139,6 @@ import '../modules/map/components/draw-tool/points-available/points-available.co
 import '../modules/map/components/draw-tool/shape-summary/shape-summary.component';
 import '../modules/map/components/draw-tool/toggle-drawing-tool/toggle-drawing-tool.component';
 import '../modules/map/components/map/map.directive';
-import '../modules/map/components/toggle-fullscreen/toggle-fullscreen.component';
 import '../modules/map/map-config.factory';
 import '../modules/map/map.vendor';
 import '../modules/map/services/document-title/document-title.factory';
@@ -306,7 +303,6 @@ import '../modules/data-selection/services/api/data-selection-api-ckan.factory.t
 import '../modules/data-selection/services/api/data-selection-api-data-selection.factory.test';
 import '../modules/data-selection/services/document-title/document-title.factory.test';
 import '../modules/map/map-config.factory.test';
-import '../modules/map/components/toggle-fullscreen/toggle-fullscreen.component.test';
 import '../modules/map/components/map/map.directive.test';
 import '../modules/map/components/draw-tool/points-available/points-available.component.test';
 import '../modules/map/components/draw-tool/draw-tool.component.test';
@@ -441,8 +437,6 @@ import '../modules/atlas/services/redux/reducers/page-reducers.factory.test';
 import '../modules/atlas/services/redux/reducers/home-reducers.factory.test';
 import '../modules/atlas/services/redux/reducers/data-selection-reducers.factory.test';
 import '../modules/atlas/services/redux/reducers/straatbeeld-reducers.factory.test';
-import '../modules/atlas/services/redux/reducers/print-reducers.factory.test';
-import '../modules/atlas/services/redux/reducers/embed-reducers.factory.test';
 import '../modules/atlas/services/redux/reducers/filters-reducers.factory.test';
 import '../modules/atlas/services/piwik/piwik.factory.test';
 import '../modules/atlas/services/routing/url-to-state.factory.test';
