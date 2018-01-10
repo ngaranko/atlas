@@ -26,11 +26,6 @@ describe('The state url conversion definition', function () {
 
             state = stateUrlConversion.onCreate.DEFAULT({}, {}, {}, stateUrlConversion.initialValues);
             expect(state).toEqual({
-                atlas: {
-                    isPrintMode: false,
-                    isEmbedPreview: false,
-                    isEmbed: false
-                },
                 page: {
                     name: 'home'
                 },
@@ -68,15 +63,17 @@ describe('The state url conversion definition', function () {
                     highlight: true
                 },
                 ui: {
+                    isEmbed: false,
+                    isEmbedPreview: false,
                     isMapLayersVisible: true,
                     isMapPanelVisible: false,
-                    isMapPanelHandleVisible: true
+                    isMapPanelHandleVisible: true,
+                    isPrintMode: false
                 }
             });
 
             state = stateUrlConversion.onCreate.DEFAULT({}, {}, {aap: 'noot'}, {});
             expect(state).toEqual({
-                atlas: undefined,
                 page: undefined,
                 filters: undefined,
                 user: undefined,

@@ -1,0 +1,40 @@
+.c-embed-button {
+  background-color: $primary-light;
+  border: 1px solid $secondary-gray20;
+  box-shadow: $button-shadow-size $button-shadow-size 0 0 $secondary-gray40;
+  color: $secondary-gray60;
+  display: none;
+  fill: $secondary-gray60;
+  padding: 4px;
+  position: absolute;
+  right: $base-whitespace;
+  text-decoration: none;
+  top: $base-whitespace;
+  z-index: $fixed-position-z-index;
+
+  &__icon {
+    float: left;
+    height: 24px;
+    width: 24px;
+  }
+
+  &__label {
+    font-family: "Avenir LT W01 85 Heavy";
+    font-size: $s-font-size;
+    line-height: 24px;
+    margin: 4px;
+  }
+
+  &:focus,
+  &:hover {
+    background-color: $primary-contrast;
+    border: 1px solid $primary-contrast;
+    color: $primary-light;
+    fill: $primary-light;
+  }
+
+  .is-embed-preview &,
+  .is-embed & {
+    display: inline-block;
+  }
+}

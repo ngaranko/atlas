@@ -5,9 +5,7 @@
         .module('atlas')
         .factory('dashboardColumns', dashboardColumnsFactory);
 
-    dashboardColumnsFactory.$inject = ['httpStatus'];
-
-    function dashboardColumnsFactory (httpStatus) {
+    function dashboardColumnsFactory () {
         /*
         - activity means the component is loaded (ng-if)
         - visibility means the component is shown, inactive components are never shown (ng-show)
@@ -37,7 +35,7 @@
             const visibility = {};
             const { map = {} } = state;
 
-            visibility.httpStatus = httpStatus.getStatus().hasErrors || state.user.error;
+            visibility.error = state.error.hasErrors || state.user.error;
             visibility.map = activity.map;
 
             if (angular.isObject(state.dataSelection) && !map.isFullscreen) {
@@ -173,11 +171,12 @@
         }
 
         function isEmbedOrPreviewWithFullscreenMap (state) {
-            return (state.atlas.isEmbed || state.atlas.isEmbedPreview) && state.map.isFullscreen && !state.straatbeeld;
+            return (state.ui.isEmbed || state.ui.isEmbedPreview) &&
+                state.map.isFullscreen && !state.straatbeeld;
         }
 
         function isPrintOrEmbedOrPreview (state) {
-            return state.atlas.isPrintMode || state.atlas.isEmbedPreview || state.atlas.isEmbed;
+            return state.ui.isPrintMode || state.ui.isEmbedPreview || state.ui.isEmbed;
         }
     }
 })();

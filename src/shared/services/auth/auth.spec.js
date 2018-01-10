@@ -5,9 +5,10 @@ import stateTokenGenerator from '../state-token-generator/state-token-generator'
 jest.mock('../query-string-parser/query-string-parser');
 jest.mock('../state-token-generator/state-token-generator');
 
-describe.skip('The auth service', () => {
+describe('The auth service', () => {
+  const noop = () => {};
+
   let origSessionStorage;
-  let origLocation;
   let queryObject;
   let savedAccessToken;
   let savedReturnPath;
@@ -29,27 +30,16 @@ describe.skip('The auth service', () => {
             return '';
         }
       },
-      setItem: () => {},
-      removeItem: () => {}
+      setItem: noop,
+      removeItem: noop
     };
 
-    origLocation = global.location;
-    global.location = {};
-
-    ['hash', 'pathname', 'protocol', 'host', 'search', 'href'].forEach((property) => {
-      Object.defineProperty(global.location, property, {
-        value: '',
-        writable: true
-      });
-    });
-
-    global.location.reload = () => {};
-
+    jest.spyOn(global.history, 'replaceState').mockImplementation(noop);
+    jest.spyOn(global.location, 'assign').mockImplementation(noop);
+    jest.spyOn(global.location, 'reload').mockImplementation(noop);
     jest.spyOn(global.sessionStorage, 'getItem');
-    jest.spyOn(global.sessionStorage, 'setItem');
     jest.spyOn(global.sessionStorage, 'removeItem');
-    jest.spyOn(global.location, 'reload');
-    jest.spyOn(global.history, 'replaceState').mockImplementation(() => {});
+    jest.spyOn(global.sessionStorage, 'setItem');
 
     queryStringParser.mockImplementation(() => queryObject);
     stateTokenGenerator.mockImplementation(() => stateToken);
@@ -62,16 +52,17 @@ describe.skip('The auth service', () => {
   });
 
   afterEach(() => {
-    global.sessionStorage = origSessionStorage;
-    global.location = origLocation;
     global.history.replaceState.mockRestore();
+    global.location.assign.mockRestore();
+    global.location.reload.mockRestore();
+    global.sessionStorage = origSessionStorage;
   });
 
   describe('init funtion', () => {
     describe('receiving response errors from the auth service', () => {
       it('throws an error', () => {
         const queryString = '?error=invalid_request&error_description=invalid%20request';
-        global.location.search = queryString;
+        jsdom.reconfigure({ url: `https://data.amsterdam.nl/${queryString}` });
         queryObject = {
           error: 'invalid_request',
           error_description: 'invalid request'
@@ -86,7 +77,6 @@ describe.skip('The auth service', () => {
       });
 
       it('throws an error without a description in the query string', () => {
-        global.location.search = '';
         queryObject = {
           error: 'invalid_request'
         };
@@ -97,7 +87,6 @@ describe.skip('The auth service', () => {
       });
 
       it('removes the state token from the session storage', () => {
-        global.location.search = '';
         queryObject = {
           error: 'invalid_request'
         };
@@ -109,7 +98,6 @@ describe.skip('The auth service', () => {
       });
 
       it('does not handle any errors without an error in the query string', () => {
-        global.location.search = '';
         queryObject = {};
 
         expect(() => {
@@ -119,7 +107,6 @@ describe.skip('The auth service', () => {
       });
 
       it('does not handle any errors without a query string', () => {
-        global.location.search = '';
         queryObject = undefined;
 
         expect(() => {
@@ -221,14 +208,11 @@ describe.skip('The auth service', () => {
     });
 
     it('Redirects to the auth service', () => {
-      const pathname = '/the/current/path';
-      global.location.pathname = pathname;
-      global.location.protocol = 'https:';
-      global.location.host = 'data.amsterdam.nl';
+      jsdom.reconfigure({ url: 'https://data.amsterdam.nl/the/current/path' });
 
       login();
 
-      expect(global.location.href).toBe('https://acc.api.data.amsterdam.nl/' +
+      expect(global.location.assign).toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/' +
         'oauth2/authorize?idp_id=datapunt&response_type=token&client_id=citydata' +
         '&scope=BRK%2FRS%20BRK%2FRSN%20BRK%2FRO%20WKPB%2FRBDU%20MON%2FRBC%20MON%2FRDM%20HR%2FR' +
         '&state=123StateToken&redirect_uri=https%3A%2F%2Fdata.amsterdam.nl%2Fthe%2Fcurrent%2Fpath');

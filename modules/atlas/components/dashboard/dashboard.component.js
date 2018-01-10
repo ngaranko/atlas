@@ -1,18 +1,6 @@
 (function () {
     'use strict';
 
-    // Temporarily only show the preview panel for detail endpoints which are
-    // also selectable on the map.
-    const previewPanelDetailEndpoints = [
-        'brk/object', // Kadastraal object
-        'gebieden/bouwblok', // Bouwblok
-        'handelsregister/vestiging', // Vestiging
-        'meetbouten/meetbout', // Meetbout
-        'milieuthemas/explosieven/inslagen', // Inslag
-        'monumenten/monumenten', // Monument
-        'nap/peilmerk' // NAP Peilmerk
-    ];
-
     angular
         .module('atlas')
         .component('dpDashboard', {
@@ -21,17 +9,17 @@
             controllerAs: 'vm'
         });
 
-    DpDashboardController.$inject = ['$scope', '$timeout', 'store', 'ACTIONS', 'dashboardColumns', 'HEADER'];
+    DpDashboardController.$inject = ['$window', '$scope', '$timeout', 'store', 'ACTIONS', 'dashboardColumns', 'HEADER'];
 
-    function DpDashboardController ($scope, $timeout, store, ACTIONS, dashboardColumns, HEADER) {
+    function DpDashboardController ($window, $scope, $timeout, store, ACTIONS, dashboardColumns, HEADER) {
         const vm = this;
+        const endpointTypes = $window.mapPreviewPanelDetailEndpointTypes || {};
 
         vm.store = store;
 
         store.subscribe(setLayout);
         setLayout();
 
-        $scope.$watch(() => dashboardColumns.determineVisibility(store.getState()).httpStatus, setLayout);
         $scope.$watchGroup(['vm.isStraatbeeldActive', 'vm.straatbeeldHistory'], () => {
             if (vm.isStraatbeeldActive) {
                 store.dispatch({ type: ACTIONS.MAP_ADD_PANO_OVERLAY });
@@ -69,9 +57,9 @@
             'vm.geosearchLocation',
             'vm.detailEndpoint'
         ], () => {
-            const detailActive = vm.detailEndpoint &&
-                previewPanelDetailEndpoints.some((endpoint) =>
-                    vm.detailEndpoint.includes(endpoint));
+            const detailActive = vm.detailEndpoint && Object
+                .keys(endpointTypes)
+                .some((typeKey) => vm.detailEndpoint.includes(endpointTypes[typeKey]));
 
             if (vm.visibility.mapPreviewPanel && (vm.geosearchLocation || detailActive)) {
                 store.dispatch({ type: 'OPEN_MAP_PREVIEW_PANEL' });
@@ -94,9 +82,9 @@
             vm.headerSize = vm.isHomePage ? HEADER.SIZE.TALL : HEADER.SIZE.SHORT;
             vm.pageType = state.page && state.page.type ? state.page.type : '';
 
-            vm.isPrintMode = state.atlas.isPrintMode;
-            vm.isEmbedPreview = state.atlas.isEmbedPreview;
-            vm.isEmbed = state.atlas.isEmbed;
+            vm.isPrintMode = state.ui.isPrintMode;
+            vm.isEmbedPreview = state.ui.isEmbedPreview;
+            vm.isEmbed = state.ui.isEmbed;
             vm.isPrintOrEmbedOrPreview = dashboardColumns.isPrintOrEmbedOrPreview(state);
 
             vm.dataSelectionState = state.dataSelection;
@@ -114,7 +102,6 @@
             vm.isMapFullscreen = Boolean(vm.visibility.map && state.map.isFullscreen);
             vm.isStraatbeeldActive = Boolean(state.straatbeeld);
             vm.straatbeeldHistory = vm.isStraatbeeldActive ? state.straatbeeld.history : null;
-            vm.isMapPreviewPanelVisible = vm.visibility.mapPreviewPanel;
             vm.geosearchLocation = state.search && state.search.location && state.search.location.toString();
             vm.detailEndpoint = state.detail && state.detail.endpoint;
         }

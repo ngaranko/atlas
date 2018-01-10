@@ -1,16 +1,6 @@
-export const FETCH_DETAIL = 'FETCH_DETAIL';
+import { endpointTypes } from '../map/services/map-detail';
 
-// Temporarily only show the preview panel for detail endpoints which are
-// also selectable on the map.
-const previewPanelDetailEndpoints = [
-  'brk/object', // Kadastraal object
-  'gebieden/bouwblok', // Bouwblok
-  'handelsregister/vestiging', // Vestiging
-  'meetbouten/meetbout', // Meetbout
-  'milieuthemas/explosieven/inslagen', // Inslag
-  'monumenten/monumenten', // Monument
-  'nap/peilmerk' // NAP Peilmerk
-];
+export const FETCH_DETAIL = 'FETCH_DETAIL';
 
 /* eslint-disable */
 // export default function detailReducer(state = {}, action) {
@@ -19,8 +9,9 @@ window.reducers = window.reducers || {};
 window.reducers.detailReducer = (state = {}, action) => {
   switch (action.type) {
     case FETCH_DETAIL:
-      const leaveMapFullscreen = action.payload && previewPanelDetailEndpoints
-        .some((previewPanelEndpoint) => action.payload.includes(previewPanelEndpoint));
+      const leaveMapFullscreen = action.payload && Object
+        .keys(endpointTypes)
+        .some((typeKey) => action.payload.includes(endpointTypes[typeKey]));
 
       return {
         ...state,

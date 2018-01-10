@@ -78,21 +78,21 @@ describe('The homeReducers factory', function () {
 
         it('keeps the isPrintMode setting', function () {
             mockedStates.forEach(function (inputState) {
-                inputState.atlas.isPrintMode = true;
-                expect(homeReducers.SHOW_HOME(inputState).atlas.isPrintMode).toBe(true);
+                inputState.ui.isPrintMode = true;
+                expect(homeReducers.SHOW_HOME(inputState).ui.isPrintMode).toBe(true);
 
-                inputState.atlas.isPrintMode = false;
-                expect(homeReducers.SHOW_HOME(inputState).atlas.isPrintMode).toBe(false);
+                inputState.ui.isPrintMode = false;
+                expect(homeReducers.SHOW_HOME(inputState).ui.isPrintMode).toBe(false);
             });
         });
 
         it('keeps the isEmbedPreview setting', function () {
             mockedStates.forEach(function (inputState) {
-                inputState.atlas.isEmbedPreview = true;
-                expect(homeReducers.SHOW_HOME(inputState).atlas.isEmbedPreview).toBe(true);
+                inputState.ui.isEmbedPreview = true;
+                expect(homeReducers.SHOW_HOME(inputState).ui.isEmbedPreview).toBe(true);
 
-                inputState.atlas.isEmbedPreview = false;
-                expect(homeReducers.SHOW_HOME(inputState).atlas.isEmbedPreview).toBe(false);
+                inputState.ui.isEmbedPreview = false;
+                expect(homeReducers.SHOW_HOME(inputState).ui.isEmbedPreview).toBe(false);
             });
         });
 

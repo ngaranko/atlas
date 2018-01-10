@@ -1,3 +1,5 @@
+import { ERROR_TYPES } from '../../../../src/shared/ducks/error-message.js';
+
 (function () {
     'use strict';
 
@@ -7,54 +9,26 @@
         .config($httpProvider => $httpProvider.interceptors.push('httpErrorRegistrar'));
 
     httpErrorRegistrarFactory.inject = [
-        '$log',
-        '$rootScope',
-        '$window',
-        '$q',
         '$interval',
-        'httpStatus',
-        'Raven'];
+        '$q',
+        '$window',
+        'httpStatus'
+    ];
 
     function httpErrorRegistrarFactory (
-        $log,
-        $rootScope,
-        $window,
-        $q,
         $interval,
-        httpStatus,
-        Raven
+        $q,
+        $window,
+        httpStatus
     ) {
-        $window.addEventListener('error', function (e) {
-            if (e.target && e.target.src) {
-                // URL load error
-                if (e.target.src === 'https://piwik.data.amsterdam.nl/piwik.js') {
-                    // Don't show UI error
-                    $log.error('piwik load error', e);
-                    return;
-                }
-
-                $rootScope.$applyAsync(() => {
-                    registerServerError();
-                    const message = `HTTP external request error, src: ${e.target.src}`;
-                    logResponse(message);
-                });
-            }
-        }, true);
-
         return {
+            // magic Angular interceptor keyword, don't change name!
+            // see: https://docs.angularjs.org/api/ng/service/$http#interceptors
             responseError
         };
 
-        function logResponse (message, statusCode) {
-            Raven.captureMessage(new Error(message), { tags: { statusCode } });
-        }
-
-        function registerServerError () {
-            httpStatus.registerError(httpStatus.SERVER_ERROR);
-        }
-
-        function registerNotFoundError () {
-            httpStatus.registerError(httpStatus.NOT_FOUND_ERROR);
+        function logResponse (message, url, statusCode) {
+            httpStatus.logResponse(`${message}, ${url}`, statusCode);
         }
 
         function responseError (response) {
@@ -63,44 +37,52 @@
             // https://stackoverflow.com/questions/33605486/
             // handle-angular-http-errors-locally-with-fallback-to-global-error-handling
             $interval(() => {
-                // Check if the error has already been handled locally
-                const errorHandled = response.errorHandled;
+                const statusCode = response.status;
+
+                if (response.errorHandled) {
+                    // error handled by local code, no need to apply global error handling
+                    return;
+                }
+
+                if (statusCode === 401) {
+                    $window.auth.logout();
+                    return;
+                }
 
                 const url = response.config && response.config.url;
-
-                // register server errors (5xx) and client errors (4xx)
-                let isServerError = !errorHandled && 500 <= response.status && response.status <= 599;
-                const isClientError = !errorHandled && 400 <= response.status && response.status <= 499;
-
-                if (response.status <= 0) {
+                let message;
+                if (statusCode <= 0) {
                     // Check if the error is due to a cancelled http request
+                    // e.g.: statusCode === -1 when the connection is dropped
                     if (response.config.timeout && angular.isFunction(response.config.timeout.then)) {
                         response.config.timeout.then(
                             angular.noop, // request has been cancelled by resolving the timeout
                             () => { // Abnormal end of request
-                                registerServerError();
-                                logResponse(`HTTP request ended abnormally, ${url}`, response.status);
+                                httpStatus.registerError(ERROR_TYPES.GENERAL_ERROR);
+                                logResponse('HTTP timeout request ended abnormally', url, statusCode);
                             }
                         );
+                        return;
                     } else {
-                        isServerError = true;
+                        httpStatus.registerError(ERROR_TYPES.GENERAL_ERROR);
+                        message = 'HTTP request ended abnormally';
                     }
+                } else if (500 <= statusCode && statusCode <= 599) {
+                    // server error
+                    httpStatus.registerError(ERROR_TYPES.GENERAL_ERROR);
+                    message = 'HTTP 5xx response';
+                } else if (statusCode === 404) {
+                    httpStatus.registerError(ERROR_TYPES.NOT_FOUND_ERROR);
+                    message = 'HTTP 404 response';
+                } else if (400 <= statusCode && statusCode <= 499) {
+                    // general client error
+                    httpStatus.registerError(ERROR_TYPES.GENERAL_ERROR);
+                    message = 'HTTP 4xx response';
+                } else {
+                    message = 'Unkown HTTP response error';
                 }
 
-                if (isServerError) {
-                    registerServerError();
-                    logResponse(`HTTP 5xx response, URL: ${url}`, response.status);
-                } else if (isClientError) {
-                    if (response.status === 401) {
-                        $window.auth.logout();
-                    } else if (response && response.data && response.data.detail === 'Not found.') {
-                        registerNotFoundError();
-                        logResponse(`HTTP response body: Not found, URL: ${url}`, response.status);
-                    } else {
-                        registerServerError();
-                        logResponse('HTTP 4xx response', response.status);
-                    }
-                }
+                logResponse(message, url, statusCode);
             }, 0, 1);
 
             return $q.reject(response);

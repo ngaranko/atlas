@@ -16,7 +16,7 @@ exports[`MapPanelContainer should render MapLegend if store contains active map 
       className="map-panel__toggle"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-panel__heading-icon"
       />
       <h2
@@ -29,10 +29,10 @@ exports[`MapPanelContainer should render MapLegend if store contains active map 
           legenda
         </span>
       </h2>
-      <test-file-stub
+      <Component
         className="map-panel__toggle-icon map-panel__toggle-icon--expanded"
       />
-      <test-file-stub
+      <Component
         className="map-panel__toggle-icon map-panel__toggle-icon--collapsed"
       />
     </button>
@@ -91,7 +91,7 @@ exports[`MapPanelContainer should render MapType and MapLayers 1`] = `
       className="map-panel__toggle"
       onClick={[Function]}
     >
-      <test-file-stub
+      <Component
         className="map-panel__heading-icon"
       />
       <h2
@@ -104,10 +104,10 @@ exports[`MapPanelContainer should render MapType and MapLayers 1`] = `
           legenda
         </span>
       </h2>
-      <test-file-stub
+      <Component
         className="map-panel__toggle-icon map-panel__toggle-icon--expanded"
       />
-      <test-file-stub
+      <Component
         className="map-panel__toggle-icon map-panel__toggle-icon--collapsed"
       />
     </button>
