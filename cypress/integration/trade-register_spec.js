@@ -56,6 +56,7 @@ describe('trade-register module', () => {
       cy.visit('http://localhost:8080/');
       // click on the link to go to the trade register
       cy.get('.c-homepage__block--vestigingen').click();
+      cy.scrollTo('top');
     });
 
     describe('user should be able to view the trade register', () => {
@@ -72,19 +73,8 @@ describe('trade-register module', () => {
 
     describe('user should be able to navigate to the trade register detail view', () => {
       it('should open the correct detail view', () => {
-        cy.get('tr.c-table__content-row').first().find('td').first()
-        .then((firstValue) => {
-          // remove whitespace and line breaks that are created by cypress
-          const selectedValue = firstValue[0].innerText.replace(/^\s+|\s+$/g, '');
-          // scroll to top so first item is in view
-          cy.scrollTo('top');
-          // click on the firstItem
-          cy.get('.c-table__content-row:first-child').click();
-          // the detail view should exist
-          cy.get('.qa-detail').should('exist').and('be.visible');
-          // the selectedValue should exist as a sibling
-          cy.get('.c-key-value-list').find('dd').contains(selectedValue).should('exist').and('be.visible');
-        });
+        cy.get('.c-table__content-row:first-child').click();
+        cy.get('.qa-detail').should('exist').and('be.visible');
       });
     });
   });
