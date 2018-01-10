@@ -2,7 +2,7 @@
   background-color: #ffffff;
   border: solid 1px #CCCCCC;
   box-shadow: 2px 2px 0 0 #999999;
-  padding: 2px;
+  padding: 3px;
   position: absolute;
   right: 10px;
   top: 10px;
@@ -13,16 +13,15 @@
     fill: #666666;
     height: 24px;
     width: 24px;
-
-    &:focus,
-    &:hover {
-      fill: #ffffff;
-    }
   }
 
   &:focus,
   &:hover {
     background-color: #fd0000;
+
+    .toggle-fullscreen__icon {
+      fill: #ffffff;
+    }
   }
 
   .is-embed &,
