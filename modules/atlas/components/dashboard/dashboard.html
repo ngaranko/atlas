@@ -30,7 +30,7 @@
     </div>
 
     <!-- Error message -->
-    <div ng-if="vm.visibility.httpStatus"
+    <div ng-if="vm.visibility.error"
          class="c-dashboard__error">
         <div class="u-background-color__primary--light"
              ng-class="{ 'o-max-width': vm.hasMaxWidth }">
@@ -45,7 +45,7 @@
 
     <!-- Body -->
     <div class="c-dashboard__body"
-         ng-class="{ 'c-dashboard__body--error': vm.visibility.httpStatus }">
+         ng-class="{ 'c-dashboard__body--error': vm.visibility.error }">
         <div class="u-grid u-full-height">
             <!-- Columns -->
             <div class="u-row u-full-height">
@@ -61,7 +61,7 @@
                             map-state="map.mapState"
                             markers="map.markers"
                             draw-geometry="map.drawGeometry"
-                            resize="[vm.isPrintMode, vm.isEmbedPreview, vm.isEmbed, vm.visibility.httpStatus, vm.visibility.map, vm.columnSizes.middle]">
+                            resize="[vm.isPrintMode, vm.isEmbedPreview, vm.isEmbed, vm.visibility.error, vm.visibility.map, vm.columnSizes.middle]">
                         </dp-map>
                     </div>
                 </div>
@@ -162,7 +162,7 @@
                         <!--Resize straatbeeld when any of printMode, errorMode or fullscreen changes-->
                         <dp-straatbeeld
                             state="straatbeeld.straatbeeldState"
-                            resize="[vm.isPrintMode, vm.isEmbedPreview, vm.isEmbed, vm.visibility.httpStatus, vm.visibility.straatbeeld, vm.columnSizes.right]">
+                            resize="[vm.isPrintMode, vm.isEmbedPreview, vm.isEmbed, vm.visibility.error, vm.visibility.straatbeeld, vm.columnSizes.right]">
                         </dp-straatbeeld>
                     </div>
 

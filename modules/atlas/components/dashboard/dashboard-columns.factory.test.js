@@ -31,6 +31,10 @@ describe('The dashboardColumns factory', function () {
             atlas: {
                 isPrintMode: false,
                 isEmbedPreview: false
+            },
+            error: {
+                hasErrors: false,
+                types: {}
             }
         };
 

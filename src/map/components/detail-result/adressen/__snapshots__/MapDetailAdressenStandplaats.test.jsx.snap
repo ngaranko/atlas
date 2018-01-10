@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MapDetailAdressenStandplaats should render everything 1`] = `
+<MapDetailResultWrapper
+  panoUrl="panoUrl"
+  subTitle="Standplaats label"
+  title="Standplaats"
+>
+  <ul
+    className="map-detail-result__list"
+  >
+    <MapDetailResultItem
+      label="Status"
+      value="Standplaats status"
+    />
+  </ul>
+</MapDetailResultWrapper>
+`;

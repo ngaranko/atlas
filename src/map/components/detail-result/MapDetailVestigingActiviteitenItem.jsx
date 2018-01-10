@@ -1,30 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const MapDetailResultItem = ({ activiteiten }) => (
-  <div className="map-detail-result__item">
-    <section className="map-detail-result__item-content">
-      <div className="map-detail-result__item-label">SBI-activiteiten</div>
-      <ul className="map-detail-result__item-value map-detail-result__item-list">
-        {activiteiten && activiteiten.length && activiteiten.slice(0, 5).map((activiteit) => (
-          <li
-            key={activiteit.sbi_code}
-            className="map-detail-result__item-list-item"
-          >
-            {activiteit.sbi_code}: {activiteit.sbi_omschrijving}
-          </li>
-        ))}
-      </ul>
-    </section>
-  </div>
-);
+import { maxDisplayValuesPerProperty } from '../../services/map-detail';
 
-MapDetailResultItem.defaultProps = {
-  activiteiten: []
+const MapDetailVestigingActiviteitenItem = ({ activities }) =>
+  activities.length > 0 && (
+    <div className="map-detail-result__item">
+      <section className="map-detail-result__item-content">
+        <div className="map-detail-result__item-label">SBI-activiteiten</div>
+        <ul className="map-detail-result__item-value map-detail-result__item-list">
+          {activities.slice(0, maxDisplayValuesPerProperty).map((activity) => (
+            <li
+              key={activity.sbiCode}
+              className="map-detail-result__item-list-item"
+            >
+              {activity.sbiCode}: {activity.sbiDescription}
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
+  );
+
+MapDetailVestigingActiviteitenItem.propTypes = {
+  activities: PropTypes.arrayOf(PropTypes.shape({
+    sbiCode: PropTypes.string.isRequired,
+    sbiDescription: PropTypes.string.isRequired
+  })).isRequired
 };
 
-MapDetailResultItem.propTypes = {
-  activiteiten: PropTypes.array // eslint-disable-line react/forbid-prop-types
-};
-
-export default MapDetailResultItem;
+export default MapDetailVestigingActiviteitenItem;
