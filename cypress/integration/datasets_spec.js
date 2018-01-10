@@ -5,7 +5,7 @@ describe('datasets module', () => {
 
     beforeEach(() => {
       // go to the homepage
-      cy.visit('https://data.amsterdam.nl/');
+      cy.visit('http://localhost:8080/');
       // check if the link is in the dom and visible
       cy.get('.c-homepage__block--datasets').should('exist').and('be.visible');
       // the datasets component should not exist yet

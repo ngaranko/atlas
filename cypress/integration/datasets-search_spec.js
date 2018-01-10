@@ -10,8 +10,7 @@ describe('datasets search module', () => {
     logout();
   });
 
-  // TODO: Remove skip when datasets are in acceptance
-  describe.skip('user should be to type and see suggestions', () => {
+  describe('user should be to type and see suggestions', () => {
     it('should open the autocomplete panel and select the first dataset option and route the correct dataset', () => {
       cy.visit('http://localhost:8080/');
       cy.get('input.js-search-input').trigger('focus');
@@ -27,8 +26,7 @@ describe('datasets search module', () => {
     });
   });
 
-  // TODO: Remove skip when datasets are in acceptance
-  describe.skip('user should be able to search and see results', () => {
+  describe('user should be able to search and see results', () => {
     it('should open the datasets results', () => {
       cy.server()
       cy.route('https://acc.api.data.amsterdam.nl/catalogus/api/3/action/*').as('getResults')
