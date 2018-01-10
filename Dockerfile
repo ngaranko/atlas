@@ -25,7 +25,7 @@ RUN apt-get install -y gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libc
 
 RUN rm -rf /var/lib/apt/lists/*
 
-RUN wget -qO- https://releases.rancher.com/install-docker/17.10.sh | sh
+RUN wget -qO- https://get.docker.com | sh
 
 COPY default.conf /etc/nginx/conf.d/
 COPY package.json package-lock.json /app/
