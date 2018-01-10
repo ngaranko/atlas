@@ -22,10 +22,10 @@
 - `npm run test-lint`
 
 ## E2E testing
-Make sure the app is running locally by running `grunt`.
-Then, in a second terminal, run `grunt test-e2e`.
+Make sure the app is running locally by running `npm start`.
+Then, in a second terminal, run `npm run e2e`.
 
-In order to run the E2E tests, the following environment variables should be set:
+In order to run the E2E tests with authentication, the following environment variables should be set:
 - `PASSWORD_EMPLOYEE`
 - `PASSWORD_EMPLOYEE_PLUS`
 - `USERNAME_EMPLOYEE`
@@ -35,6 +35,7 @@ prefix to the desired command, e.g. `PASSWORD_EMPLOYEE=password grunt test-e2e`.
 
 ## Techniques used
 - AngularJS
+- React
 - Redux
 - Leaflet
 - D3
