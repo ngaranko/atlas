@@ -91,7 +91,6 @@ describe('The deprecated reducer factory', function () {
                 overlays: [],
                 viewCenter: [52.3719, 4.9012],
                 zoom: 9,
-                isFullscreen: false,
                 isLoading: false
             },
             filters: {},
@@ -103,6 +102,7 @@ describe('The deprecated reducer factory', function () {
             straatbeeld: null,
             dataSelection: null,
             ui: {
+                isMapFullscreen: false,
                 isMapPanelVisible: false,
                 isPrintMode: false
             }

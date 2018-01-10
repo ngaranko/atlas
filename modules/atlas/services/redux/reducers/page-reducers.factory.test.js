@@ -9,7 +9,6 @@ describe('The pageReducers factory', function () {
                 overlays: [],
                 viewCenter: [52.3719, 4.9012],
                 zoom: 9,
-                isFullscreen: false,
                 isLoading: false
             },
             search: null,
@@ -20,6 +19,7 @@ describe('The pageReducers factory', function () {
             straatbeeld: null,
             dataSelection: null,
             ui: {
+                isMapFullscreen: false,
                 isMapPanelVisible: false,
                 isPrintMode: false
             }
@@ -77,10 +77,10 @@ describe('The pageReducers factory', function () {
         });
 
         it('disables the full screen mode of the map', function () {
-            mockedState.map.isFullscreen = true;
+            mockedState.ui.isMapFullscreen = true;
 
             output = pageReducers.SHOW_PAGE(mockedState, {name: 'goodbye'});
-            expect(output.map.isFullscreen).toBe(false);
+            expect(output.ui.isMapFullscreen).toBe(false);
         });
 
         it('when page is not an object', function () {

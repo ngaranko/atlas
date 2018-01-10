@@ -18,7 +18,6 @@ describe('The dashboardColumns factory', function () {
                 overlays: [],
                 viewCenter: [52.3719, 4.9012],
                 zoom: 9,
-                isFullscreen: false,
                 isLoading: false
             },
             search: null,
@@ -34,6 +33,7 @@ describe('The dashboardColumns factory', function () {
             },
             ui: {
                 isEmbedPreview: false,
+                isMapFullscreen: false,
                 isPrintMode: false
             }
         };
@@ -250,7 +250,7 @@ describe('The dashboardColumns factory', function () {
             });
 
             it('deals with incomplete state', function () {
-                delete mockedState.map;
+                delete mockedState.ui;
                 activity = dashboardColumns.determineActivity(mockedState);
                 visibility = dashboardColumns.determineVisibility(mockedState);
                 expect(activity.map).toBe(true);
@@ -445,7 +445,7 @@ describe('The dashboardColumns factory', function () {
     describe('when using a fullscreen map', function () {
         beforeEach(function () {
             mockedState.dataSelection = {};
-            mockedState.map.isFullscreen = true;
+            mockedState.ui.isMapFullscreen = true;
         });
 
         describe('the default non-print version', function () {
@@ -665,7 +665,7 @@ describe('The dashboardColumns factory', function () {
             mockedState.search = {
                 location: [1.2, 3.4]
             };
-            mockedState.map.isFullscreen = true;
+            mockedState.ui.isMapFullscreen = true;
         });
 
         describe('the default non-print version', function () {

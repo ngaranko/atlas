@@ -28,8 +28,8 @@ describe('The header controller', function () {
         });
 
         mockedState = {
-            map: {
-                isFullscreen: false
+            ui: {
+                isMapFullscreen: false
             },
             search: {
                 query: 'i am a search query'
@@ -153,7 +153,7 @@ describe('The header controller', function () {
 
     describe('not all states have an embed version', function () {
         it('only in fullscreen map there is an embed button', function () {
-            mockedState.map.isFullscreen = true;
+            mockedState.ui.isMapFullscreen = true;
 
             mockedState.page = {
                 name: 'home'
@@ -166,7 +166,7 @@ describe('The header controller', function () {
         });
 
         it('there is no embed button when both full screen map and straatbeeld are active', function () {
-            mockedState.map.isFullscreen = true;
+            mockedState.ui.isMapFullscreen = true;
             mockedState.straatbeeld = {};
 
             spyOn(store, 'getState').and.returnValue(mockedState);
