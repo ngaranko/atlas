@@ -3,7 +3,7 @@ const addHeading = (element, text) => {
     const textNode = document.createTextNode(text);
     headingNode.appendChild(textNode);
     headingNode.setAttribute('class', 'u-sr-only');
-    element.prepend(headingNode);
+    element.append(headingNode);
 };
 
 (function () {
