@@ -80,8 +80,8 @@
                 const state = store.getState();
                 const nonEmbedState = {
                     ...state,
-                    atlas: {
-                        ...state.atlas,
+                    ui: {
+                        ...state.ui,
                         isEmbed: false,
                         isEmbedPreview: false
                     }

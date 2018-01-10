@@ -162,22 +162,6 @@
                 id: 'SHOW_PAGE'
             },
 
-            SHOW_PRINT: {
-                id: 'SHOW_PRINT'
-            },
-            HIDE_PRINT: {
-                id: 'HIDE_PRINT',
-                isButton: true
-            },
-
-            SHOW_EMBED_PREVIEW: {
-                id: 'SHOW_EMBED_PREVIEW'
-            },
-            HIDE_EMBED_PREVIEW: {
-                id: 'HIDE_EMBED_PREVIEW',
-                isButton: true
-            },
-
             APPLY_FILTERS: {
                 id: 'APPLY_FILTERS',
                 ignore: true

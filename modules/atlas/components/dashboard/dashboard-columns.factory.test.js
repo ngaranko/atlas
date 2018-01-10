@@ -28,13 +28,13 @@ describe('The dashboardColumns factory', function () {
             detail: null,
             straatbeeld: null,
             dataSelection: null,
-            atlas: {
-                isPrintMode: false,
-                isEmbedPreview: false
-            },
             error: {
                 hasErrors: false,
                 types: {}
+            },
+            ui: {
+                isEmbedPreview: false,
+                isPrintMode: false
             }
         };
 
@@ -130,7 +130,7 @@ describe('The dashboardColumns factory', function () {
 
         describe('the print version', function () {
             beforeEach(function () {
-                mockedState.atlas.isPrintMode = true;
+                mockedState.ui.isPrintMode = true;
 
                 activity = dashboardColumns.determineActivity(mockedState);
                 visibility = dashboardColumns.determineVisibility(mockedState);
@@ -205,7 +205,7 @@ describe('The dashboardColumns factory', function () {
 
             describe('the print version', function () {
                 beforeEach(function () {
-                    mockedState.atlas.isPrintMode = true;
+                    mockedState.ui.isPrintMode = true;
 
                     activity = dashboardColumns.determineActivity(mockedState);
                     visibility = dashboardColumns.determineVisibility(mockedState);
@@ -300,7 +300,7 @@ describe('The dashboardColumns factory', function () {
 
         describe('the print version', function () {
             beforeEach(function () {
-                mockedState.atlas.isPrintMode = true;
+                mockedState.ui.isPrintMode = true;
             });
 
             it('makes the map and detail page visibile', function () {
@@ -415,7 +415,7 @@ describe('The dashboardColumns factory', function () {
 
         describe('the print version', function () {
             beforeEach(function () {
-                mockedState.atlas.isPrintMode = true;
+                mockedState.ui.isPrintMode = true;
 
                 activity = dashboardColumns.determineActivity(mockedState);
                 visibility = dashboardColumns.determineVisibility(mockedState);
@@ -476,7 +476,7 @@ describe('The dashboardColumns factory', function () {
 
         describe('the print version', function () {
             beforeEach(function () {
-                mockedState.atlas.isPrintMode = true;
+                mockedState.ui.isPrintMode = true;
 
                 activity = dashboardColumns.determineActivity(mockedState);
                 visibility = dashboardColumns.determineVisibility(mockedState);
@@ -504,7 +504,7 @@ describe('The dashboardColumns factory', function () {
 
         describe('the embed preview version', function () {
             beforeEach(function () {
-                mockedState.atlas.isEmbedPreview = true;
+                mockedState.ui.isEmbedPreview = true;
 
                 activity = dashboardColumns.determineActivity(mockedState);
                 visibility = dashboardColumns.determineVisibility(mockedState);
@@ -603,7 +603,7 @@ describe('The dashboardColumns factory', function () {
 
         describe('the print version', function () {
             beforeEach(function () {
-                mockedState.atlas.isPrintMode = true;
+                mockedState.ui.isPrintMode = true;
 
                 activity = dashboardColumns.determineActivity(mockedState);
                 visibility = dashboardColumns.determineVisibility(mockedState);
@@ -631,7 +631,7 @@ describe('The dashboardColumns factory', function () {
 
         describe('the list view print version', function () {
             beforeEach(function () {
-                mockedState.atlas.isPrintMode = true;
+                mockedState.ui.isPrintMode = true;
                 mockedState.dataSelection.view = 'LIST';
                 mockedState.dataSelection.isFullscreen = false;
 
@@ -697,7 +697,7 @@ describe('The dashboardColumns factory', function () {
 
         describe('the print version', function () {
             beforeEach(function () {
-                mockedState.atlas.isPrintMode = true;
+                mockedState.ui.isPrintMode = true;
 
                 activity = dashboardColumns.determineActivity(mockedState);
                 visibility = dashboardColumns.determineVisibility(mockedState);
@@ -755,7 +755,7 @@ describe('The dashboardColumns factory', function () {
         describe('the print version with data selection active', function () {
             beforeEach(function () {
                 mockedState.dataSelection = {};
-                mockedState.atlas.isPrintMode = true;
+                mockedState.ui.isPrintMode = true;
 
                 activity = dashboardColumns.determineActivity(mockedState);
                 visibility = dashboardColumns.determineVisibility(mockedState);

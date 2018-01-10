@@ -43,7 +43,7 @@ describe('The onMapClick factory', () => {
         });
 
         mockState = {
-            atlas: {
+            ui: {
                 isEmbedPreview: false
             },
             map: {
@@ -81,7 +81,7 @@ describe('The onMapClick factory', () => {
     });
 
     it('click on map when in embed preview it should stop proceeding', () => {
-        mockState.atlas.isEmbedPreview = true;
+        mockState.ui.isEmbedPreview = true;
         click();
         expect(drawTool.isEnabled).not.toHaveBeenCalled();
     });
@@ -103,7 +103,7 @@ describe('The onMapClick factory', () => {
     });
 
     it('when there are active overlays a search to nearest detail will be called', () => {
-        mockState.atlas.isEmbedPreview = false;
+        mockState.ui.isEmbedPreview = false;
         activeOverlays.getVisibleOverlays.and.returnValue([1, 2]);
         click();
         expect(nearestDetail.search).toHaveBeenCalled();
@@ -121,7 +121,7 @@ describe('The onMapClick factory', () => {
     });
 
     it('when there are active overlays and straatbeeld is active a search to nearest detail will not be called', () => {
-        mockState.atlas.isEmbed = false;
+        mockState.ui.isEmbed = false;
         mockState.straatbeeld = {};
         activeOverlays.getVisibleOverlays.and.returnValue([1, 2]);
         click();
