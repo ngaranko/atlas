@@ -28,11 +28,15 @@ describe('data search module', () => {
   });
 
   describe('user should be to type and submit', () => {
-    it('should submit the search and give results', () => {
+
+    beforeEach(() => {
       cy.server()
       cy.route('https://acc.api.data.amsterdam.nl/catalogus/api/3/action/*').as('getResults')
       cy.visit('http://localhost:8080');
       cy.get('input.js-search-input').trigger('focus');
+    });
+
+    it('should submit the search and give results', () => {
       cy.get('input.js-search-input').type('Park');
       cy.get('.c-search-form').submit();
       cy.wait('@getResults');
@@ -40,14 +44,11 @@ describe('data search module', () => {
     });
 
     it('should submit the search and give no results', () => {
-      cy.server()
-      cy.route('https://acc.api.data.amsterdam.nl/catalogus/api/3/action/*').as('getResults')
-      cy.visit('http://localhost:8080');
-      cy.get('input.js-search-input').trigger('focus');
       cy.get('input.js-search-input').type('NORESULTS');
       cy.get('.c-search-form').submit();
       cy.wait('@getResults');
       cy.get('.o-list').should('have.length', 0);
     });
+    
   });
 });
