@@ -81,6 +81,7 @@
     "clean-cache": "npm cache verify",
     "clean-dirs": "rimraf ./node_modules ./coverage ./coverage-legacy ./dist ./build",
     "clean": "npm run clean-cache && npm run clean-dirs",
+    "cypress": "./scripts/cypress.sh",
     "preinstall": "npm cache verify",
     "start": "grunt && webpack-dev-server --config webpack.dev.js",
     "test": "karma start && NODE_ENV=development jest",
