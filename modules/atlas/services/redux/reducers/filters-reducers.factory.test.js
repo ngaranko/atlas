@@ -29,12 +29,10 @@ describe('The filtersReducers factory', function () {
             detail: null,
             straatbeeld: null,
             dataSelection: null,
-            atlas: {
-                isPrintMode: false,
-                isEmbedPreview: false
-            },
             ui: {
-                isMapPanelVisible: false
+                isEmbedPreview: false,
+                isMapPanelVisible: false,
+                isPrintMode: false
             }
         };
 

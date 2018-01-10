@@ -452,13 +452,13 @@ describe('MapPreviewPanelContainer', () => {
     });
 
     it('should not render when the application is in embed state', () => {
-      const store = configureMockStore()({ ...searchState, atlas: { isEmbed: true } });
+      const store = configureMockStore()({ ...searchState, ui: { isEmbed: true } });
       const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
       expect(wrapper).toMatchSnapshot();
     });
 
     it('should not render when the application is in embed preview state', () => {
-      const store = configureMockStore()({ ...searchState, atlas: { isEmbedPreview: true } });
+      const store = configureMockStore()({ ...searchState, ui: { isEmbedPreview: true } });
       const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
       expect(wrapper).toMatchSnapshot();
     });
