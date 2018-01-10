@@ -322,6 +322,7 @@ describe('The highlight factory', function () {
 
         expect(L.marker).toHaveBeenCalledWith('FAKE_LATLNG', {
             icon: 'FAKE_ICON',
+            alt: 'Marker op de kaart',
             rotationAngle: 145
         });
     });

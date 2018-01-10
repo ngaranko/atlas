@@ -57,7 +57,6 @@ describe('The state url conversion definition', function () {
                     baseLayer: 'topografie',
                     zoom: 11,
                     overlays: [],
-                    isFullscreen: false,
                     isLoading: false,
                     drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
                     highlight: true
@@ -65,6 +64,7 @@ describe('The state url conversion definition', function () {
                 ui: {
                     isEmbed: false,
                     isEmbedPreview: false,
+                    isMapFullscreen: false,
                     isMapLayersVisible: true,
                     isMapPanelVisible: false,
                     isMapPanelHandleVisible: true,

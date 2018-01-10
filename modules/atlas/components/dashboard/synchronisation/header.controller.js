@@ -19,7 +19,7 @@
                 isListView = isDataSelection && state.dataSelection.view === 'LIST',
                 isCardsView = isDataSelection && state.dataSelection.view === 'CARDS',
                 isHomepage = angular.isObject(state.page) && state.page.name === 'home' &&
-                    !state.map.isFullscreen &&
+                    !state.ui.isMapFullscreen &&
                     !angular.isObject(state.straatbeeld);
 
             if ((isCardsView) ||
@@ -35,7 +35,7 @@
 
             vm.hasPrintButton = (!isDataSelection || isListView) && !isHomepage;
             vm.hasEmbedButton = !angular.isObject(state.straatbeeld) &&
-                angular.isObject(state.map) && state.map.isFullscreen;
+                angular.isObject(state.ui) && state.ui.isMapFullscreen;
         }
     }
 })();

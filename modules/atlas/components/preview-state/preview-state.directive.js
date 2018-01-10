@@ -44,7 +44,7 @@
                     // Add the landscape modifier when we are at straatbeeld,
                     // fullscreen map, or data selection in list view
                     if (state.straatbeeld ||
-                            (state.map && state.map.isFullscreen) ||
+                            (state.ui && state.ui.isMapFullscreen) ||
                             (state.dataSelection && state.dataSelection.view === 'LIST')) {
                         element.addClass('is-print-mode--landscape');
                     } else {

@@ -10,7 +10,6 @@ describe('Straatbeeld reducers factory', function () {
                 overlays: [],
                 viewCenter: [52.3719, 4.9012],
                 zoom: 9,
-                isFullscreen: false,
                 isLoading: false
             },
             search: null,
@@ -21,6 +20,7 @@ describe('Straatbeeld reducers factory', function () {
             straatbeeld: null,
             dataSelection: null,
             ui: {
+                isMapFullscreen: false,
                 isMapPanelVisible: false,
                 isPrintMode: false
             }
@@ -275,12 +275,11 @@ describe('Straatbeeld reducers factory', function () {
 
         it('centers the map when fullscreen map is active', function () {
             const state = {
-                'map': {
-                    isFullscreen: true
-                },
                 page: {},
+                map: {},
                 ui: {
-                    isMapPanelVisible: false
+                    isMapPanelVisible: false,
+                    isMapFullscreen: true
                 }
             };
             const location = [52.001, 4.002];

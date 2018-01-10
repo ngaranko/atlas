@@ -147,7 +147,6 @@ describe('The dp-map directive', () => {
             baseLayer: 'topografie',
             overlays: [],
             viewCenter: [52.789, 4.123],
-            isFullscreen: false,
             zoom: 12
         };
 

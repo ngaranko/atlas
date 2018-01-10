@@ -18,7 +18,6 @@ describe('The filtersReducers factory', function () {
                 overlays: [],
                 viewCenter: [52.3719, 4.9012],
                 zoom: 9,
-                isFullscreen: false,
                 isLoading: false
             },
             filters: {},
@@ -31,6 +30,7 @@ describe('The filtersReducers factory', function () {
             dataSelection: null,
             ui: {
                 isEmbedPreview: false,
+                isMapFullscreen: false,
                 isMapPanelVisible: false,
                 isPrintMode: false
             }

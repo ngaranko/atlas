@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ToggleFullscreen actions rendering should render with fullscreen is turned off 1`] = `
+<button
+  className="toggle-fullscreen"
+  onClick={[Function]}
+>
+  <Component
+    className="toggle-fullscreen__icon"
+  />
+</button>
+`;
+
+exports[`ToggleFullscreen actions rendering should render with fullscreen is turned on 1`] = `
+<button
+  className="toggle-fullscreen"
+  onClick={[Function]}
+>
+  <Component
+    className="toggle-fullscreen__icon"
+  />
+</button>
+`;
