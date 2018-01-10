@@ -4,6 +4,7 @@ describe('The dashboard component', function () {
         $timeout,
         $window,
         origAuth,
+        origEndpointTypes,
         store,
         ACTIONS,
         dashboardColumns,
@@ -63,6 +64,10 @@ describe('The dashboard component', function () {
             },
             ui: {
                 isMapPanelVisible: false
+            },
+            error: {
+                hasErrors: false,
+                types: {}
             }
         };
 
@@ -82,17 +87,26 @@ describe('The dashboard component', function () {
             login: angular.noop
         };
 
+        origEndpointTypes = $window.mapPreviewPanelDetailEndpointTypes;
+
         mockedState = angular.copy(angular.copy(DEFAULT_STATE));
     });
 
     afterEach(() => {
         $window.auth = origAuth;
+        $window.mapPreviewPanelDetailEndpointTypes = origEndpointTypes;
     });
 
-    function getComponent () {
+    function getComponent (endpointTypes) {
         var component,
             element,
             scope;
+
+        if (endpointTypes) {
+            $window.mapPreviewPanelDetailEndpointTypes = endpointTypes;
+        } else {
+            delete $window.mapPreviewPanelDetailEndpointTypes;
+        }
 
         element = document.createElement('dp-dashboard');
         scope = $rootScope.$new();
@@ -277,14 +291,22 @@ describe('The dashboard component', function () {
     });
 
     describe('error message', function () {
-        var component,
+        let component,
             mockedVisibility = {
-                httpStatus: false
-            };
+                error: false
+            },
+            handler;
 
         beforeEach(function () {
             spyOn(dashboardColumns, 'determineVisibility').and.callFake(() => mockedVisibility);
+            spyOn(store, 'subscribe').and.callFake((fn) => {
+                // This function will be called later on by other components as
+                // well
+                handler = handler || fn;
+            });
         });
+
+        afterEach(() => handler = null);
 
         it('when not shown, does not flags the dashboard body', function () {
             component = getComponent();
@@ -293,7 +315,7 @@ describe('The dashboard component', function () {
         });
 
         it('when shown, flags the dashboard body', function () {
-            mockedVisibility.httpStatus = true;
+            mockedVisibility.error = true;
             component = getComponent();
 
             expect(component.find('.c-dashboard__body').attr('class')).toContain('c-dashboard__body--error');
@@ -303,23 +325,26 @@ describe('The dashboard component', function () {
             // Start without the error message
             component = getComponent();
             mockedVisibility = {
-                httpStatus: false
+                error: false
             };
-            $rootScope.$apply();
+            handler();
+            $rootScope.$digest();
             expect(component.find('dp-api-error').length).toBe(0);
 
             // Set the error message
             mockedVisibility = {
-                httpStatus: true
+                error: true
             };
-            $rootScope.$apply();
+            handler();
+            $rootScope.$digest();
             expect(component.find('dp-api-error').length).toBe(1);
 
             // Remove the message again
             mockedVisibility = {
-                httpStatus: false
+                error: false
             };
-            $rootScope.$apply();
+            handler();
+            $rootScope.$digest();
             expect(component.find('dp-api-error').length).toBe(0);
         });
     });
@@ -331,7 +356,7 @@ describe('The dashboard component', function () {
 
         beforeEach(function () {
             mockedVisibility = {
-                httpStatus: false,
+                error: false,
                 map: true
             };
             mockedColumnSizes = {
@@ -484,18 +509,15 @@ describe('The dashboard component', function () {
                 // well
                 handler = handler || fn;
             });
-
-            getComponent();
         });
 
         describe('Opening and closing', () => {
-            beforeEach(function () {
+            it('Opens when visible and there is geolocation', () => {
+                getComponent();
                 handler();
                 $rootScope.$digest();
                 store.dispatch.calls.reset();
-            });
 
-            it('Opens when visible and there is geolocation', () => {
                 mockedVisibility.mapPreviewPanel = true;
                 mockedState.search = {
                     location: [1, 0]
@@ -508,7 +530,12 @@ describe('The dashboard component', function () {
                 });
             });
 
-            it('Opens when visible and there is clickable detail', () => {
+            it('Opens when visible and there is a map preview panel implementation for the endpoint', () => {
+                getComponent({ brkObject: 'brk/object/' });
+                handler();
+                $rootScope.$digest();
+                store.dispatch.calls.reset();
+
                 mockedVisibility.mapPreviewPanel = true;
                 mockedState.detail = {
                     endpoint: 'https://acc.api.amsterdam.nl/fake/brk/object/endpoint'
@@ -521,10 +548,15 @@ describe('The dashboard component', function () {
                 });
             });
 
-            it('Closes when visible and there is detail, but not clickable', () => {
+            it('Closes when visible, but there is no map preview panel implementation for the endpoint', () => {
+                getComponent();
+                handler();
+                $rootScope.$digest();
+                store.dispatch.calls.reset();
+
                 mockedVisibility.mapPreviewPanel = true;
                 mockedState.detail = {
-                    endpoint: 'https://acc.api.amsterdam.nl/fake/not/clickable/endpoint'
+                    endpoint: 'https://acc.api.amsterdam.nl/fake/non/existent/endpoint'
                 };
                 handler();
                 $rootScope.$digest();
@@ -535,6 +567,11 @@ describe('The dashboard component', function () {
             });
 
             it('Closes when visible and there is detail, but not endpoint', () => {
+                getComponent();
+                handler();
+                $rootScope.$digest();
+                store.dispatch.calls.reset();
+
                 mockedVisibility.mapPreviewPanel = true;
                 mockedState.detail = {};
                 handler();
@@ -546,6 +583,11 @@ describe('The dashboard component', function () {
             });
 
             it('Closes when visible but there is no geolocation nor detail', () => {
+                getComponent();
+                handler();
+                $rootScope.$digest();
+                store.dispatch.calls.reset();
+
                 mockedVisibility.mapPreviewPanel = true;
                 handler();
                 $rootScope.$digest();
@@ -556,6 +598,11 @@ describe('The dashboard component', function () {
             });
 
             it('Closes when not visible', () => {
+                getComponent();
+                handler();
+                $rootScope.$digest();
+                store.dispatch.calls.reset();
+
                 mockedVisibility.mapPreviewPanel = true;
                 handler();
                 $rootScope.$digest();
@@ -571,6 +618,11 @@ describe('The dashboard component', function () {
             });
 
             it('Closes when not visible, even though there is geolocation or detail', () => {
+                getComponent();
+                handler();
+                $rootScope.$digest();
+                store.dispatch.calls.reset();
+
                 mockedVisibility.mapPreviewPanel = true;
                 handler();
                 $rootScope.$digest();

@@ -1,6 +1,7 @@
 describe('The dp-panel component', function () {
-    var $compile,
-        $rootScope;
+    let $compile,
+        $rootScope,
+        closeAction;
 
     beforeEach(function () {
         angular.mock.module('dpShared');
@@ -35,7 +36,10 @@ describe('The dp-panel component', function () {
             element.setAttribute('class-name', className);
         }
 
+        element.setAttribute('close-action', 'closeAction()');
+
         scope = $rootScope.$new();
+        scope.closeAction = closeAction;
         scope.isPanelVisible = isPanelVisible;
         scope.canClose = canClose;
 
@@ -79,6 +83,17 @@ describe('The dp-panel component', function () {
 
             component.find('button').click();
 
+            expect(component.find('div.c-panel').length).toBe(0);
+            expect(component.find('button.qa-btn-close').length).toBe(0);
+        });
+
+        it('calls the close action if provided on click', () => {
+            closeAction = jasmine.createSpy('closeAction');
+            var component = getComponent(true, true);
+
+            component.find('button').click();
+
+            expect(closeAction).toHaveBeenCalled();
             expect(component.find('div.c-panel').length).toBe(0);
             expect(component.find('button.qa-btn-close').length).toBe(0);
         });

@@ -26,8 +26,7 @@ describe('The deprecated reducer factory', function () {
                         MapLayersReducer: angular.noop,
                         MapPanelReducer: angular.noop,
                         MapOverlaysReducer: angular.noop,
-                        MapBaseLayersReducer: angular.noop,
-                        ErrorMessageReducer: angular.identity
+                        MapBaseLayersReducer: angular.noop
                     }
                 },
                 freeze: jasmine.createSpyObj('freeze', ['deepFreeze']),
@@ -172,17 +171,6 @@ describe('The deprecated reducer factory', function () {
         var output = reducer(inputState, {type: {id: 'ACTION_NO_REDUCER'}});
 
         expect(output).toBe(inputState);
-    });
-
-    it('always calls the ErrorMessageReducer', function () {
-        spyOn(urlReducers, 'ACTION_A').and.callThrough();
-        spyOn($window.reducers, 'ErrorMessageReducer').and.callThrough();
-
-        reducer(inputState, {type: {id: 'ACTION_A'}});
-        reducer(inputState, {type: {id: 'ACTION_B'}});
-
-        expect(urlReducers.ACTION_A).toHaveBeenCalled();
-        expect($window.reducers.ErrorMessageReducer).toHaveBeenCalled();
     });
 
     it('deep freezes the state in development', () => {

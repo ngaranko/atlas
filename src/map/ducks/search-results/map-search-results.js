@@ -5,7 +5,7 @@ export const FETCH_MAP_SEARCH_RESULTS_FAILURE = 'FETCH_MAP_SEARCH_RESULTS_FAILUR
 const initialState = {
   mapSearchResultsByLocation: {},
   isLoading: false,
-  error: null
+  mapSearchResultsError: null
 };
 
 export default function MapSearchResultsReducer(state = initialState, action) {
@@ -16,7 +16,7 @@ export default function MapSearchResultsReducer(state = initialState, action) {
 
   switch (action.type) {
     case FETCH_MAP_SEARCH_RESULTS_REQUEST:
-      return { ...state, isLoading: true, error: null };
+      return { ...state, isLoading: true, mapSearchResultsError: null };
 
     case FETCH_MAP_SEARCH_RESULTS_SUCCESS:
       return {
