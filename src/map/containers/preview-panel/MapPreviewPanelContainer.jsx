@@ -39,7 +39,7 @@ const mapStateToProps = (state) => ({
   mapDetail: state.mapDetail,
   detailResult: selectLatestMapDetail(state) || {},
   user: state.user,
-  isEmbed: state.atlas && (state.atlas.isEmbed || state.atlas.isEmbedPreview)
+  isEmbed: state.ui && (state.ui.isEmbed || state.ui.isEmbedPreview)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

@@ -58,12 +58,10 @@ describe('The dashboard component', function () {
             detail: null,
             straatbeeld: null,
             dataSelection: null,
-            atlas: {
-                isPrintMode: false,
-                isEmbedPreview: false
-            },
             ui: {
-                isMapPanelVisible: false
+                isEmbedPreview: false,
+                isMapPanelVisible: false,
+                isPrintMode: false
             },
             error: {
                 hasErrors: false,
@@ -130,7 +128,7 @@ describe('The dashboard component', function () {
         expect(component.find('.qa-dashboard__header').length).toBe(1);
         expect(component.find('.qa-dashboard__print-header').length).toBe(0);
 
-        mockedState.atlas.isPrintMode = true;
+        mockedState.ui.isPrintMode = true;
         component = getComponent();
         expect(component.find('.qa-dashboard__header').length).toBe(0);
         expect(component.find('.qa-dashboard__print-header').length).toBe(1);
@@ -141,7 +139,7 @@ describe('The dashboard component', function () {
         expect(component.find('.qa-dashboard__header').length).toBe(1);
         expect(component.find('.qa-dashboard__embed-header').length).toBe(0);
 
-        mockedState.atlas.isEmbedPreview = true;
+        mockedState.ui.isEmbedPreview = true;
         component = getComponent();
         expect(component.find('.qa-dashboard__header').length).toBe(0);
         expect(component.find('.qa-dashboard__embed-header').length).toBe(1);
@@ -215,7 +213,7 @@ describe('The dashboard component', function () {
             store.dispatch.calls.reset();
 
             mockedState.map.overlays = [{}];
-            mockedState.atlas.isEmbed = true;
+            mockedState.ui.isEmbed = true;
 
             $rootScope.$digest();
 

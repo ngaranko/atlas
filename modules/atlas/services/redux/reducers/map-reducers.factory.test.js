@@ -21,11 +21,9 @@ describe('The map reducers', function () {
         detail: null,
         straatbeeld: null,
         dataSelection: null,
-        atlas: {
-            isPrintMode: false
-        },
         ui: {
-            isMapPanelVisible: false
+            isMapPanelVisible: false,
+            isPrintMode: false
         }
     };
 
