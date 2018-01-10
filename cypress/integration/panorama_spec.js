@@ -56,7 +56,7 @@ describe('panorama module', () => {
       cy.get('.leaflet-image-layer').should('exist').and('be.visible');
     });
 
-    it('should change the coordinates when clicked on a hotspot', () => {
+    it('should change the coordinates when clicked on the map', () => {
       cy.get('.c-straatbeeld-status-bar__info-item').first()
       .then((coordinatesEl) => {
         const coordinates = coordinatesEl[0].innerText;
