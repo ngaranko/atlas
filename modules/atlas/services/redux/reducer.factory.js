@@ -28,20 +28,26 @@ import { combineReducers } from 'redux';
 
             // Use combine reducer for new reducers
             const ErrorMessageReducer = $window.reducers.ErrorMessageReducer;
+            const PanoPreviewReducer = $window.reducers.PanoPreviewReducer;
             const UiReducer = $window.reducers.UiReducer;
             const UserReducer = $window.reducers.UserReducer;
             const newRootReducer = combineReducers({
                 error: ErrorMessageReducer,
+                pano: PanoPreviewReducer,
                 ui: UiReducer,
                 user: UserReducer
             });
             const filteredState = {
-                // using oldState instead of chaining deprecatedState from other reducer
-                // for error field. This is because the URL resolution step in the deprecatedReducer resets
-                // resets the error portion of the state.
-                error: oldState.error,
                 ui: deprecatedState.ui,
-                user: deprecatedState.user
+                user: deprecatedState.user,
+
+                // Using oldState instead of chaining deprecatedState from
+                // other reducer for the following fields.
+                // This is because these fields do not recide in the URL state,
+                // the URL resolution step in the deprecatedReducer would
+                // therefore reset these fields in the state.
+                error: oldState.error,
+                pano: oldState.pano
             };
 
             // Combine old and new reducer states

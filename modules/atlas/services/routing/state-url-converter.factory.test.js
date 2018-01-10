@@ -43,10 +43,6 @@ describe('The state url conversion factory', function () {
                     byEndpoint: {}
                 },
                 mapClickLocation: {},
-                pano: {
-                    location: [],
-                    previews: {}
-                },
                 ui: {
                     isEmbed: false,
                     isEmbedPreview: false,

@@ -42,7 +42,6 @@
             const MapSearchResultsReducer = $window.reducers.MapSearchResultsReducer;
             const MapDetailReducer = $window.reducers.MapDetailReducer;
             const MapClickLocationReducer = $window.reducers.MapClickLocationReducer;
-            const PanoPreviewReducer = $window.reducers.PanoPreviewReducer;
 
             const detailReducers = {
                 FETCH_DETAIL: DetailsReducer,
@@ -85,12 +84,6 @@
                 SET_MAP_CLICK_LOCATION: MapClickLocationReducer
             };
 
-            const panoPreviewReducers = {
-                FETCH_PANO_PREVIEW_FAILURE: PanoPreviewReducer,
-                FETCH_PANO_PREVIEW_REQUEST: PanoPreviewReducer,
-                FETCH_PANO_PREVIEW_SUCCESS: PanoPreviewReducer
-            };
-
             const mapPreviewPanelReducers = {
                 OPEN_MAP_PREVIEW_PANEL: MapPreviewPanelReducer,
                 CLOSE_MAP_PREVIEW_PANEL: MapPreviewPanelReducer,
@@ -114,7 +107,6 @@
                 mapDetailReducers,
                 mapClickLocationReducers,
                 pageReducers,
-                panoPreviewReducers,
                 searchReducers,
                 straatbeeldReducers,
                 urlReducers,

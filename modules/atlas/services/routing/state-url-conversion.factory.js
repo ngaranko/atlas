@@ -64,7 +64,6 @@
                         'mapDetail',
                         'mapClickLocation',
                         'page',
-                        'pano',
                         'ui',
                         'user'
                     ].forEach(s => {
@@ -155,7 +154,6 @@
                 mapSearchResultsByLocation: ofTypeObject,
                 mapDetail: ofTypeObject,
                 mapClickLocation: ofTypeObject,
-                pano: ofTypeObject,
                 isMapPreviewPanelVisible: ofTypeBoolean
             },
             initialValues: {
@@ -208,10 +206,6 @@
                     byEndpoint: {}
                 },
                 mapClickLocation: {},
-                pano: {
-                    location: [],
-                    previews: {}
-                },
                 isMapPreviewPanelVisible: false,
                 page: {
                     name: null  // eg: 'home'
