@@ -3,6 +3,7 @@ const addHeading = (element, text) => {
     const textNode = document.createTextNode(text);
     headingNode.appendChild(textNode);
     headingNode.setAttribute('class', 'u-sr-only');
+    // istanbul ignore if
     if (element && element.prepend) {
         element.prepend(headingNode);
     }
