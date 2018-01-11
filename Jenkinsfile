@@ -33,8 +33,9 @@ node {
                     error("PASSWORD_EMPLOYEE_PLUS missing")
                 }
                 def image = docker.build("build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}",
+                    "--shm-size 1G " +
                     "--build-arg BUILD_ENV=acc --build-arg PASSWORD_EMPLOYEE=${PASSWORD_EMPLOYEE} " +
-                        "--build-arg PASSWORD_EMPLOYEE_PLUS=${PASSWORD_EMPLOYEE_PLUS} .")
+                    "--build-arg PASSWORD_EMPLOYEE_PLUS=${PASSWORD_EMPLOYEE_PLUS} .")
                 image.push()
             }
         }
