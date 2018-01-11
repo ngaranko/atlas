@@ -206,6 +206,46 @@ describe('The state url conversion definition', function () {
             });
         });
 
+        describe('The post processing for ui', function () {
+            it('copies highlight and isLoading from the previous state, but not the drawing mode ', function () {
+                // isMapPanelHandleVisible
+                let oldState = {
+                    isMapPanelHandleVisible: true
+                };
+                let newState = {};
+
+                stateUrlConversion.post.ui(oldState, newState);
+                expect(newState).toEqual({
+                    isMapPanelHandleVisible: true
+                });
+
+                oldState = {
+                    isMapPanelHandleVisible: false
+                };
+                newState = {};
+
+                stateUrlConversion.post.ui(oldState, newState);
+                expect(newState).toEqual({
+                    isMapPanelHandleVisible: false
+                });
+
+                oldState = {};
+                newState = {};
+
+                stateUrlConversion.post.ui(oldState, newState);
+                expect(newState).toEqual({
+                    isMapPanelHandleVisible: undefined
+                });
+
+                // no map state at all
+                oldState = null;
+                newState = {};
+
+                stateUrlConversion.post.ui(oldState, newState);
+                expect(newState).toEqual({});
+            });
+        });
+
         describe('The post processing for baseLayers', function () {
             it('copies all baseLayers from old state', function () {
                 let oldState,
