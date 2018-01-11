@@ -22,9 +22,9 @@ export default function MapPreviewPanelReducer(state = initialState, action) {
       return {
         ...state,
         isMapPreviewPanelVisible: false,
-        map: {
-          ...state.map,
-          isFullscreen: false
+        ui: {
+          ...state.ui,
+          isMapFullscreen: false
         }
       };
 

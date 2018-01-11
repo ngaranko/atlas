@@ -16,23 +16,30 @@
 - NODE_ENV=development npm test
 
 ## Other useful commands
-- grunt build-release
-- npm run clean
+
+- `grunt build-release`
+- `npm run clean`
+- `npm run test-lint`
 
 ## E2E testing
-Make sure the app is running locally by running `grunt`.
-Then, in a second terminal, run `grunt test-e2e`.
 
-In order to run the E2E tests, the following environment variables should be set:
+- `npm run e2e`
+- `npm run cypress`
+
+Make sure the app is running locally by running `npm start`.
+Then, in a second terminal, run `npm run e2e` (single run) or `npm run cypress` (#GUI, watch).
+
+In order to run the E2E tests with authentication, the following environment variables should be set:
 - `PASSWORD_EMPLOYEE`
 - `PASSWORD_EMPLOYEE_PLUS`
 - `USERNAME_EMPLOYEE`
 - `USERNAME_EMPLOYEE_PLUS`
-They can simply be added by using the `export` command from the command line, or by providing the variables as a
-prefix to the desired command, e.g. `PASSWORD_EMPLOYEE=password grunt test-e2e`.
+They can simply be added by using the `export` command from the command line, or by adding these
+variables to `.bash_profile`.
 
 ## Techniques used
 - AngularJS
+- React
 - Redux
 - Leaflet
 - D3

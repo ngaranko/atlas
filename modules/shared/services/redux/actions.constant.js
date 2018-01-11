@@ -21,10 +21,6 @@
                 id: 'AUTHENTICATE_USER',
                 ignore: true
             },
-            AUTHENTICATE_ERROR: {
-                id: 'AUTHENTICATE_ERROR',
-                ignore: true
-            },
 
             FETCH_SEARCH_RESULTS_BY_QUERY: {
                 id: 'FETCH_SEARCH_RESULTS_BY_QUERY',
@@ -73,10 +69,6 @@
             MAP_HIGHLIGHT: {
                 id: 'MAP_HIGHLIGHT',
                 ignore: true
-            },
-            MAP_FULLSCREEN: {
-                id: 'MAP_FULLSCREEN',
-                isButton: true
             },
             MAP_START_DRAWING: {
                 id: 'MAP_START_DRAWING',
@@ -164,22 +156,6 @@
             },
             SHOW_PAGE: {
                 id: 'SHOW_PAGE'
-            },
-
-            SHOW_PRINT: {
-                id: 'SHOW_PRINT'
-            },
-            HIDE_PRINT: {
-                id: 'HIDE_PRINT',
-                isButton: true
-            },
-
-            SHOW_EMBED_PREVIEW: {
-                id: 'SHOW_EMBED_PREVIEW'
-            },
-            HIDE_EMBED_PREVIEW: {
-                id: 'HIDE_EMBED_PREVIEW',
-                isButton: true
             },
 
             APPLY_FILTERS: {

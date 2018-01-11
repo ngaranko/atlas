@@ -55,7 +55,6 @@
                 // These methods are executed after a state object has been initialized with the initialValues
                 DEFAULT: (oldState, newState, params, initialValues) => {
                     [
-                        'atlas',
                         'filters',
                         'isMapPreviewPanelVisible',
                         'mapBaseLayers',
@@ -65,7 +64,6 @@
                         'mapDetail',
                         'mapClickLocation',
                         'page',
-                        'pano',
                         'ui',
                         'user'
                     ].forEach(s => {
@@ -156,16 +154,10 @@
                 mapSearchResultsByLocation: ofTypeObject,
                 mapDetail: ofTypeObject,
                 mapClickLocation: ofTypeObject,
-                pano: ofTypeObject,
                 isMapPreviewPanelVisible: ofTypeBoolean
             },
             initialValues: {
                 // When creating a state object it will be initialized with these values
-                atlas: {
-                    isPrintMode: false,
-                    isEmbedPreview: false,
-                    isEmbed: false
-                },
                 user: {
                     authenticated: false,
                     accessToken: '',
@@ -199,7 +191,6 @@
                     baseLayer: 'topografie',
                     zoom: 11,
                     overlays: [],
-                    isFullscreen: false,
                     isLoading: false,
                     drawingMode: 'none',
                     highlight: true
@@ -214,10 +205,6 @@
                     byEndpoint: {}
                 },
                 mapClickLocation: {},
-                pano: {
-                    location: [],
-                    previews: {}
-                },
                 isMapPreviewPanelVisible: false,
                 page: {
                     name: null  // eg: 'home'
@@ -247,9 +234,13 @@
                     // id: 'ABC123',
                 },
                 ui: {
+                    isEmbed: false,
+                    isEmbedPreview: false,
+                    isMapFullscreen: false,
                     isMapLayersVisible: true,
                     isMapPanelVisible: false,
-                    isMapPanelHandleVisible: true
+                    isMapPanelHandleVisible: true,
+                    isPrintMode: false
                 }
             },
             stateVariables: {
@@ -257,15 +248,15 @@
                 // The type is stored with the name, every state variable has to have a type specification
                 // atlas (at)
                 atp: {
-                    name: 'atlas.isPrintMode',
+                    name: 'ui.isPrintMode',
                     type: 'boolean'
                 },
                 ate: {
-                    name: 'atlas.isEmbed',
+                    name: 'ui.isEmbed',
                     type: 'boolean'
                 },
                 atep: {
-                    name: 'atlas.isEmbedPreview',
+                    name: 'ui.isEmbedPreview',
                     type: 'boolean'
                 },
                 // dataSelection (ds)
@@ -321,7 +312,7 @@
                     type: 'number'
                 },
                 mpfs: {
-                    name: 'map.isFullscreen',
+                    name: 'ui.isMapFullscreen',
                     type: 'boolean'
                 },
                 mpg: {

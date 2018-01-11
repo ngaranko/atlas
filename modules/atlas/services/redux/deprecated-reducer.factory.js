@@ -15,8 +15,6 @@
         'searchReducers',
         'straatbeeldReducers',
         'dataSelectionReducers',
-        'printReducers',
-        'embedReducers',
         'filtersReducers',
         'environment'
     ];
@@ -32,8 +30,6 @@
         searchReducers,
         straatbeeldReducers,
         dataSelectionReducers,
-        printReducers,
-        embedReducers,
         filtersReducers,
         environment
     ) {
@@ -46,8 +42,6 @@
             const MapSearchResultsReducer = $window.reducers.MapSearchResultsReducer;
             const MapDetailReducer = $window.reducers.MapDetailReducer;
             const MapClickLocationReducer = $window.reducers.MapClickLocationReducer;
-            const PanoPreviewReducer = $window.reducers.PanoPreviewReducer;
-            const ErrorMessageReducer = $window.reducers.ErrorMessageReducer;
 
             const detailReducers = {
                 FETCH_DETAIL: DetailsReducer,
@@ -90,12 +84,6 @@
                 SET_MAP_CLICK_LOCATION: MapClickLocationReducer
             };
 
-            const panoPreviewReducers = {
-                FETCH_PANO_PREVIEW_FAILURE: PanoPreviewReducer,
-                FETCH_PANO_PREVIEW_REQUEST: PanoPreviewReducer,
-                FETCH_PANO_PREVIEW_SUCCESS: PanoPreviewReducer
-            };
-
             const mapPreviewPanelReducers = {
                 OPEN_MAP_PREVIEW_PANEL: MapPreviewPanelReducer,
                 CLOSE_MAP_PREVIEW_PANEL: MapPreviewPanelReducer,
@@ -108,7 +96,6 @@
             var actions = angular.merge(
                 dataSelectionReducers,
                 detailReducers,
-                embedReducers,
                 filtersReducers,
                 homeReducers,
                 mapBaseLayersReducers,
@@ -120,8 +107,6 @@
                 mapDetailReducers,
                 mapClickLocationReducers,
                 pageReducers,
-                panoPreviewReducers,
-                printReducers,
                 searchReducers,
                 straatbeeldReducers,
                 urlReducers,
@@ -130,21 +115,25 @@
 
             // Are we dealing with vanilla js reducers here (type is a
             // string instead of an object with an ID and other
-            // optional attributes)?
+            // optional attributes)? e.g.:
+            // {
+            //      type: 'SHOW_DETAIL'
+            // }
             const vanilla = angular.isObject(action) &&
                 angular.isString(action.type) &&
                 angular.isFunction(actions[action.type]);
 
+            // {
+            //      type: {
+            //          id: 'FOO'
+            //      }
+            // }
             const legacy = angular.isObject(action) &&
                 angular.isObject(action.type) &&
                 angular.isFunction(actions[action.type.id]);
 
             if (vanilla) {
-                const newState = ErrorMessageReducer(
-                    actions[action.type](oldState, action),
-                    action
-                );
-                return newState;
+                return actions[action.type](oldState, action);
             } else if (legacy) {
                 if (detailReducers.hasOwnProperty(action.type.id)) {
                     action.payload = {
@@ -158,10 +147,8 @@
                     freeze.deepFreeze(result);
                 }
                 return result;
-            } else {
-                // TODO: Redux: throw error
-                return ErrorMessageReducer(oldState, action);
             }
+            return oldState;
         };
     }
 })();

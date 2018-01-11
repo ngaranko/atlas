@@ -31,7 +31,7 @@ describe('The dp-embed-header component', () => {
         });
 
         mockState = {
-            atlas: {}
+            ui: {}
         };
 
         spyOn(store, 'subscribe').and.callThrough();

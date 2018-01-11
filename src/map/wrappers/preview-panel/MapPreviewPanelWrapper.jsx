@@ -4,8 +4,6 @@ import { Provider } from 'react-redux';
 
 import MapPreviewPanelContainer from '../../containers/preview-panel/MapPreviewPanelContainer';
 
-import '../../_map.scss';
-
 const MapPreviewPanelWrapper = () => (
   <Provider store={window.reduxStore}>
     <MapPreviewPanelContainer />

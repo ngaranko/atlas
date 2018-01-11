@@ -3,11 +3,13 @@
   border: solid 1px #CCCCCC;
   bottom: 8px;
   box-shadow: 2px 2px 0 0 #999999;
-  font-family: "Avenir LT W01 55 Roman";
+  display: flex;
+  flex-direction: column;
+  font-family: 'Avenir LT W01 55 Roman';
   left: 8px;
-  max-height: calc(100vh - 50px - 130px);
-  min-width: 285px;
+  max-height: calc(100vh - #{$dashboard-heading-height} - 130px);
   max-width: 444px;
+  min-width: 285px;
   overflow: hidden;
   position: fixed;
   width: 28%;
@@ -35,6 +37,7 @@
     .map-panel--collapsed & {
       border-bottom: none;
 
+      &:focus,
       &:hover {
         background-color: #EC0000;
         cursor: pointer;
@@ -74,11 +77,12 @@
     align-items: center;
     border-radius: 0;
     display: flex;
-    padding: 4px;
     height: 100%;
     outline: none;
+    padding: 4px;
     width: 100%;
 
+    &:focus,
     &:hover {
       background-color: #EC0000;
       color: #FFFFFF;
@@ -87,10 +91,6 @@
       .map-panel__toggle-icon {
         fill: #FFFFFF;
       }
-    }
-
-    .map-panel--collapsed & {
-      margin-left: 4px;
     }
   }
 
@@ -113,10 +113,9 @@
   }
 
   .scroll-wrapper {
-    max-height: calc(100vh - 50px - 130px - 34px);
     overflow-x: hidden;
     overflow-y: auto;
-    /* NB: Workaround to force smooth scrolling on Chrome */
+    // NB: Workaround to force smooth scrolling on Chrome
     will-change: transform;
   }
 
@@ -155,10 +154,10 @@
 .leaflet-control-container {
 
   .leaflet-bottom {
-    display: flex;
-    justify-content: flex-end;
     align-items: flex-end;
+    display: flex;
     flex-direction: row-reverse;
+    justify-content: flex-end;
   }
 
   .leaflet-control-zoom {
@@ -181,6 +180,7 @@
     padding: 4px;
     width: 24px !important;
 
+    &:focus,
     &:hover {
       background-color: #EC0000;
       border-color: #EC0000;

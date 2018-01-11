@@ -8,7 +8,6 @@ describe('The dataSelectionReducers factory', function () {
             overlays: [],
             viewCenter: [52.3719, 4.9012],
             zoom: 9,
-            isFullscreen: false,
             isLoading: false
         },
         filters: {},
@@ -19,11 +18,10 @@ describe('The dataSelectionReducers factory', function () {
         detail: null,
         straatbeeld: null,
         dataSelection: null,
-        atlas: {
-            isPrintMode: false
-        },
         ui: {
-            isMapPanelVisible: false
+            isMapFullscreen: false,
+            isMapPanelVisible: false,
+            isPrintMode: false
         }
     };
 
@@ -48,11 +46,11 @@ describe('The dataSelectionReducers factory', function () {
 
         it('makes the map small (!isFullscreen), relevant when navigating via dp-dropdown-menu', () => {
             const mockedState = angular.copy(DEFAULT_STATE);
-            mockedState.map.isFullscreen = true;
+            mockedState.ui.isMapFullscreen = true;
 
             const output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
 
-            expect(output.map.isFullscreen).toBe(false);
+            expect(output.ui.isMapFullscreen).toBe(false);
         });
 
         it('has a default table view and set map not to be loading', function () {
@@ -203,14 +201,14 @@ describe('The dataSelectionReducers factory', function () {
             const mockedState = angular.copy(DEFAULT_STATE);
 
             // With print mode enabled
-            mockedState.atlas.isPrintMode = true;
+            mockedState.ui.isPrintMode = true;
             output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
-            expect(output.atlas.isPrintMode).toBe(true);
+            expect(output.ui.isPrintMode).toBe(true);
 
             // With print mode disabled
-            mockedState.atlas.isPrintMode = false;
+            mockedState.ui.isPrintMode = false;
             output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION.id](mockedState, payload);
-            expect(output.atlas.isPrintMode).toBe(false);
+            expect(output.ui.isPrintMode).toBe(false);
         });
 
         it('when payload is empty and map and ui and page are not an object', function () {

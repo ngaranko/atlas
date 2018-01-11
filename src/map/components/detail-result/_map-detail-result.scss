@@ -24,17 +24,19 @@
 
     &-container {
       background: #666666;
+      bottom: 16px;
       color: #ffffff;
+      margin-right: 16px;
       padding: 8px;
       position: absolute;
-      bottom: 16px;
 
       @media screen and (min-width: 1200px) {
         padding: 8px 12px;
       }
 
       .map-detail-result__header--no-pano & {
-        position: initial;
+        margin-right: 0;
+        position: static;
       }
     }
 
@@ -65,8 +67,8 @@
     .is-embed &,
     .is-embed-preview &,
     .is-print-mode & {
-      max-height: none;
       height: 100%;
+      max-height: none;
     }
   }
 
@@ -101,13 +103,13 @@
 
       &--alert {
         &::after {
+          background-color: #ec0000;
+          border-radius: 50%;
+          content: "";
           display: inline-block;
-          width: 10px;
           height: 10px;
           margin-left: 5px;
-          border-radius: 50%;
-          background-color: #ec0000;
-          content: "";
+          width: 10px;
         }
       }
     }

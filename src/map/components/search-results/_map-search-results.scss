@@ -35,7 +35,8 @@
       }
 
       .map-search-results__header--no-pano & {
-        position: initial;
+        margin-right: 0;
+        position: static;
       }
     }
 
@@ -66,8 +67,8 @@
     .is-embed &,
     .is-embed-preview &,
     .is-print-mode & {
-      max-height: none;
       height: 100%;
+      max-height: none;
     }
   }
 

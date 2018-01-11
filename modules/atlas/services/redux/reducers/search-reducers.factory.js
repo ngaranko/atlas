@@ -34,13 +34,10 @@
                     category: null,
                     numberOfResults: null
                 },
-                map: angular.isObject(state.map) ? {
-                    ...state.map,
-                    isFullscreen: false
-                } : state.map,
                 ui: angular.isObject(state.ui) ? {
                     ...state.ui,
-                    isMapPanelVisible: false
+                    isMapPanelVisible: false,
+                    isMapFullscreen: false
                 } : state.ui,
                 page: angular.isObject(state.page) ? {
                     ...state.page,

@@ -2,47 +2,34 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import MapDetailResultItem from './MapDetailResultItem';
+import MapDetailResultWrapper from './MapDetailResultWrapper';
 
-const MapDetailMeetbout = ({ panoUrl, result }) => (
-  <section className="map-detail-result">
-    <header
-      className={`
-        map-detail-result__header
-        map-detail-result__header--${panoUrl ? 'pano' : 'no-pano'}
-      `}
-    >
-      {panoUrl && (
-        <img
-          alt="Panoramabeeld"
-          className="map-detail-result__header-pano"
-          src={panoUrl}
-        />
-      )}
-      <div className="map-detail-result__header-container">
-        <h1 className="map-detail-result__header-title">Meetbout</h1>
-        <h2 className="map-detail-result__header-subtitle">{result.meetboutidentificatie}</h2>
-      </div>
-    </header>
+const MapDetailMeetbout = ({ panoUrl, meetbout }) => (
+  <MapDetailResultWrapper
+    panoUrl={panoUrl}
+    subTitle={meetbout.label}
+    title="Meetbout"
+  >
     <ul className="map-detail-result__list">
       <MapDetailResultItem
         label="Status"
-        value={result.status}
+        value={meetbout.status}
       />
       <MapDetailResultItem
         label="Adres"
-        value={result.adres}
+        value={meetbout.address}
       />
     </ul>
-  </section>
+  </MapDetailResultWrapper>
 );
 
-MapDetailMeetbout.defaultProps = {
-  panoUrl: ''
-};
-
 MapDetailMeetbout.propTypes = {
-  panoUrl: PropTypes.string,
-  result: PropTypes.object // eslint-disable-line
+  meetbout: PropTypes.shape({
+    address: PropTypes.string,
+    label: PropTypes.string,
+    status: PropTypes.string
+  }).isRequired,
+  panoUrl: PropTypes.string.isRequired
 };
 
 export default MapDetailMeetbout;

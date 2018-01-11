@@ -7,6 +7,7 @@
 
     highlightFactory.$inject = [
         'L',
+        '$rootScope',
         'crsService',
         'ICON_CONFIG',
         'geojson',
@@ -18,8 +19,11 @@
         'clusteredMarkersConfig'
     ];
 
+    /* eslint-disable max-params */
     function highlightFactory (
+    /* eslint-enable max-params */
         L,
+        $rootScope,
         crsService,
         ICON_CONFIG,
         geojson,
@@ -68,7 +72,8 @@
 
                     return L.marker(latLng, {
                         icon: icon,
-                        rotationAngle: rotationAngle
+                        rotationAngle: rotationAngle,
+                        alt: 'Marker op de kaart'
                     });
                 }
             });
@@ -137,6 +142,18 @@
                 location = crsConverter.rdToWgs84(geojson.getCenter(geometry));
                 zoomLevel = Math.max(leafletMap.getZoom(), mapConfig.DEFAULT_ZOOM_HIGHLIGHT);
             }
+
+            // this will trigger a re rendering of map layers after zooming for firefox
+            $rootScope.$applyAsync(() => {
+                leafletMap.eachLayer(wmsLayer => {
+                    if (wmsLayer.options && wmsLayer.options.layers) {
+                        const currentOpacity = L.DomUtil.getStyle(wmsLayer.getElement(), 'opacity');
+                        wmsLayer.removeFrom(leafletMap);
+                        wmsLayer.addTo(leafletMap);
+                        wmsLayer.setOpacity(currentOpacity);
+                    }
+                });
+            });
 
             store.dispatch({
                 type: ACTIONS.MAP_ZOOM,
