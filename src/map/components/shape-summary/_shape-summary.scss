@@ -1,8 +1,9 @@
-.toggle-drawing {
+.shape-summary {
   background-color: #ffffff;
   border: solid 1px #CCCCCC;
-  box-shadow: 2px 2px 0 0 #999999;
+  // box-shadow: 2px 2px 0 0 #999999;
   display: flex;
+  margin-left: 10px;
 
   &__icon {
     display: block;
@@ -14,7 +15,6 @@
   &__label {
     align-self: center;
     color: #666666;
-    font-family: "Avenir LT W01 85 Heavy";
     margin: 0 4px;
   }
 

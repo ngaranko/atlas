@@ -7,6 +7,7 @@ import { toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
 
 import ToggleFullscreen from '../../components/toggle-fullscreen/ToggleFullscreen';
 import ToggleDrawing from '../../components/toggle-drawing/ToggleDrawing';
+import ShapeSummary from '../../components/shape-summary/ShapeSummary';
 
 const mapStateToProps = (state) => ({
   drawingMode: state.map.drawingMode,
@@ -21,11 +22,15 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
 
 const MapContainer = (props) => (
   <section className="map">
-    <ToggleDrawing
-      drawingMode={props.drawingMode}
-      geometry={props.geometry}
-      dataSelection={props.dataSelection}
-    />
+    <div className="draw-tool">
+      <ToggleDrawing
+        drawingMode={props.drawingMode}
+        geometry={props.geometry}
+        dataSelection={props.dataSelection}
+      />
+      <ShapeSummary
+      />
+    </div>
     <ToggleFullscreen
       isFullscreen={props.isFullscreen}
       onToggleFullscreen={props.onToggleFullscreen}
