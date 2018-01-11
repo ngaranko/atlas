@@ -42,6 +42,17 @@
         let _onFinishPolygon,
             _onDrawingMode;
 
+        // temp! 
+        window.drawTool = {
+            initialize,
+            isEnabled,
+            enable,
+            disable,
+            cancel,
+            setPolygon,
+            shape: shapeInfo
+        };
+
         return {
             initialize,
             isEnabled,

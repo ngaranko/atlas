@@ -1,0 +1,33 @@
+.toggle-drawing {
+  background-color: #ffffff;
+  border: solid 1px #CCCCCC;
+  box-shadow: 2px 2px 0 0 #999999;
+  padding: 4px;
+  position: absolute;
+  left: 8px;
+  top: 50px;
+  z-index: 150;
+
+  &__icon {
+    display: block;
+    fill: #666666;
+    height: 24px;
+    width: 24px;
+  }
+
+  &:focus,
+  &:hover {
+    background-color: #ec0000;
+    border-color: #ec0000;
+
+    .toggle-drawing__icon {
+      fill: #ffffff;
+    }
+  }
+
+  .is-embed &,
+  .is-embed-preview &,
+  .is-print-mode & {
+    display: none;
+  }
+}
