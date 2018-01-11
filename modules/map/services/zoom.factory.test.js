@@ -10,7 +10,8 @@ describe('The zoom factory', function () {
         mockedZoomControl,
         moveEndCallback,
         mockedLocation,
-        mockedZoomLevel;
+        mockedZoomLevel,
+        scaleContainer;
 
     beforeEach(function () {
         angular.mock.module(
@@ -57,7 +58,7 @@ describe('The zoom factory', function () {
             }
         };
 
-        const scaleContainer = document.createElement('DIV');
+        scaleContainer = document.createElement('DIV');
         scaleContainer.append = jasmine.createSpy('append');
 
         mockedScaleControl = {
@@ -204,5 +205,14 @@ describe('The zoom factory', function () {
             expect(mockedLeafletMap.doubleClickZoom.enable).toHaveBeenCalled();
             expect(mockedLeafletMap.doubleClickZoom.disable).not.toHaveBeenCalled();
         });
+    });
+
+    it('does not add the scale control header if element is unavailable', () => {
+        const appendSpy = scaleContainer.append;
+        scaleContainer = null;
+
+        zoom.initialize(mockedLeafletMap);
+
+        expect(appendSpy).not.toHaveBeenCalled();
     });
 });

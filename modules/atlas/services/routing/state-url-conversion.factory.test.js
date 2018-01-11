@@ -47,10 +47,6 @@ describe('The state url conversion definition', function () {
                     byEndpoint: {}
                 },
                 mapClickLocation: {},
-                pano: {
-                    location: [],
-                    previews: {}
-                },
                 isMapPreviewPanelVisible: false,
                 map: {
                     viewCenter: [52.3731081, 4.8932945],
@@ -83,7 +79,6 @@ describe('The state url conversion definition', function () {
                 mapSearchResultsByLocation: undefined,
                 mapDetail: undefined,
                 mapClickLocation: undefined,
-                pano: undefined,
                 isMapPreviewPanelVisible: undefined,
                 ui: undefined
             });
