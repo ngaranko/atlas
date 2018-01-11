@@ -9,6 +9,7 @@ import { mapClearDrawing } from '../../../shared/ducks/map/map';
 import ToggleFullscreen from '../../components/toggle-fullscreen/ToggleFullscreen';
 import ToggleDrawing from '../../components/toggle-drawing/ToggleDrawing';
 import ShapeSummary from '../../components/shape-summary/ShapeSummary';
+import PointsAvailable from '../../components/points-available/PointsAvailable';
 
 const mapStateToProps = (state) => ({
   drawingMode: state.map.drawingMode,
@@ -34,6 +35,7 @@ const MapContainer = (props) => (
         geometry={props.geometry}
         onClearDrawing={props.onClearDrawing}
       />
+      <PointsAvailable />
     </div>
     <ToggleFullscreen
       isFullscreen={props.isFullscreen}
