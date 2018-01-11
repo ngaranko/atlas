@@ -88,7 +88,7 @@
     "preinstall": "npm cache verify",
     "start": "grunt && webpack-dev-server --config webpack.dev.js",
     "storybook": "start-storybook -p 9001 -c .storybook",
-    "test": "karma start && NODE_ENV=development jest",
+    "test": "karma start && NODE_ENV=development jest && npm run test-visual-regression",
     "test-lint": "npm run test-eslint",
     "test-eslint": "eslint ./modules/ ./src/",
     "test-sass": "sass-lint -c src/.sass-lint.yml 'src/**/*.scss' --verbose --no-exit && sass-lint -c modules/.sass-lint.yml 'modules/**/*.scss' --verbose --no-exit",
@@ -97,6 +97,7 @@
     "test-jest-watch": "NODE_ENV=development jest --watch",
     "test-karma": "karma start",
     "test-karma-watch": "karma start --no-single-run",
+    "test-visual-regression": "./scripts/visual-regression-test.sh",
     "test-watch": "karma start --no-single-run & jest --watch",
     "watch": "grunt && webpack --watch --config webpack.dev.js"
   },
