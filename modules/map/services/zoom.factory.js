@@ -3,8 +3,8 @@ const addHeading = (element, text) => {
     const textNode = document.createTextNode(text);
     headingNode.appendChild(textNode);
     headingNode.setAttribute('class', 'u-sr-only');
-    if (element && element.prepend) {
-        element.prepend(headingNode);
+    if (element && element.append) {
+        element.append(headingNode);
     }
 };
 
