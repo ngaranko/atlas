@@ -115,6 +115,7 @@
   .scroll-wrapper {
     overflow-x: hidden;
     overflow-y: auto;
+    max-height: calc(100vh - #{$dashboard-heading-height} - 130px);
     // NB: Workaround to force smooth scrolling on Chrome
     will-change: transform;
   }
