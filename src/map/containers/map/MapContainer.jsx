@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
+import { mapClearDrawing } from '../../../shared/ducks/map/map';
 
 import ToggleFullscreen from '../../components/toggle-fullscreen/ToggleFullscreen';
 import ToggleDrawing from '../../components/toggle-drawing/ToggleDrawing';
@@ -17,6 +18,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
+  onClearDrawing: mapClearDrawing,
   onToggleFullscreen: toggleMapFullscreen
 }, dispatch);
 
@@ -29,6 +31,8 @@ const MapContainer = (props) => (
         dataSelection={props.dataSelection}
       />
       <ShapeSummary
+        geometry={props.geometry}
+        onClearDrawing={props.onClearDrawing}
       />
     </div>
     <ToggleFullscreen
@@ -48,6 +52,7 @@ MapContainer.propTypes = {
   geometry: PropTypes.array,
   dataSelection: PropTypes.object,
   isFullscreen: PropTypes.bool.isRequired,
+  onClearDrawing: PropTypes.func.isRequired,
   onToggleFullscreen: PropTypes.func.isRequired
 };
 
