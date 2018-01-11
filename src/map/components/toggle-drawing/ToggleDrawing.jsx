@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Icon from '../../../../public/images/icon-measure.svg';
 
+// temp remove window namespacing
 function toggleDrawing() {
   if (window.drawTool.isEnabled()) {
     window.drawTool.disable();
@@ -14,12 +15,14 @@ function toggleDrawing() {
   }
 }
 
-const ToggleDrawing = ({ drawingMode }) => (
+const ToggleDrawing = ({ drawingMode, dataSelection }) => (
   <button
     className="toggle-drawing"
     onClick={() => toggleDrawing()}
   >
-    <Icon className="toggle-drawing__icon" />{drawingMode === 'draw' ? 'Eindig' : ''}
+    <Icon className="toggle-drawing__icon" />
+    {drawingMode === 'draw' ? 'Eindig' : ''}
+    {dataSelection && dataSelection.geometryFilter.markers.length > 0 ? 'Opnieuw' : ''}
   </button>
 );
 
