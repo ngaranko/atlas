@@ -4,6 +4,14 @@ module.exports = {
     'src/**/*.{js,jsx}'
   ],
   coverageDirectory: 'coverage',
+  coverageThreshold: {
+    global: {
+      statements: 33.63,
+      branches: 53.2,
+      functions: 55.85,
+      lines: 39.81
+    }
+  },
   coverageReporters: [
     'html'
     //'text'
