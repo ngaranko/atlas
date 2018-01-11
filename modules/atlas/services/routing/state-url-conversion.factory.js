@@ -154,7 +154,14 @@
                 mapSearchResultsByLocation: ofTypeObject,
                 mapDetail: ofTypeObject,
                 mapClickLocation: ofTypeObject,
-                isMapPreviewPanelVisible: ofTypeBoolean
+                isMapPreviewPanelVisible: ofTypeBoolean,
+                ui: (oldState, newState) => {
+                    if (angular.isObject(oldState)) {
+                        // Do not keep the state of the drawing mode
+                        newState.isMapPanelHandleVisible = oldState.isMapPanelHandleVisible;
+                    }
+                    return newState;
+                }
             },
             initialValues: {
                 // When creating a state object it will be initialized with these values
