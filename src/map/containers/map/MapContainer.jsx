@@ -10,6 +10,7 @@ import ToggleDrawing from '../../components/toggle-drawing/ToggleDrawing';
 
 const mapStateToProps = (state) => ({
   drawingMode: state.map.drawingMode,
+  geometry: state.map.geometry,
   dataSelection: state.dataSelection,
   isFullscreen: state.ui.isMapFullscreen
 });
@@ -22,6 +23,7 @@ const MapContainer = (props) => (
   <section className="map">
     <ToggleDrawing
       drawingMode={props.drawingMode}
+      geometry={props.geometry}
       dataSelection={props.dataSelection}
     />
     <ToggleFullscreen
@@ -38,6 +40,8 @@ MapContainer.contextTypes = {
 
 MapContainer.propTypes = {
   drawingMode: PropTypes.string.isRequired,
+  geometry: PropTypes.array,
+  dataSelection: PropTypes.object,
   isFullscreen: PropTypes.bool.isRequired,
   onToggleFullscreen: PropTypes.func.isRequired
 };
