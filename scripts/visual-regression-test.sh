@@ -12,5 +12,5 @@ then
     npm i babel-cli && \
     babel-node ./test/visual-regression.js
 else
-    babel-node $(pwd)/test/visual-regression.js
+    NODE_ENV=test babel-node $(pwd)/test/visual-regression.js
 fi
