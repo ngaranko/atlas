@@ -9,7 +9,6 @@ describe.skip('data search module', () => {
     logout();
   });
 
-  // TODO: Remove skip when typeahead api is up
   describe('user should be to type and see suggestions', () => {
     it('should open the autocomplete panel and select the first dataset option and route the correct address', () => {
       cy.visit('http://localhost:8080/');
