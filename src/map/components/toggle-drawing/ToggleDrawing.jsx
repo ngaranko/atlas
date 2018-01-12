@@ -15,29 +15,22 @@ function toggleDrawing() {
   }
 }
 
-const ToggleDrawing = ({ drawingMode, geometry, dataSelection }) => (
+const ToggleDrawing = ({ drawingMode, numberOfDrawnMarkers }) => (
   <button
     className="toggle-drawing"
     onClick={() => toggleDrawing()}
   >
     <Icon className="toggle-drawing__icon" />
     <span className="toggle-drawing__label">
-      {drawingMode === 'draw' ? 'Eindig' : ''}
-      {(geometry && geometry.length > 0) ||
-        (dataSelection && dataSelection.geometryFilter.markers.length > 0) ? 'Opnieuw' : ''}
+      {drawingMode !== 'none' ? 'Eindig' : ''}
+      {drawingMode === 'none' && numberOfDrawnMarkers > 0 ? 'Opnieuw' : ''}
     </span>
   </button>
 );
 
-ToggleDrawing.defaultProps = {
-  geometry: null,
-  dataSelection: null
-};
-
 ToggleDrawing.propTypes = {
   drawingMode: PropTypes.string.isRequired,
-  geometry: PropTypes.array,  // eslint-disable-line react/forbid-prop-types
-  dataSelection: PropTypes.object  // eslint-disable-line react/forbid-prop-types
+  numberOfDrawnMarkers: PropTypes.number.isRequired
 };
 
 export default ToggleDrawing;

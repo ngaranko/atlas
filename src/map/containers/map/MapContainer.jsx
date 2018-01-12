@@ -6,17 +6,16 @@ import { bindActionCreators } from 'redux';
 import { toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
 import { mapClearDrawing } from '../../../shared/ducks/map/map';
 
-import ToggleFullscreen from '../../components/toggle-fullscreen/ToggleFullscreen';
 import ToggleDrawing from '../../components/toggle-drawing/ToggleDrawing';
 import ShapeSummary from '../../components/shape-summary/ShapeSummary';
 import PointsAvailable from '../../components/points-available/PointsAvailable';
+import ToggleFullscreen from '../../components/toggle-fullscreen/ToggleFullscreen';
 
 const mapStateToProps = (state) => ({
   drawingMode: state.map.drawingMode,
+  numberOfDrawnMarkers: state.map.numberOfDrawnMarkers,
   geometry: state.map.geometry,
-  dataSelection: state.dataSelection,
-  isFullscreen: state.ui.isMapFullscreen,
-  numberOfDrawnMarkers: state.map.numberOfDrawnMarkers
+  isFullscreen: state.ui.isMapFullscreen
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
@@ -29,8 +28,7 @@ const MapContainer = (props) => (
     <div className="draw-tool">
       <ToggleDrawing
         drawingMode={props.drawingMode}
-        geometry={props.geometry}
-        dataSelection={props.dataSelection}
+        numberOfDrawnMarkers={props.numberOfDrawnMarkers}
       />
       <ShapeSummary
         geometry={props.geometry}
@@ -52,13 +50,16 @@ MapContainer.contextTypes = {
   store: PropTypes.object.isRequired
 };
 
+MapContainer.defaultProps = {
+  geometry: null
+};
+
 MapContainer.propTypes = {
   drawingMode: PropTypes.string.isRequired,
-  geometry: PropTypes.array,
-  dataSelection: PropTypes.object,
-  isFullscreen: PropTypes.bool.isRequired,
   numberOfDrawnMarkers: PropTypes.number.isRequired,
+  geometry: PropTypes.object,
   onClearDrawing: PropTypes.func.isRequired,
+  isFullscreen: PropTypes.bool.isRequired,
   onToggleFullscreen: PropTypes.func.isRequired
 };
 

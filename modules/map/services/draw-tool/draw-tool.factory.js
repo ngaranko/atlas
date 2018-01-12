@@ -402,7 +402,6 @@
                 }
             })
             ;
-            console.log('updateShape', currentShape.markers.length);
         }
 
         // Updates the publicly available info for the current shape
