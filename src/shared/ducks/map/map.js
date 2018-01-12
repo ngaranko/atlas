@@ -7,7 +7,8 @@ const initialState = {
   overlays: [],
   isLoading: false,
   drawingMode: 'none',
-  highlight: true
+  highlight: true,
+  numberOfDrawnMarkers: 0
 };
 
 export default function MapReducer(state = initialState, action) {

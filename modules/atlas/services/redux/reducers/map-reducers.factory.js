@@ -19,6 +19,7 @@
         reducers[ACTIONS.MAP_START_DRAWING.id] = mapStartDrawingReducer;
         reducers[ACTIONS.MAP_CLEAR_DRAWING.id] = mapClearDrawingReducer;
         reducers[ACTIONS.MAP_END_DRAWING.id] = mapEndDrawingReducer;
+        reducers[ACTIONS.MAP_UPDATE_SHAPE.id] = mapUpdateShapeReducer;
 
         return reducers;
 
@@ -170,6 +171,16 @@
                 map: angular.isObject(state.map) ? {
                     ...state.map,
                     geometry: []
+                } : state.map
+            };
+        }
+
+        function mapUpdateShapeReducer (state, payload) {
+            return {
+                ...state,
+                map: angular.isObject(state.map) ? {
+                    ...state.map,
+                    numberOfDrawnMarkers: payload.numberOfDrawnMarkers
                 } : state.map
             };
         }

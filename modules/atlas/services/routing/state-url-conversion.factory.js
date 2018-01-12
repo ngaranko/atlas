@@ -111,6 +111,7 @@
 
                         newState.highlight = oldState.highlight;
                         newState.isLoading = oldState.isLoading;
+                        newState.numberOfDrawnMarkers = oldState.numberOfDrawnMarkers;
                     }
                     return newState;
                 },
@@ -200,7 +201,8 @@
                     overlays: [],
                     isLoading: false,
                     drawingMode: 'none',
-                    highlight: true
+                    highlight: true,
+                    numberOfDrawnMarkers: 0
                 },
                 mapBaseLayers: {},
                 mapLayers: [],

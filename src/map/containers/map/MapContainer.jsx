@@ -15,7 +15,8 @@ const mapStateToProps = (state) => ({
   drawingMode: state.map.drawingMode,
   geometry: state.map.geometry,
   dataSelection: state.dataSelection,
-  isFullscreen: state.ui.isMapFullscreen
+  isFullscreen: state.ui.isMapFullscreen,
+  numberOfDrawnMarkers: state.map.numberOfDrawnMarkers
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
@@ -35,7 +36,9 @@ const MapContainer = (props) => (
         geometry={props.geometry}
         onClearDrawing={props.onClearDrawing}
       />
-      <PointsAvailable />
+      <PointsAvailable
+        numberOfDrawnMarkers={props.numberOfDrawnMarkers}
+      />
     </div>
     <ToggleFullscreen
       isFullscreen={props.isFullscreen}
@@ -54,6 +57,7 @@ MapContainer.propTypes = {
   geometry: PropTypes.array,
   dataSelection: PropTypes.object,
   isFullscreen: PropTypes.bool.isRequired,
+  numberOfDrawnMarkers: PropTypes.number.isRequired,
   onClearDrawing: PropTypes.func.isRequired,
   onToggleFullscreen: PropTypes.func.isRequired
 };

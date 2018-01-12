@@ -83,6 +83,10 @@
                 id: 'MAP_END_DRAWING',
                 isButton: true
             },
+            MAP_UPDATE_SHAPE: {
+                id: 'MAP_UPDATE_SHAPE',
+                ignore: true
+            },
 
             FETCH_DETAIL: {
                 id: 'FETCH_DETAIL',

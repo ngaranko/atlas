@@ -41,7 +41,7 @@ module.exports = function (mapElement) {
             return hasPoint || hasPolygon;
         },
         get hasPuntenwolk () {
-            return mapElement.all(by.css('.o-highlight-cluster')).count().then(numberOfMarkers => numberOfMarkers > 0);
+            return mapElement.all(by.css('.o-highlight-cluster')).count().then(numberOfDrawnMarkers => numberOfDrawnMarkers > 0);
         },
         get embedButton () {
             return embedButtonPO(mapElement.element(by.css('dp-embed-button')));

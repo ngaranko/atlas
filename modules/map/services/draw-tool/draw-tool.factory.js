@@ -5,9 +5,9 @@
         .module('dpMap')
         .factory('drawTool', drawToolFactory);
 
-    drawToolFactory.$inject = ['$rootScope', 'L', 'DRAW_TOOL_CONFIG', 'suppress'];
+    drawToolFactory.$inject = ['$rootScope', 'L', 'DRAW_TOOL_CONFIG', 'suppress', 'store', "ACTIONS"];
 
-    function drawToolFactory ($rootScope, L, DRAW_TOOL_CONFIG, suppress) {
+    function drawToolFactory ($rootScope, L, DRAW_TOOL_CONFIG, suppress, store, ACTIONS) {
         // holds all information about the state of the shape being created or edited
         const DEFAULTS = {
             isConsistent: true,
@@ -42,7 +42,7 @@
         let _onFinishPolygon,
             _onDrawingMode;
 
-        // temp! 
+        // temp!
         window.drawTool = {
             initialize,
             isEnabled,
@@ -394,6 +394,15 @@
                 L.drawLocal.edit.handlers.edit.tooltip.subtext = currentShape.distanceTxt;
                 updateShapeInfo();  // update public shape info of new consistent state of the polygon
             }
+
+            store.dispatch({
+                type: ACTIONS.MAP_UPDATE_SHAPE,
+                payload: {
+                    numberOfDrawnMarkers: currentShape.markers.length
+                }
+            })
+            ;
+            console.log('updateShape', currentShape.markers.length);
         }
 
         // Updates the publicly available info for the current shape
