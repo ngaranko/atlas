@@ -14,7 +14,6 @@ import ToggleFullscreen from '../../components/toggle-fullscreen/ToggleFullscree
 const mapStateToProps = (state) => ({
   drawingMode: state.map.drawingMode,
   numberOfDrawnMarkers: state.map.numberOfDrawnMarkers,
-  geometry: state.map.geometry,
   isFullscreen: state.ui.isMapFullscreen
 });
 
@@ -31,7 +30,6 @@ const MapContainer = (props) => (
         numberOfDrawnMarkers={props.numberOfDrawnMarkers}
       />
       <ShapeSummary
-        geometry={props.geometry}
         onClearDrawing={props.onClearDrawing}
       />
       <PointsAvailable
@@ -57,7 +55,6 @@ MapContainer.defaultProps = {
 MapContainer.propTypes = {
   drawingMode: PropTypes.string.isRequired,
   numberOfDrawnMarkers: PropTypes.number.isRequired,
-  geometry: PropTypes.object,
   onClearDrawing: PropTypes.func.isRequired,
   isFullscreen: PropTypes.bool.isRequired,
   onToggleFullscreen: PropTypes.func.isRequired
