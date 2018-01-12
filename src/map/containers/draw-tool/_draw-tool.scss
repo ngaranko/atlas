@@ -1,0 +1,11 @@
+.draw-tool {
+  display: flex;
+  left: 8px;
+  position: absolute;
+  top: 50px;
+  z-index: 150;
+
+  .toggle-drawing {
+    align-self: center;
+  }
+}

@@ -13,6 +13,7 @@ $map-preview-panel-bottom: 16px + 34px + 2px + 34px + 10px;
 @import "components/points-available/points-available";
 @import "components/toggle-fullscreen/toggle-fullscreen";
 @import "components/type/map-type";
+@import "containers/draw-tool/draw-tool";
 @import "containers/map/map";
 @import "containers/panel/map-panel";
 @import "containers/preview-panel/map-preview-panel";
