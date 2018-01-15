@@ -75,10 +75,6 @@
                 ignore: true,
                 isButton: true
             },
-            MAP_CLEAR_DRAWING: {
-                id: 'MAP_CLEAR_DRAWING',
-                isButton: true
-            },
             MAP_END_DRAWING: {
                 id: 'MAP_END_DRAWING',
                 isButton: true
