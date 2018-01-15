@@ -1,8 +1,13 @@
+@import "../../../shared/components/toggle/toggle";
+@import "../../../../modules/shared/styles/utilities/screen-reader";
+
 .map-legend {
   background-color: #FFFFFF;
   border: 1px solid #999999;
   border-top: none;
+  list-style-type: none;
   margin: 8px 8px 32px 8px;
+  padding: 0;
   user-select: none;
 
   @media screen and (min-width: 1200px) {
@@ -37,6 +42,10 @@
         padding-top: 10px;
       }
     }
+  }
+
+  &__category-title {
+    font-family: "Avenir LT W01 55 Roman";
   }
 
   &__zoom-level-notification {
@@ -95,6 +104,7 @@
     font-family: "Avenir LT W01 55 Roman";
     font-size: 16px;
     line-height: 20px;
+    margin: 0;
   }
 
   &__category-title,

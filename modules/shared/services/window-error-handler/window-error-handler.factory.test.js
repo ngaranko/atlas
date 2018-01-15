@@ -1,4 +1,4 @@
-import { ERROR_TYPES } from '../../../../src/shared/ducks/error-message.js';
+import { ERROR_TYPES } from '../../../../src/shared/ducks/error-message';
 
 describe('The window error handler', function () {
     const httpStatus = {

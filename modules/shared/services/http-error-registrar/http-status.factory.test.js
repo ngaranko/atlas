@@ -1,6 +1,6 @@
 import {
     setGlobalError
-} from '../../../../src/shared/ducks/error-message.js';
+} from '../../../../src/shared/ducks/error-message';
 
 describe('The http-status component', function () {
     let httpStatus,

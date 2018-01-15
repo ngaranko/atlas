@@ -5,8 +5,8 @@ module.exports = {
   ],
   coverageDirectory: 'coverage',
   coverageReporters: [
-    'html'
-    //'text'
+    'html',
+    'text'
   ],
   moduleNameMapper: {
     '^.+\\.(css|scss)$': 'identity-obj-proxy',
@@ -19,6 +19,10 @@ module.exports = {
   ],
   snapshotSerializers: [
     'enzyme-to-json/serializer'
+  ],
+  testMatch: [
+    '**/__tests__/**/!(*visual.test).js?(x)',
+    '**/*.spec.js'
   ],
   testEnvironment: 'jest-environment-jsdom-global',
   testPathIgnorePatterns: [

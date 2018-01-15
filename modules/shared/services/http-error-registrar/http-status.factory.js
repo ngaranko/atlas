@@ -1,6 +1,6 @@
 import {
     setGlobalError
-} from '../../../../src/shared/ducks/error-message.js';
+} from '../../../../src/shared/ducks/error-message';
 
 (function () {
     'use strict';

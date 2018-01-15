@@ -1,4 +1,4 @@
-import { authenticateError } from '../../../../src/reducers/user.js';
+import { authenticateError } from '../../../../src/reducers/user';
 
 (function () {
     'use strict';

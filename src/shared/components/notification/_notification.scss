@@ -20,6 +20,10 @@
   }
 
   &__button {
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
     cursor: pointer;
     height: 24px;
     line-height: 0;
