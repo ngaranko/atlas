@@ -8,7 +8,9 @@ const initialState = {
   isLoading: false,
   drawingMode: 'none',
   highlight: true,
-  numberOfDrawnMarkers: 0
+  shapeMarkers: 0,
+  shapeDistanceTxt: '',
+  shapeAreaTxt: ''
 };
 
 export default function MapReducer(state = initialState, action) {

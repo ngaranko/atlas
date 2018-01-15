@@ -21,7 +21,7 @@
 
         let previousMarkers;
 
-        drawTool.initialize(vm.map, onFinishShape, onDrawingMode);
+        drawTool.initialize(vm.map, onFinishShape, onDrawingMode, onUpdateShape);
 
         $scope.$watch('vm.state.drawingMode', function (drawingMode) {
             // enable is handled by the polygon markers watch method
@@ -107,7 +107,9 @@
             store.dispatch({
                 type: ACTIONS.MAP_UPDATE_SHAPE,
                 payload: {
-                    numberOfDrawnMarkers: shape.markers.length
+                    shapeMarkers: shape.markers.length,
+                    shapeDistanceTxt: shape.distanceTxt,
+                    shapeAreaTxt: shape.areaTxt
                 }
             });
         }

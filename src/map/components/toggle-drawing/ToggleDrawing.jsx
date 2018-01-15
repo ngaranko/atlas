@@ -15,7 +15,7 @@ function toggleDrawing() {
   }
 }
 
-const ToggleDrawing = ({ drawingMode, numberOfDrawnMarkers }) => (
+const ToggleDrawing = ({ drawingMode, shapeMarkers }) => (
   <button
     className="toggle-drawing"
     onClick={() => toggleDrawing()}
@@ -23,14 +23,14 @@ const ToggleDrawing = ({ drawingMode, numberOfDrawnMarkers }) => (
     <Icon className="toggle-drawing__icon" />
     <span className="toggle-drawing__label">
       {drawingMode !== 'none' ? 'Eindig' : ''}
-      {drawingMode === 'none' && numberOfDrawnMarkers > 0 ? 'Opnieuw' : ''}
+      {drawingMode === 'none' && shapeMarkers > 0 ? 'Opnieuw' : ''}
     </span>
   </button>
 );
 
 ToggleDrawing.propTypes = {
   drawingMode: PropTypes.string.isRequired,
-  numberOfDrawnMarkers: PropTypes.number.isRequired
+  shapeMarkers: PropTypes.number.isRequired
 };
 
 export default ToggleDrawing;

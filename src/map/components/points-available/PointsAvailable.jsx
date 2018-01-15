@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const PointsAvailable = ({ numberOfDrawnMarkers }) => {
-  const markersLeft = 8 - numberOfDrawnMarkers;
+const PointsAvailable = ({ shapeMarkers }) => {
+  const markersLeft = 8 - shapeMarkers;
 
   if (markersLeft > 5) {
     return null;
@@ -24,7 +24,7 @@ const PointsAvailable = ({ numberOfDrawnMarkers }) => {
 };
 
 PointsAvailable.propTypes = {
-  numberOfDrawnMarkers: PropTypes.number.isRequired
+  shapeMarkers: PropTypes.number.isRequired
 };
 
 export default PointsAvailable;

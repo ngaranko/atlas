@@ -111,7 +111,9 @@
 
                         newState.highlight = oldState.highlight;
                         newState.isLoading = oldState.isLoading;
-                        newState.numberOfDrawnMarkers = oldState.numberOfDrawnMarkers;
+                        newState.shapeMarkers = oldState.shapeMarkers;
+                        newState.shapeDistanceTxt = oldState.shapeDistanceTxt;
+                        newState.shapeAreaTxt = oldState.shapeAreaTxt;
                     }
                     return newState;
                 },
@@ -202,7 +204,9 @@
                     isLoading: false,
                     drawingMode: 'none',
                     highlight: true,
-                    numberOfDrawnMarkers: 0
+                    shapeMarkers: 0,
+                    shapeDistanceTxt: '',
+                    shapeAreaTxt: ''
                 },
                 mapBaseLayers: {},
                 mapLayers: [],

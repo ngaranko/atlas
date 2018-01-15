@@ -11,28 +11,38 @@ import PointsAvailable from '../../components/points-available/PointsAvailable';
 
 const mapStateToProps = (state) => ({
   drawingMode: state.map.drawingMode,
-  numberOfDrawnMarkers: state.map.numberOfDrawnMarkers
+  shapeMarkers: state.map.shapeMarkers,
+  shapeDistanceTxt: state.map.shapeDistanceTxt
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   onClearDrawing: mapClearDrawing
 }, dispatch);
 
-const DrawTool = (props) => (
-  <section className="draw-tool">
-    <ToggleDrawing
-      drawingMode={props.drawingMode}
-      numberOfDrawnMarkers={props.numberOfDrawnMarkers}
-    />
-    <ShapeSummary
-      onClearDrawing={props.onClearDrawing}
-    />
-    <PointsAvailable
-      numberOfDrawnMarkers={props.numberOfDrawnMarkers}
-    />
-  </section>
-);
+class DrawTool extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
+  render() {
+    return (
+      <section className="draw-tool">
+        <ToggleDrawing
+          drawingMode={this.props.drawingMode}
+          shapeMarkers={this.props.shapeMarkers}
+        />
+        <ShapeSummary
+          shapeMarkers={this.props.shapeMarkers}
+          shapeDistanceTxt={this.props.shapeDistanceTxt}
+          onClearDrawing={this.props.onClearDrawing}
+        />
+        <PointsAvailable
+          shapeMarkers={this.props.shapeMarkers}
+        />
+      </section>
+    );
+  }
+}
 
 DrawTool.contextTypes = {
   store: PropTypes.object.isRequired
@@ -44,7 +54,8 @@ DrawTool.defaultProps = {
 
 DrawTool.propTypes = {
   drawingMode: PropTypes.string.isRequired,
-  numberOfDrawnMarkers: PropTypes.number.isRequired,
+  shapeMarkers: PropTypes.number.isRequired,
+  shapeDistanceTxt: PropTypes.string.isRequired,
   onClearDrawing: PropTypes.func.isRequired
 };
 
