@@ -30,9 +30,11 @@ import { combineReducers } from 'redux';
             const ErrorMessageReducer = $window.reducers.ErrorMessageReducer;
             const PanoPreviewReducer = $window.reducers.PanoPreviewReducer;
             const UiReducer = $window.reducers.UiReducer;
+            const MapReducer = $window.reducers.MapReducer;
             const UserReducer = $window.reducers.UserReducer;
             const newRootReducer = combineReducers({
                 error: ErrorMessageReducer,
+                map: MapReducer,
                 pano: PanoPreviewReducer,
                 ui: UiReducer,
                 user: UserReducer
@@ -40,6 +42,7 @@ import { combineReducers } from 'redux';
             const filteredState = {
                 ui: deprecatedState.ui,
                 user: deprecatedState.user,
+                map: deprecatedState.map,
 
                 // Using oldState instead of chaining deprecatedState from
                 // other reducer for the following fields.

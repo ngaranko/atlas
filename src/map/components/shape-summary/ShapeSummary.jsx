@@ -20,7 +20,7 @@ const ShapeSummary = ({ shapeMarkers, shapeDistanceTxt, onClearDrawing }) => {
       </button>
     </div>
   );
-}
+};
 
 ShapeSummary.propTypes = {
   shapeMarkers: PropTypes.number.isRequired,
