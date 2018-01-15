@@ -41,8 +41,6 @@ describe('zoom controls', () => {
       on: (name, handler) => { zoomEventHandler = handler; }
     };
 
-    leafletOld = window.L;
-
     scaleNode = document.createElement('div');
     scaleControl = {
       addTo: jest.fn(),
@@ -57,6 +55,7 @@ describe('zoom controls', () => {
     const zoomMock = jest.fn()
       .mockReturnValue(zoomControl);
 
+    leafletOld = window.L;
     window.L = {
       control: {
         scale: scaleMock,
@@ -124,8 +123,6 @@ describe('zoom controls', () => {
 
   it('fires action on Leaflet\'s zoomend event', () => {
     initialize(store, mapConfig, leafletMap);
-    expect(store.dispatch.mock.calls.length).toBe(0);
-    expect(getZoom()).toBe(11);
     panControls.getCurrentLocation.mockReturnValue([1.3, 3.7]);
     leafletMap.getZoom.mockReturnValue(6);
 
