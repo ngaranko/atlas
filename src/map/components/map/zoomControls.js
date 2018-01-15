@@ -2,9 +2,6 @@
 import ACTIONS from '../../../../modules/shared/actions';
 import { getCurrentLocation } from './panControls';
 
-// TODO: remove zoom variable
-let zoom;
-
 const addHeading = (element, text) => {
   const headingNode = document.createElement('H3');
   const textNode = document.createTextNode(text);
@@ -31,7 +28,6 @@ export const initialize = (store, mapConfig, leafletMap) => {
   L.control.zoom(mapConfig.ZOOM_OPTIONS).addTo(leafletMap);
 
   const maxZoom = mapConfig.BASE_LAYER_OPTIONS.maxZoom;
-  zoom = 11;
 
   setDoubleClickZoom(leafletMap, maxZoom);
 
@@ -45,18 +41,12 @@ export const initialize = (store, mapConfig, leafletMap) => {
         zoom: leafletMap.getZoom()
       }
     });
-
-    zoom = leafletMap.getZoom();
   });
 };
-
-export const getZoom = () => zoom;
 
 export const setZoom = (leafletMap, zoomLevel) => {
   leafletMap.setZoom(zoomLevel, {
     animate: false
   });
-
-  zoom = zoomLevel;
 };
 

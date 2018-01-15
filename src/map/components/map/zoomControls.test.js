@@ -3,7 +3,6 @@ import ACTIONS from '../../../../modules/shared/actions';
 import * as panControls from './panControls';
 import {
     initialize,
-    getZoom,
     setZoom
 } from './zoomControls';
 
@@ -94,19 +93,12 @@ describe('zoom controls', () => {
 
 
   describe('zoom', () => {
-    it('sets default zoom level', () => {
-      initialize(store, mapConfig, leafletMap);
-
-      expect(getZoom()).toBe(11);
-    });
-
     it('sets the zoom level', () => {
       initialize(store, mapConfig, leafletMap);
 
       setZoom(leafletMap, 12);
 
       expect(leafletMap.setZoom.mock.calls[0][0]).toBe(12);
-      expect(getZoom()).toBe(12);
     });
 
     it('doesn\'t use animations when the zoom is triggered', () => {

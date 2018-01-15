@@ -1,6 +1,5 @@
 import {
     initialize,
-    getZoom,
     setZoom
 } from '../../../src/map/components/map/zoomControls';
 
@@ -15,8 +14,7 @@ import {
     function zoomFactory ($rootScope, store, ACTIONS, mapConfig) {
         return {
             initialize: (leafletMap) => initialize(store, mapConfig, leafletMap),
-            setZoom,
-            getZoom
+            setZoom
         };
     }
 })();
