@@ -1,5 +1,6 @@
 import { initialize, panTo, getCurrentLocation } from '../../../src/map/components/map/panControls';
 
+/* istanbul ignore next */
 (function () {
     'use strict';
 

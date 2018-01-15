@@ -27,6 +27,7 @@ export const initialize = (store, mapConfig, leafletMap) => {
   const scaleControl = L.control.scale(mapConfig.SCALE_OPTIONS);
   scaleControl.addTo(leafletMap);
   addHeading(scaleControl.getContainer(), 'Kaartschaal');
+
   L.control.zoom(mapConfig.ZOOM_OPTIONS).addTo(leafletMap);
 
   const maxZoom = mapConfig.BASE_LAYER_OPTIONS.maxZoom;

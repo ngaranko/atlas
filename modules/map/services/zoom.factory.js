@@ -4,6 +4,7 @@ import {
     setZoom
 } from '../../../src/map/components/map/zoomControls';
 
+/* istanbul ignore next */
 (function () {
     angular
         .module('dpMap')
