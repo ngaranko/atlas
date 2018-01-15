@@ -2,11 +2,13 @@
 import './state';
 import './map/wrappers/panel/MapPanelWrapper';
 import './map/wrappers/preview-panel/MapPreviewPanelWrapper';
+import './map/wrappers/map/MapWrapper';
+import './map/wrappers/map-embed-button/MapEmbedButtonWrapper';
 
 // All third party dependencies
 import './vendor';
 
-// All our sass
+// Legacy sass
 import '../modules/shared/shared.scss';
 import '../modules/atlas/atlas.scss';
 import '../modules/data-selection/data-selection.scss';
@@ -16,6 +18,9 @@ import '../modules/map/map.scss';
 import '../modules/page/page.scss';
 import '../modules/search-results/search-results.scss';
 import '../modules/straatbeeld/straatbeeld.scss';
+
+// New style sass
+import './_styles.scss';
 
 // Import this here, because `modules/atlas/services/redux%reducer.factory`
 // cannoct do, because that would break the grunt build...
@@ -48,12 +53,10 @@ import '../modules/atlas/services/redux/middleware/state-to-url-middleware.facto
 import '../modules/atlas/services/redux/deprecated-reducer.factory';
 import '../modules/atlas/services/redux/reducer.factory';
 import '../modules/atlas/services/redux/reducers/data-selection-reducers.factory';
-import '../modules/atlas/services/redux/reducers/embed-reducers.factory';
 import '../modules/atlas/services/redux/reducers/filters-reducers.factory';
 import '../modules/atlas/services/redux/reducers/home-reducers.factory';
 import '../modules/atlas/services/redux/reducers/map-reducers.factory';
 import '../modules/atlas/services/redux/reducers/page-reducers.factory';
-import '../modules/atlas/services/redux/reducers/print-reducers.factory';
 import '../modules/atlas/services/redux/reducers/search-reducers.factory';
 import '../modules/atlas/services/redux/reducers/straatbeeld-reducers.factory';
 import '../modules/atlas/services/redux/reducers/url-reducers.factory';
@@ -143,9 +146,7 @@ import '../modules/map/components/draw-tool/draw-tool.component';
 import '../modules/map/components/draw-tool/points-available/points-available.component';
 import '../modules/map/components/draw-tool/shape-summary/shape-summary.component';
 import '../modules/map/components/draw-tool/toggle-drawing-tool/toggle-drawing-tool.component';
-import '../modules/map/components/embed-button/embed-button.component';
 import '../modules/map/components/map/map.directive';
-import '../modules/map/components/toggle-fullscreen/toggle-fullscreen.component';
 import '../modules/map/map-config.factory';
 import '../modules/map/map.vendor';
 import '../modules/map/services/document-title/document-title.factory';
@@ -221,6 +222,8 @@ import '../modules/shared/services/environment/environment.factory';
 import '../modules/shared/services/geojson/geojson.factory';
 import '../modules/shared/services/google-sheet/google-sheet.constants';
 import '../modules/shared/services/google-sheet/google-sheet.factory';
+import '../modules/shared/services/window-error-handler/window-error-handler.factory';
+import '../modules/shared/services/window-error-handler/window-error-handler.run';
 import '../modules/shared/services/http-error-registrar/http-error-registrar.factory';
 import '../modules/shared/services/http-error-registrar/http-status.factory';
 import '../modules/shared/services/layers/base-layers.constant';

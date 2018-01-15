@@ -1,42 +1,28 @@
-describe('The http error registrar', function () {
+import { ERROR_TYPES } from '../../../../src/shared/ducks/error-message';
+
+describe('The http error registrar', () => {
     const FLUSH_PERIOD = 1;
-    const httpStatus = {
-        SERVER_ERROR: 'SERVER_ERROR',
-        NOT_FOUND_ERROR: 'NOT_FOUND_ERROR',
-        registerError: angular.noop
-    };
-    const Raven = { captureMessage: angular.noop };
+    let httpStatus;
 
     let $httpBackend,
         $http,
-        $rootScope,
         $interval,
         mockedData,
-        onError,
         callbackCalled,
         $window,
         origAuth;
 
-    beforeEach(function () {
-        onError = null;
-        const window = {
-            addEventListener: function (type, func) {
-                if (type === 'error') {
-                    onError = func;
-                }
-            }
+    beforeEach(() => {
+        httpStatus = {
+            logResponse: jasmine.createSpy(),
+            registerError: jasmine.createSpy()
         };
 
-        angular.mock.module('dpShared', { httpStatus, Raven });
+        angular.mock.module('dpShared', { httpStatus });
 
-        angular.mock.module(function ($provide) {
-            $provide.value('$window', window);
-        });
-
-        angular.mock.inject(function (_$httpBackend_, _$http_, _$rootScope_, _$interval_, _$window_) {
+        angular.mock.inject(function (_$httpBackend_, _$http_, _$interval_, _$window_) {
             $httpBackend = _$httpBackend_;
             $http = _$http_;
-            $rootScope = _$rootScope_;
             $interval = _$interval_;
             $window = _$window_;
         });
@@ -69,6 +55,10 @@ describe('The http error registrar', function () {
             .respond(401, mockedData);
 
         $httpBackend
+            .whenGET('http://api-domain.amsterdam.nl/404')
+            .respond(404, mockedData);
+
+        $httpBackend
             .whenGET('http://api-domain.amsterdam.nl/500')
             .respond(500, mockedData);
 
@@ -76,8 +66,6 @@ describe('The http error registrar', function () {
             .whenGET('http://api-domain.amsterdam.nl/-1')
             .respond(-1, mockedData);
 
-        spyOn(httpStatus, 'registerError');
-        spyOn(Raven, 'captureMessage');
         spyOn($window.auth, 'logout');
         spyOn($window.auth, 'initialize');
     });
@@ -86,7 +74,7 @@ describe('The http error registrar', function () {
         $window.auth = origAuth;
     });
 
-    it('does not handle normal responses and requests', function () {
+    it('does not handle normal responses and requests', () => {
         $http
             .get('http://api-domain.amsterdam.nl/200')
             .then(data => {
@@ -99,16 +87,15 @@ describe('The http error registrar', function () {
         $interval.flush();
 
         expect(httpStatus.registerError).not.toHaveBeenCalled();
-        expect(Raven.captureMessage).not.toHaveBeenCalled();
         expect(callbackCalled).toBe(true);
     });
 
-    it('does not handle response errors outside of the 400 and 500 ranges', function () {
+    it('does not handle an error that has already been handled locally', () => {
         $http
-            .get('http://api-domain.amsterdam.nl/300')
+            .get('http://api-domain.amsterdam.nl/404')
             .catch(data => {
-                expect(data.data).toEqual(mockedData);
-                expect(data.status).toBe(300);
+                // Mark the error to be handled
+                data.errorHandled = true;
                 callbackCalled = true;
             });
 
@@ -116,171 +103,81 @@ describe('The http error registrar', function () {
         $interval.flush(FLUSH_PERIOD);
 
         expect(httpStatus.registerError).not.toHaveBeenCalled();
-        expect(Raven.captureMessage).not.toHaveBeenCalled();
+        expect(httpStatus.logResponse).not.toHaveBeenCalled();
         expect(callbackCalled).toBe(true);
     });
 
-    it('does handle client error responses and requests', function () {
-        $http
-            .get('http://api-domain.amsterdam.nl/400')
-            .catch(data => {
-                expect(data.data).toEqual(mockedData);
-                expect(data.status).toBe(400);
-                callbackCalled = true;
-            });
-
-        $httpBackend.flush();
-        $interval.flush(FLUSH_PERIOD);
-
-        expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
-        expect(Raven.captureMessage).toHaveBeenCalledWith(
-            jasmine.stringMatching('HTTP 4xx response'),
-            { tags: { statusCode: 400 } });
-        expect(callbackCalled).toBe(true);
-    });
-
-    it('does handle 401 errors', function () {
-        $http
-            .get('http://api-domain.amsterdam.nl/401')
-            .catch(data => {
-                expect(data.data).toEqual(mockedData);
-                expect(data.status).toBe(401);
-                callbackCalled = true;
-            });
+    it('performs logout on 401: unauthenticated', () => {
+        $http.get('http://api-domain.amsterdam.nl/401');
 
         $httpBackend.flush();
         $interval.flush(FLUSH_PERIOD);
 
         expect(httpStatus.registerError).not.toHaveBeenCalled();
-        expect(Raven.captureMessage).not.toHaveBeenCalled();
+        expect(httpStatus.logResponse).not.toHaveBeenCalled();
         expect($window.auth.logout).toHaveBeenCalled();
-        expect(callbackCalled).toBe(true);
     });
 
-    it('does handle 404 errors with the correct body', function () {
-        mockedData = {
-            detail: 'Not found.'
-        };
-
-        $httpBackend
-            .whenGET('http://api-domain.amsterdam.nl/404')
-            .respond(404, mockedData);
-
-        $http
-            .get('http://api-domain.amsterdam.nl/404')
-            .catch(data => {
-                expect(data.data).toEqual(mockedData);
-                expect(data.status).toBe(404);
-                callbackCalled = true;
-            });
+    it('logs response errors outside of the 400 and 500 ranges', () => {
+        const url = 'http://api-domain.amsterdam.nl/300';
+        $http.get(url);
 
         $httpBackend.flush();
         $interval.flush(FLUSH_PERIOD);
 
-        expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.NOT_FOUND_ERROR);
-        expect(Raven.captureMessage).toHaveBeenCalledWith(
-            jasmine.stringMatching('HTTP response body: Not found.'),
-            { tags: { statusCode: 404 } });
-        expect(callbackCalled).toBe(true);
+        expect(httpStatus.registerError).not.toHaveBeenCalled();
+        expect(httpStatus.logResponse).toHaveBeenCalledWith(`Unkown HTTP response error, ${url}`, 300);
     });
 
-    it('handles 404 errors with an unexpected body as server errors', function () {
-        mockedData = {};
-
-        $httpBackend
-            .whenGET('http://api-domain.amsterdam.nl/404')
-            .respond(404, mockedData);
-
-        $http
-            .get('http://api-domain.amsterdam.nl/404')
-            .catch(data => {
-                expect(data.data).toEqual(mockedData);
-                expect(data.status).toBe(404);
-                callbackCalled = true;
-            });
+    it('handles client error responses and requests', () => {
+        const url = 'http://api-domain.amsterdam.nl/400';
+        $http.get(url);
 
         $httpBackend.flush();
         $interval.flush(FLUSH_PERIOD);
 
-        expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
-        expect(Raven.captureMessage).toHaveBeenCalledWith(
-            jasmine.stringMatching('HTTP 4xx response'),
-            { tags: { statusCode: 404 } });
-        expect(callbackCalled).toBe(true);
+        expect(httpStatus.registerError).toHaveBeenCalledWith(ERROR_TYPES.GENERAL_ERROR);
+        expect(httpStatus.logResponse).toHaveBeenCalledWith(`HTTP 4xx response, ${url}`, 400);
     });
 
-    it('registers all http server error responses, leaves content untouched', function () {
-        $http
-            .get('http://api-domain.amsterdam.nl/500')
-            .catch(data => {
-                expect(data.data).toEqual(mockedData);
-                expect(data.status).toBe(500);
-                callbackCalled = true;
-            });
+    it('handles 404 error', () => {
+        const url = 'http://api-domain.amsterdam.nl/404';
+        $http.get(url);
 
         $httpBackend.flush();
         $interval.flush(FLUSH_PERIOD);
 
-        expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
-        expect(Raven.captureMessage).toHaveBeenCalledWith(
-            jasmine.stringMatching('HTTP 5xx response'),
-            { tags: { statusCode: 500 } });
-        expect(callbackCalled).toBe(true);
+        expect(httpStatus.registerError).toHaveBeenCalledWith(ERROR_TYPES.NOT_FOUND_ERROR);
+        expect(httpStatus.logResponse).toHaveBeenCalledWith(`HTTP 404 response, ${url}`, 404);
     });
 
-    it('registers url load errors by listening to window error events', function () {
-        // onError is the window error event listener (see mock of $window)
-        // If called with an event that contains a target src url it will issue a server error
+    it('registers all http server error responses, leaves content untouched', () => {
+        const url = 'http://api-domain.amsterdam.nl/500';
+        $http.get(url);
 
-        onError({}); // without target src url
-        expect(httpStatus.registerError).not.toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
+        $httpBackend.flush();
+        $interval.flush(FLUSH_PERIOD);
 
-        onError({
-            target: {
-                src: 'aap'
-            }
-        }); // with target src url
-        $rootScope.$digest();
-        expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
-        expect(Raven.captureMessage).toHaveBeenCalledWith(
-            jasmine.stringMatching('HTTP external request error'),
-            { tags: { statusCode: undefined } });
+        expect(httpStatus.registerError).toHaveBeenCalledWith(ERROR_TYPES.GENERAL_ERROR);
+        expect(httpStatus.logResponse).toHaveBeenCalledWith(`HTTP 5xx response, ${url}`, 500);
     });
 
-    it('does not register error if piwik is not loaded', function () {
-        onError({
-            target: {
-                src: 'https://piwik.data.amsterdam.nl/piwik.js'
-            }
-        });
-        expect(httpStatus.registerError).not.toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
-        expect(Raven.captureMessage).not.toHaveBeenCalled();
+    it('registers http server error -1 for non-cancellable responses', () => {
+        const url = 'http://api-domain.amsterdam.nl/-1';
+        $http.get(url);
+
+        $httpBackend.flush();
+        $interval.flush(FLUSH_PERIOD);
+
+        expect(httpStatus.registerError).toHaveBeenCalledWith(ERROR_TYPES.GENERAL_ERROR);
+        expect(httpStatus.logResponse).toHaveBeenCalledWith(`HTTP request ended abnormally, ${url}`, -1);
     });
 
-    it('registers http server error -1 for non-cancellable responses, leaves content untouched', function () {
+    it('registers http server error -1 for non-cancelled responses', () => {
+        const url = 'http://api-domain.amsterdam.nl/-1';
         $http({
             method: 'GET',
-            url: 'http://api-domain.amsterdam.nl/-1'
-        }).catch(data => {
-            expect(data.data).toEqual(mockedData);
-            expect(data.status).toBe(-1);
-            callbackCalled = true;
-        });
-
-        $httpBackend.flush();
-        $interval.flush(FLUSH_PERIOD);
-
-        expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
-        expect(Raven.captureMessage).toHaveBeenCalledWith(
-            jasmine.stringMatching('HTTP 5xx response'),
-            { tags: { statusCode: -1 } });
-        expect(callbackCalled).toBe(true);
-    });
-
-    it('registers http server error -1 for non-cancelled responses, leaves content untouched', function () {
-        $http({
-            method: 'GET',
-            url: 'http://api-domain.amsterdam.nl/-1',
+            url,
             timeout: {
                 then: (resolve, reject) => {
                     if (angular.isFunction(reject)) {
@@ -297,17 +194,16 @@ describe('The http error registrar', function () {
         $httpBackend.flush();
         $interval.flush(FLUSH_PERIOD);
 
-        expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
-        expect(Raven.captureMessage).toHaveBeenCalledWith(
-            jasmine.stringMatching('HTTP request ended abnormally'),
-            { tags: { statusCode: -1 } });
+        expect(httpStatus.registerError).toHaveBeenCalledWith(ERROR_TYPES.GENERAL_ERROR);
+        expect(httpStatus.logResponse).toHaveBeenCalledWith(`HTTP timeout request ended abnormally, ${url}`, -1);
         expect(callbackCalled).toBe(true);
     });
 
-    it('skips http server error -1 for cancelled responses, leaves content untouched', function () {
+    it('skips error handler for cancelled responses', () => {
+        const url = 'http://api-domain.amsterdam.nl/-1';
         $http({
             method: 'GET',
-            url: 'http://api-domain.amsterdam.nl/-1',
+            url: url,
             timeout: {
                 then: angular.noop
             }})
@@ -321,19 +217,14 @@ describe('The http error registrar', function () {
         $interval.flush(FLUSH_PERIOD);
 
         expect(httpStatus.registerError).not.toHaveBeenCalled();
-        expect(Raven.captureMessage).not.toHaveBeenCalled();
+        expect(httpStatus.logResponse).not.toHaveBeenCalled();
         expect(callbackCalled).toBe(true);
     });
 
-    it('calls the local error handler before the global one', function () {
-        mockedData = {};
-
-        $httpBackend
-            .whenGET('http://api-domain.amsterdam.nl/404')
-            .respond(404, mockedData);
-
+    it('calls the local error handler before the global one', () => {
+        const url = 'http://api-domain.amsterdam.nl/404';
         $http
-            .get('http://api-domain.amsterdam.nl/404')
+            .get(url)
             .catch(data => {
                 callbackCalled = true;
             });
@@ -343,37 +234,11 @@ describe('The http error registrar', function () {
         $httpBackend.flush();
 
         expect(httpStatus.registerError).not.toHaveBeenCalled();
-        expect(Raven.captureMessage).not.toHaveBeenCalled();
+        expect(httpStatus.logResponse).not.toHaveBeenCalled();
         expect(callbackCalled).toBe(true);
 
         $interval.flush(FLUSH_PERIOD);
 
-        expect(httpStatus.registerError).toHaveBeenCalledWith(httpStatus.SERVER_ERROR);
-        expect(Raven.captureMessage).toHaveBeenCalledWith(
-            jasmine.stringMatching('HTTP 4xx response'),
-            { tags: { statusCode: 404 } });
-    });
-
-    it('does not handle an error that has already been handled locally', function () {
-        mockedData = {};
-
-        $httpBackend
-            .whenGET('http://api-domain.amsterdam.nl/404')
-            .respond(404, mockedData);
-
-        $http
-            .get('http://api-domain.amsterdam.nl/404')
-            .catch(data => {
-                // Mark the error to be handled
-                data.errorHandled = true;
-                callbackCalled = true;
-            });
-
-        $httpBackend.flush();
-        $interval.flush(FLUSH_PERIOD);
-
-        expect(httpStatus.registerError).not.toHaveBeenCalled();
-        expect(Raven.captureMessage).not.toHaveBeenCalled();
-        expect(callbackCalled).toBe(true);
+        expect(httpStatus.registerError).toHaveBeenCalledWith(ERROR_TYPES.NOT_FOUND_ERROR);
     });
 });

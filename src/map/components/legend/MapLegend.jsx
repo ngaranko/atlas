@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { Checkbox } from '../../../shared/components/checkbox';
 import RemoveIcon from '../../../../public/images/icon-cross.svg';
 
+import './_map-legend.scss';
+
 class MapLegend extends React.Component {
   static constructLegendIconUrl(mapLayer, legendItem) {
     if (legendItem.iconUrl) {

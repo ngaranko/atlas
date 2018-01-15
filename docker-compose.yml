@@ -8,3 +8,4 @@ services:
         - PASSWORD_EMPLOYEE_PLUS
     ports:
       - "8099:80"
+    ipc: host

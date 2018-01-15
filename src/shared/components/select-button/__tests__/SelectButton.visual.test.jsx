@@ -1,4 +1,3 @@
-import puppeteer from 'puppeteer';
 import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
 
 const toMatchImageSnapshot = configureToMatchImageSnapshot({
@@ -11,25 +10,18 @@ describe('SelectButton', () => {
   const moduleName = 'Shared';
   const componentName = 'SelectButton';
 
-  let browser = null;
   let page = null;
 
   const linkSelector = (names) => (
     names.map((name) => `[data-name="${name}"]`).join(' ~ * ')
   );
 
-  beforeAll(async () => {
-    browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
-  });
-
-  afterAll(async () => {
-    await browser.close();
-  });
-
   beforeEach(async () => {
-    page = await browser.newPage();
-    await page.goto('http://0.0.0.0:9001');
+    page = await global.__BROWSER__.newPage();
+    await page.goto('http://localhost:9001/?selectedKind=Shared%2FSelectButton&selectedStory=active&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel');
+    await page.waitFor(linkSelector([moduleName]));
     await page.click(linkSelector([moduleName]));
+    await page.waitFor(linkSelector([moduleName, componentName]));
     await page.click(linkSelector([moduleName, componentName]));
   });
 
@@ -38,6 +30,7 @@ describe('SelectButton', () => {
   });
 
   it('should render the active select button', async () => {
+    await page.waitFor(linkSelector([moduleName, componentName, 'active']));
     await page.click(linkSelector([moduleName, componentName, 'active']));
     const iframe = await page.$('#storybook-preview-iframe');
     const screenshot = await iframe.screenshot();
@@ -45,6 +38,7 @@ describe('SelectButton', () => {
   });
 
   it('should render the disabled select button', async () => {
+    await page.waitFor(linkSelector([moduleName, componentName, 'disabled']));
     await page.click(linkSelector([moduleName, componentName, 'disabled']));
     const iframe = await page.$('#storybook-preview-iframe');
     const screenshot = await iframe.screenshot();
@@ -52,6 +46,7 @@ describe('SelectButton', () => {
   });
 
   it('should render the expanded select button', async () => {
+    await page.waitFor(linkSelector([moduleName, componentName, 'expanded']));
     await page.click(linkSelector([moduleName, componentName, 'expanded']));
     const iframe = await page.$('#storybook-preview-iframe');
     const screenshot = await iframe.screenshot();

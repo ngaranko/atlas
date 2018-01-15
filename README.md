@@ -25,14 +25,19 @@ In order to test authentication in the E2E and aria test the following environme
 - `USERNAME_EMPLOYEE`
 - `USERNAME_EMPLOYEE_PLUS`
 
-They can simply be added by using the `export` command from the command line, or by providing the variables as a
-prefix to the desired command, e.g. `PASSWORD_EMPLOYEE=password grunt test-e2e`.
+They can simply be added by using the `export` command from the command line, or by adding these
+variables to `.bash_profile`.
 
 ### E2E testing
-Make sure the app is running locally by running `grunt`.
-Then, in a second terminal, run `grunt test-e2e`.
+
+- `npm run e2e`
+- `npm run cypress`
+
+Make sure the app is running locally by running `npm start`.
+Then, in a second terminal, run `npm run e2e` (single run) or `npm run cypress` (#GUI, watch).
 
 ### Aria testing
+
 Make sure that NODE_ENV=development.
 Then run `npm run test-aria`.
 
@@ -44,6 +49,7 @@ Then run `npm run test-aria`.
 
 ## Techniques used
 - AngularJS
+- React
 - Redux
 - Leaflet
 - D3

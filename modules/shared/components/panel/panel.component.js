@@ -9,7 +9,8 @@
                 size: '@',
                 type: '@',
                 canClose: '=',
-                className: '@'
+                className: '@',
+                closeAction: '&'
             },
             transclude: true,
             templateUrl: 'modules/shared/components/panel/panel.html',
@@ -34,6 +35,7 @@
 
         vm.close = function () {
             vm.isPanelVisible = false;
+            vm.closeAction && vm.closeAction(); // eslint-disable-line no-unused-expressions
         };
     }
 })();

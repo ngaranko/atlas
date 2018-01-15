@@ -11,6 +11,9 @@ module.exports = {
   "plugins": [
     "jsx-a11y"
   ],
+  "globals": {
+    "jsdom": true // Used in Jest unit test, made available by jest-environment-jsdom-global
+  },
   "root": true,
   "rules": {
     "arrow-parens": ["error", "always"],
@@ -18,10 +21,11 @@ module.exports = {
     "no-nested-ternary": "off",
     "no-underscore-dangle": ["error", {
       "allow": [
-        "__REDUX_DEVTOOLS_EXTENSION_COMPOSE__",
+        "_bijzondere_rechts_toestand",
+        "_display",
         "_embedded",
         "_links",
-        "_display"
+        "__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"
       ]
     }]
   }

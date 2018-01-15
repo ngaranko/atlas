@@ -101,14 +101,14 @@ class SelectButton extends React.Component {
   }
 
   render() {
-    const { options = [] } = this.props;
+    const { options } = this.props;
     return (
       <section
         className={`
           ${this.state.className}
           select-button
-          ${this.state.isExpanded && 'select-button--expanded'}
-          ${this.state.isDisabled && 'select-button--disabled'}
+          select-button--${this.state.isExpanded ? 'expanded' : 'collapsed'}
+          select-button--${this.state.isDisabled ? 'disabled' : 'enabled'}
         `}
         ref={(node) => { this.node = node; }}
       >
@@ -127,9 +127,11 @@ class SelectButton extends React.Component {
           onClick={this.handleToggle}
         >
           <span className="select-button__icon select-button__icon--expand">
+            <span className="u-sr-only">Uitklappen</span>
             <ExpandIcon />
           </span>
           <span className="select-button__icon select-button__icon--collapse">
+            <span className="u-sr-only">Inklappen</span>
             <CollapseIcon />
           </span>
         </button>
