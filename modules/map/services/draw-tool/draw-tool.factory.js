@@ -5,9 +5,9 @@
         .module('dpMap')
         .factory('drawTool', drawToolFactory);
 
-    drawToolFactory.$inject = ['$rootScope', 'L', 'DRAW_TOOL_CONFIG', 'suppress', 'store', "ACTIONS"];
+    drawToolFactory.$inject = ['$rootScope', 'L', 'DRAW_TOOL_CONFIG', 'suppress'];
 
-    function drawToolFactory ($rootScope, L, DRAW_TOOL_CONFIG, suppress, store, ACTIONS) {
+    function drawToolFactory ($rootScope, L, DRAW_TOOL_CONFIG, suppress) {
         // holds all information about the state of the shape being created or edited
         const DEFAULTS = {
             isConsistent: true,
@@ -40,7 +40,8 @@
 
         // these callback methods will be called on a finished polygon and on a change of drawing mode
         let _onFinishPolygon,
-            _onDrawingMode;
+            _onDrawingMode,
+            _onUpdateShape;
 
         // temp!
         window.drawTool = {
@@ -64,12 +65,13 @@
         };
 
         // initialise factory; initialise draw tool, register callback methods and register events
-        function initialize (map, onFinish, onDrawingMode) {
+        function initialize (map, onFinish, onDrawingMode, onUpdateShape) {
             currentShape = angular.copy(DEFAULTS);
 
             initDrawTool(map);
             _onFinishPolygon = onFinish;    // callback method to call on finish draw/edit polygon
             _onDrawingMode = onDrawingMode; // callback method to call on change of drawing mode
+            _onUpdateShape = onUpdateShape; // callback method to call on change of shape
 
             registerDrawEvents();
             registerMapEvents();
@@ -395,13 +397,10 @@
                 updateShapeInfo();  // update public shape info of new consistent state of the polygon
             }
 
-            store.dispatch({
-                type: ACTIONS.MAP_UPDATE_SHAPE,
-                payload: {
-                    numberOfDrawnMarkers: currentShape.markers.length
-                }
-            })
-            ;
+            if (angular.isFunction(_onUpdateShape)) {
+                // call any registered callback function, applyAsync because triggered by a leaflet event
+                _onUpdateShape(currentShape);
+            }
         }
 
         // Updates the publicly available info for the current shape

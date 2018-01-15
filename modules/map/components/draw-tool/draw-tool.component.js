@@ -102,5 +102,14 @@
                 });
             }
         }
+
+        function onUpdateShape (shape) {
+            store.dispatch({
+                type: ACTIONS.MAP_UPDATE_SHAPE,
+                payload: {
+                    numberOfDrawnMarkers: shape.markers.length
+                }
+            });
+        }
     }
 })();
