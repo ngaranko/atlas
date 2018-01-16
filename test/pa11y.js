@@ -15,7 +15,7 @@ import { spawn } from 'child_process';
 import config from './pa11y-config';
 
 const CONCURRENT_TESTS = 1;
-const filename = name => path.join(__dirname, '..', `pa11y-${name}.png`);
+const filename = name => path.join(__dirname, '..', 'pa11y', `${name}.png`);
 
 console.log('Pa11y testing...');
 

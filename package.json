@@ -86,7 +86,7 @@
     "build-prod": "grunt && webpack --config webpack.prod.js",
     "build-test": "grunt && webpack --config webpack.acc.js",
     "clean-cache": "npm cache verify",
-    "clean-dirs": "rimraf ./node_modules ./coverage ./coverage-legacy ./dist ./build",
+    "clean-dirs": "rimraf ./node_modules ./coverage ./coverage-legacy ./dist ./build ./pa11y/*.png",
     "clean": "npm run clean-cache && npm run clean-dirs",
     "cypress": "./scripts/cypress.sh",
     "preinstall": "npm cache verify",
