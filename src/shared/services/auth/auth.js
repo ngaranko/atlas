@@ -22,6 +22,9 @@ const ERROR_MESSAGES = {
 // success
 const AUTH_PARAMS = ['access_token', 'token_type', 'expires_in', 'state'];
 
+// Resolved at compile time by webpack,
+// e.g.: "export conts API_ROOT = 'production' === 'production' ? ... : ...;
+// see: https://webpack.js.org/plugins/environment-plugin/
 export const API_ROOT = process.env.NODE_ENV === 'production'
   ? 'https://api.data.amsterdam.nl/'
   : 'https://acc.api.data.amsterdam.nl/';
