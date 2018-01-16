@@ -8,13 +8,6 @@ import Notification from '../../../shared/components/notification/Notification';
 const MapSearchResults = ({ count, location, missingLayers, onItemClick, panoUrl, results }) => {
   const rdCoordinates = wgs84ToRd(location);
 
-  // Filter non pand monumenten if search result is pand
-  const pandFeature = results.find((feature) => feature.type === 'bag/pand');
-  const isPand = pandFeature !== undefined;
-  const filteredResults = isPand
-    ? results.filter((feature) => feature.type !== 'monumenten/monument')
-    : results;
-
   return (
     <section className="map-search-results">
       <header
@@ -43,16 +36,55 @@ const MapSearchResults = ({ count, location, missingLayers, onItemClick, panoUrl
             <Notification>Geen details beschikbaar van: {missingLayers}</Notification>
           </li>
         )}
-        {filteredResults.map((result) => (
-          <li key={result.uri}>
-            <MapSearchResultsItem
-              item={result}
-              onClick={() => {
-                onItemClick(result.uri);
-              }}
-            />
-          </li>
-        ))}
+        {
+          results.map((mainCategory) => (
+            <li key={mainCategory.categoryLabel}>
+              <ul className="main-category">
+                <li>{ mainCategory.categoryLabel }</li>
+                {
+                  mainCategory.subCategoryItems && mainCategory.subCategoryItems.length ?
+                  mainCategory.subCategoryItems.map((subCategory) => (
+                    <li key={subCategory.categoryLabel}>
+                      <ul className="sub-category">
+                        <li>{ subCategory.categoryLabel }</li>
+                        { subCategory && subCategory.results &&
+                          subCategory.results.map((result) => (
+                            <li key={result.uri}>
+                              <MapSearchResultsItem
+                                item={result}
+                                onClick={() => {
+                                  onItemClick(result.uri);
+                                }}
+                              />
+                            </li>
+                        ))}
+                        {subCategory.showMore && (
+                          <li>More results...</li>
+                        )}
+                      </ul>
+                    </li>
+                  )) : ''
+                }
+                {
+                  mainCategory.subCategoryItems && !mainCategory.subCategoryItems.length &&
+                  mainCategory.results.map((result) => (
+                    <li key={result.uri}>
+                      <MapSearchResultsItem
+                        item={result}
+                        onClick={() => {
+                          onItemClick(result.uri);
+                        }}
+                      />
+                    </li>
+                  ))
+                }
+                { mainCategory.showMore && (
+                  <li>More results...</li>
+                )}
+              </ul>
+            </li>
+          ))
+        }
       </ul>
     </section>
   );

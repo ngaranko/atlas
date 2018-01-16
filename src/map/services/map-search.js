@@ -59,7 +59,7 @@ const categoryLabelsByType = {
   'wkpb/beperking': categoryLabels.gemeentelijkeBeperking
 };
 
-const categoryTypeOrder = [
+export const categoryTypeOrder = [
   'bag/openbareruimte',
   'bag/ligplaats',
   'bag/pand',
@@ -137,7 +137,8 @@ const fetchRelatedForUser = (user) => (data) => {
             properties: {
               uri: result._links.self.href,
               display: result._display,
-              type: resource.type
+              type: resource.type,
+              parent: item.properties.type
             }
           }))
         )
@@ -170,7 +171,8 @@ export default function search(location, user) {
           uri: feature.properties.uri,
           label: feature.properties.display,
           categoryLabel: categoryLabelsByType[feature.properties.type],
-          type: feature.properties.type
+          type: feature.properties.type,
+          parent: feature.properties.parent
         }))
       );
   });

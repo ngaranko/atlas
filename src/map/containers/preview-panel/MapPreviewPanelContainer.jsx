@@ -7,7 +7,7 @@ import has from 'lodash.has';
 
 import { maximizeMapPreviewPanel, closeMapPreviewPanel }
   from '../../ducks/preview-panel/map-preview-panel';
-import { selectLatestMapSearchResults, getMapSearchResults }
+import { getPreviewPanelResults, getMapSearchResults }
   from '../../ducks/search-results/map-search-results';
 import { selectNotClickableVisibleMapLayers } from '../../ducks/layers/map-layers';
 import { selectLatestMapDetail, getMapDetail } from '../../ducks/detail/map-detail';
@@ -25,7 +25,7 @@ const mapStateToProps = (state) => ({
   isMapPreviewPanelVisible: state.isMapPreviewPanelVisible,
   mapClickLocation: state.mapClickLocation,
   pano: state.pano,
-  results: selectLatestMapSearchResults(state),
+  results: getPreviewPanelResults(state),
   search: state.search,
   searchLocation: state.search && state.search.location && {
     latitude: state.search.location[0],
