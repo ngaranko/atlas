@@ -23,11 +23,8 @@
 
 ## E2E testing
 
-- `npm run e2e`
-- `npm run cypress`
-
 Make sure the app is running locally by running `npm start`.
-Then, in a second terminal, run `npm run e2e` (single run) or `npm run cypress` (#GUI, watch).
+Then, in a second terminal, run `npm run test-e2e` (single run) or `npm run test-e2e-watch` (#GUI, watch).
 
 In order to run the E2E tests with authentication, the following environment variables should be set:
 - `PASSWORD_EMPLOYEE`
