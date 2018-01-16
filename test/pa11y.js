@@ -27,7 +27,7 @@ const checkActions = () => {
         } else {
             return acc;
         }
-    }, []);  
+    }, []);
     const invalidActions = actions.filter(value => pa11y.isValidAction(value) === false);
     if(invalidActions.length > 0) {
         console.error('invalid actions encountered:');
@@ -35,7 +35,7 @@ const checkActions = () => {
         process.exit(1);
     }
 }
-console.log('Pa11y: checking configuration');  
+console.log('Pa11y: checking configuration');
 checkActions();
 
 console.log('Pa11y: starting dev server...');
@@ -63,15 +63,13 @@ httpServer.stdout.on('data', (buffer) => {
 
     let i = 0;
     const actions = config.urls.map(test => () => {
-        console.log(`START: ${test.url}`);
+        console.log(`  checking ${test.url}`);
         const screenCapture = filename(i);
         ++i;
         return pa11y(test.url, {
                     ...defaults,
                     screenCapture,
                     ...test
-                }).then(result => {
-                    console.log(`DONE: ${test.url}`); return result;
                 })
     });
 
@@ -84,9 +82,11 @@ httpServer.stdout.on('data', (buffer) => {
             notices: 0
         };
 
+        console.log('');
+
         results.forEach(result => {
             if (result.documentTitle) {
-                console.log(`Pa11y: testing item: ${result.documentTitle}`);
+                console.log(`results for "${result.documentTitle}"`);
 
                 console.log(reporter.results(result));
 
@@ -102,7 +102,7 @@ httpServer.stdout.on('data', (buffer) => {
             process.exit(1);
         });
 
-        console.log('Pa11y: TOTALS found ', (total.errors + total.warnings + total.notices));
+        console.log('Pa11y: TOTALS found', (total.errors + total.warnings + total.notices));
 
         if (total.errors) {
             console.log(chalk.red('Pa11y: total errors', total.errors));
@@ -114,9 +114,15 @@ httpServer.stdout.on('data', (buffer) => {
             console.log(chalk.cyan('Pa11y: total notices', total.notices));
         }
 
+        console.log('');
+
+        if (total.errors) {
+            process.exit(1);
+        }
+
         process.exit(0);
     }).catch(error => {
-        console.error('error: ', error);
+        console.error('Pa11y: error: ', error);
         process.exit(1);
     });
 });

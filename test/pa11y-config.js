@@ -10,21 +10,19 @@ const STANDARDS = {
 export default {
     defaults: {
         allowedStandards: [STANDARDS.WCAG2A],
-        // the level of issue to fail on (exit with code 2): error, warning, notice, none
-        level: 'none',
+        ignore: [
+            'WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail',
+            'WCAG2AA.Principle2.Guideline2_4.2_4_1.G1,G123,G124.NoSuchID',
+            'WCAG2AA.Principle4.Guideline4_1.4_1_1.F77',
+            'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.Button.Name',
+            'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.InputNumber.Name'
+        ],
         rootElement: '.c-dashboard__body',
         chromeLaunchConfig: {
             args: [
                 '--no-sandbox',
                 '--disable-setuid-sandbox'
             ]
-        },
-        log: {
-            // debug: message => console.log(chalk.white(message)),
-            debug: () => {},
-            error: message => console.error(chalk.red(message)),
-            // info: message => console.info(chalk.yellow(message))
-            info: () => {}
         },
         timeout: 30000
     },
