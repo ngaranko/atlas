@@ -118,6 +118,7 @@
     "leaflet.nontiledlayer": "^1.0.7",
     "lodash.get": "^4.4.2",
     "lodash.has": "^4.5.2",
+    "lodash.isequal": "^4.5.0",
     "marked": "^0.3.6",
     "marzipano": "https://github.com/Amsterdam/marzipano.git#master",
     "objectFitPolyfill": "^2.1.0",

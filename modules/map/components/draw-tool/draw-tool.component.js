@@ -21,7 +21,7 @@
 
         let previousMarkers;
 
-        drawTool.initialize(vm.map, onFinishShape, onDrawingMode, onUpdateShape);
+        // drawTool.initialize(vm.map, onFinishShape, onDrawingMode, onUpdateShape);
 
         $scope.$watch('vm.state.drawingMode', function (drawingMode) {
             // enable is handled by the polygon markers watch method
@@ -32,16 +32,18 @@
             }
         });
 
-        $scope.$watch('vm.polygon.markers', (markers) => {
-            // polygon markers are always set, even if empty
-            setPolygon(markers);
-        }, true);
+        // $scope.$watch('vm.polygon.markers', (markers) => {
+        //   console.log('vm.polygon.markers', markers);
+        //     // polygon markers are always set, even if empty
+        //     setPolygon(markers);
+        // }, true);
 
-        $scope.$watch('vm.state.geometry', (markers) => {
+        // $scope.$watch('vm.state.geometry', (markers) => {
+          // console.log('vm.state.geometry', markers);
             // when map geometry is empty, set it to polygon
-            const geometry = markers || vm.polygon.markers;
-            setPolygon(geometry);
-        }, true);
+            // const geometry = markers || vm.polygon.markers;
+            // setPolygon(geometry);
+        // }, true);
 
         /**
          * Pepares the draw tool service to show a polygon. Only in case the

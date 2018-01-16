@@ -105,6 +105,7 @@
              */
             scope.$applyAsync(() => {
                 leafletMap = L.map(container, options);
+                $window.leafletMap = leafletMap;
 
                 panning.initialize(leafletMap);
                 highlight.initialize();
