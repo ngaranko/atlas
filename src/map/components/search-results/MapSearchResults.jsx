@@ -5,11 +5,15 @@ import { wgs84ToRd } from '../../../shared/services/coordinate-reference-system'
 import MapSearchResultsItem from './MapSearchResultsItem';
 import Notification from '../../../shared/components/notification/Notification';
 
-const MapSearchResults = ({ count, location, missingLayers, onItemClick, panoUrl, results }) => {
+const MapSearchResults = ({ count, location, missingLayers, onItemClick, panoUrl, results, onPanoPreviewClick }) => {
   const rdCoordinates = wgs84ToRd(location);
-
   // Filter non pand monumenten if search result is pand
   const pandFeature = results.find((feature) => feature.type === 'bag/pand');
+  const clickPanoPreview = () => {
+    const test = panoUrl;
+    debugger;
+    onPanoPreviewClick(test);
+  };
   const isPand = pandFeature !== undefined;
   const filteredResults = isPand
     ? results.filter((feature) => feature.type !== 'monumenten/monument')
@@ -23,13 +27,15 @@ const MapSearchResults = ({ count, location, missingLayers, onItemClick, panoUrl
           map-search-results__header--${panoUrl ? 'pano' : 'no-pano'}
         `}
       >
-        {panoUrl && (
-          <img
-            alt="Panoramabeeld"
-            className="map-search-results__header-pano"
-            src={panoUrl}
-          />
-        )}
+        <button onClick={clickPanoPreview}>
+          {panoUrl && (
+            <img
+              alt="Panoramabeeld"
+              className="map-search-results__header-pano"
+              src={panoUrl}
+            />
+          )}
+        </button>
         <div className="map-search-results__header-container">
           <h1 className="map-search-results__header-title">Resultaten ({count})</h1>
           <h2 className="map-search-results__header-subtitle">
@@ -62,6 +68,7 @@ MapSearchResults.propTypes = {
   count: PropTypes.number, // eslint-disable-line
   location: PropTypes.object, // eslint-disable-line
   onItemClick: PropTypes.func.isRequired,
+  onPanoPreviewClick: PropTypes.func.isRequired,
   panoUrl: PropTypes.string, // eslint-disable-line
   missingLayers: PropTypes.string, // eslint-disable-line
   results: PropTypes.array // eslint-disable-line

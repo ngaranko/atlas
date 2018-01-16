@@ -11,6 +11,7 @@ import { selectLatestMapSearchResults, getMapSearchResults }
   from '../../ducks/search-results/map-search-results';
 import { selectNotClickableVisibleMapLayers } from '../../ducks/layers/map-layers';
 import { selectLatestMapDetail, getMapDetail } from '../../ducks/detail/map-detail';
+import { fetchStraatbeeldById, toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
 import fetchSearchResults from '../../../reducers/search';
 import { fetchDetail as legacyFetchDetail } from '../../../reducers/details';
 import { getPanoPreview } from '../../../pano/ducks/preview/pano-preview';
@@ -46,7 +47,9 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   onSearch: fetchSearchResults,
   onMapPreviewPanelClose: closeMapPreviewPanel,
   onMapPreviewPanelMaximize: maximizeMapPreviewPanel,
-  onMapSearchResultsItemClick: legacyFetchDetail
+  onMapSearchResultsItemClick: legacyFetchDetail,
+  onOpenPanoById: fetchStraatbeeldById,
+  closeMapFullScreen: toggleMapFullscreen
 }, dispatch);
 
 const isUpdated = (props, prevProps, paths) => {
@@ -73,13 +76,29 @@ const update = (dispatch, props, prevProps = {}) => {
   }
 };
 
+const onPanoPreviewClick = (dispatch, props, id) => {
+  const { onOpenPanoById } = props;
+  dispatch(onOpenPanoById(id));
+  dispatch(toggleMapFullscreen());
+};
+
 class MapPreviewPanelContainer extends React.Component {
+  constructor() {
+    super();
+    this.clickMe = this.clickMe.bind(this);
+  }
+
   componentDidMount() {
     update(this.context.store.dispatch, this.props);
   }
 
   componentDidUpdate(prevProps) {
     update(this.context.store.dispatch, this.props, prevProps);
+  }
+
+  clickMe() {
+    const id = 'TMX7316010203-000227_pano_0000_000556';
+    onPanoPreviewClick(this.context.store.dispatch, this.props, id);
   }
 
   render() {
@@ -101,6 +120,7 @@ class MapPreviewPanelContainer extends React.Component {
         map-preview-panel--${props.isMapPreviewPanelVisible ? 'visible' : 'hidden'}
       `}
       >
+        <button onClick={this.clickMe}>Test</button>
         <div className="map-preview-panel__heading">
           {showDisplayAllResultsButton && (
             <button
@@ -147,6 +167,7 @@ class MapPreviewPanelContainer extends React.Component {
               panoUrl={panoSearchPreview.url}
               results={props.results}
               missingLayers={props.missingLayers}
+              onPanoPreviewClick={props.fetchStraatbeeldById}
               onItemClick={props.onMapSearchResultsItemClick}
             />
           )}
