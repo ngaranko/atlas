@@ -41,6 +41,11 @@ class DrawTool extends React.Component {
 
     this.previousMarkers = [];
 
+    this.state = {
+      drawingMode: props.drawingMode,
+      previousMarkers: []
+    };
+
     this.setPolygon = this.setPolygon.bind(this);
     this.onFinishShape = this.onFinishShape.bind(this);
     this.onDrawingMode = this.onDrawingMode.bind(this);
@@ -50,6 +55,15 @@ class DrawTool extends React.Component {
       this.onUpdateShape);
 
     this.setPolygon();
+  }
+
+  componentWillReceiveProps(props) {
+    console.log('componentWillReceiveProps', props);
+    if (window.drawTool.isEnabled() && props.drawingMode === 'none') {
+      this.setState({ drawingMode: 'draw' });
+    } else {
+      this.setState({ drawingMode: props.drawingMode });
+    }
   }
 
   onFinishShape(polygon) {
@@ -64,14 +78,14 @@ class DrawTool extends React.Component {
        });
     }
 
-    if (isEqual(polygon.markers, this.previousMarkers)) {
+    if (isEqual(polygon.markers, this.state.previousMarkers)) {
       this.props.onEndDrawing();
     } else {
       this.props.onEndDrawing({ polygon });
     }
 
     if (this.props.uiMapFullscreen) {
-      this.props.toggleMapFullscreen();
+      this.props.onToggleMapFullscreen();
     }
   }
 
@@ -86,15 +100,15 @@ class DrawTool extends React.Component {
         this.props.onToggleMapFullscreen();
       }
     } else {
-      this.previousMarkers = [...window.drawTool.shape.markers];
+      this.setState({ previousMarkers: [...window.drawTool.shape.markers] });
       this.props.resetGeometryFilter({ drawingMode });
-      this.props.onStartDrawing({ drawingMode });
       this.props.onSetPageName({ name: null });
+      this.props.onStartDrawing({ drawingMode });
     }
   }
 
   onUpdateShape(shape) {
-    // console.log('onUpdateShape', shape);
+    console.log('onUpdateShape', shape);
     this.props.onMapUpdateShape({
       shapeMarkers: shape.markers.length,
       shapeDistanceTxt: shape.distanceTxt,
@@ -105,8 +119,8 @@ class DrawTool extends React.Component {
   setPolygon() {
     const markers = this.props.geometry ||
       this.props.dataSelection && this.props.dataSelection.geometryFilter &&
-      this.props.dataSelection.geometryFilter.markers;
-      
+      this.props.dataSelection.geometryFilter.markers || [];
+
     console.log('setPolygon', markers);
     if (!window.drawTool.isEnabled()) {
       console.log('window.drawTool.setPolygon', markers);
@@ -121,7 +135,7 @@ class DrawTool extends React.Component {
     return (
       <section className="draw-tool">
         <ToggleDrawing
-          drawingMode={this.props.drawingMode}
+          drawingMode={this.state.drawingMode}
           shapeMarkers={this.props.shapeMarkers}
         />
         <ShapeSummary
@@ -142,6 +156,7 @@ DrawTool.contextTypes = {
 };
 
 DrawTool.defaultProps = {
+  dataSelection: null,
   geometry: null
 };
 
@@ -149,9 +164,19 @@ DrawTool.propTypes = {
   drawingMode: PropTypes.string.isRequired,
   shapeMarkers: PropTypes.number.isRequired,
   shapeDistanceTxt: PropTypes.string.isRequired,
+  dataSelection: PropTypes.object,
+  geometry: PropTypes.array,
+  uiMapFullscreen: PropTypes.bool.isRequired,
+
   onClearDrawing: PropTypes.func.isRequired,
+  onMapUpdateShape: PropTypes.func.isRequired,
+  setGeometryFilter: PropTypes.func.isRequired,
+  resetGeometryFilter: PropTypes.func.isRequired,
   onStartDrawing: PropTypes.func.isRequired,
-  onEndDrawing: PropTypes.func.isRequired
+  onEndDrawing: PropTypes.func.isRequired,
+  onSetPageName: PropTypes.func.isRequired,
+  onToggleMapFullscreen: PropTypes.func.isRequired
+
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DrawTool);
