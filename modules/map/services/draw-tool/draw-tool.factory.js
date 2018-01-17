@@ -3,7 +3,7 @@
 
     angular
         .module('dpMap')
-        .factory('drawTool', drawToolFactory);
+        .factory('drawToolANG', drawToolFactory);
 
     drawToolFactory.$inject = ['$rootScope', 'L', 'DRAW_TOOL_CONFIG', 'suppress'];
 

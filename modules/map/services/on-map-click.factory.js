@@ -5,10 +5,10 @@
         .module('dpMap')
         .factory('onMapClick', onMapClickFactory);
 
-    onMapClickFactory.$inject = ['$rootScope', 'store', 'ACTIONS', 'drawTool', 'suppress', 'activeOverlays',
+    onMapClickFactory.$inject = ['$rootScope', 'store', 'ACTIONS', 'activeOverlays', '$window',
         'nearestDetail'];
 
-    function onMapClickFactory ($rootScope, store, ACTIONS, drawTool, suppress, activeOverlays,
+    function onMapClickFactory ($rootScope, store, ACTIONS, activeOverlays, $window,
                                 nearestDetail) {
         let location = [];
 
@@ -26,7 +26,8 @@
 
             location = [event.latlng.lat, event.latlng.lng];
 
-            if (!(suppress.isBusy() || state.ui.isEmbedPreview || state.ui.isEmbed || drawTool.isEnabled())) {
+            if (!($window.suppress.isBusy() || state.ui.isEmbedPreview || state.ui.isEmbed ||
+                $window.drawTool.isEnabled())) {
                 store.dispatch({
                     type: ACTIONS.SET_MAP_CLICK_LOCATION.id,
                     location: {

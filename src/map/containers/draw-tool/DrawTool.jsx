@@ -14,6 +14,8 @@ import ToggleDrawing from '../../components/toggle-drawing/ToggleDrawing';
 import ShapeSummary from '../../components/shape-summary/ShapeSummary';
 import PointsAvailable from '../../components/points-available/PointsAvailable';
 
+import drawTool from '../../services/draw-tool/draw-tool';
+
 const mapStateToProps = (state) => ({
   drawingMode: state.map.drawingMode,
   shapeMarkers: state.map.shapeMarkers,
