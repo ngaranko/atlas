@@ -41,8 +41,6 @@ class DrawTool extends React.Component {
   constructor(props) {
     super(props);
 
-    this.previousMarkers = [];
-
     this.state = {
       drawingMode: props.drawingMode,
       previousMarkers: []
@@ -65,8 +63,14 @@ class DrawTool extends React.Component {
     } else {
       this.setState({ drawingMode: props.drawingMode });
     }
+    if (this.state.drawingMode === drawToolConfig.DRAWING_MODE.NONE &&
+      props.dataSelection && props.dataSelection.geometryFilter.markers.length === 0 &&
+      drawTool.shape.markers.length > 0) {
+      drawTool.setPolygon([]);
+    }
 
-    if (this.state.drawingMode === drawToolConfig.DRAWING_MODE.NONE && props.dataSelection === null) {
+    if (this.state.drawingMode === drawToolConfig.DRAWING_MODE.NONE &&
+      props.dataSelection === null) {
       drawTool.setPolygon([]);
     }
   }
