@@ -1,10 +1,16 @@
-{
-  "extends": "airbnb",
+module.exports = {
+  "extends": [
+    "airbnb",
+    "plugin:jsx-a11y/strict"
+  ],
   "env": {
     "browser": true,
     "jest": true,
     "node": true
   },
+  "plugins": [
+    "jsx-a11y"
+  ],
   "globals": {
     "jsdom": true // Used in Jest unit test, made available by jest-environment-jsdom-global
   },
