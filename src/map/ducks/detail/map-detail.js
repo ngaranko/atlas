@@ -3,10 +3,8 @@ const FETCH_MAP_DETAIL_SUCCESS = 'FETCH_MAP_DETAIL_SUCCESS';
 const FETCH_MAP_DETAIL_FAILURE = 'FETCH_MAP_DETAIL_FAILURE';
 
 const initialState = {
-  mapDetail: {
-    byEndpoint: {},
-    isLoading: false
-  }
+  byEndpoint: {},
+  isLoading: false
 };
 
 export default function MapDetailReducer(state = initialState, action) {
@@ -14,33 +12,24 @@ export default function MapDetailReducer(state = initialState, action) {
     case FETCH_MAP_DETAIL_REQUEST:
       return {
         ...state,
-        mapDetail: {
-          ...state.mapDetail,
-          currentEndpoint: action.endpoint,
-          isLoading: true
-        }
+        currentEndpoint: action.endpoint,
+        isLoading: true
       };
 
     case FETCH_MAP_DETAIL_SUCCESS:
       return {
         ...state,
-        mapDetail: {
-          ...state.mapDetail,
-          isLoading: false,
-          byEndpoint: {
-            ...state.mapDetail.byEndpoint,
-            [action.endpoint]: action.mapDetail
-          }
+        isLoading: false,
+        byEndpoint: {
+          ...state.byEndpoint,
+          [action.endpoint]: action.mapDetail
         }
       };
 
     case FETCH_MAP_DETAIL_FAILURE:
       return {
         ...state,
-        mapDetail: {
-          ...state.mapDetail,
-          isLoading: false
-        }
+        isLoading: false
       };
 
     default:
