@@ -67,7 +67,7 @@ export const getPreviewPanelResults = (state) => {
 
   const filterResultsByCategory = (items, category) => items
   .filter((item) => item.categoryLabel === category)
-  .filter((item, index) => index < 3);
+  .filter((item, index) => index < 10);
 
   const createDataModel = (resultList, isSubCategory) => resultList
   .reduce((items, currentValue) => {
@@ -82,7 +82,7 @@ export const getPreviewPanelResults = (state) => {
           results: sortByCategoryTypeOrder(
            filterResultsByCategory(filteredResults, currentValue.categoryLabel)),
           showMore: filterResultsByCategory(filteredResults,
-            currentValue.categoryLabel).length === 3
+            currentValue.categoryLabel).length > 10
         });
       }
     }
