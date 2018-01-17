@@ -7,7 +7,10 @@ describe('MapDetailAdressenPand', () => {
   it('should render everything', () => {
     const pand = {
       label: 'Pand label',
-      status: 'Pand status',
+      status: {
+        ommschrijving: 'Pand status',
+        code: '31'
+      },
       year: '2020'
     };
     const wrapper = shallow(

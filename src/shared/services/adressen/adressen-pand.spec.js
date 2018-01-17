@@ -32,7 +32,7 @@ describe('The adressen pand resource', () => {
           location: { latitude: 3, longitude: 4 },
           oorspronkelijk_bouwjaar: '1893',
           something: 'abc123',
-          status: 'Status description',
+          status: { omschrijving: 'Status description' },
           year: '1893'
         });
       });

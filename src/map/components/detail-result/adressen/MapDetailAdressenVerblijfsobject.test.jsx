@@ -17,7 +17,14 @@ describe('MapDetailAdressenVerblijfsobject', () => {
       }],
       label: 'Verblijfsobject label',
       size: 15,
-      type: 'Verblijfsobject type'
+      type: 'Verblijfsobject type',
+      status: {
+        omschrijving: 'Status omschrijving',
+        code: '15'
+      },
+      hoofdadres: {
+        hoofdadres: true
+      }
     };
     const wrapper = shallow(
       <MapDetailAdressenVerblijfsobject
@@ -41,7 +48,14 @@ describe('MapDetailAdressenVerblijfsobject', () => {
       }],
       label: 'Verblijfsobject label',
       size: 0,
-      type: 'Verblijfsobject type'
+      type: 'Verblijfsobject type',
+      status: {
+        omschrijving: 'Status omschrijving',
+        code: '15'
+      },
+      hoofdadres: {
+        hoofdadres: true
+      }
     };
     const wrapper = shallow(
       <MapDetailAdressenVerblijfsobject
@@ -64,7 +78,44 @@ describe('MapDetailAdressenVerblijfsobject', () => {
         descriptionPlus: 'Gebruiksdoel description plus'
       }],
       label: 'Verblijfsobject label',
-      type: 'Verblijfsobject type'
+      type: 'Verblijfsobject type',
+      status: {
+        omschrijving: 'Status omschrijving',
+        code: '15'
+      },
+      hoofdadres: {
+        hoofdadres: true
+      }
+    };
+    const wrapper = shallow(
+      <MapDetailAdressenVerblijfsobject
+        panoUrl="panoUrl"
+        verblijfsobject={verblijfsobject}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('should render `Nee` if hoofdadres is `false` and show a blue bullet', () => {
+    const verblijfsobject = {
+      eigendomsverhouding: 'Verblijfsobject eigendomsverhouding',
+      gebruiksdoelen: [{
+        code: '01',
+        description: 'Gebruiksdoel description 1'
+      }, {
+        code: '0400',
+        description: 'Gebruiksdoel description 2',
+        descriptionPlus: 'Gebruiksdoel description plus'
+      }],
+      label: 'Verblijfsobject label',
+      type: 'Verblijfsobject type',
+      status: {
+        omschrijving: 'Status omschrijving',
+        code: '15'
+      },
+      hoofdadres: {
+        hoofdadres: false
+      }
     };
     const wrapper = shallow(
       <MapDetailAdressenVerblijfsobject
