@@ -18,6 +18,7 @@ import MapDetailGebiedenGrootstedelijk from './gebieden/MapDetailGebiedenGrootst
 import MapDetailGebiedenStadsdeel from './gebieden/MapDetailGebiedenStadsdeel';
 import MapDetailGebiedenUnesco from './gebieden/MapDetailGebiedenUnesco';
 import MapDetailGebiedenWijk from './gebieden/MapDetailGebiedenWijk';
+import MapDetailGrondexploitatie from './MapDetailGrondexploitatie';
 import MapDetailKadastraalObject from './MapDetailKadastraalObject';
 import MapDetailMeetbout from './MapDetailMeetbout';
 import MapDetailMonument from './MapDetailMonument';
@@ -142,6 +143,13 @@ const MapDetailResult = ({ endpoint, panoUrl, result }) => {
         <MapDetailGebiedenWijk
           panoUrl={panoUrl}
           wijk={result}
+        />
+      );
+    case endpointTypes.grondexploitatie:
+      return (
+        <MapDetailGrondexploitatie
+          panoUrl={panoUrl}
+          detail={result}
         />
       );
     case endpointTypes.kadastraalObject:

@@ -23,7 +23,7 @@ import vestiging from '../../shared/services/vestiging/vestiging';
 
 export const maxDisplayValuesPerProperty = 5;
 
-// NOTE: beware, if FETCH_DETAIL action payload includse endpointTypes string
+// NOTE: beware, if FETCH_DETAIL action payload includes endpointTypes string
 // then magic happens in '/src/reducers/details.js'
 export const endpointTypes = {
   adressenLigplaats: 'bag/ligplaats/',
