@@ -1,6 +1,6 @@
 export const FETCH_MAP_DETAIL_REQUEST = 'FETCH_MAP_DETAIL_REQUEST';
-export const FETCH_MAP_DETAIL_SUCCESS = 'FETCH_MAP_DETAIL_SUCCESS';
-export const FETCH_MAP_DETAIL_FAILURE = 'FETCH_MAP_DETAIL_FAILURE';
+const FETCH_MAP_DETAIL_SUCCESS = 'FETCH_MAP_DETAIL_SUCCESS';
+const FETCH_MAP_DETAIL_FAILURE = 'FETCH_MAP_DETAIL_FAILURE';
 
 const initialState = {
   mapDetail: {
@@ -56,6 +56,12 @@ export const getMapDetail = (endpoint, user) => ({
   type: FETCH_MAP_DETAIL_REQUEST,
   endpoint,
   user
+});
+export const fetchMapDetailFailure = (error) => ({ type: FETCH_MAP_DETAIL_FAILURE, error });
+export const fetchMapDetailSuccess = (endpoint, mapDetail) => ({
+  type: FETCH_MAP_DETAIL_SUCCESS,
+  endpoint,
+  mapDetail
 });
 
 window.reducers = window.reducers || {};
