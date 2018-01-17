@@ -65,6 +65,26 @@ export default [
     url: '/maps/panorama?version=1.3.0&service=WMS'
   },
   {
+    authScope: 'GREX/R',
+    id: 'grex',
+    category: 'Stedelijke ontwikkeling',
+    layers: ['grondexploitatie_polygons'],
+    legendItems: [
+      {
+        selectable: false,
+        title: 'Actueel'
+      },
+      {
+        selectable: false,
+        title: 'Toekomstig'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: 'Grondexploitaties - Projecten',
+    url: '/maps/grondexploitatie?version=1.3.0&service=WMS'
+  },
+  {
     authScope: 'HR/R',
     category: 'Economie en haven',
     id: 'bouw',
