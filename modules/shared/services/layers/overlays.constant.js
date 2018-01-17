@@ -1082,6 +1082,11 @@
                         'oovctg'
                     ]
                 }, {
+                    heading: 'Stedelijke ontwikkeling',
+                    overlays: [
+                        'grex'
+                    ]
+                }, {
                     heading: 'Toerisme en cultuur',
                     overlays: [
                         'tcmnmt'
