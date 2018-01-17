@@ -1,4 +1,4 @@
-import ACTIONS from '../../actions';
+import ACTIONS from '../../../../src/shared/actions';
 
 (function () {
     angular
