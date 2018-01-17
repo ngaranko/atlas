@@ -17,6 +17,10 @@
     color: #666666;
     font-family: "Avenir LT W01 85 Heavy";
     margin: 0 4px;
+
+    &:empty {
+      margin: 0;
+    }
   }
 
   &:focus,

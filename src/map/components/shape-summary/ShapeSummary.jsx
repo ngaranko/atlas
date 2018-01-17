@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import drawTool from '../../services/draw-tool/draw-tool';
+
 import Icon from '../../../../public/images/icon-cross-big.svg';
 
 const ShapeSummary = ({ shapeMarkers, shapeDistanceTxt, onClearDrawing }) => {
-  if (window.drawTool.isEnabled() || shapeMarkers !== 2) {
+  if (drawTool.isEnabled() || shapeMarkers !== 2) {
     return null;
   }
   return (

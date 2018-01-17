@@ -52,17 +52,21 @@ class DrawTool extends React.Component {
     this.onDrawingMode = this.onDrawingMode.bind(this);
     this.onUpdateShape = this.onUpdateShape.bind(this);
 
-    window.drawTool.initialize(window.leafletMap, this.onFinishShape, this.onDrawingMode,
+    drawTool.initialize(window.leafletMap, this.onFinishShape, this.onDrawingMode,
       this.onUpdateShape);
 
     this.setPolygon();
   }
 
   componentWillReceiveProps(props) {
-    if (window.drawTool.isEnabled() && props.drawingMode === 'none') {
+    if (drawTool.isEnabled() && props.drawingMode === 'none') {
       this.setState({ drawingMode: 'draw' });
     } else {
       this.setState({ drawingMode: props.drawingMode });
+    }
+
+    if (this.state.drawingMode === 'none' && props.dataSelection === null) {
+      drawTool.setPolygon([]);
     }
   }
 
@@ -72,7 +76,7 @@ class DrawTool extends React.Component {
     if (moreThan2Markers) {
       this.props.setGeometryFilter({
         markers: polygon.markers,
-        description: `${window.drawTool.shape.distanceTxt} en ${window.drawTool.shape.areaTxt}`
+        description: `${drawTool.shape.distanceTxt} en ${drawTool.shape.areaTxt}`
       });
     }
 
@@ -97,7 +101,7 @@ class DrawTool extends React.Component {
         this.props.onToggleMapFullscreen();
       }
     } else {
-      this.setState({ previousMarkers: [...window.drawTool.shape.markers] });
+      this.setState({ previousMarkers: [...drawTool.shape.markers] });
       this.props.resetGeometryFilter({ drawingMode });
       this.props.onSetPageName({ name: null });
       this.props.onStartDrawing({ drawingMode });
@@ -117,10 +121,10 @@ class DrawTool extends React.Component {
       this.props.dataSelection && this.props.dataSelection.geometryFilter &&
       this.props.dataSelection.geometryFilter.markers || [];
 
-    if (!window.drawTool.isEnabled()) {
-      window.drawTool.setPolygon(markers);
+    if (!drawTool.isEnabled()) {
+      drawTool.setPolygon(markers);
       if (this.props.drawingMode !== 'none') {
-        window.drawTool.enable();
+        drawTool.enable();
       }
     }
   }
