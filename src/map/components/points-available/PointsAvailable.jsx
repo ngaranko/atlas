@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const PointsAvailable = ({ shapeMarkers }) => {
-  const markersLeft = 8 - shapeMarkers;
+import drawToolConfig from '../../services/draw-tool/draw-tool-config';
 
-  if (markersLeft > 5) {
+const PointsAvailable = ({ shapeMarkers }) => {
+  const markersLeft = drawToolConfig.MAX_MARKERS - shapeMarkers;
+
+  if (markersLeft > drawToolConfig.MARKERS_LEFT_WARNING) {
     return null;
   } else if (markersLeft === 0) {
     return (

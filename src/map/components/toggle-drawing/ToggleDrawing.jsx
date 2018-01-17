@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import drawToolConfig from '../../services/draw-tool/draw-tool-config';
+
 import Icon from '../../../../public/images/icon-measure.svg';
 
 // temp remove window namespacing
@@ -22,8 +24,8 @@ const ToggleDrawing = ({ drawingMode, shapeMarkers }) => (
   >
     <Icon className="toggle-drawing__icon" />
     <span className="toggle-drawing__label">
-      {drawingMode !== 'none' ? 'Eindig' : ''}
-      {drawingMode === 'none' && shapeMarkers > 0 ? 'Opnieuw' : ''}
+      {drawingMode !== drawToolConfig.DRAWING_MODE.NONE ? 'Eindig' : ''}
+      {drawingMode === drawToolConfig.DRAWING_MODE.NONE && shapeMarkers > 0 ? 'Opnieuw' : ''}
     </span>
   </button>
 );

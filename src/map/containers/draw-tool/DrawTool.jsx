@@ -15,6 +15,7 @@ import ShapeSummary from '../../components/shape-summary/ShapeSummary';
 import PointsAvailable from '../../components/points-available/PointsAvailable';
 
 import drawTool from '../../services/draw-tool/draw-tool';
+import drawToolConfig from '../../services/draw-tool/draw-tool-config';
 
 const mapStateToProps = (state) => ({
   drawingMode: state.map.drawingMode,
@@ -59,13 +60,13 @@ class DrawTool extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    if (drawTool.isEnabled() && props.drawingMode === 'none') {
-      this.setState({ drawingMode: 'draw' });
+    if (drawTool.isEnabled() && props.drawingMode === drawToolConfig.DRAWING_MODE.NONE) {
+      this.setState({ drawingMode: drawToolConfig.DRAWING_MODE.DRAW });
     } else {
       this.setState({ drawingMode: props.drawingMode });
     }
 
-    if (this.state.drawingMode === 'none' && props.dataSelection === null) {
+    if (this.state.drawingMode === drawToolConfig.DRAWING_MODE.NONE && props.dataSelection === null) {
       drawTool.setPolygon([]);
     }
   }
@@ -92,7 +93,7 @@ class DrawTool extends React.Component {
   }
 
   onDrawingMode(drawingMode) {
-    if (drawingMode === 'none') {
+    if (drawingMode === drawToolConfig.DRAWING_MODE.NONE) {
       // Make sure the NONE state goes into the store
       // We do not supply a payload, we do not finish a shape here
       this.props.onEndDrawing();
@@ -123,7 +124,7 @@ class DrawTool extends React.Component {
 
     if (!drawTool.isEnabled()) {
       drawTool.setPolygon(markers);
-      if (this.props.drawingMode !== 'none') {
+      if (this.props.drawingMode !== drawToolConfig.DRAWING_MODE.NONE) {
         drawTool.enable();
       }
     }
