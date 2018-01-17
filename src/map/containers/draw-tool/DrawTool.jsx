@@ -37,7 +37,6 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
 class DrawTool extends React.Component {
   constructor(props) {
     super(props);
-    console.log('drawtool constructor');
 
     this.previousMarkers = [];
 
@@ -58,7 +57,6 @@ class DrawTool extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    console.log('componentWillReceiveProps', props);
     if (window.drawTool.isEnabled() && props.drawingMode === 'none') {
       this.setState({ drawingMode: 'draw' });
     } else {
@@ -67,15 +65,13 @@ class DrawTool extends React.Component {
   }
 
   onFinishShape(polygon) {
-    console.log('onFinishShape');
-
     const moreThan2Markers = polygon && polygon.markers && polygon.markers.length > 2;
 
     if (moreThan2Markers) {
       this.props.setGeometryFilter({
         markers: polygon.markers,
         description: `${window.drawTool.shape.distanceTxt} en ${window.drawTool.shape.areaTxt}`
-       });
+      });
     }
 
     if (isEqual(polygon.markers, this.state.previousMarkers)) {
@@ -90,7 +86,6 @@ class DrawTool extends React.Component {
   }
 
   onDrawingMode(drawingMode) {
-    console.log('onDrawingMode', drawingMode, [...window.drawTool.shape.markers]);
     if (drawingMode === 'none') {
       // Make sure the NONE state goes into the store
       // We do not supply a payload, we do not finish a shape here
@@ -108,7 +103,6 @@ class DrawTool extends React.Component {
   }
 
   onUpdateShape(shape) {
-    console.log('onUpdateShape', shape);
     this.props.onMapUpdateShape({
       shapeMarkers: shape.markers.length,
       shapeDistanceTxt: shape.distanceTxt,
@@ -121,9 +115,7 @@ class DrawTool extends React.Component {
       this.props.dataSelection && this.props.dataSelection.geometryFilter &&
       this.props.dataSelection.geometryFilter.markers || [];
 
-    console.log('setPolygon', markers);
     if (!window.drawTool.isEnabled()) {
-      console.log('window.drawTool.setPolygon', markers);
       window.drawTool.setPolygon(markers);
       if (this.props.drawingMode !== 'none') {
         window.drawTool.enable();
