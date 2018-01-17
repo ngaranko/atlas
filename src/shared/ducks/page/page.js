@@ -7,7 +7,6 @@ const initialState = {
 export default function PageReducer(state = initialState, action) {
   switch (action.type) {
     case SET_PAGE_NAME:
-      console.log('SET_PAGE_NAME', action);
       return {
         ...state,
         name: action.payload && action.payload.name

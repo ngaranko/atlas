@@ -33,7 +33,6 @@ export default function MapReducer(state = initialState, action) {
       };
 
     case MAP_START_DRAWING:
-    console.log('MAP_START_DRAWING', action);
       return {
         ...state,
         drawingMode: action.payload.drawingMode
@@ -44,7 +43,6 @@ export default function MapReducer(state = initialState, action) {
       const has2Markers = polygon && polygon.markers && polygon.markers.length === 2;
       const moreThan2Markers = polygon && polygon.markers && polygon.markers.length > 2;
 
-    console.log('MAP_END_DRAWING', action);
       return {
         ...state,
         drawingMode: 'none',

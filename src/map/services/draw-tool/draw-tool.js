@@ -85,7 +85,7 @@ const DrawTool = () => {
   function onChangePolygon() {
     // add class to drawn polygon
     if (currentShape.layer && currentShape.layer._path) {
-      angular.element(currentShape.layer._path).addClass('c-map__leaflet-drawn-polygon');
+      L.DomUtil.addClass(currentShape.layer._path, 'c-map__leaflet-drawn-polygon');
     }
 
     // update the publicly available shape info, applyAsync because triggered by a leaflet event

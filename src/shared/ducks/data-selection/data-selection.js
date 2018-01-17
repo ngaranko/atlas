@@ -17,8 +17,7 @@ const initialState = {
 export default function DataSelectionReducer(state = initialState, action) {
   switch (action.type) {
     case SET_DATA_SELECTION_GEOMETRY_FILTER:
-      const geometryFilter = {...action.payload} || { markers: [] };
-      console.log('SET_DATA_SELECTION_GEOMETRY_FILTER', action.payload);
+      const geometryFilter = { ...action.payload } || { markers: [] };
       return {
         ...{
           dataset: 'bag'
@@ -37,7 +36,6 @@ export default function DataSelectionReducer(state = initialState, action) {
       };
 
     case RESET_DATA_SELECTION_GEOMETRY_FILTER:
-    console.log('RESET_DATA_SELECTION_GEOMETRY_FILTER', action);
       const geometryFilter2 = action.payload.polygon || { markers: [] };
       if ((action.payload.drawingMode !== 'edit') &&
         state &&
@@ -47,8 +45,7 @@ export default function DataSelectionReducer(state = initialState, action) {
       } else {
         return state;
       }
-//
-      console.log('RESET_DATA_SELECTION_GEOMETRY_FILTER proceed');
+
       return {
         ...{
           dataset: 'bag'
@@ -73,7 +70,7 @@ export default function DataSelectionReducer(state = initialState, action) {
 
 export const setDataSelectionGeometryFilter = (payload) =>
   ({ type: SET_DATA_SELECTION_GEOMETRY_FILTER, payload });
-  export const resetDataSelectionGeometryFilter = (payload) =>
+export const resetDataSelectionGeometryFilter = (payload) =>
     ({ type: RESET_DATA_SELECTION_GEOMETRY_FILTER, payload });
 
 window.reducers = window.reducers || {};
