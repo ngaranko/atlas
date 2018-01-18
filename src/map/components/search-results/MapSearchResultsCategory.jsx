@@ -32,8 +32,8 @@ const MapSearchResultsCategory = ({ category, onClick }) => (
         )
       }
       {
-        category.subCategoryItems && category.subCategoryItems.length ?
-        category.subCategoryItems.map((subCategory) => (
+        category.subCategories && category.subCategories.length ?
+        category.subCategories.map((subCategory) => (
           <MapSearchResultsCategory
             category={subCategory}
             onClick={onClick}

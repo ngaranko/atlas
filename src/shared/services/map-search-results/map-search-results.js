@@ -21,17 +21,20 @@ const getSubCategories = (items, type) => items
 
 export const createMapSearchResultsModel = (allResults, resultsLimit, isSubCategory) =>
   sortByCategoryTypeOrder(filterNonPandMonuments(allResults))
-  .reduce((items, currentValue) => {
-    const { categoryLabel, categoryLabelPlural, type } = currentValue;
-    if (items.some((item) => item.categoryLabel === categoryLabel) &&
-      (currentValue.parent || !isSubCategory)) {
-      return items;
+  .reduce((newList, currentValue, index, initialList) => {
+    const { categoryLabel, categoryLabelPlural, type, parent } = currentValue;
+
+    if (newList.some((item) => item.categoryLabel === categoryLabel) ||
+      (parent && !isSubCategory)) {
+      return newList;
     }
-    const subCategories = getSubCategories(allResults, type);
+
+    const subCategories = getSubCategories(initialList, type);
     const results = sortByCategoryTypeOrder(
-      filterResultsByCategory(allResults, categoryLabel));
+      filterResultsByCategory(initialList, categoryLabel));
+
     return [
-      ...items,
+      ...newList,
       {
         categoryLabel,
         categoryLabelPlural,
