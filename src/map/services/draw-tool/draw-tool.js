@@ -11,7 +11,7 @@ const DrawTool = () => {
     layer: null,
     markers: [],
     markersPrev: [],
-    markersMaxCount: 8,
+    markersMaxCount: drawToolConfig.MAX_MARKERS,
     area: 0,
     areaTxt: '',
     distance: 0,
@@ -391,7 +391,7 @@ const DrawTool = () => {
       updateShapeInfo(); // update public shape info of new consistent state of the polygon
     }
 
-    if (typeof _onUpdateShape === 'function') {
+    if (currentShape.isConsistent && typeof _onUpdateShape === 'function') {
       // call any registered callback function, applyAsync because triggered by a leaflet event
       _onUpdateShape(currentShape);
     }

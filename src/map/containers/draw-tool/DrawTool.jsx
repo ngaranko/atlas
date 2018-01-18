@@ -58,12 +58,12 @@ class DrawTool extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    if (props.drawingMode === drawToolConfig.DRAWING_MODE.NONE &&
+    // if (props.drawingMode === drawToolConfig.DRAWING_MODE.NONE &&
       // this will remove the polygon from map when the geometry filter is emptied
-      props.dataSelection && props.dataSelection.geometryFilter.markers.length === 0 &&
-      drawTool.shape.markers.length > 0) {
-      drawTool.setPolygon([]);
-    }
+      // props.dataSelection && props.dataSelection.geometryFilter.markers.length === 0 &&
+      // drawTool.shape.markers.length > 0) {
+      // drawTool.setPolygon([]);
+    // }
 
     // if (this.state.drawingMode === drawToolConfig.DRAWING_MODE.NONE &&
       // props.dataSelection === null) {
