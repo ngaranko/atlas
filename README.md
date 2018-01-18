@@ -16,9 +16,10 @@
 - NODE_ENV=development npm test
 
 
+## E2E testing
 ### Authentication
 
-In order to test authentication in the E2E and aria test the following environment variables should be set:
+In order to test authentication the following environment variables must be set:
 
 - `PASSWORD_EMPLOYEE`
 - `PASSWORD_EMPLOYEE_PLUS`
@@ -28,18 +29,16 @@ In order to test authentication in the E2E and aria test the following environme
 They can simply be added by using the `export` command from the command line, or by adding these
 variables to `.bash_profile`.
 
-### E2E testing
-
-- `npm run e2e`
-- `npm run cypress`
+### Functional testing
 
 Make sure the app is running locally by running `npm start`.
-Then, in a second terminal, run `npm run e2e` (single run) or `npm run cypress` (#GUI, watch).
+Then, in a second terminal, run `npm run test-e2e` (single run) or `npm run test-e2e-watch` (#GUI, watch).
 
 ### Aria testing
 
 Make sure that NODE_ENV=development.
 Then run `npm run test-aria`.
+
 
 ## Other useful commands
 
