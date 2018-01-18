@@ -58,21 +58,17 @@ class DrawTool extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    if (drawTool.isEnabled() && props.drawingMode === drawToolConfig.DRAWING_MODE.NONE) {
-      this.setState({ drawingMode: drawToolConfig.DRAWING_MODE.DRAW });
-    } else {
-      this.setState({ drawingMode: props.drawingMode });
-    }
-    if (this.state.drawingMode === drawToolConfig.DRAWING_MODE.NONE &&
+    if (props.drawingMode === drawToolConfig.DRAWING_MODE.NONE &&
+      // this will remove the polygon from map when the geometry filter is emptied
       props.dataSelection && props.dataSelection.geometryFilter.markers.length === 0 &&
       drawTool.shape.markers.length > 0) {
       drawTool.setPolygon([]);
     }
 
-    if (this.state.drawingMode === drawToolConfig.DRAWING_MODE.NONE &&
-      props.dataSelection === null) {
-      drawTool.setPolygon([]);
-    }
+    // if (this.state.drawingMode === drawToolConfig.DRAWING_MODE.NONE &&
+      // props.dataSelection === null) {
+      // drawTool.setPolygon([]);
+    // }
   }
 
   onFinishShape(polygon) {
@@ -100,7 +96,9 @@ class DrawTool extends React.Component {
     if (drawingMode === drawToolConfig.DRAWING_MODE.NONE) {
       // Make sure the NONE state goes into the store
       // We do not supply a payload, we do not finish a shape here
+      // this.props.setGeometryFilter({ markers: [...drawTool.shape.markers] });
       this.props.onEndDrawing();
+      this.props.onSetPageName({ name: null });
 
       if (this.props.uiMapFullscreen) {
         this.props.onToggleMapFullscreen();
@@ -108,7 +106,6 @@ class DrawTool extends React.Component {
     } else {
       this.setState({ previousMarkers: [...drawTool.shape.markers] });
       this.props.resetGeometryFilter({ drawingMode });
-      this.props.onSetPageName({ name: null });
       this.props.onStartDrawing({ drawingMode });
     }
   }
@@ -138,7 +135,7 @@ class DrawTool extends React.Component {
     return (
       <section className="draw-tool">
         <ToggleDrawing
-          drawingMode={this.state.drawingMode}
+          drawingMode={this.props.drawingMode}
           shapeMarkers={this.props.shapeMarkers}
         />
         <ShapeSummary

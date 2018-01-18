@@ -1,19 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import drawTool from '../../services/draw-tool/draw-tool';
 import drawToolConfig from '../../services/draw-tool/draw-tool-config';
 
 import Icon from '../../../../public/images/icon-measure.svg';
 
 // temp remove window namespacing
 function toggleDrawing() {
-  if (window.drawTool.isEnabled()) {
-    window.drawTool.disable();
+  if (drawTool.isEnabled()) {
+    drawTool.disable();
   } else {
-    if (window.drawTool.shape.markers.length > 0) {
-      window.drawTool.setPolygon([]);
+    if (drawTool.shape.markers.length > 0) {
+      drawTool.setPolygon([]);
     }
-    window.drawTool.enable();
+    drawTool.enable();
   }
 }
 
