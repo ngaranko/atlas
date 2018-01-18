@@ -2,10 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { wgs84ToRd } from '../../../shared/services/coordinate-reference-system';
-import MapSearchResultsItem from './MapSearchResultsItem';
+import MapSearchResultsCategory from './MapSearchResultsCategory';
 import Notification from '../../../shared/components/notification/Notification';
+import MaximizeIcon from '../../../../public/images/icon-maximize.svg';
 
-const MapSearchResults = ({ count, location, missingLayers, onItemClick, panoUrl, results }) => {
+const MapSearchResults = ({
+  count,
+  location,
+  missingLayers,
+  onItemClick,
+  panoUrl,
+  results,
+  onMaximize
+}) => {
   const rdCoordinates = wgs84ToRd(location);
 
   return (
@@ -38,53 +47,19 @@ const MapSearchResults = ({ count, location, missingLayers, onItemClick, panoUrl
         )}
         {
           results.map((mainCategory) => (
-            <li key={mainCategory.categoryLabel}>
-              <ul className="main-category">
-                <li>{ mainCategory.categoryLabel }</li>
-                {
-                  mainCategory.subCategoryItems && mainCategory.subCategoryItems.length ?
-                  mainCategory.subCategoryItems.map((subCategory) => (
-                    <li key={subCategory.categoryLabel}>
-                      <ul className="sub-category">
-                        <li>{ subCategory.categoryLabel }</li>
-                        { subCategory && subCategory.results &&
-                          subCategory.results.map((result) => (
-                            <li key={result.uri}>
-                              <MapSearchResultsItem
-                                item={result}
-                                onClick={() => {
-                                  onItemClick(result.uri);
-                                }}
-                              />
-                            </li>
-                        ))}
-                        {subCategory.showMore && (
-                          <li>More results...</li>
-                        )}
-                      </ul>
-                    </li>
-                  )) : ''
-                }
-                {
-                  mainCategory.subCategoryItems && !mainCategory.subCategoryItems.length &&
-                  mainCategory.results.map((result) => (
-                    <li key={result.uri}>
-                      <MapSearchResultsItem
-                        item={result}
-                        onClick={() => {
-                          onItemClick(result.uri);
-                        }}
-                      />
-                    </li>
-                  ))
-                }
-                { mainCategory.showMore && (
-                  <li>More results...</li>
-                )}
-              </ul>
-            </li>
+            <MapSearchResultsCategory
+              key={mainCategory.categoryLabel}
+              category={mainCategory}
+              onClick={onItemClick}
+            />
           ))
         }
+        <li className="map-search-results__footer">
+          <button onClick={onMaximize} className="map-search-results__button">
+            <MaximizeIcon className="map-search-results__button-icon" />
+            Volledig weergeven
+          </button>
+        </li>
       </ul>
     </section>
   );
@@ -94,6 +69,7 @@ MapSearchResults.propTypes = {
   count: PropTypes.number, // eslint-disable-line
   location: PropTypes.object, // eslint-disable-line
   onItemClick: PropTypes.func.isRequired,
+  onMaximize: PropTypes.func.isRequired,
   panoUrl: PropTypes.string, // eslint-disable-line
   missingLayers: PropTypes.string, // eslint-disable-line
   results: PropTypes.array // eslint-disable-line

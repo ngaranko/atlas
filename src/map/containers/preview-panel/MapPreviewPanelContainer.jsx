@@ -21,11 +21,13 @@ import MapSearchResults from '../../components/search-results/MapSearchResults';
 import MapDetailResult from '../../components/detail-result/MapDetailResult';
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator';
 
+const resultLimit = 10;
+
 const mapStateToProps = (state) => ({
   isMapPreviewPanelVisible: state.isMapPreviewPanelVisible,
   mapClickLocation: state.mapClickLocation,
   pano: state.pano,
-  results: getPreviewPanelResults(state),
+  results: getPreviewPanelResults(state, resultLimit),
   search: state.search,
   searchLocation: state.search && state.search.location && {
     latitude: state.search.location[0],
@@ -146,6 +148,7 @@ class MapPreviewPanelContainer extends React.Component {
               location={props.searchLocation}
               panoUrl={panoSearchPreview.url}
               results={props.results}
+              onMaximize={props.onMapPreviewPanelMaximize}
               missingLayers={props.missingLayers}
               onItemClick={props.onMapSearchResultsItemClick}
             />
