@@ -35,6 +35,7 @@ const MapSearchResultsCategory = ({ category, onClick }) => (
         category.subCategories && category.subCategories.length ?
         category.subCategories.map((subCategory) => (
           <MapSearchResultsCategory
+            key={subCategory.categoryLabel}
             category={subCategory}
             onClick={onClick}
           />
