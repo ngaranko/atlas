@@ -15,6 +15,7 @@ import gebiedenGrootstedelijk from '../../shared/services/gebieden/gebieden-groo
 import gebiedenStadsdeel from '../../shared/services/gebieden/gebieden-stadsdeel';
 import gebiedenUnesco from '../../shared/services/gebieden/gebieden-unesco';
 import gebiedenWijk from '../../shared/services/gebieden/gebieden-wijk';
+import grondexploitatie from '../../shared/services/grondexploitatie/grondexploitatie';
 import kadastraalObject from '../../shared/services/kadastraal-object/kadastraal-object';
 import meetbout from '../../shared/services/meetbout/meetbout';
 import monument from '../../shared/services/monument/monument';
@@ -69,6 +70,7 @@ const servicesByEndpointType = {
   [endpointTypes.gebiedenStadsdeel]: { fetch: gebiedenStadsdeel },
   [endpointTypes.gebiedenUnesco]: { fetch: gebiedenUnesco },
   [endpointTypes.gebiedenWijk]: { fetch: gebiedenWijk },
+  [endpointTypes.grondexploitatie]: { fetch: grondexploitatie, authScope: 'GREX/R' },
   [endpointTypes.kadastraalObject]: { fetch: kadastraalObject },
   [endpointTypes.meetbout]: { fetch: meetbout },
   [endpointTypes.monument]: { fetch: monument },
@@ -76,7 +78,7 @@ const servicesByEndpointType = {
   [endpointTypes.vestiging]: { fetch: vestiging, authScope: 'HR/R' }
 };
 
-export default function detail(endpoint, user) {
+export default function fetchDetail(endpoint, user) {
   const endpointType = Object.keys(servicesByEndpointType).find((type) => endpoint.includes(type));
   const endpointConfig = endpointType && servicesByEndpointType[endpointType];
   const fetchFn = endpointConfig && endpointConfig.fetch;

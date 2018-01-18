@@ -1,10 +1,10 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 
-import detail from '../../services/map-detail';
+import fetchDetail from '../../services/map-detail';
 
 function* fetchMapDetail(action) {
   try {
-    const mapDetail = yield call(detail, action.endpoint, action.user);
+    const mapDetail = yield call(fetchDetail, action.endpoint, action.user);
     yield put({
       type: 'FETCH_MAP_DETAIL_SUCCESS',
       endpoint: action.endpoint,
