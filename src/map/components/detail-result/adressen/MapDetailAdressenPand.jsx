@@ -24,7 +24,7 @@ const MapDetailAdressenPand = ({ panoUrl, pand }) => (
     <ul className="map-detail-result__list">
       <MapDetailResultItem
         label="Oorspronkelijk bouwjaar"
-        value={pand.year}
+        value={pand.year || 'onbekend'}
       />
       <MapDetailResultStatusItem
         label="Status"

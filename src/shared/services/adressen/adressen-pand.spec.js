@@ -47,6 +47,16 @@ describe('The adressen pand resource', () => {
       return promise;
     });
 
+    it('changes the value (indicating the year is unkown) to the empty string', () => {
+      const uri = 'https://acc.api.data.amsterdam.nl/bag/pand/123456';
+
+      fetch.mockResponseOnce(JSON.stringify({ oorspronkelijk_bouwjaar: '1005' }));
+
+      return fetchByUri(uri).then((response) => {
+        expect(response.year).toBe('');
+      });
+    });
+
     it('fetches with empty result object', () => {
       const uri = 'https://acc.api.data.amsterdam.nl/bag/pand/123456';
 

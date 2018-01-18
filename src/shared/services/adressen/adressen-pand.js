@@ -1,6 +1,8 @@
 import getCenter from '../geo-json/geo-json';
 import { rdToWgs84 } from '../coordinate-reference-system/crs-converter';
 
+const yearUnknownValue = '1005';
+
 export default function fetchByUri(uri) {
   return fetch(uri)
     .then((response) => response.json())
@@ -16,7 +18,8 @@ export default function fetchByUri(uri) {
           code: result.status ? result.status.code : '',
           description: result.status ? result.status.omschrijving : ''
         },
-        year: result.oorspronkelijk_bouwjaar
+        year: result.oorspronkelijk_bouwjaar !== yearUnknownValue ?
+          result.oorspronkelijk_bouwjaar : ''
       };
     });
 }

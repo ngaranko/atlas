@@ -35,7 +35,7 @@ describe('MapDetailAdressenVerblijfsobject', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should render with zero value for size', () => {
+  it('should render unknown with zero value for size', () => {
     const verblijfsobject = {
       eigendomsverhouding: 'Verblijfsobject eigendomsverhouding',
       gebruiksdoelen: [{
@@ -66,7 +66,7 @@ describe('MapDetailAdressenVerblijfsobject', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should not render size', () => {
+  it('should render unknown without size', () => {
     const verblijfsobject = {
       eigendomsverhouding: 'Verblijfsobject eigendomsverhouding',
       gebruiksdoelen: [{

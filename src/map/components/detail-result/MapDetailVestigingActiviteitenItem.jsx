@@ -7,7 +7,7 @@ const MapDetailVestigingActiviteitenItem = ({ activities }) =>
   activities.length > 0 && (
     <div className="map-detail-result__item">
       <section className="map-detail-result__item-content">
-        <div className="map-detail-result__item-label">SBI-activiteiten</div>
+        <div className="map-detail-result__item-label">SBI-code en -omschrijving</div>
         <ul className="map-detail-result__item-value map-detail-result__item-list">
           {activities.slice(0, maxDisplayValuesPerProperty).map((activity) => (
             <li

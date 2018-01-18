@@ -70,6 +70,38 @@ describe('The adressen verblijfsobject resource', () => {
       return promise;
     });
 
+    describe('size', () => {
+      it('Changes one to zero', () => {
+        const uri = 'https://acc.api.data.amsterdam.nl/bag/verblijfsobject/123456';
+
+        fetch.mockResponseOnce(JSON.stringify({ oppervlakte: 1 }));
+
+        return fetchByUri(uri).then((response) => {
+          expect(response.size).toBe(0);
+        });
+      });
+
+      it('Keeps a zero as a zero', () => {
+        const uri = 'https://acc.api.data.amsterdam.nl/bag/verblijfsobject/123456';
+
+        fetch.mockResponseOnce(JSON.stringify({ oppervlakte: 0 }));
+
+        return fetchByUri(uri).then((response) => {
+          expect(response.size).toBe(0);
+        });
+      });
+
+      it('Uses zero for negative values', () => {
+        const uri = 'https://acc.api.data.amsterdam.nl/bag/verblijfsobject/123456';
+
+        fetch.mockResponseOnce(JSON.stringify({ oppervlakte: -1 }));
+
+        return fetchByUri(uri).then((response) => {
+          expect(response.size).toBe(0);
+        });
+      });
+    });
+
     it('fetches with empty result object', () => {
       const uri = 'https://acc.api.data.amsterdam.nl/bag/verblijfsobject/123456';
 
@@ -81,7 +113,7 @@ describe('The adressen verblijfsobject resource', () => {
           gebruiksdoelen: [],
           label: undefined,
           location: null,
-          size: undefined,
+          size: 0,
           status: {
             code: '',
             description: ''
