@@ -19,7 +19,7 @@ describe('MapDetailAdressenVerblijfsobject', () => {
       size: 15,
       type: 'Verblijfsobject type',
       status: {
-        omschrijving: 'Status omschrijving',
+        description: 'Status omschrijving',
         code: '15'
       },
       hoofdadres: {
@@ -50,7 +50,7 @@ describe('MapDetailAdressenVerblijfsobject', () => {
       size: 0,
       type: 'Verblijfsobject type',
       status: {
-        omschrijving: 'Status omschrijving',
+        description: 'Status omschrijving',
         code: '15'
       },
       hoofdadres: {
@@ -80,7 +80,7 @@ describe('MapDetailAdressenVerblijfsobject', () => {
       label: 'Verblijfsobject label',
       type: 'Verblijfsobject type',
       status: {
-        omschrijving: 'Status omschrijving',
+        description: 'Status omschrijving',
         code: '15'
       },
       hoofdadres: {
@@ -110,7 +110,7 @@ describe('MapDetailAdressenVerblijfsobject', () => {
       label: 'Verblijfsobject label',
       type: 'Verblijfsobject type',
       status: {
-        omschrijving: 'Status omschrijving',
+        description: 'Status omschrijving',
         code: '15'
       },
       hoofdadres: {

@@ -39,7 +39,7 @@ const MapDetailAdressenVerblijfsobject = ({ panoUrl, verblijfsobject }) => (
       />
       <MapDetailResultStatusItem
         label="Status"
-        value={verblijfsobject.status.omschrijving}
+        value={verblijfsobject.status.description}
         status={statusToCssModifier[verblijfsobject.status.code]}
       />
     </ul>
@@ -54,7 +54,7 @@ MapDetailAdressenVerblijfsobject.propTypes = {
     size: PropTypes.number,
     type: PropTypes.string,
     status: PropTypes.shape({
-      omschrijving: PropTypes.string,
+      description: PropTypes.string,
       code: PropTypes.string
     }),
     hoofdadres: PropTypes.shape({

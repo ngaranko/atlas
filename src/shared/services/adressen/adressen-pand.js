@@ -12,7 +12,10 @@ export default function fetchByUri(uri) {
         ...result,
         label: result._display,
         location: result.location || wgs84Center,
-        status: result.status,
+        status: {
+          code: result.status ? result.status.code : '',
+          description: result.status ? result.status.omschrijving : ''
+        },
         year: result.oorspronkelijk_bouwjaar
       };
     });

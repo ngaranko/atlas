@@ -56,7 +56,7 @@ describe('MapDetailResultItem', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should render a red bullet if status is `info`', () => {
+  it('should render a blue bullet if status is `info`', () => {
     const label = 'label';
     const value = 'value';
     const status = 'info';

@@ -28,7 +28,7 @@ const MapDetailAdressenPand = ({ panoUrl, pand }) => (
       />
       <MapDetailResultStatusItem
         label="Status"
-        value={pand.status.omschrijving}
+        value={pand.status.description}
         status={statusToCssModifier[pand.status.code]}
       />
     </ul>
@@ -39,9 +39,9 @@ MapDetailAdressenPand.propTypes = {
   pand: PropTypes.shape({
     label: PropTypes.string,
     status: PropTypes.shape({
-      omschrijving: PropTypes.string,
+      description: PropTypes.string,
       code: PropTypes.string
-    }),
+    }).isRequired,
     year: PropTypes.string
   }).isRequired,
   panoUrl: PropTypes.string.isRequired
