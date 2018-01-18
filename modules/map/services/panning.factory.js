@@ -13,8 +13,8 @@ import { initialize, panTo, getCurrentLocation } from '../../../src/map/componen
     function panningFactory ($rootScope, store, ACTIONS) {
         return {
             initialize: (leafletMap) => initialize(store, leafletMap),
-            panTo: panTo,
-            getCurrentLocation: getCurrentLocation
+            panTo,
+            getCurrentLocation
         };
     }
 })();
