@@ -142,16 +142,10 @@ import '../modules/header/components/terugmelden-button/terugmelden-button.compo
 import '../modules/header/header-config.constant';
 import '../modules/header/header.constant';
 import '../modules/map/map.module';
-import '../modules/map/components/draw-tool/draw-tool.component';
-import '../modules/map/components/draw-tool/points-available/points-available.component';
-import '../modules/map/components/draw-tool/shape-summary/shape-summary.component';
-import '../modules/map/components/draw-tool/toggle-drawing-tool/toggle-drawing-tool.component';
 import '../modules/map/components/map/map.directive';
 import '../modules/map/map-config.factory';
 import '../modules/map/map.vendor';
 import '../modules/map/services/document-title/document-title.factory';
-import '../modules/map/services/draw-tool/draw-tool-config.constant';
-import '../modules/map/services/draw-tool/draw-tool.factory';
 import '../modules/map/services/highlight/clustered-markers-config.factory';
 import '../modules/map/services/highlight/highlight.factory';
 import '../modules/map/services/highlight/icon-config.constant';
