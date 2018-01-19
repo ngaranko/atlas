@@ -6,11 +6,13 @@ import MapSearchResultsItem from './MapSearchResultsItem';
 describe('MapSearchResultsItem', () => {
   it('should make an item clickable', () => {
     const clickHandler = jest.fn();
-    const item = { categoryLabel: 'Adres', label: 'Dam 1' };
+    const categoryLabel = 'Adres';
+    const label = 'Dam 1';
     const wrapper = shallow(
       <MapSearchResultsItem
         onClick={clickHandler}
-        item={item}
+        categoryLabel={categoryLabel}
+        label={label}
       />
     );
 
@@ -21,11 +23,13 @@ describe('MapSearchResultsItem', () => {
   describe('rendering', () => {
     it('should render an item', () => {
       const clickHandler = jest.fn();
-      const item = { categoryLabel: 'Adres', label: 'Dam 1' };
+      const categoryLabel = 'Adres';
+      const label = 'Dam 1';
       const wrapper = shallow(
         <MapSearchResultsItem
           onClick={clickHandler}
-          item={item}
+          categoryLabel={categoryLabel}
+          label={label}
         />
       );
       expect(wrapper).toMatchSnapshot();
@@ -33,16 +37,19 @@ describe('MapSearchResultsItem', () => {
 
     it('should update an item', () => {
       const clickHandler = jest.fn();
-      const item = { categoryLabel: 'Adres', label: 'Dam 1' };
+      const categoryLabel = 'Adres';
+      const label = 'Dam 1';
       const wrapper = shallow(
         <MapSearchResultsItem
           onClick={clickHandler}
-          item={item}
+          categoryLabel={categoryLabel}
+          label={label}
         />
       );
 
       wrapper.setProps({
-        item: { categoryLabel: 'Bouwblok', label: 'ABC123' }
+        categoryLabel: 'Bouwblok',
+        label: 'ABC123'
       });
       expect(wrapper).toMatchSnapshot();
     });
