@@ -108,7 +108,7 @@ class MapPreviewPanelContainer extends React.Component {
               onClick={() => props.onSearch(props.mapClickLocation)}
             >
               <PlusIcon className="map-preview-panel__button-icon" />
-              <span className="map-preview-panel__button-label">Toon alle resultaten</span>
+              <span className="map-preview-panel__button-label">Alle resultaten tonen</span>
             </button>
           )}
           <button

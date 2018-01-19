@@ -1,6 +1,6 @@
 /* eslint-disable */
 // import { API_ROOT, AUTH_PATH } from '../../src/shared/services/auth/auth';
-import stateTokenGenerator from '../../src/shared/services/state-token-generator/state-token-generator';
+import stateTokenGenerator from '../../../src/shared/services/state-token-generator/state-token-generator';
 
 export function login(type = 'EMPLOYEE_PLUS') {
   const stateToken = stateTokenGenerator();

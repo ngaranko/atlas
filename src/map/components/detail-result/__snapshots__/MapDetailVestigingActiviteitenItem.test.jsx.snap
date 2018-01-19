@@ -10,7 +10,7 @@ exports[`MapDetailVestigingActiviteitenItem should render exactly five activitie
     <div
       className="map-detail-result__item-label"
     >
-      SBI-activiteiten
+      SBI-code en -omschrijving
     </div>
     <ul
       className="map-detail-result__item-value map-detail-result__item-list"
@@ -72,7 +72,7 @@ exports[`MapDetailVestigingActiviteitenItem should render no more than five acti
     <div
       className="map-detail-result__item-label"
     >
-      SBI-activiteiten
+      SBI-code en -omschrijving
     </div>
     <ul
       className="map-detail-result__item-value map-detail-result__item-list"
@@ -132,7 +132,7 @@ exports[`MapDetailVestigingActiviteitenItem should render one activity 1`] = `
     <div
       className="map-detail-result__item-label"
     >
-      SBI-activiteiten
+      SBI-code en -omschrijving
     </div>
     <ul
       className="map-detail-result__item-value map-detail-result__item-list"
@@ -160,7 +160,7 @@ exports[`MapDetailVestigingActiviteitenItem should render two activities 1`] = `
     <div
       className="map-detail-result__item-label"
     >
-      SBI-activiteiten
+      SBI-code en -omschrijving
     </div>
     <ul
       className="map-detail-result__item-value map-detail-result__item-list"

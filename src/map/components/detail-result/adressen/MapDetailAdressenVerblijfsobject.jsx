@@ -17,7 +17,7 @@ const MapDetailAdressenVerblijfsobject = ({ panoUrl, verblijfsobject }) => (
       />
       <MapDetailResultItem
         label="Oppervlakte"
-        value={(verblijfsobject.size || verblijfsobject.size === 0) ? `${verblijfsobject.size} m²` : ''}
+        value={verblijfsobject.size ? `${verblijfsobject.size} m²` : 'onbekend'}
       />
       <MapDetailResultItem
         label="Type woonobject"
