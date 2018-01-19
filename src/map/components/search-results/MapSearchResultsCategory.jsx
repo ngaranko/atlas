@@ -17,7 +17,7 @@ const MapSearchResultsCategory = ({ category, onClick }) => (
         category.results.map((result) => (
           <MapSearchResultsItem
             key={result.uri}
-            item={result}
+            label={result.label}
             onClick={() => {
               onClick(result.uri);
             }}
@@ -46,7 +46,15 @@ const MapSearchResultsCategory = ({ category, onClick }) => (
 );
 
 MapSearchResultsCategory.propTypes = {
-  category: PropTypes.shape({}), // eslint-disable-line
+  category: PropTypes.shape({
+    categoryLabel: PropTypes.string.isRequired,
+    categoryLabelPlural: PropTypes.string.isRequired,
+    results: PropTypes.array.isRequired,
+    subCategories: PropTypes.isRequired,
+    type: PropTypes.string.isRequired,
+    parent: PropTypes.string,
+    uri: PropTypes.string
+  }).isRequired,
   onClick: PropTypes.func.isRequired
 };
 
