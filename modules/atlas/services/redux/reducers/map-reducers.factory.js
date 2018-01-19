@@ -1,3 +1,5 @@
+import DRAW_TOOL_CONFIG from '../../../../../src/map/services/draw-tool/draw-tool-config';
+
 (function () {
     'use strict';
 
@@ -5,9 +7,9 @@
         .module('atlas')
         .factory('mapReducers', mapReducersFactory);
 
-    mapReducersFactory.$inject = ['$rootScope', '$timeout', 'ACTIONS', 'DRAW_TOOL_CONFIG'];
+    mapReducersFactory.$inject = ['$rootScope', '$timeout', 'ACTIONS'];
 
-    function mapReducersFactory ($rootScope, $timeout, ACTIONS, DRAW_TOOL_CONFIG) {
+    function mapReducersFactory ($rootScope, $timeout, ACTIONS) {
         var reducers = {};
 
         reducers[ACTIONS.SHOW_MAP.id] = showMapReducer;
