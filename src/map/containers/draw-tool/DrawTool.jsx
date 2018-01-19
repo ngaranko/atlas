@@ -42,14 +42,14 @@ class DrawTool extends React.Component {
     super(props);
 
     this.state = {
-      drawingMode: props.drawingMode,
       previousMarkers: []
     };
 
-    this.setPolygon = this.setPolygon.bind(this);
     this.onFinishShape = this.onFinishShape.bind(this);
     this.onDrawingMode = this.onDrawingMode.bind(this);
     this.onUpdateShape = this.onUpdateShape.bind(this);
+    this.setPolygon = this.setPolygon.bind(this);
+    this.getMarkers = this.getMarkers.bind(this);
 
     drawTool.initialize(window.leafletMap, this.onFinishShape, this.onDrawingMode,
       this.onUpdateShape);
@@ -57,18 +57,13 @@ class DrawTool extends React.Component {
     this.setPolygon();
   }
 
-  componentWillReceiveProps(props) {
-    // if (props.drawingMode === drawToolConfig.DRAWING_MODE.NONE &&
-      // this will remove the polygon from map when the geometry filter is emptied
-      // props.dataSelection && props.dataSelection.geometryFilter.markers.length === 0 &&
-      // drawTool.shape.markers.length > 0) {
-      // drawTool.setPolygon([]);
-    // }
+  componentWillReceiveProps() {
+    const markers = this.getMarkers();
 
-    // if (this.state.drawingMode === drawToolConfig.DRAWING_MODE.NONE &&
-      // props.dataSelection === null) {
-      // drawTool.setPolygon([]);
-    // }
+    if (!isEqual(this.state.previousMarkers, markers)) {
+      this.setPolygon();
+      this.setState({ previousMarkers: [...markers] });
+    }
   }
 
   onFinishShape(polygon) {
@@ -81,11 +76,7 @@ class DrawTool extends React.Component {
       });
     }
 
-    if (isEqual(polygon.markers, this.state.previousMarkers)) {
-      this.props.onEndDrawing();
-    } else {
-      this.props.onEndDrawing({ polygon });
-    }
+    this.props.onEndDrawing({ polygon });
 
     if (this.props.uiMapFullscreen) {
       this.props.onToggleMapFullscreen();
@@ -119,16 +110,15 @@ class DrawTool extends React.Component {
   }
 
   setPolygon() {
-    const markers = this.props.geometry ||
-      this.props.dataSelection && this.props.dataSelection.geometryFilter &&
-      this.props.dataSelection.geometryFilter.markers || [];
-
     if (!drawTool.isEnabled()) {
-      drawTool.setPolygon(markers);
-      if (this.props.drawingMode !== drawToolConfig.DRAWING_MODE.NONE) {
-        drawTool.enable();
-      }
+      drawTool.setPolygon(this.getMarkers());
     }
+  }
+
+  getMarkers() {
+    return this.props.geometry.length > 0 ? this.props.geometry :
+      ((this.props.dataSelection && this.props.dataSelection.geometryFilter &&
+      this.props.dataSelection.geometryFilter.markers) || []);
   }
 
   render() {
@@ -157,7 +147,7 @@ DrawTool.contextTypes = {
 
 DrawTool.defaultProps = {
   dataSelection: null,
-  geometry: null
+  geometry: []
 };
 
 DrawTool.propTypes = {
