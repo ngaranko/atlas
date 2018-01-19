@@ -4,6 +4,8 @@ import * as vestiging from '../../shared/services/vestiging/vestiging';
 
 import apiUrl from '../../shared/services/api';
 
+// NOTE: beware, if FETCH_MAP_SEARCH_RESULTS_REQUEST action is fired then
+// these endpoints are used to get geosearch details for MapSearchResults panel.
 const endpoints = [
   { uri: 'geosearch/nap/', radius: 25 },
   { uri: 'geosearch/atlas/' },
@@ -14,7 +16,8 @@ const endpoints = [
     extra_params: {
       monumenttype: 'isnot_pand_bouwblok'
     }
-  }
+  },
+  { uri: 'geosearch/grondexploitatie/' }
 ];
 
 const categoryLabels = {
@@ -22,6 +25,7 @@ const categoryLabels = {
   explosief: 'Explosief',
   gebied: 'Gebied',
   gemeentelijkeBeperking: 'Gemeentelijke beperking',
+  grondexploitatie: 'Grondexploitatie',
   kadastraalObject: 'Kadastraal object',
   ligplaats: 'Ligplaats',
   meetbout: 'Meetbout',
@@ -49,6 +53,7 @@ const categoryLabelsByType = {
   'gebieden/grootstedelijkgebied': categoryLabels.gebied,
   'gebieden/stadsdeel': categoryLabels.gebied,
   'gebieden/unesco': categoryLabels.gebied,
+  'grex/grondexploitatie': categoryLabels.grondexploitatie,
   'kadaster/kadastraal_object': categoryLabels.kadastraalObject,
   'meetbouten/meetbout': categoryLabels.meetbout,
   'monumenten/monument': categoryLabels.monument,
@@ -82,7 +87,8 @@ const categoryTypeOrder = [
   'bommenkaart/gevrijwaardgebied',
   'bommenkaart/uitgevoerdonderzoek',
   'bommenkaart/verdachtgebied',
-  'monumenten/monument'
+  'monumenten/monument',
+  'grex/grondexploitatie'
 ];
 
 const relatedResourcesByType = {

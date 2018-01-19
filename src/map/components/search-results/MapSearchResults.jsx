@@ -5,6 +5,9 @@ import { wgs84ToRd } from '../../../shared/services/coordinate-reference-system'
 import MapSearchResultsItem from './MapSearchResultsItem';
 import Notification from '../../../shared/components/notification/Notification';
 
+//
+// Note: results are created in file: /src/map/services/map-search.js
+//
 const MapSearchResults = ({ count, location, missingLayers, onItemClick, panoUrl, results }) => {
   const rdCoordinates = wgs84ToRd(location);
 
