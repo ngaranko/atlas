@@ -1,3 +1,6 @@
+import suppress from '../../../src/map/services/suppress/suppress';
+import drawTool from '../../../src/map/services/draw-tool/draw-tool';
+
 (() => {
     'use strict';
 
@@ -26,8 +29,8 @@
 
             location = [event.latlng.lat, event.latlng.lng];
 
-            if (!($window.suppress.isBusy() || state.ui.isEmbedPreview || state.ui.isEmbed ||
-                $window.drawTool.isEnabled())) {
+            if (!(suppress.isBusy() || state.ui.isEmbedPreview || state.ui.isEmbed ||
+                drawTool.isEnabled())) {
                 store.dispatch({
                     type: ACTIONS.SET_MAP_CLICK_LOCATION.id,
                     location: {

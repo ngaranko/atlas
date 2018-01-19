@@ -13,5 +13,3 @@ const suppress = () => {
 };
 
 export default suppress();
-
-window.suppress = suppress();
