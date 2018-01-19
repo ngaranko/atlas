@@ -37,6 +37,9 @@ In order to run the E2E tests with authentication, the following environment var
 They can simply be added by using the `export` command from the command line, or by adding these
 variables to `.bash_profile`.
 
+### Visual E2E test
+`npm run test-visual-regression`
+
 ## Techniques used
 - AngularJS
 - React

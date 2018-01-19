@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $NODE_ENV == 'development' ]
+if [ '$NODE_ENV' = 'development' ]
 then
   docker run \
     -d \
