@@ -29,7 +29,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-    onClearDrawing: mapClearDrawing,
+  onClearDrawing: mapClearDrawing,
   onMapUpdateShape: mapUpdateShape,
   setGeometryFilter: setDataSelectionGeometryFilter,
   resetGeometryFilter: resetDataSelectionGeometryFilter,
@@ -44,6 +44,7 @@ class DrawTool extends React.Component {
     super(props);
 
     this.state = {
+      drawingMode: props.drawingMode,
       previousMarkers: []
     };
 
@@ -59,12 +60,19 @@ class DrawTool extends React.Component {
     this.setPolygon();
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(props) {
     const markers = this.getMarkers();
 
     if (!isEqual(this.state.previousMarkers, markers)) {
       this.setPolygon();
       this.setState({ previousMarkers: [...markers] });
+    }
+
+    if (this.state.drawingMode !== props.drawingMode) {
+      if (props.drawingMode === drawToolConfig.DRAWING_MODE.NONE) {
+        drawTool.cancel();
+      }
+      this.setState({ drawingMode: props.drawingMode });
     }
   }
 
