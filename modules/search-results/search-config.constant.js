@@ -112,11 +112,6 @@
                     label_plural: 'Kadastrale objecten',
                     features: ['kadaster/kadastraal_object']
                 }, {
-                    slug: 'grondexploitatie',
-                    label_singular: 'Grondexploitatie',
-                    label_plural: 'Grondexploitaties',
-                    features: ['grex/grondexploitatie']
-                }, {
                     slug: 'gemeentelijke-beperking',
                     label_singular: 'Gemeentelijke beperking',
                     label_plural: 'Gemeentelijke beperkingen',
@@ -171,6 +166,11 @@
                     features: [
                         'monumenten/monument'
                     ]
+                }, {
+                    slug: 'grondexploitatie',
+                    label_singular: 'Grondexploitatie',
+                    label_plural: 'Grondexploitaties',
+                    features: ['grex/grondexploitatie']
                 }
             ]
         });
