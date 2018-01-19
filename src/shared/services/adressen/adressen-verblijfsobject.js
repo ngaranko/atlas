@@ -20,7 +20,8 @@ export default function fetchByUri(uri) {
         })),
         label: result._display,
         location: result.location || wgs84Center,
-        size: result.oppervlakte,
+        // The API even returns a value of `1` when the size is unknown
+        size: result.oppervlakte > 1 ? result.oppervlakte : 0,
         type: get(result.type_woonobject, 'omschrijving')
       };
     });

@@ -298,11 +298,9 @@ import '../modules/data-selection/services/api/data-selection-api-data-selection
 import '../modules/data-selection/services/document-title/document-title.factory.test';
 import '../modules/map/map-config.factory.test';
 import '../modules/map/components/map/map.directive.test';
-import '../modules/map/services/panning.factory.test';
 import '../modules/map/services/suppress/suppress.factory.test';
 import '../modules/map/services/document-title/document-title.factory.test';
 import '../modules/map/services/leaflet-draw/leaflet-draw-translations.factory.test';
-import '../modules/map/services/zoom.factory.test';
 import '../modules/map/services/highlight/clustered-markers-config.factory.test';
 import '../modules/map/services/highlight/highlight.factory.test';
 import '../modules/map/services/layers.factory.test';

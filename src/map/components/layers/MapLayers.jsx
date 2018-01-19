@@ -6,6 +6,8 @@ import Notification from '../../../shared/components/notification/Notification';
 import AddIcon from '../../../../public/images/icon-plus.svg';
 import RemoveIcon from '../../../../public/images/icon-cross.svg';
 
+import './_map-layers.scss';
+
 const showLayer = (layer, user) => (
   !layer.authScope || (user.authenticated && user.scopes.includes(layer.authScope))
 );
