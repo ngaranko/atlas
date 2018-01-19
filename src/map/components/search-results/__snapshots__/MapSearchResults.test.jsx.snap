@@ -37,12 +37,8 @@ exports[`MapSearchResults rendering should filter external monumenten on pand re
       key="result-uri-1"
     >
       <MapSearchResultsItem
-        item={
-          Object {
-            "type": "bag/pand",
-            "uri": "result-uri-1",
-          }
-        }
+        categoryLabel="category"
+        label="label"
         onClick={[Function]}
       />
     </li>
@@ -50,12 +46,8 @@ exports[`MapSearchResults rendering should filter external monumenten on pand re
       key="result-uri-2"
     >
       <MapSearchResultsItem
-        item={
-          Object {
-            "type": "foo",
-            "uri": "result-uri-2",
-          }
-        }
+        categoryLabel="category"
+        label="label"
         onClick={[Function]}
       />
     </li>
@@ -149,11 +141,8 @@ exports[`MapSearchResults rendering should render results 1`] = `
       key="result-uri-1"
     >
       <MapSearchResultsItem
-        item={
-          Object {
-            "uri": "result-uri-1",
-          }
-        }
+        categoryLabel="category"
+        label="label"
         onClick={[Function]}
       />
     </li>
@@ -161,11 +150,8 @@ exports[`MapSearchResults rendering should render results 1`] = `
       key="result-uri-2"
     >
       <MapSearchResultsItem
-        item={
-          Object {
-            "uri": "result-uri-2",
-          }
-        }
+        categoryLabel="category"
+        label="label"
         onClick={[Function]}
       />
     </li>
@@ -215,11 +201,8 @@ exports[`MapSearchResults rendering should update results 1`] = `
       key="result-uri-1"
     >
       <MapSearchResultsItem
-        item={
-          Object {
-            "uri": "result-uri-1",
-          }
-        }
+        categoryLabel="category"
+        label="label"
         onClick={[Function]}
       />
     </li>
@@ -227,11 +210,8 @@ exports[`MapSearchResults rendering should update results 1`] = `
       key="result-uri-2"
     >
       <MapSearchResultsItem
-        item={
-          Object {
-            "uri": "result-uri-2",
-          }
-        }
+        categoryLabel="category"
+        label="label"
         onClick={[Function]}
       />
     </li>
@@ -290,11 +270,8 @@ exports[`MapSearchResults rendering should update results 2`] = `
       key="result-uri-1"
     >
       <MapSearchResultsItem
-        item={
-          Object {
-            "uri": "result-uri-1",
-          }
-        }
+        categoryLabel="category"
+        label="label"
         onClick={[Function]}
       />
     </li>
@@ -302,11 +279,8 @@ exports[`MapSearchResults rendering should update results 2`] = `
       key="result-uri-2"
     >
       <MapSearchResultsItem
-        item={
-          Object {
-            "uri": "result-uri-2",
-          }
-        }
+        categoryLabel="category"
+        label="label"
         onClick={[Function]}
       />
     </li>
@@ -314,11 +288,8 @@ exports[`MapSearchResults rendering should update results 2`] = `
       key="result-uri-3"
     >
       <MapSearchResultsItem
-        item={
-          Object {
-            "uri": "result-uri-3",
-          }
-        }
+        categoryLabel="category"
+        label="label"
         onClick={[Function]}
       />
     </li>
