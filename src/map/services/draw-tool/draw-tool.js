@@ -1,4 +1,5 @@
 /* eslint-disable no-use-before-define */
+import defer from 'lodash.defer';
 
 import suppress from '../suppress/suppress';
 import drawToolConfig from './draw-tool-config';
@@ -154,8 +155,11 @@ const DrawTool = () => {
       const markersPrev = {...currentShape.markersPrev}; // restore previous state
 
       deletePolygon(); // delete current polygon
-      setPolygon(markersPrev); // restore previous polygon
-      updateShape();
+
+      defer(() => {
+        setPolygon(markersPrev); // restore previous polygon
+        updateShape();
+      });
     } else {
       // check for auto close of shape in drawing mode
       autoClose();
@@ -166,7 +170,9 @@ const DrawTool = () => {
   function autoClose() {
     if (drawTool.drawingMode === drawToolConfig.DRAWING_MODE.DRAW &&
       currentShape.markers.length === currentShape.markersMaxCount) {
-      disable();
+        defer(() => {
+          disable();
+        });
     }
   }
 
@@ -217,15 +223,16 @@ const DrawTool = () => {
 
         updateShape(); // Update current shape and tooltip
 
-        // Force Leaflet to enable TextSelection (tg-2728)
-        L.DomUtil.enableTextSelection();
+        defer(() => {
+          // Force Leaflet to enable TextSelection (tg-2728)
+          L.DomUtil.enableTextSelection();
 
-        // Execute this code after leaflet.draw has finished the event
-        enforceLimits(); // max vertices, auto close when max reached
-
-        if (currentShape.isConsistent) {
-          onChangePolygon(); // trigger change on new consistent state of the polygon
-        }
+          // Execute this code after leaflet.draw has finished the event
+          enforceLimits(); // max vertices, auto close when max reached
+          if (currentShape.isConsistent) {
+            onChangePolygon(); // trigger change on new consistent state of the polygon
+          }
+        });
       });
     });
   }
