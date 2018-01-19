@@ -81,7 +81,8 @@
                     extra_params: {
                         monumenttype: 'isnot_pand_bouwblok'
                     }
-                }
+                },
+                { uri: 'geosearch/grondexploitatie/' }
             ],
             COORDINATES_HIERARCHY: [
                 {
@@ -110,6 +111,11 @@
                     label_singular: 'Kadastraal object',
                     label_plural: 'Kadastrale objecten',
                     features: ['kadaster/kadastraal_object']
+                }, {
+                    slug: 'grondexploitatie',
+                    label_singular: 'Grondexploitatie',
+                    label_plural: 'Grondexploitaties',
+                    features: ['grex/grondexploitatie']
                 }, {
                     slug: 'gemeentelijke-beperking',
                     label_singular: 'Gemeentelijke beperking',
