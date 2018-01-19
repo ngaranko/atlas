@@ -6,6 +6,8 @@ import drawToolConfig from '../../services/draw-tool/draw-tool-config';
 
 import Icon from '../../../../public/images/icon-measure.svg';
 
+import './_toggle-drawing.scss';
+
 // temp remove window namespacing
 function toggleDrawing() {
   if (drawTool.isEnabled()) {

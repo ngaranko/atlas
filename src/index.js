@@ -154,7 +154,6 @@ import '../modules/map/services/leaflet-draw/leaflet-draw-translations.factory';
 import '../modules/map/services/leaflet-draw/leaflet-draw-translations.run';
 import '../modules/map/services/on-map-click.factory';
 import '../modules/map/services/panning.factory';
-import '../modules/map/services/suppress/suppress.factory';
 import '../modules/map/services/zoom.factory';
 import '../modules/page/page.module';
 import '../modules/page/components/homepage/catalogus-themes/catalogus-themes-config.constant';

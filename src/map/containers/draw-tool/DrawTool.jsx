@@ -17,6 +17,8 @@ import PointsAvailable from '../../components/points-available/PointsAvailable';
 import drawTool from '../../services/draw-tool/draw-tool';
 import drawToolConfig from '../../services/draw-tool/draw-tool-config';
 
+import './_draw-tool.scss';
+
 const mapStateToProps = (state) => ({
   drawingMode: state.map.drawingMode,
   shapeMarkers: state.map.shapeMarkers,
@@ -27,7 +29,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  onClearDrawing: mapClearDrawing,
+    onClearDrawing: mapClearDrawing,
   onMapUpdateShape: mapUpdateShape,
   setGeometryFilter: setDataSelectionGeometryFilter,
   resetGeometryFilter: resetDataSelectionGeometryFilter,
@@ -140,10 +142,6 @@ class DrawTool extends React.Component {
     );
   }
 }
-
-DrawTool.contextTypes = {
-  store: PropTypes.object.isRequired
-};
 
 DrawTool.defaultProps = {
   dataSelection: null,

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import drawToolConfig from '../../services/draw-tool/draw-tool-config';
 
+import './_points-available.scss';
+
 const PointsAvailable = ({ shapeMarkers }) => {
   const markersLeft = drawToolConfig.MAX_MARKERS - shapeMarkers;
 

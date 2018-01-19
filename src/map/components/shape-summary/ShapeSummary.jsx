@@ -5,6 +5,8 @@ import drawTool from '../../services/draw-tool/draw-tool';
 
 import Icon from '../../../../public/images/icon-cross-big.svg';
 
+import './_shape-summary.scss';
+
 const ShapeSummary = ({ shapeMarkers, shapeDistanceTxt, onClearDrawing }) => {
   if (drawTool.isEnabled() || shapeMarkers !== 2) {
     return null;
