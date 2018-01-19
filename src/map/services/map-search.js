@@ -1,6 +1,7 @@
 import * as address from '../../shared/services/adressen/adressen-nummeraanduiding';
 import * as monument from '../../shared/services/monument/monument';
 import * as vestiging from '../../shared/services/vestiging/vestiging';
+import { sortByCategoryTypeOrder } from '../../shared/services/map-search-results/map-search-results';
 
 import apiUrl from '../../shared/services/api';
 
@@ -18,19 +19,58 @@ const endpoints = [
 ];
 
 const categoryLabels = {
-  address: { singular: 'Adress', plural: 'Adressen' },
-  explosief: { singular: 'Explosief', plural: 'Explosieven' },
-  gebied: { singular: 'Gebied', plural: 'Gebieden' },
-  gemeentelijkeBeperking: { singular: 'Gemeentelijke beperking', plural: 'Gemeentelijke beperkingen' },
-  kadastraalObject: { singular: 'Kadastraal object', plural: 'Kadastrale objecten' },
-  ligplaats: { singular: 'Ligplaats', plural: 'Ligplaatsen' },
-  meetbout: { singular: 'Meetbout', plural: 'Meetbouten' },
-  monument: { singular: 'Monument', plural: 'Monumenten' },
-  napPijlmerk: { singular: 'NAP Peilmerk', plural: 'NAP Peilmerken' },
-  openbareRuimte: { singular: 'Openbare ruimte', plural: 'Openbare ruimtes' },
-  pand: { singular: 'Pand', plural: 'Panden' },
-  standplaats: { singular: 'Standplaats', plural: 'Standplaatsen' },
-  vestiging: { singular: 'Vestiging', plural: 'Vestigingen' }
+  address: {
+    singular: 'Adress',
+    plural: 'Adressen'
+  },
+  explosief: {
+    singular: 'Explosief',
+    plural: 'Explosieven'
+  },
+  gebied: {
+    singular: 'Gebied',
+    plural: 'Gebieden'
+  },
+  gemeentelijkeBeperking: {
+    singular: 'Gemeentelijke beperking',
+    plural: 'Gemeentelijke beperkingen'
+  },
+  kadastraalObject: {
+    singular: 'Kadastraal object',
+    plural: 'Kadastrale objecten'
+  },
+  ligplaats: {
+    singular: 'Ligplaats',
+    plural: 'Ligplaatsen'
+  },
+  meetbout: {
+    singular: 'Meetbout',
+    plural: 'Meetbouten'
+  },
+  monument: {
+    singular: 'Monument',
+    plural: 'Monumenten'
+  },
+  napPijlmerk: {
+    singular: 'NAP Peilmerk',
+    plural: 'NAP Peilmerken'
+  },
+  openbareRuimte: {
+    singular: 'Openbare ruimte',
+    plural: 'Openbare ruimtes'
+  },
+  pand: {
+    singular: 'Pand',
+    plural: 'Panden'
+  },
+  standplaats: {
+    singular: 'Standplaats',
+    plural: 'Standplaatsen'
+  },
+  vestiging: {
+    singular: 'Vestiging',
+    plural: 'Vestigingen'
+  }
 };
 
 const categoryLabelsByType = {
@@ -181,12 +221,5 @@ export default function search(location, user) {
   return Promise.all(allRequests)
     .then((results) => results
       .reduce((accumulator, subResults) => accumulator.concat(subResults)))
-    .then((results) => [...results]
-      .sort((a, b) => {
-        const indexA = categoryTypeOrder.indexOf(a.type);
-        const indexB = categoryTypeOrder.indexOf(b.type);
-        return indexA < indexB ? -1 :
-          (indexA > indexB ? 1 : 0);
-      })
-    );
+    .then((results) => sortByCategoryTypeOrder(results));
 }

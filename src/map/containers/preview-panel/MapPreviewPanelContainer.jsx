@@ -17,17 +17,15 @@ import { getPanoPreview } from '../../../pano/ducks/preview/pano-preview';
 import MaximizeIcon from '../../../../public/images/icon-maximize.svg';
 import CloseIcon from '../../../../public/images/icon-cross-big.svg';
 import PlusIcon from '../../../../public/images/icon-plus.svg';
-import MapSearchResults from '../../components/search-results/MapSearchResults';
+import MapSearchResults, { previewPanelResultLimit } from '../../components/search-results/MapSearchResults';
 import MapDetailResult from '../../components/detail-result/MapDetailResult';
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator';
-
-const resultLimit = 10;
 
 const mapStateToProps = (state) => ({
   isMapPreviewPanelVisible: state.isMapPreviewPanelVisible,
   mapClickLocation: state.mapClickLocation,
   pano: state.pano,
-  results: getPreviewPanelResults(state, resultLimit),
+  results: getPreviewPanelResults(state, previewPanelResultLimit),
   search: state.search,
   searchLocation: state.search && state.search.location && {
     latitude: state.search.location[0],

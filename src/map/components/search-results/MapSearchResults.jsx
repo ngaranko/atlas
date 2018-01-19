@@ -6,6 +6,8 @@ import MapSearchResultsCategory from './MapSearchResultsCategory';
 import Notification from '../../../shared/components/notification/Notification';
 import MaximizeIcon from '../../../../public/images/icon-maximize.svg';
 
+export const previewPanelResultLimit = 10;
+
 const MapSearchResults = ({
   count,
   location,

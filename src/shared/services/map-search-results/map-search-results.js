@@ -1,7 +1,7 @@
 import { categoryTypeOrder } from '../../../map/services/map-search';
 
-export const sortByCategoryTypeOrder = (items) => items
-  .map((item) => item).sort((a, b) => {
+export const sortByCategoryTypeOrder = (items) => [...items]
+  .sort((a, b) => {
     const indexA = categoryTypeOrder.indexOf(a.type);
     const indexB = categoryTypeOrder.indexOf(b.type);
     return indexA < indexB ? -1 :
