@@ -1,4 +1,6 @@
-/* eslint-disable no-use-before-define */
+/* eslint-disable no-use-before-define,no-underscore-dangle */
+/* global L */
+
 import defer from 'lodash.defer';
 
 import suppress from '../suppress/suppress';
@@ -36,9 +38,9 @@ const DrawTool = () => {
   };
 
   // these callback methods will be called on a finished polygon and on a change of drawing mode
-  let _onFinishPolygon,
-    _onDrawingMode,
-    _onUpdateShape;
+  let _onFinishPolygon;
+  let _onDrawingMode;
+  let _onUpdateShape;
 
   return {
     initialize,
@@ -82,6 +84,7 @@ const DrawTool = () => {
     updateShapeInfo();
     // triggered when the drawing mode has changed
     if (typeof _onDrawingMode === 'function') {
+      defer(() => {});
       // call any registered callback function, applyAsync because triggered by a leaflet event
       _onDrawingMode(drawTool.drawingMode);
     }
@@ -140,7 +143,7 @@ const DrawTool = () => {
     drawTool.drawnItems = new L.FeatureGroup();
     drawTool.drawShapeHandler = new L.Draw.Polygon(drawTool.map, drawToolConfig.draw.polygon);
 
-    const editConfig = {...drawToolConfig.edit};
+    const editConfig = { ...drawToolConfig.edit };
     editConfig.featureGroup = drawTool.drawnItems;
     const editToolbar = new L.EditToolbar(editConfig);
 
@@ -152,7 +155,7 @@ const DrawTool = () => {
   // enforce the maximum markers limit and the non-intersection of line segments limit
   function enforceLimits() {
     if (!currentShape.isConsistent) {
-      const markersPrev = {...currentShape.markersPrev}; // restore previous state
+      const markersPrev = { ...currentShape.markersPrev }; // restore previous state
 
       deletePolygon(); // delete current polygon
 
@@ -170,9 +173,7 @@ const DrawTool = () => {
   function autoClose() {
     if (drawTool.drawingMode === drawToolConfig.DRAWING_MODE.DRAW &&
       currentShape.markers.length === currentShape.markersMaxCount) {
-        defer(() => {
-          disable();
-        });
+      defer(() => disable());
     }
   }
 
@@ -198,7 +199,9 @@ const DrawTool = () => {
       EDITSTOP: finishPolygon,
 
       // Triggered when layers have been removed (and saved) from the FeatureGroup
-      DELETED: () => currentShape.layer = null
+      DELETED: () => {
+        currentShape.layer = null;
+      }
     };
 
     const handler = handlers[eventName];
@@ -213,8 +216,8 @@ const DrawTool = () => {
   // that all limits are respected and that the last consistent state gets exposed by the
   // drawing tool
   function registerDrawEvents() {
-    Object.keys(L.Draw.Event).forEach(eventName => {
-      drawTool.map.on(L.Draw.Event[eventName], function(e) {
+    Object.keys(L.Draw.Event).forEach((eventName) => {
+      drawTool.map.on(L.Draw.Event[eventName], (e) => {
         if (eventName === 'DELETED') { // IE HACK
           suppress.start(300);
         }
@@ -240,7 +243,7 @@ const DrawTool = () => {
   // register any non-leaflet.draw events
   function registerMapEvents() {
     // Click outside shape => delete shape
-    drawTool.map.on('click', function() {
+    drawTool.map.on('click', () => {
       if (suppress.isBusy()) {
         return;
       }
@@ -342,23 +345,24 @@ const DrawTool = () => {
   function updateShape() {
     const DISTANCE_IN_KILOMETERS = 1000; // Show in km starting from this #meters, else show in m
 
-    let latLngs = [],
-      area = 0,
-      distance = 0,
-      intersects = false;
+    let latLngs = [];
+    let area = 0;
+    let distance = 0;
+    let intersects = false;
 
     if (currentShape.layer) {
       latLngs = currentShape.layer.getLatLngs()[0];
       distance = getDistance(latLngs, true);
       area = L.GeometryUtil.geodesicArea(latLngs);
       intersects = currentShape.layer.intersects();
-    } else if (drawTool.drawShapeHandler._markers && drawTool.drawShapeHandler._markers.length > 0) {
-      latLngs = drawTool.drawShapeHandler._markers.map(m => m._latlng);
+    } else if (drawTool.drawShapeHandler._markers &&
+      drawTool.drawShapeHandler._markers.length > 0) {
+      latLngs = drawTool.drawShapeHandler._markers.map((m) => m._latlng);
       area = drawTool.drawShapeHandler._area;
       distance = getDistance(latLngs, false);
     }
 
-    currentShape.markersPrev = {...currentShape.markers};
+    currentShape.markersPrev = { ...currentShape.markers };
     currentShape.markers = latLngs.map(({
       lat,
       lng
@@ -371,7 +375,8 @@ const DrawTool = () => {
     );
     currentShape.distance = distance;
     if (distance >= DISTANCE_IN_KILOMETERS) {
-      currentShape.distanceTxt = L.GeometryUtil.formattedNumber(distance / DISTANCE_IN_KILOMETERS, 2) + ' km';
+      currentShape.distanceTxt =
+        L.GeometryUtil.formattedNumber(distance / DISTANCE_IN_KILOMETERS, 2) + ' km';
     } else {
       currentShape.distanceTxt = L.GeometryUtil.formattedNumber(distance, 1) + ' m';
     }
@@ -398,7 +403,7 @@ const DrawTool = () => {
   function updateShapeInfo() {
     // Copy a set of properties of the current shape into the shapeInfo object
     ['type', 'markers', 'markersMaxCount', 'area', 'areaTxt', 'distance', 'distanceTxt']
-    .forEach(key => {
+    .forEach((key) => {
       shapeInfo[key] = currentShape[key];
     });
   }
@@ -407,10 +412,11 @@ const DrawTool = () => {
   function deleteMarker(marker) {
     const drawShapeHandler = drawTool.drawShapeHandler;
     const markers = drawShapeHandler._markers; // is always an array
-    const index = markers.findIndex(m => m._leaflet_id === marker._leaflet_id);
+    const index = markers.findIndex((m) => m._leaflet_id === marker._leaflet_id);
     let nDelete = markers.length - index; // Delete all from last to marker, inclusive
     while (nDelete-- > 0) {
-      // Remove the last vertex from the polyline, removes polyline from map if only one point exists
+      // Remove the last vertex from the polyline, removes polyline from map if only one point
+      // exists
       drawShapeHandler.deleteLastVertex();
     }
   }
@@ -428,7 +434,7 @@ const DrawTool = () => {
     const isFirstMarker = drawTool.drawShapeHandler._markers.length === 1;
 
     suppress.start(300);
-    ['mousedown', 'click'].forEach(key => lastMarker.on(key, (e) => {
+    ['mousedown', 'click'].forEach((key) => lastMarker.on(key, () => {
       if (suppress.isBusy()) {
         return;
       }
@@ -448,4 +454,4 @@ const DrawTool = () => {
 };
 
 export default DrawTool();
-/* eslint-enable no-use-before-define */
+/* eslint-enable no-use-before-define,no-underscore-dangle */
