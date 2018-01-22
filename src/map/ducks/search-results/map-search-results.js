@@ -1,3 +1,5 @@
+import { createMapSearchResultsModel } from '../../../shared/services/map-search-results/map-search-results';
+
 export const FETCH_MAP_SEARCH_RESULTS_REQUEST = 'FETCH_MAP_SEARCH_RESULTS_REQUEST';
 export const FETCH_MAP_SEARCH_RESULTS_SUCCESS = 'FETCH_MAP_SEARCH_RESULTS_SUCCESS';
 export const FETCH_MAP_SEARCH_RESULTS_FAILURE = 'FETCH_MAP_SEARCH_RESULTS_FAILURE';
@@ -39,6 +41,11 @@ export default function MapSearchResultsReducer(state = initialState, action) {
 export const selectLatestMapSearchResults = (state) =>
   state.search && state.search.location &&
   state.mapSearchResultsByLocation[state.search.location];
+
+export const getPreviewPanelResults = (state, resultsLimit) => {
+  const results = selectLatestMapSearchResults(state) || [];
+  return createMapSearchResultsModel(results, resultsLimit);
+};
 
 export const getMapSearchResults = (location, user) => ({
   type: FETCH_MAP_SEARCH_RESULTS_REQUEST,

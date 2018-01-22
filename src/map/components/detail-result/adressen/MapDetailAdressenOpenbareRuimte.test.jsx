@@ -10,9 +10,11 @@ describe('MapDetailAdressenOpenbareRuimte', () => {
       status: 'Openbare ruimte status',
       type: 'Openbare ruimte type'
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailAdressenOpenbareRuimte
         panoUrl="panoUrl"
+        onMaximize={clickHandler}
         openbareRuimte={openbareRuimte}
       />
     );

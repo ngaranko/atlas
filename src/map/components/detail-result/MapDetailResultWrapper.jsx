@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const MapDetailResultWrapper = ({ children, panoUrl, subTitle, title }) => (
+import MaximizeIcon from '../../../../public/images/icon-maximize.svg';
+
+const MapDetailResultWrapper = ({ children, panoUrl, subTitle, title, onMaximize }) => (
   <section className="map-detail-result">
     <header
       className={`
@@ -23,9 +25,17 @@ const MapDetailResultWrapper = ({ children, panoUrl, subTitle, title }) => (
         )}
       </div>
     </header>
-    {children && (
-      <div>{children}</div>
-    )}
+    <div className="map-detail-result__scroll-wrapper">
+      {children && (
+          { children }
+      )}
+      <footer className="map-search-results__footer">
+        <button onClick={onMaximize} className="map-search-results__button">
+          <MaximizeIcon className="map-search-results__button-icon" />
+          Volledig weergeven
+        </button>
+      </footer>
+    </div>
   </section>
 );
 
@@ -38,7 +48,8 @@ MapDetailResultWrapper.propTypes = {
   children: PropTypes.element,
   panoUrl: PropTypes.string.isRequired,
   subTitle: PropTypes.string,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  onMaximize: PropTypes.func.isRequired
 };
 
 export default MapDetailResultWrapper;

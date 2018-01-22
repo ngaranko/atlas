@@ -6,12 +6,10 @@ import MapSearchResultsItem from './MapSearchResultsItem';
 describe('MapSearchResultsItem', () => {
   it('should make an item clickable', () => {
     const clickHandler = jest.fn();
-    const categoryLabel = 'Adres';
     const label = 'Dam 1';
     const wrapper = shallow(
       <MapSearchResultsItem
         onClick={clickHandler}
-        categoryLabel={categoryLabel}
         label={label}
       />
     );
@@ -23,12 +21,10 @@ describe('MapSearchResultsItem', () => {
   describe('rendering', () => {
     it('should render an item', () => {
       const clickHandler = jest.fn();
-      const categoryLabel = 'Adres';
       const label = 'Dam 1';
       const wrapper = shallow(
         <MapSearchResultsItem
           onClick={clickHandler}
-          categoryLabel={categoryLabel}
           label={label}
         />
       );
@@ -37,18 +33,15 @@ describe('MapSearchResultsItem', () => {
 
     it('should update an item', () => {
       const clickHandler = jest.fn();
-      const categoryLabel = 'Adres';
       const label = 'Dam 1';
       const wrapper = shallow(
         <MapSearchResultsItem
           onClick={clickHandler}
-          categoryLabel={categoryLabel}
           label={label}
         />
       );
 
       wrapper.setProps({
-        categoryLabel: 'Bouwblok',
         label: 'ABC123'
       });
       expect(wrapper).toMatchSnapshot();

@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import MapDetailResultItem from './MapDetailResultItem';
 import MapDetailResultWrapper from './MapDetailResultWrapper';
 
-const MapDetailNapPeilmerk = ({ panoUrl, peilmerk }) => (
+const MapDetailNapPeilmerk = ({ panoUrl, peilmerk, onMaximize }) => (
   <MapDetailResultWrapper
     panoUrl={panoUrl}
+    onMaximize={onMaximize}
     subTitle={peilmerk.label}
     title="NAP Peilmerk"
   >
@@ -34,7 +35,8 @@ MapDetailNapPeilmerk.propTypes = {
     height: PropTypes.string,
     label: PropTypes.string,
     year: PropTypes.number
-  }).isRequired
+  }).isRequired,
+  onMaximize: PropTypes.func.isRequired
 };
 
 export default MapDetailNapPeilmerk;

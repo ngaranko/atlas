@@ -11,9 +11,11 @@ describe('MapDetailMonument', () => {
       status: 'Monument status',
       type: 'Monument type'
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailMonument
         panoUrl="panoUrl"
+        onMaximize={clickHandler}
         monument={monument}
       />
     );

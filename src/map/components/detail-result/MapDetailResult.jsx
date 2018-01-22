@@ -24,7 +24,7 @@ import MapDetailMonument from './MapDetailMonument';
 import MapDetailNapPeilmerk from './MapDetailNapPeilmerk';
 import MapDetailVestiging from './MapDetailVestiging';
 
-const MapDetailResult = ({ endpoint, panoUrl, result }) => {
+const MapDetailResult = ({ endpoint, panoUrl, result, onMaximize }) => {
   const endpointTypeKey = Object
     .keys(endpointTypes)
     .find((typeKey) => endpoint.includes(endpointTypes[typeKey]));
@@ -34,14 +34,16 @@ const MapDetailResult = ({ endpoint, panoUrl, result }) => {
     case endpointTypes.adressenLigplaats:
       return (
         <MapDetailAdressenLigplaats
-          panoUrl={panoUrl}
           ligplaats={result}
+          onMaximize={onMaximize}
+          panoUrl={panoUrl}
         />
       );
     case endpointTypes.adressenNummeraanduiding:
     case endpointTypes.adressenVerblijfsobject:
       return (
         <MapDetailAdressenVerblijfsobject
+          onMaximize={onMaximize}
           panoUrl={panoUrl}
           verblijfsobject={result}
         />
@@ -49,20 +51,23 @@ const MapDetailResult = ({ endpoint, panoUrl, result }) => {
     case endpointTypes.adressenOpenbareRuimte:
       return (
         <MapDetailAdressenOpenbareRuimte
-          panoUrl={panoUrl}
+          onMaximize={onMaximize}
           openbareRuimte={result}
+          panoUrl={panoUrl}
         />
       );
     case endpointTypes.adressenPand:
       return (
         <MapDetailAdressenPand
-          panoUrl={panoUrl}
+          onMaximize={onMaximize}
           pand={result}
+          panoUrl={panoUrl}
         />
       );
     case endpointTypes.adressenStandplaats:
       return (
         <MapDetailAdressenStandplaats
+          onMaximize={onMaximize}
           panoUrl={panoUrl}
           standplaats={result}
         />
@@ -70,20 +75,23 @@ const MapDetailResult = ({ endpoint, panoUrl, result }) => {
     case endpointTypes.explosievenGevrijwaardGebied:
       return (
         <MapDetailExplosievenGevrijwaardGebied
-          panoUrl={panoUrl}
           gevrijwaardGebied={result}
+          onMaximize={onMaximize}
+          panoUrl={panoUrl}
         />
       );
     case endpointTypes.explosievenInslag:
       return (
         <MapDetailExplosievenInslag
-          panoUrl={panoUrl}
           inslag={result}
+          onMaximize={onMaximize}
+          panoUrl={panoUrl}
         />
       );
     case endpointTypes.explosievenUitgevoerdOnderzoek:
       return (
         <MapDetailExplosievenUitgevoerdOnderzoek
+          onMaximize={onMaximize}
           panoUrl={panoUrl}
           uitgevoerdOnderzoek={result}
         />
@@ -91,6 +99,7 @@ const MapDetailResult = ({ endpoint, panoUrl, result }) => {
     case endpointTypes.explosievenVerdachtGebied:
       return (
         <MapDetailExplosievenVerdachtGebied
+          onMaximize={onMaximize}
           panoUrl={panoUrl}
           verdachtGebied={result}
         />
@@ -98,34 +107,39 @@ const MapDetailResult = ({ endpoint, panoUrl, result }) => {
     case endpointTypes.gebiedenBouwblok:
       return (
         <MapDetailGebiedenBouwblok
-          panoUrl={panoUrl}
           bouwblok={result}
+          onMaximize={onMaximize}
+          panoUrl={panoUrl}
         />
       );
     case endpointTypes.gebiedenBuurt:
       return (
         <MapDetailGebiedenBuurt
-          panoUrl={panoUrl}
           buurt={result}
+          onMaximize={onMaximize}
+          panoUrl={panoUrl}
         />
       );
     case endpointTypes.gebiedenGebiedsgerichtWerken:
       return (
         <MapDetailGebiedenGebiedsgerichtWerken
-          panoUrl={panoUrl}
           gebiedsgerichtWerken={result}
+          onMaximize={onMaximize}
+          panoUrl={panoUrl}
         />
       );
     case endpointTypes.gebiedenGrootstedelijk:
       return (
         <MapDetailGebiedenGrootstedelijk
-          panoUrl={panoUrl}
           grootstedelijk={result}
+          onMaximize={onMaximize}
+          panoUrl={panoUrl}
         />
       );
     case endpointTypes.gebiedenStadsdeel:
       return (
         <MapDetailGebiedenStadsdeel
+          onMaximize={onMaximize}
           panoUrl={panoUrl}
           stadsdeel={result}
         />
@@ -133,6 +147,7 @@ const MapDetailResult = ({ endpoint, panoUrl, result }) => {
     case endpointTypes.gebiedenUnesco:
       return (
         <MapDetailGebiedenUnesco
+          onMaximize={onMaximize}
           panoUrl={panoUrl}
           unesco={result}
         />
@@ -140,6 +155,7 @@ const MapDetailResult = ({ endpoint, panoUrl, result }) => {
     case endpointTypes.gebiedenWijk:
       return (
         <MapDetailGebiedenWijk
+          onMaximize={onMaximize}
           panoUrl={panoUrl}
           wijk={result}
         />
@@ -147,27 +163,31 @@ const MapDetailResult = ({ endpoint, panoUrl, result }) => {
     case endpointTypes.kadastraalObject:
       return (
         <MapDetailKadastraalObject
-          panoUrl={panoUrl}
           kadastraalObject={result}
+          onMaximize={onMaximize}
+          panoUrl={panoUrl}
         />
       );
     case endpointTypes.meetbout:
       return (
         <MapDetailMeetbout
-          panoUrl={panoUrl}
           meetbout={result}
+          onMaximize={onMaximize}
+          panoUrl={panoUrl}
         />
       );
     case endpointTypes.monument:
       return (
         <MapDetailMonument
-          panoUrl={panoUrl}
           monument={result}
+          onMaximize={onMaximize}
+          panoUrl={panoUrl}
         />
       );
     case endpointTypes.napPeilmerk:
       return (
         <MapDetailNapPeilmerk
+          onMaximize={onMaximize}
           panoUrl={panoUrl}
           peilmerk={result}
         />
@@ -175,6 +195,7 @@ const MapDetailResult = ({ endpoint, panoUrl, result }) => {
     case endpointTypes.vestiging:
       return (
         <MapDetailVestiging
+          onMaximize={onMaximize}
           panoUrl={panoUrl}
           vestiging={result}
         />
@@ -192,6 +213,7 @@ MapDetailResult.defaultProps = {
 MapDetailResult.propTypes = {
   endpoint: PropTypes.string.isRequired,
   panoUrl: PropTypes.string,
+  onMaximize: PropTypes.func.isRequired,
   result: PropTypes.object // eslint-disable-line react/forbid-prop-types
 };
 

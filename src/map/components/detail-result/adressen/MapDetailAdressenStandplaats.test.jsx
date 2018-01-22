@@ -9,9 +9,11 @@ describe('MapDetailAdressenStandplaats', () => {
       label: 'Standplaats label',
       status: 'Standplaats status'
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailAdressenStandplaats
         panoUrl="panoUrl"
+        onMaximize={clickHandler}
         standplaats={standplaats}
       />
     );

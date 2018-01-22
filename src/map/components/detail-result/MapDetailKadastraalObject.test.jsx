@@ -14,9 +14,11 @@ describe('MapDetailKadastraalObject', () => {
       objectNumber: '123ABC',
       size: 115
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailKadastraalObject
         panoUrl="panoUrl"
+        onMaximize={clickHandler}
         kadastraalObject={kadastraalObject}
       />
     );
@@ -29,9 +31,11 @@ describe('MapDetailKadastraalObject', () => {
       objectNumber: '123ABC',
       size: 115
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailKadastraalObject
         panoUrl="panoUrl"
+        onMaximize={clickHandler}
         kadastraalObject={kadastraalObject}
       />
     );
@@ -44,9 +48,11 @@ describe('MapDetailKadastraalObject', () => {
       objectNumber: '123ABC',
       size: 0
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailKadastraalObject
         panoUrl="panoUrl"
+        onMaximize={clickHandler}
         kadastraalObject={kadastraalObject}
       />
     );
@@ -58,9 +64,11 @@ describe('MapDetailKadastraalObject', () => {
       label: 'Kadastraal object label',
       objectNumber: '123ABC'
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailKadastraalObject
         panoUrl="panoUrl"
+        onMaximize={clickHandler}
         kadastraalObject={kadastraalObject}
       />
     );
