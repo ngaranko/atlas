@@ -13,7 +13,11 @@ const ShapeSummary = ({ shapeMarkers, shapeDistanceTxt, onClearDrawing }) => {
   }
   return (
     <div className="shape-summary">
-      <span className="shape-summary__label">Lijn: {shapeDistanceTxt}</span>
+      <span
+        className="shape-summary__label"
+        aria-label={`Lijn: ${shapeDistanceTxt}`}
+      >Lijn: {shapeDistanceTxt}
+      </span>
       <button
         onClick={onClearDrawing}
         title="Lijn verwijderen"

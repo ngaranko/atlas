@@ -84,7 +84,6 @@ const DrawTool = () => {
     updateShapeInfo();
     // triggered when the drawing mode has changed
     if (typeof _onDrawingMode === 'function') {
-      defer(() => {});
       // call any registered callback function, applyAsync because triggered by a leaflet event
       _onDrawingMode(drawTool.drawingMode);
     }

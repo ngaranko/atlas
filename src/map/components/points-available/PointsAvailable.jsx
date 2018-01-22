@@ -13,14 +13,22 @@ const PointsAvailable = ({ shapeMarkers }) => {
   } else if (markersLeft === 0) {
     return (
       <div className="points-available">
-        <span className="points-available__label">Geen punten mogelijk</span>
+        <span
+          className="points-available__label"
+          aria-label="Geen punten meer mogelijk"
+        >
+          Geen punten meer mogelijk
+        </span>
       </div>
     );
   } else {
     return (
       <div className="points-available">
-        <span className="points-available__label">
-          Nog {markersLeft} punt{markersLeft !== 1 ? 'en' : ''}  mogelijk
+        <span
+          aria-label={`Nog ${markersLeft} punt${markersLeft !== 1 ? 'en' : ''} mogelijk`}
+          className="points-available__label"
+        >
+          Nog {markersLeft} punt{markersLeft !== 1 ? 'en' : ''} mogelijk
         </span>
       </div>
     );
