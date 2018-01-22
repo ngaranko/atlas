@@ -4,6 +4,14 @@ module.exports = {
     'src/**/*.{js,jsx}'
   ],
   coverageDirectory: 'coverage',
+  coverageThreshold: {
+    global: {
+      statements: 8.39,
+      branches: 16.85,
+      functions: 16.97,
+      lines: 11.9
+    }
+  },
   coverageReporters: process.env.CI ? [
     'html',
     'text'
