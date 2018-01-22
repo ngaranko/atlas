@@ -10,18 +10,12 @@ describe('datasets search module', () => {
   });
 
   describe('user should be to type and see suggestions', () => {
-    it('should open the autocomplete panel and select the first dataset option and route the correct dataset', () => {
+    it('should open the autocomplete panel', () => {
       cy.visit('http://localhost:8080/');
       cy.get('input.js-search-input').trigger('focus');
       cy.get('input.js-search-input').type('Park');
       cy.get('input.js-search-input').trigger('change');
       cy.get('.c-autocomplete').should('exist').and('be.visible');
-      cy.get('h4').contains('Datasets').siblings('ul').children('li').first().children().first()
-      .then(($el) => {
-        const firstValue = $el[0].innerText;
-        cy.get('h4').contains('Datasets').siblings('ul').children('li').first().click();
-        cy.get('.o-header__title').contains(firstValue).should('exist').and('be.visible');
-      });
     });
   });
 
