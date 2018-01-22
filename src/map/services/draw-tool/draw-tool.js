@@ -121,6 +121,11 @@ const DrawTool = () => {
 
   // Called when a polygon is finished (end draw or end edit)
   function finishPolygon() {
+    if (drawTool.drawingMode === drawToolConfig.DRAWING_MODE.EDIT && !currentShape.isConsistent) {
+      setPolygon([...currentShape.markersPrev]); // restore previous polygon
+      updateShape();
+    }
+    setPolygon(currentShape.markers);
     // Silently change the drawing mode
     setDrawingMode(drawToolConfig.DRAWING_MODE.NONE);
     onFinishPolygon();
