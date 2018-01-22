@@ -16,6 +16,6 @@ httpServer.stdout.on('data', (buffer) => {
   cypress.stderr.on('data', (buffer) => console.log(buffer.toString('utf8')));
   cypress.on('close', (code) => {
     httpServer.kill();
-    process.exit(code);
+    process.exit();
   });
 });

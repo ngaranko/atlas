@@ -1,3 +1,6 @@
+import { initialize, panTo, getCurrentLocation } from '../../../src/map/components/map/panControls';
+
+/* istanbul ignore next */
 (function () {
     'use strict';
 
@@ -9,33 +12,9 @@
 
     function panningFactory ($rootScope, store, ACTIONS) {
         return {
-            initialize: initialize,
-            panTo: panTo,
-            getCurrentLocation: getCurrentLocation
+            initialize: (leafletMap) => initialize(store, leafletMap),
+            panTo,
+            getCurrentLocation
         };
-
-        function initialize (leafletMap) {
-            leafletMap.on('dragend', function () {
-                $rootScope.$applyAsync(function () {
-                    store.dispatch({
-                        type: ACTIONS.MAP_PAN,
-                        payload: getCurrentLocation(leafletMap)
-                    });
-                });
-            });
-        }
-
-        function panTo (leafletMap, location) {
-            // Prevent infinite loop; the 'moveend' event triggers panTo, and panning always triggers a 'moveend' event.
-            if (!angular.equals(location, getCurrentLocation(leafletMap))) {
-                leafletMap.panTo(location, {animate: false});
-            }
-        }
-
-        function getCurrentLocation (leafletMap) {
-            var center = leafletMap.getCenter();
-
-            return [center.lat, center.lng];
-        }
     }
 })();

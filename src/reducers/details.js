@@ -25,7 +25,6 @@ window.reducers.detailReducer = (state = {}, action) => {
         },
         map: {
           ...state.map,
-          isFullscreen: leaveMapFullscreen ? state.map.isFullscreen : false,
           isLoading: true
         },
         page: {
@@ -34,7 +33,11 @@ window.reducers.detailReducer = (state = {}, action) => {
           type: null
         },
         search: null,
-        straatbeeld: null
+        straatbeeld: null,
+        ui: {
+          ...state.ui,
+          isMapFullscreen: leaveMapFullscreen ? state.ui.isMapFullscreen : false,
+        }
       };
 
     case 'SHOW_DETAIL':

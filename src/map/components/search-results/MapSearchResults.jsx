@@ -46,7 +46,8 @@ const MapSearchResults = ({ count, location, missingLayers, onItemClick, panoUrl
         {filteredResults.map((result) => (
           <li key={result.uri}>
             <MapSearchResultsItem
-              item={result}
+              categoryLabel={result.categoryLabel}
+              label={result.label}
               onClick={() => {
                 onItemClick(result.uri);
               }}

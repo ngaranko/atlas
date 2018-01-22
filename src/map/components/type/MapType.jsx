@@ -6,6 +6,8 @@ import { SelectButton } from '../../../shared/components/select-button';
 import AerialIcon from '../../../../public/images/icon-aerial.svg';
 import TopographyIcon from '../../../../public/images/icon-topography.svg';
 
+import './_map-type.scss';
+
 function hasLayer(activeBaseLayer, baseLayers) {
   return baseLayers && baseLayers.length > 0 &&
     baseLayers.some((layer) => layer.value === activeBaseLayer);
