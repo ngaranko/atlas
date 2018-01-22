@@ -19,7 +19,7 @@ const endpoints = [
 
 const categoryLabels = {
   address: {
-    singular: 'Adress',
+    singular: 'Adres',
     plural: 'Adressen'
   },
   explosief: {

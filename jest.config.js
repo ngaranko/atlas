@@ -4,10 +4,18 @@ module.exports = {
     'src/**/*.{js,jsx}'
   ],
   coverageDirectory: 'coverage',
-  coverageReporters: [
+  coverageThreshold: {
+    global: {
+      statements: 8.39,
+      branches: 16.85,
+      functions: 16.97,
+      lines: 11.9
+    }
+  },
+  coverageReporters: process.env.CI ? [
     'html',
     'text'
-  ],
+  ] : ['lcov'],
   moduleNameMapper: {
     '^.+\\.(css|scss)$': 'identity-obj-proxy',
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/test/file-mock.js',

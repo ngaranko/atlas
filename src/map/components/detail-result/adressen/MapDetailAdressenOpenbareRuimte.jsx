@@ -14,7 +14,7 @@ const MapDetailAdressenOpenbareRuimte = ({ panoUrl, openbareRuimte, onMaximize }
     <ul className="map-detail-result__list">
       <MapDetailResultItem
         label="Status"
-        value={openbareRuimte.status}
+        value={openbareRuimte.status.description}
       />
     </ul>
   </MapDetailResultWrapper>
@@ -23,7 +23,10 @@ const MapDetailAdressenOpenbareRuimte = ({ panoUrl, openbareRuimte, onMaximize }
 MapDetailAdressenOpenbareRuimte.propTypes = {
   openbareRuimte: PropTypes.shape({
     label: PropTypes.string,
-    status: PropTypes.string,
+    status: PropTypes.shape({
+      description: PropTypes.string,
+      code: PropTypes.string
+    }).isRequired,
     type: PropTypes.string
   }).isRequired,
   panoUrl: PropTypes.string.isRequired,
