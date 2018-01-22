@@ -29,7 +29,8 @@ describe('The adressen verblijfsobject resource', () => {
         geometrie: { type: 'Point' },
         oppervlakte: 23820,
         something: 'abc123',
-        type_woonobject: { omschrijving: 'Type description' }
+        type_woonobject: { omschrijving: 'Type description' },
+        status: { omschrijving: 'Status omschrijving', code: '01' }
       }));
       getCenter.mockImplementation(() => ({ x: 1, y: 2 }));
       rdToWgs84.mockImplementation(() => ({ latitude: 3, longitude: 4 }));
@@ -38,6 +39,10 @@ describe('The adressen verblijfsobject resource', () => {
         expect(response).toEqual({
           _display: 'Verblijfsobject display name 1',
           eigendomsverhouding: 'Eigendomsverhouding description',
+          status: {
+            code: '01',
+            description: 'Status omschrijving'
+          },
           gebruiksdoelen: [{
             code: '01',
             omschrijving: 'Gebruiksdoel 1 description',
@@ -109,6 +114,10 @@ describe('The adressen verblijfsobject resource', () => {
           label: undefined,
           location: null,
           size: 0,
+          status: {
+            code: '',
+            description: ''
+          },
           type: undefined
         });
       });

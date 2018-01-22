@@ -22,7 +22,10 @@ const MapDetailAdressenLigplaats = ({ panoUrl, ligplaats }) => (
 MapDetailAdressenLigplaats.propTypes = {
   ligplaats: PropTypes.shape({
     label: PropTypes.string,
-    status: PropTypes.string
+    status: PropTypes.shape({
+      description: PropTypes.string,
+      code: PropTypes.string
+    }).isRequired
   }).isRequired,
   panoUrl: PropTypes.string.isRequired
 };

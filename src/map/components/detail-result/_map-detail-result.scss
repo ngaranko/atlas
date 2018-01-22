@@ -101,15 +101,25 @@
       text-overflow: ellipsis;
       white-space: nowrap;
 
+      &::after {
+        border-radius: 50%;
+        content: "";
+        display: none;
+        height: 10px;
+        margin-left: 5px;
+        width: 10px;
+      }
+
       &--alert {
         &::after {
           background-color: #ec0000;
-          border-radius: 50%;
-          content: "";
           display: inline-block;
-          height: 10px;
-          margin-left: 5px;
-          width: 10px;
+        }
+      }
+      &--info {
+        &::after {
+          background-color: #004699;
+          display: inline-block;
         }
       }
     }

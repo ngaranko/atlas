@@ -20,6 +20,7 @@ describe('The adressen nummeraanduiding resource', () => {
 
       fetch.mockResponseOnce(JSON.stringify({
         _display: 'Address display name 1',
+        hoofdadres: true,
         landelijk_id: 'abc123',
         verblijfsobject: 'https://acc.api.data.amsterdam.nl/bag/verblijfsobject/345678'
       }));
@@ -35,6 +36,7 @@ describe('The adressen nummeraanduiding resource', () => {
       const promise = fetchByUri(uri).then((response) => {
         expect(response).toEqual({
           label: 'Address display name 1',
+          isNevenadres: false,
           oppervlakte: '119'
         });
         expect(verblijfsobject).toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/bag/verblijfsobject/345678');
@@ -49,12 +51,15 @@ describe('The adressen nummeraanduiding resource', () => {
 
       fetch.mockResponseOnce(JSON.stringify({
         _display: 'Address display name 1',
+        hoofdadres: false,
         landelijk_id: 'abc123'
       }));
 
       const promise = fetchByUri(uri).then((response) => {
         expect(response).toEqual({
           _display: 'Address display name 1',
+          isNevenadres: true,
+          hoofdadres: false,
           label: 'Address display name 1',
           landelijk_id: 'abc123'
         });
@@ -70,7 +75,7 @@ describe('The adressen nummeraanduiding resource', () => {
       fetch.mockResponseOnce(JSON.stringify({}));
 
       const promise = fetchByUri(uri).then((response) => {
-        expect(response).toEqual({ label: undefined });
+        expect(response).toEqual({ isNevenadres: true, label: undefined });
       });
 
       expect(fetch.mock.calls[0][0]).toBe(uri);

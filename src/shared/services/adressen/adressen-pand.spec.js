@@ -19,7 +19,10 @@ describe('The adressen pand resource', () => {
         geometrie: { type: 'Point' },
         oorspronkelijk_bouwjaar: '1893',
         something: 'abc123',
-        status: { omschrijving: 'Status description' }
+        status: {
+          code: '01',
+          omschrijving: 'Status description'
+        }
       }));
       getCenter.mockImplementation(() => ({ x: 1, y: 2 }));
       rdToWgs84.mockImplementation(() => ({ latitude: 3, longitude: 4 }));
@@ -32,7 +35,10 @@ describe('The adressen pand resource', () => {
           location: { latitude: 3, longitude: 4 },
           oorspronkelijk_bouwjaar: '1893',
           something: 'abc123',
-          status: 'Status description',
+          status: {
+            code: '01',
+            description: 'Status description'
+          },
           year: '1893'
         });
       });
@@ -61,7 +67,10 @@ describe('The adressen pand resource', () => {
           _display: undefined,
           label: undefined,
           location: null,
-          status: undefined,
+          status: {
+            code: '',
+            description: ''
+          },
           year: undefined
         });
       });

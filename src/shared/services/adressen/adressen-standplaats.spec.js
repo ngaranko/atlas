@@ -18,7 +18,10 @@ describe('The adressen standplaats resource', () => {
         _display: 'Standplaats display name 1',
         geometrie: { type: 'Point' },
         something: 'abc123',
-        status: { omschrijving: 'Status description' }
+        status: {
+          code: '01',
+          omschrijving: 'Status description'
+        }
       }));
       getCenter.mockImplementation(() => ({ x: 1, y: 2 }));
       rdToWgs84.mockImplementation(() => ({ latitude: 3, longitude: 4 }));
@@ -30,7 +33,10 @@ describe('The adressen standplaats resource', () => {
           label: 'Standplaats display name 1',
           location: { latitude: 3, longitude: 4 },
           something: 'abc123',
-          status: 'Status description'
+          status: {
+            code: '01',
+            description: 'Status description'
+          }
         });
       });
 
@@ -48,7 +54,10 @@ describe('The adressen standplaats resource', () => {
           _display: undefined,
           label: undefined,
           location: null,
-          status: undefined
+          status: {
+            code: '',
+            description: ''
+          }
         });
       });
 
