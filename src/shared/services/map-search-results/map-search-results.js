@@ -30,7 +30,7 @@ export const createMapSearchResultsModel = (allResults, resultsLimit, isSubCateg
     }
 
     const subCategories = getSubCategories(initialList, type);
-    const results = filterResultsByCategory(initialList, categoryLabel);
+    const results = sortByCategoryTypeOrder(filterResultsByCategory(initialList, categoryLabel));
 
     return [
       ...newList,

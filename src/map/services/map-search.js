@@ -1,7 +1,6 @@
 import * as address from '../../shared/services/adressen/adressen-nummeraanduiding';
 import * as monument from '../../shared/services/monument/monument';
 import * as vestiging from '../../shared/services/vestiging/vestiging';
-import { sortByCategoryTypeOrder } from '../../shared/services/map-search-results/map-search-results';
 
 import apiUrl from '../../shared/services/api';
 
@@ -101,27 +100,28 @@ const categoryLabelsByType = {
 
 export const categoryTypeOrder = [
   'bag/openbareruimte',
-  'bag/ligplaats',
   'bag/pand',
-  'bag/standplaats',
   'pand/address',
+  'bag/ligplaats',
+  'bag/standplaats',
   'vestiging',
+  'pand/vestiging',
   'pand/monument',
   'kadaster/kadastraal_object',
   'wkpb/beperking',
-  'gebieden/bouwblok',
-  'gebieden/buurt',
-  'gebieden/buurtcombinatie',
-  'gebieden/gebiedsgerichtwerken',
   'gebieden/grootstedelijkgebied',
-  'gebieden/stadsdeel',
   'gebieden/unesco',
+  'gebieden/stadsdeel',
+  'gebieden/gebiedsgerichtwerken',
+  'gebieden/buurtcombinatie',
+  'gebieden/buurt',
+  'gebieden/bouwblok',
   'meetbouten/meetbout',
   'nap/peilmerk',
   'bommenkaart/bominslag',
+  'bommenkaart/verdachtgebied',
   'bommenkaart/gevrijwaardgebied',
   'bommenkaart/uitgevoerdonderzoek',
-  'bommenkaart/verdachtgebied',
   'monumenten/monument'
 ];
 
@@ -221,5 +221,5 @@ export default function search(location, user) {
   return Promise.all(allRequests)
     .then((results) => results
       .reduce((accumulator, subResults) => accumulator.concat(subResults)))
-    .then((results) => sortByCategoryTypeOrder(results));
+    .then((results) => results);
 }
