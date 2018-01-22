@@ -83,10 +83,7 @@ const DrawTool = () => {
     // update the publicly available shape info, applyAsync because triggered by a leaflet event
     updateShapeInfo();
     // triggered when the drawing mode has changed
-    if (typeof _onDrawingMode === 'function') {
-      // call any registered callback function, applyAsync because triggered by a leaflet event
-      _onDrawingMode(drawTool.drawingMode);
-    }
+    setDrawingMode(drawTool.drawingMode);
   }
 
   // Construct a polygon from a array of coordinates

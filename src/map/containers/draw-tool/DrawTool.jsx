@@ -64,16 +64,19 @@ class DrawTool extends React.Component {
     const markers = this.getMarkers();
 
     if (!isEqual(this.state.previousMarkers, markers)) {
+      // if the markers have changed save the new markers as previous markers
       this.setPolygon();
       this.setState({ previousMarkers: [...markers] });
     }
 
     if (props.dataSelection === null && props.drawingMode === drawToolConfig.DRAWING_MODE.NONE) {
+      // when navigating after drawing the drawn shape should be removed
       this.setPolygon();
     }
 
     if (this.state.drawingMode !== props.drawingMode) {
       if (props.drawingMode === drawToolConfig.DRAWING_MODE.NONE) {
+        // after drawing mode has changed the draw tool should be cancelled after navigating
         drawTool.cancel();
       }
       this.setState({ drawingMode: props.drawingMode });
@@ -130,7 +133,7 @@ class DrawTool extends React.Component {
   }
 
   getMarkers() {
-    return this.props.geometry.length > 0 ? this.props.geometry :
+    return this.props.geometry && this.props.geometry.length > 0 ? this.props.geometry :
       ((this.props.dataSelection && this.props.dataSelection.geometryFilter &&
       this.props.dataSelection.geometryFilter.markers) || []);
   }
@@ -157,7 +160,7 @@ class DrawTool extends React.Component {
 
 DrawTool.defaultProps = {
   dataSelection: null,
-  geometry: []
+  geometry: null
 };
 
 DrawTool.propTypes = {
