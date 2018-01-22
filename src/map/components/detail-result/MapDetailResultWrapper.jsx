@@ -25,17 +25,17 @@ const MapDetailResultWrapper = ({ children, panoUrl, subTitle, title, onMaximize
         )}
       </div>
     </header>
-    {children && (
-      <div className="map-detail-result__scroll-wrapper">
-        {children}
-        <footer className="map-search-results__footer">
-          <button onClick={onMaximize} className="map-search-results__button">
-            <MaximizeIcon className="map-search-results__button-icon" />
-            Volledig weergeven
-          </button>
-        </footer>
-      </div>
-    )}
+    <div className="map-detail-result__scroll-wrapper">
+      {children && (
+          { children }
+      )}
+      <footer className="map-search-results__footer">
+        <button onClick={onMaximize} className="map-search-results__button">
+          <MaximizeIcon className="map-search-results__button-icon" />
+          Volledig weergeven
+        </button>
+      </footer>
+    </div>
   </section>
 );
 
