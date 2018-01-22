@@ -68,6 +68,10 @@ class DrawTool extends React.Component {
       this.setState({ previousMarkers: [...markers] });
     }
 
+    if (props.dataSelection === null && props.drawingMode === drawToolConfig.DRAWING_MODE.NONE) {
+      this.setPolygon();
+    }
+
     if (this.state.drawingMode !== props.drawingMode) {
       if (props.drawingMode === drawToolConfig.DRAWING_MODE.NONE) {
         drawTool.cancel();
