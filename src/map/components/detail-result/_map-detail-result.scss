@@ -123,10 +123,7 @@
   }
 
   &__footer {
-    padding: 12px;
-    @media screen and (min-width: 1200px) {
-      padding: 24px;
-    }
+    padding: 24px;
   }
 
   &__button {
@@ -141,7 +138,7 @@
     justify-content: center;
     margin: auto;
     outline: none;
-    padding: 6px 16px 6px 7px;
+    padding: 6px 16px 6px 8px;
     width: auto;
 
     &:hover {
