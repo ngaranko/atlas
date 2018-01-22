@@ -5,9 +5,10 @@ import MapDetailResultItem from '../MapDetailResultItem';
 import MapDetailResultWrapper from '../MapDetailResultWrapper';
 import MapDetailAdressenVerblijfsobjectGebruiksdoelenItem from './MapDetailAdressenVerblijfsobjectGebruiksdoelenItem';
 
-const MapDetailAdressenVerblijfsobject = ({ panoUrl, verblijfsobject }) => (
+const MapDetailAdressenVerblijfsobject = ({ panoUrl, verblijfsobject, onMaximize }) => (
   <MapDetailResultWrapper
     panoUrl={panoUrl}
+    onMaximize={onMaximize}
     subTitle={verblijfsobject.label}
     title="Adres"
   >
@@ -39,7 +40,8 @@ MapDetailAdressenVerblijfsobject.propTypes = {
     size: PropTypes.number,
     type: PropTypes.string
   }).isRequired,
-  panoUrl: PropTypes.string.isRequired
+  panoUrl: PropTypes.string.isRequired,
+  onMaximize: PropTypes.func.isRequired
 };
 
 export default MapDetailAdressenVerblijfsobject;

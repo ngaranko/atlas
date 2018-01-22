@@ -10,9 +10,11 @@ describe('MapDetailAdressenPand', () => {
       status: 'Pand status',
       year: '2020'
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailAdressenPand
         panoUrl="panoUrl"
+        onMaximize={clickHandler}
         pand={pand}
       />
     );
@@ -25,9 +27,11 @@ describe('MapDetailAdressenPand', () => {
       status: 'Pand status',
       year: ''
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailAdressenPand
         panoUrl="panoUrl"
+        onMaximize={clickHandler}
         pand={pand}
       />
     );
@@ -39,9 +43,11 @@ describe('MapDetailAdressenPand', () => {
       label: 'Pand label',
       status: 'Pand status'
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailAdressenPand
         panoUrl="panoUrl"
+        onMaximize={clickHandler}
         pand={pand}
       />
     );

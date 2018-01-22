@@ -41,28 +41,30 @@ const MapSearchResults = ({
           </h2>
         </div>
       </header>
-      <ul className="map-search-results__list">
-        {missingLayers && (
-          <li>
-            <Notification>Geen details beschikbaar van: {missingLayers}</Notification>
-          </li>
-        )}
-        {
-          results.map((mainCategory) => (
-            <MapSearchResultsCategory
-              key={mainCategory.categoryLabel}
-              category={mainCategory}
-              onClick={onItemClick}
-            />
-          ))
-        }
-        <li className="map-search-results__footer">
+      <div className="map-search-results__scroll-wrapper">
+        <ul className="map-search-results__list">
+          {missingLayers && (
+            <li>
+              <Notification>Geen details beschikbaar van: {missingLayers}</Notification>
+            </li>
+          )}
+          {
+            results.map((mainCategory) => (
+              <MapSearchResultsCategory
+                key={mainCategory.categoryLabel}
+                category={mainCategory}
+                onClick={onItemClick}
+              />
+            ))
+          }
+        </ul>
+        <footer className="map-search-results__footer">
           <button onClick={onMaximize} className="map-search-results__button">
             <MaximizeIcon className="map-search-results__button-icon" />
             Volledig weergeven
           </button>
-        </li>
-      </ul>
+        </footer>
+      </div>
     </section>
   );
 };

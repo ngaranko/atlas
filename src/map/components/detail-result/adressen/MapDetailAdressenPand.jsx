@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import MapDetailResultItem from '../MapDetailResultItem';
 import MapDetailResultWrapper from '../MapDetailResultWrapper';
 
-const MapDetailAdressenPand = ({ panoUrl, pand }) => (
+const MapDetailAdressenPand = ({ panoUrl, pand, onMaximize }) => (
   <MapDetailResultWrapper
     panoUrl={panoUrl}
+    onMaximize={onMaximize}
     subTitle={pand.label}
     title="Pand"
   >
@@ -29,7 +30,8 @@ MapDetailAdressenPand.propTypes = {
     status: PropTypes.string,
     year: PropTypes.string
   }).isRequired,
-  panoUrl: PropTypes.string.isRequired
+  panoUrl: PropTypes.string.isRequired,
+  onMaximize: PropTypes.func.isRequired
 };
 
 export default MapDetailAdressenPand;

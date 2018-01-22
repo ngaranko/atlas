@@ -56,7 +56,7 @@
     }
   }
 
-  &__list {
+  &__scroll-wrapper {
     max-height: calc(100vh - #{$above-list-height + $below-list-height});
     overflow-y: auto;
 

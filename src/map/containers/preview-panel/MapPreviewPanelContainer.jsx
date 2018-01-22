@@ -137,6 +137,7 @@ class MapPreviewPanelContainer extends React.Component {
             <MapDetailResult
               endpoint={props.mapDetail.currentEndpoint}
               panoUrl={panoDetailPreview.url}
+              onMaximize={props.onMapPreviewPanelMaximize}
               result={props.detailResult}
             />
           )}

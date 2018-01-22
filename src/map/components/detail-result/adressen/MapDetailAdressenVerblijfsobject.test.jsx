@@ -19,9 +19,11 @@ describe('MapDetailAdressenVerblijfsobject', () => {
       size: 15,
       type: 'Verblijfsobject type'
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailAdressenVerblijfsobject
         panoUrl="panoUrl"
+        onMaximize={clickHandler}
         verblijfsobject={verblijfsobject}
       />
     );
@@ -43,9 +45,11 @@ describe('MapDetailAdressenVerblijfsobject', () => {
       size: 0,
       type: 'Verblijfsobject type'
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailAdressenVerblijfsobject
         panoUrl="panoUrl"
+        onMaximize={clickHandler}
         verblijfsobject={verblijfsobject}
       />
     );
@@ -66,9 +70,11 @@ describe('MapDetailAdressenVerblijfsobject', () => {
       label: 'Verblijfsobject label',
       type: 'Verblijfsobject type'
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailAdressenVerblijfsobject
         panoUrl="panoUrl"
+        onMaximize={clickHandler}
         verblijfsobject={verblijfsobject}
       />
     );
