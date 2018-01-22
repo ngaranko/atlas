@@ -6,14 +6,16 @@ export default function fetchByUri(uri) {
     .then((response) => response.json())
     .then((result) => ({
       ...result,
-      label: result._display
+      label: result._display,
+      isNevenadres: !result.hoofdadres
     }))
     .then((result) => (
       result.verblijfsobject ?
         verblijfsobject(result.verblijfsobject)
           .then((vboResult) => ({
             ...vboResult,
-            label: result._display
+            label: result.label,
+            isNevenadres: result.isNevenadres
           })) :
         result
     ));

@@ -13,7 +13,7 @@ const MapDetailAdressenStandplaats = ({ panoUrl, standplaats }) => (
     <ul className="map-detail-result__list">
       <MapDetailResultItem
         label="Status"
-        value={standplaats.status}
+        value={standplaats.status.description}
       />
     </ul>
   </MapDetailResultWrapper>
@@ -22,7 +22,10 @@ const MapDetailAdressenStandplaats = ({ panoUrl, standplaats }) => (
 MapDetailAdressenStandplaats.propTypes = {
   standplaats: PropTypes.shape({
     label: PropTypes.string,
-    status: PropTypes.string
+    status: PropTypes.shape({
+      description: PropTypes.string,
+      code: PropTypes.string
+    }).isRequired
   }).isRequired,
   panoUrl: PropTypes.string.isRequired
 };
