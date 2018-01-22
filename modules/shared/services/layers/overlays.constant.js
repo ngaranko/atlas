@@ -336,8 +336,8 @@
                     maxZoom: 16,
                     legend: 'maps/grondexploitatie?version=1.3.0&service=WMS&request=GetLegend' +
                     'Graphic&sld_version=1.1.0&layer=grondexploitatie_polygons&format=image/png&STYLE=default',
-                    detailUrl: 'geosearch/search/',
-                    detailItem: 'grondexploitatie',
+                    detailUrl: 'geosearch/search/', // Geosearch URL
+                    detailItem: 'grondexploitatie', // Geosearch name
                     detailIsShape: true
                 },
                 bbn: {
