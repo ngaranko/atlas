@@ -155,7 +155,7 @@ const DrawTool = () => {
   // enforce the maximum markers limit and the non-intersection of line segments limit
   function enforceLimits() {
     if (!currentShape.isConsistent) {
-      const markersPrev = { ...currentShape.markersPrev }; // restore previous state
+      const markersPrev = [...currentShape.markersPrev]; // restore previous state
 
       deletePolygon(); // delete current polygon
 
@@ -362,7 +362,7 @@ const DrawTool = () => {
       distance = getDistance(latLngs, false);
     }
 
-    currentShape.markersPrev = { ...currentShape.markers };
+    currentShape.markersPrev = [...currentShape.markers];
     currentShape.markers = latLngs.map(({
       lat,
       lng
