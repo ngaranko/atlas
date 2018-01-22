@@ -376,9 +376,9 @@ const DrawTool = () => {
     currentShape.distance = distance;
     if (distance >= DISTANCE_IN_KILOMETERS) {
       currentShape.distanceTxt =
-        L.GeometryUtil.formattedNumber(distance / DISTANCE_IN_KILOMETERS, 2) + ' km';
+        `${L.GeometryUtil.formattedNumber(distance / DISTANCE_IN_KILOMETERS, 2)} km`;
     } else {
-      currentShape.distanceTxt = L.GeometryUtil.formattedNumber(distance, 1) + ' m';
+      currentShape.distanceTxt = `${L.GeometryUtil.formattedNumber(distance, 1)} m`;
     }
     currentShape.intersects = intersects;
 

@@ -1,5 +1,5 @@
 export default {
-  MAX_MARKERS: 5,
+  MAX_MARKERS: 6,
   MARKERS_LEFT_WARNING: 2,
   DRAWING_MODE: {
     NONE: 'none',
