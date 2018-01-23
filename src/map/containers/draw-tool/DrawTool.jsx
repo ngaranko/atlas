@@ -86,9 +86,13 @@ class DrawTool extends React.Component {
         markers: polygon.markers,
         description: `${drawTool.shape.distanceTxt} en ${drawTool.shape.areaTxt}`
       });
-    }
 
-    this.props.onEndDrawing({ polygon });
+      this.props.onEndDrawing({ polygon });
+      this.props.onSetPageName({ name: null });
+    } else {
+      this.props.onEndDrawing();
+      this.props.onSetPageName({ name: 'home' });
+    }
 
     if (this.props.uiMapFullscreen) {
       this.props.onToggleMapFullscreen();
@@ -96,17 +100,7 @@ class DrawTool extends React.Component {
   }
 
   onDrawingMode(drawingMode) {
-    if (drawingMode === drawToolConfig.DRAWING_MODE.NONE) {
-      // Make sure the NONE state goes into the store
-      // We do not supply a payload, we do not finish a shape here
-      // this.props.setGeometryFilter({ markers: [...drawTool.shape.markers] });
-      this.props.onEndDrawing();
-      this.props.onSetPageName({ name: null });
-
-      if (this.props.uiMapFullscreen) {
-        this.props.onToggleMapFullscreen();
-      }
-    } else {
+    if (drawingMode !== drawToolConfig.DRAWING_MODE.NONE) {
       this.setState({ previousMarkers: [...drawTool.shape.markers] });
       this.props.resetGeometryFilter({ drawingMode });
       this.props.onStartDrawing({ drawingMode });
