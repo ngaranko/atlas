@@ -174,6 +174,7 @@ const fetchRelatedForUser = (user) => (data) => {
       resource.fetch(item.properties.id)
         .then((results) => results
           .map((result) => ({
+            ...result,
             properties: {
               uri: result._links.self.href,
               display: result._display,
@@ -213,6 +214,9 @@ export default function search(location, user) {
           categoryLabel: categoryLabelsByType[feature.properties.type].singular,
           categoryLabelPlural: categoryLabelsByType[feature.properties.type].plural,
           type: feature.properties.type,
+          isNevenadres: feature.hoofdadres !== 'undefined' ? !feature.hoofdadres : false,
+          count: feature.count,
+          status: feature.vbo_status ? feature.vbo_status : {},
           parent: feature.properties.parent
         }))
       );
