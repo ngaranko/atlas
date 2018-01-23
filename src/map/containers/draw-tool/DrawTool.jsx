@@ -69,11 +69,6 @@ class DrawTool extends React.Component {
       this.setState({ previousMarkers: [...markers] });
     }
 
-    if (props.dataSelection === null && props.drawingMode === drawToolConfig.DRAWING_MODE.NONE) {
-      // when navigating after drawing the drawn shape should be removed
-      this.setPolygon();
-    }
-
     if (this.state.drawingMode !== props.drawingMode) {
       if (props.drawingMode === drawToolConfig.DRAWING_MODE.NONE) {
         // after drawing mode has changed the draw tool should be cancelled after navigating

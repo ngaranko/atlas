@@ -2,6 +2,7 @@
 /* global L */
 
 import defer from 'lodash.defer';
+import isEqual from 'lodash.isequal';
 
 import suppress from '../suppress/suppress';
 import drawToolConfig from './draw-tool-config';
@@ -82,8 +83,16 @@ const DrawTool = () => {
 
     // update the publicly available shape info, applyAsync because triggered by a leaflet event
     updateShapeInfo();
+
+    if (!isEqual(currentShape.markers, currentShape.markersPrev) && typeof _onUpdateShape === 'function') {
+      // call any registered callback function, applyAsync because triggered by a leaflet event
+      _onUpdateShape(currentShape);
+    }
+
     // triggered when the drawing mode has changed
     setDrawingMode(drawTool.drawingMode);
+
+    currentShape.markersPrev = [...currentShape.markers];
   }
 
   // Construct a polygon from a array of coordinates
@@ -363,7 +372,6 @@ const DrawTool = () => {
       distance = getDistance(latLngs, false);
     }
 
-    currentShape.markersPrev = [...currentShape.markers];
     currentShape.markers = latLngs.map(({
       lat,
       lng
@@ -391,11 +399,6 @@ const DrawTool = () => {
       L.drawLocal.edit.handlers.edit.tooltip.text = currentShape.areaTxt;
       L.drawLocal.edit.handlers.edit.tooltip.subtext = currentShape.distanceTxt;
       updateShapeInfo(); // update public shape info of new consistent state of the polygon
-    }
-
-    if (currentShape.isConsistent && typeof _onUpdateShape === 'function') {
-      // call any registered callback function, applyAsync because triggered by a leaflet event
-      _onUpdateShape(currentShape);
     }
   }
 
