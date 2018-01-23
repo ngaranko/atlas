@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import drawTool from '../../services/draw-tool/draw-tool';
+import { isEnabled } from '../../services/draw-tool/draw-tool';
 
 import Icon from '../../../../public/images/icon-cross-big.svg';
 
 import './_shape-summary.scss';
 
 const ShapeSummary = ({ shapeMarkers, shapeDistanceTxt, onClearDrawing }) => {
-  if (drawTool.isEnabled() || shapeMarkers !== 2) {
+  if (isEnabled() || shapeMarkers !== 2) {
     return null;
   }
   return (

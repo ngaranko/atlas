@@ -14,7 +14,7 @@ import ToggleDrawing from '../../components/toggle-drawing/ToggleDrawing';
 import ShapeSummary from '../../components/shape-summary/ShapeSummary';
 import PointsAvailable from '../../components/points-available/PointsAvailable';
 
-import drawTool from '../../services/draw-tool/draw-tool';
+import { initialize, cancel, isEnabled, setPolygon, currentShape } from '../../services/draw-tool/draw-tool';
 import drawToolConfig from '../../services/draw-tool/draw-tool-config';
 
 import './_draw-tool.scss';
@@ -54,7 +54,7 @@ class DrawTool extends React.Component {
     this.setPolygon = this.setPolygon.bind(this);
     this.getMarkers = this.getMarkers.bind(this);
 
-    drawTool.initialize(window.leafletMap, this.onFinishShape, this.onDrawingMode,
+    initialize(window.leafletMap, this.onFinishShape, this.onDrawingMode,
       this.onUpdateShape);
 
     this.setPolygon();
@@ -72,7 +72,7 @@ class DrawTool extends React.Component {
     if (this.state.drawingMode !== props.drawingMode) {
       if (props.drawingMode === drawToolConfig.DRAWING_MODE.NONE) {
         // after drawing mode has changed the draw tool should be cancelled after navigating
-        drawTool.cancel();
+        cancel();
       }
       this.setState({ drawingMode: props.drawingMode });
     }
@@ -84,7 +84,7 @@ class DrawTool extends React.Component {
     if (moreThan2Markers) {
       this.props.setGeometryFilter({
         markers: polygon.markers,
-        description: `${drawTool.shape.distanceTxt} en ${drawTool.shape.areaTxt}`
+        description: `${currentShape.distanceTxt} en ${currentShape.areaTxt}`
       });
 
       this.props.onEndDrawing({ polygon });
@@ -101,23 +101,23 @@ class DrawTool extends React.Component {
 
   onDrawingMode(drawingMode) {
     if (drawingMode !== drawToolConfig.DRAWING_MODE.NONE) {
-      this.setState({ previousMarkers: [...drawTool.shape.markers] });
+      this.setState({ previousMarkers: [...currentShape.markers] });
       this.props.resetGeometryFilter({ drawingMode });
       this.props.onStartDrawing({ drawingMode });
     }
   }
 
-  onUpdateShape(shape) {
+  onUpdateShape(newShape) {
     this.props.onMapUpdateShape({
-      shapeMarkers: shape.markers.length,
-      shapeDistanceTxt: shape.distanceTxt,
-      shapeAreaTxt: shape.areaTxt
+      shapeMarkers: newShape.markers.length,
+      shapeDistanceTxt: newShape.distanceTxt,
+      shapeAreaTxt: newShape.areaTxt
     });
   }
 
   setPolygon() {
-    if (!drawTool.isEnabled()) {
-      drawTool.setPolygon(this.getMarkers());
+    if (!isEnabled()) {
+      setPolygon(this.getMarkers());
     }
   }
 
