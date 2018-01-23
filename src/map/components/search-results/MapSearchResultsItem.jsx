@@ -8,9 +8,10 @@ const MapSearchResultsItem = ({ label, onClick, statusDescription }) => (
     <button
       className="map-search-results__item-button"
       onClick={onClick}
+      title={label}
     >
       <section className="map-search-results__item-content">
-        <div className="map-search-results__item-name">{label} </div>
+        <div className="map-search-results__item-name">{label}</div>
         { statusDescription && statusDescription.length > 1 ? (
           <div className="map-search-results__item-status">
             {`${statusDescription}`}
