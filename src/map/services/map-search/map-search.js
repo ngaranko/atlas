@@ -1,8 +1,10 @@
-import * as address from '../../shared/services/adressen/adressen-nummeraanduiding';
-import * as monument from '../../shared/services/monument/monument';
-import * as vestiging from '../../shared/services/vestiging/vestiging';
+import * as address from '../../../shared/services/adressen/adressen-nummeraanduiding';
+import * as monument from '../../../shared/services/monument/monument';
+import * as vestiging from '../../../shared/services/vestiging/vestiging';
 
-import apiUrl from '../../shared/services/api';
+import apiUrl from '../../../shared/services/api';
+
+import categoryLabelsByType from './category-labels-by-type';
 
 const endpoints = [
   { uri: 'geosearch/nap/', radius: 25 },
@@ -15,114 +17,6 @@ const endpoints = [
       monumenttype: 'isnot_pand_bouwblok'
     }
   }
-];
-
-const categoryLabels = {
-  address: {
-    singular: 'Adres',
-    plural: 'Adressen'
-  },
-  explosief: {
-    singular: 'Explosief',
-    plural: 'Explosieven'
-  },
-  gebied: {
-    singular: 'Gebied',
-    plural: 'Gebieden'
-  },
-  gemeentelijkeBeperking: {
-    singular: 'Gemeentelijke beperking',
-    plural: 'Gemeentelijke beperkingen'
-  },
-  kadastraalObject: {
-    singular: 'Kadastraal object',
-    plural: 'Kadastrale objecten'
-  },
-  ligplaats: {
-    singular: 'Ligplaats',
-    plural: 'Ligplaatsen'
-  },
-  meetbout: {
-    singular: 'Meetbout',
-    plural: 'Meetbouten'
-  },
-  monument: {
-    singular: 'Monument',
-    plural: 'Monumenten'
-  },
-  napPijlmerk: {
-    singular: 'NAP Peilmerk',
-    plural: 'NAP Peilmerken'
-  },
-  openbareRuimte: {
-    singular: 'Openbare ruimte',
-    plural: 'Openbare ruimtes'
-  },
-  pand: {
-    singular: 'Pand',
-    plural: 'Panden'
-  },
-  standplaats: {
-    singular: 'Standplaats',
-    plural: 'Standplaatsen'
-  },
-  vestiging: {
-    singular: 'Vestiging',
-    plural: 'Vestigingen'
-  }
-};
-
-const categoryLabelsByType = {
-  'bag/ligplaats': categoryLabels.ligplaats,
-  'bag/openbareruimte': categoryLabels.openbareRuimte,
-  'bag/pand': categoryLabels.pand,
-  'bag/standplaats': categoryLabels.standplaats,
-  'bommenkaart/bominslag': categoryLabels.explosief,
-  'bommenkaart/gevrijwaardgebied': categoryLabels.explosief,
-  'bommenkaart/uitgevoerdonderzoek': categoryLabels.explosief,
-  'bommenkaart/verdachtgebied': categoryLabels.explosief,
-  'gebieden/bouwblok': categoryLabels.gebied,
-  'gebieden/buurt': categoryLabels.gebied,
-  'gebieden/buurtcombinatie': categoryLabels.gebied,
-  'gebieden/gebiedsgerichtwerken': categoryLabels.gebied,
-  'gebieden/grootstedelijkgebied': categoryLabels.gebied,
-  'gebieden/stadsdeel': categoryLabels.gebied,
-  'gebieden/unesco': categoryLabels.gebied,
-  'kadaster/kadastraal_object': categoryLabels.kadastraalObject,
-  'meetbouten/meetbout': categoryLabels.meetbout,
-  'monumenten/monument': categoryLabels.monument,
-  'pand/address': categoryLabels.address,
-  'pand/monument': categoryLabels.monument,
-  'nap/peilmerk': categoryLabels.napPijlmerk,
-  vestiging: categoryLabels.vestiging,
-  'wkpb/beperking': categoryLabels.gemeentelijkeBeperking
-};
-
-export const categoryTypeOrder = [
-  'bag/openbareruimte',
-  'bag/pand',
-  'pand/address',
-  'bag/ligplaats',
-  'bag/standplaats',
-  'vestiging',
-  'pand/vestiging',
-  'pand/monument',
-  'kadaster/kadastraal_object',
-  'wkpb/beperking',
-  'gebieden/grootstedelijkgebied',
-  'gebieden/unesco',
-  'gebieden/stadsdeel',
-  'gebieden/gebiedsgerichtwerken',
-  'gebieden/buurtcombinatie',
-  'gebieden/buurt',
-  'gebieden/bouwblok',
-  'meetbouten/meetbout',
-  'nap/peilmerk',
-  'bommenkaart/bominslag',
-  'bommenkaart/verdachtgebied',
-  'bommenkaart/gevrijwaardgebied',
-  'bommenkaart/uitgevoerdonderzoek',
-  'monumenten/monument'
 ];
 
 const relatedResourcesByType = {

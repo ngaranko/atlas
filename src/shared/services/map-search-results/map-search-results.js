@@ -1,4 +1,4 @@
-import { categoryTypeOrder } from '../../../map/services/map-search';
+import categoryTypeOrder from '../../../map/services/map-search/category-type-order';
 
 export const sortByCategoryTypeOrder = (items) => [...items]
   .sort((a, b) => {
