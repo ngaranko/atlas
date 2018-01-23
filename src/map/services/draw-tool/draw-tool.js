@@ -436,21 +436,18 @@ function bindLastDrawnMarker() {
   const lastMarker = getLastDrawnMarker();
   const isFirstMarker = drawTool.drawShapeHandler._markers.length === 1;
 
-  start(300);
   ['mousedown', 'click'].forEach((key) => lastMarker.on(key, () => {
-    if (isBusy()) {
-      return;
-    }
-
-    if (drawTool.drawShapeHandler.enabled() && isFirstMarker) {
-      const isLineOrPolygon = currentShape.markers.length > 1;
-      disable(); // Includes auto close for any line or polygon
-      if (!isLineOrPolygon) {
-        // Reopen draw mode to place first marker somewhere else
-        enable();
+    if (drawTool.drawShapeHandler.enabled()) {
+      if (isFirstMarker) {
+        const isLineOrPolygon = currentShape.markers.length > 1;
+        disable(); // Includes auto close for any line or polygon
+        if (!isLineOrPolygon) {
+          // Reopen draw mode to place first marker somewhere else
+          enable();
+        }
+      } else {
+        deleteMarker(lastMarker);
       }
-    } else {
-      deleteMarker(lastMarker);
     }
   }));
 }
