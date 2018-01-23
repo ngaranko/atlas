@@ -53,6 +53,7 @@ class DrawTool extends React.Component {
     this.onUpdateShape = this.onUpdateShape.bind(this);
     this.setPolygon = this.setPolygon.bind(this);
     this.getMarkers = this.getMarkers.bind(this);
+    this.toggleMapFullscreen = this.toggleMapFullscreen.bind(this);
 
     initialize(window.leafletMap, this.onFinishShape, this.onDrawingMode,
       this.onUpdateShape);
@@ -79,6 +80,7 @@ class DrawTool extends React.Component {
   }
 
   onFinishShape(polygon) {
+    const has2Markers = polygon && polygon.markers && polygon.markers.length === 2;
     const moreThan2Markers = polygon && polygon.markers && polygon.markers.length > 2;
 
     if (moreThan2Markers) {
@@ -89,13 +91,11 @@ class DrawTool extends React.Component {
 
       this.props.onEndDrawing({ polygon });
       this.props.onSetPageName({ name: null });
-    } else {
+      this.toggleMapFullscreen();
+    } else if (has2Markers) {
       this.props.onEndDrawing();
-      this.props.onSetPageName({ name: 'home' });
-    }
-
-    if (this.props.uiMapFullscreen) {
-      this.props.onToggleMapFullscreen();
+    } else {
+      this.toggleMapFullscreen();
     }
   }
 
@@ -125,6 +125,12 @@ class DrawTool extends React.Component {
     return this.props.geometry && this.props.geometry.length > 0 ? this.props.geometry :
       ((this.props.dataSelection && this.props.dataSelection.geometryFilter &&
       this.props.dataSelection.geometryFilter.markers) || []);
+  }
+
+  toggleMapFullscreen() {
+    if (this.props.uiMapFullscreen) {
+      this.props.onToggleMapFullscreen();
+    }
   }
 
   render() {
