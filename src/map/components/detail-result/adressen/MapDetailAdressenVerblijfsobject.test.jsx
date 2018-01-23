@@ -26,9 +26,11 @@ describe('MapDetailAdressenVerblijfsobject', () => {
         hoofdadres: true
       }
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailAdressenVerblijfsobject
         panoUrl="panoUrl"
+        onMaximize={clickHandler}
         verblijfsobject={verblijfsobject}
       />
     );
@@ -57,9 +59,11 @@ describe('MapDetailAdressenVerblijfsobject', () => {
         hoofdadres: true
       }
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailAdressenVerblijfsobject
         panoUrl="panoUrl"
+        onMaximize={clickHandler}
         verblijfsobject={verblijfsobject}
       />
     );
@@ -117,9 +121,11 @@ describe('MapDetailAdressenVerblijfsobject', () => {
         hoofdadres: false
       }
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailAdressenVerblijfsobject
         panoUrl="panoUrl"
+        onMaximize={clickHandler}
         verblijfsobject={verblijfsobject}
       />
     );

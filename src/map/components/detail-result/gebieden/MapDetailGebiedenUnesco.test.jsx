@@ -8,9 +8,11 @@ describe('MapDetailGebiedenUnesco', () => {
     const unesco = {
       label: 'Unesco label'
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailGebiedenUnesco
         panoUrl="panoUrl"
+        onMaximize={clickHandler}
         unesco={unesco}
       />
     );

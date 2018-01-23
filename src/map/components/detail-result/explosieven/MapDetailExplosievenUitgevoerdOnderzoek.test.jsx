@@ -12,9 +12,11 @@ describe('MapDetailExplosievenUitgevoerdOnderzoek', () => {
       type: 'Uitgevoerd onderzoek type',
       verdachtGebied: 'Uitgevoerd onderzoek verdacht gebied'
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailExplosievenUitgevoerdOnderzoek
         panoUrl="panoUrl"
+        onMaximize={clickHandler}
         uitgevoerdOnderzoek={uitgevoerdOnderzoek}
       />
     );

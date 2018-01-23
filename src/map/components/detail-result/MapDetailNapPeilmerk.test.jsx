@@ -14,6 +14,7 @@ describe('MapDetailNapPeilmerk', () => {
     const wrapper = shallow(
       <MapDetailNapPeilmerk
         panoUrl="panoUrl"
+        onMaximize={() => ({})}
         peilmerk={peilmerk}
       />
     );
@@ -30,6 +31,7 @@ describe('MapDetailNapPeilmerk', () => {
     const wrapper = shallow(
       <MapDetailNapPeilmerk
         panoUrl="panoUrl"
+        onMaximize={() => ({})}
         peilmerk={peilmerk}
       />
     );
@@ -46,6 +48,7 @@ describe('MapDetailNapPeilmerk', () => {
     const wrapper = shallow(
       <MapDetailNapPeilmerk
         panoUrl="panoUrl"
+        onMaximize={() => ({})}
         peilmerk={peilmerk}
       />
     );
