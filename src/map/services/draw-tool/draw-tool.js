@@ -14,6 +14,7 @@ const DEFAULTS = {
   layer: null,
   markers: [],
   markersPrev: [],
+  markersEdit: [],
   markersMaxCount: drawToolConfig.MAX_MARKERS,
   area: 0,
   areaTxt: '',
@@ -194,6 +195,8 @@ function handleDrawEvent(eventName, e) {
     // Triggered when the user starts edit mode by clicking the edit tool button
     EDITSTART: () => setDrawingMode(drawToolConfig.DRAWING_MODE.EDIT),
 
+    EDITVERTEX: editVertex,
+
     // Triggered when the user has finshed editing (edit mode) and saves edits
     EDITSTOP: finishPolygon,
 
@@ -209,6 +212,10 @@ function handleDrawEvent(eventName, e) {
   }
 
   drawTool.lastEvent = eventName;
+}
+
+function editVertex(vertex) {
+  currentShape.markersEdit = vertex.poly._latlngs[0];
 }
 
 // Every leaflet.draw event is catched, thereby taking care that the shape is always up-to-date,
@@ -359,6 +366,9 @@ function updateShape() {
     latLngs = drawTool.drawShapeHandler._markers.map((m) => m._latlng);
     area = drawTool.drawShapeHandler._area;
     distance = getDistance(latLngs, false);
+  } else if (currentShape.markersEdit.length > 0){
+    latLngs = currentShape.markersEdit;
+    distance = getDistance(latLngs, true);
   }
 
   currentShape.markers = latLngs.map(({
