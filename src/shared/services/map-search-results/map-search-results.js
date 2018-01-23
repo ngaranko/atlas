@@ -21,16 +21,18 @@ const getSubCategories = (items, type) => items
 
 export const createMapSearchResultsModel = (allResults, resultsLimit, isSubCategory) =>
   sortByCategoryTypeOrder(filterNonPandMonuments(allResults))
-  .reduce((newList, currentValue, index, initialList) => {
-    const { categoryLabel, categoryLabelPlural, type, parent } = currentValue;
+  .reduce((newList, currentValue) => {
+    const {
+      categoryLabel, categoryLabelPlural, type, parent, status, count, isNevenadres
+    } = currentValue;
 
     if (newList.some((item) => item.categoryLabel === categoryLabel) ||
       (parent && !isSubCategory)) {
       return newList;
     }
 
-    const subCategories = getSubCategories(initialList, type);
-    const results = sortByCategoryTypeOrder(filterResultsByCategory(initialList, categoryLabel));
+    const subCategories = getSubCategories(allResults, type);
+    const results = filterResultsByCategory(allResults, categoryLabel);
 
     return [
       ...newList,
@@ -38,11 +40,13 @@ export const createMapSearchResultsModel = (allResults, resultsLimit, isSubCateg
         categoryLabel,
         categoryLabelPlural,
         type,
+        status,
+        isNevenadres,
         results: results.slice(0, resultsLimit),
         subCategories: subCategories && subCategories.length ?
           createMapSearchResultsModel(subCategories, resultsLimit, true) : [],
-        amountOfResults: results.length,
-        showMore: results.length > resultsLimit
+        amountOfResults: count || results.length,
+        showMore: (count || results.length) > resultsLimit
       }
     ];
   }, []);

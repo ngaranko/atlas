@@ -116,6 +116,8 @@
     }
 
     &-content {
+      align-items: center;
+      display: flex;
       flex-grow: 1;
       overflow: hidden;
     }
@@ -127,9 +129,20 @@
     }
 
     &-name {
+      min-width: 30px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+
+    &-status {
+      color: #999999;
+      white-space: nowrap;
+      
+      &:before,
+      &:after {
+        content: "\00a0\00a0";
+      }
     }
 
     &-arrow {

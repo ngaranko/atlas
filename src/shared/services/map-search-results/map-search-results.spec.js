@@ -33,6 +33,8 @@ describe('Map search results', () => {
         categoryLabel: 'Adress',
         categoryLabelPlural: 'Adressen',
         type: 'pand/address',
+        status: {},
+        count: 2,
         parent: 'bag/pand'
       });
 
