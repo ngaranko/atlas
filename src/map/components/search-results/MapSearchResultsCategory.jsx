@@ -3,6 +3,13 @@ import PropTypes from 'prop-types';
 
 import MapSearchResultsItem from './MapSearchResultsItem';
 
+const statusCodes = [
+  '18'
+];
+
+const shouldShowStatus = (result) => statusCodes.indexOf(result.status.code) > -1;
+const getDesription = (result) => `${shouldShowStatus(result) ? `(${result.status.description})` : ''} ${result.isNevenadres ? '(Nevenadres)' : ''}`;
+
 const MapSearchResultsCategory = ({ category, onClick }) => (
   <li className="map-search-results__category">
     <h4 className="map-search-results__category-header">
@@ -18,6 +25,7 @@ const MapSearchResultsCategory = ({ category, onClick }) => (
           <MapSearchResultsItem
             key={result.uri}
             label={result.label}
+            statusDescription={getDesription(result)}
             onClick={() => {
               onClick(result.uri);
             }}
