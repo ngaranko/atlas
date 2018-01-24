@@ -5,10 +5,10 @@ import drawToolConfig from '../../services/draw-tool/draw-tool-config';
 
 import './_points-available.scss';
 
-const PointsAvailable = ({ shapeMarkers }) => {
+const PointsAvailable = ({ shapeMarkers ,drawingMode }) => {
   const markersLeft = drawToolConfig.MAX_MARKERS - shapeMarkers;
 
-  if (markersLeft > drawToolConfig.MARKERS_LEFT_WARNING) {
+  if (markersLeft > drawToolConfig.MARKERS_LEFT_WARNING || drawingMode === 'none') {
     return null;
   } else if (markersLeft === 0) {
     return (
@@ -36,7 +36,8 @@ const PointsAvailable = ({ shapeMarkers }) => {
 };
 
 PointsAvailable.propTypes = {
-  shapeMarkers: PropTypes.number.isRequired
+  shapeMarkers: PropTypes.number.isRequired,
+  drawingMode: PropTypes.string.isRequired
 };
 
 export default PointsAvailable;

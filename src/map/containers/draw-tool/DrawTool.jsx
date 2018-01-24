@@ -147,6 +147,7 @@ class DrawTool extends React.Component {
         />
         <PointsAvailable
           shapeMarkers={this.props.shapeMarkers}
+          drawingMode={this.props.drawingMode}
         />
       </section>
     );
