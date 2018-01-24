@@ -8,7 +8,7 @@ import './_points-available.scss';
 const PointsAvailable = ({ shapeMarkers ,drawingMode }) => {
   const markersLeft = drawToolConfig.MAX_MARKERS - shapeMarkers;
 
-  if (markersLeft > drawToolConfig.MARKERS_LEFT_WARNING || drawingMode === 'none') {
+  if (markersLeft > drawToolConfig.MARKERS_LEFT_WARNING || drawingMode === drawToolConfig.DRAWING_MODE.NONE) {
     return null;
   } else if (markersLeft === 0) {
     return (
