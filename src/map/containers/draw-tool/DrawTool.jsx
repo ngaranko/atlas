@@ -70,6 +70,12 @@ class DrawTool extends React.Component {
       this.setState({ previousMarkers: [...markers] });
     }
 
+    if (props.dataSelection === null && props.geometry === null &&
+      props.drawingMode === drawToolConfig.DRAWING_MODE.NONE) {
+      // if dataSelection and geometry are empty then remove the drawn polygon
+      setPolygon([]);
+    }
+
     if (this.state.drawingMode !== props.drawingMode) {
       if (props.drawingMode === drawToolConfig.DRAWING_MODE.NONE) {
         // after drawing mode has changed the draw tool should be cancelled after navigating
