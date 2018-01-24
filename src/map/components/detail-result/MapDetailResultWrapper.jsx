@@ -27,7 +27,7 @@ const MapDetailResultWrapper = ({ children, panoUrl, subTitle, title, onMaximize
     </header>
     <div className="map-detail-result__scroll-wrapper">
       {children && (
-          { children }
+          [children]
       )}
       <footer className="map-search-results__footer">
         <button onClick={onMaximize} className="map-search-results__button">
