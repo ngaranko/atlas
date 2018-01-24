@@ -110,6 +110,8 @@ class DrawTool extends React.Component {
       this.setState({ previousMarkers: [...currentShape.markers] });
       this.props.resetGeometryFilter({ drawingMode });
       this.props.onStartDrawing({ drawingMode });
+    } else {
+      this.props.onEndDrawing();
     }
   }
 
@@ -143,7 +145,7 @@ class DrawTool extends React.Component {
     return (
       <section className="draw-tool">
         <ToggleDrawing
-          drawingMode={this.props.drawingMode}
+          drawingMode={this.state.drawingMode}
           shapeMarkers={this.props.shapeMarkers}
         />
         <ShapeSummary
@@ -153,7 +155,7 @@ class DrawTool extends React.Component {
         />
         <PointsAvailable
           shapeMarkers={this.props.shapeMarkers}
-          drawingMode={this.props.drawingMode}
+          drawingMode={this.state.drawingMode}
         />
       </section>
     );
