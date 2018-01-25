@@ -13,11 +13,12 @@ const initialState = {
   // page: 1,
   // isFullscreen: true,
 };
+let geometryFilter = {};
 
 export default function DataSelectionReducer(state = initialState, action) {
   switch (action.type) {
     case SET_DATA_SELECTION_GEOMETRY_FILTER:
-      const geometryFilter = { ...action.payload } || { markers: [] };
+      geometryFilter = { ...action.payload } || { markers: [] };
       return {
         ...{
           dataset: 'bag'
@@ -35,32 +36,30 @@ export default function DataSelectionReducer(state = initialState, action) {
       };
 
     case RESET_DATA_SELECTION_GEOMETRY_FILTER:
-      const geometryFilter2 = action.payload.polygon || { markers: [] };
+      geometryFilter = action.payload.polygon || { markers: [] };
       if ((action.payload.drawingMode !== 'edit') &&
         state &&
         state.geometryFilter &&
         state.geometryFilter.markers &&
         state.geometryFilter.markers.length > 0) {
-      } else {
-        return state;
+        return {
+          ...{
+            dataset: 'bag'
+          },
+          ...state,
+          geometryFilter,
+          page: 1,
+          isFullscreen: false,
+          isLoading: true,
+          view: 'LIST',
+          markers: [],
+          // No markers, the data selection goes back to its default state of
+          // showing all data => make sure it will not trigger a url state
+          // change
+          reset: geometryFilter.markers.length === 0
+        };
       }
-
-      return {
-        ...{
-          dataset: 'bag'
-        },
-        ...state,
-        geometryFilter: geometryFilter2,
-        page: 1,
-        isFullscreen: false,
-        isLoading: true,
-        view: 'LIST',
-        markers: [],
-        // No markers, the data selection goes back to its default state of
-        // showing all data => make sure it will not trigger a url state
-        // change
-        reset: geometryFilter2.markers.length === 0
-      };
+      return state;
 
     default:
       return state;

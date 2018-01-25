@@ -24,7 +24,7 @@ const DEFAULTS = {
   distanceTxt: ''
 };
 
-export let currentShape = { ...DEFAULTS };
+export let currentShape = { ...DEFAULTS };  // eslint-disable-line import/no-mutable-exports
 
 // holds all publicly available information about the last consistent state of the current shape
 const shapeInfo = {};
@@ -371,7 +371,7 @@ function updateShape() {
     latLngs = drawTool.drawShapeHandler._markers.map((m) => m._latlng);
     area = drawTool.drawShapeHandler._area;
     distance = getDistance(latLngs, false);
-  } else if (currentShape.markersEdit.length > 0){
+  } else if (currentShape.markersEdit.length > 0) {
     latLngs = currentShape.markersEdit;
     distance = getDistance(latLngs, true);
   }
@@ -423,10 +423,11 @@ function deleteMarker() {
   const markers = drawShapeHandler._markers; // is always an array
   const index = markers.findIndex((m) => m._leaflet_id === marker._leaflet_id);
   let nDelete = markers.length - index; // Delete all from last to marker, inclusive
-  while (nDelete-- > 0) {
+  while (nDelete > 0) {
     // Remove the last vertex from the polyline, removes polyline from map if only one point
     // exists
     drawShapeHandler.deleteLastVertex();
+    nDelete -= 1;
   }
 }
 

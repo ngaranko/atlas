@@ -1,5 +1,3 @@
-import DRAW_TOOL_CONFIG from '../../../../../src/map/services/draw-tool/draw-tool-config';
-
 (function () {
     'use strict';
 

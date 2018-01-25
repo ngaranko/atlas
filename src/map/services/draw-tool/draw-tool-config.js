@@ -1,6 +1,6 @@
 export default {
-  MAX_MARKERS: 6,
-  MARKERS_LEFT_WARNING: 2,
+  MAX_MARKERS: 12,
+  MARKERS_LEFT_WARNING: 5,
   DRAWING_MODE: {
     NONE: 'none',
     DRAW: 'draw',

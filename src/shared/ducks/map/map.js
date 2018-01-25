@@ -16,6 +16,10 @@ const initialState = {
   shapeAreaTxt: ''
 };
 
+let polygon = {};
+let has2Markers;
+let moreThan2Markers;
+
 export default function MapReducer(state = initialState, action) {
   switch (action.type) {
     case MAP_CLEAR_DRAWING:
@@ -39,9 +43,9 @@ export default function MapReducer(state = initialState, action) {
       };
 
     case MAP_END_DRAWING:
-      const polygon = action.payload && action.payload.polygon;
-      const has2Markers = polygon && polygon.markers && polygon.markers.length === 2;
-      const moreThan2Markers = polygon && polygon.markers && polygon.markers.length > 2;
+      polygon = action.payload && action.payload.polygon;
+      has2Markers = polygon && polygon.markers && polygon.markers.length === 2;
+      moreThan2Markers = polygon && polygon.markers && polygon.markers.length > 2;
 
       return {
         ...state,
