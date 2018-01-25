@@ -28,7 +28,6 @@ export default function DataSelectionReducer(state = initialState, action) {
         isFullscreen: false,
         isLoading: true,
         view: 'LIST',
-        markers: [],
         // No markers, the data selection goes back to its default state of
         // showing all data => make sure it will not trigger a url state
         // change
