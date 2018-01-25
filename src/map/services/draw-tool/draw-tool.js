@@ -75,8 +75,10 @@ function onChangePolygon() {
   updateShapeInfo();
 
   if (!isEqual(currentShape.markers, currentShape.markersPrev) && typeof _onUpdateShape === 'function') {
-    // call any registered callback function, applyAsync because triggered by a leaflet event
-    _onUpdateShape(currentShape);
+    defer(() => {
+      // call any registered callback function, applyAsync because triggered by a leaflet event
+      _onUpdateShape(currentShape);
+    });
   }
 
   // triggered when the drawing mode has changed
