@@ -100,8 +100,6 @@ class DrawTool extends React.Component {
       this.toggleMapFullscreen();
     } else if (has2Markers) {
       this.props.onEndDrawing({ polygon });
-    } else {
-      this.toggleMapFullscreen();
     }
   }
 
