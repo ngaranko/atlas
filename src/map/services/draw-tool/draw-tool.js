@@ -3,6 +3,7 @@
 
 import defer from 'lodash.defer';
 import isEqual from 'lodash.isequal';
+import debounce from 'lodash.debounce';
 
 import { isBusy, start } from '../suppress/suppress';
 import drawToolConfig from './draw-tool-config';
@@ -441,6 +442,9 @@ function bindLastDrawnMarker() {
 
   ['mousedown', 'click'].forEach((key) => lastMarker.on(key, () => {
     if (drawTool.drawShapeHandler.enabled()) {
+      // click on map automatically creates a new marker -> remove that first
+      drawTool.drawShapeHandler.deleteLastVertex();
+
       if (isFirstMarker) {
         const isLineOrPolygon = currentShape.markers.length > 1;
         disable(); // Includes auto close for any line or polygon
@@ -449,7 +453,7 @@ function bindLastDrawnMarker() {
           enable();
         }
       } else {
-        deleteMarker(lastMarker);
+        debounce(deleteMarker(lastMarker), 300, { leading: true });
       }
     }
   }));
