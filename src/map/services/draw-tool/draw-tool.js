@@ -16,6 +16,7 @@ const DEFAULTS = {
   markers: [],
   markersPrev: [],
   markersEdit: [],
+  deleteMarker: {},
   markersMaxCount: drawToolConfig.MAX_MARKERS,
   area: 0,
   areaTxt: '',
@@ -340,7 +341,7 @@ export function cancel() {
 // Shape method for shape.info
 // while drawing the polygon is not closed => distance is distance of the lines
 // When editing the polygon is closed => distance is surrounding
-// When only tow points => distance is line lenght
+// When only tow points => distance is line length
 function getDistance(latLngs, isClosed) {
   return latLngs.reduce((total, latlng, i) => {
     if (i > 0) {
@@ -416,7 +417,8 @@ function updateShapeInfo() {
 }
 
 // delete a marker in DRAW mode
-function deleteMarker(marker) {
+function deleteMarker() {
+  const marker = currentShape.deleteMarker;
   const drawShapeHandler = drawTool.drawShapeHandler;
   const markers = drawShapeHandler._markers; // is always an array
   const index = markers.findIndex((m) => m._leaflet_id === marker._leaflet_id);
@@ -427,6 +429,11 @@ function deleteMarker(marker) {
     drawShapeHandler.deleteLastVertex();
   }
 }
+
+const debouncedDeleteMarker = debounce(() => deleteMarker(), 500, {
+  leading: true,
+  trailing: false
+});
 
 // returns the last marker that was added to the polygon (only called in draw mode)
 function getLastDrawnMarker() {
@@ -441,10 +448,9 @@ function bindLastDrawnMarker() {
   const isFirstMarker = drawTool.drawShapeHandler._markers.length === 1;
 
   ['mousedown', 'click'].forEach((key) => lastMarker.on(key, () => {
+    // drawTool.drawShapeHandler.deleteLastVertex();
     if (drawTool.drawShapeHandler.enabled()) {
       // click on map automatically creates a new marker -> remove that first
-      drawTool.drawShapeHandler.deleteLastVertex();
-
       if (isFirstMarker) {
         const isLineOrPolygon = currentShape.markers.length > 1;
         disable(); // Includes auto close for any line or polygon
@@ -453,7 +459,8 @@ function bindLastDrawnMarker() {
           enable();
         }
       } else {
-        debounce(deleteMarker(lastMarker), 300, { leading: true });
+        currentShape.deleteMarker = lastMarker;
+        debouncedDeleteMarker();
       }
     }
   }));
