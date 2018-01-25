@@ -149,7 +149,7 @@
                 scope.$watch('markers.clustered', function (newCollection, oldCollection) {
                     highlight.clearCluster(leafletMap);
 
-                    if (newCollection.length) {
+                    if (newCollection && newCollection.length > 0) {
                         highlight.setCluster(leafletMap, newCollection);
                     }
                 }, true);

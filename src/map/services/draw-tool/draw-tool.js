@@ -448,7 +448,6 @@ function bindLastDrawnMarker() {
   const isFirstMarker = drawTool.drawShapeHandler._markers.length === 1;
 
   ['mousedown', 'click'].forEach((key) => lastMarker.on(key, () => {
-    // drawTool.drawShapeHandler.deleteLastVertex();
     if (drawTool.drawShapeHandler.enabled()) {
       // click on map automatically creates a new marker -> remove that first
       if (isFirstMarker) {

@@ -89,15 +89,19 @@ class DrawTool extends React.Component {
     const has2Markers = polygon && polygon.markers && polygon.markers.length === 2;
     const moreThan2Markers = polygon && polygon.markers && polygon.markers.length > 2;
 
-    if (moreThan2Markers) {
-      this.props.setGeometryFilter({
-        markers: polygon.markers,
-        description: `${currentShape.distanceTxt} en ${currentShape.areaTxt}`
-      });
 
-      this.props.onEndDrawing({ polygon });
-      this.props.onSetPageName({ name: null });
-      this.toggleMapFullscreen();
+    if (moreThan2Markers) {
+      if (!isEqual(this.state.previousMarkers, polygon.markers)) {
+        this.props.setGeometryFilter({
+          markers: polygon.markers,
+          description: `${currentShape.distanceTxt} en ${currentShape.areaTxt}`
+        });
+
+        this.props.onEndDrawing({ polygon });
+        this.props.onSetPageName({ name: null });
+
+        this.toggleMapFullscreen();
+      }
     } else if (has2Markers) {
       this.props.onEndDrawing({ polygon });
     }
