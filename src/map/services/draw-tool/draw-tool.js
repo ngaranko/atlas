@@ -72,7 +72,7 @@ function onChangePolygon() {
   }
 
   // update the publicly available shape info, applyAsync because triggered by a leaflet event
-  updateShapeInfo();
+  updateShape();
 
   if (!isEqual(currentShape.markers, currentShape.markersPrev) && typeof _onUpdateShape === 'function') {
     defer(() => {
