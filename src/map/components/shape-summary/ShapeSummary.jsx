@@ -19,6 +19,7 @@ const ShapeSummary = ({ shapeMarkers, shapeDistanceTxt, onClearDrawing }) => {
       >Lijn: {shapeDistanceTxt}
       </span>
       <button
+        className="shape-summary__button"
         onClick={onClearDrawing}
         title="Lijn verwijderen"
       >
