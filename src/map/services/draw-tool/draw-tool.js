@@ -118,6 +118,7 @@ function createPolygon(layer) {
 
 // Called when a polygon is finished (end draw or end edit)
 function finishPolygon() {
+  currentShape.markersEdit = [];
   if (drawTool.drawingMode === drawToolConfig.DRAWING_MODE.EDIT && !currentShape.isConsistent) {
     setPolygon([...currentShape.markersPrev]); // restore previous polygon
     updateShape();
