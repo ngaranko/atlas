@@ -10,24 +10,20 @@
     fill: #666666;
     height: 24px;
     width: 24px;
+
+    &:focus,
+    &:hover {
+      background-color: #ec0000;
+      border-color: #ec0000;
+      color: #ffffff;
+      fill: #ffffff;
+    }
   }
 
   &__label {
     align-self: center;
     color: #666666;
     margin: 0 4px;
-  }
-
-  &:focus,
-  &:hover {
-    background-color: #ec0000;
-    border-color: #ec0000;
-
-    .shape-summary__icon,
-    .shape-summary__label {
-      color: #ffffff;
-      fill: #ffffff;
-    }
   }
 
   .is-embed &,
