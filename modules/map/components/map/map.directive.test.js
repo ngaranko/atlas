@@ -1,3 +1,5 @@
+import drawToolConfig from '../../../../src/map/services/draw-tool/draw-tool-config';
+
 describe('The dp-map directive', () => {
     let $compile,
         $rootScope,
@@ -14,8 +16,7 @@ describe('The dp-map directive', () => {
         mockedMapState,
         mockedLeafletMap,
         mockedMarkers,
-        mockedState,
-        DRAW_TOOL_CONFIG;
+        mockedState;
 
     beforeEach(() => {
         mockedState = {};
@@ -55,6 +56,11 @@ describe('The dp-map directive', () => {
                     initialize: angular.noop,
                     setZoom: angular.noop
                 },
+                drawTool: {
+                  initialize: angular.noop,
+                  enable: angular.noop,
+                  disable: angular.noop,
+                },
                 onMapClick: {
                     initialize: angular.noop
                 },
@@ -71,17 +77,17 @@ describe('The dp-map directive', () => {
                     return {};
                 });
 
-                $provide.factory('dpDrawToolDirective' + '', () => {
-                    return {};
-                });
+                // $provide.factory('dpDrawToolDirective' + '', () => {
+                    // return {};
+                // });
 
                 $provide.factory('dpActiveOverlaysDirective', () => {
                     return {};
                 });
 
-                $provide.factory('dpToggleFullscreenDirective', () => {
-                    return {};
-                });
+                // $provide.factory('dpToggleFullscreenDirective', () => {
+                    // return {};
+                // });
 
                 $provide.factory('dpEmbedButtonDirective', () => {
                     return {};
@@ -104,8 +110,7 @@ describe('The dp-map directive', () => {
             _panning_,
             _zoom_,
             _drawTool_,
-            _onMapClick_,
-            _DRAW_TOOL_CONFIG_) {
+            _onMapClick_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             $timeout = _$timeout_;
@@ -117,7 +122,6 @@ describe('The dp-map directive', () => {
             zoom = _zoom_;
             drawTool = _drawTool_;
             onMapClick = _onMapClick_;
-            DRAW_TOOL_CONFIG = _DRAW_TOOL_CONFIG_;
         });
         spyOn(L, 'map').and.returnValue(mockedLeafletMap);
 
@@ -559,7 +563,7 @@ describe('The dp-map directive', () => {
 
     describe('draw state', () => {
         it('should set the draw mode to none when drawing and editing are not active', () => {
-            mockedMapState.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
+            mockedMapState.drawingMode = drawToolConfig.DRAWING_MODE.NONE;
 
             const directive = getDirective(mockedMapState, mockedMarkers);
             const element = directive.find('.qa-map-container');
@@ -568,7 +572,7 @@ describe('The dp-map directive', () => {
         });
 
         it('should set the draw mode to draw when drawing is active', () => {
-            mockedMapState.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW;
+            mockedMapState.drawingMode = drawToolConfig.DRAWING_MODE.DRAW;
 
             const directive = getDirective(mockedMapState, mockedMarkers);
             const element = directive.find('.qa-map-container');
@@ -577,7 +581,7 @@ describe('The dp-map directive', () => {
         });
 
         it('should set the draw mode to draw when editing is active', () => {
-            mockedMapState.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.EDIT;
+            mockedMapState.drawingMode = drawToolConfig.DRAWING_MODE.EDIT;
 
             const directive = getDirective(mockedMapState, mockedMarkers);
             const element = directive.find('.qa-map-container');
