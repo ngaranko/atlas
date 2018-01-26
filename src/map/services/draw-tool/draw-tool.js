@@ -431,7 +431,7 @@ function deleteMarker() {
   }
 }
 
-const debouncedDeleteMarker = debounce(() => deleteMarker(), 500, {
+const debouncedDeleteMarker = debounce(() => deleteMarker(), 300, {
   leading: true,
   trailing: false
 });
