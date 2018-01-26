@@ -25,7 +25,9 @@ exports[`MapDetailResultWrapper should not render empty panoUrl 1`] = `
       </h2>
     </div>
   </header>
-  <div>
+  <div
+    className="map-detail-result__scroll-wrapper"
+  >
     <ul>
       <li>
         Item 1
@@ -34,6 +36,18 @@ exports[`MapDetailResultWrapper should not render empty panoUrl 1`] = `
         Item 2
       </li>
     </ul>
+    <footer
+      className="map-search-results__footer"
+    >
+      <button
+        className="map-search-results__button"
+      >
+        <Component
+          className="map-search-results__button-icon"
+        />
+        Volledig weergeven
+      </button>
+    </footer>
   </div>
 </section>
 `;
@@ -58,7 +72,9 @@ exports[`MapDetailResultWrapper should not render empty sub title 1`] = `
       </h1>
     </div>
   </header>
-  <div>
+  <div
+    className="map-detail-result__scroll-wrapper"
+  >
     <ul>
       <li>
         Item 1
@@ -67,6 +83,18 @@ exports[`MapDetailResultWrapper should not render empty sub title 1`] = `
         Item 2
       </li>
     </ul>
+    <footer
+      className="map-search-results__footer"
+    >
+      <button
+        className="map-search-results__button"
+      >
+        <Component
+          className="map-search-results__button-icon"
+        />
+        Volledig weergeven
+      </button>
+    </footer>
   </div>
 </section>
 `;
@@ -91,6 +119,22 @@ exports[`MapDetailResultWrapper should not render missing children 1`] = `
       </h1>
     </div>
   </header>
+  <div
+    className="map-detail-result__scroll-wrapper"
+  >
+    <footer
+      className="map-search-results__footer"
+    >
+      <button
+        className="map-search-results__button"
+      >
+        <Component
+          className="map-search-results__button-icon"
+        />
+        Volledig weergeven
+      </button>
+    </footer>
+  </div>
 </section>
 `;
 
@@ -114,7 +158,9 @@ exports[`MapDetailResultWrapper should not render missing sub title 1`] = `
       </h1>
     </div>
   </header>
-  <div>
+  <div
+    className="map-detail-result__scroll-wrapper"
+  >
     <ul>
       <li>
         Item 1
@@ -123,6 +169,18 @@ exports[`MapDetailResultWrapper should not render missing sub title 1`] = `
         Item 2
       </li>
     </ul>
+    <footer
+      className="map-search-results__footer"
+    >
+      <button
+        className="map-search-results__button"
+      >
+        <Component
+          className="map-search-results__button-icon"
+        />
+        Volledig weergeven
+      </button>
+    </footer>
   </div>
 </section>
 `;

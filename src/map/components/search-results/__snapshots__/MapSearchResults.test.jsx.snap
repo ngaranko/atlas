@@ -30,28 +30,62 @@ exports[`MapSearchResults rendering should filter external monumenten on pand re
       </h2>
     </div>
   </header>
-  <ul
-    className="map-search-results__list"
+  <div
+    className="map-search-results__scroll-wrapper"
   >
-    <li
-      key="result-uri-1"
+    <ul
+      className="map-search-results__list"
     >
-      <MapSearchResultsItem
-        categoryLabel="category"
-        label="label"
-        onClick={[Function]}
+      <MapSearchResultsCategory
+        category={
+          Object {
+            "categoryLabel": "category",
+            "label": "label",
+            "type": "bag/pand",
+            "uri": "result-uri-1",
+          }
+        }
+        key="category"
+        onClick={[MockFunction]}
       />
-    </li>
-    <li
-      key="result-uri-2"
+      <MapSearchResultsCategory
+        category={
+          Object {
+            "categoryLabel": "category",
+            "label": "label",
+            "type": "foo",
+            "uri": "result-uri-2",
+          }
+        }
+        key="category"
+        onClick={[MockFunction]}
+      />
+      <MapSearchResultsCategory
+        category={
+          Object {
+            "categoryLabel": "category",
+            "label": "label",
+            "type": "monumenten/monument",
+            "uri": "result-uri-3",
+          }
+        }
+        key="category"
+        onClick={[MockFunction]}
+      />
+    </ul>
+    <footer
+      className="map-search-results__footer"
     >
-      <MapSearchResultsItem
-        categoryLabel="category"
-        label="label"
-        onClick={[Function]}
-      />
-    </li>
-  </ul>
+      <button
+        className="map-search-results__button"
+      >
+        <Component
+          className="map-search-results__button-icon"
+        />
+        Volledig weergeven
+      </button>
+    </footer>
+  </div>
 </section>
 `;
 
@@ -84,9 +118,25 @@ exports[`MapSearchResults rendering should render empty results 1`] = `
       </h2>
     </div>
   </header>
-  <ul
-    className="map-search-results__list"
-  />
+  <div
+    className="map-search-results__scroll-wrapper"
+  >
+    <ul
+      className="map-search-results__list"
+    />
+    <footer
+      className="map-search-results__footer"
+    >
+      <button
+        className="map-search-results__button"
+      >
+        <Component
+          className="map-search-results__button-icon"
+        />
+        Volledig weergeven
+      </button>
+    </footer>
+  </div>
 </section>
 `;
 
@@ -125,37 +175,57 @@ exports[`MapSearchResults rendering should render results 1`] = `
       </h2>
     </div>
   </header>
-  <ul
-    className="map-search-results__list"
+  <div
+    className="map-search-results__scroll-wrapper"
   >
-    <li>
-      <Notification
-        className=""
-        level="info"
+    <ul
+      className="map-search-results__list"
+    >
+      <li>
+        <Notification
+          className=""
+          level="info"
+        >
+          Geen details beschikbaar van: 
+          Layer 1, Layer 2
+        </Notification>
+      </li>
+      <MapSearchResultsCategory
+        category={
+          Object {
+            "categoryLabel": "category",
+            "label": "label",
+            "uri": "result-uri-1",
+          }
+        }
+        key="category"
+        onClick={[MockFunction]}
+      />
+      <MapSearchResultsCategory
+        category={
+          Object {
+            "categoryLabel": "category",
+            "label": "label",
+            "uri": "result-uri-2",
+          }
+        }
+        key="category"
+        onClick={[MockFunction]}
+      />
+    </ul>
+    <footer
+      className="map-search-results__footer"
+    >
+      <button
+        className="map-search-results__button"
       >
-        Geen details beschikbaar van: 
-        Layer 1, Layer 2
-      </Notification>
-    </li>
-    <li
-      key="result-uri-1"
-    >
-      <MapSearchResultsItem
-        categoryLabel="category"
-        label="label"
-        onClick={[Function]}
-      />
-    </li>
-    <li
-      key="result-uri-2"
-    >
-      <MapSearchResultsItem
-        categoryLabel="category"
-        label="label"
-        onClick={[Function]}
-      />
-    </li>
-  </ul>
+        <Component
+          className="map-search-results__button-icon"
+        />
+        Volledig weergeven
+      </button>
+    </footer>
+  </div>
 </section>
 `;
 
@@ -194,28 +264,48 @@ exports[`MapSearchResults rendering should update results 1`] = `
       </h2>
     </div>
   </header>
-  <ul
-    className="map-search-results__list"
+  <div
+    className="map-search-results__scroll-wrapper"
   >
-    <li
-      key="result-uri-1"
+    <ul
+      className="map-search-results__list"
     >
-      <MapSearchResultsItem
-        categoryLabel="category"
-        label="label"
-        onClick={[Function]}
+      <MapSearchResultsCategory
+        category={
+          Object {
+            "categoryLabel": "category",
+            "label": "label",
+            "uri": "result-uri-1",
+          }
+        }
+        key="category"
+        onClick={[MockFunction]}
       />
-    </li>
-    <li
-      key="result-uri-2"
+      <MapSearchResultsCategory
+        category={
+          Object {
+            "categoryLabel": "category",
+            "label": "label",
+            "uri": "result-uri-2",
+          }
+        }
+        key="category"
+        onClick={[MockFunction]}
+      />
+    </ul>
+    <footer
+      className="map-search-results__footer"
     >
-      <MapSearchResultsItem
-        categoryLabel="category"
-        label="label"
-        onClick={[Function]}
-      />
-    </li>
-  </ul>
+      <button
+        className="map-search-results__button"
+      >
+        <Component
+          className="map-search-results__button-icon"
+        />
+        Volledig weergeven
+      </button>
+    </footer>
+  </div>
 </section>
 `;
 
@@ -254,45 +344,67 @@ exports[`MapSearchResults rendering should update results 2`] = `
       </h2>
     </div>
   </header>
-  <ul
-    className="map-search-results__list"
+  <div
+    className="map-search-results__scroll-wrapper"
   >
-    <li>
-      <Notification
-        className=""
-        level="info"
+    <ul
+      className="map-search-results__list"
+    >
+      <li>
+        <Notification
+          className=""
+          level="info"
+        >
+          Geen details beschikbaar van: 
+          Layer 3
+        </Notification>
+      </li>
+      <MapSearchResultsCategory
+        category={
+          Object {
+            "categoryLabel": "category",
+            "label": "label",
+            "uri": "result-uri-1",
+          }
+        }
+        key="category"
+        onClick={[MockFunction]}
+      />
+      <MapSearchResultsCategory
+        category={
+          Object {
+            "categoryLabel": "category",
+            "label": "label",
+            "uri": "result-uri-2",
+          }
+        }
+        key="category"
+        onClick={[MockFunction]}
+      />
+      <MapSearchResultsCategory
+        category={
+          Object {
+            "categoryLabel": "category",
+            "label": "label",
+            "uri": "result-uri-3",
+          }
+        }
+        key="category"
+        onClick={[MockFunction]}
+      />
+    </ul>
+    <footer
+      className="map-search-results__footer"
+    >
+      <button
+        className="map-search-results__button"
       >
-        Geen details beschikbaar van: 
-        Layer 3
-      </Notification>
-    </li>
-    <li
-      key="result-uri-1"
-    >
-      <MapSearchResultsItem
-        categoryLabel="category"
-        label="label"
-        onClick={[Function]}
-      />
-    </li>
-    <li
-      key="result-uri-2"
-    >
-      <MapSearchResultsItem
-        categoryLabel="category"
-        label="label"
-        onClick={[Function]}
-      />
-    </li>
-    <li
-      key="result-uri-3"
-    >
-      <MapSearchResultsItem
-        categoryLabel="category"
-        label="label"
-        onClick={[Function]}
-      />
-    </li>
-  </ul>
+        <Component
+          className="map-search-results__button-icon"
+        />
+        Volledig weergeven
+      </button>
+    </footer>
+  </div>
 </section>
 `;
