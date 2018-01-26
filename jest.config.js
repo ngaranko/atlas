@@ -30,7 +30,7 @@ module.exports = {
   ],
   testMatch: [
     '**/__tests__/**/!(*visual.test).js?(x)',
-    '**/*.spec.js'
+    '**/*.test.js?(x)'
   ],
   testEnvironment: 'jest-environment-jsdom-global',
   testPathIgnorePatterns: [
