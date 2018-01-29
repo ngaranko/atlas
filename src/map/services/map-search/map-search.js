@@ -109,10 +109,6 @@ export default function search(location, user) {
     return fetch(`${apiUrl}${endpoint.uri}?${queryString}`)
       .then((response) => response.json())
       .then(fetchRelatedForUser(user))
-      .then((features) => {
-        debugger;
-        return features
-      })
       .then((features) => features
         .map((feature) => ({
           uri: feature.properties.uri,
