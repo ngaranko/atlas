@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ShapeSummary rendering should render empty with 0 markers 1`] = `""`;
+
+exports[`ShapeSummary rendering should render empty with 0 markers 2`] = `""`;
+
+exports[`ShapeSummary rendering should render empty with 1 markers 1`] = `""`;
+
+exports[`ShapeSummary rendering should render empty with more than 2 markers 1`] = `""`;
+
+exports[`ShapeSummary rendering should render info with 2 markers 1`] = `
+<div
+  className="shape-summary"
+>
+  <span
+    aria-label="Lijn: 23,45 km"
+    className="shape-summary__label"
+  >
+    Lijn: 
+    23,45 km
+  </span>
+  <button
+    className="shape-summary__button"
+    onClick={[MockFunction]}
+    title="Lijn verwijderen"
+  >
+    <Component
+      className="shape-summary__icon"
+    />
+    <span
+      className="u-sr-only"
+    >
+      Lijn verwijderen
+    </span>
+  </button>
+</div>
+`;
