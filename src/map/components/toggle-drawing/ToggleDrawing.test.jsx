@@ -25,10 +25,10 @@ describe('ToggleDrawing', () => {
         />
       );
       wrapper.find('button').at(0).simulate('click');
-      expect(enable.mock.calls.length).toBe(1);
+      expect(enable).toHaveBeenCalled();
 
       // is should NOT reset polygon when there are no markers
-      expect(setPolygon.mock.calls.length).toBe(0);
+      expect(setPolygon).not.toHaveBeenCalled();
     });
 
     it('should trigger toggle drawing off when clicked', () => {
@@ -41,7 +41,7 @@ describe('ToggleDrawing', () => {
         />
       );
       wrapper.find('button').at(0).simulate('click');
-      expect(disable.mock.calls.length).toBe(1);
+      expect(disable).toHaveBeenCalled();
     });
 
     it('should trigger toggle drawing on when clicked with 2 markers', () => {
@@ -54,10 +54,10 @@ describe('ToggleDrawing', () => {
         />
       );
       wrapper.find('button').at(0).simulate('click');
-      expect(enable.mock.calls.length).toBe(1);
+      expect(enable).toHaveBeenCalled();
 
       // is should reset polygon when there are no markers
-      expect(setPolygon.mock.calls.length).toBe(1);
+      expect(setPolygon).toHaveBeenCalledWith([]);
     });
   });
 
