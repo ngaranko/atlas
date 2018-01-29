@@ -1,19 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { enable, disable, setPolygon, isEnabled, currentShape } from '../../services/draw-tool/draw-tool';
+import { enable, disable, setPolygon, isEnabled } from '../../services/draw-tool/draw-tool';
 import drawToolConfig from '../../services/draw-tool/draw-tool-config';
 
 import Icon from '../../../../public/images/icon-measure.svg';
 
 import './_toggle-drawing.scss';
 
-// temp remove window namespacing
-function toggleDrawing() {
+function toggleDrawing(markers) {
   if (isEnabled()) {
     disable();
   } else {
-    if (currentShape.markers.length > 0) {
+    if (markers > 0) {
       setPolygon([]);
     }
     enable();
@@ -27,7 +26,7 @@ const ToggleDrawing = ({ drawingMode, shapeMarkers }) => {
 
   return (<button
     className="toggle-drawing"
-    onClick={() => toggleDrawing()}
+    onClick={() => toggleDrawing(shapeMarkers)}
     title={`${title} meten en intekenen`}
     aria-label={`${title} meten en intekenen`}
   >
