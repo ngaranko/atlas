@@ -5,6 +5,7 @@ import * as vestiging from '../../../shared/services/vestiging/vestiging';
 import apiUrl from '../../../shared/services/api';
 
 import categoryLabelsByType from './category-labels-by-type';
+import subTypesLabels from './sub-types-labels';
 
 const endpoints = [
   { uri: 'geosearch/nap/', radius: 25 },
@@ -51,6 +52,13 @@ const relatedResourcesByType = {
       authScope: 'HR/R'
     }
   ]
+};
+
+const getTypeLabelByType = (type) => {
+  const secondPath = type.split('/')[1];
+  const selector = secondPath && secondPath.length ? secondPath : type;
+  const value = subTypesLabels[selector];
+  return value && value.length ? value : selector;
 };
 
 const fetchRelatedForUser = (user) => (data) => {
@@ -101,6 +109,10 @@ export default function search(location, user) {
     return fetch(`${apiUrl}${endpoint.uri}?${queryString}`)
       .then((response) => response.json())
       .then(fetchRelatedForUser(user))
+      .then((features) => {
+        debugger;
+        return features
+      })
       .then((features) => features
         .map((feature) => ({
           uri: feature.properties.uri,
@@ -108,6 +120,7 @@ export default function search(location, user) {
           categoryLabel: categoryLabelsByType[feature.properties.type].singular,
           categoryLabelPlural: categoryLabelsByType[feature.properties.type].plural,
           type: feature.properties.type,
+          labelType: getTypeLabelByType(feature.properties.type),
           isNevenadres: feature.hoofdadres !== undefined ? !feature.hoofdadres : false,
           count: feature.count,
           status: feature.vbo_status ?

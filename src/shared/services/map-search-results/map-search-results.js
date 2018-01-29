@@ -23,7 +23,7 @@ export const createMapSearchResultsModel = (allResults, resultsLimit, isSubCateg
   sortByCategoryTypeOrder(filterNonPandMonuments(allResults))
   .reduce((newList, currentValue) => {
     const {
-      categoryLabel, categoryLabelPlural, type, parent, status, count, isNevenadres
+      categoryLabel, categoryLabelPlural, type, parent, status, count, isNevenadres, labelType
     } = currentValue;
 
     if (newList.some((item) => item.categoryLabel === categoryLabel) ||
@@ -32,7 +32,12 @@ export const createMapSearchResultsModel = (allResults, resultsLimit, isSubCateg
     }
 
     const subCategories = getSubCategories(allResults, type);
-    const results = filterResultsByCategory(allResults, categoryLabel);
+    let results = [];
+    if (categoryLabel === 'Adres') {
+      results = filterResultsByCategory(allResults, categoryLabel);
+    } else {
+      results = sortByCategoryTypeOrder(filterResultsByCategory(allResults, categoryLabel));
+    }
 
     return [
       ...newList,
@@ -40,6 +45,7 @@ export const createMapSearchResultsModel = (allResults, resultsLimit, isSubCateg
         categoryLabel,
         categoryLabelPlural,
         type,
+        labelType,
         status,
         isNevenadres,
         results: results.slice(0, resultsLimit),
