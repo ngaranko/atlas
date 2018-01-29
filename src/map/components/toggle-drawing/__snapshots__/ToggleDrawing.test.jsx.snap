@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ToggleDrawing rendering should render with drawing mode draw and 3 markers showing "Eindig tekenen" 1`] = `
+<button
+  aria-label="Eindig meten en intekenen"
+  className="toggle-drawing"
+  onClick={[Function]}
+  title="Eindig meten en intekenen"
+>
+  <Component
+    className="toggle-drawing__icon"
+  />
+  <span
+    className="u-sr-only"
+  >
+    Eindig meten en intekenen
+  </span>
+  <span
+    className="toggle-drawing__label"
+  >
+    Eindig
+  </span>
+</button>
+`;
+
+exports[`ToggleDrawing rendering should render with drawing mode none and 3 markers showing "Opnieuw tekenen" 1`] = `
+<button
+  aria-label="Opnieuw meten en intekenen"
+  className="toggle-drawing"
+  onClick={[Function]}
+  title="Opnieuw meten en intekenen"
+>
+  <Component
+    className="toggle-drawing__icon"
+  />
+  <span
+    className="u-sr-only"
+  >
+    Opnieuw meten en intekenen
+  </span>
+  <span
+    className="toggle-drawing__label"
+  >
+    Opnieuw
+  </span>
+</button>
+`;
+
+exports[`ToggleDrawing rendering should render with drawing mode none and no markers 1`] = `
+<button
+  aria-label="Begin meten en intekenen"
+  className="toggle-drawing"
+  onClick={[Function]}
+  title="Begin meten en intekenen"
+>
+  <Component
+    className="toggle-drawing__icon"
+  />
+  <span
+    className="u-sr-only"
+  >
+    Begin meten en intekenen
+  </span>
+  <span
+    className="toggle-drawing__label"
+  />
+</button>
+`;
