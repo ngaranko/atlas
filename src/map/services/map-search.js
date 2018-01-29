@@ -18,19 +18,58 @@ const endpoints = [
 ];
 
 const categoryLabels = {
-  address: 'Adres',
-  explosief: 'Explosief',
-  gebied: 'Gebied',
-  gemeentelijkeBeperking: 'Gemeentelijke beperking',
-  kadastraalObject: 'Kadastraal object',
-  ligplaats: 'Ligplaats',
-  meetbout: 'Meetbout',
-  monument: 'Monument',
-  napPijlmerk: 'NAP Peilmerk',
-  openbareRuimte: 'Openbare ruimte',
-  pand: 'Pand',
-  standplaats: 'Standplaats',
-  vestiging: 'Vestiging'
+  address: {
+    singular: 'Adres',
+    plural: 'Adressen'
+  },
+  explosief: {
+    singular: 'Explosief',
+    plural: 'Explosieven'
+  },
+  gebied: {
+    singular: 'Gebied',
+    plural: 'Gebieden'
+  },
+  gemeentelijkeBeperking: {
+    singular: 'Gemeentelijke beperking',
+    plural: 'Gemeentelijke beperkingen'
+  },
+  kadastraalObject: {
+    singular: 'Kadastraal object',
+    plural: 'Kadastrale objecten'
+  },
+  ligplaats: {
+    singular: 'Ligplaats',
+    plural: 'Ligplaatsen'
+  },
+  meetbout: {
+    singular: 'Meetbout',
+    plural: 'Meetbouten'
+  },
+  monument: {
+    singular: 'Monument',
+    plural: 'Monumenten'
+  },
+  napPijlmerk: {
+    singular: 'NAP Peilmerk',
+    plural: 'NAP Peilmerken'
+  },
+  openbareRuimte: {
+    singular: 'Openbare ruimte',
+    plural: 'Openbare ruimtes'
+  },
+  pand: {
+    singular: 'Pand',
+    plural: 'Panden'
+  },
+  standplaats: {
+    singular: 'Standplaats',
+    plural: 'Standplaatsen'
+  },
+  vestiging: {
+    singular: 'Vestiging',
+    plural: 'Vestigingen'
+  }
 };
 
 const categoryLabelsByType = {
@@ -59,29 +98,30 @@ const categoryLabelsByType = {
   'wkpb/beperking': categoryLabels.gemeentelijkeBeperking
 };
 
-const categoryTypeOrder = [
+export const categoryTypeOrder = [
   'bag/openbareruimte',
-  'bag/ligplaats',
   'bag/pand',
-  'bag/standplaats',
   'pand/address',
+  'bag/ligplaats',
+  'bag/standplaats',
   'vestiging',
+  'pand/vestiging',
   'pand/monument',
   'kadaster/kadastraal_object',
   'wkpb/beperking',
-  'gebieden/bouwblok',
-  'gebieden/buurt',
-  'gebieden/buurtcombinatie',
-  'gebieden/gebiedsgerichtwerken',
   'gebieden/grootstedelijkgebied',
-  'gebieden/stadsdeel',
   'gebieden/unesco',
+  'gebieden/stadsdeel',
+  'gebieden/gebiedsgerichtwerken',
+  'gebieden/buurtcombinatie',
+  'gebieden/buurt',
+  'gebieden/bouwblok',
   'meetbouten/meetbout',
   'nap/peilmerk',
   'bommenkaart/bominslag',
+  'bommenkaart/verdachtgebied',
   'bommenkaart/gevrijwaardgebied',
   'bommenkaart/uitgevoerdonderzoek',
-  'bommenkaart/verdachtgebied',
   'monumenten/monument'
 ];
 
@@ -134,10 +174,12 @@ const fetchRelatedForUser = (user) => (data) => {
       resource.fetch(item.properties.id)
         .then((results) => results
           .map((result) => ({
+            ...result,
             properties: {
               uri: result._links.self.href,
               display: result._display,
-              type: resource.type
+              type: resource.type,
+              parent: item.properties.type
             }
           }))
         )
@@ -169,8 +211,15 @@ export default function search(location, user) {
         .map((feature) => ({
           uri: feature.properties.uri,
           label: feature.properties.display,
-          categoryLabel: categoryLabelsByType[feature.properties.type],
-          type: feature.properties.type
+          categoryLabel: categoryLabelsByType[feature.properties.type].singular,
+          categoryLabelPlural: categoryLabelsByType[feature.properties.type].plural,
+          type: feature.properties.type,
+          isNevenadres: feature.hoofdadres !== undefined ? !feature.hoofdadres : false,
+          count: feature.count,
+          status: feature.vbo_status ?
+            { code: feature.vbo_status.code, description: feature.vbo_status.omschrijving } :
+            { code: '', description: '' },
+          parent: feature.properties.parent
         }))
       );
   });
@@ -178,12 +227,5 @@ export default function search(location, user) {
   return Promise.all(allRequests)
     .then((results) => results
       .reduce((accumulator, subResults) => accumulator.concat(subResults)))
-    .then((results) => [...results]
-      .sort((a, b) => {
-        const indexA = categoryTypeOrder.indexOf(a.type);
-        const indexB = categoryTypeOrder.indexOf(b.type);
-        return indexA < indexB ? -1 :
-          (indexA > indexB ? 1 : 0);
-      })
-    );
+    .then((results) => results);
 }

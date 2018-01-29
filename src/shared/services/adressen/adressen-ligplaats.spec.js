@@ -18,7 +18,7 @@ describe('The adressen ligplaats resource', () => {
         _display: 'Ligplaats display name 1',
         geometrie: { type: 'Point' },
         something: 'abc123',
-        status: { omschrijving: 'Status description' }
+        status: { omschrijving: 'Status description', code: '01' }
       }));
       getCenter.mockImplementation(() => ({ x: 1, y: 2 }));
       rdToWgs84.mockImplementation(() => ({ latitude: 3, longitude: 4 }));
@@ -30,7 +30,10 @@ describe('The adressen ligplaats resource', () => {
           label: 'Ligplaats display name 1',
           location: { latitude: 3, longitude: 4 },
           something: 'abc123',
-          status: 'Status description'
+          status: {
+            code: '01',
+            description: 'Status description'
+          }
         });
       });
 
@@ -47,7 +50,10 @@ describe('The adressen ligplaats resource', () => {
         expect(response).toEqual({
           label: undefined,
           location: null,
-          status: undefined
+          status: {
+            code: '',
+            description: ''
+          }
         });
       });
 

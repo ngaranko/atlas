@@ -1,5 +1,3 @@
-import get from 'lodash.get';
-
 import getCenter from '../geo-json/geo-json';
 import { rdToWgs84 } from '../coordinate-reference-system/crs-converter';
 
@@ -14,7 +12,10 @@ export default function fetchByUri(uri) {
         ...result,
         label: result._display,
         location: result.location || wgs84Center,
-        status: get(result.status, 'omschrijving')
+        status: {
+          code: result.status ? result.status.code : '',
+          description: result.status ? result.status.omschrijving : ''
+        }
       };
     });
 }
