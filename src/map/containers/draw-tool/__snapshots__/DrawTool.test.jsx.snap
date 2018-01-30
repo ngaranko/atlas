@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ToggleDrawing rendering should render with initial state 1`] = `
+<section
+  className="draw-tool"
+>
+  <ToggleDrawing
+    drawingMode="none"
+    shapeMarkers={0}
+  />
+  <ShapeSummary
+    onClearDrawing={[Function]}
+    shapeDistanceTxt=""
+    shapeMarkers={0}
+  />
+  <PointsAvailable
+    drawingMode="none"
+    shapeMarkers={0}
+  />
+</section>
+`;

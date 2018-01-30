@@ -5,7 +5,9 @@
   top: 8px;
   z-index: 2;
 
-  .toggle-drawing {
+  .toggle-drawing,
+  .shape-summary,
+  .points-available {
     align-self: center;
   }
 }
