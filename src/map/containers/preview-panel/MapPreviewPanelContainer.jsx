@@ -196,5 +196,4 @@ MapPreviewPanelContainer.propTypes = {
   isEmbed: PropTypes.bool
 };
 /* eslint-enable react/no-unused-prop-types */
-
 export default connect(mapStateToProps, mapDispatchToProps)(MapPreviewPanelContainer);
