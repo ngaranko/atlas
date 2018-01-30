@@ -5,12 +5,9 @@ import MapSearchResultsItem from './MapSearchResultsItem';
 
 import categoryLabelsByType from '../../services/map-search/category-labels-by-type';
 
-const statusCodes = [
-  '18'
-];
+const getStatusLabel = (result) => (
+  result.statusLabel && result.statusLabel.length > 0 ? `(${result.statusLabel})` : '');
 
-const shouldShowStatus = (result) => result.status && statusCodes.indexOf(result.status.code) > -1;
-const getDesription = (result) => `${shouldShowStatus(result) ? `(${result.status.description})` : ''} ${result.isNevenadres ? '(Nevenadres)' : ''}`;
 const getPluralLabel = (result) => categoryLabelsByType[result.type].plural;
 
 const MapSearchResultsCategory = ({ category, onClick }) => (
@@ -27,7 +24,7 @@ const MapSearchResultsCategory = ({ category, onClick }) => (
           <MapSearchResultsItem
             key={result.uri}
             label={result.label}
-            statusDescription={getDesription(result)}
+            statusLabel={getStatusLabel(result)}
             onClick={() => {
               onClick(result.uri);
             }}
