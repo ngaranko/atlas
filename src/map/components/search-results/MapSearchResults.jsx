@@ -20,10 +20,6 @@ const MapSearchResults = ({
 }) => {
   const rdCoordinates = wgs84ToRd(location);
 
-  const clickPanoPreview = () => {
-    onPanoPreviewClick();
-  };
-
   return (
     <section className="map-search-results">
       <header
@@ -32,10 +28,16 @@ const MapSearchResults = ({
           map-search-results__header--${panoUrl ? 'pano' : 'no-pano'}
         `}
       >
-        <button onClick={clickPanoPreview}>
+        <button
+          className="map-search-results__header-pano-button"
+          onClick={onPanoPreviewClick}
+          title="Panoramabeeld"
+        >
           {panoUrl && (
             <img
               alt="Panoramabeeld"
+              width="438"
+              height="292"
               className="map-search-results__header-pano"
               src={panoUrl}
             />

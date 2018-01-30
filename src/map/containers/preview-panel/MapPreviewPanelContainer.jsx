@@ -76,16 +76,20 @@ const update = (dispatch, props, prevProps = {}) => {
   }
 };
 
-const onPanoPreviewClick = (dispatch, props, id) => {
-  const { onOpenPanoById } = props;
-  dispatch(onOpenPanoById(id));
+const onPanoPreviewClick = (dispatch, props) => {
+  const { onOpenPanoById, search, pano } = props;
+  const selectedPano = pano.previews[search.location];
+  if (!selectedPano) {
+    return;
+  }
+  dispatch(onOpenPanoById(selectedPano.id));
   dispatch(toggleMapFullscreen());
 };
 
 class MapPreviewPanelContainer extends React.Component {
   constructor() {
     super();
-    this.clickMe = this.clickMe.bind(this);
+    this.onPanoPreviewClick = this.onPanoPreviewClick.bind(this);
   }
 
   componentDidMount() {
@@ -96,9 +100,8 @@ class MapPreviewPanelContainer extends React.Component {
     update(this.context.store.dispatch, this.props, prevProps);
   }
 
-  clickMe() {
-    const id = 'TMX7316010203-000227_pano_0000_000556';
-    onPanoPreviewClick(this.context.store.dispatch, this.props, id);
+  onPanoPreviewClick() {
+    onPanoPreviewClick(this.context.store.dispatch, this.props);
   }
 
   render() {
@@ -120,7 +123,6 @@ class MapPreviewPanelContainer extends React.Component {
         map-preview-panel--${props.isMapPreviewPanelVisible ? 'visible' : 'hidden'}
       `}
       >
-        <button onClick={this.clickMe}>Test</button>
         <div className="map-preview-panel__heading">
           {showDisplayAllResultsButton && (
             <button
@@ -165,12 +167,12 @@ class MapPreviewPanelContainer extends React.Component {
             <MapSearchResults
               count={props.search.numberOfResults}
               location={props.searchLocation}
+              missingLayers={props.missingLayers}
+              onItemClick={props.onMapSearchResultsItemClick}
+              onMaximize={props.onMapPreviewPanelMaximize}
+              onPanoPreviewClick={this.onPanoPreviewClick}
               panoUrl={panoSearchPreview.url}
               results={props.results}
-              onMaximize={props.onMapPreviewPanelMaximize}
-              missingLayers={props.missingLayers}
-              onPanoPreviewClick={props.fetchStraatbeeldById}
-              onItemClick={props.onMapSearchResultsItemClick}
             />
           )}
         </div>
