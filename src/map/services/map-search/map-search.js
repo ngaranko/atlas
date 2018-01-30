@@ -4,8 +4,9 @@ import * as vestiging from '../../../shared/services/vestiging/vestiging';
 
 import apiUrl from '../../../shared/services/api';
 
-import categoryLabelsByType from './category-labels-by-type';
-import subTypesLabels from './sub-types-labels';
+import transformResultByType from './transform-result-by-type';
+
+import { createMapSearchResultsModel } from '../../services/map-search-results/map-search-results';
 
 const endpoints = [
   { uri: 'geosearch/nap/', radius: 25 },
@@ -54,16 +55,8 @@ const relatedResourcesByType = {
   ]
 };
 
-const getTypeLabelByType = (type) => {
-  const secondPath = type.split('/')[1];
-  const selector = secondPath && secondPath.length ? secondPath : type;
-  const value = subTypesLabels[selector];
-  return value && value.length ? value : selector;
-};
-
 const fetchRelatedForUser = (user) => (data) => {
   const item = data.features.find((feature) => relatedResourcesByType[feature.properties.type]);
-
   if (!item) {
     return data.features;
   }
@@ -110,25 +103,12 @@ export default function search(location, user) {
       .then((response) => response.json())
       .then(fetchRelatedForUser(user))
       .then((features) => features
-        .map((feature) => ({
-          uri: feature.properties.uri,
-          label: feature.properties.display,
-          categoryLabel: categoryLabelsByType[feature.properties.type].singular,
-          categoryLabelPlural: categoryLabelsByType[feature.properties.type].plural,
-          type: feature.properties.type,
-          labelType: getTypeLabelByType(feature.properties.type),
-          isNevenadres: feature.hoofdadres !== undefined ? !feature.hoofdadres : false,
-          count: feature.count,
-          status: feature.vbo_status ?
-            { code: feature.vbo_status.code, description: feature.vbo_status.omschrijving } :
-            { code: '', description: '' },
-          parent: feature.properties.parent
-        }))
+        .map((feature) => transformResultByType(feature))
       );
   });
 
   return Promise.all(allRequests)
     .then((results) => results
       .reduce((accumulator, subResults) => accumulator.concat(subResults)))
-    .then((results) => results);
+    .then((results) => createMapSearchResultsModel(results));
 }

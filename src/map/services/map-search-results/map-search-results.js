@@ -1,4 +1,4 @@
-import categoryTypeOrder from '../../../map/services/map-search/category-type-order';
+import categoryTypeOrder from '../map-search/category-type-order';
 
 export const sortByCategoryTypeOrder = (items) => [...items]
   .sort((a, b) => {
@@ -13,18 +13,16 @@ export const filterNonPandMonuments = (results) => (results
     ? results.filter((feature) => feature.type !== 'monumenten/monument')
     : results);
 
-const filterResultsByCategory = (items, label) => items
+const filterResultsByCategory = (items, label) => filterNonPandMonuments(items)
   .filter((item) => item.categoryLabel === label);
 
 const getSubCategories = (items, type) => items
   .filter((subCategory) => subCategory.parent === type);
 
-export const createMapSearchResultsModel = (allResults, resultsLimit, isSubCategory) =>
-  sortByCategoryTypeOrder(filterNonPandMonuments(allResults))
+export const createMapSearchResultsModel = (allResults, isSubCategory) =>
+  sortByCategoryTypeOrder(allResults)
   .reduce((newList, currentValue) => {
-    const {
-      categoryLabel, categoryLabelPlural, type, parent, status, count, isNevenadres, labelType
-    } = currentValue;
+    const { categoryLabel, type, parent } = currentValue;
 
     if (newList.some((item) => item.categoryLabel === categoryLabel) ||
       (parent && !isSubCategory)) {
@@ -32,6 +30,7 @@ export const createMapSearchResultsModel = (allResults, resultsLimit, isSubCateg
     }
 
     const subCategories = getSubCategories(allResults, type);
+
     let results = [];
     if (categoryLabel === 'Adres') {
       results = filterResultsByCategory(allResults, categoryLabel);
@@ -43,16 +42,11 @@ export const createMapSearchResultsModel = (allResults, resultsLimit, isSubCateg
       ...newList,
       {
         categoryLabel,
-        categoryLabelPlural,
         type,
-        labelType,
-        status,
-        isNevenadres,
-        results: results.slice(0, resultsLimit),
+        results,
+        amountOfResults: results.length,
         subCategories: subCategories && subCategories.length ?
-          createMapSearchResultsModel(subCategories, resultsLimit, true) : [],
-        amountOfResults: count || results.length,
-        showMore: (count || results.length) > resultsLimit
+          createMapSearchResultsModel(subCategories, true) : []
       }
     ];
   }, []);

@@ -32,7 +32,7 @@ export function fetchByPandId(pandId) {
 
   return fetch(`${apiUrl}bag/nummeraanduiding/?${queryString}`)
     .then((response) => response.json())
-    .then((data) => data.results.map((result) => ({ ...result, count: data.count })));
+    .then((data) => data.results);
 }
 
 export function fetchByLigplaatsId(ligplaatsId) {
