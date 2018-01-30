@@ -82,7 +82,7 @@ if (BRANCH == "master") {
                     }
                     def image = docker.build("build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}-preproduction",
                         "--shm-size 1G " +
-                        "--build-arg BUILD_ENV=acc --build-arg PASSWORD_EMPLOYEE=${PASSWORD_EMPLOYEE} " +
+                        "--build-arg PASSWORD_EMPLOYEE=${PASSWORD_EMPLOYEE} " +
                         "--build-arg PASSWORD_EMPLOYEE_PLUS=${PASSWORD_EMPLOYEE_PLUS} .")
 
                     image.push("preproduction")

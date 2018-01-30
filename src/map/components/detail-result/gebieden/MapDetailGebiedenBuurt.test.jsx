@@ -8,9 +8,11 @@ describe('MapDetailGebiedenBuurt', () => {
     const buurt = {
       label: 'Buurt label'
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailGebiedenBuurt
         panoUrl="panoUrl"
+        onMaximize={clickHandler}
         buurt={buurt}
       />
     );

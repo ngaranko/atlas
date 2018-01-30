@@ -122,7 +122,7 @@ exports[`MapPreviewPanelContainer rendering should render detail with a button t
       <span
         className="map-preview-panel__button-label"
       >
-        Toon alle resultaten
+        Alle resultaten tonen
       </span>
     </button>
     <button

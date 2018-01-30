@@ -7,7 +7,7 @@ import has from 'lodash.has';
 
 import { maximizeMapPreviewPanel, closeMapPreviewPanel }
   from '../../ducks/preview-panel/map-preview-panel';
-import { selectLatestMapSearchResults, getMapSearchResults }
+import { getPreviewPanelResults, getMapSearchResults }
   from '../../ducks/search-results/map-search-results';
 import { selectNotClickableVisibleMapLayers } from '../../ducks/layers/map-layers';
 import { selectLatestMapDetail, getMapDetail } from '../../ducks/detail/map-detail';
@@ -18,7 +18,7 @@ import { getPanoPreview } from '../../../pano/ducks/preview/pano-preview';
 import MaximizeIcon from '../../../../public/images/icon-maximize.svg';
 import CloseIcon from '../../../../public/images/icon-cross-big.svg';
 import PlusIcon from '../../../../public/images/icon-plus.svg';
-import MapSearchResults from '../../components/search-results/MapSearchResults';
+import MapSearchResults, { previewPanelResultLimit } from '../../components/search-results/MapSearchResults';
 import MapDetailResult from '../../components/detail-result/MapDetailResult';
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator';
 
@@ -26,7 +26,7 @@ const mapStateToProps = (state) => ({
   isMapPreviewPanelVisible: state.isMapPreviewPanelVisible,
   mapClickLocation: state.mapClickLocation,
   pano: state.pano,
-  results: selectLatestMapSearchResults(state),
+  results: getPreviewPanelResults(state, previewPanelResultLimit),
   search: state.search,
   searchLocation: state.search && state.search.location && {
     latitude: state.search.location[0],
@@ -128,7 +128,7 @@ class MapPreviewPanelContainer extends React.Component {
               onClick={() => props.onSearch(props.mapClickLocation)}
             >
               <PlusIcon className="map-preview-panel__button-icon" />
-              <span className="map-preview-panel__button-label">Toon alle resultaten</span>
+              <span className="map-preview-panel__button-label">Alle resultaten tonen</span>
             </button>
           )}
           <button
@@ -157,6 +157,7 @@ class MapPreviewPanelContainer extends React.Component {
             <MapDetailResult
               endpoint={props.mapDetail.currentEndpoint}
               panoUrl={panoDetailPreview.url}
+              onMaximize={props.onMapPreviewPanelMaximize}
               result={props.detailResult}
             />
           )}
@@ -166,6 +167,7 @@ class MapPreviewPanelContainer extends React.Component {
               location={props.searchLocation}
               panoUrl={panoSearchPreview.url}
               results={props.results}
+              onMaximize={props.onMapPreviewPanelMaximize}
               missingLayers={props.missingLayers}
               onPanoPreviewClick={props.fetchStraatbeeldById}
               onItemClick={props.onMapSearchResultsItemClick}
@@ -215,5 +217,4 @@ MapPreviewPanelContainer.propTypes = {
   isEmbed: PropTypes.bool
 };
 /* eslint-enable react/no-unused-prop-types */
-
 export default connect(mapStateToProps, mapDispatchToProps)(MapPreviewPanelContainer);

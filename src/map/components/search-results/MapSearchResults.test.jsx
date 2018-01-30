@@ -41,8 +41,8 @@ describe('MapSearchResults', () => {
     const panoUrl = 'pano-url';
     const missingLayers = 'Layer 1, Layer 2';
     const results = [
-      { uri: 'result-uri-1' },
-      { uri: 'result-uri-2' }
+      { label: 'label', categoryLabel: 'category', uri: 'result-uri-1' },
+      { label: 'label', categoryLabel: 'category', uri: 'result-uri-2' }
     ];
     const wrapper = shallow(
       <MapSearchResults
@@ -84,8 +84,8 @@ describe('MapSearchResults', () => {
       const panoUrl = 'pano-url';
       const missingLayers = 'Layer 1, Layer 2';
       const results = [
-        { uri: 'result-uri-1' },
-        { uri: 'result-uri-2' }
+        { label: 'label', categoryLabel: 'category', uri: 'result-uri-1' },
+        { label: 'label', categoryLabel: 'category', uri: 'result-uri-2' }
       ];
       const wrapper = shallow(
         <MapSearchResults
@@ -108,9 +108,9 @@ describe('MapSearchResults', () => {
       };
       const clickHandler = jest.fn();
       const results = [
-        { uri: 'result-uri-1', type: 'bag/pand' },
-        { uri: 'result-uri-2', type: 'foo' },
-        { uri: 'result-uri-3', type: 'monumenten/monument' }
+        { label: 'label', categoryLabel: 'category', uri: 'result-uri-1', type: 'bag/pand' },
+        { label: 'label', categoryLabel: 'category', uri: 'result-uri-2', type: 'foo' },
+        { label: 'label', categoryLabel: 'category', uri: 'result-uri-3', type: 'monumenten/monument' }
       ];
       const wrapper = shallow(
         <MapSearchResults
@@ -132,8 +132,8 @@ describe('MapSearchResults', () => {
       const clickHandler = jest.fn();
       const panoUrl = 'pano-url';
       const results = [
-        { uri: 'result-uri-1' },
-        { uri: 'result-uri-2' }
+        { label: 'label', categoryLabel: 'category', uri: 'result-uri-1' },
+        { label: 'label', categoryLabel: 'category', uri: 'result-uri-2' }
       ];
       const wrapper = shallow(
         <MapSearchResults
@@ -155,9 +155,9 @@ describe('MapSearchResults', () => {
         panoUrl: 'other-pano-url',
         missingLayers: 'Layer 3',
         results: [
-          { uri: 'result-uri-1' },
-          { uri: 'result-uri-2' },
-          { uri: 'result-uri-3' }
+          { label: 'label', categoryLabel: 'category', uri: 'result-uri-1' },
+          { label: 'label', categoryLabel: 'category', uri: 'result-uri-2' },
+          { label: 'label', categoryLabel: 'category', uri: 'result-uri-3' }
         ]
       });
       expect(wrapper).toMatchSnapshot();

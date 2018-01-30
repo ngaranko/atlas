@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import MapDetailResultItem from './MapDetailResultItem';
 import MapDetailResultWrapper from './MapDetailResultWrapper';
 
-const MapDetailMeetbout = ({ panoUrl, meetbout }) => (
+const MapDetailMeetbout = ({ panoUrl, meetbout, onMaximize }) => (
   <MapDetailResultWrapper
     panoUrl={panoUrl}
+    onMaximize={onMaximize}
     subTitle={meetbout.label}
     title="Meetbout"
   >
@@ -29,7 +30,8 @@ MapDetailMeetbout.propTypes = {
     label: PropTypes.string,
     status: PropTypes.string
   }).isRequired,
-  panoUrl: PropTypes.string.isRequired
+  panoUrl: PropTypes.string.isRequired,
+  onMaximize: PropTypes.func.isRequired
 };
 
 export default MapDetailMeetbout;

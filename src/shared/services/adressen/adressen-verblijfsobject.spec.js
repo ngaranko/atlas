@@ -29,7 +29,8 @@ describe('The adressen verblijfsobject resource', () => {
         geometrie: { type: 'Point' },
         oppervlakte: 23820,
         something: 'abc123',
-        type_woonobject: { omschrijving: 'Type description' }
+        type_woonobject: { omschrijving: 'Type description' },
+        status: { omschrijving: 'Status omschrijving', code: '01' }
       }));
       getCenter.mockImplementation(() => ({ x: 1, y: 2 }));
       rdToWgs84.mockImplementation(() => ({ latitude: 3, longitude: 4 }));
@@ -38,6 +39,10 @@ describe('The adressen verblijfsobject resource', () => {
         expect(response).toEqual({
           _display: 'Verblijfsobject display name 1',
           eigendomsverhouding: 'Eigendomsverhouding description',
+          status: {
+            code: '01',
+            description: 'Status omschrijving'
+          },
           gebruiksdoelen: [{
             code: '01',
             omschrijving: 'Gebruiksdoel 1 description',
@@ -65,6 +70,38 @@ describe('The adressen verblijfsobject resource', () => {
       return promise;
     });
 
+    describe('size', () => {
+      it('Changes one to zero', () => {
+        const uri = 'https://acc.api.data.amsterdam.nl/bag/verblijfsobject/123456';
+
+        fetch.mockResponseOnce(JSON.stringify({ oppervlakte: 1 }));
+
+        return fetchByUri(uri).then((response) => {
+          expect(response.size).toBe(0);
+        });
+      });
+
+      it('Keeps a zero as a zero', () => {
+        const uri = 'https://acc.api.data.amsterdam.nl/bag/verblijfsobject/123456';
+
+        fetch.mockResponseOnce(JSON.stringify({ oppervlakte: 0 }));
+
+        return fetchByUri(uri).then((response) => {
+          expect(response.size).toBe(0);
+        });
+      });
+
+      it('Uses zero for negative values', () => {
+        const uri = 'https://acc.api.data.amsterdam.nl/bag/verblijfsobject/123456';
+
+        fetch.mockResponseOnce(JSON.stringify({ oppervlakte: -1 }));
+
+        return fetchByUri(uri).then((response) => {
+          expect(response.size).toBe(0);
+        });
+      });
+    });
+
     it('fetches with empty result object', () => {
       const uri = 'https://acc.api.data.amsterdam.nl/bag/verblijfsobject/123456';
 
@@ -76,7 +113,11 @@ describe('The adressen verblijfsobject resource', () => {
           gebruiksdoelen: [],
           label: undefined,
           location: null,
-          size: undefined,
+          size: 0,
+          status: {
+            code: '',
+            description: ''
+          },
           type: undefined
         });
       });

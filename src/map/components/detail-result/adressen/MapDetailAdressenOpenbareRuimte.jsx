@@ -4,16 +4,17 @@ import PropTypes from 'prop-types';
 import MapDetailResultItem from '../MapDetailResultItem';
 import MapDetailResultWrapper from '../MapDetailResultWrapper';
 
-const MapDetailAdressenOpenbareRuimte = ({ panoUrl, openbareRuimte }) => (
+const MapDetailAdressenOpenbareRuimte = ({ panoUrl, openbareRuimte, onMaximize }) => (
   <MapDetailResultWrapper
     panoUrl={panoUrl}
     subTitle={openbareRuimte.label}
+    onMaximize={onMaximize}
     title={openbareRuimte.type}
   >
     <ul className="map-detail-result__list">
       <MapDetailResultItem
         label="Status"
-        value={openbareRuimte.status}
+        value={openbareRuimte.status.description}
       />
     </ul>
   </MapDetailResultWrapper>
@@ -22,10 +23,14 @@ const MapDetailAdressenOpenbareRuimte = ({ panoUrl, openbareRuimte }) => (
 MapDetailAdressenOpenbareRuimte.propTypes = {
   openbareRuimte: PropTypes.shape({
     label: PropTypes.string,
-    status: PropTypes.string,
+    status: PropTypes.shape({
+      description: PropTypes.string,
+      code: PropTypes.string
+    }).isRequired,
     type: PropTypes.string
   }).isRequired,
-  panoUrl: PropTypes.string.isRequired
+  panoUrl: PropTypes.string.isRequired,
+  onMaximize: PropTypes.func.isRequired
 };
 
 export default MapDetailAdressenOpenbareRuimte;
