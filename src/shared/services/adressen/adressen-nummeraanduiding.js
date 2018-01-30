@@ -6,14 +6,16 @@ export default function fetchByUri(uri) {
     .then((response) => response.json())
     .then((result) => ({
       ...result,
-      label: result._display
+      label: result._display,
+      isNevenadres: !result.hoofdadres
     }))
     .then((result) => (
       result.verblijfsobject ?
         verblijfsobject(result.verblijfsobject)
           .then((vboResult) => ({
             ...vboResult,
-            label: result._display
+            label: result.label,
+            isNevenadres: result.isNevenadres
           })) :
         result
     ));
@@ -30,7 +32,7 @@ export function fetchByPandId(pandId) {
 
   return fetch(`${apiUrl}bag/nummeraanduiding/?${queryString}`)
     .then((response) => response.json())
-    .then((data) => data.results);
+    .then((data) => data.results.map((result) => ({ ...result, count: data.count })));
 }
 
 export function fetchByLigplaatsId(ligplaatsId) {

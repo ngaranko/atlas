@@ -5,9 +5,10 @@ import MapDetailResultDateItem from '../MapDetailResultDateItem';
 import MapDetailResultItem from '../MapDetailResultItem';
 import MapDetailResultWrapper from '../MapDetailResultWrapper';
 
-const MapDetailExplosievenInslag = ({ panoUrl, inslag }) => (
+const MapDetailExplosievenInslag = ({ panoUrl, inslag, onMaximize }) => (
   <MapDetailResultWrapper
     panoUrl={panoUrl}
+    onMaximize={onMaximize}
     subTitle={inslag.label}
     title="Inslag"
   >
@@ -40,7 +41,8 @@ MapDetailExplosievenInslag.propTypes = {
     source: PropTypes.string,
     type: PropTypes.string
   }).isRequired,
-  panoUrl: PropTypes.string.isRequired
+  panoUrl: PropTypes.string.isRequired,
+  onMaximize: PropTypes.func.isRequired
 };
 
 export default MapDetailExplosievenInslag;

@@ -3,21 +3,34 @@ import PropTypes from 'prop-types';
 
 import ArrowRightIcon from '../../../../public/images/icon-arrow-right.svg';
 
-const MapSearchResultsItem = ({ item, onClick }) => (
-  <button
-    className="map-search-results__item"
-    onClick={onClick}
-  >
-    <section className="map-search-results__item-content">
-      <div className="map-search-results__item-category">{item.categoryLabel}</div>
-      <div className="map-search-results__item-name">{item.label}</div>
-    </section>
-    <ArrowRightIcon className="map-search-results__item-arrow" />
-  </button>
+const MapSearchResultsItem = ({ label, onClick, statusDescription }) => (
+  <li className="map-search-results__item">
+    <button
+      className="map-search-results__item-button"
+      onClick={onClick}
+      title={label}
+    >
+      <section className="map-search-results__item-content">
+        <div className="map-search-results__item-name">{label}</div>
+        { statusDescription && statusDescription.length > 1 ? (
+          <div className="map-search-results__item-status">
+            {`${statusDescription}`}
+          </div>
+          ) : ''
+        }
+      </section>
+      <ArrowRightIcon className="map-search-results__item-arrow" />
+    </button>
+  </li>
 );
 
+MapSearchResultsItem.defaultProps = {
+  statusDescription: ''
+};
+
 MapSearchResultsItem.propTypes = {
-  item: PropTypes.object, // eslint-disable-line
+  label: PropTypes.string.isRequired,
+  statusDescription: PropTypes.string,
   onClick: PropTypes.func // eslint-disable-line
 };
 

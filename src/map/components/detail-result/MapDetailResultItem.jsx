@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const MapDetailResultItem = ({ label, value }) => value && (
-  <div className="map-detail-result__item">
+  <li className="map-detail-result__item">
     <section className="map-detail-result__item-content">
       <div className="map-detail-result__item-label">{label}</div>
       <div className="map-detail-result__item-value">{value}</div>
     </section>
-  </div>
+  </li>
 );
 
 MapDetailResultItem.defaultProps = {

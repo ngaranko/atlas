@@ -148,10 +148,10 @@
                     label_singular: 'Explosief',
                     label_plural: 'Explosieven',
                     features: [
-                        'bommenkaart/verdachtgebied',
                         'bommenkaart/bominslag',
-                        'bommenkaart/uitgevoerdonderzoek',
-                        'bommenkaart/gevrijwaardgebied'
+                        'bommenkaart/verdachtgebied',
+                        'bommenkaart/gevrijwaardgebied',
+                        'bommenkaart/uitgevoerdonderzoek'
                     ],
                     subtypes: {
                         bominslag: 'inslag',

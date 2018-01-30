@@ -2,21 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { wgs84ToRd } from '../../../shared/services/coordinate-reference-system';
-import MapSearchResultsItem from './MapSearchResultsItem';
+import MapSearchResultsCategory from './MapSearchResultsCategory';
 import Notification from '../../../shared/components/notification/Notification';
+import MaximizeIcon from '../../../../public/images/icon-maximize.svg';
+
+export const previewPanelResultLimit = 3;
 
 //
 // Note: results are created in file: /src/map/services/map-search.js
 //
-const MapSearchResults = ({ count, location, missingLayers, onItemClick, panoUrl, results }) => {
+const MapSearchResults = ({
+  count,
+  location,
+  missingLayers,
+  onItemClick,
+  panoUrl,
+  results,
+  onMaximize
+}) => {
   const rdCoordinates = wgs84ToRd(location);
-
-  // Filter non pand monumenten if search result is pand
-  const pandFeature = results.find((feature) => feature.type === 'bag/pand');
-  const isPand = pandFeature !== undefined;
-  const filteredResults = isPand
-    ? results.filter((feature) => feature.type !== 'monumenten/monument')
-    : results;
 
   return (
     <section className="map-search-results">
@@ -40,23 +44,30 @@ const MapSearchResults = ({ count, location, missingLayers, onItemClick, panoUrl
           </h2>
         </div>
       </header>
-      <ul className="map-search-results__list">
-        {missingLayers && (
-          <li>
-            <Notification>Geen details beschikbaar van: {missingLayers}</Notification>
-          </li>
-        )}
-        {filteredResults.map((result) => (
-          <li key={result.uri}>
-            <MapSearchResultsItem
-              item={result}
-              onClick={() => {
-                onItemClick(result.uri);
-              }}
-            />
-          </li>
-        ))}
-      </ul>
+      <div className="map-search-results__scroll-wrapper">
+        <ul className="map-search-results__list">
+          {missingLayers && (
+            <li>
+              <Notification>Geen details beschikbaar van: {missingLayers}</Notification>
+            </li>
+          )}
+          {
+            results.map((mainCategory) => (
+              <MapSearchResultsCategory
+                key={mainCategory.categoryLabel}
+                category={mainCategory}
+                onClick={onItemClick}
+              />
+            ))
+          }
+        </ul>
+        <footer className="map-search-results__footer">
+          <button onClick={onMaximize} className="map-search-results__button">
+            <MaximizeIcon className="map-search-results__button-icon" />
+            Volledig weergeven
+          </button>
+        </footer>
+      </div>
     </section>
   );
 };
@@ -65,6 +76,7 @@ MapSearchResults.propTypes = {
   count: PropTypes.number, // eslint-disable-line
   location: PropTypes.object, // eslint-disable-line
   onItemClick: PropTypes.func.isRequired,
+  onMaximize: PropTypes.func.isRequired,
   panoUrl: PropTypes.string, // eslint-disable-line
   missingLayers: PropTypes.string, // eslint-disable-line
   results: PropTypes.array // eslint-disable-line

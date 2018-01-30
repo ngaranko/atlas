@@ -51,7 +51,7 @@ export function fetchByPandId(pandId) {
     { headers: getAuthHeaders() }
   )
     .then((response) => response.json())
-    .then((data) => data.results);
+    .then((data) => data.results.map((result) => ({ ...result, count: data.count })));
 }
 
 export function fetchByAddressId(addressId) {

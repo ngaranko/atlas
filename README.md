@@ -15,9 +15,11 @@
 ## Testing
 - NODE_ENV=development npm test
 
+### Visual unit test
+`npm run test-visual-regression`
 
-## E2E testing
-### Authentication
+
+### E2E testing authentication
 
 In order to test authentication the following environment variables must be set:
 
@@ -29,12 +31,12 @@ In order to test authentication the following environment variables must be set:
 They can simply be added by using the `export` command from the command line, or by adding these
 variables to `.bash_profile`.
 
-### Functional testing
+### E2E Functional testing
 
 Make sure the app is running locally by running `npm start`.
 Then, in a second terminal, run `npm run test-e2e` (single run) or `npm run test-e2e-watch` (#GUI, watch).
 
-### Aria testing
+### E2E Aria testing
 
 Make sure that NODE_ENV=development.
 Then run `npm run test-aria`.

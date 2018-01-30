@@ -103,6 +103,7 @@
     "test-jest-watch": "NODE_ENV=development jest --watch",
     "test-karma": "karma start",
     "test-karma-watch": "karma start --no-single-run",
+    "test-visual-regression": "./scripts/visual-regression-test.sh",
     "test-watch": "karma start --no-single-run & jest --watch",
     "watch": "grunt && webpack --watch --config webpack.dev.js"
   },

@@ -8,9 +8,11 @@ describe('MapDetailGebiedenGebiedsgerichtWerken', () => {
     const gebiedsgerichtWerken = {
       label: 'Gebiedsgericht werken label'
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailGebiedenGebiedsgerichtWerken
         panoUrl="panoUrl"
+        onMaximize={clickHandler}
         gebiedsgerichtWerken={gebiedsgerichtWerken}
       />
     );
