@@ -97,5 +97,10 @@ describe('The endpointParser factory', function () {
                     'some-id-with-numbers-123456/subject/'))
                 .toBe('SUBJECT');
         });
+
+        it('has special exception for "grondexploitatie"', () => {
+            expect(endpointParser.getGlossaryKey('https://api.data.amsterdam.nl/grondexploitatie/project/123/'))
+                .toBe('GRONDEXPLOITATIE');
+        });
     });
 });
