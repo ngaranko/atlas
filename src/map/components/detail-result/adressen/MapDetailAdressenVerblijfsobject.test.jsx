@@ -91,9 +91,11 @@ describe('MapDetailAdressenVerblijfsobject', () => {
         hoofdadres: true
       }
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailAdressenVerblijfsobject
         panoUrl="panoUrl"
+        onMaximize={clickHandler}
         verblijfsobject={verblijfsobject}
       />
     );

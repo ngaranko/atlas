@@ -10,7 +10,7 @@ describe('MapDetailResult', () => {
   it('should render adressen ligplaats', () => {
     const endpoint = 'bag/ligplaats/';
     const panoUrl = 'panoUrl';
-    const result = { label: 'value' };
+    const result = { label: 'value', status: { description: 'description' } };
     const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult
@@ -26,7 +26,7 @@ describe('MapDetailResult', () => {
   it('should render adressen nummeraanduiding', () => {
     const endpoint = 'bag/nummeraanduiding/';
     const panoUrl = 'panoUrl';
-    const result = { label: 'value' };
+    const result = { label: 'value', status: { description: 'description' } };
     const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult
@@ -42,7 +42,7 @@ describe('MapDetailResult', () => {
   it('should render adressen openbareruimte', () => {
     const endpoint = 'bag/openbareruimte/';
     const panoUrl = 'panoUrl';
-    const result = { label: 'value' };
+    const result = { label: 'value', status: { description: 'description' } };
     const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult
@@ -58,7 +58,7 @@ describe('MapDetailResult', () => {
   it('should render adressen pand', () => {
     const endpoint = 'bag/pand/';
     const panoUrl = 'panoUrl';
-    const result = { label: 'value' };
+    const result = { label: 'value', status: { description: 'description' } };
     const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult
@@ -74,7 +74,7 @@ describe('MapDetailResult', () => {
   it('should render adressen standplaats', () => {
     const endpoint = 'bag/standplaats/';
     const panoUrl = 'panoUrl';
-    const result = { label: 'value' };
+    const result = { label: 'value', status: { description: 'description' } };
     const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult
@@ -90,7 +90,7 @@ describe('MapDetailResult', () => {
   it('should render adressen verblijfsobject', () => {
     const endpoint = 'bag/verblijfsobject/';
     const panoUrl = 'panoUrl';
-    const result = { label: 'value' };
+    const result = { label: 'value', status: { description: 'description' } };
     const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult

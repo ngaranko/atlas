@@ -7,18 +7,26 @@ exports[`MapDetailResult should render adressen ligplaats 1`] = `
   ligplaats={
     Object {
       "label": "value",
+      "status": Object {
+        "description": "description",
+      },
     }
   }
+  onMaximize={[MockFunction]}
   panoUrl="panoUrl"
 />
 `;
 
 exports[`MapDetailResult should render adressen nummeraanduiding 1`] = `
 <MapDetailAdressenVerblijfsobject
+  onMaximize={[MockFunction]}
   panoUrl="panoUrl"
   verblijfsobject={
     Object {
       "label": "value",
+      "status": Object {
+        "description": "description",
+      },
     }
   }
 />
@@ -26,9 +34,13 @@ exports[`MapDetailResult should render adressen nummeraanduiding 1`] = `
 
 exports[`MapDetailResult should render adressen openbareruimte 1`] = `
 <MapDetailAdressenOpenbareRuimte
+  onMaximize={[MockFunction]}
   openbareRuimte={
     Object {
       "label": "value",
+      "status": Object {
+        "description": "description",
+      },
     }
   }
   panoUrl="panoUrl"
@@ -37,9 +49,13 @@ exports[`MapDetailResult should render adressen openbareruimte 1`] = `
 
 exports[`MapDetailResult should render adressen pand 1`] = `
 <MapDetailAdressenPand
+  onMaximize={[MockFunction]}
   pand={
     Object {
       "label": "value",
+      "status": Object {
+        "description": "description",
+      },
     }
   }
   panoUrl="panoUrl"
@@ -48,10 +64,14 @@ exports[`MapDetailResult should render adressen pand 1`] = `
 
 exports[`MapDetailResult should render adressen standplaats 1`] = `
 <MapDetailAdressenStandplaats
+  onMaximize={[MockFunction]}
   panoUrl="panoUrl"
   standplaats={
     Object {
       "label": "value",
+      "status": Object {
+        "description": "description",
+      },
     }
   }
 />
@@ -59,10 +79,14 @@ exports[`MapDetailResult should render adressen standplaats 1`] = `
 
 exports[`MapDetailResult should render adressen verblijfsobject 1`] = `
 <MapDetailAdressenVerblijfsobject
+  onMaximize={[MockFunction]}
   panoUrl="panoUrl"
   verblijfsobject={
     Object {
       "label": "value",
+      "status": Object {
+        "description": "description",
+      },
     }
   }
 />
@@ -75,6 +99,7 @@ exports[`MapDetailResult should render explosieven gevrijwaard gebied 1`] = `
       "label": "value",
     }
   }
+  onMaximize={[MockFunction]}
   panoUrl="panoUrl"
 />
 `;
@@ -86,12 +111,14 @@ exports[`MapDetailResult should render explosieven inslag 1`] = `
       "label": "value",
     }
   }
+  onMaximize={[MockFunction]}
   panoUrl="panoUrl"
 />
 `;
 
 exports[`MapDetailResult should render explosieven uitgevoerd onderzoek 1`] = `
 <MapDetailExplosievenUitgevoerdOnderzoek
+  onMaximize={[MockFunction]}
   panoUrl="panoUrl"
   uitgevoerdOnderzoek={
     Object {
@@ -103,6 +130,7 @@ exports[`MapDetailResult should render explosieven uitgevoerd onderzoek 1`] = `
 
 exports[`MapDetailResult should render explosieven verdacht gebied 1`] = `
 <MapDetailExplosievenVerdachtGebied
+  onMaximize={[MockFunction]}
   panoUrl="panoUrl"
   verdachtGebied={
     Object {
@@ -119,6 +147,7 @@ exports[`MapDetailResult should render gebieden bouwblok 1`] = `
       "label": "value",
     }
   }
+  onMaximize={[MockFunction]}
   panoUrl="panoUrl"
 />
 `;
@@ -130,6 +159,7 @@ exports[`MapDetailResult should render gebieden buurt 1`] = `
       "label": "value",
     }
   }
+  onMaximize={[MockFunction]}
   panoUrl="panoUrl"
 />
 `;
@@ -141,6 +171,7 @@ exports[`MapDetailResult should render gebieden gebiedsgericht-werken 1`] = `
       "label": "value",
     }
   }
+  onMaximize={[MockFunction]}
   panoUrl="panoUrl"
 />
 `;
@@ -152,12 +183,14 @@ exports[`MapDetailResult should render gebieden grootstedelijk 1`] = `
       "label": "value",
     }
   }
+  onMaximize={[MockFunction]}
   panoUrl="panoUrl"
 />
 `;
 
 exports[`MapDetailResult should render gebieden stadsdeel 1`] = `
 <MapDetailGebiedenStadsdeel
+  onMaximize={[MockFunction]}
   panoUrl="panoUrl"
   stadsdeel={
     Object {
@@ -169,6 +202,7 @@ exports[`MapDetailResult should render gebieden stadsdeel 1`] = `
 
 exports[`MapDetailResult should render gebieden unesco 1`] = `
 <MapDetailGebiedenUnesco
+  onMaximize={[MockFunction]}
   panoUrl="panoUrl"
   unesco={
     Object {
@@ -180,6 +214,7 @@ exports[`MapDetailResult should render gebieden unesco 1`] = `
 
 exports[`MapDetailResult should render gebieden wijk 1`] = `
 <MapDetailGebiedenWijk
+  onMaximize={[MockFunction]}
   panoUrl="panoUrl"
   wijk={
     Object {
@@ -196,6 +231,7 @@ exports[`MapDetailResult should render kadastraal object 1`] = `
       "label": "value",
     }
   }
+  onMaximize={[MockFunction]}
   panoUrl="panoUrl"
 />
 `;
@@ -207,6 +243,7 @@ exports[`MapDetailResult should render meetbout 1`] = `
       "label": "value",
     }
   }
+  onMaximize={[MockFunction]}
   panoUrl="panoUrl"
 />
 `;
@@ -218,12 +255,14 @@ exports[`MapDetailResult should render monument 1`] = `
       "label": "value",
     }
   }
+  onMaximize={[MockFunction]}
   panoUrl="panoUrl"
 />
 `;
 
 exports[`MapDetailResult should render nap peilmerk 1`] = `
 <MapDetailNapPeilmerk
+  onMaximize={[MockFunction]}
   panoUrl="panoUrl"
   peilmerk={
     Object {
@@ -235,6 +274,7 @@ exports[`MapDetailResult should render nap peilmerk 1`] = `
 
 exports[`MapDetailResult should render vestiging 1`] = `
 <MapDetailVestiging
+  onMaximize={[MockFunction]}
   panoUrl="panoUrl"
   vestiging={
     Object {

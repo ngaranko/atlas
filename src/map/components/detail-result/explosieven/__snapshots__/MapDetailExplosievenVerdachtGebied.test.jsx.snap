@@ -2,6 +2,7 @@
 
 exports[`MapDetailExplosievenVerdachtGebied should render everything 1`] = `
 <MapDetailResultWrapper
+  onMaximize={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Verdacht gebied label"
   title="Verdacht gebied"

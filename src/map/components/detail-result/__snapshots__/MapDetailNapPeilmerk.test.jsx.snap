@@ -2,6 +2,7 @@
 
 exports[`MapDetailNapPeilmerk should not render empty height 1`] = `
 <MapDetailResultWrapper
+  onMaximize={[Function]}
   panoUrl="panoUrl"
   subTitle="Peilmerk label"
   title="NAP Peilmerk"
@@ -27,6 +28,7 @@ exports[`MapDetailNapPeilmerk should not render empty height 1`] = `
 
 exports[`MapDetailNapPeilmerk should not render without height 1`] = `
 <MapDetailResultWrapper
+  onMaximize={[Function]}
   panoUrl="panoUrl"
   subTitle="Peilmerk label"
   title="NAP Peilmerk"
@@ -52,6 +54,7 @@ exports[`MapDetailNapPeilmerk should not render without height 1`] = `
 
 exports[`MapDetailNapPeilmerk should render everything 1`] = `
 <MapDetailResultWrapper
+  onMaximize={[Function]}
   panoUrl="panoUrl"
   subTitle="Peilmerk label"
   title="NAP Peilmerk"
