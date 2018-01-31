@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 
 import DrawTool from './DrawTool';
 import drawToolConfig from '../../services/draw-tool/draw-tool-config';
-import { enable, disable, setPolygon, isEnabled } from '../../services/draw-tool/draw-tool';
+import { initialize, cancel, isEnabled, setPolygon, currentShape } from '../../services/draw-tool/draw-tool';
 
 jest.mock('../../services/draw-tool/draw-tool');
 
@@ -22,56 +22,53 @@ describe('ToggleDrawing', () => {
     }
   };
 
-  // describe('actions', () => {
-    // beforeEach(() => {
-      // enable.mockClear();
-      // disable.mockClear();
-      // setPolygon.mockClear();
-    // });
+  describe('actions', () => {
+    it('should be initialized first', () => {
+      // initialize.mockImplementation(() => false);
+      const store = configureMockStore()({ ...initialState });
+      const wrapper = shallow(<DrawTool />, { context: { store } }).dive();
 
-    // it('should trigger toggle drawing on when clicked with zero markers', () => {
-    //   isEnabled.mockImplementation(() => false);
-    //
-    //   const wrapper = shallow(<DrawTool />, { context: { store } }).dive();
-    //   wrapper.find('button').at(0).simulate('click');
-    //   expect(enable).toHaveBeenCalled();
-    //
-    //   // is should NOT reset polygon when there are no markers
-    //   expect(setPolygon).not.toHaveBeenCalled();
-    // });
-//
-    // it('should trigger toggle drawing off when clicked', () => {
-    //   isEnabled.mockImplementation(() => true);
-    //
-    //   const wrapper = shallow(
-    //     <ToggleDrawing
-    //       drawingMode={drawToolConfig.DRAWING_MODE.DRAW}
-    //       shapeMarkers={0}
-    //     />
-    //   );
-    //   wrapper.find('button').at(0).simulate('click');
-    //   expect(disable).toHaveBeenCalled();
-    // });
-    //
-    // it('should trigger toggle drawing on when clicked with 2 markers', () => {
-    //   isEnabled.mockImplementation(() => false);
-    //
-    //   const wrapper = shallow(
-    //     <ToggleDrawing
-    //       drawingMode={drawToolConfig.DRAWING_MODE.NONE}
-    //       shapeMarkers={2}
-    //     />
-    //   );
-    //   wrapper.find('button').at(0).simulate('click');
-    //   expect(enable).toHaveBeenCalled();
-    //
-    //   // is should reset polygon when there are no markers
-    //   expect(setPolygon).toHaveBeenCalledWith([]);
-    // });
-  // });
+      expect(initialize).toHaveBeenCalledTimes(1);
+      expect(setPolygon).toHaveBeenCalledWith([]);
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should turn drawing on and off when drawing mode has switched', () => {
+      const store = configureMockStore()({ ...initialState });
+      const wrapper = shallow(<DrawTool />, { context: { store } }).dive();
+
+      wrapper.setProps({ drawingMode: 'draw' });
+      expect(wrapper).toMatchSnapshot();
+      expect(cancel).not.toHaveBeenCalled();
+      expect(wrapper.state('drawingMode')).toBe('draw');
+
+      wrapper.setProps({ drawingMode: 'none' });
+      expect(wrapper).toMatchSnapshot();
+      expect(cancel).toHaveBeenCalledTimes(1);
+      expect(wrapper.state('drawingMode')).toBe('none');
+    });
+
+    it('should save previous markers and trigger cancel when shape has been drawn', () => {
+      const store = configureMockStore()({ ...initialState });
+      const wrapper = shallow(<DrawTool />, { context: { store } }).dive();
+      expect(wrapper.state('previousMarkers')).toEqual([]);
+
+      wrapper.setProps({ drawingMode: 'draw' });
+      wrapper.setProps({
+        geometry: [[52.3, 4.8], [52.4, 4.9], [53, 5]],
+        shapeMarkers: 2,
+        shapeDistanceTxt: '1.89 km'
+      });
+      wrapper.setProps({ drawingMode: 'none' });
+
+      expect(setPolygon).toHaveBeenCalledWith([[52.3, 4.8], [52.4, 4.9], [53, 5]]);
+      expect(wrapper.state('previousMarkers')).toEqual([[52.3, 4.8], [52.4, 4.9], [53, 5]]);
+      expect(wrapper).toMatchSnapshot();
+    });
+  });
 
   describe('rendering', () => {
-    it('should render with initial state', () => {
+    it('should render points available, shape summary and toggle drawing', () => {
       const store = configureMockStore()({ ...initialState });
       const wrapper = shallow(<DrawTool />, { context: { store } }).dive();
       expect(wrapper).toMatchSnapshot();

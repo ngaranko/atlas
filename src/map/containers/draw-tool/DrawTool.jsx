@@ -55,8 +55,7 @@ class DrawTool extends React.Component {
     this.getMarkers = this.getMarkers.bind(this);
     this.toggleMapFullscreen = this.toggleMapFullscreen.bind(this);
 
-    initialize(window.leafletMap, this.onFinishShape, this.onDrawingMode,
-      this.onUpdateShape);
+    initialize(window.leafletMap, this.onFinishShape, this.onDrawingMode, this.onUpdateShape);
 
     this.setPolygon();
   }
