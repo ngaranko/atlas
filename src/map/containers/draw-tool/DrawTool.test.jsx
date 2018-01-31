@@ -24,7 +24,6 @@ describe('ToggleDrawing', () => {
 
   describe('actions', () => {
     it('should be initialized first', () => {
-      // initialize.mockImplementation(() => false);
       const store = configureMockStore()({ ...initialState });
       const wrapper = shallow(<DrawTool />, { context: { store } }).dive();
 
@@ -64,6 +63,130 @@ describe('ToggleDrawing', () => {
       expect(setPolygon).toHaveBeenCalledWith([[52.3, 4.8], [52.4, 4.9], [53, 5]]);
       expect(wrapper.state('previousMarkers')).toEqual([[52.3, 4.8], [52.4, 4.9], [53, 5]]);
       expect(wrapper).toMatchSnapshot();
+    });
+  });
+
+  describe('callbacks', () => {
+    it('onFinishShape should dispatch action when a line has been drawn', () => {
+      const store = configureMockStore()({ ...initialState });
+      jest.spyOn(store, 'dispatch');
+      const wrapper = shallow(<DrawTool />, { context: { store } }).dive();
+      const instance = wrapper.instance();
+
+      expect(typeof instance.onFinishShape).toBe('function');
+
+      instance.onFinishShape({
+        markers: [1, 2],
+        distanceTxt: 'a',
+        areaTxt: 'b'
+      });
+
+      expect(store.dispatch).toHaveBeenCalledWith({
+        payload: {
+          polygon: {
+            areaTxt: 'b',
+            distanceTxt: 'a',
+            markers: [1, 2]
+          }
+        },
+        type: 'MAP_END_DRAWING'
+      });
+    });
+
+    it('onFinishShape should dispatch actions when a polygon has been drawn and map is fullscreen', () => {
+      const store = configureMockStore()({
+        ...initialState,
+        ui: {
+          ...initialState.ui,
+          isMapFullscreen: true
+        }
+      });
+      jest.spyOn(store, 'dispatch');
+      const wrapper = shallow(<DrawTool />, { context: { store } }).dive();
+      const instance = wrapper.instance();
+
+      instance.onFinishShape({
+        markers: [1, 2, 3, 4],
+        distanceTxt: 'a',
+        areaTxt: 'b'
+      });
+
+      expect(store.dispatch).toHaveBeenCalledWith({
+        payload: {
+          polygon: {
+            areaTxt: 'b',
+            distanceTxt: 'a',
+            markers: [1, 2, 3, 4]
+          }
+        },
+        type: 'MAP_END_DRAWING'
+      });
+      expect(store.dispatch).toHaveBeenCalledWith({
+        payload: {
+          name: null
+        },
+        type: 'SET_PAGE_NAME'
+      });
+      expect(store.dispatch).toHaveBeenCalledWith({
+        payload: {
+          description: 'a en b',
+          markers: [1, 2, 3, 4]
+        },
+        type: 'SET_DATA_SELECTION_GEOMETRY_FILTER'
+      });
+      expect(store.dispatch).toHaveBeenCalledWith({
+        type: 'TOGGLE_MAP_FULLSCREEN'
+      });
+    });
+
+    it('onDrawingMode should dispatch actions', () => {
+      const store = configureMockStore()({ ...initialState });
+      jest.spyOn(store, 'dispatch');
+      const wrapper = shallow(<DrawTool />, { context: { store } }).dive();
+      const instance = wrapper.instance();
+
+      expect(typeof instance.onDrawingMode).toBe('function');
+
+      instance.onDrawingMode('draw');
+      expect(store.dispatch).toHaveBeenCalledWith({
+        payload: {
+          drawingMode: 'draw'
+        },
+        type: 'MAP_START_DRAWING'
+      });
+      expect(store.dispatch).toHaveBeenCalledWith({
+        payload: {
+          drawingMode: 'draw'
+        },
+        type: 'RESET_DATA_SELECTION_GEOMETRY_FILTER'
+      });
+
+      instance.onDrawingMode('none');
+      expect(store.dispatch).toHaveBeenCalledWith({ type: 'MAP_END_DRAWING' });
+    });
+
+    it('onUpdateShape should dispatch action', () => {
+      const store = configureMockStore()({ ...initialState });
+      jest.spyOn(store, 'dispatch');
+      const wrapper = shallow(<DrawTool />, { context: { store } }).dive();
+      const instance = wrapper.instance();
+
+      expect(typeof instance.onUpdateShape).toBe('function');
+
+      instance.onUpdateShape({
+        markers: [1, 2, 3],
+        distanceTxt: 'a',
+        areaTxt: 'b'
+      });
+
+      expect(store.dispatch).toHaveBeenCalledWith({
+        payload: {
+          shapeAreaTxt: 'b',
+          shapeDistanceTxt: 'a',
+          shapeMarkers: 3
+        },
+        type: 'MAP_UPDATE_SHAPE'
+      });
     });
   });
 
