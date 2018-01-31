@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 
-import search from '../../services/map-search';
+import search from '../../services/map-search/map-search';
 
 function* fetchMapSearchResults(action) {
   try {

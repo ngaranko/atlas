@@ -7,8 +7,12 @@ exports[`MapDetailResult should render adressen ligplaats 1`] = `
   ligplaats={
     Object {
       "label": "value",
+      "status": Object {
+        "description": "description",
+      },
     }
   }
+  onMaximize={[MockFunction]}
   panoUrl="panoUrl"
 />
 `;
@@ -20,6 +24,9 @@ exports[`MapDetailResult should render adressen nummeraanduiding 1`] = `
   verblijfsobject={
     Object {
       "label": "value",
+      "status": Object {
+        "description": "description",
+      },
     }
   }
 />
@@ -27,9 +34,13 @@ exports[`MapDetailResult should render adressen nummeraanduiding 1`] = `
 
 exports[`MapDetailResult should render adressen openbareruimte 1`] = `
 <MapDetailAdressenOpenbareRuimte
+  onMaximize={[MockFunction]}
   openbareRuimte={
     Object {
       "label": "value",
+      "status": Object {
+        "description": "description",
+      },
     }
   }
   panoUrl="panoUrl"
@@ -38,9 +49,13 @@ exports[`MapDetailResult should render adressen openbareruimte 1`] = `
 
 exports[`MapDetailResult should render adressen pand 1`] = `
 <MapDetailAdressenPand
+  onMaximize={[MockFunction]}
   pand={
     Object {
       "label": "value",
+      "status": Object {
+        "description": "description",
+      },
     }
   }
   panoUrl="panoUrl"
@@ -49,10 +64,14 @@ exports[`MapDetailResult should render adressen pand 1`] = `
 
 exports[`MapDetailResult should render adressen standplaats 1`] = `
 <MapDetailAdressenStandplaats
+  onMaximize={[MockFunction]}
   panoUrl="panoUrl"
   standplaats={
     Object {
       "label": "value",
+      "status": Object {
+        "description": "description",
+      },
     }
   }
 />
@@ -65,6 +84,9 @@ exports[`MapDetailResult should render adressen verblijfsobject 1`] = `
   verblijfsobject={
     Object {
       "label": "value",
+      "status": Object {
+        "description": "description",
+      },
     }
   }
 />

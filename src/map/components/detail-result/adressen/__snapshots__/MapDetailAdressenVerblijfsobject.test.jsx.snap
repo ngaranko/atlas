@@ -152,3 +152,54 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown with zero value 
   </ul>
 </MapDetailResultWrapper>
 `;
+
+exports[`MapDetailAdressenVerblijfsobject should render unknown without size 1`] = `
+<MapDetailResultWrapper
+  onMaximize={[MockFunction]}
+  panoUrl="panoUrl"
+  subTitle="Verblijfsobject label"
+  title="Adres"
+>
+  <ul
+    className="map-detail-result__list"
+  >
+    <MapDetailAdressenVerblijfsobjectGebruiksdoelenItem
+      gebruiksdoelen={
+        Array [
+          Object {
+            "code": "01",
+            "description": "Gebruiksdoel description 1",
+          },
+          Object {
+            "code": "0400",
+            "description": "Gebruiksdoel description 2",
+            "descriptionPlus": "Gebruiksdoel description plus",
+          },
+        ]
+      }
+    />
+    <MapDetailResultItem
+      label="Oppervlakte"
+      value="onbekend"
+    />
+    <MapDetailResultItem
+      label="Type woonobject"
+      value="Verblijfsobject type"
+    />
+    <MapDetailResultItem
+      label="Eigendomsverhouding"
+      value="Verblijfsobject eigendomsverhouding"
+    />
+    <MapDetailResultStatusItem
+      label="Indicatie hoofdadres"
+      status=""
+      value="Ja"
+    />
+    <MapDetailResultStatusItem
+      label="Status"
+      status=""
+      value="Status omschrijving"
+    />
+  </ul>
+</MapDetailResultWrapper>
+`;

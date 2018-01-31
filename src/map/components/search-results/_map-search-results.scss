@@ -138,7 +138,7 @@
     &-status {
       color: #999999;
       white-space: nowrap;
-      
+
       &:before,
       &:after {
         content: "\00a0\00a0";
@@ -179,7 +179,7 @@
 
     &-icon {
       fill: inherit;
-      height: inherit;
+      height: 24px;
       width: 24px;
       margin-right: 5px;
     }

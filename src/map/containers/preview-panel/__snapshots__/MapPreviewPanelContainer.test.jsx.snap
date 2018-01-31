@@ -311,6 +311,7 @@ exports[`MapPreviewPanelContainer rendering should render empty search results 1
       onItemClick={[Function]}
       onMaximize={[Function]}
       panoUrl="pano-url"
+      resultLimit={3}
       results={Array []}
     />
   </div>
@@ -361,6 +362,7 @@ exports[`MapPreviewPanelContainer rendering should render empty search results 2
       onItemClick={[Function]}
       onMaximize={[Function]}
       panoUrl="pano-url"
+      resultLimit={3}
       results={
         Array [
           Object {
@@ -493,7 +495,17 @@ exports[`MapPreviewPanelContainer rendering should render multiple missing layer
       onItemClick={[Function]}
       onMaximize={[Function]}
       panoUrl="pano-url"
-      results={Array []}
+      resultLimit={3}
+      results={
+        Array [
+          Object {
+            "item": 1,
+          },
+          Object {
+            "item": 2,
+          },
+        ]
+      }
     />
   </div>
 </section>
@@ -543,7 +555,17 @@ exports[`MapPreviewPanelContainer rendering should render one missing layer 1`] 
       onItemClick={[Function]}
       onMaximize={[Function]}
       panoUrl="pano-url"
-      results={Array []}
+      resultLimit={3}
+      results={
+        Array [
+          Object {
+            "item": 1,
+          },
+          Object {
+            "item": 2,
+          },
+        ]
+      }
     />
   </div>
 </section>
@@ -593,7 +615,17 @@ exports[`MapPreviewPanelContainer rendering should render search results 1`] = `
       onItemClick={[Function]}
       onMaximize={[Function]}
       panoUrl="pano-url"
-      results={Array []}
+      resultLimit={3}
+      results={
+        Array [
+          Object {
+            "item": 1,
+          },
+          Object {
+            "item": 2,
+          },
+        ]
+      }
     />
   </div>
 </section>
@@ -643,6 +675,7 @@ exports[`MapPreviewPanelContainer rendering should render search results 2`] = `
       onItemClick={[Function]}
       onMaximize={[Function]}
       panoUrl="pano-url"
+      resultLimit={3}
       results={
         Array [
           Object {
@@ -698,7 +731,17 @@ exports[`MapPreviewPanelContainer rendering should render search results without
       missingLayers=""
       onItemClick={[Function]}
       onMaximize={[Function]}
-      results={Array []}
+      resultLimit={3}
+      results={
+        Array [
+          Object {
+            "item": 1,
+          },
+          Object {
+            "item": 2,
+          },
+        ]
+      }
     />
   </div>
 </section>
@@ -748,7 +791,17 @@ exports[`MapPreviewPanelContainer rendering should render search results without
       onItemClick={[Function]}
       onMaximize={[Function]}
       panoUrl="pano-url"
-      results={Array []}
+      resultLimit={3}
+      results={
+        Array [
+          Object {
+            "item": 1,
+          },
+          Object {
+            "item": 2,
+          },
+        ]
+      }
     />
   </div>
 </section>
@@ -798,7 +851,14 @@ exports[`MapPreviewPanelContainer rendering should render visibility 1`] = `
       onItemClick={[Function]}
       onMaximize={[Function]}
       panoUrl="pano-url"
-      results={Array []}
+      resultLimit={3}
+      results={
+        Array [
+          Object {
+            "item": 3,
+          },
+        ]
+      }
     />
   </div>
 </section>
@@ -848,7 +908,14 @@ exports[`MapPreviewPanelContainer rendering should render visibility 2`] = `
       onItemClick={[Function]}
       onMaximize={[Function]}
       panoUrl="pano-url"
-      results={Array []}
+      resultLimit={3}
+      results={
+        Array [
+          Object {
+            "item": 3,
+          },
+        ]
+      }
     />
   </div>
 </section>

@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`MapDetailResultItem should not render empty value 1`] = `""`;
+
 exports[`MapDetailResultItem should not render without value 1`] = `""`;
 
 exports[`MapDetailResultItem should render a blue bullet if status is \`info\` 1`] = `

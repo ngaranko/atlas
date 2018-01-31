@@ -16,9 +16,7 @@ exports[`MapSearchResults rendering should filter external monumenten on pand re
       <h1
         className="map-search-results__header-title"
       >
-        Resultaten (
-        3
-        )
+        Resultaten
       </h1>
       <h2
         className="map-search-results__header-subtitle"
@@ -41,6 +39,9 @@ exports[`MapSearchResults rendering should filter external monumenten on pand re
           Object {
             "categoryLabel": "category",
             "label": "label",
+            "results": Array [],
+            "showMore": false,
+            "subCategories": Array [],
             "type": "bag/pand",
             "uri": "result-uri-1",
           }
@@ -53,6 +54,9 @@ exports[`MapSearchResults rendering should filter external monumenten on pand re
           Object {
             "categoryLabel": "category",
             "label": "label",
+            "results": Array [],
+            "showMore": false,
+            "subCategories": Array [],
             "type": "foo",
             "uri": "result-uri-2",
           }
@@ -65,6 +69,9 @@ exports[`MapSearchResults rendering should filter external monumenten on pand re
           Object {
             "categoryLabel": "category",
             "label": "label",
+            "results": Array [],
+            "showMore": false,
+            "subCategories": Array [],
             "type": "monumenten/monument",
             "uri": "result-uri-3",
           }
@@ -78,6 +85,7 @@ exports[`MapSearchResults rendering should filter external monumenten on pand re
     >
       <button
         className="map-search-results__button"
+        onClick={[MockFunction]}
       >
         <Component
           className="map-search-results__button-icon"
@@ -105,8 +113,7 @@ exports[`MapSearchResults rendering should render empty results 1`] = `
       <h1
         className="map-search-results__header-title"
       >
-        Resultaten (
-        )
+        Resultaten
       </h1>
       <h2
         className="map-search-results__header-subtitle"
@@ -129,6 +136,7 @@ exports[`MapSearchResults rendering should render empty results 1`] = `
     >
       <button
         className="map-search-results__button"
+        onClick={[MockFunction]}
       >
         <Component
           className="map-search-results__button-icon"
@@ -161,9 +169,7 @@ exports[`MapSearchResults rendering should render results 1`] = `
       <h1
         className="map-search-results__header-title"
       >
-        Resultaten (
-        2
-        )
+        Resultaten
       </h1>
       <h2
         className="map-search-results__header-subtitle"
@@ -195,6 +201,10 @@ exports[`MapSearchResults rendering should render results 1`] = `
           Object {
             "categoryLabel": "category",
             "label": "label",
+            "results": Array [],
+            "showMore": false,
+            "subCategories": Array [],
+            "type": "monumenten/monument",
             "uri": "result-uri-1",
           }
         }
@@ -206,6 +216,10 @@ exports[`MapSearchResults rendering should render results 1`] = `
           Object {
             "categoryLabel": "category",
             "label": "label",
+            "results": Array [],
+            "showMore": false,
+            "subCategories": Array [],
+            "type": "monumenten/monument",
             "uri": "result-uri-2",
           }
         }
@@ -218,6 +232,7 @@ exports[`MapSearchResults rendering should render results 1`] = `
     >
       <button
         className="map-search-results__button"
+        onClick={[MockFunction]}
       >
         <Component
           className="map-search-results__button-icon"
@@ -250,9 +265,7 @@ exports[`MapSearchResults rendering should update results 1`] = `
       <h1
         className="map-search-results__header-title"
       >
-        Resultaten (
-        2
-        )
+        Resultaten
       </h1>
       <h2
         className="map-search-results__header-subtitle"
@@ -275,6 +288,10 @@ exports[`MapSearchResults rendering should update results 1`] = `
           Object {
             "categoryLabel": "category",
             "label": "label",
+            "results": Array [],
+            "showMore": false,
+            "subCategories": Array [],
+            "type": "bag/pand",
             "uri": "result-uri-1",
           }
         }
@@ -286,6 +303,10 @@ exports[`MapSearchResults rendering should update results 1`] = `
           Object {
             "categoryLabel": "category",
             "label": "label",
+            "results": Array [],
+            "showMore": false,
+            "subCategories": Array [],
+            "type": "bag/pand",
             "uri": "result-uri-2",
           }
         }
@@ -298,6 +319,7 @@ exports[`MapSearchResults rendering should update results 1`] = `
     >
       <button
         className="map-search-results__button"
+        onClick={[MockFunction]}
       >
         <Component
           className="map-search-results__button-icon"
@@ -330,9 +352,7 @@ exports[`MapSearchResults rendering should update results 2`] = `
       <h1
         className="map-search-results__header-title"
       >
-        Resultaten (
-        3
-        )
+        Resultaten
       </h1>
       <h2
         className="map-search-results__header-subtitle"
@@ -364,6 +384,10 @@ exports[`MapSearchResults rendering should update results 2`] = `
           Object {
             "categoryLabel": "category",
             "label": "label",
+            "results": Array [],
+            "showMore": false,
+            "subCategories": Array [],
+            "type": "bag/pand",
             "uri": "result-uri-1",
           }
         }
@@ -375,6 +399,10 @@ exports[`MapSearchResults rendering should update results 2`] = `
           Object {
             "categoryLabel": "category",
             "label": "label",
+            "results": Array [],
+            "showMore": false,
+            "subCategories": Array [],
+            "type": "bag/pand",
             "uri": "result-uri-2",
           }
         }
@@ -386,6 +414,10 @@ exports[`MapSearchResults rendering should update results 2`] = `
           Object {
             "categoryLabel": "category",
             "label": "label",
+            "results": Array [],
+            "showMore": false,
+            "subCategories": Array [],
+            "type": "bag/pand",
             "uri": "result-uri-3",
           }
         }
@@ -398,6 +430,7 @@ exports[`MapSearchResults rendering should update results 2`] = `
     >
       <button
         className="map-search-results__button"
+        onClick={[MockFunction]}
       >
         <Component
           className="map-search-results__button-icon"

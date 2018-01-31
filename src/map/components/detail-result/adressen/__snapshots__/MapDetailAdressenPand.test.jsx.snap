@@ -23,6 +23,29 @@ exports[`MapDetailAdressenPand should render everything 1`] = `
 </MapDetailResultWrapper>
 `;
 
+exports[`MapDetailAdressenPand should render unknown for empty year 1`] = `
+<MapDetailResultWrapper
+  onMaximize={[MockFunction]}
+  panoUrl="panoUrl"
+  subTitle="Pand label"
+  title="Pand"
+>
+  <ul
+    className="map-detail-result__list"
+  >
+    <MapDetailResultItem
+      label="Oorspronkelijk bouwjaar"
+      value="onbekend"
+    />
+    <MapDetailResultStatusItem
+      label="Status"
+      status=""
+      value=""
+    />
+  </ul>
+</MapDetailResultWrapper>
+`;
+
 exports[`MapDetailAdressenPand should render unknown without year 1`] = `
 <MapDetailResultWrapper
   onMaximize={[MockFunction]}
