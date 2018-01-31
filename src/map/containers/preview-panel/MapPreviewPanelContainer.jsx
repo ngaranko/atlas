@@ -11,7 +11,8 @@ import { selectLatestMapSearchResults, getMapSearchResults }
   from '../../ducks/search-results/map-search-results';
 import { selectNotClickableVisibleMapLayers } from '../../ducks/layers/map-layers';
 import { selectLatestMapDetail, getMapDetail } from '../../ducks/detail/map-detail';
-import { fetchStraatbeeldById, toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
+import { toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
+import { fetchStraatbeeldById } from '../../ducks/streetview/streetview';
 import fetchSearchResults from '../../../reducers/search';
 import { fetchDetail as legacyFetchDetail } from '../../../reducers/details';
 import { getPanoPreview } from '../../../pano/ducks/preview/pano-preview';

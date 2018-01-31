@@ -7,7 +7,6 @@ export const SHOW_PRINT = 'SHOW_PRINT';
 export const TOGGLE_MAP_FULLSCREEN = 'TOGGLE_MAP_FULLSCREEN';
 export const TOGGLE_MAP_PANEL = 'TOGGLE_MAP_PANEL';
 export const TOGGLE_MAP_PANEL_HANDLE = 'TOGGLE_MAP_PANEL_HANDLE';
-export const FETCH_STRAATBEELD_BY_ID = 'FETCH_STRAATBEELD_BY_ID';
 
 const initialState = {
   isMapFullscreen: false,
@@ -85,10 +84,6 @@ export const showPrint = () => ({ type: SHOW_PRINT });
 export const toggleMapFullscreen = () => ({ type: TOGGLE_MAP_FULLSCREEN });
 export const toggleMapPanel = () => ({ type: TOGGLE_MAP_PANEL });
 export const toggleMapPanelHandle = () => ({ type: TOGGLE_MAP_PANEL_HANDLE });
-export const fetchStraatbeeldById = (id) => ({
-  type: { id: FETCH_STRAATBEELD_BY_ID },
-  payload: { id }
-});
 
 window.reducers = window.reducers || {};
 window.reducers.UiReducer = UiReducer;
