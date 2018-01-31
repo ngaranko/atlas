@@ -95,7 +95,8 @@ class MapPreviewPanelContainer extends React.Component {
 
   onPanoPreviewClick() {
     const { onOpenPanoById, search, pano } = this.props;
-    const selectedPano = pano.previews[search.location];
+    const location = search ? search.location.join(',') : `${pano.location.latitude},${pano.location.longitude}`;
+    const selectedPano = pano.previews[location];
     if (!selectedPano) {
       return;
     }
@@ -159,6 +160,7 @@ class MapPreviewPanelContainer extends React.Component {
               endpoint={props.mapDetail.currentEndpoint}
               panoUrl={panoDetailPreview.url}
               onMaximize={props.onMapPreviewPanelMaximize}
+              onPanoPreviewClick={this.onPanoPreviewClick}
               result={props.detailResult}
             />
           )}

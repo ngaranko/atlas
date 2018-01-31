@@ -41,10 +41,10 @@ const MapSearchResults = ({
           {panoUrl && (
             <img
               alt="Panoramabeeld"
-              width="438"
-              height="292"
               className="map-search-results__header-pano"
+              height="292"
               src={panoUrl}
+              width="438"
             />
           )}
           <div className="map-search-results__header-container">

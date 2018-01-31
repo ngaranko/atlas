@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 
 import MaximizeIcon from '../../../../public/images/icon-maximize.svg';
 
-const MapDetailResultWrapper = ({ children, panoUrl, subTitle, title, onMaximize }) => (
+const MapDetailResultWrapper = ({
+  children, panoUrl, subTitle, title, onMaximize, onPanoPreviewClick
+}) => (
   <section className="map-detail-result">
     <header
       className={`
@@ -11,19 +13,27 @@ const MapDetailResultWrapper = ({ children, panoUrl, subTitle, title, onMaximize
         map-detail-result__header--${panoUrl ? 'pano' : 'no-pano'}
       `}
     >
-      {panoUrl && (
-        <img
-          alt="Panoramabeeld"
-          className="map-detail-result__header-pano"
-          src={panoUrl}
-        />
-      )}
-      <div className="map-detail-result__header-container">
-        <h1 className="map-detail-result__header-title">{title}</h1>
-        {subTitle && (
-          <h2 className="map-detail-result__header-subtitle">{subTitle}</h2>
+      <button
+        className="map-detail-result__header-pano-button"
+        onClick={onPanoPreviewClick}
+        title="Panoramabeeld"
+      >
+        {panoUrl && (
+          <img
+            alt="Panoramabeeld"
+            className="map-detail-result__header-pano"
+            height="292"
+            src={panoUrl}
+            width="438"
+          />
         )}
-      </div>
+        <div className="map-detail-result__header-container">
+          <h1 className="map-detail-result__header-title">{title}</h1>
+          {subTitle && (
+            <h2 className="map-detail-result__header-subtitle">{subTitle}</h2>
+          )}
+        </div>
+      </button>
     </header>
     <div className="map-detail-result__scroll-wrapper">
       {children && (
@@ -49,7 +59,8 @@ MapDetailResultWrapper.propTypes = {
   panoUrl: PropTypes.string.isRequired,
   subTitle: PropTypes.string,
   title: PropTypes.string.isRequired,
-  onMaximize: PropTypes.func.isRequired
+  onMaximize: PropTypes.func.isRequired,
+  onPanoPreviewClick: PropTypes.func.isRequired
 };
 
 export default MapDetailResultWrapper;

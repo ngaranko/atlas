@@ -10,10 +10,13 @@ const statusToCssModifier = {
   18: 'alert'
 };
 
-const MapDetailAdressenVerblijfsobject = ({ panoUrl, verblijfsobject, onMaximize }) => (
+const MapDetailAdressenVerblijfsobject = ({
+  panoUrl, verblijfsobject, onMaximize, onPanoPreviewClick
+}) => (
   <MapDetailResultWrapper
     panoUrl={panoUrl}
     onMaximize={onMaximize}
+    onPanoPreviewClick={onPanoPreviewClick}
     subTitle={verblijfsobject.label}
     title="Adres"
   >
@@ -63,7 +66,8 @@ MapDetailAdressenVerblijfsobject.propTypes = {
     })
   }).isRequired,
   panoUrl: PropTypes.string.isRequired,
-  onMaximize: PropTypes.func.isRequired
+  onMaximize: PropTypes.func.isRequired,
+  onPanoPreviewClick: PropTypes.func.isRequired
 };
 
 export default MapDetailAdressenVerblijfsobject;

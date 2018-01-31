@@ -4,10 +4,16 @@ import PropTypes from 'prop-types';
 import MapDetailResultItem from '../MapDetailResultItem';
 import MapDetailResultWrapper from '../MapDetailResultWrapper';
 
-const MapDetailAdressenStandplaats = ({ panoUrl, standplaats, onMaximize }) => (
+const MapDetailAdressenStandplaats = ({
+  panoUrl,
+  standplaats,
+  onMaximize,
+  onPanoPreviewClick
+}) => (
   <MapDetailResultWrapper
     panoUrl={panoUrl}
     onMaximize={onMaximize}
+    onPanoPreviewClick={onPanoPreviewClick}
     subTitle={standplaats.label}
     title="Standplaats"
   >
@@ -29,7 +35,8 @@ MapDetailAdressenStandplaats.propTypes = {
     }).isRequired
   }).isRequired,
   panoUrl: PropTypes.string.isRequired,
-  onMaximize: PropTypes.func.isRequired
+  onMaximize: PropTypes.func.isRequired,
+  onPanoPreviewClick: PropTypes.func.isRequired
 };
 
 export default MapDetailAdressenStandplaats;
