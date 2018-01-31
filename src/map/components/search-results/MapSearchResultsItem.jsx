@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import ArrowRightIcon from '../../../../public/images/icon-arrow-right.svg';
 
-const MapSearchResultsItem = ({ label, onClick, statusDescription }) => (
+const MapSearchResultsItem = ({ label, onClick, statusLabel }) => (
   <li className="map-search-results__item">
     <button
       className="map-search-results__item-button"
@@ -12,9 +12,9 @@ const MapSearchResultsItem = ({ label, onClick, statusDescription }) => (
     >
       <section className="map-search-results__item-content">
         <div className="map-search-results__item-name">{label}</div>
-        { statusDescription && statusDescription.length > 1 ? (
+        { statusLabel && statusLabel.length > 1 ? (
           <div className="map-search-results__item-status">
-            {`${statusDescription}`}
+            {statusLabel.toLowerCase()}
           </div>
           ) : ''
         }
@@ -25,12 +25,12 @@ const MapSearchResultsItem = ({ label, onClick, statusDescription }) => (
 );
 
 MapSearchResultsItem.defaultProps = {
-  statusDescription: ''
+  statusLabel: ''
 };
 
 MapSearchResultsItem.propTypes = {
   label: PropTypes.string.isRequired,
-  statusDescription: PropTypes.string,
+  statusLabel: PropTypes.string,
   onClick: PropTypes.func // eslint-disable-line
 };
 

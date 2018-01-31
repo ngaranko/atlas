@@ -3,20 +3,19 @@ import PropTypes from 'prop-types';
 
 import MapSearchResultsItem from './MapSearchResultsItem';
 
-const statusCodes = [
-  '18'
-];
+import categoryLabelsByType from '../../services/map-search/category-labels-by-type';
 
-const shouldShowStatus = (result) => statusCodes.indexOf(result.status.code) > -1;
-const getDesription = (result) => `${shouldShowStatus(result) ? `(${result.status.description})` : ''} ${result.isNevenadres ? '(Nevenadres)' : ''}`;
+const getStatusLabel = (result) => (
+  result.statusLabel && result.statusLabel.length > 0 ? `(${result.statusLabel})` : '');
+
+const getPluralLabel = (result) => categoryLabelsByType[result.type].plural;
 
 const MapSearchResultsCategory = ({ category, onClick }) => (
   <li className="map-search-results__category">
     <h4 className="map-search-results__category-header">
       {
-        category.amountOfResults && category.amountOfResults > 1 ?
-        `${category.categoryLabelPlural} (${category.amountOfResults})` :
-        `${category.categoryLabel}`
+        category.results.length > 1 ?
+        `${getPluralLabel(category)}` : `${category.categoryLabel}`
       }
     </h4>
     <ul className="map-search-results__category-list">
@@ -25,7 +24,7 @@ const MapSearchResultsCategory = ({ category, onClick }) => (
           <MapSearchResultsItem
             key={result.uri}
             label={result.label}
-            statusDescription={getDesription(result)}
+            statusLabel={getStatusLabel(result)}
             onClick={() => {
               onClick(result.uri);
             }}
@@ -56,7 +55,6 @@ const MapSearchResultsCategory = ({ category, onClick }) => (
 MapSearchResultsCategory.propTypes = {
   category: PropTypes.shape({
     categoryLabel: PropTypes.string.isRequired,
-    categoryLabelPlural: PropTypes.string.isRequired,
     results: PropTypes.array.isRequired,
     subCategories: PropTypes.isRequired,
     type: PropTypes.string.isRequired,
