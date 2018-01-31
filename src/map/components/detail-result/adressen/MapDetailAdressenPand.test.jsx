@@ -27,7 +27,10 @@ describe('MapDetailAdressenPand', () => {
   it('should render unknown for empty year', () => {
     const pand = {
       label: 'Pand label',
-      status: 'Pand status',
+      status: {
+        ommschrijving: 'Pand status',
+        code: '31'
+      },
       year: ''
     };
     const clickHandler = jest.fn();
@@ -44,7 +47,10 @@ describe('MapDetailAdressenPand', () => {
   it('should render unknown without year', () => {
     const pand = {
       label: 'Pand label',
-      status: 'Pand status'
+      status: {
+        ommschrijving: 'Pand status',
+        code: '31'
+      }
     };
     const clickHandler = jest.fn();
     const wrapper = shallow(

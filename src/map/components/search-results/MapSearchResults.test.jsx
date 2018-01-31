@@ -25,41 +25,11 @@ describe('MapSearchResults', () => {
       <MapSearchResults
         location={location}
         onItemClick={clickHandler}
+        onMaximize={clickHandler}
         results={[]}
       />
     );
     expect(wgs84ToRd).toHaveBeenCalledWith(location);
-  });
-
-  it('should make items clickable', () => {
-    const count = 2;
-    const location = {
-      latitude: 15.999,
-      longitude: 329.123
-    };
-    const clickHandler = jest.fn();
-    const panoUrl = 'pano-url';
-    const missingLayers = 'Layer 1, Layer 2';
-    const results = [
-      { label: 'label', categoryLabel: 'category', uri: 'result-uri-1' },
-      { label: 'label', categoryLabel: 'category', uri: 'result-uri-2' }
-    ];
-    const wrapper = shallow(
-      <MapSearchResults
-        count={count}
-        location={location}
-        onItemClick={clickHandler}
-        panoUrl={panoUrl}
-        missingLayers={missingLayers}
-        results={results}
-      />
-    );
-
-    wrapper.find('MapSearchResultsItem').at(0).simulate('click');
-    expect(clickHandler).toHaveBeenCalledWith('result-uri-1');
-    wrapper.find('MapSearchResultsItem').at(1).simulate('click');
-    expect(clickHandler).toHaveBeenCalledWith('result-uri-2');
-    expect(clickHandler).toHaveBeenCalledTimes(2);
   });
 
   describe('rendering', () => {
@@ -68,6 +38,7 @@ describe('MapSearchResults', () => {
       const wrapper = shallow(
         <MapSearchResults
           onItemClick={clickHandler}
+          onMaximize={clickHandler}
           results={[]}
         />
       );
@@ -84,8 +55,8 @@ describe('MapSearchResults', () => {
       const panoUrl = 'pano-url';
       const missingLayers = 'Layer 1, Layer 2';
       const results = [
-        { label: 'label', categoryLabel: 'category', uri: 'result-uri-1' },
-        { label: 'label', categoryLabel: 'category', uri: 'result-uri-2' }
+        { label: 'label', categoryLabel: 'category', uri: 'result-uri-1', type: 'monumenten/monument', results: [], subCategories: [] },
+        { label: 'label', categoryLabel: 'category', uri: 'result-uri-2', type: 'monumenten/monument', results: [], subCategories: [] }
       ];
       const wrapper = shallow(
         <MapSearchResults
@@ -94,6 +65,7 @@ describe('MapSearchResults', () => {
           onItemClick={clickHandler}
           panoUrl={panoUrl}
           missingLayers={missingLayers}
+          onMaximize={clickHandler}
           results={results}
         />
       );
@@ -108,15 +80,16 @@ describe('MapSearchResults', () => {
       };
       const clickHandler = jest.fn();
       const results = [
-        { label: 'label', categoryLabel: 'category', uri: 'result-uri-1', type: 'bag/pand' },
-        { label: 'label', categoryLabel: 'category', uri: 'result-uri-2', type: 'foo' },
-        { label: 'label', categoryLabel: 'category', uri: 'result-uri-3', type: 'monumenten/monument' }
+        { label: 'label', categoryLabel: 'category', uri: 'result-uri-1', type: 'bag/pand', results: [], subCategories: [] },
+        { label: 'label', categoryLabel: 'category', uri: 'result-uri-2', type: 'foo', results: [], subCategories: [] },
+        { label: 'label', categoryLabel: 'category', uri: 'result-uri-3', type: 'monumenten/monument', results: [], subCategories: [] }
       ];
       const wrapper = shallow(
         <MapSearchResults
           count={count}
           location={location}
           onItemClick={clickHandler}
+          onMaximize={clickHandler}
           results={results}
         />
       );
@@ -132,8 +105,8 @@ describe('MapSearchResults', () => {
       const clickHandler = jest.fn();
       const panoUrl = 'pano-url';
       const results = [
-        { label: 'label', categoryLabel: 'category', uri: 'result-uri-1' },
-        { label: 'label', categoryLabel: 'category', uri: 'result-uri-2' }
+        { label: 'label', categoryLabel: 'category', uri: 'result-uri-1', type: 'bag/pand', results: [], subCategories: [] },
+        { label: 'label', categoryLabel: 'category', uri: 'result-uri-2', type: 'bag/pand', results: [], subCategories: [] }
       ];
       const wrapper = shallow(
         <MapSearchResults
@@ -141,6 +114,7 @@ describe('MapSearchResults', () => {
           location={location}
           onItemClick={clickHandler}
           panoUrl={panoUrl}
+          onMaximize={clickHandler}
           results={results}
         />
       );
@@ -155,9 +129,9 @@ describe('MapSearchResults', () => {
         panoUrl: 'other-pano-url',
         missingLayers: 'Layer 3',
         results: [
-          { label: 'label', categoryLabel: 'category', uri: 'result-uri-1' },
-          { label: 'label', categoryLabel: 'category', uri: 'result-uri-2' },
-          { label: 'label', categoryLabel: 'category', uri: 'result-uri-3' }
+          { label: 'label', categoryLabel: 'category', uri: 'result-uri-1', type: 'bag/pand', results: [], subCategories: [] },
+          { label: 'label', categoryLabel: 'category', uri: 'result-uri-2', type: 'bag/pand', results: [], subCategories: [] },
+          { label: 'label', categoryLabel: 'category', uri: 'result-uri-3', type: 'bag/pand', results: [], subCategories: [] }
         ]
       });
       expect(wrapper).toMatchSnapshot();
