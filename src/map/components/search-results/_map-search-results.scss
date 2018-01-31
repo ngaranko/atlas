@@ -1,3 +1,6 @@
+@import './map-search-results-category/map-search-results-category';
+@import './map-search-results-item/map-search-results-item';
+
 .map-search-results {
   $header-height: 116px;
   $above-list-height: $map-preview-panel-top + 1px + 33px + $header-height;
@@ -69,102 +72,6 @@
     .is-print-mode & {
       height: 100%;
       max-height: none;
-    }
-  }
-
-  &__category {
-    padding-top: 24px;
-    position: relative;
-
-    .map-search-results__category {
-      padding-left: 8px;
-
-      &:before {
-        background-color: #e6e6e6;
-        bottom: 0;
-        content: '';
-        left: 0;
-        position: absolute;
-        top: 0;
-        width: 8px;
-      }
-    }
-
-    &:first-child {
-      margin-top: 0;
-    }
-
-    &-header, &-showmore {
-      color: #000000;
-      font-size: 16px;
-      line-height: 16px;
-      padding: 8px;
-      text-align: left;
-      width: 100%;
-      @media screen and (min-width: 1200px) {
-        padding: 8px 12px;
-      }
-    }
-  }
-
-  &__item {
-    background-color: #FFFFFF;
-    border-bottom: 1px solid #eeeeee;
-
-    &:first-child {
-      border-top: 1px solid #eeeeee;
-    }
-
-    &:hover {
-      background-color: #EEEEEE;
-    }
-
-    &-button {
-      align-items: center;
-      display: flex;
-      padding: 4px 8px;
-      text-align: left;
-      width: 100%;
-      @media screen and (min-width: 1200px) {
-        padding: 4px 12px;
-      }
-    }
-
-    &-content {
-      align-items: center;
-      display: flex;
-      flex-grow: 1;
-      overflow: hidden;
-    }
-
-    &-category {
-      color: #999999;
-      font-size: 14px;
-      padding-bottom: 4px;
-    }
-
-    &-name {
-      min-width: 30px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    &-status {
-      color: #999999;
-      white-space: nowrap;
-
-      &:before,
-      &:after {
-        content: "\00a0\00a0";
-      }
-    }
-
-    &-arrow {
-      fill: #666666;
-      flex-shrink: 0;
-      height: 24px;
-      width: 24px;
     }
   }
 
