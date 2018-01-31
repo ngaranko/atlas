@@ -108,7 +108,6 @@ export default function search(location, user) {
   });
 
   return Promise.all(allRequests)
-    .then((results) => results
-      .reduce((accumulator, subResults) => accumulator.concat(subResults)))
+    .then((results) => [].concat.apply([], [...results]))
     .then((results) => createMapSearchResultsModel(results));
 }

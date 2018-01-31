@@ -1,3 +1,15 @@
+export const basicSortModel = [
+  {
+    type: 'pand/address'
+  },
+  {
+    type: 'kadaster/kadastraal_object'
+  },
+  {
+    type: 'bag/pand'
+  }
+];
+
 export const basicDataModel = [
   {
     uri: 'https://acc.api.data.amsterdam.nl/',
@@ -22,7 +34,6 @@ export const basicDataModel = [
 
 export const expectedDataModel = [
   {
-    amountOfResults: 1,
     categoryLabel: 'Pand',
     results: [
       {
@@ -34,7 +45,6 @@ export const expectedDataModel = [
     ],
     subCategories: [
       {
-        amountOfResults: 1,
         categoryLabel: 'Adress',
         results: [
           {
@@ -52,7 +62,6 @@ export const expectedDataModel = [
     type: 'bag/pand'
   },
   {
-    amountOfResults: 1,
     categoryLabel: 'Kadastraal object',
     results: [
       {
