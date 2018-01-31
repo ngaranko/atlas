@@ -1,5 +1,6 @@
 import categoryLabels from './category-labels';
 
+// mapping for map search results to collect the correct categoryLabel
 const categoryLabelsByType = {
   'bag/ligplaats': categoryLabels.ligplaats,
   'bag/openbareruimte': categoryLabels.openbareRuimte,

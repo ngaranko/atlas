@@ -4,8 +4,7 @@ export const sortByCategoryTypeOrder = (items) => [...items]
   .sort((a, b) => {
     const indexA = categoryTypeOrder.indexOf(a.type);
     const indexB = categoryTypeOrder.indexOf(b.type);
-    return indexA < indexB ? -1 :
-      (indexA > indexB ? 1 : 0);
+    return indexA - indexB;
   });
 
 export const filterNonPandMonuments = (results) => (results
@@ -19,11 +18,13 @@ const filterResultsByCategory = (items, label) => filterNonPandMonuments(items)
 const getSubCategories = (items, type) => items
   .filter((subCategory) => subCategory.parent === type);
 
-export const createMapSearchResultsModel = (allResults, isSubCategory) =>
+export const createMapSearchResultsModel = (allResults, isSubCategory = false) =>
   sortByCategoryTypeOrder(allResults)
   .reduce((newList, currentValue) => {
     const { categoryLabel, type, parent } = currentValue;
 
+    // if the category already exists or if the category has a parent
+    // and isSubCategory is false return the newList
     if (newList.some((item) => item.categoryLabel === categoryLabel) ||
       (parent && !isSubCategory)) {
       return newList;
@@ -32,6 +33,7 @@ export const createMapSearchResultsModel = (allResults, isSubCategory) =>
     const subCategories = getSubCategories(allResults, type);
 
     let results = [];
+    // addresses should not be sorted
     if (categoryLabel === 'Adres') {
       results = filterResultsByCategory(allResults, categoryLabel);
     } else {
@@ -44,7 +46,6 @@ export const createMapSearchResultsModel = (allResults, isSubCategory) =>
         categoryLabel,
         type,
         results,
-        amountOfResults: results.length,
         subCategories: subCategories && subCategories.length ?
           createMapSearchResultsModel(subCategories, true) : []
       }

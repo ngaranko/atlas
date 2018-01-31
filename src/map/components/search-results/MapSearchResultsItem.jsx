@@ -14,7 +14,7 @@ const MapSearchResultsItem = ({ label, onClick, statusLabel }) => (
         <div className="map-search-results__item-name">{label}</div>
         { statusLabel && statusLabel.length > 1 ? (
           <div className="map-search-results__item-status">
-            {`${statusLabel.toLowerCase()}`}
+            {statusLabel.toLowerCase()}
           </div>
           ) : ''
         }
