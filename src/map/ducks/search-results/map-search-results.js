@@ -14,10 +14,7 @@ export default function MapSearchResultsReducer(state = initialState, action) {
       return { ...state, isLoading: true, mapSearchResultsError: null };
 
     case FETCH_MAP_SEARCH_RESULTS_SUCCESS: {
-      const locationId = Object
-        .keys(action.location)
-        .map((key) => action.location[key])
-        .toString();
+      const locationId = Object.values(action.location).toString();
       return {
         ...state,
         isLoading: false,
