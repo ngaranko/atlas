@@ -8,7 +8,7 @@ import isEqual from 'lodash.isequal';
 import { mapClearDrawing, mapUpdateShape, mapStartDrawing, mapEndDrawing } from '../../../shared/ducks/map/map';
 import { setDataSelectionGeometryFilter, resetDataSelectionGeometryFilter } from '../../../shared/ducks/data-selection/data-selection';
 import { setPageName } from '../../../shared/ducks/page/page';
-import { toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
+import { setMapFullscreen } from '../../../shared/ducks/ui/ui';
 
 import ToggleDrawing from '../../components/toggle-drawing/ToggleDrawing';
 import ShapeSummary from '../../components/shape-summary/ShapeSummary';
@@ -36,7 +36,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   onStartDrawing: mapStartDrawing,
   onEndDrawing: mapEndDrawing,
   onSetPageName: setPageName,
-  onToggleMapFullscreen: toggleMapFullscreen
+  onSetMapFullscreen: setMapFullscreen
 }, dispatch);
 
 class DrawTool extends React.Component {
@@ -87,21 +87,16 @@ class DrawTool extends React.Component {
     const has2Markers = polygon && polygon.markers && polygon.markers.length === 2;
     const moreThan2Markers = polygon && polygon.markers && polygon.markers.length > 2;
 
+    if (moreThan2Markers && !isEqual(this.state.previousMarkers, polygon.markers)) {
+      this.props.setGeometryFilter({
+        markers: polygon.markers,
+        description: `${polygon.distanceTxt} en ${polygon.areaTxt}`
+      });
 
-    if (moreThan2Markers) {
-      if (!isEqual(this.state.previousMarkers, polygon.markers)) {
-        this.props.setGeometryFilter({
-          markers: polygon.markers,
-          description: `${polygon.distanceTxt} en ${polygon.areaTxt}`
-        });
+      this.props.onEndDrawing({ polygon });
+      this.props.onSetPageName({ name: null });
 
-        this.props.onEndDrawing({ polygon });
-        this.props.onSetPageName({ name: null });
-
-        if (this.props.uiMapFullscreen) {
-          this.props.onToggleMapFullscreen();
-        }
-      }
+      this.props.onSetMapFullscreen({ isMapFullscreen: false });
     } else if (has2Markers) {
       this.props.onEndDrawing({ polygon });
     }
@@ -178,8 +173,7 @@ DrawTool.propTypes = {
   onStartDrawing: PropTypes.func.isRequired,
   onEndDrawing: PropTypes.func.isRequired,
   onSetPageName: PropTypes.func.isRequired,
-  onToggleMapFullscreen: PropTypes.func.isRequired
-
+  onSetMapFullscreen: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DrawTool);

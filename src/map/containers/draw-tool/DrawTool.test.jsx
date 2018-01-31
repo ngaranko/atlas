@@ -92,78 +92,107 @@ describe('ToggleDrawing', () => {
       expect(wrapper).toMatchSnapshot();
       expect(cancel).toHaveBeenCalledTimes(1);
     });
-  });
 
-  describe('callbacks', () => {
-    it('onFinishShape should dispatch action when a line has been drawn', () => {
+    it('setPolygon should only render polygon when drawing is not active', () => {
       const store = configureMockStore()({ ...initialState });
       jest.spyOn(store, 'dispatch');
       const wrapper = shallow(<DrawTool />, { context: { store } }).dive();
       const instance = wrapper.instance();
+      setPolygon.mockReset();
 
-      expect(typeof instance.onFinishShape).toBe('function');
+      isEnabled.mockImplementation(() => true);
+      instance.setPolygon();
+      expect(setPolygon).not.toHaveBeenCalled();
 
-      instance.onFinishShape({
-        markers: [1, 2],
-        distanceTxt: 'a',
-        areaTxt: 'b'
-      });
-
-      expect(store.dispatch).toHaveBeenCalledWith({
-        payload: {
-          polygon: {
-            areaTxt: 'b',
-            distanceTxt: 'a',
-            markers: [1, 2]
-          }
-        },
-        type: 'MAP_END_DRAWING'
-      });
+      isEnabled.mockImplementation(() => false);
+      instance.setPolygon();
+      expect(setPolygon).toHaveBeenCalled();
     });
+  });
 
-    it('onFinishShape should dispatch actions when a polygon has been drawn and map is fullscreen', () => {
-      const store = configureMockStore()({
-        ...initialState,
-        ui: {
-          ...initialState.ui,
-          isMapFullscreen: true
-        }
+  describe('callbacks', () => {
+    describe('onFinishShape', () => {
+      it('onFinishShape should dispatch action when a line has been drawn', () => {
+        const store = configureMockStore()({ ...initialState });
+        jest.spyOn(store, 'dispatch');
+        const wrapper = shallow(<DrawTool />, { context: { store } }).dive();
+        const instance = wrapper.instance();
+
+        expect(typeof instance.onFinishShape).toBe('function');
+
+        instance.onFinishShape({
+          markers: [1, 2],
+          distanceTxt: 'a',
+          areaTxt: 'b'
+        });
+
+        expect(store.dispatch).toHaveBeenCalledWith({
+          payload: {
+            polygon: {
+              areaTxt: 'b',
+              distanceTxt: 'a',
+              markers: [1, 2]
+            }
+          },
+          type: 'MAP_END_DRAWING'
+        });
       });
-      jest.spyOn(store, 'dispatch');
-      const wrapper = shallow(<DrawTool />, { context: { store } }).dive();
-      const instance = wrapper.instance();
 
-      instance.onFinishShape({
-        markers: [1, 2, 3, 4],
-        distanceTxt: 'a',
-        areaTxt: 'b'
-      });
-
-      expect(store.dispatch).toHaveBeenCalledWith({
-        payload: {
-          polygon: {
-            areaTxt: 'b',
-            distanceTxt: 'a',
-            markers: [1, 2, 3, 4]
+      it('onFinishShape should dispatch actions when a polygon has been drawn and map is fullscreen', () => {
+        const store = configureMockStore()({
+          ...initialState,
+          ui: {
+            ...initialState.ui,
+            isMapFullscreen: true
           }
-        },
-        type: 'MAP_END_DRAWING'
-      });
-      expect(store.dispatch).toHaveBeenCalledWith({
-        payload: {
-          name: null
-        },
-        type: 'SET_PAGE_NAME'
-      });
-      expect(store.dispatch).toHaveBeenCalledWith({
-        payload: {
-          description: 'a en b',
+        });
+        jest.spyOn(store, 'dispatch');
+        const wrapper = shallow(<DrawTool />, { context: { store } }).dive();
+        const instance = wrapper.instance();
+
+        instance.onFinishShape({
+          markers: [1, 2, 3, 4],
+          distanceTxt: 'a',
+          areaTxt: 'b'
+        });
+
+        expect(store.dispatch).toHaveBeenCalledWith({
+          payload: {
+            polygon: {
+              areaTxt: 'b',
+              distanceTxt: 'a',
+              markers: [1, 2, 3, 4]
+            }
+          },
+          type: 'MAP_END_DRAWING'
+        });
+        expect(store.dispatch).toHaveBeenCalledWith({
+          payload: {
+            name: null
+          },
+          type: 'SET_PAGE_NAME'
+        });
+        expect(store.dispatch).toHaveBeenCalledWith({
+          payload: {
+            description: 'a en b',
+            markers: [1, 2, 3, 4]
+          },
+          type: 'SET_DATA_SELECTION_GEOMETRY_FILTER'
+        });
+        expect(store.dispatch).toHaveBeenCalledWith({
+          payload: { isMapFullscreen: false },
+          type: 'SET_MAP_FULLSCREEN'
+        });
+
+        // trigger again with same markers should not dispatch any action
+        expect(store.dispatch.mock.calls.length).toBe(4);
+        wrapper.setState({
+          previousMarkers: [1, 2, 3, 4]
+        });
+        instance.onFinishShape({
           markers: [1, 2, 3, 4]
-        },
-        type: 'SET_DATA_SELECTION_GEOMETRY_FILTER'
-      });
-      expect(store.dispatch).toHaveBeenCalledWith({
-        type: 'TOGGLE_MAP_FULLSCREEN'
+        });
+        expect(store.dispatch.mock.calls.length).toBe(4);
       });
     });
 
