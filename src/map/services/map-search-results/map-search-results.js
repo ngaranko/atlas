@@ -1,11 +1,10 @@
-import { categoryTypeOrder } from '../../../map/services/map-search';
+import categoryTypeOrder from '../map-search/category-type-order';
 
 export const sortByCategoryTypeOrder = (items) => [...items]
   .sort((a, b) => {
     const indexA = categoryTypeOrder.indexOf(a.type);
     const indexB = categoryTypeOrder.indexOf(b.type);
-    return indexA < indexB ? -1 :
-      (indexA > indexB ? 1 : 0);
+    return indexA - indexB;
   });
 
 export const filterNonPandMonuments = (results) => (results
@@ -13,40 +12,42 @@ export const filterNonPandMonuments = (results) => (results
     ? results.filter((feature) => feature.type !== 'monumenten/monument')
     : results);
 
-const filterResultsByCategory = (items, label) => items
+const filterResultsByCategory = (items, label) => filterNonPandMonuments(items)
   .filter((item) => item.categoryLabel === label);
 
 const getSubCategories = (items, type) => items
   .filter((subCategory) => subCategory.parent === type);
 
-export const createMapSearchResultsModel = (allResults, resultsLimit, isSubCategory) =>
-  sortByCategoryTypeOrder(filterNonPandMonuments(allResults))
+export const createMapSearchResultsModel = (allResults, isSubCategory = false) =>
+  sortByCategoryTypeOrder(allResults)
   .reduce((newList, currentValue) => {
-    const {
-      categoryLabel, categoryLabelPlural, type, parent, status, count, isNevenadres
-    } = currentValue;
+    const { categoryLabel, type, parent } = currentValue;
 
+    // if the category already exists or if the category has a parent
+    // and isSubCategory is false return the newList
     if (newList.some((item) => item.categoryLabel === categoryLabel) ||
       (parent && !isSubCategory)) {
       return newList;
     }
 
     const subCategories = getSubCategories(allResults, type);
-    const results = filterResultsByCategory(allResults, categoryLabel);
+
+    let results = [];
+    // addresses should not be sorted
+    if (categoryLabel === 'Adres') {
+      results = filterResultsByCategory(allResults, categoryLabel);
+    } else {
+      results = sortByCategoryTypeOrder(filterResultsByCategory(allResults, categoryLabel));
+    }
 
     return [
       ...newList,
       {
         categoryLabel,
-        categoryLabelPlural,
         type,
-        status,
-        isNevenadres,
-        results: results.slice(0, resultsLimit),
+        results,
         subCategories: subCategories && subCategories.length ?
-          createMapSearchResultsModel(subCategories, resultsLimit, true) : [],
-        amountOfResults: count || results.length,
-        showMore: (count || results.length) > resultsLimit
+          createMapSearchResultsModel(subCategories, true) : []
       }
     ];
   }, []);
