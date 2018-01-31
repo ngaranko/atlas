@@ -38,31 +38,59 @@ describe('ToggleDrawing', () => {
 
       wrapper.setProps({ drawingMode: 'draw' });
       expect(wrapper).toMatchSnapshot();
-      expect(cancel).not.toHaveBeenCalled();
       expect(wrapper.state('drawingMode')).toBe('draw');
 
       wrapper.setProps({ drawingMode: 'none' });
       expect(wrapper).toMatchSnapshot();
-      expect(cancel).toHaveBeenCalledTimes(1);
       expect(wrapper.state('drawingMode')).toBe('none');
     });
 
-    it('should save previous markers and trigger cancel when shape has been drawn', () => {
+    it('should save previous markers and trigger cancel when line has been drawn', () => {
+      cancel.mockReset();
+
       const store = configureMockStore()({ ...initialState });
       const wrapper = shallow(<DrawTool />, { context: { store } }).dive();
       expect(wrapper.state('previousMarkers')).toEqual([]);
+      expect(cancel).not.toHaveBeenCalled();
 
       wrapper.setProps({ drawingMode: 'draw' });
       wrapper.setProps({
-        geometry: [[52.3, 4.8], [52.4, 4.9], [53, 5]],
+        geometry: [[52.3, 4.8], [52.4, 4.9]],
         shapeMarkers: 2,
         shapeDistanceTxt: '1.89 km'
+      });
+      wrapper.setProps({ drawingMode: 'none' });
+
+      expect(setPolygon).toHaveBeenCalledWith([[52.3, 4.8], [52.4, 4.9]]);
+      expect(wrapper.state('previousMarkers')).toEqual([[52.3, 4.8], [52.4, 4.9]]);
+      expect(wrapper).toMatchSnapshot();
+      expect(cancel).toHaveBeenCalledTimes(1);
+    });
+
+    it('should save previous markers and trigger cancel when polygon has been drawn', () => {
+      cancel.mockReset();
+
+      const store = configureMockStore()({ ...initialState });
+      const wrapper = shallow(<DrawTool />, { context: { store } }).dive();
+      expect(wrapper.state('previousMarkers')).toEqual([]);
+      expect(cancel).not.toHaveBeenCalled();
+
+      wrapper.setProps({ drawingMode: 'draw' });
+      wrapper.setProps({
+        dataSelection: {
+          geometryFilter: {
+            markers: [[52.3, 4.8], [52.4, 4.9], [53, 5]]
+          }
+        },
+        shapeMarkers: 3,
+        shapeDistanceTxt: '2.18 km'
       });
       wrapper.setProps({ drawingMode: 'none' });
 
       expect(setPolygon).toHaveBeenCalledWith([[52.3, 4.8], [52.4, 4.9], [53, 5]]);
       expect(wrapper.state('previousMarkers')).toEqual([[52.3, 4.8], [52.4, 4.9], [53, 5]]);
       expect(wrapper).toMatchSnapshot();
+      expect(cancel).toHaveBeenCalledTimes(1);
     });
   });
 
