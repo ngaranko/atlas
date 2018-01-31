@@ -18,9 +18,9 @@ const MapDetailAdressenVerblijfsobject = ({ panoUrl, verblijfsobject, onMaximize
     title="Adres"
   >
     <ul className="map-detail-result__list">
-      <MapDetailAdressenVerblijfsobjectGebruiksdoelenItem
+      { verblijfsobject.gebruiksdoelen && <MapDetailAdressenVerblijfsobjectGebruiksdoelenItem
         gebruiksdoelen={verblijfsobject.gebruiksdoelen}
-      />
+      /> }
       <MapDetailResultItem
         label="Oppervlakte"
         value={verblijfsobject.size ? `${verblijfsobject.size} m²` : 'onbekend'}
@@ -57,9 +57,6 @@ MapDetailAdressenVerblijfsobject.propTypes = {
     status: PropTypes.shape({
       description: PropTypes.string,
       code: PropTypes.string
-    }),
-    hoofdadres: PropTypes.shape({
-      hoofdadres: PropTypes.bool
     })
   }).isRequired,
   panoUrl: PropTypes.string.isRequired,
