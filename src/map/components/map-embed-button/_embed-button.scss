@@ -33,6 +33,7 @@
   }
 
   &:focus {
+    outline: 0;
     background-color: $secondary-gray10;
     color: $primary-dark;
     fill: $primary-dark;
