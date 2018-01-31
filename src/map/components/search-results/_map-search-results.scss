@@ -73,7 +73,22 @@
   }
 
   &__category {
-    margin-top: 24px;
+    padding-top: 24px;
+    position: relative;
+
+    .map-search-results__category {
+      padding-left: 8px;
+
+      &:before {
+        background-color: #e6e6e6;
+        bottom: 0;
+        content: '';
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 8px;
+      }
+    }
 
     &:first-child {
       margin-top: 0;
