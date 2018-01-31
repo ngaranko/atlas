@@ -1,13 +1,10 @@
 describe('The straatbeeldApi Factory', function () {
-    var straatbeeldApi,
+    let straatbeeldApi,
         geojson,
         $q,
         api,
         $rootScope,
-        cancel,
-        searchSteps;
-
-    searchSteps = [1000, 2000, 4000, 8000, 10000];
+        cancel;
 
     beforeEach(function () {
         angular.mock.module(
@@ -114,41 +111,11 @@ describe('The straatbeeldApi Factory', function () {
 
         straatbeeldApi.getImageDataByLocation([52, 4]);
 
-        expect(api.getByUrl).toHaveBeenCalledWith('http://pano.amsterdam.nl/all/?lat=52&lon=4&radius=1000',
+        expect(api.getByUrl).toHaveBeenCalledWith('http://pano.amsterdam.nl/all/?lat=52&lon=4&radius=100000',
             undefined, jasmine.anything());
     });
 
-    it('keeps calling the API factory until a straatbeeld is found', function () {
-        spyOn(api, 'getByUrl').and.callFake(url => {
-            const defer = $q.defer();
-            if (url.includes('radius=10000')) {
-                defer.resolve({
-                    geometrie: {
-                        type: 'aap',
-                        coordinates: [1, 2]
-                    },
-                    adjacent: [],
-                    image_sets: {}
-                });
-            } else {
-                defer.resolve({});
-            }
-            return defer.promise;
-        });
-
-        straatbeeldApi.getImageDataByLocation([52, 4]);
-
-        searchSteps.forEach(n => {
-            $rootScope.$apply();
-            expect(api.getByUrl).toHaveBeenCalledWith(
-                `http://pano.amsterdam.nl/all/?lat=52&lon=4&radius=${n}`,
-                undefined,
-                jasmine.anything()
-            );
-        });
-    });
-
-    it('stops calling the API factory when no straatbeeld is found within 10km and then returns null', function () {
+    it('stops calling the API factory when no straatbeeld is found', function () {
         spyOn(api, 'getByUrl').and.callFake(url => {
             const defer = $q.defer();
             defer.resolve({});
@@ -161,15 +128,6 @@ describe('The straatbeeldApi Factory', function () {
             data => result = data,
             () => failed = true
         );
-
-        searchSteps.forEach(n => {
-            $rootScope.$apply();
-            expect(api.getByUrl).toHaveBeenCalledWith(
-                `http://pano.amsterdam.nl/all/?lat=52&lon=4&radius=${n}`,
-                undefined,
-                jasmine.anything()
-            );
-        });
 
         $rootScope.$apply();
         expect(failed).toBe(false); // No rejection
@@ -259,7 +217,7 @@ describe('The straatbeeldApi Factory', function () {
             straatbeeldApi.getImageDataByLocation([52, 4], 2020);
 
             expect(api.getByUrl).toHaveBeenCalledWith(
-                'http://pano.amsterdam.nl/year/2020/?lat=52&lon=4&radius=1000',
+                'http://pano.amsterdam.nl/year/2020/?lat=52&lon=4&radius=100000',
                 undefined,
                 jasmine.anything()
             );
@@ -279,7 +237,7 @@ describe('The straatbeeldApi Factory', function () {
             straatbeeldApi.getImageDataByLocation([52, 4], 0);
 
             expect(api.getByUrl).toHaveBeenCalledWith(
-                'http://pano.amsterdam.nl/all/?lat=52&lon=4&radius=1000',
+                'http://pano.amsterdam.nl/all/?lat=52&lon=4&radius=100000',
                 undefined,
                 jasmine.anything()
             );
