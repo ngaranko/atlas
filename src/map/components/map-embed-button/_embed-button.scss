@@ -25,12 +25,17 @@
     margin: 4px;
   }
 
-  &:focus,
   &:hover {
     background-color: $primary-contrast;
     border: 1px solid $primary-contrast;
     color: $primary-light;
     fill: $primary-light;
+  }
+
+  &:focus {
+    background-color: $secondary-gray10;
+    color: $primary-dark;
+    fill: $primary-dark;
   }
 
   .is-embed-preview &,
