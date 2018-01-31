@@ -1,4 +1,4 @@
-export const basicSortModel = [
+export const basicSortDataModel = [
   {
     type: 'pand/address'
   },
