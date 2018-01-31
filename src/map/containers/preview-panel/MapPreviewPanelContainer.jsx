@@ -79,16 +79,6 @@ const update = (dispatch, props, prevProps = {}) => {
   }
 };
 
-const onPanoPreviewClick = (dispatch, props) => {
-  const { onOpenPanoById, search, pano } = props;
-  const selectedPano = pano.previews[search.location];
-  if (!selectedPano) {
-    return;
-  }
-  dispatch(onOpenPanoById(selectedPano.id));
-  dispatch(toggleMapFullscreen());
-};
-
 class MapPreviewPanelContainer extends React.Component {
   constructor() {
     super();
@@ -104,7 +94,13 @@ class MapPreviewPanelContainer extends React.Component {
   }
 
   onPanoPreviewClick() {
-    onPanoPreviewClick(this.context.store.dispatch, this.props);
+    const { onOpenPanoById, search, pano } = this.props;
+    const selectedPano = pano.previews[search.location];
+    if (!selectedPano) {
+      return;
+    }
+    this.context.store.dispatch(onOpenPanoById(selectedPano.id));
+    this.context.store.dispatch(toggleMapFullscreen());
   }
 
   render() {
@@ -189,37 +185,38 @@ MapPreviewPanelContainer.contextTypes = {
 };
 
 MapPreviewPanelContainer.defaultProps = {
+  detail: {},
+  detailResult: {},
+  isEmbed: false,
   isMapPreviewPanelVisible: false,
+  mapDetail: {},
+  missingLayers: '',
   pano: {},
   results: [],
   search: {},
   searchLocation: null,
   searchLocationId: '',
-  missingLayers: '',
-  detail: {},
-  mapDetail: {},
-  detailResult: {},
-  user: {},
-  isEmbed: false
+  user: {}
 };
 
 /* eslint-disable react/no-unused-prop-types */
 MapPreviewPanelContainer.propTypes = {
+  detail: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  detailResult: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  isEmbed: PropTypes.bool,
   isMapPreviewPanelVisible: PropTypes.bool,
+  mapDetail: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  missingLayers: PropTypes.string,
   onMapPreviewPanelClose: PropTypes.func.isRequired,
   onMapPreviewPanelMaximize: PropTypes.func.isRequired,
   onMapSearchResultsItemClick: PropTypes.func.isRequired,
+  onOpenPanoById: PropTypes.func.isRequired,
   pano: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   results: PropTypes.array, // eslint-disable-line react/forbid-prop-types
   search: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   searchLocation: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   searchLocationId: PropTypes.string,
-  missingLayers: PropTypes.string,
-  detail: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  mapDetail: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  detailResult: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  user: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  isEmbed: PropTypes.bool
+  user: PropTypes.object // eslint-disable-line react/forbid-prop-types
 };
 /* eslint-enable react/no-unused-prop-types */
 export default connect(mapStateToProps, mapDispatchToProps)(MapPreviewPanelContainer);
