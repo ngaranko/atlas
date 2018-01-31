@@ -6,10 +6,10 @@ module.exports = {
   coverageDirectory: 'coverage',
   coverageThreshold: {
     global: {
-      statements: 8.39,
-      branches: 16.85,
-      functions: 16.97,
-      lines: 11.9
+      statements: 24,
+      branches: 39,
+      functions: 38,
+      lines: 32
     }
   },
   coverageReporters: process.env.CI ? [
@@ -29,7 +29,7 @@ module.exports = {
     'enzyme-to-json/serializer'
   ],
   testMatch: [
-    '**/__tests__/**/!(*visual.test).js?(x)',
+    '**/!(*.visual).test.jsx',
     '**/*.spec.js'
   ],
   testEnvironment: 'jest-environment-jsdom-global',
