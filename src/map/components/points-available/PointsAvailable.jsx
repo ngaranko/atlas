@@ -5,10 +5,13 @@ import drawToolConfig from '../../services/draw-tool/draw-tool-config';
 
 import './_points-available.scss';
 
-const PointsAvailable = ({ shapeMarkers ,drawingMode }) => {
+const PointsAvailable = ({ shapeMarkers, drawingMode }) => {
   const markersLeft = drawToolConfig.MAX_MARKERS - shapeMarkers;
 
-  if (markersLeft > drawToolConfig.MARKERS_LEFT_WARNING || drawingMode === drawToolConfig.DRAWING_MODE.NONE) {
+  if (
+    markersLeft > drawToolConfig.MARKERS_LEFT_WARNING ||
+    drawingMode === drawToolConfig.DRAWING_MODE.NONE
+  ) {
     return null;
   } else if (markersLeft === 0) {
     return (
@@ -21,18 +24,17 @@ const PointsAvailable = ({ shapeMarkers ,drawingMode }) => {
         </span>
       </div>
     );
-  } else {
-    return (
-      <div className="points-available">
-        <span
-          aria-label={`Nog ${markersLeft} punt${markersLeft !== 1 ? 'en' : ''} mogelijk`}
-          className="points-available__label"
-        >
-          Nog {markersLeft} punt{markersLeft !== 1 ? 'en' : ''} mogelijk
-        </span>
-      </div>
-    );
   }
+  return (
+    <div className="points-available">
+      <span
+        aria-label={`Nog ${markersLeft} punt${markersLeft !== 1 ? 'en' : ''} mogelijk`}
+        className="points-available__label"
+      >
+        Nog {markersLeft} punt{markersLeft !== 1 ? 'en' : ''} mogelijk
+      </span>
+    </div>
+  );
 };
 
 PointsAvailable.propTypes = {
