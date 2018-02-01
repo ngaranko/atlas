@@ -1,9 +1,8 @@
 <div>
     <!-- nummeraanduiding -->
-
     <dp-api-call
         partial="bag/nummeraanduiding"
-        endpoint="{{vm.apiData.results.verblijfsobject}}"
+        endpoint="{{vm.apiData.results._links.self.href}}"
         merge="{
             results: {
                 begin_geldigheid: vm.apiData.results.begin_geldigheid,

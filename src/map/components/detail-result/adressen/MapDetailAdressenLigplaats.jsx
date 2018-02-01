@@ -14,7 +14,7 @@ const MapDetailAdressenLigplaats = ({ panoUrl, ligplaats, onMaximize }) => (
     <ul className="map-detail-result__list">
       <MapDetailResultItem
         label="Status"
-        value={ligplaats.status}
+        value={ligplaats.status.description}
       />
     </ul>
   </MapDetailResultWrapper>
