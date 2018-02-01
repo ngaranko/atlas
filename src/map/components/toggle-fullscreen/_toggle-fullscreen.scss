@@ -15,7 +15,13 @@
     width: 24px;
   }
 
-  &:focus,
+  &:focus {
+    background-color: $secondary-gray10;
+    color: $primary-dark;
+    fill: $primary-dark;
+    outline: none;
+  }
+
   &:hover {
     background-color: #ec0000;
     border-color: #ec0000;
