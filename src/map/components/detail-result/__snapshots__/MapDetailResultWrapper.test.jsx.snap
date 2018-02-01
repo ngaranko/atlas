@@ -11,9 +11,13 @@ exports[`MapDetailResultWrapper should not render empty panoUrl 1`] = `
       "
   >
     <button
-      className="map-detail-result__header-pano-button"
+      className="
+          map-detail-result__header-pano-button
+          map-detail-result__header-pano-button--disabled
+        "
+      disabled={true}
       onClick={[MockFunction]}
-      title="Panoramabeeld"
+      title="Geen Panoramabeeld beschikbaar"
     >
       <div
         className="map-detail-result__header-container"
@@ -70,9 +74,13 @@ exports[`MapDetailResultWrapper should not render empty sub title 1`] = `
       "
   >
     <button
-      className="map-detail-result__header-pano-button"
+      className="
+          map-detail-result__header-pano-button
+          map-detail-result__header-pano-button--disabled
+        "
+      disabled={true}
       onClick={[MockFunction]}
-      title="Panoramabeeld"
+      title="Geen Panoramabeeld beschikbaar"
     >
       <div
         className="map-detail-result__header-container"
@@ -124,9 +132,13 @@ exports[`MapDetailResultWrapper should not render missing children 1`] = `
       "
   >
     <button
-      className="map-detail-result__header-pano-button"
+      className="
+          map-detail-result__header-pano-button
+          map-detail-result__header-pano-button--disabled
+        "
+      disabled={true}
       onClick={[MockFunction]}
-      title="Panoramabeeld"
+      title="Geen Panoramabeeld beschikbaar"
     >
       <div
         className="map-detail-result__header-container"
@@ -170,9 +182,13 @@ exports[`MapDetailResultWrapper should not render missing sub title 1`] = `
       "
   >
     <button
-      className="map-detail-result__header-pano-button"
+      className="
+          map-detail-result__header-pano-button
+          map-detail-result__header-pano-button--disabled
+        "
+      disabled={true}
       onClick={[MockFunction]}
-      title="Panoramabeeld"
+      title="Geen Panoramabeeld beschikbaar"
     >
       <div
         className="map-detail-result__header-container"
@@ -224,9 +240,13 @@ exports[`MapDetailResultWrapper should render everything 1`] = `
       "
   >
     <button
-      className="map-detail-result__header-pano-button"
+      className="
+          map-detail-result__header-pano-button
+          map-detail-result__header-pano-button--enabled
+        "
+      disabled={false}
       onClick={[MockFunction]}
-      title="Panoramabeeld"
+      title="Bekijk Panorama view"
     >
       <img
         alt="Panoramabeeld"

@@ -11,9 +11,13 @@ exports[`MapSearchResults rendering should filter external monumenten on pand re
         "
   >
     <button
-      className="map-search-results__header-pano-button"
+      className="
+            map-search-results__header-pano-button
+            map-search-results__header-pano-button--disabled
+          "
+      disabled={true}
       onClick={[MockFunction]}
-      title="Panoramabeeld"
+      title="Geen Panoramabeeld beschikbaar"
     >
       <div
         className="map-search-results__header-container"
@@ -114,9 +118,13 @@ exports[`MapSearchResults rendering should render empty results 1`] = `
         "
   >
     <button
-      className="map-search-results__header-pano-button"
+      className="
+            map-search-results__header-pano-button
+            map-search-results__header-pano-button--disabled
+          "
+      disabled={true}
       onClick={[MockFunction]}
-      title="Panoramabeeld"
+      title="Geen Panoramabeeld beschikbaar"
     >
       <div
         className="map-search-results__header-container"
@@ -171,9 +179,13 @@ exports[`MapSearchResults rendering should render results 1`] = `
         "
   >
     <button
-      className="map-search-results__header-pano-button"
+      className="
+            map-search-results__header-pano-button
+            map-search-results__header-pano-button--enabled
+          "
+      disabled={false}
       onClick={[MockFunction]}
-      title="Panoramabeeld"
+      title="Bekijk Panorama view"
     >
       <img
         alt="Panoramabeeld"
@@ -275,9 +287,13 @@ exports[`MapSearchResults rendering should update results 1`] = `
         "
   >
     <button
-      className="map-search-results__header-pano-button"
+      className="
+            map-search-results__header-pano-button
+            map-search-results__header-pano-button--enabled
+          "
+      disabled={false}
       onClick={[MockFunction]}
-      title="Panoramabeeld"
+      title="Bekijk Panorama view"
     >
       <img
         alt="Panoramabeeld"
@@ -370,9 +386,13 @@ exports[`MapSearchResults rendering should update results 2`] = `
         "
   >
     <button
-      className="map-search-results__header-pano-button"
+      className="
+            map-search-results__header-pano-button
+            map-search-results__header-pano-button--enabled
+          "
+      disabled={false}
       onClick={[MockFunction]}
-      title="Panoramabeeld"
+      title="Bekijk Panorama view"
     >
       <img
         alt="Panoramabeeld"
