@@ -1,25 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ArrowRightIcon from '../../../../public/images/icon-arrow-right.svg';
+import ArrowRightIcon from '../../../../../public/images/icon-arrow-right.svg';
 
 const MapSearchResultsItem = ({ label, onClick, statusLabel }) => (
-  <li className="map-search-results__item">
+  <li className="map-search-results-item">
     <button
-      className="map-search-results__item-button"
+      className="map-search-results-item__button"
       onClick={onClick}
       title={label}
     >
-      <section className="map-search-results__item-content">
-        <div className="map-search-results__item-name">{label}</div>
+      <section className="map-search-results-item__content">
+        <div className="map-search-results-item__name">{label}</div>
         { statusLabel && statusLabel.length > 1 ? (
-          <div className="map-search-results__item-status">
+          <div className="map-search-results-item__status">
             {statusLabel.toLowerCase()}
           </div>
           ) : ''
         }
       </section>
-      <ArrowRightIcon className="map-search-results__item-arrow" />
+      <ArrowRightIcon className="map-search-results-item__arrow" />
     </button>
   </li>
 );

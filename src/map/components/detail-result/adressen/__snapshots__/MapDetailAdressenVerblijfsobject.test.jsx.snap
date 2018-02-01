@@ -3,6 +3,7 @@
 exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if hoofdadres is \`false\` and show a blue bullet 1`] = `
 <MapDetailResultWrapper
   onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Verblijfsobject label"
   title="Adres"
@@ -54,6 +55,7 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if hoofdadres is
 exports[`MapDetailAdressenVerblijfsobject should render everything 1`] = `
 <MapDetailResultWrapper
   onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Verblijfsobject label"
   title="Adres"
@@ -105,6 +107,7 @@ exports[`MapDetailAdressenVerblijfsobject should render everything 1`] = `
 exports[`MapDetailAdressenVerblijfsobject should render unknown with zero value for size 1`] = `
 <MapDetailResultWrapper
   onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Verblijfsobject label"
   title="Adres"
@@ -156,6 +159,7 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown with zero value 
 exports[`MapDetailAdressenVerblijfsobject should render unknown without size 1`] = `
 <MapDetailResultWrapper
   onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Verblijfsobject label"
   title="Adres"

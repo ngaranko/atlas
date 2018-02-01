@@ -18,6 +18,7 @@ describe('MapDetailAdressenPand', () => {
       <MapDetailAdressenPand
         panoUrl="panoUrl"
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         pand={pand}
       />
     );
@@ -38,6 +39,7 @@ describe('MapDetailAdressenPand', () => {
       <MapDetailAdressenPand
         panoUrl="panoUrl"
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         pand={pand}
       />
     );
@@ -57,6 +59,7 @@ describe('MapDetailAdressenPand', () => {
       <MapDetailAdressenPand
         panoUrl="panoUrl"
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         pand={pand}
       />
     );

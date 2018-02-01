@@ -10,23 +10,33 @@ exports[`MapSearchResults rendering should filter external monumenten on pand re
           map-search-results__header--no-pano
         "
   >
-    <div
-      className="map-search-results__header-container"
+    <button
+      className="
+            map-search-results__header-pano-button
+            map-search-results__header-pano-button--disabled
+          "
+      disabled={true}
+      onClick={[MockFunction]}
+      title="Geen Panoramabeeld beschikbaar"
     >
-      <h1
-        className="map-search-results__header-title"
+      <div
+        className="map-search-results__header-container"
       >
-        Resultaten
-      </h1>
-      <h2
-        className="map-search-results__header-subtitle"
-      >
-        locatie 
-        1.12
-        , 
-        654.32
-      </h2>
-    </div>
+        <h1
+          className="map-search-results__header-title"
+        >
+          Resultaten
+        </h1>
+        <h2
+          className="map-search-results__header-subtitle"
+        >
+          locatie 
+          1.12
+          , 
+          654.32
+        </h2>
+      </div>
+    </button>
   </header>
   <div
     className="map-search-results__scroll-wrapper"
@@ -46,6 +56,7 @@ exports[`MapSearchResults rendering should filter external monumenten on pand re
             "uri": "result-uri-1",
           }
         }
+        isSubcategory={false}
         key="category"
         onClick={[MockFunction]}
       />
@@ -61,6 +72,7 @@ exports[`MapSearchResults rendering should filter external monumenten on pand re
             "uri": "result-uri-2",
           }
         }
+        isSubcategory={false}
         key="category"
         onClick={[MockFunction]}
       />
@@ -76,6 +88,7 @@ exports[`MapSearchResults rendering should filter external monumenten on pand re
             "uri": "result-uri-3",
           }
         }
+        isSubcategory={false}
         key="category"
         onClick={[MockFunction]}
       />
@@ -107,23 +120,33 @@ exports[`MapSearchResults rendering should render empty results 1`] = `
           map-search-results__header--no-pano
         "
   >
-    <div
-      className="map-search-results__header-container"
+    <button
+      className="
+            map-search-results__header-pano-button
+            map-search-results__header-pano-button--disabled
+          "
+      disabled={true}
+      onClick={[MockFunction]}
+      title="Geen Panoramabeeld beschikbaar"
     >
-      <h1
-        className="map-search-results__header-title"
+      <div
+        className="map-search-results__header-container"
       >
-        Resultaten
-      </h1>
-      <h2
-        className="map-search-results__header-subtitle"
-      >
-        locatie 
-        1.12
-        , 
-        654.32
-      </h2>
-    </div>
+        <h1
+          className="map-search-results__header-title"
+        >
+          Resultaten
+        </h1>
+        <h2
+          className="map-search-results__header-subtitle"
+        >
+          locatie 
+          1.12
+          , 
+          654.32
+        </h2>
+      </div>
+    </button>
   </header>
   <div
     className="map-search-results__scroll-wrapper"
@@ -158,28 +181,40 @@ exports[`MapSearchResults rendering should render results 1`] = `
           map-search-results__header--pano
         "
   >
-    <img
-      alt="Panoramabeeld"
-      className="map-search-results__header-pano"
-      src="pano-url"
-    />
-    <div
-      className="map-search-results__header-container"
+    <button
+      className="
+            map-search-results__header-pano-button
+            map-search-results__header-pano-button--enabled
+          "
+      disabled={false}
+      onClick={[MockFunction]}
+      title="Bekijk Panorama view"
     >
-      <h1
-        className="map-search-results__header-title"
+      <img
+        alt="Panoramabeeld"
+        className="map-search-results__header-pano"
+        height="292"
+        src="pano-url"
+        width="438"
+      />
+      <div
+        className="map-search-results__header-container"
       >
-        Resultaten
-      </h1>
-      <h2
-        className="map-search-results__header-subtitle"
-      >
-        locatie 
-        1.12
-        , 
-        654.32
-      </h2>
-    </div>
+        <h1
+          className="map-search-results__header-title"
+        >
+          Resultaten
+        </h1>
+        <h2
+          className="map-search-results__header-subtitle"
+        >
+          locatie 
+          1.12
+          , 
+          654.32
+        </h2>
+      </div>
+    </button>
   </header>
   <div
     className="map-search-results__scroll-wrapper"
@@ -208,6 +243,7 @@ exports[`MapSearchResults rendering should render results 1`] = `
             "uri": "result-uri-1",
           }
         }
+        isSubcategory={false}
         key="category"
         onClick={[MockFunction]}
       />
@@ -223,6 +259,7 @@ exports[`MapSearchResults rendering should render results 1`] = `
             "uri": "result-uri-2",
           }
         }
+        isSubcategory={false}
         key="category"
         onClick={[MockFunction]}
       />
@@ -254,28 +291,40 @@ exports[`MapSearchResults rendering should update results 1`] = `
           map-search-results__header--pano
         "
   >
-    <img
-      alt="Panoramabeeld"
-      className="map-search-results__header-pano"
-      src="pano-url"
-    />
-    <div
-      className="map-search-results__header-container"
+    <button
+      className="
+            map-search-results__header-pano-button
+            map-search-results__header-pano-button--enabled
+          "
+      disabled={false}
+      onClick={[MockFunction]}
+      title="Bekijk Panorama view"
     >
-      <h1
-        className="map-search-results__header-title"
+      <img
+        alt="Panoramabeeld"
+        className="map-search-results__header-pano"
+        height="292"
+        src="pano-url"
+        width="438"
+      />
+      <div
+        className="map-search-results__header-container"
       >
-        Resultaten
-      </h1>
-      <h2
-        className="map-search-results__header-subtitle"
-      >
-        locatie 
-        1.12
-        , 
-        654.32
-      </h2>
-    </div>
+        <h1
+          className="map-search-results__header-title"
+        >
+          Resultaten
+        </h1>
+        <h2
+          className="map-search-results__header-subtitle"
+        >
+          locatie 
+          1.12
+          , 
+          654.32
+        </h2>
+      </div>
+    </button>
   </header>
   <div
     className="map-search-results__scroll-wrapper"
@@ -295,6 +344,7 @@ exports[`MapSearchResults rendering should update results 1`] = `
             "uri": "result-uri-1",
           }
         }
+        isSubcategory={false}
         key="category"
         onClick={[MockFunction]}
       />
@@ -310,6 +360,7 @@ exports[`MapSearchResults rendering should update results 1`] = `
             "uri": "result-uri-2",
           }
         }
+        isSubcategory={false}
         key="category"
         onClick={[MockFunction]}
       />
@@ -341,28 +392,40 @@ exports[`MapSearchResults rendering should update results 2`] = `
           map-search-results__header--pano
         "
   >
-    <img
-      alt="Panoramabeeld"
-      className="map-search-results__header-pano"
-      src="other-pano-url"
-    />
-    <div
-      className="map-search-results__header-container"
+    <button
+      className="
+            map-search-results__header-pano-button
+            map-search-results__header-pano-button--enabled
+          "
+      disabled={false}
+      onClick={[MockFunction]}
+      title="Bekijk Panorama view"
     >
-      <h1
-        className="map-search-results__header-title"
+      <img
+        alt="Panoramabeeld"
+        className="map-search-results__header-pano"
+        height="292"
+        src="other-pano-url"
+        width="438"
+      />
+      <div
+        className="map-search-results__header-container"
       >
-        Resultaten
-      </h1>
-      <h2
-        className="map-search-results__header-subtitle"
-      >
-        locatie 
-        1.12
-        , 
-        654.32
-      </h2>
-    </div>
+        <h1
+          className="map-search-results__header-title"
+        >
+          Resultaten
+        </h1>
+        <h2
+          className="map-search-results__header-subtitle"
+        >
+          locatie 
+          1.12
+          , 
+          654.32
+        </h2>
+      </div>
+    </button>
   </header>
   <div
     className="map-search-results__scroll-wrapper"
@@ -391,6 +454,7 @@ exports[`MapSearchResults rendering should update results 2`] = `
             "uri": "result-uri-1",
           }
         }
+        isSubcategory={false}
         key="category"
         onClick={[MockFunction]}
       />
@@ -406,6 +470,7 @@ exports[`MapSearchResults rendering should update results 2`] = `
             "uri": "result-uri-2",
           }
         }
+        isSubcategory={false}
         key="category"
         onClick={[MockFunction]}
       />
@@ -421,6 +486,7 @@ exports[`MapSearchResults rendering should update results 2`] = `
             "uri": "result-uri-3",
           }
         }
+        isSubcategory={false}
         key="category"
         onClick={[MockFunction]}
       />

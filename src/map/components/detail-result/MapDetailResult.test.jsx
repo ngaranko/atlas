@@ -17,6 +17,7 @@ describe('MapDetailResult', () => {
         endpoint={endpoint}
         panoUrl={panoUrl}
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         result={result}
       />
     );
@@ -33,6 +34,7 @@ describe('MapDetailResult', () => {
         endpoint={endpoint}
         panoUrl={panoUrl}
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         result={result}
       />
     );
@@ -49,6 +51,7 @@ describe('MapDetailResult', () => {
         endpoint={endpoint}
         panoUrl={panoUrl}
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         result={result}
       />
     );
@@ -65,6 +68,7 @@ describe('MapDetailResult', () => {
         endpoint={endpoint}
         onMaximize={clickHandler}
         panoUrl={panoUrl}
+        onPanoPreviewClick={clickHandler}
         result={result}
       />
     );
@@ -80,6 +84,7 @@ describe('MapDetailResult', () => {
       <MapDetailResult
         endpoint={endpoint}
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         panoUrl={panoUrl}
         result={result}
       />
@@ -96,6 +101,7 @@ describe('MapDetailResult', () => {
       <MapDetailResult
         endpoint={endpoint}
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         panoUrl={panoUrl}
         result={result}
       />
@@ -112,6 +118,7 @@ describe('MapDetailResult', () => {
       <MapDetailResult
         endpoint={endpoint}
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         panoUrl={panoUrl}
         result={result}
       />
@@ -128,6 +135,7 @@ describe('MapDetailResult', () => {
       <MapDetailResult
         endpoint={endpoint}
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         panoUrl={panoUrl}
         result={result}
       />
@@ -144,6 +152,7 @@ describe('MapDetailResult', () => {
       <MapDetailResult
         endpoint={endpoint}
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         panoUrl={panoUrl}
         result={result}
       />
@@ -160,6 +169,7 @@ describe('MapDetailResult', () => {
       <MapDetailResult
         endpoint={endpoint}
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         panoUrl={panoUrl}
         result={result}
       />
@@ -176,6 +186,7 @@ describe('MapDetailResult', () => {
       <MapDetailResult
         endpoint={endpoint}
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         panoUrl={panoUrl}
         result={result}
       />
@@ -192,6 +203,7 @@ describe('MapDetailResult', () => {
       <MapDetailResult
         endpoint={endpoint}
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         panoUrl={panoUrl}
         result={result}
       />
@@ -208,6 +220,7 @@ describe('MapDetailResult', () => {
       <MapDetailResult
         endpoint={endpoint}
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         panoUrl={panoUrl}
         result={result}
       />
@@ -224,6 +237,7 @@ describe('MapDetailResult', () => {
       <MapDetailResult
         endpoint={endpoint}
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         panoUrl={panoUrl}
         result={result}
       />
@@ -240,6 +254,7 @@ describe('MapDetailResult', () => {
       <MapDetailResult
         endpoint={endpoint}
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         panoUrl={panoUrl}
         result={result}
       />
@@ -256,6 +271,7 @@ describe('MapDetailResult', () => {
       <MapDetailResult
         endpoint={endpoint}
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         panoUrl={panoUrl}
         result={result}
       />
@@ -273,6 +289,7 @@ describe('MapDetailResult', () => {
         endpoint={endpoint}
         panoUrl={panoUrl}
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         result={result}
       />
     );
@@ -289,6 +306,7 @@ describe('MapDetailResult', () => {
         endpoint={endpoint}
         panoUrl={panoUrl}
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         result={result}
       />
     );
@@ -305,6 +323,7 @@ describe('MapDetailResult', () => {
         endpoint={endpoint}
         panoUrl={panoUrl}
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         result={result}
       />
     );
@@ -321,6 +340,7 @@ describe('MapDetailResult', () => {
         endpoint={endpoint}
         panoUrl={panoUrl}
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         result={result}
       />
     );
@@ -336,6 +356,7 @@ describe('MapDetailResult', () => {
       <MapDetailResult
         endpoint={endpoint}
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         panoUrl={panoUrl}
         result={result}
       />
@@ -353,6 +374,7 @@ describe('MapDetailResult', () => {
         endpoint={endpoint}
         panoUrl={panoUrl}
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         result={result}
       />
     );
@@ -369,6 +391,7 @@ describe('MapDetailResult', () => {
         endpoint={endpoint}
         panoUrl={panoUrl}
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         result={result}
       />
     );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import MapPanelHandle from '../MapPanelHandle';
+import MapPanelHandle from './MapPanelHandle';
 
 describe('MapPanelHandle', () => {
   it('should render children by default', () => {

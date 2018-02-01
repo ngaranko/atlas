@@ -8,10 +8,11 @@ import MapDetailVestigingActiviteitenItem from './MapDetailVestigingActiviteiten
 import MapDetailVestigingBijzondereRechtstoestand from './MapDetailVestigingBijzondereRechtstoestand';
 import Notification from '../../../shared/components/notification/Notification';
 
-const MapDetailVestiging = ({ panoUrl, vestiging, onMaximize }) => (
+const MapDetailVestiging = ({ panoUrl, vestiging, onMaximize, onPanoPreviewClick }) => (
   <MapDetailResultWrapper
     panoUrl={panoUrl}
     onMaximize={onMaximize}
+    onPanoPreviewClick={onPanoPreviewClick}
     subTitle={vestiging.label}
     title="Vestiging"
   >
@@ -48,7 +49,8 @@ MapDetailVestiging.propTypes = {
     label: PropTypes.string,
     visitingAddress: PropTypes.object
   }).isRequired,
-  onMaximize: PropTypes.func.isRequired
+  onMaximize: PropTypes.func.isRequired,
+  onPanoPreviewClick: PropTypes.func.isRequired
 };
 
 export default MapDetailVestiging;

@@ -40,9 +40,6 @@ const transformResultByType = (result) => {
     case 'pand/address':
       return getAddres(result);
 
-    case 'vestiging':
-      return getAddres(result);
-
     case 'bag/openbareruimte':
       return getOpenbareRuimte(result);
 

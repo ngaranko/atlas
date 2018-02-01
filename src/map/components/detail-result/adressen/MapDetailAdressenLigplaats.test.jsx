@@ -14,6 +14,7 @@ describe('MapDetailAdressenLigplaats', () => {
       <MapDetailAdressenLigplaats
         panoUrl="panoUrl"
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         ligplaats={ligplaats}
       />
     );

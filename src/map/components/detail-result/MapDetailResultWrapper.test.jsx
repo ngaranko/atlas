@@ -13,6 +13,7 @@ describe('MapDetailResultWrapper', () => {
         title="title"
         subTitle="subTitle"
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
       >
         <ul>
           <li>Item 1</li>
@@ -31,6 +32,7 @@ describe('MapDetailResultWrapper', () => {
         title="title"
         subTitle="subTitle"
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
       >
         <ul>
           <li>Item 1</li>
@@ -49,6 +51,7 @@ describe('MapDetailResultWrapper', () => {
         title="title"
         subTitle=""
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
       >
         <ul>
           <li>Item 1</li>
@@ -66,6 +69,7 @@ describe('MapDetailResultWrapper', () => {
         panoUrl=""
         title="title"
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
       >
         <ul>
           <li>Item 1</li>
@@ -83,6 +87,7 @@ describe('MapDetailResultWrapper', () => {
         panoUrl=""
         title="title"
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
       />
     );
     expect(wrapper).toMatchSnapshot();

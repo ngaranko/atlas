@@ -31,6 +31,7 @@ describe('MapDetailAdressenVerblijfsobject', () => {
       <MapDetailAdressenVerblijfsobject
         panoUrl="panoUrl"
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         verblijfsobject={verblijfsobject}
       />
     );
@@ -64,6 +65,7 @@ describe('MapDetailAdressenVerblijfsobject', () => {
       <MapDetailAdressenVerblijfsobject
         panoUrl="panoUrl"
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         verblijfsobject={verblijfsobject}
       />
     );
@@ -96,6 +98,7 @@ describe('MapDetailAdressenVerblijfsobject', () => {
       <MapDetailAdressenVerblijfsobject
         panoUrl="panoUrl"
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         verblijfsobject={verblijfsobject}
       />
     );
@@ -128,6 +131,7 @@ describe('MapDetailAdressenVerblijfsobject', () => {
       <MapDetailAdressenVerblijfsobject
         panoUrl="panoUrl"
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         verblijfsobject={verblijfsobject}
       />
     );
