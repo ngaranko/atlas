@@ -247,24 +247,37 @@ describe('ToggleDrawing', () => {
     });
   });
 
-  describe('rendering', () => {
-    it('should render points available, shape summary and toggle drawing', () => {
-      const store = configureMockStore()({ ...initialState });
-      const wrapper = shallow(<DrawTool />, { context: { store } }).dive();
-      expect(wrapper).toMatchSnapshot();
-    });
 
-    it('should render points available almost max points drawn', () => {
-      const store = configureMockStore()({
-        ...initialState,
-        map: {
-          ...initialState.map,
-          shapeMarkers: 10
-        }
-      });
-      const wrapper = shallow(<DrawTool />, { context: { store } }).dive();
-      wrapper.setState({ drawingMode: 'bar' });
-      expect(wrapper).toMatchSnapshot();
-    });
+  it('should render points available, shape summary and toggle drawing', () => {
+    const store = configureMockStore()({ ...initialState });
+    const wrapper = shallow(<DrawTool />, { context: { store } }).dive();
+    expect(wrapper).toMatchSnapshot();
   });
+
+  it('should render summary for 2 points', () => {
+    const store = configureMockStore()({
+      ...initialState,
+      map: {
+        ...initialState.map,
+        shapeMarkers: 2
+      }
+    });
+    isEnabled.mockImplementation(() => true);
+    const wrapper = shallow(<DrawTool />, { context: { store } }).dive();
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('should render points available almost max points drawn', () => {
+    const store = configureMockStore()({
+      ...initialState,
+      map: {
+        ...initialState.map,
+        shapeMarkers: 10
+      }
+    });
+    const wrapper = shallow(<DrawTool />, { context: { store } }).dive();
+    wrapper.setState({ drawingMode: 'bar' });
+    expect(wrapper).toMatchSnapshot();
+  });
+
 });

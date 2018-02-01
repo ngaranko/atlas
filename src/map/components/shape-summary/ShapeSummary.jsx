@@ -1,38 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { isEnabled } from '../../services/draw-tool/draw-tool';
-
-import Icon from '../../../../public/images/icon-cross-big.svg';
+import IconCrossBig from '../../../../public/images/icon-cross-big.svg';
 
 import './_shape-summary.scss';
 
-const ShapeSummary = ({ shapeMarkers, shapeDistanceTxt, onClearDrawing }) => {
-  if (isEnabled() || shapeMarkers !== 2) {
-    return null;
-  }
-  return (
-    <div className="shape-summary">
-      <span
-        className="shape-summary__label"
-        aria-label={`Lijn: ${shapeDistanceTxt}`}
-      >Lijn: {shapeDistanceTxt}
-      </span>
-      <button
-        className="shape-summary__button"
-        onClick={onClearDrawing}
-        title="Lijn verwijderen"
-      >
-        <Icon
-          className="shape-summary__icon"
-        /><span className="u-sr-only">Lijn verwijderen</span>
-      </button>
-    </div>
-  );
-};
+const ShapeSummary = ({ shapeDistanceTxt, onClearDrawing }) => (
+  <div className="shape-summary">
+    <span
+      className="shape-summary__label"
+      aria-label={`Lijn: ${shapeDistanceTxt}`}
+    >Lijn: {shapeDistanceTxt}
+    </span>
+    <button
+      className="shape-summary__button"
+      onClick={onClearDrawing}
+      title="Lijn verwijderen"
+    >
+      <IconCrossBig
+        className="shape-summary__icon"
+      />
+    </button>
+  </div>
+);
 
 ShapeSummary.propTypes = {
-  shapeMarkers: PropTypes.number.isRequired,
   shapeDistanceTxt: PropTypes.string.isRequired,
   onClearDrawing: PropTypes.func.isRequired
 };

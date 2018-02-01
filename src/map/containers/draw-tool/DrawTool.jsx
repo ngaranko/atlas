@@ -140,11 +140,14 @@ class DrawTool extends React.Component {
           drawingMode={this.state.drawingMode}
           shapeMarkers={this.props.shapeMarkers}
         />
-        <ShapeSummary
-          shapeMarkers={this.props.shapeMarkers}
-          shapeDistanceTxt={this.props.shapeDistanceTxt}
-          onClearDrawing={this.props.onClearDrawing}
-        />
+        {
+          !isEnabled() && this.props.shapeMarkers === 2
+          &&
+          <ShapeSummary
+            shapeDistanceTxt={this.props.shapeDistanceTxt}
+            onClearDrawing={this.props.onClearDrawing}
+          />
+        }
         {
           markersLeft <= drawToolConfig.MARKERS_LEFT_WARNING &&
           this.state.drawingMode !== drawToolConfig.DRAWING_MODE.NONE &&
