@@ -70,28 +70,6 @@ describe('The dp-map directive', () => {
                         'some_other_overlay': 'some_other_overlay'
                     }
                 }
-            },
-
-            function ($provide) {
-                $provide.factory('dpLinkDirective', () => {
-                    return {};
-                });
-
-                // $provide.factory('dpDrawToolDirective' + '', () => {
-                    // return {};
-                // });
-
-                $provide.factory('dpActiveOverlaysDirective', () => {
-                    return {};
-                });
-
-                // $provide.factory('dpToggleFullscreenDirective', () => {
-                    // return {};
-                // });
-
-                $provide.factory('dpEmbedButtonDirective', () => {
-                    return {};
-                });
             }
         );
         mockedLeafletMap = {
