@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { wgs84ToRd } from '../../../shared/services/coordinate-reference-system';
-import MapSearchResultsCategory from './MapSearchResultsCategory';
+import MapSearchResultsCategory from './map-search-results-category/MapSearchResultsCategory';
 import Notification from '../../../shared/components/notification/Notification';
 import MaximizeIcon from '../../../../public/images/icon-maximize.svg';
 

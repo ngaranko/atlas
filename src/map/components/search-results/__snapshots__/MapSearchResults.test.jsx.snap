@@ -46,6 +46,7 @@ exports[`MapSearchResults rendering should filter external monumenten on pand re
             "uri": "result-uri-1",
           }
         }
+        isSubcategory={false}
         key="category"
         onClick={[MockFunction]}
       />
@@ -61,6 +62,7 @@ exports[`MapSearchResults rendering should filter external monumenten on pand re
             "uri": "result-uri-2",
           }
         }
+        isSubcategory={false}
         key="category"
         onClick={[MockFunction]}
       />
@@ -76,6 +78,7 @@ exports[`MapSearchResults rendering should filter external monumenten on pand re
             "uri": "result-uri-3",
           }
         }
+        isSubcategory={false}
         key="category"
         onClick={[MockFunction]}
       />
@@ -208,6 +211,7 @@ exports[`MapSearchResults rendering should render results 1`] = `
             "uri": "result-uri-1",
           }
         }
+        isSubcategory={false}
         key="category"
         onClick={[MockFunction]}
       />
@@ -223,6 +227,7 @@ exports[`MapSearchResults rendering should render results 1`] = `
             "uri": "result-uri-2",
           }
         }
+        isSubcategory={false}
         key="category"
         onClick={[MockFunction]}
       />
@@ -295,6 +300,7 @@ exports[`MapSearchResults rendering should update results 1`] = `
             "uri": "result-uri-1",
           }
         }
+        isSubcategory={false}
         key="category"
         onClick={[MockFunction]}
       />
@@ -310,6 +316,7 @@ exports[`MapSearchResults rendering should update results 1`] = `
             "uri": "result-uri-2",
           }
         }
+        isSubcategory={false}
         key="category"
         onClick={[MockFunction]}
       />
@@ -391,6 +398,7 @@ exports[`MapSearchResults rendering should update results 2`] = `
             "uri": "result-uri-1",
           }
         }
+        isSubcategory={false}
         key="category"
         onClick={[MockFunction]}
       />
@@ -406,6 +414,7 @@ exports[`MapSearchResults rendering should update results 2`] = `
             "uri": "result-uri-2",
           }
         }
+        isSubcategory={false}
         key="category"
         onClick={[MockFunction]}
       />
@@ -421,6 +430,7 @@ exports[`MapSearchResults rendering should update results 2`] = `
             "uri": "result-uri-3",
           }
         }
+        isSubcategory={false}
         key="category"
         onClick={[MockFunction]}
       />
