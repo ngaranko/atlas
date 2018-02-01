@@ -34,9 +34,13 @@ const MapSearchResults = ({
         `}
       >
         <button
-          className="map-search-results__header-pano-button"
+          className={`
+            map-search-results__header-pano-button
+            map-search-results__header-pano-button--${panoUrl ? 'enabled' : 'disabled'}
+          `}
+          disabled={!panoUrl}
           onClick={onPanoPreviewClick}
-          title="Panoramabeeld"
+          title={panoUrl ? 'Bekijk Panorama view' : 'Geen Panoramabeeld beschikbaar'}
         >
           {panoUrl && (
             <img
