@@ -1,4 +1,9 @@
-import { initialize, enable, disable, isEnabled} from '../../../src/map/services/draw-tool/draw-tool';
+import {
+    initialize,
+    enable,
+    disable,
+    isEnabled
+} from '../../../src/map/services/draw-tool/draw-tool';
 
 /* istanbul ignore next */
 (function () {
