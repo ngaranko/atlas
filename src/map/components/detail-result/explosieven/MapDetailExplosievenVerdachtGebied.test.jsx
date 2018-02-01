@@ -11,9 +11,12 @@ describe('MapDetailExplosievenVerdachtGebied', () => {
       subType: 'Verdacht gebied sub type',
       type: 'Verdacht gebied type'
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailExplosievenVerdachtGebied
         panoUrl="panoUrl"
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         verdachtGebied={verdachtGebied}
       />
     );

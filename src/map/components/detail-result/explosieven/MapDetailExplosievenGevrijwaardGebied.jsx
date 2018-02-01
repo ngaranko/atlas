@@ -5,9 +5,13 @@ import MapDetailResultDateItem from '../MapDetailResultDateItem';
 import MapDetailResultItem from '../MapDetailResultItem';
 import MapDetailResultWrapper from '../MapDetailResultWrapper';
 
-const MapDetailExplosievenGevrijwaardGebied = ({ panoUrl, gevrijwaardGebied }) => (
+const MapDetailExplosievenGevrijwaardGebied = ({
+  panoUrl, gevrijwaardGebied, onMaximize, onPanoPreviewClick
+}) => (
   <MapDetailResultWrapper
     panoUrl={panoUrl}
+    onMaximize={onMaximize}
+    onPanoPreviewClick={onPanoPreviewClick}
     subTitle={gevrijwaardGebied.label}
     title="Gevrijwaard gebied"
   >
@@ -40,7 +44,9 @@ MapDetailExplosievenGevrijwaardGebied.propTypes = {
     source: PropTypes.string,
     type: PropTypes.string
   }).isRequired,
-  panoUrl: PropTypes.string.isRequired
+  panoUrl: PropTypes.string.isRequired,
+  onMaximize: PropTypes.func.isRequired,
+  onPanoPreviewClick: PropTypes.func.isRequired
 };
 
 export default MapDetailExplosievenGevrijwaardGebied;

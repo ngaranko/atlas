@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Notification should add the notification level as class name 1`] = `
+<p
+  className="
+        
+        notification
+        notification--error
+      "
+>
+  <span
+    className="notification__content"
+  >
+    Test message
+  </span>
+  <button
+    className="notification__button"
+    onClick={[Function]}
+  >
+    <Component />
+  </button>
+</p>
+`;
+
+exports[`Notification should be able to render \`a\` elements 1`] = `
+<p
+  className="
+        
+        notification
+        notification--info
+      "
+>
+  <span
+    className="notification__content"
+  >
+    <a
+      href="http://real-address.com"
+    >
+      External link
+    </a>
+  </span>
+  <button
+    className="notification__button"
+    onClick={[Function]}
+  >
+    <Component />
+  </button>
+</p>
+`;
+
+exports[`Notification should render the provided message 1`] = `
+<p
+  className="
+        
+        notification
+        notification--info
+      "
+>
+  <span
+    className="notification__content"
+  >
+    Test message
+  </span>
+  <button
+    className="notification__button"
+    onClick={[Function]}
+  >
+    <Component />
+  </button>
+</p>
+`;

@@ -7,12 +7,18 @@ describe('MapDetailAdressenOpenbareRuimte', () => {
   it('should render everything', () => {
     const openbareRuimte = {
       label: 'Openbare ruimte label',
-      status: 'Openbare ruimte status',
+      status: {
+        code: '',
+        description: 'Openbare ruimte status'
+      },
       type: 'Openbare ruimte type'
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailAdressenOpenbareRuimte
         panoUrl="panoUrl"
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         openbareRuimte={openbareRuimte}
       />
     );

@@ -8,8 +8,7 @@
     straatbeeldApiFactory.$inject = ['$q', 'STRAATBEELD_CONFIG', 'sharedConfig', 'geojson', 'api'];
 
     function straatbeeldApiFactory ($q, STRAATBEELD_CONFIG, sharedConfig, geojson, api) {
-        const MAX_RADIUS = 10000;   // The maximum distance from a location to search for a straatbeeld
-        const START_RADIUS = 1000;  // The distance to start searching for a straatbeeld
+        const MAX_RADIUS_KM = 100; // The maximum search radius straatbeeld in KM
 
         let cancel; // Promise to cancel any outstanding http requests
 
@@ -25,7 +24,7 @@
          * @returns {Promise.imageData} The fetched straatbeeld, or null on failure.
          */
         function getImageDataByLocation (location, history) {
-            return searchWithinRadius(location, START_RADIUS, history);
+            return searchWithinRadius(location, MAX_RADIUS_KM * 1000, history);
         }
 
         /**
@@ -40,19 +39,16 @@
          * @returns {Promise.imageData} The fetched straatbeeld, or null on failure.
          */
         function searchWithinRadius (location, radius, history) {
-            const cappedRadius = Math.min(radius, MAX_RADIUS);
             const endpoint = history
                 ? `${STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_YEAR}${history}/`
                 : STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_ALL;
 
             return getStraatbeeld(`${sharedConfig.API_ROOT}${endpoint}` +
-                `?lat=${location[0]}&lon=${location[1]}&radius=${cappedRadius}`)
+                `?lat=${location[0]}&lon=${location[1]}&radius=${radius}`)
                 .then(
                     data => {
                         if (data) {
                             return data;
-                        } else if (radius < MAX_RADIUS) {
-                            return searchWithinRadius(location, cappedRadius * 2, history);
                         } else {
                             return null;
                         }

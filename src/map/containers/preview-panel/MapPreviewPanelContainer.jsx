@@ -11,6 +11,8 @@ import { selectLatestMapSearchResults, getMapSearchResults }
   from '../../ducks/search-results/map-search-results';
 import { selectNotClickableVisibleMapLayers } from '../../ducks/layers/map-layers';
 import { selectLatestMapDetail, getMapDetail } from '../../ducks/detail/map-detail';
+import { toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
+import { fetchStraatbeeldById } from '../../ducks/streetview/streetview';
 import fetchSearchResults from '../../../reducers/search';
 import { fetchDetail as legacyFetchDetail } from '../../../reducers/details';
 import { getPanoPreview } from '../../../pano/ducks/preview/pano-preview';
@@ -20,6 +22,8 @@ import PlusIcon from '../../../../public/images/icon-plus.svg';
 import MapSearchResults from '../../components/search-results/MapSearchResults';
 import MapDetailResult from '../../components/detail-result/MapDetailResult';
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator';
+
+const previewPanelSearchResultLimit = 3;
 
 const mapStateToProps = (state) => ({
   isMapPreviewPanelVisible: state.isMapPreviewPanelVisible,
@@ -46,7 +50,9 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   onSearch: fetchSearchResults,
   onMapPreviewPanelClose: closeMapPreviewPanel,
   onMapPreviewPanelMaximize: maximizeMapPreviewPanel,
-  onMapSearchResultsItemClick: legacyFetchDetail
+  onMapSearchResultsItemClick: legacyFetchDetail,
+  onOpenPanoById: fetchStraatbeeldById,
+  closeMapFullScreen: toggleMapFullscreen
 }, dispatch);
 
 const isUpdated = (props, prevProps, paths) => {
@@ -74,12 +80,28 @@ const update = (dispatch, props, prevProps = {}) => {
 };
 
 class MapPreviewPanelContainer extends React.Component {
+  constructor() {
+    super();
+    this.onPanoPreviewClick = this.onPanoPreviewClick.bind(this);
+  }
+
   componentDidMount() {
     update(this.context.store.dispatch, this.props);
   }
 
   componentDidUpdate(prevProps) {
     update(this.context.store.dispatch, this.props, prevProps);
+  }
+
+  onPanoPreviewClick() {
+    const { onOpenPanoById, search, pano } = this.props;
+    const location = search ? search.location.join(',') : `${pano.location.latitude},${pano.location.longitude}`;
+    const selectedPano = pano.previews[location];
+    if (!selectedPano) {
+      return;
+    }
+    this.context.store.dispatch(onOpenPanoById(selectedPano.id));
+    this.context.store.dispatch(toggleMapFullscreen());
   }
 
   render() {
@@ -108,7 +130,7 @@ class MapPreviewPanelContainer extends React.Component {
               onClick={() => props.onSearch(props.mapClickLocation)}
             >
               <PlusIcon className="map-preview-panel__button-icon" />
-              <span className="map-preview-panel__button-label">Toon alle resultaten</span>
+              <span className="map-preview-panel__button-label">Alle resultaten tonen</span>
             </button>
           )}
           <button
@@ -137,17 +159,21 @@ class MapPreviewPanelContainer extends React.Component {
             <MapDetailResult
               endpoint={props.mapDetail.currentEndpoint}
               panoUrl={panoDetailPreview.url}
+              onMaximize={props.onMapPreviewPanelMaximize}
+              onPanoPreviewClick={this.onPanoPreviewClick}
               result={props.detailResult}
             />
           )}
           {!isDetailLoaded && isSearchLoaded && (
             <MapSearchResults
-              count={props.search.numberOfResults}
               location={props.searchLocation}
-              panoUrl={panoSearchPreview.url}
-              results={props.results}
               missingLayers={props.missingLayers}
               onItemClick={props.onMapSearchResultsItemClick}
+              onMaximize={props.onMapPreviewPanelMaximize}
+              onPanoPreviewClick={this.onPanoPreviewClick}
+              panoUrl={panoSearchPreview.url}
+              resultLimit={previewPanelSearchResultLimit}
+              results={props.results}
             />
           )}
         </div>
@@ -161,38 +187,38 @@ MapPreviewPanelContainer.contextTypes = {
 };
 
 MapPreviewPanelContainer.defaultProps = {
+  detail: {},
+  detailResult: {},
+  isEmbed: false,
   isMapPreviewPanelVisible: false,
+  mapDetail: {},
+  missingLayers: '',
   pano: {},
   results: [],
   search: {},
   searchLocation: null,
   searchLocationId: '',
-  missingLayers: '',
-  detail: {},
-  mapDetail: {},
-  detailResult: {},
-  user: {},
-  isEmbed: false
+  user: {}
 };
 
 /* eslint-disable react/no-unused-prop-types */
 MapPreviewPanelContainer.propTypes = {
+  detail: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  detailResult: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  isEmbed: PropTypes.bool,
   isMapPreviewPanelVisible: PropTypes.bool,
+  mapDetail: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  missingLayers: PropTypes.string,
   onMapPreviewPanelClose: PropTypes.func.isRequired,
   onMapPreviewPanelMaximize: PropTypes.func.isRequired,
   onMapSearchResultsItemClick: PropTypes.func.isRequired,
+  onOpenPanoById: PropTypes.func.isRequired,
   pano: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   results: PropTypes.array, // eslint-disable-line react/forbid-prop-types
   search: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   searchLocation: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   searchLocationId: PropTypes.string,
-  missingLayers: PropTypes.string,
-  detail: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  mapDetail: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  detailResult: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  user: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  isEmbed: PropTypes.bool
+  user: PropTypes.object // eslint-disable-line react/forbid-prop-types
 };
 /* eslint-enable react/no-unused-prop-types */
-
 export default connect(mapStateToProps, mapDispatchToProps)(MapPreviewPanelContainer);

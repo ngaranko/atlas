@@ -12,6 +12,10 @@ export default function fetchByUri(uri) {
 
       return {
         ...result,
+        status: {
+          code: result.status ? result.status.code : '',
+          description: result.status ? result.status.omschrijving : ''
+        },
         eigendomsverhouding: get(result.eigendomsverhouding, 'omschrijving'),
         gebruiksdoelen: (result.gebruiksdoelen || []).map((item) => ({
           ...item,
@@ -20,7 +24,8 @@ export default function fetchByUri(uri) {
         })),
         label: result._display,
         location: result.location || wgs84Center,
-        size: result.oppervlakte,
+        // The API even returns a value of `1` when the size is unknown
+        size: result.oppervlakte > 1 ? result.oppervlakte : 0,
         type: get(result.type_woonobject, 'omschrijving')
       };
     });

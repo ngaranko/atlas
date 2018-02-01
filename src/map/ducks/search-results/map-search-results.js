@@ -9,16 +9,12 @@ const initialState = {
 };
 
 export default function MapSearchResultsReducer(state = initialState, action) {
-  const locationId = Object
-    .keys(action.location)
-    .map((key) => action.location[key])
-    .toString();
-
   switch (action.type) {
     case FETCH_MAP_SEARCH_RESULTS_REQUEST:
       return { ...state, isLoading: true, mapSearchResultsError: null };
 
-    case FETCH_MAP_SEARCH_RESULTS_SUCCESS:
+    case FETCH_MAP_SEARCH_RESULTS_SUCCESS: {
+      const locationId = Object.values(action.location).toString();
       return {
         ...state,
         isLoading: false,
@@ -27,6 +23,7 @@ export default function MapSearchResultsReducer(state = initialState, action) {
           [locationId]: action.mapSearchResults
         }
       };
+    }
 
     case FETCH_MAP_SEARCH_RESULTS_FAILURE:
       return { ...state, isLoading: false };

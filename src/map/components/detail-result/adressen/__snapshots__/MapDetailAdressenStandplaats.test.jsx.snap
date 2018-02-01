@@ -2,6 +2,8 @@
 
 exports[`MapDetailAdressenStandplaats should render everything 1`] = `
 <MapDetailResultWrapper
+  onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Standplaats label"
   title="Standplaats"
@@ -11,7 +13,7 @@ exports[`MapDetailAdressenStandplaats should render everything 1`] = `
   >
     <MapDetailResultItem
       label="Status"
-      value="Standplaats status"
+      value="description"
     />
   </ul>
 </MapDetailResultWrapper>

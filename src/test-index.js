@@ -308,11 +308,9 @@ import '../modules/map/components/draw-tool/points-available/points-available.co
 import '../modules/map/components/draw-tool/draw-tool.component.test';
 import '../modules/map/components/draw-tool/toggle-drawing-tool/toggle-drawing-tool.component.test';
 import '../modules/map/components/draw-tool/shape-summary/shape-summary.component.test';
-import '../modules/map/services/panning.factory.test';
 import '../modules/map/services/suppress/suppress.factory.test';
 import '../modules/map/services/document-title/document-title.factory.test';
 import '../modules/map/services/leaflet-draw/leaflet-draw-translations.factory.test';
-import '../modules/map/services/zoom.factory.test';
 import '../modules/map/services/highlight/clustered-markers-config.factory.test';
 import '../modules/map/services/highlight/highlight.factory.test';
 import '../modules/map/services/layers.factory.test';

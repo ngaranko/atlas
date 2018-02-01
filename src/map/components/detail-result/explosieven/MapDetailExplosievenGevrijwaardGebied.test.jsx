@@ -12,9 +12,12 @@ describe('MapDetailExplosievenGevrijwaardGebied', () => {
       source: 'Gevrijwaard gebied source',
       type: 'Gevrijwaard gebied type'
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailExplosievenGevrijwaardGebied
         panoUrl="panoUrl"
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         gevrijwaardGebied={gevrijwaardGebied}
       />
     );

@@ -10,11 +10,14 @@ describe('MapDetailResult', () => {
   it('should render adressen ligplaats', () => {
     const endpoint = 'bag/ligplaats/';
     const panoUrl = 'panoUrl';
-    const result = { label: 'value' };
+    const result = { label: 'value', status: { description: 'description' } };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult
         endpoint={endpoint}
         panoUrl={panoUrl}
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         result={result}
       />
     );
@@ -24,11 +27,14 @@ describe('MapDetailResult', () => {
   it('should render adressen nummeraanduiding', () => {
     const endpoint = 'bag/nummeraanduiding/';
     const panoUrl = 'panoUrl';
-    const result = { label: 'value' };
+    const result = { label: 'value', status: { description: 'description' } };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult
         endpoint={endpoint}
         panoUrl={panoUrl}
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         result={result}
       />
     );
@@ -38,11 +44,14 @@ describe('MapDetailResult', () => {
   it('should render adressen openbareruimte', () => {
     const endpoint = 'bag/openbareruimte/';
     const panoUrl = 'panoUrl';
-    const result = { label: 'value' };
+    const result = { label: 'value', status: { description: 'description' } };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult
         endpoint={endpoint}
         panoUrl={panoUrl}
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         result={result}
       />
     );
@@ -52,11 +61,14 @@ describe('MapDetailResult', () => {
   it('should render adressen pand', () => {
     const endpoint = 'bag/pand/';
     const panoUrl = 'panoUrl';
-    const result = { label: 'value' };
+    const result = { label: 'value', status: { description: 'description' } };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult
         endpoint={endpoint}
+        onMaximize={clickHandler}
         panoUrl={panoUrl}
+        onPanoPreviewClick={clickHandler}
         result={result}
       />
     );
@@ -66,10 +78,13 @@ describe('MapDetailResult', () => {
   it('should render adressen standplaats', () => {
     const endpoint = 'bag/standplaats/';
     const panoUrl = 'panoUrl';
-    const result = { label: 'value' };
+    const result = { label: 'value', status: { description: 'description' } };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult
         endpoint={endpoint}
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         panoUrl={panoUrl}
         result={result}
       />
@@ -80,10 +95,13 @@ describe('MapDetailResult', () => {
   it('should render adressen verblijfsobject', () => {
     const endpoint = 'bag/verblijfsobject/';
     const panoUrl = 'panoUrl';
-    const result = { label: 'value' };
+    const result = { label: 'value', status: { description: 'description' } };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult
         endpoint={endpoint}
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         panoUrl={panoUrl}
         result={result}
       />
@@ -95,9 +113,12 @@ describe('MapDetailResult', () => {
     const endpoint = 'milieuthemas/explosieven/gevrijwaardgebied/';
     const panoUrl = 'panoUrl';
     const result = { label: 'value' };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult
         endpoint={endpoint}
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         panoUrl={panoUrl}
         result={result}
       />
@@ -109,9 +130,12 @@ describe('MapDetailResult', () => {
     const endpoint = 'milieuthemas/explosieven/inslagen/';
     const panoUrl = 'panoUrl';
     const result = { label: 'value' };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult
         endpoint={endpoint}
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         panoUrl={panoUrl}
         result={result}
       />
@@ -123,9 +147,12 @@ describe('MapDetailResult', () => {
     const endpoint = 'milieuthemas/explosieven/uitgevoerdonderzoek/';
     const panoUrl = 'panoUrl';
     const result = { label: 'value' };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult
         endpoint={endpoint}
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         panoUrl={panoUrl}
         result={result}
       />
@@ -137,9 +164,12 @@ describe('MapDetailResult', () => {
     const endpoint = 'milieuthemas/explosieven/verdachtgebied/';
     const panoUrl = 'panoUrl';
     const result = { label: 'value' };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult
         endpoint={endpoint}
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         panoUrl={panoUrl}
         result={result}
       />
@@ -151,9 +181,12 @@ describe('MapDetailResult', () => {
     const endpoint = 'gebieden/bouwblok/';
     const panoUrl = 'panoUrl';
     const result = { label: 'value' };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult
         endpoint={endpoint}
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         panoUrl={panoUrl}
         result={result}
       />
@@ -165,9 +198,12 @@ describe('MapDetailResult', () => {
     const endpoint = 'gebieden/buurt/';
     const panoUrl = 'panoUrl';
     const result = { label: 'value' };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult
         endpoint={endpoint}
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         panoUrl={panoUrl}
         result={result}
       />
@@ -179,9 +215,12 @@ describe('MapDetailResult', () => {
     const endpoint = 'gebieden/gebiedsgerichtwerken/';
     const panoUrl = 'panoUrl';
     const result = { label: 'value' };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult
         endpoint={endpoint}
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         panoUrl={panoUrl}
         result={result}
       />
@@ -193,9 +232,12 @@ describe('MapDetailResult', () => {
     const endpoint = 'gebieden/grootstedelijkgebied/';
     const panoUrl = 'panoUrl';
     const result = { label: 'value' };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult
         endpoint={endpoint}
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         panoUrl={panoUrl}
         result={result}
       />
@@ -207,9 +249,12 @@ describe('MapDetailResult', () => {
     const endpoint = 'gebieden/stadsdeel/';
     const panoUrl = 'panoUrl';
     const result = { label: 'value' };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult
         endpoint={endpoint}
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         panoUrl={panoUrl}
         result={result}
       />
@@ -221,9 +266,12 @@ describe('MapDetailResult', () => {
     const endpoint = 'gebieden/unesco/';
     const panoUrl = 'panoUrl';
     const result = { label: 'value' };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult
         endpoint={endpoint}
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         panoUrl={panoUrl}
         result={result}
       />
@@ -235,10 +283,13 @@ describe('MapDetailResult', () => {
     const endpoint = 'gebieden/buurtcombinatie/';
     const panoUrl = 'panoUrl';
     const result = { label: 'value' };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult
         endpoint={endpoint}
         panoUrl={panoUrl}
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         result={result}
       />
     );
@@ -249,10 +300,13 @@ describe('MapDetailResult', () => {
     const endpoint = 'brk/object/';
     const panoUrl = 'panoUrl';
     const result = { label: 'value' };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult
         endpoint={endpoint}
         panoUrl={panoUrl}
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         result={result}
       />
     );
@@ -263,10 +317,13 @@ describe('MapDetailResult', () => {
     const endpoint = 'meetbouten/meetbout/';
     const panoUrl = 'panoUrl';
     const result = { label: 'value' };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult
         endpoint={endpoint}
         panoUrl={panoUrl}
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         result={result}
       />
     );
@@ -277,10 +334,13 @@ describe('MapDetailResult', () => {
     const endpoint = 'monumenten/monumenten/';
     const panoUrl = 'panoUrl';
     const result = { label: 'value' };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult
         endpoint={endpoint}
         panoUrl={panoUrl}
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         result={result}
       />
     );
@@ -291,9 +351,12 @@ describe('MapDetailResult', () => {
     const endpoint = 'nap/peilmerk/';
     const panoUrl = 'panoUrl';
     const result = { label: 'value' };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult
         endpoint={endpoint}
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         panoUrl={panoUrl}
         result={result}
       />
@@ -305,10 +368,13 @@ describe('MapDetailResult', () => {
     const endpoint = 'handelsregister/vestiging/';
     const panoUrl = 'panoUrl';
     const result = { label: 'value' };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult
         endpoint={endpoint}
         panoUrl={panoUrl}
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         result={result}
       />
     );
@@ -319,10 +385,13 @@ describe('MapDetailResult', () => {
     const endpoint = 'non/existent/';
     const panoUrl = 'panoUrl';
     const result = { label: 'value' };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult
         endpoint={endpoint}
         panoUrl={panoUrl}
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         result={result}
       />
     );

@@ -1,3 +1,8 @@
+import {
+    hideMapPanel,
+    showMapPanel
+} from '../../../../src/shared/ducks/ui/ui';
+
 (function () {
     'use strict';
 
@@ -34,7 +39,7 @@
             }
 
             if (vm.isEmbed || vm.isEmbedPreview) {
-                store.dispatch({ type: 'HIDE_MAP_PANEL' });
+                store.dispatch(hideMapPanel());
             }
         });
 
@@ -43,10 +48,10 @@
             if (newValue !== oldValue) {
                 if (!vm.isMapFullscreen) {
                     // Always hide when map exits fullscreen mode
-                    store.dispatch({ type: 'HIDE_MAP_PANEL' });
+                    store.dispatch(hideMapPanel());
                 } else if (vm.isHomePageActive) {
                     // Only show when coming from the home page
-                    store.dispatch({ type: 'SHOW_MAP_PANEL' });
+                    store.dispatch(showMapPanel());
                 }
             }
         });

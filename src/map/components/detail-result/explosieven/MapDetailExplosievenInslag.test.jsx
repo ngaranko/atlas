@@ -12,9 +12,12 @@ describe('MapDetailExplosievenInslag', () => {
       source: 'Inslag source',
       type: 'Inslag type'
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailExplosievenInslag
         panoUrl="panoUrl"
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         inslag={inslag}
       />
     );

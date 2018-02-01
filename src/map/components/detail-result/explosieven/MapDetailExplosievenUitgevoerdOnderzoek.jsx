@@ -5,9 +5,13 @@ import MapDetailResultDateItem from '../MapDetailResultDateItem';
 import MapDetailResultItem from '../MapDetailResultItem';
 import MapDetailResultWrapper from '../MapDetailResultWrapper';
 
-const MapDetailExplosievenUitgevoerdOnderzoek = ({ panoUrl, uitgevoerdOnderzoek }) => (
+const MapDetailExplosievenUitgevoerdOnderzoek = ({
+  panoUrl, uitgevoerdOnderzoek, onMaximize, onPanoPreviewClick
+}) => (
   <MapDetailResultWrapper
     panoUrl={panoUrl}
+    onMaximize={onMaximize}
+    onPanoPreviewClick={onPanoPreviewClick}
     subTitle={uitgevoerdOnderzoek.label}
     title="Reeds uitgevoerd CE onderzoek"
   >
@@ -40,7 +44,9 @@ MapDetailExplosievenUitgevoerdOnderzoek.propTypes = {
     type: PropTypes.string,
     verdachtGebied: PropTypes.string
   }).isRequired,
-  panoUrl: PropTypes.string.isRequired
+  panoUrl: PropTypes.string.isRequired,
+  onMaximize: PropTypes.func.isRequired,
+  onPanoPreviewClick: PropTypes.func.isRequired
 };
 
 export default MapDetailExplosievenUitgevoerdOnderzoek;

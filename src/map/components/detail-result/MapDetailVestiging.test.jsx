@@ -18,9 +18,12 @@ describe('MapDetailVestiging', () => {
       label: 'Vestiging label',
       visitingAddress: { plaats: 'Amsterdam' }
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailVestiging
         panoUrl="panoUrl"
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         vestiging={vestiging}
       />
     );
@@ -40,9 +43,12 @@ describe('MapDetailVestiging', () => {
       kvkNumber: '123456',
       visitingAddress: { plaats: 'Amsterdam' }
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailVestiging
         panoUrl="panoUrl"
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         vestiging={vestiging}
       />
     );

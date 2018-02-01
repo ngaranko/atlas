@@ -10,56 +10,103 @@ exports[`MapSearchResults rendering should filter external monumenten on pand re
           map-search-results__header--no-pano
         "
   >
-    <div
-      className="map-search-results__header-container"
+    <button
+      className="
+            map-search-results__header-pano-button
+            map-search-results__header-pano-button--disabled
+          "
+      disabled={true}
+      onClick={[MockFunction]}
+      title="Geen Panoramabeeld beschikbaar"
     >
-      <h1
-        className="map-search-results__header-title"
+      <div
+        className="map-search-results__header-container"
       >
-        Resultaten (
-        3
-        )
-      </h1>
-      <h2
-        className="map-search-results__header-subtitle"
-      >
-        locatie 
-        1.12
-        , 
-        654.32
-      </h2>
-    </div>
+        <h1
+          className="map-search-results__header-title"
+        >
+          Resultaten
+        </h1>
+        <h2
+          className="map-search-results__header-subtitle"
+        >
+          locatie 
+          1.12
+          , 
+          654.32
+        </h2>
+      </div>
+    </button>
   </header>
-  <ul
-    className="map-search-results__list"
+  <div
+    className="map-search-results__scroll-wrapper"
   >
-    <li
-      key="result-uri-1"
+    <ul
+      className="map-search-results__list"
     >
-      <MapSearchResultsItem
-        item={
+      <MapSearchResultsCategory
+        category={
           Object {
+            "categoryLabel": "category",
+            "label": "label",
+            "results": Array [],
+            "showMore": false,
+            "subCategories": Array [],
             "type": "bag/pand",
             "uri": "result-uri-1",
           }
         }
-        onClick={[Function]}
+        isSubcategory={false}
+        key="category"
+        onClick={[MockFunction]}
       />
-    </li>
-    <li
-      key="result-uri-2"
-    >
-      <MapSearchResultsItem
-        item={
+      <MapSearchResultsCategory
+        category={
           Object {
+            "categoryLabel": "category",
+            "label": "label",
+            "results": Array [],
+            "showMore": false,
+            "subCategories": Array [],
             "type": "foo",
             "uri": "result-uri-2",
           }
         }
-        onClick={[Function]}
+        isSubcategory={false}
+        key="category"
+        onClick={[MockFunction]}
       />
-    </li>
-  </ul>
+      <MapSearchResultsCategory
+        category={
+          Object {
+            "categoryLabel": "category",
+            "label": "label",
+            "results": Array [],
+            "showMore": false,
+            "subCategories": Array [],
+            "type": "monumenten/monument",
+            "uri": "result-uri-3",
+          }
+        }
+        isSubcategory={false}
+        key="category"
+        onClick={[MockFunction]}
+      />
+    </ul>
+    <footer
+      className="map-search-results__footer"
+    >
+      <button
+        className="map-search-results__button"
+        onClick={[MockFunction]}
+      >
+        <Component
+          className="map-search-results__button-icon"
+        />
+        Volledig weergeven
+      </button>
+    </footer>
+  </div>
 </section>
 `;
 
@@ -73,28 +120,54 @@ exports[`MapSearchResults rendering should render empty results 1`] = `
           map-search-results__header--no-pano
         "
   >
-    <div
-      className="map-search-results__header-container"
+    <button
+      className="
+            map-search-results__header-pano-button
+            map-search-results__header-pano-button--disabled
+          "
+      disabled={true}
+      onClick={[MockFunction]}
+      title="Geen Panoramabeeld beschikbaar"
     >
-      <h1
-        className="map-search-results__header-title"
+      <div
+        className="map-search-results__header-container"
       >
-        Resultaten (
-        )
-      </h1>
-      <h2
-        className="map-search-results__header-subtitle"
-      >
-        locatie 
-        1.12
-        , 
-        654.32
-      </h2>
-    </div>
+        <h1
+          className="map-search-results__header-title"
+        >
+          Resultaten
+        </h1>
+        <h2
+          className="map-search-results__header-subtitle"
+        >
+          locatie 
+          1.12
+          , 
+          654.32
+        </h2>
+      </div>
+    </button>
   </header>
-  <ul
-    className="map-search-results__list"
-  />
+  <div
+    className="map-search-results__scroll-wrapper"
+  >
+    <ul
+      className="map-search-results__list"
+    />
+    <footer
+      className="map-search-results__footer"
+    >
+      <button
+        className="map-search-results__button"
+        onClick={[MockFunction]}
+      >
+        <Component
+          className="map-search-results__button-icon"
+        />
+        Volledig weergeven
+      </button>
+    </footer>
+  </div>
 </section>
 `;
 
@@ -108,68 +181,103 @@ exports[`MapSearchResults rendering should render results 1`] = `
           map-search-results__header--pano
         "
   >
-    <img
-      alt="Panoramabeeld"
-      className="map-search-results__header-pano"
-      src="pano-url"
-    />
-    <div
-      className="map-search-results__header-container"
+    <button
+      className="
+            map-search-results__header-pano-button
+            map-search-results__header-pano-button--enabled
+          "
+      disabled={false}
+      onClick={[MockFunction]}
+      title="Bekijk Panorama view"
     >
-      <h1
-        className="map-search-results__header-title"
+      <img
+        alt="Panoramabeeld"
+        className="map-search-results__header-pano"
+        height="292"
+        src="pano-url"
+        width="438"
+      />
+      <div
+        className="map-search-results__header-container"
       >
-        Resultaten (
-        2
-        )
-      </h1>
-      <h2
-        className="map-search-results__header-subtitle"
-      >
-        locatie 
-        1.12
-        , 
-        654.32
-      </h2>
-    </div>
+        <h1
+          className="map-search-results__header-title"
+        >
+          Resultaten
+        </h1>
+        <h2
+          className="map-search-results__header-subtitle"
+        >
+          locatie 
+          1.12
+          , 
+          654.32
+        </h2>
+      </div>
+    </button>
   </header>
-  <ul
-    className="map-search-results__list"
+  <div
+    className="map-search-results__scroll-wrapper"
   >
-    <li>
-      <Notification
-        className=""
-        level="info"
-      >
-        Geen details beschikbaar van: 
-        Layer 1, Layer 2
-      </Notification>
-    </li>
-    <li
-      key="result-uri-1"
+    <ul
+      className="map-search-results__list"
     >
-      <MapSearchResultsItem
-        item={
+      <li>
+        <Notification
+          className=""
+          level="info"
+        >
+          Geen details beschikbaar van: 
+          Layer 1, Layer 2
+        </Notification>
+      </li>
+      <MapSearchResultsCategory
+        category={
           Object {
+            "categoryLabel": "category",
+            "label": "label",
+            "results": Array [],
+            "showMore": false,
+            "subCategories": Array [],
+            "type": "monumenten/monument",
             "uri": "result-uri-1",
           }
         }
-        onClick={[Function]}
+        isSubcategory={false}
+        key="category"
+        onClick={[MockFunction]}
       />
-    </li>
-    <li
-      key="result-uri-2"
-    >
-      <MapSearchResultsItem
-        item={
+      <MapSearchResultsCategory
+        category={
           Object {
+            "categoryLabel": "category",
+            "label": "label",
+            "results": Array [],
+            "showMore": false,
+            "subCategories": Array [],
+            "type": "monumenten/monument",
             "uri": "result-uri-2",
           }
         }
-        onClick={[Function]}
+        isSubcategory={false}
+        key="category"
+        onClick={[MockFunction]}
       />
-    </li>
-  </ul>
+    </ul>
+    <footer
+      className="map-search-results__footer"
+    >
+      <button
+        className="map-search-results__button"
+        onClick={[MockFunction]}
+      >
+        <Component
+          className="map-search-results__button-icon"
+        />
+        Volledig weergeven
+      </button>
+    </footer>
+  </div>
 </section>
 `;
 
@@ -183,59 +291,94 @@ exports[`MapSearchResults rendering should update results 1`] = `
           map-search-results__header--pano
         "
   >
-    <img
-      alt="Panoramabeeld"
-      className="map-search-results__header-pano"
-      src="pano-url"
-    />
-    <div
-      className="map-search-results__header-container"
+    <button
+      className="
+            map-search-results__header-pano-button
+            map-search-results__header-pano-button--enabled
+          "
+      disabled={false}
+      onClick={[MockFunction]}
+      title="Bekijk Panorama view"
     >
-      <h1
-        className="map-search-results__header-title"
+      <img
+        alt="Panoramabeeld"
+        className="map-search-results__header-pano"
+        height="292"
+        src="pano-url"
+        width="438"
+      />
+      <div
+        className="map-search-results__header-container"
       >
-        Resultaten (
-        2
-        )
-      </h1>
-      <h2
-        className="map-search-results__header-subtitle"
-      >
-        locatie 
-        1.12
-        , 
-        654.32
-      </h2>
-    </div>
+        <h1
+          className="map-search-results__header-title"
+        >
+          Resultaten
+        </h1>
+        <h2
+          className="map-search-results__header-subtitle"
+        >
+          locatie 
+          1.12
+          , 
+          654.32
+        </h2>
+      </div>
+    </button>
   </header>
-  <ul
-    className="map-search-results__list"
+  <div
+    className="map-search-results__scroll-wrapper"
   >
-    <li
-      key="result-uri-1"
+    <ul
+      className="map-search-results__list"
     >
-      <MapSearchResultsItem
-        item={
+      <MapSearchResultsCategory
+        category={
           Object {
+            "categoryLabel": "category",
+            "label": "label",
+            "results": Array [],
+            "showMore": false,
+            "subCategories": Array [],
+            "type": "bag/pand",
             "uri": "result-uri-1",
           }
         }
-        onClick={[Function]}
+        isSubcategory={false}
+        key="category"
+        onClick={[MockFunction]}
       />
-    </li>
-    <li
-      key="result-uri-2"
-    >
-      <MapSearchResultsItem
-        item={
+      <MapSearchResultsCategory
+        category={
           Object {
+            "categoryLabel": "category",
+            "label": "label",
+            "results": Array [],
+            "showMore": false,
+            "subCategories": Array [],
+            "type": "bag/pand",
             "uri": "result-uri-2",
           }
         }
-        onClick={[Function]}
+        isSubcategory={false}
+        key="category"
+        onClick={[MockFunction]}
       />
-    </li>
-  </ul>
+    </ul>
+    <footer
+      className="map-search-results__footer"
+    >
+      <button
+        className="map-search-results__button"
+        onClick={[MockFunction]}
+      >
+        <Component
+          className="map-search-results__button-icon"
+        />
+        Volledig weergeven
+      </button>
+    </footer>
+  </div>
 </section>
 `;
 
@@ -249,79 +392,118 @@ exports[`MapSearchResults rendering should update results 2`] = `
           map-search-results__header--pano
         "
   >
-    <img
-      alt="Panoramabeeld"
-      className="map-search-results__header-pano"
-      src="other-pano-url"
-    />
-    <div
-      className="map-search-results__header-container"
+    <button
+      className="
+            map-search-results__header-pano-button
+            map-search-results__header-pano-button--enabled
+          "
+      disabled={false}
+      onClick={[MockFunction]}
+      title="Bekijk Panorama view"
     >
-      <h1
-        className="map-search-results__header-title"
+      <img
+        alt="Panoramabeeld"
+        className="map-search-results__header-pano"
+        height="292"
+        src="other-pano-url"
+        width="438"
+      />
+      <div
+        className="map-search-results__header-container"
       >
-        Resultaten (
-        3
-        )
-      </h1>
-      <h2
-        className="map-search-results__header-subtitle"
-      >
-        locatie 
-        1.12
-        , 
-        654.32
-      </h2>
-    </div>
+        <h1
+          className="map-search-results__header-title"
+        >
+          Resultaten
+        </h1>
+        <h2
+          className="map-search-results__header-subtitle"
+        >
+          locatie 
+          1.12
+          , 
+          654.32
+        </h2>
+      </div>
+    </button>
   </header>
-  <ul
-    className="map-search-results__list"
+  <div
+    className="map-search-results__scroll-wrapper"
   >
-    <li>
-      <Notification
-        className=""
-        level="info"
-      >
-        Geen details beschikbaar van: 
-        Layer 3
-      </Notification>
-    </li>
-    <li
-      key="result-uri-1"
+    <ul
+      className="map-search-results__list"
     >
-      <MapSearchResultsItem
-        item={
+      <li>
+        <Notification
+          className=""
+          level="info"
+        >
+          Geen details beschikbaar van: 
+          Layer 3
+        </Notification>
+      </li>
+      <MapSearchResultsCategory
+        category={
           Object {
+            "categoryLabel": "category",
+            "label": "label",
+            "results": Array [],
+            "showMore": false,
+            "subCategories": Array [],
+            "type": "bag/pand",
             "uri": "result-uri-1",
           }
         }
-        onClick={[Function]}
+        isSubcategory={false}
+        key="category"
+        onClick={[MockFunction]}
       />
-    </li>
-    <li
-      key="result-uri-2"
-    >
-      <MapSearchResultsItem
-        item={
+      <MapSearchResultsCategory
+        category={
           Object {
+            "categoryLabel": "category",
+            "label": "label",
+            "results": Array [],
+            "showMore": false,
+            "subCategories": Array [],
+            "type": "bag/pand",
             "uri": "result-uri-2",
           }
         }
-        onClick={[Function]}
+        isSubcategory={false}
+        key="category"
+        onClick={[MockFunction]}
       />
-    </li>
-    <li
-      key="result-uri-3"
-    >
-      <MapSearchResultsItem
-        item={
+      <MapSearchResultsCategory
+        category={
           Object {
+            "categoryLabel": "category",
+            "label": "label",
+            "results": Array [],
+            "showMore": false,
+            "subCategories": Array [],
+            "type": "bag/pand",
             "uri": "result-uri-3",
           }
         }
-        onClick={[Function]}
+        isSubcategory={false}
+        key="category"
+        onClick={[MockFunction]}
       />
-    </li>
-  </ul>
+    </ul>
+    <footer
+      className="map-search-results__footer"
+    >
+      <button
+        className="map-search-results__button"
+        onClick={[MockFunction]}
+      >
+        <Component
+          className="map-search-results__button-icon"
+        />
+        Volledig weergeven
+      </button>
+    </footer>
+  </div>
 </section>
 `;

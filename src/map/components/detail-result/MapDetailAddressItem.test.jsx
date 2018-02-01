@@ -12,9 +12,12 @@ describe('MapDetailAddressItem', () => {
       postcode: '1012MT',
       straatnaam: 'Nieuwendijk'
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailAddressItem
         label={label}
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         values={values}
       />
     );
@@ -30,9 +33,12 @@ describe('MapDetailAddressItem', () => {
       postcode: '1012MT',
       straatnaam: 'Nieuwendijk'
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailAddressItem
         label={label}
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         values={values}
       />
     );
