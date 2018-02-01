@@ -1,62 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PointsAvailable rendering should render nothing with drawing mode draw and 0 markers 1`] = `""`;
-
-exports[`PointsAvailable rendering should render nothing with drawing mode draw and 1 markers 1`] = `""`;
-
-exports[`PointsAvailable rendering should render nothing with drawing mode draw and 6 markers 1`] = `""`;
-
-exports[`PointsAvailable rendering should render nothing with drawing mode draw and 7 markers 1`] = `
-<div
-  className="points-available"
->
-  <span
-    aria-label="Nog 5 punten mogelijk"
-    className="points-available__label"
-  >
-    Nog 
-    5
-     punt
-    en
-     mogelijk
-  </span>
-</div>
-`;
-
-exports[`PointsAvailable rendering should render nothing with drawing mode draw and 8 markers 1`] = `
-<div
-  className="points-available"
->
-  <span
-    aria-label="Nog 4 punten mogelijk"
-    className="points-available__label"
-  >
-    Nog 
-    4
-     punt
-    en
-     mogelijk
-  </span>
-</div>
-`;
-
-exports[`PointsAvailable rendering should render nothing with drawing mode draw and 11 markers 1`] = `
-<div
-  className="points-available"
->
-  <span
-    aria-label="Nog 1 punt mogelijk"
-    className="points-available__label"
-  >
-    Nog 
-    1
-     punt
-     mogelijk
-  </span>
-</div>
-`;
-
-exports[`PointsAvailable rendering should render nothing with drawing mode draw and 12 markers 1`] = `
+exports[`PointsAvailable should render multiple markers left 1`] = `
 <div
   className="points-available"
 >
@@ -69,63 +13,7 @@ exports[`PointsAvailable rendering should render nothing with drawing mode draw 
 </div>
 `;
 
-exports[`PointsAvailable rendering should render nothing with drawing mode edit and 0 markers 1`] = `""`;
-
-exports[`PointsAvailable rendering should render nothing with drawing mode edit and 1 markers 1`] = `""`;
-
-exports[`PointsAvailable rendering should render nothing with drawing mode edit and 6 markers 1`] = `""`;
-
-exports[`PointsAvailable rendering should render nothing with drawing mode edit and 7 markers 1`] = `
-<div
-  className="points-available"
->
-  <span
-    aria-label="Nog 5 punten mogelijk"
-    className="points-available__label"
-  >
-    Nog 
-    5
-     punt
-    en
-     mogelijk
-  </span>
-</div>
-`;
-
-exports[`PointsAvailable rendering should render nothing with drawing mode edit and 8 markers 1`] = `
-<div
-  className="points-available"
->
-  <span
-    aria-label="Nog 4 punten mogelijk"
-    className="points-available__label"
-  >
-    Nog 
-    4
-     punt
-    en
-     mogelijk
-  </span>
-</div>
-`;
-
-exports[`PointsAvailable rendering should render nothing with drawing mode edit and 11 markers 1`] = `
-<div
-  className="points-available"
->
-  <span
-    aria-label="Nog 1 punt mogelijk"
-    className="points-available__label"
-  >
-    Nog 
-    1
-     punt
-     mogelijk
-  </span>
-</div>
-`;
-
-exports[`PointsAvailable rendering should render nothing with drawing mode edit and 12 markers 1`] = `
+exports[`PointsAvailable should render no markers left 1`] = `
 <div
   className="points-available"
 >
@@ -138,16 +26,15 @@ exports[`PointsAvailable rendering should render nothing with drawing mode edit 
 </div>
 `;
 
-exports[`PointsAvailable rendering should render nothing with drawing mode none and 0 markers 1`] = `""`;
-
-exports[`PointsAvailable rendering should render nothing with drawing mode none and 1 markers 1`] = `""`;
-
-exports[`PointsAvailable rendering should render nothing with drawing mode none and 6 markers 1`] = `""`;
-
-exports[`PointsAvailable rendering should render nothing with drawing mode none and 7 markers 1`] = `""`;
-
-exports[`PointsAvailable rendering should render nothing with drawing mode none and 8 markers 1`] = `""`;
-
-exports[`PointsAvailable rendering should render nothing with drawing mode none and 11 markers 1`] = `""`;
-
-exports[`PointsAvailable rendering should render nothing with drawing mode none and 12 markers 1`] = `""`;
+exports[`PointsAvailable should render one marker left 1`] = `
+<div
+  className="points-available"
+>
+  <span
+    aria-label="Geen punten meer mogelijk"
+    className="points-available__label"
+  >
+    Geen punten meer mogelijk
+  </span>
+</div>
+`;

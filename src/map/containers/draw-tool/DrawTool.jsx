@@ -133,6 +133,7 @@ class DrawTool extends React.Component {
   }
 
   render() {
+    const markersLeft = drawToolConfig.MAX_MARKERS - this.props.shapeMarkers;
     return (
       <section className="draw-tool">
         <ToggleDrawing
@@ -144,10 +145,14 @@ class DrawTool extends React.Component {
           shapeDistanceTxt={this.props.shapeDistanceTxt}
           onClearDrawing={this.props.onClearDrawing}
         />
-        <PointsAvailable
-          shapeMarkers={this.props.shapeMarkers}
-          drawingMode={this.state.drawingMode}
-        />
+        {
+          markersLeft <= drawToolConfig.MARKERS_LEFT_WARNING &&
+          this.state.drawingMode !== drawToolConfig.DRAWING_MODE.NONE &&
+          <PointsAvailable
+            markersLeft={markersLeft}
+            drawingMode={this.state.drawingMode}
+          />
+        }
       </section>
     );
   }
@@ -164,7 +169,6 @@ DrawTool.propTypes = {
   shapeDistanceTxt: PropTypes.string.isRequired,
   dataSelection: PropTypes.object,
   geometry: PropTypes.array,
-  uiMapFullscreen: PropTypes.bool.isRequired,
 
   onClearDrawing: PropTypes.func.isRequired,
   onMapUpdateShape: PropTypes.func.isRequired,

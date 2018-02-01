@@ -253,5 +253,18 @@ describe('ToggleDrawing', () => {
       const wrapper = shallow(<DrawTool />, { context: { store } }).dive();
       expect(wrapper).toMatchSnapshot();
     });
+
+    it('should render points available almost max points drawn', () => {
+      const store = configureMockStore()({
+        ...initialState,
+        map: {
+          ...initialState.map,
+          shapeMarkers: 10
+        }
+      });
+      const wrapper = shallow(<DrawTool />, { context: { store } }).dive();
+      wrapper.setState({ drawingMode: 'bar' });
+      expect(wrapper).toMatchSnapshot();
+    });
   });
 });

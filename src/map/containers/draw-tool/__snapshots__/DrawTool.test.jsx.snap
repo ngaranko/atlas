@@ -13,10 +13,6 @@ exports[`ToggleDrawing actions should be initialized first 1`] = `
     shapeDistanceTxt=""
     shapeMarkers={0}
   />
-  <PointsAvailable
-    drawingMode="none"
-    shapeMarkers={0}
-  />
 </section>
 `;
 
@@ -31,10 +27,6 @@ exports[`ToggleDrawing actions should save previous markers and trigger cancel w
   <ShapeSummary
     onClearDrawing={[Function]}
     shapeDistanceTxt="1.89 km"
-    shapeMarkers={2}
-  />
-  <PointsAvailable
-    drawingMode="none"
     shapeMarkers={2}
   />
 </section>
@@ -53,10 +45,6 @@ exports[`ToggleDrawing actions should save previous markers and trigger cancel w
     shapeDistanceTxt="2.18 km"
     shapeMarkers={3}
   />
-  <PointsAvailable
-    drawingMode="none"
-    shapeMarkers={3}
-  />
 </section>
 `;
 
@@ -71,10 +59,6 @@ exports[`ToggleDrawing actions should turn drawing on and off when drawing mode 
   <ShapeSummary
     onClearDrawing={[Function]}
     shapeDistanceTxt=""
-    shapeMarkers={0}
-  />
-  <PointsAvailable
-    drawingMode="draw"
     shapeMarkers={0}
   />
 </section>
@@ -93,9 +77,25 @@ exports[`ToggleDrawing actions should turn drawing on and off when drawing mode 
     shapeDistanceTxt=""
     shapeMarkers={0}
   />
+</section>
+`;
+
+exports[`ToggleDrawing rendering should render points available almost max points drawn 1`] = `
+<section
+  className="draw-tool"
+>
+  <ToggleDrawing
+    drawingMode="bar"
+    shapeMarkers={10}
+  />
+  <ShapeSummary
+    onClearDrawing={[Function]}
+    shapeDistanceTxt=""
+    shapeMarkers={10}
+  />
   <PointsAvailable
-    drawingMode="none"
-    shapeMarkers={0}
+    drawingMode="bar"
+    markersLeft={2}
   />
 </section>
 `;
@@ -111,10 +111,6 @@ exports[`ToggleDrawing rendering should render points available, shape summary a
   <ShapeSummary
     onClearDrawing={[Function]}
     shapeDistanceTxt=""
-    shapeMarkers={0}
-  />
-  <PointsAvailable
-    drawingMode="none"
     shapeMarkers={0}
   />
 </section>
