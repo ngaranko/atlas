@@ -3,6 +3,7 @@
 exports[`MapDetailGebiedenUnesco should render everything 1`] = `
 <MapDetailResultWrapper
   onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Unesco label"
   title="UNESCO"

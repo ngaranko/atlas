@@ -23,6 +23,7 @@ describe('MapDetailVestiging', () => {
       <MapDetailVestiging
         panoUrl="panoUrl"
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         vestiging={vestiging}
       />
     );
@@ -47,6 +48,7 @@ describe('MapDetailVestiging', () => {
       <MapDetailVestiging
         panoUrl="panoUrl"
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         vestiging={vestiging}
       />
     );

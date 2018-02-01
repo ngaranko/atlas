@@ -16,6 +16,7 @@ describe('MapDetailExplosievenVerdachtGebied', () => {
       <MapDetailExplosievenVerdachtGebied
         panoUrl="panoUrl"
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         verdachtGebied={verdachtGebied}
       />
     );
