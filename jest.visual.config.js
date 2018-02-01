@@ -9,7 +9,9 @@ module.exports = {
     'raf/polyfill',
     './test/setup-jest.js'
   ],
-  testMatch: ['**/?(*.)visual.(spec|test).js?(x)'],
+  testMatch: [
+    '**/?(*.)visual.test.js?(x)'
+  ],
   testEnvironment: './test/jest-visual-environment.js',
   testPathIgnorePatterns: [
     '/e2e/',

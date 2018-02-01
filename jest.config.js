@@ -30,7 +30,12 @@ module.exports = {
   ],
   testMatch: [
     '**/!(*.visual).test.jsx',
-    '**/*.spec.js'
+    '**/*.test.js'
+    // Do match
+    // foo.test.jsx
+    // barService.test.js
+    // Do not match:
+    // foo.visual.test.jsx
   ],
   testEnvironment: 'jest-environment-jsdom-global',
   testPathIgnorePatterns: [
