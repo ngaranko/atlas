@@ -26,6 +26,7 @@ describe('MapSearchResults', () => {
         location={location}
         onItemClick={clickHandler}
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         results={[]}
       />
     );
@@ -39,6 +40,7 @@ describe('MapSearchResults', () => {
         <MapSearchResults
           onItemClick={clickHandler}
           onMaximize={clickHandler}
+          onPanoPreviewClick={clickHandler}
           results={[]}
         />
       );
@@ -66,6 +68,7 @@ describe('MapSearchResults', () => {
           panoUrl={panoUrl}
           missingLayers={missingLayers}
           onMaximize={clickHandler}
+          onPanoPreviewClick={clickHandler}
           results={results}
         />
       );
@@ -90,6 +93,7 @@ describe('MapSearchResults', () => {
           location={location}
           onItemClick={clickHandler}
           onMaximize={clickHandler}
+          onPanoPreviewClick={clickHandler}
           results={results}
         />
       );
@@ -115,6 +119,7 @@ describe('MapSearchResults', () => {
           onItemClick={clickHandler}
           panoUrl={panoUrl}
           onMaximize={clickHandler}
+          onPanoPreviewClick={clickHandler}
           results={results}
         />
       );

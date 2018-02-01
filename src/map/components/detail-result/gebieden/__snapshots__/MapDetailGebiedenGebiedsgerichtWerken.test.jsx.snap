@@ -3,6 +3,7 @@
 exports[`MapDetailGebiedenGebiedsgerichtWerken should render everything 1`] = `
 <MapDetailResultWrapper
   onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Gebiedsgericht werken label"
   title="Gebiedsgerichtwerken-gebied"
