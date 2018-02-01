@@ -20,6 +20,12 @@ const getAddres = (item) => ({
   statusLabel: getStatusLabelAdress(item)
 });
 
+const getVesting = (item) => ({
+  ...getDefault(item),
+  isNevenadres: !item.hoofdadres,
+  statusLabel: getStatusLabelAdress(item)
+});
+
 const getOpenbareRuimte = (item) => ({
   ...getDefault(item),
   statusLabel: item.properties.opr_type !== 'Weg' ? item.properties.opr_type : ''
@@ -41,7 +47,7 @@ const transformResultByType = (result) => {
       return getAddres(result);
 
     case 'vestiging':
-      return getAddres(result);
+      return getVesting(result);
 
     case 'bag/openbareruimte':
       return getOpenbareRuimte(result);
