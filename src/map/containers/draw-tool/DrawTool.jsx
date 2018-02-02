@@ -14,7 +14,15 @@ import ToggleDrawing from '../../components/toggle-drawing/ToggleDrawing';
 import ShapeSummary from '../../components/shape-summary/ShapeSummary';
 import PointsAvailable from '../../components/points-available/PointsAvailable';
 
-import { initialize, cancel, isEnabled, setPolygon, currentShape } from '../../services/draw-tool/draw-tool';
+import {
+  cancel,
+  currentShape,
+  disable,
+  enable,
+  initialize,
+  isEnabled,
+  setPolygon
+} from '../../services/draw-tool/draw-tool';
 import drawToolConfig from '../../services/draw-tool/draw-tool-config';
 
 import './_draw-tool.scss';
@@ -38,6 +46,17 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   onSetPageName: setPageName,
   onSetMapFullscreen: setMapFullscreen
 }, dispatch);
+
+export const toggleDrawing = (markers) => {
+  if (isEnabled()) {
+    disable();
+  } else {
+    if (markers > 0) {
+      setPolygon([]);
+    }
+    enable();
+  }
+};
 
 class DrawTool extends React.Component {
   constructor(props) {
@@ -139,6 +158,7 @@ class DrawTool extends React.Component {
         <ToggleDrawing
           drawingMode={this.state.drawingMode}
           shapeMarkers={this.props.shapeMarkers}
+          toggleDrawing={toggleDrawing}
         />
         {
           !isEnabled() && this.props.shapeMarkers === 2

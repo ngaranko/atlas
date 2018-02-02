@@ -1,23 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ToggleDrawing actions should be initialized first 1`] = `
+exports[`DrawTool actions should be initialized first 1`] = `
 <section
   className="draw-tool"
 >
   <ToggleDrawing
     drawingMode="none"
     shapeMarkers={0}
+    toggleDrawing={[Function]}
   />
 </section>
 `;
 
-exports[`ToggleDrawing actions should save previous markers and trigger cancel when line has been drawn 1`] = `
+exports[`DrawTool actions should save previous markers and trigger cancel when line has been drawn 1`] = `
 <section
   className="draw-tool"
 >
   <ToggleDrawing
     drawingMode="none"
     shapeMarkers={2}
+    toggleDrawing={[Function]}
   />
   <ShapeSummary
     onClearDrawing={[Function]}
@@ -26,46 +28,50 @@ exports[`ToggleDrawing actions should save previous markers and trigger cancel w
 </section>
 `;
 
-exports[`ToggleDrawing actions should save previous markers and trigger cancel when polygon has been drawn 1`] = `
+exports[`DrawTool actions should save previous markers and trigger cancel when polygon has been drawn 1`] = `
 <section
   className="draw-tool"
 >
   <ToggleDrawing
     drawingMode="none"
     shapeMarkers={3}
+    toggleDrawing={[Function]}
   />
 </section>
 `;
 
-exports[`ToggleDrawing actions should turn drawing on and off when drawing mode has switched 1`] = `
+exports[`DrawTool actions should turn drawing on and off when drawing mode has switched 1`] = `
 <section
   className="draw-tool"
 >
   <ToggleDrawing
     drawingMode="draw"
     shapeMarkers={0}
+    toggleDrawing={[Function]}
   />
 </section>
 `;
 
-exports[`ToggleDrawing actions should turn drawing on and off when drawing mode has switched 2`] = `
+exports[`DrawTool actions should turn drawing on and off when drawing mode has switched 2`] = `
 <section
   className="draw-tool"
 >
   <ToggleDrawing
     drawingMode="none"
     shapeMarkers={0}
+    toggleDrawing={[Function]}
   />
 </section>
 `;
 
-exports[`ToggleDrawing should render points available almost max points drawn 1`] = `
+exports[`DrawTool should render points available almost max points drawn 1`] = `
 <section
   className="draw-tool"
 >
   <ToggleDrawing
     drawingMode="bar"
     shapeMarkers={10}
+    toggleDrawing={[Function]}
   />
   <PointsAvailable
     drawingMode="bar"
@@ -74,24 +80,26 @@ exports[`ToggleDrawing should render points available almost max points drawn 1`
 </section>
 `;
 
-exports[`ToggleDrawing should render points available, shape summary and toggle drawing 1`] = `
+exports[`DrawTool should render points available, shape summary and toggle drawing 1`] = `
 <section
   className="draw-tool"
 >
   <ToggleDrawing
     drawingMode="none"
     shapeMarkers={0}
+    toggleDrawing={[Function]}
   />
 </section>
 `;
 
-exports[`ToggleDrawing should render summary for 2 points 1`] = `
+exports[`DrawTool should render summary for 2 points 1`] = `
 <section
   className="draw-tool"
 >
   <ToggleDrawing
     drawingMode="none"
     shapeMarkers={2}
+    toggleDrawing={[Function]}
   />
 </section>
 `;

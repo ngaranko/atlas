@@ -2,13 +2,54 @@ import React from 'react';
 import configureMockStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
 
-import DrawTool from './DrawTool';
+import DrawTool, { toggleDrawing } from './DrawTool';
 import drawToolConfig from '../../services/draw-tool/draw-tool-config';
-import { initialize, cancel, isEnabled, setPolygon, currentShape } from '../../services/draw-tool/draw-tool';
+import {
+  cancel,
+  disable,
+  enable,
+  initialize,
+  isEnabled,
+  setPolygon
+} from '../../services/draw-tool/draw-tool';
 
 jest.mock('../../services/draw-tool/draw-tool');
 
-describe('ToggleDrawing', () => {
+describe('The toggleDrawing functionality', () => {
+  beforeEach(() => {
+    enable.mockClear();
+    disable.mockClear();
+    setPolygon.mockClear();
+  });
+
+  it('should trigger toggle drawing on when clicked with zero markers', () => {
+    isEnabled.mockImplementation(() => false);
+
+    toggleDrawing(0);
+
+    expect(enable).toHaveBeenCalled();
+      // is should NOT reset polygon when there are no markers
+    expect(setPolygon).not.toHaveBeenCalled();
+  });
+
+  it('should trigger toggle drawing off when clicked', () => {
+    isEnabled.mockImplementation(() => true);
+
+    toggleDrawing(0);
+    expect(disable).toHaveBeenCalled();
+  });
+
+  it('should trigger toggle drawing on when clicked with 2 markers', () => {
+    isEnabled.mockImplementation(() => false);
+
+    toggleDrawing(2);
+    expect(enable).toHaveBeenCalled();
+      // is should reset polygon when there are no markers
+    expect(setPolygon).toHaveBeenCalledWith([]);
+  });
+});
+
+describe('DrawTool', () => {
   const initialState = {
     map: {
       drawingMode: drawToolConfig.DRAWING_MODE.NONE,
@@ -279,5 +320,4 @@ describe('ToggleDrawing', () => {
     wrapper.setState({ drawingMode: 'bar' });
     expect(wrapper).toMatchSnapshot();
   });
-
 });
