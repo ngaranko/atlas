@@ -1,6 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DrawTool actions should be initialized first 1`] = `
+exports[`DrawTool should render points available almost max points drawn 1`] = `
+<section
+  className="draw-tool"
+>
+  <ToggleDrawing
+    drawingMode="bar"
+    shapeMarkers={10}
+    toggleDrawing={[MockFunction]}
+  />
+  <PointsAvailable
+    drawingMode="bar"
+    markersLeft={2}
+  />
+</section>
+`;
+
+exports[`DrawTool should render points available, shape summary and toggle drawing 1`] = `
 <section
   className="draw-tool"
 >
@@ -12,7 +28,7 @@ exports[`DrawTool actions should be initialized first 1`] = `
 </section>
 `;
 
-exports[`DrawTool actions should save previous markers and trigger cancel when line has been drawn 1`] = `
+exports[`DrawTool should render summary for 2 points 1`] = `
 <section
   className="draw-tool"
 >
@@ -23,43 +39,7 @@ exports[`DrawTool actions should save previous markers and trigger cancel when l
   />
   <ShapeSummary
     onClearDrawing={[MockFunction]}
-    shapeDistanceTxt="1.89 km"
-  />
-</section>
-`;
-
-exports[`DrawTool actions should save previous markers and trigger cancel when polygon has been drawn 1`] = `
-<section
-  className="draw-tool"
->
-  <ToggleDrawing
-    drawingMode="none"
-    shapeMarkers={3}
-    toggleDrawing={[MockFunction]}
-  />
-</section>
-`;
-
-exports[`DrawTool actions should turn drawing on and off when drawing mode has switched 1`] = `
-<section
-  className="draw-tool"
->
-  <ToggleDrawing
-    drawingMode="draw"
-    shapeMarkers={0}
-    toggleDrawing={[MockFunction]}
-  />
-</section>
-`;
-
-exports[`DrawTool actions should turn drawing on and off when drawing mode has switched 2`] = `
-<section
-  className="draw-tool"
->
-  <ToggleDrawing
-    drawingMode="none"
-    shapeMarkers={0}
-    toggleDrawing={[MockFunction]}
+    shapeDistanceTxt=""
   />
 </section>
 `;
