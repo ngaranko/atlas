@@ -1,13 +1,14 @@
-import { toggleDrawing } from './DrawToolContainer';
 
 import {
   disable,
   enable,
   isEnabled,
   setPolygon
-} from '../../services/draw-tool/draw-tool';
+} from './draw-tool';
 
-jest.mock('../../services/draw-tool/draw-tool');
+import toggleDrawing from './draw-tool-toggle';
+
+jest.mock('./draw-tool');
 
 describe('The toggleDrawing functionality', () => {
   beforeEach(() => {
