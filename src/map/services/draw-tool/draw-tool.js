@@ -346,7 +346,7 @@ function getDistance(latLngs, isClosed) {
   return latLngs.reduce((total, latlng, i) => {
     if (i > 0) {
       const dist = latlng.distanceTo(latLngs[i - 1]);
-      total += dist;
+      return total + dist;
     }
     return total;
   }, isClosed && latLngs.length > 2 ? latLngs[0].distanceTo(latLngs[latLngs.length - 1]) : 0);

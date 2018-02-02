@@ -15,6 +15,15 @@
       height: auto;
     }
 
+    &-pano-button {
+      height: 100%;
+      width: 100%;
+    }
+
+    &-pano-button--disabled {
+      cursor: default;
+    }
+
     &-pano {
       display: block;
       height: 100%;
@@ -29,6 +38,7 @@
       margin-right: 16px;
       padding: 8px;
       position: absolute;
+      text-align: left;
 
       @media screen and (min-width: 1200px) {
         padding: 8px 12px;

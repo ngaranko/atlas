@@ -18,6 +18,7 @@ describe('MapDetailAdressenOpenbareRuimte', () => {
       <MapDetailAdressenOpenbareRuimte
         panoUrl="panoUrl"
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         openbareRuimte={openbareRuimte}
       />
     );

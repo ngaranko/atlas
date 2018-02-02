@@ -3,6 +3,7 @@
 exports[`MapDetailVestiging should render everything 1`] = `
 <MapDetailResultWrapper
   onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Vestiging label"
   title="Vestiging"
@@ -50,6 +51,7 @@ exports[`MapDetailVestiging should render everything 1`] = `
 exports[`MapDetailVestiging should render without label 1`] = `
 <MapDetailResultWrapper
   onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle=""
   title="Vestiging"

@@ -3,6 +3,7 @@
 exports[`MapDetailAdressenLigplaats should render everything 1`] = `
 <MapDetailResultWrapper
   onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Ligplaats label"
   title="Ligplaats"

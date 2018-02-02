@@ -2,24 +2,24 @@
 
 exports[`MapSearchResultsItem rendering should render an item 1`] = `
 <li
-  className="map-search-results__item"
+  className="map-search-results-item"
 >
   <button
-    className="map-search-results__item-button"
+    className="map-search-results-item__button"
     onClick={[MockFunction]}
     title="Dam 1"
   >
     <section
-      className="map-search-results__item-content"
+      className="map-search-results-item__content"
     >
       <div
-        className="map-search-results__item-name"
+        className="map-search-results-item__name"
       >
         Dam 1
       </div>
     </section>
     <Component
-      className="map-search-results__item-arrow"
+      className="map-search-results-item__arrow"
     />
   </button>
 </li>
@@ -27,24 +27,24 @@ exports[`MapSearchResultsItem rendering should render an item 1`] = `
 
 exports[`MapSearchResultsItem rendering should update an item 1`] = `
 <li
-  className="map-search-results__item"
+  className="map-search-results-item"
 >
   <button
-    className="map-search-results__item-button"
+    className="map-search-results-item__button"
     onClick={[MockFunction]}
     title="ABC123"
   >
     <section
-      className="map-search-results__item-content"
+      className="map-search-results-item__content"
     >
       <div
-        className="map-search-results__item-name"
+        className="map-search-results-item__name"
       >
         ABC123
       </div>
     </section>
     <Component
-      className="map-search-results__item-arrow"
+      className="map-search-results-item__arrow"
     />
   </button>
 </li>

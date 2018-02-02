@@ -3,6 +3,7 @@
 exports[`MapDetailGebiedenBuurt should render everything 1`] = `
 <MapDetailResultWrapper
   onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Buurt label"
   title="Buurt"

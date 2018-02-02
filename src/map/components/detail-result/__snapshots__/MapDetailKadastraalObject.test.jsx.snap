@@ -3,6 +3,7 @@
 exports[`MapDetailKadastraalObject should not render size 1`] = `
 <MapDetailResultWrapper
   onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Kadastraal object label"
   title="Kadastraal object"
@@ -25,6 +26,7 @@ exports[`MapDetailKadastraalObject should not render size 1`] = `
 exports[`MapDetailKadastraalObject should render everything 1`] = `
 <MapDetailResultWrapper
   onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Kadastraal object label"
   title="Kadastraal object"
@@ -51,6 +53,7 @@ exports[`MapDetailKadastraalObject should render everything 1`] = `
 exports[`MapDetailKadastraalObject should render with zero value for size 1`] = `
 <MapDetailResultWrapper
   onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Kadastraal object label"
   title="Kadastraal object"
@@ -73,6 +76,7 @@ exports[`MapDetailKadastraalObject should render with zero value for size 1`] = 
 exports[`MapDetailKadastraalObject should render without kadastrale gemeente 1`] = `
 <MapDetailResultWrapper
   onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Kadastraal object label"
   title="Kadastraal object"

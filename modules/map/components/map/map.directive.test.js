@@ -57,9 +57,9 @@ describe('The dp-map directive', () => {
                     setZoom: angular.noop
                 },
                 drawTool: {
-                  initialize: angular.noop,
-                  enable: angular.noop,
-                  disable: angular.noop,
+                    initialize: angular.noop,
+                    enable: angular.noop,
+                    disable: angular.noop
                 },
                 onMapClick: {
                     initialize: angular.noop

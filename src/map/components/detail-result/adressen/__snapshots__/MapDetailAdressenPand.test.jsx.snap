@@ -3,6 +3,7 @@
 exports[`MapDetailAdressenPand should render everything 1`] = `
 <MapDetailResultWrapper
   onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Pand label"
   title="Pand"
@@ -26,6 +27,7 @@ exports[`MapDetailAdressenPand should render everything 1`] = `
 exports[`MapDetailAdressenPand should render unknown for empty year 1`] = `
 <MapDetailResultWrapper
   onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Pand label"
   title="Pand"
@@ -49,6 +51,7 @@ exports[`MapDetailAdressenPand should render unknown for empty year 1`] = `
 exports[`MapDetailAdressenPand should render unknown without year 1`] = `
 <MapDetailResultWrapper
   onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Pand label"
   title="Pand"

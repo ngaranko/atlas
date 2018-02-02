@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 
 import MapDetailResultWrapper from '../MapDetailResultWrapper';
 
-const MapDetailGebiedenGrootstedelijk = ({ panoUrl, grootstedelijk, onMaximize }) => (
+const MapDetailGebiedenGrootstedelijk = ({
+  panoUrl, grootstedelijk, onMaximize, onPanoPreviewClick
+}) => (
   <MapDetailResultWrapper
     panoUrl={panoUrl}
     onMaximize={onMaximize}
+    onPanoPreviewClick={onPanoPreviewClick}
     subTitle={grootstedelijk.label}
     title="Grootstedelijk gebied"
   />
@@ -17,7 +20,8 @@ MapDetailGebiedenGrootstedelijk.propTypes = {
     label: PropTypes.string.isRequired
   }).isRequired,
   panoUrl: PropTypes.string.isRequired,
-  onMaximize: PropTypes.func.isRequired
+  onMaximize: PropTypes.func.isRequired,
+  onPanoPreviewClick: PropTypes.func.isRequired
 };
 
 export default MapDetailGebiedenGrootstedelijk;

@@ -3,6 +3,7 @@
 exports[`MapDetailAdressenOpenbareRuimte should render everything 1`] = `
 <MapDetailResultWrapper
   onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Openbare ruimte label"
   title="Openbare ruimte type"

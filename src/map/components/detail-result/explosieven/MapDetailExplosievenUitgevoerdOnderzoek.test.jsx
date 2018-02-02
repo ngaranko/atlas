@@ -17,6 +17,7 @@ describe('MapDetailExplosievenUitgevoerdOnderzoek', () => {
       <MapDetailExplosievenUitgevoerdOnderzoek
         panoUrl="panoUrl"
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         uitgevoerdOnderzoek={uitgevoerdOnderzoek}
       />
     );

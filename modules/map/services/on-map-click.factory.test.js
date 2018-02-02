@@ -65,11 +65,11 @@ describe('The onMapClick factory', () => {
 
         onMapClick.initialize(mockedLeafletMap);
 
-        window.isBusy = isBusy;
+        window.isBusy = isBusy; // eslint-disable-line angular/window-service
     });
 
     afterEach(() => {
-      delete window.isBusy;
+        delete window.isBusy; // eslint-disable-line angular/window-service
     });
 
     // Mock the Leaflet click event

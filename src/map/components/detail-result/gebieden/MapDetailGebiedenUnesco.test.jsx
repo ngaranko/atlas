@@ -13,6 +13,7 @@ describe('MapDetailGebiedenUnesco', () => {
       <MapDetailGebiedenUnesco
         panoUrl="panoUrl"
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         unesco={unesco}
       />
     );

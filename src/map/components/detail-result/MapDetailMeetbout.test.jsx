@@ -15,6 +15,7 @@ describe('MapDetailMeetbout', () => {
       <MapDetailMeetbout
         panoUrl="panoUrl"
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         meetbout={meetbout}
       />
     );
