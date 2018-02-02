@@ -143,28 +143,52 @@ DrawTool.defaultProps = {
 };
 
 DrawTool.propTypes = {
-  drawingMode: PropTypes.string.isRequired,
-  shapeMarkers: PropTypes.number.isRequired,
-  shapeDistanceTxt: PropTypes.string.isRequired,
+  // TODO: reactivate required props
+  // drawingMode: PropTypes.string.isRequired,
+  // shapeMarkers: PropTypes.number.isRequired,
+  // shapeDistanceTxt: PropTypes.string.isRequired,
+  // dataSelection: PropTypes.object,
+  // geometry: PropTypes.array,
+
+  // currentShape: PropTypes.object,
+
+  // toggleDrawing: PropTypes.func.isRequired,
+  // isEnabled: PropTypes.func.isRequired,
+  // cancel: PropTypes.func.isRequired,
+  // setPolygon: PropTypes.func.isRequired,
+  // initialize: PropTypes.func.isRequired,
+
+  // onClearDrawing: PropTypes.func.isRequired,
+  // onMapUpdateShape: PropTypes.func.isRequired,
+  // setGeometryFilter: PropTypes.func.isRequired,
+  // resetGeometryFilter: PropTypes.func.isRequired,
+  // onStartDrawing: PropTypes.func.isRequired,
+  // onEndDrawing: PropTypes.func.isRequired,
+  // onSetPageName: PropTypes.func.isRequired,
+  // onSetMapFullscreen: PropTypes.func.isRequired
+
+  drawingMode: PropTypes.string,
+  shapeMarkers: PropTypes.number,
+  shapeDistanceTxt: PropTypes.string,
   dataSelection: PropTypes.object,
   geometry: PropTypes.array,
 
   currentShape: PropTypes.object,
 
-  toggleDrawing: PropTypes.func.isRequired,
-  isEnabled: PropTypes.func.isRequired,
-  cancel: PropTypes.func.isRequired,
-  setPolygon: PropTypes.func.isRequired,
-  initialize: PropTypes.func.isRequired,
+  toggleDrawing: PropTypes.func,
+  isEnabled: PropTypes.func,
+  cancel: PropTypes.func,
+  setPolygon: PropTypes.func,
+  initialize: PropTypes.func,
 
-  onClearDrawing: PropTypes.func.isRequired,
-  onMapUpdateShape: PropTypes.func.isRequired,
-  setGeometryFilter: PropTypes.func.isRequired,
-  resetGeometryFilter: PropTypes.func.isRequired,
-  onStartDrawing: PropTypes.func.isRequired,
-  onEndDrawing: PropTypes.func.isRequired,
-  onSetPageName: PropTypes.func.isRequired,
-  onSetMapFullscreen: PropTypes.func.isRequired
+  onClearDrawing: PropTypes.func,
+  onMapUpdateShape: PropTypes.func,
+  setGeometryFilter: PropTypes.func,
+  resetGeometryFilter: PropTypes.func,
+  onStartDrawing: PropTypes.func,
+  onEndDrawing: PropTypes.func,
+  onSetPageName: PropTypes.func,
+  onSetMapFullscreen: PropTypes.func
 };
 
 export default DrawTool;

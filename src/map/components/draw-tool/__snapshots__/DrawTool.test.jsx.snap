@@ -7,7 +7,7 @@ exports[`DrawTool actions should be initialized first 1`] = `
   <ToggleDrawing
     drawingMode="none"
     shapeMarkers={0}
-    toggleDrawing={[Function]}
+    toggleDrawing={[MockFunction]}
   />
 </section>
 `;
@@ -19,10 +19,10 @@ exports[`DrawTool actions should save previous markers and trigger cancel when l
   <ToggleDrawing
     drawingMode="none"
     shapeMarkers={2}
-    toggleDrawing={[Function]}
+    toggleDrawing={[MockFunction]}
   />
   <ShapeSummary
-    onClearDrawing={[Function]}
+    onClearDrawing={[MockFunction]}
     shapeDistanceTxt="1.89 km"
   />
 </section>
@@ -35,7 +35,7 @@ exports[`DrawTool actions should save previous markers and trigger cancel when p
   <ToggleDrawing
     drawingMode="none"
     shapeMarkers={3}
-    toggleDrawing={[Function]}
+    toggleDrawing={[MockFunction]}
   />
 </section>
 `;
@@ -47,7 +47,7 @@ exports[`DrawTool actions should turn drawing on and off when drawing mode has s
   <ToggleDrawing
     drawingMode="draw"
     shapeMarkers={0}
-    toggleDrawing={[Function]}
+    toggleDrawing={[MockFunction]}
   />
 </section>
 `;
@@ -59,47 +59,7 @@ exports[`DrawTool actions should turn drawing on and off when drawing mode has s
   <ToggleDrawing
     drawingMode="none"
     shapeMarkers={0}
-    toggleDrawing={[Function]}
-  />
-</section>
-`;
-
-exports[`DrawTool should render points available almost max points drawn 1`] = `
-<section
-  className="draw-tool"
->
-  <ToggleDrawing
-    drawingMode="bar"
-    shapeMarkers={10}
-    toggleDrawing={[Function]}
-  />
-  <PointsAvailable
-    drawingMode="bar"
-    markersLeft={2}
-  />
-</section>
-`;
-
-exports[`DrawTool should render points available, shape summary and toggle drawing 1`] = `
-<section
-  className="draw-tool"
->
-  <ToggleDrawing
-    drawingMode="none"
-    shapeMarkers={0}
-    toggleDrawing={[Function]}
-  />
-</section>
-`;
-
-exports[`DrawTool should render summary for 2 points 1`] = `
-<section
-  className="draw-tool"
->
-  <ToggleDrawing
-    drawingMode="none"
-    shapeMarkers={2}
-    toggleDrawing={[Function]}
+    toggleDrawing={[MockFunction]}
   />
 </section>
 `;
