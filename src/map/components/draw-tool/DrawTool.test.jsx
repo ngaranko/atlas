@@ -16,11 +16,11 @@ describe('DrawTool', () => {
       onClearDrawing: jest.fn(),
       drawingMode: drawToolConfig.DRAWING_MODE.NONE,
       shapeMarkers: 0,
-      shapeDistanceTxt: ''
+      shapeDistanceTxt: 'myDistanceTxt'
     };
   });
 
-  it('should render points available, shape summary and toggle drawing', () => {
+  it('should render toggle drawing', () => {
     const wrapper = shallow(<DrawTool {...defaultProps} />);
     expect(wrapper).toMatchSnapshot();
   });
@@ -36,11 +36,33 @@ describe('DrawTool', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should render points available almost max points drawn', () => {
+  it('should not render summary when tool is enabled', () => {
+    isEnabled.mockImplementation(() => true);
+    const wrapper = shallow((
+      <DrawTool
+        {...defaultProps}
+        shapeMarkers={2}
+      />
+    ));
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('should render points available if near max points', () => {
     const wrapper = shallow((
       <DrawTool
         {...defaultProps}
         drawingMode={'bar'}
+        shapeMarkers={10}
+      />
+    ));
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('should not render points available if tool is disabled', () => {
+    const wrapper = shallow((
+      <DrawTool
+        {...defaultProps}
+        drawingMode={drawToolConfig.DRAWING_MODE.NONE}
         shapeMarkers={10}
       />
     ));

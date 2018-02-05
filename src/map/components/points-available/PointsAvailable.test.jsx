@@ -16,7 +16,7 @@ describe('PointsAvailable', () => {
   it('should render one marker left', () => {
     const wrapper = shallow(
       <PointsAvailable
-        markersLeft={0}
+        markersLeft={1}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -25,7 +25,7 @@ describe('PointsAvailable', () => {
   it('should render multiple markers left', () => {
     const wrapper = shallow(
       <PointsAvailable
-        markersLeft={0}
+        markersLeft={2}
       />
     );
     expect(wrapper).toMatchSnapshot();

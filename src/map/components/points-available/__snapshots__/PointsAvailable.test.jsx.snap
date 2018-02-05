@@ -5,10 +5,10 @@ exports[`PointsAvailable should render multiple markers left 1`] = `
   className="points-available"
 >
   <span
-    aria-label="Geen punten meer mogelijk"
+    aria-label="Nog 2 punten mogelijk"
     className="points-available__label"
   >
-    Geen punten meer mogelijk
+    Nog 2 punten mogelijk
   </span>
 </div>
 `;
@@ -31,10 +31,10 @@ exports[`PointsAvailable should render one marker left 1`] = `
   className="points-available"
 >
   <span
-    aria-label="Geen punten meer mogelijk"
+    aria-label="Nog 1 punt mogelijk"
     className="points-available__label"
   >
-    Geen punten meer mogelijk
+    Nog 1 punt mogelijk
   </span>
 </div>
 `;
