@@ -5,19 +5,22 @@ import { bindActionCreators } from 'redux';
 
 import isEqual from 'lodash.isequal';
 
+import DrawTool from '../../components/draw-tool/DrawTool';
+import drawToolConfig from '../../services/draw-tool/draw-tool-config';
+
 import { mapClearDrawing, mapUpdateShape, mapStartDrawing, mapEndDrawing } from '../../../shared/ducks/map/map';
 import { setDataSelectionGeometryFilter, resetDataSelectionGeometryFilter } from '../../../shared/ducks/data-selection/data-selection';
 import { setPageName } from '../../../shared/ducks/page/page';
 import { setMapFullscreen } from '../../../shared/ducks/ui/ui';
 
-import ToggleDrawing from '../../components/toggle-drawing/ToggleDrawing';
-import ShapeSummary from '../../components/shape-summary/ShapeSummary';
-import PointsAvailable from '../../components/points-available/PointsAvailable';
-
-import { initialize, cancel, isEnabled, setPolygon, currentShape } from '../../services/draw-tool/draw-tool';
-import drawToolConfig from '../../services/draw-tool/draw-tool-config';
-
-import './_draw-tool.scss';
+import {
+  cancel,
+  currentShape,
+  initialize,
+  isEnabled,
+  setPolygon
+} from '../../services/draw-tool/draw-tool';
+import toggleDrawing from '../../services/draw-tool/draw-tool-toggle';
 
 const mapStateToProps = (state) => ({
   drawingMode: state.map.drawingMode,
@@ -39,7 +42,8 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   onSetMapFullscreen: setMapFullscreen
 }, dispatch);
 
-class DrawTool extends React.Component {
+// TODO: Get all business logic out of this file, probably to Redux!
+class DrawToolContainer extends React.Component {
   constructor(props) {
     super(props);
 
@@ -54,7 +58,12 @@ class DrawTool extends React.Component {
     this.setPolygon = this.setPolygon.bind(this);
     this.getMarkers = this.getMarkers.bind(this);
 
-    initialize(window.leafletMap, this.onFinishShape, this.onDrawingMode, this.onUpdateShape);
+    this.props.initialize(
+      window.leafletMap,
+      this.onFinishShape,
+      this.onDrawingMode,
+      this.onUpdateShape
+    );
 
     this.setPolygon();
   }
@@ -71,13 +80,13 @@ class DrawTool extends React.Component {
     if (props.dataSelection === null && props.geometry === null &&
       props.drawingMode === drawToolConfig.DRAWING_MODE.NONE) {
       // if dataSelection and geometry are empty then remove the drawn polygon
-      setPolygon([]);
+      this.props.setPolygon([]);
     }
 
     if (this.state.drawingMode !== props.drawingMode) {
       if (props.drawingMode === drawToolConfig.DRAWING_MODE.NONE) {
         // after drawing mode has changed the draw tool should be cancelled after navigating
-        cancel();
+        this.props.cancel();
       }
       this.setState({ drawingMode: props.drawingMode });
     }
@@ -104,7 +113,7 @@ class DrawTool extends React.Component {
 
   onDrawingMode(drawingMode) {
     if (drawingMode !== drawToolConfig.DRAWING_MODE.NONE) {
-      this.setState({ previousMarkers: [...currentShape.markers] });
+      this.setState({ previousMarkers: [...this.props.currentShape.markers] });
       this.props.resetGeometryFilter({ drawingMode });
       this.props.onStartDrawing({ drawingMode });
     } else {
@@ -121,8 +130,8 @@ class DrawTool extends React.Component {
   }
 
   setPolygon() {
-    if (!isEnabled()) {
-      setPolygon(this.getMarkers());
+    if (!this.props.isEnabled()) {
+      this.props.setPolygon(this.getMarkers());
     }
   }
 
@@ -133,38 +142,28 @@ class DrawTool extends React.Component {
   }
 
   render() {
-    return (
-      <section className="draw-tool">
-        <ToggleDrawing
-          drawingMode={this.state.drawingMode}
-          shapeMarkers={this.props.shapeMarkers}
-        />
-        <ShapeSummary
-          shapeMarkers={this.props.shapeMarkers}
-          shapeDistanceTxt={this.props.shapeDistanceTxt}
-          onClearDrawing={this.props.onClearDrawing}
-        />
-        <PointsAvailable
-          shapeMarkers={this.props.shapeMarkers}
-          drawingMode={this.state.drawingMode}
-        />
-      </section>
-    );
+    const markersLeft = drawToolConfig.MAX_MARKERS - this.props.shapeMarkers;
+    return (<DrawTool
+      markersLeft={markersLeft}
+      {...this.props}
+    />);
   }
 }
 
-DrawTool.defaultProps = {
-  dataSelection: null,
-  geometry: null
-};
-
-DrawTool.propTypes = {
+DrawToolContainer.propTypes = {
   drawingMode: PropTypes.string.isRequired,
   shapeMarkers: PropTypes.number.isRequired,
   shapeDistanceTxt: PropTypes.string.isRequired,
   dataSelection: PropTypes.object,
   geometry: PropTypes.array,
-  uiMapFullscreen: PropTypes.bool.isRequired,
+
+  currentShape: PropTypes.object,
+
+  toggleDrawing: PropTypes.func.isRequired,
+  isEnabled: PropTypes.func.isRequired,
+  cancel: PropTypes.func.isRequired,
+  setPolygon: PropTypes.func.isRequired,
+  initialize: PropTypes.func.isRequired,
 
   onClearDrawing: PropTypes.func.isRequired,
   onMapUpdateShape: PropTypes.func.isRequired,
@@ -176,4 +175,15 @@ DrawTool.propTypes = {
   onSetMapFullscreen: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DrawTool);
+export default connect(mapStateToProps, mapDispatchToProps)((props) => (
+  <DrawToolContainer
+    currentShape={currentShape}
+    toggleDrawing={toggleDrawing}
+    cancel={cancel}
+    initialize={initialize}
+    isEnabled={isEnabled}
+    setPolygon={setPolygon}
+    {...props}
+  />
+  )
+);

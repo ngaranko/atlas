@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 
 import { toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
 
-import DrawTool from '../../containers/draw-tool/DrawTool';
+import DrawTool from '../../containers/draw-tool/DrawToolContainer';
 import ToggleFullscreen from '../../components/toggle-fullscreen/ToggleFullscreen';
 
 const mapStateToProps = (state) => ({

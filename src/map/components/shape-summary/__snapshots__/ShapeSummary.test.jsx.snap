@@ -1,14 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ShapeSummary rendering should render empty with 0 markers 1`] = `""`;
-
-exports[`ShapeSummary rendering should render empty with 0 markers 2`] = `""`;
-
-exports[`ShapeSummary rendering should render empty with 1 markers 1`] = `""`;
-
-exports[`ShapeSummary rendering should render empty with more than 2 markers 1`] = `""`;
-
-exports[`ShapeSummary rendering should render info with 2 markers 1`] = `
+exports[`ShapeSummary should render info with 2 markers 1`] = `
 <div
   className="shape-summary"
 >
@@ -27,11 +19,6 @@ exports[`ShapeSummary rendering should render info with 2 markers 1`] = `
     <Component
       className="shape-summary__icon"
     />
-    <span
-      className="u-sr-only"
-    >
-      Lijn verwijderen
-    </span>
   </button>
 </div>
 `;

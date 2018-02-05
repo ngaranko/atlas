@@ -17,7 +17,7 @@ import {
 
     function drawToolFactory () {
         return {
-            initialize: (leafletMap) => initialize(leafletMap),
+            initialize,
             enable,
             disable,
             isEnabled
