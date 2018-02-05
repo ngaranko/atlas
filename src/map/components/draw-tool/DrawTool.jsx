@@ -33,7 +33,7 @@ const DrawTool = ({
       }
       {
         markersLeft <= drawToolConfig.MARKERS_LEFT_WARNING &&
-        drawingMode !== drawToolConfig.DRAWING_MODE.NONE &&
+        isEnabled() &&
         <PointsAvailable
           markersLeft={markersLeft}
           drawingMode={drawingMode}

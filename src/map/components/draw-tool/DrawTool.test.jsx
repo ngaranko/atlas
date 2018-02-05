@@ -48,10 +48,10 @@ describe('DrawTool', () => {
   });
 
   it('should render points available if near max points', () => {
+    isEnabled.mockImplementation(() => true);
     const wrapper = shallow((
       <DrawTool
         {...defaultProps}
-        drawingMode={'bar'}
         shapeMarkers={10}
       />
     ));
@@ -59,10 +59,10 @@ describe('DrawTool', () => {
   });
 
   it('should not render points available if tool is disabled', () => {
+    isEnabled.mockImplementation(() => false);
     const wrapper = shallow((
       <DrawTool
         {...defaultProps}
-        drawingMode={drawToolConfig.DRAWING_MODE.NONE}
         shapeMarkers={10}
       />
     ));

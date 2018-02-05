@@ -29,12 +29,12 @@ exports[`DrawTool should render points available if near max points 1`] = `
   className="draw-tool"
 >
   <ToggleDrawing
-    drawingMode="bar"
+    drawingMode="none"
     shapeMarkers={10}
     toggleDrawing={[MockFunction]}
   />
   <PointsAvailable
-    drawingMode="bar"
+    drawingMode="none"
     markersLeft={2}
   />
 </section>
