@@ -10,25 +10,36 @@
   outline: none;
   padding: 4px;
 
-  &:hover {
-    background-color: #EC0000;
-    border-color: #EC0000;
+  &:focus {
+    background-color: $secondary-gray10;
+    color: $primary-dark;
+    fill: $primary-dark;
+  }
 
+  &:hover {
+    border-color: #EC0000;
+    background-color: #EC0000;
+
+    // TODO:, fix illegal BEM
     svg {
       fill: #FFFFFF;
     }
 
+    // TODO:, fix illegal BEM
     span {
       color: #FFFFFF;
     }
   }
 
+
+  // TODO:, fix illegal BEM
   svg {
     fill: #666666;
     height: 24px;
     width: 24px;
   }
 
+  // TODO:, fix illegal BEM
   div {
     font-family: "Avenir LT W01 85 Heavy";
     line-height: 24px;
