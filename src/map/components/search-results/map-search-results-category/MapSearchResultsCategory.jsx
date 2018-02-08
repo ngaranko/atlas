@@ -1,24 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import MapSearchResultsItem from './MapSearchResultsItem';
+import MapSearchResultsItem from '../map-search-results-item/MapSearchResultsItem';
 
-import categoryLabelsByType from '../../services/map-search/category-labels-by-type';
+import categoryLabelsByType from '../../../services/map-search/category-labels-by-type';
 
 const getStatusLabel = (result) => (
   result.statusLabel && result.statusLabel.length > 0 ? `(${result.statusLabel})` : '');
 
 const getPluralLabel = (result) => categoryLabelsByType[result.type].plural;
 
-const MapSearchResultsCategory = ({ category, onClick }) => (
-  <li className="map-search-results__category">
-    <h4 className="map-search-results__category-header">
+const MapSearchResultsCategory = ({ category, onClick, isSubcategory }) => (
+  <li className={
+      `map-search-results-category
+      ${isSubcategory ? 'map-search-results-category--subcategory' : ''}`}
+  >
+    <h4 className="map-search-results-category__header">
       {
         category.results.length > 1 ?
         `${getPluralLabel(category)}` : `${category.categoryLabel}`
       }
     </h4>
-    <ul className="map-search-results__category-list">
+    <ul className="map-search-results-category__list">
       {
         category.results.map((result) => (
           <MapSearchResultsItem
@@ -33,7 +36,7 @@ const MapSearchResultsCategory = ({ category, onClick }) => (
       }
       {
         category.showMore && (
-          <li className="map-search-results__category-showmore">
+          <li className="map-search-results-category__showmore">
             ...
           </li>
         )
@@ -44,6 +47,7 @@ const MapSearchResultsCategory = ({ category, onClick }) => (
           <MapSearchResultsCategory
             key={subCategory.categoryLabel}
             category={subCategory}
+            isSubcategory
             onClick={onClick}
           />
         )) : ''
@@ -52,15 +56,19 @@ const MapSearchResultsCategory = ({ category, onClick }) => (
   </li>
 );
 
+MapSearchResultsCategory.defaultProps = {
+  isSubcategory: false
+};
+
 MapSearchResultsCategory.propTypes = {
   category: PropTypes.shape({
     categoryLabel: PropTypes.string.isRequired,
     results: PropTypes.array.isRequired,
     subCategories: PropTypes.isRequired,
     type: PropTypes.string.isRequired,
-    parent: PropTypes.string,
     uri: PropTypes.string
   }).isRequired,
+  isSubcategory: PropTypes.bool,
   onClick: PropTypes.func.isRequired
 };
 

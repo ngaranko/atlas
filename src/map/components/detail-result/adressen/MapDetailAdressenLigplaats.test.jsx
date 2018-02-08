@@ -7,13 +7,14 @@ describe('MapDetailAdressenLigplaats', () => {
   it('should render everything', () => {
     const ligplaats = {
       label: 'Ligplaats label',
-      status: 'Ligplaats status'
+      status: { description: 'description', code: '18' }
     };
     const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailAdressenLigplaats
         panoUrl="panoUrl"
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         ligplaats={ligplaats}
       />
     );

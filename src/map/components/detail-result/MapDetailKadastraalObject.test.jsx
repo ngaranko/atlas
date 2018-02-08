@@ -19,6 +19,7 @@ describe('MapDetailKadastraalObject', () => {
       <MapDetailKadastraalObject
         panoUrl="panoUrl"
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         kadastraalObject={kadastraalObject}
       />
     );
@@ -36,6 +37,7 @@ describe('MapDetailKadastraalObject', () => {
       <MapDetailKadastraalObject
         panoUrl="panoUrl"
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         kadastraalObject={kadastraalObject}
       />
     );
@@ -53,6 +55,7 @@ describe('MapDetailKadastraalObject', () => {
       <MapDetailKadastraalObject
         panoUrl="panoUrl"
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         kadastraalObject={kadastraalObject}
       />
     );
@@ -69,6 +72,7 @@ describe('MapDetailKadastraalObject', () => {
       <MapDetailKadastraalObject
         panoUrl="panoUrl"
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         kadastraalObject={kadastraalObject}
       />
     );

@@ -2,10 +2,10 @@ import React from 'react';
 import configureMockStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
 
-import MapPanelContainer from '../MapPanelContainer';
-import MapLayers from '../../../components/layers/MapLayers';
-import MapLegend from '../../../components/legend/MapLegend';
-import MapType from '../../../components/type/MapType';
+import MapPanelContainer from './MapPanelContainer';
+import MapLayers from '../../components/layers/MapLayers';
+import MapLegend from '../../components/legend/MapLegend';
+import MapType from '../../components/type/MapType';
 
 describe('MapPanelContainer', () => {
   let store;

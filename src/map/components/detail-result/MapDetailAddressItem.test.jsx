@@ -17,6 +17,7 @@ describe('MapDetailAddressItem', () => {
       <MapDetailAddressItem
         label={label}
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         values={values}
       />
     );
@@ -37,6 +38,7 @@ describe('MapDetailAddressItem', () => {
       <MapDetailAddressItem
         label={label}
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         values={values}
       />
     );

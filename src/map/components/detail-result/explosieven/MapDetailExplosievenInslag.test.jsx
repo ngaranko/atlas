@@ -17,6 +17,7 @@ describe('MapDetailExplosievenInslag', () => {
       <MapDetailExplosievenInslag
         panoUrl="panoUrl"
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         inslag={inslag}
       />
     );

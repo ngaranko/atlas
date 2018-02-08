@@ -15,10 +15,11 @@ const statusToCssModifier = {
   32: 'info'
 };
 
-const MapDetailAdressenPand = ({ panoUrl, pand, onMaximize }) => (
+const MapDetailAdressenPand = ({ panoUrl, pand, onMaximize, onPanoPreviewClick }) => (
   <MapDetailResultWrapper
     panoUrl={panoUrl}
     onMaximize={onMaximize}
+    onPanoPreviewClick={onPanoPreviewClick}
     subTitle={pand.label}
     title="Pand"
   >
@@ -46,7 +47,8 @@ MapDetailAdressenPand.propTypes = {
     year: PropTypes.string
   }).isRequired,
   panoUrl: PropTypes.string.isRequired,
-  onMaximize: PropTypes.func.isRequired
+  onMaximize: PropTypes.func.isRequired,
+  onPanoPreviewClick: PropTypes.func.isRequired
 };
 
 export default MapDetailAdressenPand;

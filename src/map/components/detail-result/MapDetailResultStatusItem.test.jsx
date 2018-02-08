@@ -22,6 +22,7 @@ describe('MapDetailResultItem', () => {
   it('should not render empty value', () => {
     const label = 'label';
     const value = '';
+    const status = '';
     const wrapper = shallow(
       <MapDetailResultStatusItem
         label={label}

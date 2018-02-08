@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 import MapDetailResultItem from './MapDetailResultItem';
 import MapDetailResultWrapper from './MapDetailResultWrapper';
 
-const MapDetailMonument = ({ panoUrl, monument, onMaximize }) => (
+const MapDetailMonument = ({ panoUrl, monument, onMaximize, onPanoPreviewClick }) => (
   <MapDetailResultWrapper
     panoUrl={panoUrl}
     onMaximize={onMaximize}
+    onPanoPreviewClick={onPanoPreviewClick}
     subTitle={monument.label}
     title="Monument"
   >
@@ -36,7 +37,8 @@ MapDetailMonument.propTypes = {
     type: PropTypes.string
   }).isRequired,
   panoUrl: PropTypes.string.isRequired,
-  onMaximize: PropTypes.func.isRequired
+  onMaximize: PropTypes.func.isRequired,
+  onPanoPreviewClick: PropTypes.func.isRequired
 };
 
 export default MapDetailMonument;

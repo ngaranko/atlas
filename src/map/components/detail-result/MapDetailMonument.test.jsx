@@ -16,6 +16,7 @@ describe('MapDetailMonument', () => {
       <MapDetailMonument
         panoUrl="panoUrl"
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         monument={monument}
       />
     );

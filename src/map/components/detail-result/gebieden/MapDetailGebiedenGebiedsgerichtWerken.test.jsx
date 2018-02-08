@@ -13,6 +13,7 @@ describe('MapDetailGebiedenGebiedsgerichtWerken', () => {
       <MapDetailGebiedenGebiedsgerichtWerken
         panoUrl="panoUrl"
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         gebiedsgerichtWerken={gebiedsgerichtWerken}
       />
     );
