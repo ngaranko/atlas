@@ -11,14 +11,12 @@
   width: 24px;
 
   // NB: Fix width for IE11
-  @media screen and (-ms-high-contrast: active),
-    screen and (-ms-high-contrast: none) {
-      width: 32px;
+  @media screen and (-ms-high-contrast: active), // sass-lint:disable-line no-vendor-prefixes
+  screen and (-ms-high-contrast: none) {  // sass-lint:disable-line no-vendor-prefixes
+    width: 32px;
   }
 
   input {
-    -moz-appearance: none;
-    -webkit-appearance: none;
     appearance: none;
     height: inherit;
     opacity: 0;

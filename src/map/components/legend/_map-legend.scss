@@ -23,7 +23,7 @@
     position: relative;
 
     &--selectable-legend {
-      &::after {
+      &::after { // sass-lint:disable-line nesting-depth
         background-color: $secondary-gray40;
         bottom: -1px;
         content: "";
@@ -38,7 +38,7 @@
     &--unselectable-legend + .map-legend__items {
       padding-top: 0;
 
-      .is-print-mode &,
+      .is-print-mode &, // sass-lint:disable-line nesting-depth
       .is-embed &,
       .is-embed-preview & {
         padding-top: 10px;

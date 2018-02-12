@@ -23,7 +23,7 @@
       border-color: $primary-contrast;
       color: $primary-light;
 
-      svg {
+      svg { // sass-lint:disable-line nesting-depth
         fill: $primary-light;
       }
     }
@@ -45,7 +45,7 @@
       border-color: $primary-contrast;
       color: $primary-light;
 
-      svg {
+      svg { // sass-lint:disable-line nesting-depth
         fill: $primary-light;
       }
     }
@@ -101,7 +101,7 @@
         border-color: $primary-contrast;
         color: $primary-light;
 
-        svg {
+        svg { // sass-lint:disable-line nesting-depth
           fill: $primary-light;
         }
       }
@@ -161,7 +161,7 @@
 
   &__drop-down-button {
     // TODO: Configure `autoprefixer` in Storybook build to prevent prefixing
-    -webkit-appearance: none;
+    -webkit-appearance: none; // sass-lint:disable-line no-vendor-prefixes
     appearance: none;
     border: none;
     font-family: "Avenir LT W01 55 Roman";

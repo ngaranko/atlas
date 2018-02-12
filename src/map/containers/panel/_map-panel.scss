@@ -41,7 +41,7 @@
         background-color: $primary-contrast;
         cursor: pointer;
 
-        .map-panel__heading-icon,
+        .map-panel__heading-icon, // sass-lint:disable-line nesting-depth
         .map-panel__toggle-icon {
           fill: $primary-light;
         }
