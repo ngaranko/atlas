@@ -1,5 +1,7 @@
 @mixin icon($icon, $state: "", $hover-state: "red", $tall: "") {
   display: inline-block;
+  line-height: $button-size;
+  padding: 0;
   position: relative;
   width: $button-size;
   @if $tall == "tall" {
@@ -7,16 +9,14 @@
   } @else {
     height: $button-size;
   }
-  padding: 0;
-  line-height: $button-size;
 
   &::before {
     @extend %#{"dp-" + $icon + if(str-length($state) > 0, "-", "") + $state + "-icon"};
 
-    display: block;
-    width: $button-size;
-    height: $button-size;
     content: "";
+    display: block;
+    height: $button-size;
+    width: $button-size;
   }
 
   &:hover {
@@ -35,12 +35,12 @@
   @extend %icon-label;
   @include icon($icon, $state, $hover-state, $tall);
 
-  width: auto;
   padding-left: $base-whitespace;
+  width: auto;
 
   @if $tall == "tall" {
-    padding-top: 4px;
     padding-bottom: 4px;
+    padding-top: 4px;
   }
 
   &::before {
@@ -52,12 +52,12 @@
   @extend %icon-label;
   @include icon($icon, $state, $hover-state, $tall);
 
-  width: auto;
   padding-right: $base-whitespace;
+  width: auto;
 
   @if $tall == "tall" {
-    padding-top: 4px;
     padding-bottom: 4px;
+    padding-top: 4px;
   }
 
   &::before {
@@ -75,13 +75,13 @@
   }
 
   &::after {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
     border: 1px solid $secondary-gray20;
+    bottom: 0;
     content: "";
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 }
 

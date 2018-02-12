@@ -13,24 +13,24 @@
 .o-header__subtitle {
   @include font-size-responsive($l-header-font);
 
+  color: $primary-contrast;
   display: block;
   margin-bottom: .4 * $base-whitespace;
-  color: $primary-contrast;
 
   .s-indented-list & {
     @include font-size-responsive($m-header-font);
-    margin-bottom: $base-whitespace;
     color: $secondary-gray60;
+    margin-bottom: $base-whitespace;
   }
 }
 
 .o-header__buttongroup {
   position: absolute;
-  top: 0;
   right: 0;
+  top: 0;
 }
 
 .o-header__button {
-  margin-left: .5 * $base-whitespace;
   float: right;
+  margin-left: .5 * $base-whitespace;
 }

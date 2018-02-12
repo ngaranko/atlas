@@ -10,12 +10,12 @@ $link-offset: 3px;
 %link {
   @include font-size($s-font);
   @include font-weight($bold-weight);
-  display: inline-block;
-  position: relative;
   color: $primary-dark;
-  text-decoration: none;
   cursor: pointer;
+  display: inline-block;
   overflow: visible;
+  position: relative;
+  text-decoration: none;
 
   &:hover {
     color: $primary-contrast;
@@ -42,13 +42,13 @@ $link-offset: 3px;
 
   &::after,
   &::before {
+    content: "";
     display: inline-block;
-    position: relative;
-    margin-right: $link-offset;
     // Move the arrow icon left of the link text by the width of the icon plus
     // the space needed between the icon and the link
     margin-left: calc(-#{$icon-size} - #{$link-offset});
-    content: "";
+    margin-right: $link-offset;
+    position: relative;
     vertical-align: text-bottom;
   }
 
@@ -59,8 +59,8 @@ $link-offset: 3px;
 
   &::before {
     @include icon-button("link-arrow");
-    width: $icon-size;
     height: $icon-size;
+    width: $icon-size;
   }
 }
 
@@ -75,16 +75,16 @@ $link-offset: 3px;
   outline: none;
 
   &::before {
+    content: "+";
     display: inline-block;
-    position: relative;
-    width: $icon-size;
     height: $icon-size;
-    margin-right: $link-offset;
     // Move the arrow icon left of the link text by the width of the icon plus
     // the space needed between the icon and the link
     margin-left: calc(-#{$icon-size} - #{$link-offset});
+    margin-right: $link-offset;
+    position: relative;
     text-align: center;
-    content: "+";
+    width: $icon-size;
   }
 }
 

@@ -6,37 +6,37 @@ $tab-v-padding: 8px;
   position: relative;
 
   &::before {
-    margin-right: -2 * $base-whitespace;
     margin-left: -2 * $base-whitespace;
+    margin-right: -2 * $base-whitespace;
   }
 
   &::before,
   &::after {
+    background-color: $secondary-gray20;
+    bottom: 0;
+    content: "";
     display: block;
+    height: 1px;
+    left: 0;
     position: absolute;
     right: 0;
-    bottom: 0;
-    left: 0;
-    height: 1px;
-    background-color: $secondary-gray20;
-    content: "";
   }
 
   ul {
-    display: block;
     border-left: 1px solid $secondary-gray20;
     border-top-left-radius: $tab-border-radius;
+    display: block;
     overflow: hidden;
   }
 
   li {
-    display: block;
-    height: $tab-height;
-    float: left;
-    border-top: 1px solid $secondary-gray20;
     border-right: 1px solid $secondary-gray20;
+    border-top: 1px solid $secondary-gray20;
     border-top-left-radius: $tab-border-radius;
     border-top-right-radius: $tab-border-radius;
+    display: block;
+    float: left;
+    height: $tab-height;
 
     &:not(.is-active) {
       background-image: linear-gradient(to bottom, $primary-light, $secondary-gray10);
@@ -51,13 +51,13 @@ $tab-v-padding: 8px;
       position: relative;
 
       &::after {
+        background-color: $primary-light;
+        bottom: 0;
+        content: "";
+        height: 1px;
+        left: 0;
         position: absolute;
         right: 0;
-        bottom: 0;
-        left: 0;
-        height: 1px;
-        background-color: $primary-light;
-        content: "";
         z-index: 1;
       }
     }
