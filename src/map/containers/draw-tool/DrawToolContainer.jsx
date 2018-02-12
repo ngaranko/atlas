@@ -76,8 +76,7 @@ class DrawToolContainer extends React.Component {
       this.setPolygon();
       this.setState({ previousMarkers: [...markers] });
     }
-
-    if (props.dataSelection === null && props.geometry === null &&
+    if (!props.dataSelection && !props.geometry &&
       props.drawingMode === drawToolConfig.DRAWING_MODE.NONE) {
       // if dataSelection and geometry are empty then remove the drawn polygon
       this.props.setPolygon([]);
