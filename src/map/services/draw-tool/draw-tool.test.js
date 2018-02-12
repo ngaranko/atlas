@@ -1,8 +1,8 @@
 /* global L */
 
-import { initialize, enable, disable, cancel, isEnabled, setPolygon, currentShape, drawTool }
+import { initialize, enable, disable, currentShape, drawTool }
   from './draw-tool';
-import drawToolConfig from './draw-tool-config'
+import drawToolConfig from './draw-tool-config';
 
 let leafletMap;
 let leafletOld;
@@ -135,7 +135,7 @@ describe('methods', () => {
     document.body.innerHTML = '<div id="leafletMap"></div>';
     leafletMap = L.map(document.getElementById('leafletMap'), drawToolConfig.MAP_OPTIONS);
 
-    initialize(leafletMap, drawToolConfig.MAP_OPTIONS, onFinish, onDrawingMode, onUpdateShape);
+    initialize(leafletMap, onFinish, onDrawingMode, onUpdateShape);
 
     drawTool.drawShapeHandler.enable = jest.fn();
     drawTool.drawShapeHandler.disable = jest.fn();
