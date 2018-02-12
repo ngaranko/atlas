@@ -2,7 +2,7 @@
 @import "../../../shared/styles/utilities/screen-reader";
 
 .map-layers {
-  background-color: #FAFAFA;
+  background-color: $secondary-gray5;
   position: relative;
   user-select: none;
 
@@ -47,7 +47,7 @@
   }
 
   &__category-text {
-    color: #000;
+    color: $primary-dark;
     font-family: "Avenir LT W01 85 Heavy";
     font-size: 16px;
     margin: 0;
@@ -62,9 +62,9 @@
     text-indent: 0;
 
     &--active {
-      background-color: #FFFFFF;
-      border-bottom-color: #666666;
-      border-top-color: #666666;
+      background-color: $primary-light;
+      border-bottom-color: $secondary-gray60;
+      border-top-color: $secondary-gray60;
 
       & + & {
         border-top-color: transparent;
@@ -85,7 +85,7 @@
       padding: 0;
       width: 100%;
 
-      & > span:first-child {
+      .map-layers__toggle-title {
         overflow: hidden;
         padding: 8px;
         text-align: left;
@@ -101,7 +101,7 @@
   }
 
   &__toggle {
-    @extend %__toggle;
+    @extend %__toggle; // sass-lint:disable-line placeholder-name-format
     margin-right: 8px;
 
     @media screen and (min-width: 1200px) {
@@ -114,15 +114,15 @@
     }
 
     .map-layers__title--active & {
-      border-color: #666666;
+      border-color: $secondary-gray60;
     }
 
-    .map-layers__title:hover & {
-      background-color: #EC0000;
-      border-color: #EC0000;
+    .map-layers__title:hover & { // sass-lint:disable-line force-pseudo-nesting
+      background-color: $primary-contrast;
+      border-color: $primary-contrast;
 
       svg {
-        fill: #FFFFFF;
+        fill: $primary-light;
       }
     }
   }

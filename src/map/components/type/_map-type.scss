@@ -1,14 +1,14 @@
 @import "../../../shared/styles/utilities/screen-reader";
 
 .map-type {
-  margin: 8px 8px 16px 8px;
+  margin: 8px 8px 16px;
 
   @media screen and (min-width: 1200px) {
-    margin: 12px 12px 24px 12px;
+    margin: 12px 12px 24px;
   }
 
   &__title {
-    font-family: 'Avenir LT W01 85 Heavy';
+    font-family: "Avenir LT W01 85 Heavy";
     font-size: 16px;
     line-height: 1.25;
     margin: 8px 0;

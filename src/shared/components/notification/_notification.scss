@@ -1,5 +1,7 @@
+@import "../../styles/config";
+
 .notification {
-  color: #FFFFFF;
+  color: $primary-light;
   display: flex;
   font-family: "Avenir LT W01 65 Medium";
   justify-content: space-between;
@@ -11,7 +13,7 @@
   }
 
   &--info {
-    background-color: #004699;
+    background-color: $thema-10;
   }
 
   &__content {
@@ -30,17 +32,17 @@
     width: 24px;
 
     &:hover {
-      background-color: #666666;
+      background-color: $secondary-gray60;
     }
   }
 
   a {
-    color: #FFFFFF;
+    color: $primary-light;
     text-decoration: underline;
   }
 
   svg {
-    fill: #FFFFFF;
+    fill: $primary-light;
     height: 24px;
     width: 24px;
   }

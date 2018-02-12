@@ -9,10 +9,10 @@
   &--subcategory {
     padding-left: 8px;
 
-    &:before {
-      background-color: #e6e6e6;
+    &::before {
+      background-color: $secondary-gray16;
       bottom: 0;
-      content: '';
+      content: "";
       left: 0;
       position: absolute;
       top: 0;
@@ -22,7 +22,7 @@
 
   &__header,
   &__showmore {
-    color: #000000;
+    color: $primary-dark;
     font-size: 16px;
     line-height: 16px;
     padding: 8px;
