@@ -43,7 +43,7 @@
       position: absolute;
       text-align: left;
 
-      @media screen and (min-width: 1200px) {
+      @media screen and (min-width: $breakpoint-md) {
         padding: 8px 12px;
       }
 

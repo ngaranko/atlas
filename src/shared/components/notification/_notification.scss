@@ -8,7 +8,7 @@
   margin: 0;
   padding: 4px 8px;
 
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: $breakpoint-md) {
     padding: 4px 12px;
   }
 

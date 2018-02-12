@@ -10,7 +10,7 @@
   padding: 0;
   user-select: none;
 
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: $breakpoint-md) {
     margin: 12px 12px 32px;
   }
 
