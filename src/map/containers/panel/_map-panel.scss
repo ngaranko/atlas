@@ -1,3 +1,6 @@
+$map-panel-heading-height: 33px;
+$map-panel-offset: 130px;
+
 .map-panel {
   background-color: $primary-light;
   border: solid 1px $secondary-gray20;
@@ -11,12 +14,14 @@
   min-width: 285px;
   overflow: hidden;
   position: fixed;
+  top: calc(#{$map-panel-offset} + #{$dashboard-heading-height});
   width: 28%;
   z-index: 100;
 
   &--collapsed {
     height: auto;
     min-width: auto;
+    top: auto;
     width: auto;
 
     &:hover {
@@ -122,7 +127,7 @@
   }
 
   .scroll-wrapper {
-    max-height: calc(100vh - #{$dashboard-heading-height} - 130px);
+    max-height: calc(100vh - #{$dashboard-heading-height} - #{$map-panel-offset} - #{$map-panel-heading-height});
     overflow-x: hidden;
     overflow-y: auto;
     // NB: Workaround to force smooth scrolling on Chrome
