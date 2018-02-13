@@ -4,7 +4,7 @@ services:
     build:
       context: .
     ports:
-      - "8099:80"
+      - 8099:80
     ipc: host
   test-lint:
     build:
@@ -21,6 +21,8 @@ services:
     build:
       context: .
       target: build-deps
+    ports:
+      - 9001:9001
     command: npm run storybook
   test-e2e-visual:
     build:
@@ -28,6 +30,10 @@ services:
       target: build-deps
     links:
       - storybook
+    environment:
+      - STORYBOOK_HOST=storybook
+      - STORYBOOK_PORT=9001
+      - STORYBOOK_URL=http://storybook:9001/
     command: ./scripts/visual-regression-test.sh
 
   test-e2e-functional:

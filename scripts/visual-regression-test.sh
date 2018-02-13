@@ -1,21 +1,18 @@
 #!/bin/bash
+set -u
+set -e
 
-# if [ '$NODE_ENV' = 'development' ]
-# then
-#   docker run \
-#     -d \
-#     -v $(pwd):/app \
-#     -w="/app" \
-#     --rm \
-#     --shm-size 1G \
-#     alekzonder/puppeteer:0.13.0 \
-#     npm i babel-cli && \
-#     babel-node ./test/visual-regression.js
-# else
-#     NODE_ENV=test babel-node $(pwd)/test/visual-regression.js
-# fi
+# wait for elastic
+NEXT_WAIT_TIME=0
+until nc -z $STORYBOOK_HOST $STORYBOOK_PORT || [ $NEXT_WAIT_TIME -eq 10 ]
+do
+    echo "Waiting for $STORYBOOK_HOST..."
+    sleep $(( NEXT_WAIT_TIME++ ))
+done
+
+
 
 PATH=./node_modules/.bin/:$PATH
 # NODE_ENV=test babel-node $(pwd)/test/visual-regression.js
 
-jest --config=jest.visual.config.js --runInBand
+NODE_ENV=test jest --config=jest.visual.config.js --runInBand

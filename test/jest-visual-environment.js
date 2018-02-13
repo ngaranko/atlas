@@ -21,7 +21,7 @@ class PuppeteerEnvironment extends NodeEnvironment {
       browserWSEndpoint: wsEndpoint
     });
 
-    this.global.__HOST__ = process.env.STORYBOOK_PORT || 'http://localhost:9001/';
+    this.global.__HOST__ = process.env.STORYBOOK_URL || 'http://localhost:9001/';
     console.log('using storybook host: ', this.global.__HOST__);
   }
 

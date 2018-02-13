@@ -32,6 +32,9 @@ RUN git config --global url."https://".insteadOf git:// && \
         install  && \
     npm cache clean --force
 
+# TODO merge with other apt-get install packages
+RUN apt-get update && apt-get install -y netcat
+
 COPY . /app
 
 ENV NODE_ENV=production
