@@ -2,7 +2,7 @@
 set -u
 set -e
 
-# wait for elastic
+# wait
 NEXT_WAIT_TIME=0
 until nc -z $STORYBOOK_HOST $STORYBOOK_PORT || [ $NEXT_WAIT_TIME -eq 10 ]
 do

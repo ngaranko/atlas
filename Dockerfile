@@ -35,12 +35,30 @@ RUN git config --global url."https://".insteadOf git:// && \
 # TODO merge with other apt-get install packages
 RUN apt-get update && apt-get install -y netcat
 
-COPY . /app
+COPY src /app/src
+COPY modules /app/modules
+COPY grunt /app/grunt
+COPY public /app/public
+COPY cypress.json \
+      .babelrc \
+      403-geen-toegang.html \
+      karma.conf.js \
+      jest.config.js \
+      Gruntfile.js \
+      index.html \
+      webpack.* \
+      index.ejs \
+      favicon.png \
+      /app/
 
 ENV NODE_ENV=production
 ARG BUILD_ENV=prod
 RUN npm run build-${BUILD_ENV}
 
+COPY scripts /app/scripts
+COPY test /app/test
+COPY jest.visual.config.js \
+      /app/
 
 # Web server image
 FROM nginx:1.12.2-alpine

@@ -2,7 +2,7 @@
 describe('panorama module', () => {
   beforeEach(() => {
     // go to the homepage
-    cy.visit('http://localhost:8080/');
+    cy.visit('');
     // check if the link is in the dom and visible
     cy.get('.qa-straatbeeld-link').should('exist').and('be.visible');
     // the map should not exist yet

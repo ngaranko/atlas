@@ -11,7 +11,7 @@ describe('data search module', () => {
 
   describe('user should be to type and see suggestions', () => {
     it('should open the autocomplete panel and select the first dataset option and route the correct address', () => {
-      cy.visit('http://localhost:8080/');
+      cy.visit('');
       cy.get('input.js-search-input').trigger('focus');
       cy.get('input.js-search-input').type('Park');
       cy.get('input.js-search-input').trigger('change');

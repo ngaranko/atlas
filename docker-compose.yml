@@ -6,6 +6,7 @@ services:
     ports:
       - 8099:80
     ipc: host
+
   test-lint:
     build:
       context: .
@@ -40,4 +41,12 @@ services:
     build:
       context: .
       target: build-deps
-    command: npm run test-e2e
+    links:
+      - atlas
+    environment:
+      - CYPRESS_baseUrl=http://atlas:80/
+      - USERNAME_EMPLOYEE
+      - USERNAME_EMPLOYEE_PLUS
+      - PASSWORD_EMPLOYEE
+      - PASSWORD_EMPLOYEE_PLUS
+    command: ./scripts/test-e2e-functional.sh
