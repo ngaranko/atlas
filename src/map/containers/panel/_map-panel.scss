@@ -10,11 +10,11 @@ $map-panel-offset: 130px;
   flex-direction: column;
   font-family: "Avenir LT W01 55 Roman";
   left: 8px;
+  max-height: calc(100% - #{$dashboard-heading-height} - #{$map-panel-offset});
   max-width: 444px;
   min-width: 285px;
   overflow: hidden;
-  position: fixed;
-  top: calc(#{$map-panel-offset} + #{$dashboard-heading-height});
+  position: absolute;
   width: 28%;
   z-index: 100;
 
@@ -127,7 +127,7 @@ $map-panel-offset: 130px;
   }
 
   .scroll-wrapper {
-    max-height: calc(100vh - #{$dashboard-heading-height} - #{$map-panel-offset} - #{$map-panel-heading-height});
+    max-height: calc(100% - #{$dashboard-heading-height} - #{$map-panel-offset} - #{$map-panel-heading-height});
     overflow-x: hidden;
     overflow-y: auto;
     // NB: Workaround to force smooth scrolling on Chrome

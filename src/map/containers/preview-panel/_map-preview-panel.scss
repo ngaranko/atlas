@@ -4,10 +4,9 @@
 
   background-color: $secondary-gray5;
   border: solid 1px $secondary-gray20;
-  bottom: $map-preview-panel-bottom;
   box-shadow: 2px 2px 0 0 $secondary-gray40;
   font-family: "Avenir LT W01 55 Roman";
-  max-height: calc(100vh - #{$map-preview-panel-top + $map-preview-panel-bottom});
+  max-height: calc(100% - #{$map-preview-panel-top + $map-preview-panel-bottom});
   max-width: 440px;
   min-width: 285px;
   overflow: hidden;
@@ -18,7 +17,7 @@
   z-index: 100;
 
   .c-dashboard__body--error & {
-    max-height: calc(100vh - #{$map-preview-panel-top + $map-preview-panel-bottom + $dashboard-error-height});
+    max-height: calc(100% - #{$map-preview-panel-top + $map-preview-panel-bottom + $dashboard-error-height});
     top: #{$map-preview-panel-top + $dashboard-error-height};
   }
 
