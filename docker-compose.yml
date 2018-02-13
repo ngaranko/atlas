@@ -1,11 +1,13 @@
-version: '3.0'
+version: '3.5'
 services:
-  atlas:
+  atlas: # NGINX
     build:
       context: .
-      args:
-        - PASSWORD_EMPLOYEE
-        - PASSWORD_EMPLOYEE_PLUS
     ports:
       - "8099:80"
     ipc: host
+  unit:
+    build:
+      context: .
+      target: build-deps
+    command: npm run test-lint
