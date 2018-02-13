@@ -4,6 +4,7 @@
 
   background-color: $secondary-gray5;
   border: solid 1px $secondary-gray20;
+  bottom: $map-preview-panel-bottom;
   box-shadow: 2px 2px 0 0 $secondary-gray40;
   font-family: "Avenir LT W01 55 Roman";
   max-height: calc(100vh - #{$map-preview-panel-top + $map-preview-panel-bottom});
