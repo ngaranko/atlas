@@ -2,17 +2,17 @@
   @extend %list;
 
   li {
-    position: relative;
     margin-left: $base-font-size;
     padding-left: 2px;
+    position: relative;
 
     &::before {
+      content: "▪";
       display: inline-block;
+      font-size: 30px;
+      left: -$base-font-size;
       position: absolute;
       top: -2px;
-      left: -$base-font-size;
-      font-size: 30px;
-      content: "▪";
     }
   }
 }

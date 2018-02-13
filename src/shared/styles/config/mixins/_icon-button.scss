@@ -1,8 +1,8 @@
 @mixin icon-button($icon, $state: "", $hover-state: "red") {
   @extend %#{"dp-" + $icon + if(str-length($state) > 0, "-", "") + $state + "-icon"};
 
-  width: $button-size;
   height: $button-size;
+  width: $button-size;
 
   &:hover {
     @extend %#{"dp-" + $icon + if(str-length($hover-state) > 0, "-", "") + $hover-state + "-icon"};
@@ -13,17 +13,17 @@
   @extend %link;
   @include font-size($s-font);
   @include font-weight($bold-weight);
+  color: inherit;
   height: $button-size;
   margin-left: 0;
-  color: inherit;
 }
 
 %icon-button-text-extra {
-  display: inline-block;
-  width: $button-size + 1px;
-  height: $button-size;
   content: "";
+  display: inline-block;
+  height: $button-size;
   vertical-align: middle;
+  width: $button-size + 1px;
 }
 
 @mixin icon-button-text-left($icon, $state: "", $hover-state: "red") {
@@ -61,11 +61,11 @@
 }
 
 %icon-button-box-base {
+  box-shadow: $button-shadow-size $button-shadow-size 0 0 $secondary-gray40;
   display: block;
+  height: $button-size;
   position: relative;
   width: $button-size;
-  height: $button-size;
-  box-shadow: $button-shadow-size $button-shadow-size 0 0 $secondary-gray40;
 }
 
 %icon-button-box-white,
@@ -80,12 +80,12 @@
 }
 
 %icon-button-box-extra {
+  content: "";
+  height: $button-size;
   position: absolute;
   top: 0;
-  width: $button-size;
-  height: $button-size;
-  content: "";
   vertical-align: middle;
+  width: $button-size;
 }
 
 @mixin icon-button-box($icon, $state: "", $hover-state: "red") {
@@ -113,14 +113,14 @@
   @extend %icon-button-box-base;
   @include font-size($s-font);
   @include font-weight($bold-weight);
-  width: auto;
+  cursor: pointer;
   height: $button-size;
-  padding-right: $base-whitespace;
-  padding-left: $base-whitespace;
   line-height: $button-size - 2px; // Compensate for the border, defined below
+  padding-left: $base-whitespace;
+  padding-right: $base-whitespace;
   text-align: left;
   text-decoration: none;
-  cursor: pointer;
+  width: auto;
 
   span {
     position: relative;

@@ -42,8 +42,8 @@
     }
 
     [class*="u-col-"] {
-      position: relative;
       min-height: 1px;
+      position: relative;
 
       &:not([class*="12"]) {
         float: left;

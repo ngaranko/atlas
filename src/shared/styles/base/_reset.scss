@@ -1,8 +1,8 @@
 * {
-  margin: 0;
-  padding: 0;
   border: none;
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html,
@@ -30,8 +30,8 @@ input {
 
     &::inner-spin-button,
     &::outer-spin-button {
-      margin: 0;
       appearance: none;
+      margin: 0;
     }
   }
 }
