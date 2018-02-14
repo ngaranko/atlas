@@ -6,6 +6,7 @@ ENV NODE_ENV=production
 
 WORKDIR /app
 
+# Cleanup apt-get packages
 RUN apt-get update && \
   apt-get upgrade -y --no-install-recommends && \
   apt-get install -y git nginx \
@@ -57,6 +58,7 @@ RUN npm run build-${BUILD_ENV}
 
 COPY scripts /app/scripts
 COPY test /app/test
+COPY .storybook /app/.storybook
 COPY jest.visual.config.js \
       /app/
 

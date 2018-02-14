@@ -12,6 +12,7 @@ services:
       context: .
       target: build-deps
     command: npm run test-lint
+
   test-unit:
     build:
       context: .
@@ -35,7 +36,7 @@ services:
       - STORYBOOK_HOST=storybook
       - STORYBOOK_PORT=9001
       - STORYBOOK_URL=http://storybook:9001/
-    command: ./scripts/visual-regression-test.sh
+    command: ./scripts/test-e2e-visual.sh
 
   test-e2e-functional:
     build:
