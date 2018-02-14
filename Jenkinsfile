@@ -131,4 +131,15 @@ if (BRANCH == "master") {
             }
         }
     }
+}  else {
+
+    node {
+        stage('Deploy on Bakkie') {
+            tryStep "building bakkie", {
+                sh "scripts/bakkie.sh ${env.BRANCH_NAME}"
+            }
+        }
+    }
+
 }
+
