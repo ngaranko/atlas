@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { login, logout } from '../services/authentication';
-describe('datasets search module', () => {
+describe.skip('datasets search module', () => {
   before(() => {
     login();
   });
@@ -11,7 +11,7 @@ describe('datasets search module', () => {
 
   describe('user should be to type and see suggestions', () => {
     it('should open the autocomplete panel', () => {
-      cy.visit('');
+      cy.visit('/');
       cy.get('input.js-search-input').trigger('focus');
       cy.get('input.js-search-input').type('Park');
       cy.get('input.js-search-input').trigger('change');
@@ -23,7 +23,7 @@ describe('datasets search module', () => {
     it('should open the datasets results', () => {
       cy.server()
       cy.route('https://acc.api.data.amsterdam.nl/catalogus/api/3/action/*').as('getResults')
-      cy.visit('');
+      cy.visit('/');
       cy.get('input.js-search-input').trigger('focus');
       cy.get('input.js-search-input').type('Park');
       cy.get('.c-search-form').submit();
@@ -35,7 +35,7 @@ describe('datasets search module', () => {
     it('should not open the datasets results because there are no results', () => {
       cy.server()
       cy.route('https://acc.api.data.amsterdam.nl/catalogus/api/3/action/*').as('getResults')
-      cy.visit('');
+      cy.visit('/');
       cy.get('input.js-search-input').trigger('focus');
       cy.get('input.js-search-input').type('NORESULTS');
       cy.get('.c-search-form').submit();

@@ -44,7 +44,7 @@ services:
     links:
       - atlas
     environment:
-      - CYPRESS_baseUrl=http://atlas:80/
+      - CYPRESS_baseUrl=http://atlas:80
       - USERNAME_EMPLOYEE
       - USERNAME_EMPLOYEE_PLUS
       - PASSWORD_EMPLOYEE

@@ -1,11 +1,11 @@
 /* eslint-disable */
 import { login, logout } from '../services/authentication';
 
-describe('trade-register module', () => {
+describe.skip('trade-register module', () => {
   describe('user should be able to navigate to the trade-register from the homepage', () => {
     it('should open the trade register', () => {
       // go to the homepage
-      cy.visit('');
+      cy.visit('/');
       // check if the link is in the dom and visible
       cy.get('.c-homepage__block--vestigingen').should('exist').and('be.visible');
       // the data-selection should not exist yet
@@ -24,7 +24,7 @@ describe('trade-register module', () => {
   describe('not authenticated', () => {
     beforeEach(() => {
       // go to the homepage
-      cy.visit('');
+      cy.visit('/');
       // click on the link to go to the trade register
       cy.get('.c-homepage__block--vestigingen').click();
     });
@@ -53,7 +53,7 @@ describe('trade-register module', () => {
 
     beforeEach(() => {
       // go to the homepage
-      cy.visit('');
+      cy.visit('/');
       // click on the link to go to the trade register
       cy.get('.c-homepage__block--vestigingen').click();
       cy.scrollTo('top');
