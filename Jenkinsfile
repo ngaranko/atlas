@@ -18,27 +18,14 @@ def tryStep(String message, Closure block, Closure tearDown = null) {
 
 
 node {
-    stage("Checkout") {
-        checkout scm
-    }
-
     stage("Build image") {
+        checkout scm
         tryStep "build", {
-            withCredentials([[$class: 'StringBinding', credentialsId: 'PASSWORD_EMPLOYEE', variable: 'PASSWORD_EMPLOYEE'],
-                             [$class: 'StringBinding', credentialsId: 'PASSWORD_EMPLOYEE_PLUS', variable: 'PASSWORD_EMPLOYEE_PLUS']]) {
-                if (!PASSWORD_EMPLOYEE?.trim()) {
-                    error("PASSWORD_EMPLOYEE missing")
-                }
-                if (!PASSWORD_EMPLOYEE_PLUS?.trim()) {
-                    error("PASSWORD_EMPLOYEE_PLUS missing")
-                }
-                def image = docker.build("build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}",
-                    "--shm-size 1G " +
-                    "--build-arg BUILD_ENV=acc --build-arg PASSWORD_EMPLOYEE=${PASSWORD_EMPLOYEE} " +
-                    "--build-arg PASSWORD_EMPLOYEE_PLUS=${PASSWORD_EMPLOYEE_PLUS} .")
-                image.push()
-            }
-        }
+        def image = docker.build("build.datapunt.amsterdam.nl:5000/atlas/app:${env.BUILD_NUMBER}",
+            "--shm-size 1G " +
+            "--build-arg BUILD_ENV=acc --build-arg PASSWORD_EMPLOYEE=${PASSWORD_EMPLOYEE} " +
+            "--build-arg PASSWORD_EMPLOYEE_PLUS=${PASSWORD_EMPLOYEE_PLUS} .")
+        image.push()
     }
 }
 
@@ -46,7 +33,6 @@ node {
 String BRANCH = "${env.BRANCH_NAME}"
 
 if (BRANCH == "master") {
-
     node {
         stage('Push acceptance image') {
             tryStep "image tagging", {
@@ -132,6 +118,13 @@ if (BRANCH == "master") {
         }
     }
 }  else {
+    node {
+        stage('Test') {
+            tryStep "Test", {
+                sh "docker-compose up --build test-lint"
+            }
+        }
+    }
 
     node {
         stage('Deploy on Bakkie') {
