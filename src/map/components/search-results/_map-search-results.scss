@@ -1,13 +1,13 @@
 @import "./map-search-results-category/map-search-results-category";
 @import "./map-search-results-item/map-search-results-item";
 
-.map-search-results {
-  $header-height: 116px;
-  $above-list-height: $map-preview-panel-top + 1px + 33px + $header-height;
-  $below-list-height: 1px + $map-preview-panel-bottom;
+$header-height: 116px;
+$above-list-height: $map-preview-panel-top + 1px + 33px + $header-height;
+$below-list-height: 1px + $map-preview-panel-bottom;
 
+.map-search-results {
   display: flex;
-  flex: 0 0 auto;
+  flex: 0 1 auto;
   flex-direction: column;
   height: 100%;
 

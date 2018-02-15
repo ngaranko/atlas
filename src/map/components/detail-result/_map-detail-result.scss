@@ -1,10 +1,10 @@
-.map-detail-result {
-  $header-height: 116px;
-  $above-list-height: $map-preview-panel-top + 1px + 33px + $header-height - 50px;
-  $below-list-height: 1px + $map-preview-panel-bottom;
+$header-height: 116px;
+$above-list-height: $map-preview-panel-top + 1px + 33px + $header-height - 50px;
+$below-list-height: 1px + $map-preview-panel-bottom;
 
+.map-detail-result {
   display: flex;
-  flex: 0 0 auto;
+  flex: 0 1 auto;
   flex-direction: column;
   height: 100%;
 
