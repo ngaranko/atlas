@@ -4,7 +4,7 @@
   $below-list-height: 1px + $map-preview-panel-bottom;
 
   display: flex;
-  flex: 0 auto;
+  flex: 0 0 auto;
   flex-direction: column;
   height: 100%;
 
@@ -69,12 +69,12 @@
   }
 
   &__scroll-wrapper {
-    max-height: calc(100vh - #{$above-list-height + $below-list-height});
+    max-height: calc(100vh - #{$above-list-height + $below-list-height}); //NB: fix for IE
     min-height: 1px; // NB: firefox & ie fix - https://stackoverflow.com/a/43027202
     overflow-y: auto;
 
     .c-dashboard__body--error & {
-      max-height: calc(100% - #{$above-list-height + $below-list-height + $dashboard-error-height});
+      max-height: calc(100% - #{$above-list-height + $below-list-height + $dashboard-error-height}); //NB: fix for IE
     }
 
     .is-embed &,

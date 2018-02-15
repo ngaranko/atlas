@@ -97,14 +97,14 @@
 
   &__body {
     display: flex;
-    flex: 1;
+    flex: 1 1 0%;
     flex-direction: column;
     height: calc(100% - 33px);
     min-height: 0; // NB: firefox fix https://stackoverflow.com/a/28639686
 
     // IE FIX
     @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) { //sass-lint:disable-line no-vendor-prefixes
-      -ms-flex: 0 auto; //sass-lint:disable-line no-vendor-prefixes
+      -ms-flex: 0 0 auto; //sass-lint:disable-line no-vendor-prefixes
       -ms-flex-negative: 0; //sass-lint:disable-line no-vendor-prefixes
     }
 
@@ -129,8 +129,8 @@
   }
 }
 
-/* TODO: Should be removed after migration the map component to react */
-.map-preview-panel-react {
+/* TODO: Should be removed after migration of the map component to react */
+.map-preview-panel-wrapper {
   display: flex;
   flex-direction: column;
   height: 100%;
