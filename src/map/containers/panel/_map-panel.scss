@@ -132,6 +132,11 @@ $map-panel-offset: 130px;
     overflow-y: auto;
     // NB: Workaround to force smooth scrolling on Chrome
     will-change: transform;
+
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) { //sass-lint:disable-line no-vendor-prefixes
+      // NB: IE doesn't take the height of the parent into account
+      max-height: calc(100vh - #{$dashboard-heading-height} - #{$map-panel-offset} - #{$map-panel-heading-height});
+    }
   }
 
   .is-embed &,

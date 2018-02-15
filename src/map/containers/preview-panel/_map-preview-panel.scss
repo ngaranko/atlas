@@ -1,30 +1,23 @@
 .map-preview-panel {
-  $map-preview-panel-top-print: 8px;
   $map-preview-panel-bottom-print: 2px + 10px + 17px + 8px;
-
+  $map-preview-panel-top-print: 8px;
   background-color: $secondary-gray5;
   border: solid 1px $secondary-gray20;
   box-shadow: 2px 2px 0 0 $secondary-gray40;
-  font-family: "Avenir LT W01 55 Roman";
-  max-height: calc(100% - #{$map-preview-panel-top + $map-preview-panel-bottom});
   display: flex;
   flex: 0 0 auto;
   flex-direction: column;
+  font-family: "Avenir LT W01 55 Roman";
   margin-bottom: $map-preview-panel-bottom;
   margin-left: auto;
   margin-right: 9px;
   margin-top: $map-preview-panel-top;
+  max-height: calc(100% - #{$map-preview-panel-top + $map-preview-panel-bottom});
   max-width: 440px;
   min-width: 285px;
-  // overflow: hidden;
   position: relative;
   width: 28%;
   z-index: 100;
-
-  .c-dashboard__body--error & {
-    // max-height: calc(100% - #{$map-preview-panel-top + $map-preview-panel-bottom + $dashboard-error-height});
-    top: #{$map-preview-panel-top + $dashboard-error-height};
-  }
 
   &--hidden {
     display: none;
@@ -32,11 +25,11 @@
 
   &__heading {
     align-items: center;
-    min-height: 33px;
     background-color: $primary-light;
     border-bottom: 1px solid $secondary-gray20;
     display: flex;
     justify-content: flex-end;
+    min-height: 33px;
     padding: 4px;
   }
 
@@ -103,10 +96,17 @@
   }
 
   &__body {
-    // height: calc(100% - 33px);
     display: flex;
     flex: 1;
     flex-direction: column;
+    height: calc(100% - 33px);
+    min-height: 0; // NB: firefox fix https://stackoverflow.com/a/28639686
+
+    // IE FIX
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) { //sass-lint:disable-line no-vendor-prefixes
+      -ms-flex: 0 auto; //sass-lint:disable-line no-vendor-prefixes
+      -ms-flex-negative: 0; //sass-lint:disable-line no-vendor-prefixes
+    }
 
     &--loading {
       padding: 36px;
