@@ -134,8 +134,8 @@ $map-panel-offset: 130px;
     will-change: transform;
 
     @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) { //sass-lint:disable-line no-vendor-prefixes
-      // NB: IE doesn't take the height of the parent into account
-      max-height: calc(100vh - #{$dashboard-heading-height} - #{$map-panel-offset} - #{$map-panel-heading-height});
+      // NB: IE doesn't take the height of the parent into account (because 100vh we need to take the site-nav into account 50px)
+      max-height: calc(100vh - #{$dashboard-heading-height} - #{$map-panel-offset} - #{$map-panel-heading-height} - 50px);
     }
   }
 
