@@ -8,7 +8,7 @@ import isEqual from 'lodash.isequal';
 import DrawTool from '../../components/draw-tool/DrawTool';
 import drawToolConfig from '../../services/draw-tool/draw-tool-config';
 
-import { mapClearDrawing, mapUpdateShape, mapStartDrawing, mapEndDrawing } from '../../../shared/ducks/map/map';
+import { mapClearDrawing, mapEmptyGeometry, mapUpdateShape, mapStartDrawing, mapEndDrawing } from '../../../shared/ducks/map/map';
 import { setDataSelectionGeometryFilter, resetDataSelectionGeometryFilter } from '../../../shared/ducks/data-selection/data-selection';
 import { setPageName } from '../../../shared/ducks/page/page';
 import { setMapFullscreen } from '../../../shared/ducks/ui/ui';
@@ -34,6 +34,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   onClearDrawing: mapClearDrawing,
+  onEmptyGeometry: mapEmptyGeometry,
   onMapUpdateShape: mapUpdateShape,
   setGeometryFilter: setDataSelectionGeometryFilter,
   resetGeometryFilter: resetDataSelectionGeometryFilter,
@@ -116,6 +117,7 @@ class DrawToolContainer extends React.Component {
   onDrawingMode(drawingMode) {
     if (drawingMode !== drawToolConfig.DRAWING_MODE.NONE) {
       this.setState({ previousMarkers: [...this.props.currentShape.markers] });
+      this.props.onEmptyGeometry();
       this.props.resetGeometryFilter({ drawingMode });
       this.props.onStartDrawing({ drawingMode });
     } else {
@@ -168,6 +170,7 @@ DrawToolContainer.propTypes = {
   initialize: PropTypes.func.isRequired,
 
   onClearDrawing: PropTypes.func.isRequired,
+  onEmptyGeometry: PropTypes.func.isRequired,
   onMapUpdateShape: PropTypes.func.isRequired,
   setGeometryFilter: PropTypes.func.isRequired,
   resetGeometryFilter: PropTypes.func.isRequired,
