@@ -10,10 +10,6 @@ describe('The orientation factory', function () {
             {
                 store: {
                     dispatch: function () { }
-                },
-
-                angleConversion: {
-                    radiansToDegrees: function (val) { return val * 2; }
                 }
             }
 
@@ -50,9 +46,9 @@ describe('The orientation factory', function () {
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.SET_STRAATBEELD_ORIENTATION,
             payload: {
-                heading: 0.2,
-                pitch: 0.4,
-                fov: 0.6
+                heading: 5.729577951308232,
+                pitch: 11.459155902616464,
+                fov: 17.188733853924695
             }
         });
     });

@@ -1,3 +1,5 @@
+import { radiansToDegrees } from '../../../../src/shared/services/angle-conversion/angle-conversion';
+
 (function () {
     'use strict';
 
@@ -15,9 +17,9 @@
             controllerAs: 'vm'
         });
 
-    DpHotspotController.$inject = ['store', 'ACTIONS', 'STRAATBEELD_CONFIG', 'angleConversion'];
+    DpHotspotController.$inject = ['store', 'ACTIONS', 'STRAATBEELD_CONFIG'];
 
-    function DpHotspotController (store, ACTIONS, STRAATBEELD_CONFIG, angleConversion) {
+    function DpHotspotController (store, ACTIONS, STRAATBEELD_CONFIG) {
         var vm = this,
             realLifeHotspotSize = 0.6,
             minDistance = 4,
@@ -40,9 +42,9 @@
         // offset is a value between 7 and 10 degrees depending on the distance. it is subtracted from the angle of the
         // hotspot x rotation to render hotspots better that are far away
         const offset = 5 / (maxDistance - correctedDistance + 1) + 8;
-        const angle = 90 - angleConversion.radiansToDegrees(vm.pitch) - offset;
+        const angle = 90 - radiansToDegrees(vm.pitch) - offset;
 
-        vm.size = Math.round(angleConversion.radiansToDegrees(viewAngle) * viewport / STRAATBEELD_CONFIG.DEFAULT_FOV);
+        vm.size = Math.round(radiansToDegrees(viewAngle) * viewport / STRAATBEELD_CONFIG.DEFAULT_FOV);
         vm.transform = 'rotateX(' + angle + 'deg)';
 
         vm.loadScene = function () {
