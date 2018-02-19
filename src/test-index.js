@@ -202,7 +202,6 @@ import '../modules/shared/components/uppercase-first-letter/uppercase-first-lett
 import '../modules/shared/components/video/video.component';
 import '../modules/shared/filters/filesize.filter';
 import '../modules/shared/services/active-overlays/active-overlays.factory';
-import '../modules/shared/services/angle-conversion/angle-conversion.factory';
 import '../modules/shared/services/api/api.factory';
 import '../modules/shared/services/base-coder/base-coder.factory';
 import '../modules/shared/services/bounding-box/boundig-box.constant';
@@ -406,7 +405,6 @@ import '../modules/shared/services/embed/embed.factory.test';
 import '../modules/shared/services/uri-stripper/uri-stripper.factory.test';
 import '../modules/shared/services/crs/crs-converter.factory.test';
 import '../modules/shared/services/crs/crs.factory.test';
-import '../modules/shared/services/angle-conversion/angle-conversion.factory.test';
 import '../modules/shared/services/active-overlays/active-overlays.factory.test';
 import '../modules/shared/services/geojson/geojson.factory.test';
 import '../modules/shared/services/environment/environment.factory.test';
