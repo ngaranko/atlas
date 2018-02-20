@@ -1,70 +1,52 @@
+import SOURCES from '../../../../src/shared/services/layers/overlays.constant';
+
+const objectContains = (contained, container) => {
+    return Object.keys(contained).every((key) => contained[key] === container[key]);
+};
+
+const getFirstMatchingLayerProperty = (matchingObject) => {
+    return Object.keys(SOURCES).find((key) => {
+        return objectContains(matchingObject, SOURCES[key]);
+    });
+};
+
 describe('The active overlays factory', () => {
     let activeOverlays,
         store,
-        mockOverlays,
-        mockLayers;
+        mockOverlays;
+
+    const firstLayerProp = getFirstMatchingLayerProperty({
+        detailUrl: 'geosearch/search/',
+        detailItem: 'peilmerk'
+    });
+
+    const secondLayerProp = getFirstMatchingLayerProperty({
+        detailUrl: 'geosearch/search/',
+        detailItem: 'meetbout'
+    });
+
+    const thirthLayerProp = getFirstMatchingLayerProperty({
+        minZoom: 12,
+        maxZoom: 16,
+        detailUrl: 'geosearch/search/',
+        detailItem: 'meetbout'
+    });
+
+    const fourthLayerProp = getFirstMatchingLayerProperty({
+        noDetail: true
+    });
+
+    const fifthLayerProp = getFirstMatchingLayerProperty({
+        minZoom: 8,
+        maxZoom: 16
+    });
 
     beforeEach(() => {
-        mockLayers = {
-            nap: {
-                url: 'maps/nap',
-                label_short: 'Normaal Amsterdams Peil (NAP)',
-                label_long: 'Normaal Amsterdams Peil (NAP)',
-                layers: ['peilmerk_hoogte', 'peilmerk_label'],
-                minZoom: 8,
-                maxZoom: 16,
-                legend: 'maps/nap?version=1.3.0&service=WMS&request=GetLegendG' +
-                'raphic&sld_version=1.1.0&layer=NAP&format=image/png&STYLE=default',
-                detailUrl: 'geosearch/search/',
-                detailItem: 'peilmerk'
-            },
-            mbs: {
-                url: 'maps/meetbouten?service=wms',
-                label_short: 'Meetbouten - Status',
-                label_long: 'Meetbouten - Status',
-                parent_label: 'MEETBOUTEN',
-                layers: ['meetbouten_status', 'meetbouten_labels'],
-                minZoom: 10,
-                maxZoom: 16,
-                legend: 'maps/meetbouten?version=1.3.0&service=WMS&request=Get' +
-                'LegendGraphic&sld_version=1.1.0&layer=meetbouten_status&format=image/png&STYLE=default',
-                detailUrl: 'geosearch/search/',
-                detailItem: 'meetbout'
-            },
-            mbz: {
-                url: 'maps/meetbouten?service=wms',
-                label_short: 'Meetbouten - Zaksnelheid',
-                label_long: 'Meetbouten - Zaksnelheid',
-                layers: ['meetbouten_zaksnelheid', 'meetbouten_labels'],
-                minZoom: 12,
-                maxZoom: 16,
-                legend: 'maps/meetbouten?version=1.3.0&service=WMS&request=Get' +
-                'LegendGraphic&sld_version=1.1.0&layer=meetbouten_zaksnelheid&format=image/png&STYLE=default',
-                detailUrl: 'geosearch/search/',
-                detailItem: 'meetbout'
-            },
-            tcmnmt: {
-                url: 'maps/monumenten',
-                label_short: 'Monumenten',
-                label_long: 'Monumenten',
-                layers: ['monumenten'],
-                minZoom: 13,
-                maxZoom: 15,
-                legend: 'maps/monumenten?version=1.3.0&service' +
-                '=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=monumenten&format=' +
-                'image/png&STYLE=default',
-                noDetail: true
-            }
-        };
-
         angular.mock.module(
             'dpShared',
             {
                 store: {
                     getState: angular.noop
-                },
-                overlays: {
-                    SOURCES: mockLayers
                 }
             }
         );
@@ -75,20 +57,24 @@ describe('The active overlays factory', () => {
         });
 
         mockOverlays = {
-            mbs: {
-                id: 'mbs',
+            [firstLayerProp]: {
+                id: firstLayerProp,
                 isVisible: true
             },
-            mbz: {
-                id: 'mbz',
+            [secondLayerProp]: {
+                id: [secondLayerProp],
                 isVisible: true
             },
-            nap: {
-                id: 'nap',
+            [thirthLayerProp]: {
+                id: thirthLayerProp,
                 isVisible: false
             },
-            tcmnmt: {
-                id: 'tcmnmt',
+            [fourthLayerProp]: {
+                id: fourthLayerProp,
+                isVisible: true
+            },
+            [fifthLayerProp]: {
+                id: fifthLayerProp,
                 isVisible: true
             }
         };
@@ -105,33 +91,33 @@ describe('The active overlays factory', () => {
     });
 
     it('should get and set overlays', function () {
-        activeOverlays.setOverlays([mockOverlays.mbs, mockOverlays.nap]);
-        expect(activeOverlays.getOverlays()).toEqual([mockOverlays.mbs, mockOverlays.nap]);
+        activeOverlays.setOverlays([mockOverlays[firstLayerProp]]);
+        expect(activeOverlays.getOverlays()).toEqual([mockOverlays[firstLayerProp]]);
 
-        activeOverlays.setOverlays([mockOverlays.mbs, mockOverlays.mbz, mockOverlays.nap]);
-        expect(activeOverlays.getOverlays()).toEqual([mockOverlays.mbs, mockOverlays.mbz, mockOverlays.nap]);
+        activeOverlays.setOverlays([mockOverlays[firstLayerProp], mockOverlays[secondLayerProp]]);
+        expect(activeOverlays.getOverlays()).toEqual([mockOverlays[firstLayerProp], mockOverlays[secondLayerProp]]);
     });
 
     it('should get and set overlays and leave value when not changed', function () {
-        activeOverlays.setOverlays([mockOverlays.mbs, mockOverlays.mbz, mockOverlays.nap]);
-        expect(activeOverlays.getOverlays()).toEqual([mockOverlays.mbs, mockOverlays.mbz, mockOverlays.nap]);
+        activeOverlays.setOverlays([mockOverlays[firstLayerProp], mockOverlays[secondLayerProp]]);
+        expect(activeOverlays.getOverlays()).toEqual([mockOverlays[firstLayerProp], mockOverlays[secondLayerProp]]);
 
-        activeOverlays.setOverlays([mockOverlays.mbs, mockOverlays.mbz, mockOverlays.nap]);
-        expect(activeOverlays.getOverlays()).toEqual([mockOverlays.mbs, mockOverlays.mbz, mockOverlays.nap]);
+        activeOverlays.setOverlays([mockOverlays[fifthLayerProp], mockOverlays[firstLayerProp]]);
+        expect(activeOverlays.getOverlays()).toEqual([mockOverlays[fifthLayerProp], mockOverlays[firstLayerProp]]);
     });
 
     describe('isVisibleAtCurrentZoom', () => {
         it('should return if overlay is visible or not with zoom level from state', function () {
-            expect(activeOverlays.isVisibleAtCurrentZoom('mbs')).toBeTruthy();
-            expect(activeOverlays.isVisibleAtCurrentZoom('mbz')).toBeFalsy();
+            expect(activeOverlays.isVisibleAtCurrentZoom(firstLayerProp)).toBeTruthy();
+            expect(activeOverlays.isVisibleAtCurrentZoom(thirthLayerProp)).toBeFalsy();
         });
 
         it('should return if overlay is visible or not with current zoom level', function () {
-            expect(activeOverlays.isVisibleAtCurrentZoom('mbz', 11)).toBeFalsy();
-            expect(activeOverlays.isVisibleAtCurrentZoom('mbz', 12)).toBeTruthy();
+            expect(activeOverlays.isVisibleAtCurrentZoom(thirthLayerProp, 11)).toBeFalsy();
+            expect(activeOverlays.isVisibleAtCurrentZoom(thirthLayerProp, 12)).toBeTruthy();
 
-            expect(activeOverlays.isVisibleAtCurrentZoom('tcmnmt', 16)).toBeFalsy();
-            expect(activeOverlays.isVisibleAtCurrentZoom('tcmnmt', 15)).toBeTruthy();
+            expect(activeOverlays.isVisibleAtCurrentZoom(fifthLayerProp, 7)).toBeFalsy();
+            expect(activeOverlays.isVisibleAtCurrentZoom(fifthLayerProp, 15)).toBeTruthy();
 
             expect(activeOverlays.isVisibleAtCurrentZoom('not_existing')).toBeFalsy();
         });
@@ -139,11 +125,11 @@ describe('The active overlays factory', () => {
 
     describe('getVisibleOverlays', () => {
         beforeEach(() => {
-            activeOverlays.setOverlays([mockOverlays.mbs, mockOverlays.nap]);
+            activeOverlays.setOverlays([mockOverlays[secondLayerProp], mockOverlays[firstLayerProp]]);
         });
 
         it('after setting overlays it should only return visible layers with zoom level from state', function () {
-            expect(activeOverlays.getVisibleOverlays()).toEqual([mockLayers.mbs]);
+            expect(activeOverlays.getVisibleOverlays()).toEqual([SOURCES[firstLayerProp]]);
         });
 
         it('after setting overlays it should only return visible layers with current zoom level', function () {
@@ -159,17 +145,17 @@ describe('The active overlays factory', () => {
                 }
             });
 
-            activeOverlays.setOverlays([mockOverlays.mbs, mockOverlays.tcmnmt]);
+            activeOverlays.setOverlays([mockOverlays[secondLayerProp], mockOverlays[fourthLayerProp]]);
 
-            expect(activeOverlays.getOverlaysWarning()).toBe('Monumenten');
-            expect(activeOverlays.getOverlaysLabels()).toBe('MEETBOUTEN, Monumenten');
+            expect(activeOverlays.getOverlaysWarning()).toBe(SOURCES[fourthLayerProp].label_long);
+            expect(activeOverlays.getOverlaysLabels()).toBe(SOURCES[fourthLayerProp].parent_label);
         });
 
         it('after setting overlays it should only return visible layers with current zoom level', function () {
-            activeOverlays.setOverlays([mockOverlays.mbs, mockOverlays.tcmnmt]);
+            activeOverlays.setOverlays([mockOverlays[secondLayerProp], mockOverlays[fourthLayerProp]]);
 
-            expect(activeOverlays.getOverlaysWarning(11)).toBe('');
-            expect(activeOverlays.getOverlaysLabels()).toBe('MEETBOUTEN');
+            expect(activeOverlays.getOverlaysWarning(7)).toBe('');
+            expect(activeOverlays.getOverlaysLabels()).toBe(SOURCES[fourthLayerProp].parent_label);
         });
     });
 });

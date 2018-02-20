@@ -1,3 +1,4 @@
+import SOURCES from '../../../../src/shared/services/layers/overlays.constant';
 (() => {
     'use strict';
 
@@ -5,9 +6,9 @@
         .module('dpShared')
         .factory('activeOverlays', activeOverlaysFactory);
 
-    activeOverlaysFactory.$inject = ['overlays', 'store'];
+    activeOverlaysFactory.$inject = ['store'];
 
-    function activeOverlaysFactory (OVERLAYS, store) {
+    function activeOverlaysFactory (store) {
         let allOverlays = [];
 
         return {
@@ -31,11 +32,11 @@
         }
 
         function isVisibleAtCurrentZoom (overlay, zoom) {
-            if (!OVERLAYS.SOURCES[overlay]) {
+            if (!SOURCES[overlay]) {
                 return false;
             }
             zoom = zoom || store.getState().map.zoom;
-            return zoom >= OVERLAYS.SOURCES[overlay].minZoom && zoom <= OVERLAYS.SOURCES[overlay].maxZoom;
+            return zoom >= SOURCES[overlay].minZoom && zoom <= SOURCES[overlay].maxZoom;
         }
 
         function getVisibleOverlays (zoom) {
@@ -63,7 +64,7 @@
         // non public methods
         function getVisibleSources (zoom) {
             return allOverlays.filter(source => source.isVisible && isVisibleAtCurrentZoom(source.id, zoom))
-                .map(source => OVERLAYS.SOURCES[source.id]);
+                .map(source => SOURCES[source.id]);
         }
     }
 })();
