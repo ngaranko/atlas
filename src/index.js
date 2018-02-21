@@ -210,7 +210,6 @@ import '../modules/shared/components/uppercase-first-letter/uppercase-first-lett
 import '../modules/shared/components/video/video.component';
 import '../modules/shared/filters/filesize.filter';
 import '../modules/shared/services/active-overlays/active-overlays.factory';
-import '../modules/shared/services/angle-conversion/angle-conversion.factory';
 import '../modules/shared/services/api/api.factory';
 import '../modules/shared/services/base-coder/base-coder.factory';
 import '../modules/shared/services/bounding-box/boundig-box.constant';
@@ -226,9 +225,6 @@ import '../modules/shared/services/window-error-handler/window-error-handler.fac
 import '../modules/shared/services/window-error-handler/window-error-handler.run';
 import '../modules/shared/services/http-error-registrar/http-error-registrar.factory';
 import '../modules/shared/services/http-error-registrar/http-status.factory';
-import '../modules/shared/services/layers/base-layers.constant';
-import '../modules/shared/services/layers/overlays.constant';
-import '../modules/shared/services/layers/overlays.factory';
 import '../modules/shared/services/localization/localization.factory';
 import '../modules/shared/services/markdown-parser/markdown-parser.factory';
 import '../modules/shared/services/nearest-detail/nearest-detail.factory';
