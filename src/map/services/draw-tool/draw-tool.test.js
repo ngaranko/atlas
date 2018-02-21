@@ -1,5 +1,3 @@
-/* global L */
-
 import { initialize, currentShape } from './draw-tool';
 import drawToolConfig from './draw-tool-config';
 
