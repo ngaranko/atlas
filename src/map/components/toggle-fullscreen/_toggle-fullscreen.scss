@@ -18,9 +18,9 @@
   }
 
   &:focus {
-    background-color: #eee;
-    color: #000;
-    fill: #000;
+    background-color: $secondary-gray10;
+    color: $primary-dark;
+    fill: $primary-dark;
     outline: none;
   }
 

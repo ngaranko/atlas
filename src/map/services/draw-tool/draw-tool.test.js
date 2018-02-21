@@ -1,8 +1,7 @@
 /* global L */
 
-import { initialize, enable, disable, cancel, isEnabled, setPolygon, currentShape, drawTool }
-  from './draw-tool';
-import drawToolConfig from './draw-tool-config'
+import { initialize, enable, disable, currentShape, drawTool } from './draw-tool';
+import drawToolConfig from './draw-tool-config';
 
 let leafletMap;
 let leafletOld;
