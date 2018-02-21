@@ -1,28 +1,30 @@
+@import "../../../shared/styles/config/variables/colors";
+
 .shape-summary {
-  background-color: #ffffff;
-  border: solid 1px #CCCCCC;
+  background-color: $primary-light;
+  border: solid 1px $secondary-gray20;
   display: flex;
   margin-left: 10px;
   padding: 4px;
 
   &__button {
     display: block;
-    fill: #666666;
+    fill: $secondary-gray20;
     height: 24px;
     width: 24px;
 
     &:focus,
     &:hover {
-      background-color: #ec0000;
-      border-color: #ec0000;
-      color: #ffffff;
-      fill: #ffffff;
+      background-color: $primary-contrast;
+      border-color: $primary-contrast;
+      color: $primary-light;
+      fill: $primary-light;
     }
   }
 
   &__label {
     align-self: center;
-    color: #666666;
+    color: $secondary-gray60;
     margin: 0 4px;
   }
 
