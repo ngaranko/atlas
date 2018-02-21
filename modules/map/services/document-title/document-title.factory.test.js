@@ -1,3 +1,10 @@
+/* eslint-disable angular/window-service */
+window.reduxStore = {
+    getState: (() => {
+        return {map: { zoom: 0 }};
+    })
+};
+
 describe('The dpMapDocumentTitle factory', function () {
     var documentTitle,
         activeOverlays,

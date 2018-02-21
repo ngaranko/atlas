@@ -1,7 +1,6 @@
 import SOURCES from '../../../../src/shared/services/layers/overlays.constant';
 
 const getLayerPropertyByIndex = (index) => Object.keys(SOURCES)[index];
-
 describe('The dp-map directive', () => {
     let $compile,
         $rootScope,
@@ -240,11 +239,8 @@ describe('The dp-map directive', () => {
     describe('has overlays which', () => {
         const firstLayerProperty = getLayerPropertyByIndex(0);
         const secondLayerProperty = getLayerPropertyByIndex(1);
-        let overlays;
-
         beforeEach(() => {
-            angular.mock.inject(function (_overlays_) {
-                overlays = _overlays_;
+            angular.mock.inject(function () {
             });
         });
 
