@@ -7,36 +7,11 @@ activeOverlaysFactory.$inject = [];
  /* istanbul ignore next */
 function activeOverlaysFactory () {
     return {
-        getOverlays: getOverlays,
-        setOverlays: setOverlays,
-        isVisibleAtCurrentZoom: isVisibleAtCurrentZoom,
-        getVisibleOverlays: getVisibleOverlays,
-        getOverlaysLabels: getOverlaysLabels,
-        getOverlaysWarning: getOverlaysWarning
+        getOverlays: () => ActiveOverlays.getOverlays(),
+        setOverlays: (newOverlays) => ActiveOverlays.setOverlays(newOverlays),
+        isVisibleAtCurrentZoom: (overlay, zoom) => ActiveOverlays.isVisibleAtCurrentZoom(overlay, zoom),
+        getVisibleOverlays: (zoom) => ActiveOverlays.getVisibleOverlays(zoom),
+        getOverlaysLabels: (zoom) => ActiveOverlays.getOverlaysLabels(zoom),
+        getOverlaysWarning: (zoom) => ActiveOverlays.getOverlaysWarning(zoom)
     };
-
-    // public methods
-    function getOverlays () {
-        return ActiveOverlays.getOverlays();
-    }
-
-    function setOverlays (newOverlays) {
-        ActiveOverlays.setOverlays(newOverlays);
-    }
-
-    function isVisibleAtCurrentZoom (overlay, zoom) {
-        return ActiveOverlays.isVisibleAtCurrentZoom(overlay, zoom);
-    }
-
-    function getVisibleOverlays (zoom) {
-        return ActiveOverlays.ActiveOverlays(zoom);
-    }
-
-    function getOverlaysWarning (zoom) {
-        return ActiveOverlays.getOverlaysWarning(zoom);
-    }
-
-    function getOverlaysLabels (zoom) {
-        return ActiveOverlays.getOverlaysLabels(zoom);
-    }
 }
