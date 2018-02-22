@@ -33,6 +33,7 @@ import { combineReducers } from 'redux';
             const MapReducer = $window.reducers.MapReducer;
             const DataSelectionReducer = $window.reducers.DataSelectionReducer;
             const PageReducer = $window.reducers.PageReducer;
+            const StraatbeeldReducer = $window.reducers.StraatbeeldReducer;
             const UserReducer = $window.reducers.UserReducer;
             const newRootReducer = combineReducers({
                 dataSelection: DataSelectionReducer,
@@ -40,6 +41,7 @@ import { combineReducers } from 'redux';
                 error: ErrorMessageReducer,
                 map: MapReducer,
                 pano: PanoPreviewReducer,
+                straatbeeld: StraatbeeldReducer,
                 ui: UiReducer,
                 user: UserReducer
             });
@@ -47,6 +49,7 @@ import { combineReducers } from 'redux';
                 dataSelection: deprecatedState.dataSelection,
                 page: deprecatedState.page,
                 map: deprecatedState.map,
+                straatbeeld: deprecatedState.straatbeeld,
                 ui: deprecatedState.ui,
                 user: deprecatedState.user,
 

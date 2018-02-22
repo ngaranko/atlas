@@ -49,7 +49,7 @@ describe('DrawTool', () => {
       <DrawTool
         {...defaultProps}
         isEnabled
-        shapeMarkers={10}
+        shapeMarkers={drawToolConfig.MAX_MARKERS - 2}
       />
     ));
     expect(wrapper).toMatchSnapshot();

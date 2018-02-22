@@ -1,4 +1,5 @@
 export const MAP_CLEAR_DRAWING = 'MAP_CLEAR_DRAWING';
+export const MAP_EMPTY_GEOMETRY = 'MAP_EMPTY_GEOMETRY';
 export const MAP_UPDATE_SHAPE = 'MAP_UPDATE_SHAPE';
 export const MAP_START_DRAWING = 'MAP_START_DRAWING';
 export const MAP_END_DRAWING = 'MAP_END_DRAWING';
@@ -23,6 +24,12 @@ let moreThan2Markers;
 export default function MapReducer(state = initialState, action) {
   switch (action.type) {
     case MAP_CLEAR_DRAWING:
+      return {
+        ...state,
+        geometry: []
+      };
+
+    case MAP_EMPTY_GEOMETRY:
       return {
         ...state,
         geometry: []
@@ -60,6 +67,7 @@ export default function MapReducer(state = initialState, action) {
 }
 
 export const mapClearDrawing = () => ({ type: MAP_CLEAR_DRAWING });
+export const mapEmptyGeometry = () => ({ type: MAP_EMPTY_GEOMETRY });
 export const mapUpdateShape = (payload) => ({ type: MAP_UPDATE_SHAPE, payload });
 export const mapStartDrawing = (payload) => ({ type: MAP_START_DRAWING, payload });
 export const mapEndDrawing = (payload) => ({ type: MAP_END_DRAWING, payload });

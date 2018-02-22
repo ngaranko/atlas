@@ -17,8 +17,8 @@
                     const vanilla = angular.isString(action.type);
 
                     const ignoredActions = ['AUTHENTICATE_USER', 'MAP_START_DRAWING',
-                        'MAP_UPDATE_SHAPE', 'SET_DATA_SELECTION_GEOMETRY_FILTER',
-                        'RESET_DATA_SELECTION_GEOMETRY_FILTER'];
+                        'MAP_EMPTY_GEOMETRY', 'MAP_UPDATE_SHAPE',
+                        'SET_DATA_SELECTION_GEOMETRY_FILTER', 'RESET_DATA_SELECTION_GEOMETRY_FILTER'];
 
                     // Update the state first
                     const returnValue = next(action);

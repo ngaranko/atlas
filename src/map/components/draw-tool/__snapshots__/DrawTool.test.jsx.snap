@@ -30,7 +30,7 @@ exports[`DrawTool should render points available if near max points 1`] = `
 >
   <ToggleDrawing
     drawingMode="none"
-    shapeMarkers={10}
+    shapeMarkers={38}
     toggleDrawing={[MockFunction]}
   />
   <PointsAvailable

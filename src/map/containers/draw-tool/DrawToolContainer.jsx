@@ -8,10 +8,11 @@ import isEqual from 'lodash.isequal';
 import DrawTool from '../../components/draw-tool/DrawTool';
 import drawToolConfig from '../../services/draw-tool/draw-tool-config';
 
-import { mapClearDrawing, mapUpdateShape, mapStartDrawing, mapEndDrawing } from '../../../shared/ducks/map/map';
+import { mapClearDrawing, mapEmptyGeometry, mapUpdateShape, mapStartDrawing, mapEndDrawing } from '../../../shared/ducks/map/map';
 import { setDataSelectionGeometryFilter, resetDataSelectionGeometryFilter } from '../../../shared/ducks/data-selection/data-selection';
 import { setPageName } from '../../../shared/ducks/page/page';
 import { setMapFullscreen } from '../../../shared/ducks/ui/ui';
+import { setStraatbeeldOff } from '../../../shared/ducks/straatbeeld/straatbeeld';
 
 import {
   cancel,
@@ -33,13 +34,15 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   onClearDrawing: mapClearDrawing,
+  onEmptyGeometry: mapEmptyGeometry,
   onMapUpdateShape: mapUpdateShape,
   setGeometryFilter: setDataSelectionGeometryFilter,
   resetGeometryFilter: resetDataSelectionGeometryFilter,
   onStartDrawing: mapStartDrawing,
   onEndDrawing: mapEndDrawing,
   onSetPageName: setPageName,
-  onSetMapFullscreen: setMapFullscreen
+  onSetMapFullscreen: setMapFullscreen,
+  onStraatbeeldOff: setStraatbeeldOff
 }, dispatch);
 
 // TODO: Get all business logic out of this file, probably to Redux!
@@ -101,6 +104,7 @@ class DrawToolContainer extends React.Component {
         description: `${polygon.distanceTxt} en ${polygon.areaTxt}`
       });
 
+      this.props.onStraatbeeldOff();
       this.props.onEndDrawing({ polygon });
       this.props.onSetPageName({ name: null });
 
@@ -113,6 +117,7 @@ class DrawToolContainer extends React.Component {
   onDrawingMode(drawingMode) {
     if (drawingMode !== drawToolConfig.DRAWING_MODE.NONE) {
       this.setState({ previousMarkers: [...this.props.currentShape.markers] });
+      this.props.onEmptyGeometry();
       this.props.resetGeometryFilter({ drawingMode });
       this.props.onStartDrawing({ drawingMode });
     } else {
@@ -166,13 +171,15 @@ DrawToolContainer.propTypes = {
   initialize: PropTypes.func.isRequired,
 
   onClearDrawing: PropTypes.func.isRequired,
+  onEmptyGeometry: PropTypes.func.isRequired,
   onMapUpdateShape: PropTypes.func.isRequired,
   setGeometryFilter: PropTypes.func.isRequired,
   resetGeometryFilter: PropTypes.func.isRequired,
   onStartDrawing: PropTypes.func.isRequired,
   onEndDrawing: PropTypes.func.isRequired,
   onSetPageName: PropTypes.func.isRequired,
-  onSetMapFullscreen: PropTypes.func.isRequired
+  onSetMapFullscreen: PropTypes.func.isRequired,
+  onStraatbeeldOff: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)((props) => (
