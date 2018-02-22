@@ -1,6 +1,6 @@
 import { getEnvironment } from '../../environment';
 
-const globalConfig = {
+export const globalConfig = {
   RADIUS: 50, // Thumbnail search radius
   THUMBNAIL_WIDTH: 240,
   STRAATBEELD_THUMB_URL: 'panorama/thumbnail/',
@@ -9,7 +9,7 @@ const globalConfig = {
   ROOT_KEYS: ['API_ROOT']
 };
 
-const environmentConfig = {
+export const environmentConfig = {
   PRODUCTION: {
     API_ROOT: 'https://api.data.amsterdam.nl/'
   },
@@ -24,11 +24,11 @@ const environmentConfig = {
   }
 };
 
-const getEnvironmentHelper = (environment) => {
+export const getEnvironmentHelper = (environment) => {
   if (environment) {
     return environment.NAME;
   }
-  return getEnvironment(location.host);
+  return getEnvironment(window.location.host);
 };
 
 const getSharedConfig = (environment) => (

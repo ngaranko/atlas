@@ -5,6 +5,13 @@ export const ENVIRONMENT = {
   PRODUCTION: 'PRODUCTION'
 };
 
+export const HOSTS = {
+  PRODUCTION: 'data.amsterdam.nl',
+  PRE_PRODUCTION: 'pre.data.amsterdam.nl',
+  ACCEPTATION: 'acc.data.amsterdam.nl',
+  DEVELOPMENT: 'localhost'
+};
+
 export const getEnvironment = (host) => {
   switch (host) {
     case 'data.amsterdam.nl':
