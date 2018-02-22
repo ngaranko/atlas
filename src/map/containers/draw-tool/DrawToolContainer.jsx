@@ -18,13 +18,13 @@ import {
   cancel,
   currentShape,
   initialize,
-  isEnabled,
   setPolygon
 } from '../../services/draw-tool/draw-tool';
 import toggleDrawing from '../../services/draw-tool/draw-tool-toggle';
 
 const mapStateToProps = (state) => ({
   drawingMode: state.map.drawingMode,
+  isEnabled: state.map.drawingMode !== drawToolConfig.DRAWING_MODE.NONE,
   shapeMarkers: state.map.shapeMarkers,
   shapeDistanceTxt: state.map.shapeDistanceTxt,
   dataSelection: state.dataSelection,
@@ -134,7 +134,7 @@ class DrawToolContainer extends React.Component {
   }
 
   setPolygon() {
-    if (!this.props.isEnabled()) {
+    if (!this.props.isEnabled) {
       this.props.setPolygon(this.getMarkers());
     }
   }
@@ -150,6 +150,7 @@ class DrawToolContainer extends React.Component {
     return (<DrawTool
       markersLeft={markersLeft}
       {...this.props}
+      isEnabled={this.props.isEnabled}
     />);
   }
 }
@@ -164,7 +165,7 @@ DrawToolContainer.propTypes = {
   currentShape: PropTypes.object,
 
   toggleDrawing: PropTypes.func.isRequired,
-  isEnabled: PropTypes.func.isRequired,
+  isEnabled: PropTypes.bool.isRequired,
   cancel: PropTypes.func.isRequired,
   setPolygon: PropTypes.func.isRequired,
   initialize: PropTypes.func.isRequired,
@@ -187,7 +188,6 @@ export default connect(mapStateToProps, mapDispatchToProps)((props) => (
     toggleDrawing={toggleDrawing}
     cancel={cancel}
     initialize={initialize}
-    isEnabled={isEnabled}
     setPolygon={setPolygon}
     {...props}
   />
