@@ -18,7 +18,8 @@ import {
   cancel,
   currentShape,
   initialize,
-  setPolygon
+  setPolygon,
+  isEnabled
 } from '../../services/draw-tool/draw-tool';
 import toggleDrawing from '../../services/draw-tool/draw-tool-toggle';
 
@@ -134,7 +135,7 @@ class DrawToolContainer extends React.Component {
   }
 
   setPolygon() {
-    if (!this.props.isEnabled) {
+    if (!isEnabled()) {
       this.props.setPolygon(this.getMarkers());
     }
   }
