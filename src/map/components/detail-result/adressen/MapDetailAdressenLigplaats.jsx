@@ -4,12 +4,17 @@ import PropTypes from 'prop-types';
 import MapDetailResultItem from '../MapDetailResultItem';
 import MapDetailResultWrapper from '../MapDetailResultWrapper';
 
-const MapDetailAdressenLigplaats = ({ panoUrl, ligplaats, onMaximize, onPanoPreviewClick }) => (
+const MapDetailAdressenLigplaats = ({
+  panoUrl,
+ligplaats,
+onMaximize,
+onPanoPreviewClick
+}) => (
   <MapDetailResultWrapper
-    panoUrl={panoUrl}
-    subTitle={ligplaats.label}
     onMaximize={onMaximize}
     onPanoPreviewClick={onPanoPreviewClick}
+    panoUrl={panoUrl}
+    subTitle={ligplaats.label}
     title="Ligplaats"
   >
     <ul className="map-detail-result__list">
