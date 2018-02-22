@@ -1,7 +1,7 @@
 import { getEnvironment } from '../../environment';
 
 const globalConfig = {
-  RADIUS: 50,
+  RADIUS: 50, // Thumbnail search radius
   THUMBNAIL_WIDTH: 240,
   STRAATBEELD_THUMB_URL: 'panorama/thumbnail/',
   AUTH_HEADER_PREFIX: 'Bearer ',
