@@ -45,5 +45,6 @@ module.exports = {
   ],
   watchPathIgnorePatterns: [
     '/modules/'
-  ]
+  ],
+  "testEnvironment": "jest-environment-jsdom-global"
 };
