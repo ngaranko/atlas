@@ -80,4 +80,3 @@ describe('addresses module', () => {
     });
   });
 });
-
