@@ -1,14 +1,23 @@
 /* eslint-disable angular/window-service */
-window.reduxStore = {
-    getState: (() => {
-        return {map: { zoom: 0 }};
-    })
-};
+let oldReduxStore;
 
 describe('The dpMapDocumentTitle factory', function () {
     var documentTitle,
         activeOverlays,
         $rootScope;
+
+    beforeAll(() => {
+        oldReduxStore = window.reduxStore;
+        window.reduxStore = {
+            getState: (() => {
+                return {map: { zoom: 0 }};
+            })
+        };
+    });
+
+    afterAll(() => {
+        window.reduxStore = oldReduxStore;
+    });
 
     beforeEach(function () {
         angular.mock.module('dpMap', {
