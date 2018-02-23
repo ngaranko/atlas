@@ -139,15 +139,11 @@ $map-panel-offset: 130px;
     }
   }
 
-  .is-embed &,
-  .is-embed-preview &,
   .is-print-mode & {
     height: auto;
     max-height: none;
     position: absolute;
-  }
 
-  .is-print-mode & {
     &--collapsed,
     &--has-no-active-layers,
     &--has-just-invisible-layers,
