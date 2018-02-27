@@ -1,3 +1,4 @@
+
 version: '3.5'
 services:
   atlas: # NGINX
@@ -5,7 +6,6 @@ services:
       context: .
     ports:
       - 8099:80
-    ipc: host
 
   test-lint:
     build:
@@ -40,22 +40,26 @@ services:
 
   test-e2e-functional:
     build:
+      dockerfile: Dockerfile-e2e-functional
       context: .
-      target: build-deps
     links:
-      - atlas
+      - atlas:acc.data.amsterdam.nl
     environment:
-      - CYPRESS_baseUrl=http://atlas:80
+      # Note that baseUrl must be formatted so
+      # calls to API pass CORS check!
+      - CYPRESS_baseUrl=http://acc.data.amsterdam.nl:80
       - USERNAME_EMPLOYEE
       - USERNAME_EMPLOYEE_PLUS
       - PASSWORD_EMPLOYEE
       - PASSWORD_EMPLOYEE_PLUS
+    # hostname: acc.data
+    # domainname: amsterdam.nl
     command: ./scripts/test-e2e-functional.sh
 
   test-e2e-aria:
     build:
+      dockerfile: Dockerfile-e2e-aria
       context: .
-      target: build-deps
     links:
       - atlas
     environment:
