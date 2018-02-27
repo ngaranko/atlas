@@ -22,6 +22,7 @@ pipeline {
       steps {
         sh 'docker ps'
         sh 'docker-compose down -v || true'
+        sh 'docker network prune'
         sh 'docker ps'
       }
     }
@@ -134,6 +135,7 @@ pipeline {
     always {
       echo 'Cleaning'
       sh 'docker-compose down -v || true'
+      sh 'docker network prune'
     }
 
     success {
