@@ -12,6 +12,9 @@ const handleErrors = (response) => {
   return response;
 };
 
+
+// TODO: Service is not used yet because it is not finished
+// cancel functionality doesn't work yet and is needed for the straatbeeld-api.js
 export const getWithToken = (url, params, cancel, token) => {
   const headers = {};
 
@@ -21,12 +24,14 @@ export const getWithToken = (url, params, cancel, token) => {
 
   const options = {
     method: 'GET',
-    headers,
-    cache: true
+    headers
   };
 
-  const fullUrl = `${url}${params ? `?${generateParams(params)}` : ''}`;
+  if (cancel) {
+    options.signal = cancel;
+  }
 
+  const fullUrl = `${url}${params ? `?${generateParams(params)}` : ''}`;
   return fetch(fullUrl, options)
     .then((response) => handleErrors(response))
     .then((response) => response.json());
