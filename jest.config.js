@@ -7,7 +7,7 @@ module.exports = {
   coverageThreshold: {
     global: {
       statements: 24,
-      branches: 38,
+      branches: 36,
       functions: 38,
       lines: 32
     }
@@ -45,5 +45,6 @@ module.exports = {
   ],
   watchPathIgnorePatterns: [
     '/modules/'
-  ]
+  ],
+  "testEnvironment": "jest-environment-jsdom-global"
 };

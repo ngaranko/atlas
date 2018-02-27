@@ -1,3 +1,4 @@
+import SOURCES from '../../../../src/shared/services/layers/overlays.constant';
 (() => {
     angular
         .module('dpMap')
@@ -14,7 +15,6 @@
         'panning',
         'zoom',
         'onMapClick',
-        'overlays',
         'activeOverlays',
         'store'
     ];
@@ -31,7 +31,6 @@
         panning,
         zoom,
         onMapClick,
-        overlays,
         activeOverlays,
         store
         ) {
@@ -167,7 +166,7 @@
             });
 
             function setOverlays () {
-                const newOverlays = scope.mapState.overlays.filter(overlay => overlays.SOURCES[overlay.id]),
+                const newOverlays = scope.mapState.overlays.filter(overlay => SOURCES[overlay.id]),
                     isInit = oldOverlays === null;
 
                 oldOverlays = oldOverlays || [];

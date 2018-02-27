@@ -1,3 +1,5 @@
+import { degreesToRadians } from '../../../../src/shared/services/angle-conversion/angle-conversion';
+
 (function () {
     'use strict';
 
@@ -5,9 +7,9 @@
         .module('dpStraatbeeld')
         .factory('marzipanoService', marzipanoService);
 
-    marzipanoService.$inject = ['Marzipano', 'STRAATBEELD_CONFIG', 'angleConversion', 'hotspotService'];
+    marzipanoService.$inject = ['Marzipano', 'STRAATBEELD_CONFIG', 'hotspotService'];
 
-    function marzipanoService (Marzipano, STRAATBEELD_CONFIG, angleConversion, hotspotService) {
+    function marzipanoService (Marzipano, STRAATBEELD_CONFIG, hotspotService) {
         var viewer;
 
         return {
@@ -45,7 +47,7 @@
 
             viewLimiter = Marzipano.RectilinearView.limit.traditional(
                 STRAATBEELD_CONFIG.MAX_RESOLUTION,
-                angleConversion.degreesToRadians(STRAATBEELD_CONFIG.MAX_FOV)
+                degreesToRadians(STRAATBEELD_CONFIG.MAX_FOV)
             );
 
             view = new Marzipano.RectilinearView({}, viewLimiter);
@@ -67,7 +69,7 @@
                     hotspotService.createHotspotTemplate(hotspot.id, hotspot.distance, hotspotPitch, hotspot.year)
                         .then(function (template) {
                             var position = {
-                                yaw: angleConversion.degreesToRadians(hotspot.heading),
+                                yaw: degreesToRadians(hotspot.heading),
                                 pitch: hotspotPitch
                             };
 
@@ -78,9 +80,9 @@
                         });
                 });
 
-            view.setYaw(angleConversion.degreesToRadians(heading));
-            view.setPitch(angleConversion.degreesToRadians(pitch));
-            view.setFov(angleConversion.degreesToRadians(fov));
+            view.setYaw(degreesToRadians(heading));
+            view.setPitch(degreesToRadians(pitch));
+            view.setFov(degreesToRadians(fov));
 
             scene.switchTo();
 
