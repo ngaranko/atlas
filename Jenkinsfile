@@ -11,12 +11,6 @@ pipeline {
     IMAGE_LATEST = "${IMAGE_BASE}:latest"
   }
   stages {
-    stage('Deploy Bakkie') {
-      when { not { branch 'master' } }
-      steps {
-        sh "scripts/bakkie.sh ${env.BRANCH_NAME}"
-      }
-    }
     stage('Clean') {
       // TODO remove this stage when jenkins jobs run in isolation
       steps {
@@ -26,9 +20,15 @@ pipeline {
         sh 'docker ps'
       }
     }
-    stage('Test') {
+    stage('Test & Bakkie') {
       // failFast true // fail if one of the parallel stages fail
       parallel {
+        stage('Deploy Bakkie') {
+          when { not { branch 'master' } }
+          steps {
+            sh "scripts/bakkie.sh ${env.BRANCH_NAME}"
+          }
+        }
         stage('Linting') {
           steps {
             sh 'docker network prune'
