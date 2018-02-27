@@ -31,12 +31,14 @@ pipeline {
       parallel {
         stage('Linting') {
           steps {
+            sh 'docker network prune'
             sh 'docker-compose up --build --exit-code-from test-lint test-lint'
             // echo 'Skip'
           }
         }
         stage('Unit') {
           steps {
+            sh 'docker network prune'
             sh 'docker-compose up --build --exit-code-from test-unit test-unit'
             // echo 'Skip'
           }
@@ -49,12 +51,14 @@ pipeline {
             PASSWORD_EMPLOYEE_PLUS = credentials('PASSWORD_EMPLOYEE_PLUS')
           }
           steps {
+            sh 'docker network prune'
             sh 'docker-compose up --build --exit-code-from test-e2e-functional test-e2e-functional'
             // echo 'Skip'
           }
         }
         stage('Aria E2E') {
           steps {
+            sh 'docker network prune'
             sh 'docker-compose up --build --exit-code-from test-e2e-aria test-e2e-aria'
             // echo 'Skip'
           }
