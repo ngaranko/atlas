@@ -14,4 +14,4 @@ RUN npm install cypress@`node -p -e "require('./package-lock.json').dependencies
 COPY src /home/src
 COPY test /home/test
 COPY scripts /home/scripts
-COPY cypress.json /home/
+COPY package.json cypress.json /home/
