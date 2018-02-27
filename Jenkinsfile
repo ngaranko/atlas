@@ -17,6 +17,12 @@ pipeline {
         sh "scripts/bakkie.sh ${env.BRANCH_NAME}"
       }
     }
+    stage('Clean') {
+      // TODO remove this stage when jenkins jobs run in isolation
+      steps {
+        sh 'docker-compose down -v || true'
+      }
+    }
     stage('Test') {
       // failFast true // fail if one of the parallel stages fail
       parallel {
