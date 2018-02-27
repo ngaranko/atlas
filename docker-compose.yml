@@ -1,4 +1,3 @@
-
 version: '3.5'
 services:
   atlas: # NGINX
@@ -36,7 +35,7 @@ services:
       - STORYBOOK_HOST=storybook
       - STORYBOOK_PORT=9001
       - STORYBOOK_URL=http://storybook:9001/
-    command: ./scripts/test-e2e-visual.sh
+    command: ./scripts/ci/test-e2e-visual.sh
 
   test-e2e-functional:
     build:
@@ -54,7 +53,7 @@ services:
       - PASSWORD_EMPLOYEE_PLUS
     # hostname: acc.data
     # domainname: amsterdam.nl
-    command: ./scripts/test-e2e-functional.sh
+    command: ./scripts/ci/test-e2e-functional.sh
 
   test-e2e-aria:
     build:
@@ -68,4 +67,4 @@ services:
       - USERNAME_EMPLOYEE_PLUS
       - PASSWORD_EMPLOYEE
       - PASSWORD_EMPLOYEE_PLUS
-    command: ./scripts/test-e2e-aria.sh
+    command: ./scripts/ci/test-e2e-aria.sh

@@ -10,5 +10,4 @@ do
     sleep $(( NEXT_WAIT_TIME++ ))
 done
 
-PATH=./node_modules/.bin/:$PATH
-babel-node ./test/pa11y.js
+npm run test-e2e-aria

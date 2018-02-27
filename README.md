@@ -19,7 +19,9 @@ Karma & Jest unit test
 NODE_ENV=development npm test
 ```
 
-### E2E testing authentication
+### E2E testing
+
+End to end test can either run against a local server or through docker-compose.
 
 In order to test authentication the following environment variables must be set:
 
@@ -34,20 +36,27 @@ variables to `.bash_profile`.
 ### E2E Functional testing
 
 Make sure the app is running locally by running `npm start`.
-Then, in a second terminal, run `npm run test-e2e` (single run) or `npm run test-e2e-watch` (#GUI, watch).
+Then, in a second terminal, run `npm run test-e2e-functional` (single run).
+Or open the UI using `npm run test-e2e-functional-watch`.
+
+Test using docker-compose:
+```
+docker-compose up --build test-e2e-functional
+```
 
 ### E2E Aria testing
 
-Make sure that `NODE_ENV=development`.
+Make sure the app is running locally.
 Then run `npm run test-aria`.
+
+Test using docker-compose:
+```
+docker-compose up --build test-e2e-aria
+```
 
 ### E2E Visual testing
 
 _Currently not working in CI_
-
-`npm run test-visual-regression`
-
-and
 
 `docker-compose up --build test-e2e-visual`
 

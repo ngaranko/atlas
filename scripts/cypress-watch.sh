@@ -1,9 +1,6 @@
 #!/bin/bash
-# TODO remove
 
-PATH=./node_modules/.bin/:$PATH
-
-cypress open --env \
+./node_modules/.bin/cypress open --env \
 "USERNAME_EMPLOYEE=$USERNAME_EMPLOYEE,"\
 "USERNAME_EMPLOYEE_PLUS=$USERNAME_EMPLOYEE_PLUS,"\
 "PASSWORD_EMPLOYEE=$PASSWORD_EMPLOYEE,"\
