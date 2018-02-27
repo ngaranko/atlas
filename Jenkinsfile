@@ -20,7 +20,9 @@ pipeline {
     stage('Clean') {
       // TODO remove this stage when jenkins jobs run in isolation
       steps {
+        sh 'docker ps'
         sh 'docker-compose down -v || true'
+        sh 'docker ps'
       }
     }
     stage('Test') {
