@@ -138,7 +138,6 @@
     "proj4": "^2.4.4",
     "proj4leaflet": "^1.0.2",
     "prop-types": "^15.6.0",
-    "puppeteer": "^0.13.0",
     "raf": "^3.4.0",
     "raven-js": "^3.19.1",
     "react": "^16.0.0",
