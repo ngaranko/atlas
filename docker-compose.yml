@@ -51,8 +51,6 @@ services:
       - USERNAME_EMPLOYEE_PLUS
       - PASSWORD_EMPLOYEE
       - PASSWORD_EMPLOYEE_PLUS
-    # hostname: acc.data
-    # domainname: amsterdam.nl
     command: ./scripts/ci/test-e2e-functional.sh
 
   test-e2e-aria:
