@@ -1,3 +1,7 @@
+import SOURCES from '../../../../src/shared/services/layers/overlays.constant';
+import drawToolConfig from '../../../../src/map/services/draw-tool/draw-tool-config';
+
+const getLayerPropertyByIndex = (index) => Object.keys(SOURCES)[index];
 describe('The dp-map directive', () => {
     let $compile,
         $rootScope,
@@ -14,8 +18,7 @@ describe('The dp-map directive', () => {
         mockedMapState,
         mockedLeafletMap,
         mockedMarkers,
-        mockedState,
-        DRAW_TOOL_CONFIG;
+        mockedState;
 
     beforeEach(() => {
         mockedState = {};
@@ -55,37 +58,14 @@ describe('The dp-map directive', () => {
                     initialize: angular.noop,
                     setZoom: angular.noop
                 },
+                drawTool: {
+                    initialize: angular.noop,
+                    enable: angular.noop,
+                    disable: angular.noop
+                },
                 onMapClick: {
                     initialize: angular.noop
-                },
-                overlays: {
-                    SOURCES: {
-                        'some_overlay': 'some_overlay',
-                        'some_other_overlay': 'some_other_overlay'
-                    }
                 }
-            },
-
-            function ($provide) {
-                $provide.factory('dpLinkDirective', () => {
-                    return {};
-                });
-
-                $provide.factory('dpDrawToolDirective' + '', () => {
-                    return {};
-                });
-
-                $provide.factory('dpActiveOverlaysDirective', () => {
-                    return {};
-                });
-
-                $provide.factory('dpToggleFullscreenDirective', () => {
-                    return {};
-                });
-
-                $provide.factory('dpEmbedButtonDirective', () => {
-                    return {};
-                });
             }
         );
         mockedLeafletMap = {
@@ -104,8 +84,7 @@ describe('The dp-map directive', () => {
             _panning_,
             _zoom_,
             _drawTool_,
-            _onMapClick_,
-            _DRAW_TOOL_CONFIG_) {
+            _onMapClick_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             $timeout = _$timeout_;
@@ -117,7 +96,6 @@ describe('The dp-map directive', () => {
             zoom = _zoom_;
             drawTool = _drawTool_;
             onMapClick = _onMapClick_;
-            DRAW_TOOL_CONFIG = _DRAW_TOOL_CONFIG_;
         });
         spyOn(L, 'map').and.returnValue(mockedLeafletMap);
 
@@ -240,27 +218,26 @@ describe('The dp-map directive', () => {
     });
 
     describe('has overlays which', () => {
-        let overlays;
-
+        const firstLayerProperty = getLayerPropertyByIndex(0);
+        const secondLayerProperty = getLayerPropertyByIndex(1);
         beforeEach(() => {
-            angular.mock.inject(function (_overlays_) {
-                overlays = _overlays_;
+            angular.mock.inject(function () {
             });
         });
 
         it('can be added on initialization', () => {
-            mockedMapState.overlays = [{id: 'some_overlay', isVisible: true}];
+            mockedMapState.overlays = [{id: firstLayerProperty, isVisible: true}];
             getDirective(mockedMapState, mockedMarkers);
 
-            expect(layers.addOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_overlay');
+            expect(layers.addOverlay).toHaveBeenCalledWith(mockedLeafletMap, firstLayerProperty);
         });
 
         it('can be hidden on initialization', () => {
-            mockedMapState.overlays = [{id: 'some_overlay', isVisible: false}];
+            mockedMapState.overlays = [{id: firstLayerProperty, isVisible: false}];
             getDirective(mockedMapState, mockedMarkers);
 
-            expect(layers.addOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_overlay');
-            expect(layers.hideOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_overlay');
+            expect(layers.addOverlay).toHaveBeenCalledWith(mockedLeafletMap, firstLayerProperty);
+            expect(layers.hideOverlay).toHaveBeenCalledWith(mockedLeafletMap, firstLayerProperty);
         });
 
         it('can be added when the mapState changes', () => {
@@ -268,86 +245,84 @@ describe('The dp-map directive', () => {
             expect(layers.addOverlay).not.toHaveBeenCalled();
 
             mockedMapState.overlays = [
-                {id: 'some_overlay', isVisible: true},
-                {id: 'some_other_overlay', isVisible: true}
+                {id: firstLayerProperty, isVisible: true},
+                {id: secondLayerProperty, isVisible: true}
             ];
             $rootScope.$apply();
 
-            expect(layers.addOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_overlay');
-            expect(layers.addOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_other_overlay');
+            expect(layers.addOverlay).toHaveBeenCalledWith(mockedLeafletMap, firstLayerProperty);
+            expect(layers.addOverlay).toHaveBeenCalledWith(mockedLeafletMap, secondLayerProperty);
         });
 
         it('can be removed when the mapState changes', () => {
             mockedMapState.overlays = [
-                {id: 'some_overlay', isVisible: true},
-                {id: 'some_other_overlay', isVisible: true}
+                {id: firstLayerProperty, isVisible: true},
+                {id: secondLayerProperty, isVisible: true}
             ];
             getDirective(mockedMapState, mockedMarkers);
 
-            expect(layers.addOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_overlay');
-            expect(layers.addOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_other_overlay');
+            expect(layers.addOverlay).toHaveBeenCalledWith(mockedLeafletMap, firstLayerProperty);
+            expect(layers.addOverlay).toHaveBeenCalledWith(mockedLeafletMap, secondLayerProperty);
 
             expect(layers.removeOverlay).not.toHaveBeenCalled();
 
             mockedMapState.overlays = [];
             $rootScope.$apply();
 
-            expect(layers.removeOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_overlay');
-            expect(layers.removeOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_other_overlay');
+            expect(layers.removeOverlay).toHaveBeenCalledWith(mockedLeafletMap, firstLayerProperty);
+            expect(layers.removeOverlay).toHaveBeenCalledWith(mockedLeafletMap, secondLayerProperty);
         });
 
         it('is updated when the user authorization level changes', () => {
             mockedMapState.overlays = [
-                {id: 'some_overlay', isVisible: true},
-                {id: 'some_other_overlay', isVisible: true}
+                {id: firstLayerProperty, isVisible: true},
+                {id: secondLayerProperty, isVisible: true}
             ];
-
             getDirective(mockedMapState, mockedMarkers);
-
             expect(layers.removeOverlay).not.toHaveBeenCalled();
 
             mockedUser.scopes = [];
-            overlays.SOURCES = {
-                'some_overlay': 'some_overlay' // the other overlay is removed for  this auth level
-            };
+            mockedMapState.overlays = [
+                {id: firstLayerProperty, isVisible: true}
+            ];
 
             $rootScope.$digest();
 
-            expect(layers.removeOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_other_overlay');
+            expect(layers.removeOverlay).toHaveBeenCalledWith(mockedLeafletMap, secondLayerProperty);
         });
 
         it('can be hidden when isVisible changes', () => {
             mockedMapState.overlays = [
-                {id: 'some_overlay', isVisible: true},
-                {id: 'some_other_overlay', isVisible: true}
+                {id: firstLayerProperty, isVisible: true},
+                {id: secondLayerProperty, isVisible: true}
             ];
             getDirective(mockedMapState, mockedMarkers);
 
             mockedMapState.overlays = [
-                {id: 'some_overlay', isVisible: false},
-                {id: 'some_other_overlay', isVisible: true}
+                {id: firstLayerProperty, isVisible: false},
+                {id: secondLayerProperty, isVisible: true}
             ];
             $rootScope.$apply();
 
-            expect(layers.hideOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_overlay');
-            expect(layers.hideOverlay).not.toHaveBeenCalledWith(mockedLeafletMap, 'some_other_overlay');
+            expect(layers.hideOverlay).toHaveBeenCalledWith(mockedLeafletMap, firstLayerProperty);
+            expect(layers.hideOverlay).not.toHaveBeenCalledWith(mockedLeafletMap, secondLayerProperty);
         });
 
         it('can be shown when isVisible changes', () => {
             mockedMapState.overlays = [
-                {id: 'some_overlay', isVisible: false},
-                {id: 'some_other_overlay', isVisible: false}
+                {id: firstLayerProperty, isVisible: false},
+                {id: secondLayerProperty, isVisible: false}
             ];
             getDirective(mockedMapState, mockedMarkers);
 
             mockedMapState.overlays = [
-                {id: 'some_overlay', isVisible: false},
-                {id: 'some_other_overlay', isVisible: true}
+                {id: firstLayerProperty, isVisible: false},
+                {id: secondLayerProperty, isVisible: true}
             ];
             $rootScope.$apply();
 
-            expect(layers.showOverlay).not.toHaveBeenCalledWith(mockedLeafletMap, 'some_overlay');
-            expect(layers.showOverlay).toHaveBeenCalledWith(mockedLeafletMap, 'some_other_overlay');
+            expect(layers.showOverlay).not.toHaveBeenCalledWith(mockedLeafletMap, firstLayerProperty);
+            expect(layers.showOverlay).toHaveBeenCalledWith(mockedLeafletMap, secondLayerProperty);
         });
     });
 
@@ -559,7 +534,7 @@ describe('The dp-map directive', () => {
 
     describe('draw state', () => {
         it('should set the draw mode to none when drawing and editing are not active', () => {
-            mockedMapState.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
+            mockedMapState.drawingMode = drawToolConfig.DRAWING_MODE.NONE;
 
             const directive = getDirective(mockedMapState, mockedMarkers);
             const element = directive.find('.qa-map-container');
@@ -568,7 +543,7 @@ describe('The dp-map directive', () => {
         });
 
         it('should set the draw mode to draw when drawing is active', () => {
-            mockedMapState.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW;
+            mockedMapState.drawingMode = drawToolConfig.DRAWING_MODE.DRAW;
 
             const directive = getDirective(mockedMapState, mockedMarkers);
             const element = directive.find('.qa-map-container');
@@ -577,7 +552,7 @@ describe('The dp-map directive', () => {
         });
 
         it('should set the draw mode to draw when editing is active', () => {
-            mockedMapState.drawingMode = DRAW_TOOL_CONFIG.DRAWING_MODE.EDIT;
+            mockedMapState.drawingMode = drawToolConfig.DRAWING_MODE.EDIT;
 
             const directive = getDirective(mockedMapState, mockedMarkers);
             const element = directive.find('.qa-map-container');

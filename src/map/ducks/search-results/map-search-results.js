@@ -1,5 +1,3 @@
-import { createMapSearchResultsModel } from '../../../shared/services/map-search-results/map-search-results';
-
 export const FETCH_MAP_SEARCH_RESULTS_REQUEST = 'FETCH_MAP_SEARCH_RESULTS_REQUEST';
 export const FETCH_MAP_SEARCH_RESULTS_SUCCESS = 'FETCH_MAP_SEARCH_RESULTS_SUCCESS';
 export const FETCH_MAP_SEARCH_RESULTS_FAILURE = 'FETCH_MAP_SEARCH_RESULTS_FAILURE';
@@ -11,16 +9,12 @@ const initialState = {
 };
 
 export default function MapSearchResultsReducer(state = initialState, action) {
-  const locationId = Object
-    .keys(action.location)
-    .map((key) => action.location[key])
-    .toString();
-
   switch (action.type) {
     case FETCH_MAP_SEARCH_RESULTS_REQUEST:
       return { ...state, isLoading: true, mapSearchResultsError: null };
 
-    case FETCH_MAP_SEARCH_RESULTS_SUCCESS:
+    case FETCH_MAP_SEARCH_RESULTS_SUCCESS: {
+      const locationId = Object.values(action.location).toString();
       return {
         ...state,
         isLoading: false,
@@ -29,6 +23,7 @@ export default function MapSearchResultsReducer(state = initialState, action) {
           [locationId]: action.mapSearchResults
         }
       };
+    }
 
     case FETCH_MAP_SEARCH_RESULTS_FAILURE:
       return { ...state, isLoading: false };
@@ -41,11 +36,6 @@ export default function MapSearchResultsReducer(state = initialState, action) {
 export const selectLatestMapSearchResults = (state) =>
   state.search && state.search.location &&
   state.mapSearchResultsByLocation[state.search.location];
-
-export const getPreviewPanelResults = (state, resultsLimit) => {
-  const results = selectLatestMapSearchResults(state) || [];
-  return createMapSearchResultsModel(results, resultsLimit);
-};
 
 export const getMapSearchResults = (location, user) => ({
   type: FETCH_MAP_SEARCH_RESULTS_REQUEST,

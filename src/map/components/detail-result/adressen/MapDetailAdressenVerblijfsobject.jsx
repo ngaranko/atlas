@@ -10,17 +10,20 @@ const statusToCssModifier = {
   18: 'alert'
 };
 
-const MapDetailAdressenVerblijfsobject = ({ panoUrl, verblijfsobject, onMaximize }) => (
+const MapDetailAdressenVerblijfsobject = ({
+  panoUrl, verblijfsobject, onMaximize, onPanoPreviewClick
+}) => (
   <MapDetailResultWrapper
     panoUrl={panoUrl}
     onMaximize={onMaximize}
+    onPanoPreviewClick={onPanoPreviewClick}
     subTitle={verblijfsobject.label}
     title="Adres"
   >
     <ul className="map-detail-result__list">
-      <MapDetailAdressenVerblijfsobjectGebruiksdoelenItem
+      { verblijfsobject.gebruiksdoelen && <MapDetailAdressenVerblijfsobjectGebruiksdoelenItem
         gebruiksdoelen={verblijfsobject.gebruiksdoelen}
-      />
+      /> }
       <MapDetailResultItem
         label="Oppervlakte"
         value={verblijfsobject.size ? `${verblijfsobject.size} m²` : 'onbekend'}
@@ -57,13 +60,11 @@ MapDetailAdressenVerblijfsobject.propTypes = {
     status: PropTypes.shape({
       description: PropTypes.string,
       code: PropTypes.string
-    }),
-    hoofdadres: PropTypes.shape({
-      hoofdadres: PropTypes.bool
     })
   }).isRequired,
   panoUrl: PropTypes.string.isRequired,
-  onMaximize: PropTypes.func.isRequired
+  onMaximize: PropTypes.func.isRequired,
+  onPanoPreviewClick: PropTypes.func.isRequired
 };
 
 export default MapDetailAdressenVerblijfsobject;

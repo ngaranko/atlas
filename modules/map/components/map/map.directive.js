@@ -1,3 +1,4 @@
+import SOURCES from '../../../../src/shared/services/layers/overlays.constant';
 (() => {
     angular
         .module('dpMap')
@@ -14,7 +15,6 @@
         'panning',
         'zoom',
         'onMapClick',
-        'overlays',
         'activeOverlays',
         'store'
     ];
@@ -31,7 +31,6 @@
         panning,
         zoom,
         onMapClick,
-        overlays,
         activeOverlays,
         store
         ) {
@@ -105,6 +104,7 @@
              */
             scope.$applyAsync(() => {
                 leafletMap = L.map(container, options);
+                $window.leafletMap = leafletMap;
 
                 panning.initialize(leafletMap);
                 highlight.initialize();
@@ -148,7 +148,7 @@
                 scope.$watch('markers.clustered', function (newCollection, oldCollection) {
                     highlight.clearCluster(leafletMap);
 
-                    if (newCollection.length) {
+                    if (newCollection && newCollection.length > 0) {
                         highlight.setCluster(leafletMap, newCollection);
                     }
                 }, true);
@@ -166,7 +166,7 @@
             });
 
             function setOverlays () {
-                const newOverlays = scope.mapState.overlays.filter(overlay => overlays.SOURCES[overlay.id]),
+                const newOverlays = scope.mapState.overlays.filter(overlay => SOURCES[overlay.id]),
                     isInit = oldOverlays === null;
 
                 oldOverlays = oldOverlays || [];

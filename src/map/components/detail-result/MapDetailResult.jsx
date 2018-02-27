@@ -25,7 +25,7 @@ import MapDetailMonument from './MapDetailMonument';
 import MapDetailNapPeilmerk from './MapDetailNapPeilmerk';
 import MapDetailVestiging from './MapDetailVestiging';
 
-const MapDetailResult = ({ endpoint, panoUrl, result, onMaximize }) => {
+const MapDetailResult = ({ endpoint, panoUrl, result, onMaximize, onPanoPreviewClick }) => {
   const endpointTypeKey = Object
     .keys(endpointTypes)
     .find((typeKey) => endpoint.includes(endpointTypes[typeKey]));
@@ -36,6 +36,7 @@ const MapDetailResult = ({ endpoint, panoUrl, result, onMaximize }) => {
       return (
         <MapDetailAdressenLigplaats
           ligplaats={result}
+          onPanoPreviewClick={onPanoPreviewClick}
           onMaximize={onMaximize}
           panoUrl={panoUrl}
         />
@@ -45,6 +46,7 @@ const MapDetailResult = ({ endpoint, panoUrl, result, onMaximize }) => {
       return (
         <MapDetailAdressenVerblijfsobject
           onMaximize={onMaximize}
+          onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
           verblijfsobject={result}
         />
@@ -53,6 +55,7 @@ const MapDetailResult = ({ endpoint, panoUrl, result, onMaximize }) => {
       return (
         <MapDetailAdressenOpenbareRuimte
           onMaximize={onMaximize}
+          onPanoPreviewClick={onPanoPreviewClick}
           openbareRuimte={result}
           panoUrl={panoUrl}
         />
@@ -61,6 +64,7 @@ const MapDetailResult = ({ endpoint, panoUrl, result, onMaximize }) => {
       return (
         <MapDetailAdressenPand
           onMaximize={onMaximize}
+          onPanoPreviewClick={onPanoPreviewClick}
           pand={result}
           panoUrl={panoUrl}
         />
@@ -69,6 +73,7 @@ const MapDetailResult = ({ endpoint, panoUrl, result, onMaximize }) => {
       return (
         <MapDetailAdressenStandplaats
           onMaximize={onMaximize}
+          onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
           standplaats={result}
         />
@@ -78,6 +83,7 @@ const MapDetailResult = ({ endpoint, panoUrl, result, onMaximize }) => {
         <MapDetailExplosievenGevrijwaardGebied
           gevrijwaardGebied={result}
           onMaximize={onMaximize}
+          onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
         />
       );
@@ -86,6 +92,7 @@ const MapDetailResult = ({ endpoint, panoUrl, result, onMaximize }) => {
         <MapDetailExplosievenInslag
           inslag={result}
           onMaximize={onMaximize}
+          onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
         />
       );
@@ -93,6 +100,7 @@ const MapDetailResult = ({ endpoint, panoUrl, result, onMaximize }) => {
       return (
         <MapDetailExplosievenUitgevoerdOnderzoek
           onMaximize={onMaximize}
+          onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
           uitgevoerdOnderzoek={result}
         />
@@ -101,6 +109,7 @@ const MapDetailResult = ({ endpoint, panoUrl, result, onMaximize }) => {
       return (
         <MapDetailExplosievenVerdachtGebied
           onMaximize={onMaximize}
+          onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
           verdachtGebied={result}
         />
@@ -110,6 +119,7 @@ const MapDetailResult = ({ endpoint, panoUrl, result, onMaximize }) => {
         <MapDetailGebiedenBouwblok
           bouwblok={result}
           onMaximize={onMaximize}
+          onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
         />
       );
@@ -118,6 +128,7 @@ const MapDetailResult = ({ endpoint, panoUrl, result, onMaximize }) => {
         <MapDetailGebiedenBuurt
           buurt={result}
           onMaximize={onMaximize}
+          onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
         />
       );
@@ -126,6 +137,7 @@ const MapDetailResult = ({ endpoint, panoUrl, result, onMaximize }) => {
         <MapDetailGebiedenGebiedsgerichtWerken
           gebiedsgerichtWerken={result}
           onMaximize={onMaximize}
+          onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
         />
       );
@@ -134,6 +146,7 @@ const MapDetailResult = ({ endpoint, panoUrl, result, onMaximize }) => {
         <MapDetailGebiedenGrootstedelijk
           grootstedelijk={result}
           onMaximize={onMaximize}
+          onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
         />
       );
@@ -141,6 +154,7 @@ const MapDetailResult = ({ endpoint, panoUrl, result, onMaximize }) => {
       return (
         <MapDetailGebiedenStadsdeel
           onMaximize={onMaximize}
+          onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
           stadsdeel={result}
         />
@@ -149,6 +163,7 @@ const MapDetailResult = ({ endpoint, panoUrl, result, onMaximize }) => {
       return (
         <MapDetailGebiedenUnesco
           onMaximize={onMaximize}
+          onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
           unesco={result}
         />
@@ -157,6 +172,7 @@ const MapDetailResult = ({ endpoint, panoUrl, result, onMaximize }) => {
       return (
         <MapDetailGebiedenWijk
           onMaximize={onMaximize}
+          onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
           wijk={result}
         />
@@ -174,6 +190,7 @@ const MapDetailResult = ({ endpoint, panoUrl, result, onMaximize }) => {
         <MapDetailKadastraalObject
           kadastraalObject={result}
           onMaximize={onMaximize}
+          onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
         />
       );
@@ -182,6 +199,7 @@ const MapDetailResult = ({ endpoint, panoUrl, result, onMaximize }) => {
         <MapDetailMeetbout
           meetbout={result}
           onMaximize={onMaximize}
+          onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
         />
       );
@@ -190,6 +208,7 @@ const MapDetailResult = ({ endpoint, panoUrl, result, onMaximize }) => {
         <MapDetailMonument
           monument={result}
           onMaximize={onMaximize}
+          onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
         />
       );
@@ -197,6 +216,7 @@ const MapDetailResult = ({ endpoint, panoUrl, result, onMaximize }) => {
       return (
         <MapDetailNapPeilmerk
           onMaximize={onMaximize}
+          onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
           peilmerk={result}
         />
@@ -205,6 +225,7 @@ const MapDetailResult = ({ endpoint, panoUrl, result, onMaximize }) => {
       return (
         <MapDetailVestiging
           onMaximize={onMaximize}
+          onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
           vestiging={result}
         />
@@ -223,6 +244,7 @@ MapDetailResult.propTypes = {
   endpoint: PropTypes.string.isRequired,
   panoUrl: PropTypes.string,
   onMaximize: PropTypes.func.isRequired,
+  onPanoPreviewClick: PropTypes.func.isRequired,
   result: PropTypes.object // eslint-disable-line react/forbid-prop-types
 };
 

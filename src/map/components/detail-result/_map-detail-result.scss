@@ -1,18 +1,29 @@
-.map-detail-result {
-  $header-height: 116px;
-  $above-list-height: $map-preview-panel-top + 1px + 33px + $header-height;
-  $below-list-height: 1px + $map-preview-panel-bottom;
+$header-height: 116px;
+$above-list-height: $map-preview-panel-top + 1px + 33px + $header-height - 50px;
+$below-list-height: 1px + $map-preview-panel-bottom;
 
+.map-detail-result {
   display: flex;
+  flex: 0 1 auto;
   flex-direction: column;
   height: 100%;
 
   &__header {
     height: $header-height;
+    min-height: $header-height;
     position: relative;
 
     &--no-pano {
       height: auto;
+    }
+
+    &-pano-button {
+      height: 100%;
+      width: 100%;
+    }
+
+    &-pano-button--disabled {
+      cursor: default;
     }
 
     &-pano {
@@ -23,14 +34,15 @@
     }
 
     &-container {
-      background: #666666;
+      background: $secondary-gray60;
       bottom: 16px;
-      color: #ffffff;
+      color: $primary-light;
       margin-right: 16px;
       padding: 8px;
       position: absolute;
+      text-align: left;
 
-      @media screen and (min-width: 1200px) {
+      @media screen and (min-width: $breakpoint-md) {
         padding: 8px 12px;
       }
 
@@ -57,11 +69,12 @@
   }
 
   &__scroll-wrapper {
-    max-height: calc(100vh - #{$above-list-height + $below-list-height});
+    max-height: calc(100vh - #{$above-list-height + $below-list-height}); //NB: fix for IE
+    min-height: 1px; // NB: firefox & ie fix - https://stackoverflow.com/a/43027202
     overflow-y: auto;
 
     .c-dashboard__body--error & {
-      max-height: calc(100vh - #{$above-list-height + $below-list-height + $dashboard-error-height});
+      max-height: calc(100% - #{$above-list-height + $below-list-height + $dashboard-error-height}); //NB: fix for IE
     }
 
     .is-embed &,
@@ -79,7 +92,7 @@
     text-align: left;
     width: 100%;
 
-    @media screen and (min-width: 1200px) {
+    @media screen and (min-width: $breakpoint-md) {
       padding: 8px 12px;
     }
 
@@ -89,7 +102,7 @@
     }
 
     &-label {
-      color: #999999;
+      color: $secondary-gray40;
       font-size: 14px;
       padding-bottom: 4px;
     }
@@ -111,13 +124,14 @@
 
       &--alert {
         &::after {
-          background-color: #ec0000;
+          background-color: $primary-contrast;
           display: inline-block;
         }
       }
+
       &--info {
         &::after {
-          background-color: #004699;
+          background-color: $thema-10;
           display: inline-block;
         }
       }
@@ -137,12 +151,12 @@
 
   &__button {
     align-items: center;
-    background-color: #fff;
+    background-color: $primary-light;
+    border: 1px solid $secondary-gray20;
     border-radius: 0;
-    border: 1px solid #cccccc;
-    color: #666666;
+    color: $secondary-gray60;
     display: flex;
-    fill: #666666;
+    fill: $secondary-gray60;
     font-family: "Avenir LT W01 85 Heavy", Arial, sans-serif;
     justify-content: center;
     margin: auto;
@@ -150,16 +164,16 @@
     width: auto;
 
     &:hover {
-      background-color: #EC0000;
-      color: #fff;
-      fill: #fff;
+      background-color: $primary-contrast;
+      color: $primary-light;
+      fill: $primary-light;
     }
 
     &-icon {
       fill: inherit;
       height: 24px;
-      width: 24px;
       margin-right: 5px;
+      width: 24px;
     }
   }
 }

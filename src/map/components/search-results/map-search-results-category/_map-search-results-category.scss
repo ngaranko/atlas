@@ -1,0 +1,35 @@
+.map-search-results-category {
+  padding-top: 24px;
+  position: relative;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &--subcategory {
+    padding-left: 8px;
+
+    &::before {
+      background-color: $secondary-gray16;
+      bottom: 0;
+      content: "";
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 8px;
+    }
+  }
+
+  &__header,
+  &__showmore {
+    color: $primary-dark;
+    font-size: 16px;
+    line-height: 16px;
+    padding: 8px;
+    text-align: left;
+    width: 100%;
+    @media screen and (min-width: $breakpoint-md) {
+      padding: 8px 12px;
+    }
+  }
+}

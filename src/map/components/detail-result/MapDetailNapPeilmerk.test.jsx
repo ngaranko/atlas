@@ -11,10 +11,12 @@ describe('MapDetailNapPeilmerk', () => {
       label: 'Peilmerk label',
       year: 1919
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailNapPeilmerk
         panoUrl="panoUrl"
-        onMaximize={() => ({})}
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         peilmerk={peilmerk}
       />
     );
@@ -28,10 +30,12 @@ describe('MapDetailNapPeilmerk', () => {
       label: 'Peilmerk label',
       year: 1919
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailNapPeilmerk
         panoUrl="panoUrl"
-        onMaximize={() => ({})}
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         peilmerk={peilmerk}
       />
     );
@@ -45,10 +49,12 @@ describe('MapDetailNapPeilmerk', () => {
       label: 'Peilmerk label',
       year: 1919
     };
+    const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailNapPeilmerk
         panoUrl="panoUrl"
-        onMaximize={() => ({})}
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         peilmerk={peilmerk}
       />
     );

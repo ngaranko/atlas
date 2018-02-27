@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MapDetailAdressenVerblijfsobject should not render size 1`] = `
+exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if hoofdadres is \`false\` and show a blue bullet 1`] = `
 <MapDetailResultWrapper
+  onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Verblijfsobject label"
   title="Adres"
@@ -26,7 +28,7 @@ exports[`MapDetailAdressenVerblijfsobject should not render size 1`] = `
     />
     <MapDetailResultItem
       label="Oppervlakte"
-      value=""
+      value="onbekend"
     />
     <MapDetailResultItem
       label="Type woonobject"
@@ -36,12 +38,24 @@ exports[`MapDetailAdressenVerblijfsobject should not render size 1`] = `
       label="Eigendomsverhouding"
       value="Verblijfsobject eigendomsverhouding"
     />
+    <MapDetailResultStatusItem
+      label="Indicatie hoofdadres"
+      status=""
+      value="Ja"
+    />
+    <MapDetailResultStatusItem
+      label="Status"
+      status=""
+      value="Status omschrijving"
+    />
   </ul>
 </MapDetailResultWrapper>
 `;
 
 exports[`MapDetailAdressenVerblijfsobject should render everything 1`] = `
 <MapDetailResultWrapper
+  onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Verblijfsobject label"
   title="Adres"
@@ -76,12 +90,24 @@ exports[`MapDetailAdressenVerblijfsobject should render everything 1`] = `
       label="Eigendomsverhouding"
       value="Verblijfsobject eigendomsverhouding"
     />
+    <MapDetailResultStatusItem
+      label="Indicatie hoofdadres"
+      status=""
+      value="Ja"
+    />
+    <MapDetailResultStatusItem
+      label="Status"
+      status=""
+      value="Status omschrijving"
+    />
   </ul>
 </MapDetailResultWrapper>
 `;
 
-exports[`MapDetailAdressenVerblijfsobject should render with zero value for size 1`] = `
+exports[`MapDetailAdressenVerblijfsobject should render unknown with zero value for size 1`] = `
 <MapDetailResultWrapper
+  onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Verblijfsobject label"
   title="Adres"
@@ -106,7 +132,7 @@ exports[`MapDetailAdressenVerblijfsobject should render with zero value for size
     />
     <MapDetailResultItem
       label="Oppervlakte"
-      value="0 m²"
+      value="onbekend"
     />
     <MapDetailResultItem
       label="Type woonobject"
@@ -115,6 +141,68 @@ exports[`MapDetailAdressenVerblijfsobject should render with zero value for size
     <MapDetailResultItem
       label="Eigendomsverhouding"
       value="Verblijfsobject eigendomsverhouding"
+    />
+    <MapDetailResultStatusItem
+      label="Indicatie hoofdadres"
+      status=""
+      value="Ja"
+    />
+    <MapDetailResultStatusItem
+      label="Status"
+      status=""
+      value="Status omschrijving"
+    />
+  </ul>
+</MapDetailResultWrapper>
+`;
+
+exports[`MapDetailAdressenVerblijfsobject should render unknown without size 1`] = `
+<MapDetailResultWrapper
+  onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
+  panoUrl="panoUrl"
+  subTitle="Verblijfsobject label"
+  title="Adres"
+>
+  <ul
+    className="map-detail-result__list"
+  >
+    <MapDetailAdressenVerblijfsobjectGebruiksdoelenItem
+      gebruiksdoelen={
+        Array [
+          Object {
+            "code": "01",
+            "description": "Gebruiksdoel description 1",
+          },
+          Object {
+            "code": "0400",
+            "description": "Gebruiksdoel description 2",
+            "descriptionPlus": "Gebruiksdoel description plus",
+          },
+        ]
+      }
+    />
+    <MapDetailResultItem
+      label="Oppervlakte"
+      value="onbekend"
+    />
+    <MapDetailResultItem
+      label="Type woonobject"
+      value="Verblijfsobject type"
+    />
+    <MapDetailResultItem
+      label="Eigendomsverhouding"
+      value="Verblijfsobject eigendomsverhouding"
+    />
+    <MapDetailResultStatusItem
+      label="Indicatie hoofdadres"
+      status=""
+      value="Ja"
+    />
+    <MapDetailResultStatusItem
+      label="Status"
+      status=""
+      value="Status omschrijving"
     />
   </ul>
 </MapDetailResultWrapper>

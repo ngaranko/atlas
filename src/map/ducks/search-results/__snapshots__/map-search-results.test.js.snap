@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`handles search results request 1`] = `
+Object {
+  "isLoading": true,
+  "mapSearchResultsError": null,
+}
+`;
+
+exports[`handles search results success 1`] = `
+Object {
+  "isLoading": false,
+  "mapSearchResultsByLocation": Object {
+    "52.3637006,4.7943446": Array [
+      Object {
+        "foo": "bar",
+      },
+    ],
+  },
+}
+`;
+
+exports[`sets the initial state 1`] = `
+Object {
+  "isLoading": false,
+  "mapSearchResultsByLocation": Object {},
+  "mapSearchResultsError": null,
+}
+`;

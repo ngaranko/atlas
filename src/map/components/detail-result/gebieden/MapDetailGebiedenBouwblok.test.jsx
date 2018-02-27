@@ -13,6 +13,7 @@ describe('MapDetailGebiedenBouwblok', () => {
       <MapDetailGebiedenBouwblok
         panoUrl="panoUrl"
         onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
         bouwblok={bouwblok}
       />
     );
