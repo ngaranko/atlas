@@ -1,3 +1,5 @@
+import { radiansToDegrees } from '../../../../src/shared/services/angle-conversion/angle-conversion';
+
 (function () {
     'use strict';
 
@@ -5,9 +7,9 @@
         .module('dpStraatbeeld')
         .factory('orientation', orientationFactory);
 
-    orientationFactory.$inject = ['store', 'ACTIONS', 'angleConversion'];
+    orientationFactory.$inject = ['store', 'ACTIONS'];
 
-    function orientationFactory (store, ACTIONS, angleConversion) {
+    function orientationFactory (store, ACTIONS) {
         return {
             update: update
         };
@@ -17,9 +19,9 @@
                 fov,
                 heading;
 
-            pitch = angleConversion.radiansToDegrees(viewer.view().pitch());
-            fov = angleConversion.radiansToDegrees(viewer.view().fov());
-            heading = angleConversion.radiansToDegrees(viewer.view().yaw());
+            pitch = radiansToDegrees(viewer.view().pitch());
+            fov = radiansToDegrees(viewer.view().fov());
+            heading = radiansToDegrees(viewer.view().yaw());
 
             store.dispatch({
                 type: ACTIONS.SET_STRAATBEELD_ORIENTATION,
