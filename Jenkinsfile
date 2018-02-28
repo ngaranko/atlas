@@ -80,7 +80,7 @@ pipeline {
           "."
       }
     }
-    stage('Deploy A (Master only)') {
+    stage('Deploy A (Master)') {
       when { branch 'master' }
       steps {
         sh "docker tag ${IMAGE_BUILD} ${IMAGE_ACCEPTANCE}"
@@ -92,7 +92,7 @@ pipeline {
         ]
       }
     }
-    stage('Build P (Master only)') {
+    stage('Build P (Master)') {
       when { branch 'master' }
       steps {
         // NOTE BUILD_ENV intentionaly not set (using Dockerfile default)
@@ -101,7 +101,7 @@ pipeline {
             "."
       }
     }
-    stage('Deploy pre P (Master only)') {
+    stage('Deploy pre P (Master)') {
       when { branch 'master' }
       steps {
         sh "docker tag ${IMAGE_PRODUCTION} ${IMAGE_LATEST}"
@@ -113,7 +113,7 @@ pipeline {
         ]
       }
     }
-    stage('Waiting for approval (Master only)') {
+    stage('Waiting for approval (Master)') {
       when {
         branch 'master'
       }
@@ -127,7 +127,7 @@ pipeline {
         }
       }
     }
-    stage('Deploy P (Master only)') {
+    stage('Deploy P (Master)') {
       when { branch 'master' }
       steps {
         build job: 'Subtask_Openstack_Playbook', parameters: [
