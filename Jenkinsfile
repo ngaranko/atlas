@@ -5,7 +5,7 @@ pipeline {
   }
   environment {
     IMAGE_BASE = "build.datapunt.amsterdam.nl:5000/atlas/app"
-    IMAGE_BUILD = "${IMAGE_BASE}:${GIT_SHA}"
+    IMAGE_BUILD = "${IMAGE_BASE}:${BUILD_NUMBER}"
     IMAGE_ACCEPTANCE = "${IMAGE_BASE}:acceptance"
     IMAGE_PRODUCTION = "${IMAGE_BASE}:production"
     IMAGE_LATEST = "${IMAGE_BASE}:latest"
