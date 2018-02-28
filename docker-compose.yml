@@ -3,6 +3,7 @@ services:
   atlas: # NGINX
     build:
       context: .
+    ipc: host
 
   test-lint:
     build:
