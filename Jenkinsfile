@@ -116,15 +116,14 @@ pipeline {
         sh "docker build -t ${IMAGE_PRODUCTION} " +
             "--shm-size 1G " +
             "."
+        sh "docker tag ${IMAGE_PRODUCTION} ${IMAGE_LATEST}"
+        sh "docker push ${IMAGE_PRODUCTION}"
+        sh "docker push ${IMAGE_LATEST}"
       }
     }
     stage('Deploy pre P (Master)') {
       when { branch 'master' }
       steps {
-        sh "docker pull ${IMAGE_PRODUCTION}"
-        sh "docker tag ${IMAGE_PRODUCTION} ${IMAGE_LATEST}"
-        sh "docker push ${IMAGE_PRODUCTION}"
-        sh "docker push ${IMAGE_LATEST}"
         build job: 'Subtask_Openstack_Playbook', parameters: [
           [$class: 'StringParameterValue', name: 'INVENTORY', value: 'acceptance'],
           [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-client-pre.yml']
