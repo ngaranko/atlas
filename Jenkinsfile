@@ -5,7 +5,7 @@ pipeline {
   }
   environment {
     IMAGE_BASE = "build.datapunt.amsterdam.nl:5000/atlas/app"
-    IMAGE_BUILD = "${IMAGE_BASE}:${GIT_SHA}"
+    IMAGE_BUILD = "${IMAGE_BASE}:${BUILD_NUMBER}"
     IMAGE_ACCEPTANCE = "${IMAGE_BASE}:acceptance"
     IMAGE_PRODUCTION = "${IMAGE_BASE}:production"
     IMAGE_LATEST = "${IMAGE_BASE}:latest"
@@ -94,13 +94,14 @@ pipeline {
           "--shm-size 1G " +
           "--build-arg BUILD_ENV=acc " +
           "."
+        sh "docker push ${IMAGE_BUILD}"
       }
     }
     stage('Deploy A (Master)') {
       when { branch 'master' }
       steps {
+        sh "docker pull ${IMAGE_BUILD}"
         sh "docker tag ${IMAGE_BUILD} ${IMAGE_ACCEPTANCE}"
-        sh "docker push ${IMAGE_BUILD}"
         sh "docker push ${IMAGE_ACCEPTANCE}"
         build job: 'Subtask_Openstack_Playbook', parameters: [
           [$class: 'StringParameterValue', name: 'INVENTORY', value: 'acceptance'],
@@ -115,14 +116,14 @@ pipeline {
         sh "docker build -t ${IMAGE_PRODUCTION} " +
             "--shm-size 1G " +
             "."
+        sh "docker tag ${IMAGE_PRODUCTION} ${IMAGE_LATEST}"
+        sh "docker push ${IMAGE_PRODUCTION}"
+        sh "docker push ${IMAGE_LATEST}"
       }
     }
     stage('Deploy pre P (Master)') {
       when { branch 'master' }
       steps {
-        sh "docker tag ${IMAGE_PRODUCTION} ${IMAGE_LATEST}"
-        sh "docker push ${IMAGE_PRODUCTION}"
-        sh "docker push ${IMAGE_LATEST}"
         build job: 'Subtask_Openstack_Playbook', parameters: [
           [$class: 'StringParameterValue', name: 'INVENTORY', value: 'acceptance'],
           [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-client-pre.yml']
