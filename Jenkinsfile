@@ -59,6 +59,11 @@ pipeline {
             sh 'docker-compose up --build --exit-code-from test-e2e-functional test-e2e-functional'
             // echo 'Skip'
           }
+          post {
+            always {
+              sh 'docker-compose down -v || true'
+            }
+          }
         }
         stage('Aria E2E') {
           environment {
@@ -69,6 +74,11 @@ pipeline {
             sh 'docker network prune'
             sh 'docker-compose up --build --exit-code-from test-e2e-aria test-e2e-aria'
             // echo 'Skip'
+          }
+          post {
+            always {
+              sh 'docker-compose down -v || true'
+            }
           }
         }
       }
