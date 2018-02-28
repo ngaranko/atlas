@@ -47,6 +47,8 @@ pipeline {
         }
         stage('Functional E2E') {
           environment {
+            // Setting compose project name helps prevent service clash in unisolated Jenkins slaves
+            COMPOSE_PROJECT_NAME   = 'atlas-func-e2e'
             USERNAME_EMPLOYEE      = 'atlas.employee@amsterdam.nl'
             USERNAME_EMPLOYEE_PLUS = 'atlas.employee.plus@amsterdam.nl'
             PASSWORD_EMPLOYEE      = credentials('PASSWORD_EMPLOYEE')
@@ -59,6 +61,10 @@ pipeline {
           }
         }
         stage('Aria E2E') {
+          environment {
+            // Setting compose project name helps prevent service clash in unisolated Jenkins slaves
+            COMPOSE_PROJECT_NAME   = 'atlas-aria-e2e'
+          }
           steps {
             sh 'docker network prune'
             sh 'docker-compose up --build --exit-code-from test-e2e-aria test-e2e-aria'
