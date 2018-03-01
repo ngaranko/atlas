@@ -21,7 +21,7 @@
                 proclaimer: 6,
                 info: 7,
                 inloggen: 8,
-                statisieken: 9
+                statistieken: 9
             }
         });
 })();
