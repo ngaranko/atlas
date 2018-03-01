@@ -20,7 +20,8 @@
                 apis: 5,
                 proclaimer: 6,
                 info: 7,
-                inloggen: 8
+                inloggen: 8,
+                statisieken: 9
             }
         });
 })();
