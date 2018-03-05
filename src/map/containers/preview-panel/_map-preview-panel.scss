@@ -119,11 +119,6 @@ $map-preview-panel-top-print: 8px;
   }
 
   .is-print-mode & {
-    bottom: $map-preview-panel-bottom-print;
-    max-height: none;
-    position: absolute;
-    top: $map-preview-panel-top-print;
-
     &__heading {
       display: none;
     }
