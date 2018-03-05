@@ -10,7 +10,7 @@
     padding-left: 8px;
 
     &::before {
-      background-color: $secondary-gray16;
+      background-color: $secondary-gray20;
       bottom: 0;
       content: "";
       left: 0;
@@ -25,9 +25,12 @@
     color: $primary-dark;
     font-size: 16px;
     line-height: 16px;
-    padding: 8px;
     text-align: left;
     width: 100%;
+  }
+
+  &__header {
+    padding: 8px;
     @media screen and (min-width: $breakpoint-md) {
       padding: 8px 12px;
     }
