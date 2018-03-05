@@ -58,7 +58,8 @@ exports[`MapSearchResults rendering should filter external monumenten on pand re
         }
         isSubcategory={false}
         key="category"
-        onClick={[MockFunction]}
+        onItemClick={[MockFunction]}
+        onShowMoreClick={[MockFunction]}
       />
       <MapSearchResultsCategory
         category={
@@ -74,7 +75,8 @@ exports[`MapSearchResults rendering should filter external monumenten on pand re
         }
         isSubcategory={false}
         key="category"
-        onClick={[MockFunction]}
+        onItemClick={[MockFunction]}
+        onShowMoreClick={[MockFunction]}
       />
       <MapSearchResultsCategory
         category={
@@ -90,7 +92,8 @@ exports[`MapSearchResults rendering should filter external monumenten on pand re
         }
         isSubcategory={false}
         key="category"
-        onClick={[MockFunction]}
+        onItemClick={[MockFunction]}
+        onShowMoreClick={[MockFunction]}
       />
     </ul>
     <footer
@@ -245,7 +248,8 @@ exports[`MapSearchResults rendering should render results 1`] = `
         }
         isSubcategory={false}
         key="category"
-        onClick={[MockFunction]}
+        onItemClick={[MockFunction]}
+        onShowMoreClick={[MockFunction]}
       />
       <MapSearchResultsCategory
         category={
@@ -261,7 +265,8 @@ exports[`MapSearchResults rendering should render results 1`] = `
         }
         isSubcategory={false}
         key="category"
-        onClick={[MockFunction]}
+        onItemClick={[MockFunction]}
+        onShowMoreClick={[MockFunction]}
       />
     </ul>
     <footer
@@ -346,7 +351,8 @@ exports[`MapSearchResults rendering should update results 1`] = `
         }
         isSubcategory={false}
         key="category"
-        onClick={[MockFunction]}
+        onItemClick={[MockFunction]}
+        onShowMoreClick={[MockFunction]}
       />
       <MapSearchResultsCategory
         category={
@@ -362,7 +368,8 @@ exports[`MapSearchResults rendering should update results 1`] = `
         }
         isSubcategory={false}
         key="category"
-        onClick={[MockFunction]}
+        onItemClick={[MockFunction]}
+        onShowMoreClick={[MockFunction]}
       />
     </ul>
     <footer
@@ -456,7 +463,8 @@ exports[`MapSearchResults rendering should update results 2`] = `
         }
         isSubcategory={false}
         key="category"
-        onClick={[MockFunction]}
+        onItemClick={[MockFunction]}
+        onShowMoreClick={[MockFunction]}
       />
       <MapSearchResultsCategory
         category={
@@ -472,7 +480,8 @@ exports[`MapSearchResults rendering should update results 2`] = `
         }
         isSubcategory={false}
         key="category"
-        onClick={[MockFunction]}
+        onItemClick={[MockFunction]}
+        onShowMoreClick={[MockFunction]}
       />
       <MapSearchResultsCategory
         category={
@@ -488,7 +497,8 @@ exports[`MapSearchResults rendering should update results 2`] = `
         }
         isSubcategory={false}
         key="category"
-        onClick={[MockFunction]}
+        onItemClick={[MockFunction]}
+        onShowMoreClick={[MockFunction]}
       />
     </ul>
     <footer
