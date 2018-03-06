@@ -25,13 +25,11 @@ const CustomLegenda = ({ payload }) => (
 );
 
 CustomLegenda.defaultProps = {
-  payload: [],
-  external: {}
+  payload: []
 };
 
 CustomLegenda.propTypes = {
   payload: PropTypes.array, // eslint-disable-line
-  external: PropTypes.shape({})
 };
 
 export default CustomLegenda;
