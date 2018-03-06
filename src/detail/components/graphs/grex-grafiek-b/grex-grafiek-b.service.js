@@ -35,9 +35,22 @@ const mergeYears = (data) => data.reduce((acc, current) => {
   ];
 }, []);
 
+const sortYears = (data) => (data.sort((a, b) => {
+  const nameA = a.name.toUpperCase();
+  const nameB = b.name.toUpperCase();
+  if (nameA < nameB) {
+    return -1;
+  }
+  if (nameA > nameB) {
+    return 1;
+  }
+  return 0;
+}));
+
 const getAllYearsGroups = (data) => {
   const years = getAllYears(data);
-  return mergeYears(years);
+  const merged = mergeYears(years);
+  return sortYears(merged);
 };
 
 export default getAllYearsGroups;

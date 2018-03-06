@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip, Cell, LabelList } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Cell, LabelList } from 'recharts';
 
 import getGrexCategoryColor from '../grex-graph-category-colors';
 
@@ -35,19 +35,18 @@ class GrexGrafiekA extends React.Component {
                 tickLine={false}
                 axisLine={false}
                 type="number"
-                tick={{ fill: '#b9b9b9' }}
+                tick={{ fill: '#999' }}
                 domain={['auto', (dataMax) => Math.round(dataMax * 1.1)]}
               />
               <YAxis
-                width={170}
+                width={180}
                 tickLine={false}
                 axisLine={false}
                 hide={false}
                 dataKey="name"
                 type="category"
-                tick={{ fill: '#b9b9b9' }}
+                tick={{ fill: '#999' }}
               />
-              <Tooltip cursor={{ fill: '#e1e1e1', opacity: 0.5 }} />
               <CartesianGrid
                 horizontal={false}
                 fill="#f6f6f6"

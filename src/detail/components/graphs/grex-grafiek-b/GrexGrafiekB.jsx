@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend, ResponsiveContainer, Tooltip, LabelList } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend, ResponsiveContainer } from 'recharts';
 
 import grexCategoriesInOrder from '../grex-graph-categories';
 import getGrexCategoryColor from '../grex-graph-category-colors';
 
 import getAllYearsGroups from './grex-grafiek-b.service';
+
+import CustomLegenda from '../legenda/CustomLegenda';
 
 import './_grex-grafiek-b.scss';
 
@@ -26,9 +28,7 @@ class GrexGrafiekB extends React.Component {
         key={category}
         name={category}
         stackId="a"
-      >
-        <LabelList dataKey={`${category}.value`} position="right" />
-      </Bar>
+      />
     ));
 
     return this.state.data && (
@@ -39,16 +39,36 @@ class GrexGrafiekB extends React.Component {
         <div className="grex-grafiek-b__container">
           <ResponsiveContainer>
             <BarChart
-              barCategoryGap={50}
+              barCategoryGap={20}
               maxBarSize={90}
               minPointSize={10}
+              layout="vertical"
               data={this.state.data}
             >
-              <XAxis tickLine={false} axisLine={false} dataKey="name" tick={{ fill: '#b9b9b9' }} />
-              <YAxis tickLine={false} axisLine={false} tick={{ fill: '#b9b9b9' }} />
-              <Tooltip cursor={{ fill: '#e1e1e1', opacity: 0.5 }} onClick={null} />
-              <CartesianGrid vertical={false} fill="#f6f6f6" />
-              <Legend iconType="square" />
+              <XAxis
+                tickLine={false}
+                axisLine={false}
+                type="number"
+                tick={{ fill: '#b9b9b9' }}
+                domain={['auto', (dataMax) => Math.round(dataMax * 1.1)]}
+              />
+              <YAxis
+                width={180}
+                tickLine={false}
+                axisLine={false}
+                hide={false}
+                dataKey="name"
+                type="category"
+                tick={{ fill: '#b9b9b9' }}
+              />
+              <CartesianGrid
+                horizontal={false}
+                fill="#f6f6f6"
+              />
+              <Legend
+                wrapperStyle={{ bottom: '-20px' }}
+                content={<CustomLegenda />}
+              />
               {
                 bars
               }
