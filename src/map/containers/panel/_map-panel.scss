@@ -1,5 +1,6 @@
 $map-panel-heading-height: 33px;
 $map-panel-offset: 130px;
+$map-panel-max-width: 444px;
 
 .map-panel {
   background-color: $primary-light;
@@ -11,7 +12,7 @@ $map-panel-offset: 130px;
   font-family: "Avenir LT W01 55 Roman";
   left: 8px;
   max-height: calc(100% - #{$dashboard-heading-height} - #{$map-panel-offset});
-  max-width: 444px;
+  max-width: $map-panel-max-width;
   min-width: 285px;
   overflow: hidden;
   position: absolute;
@@ -154,6 +155,24 @@ $map-panel-offset: 130px;
 
     .scroll-wrapper {
       height: auto;
+    }
+
+    // Make sure the width is fixed
+    width: $map-panel-max-width;
+
+    // This hack makes sure IE also has a white background when printing
+    // https://stackoverflow.com/a/27822161
+    @media print {
+      &::before {
+        border-right: $map-panel-max-width solid $primary-light;
+        bottom: 0;
+        content: '';
+        display: block;
+        left: 0;
+        position: absolute;
+        top: 0;
+        z-index: -1;
+      }
     }
   }
 

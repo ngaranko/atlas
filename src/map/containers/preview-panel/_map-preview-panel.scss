@@ -1,5 +1,6 @@
 $map-preview-panel-bottom-print: 2px + 10px + 17px + 8px;
 $map-preview-panel-top-print: 8px;
+$map-preview-panel-max-width: 440px;
 
 .map-preview-panel {
   background-color: $secondary-gray5;
@@ -14,7 +15,7 @@ $map-preview-panel-top-print: 8px;
   margin-right: 9px;
   margin-top: $map-preview-panel-top;
   max-height: calc(100% - #{$map-preview-panel-top + $map-preview-panel-bottom});
-  max-width: 440px;
+  max-width: $map-preview-panel-max-width;
   min-width: 285px;
   position: relative;
   width: 28%;
@@ -121,20 +122,21 @@ $map-preview-panel-top-print: 8px;
   .is-print-mode & {
     background-color: $primary-light;
 
-    // Height will not be dynamic according to content in print mode
-    height: calc(100% - #{$map-preview-panel-top + $map-preview-panel-bottom});
+    // Make sure the width is fixed
+    width: $map-preview-panel-max-width;
 
     // This hack makes sure IE also has a white background when printing
+    // https://stackoverflow.com/a/27822161
     @media print {
       &::before {
-        border-bottom: 543px solid $primary-light;
+        border-right: $map-preview-panel-max-width solid $primary-light;
+        bottom: 0;
         content: '';
         display: block;
         left: 0;
         position: absolute;
-        right: 0;
         top: 0;
-        z-index: -3;
+        z-index: -1;
       }
     }
 
