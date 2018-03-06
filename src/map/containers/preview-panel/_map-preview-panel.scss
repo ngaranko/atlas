@@ -119,6 +119,8 @@ $map-preview-panel-top-print: 8px;
   }
 
   .is-print-mode & {
+    background-color: $primary-light;
+
     // Height will not be dynamic according to content in print mode
     height: calc(100% - #{$map-preview-panel-top + $map-preview-panel-bottom});
 
