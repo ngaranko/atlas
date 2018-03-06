@@ -7,17 +7,7 @@
   }
 
   &--subcategory {
-    padding-left: 8px;
-
-    &::before {
-      background-color: $secondary-gray20;
-      bottom: 0;
-      content: "";
-      left: 0;
-      position: absolute;
-      top: 0;
-      width: 8px;
-    }
+    border-left: 8px solid $secondary-gray20;
   }
 
   &__header,

@@ -31,6 +31,11 @@ $below-list-height: 1px + $map-preview-panel-bottom;
       height: 100%;
       object-fit: cover;
       width: 100%;
+
+      // Don't display pano in print mode
+      .is-print-mode & {
+        display: none;
+      }
     }
 
     &-container {
@@ -46,9 +51,18 @@ $below-list-height: 1px + $map-preview-panel-bottom;
         padding: 8px 12px;
       }
 
-      .map-detail-result__header--no-pano & {
+      .map-detail-result__header--no-pano &,
+      // Act as if there is no pano, when in print mode
+      .is-print-mode & {
         margin-right: 0;
         position: static;
+      }
+
+      // Only when actually printing, change font color, to reflect a light background
+      .is-print-mode & {
+        @media print {
+          color: $primary-dark;
+        }
       }
     }
 
@@ -65,6 +79,12 @@ $below-list-height: 1px + $map-preview-panel-bottom;
       font-weight: normal;
       line-height: 1;
       padding-top: 4px;
+    }
+
+    // There is no pano in print mode
+    .is-print-mode & {
+      height: auto;
+      min-height: auto;
     }
   }
 

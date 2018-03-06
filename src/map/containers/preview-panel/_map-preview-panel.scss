@@ -119,6 +119,23 @@ $map-preview-panel-top-print: 8px;
   }
 
   .is-print-mode & {
+    // Height will not be dynamic according to content in print mode
+    height: calc(100% - #{$map-preview-panel-top + $map-preview-panel-bottom});
+
+    // This hack makes sure IE also has a white background when printing
+    @media print {
+      &::before {
+        border-bottom: 543px solid $primary-light;
+        content: '';
+        display: block;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: -3;
+      }
+    }
+
     &__heading {
       display: none;
     }
