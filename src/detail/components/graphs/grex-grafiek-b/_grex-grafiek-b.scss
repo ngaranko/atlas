@@ -1,0 +1,30 @@
+@import "../../../../shared/styles/config/variables/colors";
+@import "../../../../shared/styles/config/variables/typography";
+@import "../../../../shared/styles/config/mixins/typography";
+
+.grex-grafiek-b {
+  margin-top: 50px;
+  width: 100%;
+
+  &__title {
+    @include font-size-responsive($l-header-font);
+    @include font-weight($bold-weight);
+    color: $primary-contrast;
+  }
+
+  &__container {
+    height: 500px;
+    margin-left: -21px;
+    margin-top: 30px;
+    max-width: 700px;
+    width: 100%;
+  }
+  .recharts-default-legend {
+    text-align: left !important;
+    margin-left: 58px !important;
+  }
+  .recharts-legend-item {
+    width: 33%;
+    margin: 0 !important;
+  }
+}

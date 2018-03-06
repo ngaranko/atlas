@@ -5,7 +5,7 @@ const GREX_GRAPH_CATEGORY_COLORS = {
   'Sociaal maatschappelijk': '#3bd1ba',
   'Markt Woningen': '#f19e3c',
   Bedrijfsruimte: '#62cbf1',
-  Lumpsum: '#B427FF',
+  Lumpsum: '#A00078',
   Hotel: '#335c86',
   Commercieel: '#808080'
 };
