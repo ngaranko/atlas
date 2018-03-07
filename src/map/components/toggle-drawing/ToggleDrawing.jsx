@@ -13,7 +13,10 @@ const ToggleDrawing = ({ drawingMode, shapeMarkers, toggleDrawing }) => {
   const label = title === 'Begin' ? '' : title;
 
   return (<button
-    className="toggle-drawing"
+    className={`
+      toggle-drawing
+      ${drawingMode !== drawToolConfig.DRAWING_MODE.NONE || shapeMarkers > 0 ? 'toggle-drawing--expanded' : 'toggle-drawing--collapsed'}
+    `}
     onClick={() => toggleDrawing(shapeMarkers)}
     title={`${title} meten en intekenen`}
   >

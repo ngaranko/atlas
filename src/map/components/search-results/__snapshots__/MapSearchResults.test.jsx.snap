@@ -102,6 +102,7 @@ exports[`MapSearchResults rendering should filter external monumenten on pand re
       <button
         className="map-search-results__button"
         onClick={[MockFunction]}
+        title="Volledig weergeven"
       >
         <Component
           className="map-search-results__button-icon"
@@ -163,6 +164,7 @@ exports[`MapSearchResults rendering should render empty results 1`] = `
       <button
         className="map-search-results__button"
         onClick={[MockFunction]}
+        title="Volledig weergeven"
       >
         <Component
           className="map-search-results__button-icon"
@@ -275,6 +277,7 @@ exports[`MapSearchResults rendering should render results 1`] = `
       <button
         className="map-search-results__button"
         onClick={[MockFunction]}
+        title="Volledig weergeven"
       >
         <Component
           className="map-search-results__button-icon"
@@ -378,6 +381,7 @@ exports[`MapSearchResults rendering should update results 1`] = `
       <button
         className="map-search-results__button"
         onClick={[MockFunction]}
+        title="Volledig weergeven"
       >
         <Component
           className="map-search-results__button-icon"
@@ -507,6 +511,7 @@ exports[`MapSearchResults rendering should update results 2`] = `
       <button
         className="map-search-results__button"
         onClick={[MockFunction]}
+        title="Volledig weergeven"
       >
         <Component
           className="map-search-results__button-icon"
