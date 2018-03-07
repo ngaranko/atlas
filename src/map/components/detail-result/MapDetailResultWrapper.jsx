@@ -55,7 +55,8 @@ const MapDetailResultWrapper = ({
 
 MapDetailResultWrapper.defaultProps = {
   children: null,
-  subTitle: ''
+  subTitle: '',
+  onPanoPreviewClick: () => null
 };
 
 MapDetailResultWrapper.propTypes = {
@@ -64,7 +65,7 @@ MapDetailResultWrapper.propTypes = {
   subTitle: PropTypes.string,
   title: PropTypes.string.isRequired,
   onMaximize: PropTypes.func.isRequired,
-  onPanoPreviewClick: PropTypes.func.isRequired
+  onPanoPreviewClick: PropTypes.func
 };
 
 export default MapDetailResultWrapper;

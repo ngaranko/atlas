@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CustomLegenda should render everything 1`] = `
+<ul
+  className="custom-legenda"
+>
+  <li
+    className="custom-legenda__item"
+    key="Value 1"
+  >
+    <span
+      className="custom-legenda__color"
+      style={
+        Object {
+          "backgroundColor": "#c3cf40",
+        }
+      }
+    />
+    <span
+      className="custom-legenda__value"
+    >
+      Value 1
+    </span>
+  </li>
+  <li
+    className="custom-legenda__item"
+    key="Value 2"
+  >
+    <span
+      className="custom-legenda__color"
+      style={
+        Object {
+          "backgroundColor": "#555555",
+        }
+      }
+    />
+    <span
+      className="custom-legenda__value"
+    >
+      Value 2
+    </span>
+  </li>
+  <li
+    className="custom-legenda__item"
+    key="Value 3"
+  >
+    <span
+      className="custom-legenda__color"
+      style={
+        Object {
+          "backgroundColor": "#333333",
+        }
+      }
+    />
+    <span
+      className="custom-legenda__value"
+    >
+      Value 3
+    </span>
+  </li>
+</ul>
+`;
