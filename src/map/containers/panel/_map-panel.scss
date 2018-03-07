@@ -18,12 +18,6 @@ $map-panel-offset: 130px;
   width: 28vw;
   z-index: 100;
 
-  .is-embed &,
-  .is-embed-preview & {
-    // adjustment for embed no map-panel-offset needed but need extra margin of 14
-    max-height: calc(100% - #{$dashboard-heading-height} - 14px);
-  }
-
   &--collapsed {
     height: auto;
     min-width: auto;
@@ -165,6 +159,9 @@ $map-panel-offset: 130px;
 
   .is-embed &,
   .is-embed-preview & {
+    // adjustment for embed no map-panel-offset needed but need extra margin of 14
+    max-height: calc(100% - #{$dashboard-heading-height} - 14px);
+
     &--has-no-active-layers,
     &--has-just-invisible-layers {
       display: none;
