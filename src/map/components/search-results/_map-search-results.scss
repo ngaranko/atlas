@@ -34,11 +34,6 @@ $below-list-height: 1px + $map-preview-panel-bottom;
       height: 100%;
       object-fit: cover;
       width: 100%;
-
-      // Don't display pano in print mode
-      .is-print-mode & {
-        display: none;
-      }
     }
 
     &-container {
@@ -54,17 +49,9 @@ $below-list-height: 1px + $map-preview-panel-bottom;
         padding: 8px 12px;
       }
 
-      .map-search-results__header--no-pano &,
-      // Act as if there is no pano, when in print mode
-      .is-print-mode & {
+      .map-search-results__header--no-pano & {
         margin-right: 0;
         position: static;
-      }
-
-      // Only when actually printing, change font color, to reflect a light background
-      .is-print-mode & {
-        background-color: $primary-light;
-        color: $primary-dark;
       }
     }
 
@@ -82,12 +69,6 @@ $below-list-height: 1px + $map-preview-panel-bottom;
       font-weight: normal;
       line-height: 1;
     }
-
-    // There is no pano in print mode
-    .is-print-mode & {
-      height: auto;
-      min-height: auto;
-    }
   }
 
   &__scroll-wrapper {
@@ -97,13 +78,6 @@ $below-list-height: 1px + $map-preview-panel-bottom;
 
     .c-dashboard__body--error & {
       max-height: calc(100vh - #{$above-list-height + $below-list-height + $dashboard-error-height}); //NB: fix for IE
-    }
-
-    .is-embed &,
-    .is-embed-preview &,
-    .is-print-mode & {
-      height: 100%;
-      max-height: none;
     }
   }
 
@@ -136,6 +110,39 @@ $below-list-height: 1px + $map-preview-panel-bottom;
       height: 24px;
       margin-right: 5px;
       width: 24px;
+    }
+  }
+
+  .is-print-mode & {
+    // There is no pano in print mode
+    &__header {
+      height: auto;
+      min-height: auto;
+
+      &-pano {
+        display: none;
+      }
+
+      &-container {
+        background-color: $primary-light;
+        color: $primary-dark;
+        margin-right: 0;
+        position: static;
+      }
+    }
+
+    // No button to show all, in print mode
+    &__footer {
+      display: none;
+    }
+  }
+
+  .is-embed &,
+  .is-embed-preview &,
+  .is-print-mode & {
+    &__scroll-wrapper {
+      height: 100%;
+      max-height: none;
     }
   }
 }
