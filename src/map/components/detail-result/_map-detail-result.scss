@@ -15,6 +15,7 @@ $below-list-height: 1px + $map-preview-panel-bottom;
 
     &--no-pano {
       height: auto;
+      min-height: auto;
     }
 
     &-pano-button {
