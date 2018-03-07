@@ -10,7 +10,7 @@ const getStatusLabel = (result) => (
 
 const getPluralLabel = (result) => categoryLabelsByType[result.type].plural;
 
-const MapSearchResultsCategory = ({ category, onClick, isSubcategory }) => (
+const MapSearchResultsCategory = ({ category, onItemClick, onShowMoreClick, isSubcategory }) => (
   <li className={
       `map-search-results-category
       ${isSubcategory ? 'map-search-results-category--subcategory' : ''}`}
@@ -29,7 +29,7 @@ const MapSearchResultsCategory = ({ category, onClick, isSubcategory }) => (
             label={result.label}
             statusLabel={getStatusLabel(result)}
             onClick={() => {
-              onClick(result.uri);
+              onItemClick(result.uri);
             }}
           />
         ))
@@ -37,7 +37,13 @@ const MapSearchResultsCategory = ({ category, onClick, isSubcategory }) => (
       {
         category.showMore && (
           <li className="map-search-results-category__showmore">
-            ...
+            <button
+              className="map-search-results-item__button"
+              onClick={onShowMoreClick}
+              title="Volledig weergeven"
+            >
+              ...
+            </button>
           </li>
         )
       }
@@ -48,7 +54,8 @@ const MapSearchResultsCategory = ({ category, onClick, isSubcategory }) => (
             key={subCategory.categoryLabel}
             category={subCategory}
             isSubcategory
-            onClick={onClick}
+            onItemClick={onItemClick}
+            onShowMoreClick={onShowMoreClick}
           />
         )) : ''
       }
@@ -69,7 +76,8 @@ MapSearchResultsCategory.propTypes = {
     uri: PropTypes.string
   }).isRequired,
   isSubcategory: PropTypes.bool,
-  onClick: PropTypes.func.isRequired
+  onItemClick: PropTypes.func.isRequired,
+  onShowMoreClick: PropTypes.func.isRequired
 };
 
 export default MapSearchResultsCategory;

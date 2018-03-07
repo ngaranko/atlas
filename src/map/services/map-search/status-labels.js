@@ -1,10 +1,11 @@
 const subTypesLabels = {
   bominslag: 'inslag',
+  buurtcombinatie: 'wijk',
+  gebiedsgerichtwerken: 'gebiedsgericht werken',
   gevrijwaardgebied: 'gevrijwaard gebied',
-  uitgevoerdonderzoek: 'reeds uitgevoerd CE onderzoek',
-  verdachtgebied: 'verdacht gebied',
   grootstedelijkgebied: 'grootstedelijk gebied',
-  gebiedsgerichtwerken: 'gebiedsgericht werken'
+  uitgevoerdonderzoek: 'reeds uitgevoerd CE onderzoek',
+  verdachtgebied: 'verdacht gebied'
 };
 
 export const getStatusLabel = (type) => {

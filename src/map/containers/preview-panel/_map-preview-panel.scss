@@ -1,5 +1,4 @@
-$map-preview-panel-bottom-print: 2px + 10px + 17px + 8px;
-$map-preview-panel-top-print: 8px;
+$map-preview-panel-max-width: 440px;
 
 .map-preview-panel {
   background-color: $secondary-gray5;
@@ -14,7 +13,7 @@ $map-preview-panel-top-print: 8px;
   margin-right: 9px;
   margin-top: $map-preview-panel-top;
   max-height: calc(100% - #{$map-preview-panel-top + $map-preview-panel-bottom});
-  max-width: 440px;
+  max-width: $map-preview-panel-max-width;
   min-width: 285px;
   position: relative;
   width: 28%;
@@ -112,20 +111,35 @@ $map-preview-panel-top-print: 8px;
     &--loading {
       padding: 36px;
     }
-
-    .is-print-mode & {
-      height: 100%;
-    }
   }
 
   .is-print-mode & {
-    bottom: $map-preview-panel-bottom-print;
-    max-height: none;
-    position: absolute;
-    top: $map-preview-panel-top-print;
+    background-color: $primary-light;
+
+    // Make sure the width is fixed
+    width: $map-preview-panel-max-width;
+
+    // This hack makes sure IE also has a white background when printing
+    // https://stackoverflow.com/a/27822161
+    @media print {
+      &::before {
+        border-right: $map-preview-panel-max-width solid $primary-light;
+        bottom: 0;
+        content: '';
+        display: block;
+        left: 0;
+        position: absolute;
+        top: 0;
+        z-index: -1;
+      }
+    }
 
     &__heading {
       display: none;
+    }
+
+    &__body {
+      height: 100%;
     }
   }
 }

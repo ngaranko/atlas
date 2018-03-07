@@ -71,7 +71,8 @@ const MapSearchResults = ({
               <MapSearchResultsCategory
                 key={mainCategory.categoryLabel}
                 category={mainCategory}
-                onClick={onItemClick}
+                onItemClick={onItemClick}
+                onShowMoreClick={onMaximize}
               />
             ))
           }
