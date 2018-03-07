@@ -1,13 +1,10 @@
 import getState from '../redux/get-state';
 import getSharedConfig from '../shared-config/shared-config';
 
-/* istanbul ignore next */
 export const getAccessToken = () => getState().user.accessToken;
 
-/* istanbul ignore next */
 const generateParams = (data) => Object.entries(data).map((pair) => pair.map(encodeURIComponent).join('=')).join('&');
 
-/* istanbul ignore next */
 const handleErrors = (response) => {
   if (!response.ok) {
     throw Error(response.statusText);
@@ -18,7 +15,6 @@ const handleErrors = (response) => {
 
 // TODO: Service is not used yet because it is not finished
 // cancel functionality doesn't work yet and is needed for the straatbeeld-api.js
-/* istanbul ignore next */
 export const getWithToken = (url, params, cancel, token) => {
   const headers = {};
 
@@ -40,7 +36,7 @@ export const getWithToken = (url, params, cancel, token) => {
     .then((response) => handleErrors(response))
     .then((response) => response.json());
 };
-/* istanbul ignore next */
+
 export const getByUrl = async (url, params, cancel) => {
   const token = getAccessToken();
   return Promise.resolve(getWithToken(url, params, cancel, token));
