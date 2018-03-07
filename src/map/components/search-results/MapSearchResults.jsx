@@ -78,7 +78,11 @@ const MapSearchResults = ({
           }
         </ul>
         <footer className="map-search-results__footer">
-          <button onClick={onMaximize} className="map-search-results__button">
+          <button
+            className="map-search-results__button"
+            onClick={onMaximize}
+            title="Volledig weergeven"
+          >
             <MaximizeIcon className="map-search-results__button-icon" />
             Volledig weergeven
           </button>
