@@ -1,14 +1,16 @@
 module.exports = {
   collectCoverage: true,
   collectCoverageFrom: [
-    'src/**/*.{js,jsx}'
+    'src/**/*.{js,jsx}',
+    '!**/*.constant.js',
+    '!**/*.mock.js'
   ],
   coverageDirectory: 'coverage',
   coverageThreshold: {
     global: {
       statements: 24,
-      branches: 35,
-      functions: 38,
+      branches: 36,
+      functions: 39,
       lines: 32
     }
   },
