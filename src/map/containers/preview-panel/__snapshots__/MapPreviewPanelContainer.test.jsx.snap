@@ -17,6 +17,7 @@ exports[`MapPreviewPanelContainer rendering should render detail 1`] = `
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Volledige weergave tonen"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -25,6 +26,7 @@ exports[`MapPreviewPanelContainer rendering should render detail 1`] = `
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Sluiten"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -68,6 +70,7 @@ exports[`MapPreviewPanelContainer rendering should render detail 2`] = `
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Volledige weergave tonen"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -76,6 +79,7 @@ exports[`MapPreviewPanelContainer rendering should render detail 2`] = `
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Sluiten"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -119,6 +123,7 @@ exports[`MapPreviewPanelContainer rendering should render detail with a button t
     <button
       className="map-preview-panel__button map-preview-panel__button--show-all"
       onClick={[Function]}
+      title="Alle resultaten tonen"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -132,6 +137,7 @@ exports[`MapPreviewPanelContainer rendering should render detail with a button t
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Volledige weergave tonen"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -140,6 +146,7 @@ exports[`MapPreviewPanelContainer rendering should render detail with a button t
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Sluiten"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -183,6 +190,7 @@ exports[`MapPreviewPanelContainer rendering should render detail without pano 1`
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Volledige weergave tonen"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -191,6 +199,7 @@ exports[`MapPreviewPanelContainer rendering should render detail without pano 1`
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Sluiten"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -234,6 +243,7 @@ exports[`MapPreviewPanelContainer rendering should render detail without pano 2`
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Volledige weergave tonen"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -242,6 +252,7 @@ exports[`MapPreviewPanelContainer rendering should render detail without pano 2`
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Sluiten"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -285,6 +296,7 @@ exports[`MapPreviewPanelContainer rendering should render empty search results 1
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Volledige weergave tonen"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -293,6 +305,7 @@ exports[`MapPreviewPanelContainer rendering should render empty search results 1
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Sluiten"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -337,6 +350,7 @@ exports[`MapPreviewPanelContainer rendering should render empty search results 2
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Volledige weergave tonen"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -345,6 +359,7 @@ exports[`MapPreviewPanelContainer rendering should render empty search results 2
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Sluiten"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -395,6 +410,7 @@ exports[`MapPreviewPanelContainer rendering should render loading of detail 1`] 
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Volledige weergave tonen"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -403,6 +419,7 @@ exports[`MapPreviewPanelContainer rendering should render loading of detail 1`] 
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Sluiten"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -433,6 +450,7 @@ exports[`MapPreviewPanelContainer rendering should render loading of search resu
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Volledige weergave tonen"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -441,6 +459,7 @@ exports[`MapPreviewPanelContainer rendering should render loading of search resu
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Sluiten"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -471,6 +490,7 @@ exports[`MapPreviewPanelContainer rendering should render multiple missing layer
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Volledige weergave tonen"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -479,6 +499,7 @@ exports[`MapPreviewPanelContainer rendering should render multiple missing layer
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Sluiten"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -532,6 +553,7 @@ exports[`MapPreviewPanelContainer rendering should render one missing layer 1`] 
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Volledige weergave tonen"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -540,6 +562,7 @@ exports[`MapPreviewPanelContainer rendering should render one missing layer 1`] 
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Sluiten"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -593,6 +616,7 @@ exports[`MapPreviewPanelContainer rendering should render search results 1`] = `
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Volledige weergave tonen"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -601,6 +625,7 @@ exports[`MapPreviewPanelContainer rendering should render search results 1`] = `
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Sluiten"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -654,6 +679,7 @@ exports[`MapPreviewPanelContainer rendering should render search results 2`] = `
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Volledige weergave tonen"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -662,6 +688,7 @@ exports[`MapPreviewPanelContainer rendering should render search results 2`] = `
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Sluiten"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -712,6 +739,7 @@ exports[`MapPreviewPanelContainer rendering should render search results without
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Volledige weergave tonen"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -720,6 +748,7 @@ exports[`MapPreviewPanelContainer rendering should render search results without
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Sluiten"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -772,6 +801,7 @@ exports[`MapPreviewPanelContainer rendering should render search results without
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Volledige weergave tonen"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -780,6 +810,7 @@ exports[`MapPreviewPanelContainer rendering should render search results without
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Sluiten"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -833,6 +864,7 @@ exports[`MapPreviewPanelContainer rendering should render visibility 1`] = `
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Volledige weergave tonen"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -841,6 +873,7 @@ exports[`MapPreviewPanelContainer rendering should render visibility 1`] = `
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Sluiten"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -891,6 +924,7 @@ exports[`MapPreviewPanelContainer rendering should render visibility 2`] = `
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Volledige weergave tonen"
     >
       <Component
         className="map-preview-panel__button-icon"
@@ -899,6 +933,7 @@ exports[`MapPreviewPanelContainer rendering should render visibility 2`] = `
     <button
       className="map-preview-panel__button"
       onClick={[Function]}
+      title="Sluiten"
     >
       <Component
         className="map-preview-panel__button-icon"

@@ -15,6 +15,10 @@ const categoryLabels = {
     singular: 'Gemeentelijke beperking',
     plural: 'Gemeentelijke beperkingen'
   },
+  grondexploitatie: {
+    singular: 'Grondexploitatie',
+    plural: 'Grondexploitaties'
+  },
   kadastraalObject: {
     singular: 'Kadastraal object',
     plural: 'Kadastrale objecten'

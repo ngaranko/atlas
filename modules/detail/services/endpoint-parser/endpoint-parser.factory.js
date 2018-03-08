@@ -18,8 +18,12 @@
         }
 
         function getGlossaryKey (endpoint) {
-            const [, subject] = getParts(endpoint);
-            return subject.toUpperCase().replace(/-/g, '_');
+            const [type, subject] = getParts(endpoint);
+            let key = subject;
+            if (type === 'grondexploitatie') {
+                key = type; // grondexploitatie subject === "project", 'grondexploitatie' is more descriptive value.
+            }
+            return key.toUpperCase().replace(/-/g, '_');
         }
 
         function getParts (endpoint) {

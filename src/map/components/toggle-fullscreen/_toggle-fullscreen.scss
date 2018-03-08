@@ -1,13 +1,16 @@
 @import "../../../shared/styles/config/variables/colors";
+@import "../../../shared/styles/config/variables/whitespace";
 
 .toggle-fullscreen {
   background-color: $primary-light;
   border: solid 1px $secondary-gray20;
   box-shadow: 2px 2px 0 0 $secondary-gray40;
+  max-height: 34px;
+  max-width: 34px;
   padding: 4px;
   position: absolute;
-  right: 10px;
-  top: 10px;
+  right: $container-whitespace;
+  top: $container-whitespace;
   z-index: 150;
 
   .toggle-fullscreen__icon {

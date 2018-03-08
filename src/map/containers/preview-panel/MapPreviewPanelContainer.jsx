@@ -131,6 +131,7 @@ class MapPreviewPanelContainer extends React.Component {
             <button
               className="map-preview-panel__button map-preview-panel__button--show-all"
               onClick={() => props.onSearch(props.mapClickLocation)}
+              title="Alle resultaten tonen"
             >
               <PlusIcon className="map-preview-panel__button-icon" />
               <span className="map-preview-panel__button-label">Alle resultaten tonen</span>
@@ -139,12 +140,14 @@ class MapPreviewPanelContainer extends React.Component {
           <button
             className="map-preview-panel__button"
             onClick={props.onMapPreviewPanelMaximize}
+            title="Volledige weergave tonen"
           >
             <MaximizeIcon className="map-preview-panel__button-icon" />
           </button>
           <button
             className="map-preview-panel__button"
             onClick={props.onMapPreviewPanelClose}
+            title="Sluiten"
           >
             <CloseIcon className="map-preview-panel__button-icon" />
           </button>

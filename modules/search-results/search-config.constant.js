@@ -81,7 +81,8 @@
                     extra_params: {
                         monumenttype: 'isnot_pand_bouwblok'
                     }
-                }
+                },
+                { uri: 'geosearch/grondexploitatie/' }
             ],
             COORDINATES_HIERARCHY: [
                 {
@@ -120,11 +121,11 @@
                     label_singular: 'Gebied',
                     label_plural: 'Gebieden',
                     features: [
-                        'gebieden/bouwblok',
-                        'gebieden/buurt',
-                        'gebieden/buurtcombinatie',
-                        'gebieden/gebiedsgerichtwerken',
                         'gebieden/stadsdeel',
+                        'gebieden/gebiedsgerichtwerken',
+                        'gebieden/buurtcombinatie',
+                        'gebieden/buurt',
+                        'gebieden/bouwblok',
                         'gebieden/grootstedelijkgebied',
                         'gebieden/unesco'
                     ],
@@ -165,6 +166,11 @@
                     features: [
                         'monumenten/monument'
                     ]
+                }, {
+                    slug: 'grondexploitatie',
+                    label_singular: 'Grondexploitatie',
+                    label_plural: 'Grondexploitaties',
+                    features: ['grex/grondexploitatie']
                 }
             ]
         });

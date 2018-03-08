@@ -79,13 +79,6 @@ $below-list-height: 1px + $map-preview-panel-bottom;
     .c-dashboard__body--error & {
       max-height: calc(100vh - #{$above-list-height + $below-list-height + $dashboard-error-height}); //NB: fix for IE
     }
-
-    .is-embed &,
-    .is-embed-preview &,
-    .is-print-mode & {
-      height: 100%;
-      max-height: none;
-    }
   }
 
   &__footer {
@@ -117,6 +110,39 @@ $below-list-height: 1px + $map-preview-panel-bottom;
       height: 24px;
       margin-right: 5px;
       width: 24px;
+    }
+  }
+
+  .is-print-mode & {
+    // There is no pano in print mode
+    &__header {
+      height: auto;
+      min-height: auto;
+
+      &-pano {
+        display: none;
+      }
+
+      &-container {
+        background-color: $primary-light;
+        color: $primary-dark;
+        margin-right: 0;
+        position: static;
+      }
+    }
+
+    // No button to show all, in print mode
+    &__footer {
+      display: none;
+    }
+  }
+
+  .is-embed &,
+  .is-embed-preview &,
+  .is-print-mode & {
+    &__scroll-wrapper {
+      height: 100%;
+      max-height: none;
     }
   }
 }

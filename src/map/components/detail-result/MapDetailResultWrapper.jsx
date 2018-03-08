@@ -44,7 +44,11 @@ const MapDetailResultWrapper = ({
           [children]
       )}
       <footer className="map-search-results__footer">
-        <button onClick={onMaximize} className="map-search-results__button">
+        <button
+          className="map-search-results__button"
+          onClick={onMaximize}
+          title="Volledig weergeven"
+        >
           <MaximizeIcon className="map-search-results__button-icon" />
           Volledig weergeven
         </button>
@@ -55,7 +59,8 @@ const MapDetailResultWrapper = ({
 
 MapDetailResultWrapper.defaultProps = {
   children: null,
-  subTitle: ''
+  subTitle: '',
+  onPanoPreviewClick: () => null
 };
 
 MapDetailResultWrapper.propTypes = {
@@ -64,7 +69,7 @@ MapDetailResultWrapper.propTypes = {
   subTitle: PropTypes.string,
   title: PropTypes.string.isRequired,
   onMaximize: PropTypes.func.isRequired,
-  onPanoPreviewClick: PropTypes.func.isRequired
+  onPanoPreviewClick: PropTypes.func
 };
 
 export default MapDetailResultWrapper;

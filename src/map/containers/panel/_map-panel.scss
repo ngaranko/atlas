@@ -1,18 +1,19 @@
 $map-panel-heading-height: 33px;
 $map-panel-offset: 130px;
+$map-panel-max-width: 444px;
 
 .map-panel {
   background-color: $primary-light;
   border: solid 1px $secondary-gray20;
-  bottom: 8px;
+  bottom: $container-whitespace;
   box-shadow: 2px 2px 0 0 $secondary-gray40;
   display: flex;
   flex-direction: column;
   font-family: "Avenir LT W01 55 Roman";
-  left: 8px;
+  left: $container-whitespace;
   max-height: calc(100% - #{$dashboard-heading-height} - #{$map-panel-offset});
-  max-width: 444px;
-  min-width: 285px;
+  max-width: $map-panel-max-width;
+  min-width: 268px;
   overflow: hidden;
   position: absolute;
   width: 28vw;
@@ -155,10 +156,31 @@ $map-panel-offset: 130px;
     .scroll-wrapper {
       height: auto;
     }
+
+    // Make sure the width is fixed
+    width: $map-panel-max-width;
+
+    // This hack makes sure IE also has a white background when printing
+    // https://stackoverflow.com/a/27822161
+    @media print {
+      &::before {
+        border-right: $map-panel-max-width solid $primary-light;
+        bottom: 0;
+        content: '';
+        display: block;
+        left: 0;
+        position: absolute;
+        top: 0;
+        z-index: -1;
+      }
+    }
   }
 
   .is-embed &,
   .is-embed-preview & {
+    // adjustment for embed no map-panel-offset needed but need extra margin of 14
+    max-height: calc(100% - #{$dashboard-heading-height} - 14px);
+
     &--has-no-active-layers,
     &--has-just-invisible-layers {
       display: none;

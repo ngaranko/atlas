@@ -9,11 +9,11 @@ const categoryTypeOrder = [
   'pand/monument',
   'kadaster/kadastraal_object',
   'wkpb/beperking',
-  'gebieden/bouwblok',
-  'gebieden/buurt',
-  'gebieden/buurtcombinatie',
-  'gebieden/gebiedsgerichtwerken',
   'gebieden/stadsdeel',
+  'gebieden/gebiedsgerichtwerken',
+  'gebieden/buurtcombinatie',
+  'gebieden/buurt',
+  'gebieden/bouwblok',
   'gebieden/grootstedelijkgebied',
   'gebieden/unesco',
   'meetbouten/meetbout',
@@ -22,7 +22,8 @@ const categoryTypeOrder = [
   'bommenkaart/verdachtgebied',
   'bommenkaart/gevrijwaardgebied',
   'bommenkaart/uitgevoerdonderzoek',
-  'monumenten/monument'
+  'monumenten/monument',
+  'grex/grondexploitatie'
 ];
 
 export default categoryTypeOrder;

@@ -136,6 +136,10 @@
                     url: null,
                     meta: []
                 },
+                GRONDEXPLOITATIE: {
+                    label_singular: 'Grondexploitatie',
+                    label_plural: 'Grondexploitaties'
+                },
                 GROOTSTEDELIJKGEBIED: {
                     label_singular: 'Grootstedelijk gebied',
                     label_plural: 'Grootstedelijke gebieden',

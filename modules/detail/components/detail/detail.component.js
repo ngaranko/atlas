@@ -70,11 +70,16 @@
             vm.geosearchButton = vm.isMapHighlight ? false : nearestDetail.getLocation();
 
             const [category, subject] = endpointParser.getParts(endpoint);
+
             if ((category === 'brk' && subject === 'subject' && !vm.user.scopes.includes('BRK/RS')) ||
-                (category === 'handelsregister' && !vm.user.scopes.includes('HR/R'))
+                (category === 'handelsregister' && !vm.user.scopes.includes('HR/R')) ||
+                (category === 'grondexploitatie' && !vm.user.scopes.includes('GREX/R'))
             ) {
-                // User is not authorized to view BRK Kadastrale Subjecten, nor
-                // handelsregister, so do not fetch data
+                // User is not authorized to view
+                //   BRK Kadastrale Subjecten, nor
+                //   handelsregister, nor
+                //   grondexploitatie
+                // so do not fetch data
                 delete vm.apiData;
                 errorHandler();
             } else {

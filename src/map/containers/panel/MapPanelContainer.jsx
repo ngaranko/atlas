@@ -71,6 +71,7 @@ class MapPanelContainer extends React.Component {
           <button
             className="map-panel__toggle"
             onClick={this.props.onMapPanelToggle}
+            title={this.props.isMapPanelVisible ? 'Kaartlagen verbergen' : 'Kaartlagen tonen'}
           >
             <MapLayersIcon className="map-panel__heading-icon" />
             <h2 className="map-panel__heading-title" aria-hidden="true">Kaartlagen</h2>
