@@ -6,7 +6,7 @@ exports[`CustomLegenda should render everything 1`] = `
 >
   <li
     className="custom-legenda__item"
-    key="Value 1"
+    key="Sociale huur"
   >
     <span
       className="custom-legenda__color"
@@ -18,11 +18,13 @@ exports[`CustomLegenda should render everything 1`] = `
     />
     <span
       className="custom-legenda__value"
-    />
+    >
+      Sociale huur
+    </span>
   </li>
   <li
     className="custom-legenda__item"
-    key="Value 2"
+    key="Lumpsum"
   >
     <span
       className="custom-legenda__color"
@@ -34,11 +36,13 @@ exports[`CustomLegenda should render everything 1`] = `
     />
     <span
       className="custom-legenda__value"
-    />
+    >
+      Overig
+    </span>
   </li>
   <li
     className="custom-legenda__item"
-    key="Value 3"
+    key="Markt Woningen"
   >
     <span
       className="custom-legenda__color"
@@ -50,7 +54,9 @@ exports[`CustomLegenda should render everything 1`] = `
     />
     <span
       className="custom-legenda__value"
-    />
+    >
+      Markt Woningen
+    </span>
   </li>
 </ul>
 `;
