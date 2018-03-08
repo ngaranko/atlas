@@ -10,7 +10,7 @@ $map-preview-panel-max-width: 440px;
   font-family: "Avenir LT W01 55 Roman";
   margin-bottom: $map-preview-panel-bottom;
   margin-left: auto;
-  margin-right: 9px;
+  margin-right: $container-whitespace;
   margin-top: $map-preview-panel-top;
   max-height: calc(100% - #{$map-preview-panel-top + $map-preview-panel-bottom});
   max-width: $map-preview-panel-max-width;

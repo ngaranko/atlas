@@ -52,6 +52,7 @@ exports[`MapDetailResultWrapper should not render empty panoUrl 1`] = `
       <button
         className="map-search-results__button"
         onClick={[MockFunction]}
+        title="Volledig weergeven"
       >
         <Component
           className="map-search-results__button-icon"
@@ -110,6 +111,7 @@ exports[`MapDetailResultWrapper should not render empty sub title 1`] = `
       <button
         className="map-search-results__button"
         onClick={[MockFunction]}
+        title="Volledig weergeven"
       >
         <Component
           className="map-search-results__button-icon"
@@ -160,6 +162,7 @@ exports[`MapDetailResultWrapper should not render missing children 1`] = `
       <button
         className="map-search-results__button"
         onClick={[MockFunction]}
+        title="Volledig weergeven"
       >
         <Component
           className="map-search-results__button-icon"
@@ -218,6 +221,7 @@ exports[`MapDetailResultWrapper should not render missing sub title 1`] = `
       <button
         className="map-search-results__button"
         onClick={[MockFunction]}
+        title="Volledig weergeven"
       >
         <Component
           className="map-search-results__button-icon"
@@ -288,6 +292,7 @@ exports[`MapDetailResultWrapper should render everything 1`] = `
       <button
         className="map-search-results__button"
         onClick={[MockFunction]}
+        title="Volledig weergeven"
       >
         <Component
           className="map-search-results__button-icon"

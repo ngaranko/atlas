@@ -7,9 +7,9 @@
   fill: $secondary-gray60;
   padding: 4px;
   position: absolute;
-  right: $base-whitespace;
+  right: $container-whitespace;
   text-decoration: none;
-  top: $base-whitespace;
+  top: $container-whitespace;
   z-index: $fixed-position-z-index;
 
   &__icon {

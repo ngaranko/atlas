@@ -8,6 +8,7 @@ import './_toggle-fullscreen.scss';
 
 const ToggleFullscreen = ({ isFullscreen, onToggleFullscreen }) => (
   <button
+    title={isFullscreen ? 'Kaart verkleinen' : 'Kaart vergroten'}
     className="toggle-fullscreen"
     onClick={() => onToggleFullscreen()}
   >

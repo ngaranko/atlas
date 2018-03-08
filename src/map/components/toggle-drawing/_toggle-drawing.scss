@@ -5,6 +5,8 @@
   border: solid 1px $secondary-gray20;
   box-shadow: 2px 2px 0 0 $secondary-gray40;
   display: flex;
+  max-height: 34px;
+  max-width: 34px;
   padding: 4px;
 
   &__icon {
@@ -41,6 +43,10 @@
       color: $primary-light;
       fill: $primary-light;
     }
+  }
+
+  &--expanded {
+    max-width: 100%;
   }
 
   .is-embed &,

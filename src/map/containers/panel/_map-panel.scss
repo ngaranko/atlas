@@ -5,12 +5,12 @@ $map-panel-max-width: 444px;
 .map-panel {
   background-color: $primary-light;
   border: solid 1px $secondary-gray20;
-  bottom: 8px;
+  bottom: $container-whitespace;
   box-shadow: 2px 2px 0 0 $secondary-gray40;
   display: flex;
   flex-direction: column;
   font-family: "Avenir LT W01 55 Roman";
-  left: 8px;
+  left: $container-whitespace;
   max-height: calc(100% - #{$dashboard-heading-height} - #{$map-panel-offset});
   max-width: $map-panel-max-width;
   min-width: 268px;
