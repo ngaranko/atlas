@@ -19,7 +19,7 @@ exports[`CustomLegenda should render everything 1`] = `
     <span
       className="custom-legenda__value"
     >
-      Sociale huur
+      Sociale huurwoningen
     </span>
   </li>
   <li
@@ -37,7 +37,7 @@ exports[`CustomLegenda should render everything 1`] = `
     <span
       className="custom-legenda__value"
     >
-      Overig
+      Lumpsum
     </span>
   </li>
   <li
@@ -55,7 +55,7 @@ exports[`CustomLegenda should render everything 1`] = `
     <span
       className="custom-legenda__value"
     >
-      Markt Woningen
+      Marktwoningen
     </span>
   </li>
 </ul>
