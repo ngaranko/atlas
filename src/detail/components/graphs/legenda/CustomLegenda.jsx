@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import './_custom-legenda.scss';
 
+import { CATEGORY_LABELS } from '../../../services/grondexploitatie/grafieken/grondexploitatie-categories';
+
 const CustomLegenda = ({ payload }) => (
   <ul className="custom-legenda">
     {
@@ -16,7 +18,7 @@ const CustomLegenda = ({ payload }) => (
             style={{ backgroundColor: item.color }}
           />
           <span className="custom-legenda__value">
-            { item.value }
+            { CATEGORY_LABELS[item.value] }
           </span>
         </li>
       ))
