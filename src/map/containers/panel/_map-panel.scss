@@ -13,7 +13,7 @@ $map-panel-max-width: 444px;
   left: 8px;
   max-height: calc(100% - #{$dashboard-heading-height} - #{$map-panel-offset});
   max-width: $map-panel-max-width;
-  min-width: 285px;
+  min-width: 268px;
   overflow: hidden;
   position: absolute;
   width: 28vw;
@@ -178,6 +178,9 @@ $map-panel-max-width: 444px;
 
   .is-embed &,
   .is-embed-preview & {
+    // adjustment for embed no map-panel-offset needed but need extra margin of 14
+    max-height: calc(100% - #{$dashboard-heading-height} - 14px);
+
     &--has-no-active-layers,
     &--has-just-invisible-layers {
       display: none;
