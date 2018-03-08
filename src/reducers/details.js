@@ -9,6 +9,8 @@ window.reducers = window.reducers || {};
 window.reducers.detailReducer = (state = {}, action) => {
   switch (action.type) {
     case FETCH_DETAIL:
+
+      // If preview panel is available use that, otherwise show detail page aside.
       const leaveMapFullscreen = action.payload && Object
         .keys(endpointTypes)
         .some((typeKey) => action.payload.includes(endpointTypes[typeKey]));

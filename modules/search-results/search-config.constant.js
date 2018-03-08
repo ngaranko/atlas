@@ -81,7 +81,8 @@
                     extra_params: {
                         monumenttype: 'isnot_pand_bouwblok'
                     }
-                }
+                },
+                { uri: 'geosearch/grondexploitatie/' }
             ],
             COORDINATES_HIERARCHY: [
                 {
@@ -165,6 +166,11 @@
                     features: [
                         'monumenten/monument'
                     ]
+                }, {
+                    slug: 'grondexploitatie',
+                    label_singular: 'Grondexploitatie',
+                    label_plural: 'Grondexploitaties',
+                    features: ['grex/grondexploitatie']
                 }
             ]
         });

@@ -320,6 +320,20 @@ const SOURCES = {
     legend: 'maps/gebieden?version=1.3.0&service=WMS&request=GetLegend' +
     'Graphic&sld_version=1.1.0&layer=buurt&format=image/png&STYLE=default'
   },
+  grex: {
+    authScope: 'GREX/R',
+    url: 'maps/grondexploitatie?service=wms',
+    label_short: 'Grondexploitatie',
+    label_long: 'Grondexploitatie',
+    layers: ['grondexploitatie_polygons'],
+    minZoom: 8,
+    maxZoom: 16,
+    legend: 'maps/grondexploitatie?version=1.3.0&service=WMS&request=GetLegend' +
+    'Graphic&sld_version=1.1.0&layer=grondexploitatie_polygons&format=image/png&STYLE=default',
+    detailUrl: 'geosearch/search/', // Geosearch URL
+    detailItem: 'grondexploitatie', // Geosearch name
+    detailIsShape: true
+  },
   bbn: {
     url: 'maps/gebieden?service=wms',
     label_short: 'Bouwblokken',

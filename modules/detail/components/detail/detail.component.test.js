@@ -8,6 +8,7 @@ describe('the dp-detail component', () => {
         mockedGeometryPoint = {type: 'Point', coordinates: 'FAKE_NUMMERAANDUIDING_POINT'},
         mockedGeometryMultiPolygon = {type: 'MultiPolygon', coordinates: 'FAKE_KADASTRAAL_OBJECT_MULTIPOLYGON'};
 
+    const grondexploitatieEndPoint = 'http://www.fake-endpoint.com/grondexploitatie/project/987/';
     const naturalPersonEndPoint = 'http://www.fake-endpoint.com/brk/subject/123/';
     const noneNaturalPersonEndPoint = 'http://www.fake-endpoint.com/brk/subject/456/';
 
@@ -37,6 +38,11 @@ describe('the dp-detail component', () => {
                                 _display: 'Een of ander kadastraal object',
                                 dummy: 'B',
                                 something: -90
+                            });
+                        } else if (endpoint === grondexploitatieEndPoint) {
+                            q.resolve({
+                                _display: 'My grex',
+                                dummy: 'G'
                             });
                         } else if (endpoint === 'http://www.fake-endpoint.com/handelsregister/vestiging/987/') {
                             q.resolve({
@@ -79,6 +85,9 @@ describe('the dp-detail component', () => {
                         } else if (endpoint === 'http://www.fake-endpoint.com/handelsregister/vestiging/987/') {
                             category = 'handelsregister';
                             subject = 'vestiging';
+                        } else if (endpoint === grondexploitatieEndPoint) {
+                            category = 'grondexploitatie';
+                            subject = 'project';
                         } else if (endpoint === naturalPersonEndPoint) {
                             category = 'brk';
                             subject = 'subject';
@@ -534,6 +543,28 @@ describe('the dp-detail component', () => {
                 type: ACTIONS.SHOW_DETAIL,
                 payload: {}
             });
+        });
+    });
+
+    describe('"grondexploitatie" data', () => {
+        it('should be fetched if is authenticated as EMPLOYEE', () => {
+            mockedUser.scopes = ['GREX/R'];
+
+            getComponent(grondexploitatieEndPoint);
+        });
+
+        it('should not fetch data if not authorized', () => {
+            const component = getComponent(grondexploitatieEndPoint);
+
+            const scope = component.isolateScope();
+
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.SHOW_DETAIL,
+                payload: {}
+            });
+
+            expect(scope.vm.apiData).toBeUndefined();
+            expect(store.dispatch).toHaveBeenCalledTimes(1);
         });
     });
 
