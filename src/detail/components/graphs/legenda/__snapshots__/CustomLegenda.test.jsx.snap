@@ -18,9 +18,7 @@ exports[`CustomLegenda should render everything 1`] = `
     />
     <span
       className="custom-legenda__value"
-    >
-      Value 1
-    </span>
+    />
   </li>
   <li
     className="custom-legenda__item"
@@ -36,9 +34,7 @@ exports[`CustomLegenda should render everything 1`] = `
     />
     <span
       className="custom-legenda__value"
-    >
-      Value 2
-    </span>
+    />
   </li>
   <li
     className="custom-legenda__item"
@@ -54,9 +50,7 @@ exports[`CustomLegenda should render everything 1`] = `
     />
     <span
       className="custom-legenda__value"
-    >
-      Value 3
-    </span>
+    />
   </li>
 </ul>
 `;
