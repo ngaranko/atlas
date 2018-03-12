@@ -65,6 +65,21 @@ export default [
     url: '/maps/panorama?version=1.3.0&service=WMS'
   },
   {
+    category: 'Economie en haven',
+    id: 'biz',
+    layers: ['biz_polygons'],
+    legendItems: [
+      {
+        selectable: false,
+        title: 'Bedrijfsinvesteringszone'
+      }
+    ],
+    maxZoom: 20,
+    minZoom: 5,
+    title: 'Bedrijfsinvesteringszones',
+    url: '/maps/biz?version=1.3.0&service=WMS'
+  },
+  {
     authScope: 'HR/R',
     category: 'Economie en haven',
     id: 'bouw',
