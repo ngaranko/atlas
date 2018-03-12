@@ -74,8 +74,8 @@ export default [
         title: 'Bedrijfsinvesteringszone'
       }
     ],
-    maxZoom: 20,
-    minZoom: 5,
+    maxZoom: 16,
+    minZoom: 8,
     title: 'Bedrijfsinvesteringszones',
     url: '/maps/biz?version=1.3.0&service=WMS'
   },
