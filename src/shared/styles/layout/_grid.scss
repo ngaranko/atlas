@@ -50,7 +50,7 @@
       }
     }
 
-    @media (min-width: $breakpoint-xs) {
+    @media (min-width: $breakpoint-sm) {
       .u-col-sm--1 { width: 1 * 100% / 12;}
       .u-col-sm--2 { width: 2 * 100% / 12;}
       .u-col-sm--3 { width: 3 * 100% / 12;}

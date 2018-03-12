@@ -75,13 +75,7 @@ $below-list-height: 1px + $map-preview-panel-bottom;
     overflow-y: auto;
 
     .c-dashboard__body--error & {
-      max-height: calc(100% - #{$above-list-height + $below-list-height + $dashboard-error-height}); //NB: fix for IE
-
-      // use percentage on mobile, because some mobile devices don't handle vh correctly
-      // use vh on the rest, because in IE and FF the 100% gets calculated on the parent element and not on the window
-      @media screen and (min-width: $breakpoint-sm) {
-        max-height: calc(100vh - #{$above-list-height + $below-list-height + $dashboard-error-height});
-      }
+      max-height: calc(100vh - #{$above-list-height + $below-list-height + $dashboard-error-height}); //NB: fix for IE
     }
   }
 

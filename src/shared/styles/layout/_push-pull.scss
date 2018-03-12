@@ -15,7 +15,7 @@
 
 .u-grid {
   .u-row {
-    @media (min-width: $breakpoint-xs) {
+    @media (min-width: $breakpoint-sm) {
       .u-col-sm--push-1 { left: 1 * 100% / 12;}
       .u-col-sm--push-2 { left: 2 * 100% / 12;}
       .u-col-sm--push-3 { left: 3 * 100% / 12;}
