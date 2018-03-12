@@ -14,7 +14,7 @@
 */
 .u-grid {
   .u-row {
-    @media (min-width: $breakpoint-sm) {
+    @media (min-width: $breakpoint-xs) {
       .u-col-sm--offset-1 { margin-left: 1 * 100% / 12;}
       .u-col-sm--offset-2 { margin-left: 2 * 100% / 12;}
       .u-col-sm--offset-3 { margin-left: 3 * 100% / 12;}
