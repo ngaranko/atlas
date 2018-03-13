@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MapDetailBedrijfsinvesteringszone should render everything 1`] = `
+<MapDetailResultWrapper
+  onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
+  panoUrl="panoUrl"
+  subTitle="Bedrijfsinvesteringszone label"
+  title="Bedrijfsinvesteringszone"
+>
+  <ul
+    className="map-detail-result__list"
+  >
+    <MapDetailResultItem
+      label="Naam"
+      value="Bedrijfsinvesteringszone name"
+    />
+    <MapDetailResultItem
+      label="Type"
+      value="Bedrijfsinvesteringszone type"
+    />
+    <MapDetailResultItem
+      label="Heffingsgrondslag"
+      value="Bedrijfsinvesteringszone heffingsgrondslag"
+    />
+    <MapDetailResultItem
+      label="Jaarlijks opgehaald bedrag"
+      value="Bedrijfsinvesteringszone heffing"
+    />
+    <MapDetailResultItem
+      label="Aantal heffingsplichtigen"
+      value="80"
+    />
+  </ul>
+</MapDetailResultWrapper>
+`;
