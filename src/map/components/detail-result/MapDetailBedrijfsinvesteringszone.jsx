@@ -19,10 +19,6 @@ const MapDetailBedrijfsinvesteringszone = ({
   >
     <ul className="map-detail-result__list">
       <MapDetailResultItem
-        label="Naam"
-        value={bedrijfsinvesteringszone.name}
-      />
-      <MapDetailResultItem
         label="Type"
         value={bedrijfsinvesteringszone.type}
       />
@@ -48,7 +44,6 @@ MapDetailBedrijfsinvesteringszone.propTypes = {
     heffingsgrondslag: PropTypes.string,
     heffingsplichtigen: PropTypes.number,
     label: PropTypes.string,
-    name: PropTypes.string,
     type: PropTypes.string
   }).isRequired,
   panoUrl: PropTypes.string.isRequired,

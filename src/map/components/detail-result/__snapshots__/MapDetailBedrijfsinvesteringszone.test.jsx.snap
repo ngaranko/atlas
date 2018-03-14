@@ -12,10 +12,6 @@ exports[`MapDetailBedrijfsinvesteringszone should render everything 1`] = `
     className="map-detail-result__list"
   >
     <MapDetailResultItem
-      label="Naam"
-      value="Bedrijfsinvesteringszone name"
-    />
-    <MapDetailResultItem
       label="Type"
       value="Bedrijfsinvesteringszone type"
     />

@@ -10,7 +10,6 @@ describe('MapDetailBedrijfsinvesteringszone', () => {
       heffingsgrondslag: 'Bedrijfsinvesteringszone heffingsgrondslag',
       heffingsplichtigen: 80,
       label: 'Bedrijfsinvesteringszone label',
-      name: 'Bedrijfsinvesteringszone name',
       type: 'Bedrijfsinvesteringszone type'
     };
     const clickHandler = jest.fn();

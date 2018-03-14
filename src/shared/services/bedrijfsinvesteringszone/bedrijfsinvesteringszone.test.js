@@ -33,7 +33,6 @@ describe('The bedrijfsinvesteringszone resource', () => {
           geometrie: { type: 'Point' },
           label: 'Bedrijfsinvesteringszone display name 1',
           location: { latitude: 3, longitude: 4 },
-          name: 'Bedrijfsinvesteringszone display name 1',
           type: 'Bedrijfsinvesteringszone type',
           something: 'abc123'
         });
@@ -53,7 +52,6 @@ describe('The bedrijfsinvesteringszone resource', () => {
           heffingsplichtigen: undefined,
           label: undefined,
           location: null,
-          name: undefined,
           type: undefined
         });
       });

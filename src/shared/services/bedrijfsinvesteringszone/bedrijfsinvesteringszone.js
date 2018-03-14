@@ -13,7 +13,6 @@ export default function fetchByUri(uri) {
         heffingsplichtigen: result.bijdrageplichtigen,
         label: result._display,
         location: result.location || wgs84Center,
-        name: result._display,
         type: result.biz_type
       };
     });
