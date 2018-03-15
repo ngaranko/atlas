@@ -32,7 +32,7 @@ const MapDetailBedrijfsinvesteringszone = ({
       />
       <MapDetailResultItem
         label="Aantal heffingsplichtigen"
-        value={`${bedrijfsinvesteringszone.heffingsplichtigen}`}
+        value={bedrijfsinvesteringszone.heffingsplichtigen.toString()}
       />
     </ul>
   </MapDetailResultWrapper>
