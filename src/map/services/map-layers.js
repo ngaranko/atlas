@@ -1690,7 +1690,7 @@ export default [
     ],
     maxZoom: 16,
     minZoom: 8,
-    title: 'Metro en tram - lijnen',
+    title: 'Metro en tram - Spoorlijnen',
     url: '/maps/trm?version=1.3.0&service=WMS'
   },
   {
