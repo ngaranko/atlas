@@ -23,9 +23,9 @@ export function login(type = 'EMPLOYEE_PLUS') {
     cy.log('access token available, using that one');
     cy.window().its('sessionStorage').invoke('setItem', 'accessToken', USER_TOKENS[type])
       .then(() => {
-        return cy.visit(baseUrl)
-      }
-    );
+          return cy.visit(baseUrl)
+        }
+      );
   } else {
     checkEnvironmentVariablesSet();
 
@@ -52,7 +52,7 @@ export function login(type = 'EMPLOYEE_PLUS') {
       followRedirect: false
     })
 
-      // Follow redirect to login page manually
+    // Follow redirect to login page manually
       .then((response) =>
         cy.request({
           url: response.headers.location,
@@ -85,10 +85,10 @@ export function login(type = 'EMPLOYEE_PLUS') {
 
       // Return to the application
       .then((response) => {
-          // Replace redirect URI from earlier (localhost:8080) with baseUrl
-          const originalUrl = response.headers.location;
-          const returnUrl = originalUrl.replace(redirectUri, baseUrl);
-          return cy.visit(returnUrl)
+        // Replace redirect URI from earlier (localhost:8080) with baseUrl
+        const originalUrl = response.headers.location;
+        const returnUrl = originalUrl.replace(redirectUri, baseUrl);
+        return cy.visit(returnUrl)
       }).then(() => {
         cy.window().then((win) => {
           cy.window().its('sessionStorage').invoke('getItem', 'accessToken').then(value => {
@@ -97,10 +97,14 @@ export function login(type = 'EMPLOYEE_PLUS') {
         });
       });
 
-    }
+  }
 }
 
 export function logout() {
-  cy.get('.qa-menu__user-menu button').click();
-  cy.get('.qa-menu__user-menu dp-logout-button button').click();
+  cy.get('.qa-menu').then((menu) => {
+    if (menu && menu.find('.qa-menu__user-menu').length) {
+      cy.get('.qa-menu__user-menu button').click();
+      cy.get('.qa-menu__user-menu dp-logout-button button').click();
+    }
+  })
 }
