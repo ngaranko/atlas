@@ -1674,7 +1674,7 @@ export default [
     category: 'Verkeer en infrastructuur',
     legendItems: [
       {
-        id: 'mrt',
+        id: 'mtr',
         notClickable: true,
         layer: 'metrolijnen',
         selectable: true,
