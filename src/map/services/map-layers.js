@@ -1672,16 +1672,19 @@ export default [
   },
   {
     category: 'Verkeer en infrastructuur',
-    id: 'trm',
-    notClickable: true,
-    layers: ['trm'],
     legendItems: [
       {
-        selectable: false,
+        id: 'mrt',
+        notClickable: true,
+        layer: 'metrolijnen',
+        selectable: true,
         title: 'Metrolijn'
       },
       {
-        selectable: false,
+        id: 'trm',
+        notClickable: true,
+        layer: 'tramlijnen',
+        selectable: true,
         title: 'Tramlijn'
       }
     ],

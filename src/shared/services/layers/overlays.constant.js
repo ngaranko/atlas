@@ -876,9 +876,18 @@ const SOURCES = {
   // Verkeer
   trm: {
     url: 'maps/trm',
-    label_short: 'Metro en tram - lijnen',
-    label_long: 'Metro en tram - lijnen',
-    layers: ['trm'],
+    label_short: 'Tram - lijnen',
+    label_long: 'Tram - lijnen',
+    layers: ['tramlijnen'],
+    minZoom: 8,
+    maxZoom: 16,
+    noDetail: true
+  },
+  mtr: {
+    url: 'maps/trm',
+    label_short: 'Metro - lijnen',
+    label_long: 'Metro - lijnen',
+    layers: ['metrolijnen'],
     minZoom: 8,
     maxZoom: 16,
     noDetail: true
