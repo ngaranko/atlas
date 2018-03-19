@@ -79,5 +79,30 @@ describe('addresses module', () => {
       cy.get('.leaflet-marker-icon').should('exist').and('be.visible');
     });
   });
+
+
+  describe('Buitenveldert-west', () => {
+    it('Buitenveldert-west table and map view', () => {
+      cy.get('.c-data-selection-available-filters__item').contains('Buitenveldert-West').click();
+      cy.get('h1').then((title) => {
+        const results = parseInt(title.text().match(/\(([1-9.,]*)\)/)[1].replace('.', ''));
+        expect(results).to.equal(9549)
+      });
+      cy.get('.c-toggle-view-button.qa-dp-link').click();
+      cy.get('.qa-map-container').should('exist').and('be.visible');
+      cy.get('.qa-dashboard__column--right').should('exist').and('be.visible');
+      cy.get('.o-highlight-cluster').then((items) => {
+        expect(items.length).to.eq(5)
+      });
+      cy.get('ul.o-list').should('exist').and('be.visible');
+      cy.get('.c-data-selection-active-filters__listitem').contains('Buitenveldert-West').should('exist').and('be.visible');
+
+
+    });
+  });
+
+
+
+
 });
 
