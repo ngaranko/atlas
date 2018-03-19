@@ -81,8 +81,8 @@ describe('addresses module', () => {
   });
 
 
-  describe('Buitenveldert-west', () => {
-    it('Buitenveldert-west table and map view', () => {
+  describe('user should be be able to filter on an area', () => {
+    it('should show the addresses and map when selected', () => {
       cy.get('.c-data-selection-available-filters__item').contains('Buitenveldert-West').click();
       cy.get('h1').then((title) => {
         const results = parseInt(title.text().match(/\(([1-9.,]*)\)/)[1].replace('.', ''));

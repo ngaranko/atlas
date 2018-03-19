@@ -1,11 +1,11 @@
 /* eslint-disable */
-describe('print functionality', () => {
+describe('print module', () => {
   beforeEach(() => {
     // go to the homepage
     cy.visit('/');
   });
 
-  it('On should show 4 categories search term "Oost"', () => {
+  it('should show a print version of the page when the user click on the print button', () => {
     cy.get('#global-search').type('10581111');
     cy.get('.c-autocomplete').contains('10581111').click();
     cy.get('button.qa-menu__link').click();

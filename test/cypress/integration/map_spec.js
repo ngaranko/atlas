@@ -20,8 +20,35 @@ describe('map module', () => {
     });
   });
 
-  describe('object selection / switch previewpanel & detailpane', () => {
-    it('should open the map', () => {
+  describe('user should be able to interact with the map', () => {
+    it('should show results based on the interaction with the map', () => {
+      cy.viewport(1000, 660); // ensure the viewport is always the same in this test, so the clicks can be aligned properly
+      cy.visit('/');
+      cy.get('.qa-map-link').click();
+      cy.get('#global-search').focus().type('dam 1');
+      cy.get('.c-autocomplete').contains('Dam 1').click();
+      cy.get('.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive').should('exist').and('be.visible').and('have.attr', 'src', 'assets/images/map/detail.svg');
+
+      cy.checkPreviewPanel(['Dam 1', 'winkelfunctie']);
+
+      cy.get('.qa-map-container').click(560, 293);
+      cy.get('.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive').should('exist').and('be.visible').and('have.attr', 'src', 'assets/images/map/search.svg');
+      cy.get('.map-preview-panel.map-preview-panel--visible').contains('Beursplein 2').click();
+      cy.get('.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive').should('exist').and('be.visible');
+      cy.get('.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive').should('exist').and('be.visible').and('have.attr', 'src', 'assets/images/map/detail.svg');
+      cy.get('.map-preview-panel.map-preview-panel--visible').get('img.map-detail-result__header-pano').should('exist').and('be.visible');
+      cy.checkPreviewPanel(['Indicatie hoofdadres', 'Nee']);
+      cy.get('button.map-preview-panel__button[title="Volledige weergave tonen"]').click();
+
+      cy.get('.qa-dashboard__column--right').should('exist').and('be.visible');
+      cy.get('.qa-dashboard__column--right').get('.qa-title').contains('Beursplein 2');
+      cy.get('.qa-dashboard__column--right').get('dl').contains('1012JW');
+      cy.get('.qa-dashboard__column--right').get('img.c-straatbeeld-thumbnail--img').should('exist').and('be.visible');
+      cy.get('.c-panel--warning').should('exist').and('be.visible');
+      cy.get('.c-panel--warning').contains('Dit is een nevenadres');
+    });
+
+    it('should remember the state when navigating back', () => {
       cy.viewport(1000, 660); // ensure the viewport is always the same in this test, so the clicks can be aligned properly
 
       cy.visit('/#?mpb=topografie&mpz=11&mpfs=T&mpv=52.3728007:4.899258&pgn=home&uvm=T');
@@ -64,38 +91,6 @@ describe('map module', () => {
       cy.checkPreviewPanel(['Nieuwmarkt 25', '10581111']);
     });
   });
-
-  describe('Dam 1', () => {
-    it('Dam 1 search', () => {
-      cy.viewport(1000, 660); // ensure the viewport is always the same in this test, so the clicks can be aligned properly
-      cy.visit('/');
-      cy.get('.qa-map-link').click();
-      cy.get('#global-search').focus().type('dam 1');
-      cy.get('.c-autocomplete').contains('Dam 1').click();
-      cy.get('.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive').should('exist').and('be.visible').and('have.attr', 'src', 'assets/images/map/detail.svg');
-
-      cy.checkPreviewPanel(['Dam 1', 'winkelfunctie']);
-
-      cy.get('.qa-map-container').click(560, 293);
-      cy.get('.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive').should('exist').and('be.visible').and('have.attr', 'src', 'assets/images/map/search.svg');
-      cy.get('.map-preview-panel.map-preview-panel--visible').contains('Beursplein 2').click();
-      cy.get('.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive').should('exist').and('be.visible');
-      cy.get('.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive').should('exist').and('be.visible').and('have.attr', 'src', 'assets/images/map/detail.svg');
-      cy.get('.map-preview-panel.map-preview-panel--visible').get('img.map-detail-result__header-pano').should('exist').and('be.visible');
-      cy.checkPreviewPanel(['Indicatie hoofdadres', 'Nee']);
-      cy.get('button.map-preview-panel__button[title="Volledige weergave tonen"]').click();
-
-      cy.get('.qa-dashboard__column--right').should('exist').and('be.visible');
-      cy.get('.qa-dashboard__column--right').get('.qa-title').contains('Beursplein 2');
-      cy.get('.qa-dashboard__column--right').get('dl').contains('1012JW');
-      cy.get('.qa-dashboard__column--right').get('img.c-straatbeeld-thumbnail--img').should('exist').and('be.visible');
-      cy.get('.c-panel--warning').should('exist').and('be.visible');
-      cy.get('.c-panel--warning').contains('Dit is een nevenadres');
-    });
-  });
-
-
-
 
   describe('user should be able to use the map', () => {
     it('should render the leaflet map', () => {

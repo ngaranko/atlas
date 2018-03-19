@@ -48,9 +48,7 @@ describe('data search module', () => {
       cy.get('.o-list').should('have.length', 0);
     });
   });
-});
 
-describe('verblijfsobject / nummeraanduiding check', () => {
   it('should open the address catalogus', () => {
     cy.viewport(1000, 660); // ensure the viewport is always the same in this test, so the clicks can be aligned properly
     cy.visit('/');
@@ -77,6 +75,5 @@ describe('verblijfsobject / nummeraanduiding check', () => {
     cy.get('.map-preview-panel.map-preview-panel--visible').get('img.map-detail-result__header-pano').should('exist').and('be.visible');
     cy.checkPreviewPanel(['Ad Windighof 2', 'Verblijfsobject gevormd']);
     cy.get('.c-panel--danger').should('not.exist').and('not.be.visible');
-
   });
 });
