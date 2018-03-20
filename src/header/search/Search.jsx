@@ -15,6 +15,7 @@ class Search extends React.Component {
     this.onTextInput = this.onTextInput.bind(this);
     this.onSuggestSelection = this.onSuggestSelection.bind(this);
     this.getSuggestions = this.getSuggestions.bind(this);
+    this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
   onTextInput(event) {
@@ -27,8 +28,7 @@ class Search extends React.Component {
     } else {
       this.setState({
         query: event.target.value
-      });
-      this.getSuggestions(event.target.value);
+      }, this.getSuggestions);
     }
   }
 
@@ -39,14 +39,40 @@ class Search extends React.Component {
     });
   }
 
-  getSuggestions(query) {
-    // scope.activeSuggestionIndex = -1;
-    // scope.originalQuery = scope.query;
+  onFormSubmit(event) {
+    event.preventDefault();
 
-    if (query.length > 1) {
-      autosuggestDataService.search(query).then((suggestions) => {
-        // Only load suggestions if they are still relevant.
-        if (suggestions && suggestions.query === query) {
+    if (this.state.activeSuggestionIndex === -1) {
+      // Load the search results
+      this.context.store.dispatch({
+        type: ACTIONS.EMPTY_FILTERS
+      });
+
+      this.context.store.dispatch({
+        // TODO do correct implementation of type
+        type: ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY,
+        payload: this.state.query.trim()
+      });
+    } else {
+      const activeSuggestion = autosuggestDataService.getSuggestionByIndex(
+        this.state.suggestions,
+        this.state.activeSuggestionIndex
+      );
+
+      this.onSuggestSelection(activeSuggestion);
+    }
+  }
+
+  getSuggestions() {
+    this.setState({
+      activeSuggestionIndex: -1,
+      originalQuery: this.state.query
+    });
+
+    if (this.state.query.length > 1) {
+      autosuggestDataService.search(this.state.query).then((suggestions) => {
+        if (suggestions && suggestions.query === this.state.query) {
+          // Only load suggestions if they are still relevant.
           this.setState({
             suggestions: suggestions.data
           });
@@ -60,12 +86,11 @@ class Search extends React.Component {
     }
   }
 
-  render() {
-    // const { inputId } = this.props;
 
+  render() {
     return (
       <div id={'header-search'}>
-        <form className="c-search-form" ng-submit="query.trim() && formSubmit($event)">
+        <form className="c-search-form" onSubmit={this.onFormSubmit}>
           <fieldset>
             <AutoSuggest
               placeHolder={'Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord.'}
