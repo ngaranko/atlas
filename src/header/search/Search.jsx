@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import AutoSuggest from '../../shared/components/autosuggest/AutoSuggest';
 import getSharedConfig from '../../shared/services/shared-config/shared-config';
 import ACTIONS from '../../shared/actions';
+import { autosuggestDataService, getSuggestionByIndex } from './autosuggest-service';
+import apiUrl from '../../shared/services/api';
 
 const mockSuggestion = [
   {
@@ -50,36 +52,51 @@ class Search extends React.Component {
     };
     this.onTextInput = this.onTextInput.bind(this);
     this.onSuggestSelection = this.onSuggestSelection.bind(this);
+    this.getSuggestions = this.getSuggestions.bind(this);
   }
 
   onTextInput(event) {
-    let newState;
-
     if (!event || event.target.value === '') {
       // clear
-      newState = {
-        suggestions: '',
+      this.setState({
+        suggestions: [],
         query: ''
-      };
+      });
     } else {
-      newState = {
-        query: event.target.value,
-        suggestions: mockSuggestion
-      };
+      this.setState({
+        query: event.target.value
+      });
+      this.getSuggestions(event.target.value);
     }
-
-    this.setState(newState);
   }
 
   onSuggestSelection(suggestion) {
-    console.log('dispatch', suggestion)
     this.context.store.dispatch({
       type: ACTIONS.FETCH_DETAIL,
-      payload: `${getSharedConfig()}${suggestion.uri}`
+      payload: `${getSharedConfig().API_ROOT}${suggestion.uri}`
     });
-
   }
 
+  getSuggestions(query) {
+    // scope.activeSuggestionIndex = -1;
+    // scope.originalQuery = scope.query;
+
+    if (query.length > 1) {
+      autosuggestDataService.search(query).then((suggestions) => {
+        // Only load suggestions if they are still relevant.
+        if (suggestions && suggestions.query === query) {
+          this.setState({
+            suggestions: suggestions.data
+          });
+        }
+      });
+    } else {
+      this.setState({
+        suggestions: [],
+        numberOfSuggestions: 0
+      });
+    }
+  }
 
   render() {
     // const { inputId } = this.props;

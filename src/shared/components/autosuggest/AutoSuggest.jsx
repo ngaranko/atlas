@@ -64,7 +64,7 @@ class AutoSuggest extends React.Component {
             }
           </div>
         </div>
-        {suggestions &&
+        {suggestions.length > 0 &&
           <div className="c-autocomplete">
             <h3 className="c-autocomplete__tip">Enkele suggesties</h3>
             {suggestions.map((category) =>
