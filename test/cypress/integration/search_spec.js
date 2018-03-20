@@ -1,5 +1,6 @@
 /* eslint-disable */
 
+// helper function, to extract the number in the titles
 function getNumberInText(text) {
   return parseInt(text.match(/\(([1-9.,]*)\)/)[1].replace('.', ''));
 }
@@ -12,6 +13,7 @@ describe('search module', () => {
 
   it('should show 4 categories when searching for the term "Oost"', () => {
     cy.get('#global-search').type('oost');
+    // count the headers inside the autocomplete
     cy.get('h4.qa-autocomplete-header').then((headers) => {
       expect(headers.length).to.eq(4)
     })
@@ -19,6 +21,7 @@ describe('search module', () => {
 
   it('should show results when searching for "dam"', () => {
     cy.get('#global-search').type('dam');
+    // submit search form
     cy.get('.c-search-form').submit();
     cy.get('h2').contains('Openbare ruimtes').then((title) => {
       expect(getNumberInText(title.text())).to.equal(7)

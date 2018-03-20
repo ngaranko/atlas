@@ -50,20 +50,26 @@ describe('data search module', () => {
   });
 
   it('should open the address catalogus', () => {
-    cy.viewport(1000, 660); // ensure the viewport is always the same in this test, so the clicks can be aligned properly
+    // ensure the viewport is always the same in this test, so the clicks can be aligned properly
+    cy.viewport(1000, 660);
     cy.visit('/');
+    // type in search and click on autosuggest item
     cy.get('#global-search').focus().type('Ad Windighof 2');
     cy.get('.c-autocomplete').contains('Ad Windighof 2').click();
 
+    // check that the large right column is visible and shows the correct data
     cy.get('.qa-dashboard__column--right').should('exist').and('be.visible');
     cy.get('.qa-dashboard__column--right').get('.qa-title span').contains('Ad Windighof 2').and('have.css', 'font-style').and('match', /italic/);
     cy.get('.qa-dashboard__column--right').get('dl').contains('1087HE');
     cy.get('.qa-dashboard__column--right').get('img.c-straatbeeld-thumbnail--img').should('exist').and('be.visible');
-
     cy.get('.c-panel--danger').should('exist').and('be.visible').contains('Status: Verblijfsobject gevormd');
+
+    // click in map (there is a marker on this position)
     cy.get('.qa-map-container').click(166, 304);
+    // check link in right column and click on it
     cy.get('.c-search-results__block-content').should('exist').and('be.visible').contains('Ad Windighof 2').click();
 
+    // check that the large right column is visible and shows the correct data
     cy.get('.qa-dashboard__column--right').should('exist').and('be.visible');
     cy.get('.qa-dashboard__column--right').get('.qa-title span').contains('Ad Windighof 2').and('have.css', 'font-style').and('match', /italic/);
     cy.get('.qa-dashboard__column--right').get('dl').contains('1087HE');
@@ -71,8 +77,10 @@ describe('data search module', () => {
 
     cy.get('button.toggle-fullscreen').click();
 
+    // check that the previewpanel is visible and shows the correct data
     cy.get('.qa-dashboard__column--right').should('exist').and('not.be.visible');
     cy.get('.map-preview-panel.map-preview-panel--visible').get('img.map-detail-result__header-pano').should('exist').and('be.visible');
+    // helper function to check values in previewpanel
     cy.checkPreviewPanel(['Ad Windighof 2', 'Verblijfsobject gevormd']);
     cy.get('.c-panel--danger').should('not.exist').and('not.be.visible');
   });

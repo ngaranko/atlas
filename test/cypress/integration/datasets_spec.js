@@ -35,6 +35,7 @@ describe('datasets module', () => {
       // the title should contain Datasets
       cy.get('h1').contains('Datasets').should('exist').and('be.visible');
       cy.get('.c-data-selection-card').first().click();
+      // as downloading is not testable, we check for the presence of a a href
       cy.get('.c-detail-catalogus-table').find('a').should('exist').and('be.visible').and('have.attr', 'href');
     });
 

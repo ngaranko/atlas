@@ -100,6 +100,7 @@ describe('panorama module', () => {
       });
       cy.wait(2000);
 
+      // verify that something happened by comparing the url
       cy.location().then((loc) => {
         newUrl = loc.pathname + loc.hash;
         expect(newUrl).not.to.equal(panoUrl)
@@ -112,6 +113,7 @@ describe('panorama module', () => {
 
       cy.get('.s-leaflet-draw').click(20, 100);
 
+      // verify that something happened by comparing the url
       cy.location().then((loc) => {
         const thisUrl = loc.pathname + loc.hash;
         expect(thisUrl).to.not.equal(newUrl);
