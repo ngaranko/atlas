@@ -121,7 +121,7 @@ describe('visitor permissions', () => {
       expect($values).to.not.contain('Vestigingen');
     });
     cy.get('button.toggle-fullscreen').click();
-    cy.get('h4.map-search-results-category__header').should(($values) => {
+    cy.get('.map-search-results-category__header').should(($values) => {
       expect($values).to.not.contain('Vestigingen');
     });
   });
