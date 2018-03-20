@@ -127,6 +127,7 @@ describe('employee PLUS permissions', () => {
       expect($values).to.contain('Vestigingen');
     });
     cy.get('button.toggle-fullscreen').click();
+    cy.wait(PAGELOAD_WAIT);
     cy.get('h4.map-search-results-category__header').should(($values) => {
       expect($values).to.contain('Vestigingen');
     });
