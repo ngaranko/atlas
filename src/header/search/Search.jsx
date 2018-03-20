@@ -16,6 +16,7 @@ class Search extends React.Component {
     this.onSuggestSelection = this.onSuggestSelection.bind(this);
     this.getSuggestions = this.getSuggestions.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.clearSuggestions = this.clearSuggestions.bind(this);
   }
 
   onTextInput(event) {
@@ -86,6 +87,15 @@ class Search extends React.Component {
     }
   }
 
+  clearSuggestions() {
+    this.setState({
+      suggestions: [],
+      numberOfSuggestions: 0,
+      activeSuggestionIndex: -1,
+      originalQuery: '' // TODO: scope._display
+    });
+  }
+
 
   render() {
     return (
@@ -101,6 +111,7 @@ class Search extends React.Component {
               suggestions={this.state.suggestions}
               query={this.state.query}
               onSuggestSelection={this.onSuggestSelection}
+              onClearSuggestions={this.clearSuggestions}
             />
             <button
               disabled={!this.state.query.trim()}

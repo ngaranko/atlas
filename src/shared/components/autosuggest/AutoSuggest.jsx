@@ -9,12 +9,29 @@ class AutoSuggest extends React.Component {
     };
 
     this.clearQuery = this.clearQuery.bind(this);
+    this.onBlur = this.onBlur.bind(this);
+    this.onInput = this.onInput.bind(this);
   }
 
   clearQuery() {
     this.textInput.value = '';
     this.textInput.focus();
     this.props.onTextInput();
+  }
+
+  onBlur() {
+    setTimeout(() => {
+      this.setState({
+        showSuggestions: false
+      });
+    }, 200);
+  }
+
+  onInput(event) {
+    this.setState({
+      showSuggestions: true
+    });
+    this.props.onTextInput(event);
   }
 
   render() {
@@ -26,7 +43,8 @@ class AutoSuggest extends React.Component {
       onTextInput,
       suggestions,
       query,
-      onSuggestSelection
+      onSuggestSelection,
+      onClearSuggestions
     } = this.props;
 
     return (
@@ -46,10 +64,10 @@ class AutoSuggest extends React.Component {
               autoComplete="off"
               spellCheck="false"
               placeholder={placeHolder}
-              onInput={onTextInput}
-              // ng-change="getSuggestions()"
+              onInput={this.onInput}
+              onFocus={this.onInput}
+              onBlur={this.onBlur}
               // ng-keydown="navigateSuggestions($event)"
-              // ng-blur="removeSuggestions($event)"
             />
 
             {query &&
@@ -64,7 +82,7 @@ class AutoSuggest extends React.Component {
             }
           </div>
         </div>
-        {suggestions.length > 0 &&
+        {suggestions.length > 0 && this.state.showSuggestions &&
           <div className="c-autocomplete">
             <h3 className="c-autocomplete__tip">Enkele suggesties</h3>
             {suggestions.map((category) =>
