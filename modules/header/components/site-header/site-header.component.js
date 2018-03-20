@@ -17,10 +17,13 @@
             controllerAs: 'vm'
         });
 
-    DpSiteHeaderController.$inject = ['$scope', 'HEADER'];
+    DpSiteHeaderController.$inject = ['$scope', 'HEADER', '$window', '$timeout'];
 
-    function DpSiteHeaderController ($scope, HEADER) {
+    function DpSiteHeaderController ($scope, HEADER, $window, $timeout) {
         const vm = this;
+        const React = $window.React;
+        const render = $window.render;
+        const searchComponent = $window.SearchWrapper;
 
         $scope.$watch('vm.size', updateSize);
 
@@ -28,6 +31,16 @@
             vm.menuSize = vm.size === HEADER.SIZE.TALL ? HEADER.SIZE.SHORT : HEADER.SIZE.TALL;
             vm.isTall = vm.size === HEADER.SIZE.TALL;
             vm.isShort = vm.size === HEADER.SIZE.SHORT;
+            setSearchComponent();
+        }
+
+        function setSearchComponent () {
+            $timeout(() => {
+                if (!$window.document.getElementById('header-search')) {
+                    const autosuggestContainer = $window.document.querySelector('.react-autosuggest-container');
+                    render(React.createElement(searchComponent, null), autosuggestContainer);
+                }
+            });
         }
     }
 })();
